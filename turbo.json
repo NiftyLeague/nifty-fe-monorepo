@@ -1,7 +1,17 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
-  "globalEnv": ["ALGOLIA_APP_ID", "ALGOLIA_API_KEY"],
+  "globalEnv": [
+    "ALGOLIA_API_KEY",
+    "ALGOLIA_APP_ID",
+    "NEXT_PUBLIC_CLARITY_TAG",
+    "NEXT_PUBLIC_GOOGLE_ANALYTICS",
+    "NEXT_PUBLIC_INFURA_ID",
+    "NEXT_PUBLIC_SENTRY_DSN",
+    "NODE_ENV",
+    "SENTRY_AUTH_TOKEN",
+    "SITE_URL"
+  ],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],

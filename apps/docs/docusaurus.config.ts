@@ -1,7 +1,6 @@
 import { themes as prismThemes } from 'prism-react-renderer';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
-import 'dotenv/config';
 
 const config: Config = {
   title: 'Nifty League Docs',
@@ -14,39 +13,39 @@ const config: Config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
-  i18n: {
-    defaultLocale: 'en',
-    locales: [
-      'af',
-      'ar',
-      'cs',
-      'da',
-      'nl',
-      'en',
-      'fi',
-      'fr',
-      'de',
-      'el',
-      'he',
-      'hu',
-      'id',
-      'it',
-      'ja',
-      'ko',
-      'no',
-      'pl',
-      'pt-BR',
-      'ro',
-      'ru',
-      'sr',
-      'es-ES',
-      'sv-SE',
-      'tr',
-      'uk',
-      'vi',
-      'zh-CN',
-    ],
-  },
+  // i18n: {
+  //   defaultLocale: 'en',
+  //   locales: [
+  //     'af',
+  //     'ar',
+  //     'cs',
+  //     'da',
+  //     'nl',
+  //     'en',
+  //     'fi',
+  //     'fr',
+  //     'de',
+  //     'el',
+  //     'he',
+  //     'hu',
+  //     'id',
+  //     'it',
+  //     'ja',
+  //     'ko',
+  //     'no',
+  //     'pl',
+  //     'pt-BR',
+  //     'ro',
+  //     'ru',
+  //     'sr',
+  //     'es-ES',
+  //     'sv-SE',
+  //     'tr',
+  //     'uk',
+  //     'vi',
+  //     'zh-CN',
+  //   ],
+  // },
 
   presets: [
     [
@@ -255,9 +254,10 @@ const config: Config = {
       additionalLanguages: ['solidity'],
     },
     algolia: {
-      apiKey: process.env.ALGOLIA_API_KEY,
+      // Search only api key
+      apiKey: '2c367ae53326c8a85e805323aee56a75',
       indexName: 'docs',
-      appId: process.env.ALGOLIA_APP_ID,
+      appId: 'R1BEZXQES6',
     },
   } satisfies Preset.ThemeConfig,
 };

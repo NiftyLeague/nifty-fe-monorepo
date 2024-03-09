@@ -24,7 +24,7 @@ The snapshot for Comics 5 and 6 was taken at [Ethereum Block 14115835](https://e
 
 Comics 1-4 were airdropped as minting promotions immediately following the mint.
 
-Read more about [Nifty League Comics](/docs/overview/comics/overview).
+Read more about [Nifty League Comics](/docs/overview/nfts/comics).
 
 </details>
 

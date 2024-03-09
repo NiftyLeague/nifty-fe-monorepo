@@ -16,7 +16,7 @@ Open www.niftyleague.com and tap the <code>Launch App</code> button in the heade
 <details>
 <summary>Where can I learn more about DEGEN rentals?</summary>
 
-Read more about our plans for DEGEN rentals [here](/docs/guides/rentals/rental-overview). Stay in the loop regarding rental, gameplay and community updates by joining [our Discord server](https://discord.com/invite/niftyleague) and following us on [Twitter](https://twitter.com/NiftyLeague).
+Read more about our plans for DEGEN rentals. Stay in the loop regarding rental, gameplay and community updates by joining [our Discord server](https://discord.com/invite/niftyleague) and following us on [Twitter](https://twitter.com/NiftyLeague).
 
 </details>
 
