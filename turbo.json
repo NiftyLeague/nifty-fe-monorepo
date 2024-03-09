@@ -1,20 +1,27 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
-  "globalEnv": [
-    "ALGOLIA_API_KEY",
-    "ALGOLIA_APP_ID",
-    "NEXT_PUBLIC_CLARITY_TAG",
-    "NEXT_PUBLIC_GOOGLE_ANALYTICS",
-    "NEXT_PUBLIC_INFURA_ID",
-    "NEXT_PUBLIC_SENTRY_DSN",
-    "NODE_ENV",
-    "SENTRY_AUTH_TOKEN",
-    "SITE_URL"
-  ],
+  "globalDotEnv": [".env"],
+  "globalEnv": ["NODE_ENV", "SENTRY_AUTH_TOKEN", "SENTRY_ORG", "SENTRY_PROJECT"],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
+      "outputs": ["build/**"],
+      "dotEnv": [".env.production.local", ".env.local", ".env.production", ".env"]
+    },
+    "app#build": {
+      "dependsOn": ["^build"],
+      "env": ["NEXT_PUBLIC_*"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "docs#build": {
+      "dependsOn": ["^build"],
+      "env": ["ALGOLIA_API_KEY", "ALGOLIA_APP_ID"],
+      "outputs": ["build/**", ".docusaurus/**"]
+    },
+    "web#build": {
+      "dependsOn": ["^build"],
+      "env": ["NEXT_PUBLIC_*", "SITE_URL"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "lint": {
@@ -32,9 +39,14 @@
     "type-check": {
       "dependsOn": ["^type-check"]
     },
+    "test": {
+      "dependsOn": ["^test", "lint", "format", "type-check", "build"],
+      "dotEnv": [".env.test.local", ".env.local", ".env.test", ".env"]
+    },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "dotEnv": [".env.development.local", ".env.local", ".env.development", ".env"]
     }
   }
 }
