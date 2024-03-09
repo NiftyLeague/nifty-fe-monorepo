@@ -42,7 +42,7 @@ install jq : `brew install jq`
 
 install Docker: [Mac](https://docs.docker.com/desktop/install/mac-install/) or [Windows](https://docs.docker.com/desktop/install/windows-install/)
 
-run `docker run -it --env-file=.env -e "CONFIG=$(cat ./config.json | jq -r tostring)" algolia/docsearch-scraper`
+run `docker run -it --env-file=.env.local -e "CONFIG=$(cat ./config.json | jq -r tostring)" algolia/docsearch-scraper`
 
 # How to add a new page
 
