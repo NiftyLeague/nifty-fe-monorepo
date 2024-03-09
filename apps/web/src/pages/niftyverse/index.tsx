@@ -151,7 +151,7 @@ const NiftyVerse: NextPage = () => {
             </div>
             <div className="d-flex justify-content-center mt-5">
               <AnimatedWrapper>
-                <a href="https://niftyleague.com/docs/overview/games/niftyverse" target="_blank" rel="noreferrer">
+                <a href="/docs/overview/games/niftyverse" target="_blank" rel="noreferrer">
                   <button
                     className={cn(
                       styles.button,

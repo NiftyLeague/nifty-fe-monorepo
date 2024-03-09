@@ -73,11 +73,22 @@ const moduleExports = {
               destination: `http://localhost:3002/docs/:path*`,
               permanent: false,
             },
+            {
+              source: '/app',
+              destination: 'http://localhost:3001',
+              permanent: true,
+            },
           ]
-        : []),
+        : [
+            {
+              source: '/app',
+              destination: 'https://app.niftyleague.com',
+              permanent: true,
+            },
+          ]),
       {
-        source: '/app',
-        destination: 'https://app.niftyleague.com',
+        source: '/blog',
+        destination: 'https://niftyleague.medium.com',
         permanent: true,
       },
       {

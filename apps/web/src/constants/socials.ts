@@ -32,7 +32,7 @@ export const SOCIAL_LINKS = [
   {
     name: 'Medium',
     description: 'Nifty League Medium',
-    link: 'https://niftyleague.medium.com/',
+    link: '/blog',
     image: '/icons/medium.svg',
   },
   {

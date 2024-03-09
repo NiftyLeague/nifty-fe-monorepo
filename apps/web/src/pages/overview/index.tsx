@@ -99,13 +99,13 @@ const Overview: NextPage = () => {
                 <br />
                 Utility includes, but is not limited to:
                 <ol>
-                  <li>Governance: DAO formation planned Q4 2023</li>
-                  <li>NFT drops: Raffles (ongoing), NiftyVerse Land, special weapons/wearables, others TBA</li>
-                  <li>Ecosystem currency: Compete &amp; Earn wagering, redeem in-game hard currencies (TBD)</li>
-                  <li>Platform fees: rename DEGENs, rentals(deprecated), etc</li>
+                  <li>Governance: DAO formation planned Q4 2024</li>
+                  <li>NFT drops: Raffles, NiftyVerse Land, special weapons/wearables, others TBA</li>
+                  <li>Ecosystem currency: Redemption of in-game currencies, compete-2-earn wagering (deprecated)</li>
+                  <li>Platform fees: Renaming DEGENs, DEGEN rentals (deprecated), Mini-Games (deprecated), etc</li>
                 </ol>
                 Read our{' '}
-                <Link href="/docs/overview/nftl/overview" passHref legacyBehavior>
+                <Link href="/docs/overview/nifty-dao/nftl/overview" passHref legacyBehavior>
                   <a target="_blank" rel="noreferrer">
                     docs
                   </a>
@@ -129,6 +129,12 @@ const Overview: NextPage = () => {
                 Battle it out amongst the community and get in as many bat bonks on your friends as you can! Nifty
                 Smashers takes inspiration from the classic Super Smash Bros game where the objective is to knock your
                 opponents off the map to score points.
+                <br />
+                <br />
+                Nifty Smashers is available on mobile! Download the app for iOS or Android on{' '}
+                <a href="https://niftysmashers.com" target="_blank" rel="noreferrer">
+                  NiftySmashers.com
+                </a>
               </MDBAccordionItem>
             </AnimatedWrapper>
             <AnimatedWrapper>

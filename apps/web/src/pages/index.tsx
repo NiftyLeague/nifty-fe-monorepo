@@ -721,7 +721,7 @@ const Home: NextPage = () => {
                       </a>
                     </AnimatedWrapper>
                     <AnimatedWrapper>
-                      <a href="https://niftyleague.com/docs/overview/nftl/overview" target="_blank" rel="noreferrer">
+                      <a href="/docs/overview/nifty-dao/nftl/overview" target="_blank" rel="noreferrer">
                         <button className="btn theme-btn-transparent section-white-button animated-fade animated-fade-start transition-delay-large">
                           LEARN MORE
                         </button>
@@ -925,7 +925,7 @@ const Home: NextPage = () => {
               </Link>
             </AnimatedWrapper>
             <AnimatedWrapper>
-              <a href="https://niftyleague.medium.com/" target="_blank" rel="noreferrer">
+              <a href="/blog" target="_blank" rel="noreferrer">
                 <button className="btn theme-btn-transparent section-white-button animated-fade animated-fade-start transition-delay-large">
                   READ OUR BLOG
                 </button>

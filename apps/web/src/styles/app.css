@@ -255,6 +255,7 @@
 
 .faq-accordion .accordion-item {
   border: none;
+  color: white;
   margin-bottom: 12px;
   background: #1e242b;
   backdrop-filter: blur(65.0688px);
