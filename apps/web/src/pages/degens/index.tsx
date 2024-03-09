@@ -211,7 +211,7 @@ const Degens: NextPage = () => {
         </div>
         <div className="d-flex justify-content-center my-5">
           <AnimatedWrapper>
-            <a href="https://niftyleague.com/docs/overview/degens/About" target="_blank" rel="noreferrer">
+            <a href="/docs/overview/nfts/degens/about" target="_blank" rel="noreferrer">
               <button
                 className={cn(
                   styles.button,

@@ -34,7 +34,7 @@ export default function Document() {
           `,
           }}
         />
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="/img/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />

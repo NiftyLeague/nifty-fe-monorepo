@@ -3,7 +3,7 @@ export const LEARN_CARDS = [
     btnText: 'Learn More',
     image: '/img/learn/getting-started.png',
     link: '/docs/overview/intro',
-    subtitle: 'Find curated how-to guides and information to help get you started.',
+    subtitle: `Deep dive into Nifty League's vision with curated guides and information.`,
     title: 'Intro',
   },
   {

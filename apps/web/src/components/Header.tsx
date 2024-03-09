@@ -115,7 +115,7 @@ function Navbar() {
                         <a className="dropdown-item">Overview / FAQ</a>
                       </Link>
                     </li>
-                    <li
+                    {/* <li
                       className={cn('nav-item', {
                         ['active']: pathname.includes('team'),
                       })}
@@ -123,7 +123,7 @@ function Navbar() {
                       <Link href="/team" legacyBehavior>
                         <a className="dropdown-item">Team</a>
                       </Link>
-                    </li>
+                    </li> */}
                     <li
                       className={cn('nav-item', {
                         ['active']: pathname.includes('community'),
@@ -143,16 +143,6 @@ function Navbar() {
                       </Link>
                     </li>
                     <li className="nav-item">
-                      <a
-                        href="https://niftyleague.medium.com/"
-                        className="dropdown-item"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Blog <ExternalIcon />
-                      </a>
-                    </li>
-                    <li className="nav-item">
                       <Link href="/docs" legacyBehavior>
                         <a className="dropdown-item">
                           Docs <ExternalIcon />
@@ -160,6 +150,11 @@ function Navbar() {
                       </Link>
                     </li>
                     <li className="nav-item">
+                      <a href="/blog" className="dropdown-item" target="_blank" rel="noreferrer">
+                        Blog <ExternalIcon />
+                      </a>
+                    </li>
+                    {/* <li className="nav-item">
                       <a
                         href="https://maddies.co/official/nifty-league/"
                         className="dropdown-item"
@@ -168,6 +163,13 @@ function Navbar() {
                       >
                         Merch <ExternalIcon />
                       </a>
+                    </li> */}
+                    <li className="nav-item">
+                      <Link href="/shop" legacyBehavior>
+                        <a className="dropdown-item">
+                          Merch <ExternalIcon />
+                        </a>
+                      </Link>
                     </li>
                   </ul>
                 </li>
@@ -212,23 +214,31 @@ function MobileNav() {
       name: 'Overview / FAQ',
     },
     {
-      href: '/lore',
-      name: 'Nifty Lore',
-    },
-    {
-      href: '/team',
-      name: 'Team',
-    },
-    {
       href: '/community',
       name: 'Community',
+    },
+    // {
+    //   href: '/team',
+    //   name: 'Team',
+    // },
+    {
+      href: '/lore',
+      name: 'Nifty Lore',
     },
     {
       href: '/docs',
       name: 'Docs',
     },
     {
-      href: 'https://maddies.co/official/nifty-league/',
+      href: '/blog',
+      name: 'Blog',
+    },
+    // {
+    //   href: 'https://maddies.co/official/nifty-league/',
+    //   name: 'Merch',
+    // },
+    {
+      href: '/shop',
       name: 'Merch',
     },
   ];

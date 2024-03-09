@@ -175,7 +175,7 @@ const Games: NextPage = () => {
         </Container>
         <div className="d-flex justify-content-center mt-5 mt-md-3 mb-5">
           <AnimatedWrapper>
-            <a href="https://niftyleague.com/docs/guides/nifty-smashers/general-info" target="_blank" rel="noreferrer">
+            <a href="/docs/guides/nifty-smashers/general-info" target="_blank" rel="noreferrer">
               <button
                 className={cn(
                   styles.button,
