@@ -1,0 +1,31 @@
+name: Validate, lint, and test on every push
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v3
+      - name: Setup Node 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: 'yarn'
+      - name: Install dependencies
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install
+      - name: Run prettier
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: format
+      - name: Check linter
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: lint
+      - name: Check TypeScript
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: type-check

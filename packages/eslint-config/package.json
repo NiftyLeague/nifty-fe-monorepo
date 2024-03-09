@@ -1,7 +1,8 @@
 {
-  "name": "@repo/eslint-config",
+  "name": "@nl/eslint-config",
   "version": "0.0.0",
   "private": true,
+  "license": "MIT",
   "files": [
     "library.js",
     "next.js",
@@ -13,7 +14,9 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-only-warn": "^1.1.0",
     "@typescript-eslint/parser": "^7.1.0",
-    "@typescript-eslint/eslint-plugin": "^7.1.0",
-    "typescript": "^5.3.3"
+    "@typescript-eslint/eslint-plugin": "^7.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
