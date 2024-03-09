@@ -12,20 +12,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
-          cache: 'yarn'
+          cache: 'npm'
       - name: Install dependencies
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: install
+        run: npm install
       - name: Run prettier
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: format
+        run: npm run format
       - name: Check linter
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: lint
+        run: npm run lint
       - name: Check TypeScript
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: type-check
+        run: npm run type-check
