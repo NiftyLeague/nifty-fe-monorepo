@@ -2,7 +2,7 @@
 
 ## Reporting a Vulnerability
 
-If there are any vulnerabilities in **NiftyLeagueWeb**, don't hesitate to _report them_.
+If there are any vulnerabilities in **nifty-fe-monorepo**, don't hesitate to _report them_.
 
 1. Use any of the [contact options](https://github.com/NiftyLeague/nifty-fe-monorepo#support).
 2. Describe the vulnerability.
