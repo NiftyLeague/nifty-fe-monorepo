@@ -1,8 +1,10 @@
 {
-  "name": "@nl/typescript-config",
+  "name": "@nl/prettier-config",
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
+  "main": "index.js",
+  "dependencies": {},
   "publishConfig": {
     "access": "public"
   }
