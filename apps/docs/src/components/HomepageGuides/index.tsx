@@ -72,7 +72,7 @@ export const QUICK_LINKS: GuideLink[] = [
   },
   {
     title: 'NiftyVerse',
-    to: '/docs/overview/games/NiftyVerse',
+    to: '/docs/overview/games/niftyverse',
   },
   // {
   //   title: 'Whitepaper',

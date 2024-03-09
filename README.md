@@ -1,14 +1,6 @@
-# Turborepo starter
+# Nifty League Frontend Monorepo
 
-This is an official starter Turborepo.
-
-## Using this example
-
-Run the following command:
-
-```sh
-npx create-turbo@latest
-```
+Built with [Turborepo](https://turbo.build/).
 
 ## What's inside?
 
@@ -24,7 +16,7 @@ This Turborepo includes the following packages/apps:
 - `@nl/prettier-config`: `prettier` configurations overrides
 - `@nl/typescript-config`: `tsconfig.json`s used throughout the monorepo
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+Each package/app is uses [TypeScript](https://www.typescriptlang.org/).
 
 ### Development Ports
 

@@ -30,6 +30,9 @@ dist
 # Generated files
 .docusaurus/
 .cache-loader/
+ca.*
+cert.*
+certificates/
 
 # Debug
 npm-debug.log*
