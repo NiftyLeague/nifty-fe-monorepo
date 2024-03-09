@@ -1,6 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
+  "globalEnv": ["ALGOLIA_APP_ID", "ALGOLIA_API_KEY"],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],

@@ -29,7 +29,7 @@ Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 ### Development Ports
 
 - `app`: [http://localhost:3001](http://localhost:3001)
-- `docs`: [http://localhost:3002](http://localhost:3002)
+- `docs`: [http://localhost:3002](http://localhost:3002/docs/)
 - `web`: [http://localhost:3000](http://localhost:3000)
 
 ### Utilities
