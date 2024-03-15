@@ -8,7 +8,7 @@ interface TeamCardProps {
   link?: string;
 }
 
-export const renderTeamCardItem = (item: TeamCardProps) => (
+export const RenderTeamCardItem = (item: TeamCardProps) => (
   <TeamCardItem key={item.name} name={item.name} source={item.source} />
 );
 

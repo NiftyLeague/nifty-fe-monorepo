@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import cn from 'classnames';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import type { NextPage } from 'next';
@@ -193,4 +192,4 @@ const Games: NextPage = () => {
   );
 };
 
-export default memo(Games);
+export default Games;

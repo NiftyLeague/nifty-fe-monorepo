@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import AnimatedWrapper from '@/components/AnimatedWrapper';
 
 const Definitions = (): JSX.Element => (
@@ -96,4 +96,5 @@ const Definitions = (): JSX.Element => (
   </>
 );
 
-export default React.memo(Definitions);
+const MemoizedDefinitions = memo(Definitions);
+export default MemoizedDefinitions;

@@ -1,11 +1,11 @@
-import React, { memo } from 'react';
 import Head from 'next/head';
+import type { NextPage } from 'next';
 import { Container } from '@mui/material';
 import Definitions from '@/components/Definitions';
 import Layout from '@/components/Layout';
 import AnimatedWrapper from '@/components/AnimatedWrapper';
 
-const Disclaimer = (): JSX.Element => (
+const Disclaimer: NextPage = () => (
   <Layout classes={{ root: 'legal-pg' }}>
     <Head>
       <title>Nifty League | Disclaimer</title>
@@ -123,4 +123,4 @@ const Disclaimer = (): JSX.Element => (
   </Layout>
 );
 
-export default memo(Disclaimer);
+export default Disclaimer;

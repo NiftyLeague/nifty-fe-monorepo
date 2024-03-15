@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import AnimatedWrapper from '@/components/AnimatedWrapper';
 
-export default function MintOMatic() {
+const MintOMatic = () => {
   return (
     <>
       <AnimatedWrapper parallax parallaxDirection="top" transitionAmount="medium">
@@ -70,4 +70,6 @@ export default function MintOMatic() {
       </AnimatedWrapper>
     </>
   );
-}
+};
+
+export default MintOMatic;

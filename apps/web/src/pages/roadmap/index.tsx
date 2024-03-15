@@ -3,7 +3,8 @@ import Head from 'next/head';
 import Image from 'next/image';
 
 import Layout from '@/components/Layout';
-import RoadmapTimeline, { styles as roadmapStyles } from '@/components/RoadmapTimeline';
+import RoadmapTimeline from '@/components/RoadmapTimeline';
+import roadmapStyles from '@/components/RoadmapTimeline/index.module.scss';
 import satoshiStyles from './satoshi-right.module.scss';
 
 const Roadmap: NextPage = () => {
@@ -22,6 +23,7 @@ const Roadmap: NextPage = () => {
           <div className={satoshiStyles.satoshiMove}>
             <Image
               src="/img/roadmap/satoshi_move.gif"
+              unoptimized
               alt="satoshi moving"
               width={200}
               height={200}

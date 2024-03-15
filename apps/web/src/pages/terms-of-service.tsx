@@ -1,12 +1,12 @@
-import React, { memo } from 'react';
 import Head from 'next/head';
+import type { NextPage } from 'next';
 import Link from 'next/link';
 import { Container } from '@mui/material';
 import Definitions from '@/components/Definitions';
 import Layout from '@/components/Layout';
 import AnimatedWrapper from '@/components/AnimatedWrapper';
 
-const ToS = (): JSX.Element => (
+const ToS: NextPage = () => (
   <Layout classes={{ root: 'legal-pg' }}>
     <Head>
       <title>Nifty League | Terms of Service</title>
@@ -741,4 +741,4 @@ const ToS = (): JSX.Element => (
   </Layout>
 );
 
-export default memo(ToS);
+export default ToS;

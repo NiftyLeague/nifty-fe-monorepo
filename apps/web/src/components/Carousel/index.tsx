@@ -71,4 +71,5 @@ const NiftyCarousel = ({
   </>
 );
 
-export default memo(NiftyCarousel);
+const MemoizedNiftyCarousel = memo(NiftyCarousel);
+export default MemoizedNiftyCarousel;

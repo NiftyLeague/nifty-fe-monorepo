@@ -13,7 +13,7 @@ interface RoadmapCardProps {
   title: string;
 }
 
-export const renderRoadmapCard = (item: RoadmapCardProps) => <RoadmapCard key={item.title} {...item} />;
+export const RenderRoadmapCard = (item: RoadmapCardProps) => <RoadmapCard key={item.title} {...item} />;
 
 const RoadmapCard = ({
   body,
@@ -63,6 +63,7 @@ const RoadmapCard = ({
       <div className={styles.satoshiStationary}>
         <Image
           src="/img/roadmap/satoshi_stationary.gif"
+          unoptimized
           alt="satoshi stationary"
           width={200}
           height={200}

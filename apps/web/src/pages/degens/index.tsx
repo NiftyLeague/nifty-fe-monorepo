@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import cn from 'classnames';
 import type { NextPage } from 'next';
 import Head from 'next/head';
@@ -188,6 +187,7 @@ const Degens: NextPage = () => {
                       <div className="position-relative text-align-center animated-fade-slow animated-fade-start transition-delay-small">
                         <Image
                           src={gif.link}
+                          unoptimized
                           alt={name}
                           width={desktop ? gif.width : gif.width * 0.7}
                           height={desktop ? gif.height : gif.height * 0.7}
@@ -229,4 +229,4 @@ const Degens: NextPage = () => {
   );
 };
 
-export default memo(Degens);
+export default Degens;

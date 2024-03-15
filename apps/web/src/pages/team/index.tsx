@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import cn from 'classnames';
 import type { NextPage } from 'next';
 import Link from 'next/link';
@@ -6,7 +5,7 @@ import Head from 'next/head';
 
 import Layout from '@/components/Layout';
 import Carousel from '@/components/Carousel';
-import { renderTeamCardItem } from '@/components/Carousel/TeamCardItem';
+import { RenderTeamCardItem } from '@/components/Carousel/TeamCardItem';
 import TeamDesktop from '@/components/TeamDesktop';
 import AnimatedWrapper from '@/components/AnimatedWrapper';
 import { CORE_TEAM, DEGEN_DELEGATES } from '@/constants/team';
@@ -90,7 +89,7 @@ const Team: NextPage = () => {
             }}
           >
             <Carousel isMobileViewOnly hideGradient tabletItems={2}>
-              {[...CORE_TEAM, ...DEGEN_DELEGATES].map(renderTeamCardItem)}
+              {[...CORE_TEAM, ...DEGEN_DELEGATES].map(RenderTeamCardItem)}
             </Carousel>
           </section>
         </div>
@@ -99,4 +98,4 @@ const Team: NextPage = () => {
   );
 };
 
-export default memo(Team);
+export default Team;

@@ -4,7 +4,7 @@ import { useMediaQuery } from '@mui/material';
 
 import styles from './index.module.scss';
 
-export const renderDegen = (degen: any) => (
+export const RenderDegen = (degen: any) => (
   <DegenCardItem key={degen.name} name={degen.name} createdDate={degen.createdDate} source={degen.source} />
 );
 
@@ -67,4 +67,5 @@ const DegenCardItem = ({
   );
 };
 
-export default memo(DegenCardItem);
+const MemoizedDegenCardItem = memo(DegenCardItem);
+export default MemoizedDegenCardItem;
