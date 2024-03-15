@@ -11,7 +11,15 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-Run the development server:
+### Set up environment variables
+
+Copy the `.env.example` file in this directory to `.env.local` (which will be ignored by Git):
+
+```bash
+cp .env.example .env.local
+```
+
+### Run the development server
 
 ```bash
 npm run dev

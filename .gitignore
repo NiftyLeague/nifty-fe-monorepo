@@ -11,6 +11,7 @@ node_modules
 .env.development.local
 .env.test.local
 .env.production.local
+!.env.example
 
 # Testing
 coverage
@@ -42,3 +43,7 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+
+
+# Sentry Config File
+.sentryclirc
