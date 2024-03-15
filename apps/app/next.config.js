@@ -12,12 +12,21 @@ const nextConfig = {
     config.externals.push('pino-pretty', 'lokijs', 'encoding');
     return config;
   },
+  // Optional build-time configuration options
+  sentry: {
+    // Use `hidden-source-map` rather than `source-map` as the Webpack `devtool`
+    // for client-side builds. (This will be the default starting in
+    // `@sentry/nextjs` version 8.0.0.) See https://webpack.js.org/configuration/devtool/ and
+    // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/#use-hidden-source-map
+    // for more information.
+    hideSourceMaps: true,
+  },
 };
 
-module.exports = nextConfig;
+// Injected content via Sentry wizard below
 
 module.exports = withSentryConfig(
-  module.exports,
+  nextConfig,
   {
     // For all available options, see:
     // https://github.com/getsentry/sentry-webpack-plugin#options
@@ -37,7 +46,9 @@ module.exports = withSentryConfig(
     // Transpiles SDK to be compatible with IE11 (increases bundle size)
     transpileClientSDK: true,
 
-    // Routes browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers (increases server load)
+    // Routes browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers. (increases server load)
+    // Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
+    // side errors will fail.
     tunnelRoute: '/monitoring',
 
     // Hides source maps from generated client bundles

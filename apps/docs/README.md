@@ -55,6 +55,14 @@ run `docker run -it --env-file=.env.local -e "CONFIG=$(cat ./algolia-config.json
 
 Create a markdown file in its respective docs directory.
 
+### Set up environment variables
+
+Copy the `.env.example` file in this directory to `.env.local` (which will be ignored by Git):
+
+```bash
+cp .env.example .env.local
+```
+
 ### Installation
 
 ```
