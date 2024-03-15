@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 export enum SRC {
   IMAGE = '2D',
   MODEL = 'Box',

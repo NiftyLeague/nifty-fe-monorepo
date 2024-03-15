@@ -1,22 +1,32 @@
 # Nifty League Frontend Monorepo
 
-Built with [Turborepo](https://turbo.build/).
+[![Validate, lint, and test on every push](https://github.com/NiftyLeague/nifty-fe-monorepo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/NiftyLeague/nifty-fe-monorepo/actions/workflows/ci.yml)
+
+[![Algolia Search](https://github.com/NiftyLeague/nifty-fe-monorepo/actions/workflows/search.yaml/badge.svg?branch=main)](https://github.com/NiftyLeague/nifty-fe-monorepo/actions/workflows/search.yaml)
+
+[![CodeQL](https://github.com/NiftyLeague/nifty-fe-monorepo/actions/workflows/github-code-scanning/codeql/badge.svg?branch=main)](https://github.com/NiftyLeague/nifty-fe-monorepo/actions/workflows/github-code-scanning/codeql)
+
+> Built with [Turborepo](https://turbo.build/)!
 
 ## What's inside?
 
-This Turborepo includes the following packages/apps:
+This Turborepo includes the following apps/packages:
 
-### Apps and Packages
+### Apps
 
 - `app`: a [Next.js](https://nextjs.org/) app for our web3 dashboards at [app.niftyleague.com](http:/app.niftyleague.com)
 - `docs`: a [Docusaurus](https://docusaurus.io/) app for our docs at [niftyleague.com/docs](http://niftyleague.com/docs)
 - `web`: a [Next.js](https://nextjs.org/) app for our website [niftyleague.com](http://niftyleague.com)
+
+### Packages
+
 - `@nl/ui`: a stub React component library shared by all applications
 - `@nl/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@nl/prettier-config`: `prettier` configurations overrides
-- `@nl/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- `@nl/prettier-config`: `prettier` configuration overrides
+- `@nl/typescript-config`: `tsconfig.json` configs used throughout the monorepo
 
-Each package/app is uses [TypeScript](https://www.typescriptlang.org/).
+> **Note:**
+> Each package/app strictly uses [TypeScript](https://www.typescriptlang.org/)
 
 ### Development Ports
 
@@ -32,12 +42,30 @@ This Turborepo has some additional tools already setup for you:
 - [ESLint](https://eslint.org/) for code linting
 - [Prettier](https://prettier.io) for code formatting
 
+## Getting Started
+
 ### Install turbo globally
 
-To install turbo globally
+To install turbo globally for ease of use:
 
 ```
 npm install turbo --global
+```
+
+### Set working directory to root
+
+All commands are run from the root directory!
+
+```
+cd nifty-fe-monorepo
+```
+
+### Install dependencies
+
+We use [npm](https://docs.npmjs.com/) to manage dependencies.
+
+```
+npm install
 ```
 
 ### Build
@@ -45,7 +73,6 @@ npm install turbo --global
 To build all apps and packages, run the following command:
 
 ```
-cd nifty-fe-monorepo
 turbo build
 ```
 
@@ -54,9 +81,41 @@ turbo build
 To develop all apps and packages, run the following command:
 
 ```
-cd nifty-fe-monorepo
 turbo dev
 ```
+
+### Testing
+
+To lint all apps and packages, run the following command:
+
+```
+turbo lint
+```
+
+> **[?]**
+> you can also use `turbo lint:fix` to run linting with --fix
+
+To format all apps and packages, run the following command:
+
+```
+turbo format
+```
+
+To check TypeScript in all apps and packages, run the following command:
+
+```
+turbo type-check
+```
+
+To run all of the above test commands together, run the following command:
+
+```
+turbo test
+```
+
+### Updating dependencies
+
+Note that by default `npm update` will not update the semver values of direct dependencies in `package.json`. If you want to also update values in `package.json` you can run: `npm update --save`
 
 ### Remote Caching
 
@@ -65,7 +124,6 @@ Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo
 By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
 
 ```
-cd nifty-fe-monorepo
 npx turbo login
 ```
 
@@ -107,6 +165,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 Email [andy@niftyleague.com](mailto:andy@niftyleague.com)
 
-or
+**OR**
 
-Join the [Nifty League Discord Server](https://discord.gg/niftyleague) and message a admin
+Join the [Nifty League Discord Server](https://discord.gg/niftyleague) and message a admin!

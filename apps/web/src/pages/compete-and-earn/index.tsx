@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import cn from 'classnames';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -145,4 +144,4 @@ const CompeteAndEarn: NextPage = () => {
   );
 };
 
-export default memo(CompeteAndEarn);
+export default CompeteAndEarn;

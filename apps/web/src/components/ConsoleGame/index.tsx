@@ -106,4 +106,5 @@ const ConsoleGame = ({ src }: { src: string }) => {
   );
 };
 
-export default memo(ConsoleGame);
+const MemoizedConsoleGame = memo(ConsoleGame);
+export default MemoizedConsoleGame;

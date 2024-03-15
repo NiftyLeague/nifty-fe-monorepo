@@ -9,30 +9,45 @@
     "lint": "turbo lint",
     "lint:fix": "turbo lint:fix",
     "format": "turbo format",
-    "format:fix": "turbo format:fix",
     "type-check": "turbo type-check",
     "prepare": "husky"
   },
   "dependencies": {
-    "classnames": "^2.3.1",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "@mui/base": "^5.0.0-beta.38",
+    "@mui/icons-material": "^5.15.12",
+    "@mui/lab": "^5.0.0-alpha.167",
+    "@mui/material": "^5.15.12",
+    "@mui/system": "^5.15.12",
+    "classnames": "^2.5.1",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "sass": "^1.71.1",
+    "viem": "^2.8.5"
   },
   "devDependencies": {
-    "@nl/eslint-config": "*",
-    "@nl/prettier-config": "*",
-    "@nl/typescript-config": "*",
+    "@nl/eslint-config": "^0.0.0",
+    "@nl/prettier-config": "^0.0.0",
+    "@nl/typescript-config": "^0.0.0",
     "@types/eslint": "^8.56.5",
-    "@types/node": "^20.11.25",
-    "@types/react": "^18.2.64",
+    "@types/lodash": "^4.17.0",
+    "@types/node": "^20.11.26",
+    "@types/react": "^18.2.65",
     "@types/react-dom": "^18.2.21",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
-    "turbo": "latest",
-    "typescript": "^5.3.3"
+    "turbo": "^1.12.5",
+    "typescript": "^5.4.2"
+  },
+  "overrides": {
+    "bnc-sdk": {
+      "crypto-es": "^2.1.0"
+    }
   },
   "browserslist": {
     "production": [

@@ -1,6 +1,6 @@
 import { useMediaQuery } from '@mui/material';
 import Image from 'next/image';
-import React, { CSSProperties } from 'react';
+import { type CSSProperties, memo } from 'react';
 
 type Sponsor = {
   image: string;
@@ -30,7 +30,7 @@ const styles = {
   },
 };
 
-const renderSponsor = ({ image, url, width, height }: Sponsor) => (
+const RenderSponsor = ({ image, url, width, height }: Sponsor) => (
   <SponsorItem key={image} image={image} url={url} width={width} height={height} />
 );
 
@@ -59,9 +59,10 @@ const SponsorItem = ({ image, url, width, height }: Sponsor): JSX.Element => {
 const Sponsors = ({ sponsors }: { sponsors: Sponsor[] }) => (
   <div className="container p-0">
     <div className="row m-0 p-0 position relative py-sm-5 d-flex align-items-center justify-content-center text-center">
-      <section style={styles.container as CSSProperties}>{sponsors.map(renderSponsor)}</section>
+      <section style={styles.container as CSSProperties}>{sponsors.map(RenderSponsor)}</section>
     </div>
   </div>
 );
 
-export default React.memo(Sponsors);
+const MemoizedSponsors = memo(Sponsors);
+export default MemoizedSponsors;

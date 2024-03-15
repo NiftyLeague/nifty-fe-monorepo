@@ -9,7 +9,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 import ExternalIcon from '@/components/ExternalIcon';
 
-function Navbar() {
+const Navbar = () => {
   const { pathname } = useRouter();
 
   return (
@@ -19,20 +19,18 @@ function Navbar() {
           className="navbar-nav collapse navbar-collapse px-4 my-3 justify-content-between"
           id="navbarSupportedContent"
         >
-          <Link href="/" legacyBehavior>
-            <a className="navbar-brand">
-              <Image
-                src="/img/logo/white.png"
-                height={50}
-                width={52}
-                alt="Nifty League Logo"
-                loading="lazy"
-                style={{
-                  maxWidth: '100%',
-                  height: 'auto',
-                }}
-              />
-            </a>
+          <Link href="/" className="navbar-brand">
+            <Image
+              src="/img/logo/white.png"
+              height={50}
+              width={52}
+              alt="Nifty League Logo"
+              loading="lazy"
+              style={{
+                maxWidth: '100%',
+                height: 'auto',
+              }}
+            />
           </Link>
           <div className="d-flex align-items-center">
             <div className="d-flex align-items-center">
@@ -183,9 +181,9 @@ function Navbar() {
       </div>
     </nav>
   );
-}
+};
 
-function MobileNav() {
+const MobileNav = () => {
   const [toggled, setToggled] = useState<boolean>(false);
   const checkboxRef = useRef({ checked: false });
   const linkList = [
@@ -289,7 +287,7 @@ function MobileNav() {
       </nav>
     </div>
   );
-}
+};
 
 export default function Header() {
   const desktop = useMediaQuery('(min-width:768px)');

@@ -1,11 +1,11 @@
-import React, { memo } from 'react';
+import type { NextPage } from 'next';
 import Link from 'next/link';
 import { Container } from '@mui/material';
 import Layout from '@/components/Layout';
 import AnimatedWrapper from '@/components/AnimatedWrapper';
 import Head from 'next/head';
 
-const PrivacyPolicy = (): JSX.Element => (
+const PrivacyPolicy: NextPage = () => (
   <Layout classes={{ root: 'legal-pg' }}>
     <Head>
       <title>Nifty League | Privacy Policy</title>
@@ -337,4 +337,4 @@ const PrivacyPolicy = (): JSX.Element => (
   </Layout>
 );
 
-export default memo(PrivacyPolicy);
+export default PrivacyPolicy;

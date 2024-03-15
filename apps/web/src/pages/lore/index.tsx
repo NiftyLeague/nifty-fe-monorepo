@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import cn from 'classnames';
 import type { NextPage } from 'next';
 import Head from 'next/head';
@@ -186,4 +185,4 @@ const Lore: NextPage = () => {
   );
 };
 
-export default memo(Lore);
+export default Lore;

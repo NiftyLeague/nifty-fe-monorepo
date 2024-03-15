@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import cn from 'classnames';
 import Image from 'next/image';
 import type { NextPage } from 'next';
@@ -171,4 +170,4 @@ const NiftyVerse: NextPage = () => {
   );
 };
 
-export default memo(NiftyVerse);
+export default NiftyVerse;

@@ -32,4 +32,5 @@ const TeamDesktop = () => {
   );
 };
 
-export default memo(TeamDesktop);
+const MemoizedTeamDesktop = memo(TeamDesktop);
+export default MemoizedTeamDesktop;

@@ -30,8 +30,8 @@ export function ModelView({ source }: { source: SRC }) {
   // const POSTER_SRC = `${DEGEN_3D_MODEL_URL}/${tokenId}/${tokenId}.webp`;
   // const TEXTURE_SRC = `${DEGEN_3D_MODEL_URL}/${tokenId}/${tokenId}.png`;
 
-  const handleProgress = (event: Event) => {
-    // @ts-ignore
+  const handleProgress: EventListenerOrEventListenerObject = event => {
+    // @ts-expect-error - model-viewer known attribute
     const progress = event?.detail?.totalProgress || 0;
     if (progress === 1) setLoading(false);
   };
@@ -59,7 +59,7 @@ export function ModelView({ source }: { source: SRC }) {
         src={MODEL_SRC}
         // poster={POSTER_SRC}
         loading="eager"
-        // @ts-ignore
+        // @ts-expect-error - model-viewer attributes broken
         exposure="0.72"
         shadow-intensity="1"
         shadow-softness="0.8"

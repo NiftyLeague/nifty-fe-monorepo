@@ -5,20 +5,20 @@
   "exports": {
     "./button": "./src/button.tsx",
     "./card": "./src/card.tsx",
-    "./code": "./src/code.tsx"
+    "./code": "./src/code.tsx",
+    "./responsive-table": "./src/responsive-table/index.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --max-warnings 0 --fix",
-    "format": "prettier --check \"**/*.{js,ts,tsx,md,mdx,json}\"",
-    "format:fix": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\"",
+    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\"",
     "type-check": "tsc --noEmit",
     "generate:component": "turbo gen react-component"
   },
   "devDependencies": {
-    "@nl/eslint-config": "*",
-    "@nl/prettier-config": "*",
-    "@nl/typescript-config": "*",
-    "@turbo/gen": "^1.12.4"
+    "@nl/eslint-config": "^0.0.0",
+    "@nl/prettier-config": "^0.0.0",
+    "@nl/typescript-config": "^0.0.0",
+    "@turbo/gen": "^1.12.5"
   }
 }

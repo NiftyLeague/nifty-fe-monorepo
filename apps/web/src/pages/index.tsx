@@ -1,5 +1,5 @@
 import { Stack, useMediaQuery } from '@mui/material';
-import { memo, useRef } from 'react';
+import { useRef } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -11,7 +11,7 @@ import Carousel from '@/components/Carousel';
 import ExternalIcon from '@/components/ExternalIcon';
 import ConsoleGame from '@/components/ConsoleGame';
 import MintOMatic from '@/components/MintOMatic';
-import { renderDegen } from '@/components/Carousel/DegenCardItem';
+import { RenderDegen } from '@/components/Carousel/DegenCardItem';
 import { COMMUNITY_DEGEN_LIST } from '@/constants/degens';
 import { SPONSORS } from '@/constants/sponsors';
 
@@ -313,7 +313,7 @@ const Home: NextPage = () => {
                 />
               </div>
               <Carousel mobileItems={2} hideGradient>
-                {COMMUNITY_DEGEN_LIST.map(renderDegen)}
+                {COMMUNITY_DEGEN_LIST.map(RenderDegen)}
               </Carousel>
               <div className="radial-gradient-background d-block" />
             </div>
@@ -938,4 +938,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default memo(Home);
+export default Home;

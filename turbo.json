@@ -21,7 +21,7 @@
     },
     "web#build": {
       "dependsOn": ["^build"],
-      "env": ["NEXT_PUBLIC_*", "SITE_URL"],
+      "env": ["NEXT_PUBLIC_*"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "lint": {
@@ -31,10 +31,7 @@
       "dependsOn": ["^lint:fix"]
     },
     "format": {
-      "dependsOn": ["^lint"]
-    },
-    "format:fix": {
-      "dependsOn": ["^lint:fix"]
+      "dependsOn": ["^format"]
     },
     "type-check": {
       "dependsOn": ["^type-check"]

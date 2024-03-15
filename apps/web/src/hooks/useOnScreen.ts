@@ -22,6 +22,7 @@ export function useOnScreen<T extends Element>(ref: MutableRefObject<T>, rootMar
         observer.unobserve(wrapperRef);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty array ensures that effect is only run on mount and unmount
   return isIntersecting;
 }
