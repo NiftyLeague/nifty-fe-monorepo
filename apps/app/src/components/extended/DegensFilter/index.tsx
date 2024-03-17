@@ -1,12 +1,11 @@
 'use client';
 import { ChangeEvent, SetStateAction, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { styled } from '@mui/material/styles';
+import { styled, useTheme } from '@nl/theme';
 import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 // import useFlags from '@/hooks/useFlags';
 import isEmpty from 'lodash/isEmpty';
 import { Button, Checkbox, FormControlLabel, FormGroup, Stack, Typography } from '@mui/material';
-import { useTheme } from '@mui/system';
 import {
   FilterSource,
   backgrounds,

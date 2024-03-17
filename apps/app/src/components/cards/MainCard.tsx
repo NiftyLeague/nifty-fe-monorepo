@@ -1,7 +1,7 @@
 import { Ref, forwardRef } from 'react';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from '@nl/theme';
 import {
   Card,
   CardContent,

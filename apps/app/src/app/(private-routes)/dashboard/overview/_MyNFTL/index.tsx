@@ -1,13 +1,12 @@
 'use client';
 
-import { useContext, useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Grid, Button, Stack, Skeleton, IconButton, Typography } from '@mui/material';
 import HistoryIcon from '@mui/icons-material/History';
-import { useTheme } from '@mui/material/styles';
+import { useTheme, sectionSpacing } from '@nl/theme';
 import { type TransactionResponse, parseEther } from 'ethers6';
 
-import { sectionSpacing } from '@/theme/constants';
 import SectionTitle from '@/components/sections/SectionTitle';
 import HoverDataCard from '@/components/cards/HoverDataCard';
 import { Dialog, DialogTrigger, DialogContent } from '@/components/dialog';
@@ -151,6 +150,7 @@ const MyNFTL = (): JSX.Element => {
       <Grid item xs={12}>
         <SectionTitle
           firstSection
+          variant="h3"
           actions={
             <Stack direction="row" gap={2}>
               {loading ? (
@@ -159,7 +159,9 @@ const MyNFTL = (): JSX.Element => {
                 // <Button variant="outlined" onClick={handleClaimNFTL}>
                 //   Claim All {formatNumberToDisplay(mockAccrued)} NFTL
                 // </Button>
-                <Typography variant="h5">NFTL in Wallet: {formatNumberToDisplay(userNFTLBalance)}</Typography>
+                <Typography variant="body1" fontWeight="bold">
+                  NFTL in Wallet: {formatNumberToDisplay(userNFTLBalance)}
+                </Typography>
               )}
             </Stack>
           }

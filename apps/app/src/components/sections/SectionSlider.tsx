@@ -4,7 +4,7 @@ import { Grid, Stack } from '@mui/material';
 import PaginationIconOnly from '@/components/pagination/PaginationIconOnly';
 import { PropsWithChildren, ReactNode, useRef } from 'react';
 import Slider, { Settings } from 'react-slick';
-import { sectionSpacing } from '@/theme/constants';
+import { sectionSpacing } from '@nl/theme';
 import SectionTitle from './SectionTitle';
 
 interface Props {
@@ -14,6 +14,7 @@ interface Props {
   sliderSettingsOverride?: Settings;
   isSlider?: boolean;
   children?: React.ReactNode;
+  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 }
 
 const SectionSlider = ({
@@ -23,6 +24,7 @@ const SectionSlider = ({
   actions,
   sliderSettingsOverride,
   isSlider = true,
+  variant = 'h2',
 }: PropsWithChildren<Props>): JSX.Element => {
   const refSlider = useRef<Slider>(null);
   const settings = {
@@ -77,6 +79,7 @@ const SectionSlider = ({
       <Grid item xs={12}>
         <SectionTitle
           firstSection={firstSection}
+          variant={variant}
           actions={
             <Stack direction="row" gap={2}>
               {actions}

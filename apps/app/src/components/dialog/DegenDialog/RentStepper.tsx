@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import cn from 'classnames';
 
-import { styled } from '@mui/material/styles';
+import { styled } from '@nl/theme';
 import { StepIconProps } from '@mui/material/StepIcon';
 import Step from '@mui/material/Step';
 import StepConnector from '@mui/material/StepConnector';

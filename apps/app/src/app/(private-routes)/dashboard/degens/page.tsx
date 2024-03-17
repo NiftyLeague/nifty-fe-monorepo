@@ -9,8 +9,8 @@ import xor from 'lodash/xor';
 import { useSearchParams } from 'next/navigation';
 import useFlags from '@/hooks/useFlags';
 import { Grid, IconButton, Pagination, Stack, Dialog, useMediaQuery } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
+import { useTheme } from '@nl/theme';
 
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder';
 import DegensFilter from '@/components/extended/DegensFilter';

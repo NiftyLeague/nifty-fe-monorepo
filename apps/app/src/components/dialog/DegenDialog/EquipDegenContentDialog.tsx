@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { styled } from '@mui/material/styles';
+import { styled } from '@nl/theme';
 import Link from 'next/link';
 import { Box, Button, CircularProgress, Grid, Stack, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';

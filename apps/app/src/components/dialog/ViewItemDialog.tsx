@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, useMediaQuery } from '@mui/material';
 import type { Item } from '@/types/comic';
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from '@nl/theme';
 import ItemDetail from '@/components/cards/ItemDetail';
 
 export interface ViewItemDialogProps {

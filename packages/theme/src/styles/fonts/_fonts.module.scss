@@ -1,0 +1,15 @@
+// custom fonts
+
+$defaultFontFamily: var(--font-ibm-plex-sans);
+$headerFontFamily: var(--font-nexa-rust-sans-black);
+$subheaderFontFamily: var(--font-press-start);
+$specialFontFamily: var(--font-lilita-one);
+
+// ==============================|| JAVASCRIPT ||============================== //
+
+:export {
+  defaultFontFamily: $defaultFontFamily;
+  headerFontFamily: $headerFontFamily;
+  subheaderFontFamily: $subheaderFontFamily;
+  specialFontFamily: $specialFontFamily;
+}

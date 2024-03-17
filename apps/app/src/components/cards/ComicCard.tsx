@@ -1,4 +1,5 @@
-import { Box, Theme, SxProps, Typography } from '@mui/material';
+import { Box, SxProps, Typography } from '@mui/material';
+import { Theme } from '@nl/theme';
 import type { Comic } from '@/types/comic';
 import ImageCard from '@/components/cards/ImageCard';
 import useComicDimension from '@/hooks/useComicDimension';

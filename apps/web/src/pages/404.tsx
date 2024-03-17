@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { styled } from '@mui/material/styles';
+import { styled } from '@nl/theme';
 import { Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 import Layout from '@/components/Layout';
 

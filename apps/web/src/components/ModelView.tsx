@@ -1,7 +1,7 @@
 import { useEffect, Dispatch, SetStateAction, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import { styled } from '@mui/material/styles';
+import { styled } from '@nl/theme';
 // import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import FormControl from '@mui/material/FormControl';

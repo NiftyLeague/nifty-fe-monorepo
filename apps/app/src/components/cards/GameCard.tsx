@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from '@nl/theme';
 import { Button, Card, CardActions, CardContent, CardMedia, Stack, SxProps, Theme, Typography } from '@mui/material';
 import ExternalIcon from '@/components/ExternalIcon';
 
@@ -43,7 +43,7 @@ const CardGameContent = ({
         }}
       >
         <Stack direction="row" justifyContent="space-between">
-          <Typography gutterBottom variant="h3" component="div">
+          <Typography gutterBottom variant="h4" component="div">
             {title}
           </Typography>
           {externalLink ? (

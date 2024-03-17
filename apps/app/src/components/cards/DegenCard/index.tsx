@@ -11,11 +11,10 @@ import {
   Link,
   Stack,
   SxProps,
-  Theme,
   Typography,
-  useTheme,
   // Dialog,
 } from '@mui/material';
+import { useTheme, Theme } from '@nl/theme';
 import EditIcon from '@mui/icons-material/Edit';
 import FavoriteIconFilled from '@mui/icons-material/Favorite';
 import FavoriteIconOutlined from '@mui/icons-material/FavoriteBorderOutlined';
@@ -94,7 +93,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
     onClickFavorite,
     onClickSelect,
   }) => {
-    const { palette } = useTheme();
+    const { palette, typography } = useTheme();
     const {
       id,
       name,
@@ -132,8 +131,8 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
       }
     };
 
-    const buttonFontSize = size === 'small' ? '10px' : '14px';
-    const tinyFontSize = size === 'small' ? '8px' : '12px';
+    const buttonFontSize = size === 'small' ? '12px' : typography.button.fontSize;
+    const tinyFontSize = size === 'small' ? '8px' : typography.caption.fontSize;
 
     return (
       <Card
@@ -187,7 +186,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
               },
             }}
           >
-            <Typography gutterBottom variant={size === 'small' ? 'h4' : 'h3'}>
+            <Typography gutterBottom variant={size === 'small' ? 'h6' : 'h4'}>
               {name || 'No Name DEGEN'}
             </Typography>
             {isDashboardDegen && (

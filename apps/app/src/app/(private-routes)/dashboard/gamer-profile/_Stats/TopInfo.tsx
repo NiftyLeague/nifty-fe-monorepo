@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Stack, Typography, useTheme, Box, IconButton } from '@mui/material';
+import { Stack, Typography, Box, IconButton } from '@mui/material';
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
+import { useTheme } from '@nl/theme';
 
 import { useGamerProfileContext } from '@/hooks/useGamerProfile';
 import useCopyToClipboard from '@/hooks/useCopyToClipboard';

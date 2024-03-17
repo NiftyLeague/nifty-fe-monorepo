@@ -3,7 +3,7 @@ const path = require('path');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['@nl/ui'],
+  transpilePackages: ['@nl/theme', '@nl/ui'],
   sassOptions: {
     includePaths: [path.join(__dirname, 'src/styles')],
   },

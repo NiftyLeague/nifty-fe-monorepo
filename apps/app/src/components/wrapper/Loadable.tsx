@@ -3,7 +3,7 @@ import { Suspense, LazyExoticComponent } from 'react';
 // material-ui
 import { LinearProgressProps } from '@mui/material/LinearProgress';
 import LinearProgress from '@mui/material/LinearProgress';
-import { styled } from '@mui/material/styles';
+import { styled } from '@nl/theme';
 
 // styles
 const LoaderWrapper = styled('div')({

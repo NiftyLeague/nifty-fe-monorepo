@@ -3,7 +3,8 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import type { EnhancedTableProps } from '@/types/leaderboard';
-import { useTheme, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
+import { useTheme } from '@nl/theme';
 
 export default function EnhancedTableHead(props: EnhancedTableProps): JSX.Element | null {
   const { rows, handleCheckYourRank } = props;

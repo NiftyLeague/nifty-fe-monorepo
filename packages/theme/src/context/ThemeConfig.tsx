@@ -1,16 +1,16 @@
 'use client';
 
 import { createContext, type PropsWithChildren } from 'react';
-import type { BreakpointsOptions, PaletteMode } from '@mui/material';
+import type { PaletteMode } from '@mui/material';
 
-import type { ThemeConfigProps, ThemeCustomizationProps } from '@/types/default-theme';
-import useLocalStorage from '@/hooks/useLocalStorage';
-import { defaultConfig } from './constants';
+import type { ThemeConfigProps, ThemeCustomizationProps } from '../types';
+import useSetLocalStorage from '../hooks/useSetLocalStorage';
+import defaultConfig from '../config';
 
 // initial state
 const initialState: ThemeCustomizationProps = {
   ...defaultConfig,
-  // onChangeFontFamily: () => {},
+  onChangeFontFamily: () => {},
   onChangeBorderRadius: () => {},
   onChangeBreakpoints: () => {},
   onChangeContainer: () => {},
@@ -23,11 +23,11 @@ const initialState: ThemeCustomizationProps = {
 
 // ==============================|| CONFIG CONTEXT & PROVIDER ||============================== //
 
-const ThemeConfigContext = createContext(initialState);
+export const ThemeConfigContext = createContext<ThemeCustomizationProps>(initialState);
 
-function ThemeConfigProvider({ children }: PropsWithChildren) {
-  const [config, setConfig] = useLocalStorage<ThemeConfigProps>('berry-config', {
-    // fontFamily: initialState.fontFamily,
+export function ThemeConfigProvider({ children }: PropsWithChildren) {
+  const [config, setConfig] = useSetLocalStorage<ThemeConfigProps>('theme-config', {
+    fontFamily: initialState.fontFamily,
     borderRadius: initialState.borderRadius,
     breakpoints: initialState.breakpoints,
     container: initialState.container,
@@ -58,9 +58,9 @@ function ThemeConfigProvider({ children }: PropsWithChildren) {
     setConfig({ ...(config as ThemeConfigProps), container: !config?.container });
   };
 
-  // const onChangeFontFamily = (fontFamily: string) => {
-  //   setConfig({ ...config as ConfigProps, fontFamily });
-  // };
+  const onChangeFontFamily = (fontFamily: ThemeConfigProps['fontFamily']) => {
+    setConfig({ ...(config as ThemeConfigProps), fontFamily });
+  };
 
   const onChangeBorderRadius = (event: Event, newValue: number | number[]) => {
     setConfig({ ...(config as ThemeConfigProps), borderRadius: newValue as number });
@@ -70,7 +70,7 @@ function ThemeConfigProvider({ children }: PropsWithChildren) {
     setConfig({ ...(config as ThemeConfigProps), outlinedFilled });
   };
 
-  const onChangeBreakpoints = (breakpoints: BreakpointsOptions) => {
+  const onChangeBreakpoints = (breakpoints: ThemeConfigProps['breakpoints']) => {
     setConfig({ ...(config as ThemeConfigProps), breakpoints });
   };
 
@@ -78,7 +78,7 @@ function ThemeConfigProvider({ children }: PropsWithChildren) {
     <ThemeConfigContext.Provider
       value={{
         ...(config as ThemeConfigProps),
-        // onChangeFontFamily,
+        onChangeFontFamily,
         onChangeBorderRadius,
         onChangeBreakpoints,
         onChangeContainer,
@@ -94,4 +94,4 @@ function ThemeConfigProvider({ children }: PropsWithChildren) {
   );
 }
 
-export { ThemeConfigProvider, ThemeConfigContext };
+export default ThemeConfigProvider;

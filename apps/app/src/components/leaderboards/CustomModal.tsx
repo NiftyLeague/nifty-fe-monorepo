@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { styled, Box, useTheme, Theme } from '@mui/system';
-import { Modal } from '@mui/base/Modal';
+import { useTheme, styled, Theme } from '@nl/theme';
+import { Box, Modal } from '@mui/material';
 
 const StyledModal = styled(Modal)`
   position: fixed;

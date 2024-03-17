@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useMemo, useRef } from 'react';
-import { styled } from '@mui/material/styles';
+import { styled } from '@nl/theme';
 import { Box, InputBase, Stack, Typography } from '@mui/material';
 import debounce from 'lodash/debounce';
 import { formatNumberToDisplay, formatNumberToDisplay2 } from '@/utils/numbers';

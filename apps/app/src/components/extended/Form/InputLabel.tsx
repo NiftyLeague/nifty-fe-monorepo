@@ -1,4 +1,4 @@
-import { experimentalStyled as styled } from '@mui/material/styles';
+import { styled } from '@nl/theme';
 import { InputLabel as MuiInputLabel, InputLabelProps } from '@mui/material';
 
 const BInputLabel = styled((props: MUIInputLabelProps) => <MuiInputLabel {...props} />, {

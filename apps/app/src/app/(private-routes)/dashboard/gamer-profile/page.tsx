@@ -19,7 +19,7 @@ import BottomInfo from './_Stats/BottomInfo';
 
 import { DEGEN_BASE_API_URL } from '@/constants/url';
 import type { Degen } from '@/types/degens';
-import { sectionSpacing } from '@/theme/constants';
+import { sectionSpacing } from '@nl/theme';
 import useBalances from '@/hooks/useBalances';
 import { GamerProfileProvider } from '@/contexts/GamerProfileContext';
 
@@ -98,7 +98,7 @@ const GamerProfile = (): JSX.Element => {
 
   const renderBottomProfile = () => {
     return (
-      <SectionSlider firstSection title="Player Stats by Game" isSlider={false}>
+      <SectionSlider firstSection variant="h3" title="Player Stats by Game" isSlider={false}>
         <BottomInfo
           nifty_smashers={profile?.stats?.nifty_smashers}
           wen_game={profile?.stats?.wen_game}

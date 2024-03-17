@@ -4,13 +4,12 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
+import { useTheme, gridSpacing } from '@nl/theme';
 import { Box, Card, Divider, Grid, Typography } from '@mui/material';
 import MuiBreadcrumbs from '@mui/material/Breadcrumbs';
 
 // project imports
 import { BASE_PATH } from '@/config';
-import { gridSpacing } from '@/theme/constants';
 import type { TablerIconsProps } from '@tabler/icons-react';
 
 // assets

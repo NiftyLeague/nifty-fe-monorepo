@@ -96,7 +96,9 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): JSX.Element => {
 
   return (
     <>
-      <DialogTitle sx={{ textAlign: 'center' }}>Rename DEGEN</DialogTitle>
+      <DialogTitle sx={{ textAlign: 'center' }} variant="h4">
+        Rename DEGEN
+      </DialogTitle>
       <DialogContent dividers sx={{ maxWidth: '820px' }}>
         <Stack rowGap={2}>
           <Stack rowGap={1}>

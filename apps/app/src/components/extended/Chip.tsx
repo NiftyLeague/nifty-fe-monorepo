@@ -1,5 +1,5 @@
 // material-ui
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from '@nl/theme';
 import MuiChip, { type ChipProps as MuiChipProps } from '@mui/material/Chip';
 
 // ==============================|| CHIP ||============================== //

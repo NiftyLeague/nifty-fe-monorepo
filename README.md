@@ -21,6 +21,7 @@ This Turborepo includes the following apps/packages:
 ### Packages
 
 - `@nl/ui`: a stub React component library shared by all applications
+- `@nl/theme`: a common theme wrapper for NextJs apps using Material-UI
 - `@nl/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `@nl/prettier-config`: `prettier` configuration overrides
 - `@nl/typescript-config`: `tsconfig.json` configs used throughout the monorepo

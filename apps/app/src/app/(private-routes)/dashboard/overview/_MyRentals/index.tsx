@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Button, Grid, Stack } from '@mui/material';
 import SectionTitle from '@/components/sections/SectionTitle';
 import RentalsTableSimple from './RentalsTableSimple';
-import { sectionSpacing } from '@/theme/constants';
+import { sectionSpacing } from '@nl/theme';
 import usePlayerProfile from '@/hooks/usePlayerProfile';
 import type { FC } from 'react';
 import type { Rentals } from '@/types/rentals';

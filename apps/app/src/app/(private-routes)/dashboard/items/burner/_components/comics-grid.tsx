@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { styled } from '@mui/material/styles';
+import { styled } from '@nl/theme';
 import Image from 'next/image';
 import xor from 'lodash/xor';
 import sum from 'lodash/sum';

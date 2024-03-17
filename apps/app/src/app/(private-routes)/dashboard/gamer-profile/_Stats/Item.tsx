@@ -1,4 +1,5 @@
-import { Stack, Typography, useTheme, Skeleton } from '@mui/material';
+import { Stack, Typography, Skeleton } from '@mui/material';
+import { useTheme } from '@nl/theme';
 
 interface ItemProps {
   label?: string;

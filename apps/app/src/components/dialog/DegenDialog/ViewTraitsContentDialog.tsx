@@ -42,7 +42,7 @@ const ViewTraitsContentDialog = ({
           {degen?.id && <DegenImage sx={{ ...degenImageSx }} tokenId={degen.id} />}
         </Stack>
         <Stack direction="column" alignItems="center" sx={{ my: 2 }}>
-          <Typography gutterBottom variant="h3">
+          <Typography gutterBottom variant="h4">
             {displayName}
           </Typography>
           <a
@@ -81,7 +81,7 @@ const ViewTraitsContentDialog = ({
         <Stack gap={3} sx={{ justifyContent: 'space-between', height: '100%' }}>
           <Stack>
             <Box display="flex" flexDirection="row" alignItems="center" justifyContent="center">
-              <Typography variant="h2">Degen Traits</Typography>
+              <Typography variant="h3">Degen Traits</Typography>
             </Box>
             <Grid container sx={{ marginTop: 3, justifyContent: 'center' }} rowGap={3} columnGap={2}>
               {isEmpty(traits)

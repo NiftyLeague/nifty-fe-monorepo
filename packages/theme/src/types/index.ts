@@ -1,7 +1,22 @@
 import type { BreakpointsOptions, Color, PaletteMode } from '@mui/material';
+import type { NextFontWithVariable } from '@next/font';
+
+export type CustomFonts = {
+  defaultFontFamily: string;
+  headerFontFamily: string;
+  subheaderFontFamily: string;
+  specialFontFamily: string;
+};
+
+export type FontFamily = {
+  default: NextFontWithVariable;
+  header: NextFontWithVariable;
+  subheader: NextFontWithVariable;
+  special: NextFontWithVariable;
+};
 
 export type ThemeConfigProps = {
-  // fontFamily: string;
+  fontFamily: FontFamily;
   borderRadius: number;
   breakpoints: BreakpointsOptions;
   container: boolean;
@@ -13,7 +28,7 @@ export type ThemeConfigProps = {
 };
 
 export interface ThemeCustomizationProps extends ThemeConfigProps {
-  // onChangeFontFamily: (fontFamily: string) => void;
+  onChangeFontFamily: (fontFamily: FontFamily) => void;
   onChangeBorderRadius: (event: Event, newValue: number | number[]) => void;
   onChangeBreakpoints: (breakpoints: BreakpointsOptions) => void;
   onChangeContainer: () => void;

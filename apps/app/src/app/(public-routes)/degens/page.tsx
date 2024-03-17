@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Grid, IconButton, Pagination, Stack, Dialog, useMediaQuery } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from '@nl/theme';
 import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
 
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder';

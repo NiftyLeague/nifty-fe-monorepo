@@ -1,5 +1,5 @@
 // material-ui
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from '@nl/theme';
 import { Divider, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
 import MUIFormControl from '@mui/material/FormControl';
 import type { GenericCardProps } from '@/types';

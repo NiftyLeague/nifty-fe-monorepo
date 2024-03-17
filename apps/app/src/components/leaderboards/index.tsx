@@ -1,7 +1,7 @@
 'use client';
 /* eslint-disable no-nested-ternary */
 import { useState, useEffect } from 'react';
-import { styled } from '@mui/material/styles';
+import { styled } from '@nl/theme';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Box, FormControl, List, ListItemButton, ListItemText, MenuItem, Stack, Typography } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
@@ -17,21 +17,12 @@ import {
 import EnhancedTable from '@/components/leaderboards/EnhancedTable/EnhancedTable';
 // import { EmojiEvents, Paid, CrisisAlert } from '@mui/icons-material';
 // const TopModal = dynamic(() => import('../TopModal'), { ssr: false });
+import './modal-table.css';
 
-import './navigation.css';
-
-const PREFIX = 'index';
-
-const classes = {
-  listItemButtonStyle: `${PREFIX}-listItemButtonStyle`,
-};
-
-const StyledBox = styled(Box)(({ theme }) => ({
-  [`& .${classes.listItemButtonStyle}`]: {
-    padding: `${theme.spacing(0.25)} ${theme.spacing(1.5)}`,
-    '&.Mui-selected': {
-      backgroundColor: 'transparent !important',
-    },
+const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
+  padding: `${theme.spacing(0.25)} ${theme.spacing(1.5)}`,
+  '&.Mui-selected': {
+    backgroundColor: 'transparent !important',
   },
 }));
 
@@ -102,7 +93,7 @@ export default function LeaderBoards(): JSX.Element {
   const timeFilters = LEADERBOARD_TIME_FILTERS.filter(item => item.key === 'all_time');
 
   return (
-    <StyledBox sx={{ margin: 'auto' }}>
+    <Box sx={{ margin: 'auto' }}>
       <Stack direction={{ sm: 'row', xs: 'column' }} alignItems={{ sm: 'center', xs: 'inherit' }} mb={2} spacing={1.5}>
         <FormControl sx={{ minWidth: '164px' }}>
           <Select value={selectedGame} onChange={handleChangeGame} inputProps={{ sx: { paddingY: 0.75 } }}>
@@ -132,18 +123,17 @@ export default function LeaderBoards(): JSX.Element {
         )}
         <List sx={{ display: 'flex' }}>
           {timeFilters.map(item => (
-            <ListItemButton
+            <StyledListItemButton
               key={item.key}
               selected={item.key === selectedTimeFilter}
               onClick={() => handleChangeTimeFilter(item.key)}
-              classes={{ root: classes.listItemButtonStyle }}
             >
               <ListItemText>
                 <Typography variant="body1" color="inherit" sx={{ fontWeight: 700, textTransform: 'uppercase' }}>
                   {item.display}
                 </Typography>
               </ListItemText>
-            </ListItemButton>
+            </StyledListItemButton>
           ))}
         </List>
       </Stack>
@@ -152,6 +142,6 @@ export default function LeaderBoards(): JSX.Element {
         selectedTable={selectedTable}
         selectedTimeFilter={selectedTimeFilter}
       />
-    </StyledBox>
+    </Box>
   );
 }

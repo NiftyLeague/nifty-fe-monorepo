@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { Button, Grid, Stack } from '@mui/material';
 import SectionTitle from '@/components/sections/SectionTitle';
-import { sectionSpacing } from '@/theme/constants';
+import { sectionSpacing } from '@nl/theme';
 import { useGamerProfile } from '@/hooks/useGamerProfile';
 import GamerProfileContext from '@/contexts/GamerProfileContext';
 import LeftInfo from '../gamer-profile/_Stats/LeftInfo';
@@ -15,6 +15,7 @@ const MyStats = ({ profile }: { profile?: Profile }): JSX.Element => {
       <Grid item xs={12}>
         <SectionTitle
           firstSection
+          variant="h3"
           actions={
             <Stack direction="row" gap={2}>
               <Button variant="outlined" component={Link} href="/dashboard/gamer-profile">
