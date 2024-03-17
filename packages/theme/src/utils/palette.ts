@@ -1,16 +1,18 @@
+'use client';
+
 // material-ui
 import { createTheme } from '@mui/material/styles';
 import type { PaletteMode, ThemeOptions, Theme } from '@mui/material';
-import type { ColorProps } from '@/types/default-theme';
+import type { ColorProps } from '../types';
 
 // assets
-import defaultColor from '@/styles/color/_theme_default.module.scss';
-import theme1 from '@/styles/color/_theme1.module.scss';
-import theme2 from '@/styles/color/_theme2.module.scss';
-import theme3 from '@/styles/color/_theme3.module.scss';
-import theme4 from '@/styles/color/_theme4.module.scss';
-import theme5 from '@/styles/color/_theme5.module.scss';
-import theme6 from '@/styles/color/_theme6.module.scss';
+import defaultColor from '../styles/color/_theme_default.module.scss';
+import theme1 from '../styles/color/_theme1.module.scss';
+import theme2 from '../styles/color/_theme2.module.scss';
+import theme3 from '../styles/color/_theme3.module.scss';
+import theme4 from '../styles/color/_theme4.module.scss';
+import theme5 from '../styles/color/_theme5.module.scss';
+import theme6 from '../styles/color/_theme6.module.scss';
 
 // ==============================|| DEFAULT THEME - PALETTE  ||============================== //
 

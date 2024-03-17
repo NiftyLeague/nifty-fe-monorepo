@@ -1,12 +1,13 @@
+'use client';
+
 import { useEffect, ReactNode } from 'react';
+import rtlPlugin from 'stylis-plugin-rtl';
 
 // material-ui
 import { CacheProvider } from '@emotion/react';
 import createCache, { StylisPlugin } from '@emotion/cache';
 
-// third-party
-import rtlPlugin from 'stylis-plugin-rtl';
-import useThemeConfig from '@/theme/hooks/useThemeConfig';
+import useThemeConfig from '../hooks/useThemeConfig';
 
 // ==============================|| RTL LAYOUT ||============================== //
 

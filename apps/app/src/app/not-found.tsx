@@ -3,14 +3,13 @@
 import Link from 'next/link';
 
 // material-ui
-import { useTheme, styled } from '@mui/material/styles';
+import { useTheme, gridSpacing, styled } from '@nl/theme';
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
 import { Button, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 
 // project imports
 import { DASHBOARD_PATH } from '@/config';
 import AnimateButton from '@/components/extended/AnimateButton';
-import { gridSpacing } from '@/theme/constants';
 
 // styles
 const CardMediaWrapper = styled('div')({

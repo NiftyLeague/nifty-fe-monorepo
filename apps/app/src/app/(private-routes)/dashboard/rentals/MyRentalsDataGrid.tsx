@@ -1,6 +1,6 @@
 'use client';
 
-import { Stack, Typography, Button, useTheme, Dialog, DialogContent, Link, IconButton } from '@mui/material';
+import { Stack, Typography, Button, Dialog, DialogContent, Link, IconButton } from '@mui/material';
 import {
   DataGrid,
   type GridColDef,
@@ -11,6 +11,7 @@ import {
   type GridSortModel,
 } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
+import { useTheme } from '@nl/theme';
 import { useState, useMemo } from 'react';
 import type { Rentals, RentalType } from '@/types/rentals';
 import { transformRentals } from '@/app/(private-routes)/dashboard/_utils/transformRentals';

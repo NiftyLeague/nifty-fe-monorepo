@@ -2,7 +2,7 @@ import type { Theme } from '@mui/material/styles';
 import type { PaletteMode } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 
-import type { CustomShadowProps } from '@/types/default-theme';
+import type { CustomShadowProps } from '../types';
 
 const createCustomShadow = (theme: Theme, color: string): CustomShadowProps => {
   const transparent = alpha(color, 0.24);

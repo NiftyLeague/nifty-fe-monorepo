@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useEnsAvatar, useEnsName } from 'wagmi';
 import { normalize } from 'viem/ens';
-import { Avatar, Box, Button, Skeleton, Stack, Typography, useTheme } from '@mui/material';
+import { Avatar, Box, Button, Skeleton, Stack, Typography } from '@mui/material';
+import { useTheme } from '@nl/theme';
 
 import { DEBUG } from '@/constants/index';
 import { formatNumberToDisplay } from '@/utils/numbers';
@@ -39,7 +40,9 @@ const ClaimNFTLView = () => {
         {loading ? (
           <Skeleton variant="text" animation="wave" width={80} />
         ) : (
-          <Typography variant="h4">{mockAccumulated ? formatNumberToDisplay(mockAccumulated) : '0.00'} NFTL</Typography>
+          <Typography fontWeight="bold">
+            {mockAccumulated ? formatNumberToDisplay(mockAccumulated) : '0.00'} NFTL
+          </Typography>
         )}
         <Typography>Available to Claim</Typography>
       </Stack>

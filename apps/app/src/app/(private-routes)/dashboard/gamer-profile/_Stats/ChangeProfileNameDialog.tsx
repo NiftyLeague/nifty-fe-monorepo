@@ -1,6 +1,6 @@
-import { IconButton, useTheme } from '@mui/material';
+import { IconButton } from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-
+import { useTheme } from '@nl/theme';
 import { Dialog, DialogTrigger, DialogContent } from '@/components/dialog';
 import ChangeProfileNameForm from './ChangeProfileNameForm';
 

@@ -2,7 +2,8 @@
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { Box, CircularProgress, Typography, useTheme } from '@mui/material';
+import { useTheme } from '@nl/theme';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
 import { getLeaderboardRankAnalyticsEventName } from '@/constants/leaderboard';
 import useAuth from '@/hooks/useAuth';
@@ -169,7 +170,7 @@ export default function EnhancedTable({
           )}
           {isLoggedIn && selectedGame !== 'crypto_winter' && (
             <Typography
-              variant="h4"
+              variant="h6"
               color={palette.primary.main}
               sx={{
                 position: {

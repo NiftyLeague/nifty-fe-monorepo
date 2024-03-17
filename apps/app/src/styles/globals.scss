@@ -1,35 +1,27 @@
-// custom fonts
-@import '/fonts/style.css';
 // color variants
-@import './color/_theme_default.module.scss';
+@import '@nl/theme/styles';
 
 // third-party
 @import '~react-perfect-scrollbar/dist/css/styles.css';
 @import '~slick-carousel/slick/slick.css';
 @import '~slick-carousel/slick/slick-theme.css';
 
-:root {
-  --custom-font-family: var(--font-ibm-plex-sans), sans-serif;
-  --custom-header-font-family: var(--font-nexa-rust-sans-black), var(--font-lilita-one), var(--custom-font-family);
-  --custom-subheader-font-family: var(--font-press-start), var(--font-lilita-one), var(--custom-font-family);
-}
-
 body {
   overflow: hidden;
 }
 
 * {
-  font-family: var(--custom-font-family);
+  font-family: $defaultFontFamily;
 }
 h1,
 h2,
 h3 {
-  font-family: var(--custom-header-font-family);
+  font-family: $headerFontFamily;
 }
 h4,
 h5,
 h6 {
-  font-family: var(--custom-subheader-font-family);
+  font-family: $subheaderFontFamily;
 }
 
 // ==============================|| UTILS ||============================== //

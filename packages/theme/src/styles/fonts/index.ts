@@ -1,5 +1,5 @@
-import { IBM_Plex_Sans, Lilita_One, Press_Start_2P } from 'next/font/google';
-import localFont from 'next/font/local';
+import { IBM_Plex_Sans, Lilita_One, Press_Start_2P } from '@next/font/google';
+import localFont from '@next/font/local';
 
 export const imbPlexSans = IBM_Plex_Sans({
   weight: ['100', '400', '500', '700'],
@@ -26,9 +26,11 @@ export const pressStart = Press_Start_2P({
 });
 
 export const nexaRustSansBlack = localFont({
-  src: './Nexa_Rust_Sans_Black/NexaRustSans-Black.woff2',
+  src: './NexaRustSans_Black/NexaRustSans-Black.woff2',
   weight: '700',
   style: 'normal',
   variable: '--font-nexa-rust-sans-black',
   display: 'swap',
 });
+
+export const customFontClassName = `${imbPlexSans.variable} ${lilitaOne.variable} ${nexaRustSansBlack.variable} ${pressStart.variable}`;

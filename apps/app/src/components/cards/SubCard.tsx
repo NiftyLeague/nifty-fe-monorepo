@@ -1,7 +1,7 @@
 import { ReactNode, forwardRef, Ref } from 'react';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from '@nl/theme';
 import { Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 
 interface SubCardProps {

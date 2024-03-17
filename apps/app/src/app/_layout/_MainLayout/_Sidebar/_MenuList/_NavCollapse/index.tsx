@@ -4,14 +4,13 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
+import { useTheme, borderRadius } from '@nl/theme';
 import { Collapse, List, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 // project imports
 import NavItem from '../_NavItem';
 import { NavGroupProps } from '../_NavGroup';
-import useThemeConfig from '@/theme/hooks/useThemeConfig';
 
 // assets
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
@@ -25,8 +24,6 @@ interface NavCollapseProps {
 
 const NavCollapse = ({ menu, level }: NavCollapseProps) => {
   const theme = useTheme();
-  const { borderRadius } = useThemeConfig();
-
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<string | null | undefined>(null);
 
@@ -97,7 +94,12 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
         <ListItemIcon sx={{ my: 'auto', minWidth: !menu.icon ? 18 : 36 }}>{menuIcon}</ListItemIcon>
         <ListItemText
           primary={
-            <Typography variant={selected === menu.id ? 'h5' : 'body1'} color="inherit" sx={{ my: 'auto' }}>
+            <Typography
+              variant="body1"
+              fontWeight={selected === menu.id ? 'bold' : 'normal'}
+              color="inherit"
+              sx={{ my: 'auto' }}
+            >
               {menu.title}
             </Typography>
           }

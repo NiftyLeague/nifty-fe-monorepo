@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from '@nl/theme';
 import { Divider, List, Typography } from '@mui/material';
 
 // project imports

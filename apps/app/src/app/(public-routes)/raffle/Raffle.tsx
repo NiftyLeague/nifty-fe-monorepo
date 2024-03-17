@@ -3,8 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { formatEther } from 'ethers6';
 import { Grid } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import { sectionSpacing } from '@/theme/constants';
+import { useTheme, sectionSpacing } from '@nl/theme';
 import HoverDataCard from '@/components/cards/HoverDataCard';
 import { formatNumberToDisplay } from '@/utils/numbers';
 import useBalances from '@/hooks/useBalances';

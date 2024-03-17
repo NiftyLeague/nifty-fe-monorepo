@@ -1,22 +1,21 @@
 'use client';
 
 import { useState, useEffect, type PropsWithChildren } from 'react';
-
-// third-party
 import { IntlProvider, type MessageFormatElement } from 'react-intl';
-import useThemeConfig from '@/theme/hooks/useThemeConfig';
+
+import useThemeConfig from '../hooks/useThemeConfig';
 
 // load locales files
 const loadLocaleData = (locale: string) => {
   switch (locale) {
     case 'fr':
-      return import('@/theme/locales/fr.json');
+      return import('../locales/fr.json');
     case 'ro':
-      return import('@/theme/locales/ro.json');
+      return import('../locales/ro.json');
     case 'zh':
-      return import('@/theme/locales/zh.json');
+      return import('../locales/zh.json');
     default:
-      return import('@/theme/locales/en.json');
+      return import('../locales/en.json');
   }
 };
 

@@ -1,6 +1,6 @@
 'use client';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { styled } from '@mui/material/styles';
+import { styled, useTheme } from '@nl/theme';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { isAddress } from 'ethers6';
@@ -23,7 +23,6 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { useTheme } from '@mui/material/styles';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 import type { Degen } from '@/types/degens';

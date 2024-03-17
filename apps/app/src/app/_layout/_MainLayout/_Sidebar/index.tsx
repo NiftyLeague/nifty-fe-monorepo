@@ -1,7 +1,7 @@
 import { memo, useMemo } from 'react';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
+import { useTheme, appDrawerWidth, appHeaderHeight } from '@nl/theme';
 import { Drawer, useMediaQuery, Stack, Box } from '@mui/material';
 
 // third-party
@@ -12,7 +12,6 @@ import MenuList from './_MenuList';
 import LogoSection from '../_LogoSection';
 import { openDrawer } from '@/store/slices/menu';
 import { useDispatch, useSelector } from '@/store/hooks';
-import { drawerWidth, appHeaderHeight } from '@/theme/constants';
 import UserProfile from './_UserProfile';
 import LogoutButton from './_LogoutButton';
 
@@ -64,7 +63,7 @@ const Sidebar = () => {
   return (
     <Box
       component="nav"
-      sx={{ flexShrink: { md: 0 }, width: matchUpMd ? drawerWidth : 'auto' }}
+      sx={{ flexShrink: { md: 0 }, width: matchUpMd ? appDrawerWidth : 'auto' }}
       aria-label="mailbox folders"
     >
       <Drawer
@@ -74,7 +73,7 @@ const Sidebar = () => {
         onClose={() => dispatch(openDrawer(!drawerOpen))}
         sx={{
           '& .MuiDrawer-paper': {
-            width: drawerWidth,
+            width: appDrawerWidth,
             background: theme.palette.background.default,
             color: theme.palette.text.primary,
             borderRight: 'none',

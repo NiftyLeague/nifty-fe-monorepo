@@ -10,7 +10,6 @@ import {
   Typography,
   Divider,
   TextField,
-  useTheme,
   Box,
   FormControl,
   FormControlLabel,
@@ -21,6 +20,7 @@ import {
   Alert,
   InputAdornment,
 } from '@mui/material';
+import { useTheme } from '@nl/theme';
 import type { DialogProps } from '@/types/dialog';
 import { sendEvent } from '@/utils/google-analytics';
 import CloseIcon from '@mui/icons-material/Close';

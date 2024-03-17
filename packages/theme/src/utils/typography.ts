@@ -1,62 +1,77 @@
 import type { Theme, ThemeOptions } from '@mui/material/styles';
+import type { FontFamily } from '../types';
 
-const customTypography = (
-  theme: Theme,
-  borderRadius: number,
-  // fontFamily: string,
-): ThemeOptions['typography'] => ({
-  // fontFamily,
+const customTypography = (theme: Theme, borderRadius: number, fontFamily: FontFamily): ThemeOptions['typography'] => ({
+  fontFamily: fontFamily.default.style.fontFamily,
+  fontWeightLight: 100,
+  fontWeightRegular: 400,
+  fontWeightMedium: 500,
+  fontWeightBold: 700,
+  fontSize: 16,
   h1: {
-    fontSize: '2.125rem',
+    fontSize: '2.5rem', // 40px
     color: theme.palette.text.primary,
-    fontWeight: 700,
+    fontFamily: fontFamily.header.style.fontFamily,
+    fontWeight: fontFamily.header.style.fontWeight,
+    fontStyle: fontFamily.header.style.fontStyle,
   },
   h2: {
-    fontSize: '1.5rem',
+    fontSize: '1.8rem', // 28px
     color: theme.palette.text.primary,
-    fontWeight: 700,
+    fontFamily: fontFamily.header.style.fontFamily,
+    fontWeight: fontFamily.header.style.fontWeight,
+    fontStyle: fontFamily.header.style.fontStyle,
   },
   h3: {
-    fontSize: '1.25rem',
-    color: theme.palette.text.secondary,
-    fontWeight: 600,
+    fontSize: '1.25rem', // 20px
+    color: theme.palette.text.primary,
+    fontFamily: fontFamily.header.style.fontFamily,
+    fontWeight: fontFamily.header.style.fontWeight,
+    fontStyle: fontFamily.header.style.fontStyle,
   },
   h4: {
-    fontSize: '16px',
+    fontSize: '1rem', // 16px
     color: theme.palette.text.secondary,
-    fontWeight: 600,
+    fontFamily: fontFamily.header.style.fontFamily,
+    fontWeight: fontFamily.header.style.fontWeight,
+    fontStyle: fontFamily.header.style.fontStyle,
   },
   h5: {
-    fontSize: '0.875rem',
+    fontSize: '0.875rem', // 14px
     color: theme.palette.text.secondary,
-    fontWeight: 500,
+    fontFamily: fontFamily.subheader.style.fontFamily,
+    fontWeight: fontFamily.subheader.style.fontWeight,
+    fontStyle: fontFamily.subheader.style.fontStyle,
   },
   h6: {
-    fontWeight: 500,
+    fontSize: '0.75rem', // 12px
     color: theme.palette.text.secondary,
-    fontSize: '0.75rem',
+    fontFamily: fontFamily.subheader.style.fontFamily,
+    fontWeight: fontFamily.subheader.style.fontWeight,
+    fontStyle: fontFamily.subheader.style.fontStyle,
   },
   subtitle1: {
-    fontSize: '0.875rem',
+    fontSize: '0.875rem', // 14px
     fontWeight: 500,
     color: theme.palette.text.primary,
   },
   subtitle2: {
-    fontSize: '0.75rem',
+    fontSize: '0.75rem', // 12px
     fontWeight: 400,
     color: theme.palette.text.secondary,
   },
   caption: {
-    fontSize: '0.75rem',
+    fontSize: '0.75rem', // 12px
     color: theme.palette.text.secondary,
     fontWeight: 400,
   },
   body1: {
-    fontSize: '0.875rem',
+    fontSize: '1rem', // 16px
     fontWeight: 400,
     lineHeight: '1.334em',
   },
   body2: {
+    fontSize: '0.875rem', // 14px
     letterSpacing: '0em',
     fontWeight: 400,
     lineHeight: '1.5em',
@@ -64,6 +79,7 @@ const customTypography = (
   },
   button: {
     textTransform: 'capitalize',
+    fontSize: '0.875rem', // 14px
   },
   customInput: {
     marginTop: 1,
@@ -94,7 +110,7 @@ const customTypography = (
     borderRadius: `${borderRadius}px`,
   },
   menuCaption: {
-    fontSize: '0.875rem',
+    fontSize: '0.875rem', // 14px
     fontWeight: 500,
     color: theme.palette.text.secondary,
     padding: '6px',
@@ -102,7 +118,7 @@ const customTypography = (
     marginTop: '10px',
   },
   subMenuCaption: {
-    fontSize: '0.6875rem',
+    fontSize: '0.75rem', // 12px
     fontWeight: 500,
     color: theme.palette.text.secondary,
     textTransform: 'capitalize',
@@ -114,17 +130,17 @@ const customTypography = (
   smallAvatar: {
     width: '22px',
     height: '22px',
-    fontSize: '16px',
+    fontSize: '1rem', // 16px
   },
   mediumAvatar: {
     width: '34px',
     height: '34px',
-    fontSize: '1.2rem',
+    fontSize: '1.25rem', // 20px
   },
   largeAvatar: {
     width: '44px',
     height: '44px',
-    fontSize: '1.5rem',
+    fontSize: '1.5rem', // 24px
   },
 });
 

@@ -18,7 +18,7 @@ const TokenInfoCard = ({ title, secondary, customStyle, actions, isLoading }: To
               {isLoading ? (
                 <Skeleton variant="text" animation="wave" width={100} sx={{ mx: 'auto' }} />
               ) : (
-                <Typography variant="h5" color="inherit" textAlign="center">
+                <Typography variant="h4" color="inherit" textAlign="center">
                   {title}
                 </Typography>
               )}
@@ -27,7 +27,7 @@ const TokenInfoCard = ({ title, secondary, customStyle, actions, isLoading }: To
               {isLoading ? (
                 <Skeleton variant="text" animation="wave" width={80} sx={{ mx: 'auto' }} />
               ) : (
-                <Typography variant="body2" color="textSecondary" textAlign="center">
+                <Typography variant="body1" fontWeight="bold" color="textSecondary" textAlign="center">
                   {secondary}
                 </Typography>
               )}

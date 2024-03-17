@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Dialog, DialogProps, useMediaQuery } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import { styled } from '@mui/material/styles';
+import { useTheme, styled } from '@nl/theme';
 import { toast } from 'react-toastify';
 
 import { DEGEN_CONTRACT } from '@/constants/contracts';

@@ -62,6 +62,7 @@ const MyComics = (): JSX.Element => {
         isSlider={filteredComics.length > 0}
         firstSection
         title="My Comics"
+        variant="h3"
         sliderSettingsOverride={settings}
         actions={
           <Button variant="outlined" onClick={() => router.push('/dashboard/items')}>

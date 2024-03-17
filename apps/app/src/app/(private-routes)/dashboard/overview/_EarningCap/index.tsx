@@ -3,7 +3,7 @@ import SectionTitle from '@/components/sections/SectionTitle';
 import usePlayerProfile from '@/hooks/usePlayerProfile';
 import { transformRentals } from '@/app/(private-routes)/dashboard/_utils/transformRentals';
 import { FC } from 'react';
-import { sectionSpacing } from '@/theme/constants';
+import { sectionSpacing } from '@nl/theme';
 import type { Rentals } from '@/types/rentals';
 import { ColumnType } from '../_MyRentals';
 import RentalsTableSimple from '../_MyRentals/RentalsTableSimple';

@@ -3,12 +3,14 @@ import { Stack, Typography } from '@mui/material';
 export interface SectionTitleProps {
   actions?: React.ReactNode;
   firstSection?: boolean;
+  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 }
 
 const SectionTitle: React.FC<React.PropsWithChildren<React.PropsWithChildren<SectionTitleProps>>> = ({
   children,
   firstSection,
   actions,
+  variant = 'h2',
 }) => (
   <Stack
     direction="row"
@@ -19,7 +21,7 @@ const SectionTitle: React.FC<React.PropsWithChildren<React.PropsWithChildren<Sec
     gap={2}
     flexWrap="wrap"
   >
-    {typeof children === 'string' ? <Typography variant="h2">{children}</Typography> : children}
+    {typeof children === 'string' ? <Typography variant={variant}>{children}</Typography> : children}
     {actions}
   </Stack>
 );

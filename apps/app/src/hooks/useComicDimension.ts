@@ -1,5 +1,5 @@
 import { useMediaQuery } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from '@nl/theme';
 
 /*
   ~ What it does? ~

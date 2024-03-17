@@ -1,6 +1,6 @@
 'use client';
 import { useCallback, useEffect, useState } from 'react';
-import { styled } from '@mui/material/styles';
+import { styled } from '@nl/theme';
 import Image from 'next/image';
 import { formatEther, parseEther, type AddressLike } from 'ethers6';
 import { OrderKind } from '@cowprotocol/cow-sdk';

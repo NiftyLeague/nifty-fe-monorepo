@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { Button, Dialog, DialogActions, DialogContent, useMediaQuery } from '@mui/material';
 import type { Comic } from '@/types/comic';
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from '@nl/theme';
 
 export interface ViewComicDialogProps {
   comic?: Comic | null;

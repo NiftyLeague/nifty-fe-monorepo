@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { styled } from '@mui/material/styles';
+import { styled } from '@nl/theme';
 import { Button, Container, Link, Typography } from '@mui/material';
 import { Dialog, DialogTrigger, DialogContent } from '@/components/dialog';
 

@@ -1,5 +1,5 @@
 // material-ui
-import { useTheme } from '@mui/material/styles';
+import { useTheme, appHeaderHeight } from '@nl/theme';
 import { Avatar, Box, Stack, Link } from '@mui/material';
 
 import { useDispatch, useSelector } from '@/store/hooks';
@@ -7,7 +7,6 @@ import { openDrawer } from '@/store/slices/menu';
 
 // assets
 import { IconMenu2 } from '@tabler/icons-react';
-import { appHeaderHeight } from '@/theme/constants';
 import AddNFTL from './AddNFTLToMetamask';
 import ExternalIcon from '@/components/ExternalIcon';
 import LogoSection from '../_LogoSection';

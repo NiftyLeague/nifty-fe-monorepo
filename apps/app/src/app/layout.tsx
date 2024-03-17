@@ -2,9 +2,8 @@ import type { PropsWithChildren } from 'react';
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 
-import { imbPlexSans, lilitaOne, nexaRustSansBlack, pressStart } from '@/fonts';
+import { ThemeProvider } from '@nl/theme';
 import AppContextWrapper from '@/contexts/AppContextWrapper';
-import ThemeProvider from '@/theme/ThemeProvider';
 import MainLayout from '@/app/_layout/_MainLayout';
 
 import '@/styles/globals.scss';
@@ -93,11 +92,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         `}
       </Script>
 
-      <body
-        // className={imbPlexSans.className}
-        className={`${imbPlexSans.variable} ${nexaRustSansBlack.variable} ${lilitaOne.variable} ${pressStart.variable}`}
-        suppressHydrationWarning={true}
-      >
+      <body suppressHydrationWarning={true}>
         <ThemeProvider>
           <AppContextWrapper>
             <MainLayout>{children}</MainLayout>

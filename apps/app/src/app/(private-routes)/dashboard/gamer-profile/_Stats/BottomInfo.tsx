@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { Stack, Typography, Grid, useTheme, Skeleton, Button } from '@mui/material';
-
+import { Stack, Typography, Grid, Skeleton, Button } from '@mui/material';
+import { useTheme } from '@nl/theme';
 import ProgressGamer from './ProgressGamer';
 import GameCard from '@/components/cards/GameCard';
 import LeftInfo from './LeftInfo';

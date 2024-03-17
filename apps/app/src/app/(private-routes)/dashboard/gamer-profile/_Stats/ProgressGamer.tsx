@@ -1,5 +1,6 @@
-import { Box, LinearProgress, useTheme } from '@mui/material';
+import { Box, LinearProgress } from '@mui/material';
 import { linearProgressClasses } from '@mui/material/LinearProgress';
+import { useTheme } from '@nl/theme';
 
 import type { ProfileTotal, ProfileNiftySmsher, ProfileMiniGame } from '@/types/account';
 

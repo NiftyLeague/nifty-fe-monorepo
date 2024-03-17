@@ -2,6 +2,7 @@ import { FunctionComponent } from 'react';
 import { TablerIconsProps } from '@tabler/icons-react';
 
 // material-ui
+import { Theme } from '@nl/theme';
 import { SvgIconTypeMap, ChipProps, TableCellProps } from '@mui/material';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
 
@@ -126,7 +127,7 @@ export interface FormInputProps {
 
 export type StringBoolFunc = (s: string) => boolean;
 export type StringNumFunc = (s: string) => number;
-export type NumbColorFunc = (n: number) => StringColorProps | undefined;
+export type NumbColorFunc = (n: number, theme: Theme) => StringColorProps | undefined;
 export type ChangeEventFunc = (e: React.ChangeEvent<HTMLInputElement>) => void;
 
 // amit

@@ -151,6 +151,7 @@ const MyDegens = (): JSX.Element => {
         isSlider={degens.length > 0 && characters.length > 0}
         firstSection
         title="My DEGENs"
+        variant="h3"
         sliderSettingsOverride={settings}
         actions={
           <Button variant="outlined" onClick={() => router.push('/dashboard/degens')}>

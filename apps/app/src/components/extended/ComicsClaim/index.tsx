@@ -15,7 +15,7 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from '@nl/theme';
 
 import useClaimCallback from '@/hooks/comics/useClaimCallback';
 import useUserUnclaimedAmount, { ClaimResult } from '@/hooks/comics/useUserUnclaimedAmount';

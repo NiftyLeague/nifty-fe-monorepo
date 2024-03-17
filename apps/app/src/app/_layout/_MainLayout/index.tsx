@@ -12,9 +12,9 @@ import { useDispatch, useSelector } from '@/store/hooks';
 
 // material-ui
 import { IconChevronRight } from '@tabler/icons-react';
-import { useTheme, styled, Theme } from '@mui/material/styles';
+import { useTheme, styled, appDrawerWidth, container } from '@nl/theme';
 import WarningIcon from '@mui/icons-material/Warning';
-import { AppBar, Box, Button, Container, Icon, Toolbar, Typography, useMediaQuery } from '@mui/material';
+import { AppBar, Box, Button, Container, Icon, Toolbar, Typography, useMediaQuery, Theme } from '@mui/material';
 
 // React Toastify
 import { ToastContainer } from 'react-toastify';
@@ -22,9 +22,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 // project imports
 import { capitalize } from '@/utils/string';
-import { drawerWidth } from '@/theme/constants';
 import navigation from '@/constants/menu-items';
-import useThemeConfig from '@/theme/hooks/useThemeConfig';
 import useGoogleAnalytics from '@/hooks/useGoogleAnalytics';
 import { TARGET_NETWORK } from '@/constants/networks';
 
@@ -53,17 +51,17 @@ const Main = styled<any>('main', {
     }),
     marginTop: '80px',
     [theme.breakpoints.up('md')]: {
-      marginLeft: -(drawerWidth - 20),
-      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: -(appDrawerWidth - 20),
+      width: `calc(100% - ${appDrawerWidth}px)`,
     },
     [theme.breakpoints.down('md')]: {
       marginLeft: '20px',
-      width: `calc(100% - ${drawerWidth}px)`,
+      width: `calc(100% - ${appDrawerWidth}px)`,
     },
     [theme.breakpoints.down('sm')]: {
       marginTop: '60px',
       marginLeft: '10px',
-      width: `calc(100% - ${drawerWidth}px)`,
+      width: `calc(100% - ${appDrawerWidth}px)`,
     },
   }),
   ...(open && {
@@ -74,7 +72,7 @@ const Main = styled<any>('main', {
     marginLeft: 0,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
-    width: `calc(100% - ${drawerWidth}px)`,
+    width: `calc(100% - ${appDrawerWidth}px)`,
     marginTop: '80px',
     [theme.breakpoints.down('md')]: {
       marginLeft: '20px',
@@ -96,7 +94,6 @@ const MainLayout = ({ children }: PropsWithChildren) => {
   const { switchChain } = useSwitchChain();
 
   const theme = useTheme();
-  const { container } = useThemeConfig();
   const matchDownMd = useMediaQuery(theme.breakpoints.down('lg'));
   const matchDownSm = useMediaQuery(theme.breakpoints.down('md'));
   const matchUpMd = useMediaQuery(theme.breakpoints.up('md'));

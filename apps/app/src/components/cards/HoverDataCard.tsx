@@ -20,7 +20,7 @@ const HoverDataCard = ({ title, primary, secondary, customStyle, actions, isLoad
         {isLoading ? (
           <Skeleton variant="text" animation="wave" width={80} />
         ) : (
-          <Typography variant="h5" color="inherit" textAlign="center">
+          <Typography variant="h4" color="inherit" textAlign="center">
             {title}
           </Typography>
         )}
@@ -30,7 +30,9 @@ const HoverDataCard = ({ title, primary, secondary, customStyle, actions, isLoad
           {isLoading ? (
             <Skeleton variant="text" animation="wave" width={80} />
           ) : (
-            <Typography variant="h3">{primary}</Typography>
+            <Typography variant="body1" fontWeight="bold">
+              {primary}
+            </Typography>
           )}
         </Stack>
       </Grid>

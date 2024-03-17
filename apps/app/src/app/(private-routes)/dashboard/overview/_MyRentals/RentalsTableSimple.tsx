@@ -1,14 +1,5 @@
-import {
-  useTheme,
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Paper,
-  Typography,
-} from '@mui/material';
+import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper, Typography } from '@mui/material';
+import { useTheme } from '@nl/theme';
 import type { RentalDataGrid } from '@/types/rentalDataGrid';
 import type { ColumnType } from '.';
 import { v4 as uuidv4 } from 'uuid';

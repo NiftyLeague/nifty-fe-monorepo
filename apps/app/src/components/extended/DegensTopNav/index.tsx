@@ -1,57 +1,47 @@
 import { Button, Stack, TextField, ToggleButton, ToggleButtonGroup } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { styled } from '@nl/theme';
 import { GridOn, GridView, KeyboardArrowDown } from '@mui/icons-material';
 import SortButton from '@/components/extended/SortButton';
 
-const PREFIX = 'DegensTopNav';
-
-const classes = {
-  searchTextField: `${PREFIX}-searchTextField`,
-  layoutModeButton: `${PREFIX}-layoutModeButton`,
-  layoutModeButtonsGroup: `${PREFIX}-layoutModeButtonsGroup`,
-};
-
-const StyledStack = styled(Stack)(() => ({
-  [`& .${classes.searchTextField}`]: {
-    flex: 1,
+const SearchTextField = styled(TextField)({
+  flex: 1,
+  height: 32,
+  '& .MuiInputLabel-root': {
+    color: '#424453',
+    top: -4,
+  },
+  '& .MuiOutlinedInput-root': {
     height: 32,
-    '& .MuiInputLabel-root': {
-      color: '#424453',
-      top: -4,
+    '& input': {
+      paddingTop: '6px',
+      paddingBottom: '6px',
     },
-    '& .MuiOutlinedInput-root': {
-      height: 32,
-      '& input': {
-        paddingTop: '6px',
-        paddingBottom: '6px',
-      },
-      '& fieldset': {
-        borderRadius: '5px',
-      },
+    '& fieldset': {
+      borderRadius: '5px',
     },
   },
+});
 
-  [`& .${classes.layoutModeButton}`]: {
-    border: 'none',
-    borderRadius: '5px',
-    padding: '5px 16px',
-    '&.Mui-selected': {
+const LayoutModeButtonsGroup = styled(ToggleButtonGroup)({
+  border: '1px solid #2f2f2f',
+  borderRadius: '5px',
+});
+
+const LayoutModeButton = styled(ToggleButton)({
+  border: 'none',
+  borderRadius: '5px',
+  padding: '5px 16px',
+  '&.Mui-selected': {
+    background: 'rgba(88, 32, 214, 0.2)',
+    '&:hover': {
       background: 'rgba(88, 32, 214, 0.2)',
-      '&:hover': {
-        background: 'rgba(88, 32, 214, 0.2)',
-      },
-    },
-    '& svg': {
-      width: 20,
-      height: 20,
     },
   },
-
-  [`& .${classes.layoutModeButtonsGroup}`]: {
-    border: '1px solid #2f2f2f',
-    borderRadius: '5px',
+  '& svg': {
+    width: 20,
+    height: 20,
   },
-}));
+});
 
 interface DegensTopNavProps {
   searchTerm: string;
@@ -69,15 +59,14 @@ const DegensTopNav = ({
   handleChangeLayoutMode,
 }: DegensTopNavProps) => {
   return (
-    <StyledStack direction={{ xs: 'column', sm: 'row' }} gap={1}>
-      <TextField
+    <Stack direction={{ xs: 'column', sm: 'row' }} gap={1}>
+      <SearchTextField
         label="Search degens by token # or name"
         name="search-degen-by-token-id-name"
         variant="outlined"
         size="small"
         value={searchTerm}
         onChange={handleChangeSearchTerm}
-        className={classes.searchTextField}
         InputLabelProps={{
           style: { color: '#e0e0e0' },
         }}
@@ -97,23 +86,22 @@ const DegensTopNav = ({
             }}
           />
         </SortButton>
-        <ToggleButtonGroup
+        <LayoutModeButtonsGroup
           size="small"
           value={layoutMode}
           exclusive
           aria-label="Layout mode"
           onChange={handleChangeLayoutMode}
-          className={classes.layoutModeButtonsGroup}
         >
-          <ToggleButton size="small" value="gridView" aria-label="GridView" className={classes.layoutModeButton}>
+          <LayoutModeButton size="small" value="gridView" aria-label="GridView">
             <GridView />
-          </ToggleButton>
-          <ToggleButton size="small" value="gridOn" aria-label="GridOn" className={classes.layoutModeButton}>
+          </LayoutModeButton>
+          <LayoutModeButton size="small" value="gridOn" aria-label="GridOn">
             <GridOn />
-          </ToggleButton>
-        </ToggleButtonGroup>
+          </LayoutModeButton>
+        </LayoutModeButtonsGroup>
       </Stack>
-    </StyledStack>
+    </Stack>
   );
 };
 

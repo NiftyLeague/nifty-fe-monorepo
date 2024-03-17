@@ -2,7 +2,6 @@
  * Password validator for login pages
  */
 import type { NumbColorFunc, StringBoolFunc, StringNumFunc } from '@/types';
-import value from '@/styles/color/_theme_default.module.scss';
 
 // has number
 const hasNumber: StringBoolFunc = number => new RegExp(/[0-9]/).test(number);
@@ -14,13 +13,13 @@ const hasMixed: StringBoolFunc = number => new RegExp(/[a-z]/).test(number) && n
 const hasSpecial: StringBoolFunc = number => new RegExp(/[!#@$%^&*)(+=._-]/).test(number);
 
 // set color based on password strength
-export const strengthColor: NumbColorFunc = count => {
-  if (count < 2) return { label: 'Poor', color: value.errorMain };
-  if (count < 3) return { label: 'Weak', color: value.warningDark };
-  if (count < 4) return { label: 'Normal', color: value.orangeMain };
-  if (count < 5) return { label: 'Good', color: value.successMain };
-  if (count < 6) return { label: 'Strong', color: value.successDark };
-  return { label: 'Poor', color: value.errorMain };
+export const strengthColor: NumbColorFunc = (count, theme) => {
+  if (count < 2) return { label: 'Poor', color: theme.palette.error.main };
+  if (count < 3) return { label: 'Weak', color: theme.palette.warning.dark };
+  if (count < 4) return { label: 'Normal', color: theme.palette.orange.main };
+  if (count < 5) return { label: 'Good', color: theme.palette.success.main };
+  if (count < 6) return { label: 'Strong', color: theme.palette.success.dark };
+  return { label: 'Poor', color: theme.palette.error.main };
 };
 
 // password strength indicator

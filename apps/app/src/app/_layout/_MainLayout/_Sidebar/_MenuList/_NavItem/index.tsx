@@ -3,13 +3,12 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
+import { useTheme, borderRadius } from '@nl/theme';
 import { Avatar, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery } from '@mui/material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import Chip from '@/components/extended/Chip';
 
 // project imports
-import useThemeConfig from '@/theme/hooks/useThemeConfig';
 import { useDispatch, useSelector } from '@/store/hooks';
 import { activeItem, openDrawer } from '@/store/slices/menu';
 
@@ -28,8 +27,6 @@ const NavItem = ({ item, level }: NavItemProps) => {
   const pathname = usePathname();
   const theme = useTheme();
   const matchesSM = useMediaQuery(theme.breakpoints.down('lg'));
-
-  const { borderRadius } = useThemeConfig();
   const dispatch = useDispatch();
   const { openItem } = useSelector(state => state.menu);
 
@@ -98,7 +95,11 @@ const NavItem = ({ item, level }: NavItemProps) => {
       <ListItemIcon sx={{ my: 'auto', minWidth: !item?.icon ? 18 : 36 }}>{itemIcon}</ListItemIcon>
       <ListItemText
         primary={
-          <Typography variant={openItem?.findIndex(id => id === item.id) > -1 ? 'h5' : 'body1'} color="inherit">
+          <Typography
+            variant="body1"
+            fontWeight={openItem?.findIndex(id => id === item.id) > -1 ? 'bold' : 'normal'}
+            color="inherit"
+          >
             {item.title}
           </Typography>
         }

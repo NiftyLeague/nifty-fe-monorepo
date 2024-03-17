@@ -1,6 +1,7 @@
 'use client';
 
-import { Box, Typography, useTheme } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import { useTheme } from '@nl/theme';
 import { FC, ReactNode, useEffect, useRef, useState } from 'react';
 
 interface ProgressBarProps {

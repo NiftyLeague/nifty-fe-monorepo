@@ -63,6 +63,7 @@ const MyItems = (): JSX.Element => {
         isSlider={filteredItems.length > 0}
         firstSection
         title="My Items"
+        variant="h3"
         sliderSettingsOverride={settings}
         actions={
           <Button variant="outlined" onClick={() => router.push('/dashboard/items')}>

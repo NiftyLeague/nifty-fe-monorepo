@@ -1,6 +1,7 @@
 'use client';
 
-import { Box, Button, Dialog, DialogContent, Grid, Link, Typography, useTheme } from '@mui/material';
+import { useTheme } from '@nl/theme';
+import { Box, Button, Dialog, DialogContent, Grid, Link, Typography } from '@mui/material';
 import DegenImage from '@/components/cards/DegenCard/DegenImage';
 import ProgressBar from '@/components/wrapper/ProgressBar';
 import { useState } from 'react';

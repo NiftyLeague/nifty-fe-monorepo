@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { styled } from '@mui/material/styles';
+import { styled } from '@nl/theme';
 import { useRouter } from 'next/navigation';
 import { Grid, Button } from '@mui/material';
 import BuyArcadeTokensDialog from '@/components/dialog/BuyArcadeTokensDialog';

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Button, Grid, Typography } from '@mui/material';
-import { gridSpacing } from '@/theme/constants';
+import { gridSpacing } from '@nl/theme';
 import BuyArcadeTokensDialog from '@/components/dialog/BuyArcadeTokensDialog';
 
 interface ArcadeTokensRequiredProps {

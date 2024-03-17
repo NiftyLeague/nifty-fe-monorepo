@@ -3,7 +3,7 @@
 import { useEffect, useState, ReactElement } from 'react';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from '@nl/theme';
 import Box from '@mui/material/Box';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';

@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
 // material-ui
-import { styled, useTheme } from '@mui/material/styles';
+import { useTheme, styled } from '@nl/theme';
 import {
   Avatar,
   Card,
