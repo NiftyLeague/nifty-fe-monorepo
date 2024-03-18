@@ -253,27 +253,13 @@
   width: auto;
 }
 
-.faq-accordion .accordion-item {
-  border: none;
-  color: white;
-  margin-bottom: 12px;
-  background: #1e242b;
-  backdrop-filter: blur(65.0688px);
-  border-radius: 10px;
-}
-.faq-accordion .accordion-header button {
-  color: white;
-  background-color: transparent;
-  padding: 2rem 1.5rem;
-}
-
 /*************************************** Community **********************************************/
 
 .com-pg {
   overflow-x: hidden;
 }
 .com-intro {
-  min-height: 95vh;
+  min-height: 88vh;
 }
 .career-intro {
   min-height: 60vh;
@@ -620,11 +606,20 @@
   );
 }
 
-.overview .radial-gradient-background {
+.overview .radial-gradient-background  {
   background: radial-gradient(
     189.96% 61.18% at 50% 38.82%,
     rgba(24, 20, 37, 0) 0%,
     rgba(21, 18, 27, 0) 73.22%,
+    #08090a 99.74%
+  );
+}
+
+.com-pg .radial-gradient-background  {
+  background: radial-gradient(
+    189.96% 61.18% at 50% 38.82%,
+    rgba(95, 190, 74, 0) 0%,
+    rgba(21, 18, 27, 0) 19.27%,
     #08090a 99.74%
   );
 }
@@ -715,19 +710,6 @@
 .league-floating-nfts {
   display: flex;
   height: 100%;
-}
-
-.jobs-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.job-card,
-.accordion-item {
-  box-shadow:
-    0 10px 15px -3px rgb(191 191 191 / 20%),
-    0 4px 6px -2px rgb(149 149 149 / 20%) !important;
 }
 
 .cursor-pointer {
@@ -894,9 +876,6 @@
 }
 
 @media (max-width: 1052px) {
-  .faq-accordion .accordion-header button {
-    padding: 1rem;
-  }
   .home-content {
     left: 126px;
     bottom: 0px;
@@ -938,9 +917,6 @@
   }
   .home-rental-section {
     top: 100px;
-  }
-  .com-intro {
-    min-height: 800px;
   }
 }
 

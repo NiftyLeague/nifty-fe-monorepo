@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { useMediaQuery } from '@mui/material';
@@ -43,9 +45,7 @@ export default function Footer({ classes }: { classes?: { footer?: string } }) {
             <div className="px-0 pt-md-0 pt-4">
               <div className="d-flex flex-column m-0 p-0 position-relative">
                 {/* <Link href="/team">Team</Link> */}
-                <Link href="/careers" className="mt-2">
-                  Careers
-                </Link>
+                <Link href="/careers">Careers</Link>
                 <Link href="/docs" className="mt-2">
                   Docs {!mobile ? <ExternalIcon /> : null}
                 </Link>
@@ -80,16 +80,7 @@ export default function Footer({ classes }: { classes?: { footer?: string } }) {
             <div className="d-flex flex-wrap align-items-center justify-content-center social-icons">
               {SOCIAL_LINKS.map(social => (
                 <a className="px-2 px-md-3 py-2" href={social.link} target="_blank" rel="noreferrer" key={social.name}>
-                  <Image
-                    src={social.image}
-                    width={20}
-                    height={20}
-                    alt={social.description}
-                    style={{
-                      maxWidth: '100%',
-                      height: 'auto',
-                    }}
-                  />
+                  <Image src={social.image} width={20} height={20} alt={social.description} />
                 </a>
               ))}
             </div>

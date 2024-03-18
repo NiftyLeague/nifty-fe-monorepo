@@ -24,9 +24,10 @@ const LearnCard = ({ btnText, external, image, link, subtitle, title }: LearnCar
                 alt={`${title} card background`}
                 priority
                 src={image}
-                fill
+                width={552}
+                height={310}
                 sizes="100vw"
-                style={{ objectFit: 'cover' }}
+                style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
               />
             </div>
           </AnimatedWrapper>

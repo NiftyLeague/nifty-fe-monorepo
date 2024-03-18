@@ -98,7 +98,7 @@ const CardGameContent = ({
         {showMore && !moreStatus && (
           <Typography
             variant="body2"
-            color="#620edf"
+            color={theme.palette.primary.main}
             whiteSpace="pre-wrap"
             onClick={handleMoreStatus}
             sx={{ cursor: 'pointer' }}

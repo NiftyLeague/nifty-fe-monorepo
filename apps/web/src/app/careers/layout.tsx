@@ -1,0 +1,17 @@
+import type { Metadata } from 'next';
+import type { PropsWithChildren } from 'react';
+import MainLayout from '@/components/Layout';
+
+export const metadata: Metadata = {
+  title: 'Careers',
+  description: 'Join us and change gaming forever',
+  openGraph: {
+    title: 'Nifty League | Careers',
+    description: 'Join us and change gaming forever',
+    images: 'https://niftyleague.com/img/home/banner-mobile.png',
+  },
+};
+
+export default function Layout({ children }: PropsWithChildren) {
+  return <MainLayout classes={{ root: 'career-pg' }}>{children}</MainLayout>;
+}

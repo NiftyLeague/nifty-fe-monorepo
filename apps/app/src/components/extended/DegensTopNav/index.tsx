@@ -1,5 +1,5 @@
 import { Button, Stack, TextField, ToggleButton, ToggleButtonGroup } from '@mui/material';
-import { styled } from '@nl/theme';
+import { styled, useTheme } from '@nl/theme';
 import { GridOn, GridView, KeyboardArrowDown } from '@mui/icons-material';
 import SortButton from '@/components/extended/SortButton';
 
@@ -58,6 +58,7 @@ const DegensTopNav = ({
   layoutMode,
   handleChangeLayoutMode,
 }: DegensTopNavProps) => {
+  const theme = useTheme();
   return (
     <Stack direction={{ xs: 'column', sm: 'row' }} gap={1}>
       <SearchTextField
@@ -68,7 +69,7 @@ const DegensTopNav = ({
         value={searchTerm}
         onChange={handleChangeSearchTerm}
         InputLabelProps={{
-          style: { color: '#e0e0e0' },
+          style: { color: theme.palette.text.secondary },
         }}
       />
       <Stack direction="row" justifyContent="space-between" gap={1}>
@@ -80,9 +81,9 @@ const DegensTopNav = ({
             endIcon={<KeyboardArrowDown />}
             sx={{
               fontWeight: 400,
-              border: '1px solid #620EDF',
+              border: `1px solid ${theme.palette.primary.main}`,
               padding: '3px 16px',
-              color: '#f5f5f5',
+              color: theme.palette.text.primary,
             }}
           />
         </SortButton>

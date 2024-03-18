@@ -37,7 +37,7 @@
       "dependsOn": ["^type-check"]
     },
     "test": {
-      "dependsOn": ["^test", "lint:fix", "format", "type-check", "build"],
+      "dependsOn": ["^test", "lint:fix", "format", "type-check"],
       "dotEnv": [".env.test.local", ".env.local", ".env.test", ".env"]
     },
     "dev": {

@@ -1,5 +1,5 @@
 import { useEffect, Dispatch, SetStateAction, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useParams } from 'next/navigation';
 
 import { styled } from '@nl/theme';
 // import Button from '@mui/material/Button';
@@ -23,8 +23,8 @@ declare global {
 }
 
 export function ModelView({ source }: { source: SRC }) {
-  const router = useRouter();
-  const { tokenId } = router.query;
+  const params = useParams();
+  const tokenId = params.tokenId as string;
   const [loading, setLoading] = useState(true);
   const MODEL_SRC = `${DEGEN_3D_MODEL_URL}/${tokenId}/${tokenId}.gltf`;
   // const POSTER_SRC = `${DEGEN_3D_MODEL_URL}/${tokenId}/${tokenId}.webp`;
@@ -38,7 +38,7 @@ export function ModelView({ source }: { source: SRC }) {
 
   useEffect(() => {
     const model = document?.querySelector('#model-viewer');
-    if (model) model.addEventListener('progress', handleProgress);
+    if (model) model.addEventListener('progress', handleProgress, { passive: true });
     return function cleanup() {
       if (model) model.removeEventListener('progress', handleProgress);
     };
@@ -107,6 +107,7 @@ const COLOR_OPTIONS = [
 ];
 
 const BootstrapInput = styled(InputBase)(() => ({
+  fontSize: '0.9285714285714285rem',
   'label + &': {
     marginTop: 20,
   },
@@ -116,9 +117,7 @@ const BootstrapInput = styled(InputBase)(() => ({
     color: '#5f4ce6',
     backgroundColor: '#fff',
     border: '1px solid #5f4ce6',
-    padding: '0.3rem 1rem 0.3rem 0.8rem',
-    fontSize: '0.8125rem',
-    textTransform: 'uppercase',
+    padding: '0.4rem 1rem 0.4rem 0.8rem',
     boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
     '&:focus': {
       borderRadius: 4,

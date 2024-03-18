@@ -303,7 +303,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                     width: 132,
                     height: 146,
                     borderRadius: '10px',
-                    border: '1px solid #000000',
+                    border: '1px solid #0c0b0a',
                   }}
                   tokenId={degen.id}
                 />
