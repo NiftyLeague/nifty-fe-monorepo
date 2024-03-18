@@ -280,7 +280,7 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
         />
       </Typography>
       <Box
-        border={'1px solid #191B1F'}
+        border={'1px solid #1c1b1a'}
         boxShadow="0px 0px 9px #5820D6"
         borderRadius="10px"
         px={1}

@@ -5,6 +5,8 @@ import { Box, LinearProgress, Typography } from '@mui/material';
 import { isMobileOnly } from 'react-device-detect';
 import useStopwatch from '@/hooks/useStopwatch';
 
+import './preloader.css';
+
 export function Preloader({
   ready,
   percent,

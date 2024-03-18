@@ -1,5 +1,7 @@
+'use client';
+
 import { LegacyRef, useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import cn from 'classnames';
@@ -10,7 +12,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ExternalIcon from '@/components/ExternalIcon';
 
 const Navbar = () => {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
 
   return (
     <nav id="nav" className="row min-vw-100 p-0 navbar zindex-fixed position-absolute navbar-expand-md m-0 desktop">
@@ -304,9 +306,9 @@ export default function Header() {
         nav?.classList.add('position-absolute');
       }
     };
-    window.addEventListener('scroll', fixOnScroll, false);
+    window.addEventListener('scroll', fixOnScroll, { passive: true });
     return () => {
-      window.removeEventListener('scroll', fixOnScroll, false);
+      window.removeEventListener('scroll', fixOnScroll);
     };
   }, [desktop]);
 

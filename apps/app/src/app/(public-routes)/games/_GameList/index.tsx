@@ -14,16 +14,6 @@ const GridItem = styled(Grid)(({ theme }) => ({
   paddingRight: 16,
   paddingBottom: 32,
   border: 'none',
-  [theme.breakpoints.between('md', 'xl')]: {
-    '&:nth-child(-n+3)': {
-      borderBottom: '1px solid #474747',
-    },
-  },
-  [theme.breakpoints.up('xl')]: {
-    '&:nth-child(-n+4)': {
-      borderBottom: '1px solid #474747',
-    },
-  },
   [theme.breakpoints.down('sm')]: {
     paddingBottom: 0,
   },

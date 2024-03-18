@@ -38,6 +38,7 @@ const RoadmapCard = ({
         <div className={styles.timeline_content_img} style={image.style}>
           <Image
             src={image.src}
+            unoptimized={image.src.includes('gif')}
             alt={title}
             width={image.width}
             height={image.height}

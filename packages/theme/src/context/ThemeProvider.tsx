@@ -3,7 +3,7 @@
 import { PropsWithChildren } from 'react';
 
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
-import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
+import { ThemeProvider as MuiThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 
 import useCreateTheme from '../hooks/useCreateTheme';
@@ -21,7 +21,7 @@ const ThemeProvider = ({ children }: PropsWithChildren) => {
         <div
           className={`${fontFamily.default.variable} ${fontFamily.header.variable} ${fontFamily.subheader.variable} ${fontFamily.special.variable}`}
         >
-          {children}
+          <StyledEngineProvider injectFirst>{children}</StyledEngineProvider>
         </div>
       </LocalesProvider>
     </MuiThemeProvider>

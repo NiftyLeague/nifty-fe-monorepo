@@ -41,7 +41,7 @@ function CustomizedSnackbar({ msg, setDialogOpen }: { msg: string; setDialogOpen
       anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       onClose={handleClose}
       open={open}
-      sx={{ backgroundColor: '#191b1f', borderRadius: '8px' }}
+      sx={{ backgroundColor: '#1c1b1a', borderRadius: '8px' }}
     >
       <Alert
         onClose={handleClose}

@@ -34,6 +34,8 @@ dist
 ca.*
 cert.*
 certificates/
+robots.txt
+sitemap.xml
 
 # Debug
 npm-debug.log*

@@ -117,7 +117,7 @@
 html[data-theme='dark'] {
   --ifm-color-primary: white;
   --ifm-color-primary-dark: #5a91ea;
-  --ifm-navbar-background-color: #191b1f;
+  --ifm-navbar-background-color: #1c1b1a;
   --ifm-global-shadow-md: 0 5px 4px rgba(255, 255, 255, 0.448);
 
   background-position: 0px -30vh;

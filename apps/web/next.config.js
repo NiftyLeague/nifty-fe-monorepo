@@ -7,8 +7,10 @@ const { withSentryConfig } = require('@sentry/nextjs');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['@nl/ui'],
-  reactStrictMode: true,
+  transpilePackages: ['@nl/theme', '@nl/ui'],
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'src/styles')],
+  },
   images: {
     remotePatterns: [
       {
@@ -24,9 +26,6 @@ const nextConfig = {
         pathname: '/assets/**',
       },
     ],
-  },
-  sassOptions: {
-    includePaths: [path.join(__dirname, 'src/styles')],
   },
   async rewrites() {
     return [

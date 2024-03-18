@@ -31,7 +31,7 @@ const style = (theme: Theme) => ({
   width: '67.5vh',
   height: '90vh',
   bgcolor: 'background.paper',
-  border: '2px solid #000',
+  border: `2px solid ${theme.palette.grey[900]}`,
   pt: 2,
   px: 4,
   pb: 3,

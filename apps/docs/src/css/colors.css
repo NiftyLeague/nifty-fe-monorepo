@@ -56,8 +56,8 @@
   --ifm-color-danger-light: rgb(251, 86, 91);
   --ifm-color-danger-lighter: rgb(251, 116, 120);
   --ifm-color-danger-lightest: rgb(253, 156, 159);
-  --ifm-color-white: #fff;
-  --ifm-color-black: #000;
+  --ifm-color-white: #fffefd;
+  --ifm-color-black: #0c0b0a;
   --ifm-color-gray-0: var(--ifm-color-white);
   --ifm-color-gray-100: #f5f6f7;
   --ifm-color-gray-200: #ebedf0;

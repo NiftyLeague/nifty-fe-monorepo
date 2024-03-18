@@ -256,7 +256,7 @@ const DegensFilter = ({ onFilter, defaultFilterValues, isDegenOwner, searchTerm 
             variant="outlined"
             disabled={isParamsEmpty}
             onClick={handleReset}
-            sx={{ height: 28, color: '#f5f5f5' }}
+            sx={{ height: 28, color: theme.palette.primary.main }}
           >
             Reset
           </Button>

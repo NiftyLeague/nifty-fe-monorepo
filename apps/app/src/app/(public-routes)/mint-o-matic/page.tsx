@@ -28,7 +28,7 @@ const MintPage = () => {
     if (!isLoggedIn) {
       return (
         <Stack width="100%" height="100%" alignItems="center" justifyContent="center">
-          <Typography variant="h1" component="div" textAlign="center">
+          <Typography variant="h3" component="div" textAlign="center">
             Please connect your wallet.
           </Typography>
           <Button variant="contained" color="primary" onClick={handleConnectWallet} sx={{ mt: 4 }}>

@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
 import { useOnScreen } from '@/hooks/useOnScreen';
 
@@ -88,7 +90,7 @@ const AnimatedWrapper = ({
       }
     };
     animated3D();
-    window.addEventListener('scroll', animated3D);
+    window.addEventListener('scroll', animated3D, { passive: true });
     return () => {
       window.removeEventListener('scroll', animated3D);
     };

@@ -1,6 +1,7 @@
 import { Box, Theme, Stack, SxProps, Typography } from '@mui/material';
 import type { Item } from '@/types/comic';
 import ImageCard from '@/components/cards/ImageCard';
+import { useTheme } from '@nl/theme';
 
 export interface WearableSubItemCardProps {
   data: Item;
@@ -20,6 +21,7 @@ const WearableSubItemCard: React.FC<React.PropsWithChildren<React.PropsWithChild
   sx,
   isSelected = false,
 }) => {
+  const theme = useTheme();
   const { image, thumbnail, title } = data;
 
   const handleViewItem = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -36,7 +38,7 @@ const WearableSubItemCard: React.FC<React.PropsWithChildren<React.PropsWithChild
         overflow="hidden"
         sx={{
           borderRadius: '10px',
-          outline: isSelected ? '3px solid #620EDF' : 'none',
+          outline: isSelected ? `3px solid ${theme.palette.primary.main}` : 'none',
         }}
       >
         <ImageCard image={image} thumbnail={thumbnail} title={title} ratio={1} />
@@ -44,7 +46,7 @@ const WearableSubItemCard: React.FC<React.PropsWithChildren<React.PropsWithChild
       <Typography
         maxWidth={CARD_WIDTH}
         textAlign="center"
-        color={isSelected ? '#620EDF' : '#FFFFFF'}
+        color={isSelected ? theme.palette.primary.main : theme.palette.text.primary}
       >{`${title} #${itemIndex + 1}`}</Typography>
     </Stack>
   );

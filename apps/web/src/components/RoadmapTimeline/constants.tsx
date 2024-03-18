@@ -464,7 +464,6 @@ export const ROADMAP_CARDS = [
     ),
   },
   {
-    current: true,
     completed: true,
     completionDate: 'Dec 10th, 2023',
     image: {
@@ -478,6 +477,50 @@ export const ROADMAP_CARDS = [
       <p className="mb-0">
         Bringing Smashers to Mobile (Android & iOS). Going forward all of our games will be mobile compatible. With a
         high concentration of gamers using mobile platforms, we envision this release will be pivotal to the project.
+      </p>
+    ),
+  },
+  {
+    image: {
+      height: 166,
+      src: '/img/roadmap/imx_polygon.png',
+      style: { top: '-115px' },
+      width: 250,
+    },
+    title: 'Immutable zkEVM',
+    body: (
+      <>
+        <p>
+          In partnership with Polygon, Immutable introduced the{' '}
+          <strong>
+            <a href="https://www.immutable.com/products/immutable-zkevm" target="_blank" rel="noreferrer">
+              Immutable zkEVM
+            </a>
+          </strong>{' '}
+          - a chain for games that offers EVM compatibility, low cost, massive scale, and Ethereum security. The most
+          cutting-edge technology in gaming with the largest ecosystem in web3.
+        </p>
+        <p className="mb-0">
+          Nifty League will be migrating items, comics & the NFTL token to the Immutable zkEVM. Allowing our users to
+          benefit from low fees and scalability for our platform.
+        </p>
+      </>
+    ),
+  },
+  {
+    current: true,
+    image: {
+      src: '/img/roadmap/niftyroyale_v01.png',
+      style: { top: '-120px' },
+      width: 541,
+      height: 381,
+    },
+    title: 'Nifty Royale',
+    body: (
+      <p className="mb-0">
+        One of the first games we&apos;d like to introduce to the NiftyVerse is a fun battle royale, codename &apos;GEM
+        HUNTER&apos;. Development kicked off in August 2023 with help from an external game studio as part of our test
+        run transitioning to a DAO and polishing our public services/SDK.
       </p>
     ),
   },
@@ -510,22 +553,6 @@ export const ROADMAP_CARDS = [
           desires!
         </p>
       </>
-    ),
-  },
-  {
-    image: {
-      src: '/img/roadmap/niftyroyale_v01.png',
-      style: { top: '-120px' },
-      width: 541,
-      height: 381,
-    },
-    title: 'Nifty Royale',
-    body: (
-      <p className="mb-0">
-        One of the first games we&apos;d like to introduce to the NiftyVerse is a fun battle royale, codename &apos;GEM
-        HUNTER&apos;. Development kicked off in August 2023 with help from an external game studio as part of our test
-        run transitioning to a DAO and polishing our public services/SDK.
-      </p>
     ),
   },
   {
