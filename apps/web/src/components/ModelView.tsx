@@ -110,7 +110,7 @@ const COLOR_OPTIONS = [
 ];
 
 const BootstrapInput = styled(InputBase)(() => ({
-  fontSize: '0.9285714285714285rem',
+  fontSize: '0.8125rem',
   'label + &': {
     marginTop: 20,
   },

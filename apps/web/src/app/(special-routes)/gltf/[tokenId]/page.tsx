@@ -5,7 +5,8 @@ import { useParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import cn from 'classnames';
-import { ButtonGroup, Button } from '@mui/material';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 import { DEGEN_BASE_SPRITE_URL, LEGGIES } from '@/constants/degens';
 import { SRC, Color } from '@/types/gltf';
@@ -15,8 +16,10 @@ import ErrorBoundary from '@/components/ErrorBoundry';
 
 import styles from '@/styles/gltf.module.scss';
 
-const ModelView = dynamic(() => import('@/components/ModelView'));
-const ModelActions = dynamic(() => import('@/components/ModelView').then(mod => mod.ModelActions));
+const ModelView = dynamic(() => import('@/components/ModelView'), { ssr: false });
+const ModelActions = dynamic(() => import('@/components/ModelView').then(mod => mod.ModelActions), {
+  ssr: false,
+});
 
 const TokenMenu = ({ tokenId }: { tokenId: string }) => {
   const { totalAccrued } = useClaimableNFTL(tokenId as string);

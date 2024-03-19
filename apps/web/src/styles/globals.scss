@@ -1,5 +1,9 @@
 @import '@nl/theme/styles';
 
+$defaultFont: $defaultFontFamily, 'Roboto', 'Helvetica', 'Arial', sans-serif;
+$headerFont: $headerFontFamily, $defaultFont;
+$subheaderFont: $subheaderFontFamily, $defaultFont;
+
 /************************************* Global Variables *************************************/
 
 :root {
@@ -69,7 +73,7 @@
 
 * {
   box-sizing: border-box;
-  font-family: $defaultFontFamily;
+  font-family: $defaultFont;
   font-weight: var(--custom-font-weight);
   font-style: normal;
 }
@@ -79,7 +83,7 @@ body,
 #__next {
   background: var(--custom-bg-color) !important;
   color: var(--custom-font-color) !important;
-  font-family: $defaultFontFamily;
+  font-family: $defaultFont;
   font-size: calc(15px + 0.390625vw) !important;
   font-style: normal;
   font-weight: var(--custom-font-weight);
@@ -92,7 +96,7 @@ body,
 h1,
 h2,
 h3 {
-  font-family: $headerFontFamily !important;
+  font-family: $headerFont !important;
   font-style: normal;
   font-weight: var(--custom-font-weight-bold);
   letter-spacing: 0.02em;
@@ -101,7 +105,7 @@ h3 {
 h4,
 h5,
 h6 {
-  font-family: $subheaderFontFamily !important;
+  font-family: $subheaderFont !important;
   font-style: normal;
   font-weight: var(--custom-font-weight);
   letter-spacing: -0.02em;
