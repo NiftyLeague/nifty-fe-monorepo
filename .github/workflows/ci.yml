@@ -27,3 +27,4 @@ jobs:
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID }}
+          NEXT_PUBLIC_NETWORK: ${{ secrets.NEXT_PUBLIC_NETWORK }}
