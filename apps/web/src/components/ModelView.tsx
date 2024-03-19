@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, Dispatch, SetStateAction, useState } from 'react';
+import '@google/model-viewer';
 import { useParams } from 'next/navigation';
+import { useEffect, Dispatch, SetStateAction, useState } from 'react';
 
-import { styled } from '@nl/theme';
+import styled from '@mui/material/styles/styled';
 // import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import FormControl from '@mui/material/FormControl';
