@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, Dispatch, SetStateAction, useState } from 'react';
 import { useParams } from 'next/navigation';
 
