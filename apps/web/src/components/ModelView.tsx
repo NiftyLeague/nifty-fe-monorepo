@@ -1,7 +1,10 @@
-import { useEffect, Dispatch, SetStateAction, useState } from 'react';
-import { useParams } from 'next/navigation';
+'use client';
 
-import { styled } from '@nl/theme';
+import '@google/model-viewer';
+import { useParams } from 'next/navigation';
+import { useEffect, Dispatch, SetStateAction, useState } from 'react';
+
+import styled from '@mui/material/styles/styled';
 // import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import FormControl from '@mui/material/FormControl';
@@ -107,7 +110,7 @@ const COLOR_OPTIONS = [
 ];
 
 const BootstrapInput = styled(InputBase)(() => ({
-  fontSize: '0.9285714285714285rem',
+  fontSize: '0.8125rem',
   'label + &': {
     marginTop: 20,
   },
