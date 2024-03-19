@@ -13,6 +13,9 @@ const config: Config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
+  markdown: { mermaid: true },
+  themes: ['@docusaurus/theme-mermaid'],
+
   // i18n: {
   //   defaultLocale: 'en',
   //   locales: [
@@ -258,6 +261,9 @@ const config: Config = {
       apiKey: '2c367ae53326c8a85e805323aee56a75',
       indexName: 'docs',
       appId: 'R1BEZXQES6',
+    },
+    mermaid: {
+      theme: { light: 'forest', dark: 'dark' },
     },
   } satisfies Preset.ThemeConfig,
 };
