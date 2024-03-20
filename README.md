@@ -16,6 +16,7 @@ This Turborepo includes the following apps/packages:
 
 - `app`: a [Next.js](https://nextjs.org/) app for our web3 dashboards at [app.niftyleague.com](http:/app.niftyleague.com)
 - `docs`: a [Docusaurus](https://docusaurus.io/) app for our docs at [niftyleague.com/docs](http://niftyleague.com/docs)
+- `smashers`: a [Next.js](https://nextjs.org/) app for our website [niftysmashers.com](http://niftysmashers.com)
 - `web`: a [Next.js](https://nextjs.org/) app for our website [niftyleague.com](http://niftyleague.com)
 
 ### Packages
@@ -33,6 +34,7 @@ This Turborepo includes the following apps/packages:
 
 - `app`: [http://localhost:3001](http://localhost:3001)
 - `docs`: [http://localhost:3002](http://localhost:3002/docs/)
+- `smashers`: [http://localhost:3003](http://localhost:3003/)
 - `web`: [http://localhost:3000](http://localhost:3000)
 
 ### Utilities
