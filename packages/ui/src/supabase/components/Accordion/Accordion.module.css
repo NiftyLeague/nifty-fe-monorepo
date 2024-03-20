@@ -1,0 +1,152 @@
+.sbui-accordion-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.375rem;
+}
+
+.sbui-accordion-container--bordered {
+  border-width: 1px;
+  border-style: solid;
+  --tw-border-opacity: 1;
+  border-color: rgba(224, 224, 224, var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+}
+
+:global(.dark) .sbui-accordion-container--bordered {
+  --tw-border-opacity: 1;
+  border-color: rgba(42, 42, 42, var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgba(31, 31, 31, var(--tw-bg-opacity));
+}
+
+.sbui-accordion-item {
+  width: 100%;
+}
+
+.sbui-accordion-item__button {
+  display: flex;
+  width: 100%;
+  cursor: pointer;
+  justify-content: space-between;
+  border-top-left-radius: 0.375rem;
+  border-top-right-radius: 0.375rem;
+  border-width: 0px;
+  border-style: solid;
+  background-color: transparent;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  text-align: left;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  --tw-border-opacity: 1;
+  border-color: rgba(224, 224, 224, var(--tw-border-opacity));
+  --tw-text-opacity: 1;
+  color: rgba(68, 68, 68, var(--tw-text-opacity));
+}
+
+.sbui-accordion-item__button:hover {
+  --tw-text-opacity: 1;
+  color: rgba(42, 42, 42, var(--tw-text-opacity));
+}
+
+:global(.dark) .sbui-accordion-item__button {
+  --tw-border-opacity: 1;
+  border-color: rgba(42, 42, 42, var(--tw-border-opacity));
+  --tw-text-opacity: 1;
+  color: rgba(224, 224, 224, var(--tw-text-opacity));
+}
+
+:global(.dark) .sbui-accordion-item__button:hover {
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+}
+
+.sbui-accordion-item__button {
+  font-family: inherit;
+  font-weight: inherit;
+}
+
+.sbui-accordion-item__button .sbui-typography-text {
+  width: 100%;
+  max-width: none;
+}
+
+.sbui-accordion-item__button .sbui-typography-text:last-child {
+  padding-left: 0.5rem;
+}
+
+.sbui-accordion-item__button .sbui-icon {
+  margin-top: 1px;
+}
+
+.sbui-accordion-item__button--open .sbui-icon {
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  -webkit-transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  --tw-rotate: 180deg;
+}
+
+.sbui-accordion-container--bordered
+  .sbui-accordion-item__button:not(:first-child) {
+  border-radius: 0px;
+  border-top-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgba(224, 224, 224, var(--tw-border-opacity));
+}
+
+:global(.dark) .sbui-accordion-container--bordered
+  .sbui-accordion-item__button:not(:first-child) {
+  --tw-border-opacity: 1;
+  border-color: rgba(42, 42, 42, var(--tw-border-opacity));
+}
+
+.sbui-accordion-item__panel {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.sbui-accordion-item__panel--enter {
+  overflow: hidden;
+  transition-property: max-height;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-duration: 700ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sbui-accordion-item__panel--enterFrom {
+  max-height: 0px;
+}
+
+.sbui-accordion-item__panel--enterTo {
+  max-height: 100vh;
+}
+
+.sbui-accordion-item__panel--leave {
+  overflow: hidden;
+  transition-property: max-height;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sbui-accordion-item__panel--leaveFrom {
+  max-height: 100vh;
+}
+
+.sbui-accordion-item__panel--leaveTo {
+  max-height: 0px;
+}
