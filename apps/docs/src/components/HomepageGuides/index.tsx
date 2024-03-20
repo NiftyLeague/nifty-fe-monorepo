@@ -36,8 +36,8 @@ export const GUIDE_LINKS: GuideLink[] = [
 
 export const GITHUB_LINKS: GuideLink[] = [
   {
-    title: 'nifty-league-web',
-    to: 'https://github.com/NiftyLeague/NiftyLeagueWeb',
+    title: 'nifty-fe-monorepo',
+    to: 'https://github.com/NiftyLeague/nifty-fe-monorepo',
   },
   {
     title: 'nifty-smashers-web',
@@ -48,8 +48,8 @@ export const GITHUB_LINKS: GuideLink[] = [
     to: 'https://github.com/NiftyLeague/nifty-league-subgraph',
   },
   {
-    title: 'nifty-league-smart-contracts',
-    to: 'https://github.com/NiftyLeague/NiftySmartContracts',
+    title: 'nifty-smart-contracts',
+    to: 'https://github.com/NiftyLeague/nifty-smart-contracts',
   },
 ];
 

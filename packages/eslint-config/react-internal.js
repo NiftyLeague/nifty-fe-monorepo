@@ -40,5 +40,18 @@ module.exports = {
   overrides: [
     // Force ESLint to detect .tsx files
     { files: ['*.js?(x)', '*.ts?(x)'] },
+    // Force ESLint to detect Jest globals
+    {
+      files: ['*.test.js?(x)', '*.test.ts?(x)', '*.spec.js?(x)', '*.spec.ts?(x)'],
+      env: { jest: true },
+    },
+    // Allow any in story files
+    {
+      files: ['*.stories.js?(x)', '*.stories.ts?(x)'],
+      rules: {
+        '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/no-unused-vars': 'off',
+      },
+    },
   ],
 };

@@ -1,0 +1,30 @@
+.sbui-loading {
+  position: relative;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.sbui-loading--active .sbui-loading-content {
+  opacity: 0.4;
+}
+
+.sbui-loading-content {
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-duration: 300ms;
+}
+
+.sbui-loading-spinner {
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+  --tw-text-opacity: 1;
+  color: rgba(36, 180, 126, var(--tw-text-opacity));
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}

@@ -1,0 +1,18 @@
+.sbui-input-icon-container {
+  pointer-events: none;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  display: flex;
+  align-items: center;
+  padding-left: 0.75rem;
+  /* set the default color of the icon */
+  --tw-text-opacity: 1;
+  color: rgba(42, 42, 42, var(--tw-text-opacity));
+}
+
+:global(.dark) .sbui-input-icon-container {
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+}

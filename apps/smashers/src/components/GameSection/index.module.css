@@ -1,0 +1,45 @@
+.container {
+  padding-top: 64px;
+}
+
+.section {
+  margin: auto;
+}
+
+.highlight_video {
+  position: relative;
+  flex-grow: 1;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-right: 4rem;
+    padding-left: 4rem;
+  }
+  /* .gradient {
+    display: none;
+  } */
+}
+@media (min-width: 900px) {
+  .container {
+    padding-top: 80px;
+  }
+}
+@media (min-width: 1300px) {
+  .container {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .container h2,
+  .container p {
+    text-align: center;
+  }
+  .highlight_video {
+    width: 100vw;
+    margin-left: -1rem;
+  }
+}
