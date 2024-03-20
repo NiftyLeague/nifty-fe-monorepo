@@ -19,6 +19,11 @@
       "env": ["ALGOLIA_API_KEY", "ALGOLIA_APP_ID"],
       "outputs": ["build/**", ".docusaurus/**"]
     },
+    "smashers#build": {
+      "dependsOn": ["^build"],
+      "env": ["NEXT_PUBLIC_*"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
     "web#build": {
       "dependsOn": ["^build"],
       "env": ["NEXT_PUBLIC_*"],
