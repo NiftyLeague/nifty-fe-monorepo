@@ -1,0 +1,10 @@
+.sbui-input-error-icon {
+  pointer-events: none;
+  top: 0px;
+  bottom: 0px;
+  right: 0.75rem;
+  display: flex;
+  align-items: center;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+}
