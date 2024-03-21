@@ -28,7 +28,7 @@ interface ArcadeBalanceState {
 
 export default function useArcadeBalance(): ArcadeBalanceState {
   const [balanceRes, setBalanceRes] = useState<ArcadeBalanceInfo | undefined>();
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const { authToken, isLoggedIn } = useAuth();
 
   const fetchBalance = useCallback(async () => {

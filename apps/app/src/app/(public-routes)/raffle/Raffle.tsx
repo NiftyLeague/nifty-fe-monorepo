@@ -45,7 +45,7 @@ function useTicketBalance(): {
 
 const Raffle = (): JSX.Element => {
   const theme = useTheme();
-  const { loading } = useBalances();
+  const { loadingNFTLBal } = useBalances();
   const { ticketCount } = useTicketBalance();
   const [mockTickets, setMockTickets] = useState(0);
   useEffect(() => setMockTickets(ticketCount), [ticketCount]);
@@ -61,7 +61,7 @@ const Raffle = (): JSX.Element => {
             border: '1px solid',
             borderColor: theme.palette.border,
           }}
-          isLoading={loading}
+          isLoading={loadingNFTLBal}
         />
       </Grid>
     </Grid>

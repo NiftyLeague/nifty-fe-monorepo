@@ -28,8 +28,15 @@ const MyNFTL = (): JSX.Element => {
   const [refreshAccKey, setRefreshAccKey] = useState(0);
   const { account, error: accError } = useGameAccount(refreshAccKey);
   const [mockAccrued, setMockAccrued] = useState(0);
-  const { loading, refreshClaimableNFTL, refreshNFTLBalance, tokenIndices, totalAccrued, userNFTLBalance } =
-    useBalances();
+  const {
+    loadingNFTLAccrued,
+    loadingNFTLBal,
+    refreshClaimableNFTL,
+    refreshNFTLBalance,
+    tokenIndices,
+    totalAccrued,
+    userNFTLBalance,
+  } = useBalances();
 
   useEffect(() => {
     if (totalAccrued) setMockAccrued(totalAccrued);
@@ -124,7 +131,7 @@ const MyNFTL = (): JSX.Element => {
             borderColor: theme.palette.border,
           }}
           secondary="Available to Spend"
-          isLoading={loading}
+          isLoading={loadingNFTLBal}
         />
       </Grid>
       <Grid item xs={12}>
@@ -170,7 +177,7 @@ const MyNFTL = (): JSX.Element => {
                   ? 'Error fetching balance'
                   : `${account ? formatNumberToDisplay(account?.balance! ?? 0) : '0.00'} NFTL`
               }`}
-              isLoading={loading}
+              isLoading={loadingNFTLBal}
               customStyle={{
                 backgroundColor: theme.palette.background.default,
                 border: '1px solid',
@@ -215,7 +222,7 @@ const MyNFTL = (): JSX.Element => {
                 borderColor: theme.palette.border,
               }}
               secondary="Available to Claim"
-              isLoading={loading}
+              isLoading={loadingNFTLAccrued}
               actions={
                 <Button
                   variant="contained"

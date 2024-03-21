@@ -1,6 +1,5 @@
 'use client';
 
-/* eslint-disable no-console */
 import { type PropsWithChildren, createContext, useEffect, useRef, useMemo } from 'react';
 
 import type { Character } from '@/types/graph';
@@ -15,7 +14,10 @@ interface BalanceContext {
   characterCount: number;
   characters: Character[];
   isDegenOwner: boolean;
-  loading: boolean;
+  loadingArcadeBal: boolean;
+  loadingDegens: boolean;
+  loadingNFTLAccrued: boolean;
+  loadingNFTLBal: boolean;
   refetchArcadeBal: () => void;
   refreshClaimableNFTL: () => void;
   refreshDegenBalance: () => void;
@@ -30,7 +32,10 @@ const CONTEXT_INITIAL_STATE: BalanceContext = {
   characterCount: 0,
   characters: [],
   isDegenOwner: false,
-  loading: false,
+  loadingArcadeBal: false,
+  loadingDegens: false,
+  loadingNFTLAccrued: false,
+  loadingNFTLBal: false,
   refetchArcadeBal: () => {},
   refreshClaimableNFTL: () => {},
   refreshDegenBalance: () => {},
@@ -81,7 +86,10 @@ export const BalanceProvider = ({ children }: PropsWithChildren): JSX.Element =>
         characterCount,
         characters,
         isDegenOwner,
-        loading: isFetching || claimLoading || nftlLoading || arcadeLoading,
+        loadingArcadeBal: arcadeLoading,
+        loadingDegens: isFetching,
+        loadingNFTLAccrued: isFetching || claimLoading,
+        loadingNFTLBal: nftlLoading,
         refetchArcadeBal,
         refreshClaimableNFTL,
         refreshDegenBalance,

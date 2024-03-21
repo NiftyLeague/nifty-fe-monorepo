@@ -39,7 +39,9 @@ const MyNFTL = (): JSX.Element => {
   const [mockAccrued, setMockAccrued] = useState(0);
   const {
     arcadeBalance,
-    loading,
+    loadingArcadeBal,
+    loadingNFTLBal,
+    loadingNFTLAccrued,
     refetchArcadeBal,
     refreshClaimableNFTL,
     refreshNFTLBalance,
@@ -153,7 +155,7 @@ const MyNFTL = (): JSX.Element => {
           variant="h3"
           actions={
             <Stack direction="row" gap={2}>
-              {loading ? (
+              {loadingNFTLBal ? (
                 <Skeleton variant="rectangular" animation="wave" width={120} height={40} />
               ) : (
                 // <Button variant="outlined" onClick={handleClaimNFTL}>
@@ -174,7 +176,7 @@ const MyNFTL = (): JSX.Element => {
           <TokenInfoCard
             title="Arcade Token Balance"
             secondary={`${arcadeBalance} Tokens`}
-            isLoading={loading}
+            isLoading={loadingArcadeBal}
             customStyle={{
               backgroundColor: theme.palette.background.default,
               border: '1px solid',
@@ -251,7 +253,7 @@ const MyNFTL = (): JSX.Element => {
                   ? 'Error fetching balance'
                   : `${account ? formatNumberToDisplay(account?.balance! ?? 0) : '0.00'} NFTL`
               }`}
-              isLoading={loading}
+              isLoading={loadingNFTLBal}
               customStyle={{
                 backgroundColor: theme.palette.background.default,
                 border: '1px solid',
@@ -317,7 +319,7 @@ const MyNFTL = (): JSX.Element => {
                 borderColor: theme.palette.border,
               }}
               secondary="Available to Claim"
-              isLoading={loading}
+              isLoading={loadingNFTLAccrued}
               actions={
                 <Button
                   fullWidth

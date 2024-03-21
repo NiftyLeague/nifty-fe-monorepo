@@ -56,7 +56,7 @@ const MyDegens = (): JSX.Element => {
     }
   }, [favsData, setFavDegens]);
 
-  const { loading, characters } = useBalances();
+  const { loadingDegens, characters } = useBalances();
 
   const { data: degensData } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`);
 
@@ -159,7 +159,7 @@ const MyDegens = (): JSX.Element => {
           </Button>
         }
       >
-        {loading ? (
+        {loadingDegens ? (
           [...Array(8)].map(() => (
             <Grid item xs={12} sm={11} md={11} lg={11} xl={11} key={uuidv4()}>
               <SkeletonDegenPlaceholder />

@@ -41,7 +41,7 @@ const MintPage = () => {
     if (!isDegenOwner) {
       return (
         <Stack width="100%" height="100%" alignItems="center" justifyContent="center">
-          <Typography variant="h1" component="div" textAlign="center">
+          <Typography variant="h3" component="div" textAlign="center">
             This page is accessible to DEGEN owners only.
           </Typography>
           <Link href={DEGEN_OPENSEA_URL} target="_blank" rel="noreferrer">

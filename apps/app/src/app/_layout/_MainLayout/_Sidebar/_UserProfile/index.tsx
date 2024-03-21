@@ -19,7 +19,7 @@ import useAuth from '@/hooks/useAuth';
 
 const ClaimNFTLView = () => {
   const { writeContracts, tx } = useNetworkContext();
-  const { totalAccrued, tokenIndices, loading, refreshClaimableNFTL } = useBalances();
+  const { totalAccrued, tokenIndices, loadingNFTLAccrued, refreshClaimableNFTL } = useBalances();
   const [mockAccumulated, setMockAccumulated] = useState(0);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const ClaimNFTLView = () => {
   return (
     <>
       <Stack direction="column" alignItems="center" marginY={2}>
-        {loading ? (
+        {loadingNFTLAccrued ? (
           <Skeleton variant="text" animation="wave" width={80} />
         ) : (
           <Typography fontWeight="bold">
@@ -101,7 +101,7 @@ const UserProfile = () => {
     >
       <Avatar alt="avatar" src={ensAvatar.data || avatar?.url} sx={{ height: 80, width: 80 }} />
       <Stack direction="column" alignItems="center" marginY={2}>
-        <Typography>{displayName}</Typography>
+        <Typography whiteSpace="nowrap">{displayName}</Typography>
       </Stack>
       <ConnectWrapper fullWidth>
         <ClaimNFTLView />

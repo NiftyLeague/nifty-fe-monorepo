@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import Stack from '@mui/material/Stack';
 import { SOCIAL_LINKS } from './constants';
 
