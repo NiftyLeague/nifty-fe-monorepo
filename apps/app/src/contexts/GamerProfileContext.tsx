@@ -20,7 +20,7 @@ const defaultValue: GamerProfileContextType = {
 const GamerProfileContext = createContext<GamerProfileContextType>(defaultValue);
 
 export const GamerProfileProvider = ({ children }: PropsWithChildren) => {
-  const { loading: loadingDegens } = useBalances();
+  const { loadingDegens } = useBalances();
   const { loadingProfile } = useGamerProfile();
   const { loading: loadingComics } = useComicsBalance();
 

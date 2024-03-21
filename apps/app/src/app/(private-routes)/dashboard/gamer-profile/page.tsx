@@ -40,7 +40,7 @@ const GamerProfile = (): JSX.Element => {
   const { comicsBalance, loading: loadingComics } = useComicsBalance();
   const { data } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`);
 
-  const { loading: loadingDegens, characters, characterCount: degenCount } = useBalances();
+  const { loadingDegens, characters, characterCount: degenCount } = useBalances();
 
   const filteredDegens: Degen[] = useMemo(() => {
     if (characters.length && data) {

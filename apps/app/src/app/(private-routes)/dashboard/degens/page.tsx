@@ -75,9 +75,9 @@ const DashboardDegensPage = (): JSX.Element => {
 
   const { loading: loadingAllRentals, data } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`);
 
-  const { loading: loadingUserDegens, characters } = useBalances();
+  const { loadingDegens, characters } = useBalances();
 
-  const loading = loadingAllRentals || loadingUserDegens;
+  const loading = loadingAllRentals || loadingDegens;
 
   const populatedDegens: Degen[] = useMemo(() => {
     if (!characters.length || !data) return [];
