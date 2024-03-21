@@ -1,12 +1,22 @@
 'use client';
 
-import { useCallback, useState, useEffect } from 'react';
+import { useMemo } from 'react';
 import { formatEther, type InterfaceAbi } from 'ethers6';
 import { useReadContract } from 'wagmi';
 import type { Abi } from 'viem';
 import { TARGET_NETWORK } from '@/constants/networks';
 import CONTRACTS from '@/constants/contracts/deployments';
 import useAuth from '@/hooks/useAuth';
+
+/*
+  ~ What it does? ~
+
+  Gets unlclaimed NFTL balance for a provided list of DEGEN token indices
+
+  ~ How can I use? ~
+
+  const { totalAccrued, error, loading, refetch } = useClaimableNFTL([1, 2, 3, 4, 5]);
+*/
 
 const NFTL_CONTRACT = CONTRACTS[TARGET_NETWORK.chainId]?.NFTLToken as {
   address: `0x${string}`;
@@ -15,18 +25,14 @@ const NFTL_CONTRACT = CONTRACTS[TARGET_NETWORK.chainId]?.NFTLToken as {
 
 interface NFTLClaimableState {
   totalAccrued: number;
+  error: Error | null;
   loading: boolean;
   refetch: () => void;
 }
 
 export default function useClaimableNFTL(tokenIndices: number[]): NFTLClaimableState {
   const { isLoggedIn } = useAuth();
-  const [totalAccrued, setTotalAccrued] = useState(0);
-  const {
-    data,
-    isLoading: loading,
-    refetch: refetchBal,
-  } = useReadContract({
+  const { data, error, isLoading, refetch } = useReadContract({
     address: NFTL_CONTRACT.address,
     abi: NFTL_CONTRACT.abi as Abi,
     functionName: 'accumulatedMultiCheck',
@@ -38,21 +44,7 @@ export default function useClaimableNFTL(tokenIndices: number[]): NFTLClaimableS
     },
   });
 
-  const updateBal = useCallback(
-    (data?: number) => {
-      if (data != undefined && data !== totalAccrued) setTotalAccrued(data);
-    },
-    [totalAccrued],
-  );
+  const totalAccrued = useMemo(() => data ?? 0, [data]);
 
-  useEffect(() => {
-    updateBal(data);
-  }, [data, updateBal]);
-
-  const refetch = useCallback(async () => {
-    const { data } = await refetchBal();
-    updateBal(data);
-  }, [updateBal, refetchBal]);
-
-  return { totalAccrued, loading, refetch };
+  return { totalAccrued, error, loading: isLoading, refetch };
 }
