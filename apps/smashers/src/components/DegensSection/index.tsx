@@ -1,4 +1,3 @@
-import cn from 'classnames';
 import Image from 'next/image';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -89,6 +88,7 @@ const DegensSection = () => {
                     >
                       <Image
                         src={gif.link}
+                        unoptimized
                         alt={name}
                         width={desktop ? gif.width : gif.width * 0.7}
                         height={desktop ? gif.height : gif.height * 0.7}

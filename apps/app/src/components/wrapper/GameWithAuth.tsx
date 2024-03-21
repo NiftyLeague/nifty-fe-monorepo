@@ -31,7 +31,7 @@ const Game = ({ unityContext, arcadeTokenRequired = false }: GameProps) => {
   const { authToken } = useAuth();
   const pathname = usePathname();
   const { address } = useAccount();
-  const { arcadeBalance, loading: arcadeLoading, refetchArcadeBal } = useBalances();
+  const { arcadeBalance, loadingArcadeBal, refetchArcadeBal } = useBalances();
   const authMsg = `true,${address || '0x0'},Vitalik,${authToken}`;
   const authCallback = useRef<null | ((authMsg: string) => void)>();
   const [isLoaded, setLoaded] = useState(false);
@@ -106,7 +106,7 @@ const Game = ({ unityContext, arcadeTokenRequired = false }: GameProps) => {
     (window as any).unityInstance.setFullscreen(true);
   };
 
-  if (arcadeTokenRequired && arcadeLoading) {
+  if (arcadeTokenRequired && loadingArcadeBal) {
     return <></>;
   }
 
