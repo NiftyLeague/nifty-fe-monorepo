@@ -64,8 +64,9 @@ export const BalanceProvider = ({ children }: PropsWithChildren): JSX.Element =>
 
   const { balance: userNFTLBalance, loading: nftlLoading, refetch: refreshNFTLBalance } = useNFTLBalance();
 
-  const { arcadeBalance, loading: arcadeLoading, refetch: refetchArcadeBal } = useArcadeBalance();
+  const { balance: arcadeBalance, loading: arcadeLoading, refetch: refetchArcadeBal } = useArcadeBalance();
 
+  // Refetch on login state change, avoiding initial render
   useEffect(() => {
     if (firstRenderRef.current) {
       firstRenderRef.current = false;

@@ -1,5 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { GET_ARCADE_TOKEN_BALANCE_API } from '@/constants/url';
+import { AUTH_Token } from '@/types/auth';
 import useAuth from './useAuth';
 
 /*
@@ -9,7 +11,7 @@ import useAuth from './useAuth';
 
   ~ How can I use? ~
 
-  const { arcadeBalance, refetch, loading } = useArcadeBalance();
+  const { balance, error, loading, refetch } = useArcadeBalance();
 */
 
 interface ArcadeBalanceInfo {
@@ -21,47 +23,30 @@ interface ArcadeBalanceInfo {
 }
 
 interface ArcadeBalanceState {
-  arcadeBalance: number;
+  balance: number;
+  error: Error | null;
   loading: boolean;
   refetch: () => void;
 }
 
+const fetchArcadeTokenBalance = async (authToken: AUTH_Token) => {
+  const response = await fetch(GET_ARCADE_TOKEN_BALANCE_API, {
+    method: 'GET',
+    headers: { authorizationToken: authToken || '' },
+  });
+  const body = await response.json();
+  return body;
+};
+
 export default function useArcadeBalance(): ArcadeBalanceState {
-  const [balanceRes, setBalanceRes] = useState<ArcadeBalanceInfo | undefined>();
-  const [loading, setLoading] = useState<boolean>(false);
   const { authToken, isLoggedIn } = useAuth();
+  const { data, isLoading, error, refetch } = useQuery<ArcadeBalanceInfo>({
+    queryKey: ['arcade-token-balance'],
+    queryFn: () => fetchArcadeTokenBalance(authToken),
+    enabled: !!authToken && isLoggedIn,
+  });
 
-  const fetchBalance = useCallback(async () => {
-    try {
-      if (!authToken || !isLoggedIn) return;
-      setLoading(true);
-      const res = await fetch(GET_ARCADE_TOKEN_BALANCE_API, {
-        headers: { authorizationToken: authToken },
-      });
-      if (res.status === 200) {
-        const json = await res.json();
-        if (json) setBalanceRes(json);
-        else setBalanceRes(undefined);
-      }
-    } catch (err) {
-      console.error('Failed to fetch balance', err);
-    } finally {
-      setLoading(false);
-    }
-  }, [authToken, isLoggedIn]);
+  const balance = useMemo(() => data?.balance ?? 0, [data]);
 
-  // useEffect(() => {
-  //   if (isLoggedIn && !balanceRes) {
-  //     fetchBalance();
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [balanceRes, isLoggedIn]);
-
-  const arcadeBalance = useMemo(() => balanceRes?.balance ?? 0, [balanceRes]);
-
-  return {
-    arcadeBalance,
-    refetch: fetchBalance,
-    loading,
-  };
+  return { balance, error, loading: isLoading, refetch };
 }

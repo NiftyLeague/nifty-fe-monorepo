@@ -136,8 +136,7 @@ export interface RentDegenContentDialogProps {
 
 const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps) => {
   const router = useRouter();
-  const [refreshAccKey, setRefreshAccKey] = useState(0);
-  const { account } = useGameAccount(refreshAccKey);
+  const { account, refetchAccount } = useGameAccount();
   const { agrementAccepted, setAgreementAccepted } = useLocalStorageContext();
   const agreement = agrementAccepted === 'ACCEPTED';
   const [rentFor, setRentFor] = useState<string>('myself');
@@ -239,13 +238,9 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
     }
   };
 
-  const refreshBalance = () => {
-    setRefreshAccKey(Math.random());
-  };
-
   const handleRefreshBalance = () => {
     sendEvent(GOOGLE_ANALYTICS.EVENTS.RENTAL_REFRESH_BALANCE_CLICKED, GOOGLE_ANALYTICS.CATEGORIES.ECOMMERCE, 'method');
-    refreshBalance();
+    refetchAccount();
   };
 
   const handleGoCheckBalance = () => {
@@ -263,7 +258,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
     }
 
     setCheckBalance(true);
-    setRefreshAccKey(Math.random());
+    refetchAccount();
   };
 
   const handleClickPlay = useCallback(() => {
@@ -508,7 +503,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
           </Stack>
         </Stack>
         <Stack direction="column" mb={6}>
-          {purchasingNFTL && <CowSwapWidget refreshBalance={refreshBalance} />}
+          {purchasingNFTL && <CowSwapWidget refreshBalance={refetchAccount} />}
           <Typography variant="h5" mt={4} mb={1.5}>
             Stats
           </Typography>

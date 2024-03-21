@@ -1,46 +1,36 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { GAMER_ACCOUNT_API } from '@/constants/url';
 import type { Account } from '@/types/account';
+import { AUTH_Token } from '@/types/auth';
 import useAuth from './useAuth';
 
-const useGameAccount = (refreshKey?: string | number): { error: boolean; account: Account | undefined } => {
-  const firstRenderRef = useRef(true);
-  const [account, setAccount] = useState<Account | undefined>(undefined);
-  const [error, setAccError] = useState(false);
-  const { authToken } = useAuth();
+interface GameAccountState {
+  account: Account | undefined;
+  accountError: Error | null;
+  loadingAccount: boolean;
+  refetchAccount: () => void;
+}
 
-  const fetchAccount = useCallback(async () => {
-    if (!authToken) {
-      return;
-    }
-    try {
-      const res = await fetch(GAMER_ACCOUNT_API, {
-        headers: { authorizationToken: authToken },
-      });
-      if (res.status === 404) {
-        setAccError(true);
-        return;
-      }
-      const result = await res.text();
-      if (result) {
-        setAccount(JSON.parse(result));
-      }
-    } catch (err) {
-      setAccError(true);
-    }
-  }, [authToken]);
+const fetchGameAccount = async (authToken: AUTH_Token) => {
+  const response = await fetch(GAMER_ACCOUNT_API, {
+    method: 'GET',
+    headers: { authorizationToken: authToken || '' },
+  });
+  const body = await response.json();
+  return body;
+};
 
-  useEffect(() => {
-    if (firstRenderRef.current) {
-      firstRenderRef.current = false;
-      return;
-    }
-    if (authToken) fetchAccount();
-  }, [authToken, fetchAccount, refreshKey]);
+const useGameAccount = (): GameAccountState => {
+  const { authToken, isLoggedIn } = useAuth();
+  const { data, isLoading, error, refetch } = useQuery<Account>({
+    queryKey: ['game-account'],
+    queryFn: () => fetchGameAccount(authToken),
+    enabled: !!authToken && isLoggedIn,
+  });
 
-  return { error, account };
+  return { account: data, accountError: error, loadingAccount: isLoading, refetchAccount: refetch };
 };
 
 export default useGameAccount;
