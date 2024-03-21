@@ -60,8 +60,7 @@ type CowSwapWidgetProps = {
 
 const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
   const { address, tx, signer, writeContracts } = useNetworkContext();
-  const [refreshAccKey, setRefreshAccKey] = useState(0);
-  const { account } = useGameAccount(refreshAccKey);
+  const { account, refetchAccount } = useGameAccount();
   const { balance: etherBalance } = useEtherBalance();
   const { rate: rateEtherToNftl, refetch: refetchRateEtherToNftl } = useRateEtherToNFTL();
   const { handleImportNFTLToWallet } = useImportNFTLToWallet();
@@ -92,10 +91,10 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
   useEffect(() => {
     const timer = setInterval(() => {
       refetchRateEtherToNftl();
-      setRefreshAccKey(Math.random());
+      refetchAccount();
     }, 10000);
     return () => clearInterval(timer);
-  }, [refetchRateEtherToNftl]);
+  }, [refetchRateEtherToNftl, refetchAccount]);
 
   useEffect(() => {
     const getAllowance = async () => {

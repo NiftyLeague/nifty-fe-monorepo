@@ -46,12 +46,10 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
   const { palette } = useTheme();
   const [agreement, setAgreement] = useState<boolean>(false);
   const [showError, setShowError] = useState<boolean>(false);
-  const [isPending /*, setIsPending*/] = useState<boolean>(false);
   const [tokenCount, setTokenCount] = useState<number>(1);
   const { authToken } = useAuth();
 
-  const [refreshAccKey, setRefreshAccKey] = useState(0);
-  const { account } = useGameAccount(refreshAccKey);
+  const { account, refetchAccount, loadingAccount } = useGameAccount();
   const accountBalance = account?.balance ?? 0;
 
   const fetchArcadeTokenDetails = useCallback(async () => {
@@ -106,12 +104,12 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
         throw new Error(response.statusText);
       }
       sendEvent(GOOGLE_ANALYTICS.EVENTS.BUY_ARCADE_TOKEN_COMPLETE, GOOGLE_ANALYTICS.CATEGORIES.ECOMMERCE);
-      setRefreshAccKey(Math.random());
+      refetchAccount();
       onSuccess();
     } catch {
       setShowError(true);
     }
-  }, [authToken, tokenCount, details, onSuccess]);
+  }, [authToken, tokenCount, details, onSuccess, refetchAccount]);
 
   const handleHideError = () => {
     setShowError(false);
@@ -244,7 +242,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                 fullWidth
                 onClick={purchaseArcadeToken}
                 disabled={!agreement || !accountBalance || accountBalance < tokenCount * details.price}
-                loading={isPending}
+                loading={loadingAccount}
                 sx={{ mb: 2 }}
               >
                 {!agreement
