@@ -32,9 +32,8 @@ const MyNFTL = (): JSX.Element => {
   const router = useRouter();
   const { address, writeContracts, tx } = useNetworkContext();
   const [refreshTimeout, setRefreshTimeout] = useState(0);
-  const [refreshAccKey, setRefreshAccKey] = useState(0);
   const [openBuyAT, setOpenBuyAT] = useState(false);
-  const { account, error: accError } = useGameAccount(refreshAccKey);
+  const { account, loadingAccount, accountError, refetchAccount } = useGameAccount();
 
   const [mockAccrued, setMockAccrued] = useState(0);
   const {
@@ -71,11 +70,11 @@ const MyNFTL = (): JSX.Element => {
       // eslint-disable-next-line no-console
       if (DEBUG) console.log('deposit', amount);
       const txRes = await tx(writeContracts[GAME_ACCOUNT_CONTRACT].deposit(parseEther(`${amount}`)));
-      setRefreshAccKey(Math.random());
+      refetchAccount();
       refreshNFTLBalance();
       return txRes;
     },
-    [tx, writeContracts, refreshNFTLBalance],
+    [tx, writeContracts, refetchAccount, refreshNFTLBalance],
   );
 
   const handleWithdrawNFTL = useCallback(
@@ -114,14 +113,14 @@ const MyNFTL = (): JSX.Element => {
         // eslint-disable-next-line no-console
         if (DEBUG) console.log('TX_DATA', txRes);
         refreshNFTLBalance();
-        setRefreshAccKey(Math.random());
+        refetchAccount();
         return { txRes };
       } catch (error) {
         console.error('error', error);
         return { txRes: null, error: error as Error };
       }
     },
-    [address, authToken, refreshNFTLBalance, tx, writeContracts],
+    [address, authToken, refreshNFTLBalance, refetchAccount, tx, writeContracts],
   );
 
   const handleRefreshBal = useCallback(async () => {
@@ -132,11 +131,11 @@ const MyNFTL = (): JSX.Element => {
       });
       if (!response.ok) throw new Error(response.statusText);
       setRefreshTimeout(1);
-      setRefreshAccKey(Math.random());
+      refetchAccount();
     } catch (error) {
       console.error('error', error);
     }
-  }, [authToken]);
+  }, [authToken, refetchAccount]);
 
   const handleBuyArcadeTokens = () => {
     setOpenBuyAT(true);
@@ -249,11 +248,11 @@ const MyNFTL = (): JSX.Element => {
                 </>
               }
               primary={`${
-                accError
+                accountError
                   ? 'Error fetching balance'
                   : `${account ? formatNumberToDisplay(account?.balance! ?? 0) : '0.00'} NFTL`
               }`}
-              isLoading={loadingNFTLBal}
+              isLoading={loadingAccount}
               customStyle={{
                 backgroundColor: theme.palette.background.default,
                 border: '1px solid',

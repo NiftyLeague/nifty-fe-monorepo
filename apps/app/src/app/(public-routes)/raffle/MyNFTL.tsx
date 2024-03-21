@@ -25,8 +25,7 @@ const MyNFTL = (): JSX.Element => {
   const { authToken } = useAuth();
   const { address, writeContracts, tx } = useNetworkContext();
   const [refreshTimeout, setRefreshTimeout] = useState(0);
-  const [refreshAccKey, setRefreshAccKey] = useState(0);
-  const { account, error: accError } = useGameAccount(refreshAccKey);
+  const { account, accountError, loadingAccount, refetchAccount } = useGameAccount();
   const [mockAccrued, setMockAccrued] = useState(0);
   const {
     loadingNFTLAccrued,
@@ -92,14 +91,14 @@ const MyNFTL = (): JSX.Element => {
         // eslint-disable-next-line no-console
         if (DEBUG) console.log('TX_DATA', txRes);
         refreshNFTLBalance();
-        setRefreshAccKey(Math.random());
+        refetchAccount();
         return { txRes };
       } catch (error) {
         console.error('error', error);
         return { txRes: null, error: error as Error };
       }
     },
-    [address, authToken, tx, writeContracts, refreshNFTLBalance],
+    [address, authToken, tx, writeContracts, refetchAccount, refreshNFTLBalance],
   );
 
   const handleRefreshBal = useCallback(async () => {
@@ -110,11 +109,11 @@ const MyNFTL = (): JSX.Element => {
       });
       if (!response.ok) throw new Error(response.statusText);
       setRefreshTimeout(1);
-      setRefreshAccKey(Math.random());
+      refetchAccount();
     } catch (error) {
       console.error('error', error);
     }
-  }, [authToken]);
+  }, [authToken, refetchAccount]);
 
   return (
     <Grid container spacing={sectionSpacing}>
@@ -173,11 +172,11 @@ const MyNFTL = (): JSX.Element => {
                 </>
               }
               primary={`${
-                accError
+                accountError
                   ? 'Error fetching balance'
                   : `${account ? formatNumberToDisplay(account?.balance! ?? 0) : '0.00'} NFTL`
               }`}
-              isLoading={loadingNFTLBal}
+              isLoading={loadingAccount}
               customStyle={{
                 backgroundColor: theme.palette.background.default,
                 border: '1px solid',
