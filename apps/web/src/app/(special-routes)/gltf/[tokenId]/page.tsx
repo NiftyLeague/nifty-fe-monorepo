@@ -105,12 +105,14 @@ export default function DegenViews() {
                 >
                   3D
                 </Button>
-                <Button
-                  onClick={() => setSource(SRC.SPRITE)}
-                  className={cn(styles.btn, { [styles.btn_selected as string]: source === SRC.SPRITE })}
-                >
-                  Sprite
-                </Button>
+                {Number(tokenId) < 9901 ? (
+                  <Button
+                    onClick={() => setSource(SRC.SPRITE)}
+                    className={cn(styles.btn, { [styles.btn_selected as string]: source === SRC.SPRITE })}
+                  >
+                    Sprite
+                  </Button>
+                ) : null}
               </ButtonGroup>
             </div>
           </div>
