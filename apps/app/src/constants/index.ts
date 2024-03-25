@@ -11,10 +11,9 @@ export const ALCHEMY_ID: { [key in ChainId]?: string } = {
   [sepolia.id]: process.env.NEXT_PUBLIC_ALCHEMY_SEPOLIA_API as string,
 };
 
-// export const SUBGRAPH_URI = `${process.env.NEXT_PUBLIC_SUBGRAPH_URI as string}${
-//   process.env.NEXT_PUBLIC_SUBGRAPH_VERSION || ''
-// }`;
 export const SUBGRAPH_URI = `https://gateway-arbitrum.network.thegraph.com/api/${process.env.NEXT_PUBLIC_GRAPH_API_KEY}/subgraphs/id/${process.env.NEXT_PUBLIC_GRAPH_ID}`;
+
+export const SUBGRAPH_DEV_URI = 'https://api.studio.thegraph.com/query/7093/nifty-league-sepolia/version/latest';
 
 export const DEBUG = process.env.NODE_ENV === 'development' || process.env.NEXT_PUBLIC_DEBUG === 'true';
 
