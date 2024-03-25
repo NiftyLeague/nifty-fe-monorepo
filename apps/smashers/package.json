@@ -15,7 +15,7 @@
     "@metamask/eth-sig-util": "^7.0.1",
     "@nl/theme": "^0.0.0",
     "@nl/ui": "^0.0.0",
-    "@sentry/nextjs": "^7.107.0",
+    "@sentry/nextjs": "^7.108.0",
     "@vercel/edge": "^1.1.1",
     "crypto": "^1.0.1",
     "ethers": "~5.7.2",
