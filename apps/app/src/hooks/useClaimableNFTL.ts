@@ -1,11 +1,11 @@
 'use client';
 
 import { useMemo } from 'react';
-import { formatEther, type InterfaceAbi } from 'ethers6';
+import { formatEther } from 'ethers6';
 import { useReadContract } from 'wagmi';
 import type { Abi } from 'viem';
 import { TARGET_NETWORK } from '@/constants/networks';
-import CONTRACTS from '@/constants/contracts/deployments';
+import { getDeployedContract, NFTL_CONTRACT as NFTL_CONTRACT_NAME } from '@/constants/contracts';
 import useAuth from '@/hooks/useAuth';
 
 /*
@@ -18,10 +18,7 @@ import useAuth from '@/hooks/useAuth';
   const { totalAccrued, error, loading, refetch } = useClaimableNFTL([1, 2, 3, 4, 5]);
 */
 
-const NFTL_CONTRACT = CONTRACTS[TARGET_NETWORK.chainId]?.NFTLToken as {
-  address: `0x${string}`;
-  abi: InterfaceAbi;
-};
+const NFTL_CONTRACT = getDeployedContract(TARGET_NETWORK.chainId, NFTL_CONTRACT_NAME);
 
 interface NFTLClaimableState {
   totalAccrued: number;
@@ -33,8 +30,8 @@ interface NFTLClaimableState {
 export default function useClaimableNFTL(tokenIndices: number[]): NFTLClaimableState {
   const { isLoggedIn } = useAuth();
   const { data, error, isLoading, refetch } = useReadContract({
-    address: NFTL_CONTRACT.address,
-    abi: NFTL_CONTRACT.abi as Abi,
+    address: NFTL_CONTRACT?.address as `0x${string}`,
+    abi: NFTL_CONTRACT?.abi as Abi,
     functionName: 'accumulatedMultiCheck',
     args: [tokenIndices],
     query: {

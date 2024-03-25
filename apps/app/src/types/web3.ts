@@ -70,7 +70,7 @@ export interface Contracts {
   // [contractName: string]: Contract;
 }
 
-export type NetworkName = 'mainnet' | 'goerli' | 'sepolia' | 'hardhat';
+export type NetworkName = 'mainnet' | 'sepolia' | 'hardhat';
 
 export interface Network {
   blockExplorer: string;

@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { State, WagmiProvider } from 'wagmi';
 import type { Chain } from 'wagmi/chains';
 import { wagmiConfig, projectId, chains } from './Web3ModalConfig';
-import { NFTL_TOKEN_ADDRESS } from '@/constants/contracts';
+import { getContractAddress, NFTL_CONTRACT } from '@/constants/contracts';
 
 // Setup queryClient
 const queryClient = new QueryClient();
@@ -22,11 +22,11 @@ createWeb3Modal({
   defaultChain: mainnet,
   tokens: {
     [mainnet.id]: {
-      address: NFTL_TOKEN_ADDRESS[mainnet.id] as string,
+      address: getContractAddress(mainnet.id, NFTL_CONTRACT),
       image: 'https://app.niftyleague.com/images/NFTL.png',
     },
     [testnet.id]: {
-      address: NFTL_TOKEN_ADDRESS[testnet.id] as string,
+      address: getContractAddress(testnet.id, NFTL_CONTRACT),
       image: 'https://app.niftyleague.com/images/NFTL.png',
     },
   },

@@ -161,7 +161,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
                 <WarningIcon />
               </Icon>
               <Typography px={2} fontSize={20} fontWeight={600}>
-                Please switch to {capitalize(TARGET_NETWORK.name)}
+                Please switch to {TARGET_NETWORK.label}
               </Typography>
               <Button
                 sx={{ padding: '2px 16px' }}
