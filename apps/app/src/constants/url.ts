@@ -1,5 +1,5 @@
-import { mainnet, goerli } from 'viem/chains';
-import { IMX_NL_ITEMS, NFTL_TOKEN_ADDRESS } from './contracts';
+import { mainnet, sepolia } from 'viem/chains';
+import { getContractAddress, NFTL_CONTRACT, ITEMS_CONTRACT } from './contracts';
 
 export const BASE_API_URL = 'https://odgwhiwhzb.execute-api.us-east-1.amazonaws.com/prod';
 
@@ -65,9 +65,10 @@ export const LEADERBOARD_USERNAMES_API_URL = `${BASE_API_URL}/profiles/public/pr
 export const LEADERBOARD_SCORE_API_URL = `${BASE_API_URL}/scores`;
 
 // SUSHISWAP URL FOR NFTL PURCHASE
-export const NFTL_PURCHASE_URL = `https://app.sushi.com/swap?inputCurrency=ETH&outputCurrency=${
-  NFTL_TOKEN_ADDRESS[mainnet.id]
-}`;
+export const NFTL_PURCHASE_URL = `https://app.sushi.com/swap?inputCurrency=ETH&outputCurrency=${getContractAddress(
+  mainnet.id,
+  NFTL_CONTRACT,
+)}`;
 
 // DEGEN Purchase URL
 export const DEGEN_OPENSEA_URL = 'https://opensea.io/collection/niftydegen';
@@ -76,8 +77,8 @@ export const DEGEN_OPENSEA_URL = 'https://opensea.io/collection/niftydegen';
 export const COMICS_OPENSEA_URL = 'https://opensea.io/collection/nifty-league-comics';
 
 export const ITEM_PURCHASE_URL = {
-  [mainnet.id]: `https://market.immutable.com/collections/${IMX_NL_ITEMS[mainnet.id]}`,
-  [goerli.id]: `https://market.sandbox.immutable.com/collections/${IMX_NL_ITEMS[goerli.id]}`,
+  [mainnet.id]: `https://market.immutable.com/collections/${getContractAddress(mainnet.id, ITEMS_CONTRACT)}`,
+  [sepolia.id]: `https://market.sandbox.immutable.com/collections/${getContractAddress(sepolia.id, ITEMS_CONTRACT)}`,
 };
 
 export const CONVERT_TOKEN_TO_USD_URL = 'https://price-api.crypto.com/price/v1/exchange/';
