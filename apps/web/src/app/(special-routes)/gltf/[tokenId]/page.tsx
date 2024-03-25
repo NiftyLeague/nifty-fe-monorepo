@@ -10,25 +10,13 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 
 import { DEGEN_BASE_SPRITE_URL, LEGGIES } from '@/constants/degens';
 import { SRC, Color } from '@/types/gltf';
-import useClaimableNFTL from '@/hooks/useClaimableNFTL';
-import { formatNumberToDisplay } from '@/lib/numbers';
 import ErrorBoundary from '@/components/ErrorBoundry';
 
-import styles from '@/styles/gltf.module.scss';
+import styles from './gltf.module.scss';
 
-const ModelView = dynamic(() => import('@/components/ModelView'), { ssr: false });
-const ModelActions = dynamic(() => import('@/components/ModelView').then(mod => mod.ModelActions), {
-  ssr: false,
-});
-
-const TokenMenu = ({ tokenId }: { tokenId: string }) => {
-  const { totalAccrued } = useClaimableNFTL(tokenId as string);
-  return (
-    <div className={styles.menu__nftlUnclaimed}>
-      <strong>NFTL Unclaimed:</strong> {formatNumberToDisplay(totalAccrued)}
-    </div>
-  );
-};
+const TokenMenu = dynamic(() => import('./components/TokenMenu'), { ssr: false });
+const ModelView = dynamic(() => import('./components/ModelView'), { ssr: false });
+const ModelActions = dynamic(() => import('./components/ModelActions'), { ssr: false });
 
 export default function DegenViews() {
   const params = useParams();
@@ -89,35 +77,37 @@ export default function DegenViews() {
         })}
       >
         <ModelView source={source} />
-        <div className={styles.menu__overlay}>
-          <div className={styles.menu__overlay__dimension}>
-            <div className={styles.menu__overlay__boggs}>
-              <ButtonGroup variant="contained" size="small" aria-label="outlined primary button group">
-                <Button
-                  onClick={() => setSource(SRC.IMAGE)}
-                  className={cn(styles.btn, { [styles.btn_selected as string]: source === SRC.IMAGE })}
-                >
-                  2D
-                </Button>
-                <Button
-                  onClick={() => setSource(SRC.MODEL)}
-                  className={cn(styles.btn, { [styles.btn_selected as string]: source === SRC.MODEL })}
-                >
-                  3D
-                </Button>
-                {Number(tokenId) < 9901 ? (
+        {Number(tokenId) < 9999 ? (
+          <div className={styles.menu__overlay}>
+            <div className={styles.menu__overlay__dimension}>
+              <div className={styles.menu__overlay__boggs}>
+                <ButtonGroup variant="contained" size="small" aria-label="outlined primary button group">
                   <Button
-                    onClick={() => setSource(SRC.SPRITE)}
-                    className={cn(styles.btn, { [styles.btn_selected as string]: source === SRC.SPRITE })}
+                    onClick={() => setSource(SRC.IMAGE)}
+                    className={cn(styles.btn, { [styles.btn_selected as string]: source === SRC.IMAGE })}
                   >
-                    Sprite
+                    2D
                   </Button>
-                ) : null}
-              </ButtonGroup>
+                  <Button
+                    onClick={() => setSource(SRC.MODEL)}
+                    className={cn(styles.btn, { [styles.btn_selected as string]: source === SRC.MODEL })}
+                  >
+                    3D
+                  </Button>
+                  {Number(tokenId) < 9901 ? (
+                    <Button
+                      onClick={() => setSource(SRC.SPRITE)}
+                      className={cn(styles.btn, { [styles.btn_selected as string]: source === SRC.SPRITE })}
+                    >
+                      Sprite
+                    </Button>
+                  ) : null}
+                </ButtonGroup>
+              </div>
             </div>
+            {source === SRC.MODEL && <ModelActions color={color} setColor={setColor} />}
           </div>
-          {source === SRC.MODEL && <ModelActions color={color} setColor={setColor} />}
-        </div>
+        ) : null}
         {source === SRC.IMAGE ? (
           <ErrorBoundary>
             <TokenMenu tokenId={tokenId} />
