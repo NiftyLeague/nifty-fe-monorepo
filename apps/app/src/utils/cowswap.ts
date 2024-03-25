@@ -9,7 +9,7 @@ import {
   type OrderKind,
 } from '@cowprotocol/cow-sdk';
 import { parseEther, formatEther, type Signer } from 'ethers6';
-import { COWSWAP_VAULT_RELAYER_ADDRESS, WETH_ADDRESS, NFTL_TOKEN_ADDRESS } from '@/constants/contracts';
+import { getContractAddress, NFTL_CONTRACT, COWSWAP_VAULT_RELAYER_ADDRESS, WETH_ADDRESS } from '@/constants/contracts';
 import { formatNumberToDisplay2 } from './numbers';
 import { ERC20__factory, WETH__factory } from '@/types/typechain';
 
@@ -28,7 +28,7 @@ export const getCowMarketPrice = async ({
   const quoteResponse = await orderBookApi.getQuote({
     kind: kind as unknown as OrderQuoteSideKindSell,
     sellToken: WETH_ADDRESS[chainId as keyof typeof WETH_ADDRESS] as string,
-    buyToken: NFTL_TOKEN_ADDRESS[chainId as keyof typeof NFTL_TOKEN_ADDRESS] as string,
+    buyToken: getContractAddress(chainId, NFTL_CONTRACT),
     sellAmountBeforeFee: parseEther(amount).toString(),
     from: userAddress,
     receiver: userAddress,
@@ -67,7 +67,7 @@ export const createOrderSwapEtherToNFTL = async ({
   const orderBookApi = new OrderBookApi({ chainId });
   const quoteRequest: OrderQuoteRequest = {
     sellToken: WETH_ADDRESS[chainId as keyof typeof WETH_ADDRESS] as string,
-    buyToken: NFTL_TOKEN_ADDRESS[chainId as keyof typeof NFTL_TOKEN_ADDRESS] as string,
+    buyToken: getContractAddress(chainId, NFTL_CONTRACT),
     from: userAddress,
     receiver: userAddress,
     sellAmountBeforeFee: parseEther(etherVal).toString(),

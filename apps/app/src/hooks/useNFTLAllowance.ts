@@ -1,16 +1,14 @@
 'use client';
 
 import { useCallback, useState, useEffect } from 'react';
-import { formatEther, type InterfaceAbi } from 'ethers6';
+import { formatEther } from 'ethers6';
 import { useReadContract } from 'wagmi';
 import { TARGET_NETWORK } from '@/constants/networks';
-import CONTRACTS from '@/constants/contracts/deployments';
+import { getDeployedContract, NFTL_CONTRACT as NFTL_CONTRACT_NAME } from '@/constants/contracts';
+
 import type { Abi } from 'viem';
 
-const NFTL_CONTRACT = CONTRACTS[TARGET_NETWORK.chainId]?.NFTLToken as {
-  address: `0x${string}`;
-  abi: InterfaceAbi;
-};
+const NFTL_CONTRACT = getDeployedContract(TARGET_NETWORK.chainId, NFTL_CONTRACT_NAME);
 
 interface NFTLAllowanceState {
   allowance: number;
@@ -25,8 +23,8 @@ export default function useNFTLAllowance(contractAddress: `0x${string}`): NFTLAl
     isLoading: loading,
     refetch: refetchBal,
   } = useReadContract({
-    address: NFTL_CONTRACT.address,
-    abi: NFTL_CONTRACT.abi as Abi,
+    address: NFTL_CONTRACT?.address as `0x${string}`,
+    abi: NFTL_CONTRACT?.abi as Abi,
     functionName: 'allowance',
     args: [contractAddress],
     query: {
