@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { mainnet, goerli } from 'viem/chains';
+import { mainnet, sepolia } from 'viem/chains';
 import { getAddress, isAddress } from 'ethers6';
 import useNetworkContext from '@/hooks/useNetworkContext';
 import { COMICS_MERKLE_ROOT } from '@/constants/contracts';
@@ -19,7 +19,7 @@ const CLAIM_PROMISES: { [key: string]: ClaimPromise } = {};
 
 enum ChainId {
   MAINNET = mainnet.id,
-  GÖRLI = goerli.id,
+  SEPOLIA = sepolia.id,
 }
 
 // returns the claim for the given address, or null if not valid

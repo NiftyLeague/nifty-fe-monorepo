@@ -5,7 +5,7 @@ import isEmpty from 'lodash/isEmpty';
 import { Link, ImmutableXClient, ImmutableMethodResults } from '@imtbl/imx-sdk';
 
 import useNetworkContext from '@/hooks/useNetworkContext';
-import { IMX_NL_ITEMS } from '@/constants/contracts';
+import { getContractAddress, ITEMS_CONTRACT } from '@/constants/contracts';
 import useItemsBalance from '@/hooks/useItemsBalance';
 import type { Item } from '@/types/comic';
 
@@ -60,7 +60,7 @@ export const IMXProvider = ({ children }: PropsWithChildren): JSX.Element => {
         setInventory(
           await client.getAssets({
             user,
-            collection: IMX_NL_ITEMS[selectedNetworkId],
+            collection: getContractAddress(selectedNetworkId, ITEMS_CONTRACT),
             page_size: 200,
           }),
         );

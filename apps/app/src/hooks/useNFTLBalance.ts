@@ -3,7 +3,7 @@
 import { useMemo } from 'react';
 import { useAccount, useBalance } from 'wagmi';
 import { formatUnits } from 'viem';
-import { NFTL_TOKEN_ADDRESS } from '@/constants/contracts';
+import { getContractAddress, NFTL_CONTRACT } from '@/constants/contracts';
 import { TARGET_NETWORK } from '@/constants/networks';
 import useAuth from '@/hooks/useAuth';
 
@@ -29,7 +29,7 @@ export default function useNFTLBalance(): NFTLBalanceState {
   const { address, isConnected } = useAccount();
   const { data, isLoading, refetch, error } = useBalance({
     address,
-    token: NFTL_TOKEN_ADDRESS[TARGET_NETWORK.chainId],
+    token: getContractAddress(TARGET_NETWORK.chainId, NFTL_CONTRACT),
     query: {
       staleTime: 10_000,
       enabled: isConnected && isLoggedIn,

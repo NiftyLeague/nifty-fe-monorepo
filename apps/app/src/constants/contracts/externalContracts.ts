@@ -1,4 +1,4 @@
-import { mainnet, goerli } from 'viem/chains';
+import { mainnet, sepolia } from 'viem/chains';
 import DAI_ABI from './abis/dai.json';
 import COMICS_MERKLE_ABI from './abis/comics-merkle-distributor.json';
 import MERKLE_ABI from './abis/merkle-distributor.json';
@@ -11,16 +11,8 @@ const EXTERNAL_CONTRACTS: {
     [contractName: string]: { address: `0x${string}`; abi: InterfaceAbi };
   };
 } = {
-  [LOCAL_CHAIN_ID]: {
-    MerkleDistributor: {
-      address: MERKLE_DISTRIBUTOR_ADDRESS[LOCAL_CHAIN_ID] as `0x${string}`,
-      abi: MERKLE_ABI,
-    },
-    ComicsMerkleDistributor: {
-      address: COMICS_MERKLE_DISTRIBUTOR_ADDRESS[LOCAL_CHAIN_ID] as `0x${string}`,
-      abi: COMICS_MERKLE_ABI,
-    },
-  },
+  [LOCAL_CHAIN_ID]: {},
+  [sepolia.id]: {},
   [mainnet.id]: {
     DAI: {
       address: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
@@ -32,16 +24,6 @@ const EXTERNAL_CONTRACTS: {
     },
     ComicsMerkleDistributor: {
       address: COMICS_MERKLE_DISTRIBUTOR_ADDRESS[mainnet.id] as `0x${string}`,
-      abi: COMICS_MERKLE_ABI,
-    },
-  },
-  [goerli.id]: {
-    MerkleDistributor: {
-      address: MERKLE_DISTRIBUTOR_ADDRESS[goerli.id] as `0x${string}`,
-      abi: MERKLE_ABI,
-    },
-    ComicsMerkleDistributor: {
-      address: COMICS_MERKLE_DISTRIBUTOR_ADDRESS[goerli.id] as `0x${string}`,
       abi: COMICS_MERKLE_ABI,
     },
   },

@@ -1,14 +1,14 @@
-import { mainnet, goerli } from 'viem/chains';
+import { mainnet, sepolia } from 'viem/chains';
 
 enum ChainId {
   MAINNET = mainnet.id,
-  GÖRLI = goerli.id,
+  SEPOLIA = sepolia.id,
 }
 
 // MY ALCHEMY_ID, SWAP IN YOURS FROM https://dashboard.alchemyapi.io/
 export const ALCHEMY_ID: { [key in ChainId]?: string } = {
   [mainnet.id]: process.env.NEXT_PUBLIC_ALCHEMY_MAINNET_API as string,
-  [goerli.id]: process.env.NEXT_PUBLIC_ALCHEMY_GOERLI_API as string,
+  [sepolia.id]: process.env.NEXT_PUBLIC_ALCHEMY_SEPOLIA_API as string,
 };
 
 // export const SUBGRAPH_URI = `${process.env.NEXT_PUBLIC_SUBGRAPH_URI as string}${
