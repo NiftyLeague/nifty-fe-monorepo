@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react';
-import { TablerIconsProps } from '@tabler/icons-react';
+import { IconProps } from '@tabler/icons-react';
 
 // material-ui
 import { Theme } from '@nl/theme';
@@ -43,7 +43,7 @@ export type OverrideIcon =
     })
   | React.ComponentClass<unknown>
   | FunctionComponent<React.PropsWithChildren<React.PropsWithChildren<unknown>>>
-  | ((props: TablerIconsProps) => JSX.Element);
+  | ((props: IconProps) => JSX.Element);
 
 export interface EnhancedTableHeadProps extends TableCellProps {
   onSelectAllClick: (e: React.ChangeEvent<HTMLInputElement>) => void;

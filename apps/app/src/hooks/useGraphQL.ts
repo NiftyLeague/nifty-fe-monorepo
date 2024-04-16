@@ -5,10 +5,11 @@ import type { CharactersQueryData, OwnerQueryData } from '@/types/graph';
 import useNetworkContext from '@/hooks/useNetworkContext';
 import ID_SEARCH_QUERY from '@/queries/ID_SEARCH_QUERY';
 import OWNER_QUERY from '@/queries/OWNER_QUERY';
-import { SUBGRAPH_URI } from '@/constants';
+import { SUBGRAPH_URI, SUBGRAPH_DEV_URI } from '@/constants';
+import { TARGET_NETWORK } from '@/constants/networks';
 import useAuth from '@/hooks/useAuth';
 
-const endpoint = SUBGRAPH_URI;
+const endpoint = TARGET_NETWORK.name === 'mainnet' ? SUBGRAPH_URI : SUBGRAPH_DEV_URI;
 
 export function useCharacterSearch(tokenId?: string): UseQueryResult<CharactersQueryData['characters']> {
   const variables = { search: tokenId };
@@ -30,7 +31,7 @@ export function useOwnerSearch(overrideAddress?: `0x${string}`): UseQueryResult<
   return useQuery({
     queryKey: ['owner', key],
     queryFn: async () => {
-      const { owner } = await request<OwnerQueryData>(SUBGRAPH_URI, OWNER_QUERY, variables);
+      const { owner } = await request<OwnerQueryData>(endpoint, OWNER_QUERY, variables);
       return owner;
     },
     enabled: key.length > 20 && isLoggedIn,
