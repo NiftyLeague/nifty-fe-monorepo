@@ -10,7 +10,7 @@ import MuiBreadcrumbs from '@mui/material/Breadcrumbs';
 
 // project imports
 import { BASE_PATH } from '@/config';
-import type { TablerIconsProps } from '@tabler/icons-react';
+import type { IconProps } from '@tabler/icons-react';
 
 // assets
 import { IconTallymark1 } from '@tabler/icons-react';
@@ -102,7 +102,7 @@ const Breadcrumbs = ({
   };
 
   // item separator
-  const SeparatorIcon = separator! as (props: TablerIconsProps) => JSX.Element;
+  const SeparatorIcon = separator! as (props: IconProps) => JSX.Element;
   const separatorIcon = separator ? (
     <SeparatorIcon stroke={1.5} size="small" />
   ) : (

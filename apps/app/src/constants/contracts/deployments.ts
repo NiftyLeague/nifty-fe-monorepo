@@ -4,6 +4,7 @@ import { mainnet, sepolia } from 'viem/chains';
 import { LOCAL_CHAIN_ID } from '@/constants/networks';
 import MAINNET_DEPLOYMENTS from './deployments.mainnet';
 import TESTNET_DEPLOYMENTS from './deployments.sepolia';
+import IMX_TESTNET_DEPLOYMENTS from './deployments.imxTestnet';
 
 const CONTRACTS: {
   [chainId: number]: {

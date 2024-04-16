@@ -52,7 +52,7 @@ This Turborepo has some additional tools already setup for you:
 To install turbo globally for ease of use:
 
 ```
-npm install turbo --global
+pnpm install turbo --global
 ```
 
 ### Set working directory to root
@@ -65,10 +65,10 @@ cd nifty-fe-monorepo
 
 ### Install dependencies
 
-We use [npm](https://docs.npmjs.com/) to manage dependencies.
+We use [pnpm](https://pnpm.io/) to manage dependencies.
 
 ```
-npm install
+pnpm install
 ```
 
 ### Build
@@ -118,7 +118,25 @@ turbo test
 
 ### Updating dependencies
 
-Note that by default `npm update` will not update the semver values of direct dependencies in `package.json`. If you want to also update values in `package.json` you can run: `npm update --save`
+`--recursive, -r`
+
+Concurrently runs update in all subdirectories with a package.json (excluding node_modules).
+
+`--latest, -L`
+
+Update the dependencies to their latest stable version as determined by their latest tags.
+
+`--workspace`
+
+Tries to link all packages from the workspace. Versions are updated to match the versions of packages inside the workspace.
+
+`--interactive, -i`
+
+Show outdated dependencies and select which ones to update.
+
+```
+pnpm up -r --workspace
+```
 
 ### Remote Caching
 
