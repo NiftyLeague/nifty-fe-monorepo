@@ -13,7 +13,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { type AddressLike, parseEther } from 'ethers6';
+import { type AddressLike, parseEther } from 'ethers';
 
 import useNetworkContext from '@/hooks/useNetworkContext';
 import { submitTxWithGasEstimate } from '@/utils/bnc-notify';

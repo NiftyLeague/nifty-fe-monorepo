@@ -5,7 +5,7 @@ import useNetworkContext from '@/hooks/useNetworkContext';
 import { COMICS_CONTRACT } from '@/constants/contracts';
 import { COMICS } from '@/constants/comics';
 import type { Comic } from '@/types/comic';
-import type { AddressLike } from 'ethers6';
+import type { AddressLike } from 'ethers';
 
 /*
   ~ What it does? ~

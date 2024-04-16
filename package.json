@@ -51,6 +51,16 @@
       "crypto-es": "^2.1.0"
     }
   },
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "ethers": "^6.11.1",
+        "crypto-es": "^2.1.0",
+        "i18next": "22.5.1",
+        "utf-8-validate": "6.0.3"
+      }
+    }
+  },
   "browserslist": {
     "production": [
       ">0.5%",
