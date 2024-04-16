@@ -4,7 +4,7 @@ import COMICS_MERKLE_ABI from './abis/comics-merkle-distributor.json';
 import MERKLE_ABI from './abis/merkle-distributor.json';
 import { COMICS_MERKLE_DISTRIBUTOR_ADDRESS, MERKLE_DISTRIBUTOR_ADDRESS } from '@/constants/contracts';
 import { LOCAL_CHAIN_ID } from '@/constants/networks';
-import type { InterfaceAbi } from 'ethers6';
+import type { InterfaceAbi } from 'ethers';
 
 const EXTERNAL_CONTRACTS: {
   [chainId: number]: {

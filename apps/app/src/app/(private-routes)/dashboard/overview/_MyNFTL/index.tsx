@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Grid, Button, Stack, Skeleton, IconButton, Typography } from '@mui/material';
 import HistoryIcon from '@mui/icons-material/History';
 import { useTheme, sectionSpacing } from '@nl/theme';
-import { type TransactionResponse, parseEther } from 'ethers6';
+import { type TransactionResponse, parseEther } from 'ethers';
 
 import SectionTitle from '@/components/sections/SectionTitle';
 import HoverDataCard from '@/components/cards/HoverDataCard';

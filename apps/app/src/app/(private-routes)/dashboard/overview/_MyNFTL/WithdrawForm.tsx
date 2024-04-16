@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 import { useTheme } from '@nl/theme';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { type TransactionResponse } from 'ethers6';
+import { type TransactionResponse } from 'ethers';
 import { useState, useContext, useEffect } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { NumericFormat } from 'react-number-format';
