@@ -1,4 +1,4 @@
-import { JsonRpcProvider } from 'ethers';
+import { BrowserProvider } from 'ethers';
 import crypto from 'crypto';
 
 declare global {
@@ -19,7 +19,7 @@ async function getSigner() {
   // Request account access
   await window.ethereum.request({ method: 'eth_requestAccounts' });
   // Get the Provider/Signer
-  const provider = new JsonRpcProvider(window.ethereum);
+  const provider = new BrowserProvider(window.ethereum);
   return provider.getSigner();
 }
 
