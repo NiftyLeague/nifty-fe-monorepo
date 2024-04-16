@@ -1,4 +1,4 @@
-import type { TransactionResponse, TransactionRequest, TransactionReceipt } from 'ethers6';
+import type { TransactionResponse, TransactionRequest, TransactionReceipt } from 'ethers';
 import type { EthereumTransactionLog, EthereumTransactionData, SDKError, NotificationObject } from 'bnc-sdk';
 import type { EthereumRpcError, EthereumProviderError } from 'eth-rpc-errors';
 

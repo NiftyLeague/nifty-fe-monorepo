@@ -13,7 +13,7 @@ import type {
   ContractRunner,
   ContractMethod,
   Listener,
-} from 'ethers6';
+} from 'ethers';
 import type {
   TypedContractEvent,
   TypedDeferredTopicFilter,
@@ -28,7 +28,9 @@ export interface NiftyLaunchComicsInterface extends Interface {
     nameOrSignature:
       | 'DEFAULT_ADMIN_ROLE'
       | 'MINTER_ROLE'
+      | 'NAME'
       | 'PAUSER_ROLE'
+      | 'SYMBOL'
       | 'balanceOf'
       | 'balanceOfBatch'
       | 'burn'
@@ -39,7 +41,6 @@ export interface NiftyLaunchComicsInterface extends Interface {
       | 'isApprovedForAll'
       | 'mint'
       | 'mintBatch'
-      | 'name'
       | 'pauseBurn'
       | 'paused'
       | 'renounceRole'
@@ -49,7 +50,6 @@ export interface NiftyLaunchComicsInterface extends Interface {
       | 'setApprovalForAll'
       | 'setURI'
       | 'supportsInterface'
-      | 'symbol'
       | 'unpauseBurn'
       | 'uri',
   ): FunctionFragment;
@@ -69,7 +69,9 @@ export interface NiftyLaunchComicsInterface extends Interface {
 
   encodeFunctionData(functionFragment: 'DEFAULT_ADMIN_ROLE', values?: undefined): string;
   encodeFunctionData(functionFragment: 'MINTER_ROLE', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'NAME', values?: undefined): string;
   encodeFunctionData(functionFragment: 'PAUSER_ROLE', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'SYMBOL', values?: undefined): string;
   encodeFunctionData(functionFragment: 'balanceOf', values: [AddressLike, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'balanceOfBatch', values: [AddressLike[], BigNumberish[]]): string;
   encodeFunctionData(functionFragment: 'burn', values: [AddressLike, BigNumberish, BigNumberish]): string;
@@ -83,7 +85,6 @@ export interface NiftyLaunchComicsInterface extends Interface {
     functionFragment: 'mintBatch',
     values: [AddressLike, BigNumberish[], BigNumberish[], BytesLike],
   ): string;
-  encodeFunctionData(functionFragment: 'name', values?: undefined): string;
   encodeFunctionData(functionFragment: 'pauseBurn', values?: undefined): string;
   encodeFunctionData(functionFragment: 'paused', values?: undefined): string;
   encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, AddressLike]): string;
@@ -99,13 +100,14 @@ export interface NiftyLaunchComicsInterface extends Interface {
   encodeFunctionData(functionFragment: 'setApprovalForAll', values: [AddressLike, boolean]): string;
   encodeFunctionData(functionFragment: 'setURI', values: [string]): string;
   encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
-  encodeFunctionData(functionFragment: 'symbol', values?: undefined): string;
   encodeFunctionData(functionFragment: 'unpauseBurn', values?: undefined): string;
   encodeFunctionData(functionFragment: 'uri', values: [BigNumberish]): string;
 
   decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'MINTER_ROLE', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'NAME', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'PAUSER_ROLE', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'SYMBOL', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'balanceOfBatch', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'burn', data: BytesLike): Result;
@@ -116,7 +118,6 @@ export interface NiftyLaunchComicsInterface extends Interface {
   decodeFunctionResult(functionFragment: 'isApprovedForAll', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'mintBatch', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'pauseBurn', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'paused', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result;
@@ -126,7 +127,6 @@ export interface NiftyLaunchComicsInterface extends Interface {
   decodeFunctionResult(functionFragment: 'setApprovalForAll', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setURI', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'unpauseBurn', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'uri', data: BytesLike): Result;
 }
@@ -305,7 +305,11 @@ export interface NiftyLaunchComics extends BaseContract {
 
   MINTER_ROLE: TypedContractMethod<[], [string], 'view'>;
 
+  NAME: TypedContractMethod<[], [string], 'view'>;
+
   PAUSER_ROLE: TypedContractMethod<[], [string], 'view'>;
+
+  SYMBOL: TypedContractMethod<[], [string], 'view'>;
 
   balanceOf: TypedContractMethod<[account: AddressLike, id: BigNumberish], [bigint], 'view'>;
 
@@ -339,8 +343,6 @@ export interface NiftyLaunchComics extends BaseContract {
     'nonpayable'
   >;
 
-  name: TypedContractMethod<[], [string], 'view'>;
-
   pauseBurn: TypedContractMethod<[], [void], 'nonpayable'>;
 
   paused: TypedContractMethod<[], [boolean], 'view'>;
@@ -367,8 +369,6 @@ export interface NiftyLaunchComics extends BaseContract {
 
   supportsInterface: TypedContractMethod<[interfaceId: BytesLike], [boolean], 'view'>;
 
-  symbol: TypedContractMethod<[], [string], 'view'>;
-
   unpauseBurn: TypedContractMethod<[], [void], 'nonpayable'>;
 
   uri: TypedContractMethod<[arg0: BigNumberish], [string], 'view'>;
@@ -377,7 +377,9 @@ export interface NiftyLaunchComics extends BaseContract {
 
   getFunction(nameOrSignature: 'DEFAULT_ADMIN_ROLE'): TypedContractMethod<[], [string], 'view'>;
   getFunction(nameOrSignature: 'MINTER_ROLE'): TypedContractMethod<[], [string], 'view'>;
+  getFunction(nameOrSignature: 'NAME'): TypedContractMethod<[], [string], 'view'>;
   getFunction(nameOrSignature: 'PAUSER_ROLE'): TypedContractMethod<[], [string], 'view'>;
+  getFunction(nameOrSignature: 'SYMBOL'): TypedContractMethod<[], [string], 'view'>;
   getFunction(
     nameOrSignature: 'balanceOf',
   ): TypedContractMethod<[account: AddressLike, id: BigNumberish], [bigint], 'view'>;
@@ -414,7 +416,6 @@ export interface NiftyLaunchComics extends BaseContract {
     [void],
     'nonpayable'
   >;
-  getFunction(nameOrSignature: 'name'): TypedContractMethod<[], [string], 'view'>;
   getFunction(nameOrSignature: 'pauseBurn'): TypedContractMethod<[], [void], 'nonpayable'>;
   getFunction(nameOrSignature: 'paused'): TypedContractMethod<[], [boolean], 'view'>;
   getFunction(
@@ -442,7 +443,6 @@ export interface NiftyLaunchComics extends BaseContract {
   ): TypedContractMethod<[operator: AddressLike, approved: boolean], [void], 'nonpayable'>;
   getFunction(nameOrSignature: 'setURI'): TypedContractMethod<[newuri: string], [void], 'nonpayable'>;
   getFunction(nameOrSignature: 'supportsInterface'): TypedContractMethod<[interfaceId: BytesLike], [boolean], 'view'>;
-  getFunction(nameOrSignature: 'symbol'): TypedContractMethod<[], [string], 'view'>;
   getFunction(nameOrSignature: 'unpauseBurn'): TypedContractMethod<[], [void], 'nonpayable'>;
   getFunction(nameOrSignature: 'uri'): TypedContractMethod<[arg0: BigNumberish], [string], 'view'>;
 

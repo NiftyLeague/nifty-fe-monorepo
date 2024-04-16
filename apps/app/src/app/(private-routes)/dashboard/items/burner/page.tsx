@@ -4,7 +4,7 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@mui/material';
 
-import { type AddressLike } from 'ethers6';
+import { type AddressLike } from 'ethers';
 import IMXContext from '@/contexts/IMXContext';
 import useNetworkContext from '@/hooks/useNetworkContext';
 import { COMICS_BURNER_CONTRACT, COMICS_CONTRACT } from '@/constants/contracts';
