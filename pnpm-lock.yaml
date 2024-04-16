@@ -205,8 +205,8 @@ importers:
         specifier: ^10.0.5
         version: 10.0.5(react-dom@18.2.0)(react@18.2.0)
       react-unity-webgl:
-        specifier: ~8.8.0
-        version: 8.8.0(react@18.2.0)
+        specifier: ~9.5.1
+        version: 9.5.1(react@18.2.0)
       redux:
         specifier: ^5.0.1
         version: 5.0.1
@@ -5118,6 +5118,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -17050,6 +17051,10 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
+    dev: false
+
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
@@ -19232,14 +19237,6 @@ packages:
       prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
-  /react-unity-webgl@8.8.0(react@18.2.0):
-    resolution: {integrity: sha512-4PHTEwUQd70IJAy+jdVvHM+A6No9GMTmA/PCFOWkgpy2g0SlKJF3LREt92TfhttnMJ+CLL9iF8X03wMBvNvsjA==}
-    peerDependencies:
-      react: '>=16.8.0'
-    dependencies:
-      react: 18.2.0
     dev: false
 
   /react-unity-webgl@9.5.1(react@18.2.0):
