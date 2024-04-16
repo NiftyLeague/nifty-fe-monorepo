@@ -13,7 +13,7 @@ import type {
   ContractRunner,
   ContractMethod,
   Listener,
-} from 'ethers6';
+} from 'ethers';
 import type {
   TypedContractEvent,
   TypedDeferredTopicFilter,
@@ -201,13 +201,13 @@ export interface BalanceManager extends BaseContract {
 
   nftl: TypedContractMethod<[], [string], 'view'>;
 
-  nonce: TypedContractMethod<[arg0: AddressLike], [bigint], 'view'>;
+  nonce: TypedContractMethod<[user: AddressLike], [bigint], 'view'>;
 
   owner: TypedContractMethod<[], [string], 'view'>;
 
   renounceOwnership: TypedContractMethod<[], [void], 'nonpayable'>;
 
-  signatures: TypedContractMethod<[arg0: BytesLike], [boolean], 'view'>;
+  signatures: TypedContractMethod<[signature: BytesLike], [boolean], 'view'>;
 
   transferOwnership: TypedContractMethod<[newOwner: AddressLike], [void], 'nonpayable'>;
 
@@ -229,10 +229,10 @@ export interface BalanceManager extends BaseContract {
   ): TypedContractMethod<[_nftl: AddressLike, _maintainer: AddressLike], [void], 'nonpayable'>;
   getFunction(nameOrSignature: 'maintainer'): TypedContractMethod<[], [string], 'view'>;
   getFunction(nameOrSignature: 'nftl'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'nonce'): TypedContractMethod<[arg0: AddressLike], [bigint], 'view'>;
+  getFunction(nameOrSignature: 'nonce'): TypedContractMethod<[user: AddressLike], [bigint], 'view'>;
   getFunction(nameOrSignature: 'owner'): TypedContractMethod<[], [string], 'view'>;
   getFunction(nameOrSignature: 'renounceOwnership'): TypedContractMethod<[], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'signatures'): TypedContractMethod<[arg0: BytesLike], [boolean], 'view'>;
+  getFunction(nameOrSignature: 'signatures'): TypedContractMethod<[signature: BytesLike], [boolean], 'view'>;
   getFunction(nameOrSignature: 'transferOwnership'): TypedContractMethod<[newOwner: AddressLike], [void], 'nonpayable'>;
   getFunction(
     nameOrSignature: 'updateMaintainer',

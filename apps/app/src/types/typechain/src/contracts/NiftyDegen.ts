@@ -13,7 +13,7 @@ import type {
   ContractRunner,
   ContractMethod,
   Listener,
-} from 'ethers6';
+} from 'ethers';
 import type {
   TypedContractEvent,
   TypedDeferredTopicFilter,
@@ -148,6 +148,7 @@ export interface NiftyDegenInterface extends Interface {
       | 'NameUpdated'
       | 'OwnershipTransferred'
       | 'Paused'
+      | 'PriceChanged'
       | 'Transfer'
       | 'Unpaused',
   ): EventFragment;
@@ -306,6 +307,18 @@ export namespace PausedEvent {
   export type OutputTuple = [account: string];
   export interface OutputObject {
     account: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace PriceChangedEvent {
+  export type InputTuple = [newPrice: BigNumberish];
+  export type OutputTuple = [newPrice: bigint];
+  export interface OutputObject {
+    newPrice: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -571,6 +584,9 @@ export interface NiftyDegen extends BaseContract {
     key: 'Paused',
   ): TypedContractEvent<PausedEvent.InputTuple, PausedEvent.OutputTuple, PausedEvent.OutputObject>;
   getEvent(
+    key: 'PriceChanged',
+  ): TypedContractEvent<PriceChangedEvent.InputTuple, PriceChangedEvent.OutputTuple, PriceChangedEvent.OutputObject>;
+  getEvent(
     key: 'Transfer',
   ): TypedContractEvent<TransferEvent.InputTuple, TransferEvent.OutputTuple, TransferEvent.OutputObject>;
   getEvent(
@@ -620,6 +636,17 @@ export interface NiftyDegen extends BaseContract {
 
     'Paused(address)': TypedContractEvent<PausedEvent.InputTuple, PausedEvent.OutputTuple, PausedEvent.OutputObject>;
     Paused: TypedContractEvent<PausedEvent.InputTuple, PausedEvent.OutputTuple, PausedEvent.OutputObject>;
+
+    'PriceChanged(uint256)': TypedContractEvent<
+      PriceChangedEvent.InputTuple,
+      PriceChangedEvent.OutputTuple,
+      PriceChangedEvent.OutputObject
+    >;
+    PriceChanged: TypedContractEvent<
+      PriceChangedEvent.InputTuple,
+      PriceChangedEvent.OutputTuple,
+      PriceChangedEvent.OutputObject
+    >;
 
     'Transfer(address,address,uint256)': TypedContractEvent<
       TransferEvent.InputTuple,
