@@ -27,5 +27,4 @@ export const wagmiConfig = defaultWagmiConfig({
   enableInjected: true,
   enableEIP6963: true,
   enableCoinbase: true,
-  enableSmartAccounts: true,
 });

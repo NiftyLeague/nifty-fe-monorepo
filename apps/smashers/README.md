@@ -13,7 +13,7 @@ cp .env.example .env.local
 ### Run the development server
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 Open [http://localhost:3001](http://localhost:3001) with your browser to see the result.
