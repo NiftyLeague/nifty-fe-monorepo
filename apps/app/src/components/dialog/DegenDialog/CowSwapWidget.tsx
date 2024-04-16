@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { styled } from '@nl/theme';
 import Image from 'next/image';
-import { formatEther, parseEther, type AddressLike } from 'ethers6';
+import { formatEther, parseEther, type AddressLike } from 'ethers';
 import { OrderKind } from '@cowprotocol/cow-sdk';
 import { createOrderSwapEtherToNFTL, getCowMarketPrice, getOrderDetail } from '@/utils/cowswap';
 
@@ -12,7 +12,6 @@ import SouthIcon from '@mui/icons-material/South';
 import CircleIcon from '@mui/icons-material/Circle';
 
 import { COW_PROTOCOL_URL } from '@/constants/url';
-import { DEBUG } from '@/constants/index';
 import { formatNumberToDisplay, formatNumberToDisplay2 } from '@/utils/numbers';
 import { GAME_ACCOUNT_CONTRACT, NFTL_CONTRACT } from '@/constants/contracts';
 import { TARGET_NETWORK } from '@/constants/networks';

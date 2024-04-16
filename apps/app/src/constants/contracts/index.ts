@@ -1,4 +1,4 @@
-import type { InterfaceAbi } from 'ethers6';
+import type { InterfaceAbi } from 'ethers';
 import type { Network } from '@/types/web3';
 import { SEPOLIA_ID, MAINNET_ID } from '../networks';
 import DEPLOYMENTS from './deployments';

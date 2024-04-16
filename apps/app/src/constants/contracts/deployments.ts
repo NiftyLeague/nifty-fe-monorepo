@@ -1,4 +1,4 @@
-import type { InterfaceAbi } from 'ethers6';
+import type { InterfaceAbi } from 'ethers';
 import { mainnet, sepolia } from 'viem/chains';
 
 import { LOCAL_CHAIN_ID } from '@/constants/networks';

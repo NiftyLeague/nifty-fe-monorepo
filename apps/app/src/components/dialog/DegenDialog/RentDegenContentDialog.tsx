@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { styled, useTheme } from '@nl/theme';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
-import { isAddress } from 'ethers6';
+import { isAddress } from 'ethers';
 
 import {
   Box,
@@ -40,7 +40,7 @@ import useLocalStorageContext from '@/hooks/useLocalStorageContext';
 
 import TermsOfServiceDialog from '../TermsOfServiceDialog';
 import RentStepper from './RentStepper';
-import CowSwapWidget from './CowSwapWidget';
+// import CowSwapWidget from './CowSwapWidget';
 
 const PREFIX = 'RentDegenContentDialog';
 
@@ -503,7 +503,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
           </Stack>
         </Stack>
         <Stack direction="column" mb={6}>
-          {purchasingNFTL && <CowSwapWidget refreshBalance={refetchAccount} />}
+          {/* {purchasingNFTL && <CowSwapWidget refreshBalance={refetchAccount} />} */}
           <Typography variant="h5" mt={4} mb={1.5}>
             Stats
           </Typography>
