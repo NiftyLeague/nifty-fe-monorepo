@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ethers } from 'ethers6';
+import { ethers } from 'ethers';
 import {
   DeployContractOptions,
   FactoryOptions,
@@ -13,6 +13,18 @@ import * as Contracts from '.';
 
 declare module 'hardhat/types/runtime' {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
+    getContractFactory(
+      name: 'ConfirmedOwner',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.ConfirmedOwner__factory>;
+    getContractFactory(
+      name: 'ConfirmedOwnerWithProposal',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.ConfirmedOwnerWithProposal__factory>;
+    getContractFactory(
+      name: 'IOwnable',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.IOwnable__factory>;
     getContractFactory(
       name: 'LinkTokenInterface',
       signerOrOptions?: ethers.Signer | FactoryOptions,
@@ -30,13 +42,41 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | FactoryOptions,
     ): Promise<Contracts.VRFConsumerBaseV2__factory>;
     getContractFactory(
-      name: 'IMintable',
+      name: 'IOperatorAllowlist',
       signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IMintable__factory>;
+    ): Promise<Contracts.IOperatorAllowlist__factory>;
     getContractFactory(
-      name: 'Mintable',
+      name: 'OperatorAllowlistEnforced',
       signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.Mintable__factory>;
+    ): Promise<Contracts.OperatorAllowlistEnforced__factory>;
+    getContractFactory(
+      name: 'IImmutableERC1155Errors',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.IImmutableERC1155Errors__factory>;
+    getContractFactory(
+      name: 'IImmutableERC721Errors',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.IImmutableERC721Errors__factory>;
+    getContractFactory(
+      name: 'OperatorAllowlistEnforcementErrors',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.OperatorAllowlistEnforcementErrors__factory>;
+    getContractFactory(
+      name: 'ERC1155Permit',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.ERC1155Permit__factory>;
+    getContractFactory(
+      name: 'IERC1155Permit',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.IERC1155Permit__factory>;
+    getContractFactory(
+      name: 'ImmutableERC1155Base',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.ImmutableERC1155Base__factory>;
+    getContractFactory(
+      name: 'ImmutableERC1155',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.ImmutableERC1155__factory>;
     getContractFactory(
       name: 'OwnableUpgradeable',
       signerOrOptions?: ethers.Signer | FactoryOptions,
@@ -126,9 +166,73 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | FactoryOptions,
     ): Promise<Contracts.Ownable__factory>;
     getContractFactory(
+      name: 'GovernorCountingSimple',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.GovernorCountingSimple__factory>;
+    getContractFactory(
+      name: 'GovernorSettings',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.GovernorSettings__factory>;
+    getContractFactory(
+      name: 'GovernorTimelockControl',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.GovernorTimelockControl__factory>;
+    getContractFactory(
+      name: 'GovernorVotes',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.GovernorVotes__factory>;
+    getContractFactory(
+      name: 'GovernorVotesQuorumFraction',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.GovernorVotesQuorumFraction__factory>;
+    getContractFactory(
+      name: 'IGovernorTimelock',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.IGovernorTimelock__factory>;
+    getContractFactory(
+      name: 'Governor',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.Governor__factory>;
+    getContractFactory(
+      name: 'IGovernor',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.IGovernor__factory>;
+    getContractFactory(
+      name: 'TimelockController',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.TimelockController__factory>;
+    getContractFactory(
+      name: 'IVotes',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.IVotes__factory>;
+    getContractFactory(
+      name: 'IERC1271',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.IERC1271__factory>;
+    getContractFactory(
+      name: 'IERC2981',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.IERC2981__factory>;
+    getContractFactory(
+      name: 'IERC5267',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.IERC5267__factory>;
+    getContractFactory(
+      name: 'IERC5805',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.IERC5805__factory>;
+    getContractFactory(
+      name: 'IERC6372',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.IERC6372__factory>;
+    getContractFactory(
       name: 'Pausable',
       signerOrOptions?: ethers.Signer | FactoryOptions,
     ): Promise<Contracts.Pausable__factory>;
+    getContractFactory(
+      name: 'ERC2981',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.ERC2981__factory>;
     getContractFactory(
       name: 'ERC1155',
       signerOrOptions?: ethers.Signer | FactoryOptions,
@@ -173,6 +277,14 @@ declare module 'hardhat/types/runtime' {
       name: 'ERC20Pausable',
       signerOrOptions?: ethers.Signer | FactoryOptions,
     ): Promise<Contracts.ERC20Pausable__factory>;
+    getContractFactory(
+      name: 'ERC20Permit',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.ERC20Permit__factory>;
+    getContractFactory(
+      name: 'ERC20Votes',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.ERC20Votes__factory>;
     getContractFactory(
       name: 'IERC20Metadata',
       signerOrOptions?: ethers.Signer | FactoryOptions,
@@ -230,6 +342,10 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | FactoryOptions,
     ): Promise<Contracts.ERC721PresetMinterPauserAutoId__factory>;
     getContractFactory(
+      name: 'EIP712',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.EIP712__factory>;
+    getContractFactory(
       name: 'ERC165',
       signerOrOptions?: ethers.Signer | FactoryOptions,
     ): Promise<Contracts.ERC165__factory>;
@@ -238,65 +354,21 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | FactoryOptions,
     ): Promise<Contracts.IERC165__factory>;
     getContractFactory(
-      name: 'AllowedColorsStorage',
+      name: 'ShortStrings',
       signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.AllowedColorsStorage__factory>;
+    ): Promise<Contracts.ShortStrings__factory>;
+    getContractFactory(
+      name: 'DoubleEndedQueue',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.DoubleEndedQueue__factory>;
     getContractFactory(
       name: 'BalanceManager',
       signerOrOptions?: ethers.Signer | FactoryOptions,
     ): Promise<Contracts.BalanceManager__factory>;
     getContractFactory(
-      name: 'WETH',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.WETH__factory>;
-    getContractFactory(
       name: 'HydraDistributor',
       signerOrOptions?: ethers.Signer | FactoryOptions,
     ): Promise<Contracts.HydraDistributor__factory>;
-    getContractFactory(
-      name: 'NiftyBurningComicsL2',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.NiftyBurningComicsL2__factory>;
-    getContractFactory(
-      name: 'NiftyItemL2',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.NiftyItemL2__factory>;
-    getContractFactory(
-      name: 'IERC1155SupplyUpgradeable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC1155SupplyUpgradeable__factory>;
-    getContractFactory(
-      name: 'IERC20PresetMinterPauserUpgradeable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC20PresetMinterPauserUpgradeable__factory>;
-    getContractFactory(
-      name: 'INiftyEquipment',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.INiftyEquipment__factory>;
-    getContractFactory(
-      name: 'INiftyLaunchComics',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.INiftyLaunchComics__factory>;
-    getContractFactory(
-      name: 'MockERC1155',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.MockERC1155__factory>;
-    getContractFactory(
-      name: 'MockERC20',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.MockERC20__factory>;
-    getContractFactory(
-      name: 'MockERC721',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.MockERC721__factory>;
-    getContractFactory(
-      name: 'INFTL',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.INFTL__factory>;
-    getContractFactory(
-      name: 'NameableCharacter',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.NameableCharacter__factory>;
     getContractFactory(
       name: 'IERC20BurnableUpgradeable',
       signerOrOptions?: ethers.Signer | FactoryOptions,
@@ -310,6 +382,126 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | FactoryOptions,
     ): Promise<Contracts.NFTLTimelock__factory>;
     getContractFactory(
+      name: 'NiftyBurningComicsL2',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.NiftyBurningComicsL2__factory>;
+    getContractFactory(
+      name: 'NiftyEquipment',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.NiftyEquipment__factory>;
+    getContractFactory(
+      name: 'NiftyItemL2',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.NiftyItemL2__factory>;
+    getContractFactory(
+      name: 'NiftyItemSale',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.NiftyItemSale__factory>;
+    getContractFactory(
+      name: 'WETH',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.WETH__factory>;
+    getContractFactory(
+      name: 'ComicsBurner',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.ComicsBurner__factory>;
+    getContractFactory(
+      name: 'NFTL',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.NFTL__factory>;
+    getContractFactory(
+      name: 'NiftyGovernor',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.NiftyGovernor__factory>;
+    getContractFactory(
+      name: 'NiftyMarketplace',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.NiftyMarketplace__factory>;
+    getContractFactory(
+      name: 'Store',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.Store__factory>;
+    getContractFactory(
+      name: 'Timelock',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.Timelock__factory>;
+    getContractFactory(
+      name: 'IChildERC20',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.IChildERC20__factory>;
+    getContractFactory(
+      name: 'IERC1155SupplyUpgradeable',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.IERC1155SupplyUpgradeable__factory>;
+    getContractFactory(
+      name: 'IERC20MetaTransactions',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.IERC20MetaTransactions__factory>;
+    getContractFactory(
+      name: 'IERC20PresetMinterPauserUpgradeable',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.IERC20PresetMinterPauserUpgradeable__factory>;
+    getContractFactory(
+      name: 'IGovToken',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.IGovToken__factory>;
+    getContractFactory(
+      name: 'IMintable',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.IMintable__factory>;
+    getContractFactory(
+      name: 'INiftyEquipment',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.INiftyEquipment__factory>;
+    getContractFactory(
+      name: 'INiftyLaunchComics',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.INiftyLaunchComics__factory>;
+    getContractFactory(
+      name: 'INiftyMarketplace',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.INiftyMarketplace__factory>;
+    getContractFactory(
+      name: 'AllowedColorsStorage',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.AllowedColorsStorage__factory>;
+    getContractFactory(
+      name: 'ERC20MetaTransactions',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.ERC20MetaTransactions__factory>;
+    getContractFactory(
+      name: 'INFTL',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.INFTL__factory>;
+    getContractFactory(
+      name: 'NameableCharacter',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.NameableCharacter__factory>;
+    getContractFactory(
+      name: 'NiftyLeagueCharacter',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.NiftyLeagueCharacter__factory>;
+    getContractFactory(
+      name: 'MockERC1155',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.MockERC1155__factory>;
+    getContractFactory(
+      name: 'MockERC20',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.MockERC20__factory>;
+    getContractFactory(
+      name: 'MockERC721',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.MockERC721__factory>;
+    getContractFactory(
+      name: 'MockStarkExchange',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.MockStarkExchange__factory>;
+    getContractFactory(
+      name: 'MockVRFCoordinator',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.MockVRFCoordinator__factory>;
+    getContractFactory(
       name: 'NFTLToken',
       signerOrOptions?: ethers.Signer | FactoryOptions,
     ): Promise<Contracts.NFTLToken__factory>;
@@ -318,22 +510,33 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | FactoryOptions,
     ): Promise<Contracts.NiftyDegen__factory>;
     getContractFactory(
-      name: 'NiftyEquipment',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.NiftyEquipment__factory>;
-    getContractFactory(
-      name: 'NiftyItemSale',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.NiftyItemSale__factory>;
-    getContractFactory(
       name: 'NiftyLaunchComics',
       signerOrOptions?: ethers.Signer | FactoryOptions,
     ): Promise<Contracts.NiftyLaunchComics__factory>;
     getContractFactory(
-      name: 'NiftyLeagueCharacter',
+      name: 'Bytes',
       signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.NiftyLeagueCharacter__factory>;
+    ): Promise<Contracts.Bytes__factory>;
+    getContractFactory(
+      name: 'Minting',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.Minting__factory>;
 
+    getContractAt(
+      name: 'ConfirmedOwner',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.ConfirmedOwner>;
+    getContractAt(
+      name: 'ConfirmedOwnerWithProposal',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.ConfirmedOwnerWithProposal>;
+    getContractAt(
+      name: 'IOwnable',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.IOwnable>;
     getContractAt(
       name: 'LinkTokenInterface',
       address: string | ethers.Addressable,
@@ -355,15 +558,50 @@ declare module 'hardhat/types/runtime' {
       signer?: ethers.Signer,
     ): Promise<Contracts.VRFConsumerBaseV2>;
     getContractAt(
-      name: 'IMintable',
+      name: 'IOperatorAllowlist',
       address: string | ethers.Addressable,
       signer?: ethers.Signer,
-    ): Promise<Contracts.IMintable>;
+    ): Promise<Contracts.IOperatorAllowlist>;
     getContractAt(
-      name: 'Mintable',
+      name: 'OperatorAllowlistEnforced',
       address: string | ethers.Addressable,
       signer?: ethers.Signer,
-    ): Promise<Contracts.Mintable>;
+    ): Promise<Contracts.OperatorAllowlistEnforced>;
+    getContractAt(
+      name: 'IImmutableERC1155Errors',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.IImmutableERC1155Errors>;
+    getContractAt(
+      name: 'IImmutableERC721Errors',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.IImmutableERC721Errors>;
+    getContractAt(
+      name: 'OperatorAllowlistEnforcementErrors',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.OperatorAllowlistEnforcementErrors>;
+    getContractAt(
+      name: 'ERC1155Permit',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.ERC1155Permit>;
+    getContractAt(
+      name: 'IERC1155Permit',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.IERC1155Permit>;
+    getContractAt(
+      name: 'ImmutableERC1155Base',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.ImmutableERC1155Base>;
+    getContractAt(
+      name: 'ImmutableERC1155',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.ImmutableERC1155>;
     getContractAt(
       name: 'OwnableUpgradeable',
       address: string | ethers.Addressable,
@@ -475,10 +713,90 @@ declare module 'hardhat/types/runtime' {
       signer?: ethers.Signer,
     ): Promise<Contracts.Ownable>;
     getContractAt(
+      name: 'GovernorCountingSimple',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.GovernorCountingSimple>;
+    getContractAt(
+      name: 'GovernorSettings',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.GovernorSettings>;
+    getContractAt(
+      name: 'GovernorTimelockControl',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.GovernorTimelockControl>;
+    getContractAt(
+      name: 'GovernorVotes',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.GovernorVotes>;
+    getContractAt(
+      name: 'GovernorVotesQuorumFraction',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.GovernorVotesQuorumFraction>;
+    getContractAt(
+      name: 'IGovernorTimelock',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.IGovernorTimelock>;
+    getContractAt(
+      name: 'Governor',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.Governor>;
+    getContractAt(
+      name: 'IGovernor',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.IGovernor>;
+    getContractAt(
+      name: 'TimelockController',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.TimelockController>;
+    getContractAt(
+      name: 'IVotes',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.IVotes>;
+    getContractAt(
+      name: 'IERC1271',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.IERC1271>;
+    getContractAt(
+      name: 'IERC2981',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.IERC2981>;
+    getContractAt(
+      name: 'IERC5267',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.IERC5267>;
+    getContractAt(
+      name: 'IERC5805',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.IERC5805>;
+    getContractAt(
+      name: 'IERC6372',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.IERC6372>;
+    getContractAt(
       name: 'Pausable',
       address: string | ethers.Addressable,
       signer?: ethers.Signer,
     ): Promise<Contracts.Pausable>;
+    getContractAt(
+      name: 'ERC2981',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.ERC2981>;
     getContractAt(
       name: 'ERC1155',
       address: string | ethers.Addressable,
@@ -534,6 +852,16 @@ declare module 'hardhat/types/runtime' {
       address: string | ethers.Addressable,
       signer?: ethers.Signer,
     ): Promise<Contracts.ERC20Pausable>;
+    getContractAt(
+      name: 'ERC20Permit',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.ERC20Permit>;
+    getContractAt(
+      name: 'ERC20Votes',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.ERC20Votes>;
     getContractAt(
       name: 'IERC20Metadata',
       address: string | ethers.Addressable,
@@ -605,6 +933,11 @@ declare module 'hardhat/types/runtime' {
       signer?: ethers.Signer,
     ): Promise<Contracts.ERC721PresetMinterPauserAutoId>;
     getContractAt(
+      name: 'EIP712',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.EIP712>;
+    getContractAt(
       name: 'ERC165',
       address: string | ethers.Addressable,
       signer?: ethers.Signer,
@@ -615,76 +948,25 @@ declare module 'hardhat/types/runtime' {
       signer?: ethers.Signer,
     ): Promise<Contracts.IERC165>;
     getContractAt(
-      name: 'AllowedColorsStorage',
+      name: 'ShortStrings',
       address: string | ethers.Addressable,
       signer?: ethers.Signer,
-    ): Promise<Contracts.AllowedColorsStorage>;
+    ): Promise<Contracts.ShortStrings>;
+    getContractAt(
+      name: 'DoubleEndedQueue',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.DoubleEndedQueue>;
     getContractAt(
       name: 'BalanceManager',
       address: string | ethers.Addressable,
       signer?: ethers.Signer,
     ): Promise<Contracts.BalanceManager>;
-    getContractAt(name: 'WETH', address: string | ethers.Addressable, signer?: ethers.Signer): Promise<Contracts.WETH>;
     getContractAt(
       name: 'HydraDistributor',
       address: string | ethers.Addressable,
       signer?: ethers.Signer,
     ): Promise<Contracts.HydraDistributor>;
-    getContractAt(
-      name: 'NiftyBurningComicsL2',
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.NiftyBurningComicsL2>;
-    getContractAt(
-      name: 'NiftyItemL2',
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.NiftyItemL2>;
-    getContractAt(
-      name: 'IERC1155SupplyUpgradeable',
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC1155SupplyUpgradeable>;
-    getContractAt(
-      name: 'IERC20PresetMinterPauserUpgradeable',
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC20PresetMinterPauserUpgradeable>;
-    getContractAt(
-      name: 'INiftyEquipment',
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.INiftyEquipment>;
-    getContractAt(
-      name: 'INiftyLaunchComics',
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.INiftyLaunchComics>;
-    getContractAt(
-      name: 'MockERC1155',
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.MockERC1155>;
-    getContractAt(
-      name: 'MockERC20',
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.MockERC20>;
-    getContractAt(
-      name: 'MockERC721',
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.MockERC721>;
-    getContractAt(
-      name: 'INFTL',
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.INFTL>;
-    getContractAt(
-      name: 'NameableCharacter',
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.NameableCharacter>;
     getContractAt(
       name: 'IERC20BurnableUpgradeable',
       address: string | ethers.Addressable,
@@ -701,6 +983,148 @@ declare module 'hardhat/types/runtime' {
       signer?: ethers.Signer,
     ): Promise<Contracts.NFTLTimelock>;
     getContractAt(
+      name: 'NiftyBurningComicsL2',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.NiftyBurningComicsL2>;
+    getContractAt(
+      name: 'NiftyEquipment',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.NiftyEquipment>;
+    getContractAt(
+      name: 'NiftyItemL2',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.NiftyItemL2>;
+    getContractAt(
+      name: 'NiftyItemSale',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.NiftyItemSale>;
+    getContractAt(name: 'WETH', address: string | ethers.Addressable, signer?: ethers.Signer): Promise<Contracts.WETH>;
+    getContractAt(
+      name: 'ComicsBurner',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.ComicsBurner>;
+    getContractAt(name: 'NFTL', address: string | ethers.Addressable, signer?: ethers.Signer): Promise<Contracts.NFTL>;
+    getContractAt(
+      name: 'NiftyGovernor',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.NiftyGovernor>;
+    getContractAt(
+      name: 'NiftyMarketplace',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.NiftyMarketplace>;
+    getContractAt(
+      name: 'Store',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.Store>;
+    getContractAt(
+      name: 'Timelock',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.Timelock>;
+    getContractAt(
+      name: 'IChildERC20',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.IChildERC20>;
+    getContractAt(
+      name: 'IERC1155SupplyUpgradeable',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.IERC1155SupplyUpgradeable>;
+    getContractAt(
+      name: 'IERC20MetaTransactions',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.IERC20MetaTransactions>;
+    getContractAt(
+      name: 'IERC20PresetMinterPauserUpgradeable',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.IERC20PresetMinterPauserUpgradeable>;
+    getContractAt(
+      name: 'IGovToken',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.IGovToken>;
+    getContractAt(
+      name: 'IMintable',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.IMintable>;
+    getContractAt(
+      name: 'INiftyEquipment',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.INiftyEquipment>;
+    getContractAt(
+      name: 'INiftyLaunchComics',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.INiftyLaunchComics>;
+    getContractAt(
+      name: 'INiftyMarketplace',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.INiftyMarketplace>;
+    getContractAt(
+      name: 'AllowedColorsStorage',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.AllowedColorsStorage>;
+    getContractAt(
+      name: 'ERC20MetaTransactions',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.ERC20MetaTransactions>;
+    getContractAt(
+      name: 'INFTL',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.INFTL>;
+    getContractAt(
+      name: 'NameableCharacter',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.NameableCharacter>;
+    getContractAt(
+      name: 'NiftyLeagueCharacter',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.NiftyLeagueCharacter>;
+    getContractAt(
+      name: 'MockERC1155',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.MockERC1155>;
+    getContractAt(
+      name: 'MockERC20',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.MockERC20>;
+    getContractAt(
+      name: 'MockERC721',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.MockERC721>;
+    getContractAt(
+      name: 'MockStarkExchange',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.MockStarkExchange>;
+    getContractAt(
+      name: 'MockVRFCoordinator',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.MockVRFCoordinator>;
+    getContractAt(
       name: 'NFTLToken',
       address: string | ethers.Addressable,
       signer?: ethers.Signer,
@@ -711,26 +1135,33 @@ declare module 'hardhat/types/runtime' {
       signer?: ethers.Signer,
     ): Promise<Contracts.NiftyDegen>;
     getContractAt(
-      name: 'NiftyEquipment',
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.NiftyEquipment>;
-    getContractAt(
-      name: 'NiftyItemSale',
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.NiftyItemSale>;
-    getContractAt(
       name: 'NiftyLaunchComics',
       address: string | ethers.Addressable,
       signer?: ethers.Signer,
     ): Promise<Contracts.NiftyLaunchComics>;
     getContractAt(
-      name: 'NiftyLeagueCharacter',
+      name: 'Bytes',
       address: string | ethers.Addressable,
       signer?: ethers.Signer,
-    ): Promise<Contracts.NiftyLeagueCharacter>;
+    ): Promise<Contracts.Bytes>;
+    getContractAt(
+      name: 'Minting',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.Minting>;
 
+    deployContract(
+      name: 'ConfirmedOwner',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.ConfirmedOwner>;
+    deployContract(
+      name: 'ConfirmedOwnerWithProposal',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.ConfirmedOwnerWithProposal>;
+    deployContract(
+      name: 'IOwnable',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IOwnable>;
     deployContract(
       name: 'LinkTokenInterface',
       signerOrOptions?: ethers.Signer | DeployContractOptions,
@@ -748,13 +1179,41 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.VRFConsumerBaseV2>;
     deployContract(
-      name: 'IMintable',
+      name: 'IOperatorAllowlist',
       signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IMintable>;
+    ): Promise<Contracts.IOperatorAllowlist>;
     deployContract(
-      name: 'Mintable',
+      name: 'OperatorAllowlistEnforced',
       signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.Mintable>;
+    ): Promise<Contracts.OperatorAllowlistEnforced>;
+    deployContract(
+      name: 'IImmutableERC1155Errors',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IImmutableERC1155Errors>;
+    deployContract(
+      name: 'IImmutableERC721Errors',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IImmutableERC721Errors>;
+    deployContract(
+      name: 'OperatorAllowlistEnforcementErrors',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.OperatorAllowlistEnforcementErrors>;
+    deployContract(
+      name: 'ERC1155Permit',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.ERC1155Permit>;
+    deployContract(
+      name: 'IERC1155Permit',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IERC1155Permit>;
+    deployContract(
+      name: 'ImmutableERC1155Base',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.ImmutableERC1155Base>;
+    deployContract(
+      name: 'ImmutableERC1155',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.ImmutableERC1155>;
     deployContract(
       name: 'OwnableUpgradeable',
       signerOrOptions?: ethers.Signer | DeployContractOptions,
@@ -844,9 +1303,70 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.Ownable>;
     deployContract(
+      name: 'GovernorCountingSimple',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.GovernorCountingSimple>;
+    deployContract(
+      name: 'GovernorSettings',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.GovernorSettings>;
+    deployContract(
+      name: 'GovernorTimelockControl',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.GovernorTimelockControl>;
+    deployContract(
+      name: 'GovernorVotes',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.GovernorVotes>;
+    deployContract(
+      name: 'GovernorVotesQuorumFraction',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.GovernorVotesQuorumFraction>;
+    deployContract(
+      name: 'IGovernorTimelock',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IGovernorTimelock>;
+    deployContract(
+      name: 'Governor',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.Governor>;
+    deployContract(
+      name: 'IGovernor',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IGovernor>;
+    deployContract(
+      name: 'TimelockController',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.TimelockController>;
+    deployContract(name: 'IVotes', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.IVotes>;
+    deployContract(
+      name: 'IERC1271',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IERC1271>;
+    deployContract(
+      name: 'IERC2981',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IERC2981>;
+    deployContract(
+      name: 'IERC5267',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IERC5267>;
+    deployContract(
+      name: 'IERC5805',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IERC5805>;
+    deployContract(
+      name: 'IERC6372',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IERC6372>;
+    deployContract(
       name: 'Pausable',
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.Pausable>;
+    deployContract(
+      name: 'ERC2981',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.ERC2981>;
     deployContract(
       name: 'ERC1155',
       signerOrOptions?: ethers.Signer | DeployContractOptions,
@@ -888,6 +1408,14 @@ declare module 'hardhat/types/runtime' {
       name: 'ERC20Pausable',
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.ERC20Pausable>;
+    deployContract(
+      name: 'ERC20Permit',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.ERC20Permit>;
+    deployContract(
+      name: 'ERC20Votes',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.ERC20Votes>;
     deployContract(
       name: 'IERC20Metadata',
       signerOrOptions?: ethers.Signer | DeployContractOptions,
@@ -938,65 +1466,28 @@ declare module 'hardhat/types/runtime' {
       name: 'ERC721PresetMinterPauserAutoId',
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.ERC721PresetMinterPauserAutoId>;
+    deployContract(name: 'EIP712', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.EIP712>;
     deployContract(name: 'ERC165', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.ERC165>;
     deployContract(
       name: 'IERC165',
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.IERC165>;
     deployContract(
-      name: 'AllowedColorsStorage',
+      name: 'ShortStrings',
       signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.AllowedColorsStorage>;
+    ): Promise<Contracts.ShortStrings>;
+    deployContract(
+      name: 'DoubleEndedQueue',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.DoubleEndedQueue>;
     deployContract(
       name: 'BalanceManager',
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.BalanceManager>;
-    deployContract(name: 'WETH', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.WETH>;
     deployContract(
       name: 'HydraDistributor',
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.HydraDistributor>;
-    deployContract(
-      name: 'NiftyBurningComicsL2',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyBurningComicsL2>;
-    deployContract(
-      name: 'NiftyItemL2',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyItemL2>;
-    deployContract(
-      name: 'IERC1155SupplyUpgradeable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC1155SupplyUpgradeable>;
-    deployContract(
-      name: 'IERC20PresetMinterPauserUpgradeable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC20PresetMinterPauserUpgradeable>;
-    deployContract(
-      name: 'INiftyEquipment',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.INiftyEquipment>;
-    deployContract(
-      name: 'INiftyLaunchComics',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.INiftyLaunchComics>;
-    deployContract(
-      name: 'MockERC1155',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.MockERC1155>;
-    deployContract(
-      name: 'MockERC20',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.MockERC20>;
-    deployContract(
-      name: 'MockERC721',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.MockERC721>;
-    deployContract(name: 'INFTL', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.INFTL>;
-    deployContract(
-      name: 'NameableCharacter',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NameableCharacter>;
     deployContract(
       name: 'IERC20BurnableUpgradeable',
       signerOrOptions?: ethers.Signer | DeployContractOptions,
@@ -1010,6 +1501,114 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.NFTLTimelock>;
     deployContract(
+      name: 'NiftyBurningComicsL2',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.NiftyBurningComicsL2>;
+    deployContract(
+      name: 'NiftyEquipment',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.NiftyEquipment>;
+    deployContract(
+      name: 'NiftyItemL2',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.NiftyItemL2>;
+    deployContract(
+      name: 'NiftyItemSale',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.NiftyItemSale>;
+    deployContract(name: 'WETH', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.WETH>;
+    deployContract(
+      name: 'ComicsBurner',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.ComicsBurner>;
+    deployContract(name: 'NFTL', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.NFTL>;
+    deployContract(
+      name: 'NiftyGovernor',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.NiftyGovernor>;
+    deployContract(
+      name: 'NiftyMarketplace',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.NiftyMarketplace>;
+    deployContract(name: 'Store', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.Store>;
+    deployContract(
+      name: 'Timelock',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.Timelock>;
+    deployContract(
+      name: 'IChildERC20',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IChildERC20>;
+    deployContract(
+      name: 'IERC1155SupplyUpgradeable',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IERC1155SupplyUpgradeable>;
+    deployContract(
+      name: 'IERC20MetaTransactions',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IERC20MetaTransactions>;
+    deployContract(
+      name: 'IERC20PresetMinterPauserUpgradeable',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IERC20PresetMinterPauserUpgradeable>;
+    deployContract(
+      name: 'IGovToken',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IGovToken>;
+    deployContract(
+      name: 'IMintable',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IMintable>;
+    deployContract(
+      name: 'INiftyEquipment',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.INiftyEquipment>;
+    deployContract(
+      name: 'INiftyLaunchComics',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.INiftyLaunchComics>;
+    deployContract(
+      name: 'INiftyMarketplace',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.INiftyMarketplace>;
+    deployContract(
+      name: 'AllowedColorsStorage',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.AllowedColorsStorage>;
+    deployContract(
+      name: 'ERC20MetaTransactions',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.ERC20MetaTransactions>;
+    deployContract(name: 'INFTL', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.INFTL>;
+    deployContract(
+      name: 'NameableCharacter',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.NameableCharacter>;
+    deployContract(
+      name: 'NiftyLeagueCharacter',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.NiftyLeagueCharacter>;
+    deployContract(
+      name: 'MockERC1155',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.MockERC1155>;
+    deployContract(
+      name: 'MockERC20',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.MockERC20>;
+    deployContract(
+      name: 'MockERC721',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.MockERC721>;
+    deployContract(
+      name: 'MockStarkExchange',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.MockStarkExchange>;
+    deployContract(
+      name: 'MockVRFCoordinator',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.MockVRFCoordinator>;
+    deployContract(
       name: 'NFTLToken',
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.NFTLToken>;
@@ -1018,22 +1617,30 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.NiftyDegen>;
     deployContract(
-      name: 'NiftyEquipment',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyEquipment>;
-    deployContract(
-      name: 'NiftyItemSale',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyItemSale>;
-    deployContract(
       name: 'NiftyLaunchComics',
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.NiftyLaunchComics>;
+    deployContract(name: 'Bytes', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.Bytes>;
     deployContract(
-      name: 'NiftyLeagueCharacter',
+      name: 'Minting',
       signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyLeagueCharacter>;
+    ): Promise<Contracts.Minting>;
 
+    deployContract(
+      name: 'ConfirmedOwner',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.ConfirmedOwner>;
+    deployContract(
+      name: 'ConfirmedOwnerWithProposal',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.ConfirmedOwnerWithProposal>;
+    deployContract(
+      name: 'IOwnable',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IOwnable>;
     deployContract(
       name: 'LinkTokenInterface',
       args: any[],
@@ -1055,15 +1662,50 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.VRFConsumerBaseV2>;
     deployContract(
-      name: 'IMintable',
+      name: 'IOperatorAllowlist',
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IMintable>;
+    ): Promise<Contracts.IOperatorAllowlist>;
     deployContract(
-      name: 'Mintable',
+      name: 'OperatorAllowlistEnforced',
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.Mintable>;
+    ): Promise<Contracts.OperatorAllowlistEnforced>;
+    deployContract(
+      name: 'IImmutableERC1155Errors',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IImmutableERC1155Errors>;
+    deployContract(
+      name: 'IImmutableERC721Errors',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IImmutableERC721Errors>;
+    deployContract(
+      name: 'OperatorAllowlistEnforcementErrors',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.OperatorAllowlistEnforcementErrors>;
+    deployContract(
+      name: 'ERC1155Permit',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.ERC1155Permit>;
+    deployContract(
+      name: 'IERC1155Permit',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IERC1155Permit>;
+    deployContract(
+      name: 'ImmutableERC1155Base',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.ImmutableERC1155Base>;
+    deployContract(
+      name: 'ImmutableERC1155',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.ImmutableERC1155>;
     deployContract(
       name: 'OwnableUpgradeable',
       args: any[],
@@ -1175,10 +1817,90 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.Ownable>;
     deployContract(
+      name: 'GovernorCountingSimple',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.GovernorCountingSimple>;
+    deployContract(
+      name: 'GovernorSettings',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.GovernorSettings>;
+    deployContract(
+      name: 'GovernorTimelockControl',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.GovernorTimelockControl>;
+    deployContract(
+      name: 'GovernorVotes',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.GovernorVotes>;
+    deployContract(
+      name: 'GovernorVotesQuorumFraction',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.GovernorVotesQuorumFraction>;
+    deployContract(
+      name: 'IGovernorTimelock',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IGovernorTimelock>;
+    deployContract(
+      name: 'Governor',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.Governor>;
+    deployContract(
+      name: 'IGovernor',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IGovernor>;
+    deployContract(
+      name: 'TimelockController',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.TimelockController>;
+    deployContract(
+      name: 'IVotes',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IVotes>;
+    deployContract(
+      name: 'IERC1271',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IERC1271>;
+    deployContract(
+      name: 'IERC2981',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IERC2981>;
+    deployContract(
+      name: 'IERC5267',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IERC5267>;
+    deployContract(
+      name: 'IERC5805',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IERC5805>;
+    deployContract(
+      name: 'IERC6372',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IERC6372>;
+    deployContract(
       name: 'Pausable',
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.Pausable>;
+    deployContract(
+      name: 'ERC2981',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.ERC2981>;
     deployContract(
       name: 'ERC1155',
       args: any[],
@@ -1234,6 +1956,16 @@ declare module 'hardhat/types/runtime' {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.ERC20Pausable>;
+    deployContract(
+      name: 'ERC20Permit',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.ERC20Permit>;
+    deployContract(
+      name: 'ERC20Votes',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.ERC20Votes>;
     deployContract(
       name: 'IERC20Metadata',
       args: any[],
@@ -1305,6 +2037,11 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.ERC721PresetMinterPauserAutoId>;
     deployContract(
+      name: 'EIP712',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.EIP712>;
+    deployContract(
       name: 'ERC165',
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions,
@@ -1315,80 +2052,25 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.IERC165>;
     deployContract(
-      name: 'AllowedColorsStorage',
+      name: 'ShortStrings',
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.AllowedColorsStorage>;
+    ): Promise<Contracts.ShortStrings>;
+    deployContract(
+      name: 'DoubleEndedQueue',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.DoubleEndedQueue>;
     deployContract(
       name: 'BalanceManager',
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.BalanceManager>;
     deployContract(
-      name: 'WETH',
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.WETH>;
-    deployContract(
       name: 'HydraDistributor',
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.HydraDistributor>;
-    deployContract(
-      name: 'NiftyBurningComicsL2',
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyBurningComicsL2>;
-    deployContract(
-      name: 'NiftyItemL2',
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyItemL2>;
-    deployContract(
-      name: 'IERC1155SupplyUpgradeable',
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC1155SupplyUpgradeable>;
-    deployContract(
-      name: 'IERC20PresetMinterPauserUpgradeable',
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC20PresetMinterPauserUpgradeable>;
-    deployContract(
-      name: 'INiftyEquipment',
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.INiftyEquipment>;
-    deployContract(
-      name: 'INiftyLaunchComics',
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.INiftyLaunchComics>;
-    deployContract(
-      name: 'MockERC1155',
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.MockERC1155>;
-    deployContract(
-      name: 'MockERC20',
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.MockERC20>;
-    deployContract(
-      name: 'MockERC721',
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.MockERC721>;
-    deployContract(
-      name: 'INFTL',
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.INFTL>;
-    deployContract(
-      name: 'NameableCharacter',
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NameableCharacter>;
     deployContract(
       name: 'IERC20BurnableUpgradeable',
       args: any[],
@@ -1405,6 +2087,156 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.NFTLTimelock>;
     deployContract(
+      name: 'NiftyBurningComicsL2',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.NiftyBurningComicsL2>;
+    deployContract(
+      name: 'NiftyEquipment',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.NiftyEquipment>;
+    deployContract(
+      name: 'NiftyItemL2',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.NiftyItemL2>;
+    deployContract(
+      name: 'NiftyItemSale',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.NiftyItemSale>;
+    deployContract(
+      name: 'WETH',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.WETH>;
+    deployContract(
+      name: 'ComicsBurner',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.ComicsBurner>;
+    deployContract(
+      name: 'NFTL',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.NFTL>;
+    deployContract(
+      name: 'NiftyGovernor',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.NiftyGovernor>;
+    deployContract(
+      name: 'NiftyMarketplace',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.NiftyMarketplace>;
+    deployContract(
+      name: 'Store',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.Store>;
+    deployContract(
+      name: 'Timelock',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.Timelock>;
+    deployContract(
+      name: 'IChildERC20',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IChildERC20>;
+    deployContract(
+      name: 'IERC1155SupplyUpgradeable',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IERC1155SupplyUpgradeable>;
+    deployContract(
+      name: 'IERC20MetaTransactions',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IERC20MetaTransactions>;
+    deployContract(
+      name: 'IERC20PresetMinterPauserUpgradeable',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IERC20PresetMinterPauserUpgradeable>;
+    deployContract(
+      name: 'IGovToken',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IGovToken>;
+    deployContract(
+      name: 'IMintable',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IMintable>;
+    deployContract(
+      name: 'INiftyEquipment',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.INiftyEquipment>;
+    deployContract(
+      name: 'INiftyLaunchComics',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.INiftyLaunchComics>;
+    deployContract(
+      name: 'INiftyMarketplace',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.INiftyMarketplace>;
+    deployContract(
+      name: 'AllowedColorsStorage',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.AllowedColorsStorage>;
+    deployContract(
+      name: 'ERC20MetaTransactions',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.ERC20MetaTransactions>;
+    deployContract(
+      name: 'INFTL',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.INFTL>;
+    deployContract(
+      name: 'NameableCharacter',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.NameableCharacter>;
+    deployContract(
+      name: 'NiftyLeagueCharacter',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.NiftyLeagueCharacter>;
+    deployContract(
+      name: 'MockERC1155',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.MockERC1155>;
+    deployContract(
+      name: 'MockERC20',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.MockERC20>;
+    deployContract(
+      name: 'MockERC721',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.MockERC721>;
+    deployContract(
+      name: 'MockStarkExchange',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.MockStarkExchange>;
+    deployContract(
+      name: 'MockVRFCoordinator',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.MockVRFCoordinator>;
+    deployContract(
       name: 'NFTLToken',
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions,
@@ -1415,25 +2247,20 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.NiftyDegen>;
     deployContract(
-      name: 'NiftyEquipment',
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyEquipment>;
-    deployContract(
-      name: 'NiftyItemSale',
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyItemSale>;
-    deployContract(
       name: 'NiftyLaunchComics',
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.NiftyLaunchComics>;
     deployContract(
-      name: 'NiftyLeagueCharacter',
+      name: 'Bytes',
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyLeagueCharacter>;
+    ): Promise<Contracts.Bytes>;
+    deployContract(
+      name: 'Minting',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.Minting>;
 
     // default types
     getContractFactory(name: string, signerOrOptions?: ethers.Signer | FactoryOptions): Promise<ethers.ContractFactory>;

@@ -4,3 +4,5 @@
 export { MockERC1155__factory } from './MockERC1155__factory';
 export { MockERC20__factory } from './MockERC20__factory';
 export { MockERC721__factory } from './MockERC721__factory';
+export { MockStarkExchange__factory } from './MockStarkExchange__factory';
+export { MockVRFCoordinator__factory } from './MockVRFCoordinator__factory';

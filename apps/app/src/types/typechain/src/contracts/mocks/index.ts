@@ -4,3 +4,5 @@
 export type { MockERC1155 } from './MockERC1155';
 export type { MockERC20 } from './MockERC20';
 export type { MockERC721 } from './MockERC721';
+export type { MockStarkExchange } from './MockStarkExchange';
+export type { MockVRFCoordinator } from './MockVRFCoordinator';
