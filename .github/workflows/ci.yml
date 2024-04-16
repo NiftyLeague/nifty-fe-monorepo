@@ -6,24 +6,32 @@ jobs:
   test:
     name: Test & Build Code
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20]
+        pnpm-version: [8]
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Setup Node 18.x
+      - name: Setup pnpm ${{ matrix.pnpm-version }}
+        uses: pnpm/action-setup@v3
+        with:
+          version: ${{ matrix.pnpm-version }}
+      - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: 18.x
-          cache: 'npm'
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
       - name: Run prettier
-        run: npm run format
+        run: pnpm format
       - name: Check linter
-        run: npm run lint
+        run: pnpm lint
       - name: Check TypeScript
-        run: npm run type-check
+        run: pnpm type-check
       - name: Build
-        run: npm run build
+        run: pnpm build
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID }}

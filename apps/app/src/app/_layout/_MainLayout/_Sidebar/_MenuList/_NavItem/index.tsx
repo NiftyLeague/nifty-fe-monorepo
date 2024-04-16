@@ -14,7 +14,7 @@ import { activeItem, openDrawer } from '@/store/slices/menu';
 
 // types
 import type { LinkTarget, NavItemType } from '@/types';
-import type { TablerIconsProps } from '@tabler/icons-react';
+import type { IconProps } from '@tabler/icons-react';
 
 interface NavItemProps {
   item: NavItemType;
@@ -30,7 +30,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
   const dispatch = useDispatch();
   const { openItem } = useSelector(state => state.menu);
 
-  const Icon = item?.icon! as (props: TablerIconsProps) => JSX.Element;
+  const Icon = item?.icon! as (props: IconProps) => JSX.Element;
   const itemIcon = item?.icon ? (
     <Icon stroke={1.5} size="20px" />
   ) : (

@@ -7,7 +7,7 @@ Please note we have a [code of conduct](CODE_OF_CONDUCT.md), please follow it in
 ## Development environment setup
 
 > **[?]**
-> This repository uses Turborepo with npm to manage all apps.
+> This repository uses Turborepo with pnpm to manage all apps.
 > e.g:
 
 To set up a development environment, please follow these steps:
@@ -18,9 +18,9 @@ To set up a development environment, please follow these steps:
    git clone https://github.com/NiftyLeague/nifty-fe-monorepo
    ```
 
-2. Install development dependencies `npm install`
+2. Install development dependencies `pnpm install`
 
-3. Run all apps & packages in dev `turbo dev` or `npm run dev`
+3. Run all apps & packages in dev `turbo dev` or `pnpm dev`
 
 ## Issues and feature requests
 
