@@ -34,4 +34,4 @@ Instead you can use third-party exchanges including [Uniswap](https://uniswap.or
 
 **Dextools**: https://www.dextools.io/app/en/ether/pair-explorer/0x1bcf855445335f72841cdecaed71f5901a807a7f
 
-<div style={{ maxWidth: 400, margin: 'auto' }}>![](/img/SatoshiSpaceBubble.png)</div>
+<div style={{ maxWidth: 400, margin: 'auto' }}>![](/img/space/satoshi_move.gif)</div>

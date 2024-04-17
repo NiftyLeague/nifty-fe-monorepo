@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   authors: [{ name: 'NiftyAndy', url: 'https://niftyleague.com' }],
   creator: 'NiftyAndy',
   publisher: 'Nifty League',
-  assets: ['https://niftyleague.com/img'],
+  assets: ['https://niftyleague.com'],
   formatDetection: {
     email: true,
     address: true,
@@ -32,14 +32,14 @@ export const metadata: Metadata = {
       'A game studio at the cutting edge of Web3 with a mission to inspire other indie game developers to build a decentralized future with us.',
     url: 'https://niftyleague.com',
     siteName: 'NiftyLeague',
-    images: 'https://niftyleague.com/img/home/classic-gaming-reinvented.png',
+    images: 'https://niftyleague.com/img/console-game/classic-gaming-reinvented.png',
     locale: 'en_US',
     type: 'website',
   },
   icons: {
-    icon: '/icons/favicon.ico',
-    shortcut: '/icons/favicon.ico',
-    apple: '/icons/favicon.ico',
+    icon: '/favicon/nl_purple/favicon.ico',
+    apple: '/favicon/nl_purple/apple-touch-icon.png',
+    shortcut: '/favicon/nl_purple/android-chrome-192x192.png',
   },
   twitter: {
     card: 'summary_large_image',
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     creator: '@NiftyLeague',
     // creatorId: 'XXXXXXXX',
     images: {
-      url: 'https://niftyleague.com/img/home/classic-gaming-reinvented.png',
+      url: 'https://niftyleague.com/img/console-game/classic-gaming-reinvented.png',
       alt: 'Nifty League Banner',
     },
   },

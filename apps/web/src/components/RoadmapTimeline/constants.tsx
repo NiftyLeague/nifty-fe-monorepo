@@ -7,7 +7,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Sept 24th - 30th, 2021',
     image: {
       height: 350,
-      src: '/img/roadmap/creation.png',
+      src: '/img/mint-o-matic/creation.png',
       style: { top: '-90px' },
       width: 661,
     },
@@ -36,8 +36,8 @@ export const ROADMAP_CARDS = [
     completionDate: 'Sept 24th, 2021 - Present',
     image: {
       height: 272,
-      src: '/img/roadmap/smash_200.png',
-      style: { top: '-80px' },
+      src: '/img/misc/smash_200.png',
+      style: { top: '-80px', right: '-50px' },
       width: 518,
     },
     title: 'Nifty Smashers Alpha',
@@ -85,7 +85,7 @@ export const ROADMAP_CARDS = [
     image: {
       height: 364,
       src: '/img/roadmap/p2e_v02.png',
-      style: { top: '-100px' },
+      style: { top: '-95px' },
       width: 586,
     },
     title: 'Play-&-Earn (DEPRECATED)',
@@ -200,7 +200,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Jun 15th, 2022',
     image: {
       height: 1080,
-      src: '/img/roadmap/wen.gif',
+      src: '/img/games/wen.gif',
       style: { top: '-130px' },
       width: 1440,
     },
@@ -226,8 +226,8 @@ export const ROADMAP_CARDS = [
     completionDate: 'Aug 4th, 2022',
     image: {
       height: 1080,
-      src: '/img/roadmap/mt-gawx.gif',
-      style: { top: '-135px' },
+      src: '/img/games/mt-gawx.gif',
+      style: { top: '-125px' },
       width: 1440,
     },
     title: 'Mt. Gawx',
@@ -252,8 +252,8 @@ export const ROADMAP_CARDS = [
     completionDate: 'Sept 20th, 2022',
     image: {
       height: 1080,
-      src: '/img/roadmap/crypto-winter.png',
-      style: { top: '-140px' },
+      src: '/img/games/crypto-winter.png',
+      style: { top: '-130px' },
       width: 1440,
     },
     title: 'Crypto Winter',
@@ -276,8 +276,8 @@ export const ROADMAP_CARDS = [
     completionDate: 'Nov 11th, 2022',
     image: {
       height: 250,
-      src: '/img/roadmap/imx.png',
-      style: { top: '-180px' },
+      src: '/img/logos/networks/imx.png',
+      style: { top: '-140px', padding: '20px' },
       width: 250,
     },
     title: 'L2 Migration',
@@ -303,7 +303,7 @@ export const ROADMAP_CARDS = [
     image: {
       height: 325,
       src: '/img/roadmap/comics_v01.png',
-      style: { top: '-190px', right: '-130px' },
+      style: { top: '-160px', right: '-120px', padding: '20px' },
       width: 323,
     },
     title: 'Comics Burning',
@@ -327,7 +327,7 @@ export const ROADMAP_CARDS = [
             <Image
               alt="comic 1"
               height={500}
-              src="/img/roadmap/page1.png"
+              src="/img/comics/mid/1.png"
               width={500}
               sizes="100vw"
               style={{
@@ -340,7 +340,7 @@ export const ROADMAP_CARDS = [
             <Image
               alt="comic 2"
               height={500}
-              src="/img/roadmap/page2.png"
+              src="/img/comics/mid/2.png"
               width={500}
               sizes="100vw"
               style={{
@@ -353,7 +353,7 @@ export const ROADMAP_CARDS = [
             <Image
               alt="comic 3"
               height={500}
-              src="/img/roadmap/page3.png"
+              src="/img/comics/mid/3.png"
               width={500}
               sizes="100vw"
               style={{
@@ -366,7 +366,7 @@ export const ROADMAP_CARDS = [
             <Image
               alt="comic 4"
               height={500}
-              src="/img/roadmap/page4.png"
+              src="/img/comics/mid/4.png"
               width={500}
               sizes="100vw"
               style={{
@@ -385,7 +385,7 @@ export const ROADMAP_CARDS = [
     image: {
       height: 400,
       src: '/img/roadmap/beta_v02.png',
-      style: { top: '-130px' },
+      style: { top: '-125px' },
       width: 544,
     },
     title: 'Nifty Smashers Beta',
@@ -401,8 +401,8 @@ export const ROADMAP_CARDS = [
     completionDate: 'Feb 17th, 2023',
     image: {
       height: 384,
-      src: '/img/roadmap/hydra.png',
-      style: { top: '-180px' },
+      src: '/img/degens/hydra.png',
+      style: { top: '-160px' },
       width: 384,
     },
     title: 'The Hatching',
@@ -449,8 +449,8 @@ export const ROADMAP_CARDS = [
     completionDate: 'Sept 22nd, 2023',
     image: {
       height: 1070,
-      src: '/img/roadmap/release-candidate.png',
-      style: { top: '-120px' },
+      src: '/img/games/smashers/apartment.png',
+      style: { top: '-90px' },
       width: 1618,
     },
     title: 'Smashers Progression',
@@ -468,7 +468,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Dec 10th, 2023',
     image: {
       src: '/img/roadmap/mobile_v02.png',
-      style: { top: '-140px' },
+      style: { top: '-145px' },
       width: 387,
       height: 300,
     },
@@ -483,7 +483,7 @@ export const ROADMAP_CARDS = [
   {
     image: {
       height: 166,
-      src: '/img/roadmap/imx_polygon.png',
+      src: '/img/logos/networks/imx_polygon.png',
       style: { top: '-115px' },
       width: 250,
     },
@@ -511,7 +511,7 @@ export const ROADMAP_CARDS = [
     current: true,
     image: {
       src: '/img/roadmap/niftyroyale_v01.png',
-      style: { top: '-120px' },
+      style: { top: '-110px' },
       width: 541,
       height: 381,
     },
@@ -522,37 +522,6 @@ export const ROADMAP_CARDS = [
         HUNTER&apos;. Development kicked off in August 2023 with help from an external game studio as part of our test
         run transitioning to a DAO and polishing our public services/SDK.
       </p>
-    ),
-  },
-  {
-    image: {
-      src: '/img/roadmap/niftyverse_v02.png',
-      style: { top: '-160px' },
-      width: 757,
-      height: 675,
-    },
-    title: 'NiftyVerse',
-    body: (
-      <>
-        <p>
-          Welcome to the NiftyVerse; a world filled with DEGENs and NFT communities alike with a shared vision to have
-          fun and build a thriving gaming ecosystem. What makes the Niftyverse stand apart from other metaverses is our
-          games being the centerpiece. Walk into our arcade room filled with fun mini-games or venture to destinations
-          on the map to jump into our classic titles like Nifty Smashers and Nifty Kart.
-        </p>
-        <p>
-          While Nifty League focuses on building a decentralized game platform with titles such as Nifty Smashers and
-          other Nintendo-inspired games, NiftyVerse stands at the heart of our ecosystem tying everything together.
-          It&apos;s not only the central lobby system or launch point for many of these games, but the main hub for all
-          social interactions (and quite frankly our biggest game in and of itself).
-        </p>
-        <p>
-          If you&apos;re a creative type, don&apos;t miss this opportunity - we will have an asset store for you to
-          design assets such as buildings or trees and list them for sale based on your defined limits and pricing. Do
-          you want a cool DEGEN theme park or Cyber Kongz meetup? Build out the NiftyVerse to whatever your heart
-          desires!
-        </p>
-      </>
     ),
   },
   {
@@ -602,10 +571,41 @@ export const ROADMAP_CARDS = [
     ),
   },
   {
+    image: {
+      src: '/img/roadmap/niftyverse_v02.png',
+      style: { top: '-145px' },
+      width: 757,
+      height: 675,
+    },
+    title: 'NiftyVerse',
+    body: (
+      <>
+        <p>
+          Welcome to the NiftyVerse; a world filled with DEGENs and NFT communities alike with a shared vision to have
+          fun and build a thriving gaming ecosystem. What makes the Niftyverse stand apart from other metaverses is our
+          games being the centerpiece. Walk into our arcade room filled with fun mini-games or venture to destinations
+          on the map to jump into our classic titles like Nifty Smashers and Nifty Kart.
+        </p>
+        <p>
+          While Nifty League focuses on building a decentralized game platform with titles such as Nifty Smashers and
+          other Nintendo-inspired games, NiftyVerse stands at the heart of our ecosystem tying everything together.
+          It&apos;s not only the central lobby system or launch point for many of these games, but the main hub for all
+          social interactions (and quite frankly our biggest game in and of itself).
+        </p>
+        <p>
+          If you&apos;re a creative type, don&apos;t miss this opportunity - we will have an asset store for you to
+          design assets such as buildings or trees and list them for sale based on your defined limits and pricing. Do
+          you want a cool DEGEN theme park or Cyber Kongz meetup? Build out the NiftyVerse to whatever your heart
+          desires!
+        </p>
+      </>
+    ),
+  },
+  {
     divider: true,
     image: {
-      src: '/img/roadmap/NiftyMansion.png',
-      style: { top: '-100px' },
+      src: '/img/logos/niftyverse/app_logo.png',
+      style: { top: '-90px' },
       width: 1920,
       height: 1080,
     },
@@ -627,7 +627,7 @@ export const ROADMAP_CARDS = [
   {
     image: {
       src: '/img/roadmap/pets_v02.png',
-      style: { top: '-150px' },
+      style: { top: '-140px' },
       width: 379,
       height: 325,
     },
@@ -654,7 +654,7 @@ export const ROADMAP_CARDS = [
   },
   {
     image: {
-      src: '/img/roadmap/NiftyTennis.png',
+      src: '/img/games/nifty-tennis.png',
       style: { top: '-100px' },
       width: 500,
       height: 281,
@@ -671,7 +671,7 @@ export const ROADMAP_CARDS = [
   {
     image: {
       src: '/img/roadmap/niftykart_v01.png',
-      style: { top: '-165px' },
+      style: { top: '-160px' },
       width: 494,
       height: 462,
     },
@@ -686,7 +686,7 @@ export const ROADMAP_CARDS = [
   {
     image: {
       src: '/img/roadmap/gen2_v01.png',
-      style: { top: '-125px' },
+      style: { top: '-120px' },
       width: 550,
       height: 451,
     },

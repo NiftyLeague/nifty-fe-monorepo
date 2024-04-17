@@ -42,7 +42,7 @@ const ImageProfile = ({ degens, avatar, avatarFee }: ImageProfileProps): JSX.Ele
       return <Skeleton variant="rectangular" width="100%" height="320px" />;
     } else {
       if (!degenSelected) {
-        return <CardMedia component="img" height="auto" image="/images/unavailable-image.png" alt="no avatar" />;
+        return <CardMedia component="img" height="auto" image="/img/degens/unavailable-image.png" alt="no avatar" />;
       }
       return <DegenImage tokenId={degenSelected} />;
     }

@@ -40,10 +40,7 @@ export default function Home() {
           property="og:description"
           content="Nifty Smashers is a free 3D platform fighting game that supports up to 16 online players. Available on iOS & Android devices - full cross-play coming soon!"
         />
-        <meta
-          property="og:image"
-          content="https://niftysmashers.com/assets/console-game/classic-gaming-reinvented.png"
-        />
+        <meta property="og:image" content="https://niftysmashers.com/img/console-game/classic-gaming-reinvented.png" />å
       </Head>
       <section className={styles.main}>
         <div className="radial-gradient-bg-centered" />
@@ -51,7 +48,7 @@ export default function Home() {
           <Navbar />
           <div className={styles.content}>
             <Image
-              src="/logo/wordmark_logo_smashers.png"
+              src="/img/logos/smashers/app_wordmark_logo.png"
               alt="Wordmark Logo"
               className={styles.wordmark}
               width={824}
@@ -61,7 +58,7 @@ export default function Home() {
             <div className={styles.buttons}>
               <button id="trailer-btn">
                 <Image
-                  src="/icons/youtube.svg"
+                  src="/icons/socials/youtube.svg"
                   alt="YouTube Logo"
                   width={22}
                   height={22}
@@ -90,7 +87,7 @@ export default function Home() {
         </div>
       </section>
       <section className={styles.console_game}>
-        <ConsoleGame src="/assets/console-game/smashers-960p.mp4" />
+        <ConsoleGame src="/video/smashers-960p.mp4" />
       </section>
       <section className={styles.game_details}>
         <GameSection />

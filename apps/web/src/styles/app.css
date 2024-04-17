@@ -293,15 +293,6 @@
   max-width: 80%;
 }
 
-.com-grad-1 {
-  position: absolute;
-  top: 1500px;
-  left: 0;
-  max-width: 100%;
-  right: 0;
-  bottom: auto;
-  z-index: -1;
-}
 .moon-grad {
   position: absolute;
   top: 0;
@@ -512,7 +503,7 @@
 .home-mobile-intro {
   background: var(--custom-panel-color);
   background-size: cover;
-  background-image: url(/img/home/banner-mobile.png);
+  background-image: url(/img/backgrounds/banner-dark.png);
   min-height: 100vh;
 }
 .home-mobile-intro .overlay-dark {
@@ -1138,7 +1129,6 @@
   .nifty-teams .job-label {
     background-color: yellow;
   }
-  .com-grad-1,
   .earth-grad {
     left: 0;
     width: 100%;

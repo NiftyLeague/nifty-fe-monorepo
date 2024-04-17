@@ -6,20 +6,20 @@ sidebar_position: 3
 
 Our current game, Nifty Smashers, and all future games will feature the same Special Ability ("SA") for each [tribe](/docs/overview/nfts/degens/tribes).
 
-![https://cdn.discordapp.com/emojis/876655147634294794.png?size=44](https://cdn.discordapp.com/emojis/876655147634294794.png?size=44)
+![alien icon](https://cdn.discordapp.com/emojis/876655147634294794.png?size=44)
 **Alien**
 
 - Pressing the SA button makes Alien teleport a short distance in the aimed direction (left, right, up, down, diagonals)
 - There is an energy explosion at the teleported location, hitting opponents that stand near
 
-![https://cdn.discordapp.com/emojis/876605610165157968.png?size=44](https://cdn.discordapp.com/emojis/876605610165157968.png?size=44)
+![ape icon](https://cdn.discordapp.com/emojis/876605610165157968.png?size=44)
 **Ape**
 
 - Pressing the SA button throws a banana in the aimed direction (left, right, up, down, diagonals) until it hits an opponent, hits a map part or flies off the map
 - Pressing the SA button again makes the banana fly back to the DEGEN, making it possible to hit an opponent again
 - Bananas can be hit with a bat and fly in the aimed direction
 
-![https://cdn.discordapp.com/emojis/876655087869644830.png?size=44](https://cdn.discordapp.com/emojis/876655087869644830.png?size=44)
+![cat icon](https://cdn.discordapp.com/emojis/876655087869644830.png?size=44)
 **Cat**
 
 - Pressing the SA makes the cat pounce, and after pouncing for a short duration, the cat gets empowered
@@ -27,7 +27,7 @@ Our current game, Nifty Smashers, and all future games will feature the same Spe
 - Empowered movement - cats run faster
 - Cats can double jump, jumping in mid-air
 
-![https://cdn.discordapp.com/emojis/876600985819164764.png?size=44](https://cdn.discordapp.com/emojis/876600985819164764.png?size=44)
+![doge icon](https://cdn.discordapp.com/emojis/876600985819164764.png?size=44)
 **Doge**
 
 - Pressing and holding the SA button makes the doge roll
@@ -35,7 +35,7 @@ Our current game, Nifty Smashers, and all future games will feature the same Spe
 - Doge will fly-roll in the aimed direction
 - During doge roll, directions can be changed three times until the doge roll ends
 
-![https://cdn.discordapp.com/emojis/876655119817670686.png?size=44](https://cdn.discordapp.com/emojis/876655119817670686.png?size=44)
+![frog icon](https://cdn.discordapp.com/emojis/876655119817670686.png?size=44)
 **Frog**
 
 - Pressing the SA button makes the frog shoot his tongue
@@ -43,7 +43,7 @@ Our current game, Nifty Smashers, and all future games will feature the same Spe
 - When the tongue hits a map piece, the frogs pulls himself to that object (e.g. walls, ceilings)
 - The tongue can be shot in an aimed direction (left, right, up, down, diagonals)
 
-![https://cdn.discordapp.com/emojis/876604536784052274.png?size=44](https://cdn.discordapp.com/emojis/876604536784052274.png?size=44)
+![human icon](https://cdn.discordapp.com/emojis/876604536784052274.png?size=44)
 **Human**
 
 - Pressing the SA button throws a bomb in the aimed direction (left, right, up, down, diagonals)

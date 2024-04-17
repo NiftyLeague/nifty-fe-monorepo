@@ -43,18 +43,18 @@ Let's see how to [Create a page](./create-a-page.md).
 
 Regular Markdown images are supported.
 
-You can use absolute paths to reference images in the static directory (`static/img/docusaurus.png`):
+You can use absolute paths to reference images in the static public directory (`public/img/docusaurus.png`):
 
 ```md
-![Docusaurus logo](/img/alien.png)
+![Docusaurus logo](/img/mint-o-matic/creation.png)
 ```
 
-![Docusaurus logo](/img/alien.png)
+![Docusaurus logo](/img/mint-o-matic/creation.png)
 
 You can reference images relative to the current file as well. This is particularly useful to colocate images close to the Markdown files using them:
 
 ```md
-![Docusaurus logo](./img/alien.png)
+![Docusaurus logo](./img/mint-o-matic/creation.png)
 ```
 
 ## Code Blocks

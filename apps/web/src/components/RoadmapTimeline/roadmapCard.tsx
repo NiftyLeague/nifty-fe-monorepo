@@ -63,7 +63,7 @@ const RoadmapCard = ({
     {current ? (
       <div className={styles.satoshiStationary}>
         <Image
-          src="/img/roadmap/satoshi_stationary.gif"
+          src="/img/space/satoshi_stationary.gif"
           unoptimized
           alt="satoshi stationary"
           width={200}

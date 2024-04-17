@@ -1,47 +1,5 @@
 /*************************************** Animation Classes **********************************************/
 
-.sliding-nfts .sliding-background-wrapper-desktop {
-  overflow: hidden;
-  min-height: 520px;
-  background: linear-gradient(
-    128.04deg,
-    var(--custom-color-brand) 0%,
-    var(--custom-color-brand-secondary) 46.93%,
-    #ff00c7 100%
-  );
-}
-.sliding-nfts .sliding-background-wrapper-mobile {
-  overflow: hidden;
-  min-height: 106px;
-  margin: 16px 0px;
-  background: linear-gradient(
-    128.04deg,
-    var(--custom-color-brand) 0%,
-    var(--custom-color-brand-secondary) 46.93%,
-    #ff00c7 100%
-  );
-}
-.sliding-background-wrapper-desktop .sliding-background {
-  background: url(/img/community/degen-slider.png) repeat-x;
-  image-rendering: crisp-edges;
-  image-rendering: -moz-crisp-edges; /* Firefox */
-  image-rendering: -o-crisp-edges; /* Opera */
-  image-rendering: -webkit-optimize-contrast; /* Webkit (non-standard naming)*/
-  -ms-interpolation-mode: nearest-neighbor; /* IE (non-standard property) */
-  image-rendering: pixelated;
-
-  height: 100%;
-  width: 5000px;
-  animation: slide 60s linear infinite;
-}
-.sliding-background-wrapper-mobile .sliding-background {
-  background: url(/img/community/degen-slider.png) repeat-x;
-  height: 106px;
-  width: 5000px;
-  animation: slide 240s linear infinite;
-  background-size: contain;
-}
-
 .animated-fade {
   transition: opacity 1s;
 }
@@ -255,16 +213,16 @@
   @keyframes propeller {
     0%,
     100% {
-      background-image: url('/img/home/hero-companion-anim1.png');
+      background-image: url('/img/hero/companion-anim1.png');
     }
     25% {
-      background-image: url('/img/home/hero-companion-anim2.png');
+      background-image: url('/img/hero/companion-anim2.png');
     }
     50% {
-      background-image: url('/img/home/hero-companion-anim3.png');
+      background-image: url('/img/hero/companion-anim3.png');
     }
     75% {
-      background-image: url('/img/home/hero-companion-anim4.png');
+      background-image: url('/img/hero/companion-anim4.png');
     }
   }
 

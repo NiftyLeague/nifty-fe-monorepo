@@ -21,7 +21,11 @@ export const metadata: Metadata = {
     'A game studio at the cutting edge of Web3 with a mission to inspire other indie game developers to build a decentralized future with us.',
   generator: 'Next.js',
   referrer: 'origin-when-cross-origin',
-  icons: '/icons/favicon.ico',
+  icons: {
+    icon: '/favicon/nl_purple/favicon.ico',
+    apple: '/favicon/nl_purple/apple-touch-icon.png',
+    shortcut: '/favicon/nl_purple/android-chrome-192x192.png',
+  },
 };
 
 export const viewport: Viewport = {

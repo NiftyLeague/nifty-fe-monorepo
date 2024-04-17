@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Nifty League | Careers',
     description: 'Join us and change gaming forever',
-    images: 'https://niftyleague.com/img/home/banner-mobile.png',
+    images: 'https://niftyleague.com/img/backgrounds/banner-dark.png',
   },
 };
 

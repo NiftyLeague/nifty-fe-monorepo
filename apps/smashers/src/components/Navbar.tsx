@@ -11,7 +11,7 @@ export default function Navbar() {
       <a href="https://niftyleague.com" target="_blank" rel="noreferrer">
         <div className={styles.logo_container}>
           <Image
-            src="/logo/white.png"
+            src="/img/logos/NL/white.png"
             alt="Company Logo"
             className={styles.logo}
             width={50}
@@ -45,16 +45,16 @@ export default function Navbar() {
     <div className={styles.desktop_nav}>
       <a href="https://niftyleague.com" target="_blank" rel="noreferrer">
         <div className={styles.logo_container}>
-          <Image src="/logo/white.png" alt="Company Logo" className={styles.logo} width={50} height={48} />
+          <Image src="/img/logos/NL/white.png" alt="Company Logo" className={styles.logo} width={50} height={48} />
         </div>
       </a>
       <nav className={styles.navbar}>
         <div className={styles.navbar_inner}>
           <a href="https://discord.gg/niftyleague" target="_blank" rel="noreferrer" className={styles.nav_item}>
-            <Image src="/icons/discord.svg" alt="Discord Logo" width={22} height={22} />
+            <Image src="/icons/socials/discord.svg" alt="Discord Logo" width={22} height={22} />
           </a>
           <a href="https://twitter.com/NiftyLeague" target="_blank" rel="noreferrer" className={styles.nav_item}>
-            <Image src="/icons/twitter.svg" alt="Twitter Logo" width={22} height={22} />
+            <Image src="/icons/socials/twitter.svg" alt="Twitter Logo" width={22} height={22} />
           </a>
           <a
             href="https://www.twitch.tv/niftyleagueofficial"
@@ -62,7 +62,7 @@ export default function Navbar() {
             rel="noreferrer"
             className={styles.nav_item}
           >
-            <Image src="/icons/twitch.svg" alt="Twitch Logo" width={22} height={22} />
+            <Image src="/icons/socials/twitch.svg" alt="Twitch Logo" width={22} height={22} />
           </a>
           <a
             href="https://opensea.io/collection/niftydegen"

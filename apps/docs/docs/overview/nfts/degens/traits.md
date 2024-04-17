@@ -4,7 +4,7 @@ title: Character Traits
 sidebar_position: 4
 ---
 
-<div style={{ maxWidth: 650, margin: 'auto' }}>![](/img/creation.png)</div>
+<div style={{ maxWidth: 650, margin: 'auto' }}>![](/img/mint-o-matic/creation.png)</div>
 <br />
 
 There were a total of 1,023 traits and 21 selectable options after choosing a tribe during our genesis minting experience, making an almost infinite number of DEGEN combinations.

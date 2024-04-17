@@ -14,7 +14,7 @@ Any future games will be voted upon by the DAO.
 
 ## Nifty Tennis
 
-![](/img/NiftyTennis.jpeg)
+![](/img/games/nifty-tennis.jpeg)
 
 Early development of Nifty Tennis started in 2022, making Tennis a top release candidate. We plan to accommodate all playstyles whether playing competitively or just for fun.
 
@@ -26,20 +26,20 @@ Early development of Nifty Tennis started in 2022, making Tennis a top release c
 - Equip different racquets & items for a temporary tactical advantage
 - Compete for the Nifty League Grand Slam Cup
 
-![](/img/tennis-sketch.png)
+![](/img/sketches/tennis-sketch.png)
 
 ## Nifty Kart
 
-<div style={{ maxWidth: 400, margin: 'auto' }}>![](/img/niftykart_v01.png)</div>
+<div style={{ maxWidth: 400, margin: 'auto' }}>![](/img/roadmap/niftykart_v01.png)</div>
 
 Old school classics are core to our game offerings as we recognize the power of reliving childhood favorites with a Web3 twist. Own your characters & karts and get ready to race for NFTL!
 
-![](/img/nifty-racers-sketch.png)
+![](/img/sketches/nifty-racers-sketch.png)
 
 ## Other Ideas...?
 
-<div style={{ maxWidth: 400, margin: 'auto' }}>![](/img/breakout.png)</div>
+<div style={{ maxWidth: 400, margin: 'auto' }}>![](/img/games/breakout.png)</div>
 
-![](/img/smash-sketch.png)
+![](/img/sketches/smash-sketch.png)
 
-![](/img/games-sketch.png)
+![](/img/sketches/games-sketch.png)

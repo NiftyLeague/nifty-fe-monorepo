@@ -5,14 +5,14 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Nifty League Docs',
   tagline: 'Documentation and Guides',
-  favicon: 'icons/favicon.ico',
+  favicon: 'favicon/nl_purple/favicon.ico',
   url: 'https://docs.niftyleague.com/',
   baseUrl: '/docs/',
   organizationName: 'NiftyLeague',
   projectName: 'docs',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-
+  staticDirectories: ['public'],
   markdown: { mermaid: true },
   themes: ['@docusaurus/theme-mermaid'],
 
@@ -57,7 +57,7 @@ const config: Config = {
         docs: {
           routeBasePath: '/',
           sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/NiftyLeague/docs/tree/main/',
+          editUrl: 'https://github.com/NiftyLeague/nifty-fe-monorepo/tree/main/apps/docs',
         },
         googleAnalytics: {
           trackingID: 'G-DKL8WWG236',
@@ -76,7 +76,7 @@ const config: Config = {
       title: 'Nifty League Docs',
       logo: {
         alt: 'Nifty League Logo',
-        src: 'icons/logo.svg',
+        src: 'img/logos/NL/logo.svg',
       },
       items: [
         // {

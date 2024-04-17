@@ -4,12 +4,12 @@ export const NIFTY_DEGENS = [
     description: `If this ape is not eating bananas, he's throwing them. And those bananas hurt.`,
     specialName: 'Banana Boomerang',
     gif: {
-      link: '/assets/degens/ape.gif',
+      link: '/img/degens/specials/ape.gif',
       width: 512,
       height: 512,
     },
     image: {
-      link: '/assets/degens/ape.png',
+      link: '/icons/tribes/ape.svg',
       width: 91,
       height: 100,
     },
@@ -19,12 +19,12 @@ export const NIFTY_DEGENS = [
     description: `The primitive human's special move is dropping bombs… typical.`,
     specialName: 'Bomb',
     gif: {
-      link: '/assets/degens/human.gif',
+      link: '/img/degens/specials/human.gif',
       width: 512,
       height: 512,
     },
     image: {
-      link: '/assets/degens/human.png',
+      link: '/icons/tribes/human.svg',
       width: 120,
       height: 100,
     },
@@ -34,12 +34,12 @@ export const NIFTY_DEGENS = [
     description: `Doge performs a Doge Roll by rolling up into a Doge coin token and rolling left and right at high speed.`,
     specialName: 'Doge Roll',
     gif: {
-      link: '/assets/degens/doge.gif',
+      link: '/img/degens/specials/doge.gif',
       width: 512,
       height: 512,
     },
     image: {
-      link: '/assets/degens/doge.png',
+      link: '/icons/tribes/doge.svg',
       width: 115,
       height: 100,
     },
@@ -49,12 +49,12 @@ export const NIFTY_DEGENS = [
     description: `Watch out for the frog's sticky tongue! Draws another player in so that frog can issue a bonk. Also attaches to ceilings, walls and some platforms.`,
     specialName: 'Sticky Tongue',
     gif: {
-      link: '/assets/degens/frog.gif',
+      link: '/img/degens/specials/frog.gif',
       width: 500,
       height: 500,
     },
     image: {
-      link: '/assets/degens/frog.png',
+      link: '/icons/tribes/frog.svg',
       width: 120,
       height: 95,
     },
@@ -64,12 +64,12 @@ export const NIFTY_DEGENS = [
     description: `Charging up Cat's wiggle results in a temporary speed and power buff. The longer the charge-up, the longer and more powerful the buffs. Me-OW.`,
     specialName: 'Charge Up',
     gif: {
-      link: '/assets/degens/cat.gif',
+      link: '/img/degens/specials/cat.gif',
       width: 512,
       height: 512,
     },
     image: {
-      link: '/assets/degens/cat.png',
+      link: '/icons/tribes/cat.svg',
       width: 120,
       height: 100,
     },
@@ -79,12 +79,12 @@ export const NIFTY_DEGENS = [
     description: `Keep your eyes peeled because these aliens can teleport across the game screen quickly. Also a great way to avoid falling off the map.`,
     specialName: 'Teleport',
     gif: {
-      link: '/assets/degens/alien.gif',
+      link: '/img/degens/specials/alien.gif',
       width: 512,
       height: 512,
     },
     image: {
-      link: '/assets/degens/alien.png',
+      link: '/icons/tribes/alien.svg',
       width: 100,
       height: 100,
     },
@@ -94,12 +94,12 @@ export const NIFTY_DEGENS = [
     description: `The Hydras use a trident spear. They are an ancient tribe with a deep combat lineage and a VERY vicious special move.`,
     specialName: 'Trident Dash',
     gif: {
-      link: '/assets/degens/hydra.gif',
+      link: '/img/degens/specials/hydra.gif',
       width: 512,
       height: 512,
     },
     image: {
-      link: '/assets/degens/hydra.svg',
+      link: '/icons/tribes/hydra.svg',
       width: 120,
       height: 120,
     },

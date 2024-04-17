@@ -7,7 +7,7 @@ sidebar_position: 1
 import ReactPlayer from 'react-player';
 import VideoURL from '/video/lobby.mp4';
 
-<div style={{ maxWidth: 500, margin: 'auto' }}>![](/img/smashers_logo.png)</div>
+<div style={{ maxWidth: 500, margin: 'auto' }}>![](/img/logos/smashers/app_wordmark_logo_small.png)</div>
 
 Nifty Smashers is live on mobile for both iOS & Android devices! Download the game at [niftysmashers.com](https://niftysmashers.com/)
 
