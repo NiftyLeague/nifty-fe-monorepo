@@ -289,7 +289,7 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
           <Stack direction="column" spacing={0.75} position="relative">
             <TokenInfoBox
               balance={etherBalance}
-              icon={<Image src="/images/tokenIcons/eth.svg" alt="ETH Icon" width={12} height={12} />}
+              icon={<Image src="/img/logos/networks/mainnet-network.jpg" alt="ETH Icon" width={12} height={12} />}
               name="ETH"
               slug="ethereum"
               value={ethAmount}
@@ -309,7 +309,7 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
             </Box>
             <TokenInfoBox
               balance={accountBalance}
-              icon={<Image src="/images/NFTL.png" alt="NFTL Token" width={12} height={12} />}
+              icon={<Image src="/img/logos/NFTL/logo.png" alt="NFTL Token" width={12} height={12} />}
               name="NFTL"
               slug="nifty-league"
               value={nftlAmount}

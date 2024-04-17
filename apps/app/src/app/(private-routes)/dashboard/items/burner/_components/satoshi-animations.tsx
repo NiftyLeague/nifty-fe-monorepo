@@ -7,9 +7,7 @@ const SatoshiAnimations: React.FC<
   React.PropsWithChildren<React.PropsWithChildren<{ burning: boolean; imx: Context }>>
 > = memo(({ burning, imx }) => {
   return (
-    <>
-      {burning ? <SatoshiBurnAnim /> : <SatoshiFrame frames={['/images/comics/burner/idle-animations/idleanim.gif']} />}
-    </>
+    <>{burning ? <SatoshiBurnAnim /> : <SatoshiFrame frames={['/img/comics/burner/idle-animations/idleanim.gif']} />}</>
   );
 });
 

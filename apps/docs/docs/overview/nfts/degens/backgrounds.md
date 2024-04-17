@@ -4,7 +4,7 @@ title: Backgrounds
 sidebar_position: 3
 ---
 
-<div style={{ maxWidth: 500, margin: 'auto' }}>![](/img/rngBackgrounds.gif)</div>
+<div style={{ maxWidth: 500, margin: 'auto' }}>![](/img/degens/rngBackgrounds.gif)</div>
 <br />
 
 DEGEN backgrounds were randomly assigned upon minting, which either resulted in a **Common** background or one of three special backgrounds: **Rare**, **Meta**, **Legendary**.

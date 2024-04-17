@@ -199,13 +199,7 @@ export default function EnhancedTable({
               }}
               onClick={handleCheckYourRank}
             >
-              <Image
-                src="/images/icons/rank_icon.svg"
-                alt="Rank Icon"
-                width={25}
-                height={20}
-                style={{ marginRight: 4 }}
-              />
+              <Image src="/icons/rank_icon.svg" alt="Rank Icon" width={25} height={20} style={{ marginRight: 4 }} />
               RANK
             </Typography>
           )}

@@ -21,7 +21,7 @@ const ConsoleGame = ({ src }: { src: string }) => {
             className="pixelated"
             width={4842}
             height={3371}
-            src="/img/home/classic-gaming-reinvented-notv.png"
+            src="/img/console-game/classic-gaming-reinvented-notv.png"
             priority
             sizes="100vw"
             style={{
@@ -54,7 +54,7 @@ const ConsoleGame = ({ src }: { src: string }) => {
               className="pixelated"
               width={4842}
               height={3371}
-              src="/img/home/bonk.png"
+              src="/img/console-game/bonk.png"
               priority
               sizes="100vw"
               style={{
@@ -73,7 +73,7 @@ const ConsoleGame = ({ src }: { src: string }) => {
               className="pixelated"
               width={4842}
               height={3371}
-              src="/img/home/gaming_controller_left.png"
+              src="/img/console-game/gaming_controller_left.png"
               priority
               sizes="100vw"
               style={{
@@ -92,7 +92,7 @@ const ConsoleGame = ({ src }: { src: string }) => {
               className="pixelated"
               width={4842}
               height={3371}
-              src="/img/home/gaming_controller_right.png"
+              src="/img/console-game/gaming_controller_right.png"
               priority
               sizes="100vw"
               style={{

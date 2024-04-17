@@ -28,8 +28,8 @@ You can learn more about these movesets in our [Smashers Guide](/docs/guides/nif
 
 :::
 
-| ![](/img/alien-sketch.gif) | ![](/img/cat-sketch.gif) | ![](/img/doge-sketch.gif) |
-| -------------------------- | ------------------------ | ------------------------- |
+| ![](/img/sketches/alien-sketch.gif) | ![](/img/sketches/cat-sketch.gif) | ![](/img/sketches/doge-sketch.gif) |
+| ----------------------------------- | --------------------------------- | ---------------------------------- |
 
 ### Hydra - DEGEN Burn
 
@@ -39,12 +39,12 @@ DEGEN holders lined up to send 8 DEGENs through a portal forever burning their e
 
 Hydras are amphibious water dragons that roam freely underwater or on land. Their cuteness belies their wise and fighting prowess. They pack a punch with their tridents, spears, and ranged attacks and bring a wealth of lore knowledge to Nifty League, being the oldest tribe.
 
-| ![](/img/9946.png) | ![](/img/9930.png) |
-| ------------------ | ------------------ |
+| ![](/img/degens/grails/9946.png) | ![](/img/degens/grails/9930.png) |
+| -------------------------------- | -------------------------------- |
 
 ### 1 of 1s
 
 Following the Hydra claim we held a NFTL raffle for the final 2 DEGENS - both unique and very special tribes, RugMan & Satoshi. Holders of these special tokens are granted the highest perks available in the NiftyVerse.
 
-| ![](/img/9999.png) | ![](/img/10000.png) |
-| ------------------ | ------------------- |
+| ![](/img/degens/grails/9999.png) | ![](/img/degens/grails/10000.png) |
+| -------------------------------- | --------------------------------- |

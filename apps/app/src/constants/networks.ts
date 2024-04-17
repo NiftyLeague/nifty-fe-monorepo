@@ -8,9 +8,9 @@ export const SEPOLIA_ID = sepolia.id;
 export const LOCAL_CHAIN_ID = hardhat.id;
 
 export const NETWORK_ICON = {
-  [MAINNET_ID]: '/images/networks/mainnet-network.jpg',
-  [SEPOLIA_ID]: '/images/networks/sepolia-network.jpg',
-  [LOCAL_CHAIN_ID]: '/images/networks/sepolia-network.jpg',
+  [MAINNET_ID]: '/img/logos/networks/mainnet-network.jpg',
+  [SEPOLIA_ID]: '/img/logos/networks/sepolia-network.jpg',
+  [LOCAL_CHAIN_ID]: '/img/logos/networks/sepolia-network.jpg',
 };
 
 export const NETWORK_LABEL = {

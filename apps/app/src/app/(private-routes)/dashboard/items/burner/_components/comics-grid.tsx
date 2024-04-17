@@ -48,12 +48,12 @@ const Root = styled('div')({
 });
 
 const COMPRESSED_COMIC_IMAGES = [
-  '/images/comics/burner/comics/page2.png',
-  '/images/comics/burner/comics/page1.png',
-  '/images/comics/burner/comics/page3.png',
-  '/images/comics/burner/comics/page4.png',
-  '/images/comics/burner/comics/page5.png',
-  '/images/comics/burner/comics/page6.png',
+  '/img/comics/mid/1.png',
+  '/img/comics/mid/2.png',
+  '/img/comics/mid/3.png',
+  '/img/comics/mid/4.png',
+  '/img/comics/mid/5.png',
+  '/img/comics/mid/6.png',
 ];
 
 const gridStyles = {

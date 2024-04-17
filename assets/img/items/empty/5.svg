@@ -1,0 +1,14 @@
+<svg width="62" height="62" viewBox="0 0 50 303" version="1.1" xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+    style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g id="baseballbat">
+        <path
+            d="M17.498,289.809c-0.088,-72.662 -13.473,-230.335 -15.505,-272.678c-0.453,-9.436 10.143,-15.152 22.635,-15.152c12.493,0 23.022,5.714 22.635,15.152c-1.737,42.343 -14.634,200.016 -15.6,272.678c-2.256,2.116 -11.909,2.158 -14.165,0Z"
+            style="fill:none;stroke:#757575;stroke-width:3.33px;" />
+        <path
+            d="M31.757,284.219c6.95,1.09 9.732,3.579 9.732,7.571c-0,4.872 -7.555,8.828 -16.861,8.828c-9.305,-0 -16.86,-3.956 -16.86,-8.828c-0,-3.912 2.964,-6.414 9.699,-7.571"
+            style="fill:none;stroke:#757575;stroke-width:3.33px;" />
+        <path d="M9.186,17.293c10.295,4.063 20.589,4.095 30.884,0"
+            style="fill:none;stroke:#757575;stroke-width:3.33px;" />
+    </g>
+</svg>

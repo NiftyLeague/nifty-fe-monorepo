@@ -43,7 +43,7 @@ withCover.args = {
   cover: (
     <img
       className="h-64 w-full object-cover"
-      src={'https://supabase.io/new/images/case-study-monitoro.jpg'}
+      src={'https://supabase.io/new/img/case-study-monitoro.jpg'}
       alt={'title'}
     />
   ),

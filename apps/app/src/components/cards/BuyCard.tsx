@@ -28,12 +28,7 @@ const BuyCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<BuyCardP
       onClick={handleBuyComic}
       sx={{ cursor: 'pointer' }}
     >
-      <Image
-        src="/images/comics/shopping-cart.svg"
-        alt="Shopping Cart"
-        width={cardWidth - 50}
-        height={cardHeight - 50}
-      />
+      <Image src="/icons/shopping-cart.svg" alt="Shopping Cart" width={cardWidth - 50} height={cardHeight - 50} />
       <Typography mt={0.5} color="#5820D6" sx={{ textDecoration: 'underline' }}>
         {isNew ? 'Buy' : 'Buy More'}
       </Typography>

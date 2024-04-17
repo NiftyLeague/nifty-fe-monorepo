@@ -34,7 +34,7 @@ const Community: NextPage = () => {
               <AnimatedWrapper>
                 <div className="position-relative animated-fade-start animated-fade transition-delay-medium">
                   <Image
-                    src="/img/community/moon.png"
+                    src="/img/space/moon-satoshi.png"
                     alt="Satoshi moon"
                     width={445}
                     height={437}
@@ -49,15 +49,11 @@ const Community: NextPage = () => {
               </AnimatedWrapper>
               <div className="moon-grad">
                 <Image
-                  src="/img/community/moon-grad.svg"
+                  src="/img/gradient/purple-light-grad.svg"
                   priority
                   alt="gradient background"
                   width={685}
                   height={685}
-                  style={{
-                    maxWidth: '100%',
-                    height: 'auto',
-                  }}
                 />
               </div>
             </div>
@@ -67,7 +63,7 @@ const Community: NextPage = () => {
           <AnimatedWrapper>
             <div className="position-relative animated-fade-start animated-fade transition-delay-medium">
               <Image
-                src="/img/community/community-bg-1.png"
+                src="/img/space/earth-darkened.png"
                 width={1684}
                 height={525}
                 alt="Earth"
@@ -84,7 +80,7 @@ const Community: NextPage = () => {
         </div>
         <span className="earth-grad">
           <Image
-            src="/img/community/earth-grad.svg"
+            src="/img/gradient/purple-grad.svg"
             alt="Purple eclipse"
             width={704}
             height={704}

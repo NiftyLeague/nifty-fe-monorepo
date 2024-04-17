@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   authors: [{ name: 'NiftyAndy', url: 'https://niftyleague.com' }],
   creator: 'NiftyAndy',
   publisher: 'Nifty League',
-  assets: ['https://app.niftyleague.com/images'],
+  assets: ['https://app.niftyleague.com'],
   formatDetection: {
     email: true,
     address: true,
@@ -32,14 +32,14 @@ export const metadata: Metadata = {
     description: 'Web3 gaming app brought to you by Nifty League',
     url: 'https://app.niftyleague.com',
     siteName: 'NiftyLeagueApp',
-    images: 'https://niftyleague.com/img/home-banner-desktop.png',
+    images: 'https://niftyleague.com/img/backgrounds/banner-dark.png',
     locale: 'en_US',
     type: 'website',
   },
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/favicon.ico',
+    icon: '/favicon/nl_purple/favicon.ico',
+    apple: '/favicon/nl_purple/apple-touch-icon.png',
+    shortcut: '/favicon/nl_purple/android-chrome-192x192.png',
   },
   twitter: {
     card: 'summary_large_image',
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     creator: '@NiftyLeague',
     // creatorId: '1467726470533754880',
     images: {
-      url: 'https://niftyleague.com/img/home-banner-desktop.png',
+      url: 'https://niftyleague.com/img/backgrounds/banner-dark.png',
       alt: 'Nifty League Banner',
     },
   },

@@ -10,4 +10,4 @@ View our latest progress on our [website](https://niftyleague.com/roadmap)!
 
 :::
 
-![](/img/nifty_roadmap.png)
+![](/img/roadmap/nifty_roadmap.png)

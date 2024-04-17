@@ -6,7 +6,7 @@ sidebar_position: 3
 
 Notice "NFTL Unclaimed" on your NFT in OpenSea? You probably have some NFTL tokens you're missing out on!
 
-<div style={{ maxWidth: 300, margin: 'auto' }}>![](/img/unclaimed_nftl.png)</div>
+<div style={{ maxWidth: 300, margin: 'auto' }}>![](/img/misc/unclaimed_nftl.png)</div>
 
 DEGENs accumulate 68.5 NFTL tokens per day until the cut-off on Sept 14th, 2024. There is no deadline to claim these tokens however.
 

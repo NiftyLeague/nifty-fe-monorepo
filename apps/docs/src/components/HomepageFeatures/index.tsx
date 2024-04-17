@@ -1,9 +1,9 @@
 import Link from '@docusaurus/Link';
 import styled from '@emotion/styled';
 import CodeBracketIcon from '@heroicons/react/24/solid/CodeBracketIcon';
-import LinkArrow from '@site/static/icons/link-arrow.svg';
-import NFTL from '@site/static/icons/nftl.svg';
-import Logo from '@site/static/icons/logo.svg';
+import LinkArrow from '@site/public/icons/link-arrow.svg';
+import NFTL from '@site/public/img/logos/NFTL/logo.svg';
+import Logo from '@site/public/img/logos/NL/logo.svg';
 import { RowThree } from '../Row';
 import { ShadowCard } from '../Card';
 import Section from '../Section';

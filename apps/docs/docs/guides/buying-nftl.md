@@ -41,4 +41,4 @@ Gas too high? Bots making it difficult to trade? Try out CowSwap for MEV-protect
 
 :::
 
-<div style={{ maxWidth: 300, margin: 'auto' }}>![](/img/Spinning_NL_Coin.gif)</div>
+<div style={{ maxWidth: 300, margin: 'auto' }}>![](/img/misc/Spinning_NL_Coin.gif)</div>

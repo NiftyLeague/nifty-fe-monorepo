@@ -23,44 +23,44 @@ const ComicsBurnerMachine: React.FC<
 
   return (
     <>
-      <MachineFrame frames={['/images/comics/burner/machine/machine_main_3.png']} />
-      <MachineFrame frames={['/images/comics/burner/machine/fx_combined_02.gif']} />
+      <MachineFrame frames={['/img/comics/burner/machine/machine_main_3.png']} />
+      <MachineFrame frames={['/img/comics/burner/machine/fx_combined_02.gif']} />
       {!imx.registeredUser ? (
         <MachineFrame
           frames={[
-            '/images/comics/burner/machine/button_connectwallet_01.png',
-            '/images/comics/burner/machine/button_connectwallet_02.png',
+            '/img/comics/burner/machine/button_connectwallet_01.png',
+            '/img/comics/burner/machine/button_connectwallet_02.png',
           ]}
           interval={count}
         />
       ) : null}
-      <MachineFrame frames={['/images/comics/burner/machine/button_help_1.png']} />
+      <MachineFrame frames={['/img/comics/burner/machine/button_help_1.png']} />
       {!burnDisabled ? (
         <MachineFrame
           frames={[
-            '/images/comics/burner/machine/button_burn_1.png',
-            '/images/comics/burner/machine/button_burn_2.png',
-            '/images/comics/burner/machine/button_burn_3.png',
-            '/images/comics/burner/machine/button_burn_4.png',
-            '/images/comics/burner/machine/button_burn_5.png',
+            '/img/comics/burner/machine/button_burn_1.png',
+            '/img/comics/burner/machine/button_burn_2.png',
+            '/img/comics/burner/machine/button_burn_3.png',
+            '/img/comics/burner/machine/button_burn_4.png',
+            '/img/comics/burner/machine/button_burn_5.png',
           ]}
           interval={count}
         />
       ) : (
         <>
           {!imx.registeredUser ? (
-            <MachineFrame frames={['/images/comics/burner/machine/connectwalletabove_button_01.png']} />
+            <MachineFrame frames={['/img/comics/burner/machine/connectwalletabove_button_01.png']} />
           ) : null}
           {selectedComics.length < 1 ? (
-            <MachineFrame frames={['/images/comics/burner/machine/selectcomics_button_02.png']} />
+            <MachineFrame frames={['/img/comics/burner/machine/selectcomics_button_02.png']} />
           ) : null}
           {imx.registeredUser && selectedComics.length > 1 ? (
-            <MachineFrame frames={['/images/comics/burner/machine/button_burn_gray_01.png']} />
+            <MachineFrame frames={['/img/comics/burner/machine/button_burn_gray_01.png']} />
           ) : null}
         </>
       )}
 
-      <MachineFrame frames={['/images/comics/burner/machine/button_q_1.png']} />
+      <MachineFrame frames={['/img/comics/burner/machine/button_q_1.png']} />
     </>
   );
 });

@@ -24,12 +24,12 @@ const Root = styled('div')({
 });
 
 const ITEMS = [
-  { id: 1, name: 'CAPE', image: '/images/comics/burner/wearables/1.gif' },
-  { id: 2, name: 'HALO', image: '/images/comics/burner/wearables/2.gif' },
-  { id: 3, name: 'DIAMOND', image: '/images/comics/burner/wearables/3.gif' },
-  { id: 4, name: 'BREAD', image: '/images/comics/burner/wearables/4.gif' },
-  { id: 5, name: 'NL PURPLE', image: '/images/comics/burner/wearables/5.gif' },
-  { id: 6, name: 'COMPANION', image: '/images/comics/burner/wearables/6.gif' },
+  { id: 1, name: 'CAPE', image: '/img/items/full/1.gif' },
+  { id: 2, name: 'HALO', image: '/img/items/full/2.gif' },
+  { id: 3, name: 'DIAMOND', image: '/img/items/full/3.gif' },
+  { id: 4, name: 'BREAD', image: '/img/items/full/4.gif' },
+  { id: 5, name: 'NL PURPLE', image: '/img/items/full/5.gif' },
+  { id: 6, name: 'COMPANION', image: '/img/items/full/6.gif' },
 ];
 
 const containerStyles = {
@@ -89,7 +89,7 @@ export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
       </ImageList>
       <div style={{ textAlign: 'center' }}>
         <Image
-          src="/images/comics/burner/wearables/7.gif"
+          src="/img/items/full/7.gif"
           unoptimized
           alt="CITADEL KEY"
           loading="lazy"

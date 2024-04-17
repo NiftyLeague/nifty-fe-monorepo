@@ -36,7 +36,7 @@ const GameSection = () => {
             <AnimatedWrapper>
               <div className="quick-pop-anim quick-pop-anim-start transition-delay-small">
                 <video id="level-video" width="100%" height="100%" muted autoPlay loop playsInline data-keepplaying>
-                  <source src="/assets/levels/rocket.mp4" type="video/mp4" />
+                  <source src="/video/rocket.mp4" type="video/mp4" />
                 </video>
                 <div className={cn(styles.gradient, 'radial-gradient-bg')} />
               </div>
