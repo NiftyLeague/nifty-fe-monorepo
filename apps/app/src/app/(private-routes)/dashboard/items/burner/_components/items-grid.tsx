@@ -73,6 +73,7 @@ export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
               width={98}
               height={98}
               style={{ width: '100%', height: 'auto' }}
+              unoptimized
             />
             <ImageListItemBar
               classes={{ titleWrap: classes.titleWrap, title: classes.title }}

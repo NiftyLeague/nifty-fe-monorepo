@@ -22,7 +22,7 @@
   );
 }
 .sliding-background-wrapper-desktop .sliding-background {
-  background: url(/img/degens/site-extras/degen-slider.png) repeat-x;
+  background: url(/img/degens/site-extras/degen-slider.webp) repeat-x;
   image-rendering: crisp-edges;
   image-rendering: -moz-crisp-edges; /* Firefox */
   image-rendering: -o-crisp-edges; /* Opera */
@@ -35,7 +35,7 @@
   animation: slide 60s linear infinite;
 }
 .sliding-background-wrapper-mobile .sliding-background {
-  background: url(/img/degens/site-extras/degen-slider.png) repeat-x;
+  background: url(/img/degens/site-extras/degen-slider.webp) repeat-x;
   height: 106px;
   width: 5000px;
   animation: slide 240s linear infinite;
@@ -255,16 +255,16 @@
   @keyframes propeller {
     0%,
     100% {
-      background-image: url('/img/hero/companion-anim1.png');
+      background-image: url('/img/hero/companion-anim1.webp');
     }
     25% {
-      background-image: url('/img/hero/companion-anim2.png');
+      background-image: url('/img/hero/companion-anim2.webp');
     }
     50% {
-      background-image: url('/img/hero/companion-anim3.png');
+      background-image: url('/img/hero/companion-anim3.webp');
     }
     75% {
-      background-image: url('/img/hero/companion-anim4.png');
+      background-image: url('/img/hero/companion-anim4.webp');
     }
   }
 

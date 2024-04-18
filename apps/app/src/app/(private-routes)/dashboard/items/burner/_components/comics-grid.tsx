@@ -48,12 +48,12 @@ const Root = styled('div')({
 });
 
 const COMPRESSED_COMIC_IMAGES = [
-  '/img/comics/mid/1.png',
-  '/img/comics/mid/2.png',
-  '/img/comics/mid/3.png',
-  '/img/comics/mid/4.png',
-  '/img/comics/mid/5.png',
-  '/img/comics/mid/6.png',
+  '/img/comics/thumbnail/1.webp',
+  '/img/comics/thumbnail/2.webp',
+  '/img/comics/thumbnail/3.webp',
+  '/img/comics/thumbnail/4.webp',
+  '/img/comics/thumbnail/5.webp',
+  '/img/comics/thumbnail/6.webp',
 ];
 
 const gridStyles = {

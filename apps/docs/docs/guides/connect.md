@@ -12,17 +12,17 @@ Our websites use WalletConnect 2.0 which supports most crypto wallets.
 
 ### Web3 Dashboard
 
-![](/img/misc/dashboard.png)
+![](/img/misc/dashboard.webp)
 
 Visit your Nifty League dashboard to manage your NFTs or NFTL holdings on [app.niftyleague.com](https://app.niftyleague.com/)
 
 Simply click "Sign In" and you will be prompted to sign a message verifying the address belongs to you. Always be cautious while signing messages - please make sure the url matches.
 
-<div style={{ maxWidth: 400, margin: 'auto' }}>![](/img/misc/app-sig.png)</div>
+<div style={{ maxWidth: 400, margin: 'auto' }}>![](/img/misc/app-sig.webp)</div>
 
 ### Nifty Smashers
 
-![](/img/games/smashers/web-screenshot.png)
+![](/img/games/smashers/web-screenshot.webp)
 
 To connect your NFT holdings to Nifty Smashers mobile, you first need to create an account in-app.
 

@@ -25,4 +25,4 @@ Use a hardware wallet if available.
 
 :::
 
-<div style={{ maxWidth: 500, margin: 'auto' }}>![](/img/misc/hardwarewallet_06.png)</div>
+<div style={{ maxWidth: 500, margin: 'auto' }}>![](/img/misc/hardwarewallet_06.webp)</div>

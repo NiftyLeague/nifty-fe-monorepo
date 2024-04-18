@@ -7,9 +7,9 @@ sidebar_position: 2
 import ReactPlayer from 'react-player';
 import VideoURL1 from '/video/comics_archive.mp4';
 
-| ![](/img/comics/mid/1.png) | ![](/img/comics/mid/2.png) | ![](/img/comics/mid/3.png) |
-| -------------------------- | -------------------------- | -------------------------- |
-| ![](/img/comics/mid/4.png) | ![](/img/comics/mid/5.png) | ![](/img/comics/mid/6.png) |
+| ![](/img/comics/page/1.webp) | ![](/img/comics/page/2.webp) | ![](/img/comics/page/3.webp) |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| ![](/img/comics/page/4.webp) | ![](/img/comics/page/5.webp) | ![](/img/comics/page/6.webp) |
 
 ### Airdrop
 
@@ -45,7 +45,7 @@ Our collection of **Comics 1-6** are available for purchase on [OpenSea](https:/
 
 ### Comic Burn
 
-<div style={{ maxWidth: 500, margin: 'auto' }}>![](/img/comics/burner/comics_burnanim.gif)</div>
+<div style={{ maxWidth: 500, margin: 'auto' }}>![](/img/comics/burner/burnanim.gif)</div>
 <br />
 
 Each Comic is burnable on our website [app.niftyleague.com](https://app.niftyleague.com/) to receive an in-game wearable or weapon in exchange for each page burned. You can also burn a full-set of 6 pages to recieve a _Citadel Key_.

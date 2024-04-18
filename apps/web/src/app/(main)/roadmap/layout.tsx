@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Nifty League | Roadmap',
     description: 'Nifty League roadmap... or moonmap?',
-    images: 'https://niftyleague.com/img/roadmap/roadmap.png',
+    images: 'https://niftyleague.com/img/roadmap/roadmap.webp',
   },
 };
 

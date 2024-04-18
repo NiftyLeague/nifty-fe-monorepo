@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Nifty League | DEGENs',
     description: 'Community-generated DEGEN NFTs. Playable avatars in all Nifty League and partner games.',
-    images: 'https://niftyleague.com/img/careers/careers_v02_2x.png',
+    images: 'https://niftyleague.com/img/careers/careers_v02_2x.webp',
   },
 };
 

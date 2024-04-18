@@ -23,11 +23,11 @@ createWeb3Modal({
   tokens: {
     [mainnet.id]: {
       address: getContractAddress(mainnet.id, NFTL_CONTRACT),
-      image: 'https://niftyleague.com/img/logos/NFTL/logo.png',
+      image: 'https://niftyleague.com/img/logos/NFTL/logo.webp',
     },
     [testnet.id]: {
       address: getContractAddress(testnet.id, NFTL_CONTRACT),
-      image: 'https://niftyleague.com/img/logos/NFTL/logo.png',
+      image: 'https://niftyleague.com/img/logos/NFTL/logo.webp',
     },
   },
   enableAnalytics: true,

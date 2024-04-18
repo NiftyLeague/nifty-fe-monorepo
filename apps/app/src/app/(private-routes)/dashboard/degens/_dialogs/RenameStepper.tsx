@@ -53,7 +53,7 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 }));
 
 const icons: { [index: string]: React.ReactElement } = {
-  1: <Image src="/img/logos/NFTL/logo.png" alt="NFTL" width={30} height={30} />,
+  1: <Image src="/img/logos/NFTL/logo.webp" alt="NFTL" width={30} height={30} />,
   2: <VerifiedUserIcon />,
   3: <HowToReg />,
   4: <DoneAll />,

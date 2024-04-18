@@ -71,7 +71,7 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: 'img/twitter_card_bg.png',
+    image: 'img/twitter_card_bg.webp',
     navbar: {
       title: 'Nifty League Docs',
       logo: {

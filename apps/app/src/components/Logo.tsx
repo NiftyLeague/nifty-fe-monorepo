@@ -16,7 +16,7 @@ const Logo = () => {
 
   return (
     <Link component={RouterLink} href="/" onClick={handleClickActive}>
-      <Image src="/img/logos/NL/purple-filled.png" alt="NiftyLogo" width="32" height="31" />
+      <Image src="/img/logos/NL/purple-filled.webp" alt="NiftyLogo" width="32" height="31" />
     </Link>
   );
 };

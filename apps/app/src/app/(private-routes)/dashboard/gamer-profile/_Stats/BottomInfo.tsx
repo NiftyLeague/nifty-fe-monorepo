@@ -83,7 +83,7 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
       {crypto_winter && (
         <Grid item sm={12} md={6} lg={4} xl={3}>
           <GameCard
-            image="/img/games/crypto-winter.png"
+            image="/img/games/crypto-winter.webp"
             contents={
               <Stack padding="16px" gap={2} flex={1} justifyContent="space-between">
                 <ProgressGamer size="sm" data={crypto_winter} />

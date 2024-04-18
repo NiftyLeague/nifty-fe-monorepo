@@ -34,7 +34,7 @@ const Community: NextPage = () => {
               <AnimatedWrapper>
                 <div className="position-relative animated-fade-start animated-fade transition-delay-medium">
                   <Image
-                    src="/img/space/moon-satoshi.png"
+                    src="/img/space/moon-satoshi.webp"
                     alt="Satoshi moon"
                     width={445}
                     height={437}
@@ -63,7 +63,7 @@ const Community: NextPage = () => {
           <AnimatedWrapper>
             <div className="position-relative animated-fade-start animated-fade transition-delay-medium">
               <Image
-                src="/img/space/earth-darkened.png"
+                src="/img/space/earth-darkened.webp"
                 width={1684}
                 height={525}
                 alt="Earth"

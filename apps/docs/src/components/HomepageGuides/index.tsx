@@ -164,8 +164,8 @@ export default function HomepageGuides(): JSX.Element {
         <StyledImage
           style={{ maxHeight: '400px', marginTop: 'auto' }}
           sources={{
-            light: useBaseUrl('/img/misc/frog_400.png'),
-            dark: useBaseUrl('/img/misc/smash_400.png'),
+            light: useBaseUrl('/img/misc/frog_400.webp'),
+            dark: useBaseUrl('/img/misc/smash_400.webp'),
           }}
         />
         <div>

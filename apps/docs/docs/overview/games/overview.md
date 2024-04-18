@@ -17,7 +17,7 @@ Our team strives to make our games highly competitive and packed full of nostalg
 
 While Nifty League and partner studios push to introduce more standalone game titles, [NiftyVerse](./niftyverse) stands at the heart of our ecosystem tying everything together. It's not only the central lobby system or launch point for many of these games, but the main hub for all social interactions (and quite frankly our biggest game in and of itself). It's an open-world metaverse centered around nostalgia. The [NiftyVerse](./niftyverse) along with our expanding collection of games encourage communities to spend time connecting, gaming, and owning in Web3.
 
-<div style={{ maxWidth: 400, margin: 'auto' }}>![](/img/misc/trio.png)</div>
+<div style={{ maxWidth: 400, margin: 'auto' }}>![](/img/misc/trio.webp)</div>
 
 ---
 

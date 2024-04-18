@@ -8,7 +8,7 @@ import ReactPlayer from 'react-player';
 import VideoURL from '/video/nakedbeachflyby.mp4';
 
 <div style={{ maxWidth: 450, margin: 'auto' }}>
-  ![](/img/roadmap/niftyroyale_v01.png)
+  ![](/img/roadmap/niftyroyale_v01.webp)
 </div>
 
 ## Theme
@@ -20,13 +20,13 @@ A battle royale third person shooter game in which players gather gems from the 
 Nifty Royale takes place in our Beach City & Naked Beach regions on [NiftyVerse](/docs/overview/games/niftyverse).
 
 <div style={{ maxWidth: 640, marginRight: 'auto' }}>
-  ![](/img/niftyverse/nakedbeach_01.png)
+  ![](/img/niftyverse/nakedbeach_01.webp)
 </div>
 <div style={{ maxWidth: 640, marginLeft: 'auto' }}>
-  ![](/img/niftyverse/beachcity_01.png)
+  ![](/img/niftyverse/beachcity_01.webp)
 </div>
 <div style={{ maxWidth: 640, marginRight: 'auto' }}>
-  ![](/img/niftyverse/beachcity_04.png)
+  ![](/img/niftyverse/beachcity_04.webp)
 </div>
 
 <ReactPlayer playing controls url={VideoURL} width="100%" />

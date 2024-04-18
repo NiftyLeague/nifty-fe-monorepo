@@ -24,7 +24,7 @@ export default function ModelView({ source }: { source: SRC }) {
   const [loading, setLoading] = useState(true);
   const MODEL_SRC = `${DEGEN_3D_MODEL_URL}/${tokenId}/${tokenId}.gltf`;
   // const POSTER_SRC = `${DEGEN_3D_MODEL_URL}/${tokenId}/${tokenId}.webp`;
-  // const TEXTURE_SRC = `${DEGEN_3D_MODEL_URL}/${tokenId}/${tokenId}.png`;
+  // const TEXTURE_SRC = `${DEGEN_3D_MODEL_URL}/${tokenId}/${tokenId}.webp`;
 
   const handleProgress: EventListenerOrEventListenerObject = event => {
     // @ts-expect-error - model-viewer known attribute

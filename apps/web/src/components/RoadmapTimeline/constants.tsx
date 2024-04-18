@@ -7,7 +7,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Sept 24th - 30th, 2021',
     image: {
       height: 350,
-      src: '/img/mint-o-matic/creation.png',
+      src: '/img/mint-o-matic/creation.webp',
       style: { top: '-90px' },
       width: 661,
     },
@@ -36,7 +36,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Sept 24th, 2021 - Present',
     image: {
       height: 272,
-      src: '/img/misc/smash_200.png',
+      src: '/img/misc/smash_200.webp',
       style: { top: '-80px', right: '-50px' },
       width: 518,
     },
@@ -64,7 +64,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Dec 2nd, 2021',
     image: {
       height: 350,
-      src: '/img/roadmap/desktop-app_v02.png',
+      src: '/img/roadmap/desktop-app_v02.webp',
       style: { top: '-115px' },
       width: 514,
     },
@@ -84,7 +84,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Jan 22nd, 2022',
     image: {
       height: 364,
-      src: '/img/roadmap/p2e_v02.png',
+      src: '/img/roadmap/p2e_v02.webp',
       style: { top: '-95px' },
       width: 586,
     },
@@ -113,7 +113,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Feb 16th, 2022',
     image: {
       height: 412,
-      src: '/img/roadmap/merch_02.png',
+      src: '/img/roadmap/merch_02.webp',
       style: { top: '-100px' },
       width: 634,
     },
@@ -141,7 +141,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'May 3rd, 2022',
     image: {
       height: 375,
-      src: '/img/roadmap/rentals_v02.png',
+      src: '/img/roadmap/rentals_v02.webp',
       style: { top: '-100px' },
       width: 609,
     },
@@ -168,7 +168,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Jun 8th, 2022',
     image: {
       height: 450,
-      src: '/img/roadmap/leaderboards_v02.png',
+      src: '/img/roadmap/leaderboards_v02.webp',
       style: { top: '-120px' },
       width: 649,
     },
@@ -252,7 +252,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Sept 20th, 2022',
     image: {
       height: 1080,
-      src: '/img/games/crypto-winter.png',
+      src: '/img/games/crypto-winter.webp',
       style: { top: '-130px' },
       width: 1440,
     },
@@ -276,7 +276,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Nov 11th, 2022',
     image: {
       height: 250,
-      src: '/img/logos/networks/imx.png',
+      src: '/img/logos/networks/imx.webp',
       style: { top: '-140px', padding: '20px' },
       width: 250,
     },
@@ -302,7 +302,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Nov 16th, 2022',
     image: {
       height: 325,
-      src: '/img/roadmap/comics_v01.png',
+      src: '/img/roadmap/comics_v01.webp',
       style: { top: '-160px', right: '-120px', padding: '20px' },
       width: 323,
     },
@@ -327,7 +327,7 @@ export const ROADMAP_CARDS = [
             <Image
               alt="comic 1"
               height={500}
-              src="/img/comics/mid/1.png"
+              src="/img/comics/thumbnail/1.webp"
               width={500}
               sizes="100vw"
               style={{
@@ -340,7 +340,7 @@ export const ROADMAP_CARDS = [
             <Image
               alt="comic 2"
               height={500}
-              src="/img/comics/mid/2.png"
+              src="/img/comics/thumbnail/2.webp"
               width={500}
               sizes="100vw"
               style={{
@@ -353,7 +353,7 @@ export const ROADMAP_CARDS = [
             <Image
               alt="comic 3"
               height={500}
-              src="/img/comics/mid/3.png"
+              src="/img/comics/thumbnail/3.webp"
               width={500}
               sizes="100vw"
               style={{
@@ -366,7 +366,7 @@ export const ROADMAP_CARDS = [
             <Image
               alt="comic 4"
               height={500}
-              src="/img/comics/mid/4.png"
+              src="/img/comics/thumbnail/4.webp"
               width={500}
               sizes="100vw"
               style={{
@@ -384,7 +384,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Feb 13th, 2023',
     image: {
       height: 400,
-      src: '/img/roadmap/beta_v02.png',
+      src: '/img/roadmap/beta_v02.webp',
       style: { top: '-125px' },
       width: 544,
     },
@@ -401,7 +401,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Feb 17th, 2023',
     image: {
       height: 384,
-      src: '/img/degens/hydra.png',
+      src: '/img/degens/hydra.webp',
       style: { top: '-160px' },
       width: 384,
     },
@@ -426,7 +426,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'May 10th, 2023',
     image: {
       height: 400,
-      src: '/img/roadmap/free2play_v02.png',
+      src: '/img/roadmap/free2play_v02.webp',
       style: { top: '-140px' },
       width: 507,
     },
@@ -449,7 +449,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Sept 22nd, 2023',
     image: {
       height: 1070,
-      src: '/img/games/smashers/apartment.png',
+      src: '/img/games/smashers/apartment.webp',
       style: { top: '-90px' },
       width: 1618,
     },
@@ -467,7 +467,7 @@ export const ROADMAP_CARDS = [
     completed: true,
     completionDate: 'Dec 10th, 2023',
     image: {
-      src: '/img/roadmap/mobile_v02.png',
+      src: '/img/roadmap/mobile_v02.webp',
       style: { top: '-145px' },
       width: 387,
       height: 300,
@@ -483,7 +483,7 @@ export const ROADMAP_CARDS = [
   {
     image: {
       height: 166,
-      src: '/img/logos/networks/imx_polygon.png',
+      src: '/img/logos/networks/imx_polygon.webp',
       style: { top: '-115px' },
       width: 250,
     },
@@ -510,7 +510,7 @@ export const ROADMAP_CARDS = [
   {
     current: true,
     image: {
-      src: '/img/roadmap/niftyroyale_v01.png',
+      src: '/img/roadmap/niftyroyale_v01.webp',
       style: { top: '-110px' },
       width: 541,
       height: 381,
@@ -527,7 +527,7 @@ export const ROADMAP_CARDS = [
   {
     image: {
       height: 375,
-      src: '/img/roadmap/marketplace_v02.png',
+      src: '/img/roadmap/marketplace_v02.webp',
       style: { top: '-90px' },
       width: 609,
     },
@@ -555,7 +555,7 @@ export const ROADMAP_CARDS = [
   },
   {
     image: {
-      src: '/img/roadmap/dao_v02.png',
+      src: '/img/roadmap/dao_v02.webp',
       style: { top: '-80px' },
       width: 532,
       height: 302,
@@ -572,7 +572,7 @@ export const ROADMAP_CARDS = [
   },
   {
     image: {
-      src: '/img/roadmap/niftyverse_v02.png',
+      src: '/img/roadmap/niftyverse_v02.webp',
       style: { top: '-145px' },
       width: 757,
       height: 675,
@@ -604,7 +604,7 @@ export const ROADMAP_CARDS = [
   {
     divider: true,
     image: {
-      src: '/img/logos/niftyverse/app_logo.png',
+      src: '/img/logos/niftyverse/app_logo.webp',
       style: { top: '-90px' },
       width: 1920,
       height: 1080,
@@ -626,7 +626,7 @@ export const ROADMAP_CARDS = [
   },
   {
     image: {
-      src: '/img/roadmap/pets_v02.png',
+      src: '/img/roadmap/pets_v02.webp',
       style: { top: '-140px' },
       width: 379,
       height: 325,
@@ -654,7 +654,7 @@ export const ROADMAP_CARDS = [
   },
   {
     image: {
-      src: '/img/games/nifty-tennis.png',
+      src: '/img/games/nifty-tennis.webp',
       style: { top: '-100px' },
       width: 500,
       height: 281,
@@ -670,7 +670,7 @@ export const ROADMAP_CARDS = [
   },
   {
     image: {
-      src: '/img/roadmap/niftykart_v01.png',
+      src: '/img/roadmap/niftykart_v01.webp',
       style: { top: '-160px' },
       width: 494,
       height: 462,
@@ -685,7 +685,7 @@ export const ROADMAP_CARDS = [
   },
   {
     image: {
-      src: '/img/roadmap/gen2_v01.png',
+      src: '/img/roadmap/gen2_v01.webp',
       style: { top: '-120px' },
       width: 550,
       height: 451,

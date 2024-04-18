@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Nifty League | Lore',
     description: 'Discover the origin story behind Nifty League',
-    images: 'https://niftyleague.com/img/backgrounds/dgen-network.png',
+    images: 'https://niftyleague.com/img/backgrounds/dgen-network.webp',
   },
 };
 

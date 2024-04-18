@@ -24,7 +24,7 @@ const Careers: NextPage = () => {
               )}
             >
               <Image
-                src="/img/careers/careers_v02_2x.png"
+                src="/img/careers/careers_v02_2x.webp"
                 alt="Satoshi moon"
                 width={648}
                 height={406}
