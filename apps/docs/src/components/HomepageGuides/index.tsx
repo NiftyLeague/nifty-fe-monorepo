@@ -2,8 +2,8 @@ import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import styled from '@emotion/styled';
 
-import Github from '@site/static/icons/github.svg';
-import LinkArrow from '@site/static/icons/link-arrow.svg';
+import Github from '@site/public/icons/socials/github.svg';
+import LinkArrow from '@site/public/icons/link-arrow.svg';
 import { RowTwo } from '../Row';
 import Card from '../Card';
 import Section from '../Section';
@@ -164,8 +164,8 @@ export default function HomepageGuides(): JSX.Element {
         <StyledImage
           style={{ maxHeight: '400px', marginTop: 'auto' }}
           sources={{
-            light: useBaseUrl('/img/frog_400.png'),
-            dark: useBaseUrl('/img/smash_400.png'),
+            light: useBaseUrl('/img/misc/frog_400.webp'),
+            dark: useBaseUrl('/img/misc/smash_400.webp'),
           }}
         />
         <div>

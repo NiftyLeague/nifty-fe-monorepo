@@ -29,7 +29,7 @@ const RaffleOverview = (): JSX.Element => {
           </Grid>
           <Grid item xs={12} textAlign="center">
             <Image
-              src="/images/events/raffle.png"
+              src="/img/events/raffle.webp"
               alt="Nifty Raffle"
               width={854}
               height={952}

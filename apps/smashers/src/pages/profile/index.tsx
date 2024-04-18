@@ -36,7 +36,7 @@ export default function Profile() {
               <div />
             ) : (
               <Image
-                src="/logo/white.png"
+                src="/img/logos/NL/white.webp"
                 alt="Company Logo"
                 width={50}
                 height={48}

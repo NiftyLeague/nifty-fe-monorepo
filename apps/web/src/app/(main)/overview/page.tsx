@@ -73,7 +73,7 @@ const Overview: NextPage = () => {
                 alt="DGEN Network background desktop"
                 className="pixelated"
                 height={813}
-                src="/img/bg/dgen-network.png"
+                src="/img/backgrounds/dgen-network.webp"
                 width={1440}
                 priority
                 sizes="100vw"
@@ -88,7 +88,7 @@ const Overview: NextPage = () => {
                 alt="DGEN Network background mobile"
                 className="pixelated"
                 height={500}
-                src="/img/bg/dgen-network-mobile.png"
+                src="/img/backgrounds/dgen-network-mobile.webp"
                 width={375}
                 priority
                 sizes="100vw"

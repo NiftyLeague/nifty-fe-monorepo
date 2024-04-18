@@ -12,7 +12,7 @@ const Roadmap: NextPage = () => {
         <div className={roadmapStyles.stars2}>
           <div className={satoshiStyles.satoshiMove}>
             <Image
-              src="/img/roadmap/satoshi_move.gif"
+              src="/img/space/satoshi_move.gif"
               unoptimized
               alt="satoshi moving"
               width={200}
@@ -42,7 +42,7 @@ const Roadmap: NextPage = () => {
           <div className="w-100 d-flex justify-content-center">
             <div className={roadmapStyles.moon}>
               <Image
-                src="/img/roadmap/moon.png"
+                src="/img/space/moon.webp"
                 alt="moon"
                 width={800}
                 height={800}

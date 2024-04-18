@@ -58,7 +58,7 @@ const WearableItemCard: React.FC<React.PropsWithChildren<React.PropsWithChildren
           width={CARD_WIDTH}
           height={CARD_HEIGHT}
         >
-          <Image src={empty as string} alt={title} width={CARD_WIDTH} height={CARD_HEIGHT} />
+          <Image src={empty as string} alt={title} width={CARD_WIDTH} height={CARD_HEIGHT} unoptimized />
         </Box>
       </Box>
     );

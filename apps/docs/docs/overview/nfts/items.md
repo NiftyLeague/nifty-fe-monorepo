@@ -5,12 +5,12 @@ sidebar_position: 3
 ---
 
 import ReactPlayer from 'react-player';
-import VideoURL1 from '/video/companion.mov';
-import VideoURL2 from '/video/citadel_key.mov';
+import VideoURL1 from '/video/companion.mp4';
+import VideoURL2 from '/video/citadel_key.mp4';
 
-| ![](/img/items/1.gif) | ![](/img/items/2.gif) | ![](/img/items/6.gif) |
-| --------------------- | --------------------- | --------------------- |
-| ![](/img/items/4.gif) | ![](/img/items/5.gif) | ![](/img/items/3.gif) |
+| ![](/img/items/full/1.gif) | ![](/img/items/full/2.gif) | ![](/img/items/full/6.gif) |
+| -------------------------- | -------------------------- | -------------------------- |
+| ![](/img/items/full/4.gif) | ![](/img/items/full/5.gif) | ![](/img/items/full/3.gif) |
 
 The initial 6 in-game items are earned via burning [comic pages](./comics). These 6 items have some of the highest power-scores in game, granting holders a strong early advantage in games.
 
@@ -40,4 +40,4 @@ Items were originally minted on Immutable blockchain but will soon be migrated t
 
 After the migration we will set up an official marketplace for our items so users can easily interact and purchase additional items for use in our games.
 
-![alt text](/img/billboard_01.png)
+![alt text](/img/niftyverse/billboard_01.webp)

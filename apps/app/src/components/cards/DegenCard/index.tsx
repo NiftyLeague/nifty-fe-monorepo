@@ -328,7 +328,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
                   IP
                 </Typography>
                 <Image
-                  src="/images/icons/download-solid.svg"
+                  src="/icons/download-solid.svg"
                   alt="Download Icon"
                   width={size === 'small' ? 12 : 16}
                   height={size === 'small' ? 12 : 16}

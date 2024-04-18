@@ -10,8 +10,8 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 <ThemedImage
 alt="Docusaurus themed image"
 sources={{
-    light: useBaseUrl('/img/banner-light.png'),
-    dark: useBaseUrl('/img/banner-dark.png'),
+    light: useBaseUrl('/img/backgrounds/banner-light.webp'),
+    dark: useBaseUrl('/img/backgrounds/banner-dark.webp'),
   }}
 />
 
@@ -35,7 +35,7 @@ We offer seven versatile characters, each with its own unique identity, and read
 
 All these resources converge to create an environment where developers can excel at what they do best —crafting captivating games— efficiently and effectively.
 
-<div style={{ margin: 'auto' }}>![](/img/creation.png)</div>
+<div style={{ margin: 'auto' }}>![](/img/mint-o-matic/creation.webp)</div>
 
 ### Web3 upbringing
 
@@ -49,4 +49,4 @@ Our vision is ultimately to decentralize the green-light, funding, and publishin
 
 With our team and our community behind us, Nifty League plans to be the go-to platform for crowdfunding and getting immediate feedback on your next game ideas.
 
-<div style={{ maxWidth: 400, margin: 'auto' }}>![](/img/ape-speech.png)</div>
+<div style={{ maxWidth: 400, margin: 'auto' }}>![](/img/events/ape-speech.webp)</div>

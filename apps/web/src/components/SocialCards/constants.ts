@@ -3,7 +3,7 @@ export const SOCIALS = [
     link: 'https://discord.gg/niftyleague',
     title: 'Discord',
     subtitle: 'Ask questions, meet the community, and follow team updates',
-    image: '/icons/discord.svg',
+    image: '/icons/socials/discord.svg',
   },
   {
     link: 'https://opensea.io/collection/niftydegen',
@@ -15,24 +15,24 @@ export const SOCIALS = [
     link: 'https://twitter.com/NiftyLeague',
     title: 'Twitter',
     subtitle: 'Follow us for partnership and community updates on Twitter',
-    image: '/icons/twitter.svg',
+    image: '/icons/socials/twitter.svg',
   },
   {
     link: 'https://www.twitch.tv/niftyleagueofficial',
     title: 'Twitch',
     subtitle: 'Watch and engage with streamers playing Nifty Smashers',
-    image: '/icons/twitch.svg',
+    image: '/icons/socials/twitch.svg',
   },
   {
     link: 'https://www.youtube.com/c/NiftyLeague/',
     title: 'Youtube',
     subtitle: 'Watch gameplay and catch up on our past community events',
-    image: '/icons/youtube.svg',
+    image: '/icons/socials/youtube.svg',
   },
   {
     link: 'https://www.reddit.com/r/niftyleague/',
     title: 'Reddit',
     subtitle: 'Hold discussions and ask questions to our Reddit community',
-    image: '/icons/reddit.svg',
+    image: '/icons/socials/reddit.svg',
   },
 ];

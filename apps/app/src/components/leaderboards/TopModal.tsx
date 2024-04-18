@@ -291,7 +291,7 @@ const TableModal = ({ selectedGame, flag, selectedTimeFilter, myRank }: TableMod
           )}
           {data && (
             <TwitterTypography variant="body2" onClick={handleShareOnTwitter}>
-              Share on twitter <Image src="/images/icons/twitter.svg" alt="Twitter Icon" width={22} height={20} />
+              Share on twitter <Image src="/icons/socials/twitter.svg" alt="Twitter Icon" width={22} height={20} />
             </TwitterTypography>
           )}
         </TableBody>

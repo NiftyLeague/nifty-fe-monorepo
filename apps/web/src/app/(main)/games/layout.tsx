@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Nifty League | Games',
     description: 'JOIN THOUSANDS OF PLAYERS ALL OVER THE WORLD COMPETING FOR THE TOP SPOT IN THE NIFTY LEAGUE',
-    images: 'https://niftyleague.com/img/home/classic-gaming-reinvented.png',
+    images: 'https://niftyleague.com/img/console-game/classic-gaming-reinvented.webp',
   },
 };
 

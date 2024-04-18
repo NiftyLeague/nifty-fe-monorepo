@@ -22,7 +22,7 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
       <div>
         <div className="position-relative flex-grow-1 home-banner animation-zoomin">
           <Image
-            src="/img/home/hero-bg.png"
+            src="/img/hero/bg.webp"
             alt="Nifty Home Banner"
             width={3408}
             height={1849}
@@ -37,7 +37,7 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
         <AnimatedWrapper parallax parallaxDirection="top" transitionAmount="small">
           <div className="parallax-hero-child position-absolute home-hero-characters-image flex-grow-1 animation-zoomin-large">
             <Image
-              src="/img/home/hero-characters.png"
+              src="/img/hero/characters.webp"
               alt="Nifty Hero Characters"
               width={3408}
               height={1849}
@@ -55,7 +55,7 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
             <AnimatedWrapper>
               <div className="animation-bounce animated-fade-start animated-fade transition-delay-extreme">
                 <Image
-                  src="/img/home/hero-companion-base.png"
+                  src="/img/hero/companion-base.webp"
                   alt="Home Hero Companion Base"
                   width={436}
                   height={436}
@@ -76,7 +76,7 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
             <AnimatedWrapper>
               <div className="animation-bounce2 animated-fade-start animated-fade transition-delay-extreme">
                 <Image
-                  src="/img/home/hero-halo.png"
+                  src="/img/hero/halo.webp"
                   alt="Home Hero Halo"
                   width={325}
                   height={117}
@@ -98,7 +98,7 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
           <div className="position-relative flex-grow-1 home-satoshi satoshi-quick-pop-anim satoshi-quick-pop-anim-start transition-delay-medium">
             <Image
               alt="Satoshi"
-              src="/img/home/satoshi.png"
+              src="/img/hero/satoshi.webp"
               priority
               width={556}
               height={589}
@@ -131,7 +131,7 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
               onClick={scrollToGamingSection}
             >
               <Image
-                src="/img/home/speech-bubble.png"
+                src="/img/hero/speech-bubble.webp"
                 alt="Learn More"
                 width={407}
                 height={125}
@@ -168,16 +168,16 @@ const MobileIntro = () => {
         </AnimatedWrapper>
         <div className="d-flex align-items-center mt-3 mb-5 social-icons">
           <a className="pe-4" href="https://discord.gg/niftyleague" target="_blank" rel="noreferrer">
-            <Image src="/icons/discord.svg" alt="Discord Logo" width={26} height={22} />
+            <Image src="/icons/socials/discord.svg" alt="Discord Logo" width={26} height={22} />
           </a>
           <a className="pe-4" href="https://twitter.com/NiftyLeague" target="_blank" rel="noreferrer">
-            <Image src="/icons/twitter.svg" alt="Twitter Logo" width={26} height={22} />
+            <Image src="/icons/socials/twitter.svg" alt="Twitter Logo" width={26} height={22} />
           </a>
           <a className="pe-4" href="https://opensea.io/collection/niftydegen" target="_blank" rel="noreferrer">
             <Image src="/icons/opensea.svg" alt="OpenSea Logo" width={24} height={22} />
           </a>
           <a href="https://www.twitch.tv/niftyleagueofficial" target="_blank" rel="noreferrer">
-            <Image src="/icons/twitch.svg" alt="Twitch Logo" width={24} height={22} />
+            <Image src="/icons/socials/twitch.svg" alt="Twitch Logo" width={24} height={22} />
           </a>
         </div>
       </div>
@@ -252,7 +252,7 @@ const Home: NextPage = () => {
               <div className="nifty-ape-overlay">
                 <Image
                   className="pixelated nifty-ape-img"
-                  src="/img/home/nifty-ape.png"
+                  src="/img/degens/nifty-ape.webp"
                   width={856}
                   height={842}
                   alt="ape degen overlay"
@@ -284,7 +284,7 @@ const Home: NextPage = () => {
                       <AnimatedWrapper parallax parallaxDirection="left">
                         <div className="animation-bounce-coin1 animated-fade animated-fade-start transition-delay-large">
                           <Image
-                            src="/img/home/compete-and-earn-token-1.png"
+                            src="/img/compete-and-earn/animated/token-1.webp"
                             alt="Compete and Earn NFTL 1"
                             width={413}
                             height={408}
@@ -304,7 +304,7 @@ const Home: NextPage = () => {
                       <AnimatedWrapper parallax parallaxDirection="right">
                         <div className="animation-bounce-coin2 animated-fade animated-fade-start transition-delay-large">
                           <Image
-                            src="/img/home/compete-and-earn-token-2.png"
+                            src="/img/compete-and-earn/animated/token-2.webp"
                             alt="Compete and Earn NFTL 2"
                             width={398}
                             height={390}
@@ -324,7 +324,7 @@ const Home: NextPage = () => {
                       <AnimatedWrapper parallax parallaxDirection="top">
                         <div className="animation-bounce-coin3 animated-fade animated-fade-start transition-delay-large">
                           <Image
-                            src="/img/home/compete-and-earn-token-3.png"
+                            src="/img/compete-and-earn/animated/token-3.webp"
                             alt="Compete and Earn NFTL 3"
                             width={492}
                             height={192}
@@ -347,7 +347,7 @@ const Home: NextPage = () => {
                     <AnimatedWrapper>
                       <div className="quick-pop-anim quick-pop-anim-start transition-delay-small">
                         <Image
-                          src="/img/home/compete-and-earn-mobile.png"
+                          src="/img/compete-and-earn/mobile.webp"
                           alt="Compete and Earn"
                           width={3208}
                           height={1342}
@@ -414,7 +414,7 @@ const Home: NextPage = () => {
               <AnimatedWrapper>
                 <div className="quick-pop-anim quick-pop-anim-start transition-delay-medium">
                   <Image
-                    src="/img/home/compete-and-earn.png"
+                    src="/img/compete-and-earn/animated/competitors.webp"
                     alt="Compete and Earn"
                     width={1648}
                     height={1319}
@@ -434,7 +434,7 @@ const Home: NextPage = () => {
                       className="pixelated"
                       width={641}
                       height={640}
-                      src="/img/home/compete-and-earn-token-4.png"
+                      src="/img/compete-and-earn/animated/token-4.webp"
                       sizes="100vw"
                       style={{
                         width: '100%',
@@ -457,7 +457,7 @@ const Home: NextPage = () => {
               <AnimatedWrapper>
                 <div className="animated-fade animated-fade-start transition-delay-medium">
                   <Image
-                    src="/img/home/land-in-the-niftyverse.png"
+                    src="/img/logos/niftyverse/app_logo.webp"
                     alt="Land in the Niftyverse"
                     width={3055}
                     height={2406}
@@ -477,7 +477,7 @@ const Home: NextPage = () => {
               {!desktop && (
                 <div className="position-relative full-width text-align-center">
                   <Image
-                    src="/img/home/land-in-the-niftyverse.png"
+                    src="/img/logos/niftyverse/app_logo.webp"
                     alt="Land in the NiftyVerse"
                     width={1920}
                     height={1512}
@@ -546,7 +546,7 @@ const Home: NextPage = () => {
             <AnimatedWrapper>
               <div className="position-relative flex-grow-1 animated-fade animated-fade-start transition-delay-small">
                 <Image
-                  src="/img/home/dashboard.png"
+                  src="/img/misc/dashboard.webp"
                   alt="App Dashboard"
                   width={3590}
                   height={2192}
@@ -569,7 +569,7 @@ const Home: NextPage = () => {
                   style={{ width: '100vw', marginLeft: '-1rem' }}
                 >
                   <Image
-                    src="/img/home/dashboard.png"
+                    src="/img/misc/dashboard.webp"
                     alt="App Dashboard"
                     width={3590}
                     height={2192}
@@ -699,7 +699,7 @@ const Home: NextPage = () => {
               <AnimatedWrapper>
                 <div className="position-relative flex-grow-1 quick-pop-anim quick-pop-anim-start transition-delay-medium home-community-image">
                   <Image
-                    src="/img/home/community.png"
+                    src="/img/leaderboards/podium.webp"
                     alt="The Best Community on Earth"
                     width={1417}
                     height={1525}
@@ -726,7 +726,7 @@ const Home: NextPage = () => {
                   <AnimatedWrapper>
                     <div className="position-relative flex-grow-1 full-width quick-pop-anim quick-pop-anim-start transition-delay-small">
                       <Image
-                        src="/img/home/community.png"
+                        src="/img/leaderboards/podium.webp"
                         alt="The Best Community on Earth"
                         width={1417}
                         height={1525}
@@ -744,7 +744,7 @@ const Home: NextPage = () => {
                   <AnimatedWrapper>
                     <div className="position-relative flex-grow-1 animated-fade animated-fade-start transition-delay-small home-community-characters">
                       <Image
-                        src="/img/home/community-characters.png"
+                        src="/img/degens/community-characters.webp"
                         alt="Community DEGENs"
                         width={1910}
                         height={620}
@@ -807,7 +807,7 @@ const Home: NextPage = () => {
                           alt="Community DEGENs"
                           width={1910}
                           height={620}
-                          src="/img/home/community-characters.png"
+                          src="/img/degens/community-characters.webp"
                           sizes="100vw"
                           style={{
                             width: '100%',
@@ -843,7 +843,7 @@ const Home: NextPage = () => {
                   className="pixelated"
                   width={3600}
                   height={1735}
-                  src="/img/home/sponsors.png"
+                  src="/img/sponsors/sponsors.webp"
                   sizes="100vw"
                   style={{
                     width: '100%',

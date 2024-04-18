@@ -83,10 +83,10 @@ const CustomModal = (props: ModalProps): JSX.Element | null => {
               ...style(theme),
               backgroundImage: `url(${
                 flag === 'score'
-                  ? '/images/leaderboards/wen_game.png'
+                  ? '/img/leaderboards/wen_game.webp'
                   : flag === 'burnings'
-                    ? '/images/leaderboards/mt_gawx.png'
-                    : '/images/leaderboards/nifty_smashers.jpg'
+                    ? '/img/leaderboards/mt_gawx.webp'
+                    : '/img/leaderboards/nifty_smashers.webp'
               })`,
             }}
           >

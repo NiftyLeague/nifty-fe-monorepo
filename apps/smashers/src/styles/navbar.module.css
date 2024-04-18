@@ -1,6 +1,6 @@
 .logo_container {
   position: absolute;
-  background: url(/assets/corner.svg) 100% 100% no-repeat;
+  background: url(/img/gradient/corner.svg) 100% 100% no-repeat;
   width: 145px;
   height: 95px;
   top: -10px;

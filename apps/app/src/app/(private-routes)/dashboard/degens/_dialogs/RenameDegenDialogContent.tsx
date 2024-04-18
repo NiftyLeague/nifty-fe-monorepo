@@ -18,8 +18,6 @@ import useBalances from '@/hooks/useBalances';
 import { getErrorForName } from '@/utils/name';
 import { submitTxWithGasEstimate } from '@/utils/bnc-notify';
 import { NFTL_CONTRACT, DEGEN_CONTRACT } from '@/constants/contracts';
-import { DEGEN_BASE_IMAGE_URL } from '@/constants/url';
-import { TARGET_NETWORK } from '@/constants/networks';
 import { DEBUG } from '@/constants/index';
 import type { Degen } from '@/types/degens';
 import RenameStepper from './RenameStepper';
@@ -104,9 +102,7 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): JSX.Element => {
           <Stack rowGap={1}>
             <CardMedia
               component="img"
-              image={`${DEGEN_BASE_IMAGE_URL}/${TARGET_NETWORK.name}/images/${degen?.id}.${
-                degen?.background === 'Legendary' ? 'mp4' : 'png'
-              }`}
+              image={`/img/degens/nfts/${degen?.id}.${degen?.background === 'Legendary' ? 'gif' : 'png'}`}
               alt="degen"
               sx={{ aspectRatio: '1/1', width: '240px', margin: '0 auto' }}
             />

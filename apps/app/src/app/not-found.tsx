@@ -70,14 +70,14 @@ const NotFoundPage = () => {
                 component="img"
                 image={
                   theme.palette.mode === 'dark'
-                    ? '/images/maintenance/img-error-bg-dark.svg'
-                    : '/images/maintenance/img-error-bg.svg'
+                    ? '/img/maintenance/img-error-bg-dark.svg'
+                    : '/img/maintenance/img-error-bg.svg'
                 }
                 title="Slider5 image"
               />
-              <CardMediaBlock src="/images/maintenance/img-error-text.svg" title="Slider 1 image" />
-              <CardMediaBlue src="/images/maintenance/img-error-blue.svg" title="Slider 2 image" />
-              <CardMediaPurple src="/images/maintenance/img-error-purple.svg" title="Slider 3 image" />
+              <CardMediaBlock src="/img/maintenance/img-error-text.svg" title="Slider 1 image" />
+              <CardMediaBlue src="/img/maintenance/img-error-blue.svg" title="Slider 2 image" />
+              <CardMediaPurple src="/img/maintenance/img-error-purple.svg" title="Slider 3 image" />
             </CardMediaWrapper>
           </Grid>
           <Grid item xs={12}>

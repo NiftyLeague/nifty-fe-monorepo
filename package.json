@@ -10,7 +10,8 @@
     "lint:fix": "turbo lint:fix",
     "format": "turbo format",
     "type-check": "turbo type-check",
-    "prepare": "husky"
+    "symlinks": "pnpm exec .sh/symlinks.sh",
+    "prepare": "husky && pnpm symlinks"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",

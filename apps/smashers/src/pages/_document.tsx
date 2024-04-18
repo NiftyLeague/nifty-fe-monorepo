@@ -5,7 +5,7 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <meta name="description" content="Mobile and PC friendly brawler game" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon/smashers/favicon.ico" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
