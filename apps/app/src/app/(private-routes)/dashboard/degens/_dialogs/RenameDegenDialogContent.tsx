@@ -102,7 +102,7 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): JSX.Element => {
           <Stack rowGap={1}>
             <CardMedia
               component="img"
-              image={`/img/degens/nfts/${degen?.id}.${degen?.background === 'Legendary' ? 'gif' : 'png'}`}
+              image={`/img/degens/nfts/${degen?.id}.${degen?.background === 'Legendary' ? 'gif' : 'webp'}`}
               alt="degen"
               sx={{ aspectRatio: '1/1', width: '240px', margin: '0 auto' }}
             />
