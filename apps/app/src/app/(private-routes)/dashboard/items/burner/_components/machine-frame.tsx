@@ -14,6 +14,7 @@ const MachineFrame = ({ frames, interval = 0 }: MachineFrameProps) => {
       width={550}
       height={1425}
       className="pixelated"
+      unoptimized={frame.endsWith('.gif')}
       style={{
         position: 'absolute',
         left: 0,

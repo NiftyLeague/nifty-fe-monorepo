@@ -223,7 +223,7 @@ const CharacterCreator = memo(
           className="pixelated"
           style={{
             backgroundSize: height / 21,
-            backgroundImage: `url('/img/backgrounds/character-creator-repeat.png')`,
+            backgroundImage: `url('/img/backgrounds/character-creator-repeat.webp')`,
             backgroundRepeat: 'repeat-x',
           }}
         >

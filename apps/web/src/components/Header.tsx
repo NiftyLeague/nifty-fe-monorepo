@@ -23,7 +23,7 @@ const Navbar = () => {
         >
           <Link href="/" className="navbar-brand">
             <Image
-              src="/img/logos/NL/white.png"
+              src="/img/logos/NL/white.webp"
               height={50}
               width={52}
               alt="Nifty League Logo"

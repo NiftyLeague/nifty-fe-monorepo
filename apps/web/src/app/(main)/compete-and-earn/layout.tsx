@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Nifty League | Compete & Earn',
     description: 'Adrenaline fueled, fast-paced brawl mode where the winner takes ALL',
-    images: 'https://niftyleague.com/img/compete-and-earn/splash.png',
+    images: 'https://niftyleague.com/img/compete-and-earn/splash.webp',
   },
 };
 

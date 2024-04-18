@@ -32,7 +32,7 @@ export const metadata: Metadata = {
       'A game studio at the cutting edge of Web3 with a mission to inspire other indie game developers to build a decentralized future with us.',
     url: 'https://niftyleague.com',
     siteName: 'NiftyLeague',
-    images: 'https://niftyleague.com/img/console-game/classic-gaming-reinvented.png',
+    images: 'https://niftyleague.com/img/console-game/classic-gaming-reinvented.webp',
     locale: 'en_US',
     type: 'website',
   },
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     creator: '@NiftyLeague',
     // creatorId: 'XXXXXXXX',
     images: {
-      url: 'https://niftyleague.com/img/console-game/classic-gaming-reinvented.png',
+      url: 'https://niftyleague.com/img/console-game/classic-gaming-reinvented.webp',
       alt: 'Nifty League Banner',
     },
   },

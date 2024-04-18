@@ -120,7 +120,7 @@ export default function DegenViews() {
               height={70}
               style={{ maxWidth: '24vw', height: 'auto' }}
               quality={100}
-              src="/img/logos/NL/wordmark.png"
+              src="/img/logos/NL/wordmark.webp"
             />
           </div>
         )}

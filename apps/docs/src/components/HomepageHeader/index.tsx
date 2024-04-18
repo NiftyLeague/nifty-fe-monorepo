@@ -73,8 +73,8 @@ export default function HomepageHeader() {
       <StyledTitleImage
         alt="Header Background Image"
         sources={{
-          light: useBaseUrl('/img/games/smashers/2D-levels/mars.png'),
-          dark: useBaseUrl('/img/games/smashers/3D-levels/sushi_cropped.png'),
+          light: useBaseUrl('/img/games/smashers/2D-levels/mars.webp'),
+          dark: useBaseUrl('/img/games/smashers/3D-levels/sushi_cropped.webp'),
         }}
       />
     </DocsHeader>

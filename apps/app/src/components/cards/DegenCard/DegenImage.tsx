@@ -10,7 +10,7 @@ const DegenImage = memo(({ tokenId, sx }: { tokenId: string | number; sx?: SxPro
   let setting: any = {
     height: imageHeight,
     component: 'img',
-    image: `${imageURL}.png`,
+    image: `${imageURL}.webp`,
   };
 
   if (LEGGIES.includes(Number(tokenId))) {
@@ -27,7 +27,7 @@ const DegenImage = memo(({ tokenId, sx }: { tokenId: string | number; sx?: SxPro
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement | HTMLVideoElement, Event>) => {
     const target = e.target as HTMLImageElement | HTMLVideoElement;
     target.onerror = null;
-    target.src = '/img/degens/unavailable-image.png';
+    target.src = '/img/degens/unavailable-image.webp';
   };
 
   return <CardMedia sx={{ objectFit: 'cover', ...sx }} {...setting} onError={handleImageError} />;

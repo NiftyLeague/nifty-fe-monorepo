@@ -213,16 +213,16 @@
   @keyframes propeller {
     0%,
     100% {
-      background-image: url('/img/hero/companion-anim1.png');
+      background-image: url('/img/hero/companion-anim1.webp');
     }
     25% {
-      background-image: url('/img/hero/companion-anim2.png');
+      background-image: url('/img/hero/companion-anim2.webp');
     }
     50% {
-      background-image: url('/img/hero/companion-anim3.png');
+      background-image: url('/img/hero/companion-anim3.webp');
     }
     75% {
-      background-image: url('/img/hero/companion-anim4.png');
+      background-image: url('/img/hero/companion-anim4.webp');
     }
   }
 

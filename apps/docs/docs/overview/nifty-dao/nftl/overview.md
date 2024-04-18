@@ -24,7 +24,7 @@ NFTL's primary utility is governance! A governance token is a type of cryptocurr
 
 NFTL plays a crucial role in Nifty DAO by fostering a more inclusive and democratic decision-making process. However, it's important to note that the effectiveness of governance mechanisms depends on the level of engagement from token holders and the overall design of the governance system.
 
-<div style={{ maxWidth: 300, margin: 'auto' }}>![](/img/roadmap/dao_v02.png)</div>
+<div style={{ maxWidth: 300, margin: 'auto' }}>![](/img/roadmap/dao_v02.webp)</div>
 
 ### Past & Present Utilities
 
@@ -50,4 +50,4 @@ If additional on-chain activations are introduced in the future NFTL will be con
 
 Nifty League's primary focus is mobile games which exclude NFTL at the moment mostly due to unnecessary friction it would cause players but also potential legal concerns. NFTL integration isn’t promised but can be explored in the future, if and when we have a successful game.
 
-![](/img/niftyverse/mall_01.png)
+![](/img/niftyverse/mall_01.webp)

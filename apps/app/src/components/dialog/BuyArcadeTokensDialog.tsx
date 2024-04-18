@@ -206,7 +206,14 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                   Bal: {accountBalance ? formatNumberToDisplay(accountBalance) : '0.00'} NFTL
                 </Typography>
                 <Typography fontWeight="500" display="flex">
-                  Total: <Box component="img" src="/icons/arcade_token.png" alt="Arcade Token" width="16px" mx={0.5} />{' '}
+                  Total:{' '}
+                  <Box
+                    component="img"
+                    src="/icons/currencies/arcade-token.svg"
+                    alt="Arcade Token"
+                    width="16px"
+                    mx={0.5}
+                  />{' '}
                   {tokenCount * details.items['arcade-token']} Arcade Tokens
                 </Typography>
                 {accountBalance > 0 && accountBalance < tokenCount * details.price && (

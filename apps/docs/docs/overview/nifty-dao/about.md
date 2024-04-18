@@ -4,7 +4,7 @@ title: About
 sidebar_position: 1
 ---
 
-<div style={{ maxWidth: 300, margin: 'auto' }}>![](/img/roadmap/dao_v02.png)</div>
+<div style={{ maxWidth: 300, margin: 'auto' }}>![](/img/roadmap/dao_v02.webp)</div>
 
 ### Overview
 
@@ -18,7 +18,7 @@ Nifty League invites indie game studios to participate in expanding the platform
 
 In alignment with this vision, the platform is working towards establishing a more formal process for indie gaming studios and artists to integrate assets or games into NiftyVerse. The first trial is ongoing with the development of Nifty Royale in collaboration with a third-party game studio. Nifty League anticipates a significant push towards open-sourcing and decentralization over the next years, contributing to a collaborative and decentralized gaming landscape.
 
-<div style={{ maxWidth: 700, margin: 'auto' }}>![](/img/careers/careers_v02_3x.png)</div>
+<div style={{ maxWidth: 700, margin: 'auto' }}>![](/img/careers/careers_v02_3x.webp)</div>
 
 ### Funds
 
@@ -28,7 +28,7 @@ To ensure transparent operations, the core team is actively seeking notable comm
 
 Plans for the DAO include utilizing Tally.xyz for proposals and token voting, drawing inspiration from successful DAOs on their platform like Uniswap and AAVE.
 
-![alt text](/img/niftyverse/bank_from_road_02.png)
+![alt text](/img/niftyverse/bank_from_road_02.webp)
 
 ---
 

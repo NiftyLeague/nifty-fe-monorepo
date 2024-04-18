@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     description: 'Web3 gaming app brought to you by Nifty League',
     url: 'https://app.niftyleague.com',
     siteName: 'NiftyLeagueApp',
-    images: 'https://niftyleague.com/img/backgrounds/banner-dark.png',
+    images: 'https://niftyleague.com/img/backgrounds/banner-dark.webp',
     locale: 'en_US',
     type: 'website',
   },
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     creator: '@NiftyLeague',
     // creatorId: '1467726470533754880',
     images: {
-      url: 'https://niftyleague.com/img/backgrounds/banner-dark.png',
+      url: 'https://niftyleague.com/img/backgrounds/banner-dark.webp',
       alt: 'Nifty League Banner',
     },
   },

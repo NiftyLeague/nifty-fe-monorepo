@@ -10,7 +10,7 @@ const metadata = {
   name: 'Nifty League App',
   description: 'Nifty League Web3 Player Dashboards',
   url: 'https://app.niftyleague.com',
-  icons: ['https://app.niftyleague.com/img/logos/NL/purple-filled.png'],
+  icons: ['https://app.niftyleague.com/img/logos/NL/purple-filled.webp'],
 };
 
 export const chains: [Chain, ...Chain[]] = [mainnet, sepolia, hardhat];

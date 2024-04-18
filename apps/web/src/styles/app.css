@@ -503,7 +503,7 @@
 .home-mobile-intro {
   background: var(--custom-panel-color);
   background-size: cover;
-  background-image: url(/img/backgrounds/banner-dark.png);
+  background-image: url(/img/backgrounds/banner-dark.webp);
   min-height: 100vh;
 }
 .home-mobile-intro .overlay-dark {

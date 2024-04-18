@@ -11,7 +11,7 @@ export default function Navbar() {
       <a href="https://niftyleague.com" target="_blank" rel="noreferrer">
         <div className={styles.logo_container}>
           <Image
-            src="/img/logos/NL/white.png"
+            src="/img/logos/NL/white.webp"
             alt="Company Logo"
             className={styles.logo}
             width={50}
@@ -45,7 +45,7 @@ export default function Navbar() {
     <div className={styles.desktop_nav}>
       <a href="https://niftyleague.com" target="_blank" rel="noreferrer">
         <div className={styles.logo_container}>
-          <Image src="/img/logos/NL/white.png" alt="Company Logo" className={styles.logo} width={50} height={48} />
+          <Image src="/img/logos/NL/white.webp" alt="Company Logo" className={styles.logo} width={50} height={48} />
         </div>
       </a>
       <nav className={styles.navbar}>

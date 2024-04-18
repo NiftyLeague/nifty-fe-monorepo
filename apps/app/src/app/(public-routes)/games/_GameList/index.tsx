@@ -107,7 +107,7 @@ const GameList = () => {
           title="Crypto Winter"
           required="Arcade Tokens Required"
           description="Winter is here... Play this single-player dodgeball-inspired arcade game and rank as high as you can!"
-          image="/img/games/crypto-winter.png"
+          image="/img/games/crypto-winter.webp"
           autoHeight={false}
           actions={
             <ConnectWrapper color="primary" fullWidth buttonText="Connect Wallet to play">
@@ -154,7 +154,7 @@ const GameList = () => {
             'The first NFT tennis game on the Ethereum blockchain!\n\n'
           }
           isComingSoon
-          image='/img/games/nifty-tennis.jpeg'
+          image='/img/games/nifty-tennis.webp'
           autoHeight={true}
           actions={<WhitelistDialog />}
         />

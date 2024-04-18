@@ -40,4 +40,4 @@ Items were originally minted on Immutable blockchain but will soon be migrated t
 
 After the migration we will set up an official marketplace for our items so users can easily interact and purchase additional items for use in our games.
 
-![alt text](/img/niftyverse/billboard_01.png)
+![alt text](/img/niftyverse/billboard_01.webp)

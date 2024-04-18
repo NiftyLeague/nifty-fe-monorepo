@@ -57,7 +57,7 @@ export default function HomepageSocials() {
           href={'https://www.twitch.tv/NiftyLeagueOfficial'}
         >
           <WideCard>
-            <img src="/docs/img/misc/twitch-stream.png" width={'120px'} />
+            <img src="/docs/img/misc/twitch-stream.webp" width={'120px'} />
             <div>
               <h2 style={{ marginBottom: '0.5rem' }}>Nifty League Twitch Streamers</h2>
               <p style={{ margin: '0rem' }}>

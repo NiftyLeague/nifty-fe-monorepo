@@ -52,7 +52,7 @@ const ViewTraitsContentDialog = ({
           >
             <Typography color="gray" sx={{ textDecoration: 'none' }}>
               DEGEN ID #{degen?.id}{' '}
-              <Image src="/img/logos/other/OpenSea.png" alt="OpenSea Logo" width={16} height={16} />
+              <Image src="/img/logos/other/OpenSea.webp" alt="OpenSea Logo" width={16} height={16} />
             </Typography>
           </a>
         </Stack>

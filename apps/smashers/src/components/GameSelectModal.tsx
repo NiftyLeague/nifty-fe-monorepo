@@ -52,7 +52,7 @@ const ModalContent = ({ closeModal, launchGame }: { closeModal: () => void; laun
     <Space size={4} direction="vertical" className={styles.model_select_view_content}>
       <Space size={4} direction="horizontal">
         <Image
-          src="/img/logos/NL/white.png"
+          src="/img/logos/NL/white.webp"
           alt="Company Logo"
           width={50}
           height={48}
@@ -86,7 +86,7 @@ const ModalContent = ({ closeModal, launchGame }: { closeModal: () => void; laun
         >
           <a target="_blank" rel="noreferrer" style={{ width: '100%' }}>
             <Image
-              src="/img/badges/google-play-badge.png"
+              src="/img/badges/google-play-badge.webp"
               alt="Get it on Google Play"
               width={564}
               height={169}

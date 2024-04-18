@@ -7,8 +7,8 @@ export const COMICS: Comic[] = [
     multiplier: 1.5,
     wearableName: 'Cape',
     viewsCount: 0,
-    image: '/img/comics/full/1.png',
-    thumbnail: '/img/comics/thumbnail/1.png',
+    image: '/img/comics/page/1.webp',
+    thumbnail: '/img/comics/thumbnail/1.webp',
   },
   {
     id: 2,
@@ -16,8 +16,8 @@ export const COMICS: Comic[] = [
     multiplier: 1.5,
     wearableName: 'Halo',
     viewsCount: 0,
-    image: '/img/comics/full/2.png',
-    thumbnail: '/img/comics/thumbnail/2.png',
+    image: '/img/comics/page/2.webp',
+    thumbnail: '/img/comics/thumbnail/2.webp',
   },
   {
     id: 3,
@@ -25,8 +25,8 @@ export const COMICS: Comic[] = [
     multiplier: 1.5,
     wearableName: 'Diamond Bat',
     viewsCount: 0,
-    image: '/img/comics/full/3.png',
-    thumbnail: '/img/comics/thumbnail/3.png',
+    image: '/img/comics/page/3.webp',
+    thumbnail: '/img/comics/thumbnail/3.webp',
   },
   {
     id: 4,
@@ -34,8 +34,8 @@ export const COMICS: Comic[] = [
     multiplier: 1.5,
     wearableName: 'Bread Bat',
     viewsCount: 0,
-    image: '/img/comics/full/4.png',
-    thumbnail: '/img/comics/thumbnail/4.png',
+    image: '/img/comics/page/4.webp',
+    thumbnail: '/img/comics/thumbnail/4.webp',
   },
   {
     id: 5,
@@ -43,8 +43,8 @@ export const COMICS: Comic[] = [
     multiplier: 1.5,
     wearableName: 'Purple Bat',
     viewsCount: 0,
-    image: '/img/comics/full/5.png',
-    thumbnail: '/img/comics/thumbnail/5.png',
+    image: '/img/comics/page/5.webp',
+    thumbnail: '/img/comics/thumbnail/5.webp',
   },
   {
     id: 6,
@@ -52,8 +52,8 @@ export const COMICS: Comic[] = [
     multiplier: 1.5,
     wearableName: 'Companion Character',
     viewsCount: 0,
-    image: '/img/comics/full/6.png',
-    thumbnail: '/img/comics/thumbnail/6.png',
+    image: '/img/comics/page/6.webp',
+    thumbnail: '/img/comics/thumbnail/6.webp',
   },
 ];
 
@@ -65,7 +65,7 @@ export const ITEMS: Item[] = [
     wearableName: '',
     balance: 0,
     image: '/img/items/full/1.gif',
-    thumbnail: '/img/items/thumbnail/1.png',
+    thumbnail: '/img/items/thumbnail/1.webp',
     empty: '/img/items/empty/1.svg',
   },
   {
@@ -75,7 +75,7 @@ export const ITEMS: Item[] = [
     wearableName: '',
     balance: 0,
     image: '/img/items/full/2.gif',
-    thumbnail: '/img/items/thumbnail/2.png',
+    thumbnail: '/img/items/thumbnail/2.webp',
     empty: '/img/items/empty/2.svg',
     equipped: true,
   },
@@ -86,7 +86,7 @@ export const ITEMS: Item[] = [
     wearableName: '',
     balance: 0,
     image: '/img/items/full/3.gif',
-    thumbnail: '/img/items/thumbnail/3.png',
+    thumbnail: '/img/items/thumbnail/3.webp',
     empty: '/img/items/empty/3.svg',
   },
   {
@@ -96,7 +96,7 @@ export const ITEMS: Item[] = [
     wearableName: '',
     balance: 0,
     image: '/img/items/full/4.gif',
-    thumbnail: '/img/items/thumbnail/4.png',
+    thumbnail: '/img/items/thumbnail/4.webp',
     empty: '/img/items/empty/4.svg',
   },
   {
@@ -106,7 +106,7 @@ export const ITEMS: Item[] = [
     wearableName: '',
     balance: 0,
     image: '/img/items/full/5.gif',
-    thumbnail: '/img/items/thumbnail/5.png',
+    thumbnail: '/img/items/thumbnail/5.webp',
     empty: '/img/items/empty/5.svg',
   },
   {
@@ -116,7 +116,7 @@ export const ITEMS: Item[] = [
     wearableName: '',
     balance: 0,
     image: '/img/items/full/6.gif',
-    thumbnail: '/img/items/thumbnail/6.png',
+    thumbnail: '/img/items/thumbnail/6.webp',
     empty: '/img/items/empty/6.svg',
   },
   {
@@ -126,7 +126,7 @@ export const ITEMS: Item[] = [
     wearableName: '',
     balance: 0,
     image: '/img/items/7.gif',
-    thumbnail: '/img/items/thumbnail/7.png',
+    thumbnail: '/img/items/thumbnail/7.webp',
     empty: '/img/items/empty/7.svg',
     isNew: false,
   },

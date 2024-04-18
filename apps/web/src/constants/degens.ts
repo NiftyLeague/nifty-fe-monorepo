@@ -16,62 +16,62 @@ export const HOME_DEGEN_LIST = [
   {
     name: 'Nifty Sonic',
     createdDate: '9/24/2021 2:18 PM',
-    source: '/img/degens/nfts/233.png',
+    source: '/img/degens/nfts/233.webp',
   },
   {
     name: 'Grape',
     createdDate: '9/24/2021 1:35 PM',
-    source: '/img/degens/nfts/104.png',
+    source: '/img/degens/nfts/104.webp',
   },
   {
     name: 'Marvin the Martian',
     createdDate: '9/24/2021 11:23 AM',
-    source: '/img/degens/nfts/263.png',
+    source: '/img/degens/nfts/263.webp',
   },
   {
     name: 'Pirate Morty',
     createdDate: '9/30/2021 3:49 PM',
-    source: '/img/degens/nfts/3190.png',
+    source: '/img/degens/nfts/3190.webp',
   },
   {
     name: 'Beard Kong',
     createdDate: '9/24/2021 1:45 PM',
-    source: '/img/degens/nfts/140.png',
+    source: '/img/degens/nfts/140.webp',
   },
   {
     name: 'Bruno Mars',
     createdDate: '9/24/2021 2:54 PM',
-    source: '/img/degens/nfts/451.png',
+    source: '/img/degens/nfts/451.webp',
   },
   {
     name: 'Degen 3234',
     createdDate: '9/30/2021 12:26 AM',
-    source: '/img/degens/nfts/3234.png',
+    source: '/img/degens/nfts/3234.webp',
   },
   {
     name: 'Stealth',
     createdDate: '9/24/2021 3:18 PM',
-    source: '/img/degens/nfts/1092.png',
+    source: '/img/degens/nfts/1092.webp',
   },
   {
     name: 'Terminator',
     createdDate: '9/24/2021 3:41 PM',
-    source: '/img/degens/nfts/1140.png',
+    source: '/img/degens/nfts/1140.webp',
   },
   {
     name: 'White Christmas',
     createdDate: '9/24/2021 4:20 PM',
-    source: '/img/degens/nfts/1228.png',
+    source: '/img/degens/nfts/1228.webp',
   },
   {
     name: 'Degen 50',
     createdDate: '9/24/2021 1:20 PM',
-    source: '/img/degens/nfts/50.png',
+    source: '/img/degens/nfts/50.webp',
   },
   {
     name: 'Walter White',
     createdDate: '9/24/2021 1:40 PM',
-    source: '/img/degens/nfts/884.png',
+    source: '/img/degens/nfts/884.webp',
   },
 ];
 
@@ -79,62 +79,62 @@ export const ABOUT_DEGEN_LIST = [
   {
     name: 'Donkey Kong',
     createdDate: '9/24/2021 1:21 PM',
-    source: '/img/degens/nfts/833.png',
+    source: '/img/degens/nfts/833.webp',
   },
   {
     name: 'Shih Tzu Doge',
     createdDate: '9/24/2021 2:07 PM',
-    source: '/img/degens/nfts/187.png',
+    source: '/img/degens/nfts/187.webp',
   },
   {
     name: 'CRIBBIT',
     createdDate: '9/24/2021 10:59 AM',
-    source: '/img/degens/nfts/171.png',
+    source: '/img/degens/nfts/171.webp',
   },
   {
     name: 'ALBERT',
     createdDate: '9/24/2021 12:36 PM',
-    source: '/img/degens/nfts/647.png',
+    source: '/img/degens/nfts/647.webp',
   },
   {
     name: 'Snowball II',
     createdDate: '9/24/2021 2:26 PM',
-    source: '/img/degens/nfts/141.png',
+    source: '/img/degens/nfts/141.webp',
   },
   {
     name: 'Joe Pesci',
     createdDate: '9/24/2021 10:32 AM',
-    source: '/img/degens/nfts/89.png',
+    source: '/img/degens/nfts/89.webp',
   },
   {
     name: 'Texas',
     createdDate: '9/24/2021 12:41 PM',
-    source: '/img/degens/nfts/666.png',
+    source: '/img/degens/nfts/666.webp',
   },
   {
     name: 'Seed Phrase',
     createdDate: '2/17/2023 10:49 AM',
-    source: '/img/degens/nfts/9964.png',
+    source: '/img/degens/nfts/9964.webp',
   },
   {
     name: 'Degen 18',
     createdDate: '9/24/2021 1:04 PM',
-    source: '/img/degens/nfts/18.png',
+    source: '/img/degens/nfts/18.webp',
   },
   {
     name: 'I Am Sparta',
     createdDate: '9/24/2021 1:25 PM',
-    source: '/img/degens/nfts/853.png',
+    source: '/img/degens/nfts/853.webp',
   },
   {
     name: 'Rich Uncle Pennybags',
     createdDate: '9/24/2021 3:01 PM',
-    source: '/img/degens/nfts/1056.png',
+    source: '/img/degens/nfts/1056.webp',
   },
   {
     name: 'Degen 212',
     createdDate: '9/24/2021 2:13 PM',
-    source: '/img/degens/nfts/212.png',
+    source: '/img/degens/nfts/212.webp',
   },
 ];
 
@@ -142,62 +142,62 @@ export const COMMUNITY_DEGEN_LIST = [
   {
     name: 'Monopoly',
     createdDate: '9/24/2021 2:53 PM',
-    source: '/img/degens/nfts/443.png',
+    source: '/img/degens/nfts/443.webp',
   },
   {
     name: 'Lil Mayo',
     createdDate: '9/24/2021 3:38 PM',
-    source: '/img/degens/nfts/1132.png',
+    source: '/img/degens/nfts/1132.webp',
   },
   {
     name: 'Fuego',
     createdDate: '9/24/2021 12:17 PM',
-    source: '/img/degens/nfts/560.png',
+    source: '/img/degens/nfts/560.webp',
   },
   {
     name: 'Pink',
     createdDate: '9/24/2021 4:38 PM',
-    source: '/img/degens/nfts/1260.png',
+    source: '/img/degens/nfts/1260.webp',
   },
   {
     name: 'Grim Reaper',
     createdDate: '9/24/2021 11:55 AM',
-    source: '/img/degens/nfts/455.png',
+    source: '/img/degens/nfts/455.webp',
   },
   {
     name: 'Degen 9888',
     createdDate: '9/30/2021 3:51 PM',
-    source: '/img/degens/nfts/9888.png',
+    source: '/img/degens/nfts/9888.webp',
   },
   {
     name: 'Cyberpunk',
     createdDate: '9/24/2021 12:54 PM',
-    source: '/img/degens/nfts/723.png',
+    source: '/img/degens/nfts/723.webp',
   },
   {
     name: 'wagmi',
     createdDate: '9/24/2021 1:35 PM',
-    source: '/img/degens/nfts/101.png',
+    source: '/img/degens/nfts/101.webp',
   },
   {
     name: 'LA Lakers',
     createdDate: '9/24/2021 1:37 PM',
-    source: '/img/degens/nfts/876.png',
+    source: '/img/degens/nfts/876.webp',
   },
   {
     name: '201',
     createdDate: '9/24/2021 2:11 PM',
-    source: '/img/degens/nfts/201.png',
+    source: '/img/degens/nfts/201.webp',
   },
   {
     name: 'Snoop Doge',
     createdDate: '9/24/2021 1:29 PM',
-    source: '/img/degens/nfts/867.png',
+    source: '/img/degens/nfts/867.webp',
   },
   {
     name: 'Degen 128',
     createdDate: '9/24/2021 1:42 PM',
-    source: '/img/degens/nfts/128.png',
+    source: '/img/degens/nfts/128.webp',
   },
 ];
 

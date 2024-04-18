@@ -42,7 +42,7 @@ const Roadmap: NextPage = () => {
           <div className="w-100 d-flex justify-content-center">
             <div className={roadmapStyles.moon}>
               <Image
-                src="/img/space/moon.png"
+                src="/img/space/moon.webp"
                 alt="moon"
                 width={800}
                 height={800}

@@ -6,25 +6,25 @@ export const SLOTS: EquipItemSlot[] = [
   {
     name: 'Back',
     empty: <Image src="/img/items/equips/cape-slot.svg" alt="Cape Slot" width={40} height={40} />,
-    filled: <Image src="/img/items/equips/cape.png" width={40} height={40} alt="Back" />,
+    filled: <Image src="/img/items/equips/cape.webp" width={40} height={40} alt="Back" />,
   },
   {
     name: 'Head',
     empty: <Image src="/img/items/equips/halo-slot.svg" alt="Halo Slot" width={40} height={40} />,
-    filled: <Image src="/img/items/equips/halo.png" width={40} height={40} alt="Head" />,
+    filled: <Image src="/img/items/equips/halo.webp" width={40} height={40} alt="Head" />,
   },
   {
     name: 'Pet',
     empty: <Image src="/img/items/equips/companion-slot.svg" alt="Companion Slot" width={40} height={40} />,
-    filled: <Image src="/img/items/equips/companion.png" width={40} height={40} alt="Pet" />,
+    filled: <Image src="/img/items/equips/companion.webp" width={40} height={40} alt="Pet" />,
   },
   {
     name: 'Weapon',
     empty: <Image src="/img/items/equips/bat-slot.svg" alt="Bat Slot" width={40} height={40} />,
     filledArr: [
-      <Image src="/img/items/equips/diamond-bat.png" width={40} height={40} alt="Diamond Bat" key="diamond" />,
-      <Image src="/img/items/equips/purple-bat.png" width={40} height={40} alt="Purple Bat" key="purple" />,
-      <Image src="/img/items/equips/bread-bat.png" width={40} height={40} alt="Bread Bat" key="bread" />,
+      <Image src="/img/items/equips/diamond-bat.webp" width={40} height={40} alt="Diamond Bat" key="diamond" />,
+      <Image src="/img/items/equips/purple-bat.webp" width={40} height={40} alt="Purple Bat" key="purple" />,
+      <Image src="/img/items/equips/bread-bat.webp" width={40} height={40} alt="Bread Bat" key="bread" />,
     ],
   },
 ];
@@ -33,12 +33,12 @@ export const INVENTORIES: EquipItemSlot[] = [
   {
     name: 'Cape',
     empty: <Image src="/img/items/equips/cape-inventory-empty.svg" alt="Cape Inventory Empty" width={30} height={30} />,
-    filled: <Image src="/img/items/equips/cape.png" alt="Cape" className="inventory" width={30} height={30} />,
+    filled: <Image src="/img/items/equips/cape.webp" alt="Cape" className="inventory" width={30} height={30} />,
   },
   {
     name: 'Halo',
     empty: <Image src="/img/items/equips/halo-inventory-empty.svg" alt="Halo Inventory Empty" width={30} height={30} />,
-    filled: <Image src="/img/items/equips/halo.png" alt="Halo" className="inventory" width={30} height={30} />,
+    filled: <Image src="/img/items/equips/halo.webp" alt="Halo" className="inventory" width={30} height={30} />,
   },
   {
     name: 'Companion',
@@ -51,28 +51,28 @@ export const INVENTORIES: EquipItemSlot[] = [
       />
     ),
     filled: (
-      <Image src="/img/items/equips/companion.png" alt="Companion" className="inventory" width={30} height={30} />
+      <Image src="/img/items/equips/companion.webp" alt="Companion" className="inventory" width={30} height={30} />
     ),
   },
   {
     name: 'Diamond Bat',
     empty: <Image src="/img/items/equips/bat-inventory-empty.svg" alt="Bat Inventory Empty" width={30} height={30} />,
     filled: (
-      <Image src="/img/items/equips/diamond-bat.png" alt="Diamond Bat" className="inventory" width={30} height={30} />
+      <Image src="/img/items/equips/diamond-bat.webp" alt="Diamond Bat" className="inventory" width={30} height={30} />
     ),
   },
   {
     name: 'Purple Bat',
     empty: <Image src="/img/items/equips/bat-inventory-empty.svg" alt="Bat Inventory Empty" width={30} height={30} />,
     filled: (
-      <Image src="/img/items/equips/purple-bat.png" alt="Purple Bat" className="inventory" width={30} height={30} />
+      <Image src="/img/items/equips/purple-bat.webp" alt="Purple Bat" className="inventory" width={30} height={30} />
     ),
   },
   {
     name: 'Bread Bat',
     empty: <Image src="/img/items/equips/bat-inventory-empty.svg" alt="Bat Inventory Empty" width={30} height={30} />,
     filled: (
-      <Image src="/img/items/equips/bread-bat.png" alt="Bread Bat" className="inventory" width={30} height={30} />
+      <Image src="/img/items/equips/bread-bat.webp" alt="Bread Bat" className="inventory" width={30} height={30} />
     ),
   },
 ];

@@ -4,7 +4,7 @@ title: Future Tribes
 sidebar_position: 5
 ---
 
-<div style={{ maxWidth: 400, margin: 'auto' }}>![](/img/roadmap/gen2_v01.png)</div>
+<div style={{ maxWidth: 400, margin: 'auto' }}>![](/img/roadmap/gen2_v01.webp)</div>
 <br />
 
 The idea of additional tribes has been floated since our humble beginnings, often requested by core community members. The reality is this decision will ultimately come down to demand. We have no intention to dilute our current NFT holders if there is no need to.
