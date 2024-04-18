@@ -4,7 +4,7 @@ title: Overview
 sidebar_position: 1
 ---
 
-![](/img/mintomatic.gif)
+![](/img/mint-o-matic/degen-mint.gif)
 
 Nifty League introduced a unique minting experience for the genesis drop in September 2021, which the community absolutely loved! Users were able to design their own DEGEN NFTs using our Mint-O-Matic, with a set of traits of their choosing.
 

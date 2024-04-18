@@ -28,7 +28,7 @@ const CompeteAndEarn: NextPage = () => {
             <AnimatedWrapper>
               <div className="position-relative animated-fade-slow animated-fade-start transition-delay-medium ps-0 ps-lg-5">
                 <Image
-                  src="/img/compete-and-earn/splash.png"
+                  src="/img/compete-and-earn/splash.webp"
                   alt="Nifty League Compete & Earn"
                   width={3343}
                   height={2615}

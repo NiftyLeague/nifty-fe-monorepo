@@ -51,7 +51,8 @@ const ViewTraitsContentDialog = ({
             rel="noreferrer"
           >
             <Typography color="gray" sx={{ textDecoration: 'none' }}>
-              DEGEN ID #{degen?.id} <Image src="/images/icons/OpenSea.png" alt="Nifty Logo" width={16} height={16} />
+              DEGEN ID #{degen?.id}{' '}
+              <Image src="/img/logos/other/OpenSea.webp" alt="OpenSea Logo" width={16} height={16} />
             </Typography>
           </a>
         </Stack>

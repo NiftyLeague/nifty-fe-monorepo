@@ -36,7 +36,7 @@ const Games: NextPage = () => {
                     alt="Arcade"
                     width={339}
                     height={661}
-                    src="/img/smashers/arcade.png"
+                    src="/img/games/smashers/arcade.webp"
                     sizes="100vw"
                     style={{
                       width: '100%',

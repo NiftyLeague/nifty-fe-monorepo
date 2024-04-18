@@ -24,7 +24,7 @@ const NiftyCarousel = ({
     {!hideGradient && (
       <span className="dark-gradient-shade">
         <Image
-          src="/img/dark-gradient-shade.svg"
+          src="/img/gradient/dark-gradient-shade-bottom.svg"
           alt="Dark gradient shade"
           fill
           sizes="100vw"

@@ -7,7 +7,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Sept 24th - 30th, 2021',
     image: {
       height: 350,
-      src: '/img/roadmap/creation.png',
+      src: '/img/mint-o-matic/creation.webp',
       style: { top: '-90px' },
       width: 661,
     },
@@ -36,8 +36,8 @@ export const ROADMAP_CARDS = [
     completionDate: 'Sept 24th, 2021 - Present',
     image: {
       height: 272,
-      src: '/img/roadmap/smash_200.png',
-      style: { top: '-80px' },
+      src: '/img/misc/smash_200.webp',
+      style: { top: '-80px', right: '-50px' },
       width: 518,
     },
     title: 'Nifty Smashers Alpha',
@@ -64,7 +64,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Dec 2nd, 2021',
     image: {
       height: 350,
-      src: '/img/roadmap/desktop-app_v02.png',
+      src: '/img/roadmap/desktop-app_v02.webp',
       style: { top: '-115px' },
       width: 514,
     },
@@ -84,8 +84,8 @@ export const ROADMAP_CARDS = [
     completionDate: 'Jan 22nd, 2022',
     image: {
       height: 364,
-      src: '/img/roadmap/p2e_v02.png',
-      style: { top: '-100px' },
+      src: '/img/roadmap/p2e_v02.webp',
+      style: { top: '-95px' },
       width: 586,
     },
     title: 'Play-&-Earn (DEPRECATED)',
@@ -113,7 +113,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Feb 16th, 2022',
     image: {
       height: 412,
-      src: '/img/roadmap/merch_02.png',
+      src: '/img/roadmap/merch_02.webp',
       style: { top: '-100px' },
       width: 634,
     },
@@ -141,7 +141,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'May 3rd, 2022',
     image: {
       height: 375,
-      src: '/img/roadmap/rentals_v02.png',
+      src: '/img/roadmap/rentals_v02.webp',
       style: { top: '-100px' },
       width: 609,
     },
@@ -168,7 +168,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Jun 8th, 2022',
     image: {
       height: 450,
-      src: '/img/roadmap/leaderboards_v02.png',
+      src: '/img/roadmap/leaderboards_v02.webp',
       style: { top: '-120px' },
       width: 649,
     },
@@ -200,7 +200,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Jun 15th, 2022',
     image: {
       height: 1080,
-      src: '/img/roadmap/wen.gif',
+      src: '/img/games/wen.gif',
       style: { top: '-130px' },
       width: 1440,
     },
@@ -226,8 +226,8 @@ export const ROADMAP_CARDS = [
     completionDate: 'Aug 4th, 2022',
     image: {
       height: 1080,
-      src: '/img/roadmap/mt-gawx.gif',
-      style: { top: '-135px' },
+      src: '/img/games/mt-gawx.gif',
+      style: { top: '-125px' },
       width: 1440,
     },
     title: 'Mt. Gawx',
@@ -252,8 +252,8 @@ export const ROADMAP_CARDS = [
     completionDate: 'Sept 20th, 2022',
     image: {
       height: 1080,
-      src: '/img/roadmap/crypto-winter.png',
-      style: { top: '-140px' },
+      src: '/img/games/crypto-winter.webp',
+      style: { top: '-130px' },
       width: 1440,
     },
     title: 'Crypto Winter',
@@ -276,8 +276,8 @@ export const ROADMAP_CARDS = [
     completionDate: 'Nov 11th, 2022',
     image: {
       height: 250,
-      src: '/img/roadmap/imx.png',
-      style: { top: '-180px' },
+      src: '/img/logos/networks/imx.webp',
+      style: { top: '-140px', padding: '20px' },
       width: 250,
     },
     title: 'L2 Migration',
@@ -302,8 +302,8 @@ export const ROADMAP_CARDS = [
     completionDate: 'Nov 16th, 2022',
     image: {
       height: 325,
-      src: '/img/roadmap/comics_v01.png',
-      style: { top: '-190px', right: '-130px' },
+      src: '/img/roadmap/comics_v01.webp',
+      style: { top: '-160px', right: '-120px', padding: '20px' },
       width: 323,
     },
     title: 'Comics Burning',
@@ -327,7 +327,7 @@ export const ROADMAP_CARDS = [
             <Image
               alt="comic 1"
               height={500}
-              src="/img/roadmap/page1.png"
+              src="/img/comics/thumbnail/1.webp"
               width={500}
               sizes="100vw"
               style={{
@@ -340,7 +340,7 @@ export const ROADMAP_CARDS = [
             <Image
               alt="comic 2"
               height={500}
-              src="/img/roadmap/page2.png"
+              src="/img/comics/thumbnail/2.webp"
               width={500}
               sizes="100vw"
               style={{
@@ -353,7 +353,7 @@ export const ROADMAP_CARDS = [
             <Image
               alt="comic 3"
               height={500}
-              src="/img/roadmap/page3.png"
+              src="/img/comics/thumbnail/3.webp"
               width={500}
               sizes="100vw"
               style={{
@@ -366,7 +366,7 @@ export const ROADMAP_CARDS = [
             <Image
               alt="comic 4"
               height={500}
-              src="/img/roadmap/page4.png"
+              src="/img/comics/thumbnail/4.webp"
               width={500}
               sizes="100vw"
               style={{
@@ -384,8 +384,8 @@ export const ROADMAP_CARDS = [
     completionDate: 'Feb 13th, 2023',
     image: {
       height: 400,
-      src: '/img/roadmap/beta_v02.png',
-      style: { top: '-130px' },
+      src: '/img/roadmap/beta_v02.webp',
+      style: { top: '-125px' },
       width: 544,
     },
     title: 'Nifty Smashers Beta',
@@ -401,8 +401,8 @@ export const ROADMAP_CARDS = [
     completionDate: 'Feb 17th, 2023',
     image: {
       height: 384,
-      src: '/img/roadmap/hydra.png',
-      style: { top: '-180px' },
+      src: '/img/degens/hydra.webp',
+      style: { top: '-160px' },
       width: 384,
     },
     title: 'The Hatching',
@@ -426,7 +426,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'May 10th, 2023',
     image: {
       height: 400,
-      src: '/img/roadmap/free2play_v02.png',
+      src: '/img/roadmap/free2play_v02.webp',
       style: { top: '-140px' },
       width: 507,
     },
@@ -449,8 +449,8 @@ export const ROADMAP_CARDS = [
     completionDate: 'Sept 22nd, 2023',
     image: {
       height: 1070,
-      src: '/img/roadmap/release-candidate.png',
-      style: { top: '-120px' },
+      src: '/img/games/smashers/apartment.webp',
+      style: { top: '-90px' },
       width: 1618,
     },
     title: 'Smashers Progression',
@@ -467,8 +467,8 @@ export const ROADMAP_CARDS = [
     completed: true,
     completionDate: 'Dec 10th, 2023',
     image: {
-      src: '/img/roadmap/mobile_v02.png',
-      style: { top: '-140px' },
+      src: '/img/roadmap/mobile_v02.webp',
+      style: { top: '-145px' },
       width: 387,
       height: 300,
     },
@@ -483,7 +483,7 @@ export const ROADMAP_CARDS = [
   {
     image: {
       height: 166,
-      src: '/img/roadmap/imx_polygon.png',
+      src: '/img/logos/networks/imx_polygon.webp',
       style: { top: '-115px' },
       width: 250,
     },
@@ -510,8 +510,8 @@ export const ROADMAP_CARDS = [
   {
     current: true,
     image: {
-      src: '/img/roadmap/niftyroyale_v01.png',
-      style: { top: '-120px' },
+      src: '/img/roadmap/niftyroyale_v01.webp',
+      style: { top: '-110px' },
       width: 541,
       height: 381,
     },
@@ -526,8 +526,54 @@ export const ROADMAP_CARDS = [
   },
   {
     image: {
-      src: '/img/roadmap/niftyverse_v02.png',
-      style: { top: '-160px' },
+      height: 375,
+      src: '/img/roadmap/marketplace_v02.webp',
+      style: { top: '-90px' },
+      width: 609,
+    },
+    title: 'Items Marketplace',
+    body: (
+      <>
+        <p>
+          We are working with the Immutable X team to launch our items marketplace. Offerings will include cool skins,
+          weapons, consumable items, and more to enhance your DEGENS in-game. Our very first items are available on{' '}
+          <a
+            href="https://market.immutable.com/collections/0xc21909b7e596000c01318668293a7dfb4b37a578"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Immutable
+          </a>{' '}
+          but will soon migrated to IMX / Polygon zkEVM.
+        </p>
+        <p className="mb-0">
+          Future items will be provided to community testers as well as found in our games. Free-2-play mobile players
+          that includes you! Players may get lucky and find rare wearables or weapons in game that are mintable on IMX!
+        </p>
+      </>
+    ),
+  },
+  {
+    image: {
+      src: '/img/roadmap/dao_v02.webp',
+      style: { top: '-80px' },
+      width: 532,
+      height: 302,
+    },
+    title: 'DAO',
+    body: (
+      <p className="mb-0">
+        We will gradually transfer ownership of Nifty League to our DAO in order to decentralize the platform and
+        encourage others to build with us! Our vision is to power rapid growth and development through community
+        contributions enabling us to build a gaming platform like no other. Simply put, DAOs are the future. We see only
+        one route to becoming the world&apos;s leading gaming platform and that&apos;s by building together. 💜
+      </p>
+    ),
+  },
+  {
+    image: {
+      src: '/img/roadmap/niftyverse_v02.webp',
+      style: { top: '-145px' },
       width: 757,
       height: 675,
     },
@@ -556,56 +602,10 @@ export const ROADMAP_CARDS = [
     ),
   },
   {
-    image: {
-      height: 375,
-      src: '/img/roadmap/marketplace_v02.png',
-      style: { top: '-90px' },
-      width: 609,
-    },
-    title: 'Items Marketplace',
-    body: (
-      <>
-        <p>
-          We are working with the Immutable X team to launch our items marketplace. Offerings will include cool skins,
-          weapons, consumable items, and more to enhance your DEGENS in-game. Our very first items are available on{' '}
-          <a
-            href="https://market.immutable.com/collections/0xc21909b7e596000c01318668293a7dfb4b37a578"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Immutable
-          </a>{' '}
-          but will soon migrated to IMX / Polygon zkEVM.
-        </p>
-        <p className="mb-0">
-          Future items will be provided to community testers as well as found in our games. Free-2-play mobile players
-          that includes you! Players may get lucky and find rare wearables or weapons in game that are mintable on IMX!
-        </p>
-      </>
-    ),
-  },
-  {
-    image: {
-      src: '/img/roadmap/dao_v02.png',
-      style: { top: '-80px' },
-      width: 532,
-      height: 302,
-    },
-    title: 'DAO',
-    body: (
-      <p className="mb-0">
-        We will gradually transfer ownership of Nifty League to our DAO in order to decentralize the platform and
-        encourage others to build with us! Our vision is to power rapid growth and development through community
-        contributions enabling us to build a gaming platform like no other. Simply put, DAOs are the future. We see only
-        one route to becoming the world&apos;s leading gaming platform and that&apos;s by building together. 💜
-      </p>
-    ),
-  },
-  {
     divider: true,
     image: {
-      src: '/img/roadmap/NiftyMansion.png',
-      style: { top: '-100px' },
+      src: '/img/logos/niftyverse/app_logo.webp',
+      style: { top: '-90px' },
       width: 1920,
       height: 1080,
     },
@@ -626,8 +626,8 @@ export const ROADMAP_CARDS = [
   },
   {
     image: {
-      src: '/img/roadmap/pets_v02.png',
-      style: { top: '-150px' },
+      src: '/img/roadmap/pets_v02.webp',
+      style: { top: '-140px' },
       width: 379,
       height: 325,
     },
@@ -654,7 +654,7 @@ export const ROADMAP_CARDS = [
   },
   {
     image: {
-      src: '/img/roadmap/NiftyTennis.png',
+      src: '/img/games/nifty-tennis.webp',
       style: { top: '-100px' },
       width: 500,
       height: 281,
@@ -670,8 +670,8 @@ export const ROADMAP_CARDS = [
   },
   {
     image: {
-      src: '/img/roadmap/niftykart_v01.png',
-      style: { top: '-165px' },
+      src: '/img/roadmap/niftykart_v01.webp',
+      style: { top: '-160px' },
       width: 494,
       height: 462,
     },
@@ -685,8 +685,8 @@ export const ROADMAP_CARDS = [
   },
   {
     image: {
-      src: '/img/roadmap/gen2_v01.png',
-      style: { top: '-125px' },
+      src: '/img/roadmap/gen2_v01.webp',
+      style: { top: '-120px' },
       width: 550,
       height: 451,
     },

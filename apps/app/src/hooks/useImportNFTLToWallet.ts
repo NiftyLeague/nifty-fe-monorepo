@@ -30,7 +30,7 @@ export default function useImportNFTLToWallet(): ImportNFTLToWalletState {
           address: await writeContracts[NFTL_CONTRACT].getAddress(),
           symbol: 'NFTL',
           decimals: 18,
-          image: 'https://raw.githubusercontent.com/NiftyLeague/Nifty-League-Images/main/NFTL.png',
+          image: 'https://raw.githubusercontent.com/NiftyLeague/Nifty-League-Images/main/NFTL.webp',
         },
       });
       if (success) {

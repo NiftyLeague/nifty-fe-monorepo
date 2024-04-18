@@ -24,7 +24,7 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
     <Grid container flexDirection="row" flexWrap="wrap" spacing={2}>
       <Grid item sm={12} md={6} lg={4} xl={3}>
         <GameCard
-          image="/images/games/nifty-smashers.gif"
+          image="/img/games/smashers/nifty-smashers.gif"
           contents={
             <Stack padding="16px" gap={2}>
               {nifty_smashers && <ProgressGamer size="sm" data={nifty_smashers} />}
@@ -53,7 +53,7 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
       </Grid>
       <Grid item sm={12} md={6} lg={4} xl={3}>
         <GameCard
-          image="/images/games/wen.gif"
+          image="/img/games/wen.gif"
           contents={
             <Stack padding="16px" gap={2} flex={1} justifyContent="space-between">
               {wen_game && <ProgressGamer size="sm" data={wen_game} />}
@@ -83,7 +83,7 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
       {crypto_winter && (
         <Grid item sm={12} md={6} lg={4} xl={3}>
           <GameCard
-            image="/images/games/crypto-winter.png"
+            image="/img/games/crypto-winter.webp"
             contents={
               <Stack padding="16px" gap={2} flex={1} justifyContent="space-between">
                 <ProgressGamer size="sm" data={crypto_winter} />

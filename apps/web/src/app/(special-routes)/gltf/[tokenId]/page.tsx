@@ -23,7 +23,7 @@ export default function DegenViews() {
   const tokenId = params.tokenId as string;
   const [source, setSource] = useState<SRC>(SRC.IMAGE);
   const [color, setColor] = useState<Color>('purple');
-  const IMAGE_SRC = `/img/degens/${tokenId}.${LEGGIES.includes(Number(tokenId)) ? 'gif' : 'png'}`;
+  const IMAGE_SRC = `/img/degens/nfts/${tokenId}.${LEGGIES.includes(Number(tokenId)) ? 'gif' : 'png'}`;
   const SPRITE_SRC = `${DEGEN_BASE_SPRITE_URL}/${tokenId}.gif`;
 
   if (!tokenId) return null;
@@ -120,7 +120,7 @@ export default function DegenViews() {
               height={70}
               style={{ maxWidth: '24vw', height: 'auto' }}
               quality={100}
-              src="/img/logo/wordmark.png"
+              src="/img/logos/NL/wordmark.webp"
             />
           </div>
         )}

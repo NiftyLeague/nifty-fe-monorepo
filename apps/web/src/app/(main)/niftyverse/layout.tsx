@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Nifty League | NiftyVerse',
     description: 'A virtual space for gamers to connect, collaborate, and compete with each other',
-    images: 'https://niftyleague.com/img/niftyverse/beachfront_night.png',
+    images: 'https://niftyleague.com/img/niftyverse/beachfront_night.webp',
   },
 };
 

@@ -1,7 +1,7 @@
 import Link from '@docusaurus/Link';
-import Discord from '@site/static/icons/discord.svg';
-import Twitter from '@site/static/icons/twitterX.svg';
-import Github from '@site/static/icons/github.svg';
+import Discord from '@site/public/icons/socials/discord.svg';
+import Twitter from '@site/public/icons/socials/twitterX.svg';
+import Github from '@site/public/icons/socials/github.svg';
 import { CenterCard, WideCard } from '../Card';
 import Row, { RowThree } from '../Row';
 import Section from '../Section';
@@ -57,7 +57,7 @@ export default function HomepageSocials() {
           href={'https://www.twitch.tv/NiftyLeagueOfficial'}
         >
           <WideCard>
-            <img src="/docs/img/twitch-stream.png" width={'120px'} />
+            <img src="/docs/img/misc/twitch-stream.webp" width={'120px'} />
             <div>
               <h2 style={{ marginBottom: '0.5rem' }}>Nifty League Twitch Streamers</h2>
               <p style={{ margin: '0rem' }}>

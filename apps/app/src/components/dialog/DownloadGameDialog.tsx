@@ -57,11 +57,11 @@ export const Downloader = (): JSX.Element => {
 const DownloadGameDialog = () => {
   return (
     <Dialog>
-      <DialogTrigger>
+      {/* <DialogTrigger>
         <Button variant="outlined" color="primary" fullWidth sx={{ minWidth: 80, flex: 1 }}>
           Desktop App (Deprecated)
         </Button>
-      </DialogTrigger>
+      </DialogTrigger> */}
       <DialogContent aria-labelledby="customized-dialog-title" dialogTitle="Nifty League Desktop">
         <Downloader />
       </DialogContent>

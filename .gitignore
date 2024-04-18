@@ -37,6 +37,9 @@ certificates/
 robots.txt
 sitemap.xml
 
+# Static
+public
+
 # Debug
 npm-debug.log*
 yarn-debug.log*
@@ -45,7 +48,6 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
-
 
 # Sentry Config File
 .sentryclirc

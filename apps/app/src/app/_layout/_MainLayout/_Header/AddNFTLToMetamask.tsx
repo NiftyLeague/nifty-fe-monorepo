@@ -13,7 +13,7 @@ const AddNFTLToMetamask = (): JSX.Element | null => {
       variant="outlined"
       startIcon={
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <Image src="/images/NFTL.png" alt="NFTL logo" width={20} height={20} />
+          <Image src="/img/logos/NFTL/logo.webp" alt="NFTL logo" width={20} height={20} />
         </div>
       }
     >

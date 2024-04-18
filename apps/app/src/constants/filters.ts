@@ -1,39 +1,39 @@
 const tribes = [
   {
     name: 'Ape',
-    icon: '/images/tribe/ape.svg',
+    icon: '/icons/tribes/ape.svg',
   },
   {
     name: 'Alien',
-    icon: '/images/tribe/alien.svg',
+    icon: '/icons/tribes/alien.svg',
   },
   {
     name: 'Cat',
-    icon: '/images/tribe/cat.svg',
+    icon: '/icons/tribes/cat.svg',
   },
   {
     name: 'Doge',
-    icon: '/images/tribe/doge.svg',
+    icon: '/icons/tribes/doge.svg',
   },
   {
     name: 'Frog',
-    icon: '/images/tribe/frog.svg',
+    icon: '/icons/tribes/frog.svg',
   },
   {
     name: 'Human',
-    icon: '/images/tribe/human.svg',
+    icon: '/icons/tribes/human.svg',
   },
   {
     name: 'Hydra',
-    icon: '/images/tribe/hydra.svg',
+    icon: '/icons/tribes/hydra.svg',
   },
   {
     name: 'Rugman',
-    icon: '/images/tribe/rugman.svg',
+    icon: '/icons/tribes/rugman.svg',
   },
   {
     name: 'Satoshi',
-    icon: '/images/tribe/satoshi.svg',
+    icon: '/icons/tribes/satoshi.svg',
   },
 ];
 

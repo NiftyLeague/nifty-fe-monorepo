@@ -6,7 +6,7 @@ sidebar_position: 3
 
 import ReactPlayer from 'react-player';
 
-<div style={{ maxWidth: 640, margin: 'auto' }}>![](/img/crypto-winter.png)</div>
+<div style={{ maxWidth: 640, margin: 'auto' }}>![](/img/games/crypto-winter.webp)</div>
 <br />
 
 Crypto Winter was the second addition to our mini-game series. While the on-chain version is still available for testing, rewards are no longer active. Crypto Winter has now been repackaged and introduced in our free-2-play mobile games.

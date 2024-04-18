@@ -1,25 +1,23 @@
 import { memo } from 'react';
 import { CardMedia, SxProps } from '@mui/material';
-import { DEGEN_BASE_IMAGE_URL } from '@/constants/url';
-import { TARGET_NETWORK } from '@/constants/networks';
 import { LEGGIES } from '@/constants/degens';
 const IMAGE_HEIGHT = 320;
 
 const DegenImage = memo(({ tokenId, sx }: { tokenId: string | number; sx?: SxProps<{}> }) => {
-  const imageURL = `${DEGEN_BASE_IMAGE_URL}/${TARGET_NETWORK.name}/images/${tokenId}`;
+  const imageURL = `/img/degens/nfts/${tokenId}`;
   // @ts-ignore
   const imageHeight = sx?.height ?? IMAGE_HEIGHT;
   let setting: any = {
     height: imageHeight,
     component: 'img',
-    image: `${imageURL}.png`,
+    image: `${imageURL}.webp`,
   };
 
   if (LEGGIES.includes(Number(tokenId))) {
     setting = {
       ...setting,
       component: 'video',
-      image: `${imageURL}.mp4`,
+      image: `${imageURL}.gif`,
       autoPlay: true,
       loop: true,
       muted: true,
@@ -29,7 +27,7 @@ const DegenImage = memo(({ tokenId, sx }: { tokenId: string | number; sx?: SxPro
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement | HTMLVideoElement, Event>) => {
     const target = e.target as HTMLImageElement | HTMLVideoElement;
     target.onerror = null;
-    target.src = '/images/unavailable-image.png';
+    target.src = '/img/degens/unavailable-image.webp';
   };
 
   return <CardMedia sx={{ objectFit: 'cover', ...sx }} {...setting} onError={handleImageError} />;
