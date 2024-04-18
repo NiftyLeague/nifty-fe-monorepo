@@ -23,10 +23,12 @@ export default function DegenViews() {
   const tokenId = params.tokenId as string;
   const [source, setSource] = useState<SRC>(SRC.IMAGE);
   const [color, setColor] = useState<Color>('purple');
-  const IMAGE_SRC = `/img/degens/nfts/${tokenId}.${LEGGIES.includes(Number(tokenId)) ? 'gif' : 'png'}`;
+  const IMAGE_SRC = `/img/degens/nfts/${tokenId}.${LEGGIES.includes(Number(tokenId)) ? 'gif' : 'webp'}`;
   const SPRITE_SRC = `${DEGEN_BASE_SPRITE_URL}/${tokenId}.gif`;
 
   if (!tokenId) return null;
+
+  console.log('IMAGE_SRC', IMAGE_SRC);
 
   return (
     <>
