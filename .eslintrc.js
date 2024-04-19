@@ -3,7 +3,5 @@
 module.exports = {
   ignorePatterns: ['apps/**', 'packages/**'],
   extends: ['@nl/eslint-config/library.js'],
-  parserOptions: {
-    project: true,
-  },
+  parserOptions: { project: true },
 };
