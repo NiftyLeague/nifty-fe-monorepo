@@ -28,8 +28,6 @@ export default function DegenViews() {
 
   if (!tokenId) return null;
 
-  console.log('IMAGE_SRC', IMAGE_SRC);
-
   return (
     <>
       <style jsx global>{`
