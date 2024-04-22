@@ -3,17 +3,16 @@
 import { type PropsWithChildren } from 'react';
 import { createWeb3Modal } from '@web3modal/wagmi/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { mainnet, sepolia, immutableZkEvmTestnet } from 'wagmi/chains';
 import { State, WagmiProvider } from 'wagmi';
-import type { Chain } from 'wagmi/chains';
-import { wagmiConfig, projectId, chains } from './Web3ModalConfig';
+
 import { getContractAddress, NFTL_CONTRACT } from '@/constants/contracts';
+import { wagmiConfig, projectId } from './Web3ModalConfig';
 
 // Setup queryClient
 const queryClient = new QueryClient();
 
 if (!projectId) throw new Error('Project ID is not defined');
-
-const [mainnet, testnet] = chains as [Chain, Chain];
 
 // Create modal
 createWeb3Modal({
@@ -25,8 +24,12 @@ createWeb3Modal({
       address: getContractAddress(mainnet.id, NFTL_CONTRACT),
       image: 'https://niftyleague.com/img/logos/NFTL/logo.webp',
     },
-    [testnet.id]: {
-      address: getContractAddress(testnet.id, NFTL_CONTRACT),
+    [sepolia.id]: {
+      address: getContractAddress(sepolia.id, NFTL_CONTRACT),
+      image: 'https://niftyleague.com/img/logos/NFTL/logo.webp',
+    },
+    [immutableZkEvmTestnet.id]: {
+      address: getContractAddress(immutableZkEvmTestnet.id, NFTL_CONTRACT),
       image: 'https://niftyleague.com/img/logos/NFTL/logo.webp',
     },
   },

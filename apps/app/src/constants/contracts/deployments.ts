@@ -1,7 +1,6 @@
 import type { InterfaceAbi } from 'ethers';
-import { mainnet, sepolia } from 'viem/chains';
+import { mainnet, sepolia, hardhat, immutableZkEvmTestnet } from 'viem/chains';
 
-import { LOCAL_CHAIN_ID } from '@/constants/networks';
 import MAINNET_DEPLOYMENTS from './deployments.mainnet';
 import TESTNET_DEPLOYMENTS from './deployments.sepolia';
 import IMX_TESTNET_DEPLOYMENTS from './deployments.imxTestnet';
@@ -12,7 +11,7 @@ const CONTRACTS: {
     [contractName: string]: { address: `0x${string}`; abi: InterfaceAbi };
   };
 } = {
-  [LOCAL_CHAIN_ID]: {
+  [hardhat.id]: {
     AllowedColorsStorage: {
       address: '0x4cf79525c3447AA62B2dafFA876878BEA02e85EA',
       abi: TESTNET_DEPLOYMENTS.contracts.AllowedColorsStorage.abi,
@@ -120,6 +119,20 @@ const CONTRACTS: {
     NiftyLaunchComics: {
       address: MAINNET_DEPLOYMENTS.contracts.NiftyLaunchComics.address,
       abi: MAINNET_DEPLOYMENTS.contracts.NiftyLaunchComics.abi,
+    },
+  },
+  [immutableZkEvmTestnet.id]: {
+    NFTLToken: {
+      address: IMX_TESTNET_DEPLOYMENTS.contracts.NFTL.address,
+      abi: IMX_TESTNET_DEPLOYMENTS.contracts.NFTL.abi,
+    },
+    ComicsBurner: {
+      address: IMX_TESTNET_DEPLOYMENTS.contracts.ComicsBurner.address,
+      abi: IMX_TESTNET_DEPLOYMENTS.contracts.ComicsBurner.abi,
+    },
+    NiftyMarketplace: {
+      address: IMX_TESTNET_DEPLOYMENTS.contracts.NiftyMarketplace.address,
+      abi: IMX_TESTNET_DEPLOYMENTS.contracts.NiftyMarketplace.abi,
     },
   },
 };

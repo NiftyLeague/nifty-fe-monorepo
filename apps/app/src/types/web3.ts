@@ -70,7 +70,7 @@ export interface Contracts {
   // [contractName: string]: Contract;
 }
 
-export type NetworkName = 'mainnet' | 'sepolia' | 'hardhat';
+export type NetworkName = 'mainnet' | 'sepolia' | 'hardhat' | 'imtbl-zkevm-mainnet' | 'imtbl-zkevm-testnet';
 
 export interface Network {
   blockExplorer: string;
