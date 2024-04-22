@@ -101,6 +101,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/HUB',
+        destination: 'https://hub.xyz/niftyleague',
+        permanent: false,
+      },
+      {
         source: '/OS',
         destination: 'https://opensea.io/collection/niftydegen',
         permanent: false,
