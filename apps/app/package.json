@@ -16,6 +16,7 @@
     "@hookform/resolvers": "^3.3.4",
     "@imtbl/imx-sdk": "~3.8.0",
     "@mui/x-data-grid": "^7.3.0",
+    "@nl/imx-passport": "workspace:^",
     "@nl/theme": "workspace:^",
     "@nl/ui": "workspace:^",
     "@openzeppelin/contracts": "^5.0.2",
