@@ -1,6 +1,13 @@
 name: Validate, lint, and test on every push
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  pull_request_target:
+    branches:
+      - main
+      - staging
 
 jobs:
   test:
