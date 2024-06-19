@@ -4,7 +4,7 @@ import { Button, IconX, Typography, Space } from './../../index';
 import { AnimationTailwindClasses } from '../../types';
 
 import * as Dialog from '@radix-ui/react-dialog';
-import { Transition } from '@headlessui/react';
+import { Transition, TransitionChild } from '@headlessui/react';
 
 export interface Props {
   children?: React.ReactNode;
@@ -118,7 +118,7 @@ const Modal = ({
       )}
       <Transition show={open}>
         <Dialog.Overlay>
-          <Transition.Child
+          <TransitionChild
             enter={ModalStyles[`sbui-modal-overlay--enter`]}
             enterFrom={ModalStyles[`sbui-modal-overlay--enterFrom`]}
             enterTo={ModalStyles[`sbui-modal-overlay--enterTo`]}
@@ -129,7 +129,7 @@ const Modal = ({
             <div className={ModalStyles['sbui-modal-overlay-container']}>
               <div className={overlayClasses.join(' ')} style={overlayStyle}></div>
             </div>
-          </Transition.Child>
+          </TransitionChild>
         </Dialog.Overlay>
         <Dialog.Content forceMount style={{ width: '100vw' }}>
           <div
@@ -137,14 +137,14 @@ const Modal = ({
             onClick={() => (onCancel ? onCancel() : null)}
           >
             <div className={ModalStyles['sbui-modal-flex-container']}>
-              <Transition.Child
+              <TransitionChild
                 enter={ModalStyles[`sbui-modal--enter`]}
                 enterFrom={ModalStyles[`sbui-modal--enterFrom`]}
                 enterTo={ModalStyles[`sbui-modal--enterTo`]}
                 leave={ModalStyles[`sbui-modal--leave`]}
                 leaveFrom={ModalStyles[`sbui-modal--leaveFrom`]}
                 leaveTo={ModalStyles[`sbui-modal--leaveTo`]}
-                className="fixed inset-0 overflow-y-auto"
+                // className="fixed inset-0 overflow-y-auto"
               >
                 <div
                   className={modalClasses.join(' ')}
@@ -199,7 +199,7 @@ const Modal = ({
                     </div>
                   )}
                 </div>
-              </Transition.Child>
+              </TransitionChild>
             </div>
           </div>
         </Dialog.Content>
