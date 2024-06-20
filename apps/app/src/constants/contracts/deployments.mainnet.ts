@@ -491,6 +491,11 @@ export default {
               type: 'uint256',
             },
             {
+              internalType: 'uint256',
+              name: '_expireAt',
+              type: 'uint256',
+            },
+            {
               internalType: 'bytes',
               name: '_signature',
               type: 'bytes',
@@ -809,6 +814,11 @@ export default {
             {
               internalType: 'uint256',
               name: '_nonce',
+              type: 'uint256',
+            },
+            {
+              internalType: 'uint256',
+              name: '_expireAt',
               type: 'uint256',
             },
             {

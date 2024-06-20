@@ -21,8 +21,8 @@
   "dependencies": {
     "@emotion/cache": "^11.11.0",
     "@mui/material-nextjs": "^5.15.11",
-    "@next/font": "^14.2.2",
-    "react-intl": "^6.6.5",
+    "@next/font": "^14.2.4",
+    "react-intl": "^6.6.8",
     "stylis-plugin-rtl": "^2.1.1"
   },
   "devDependencies": {

@@ -29,7 +29,11 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   as?: keyof JSX.IntrinsicElements;
 }
 
-interface CustomButtonProps extends React.HTMLAttributes<HTMLOrSVGElement> {}
+interface CustomButtonProps extends React.HTMLAttributes<HTMLOrSVGElement> {
+  defaultChecked?: boolean;
+  defaultValue?: string | number | readonly string[];
+  onTransitionEndCapture?: React.TransitionEventHandler<HTMLOrSVGElement>;
+}
 
 export interface RefHandle {
   container: () => HTMLElement | null;
@@ -120,6 +124,8 @@ const Button = forwardRef<RefHandle, ButtonProps>(
     // custom button tag
     const CustomButton: React.FC<CustomButtonProps> = ({ ...props }) => {
       const Tag = as as keyof JSX.IntrinsicElements;
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore - onToggle works as expected
       return <Tag {...props} />;
     };
 

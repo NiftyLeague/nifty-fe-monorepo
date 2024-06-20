@@ -1,5 +1,6 @@
 import type { DataType, ReturnDataType, Order } from '@/types/leaderboard';
 import { GET_RANK_BY_USER_ID_API, LEADERBOARD_SCORE_API_URL, LEADERBOARD_USERNAMES_API_URL } from '@/constants/url';
+import { LEADERBOARDS } from '@/constants/leaderboards';
 
 export const fetchUserNames = async (items: any): Promise<DataType[]> => {
   try {
@@ -17,12 +18,15 @@ export const fetchScores = async (
   count: number,
   offset: number,
 ): Promise<ReturnDataType> => {
-  const res = await fetch(
-    `${
-      LEADERBOARD_SCORE_API_URL as string
-    }?game=${gameType}&score_type=${scoreType}&time_window=${timeFilter}&count=${count}&offset=${offset}`,
-  );
-  const json = await res.json();
+  // const res = await fetch(
+  //   `${
+  //     LEADERBOARD_SCORE_API_URL as string
+  //   }?game=${gameType}&score_type=${scoreType}&time_window=${timeFilter}&count=${count}&offset=${offset}`,
+  // );
+  // const json = await res.json();
+  const leaderboard = LEADERBOARDS[gameType][scoreType];
+  const json = { data: leaderboard.slice(offset, offset + count), count: leaderboard.length };
+
   const addAvg = json.data.map((data: DataType) => {
     const { earnings, matches } = data?.stats || {};
     const avg = earnings && matches ? Math.round((parseFloat(earnings) * 100) / parseFloat(matches)) / 100 : 0;
