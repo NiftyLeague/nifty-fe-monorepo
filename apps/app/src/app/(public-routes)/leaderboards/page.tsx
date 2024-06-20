@@ -5,7 +5,7 @@ const LeaderboardPage = () => {
   return (
     <>
       <Typography mb={4} variant="h2">
-        Leaderboards
+        Leaderboards (Archived)
       </Typography>
       <LeaderBoards />
     </>

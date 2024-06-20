@@ -85,9 +85,8 @@ const MyNFTL = (): JSX.Element => {
           signature: string;
           nonce: number;
         };
-        const txRes = await tx(
-          writeContracts[GAME_ACCOUNT_CONTRACT].withdraw(amountWEI, BigInt(nonce), expire_at, signature),
-        );
+        const contract = writeContracts[GAME_ACCOUNT_CONTRACT];
+        const txRes = await tx(contract.withdraw(amountWEI, nonce, expire_at, signature));
         // eslint-disable-next-line no-console
         if (DEBUG) console.log('TX_DATA', txRes);
         refreshNFTLBalance();

@@ -13,7 +13,7 @@ import {
   LEADERBOARD_GAME_LIST,
   LEADERBOARD_TIME_FILTERS,
   NiftySmashersTables,
-} from '@/constants/leaderboard';
+} from '@/constants/leaderboards';
 import EnhancedTable from '@/components/leaderboards/EnhancedTable/EnhancedTable';
 // import { EmojiEvents, Paid, CrisisAlert } from '@mui/icons-material';
 // const TopModal = dynamic(() => import('../TopModal'), { ssr: false });
