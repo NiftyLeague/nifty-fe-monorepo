@@ -39,7 +39,7 @@ export interface TableType {
 }
 
 export enum Game {
-  NiftySmashers = 'NIFTY SMASHERS',
+  NiftySmashers = 'NIFTY SMASHERS 2D',
   WenGame = 'WEN GAME',
   MtGawx = 'MT. GAWX',
   CryptoWinter = 'CRYPTO WINTER',

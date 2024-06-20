@@ -1,6 +1,11 @@
-import { GOOGLE_ANALYTICS } from './google-analytics';
+import { GOOGLE_ANALYTICS } from '../google-analytics';
 import type { TableType, LeaderboardGame } from '@/types/leaderboard';
 import { Game, TimeFilter } from '@/types/leaderboard';
+
+import { SMASHERS_LEADERBOARDS } from './leaderboard-smashers';
+import { WEN_GAME_LEADERBOARDS } from './leaderboard-wen-game';
+import { CRYPTO_WINTER_LEADERBOARDS } from './leaderboard-crypto-winter';
+import { MT_GAWX_LEADERBOARDS } from './leaderboard-mt-gawx';
 
 export const NiftySmashersTables: TableType[] = [
   {
@@ -125,4 +130,13 @@ export const getLeaderboardRankAnalyticsEventName = (selectedGame: string) => {
       break;
   }
   return eventName;
+};
+
+// Leaderboard Data
+
+export const LEADERBOARDS = {
+  crypto_winter: CRYPTO_WINTER_LEADERBOARDS,
+  nftl_burner: MT_GAWX_LEADERBOARDS,
+  nifty_smashers: SMASHERS_LEADERBOARDS,
+  wen_game: WEN_GAME_LEADERBOARDS,
 };

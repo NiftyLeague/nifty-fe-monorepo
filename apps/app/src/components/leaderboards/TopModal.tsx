@@ -8,7 +8,7 @@ import { Box } from '@mui/system';
 import { styled } from '@nl/theme';
 import { fetchScores } from '@/utils/leaderboard';
 import type { DataType, ReturnDataType } from '@/types/leaderboard';
-import { LEADERBOARD_GAME_LIST } from '@/constants/leaderboard';
+import { LEADERBOARD_GAME_LIST } from '@/constants/leaderboards';
 import CustomModal from './CustomModal';
 import './modal-table.css';
 
