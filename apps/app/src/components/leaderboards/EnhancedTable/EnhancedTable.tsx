@@ -1,11 +1,12 @@
 'use client';
+
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useTheme } from '@nl/theme';
 import { Box, CircularProgress, Typography } from '@mui/material';
 import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
-import { getLeaderboardRankAnalyticsEventName } from '@/constants/leaderboard';
+import { getLeaderboardRankAnalyticsEventName } from '@/constants/leaderboards';
 import useAuth from '@/hooks/useAuth';
 import usePlayerProfile from '@/hooks/usePlayerProfile';
 import { ResponsiveTable } from '@nl/ui/mui';
@@ -32,9 +33,11 @@ export default function EnhancedTable({
   selectedTable,
   selectedTimeFilter,
 }: TableProps): JSX.Element | null {
-  const [page, setPage] = useState(0);
   const [count, setCount] = useState(0);
-  const [rowsPerPage] = useState(10);
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 50,
+    page: 0,
+  });
   const [rows, setData] = useState<DataType[] | null>();
   const [myRank, setMyRank] = useState<number>();
   const { isLoggedIn } = useAuth();
@@ -42,12 +45,15 @@ export default function EnhancedTable({
   const { profile } = usePlayerProfile();
 
   const fetchTopData = async () => {
-    setPage(0);
+    setPaginationModel(model => ({
+      pageSize: model.pageSize,
+      page: 0,
+    }));
     const returnValue: ReturnDataType = await fetchScores(
       selectedGame,
       selectedTable.key,
       selectedTimeFilter,
-      rowsPerPage,
+      paginationModel.pageSize,
       0,
     );
     const leaderBoardValue: any = [];
@@ -66,13 +72,13 @@ export default function EnhancedTable({
   }, [selectedGame, selectedTable.key, selectedTimeFilter]);
 
   const handleChangePage = async (newPage: number) => {
-    if (rows && (newPage + 1) * rowsPerPage > rows?.length && rows?.length < count) {
+    if (rows && (newPage + 1) * paginationModel.pageSize > rows?.length && rows?.length < count) {
       const returnValue: ReturnDataType = await fetchScores(
         selectedGame,
         selectedTable.key,
         selectedTimeFilter,
-        rowsPerPage,
-        newPage * rowsPerPage,
+        paginationModel.pageSize,
+        newPage * paginationModel.pageSize,
       );
       const leaderBoardValue: any = [];
       returnValue.data.forEach((value: any) => {
@@ -81,8 +87,14 @@ export default function EnhancedTable({
       setData([...rows, ...leaderBoardValue]);
       setCount(returnValue.count);
     }
-    setPage(newPage);
   };
+
+  useEffect(() => {
+    if (paginationModel.page !== 0) {
+      handleChangePage(paginationModel.page);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [paginationModel.page]);
 
   const handleCheckYourRank = async () => {
     const eventName = getLeaderboardRankAnalyticsEventName(selectedGame);
@@ -204,11 +216,10 @@ export default function EnhancedTable({
             </Typography>
           )}
           <ResponsiveTable
-            page={page}
-            rowsPerPage={10}
+            paginationModel={paginationModel}
+            onPaginationModelChange={setPaginationModel}
             columns={getColumns()}
             showPagination={true}
-            onChangePage={handleChangePage}
             data={rows}
             count={count}
           />

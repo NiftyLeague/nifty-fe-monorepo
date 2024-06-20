@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import type { Dispatch, SetStateAction } from 'react';
 import Hidden from '@mui/material/Hidden';
 
 import DataList from './DataList';
@@ -7,75 +8,73 @@ import DataTable from './DataTable';
 import { Breakpoint } from '@mui/system';
 import { GridColDef } from '@mui/x-data-grid';
 type ResponsiveTableProps = {
+  checkboxSelection?: boolean;
   columns: GridColDef[];
   count: number;
-  checkboxSelection?: boolean;
   data: any[];
-  rowsClassArray?: any[];
-  excludePrimaryFromDetails?: boolean;
-  noContentText?: string;
-  tableBreakpoints?: Breakpoint[];
-  listBreakpoints?: Breakpoint[];
-  onSelectionChange?: (selected: any) => void;
-  page: number;
-  rowsPerPage: number;
-  showPagination: boolean;
   DataGridProps?: any;
-  implementation?: 'js' | 'css';
+  excludePrimaryFromDetails?: boolean;
   ExpansionPanelDetailsProps?: any;
   ExpansionPanelDetailsTypographyProps?: any;
   ExpansionPanelMoreIconProps?: any;
   ExpansionPanelProps?: any;
   ExpansionPanelSummaryProps?: any;
   ExpansionPanelSummaryTypographyProps?: any;
+  implementation?: 'js' | 'css';
+  listBreakpoints?: Breakpoint[];
+  noContentText?: string;
+  onPaginationModelChange: Dispatch<SetStateAction<{ pageSize: number; page: number }>>;
+  onSelectionChange?: (selected: any) => void;
+  paginationModel: { pageSize: number; page: number };
+  rowsClassArray?: any[];
+  showPagination: boolean;
   TableBodyCellProps?: any;
   TableBodyProps?: any;
   TableBodyRowProps?: any;
+  tableBreakpoints?: Breakpoint[];
   TableHeadCellProps?: any;
   TableHeadProps?: any;
   TableHeadRowProps?: any;
   TablePaginationProps?: any;
   TableProps?: any;
-  onChangePage: (page: number) => void;
 };
 
 /**
  * Responsive read-only table (desktop devices) <-> read-only expandable list (tablet/mobile devices) for material-ui 1.0-beta.
  */
 const ResponsiveTable: React.FC<ResponsiveTableProps> = ({
+  checkboxSelection,
   columns,
   count,
-  checkboxSelection,
   data,
-  rowsClassArray,
-  excludePrimaryFromDetails,
-  noContentText,
-  tableBreakpoints,
-  listBreakpoints,
-  onSelectionChange,
-  page,
-  rowsPerPage,
-  showPagination,
   DataGridProps,
-  implementation,
+  excludePrimaryFromDetails,
   ExpansionPanelDetailsProps,
   ExpansionPanelDetailsTypographyProps,
   ExpansionPanelMoreIconProps,
   ExpansionPanelProps,
   ExpansionPanelSummaryProps,
   ExpansionPanelSummaryTypographyProps,
+  implementation,
+  listBreakpoints,
+  noContentText,
+  onPaginationModelChange,
+  onSelectionChange,
+  paginationModel,
+  rowsClassArray,
+  showPagination,
   TableBodyCellProps,
   TableBodyProps,
   TableBodyRowProps,
+  tableBreakpoints,
   TableHeadCellProps,
   TableHeadProps,
   TableHeadRowProps,
   TablePaginationProps,
   TableProps,
-  onChangePage,
 }) => {
   const handleChangePage = (event: React.MouseEvent | null, page: number) => {
-    onChangePage(page);
+    onPaginationModelChange(model => ({ page, pageSize: model.pageSize }));
   };
 
   const handleSelectionChange = (selected: any) => {
@@ -92,12 +91,12 @@ const ResponsiveTable: React.FC<ResponsiveTableProps> = ({
           columns={columns}
           count={count}
           data={data}
-          rowsClassArray={rowsClassArray}
-          noContentText={noContentText}
-          page={page}
-          rowsPerPage={rowsPerPage}
-          showPagination={showPagination}
           DataGridProps={DataGridProps}
+          noContentText={noContentText}
+          onPaginationModelChange={onPaginationModelChange}
+          paginationModel={paginationModel}
+          rowsClassArray={rowsClassArray}
+          showPagination={showPagination}
           TableBodyCellProps={TableBodyCellProps}
           TableBodyProps={TableBodyProps}
           TableBodyRowProps={TableBodyRowProps}
@@ -106,7 +105,6 @@ const ResponsiveTable: React.FC<ResponsiveTableProps> = ({
           TableHeadRowProps={TableHeadRowProps}
           TablePaginationProps={TablePaginationProps}
           TableProps={TableProps}
-          onChangePage={handleChangePage}
         />
       </Hidden>
 
@@ -121,8 +119,8 @@ const ResponsiveTable: React.FC<ResponsiveTableProps> = ({
           rowsClassArray={rowsClassArray}
           excludePrimaryFromDetails={excludePrimaryFromDetails}
           noContentText={noContentText}
-          page={page}
-          rowsPerPage={rowsPerPage}
+          page={paginationModel.page}
+          rowsPerPage={paginationModel.pageSize}
           showPagination={showPagination}
           ExpansionPanelDetailsProps={ExpansionPanelDetailsProps}
           ExpansionPanelDetailsTypographyProps={ExpansionPanelDetailsTypographyProps}
