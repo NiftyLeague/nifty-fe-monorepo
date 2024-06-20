@@ -74,10 +74,9 @@ const HistoryTable = ({
 
   const handleRetryWithdraw = async (data: { amount: number; expire_at: number; signature: string }) => {
     const { amount, expire_at, signature } = data;
-    const res = await tx(
-      writeContracts[GAME_ACCOUNT_CONTRACT].withdraw(parseEther(`${amount}`), BigInt(nonce), expire_at, signature),
-    );
-    if (res) resetForm();
+    const contract = writeContracts[GAME_ACCOUNT_CONTRACT];
+    await tx(contract.withdraw(parseEther(`${amount}`), nonce, expire_at, signature));
+    resetForm();
   };
 
   return (
