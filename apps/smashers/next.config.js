@@ -1,6 +1,38 @@
 const { withSentryConfig } = require('@sentry/nextjs');
 const path = require('path');
 
+const getAppleStoreLink = (countryCode = '') =>
+  countryCode.length > 0
+    ? `https://apps.apple.com/${countryCode.toLowerCase()}/app/${process.env.NEXT_PUBLIC_APPLE_STORE_ID}`
+    : process.env.NEXT_PUBLIC_APPLE_STORE_LINK;
+
+const generateAppleCountryRedirects = countryCode => [
+  {
+    source: '/ios',
+    has: [
+      {
+        type: 'header',
+        key: 'x-vercel-ip-country',
+        value: countryCode,
+      },
+    ],
+    destination: getAppleStoreLink(countryCode),
+    permanent: false,
+  },
+  {
+    source: '/ios/:params*',
+    has: [
+      {
+        type: 'header',
+        key: 'x-vercel-ip-country',
+        value: countryCode,
+      },
+    ],
+    destination: `${getAppleStoreLink(countryCode)}:params*`,
+    permanent: false,
+  },
+];
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ['@nl/theme', '@nl/ui'],
@@ -25,38 +57,17 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      ...generateAppleCountryRedirects('AU'),
+      ...generateAppleCountryRedirects('BR'),
+      ...generateAppleCountryRedirects('CA'),
       {
         source: '/ios',
-        has: [
-          {
-            type: 'header',
-            key: 'x-vercel-ip-country',
-            value: 'CA',
-          },
-        ],
-        destination: process.env.NEXT_PUBLIC_APPLE_CA_STORE_LINK,
+        destination: getAppleStoreLink(),
         permanent: false,
       },
       {
         source: '/ios/:params*',
-        has: [
-          {
-            type: 'header',
-            key: 'x-vercel-ip-country',
-            value: 'CA',
-          },
-        ],
-        destination: `${process.env.NEXT_PUBLIC_APPLE_CA_STORE_LINK}:params*`,
-        permanent: false,
-      },
-      {
-        source: '/ios',
-        destination: process.env.NEXT_PUBLIC_APPLE_STORE_LINK,
-        permanent: false,
-      },
-      {
-        source: '/ios/:params*',
-        destination: `${process.env.NEXT_PUBLIC_APPLE_STORE_LINK}:params*`,
+        destination: `${getAppleStoreLink()}:params*`,
         permanent: false,
       },
       {
