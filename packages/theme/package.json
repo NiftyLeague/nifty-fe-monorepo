@@ -19,9 +19,9 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@emotion/cache": "^11.11.0",
-    "@mui/material-nextjs": "^5.15.11",
-    "@next/font": "^14.2.4",
+    "@emotion/cache": "^11.13.1",
+    "@mui/material-nextjs": "^5.16.6",
+    "@next/font": "^14.2.5",
     "react-intl": "^6.6.8",
     "stylis-plugin-rtl": "^2.1.1"
   },
