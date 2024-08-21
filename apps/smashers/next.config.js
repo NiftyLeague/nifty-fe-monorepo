@@ -105,7 +105,7 @@ const nextConfig = {
             value: '.*(Mobile|Android).*',
           },
         ],
-        destination: '/android/&referral=:ref_code',
+        destination: '/android/?referral=:ref_code',
         permanent: false,
       },
       {
