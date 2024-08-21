@@ -41,7 +41,7 @@ function Tabs({
     defaultActiveId
       ? defaultActiveId
       : // if no defaultActiveId is set use the first panel
-        children && children[0].props
+        Array.isArray(children) && children[0].props
         ? children[0].props.id
         : '',
   );

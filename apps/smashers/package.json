@@ -12,23 +12,23 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@metamask/eth-sig-util": "^7.0.2",
+    "@metamask/eth-sig-util": "^7.0.3",
     "@nl/theme": "workspace:^",
     "@nl/ui": "workspace:^",
-    "@sentry/nextjs": "^8.10.0",
-    "@vercel/edge": "^1.1.1",
-    "ethers": "~6.13.1",
+    "@sentry/nextjs": "^8.26.0",
+    "@vercel/edge": "^1.1.2",
+    "ethers": "~6.13.2",
     "https": "^1.0.0",
     "iron-session": "^6.3.1",
-    "jose": "^5.4.1",
+    "jose": "^5.7.0",
     "lodash": "^4.17.21",
-    "next": "^14.2.4",
+    "next": "^14.2.5",
     "next-auth": "^4.24.7",
     "notistack": "^3.0.1",
-    "playfab-sdk": "^2.155.240524",
+    "playfab-sdk": "^2.160.240816",
     "react-device-detect": "^2.2.3",
     "react-unity-webgl": "^9.5.2",
     "swr": "^2.2.5",
-    "url": "^0.11.3"
+    "url": "^0.11.4"
   }
 }
