@@ -125,11 +125,6 @@ const nextConfig = {
         destination: 'https://opensea.io/assets/ethereum/0x986aea67c7d6a15036e18678065eb663fc5be883/:token_id',
         permanent: false,
       },
-      {
-        source: '/invite/smashers/:ref_code(\\w{1,})',
-        destination: 'https://niftysmashers.com/invite/:ref_code',
-        permanent: false,
-      },
     ];
   },
 };
