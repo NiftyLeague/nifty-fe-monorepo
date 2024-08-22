@@ -16,7 +16,13 @@ const redirectToAppStore = (userAgent: string, referral: string) => {
 
 const redirectToNativeApp = (userAgent: string, profileId: string) => {
   // Attempt to launch App if installed. Fallback to App Store after a timeout
-  setTimeout(() => redirectToAppStore(userAgent, profileId), 500);
+  const timeoutId = setTimeout(() => redirectToAppStore(userAgent, profileId), 1500);
+
+  // Clear the timeout if the page becomes hidden (app opens)
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) clearTimeout(timeoutId);
+  });
+
   window.location.href = `nifty://niftysmashers/invite?profile=${profileId}`;
 };
 
