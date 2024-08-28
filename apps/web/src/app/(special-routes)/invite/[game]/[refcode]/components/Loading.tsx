@@ -3,7 +3,7 @@ import Image from 'next/image';
 const Loading = () => (
   <div style={{ width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column' }}>
     <h3 style={{ margin: 'auto' }} id="loading-message">
-      Loading...
+      Redirecting...
     </h3>
     <Image
       alt="Nifty League Logo"
