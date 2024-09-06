@@ -28,7 +28,7 @@ const redirectToNativeApp = (userAgent: string, refcode: string) => {
   window.addEventListener('beforeunload', clearTimeoutHandler);
 
   // Attempt to launch the app
-  window.location.href = `nifty://niftysmashers/invite?profile=${refcode}`;
+  window.location.href = `niftysmashers://smashers/invite?profile=${refcode}`;
 };
 
 type RequestParams = { game: string; refcode: string };
