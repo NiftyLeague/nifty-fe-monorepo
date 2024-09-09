@@ -16,7 +16,7 @@
     "generate:component": "turbo gen react-component"
   },
   "dependencies": {
-    "@headlessui/react": "^2.1.2",
+    "@headlessui/react": "^2.1.5",
     "@mui/x-data-grid": "^7.13.0",
     "@radix-ui/react-context-menu": "^2.2.1",
     "@radix-ui/react-dialog": "^1.1.1",
