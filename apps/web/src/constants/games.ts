@@ -1,7 +1,7 @@
 export const NIFTY_GAMES = [
   {
     name: 'NIFTY SMASHERS',
-    description: `As Nifty League's main game, this brawl-style action game will have you white-knuckled and on the edge of your seat as you try to out-click, out-smart and out-smash your opponent in a winner-takes-all DEGEN battle!`,
+    description: `As Nifty League's flagship game, this brawl-style action game will have you white-knuckled and on the edge of your seat as you try to out-click, out-smart and out-smash your opponent in a winner-takes-all DEGEN battle!`,
     video: 'https://www.youtube.com/embed/4lnDrx4aDq8?autoplay=1&enablejsapi=1&html5=1',
     tag: 'MOBILE GAME',
     action: {
