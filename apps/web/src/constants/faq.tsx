@@ -5,9 +5,8 @@ export const FAQS = [
     question: 'What is Nifty League?',
     answer: (
       <>
-        Nifty League is a game studio at the cutting edge of Web3. Our mission is to inspire indie game developers to
-        build a decentralized future with us by establishing a game studio focused on unparalleled quality and player
-        experiences. Read our{' '}
+        Nifty League is a game studio at the cutting edge of Web3. Our mission is to empower small-scale developers to
+        create groundbreaking games and efficiently bring ambitious visions from sketch to screen. Read our{' '}
         <Link href="/docs/overview/intro" passHref legacyBehavior>
           <a target="_blank" rel="noreferrer">
             docs
