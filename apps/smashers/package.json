@@ -19,7 +19,7 @@
     "@vercel/edge": "^1.1.2",
     "ethers": "~6.13.2",
     "https": "^1.0.0",
-    "iron-session": "^6.3.1",
+    "iron-session": "^8.0.3",
     "jose": "^5.9.3",
     "lodash": "^4.17.21",
     "next": "^14.2.13",
