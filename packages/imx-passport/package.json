@@ -5,6 +5,6 @@
   "type": "module",
   "main": "./config.ts",
   "dependencies": {
-    "@imtbl/sdk": "^1.28.5"
+    "@imtbl/sdk": "^1.53.0"
   }
 }
