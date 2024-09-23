@@ -144,7 +144,7 @@ export const updateFilterValue = (
         .split('-')
         .map((type: number | string) => (key === 'prices' ? Number(type) : String(type)));
       if (actions && actions[key]) actions[key]?.(newValue || DEFAULT_STATIC_FILTER[key as keyof DegenFilter]);
-      newFilter[key] = newValue;
+      newFilter[key as keyof typeof newFilter] = newValue as any;
     }
   }
   // eslint-disable-next-line consistent-return

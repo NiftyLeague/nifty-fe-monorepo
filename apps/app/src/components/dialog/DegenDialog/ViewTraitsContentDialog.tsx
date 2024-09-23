@@ -100,9 +100,11 @@ const ViewTraitsContentDialog = ({
                       <Grid item xs={3} key={key}>
                         <Stack direction="column" alignItems="center">
                           <Typography fontWeight={700} textAlign="center">
-                            {TRAIT_NAME_MAP[key]}
+                            {TRAIT_NAME_MAP[key as keyof typeof TRAIT_NAME_MAP]}
                           </Typography>
-                          <Typography textAlign="center">{TRAIT_KEY_VALUE_MAP[value] ?? value}</Typography>
+                          <Typography textAlign="center">
+                            {TRAIT_KEY_VALUE_MAP[value as keyof typeof TRAIT_KEY_VALUE_MAP] ?? value}
+                          </Typography>
                         </Stack>
                       </Grid>
                     ))}
