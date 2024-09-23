@@ -3,7 +3,7 @@
 import { type PropsWithChildren } from 'react';
 import { createWeb3Modal } from '@web3modal/wagmi/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { mainnet, sepolia, immutableZkEvmTestnet } from 'wagmi/chains';
+import { mainnet, sepolia, immutableZkEvm, immutableZkEvmTestnet } from 'wagmi/chains';
 import { State, WagmiProvider } from 'wagmi';
 
 import { getContractAddress, NFTL_CONTRACT } from '@/constants/contracts';
@@ -26,6 +26,10 @@ createWeb3Modal({
     },
     [sepolia.id]: {
       address: getContractAddress(sepolia.id, NFTL_CONTRACT),
+      image: 'https://niftyleague.com/img/logos/NFTL/logo.webp',
+    },
+    [immutableZkEvm.id]: {
+      address: getContractAddress(immutableZkEvm.id, NFTL_CONTRACT),
       image: 'https://niftyleague.com/img/logos/NFTL/logo.webp',
     },
     [immutableZkEvmTestnet.id]: {

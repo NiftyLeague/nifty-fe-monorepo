@@ -1,5 +1,5 @@
 import type { InterfaceAbi } from 'ethers';
-import { mainnet, sepolia, hardhat, immutableZkEvmTestnet } from 'viem/chains';
+import { mainnet, sepolia, hardhat, immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains';
 
 import MAINNET_DEPLOYMENTS from './deployments.mainnet';
 import TESTNET_DEPLOYMENTS from './deployments.sepolia';
@@ -122,17 +122,31 @@ const CONTRACTS: {
     },
   },
   [immutableZkEvmTestnet.id]: {
+    // ComicsBurner: {
+    //   address: IMX_TESTNET_DEPLOYMENTS.contracts.ComicsBurner.address,
+    //   abi: IMX_TESTNET_DEPLOYMENTS.contracts.ComicsBurner.abi,
+    // },
     NFTLToken: {
       address: IMX_TESTNET_DEPLOYMENTS.contracts.NFTL.address,
       abi: IMX_TESTNET_DEPLOYMENTS.contracts.NFTL.abi,
     },
-    ComicsBurner: {
-      address: IMX_TESTNET_DEPLOYMENTS.contracts.ComicsBurner.address,
-      abi: IMX_TESTNET_DEPLOYMENTS.contracts.ComicsBurner.abi,
-    },
     NiftyMarketplace: {
       address: IMX_TESTNET_DEPLOYMENTS.contracts.NiftyMarketplace.address,
       abi: IMX_TESTNET_DEPLOYMENTS.contracts.NiftyMarketplace.abi,
+    },
+  },
+  [immutableZkEvm.id]: {
+    // ComicsBurner: {
+    //   address: IMX_MAINNET_DEPLOYMENTS.contracts.ComicsBurner.address,
+    //   abi: IMX_MAINNET_DEPLOYMENTS.contracts.ComicsBurner.abi,
+    // },
+    NFTLToken: {
+      address: IMX_MAINNET_DEPLOYMENTS.contracts.NFTL.address,
+      abi: IMX_MAINNET_DEPLOYMENTS.contracts.NFTL.abi,
+    },
+    NiftyMarketplace: {
+      address: IMX_MAINNET_DEPLOYMENTS.contracts.NiftyMarketplace.address,
+      abi: IMX_MAINNET_DEPLOYMENTS.contracts.NiftyMarketplace.abi,
     },
   },
 };
