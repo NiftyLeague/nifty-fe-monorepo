@@ -447,7 +447,9 @@ const DegensFilter = ({ onFilter, defaultFilterValues, isDegenOwner, searchTerm 
             {Object.keys(CosmeticsFilter.TRAIT_VALUE_MAP)
               .sort()
               .map(categoryKey => {
-                const traitGroup = Object.entries(CosmeticsFilter.TRAIT_VALUE_MAP[categoryKey])
+                const traitGroup = Object.entries(
+                  CosmeticsFilter.TRAIT_VALUE_MAP[categoryKey as keyof typeof CosmeticsFilter.TRAIT_VALUE_MAP],
+                )
                   .sort((a: [string, unknown], b: [string, unknown]) => (a[1] as string).localeCompare(b[1] as string))
                   .map(item => item[0]);
                 return (

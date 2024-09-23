@@ -33,7 +33,7 @@ const DegenTraitsDetailsPage = ({ params }: { params: { id: string } }): JSX.Ele
       total_rented: degenDetail?.total_rented || 0,
       price: degenDetail?.price || 0,
       price_daily: degenDetail?.price_daily || 0,
-      tribe: TRIBES[character.traits.tribe],
+      tribe: TRIBES[character.traits.tribe as keyof typeof TRIBES],
       background: degenDetail?.degen?.background || '',
       traits_string:
         degenDetail?.degen?.traits_string ||

@@ -47,6 +47,7 @@ export default function ModelView({ source }: { source: SRC }) {
           <CircularProgress style={{ margin: 'auto', width: 75, height: 'auto', color: '#FFF' }} />
         </div>
       ) : null}
+      {/* @ts-expect-error - model-viewer attributes broken */}
       <model-viewer
         // https://modelviewer.dev/docs/index.html#loading-attributes
         id="model-viewer"
@@ -55,7 +56,6 @@ export default function ModelView({ source }: { source: SRC }) {
         src={MODEL_SRC}
         // poster={POSTER_SRC}
         loading="eager"
-        // @ts-expect-error - model-viewer attributes broken
         exposure="0.72"
         shadow-intensity="1"
         shadow-softness="0.8"

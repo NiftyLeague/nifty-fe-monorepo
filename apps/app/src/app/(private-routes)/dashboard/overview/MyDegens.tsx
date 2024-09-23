@@ -62,11 +62,12 @@ const MyDegens = (): JSX.Element => {
 
   const degens = useMemo(() => {
     if (characters.length && degensData) {
-      const mapDegens = characters.map(character => degensData[character.id]).filter(Boolean);
+      const mapDegens = characters.map(character => degensData[Number(character.id)]).filter(Boolean);
+
       return mapDegens;
     }
     return [];
-  }, [characters, degensData]);
+  }, [characters, degensData]) as Degen[];
 
   const settings = {
     slidesToShow: 2,
