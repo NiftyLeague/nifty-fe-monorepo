@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useState } from 'react';
-import Grid from '@mui/material/Grid';
+import Grid2 from '@mui/material/Grid2';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
@@ -114,14 +114,14 @@ const DataList: React.FC<DataListProps> = props => {
       {columns
         .filter(column => !excludePrimary || !column.primary)
         .map((column, index) => (
-          <Grid key={`${column.headerName}-${index}`} container>
-            <Grid item xs>
+          <Grid2 key={`${column.headerName}-${index}`} container>
+            <Grid2 size="grow">
               <LabelRenderer column={column} data={data} />
-            </Grid>
-            <Grid item xs>
+            </Grid2>
+            <Grid2 size="grow">
               <CellRenderer column={column} row={row} data={data} />
-            </Grid>
-          </Grid>
+            </Grid2>
+          </Grid2>
         ))}
     </div>
   );

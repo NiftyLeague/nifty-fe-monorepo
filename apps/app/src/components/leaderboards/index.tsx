@@ -129,7 +129,7 @@ export default function LeaderBoards(): JSX.Element {
               onClick={() => handleChangeTimeFilter(item.key)}
             >
               <ListItemText>
-                <Typography variant="body1" color="inherit" sx={{ fontWeight: 700, textTransform: 'uppercase' }}>
+                <Typography variant="body1" sx={{ fontWeight: 700, textTransform: 'uppercase', color: 'inherit' }}>
                   {item.display}
                 </Typography>
               </ListItemText>

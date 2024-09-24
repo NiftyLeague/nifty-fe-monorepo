@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Grid, Button, Stack, Skeleton, IconButton, Typography } from '@mui/material';
+import { Grid2, Button, Stack, Skeleton, IconButton, Typography } from '@mui/material';
 import HistoryIcon from '@mui/icons-material/History';
 import { useTheme, sectionSpacing } from '@nl/theme';
 import { type TransactionResponse, parseEther } from 'ethers';
@@ -147,8 +147,8 @@ const MyNFTL = (): JSX.Element => {
   }, [router]);
 
   return (
-    <Grid container spacing={sectionSpacing}>
-      <Grid item xs={12}>
+    <Grid2 container spacing={sectionSpacing}>
+      <Grid2 size={{ xs: 12 }}>
         <SectionTitle
           firstSection
           variant="h3"
@@ -169,9 +169,9 @@ const MyNFTL = (): JSX.Element => {
         >
           My Tokens
         </SectionTitle>
-      </Grid>
+      </Grid2>
       <>
-        <Grid item xs={12}>
+        <Grid2 size={{ xs: 12 }}>
           <TokenInfoCard
             title="Arcade Token Balance"
             secondary={`${arcadeBalance} Tokens`}
@@ -199,7 +199,7 @@ const MyNFTL = (): JSX.Element => {
               </Stack>
             }
           />
-        </Grid>
+        </Grid2>
         <BuyArcadeTokensDialog
           open={openBuyAT}
           onSuccess={() => {
@@ -209,9 +209,9 @@ const MyNFTL = (): JSX.Element => {
           onClose={() => setOpenBuyAT(false)}
         />
       </>
-      <Grid item xs={12}>
-        <Grid container spacing={sectionSpacing}>
-          <Grid item xl={6} lg={12} md={12} sm={12} xs={12}>
+      <Grid2 size={{ xs: 12 }}>
+        <Grid2 container spacing={sectionSpacing}>
+          <Grid2 size={{ xs: 12, xl: 6 }}>
             <HoverDataCard
               title={
                 <>
@@ -307,8 +307,8 @@ const MyNFTL = (): JSX.Element => {
                 </Stack>
               }
             />
-          </Grid>
-          <Grid item xl={6} lg={12} md={12} sm={12} xs={12}>
+          </Grid2>
+          <Grid2 size={{ xs: 12, xl: 6 }}>
             <HoverDataCard
               title="Daily NFTL Accrued"
               primary={`${mockAccrued ? formatNumberToDisplay(mockAccrued) : '0.00'} NFTL`}
@@ -330,10 +330,10 @@ const MyNFTL = (): JSX.Element => {
                 </Button>
               }
             />
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+          </Grid2>
+        </Grid2>
+      </Grid2>
+    </Grid2>
   );
 };
 

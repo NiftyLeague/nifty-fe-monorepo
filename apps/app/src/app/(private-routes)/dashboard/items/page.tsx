@@ -4,7 +4,7 @@ import { useContext, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
-import { Box, Divider, Grid, Stack, Button, useMediaQuery } from '@mui/material';
+import { Box, Divider, Grid2, Stack, Button, useMediaQuery } from '@mui/material';
 import { useTheme } from '@nl/theme';
 
 import ComicCard from '@/components/cards/ComicCard';
@@ -75,20 +75,20 @@ const DashboardComicsPage = (): JSX.Element => {
     if (comicsBalance.length === 0 && loadingComics) {
       if (loadingComics) {
         return [...Array(6)].map(() => (
-          <Grid item key={uuidv4()}>
+          <Grid2 key={uuidv4()}>
             <ComicPlaceholder />
-          </Grid>
+          </Grid2>
         ));
       }
     } else if (comicsBalance.length > 0) {
       return comicsBalance.map(comic => (
-        <Grid item key={comic.id}>
+        <Grid2 key={comic.id}>
           <ComicCard
             data={comic}
             onViewComic={() => handleViewComic(comic)}
             isSelected={comic.id === selectedComic?.id}
           />
-        </Grid>
+        </Grid2>
       ));
     }
     return null;
@@ -98,13 +98,13 @@ const DashboardComicsPage = (): JSX.Element => {
     return imx.itemsBalance
       .filter(item => !selectedItem?.balance || selectedItem?.balance <= 1 || item.id !== selectedItem?.id)
       .map(item => (
-        <Grid item key={item.id}>
+        <Grid2 key={item.id}>
           <WearableItemCard
             data={item}
             onViewItem={() => handleViewItem(item)}
             isSelected={item.id === selectedItem?.id}
           />
-        </Grid>
+        </Grid2>
       ));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedItem, imx.itemsBalance]);
@@ -112,7 +112,7 @@ const DashboardComicsPage = (): JSX.Element => {
   const renderSubItems = useMemo(() => {
     if (!selectedItem?.balance || selectedItem?.balance <= 1) return null;
     return Array.from(Array(selectedItem?.balance).keys()).map(itemIndex => (
-      <Grid item key={`WearableSubItem-${itemIndex}`}>
+      <Grid2 key={`WearableSubItem-${itemIndex}`}>
         <WearableSubItemCard
           data={selectedItem}
           itemIndex={itemIndex}
@@ -120,7 +120,7 @@ const DashboardComicsPage = (): JSX.Element => {
           isSelected={itemIndex === selectedSubIndex}
           sx={{ height: '100%', justifyContent: 'center' }}
         />
-      </Grid>
+      </Grid2>
     ));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedItem, selectedSubIndex]);
@@ -142,7 +142,7 @@ const DashboardComicsPage = (): JSX.Element => {
             }
           >
             <Stack>
-              <Grid
+              <Grid2
                 container
                 flexWrap="wrap"
                 gap={2}
@@ -157,16 +157,16 @@ const DashboardComicsPage = (): JSX.Element => {
               >
                 {renderComics}
                 {comicsBalance.length > 0 && (
-                  <Grid item>
+                  <Grid2>
                     <Link href={COMICS_OPENSEA_URL} target="_blank" rel="noreferrer">
                       <BuyCard
                         onBuy={() => {}}
                         isNew={!comicsBalance.some(comic => comic.balance && comic.balance > 0)}
                       />
                     </Link>
-                  </Grid>
+                  </Grid2>
                 )}
-              </Grid>
+              </Grid2>
             </Stack>
           </SectionSlider>
           {!isTablet && (
@@ -193,9 +193,9 @@ const DashboardComicsPage = (): JSX.Element => {
                   <Stack spacing={4}>
                     <Stack direction={{ xs: 'column', lg: 'row' }} spacing={{ xs: 2, lg: 10 }}>
                       <WearableItemCard data={selectedItem} />
-                      <Grid container flexWrap="wrap" gap={2.5}>
+                      <Grid2 container flexWrap="wrap" gap={2.5}>
                         {renderSubItems}
-                      </Grid>
+                      </Grid2>
                     </Stack>
                     <Divider
                       color="#363636"
@@ -205,10 +205,10 @@ const DashboardComicsPage = (): JSX.Element => {
                     />
                   </Stack>
                 )}
-                <Grid container flexWrap="wrap" gap={2} justifyContent={{ xs: 'space-between', sm: 'inherit' }}>
+                <Grid2 container flexWrap="wrap" gap={2} justifyContent={{ xs: 'space-between', sm: 'inherit' }}>
                   {renderItems}
                   {imx.itemsBalance.length > 0 && (
-                    <Grid item>
+                    <Grid2>
                       <Link
                         href={ITEM_PURCHASE_URL[selectedNetworkId as keyof typeof ITEM_PURCHASE_URL]}
                         target="_blank"
@@ -216,9 +216,9 @@ const DashboardComicsPage = (): JSX.Element => {
                       >
                         <BuyCard onBuy={() => {}} isNew={!imx.itemsBalance.some(it => it.balance && it.balance > 0)} />
                       </Link>
-                    </Grid>
+                    </Grid2>
                   )}
-                </Grid>
+                </Grid2>
               </Stack>
             </Stack>
           </SectionSlider>

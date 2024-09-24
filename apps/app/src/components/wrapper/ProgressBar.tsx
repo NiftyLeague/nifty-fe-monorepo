@@ -51,7 +51,7 @@ const ProgressBar: FC<ProgressBarProps> = ({ value, children }) => {
             position: 'absolute',
             left: `50%`,
             transform: `translateX(-50%)`,
-            color: palette.primary.main,
+            color: theme => theme.palette.primary.main,
             whiteSpace: 'nowrap',
           }}
         >

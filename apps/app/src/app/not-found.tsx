@@ -5,7 +5,7 @@ import Link from 'next/link';
 // material-ui
 import { useTheme, gridSpacing, styled } from '@nl/theme';
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
-import { Button, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
+import { Button, Card, CardContent, CardMedia, Grid2, Typography } from '@mui/material';
 
 // project imports
 import { DASHBOARD_PATH } from '@/config';
@@ -63,8 +63,8 @@ const NotFoundPage = () => {
   return (
     <ErrorCard>
       <CardContent>
-        <Grid container justifyContent="center" spacing={gridSpacing}>
-          <Grid item xs={12}>
+        <Grid2 container justifyContent="center" spacing={gridSpacing}>
+          <Grid2 size={{ xs: 12 }}>
             <CardMediaWrapper>
               <CardMedia
                 component="img"
@@ -79,31 +79,31 @@ const NotFoundPage = () => {
               <CardMediaBlue src="/img/maintenance/img-error-blue.svg" title="Slider 2 image" />
               <CardMediaPurple src="/img/maintenance/img-error-purple.svg" title="Slider 3 image" />
             </CardMediaWrapper>
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={{ xs: 12 }}>
             <ErrorWrapper>
-              <Grid container spacing={gridSpacing}>
-                <Grid item xs={12}>
+              <Grid2 container spacing={gridSpacing}>
+                <Grid2 size={{ xs: 12 }}>
                   <Typography variant="h1" component="div">
                     Something is wrong
                   </Typography>
-                </Grid>
-                <Grid item xs={12}>
+                </Grid2>
+                <Grid2 size={{ xs: 12 }}>
                   <Typography variant="body2">
                     The page you are looking was moved, removed, renamed, or might never exist!{' '}
                   </Typography>
-                </Grid>
-                <Grid item xs={12}>
+                </Grid2>
+                <Grid2 size={{ xs: 12 }}>
                   <AnimateButton>
                     <Button variant="contained" size="large" component={Link} href={DASHBOARD_PATH}>
                       <HomeTwoToneIcon sx={{ fontSize: '20px', mr: 0.75 }} /> Home
                     </Button>
                   </AnimateButton>
-                </Grid>
-              </Grid>
+                </Grid2>
+              </Grid2>
             </ErrorWrapper>
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </CardContent>
     </ErrorCard>
   );

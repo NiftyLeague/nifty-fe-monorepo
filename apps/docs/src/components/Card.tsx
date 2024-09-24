@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
+import { ComponentProps } from 'react';
 
-const Card = styled.div`
+const Card: React.FC<ComponentProps<'div'>> = styled.div`
   display: flex;
   max-height: 250px;
   padding: 1rem;
@@ -21,7 +22,7 @@ const Card = styled.div`
   }
 `;
 
-export const CenterCard = styled(Card)`
+export const CenterCard: React.FC<ComponentProps<typeof Card>> = styled(Card)`
   min-width: 250px;
   justify-content: space-between;
   align-items: center;
@@ -38,14 +39,14 @@ export const CenterCard = styled(Card)`
   }
 `;
 
-export const ShadowCard = styled(Card)`
+export const ShadowCard: React.FC<ComponentProps<typeof Card>> = styled(Card)`
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.05);
   background-color: #ffffff10;
   backdrop-filter: blur(10px);
   min-height: 200px;
 `;
 
-export const WideCard = styled(ShadowCard)`
+export const WideCard: React.FC<ComponentProps<typeof ShadowCard>> = styled(ShadowCard)`
   max-height: auto;
   align-items: center;
   flex-direction: row;

@@ -61,7 +61,10 @@ export function Preloader({
               />
             </Box>
             <Box sx={{ minWidth: 35 }}>
-              <Typography variant="body2" color="text.secondary">{`${Math.round(percent)}%`}</Typography>
+              <Typography
+                variant="body2"
+                sx={{ color: theme => theme.palette.text.secondary }}
+              >{`${Math.round(percent)}%`}</Typography>
             </Box>
           </Box>
           {isMobileOnly && milliseconds && milliseconds > 12000

@@ -98,7 +98,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
           <Typography
             variant="body1"
             fontWeight={openItem?.findIndex(id => id === item.id) > -1 ? 'bold' : 'normal'}
-            color="inherit"
+            sx={{ color: 'inherit' }}
           >
             {item.title}
           </Typography>

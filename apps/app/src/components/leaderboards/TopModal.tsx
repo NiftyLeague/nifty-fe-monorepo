@@ -12,7 +12,7 @@ import { LEADERBOARD_GAME_LIST } from '@/constants/leaderboards';
 import CustomModal from './CustomModal';
 import './modal-table.css';
 
-const TableRoot = styled(Box)({
+const TableRoot = styled('div')({
   width: '76%',
   height: '57%',
   margin: '56.6% auto 0',
@@ -67,7 +67,7 @@ const RankBody = styled('span')({
   paddingBottom: '5px',
 });
 
-const LineTopBox = styled(Box)({
+const LineTopBox = styled('div')({
   position: 'absolute',
   top: '-9px',
   right: '-2px',
@@ -75,7 +75,7 @@ const LineTopBox = styled(Box)({
   borderRight: 'solid 2px #8c9cb4',
 });
 
-const LineBottomBox = styled(Box)({
+const LineBottomBox = styled('div')({
   position: 'absolute',
   bottom: '-9px',
   right: '-2px',
@@ -83,7 +83,7 @@ const LineBottomBox = styled(Box)({
   borderRight: 'solid 2px #8c9cb4',
 });
 
-const LoadingBox = styled(Box)({
+const LoadingBox = styled('div')({
   width: '100%',
   height: '80%',
   alignItems: 'center',

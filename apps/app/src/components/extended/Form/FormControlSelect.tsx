@@ -58,43 +58,45 @@ const FormControlSelect = ({
         label={captionLabel}
         value={currency}
         onChange={handleChange}
-        InputProps={{
-          startAdornment: (
-            <>
-              {primaryIcon && <InputAdornment position="start">{primaryIcon}</InputAdornment>}
-              {textPrimary && (
-                <>
-                  <InputAdornment position="start">{textPrimary}</InputAdornment>
-                  <Divider
-                    sx={{
-                      height: 28,
-                      m: 0.5,
-                      opacity: '0.6',
-                    }}
-                    orientation="vertical"
-                  />
-                </>
-              )}
-            </>
-          ),
-          endAdornment: (
-            <>
-              {secondaryIcon && <InputAdornment position="end">{secondaryIcon}</InputAdornment>}
-              {textSecondary && (
-                <>
-                  <Divider
-                    sx={{
-                      height: 28,
-                      m: 0.5,
-                      opacity: '0.6',
-                    }}
-                    orientation="vertical"
-                  />
-                  <InputAdornment position="end">{textSecondary}</InputAdornment>
-                </>
-              )}
-            </>
-          ),
+        slotProps={{
+          input: {
+            startAdornment: (
+              <>
+                {primaryIcon && <InputAdornment position="start">{primaryIcon}</InputAdornment>}
+                {textPrimary && (
+                  <>
+                    <InputAdornment position="start">{textPrimary}</InputAdornment>
+                    <Divider
+                      sx={{
+                        height: 28,
+                        m: 0.5,
+                        opacity: '0.6',
+                      }}
+                      orientation="vertical"
+                    />
+                  </>
+                )}
+              </>
+            ),
+            endAdornment: (
+              <>
+                {secondaryIcon && <InputAdornment position="end">{secondaryIcon}</InputAdornment>}
+                {textSecondary && (
+                  <>
+                    <Divider
+                      sx={{
+                        height: 28,
+                        m: 0.5,
+                        opacity: '0.6',
+                      }}
+                      orientation="vertical"
+                    />
+                    <InputAdornment position="end">{textSecondary}</InputAdornment>
+                  </>
+                )}
+              </>
+            ),
+          },
         }}
       >
         {currencies?.map(option => (

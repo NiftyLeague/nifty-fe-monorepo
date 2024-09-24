@@ -3,10 +3,18 @@ import { InputLabel as MuiInputLabel, InputLabelProps } from '@mui/material';
 
 const BInputLabel = styled((props: MUIInputLabelProps) => <MuiInputLabel {...props} />, {
   shouldForwardProp: prop => prop !== 'horizontal',
-})(({ theme, horizontal }) => ({
+})(({ theme }) => ({
   color: theme.palette.text.primary,
   fontWeight: 500,
-  marginBottom: horizontal ? 0 : 8,
+  marginBottom: 8,
+  variants: [
+    {
+      props: ({ horizontal }) => horizontal,
+      style: {
+        marginBottom: 0,
+      },
+    },
+  ],
 }));
 
 interface MUIInputLabelProps extends InputLabelProps {

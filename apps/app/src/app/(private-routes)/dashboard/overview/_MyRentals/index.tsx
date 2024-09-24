@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Button, Grid, Stack } from '@mui/material';
+import { Button, Grid2, Stack } from '@mui/material';
 import SectionTitle from '@/components/sections/SectionTitle';
 import RentalsTableSimple from './RentalsTableSimple';
 import { sectionSpacing } from '@nl/theme';
@@ -68,8 +68,8 @@ const MyRentals: FC<MyRentalsProps> = ({ rentals }): JSX.Element => {
   const rows = transformRentals(rentals, profile?.id || '');
 
   return (
-    <Grid container spacing={sectionSpacing} sx={{ height: '100%' }}>
-      <Grid item xs={12}>
+    <Grid2 container spacing={sectionSpacing} sx={{ height: '100%' }}>
+      <Grid2 size={{ xs: 12 }}>
         <SectionTitle
           firstSection
           actions={
@@ -82,11 +82,11 @@ const MyRentals: FC<MyRentalsProps> = ({ rentals }): JSX.Element => {
         >
           My Rentals
         </SectionTitle>
-      </Grid>
-      <Grid item xs={12} sx={{ height: '100%' }}>
+      </Grid2>
+      <Grid2 size={{ xs: 12 }} sx={{ height: '100%' }}>
         <RentalsTableSimple rentals={rows} columns={columns} />
-      </Grid>
-    </Grid>
+      </Grid2>
+    </Grid2>
   );
 };
 

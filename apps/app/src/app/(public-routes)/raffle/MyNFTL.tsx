@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback, useEffect } from 'react';
-import { Grid, Button, Stack, IconButton } from '@mui/material';
+import { Grid2, Button, Stack, IconButton } from '@mui/material';
 import HistoryIcon from '@mui/icons-material/History';
 import { useTheme, sectionSpacing } from '@nl/theme';
 import { type TransactionResponse, parseEther } from 'ethers';
@@ -115,11 +115,11 @@ const MyNFTL = (): JSX.Element => {
   }, [authToken, refetchAccount]);
 
   return (
-    <Grid container spacing={sectionSpacing}>
-      <Grid item xs={12}>
+    <Grid2 container spacing={sectionSpacing}>
+      <Grid2 size={{ xs: 12 }}>
         <SectionTitle firstSection>My NFTL</SectionTitle>
-      </Grid>
-      <Grid item xs={12}>
+      </Grid2>
+      <Grid2 size={{ xs: 12 }}>
         <HoverDataCard
           title="Wallet Balance"
           primary={`${formatNumberToDisplay(userNFTLBalance)} NFTL`}
@@ -131,10 +131,10 @@ const MyNFTL = (): JSX.Element => {
           secondary="Available to Spend"
           isLoading={loadingNFTLBal}
         />
-      </Grid>
-      <Grid item xs={12}>
-        <Grid container spacing={sectionSpacing}>
-          <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
+      </Grid2>
+      <Grid2 size={{ xs: 12 }}>
+        <Grid2 container spacing={sectionSpacing}>
+          <Grid2 size={{ xs: 12, sm: 6 }}>
             <HoverDataCard
               title={
                 <>
@@ -209,8 +209,8 @@ const MyNFTL = (): JSX.Element => {
                 </Stack>
               }
             />
-          </Grid>
-          <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
+          </Grid2>
+          <Grid2 size={{ xs: 12, sm: 6 }}>
             <HoverDataCard
               title="Daily NFTL Accrued"
               primary={`${mockAccrued ? formatNumberToDisplay(mockAccrued) : '0.00'} NFTL`}
@@ -231,10 +231,10 @@ const MyNFTL = (): JSX.Element => {
                 </Button>
               }
             />
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+          </Grid2>
+        </Grid2>
+      </Grid2>
+    </Grid2>
   );
 };
 

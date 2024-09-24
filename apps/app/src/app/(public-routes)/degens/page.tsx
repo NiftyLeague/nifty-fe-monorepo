@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Grid, IconButton, Pagination, Stack, Dialog, useMediaQuery } from '@mui/material';
+import { Grid2, IconButton, Pagination, Stack, Dialog, useMediaQuery } from '@mui/material';
 import { useTheme } from '@nl/theme';
 import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
 
@@ -166,17 +166,18 @@ const AllDegensPage = (): JSX.Element => {
 
   const renderSkeletonItem = useCallback(
     () => (
-      <Grid
-        item
-        xs={isGridView ? 12 : 6}
-        sm={isGridView ? 6 : 4}
-        md={isGridView ? 4 : 3}
-        lg={isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2.4}
-        xl={isGridView ? 3 : 2}
+      <Grid2
         key={uuidv4()}
+        size={{
+          xs: isGridView ? 12 : 6,
+          sm: isGridView ? 6 : 4,
+          md: isGridView ? 4 : 3,
+          lg: isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2.4,
+          xl: isGridView ? 3 : 2,
+        }}
       >
         <SkeletonDegenPlaceholder size={isGridView ? 'normal' : 'small'} />
-      </Grid>
+      </Grid2>
     ),
     [isDrawerOpen, isGridView],
   );
@@ -196,14 +197,15 @@ const AllDegensPage = (): JSX.Element => {
 
   const renderDegen = useCallback(
     (degen: Degen) => (
-      <Grid
+      <Grid2
         key={degen.id}
-        item
-        xs={isGridView ? 12 : 6}
-        sm={isGridView ? 6 : 4}
-        md={isGridView ? 4 : 3}
-        lg={isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2.4}
-        xl={isGridView ? 3 : 2}
+        size={{
+          xs: isGridView ? 12 : 6,
+          sm: isGridView ? 6 : 4,
+          md: isGridView ? 4 : 3,
+          lg: isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2.4,
+          xl: isGridView ? 3 : 2,
+        }}
       >
         <DegenCard
           degen={degen}
@@ -212,7 +214,7 @@ const AllDegensPage = (): JSX.Element => {
           onClickDetail={() => handleViewTraits(degen)}
           // onClickRent={() => handleRentDegen(degen)}
         />
-      </Grid>
+      </Grid2>
     ),
     [
       handleClickEditName,
@@ -226,7 +228,7 @@ const AllDegensPage = (): JSX.Element => {
   const renderMain = useCallback(
     () => (
       <Stack gap={1.5}>
-        {/* Main Grid title */}
+        {/* Main Grid2 title */}
         <SectionTitle firstSection>
           <Stack direction="row" alignItems="center" gap={1}>
             <IconButton onClick={() => setIsDrawerOpen(!isDrawerOpen)} size="small">
@@ -236,9 +238,9 @@ const AllDegensPage = (): JSX.Element => {
           </Stack>
         </SectionTitle>
         {/* Main grid content */}
-        <Grid container spacing={2} mt={-4.5}>
+        <Grid2 container spacing={2} mt={-4.5}>
           {!degens?.length ? [...Array(8)].map(renderSkeletonItem) : dataForCurrentPage.map(renderDegen)}
-        </Grid>
+        </Grid2>
         <Pagination
           count={maxPage}
           page={currentPage}

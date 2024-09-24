@@ -66,7 +66,7 @@ const WearableItemCard: React.FC<React.PropsWithChildren<React.PropsWithChildren
   return (
     <Stack position="relative">
       {isNew && (
-        <Typography color="#E3B210" textAlign="center" position="absolute" width="100%" sx={{ top: -16 }}>
+        <Typography sx={{ color: '#E3B210', top: -16 }} textAlign="center" position="absolute" width="100%">
           New!
         </Typography>
       )}
