@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { Box, Stack, SxProps, Typography } from '@mui/material';
 import { Theme } from '@nl/theme';
-import type { Item } from '@/types/comic';
+import type { Item } from '@/types/marketplace';
 import ImageCard from '@/components/cards/ImageCard';
 
 export interface WearableItemCardProps {

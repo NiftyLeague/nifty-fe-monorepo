@@ -26,14 +26,15 @@ const env = {
 };
 
 const baseURL = typeof window !== 'undefined' && window?.location?.origin;
+const environment = process.env.NODE_ENV === 'production' ? config.Environment.PRODUCTION : config.Environment.SANDBOX;
 
 const passportConfig: PassportModuleConfiguration = {
   baseConfig: {
-    environment: process.env.NODE_ENV === 'production' ? config.Environment.PRODUCTION : config.Environment.SANDBOX,
+    environment,
     publishableKey:
-      process.env.NODE_ENV === 'production' ? env.mainnet.IMX_PUBLISHABLE_KEY : env.testnet.IMX_PUBLISHABLE_KEY,
+      environment === config.Environment.PRODUCTION ? env.mainnet.IMX_PUBLISHABLE_KEY : env.testnet.IMX_PUBLISHABLE_KEY,
   },
-  clientId: process.env.NODE_ENV === 'production' ? env.mainnet.IMX_CLIENT_ID : env.testnet.IMX_CLIENT_ID,
+  clientId: environment === config.Environment.PRODUCTION ? env.mainnet.IMX_CLIENT_ID : env.testnet.IMX_CLIENT_ID,
   logoutRedirectUri: `${baseURL}/logout`,
   logoutMode: 'redirect',
   redirectUri: `${baseURL}/redirect`,
@@ -42,6 +43,5 @@ const passportConfig: PassportModuleConfiguration = {
 };
 
 const passportInstance: passport.Passport = new passport.Passport(passportConfig);
-
-export { passportInstance };
+export const passportEnv: config.Environment = environment;
 export default passportInstance;

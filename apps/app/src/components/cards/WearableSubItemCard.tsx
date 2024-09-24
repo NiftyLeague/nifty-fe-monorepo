@@ -1,5 +1,5 @@
 import { Box, Theme, Stack, SxProps, Typography } from '@mui/material';
-import type { Item } from '@/types/comic';
+import type { Item } from '@/types/marketplace';
 import ImageCard from '@/components/cards/ImageCard';
 import { useTheme } from '@nl/theme';
 

@@ -14,7 +14,6 @@
   "dependencies": {
     "@cowprotocol/cow-sdk": "^5.4.1",
     "@hookform/resolvers": "^3.9.0",
-    "@imtbl/imx-sdk": "~3.8.2",
     "@mui/x-data-grid": "^7.18.0",
     "@nl/imx-passport": "workspace:^",
     "@nl/theme": "workspace:^",

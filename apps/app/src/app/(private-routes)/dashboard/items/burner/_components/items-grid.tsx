@@ -1,9 +1,8 @@
-import { useContext } from 'react';
 import { styled } from '@nl/theme';
 import Image from 'next/image';
 import { ImageList, ImageListItem, ImageListItemBar, Skeleton } from '@mui/material';
 
-import IMXContext from '@/contexts/IMXContext';
+import useIMXContext from '@/hooks/useIMXContext';
 
 const PREFIX = 'items-grid';
 
@@ -50,9 +49,9 @@ const gridStyles = {
 };
 
 export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
-  const imx = useContext(IMXContext);
+  const { itemsLoading } = useIMXContext();
 
-  return imx.loading ? (
+  return itemsLoading ? (
     <Skeleton variant="rectangular" animation="wave" width={315} height={403} sx={{ ...containerStyles }} />
   ) : (
     <Root style={containerStyles}>

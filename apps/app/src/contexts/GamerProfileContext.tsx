@@ -2,19 +2,21 @@
 
 import { createContext, type PropsWithChildren } from 'react';
 import { useGamerProfile } from '@/hooks/useGamerProfile';
-import useComicsBalance from '@/hooks/useComicsBalance';
+import useIMXContext from '@/hooks/useIMXContext';
 import useBalances from '@/hooks/useBalances';
 
 type GamerProfileContextType = {
   isLoadingProfile: boolean | undefined;
   isLoadingDegens: boolean | undefined;
   isLoadingComics: boolean | undefined;
+  isLoadingItems: boolean | undefined;
 };
 
 const defaultValue: GamerProfileContextType = {
   isLoadingProfile: true,
   isLoadingDegens: true,
   isLoadingComics: true,
+  isLoadingItems: true,
 };
 
 const GamerProfileContext = createContext<GamerProfileContextType>(defaultValue);
@@ -22,14 +24,15 @@ const GamerProfileContext = createContext<GamerProfileContextType>(defaultValue)
 export const GamerProfileProvider = ({ children }: PropsWithChildren) => {
   const { loadingDegens } = useBalances();
   const { loadingProfile } = useGamerProfile();
-  const { loading: loadingComics } = useComicsBalance();
+  const { comicsLoading, itemsLoading } = useIMXContext();
 
   return (
     <GamerProfileContext.Provider
       value={{
         isLoadingProfile: loadingProfile,
         isLoadingDegens: loadingDegens,
-        isLoadingComics: loadingComics,
+        isLoadingComics: comicsLoading,
+        isLoadingItems: itemsLoading,
       }}
     >
       {children}

@@ -1,5 +1,5 @@
 import { Button, Dialog, DialogActions, DialogContent, useMediaQuery } from '@mui/material';
-import type { Item } from '@/types/comic';
+import type { Item } from '@/types/marketplace';
 import { useTheme } from '@nl/theme';
 import ItemDetail from '@/components/cards/ItemDetail';
 
