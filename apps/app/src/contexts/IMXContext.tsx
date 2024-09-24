@@ -1,116 +1,82 @@
 'use client';
 
-import { type PropsWithChildren, createContext, useCallback, useEffect, useMemo, useState } from 'react';
+import { type PropsWithChildren, createContext, useEffect } from 'react';
+import { immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains';
 import isEmpty from 'lodash/isEmpty';
-import { Link, ImmutableXClient, ImmutableMethodResults } from '@imtbl/imx-sdk';
+
+import type { BrowserProvider } from 'ethers6';
+import type { Contracts } from '@/types/web3';
+import type { Comic, Item } from '@/types/marketplace';
+import { DEBUG } from '@/constants/index';
 
 import useNetworkContext from '@/hooks/useNetworkContext';
-import { getContractAddress, ITEMS_CONTRACT } from '@/constants/contracts';
+import useContractLoader from '@/hooks/useContractLoader';
+import useComicsBalance from '@/hooks/useComicsBalance';
 import useItemsBalance from '@/hooks/useItemsBalance';
-import type { Item } from '@/types/comic';
+import useImxProvider, { getNetwork } from '@/hooks/useImxProvider';
 
 export interface Context {
-  balance?: ImmutableMethodResults.ImmutableGetBalanceResult;
-  client?: ImmutableXClient;
-  inventory?: ImmutableMethodResults.ImmutableGetAssetsResult;
+  address?: `0x${string}`;
+  comicsBalance: Comic[];
+  comicsLoading: boolean;
+  imxContracts: Contracts;
   itemsBalance: Item[];
-  link: Link;
-  linkSetup: () => Promise<void>;
-  loading: boolean;
-  registeredUser: boolean;
-  setIMXRefreshKey: React.Dispatch<React.SetStateAction<number>>;
-  wallet: string;
+  itemsLoading: boolean;
+  passportProvider?: BrowserProvider;
 }
 
 const CONTEXT_INITIAL_STATE: Context = {
-  balance: undefined,
-  client: undefined,
-  inventory: undefined,
+  address: undefined,
+  comicsBalance: [],
+  comicsLoading: true,
+  imxContracts: {} as Contracts,
   itemsBalance: [],
-  link: new Link(process.env.NEXT_PUBLIC_SANDBOX_LINK_URL),
-  linkSetup: async () => new Promise(() => null),
-  loading: true,
-  registeredUser: false,
-  setIMXRefreshKey: () => {},
-  wallet: 'undefined',
+  itemsLoading: true,
+  passportProvider: undefined,
 };
 
 const IMXContext = createContext(CONTEXT_INITIAL_STATE);
 
 export const IMXProvider = ({ children }: PropsWithChildren): JSX.Element => {
   const { address, selectedNetworkId } = useNetworkContext();
-  // initialise Immutable X Link SDK
-  const link = useMemo(() => new Link(process.env.NEXT_PUBLIC_SANDBOX_LINK_URL), []);
 
-  const [wallet, setWallet] = useState('undefined');
-  const [balance, setBalance] = useState<ImmutableMethodResults.ImmutableGetBalanceResult>(Object);
-  const [inventory, setInventory] = useState<ImmutableMethodResults.ImmutableGetAssetsResult>(Object);
-  const [client, setClient] = useState<ImmutableXClient>(Object);
-  const [loading, setLoading] = useState(true);
-  const { itemsBalance } = useItemsBalance(inventory);
-  const [imxRefreshKey, setIMXRefreshKey] = useState(0);
-  const [registeredUser, setRegisteredUser] = useState(false);
+  // IMX Passport instance converted to an ethers.js Provider
+  const passportProvider = useImxProvider();
+  const passportNetwork = getNetwork();
 
-  // set user wallet and balance from IMX or ETH network context
-  const updateUser = useCallback(
-    async (user: `0x${string}`) => {
-      setWallet(user);
-      setBalance(await client.getBalance({ user, tokenAddress: 'eth' }));
-      if (selectedNetworkId)
-        setInventory(
-          await client.getAssets({
-            user,
-            collection: getContractAddress(selectedNetworkId, ITEMS_CONTRACT),
-            page_size: 200,
-          }),
-        );
-      setLoading(false);
-      try {
-        const response = await client.getUser({ user });
-        if (response) setRegisteredUser(true);
-      } catch {
-        setRegisteredUser(false);
-      }
-    },
-    [client, selectedNetworkId],
-  );
+  // Load Immutable zkEVM contracts
+  const imxChainId = passportNetwork.id;
+  const imxContracts = useContractLoader(passportProvider, { chainId: imxChainId });
+
+  // Load user NFT balances
+  const { comicsBalance, loading: comicsLoading } = useComicsBalance(imxContracts, address);
+  const { itemsBalance, loading: itemsLoading } = useItemsBalance(imxContracts, address);
 
   useEffect(() => {
-    buildIMX();
-  }, []);
-
-  // initialise an Immutable X Client to interact with apis more easily
-  async function buildIMX() {
-    const publicApiUrl: string = process.env.NEXT_PUBLIC_SANDBOX_ENV_URL ?? '';
-    setClient(await ImmutableXClient.build({ publicApiUrl }));
-  }
-
-  useEffect(() => {
-    if (address && !isEmpty(client)) {
-      updateUser(address);
+    if (DEBUG && address && passportProvider && selectedNetworkId && !isEmpty(imxContracts)) {
+      console.group('_________________ ✅ Nifty League: IMX _________________');
+      console.log('🛫 passportProvider', passportProvider);
+      console.log('👤 address:', address);
+      console.log('✖️ imxContracts', imxContracts);
+      console.groupEnd();
+    } else if (DEBUG && passportProvider && !isEmpty(imxContracts)) {
+      console.group('_________________ 🚫 Offline User: IMX _________________');
+      console.log('🛫 passportProvider', passportProvider);
+      console.log('✖️ imxContracts', imxContracts);
+      console.groupEnd();
     }
-  }, [address, client, updateUser, imxRefreshKey]);
-
-  // register and/or setup a user
-  const linkSetup = useCallback(async () => {
-    const res = await link.setup({});
-    setRegisteredUser(true);
-    updateUser(res.address as `0x${string}`);
-  }, [link, updateUser]);
+  }, [address, imxContracts, passportProvider, selectedNetworkId]);
 
   return (
     <IMXContext.Provider
       value={{
-        balance,
-        client,
-        inventory,
+        address,
+        comicsBalance,
+        comicsLoading,
+        imxContracts,
         itemsBalance,
-        link,
-        linkSetup,
-        loading,
-        registeredUser,
-        setIMXRefreshKey,
-        wallet,
+        itemsLoading,
+        passportProvider,
       }}
     >
       {children}

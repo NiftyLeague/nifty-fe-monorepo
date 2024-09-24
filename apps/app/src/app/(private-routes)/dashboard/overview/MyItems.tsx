@@ -1,10 +1,9 @@
-import { useContext, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Box, Button, Stack } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-import IMXContext from '@/contexts/IMXContext';
-import useNetworkContext from '@/hooks/useNetworkContext';
+import useIMXContext from '@/hooks/useIMXContext';
 import WearableItemCard from '@/components/cards/WearableItemCard';
 import SectionSlider from '@/components/sections/SectionSlider';
 import EmptyState from '@/components/EmptyState';
@@ -12,13 +11,9 @@ import ComicPlaceholder from '@/components/cards/Skeleton/ComicPlaceholder';
 import { ITEM_PURCHASE_URL } from '@/constants/url';
 
 const MyItems = (): JSX.Element => {
-  const { selectedNetworkId } = useNetworkContext();
   const router = useRouter();
-  const imx = useContext(IMXContext);
-  const filteredItems = useMemo(
-    () => imx.itemsBalance.filter(item => item.balance && item.balance > 0),
-    [imx.itemsBalance],
-  );
+  const { itemsBalance, itemsLoading } = useIMXContext();
+  const filteredItems = useMemo(() => itemsBalance.filter(item => item.balance && item.balance > 0), [itemsBalance]);
 
   const settings = {
     slidesToShow: 4,
@@ -71,7 +66,7 @@ const MyItems = (): JSX.Element => {
           </Button>
         }
       >
-        {imx.loading ? (
+        {itemsLoading ? (
           <Box px={1}>
             <ComicPlaceholder />
           </Box>
@@ -83,11 +78,7 @@ const MyItems = (): JSX.Element => {
           ))
         ) : (
           <Stack justifyContent="center" alignItems="center">
-            <Link
-              href={ITEM_PURCHASE_URL[selectedNetworkId as keyof typeof ITEM_PURCHASE_URL]}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <Link href={ITEM_PURCHASE_URL} target="_blank" rel="noreferrer">
               <EmptyState
                 message="No Items found. Please check your address or go purchase some if you have not done so already!"
                 buttonText="Buy Items"
