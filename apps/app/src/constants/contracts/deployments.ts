@@ -5,6 +5,7 @@ import { LOCAL_CHAIN_ID } from '@/constants/networks';
 import MAINNET_DEPLOYMENTS from './deployments.mainnet';
 import TESTNET_DEPLOYMENTS from './deployments.sepolia';
 import IMX_TESTNET_DEPLOYMENTS from './deployments.imxTestnet';
+import IMX_MAINNET_DEPLOYMENTS from './deployments.imxMainnet';
 
 const CONTRACTS: {
   [chainId: number]: {

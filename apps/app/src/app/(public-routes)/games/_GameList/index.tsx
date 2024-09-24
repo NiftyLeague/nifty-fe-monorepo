@@ -3,14 +3,14 @@
 import { useCallback, useState } from 'react';
 import { styled } from '@nl/theme';
 import { useRouter } from 'next/navigation';
-import { Grid, Button } from '@mui/material';
+import { Grid2, Button } from '@mui/material';
 import BuyArcadeTokensDialog from '@/components/dialog/BuyArcadeTokensDialog';
 import ConnectWrapper from '@/components/wrapper/ConnectWrapper';
 import GameCard from '@/components/cards/GameCard';
 import DownloadGameDialog from '@/components/dialog/DownloadGameDialog';
 import useBalances from '@/hooks/useBalances';
 
-const GridItem = styled(Grid)(({ theme }) => ({
+const GridItem = styled(Grid2)(({ theme }) => ({
   paddingRight: 16,
   paddingBottom: 32,
   border: 'none',
@@ -50,7 +50,7 @@ const GameList = () => {
 
   return (
     <>
-      <GridItem item xs={12} sm={6} md={4} lg={4} xl={3}>
+      <GridItem size={{ xs: 12, sm: 6, md: 4, lg: 4, xl: 3 }}>
         <GameCard
           title="2D Smashers"
           externalLink={{
@@ -80,7 +80,7 @@ const GameList = () => {
           }
         />
       </GridItem>
-      <GridItem item xs={12} sm={6} md={4} lg={4} xl={3}>
+      <GridItem size={{ xs: 12, sm: 6, md: 4, lg: 4, xl: 3 }}>
         <GameCard
           title="WEN Game"
           required="Arcade Tokens Required"
@@ -102,7 +102,7 @@ const GameList = () => {
           }
         />
       </GridItem>
-      <GridItem item xs={12} sm={6} md={4} lg={4} xl={3}>
+      <GridItem size={{ xs: 12, sm: 6, md: 4, lg: 4, xl: 3 }}>
         <GameCard
           title="Crypto Winter"
           required="Arcade Tokens Required"
@@ -124,7 +124,7 @@ const GameList = () => {
           }
         />
       </GridItem>
-      <GridItem item xs={12} sm={6} md={4} lg={4} xl={3}>
+      <GridItem size={{ xs: 12, sm: 6, md: 4, lg: 4, xl: 3 }}>
         <GameCard
           title="Mt. Gawx"
           required="NFTL required"
@@ -147,7 +147,7 @@ const GameList = () => {
           }
         />
       </GridItem>
-      {/* <GridItem item xs={12} sm={6} md={4} lg={4} xl={3}>
+      {/* <GridItem size={{ xs: 12, sm: 6, md: 4, lg: 4, xl: 3 }}>
         <GameCard
           title="Nifty Tennis"
           description={

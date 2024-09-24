@@ -8,7 +8,7 @@
 // import EarningCap from './EarningCap';
 // import MyRentals from './MyRentals';
 // import useAuth from '@/hooks/useAuth';
-import { Grid } from '@mui/material';
+import { Grid2 } from '@mui/material';
 import MyComics from './MyComics';
 import MyDegens from './MyDegens';
 import MyItems from './MyItems';
@@ -37,40 +37,40 @@ const DashboardOverview = (): JSX.Element => {
   // }, [data]);
 
   return (
-    <Grid container flexDirection="row" spacing={4} sx={{ maxHeight: 'cacl(100vh - 100px)' }}>
-      <Grid item xs={12} md={12} lg={5}>
-        <Grid container flexDirection="column" spacing={6}>
-          <Grid item xs={12}>
+    <Grid2 container flexDirection="row" spacing={4} sx={{ maxHeight: 'cacl(100vh - 100px)' }}>
+      <Grid2 size={{ xs: 12, md: 12, lg: 5 }}>
+        <Grid2 container flexDirection="column" spacing={6}>
+          <Grid2 size={{ xs: 12 }}>
             <MyNFTL />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={{ xs: 12 }}>
             <MyStats />
-          </Grid>
-          {/* <Grid item xs={12}>
+          </Grid2>
+          {/* <Grid2 size={{ xs: 12 }}>
             <EarningCap rentals={rentals} />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={{ xs: 12 }}>
             <MyRentals rentals={rentals} />
-          </Grid> */}
-        </Grid>
-      </Grid>
-      <Grid item xs={12} md={12} lg={7}>
-        <Grid container flexDirection="column" spacing={{ lg: 6, xs: 4, md: 4 }}>
-          <Grid item xs={12}>
+          </Grid2> */}
+        </Grid2>
+      </Grid2>
+      <Grid2 size={{ xs: 12, md: 12, lg: 7 }}>
+        <Grid2 container flexDirection="column" spacing={{ lg: 6, xs: 4, md: 4 }}>
+          <Grid2 size={{ xs: 12 }}>
             <MyDegens />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={{ xs: 12 }}>
             <MyComics />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={{ xs: 12 }}>
             <MyItems />
-          </Grid>
-        </Grid>
-      </Grid>
+          </Grid2>
+        </Grid2>
+      </Grid2>
       {/* {rental && (
         <ActiveRentalDialog degenId={rentals[0].degen_id} rental={rental} />
       )} */}
-    </Grid>
+    </Grid2>
   );
 };
 

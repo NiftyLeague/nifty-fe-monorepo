@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
+import { ComponentProps } from 'react';
 
-const Row = styled.div`
+const Row: React.FC<ComponentProps<'div'>> = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   justify-content: center;
@@ -15,7 +16,7 @@ const Row = styled.div`
   }
 `;
 
-export const RowTwo = styled(Row)`
+export const RowTwo: React.FC<ComponentProps<typeof Row>> = styled(Row)`
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 48px;
   gap: 56px;
@@ -28,7 +29,7 @@ export const RowTwo = styled(Row)`
   }
 `;
 
-export const RowThree = styled(Row)`
+export const RowThree: React.FC<ComponentProps<typeof Row>> = styled(Row)`
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 16px;
 

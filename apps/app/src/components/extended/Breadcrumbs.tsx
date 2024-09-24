@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 // material-ui
 import { useTheme, gridSpacing } from '@nl/theme';
-import { Box, Card, Divider, Grid, Typography } from '@mui/material';
+import { Box, Card, Divider, Grid2, Typography } from '@mui/material';
 import MuiBreadcrumbs from '@mui/material/Breadcrumbs';
 
 // project imports
@@ -161,7 +161,7 @@ const Breadcrumbs = ({
           {...others}
         >
           <Box sx={{ p: 2, pl: card === false ? 0 : 2 }}>
-            <Grid
+            <Grid2
               container
               direction={rightAlign ? 'row' : 'column'}
               justifyContent={rightAlign ? 'space-between' : 'flex-start'}
@@ -169,13 +169,13 @@ const Breadcrumbs = ({
               spacing={1}
             >
               {title && !titleBottom && (
-                <Grid item>
+                <Grid2>
                   <Typography variant="h3" sx={{ fontWeight: 500 }}>
                     {item.title}
                   </Typography>
-                </Grid>
+                </Grid2>
               )}
-              <Grid item>
+              <Grid2>
                 <MuiBreadcrumbs
                   sx={{
                     '& .MuiBreadcrumbs-separator': {
@@ -188,7 +188,7 @@ const Breadcrumbs = ({
                   maxItems={maxItems || 8}
                   separator={separatorIcon}
                 >
-                  <Typography component={Link} href="/" color="inherit" variant="subtitle1" sx={linkSX}>
+                  <Typography component={Link} href="/" sx={{ ...linkSX, color: 'inherit' }} variant="subtitle1">
                     {icons && <HomeTwoToneIcon sx={iconStyle} />}
                     {icon && <HomeIcon sx={{ ...iconStyle, mr: 0 }} />}
                     {!icon && 'Dashboard'}
@@ -196,15 +196,15 @@ const Breadcrumbs = ({
                   {mainContent}
                   {itemContent}
                 </MuiBreadcrumbs>
-              </Grid>
+              </Grid2>
               {title && titleBottom && (
-                <Grid item>
+                <Grid2>
                   <Typography variant="h3" sx={{ fontWeight: 500 }}>
                     {item.title}
                   </Typography>
-                </Grid>
+                </Grid2>
               )}
-            </Grid>
+            </Grid2>
           </Box>
           {card === false && divider !== false && (
             <Divider

@@ -9,11 +9,37 @@ import { DEGEN_3D_MODEL_URL } from '@/constants/degens';
 import { SRC } from '@/types/gltf';
 import styles from '../gltf.module.scss';
 
+type ModelViewerProps = {
+  'animation-name'?: string;
+  'ar-modes'?: string;
+  'ar-status'?: string;
+  'auto-rotate-delay': string;
+  'auto-rotate': string;
+  'camera-controls': string;
+  'disable-tap': string;
+  'interaction-bounds'?: string;
+  'interaction-prompt-threshold': string;
+  'interaction-prompt': string;
+  'max-camera-orbit'?: string;
+  'min-camera-orbit'?: string;
+  'shadow-intensity': string;
+  'shadow-softness': string;
+  'touch-action': string;
+  alt: string;
+  ar?: string;
+  exposure: string;
+  id: string;
+  loading: string;
+  orientation?: string;
+  poster?: string;
+  scale?: string;
+  src: string;
+  style: React.CSSProperties;
+};
 declare global {
-  namespace React.JSX {
-    // eslint-disable-next-line no-unused-vars
+  namespace JSX {
     interface IntrinsicElements {
-      'model-viewer': React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLElement>, HTMLElement>;
+      'model-viewer': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & ModelViewerProps;
     }
   }
 }
@@ -55,7 +81,6 @@ export default function ModelView({ source }: { source: SRC }) {
         src={MODEL_SRC}
         // poster={POSTER_SRC}
         loading="eager"
-        // @ts-expect-error - model-viewer attributes broken
         exposure="0.72"
         shadow-intensity="1"
         shadow-softness="0.8"

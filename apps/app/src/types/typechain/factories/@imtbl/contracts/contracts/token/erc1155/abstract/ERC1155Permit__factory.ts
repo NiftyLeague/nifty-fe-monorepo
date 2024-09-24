@@ -6,7 +6,7 @@ import { Contract, Interface, type ContractRunner } from 'ethers';
 import type {
   ERC1155Permit,
   ERC1155PermitInterface,
-} from '../../../../../../../../@imtbl/contracts/contracts/token/erc1155/abstract/ERC1155Permit.Sol/ERC1155Permit';
+} from '../../../../../../../@imtbl/contracts/contracts/token/erc1155/abstract/ERC1155Permit';
 
 const _abi = [
   {

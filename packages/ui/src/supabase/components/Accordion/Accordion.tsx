@@ -1,3 +1,5 @@
+'use client';
+
 import React, { createContext, useCallback, useContext } from 'react';
 import { Disclosure, Transition } from '@headlessui/react';
 import AccordionStyles from './Accordion.module.css';

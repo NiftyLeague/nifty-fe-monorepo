@@ -95,22 +95,24 @@ const TicketDialogContext = ({ onSuccess }: Props): JSX.Element => {
             sx={{
               width: '200px',
             }}
-            InputProps={{
-              endAdornment: <InputAdornment position="end">NFTL</InputAdornment>,
-              inputProps: {
-                inputMode: 'numeric',
-                pattern: '[0-9]*',
-                min: 1000,
-                max: userNFTLBalance,
-                style: {
-                  textAlign: 'center',
-                },
-              },
-            }}
             value={input}
             error={!!error}
             helperText={error}
             onChange={handleChange}
+            slotProps={{
+              input: {
+                endAdornment: <InputAdornment position="end">NFTL</InputAdornment>,
+                inputProps: {
+                  inputMode: 'numeric',
+                  pattern: '[0-9]*',
+                  min: 1000,
+                  max: userNFTLBalance,
+                  style: {
+                    textAlign: 'center',
+                  },
+                },
+              },
+            }}
           />
           <TicketStepper
             insufficientAllowance={insufficientAllowance}

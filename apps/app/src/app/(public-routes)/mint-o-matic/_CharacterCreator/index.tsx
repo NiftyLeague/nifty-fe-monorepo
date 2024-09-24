@@ -158,7 +158,7 @@ const CharacterCreator = memo(
       const content = Array.from(
         document.getElementsByClassName('character-canvas') as HTMLCollectionOf<HTMLElement>,
       )[0];
-      if (content) content.style['pointer-events'] = 'none';
+      if (content) content.style.pointerEvents = 'none';
     }, []);
 
     const onMouse = useCallback(() => {
@@ -166,7 +166,7 @@ const CharacterCreator = memo(
         document.getElementsByClassName('character-canvas') as HTMLCollectionOf<HTMLElement>,
       )[0];
       if (content) {
-        content.style['pointer-events'] = 'auto';
+        content.style.pointerEvents = 'auto';
         content.style.cursor = 'pointer';
       }
     }, []);

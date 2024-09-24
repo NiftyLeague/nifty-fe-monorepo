@@ -51,7 +51,7 @@ const ItemDetail: React.FC<React.PropsWithChildren<React.PropsWithChildren<ItemD
             borderRadius="50%"
             sx={{ background: '#5820D6', top: -12, right: -28 }}
           >
-            <Typography color="#FFFFFF" fontSize="20px" fontWeight="bold">{`${multiplier}x`}</Typography>
+            <Typography sx={{ color: '#FFFFFF' }} fontSize="20px" fontWeight="bold">{`${multiplier}x`}</Typography>
           </Box>
         )}
       </Box>
@@ -74,27 +74,25 @@ const ItemDetail: React.FC<React.PropsWithChildren<React.PropsWithChildren<ItemD
             {equipped ? 'Unequip' : 'Equip on a DEGEN'}
           </Button>
           <Stack direction="row" justifyContent="space-between" alignItems="center">
-            <Typography color="#363636" fontSize="12px" fontWeight={600}>
+            <Typography sx={{ color: '#363636' }} fontSize="12px" fontWeight={600}>
               Equipped:
             </Typography>
             <Typography
-              color="#5820D6"
               fontSize="12px"
               fontWeight={500}
-              sx={{ textDecorationLine: equipped ? 'underline' : 'none' }}
+              sx={{ color: '#5820D6', textDecorationLine: equipped ? 'underline' : 'none' }}
             >
               {equipped ? 'DEGEN #1152' : '-'}
             </Typography>
           </Stack>
           <Stack direction="row" justifyContent="space-between" alignItems="center">
-            <Typography color="#363636" fontSize="12px" fontWeight={600}>
+            <Typography sx={{ color: '#363636' }} fontSize="12px" fontWeight={600}>
               Rental:
             </Typography>
             <Typography
-              color="#5820D6"
               fontSize="12px"
               fontWeight={500}
-              sx={{ textDecorationLine: equipped ? 'underline' : 'none' }}
+              sx={{ color: '#5820D6', textDecorationLine: equipped ? 'underline' : 'none' }}
             >
               {equipped ? '28 days left' : '-'}
             </Typography>

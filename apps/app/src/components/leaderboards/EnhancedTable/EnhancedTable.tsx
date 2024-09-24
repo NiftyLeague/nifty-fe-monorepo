@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { useTheme } from '@nl/theme';
 import { Box, CircularProgress, Typography } from '@mui/material';
 import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
 import { getLeaderboardRankAnalyticsEventName } from '@/constants/leaderboards';
@@ -41,7 +40,6 @@ export default function EnhancedTable({
   const [rows, setData] = useState<DataType[] | null>();
   const [myRank, setMyRank] = useState<number>();
   const { isLoggedIn } = useAuth();
-  const { palette } = useTheme();
   const { profile } = usePlayerProfile();
 
   const fetchTopData = async () => {
@@ -183,8 +181,8 @@ export default function EnhancedTable({
           {isLoggedIn && selectedGame !== 'crypto_winter' && (
             <Typography
               variant="h6"
-              color={palette.primary.main}
               sx={{
+                color: theme => theme.palette.primary.main,
                 position: {
                   lg: 'absolute',
                 },

@@ -65,7 +65,7 @@ const RentalsTableSimple = ({ rentals, columns }: RentalsTableSimpleProps): JSX.
                     if (column.id === 'rentalRenewsIn') {
                       return (
                         <TableCell key={column.id} align={column.align}>
-                          <Typography color={palette.warning.main}>
+                          <Typography sx={{ color: theme => theme.palette.warning.main }}>
                             <Countdown date={new Date((value as number) * 1000)} />
                           </Typography>
                         </TableCell>
@@ -98,7 +98,11 @@ const RentalsTableSimple = ({ rentals, columns }: RentalsTableSimpleProps): JSX.
                             ) : (
                               <Typography fontSize={10}>
                                 LIMIT REACHED. RENEWS IN{' '}
-                                <Typography color={palette.warning.main} variant="caption" fontSize={10}>
+                                <Typography
+                                  sx={{ color: theme => theme.palette.warning.main }}
+                                  variant="caption"
+                                  fontSize={10}
+                                >
                                   <Countdown date={new Date((rental.rentalRenewsIn ?? 0) * 1000)} />
                                 </Typography>
                               </Typography>
@@ -119,7 +123,9 @@ const RentalsTableSimple = ({ rentals, columns }: RentalsTableSimpleProps): JSX.
             ) : (
               <TableRow>
                 <TableCell colSpan={7} sx={{ height: '100%' }}>
-                  <Typography color={palette.grey[500]}>You don&apos;t have any rentals yet</Typography>
+                  <Typography sx={{ color: theme => theme.palette.grey[500] }}>
+                    You don&apos;t have any rentals yet
+                  </Typography>
                 </TableCell>
               </TableRow>
             )}
