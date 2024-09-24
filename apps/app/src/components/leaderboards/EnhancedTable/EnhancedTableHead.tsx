@@ -4,11 +4,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import type { EnhancedTableProps } from '@/types/leaderboard';
 import { Typography } from '@mui/material';
-import { useTheme } from '@nl/theme';
 
 export default function EnhancedTableHead(props: EnhancedTableProps): JSX.Element | null {
   const { rows, handleCheckYourRank } = props;
-  const { palette } = useTheme();
   return (
     <TableHead>
       <TableRow>
@@ -26,8 +24,8 @@ export default function EnhancedTableHead(props: EnhancedTableProps): JSX.Elemen
         <TableCell sx={{ pr: '0px' }} align="right" padding="normal">
           <Typography
             variant="h4"
-            color={palette.primary.main}
             sx={{
+              color: theme => theme.palette.primary.main,
               textDecoration: 'underline',
               cursor: 'pointer',
               display: 'flex',

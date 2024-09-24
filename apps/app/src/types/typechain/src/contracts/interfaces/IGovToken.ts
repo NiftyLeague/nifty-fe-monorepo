@@ -31,7 +31,6 @@ export interface IGovTokenInterface extends Interface {
       | 'allowance'
       | 'approve'
       | 'balanceOf'
-      | 'bridge'
       | 'burn'
       | 'clock'
       | 'decimals'
@@ -59,7 +58,6 @@ export interface IGovTokenInterface extends Interface {
   encodeFunctionData(functionFragment: 'allowance', values: [AddressLike, AddressLike]): string;
   encodeFunctionData(functionFragment: 'approve', values: [AddressLike, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'balanceOf', values: [AddressLike]): string;
-  encodeFunctionData(functionFragment: 'bridge', values?: undefined): string;
   encodeFunctionData(functionFragment: 'burn', values: [AddressLike, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'clock', values?: undefined): string;
   encodeFunctionData(functionFragment: 'decimals', values?: undefined): string;
@@ -90,7 +88,6 @@ export interface IGovTokenInterface extends Interface {
   decodeFunctionResult(functionFragment: 'allowance', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'approve', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'bridge', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'burn', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'clock', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'decimals', data: BytesLike): Result;
@@ -210,9 +207,7 @@ export interface IGovToken extends BaseContract {
 
   balanceOf: TypedContractMethod<[account: AddressLike], [bigint], 'view'>;
 
-  bridge: TypedContractMethod<[], [string], 'view'>;
-
-  burn: TypedContractMethod<[account: AddressLike, amount: BigNumberish], [boolean], 'nonpayable'>;
+  burn: TypedContractMethod<[from: AddressLike, amount: BigNumberish], [void], 'nonpayable'>;
 
   clock: TypedContractMethod<[], [bigint], 'view'>;
 
@@ -234,7 +229,7 @@ export interface IGovToken extends BaseContract {
 
   getVotes: TypedContractMethod<[account: AddressLike], [bigint], 'view'>;
 
-  mint: TypedContractMethod<[account: AddressLike, amount: BigNumberish], [boolean], 'nonpayable'>;
+  mint: TypedContractMethod<[to: AddressLike, amount: BigNumberish], [void], 'nonpayable'>;
 
   name: TypedContractMethod<[], [string], 'view'>;
 
@@ -279,10 +274,9 @@ export interface IGovToken extends BaseContract {
     nameOrSignature: 'approve',
   ): TypedContractMethod<[spender: AddressLike, amount: BigNumberish], [boolean], 'nonpayable'>;
   getFunction(nameOrSignature: 'balanceOf'): TypedContractMethod<[account: AddressLike], [bigint], 'view'>;
-  getFunction(nameOrSignature: 'bridge'): TypedContractMethod<[], [string], 'view'>;
   getFunction(
     nameOrSignature: 'burn',
-  ): TypedContractMethod<[account: AddressLike, amount: BigNumberish], [boolean], 'nonpayable'>;
+  ): TypedContractMethod<[from: AddressLike, amount: BigNumberish], [void], 'nonpayable'>;
   getFunction(nameOrSignature: 'clock'): TypedContractMethod<[], [bigint], 'view'>;
   getFunction(nameOrSignature: 'decimals'): TypedContractMethod<[], [bigint], 'view'>;
   getFunction(nameOrSignature: 'delegate'): TypedContractMethod<[delegatee: AddressLike], [void], 'nonpayable'>;
@@ -301,7 +295,7 @@ export interface IGovToken extends BaseContract {
   getFunction(nameOrSignature: 'getVotes'): TypedContractMethod<[account: AddressLike], [bigint], 'view'>;
   getFunction(
     nameOrSignature: 'mint',
-  ): TypedContractMethod<[account: AddressLike, amount: BigNumberish], [boolean], 'nonpayable'>;
+  ): TypedContractMethod<[to: AddressLike, amount: BigNumberish], [void], 'nonpayable'>;
   getFunction(nameOrSignature: 'name'): TypedContractMethod<[], [string], 'view'>;
   getFunction(nameOrSignature: 'nonces'): TypedContractMethod<[owner: AddressLike], [bigint], 'view'>;
   getFunction(

@@ -96,7 +96,7 @@ export default function Preloader({ ready, progress }: { ready: boolean; progres
           />
         </Box>
         <Box sx={{ minWidth: 35 }}>
-          <Typography variant="body2" color="white">{`${Math.round(percent)}%`}</Typography>
+          <Typography variant="body2" sx={{ color: 'white' }}>{`${Math.round(percent)}%`}</Typography>
         </Box>
       </Box>
       {isMobileOnly && milliseconds > 12000 ? 'For the best experience try us out on desktop!' : null}

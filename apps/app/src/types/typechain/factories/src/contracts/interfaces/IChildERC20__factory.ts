@@ -124,23 +124,10 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
-    name: 'bridge',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
     inputs: [
       {
         internalType: 'address',
-        name: 'account',
+        name: 'from',
         type: 'address',
       },
       {
@@ -150,13 +137,7 @@ const _abi = [
       },
     ],
     name: 'burn',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
+    outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -177,7 +158,7 @@ const _abi = [
     inputs: [
       {
         internalType: 'address',
-        name: 'account',
+        name: 'to',
         type: 'address',
       },
       {
@@ -187,13 +168,7 @@ const _abi = [
       },
     ],
     name: 'mint',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
+    outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },

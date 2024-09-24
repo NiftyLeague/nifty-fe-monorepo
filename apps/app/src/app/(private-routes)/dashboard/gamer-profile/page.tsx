@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { Grid, Stack, Typography } from '@mui/material';
+import { Grid2, Stack, Typography } from '@mui/material';
 import { useAccount } from 'wagmi';
 import merge from 'lodash/merge';
 
@@ -57,23 +57,23 @@ const GamerProfile = (): JSX.Element => {
 
   const renderEmptyProfile = () => {
     return (
-      <Grid container justifyContent="center" alignItems="center" display="flex" height="100%">
+      <Grid2 container justifyContent="center" alignItems="center" display="flex" height="100%">
         <EmptyState message="You don't own any Gamer Profile yet." />
-      </Grid>
+      </Grid2>
     );
   };
 
   const renderTopProfile = () => {
     return (
-      <Grid item container spacing={3}>
-        <Grid item xs={12} md={3.5}>
+      <Grid2 container spacing={3}>
+        <Grid2 size={{ xs: 12, md: 3.5 }}>
           <ImageProfile
             avatar={profile?.avatar}
             avatarFee={avatarsAndFee?.price}
             degens={filteredDegens && avatarsAndFee?.avatars && merge(filteredDegens, avatarsAndFee?.avatars)}
           />
-        </Grid>
-        <Grid item xs={12} md={8.5}>
+        </Grid2>
+        <Grid2 size={{ xs: 12, md: 8.5 }}>
           {address && <TopInfo profile={profile} walletAddress={address} />}
           <hr />
           <Stack spacing={1}>
@@ -91,8 +91,8 @@ const GamerProfile = (): JSX.Element => {
               />
             </Stack>
           </Stack>
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     );
   };
 
@@ -117,10 +117,10 @@ const GamerProfile = (): JSX.Element => {
     );
   };
   return (
-    <Grid container gap={sectionSpacing} mb="24px">
+    <Grid2 container gap={sectionSpacing} mb="24px">
       {error && !profile && !loadingProfile && renderEmptyProfile()}
       {(profile || loadingProfile) && renderGamerProfile()}
-    </Grid>
+    </Grid2>
   );
 };
 

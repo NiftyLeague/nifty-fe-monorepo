@@ -1,9 +1,9 @@
 export default {
-  name: 'imtbl-zkevm-testnet',
-  chainId: '13473',
+  name: 'imtbl-zkevm-mainnet',
+  chainId: '13371',
   contracts: {
     NFTL: {
-      address: '0xebFFB58f0286cd49b2C0687f06Edf612BC803198',
+      address: '0xB0d7e9Ff5fb8E739c4990f7920d8047AcfAe4884',
       abi: [
         {
           inputs: [
@@ -1015,7 +1015,7 @@ export default {
       ],
     },
     NiftyGovernor: {
-      address: '0xE9a6A8c5D9df8Fb9A31531AbdE527D5712a8e238',
+      address: '0x1a5C9D66003803e5c29f93c1e42D807471647ca3',
       abi: [
         {
           inputs: [
@@ -2396,7 +2396,7 @@ export default {
       ],
     },
     NiftyMarketplace: {
-      address: '0x7c2118cC07E5Bbc4C368Ea29374B1f98D819E475',
+      address: '0x6B66D473907A715aa573E44031355b34e77BB6dE',
       abi: [
         {
           inputs: [
@@ -3582,7 +3582,7 @@ export default {
       ],
     },
     Timelock: {
-      address: '0x531D7F54D3DE3774a2FDE0a0F1F2C4599532102d',
+      address: '0xee7b4d3C69DE4883daE82EcDb3B629d24A5590d7',
       abi: [
         {
           inputs: [

@@ -33,7 +33,7 @@ export default function DataTable(props: DataTableProps) {
   //   return rowsClassArray && rowsClassArray[index] ? rowsClassArray[index] : '';
   // };
 
-  const { columns, count, data, paginationModel, onPaginationModelChange, DataGridProps } = props;
+  const { columns, data, paginationModel, onPaginationModelChange, DataGridProps } = props;
 
   return (
     <Box
@@ -62,7 +62,7 @@ export default function DataTable(props: DataTableProps) {
         onPaginationModelChange={onPaginationModelChange}
         disableSelectionOnClick
         disableColumnMenu
-        rowCount={count}
+        // rowCount={count}
         getRowId={row => row.rank}
         pageSizeOptions={[10, 25, 50]}
         {...DataGridProps}

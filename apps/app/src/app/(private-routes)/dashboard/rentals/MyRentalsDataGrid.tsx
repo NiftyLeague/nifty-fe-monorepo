@@ -11,7 +11,6 @@ import {
   type GridSortModel,
 } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
-import { useTheme } from '@nl/theme';
 import { useState, useMemo } from 'react';
 import type { Rentals, RentalType } from '@/types/rentals';
 import { transformRentals } from '@/app/(private-routes)/dashboard/_utils/transformRentals';
@@ -34,7 +33,6 @@ interface Props {
 }
 
 const MyRentalsDataGrid = ({ rows, loading, category, onTerminateRental, updateRentalName }: Props): JSX.Element => {
-  const { palette } = useTheme();
   // const [pageSize, setPageSize] = useState(10);
   const [selectedRowForEditing, setSelectedRowForEditing] = useState<any>();
   const [isNicknameModalOpen, setIsNicknameModalOpen] = useState(false);
@@ -230,7 +228,7 @@ const MyRentalsDataGrid = ({ rows, loading, category, onTerminateRental, updateR
         ...commonColumnProp,
         width: 150,
         renderCell: (params: GridRenderCellParams) => (
-          <Typography color={palette.warning.main}>
+          <Typography sx={{ color: theme => theme.palette.warning.main }}>
             <Countdown date={new Date(params.value * 1000)} />
           </Typography>
         ),
@@ -320,11 +318,19 @@ const MyRentalsDataGrid = ({ rows, loading, category, onTerminateRental, updateR
         headerName: 'ROI %',
         ...commonColumnProp,
         renderCell: (params: GridRenderCellParams) => {
-          let color;
-          if (params.value === 0) color = palette.text.primary;
-          if (params.value > 0) color = palette.success.main;
-          if (params.value < 0) color = palette.error.main;
-          return <Typography color={color}>{formatNumberToDisplayWithCommas(params.value)}%</Typography>;
+          return (
+            <Typography
+              sx={{
+                color: theme => {
+                  if (params.value === 0) return theme.palette.text.primary;
+                  if (params.value > 0) return theme.palette.success.main;
+                  if (params.value < 0) return theme.palette.error.main;
+                },
+              }}
+            >
+              {formatNumberToDisplayWithCommas(params.value)}%
+            </Typography>
+          );
         },
       },
     ];

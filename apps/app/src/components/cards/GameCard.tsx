@@ -29,7 +29,6 @@ const CardGameContent = ({
   showMore,
   title,
 }: CardGameContentProps) => {
-  const theme = useTheme();
   const [moreStatus, setMoreStatus] = useState(false);
   const handleMoreStatus = () => {
     setMoreStatus(!moreStatus);
@@ -65,43 +64,29 @@ const CardGameContent = ({
           ) : null}
         </Stack>
         {isComingSoon && (
-          <Typography
-            variant="body2"
-            gutterBottom
-            sx={{
-              color: theme.palette.warning.main,
-            }}
-          >
+          <Typography variant="body2" gutterBottom sx={{ color: theme => theme.palette.warning.main }}>
             Coming 2023
           </Typography>
         )}
         {required && (
-          <Typography
-            variant="body2"
-            gutterBottom
-            sx={{
-              color: theme.palette.warning.main,
-            }}
-          >
+          <Typography variant="body2" gutterBottom sx={{ color: theme => theme.palette.warning.main }}>
             {required}
           </Typography>
         )}
         <Typography
           variant="body2"
-          color="text.secondary"
           whiteSpace="pre-wrap"
           maxHeight={moreStatus ? 'inherit' : 42}
-          sx={{ overflowY: 'hidden' }}
+          sx={{ color: theme => theme.palette.text.secondary, overflowY: 'hidden' }}
         >
           {description}
         </Typography>
         {showMore && !moreStatus && (
           <Typography
             variant="body2"
-            color={theme.palette.primary.main}
+            sx={{ color: theme => theme.palette.primary.main, cursor: 'pointer' }}
             whiteSpace="pre-wrap"
             onClick={handleMoreStatus}
-            sx={{ cursor: 'pointer' }}
           >
             more..
           </Typography>

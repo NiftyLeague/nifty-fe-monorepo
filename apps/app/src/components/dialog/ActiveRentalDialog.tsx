@@ -1,7 +1,6 @@
 'use client';
 
-import { useTheme } from '@nl/theme';
-import { Box, Button, Dialog, DialogContent, Grid, Link, Typography } from '@mui/material';
+import { Box, Button, Dialog, DialogContent, Grid2, Link, Typography } from '@mui/material';
 import DegenImage from '@/components/cards/DegenCard/DegenImage';
 import ProgressBar from '@/components/wrapper/ProgressBar';
 import { useState } from 'react';
@@ -16,7 +15,6 @@ interface ActiveRentalDialogProps {
 }
 
 const ActiveRentalDialog = ({ degenId, rental }: ActiveRentalDialogProps) => {
-  const { palette } = useTheme();
   const router = useRouter();
   const progressValue = (100 / rental.earning_cap) * rental.earning_cap_daily;
   const [activeRental] = useLocalStorage<boolean>('active_rental', false);
@@ -33,8 +31,8 @@ const ActiveRentalDialog = ({ degenId, rental }: ActiveRentalDialogProps) => {
   return (
     <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
       <DialogContent sx={{ marginY: '50px', marginX: '16px' }}>
-        <Grid container spacing={2}>
-          <Grid item md={6}>
+        <Grid2 container spacing={2}>
+          <Grid2 size={{ xs: 12, md: 6 }}>
             <Typography sx={{ fontSize: '32px', lineHeight: '38px' }} fontWeight={600}>
               Welcome back DEGEN!
             </Typography>
@@ -56,8 +54,8 @@ const ActiveRentalDialog = ({ degenId, rental }: ActiveRentalDialogProps) => {
             <Button variant="contained" onClick={handleClickPlay}>
               Play Nifty Smashers Now
             </Button>
-          </Grid>
-          <Grid item md={6}>
+          </Grid2>
+          <Grid2 size={{ xs: 12, md: 6 }}>
             <Box sx={{ width: '70%', display: 'inline-block', float: 'right' }}>
               <ProgressBar value={progressValue}>
                 {rental.earning_cap !== rental.earning_cap_daily ? (
@@ -65,7 +63,7 @@ const ActiveRentalDialog = ({ degenId, rental }: ActiveRentalDialogProps) => {
                 ) : (
                   <Typography fontSize={10}>
                     LIMIT REACHED. RENEWS IN{' '}
-                    <Typography color={palette.warning.main} variant="caption" fontSize={10}>
+                    <Typography sx={{ color: theme => theme.palette.warning.main }} variant="caption" fontSize={10}>
                       <Countdown date={new Date(rental.next_charge_at * 1000)} />
                     </Typography>
                   </Typography>
@@ -90,8 +88,8 @@ const ActiveRentalDialog = ({ degenId, rental }: ActiveRentalDialogProps) => {
                 tokenId={degenId}
               />
             </Box>
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </DialogContent>
     </Dialog>
   );

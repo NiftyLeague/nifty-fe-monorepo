@@ -12,8 +12,6 @@
     "moduleDetection": "force",
     "moduleResolution": "NodeNext",
     "noUncheckedIndexedAccess": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "ignoreDeprecations": "5.0",
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,

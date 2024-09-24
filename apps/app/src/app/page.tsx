@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Grid, Button, Box, Dialog } from '@mui/material';
+import { Grid2, Button, Box, Dialog } from '@mui/material';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import SectionSlider from '@/components/sections/SectionSlider';
@@ -108,9 +108,9 @@ const Home = () => {
         //   </Box>
         // }
       >
-        <Grid container flexDirection="row" flexWrap="wrap" rowSpacing={4}>
+        <Grid2 container flexDirection="row" flexWrap="wrap" rowSpacing={4}>
           <GameList />
-        </Grid>
+        </Grid2>
       </SectionSlider>
       <SectionSlider
         title="Degens"

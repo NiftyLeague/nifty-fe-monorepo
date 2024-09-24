@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { formatEther } from 'ethers';
-import { Grid } from '@mui/material';
+import { Grid2 } from '@mui/material';
 import { useTheme, sectionSpacing } from '@nl/theme';
 import HoverDataCard from '@/components/cards/HoverDataCard';
 import { formatNumberToDisplay } from '@/utils/numbers';
@@ -51,8 +51,8 @@ const Raffle = (): JSX.Element => {
   useEffect(() => setMockTickets(ticketCount), [ticketCount]);
 
   return (
-    <Grid container spacing={sectionSpacing}>
-      <Grid item xs={12}>
+    <Grid2 container spacing={sectionSpacing}>
+      <Grid2 size={{ xs: 12 }}>
         <HoverDataCard
           title="Ticket Balance"
           primary={`${formatNumberToDisplay(mockTickets, 0)} Tickets`}
@@ -63,8 +63,8 @@ const Raffle = (): JSX.Element => {
           }}
           isLoading={loadingNFTLBal}
         />
-      </Grid>
-    </Grid>
+      </Grid2>
+    </Grid2>
   );
 };
 

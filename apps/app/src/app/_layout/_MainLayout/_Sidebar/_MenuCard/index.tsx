@@ -6,7 +6,7 @@ import {
   Avatar,
   Card,
   CardContent,
-  Grid,
+  Grid2,
   LinearProgress,
   List,
   ListItem,
@@ -24,11 +24,17 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
   borderRadius: 30,
   [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor: theme.palette.mode === 'dark' ? theme.palette.grey[400] : theme.palette.grey[50],
+    backgroundColor: theme.palette.grey[50],
+    ...theme.applyStyles('dark', {
+      backgroundColor: theme.palette.grey[400],
+    }),
   },
   [`& .${linearProgressClasses.bar}`]: {
     borderRadius: 5,
-    backgroundColor: theme.palette.mode === 'dark' ? theme.palette.primary.dark : theme.palette.primary.main,
+    backgroundColor: theme.palette.primary.main,
+    ...theme.applyStyles('dark', {
+      backgroundColor: theme.palette.primary.dark,
+    }),
   },
 }));
 
@@ -42,10 +48,13 @@ const CardStyle = styled(Card)(({ theme }) => ({
     position: 'absolute',
     width: '157px',
     height: '157px',
-    background: theme.palette.mode === 'dark' ? theme.palette.dark.dark : theme.palette.primary.light,
+    background: theme.palette.primary.light,
     borderRadius: '50%',
     top: '-105px',
     right: '-96px',
+    ...theme.applyStyles('dark', {
+      background: theme.palette.dark.dark,
+    }),
   },
 }));
 
@@ -55,34 +64,31 @@ interface LinearProgressWithLabelProps {
 
 // ==============================|| PROGRESS BAR WITH LABEL ||============================== //
 
-function LinearProgressWithLabel({ value, ...others }: LinearProgressWithLabelProps) {
-  const theme = useTheme();
-
-  return (
-    <Grid container direction="column" spacing={1} sx={{ mt: 1.5 }}>
-      <Grid item>
-        <Grid container justifyContent="space-between">
-          <Grid item>
-            <Typography
-              variant="h6"
-              sx={{
-                color: theme.palette.mode === 'dark' ? theme.palette.text.primary : theme.palette.primary.darker,
-              }}
-            >
-              Progress
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography variant="h6" color="inherit">{`${Math.round(value)}%`}</Typography>
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid item>
-        <BorderLinearProgress variant="determinate" value={value} {...others} />
-      </Grid>
-    </Grid>
-  );
-}
+const LinearProgressWithLabel = ({ value, ...others }: LinearProgressWithLabelProps) => (
+  <Grid2 container direction="column" spacing={1} sx={{ mt: 1.5 }}>
+    <Grid2>
+      <Grid2 container justifyContent="space-between">
+        <Grid2>
+          <Typography
+            variant="h6"
+            sx={{
+              color: theme =>
+                theme.palette.mode === 'dark' ? theme.palette.text.primary : theme.palette.primary.darker,
+            }}
+          >
+            Progress
+          </Typography>
+        </Grid2>
+        <Grid2>
+          <Typography variant="h6" sx={{ color: 'inherit' }}>{`${Math.round(value)}%`}</Typography>
+        </Grid2>
+      </Grid2>
+    </Grid2>
+    <Grid2>
+      <BorderLinearProgress variant="determinate" value={value} {...others} />
+    </Grid2>
+  </Grid2>
+);
 
 // ==============================|| SIDEBAR - MENU CARD ||============================== //
 
@@ -116,7 +122,8 @@ const MenuCard = () => {
                 <Typography
                   variant="subtitle1"
                   sx={{
-                    color: theme.palette.mode === 'dark' ? theme.palette.text.primary : theme.palette.primary.darker,
+                    color: theme =>
+                      theme.palette.mode === 'dark' ? theme.palette.text.primary : theme.palette.primary.darker,
                   }}
                 >
                   Get Extra Space

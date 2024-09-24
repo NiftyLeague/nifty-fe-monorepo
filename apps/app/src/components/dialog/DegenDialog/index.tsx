@@ -34,7 +34,7 @@ const CustomDialog = styled(Dialog, {
 })<{ isRent?: boolean; isEquip?: boolean }>(({ theme, isRent, isEquip }) => ({
   '& .MuiPaper-root': {
     overflowX: 'hidden',
-    minWidth: isRent ? 550 : 'inherit',
+    minWidth: 'inherit',
     [theme.breakpoints.down('md')]: {
       minWidth: 'inherit',
       margin: isRent || isEquip ? 16 : 'inherit',
@@ -44,6 +44,16 @@ const CustomDialog = styled(Dialog, {
       borderRadius: isRent || isEquip ? '10px' : 'inherit',
     },
   },
+  variants: [
+    {
+      props: ({ isRent }) => isRent,
+      style: {
+        '& .MuiPaper-root': {
+          minWidth: 550,
+        },
+      },
+    },
+  ],
 }));
 
 const DegenDialog = ({

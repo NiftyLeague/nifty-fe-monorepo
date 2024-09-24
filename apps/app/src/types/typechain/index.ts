@@ -24,6 +24,8 @@ export type { VRFCoordinatorV2Mock } from './@chainlink/contracts/src/v0.8/vrf/m
 export { VRFCoordinatorV2Mock__factory } from './factories/@chainlink/contracts/src/v0.8/vrf/mocks/VRFCoordinatorV2Mock__factory';
 export type { VRFConsumerBaseV2 } from './@chainlink/contracts/src/v0.8/vrf/VRFConsumerBaseV2';
 export { VRFConsumerBaseV2__factory } from './factories/@chainlink/contracts/src/v0.8/vrf/VRFConsumerBaseV2__factory';
+export type { MintingAccessControl } from './@imtbl/contracts/contracts/access/MintingAccessControl';
+export { MintingAccessControl__factory } from './factories/@imtbl/contracts/contracts/access/MintingAccessControl__factory';
 export type { IOperatorAllowlist } from './@imtbl/contracts/contracts/allowlist/IOperatorAllowlist';
 export { IOperatorAllowlist__factory } from './factories/@imtbl/contracts/contracts/allowlist/IOperatorAllowlist__factory';
 export type { OperatorAllowlistEnforced } from './@imtbl/contracts/contracts/allowlist/OperatorAllowlistEnforced';
@@ -34,8 +36,8 @@ export type { IImmutableERC721Errors } from './@imtbl/contracts/contracts/errors
 export { IImmutableERC721Errors__factory } from './factories/@imtbl/contracts/contracts/errors/Errors.sol/IImmutableERC721Errors__factory';
 export type { OperatorAllowlistEnforcementErrors } from './@imtbl/contracts/contracts/errors/Errors.sol/OperatorAllowlistEnforcementErrors';
 export { OperatorAllowlistEnforcementErrors__factory } from './factories/@imtbl/contracts/contracts/errors/Errors.sol/OperatorAllowlistEnforcementErrors__factory';
-export type { ERC1155Permit } from './@imtbl/contracts/contracts/token/erc1155/abstract/ERC1155Permit.Sol/ERC1155Permit';
-export { ERC1155Permit__factory } from './factories/@imtbl/contracts/contracts/token/erc1155/abstract/ERC1155Permit.Sol/ERC1155Permit__factory';
+export type { ERC1155Permit } from './@imtbl/contracts/contracts/token/erc1155/abstract/ERC1155Permit';
+export { ERC1155Permit__factory } from './factories/@imtbl/contracts/contracts/token/erc1155/abstract/ERC1155Permit__factory';
 export type { IERC1155Permit } from './@imtbl/contracts/contracts/token/erc1155/abstract/IERC1155Permit';
 export { IERC1155Permit__factory } from './factories/@imtbl/contracts/contracts/token/erc1155/abstract/IERC1155Permit__factory';
 export type { ImmutableERC1155Base } from './@imtbl/contracts/contracts/token/erc1155/abstract/ImmutableERC1155Base';

@@ -149,16 +149,16 @@ const DepositForm = ({ onDeposit, balance }: DepositFormProps): JSX.Element => {
             control={control}
             render={({ field }) => (
               <NumericFormat
-                disabled={field.disabled}
-                name={field.name}
+                disabled={field.disabled as boolean}
+                name={field.name as string}
                 onBlur={field.onBlur}
                 value={field.value}
                 inputRef={field.ref}
-                isAllowed={({ value }) => Number(value) <= Number(balance)}
+                isAllowed={({ value }: { value: string }) => Number(value) <= Number(balance)}
                 label="Amount of NFTL to deposit"
                 thousandSeparator
                 customInput={TextField}
-                onValueChange={e => {
+                onValueChange={(e: { value: string }) => {
                   clearErrors();
                   if (getValues('amountSelected') !== 0) {
                     resetField('amountSelected');

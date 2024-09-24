@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import { Stack, Typography, Grid, Skeleton, Button } from '@mui/material';
-import { useTheme } from '@nl/theme';
+import { Stack, Typography, Grid2, Skeleton, Button } from '@mui/material';
 import ProgressGamer from './ProgressGamer';
 import GameCard from '@/components/cards/GameCard';
 import LeftInfo from './LeftInfo';
@@ -18,11 +17,9 @@ interface BottomInfoProps {
 const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps): JSX.Element => {
   const { isLoadingProfile } = useGamerProfileContext();
 
-  const theme = useTheme();
-
   return (
-    <Grid container flexDirection="row" flexWrap="wrap" spacing={2}>
-      <Grid item sm={12} md={6} lg={4} xl={3}>
+    <Grid2 container flexDirection="row" flexWrap="wrap" spacing={2}>
+      <Grid2 size={{ sm: 12, md: 6, lg: 4, xl: 3 }}>
         <GameCard
           image="/img/games/smashers/nifty-smashers.gif"
           contents={
@@ -38,7 +35,13 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
                   ) : (
                     `${Math.round(nifty_smashers?.xp || 0)}/${nifty_smashers?.rank_xp_next}`
                   )}
-                  <Typography variant="h4" component="div" color={theme.palette.grey[400]} display="inline" ml="4px">
+                  <Typography
+                    variant="h4"
+                    component="div"
+                    sx={{ color: theme => theme.palette.grey[400] }}
+                    display="inline"
+                    ml="4px"
+                  >
                     XP
                   </Typography>
                 </Typography>
@@ -50,8 +53,8 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
             </Stack>
           }
         />
-      </Grid>
-      <Grid item sm={12} md={6} lg={4} xl={3}>
+      </Grid2>
+      <Grid2 size={{ sm: 12, md: 6, lg: 4, xl: 3 }}>
         <GameCard
           image="/img/games/wen.gif"
           contents={
@@ -67,7 +70,13 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
                   ) : (
                     `${Math.round(wen_game?.xp || 0)}/${wen_game?.rank_xp_next}`
                   )}
-                  <Typography variant="h4" component="div" color={theme.palette.grey[400]} display="inline" ml="4px">
+                  <Typography
+                    variant="h4"
+                    component="div"
+                    sx={{ color: theme => theme.palette.grey[400] }}
+                    display="inline"
+                    ml="4px"
+                  >
                     XP
                   </Typography>
                 </Typography>
@@ -79,9 +88,9 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
             </Stack>
           }
         />
-      </Grid>
+      </Grid2>
       {crypto_winter && (
-        <Grid item sm={12} md={6} lg={4} xl={3}>
+        <Grid2 size={{ sm: 12, md: 6, lg: 4, xl: 3 }}>
           <GameCard
             image="/img/games/crypto-winter.webp"
             contents={
@@ -97,7 +106,13 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
                     ) : (
                       `${Math.round(crypto_winter?.xp || 0)}/${crypto_winter?.rank_xp_next}`
                     )}
-                    <Typography variant="h4" component="div" color={theme.palette.grey[400]} display="inline" ml="4px">
+                    <Typography
+                      variant="h4"
+                      component="div"
+                      sx={{ color: theme => theme.palette.grey[400] }}
+                      display="inline"
+                      ml="4px"
+                    >
                       XP
                     </Typography>
                   </Typography>
@@ -109,9 +124,9 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
               </Stack>
             }
           />
-        </Grid>
+        </Grid2>
       )}
-    </Grid>
+    </Grid2>
   );
 };
 

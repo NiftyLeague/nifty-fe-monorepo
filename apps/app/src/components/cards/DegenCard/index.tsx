@@ -292,7 +292,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
           >
             {/* {false && (
               <Typography
-                color={palette.grey[700]}
+                sx={{ color: theme => theme.palette.grey[700] }}
                 sx={{
                   textDecoration: 'underline',
                   cursor: 'pointer',
