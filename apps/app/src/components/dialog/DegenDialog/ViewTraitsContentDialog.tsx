@@ -9,6 +9,7 @@ import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
 import { TRAIT_KEY_VALUE_MAP, TRAIT_NAME_MAP } from '@/constants/cosmeticsFilters';
 import type { Degen, GetDegenResponse } from '@/types/degens';
 import { sendEvent } from '@/utils/google-analytics';
+import { DEGEN_PURCHASE_URL } from '@/constants/url';
 
 export interface ViewTraitsContentDialogProps {
   degen?: Degen;
@@ -45,11 +46,7 @@ const ViewTraitsContentDialog = ({
           <Typography gutterBottom variant="h4">
             {displayName}
           </Typography>
-          <a
-            href={`https://opensea.io/assets/0x986aea67c7d6a15036e18678065eb663fc5be883/${degen?.id}`}
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a href={DEGEN_PURCHASE_URL(degen?.id as string)} target="_blank" rel="noreferrer">
             <Typography sx={{ color: 'gray', textDecoration: 'none' }}>
               DEGEN ID #{degen?.id}{' '}
               <Image src="/img/logos/other/OpenSea.webp" alt="OpenSea Logo" width={16} height={16} />

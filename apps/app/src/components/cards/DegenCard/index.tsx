@@ -30,6 +30,7 @@ import { errorMsgHandler } from '@/utils/errorHandlers';
 import type { Degen } from '@/types/degens';
 // import { DISABLE_RENT_API_URL } from '@/constants/url';
 import useAuth from '@/hooks/useAuth';
+import { DEGEN_PURCHASE_URL } from '@/constants/url';
 
 // const chipStyles = (isSmall: boolean) => ({
 //   color: 'white',
@@ -193,7 +194,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
               <EditIcon sx={{ cursor: 'pointer', display: 'none' }} onClick={onClickEditName} fontSize="small" />
             )}
             <Link
-              href={id ? `https://opensea.io/assets/0x986aea67c7d6a15036e18678065eb663fc5be883/${id}` : '#'}
+              href={id ? DEGEN_PURCHASE_URL(id) : '#'}
               target="_blank"
               rel="nofollow"
               color={palette.text.secondary}

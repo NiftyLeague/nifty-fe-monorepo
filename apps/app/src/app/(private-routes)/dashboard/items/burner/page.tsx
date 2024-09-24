@@ -1,15 +1,15 @@
 'use client';
 
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@mui/material';
 
 import { type AddressLike } from 'ethers6';
-import IMXContext from '@/contexts/IMXContext';
+import useIMXContext from '@/hooks/useIMXContext';
 import useNetworkContext from '@/hooks/useNetworkContext';
-import { COMICS_BURNER_CONTRACT, COMICS_CONTRACT } from '@/constants/contracts';
+import { COMICS_BURNER_CONTRACT, MARKETPLACE_CONTRACT } from '@/constants/contracts';
 import { DEBUG } from '@/constants/index';
-import type { Comic } from '@/types/comic';
+import type { Comic } from '@/types/marketplace';
 
 import Machine from './_components/machine';
 import MachineButton from './_components/machine-button';
@@ -18,9 +18,11 @@ import ComicsGrid from './_components/comics-grid';
 import SatoshiAnimations from './_components/satoshi-animations';
 import ItemsGrid from './_components/items-grid';
 
+// TODO: Config Signer for MARKETPLACE_CONTRACT or add to writeContracts
+
 const ComicsBurner = () => {
   const router = useRouter();
-  const imx = useContext(IMXContext);
+  const { itemsBalance } = useIMXContext();
   const { address, tx, writeContracts } = useNetworkContext();
   const [isApprovedForAll, setIsApprovedForAll] = useState(false);
   const [helpDialogOpen, setHelpDialogOpen] = useState(false);
@@ -29,23 +31,23 @@ const ComicsBurner = () => {
   const [burnCount, setBurnCount] = useState([0, 0, 0, 0, 0, 0]);
   const [burning, setBurning] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
-  const burnDisabled = !imx.registeredUser || burning || selectedComics.length < 1 || burnCount.every(c => !c);
+  const burnDisabled = burning || selectedComics.length < 1 || burnCount.every(c => !c);
 
   useEffect(() => {
-    if (imx.itemsBalance) {
-      setItemsCounts(imx.itemsBalance.map(it => it.balance || 0));
+    if (itemsBalance.length) {
+      setItemsCounts(itemsBalance.map(it => it.balance || 0));
     }
-  }, [imx.itemsBalance]);
+  }, [itemsBalance]);
 
   useEffect(() => {
     const getAllowance = async () => {
       const burnContract = writeContracts[COMICS_BURNER_CONTRACT];
       const burnContractAddress = await burnContract.getAddress();
-      const comicsContract = writeContracts[COMICS_CONTRACT];
+      const comicsContract = writeContracts[MARKETPLACE_CONTRACT];
       const approved = (await comicsContract.isApprovedForAll(address as AddressLike, burnContractAddress)) as boolean;
       setIsApprovedForAll(approved);
     };
-    if (writeContracts && writeContracts[COMICS_BURNER_CONTRACT] && writeContracts[COMICS_CONTRACT]) {
+    if (writeContracts && writeContracts[COMICS_BURNER_CONTRACT] && writeContracts[MARKETPLACE_CONTRACT]) {
       // eslint-disable-next-line no-void
       void getAllowance();
     }
@@ -55,7 +57,7 @@ const ComicsBurner = () => {
     const burnContract = writeContracts[COMICS_BURNER_CONTRACT];
     if (!isApprovedForAll) {
       const burnContractAddress = await burnContract.getAddress();
-      const comicsContract = writeContracts[COMICS_CONTRACT];
+      const comicsContract = writeContracts[MARKETPLACE_CONTRACT];
       await tx(comicsContract.setApprovalForAll(burnContractAddress, true));
     }
   }, [isApprovedForAll, tx, writeContracts]);
@@ -93,7 +95,7 @@ const ComicsBurner = () => {
         ← Back to Comics &amp; Items
       </Button>
       <Machine burnDisabled={burnDisabled} selectedComics={selectedComics} />
-      <MachineButton
+      {/* <MachineButton
         disabled={imx.registeredUser}
         height={25}
         name="Connect Wallet"
@@ -101,7 +103,7 @@ const ComicsBurner = () => {
         width={135}
         top={45}
         left={-200}
-      />
+      /> */}
       <HelpDialog open={helpDialogOpen} setOpen={setHelpDialogOpen} />
       <MachineButton
         height={20}

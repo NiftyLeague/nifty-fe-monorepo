@@ -22,7 +22,7 @@ import {
 } from '@/components/extended/DegensFilter/utils';
 import RenameDegenDialogContent from '@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent';
 import SectionTitle from '@/components/sections/SectionTitle';
-import { DEGEN_BASE_API_URL, DEGEN_OPENSEA_URL, PROFILE_FAV_DEGENS_API } from '@/constants/url';
+import { DEGEN_BASE_API_URL, DEGEN_COLLECTION_URL, PROFILE_FAV_DEGENS_API } from '@/constants/url';
 import { HYDRAS } from '@/constants/hydras';
 import { useProfileFavDegens } from '@/hooks/useGamerProfile';
 import useFetch from '@/hooks/useFetch';
@@ -321,7 +321,7 @@ const DashboardDegensPage = (): JSX.Element => {
           ) : dataForCurrentPage.length ? (
             dataForCurrentPage.map(renderDegen)
           ) : !characters?.length ? (
-            <Link href={DEGEN_OPENSEA_URL} target="_blank" rel="noreferrer">
+            <Link href={DEGEN_COLLECTION_URL} target="_blank" rel="noreferrer">
               <EmptyState
                 message="No DEGENs found. Please check your address or go purchase a degen if you have not done so already!"
                 buttonText="Buy a DEGEN"

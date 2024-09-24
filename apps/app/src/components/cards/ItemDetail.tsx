@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import useFlags from '@/hooks/useFlags';
-import type { Item } from '@/types/comic';
+import type { Item } from '@/types/marketplace';
 import ImageCard from '@/components/cards/ImageCard';
 
 export interface ItemDetailProps {

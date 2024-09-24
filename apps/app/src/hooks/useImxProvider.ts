@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { BrowserProvider, JsonRpcSigner } from 'ethers6';
-import passport from '@nl/imx-passport';
+import { type Chain, immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains';
+import passport, { passportEnv } from '@nl/imx-passport';
+import { config } from '@nl/imx-passport/types';
 
 export function clientToProvider(): BrowserProvider {
   const passportProvider = passport.connectEvm();
@@ -11,6 +13,10 @@ export async function getSigner(): Promise<JsonRpcSigner> {
   const provider = clientToProvider();
   await provider.send('eth_requestAccounts', []);
   return provider.getSigner();
+}
+
+export function getNetwork(): Chain {
+  return passportEnv === config.Environment.PRODUCTION ? immutableZkEvm : immutableZkEvmTestnet;
 }
 
 /** Action to convert a IMX Passport instance to an ethers.js Provider. */

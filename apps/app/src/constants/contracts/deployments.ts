@@ -126,7 +126,7 @@ const CONTRACTS: {
     //   address: IMX_TESTNET_DEPLOYMENTS.contracts.ComicsBurner.address,
     //   abi: IMX_TESTNET_DEPLOYMENTS.contracts.ComicsBurner.abi,
     // },
-    NFTLToken: {
+    NFTL: {
       address: IMX_TESTNET_DEPLOYMENTS.contracts.NFTL.address,
       abi: IMX_TESTNET_DEPLOYMENTS.contracts.NFTL.abi,
     },
@@ -140,7 +140,7 @@ const CONTRACTS: {
     //   address: IMX_MAINNET_DEPLOYMENTS.contracts.ComicsBurner.address,
     //   abi: IMX_MAINNET_DEPLOYMENTS.contracts.ComicsBurner.abi,
     // },
-    NFTLToken: {
+    NFTL: {
       address: IMX_MAINNET_DEPLOYMENTS.contracts.NFTL.address,
       abi: IMX_MAINNET_DEPLOYMENTS.contracts.NFTL.abi,
     },

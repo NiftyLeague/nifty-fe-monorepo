@@ -22,12 +22,11 @@ export const getContractABI = (chainId: Network['chainId'], contractName: string
 };
 
 export const COMICS_BURNER_CONTRACT = 'NiftyBurningComicsL2';
-export const COMICS_CONTRACT = 'NiftyLaunchComics';
-export const ITEMS_CONTRACT = 'NiftyItemL2';
 export const DEGEN_CONTRACT = 'NiftyDegen';
 export const GAME_ACCOUNT_CONTRACT = 'BalanceManager';
-export const HYDRA_DISTRIBUTOR = 'HydraDistributor';
+export const MARKETPLACE_CONTRACT = 'NiftyMarketplace';
 export const NFTL_CONTRACT = 'NFTLToken';
+export const NFTL_IMX_CONTRACT = 'NFTL';
 export const NFTL_RAFFLE_CONTRACT = 'NFTLRaffle';
 
 type ChainAddressSearch = { [chainId: number]: `0x${string}` };

@@ -7,7 +7,7 @@ import merge from 'lodash/merge';
 
 import { useGamerProfile, useProfileAvatarFee } from '@/hooks/useGamerProfile';
 import useFetch from '@/hooks/useFetch';
-import useComicsBalance from '@/hooks/useComicsBalance';
+import useIMXContext from '@/hooks/useIMXContext';
 
 import SectionSlider from '@/components/sections/SectionSlider';
 import ImageProfile from './_ImageProfile';
@@ -37,7 +37,7 @@ const GamerProfile = (): JSX.Element => {
   const { profile, error, loadingProfile } = useGamerProfile();
   const { address } = useAccount();
   const { avatarsAndFee } = useProfileAvatarFee();
-  const { comicsBalance, loading: loadingComics } = useComicsBalance();
+  const { comicsBalance, comicsLoading } = useIMXContext();
   const { data } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`);
 
   const { loadingDegens, characters, characterCount: degenCount } = useBalances();
