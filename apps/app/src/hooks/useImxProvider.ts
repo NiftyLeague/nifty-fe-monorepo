@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BrowserProvider, JsonRpcSigner } from 'ethers';
+import { BrowserProvider, JsonRpcSigner } from 'ethers6';
 import passport from '@nl/imx-passport';
 
 export function clientToProvider(): BrowserProvider {

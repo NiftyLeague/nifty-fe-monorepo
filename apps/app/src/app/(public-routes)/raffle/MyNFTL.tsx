@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { Grid2, Button, Stack, IconButton } from '@mui/material';
 import HistoryIcon from '@mui/icons-material/History';
 import { useTheme, sectionSpacing } from '@nl/theme';
-import { type TransactionResponse, parseEther } from 'ethers';
+import { type TransactionResponse, parseEther } from 'ethers6';
 
 import SectionTitle from '@/components/sections/SectionTitle';
 import HoverDataCard from '@/components/cards/HoverDataCard';

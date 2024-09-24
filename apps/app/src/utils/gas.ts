@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { parseUnits } from 'ethers';
+import { parseUnits } from 'ethers6';
 import type { GasStationResponse, Network } from '@/types/web3';
 
 export const loadGasPrice = async (targetNetwork: Network, speed = 'fast'): Promise<bigint> => {

@@ -13,9 +13,16 @@ interface PassportModuleConfiguration {
   audience?: string;
 }
 
+// These keys are safe for client-side applications
 const env = {
-  IMX_CLIENT_ID: 'wB47MSGL2yi9hiyUE7qvA68XdIQMV1Xj',
-  IMX_PUBLISHABLE_KEY: 'pk_imapik-test-Fo0z-vUsq_93RNPyIvjg',
+  testnet: {
+    IMX_CLIENT_ID: 'wB47MSGL2yi9hiyUE7qvA68XdIQMV1Xj',
+    IMX_PUBLISHABLE_KEY: 'pk_imapik-test-Fo0z-vUsq_93RNPyIvjg',
+  },
+  mainnet: {
+    IMX_CLIENT_ID: 'sQqgR58yezcluL3g3KcToeQGUXxMjZBO',
+    IMX_PUBLISHABLE_KEY: 'pk_imapik-83y1jz0yXZg0cZKpHF-4',
+  },
 };
 
 const baseURL = typeof window !== 'undefined' && window?.location?.origin;
@@ -23,9 +30,10 @@ const baseURL = typeof window !== 'undefined' && window?.location?.origin;
 const passportConfig: PassportModuleConfiguration = {
   baseConfig: {
     environment: process.env.NODE_ENV === 'production' ? config.Environment.PRODUCTION : config.Environment.SANDBOX,
-    publishableKey: env.IMX_PUBLISHABLE_KEY,
+    publishableKey:
+      process.env.NODE_ENV === 'production' ? env.mainnet.IMX_PUBLISHABLE_KEY : env.testnet.IMX_PUBLISHABLE_KEY,
   },
-  clientId: env.IMX_CLIENT_ID,
+  clientId: process.env.NODE_ENV === 'production' ? env.mainnet.IMX_CLIENT_ID : env.testnet.IMX_CLIENT_ID,
   logoutRedirectUri: `${baseURL}/logout`,
   logoutMode: 'redirect',
   redirectUri: `${baseURL}/redirect`,
@@ -35,4 +43,5 @@ const passportConfig: PassportModuleConfiguration = {
 
 const passportInstance: passport.Passport = new passport.Passport(passportConfig);
 
+export { passportInstance };
 export default passportInstance;

@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { formatEther } from 'ethers';
+import { formatEther } from 'ethers6';
 import { useReadContract } from 'wagmi';
 import type { Abi } from 'viem';
 import { TARGET_NETWORK } from '@/constants/networks';

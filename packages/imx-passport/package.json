@@ -4,7 +4,11 @@
   "private": true,
   "type": "module",
   "main": "./config.ts",
+  "exports": {
+    ".": "./config.ts",
+    "./types": "./types.ts"
+  },
   "dependencies": {
-    "@imtbl/sdk": "^1.53.0"
+    "@imtbl/sdk": "^1.53.1"
   }
 }
