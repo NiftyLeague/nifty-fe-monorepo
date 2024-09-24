@@ -21,7 +21,7 @@ import type {
   TypedLogDescription,
   TypedListener,
   TypedContractMethod,
-} from '../../../../../../../common';
+} from '../../../../../../common';
 
 export interface ERC1155PermitInterface extends Interface {
   getFunction(

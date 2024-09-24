@@ -38,13 +38,16 @@ export declare namespace ERC20Votes {
 export interface NFTLInterface extends Interface {
   getFunction(
     nameOrSignature:
+      | 'BRIDGE_ROLE'
       | 'CLOCK_MODE'
+      | 'DEFAULT_ADMIN_ROLE'
       | 'DOMAIN_SEPARATOR'
       | 'allowance'
       | 'approve'
       | 'balanceOf'
-      | 'bridge'
-      | 'burn'
+      | 'burn(uint256)'
+      | 'burn(address,uint256)'
+      | 'burnFrom'
       | 'checkpoints'
       | 'clock'
       | 'decimals'
@@ -53,19 +56,22 @@ export interface NFTLInterface extends Interface {
       | 'delegateBySig'
       | 'delegates'
       | 'eip712Domain'
-      | 'executeMetaTransaction'
-      | 'getNonce'
       | 'getPastTotalSupply'
       | 'getPastVotes'
+      | 'getRoleAdmin'
       | 'getVotes'
+      | 'grantRole'
+      | 'hasRole'
       | 'increaseAllowance'
-      | 'invalidateNext'
       | 'mint'
       | 'name'
       | 'nonces'
       | 'numCheckpoints'
       | 'permit'
+      | 'renounceRole'
+      | 'revokeRole'
       | 'rootToken'
+      | 'supportsInterface'
       | 'symbol'
       | 'totalSupply'
       | 'transfer'
@@ -78,17 +84,22 @@ export interface NFTLInterface extends Interface {
       | 'DelegateChanged'
       | 'DelegateVotesChanged'
       | 'EIP712DomainChanged'
-      | 'MetaTransactionExecuted'
+      | 'RoleAdminChanged'
+      | 'RoleGranted'
+      | 'RoleRevoked'
       | 'Transfer',
   ): EventFragment;
 
+  encodeFunctionData(functionFragment: 'BRIDGE_ROLE', values?: undefined): string;
   encodeFunctionData(functionFragment: 'CLOCK_MODE', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'DEFAULT_ADMIN_ROLE', values?: undefined): string;
   encodeFunctionData(functionFragment: 'DOMAIN_SEPARATOR', values?: undefined): string;
   encodeFunctionData(functionFragment: 'allowance', values: [AddressLike, AddressLike]): string;
   encodeFunctionData(functionFragment: 'approve', values: [AddressLike, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'balanceOf', values: [AddressLike]): string;
-  encodeFunctionData(functionFragment: 'bridge', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'burn', values: [AddressLike, BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'burn(uint256)', values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'burn(address,uint256)', values: [AddressLike, BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'burnFrom', values: [AddressLike, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'checkpoints', values: [AddressLike, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'clock', values?: undefined): string;
   encodeFunctionData(functionFragment: 'decimals', values?: undefined): string;
@@ -100,16 +111,13 @@ export interface NFTLInterface extends Interface {
   ): string;
   encodeFunctionData(functionFragment: 'delegates', values: [AddressLike]): string;
   encodeFunctionData(functionFragment: 'eip712Domain', values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: 'executeMetaTransaction',
-    values: [AddressLike, BytesLike, BytesLike, BytesLike, BigNumberish],
-  ): string;
-  encodeFunctionData(functionFragment: 'getNonce', values: [AddressLike]): string;
   encodeFunctionData(functionFragment: 'getPastTotalSupply', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'getPastVotes', values: [AddressLike, BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'getRoleAdmin', values: [BytesLike]): string;
   encodeFunctionData(functionFragment: 'getVotes', values: [AddressLike]): string;
+  encodeFunctionData(functionFragment: 'grantRole', values: [BytesLike, AddressLike]): string;
+  encodeFunctionData(functionFragment: 'hasRole', values: [BytesLike, AddressLike]): string;
   encodeFunctionData(functionFragment: 'increaseAllowance', values: [AddressLike, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'invalidateNext', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'mint', values: [AddressLike, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'name', values?: undefined): string;
   encodeFunctionData(functionFragment: 'nonces', values: [AddressLike]): string;
@@ -118,19 +126,25 @@ export interface NFTLInterface extends Interface {
     functionFragment: 'permit',
     values: [AddressLike, AddressLike, BigNumberish, BigNumberish, BigNumberish, BytesLike, BytesLike],
   ): string;
+  encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, AddressLike]): string;
+  encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, AddressLike]): string;
   encodeFunctionData(functionFragment: 'rootToken', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
   encodeFunctionData(functionFragment: 'symbol', values?: undefined): string;
   encodeFunctionData(functionFragment: 'totalSupply', values?: undefined): string;
   encodeFunctionData(functionFragment: 'transfer', values: [AddressLike, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'transferFrom', values: [AddressLike, AddressLike, BigNumberish]): string;
 
+  decodeFunctionResult(functionFragment: 'BRIDGE_ROLE', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'CLOCK_MODE', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'DOMAIN_SEPARATOR', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'allowance', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'approve', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'bridge', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'burn', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'burn(uint256)', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'burn(address,uint256)', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'burnFrom', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'checkpoints', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'clock', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'decimals', data: BytesLike): Result;
@@ -139,19 +153,22 @@ export interface NFTLInterface extends Interface {
   decodeFunctionResult(functionFragment: 'delegateBySig', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'delegates', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'eip712Domain', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'executeMetaTransaction', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getNonce', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getPastTotalSupply', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getPastVotes', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getRoleAdmin', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getVotes', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'grantRole', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'hasRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'increaseAllowance', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'invalidateNext', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'nonces', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'numCheckpoints', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'permit', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'rootToken', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'totalSupply', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'transfer', data: BytesLike): Result;
@@ -210,13 +227,41 @@ export namespace EIP712DomainChangedEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export namespace MetaTransactionExecutedEvent {
-  export type InputTuple = [userAddress: AddressLike, relayerAddress: AddressLike, functionSignature: BytesLike];
-  export type OutputTuple = [userAddress: string, relayerAddress: string, functionSignature: string];
+export namespace RoleAdminChangedEvent {
+  export type InputTuple = [role: BytesLike, previousAdminRole: BytesLike, newAdminRole: BytesLike];
+  export type OutputTuple = [role: string, previousAdminRole: string, newAdminRole: string];
   export interface OutputObject {
-    userAddress: string;
-    relayerAddress: string;
-    functionSignature: string;
+    role: string;
+    previousAdminRole: string;
+    newAdminRole: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace RoleGrantedEvent {
+  export type InputTuple = [role: BytesLike, account: AddressLike, sender: AddressLike];
+  export type OutputTuple = [role: string, account: string, sender: string];
+  export interface OutputObject {
+    role: string;
+    account: string;
+    sender: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace RoleRevokedEvent {
+  export type InputTuple = [role: BytesLike, account: AddressLike, sender: AddressLike];
+  export type OutputTuple = [role: string, account: string, sender: string];
+  export interface OutputObject {
+    role: string;
+    account: string;
+    sender: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -271,7 +316,11 @@ export interface NFTL extends BaseContract {
   listeners(eventName?: string): Promise<Array<Listener>>;
   removeAllListeners<TCEvent extends TypedContractEvent>(event?: TCEvent): Promise<this>;
 
+  BRIDGE_ROLE: TypedContractMethod<[], [string], 'view'>;
+
   CLOCK_MODE: TypedContractMethod<[], [string], 'view'>;
+
+  DEFAULT_ADMIN_ROLE: TypedContractMethod<[], [string], 'view'>;
 
   DOMAIN_SEPARATOR: TypedContractMethod<[], [string], 'view'>;
 
@@ -281,9 +330,11 @@ export interface NFTL extends BaseContract {
 
   balanceOf: TypedContractMethod<[account: AddressLike], [bigint], 'view'>;
 
-  bridge: TypedContractMethod<[], [string], 'view'>;
+  'burn(uint256)': TypedContractMethod<[amount: BigNumberish], [void], 'nonpayable'>;
 
-  burn: TypedContractMethod<[account: AddressLike, amount: BigNumberish], [boolean], 'nonpayable'>;
+  'burn(address,uint256)': TypedContractMethod<[from: AddressLike, amount: BigNumberish], [void], 'nonpayable'>;
+
+  burnFrom: TypedContractMethod<[account: AddressLike, amount: BigNumberish], [void], 'nonpayable'>;
 
   checkpoints: TypedContractMethod<
     [account: AddressLike, pos: BigNumberish],
@@ -327,25 +378,21 @@ export interface NFTL extends BaseContract {
     'view'
   >;
 
-  executeMetaTransaction: TypedContractMethod<
-    [userAddress: AddressLike, functionSignature: BytesLike, sigR: BytesLike, sigS: BytesLike, sigV: BigNumberish],
-    [string],
-    'nonpayable'
-  >;
-
-  getNonce: TypedContractMethod<[user: AddressLike], [bigint], 'view'>;
-
   getPastTotalSupply: TypedContractMethod<[timepoint: BigNumberish], [bigint], 'view'>;
 
   getPastVotes: TypedContractMethod<[account: AddressLike, timepoint: BigNumberish], [bigint], 'view'>;
 
+  getRoleAdmin: TypedContractMethod<[role: BytesLike], [string], 'view'>;
+
   getVotes: TypedContractMethod<[account: AddressLike], [bigint], 'view'>;
+
+  grantRole: TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>;
+
+  hasRole: TypedContractMethod<[role: BytesLike, account: AddressLike], [boolean], 'view'>;
 
   increaseAllowance: TypedContractMethod<[spender: AddressLike, addedValue: BigNumberish], [boolean], 'nonpayable'>;
 
-  invalidateNext: TypedContractMethod<[offset: BigNumberish], [void], 'nonpayable'>;
-
-  mint: TypedContractMethod<[account: AddressLike, amount: BigNumberish], [boolean], 'nonpayable'>;
+  mint: TypedContractMethod<[to: AddressLike, amount: BigNumberish], [void], 'nonpayable'>;
 
   name: TypedContractMethod<[], [string], 'view'>;
 
@@ -367,7 +414,13 @@ export interface NFTL extends BaseContract {
     'nonpayable'
   >;
 
+  renounceRole: TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>;
+
+  revokeRole: TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>;
+
   rootToken: TypedContractMethod<[], [string], 'view'>;
+
+  supportsInterface: TypedContractMethod<[interfaceId: BytesLike], [boolean], 'view'>;
 
   symbol: TypedContractMethod<[], [string], 'view'>;
 
@@ -383,7 +436,9 @@ export interface NFTL extends BaseContract {
 
   getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T;
 
+  getFunction(nameOrSignature: 'BRIDGE_ROLE'): TypedContractMethod<[], [string], 'view'>;
   getFunction(nameOrSignature: 'CLOCK_MODE'): TypedContractMethod<[], [string], 'view'>;
+  getFunction(nameOrSignature: 'DEFAULT_ADMIN_ROLE'): TypedContractMethod<[], [string], 'view'>;
   getFunction(nameOrSignature: 'DOMAIN_SEPARATOR'): TypedContractMethod<[], [string], 'view'>;
   getFunction(
     nameOrSignature: 'allowance',
@@ -392,10 +447,13 @@ export interface NFTL extends BaseContract {
     nameOrSignature: 'approve',
   ): TypedContractMethod<[spender: AddressLike, amount: BigNumberish], [boolean], 'nonpayable'>;
   getFunction(nameOrSignature: 'balanceOf'): TypedContractMethod<[account: AddressLike], [bigint], 'view'>;
-  getFunction(nameOrSignature: 'bridge'): TypedContractMethod<[], [string], 'view'>;
+  getFunction(nameOrSignature: 'burn(uint256)'): TypedContractMethod<[amount: BigNumberish], [void], 'nonpayable'>;
   getFunction(
-    nameOrSignature: 'burn',
-  ): TypedContractMethod<[account: AddressLike, amount: BigNumberish], [boolean], 'nonpayable'>;
+    nameOrSignature: 'burn(address,uint256)',
+  ): TypedContractMethod<[from: AddressLike, amount: BigNumberish], [void], 'nonpayable'>;
+  getFunction(
+    nameOrSignature: 'burnFrom',
+  ): TypedContractMethod<[account: AddressLike, amount: BigNumberish], [void], 'nonpayable'>;
   getFunction(
     nameOrSignature: 'checkpoints',
   ): TypedContractMethod<[account: AddressLike, pos: BigNumberish], [ERC20Votes.CheckpointStructOutput], 'view'>;
@@ -428,26 +486,24 @@ export interface NFTL extends BaseContract {
     ],
     'view'
   >;
-  getFunction(
-    nameOrSignature: 'executeMetaTransaction',
-  ): TypedContractMethod<
-    [userAddress: AddressLike, functionSignature: BytesLike, sigR: BytesLike, sigS: BytesLike, sigV: BigNumberish],
-    [string],
-    'nonpayable'
-  >;
-  getFunction(nameOrSignature: 'getNonce'): TypedContractMethod<[user: AddressLike], [bigint], 'view'>;
   getFunction(nameOrSignature: 'getPastTotalSupply'): TypedContractMethod<[timepoint: BigNumberish], [bigint], 'view'>;
   getFunction(
     nameOrSignature: 'getPastVotes',
   ): TypedContractMethod<[account: AddressLike, timepoint: BigNumberish], [bigint], 'view'>;
+  getFunction(nameOrSignature: 'getRoleAdmin'): TypedContractMethod<[role: BytesLike], [string], 'view'>;
   getFunction(nameOrSignature: 'getVotes'): TypedContractMethod<[account: AddressLike], [bigint], 'view'>;
+  getFunction(
+    nameOrSignature: 'grantRole',
+  ): TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>;
+  getFunction(
+    nameOrSignature: 'hasRole',
+  ): TypedContractMethod<[role: BytesLike, account: AddressLike], [boolean], 'view'>;
   getFunction(
     nameOrSignature: 'increaseAllowance',
   ): TypedContractMethod<[spender: AddressLike, addedValue: BigNumberish], [boolean], 'nonpayable'>;
-  getFunction(nameOrSignature: 'invalidateNext'): TypedContractMethod<[offset: BigNumberish], [void], 'nonpayable'>;
   getFunction(
     nameOrSignature: 'mint',
-  ): TypedContractMethod<[account: AddressLike, amount: BigNumberish], [boolean], 'nonpayable'>;
+  ): TypedContractMethod<[to: AddressLike, amount: BigNumberish], [void], 'nonpayable'>;
   getFunction(nameOrSignature: 'name'): TypedContractMethod<[], [string], 'view'>;
   getFunction(nameOrSignature: 'nonces'): TypedContractMethod<[owner: AddressLike], [bigint], 'view'>;
   getFunction(nameOrSignature: 'numCheckpoints'): TypedContractMethod<[account: AddressLike], [bigint], 'view'>;
@@ -466,7 +522,14 @@ export interface NFTL extends BaseContract {
     [void],
     'nonpayable'
   >;
+  getFunction(
+    nameOrSignature: 'renounceRole',
+  ): TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>;
+  getFunction(
+    nameOrSignature: 'revokeRole',
+  ): TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>;
   getFunction(nameOrSignature: 'rootToken'): TypedContractMethod<[], [string], 'view'>;
+  getFunction(nameOrSignature: 'supportsInterface'): TypedContractMethod<[interfaceId: BytesLike], [boolean], 'view'>;
   getFunction(nameOrSignature: 'symbol'): TypedContractMethod<[], [string], 'view'>;
   getFunction(nameOrSignature: 'totalSupply'): TypedContractMethod<[], [bigint], 'view'>;
   getFunction(
@@ -501,12 +564,18 @@ export interface NFTL extends BaseContract {
     EIP712DomainChangedEvent.OutputObject
   >;
   getEvent(
-    key: 'MetaTransactionExecuted',
+    key: 'RoleAdminChanged',
   ): TypedContractEvent<
-    MetaTransactionExecutedEvent.InputTuple,
-    MetaTransactionExecutedEvent.OutputTuple,
-    MetaTransactionExecutedEvent.OutputObject
+    RoleAdminChangedEvent.InputTuple,
+    RoleAdminChangedEvent.OutputTuple,
+    RoleAdminChangedEvent.OutputObject
   >;
+  getEvent(
+    key: 'RoleGranted',
+  ): TypedContractEvent<RoleGrantedEvent.InputTuple, RoleGrantedEvent.OutputTuple, RoleGrantedEvent.OutputObject>;
+  getEvent(
+    key: 'RoleRevoked',
+  ): TypedContractEvent<RoleRevokedEvent.InputTuple, RoleRevokedEvent.OutputTuple, RoleRevokedEvent.OutputObject>;
   getEvent(
     key: 'Transfer',
   ): TypedContractEvent<TransferEvent.InputTuple, TransferEvent.OutputTuple, TransferEvent.OutputObject>;
@@ -552,15 +621,37 @@ export interface NFTL extends BaseContract {
       EIP712DomainChangedEvent.OutputObject
     >;
 
-    'MetaTransactionExecuted(address,address,bytes)': TypedContractEvent<
-      MetaTransactionExecutedEvent.InputTuple,
-      MetaTransactionExecutedEvent.OutputTuple,
-      MetaTransactionExecutedEvent.OutputObject
+    'RoleAdminChanged(bytes32,bytes32,bytes32)': TypedContractEvent<
+      RoleAdminChangedEvent.InputTuple,
+      RoleAdminChangedEvent.OutputTuple,
+      RoleAdminChangedEvent.OutputObject
     >;
-    MetaTransactionExecuted: TypedContractEvent<
-      MetaTransactionExecutedEvent.InputTuple,
-      MetaTransactionExecutedEvent.OutputTuple,
-      MetaTransactionExecutedEvent.OutputObject
+    RoleAdminChanged: TypedContractEvent<
+      RoleAdminChangedEvent.InputTuple,
+      RoleAdminChangedEvent.OutputTuple,
+      RoleAdminChangedEvent.OutputObject
+    >;
+
+    'RoleGranted(bytes32,address,address)': TypedContractEvent<
+      RoleGrantedEvent.InputTuple,
+      RoleGrantedEvent.OutputTuple,
+      RoleGrantedEvent.OutputObject
+    >;
+    RoleGranted: TypedContractEvent<
+      RoleGrantedEvent.InputTuple,
+      RoleGrantedEvent.OutputTuple,
+      RoleGrantedEvent.OutputObject
+    >;
+
+    'RoleRevoked(bytes32,address,address)': TypedContractEvent<
+      RoleRevokedEvent.InputTuple,
+      RoleRevokedEvent.OutputTuple,
+      RoleRevokedEvent.OutputObject
+    >;
+    RoleRevoked: TypedContractEvent<
+      RoleRevokedEvent.InputTuple,
+      RoleRevokedEvent.OutputTuple,
+      RoleRevokedEvent.OutputObject
     >;
 
     'Transfer(address,address,uint256)': TypedContractEvent<
