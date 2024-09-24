@@ -28,7 +28,7 @@ NFTL acts as a way to decentralize our ecosystem by ensuring important decisions
 <details>
 <summary>Where can I purchase NFTL?</summary>
 
-Currently you can purchase NFTL by swapping ETH (or WETH) for NFTL on a decentralized trading platform like [Uniswap](https://sushi.com/) or [SushiSwap](https://sushi.com/). The majority of our liquidity is on Uniswap so used start there for the lowest possible slippage.
+Currently you can purchase NFTL by swapping ETH (or WETH) for NFTL on a decentralized trading platform like [Uniswap](https://uniswap.com/) or [SushiSwap](https://sushi.com/). The majority of our liquidity is on Uniswap so used start there for the lowest possible slippage.
 
 </details>
 

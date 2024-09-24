@@ -107,7 +107,7 @@ importers:
     dependencies:
       '@cowprotocol/cow-sdk':
         specifier: ^5.4.1
-        version: 5.4.1(ethers@6.13.2)
+        version: 5.4.1(ethers@5.7.2)
       '@hookform/resolvers':
         specifier: ^3.9.0
         version: 3.9.0(react-hook-form@7.53.0)
@@ -160,8 +160,11 @@ importers:
         specifier: ^4.0.3
         version: 4.0.3
       ethers:
-        specifier: ^6.13.2
-        version: 6.13.2
+        specifier: ^5.7.2
+        version: 5.7.2
+      ethers6:
+        specifier: npm:ethers@^6.13.2
+        version: /ethers@6.13.2
       framer-motion:
         specifier: ^11.5.6
         version: 11.5.6(react-dom@18.3.1)(react@18.3.1)
@@ -305,9 +308,9 @@ importers:
       '@vercel/edge':
         specifier: ^1.1.2
         version: 1.1.2
-      ethers:
-        specifier: ~6.13.2
-        version: 6.13.2
+      ethers6:
+        specifier: npm:ethers@^6.13.2
+        version: /ethers@6.13.2
       https:
         specifier: ^1.0.0
         version: 1.0.0
@@ -418,8 +421,8 @@ importers:
   packages/imx-passport:
     dependencies:
       '@imtbl/sdk':
-        specifier: ^1.53.0
-        version: 1.53.0(@emotion/react@11.13.3)(@types/react@18.3.8)(embla-carousel-react@8.3.0)(framer-motion@11.1.5)(hardhat@2.22.11)(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^1.53.1
+        version: 1.53.1(@emotion/react@11.13.3)(@types/react@18.3.8)(embla-carousel-react@8.3.0)(framer-motion@11.1.5)(hardhat@2.22.11)(react-dom@18.3.1)(react@18.3.1)
 
   packages/prettier-config: {}
 
@@ -514,7 +517,7 @@ packages:
   /@0xsequence/core@1.10.15(ethers@5.7.2):
     resolution: {integrity: sha512-wrE5soJSqrhhm7pC+NxckLR0lJSOnsHPLKdDqWeTRmyuhtZ4e0DsrcoeoD40I/3Bd77tdZ1GGbq00CryV7JfFw==}
     peerDependencies:
-      ethers: '>=5.5 || ^6.11.1'
+      ethers: '>=5.5'
     dependencies:
       '@0xsequence/abi': 1.10.15
       ethers: 5.7.2
@@ -2396,24 +2399,24 @@ packages:
     resolution: {integrity: sha512-VBhAgzrrYdIe0O5IbKRqwszbQa7ZyQLx9nEQuHQ3HUplQW7P44COG/ye2n6AzCudtqxmwdX7nyX8ta1J07GoqA==}
     dev: false
 
-  /@cowprotocol/contracts@1.6.0(ethers@6.13.2):
+  /@cowprotocol/contracts@1.6.0(ethers@5.7.2):
     resolution: {integrity: sha512-+UKhYRzkvnqqviBru5D3btTLYc743n0O5YTG+wpYwGl4fb7VNKBkFHe28C5Mf1DF/kOfmqfu+0IAvX9Vuq5Dqw==}
     peerDependencies:
-      ethers: ^5.4.0 || ^6.11.1
+      ethers: ^5.4.0
     dependencies:
-      ethers: 6.13.2
+      ethers: 5.7.2
     dev: false
 
-  /@cowprotocol/cow-sdk@5.4.1(ethers@6.13.2):
+  /@cowprotocol/cow-sdk@5.4.1(ethers@5.7.2):
     resolution: {integrity: sha512-/RFHVVRWr2mwVIZZy1ttG5xGSneth7sahcx5M+x5D7U4FJLXXPlc71njTpr5/dCj3HZ0vlqbZUEbN0KOLoysFA==}
     peerDependencies:
-      ethers: ^5.7.2 || ^6.11.1
+      ethers: ^5.7.2
     dependencies:
-      '@cowprotocol/contracts': 1.6.0(ethers@6.13.2)
+      '@cowprotocol/contracts': 1.6.0(ethers@5.7.2)
       '@ethersproject/abstract-signer': 5.7.0
       '@openzeppelin/merkle-tree': 1.0.7
       cross-fetch: 3.1.8
-      ethers: 6.13.2
+      ethers: 5.7.2
       exponential-backoff: 3.1.1
       graphql: 16.9.0
       graphql-request: 4.3.0(graphql@16.9.0)
@@ -4285,8 +4288,8 @@ packages:
       - encoding
     dev: false
 
-  /@imtbl/sdk@1.53.0(@emotion/react@11.13.3)(@types/react@18.3.8)(embla-carousel-react@8.3.0)(framer-motion@11.1.5)(hardhat@2.22.11)(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-0t8ceNJuZ78YgTVltxOh057f0K8poRf9aDLAtNJSsTwhlk5bbiUfJUyuHaPa7fLaq6oq0tvRbiONDSlYSTqsPA==}
+  /@imtbl/sdk@1.53.1(@emotion/react@11.13.3)(@types/react@18.3.8)(embla-carousel-react@8.3.0)(framer-motion@11.1.5)(hardhat@2.22.11)(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-xbtZTwbfvDDThRf0wIJXmIzhVCdzF3RP/C1MgR+pWt05gPsQnhnJ1AxEmOlfNfazGiHNu6PdCGsxgTxskC1Stg==}
     engines: {node: '>=20.0.0'}
     dependencies:
       '@0xsequence/abi': 1.10.15
@@ -9964,7 +9967,7 @@ packages:
   /@types/connect@3.4.38:
     resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 22.6.1
 
   /@types/content-disposition@0.5.8:
     resolution: {integrity: sha512-QVSSvno3dE0MgO76pJhmv4Qyi/j0Yk9pBp0Y7TJ2Tlj+KCgJWY6qX7nnxCOLkZ3VYRSIk1WTxCvwUSdx6CCLdg==}

@@ -6,7 +6,7 @@ import { useTheme } from '@nl/theme';
 import { useEffect, useState, useContext } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { NumericFormat } from 'react-number-format';
-import { type TransactionResponse, parseEther, formatEther, type AddressLike } from 'ethers';
+import { type TransactionResponse, parseEther, formatEther, type AddressLike } from 'ethers6';
 import useNetworkContext from '@/hooks/useNetworkContext';
 import { GAME_ACCOUNT_CONTRACT, NFTL_CONTRACT } from '@/constants/contracts';
 import { DialogContext } from '@/components/dialog';

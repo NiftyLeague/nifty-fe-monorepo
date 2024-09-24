@@ -7,7 +7,7 @@ import {
   type InfuraProvider,
   type JsonRpcApiProvider,
   type JsonRpcProvider,
-} from 'ethers';
+} from 'ethers6';
 
 import {
   BalanceManager,

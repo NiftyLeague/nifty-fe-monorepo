@@ -1,4 +1,4 @@
-import { BrowserProvider } from 'ethers';
+import { BrowserProvider } from 'ethers6';
 import crypto from 'crypto';
 
 declare global {

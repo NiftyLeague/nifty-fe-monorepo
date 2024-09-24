@@ -1,4 +1,4 @@
-import { BrowserProvider, Provider } from 'ethers';
+import { BrowserProvider, Provider } from 'ethers6';
 
 import { UnityContext } from 'react-unity-webgl';
 import type { Ethereumish } from '@/types/web3';
