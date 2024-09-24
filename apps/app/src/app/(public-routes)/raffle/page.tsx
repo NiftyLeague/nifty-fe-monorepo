@@ -1,24 +1,24 @@
 import Image from 'next/image';
-import { Grid } from '@mui/material';
+import { Grid2 } from '@mui/material';
 import Raffle from './Raffle';
 import MyNFTL from './MyNFTL';
 
 const RaffleOverview = (): JSX.Element => {
   return (
-    <Grid container flexDirection="row" spacing={4} sx={{ maxHeight: 'cacl(100vh - 100px)' }}>
-      <Grid item xs={12} md={12} lg={6}>
-        <Grid container flexDirection="column" spacing={4}>
-          <Grid item xs={12}>
+    <Grid2 container flexDirection="row" spacing={4} sx={{ maxHeight: 'cacl(100vh - 100px)' }}>
+      <Grid2 size={{ xs: 12, md: 12, lg: 6 }}>
+        <Grid2 container flexDirection="column" spacing={4}>
+          <Grid2 size={{ xs: 12 }}>
             <Raffle />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={{ xs: 12 }}>
             <MyNFTL />
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid item xs={12} md={12} lg={6}>
-        <Grid container flexDirection="column" spacing={1}>
-          <Grid item xs={12} textAlign="center">
+          </Grid2>
+        </Grid2>
+      </Grid2>
+      <Grid2 size={{ xs: 12, md: 12, lg: 6 }}>
+        <Grid2 container flexDirection="column" spacing={1}>
+          <Grid2 size={{ xs: 12 }} textAlign="center">
             <iframe
               src="https://dune.com/embeds/2181657/3574299"
               height="150"
@@ -26,8 +26,8 @@ const RaffleOverview = (): JSX.Element => {
               title="Total NFTL Burnt"
               style={{ backgroundColor: 'cornsilk', maxWidth: '100%' }}
             />
-          </Grid>
-          <Grid item xs={12} textAlign="center">
+          </Grid2>
+          <Grid2 size={{ xs: 12 }} textAlign="center">
             <Image
               src="/img/events/raffle.webp"
               alt="Nifty Raffle"
@@ -35,10 +35,10 @@ const RaffleOverview = (): JSX.Element => {
               height={952}
               style={{ maxWidth: 500, width: '100%', height: 'auto' }}
             />
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+          </Grid2>
+        </Grid2>
+      </Grid2>
+    </Grid2>
   );
 };
 

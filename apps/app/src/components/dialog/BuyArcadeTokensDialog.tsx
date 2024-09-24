@@ -167,18 +167,20 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                   sx={{
                     width: '100px',
                   }}
-                  InputProps={{
-                    endAdornment: <InputAdornment position="end">PACK</InputAdornment>,
-                    inputProps: {
-                      inputMode: 'numeric',
-                      pattern: '[0-9]*',
-                      style: {
-                        textAlign: 'center',
+                  value={tokenCount}
+                  onChange={e => updateTokenCount(e.target.value)}
+                  slotProps={{
+                    input: {
+                      endAdornment: <InputAdornment position="end">PACK</InputAdornment>,
+                      inputProps: {
+                        inputMode: 'numeric',
+                        pattern: '[0-9]*',
+                        style: {
+                          textAlign: 'center',
+                        },
                       },
                     },
                   }}
-                  value={tokenCount}
-                  onChange={e => updateTokenCount(e.target.value)}
                 />
                 <AddIcon
                   sx={{
@@ -196,11 +198,12 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                 }}
               >
                 <Typography
-                  color={
-                    accountBalance && accountBalance > tokenCount * details.price
-                      ? palette.success.main
-                      : palette.text.primary
-                  }
+                  sx={{
+                    color: theme =>
+                      accountBalance && accountBalance > tokenCount * details.price
+                        ? theme.palette.success.main
+                        : theme.palette.text.primary,
+                  }}
                   fontWeight="500"
                 >
                   Bal: {accountBalance ? formatNumberToDisplay(accountBalance) : '0.00'} NFTL
@@ -217,7 +220,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                   {tokenCount * details.items['arcade-token']} Arcade Tokens
                 </Typography>
                 {accountBalance > 0 && accountBalance < tokenCount * details.price && (
-                  <Typography variant="caption" color={palette.warning.main} my={1}>
+                  <Typography variant="caption" sx={{ color: theme => theme.palette.warning.main }} my={1}>
                     Balance is too low.{' '}
                     <Link href={NFTL_PURCHASE_URL} target="_blank" rel="noreferrer">
                       Buy NFTL
@@ -225,7 +228,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                   </Typography>
                 )}
                 {!accountBalance && (
-                  <Typography variant="caption" color={palette.error.main} my={1}>
+                  <Typography variant="caption" sx={{ color: theme => theme.palette.error.main }} my={1}>
                     You have zero balance.{' '}
                     <Link href={NFTL_PURCHASE_URL} target="_blank" rel="noreferrer">
                       Buy NFTL

@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import xor from 'lodash/xor';
 import { v4 as uuidv4 } from 'uuid';
-import { Box, Button, Grid, Dialog, Stack } from '@mui/material';
+import { Box, Button, Grid2, Dialog, Stack } from '@mui/material';
 
 import SectionSlider from '@/components/sections/SectionSlider';
 import { DEGEN_BASE_API_URL, DEGEN_OPENSEA_URL, PROFILE_FAV_DEGENS_API } from '@/constants/url';
@@ -162,9 +162,9 @@ const MyDegens = (): JSX.Element => {
       >
         {loadingDegens ? (
           [...Array(8)].map(() => (
-            <Grid item xs={12} sm={11} md={11} lg={11} xl={11} key={uuidv4()}>
+            <Grid2 size={{ xs: 12, sm: 11 }} key={uuidv4()}>
               <SkeletonDegenPlaceholder />
-            </Grid>
+            </Grid2>
           ))
         ) : degens.length && characters.length ? (
           degens.map(degen => (

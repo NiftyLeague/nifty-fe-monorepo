@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { Stack, Typography, Box, IconButton } from '@mui/material';
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
-import { useTheme } from '@nl/theme';
 
 import { useGamerProfileContext } from '@/hooks/useGamerProfile';
 import useCopyToClipboard from '@/hooks/useCopyToClipboard';
@@ -19,7 +18,6 @@ interface TopInfoProps {
 }
 
 const TopInfo = ({ profile, walletAddress }: TopInfoProps): JSX.Element => {
-  const theme = useTheme();
   const [profileName, setProfileName] = useState<string>('Unknown');
   const { isLoadingProfile } = useGamerProfileContext();
   const [, copy] = useCopyToClipboard();
@@ -47,7 +45,7 @@ const TopInfo = ({ profile, walletAddress }: TopInfoProps): JSX.Element => {
           <Box width="50%">{total && <ProgressGamer data={total} />}</Box>
         </Stack>
         <Stack direction="row" alignItems="center" spacing={5}>
-          <Typography width="50%" variant="h4" component="div" color={theme.palette.grey[400]}>
+          <Typography width="50%" variant="h4" component="div" sx={{ color: theme => theme.palette.grey[400] }}>
             {`${walletAddress.slice(0, 5)}...${walletAddress.slice(
               walletAddress.length - 5,
               walletAddress.length - 1,
@@ -59,17 +57,18 @@ const TopInfo = ({ profile, walletAddress }: TopInfoProps): JSX.Element => {
               aria-label="copy"
               onClick={() => walletAddress && copy(walletAddress)}
             >
-              <ContentCopyOutlinedIcon
-                fontSize="small"
-                sx={{
-                  color: theme.palette.grey[400],
-                }}
-              />
+              <ContentCopyOutlinedIcon fontSize="small" sx={{ color: theme => theme.palette.grey[400] }} />
             </IconButton>
           </Typography>
           <Typography width="50%" variant="h4" component="div">
             {Math.round(total?.xp || 0)}/{total?.rank_xp_next}
-            <Typography variant="h4" component="div" color={theme.palette.grey[400]} display="inline" ml="4px">
+            <Typography
+              variant="h4"
+              component="div"
+              sx={{ color: theme => theme.palette.grey[400] }}
+              display="inline"
+              ml="4px"
+            >
               XP
             </Typography>
           </Typography>

@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
+import Grid2 from '@mui/material/Grid2';
 import AnimatedWrapper from '@/components/AnimatedWrapper';
 import styles from './index.module.css';
 
@@ -11,8 +11,8 @@ const GameSection = () => {
   }
   return (
     <Container className={styles.container}>
-      <Grid container spacing={6}>
-        <Grid item xs={12} sm={6} className={styles.section}>
+      <Grid2 container spacing={6}>
+        <Grid2 size={{ xs: 12, sm: 6 }} className={styles.section}>
           <div style={{ marginBottom: 25 }}>
             <AnimatedWrapper>
               <h2 className="animated-header-text animated-header-text-start transition-delay-small">
@@ -30,8 +30,8 @@ const GameSection = () => {
               </p>
             </AnimatedWrapper>
           </div>
-        </Grid>
-        <Grid item xs={12} sm={6} className={styles.section}>
+        </Grid2>
+        <Grid2 size={{ xs: 12, sm: 6 }} className={styles.section}>
           <div className={styles.highlight_video} onClick={playVid}>
             <AnimatedWrapper>
               <div className="quick-pop-anim quick-pop-anim-start transition-delay-small">
@@ -42,8 +42,8 @@ const GameSection = () => {
               </div>
             </AnimatedWrapper>
           </div>
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </Container>
   );
 };

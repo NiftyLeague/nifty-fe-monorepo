@@ -43,7 +43,7 @@ const FilterAccordion = ({ summary, children, expanded = true, length = 0 }: Pro
         <Stack width="100%" direction="row" alignItems="center" justifyContent="space-between">
           {summary}
           {length > 0 && (
-            <Typography color="#D7DCFF" fontSize="10px" mr={1}>
+            <Typography sx={{ color: '#D7DCFF' }} fontSize="10px" mr={1}>
               {length}
             </Typography>
           )}

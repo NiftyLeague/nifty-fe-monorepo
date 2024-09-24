@@ -1,3 +1,5 @@
+'use client';
+
 import { createContext, ReactNode, useState } from 'react';
 
 const DEFAULT_FLAGS = {

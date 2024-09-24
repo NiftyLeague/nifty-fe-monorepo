@@ -153,22 +153,25 @@ export default function ComicsGrid({
                     size="small"
                     sx={{ m: 0, width: 98 }}
                     type="number"
-                    inputProps={{
-                      inputMode: 'numeric',
-                      pattern: '[0-9]*',
-                      min: 0,
-                      max: comicsBalance.find(c => c.id === comic.id)?.balance || 0,
-                      style: {
-                        textAlign: 'center',
-                        padding: 2.5,
+                    slotProps={{
+                      input: {
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <BurnIcon sx={{ fontSize: 14 }} />
+                          </InputAdornment>
+                        ),
                       },
-                    }}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <BurnIcon sx={{ fontSize: 14 }} />
-                        </InputAdornment>
-                      ),
+
+                      htmlInput: {
+                        inputMode: 'numeric',
+                        pattern: '[0-9]*',
+                        min: 0,
+                        max: comicsBalance.find(c => c.id === comic.id)?.balance || 0,
+                        style: {
+                          textAlign: 'center',
+                          padding: 2.5,
+                        },
+                      },
                     }}
                   />
                 ) : (

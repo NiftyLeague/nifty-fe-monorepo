@@ -51,11 +51,13 @@ const SearchRental = ({ handleSearch, placeholder }: Props): JSX.Element => {
         variant="outlined"
         fullWidth
         sx={{ minWidth: '480px' }}
-        inputProps={{
-          ref: inputEl,
-          onKeyDown: handleKeyDown,
-          onKeyUp: handleKeyUp,
-          onKeyPress: handleKeyPress,
+        slotProps={{
+          htmlInput: {
+            ref: inputEl,
+            onKeyDown: handleKeyDown,
+            onKeyUp: handleKeyUp,
+            onKeyPress: handleKeyPress,
+          },
         }}
       />
     </FormControl>

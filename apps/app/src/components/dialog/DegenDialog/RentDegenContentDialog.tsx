@@ -11,7 +11,7 @@ import {
   Checkbox,
   FormControl,
   FormControlLabel,
-  Grid,
+  Grid2,
   IconButton,
   Link,
   Radio,
@@ -72,11 +72,9 @@ const Root = styled('div')(({ theme }) => ({
       lineHeight: 1.2,
     },
   },
-
   [`& .${classes.greyText}`]: {
     color: '#4C4F52',
   },
-
   [`& .${classes.input}`]: {
     padding: '8px 8px 4px 8px',
     fontSize: '12px',
@@ -84,11 +82,9 @@ const Root = styled('div')(({ theme }) => ({
       fontSize: '12px',
     },
   },
-
   [`& .${classes.formHelper}`]: {
     marginLeft: 0,
   },
-
   [`& .${classes.inputCheck}`]: {
     padding: 4,
     '& .MuiSvgIcon-root': {
@@ -96,18 +92,15 @@ const Root = styled('div')(({ theme }) => ({
       height: '0.75em',
     },
   },
-
   [`& .${classes.inputCheckFormControl}`]: {
     marginLeft: -4,
     marginRight: 0,
   },
-
   [`& .${classes.successInfo}`]: {
     fontSize: '16px',
     fontWeight: 700,
     lineHeight: 1.25,
   },
-
   [`& .${classes.closeBtn}`]: {
     position: 'absolute',
     right: 12,
@@ -372,11 +365,14 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                           error={addressError !== ''}
                           helperText={addressError}
                           onChange={event => validateAddress(event.target.value)}
-                          inputProps={{
-                            className: classes.input,
-                          }}
-                          FormHelperTextProps={{
-                            className: classes.formHelper,
+                          slotProps={{
+                            htmlInput: {
+                              className: classes.input,
+                            },
+
+                            formHelperText: {
+                              className: classes.formHelper,
+                            },
                           }}
                         />
                       </FormControl>
@@ -396,7 +392,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                     <Stack direction="column">
                       <Stack direction="row" justifyContent="space-between">
                         <Typography>Balance:</Typography>
-                        <Typography color={sufficientBalance ? '#007B60' : '#B51424'}>{`${
+                        <Typography sx={{ color: sufficientBalance ? '#007B60' : '#B51424' }}>{`${
                           accountBalance ? formatNumberToDisplay(accountBalance) : '0.00'
                         } NFTL`}</Typography>
                       </Stack>
@@ -439,7 +435,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                       {isUseRentalPass && (
                         <Stack direction="row" justifyContent="space-between" alignItems="center" width="100px">
                           <Typography>Balance:</Typography>
-                          <Typography color="#5820D6">{rentalPassCount}</Typography>
+                          <Typography sx={{ color: '#5820D6' }}>{rentalPassCount}</Typography>
                         </Stack>
                       )}
                     </Stack>
@@ -507,8 +503,8 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
           <Typography variant="h5" mt={4} mb={1.5}>
             Stats
           </Typography>
-          <Grid container spacing={6}>
-            <Grid item xs={12} sm={12} md={6}>
+          <Grid2 container spacing={6}>
+            <Grid2 size={{ xs: 12, md: 6 }}>
               <Stack gap={1}>
                 <Stack direction="row" justifyContent="space-between">
                   <Typography>Multipliers</Typography>
@@ -519,8 +515,8 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                   <Typography className={classes.greyText}>{degen?.rental_count}</Typography>
                 </Stack>
               </Stack>
-            </Grid>
-            <Grid item xs={12} sm={12} md={6}>
+            </Grid2>
+            <Grid2 size={{ xs: 12, md: 6 }}>
               <Stack gap={1}>
                 <Stack direction="row" justifyContent="space-between">
                   <Typography>Rental period</Typography>
@@ -531,8 +527,8 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                   <Typography className={classes.greyText}>{degen?.price_daily}/Day</Typography>
                 </Stack>
               </Stack>
-            </Grid>
-          </Grid>
+            </Grid2>
+          </Grid2>
         </Stack>
       </Stack>
     </Root>

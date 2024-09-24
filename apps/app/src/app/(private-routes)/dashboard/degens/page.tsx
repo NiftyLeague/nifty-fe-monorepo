@@ -8,7 +8,7 @@ import isEmpty from 'lodash/isEmpty';
 import xor from 'lodash/xor';
 import { useSearchParams } from 'next/navigation';
 import useFlags from '@/hooks/useFlags';
-import { Grid, IconButton, Pagination, Stack, Dialog, useMediaQuery } from '@mui/material';
+import { Grid2, IconButton, Pagination, Stack, Dialog, useMediaQuery } from '@mui/material';
 import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
 import { useTheme } from '@nl/theme';
 
@@ -233,17 +233,18 @@ const DashboardDegensPage = (): JSX.Element => {
 
   const renderSkeletonItem = useCallback(
     () => (
-      <Grid
-        item
-        xs={isGridView ? 12 : 6}
-        sm={isGridView ? 6 : 4}
-        md={isGridView ? 4 : 3}
-        lg={isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2.4}
-        xl={isGridView ? 3 : 2}
+      <Grid2
         key={uuidv4()}
+        size={{
+          xs: isGridView ? 12 : 6,
+          sm: isGridView ? 6 : 4,
+          md: isGridView ? 4 : 3,
+          lg: isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2.4,
+          xl: isGridView ? 3 : 2,
+        }}
       >
         <SkeletonDegenPlaceholder size={isGridView ? 'normal' : 'small'} />
-      </Grid>
+      </Grid2>
     ),
     [isDrawerOpen, isGridView],
   );
@@ -262,14 +263,15 @@ const DashboardDegensPage = (): JSX.Element => {
 
   const renderDegen = useCallback(
     (degen: Degen) => (
-      <Grid
+      <Grid2
         key={degen.id}
-        item
-        xs={isGridView ? 12 : 6}
-        sm={isGridView ? 6 : 4}
-        md={isGridView ? 4 : 3}
-        lg={isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2.4}
-        xl={isGridView ? 3 : 2}
+        size={{
+          xs: isGridView ? 12 : 6,
+          sm: isGridView ? 6 : 4,
+          md: isGridView ? 4 : 3,
+          lg: isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2.4,
+          xl: isGridView ? 3 : 2,
+        }}
       >
         <DegenCard
           degen={degen}
@@ -284,7 +286,7 @@ const DashboardDegensPage = (): JSX.Element => {
           onClickRent={() => handleRentDegen(degen)}
           size={isGridView ? 'normal' : 'small'}
         />
-      </Grid>
+      </Grid2>
     ),
     [
       enableEquip,
@@ -303,7 +305,7 @@ const DashboardDegensPage = (): JSX.Element => {
   const renderMain = useCallback(
     () => (
       <Stack gap={1.5}>
-        {/* Main Grid title */}
+        {/* Main Grid2 title */}
         <SectionTitle firstSection>
           <Stack direction="row" alignItems="center" gap={1}>
             <IconButton onClick={() => setIsDrawerOpen(!isDrawerOpen)} size="small">
@@ -313,7 +315,7 @@ const DashboardDegensPage = (): JSX.Element => {
           </Stack>
         </SectionTitle>
         {/* Main grid content */}
-        <Grid container spacing={2} mt={-4.5}>
+        <Grid2 container spacing={2} mt={-4.5}>
           {loading || !isConnected ? (
             [...Array(8)].map(renderSkeletonItem)
           ) : dataForCurrentPage.length ? (
@@ -326,7 +328,7 @@ const DashboardDegensPage = (): JSX.Element => {
               />
             </Link>
           ) : null}
-        </Grid>
+        </Grid2>
         {dataForCurrentPage.length > 0 && (
           <Pagination
             count={maxPage}

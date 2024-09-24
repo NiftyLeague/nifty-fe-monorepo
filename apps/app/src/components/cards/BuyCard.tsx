@@ -29,7 +29,7 @@ const BuyCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<BuyCardP
       sx={{ cursor: 'pointer' }}
     >
       <Image src="/icons/shopping-cart.svg" alt="Shopping Cart" width={cardWidth - 50} height={cardHeight - 50} />
-      <Typography mt={0.5} color="#5820D6" sx={{ textDecoration: 'underline' }}>
+      <Typography mt={0.5} sx={{ textDecoration: 'underline', color: '#5820D6' }}>
         {isNew ? 'Buy' : 'Buy More'}
       </Typography>
     </Box>

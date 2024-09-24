@@ -57,7 +57,7 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
         return <NavItem key={item.id} item={item} level={level + 1} />;
       default:
         return (
-          <Typography key={item.id} variant="h6" color="error" align="center">
+          <Typography key={item.id} variant="h6" sx={{ color: theme => theme.palette.error.main }} align="center">
             Menu Items Error
           </Typography>
         );

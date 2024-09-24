@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import Image from 'next/image';
 import { v4 as uuidv4 } from 'uuid';
 import isEmpty from 'lodash/isEmpty';
-import { Box, Button, Grid, Skeleton, Stack, Typography, SxProps } from '@mui/material';
+import { Box, Button, Grid2, Skeleton, Stack, Typography, SxProps } from '@mui/material';
 
 import DegenImage from '@/components/cards/DegenCard/DegenImage';
 import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
@@ -36,8 +36,8 @@ const ViewTraitsContentDialog = ({
   }, []);
 
   return (
-    <Grid container>
-      <Grid item xs={12} sm={12} md={6} sx={{ py: 1, px: 2 }}>
+    <Grid2 container>
+      <Grid2 size={{ xs: 12, md: 6 }} sx={{ py: 1, px: 2 }}>
         <Stack direction="row" justifyContent="center">
           {degen?.id && <DegenImage sx={{ ...degenImageSx }} tokenId={degen.id} />}
         </Stack>
@@ -50,25 +50,25 @@ const ViewTraitsContentDialog = ({
             target="_blank"
             rel="noreferrer"
           >
-            <Typography color="gray" sx={{ textDecoration: 'none' }}>
+            <Typography sx={{ color: 'gray', textDecoration: 'none' }}>
               DEGEN ID #{degen?.id}{' '}
               <Image src="/img/logos/other/OpenSea.webp" alt="OpenSea Logo" width={16} height={16} />
             </Typography>
           </a>
         </Stack>
         {/* <Stack direction="column" alignItems="center" sx={{ my: 2 }}>
-          <Typography color="rgb(75, 7, 175)">
+          <Typography sx={{ color: 'rgb(75, 7, 175)' }}>
             {degenDetail?.multiplier}x Multiplier
           </Typography>
-          <Typography color="rgb(75, 7, 175)">
+          <Typography sx={{ color: 'rgb(75, 7, 175)' }}>
             {degenDetail?.rental_count} Active Rentals
           </Typography>
-          <Typography color="rgb(75, 7, 175)">
+          <Typography sx={{ color: 'rgb(75, 7, 175)' }}>
             {degenDetail?.price} NFTL/ 1 Week
           </Typography>
         </Stack> */}
         <Stack direction="column" alignItems="center" gap={1}>
-          <Typography color="gray">
+          <Typography sx={{ color: 'gray' }}>
             Owned by{' '}
             {degen?.name ||
               `${degen?.owner?.slice(0, 5)}...${degen?.owner?.slice(
@@ -77,27 +77,27 @@ const ViewTraitsContentDialog = ({
               )}`}
           </Typography>
         </Stack>
-      </Grid>
-      <Grid item xs={12} sm={12} md={6} sx={{ py: 1, px: 2, position: 'relative' }}>
+      </Grid2>
+      <Grid2 size={{ xs: 12, md: 6 }} sx={{ py: 1, px: 2, position: 'relative' }}>
         <Stack gap={3} sx={{ justifyContent: 'space-between', height: '100%' }}>
           <Stack>
             <Box display="flex" flexDirection="row" alignItems="center" justifyContent="center">
               <Typography variant="h3">Degen Traits</Typography>
             </Box>
-            <Grid container sx={{ marginTop: 3, justifyContent: 'center' }} rowGap={3} columnGap={2}>
+            <Grid2 container sx={{ marginTop: 3, justifyContent: 'center' }} rowGap={3} columnGap={2}>
               {isEmpty(traits)
                 ? [...Array(9)].map(() => (
-                    <Grid item xs={3} key={uuidv4()}>
+                    <Grid2 size={{ xs: 3 }} key={uuidv4()}>
                       <Stack direction="column" alignItems="center">
                         <Skeleton animation="wave" width={60} />
                         <Skeleton animation="wave" width={40} />
                       </Stack>
-                    </Grid>
+                    </Grid2>
                   ))
                 : Object.entries(traits)
                     .filter(([, value]) => parseInt(value as unknown as string, 10) > 0)
                     .map(([key, value]) => (
-                      <Grid item xs={3} key={key}>
+                      <Grid2 size={{ xs: 3 }} key={key}>
                         <Stack direction="column" alignItems="center">
                           <Typography fontWeight={700} textAlign="center">
                             {TRAIT_NAME_MAP[key as keyof typeof TRAIT_NAME_MAP]}
@@ -106,9 +106,9 @@ const ViewTraitsContentDialog = ({
                             {TRAIT_KEY_VALUE_MAP[value as keyof typeof TRAIT_KEY_VALUE_MAP] ?? value}
                           </Typography>
                         </Stack>
-                      </Grid>
+                      </Grid2>
                     ))}
-            </Grid>
+            </Grid2>
           </Stack>
           <Stack direction="column" gap={1} width="100%">
             {/* {false && (
@@ -123,8 +123,8 @@ const ViewTraitsContentDialog = ({
             )}
           </Stack>
         </Stack>
-      </Grid>
-    </Grid>
+      </Grid2>
+    </Grid2>
   );
 };
 

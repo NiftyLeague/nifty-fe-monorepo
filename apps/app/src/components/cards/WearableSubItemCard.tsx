@@ -46,7 +46,7 @@ const WearableSubItemCard: React.FC<React.PropsWithChildren<React.PropsWithChild
       <Typography
         maxWidth={CARD_WIDTH}
         textAlign="center"
-        color={isSelected ? theme.palette.primary.main : theme.palette.text.primary}
+        sx={{ color: theme => (isSelected ? theme.palette.primary.main : theme.palette.text.primary) }}
       >{`${title} #${itemIndex + 1}`}</Typography>
     </Stack>
   );

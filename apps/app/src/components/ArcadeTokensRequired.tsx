@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Button, Grid, Typography } from '@mui/material';
+import { Button, Grid2, Typography } from '@mui/material';
 import { gridSpacing } from '@nl/theme';
 import BuyArcadeTokensDialog from '@/components/dialog/BuyArcadeTokensDialog';
 
@@ -19,22 +19,22 @@ const ArcadeTokensRequired: React.FC<ArcadeTokensRequiredProps> = ({ refetchArca
 
   return (
     <>
-      <Grid container height="100%" alignItems="center" spacing={gridSpacing}>
-        <Grid item xs={12}>
-          <Grid container spacing={gridSpacing}>
-            <Grid item xs={12}>
+      <Grid2 container height="100%" alignItems="center" spacing={gridSpacing}>
+        <Grid2 size={{ xs: 12 }}>
+          <Grid2 container spacing={gridSpacing}>
+            <Grid2 size={{ xs: 12 }}>
               <Typography variant="h1" component="div" textAlign="center">
                 Arcade Tokens Required
               </Typography>
-            </Grid>
-            <Grid item xs={12} textAlign="center">
+            </Grid2>
+            <Grid2 size={{ xs: 12 }} textAlign="center">
               <Button variant="outlined" color="primary" onClick={handleBuyArcadeTokens}>
                 Buy Arcade Tokens
               </Button>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
+            </Grid2>
+          </Grid2>
+        </Grid2>
+      </Grid2>
       <BuyArcadeTokensDialog
         open={openBuyAT}
         onSuccess={() => {

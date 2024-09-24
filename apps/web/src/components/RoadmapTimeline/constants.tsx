@@ -33,14 +33,14 @@ export const ROADMAP_CARDS = [
   },
   {
     completed: true,
-    completionDate: 'Sept 24th, 2021 - Present',
+    completionDate: 'Sept 24th, 2021',
     image: {
       height: 272,
       src: '/img/misc/smash_200.webp',
       style: { top: '-80px', right: '-50px' },
       width: 518,
     },
-    title: 'Nifty Smashers Alpha',
+    title: '2D Nifty Smashers PC Alpha',
     body: (
       <>
         <p>
@@ -52,7 +52,7 @@ export const ROADMAP_CARDS = [
           </strong>
           .
         </p>
-        <p>
+        <p className="mb-0">
           Nifty Smashers stands as one of the earliest NFT-enabled games on Ethereum. At the time, it was especially
           rare for a game to sell avatars or digital assets with a playable prototype.
         </p>
@@ -119,21 +119,23 @@ export const ROADMAP_CARDS = [
     },
     title: 'Merch',
     body: (
-      <p className="mb-0">
-        We know our community couldn&apos;t wait to showcase their cool DEGENS on the streets! We are excited to unveil
-        our{' '}
-        <a href="https://maddies.co/official/nifty-league/" target="_blank" rel="noreferrer">
-          Nifty League merch
-        </a>{' '}
-        provided by Maddies.
-        <br />
-        <br />
-        Looking for our old Shopify merch? Links{' '}
-        <a href="https://niftyleague.com/shop" target="_blank" rel="noreferrer">
-          here
-        </a>
-        !
-      </p>
+      <>
+        <p>
+          We know our community couldn&apos;t wait to showcase their cool DEGENS on the streets! We are excited to
+          unveil our{' '}
+          <a href="https://maddies.co/official/nifty-league/" target="_blank" rel="noreferrer">
+            Nifty League merch
+          </a>{' '}
+          provided by Maddies.
+        </p>
+        <p className="mb-0">
+          Looking for our old Shopify merch? Links{' '}
+          <a href="https://niftyleague.com/shop" target="_blank" rel="noreferrer">
+            here
+          </a>
+          !
+        </p>
+      </>
     ),
   },
   {
@@ -214,9 +216,12 @@ export const ROADMAP_CARDS = [
             </a>
           </strong>{' '}
           is a game of timing and reflex. The purpose of the mini-game is to try and hit as many baseballs (launched
-          from a baseball machine) as possible in a row to get a high score. Arcade Tokens are used to play WEN Game.
-          Players earn Arcade Tokens every day they complete a Nifty Smashers match! This game marks our first Arcade
-          Game launched and can be played without owning or renting a DEGEN.
+          from a baseball machine) as possible in a row to get a high score.
+        </p>
+        <p className="mb-0">
+          With this mini-game we introduced our Arcade Tokens system! Players earn Arcade Tokens every day they complete
+          a Nifty Smashers match! This game marks our first Arcade Game launched and can be played without owning or
+          renting a DEGEN.
         </p>
       </>
     ),
@@ -227,13 +232,13 @@ export const ROADMAP_CARDS = [
     image: {
       height: 1080,
       src: '/img/games/mt-gawx.gif',
-      style: { top: '-125px' },
+      style: { top: '-135px' },
       width: 1440,
     },
     title: 'Mt. Gawx',
     body: (
       <>
-        <p>
+        <p className="mb-0">
           Hearing the DEGENs&apos; pleas to spend their hard-earned NFTL and with bigger sinks still under development,
           Satoshi suggests the DEGENs climb to the top of the{' '}
           <strong>
@@ -259,7 +264,7 @@ export const ROADMAP_CARDS = [
     title: 'Crypto Winter',
     body: (
       <>
-        <p>
+        <p className="mb-0">
           <strong>
             <a href="https://app.niftyleague.com/games/crypto-winter" target="_blank" rel="noreferrer">
               Crypto Winter
@@ -291,8 +296,11 @@ export const ROADMAP_CARDS = [
               Immutable X (IMX)
             </a>
           </strong>{' '}
-          . IMX is solely focused on powering the next generation of Web3 games which positions Nifty League to
-          capitalize on the upcoming wave of mainstream adoption.
+          .
+        </p>
+        <p className="mb-0">
+          IMX is solely focused on powering the next generation of Web3 games which positions Nifty League to capitalize
+          on the upcoming wave of mainstream adoption.
         </p>
       </>
     ),
@@ -375,6 +383,32 @@ export const ROADMAP_CARDS = [
               }}
             />
           </div>
+          <div className="col-6 p-1">
+            <Image
+              alt="comic 5"
+              height={500}
+              src="/img/comics/thumbnail/5.webp"
+              width={500}
+              sizes="100vw"
+              style={{
+                width: '100%',
+                height: 'auto',
+              }}
+            />
+          </div>
+          <div className="col-6 p-1">
+            <Image
+              alt="comic 6"
+              height={500}
+              src="/img/comics/thumbnail/6.webp"
+              width={500}
+              sizes="100vw"
+              style={{
+                width: '100%',
+                height: 'auto',
+              }}
+            />
+          </div>
         </div>
       </>
     ),
@@ -388,11 +422,12 @@ export const ROADMAP_CARDS = [
       style: { top: '-125px' },
       width: 544,
     },
-    title: 'Nifty Smashers Beta',
+    title: '2D Nifty Smashers PC Beta',
     body: (
       <p className="mb-0">
-        We implemented a new roll-back netcode solution which improved lag considerably. You can also expect some cool
-        features such as broadcasting live games and having replays readily available through our archive.
+        We implemented a new deterministic roll-back netcode solution which improved lag considerably. This netcode also
+        enables some cool features such as broadcasting live games and having replays readily available through our
+        archive.
       </p>
     ),
   },
@@ -453,14 +488,19 @@ export const ROADMAP_CARDS = [
       style: { top: '-90px' },
       width: 1618,
     },
-    title: 'Smashers Progression',
+    title: 'Smashers Progression Design',
     body: (
-      <p className="mb-0">
-        We developed several fundamental tools for our games including progression and marketplace systems. These
-        systems incentivize players to stick around by rewarding them for milestones that drive engagement and
-        retention. Nifty Smashers is the first game we integrated with live ops tooling as part of its mobile launch. In
-        addition, we are training Smashers AI to keep lobbies full and accomodate multiple skill levels.
-      </p>
+      <>
+        <p>
+          We developed several fundamental tools for our games including progression and marketplace systems. These
+          systems incentivize players to stick around by rewarding them for milestones that drive engagement and
+          retention.
+        </p>
+        <p className="mb-0">
+          Nifty Smashers is the first game we integrated with live ops tooling as part of its mobile launch. In
+          addition, we are training Smashers AI to keep lobbies full and accomodate multiple skill levels.
+        </p>
+      </>
     ),
   },
   {
@@ -472,15 +512,38 @@ export const ROADMAP_CARDS = [
       width: 387,
       height: 300,
     },
-    title: 'Nifty Smashers Mobile',
+    title: 'Nifty Smashers Mobile Alpha',
     body: (
       <p className="mb-0">
-        Bringing Smashers to Mobile (Android & iOS). Going forward all of our games will be mobile compatible. With a
-        high concentration of gamers using mobile platforms, we envision this release will be pivotal to the project.
+        Porting Smashers to Android & iOS! Going forward all of our games will be mobile compatible. With a high
+        concentration of gamers using mobile platforms, we envision this release will be pivotal to the project.
       </p>
     ),
   },
   {
+    completed: true,
+    completionDate: 'August 1st, 2024',
+    image: {
+      src: '/img/roadmap/mobile_v02.webp',
+      style: { top: '-145px' },
+      width: 387,
+      height: 300,
+    },
+    title: 'Nifty Smashers Mobile Beta',
+    body: (
+      <>
+        <p>Nifty Smashers Mobile is now feature complete and available in multiple countries!</p>
+        <p>
+          After months of refining complex in-game progression and metasystem mechanics, we&apos;ve crafted a top-tier
+          mobile experience that players will love.
+        </p>
+        <p className="mb-0">We are now in the final stages of testing and polishing before the global launch!</p>
+      </>
+    ),
+  },
+  {
+    completed: true,
+    completionDate: 'Sept 24th, 2024',
     image: {
       height: 166,
       src: '/img/logos/networks/imx_polygon.webp',
@@ -501,14 +564,54 @@ export const ROADMAP_CARDS = [
           cutting-edge technology in gaming with the largest ecosystem in web3.
         </p>
         <p className="mb-0">
-          Nifty League will be migrating items, comics & the NFTL token to the Immutable zkEVM. Allowing our users to
-          benefit from low fees and scalability for our platform.
+          We migrated NFTL along with our Items & Comics collections, allowing our users to benefit from low fees and
+          scalability for our platform.
+        </p>
+      </>
+    ),
+  },
+  {
+    completed: true,
+    completionDate: 'Sept 24th, 2024 - Present',
+    image: {
+      src: '/img/roadmap/dao_v02.webp',
+      style: { top: '-80px' },
+      width: 532,
+      height: 302,
+    },
+    title: 'DAO',
+    body: (
+      <>
+        <p>With our migration to Immutable zkEVM, we launched our DAO on-chain governance system on Tally.xyz!</p>
+        <p className="mb-0">
+          We will gradually transfer ownership of Nifty League to our DAO in order to decentralize the platform and
+          encourage others to build with us! Our vision is to power rapid growth and development through community
+          contributions enabling us to build a gaming platform like no other. Simply put, DAOs are the future. We see
+          only one route to becoming the world&apos;s leading gaming platform and that&apos;s by building together. 💜
         </p>
       </>
     ),
   },
   {
     current: true,
+    image: {
+      src: '/img/logos/smashers/app_wordmark_logo.webp',
+      style: { top: '-115px' },
+      width: 387,
+      height: 300,
+    },
+    title: 'Nifty Smashers Global Launch',
+    body: (
+      <>
+        <p>We&apos;ve achieved an exceptional 55% CVR (app unit/page views), and Day 1 Retention of over 30%!</p>
+        <p className="mb-0">
+          We are very close! After a few more iterations and monetization testing we look forward to releasing Smashers
+          worldwide! Smashers will be available on multiple platforms (Android, iOS, Epic, Steam, and maybe Switch???)
+        </p>
+      </>
+    ),
+  },
+  {
     image: {
       src: '/img/roadmap/niftyroyale_v01.webp',
       style: { top: '-110px' },
@@ -535,39 +638,19 @@ export const ROADMAP_CARDS = [
     body: (
       <>
         <p>
-          We are working with the Immutable X team to launch our items marketplace. Offerings will include cool skins,
-          weapons, consumable items, and more to enhance your DEGENS in-game. Our very first items are available on{' '}
-          <a
-            href="https://market.immutable.com/collections/0xc21909b7e596000c01318668293a7dfb4b37a578"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Immutable
-          </a>{' '}
-          but will soon migrated to IMX / Polygon zkEVM.
+          We are working with the Immutable team to launch our items marketplace using NFTL. Offerings will include cool
+          skins, weapons, consumable items, and more to enhance your DEGENS in-game. Our items are currently available
+          on{' '}
+          <a href="https://tokentrove.com/collection/NiftyLeague" target="_blank" rel="noreferrer">
+            TokenTrove
+          </a>
+          !
         </p>
         <p className="mb-0">
           Future items will be provided to community testers as well as found in our games. Free-2-play mobile players
           that includes you! Players may get lucky and find rare wearables or weapons in game that are mintable on IMX!
         </p>
       </>
-    ),
-  },
-  {
-    image: {
-      src: '/img/roadmap/dao_v02.webp',
-      style: { top: '-80px' },
-      width: 532,
-      height: 302,
-    },
-    title: 'DAO',
-    body: (
-      <p className="mb-0">
-        We will gradually transfer ownership of Nifty League to our DAO in order to decentralize the platform and
-        encourage others to build with us! Our vision is to power rapid growth and development through community
-        contributions enabling us to build a gaming platform like no other. Simply put, DAOs are the future. We see only
-        one route to becoming the world&apos;s leading gaming platform and that&apos;s by building together. 💜
-      </p>
     ),
   },
   {
@@ -592,7 +675,7 @@ export const ROADMAP_CARDS = [
           It&apos;s not only the central lobby system or launch point for many of these games, but the main hub for all
           social interactions (and quite frankly our biggest game in and of itself).
         </p>
-        <p>
+        <p className="mb-0">
           If you&apos;re a creative type, don&apos;t miss this opportunity - we will have an asset store for you to
           design assets such as buildings or trees and list them for sale based on your defined limits and pricing. Do
           you want a cool DEGEN theme park or Cyber Kongz meetup? Build out the NiftyVerse to whatever your heart
@@ -655,7 +738,7 @@ export const ROADMAP_CARDS = [
   {
     image: {
       src: '/img/games/nifty-tennis.webp',
-      style: { top: '-100px' },
+      style: { top: '-135px' },
       width: 500,
       height: 281,
     },

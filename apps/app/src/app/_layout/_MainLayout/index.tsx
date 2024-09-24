@@ -40,48 +40,59 @@ interface MainStyleProps {
 // styles
 const Main = styled<any>('main', {
   shouldForwardProp: prop => prop !== 'open',
-})(({ theme, open }: MainStyleProps) => ({
+})(({ theme }: MainStyleProps) => ({
   ...theme.typography.mainContent,
-  ...(!open && {
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.shorter,
-    }),
-    marginTop: '80px',
-    [theme.breakpoints.up('md')]: {
-      marginLeft: -(appDrawerWidth - 20),
-      width: `calc(100% - ${appDrawerWidth}px)`,
+
+  variants: [
+    {
+      props: ({ open }: { open: boolean }) => !open,
+
+      style: {
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0,
+        transition: theme.transitions.create('margin', {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.shorter,
+        }),
+        marginTop: '80px',
+        [theme.breakpoints.up('md')]: {
+          marginLeft: -(appDrawerWidth - 20),
+          width: `calc(100% - ${appDrawerWidth}px)`,
+        },
+        [theme.breakpoints.down('md')]: {
+          marginLeft: '20px',
+          width: `calc(100% - ${appDrawerWidth}px)`,
+        },
+        [theme.breakpoints.down('sm')]: {
+          marginTop: '60px',
+          marginLeft: '10px',
+          width: `calc(100% - ${appDrawerWidth}px)`,
+        },
+      },
     },
-    [theme.breakpoints.down('md')]: {
-      marginLeft: '20px',
-      width: `calc(100% - ${appDrawerWidth}px)`,
+    {
+      props: ({ open }: { open: boolean }) => open,
+
+      style: {
+        transition: theme.transitions.create('margin', {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.shorter,
+        }),
+        marginLeft: 0,
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0,
+        width: `calc(100% - ${appDrawerWidth}px)`,
+        marginTop: '80px',
+        [theme.breakpoints.down('md')]: {
+          marginLeft: '20px',
+        },
+        [theme.breakpoints.down('sm')]: {
+          marginTop: '60px',
+          marginLeft: '10px',
+        },
+      },
     },
-    [theme.breakpoints.down('sm')]: {
-      marginTop: '60px',
-      marginLeft: '10px',
-      width: `calc(100% - ${appDrawerWidth}px)`,
-    },
-  }),
-  ...(open && {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.shorter,
-    }),
-    marginLeft: 0,
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
-    width: `calc(100% - ${appDrawerWidth}px)`,
-    marginTop: '80px',
-    [theme.breakpoints.down('md')]: {
-      marginLeft: '20px',
-    },
-    [theme.breakpoints.down('sm')]: {
-      marginTop: '60px',
-      marginLeft: '10px',
-    },
-  }),
+  ],
 }));
 
 // ==============================|| MAIN LAYOUT ||============================== //
@@ -140,15 +151,15 @@ const MainLayout = ({ children }: PropsWithChildren) => {
           color="inherit"
           elevation={0}
           sx={{
-            bgcolor: theme.palette.background.default,
-            transition: drawerOpen ? theme.transitions.create('width') : 'none',
+            bgcolor: theme => theme.palette.background.default,
+            transition: theme => (drawerOpen ? theme.transitions.create('width') : 'none'),
           }}
         >
           {address && TARGET_NETWORK?.name && TARGET_NETWORK.chainId !== chain?.id && (
             <Box
               sx={{
                 display: 'flex',
-                backgroundColor: theme.palette.error.light,
+                backgroundColor: theme => theme.palette.error.light,
                 width: '100%',
                 position: 'absolute',
                 alignItems: 'center',
@@ -179,7 +190,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
         <Sidebar />
 
         {/* main content */}
-        <Main theme={theme} open={drawerOpen}>
+        <Main open={drawerOpen}>
           {!isNoFilterPage ? (
             <PerfectScrollbar
               style={{

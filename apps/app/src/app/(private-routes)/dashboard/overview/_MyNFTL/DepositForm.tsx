@@ -149,7 +149,6 @@ const DepositForm = ({ onDeposit, balance }: DepositFormProps): JSX.Element => {
             control={control}
             render={({ field }) => (
               <NumericFormat
-                // @ts-expect-error Expression produces a union type that is too complex to represent
                 disabled={field.disabled as boolean}
                 name={field.name as string}
                 onBlur={field.onBlur}

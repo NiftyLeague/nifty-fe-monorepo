@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { styled } from '@nl/theme';
 import Link from 'next/link';
-import { Box, Button, CircularProgress, Grid, Stack, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Grid2, Stack, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import isEqual from 'lodash/isEqual';
 import useComicsBalance from '@/hooks/useComicsBalance';
@@ -224,11 +224,11 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
       );
     }
     return (
-      <Grid container justifyContent="center" alignItems="center" display="flex" height={200}>
+      <Grid2 container justifyContent="center" alignItems="center" display="flex" height={200}>
         <Link href={COMICS_OPENSEA_URL} target="_blank" rel="noreferrer">
           <EmptyState message="You don't own any Comics yet." buttonText="Buy a Comic" noBorder />
         </Link>
-      </Grid>
+      </Grid2>
     );
   }
 
