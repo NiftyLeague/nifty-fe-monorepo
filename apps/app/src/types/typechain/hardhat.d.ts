@@ -42,6 +42,10 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | FactoryOptions,
     ): Promise<Contracts.VRFConsumerBaseV2__factory>;
     getContractFactory(
+      name: 'MintingAccessControl',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.MintingAccessControl__factory>;
+    getContractFactory(
       name: 'IOperatorAllowlist',
       signerOrOptions?: ethers.Signer | FactoryOptions,
     ): Promise<Contracts.IOperatorAllowlist__factory>;
@@ -557,6 +561,11 @@ declare module 'hardhat/types/runtime' {
       address: string | ethers.Addressable,
       signer?: ethers.Signer,
     ): Promise<Contracts.VRFConsumerBaseV2>;
+    getContractAt(
+      name: 'MintingAccessControl',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.MintingAccessControl>;
     getContractAt(
       name: 'IOperatorAllowlist',
       address: string | ethers.Addressable,
@@ -1179,6 +1188,10 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.VRFConsumerBaseV2>;
     deployContract(
+      name: 'MintingAccessControl',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.MintingAccessControl>;
+    deployContract(
       name: 'IOperatorAllowlist',
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.IOperatorAllowlist>;
@@ -1661,6 +1674,11 @@ declare module 'hardhat/types/runtime' {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.VRFConsumerBaseV2>;
+    deployContract(
+      name: 'MintingAccessControl',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.MintingAccessControl>;
     deployContract(
       name: 'IOperatorAllowlist',
       args: any[],
