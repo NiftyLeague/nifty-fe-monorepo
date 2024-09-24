@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers6';
 import type { INFTL, INFTLInterface } from '../../../../../src/contracts/lib/NameableCharacter.sol/INFTL';
 
 const _abi = [

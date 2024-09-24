@@ -71,6 +71,16 @@ We use [pnpm](https://pnpm.io/) to manage dependencies.
 pnpm install
 ```
 
+### Add dependencies
+
+Please install dependencies only where they're used.
+
+To add a dependency to a specific app directory use `--filter`
+
+```
+pnpm add PACKAGE_NAME --filter=DIRECTORY_NAME
+```
+
 ### Build
 
 To build all apps and packages, run the following command:

@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { parseEther, type AddressLike } from 'ethers';
+import { parseEther, type AddressLike } from 'ethers6';
 import {
   DialogTitle,
   DialogContent,
