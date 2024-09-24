@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers6';
 import type { IGovernor, IGovernorInterface } from '../../../../@openzeppelin/contracts/governance/IGovernor';
 
 const _abi = [

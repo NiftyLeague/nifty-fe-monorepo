@@ -25,7 +25,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "sass": "^1.79.3",
-    "viem": "^2.21.12"
+    "viem": "^2.21.13"
   },
   "devDependencies": {
     "@nl/eslint-config": "workspace:^",
@@ -56,8 +56,8 @@
   "pnpm": {
     "peerDependencyRules": {
       "allowedVersions": {
-        "ethers": "^6.11.1",
         "crypto-es": "^2.1.0",
+        "framer-motion": "11.1.5",
         "i18next": "22.5.1",
         "utf-8-validate": "6.0.3"
       }

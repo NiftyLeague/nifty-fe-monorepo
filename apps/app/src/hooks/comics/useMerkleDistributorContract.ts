@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import type { Contract, InterfaceAbi } from 'ethers';
+import type { Contract, InterfaceAbi } from 'ethers6';
 import useNetworkContext from '@/hooks/useNetworkContext';
 import { getContract } from '@/utils/ethers';
 import { COMICS_MERKLE_DISTRIBUTOR_ADDRESS } from '@/constants/contracts';

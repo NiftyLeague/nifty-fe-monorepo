@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { mainnet, sepolia } from 'viem/chains';
-import { getAddress, isAddress } from 'ethers';
+import { getAddress, isAddress } from 'ethers6';
 import useNetworkContext from '@/hooks/useNetworkContext';
 import { COMICS_MERKLE_ROOT } from '@/constants/contracts';
 

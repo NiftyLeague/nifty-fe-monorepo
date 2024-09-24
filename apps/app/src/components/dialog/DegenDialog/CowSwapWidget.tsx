@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { styled } from '@nl/theme';
 import Image from 'next/image';
-import { formatEther, parseEther, type AddressLike } from 'ethers';
+import { formatEther, parseEther, type AddressLike } from 'ethers6';
 import { OrderKind } from '@cowprotocol/cow-sdk';
 import { createOrderSwapEtherToNFTL, getCowMarketPrice, getOrderDetail } from '@/utils/cowswap';
 

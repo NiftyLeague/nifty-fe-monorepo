@@ -1,4 +1,4 @@
-import type { Contract } from 'ethers';
+import type { Contract } from 'ethers6';
 import type { Contracts } from '@/types/web3';
 import { DEBUG } from '@/constants/index';
 import useSingleCallResult from '@/hooks/useSingleCallResult';
