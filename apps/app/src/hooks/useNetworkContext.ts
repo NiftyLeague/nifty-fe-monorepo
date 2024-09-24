@@ -2,10 +2,8 @@
 
 import { useContext } from 'react';
 
-// balance provider
+// Network Provider
 import NetworkContext from '@/contexts/NetworkContext';
-
-// ==============================|| AUTH HOOKS ||============================== //
 
 const useNetworkContext = () => {
   const context = useContext(NetworkContext);

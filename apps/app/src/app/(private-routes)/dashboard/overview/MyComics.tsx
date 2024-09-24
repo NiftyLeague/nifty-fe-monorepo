@@ -7,17 +7,17 @@ import { Box, Button, Stack } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import ComicCard from '@/components/cards/ComicCard';
 import SectionSlider from '@/components/sections/SectionSlider';
-import type { Comic } from '@/types/comic';
+import type { Comic } from '@/types/marketplace';
 import EmptyState from '@/components/EmptyState';
 import ViewComicDialog from '@/components/dialog/ViewComicDialog';
-import useComicsBalance from '@/hooks/useComicsBalance';
+import useIMXContext from '@/hooks/useIMXContext';
 import ComicPlaceholder from '@/components/cards/Skeleton/ComicPlaceholder';
-import { COMICS_OPENSEA_URL } from '@/constants/url';
+import { COMICS_PURCHASE_URL } from '@/constants/url';
 
 const MyComics = (): JSX.Element => {
   const [selectedComic, setSelectedComic] = useState<Comic | null>(null);
   const router = useRouter();
-  const { comicsBalance, loading } = useComicsBalance();
+  const { comicsBalance, comicsLoading } = useIMXContext();
   const filteredComics = useMemo(
     () => comicsBalance.filter(comic => comic.balance && comic.balance > 0),
     [comicsBalance],
@@ -70,7 +70,7 @@ const MyComics = (): JSX.Element => {
           </Button>
         }
       >
-        {loading ? (
+        {comicsLoading ? (
           <Box px={1}>
             <ComicPlaceholder />
           </Box>
@@ -82,7 +82,7 @@ const MyComics = (): JSX.Element => {
           ))
         ) : (
           <Stack justifyContent="center" alignItems="center">
-            <Link href={COMICS_OPENSEA_URL} target="_blank" rel="noreferrer">
+            <Link href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
               <EmptyState
                 message="No Comics found. Please check your address or go purchase some if you have not done so already!"
                 buttonText="Buy Comics"
