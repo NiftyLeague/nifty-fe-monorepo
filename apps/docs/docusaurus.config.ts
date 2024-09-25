@@ -197,8 +197,12 @@ const config: Config = {
           title: 'NFTL',
           items: [
             {
-              label: 'Uniswap NFTL/ETH LP',
-              href: 'https://info.uniswap.org/#/pools/0x1bcf855445335f72841cdecaed71f5901a807a7f',
+              label: 'QuickSwap NFTL/ETH LP (Immutable zkEVM)',
+              href: 'https://quickswap.exchange/#/analytics/v3/token/0xb0d7e9ff5fb8e739c4990f7920d8047acfae4884',
+            },
+            {
+              label: 'Uniswap NFTL/ETH LP (Ethereum)',
+              href: 'https://app.uniswap.org/explore/tokens/ethereum/0x3c8d2fce49906e11e71cb16fa0ffeb2b16c29638',
             },
             {
               label: 'CoinGecko',
@@ -208,14 +212,14 @@ const config: Config = {
               label: 'CoinMarketCap',
               href: 'https://coinmarketcap.com/currencies/nifty-league',
             },
-            {
-              label: 'Etherscan Token Contract',
-              href: 'https://etherscan.io/token/0x3c8D2FCE49906e11e71cB16Fa0fFeB2B16C29638',
-            },
-            {
-              label: 'Dextools',
-              href: 'https://www.dextools.io/app/ether/pair-explorer/0xf79321e80acd5fa590936f09acb90ec6471fcbc4',
-            },
+            // {
+            //   label: 'Etherscan Token Contract',
+            //   href: 'https://etherscan.io/token/0x3c8D2FCE49906e11e71cB16Fa0fFeB2B16C29638',
+            // },
+            // {
+            //   label: 'Dextools',
+            //   href: 'https://www.dextools.io/app/ether/pair-explorer/0xf79321e80acd5fa590936f09acb90ec6471fcbc4',
+            // },
           ],
         },
         {
@@ -226,20 +230,16 @@ const config: Config = {
               href: 'https://opensea.io/collection/niftydegen',
             },
             {
-              label: 'OpenSea - COMICS',
-              href: 'https://opensea.io/collection/nifty-league-comics',
-            },
-            {
-              label: 'Immutable - ITEMS',
-              href: 'https://market.immutable.com/collections/0xc21909b7E596000C01318668293A7DFB4B37A578',
+              label: 'TokenTrove - COMICS & ITEMS',
+              href: 'https://tokentrove.com/collection/NiftyLeague',
             },
             {
               label: 'NiftyDegen NFT Contract',
               href: 'https://etherscan.io/token/0x986aea67C7d6A15036e18678065eb663Fc5BE883',
             },
             {
-              label: 'Nifty Launch Comics Contract',
-              href: 'https://etherscan.io/address/0xBc8542e65ab801f7c9e3edd23238d37a2e3972d6',
+              label: 'NiftyMarketplace (Comics & Items) NFT Contract',
+              href: 'https://explorer.immutable.com/address/0x6b66d473907a715aa573e44031355b34e77bb6de',
             },
           ],
         },

@@ -11,6 +11,7 @@ import useFetch from '@/hooks/useFetch';
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder';
 import { v4 as uuidv4 } from 'uuid';
 import GameList from '@/app/(public-routes)/games/_GameList';
+import Web3GameList from '@/app/(public-routes)/games/_Web3GameList';
 import DegenDialog from '@/components/dialog/DegenDialog';
 import RenameDegenDialogContent from '@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent';
 import { sendEvent } from '@/utils/google-analytics';
@@ -96,9 +97,14 @@ const Home = () => {
   };
   return (
     <>
+      <SectionSlider firstSection title="Free-2-Play Games" isSlider={false}>
+        <Grid2 container flexDirection="row" flexWrap="wrap" rowSpacing={4}>
+          <GameList />
+        </Grid2>
+      </SectionSlider>
       <SectionSlider
         firstSection
-        title="Games"
+        title="Web3 Games"
         isSlider={false}
         // actions={
         //   <Box sx={{ '& a': { textDecoration: 'none' } }}>
@@ -109,7 +115,7 @@ const Home = () => {
         // }
       >
         <Grid2 container flexDirection="row" flexWrap="wrap" rowSpacing={4}>
-          <GameList />
+          <Web3GameList />
         </Grid2>
       </SectionSlider>
       <SectionSlider

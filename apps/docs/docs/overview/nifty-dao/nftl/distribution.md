@@ -20,7 +20,7 @@ Our team bootstrapped the [Nifty League DAO Treasury](https://etherscan.io/addre
 
 The initial planned distribution was 125M NFTL, however 142M leftovers from unclaimed AXS airdrop & DEGEN NFT Holders (below) were returned to the DAO as well. The DAO burned 35M NFTL on [April 15th, 2022](https://etherscan.io/tx/0x4e3f1177bd5288240039176a948c632e8027acc31f475d78a30bad47e5f9470b) and a large majority of remaining NFTL was re-allocated to our P2E system, and for SushiSwap liquidity incentives (more on [emissions](./emissions)).
 
-In total the DAO retained 95.9M NFTL, most of which has been used to provide NFTL/ETH liquidity on [SushiSwap](https://sushi.com/) & [Uniswap](https://uniswap.org/).
+In total the DAO retained 95.9M NFTL, most of which was used to provide NFTL/ETH liquidity on [SushiSwap](https://sushi.com/) & [Uniswap](https://uniswap.org/), and has since migrated to [QuickSwap](https://quickswap.exchange/#/analytics/v3/token/0xb0d7e9ff5fb8e739c4990f7920d8047acfae4884).
 
 ### Marketing - _8M NFTL_
 

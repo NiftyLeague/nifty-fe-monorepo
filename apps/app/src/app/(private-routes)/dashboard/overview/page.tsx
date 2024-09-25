@@ -38,7 +38,7 @@ const DashboardOverview = (): JSX.Element => {
 
   return (
     <Grid2 container flexDirection="row" spacing={4} sx={{ height: 'inherit' }}>
-      <Grid2 container size={{ xs: 12, lg: 5 }} spacing={4} sx={{ height: 'inherit' }}>
+      <Grid2 container flexDirection="column" size={{ xs: 12, md: 5 }} spacing={4}>
         <Grid2 size={{ xs: 12 }}>
           <MyNFTL />
         </Grid2>
@@ -52,7 +52,7 @@ const DashboardOverview = (): JSX.Element => {
           <MyRentals rentals={rentals} />
         </Grid2> */}
       </Grid2>
-      <Grid2 container size={{ xs: 12, lg: 7 }} spacing={4}>
+      <Grid2 container flexDirection="column" size={{ xs: 12, md: 7 }} spacing={4}>
         <Grid2 size={{ xs: 12 }}>
           <MyDegens />
         </Grid2>
