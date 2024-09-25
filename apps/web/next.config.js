@@ -30,6 +30,10 @@ const nextConfig = {
   async rewrites() {
     return [
       {
+        source: '/contact',
+        destination: 'https://forms.gle/hdivQVeFDqetjrzo8',
+      },
+      {
         source: '/shop',
         destination: 'https://shop.niftyleague.com',
       },
