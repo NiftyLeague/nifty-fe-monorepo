@@ -11,7 +11,7 @@ Comics were free gifts to reward our early holders!
 
 Each comic can be burned for in-game wearables or weapons. Note: each comic corresponds with a specific item, some more rare than others. A full set of comics, 1-6, can also be exchanged for a Citadel Key.
 
-Read more about [Nifty League Comics](/docs/overview/nfts/comics).
+Read more about [Nifty League Comics](/docs/overview/nfts/nifty-marketplace/comics).
 
 </details>
 
@@ -24,7 +24,7 @@ The snapshot for Comics 5 and 6 was taken at [Ethereum Block 14115835](https://e
 
 Comics 1-4 were airdropped as minting promotions immediately following the mint.
 
-Read more about [Nifty League Comics](/docs/overview/nfts/comics).
+Read more about [Nifty League Comics](/docs/overview/nfts/nifty-marketplace/comics).
 
 </details>
 
