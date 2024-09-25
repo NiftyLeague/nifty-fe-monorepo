@@ -146,7 +146,7 @@ const RenameRentalDialogContent = ({ rental, updateRentalName }: Props): JSX.Ele
               />
             )}
           />
-          {/* <Stack direction="row" justifyContent="space-between">
+          {/* <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
             <Typography variant="h4">Renaming Fee</Typography>
             {!degenDetail ? (
               <Skeleton variant="rectangular" width={50} height={20} />

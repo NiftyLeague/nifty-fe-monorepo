@@ -16,8 +16,7 @@ const NiftyVerse: NextPage = () => {
           <ConsoleGame src="/video/mansion_showcase.mp4" />
           <Stack
             direction="row"
-            justifyContent="center"
-            alignItems="center"
+            sx={{ justifyContent: 'center', alignItems: 'center' }}
             gap={{ xs: 1.25, xl: 4 }}
             px={{ xs: 2, md: 0 }}
             mt={{ xs: 2, sm: 0 }}

@@ -40,8 +40,8 @@ const Header = () => {
   return (
     <Stack
       direction="row"
-      justifyContent="space-between"
       sx={{
+        justifyContent: 'space-between',
         [theme.breakpoints.up('md')]: {
           height: appHeaderHeight,
         },

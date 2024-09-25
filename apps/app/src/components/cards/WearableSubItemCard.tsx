@@ -30,7 +30,7 @@ const WearableSubItemCard: React.FC<React.PropsWithChildren<React.PropsWithChild
   };
 
   return (
-    <Stack spacing={2.5} alignItems="center" sx={{ cursor: 'pointer', ...sx }} onClick={handleViewItem}>
+    <Stack spacing={2.5} sx={{ cursor: 'pointer', alignItems: 'center', ...sx }} onClick={handleViewItem}>
       <Box
         width={CARD_WIDTH}
         height={CARD_HEIGHT}

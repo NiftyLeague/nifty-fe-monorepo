@@ -149,8 +149,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
         {id && <DegenImage tokenId={id} sx={{ height: size === 'small' ? 200 : undefined }} />}
         {/* <Stack
           direction="row"
-          justifyContent="space-evenly"
-          sx={{ m: size === 'small' ? 0.5 : 1, width: 'auto' }}
+          sx={{ m: size === 'small' ? 0.5 : 1, width: 'auto', justifyContent: 'space-evenly' }}
         >
           <Chip
             chipcolor="rgb(75, 7, 175)"
@@ -177,9 +176,9 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
         <CardContent sx={{ py: 2, px: 2 }}>
           <Stack
             direction="row"
-            justifyContent="space-between"
             gap={1}
             sx={{
+              justifyContent: 'space-between',
               '&:hover': {
                 '& svg': {
                   display: 'block',
@@ -287,9 +286,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
         {isDashboardDegen && (
           <Stack
             direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            sx={{ pt: 2, px: 2, lineHeight: '1.5em' }}
+            sx={{ pt: 2, px: 2, lineHeight: '1.5em', justifyContent: 'space-between', alignItems: 'center' }}
           >
             {/* {false && (
               <Typography

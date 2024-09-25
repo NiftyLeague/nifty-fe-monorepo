@@ -185,7 +185,7 @@ const MyNFTL = (): JSX.Element => {
             actions={
               <Stack
                 direction="row"
-                alignItems="center"
+                sx={{ alignItems: 'center' }}
                 spacing={1}
                 paddingX={{ xl: 1, xs: 3 }}
                 paddingY={{ xl: 0.5, xs: 1.5 }}
@@ -194,7 +194,7 @@ const MyNFTL = (): JSX.Element => {
                   Buy Tokens
                 </Button>
                 <Button fullWidth variant="outlined" onClick={handlePlayArcade}>
-                  Play Arcade
+                  Play Arcade Games
                 </Button>
               </Stack>
             }
@@ -209,128 +209,126 @@ const MyNFTL = (): JSX.Element => {
           onClose={() => setOpenBuyAT(false)}
         />
       </>
-      <Grid2 size={{ xs: 12 }}>
-        <Grid2 container spacing={sectionSpacing}>
-          <Grid2 size={{ xs: 12, xl: 6 }}>
-            <HoverDataCard
-              title={
-                <>
-                  Game &amp; Rental Balance
-                  <Dialog>
-                    <DialogTrigger>
-                      <IconButton
-                        color="primary"
-                        component="span"
-                        sx={{
-                          position: 'absolute',
-                          top: 0,
-                          right: 0,
-                        }}
-                      >
-                        <HistoryIcon />
-                      </IconButton>
-                    </DialogTrigger>
-                    <DialogContent
-                      aria-labelledby="refresh-dialog"
-                      dialogTitle="Withdrawal Request History"
+      <Grid2 container size={{ xs: 12 }} spacing={sectionSpacing}>
+        <Grid2 size={{ xs: 12, sm: 6 }}>
+          <HoverDataCard
+            title={
+              <>
+                Game Balance
+                <Dialog>
+                  <DialogTrigger>
+                    <IconButton
+                      color="primary"
+                      component="span"
                       sx={{
-                        '& h2': {
-                          textAlign: 'center',
-                        },
-                        '& .MuiDialogContent-root': {
-                          textAlign: 'center',
-                        },
+                        position: 'absolute',
+                        top: '-8px',
+                        right: '-6px',
                       }}
                     >
-                      <RefreshBalanceForm refreshTimeout={refreshTimeout} onRefresh={handleRefreshBal} />
-                    </DialogContent>
-                  </Dialog>
-                </>
-              }
-              primary={`${
-                accountError
-                  ? 'Error fetching balance'
-                  : `${account ? formatNumberToDisplay(account?.balance! ?? 0) : '0.00'} NFTL`
-              }`}
-              isLoading={loadingAccount}
-              customStyle={{
-                backgroundColor: theme.palette.background.default,
-                border: '1px solid',
-                borderColor: theme.palette.border,
-                position: 'relative',
-              }}
-              secondary="Available Balance"
-              actions={
-                <Stack direction="row" gap={2}>
-                  <Dialog>
-                    <DialogTrigger>
-                      <Button fullWidth variant="contained">
-                        Withdraw
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent
-                      aria-labelledby="customized-dialog-title"
-                      dialogTitle="Withdraw Game &amp; Rental Earnings"
-                      sx={{
-                        '& h2': {
-                          textAlign: 'center',
-                        },
-                        '& .MuiDialogContent-root': {
-                          textAlign: 'center',
-                        },
-                      }}
-                    >
-                      <WithdrawForm balance={account?.balance! || 0} onWithdrawEarnings={handleWithdrawNFTL} />
-                    </DialogContent>
-                  </Dialog>
-                  <Dialog>
-                    <DialogTrigger>
-                      <Button fullWidth variant="outlined">
-                        Deposit
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent
-                      aria-labelledby="deposit-dialog"
-                      dialogTitle="Deposit into Game Account"
-                      sx={{
-                        '& h2': {
-                          textAlign: 'center',
-                        },
-                        '& .MuiDialogContent-root': {
-                          textAlign: 'center',
-                        },
-                      }}
-                    >
-                      <DepositForm balance={userNFTLBalance} onDeposit={handleDepositNFTL} />
-                    </DialogContent>
-                  </Dialog>
-                </Stack>
-              }
-            />
-          </Grid2>
-          <Grid2 size={{ xs: 12, xl: 6 }}>
-            <HoverDataCard
-              title="Daily NFTL Accrued"
-              primary={`${mockAccrued ? formatNumberToDisplay(mockAccrued) : '0.00'} NFTL`}
-              customStyle={{
-                backgroundColor: theme.palette.background.default,
-                border: '1px solid',
-                borderColor: theme.palette.border,
-              }}
-              secondary="Available to Claim"
-              isLoading={loadingNFTLAccrued}
-              actions={
-                <Button
-                  fullWidth
-                  variant="contained"
-                  disabled={!(mockAccrued > 0.0 && writeContracts[NFTL_CONTRACT])}
-                  onClick={handleClaimNFTL}
-                >
-                  Claim NFTL
-                </Button>
-              }
-            />
-          </Grid2>
+                      <HistoryIcon />
+                    </IconButton>
+                  </DialogTrigger>
+                  <DialogContent
+                    aria-labelledby="refresh-dialog"
+                    dialogTitle="Withdrawal Request History"
+                    sx={{
+                      '& h2': {
+                        textAlign: 'center',
+                      },
+                      '& .MuiDialogContent-root': {
+                        textAlign: 'center',
+                      },
+                    }}
+                  >
+                    <RefreshBalanceForm refreshTimeout={refreshTimeout} onRefresh={handleRefreshBal} />
+                  </DialogContent>
+                </Dialog>
+              </>
+            }
+            primary={`${
+              accountError
+                ? 'Error fetching balance'
+                : `${account ? formatNumberToDisplay(account?.balance! ?? 0) : '0.00'} NFTL`
+            }`}
+            isLoading={loadingAccount}
+            customStyle={{
+              backgroundColor: theme.palette.background.default,
+              border: '1px solid',
+              borderColor: theme.palette.border,
+              position: 'relative',
+            }}
+            secondary="Available Balance"
+            actions={
+              <Stack direction="row" gap={2}>
+                <Dialog>
+                  <DialogTrigger>
+                    <Button fullWidth variant="contained">
+                      Withdraw
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent
+                    aria-labelledby="customized-dialog-title"
+                    dialogTitle="Withdraw Game &amp; Rental Earnings"
+                    sx={{
+                      '& h2': {
+                        textAlign: 'center',
+                      },
+                      '& .MuiDialogContent-root': {
+                        textAlign: 'center',
+                      },
+                    }}
+                  >
+                    <WithdrawForm balance={account?.balance! || 0} onWithdrawEarnings={handleWithdrawNFTL} />
+                  </DialogContent>
+                </Dialog>
+                <Dialog>
+                  <DialogTrigger>
+                    <Button fullWidth variant="outlined">
+                      Deposit
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent
+                    aria-labelledby="deposit-dialog"
+                    dialogTitle="Deposit into Game Account"
+                    sx={{
+                      '& h2': {
+                        textAlign: 'center',
+                      },
+                      '& .MuiDialogContent-root': {
+                        textAlign: 'center',
+                      },
+                    }}
+                  >
+                    <DepositForm balance={userNFTLBalance} onDeposit={handleDepositNFTL} />
+                  </DialogContent>
+                </Dialog>
+              </Stack>
+            }
+          />
+        </Grid2>
+        <Grid2 size={{ xs: 12, sm: 6 }}>
+          <HoverDataCard
+            title="NFTL Accrued"
+            primary={`${mockAccrued ? formatNumberToDisplay(mockAccrued) : '0.00'} NFTL`}
+            customStyle={{
+              backgroundColor: theme.palette.background.default,
+              border: '1px solid',
+              borderColor: theme.palette.border,
+            }}
+            secondary="Available to Claim"
+            isLoading={loadingNFTLAccrued}
+            actions={
+              <Button
+                fullWidth
+                variant="contained"
+                disabled={!(mockAccrued > 0.0 && writeContracts[NFTL_CONTRACT])}
+                onClick={handleClaimNFTL}
+              >
+                Claim NFTL
+              </Button>
+            }
+          />
         </Grid2>
       </Grid2>
     </Grid2>

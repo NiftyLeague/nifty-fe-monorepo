@@ -36,7 +36,7 @@ const TopInfo = ({ profile, walletAddress }: TopInfoProps): JSX.Element => {
   const renderTopInfo = () => {
     return (
       <Stack>
-        <Stack direction="row" alignItems="center" spacing={5}>
+        <Stack direction="row" spacing={5} sx={{ alignItems: 'center' }}>
           <Box width="50%">
             <Typography variant="h2" component="div">
               {profileName} <ChangeProfileNameDialog handleUpdateNewName={handleUpdateNewName} />
@@ -44,7 +44,7 @@ const TopInfo = ({ profile, walletAddress }: TopInfoProps): JSX.Element => {
           </Box>
           <Box width="50%">{total && <ProgressGamer data={total} />}</Box>
         </Stack>
-        <Stack direction="row" alignItems="center" spacing={5}>
+        <Stack direction="row" spacing={5} sx={{ alignItems: 'center' }}>
           <Typography width="50%" variant="h4" component="div" sx={{ color: theme => theme.palette.grey[400] }}>
             {`${walletAddress.slice(0, 5)}...${walletAddress.slice(
               walletAddress.length - 5,

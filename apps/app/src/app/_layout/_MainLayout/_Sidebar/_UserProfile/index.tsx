@@ -36,7 +36,7 @@ const ClaimNFTLView = () => {
 
   return (
     <>
-      <Stack direction="column" alignItems="center" marginY={2}>
+      <Stack direction="column" marginY={2} sx={{ alignItems: 'center' }}>
         {loadingNFTLAccrued ? (
           <Skeleton variant="text" animation="wave" width={80} />
         ) : (
@@ -100,7 +100,7 @@ const UserProfile = () => {
       sx={{ border: `1px solid ${palette.border}` }}
     >
       <Avatar alt="avatar" src={ensAvatar.data || avatar?.url} sx={{ height: 80, width: 80 }} />
-      <Stack direction="column" alignItems="center" marginY={2}>
+      <Stack direction="column" marginY={2} sx={{ alignItems: 'center' }}>
         <Typography whiteSpace="nowrap">{displayName}</Typography>
       </Stack>
       <ConnectWrapper fullWidth>

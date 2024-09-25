@@ -3,7 +3,7 @@ import { Stack, Typography, Box, Skeleton } from '@mui/material';
 const TopInfoSkeleton = () => {
   return (
     <Stack>
-      <Stack direction="row" alignItems="center" spacing={5}>
+      <Stack direction="row" spacing={5} sx={{ alignItems: 'center' }}>
         <Box width="50%">
           <Skeleton
             sx={{
@@ -18,7 +18,7 @@ const TopInfoSkeleton = () => {
           <Skeleton variant="rectangular" width="100%" height="25px" />
         </Box>
       </Stack>
-      <Stack direction="row" alignItems="center" spacing={5}>
+      <Stack direction="row" spacing={5} sx={{ alignItems: 'center' }}>
         <Typography width="50%" variant="h4" component="div">
           <Skeleton
             sx={{

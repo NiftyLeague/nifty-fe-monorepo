@@ -146,6 +146,8 @@ const MyDegens = (): JSX.Element => {
     [authToken, favDegens, setFavDegens],
   );
 
+  console.log('MyDegens.tsx:', { degens, favDegens, loadingDegens });
+
   return (
     <>
       <SectionSlider
@@ -182,7 +184,7 @@ const MyDegens = (): JSX.Element => {
             </Box>
           ))
         ) : (
-          <Stack justifyContent="center" alignItems="center">
+          <Stack sx={{ justifyContent: 'center', alignItems: 'center' }}>
             <Link href={DEGEN_COLLECTION_URL} target="_blank" rel="noreferrer">
               <EmptyState
                 message="No DEGENs found. Please check your address or go purchase a DEGEN if you have not done so already!"

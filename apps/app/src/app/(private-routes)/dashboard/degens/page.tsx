@@ -307,7 +307,7 @@ const DashboardDegensPage = (): JSX.Element => {
       <Stack gap={1.5}>
         {/* Main Grid2 title */}
         <SectionTitle firstSection>
-          <Stack direction="row" alignItems="center" gap={1}>
+          <Stack direction="row" gap={1} sx={{ alignItems: 'center' }}>
             <IconButton onClick={() => setIsDrawerOpen(!isDrawerOpen)} size="small">
               {isDrawerOpen ? <ArrowBackIosNew /> : <ArrowForwardIos />}
             </IconButton>

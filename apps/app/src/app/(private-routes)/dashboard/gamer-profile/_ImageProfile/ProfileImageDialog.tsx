@@ -96,7 +96,7 @@ const ProfileImageContent = ({ onSearch, onChangeAvatar, degensInternal, avatarF
       ));
     }
     return (
-      <Stack justifyContent="center" alignItems="center">
+      <Stack sx={{ justifyContent: 'center', alignItems: 'center' }}>
         <EmptyState message="No DEGENs found." />
       </Stack>
     );

@@ -27,7 +27,7 @@ const MintPage = () => {
   if (!isForNiftyArtists) {
     if (!isLoggedIn) {
       return (
-        <Stack width="100%" height="100%" alignItems="center" justifyContent="center">
+        <Stack width="100%" height="100%" sx={{ justifyContent: 'center', alignItems: 'center' }}>
           <Typography variant="h3" component="div" textAlign="center">
             Please connect your wallet
           </Typography>
@@ -40,7 +40,7 @@ const MintPage = () => {
 
     if (!isDegenOwner) {
       return (
-        <Stack width="100%" height="100%" alignItems="center" justifyContent="center">
+        <Stack width="100%" height="100%" sx={{ justifyContent: 'center', alignItems: 'center' }}>
           <Typography variant="h3" component="div" textAlign="center">
             This page is accessible to DEGEN owners only.
           </Typography>

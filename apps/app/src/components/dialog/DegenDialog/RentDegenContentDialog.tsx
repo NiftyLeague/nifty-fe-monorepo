@@ -283,7 +283,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
         </Box>
         <Stack direction="row" spacing={{ xs: 1.5, sm: 3.5 }} mt={0.5}>
           <Stack direction="column">
-            <Stack direction="row" justifyContent="center">
+            <Stack direction="row" sx={{ justifyContent: 'center' }}>
               {degen?.id && (
                 <DegenImage
                   sx={{
@@ -297,7 +297,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                 />
               )}
             </Stack>
-            <Stack direction="column" alignItems="center" mt={0.5}>
+            <Stack direction="column" sx={{ alignItems: 'center', mt: 0.5 }}>
               <Typography sx={{ fontSize: '10px', lineHeight: 2, color: '#535659' }}>
                 Owned by {degen?.owner?.substring(0, 5)}
               </Typography>
@@ -310,8 +310,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                 width="100%"
                 spacing={1}
                 height="146px"
-                justifyContent="space-between"
-                alignItems="center"
+                sx={{ justifyContent: 'space-between', alignItems: 'center' }}
               >
                 <Typography variant="h6" className={classes.successInfo} mt={2}>
                   Congratulations!
@@ -324,7 +323,13 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                 </Button>
               </Stack>
             ) : (
-              <Stack direction="column" width="100%" spacing={1.25} height="146px" justifyContent="space-between">
+              <Stack
+                direction="column"
+                width="100%"
+                spacing={1.25}
+                height="146px"
+                sx={{ justifyContent: 'space-between' }}
+              >
                 <Stack direction="column" display={checkBalance ? 'none' : 'flex'}>
                   <Typography sx={{ fontSize: '10px', lineHeight: 2 }}>Who are you renting for?</Typography>
                   <RadioGroup row onChange={handleChangeRentingFor} value={rentFor}>
@@ -354,7 +359,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                     />
                   </RadioGroup>
                   {rentFor === 'recruit' && (
-                    <Stack direction="column" alignItems="center" my={1}>
+                    <Stack direction="column" sx={{ alignItems: 'center', my: 1 }}>
                       <FormControl fullWidth>
                         <TextField
                           placeholder="Paste your recruit’s eth address"
@@ -380,7 +385,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                   )}
                 </Stack>
                 <Stack direction="column" spacing={1.25}>
-                  <Stack direction="row" justifyContent="space-between">
+                  <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
                     <Typography>Rental Cost:</Typography>
                     <Typography
                       sx={{
@@ -390,7 +395,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                   </Stack>
                   {checkBalance && (
                     <Stack direction="column">
-                      <Stack direction="row" justifyContent="space-between">
+                      <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
                         <Typography>Balance:</Typography>
                         <Typography sx={{ color: sufficientBalance ? '#007B60' : '#B51424' }}>{`${
                           accountBalance ? formatNumberToDisplay(accountBalance) : '0.00'
@@ -417,7 +422,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                 </Stack>
                 <Stack direction="column" spacing={1.25}>
                   {checkBalance && isShowRentalPassOption() && (
-                    <Stack direction="row" justifyContent="space-between" alignItems="center">
+                    <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
                       <FormControl>
                         <FormControlLabel
                           label={<Typography variant="caption">Rental Pass</Typography>}
@@ -433,7 +438,10 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                         />
                       </FormControl>
                       {isUseRentalPass && (
-                        <Stack direction="row" justifyContent="space-between" alignItems="center" width="100px">
+                        <Stack
+                          direction="row"
+                          sx={{ justifyContent: 'space-between', alignItems: 'center', width: '100px' }}
+                        >
                           <Typography>Balance:</Typography>
                           <Typography sx={{ color: '#5820D6' }}>{rentalPassCount}</Typography>
                         </Stack>
@@ -506,11 +514,11 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
           <Grid2 container spacing={6}>
             <Grid2 size={{ xs: 12, md: 6 }}>
               <Stack gap={1}>
-                <Stack direction="row" justifyContent="space-between">
+                <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
                   <Typography>Multipliers</Typography>
                   <Typography className={classes.greyText}>{degen?.multiplier}x</Typography>
                 </Stack>
-                <Stack direction="row" justifyContent="space-between">
+                <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
                   <Typography>Queue</Typography>
                   <Typography className={classes.greyText}>{degen?.rental_count}</Typography>
                 </Stack>
@@ -518,11 +526,11 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
             </Grid2>
             <Grid2 size={{ xs: 12, md: 6 }}>
               <Stack gap={1}>
-                <Stack direction="row" justifyContent="space-between">
+                <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
                   <Typography>Rental period</Typography>
                   <Typography className={classes.greyText}>1 week</Typography>
                 </Stack>
-                <Stack direction="row" justifyContent="space-between">
+                <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
                   <Typography>Renewal Cost</Typography>
                   <Typography className={classes.greyText}>{degen?.price_daily}/Day</Typography>
                 </Stack>

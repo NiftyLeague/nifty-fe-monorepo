@@ -95,7 +95,7 @@ const DepositForm = ({ onDeposit, balance }: DepositFormProps): JSX.Element => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack alignItems="center" gap={2}>
+      <Stack gap={2} sx={{ alignItems: 'center' }}>
         <Typography variant="h4">NFTL in Wallet</Typography>
         <Typography variant="h2" sx={{ opacity: 0.7 }}>
           {formatNumberToDisplay(balance)}

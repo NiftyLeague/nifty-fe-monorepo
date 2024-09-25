@@ -187,7 +187,7 @@ const RefreshBalanceForm = ({ refreshTimeout, onRefresh }: RefreshFormProps): JS
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack alignItems="center" gap={2}>
+      <Stack gap={2} sx={{ alignItems: 'center' }}>
         {historyLoading ? (
           <Skeleton variant="rectangular" width="100%" height={320} />
         ) : (
