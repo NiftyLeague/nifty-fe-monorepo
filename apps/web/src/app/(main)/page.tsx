@@ -645,8 +645,8 @@ const Home: NextPage = () => {
                   </div>
                   <AnimatedWrapper>
                     <p className="py-1 py-lg-3 home-nftl-token-section-description animated-header-text animated-header-text-start transition-delay-medium">
-                      NFTL IS OUR GOVERNANCE &amp; UTILITY TOKEN. DEGENS EARN NFTL DAILY FOR THE FIRST 3 YEARS
-                      POST-MINT. GOVERN THE FUTURE OF NIFTY LEAGUE &amp; ACCESS EXCLUSIVE ASSET DROPS WITH NFTL.
+                      NFTL IS OUR GOVERNANCE &amp; UTILITY TOKEN. GOVERN THE FUTURE OF NIFTY LEAGUE &amp; ACCESS
+                      EXCLUSIVE GAME ASSETS.
                     </p>
                   </AnimatedWrapper>
                   <Stack
@@ -658,7 +658,7 @@ const Home: NextPage = () => {
                   >
                     <AnimatedWrapper>
                       <a
-                        href="https://app.uniswap.org/#/tokens/ethereum/0x3c8d2fce49906e11e71cb16fa0ffeb2b16c29638"
+                        href="https://quickswap.exchange/#/analytics/v3/token/0xb0d7e9ff5fb8e739c4990f7920d8047acfae4884"
                         target="_blank"
                         rel="noreferrer"
                       >

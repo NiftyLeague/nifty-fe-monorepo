@@ -4,7 +4,7 @@ title: Overview
 sidebar_position: 1
 ---
 
-In order to rent a DEGEN, you'll need NFTL in your crypto wallet (NFTL can easily be swapped on [SushiSwap](https://sushi.com/)).
+In order to rent a DEGEN, you'll need NFTL in your crypto wallet (NFTL can easily be swapped on [Uniswap](https://app.uniswap.org/explore/tokens/ethereum/0x3c8d2fce49906e11e71cb16fa0ffeb2b16c29638)).
 
 There will be a small, up-front rental fee, which is determined based on the number of people renting a DEGEN. Rental fees increase as demand increases.
 

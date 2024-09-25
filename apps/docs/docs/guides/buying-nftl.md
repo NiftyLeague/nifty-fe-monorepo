@@ -19,19 +19,19 @@ Tutorial video demonstrating buying Ethereum via [Coinbase](https://www.coinbase
 
 ### Step 3:
 
-#### Option A: Swapping ETH for NFTL via Uniswap
+#### Option A: Swapping ETH for NFTL via QuickSwap on Immutable zkEVM (preferred)
 
-- https://info.uniswap.org/#/pools/0x1bcf855445335f72841cdecaed71f5901a807a7f
+- https://quickswap.exchange/#/analytics/v3/token/0xb0d7e9ff5fb8e739c4990f7920d8047acfae4884
 
-#### Option B: Swapping ETH for NFTL via Sushiswap
+#### Option B: Swapping ETH for NFTL via Uniswap on Ethereum Mainnet
 
-- https://www.youtube.com/watch?v=20GnN_4XASw
+- https://app.uniswap.org/explore/tokens/ethereum/0x3c8d2fce49906e11e71cb16fa0ffeb2b16c29638
 
 #### Option C: Swapping ETH for NFTL in MetaMask
 
 - https://www.youtube.com/watch?v=ruR6X9qRhNg
 
-#### Option D: Swapping ETH for NFTL via CowSwap (preferred)
+#### Option D: Swapping ETH for NFTL via CowSwap
 
 - https://swap.cow.fi/#/1/swap/ETH/NFTL
 

@@ -14,7 +14,7 @@ Click the NL icon on the [Profile](https://app.niftyleague.com/profile) section 
 <details>
 <summary>What blockchain is NFTL on?</summary>
 
-NFTL is currently only available on Ethereum mainnet. A bridge will be available to move your tokens to Immutable zkEVM in the near future!
+NFTL is available on both Ethereum and Immutable zkEVM. While we started on Ethereum, Immutable zkEVM is now our main blockchain.
 
 </details>
 
@@ -28,14 +28,14 @@ NFTL acts as a way to decentralize our ecosystem by ensuring important decisions
 <details>
 <summary>Where can I purchase NFTL?</summary>
 
-Currently you can purchase NFTL by swapping ETH (or WETH) for NFTL on a decentralized trading platform like [Uniswap](https://uniswap.com/) or [SushiSwap](https://sushi.com/). The majority of our liquidity is on Uniswap so used start there for the lowest possible slippage.
+You can purchase NFTL by swapping ETH (or WETH) for NFTL on decentralized trading platforms. For Immutable zkEVM use [QuickSwap](https://quickswap.exchange/#/analytics/v3/token/0xb0d7e9ff5fb8e739c4990f7920d8047acfae4884) and for Ethereum use [Uniswap](https://app.uniswap.org/explore/tokens/ethereum/0x3c8d2fce49906e11e71cb16fa0ffeb2b16c29638). The majority of our liquidity is on Quickswap so start there for the lowest possible slippage & gas.
 
 </details>
 
 <details>
 <summary>How much NFTL does a [DEGEN NFT](/docs/overview/nfts/degens/about) earn per day passively (regardless of gameplay)?</summary>
 
-Each DEGEN accumulates 68.5 NFTL per day for 3 years post-launch (specifically, September 14, 2024).
+DEGEN yield ended on September 14th, 2024. Previously they accumulated 68.5 NFTL per day for 3 years post-launch.
 
 </details>
 
@@ -56,19 +56,19 @@ Navigate to your [Profile](https://app.niftyleague.com/profile) on the Nifty Lea
 <details>
 <summary>Are there plans to build a Nifty league DAO?</summary>
 
-Yes! And the NFTL token will be used to govern the DAO.
+Yes! Actually, it's already available on [Tally.xyz](https://www.tally.xyz/)! NFTL is used to govern the DAO.
 
 </details>
 
 <details>
 <summary>Is there a max supply of NFTL?</summary>
 
-While no hard number is set in the contract, the current max supply of Roughly 1.225 billion tokens will be available after Sept 14, 2024. The supply will only be increased if the DAO votes to do so. Read more about [supply](/docs/overview/nifty-dao/nftl/supply).
+While no hard number is set in the contract, the current max supply is 1.25 billion tokens. The supply will only be increased if the DAO votes to do so. Read more about [supply](/docs/overview/nifty-dao/nftl/supply).
 
 </details>
 
 <details>
-<summary>When purchasing a DEGEN on OpenSea, how do I view the amount of NFTL a DEGEN has accumulated?</summary>
+<summary>When purchasing a DEGEN on OpenSea, how do I verify the amount of NFTL a DEGEN has accumulated?</summary>
 
 - Navigate to the [Nifty League NFTL Token Contract](https://etherscan.io/address/0x3c8d2fce49906e11e71cb16fa0ffeb2b16c29638#readContract)
 - Scroll to 5. accumulated
