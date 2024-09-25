@@ -70,31 +70,31 @@ const MyDegens = (): JSX.Element => {
   }, [characters, degensData]) as Degen[];
 
   const settings = {
-    slidesToShow: 2,
+    slidesToShow: 3,
     adaptiveHeight: true,
     responsive: [
       {
         breakpoint: 1350,
         settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 1019,
+        settings: {
           slidesToShow: 4,
         },
       },
       {
-        breakpoint: 1200,
+        breakpoint: 800,
         settings: {
           slidesToShow: 3,
         },
       },
       {
-        breakpoint: 900,
-        settings: {
-          slidesToShow: 2,
-        },
-      },
-      {
         breakpoint: 600,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
         },
       },
     ],
@@ -173,11 +173,12 @@ const MyDegens = (): JSX.Element => {
                 degen={degen}
                 favs={favDegens}
                 isDashboardDegen
+                onClickClaim={() => handleClaimDegen(degen)}
                 onClickDetail={() => handleViewTraits(degen)}
                 onClickEditName={() => handleClickEditName(degen)}
-                onClickClaim={() => handleClaimDegen(degen)}
-                onClickRent={() => handleRentDegen(degen)}
                 onClickFavorite={() => handleClickFavorite(degen)}
+                onClickRent={() => handleRentDegen(degen)}
+                size="small"
               />
             </Box>
           ))

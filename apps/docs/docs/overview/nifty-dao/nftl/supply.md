@@ -10,7 +10,7 @@ Our launch in September 2021 kicked off the [initial distribution](./distributio
 
 In total, [NFTL emissions](./emissions) for the first 3 years added up to **850M NFTL**. DEGEN NFT daily emissions end on Sept 14, 2024 - at which point no further emissions are planned unless by order of the Nifty DAO.
 
-After several burn events including 7th tribe claim, raffles and mini-games, the max supply amounts to **1.225B NFTL**. Please check [CoinGecko](https://www.coingecko.com/en/coins/nifty-league) for accurate up-to-date information regarding circulating & total supply.
+After several burn events including 7th tribe claim, raffles and mini-games, the max supply amounts to **1.25B NFTL**. Please check [CoinGecko](https://www.coingecko.com/en/coins/nifty-league) for accurate up-to-date information regarding circulating & total supply.
 
 <div style={{ maxWidth: 500, margin: 'auto' }}>![](/img/events/big_burn.webp)</div>
 <br />

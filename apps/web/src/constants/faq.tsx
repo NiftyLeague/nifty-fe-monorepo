@@ -34,14 +34,14 @@ export const FAQS = [
     question: 'What is NFTL and what is it used for?',
     answer: (
       <>
-        NFTL is our platform-wide governance token and utility token. The token is distributed freely to DEGEN NFT
-        holders and Nifty Smashers players through special events. The team has never, nor will ever, sell NFTL to the
-        public. It is available for trading on decentralized exchanges such as Uniswap and SushiSwap.
+        NFTL is our platform-wide governance and utility token. The token was distributed freely to DEGEN NFT holders
+        and Nifty Smashers players through special events. The team has never, nor will ever, sell NFTL to the public.
+        It is available for trading on decentralized exchanges such as QuickSwap (Immutable zkEVM) & Uniswap (Ethereum).
         <br />
         <br />
         Utility includes, but is not limited to:
         <ol>
-          <li>Governance: DAO formation planned Q4 2024</li>
+          <li>Governance: on-chain DAO governance available on Tally.xyz</li>
           <li>NFT drops: Raffles, NiftyVerse Land, special weapons/wearables, others TBA</li>
           <li>Ecosystem currency: Redemption of in-game currencies, compete-2-earn wagering (deprecated)</li>
           <li>Platform fees: Renaming DEGENs, DEGEN rentals (deprecated), Mini-Games (deprecated), etc</li>

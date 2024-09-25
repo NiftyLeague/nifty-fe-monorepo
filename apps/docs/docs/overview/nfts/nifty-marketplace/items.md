@@ -1,7 +1,7 @@
 ---
 id: items
-title: IMX Items
-sidebar_position: 3
+title: Items
+sidebar_position: 2
 ---
 
 import ReactPlayer from 'react-player';
@@ -12,7 +12,9 @@ import VideoURL2 from '/video/citadel_key.mp4';
 | -------------------------- | -------------------------- | -------------------------- |
 | ![](/img/items/full/4.gif) | ![](/img/items/full/5.gif) | ![](/img/items/full/3.gif) |
 
-The initial 6 in-game items are earned via burning [comic pages](./comics). These 6 items have some of the highest power-scores in game, granting holders a strong early advantage in games.
+The initial 6 in-game items are earned via burning [comic pages](./comics). These 6 items are the most exclusive in-game items in Nifty League games.
+
+Other rare items can be found in lootboxes or won in events in our games like [Nifty Smashers](/docs/overview/games/mobile-games/nifty-smashers).
 
 ### Wearables
 
@@ -34,10 +36,10 @@ Earned from burning a full-set of all 6 pages
 
 <ReactPlayer controls url={VideoURL2} width="100%" />
 
-### Immutable (IMX) Items Marketplace
+### Immutable zkEVM Items Marketplace
 
-Items were originally minted on Immutable blockchain but will soon be migrated to Immutable zkEVM on Polygon. Stay Tuned for future details!
+Immutable enables seamless blockchain integration for our games. Onboarding new users is crucial - with Immutable Passport it takes 5 seconds to create an account and immediately have a crypto wallet available.
 
-After the migration we will set up an official marketplace for our items so users can easily interact and purchase additional items for use in our games.
+Items and skins are an important part of our games. They help you stand-out, show-off, and just be yourself. With our migration to Immutable now complete, our next step is expanding our items marketplace so users can easily earn or purchase additional items for use in our games.
 
 ![alt text](/img/niftyverse/billboard_01.webp)

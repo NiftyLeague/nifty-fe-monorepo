@@ -18,7 +18,7 @@ Read more about [Nifty League Comics](/docs/overview/nfts/comics).
 <details>
 <summary>Can I still claim comics?</summary>
 
-No, all claims are now closed. Comics are available on secondary marketplaces such as [OpenSea](https://opensea.io/collection/nifty-league-comics)
+No, all claims are now closed. Comics are available on Immutable zkEVM secondary marketplaces such as [TokenTrove](https://tokentrove.com/collection/NiftyLeague)
 
 The snapshot for Comics 5 and 6 was taken at [Ethereum Block 14115835](https://etherscan.io/block/14115835). Each DEGEN held at the snapshot received a comic 5 claim. Each tribe set, and meta background, received a comic 6 claim. Legendary DEGENs held at the snapshot received a claim for two comic 6s.
 

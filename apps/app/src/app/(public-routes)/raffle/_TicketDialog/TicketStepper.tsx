@@ -100,7 +100,7 @@ function getSteps() {
 function getStepContent(step: number) {
   switch (step) {
     case 0: {
-      return '1000 NFTL minimum required for raffle tickets. Please either claim NFTL from your degen(s) or use Sushiswap to purchase.';
+      return '1000 NFTL minimum required for raffle tickets. Please either claim NFTL from your degen(s) or use Uniswap to purchase.';
     }
     case 1:
       return 'Note: renaming requires two transactions since the NFTL Raffle contract is not already an approved spender.';
