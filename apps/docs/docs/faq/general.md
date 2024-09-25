@@ -7,14 +7,14 @@ sidebar_position: 1
 <details>
 <summary>What blockchain is Nifty League built on?</summary>
 
-While DEGEN NFTs exist on Ethereum mainnet, any future collections will live on IMX zkEVM in collaboration with Immutable & Polygon.
+While DEGEN NFTs exist on Ethereum mainnet, Nifty Marketplace and any future collections will live on Immutable zkEVM.
 
 </details>
 
 <details>
 <summary>Does it cost to play your games</summary>
 
-No, while early releases may be token-gated to our community for testing, all games are free-2-play.
+No, while early releases or Web3-specific experiences may be token-gated to our community for testing, all games are free-2-play.
 
 </details>
 

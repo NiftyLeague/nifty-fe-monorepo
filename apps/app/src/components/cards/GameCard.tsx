@@ -174,7 +174,7 @@ const GameCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<GameCar
         ...sx,
       }}
     >
-      <CardMedia component="img" height="auto" image={image} alt={title} />
+      <CardMedia component="img" height={275} image={image} alt={title} />
       {contents || (
         <CardGameContent
           actions={actions}

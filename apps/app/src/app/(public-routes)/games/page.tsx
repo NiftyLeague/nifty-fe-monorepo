@@ -3,7 +3,7 @@
 import { Grid2, Button } from '@mui/material';
 import SectionSlider from '@/components/sections/SectionSlider';
 import useVersion from '@/hooks/useVersion';
-import GameList from './_GameList';
+import Web3GameList from './_Web3GameList';
 
 const GamesPage = () => {
   const { isWindows, isMacOs, downloadURL, version, message } = useVersion();
@@ -20,7 +20,7 @@ const GamesPage = () => {
         }
       >
         <Grid2 container flexDirection="row" flexWrap="wrap" rowSpacing={4}>
-          <GameList />
+          <Web3GameList />
         </Grid2>
       </SectionSlider>
     </>
