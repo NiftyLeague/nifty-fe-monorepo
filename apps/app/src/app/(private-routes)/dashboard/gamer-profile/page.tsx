@@ -57,7 +57,7 @@ const GamerProfile = (): JSX.Element => {
 
   const renderEmptyProfile = () => {
     return (
-      <Grid2 container justifyContent="center" alignItems="center" display="flex" height="100%">
+      <Grid2 container size={12} sx={{ justifyContent: 'center', alignItems: 'center' }} display="flex" height="100%">
         <EmptyState message="You don't own any Gamer Profile yet." />
       </Grid2>
     );
@@ -65,7 +65,7 @@ const GamerProfile = (): JSX.Element => {
 
   const renderTopProfile = () => {
     return (
-      <Grid2 container spacing={3}>
+      <Grid2 container size={12} spacing={3}>
         <Grid2 size={{ xs: 12, md: 3.5 }}>
           <ImageProfile
             avatar={profile?.avatar}
@@ -117,7 +117,7 @@ const GamerProfile = (): JSX.Element => {
     );
   };
   return (
-    <Grid2 container gap={sectionSpacing} mb="24px">
+    <Grid2 container gap={4} mb="24px">
       {error && !profile && !loadingProfile && renderEmptyProfile()}
       {(profile || loadingProfile) && renderGamerProfile()}
     </Grid2>

@@ -314,6 +314,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
                 sx={{
                   display: 'flex',
                   cursor: 'pointer',
+                  alignItems: 'center',
                 }}
                 onClick={onClickDownload}
               >
