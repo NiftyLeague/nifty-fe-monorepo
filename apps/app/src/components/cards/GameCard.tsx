@@ -35,13 +35,13 @@ const CardGameContent = ({
   };
 
   return (
-    <Stack justifyContent="space-between" flexGrow={1}>
+    <Stack flexGrow={1} sx={{ justifyContent: 'space-between' }}>
       <CardContent
         sx={{
           padding: '24px 24px 0',
         }}
       >
-        <Stack direction="row" justifyContent="space-between">
+        <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
           <Typography gutterBottom variant="h4" component="div">
             {title}
           </Typography>

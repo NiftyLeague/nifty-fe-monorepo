@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { styled } from '@nl/theme';
 import Image from 'next/image';
-import { formatEther, parseEther, type AddressLike } from 'ethers';
+import { formatEther, parseEther, type AddressLike } from 'ethers6';
 import { OrderKind } from '@cowprotocol/cow-sdk';
 import { createOrderSwapEtherToNFTL, getCowMarketPrice, getOrderDetail } from '@/utils/cowswap';
 
@@ -320,7 +320,7 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
             />
             <Stack direction="column">
               {feeAmount && (
-                <Stack direction="row" justifyContent="space-between" my={1}>
+                <Stack direction="row" sx={{ justifyContent: 'space-between', my: 1 }}>
                   <Typography ml={1}>Fees</Typography>
                   <Typography mr={1}>
                     {`${formatNumberToDisplay(Number(feeAmount), 4)} ETH (~$${formatNumberToDisplay2(
@@ -352,9 +352,7 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
         ) : (
           <Stack
             direction="column"
-            alignItems="center"
-            justifyContent="center"
-            position="relative"
+            sx={{ justifyContent: 'center', alignItems: 'center', position: 'relative' }}
             height={228}
             gap={1}
           >
@@ -375,7 +373,7 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
                 </Typography>
               </Stack>
             )}
-            <Stack direction="row" alignItems="center" gap={1} mt={2}>
+            <Stack direction="row" sx={{ alignItems: 'center', mt: 2 }} gap={1}>
               <Button
                 variant="outlined"
                 onClick={handleImportNFTLToWallet}

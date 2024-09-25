@@ -1,4 +1,4 @@
-import type { Comic, Item } from '@/types/comic';
+import type { Comic, Item } from '@/types/marketplace';
 
 export const COMICS: Comic[] = [
   {

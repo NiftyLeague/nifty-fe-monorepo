@@ -1,20 +1,20 @@
 'use client';
 
-import { memo, useContext, useState } from 'react';
+import { memo, useState } from 'react';
 import useInterval from '@/hooks/useInterval';
-import IMXContext, { Context } from '@/contexts/IMXContext';
+import useIMXContext from '@/hooks/useIMXContext';
 import MachineFrame from './machine-frame';
-import type { Comic } from '@/types/comic';
+import type { Comic } from '@/types/marketplace';
 
 const ComicsBurnerMachine: React.FC<
   React.PropsWithChildren<
     React.PropsWithChildren<{
+      address?: `0x${string}`;
       burnDisabled: boolean;
-      imx: Context;
       selectedComics: Comic[];
     }>
   >
-> = memo(({ burnDisabled, imx, selectedComics }) => {
+> = memo(({ address, burnDisabled, selectedComics }) => {
   const [count, setCount] = useState<number>(0);
 
   useInterval(() => {
@@ -25,7 +25,7 @@ const ComicsBurnerMachine: React.FC<
     <>
       <MachineFrame frames={['/img/comics/burner/machine/machine_main_3.webp']} />
       <MachineFrame frames={['/img/comics/burner/machine/fx_combined_02.gif']} />
-      {!imx.registeredUser ? (
+      {!address ? (
         <MachineFrame
           frames={[
             '/img/comics/burner/machine/button_connectwallet_01.webp',
@@ -48,13 +48,11 @@ const ComicsBurnerMachine: React.FC<
         />
       ) : (
         <>
-          {!imx.registeredUser ? (
-            <MachineFrame frames={['/img/comics/burner/machine/connectwalletabove_button_01.webp']} />
-          ) : null}
+          {!address ? <MachineFrame frames={['/img/comics/burner/machine/connectwalletabove_button_01.webp']} /> : null}
           {selectedComics.length < 1 ? (
             <MachineFrame frames={['/img/comics/burner/machine/selectcomics_button_02.webp']} />
           ) : null}
-          {imx.registeredUser && selectedComics.length > 1 ? (
+          {address && selectedComics.length > 1 ? (
             <MachineFrame frames={['/img/comics/burner/machine/button_burn_gray_01.webp']} />
           ) : null}
         </>
@@ -74,8 +72,8 @@ const ComicsBurnerMachineWithContext = ({
   burnDisabled: boolean;
   selectedComics: Comic[];
 }) => {
-  const imx = useContext(IMXContext);
-  return <ComicsBurnerMachine imx={imx} burnDisabled={burnDisabled} selectedComics={selectedComics} />;
+  const { address } = useIMXContext();
+  return <ComicsBurnerMachine address={address} burnDisabled={burnDisabled} selectedComics={selectedComics} />;
 };
 
 export default ComicsBurnerMachineWithContext;

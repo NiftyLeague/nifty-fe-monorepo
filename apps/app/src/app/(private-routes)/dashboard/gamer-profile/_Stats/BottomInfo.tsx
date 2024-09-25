@@ -25,7 +25,7 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
           contents={
             <Stack padding="16px" gap={2}>
               {nifty_smashers && <ProgressGamer size="sm" data={nifty_smashers} />}
-              <Stack direction="row" justifyContent="space-between" alignItems="center">
+              <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography variant="h3" component="div">
                   Nifty Smashers
                 </Typography>
@@ -58,9 +58,9 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
         <GameCard
           image="/img/games/wen.gif"
           contents={
-            <Stack padding="16px" gap={2} flex={1} justifyContent="space-between">
+            <Stack padding="16px" gap={2} flex={1} sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
               {wen_game && <ProgressGamer size="sm" data={wen_game} />}
-              <Stack direction="row" justifyContent="space-between" alignItems="center">
+              <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography variant="h3" component="div">
                   WEN?
                 </Typography>
@@ -94,9 +94,9 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
           <GameCard
             image="/img/games/crypto-winter.webp"
             contents={
-              <Stack padding="16px" gap={2} flex={1} justifyContent="space-between">
+              <Stack padding="16px" gap={2} flex={1} sx={{ justifyContent: 'space-between' }}>
                 <ProgressGamer size="sm" data={crypto_winter} />
-                <Stack direction="row" justifyContent="space-between" alignItems="center">
+                <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
                   <Typography variant="h3" component="div">
                     CRYPTO WINTER
                   </Typography>

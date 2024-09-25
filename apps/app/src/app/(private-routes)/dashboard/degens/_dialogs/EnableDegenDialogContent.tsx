@@ -63,7 +63,7 @@ const EnableDisableDegenDialogContent = ({ degen, isEnabled = false, onClose, on
               Owned by {degen?.owner}
             </Typography>
           </Stack>
-          <Stack direction="row" justifyContent="center" mb={1}>
+          <Stack direction="row" mb={1} sx={{ justifyContent: 'center' }}>
             {isEnabled ? (
               <Typography align="center">
                 Disabling your rental makes your rental queue private. Note that your queue will clear as existing

@@ -1,38 +1,56 @@
-import { useMemo } from 'react';
-import groupBy from 'lodash/groupBy';
-import { ITEMS } from '@/constants/comics';
-import { ImmutableMethodResults } from '@imtbl/imx-sdk';
-import type { Item } from '@/types/comic';
+'use client';
+
+import { useEffect, useState } from 'react';
+import type { AddressLike } from 'ethers6';
+import type { Contracts } from '@/types/web3';
+import type { Item } from '@/types/marketplace';
+import { MARKETPLACE_CONTRACT } from '@/constants/contracts';
+import { ITEMS } from '@/constants/marketplace';
 
 /*
   ~ What it does? ~
 
-  Gets your IMX items NFT balances from inventory
+  Gets your Items NFTs balance from Immutable zkEVM
 
   ~ How can I use? ~
 
-  const yourBalance = useItemsBalance(inventory);
+  const { itemsBalance } = useItemsBalance(imxContracts, address);
 */
 
-export default function useItemsBalance(inventory: ImmutableMethodResults.ImmutableGetAssetsResult): {
+export default function useItemsBalance(
+  imxContracts: Contracts,
+  address?: `0x${string}`,
+  refreshKey = 0,
+): {
   itemsBalance: Item[];
+  loading: boolean;
 } {
-  const itemsBalance: Item[] = useMemo(() => {
-    if (inventory?.result) {
-      const groupBalances: { item_id?: number; balance: number }[] = Object.values(
-        groupBy(inventory.result, 'metadata.item_id'),
-      ).map((group: { metadata?: unknown }[]) => ({
-        ...(group[0]?.metadata || {}),
-        balance: group.length,
-      }));
+  const [loading, setLoading] = useState(true);
+  const [itemsBalance, setItemsBal] = useState<Item[]>([]);
 
-      return ITEMS.map(item => ({
-        ...item,
-        ...(groupBalances.find(g => g.item_id === item.id) || {}),
-      }));
+  useEffect(() => {
+    async function checkUserItems() {
+      const ownerArr = [address, address, address, address, address, address] as AddressLike[];
+      const comicIds = [101, 102, 103, 104, 105, 106];
+      const comicsData = await imxContracts[MARKETPLACE_CONTRACT].balanceOfBatch(ownerArr, comicIds);
+      setItemsBal(
+        comicsData.map((c: bigint, i: number) => ({
+          ...(ITEMS[i] as Item),
+          balance: Number(c),
+        })),
+      );
+      setLoading(false);
     }
-    return [];
-  }, [inventory]);
+    if (!address) {
+      setLoading(false);
+      setItemsBal([]);
+    }
 
-  return { itemsBalance };
+    if (address && imxContracts && imxContracts[MARKETPLACE_CONTRACT]) {
+      // eslint-disable-next-line no-void
+      void checkUserItems();
+    }
+  }, [address, imxContracts, refreshKey]);
+
+  return { itemsBalance, loading };
 }

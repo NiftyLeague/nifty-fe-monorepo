@@ -19,7 +19,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import ReplayIcon from '@mui/icons-material/Replay';
 import { useContext, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { parseEther } from 'ethers';
+import { parseEther } from 'ethers6';
 import { DialogContext } from '@/components/dialog';
 import useWithdrawalHistory from '@/hooks/useWithdrawalHistory';
 import useContractReader from '@/hooks/useContractReader';
@@ -187,7 +187,7 @@ const RefreshBalanceForm = ({ refreshTimeout, onRefresh }: RefreshFormProps): JS
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack alignItems="center" gap={2}>
+      <Stack gap={2} sx={{ alignItems: 'center' }}>
         {historyLoading ? (
           <Skeleton variant="rectangular" width="100%" height={320} />
         ) : (

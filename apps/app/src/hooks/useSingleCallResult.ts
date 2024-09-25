@@ -2,7 +2,7 @@
 
 /* eslint-disable no-console */
 import { useState, useEffect } from 'react';
-import type { BaseContract, Contract, ContractMethod } from 'ethers';
+import type { BaseContract, Contract, ContractMethod } from 'ethers6';
 import type { Contracts } from '@/types/web3';
 // import { DEBUG } from '@/constants/index';
 

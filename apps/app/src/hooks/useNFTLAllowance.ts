@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useState, useEffect } from 'react';
-import { formatEther } from 'ethers';
+import { formatEther } from 'ethers6';
 import { useReadContract } from 'wagmi';
 import { TARGET_NETWORK } from '@/constants/networks';
 import { getDeployedContract, NFTL_CONTRACT as NFTL_CONTRACT_NAME } from '@/constants/contracts';

@@ -53,7 +53,7 @@ const SortButton = ({
   );
 
   return (
-    <Stack direction="row" alignItems="center" justifyContent="center">
+    <Stack direction="row" sx={{ justifyContent: 'center', alignItems: 'center' }}>
       {Button}
       <Menu
         id="demo-positioned-menu"

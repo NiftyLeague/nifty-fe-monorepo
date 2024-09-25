@@ -6,12 +6,12 @@ import Link from 'next/link';
 import { Box, Button, CircularProgress, Grid2, Stack, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import isEqual from 'lodash/isEqual';
-import useComicsBalance from '@/hooks/useComicsBalance';
+import useIMXContext from '@/hooks/useIMXContext';
 import { useDispatch } from '@/store/hooks';
 import { openSnackbar } from '@/store/slices/snackbar';
 import { sendEvent } from '@/utils/google-analytics';
 import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
-import { COMICS_OPENSEA_URL } from '@/constants/url';
+import { COMICS_PURCHASE_URL } from '@/constants/url';
 import type { Degen } from '@/types/degens';
 import DegenImage from '@/components/cards/DegenCard/DegenImage';
 import EmptyState from '@/components/EmptyState';
@@ -84,7 +84,7 @@ const initEquipped: boolean[] = new Array(6).fill(false);
 
 const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) => {
   const dispatch = useDispatch();
-  const { comicsBalance, loading: loadingComics } = useComicsBalance();
+  const { comicsBalance, comicsLoading } = useIMXContext();
   const filteredComics = useMemo(
     () => comicsBalance.filter(comic => comic.balance && comic.balance > 0),
     [comicsBalance],
@@ -216,7 +216,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
   };
 
   if (filteredComics.length === 0) {
-    if (loadingComics) {
+    if (comicsLoading) {
       return (
         <StyledStack direction="row" justifyContent="center" alignItems="center" height={200} mx="auto">
           <CircularProgress />
@@ -225,7 +225,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
     }
     return (
       <Grid2 container justifyContent="center" alignItems="center" display="flex" height={200}>
-        <Link href={COMICS_OPENSEA_URL} target="_blank" rel="noreferrer">
+        <Link href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
           <EmptyState message="You don't own any Comics yet." buttonText="Buy a Comic" noBorder />
         </Link>
       </Grid2>
@@ -248,7 +248,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
         </Typography>
       </Box>
       <Stack direction="row" mt={2.25}>
-        <Stack alignItems="center">
+        <Stack sx={{ alignItems: 'center' }}>
           <Typography variant="body1" mb={2} className={label}>
             SLOTS
           </Typography>
@@ -308,7 +308,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
             SAVE
           </Button>
         </Stack>
-        <Stack alignItems="center">
+        <Stack sx={{ alignItems: 'center' }}>
           <Typography variant="body1" mb={2} textAlign="center" className={label}>
             INVENTORY
           </Typography>

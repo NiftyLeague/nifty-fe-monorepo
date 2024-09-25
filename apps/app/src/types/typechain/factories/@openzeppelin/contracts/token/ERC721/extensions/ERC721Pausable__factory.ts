@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers6';
 import type {
   ERC721Pausable,
   ERC721PausableInterface,

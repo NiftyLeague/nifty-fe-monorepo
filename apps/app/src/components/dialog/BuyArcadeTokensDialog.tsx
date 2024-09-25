@@ -119,7 +119,11 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
     <Dialog open={open} onClose={onClose} {...rest} maxWidth="xs">
       <Container>
         <>
-          <Stack direction="row" justifyContent="center" alignItems="center" spacing={2} position="relative">
+          <Stack
+            direction="row"
+            spacing={2}
+            sx={{ justifyContent: 'center', alignItems: 'center', position: 'relative' }}
+          >
             <DialogTitle>Buy Arcade Token</DialogTitle>
             <Icon
               sx={{
@@ -137,7 +141,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
             }}
           />
           {(isDetailsPending || error) && (
-            <Stack direction="row" justifyContent="center" alignItems="center" width="390px" height="300px">
+            <Stack direction="row" sx={{ justifyContent: 'center', alignItems: 'center' }} width="390px" height="300px">
               <>
                 {isDetailsPending && <CircularProgress />}
                 {error && <Typography variant="h4">Something went wrong!</Typography>}
@@ -153,7 +157,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                 </Typography>
                 <Typography my={2}>{details.price} NFTL Each</Typography>
               </Typography>
-              <Stack direction="row" justifyContent="center" alignItems="center" spacing={1} mb={3}>
+              <Stack direction="row" sx={{ justifyContent: 'center', alignItems: 'center' }} spacing={1} mb={3}>
                 <RemoveIcon
                   sx={{
                     fontSize: 50,

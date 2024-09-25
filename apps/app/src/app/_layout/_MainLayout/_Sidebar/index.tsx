@@ -45,12 +45,12 @@ const Sidebar = () => {
           paddingRight: '16px',
         }}
       >
-        <Stack justifyContent="space-between" height="100%">
+        <Stack sx={{ justifyContent: 'space-between', height: '100%' }}>
           <Box>
             <UserProfile />
             <MenuList />
           </Box>
-          <Stack alignItems="center">
+          <Stack sx={{ alignItems: 'center' }}>
             <LogoutButton sx={{ marginBottom: 3, width: '85%' }} />
           </Stack>
         </Stack>

@@ -30,6 +30,7 @@ import { errorMsgHandler } from '@/utils/errorHandlers';
 import type { Degen } from '@/types/degens';
 // import { DISABLE_RENT_API_URL } from '@/constants/url';
 import useAuth from '@/hooks/useAuth';
+import { DEGEN_PURCHASE_URL } from '@/constants/url';
 
 // const chipStyles = (isSmall: boolean) => ({
 //   color: 'white',
@@ -148,8 +149,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
         {id && <DegenImage tokenId={id} sx={{ height: size === 'small' ? 200 : undefined }} />}
         {/* <Stack
           direction="row"
-          justifyContent="space-evenly"
-          sx={{ m: size === 'small' ? 0.5 : 1, width: 'auto' }}
+          sx={{ m: size === 'small' ? 0.5 : 1, width: 'auto', justifyContent: 'space-evenly' }}
         >
           <Chip
             chipcolor="rgb(75, 7, 175)"
@@ -176,9 +176,9 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
         <CardContent sx={{ py: 2, px: 2 }}>
           <Stack
             direction="row"
-            justifyContent="space-between"
             gap={1}
             sx={{
+              justifyContent: 'space-between',
               '&:hover': {
                 '& svg': {
                   display: 'block',
@@ -193,7 +193,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
               <EditIcon sx={{ cursor: 'pointer', display: 'none' }} onClick={onClickEditName} fontSize="small" />
             )}
             <Link
-              href={id ? `https://opensea.io/assets/0x986aea67c7d6a15036e18678065eb663fc5be883/${id}` : '#'}
+              href={id ? DEGEN_PURCHASE_URL(id) : '#'}
               target="_blank"
               rel="nofollow"
               color={palette.text.secondary}
@@ -286,9 +286,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
         {isDashboardDegen && (
           <Stack
             direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            sx={{ pt: 2, px: 2, lineHeight: '1.5em' }}
+            sx={{ pt: 2, px: 2, lineHeight: '1.5em', justifyContent: 'space-between', alignItems: 'center' }}
           >
             {/* {false && (
               <Typography
@@ -316,6 +314,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
                 sx={{
                   display: 'flex',
                   cursor: 'pointer',
+                  alignItems: 'center',
                 }}
                 onClick={onClickDownload}
               >

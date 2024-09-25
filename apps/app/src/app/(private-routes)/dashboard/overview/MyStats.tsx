@@ -44,6 +44,7 @@ const MyStatsContext = () => {
         isLoadingProfile: loadingProfile,
         isLoadingDegens: false,
         isLoadingComics: false,
+        isLoadingItems: false,
       }}
     >
       <MyStats profile={profile} />

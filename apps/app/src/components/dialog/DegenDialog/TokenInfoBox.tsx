@@ -149,14 +149,21 @@ const TokenInfoBox = ({
         className={classes.swapBox}
         sx={{ borderRadius: transactionValue ? '10px 10px 0px 0px' : '10px' }}
       >
-        <Stack direction="row" alignItems="center" px={1} py={0.5} className={classes.tokenBox} spacing={0.5}>
+        <Stack direction="row" sx={{ alignItems: 'center' }} px={1} py={0.5} className={classes.tokenBox} spacing={0.5}>
           {icon}
           <Typography variant="body1" fontWeight="bold">
             {name}
           </Typography>
         </Stack>
-        <Stack direction="row" alignItems="center" spacing={1} width="100%" justifyContent="space-between">
-          <Stack direction="row" alignItems="center" spacing={1} flex={1} position="relative" overflow="hidden">
+        <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }} spacing={1} width="100%">
+          <Stack
+            direction="row"
+            sx={{ alignItems: 'center' }}
+            spacing={1}
+            flex={1}
+            position="relative"
+            overflow="hidden"
+          >
             <TokenAmountInput
               inputProps={{
                 autoComplete: 'off',
@@ -189,7 +196,11 @@ const TokenInfoBox = ({
         </Stack>
       </Box>
       {transactionValue && (
-        <Stack direction="row" justifyContent="space-between" alignItems="center" className={classes.transactionBox}>
+        <Stack
+          direction="row"
+          sx={{ justifyContent: 'space-between', alignItems: 'center' }}
+          className={classes.transactionBox}
+        >
           <Typography>{`${kind} (incl. fee)`}</Typography>
           <Typography className={classes.transactionValue}>
             {`${formatNumberToDisplay2(Number(transactionValue), 4)}`}

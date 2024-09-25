@@ -4,7 +4,7 @@
 import { useCallback, useState, useMemo } from 'react';
 import isEqual from 'lodash/isEqual';
 import type { Contracts } from '@/types/web3';
-import type { BaseContract, Contract, ContractMethod } from 'ethers';
+import type { BaseContract, Contract, ContractMethod } from 'ethers6';
 import useAsyncInterval from './useAsyncInterval';
 
 /*

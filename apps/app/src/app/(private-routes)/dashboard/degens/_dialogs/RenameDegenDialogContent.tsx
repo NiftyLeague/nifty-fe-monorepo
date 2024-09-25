@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { parseEther, type AddressLike } from 'ethers';
+import { parseEther, type AddressLike } from 'ethers6';
 import {
   DialogTitle,
   DialogContent,
@@ -127,7 +127,7 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): JSX.Element => {
             renameSuccess={renameSuccess}
             insufficientBalance={insufficientBalance}
           />
-          <Stack direction="row" justifyContent="space-between">
+          <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
             <Typography variant="h4">Renaming Fee</Typography>
             <Typography>1,000 NFTL</Typography>
           </Stack>

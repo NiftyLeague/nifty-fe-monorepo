@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 import { useTheme } from '@nl/theme';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { type TransactionResponse } from 'ethers';
+import { type TransactionResponse } from 'ethers6';
 import { useState, useContext, useEffect } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { NumericFormat } from 'react-number-format';
@@ -148,7 +148,7 @@ const WithdrawForm = ({ onWithdrawEarnings, balance }: WithdrawFormProps): JSX.E
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack alignItems="center" gap={2}>
+      <Stack gap={2} sx={{ alignItems: 'center' }}>
         <Typography variant="h4">Game &amp; Rental Balance</Typography>
         <Typography variant="h2" sx={{ opacity: 0.7 }}>
           {formatNumberToDisplay(balance)}

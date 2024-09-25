@@ -7,7 +7,7 @@ import {
   type InfuraProvider,
   type JsonRpcApiProvider,
   type JsonRpcProvider,
-} from 'ethers';
+} from 'ethers6';
 
 import {
   BalanceManager,
@@ -16,15 +16,17 @@ import {
   NFTLToken,
   NiftyBurningComicsL2,
   NiftyDegen,
-  NiftyLaunchComics,
+  NiftyMarketplace,
+  NFTL,
 } from '@/types/typechain';
+
 import {
   COMICS_BURNER_CONTRACT,
-  COMICS_CONTRACT,
   DEGEN_CONTRACT,
   GAME_ACCOUNT_CONTRACT,
-  HYDRA_DISTRIBUTOR,
+  MARKETPLACE_CONTRACT,
   NFTL_CONTRACT,
+  NFTL_IMX_CONTRACT,
   NFTL_RAFFLE_CONTRACT,
 } from '@/constants/contracts';
 
@@ -60,17 +62,17 @@ export interface Ethereumish {
 // export interface Contracts extends Record<ContractName, Contract> {}
 export interface Contracts {
   [COMICS_BURNER_CONTRACT]: NiftyBurningComicsL2;
-  [COMICS_CONTRACT]: NiftyLaunchComics;
   [DEGEN_CONTRACT]: NiftyDegen;
   [GAME_ACCOUNT_CONTRACT]: BalanceManager;
-  [HYDRA_DISTRIBUTOR]: HydraDistributor;
+  [MARKETPLACE_CONTRACT]: NiftyMarketplace;
   [NFTL_CONTRACT]: NFTLToken;
+  [NFTL_IMX_CONTRACT]: NFTL;
   [NFTL_RAFFLE_CONTRACT]: NFTLRaffle;
   MerkleDistributor: Contract;
   // [contractName: string]: Contract;
 }
 
-export type NetworkName = 'mainnet' | 'sepolia' | 'hardhat';
+export type NetworkName = 'mainnet' | 'sepolia' | 'hardhat' | 'imtbl-zkevm-mainnet' | 'imtbl-zkevm-testnet';
 
 export interface Network {
   blockExplorer: string;
