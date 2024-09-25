@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
@@ -11,11 +11,9 @@ import ComicCard from '@/components/cards/ComicCard';
 import ViewComicDialog from '@/components/dialog/ViewComicDialog';
 import SectionSlider from '@/components/sections/SectionSlider';
 
-import IMXContext from '@/contexts/IMXContext';
-import useNetworkContext from '@/hooks/useNetworkContext';
-import type { Comic, Item } from '@/types/comic';
-import useComicsBalance from '@/hooks/useComicsBalance';
-import { COMICS_OPENSEA_URL, ITEM_PURCHASE_URL } from '@/constants/url';
+import useIMXContext from '@/hooks/useIMXContext';
+import type { Comic, Item } from '@/types/marketplace';
+import { COMICS_PURCHASE_URL, ITEM_PURCHASE_URL } from '@/constants/url';
 import ComicDetail from '@/components/cards/ComicDetail';
 import ComicPlaceholder from '@/components/cards/Skeleton/ComicPlaceholder';
 import BuyCard from '@/components/cards/BuyCard';
@@ -28,10 +26,8 @@ const DashboardComicsPage = (): JSX.Element => {
   const [selectedComic, setSelectedComic] = useState<Comic | null>(null);
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [selectedSubIndex, setSelectedSubIndex] = useState<number>(-1);
-  const { comicsBalance, loading: loadingComics } = useComicsBalance();
+  const { comicsBalance, comicsLoading, itemsBalance, itemsLoading } = useIMXContext();
   const router = useRouter();
-  const imx = useContext(IMXContext);
-  const { selectedNetworkId } = useNetworkContext();
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -72,14 +68,12 @@ const DashboardComicsPage = (): JSX.Element => {
   const handleLaunchBurner = () => router.push('items/burner');
 
   const renderComics = useMemo(() => {
-    if (comicsBalance.length === 0 && loadingComics) {
-      if (loadingComics) {
-        return [...Array(6)].map(() => (
-          <Grid2 key={uuidv4()}>
-            <ComicPlaceholder />
-          </Grid2>
-        ));
-      }
+    if (comicsBalance.length === 0 && comicsLoading) {
+      return [...Array(6)].map(() => (
+        <Grid2 key={uuidv4()}>
+          <ComicPlaceholder />
+        </Grid2>
+      ));
     } else if (comicsBalance.length > 0) {
       return comicsBalance.map(comic => (
         <Grid2 key={comic.id}>
@@ -92,22 +86,31 @@ const DashboardComicsPage = (): JSX.Element => {
       ));
     }
     return null;
-  }, [comicsBalance, loadingComics, selectedComic]);
+  }, [comicsBalance, comicsLoading, selectedComic]);
 
   const renderItems = useMemo(() => {
-    return imx.itemsBalance
-      .filter(item => !selectedItem?.balance || selectedItem?.balance <= 1 || item.id !== selectedItem?.id)
-      .map(item => (
-        <Grid2 key={item.id}>
-          <WearableItemCard
-            data={item}
-            onViewItem={() => handleViewItem(item)}
-            isSelected={item.id === selectedItem?.id}
-          />
+    if (itemsBalance.length === 0 && itemsLoading) {
+      return [...Array(6)].map(() => (
+        <Grid2 key={uuidv4()}>
+          <ComicPlaceholder />
         </Grid2>
       ));
+    } else if (itemsBalance.length > 0) {
+      return itemsBalance
+        .filter(item => !selectedItem?.balance || selectedItem?.balance <= 1 || item.id !== selectedItem?.id)
+        .map(item => (
+          <Grid2 key={item.id}>
+            <WearableItemCard
+              data={item}
+              onViewItem={() => handleViewItem(item)}
+              isSelected={item.id === selectedItem?.id}
+            />
+          </Grid2>
+        ));
+    }
+    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedItem, imx.itemsBalance]);
+  }, [itemsBalance, itemsLoading, selectedItem]);
 
   const renderSubItems = useMemo(() => {
     if (!selectedItem?.balance || selectedItem?.balance <= 1) return null;
@@ -133,13 +136,13 @@ const DashboardComicsPage = (): JSX.Element => {
             firstSection
             title="My Comics"
             isSlider={false}
-            actions={
-              <Box>
-                <Button variant="contained" sx={{ height: 28 }} onClick={handleLaunchBurner}>
-                  Launch Comics Burner
-                </Button>
-              </Box>
-            }
+            // actions={
+            //   <Box>
+            //     <Button variant="contained" sx={{ height: 28 }} onClick={handleLaunchBurner}>
+            //       Launch Comics Burner
+            //     </Button>
+            //   </Box>
+            // }
           >
             <Stack>
               <Grid2
@@ -158,7 +161,7 @@ const DashboardComicsPage = (): JSX.Element => {
                 {renderComics}
                 {comicsBalance.length > 0 && (
                   <Grid2>
-                    <Link href={COMICS_OPENSEA_URL} target="_blank" rel="noreferrer">
+                    <Link href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
                       <BuyCard
                         onBuy={() => {}}
                         isNew={!comicsBalance.some(comic => comic.balance && comic.balance > 0)}
@@ -170,7 +173,7 @@ const DashboardComicsPage = (): JSX.Element => {
             </Stack>
           </SectionSlider>
           {!isTablet && (
-            <Stack mt={7.5}>
+            <Stack sx={{ mt: 7.5 }}>
               <ComicDetail data={selectedComic} />
             </Stack>
           )}
@@ -179,13 +182,15 @@ const DashboardComicsPage = (): JSX.Element => {
           <SectionSlider firstSection title="My Items" isSlider={false}>
             <Stack>
               <Stack
-                minHeight={375}
-                border="1px solid #363636"
-                borderRadius="5px"
-                px={2}
-                pt={4}
-                pb={2}
-                width="100%"
+                sx={{
+                  minHeight: 375,
+                  border: '1px solid #363636',
+                  borderRadius: '5px',
+                  px: 2,
+                  pt: 4,
+                  pb: 2,
+                  width: '100%',
+                }}
                 spacing={3}
                 onClick={removeItemSelection}
               >
@@ -207,14 +212,10 @@ const DashboardComicsPage = (): JSX.Element => {
                 )}
                 <Grid2 container flexWrap="wrap" gap={2} justifyContent={{ xs: 'space-between', sm: 'inherit' }}>
                   {renderItems}
-                  {imx.itemsBalance.length > 0 && (
+                  {itemsBalance.length > 0 && (
                     <Grid2>
-                      <Link
-                        href={ITEM_PURCHASE_URL[selectedNetworkId as keyof typeof ITEM_PURCHASE_URL]}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <BuyCard onBuy={() => {}} isNew={!imx.itemsBalance.some(it => it.balance && it.balance > 0)} />
+                      <Link href={ITEM_PURCHASE_URL} target="_blank" rel="noreferrer">
+                        <BuyCard onBuy={() => {}} isNew={!itemsBalance.some(it => it.balance && it.balance > 0)} />
                       </Link>
                     </Grid2>
                   )}
@@ -223,7 +224,7 @@ const DashboardComicsPage = (): JSX.Element => {
             </Stack>
           </SectionSlider>
           {!isTablet && (
-            <Stack mt={7.5}>
+            <Stack sx={{ mt: 7.5 }}>
               <ItemDetail data={selectedItem} subIndex={selectedSubIndex} />
             </Stack>
           )}

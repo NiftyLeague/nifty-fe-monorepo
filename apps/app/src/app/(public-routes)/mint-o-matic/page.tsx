@@ -7,7 +7,7 @@ import useBalances from '@/hooks/useBalances';
 import useAuth from '@/hooks/useAuth';
 import ErrorBoundary from '@/components/wrapper/ErrorBoundary';
 import Preloader from '@/components/Preloader';
-import { DEGEN_OPENSEA_URL } from '@/constants/url';
+import { DEGEN_COLLECTION_URL } from '@/constants/url';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 
@@ -27,7 +27,7 @@ const MintPage = () => {
   if (!isForNiftyArtists) {
     if (!isLoggedIn) {
       return (
-        <Stack width="100%" height="100%" alignItems="center" justifyContent="center">
+        <Stack width="100%" height="100%" sx={{ justifyContent: 'center', alignItems: 'center' }}>
           <Typography variant="h3" component="div" textAlign="center">
             Please connect your wallet
           </Typography>
@@ -40,11 +40,11 @@ const MintPage = () => {
 
     if (!isDegenOwner) {
       return (
-        <Stack width="100%" height="100%" alignItems="center" justifyContent="center">
+        <Stack width="100%" height="100%" sx={{ justifyContent: 'center', alignItems: 'center' }}>
           <Typography variant="h3" component="div" textAlign="center">
             This page is accessible to DEGEN owners only.
           </Typography>
-          <Link href={DEGEN_OPENSEA_URL} target="_blank" rel="noreferrer">
+          <Link href={DEGEN_COLLECTION_URL} target="_blank" rel="noreferrer">
             <Button variant="contained" color="primary" sx={{ mt: 4 }}>
               Buy A DEGEN
             </Button>

@@ -262,7 +262,7 @@ const MobileNav = () => {
       />
       <label className="toggle-btn toggle-btn__cross" htmlFor="toggle" onClick={handelChangeToggleStatus}>
         {!toggled ? (
-          <Stack direction="row" alignItems="center" gap={1}>
+          <Stack direction="row" gap={1} sx={{ alignItems: 'center' }}>
             <MenuIcon fontSize="small" />
             <p>MENU</p>
           </Stack>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { formatEther } from 'ethers';
+import { formatEther } from 'ethers6';
 import { Grid2 } from '@mui/material';
 import { useTheme, sectionSpacing } from '@nl/theme';
 import HoverDataCard from '@/components/cards/HoverDataCard';

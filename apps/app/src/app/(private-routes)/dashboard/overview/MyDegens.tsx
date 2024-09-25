@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Box, Button, Grid2, Dialog, Stack } from '@mui/material';
 
 import SectionSlider from '@/components/sections/SectionSlider';
-import { DEGEN_BASE_API_URL, DEGEN_OPENSEA_URL, PROFILE_FAV_DEGENS_API } from '@/constants/url';
+import { DEGEN_BASE_API_URL, DEGEN_COLLECTION_URL, PROFILE_FAV_DEGENS_API } from '@/constants/url';
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder';
 import EmptyState from '@/components/EmptyState';
 import DegenDialog from '@/components/dialog/DegenDialog';
@@ -182,8 +182,8 @@ const MyDegens = (): JSX.Element => {
             </Box>
           ))
         ) : (
-          <Stack justifyContent="center" alignItems="center">
-            <Link href={DEGEN_OPENSEA_URL} target="_blank" rel="noreferrer">
+          <Stack sx={{ justifyContent: 'center', alignItems: 'center' }}>
+            <Link href={DEGEN_COLLECTION_URL} target="_blank" rel="noreferrer">
               <EmptyState
                 message="No DEGENs found. Please check your address or go purchase a DEGEN if you have not done so already!"
                 buttonText="Buy a DEGEN"

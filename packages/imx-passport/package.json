@@ -1,0 +1,14 @@
+{
+  "name": "@nl/imx-passport",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./config.ts",
+  "exports": {
+    ".": "./config.ts",
+    "./types": "./types.ts"
+  },
+  "dependencies": {
+    "@imtbl/sdk": "^1.53.1"
+  }
+}

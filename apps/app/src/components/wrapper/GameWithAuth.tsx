@@ -117,8 +117,8 @@ const Game = ({ unityContext, arcadeTokenRequired = false }: GameProps) => {
   return (
     <>
       <Preloader ready={isLoaded} progress={progress} />
-      <Stack direction="row" alignItems="flex-start">
-        <Stack alignItems="flex-start">
+      <Stack direction="row" sx={{ alignItems: 'flex-start' }}>
+        <Stack sx={{ alignItems: 'flex-start' }}>
           <Unity
             key={authToken}
             className="game-canvas"

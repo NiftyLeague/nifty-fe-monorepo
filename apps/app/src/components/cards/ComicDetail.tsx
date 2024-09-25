@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import type { Comic } from '@/types/comic';
+import type { Comic } from '@/types/marketplace';
 import ImageCard from '@/components/cards/ImageCard';
 
 export interface ComicDetailProps {

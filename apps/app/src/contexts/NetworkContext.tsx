@@ -1,8 +1,8 @@
 'use client';
 
 import { type PropsWithChildren, createContext, useEffect } from 'react';
-import { useAccount } from 'wagmi';
 import { useWeb3ModalState } from '@web3modal/wagmi/react';
+import { useAccount } from 'wagmi';
 import isEmpty from 'lodash/isEmpty';
 
 import useContractLoader from '@/hooks/useContractLoader';
@@ -53,10 +53,10 @@ export const NetworkProvider = ({ children }: PropsWithChildren): JSX.Element =>
   // The Notifier wraps transactions and provides notificiations
   const tx = useNotify(signer);
 
-  // Load in your local 📝 contract and read a value from it:
+  // Load in your local 📝 Ethereum contracts and read a value from it:
   const readContracts = useContractLoader(publicProvider, { chainId });
 
-  // If you want to make 🔐 write transactions to your contracts, use the signer:
+  // If you want to make 🔐 write transactions to your Ethereum contracts, use the signer:
   const writeContracts = useContractLoader(signer, { chainId });
 
   useEffect(() => {
@@ -71,7 +71,7 @@ export const NetworkProvider = ({ children }: PropsWithChildren): JSX.Element =>
       !isEmpty(readContracts) &&
       !isEmpty(writeContracts)
     ) {
-      console.group('_________________ ✅ Nifty League _________________');
+      console.group('_________________ ✅ Nifty League: Ethereum _________________');
       console.log('🌐 publicProvider', publicProvider);
       console.log('📝 signer', signer);
       console.log('👤 address:', address);
@@ -81,7 +81,7 @@ export const NetworkProvider = ({ children }: PropsWithChildren): JSX.Element =>
       console.log('🔏 writeContracts', writeContracts);
       console.groupEnd();
     } else if (DEBUG && publicProvider && !isEmpty(readContracts)) {
-      console.group('_________________ 🚫 Offline User _________________');
+      console.group('_________________ 🚫 Offline User: Ethereum _________________');
       console.log('🌐 publicProvider', publicProvider);
       console.log('⛓️ selectedNetworkId:', selectedNetworkId);
       console.log('📍 targetNetwork:', TARGET_NETWORK);

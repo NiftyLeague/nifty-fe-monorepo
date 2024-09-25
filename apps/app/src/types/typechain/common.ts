@@ -11,7 +11,7 @@ import type {
   EventLog,
   TransactionRequest,
   LogDescription,
-} from 'ethers';
+} from 'ethers6';
 
 export interface TypedDeferredTopicFilter<_TCEvent extends TypedContractEvent> extends DeferredTopicFilter {}
 

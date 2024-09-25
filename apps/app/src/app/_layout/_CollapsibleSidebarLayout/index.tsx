@@ -33,7 +33,7 @@ const CollapsibleSidebarLayout = ({
   }, [matchDownSm, setIsDrawerOpen]);
 
   return (
-    <Stack direction="row" position="relative" alignItems="start">
+    <Stack direction="row" position="relative" sx={{ alignItems: 'start' }}>
       {/* Filter drawer */}
       <Drawer
         sx={{

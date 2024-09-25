@@ -7,7 +7,7 @@ import merge from 'lodash/merge';
 
 import { useGamerProfile, useProfileAvatarFee } from '@/hooks/useGamerProfile';
 import useFetch from '@/hooks/useFetch';
-import useComicsBalance from '@/hooks/useComicsBalance';
+import useIMXContext from '@/hooks/useIMXContext';
 
 import SectionSlider from '@/components/sections/SectionSlider';
 import ImageProfile from './_ImageProfile';
@@ -37,7 +37,7 @@ const GamerProfile = (): JSX.Element => {
   const { profile, error, loadingProfile } = useGamerProfile();
   const { address } = useAccount();
   const { avatarsAndFee } = useProfileAvatarFee();
-  const { comicsBalance, loading: loadingComics } = useComicsBalance();
+  const { comicsBalance, comicsLoading } = useIMXContext();
   const { data } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`);
 
   const { loadingDegens, characters, characterCount: degenCount } = useBalances();
@@ -57,7 +57,7 @@ const GamerProfile = (): JSX.Element => {
 
   const renderEmptyProfile = () => {
     return (
-      <Grid2 container justifyContent="center" alignItems="center" display="flex" height="100%">
+      <Grid2 container size={12} sx={{ justifyContent: 'center', alignItems: 'center' }} display="flex" height="100%">
         <EmptyState message="You don't own any Gamer Profile yet." />
       </Grid2>
     );
@@ -65,7 +65,7 @@ const GamerProfile = (): JSX.Element => {
 
   const renderTopProfile = () => {
     return (
-      <Grid2 container spacing={3}>
+      <Grid2 container size={12} spacing={3}>
         <Grid2 size={{ xs: 12, md: 3.5 }}>
           <ImageProfile
             avatar={profile?.avatar}
@@ -117,7 +117,7 @@ const GamerProfile = (): JSX.Element => {
     );
   };
   return (
-    <Grid2 container gap={sectionSpacing} mb="24px">
+    <Grid2 container gap={4} mb="24px">
       {error && !profile && !loadingProfile && renderEmptyProfile()}
       {(profile || loadingProfile) && renderGamerProfile()}
     </Grid2>

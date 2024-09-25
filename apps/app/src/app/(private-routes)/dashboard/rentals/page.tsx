@@ -159,8 +159,7 @@ const DashboardRentalPage = (): JSX.Element => {
       {/* Header */}
       <Stack
         direction="row"
-        alignItems="center"
-        justifyContent="space-between"
+        sx={{ justifyContent: 'space-between', alignItems: 'center' }}
         flexWrap="wrap"
         columnGap={3}
         rowGap={1}
@@ -168,7 +167,7 @@ const DashboardRentalPage = (): JSX.Element => {
         <Typography variant="h2">My Rentals</Typography>
 
         {/* Header form */}
-        <Stack direction="row" alignItems="center" rowGap={1} columnGap={2} flexWrap="wrap">
+        <Stack direction="row" rowGap={1} columnGap={2} sx={{ flexWrap: 'wrap', alignItems: 'center' }}>
           <FormControl sx={{ minWidth: '200px' }}>
             <InputLabel id="category-label">Category</InputLabel>
             <Select

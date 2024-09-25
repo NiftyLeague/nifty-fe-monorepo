@@ -13,7 +13,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { type AddressLike, parseEther } from 'ethers';
+import { type AddressLike, parseEther } from 'ethers6';
 
 import useNetworkContext from '@/hooks/useNetworkContext';
 import { submitTxWithGasEstimate } from '@/utils/bnc-notify';
@@ -89,7 +89,7 @@ const TicketDialogContext = ({ onSuccess }: Props): JSX.Element => {
     <>
       <DialogTitle sx={{ textAlign: 'center' }}>Purchase Mega Raffle Tickets</DialogTitle>
       <DialogContent dividers sx={{ maxWidth: '820px' }}>
-        <Stack rowGap={2} textAlign="center" alignItems="center">
+        <Stack rowGap={2} sx={{ justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
           <TextField
             variant="outlined"
             sx={{
@@ -120,7 +120,7 @@ const TicketDialogContext = ({ onSuccess }: Props): JSX.Element => {
             insufficientBalance={insufficientBalance}
           />
         </Stack>
-        <Stack direction="row" justifyContent="space-between">
+        <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
           <Typography variant="h4">1 Ticket Cost</Typography>
           <Typography>1,000 NFTL</Typography>
         </Stack>

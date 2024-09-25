@@ -37,6 +37,8 @@ const SectionSlider = ({
     slidesToShow: 4,
     slidesToScroll: 1,
     infinite: true,
+    rows: 1,
+    lazyLoad: true,
     responsive: [
       {
         breakpoint: 1700,
@@ -75,7 +77,7 @@ const SectionSlider = ({
   };
 
   return (
-    <Grid2 container spacing={sectionSpacing}>
+    <Grid2 container size={{ xs: 12 }} spacing={sectionSpacing}>
       <Grid2 size={{ xs: 12 }}>
         <SectionTitle
           firstSection={firstSection}

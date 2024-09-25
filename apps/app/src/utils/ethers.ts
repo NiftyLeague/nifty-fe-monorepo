@@ -1,4 +1,4 @@
-import { Contract, formatUnits, getAddress, JsonRpcSigner, parseUnits, type InterfaceAbi, ZeroAddress } from 'ethers';
+import { Contract, formatUnits, getAddress, JsonRpcSigner, parseUnits, type InterfaceAbi, ZeroAddress } from 'ethers6';
 import type { Provider, PublicProvider, UserProvider } from '@/types/web3';
 
 export * from './dateTime';
