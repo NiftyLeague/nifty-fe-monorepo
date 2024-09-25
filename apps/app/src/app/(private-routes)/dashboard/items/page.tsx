@@ -173,7 +173,7 @@ const DashboardComicsPage = (): JSX.Element => {
             </Stack>
           </SectionSlider>
           {!isTablet && (
-            <Stack mt={7.5}>
+            <Stack sx={{ mt: 7.5 }}>
               <ComicDetail data={selectedComic} />
             </Stack>
           )}
@@ -182,13 +182,15 @@ const DashboardComicsPage = (): JSX.Element => {
           <SectionSlider firstSection title="My Items" isSlider={false}>
             <Stack>
               <Stack
-                minHeight={375}
-                border="1px solid #363636"
-                borderRadius="5px"
-                px={2}
-                pt={4}
-                pb={2}
-                width="100%"
+                sx={{
+                  minHeight: 375,
+                  border: '1px solid #363636',
+                  borderRadius: '5px',
+                  px: 2,
+                  pt: 4,
+                  pb: 2,
+                  width: '100%',
+                }}
                 spacing={3}
                 onClick={removeItemSelection}
               >
@@ -222,7 +224,7 @@ const DashboardComicsPage = (): JSX.Element => {
             </Stack>
           </SectionSlider>
           {!isTablet && (
-            <Stack mt={7.5}>
+            <Stack sx={{ mt: 7.5 }}>
               <ItemDetail data={selectedItem} subIndex={selectedSubIndex} />
             </Stack>
           )}

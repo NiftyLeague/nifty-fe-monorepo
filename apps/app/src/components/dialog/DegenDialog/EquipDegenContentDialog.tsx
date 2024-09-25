@@ -248,7 +248,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
         </Typography>
       </Box>
       <Stack direction="row" mt={2.25}>
-        <Stack alignItems="center">
+        <Stack sx={{ alignItems: 'center' }}>
           <Typography variant="body1" mb={2} className={label}>
             SLOTS
           </Typography>
@@ -308,7 +308,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
             SAVE
           </Button>
         </Stack>
-        <Stack alignItems="center">
+        <Stack sx={{ alignItems: 'center' }}>
           <Typography variant="body1" mb={2} textAlign="center" className={label}>
             INVENTORY
           </Typography>

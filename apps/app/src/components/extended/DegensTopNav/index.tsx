@@ -72,7 +72,7 @@ const DegensTopNav = ({
           style: { color: theme.palette.text.secondary },
         }}
       />
-      <Stack direction="row" justifyContent="space-between" gap={1}>
+      <Stack direction="row" gap={1} sx={{ justifyContent: 'space-between' }}>
         <SortButton handleSort={handleSort}>
           <Button
             id="sort-button"

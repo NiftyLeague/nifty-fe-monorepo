@@ -230,7 +230,7 @@ const AllDegensPage = (): JSX.Element => {
       <Stack gap={1.5}>
         {/* Main Grid2 title */}
         <SectionTitle firstSection>
-          <Stack direction="row" alignItems="center" gap={1}>
+          <Stack direction="row" gap={1} sx={{ alignItems: 'center' }}>
             <IconButton onClick={() => setIsDrawerOpen(!isDrawerOpen)} size="small">
               {isDrawerOpen ? <ArrowBackIosNew /> : <ArrowForwardIos />}
             </IconButton>
@@ -265,8 +265,8 @@ const AllDegensPage = (): JSX.Element => {
 
   return (
     <>
-      <Stack mt={2.5} spacing={2}>
-        <Stack pl={2} pr={3}>
+      <Stack spacing={2} sx={{ mt: 2.5 }}>
+        <Stack sx={{ pl: 2, pr: 3 }}>
           <DegensTopNav
             searchTerm={searchTerm || ''}
             handleChangeSearchTerm={handleChangeSearchTerm}

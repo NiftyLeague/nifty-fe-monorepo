@@ -77,7 +77,7 @@ const MyItems = (): JSX.Element => {
             </Box>
           ))
         ) : (
-          <Stack justifyContent="center" alignItems="center">
+          <Stack sx={{ justifyContent: 'center', alignItems: 'center' }}>
             <Link href={ITEM_PURCHASE_URL} target="_blank" rel="noreferrer">
               <EmptyState
                 message="No Items found. Please check your address or go purchase some if you have not done so already!"

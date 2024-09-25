@@ -249,7 +249,7 @@ const DegensFilter = ({ onFilter, defaultFilterValues, isDegenOwner, searchTerm 
         },
       }}
     >
-      <Stack direction="row" justifyContent="space-between">
+      <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
         <Typography variant="h3">Filter Degens</Typography>
         <Stack direction="row" gap={2}>
           <Button
@@ -278,7 +278,7 @@ const DegensFilter = ({ onFilter, defaultFilterValues, isDegenOwner, searchTerm 
                   />
                 }
                 label={
-                  <Stack direction="row" alignItems="center">
+                  <Stack direction="row" sx={{ alignItems: 'center' }}>
                     <Image src={tribe.icon} alt="Tribe Icon" width={18} height={18} />
                     <Typography variant="body1" className={classes.tribeName}>
                       {tribe.name}

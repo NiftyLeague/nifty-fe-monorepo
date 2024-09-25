@@ -28,8 +28,7 @@ const ItemDetail: React.FC<React.PropsWithChildren<React.PropsWithChildren<ItemD
 
   return (
     <Stack
-      alignItems="center"
-      justifyContent="center"
+      sx={{ justifyContent: 'center', alignItems: 'center' }}
       border={{ xs: 'none', lg: '1px solid #363636' }}
       borderRadius="5px"
       minWidth={{ xs: '100%', lg: 345 }}
@@ -73,7 +72,7 @@ const ItemDetail: React.FC<React.PropsWithChildren<React.PropsWithChildren<ItemD
           >
             {equipped ? 'Unequip' : 'Equip on a DEGEN'}
           </Button>
-          <Stack direction="row" justifyContent="space-between" alignItems="center">
+          <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
             <Typography sx={{ color: '#363636' }} fontSize="12px" fontWeight={600}>
               Equipped:
             </Typography>
@@ -85,7 +84,7 @@ const ItemDetail: React.FC<React.PropsWithChildren<React.PropsWithChildren<ItemD
               {equipped ? 'DEGEN #1152' : '-'}
             </Typography>
           </Stack>
-          <Stack direction="row" justifyContent="space-between" alignItems="center">
+          <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
             <Typography sx={{ color: '#363636' }} fontSize="12px" fontWeight={600}>
               Rental:
             </Typography>

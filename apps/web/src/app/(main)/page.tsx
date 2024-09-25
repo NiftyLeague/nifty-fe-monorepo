@@ -211,8 +211,7 @@ const Home: NextPage = () => {
 
           <Stack
             direction="row"
-            justifyContent="center"
-            alignItems="center"
+            sx={{ justifyContent: 'center', alignItems: 'center' }}
             gap={{ xs: 1.25, xl: 4 }}
             px={{ xs: 2, md: 0 }}
             mt={{ xs: 2, sm: 0 }}
@@ -341,7 +340,7 @@ const Home: NextPage = () => {
                   </div>
                 </>
               )}
-              <Stack gap={2} alignItems="center">
+              <Stack gap={2} sx={{ alignItems: 'center' }}>
                 {!desktop && (
                   <div className="position-relative flex-grow-1 full-width">
                     <AnimatedWrapper>
@@ -382,8 +381,7 @@ const Home: NextPage = () => {
                   </div>
                   <Stack
                     direction="row"
-                    alignItems="center"
-                    flexWrap="wrap"
+                    sx={{ alignItems: 'center', flexWrap: 'wrap' }}
                     gap={{ xs: 1.25, xl: 4 }}
                     mt={{ xs: 1.25, xl: 4 }}
                     className="section-actions"
@@ -512,8 +510,7 @@ const Home: NextPage = () => {
                 </div>
                 <Stack
                   direction="row"
-                  flexWrap="wrap"
-                  alignItems="center"
+                  sx={{ alignItems: 'center', flexWrap: 'wrap' }}
                   gap={{ xs: 1.25, xl: 4 }}
                   mt={{ xs: 1.25, xl: 4 }}
                   className="section-actions"
@@ -654,8 +651,7 @@ const Home: NextPage = () => {
                   </AnimatedWrapper>
                   <Stack
                     direction="row"
-                    alignItems="center"
-                    flexWrap="wrap"
+                    sx={{ alignItems: 'center', flexWrap: 'wrap' }}
                     gap={{ xs: 1.25, xl: 4 }}
                     mt={{ xs: 1.25, xl: 4 }}
                     className="section-actions"
@@ -777,8 +773,7 @@ const Home: NextPage = () => {
                   </AnimatedWrapper>
                   <Stack
                     direction="row"
-                    alignItems="center"
-                    flexWrap="wrap"
+                    sx={{ alignItems: 'center', flexWrap: 'wrap' }}
                     gap={{ xs: 1.25, xl: 4 }}
                     mt={{ xs: 1.25, xl: 2 }}
                     className="section-actions"
@@ -858,9 +853,7 @@ const Home: NextPage = () => {
           )}
           <Stack
             direction="row"
-            flexWrap="wrap"
-            justifyContent="center"
-            alignItems="center"
+            sx={{ justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}
             gap={{ xs: 1.25, xl: 4 }}
             mt={{ xs: 2, md: 8 }}
             px={{ xs: 2, md: 0 }}

@@ -39,10 +39,10 @@ const ViewTraitsContentDialog = ({
   return (
     <Grid2 container>
       <Grid2 size={{ xs: 12, md: 6 }} sx={{ py: 1, px: 2 }}>
-        <Stack direction="row" justifyContent="center">
+        <Stack direction="row" sx={{ justifyContent: 'center' }}>
           {degen?.id && <DegenImage sx={{ ...degenImageSx }} tokenId={degen.id} />}
         </Stack>
-        <Stack direction="column" alignItems="center" sx={{ my: 2 }}>
+        <Stack direction="column" sx={{ alignItems: 'center', my: 2 }}>
           <Typography gutterBottom variant="h4">
             {displayName}
           </Typography>
@@ -53,7 +53,7 @@ const ViewTraitsContentDialog = ({
             </Typography>
           </a>
         </Stack>
-        {/* <Stack direction="column" alignItems="center" sx={{ my: 2 }}>
+        {/* <Stack direction="column"  sx={{ alignItems: 'center' }} sx={{ my: 2 }}>
           <Typography sx={{ color: 'rgb(75, 7, 175)' }}>
             {degenDetail?.multiplier}x Multiplier
           </Typography>
@@ -64,7 +64,7 @@ const ViewTraitsContentDialog = ({
             {degenDetail?.price} NFTL/ 1 Week
           </Typography>
         </Stack> */}
-        <Stack direction="column" alignItems="center" gap={1}>
+        <Stack direction="column" sx={{ alignItems: 'center' }} gap={1}>
           <Typography sx={{ color: 'gray' }}>
             Owned by{' '}
             {degen?.name ||
@@ -85,7 +85,7 @@ const ViewTraitsContentDialog = ({
               {isEmpty(traits)
                 ? [...Array(9)].map(() => (
                     <Grid2 size={{ xs: 3 }} key={uuidv4()}>
-                      <Stack direction="column" alignItems="center">
+                      <Stack direction="column" sx={{ alignItems: 'center' }}>
                         <Skeleton animation="wave" width={60} />
                         <Skeleton animation="wave" width={40} />
                       </Stack>
@@ -95,7 +95,7 @@ const ViewTraitsContentDialog = ({
                     .filter(([, value]) => parseInt(value as unknown as string, 10) > 0)
                     .map(([key, value]) => (
                       <Grid2 size={{ xs: 3 }} key={key}>
-                        <Stack direction="column" alignItems="center">
+                        <Stack direction="column" sx={{ alignItems: 'center' }}>
                           <Typography fontWeight={700} textAlign="center">
                             {TRAIT_NAME_MAP[key as keyof typeof TRAIT_NAME_MAP]}
                           </Typography>

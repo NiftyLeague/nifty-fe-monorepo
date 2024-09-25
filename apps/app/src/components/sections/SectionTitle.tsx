@@ -14,8 +14,7 @@ const SectionTitle: React.FC<React.PropsWithChildren<React.PropsWithChildren<Sec
 }) => (
   <Stack
     direction="row"
-    justifyContent="space-between"
-    alignItems="center"
+    sx={{ justifyContent: 'space-between', alignItems: 'center' }}
     mb={2}
     mt={firstSection ? 0 : 4}
     gap={2}

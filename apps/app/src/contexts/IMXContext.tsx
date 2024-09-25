@@ -49,8 +49,12 @@ export const IMXProvider = ({ children }: PropsWithChildren): JSX.Element => {
   const imxContracts = useContractLoader(passportProvider, { chainId: imxChainId });
 
   // Load user NFT balances
-  const { comicsBalance, loading: comicsLoading } = useComicsBalance(imxContracts, address);
-  const { itemsBalance, loading: itemsLoading } = useItemsBalance(imxContracts, address);
+  const comicsBalance = [] as Comic[];
+  const itemsBalance = [] as Item[];
+  const comicsLoading = false;
+  const itemsLoading = false;
+  // const { comicsBalance, loading: comicsLoading } = useComicsBalance(imxContracts, address);
+  // const { itemsBalance, loading: itemsLoading } = useItemsBalance(imxContracts, address);
 
   useEffect(() => {
     if (DEBUG && address && passportProvider && selectedNetworkId && !isEmpty(imxContracts)) {
