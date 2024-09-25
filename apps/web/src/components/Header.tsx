@@ -171,6 +171,13 @@ const Navbar = () => {
                         </a>
                       </Link>
                     </li>
+                    <li className="nav-item">
+                      <Link href="/contact" legacyBehavior>
+                        <a className="dropdown-item" target="_blank" rel="noreferrer">
+                          Contact <ExternalIcon />
+                        </a>
+                      </Link>
+                    </li>
                   </ul>
                 </li>
               </ul>
