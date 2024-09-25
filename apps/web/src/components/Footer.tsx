@@ -54,9 +54,12 @@ export default function Footer({ classes }: { classes?: { footer?: string } }) {
                     Blog {!mobile ? <ExternalIcon /> : null}
                   </a>
                 </Link>
-                <Link href="/shop" className="mt-2">
-                  Merch {!mobile ? <ExternalIcon /> : null}
+                <Link href="/contact" className="mt-2" target="_blank" rel="noreferrer">
+                  Contact {!mobile ? <ExternalIcon /> : null}
                 </Link>
+                {/* <Link href="/shop" className="mt-2">
+                  Merch {!mobile ? <ExternalIcon /> : null}
+                </Link> */}
                 {/* <a href="https://maddies.co/official/nifty-league/" className="mt-2" target="_blank" rel="noreferrer">
                   Merch {!mobile ? <ExternalIcon /> : null}
                 </a> */}
