@@ -1,5 +1,5 @@
-import { mainnet } from 'viem/chains';
-import { getContractAddress, NFTL_CONTRACT } from './contracts';
+import { mainnet, immutableZkEvm } from 'viem/chains';
+import { getContractAddress, DEGEN_CONTRACT, NFTL_IMX_CONTRACT } from './contracts';
 
 export const BASE_API_URL = 'https://odgwhiwhzb.execute-api.us-east-1.amazonaws.com/prod';
 
@@ -64,16 +64,16 @@ export const GET_RANK_BY_USER_ID_API = `${BASE_API_URL}/GetRank`;
 export const LEADERBOARD_USERNAMES_API_URL = `${BASE_API_URL}/profiles/public/profiles`;
 export const LEADERBOARD_SCORE_API_URL = `${BASE_API_URL}/scores`;
 
-// SUSHISWAP URL FOR NFTL PURCHASE
-export const NFTL_PURCHASE_URL = `https://app.sushi.com/swap?inputCurrency=ETH&outputCurrency=${getContractAddress(
-  mainnet.id,
-  NFTL_CONTRACT,
+// QUICKSWAP URL FOR NFTL PURCHASE
+export const NFTL_PURCHASE_URL = `https://quickswap.exchange/#/analytics/v3/token/${getContractAddress(
+  immutableZkEvm.id,
+  NFTL_IMX_CONTRACT,
 )}`;
 
 // DEGEN URLs
 export const DEGEN_COLLECTION_URL = 'https://opensea.io/collection/niftydegen';
 export const DEGEN_PURCHASE_URL = (id: string | number) =>
-  `https://opensea.io/assets/0x986aea67c7d6a15036e18678065eb663fc5be883/${id}`;
+  `https://opensea.io/assets/${getContractAddress(mainnet.id, DEGEN_CONTRACT)}/${id}`;
 
 // Marketplace URLs
 export const COMICS_PURCHASE_URL = 'https://tokentrove.com/collection/NiftyLeague';

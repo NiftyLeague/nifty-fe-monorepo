@@ -39,7 +39,7 @@ export const NIFTYVERSE_PROPERTIES = [
     image: '/img/niftyverse/downtown_skyline.webp',
   },
   {
-    name: 'SUSHI TOWN',
+    name: 'SUSHI VILLAGE',
     description: `If your idea of fun is shopping for hours on end or sitting down under a cherry blossom with a good book, you'll love the laid back, lush and peaceful Sushi Town.`,
     image: '/img/niftyverse/littletokyo_01.webp',
   },

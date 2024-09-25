@@ -120,18 +120,11 @@ export const ROADMAP_CARDS = [
     title: 'Merch',
     body: (
       <>
-        <p>
+        <p className="mb-0">
           We know our community couldn&apos;t wait to showcase their cool DEGENS on the streets! We are excited to
           unveil our{' '}
-          <a href="https://maddies.co/official/nifty-league/" target="_blank" rel="noreferrer">
-            Nifty League merch
-          </a>{' '}
-          provided by Maddies.
-        </p>
-        <p className="mb-0">
-          Looking for our old Shopify merch? Links{' '}
           <a href="https://niftyleague.com/shop" target="_blank" rel="noreferrer">
-            here
+            merch
           </a>
           !
         </p>
@@ -319,7 +312,7 @@ export const ROADMAP_CARDS = [
       <>
         <p>
           <strong>
-            <a href="https://opensea.io/collection/nifty-league-comics" target="_blank" rel="noreferrer">
+            <a href="https://tokentrove.com/collection/NiftyLeagueComics" target="_blank" rel="noreferrer">
               Comic pages
             </a>
           </strong>{' '}
@@ -572,7 +565,7 @@ export const ROADMAP_CARDS = [
   },
   {
     completed: true,
-    completionDate: 'Sept 24th, 2024 - Present',
+    completionDate: 'Sept 26th, 2024 - Present',
     image: {
       src: '/img/roadmap/dao_v02.webp',
       style: { top: '-80px' },

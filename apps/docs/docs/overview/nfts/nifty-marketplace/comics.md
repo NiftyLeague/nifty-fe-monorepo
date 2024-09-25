@@ -1,7 +1,7 @@
 ---
 id: comics
 title: Comics
-sidebar_position: 2
+sidebar_position: 1
 ---
 
 import ReactPlayer from 'react-player';
@@ -30,7 +30,7 @@ In addition, all [Meta background](/docs/overview/nfts/degens/backgrounds) DEGEN
 
 :::tip[Note]
 
-Our collection of **Comics 1-6** are available for purchase on [OpenSea](https://opensea.io/collection/nifty-league-comics).
+Our collection of **Comics 1-6** are available for purchase on [TokenTrove](https://tokentrove.com/collection/NiftyLeague).
 
 :::
 
