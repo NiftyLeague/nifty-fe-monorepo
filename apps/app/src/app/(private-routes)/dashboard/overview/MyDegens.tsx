@@ -146,8 +146,6 @@ const MyDegens = (): JSX.Element => {
     [authToken, favDegens, setFavDegens],
   );
 
-  console.log('MyDegens.tsx:', { degens, favDegens, loadingDegens });
-
   return (
     <>
       <SectionSlider

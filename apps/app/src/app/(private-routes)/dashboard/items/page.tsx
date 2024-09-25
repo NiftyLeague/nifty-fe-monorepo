@@ -136,13 +136,13 @@ const DashboardComicsPage = (): JSX.Element => {
             firstSection
             title="My Comics"
             isSlider={false}
-            actions={
-              <Box>
-                <Button variant="contained" sx={{ height: 28 }} onClick={handleLaunchBurner}>
-                  Launch Comics Burner
-                </Button>
-              </Box>
-            }
+            // actions={
+            //   <Box>
+            //     <Button variant="contained" sx={{ height: 28 }} onClick={handleLaunchBurner}>
+            //       Launch Comics Burner
+            //     </Button>
+            //   </Box>
+            // }
           >
             <Stack>
               <Grid2

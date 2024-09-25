@@ -37,34 +37,30 @@ const DashboardOverview = (): JSX.Element => {
   // }, [data]);
 
   return (
-    <Grid2 container flexDirection="row" spacing={4} sx={{ maxHeight: 'cacl(100vh - 100px)' }}>
-      <Grid2 size={{ xs: 12, md: 12, lg: 5 }}>
-        <Grid2 container flexDirection="column" spacing={6}>
-          <Grid2 size={{ xs: 12 }}>
-            <MyNFTL />
-          </Grid2>
-          <Grid2 size={{ xs: 12 }}>
-            <MyStats />
-          </Grid2>
-          {/* <Grid2 size={{ xs: 12 }}>
-            <EarningCap rentals={rentals} />
-          </Grid2>
-          <Grid2 size={{ xs: 12 }}>
-            <MyRentals rentals={rentals} />
-          </Grid2> */}
+    <Grid2 container flexDirection="row" spacing={4} sx={{ height: 'inherit' }}>
+      <Grid2 container size={{ xs: 12, lg: 5 }} spacing={4} sx={{ height: 'inherit' }}>
+        <Grid2 size={{ xs: 12 }}>
+          <MyNFTL />
         </Grid2>
+        <Grid2 size={{ xs: 12 }}>
+          <MyStats />
+        </Grid2>
+        {/* <Grid2 size={{ xs: 12 }}>
+          <EarningCap rentals={rentals} />
+        </Grid2>
+        <Grid2 size={{ xs: 12 }}>
+          <MyRentals rentals={rentals} />
+        </Grid2> */}
       </Grid2>
-      <Grid2 size={{ xs: 12, md: 12, lg: 7 }}>
-        <Grid2 container flexDirection="column" spacing={{ lg: 6, xs: 4, md: 4 }}>
-          <Grid2 size={{ xs: 12 }}>
-            <MyDegens />
-          </Grid2>
-          <Grid2 size={{ xs: 12 }}>
-            <MyComics />
-          </Grid2>
-          <Grid2 size={{ xs: 12 }}>
-            <MyItems />
-          </Grid2>
+      <Grid2 container size={{ xs: 12, lg: 7 }} spacing={4}>
+        <Grid2 size={{ xs: 12 }}>
+          <MyDegens />
+        </Grid2>
+        <Grid2 size={{ xs: 12 }}>
+          <MyComics />
+        </Grid2>
+        <Grid2 size={{ xs: 12 }}>
+          <MyItems />
         </Grid2>
       </Grid2>
       {/* {rental && (
