@@ -1,4 +1,4 @@
-import { useContext, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Stack } from '@mui/material';
 
 import { useGamerProfileContext } from '@/hooks/useGamerProfile';
@@ -13,9 +13,10 @@ interface RightInfoProps {
   degenCount: number;
   rentalCount: number;
   comicCount: number;
+  itemCount: number;
 }
-const RightInfo = ({ degenCount, rentalCount, comicCount }: RightInfoProps): JSX.Element => {
-  const { isLoadingDegens, isLoadingComics } = useGamerProfileContext();
+const RightInfo = ({ degenCount, rentalCount, comicCount, itemCount }: RightInfoProps): JSX.Element => {
+  const { isLoadingDegens, isLoadingComics, isLoadingItems } = useGamerProfileContext();
   const rightDataMapper: {
     label: string;
     value: string | number | undefined;
@@ -28,28 +29,29 @@ const RightInfo = ({ degenCount, rentalCount, comicCount }: RightInfoProps): JSX
         value: degenCount,
         isLoading: isLoadingDegens,
       },
-      {
-        label: 'Degens Rented',
-        value: rentalCount,
-        isLoading: isLoadingDegens,
-      },
+      // {
+      //   label: 'Degens Rented',
+      //   value: rentalCount,
+      //   isLoading: isLoadingDegens,
+      // },
       {
         label: 'Comics Owned',
         value: comicCount,
         isLoading: isLoadingComics,
       },
       {
-        label: 'Wearable Owned',
-        ...commonValue,
+        label: 'Items Owned',
+        value: itemCount,
+        isLoading: isLoadingItems,
       },
-      {
-        label: 'Pets Owned',
-        ...commonValue,
-      },
-      {
-        label: 'Land Owned',
-        ...commonValue,
-      },
+      // {
+      //   label: 'Pets Owned',
+      //   ...commonValue,
+      // },
+      // {
+      //   label: 'Land Owned',
+      //   ...commonValue,
+      // },
       // {
       //   label: 'Land Items Owned',
       //   ...commonValue,
