@@ -19,7 +19,6 @@ import BottomInfo from './_Stats/BottomInfo';
 
 import { DEGEN_BASE_API_URL } from '@/constants/url';
 import type { Degen } from '@/types/degens';
-import { sectionSpacing } from '@nl/theme';
 import useBalances from '@/hooks/useBalances';
 import { GamerProfileProvider } from '@/contexts/GamerProfileContext';
 
@@ -37,10 +36,10 @@ const GamerProfile = (): JSX.Element => {
   const { profile, error, loadingProfile } = useGamerProfile();
   const { address } = useAccount();
   const { avatarsAndFee } = useProfileAvatarFee();
-  const { comicsBalance, comicsLoading } = useIMXContext();
+  const { comicsBalance, itemsBalance } = useIMXContext();
   const { data } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`);
 
-  const { loadingDegens, characters, characterCount: degenCount } = useBalances();
+  const { characters, characterCount: degenCount } = useBalances();
 
   const filteredDegens: Degen[] = useMemo(() => {
     if (characters.length && data) {
@@ -54,6 +53,8 @@ const GamerProfile = (): JSX.Element => {
     () => comicsBalance.filter(comic => comic.balance && comic.balance > 0),
     [comicsBalance],
   );
+
+  const filteredItems = useMemo(() => itemsBalance.filter(item => item.balance && item.balance > 0), [itemsBalance]);
 
   const renderEmptyProfile = () => {
     return (
@@ -88,6 +89,7 @@ const GamerProfile = (): JSX.Element => {
                 degenCount={degenCount}
                 rentalCount={filteredDegens.length - degenCount}
                 comicCount={filteredComics?.reduce((prev, cur) => prev + Number(cur?.balance), 0)}
+                itemCount={filteredItems?.reduce((prev, cur) => prev + Number(cur?.balance), 0)}
               />
             </Stack>
           </Stack>
@@ -98,7 +100,7 @@ const GamerProfile = (): JSX.Element => {
 
   const renderBottomProfile = () => {
     return (
-      <SectionSlider firstSection variant="h3" title="Player Stats by Game" isSlider={false}>
+      <SectionSlider firstSection variant="h3" title="Player Stats by Web3 Game" isSlider={false}>
         <BottomInfo
           nifty_smashers={profile?.stats?.nifty_smashers}
           wen_game={profile?.stats?.wen_game}

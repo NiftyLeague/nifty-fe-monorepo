@@ -1,7 +1,6 @@
 'use client';
 
 import { type PropsWithChildren, createContext, useEffect } from 'react';
-import { immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains';
 import isEmpty from 'lodash/isEmpty';
 
 import type { BrowserProvider } from 'ethers6';
@@ -49,12 +48,8 @@ export const IMXProvider = ({ children }: PropsWithChildren): JSX.Element => {
   const imxContracts = useContractLoader(passportProvider, { chainId: imxChainId });
 
   // Load user NFT balances
-  const comicsBalance = [] as Comic[];
-  const itemsBalance = [] as Item[];
-  const comicsLoading = false;
-  const itemsLoading = false;
-  // const { comicsBalance, loading: comicsLoading } = useComicsBalance(imxContracts, address);
-  // const { itemsBalance, loading: itemsLoading } = useItemsBalance(imxContracts, address);
+  const { comicsBalance, loading: comicsLoading } = useComicsBalance(imxContracts, address);
+  const { itemsBalance, loading: itemsLoading } = useItemsBalance(imxContracts, address);
 
   useEffect(() => {
     if (DEBUG && address && passportProvider && selectedNetworkId && !isEmpty(imxContracts)) {

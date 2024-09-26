@@ -31,6 +31,11 @@ export const handleError = (e: NotifyError): void => {
     message = serialized.message;
   }
 
+  // BlockNative's Notify.js will throw errors if the WebSocket disconnects. Not important to display.
+  if (message === 'There was a WebSocket error' || message.includes('Configuration with scope')) {
+    return;
+  }
+
   toast.error(({ data }) => `Transaction Error: ${data}`, {
     data: message,
     theme: 'dark',

@@ -5,7 +5,7 @@ import { useTheme } from '@nl/theme';
 import type { ProfileTotal, ProfileNiftySmsher, ProfileMiniGame } from '@/types/account';
 
 interface ProgressGamerProps {
-  data: ProfileTotal | ProfileNiftySmsher | ProfileMiniGame;
+  data?: ProfileTotal | ProfileNiftySmsher | ProfileMiniGame;
   size?: 'sm' | 'md';
 }
 
@@ -28,7 +28,7 @@ const ProgressGamer = ({ data, size = 'md' }: ProgressGamerProps): JSX.Element =
           bottom: 0,
           margin: 'auto',
           background: theme.palette.primary.main,
-          content: `'${(data?.xp > data?.rank_xp_previous ? data?.rank + 1 : data?.rank) || 0}'`,
+          content: `'${(data && data?.xp > data?.rank_xp_previous ? data?.rank + 1 : data?.rank) || 0}'`,
           zIndex: 1,
           fontWeight: 'bold',
           fontSize: size === 'md' ? '18px' : '14px',
@@ -38,7 +38,7 @@ const ProgressGamer = ({ data, size = 'md' }: ProgressGamerProps): JSX.Element =
       <LinearProgress
         variant="determinate"
         color="primary"
-        value={(data?.xp / data?.rank_xp_next) * 100}
+        value={data ? (data?.xp / data?.rank_xp_next) * 100 : 0}
         sx={{
           height: size === 'md' ? '25px' : '14px',
           [`&.${linearProgressClasses.colorPrimary}`]: {
