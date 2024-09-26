@@ -27,13 +27,13 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
               {nifty_smashers && <ProgressGamer size="sm" data={nifty_smashers} />}
               <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography variant="h3" component="div">
-                  Nifty Smashers
+                  2D Smashers
                 </Typography>
                 <Typography variant="h4" component="div">
                   {isLoadingProfile ? (
                     <Skeleton variant="rectangular" sx={{ display: 'inline-block' }} width="15%" height="19.76px" />
                   ) : (
-                    `${Math.round(nifty_smashers?.xp || 0)}/${nifty_smashers?.rank_xp_next}`
+                    `${Math.round(nifty_smashers?.xp || 0)}/${nifty_smashers?.rank_xp_next || 0}`
                   )}
                   <Typography
                     variant="h4"
@@ -58,17 +58,17 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
         <GameCard
           image="/img/games/wen.gif"
           contents={
-            <Stack padding="16px" gap={2} flex={1} sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
+            <Stack padding="16px" gap={2} flex={1} sx={{ justifyContent: 'space-between' }}>
               {wen_game && <ProgressGamer size="sm" data={wen_game} />}
               <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography variant="h3" component="div">
-                  WEN?
+                  WEN Game
                 </Typography>
                 <Typography variant="h4" component="div">
                   {isLoadingProfile ? (
                     <Skeleton variant="rectangular" sx={{ display: 'inline-block' }} width="15%" height="19.76px" />
                   ) : (
-                    `${Math.round(wen_game?.xp || 0)}/${wen_game?.rank_xp_next}`
+                    `${Math.round(wen_game?.xp || 0)}/${wen_game?.rank_xp_next || 0}`
                   )}
                   <Typography
                     variant="h4"
@@ -89,43 +89,41 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
           }
         />
       </Grid2>
-      {crypto_winter && (
-        <Grid2 size={{ sm: 12, md: 6, lg: 4, xl: 3 }}>
-          <GameCard
-            image="/img/games/crypto-winter.webp"
-            contents={
-              <Stack padding="16px" gap={2} flex={1} sx={{ justifyContent: 'space-between' }}>
-                <ProgressGamer size="sm" data={crypto_winter} />
-                <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-                  <Typography variant="h3" component="div">
-                    CRYPTO WINTER
+      <Grid2 size={{ sm: 12, md: 6, lg: 4, xl: 3 }}>
+        <GameCard
+          image="/img/games/crypto-winter.webp"
+          contents={
+            <Stack padding="16px" gap={2} flex={1} sx={{ justifyContent: 'space-between' }}>
+              <ProgressGamer size="sm" data={crypto_winter} />
+              <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
+                <Typography variant="h3" component="div">
+                  CRYPTO WINTER
+                </Typography>
+                <Typography variant="h4" component="div">
+                  {isLoadingProfile ? (
+                    <Skeleton variant="rectangular" sx={{ display: 'inline-block' }} width="15%" height="19.76px" />
+                  ) : (
+                    `${Math.round(crypto_winter?.xp || 0)}/${crypto_winter?.rank_xp_next || 0}`
+                  )}
+                  <Typography
+                    variant="h4"
+                    component="div"
+                    sx={{ color: theme => theme.palette.grey[400] }}
+                    display="inline"
+                    ml="4px"
+                  >
+                    XP
                   </Typography>
-                  <Typography variant="h4" component="div">
-                    {isLoadingProfile ? (
-                      <Skeleton variant="rectangular" sx={{ display: 'inline-block' }} width="15%" height="19.76px" />
-                    ) : (
-                      `${Math.round(crypto_winter?.xp || 0)}/${crypto_winter?.rank_xp_next}`
-                    )}
-                    <Typography
-                      variant="h4"
-                      component="div"
-                      sx={{ color: theme => theme.palette.grey[400] }}
-                      display="inline"
-                      ml="4px"
-                    >
-                      XP
-                    </Typography>
-                  </Typography>
-                </Stack>
-                <MiniGameContent data={crypto_winter} />
-                <Button color="secondary" component={Link} href="/leaderboards?game=crypto_winter">
-                  View Leaderboards
-                </Button>
+                </Typography>
               </Stack>
-            }
-          />
-        </Grid2>
-      )}
+              <MiniGameContent data={crypto_winter} />
+              <Button color="secondary" component={Link} href="/leaderboards?game=crypto_winter">
+                View Leaderboards
+              </Button>
+            </Stack>
+          }
+        />
+      </Grid2>
     </Grid2>
   );
 };

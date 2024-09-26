@@ -4,7 +4,7 @@ import type { Chain, Client, Transport } from 'viem';
 import { type Config, useClient } from 'wagmi';
 
 export type Provider = FallbackProvider | JsonRpcProvider;
-export function clientToProvider(client: Client<Transport, Chain>): Provider {
+function clientToProvider(client: Client<Transport, Chain>): Provider {
   const { chain, transport } = client;
   const network = {
     chainId: chain.id,
@@ -22,9 +22,7 @@ export function clientToProvider(client: Client<Transport, Chain>): Provider {
 }
 
 /** Action to convert a viem Client to an ethers.js Provider. */
-export function useEthersProvider({ chainId }: { chainId?: number } = {}): Provider {
+export default function useEthersProvider({ chainId }: { chainId?: number } = {}): Provider {
   const client = useClient<Config>({ chainId });
   return useMemo(() => clientToProvider(client as Client<Transport, Chain>), [client]);
 }
-
-export default useEthersProvider;
