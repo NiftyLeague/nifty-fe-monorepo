@@ -53,15 +53,9 @@ const DashboardOverview = (): JSX.Element => {
         </Grid2> */}
       </Grid2>
       <Grid2 container flexDirection="column" size={{ xs: 12, md: 7 }} spacing={4}>
-        <Grid2 size={{ xs: 12 }}>
-          <MyDegens />
-        </Grid2>
-        <Grid2 size={{ xs: 12 }}>
-          <MyComics />
-        </Grid2>
-        <Grid2 size={{ xs: 12 }}>
-          <MyItems />
-        </Grid2>
+        <MyDegens />
+        <MyComics />
+        <MyItems />
       </Grid2>
       {/* {rental && (
         <ActiveRentalDialog degenId={rentals[0].degen_id} rental={rental} />

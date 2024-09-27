@@ -36,16 +36,12 @@ export const GET_DEGEN_DETAIL_URL = (degenId: string): string =>
 
 // Gamer Account API
 export const GAMER_ACCOUNT_API = `${BASE_API_URL}/accounts/account`;
-export const WITHDRAW_NFTL_LIST = `${BASE_API_URL}/accounts/withdrawals`;
-export const WITHDRAW_NFTL_SIGN = `${BASE_API_URL}/accounts/withdraw/sign`;
-export const WITHDRAW_NFTL_CONFIRM = `${BASE_API_URL}/accounts/withdraw/confirm`;
-export const WITHDRAW_NFTL_REFRESH = `${BASE_API_URL}/accounts/withdraw/refresh/2`;
-export const WITHDRAW_NFTL_AVAILABILITY = `${BASE_API_URL}/accounts/withdraw/availability`;
 
 // Gamer Profile API
 export const MY_PROFILE_API_URL = `${BASE_API_URL}/stats/profile`;
-const GAMER_PROFILE_BASE = 'profiles/profile';
 export const PROFILE_FAV_DEGENS_API = `${BASE_API_URL}/profiles/favorites`;
+
+const GAMER_PROFILE_BASE = 'profiles/profile';
 export const GET_GAMER_PROFILE_API = `${BASE_API_URL}/${GAMER_PROFILE_BASE}?include_stats=true`;
 export const PROFILE_RENAME_API = `${BASE_API_URL}/${GAMER_PROFILE_BASE}/rename`;
 export const GET_PROFILE_AVATARS_AND_COST_API = `${BASE_API_URL}/${GAMER_PROFILE_BASE}/avatars`;

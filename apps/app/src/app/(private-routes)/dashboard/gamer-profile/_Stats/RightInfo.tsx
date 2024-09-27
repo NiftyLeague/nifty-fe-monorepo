@@ -57,7 +57,8 @@ const RightInfo = ({ degenCount, rentalCount, comicCount, itemCount }: RightInfo
       //   ...commonValue,
       // },
     ];
-  }, [degenCount, rentalCount, comicCount, isLoadingDegens, isLoadingComics]);
+  }, [comicCount, degenCount, isLoadingComics, isLoadingDegens, isLoadingItems, itemCount]);
+
   return (
     <Stack flex={1} spacing={1}>
       {rightDataMapper.map(child => (

@@ -93,12 +93,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: 'https://app.niftyleague/raffle',
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.5,
-    },
-    {
       url: 'https://app.niftyleague/verification',
       lastModified: new Date(),
       changeFrequency: 'yearly',

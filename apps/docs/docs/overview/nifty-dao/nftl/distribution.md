@@ -14,13 +14,13 @@ On March 2, 2022 we annouced our first raise led by [RSE Ventures](https://rseve
 
 These tokens included 2 year vesting terms, which by now are fully vested.
 
-### Nifty DAO - _95.9M NFTL_
+### Nifty DAO - _85M NFTL_
 
 Our team bootstrapped the [Nifty League DAO Treasury](https://etherscan.io/address/0xd06ae6fb7eade890f3e295d69a6679380c9456c1) with NFTL along with $250K Ethereum (ETH).
 
 The initial planned distribution was 125M NFTL, however 142M leftovers from unclaimed AXS airdrop & DEGEN NFT Holders (below) were returned to the DAO as well. The DAO burned 35M NFTL on [April 15th, 2022](https://etherscan.io/tx/0x4e3f1177bd5288240039176a948c632e8027acc31f475d78a30bad47e5f9470b) and a large majority of remaining NFTL was re-allocated to our P2E system, and for SushiSwap liquidity incentives (more on [emissions](./emissions)).
 
-In total the DAO retained 95.9M NFTL, most of which was used to provide NFTL/ETH liquidity on [SushiSwap](https://sushi.com/) & [Uniswap](https://uniswap.org/), and has since migrated to [QuickSwap](https://quickswap.exchange/#/analytics/v3/token/0xb0d7e9ff5fb8e739c4990f7920d8047acfae4884).
+In total the DAO retained 85M NFTL, most of which was used to provide NFTL/ETH liquidity on [SushiSwap](https://sushi.com/) & [Uniswap](https://uniswap.org/), and has since migrated to [QuickSwap](https://quickswap.exchange/#/analytics/v3/token/0xb0d7e9ff5fb8e739c4990f7920d8047acfae4884).
 
 ### Marketing - _8M NFTL_
 
@@ -30,12 +30,12 @@ Axie Infinity was one of our early inspirations. To commemorate this we had an e
 
 The remaining marketing allocation was provided for Twitch streamers in the Web3 space to showcase [Nifty Smashers](/docs/overview/games/mobile-games/nifty-smashers).
 
-### DEGEN Owners - _180.5M NFTL_
+### DEGEN Airdrop - _180.5M NFTL_
 
 215M NFTL was made available to claim for early DEGEN NFT holders. Of that roughly 35M was left unclaimed and returned to the Nifty DAO, resulting in 180.5M total initial allocation.
 
 ---
 
-### Final Initial Supply - _450M NFTL_
+### Final Initial Supply - _440M NFTL_
 
-This brought the initial NFTL supply to around 450M with daily emissions for all genesis NFT owners starting immediately after, as well as other liquidity or gaming incentives. Learn more on the next page!
+This brought the initial NFTL supply to around 440M with daily emissions for all genesis NFT owners starting immediately after, as well as other liquidity or gaming incentives. Learn more on the next page!

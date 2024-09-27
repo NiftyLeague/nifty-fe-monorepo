@@ -159,6 +159,7 @@ const MyDegens = (): JSX.Element => {
             View All DEGENs
           </Button>
         }
+        styles={{ mainRow: { maxHeight: 340, overflow: 'hidden' } }}
       >
         {loadingDegens ? (
           [...Array(8)].map(() => (
