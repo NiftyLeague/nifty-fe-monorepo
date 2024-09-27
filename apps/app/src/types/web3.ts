@@ -63,7 +63,7 @@ export interface Contracts {
   [MARKETPLACE_CONTRACT]: NiftyMarketplace;
   [NFTL_CONTRACT]: NFTLToken;
   [NFTL_IMX_CONTRACT]: NFTL;
-  MerkleDistributor: Contract;
+  ComicsMerkleDistributor: Contract;
 }
 
 export type NetworkName = 'mainnet' | 'sepolia' | 'hardhat' | 'imtbl-zkevm-mainnet' | 'imtbl-zkevm-testnet';

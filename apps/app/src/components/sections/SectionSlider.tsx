@@ -6,6 +6,7 @@ import { PropsWithChildren, ReactNode, useRef } from 'react';
 import Slider, { Settings } from 'react-slick';
 import { sectionSpacing } from '@nl/theme';
 import SectionTitle from './SectionTitle';
+import type { SxProps, Theme } from '@mui/system';
 
 interface Props {
   title: string | React.ReactNode;
@@ -15,6 +16,11 @@ interface Props {
   isSlider?: boolean;
   children?: React.ReactNode;
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  styles?: {
+    root?: SxProps<Theme>;
+    headerRow?: SxProps<Theme>;
+    mainRow?: SxProps<Theme>;
+  };
 }
 
 const SectionSlider = ({
@@ -25,6 +31,7 @@ const SectionSlider = ({
   sliderSettingsOverride,
   isSlider = true,
   variant = 'h2',
+  styles,
 }: PropsWithChildren<Props>): JSX.Element => {
   const refSlider = useRef<Slider>(null);
   const settings = {
@@ -77,8 +84,8 @@ const SectionSlider = ({
   };
 
   return (
-    <Grid2 container size={{ xs: 12 }} spacing={sectionSpacing}>
-      <Grid2 size={{ xs: 12 }}>
+    <Grid2 container flexDirection="column" size={{ xs: 12 }} spacing={sectionSpacing} sx={{ ...styles?.root }}>
+      <Grid2 size={{ xs: 12 }} sx={{ ...styles?.headerRow }}>
         <SectionTitle
           firstSection={firstSection}
           variant={variant}
@@ -92,7 +99,7 @@ const SectionSlider = ({
           {title}
         </SectionTitle>
       </Grid2>
-      <Grid2 size={{ xs: 12 }}>
+      <Grid2 size={{ xs: 12 }} sx={{ ...styles?.mainRow }}>
         {isSlider ? (
           <Slider {...settings} ref={refSlider}>
             {children}
