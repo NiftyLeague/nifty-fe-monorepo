@@ -8,7 +8,5 @@ export * as interfaces from './interfaces';
 export * as lib from './lib';
 export * as mocks from './mocks';
 export * as utils from './utils';
-export { BalanceManager__factory } from './BalanceManager__factory';
 export { NFTLToken__factory } from './NFTLToken__factory';
 export { NiftyDegen__factory } from './NiftyDegen__factory';
-export { NiftyLaunchComics__factory } from './NiftyLaunchComics__factory';

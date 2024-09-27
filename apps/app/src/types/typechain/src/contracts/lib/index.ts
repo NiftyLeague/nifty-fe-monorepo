@@ -5,4 +5,6 @@ import type * as nameableCharacterSol from './NameableCharacter.sol';
 export type { nameableCharacterSol };
 export type { AllowedColorsStorage } from './AllowedColorsStorage';
 export type { ERC20MetaTransactions } from './ERC20MetaTransactions';
+export type { MerkleDistributor } from './MerkleDistributor';
+export type { MerkleDistributorWithDeadline } from './MerkleDistributorWithDeadline';
 export type { NiftyLeagueCharacter } from './NiftyLeagueCharacter';

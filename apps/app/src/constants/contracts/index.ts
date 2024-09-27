@@ -21,32 +21,32 @@ export const getContractABI = (chainId: Network['chainId'], contractName: string
   return getDeployedContract(chainId, contractName)?.abi as InterfaceAbi;
 };
 
+// Ethereum contracts
 export const COMICS_BURNER_CONTRACT = 'NiftyBurningComicsL2';
 export const DEGEN_CONTRACT = 'NiftyDegen';
-export const GAME_ACCOUNT_CONTRACT = 'BalanceManager';
-export const MARKETPLACE_CONTRACT = 'NiftyMarketplace';
 export const NFTL_CONTRACT = 'NFTLToken';
+
+// Immutable zkEVM contracts
+export const BALANCE_MANAGER_CONTRACT = 'BalanceManagerDistributor';
+export const MARKETPLACE_CONTRACT = 'NiftyMarketplace';
 export const NFTL_IMX_CONTRACT = 'NFTL';
-export const NFTL_RAFFLE_CONTRACT = 'NFTLRaffle';
+
+// Merkle Distributors
+
+export const MERKLE_TREE =
+  'https://raw.githubusercontent.com/NiftyLeague/nifty-smart-contracts/refs/heads/main/src/data/merkle-result.json';
+
+export const COMICS_MERKLE_TREE =
+  'https://raw.githubusercontent.com/NiftyLeague/merkle-distributor-comics56/main/data/result.json';
 
 type ChainAddressSearch = { [chainId: number]: `0x${string}` };
 
-export const MERKLE_DISTRIBUTOR_ADDRESS: ChainAddressSearch = {
-  [MAINNET_ID]: '0x921c673a4d2f6a429551c0726316c1ad07571db5',
-  // [SEPOLIA_ID]: '0xFeB2f45A3817EF9156a6c771FfC90098d3DFe003',
-  // [LOCAL_CHAIN_ID]: '0x998abeb3E57409262aE5b751f60747921B33613E',
-};
-
-export const MERKLE_ROOT = 'https://raw.githubusercontent.com/NiftyLeague/merkle-distributor/master/data/result.json';
-
 export const COMICS_MERKLE_DISTRIBUTOR_ADDRESS: ChainAddressSearch = {
   [MAINNET_ID]: '0x038FbfE31A113952C15C688Df5b025959f589ad7',
-  // [SEPOLIA_ID]: '0x5DCcEEd8E10a3EE1aF095B248ad66E8F33875045',
-  // [LOCAL_CHAIN_ID]: '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512',
+  [SEPOLIA_ID]: '0x5DCcEEd8E10a3EE1aF095B248ad66E8F33875045',
 };
 
-export const COMICS_MERKLE_ROOT =
-  'https://raw.githubusercontent.com/NiftyLeague/merkle-distributor-comics56/main/data/result.json';
+// Other
 
 export const COWSWAP_VAULT_RELAYER_ADDRESS = '0xC92E8bdf79f0507f65a392b0ab4667716BFE0110';
 

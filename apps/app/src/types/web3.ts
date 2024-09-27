@@ -1,33 +1,30 @@
-import {
-  type AlchemyProvider,
-  type BrowserProvider,
-  type Contract,
-  type EtherscanProvider,
-  type FallbackProvider,
-  type InfuraProvider,
-  type JsonRpcApiProvider,
-  type JsonRpcProvider,
+import type {
+  AlchemyProvider,
+  BrowserProvider,
+  Contract,
+  EtherscanProvider,
+  FallbackProvider,
+  InfuraProvider,
+  JsonRpcApiProvider,
+  JsonRpcProvider,
 } from 'ethers6';
 
-import {
-  BalanceManager,
-  HydraDistributor,
-  NFTLRaffle,
+import type {
+  BalanceManagerDistributor,
+  NFTL,
   NFTLToken,
   NiftyBurningComicsL2,
   NiftyDegen,
   NiftyMarketplace,
-  NFTL,
 } from '@/types/typechain';
 
 import {
+  BALANCE_MANAGER_CONTRACT,
   COMICS_BURNER_CONTRACT,
   DEGEN_CONTRACT,
-  GAME_ACCOUNT_CONTRACT,
   MARKETPLACE_CONTRACT,
   NFTL_CONTRACT,
   NFTL_IMX_CONTRACT,
-  NFTL_RAFFLE_CONTRACT,
 } from '@/constants/contracts';
 
 export type MainnetProvider = InfuraProvider | EtherscanProvider | AlchemyProvider;
@@ -59,17 +56,14 @@ export interface Ethereumish {
   ) => void;
 }
 
-// export interface Contracts extends Record<ContractName, Contract> {}
 export interface Contracts {
+  [BALANCE_MANAGER_CONTRACT]: BalanceManagerDistributor;
   [COMICS_BURNER_CONTRACT]: NiftyBurningComicsL2;
   [DEGEN_CONTRACT]: NiftyDegen;
-  [GAME_ACCOUNT_CONTRACT]: BalanceManager;
   [MARKETPLACE_CONTRACT]: NiftyMarketplace;
   [NFTL_CONTRACT]: NFTLToken;
   [NFTL_IMX_CONTRACT]: NFTL;
-  [NFTL_RAFFLE_CONTRACT]: NFTLRaffle;
-  MerkleDistributor: Contract;
-  // [contractName: string]: Contract;
+  ComicsMerkleDistributor: Contract;
 }
 
 export type NetworkName = 'mainnet' | 'sepolia' | 'hardhat' | 'imtbl-zkevm-mainnet' | 'imtbl-zkevm-testnet';

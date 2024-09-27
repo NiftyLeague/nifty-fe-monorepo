@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { mainnet, sepolia } from 'viem/chains';
 import { getAddress, isAddress } from 'ethers6';
 import useNetworkContext from '@/hooks/useNetworkContext';
-import { COMICS_MERKLE_ROOT } from '@/constants/contracts';
+import { COMICS_MERKLE_TREE } from '@/constants/contracts';
 
 interface UserClaimData {
   index: number;
@@ -29,7 +29,7 @@ function fetchClaim(account: string, chainId: ChainId): ClaimPromise {
   // eslint-disable-next-line no-return-assign
   return (CLAIM_PROMISES[key] =
     CLAIM_PROMISES[key] ??
-    fetch(COMICS_MERKLE_ROOT)
+    fetch(COMICS_MERKLE_TREE)
       .then(response => response.json())
       .then((data: { claims: { [address: string]: UserClaimData } }) => {
         const claim: UserClaimData | undefined = data.claims[getAddress(account)] ?? undefined;
