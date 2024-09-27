@@ -1,6 +1,6 @@
 'use client';
 
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { useSwitchChain } from 'wagmi';
 import { Button, IconButton } from '@mui/material';
 import { useTheme } from '@nl/theme';
@@ -11,16 +11,20 @@ import useUserUnclaimedAmount from '@/hooks/merkleDistributor/useUserUnclaimedAm
 import { Dialog, DialogTrigger, DialogContent } from '@/components/dialog';
 import HoverDataCard from '@/components/cards/HoverDataCard';
 import { TARGET_NETWORK } from '@/constants/networks';
-import WithdrawForm from './WithdrawForm';
+import WithdrawForm from './dialogs/WithdrawForm';
+import WithdrawSuccess from './dialogs/WithdrawSuccess';
 
 const GameBalance: React.FC = memo(() => {
   const theme = useTheme();
   const { nftlUnclaimed, loading } = useUserUnclaimedAmount();
   const { switchChain } = useSwitchChain();
+  const [successDialogOpen, setSuccessDialogOpen] = useState(false);
 
   const onCloseWithdrawDialog = () => {
     switchChain?.({ chainId: TARGET_NETWORK.chainId });
   };
+
+  const onWithdrawSuccess = () => setSuccessDialogOpen(true);
 
   return (
     <HoverDataCard
@@ -46,16 +50,17 @@ const GameBalance: React.FC = memo(() => {
               </Button>
             </DialogTrigger>
             <DialogContent
-              aria-labelledby="customized-dialog-title"
+              aria-labelledby="withdraw-earnings-dialog"
               dialogTitle="Withdraw Earnings"
               sx={{
                 '& h2': { textAlign: 'center' },
                 '& .MuiDialogContent-root': { textAlign: 'center' },
               }}
             >
-              <WithdrawForm balance={nftlUnclaimed} />
+              <WithdrawForm balance={nftlUnclaimed} onWithdrawSuccess={onWithdrawSuccess} />
             </DialogContent>
           </Dialog>
+          <WithdrawSuccess successDialogOpen={successDialogOpen} setSuccessDialogOpen={setSuccessDialogOpen} />
         </>
       }
     />
