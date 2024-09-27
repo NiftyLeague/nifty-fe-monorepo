@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { styled } from '@nl/theme';
 import Image from 'next/image';
-import { formatEther, parseEther, type AddressLike } from 'ethers6';
+import { formatEther } from 'ethers6';
 import { OrderKind } from '@cowprotocol/cow-sdk';
 import { createOrderSwapEtherToNFTL, getCowMarketPrice, getOrderDetail } from '@/utils/cowswap';
 
@@ -13,7 +13,6 @@ import CircleIcon from '@mui/icons-material/Circle';
 
 import { COW_PROTOCOL_URL } from '@/constants/url';
 import { formatNumberToDisplay, formatNumberToDisplay2 } from '@/utils/numbers';
-import { GAME_ACCOUNT_CONTRACT, NFTL_CONTRACT } from '@/constants/contracts';
 import { TARGET_NETWORK } from '@/constants/networks';
 import useBalances from '@/hooks/useBalances';
 import useNetworkContext from '@/hooks/useNetworkContext';
@@ -58,7 +57,7 @@ type CowSwapWidgetProps = {
 };
 
 const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
-  const { address, tx, signer, writeContracts } = useNetworkContext();
+  const { address, signer } = useNetworkContext();
   const { account, refetchAccount } = useGameAccount();
   const { balance: etherBalance } = useEtherBalance();
   const { rate: rateEtherToNftl, refetch: refetchRateEtherToNftl } = useRateEtherToNFTL();
@@ -81,9 +80,6 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
   const [orderFulfilled, setOrderFulfilled] = useState<boolean>(false);
   const [orderBuyAmount, setOrderBuyAmount] = useState<string>('');
   const [deposited, setDeposited] = useState<boolean>(false);
-  const [allowance, setAllowance] = useState<bigint>(0n);
-  const [allowanceLoading, setAllowanceLoading] = useState<boolean>(false);
-  const [depositLoading, setDepositLoading] = useState<boolean>(false);
 
   const accountBalance = account?.balance ?? 0;
 
@@ -94,20 +90,6 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
     }, 10000);
     return () => clearInterval(timer);
   }, [refetchRateEtherToNftl, refetchAccount]);
-
-  useEffect(() => {
-    const getAllowance = async () => {
-      const gameAccountContract = writeContracts[GAME_ACCOUNT_CONTRACT];
-      const gameAccountAddress = await gameAccountContract.getAddress();
-      const nftl = writeContracts[NFTL_CONTRACT];
-      const allowanceBN = (await nftl.allowance(address as AddressLike, gameAccountAddress)) as bigint;
-      setAllowance(allowanceBN);
-    };
-    if (writeContracts && writeContracts[NFTL_CONTRACT] && writeContracts[GAME_ACCOUNT_CONTRACT]) {
-      // eslint-disable-next-line no-void
-      void getAllowance();
-    }
-  }, [address, writeContracts]);
 
   const checkOrderStatus = useCallback(async () => {
     const orderDetail = await getOrderDetail(TARGET_NETWORK.chainId, orderId);
@@ -227,27 +209,6 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
     setTxnState('Buy NFTL');
   };
 
-  const handleDeposit = useCallback(async () => {
-    setDepositLoading(true);
-    const txRes = await tx(writeContracts[GAME_ACCOUNT_CONTRACT].deposit(parseEther(`${Number(orderBuyAmount)}`)));
-    setDepositLoading(false);
-    if (txRes) {
-      refreshBalance();
-      setDeposited(true);
-    }
-  }, [orderBuyAmount, refreshBalance, tx, writeContracts]);
-
-  const handleIncreaseAllowance = useCallback(async () => {
-    setAllowanceLoading(true);
-    const gameAccountContract = writeContracts[GAME_ACCOUNT_CONTRACT];
-    const gameAccountAddress = await gameAccountContract.getAddress();
-    const nftl = writeContracts[NFTL_CONTRACT];
-    const newAllowance = parseEther(`${Math.max(100000, Math.ceil(userNFTLBalance))}`);
-    await tx(nftl.increaseAllowance(gameAccountAddress, newAllowance));
-    setAllowance(newAllowance);
-    setAllowanceLoading(false);
-  }, [tx, userNFTLBalance, writeContracts]);
-
   const handleEthAmount = (val: string) => {
     setEthAmount(val);
     setInputEthAmount(val);
@@ -257,8 +218,6 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
     setNftlAmount(val);
     setInputNftlAmount(val);
   };
-
-  const isAllowDeposit = parseFloat(formatEther(allowance)) >= parseFloat(orderBuyAmount);
 
   return (
     <StyledStack direction="column">
@@ -382,28 +341,6 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
               >
                 Add NFTL to Metamask
               </Button>
-              {orderFulfilled && !deposited && !isAllowDeposit && (
-                <LoadingButton
-                  variant="contained"
-                  fullWidth
-                  loading={allowanceLoading}
-                  onClick={handleIncreaseAllowance}
-                  sx={{ height: '44px !important', lineHeight: '18px' }}
-                >
-                  Increase Allowance
-                </LoadingButton>
-              )}
-              {orderFulfilled && !deposited && isAllowDeposit && (
-                <LoadingButton
-                  variant="contained"
-                  fullWidth
-                  loading={depositLoading}
-                  onClick={handleDeposit}
-                  sx={{ height: '44px !important', lineHeight: '18px' }}
-                >
-                  Deposit NFTL
-                </LoadingButton>
-              )}
               {orderFulfilled && deposited && (
                 <Button
                   variant="contained"

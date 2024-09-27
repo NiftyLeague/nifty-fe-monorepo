@@ -34,7 +34,12 @@ export default function useComicsBalance(
     async function checkUserComics() {
       const ownerArr = [address, address, address, address, address, address] as AddressLike[];
       const comicIds = [1, 2, 3, 4, 5, 6];
+      console.log('Fetching Comics for', address);
       const comicsData = await marketplaceContract.balanceOfBatch(ownerArr, comicIds);
+      console.log(
+        'Comics Data',
+        comicsData.map((c: bigint) => c.toString()),
+      );
 
       if (comicsData.some((c: bigint) => c > 0)) {
         setComicsBal(
@@ -55,7 +60,7 @@ export default function useComicsBalance(
       // eslint-disable-next-line no-void
       void checkUserComics();
     }
-  }, [address, refreshKey]);
+  }, [address, marketplaceContract, refreshKey]);
 
   return { comicsBalance, loading };
 }

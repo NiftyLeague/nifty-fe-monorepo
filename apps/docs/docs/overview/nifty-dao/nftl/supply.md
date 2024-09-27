@@ -6,11 +6,11 @@ sidebar_position: 3
 
 Our launch in September 2021 kicked off the [initial distribution](./distribution) of NFTL.
 
-[Initial supply](./distribution) was set to **450M NFTL** with no declared max supply at the time. However, we expected around 550M NFTL, or 1 Billion in total, to be distributed over the course of the first calendar year (through September 2022), and 250M NFTL annually for the next 2 years.
+**[Initial Supply](./distribution)** was set to **440M NFTL** with no declared Max Supply at the time. However, we expected around 560M NFTL, or 1 Billion in total, to be distributed over the course of the first calendar year (through September 2022), and 250M NFTL annually for the next 2 years.
 
-In total, [NFTL emissions](./emissions) for the first 3 years added up to **850M NFTL**. DEGEN NFT daily emissions end on Sept 14, 2024 - at which point no further emissions are planned unless by order of the Nifty DAO.
+In total, **[NFTL emissions](./emissions)** for the first 3 years added up to **~835M NFTL**. DEGEN NFT daily emissions (which accounted for the bulk of these emissions) ended on Sept 14, 2024. At this time no further emissions are planned unless ordered by the Nifty DAO.
 
-After several burn events including 7th tribe claim, raffles and mini-games, the max supply amounts to **1.25B NFTL**. Please check [CoinGecko](https://www.coingecko.com/en/coins/nifty-league) for accurate up-to-date information regarding circulating & total supply.
+After several burn events including 7th tribe claim, raffles and mini-games, the current **Max Supply** amounts to **1.225B NFTL**. Please check [CoinGecko](https://www.coingecko.com/en/coins/nifty-league) for accurate up-to-date information regarding Circulating & Total Supply.
 
 <div style={{ maxWidth: 500, margin: 'auto' }}>![](/img/events/big_burn.webp)</div>
 <br />
@@ -42,12 +42,12 @@ After several burn events including 7th tribe claim, raffles and mini-games, the
     pie showData title NFTL Distribution (Millions)
         "Team" : 30
         "Private Funding" : 135.5
-        "Nifty DAO" : 95.9
+        "Nifty DAO" : 85
         "Marketing": 8
         "DEGEN Minters": 180.5
         "DEGEN Daily Yield": 750
-        "Liquidity Incentives": 30
-        "Play-2-Earn (Deprecated)": 70
+        "Liquidity Incentives": 28
+        "Play-2-Earn (Deprecated)": 87.75
 ```
 
 Learn more about the initial supply, distributions, emisions on the next pages.

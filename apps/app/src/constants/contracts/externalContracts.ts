@@ -1,5 +1,5 @@
 import { mainnet, sepolia } from 'viem/chains';
-import DAI_ABI from './abis/dai.json';
+import WETH_ABI from './abis/weth.json';
 import COMICS_MERKLE_ABI from './abis/comics-merkle-distributor.json';
 import MERKLE_ABI from './abis/merkle-distributor.json';
 import { COMICS_MERKLE_DISTRIBUTOR_ADDRESS, MERKLE_DISTRIBUTOR_ADDRESS } from '@/constants/contracts';
@@ -14,9 +14,9 @@ const EXTERNAL_CONTRACTS: {
   [LOCAL_CHAIN_ID]: {},
   [sepolia.id]: {},
   [mainnet.id]: {
-    DAI: {
-      address: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-      abi: DAI_ABI,
+    WETH: {
+      address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+      abi: WETH_ABI,
     },
     MerkleDistributor: {
       address: MERKLE_DISTRIBUTOR_ADDRESS[mainnet.id] as `0x${string}`,

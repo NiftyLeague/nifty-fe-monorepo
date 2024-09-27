@@ -6,6 +6,7 @@ export { IERC1155SupplyUpgradeable__factory } from './IERC1155SupplyUpgradeable_
 export { IERC20MetaTransactions__factory } from './IERC20MetaTransactions__factory';
 export { IERC20PresetMinterPauserUpgradeable__factory } from './IERC20PresetMinterPauserUpgradeable__factory';
 export { IGovToken__factory } from './IGovToken__factory';
+export { IMerkleDistributor__factory } from './IMerkleDistributor__factory';
 export { IMintable__factory } from './IMintable__factory';
 export { INiftyEquipment__factory } from './INiftyEquipment__factory';
 export { INiftyLaunchComics__factory } from './INiftyLaunchComics__factory';

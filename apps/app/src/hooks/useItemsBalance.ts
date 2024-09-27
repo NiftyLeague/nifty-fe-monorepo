@@ -32,8 +32,8 @@ export default function useItemsBalance(
 
   useEffect(() => {
     async function checkUserItems() {
-      const ownerArr = [address, address, address, address, address, address] as AddressLike[];
-      const itemIds = [101, 102, 103, 104, 105, 106];
+      const ownerArr = [address, address, address, address, address, address, address] as AddressLike[];
+      const itemIds = [101, 102, 103, 104, 105, 106, 107];
       const itemsData = await marketplaceContract.balanceOfBatch(ownerArr, itemIds);
 
       if (itemsData.some((c: bigint) => c > 0)) {
@@ -55,7 +55,7 @@ export default function useItemsBalance(
       // eslint-disable-next-line no-void
       void checkUserItems();
     }
-  }, [address, refreshKey]);
+  }, [address, marketplaceContract, refreshKey]);
 
   return { itemsBalance, loading };
 }
