@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { AddressLike } from 'ethers6';
 import type { Contracts } from '@/types/web3';
 import type { Item } from '@/types/marketplace';
@@ -28,7 +28,6 @@ export default function useItemsBalance(
   const [loading, setLoading] = useState(true);
   const [itemsBalance, setItemsBal] = useState<Item[]>([]);
   const marketplaceContract = useMemo(() => imxContracts[MARKETPLACE_CONTRACT], [imxContracts]);
-  const firstRenderRef = useRef(true);
 
   useEffect(() => {
     async function checkUserItems() {
@@ -48,10 +47,6 @@ export default function useItemsBalance(
     }
 
     if (address && marketplaceContract) {
-      if (firstRenderRef.current) {
-        firstRenderRef.current = false;
-        return;
-      }
       // eslint-disable-next-line no-void
       void checkUserItems();
     }

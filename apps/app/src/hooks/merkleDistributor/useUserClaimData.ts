@@ -1,15 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { mainnet, sepolia } from 'viem/chains';
 import { getAddress, isAddress } from 'ethers6';
 import useNetworkContext from '@/hooks/useNetworkContext';
-import { COMICS_MERKLE_TREE } from '@/constants/contracts';
+import { MERKLE_TREE } from '@/constants/contracts';
 
 interface UserClaimData {
   index: number;
-  amount0: string;
-  amount1: string;
+  amount: string;
   proof: string[];
 }
 
@@ -29,39 +28,53 @@ function fetchClaim(account: string, chainId: ChainId): ClaimPromise {
   // eslint-disable-next-line no-return-assign
   return (CLAIM_PROMISES[key] =
     CLAIM_PROMISES[key] ??
-    fetch(COMICS_MERKLE_TREE)
+    fetch(MERKLE_TREE)
       .then(response => response.json())
       .then((data: { claims: { [address: string]: UserClaimData } }) => {
         const claim: UserClaimData | undefined = data.claims[getAddress(account)] ?? undefined;
         if (!claim) return null;
         return {
           index: claim.index,
-          amount0: claim.amount0,
-          amount1: claim.amount1,
+          amount: claim.amount,
           proof: claim.proof,
         };
       })
-      .catch(error => console.error('Failed to get claim data', error)));
+      .catch(error => {
+        console.error('Failed to get claim data', error);
+        return null; // Return null in case of an error
+      }));
 }
 
 // parse distributorContract blob and detect if user has claim data
 // null means we know it does not
 export default function useUserClaimData(): UserClaimData | null | undefined {
   const { address: account, selectedNetworkId } = useNetworkContext();
-  const key = `${selectedNetworkId}:${account}`;
+  // Use useMemo to compute the key once to avoid recalculating on every render
+  const key = useMemo(() => `${selectedNetworkId}:${account}`, [selectedNetworkId, account]);
+
   const [claimInfo, setClaimInfo] = useState<{
     [key: string]: UserClaimData | null;
   }>({});
 
   useEffect(() => {
     if (!account || !selectedNetworkId) return;
-    void fetchClaim(account, selectedNetworkId).then(accountClaimInfo =>
-      setClaimInfo(prevClaimInfo => ({
-        ...prevClaimInfo,
-        [key]: accountClaimInfo as UserClaimData,
-      })),
-    );
-  }, [account, selectedNetworkId, key]);
+
+    // Avoid setting the state unnecessarily if the claim data already exists
+    if (claimInfo[key]) return;
+
+    void fetchClaim(account, selectedNetworkId).then(accountClaimInfo => {
+      // Only update state if the claim data has changed
+      setClaimInfo(prevClaimInfo => {
+        if (prevClaimInfo[key] !== accountClaimInfo) {
+          return {
+            ...prevClaimInfo,
+            [key]: accountClaimInfo as UserClaimData,
+          };
+        }
+        return prevClaimInfo;
+      });
+    });
+  }, [account, selectedNetworkId, key, claimInfo]);
 
   return account && selectedNetworkId ? claimInfo[key] : undefined;
 }
