@@ -11,7 +11,11 @@ export const DialogContext = createContext(defaultValue);
 
 const Dialog = (props: DialogProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  return <DialogContext.Provider value={[isOpen, setIsOpen]} {...props} />;
+  const handleSetIsOpen: Dispatch<SetStateAction<boolean>> = (value: SetStateAction<boolean>) => {
+    if (!value) props.onClose?.();
+    setIsOpen(value);
+  };
+  return <DialogContext.Provider value={[isOpen, handleSetIsOpen]} {...props} />;
 };
 
 export { CloseIconButton, DialogDismissButton, DialogTrigger, DialogContent, DialogContentBase, Dialog };
