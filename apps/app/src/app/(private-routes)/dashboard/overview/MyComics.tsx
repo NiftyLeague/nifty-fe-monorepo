@@ -36,15 +36,21 @@ const MyComics = (): JSX.Element => {
     adaptiveHeight: true,
     responsive: [
       {
-        breakpoint: 1750,
+        breakpoint: 1350,
         settings: {
           slidesToShow: 4,
         },
       },
       {
-        breakpoint: 1350,
+        breakpoint: 1019,
         settings: {
           slidesToShow: 6,
+        },
+      },
+      {
+        breakpoint: 800,
+        settings: {
+          slidesToShow: 5,
         },
       },
       {

@@ -53,10 +53,10 @@ export default function useComicsBalance(
     }
 
     if (address && marketplaceContract) {
-      if (firstRenderRef.current) {
-        firstRenderRef.current = false;
-        return;
-      }
+      // if (firstRenderRef.current) {
+      //   firstRenderRef.current = false;
+      //   return;
+      // }
       // eslint-disable-next-line no-void
       void checkUserComics();
     }

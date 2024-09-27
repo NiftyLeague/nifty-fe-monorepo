@@ -17,8 +17,8 @@ export function useUserHasAvailableClaim(userClaimData: UserClaimData | null | u
   const distributorContract = useMerkleDistributorContract();
   const skipIf = userClaimData?.index === undefined;
   const isClaimedResult = useSingleCallResult(
-    { MerkleDistributor: distributorContract as Contract } as Contracts,
-    'MerkleDistributor',
+    { ComicsMerkleDistributor: distributorContract as Contract } as Contracts,
+    'ComicsMerkleDistributor',
     'isClaimed',
     [userClaimData?.index],
     null,

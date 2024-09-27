@@ -20,19 +20,19 @@ const MyItems = (): JSX.Element => {
     adaptiveHeight: true,
     responsive: [
       {
-        breakpoint: 1750,
+        breakpoint: 1350,
         settings: {
           slidesToShow: 4,
         },
       },
       {
-        breakpoint: 1350,
+        breakpoint: 1019,
         settings: {
-          slidesToShow: 7,
+          slidesToShow: 6,
         },
       },
       {
-        breakpoint: 1200,
+        breakpoint: 800,
         settings: {
           slidesToShow: 5,
         },
@@ -41,12 +41,6 @@ const MyItems = (): JSX.Element => {
         breakpoint: 600,
         settings: {
           slidesToShow: 4,
-        },
-      },
-      {
-        breakpoint: 525,
-        settings: {
-          slidesToShow: 3,
         },
       },
     ],
