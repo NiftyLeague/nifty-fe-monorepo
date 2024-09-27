@@ -14,10 +14,10 @@ import { useConnectedToIMXCheck } from '@/hooks/useImxProvider';
 import useClaimCallback from '@/hooks/merkleDistributor/useClaimCallback';
 import useIMXContext from '@/hooks/useIMXContext';
 
-type WithdrawFormProps = { balance: number };
+type WithdrawFormProps = { balance: number; onWithdrawSuccess: () => void };
 type IFormInput = { withdrawal: string };
 
-const WithdrawForm = ({ balance }: WithdrawFormProps): JSX.Element => {
+const WithdrawForm = ({ balance, onWithdrawSuccess }: WithdrawFormProps): JSX.Element => {
   const { imxChainId } = useIMXContext();
   const isConnectedToIMX = useConnectedToIMXCheck();
   const { switchChain } = useSwitchChain();
@@ -60,6 +60,7 @@ const WithdrawForm = ({ balance }: WithdrawFormProps): JSX.Element => {
       setLoading(false);
       return;
     }
+    onWithdrawSuccess();
     resetForm();
   };
 
