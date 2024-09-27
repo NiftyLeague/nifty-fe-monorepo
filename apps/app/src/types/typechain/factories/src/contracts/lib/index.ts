@@ -4,4 +4,6 @@
 export * as nameableCharacterSol from './NameableCharacter.sol';
 export { AllowedColorsStorage__factory } from './AllowedColorsStorage__factory';
 export { ERC20MetaTransactions__factory } from './ERC20MetaTransactions__factory';
+export { MerkleDistributor__factory } from './MerkleDistributor__factory';
+export { MerkleDistributorWithDeadline__factory } from './MerkleDistributorWithDeadline__factory';
 export { NiftyLeagueCharacter__factory } from './NiftyLeagueCharacter__factory';

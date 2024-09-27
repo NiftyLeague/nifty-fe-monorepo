@@ -2,9 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 export * as nftlRaffleSol from './NFTLRaffle.sol';
+export { BalanceManager__factory } from './BalanceManager__factory';
 export { HydraDistributor__factory } from './HydraDistributor__factory';
 export { NFTLTimelock__factory } from './NFTLTimelock__factory';
 export { NiftyBurningComicsL2__factory } from './NiftyBurningComicsL2__factory';
 export { NiftyEquipment__factory } from './NiftyEquipment__factory';
 export { NiftyItemL2__factory } from './NiftyItemL2__factory';
 export { NiftyItemSale__factory } from './NiftyItemSale__factory';
+export { NiftyLaunchComics__factory } from './NiftyLaunchComics__factory';

@@ -15,7 +15,5 @@ import type * as mocks from './mocks';
 export type { mocks };
 import type * as utils from './utils';
 export type { utils };
-export type { BalanceManager } from './BalanceManager';
 export type { NFTLToken } from './NFTLToken';
 export type { NiftyDegen } from './NiftyDegen';
-export type { NiftyLaunchComics } from './NiftyLaunchComics';

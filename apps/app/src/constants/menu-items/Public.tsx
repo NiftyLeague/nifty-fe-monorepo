@@ -56,14 +56,6 @@ const PublicItems = {
       icon: icons.IconSquarePlus,
       breadcrumbs: false,
     },
-    // {
-    //   id: 'raffle',
-    //   title: 'Raffle',
-    //   type: 'item',
-    //   url: '/raffle',
-    //   icon: icons.IconTicket,
-    //   breadcrumbs: false,
-    // },
   ],
 };
 

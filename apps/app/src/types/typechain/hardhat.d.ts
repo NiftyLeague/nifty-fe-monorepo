@@ -402,9 +402,17 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | FactoryOptions,
     ): Promise<Contracts.NiftyItemSale__factory>;
     getContractFactory(
+      name: 'NiftyLaunchComics',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.NiftyLaunchComics__factory>;
+    getContractFactory(
       name: 'WETH',
       signerOrOptions?: ethers.Signer | FactoryOptions,
     ): Promise<Contracts.WETH__factory>;
+    getContractFactory(
+      name: 'BalanceManagerDistributor',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.BalanceManagerDistributor__factory>;
     getContractFactory(
       name: 'ComicsBurner',
       signerOrOptions?: ethers.Signer | FactoryOptions,
@@ -450,6 +458,10 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | FactoryOptions,
     ): Promise<Contracts.IGovToken__factory>;
     getContractFactory(
+      name: 'IMerkleDistributor',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.IMerkleDistributor__factory>;
+    getContractFactory(
       name: 'IMintable',
       signerOrOptions?: ethers.Signer | FactoryOptions,
     ): Promise<Contracts.IMintable__factory>;
@@ -473,6 +485,14 @@ declare module 'hardhat/types/runtime' {
       name: 'ERC20MetaTransactions',
       signerOrOptions?: ethers.Signer | FactoryOptions,
     ): Promise<Contracts.ERC20MetaTransactions__factory>;
+    getContractFactory(
+      name: 'MerkleDistributor',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.MerkleDistributor__factory>;
+    getContractFactory(
+      name: 'MerkleDistributorWithDeadline',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.MerkleDistributorWithDeadline__factory>;
     getContractFactory(
       name: 'INFTL',
       signerOrOptions?: ethers.Signer | FactoryOptions,
@@ -513,10 +533,6 @@ declare module 'hardhat/types/runtime' {
       name: 'NiftyDegen',
       signerOrOptions?: ethers.Signer | FactoryOptions,
     ): Promise<Contracts.NiftyDegen__factory>;
-    getContractFactory(
-      name: 'NiftyLaunchComics',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.NiftyLaunchComics__factory>;
     getContractFactory(
       name: 'Bytes',
       signerOrOptions?: ethers.Signer | FactoryOptions,
@@ -1011,7 +1027,17 @@ declare module 'hardhat/types/runtime' {
       address: string | ethers.Addressable,
       signer?: ethers.Signer,
     ): Promise<Contracts.NiftyItemSale>;
+    getContractAt(
+      name: 'NiftyLaunchComics',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.NiftyLaunchComics>;
     getContractAt(name: 'WETH', address: string | ethers.Addressable, signer?: ethers.Signer): Promise<Contracts.WETH>;
+    getContractAt(
+      name: 'BalanceManagerDistributor',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.BalanceManagerDistributor>;
     getContractAt(
       name: 'ComicsBurner',
       address: string | ethers.Addressable,
@@ -1064,6 +1090,11 @@ declare module 'hardhat/types/runtime' {
       signer?: ethers.Signer,
     ): Promise<Contracts.IGovToken>;
     getContractAt(
+      name: 'IMerkleDistributor',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.IMerkleDistributor>;
+    getContractAt(
       name: 'IMintable',
       address: string | ethers.Addressable,
       signer?: ethers.Signer,
@@ -1093,6 +1124,16 @@ declare module 'hardhat/types/runtime' {
       address: string | ethers.Addressable,
       signer?: ethers.Signer,
     ): Promise<Contracts.ERC20MetaTransactions>;
+    getContractAt(
+      name: 'MerkleDistributor',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.MerkleDistributor>;
+    getContractAt(
+      name: 'MerkleDistributorWithDeadline',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.MerkleDistributorWithDeadline>;
     getContractAt(
       name: 'INFTL',
       address: string | ethers.Addressable,
@@ -1143,11 +1184,6 @@ declare module 'hardhat/types/runtime' {
       address: string | ethers.Addressable,
       signer?: ethers.Signer,
     ): Promise<Contracts.NiftyDegen>;
-    getContractAt(
-      name: 'NiftyLaunchComics',
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.NiftyLaunchComics>;
     getContractAt(
       name: 'Bytes',
       address: string | ethers.Addressable,
@@ -1529,7 +1565,15 @@ declare module 'hardhat/types/runtime' {
       name: 'NiftyItemSale',
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.NiftyItemSale>;
+    deployContract(
+      name: 'NiftyLaunchComics',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.NiftyLaunchComics>;
     deployContract(name: 'WETH', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.WETH>;
+    deployContract(
+      name: 'BalanceManagerDistributor',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.BalanceManagerDistributor>;
     deployContract(
       name: 'ComicsBurner',
       signerOrOptions?: ethers.Signer | DeployContractOptions,
@@ -1569,6 +1613,10 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.IGovToken>;
     deployContract(
+      name: 'IMerkleDistributor',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IMerkleDistributor>;
+    deployContract(
       name: 'IMintable',
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.IMintable>;
@@ -1592,6 +1640,14 @@ declare module 'hardhat/types/runtime' {
       name: 'ERC20MetaTransactions',
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.ERC20MetaTransactions>;
+    deployContract(
+      name: 'MerkleDistributor',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.MerkleDistributor>;
+    deployContract(
+      name: 'MerkleDistributorWithDeadline',
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.MerkleDistributorWithDeadline>;
     deployContract(name: 'INFTL', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.INFTL>;
     deployContract(
       name: 'NameableCharacter',
@@ -1629,10 +1685,6 @@ declare module 'hardhat/types/runtime' {
       name: 'NiftyDegen',
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.NiftyDegen>;
-    deployContract(
-      name: 'NiftyLaunchComics',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyLaunchComics>;
     deployContract(name: 'Bytes', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.Bytes>;
     deployContract(
       name: 'Minting',
@@ -2125,10 +2177,20 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.NiftyItemSale>;
     deployContract(
+      name: 'NiftyLaunchComics',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.NiftyLaunchComics>;
+    deployContract(
       name: 'WETH',
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.WETH>;
+    deployContract(
+      name: 'BalanceManagerDistributor',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.BalanceManagerDistributor>;
     deployContract(
       name: 'ComicsBurner',
       args: any[],
@@ -2185,6 +2247,11 @@ declare module 'hardhat/types/runtime' {
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.IGovToken>;
     deployContract(
+      name: 'IMerkleDistributor',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.IMerkleDistributor>;
+    deployContract(
       name: 'IMintable',
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions,
@@ -2214,6 +2281,16 @@ declare module 'hardhat/types/runtime' {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.ERC20MetaTransactions>;
+    deployContract(
+      name: 'MerkleDistributor',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.MerkleDistributor>;
+    deployContract(
+      name: 'MerkleDistributorWithDeadline',
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions,
+    ): Promise<Contracts.MerkleDistributorWithDeadline>;
     deployContract(
       name: 'INFTL',
       args: any[],
@@ -2264,11 +2341,6 @@ declare module 'hardhat/types/runtime' {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions,
     ): Promise<Contracts.NiftyDegen>;
-    deployContract(
-      name: 'NiftyLaunchComics',
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyLaunchComics>;
     deployContract(
       name: 'Bytes',
       args: any[],
