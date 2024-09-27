@@ -125,7 +125,7 @@ export const ITEMS: Item[] = [
     multiplier: 0,
     wearableName: '',
     balance: 0,
-    image: '/img/items/7.gif',
+    image: '/img/items/full/7.gif',
     thumbnail: '/img/items/thumbnail/7.webp',
     empty: '/img/items/empty/7.svg',
     isNew: false,

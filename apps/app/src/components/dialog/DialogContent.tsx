@@ -8,7 +8,7 @@ const DialogContentBase = (props: DialogProps) => {
   const [isOpen, setIsOpen] = useContext(DialogContext);
 
   if (!isOpen) return null;
-  return <DialogMUI onClose={() => setIsOpen(false)} open={isOpen} {...props} />;
+  return <DialogMUI {...props} onClose={() => setIsOpen(false)} open={isOpen} />;
 };
 
 const DialogContent = ({ dialogTitle, children, ...props }: DialogProps): JSX.Element => (

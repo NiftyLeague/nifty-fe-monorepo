@@ -1,9 +1,8 @@
 'use client';
 
 import { type PropsWithChildren, createContext, useEffect } from 'react';
-import { useWeb3ModalState } from '@web3modal/wagmi/react';
-import { useAccount } from 'wagmi';
 import isEmpty from 'lodash/isEmpty';
+import { useAccount } from 'wagmi';
 
 import useContractLoader from '@/hooks/useContractLoader';
 import useEthersProvider, { type Provider } from '@/hooks/useEthersProvider';
@@ -20,7 +19,6 @@ interface NetworkContext {
   isConnected: boolean;
   publicProvider?: Provider;
   readContracts: Contracts;
-  selectedNetworkId?: number;
   signer?: Signer;
   tx: Tx;
   writeContracts: Contracts;
@@ -31,7 +29,6 @@ const CONTEXT_INITIAL_STATE: NetworkContext = {
   isConnected: false,
   publicProvider: undefined,
   readContracts: {} as Contracts,
-  selectedNetworkId: undefined,
   signer: undefined,
   tx: async () => new Promise(() => null),
   writeContracts: {} as Contracts,
@@ -40,12 +37,8 @@ const CONTEXT_INITIAL_STATE: NetworkContext = {
 const NetworkContext = createContext<NetworkContext>(CONTEXT_INITIAL_STATE);
 
 export const NetworkProvider = ({ children }: PropsWithChildren): JSX.Element => {
-  const chainId = TARGET_NETWORK?.chainId || 1;
-  const { address, isConnected } = useAccount();
-  const { selectedNetworkId } = useWeb3ModalState() as {
-    open: boolean;
-    selectedNetworkId?: number;
-  };
+  const chainId = TARGET_NETWORK?.chainId || 1; // mainnet | sepolia | hardhat
+  const { address, chain, isConnected } = useAccount();
 
   const publicProvider = useEthersProvider({ chainId });
   const signer = useEthersSigner({ chainId });
@@ -64,8 +57,8 @@ export const NetworkProvider = ({ children }: PropsWithChildren): JSX.Element =>
       DEBUG &&
       isConnected &&
       address &&
+      chain &&
       publicProvider &&
-      selectedNetworkId &&
       signer &&
       signer.address === address &&
       !isEmpty(readContracts) &&
@@ -75,7 +68,7 @@ export const NetworkProvider = ({ children }: PropsWithChildren): JSX.Element =>
       console.log('🌐 publicProvider', publicProvider);
       console.log('📝 signer', signer);
       console.log('👤 address:', address);
-      console.log('⛓️ selectedNetworkId:', selectedNetworkId);
+      console.log('⛓️ selectedNetworkId:', chain.id);
       console.log('📍 targetNetwork:', TARGET_NETWORK);
       console.log('🔓 readContracts', readContracts);
       console.log('🔏 writeContracts', writeContracts);
@@ -83,19 +76,17 @@ export const NetworkProvider = ({ children }: PropsWithChildren): JSX.Element =>
     } else if (DEBUG && publicProvider && !isEmpty(readContracts)) {
       console.group('_________________ 🚫 Offline User: Ethereum _________________');
       console.log('🌐 publicProvider', publicProvider);
-      console.log('⛓️ selectedNetworkId:', selectedNetworkId);
       console.log('📍 targetNetwork:', TARGET_NETWORK);
       console.log('🔓 readContracts', readContracts);
       console.groupEnd();
     }
-  }, [address, isConnected, publicProvider, readContracts, selectedNetworkId, signer, writeContracts]);
+  }, [address, chain, isConnected, publicProvider, readContracts, signer, writeContracts]);
 
   const context = {
     address,
     isConnected,
     publicProvider,
     readContracts,
-    selectedNetworkId,
     signer,
     tx,
     writeContracts,

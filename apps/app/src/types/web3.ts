@@ -1,7 +1,6 @@
 import type {
   AlchemyProvider,
   BrowserProvider,
-  Contract,
   EtherscanProvider,
   FallbackProvider,
   InfuraProvider,
@@ -63,7 +62,6 @@ export interface Contracts {
   [MARKETPLACE_CONTRACT]: NiftyMarketplace;
   [NFTL_CONTRACT]: NFTLToken;
   [NFTL_IMX_CONTRACT]: NFTL;
-  ComicsMerkleDistributor: Contract;
 }
 
 export type NetworkName = 'mainnet' | 'sepolia' | 'hardhat' | 'imtbl-zkevm-mainnet' | 'imtbl-zkevm-testnet';
