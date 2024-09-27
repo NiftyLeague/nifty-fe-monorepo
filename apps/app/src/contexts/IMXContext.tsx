@@ -31,7 +31,7 @@ const CONTEXT_INITIAL_STATE: Context = {
   address: undefined,
   comicsBalance: [],
   comicsLoading: true,
-  imxChainId: process.env.NODE_ENV === 'production' ? immutableZkEvm.id : immutableZkEvmTestnet.id,
+  imxChainId: process.env.VERCEL_ENV === 'production' ? immutableZkEvm.id : immutableZkEvmTestnet.id,
   imxContracts: {} as Contracts,
   imxSigner: undefined,
   itemsBalance: [],
