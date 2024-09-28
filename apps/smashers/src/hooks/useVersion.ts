@@ -22,7 +22,7 @@ enum OS {
 
 const useVersion = () => {
   const [version, setVersion] = useState<string | null>(null);
-  const env = process.env.NODE_ENV === 'production' ? 'prod' : 'stage';
+  const env = process.env.VERCEL_ENV === 'production' ? 'prod' : 'stage';
   const isLinux = typeof window !== 'undefined' && window?.navigator?.userAgent?.indexOf('Linux') >= 0;
   let os = '';
   let message = '';

@@ -3,7 +3,7 @@
 import ReactGA from 'react-ga4';
 
 const initGA = () => {
-  const isDev = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
+  const isDev = !process.env.VERCEL_ENV || process.env.VERCEL_ENV !== 'production';
   if (isDev) {
     return;
   }

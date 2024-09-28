@@ -26,7 +26,8 @@ const env = {
 };
 
 const baseURL = typeof window !== 'undefined' && window?.location?.origin;
-const environment = process.env.NODE_ENV === 'production' ? config.Environment.PRODUCTION : config.Environment.SANDBOX;
+const environment =
+  process.env.VERCEL_ENV === 'production' ? config.Environment.PRODUCTION : config.Environment.SANDBOX;
 
 const passportConfig: PassportModuleConfiguration = {
   baseConfig: {
@@ -35,8 +36,8 @@ const passportConfig: PassportModuleConfiguration = {
       environment === config.Environment.PRODUCTION ? env.mainnet.IMX_PUBLISHABLE_KEY : env.testnet.IMX_PUBLISHABLE_KEY,
   },
   clientId: environment === config.Environment.PRODUCTION ? env.mainnet.IMX_CLIENT_ID : env.testnet.IMX_CLIENT_ID,
-  logoutRedirectUri: `${baseURL}/logout`,
   logoutMode: 'redirect',
+  logoutRedirectUri: `${baseURL}/logout`,
   redirectUri: `${baseURL}/redirect`,
   scope: 'openid offline_access email transact',
   audience: 'platform_api',

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { formatEther } from 'ethers6';
 import { BALANCE_MANAGER_CONTRACT } from '@/constants/contracts';
 import { DEBUG } from '@/constants/index';
@@ -31,16 +32,19 @@ function useUserHasAvailableClaim(userClaimData: UserClaimData | null | undefine
   return Boolean(userClaimData && isClaimedResult === false);
 }
 
-export type ClaimResult = number;
+export type ClaimResult = { nftlUnclaimed: number; loading: boolean };
 
 export default function useUserUnclaimedAmount(): ClaimResult {
-  const userClaimData = useUserClaimData();
-  const canClaim = useUserHasAvailableClaim(userClaimData);
-  // eslint-disable-next-line no-console
-  if (DEBUG) console.log('claimStats:', { canClaim, userClaimData });
+  const { claimData, loading } = useUserClaimData();
+  const canClaim = useUserHasAvailableClaim(claimData);
+
+  useEffect(() => {
+    // eslint-disable-next-line no-console
+    if (DEBUG && !loading) console.log('claimStats:', { claimData, canClaim });
+  }, [claimData, canClaim, loading]);
 
   // Return 0 if the user already claimed or there is no claim data
-  if (!canClaim || !userClaimData) return 0;
+  if (!canClaim || !claimData) return { nftlUnclaimed: 0, loading };
   // Convert the claim amount from wei to Ether and ensure accurate number precision
-  return Number(formatEther(userClaimData.amount));
+  return { nftlUnclaimed: Number(formatEther(claimData.amount)), loading };
 }
