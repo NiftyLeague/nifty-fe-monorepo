@@ -15,7 +15,7 @@ export const SUBGRAPH_URI = `https://gateway-arbitrum.network.thegraph.com/api/$
 
 export const SUBGRAPH_DEV_URI = 'https://api.studio.thegraph.com/query/7093/nifty-league-sepolia/version/latest';
 
-export const DEBUG = process.env.NODE_ENV === 'development' || process.env.NEXT_PUBLIC_DEBUG === 'true';
+export const DEBUG = process.env.VERCEL_ENV !== 'production' || process.env.NEXT_PUBLIC_DEBUG === 'true';
 
 // Request polling intervals
 

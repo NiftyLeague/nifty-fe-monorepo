@@ -1,35 +1,36 @@
 'use client';
 
-import { memo, useCallback } from 'react';
+import { memo, useState } from 'react';
+import { useSwitchChain } from 'wagmi';
 import { Button, IconButton } from '@mui/material';
 import { useTheme } from '@nl/theme';
-import type { TransactionResponse } from 'ethers6';
 import Image from 'next/image';
 
 import { formatNumberToDisplay } from '@/utils/numbers';
-import useBalances from '@/hooks/useBalances';
 import useUserUnclaimedAmount from '@/hooks/merkleDistributor/useUserUnclaimedAmount';
 import { Dialog, DialogTrigger, DialogContent } from '@/components/dialog';
 import HoverDataCard from '@/components/cards/HoverDataCard';
-import WithdrawForm from './WithdrawForm';
+import { TARGET_NETWORK } from '@/constants/networks';
+import WithdrawForm from './dialogs/WithdrawForm';
+import WithdrawSuccess from './dialogs/WithdrawSuccess';
 
 const GameBalance: React.FC = memo(() => {
   const theme = useTheme();
-  const nftlUnclaimed = useUserUnclaimedAmount();
-  const { loadingNFTLAccrued } = useBalances();
+  const { nftlUnclaimed, loading } = useUserUnclaimedAmount();
+  const { switchChain } = useSwitchChain();
+  const [successDialogOpen, setSuccessDialogOpen] = useState(false);
 
-  const handleWithdrawNFTL = useCallback(
-    async (amount: number): Promise<{ txRes: TransactionResponse | null; error?: Error | undefined }> => {
-      return { txRes: null, error: undefined };
-    },
-    [],
-  );
+  const onCloseWithdrawDialog = () => {
+    switchChain?.({ chainId: TARGET_NETWORK.chainId });
+  };
+
+  const onWithdrawSuccess = () => setSuccessDialogOpen(true);
 
   return (
     <HoverDataCard
       title="Game Balance"
       primary={`${formatNumberToDisplay(nftlUnclaimed)} NFTL`}
-      isLoading={loadingNFTLAccrued}
+      isLoading={loading}
       customStyle={{
         backgroundColor: theme.palette.background.default,
         border: '1px solid',
@@ -42,23 +43,24 @@ const GameBalance: React.FC = memo(() => {
           <IconButton disabled color="primary" component="span" sx={{ position: 'absolute', top: -2, right: -2 }}>
             <Image src="/img/logos/passport/32px.svg" alt="Immutable" width={22} height={22} />
           </IconButton>
-          <Dialog>
+          <Dialog onClose={onCloseWithdrawDialog}>
             <DialogTrigger>
-              <Button fullWidth variant="contained" disabled={nftlUnclaimed === 0}>
+              <Button fullWidth variant="contained" disabled={loading || nftlUnclaimed === 0}>
                 Withdraw
               </Button>
             </DialogTrigger>
             <DialogContent
-              aria-labelledby="customized-dialog-title"
+              aria-labelledby="withdraw-earnings-dialog"
               dialogTitle="Withdraw Earnings"
               sx={{
                 '& h2': { textAlign: 'center' },
                 '& .MuiDialogContent-root': { textAlign: 'center' },
               }}
             >
-              <WithdrawForm balance={nftlUnclaimed} onWithdrawEarnings={handleWithdrawNFTL} />
+              <WithdrawForm balance={nftlUnclaimed} onWithdrawSuccess={onWithdrawSuccess} />
             </DialogContent>
           </Dialog>
+          <WithdrawSuccess successDialogOpen={successDialogOpen} setSuccessDialogOpen={setSuccessDialogOpen} />
         </>
       }
     />

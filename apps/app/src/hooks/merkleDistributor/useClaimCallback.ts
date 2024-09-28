@@ -1,23 +1,36 @@
-import { BALANCE_MANAGER_CONTRACT } from '@/constants/contracts';
+import { formatEther, parseEther, type TransactionResponse } from 'ethers6';
+import { handleError } from '@/utils/bnc-notify';
 import useIMXContext from '@/hooks/useIMXContext';
-import useNetworkContext from '@/hooks/useNetworkContext';
-import { submitTxWithGasEstimate } from '@/utils/bnc-notify';
+import { useConnectedToIMXCheck } from '@/hooks/useImxProvider';
+import type { MetamaskError } from '@/types/notify';
+import { BALANCE_MANAGER_CONTRACT } from '@/constants/contracts';
+import { DEBUG } from '@/constants';
 import useUserClaimData from './useUserClaimData';
 
 export default function useClaimCallback(): {
-  claimCallback: () => Promise<void>;
+  claimCallback: () => Promise<TransactionResponse | null>;
 } {
-  const { address, tx, selectedNetworkId } = useNetworkContext();
-  const { imxContracts, passportProvider } = useIMXContext();
-  // get claim data for this account
-  const claimData = useUserClaimData();
+  const { imxContracts, imxSigner } = useIMXContext();
+  const isConnectedToIMX = useConnectedToIMXCheck();
   const distributorContract = imxContracts[BALANCE_MANAGER_CONTRACT];
+  // get claim data for this account
+  const { claimData } = useUserClaimData();
 
   const claimCallback = async () => {
-    const imxNetworkId = await passportProvider?.provider?.getNetwork().then(network => network.chainId);
-    if (!claimData || !address || !distributorContract || selectedNetworkId !== imxNetworkId) return;
-    const args = [claimData.index, address, claimData.amount, claimData.proof];
-    await submitTxWithGasEstimate(tx, distributorContract, 'claim', args);
+    try {
+      if (!claimData || !imxSigner?.address || !distributorContract || !isConnectedToIMX) return null;
+
+      const contractWithSigner = distributorContract.connect(imxSigner);
+
+      const nftlAmount = parseEther(formatEther(claimData.amount)); // Convert hex string to bigint
+      if (DEBUG) console.log('Withdrawing NFTL', [claimData.index, imxSigner.address, nftlAmount, claimData.proof]);
+      const txRes = await contractWithSigner.claim(claimData.index, imxSigner.address, nftlAmount, claimData.proof);
+
+      return txRes ? txRes : null;
+    } catch (error) {
+      handleError(error as MetamaskError);
+      return null;
+    }
   };
 
   return { claimCallback };

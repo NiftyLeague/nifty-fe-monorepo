@@ -14,16 +14,18 @@ import { useDispatch, useSelector } from '@/store/hooks';
 import { IconChevronRight } from '@tabler/icons-react';
 import { useTheme, styled, appDrawerWidth, container } from '@nl/theme';
 import WarningIcon from '@mui/icons-material/Warning';
+import InfoIcon from '@mui/icons-material/InfoRounded';
 import { AppBar, Box, Button, Container, Icon, Toolbar, Typography, useMediaQuery, Theme } from '@mui/material';
+import { alpha } from '@mui/system';
 
 // React Toastify
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // project imports
-import { capitalize } from '@/utils/string';
 import navigation from '@/constants/menu-items';
 import useGoogleAnalytics from '@/hooks/useGoogleAnalytics';
+import { useConnectedToIMXCheck } from '@/hooks/useImxProvider';
 import { TARGET_NETWORK } from '@/constants/networks';
 
 // components
@@ -103,6 +105,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
   const dispatch = useDispatch();
   const { address, chain } = useAccount();
   const { switchChain } = useSwitchChain();
+  const isConnectedToIMX = useConnectedToIMXCheck();
 
   const theme = useTheme();
   const matchDownMd = useMediaQuery(theme.breakpoints.down('lg'));
@@ -155,11 +158,12 @@ const MainLayout = ({ children }: PropsWithChildren) => {
             transition: theme => (drawerOpen ? theme.transitions.create('width') : 'none'),
           }}
         >
-          {address && TARGET_NETWORK?.name && TARGET_NETWORK.chainId !== chain?.id && (
+          {address && TARGET_NETWORK.chainId !== chain?.id && (
             <Box
               sx={{
                 display: 'flex',
-                backgroundColor: theme => theme.palette.error.light,
+                backgroundColor: theme =>
+                  isConnectedToIMX ? alpha(theme.palette.success.dark, 0.8) : alpha(theme.palette.error.light, 0.8),
                 width: '100%',
                 position: 'absolute',
                 alignItems: 'center',
@@ -168,11 +172,17 @@ const MainLayout = ({ children }: PropsWithChildren) => {
               height={50}
               zIndex={1}
             >
-              <Icon sx={{ width: 24, height: 24 }}>
-                <WarningIcon />
+              <Icon sx={{ width: 24, height: 24, display: 'flex' }}>
+                {isConnectedToIMX ? (
+                  <InfoIcon sx={{ width: 'inherit', height: 'inherit' }} />
+                ) : (
+                  <WarningIcon sx={{ width: 'inherit', height: 'inherit' }} />
+                )}
               </Icon>
               <Typography px={2} fontSize={20} fontWeight={600}>
-                Please switch to {TARGET_NETWORK.label}
+                {isConnectedToIMX
+                  ? `You're connected to Immutable zkEVM! Switch back to ${TARGET_NETWORK.label}`
+                  : `Please switch to ${TARGET_NETWORK.label}`}
               </Typography>
               <Button
                 sx={{ padding: '2px 16px' }}

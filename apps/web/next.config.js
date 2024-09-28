@@ -57,7 +57,7 @@ const nextConfig = {
         source: '/account/login',
         destination: 'https://shop.niftyleague.com/account/login',
       },
-      ...(process.env.NODE_ENV !== 'development'
+      ...(process.env.VERCEL_ENV === 'production' || process.env.VERCEL_ENV === 'preview'
         ? [
             {
               source: '/docs/:path*',
@@ -69,7 +69,7 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      ...(process.env.NODE_ENV === 'development'
+      ...(!process.env.VERCEL_ENV || process.env.VERCEL_ENV === 'development'
         ? [
             {
               source: '/docs/:path*',
