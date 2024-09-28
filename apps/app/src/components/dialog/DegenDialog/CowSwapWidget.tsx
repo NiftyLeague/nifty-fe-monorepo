@@ -62,7 +62,7 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
   const { balance: etherBalance } = useEtherBalance();
   const { rate: rateEtherToNftl, refetch: refetchRateEtherToNftl } = useRateEtherToNFTL();
   const { handleImportNFTLToWallet } = useImportNFTLToWallet();
-  const { userNFTLBalance, refreshNFTLBalance } = useTokensBalances();
+  const { refreshNFTLBalance } = useTokensBalances();
 
   const [inputEthAmount, setInputEthAmount] = useState<string>('');
   const [inputNftlAmount, setInputNftlAmount] = useState<string>('');

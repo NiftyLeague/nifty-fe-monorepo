@@ -1,0 +1,77 @@
+'use client';
+
+import Link from 'next/link';
+import Image from 'next/image';
+import { Grid2, IconButton, Button } from '@mui/material';
+import { useTheme } from '@nl/theme';
+
+import { formatNumberToDisplay } from '@/utils/numbers';
+import useTokensBalances from '@/hooks/balances/useTokensBalances';
+import HoverDataCard from '@/components/cards/HoverDataCard';
+import { GOVERNANCE_PORTAL_URL, IMX_SQUID_BRIDGE_URL } from '@/constants/url';
+
+const WalletBalances = (): JSX.Element => {
+  const theme = useTheme();
+  const { loadingNFTLBal, tokensBalances } = useTokensBalances();
+
+  return (
+    <>
+      <Grid2 size={{ xs: 12, sm: 6 }}>
+        <HoverDataCard
+          title="IMX Wallet"
+          primary={`${formatNumberToDisplay(tokensBalances.NFTL.imx)} NFTL`}
+          isLoading={loadingNFTLBal}
+          customStyle={{
+            backgroundColor: theme.palette.background.default,
+            border: '1px solid',
+            borderColor: theme.palette.border,
+            position: 'relative',
+          }}
+          secondary="Available to Use"
+          actions={
+            <>
+              <IconButton disabled color="primary" component="span" sx={{ position: 'absolute', top: -2, right: -2 }}>
+                <Image src="/img/logos/passport/32px.svg" alt="Immutable" width={22} height={22} />
+              </IconButton>
+              <Link href={GOVERNANCE_PORTAL_URL} target="_blank" rel="noreferrer" style={{ width: '100%' }}>
+                <Button fullWidth variant="outlined">
+                  Governance
+                </Button>
+              </Link>
+            </>
+          }
+        />
+      </Grid2>
+      <Grid2 size={{ xs: 12, sm: 6 }}>
+        <HoverDataCard
+          title="ETH Wallet"
+          primary={`${formatNumberToDisplay(tokensBalances.NFTL.eth)} NFTL`}
+          customStyle={{
+            backgroundColor: theme.palette.background.default,
+            border: '1px solid',
+            borderColor: theme.palette.border,
+            position: 'relative',
+          }}
+          secondary="Available to Bridge"
+          isLoading={loadingNFTLBal}
+          actions={
+            <>
+              <IconButton disabled color="primary" component="span" sx={{ position: 'absolute', top: -2, right: -2 }}>
+                <Image src="/icons/eth.svg" alt="Ethereum" width={22} height={22} />
+              </IconButton>
+              <Link href={IMX_SQUID_BRIDGE_URL} target="_blank" rel="noreferrer" style={{ width: '100%' }}>
+                <Button fullWidth variant="outlined">
+                  Bridge to IMX
+                </Button>
+              </Link>
+            </>
+          }
+        />
+      </Grid2>
+    </>
+  );
+};
+
+WalletBalances.displayName = 'WalletBalances';
+
+export default WalletBalances;

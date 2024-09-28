@@ -15,7 +15,7 @@ import TokenInfoCard from '@/components/cards/TokenInfoCard';
 const ArcadeBalance = (): JSX.Element => {
   const theme = useTheme();
   const router = useRouter();
-  const { arcadeBalance, loadingArcadeBal, refetchArcadeBal } = useTokensBalances();
+  const { tokensBalances, loadingArcadeBal, refetchArcadeBal } = useTokensBalances();
   const [openBuyAT, setOpenBuyAT] = useState(false);
 
   const handleBuyArcadeTokens = () => {
@@ -31,7 +31,7 @@ const ArcadeBalance = (): JSX.Element => {
     <>
       <TokenInfoCard
         title="Arcade Token Balance"
-        secondary={`${arcadeBalance} Tokens`}
+        secondary={`${tokensBalances.AT} Tokens`}
         isLoading={loadingArcadeBal}
         customStyle={{
           backgroundColor: theme.palette.background.default,

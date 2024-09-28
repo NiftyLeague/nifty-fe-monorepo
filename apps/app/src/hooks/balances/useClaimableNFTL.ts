@@ -15,13 +15,13 @@ import useAuth from '@/hooks/useAuth';
 
   ~ How can I use? ~
 
-  const { totalAccrued, error, loading, refetch } = useClaimableNFTL([1, 2, 3, 4, 5]);
+  const { balance, error, loading, refetch } = useClaimableNFTL([1, 2, 3, 4, 5]);
 */
 
 const NFTL_CONTRACT = getDeployedContract(TARGET_NETWORK.chainId, NFTL_CONTRACT_NAME);
 
 interface NFTLClaimableState {
-  totalAccrued: number;
+  balance: number;
   error: Error | null;
   loading: boolean;
   refetch: () => void;
@@ -41,7 +41,7 @@ export default function useClaimableNFTL(degenTokenIndices: number[]): NFTLClaim
     },
   });
 
-  const totalAccrued = useMemo(() => data ?? 0, [data]);
+  const balance = useMemo(() => data ?? 0, [data]);
 
-  return { totalAccrued, error, loading: isLoading, refetch };
+  return { balance, error, loading: isLoading, refetch };
 }

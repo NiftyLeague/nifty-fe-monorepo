@@ -29,14 +29,14 @@ interface Props {
 
 const RenameDegenDialogContent = ({ degen, onSuccess }: Props): JSX.Element => {
   const { address, tx, writeContracts } = useNetworkContext();
-  const { userNFTLBalance } = useTokensBalances();
+  const { tokensBalances } = useTokensBalances();
   const [input, setInput] = useState('');
   const [error, setError] = useState('');
   const [allowance, setAllowance] = useState<bigint>(0n);
   const [isLoadingRename, setLoadingRename] = useState(false);
   const [renameSuccess, setRenameSuccess] = useState(false);
   const insufficientAllowance = allowance < 1000n;
-  const insufficientBalance = userNFTLBalance < 1000;
+  const insufficientBalance = tokensBalances.NFTL.eth < 1000;
 
   useEffect(() => {
     const getAllowance = async () => {
