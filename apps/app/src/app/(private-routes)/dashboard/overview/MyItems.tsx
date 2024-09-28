@@ -3,7 +3,7 @@ import { Box, Button, Stack } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-import useIMXContext from '@/hooks/useIMXContext';
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 import WearableItemCard from '@/components/cards/WearableItemCard';
 import SectionSlider from '@/components/sections/SectionSlider';
 import EmptyState from '@/components/EmptyState';
@@ -12,7 +12,7 @@ import { ITEM_PURCHASE_URL } from '@/constants/url';
 
 const MyItems = (): JSX.Element => {
   const router = useRouter();
-  const { itemsBalance, itemsLoading } = useIMXContext();
+  const { itemsBalance, loadingItems } = useNFTsBalances();
   const filteredItems = useMemo(() => itemsBalance.filter(item => item.balance && item.balance > 0), [itemsBalance]);
 
   const settings = {
@@ -60,7 +60,7 @@ const MyItems = (): JSX.Element => {
           </Button>
         }
       >
-        {itemsLoading ? (
+        {loadingItems ? (
           <Box px={1}>
             <ComicPlaceholder />
           </Box>

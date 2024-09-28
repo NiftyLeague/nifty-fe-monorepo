@@ -3,11 +3,11 @@
 import { Skeleton, Stack, Typography } from '@mui/material';
 
 import { formatNumberToDisplay } from '@/utils/numbers';
-import useBalances from '@/hooks/useBalances';
+import useTokensBalances from '@/hooks/balances/useTokensBalances';
 import SectionTitle from '@/components/sections/SectionTitle';
 
-const WalletBalance = (): JSX.Element => {
-  const { loadingNFTLBal, userNFTLBalance } = useBalances();
+const TitleSection = (): JSX.Element => {
+  const { loadingNFTLBal, userNFTLBalance } = useTokensBalances();
   return (
     <SectionTitle
       firstSection
@@ -29,4 +29,4 @@ const WalletBalance = (): JSX.Element => {
   );
 };
 
-export default WalletBalance;
+export default TitleSection;

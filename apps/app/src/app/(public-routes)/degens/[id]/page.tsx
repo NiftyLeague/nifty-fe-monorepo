@@ -18,11 +18,11 @@ const DegenTraitsDetailsPage = ({ params }: { params: { id: string } }): JSX.Ele
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [degenDetail, setDegenDetail] = useState<GetDegenResponse>();
   const { authToken } = useAuth();
-  const { isFetching: loading, data: characters } = useCharacterSearch(tokenId);
+  const { isFetching: loading, data: degens } = useCharacterSearch(tokenId);
 
   const degen = useMemo((): Degen | null => {
-    if (loading || !characters) return null;
-    const character = characters[0];
+    if (loading || !degens) return null;
+    const character = degens[0];
     if (character === undefined) return null;
     return {
       id: tokenId,
@@ -47,7 +47,7 @@ const DegenTraitsDetailsPage = ({ params }: { params: { id: string } }): JSX.Ele
       earning_cap: 0,
       earning_cap_daily: 0,
     };
-  }, [characters, degenDetail, loading, tokenId]);
+  }, [degens, degenDetail, loading, tokenId]);
 
   const traits = useMemo((): { [traitType: string]: number } => {
     const traitList = degen?.traits_string?.split(',').map(Number) || [];

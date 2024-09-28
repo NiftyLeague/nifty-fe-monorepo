@@ -21,7 +21,7 @@ import FavoriteIconOutlined from '@mui/icons-material/FavoriteBorderOutlined';
 import { toast } from 'react-toastify';
 // import Chip from '@/components/extended/Chip';
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder';
-import useClaimableNFTL from '@/hooks/useClaimableNFTL';
+import useClaimableNFTL from '@/hooks/balances/useClaimableNFTL';
 import { formatNumberToDisplay } from '@/utils/numbers';
 import DegenImage from './DegenImage';
 import { downloadDegenAsZip } from '@/utils/file';
@@ -67,8 +67,8 @@ export interface DegenCardProps {
 
 const DegenClaimBal: React.FC<React.PropsWithChildren<React.PropsWithChildren<{ tokenId: string; fontSize: string }>>> =
   memo(({ tokenId, fontSize }) => {
-    const tokenIndices = useMemo(() => [parseInt(tokenId, 10)], [tokenId]);
-    const { totalAccrued } = useClaimableNFTL(tokenIndices);
+    const degenTokenIndices = useMemo(() => [parseInt(tokenId, 10)], [tokenId]);
+    const { totalAccrued } = useClaimableNFTL(degenTokenIndices);
     const amountParsed = formatNumberToDisplay(totalAccrued);
     return <Typography sx={{ textAlign: 'center', fontSize }}>{`${amountParsed} NFTL`}</Typography>;
   });

@@ -6,7 +6,7 @@ import sum from 'lodash/sum';
 import { ImageList, ImageListItem, ImageListItemBar, Skeleton, TextField, InputAdornment } from '@mui/material';
 import BurnIcon from '@mui/icons-material/Whatshot';
 
-import useIMXContext from '@/hooks/useIMXContext';
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 import type { Comic } from '@/types/marketplace';
 
 const PREFIX = 'comics-grid';
@@ -82,7 +82,7 @@ export default function ComicsGrid({
   setSelectedComics: React.Dispatch<React.SetStateAction<Comic[]>>;
   refreshKey: number;
 }) {
-  const { comicsBalance, comicsLoading } = useIMXContext();
+  const { comicsBalance, loadingComics } = useNFTsBalances();
   const keyCount = useMemo(() => (burnCount.some(v => v === 0) ? 0 : Math.min(...burnCount)), [burnCount]);
   const itemCount = useMemo(() => sum(burnCount) - keyCount * 6, [burnCount, keyCount]);
 
@@ -111,7 +111,7 @@ export default function ComicsGrid({
     handleUpdateBurnCount(comic, newSelectedComics);
   };
 
-  return comicsLoading ? (
+  return loadingComics ? (
     <Skeleton variant="rectangular" animation="wave" width={315} height={265} sx={{ ...gridStyles }} />
   ) : (
     <Root>

@@ -6,7 +6,8 @@ import Link from 'next/link';
 import { Box, Button, CircularProgress, Grid2, Stack, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import isEqual from 'lodash/isEqual';
-import useIMXContext from '@/hooks/useIMXContext';
+
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 import { useDispatch } from '@/store/hooks';
 import { openSnackbar } from '@/store/slices/snackbar';
 import { sendEvent } from '@/utils/google-analytics';
@@ -84,7 +85,7 @@ const initEquipped: boolean[] = new Array(6).fill(false);
 
 const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) => {
   const dispatch = useDispatch();
-  const { comicsBalance, comicsLoading } = useIMXContext();
+  const { comicsBalance, loadingComics } = useNFTsBalances();
   const filteredComics = useMemo(
     () => comicsBalance.filter(comic => comic.balance && comic.balance > 0),
     [comicsBalance],
@@ -216,7 +217,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
   };
 
   if (filteredComics.length === 0) {
-    if (comicsLoading) {
+    if (loadingComics) {
       return (
         <StyledStack direction="row" justifyContent="center" alignItems="center" height={200} mx="auto">
           <CircularProgress />

@@ -19,7 +19,7 @@ import BottomInfo from './_Stats/BottomInfo';
 
 import { DEGEN_BASE_API_URL } from '@/constants/url';
 import type { Degen } from '@/types/degens';
-import useBalances from '@/hooks/useBalances';
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 import { GamerProfileProvider } from '@/contexts/GamerProfileContext';
 
 const defaultValue: {
@@ -36,18 +36,17 @@ const GamerProfile = (): JSX.Element => {
   const { profile, error, loadingProfile } = useGamerProfile();
   const { address } = useAccount();
   const { avatarsAndFee } = useProfileAvatarFee();
-  const { comicsBalance, itemsBalance } = useIMXContext();
   const { data } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`);
 
-  const { characters, characterCount: degenCount } = useBalances();
+  const { comicsBalance, degenCount, degensBalance, itemsBalance } = useNFTsBalances();
 
   const filteredDegens: Degen[] = useMemo(() => {
-    if (characters.length && data) {
-      const mapDegens = characters.map(character => data[Number(character.id)]) as Degen[];
+    if (degensBalance.length && data) {
+      const mapDegens = degensBalance.map(degen => data[Number(degen.id)]) as Degen[];
       return mapDegens;
     }
     return [];
-  }, [characters, data]);
+  }, [degensBalance, data]);
 
   const filteredComics = useMemo(
     () => comicsBalance.filter(comic => comic.balance && comic.balance > 0),

@@ -27,16 +27,16 @@ interface NFTLClaimableState {
   refetch: () => void;
 }
 
-export default function useClaimableNFTL(tokenIndices: number[]): NFTLClaimableState {
+export default function useClaimableNFTL(degenTokenIndices: number[]): NFTLClaimableState {
   const { isLoggedIn } = useAuth();
   const { data, error, isLoading, refetch } = useReadContract({
     address: NFTL_CONTRACT?.address as `0x${string}`,
     abi: NFTL_CONTRACT?.abi as Abi,
     functionName: 'accumulatedMultiCheck',
-    args: [tokenIndices],
+    args: [degenTokenIndices],
     query: {
       staleTime: 10_000,
-      enabled: tokenIndices.length > 0 && isLoggedIn,
+      enabled: degenTokenIndices.length > 0 && isLoggedIn,
       select: data => parseFloat(formatEther(data as bigint)),
     },
   });

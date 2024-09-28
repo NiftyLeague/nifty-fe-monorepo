@@ -4,14 +4,14 @@ import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
-import { Box, Divider, Grid2, Stack, Button, useMediaQuery } from '@mui/material';
+import { Box, Button, Divider, Grid2, Stack, useMediaQuery } from '@mui/material';
 import { useTheme } from '@nl/theme';
 
 import ComicCard from '@/components/cards/ComicCard';
 import ViewComicDialog from '@/components/dialog/ViewComicDialog';
 import SectionSlider from '@/components/sections/SectionSlider';
 
-import useIMXContext from '@/hooks/useIMXContext';
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 import type { Comic, Item } from '@/types/marketplace';
 import { COMICS_PURCHASE_URL, ITEM_PURCHASE_URL } from '@/constants/url';
 import ComicDetail from '@/components/cards/ComicDetail';
@@ -26,7 +26,7 @@ const DashboardComicsPage = (): JSX.Element => {
   const [selectedComic, setSelectedComic] = useState<Comic | null>(null);
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [selectedSubIndex, setSelectedSubIndex] = useState<number>(-1);
-  const { comicsBalance, comicsLoading, itemsBalance, itemsLoading } = useIMXContext();
+  const { comicsBalance, loadingComics, itemsBalance, loadingItems } = useNFTsBalances();
   const router = useRouter();
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
@@ -68,7 +68,7 @@ const DashboardComicsPage = (): JSX.Element => {
   const handleLaunchBurner = () => router.push('items/burner');
 
   const renderComics = useMemo(() => {
-    if (comicsBalance.length === 0 && comicsLoading) {
+    if (comicsBalance.length === 0 && loadingComics) {
       return [...Array(6)].map(() => (
         <Grid2 key={uuidv4()}>
           <ComicPlaceholder />
@@ -86,10 +86,10 @@ const DashboardComicsPage = (): JSX.Element => {
       ));
     }
     return null;
-  }, [comicsBalance, comicsLoading, selectedComic]);
+  }, [comicsBalance, loadingComics, selectedComic]);
 
   const renderItems = useMemo(() => {
-    if (itemsBalance.length === 0 && itemsLoading) {
+    if (itemsBalance.length === 0 && loadingItems) {
       return [...Array(6)].map(() => (
         <Grid2 key={uuidv4()}>
           <ComicPlaceholder />
@@ -110,7 +110,7 @@ const DashboardComicsPage = (): JSX.Element => {
     }
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [itemsBalance, itemsLoading, selectedItem]);
+  }, [itemsBalance, loadingItems, selectedItem]);
 
   const renderSubItems = useMemo(() => {
     if (!selectedItem?.balance || selectedItem?.balance <= 1) return null;
