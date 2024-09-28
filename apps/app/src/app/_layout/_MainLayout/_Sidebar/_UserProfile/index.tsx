@@ -21,20 +21,20 @@ import useAuth from '@/hooks/useAuth';
 const ClaimNFTLView = () => {
   const { writeContracts, tx } = useNetworkContext();
   const { degenTokenIndices } = useNFTsBalances();
-  const { totalAccrued, loadingNFTLAccrued, refreshClaimableNFTL } = useTokensBalances();
+  const { totalAccruedNFTL, loadingNFTLAccrued, refreshClaimableNFTL } = useTokensBalances();
   const [mockAccumulated, setMockAccumulated] = useState(0);
 
   useEffect(() => {
-    if (totalAccrued) setMockAccumulated(totalAccrued);
-  }, [totalAccrued]);
+    if (totalAccruedNFTL) setMockAccumulated(totalAccruedNFTL);
+  }, [totalAccruedNFTL]);
 
   const handleClaimNFTL = useCallback(async () => {
     // eslint-disable-next-line no-console
-    if (DEBUG) console.log('CLAIM NFTL', degenTokenIndices, totalAccrued);
+    if (DEBUG) console.log('CLAIM NFTL', degenTokenIndices, totalAccruedNFTL);
     await tx(writeContracts[NFTL_CONTRACT].claim(degenTokenIndices));
     setMockAccumulated(0);
     setTimeout(refreshClaimableNFTL, 5000);
-  }, [refreshClaimableNFTL, degenTokenIndices, totalAccrued, tx, writeContracts]);
+  }, [refreshClaimableNFTL, degenTokenIndices, totalAccruedNFTL, tx, writeContracts]);
 
   return (
     <>

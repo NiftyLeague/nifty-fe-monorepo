@@ -7,7 +7,7 @@ import useTokensBalances from '@/hooks/balances/useTokensBalances';
 import SectionTitle from '@/components/sections/SectionTitle';
 
 const TitleSection = (): JSX.Element => {
-  const { loadingNFTLBal, userNFTLBalance } = useTokensBalances();
+  const { loadingNFTLBal, tokensBalances } = useTokensBalances();
   return (
     <SectionTitle
       firstSection
@@ -18,7 +18,7 @@ const TitleSection = (): JSX.Element => {
             <Skeleton variant="rectangular" animation="wave" width={120} height={40} />
           ) : (
             <Typography variant="body1" fontWeight="bold">
-              NFTL in Wallet: {formatNumberToDisplay(userNFTLBalance)}
+              NFTL in Wallet: {formatNumberToDisplay(tokensBalances.NFTL.eth + tokensBalances.NFTL.imx)}
             </Typography>
           )}
         </Stack>

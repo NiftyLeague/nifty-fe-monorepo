@@ -17,16 +17,16 @@ const DegenBalance = (): JSX.Element => {
   const theme = useTheme();
   const { writeContracts, tx } = useNetworkContext();
   const { degenTokenIndices } = useNFTsBalances();
-  const { loadingNFTLAccrued, refreshClaimableNFTL, totalAccrued } = useTokensBalances();
+  const { loadingNFTLAccrued, refreshClaimableNFTL, totalAccruedNFTL } = useTokensBalances();
   const [mockAccrued, setMockAccrued] = useState(0);
 
   useEffect(() => {
-    if (totalAccrued) setMockAccrued(totalAccrued);
-  }, [totalAccrued]);
+    if (totalAccruedNFTL) setMockAccrued(totalAccruedNFTL);
+  }, [totalAccruedNFTL]);
 
   const handleClaimNFTL = useCallback(async () => {
     // eslint-disable-next-line no-console
-    if (DEBUG) console.log('claim', degenTokenIndices, totalAccrued);
+    if (DEBUG) console.log('claim', degenTokenIndices, totalAccruedNFTL);
     const nftl = writeContracts[NFTL_CONTRACT];
     const res = await tx(nftl.claim(degenTokenIndices));
     if (res) {
@@ -34,7 +34,7 @@ const DegenBalance = (): JSX.Element => {
       setTimeout(refreshClaimableNFTL, 5000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [degenTokenIndices, totalAccrued, tx, writeContracts]);
+  }, [degenTokenIndices, totalAccruedNFTL, tx, writeContracts]);
 
   return (
     <HoverDataCard

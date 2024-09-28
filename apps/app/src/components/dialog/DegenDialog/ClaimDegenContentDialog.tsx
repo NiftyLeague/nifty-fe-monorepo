@@ -18,20 +18,20 @@ const ClaimDegenContentDialog = ({ degen, onClose }: ClaimDegenContentDialogProp
   const { tx, writeContracts } = useNetworkContext();
   const tokenId: any = degen?.id;
   const degenTokenIndices = useMemo(() => [parseInt(tokenId, 10)], [tokenId]);
-  const { totalAccrued, refetch } = useClaimableNFTL(degenTokenIndices);
+  const { balance, refetch } = useClaimableNFTL(degenTokenIndices);
   const [mockAccumulated, setMockAccumulated] = useState(0);
-  useEffect(() => setMockAccumulated(totalAccrued), [totalAccrued]);
+  useEffect(() => setMockAccumulated(balance), [balance]);
 
   const handleClaimNFTL = useCallback(
     async (event: React.MouseEvent<HTMLButtonElement>) => {
       // eslint-disable-next-line no-console
-      if (DEBUG) console.log('Claim', degenTokenIndices, totalAccrued);
+      if (DEBUG) console.log('Claim', degenTokenIndices, balance);
       await tx(writeContracts[NFTL_CONTRACT].claim(degenTokenIndices));
       setMockAccumulated(0);
       setTimeout(() => refetch(), 5000);
       onClose?.(event);
     },
-    [onClose, refetch, degenTokenIndices, totalAccrued, tx, writeContracts],
+    [onClose, refetch, degenTokenIndices, balance, tx, writeContracts],
   );
 
   const handleClose = useCallback(

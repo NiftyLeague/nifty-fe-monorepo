@@ -68,8 +68,8 @@ export interface DegenCardProps {
 const DegenClaimBal: React.FC<React.PropsWithChildren<React.PropsWithChildren<{ tokenId: string; fontSize: string }>>> =
   memo(({ tokenId, fontSize }) => {
     const degenTokenIndices = useMemo(() => [parseInt(tokenId, 10)], [tokenId]);
-    const { totalAccrued } = useClaimableNFTL(degenTokenIndices);
-    const amountParsed = formatNumberToDisplay(totalAccrued);
+    const { balance } = useClaimableNFTL(degenTokenIndices);
+    const amountParsed = formatNumberToDisplay(balance);
     return <Typography sx={{ textAlign: 'center', fontSize }}>{`${amountParsed} NFTL`}</Typography>;
   });
 
