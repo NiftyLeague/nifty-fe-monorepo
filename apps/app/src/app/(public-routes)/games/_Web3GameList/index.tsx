@@ -8,7 +8,7 @@ import BuyArcadeTokensDialog from '@/components/dialog/BuyArcadeTokensDialog';
 import ConnectWrapper from '@/components/wrapper/ConnectWrapper';
 import GameCard from '@/components/cards/GameCard';
 import DownloadGameDialog from '@/components/dialog/DownloadGameDialog';
-import useBalances from '@/hooks/useBalances';
+import useTokensBalances from '@/hooks/balances/useTokensBalances';
 
 const GridItem = styled(Grid2)(({ theme }) => ({
   paddingRight: 16,
@@ -21,7 +21,7 @@ const GridItem = styled(Grid2)(({ theme }) => ({
 
 const MobileGameList = () => {
   const router = useRouter();
-  const { arcadeBalance, refetchArcadeBal } = useBalances();
+  const { arcadeBalance, refetchArcadeBal } = useTokensBalances();
   const [openBuyAT, setOpenBuyAT] = useState(false);
 
   const goToPlayOnGame = useCallback(() => {

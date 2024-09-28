@@ -12,14 +12,16 @@ import { NFTL_CONTRACT } from '@/constants/contracts';
 import { sendUserId } from '@/utils/google-analytics';
 import { useGamerProfile } from '@/hooks/useGamerProfile';
 import type { ProfileAvatar } from '@/types/account';
-import useBalances from '@/hooks/useBalances';
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
+import useTokensBalances from '@/hooks/balances/useTokensBalances';
 import ConnectWrapper from '@/components/wrapper/ConnectWrapper';
 import useNetworkContext from '@/hooks/useNetworkContext';
 import useAuth from '@/hooks/useAuth';
 
 const ClaimNFTLView = () => {
   const { writeContracts, tx } = useNetworkContext();
-  const { totalAccrued, tokenIndices, loadingNFTLAccrued, refreshClaimableNFTL } = useBalances();
+  const { degenTokenIndices } = useNFTsBalances();
+  const { totalAccrued, loadingNFTLAccrued, refreshClaimableNFTL } = useTokensBalances();
   const [mockAccumulated, setMockAccumulated] = useState(0);
 
   useEffect(() => {
@@ -28,11 +30,11 @@ const ClaimNFTLView = () => {
 
   const handleClaimNFTL = useCallback(async () => {
     // eslint-disable-next-line no-console
-    if (DEBUG) console.log('CLAIM NFTL', tokenIndices, totalAccrued);
-    await tx(writeContracts[NFTL_CONTRACT].claim(tokenIndices));
+    if (DEBUG) console.log('CLAIM NFTL', degenTokenIndices, totalAccrued);
+    await tx(writeContracts[NFTL_CONTRACT].claim(degenTokenIndices));
     setMockAccumulated(0);
     setTimeout(refreshClaimableNFTL, 5000);
-  }, [refreshClaimableNFTL, tokenIndices, totalAccrued, tx, writeContracts]);
+  }, [refreshClaimableNFTL, degenTokenIndices, totalAccrued, tx, writeContracts]);
 
   return (
     <>

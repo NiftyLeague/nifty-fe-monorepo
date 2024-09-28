@@ -2,7 +2,7 @@ import { styled } from '@nl/theme';
 import Image from 'next/image';
 import { ImageList, ImageListItem, ImageListItemBar, Skeleton } from '@mui/material';
 
-import useIMXContext from '@/hooks/useIMXContext';
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 
 const PREFIX = 'items-grid';
 
@@ -49,9 +49,9 @@ const gridStyles = {
 };
 
 export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
-  const { itemsLoading } = useIMXContext();
+  const { loadingItems } = useNFTsBalances();
 
-  return itemsLoading ? (
+  return loadingItems ? (
     <Skeleton variant="rectangular" animation="wave" width={315} height={403} sx={{ ...containerStyles }} />
   ) : (
     <Root style={containerStyles}>

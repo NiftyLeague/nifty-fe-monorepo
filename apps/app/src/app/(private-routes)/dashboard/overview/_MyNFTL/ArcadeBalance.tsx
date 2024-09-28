@@ -7,7 +7,7 @@ import { useTheme } from '@nl/theme';
 
 import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
 import { sendEvent } from '@/utils/google-analytics';
-import useBalances from '@/hooks/useBalances';
+import useTokensBalances from '@/hooks/balances/useTokensBalances';
 
 import BuyArcadeTokensDialog from '@/components/dialog/BuyArcadeTokensDialog';
 import TokenInfoCard from '@/components/cards/TokenInfoCard';
@@ -15,7 +15,7 @@ import TokenInfoCard from '@/components/cards/TokenInfoCard';
 const ArcadeBalance = (): JSX.Element => {
   const theme = useTheme();
   const router = useRouter();
-  const { arcadeBalance, loadingArcadeBal, refetchArcadeBal } = useBalances();
+  const { arcadeBalance, loadingArcadeBal, refetchArcadeBal } = useTokensBalances();
   const [openBuyAT, setOpenBuyAT] = useState(false);
 
   const handleBuyArcadeTokens = () => {

@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 
 import useNetworkContext from '@/hooks/useNetworkContext';
-import useBalances from '@/hooks/useBalances';
+import useTokensBalances from '@/hooks/balances/useTokensBalances';
 import { getErrorForName } from '@/utils/name';
 import { submitTxWithGasEstimate } from '@/utils/bnc-notify';
 import { NFTL_CONTRACT, DEGEN_CONTRACT } from '@/constants/contracts';
@@ -29,7 +29,7 @@ interface Props {
 
 const RenameDegenDialogContent = ({ degen, onSuccess }: Props): JSX.Element => {
   const { address, tx, writeContracts } = useNetworkContext();
-  const { userNFTLBalance } = useBalances();
+  const { userNFTLBalance } = useTokensBalances();
   const [input, setInput] = useState('');
   const [error, setError] = useState('');
   const [allowance, setAllowance] = useState<bigint>(0n);
