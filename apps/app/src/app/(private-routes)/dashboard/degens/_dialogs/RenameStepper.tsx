@@ -38,11 +38,11 @@ const StyledIcon = styled('div')({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  [`& .${classes.active}`]: {
+  [`&.${classes.active}`]: {
     backgroundImage: 'linear-gradient(89deg, #620edf 0%, #5e72eb 100%)',
     boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
   },
-  [`& .${classes.completed}`]: {
+  [`&.${classes.completed}`]: {
     backgroundImage: 'linear-gradient(89deg, #620edf 0%, #5e72eb 100%)',
   },
 });

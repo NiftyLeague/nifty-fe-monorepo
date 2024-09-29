@@ -21,15 +21,15 @@ const classes = {
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled('div')({
-  [`& .${classes.titleWrap}`]: {
+  [`&.${classes.titleWrap}`]: {
     padding: 0,
   },
-  [`& .${classes.title}`]: {
+  [`&.${classes.title}`]: {
     display: 'flex',
     justifyContent: 'space-between',
     fontSize: '0.85rem',
   },
-  [`& .${classes.sums}`]: {
+  [`&.${classes.sums}`]: {
     top: 432,
     left: 0,
     right: 0,
@@ -43,8 +43,8 @@ const Root = styled('div')({
     color: 'navy',
     fontWeight: 'bold',
   },
-  [`& .${classes.keySum}`]: {},
-  [`& .${classes.itemSum}`]: {},
+  [`&.${classes.keySum}`]: {},
+  [`&.${classes.itemSum}`]: {},
 });
 
 const COMPRESSED_COMIC_IMAGES = [

@@ -1,17 +1,11 @@
 /* eslint-disable no-console */
 import { toast } from 'react-toastify';
 import { toBeHex } from 'ethers6';
-import type {
-  BaseContract,
-  Contract,
-  ContractMethod,
-  JsonRpcSigner,
-  TransactionRequest,
-  TransactionResponse,
-} from 'ethers6';
+import type { BaseContract, ContractMethod, JsonRpcSigner, TransactionRequest, TransactionResponse } from 'ethers6';
 import { serializeError } from 'eth-rpc-errors';
 // import { setIntervalAsync, clearIntervalAsync } from 'set-interval-async/dynamic';
 
+import { Contracts } from '@/types/web3';
 import type { NotifyCallback, NotifyError, Tx, EthersTransaction } from '@/types/notify';
 import { DEBUG } from '@/constants/index';
 import { TARGET_NETWORK } from '@/constants/networks';
@@ -44,27 +38,27 @@ export const handleError = (e: NotifyError): void => {
 
 export const submitTxWithGasEstimate = (
   tx: Tx,
-  contract: BaseContract,
+  contract: Contracts[keyof Contracts],
   fn: string,
   args: unknown[],
   config = {},
   minimumGas?: bigint,
   callback?: NotifyCallback,
-): Promise<void | TransactionResponse | null> =>
-  // @ts-expect-error - This is a valid call, but ethers is not typed correctly
-  (contract as Contract).estimateGas[fn](...args, config)
+): Promise<void | TransactionResponse | null> => {
+  const contractFn = contract[fn as keyof BaseContract] as ContractMethod;
+  if (typeof contractFn !== 'function') throw new Error(`Function ${fn} is not available on contract`);
+
+  const estimateGasFn = contractFn.estimateGas;
+  if (typeof estimateGasFn !== 'function') throw new Error(`Function Estimate Gas is not available on ${fn}`);
+
+  return estimateGasFn(...args, config)
     .then(async (estimatedGasLimit: bigint) =>
-      tx(
-        ((contract as Contract)[fn] as ContractMethod)(...args, {
-          ...config,
-          gasLimit: calculateGasMargin(estimatedGasLimit, minimumGas),
-        }),
-        callback,
-      ),
+      tx(contractFn(...args, { ...config, gasLimit: calculateGasMargin(estimatedGasLimit, minimumGas) }), callback),
     )
     .catch((error: ErrorEvent) => {
       handleError(error.error ?? error);
     });
+};
 
 export const sendTransaction = async (signer: JsonRpcSigner, tx: EthersTransaction): Promise<TransactionResponse> => {
   let result: TransactionResponse;

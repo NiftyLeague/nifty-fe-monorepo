@@ -292,7 +292,7 @@ const AllDegensPage = (): JSX.Element => {
         onClose={() => setIsDegenModalOpen(false)}
       />
       <Dialog open={isRenameDegenModalOpen} onClose={() => setIsRenameDegenModalOpen(false)}>
-        <RenameDegenDialogContent degen={selectedDegen} />
+        <RenameDegenDialogContent degen={selectedDegen} onSuccess={() => setIsRenameDegenModalOpen(false)} />
       </Dialog>
     </>
   );
