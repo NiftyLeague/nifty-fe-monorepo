@@ -22,7 +22,7 @@ import ItemsGrid from './_components/items-grid';
 
 const ComicsBurner = () => {
   const router = useRouter();
-  const { itemsBalance } = useNFTsBalances();
+  const { itemsBalances } = useNFTsBalances();
   const { address, tx, writeContracts } = useNetworkContext();
   const [isApprovedForAll, setIsApprovedForAll] = useState(false);
   const [helpDialogOpen, setHelpDialogOpen] = useState(false);
@@ -34,10 +34,10 @@ const ComicsBurner = () => {
   const burnDisabled = burning || selectedComics.length < 1 || burnCount.every(c => !c);
 
   useEffect(() => {
-    if (itemsBalance.length) {
-      setItemsCounts(itemsBalance.map(it => it.balance || 0));
+    if (itemsBalances.length) {
+      setItemsCounts(itemsBalances.map(it => it.balance || 0));
     }
-  }, [itemsBalance]);
+  }, [itemsBalances]);
 
   useEffect(() => {
     const getAllowance = async () => {
