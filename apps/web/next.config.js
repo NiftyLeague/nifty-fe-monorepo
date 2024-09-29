@@ -100,6 +100,16 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/snapshot',
+        destination: 'https://snapshot.org/#/niftyleague.eth',
+        permanent: true,
+      },
+      {
+        source: '/tally',
+        destination: 'https://www.tally.xyz/gov/niftyleague',
+        permanent: true,
+      },
+      {
         source: '/NFTL/supply',
         destination: 'https://api.niftyleague.com/NFTL/supply',
         permanent: true,

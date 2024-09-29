@@ -47,11 +47,11 @@ const ArcadeBalance = (): JSX.Element => {
             paddingX={{ xl: 1, xs: 3 }}
             paddingY={{ xl: 0.5, xs: 1.5 }}
           >
-            <Button fullWidth variant="contained" onClick={handleBuyArcadeTokens}>
-              Buy Tokens
-            </Button>
             <Button fullWidth variant="outlined" onClick={handlePlayArcade}>
               Play Arcade Games
+            </Button>
+            <Button fullWidth variant="contained" onClick={handleBuyArcadeTokens}>
+              Buy Tokens
             </Button>
           </Stack>
         }

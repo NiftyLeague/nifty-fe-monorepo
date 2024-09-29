@@ -53,7 +53,14 @@ const GamerProfile = (): JSX.Element => {
     [comicsBalances],
   );
 
-  const filteredItems = useMemo(() => itemsBalances.filter(item => item.balance && item.balance > 0), [itemsBalances]);
+  const filteredItems = useMemo(
+    () => itemsBalances.filter(item => !item.title.includes('Key') && item.balance && item.balance > 0),
+    [itemsBalances],
+  );
+  const filteredKeys = useMemo(
+    () => itemsBalances.filter(item => item.title.includes('Key') && item.balance && item.balance > 0),
+    [itemsBalances],
+  );
 
   const renderEmptyProfile = () => {
     return (
@@ -85,10 +92,11 @@ const GamerProfile = (): JSX.Element => {
             <Stack direction="row" spacing={5}>
               <LeftInfo data={profile?.stats?.total} />
               <RightInfo
-                degenCount={degenCount}
-                rentalCount={filteredDegens.length - degenCount}
                 comicCount={filteredComics?.reduce((prev, cur) => prev + Number(cur?.balance), 0)}
+                degenCount={degenCount}
                 itemCount={filteredItems?.reduce((prev, cur) => prev + Number(cur?.balance), 0)}
+                keyCount={filteredKeys?.reduce((prev, cur) => prev + Number(cur?.balance), 0)}
+                rentalCount={filteredDegens.length - degenCount}
               />
             </Stack>
           </Stack>

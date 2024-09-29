@@ -2,7 +2,7 @@
 
 import { memo, useState } from 'react';
 import { useSwitchChain } from 'wagmi';
-import { Button, IconButton } from '@mui/material';
+import { Badge, Button, IconButton } from '@mui/material';
 import { useTheme } from '@nl/theme';
 import Image from 'next/image';
 
@@ -45,9 +45,17 @@ const GameBalance: React.FC = memo(() => {
           </IconButton>
           <Dialog onClose={onCloseWithdrawDialog}>
             <DialogTrigger>
-              <Button fullWidth variant="contained" disabled={loading || nftlUnclaimed === 0}>
-                Withdraw
-              </Button>
+              <Badge
+                color="error"
+                variant="standard"
+                badgeContent=" "
+                invisible={loading || nftlUnclaimed === 0}
+                sx={{ width: '100%' }}
+              >
+                <Button fullWidth variant="contained" disabled={loading || nftlUnclaimed === 0}>
+                  Withdraw
+                </Button>
+              </Badge>
             </DialogTrigger>
             <DialogContent
               aria-labelledby="withdraw-earnings-dialog"
