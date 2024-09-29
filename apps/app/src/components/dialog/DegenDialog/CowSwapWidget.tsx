@@ -31,7 +31,7 @@ const classes = {
 };
 
 const StyledStack = styled(Stack)(() => ({
-  [`& .${classes.purchaseNFTLBtn}`]: {
+  [`&.${classes.purchaseNFTLBtn}`]: {
     background: '#4291E5',
     borderRadius: '10px !important',
     height: '30px !important',
@@ -41,7 +41,7 @@ const StyledStack = styled(Stack)(() => ({
     },
   },
 
-  [`& .${classes.arrowDown}`]: {
+  [`&.${classes.arrowDown}`]: {
     position: 'absolute',
     width: 32,
     height: 32,

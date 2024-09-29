@@ -18,7 +18,7 @@ const classes = {
 };
 
 const StyledStack = styled(Stack)(() => ({
-  [`& .${classes.swapBox}`]: {
+  [`&.${classes.swapBox}`]: {
     background: '#161622',
     border: '1px solid #282B3F',
     padding: '12px 12px 4px 12px',
@@ -26,24 +26,24 @@ const StyledStack = styled(Stack)(() => ({
     width: '100%',
   },
 
-  [`& .${classes.tokenBox}`]: {
+  [`&.${classes.tokenBox}`]: {
     background: '#202230',
     borderRadius: '10px',
     width: 72,
   },
 
-  [`& .${classes.infoUSD}`]: {
+  [`&.${classes.infoUSD}`]: {
     color: '#4D4D4F',
     position: 'absolute',
   },
 
-  [`& .${classes.transactionBox}`]: {
+  [`&.${classes.transactionBox}`]: {
     borderRadius: '0px 0px 10px 10px',
     border: '1px solid #282B3F',
     padding: 12,
   },
 
-  [`& .${classes.transactionValue}`]: {
+  [`&.${classes.transactionValue}`]: {
     fontSize: '20px !important',
   },
 }));

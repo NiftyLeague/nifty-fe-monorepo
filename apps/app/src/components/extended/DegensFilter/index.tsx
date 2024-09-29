@@ -31,7 +31,7 @@ const classes = {
 };
 
 const StyledStack = styled(Stack)(() => ({
-  [`& .${classes.inputCheck}`]: {
+  [`&.${classes.inputCheck}`]: {
     paddingTop: 4,
     paddingBottom: 4,
     paddingRight: 8,
@@ -42,12 +42,12 @@ const StyledStack = styled(Stack)(() => ({
     },
   },
 
-  [`& .${classes.tribeCheckFormControl}`]: {
+  [`&.${classes.tribeCheckFormControl}`]: {
     marginLeft: -8,
     minWidth: 108,
   },
 
-  [`& .${classes.inputCheckFormControl}`]: {
+  [`&.${classes.inputCheckFormControl}`]: {
     marginLeft: -8,
     marginRight: 0,
     '& .MuiFormControlLabel-label': {
@@ -56,7 +56,7 @@ const StyledStack = styled(Stack)(() => ({
     },
   },
 
-  [`& .${classes.tribeName}`]: {
+  [`&.${classes.tribeName}`]: {
     marginLeft: 8,
   },
 }));

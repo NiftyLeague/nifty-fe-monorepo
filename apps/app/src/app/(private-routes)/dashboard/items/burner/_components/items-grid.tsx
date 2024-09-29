@@ -12,10 +12,10 @@ const classes = {
 };
 
 const Root = styled('div')({
-  [`& .${classes.titleWrap}`]: {
+  [`&.${classes.titleWrap}`]: {
     padding: 0,
   },
-  [`& .${classes.title}`]: {
+  [`&.${classes.title}`]: {
     display: 'flex',
     justifyContent: 'space-between',
     fontSize: '0.85rem',

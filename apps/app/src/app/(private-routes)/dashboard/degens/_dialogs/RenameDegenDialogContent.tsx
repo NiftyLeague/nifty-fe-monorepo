@@ -89,8 +89,7 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): JSX.Element => {
       }
     }
     setLoadingRename(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [error, onSuccess, input, insufficientAllowance, degen, tx, writeContracts]);
+  }, [degen, error, input, insufficientAllowance, insufficientBalance, onSuccess, tx, writeContracts]);
 
   return (
     <>
@@ -134,8 +133,19 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): JSX.Element => {
         </Stack>
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" fullWidth onClick={handleRename} disabled={!input || Boolean(error)}>
-          Rename
+        <Button
+          variant="contained"
+          fullWidth
+          onClick={handleRename}
+          disabled={!input || Boolean(error) || insufficientBalance}
+        >
+          {!input
+            ? 'Please enter a name above!'
+            : insufficientBalance
+              ? 'You need 1,000 NFTL on Ethereum to rename'
+              : insufficientAllowance
+                ? 'Approve contract to spend NFTL'
+                : 'Rename'}
         </Button>
       </DialogActions>
     </>
