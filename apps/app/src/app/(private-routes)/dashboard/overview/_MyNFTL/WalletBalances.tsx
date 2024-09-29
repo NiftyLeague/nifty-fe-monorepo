@@ -2,13 +2,13 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Grid2, IconButton, Button } from '@mui/material';
+import { Button, Grid2, IconButton, Stack } from '@mui/material';
 import { useTheme } from '@nl/theme';
 
 import { formatNumberToDisplay } from '@/utils/numbers';
 import useTokensBalances from '@/hooks/balances/useTokensBalances';
 import HoverDataCard from '@/components/cards/HoverDataCard';
-import { GOVERNANCE_PORTAL_URL, IMX_SQUID_BRIDGE_URL } from '@/constants/url';
+import { GOVERNANCE_PORTAL_URL, IMX_SQUID_BRIDGE_URL, SNAPSHOT_PORTAL_URL } from '@/constants/url';
 
 const WalletBalances = (): JSX.Element => {
   const theme = useTheme();
@@ -33,11 +33,18 @@ const WalletBalances = (): JSX.Element => {
               <IconButton disabled color="primary" component="span" sx={{ position: 'absolute', top: -2, right: -2 }}>
                 <Image src="/img/logos/passport/32px.svg" alt="Immutable" width={22} height={22} />
               </IconButton>
-              <Link href={GOVERNANCE_PORTAL_URL} target="_blank" rel="noreferrer" style={{ width: '100%' }}>
-                <Button fullWidth variant="outlined">
-                  Governance
-                </Button>
-              </Link>
+              <Stack direction="row" spacing={1} sx={{ alignItems: 'center', width: '100%' }}>
+                <Link href={SNAPSHOT_PORTAL_URL} target="_blank" rel="noreferrer" style={{ width: '48%' }}>
+                  <Button fullWidth variant="outlined">
+                    Snapshot
+                  </Button>
+                </Link>
+                <Link href={GOVERNANCE_PORTAL_URL} target="_blank" rel="noreferrer" style={{ width: '48%' }}>
+                  <Button fullWidth variant="contained">
+                    Tally
+                  </Button>
+                </Link>
+              </Stack>
             </>
           }
         />

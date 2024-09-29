@@ -209,7 +209,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
             flexDirection: 'row',
             justifyContent: 'space-between',
             px: 2,
-            gap: size === 'small' ? 0.5 : 1,
+            gap: 1,
           }}
         >
           {/* {false && (
