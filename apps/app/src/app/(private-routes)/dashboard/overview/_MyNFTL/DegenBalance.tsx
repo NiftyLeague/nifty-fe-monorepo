@@ -8,31 +8,33 @@ import Image from 'next/image';
 import { NFTL_CONTRACT } from '@/constants/contracts';
 import { DEBUG } from '@/constants/index';
 import { formatNumberToDisplay } from '@/utils/numbers';
-import useBalances from '@/hooks/useBalances';
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
+import useTokensBalances from '@/hooks/balances/useTokensBalances';
 import useNetworkContext from '@/hooks/useNetworkContext';
 import HoverDataCard from '@/components/cards/HoverDataCard';
 
 const DegenBalance = (): JSX.Element => {
   const theme = useTheme();
   const { writeContracts, tx } = useNetworkContext();
-  const { loadingNFTLAccrued, refreshClaimableNFTL, tokenIndices, totalAccrued } = useBalances();
+  const { degenTokenIndices } = useNFTsBalances();
+  const { loadingNFTLAccrued, refreshClaimableNFTL, totalAccruedNFTL } = useTokensBalances();
   const [mockAccrued, setMockAccrued] = useState(0);
 
   useEffect(() => {
-    if (totalAccrued) setMockAccrued(totalAccrued);
-  }, [totalAccrued]);
+    if (totalAccruedNFTL) setMockAccrued(totalAccruedNFTL);
+  }, [totalAccruedNFTL]);
 
   const handleClaimNFTL = useCallback(async () => {
     // eslint-disable-next-line no-console
-    if (DEBUG) console.log('claim', tokenIndices, totalAccrued);
+    if (DEBUG) console.log('claim', degenTokenIndices, totalAccruedNFTL);
     const nftl = writeContracts[NFTL_CONTRACT];
-    const res = await tx(nftl.claim(tokenIndices));
+    const res = await tx(nftl.claim(degenTokenIndices));
     if (res) {
       setMockAccrued(0);
       setTimeout(refreshClaimableNFTL, 5000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tokenIndices, totalAccrued, tx, writeContracts]);
+  }, [degenTokenIndices, totalAccruedNFTL, tx, writeContracts]);
 
   return (
     <HoverDataCard

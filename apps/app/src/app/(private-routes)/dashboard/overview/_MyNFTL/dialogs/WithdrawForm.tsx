@@ -88,7 +88,7 @@ const WithdrawForm = ({ balance, onWithdrawSuccess }: WithdrawFormProps): JSX.El
           variant="contained"
           fullWidth
           loading={loading}
-          disabled={balance === 0}
+          disabled={isConnectedToIMX && balance === 0}
         >
           {!isConnectedToIMX ? 'Switch Network to IMX' : 'Withdraw NFTL'}
         </LoadingButton>

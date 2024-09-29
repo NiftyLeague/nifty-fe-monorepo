@@ -6,7 +6,8 @@ import Link from 'next/link';
 import { Box, Button, CircularProgress, Grid2, Stack, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import isEqual from 'lodash/isEqual';
-import useIMXContext from '@/hooks/useIMXContext';
+
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 import { useDispatch } from '@/store/hooks';
 import { openSnackbar } from '@/store/slices/snackbar';
 import { sendEvent } from '@/utils/google-analytics';
@@ -28,18 +29,18 @@ const classes = {
 };
 
 const StyledStack = styled(Stack)(() => ({
-  [`& .${classes.title}`]: {
+  [`&.${classes.title}`]: {
     fontSize: 16,
     fontWeight: 700,
     color: '#FFFFFF',
   },
 
-  [`& .${classes.label}`]: {
+  [`&.${classes.label}`]: {
     fontSize: 12,
     color: '#FFFFFF',
   },
 
-  [`& .${classes.animTypeButton}`]: {
+  [`&.${classes.animTypeButton}`]: {
     borderRadius: '2px',
     height: 24,
     border: '1px solid #757575',
@@ -48,13 +49,13 @@ const StyledStack = styled(Stack)(() => ({
     background: 'transparent',
   },
 
-  [`& .${classes.animTypeActiveButton}`]: {
+  [`&.${classes.animTypeActiveButton}`]: {
     borderRadius: '2px',
     height: 24,
     fontSize: 12,
   },
 
-  [`& .${classes.tag}`]: {
+  [`&.${classes.tag}`]: {
     width: 12,
     height: 12,
     borderRadius: '50%',
@@ -84,10 +85,10 @@ const initEquipped: boolean[] = new Array(6).fill(false);
 
 const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) => {
   const dispatch = useDispatch();
-  const { comicsBalance, comicsLoading } = useIMXContext();
+  const { comicsBalances, loadingComics } = useNFTsBalances();
   const filteredComics = useMemo(
-    () => comicsBalance.filter(comic => comic.balance && comic.balance > 0),
-    [comicsBalance],
+    () => comicsBalances.filter(comic => comic.balance && comic.balance > 0),
+    [comicsBalances],
   );
   const [animationType, setAnimationType] = useState<string>('pose');
   const [equipped, setEquipped] = useState<boolean[]>(initEquipped);
@@ -216,7 +217,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
   };
 
   if (filteredComics.length === 0) {
-    if (comicsLoading) {
+    if (loadingComics) {
       return (
         <StyledStack direction="row" justifyContent="center" alignItems="center" height={200} mx="auto">
           <CircularProgress />

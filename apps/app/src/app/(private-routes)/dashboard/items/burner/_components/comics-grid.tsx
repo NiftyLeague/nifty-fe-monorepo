@@ -6,7 +6,7 @@ import sum from 'lodash/sum';
 import { ImageList, ImageListItem, ImageListItemBar, Skeleton, TextField, InputAdornment } from '@mui/material';
 import BurnIcon from '@mui/icons-material/Whatshot';
 
-import useIMXContext from '@/hooks/useIMXContext';
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 import type { Comic } from '@/types/marketplace';
 
 const PREFIX = 'comics-grid';
@@ -21,15 +21,15 @@ const classes = {
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled('div')({
-  [`& .${classes.titleWrap}`]: {
+  [`&.${classes.titleWrap}`]: {
     padding: 0,
   },
-  [`& .${classes.title}`]: {
+  [`&.${classes.title}`]: {
     display: 'flex',
     justifyContent: 'space-between',
     fontSize: '0.85rem',
   },
-  [`& .${classes.sums}`]: {
+  [`&.${classes.sums}`]: {
     top: 432,
     left: 0,
     right: 0,
@@ -43,8 +43,8 @@ const Root = styled('div')({
     color: 'navy',
     fontWeight: 'bold',
   },
-  [`& .${classes.keySum}`]: {},
-  [`& .${classes.itemSum}`]: {},
+  [`&.${classes.keySum}`]: {},
+  [`&.${classes.itemSum}`]: {},
 });
 
 const COMPRESSED_COMIC_IMAGES = [
@@ -82,7 +82,7 @@ export default function ComicsGrid({
   setSelectedComics: React.Dispatch<React.SetStateAction<Comic[]>>;
   refreshKey: number;
 }) {
-  const { comicsBalance, comicsLoading } = useIMXContext();
+  const { comicsBalances, loadingComics } = useNFTsBalances();
   const keyCount = useMemo(() => (burnCount.some(v => v === 0) ? 0 : Math.min(...burnCount)), [burnCount]);
   const itemCount = useMemo(() => sum(burnCount) - keyCount * 6, [burnCount, keyCount]);
 
@@ -98,7 +98,7 @@ export default function ComicsGrid({
     if (removed) {
       newBurnCount[comic.id - 1] = 0;
     } else {
-      const comicCount = comicsBalance.find(c => c.id === comic.id)?.balance || 0;
+      const comicCount = comicsBalances.find(c => c.id === comic.id)?.balance || 0;
       newBurnCount[comic.id - 1] = comicCount;
     }
     setBurnCount(newBurnCount);
@@ -111,7 +111,7 @@ export default function ComicsGrid({
     handleUpdateBurnCount(comic, newSelectedComics);
   };
 
-  return comicsLoading ? (
+  return loadingComics ? (
     <Skeleton variant="rectangular" animation="wave" width={315} height={265} sx={{ ...gridStyles }} />
   ) : (
     <Root>
@@ -122,7 +122,7 @@ export default function ComicsGrid({
           ...gridStyles,
         }}
       >
-        {comicsBalance.map(comic => (
+        {comicsBalances.map(comic => (
           <ImageListItem key={comic.image}>
             <Image
               src={COMPRESSED_COMIC_IMAGES[comic.id - 1] as string}
@@ -166,7 +166,7 @@ export default function ComicsGrid({
                         inputMode: 'numeric',
                         pattern: '[0-9]*',
                         min: 0,
-                        max: comicsBalance.find(c => c.id === comic.id)?.balance || 0,
+                        max: comicsBalances.find(c => c.id === comic.id)?.balance || 0,
                         style: {
                           textAlign: 'center',
                           padding: 2.5,

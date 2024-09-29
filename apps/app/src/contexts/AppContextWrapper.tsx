@@ -5,12 +5,14 @@ import { cookieToInitialState } from 'wagmi';
 
 // app context
 import { AuthTokenProvider } from '@/contexts/AuthTokenContext';
-import { BalanceProvider } from '@/contexts/BalanceContext';
 import { FeatureFlagProvider } from '@/contexts/FeatureFlagsContext';
+import { IMXProvider } from '@/contexts/IMXContext';
 import { LocalStorageProvider } from '@/contexts/LocalStorageContext';
 import { NetworkProvider } from '@/contexts/NetworkContext';
-import { Web3ModalProvider } from '@/contexts/Web3ModalContext';
+import { NFTsBalanceProvider } from '@/contexts/NFTsBalanceContext';
+import { TokensBalanceProvider } from '@/contexts/TokensBalanceContext';
 import { wagmiConfig } from '@/contexts/Web3ModalConfig';
+import { Web3ModalProvider } from '@/contexts/Web3ModalContext';
 import ReduxProvider from '@/store/ReduxProvider';
 
 const AppContextWrapper = ({ children }: PropsWithChildren) => {
@@ -19,13 +21,17 @@ const AppContextWrapper = ({ children }: PropsWithChildren) => {
     <LocalStorageProvider>
       <Web3ModalProvider initialState={initialState}>
         <NetworkProvider>
-          <ReduxProvider>
-            <AuthTokenProvider>
-              <BalanceProvider>
-                <FeatureFlagProvider>{children}</FeatureFlagProvider>
-              </BalanceProvider>
-            </AuthTokenProvider>
-          </ReduxProvider>
+          <IMXProvider>
+            <ReduxProvider>
+              <AuthTokenProvider>
+                <NFTsBalanceProvider>
+                  <TokensBalanceProvider>
+                    <FeatureFlagProvider>{children}</FeatureFlagProvider>
+                  </TokensBalanceProvider>
+                </NFTsBalanceProvider>
+              </AuthTokenProvider>
+            </ReduxProvider>
+          </IMXProvider>
         </NetworkProvider>
       </Web3ModalProvider>
     </LocalStorageProvider>
