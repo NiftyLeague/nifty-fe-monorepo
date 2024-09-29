@@ -17,10 +17,10 @@ import { COMICS_PURCHASE_URL } from '@/constants/url';
 const MyComics = (): JSX.Element => {
   const [selectedComic, setSelectedComic] = useState<Comic | null>(null);
   const router = useRouter();
-  const { comicsBalance, loadingComics } = useNFTsBalances();
+  const { comicsBalances, loadingComics } = useNFTsBalances();
   const filteredComics = useMemo(
-    () => comicsBalance.filter(comic => comic.balance && comic.balance > 0),
-    [comicsBalance],
+    () => comicsBalances.filter(comic => comic.balance && comic.balance > 0),
+    [comicsBalances],
   );
 
   const handleViewComic = (comic: Comic) => {

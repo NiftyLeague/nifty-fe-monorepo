@@ -26,7 +26,7 @@ const DashboardComicsPage = (): JSX.Element => {
   const [selectedComic, setSelectedComic] = useState<Comic | null>(null);
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [selectedSubIndex, setSelectedSubIndex] = useState<number>(-1);
-  const { comicsBalance, loadingComics, itemsBalance, loadingItems } = useNFTsBalances();
+  const { comicsBalances, loadingComics, itemsBalances, loadingItems } = useNFTsBalances();
   const router = useRouter();
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
@@ -68,14 +68,14 @@ const DashboardComicsPage = (): JSX.Element => {
   const handleLaunchBurner = () => router.push('items/burner');
 
   const renderComics = useMemo(() => {
-    if (comicsBalance.length === 0 && loadingComics) {
+    if (comicsBalances.length === 0 && loadingComics) {
       return [...Array(6)].map(() => (
         <Grid2 key={uuidv4()}>
           <ComicPlaceholder />
         </Grid2>
       ));
-    } else if (comicsBalance.length > 0) {
-      return comicsBalance.map(comic => (
+    } else if (comicsBalances.length > 0) {
+      return comicsBalances.map(comic => (
         <Grid2 key={comic.id}>
           <ComicCard
             data={comic}
@@ -86,17 +86,17 @@ const DashboardComicsPage = (): JSX.Element => {
       ));
     }
     return null;
-  }, [comicsBalance, loadingComics, selectedComic]);
+  }, [comicsBalances, loadingComics, selectedComic]);
 
   const renderItems = useMemo(() => {
-    if (itemsBalance.length === 0 && loadingItems) {
+    if (itemsBalances.length === 0 && loadingItems) {
       return [...Array(6)].map(() => (
         <Grid2 key={uuidv4()}>
           <ComicPlaceholder />
         </Grid2>
       ));
-    } else if (itemsBalance.length > 0) {
-      return itemsBalance
+    } else if (itemsBalances.length > 0) {
+      return itemsBalances
         .filter(item => !selectedItem?.balance || selectedItem?.balance <= 1 || item.id !== selectedItem?.id)
         .map(item => (
           <Grid2 key={item.id}>
@@ -110,7 +110,7 @@ const DashboardComicsPage = (): JSX.Element => {
     }
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [itemsBalance, loadingItems, selectedItem]);
+  }, [itemsBalances, loadingItems, selectedItem]);
 
   const renderSubItems = useMemo(() => {
     if (!selectedItem?.balance || selectedItem?.balance <= 1) return null;
@@ -159,12 +159,12 @@ const DashboardComicsPage = (): JSX.Element => {
                 onClick={removeComicSelection}
               >
                 {renderComics}
-                {comicsBalance.length > 0 && (
+                {comicsBalances.length > 0 && (
                   <Grid2>
                     <Link href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
                       <BuyCard
                         onBuy={() => {}}
-                        isNew={!comicsBalance.some(comic => comic.balance && comic.balance > 0)}
+                        isNew={!comicsBalances.some(comic => comic.balance && comic.balance > 0)}
                       />
                     </Link>
                   </Grid2>
@@ -212,10 +212,10 @@ const DashboardComicsPage = (): JSX.Element => {
                 )}
                 <Grid2 container flexWrap="wrap" gap={2} justifyContent={{ xs: 'space-between', sm: 'inherit' }}>
                   {renderItems}
-                  {itemsBalance.length > 0 && (
+                  {itemsBalances.length > 0 && (
                     <Grid2>
                       <Link href={ITEM_PURCHASE_URL} target="_blank" rel="noreferrer">
-                        <BuyCard onBuy={() => {}} isNew={!itemsBalance.some(it => it.balance && it.balance > 0)} />
+                        <BuyCard onBuy={() => {}} isNew={!itemsBalances.some(it => it.balance && it.balance > 0)} />
                       </Link>
                     </Grid2>
                   )}

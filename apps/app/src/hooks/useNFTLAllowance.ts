@@ -25,6 +25,7 @@ export default function useNFTLAllowance(contractAddress: `0x${string}`): NFTLAl
   } = useReadContract({
     address: NFTL_CONTRACT?.address as `0x${string}`,
     abi: NFTL_CONTRACT?.abi as Abi,
+    chainId: TARGET_NETWORK.chainId,
     functionName: 'allowance',
     args: [contractAddress],
     query: {

@@ -38,22 +38,22 @@ const GamerProfile = (): JSX.Element => {
   const { avatarsAndFee } = useProfileAvatarFee();
   const { data } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`);
 
-  const { comicsBalance, degenCount, degensBalance, itemsBalance } = useNFTsBalances();
+  const { comicsBalances, degenCount, degensBalances, itemsBalances } = useNFTsBalances();
 
   const filteredDegens: Degen[] = useMemo(() => {
-    if (degensBalance.length && data) {
-      const mapDegens = degensBalance.map(degen => data[Number(degen.id)]) as Degen[];
+    if (degensBalances.length && data) {
+      const mapDegens = degensBalances.map(degen => data[Number(degen.id)]) as Degen[];
       return mapDegens;
     }
     return [];
-  }, [degensBalance, data]);
+  }, [degensBalances, data]);
 
   const filteredComics = useMemo(
-    () => comicsBalance.filter(comic => comic.balance && comic.balance > 0),
-    [comicsBalance],
+    () => comicsBalances.filter(comic => comic.balance && comic.balance > 0),
+    [comicsBalances],
   );
 
-  const filteredItems = useMemo(() => itemsBalance.filter(item => item.balance && item.balance > 0), [itemsBalance]);
+  const filteredItems = useMemo(() => itemsBalances.filter(item => item.balance && item.balance > 0), [itemsBalances]);
 
   const renderEmptyProfile = () => {
     return (

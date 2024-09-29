@@ -75,15 +75,15 @@ const DashboardDegensPage = (): JSX.Element => {
 
   const { loading: loadingAllRentals, data } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`);
 
-  const { degensBalance, loadingDegens } = useNFTsBalances();
+  const { degensBalances, loadingDegens } = useNFTsBalances();
 
   const loading = loadingAllRentals || loadingDegens;
 
   const populatedDegens: Degen[] = useMemo(() => {
-    if (!degensBalance.length || !data) return [];
+    if (!degensBalances.length || !data) return [];
     // TODO: remove temp fix for 7th tribes
     // return degens.map((degen) => data[degen.id]);
-    return degensBalance.map(degen =>
+    return degensBalances.map(degen =>
       Number(degen.id) <= 9900
         ? (data[Number(degen.id)] as Degen)
         : ({
@@ -108,7 +108,7 @@ const DashboardDegensPage = (): JSX.Element => {
           } as Degen),
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [degensBalance.length, !!data]);
+  }, [degensBalances.length, !!data]);
 
   const theme = useTheme();
   const isScreenLg = useMediaQuery(theme.breakpoints.between('lg', 'xl'));
@@ -320,7 +320,7 @@ const DashboardDegensPage = (): JSX.Element => {
             [...Array(8)].map(renderSkeletonItem)
           ) : dataForCurrentPage.length ? (
             dataForCurrentPage.map(renderDegen)
-          ) : !degensBalance?.length ? (
+          ) : !degensBalances?.length ? (
             <Link href={DEGEN_COLLECTION_URL} target="_blank" rel="noreferrer">
               <EmptyState
                 message="No DEGENs found. Please check your address or go purchase a degen if you have not done so already!"
@@ -343,7 +343,7 @@ const DashboardDegensPage = (): JSX.Element => {
     [
       currentPage,
       dataForCurrentPage,
-      degensBalance?.length,
+      degensBalances?.length,
       filteredData.length,
       isConnected,
       isDrawerOpen,

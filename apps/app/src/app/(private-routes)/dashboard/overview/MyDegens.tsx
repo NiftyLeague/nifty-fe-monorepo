@@ -56,16 +56,16 @@ const MyDegens = (): JSX.Element => {
     }
   }, [favsData, setFavDegens]);
 
-  const { loadingDegens, degensBalance } = useNFTsBalances();
+  const { loadingDegens, degensBalances } = useNFTsBalances();
 
   const { data: degensData } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`);
 
   const filteredDegens = useMemo(() => {
-    if (degensBalance.length && degensData) {
-      return degensBalance.map(degen => degensData[Number(degen.id)]).filter(Boolean);
+    if (degensBalances.length && degensData) {
+      return degensBalances.map(degen => degensData[Number(degen.id)]).filter(Boolean);
     }
     return [];
-  }, [degensBalance, degensData]) as Degen[];
+  }, [degensBalances, degensData]) as Degen[];
 
   const settings = {
     slidesToShow: 3,
@@ -147,7 +147,7 @@ const MyDegens = (): JSX.Element => {
   return (
     <>
       <SectionSlider
-        isSlider={filteredDegens.length > 0 && degensBalance.length > 0}
+        isSlider={filteredDegens.length > 0 && degensBalances.length > 0}
         firstSection
         title="My DEGENs"
         variant="h3"
@@ -165,7 +165,7 @@ const MyDegens = (): JSX.Element => {
               <SkeletonDegenPlaceholder />
             </Grid2>
           ))
-        ) : filteredDegens.length && degensBalance.length ? (
+        ) : filteredDegens.length && degensBalances.length ? (
           filteredDegens.map(degen => (
             <Box sx={BoxDegenStyles} key={degen.id}>
               <DegenCard

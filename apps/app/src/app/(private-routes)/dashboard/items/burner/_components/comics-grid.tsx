@@ -82,7 +82,7 @@ export default function ComicsGrid({
   setSelectedComics: React.Dispatch<React.SetStateAction<Comic[]>>;
   refreshKey: number;
 }) {
-  const { comicsBalance, loadingComics } = useNFTsBalances();
+  const { comicsBalances, loadingComics } = useNFTsBalances();
   const keyCount = useMemo(() => (burnCount.some(v => v === 0) ? 0 : Math.min(...burnCount)), [burnCount]);
   const itemCount = useMemo(() => sum(burnCount) - keyCount * 6, [burnCount, keyCount]);
 
@@ -98,7 +98,7 @@ export default function ComicsGrid({
     if (removed) {
       newBurnCount[comic.id - 1] = 0;
     } else {
-      const comicCount = comicsBalance.find(c => c.id === comic.id)?.balance || 0;
+      const comicCount = comicsBalances.find(c => c.id === comic.id)?.balance || 0;
       newBurnCount[comic.id - 1] = comicCount;
     }
     setBurnCount(newBurnCount);
@@ -122,7 +122,7 @@ export default function ComicsGrid({
           ...gridStyles,
         }}
       >
-        {comicsBalance.map(comic => (
+        {comicsBalances.map(comic => (
           <ImageListItem key={comic.image}>
             <Image
               src={COMPRESSED_COMIC_IMAGES[comic.id - 1] as string}
@@ -166,7 +166,7 @@ export default function ComicsGrid({
                         inputMode: 'numeric',
                         pattern: '[0-9]*',
                         min: 0,
-                        max: comicsBalance.find(c => c.id === comic.id)?.balance || 0,
+                        max: comicsBalances.find(c => c.id === comic.id)?.balance || 0,
                         style: {
                           textAlign: 'center',
                           padding: 2.5,

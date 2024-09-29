@@ -85,10 +85,10 @@ const initEquipped: boolean[] = new Array(6).fill(false);
 
 const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) => {
   const dispatch = useDispatch();
-  const { comicsBalance, loadingComics } = useNFTsBalances();
+  const { comicsBalances, loadingComics } = useNFTsBalances();
   const filteredComics = useMemo(
-    () => comicsBalance.filter(comic => comic.balance && comic.balance > 0),
-    [comicsBalance],
+    () => comicsBalances.filter(comic => comic.balance && comic.balance > 0),
+    [comicsBalances],
   );
   const [animationType, setAnimationType] = useState<string>('pose');
   const [equipped, setEquipped] = useState<boolean[]>(initEquipped);

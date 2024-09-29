@@ -12,8 +12,8 @@ import { ITEM_PURCHASE_URL } from '@/constants/url';
 
 const MyItems = (): JSX.Element => {
   const router = useRouter();
-  const { itemsBalance, loadingItems } = useNFTsBalances();
-  const filteredItems = useMemo(() => itemsBalance.filter(item => item.balance && item.balance > 0), [itemsBalance]);
+  const { itemsBalances, loadingItems } = useNFTsBalances();
+  const filteredItems = useMemo(() => itemsBalances.filter(item => item.balance && item.balance > 0), [itemsBalances]);
 
   const settings = {
     slidesToShow: 4,

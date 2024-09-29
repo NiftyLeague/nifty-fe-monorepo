@@ -7,34 +7,37 @@ import type { Comic, Item } from '@/types/marketplace';
 
 import { useOwnerSearch } from '@/hooks/useGraphQL';
 import useAuth from '@/hooks/useAuth';
-import useComicsBalance from '@/hooks/balances/useComicsBalance';
-import useIMXContext from '@/hooks/useIMXContext';
-import useItemsBalance from '@/hooks/balances/useItemsBalance';
+import useComicsBalances from '@/hooks/balances/useComicsBalances';
+import useItemsBalances from '@/hooks/balances/useItemsBalances';
 
 interface NFTsBalanceContext {
-  comicsBalance: Comic[];
+  comicsBalances: Comic[];
   degenCount: number;
-  degensBalance: Character[];
+  degensBalances: Character[];
   degenTokenIndices: number[];
   isDegenOwner: boolean;
-  itemsBalance: Item[];
+  itemsBalances: Item[];
   loadingComics: boolean;
   loadingDegens: boolean;
   loadingItems: boolean;
-  refreshDegenBalance: () => void;
+  refreshComicsBalances: () => void;
+  refreshDegenBalances: () => void;
+  refreshItemsBalances: () => void;
 }
 
 const CONTEXT_INITIAL_STATE: NFTsBalanceContext = {
-  comicsBalance: [],
+  comicsBalances: [],
   degenCount: 0,
-  degensBalance: [],
+  degensBalances: [],
   degenTokenIndices: [],
   isDegenOwner: false,
-  itemsBalance: [],
+  itemsBalances: [],
   loadingComics: true,
   loadingDegens: false,
   loadingItems: true,
-  refreshDegenBalance: () => {},
+  refreshComicsBalances: () => {},
+  refreshDegenBalances: () => {},
+  refreshItemsBalances: () => {},
 };
 
 const NFTsBalanceContext = createContext<NFTsBalanceContext>(CONTEXT_INITIAL_STATE);
@@ -42,23 +45,22 @@ const NFTsBalanceContext = createContext<NFTsBalanceContext>(CONTEXT_INITIAL_STA
 export const NFTsBalanceProvider = ({ children }: PropsWithChildren): JSX.Element => {
   const firstRenderRef = useRef(true);
   const { isLoggedIn } = useAuth();
-  const { address, imxContracts } = useIMXContext();
 
   // Load user DEGEN balances from Subgraph
-  const { isFetching, data: owner, refetch: refreshDegenBalance } = useOwnerSearch();
+  const { isFetching, data: owner, refetch: refreshDegenBalances } = useOwnerSearch();
   const { characterCount: degenCount = 0 } = owner || {};
   const isDegenOwner = degenCount > 0;
 
-  const degensBalance = useMemo(() => {
+  const degensBalances = useMemo(() => {
     const characterList = owner?.characters ? [...owner.characters] : [];
     return characterList.sort((a, b) => parseInt(a.id, 10) - parseInt(b.id, 10));
   }, [owner]);
 
-  const degenTokenIndices = useMemo(() => degensBalance.map(d => parseInt(d.id, 10)), [degensBalance]);
+  const degenTokenIndices = useMemo(() => degensBalances.map(d => parseInt(d.id, 10)), [degensBalances]);
 
   // Load user Immutable zkEVM NFT balances
-  const { comicsBalance, loading: loadingComics } = useComicsBalance(imxContracts, address);
-  const { itemsBalance, loading: loadingItems } = useItemsBalance(imxContracts, address);
+  const { balances: comicsBalances, loading: loadingComics, refetch: refreshComicsBalances } = useComicsBalances();
+  const { balances: itemsBalances, loading: loadingItems, refetch: refreshItemsBalances } = useItemsBalances();
 
   // Refetch on login state change, avoiding initial render
   useEffect(() => {
@@ -67,23 +69,27 @@ export const NFTsBalanceProvider = ({ children }: PropsWithChildren): JSX.Elemen
       return;
     }
     if (!isLoggedIn) return;
-    refreshDegenBalance();
+    refreshComicsBalances();
+    refreshDegenBalances();
+    refreshItemsBalances();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn]);
 
   return (
     <NFTsBalanceContext.Provider
       value={{
-        comicsBalance,
+        comicsBalances,
         degenCount,
-        degensBalance,
+        degensBalances,
         degenTokenIndices,
         isDegenOwner,
-        itemsBalance,
+        itemsBalances,
         loadingComics,
         loadingDegens: isFetching,
         loadingItems,
-        refreshDegenBalance,
+        refreshComicsBalances,
+        refreshDegenBalances,
+        refreshItemsBalances,
       }}
     >
       {children}

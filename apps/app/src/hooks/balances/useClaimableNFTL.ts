@@ -32,6 +32,7 @@ export default function useClaimableNFTL(degenTokenIndices: number[]): NFTLClaim
   const { data, error, isLoading, refetch } = useReadContract({
     address: NFTL_CONTRACT?.address as `0x${string}`,
     abi: NFTL_CONTRACT?.abi as Abi,
+    chainId: TARGET_NETWORK.chainId,
     functionName: 'accumulatedMultiCheck',
     args: [degenTokenIndices],
     query: {
