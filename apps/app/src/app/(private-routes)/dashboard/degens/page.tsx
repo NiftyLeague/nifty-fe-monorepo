@@ -33,7 +33,7 @@ import type { Degen } from '@/types/degens';
 import { v4 as uuidv4 } from 'uuid';
 import EmptyState from '@/components/EmptyState';
 import DegenDialog from '@/components/dialog/DegenDialog';
-import useBalances from '@/hooks/useBalances';
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 import DegensTopNav from '@/components/extended/DegensTopNav';
 import useLocalStorageContext from '@/hooks/useLocalStorageContext';
 
@@ -75,22 +75,22 @@ const DashboardDegensPage = (): JSX.Element => {
 
   const { loading: loadingAllRentals, data } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`);
 
-  const { loadingDegens, characters } = useBalances();
+  const { degensBalances, loadingDegens } = useNFTsBalances();
 
   const loading = loadingAllRentals || loadingDegens;
 
   const populatedDegens: Degen[] = useMemo(() => {
-    if (!characters.length || !data) return [];
+    if (!degensBalances.length || !data) return [];
     // TODO: remove temp fix for 7th tribes
-    // return characters.map((character) => data[character.id]);
-    return characters.map(character =>
-      Number(character.id) <= 9900
-        ? (data[Number(character.id)] as Degen)
+    // return degens.map((degen) => data[degen.id]);
+    return degensBalances.map(degen =>
+      Number(degen.id) <= 9900
+        ? (data[Number(degen.id)] as Degen)
         : ({
-            id: character.id,
-            name: character.name,
-            traits_string: Object.values(character.traits).toString(),
-            background: HYDRAS[character.id as keyof typeof HYDRAS].rarity,
+            id: degen.id,
+            name: degen.name,
+            traits_string: Object.values(degen.traits).toString(),
+            background: HYDRAS[degen.id as keyof typeof HYDRAS].rarity,
             earning_cap: 0,
             earning_cap_daily: 0,
             is_active: false,
@@ -104,11 +104,11 @@ const DashboardDegensPage = (): JSX.Element => {
             price_daily: 0,
             rental_count: 0,
             total_rented: 0,
-            tribe: Number(character.id) >= 9999 ? (Number(character.id) === 9999 ? 'rugman' : 'satoshi') : 'hydra',
+            tribe: Number(degen.id) >= 9999 ? (Number(degen.id) === 9999 ? 'rugman' : 'satoshi') : 'hydra',
           } as Degen),
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [characters.length, !!data]);
+  }, [degensBalances.length, !!data]);
 
   const theme = useTheme();
   const isScreenLg = useMediaQuery(theme.breakpoints.between('lg', 'xl'));
@@ -320,7 +320,7 @@ const DashboardDegensPage = (): JSX.Element => {
             [...Array(8)].map(renderSkeletonItem)
           ) : dataForCurrentPage.length ? (
             dataForCurrentPage.map(renderDegen)
-          ) : !characters?.length ? (
+          ) : !degensBalances?.length ? (
             <Link href={DEGEN_COLLECTION_URL} target="_blank" rel="noreferrer">
               <EmptyState
                 message="No DEGENs found. Please check your address or go purchase a degen if you have not done so already!"
@@ -341,9 +341,9 @@ const DashboardDegensPage = (): JSX.Element => {
       </Stack>
     ),
     [
-      characters?.length,
       currentPage,
       dataForCurrentPage,
+      degensBalances?.length,
       filteredData.length,
       isConnected,
       isDrawerOpen,

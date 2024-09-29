@@ -75,6 +75,10 @@ export const DEGEN_PURCHASE_URL = (id: string | number) =>
 export const COMICS_PURCHASE_URL = 'https://tokentrove.com/collection/NiftyLeague';
 export const ITEM_PURCHASE_URL = 'https://tokentrove.com/collection/NiftyLeague';
 
+// NFTL
 export const CONVERT_TOKEN_TO_USD_URL = 'https://price-api.crypto.com/price/v1/exchange/';
-
 export const COW_PROTOCOL_URL = 'https://cow.fi/';
+export const IMX_SQUID_BRIDGE_URL = 'https://toolkit.immutable.com/squid-bridge/';
+export const IMX_AXELAR_BRIDGE_URL = 'https://toolkit.immutable.com/ethereum-bridge/';
+export const SNAPSHOT_PORTAL_URL = 'https://niftyleague.com/snapshot';
+export const GOVERNANCE_PORTAL_URL = 'https://niftyleague.com/tally';

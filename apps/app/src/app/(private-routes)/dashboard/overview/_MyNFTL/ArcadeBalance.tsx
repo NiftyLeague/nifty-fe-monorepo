@@ -7,7 +7,7 @@ import { useTheme } from '@nl/theme';
 
 import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
 import { sendEvent } from '@/utils/google-analytics';
-import useBalances from '@/hooks/useBalances';
+import useTokensBalances from '@/hooks/balances/useTokensBalances';
 
 import BuyArcadeTokensDialog from '@/components/dialog/BuyArcadeTokensDialog';
 import TokenInfoCard from '@/components/cards/TokenInfoCard';
@@ -15,7 +15,7 @@ import TokenInfoCard from '@/components/cards/TokenInfoCard';
 const ArcadeBalance = (): JSX.Element => {
   const theme = useTheme();
   const router = useRouter();
-  const { arcadeBalance, loadingArcadeBal, refetchArcadeBal } = useBalances();
+  const { tokensBalances, loadingArcadeBal, refetchArcadeBal } = useTokensBalances();
   const [openBuyAT, setOpenBuyAT] = useState(false);
 
   const handleBuyArcadeTokens = () => {
@@ -31,7 +31,7 @@ const ArcadeBalance = (): JSX.Element => {
     <>
       <TokenInfoCard
         title="Arcade Token Balance"
-        secondary={`${arcadeBalance} Tokens`}
+        secondary={`${tokensBalances.AT} Tokens`}
         isLoading={loadingArcadeBal}
         customStyle={{
           backgroundColor: theme.palette.background.default,
@@ -47,11 +47,11 @@ const ArcadeBalance = (): JSX.Element => {
             paddingX={{ xl: 1, xs: 3 }}
             paddingY={{ xl: 0.5, xs: 1.5 }}
           >
-            <Button fullWidth variant="contained" onClick={handleBuyArcadeTokens}>
-              Buy Tokens
-            </Button>
             <Button fullWidth variant="outlined" onClick={handlePlayArcade}>
               Play Arcade Games
+            </Button>
+            <Button fullWidth variant="contained" onClick={handleBuyArcadeTokens}>
+              Buy Tokens
             </Button>
           </Stack>
         }

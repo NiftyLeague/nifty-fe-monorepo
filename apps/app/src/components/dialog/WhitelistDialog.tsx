@@ -13,7 +13,7 @@ const classes = {
 };
 
 const StyledDialog = styled(Dialog)(() => ({
-  [`& .${classes.form}`]: {
+  [`&.${classes.form}`]: {
     display: 'flex',
     width: '100%',
     '@media (max-width: 768px)': {
@@ -21,7 +21,7 @@ const StyledDialog = styled(Dialog)(() => ({
     },
   },
 
-  [`& .${classes.inputEmail}`]: {
+  [`&.${classes.inputEmail}`]: {
     flex: 1,
     background: '#5D5F74',
     borderRadius: '2px',
@@ -39,7 +39,7 @@ const StyledDialog = styled(Dialog)(() => ({
     },
   },
 
-  [`& .${classes.submitButton}`]: {
+  [`&.${classes.submitButton}`]: {
     background: '#620EDF',
     borderRadius: '0px 5px 5px 0px',
     border: 'none',

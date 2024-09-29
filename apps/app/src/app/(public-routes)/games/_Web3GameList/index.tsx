@@ -8,7 +8,7 @@ import BuyArcadeTokensDialog from '@/components/dialog/BuyArcadeTokensDialog';
 import ConnectWrapper from '@/components/wrapper/ConnectWrapper';
 import GameCard from '@/components/cards/GameCard';
 import DownloadGameDialog from '@/components/dialog/DownloadGameDialog';
-import useBalances from '@/hooks/useBalances';
+import useTokensBalances from '@/hooks/balances/useTokensBalances';
 
 const GridItem = styled(Grid2)(({ theme }) => ({
   paddingRight: 16,
@@ -21,7 +21,7 @@ const GridItem = styled(Grid2)(({ theme }) => ({
 
 const MobileGameList = () => {
   const router = useRouter();
-  const { arcadeBalance, refetchArcadeBal } = useBalances();
+  const { tokensBalances, refetchArcadeBal } = useTokensBalances();
   const [openBuyAT, setOpenBuyAT] = useState(false);
 
   const goToPlayOnGame = useCallback(() => {
@@ -29,24 +29,24 @@ const MobileGameList = () => {
   }, [router]);
 
   const goToPlayWENGame = useCallback(() => {
-    if (Number(arcadeBalance) > 0) {
+    if (Number(tokensBalances.AT) > 0) {
       router.push('/games/wen-game');
     } else {
       setOpenBuyAT(true);
     }
-  }, [arcadeBalance, router]);
+  }, [tokensBalances.AT, router]);
 
   const goToPlayMtGawx = useCallback(() => {
     router.push('/games/mt-gawx');
   }, [router]);
 
   const goToPlayCryptoWinter = useCallback(() => {
-    if (Number(arcadeBalance) > 0) {
+    if (Number(tokensBalances.AT) > 0) {
       router.push('/games/crypto-winter');
     } else {
       setOpenBuyAT(true);
     }
-  }, [arcadeBalance, router]);
+  }, [tokensBalances.AT, router]);
 
   return (
     <>
@@ -96,7 +96,7 @@ const MobileGameList = () => {
                 sx={{ minWidth: 80, flex: 1 }}
                 onClick={goToPlayWENGame}
               >
-                {Number(arcadeBalance) > 0 ? 'Play in Browser' : 'Buy Arcade Tokens'}
+                {Number(tokensBalances.AT) > 0 ? 'Play in Browser' : 'Buy Arcade Tokens'}
               </Button>
             </ConnectWrapper>
           }
@@ -118,7 +118,7 @@ const MobileGameList = () => {
                 sx={{ minWidth: 80, flex: 1 }}
                 onClick={goToPlayCryptoWinter}
               >
-                {Number(arcadeBalance) > 0 ? 'Play in Browser' : 'Buy Arcade Tokens'}
+                {Number(tokensBalances.AT) > 0 ? 'Play in Browser' : 'Buy Arcade Tokens'}
               </Button>
             </ConnectWrapper>
           }

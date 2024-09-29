@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { GET_ARCADE_TOKEN_BALANCE_API } from '@/constants/url';
 import { AUTH_Token } from '@/types/auth';
-import useAuth from './useAuth';
+import useAuth from '@/hooks/useAuth';
 
 /*
   ~ What it does? ~

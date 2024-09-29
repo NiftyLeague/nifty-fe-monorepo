@@ -15,7 +15,7 @@ import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlacehold
 import EmptyState from '@/components/EmptyState';
 import DegenDialog from '@/components/dialog/DegenDialog';
 import RenameDegenDialogContent from '@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent';
-import useBalances from '@/hooks/useBalances';
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 import useFetch from '@/hooks/useFetch';
 import { useProfileFavDegens } from '@/hooks/useGamerProfile';
 import useAuth from '@/hooks/useAuth';
@@ -56,22 +56,20 @@ const MyDegens = (): JSX.Element => {
     }
   }, [favsData, setFavDegens]);
 
-  const { loadingDegens, characters } = useBalances();
+  const { loadingDegens, degensBalances } = useNFTsBalances();
 
   const { data: degensData } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`);
 
-  const degens = useMemo(() => {
-    if (characters.length && degensData) {
-      const mapDegens = characters.map(character => degensData[Number(character.id)]).filter(Boolean);
-
-      return mapDegens;
+  const filteredDegens = useMemo(() => {
+    if (degensBalances.length && degensData) {
+      return degensBalances.map(degen => degensData[Number(degen.id)]).filter(Boolean);
     }
     return [];
-  }, [characters, degensData]) as Degen[];
+  }, [degensBalances, degensData]) as Degen[];
 
   const settings = {
     slidesToShow: 3,
-    adaptiveHeight: true,
+    adaptiveHeight: false, // buggy behavior with degen cards
     responsive: [
       {
         breakpoint: 1350,
@@ -149,7 +147,7 @@ const MyDegens = (): JSX.Element => {
   return (
     <>
       <SectionSlider
-        isSlider={degens.length > 0 && characters.length > 0}
+        isSlider={filteredDegens.length > 0 && degensBalances.length > 0}
         firstSection
         title="My DEGENs"
         variant="h3"
@@ -159,7 +157,7 @@ const MyDegens = (): JSX.Element => {
             View All DEGENs
           </Button>
         }
-        styles={{ mainRow: { maxHeight: 340, overflow: 'hidden' } }}
+        styles={{ mainRow: { height: 343, overflow: 'hidden' } }}
       >
         {loadingDegens ? (
           [...Array(8)].map(() => (
@@ -167,8 +165,8 @@ const MyDegens = (): JSX.Element => {
               <SkeletonDegenPlaceholder />
             </Grid2>
           ))
-        ) : degens.length && characters.length ? (
-          degens.map(degen => (
+        ) : filteredDegens.length && degensBalances.length ? (
+          filteredDegens.map(degen => (
             <Box sx={BoxDegenStyles} key={degen.id}>
               <DegenCard
                 degen={degen}
@@ -203,7 +201,7 @@ const MyDegens = (): JSX.Element => {
         onClose={() => setIsDegenModalOpen(false)}
       />
       <Dialog open={isRenameDegenModalOpen} onClose={() => setIsRenameDegenModalOpen(false)}>
-        <RenameDegenDialogContent degen={selectedDegen} />
+        <RenameDegenDialogContent degen={selectedDegen} onSuccess={() => setIsRenameDegenModalOpen(false)} />
       </Dialog>
     </>
   );

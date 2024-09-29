@@ -30,7 +30,7 @@ import { errorMsgHandler } from '@/utils/errorHandlers';
 import { formatNumberToDisplay } from '@/utils/numbers';
 import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
 import { sendEvent } from '@/utils/google-analytics';
-import useBalances from '@/hooks/useBalances';
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 import ConnectWrapper from '@/components/wrapper/ConnectWrapper';
 import DegenImage from '@/components/cards/DegenCard/DegenImage';
 import useGameAccount from '@/hooks/useGameAccount';
@@ -57,7 +57,7 @@ const classes = {
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled('div')(({ theme }) => ({
-  [`& .${classes.root}`]: {
+  [`&.${classes.root}`]: {
     '& button': {
       height: 28,
       borderRadius: '2px',
@@ -72,36 +72,36 @@ const Root = styled('div')(({ theme }) => ({
       lineHeight: 1.2,
     },
   },
-  [`& .${classes.greyText}`]: {
+  [`&.${classes.greyText}`]: {
     color: '#4C4F52',
   },
-  [`& .${classes.input}`]: {
+  [`&.${classes.input}`]: {
     padding: '8px 8px 4px 8px',
     fontSize: '12px',
     '&::placeholder': {
       fontSize: '12px',
     },
   },
-  [`& .${classes.formHelper}`]: {
+  [`&.${classes.formHelper}`]: {
     marginLeft: 0,
   },
-  [`& .${classes.inputCheck}`]: {
+  [`&.${classes.inputCheck}`]: {
     padding: 4,
     '& .MuiSvgIcon-root': {
       width: '0.75em',
       height: '0.75em',
     },
   },
-  [`& .${classes.inputCheckFormControl}`]: {
+  [`&.${classes.inputCheckFormControl}`]: {
     marginLeft: -4,
     marginRight: 0,
   },
-  [`& .${classes.successInfo}`]: {
+  [`&.${classes.successInfo}`]: {
     fontSize: '16px',
     fontWeight: 700,
     lineHeight: 1.25,
   },
-  [`& .${classes.closeBtn}`]: {
+  [`&.${classes.closeBtn}`]: {
     position: 'absolute',
     right: 12,
     top: 6,
@@ -142,7 +142,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
   const [openTOS, setOpenTOS] = useState<boolean>(false);
   const [disabledRentFor, setDisabledRentFor] = useState<boolean>(false);
   const [purchasingNFTL, setPurchasingNFTL] = useState<boolean>(false);
-  const { isDegenOwner } = useBalances();
+  const { isDegenOwner } = useNFTsBalances();
 
   const accountBalance = account?.balance ?? 0;
   const sufficientBalance = useMemo(() => accountBalance >= (degen?.price || 0), [accountBalance, degen?.price]);

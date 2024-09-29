@@ -1,15 +1,16 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { useSearchParams } from 'next/navigation';
 import { Button, Stack, Typography } from '@mui/material';
-import useBalances from '@/hooks/useBalances';
+
 import useAuth from '@/hooks/useAuth';
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 import ErrorBoundary from '@/components/wrapper/ErrorBoundary';
 import Preloader from '@/components/Preloader';
 import { DEGEN_COLLECTION_URL } from '@/constants/url';
-import Link from 'next/link';
-import dynamic from 'next/dynamic';
 
 const CharacterCreator = dynamic(() => import('./_CharacterCreator'), {
   ssr: false,
@@ -18,7 +19,7 @@ const CharacterCreator = dynamic(() => import('./_CharacterCreator'), {
 const MintPage = () => {
   const [isLoaded, setLoaded] = useState(false);
   const [progress, setProgress] = useState(0);
-  const { isDegenOwner } = useBalances();
+  const { isDegenOwner } = useNFTsBalances();
   const { isConnected, isLoggedIn, handleConnectWallet } = useAuth();
 
   const searchParams = useSearchParams();
