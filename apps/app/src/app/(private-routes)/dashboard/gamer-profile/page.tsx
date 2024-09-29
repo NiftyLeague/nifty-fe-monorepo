@@ -19,7 +19,7 @@ import BottomInfo from './_Stats/BottomInfo';
 
 import { DEGEN_BASE_API_URL } from '@/constants/url';
 import type { Degen } from '@/types/degens';
-import useBalances from '@/hooks/useBalances';
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 import { GamerProfileProvider } from '@/contexts/GamerProfileContext';
 
 const defaultValue: {
@@ -36,25 +36,31 @@ const GamerProfile = (): JSX.Element => {
   const { profile, error, loadingProfile } = useGamerProfile();
   const { address } = useAccount();
   const { avatarsAndFee } = useProfileAvatarFee();
-  const { comicsBalance, itemsBalance } = useIMXContext();
   const { data } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`);
 
-  const { characters, characterCount: degenCount } = useBalances();
+  const { comicsBalances, degenCount, degensBalances, itemsBalances } = useNFTsBalances();
 
   const filteredDegens: Degen[] = useMemo(() => {
-    if (characters.length && data) {
-      const mapDegens = characters.map(character => data[Number(character.id)]) as Degen[];
+    if (degensBalances.length && data) {
+      const mapDegens = degensBalances.map(degen => data[Number(degen.id)]) as Degen[];
       return mapDegens;
     }
     return [];
-  }, [characters, data]);
+  }, [degensBalances, data]);
 
   const filteredComics = useMemo(
-    () => comicsBalance.filter(comic => comic.balance && comic.balance > 0),
-    [comicsBalance],
+    () => comicsBalances.filter(comic => comic.balance && comic.balance > 0),
+    [comicsBalances],
   );
 
-  const filteredItems = useMemo(() => itemsBalance.filter(item => item.balance && item.balance > 0), [itemsBalance]);
+  const filteredItems = useMemo(
+    () => itemsBalances.filter(item => !item.title.includes('Key') && item.balance && item.balance > 0),
+    [itemsBalances],
+  );
+  const filteredKeys = useMemo(
+    () => itemsBalances.filter(item => item.title.includes('Key') && item.balance && item.balance > 0),
+    [itemsBalances],
+  );
 
   const renderEmptyProfile = () => {
     return (
@@ -86,10 +92,11 @@ const GamerProfile = (): JSX.Element => {
             <Stack direction="row" spacing={5}>
               <LeftInfo data={profile?.stats?.total} />
               <RightInfo
-                degenCount={degenCount}
-                rentalCount={filteredDegens.length - degenCount}
                 comicCount={filteredComics?.reduce((prev, cur) => prev + Number(cur?.balance), 0)}
+                degenCount={degenCount}
                 itemCount={filteredItems?.reduce((prev, cur) => prev + Number(cur?.balance), 0)}
+                keyCount={filteredKeys?.reduce((prev, cur) => prev + Number(cur?.balance), 0)}
+                rentalCount={filteredDegens.length - degenCount}
               />
             </Stack>
           </Stack>

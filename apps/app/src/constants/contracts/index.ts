@@ -1,4 +1,4 @@
-import type { InterfaceAbi } from 'ethers6';
+import type { Abi } from 'viem';
 import type { Network } from '@/types/web3';
 import { SEPOLIA_ID, MAINNET_ID } from '../networks';
 import DEPLOYMENTS from './deployments';
@@ -7,7 +7,7 @@ export const getDeployedContract = (chainId: Network['chainId'], contractName: s
   const deployments = DEPLOYMENTS[chainId] as {
     [contractName: string]: {
       address: `0x${string}`;
-      abi: InterfaceAbi;
+      abi: Abi;
     };
   };
   return deployments[contractName];
@@ -18,7 +18,7 @@ export const getContractAddress = (chainId: Network['chainId'], contractName: st
 };
 
 export const getContractABI = (chainId: Network['chainId'], contractName: string) => {
-  return getDeployedContract(chainId, contractName)?.abi as InterfaceAbi;
+  return getDeployedContract(chainId, contractName)?.abi as Abi;
 };
 
 // Ethereum contracts

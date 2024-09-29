@@ -1,11 +1,11 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { type AddressLike } from 'ethers6';
 import { useRouter } from 'next/navigation';
 import { Button } from '@mui/material';
 
-import { type AddressLike } from 'ethers6';
-import useIMXContext from '@/hooks/useIMXContext';
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 import useNetworkContext from '@/hooks/useNetworkContext';
 import { COMICS_BURNER_CONTRACT, MARKETPLACE_CONTRACT } from '@/constants/contracts';
 import { DEBUG } from '@/constants/index';
@@ -22,7 +22,7 @@ import ItemsGrid from './_components/items-grid';
 
 const ComicsBurner = () => {
   const router = useRouter();
-  const { itemsBalance } = useIMXContext();
+  const { itemsBalances } = useNFTsBalances();
   const { address, tx, writeContracts } = useNetworkContext();
   const [isApprovedForAll, setIsApprovedForAll] = useState(false);
   const [helpDialogOpen, setHelpDialogOpen] = useState(false);
@@ -34,10 +34,10 @@ const ComicsBurner = () => {
   const burnDisabled = burning || selectedComics.length < 1 || burnCount.every(c => !c);
 
   useEffect(() => {
-    if (itemsBalance.length) {
-      setItemsCounts(itemsBalance.map(it => it.balance || 0));
+    if (itemsBalances.length) {
+      setItemsCounts(itemsBalances.map(it => it.balance || 0));
     }
-  }, [itemsBalance]);
+  }, [itemsBalances]);
 
   useEffect(() => {
     const getAllowance = async () => {

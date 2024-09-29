@@ -10,17 +10,17 @@ import SectionSlider from '@/components/sections/SectionSlider';
 import type { Comic } from '@/types/marketplace';
 import EmptyState from '@/components/EmptyState';
 import ViewComicDialog from '@/components/dialog/ViewComicDialog';
-import useIMXContext from '@/hooks/useIMXContext';
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 import ComicPlaceholder from '@/components/cards/Skeleton/ComicPlaceholder';
 import { COMICS_PURCHASE_URL } from '@/constants/url';
 
 const MyComics = (): JSX.Element => {
   const [selectedComic, setSelectedComic] = useState<Comic | null>(null);
   const router = useRouter();
-  const { comicsBalance, comicsLoading } = useIMXContext();
+  const { comicsBalances, loadingComics } = useNFTsBalances();
   const filteredComics = useMemo(
-    () => comicsBalance.filter(comic => comic.balance && comic.balance > 0),
-    [comicsBalance],
+    () => comicsBalances.filter(comic => comic.balance && comic.balance > 0),
+    [comicsBalances],
   );
 
   const handleViewComic = (comic: Comic) => {
@@ -76,7 +76,7 @@ const MyComics = (): JSX.Element => {
           </Button>
         }
       >
-        {comicsLoading ? (
+        {loadingComics ? (
           <Box px={1}>
             <ComicPlaceholder />
           </Box>

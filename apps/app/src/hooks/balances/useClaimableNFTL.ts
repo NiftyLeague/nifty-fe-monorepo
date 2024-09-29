@@ -15,33 +15,34 @@ import useAuth from '@/hooks/useAuth';
 
   ~ How can I use? ~
 
-  const { totalAccrued, error, loading, refetch } = useClaimableNFTL([1, 2, 3, 4, 5]);
+  const { balance, error, loading, refetch } = useClaimableNFTL([1, 2, 3, 4, 5]);
 */
 
 const NFTL_CONTRACT = getDeployedContract(TARGET_NETWORK.chainId, NFTL_CONTRACT_NAME);
 
 interface NFTLClaimableState {
-  totalAccrued: number;
+  balance: number;
   error: Error | null;
   loading: boolean;
   refetch: () => void;
 }
 
-export default function useClaimableNFTL(tokenIndices: number[]): NFTLClaimableState {
+export default function useClaimableNFTL(degenTokenIndices: number[]): NFTLClaimableState {
   const { isLoggedIn } = useAuth();
   const { data, error, isLoading, refetch } = useReadContract({
     address: NFTL_CONTRACT?.address as `0x${string}`,
     abi: NFTL_CONTRACT?.abi as Abi,
+    chainId: TARGET_NETWORK.chainId,
     functionName: 'accumulatedMultiCheck',
-    args: [tokenIndices],
+    args: [degenTokenIndices],
     query: {
       staleTime: 10_000,
-      enabled: tokenIndices.length > 0 && isLoggedIn,
+      enabled: degenTokenIndices.length > 0 && isLoggedIn,
       select: data => parseFloat(formatEther(data as bigint)),
     },
   });
 
-  const totalAccrued = useMemo(() => data ?? 0, [data]);
+  const balance = useMemo(() => data ?? 0, [data]);
 
-  return { totalAccrued, error, loading: isLoading, refetch };
+  return { balance, error, loading: isLoading, refetch };
 }

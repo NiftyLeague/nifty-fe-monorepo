@@ -27,7 +27,7 @@ import type { DegenFilter } from '@/types/degenFilter';
 import type { Degen } from '@/types/degens';
 import useNetworkContext from '@/hooks/useNetworkContext';
 import DegenDialog from '@/components/dialog/DegenDialog';
-import useBalances from '@/hooks/useBalances';
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 import DegensTopNav from '@/components/extended/DegensTopNav';
 import { HYDRAS } from '@/constants/hydras';
 
@@ -75,7 +75,7 @@ const AllDegensPage = (): JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [!!data]);
 
-  const { isDegenOwner } = useBalances();
+  const { isDegenOwner } = useNFTsBalances();
 
   const theme = useTheme();
   const isScreenLg = useMediaQuery(theme.breakpoints.between('lg', 'xl'));

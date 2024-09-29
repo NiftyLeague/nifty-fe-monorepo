@@ -10,12 +10,13 @@ const commonValue = {
   isLoading: false,
 };
 interface RightInfoProps {
-  degenCount: number;
-  rentalCount: number;
   comicCount: number;
+  degenCount: number;
   itemCount: number;
+  keyCount: number;
+  rentalCount: number;
 }
-const RightInfo = ({ degenCount, rentalCount, comicCount, itemCount }: RightInfoProps): JSX.Element => {
+const RightInfo = ({ comicCount, degenCount, itemCount, keyCount, rentalCount }: RightInfoProps): JSX.Element => {
   const { isLoadingDegens, isLoadingComics, isLoadingItems } = useGamerProfileContext();
   const rightDataMapper: {
     label: string;
@@ -44,6 +45,11 @@ const RightInfo = ({ degenCount, rentalCount, comicCount, itemCount }: RightInfo
         value: itemCount,
         isLoading: isLoadingItems,
       },
+      {
+        label: 'Keys Owned',
+        value: keyCount,
+        isLoading: isLoadingItems,
+      },
       // {
       //   label: 'Pets Owned',
       //   ...commonValue,
@@ -57,7 +63,7 @@ const RightInfo = ({ degenCount, rentalCount, comicCount, itemCount }: RightInfo
       //   ...commonValue,
       // },
     ];
-  }, [comicCount, degenCount, isLoadingComics, isLoadingDegens, isLoadingItems, itemCount]);
+  }, [comicCount, degenCount, isLoadingComics, isLoadingDegens, isLoadingItems, itemCount, keyCount]);
 
   return (
     <Stack flex={1} spacing={1}>
