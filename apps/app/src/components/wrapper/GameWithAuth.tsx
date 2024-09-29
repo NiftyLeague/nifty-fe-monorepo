@@ -7,7 +7,7 @@ import Unity, { UnityContext } from 'react-unity-webgl';
 import { Box, Button, Stack } from '@mui/material';
 import { useAccount } from 'wagmi';
 
-import useBalances from '@/hooks/useBalances';
+import useTokensBalances from '@/hooks/balances/useTokensBalances';
 // import useFetch from '@/hooks/useFetch';
 import { NETWORK_NAME, TARGET_NETWORK } from '@/constants/networks';
 import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
@@ -31,7 +31,7 @@ const Game = ({ unityContext, arcadeTokenRequired = false }: GameProps) => {
   const { authToken } = useAuth();
   const pathname = usePathname();
   const { address } = useAccount();
-  const { arcadeBalance, loadingArcadeBal, refetchArcadeBal } = useBalances();
+  const { tokensBalances, loadingArcadeBal, refetchArcadeBal } = useTokensBalances();
   const authMsg = `true,${address || '0x0'},Vitalik,${authToken}`;
   const authCallback = useRef<null | ((authMsg: string) => void)>();
   const [isLoaded, setLoaded] = useState(false);
@@ -110,7 +110,7 @@ const Game = ({ unityContext, arcadeTokenRequired = false }: GameProps) => {
     return <></>;
   }
 
-  if (arcadeTokenRequired && Number(arcadeBalance) === 0) {
+  if (arcadeTokenRequired && Number(tokensBalances.AT) === 0) {
     return <ArcadeTokensRequired refetchArcadeBal={refetchArcadeBal} />;
   }
 

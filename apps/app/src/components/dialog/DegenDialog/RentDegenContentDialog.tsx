@@ -30,7 +30,7 @@ import { errorMsgHandler } from '@/utils/errorHandlers';
 import { formatNumberToDisplay } from '@/utils/numbers';
 import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
 import { sendEvent } from '@/utils/google-analytics';
-import useBalances from '@/hooks/useBalances';
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 import ConnectWrapper from '@/components/wrapper/ConnectWrapper';
 import DegenImage from '@/components/cards/DegenCard/DegenImage';
 import useGameAccount from '@/hooks/useGameAccount';
@@ -142,7 +142,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
   const [openTOS, setOpenTOS] = useState<boolean>(false);
   const [disabledRentFor, setDisabledRentFor] = useState<boolean>(false);
   const [purchasingNFTL, setPurchasingNFTL] = useState<boolean>(false);
-  const { isDegenOwner } = useBalances();
+  const { isDegenOwner } = useNFTsBalances();
 
   const accountBalance = account?.balance ?? 0;
   const sufficientBalance = useMemo(() => accountBalance >= (degen?.price || 0), [accountBalance, degen?.price]);

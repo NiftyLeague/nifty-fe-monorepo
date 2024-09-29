@@ -14,9 +14,9 @@ import CircleIcon from '@mui/icons-material/Circle';
 import { COW_PROTOCOL_URL } from '@/constants/url';
 import { formatNumberToDisplay, formatNumberToDisplay2 } from '@/utils/numbers';
 import { TARGET_NETWORK } from '@/constants/networks';
-import useBalances from '@/hooks/useBalances';
 import useNetworkContext from '@/hooks/useNetworkContext';
-import useEtherBalance from '@/hooks/useEtherBalance';
+import useTokensBalances from '@/hooks/balances/useTokensBalances';
+import useEtherBalance from '@/hooks/balances/useEtherBalance';
 import useGameAccount from '@/hooks/useGameAccount';
 import useImportNFTLToWallet from '@/hooks/useImportNFTLToWallet';
 import useRateEtherToNFTL from '@/hooks/useRateEtherToNFTL';
@@ -62,7 +62,7 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
   const { balance: etherBalance } = useEtherBalance();
   const { rate: rateEtherToNftl, refetch: refetchRateEtherToNftl } = useRateEtherToNFTL();
   const { handleImportNFTLToWallet } = useImportNFTLToWallet();
-  const { userNFTLBalance, refreshNFTLBalance } = useBalances();
+  const { refreshNFTLBalance } = useTokensBalances();
 
   const [inputEthAmount, setInputEthAmount] = useState<string>('');
   const [inputNftlAmount, setInputNftlAmount] = useState<string>('');

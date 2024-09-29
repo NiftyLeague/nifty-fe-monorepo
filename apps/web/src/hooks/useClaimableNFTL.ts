@@ -7,12 +7,12 @@ import { publicClient } from '@/lib/viemClient';
 const NFTL_CONTRACT = CONTRACTS.NFTLToken;
 
 interface NFTLClaimableState {
-  totalAccrued: number;
+  balance: number;
   loading: boolean;
 }
 
 export default function useClaimableNFTL(tokenId: number | string): NFTLClaimableState {
-  const [totalAccrued, setTotalAccrued] = useState(0);
+  const [balance, setTotalBalance] = useState(0);
 
   useEffect(() => {
     const readContract = async () => {
@@ -23,7 +23,7 @@ export default function useClaimableNFTL(tokenId: number | string): NFTLClaimabl
           functionName: 'accumulated',
           args: [tokenId],
         });
-        setTotalAccrued(data ? parseFloat(formatEther(data as bigint)) : 0);
+        setTotalBalance(data ? parseFloat(formatEther(data as bigint)) : 0);
       } catch (e) {
         const error = e as GetBlockNumberErrorType;
         console.error(error);
@@ -32,5 +32,5 @@ export default function useClaimableNFTL(tokenId: number | string): NFTLClaimabl
     if (tokenId) readContract();
   }, [tokenId]);
 
-  return { totalAccrued, loading: false };
+  return { balance, loading: false };
 }

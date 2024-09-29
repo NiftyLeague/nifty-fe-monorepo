@@ -3,11 +3,11 @@
 import { Skeleton, Stack, Typography } from '@mui/material';
 
 import { formatNumberToDisplay } from '@/utils/numbers';
-import useBalances from '@/hooks/useBalances';
+import useTokensBalances from '@/hooks/balances/useTokensBalances';
 import SectionTitle from '@/components/sections/SectionTitle';
 
-const WalletBalance = (): JSX.Element => {
-  const { loadingNFTLBal, userNFTLBalance } = useBalances();
+const TitleSection = (): JSX.Element => {
+  const { loadingNFTLBal, tokensBalances } = useTokensBalances();
   return (
     <SectionTitle
       firstSection
@@ -18,7 +18,7 @@ const WalletBalance = (): JSX.Element => {
             <Skeleton variant="rectangular" animation="wave" width={120} height={40} />
           ) : (
             <Typography variant="body1" fontWeight="bold">
-              NFTL in Wallet: {formatNumberToDisplay(userNFTLBalance)}
+              NFTL in Wallet: {formatNumberToDisplay(tokensBalances.NFTL.eth + tokensBalances.NFTL.imx)}
             </Typography>
           )}
         </Stack>
@@ -29,4 +29,4 @@ const WalletBalance = (): JSX.Element => {
   );
 };
 
-export default WalletBalance;
+export default TitleSection;
