@@ -24,6 +24,6 @@
   },
   "devDependencies": {
     "@types/gtag.js": "^0.0.20",
-    "@types/jquery": "^3.5.30"
+    "@types/jquery": "^3.5.31"
   }
 }
