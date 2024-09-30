@@ -1,10 +1,10 @@
 ---
 id: security
 title: Security Policy
-sidebar_position: 5
+sidebar_position: 6
 ---
 
-## Reporting a Vulnerability
+### Reporting a Vulnerability
 
 If there are any vulnerabilities in **Nifty League repositories**, don't hesitate to _report them_.
 
