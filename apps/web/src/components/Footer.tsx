@@ -45,7 +45,8 @@ export default function Footer({ classes }: { classes?: { footer?: string } }) {
             <div className="px-0 pt-md-0 pt-4">
               <div className="d-flex flex-column m-0 p-0 position-relative">
                 {/* <Link href="/team">Team</Link> */}
-                <Link href="/careers">Careers</Link>
+                {/* <Link href="/careers">Careers</Link> */}
+                <Link href="/tally">Nifty DAO {!mobile ? <ExternalIcon /> : null}</Link>
                 <Link href="/docs" className="mt-2">
                   Docs {!mobile ? <ExternalIcon /> : null}
                 </Link>

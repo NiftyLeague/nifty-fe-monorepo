@@ -39,7 +39,7 @@ const Navbar = () => {
               <ul className="navbar-nav">
                 <li className="nav-item dropdown">
                   <a
-                    className="nav-link dropdown-toggle true mx-3"
+                    className="nav-link dropdown-toggle true mx-2"
                     id="navbarOverviewDropdown"
                     role="button"
                     data-bs-toggle="dropdown"
@@ -92,20 +92,20 @@ const Navbar = () => {
                   })}
                 >
                   <Link href="/roadmap" legacyBehavior>
-                    <a className="nav-link mx-3">Roadmap</a>
+                    <a className="nav-link mx-2">Roadmap</a>
                   </Link>
                 </li>
                 <li className="nav-item dropdown">
                   <a
-                    className="nav-link dropdown-toggle true mx-3"
-                    id="navbarLearnDropdown"
+                    className="nav-link dropdown-toggle true mx-2"
+                    id="navbarAboutDropdown"
                     role="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
                     About
                   </a>
-                  <ul className="dropdown-menu py-2" aria-labelledby="navbarLearnDropdown">
+                  <ul className="dropdown-menu py-2" aria-labelledby="navbarAboutDropdown">
                     <li
                       className={cn('nav-item', {
                         ['active']: pathname.includes('overview'),
@@ -116,9 +116,7 @@ const Navbar = () => {
                       </Link>
                     </li>
                     {/* <li
-                      className={cn('nav-item', {
-                        ['active']: pathname.includes('team'),
-                      })}
+                      className={cn('nav-item', { ['active']: pathname.includes('team') })}
                     >
                       <Link href="/team" legacyBehavior>
                         <a className="dropdown-item">Team</a>
@@ -180,6 +178,40 @@ const Navbar = () => {
                     </li>
                   </ul>
                 </li>
+                <li className="nav-item dropdown">
+                  <a
+                    className="nav-link dropdown-toggle true ms-2 me-3"
+                    id="navbarDaoDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    DAO
+                  </a>
+                  <ul className="dropdown-menu py-2" aria-labelledby="navbarDaoDropdown">
+                    <li className="nav-item">
+                      <Link href="/docs/overview/nifty-dao/about" legacyBehavior>
+                        <a className="dropdown-item">
+                          Docs <ExternalIcon />
+                        </a>
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link href="/snapshot" legacyBehavior>
+                        <a className="dropdown-item" target="_blank" rel="noreferrer">
+                          Snapshot <ExternalIcon />
+                        </a>
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link href="/tally" legacyBehavior>
+                        <a className="dropdown-item" target="_blank" rel="noreferrer">
+                          Tally <ExternalIcon />
+                        </a>
+                      </Link>
+                    </li>
+                  </ul>
+                </li>
               </ul>
               <a href="https://app.niftyleague.com/" target="_blank" rel="noreferrer" className="launch-app-link">
                 <button className="btn theme-btn-primary launch-app-btn">Launch App</button>
@@ -235,18 +267,37 @@ const MobileNav = () => {
     {
       href: '/docs',
       name: 'Docs',
+      external: true,
+    },
+    {
+      href: '/tally',
+      name: 'DAO - Tally',
+      external: true,
+    },
+    {
+      href: '/snapshot',
+      name: 'DAO - Snapshot',
+      external: true,
     },
     {
       href: '/blog',
       name: 'Blog',
+      external: true,
     },
     // {
     //   href: 'https://maddies.co/official/nifty-league/',
     //   name: 'Merch',
+    //   external: true,
     // },
     {
       href: '/shop',
       name: 'Merch',
+      external: true,
+    },
+    {
+      href: '/contact',
+      name: 'Contact',
+      external: true,
     },
   ];
   const handleUncheck = () => {
@@ -257,6 +308,11 @@ const MobileNav = () => {
 
   const handelChangeToggleStatus = () => {
     setToggled(!toggled);
+    if (!toggled) {
+      document.documentElement.classList.add('scrollDisabled');
+    } else {
+      document.documentElement.classList.remove('scrollDisabled');
+    }
   };
 
   return (
@@ -281,13 +337,16 @@ const MobileNav = () => {
         <button className="btn theme-btn-primary launch-app-btn my-2 ms-auto">Launch App</button>
       </a>
 
-      <nav>
+      <nav style={{ overflow: 'scroll', height: '104%' }}>
         <ul>
           {linkList.map(item => {
             return (
               <li key={item.href} onClick={handleUncheck} className="mb-3">
                 <Link href={item.href} legacyBehavior>
-                  <a>{item.name}</a>
+                  <a>
+                    {item.name}
+                    {item.external ? <ExternalIcon /> : ''}
+                  </a>
                 </Link>
               </li>
             );
