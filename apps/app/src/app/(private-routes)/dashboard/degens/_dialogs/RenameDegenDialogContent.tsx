@@ -1,26 +1,32 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
-import { parseEther, type AddressLike } from 'ethers6';
+import { useCallback, useState } from 'react';
+import { parseEther } from 'ethers6';
 import {
-  DialogTitle,
-  DialogContent,
-  Stack,
-  CardMedia,
-  Typography,
-  TextField,
-  DialogActions,
   Button,
+  CardMedia,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Stack,
+  TextField,
+  Typography,
 } from '@mui/material';
 
 import useNetworkContext from '@/hooks/useNetworkContext';
+import useNFTLAllowance from '@/hooks/useNFTLAllowance';
 import useTokensBalances from '@/hooks/balances/useTokensBalances';
 import { getErrorForName } from '@/utils/name';
 import { submitTxWithGasEstimate } from '@/utils/bnc-notify';
-import { NFTL_CONTRACT, DEGEN_CONTRACT } from '@/constants/contracts';
+import { getDeployedContract, NFTL_CONTRACT, DEGEN_CONTRACT } from '@/constants/contracts';
+import { TARGET_NETWORK } from '@/constants/networks';
 import { DEBUG } from '@/constants/index';
 import type { Degen } from '@/types/degens';
 import RenameStepper from './RenameStepper';
+
+const { address: DEGEN_CONTRACT_ADDRESS } = getDeployedContract(TARGET_NETWORK.chainId, DEGEN_CONTRACT) as {
+  address: `0x${string}`;
+};
 
 interface Props {
   degen?: Degen;
@@ -28,31 +34,15 @@ interface Props {
 }
 
 const RenameDegenDialogContent = ({ degen, onSuccess }: Props): JSX.Element => {
-  const { address, tx, writeContracts } = useNetworkContext();
+  const { tx, writeContracts } = useNetworkContext();
   const { tokensBalances } = useTokensBalances();
   const [input, setInput] = useState('');
   const [error, setError] = useState('');
-  const [allowance, setAllowance] = useState<bigint>(0n);
+  const { allowance, refetch: refetchAllowance } = useNFTLAllowance(DEGEN_CONTRACT_ADDRESS);
   const [isLoadingRename, setLoadingRename] = useState(false);
   const [renameSuccess, setRenameSuccess] = useState(false);
-  const insufficientAllowance = allowance < 1000n;
+  const insufficientAllowance = allowance < 1000;
   const insufficientBalance = tokensBalances.NFTL.eth < 1000;
-
-  useEffect(() => {
-    const getAllowance = async () => {
-      const degenContract = writeContracts[DEGEN_CONTRACT];
-      const nftl = writeContracts[NFTL_CONTRACT];
-      if (degenContract && nftl) {
-        const DEGENAddress = await degenContract.getAddress();
-        const allowanceBN = (await nftl.allowance(address as AddressLike, DEGENAddress)) as bigint;
-        setAllowance(allowanceBN);
-      }
-    };
-    setRenameSuccess(false);
-    if (writeContracts && writeContracts[NFTL_CONTRACT] && writeContracts[DEGEN_CONTRACT])
-      // eslint-disable-next-line no-void
-      void getAllowance();
-  }, [address, writeContracts]);
 
   const validateName = (value: string) => {
     setInput(value);
@@ -79,7 +69,7 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): JSX.Element => {
         if (DEBUG) console.log('Current allowance too low');
         const DEGENAddress = await degenContract.getAddress();
         await tx(nftl.increaseAllowance(DEGENAddress, parseEther('100000')));
-        setAllowance(1000n);
+        refetchAllowance();
       }
       const args = [parseInt(degen?.id || '', 10), input];
       const result = await submitTxWithGasEstimate(tx, degenContract, 'changeName', args);
@@ -89,7 +79,17 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): JSX.Element => {
       }
     }
     setLoadingRename(false);
-  }, [degen, error, input, insufficientAllowance, insufficientBalance, onSuccess, tx, writeContracts]);
+  }, [
+    degen,
+    error,
+    input,
+    insufficientAllowance,
+    insufficientBalance,
+    onSuccess,
+    refetchAllowance,
+    tx,
+    writeContracts,
+  ]);
 
   return (
     <>
