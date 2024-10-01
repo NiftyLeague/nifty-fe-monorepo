@@ -28,7 +28,7 @@ const useUnityEventHandlers = ({ address, authToken, addEventListener, removeEve
   );
 
   const getConfiguration = useCallback((e: CustomEvent<{ callback: (network: string) => void }>) => {
-    const networkName = process.env.VERCEL_ENV === 'production' ? 'mainnet' : 'sepolia';
+    const networkName = process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' ? 'mainnet' : 'sepolia';
     const version = process.env.NEXT_PUBLIC_SUBGRAPH_VERSION;
     // eslint-disable-next-line no-console
     console.log('getConfiguration', `${networkName},${version ?? ''}`);

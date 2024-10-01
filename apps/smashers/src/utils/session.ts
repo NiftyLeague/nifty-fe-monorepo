@@ -9,7 +9,7 @@ export const sessionOptions: IronSessionOptions = {
   cookieName: 'iron-session/playfab',
   // secure: true should be used in production (HTTPS) but can't be used in development (HTTP)
   cookieOptions: {
-    secure: process.env.VERCEL_ENV === 'production' || process.env.VERCEL_ENV === 'preview',
+    secure: process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' || process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview',
   },
 };
 
