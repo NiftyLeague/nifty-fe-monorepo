@@ -1,55 +1,49 @@
 'use client';
 
-import { useCallback, useState, useEffect } from 'react';
+import { useMemo } from 'react';
+import { useAccount, useReadContract } from 'wagmi';
 import { formatEther } from 'ethers6';
-import { useReadContract } from 'wagmi';
+import type { AddressLike } from 'ethers6';
+import type { Abi } from 'viem';
+
+import useAuth from '@/hooks/useAuth';
 import { TARGET_NETWORK } from '@/constants/networks';
 import { getDeployedContract, NFTL_CONTRACT as NFTL_CONTRACT_NAME } from '@/constants/contracts';
-
-import type { Abi } from 'viem';
+import type { UseReadContractParams } from '@/types/web3';
 
 const NFTL_CONTRACT = getDeployedContract(TARGET_NETWORK.chainId, NFTL_CONTRACT_NAME);
 
-interface NFTLAllowanceState {
-  allowance: number;
-  loading: boolean;
-  refetch: () => void;
-}
+type Allowance = {
+  args: [AddressLike, AddressLike];
+  result: bigint;
+};
+
+type NFTLAllowanceState = { allowance: number; loading: boolean; refetch: () => void };
 
 export default function useNFTLAllowance(contractAddress: `0x${string}`): NFTLAllowanceState {
-  const [allowance, setAllowance] = useState(0);
-  const {
-    data,
-    isLoading: loading,
-    refetch: refetchBal,
-  } = useReadContract({
+  const { isLoggedIn } = useAuth();
+  const { address, isConnected } = useAccount();
+
+  const { data, isLoading, refetch } = useReadContract<
+    UseReadContractParams<Allowance>['abi'],
+    UseReadContractParams<Allowance>['functionName'],
+    UseReadContractParams<Allowance>['args'],
+    UseReadContractParams<Allowance>['config'],
+    UseReadContractParams<Allowance>['result']
+  >({
     address: NFTL_CONTRACT?.address as `0x${string}`,
     abi: NFTL_CONTRACT?.abi as Abi,
     chainId: TARGET_NETWORK.chainId,
     functionName: 'allowance',
-    args: [contractAddress],
+    args: [address, contractAddress],
     query: {
       staleTime: 10_000,
-      enabled: contractAddress.length > 26,
-      select: data => parseFloat(formatEther(data as bigint)),
+      enabled: isLoggedIn && isConnected && contractAddress.length > 0,
     },
   });
 
-  const updateBal = useCallback(
-    (data?: number) => {
-      if (data && data !== allowance) setAllowance(data);
-    },
-    [allowance],
-  );
+  // Convert the allowance from wei bigint to ether number
+  const allowance = useMemo(() => (data ? parseFloat(formatEther(data)) : 0), [data]);
 
-  useEffect(() => {
-    updateBal(data);
-  }, [data, updateBal]);
-
-  const refetch = useCallback(async () => {
-    const { data } = await refetchBal();
-    updateBal(data);
-  }, [updateBal, refetchBal]);
-
-  return { allowance, loading, refetch };
+  return { allowance, loading: isLoading, refetch };
 }

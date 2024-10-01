@@ -24,7 +24,7 @@ type LocalStorageContextType = {
   favDegens?: string[];
   setFavDegens: Dispatch<SetStateAction<string[] | undefined>>;
   // FAV DEGENS
-  agrementAccepted?: AgreementAccepted;
+  agreementAccepted?: AgreementAccepted;
   setAgreementAccepted: Dispatch<SetStateAction<AgreementAccepted>>;
   // UTILITY
   setAllAuth: (a: AUTH_Token, u: UUID_Token, n: Nonce, i?: USER_ID) => void;
@@ -38,14 +38,14 @@ const initialState: {
   nonce: Nonce;
   userId: USER_ID;
   favDegens: string[];
-  agrementAccepted: AgreementAccepted;
+  agreementAccepted: AgreementAccepted;
 } = {
   authToken: undefined,
   uuidToken: createUUID(),
   nonce: createNonce(),
   userId: undefined,
   favDegens: [],
-  agrementAccepted: 'FALSE',
+  agreementAccepted: 'FALSE',
 };
 
 export const LocalStorageProvider = ({ children }: PropsWithChildren) => {
@@ -57,9 +57,9 @@ export const LocalStorageProvider = ({ children }: PropsWithChildren) => {
   const [nonce, setNonce] = useLocalStorage<Nonce>('nonce', initialState.nonce);
   const [userId, setUserId, clearUserId] = useLocalStorage<USER_ID>('user-id', initialState.userId);
   const [favDegens, setFavDegens] = useLocalStorage<string[]>('FAV_DEGENS', initialState.favDegens);
-  const [agrementAccepted, setAgreementAccepted] = useLocalStorage<AgreementAccepted>(
+  const [agreementAccepted, setAgreementAccepted] = useLocalStorage<AgreementAccepted>(
     'aggreement-accepted',
-    initialState.agrementAccepted,
+    initialState.agreementAccepted,
   );
 
   const setAllAuth = useCallback(
@@ -92,7 +92,7 @@ export const LocalStorageProvider = ({ children }: PropsWithChildren) => {
         setUserId,
         favDegens,
         setFavDegens,
-        agrementAccepted,
+        agreementAccepted,
         setAgreementAccepted,
         setAllAuth,
         clearAllAuth,
