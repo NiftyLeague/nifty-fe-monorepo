@@ -22,7 +22,7 @@ export interface Context {
 
 const CONTEXT_INITIAL_STATE: Context = {
   address: undefined,
-  imxChainId: process.env.VERCEL_ENV === 'production' ? immutableZkEvm.id : immutableZkEvmTestnet.id,
+  imxChainId: process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' ? immutableZkEvm.id : immutableZkEvmTestnet.id,
   imxContracts: {} as Contracts,
   imxSigner: undefined,
   passportProvider: undefined,
