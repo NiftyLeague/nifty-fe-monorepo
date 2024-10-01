@@ -8,7 +8,8 @@ import { useTheme } from '@nl/theme';
 import { formatNumberToDisplay } from '@/utils/numbers';
 import useTokensBalances from '@/hooks/balances/useTokensBalances';
 import HoverDataCard from '@/components/cards/HoverDataCard';
-import { GOVERNANCE_PORTAL_URL, IMX_SQUID_BRIDGE_URL, SNAPSHOT_PORTAL_URL } from '@/constants/url';
+import { GOVERNANCE_PORTAL_URL, SNAPSHOT_PORTAL_URL } from '@/constants/url';
+import BridgeButtonDialog from './dialogs/BridgeButtonDialog';
 
 const WalletBalances = (): JSX.Element => {
   const theme = useTheme();
@@ -66,11 +67,7 @@ const WalletBalances = (): JSX.Element => {
               <IconButton disabled color="primary" component="span" sx={{ position: 'absolute', top: -2, right: -2 }}>
                 <Image src="/icons/eth.svg" alt="Ethereum" width={22} height={22} />
               </IconButton>
-              <Link href={IMX_SQUID_BRIDGE_URL} target="_blank" rel="noreferrer" style={{ width: '100%' }}>
-                <Button fullWidth variant="outlined">
-                  Bridge to IMX
-                </Button>
-              </Link>
+              <BridgeButtonDialog balance={tokensBalances.NFTL.eth} loading={loadingNFTLBal} />
             </>
           }
         />
