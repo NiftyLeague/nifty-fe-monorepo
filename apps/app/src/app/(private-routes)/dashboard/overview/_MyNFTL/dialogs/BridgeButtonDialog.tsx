@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useContext, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { NumericFormat } from 'react-number-format';
+import { parseEther } from 'ethers6';
 
 import {
   Alert,
@@ -21,12 +22,18 @@ import {
 } from '@mui/material';
 import type { Theme } from '@mui/material/styles';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { Dialog, DialogContent, DialogContext, DialogTrigger } from '@/components/dialog';
 
+import { bridgeNFTL, increaseBridgeAllowance } from '@/utils/interchainTokenService';
 import { formatNumberToDisplay } from '@/utils/numbers';
-import TermsOfServiceDialog from '@/components/dialog/TermsOfServiceDialog';
-import useLocalStorageContext from '@/hooks/useLocalStorageContext';
 import { IMX_SQUID_BRIDGE_URL } from '@/constants/url';
+import { INTERCHAIN_TOKEN_SERVICE_ADDRESS } from '@/constants/contracts';
+import useIMXContext from '@/hooks/useIMXContext';
+import useLocalStorageContext from '@/hooks/useLocalStorageContext';
+import useNetworkContext from '@/hooks/useNetworkContext';
+import useNFTLAllowance from '@/hooks/useNFTLAllowance';
+
+import { Dialog, DialogContent, DialogContext, DialogTrigger } from '@/components/dialog';
+import TermsOfServiceDialog from '@/components/dialog/TermsOfServiceDialog';
 import BridgeSuccess from './BridgeSuccess';
 
 type BridgeFormProps = { balance: number; onBridgeSuccess: () => void };
@@ -35,11 +42,21 @@ type IFormInput = { amountSelected: number; amountInput: string; isCheckedTerm: 
 const AMOUNT_SELECTS: number[] = [25, 50, 75, 100];
 
 export const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): JSX.Element => {
-  const [bridgeAmount, setBridgeAmount] = useState(0);
-  const [openTOS, setOpenTOS] = useState<boolean>(false);
   const { agreementAccepted, setAgreementAccepted } = useLocalStorageContext();
-  const [loading, setLoading] = useState(false);
+  const { address, writeContracts } = useNetworkContext();
+  const { imxChainId } = useIMXContext();
   const [, setIsOpen] = useContext(DialogContext);
+
+  const [bridgeAmount, setBridgeAmount] = useState<number>(0);
+  const [openTOS, setOpenTOS] = useState<boolean>(false);
+  const [allowPending, setAllowPending] = useState<boolean>(false);
+  const [bridgePending, setBridgePending] = useState<boolean>(false);
+  const {
+    allowance,
+    loading: loadingAllowance,
+    refetch: refetchAllowance,
+  } = useNFTLAllowance(INTERCHAIN_TOKEN_SERVICE_ADDRESS);
+
   const {
     handleSubmit,
     control,
@@ -60,29 +77,48 @@ export const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): JSX.E
   });
 
   const resetForm = () => {
-    setLoading(false);
+    setAllowPending(false);
+    setBridgePending(false);
     reset();
     setBridgeAmount(0);
     setIsOpen(false);
   };
 
+  const handleIncreaseAllowance = async () => {
+    if (!address) return;
+    const destinationChainId = imxChainId;
+    const bn = parseEther(bridgeAmount.toString());
+    await increaseBridgeAllowance(writeContracts, address, destinationChainId, bn);
+    refetchAllowance();
+    return;
+  };
+
+  const handleBridgeNFTL = async () => {
+    if (!address) return null;
+    const destinationChainId = imxChainId;
+    const bn = parseEther(bridgeAmount.toString());
+    const txReceipt = await bridgeNFTL(writeContracts, address, destinationChainId, bn);
+    return txReceipt;
+  };
+
   const onSubmit: SubmitHandler<IFormInput> = async data => {
     if (bridgeAmount === 0) {
-      setError('amountInput', {
-        type: 'custom',
-        message: 'Please enter the amount you like to withdraw.',
-      });
+      setError('amountInput', { type: 'custom', message: 'Please enter the amount you like to withdraw.' });
       return;
     }
-    setLoading(true);
-    // const { error } = await onWithdrawEarnings(bridgeAmount);
-    const { error } = { error: { message: '' } };
-    if (error?.message) {
-      setError('amountInput', {
-        type: 'custom',
-        message: error.message.replaceAll('"', ''),
-      });
-      setLoading(false);
+    // Handle increase allowance if needed
+    if (allowance < bridgeAmount) {
+      setAllowPending(true);
+      await handleIncreaseAllowance();
+      setTimeout(() => setAllowPending(false), 500);
+      return;
+    }
+    // Handle bridge NFTL to Immutable
+    setBridgePending(true);
+    const txReceipt = await handleBridgeNFTL();
+    if (!txReceipt || txReceipt.status === 0) {
+      setError('amountInput', { type: 'custom', message: 'Failed to bridge NFTL. Please try again.' });
+      setBridgePending(false);
       return;
     }
     onBridgeSuccess();
@@ -110,8 +146,8 @@ export const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): JSX.E
           <Image src="/icons/axelar.svg" alt="Axelar" width={126} height={30} />
         </Typography>
         <Alert severity="info">
-          <strong>Please Note:</strong> Axelar bridge transactions minimize fees but take 20 minutes to process. If you
-          need your funds immediately you should check-out the{' '}
+          <strong>Note:</strong> The Axelar bridge minimizes fees but takes 20 minutes to process. <br />
+          If you need your funds immediately use the{' '}
           <Link
             href={IMX_SQUID_BRIDGE_URL}
             target="_blank"
@@ -119,14 +155,13 @@ export const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): JSX.E
             color="secondary"
             style={{ fontWeight: 800 }}
           >
-            Immutable zkEVM Squid Bridge
+            Squid Bridge
           </Link>{' '}
           instead.
         </Alert>
-        <Typography variant="h4">NFTL Wallet Balance on Ethereum:</Typography>
         <Typography variant="h2" sx={{ opacity: 0.7 }}>
-          {formatNumberToDisplay(balance)}
-          <Typography variant="body1">NFTL Available to Bridge</Typography>
+          {formatNumberToDisplay(balance)} NFTL
+          <Typography variant="body1">Balance on Ethereum available to bridge</Typography>
         </Typography>
         <Typography variant="h4">How much would you like to bridge?</Typography>
         <Controller
@@ -160,7 +195,7 @@ export const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): JSX.E
           )}
         />
 
-        <Typography variant="h4">or enter amount manually</Typography>
+        <Typography variant="h4">OR - Enter Amount Manually</Typography>
 
         <Box sx={{ width: '100%', '&>div': { width: '80%' } }}>
           <Controller
@@ -201,13 +236,14 @@ export const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): JSX.E
           name="isCheckedTerm"
           control={control}
           render={({ field }) => (
-            <FormGroup>
+            <FormGroup sx={{ width: '100%' }}>
               <FormControlLabel
                 sx={{ m: 0, justifyContent: 'center' }}
                 control={
                   <Checkbox
                     {...field}
                     checked={field.value}
+                    sx={{ paddingLeft: 0 }}
                     onChange={e => {
                       field.onChange(e);
                       setAgreementAccepted(e.target.checked ? 'ACCEPTED' : 'FALSE');
@@ -215,12 +251,12 @@ export const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): JSX.E
                   />
                 }
                 label={
-                  <Typography textAlign="left" variant="body1" sx={{ opacity: 0.7 }}>
+                  <Typography variant="body1" align="left" sx={{ opacity: 0.7, width: '100%' }}>
                     I have read the
                     <Link sx={{ mx: '4px', fontWeight: 800 }} color="textPrimary" onClick={openTOSDialog}>
                       terms &amp; conditions
                     </Link>
-                    regarding transactions.
+                    regarding bridge transactions.
                   </Typography>
                 }
               />
@@ -229,16 +265,33 @@ export const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): JSX.E
         />
         <TermsOfServiceDialog open={openTOS} onClose={handleTOSDialogClose} />
         {errors.amountInput && <Alert severity="error">{errors.amountInput.message}</Alert>}
+        <Typography variant="h4" align="center" sx={{ width: '100%' }}>
+          Step 1:
+        </Typography>
         <LoadingButton
           size="large"
           type="submit"
           variant="contained"
           fullWidth
-          loading={loading}
-          disabled={!getValues('isCheckedTerm') || bridgeAmount === 0}
+          loading={loadingAllowance || allowPending}
+          disabled={!getValues('isCheckedTerm') || bridgeAmount === 0 || allowance >= bridgeAmount}
           sx={{ textTransform: 'none' }}
         >
-          Bridge {bridgeAmount !== 0 ? formatNumberToDisplay(bridgeAmount) : ''} NFTL to Immutable zkEVM
+          Increase allowance to allow the bridge to transfer your NFTL
+        </LoadingButton>
+        <Typography variant="h4" align="center" sx={{ width: '100%' }}>
+          Step 2:
+        </Typography>
+        <LoadingButton
+          size="large"
+          type="submit"
+          variant="contained"
+          fullWidth
+          loading={bridgePending}
+          disabled={!getValues('isCheckedTerm') || bridgeAmount === 0 || allowance < bridgeAmount}
+          sx={{ textTransform: 'none' }}
+        >
+          Bridge {bridgeAmount !== 0 ? formatNumberToDisplay(Number(bridgeAmount)) : ''} NFTL to Immutable zkEVM
         </LoadingButton>
       </Stack>
     </form>
@@ -250,7 +303,7 @@ type BridgeButtonDialogProps = { balance: number; loading: boolean };
 const BridgeButtonDialog = ({ balance, loading }: BridgeButtonDialogProps) => {
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
 
-  const onCloseBridgeDialog = () => {};
+  const onCloseBridgeDialog = () => {}; // handle actions if needed
 
   const onBridgeSuccess = () => setSuccessDialogOpen(true);
 
