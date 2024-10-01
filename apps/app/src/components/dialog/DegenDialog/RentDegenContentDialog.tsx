@@ -130,8 +130,8 @@ export interface RentDegenContentDialogProps {
 const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps) => {
   const router = useRouter();
   const { account, refetchAccount } = useGameAccount();
-  const { agrementAccepted, setAgreementAccepted } = useLocalStorageContext();
-  const agreement = agrementAccepted === 'ACCEPTED';
+  const { agreementAccepted, setAgreementAccepted } = useLocalStorageContext();
+  const agreement = agreementAccepted === 'ACCEPTED';
   const [rentFor, setRentFor] = useState<string>('myself');
   const [ethAddress, setEthAddress] = useState<string>('');
   const [isUseRentalPass, setIsUseRentalPass] = useState<boolean>(false);

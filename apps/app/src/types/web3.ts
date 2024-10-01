@@ -1,12 +1,15 @@
 import type {
   AlchemyProvider,
   BrowserProvider,
+  Contract,
   EtherscanProvider,
   FallbackProvider,
   InfuraProvider,
   JsonRpcApiProvider,
   JsonRpcProvider,
 } from 'ethers6';
+import type { Abi } from 'viem';
+import type { Config } from 'wagmi';
 
 import type {
   BalanceManagerDistributor,
@@ -21,6 +24,7 @@ import {
   BALANCE_MANAGER_CONTRACT,
   COMICS_BURNER_CONTRACT,
   DEGEN_CONTRACT,
+  INTERCHAIN_SERVICE_CONTRACT,
   MARKETPLACE_CONTRACT,
   NFTL_CONTRACT,
   NFTL_IMX_CONTRACT,
@@ -62,6 +66,7 @@ export interface Contracts {
   [MARKETPLACE_CONTRACT]: NiftyMarketplace;
   [NFTL_CONTRACT]: NFTLToken;
   [NFTL_IMX_CONTRACT]: NFTL;
+  [INTERCHAIN_SERVICE_CONTRACT]: Contract;
 }
 
 export type NetworkName = 'mainnet' | 'sepolia' | 'hardhat' | 'imtbl-zkevm-mainnet' | 'imtbl-zkevm-testnet';
@@ -89,3 +94,11 @@ export interface GasStationResponse {
   fastestWait: number;
   gasPriceRange: { [range: string]: number };
 }
+
+export type UseReadContractParams<T extends { args: unknown[]; result: unknown }> = {
+  abi: Abi;
+  functionName: 'balanceOfBatch';
+  args: T['args'];
+  config: Config;
+  result: T['result'];
+};
