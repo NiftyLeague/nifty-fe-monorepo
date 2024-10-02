@@ -10,10 +10,10 @@ interface RoadmapCardProps {
   completionDate?: string;
   divider?: boolean;
   image?: { src: string; width: number; height: number; style: { top: string; right?: string } };
-  title: string;
+  title: string | JSX.Element;
 }
 
-export const RenderRoadmapCard = (item: RoadmapCardProps) => <RoadmapCard key={item.title} {...item} />;
+export const RenderRoadmapCard = (item: RoadmapCardProps) => <RoadmapCard key={item.title.toString()} {...item} />;
 
 const RoadmapCard = ({
   body,
@@ -39,7 +39,7 @@ const RoadmapCard = ({
           <Image
             src={image.src}
             unoptimized={image.src.includes('gif')}
-            alt={title}
+            alt={title.toString()}
             width={image.width}
             height={image.height}
             sizes="100vw"

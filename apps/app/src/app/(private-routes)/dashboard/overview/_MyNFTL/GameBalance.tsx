@@ -7,8 +7,8 @@ import { useTheme } from '@nl/theme';
 
 import { formatNumberToDisplay } from '@/utils/numbers';
 import useUserUnclaimedAmount from '@/hooks/merkleDistributor/useUserUnclaimedAmount';
+import WithdrawButtonDialog from '@/components/dialog/WithdrawButtonDialog';
 import HoverDataCard from '@/components/cards/HoverDataCard';
-import WithdrawButtonDialog from './dialogs/WithdrawButtonDialog';
 
 const GameBalance: React.FC = memo(() => {
   const theme = useTheme();
