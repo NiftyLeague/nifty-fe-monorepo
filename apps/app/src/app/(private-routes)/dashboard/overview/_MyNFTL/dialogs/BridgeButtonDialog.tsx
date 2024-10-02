@@ -96,12 +96,14 @@ export const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): JSX.E
   const handleBridgeNFTL = async () => {
     if (!address) return null;
     const destinationChainId = imxChainId;
-    const bn = parseEther(bridgeAmount.toString());
+    let safeBridgeAmount = bridgeAmount; // Ensure precision issues don't occur
+    if (bridgeAmount > balance) safeBridgeAmount = balance;
+    const bn = parseEther(safeBridgeAmount.toString());
     const txReceipt = await bridgeNFTL(writeContracts, address, destinationChainId, bn);
     return txReceipt;
   };
 
-  const onSubmit: SubmitHandler<IFormInput> = async data => {
+  const onSubmit: SubmitHandler<IFormInput> = async () => {
     if (bridgeAmount === 0) {
       setError('amountInput', { type: 'custom', message: 'Please enter the amount you like to withdraw.' });
       return;
@@ -311,7 +313,7 @@ const BridgeButtonDialog = ({ balance, loading }: BridgeButtonDialogProps) => {
     <>
       <Dialog onClose={onCloseBridgeDialog}>
         <DialogTrigger>
-          <Button fullWidth variant="contained" disabled={loading || balance === 0}>
+          <Button fullWidth variant="contained" disabled={loading || balance < 0.5}>
             Bridge
           </Button>
         </DialogTrigger>
