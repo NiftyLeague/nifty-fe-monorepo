@@ -7,9 +7,9 @@ import { useTheme } from '@nl/theme';
 
 import { formatNumberToDisplay } from '@/utils/numbers';
 import useTokensBalances from '@/hooks/balances/useTokensBalances';
+import BridgeButtonDialog from '@/components/dialog/BridgeButtonDialog';
 import HoverDataCard from '@/components/cards/HoverDataCard';
 import { GOVERNANCE_PORTAL_URL, SNAPSHOT_PORTAL_URL } from '@/constants/url';
-import BridgeButtonDialog from './dialogs/BridgeButtonDialog';
 
 const WalletBalances = (): JSX.Element => {
   const theme = useTheme();
