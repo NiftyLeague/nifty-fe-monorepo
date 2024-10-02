@@ -84,5 +84,5 @@ export const IMX_SQUID_BRIDGE_URL = 'https://toolkit.immutable.com/squid-bridge/
 export const IMX_AXELAR_BRIDGE_URL = 'https://toolkit.immutable.com/ethereum-bridge/';
 export const AXELAR_TRANSACTIONS_URL = (address: `0x${string}`) =>
   `https://${NEXT_PUBLIC_NETWORK === 'sepolia' ? 'testnet.' : ''}axelarscan.io/address/${address}?transfersType=gmp`;
-export const SNAPSHOT_PORTAL_URL = 'https://niftyleague.com/snapshot';
+export const SNAPSHOT_PORTAL_URL = 'https://snapshot.niftyleague.com';
 export const GOVERNANCE_PORTAL_URL = 'https://niftyleague.com/tally';
