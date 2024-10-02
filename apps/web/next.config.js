@@ -96,12 +96,12 @@ const nextConfig = {
       },
       {
         source: '/feedback',
-        destination: 'https://feedback.niftyleague.com/',
+        destination: 'https://feedback.niftyleague.com',
         permanent: true,
       },
       {
         source: '/snapshot',
-        destination: 'https://snapshot.org/#/niftyleague.eth',
+        destination: 'https://snapshot.niftyleague.com',
         permanent: true,
       },
       {

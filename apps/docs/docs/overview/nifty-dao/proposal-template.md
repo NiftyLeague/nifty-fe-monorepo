@@ -4,7 +4,7 @@ title: Proposal Template
 sidebar_position: 7
 ---
 
-_Please follow the below template when creating proposals. This template is automatically available when making proposals through our DAO on [Snapshot](https://niftyleague.com/snapshot)._
+_Please follow the below template when creating proposals. This template is automatically available when making proposals through our DAO on [Snapshot](https://snapshot.niftyleague.com)._
 
 ---
 
