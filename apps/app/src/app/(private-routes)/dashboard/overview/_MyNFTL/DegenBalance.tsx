@@ -1,45 +1,23 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import Image from 'next/image';
 import { Button, IconButton } from '@mui/material';
 import { useTheme } from '@nl/theme';
-import Image from 'next/image';
 
-import { NFTL_CONTRACT } from '@/constants/contracts';
-import { DEBUG } from '@/constants/index';
 import { formatNumberToDisplay } from '@/utils/numbers';
-import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
-import useTokensBalances from '@/hooks/balances/useTokensBalances';
-import useNetworkContext from '@/hooks/useNetworkContext';
 import HoverDataCard from '@/components/cards/HoverDataCard';
+import useClaimNFTL from '@/hooks/writeContracts/useClaimNFTL';
+import useNetworkContext from '@/hooks/useNetworkContext';
 
 const DegenBalance = (): JSX.Element => {
   const theme = useTheme();
-  const { writeContracts, tx } = useNetworkContext();
-  const { degenTokenIndices } = useNFTsBalances();
-  const { loadingNFTLAccrued, refreshClaimableNFTL, totalAccruedNFTL } = useTokensBalances();
-  const [mockAccrued, setMockAccrued] = useState(0);
-
-  useEffect(() => {
-    if (totalAccruedNFTL) setMockAccrued(totalAccruedNFTL);
-  }, [totalAccruedNFTL]);
-
-  const handleClaimNFTL = useCallback(async () => {
-    // eslint-disable-next-line no-console
-    if (DEBUG) console.log('claim', degenTokenIndices, totalAccruedNFTL);
-    const nftl = writeContracts[NFTL_CONTRACT];
-    const res = await tx(nftl.claim(degenTokenIndices));
-    if (res) {
-      setMockAccrued(0);
-      setTimeout(refreshClaimableNFTL, 5000);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [degenTokenIndices, totalAccruedNFTL, tx, writeContracts]);
+  const { isConnected } = useNetworkContext();
+  const { balance, claimCallback, loading } = useClaimNFTL();
 
   return (
     <HoverDataCard
       title="DEGEN Balance"
-      primary={`${mockAccrued ? formatNumberToDisplay(mockAccrued) : '0.00'} NFTL`}
+      primary={`${balance ? formatNumberToDisplay(balance) : '0.00'} NFTL`}
       customStyle={{
         backgroundColor: theme.palette.background.default,
         border: '1px solid',
@@ -47,18 +25,13 @@ const DegenBalance = (): JSX.Element => {
         position: 'relative',
       }}
       secondary="Available to Claim"
-      isLoading={loadingNFTLAccrued}
+      isLoading={loading}
       actions={
         <>
           <IconButton disabled color="primary" component="span" sx={{ position: 'absolute', top: -2, right: -2 }}>
             <Image src="/icons/eth.svg" alt="Ethereum" width={22} height={22} />
           </IconButton>
-          <Button
-            fullWidth
-            variant="contained"
-            disabled={!(mockAccrued > 0.0 && writeContracts[NFTL_CONTRACT])}
-            onClick={handleClaimNFTL}
-          >
+          <Button fullWidth variant="contained" disabled={!(balance > 0.0 && isConnected)} onClick={claimCallback}>
             Claim NFTL
           </Button>
         </>
