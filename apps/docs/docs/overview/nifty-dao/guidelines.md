@@ -20,7 +20,7 @@ Our mission is to empower indie or small-scale developers to create groundbreaki
 
 #### 2.2 **New Proposals / Temperature Checks**
 
-- All proposals must pass a temperature check on [Snapshot](https://niftyleague.com/snapshot) before advancing to [Tally.xyz](https://niftyleague.com/tally) for offical voting. While on [Snapshot](https://niftyleague.com/snapshot), you may continue to test and refine proposals until they are accepted.
+- All proposals must pass a temperature check on [Snapshot](https://snapshot.niftyleague.com) before advancing to [Tally.xyz](https://niftyleague.com/tally) for offical voting. While on [Snapshot](https://snapshot.niftyleague.com), you may continue to test and refine proposals until they are accepted.
 
 #### 2.3 **On-Chain Governance**
 
@@ -29,7 +29,7 @@ Our mission is to empower indie or small-scale developers to create groundbreaki
 - **Voting:** Proposals are voted on by DAO members, with each vote weighted by the amount of governance tokens (NFTL on Immutable zkEVM). Voting is transparent, time-bound, and handled on-chain.
 - **Proposal Delay:** There is a **1 day** proposal delay, or the amount of time between when a proposal is submitted and when it goes up for voting.
 - **Voting Period:** Voting lasts for **7 days** on each proposal.
-- **Quorum Requirements:** A proposal will only pass if a minimum quorum of token holders (determined periodically by the DAO) participate in the vote. The current Quorum for [Snapshot](https://niftyleague.com/snapshot) temperature checks is **2.5M NFTL**, and **3.9M NFTL** for proposals on [Tally.xyz](https://niftyleague.com/tally).
+- **Quorum Requirements:** A proposal will only pass if a minimum quorum of token holders (determined periodically by the DAO) participate in the vote. The current Quorum for [Snapshot](https://snapshot.niftyleague.com) temperature checks is **2.5M NFTL**, and **3.9M NFTL** for proposals on [Tally.xyz](https://niftyleague.com/tally).
 
 ---
 
