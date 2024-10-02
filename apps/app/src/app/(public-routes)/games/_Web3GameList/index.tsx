@@ -107,7 +107,7 @@ const MobileGameList = () => {
           title="Crypto Winter"
           required="Arcade Tokens Required"
           description="Winter is here... Play this single-player dodgeball-inspired arcade game and rank as high as you can!"
-          image="/img/games/crypto-winter.webp"
+          image="/img/games/crypto-winter.gif"
           autoHeight={false}
           actions={
             <ConnectWrapper color="primary" fullWidth buttonText="Connect Wallet to play">
@@ -135,13 +135,14 @@ const MobileGameList = () => {
           actions={
             <ConnectWrapper color="primary" fullWidth buttonText="Connect Wallet to play">
               <Button
+                disabled
                 variant="outlined"
                 color="primary"
                 fullWidth
                 sx={{ minWidth: 80, flex: 1 }}
                 onClick={goToPlayMtGawx}
               >
-                Burn Now
+                Mountain Closed
               </Button>
             </ConnectWrapper>
           }

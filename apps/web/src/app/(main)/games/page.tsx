@@ -98,11 +98,22 @@ const Games: NextPage = () => {
                 ) : null}
                 {action.link ? (
                   <AnimatedWrapper>
-                    <a href={action.link} target="_blank" rel="noreferrer">
-                      <button className="btn theme-btn-primary px-3 animated-fade-slow animated-fade-start transition-delay-medium">
+                    <Link
+                      href={action.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={action.isDisabled ? { pointerEvents: 'none', color: 'white' } : {}}
+                    >
+                      <button
+                        className={
+                          action.isDisabled
+                            ? 'btn theme-btn-transparent disabled px-3'
+                            : 'btn theme-btn-primary px-3 animated-fade-slow animated-fade-start transition-delay-medium'
+                        }
+                      >
                         {action.title}
                       </button>
-                    </a>
+                    </Link>
                   </AnimatedWrapper>
                 ) : null}
                 {action.secondaryLink ? (
