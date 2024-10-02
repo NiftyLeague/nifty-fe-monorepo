@@ -40,7 +40,7 @@ export const ROADMAP_CARDS = [
       style: { top: '-80px', right: '-50px' },
       width: 518,
     },
-    title: '2D Nifty Smashers PC Alpha',
+    title: '2D Nifty Smashers - PC Early-Access',
     body: (
       <>
         <p>
@@ -250,8 +250,8 @@ export const ROADMAP_CARDS = [
     completionDate: 'Sept 20th, 2022',
     image: {
       height: 1080,
-      src: '/img/games/crypto-winter.webp',
-      style: { top: '-130px' },
+      src: '/img/games/crypto-winter.gif',
+      style: { top: '-120px' },
       width: 1440,
     },
     title: 'Crypto Winter',
@@ -411,11 +411,11 @@ export const ROADMAP_CARDS = [
     completionDate: 'Feb 13th, 2023',
     image: {
       height: 400,
-      src: '/img/roadmap/beta_v02.webp',
-      style: { top: '-125px' },
+      src: '/img/games/smashers/nifty-smashers.gif',
+      style: { top: '-135px' },
       width: 544,
     },
-    title: '2D Nifty Smashers PC Beta',
+    title: '2D Nifty Smashers - PC Alpha',
     body: (
       <p className="mb-0">
         We implemented a new deterministic roll-back netcode solution which improved lag considerably. This netcode also
@@ -474,18 +474,18 @@ export const ROADMAP_CARDS = [
   },
   {
     completed: true,
-    completionDate: 'Sept 22nd, 2023',
+    completionDate: 'Sept 2nd, 2023',
     image: {
       height: 1070,
       src: '/img/games/smashers/apartment.webp',
       style: { top: '-90px' },
       width: 1618,
     },
-    title: 'Smashers Progression Design',
+    title: 'Nifty Smashers - Progression Design',
     body: (
       <>
         <p>
-          We developed several fundamental tools for our games including progression and marketplace systems. These
+          We designed several fundamental tools for our games including progression and marketplace systems. These
           systems incentivize players to stick around by rewarding them for milestones that drive engagement and
           retention.
         </p>
@@ -498,39 +498,113 @@ export const ROADMAP_CARDS = [
   },
   {
     completed: true,
-    completionDate: 'Dec 10th, 2023',
+    completionDate: 'Oct 11th, 2023',
     image: {
-      src: '/img/roadmap/mobile_v02.webp',
-      style: { top: '-145px' },
+      src: '/img/logos/other/pocket-whale.webp',
+      style: { top: '-155px' },
       width: 387,
       height: 300,
     },
-    title: 'Nifty Smashers Mobile Alpha',
+    title: 'PocketWhale Partnership',
     body: (
-      <p className="mb-0">
-        Porting Smashers to Android & iOS! Going forward all of our games will be mobile compatible. With a high
-        concentration of gamers using mobile platforms, we envision this release will be pivotal to the project.
-      </p>
+      <>
+        <p className="mb-0">
+          Video game creative and marketing agency focusing on mobile, PC and console games. With offices in USA,
+          Germany, France and Japan,{' '}
+          <a href="https://www.pocketwhale.com/" target="_blank" rel="noreferrer">
+            PocketWhale
+          </a>{' '}
+          plans and executes our global game marketing campaigns.
+        </p>
+        <p className="mb-0">
+          Their team designs tailor-made creative assets and has a holistic approach to media. They operate marketing
+          campaigns online and offline through PR, influencer marketing, TV advertising, digital advertising, and
+          events.
+        </p>
+      </>
     ),
   },
   {
     completed: true,
-    completionDate: 'August 1st, 2024',
+    completionDate: 'Dec 10th, 2023',
     image: {
       src: '/img/roadmap/mobile_v02.webp',
-      style: { top: '-145px' },
+      style: { top: '-155px' },
       width: 387,
       height: 300,
     },
-    title: 'Nifty Smashers Mobile Beta',
+    title: 'Nifty Smashers - Mobile Alpha',
     body: (
       <>
-        <p>Nifty Smashers Mobile is now feature complete and available in multiple countries!</p>
+        <p className="mb-0">
+          Porting Smashers to{' '}
+          <a href="https://niftysmashers.com" target="_blank" rel="noreferrer">
+            Android & iOS
+          </a>
+          !
+        </p>
+        <p className="mb-0">
+          Going forward all of our games will be mobile compatible. With a high concentration of gamers using mobile
+          platforms, this release was pivotal for the direction of Nifty League.
+        </p>
+      </>
+    ),
+  },
+  {
+    completed: true,
+    completionDate: 'July 15th, 2024',
+    image: {
+      src: '/img/roadmap/beta_v02.webp',
+      style: { top: '-125px' },
+      width: 387,
+      height: 300,
+    },
+    title: 'Nifty Smashers - Mobile Beta',
+    body: (
+      <>
+        <p>
+          <a href="https://niftysmashers.com" target="_blank" rel="noreferrer">
+            Nifty Smashers Mobile
+          </a>{' '}
+          is now feature complete and available in multiple countries!
+        </p>
         <p>
           After months of refining complex in-game progression and metasystem mechanics, we&apos;ve crafted a top-tier
           mobile experience that players will love.
         </p>
         <p className="mb-0">We are now in the final stages of testing and polishing before the global launch!</p>
+      </>
+    ),
+  },
+  {
+    completed: true,
+    completionDate: 'Sept 13th, 2024',
+    image: {
+      src: '/img/roadmap/niftyroyale_v01.webp',
+      style: { top: '-110px' },
+      width: 541,
+      height: 381,
+    },
+    title: (
+      <>
+        Nifty Royale - <br />
+        Early-Access
+      </>
+    ),
+    body: (
+      <>
+        <p>
+          The first game set in the NiftyVerse is an action-packed battle royale! Initial development kicked off in
+          August 2023 as part of a case study into our decentalized vision. Nifty League is managing an external game
+          studio responsible for development.
+        </p>
+        <p className="mb-0">
+          Early-access is available for playtesting! Find the latest build{' '}
+          <a href="https://app.niftyleague.com" target="_blank" rel="noreferrer">
+            on our webapp
+          </a>
+          .
+        </p>
       </>
     ),
   },
@@ -565,22 +639,34 @@ export const ROADMAP_CARDS = [
   },
   {
     completed: true,
-    completionDate: 'Sept 26th, 2024 - Present',
+    completionDate: 'Oct 1st, 2024 - Present',
     image: {
       src: '/img/roadmap/dao_v02.webp',
       style: { top: '-80px' },
       width: 532,
       height: 302,
     },
-    title: 'DAO',
+    title: 'Nifty DAO',
     body: (
       <>
-        <p>With our migration to Immutable zkEVM, we launched our DAO on-chain governance system on Tally.xyz!</p>
-        <p className="mb-0">
-          We will gradually transfer ownership of Nifty League to our DAO in order to decentralize the platform and
+        <p>
+          With our migration to Immutable zkEVM, we launched our DAO including on-chain NFTL token governance on{' '}
+          <a href="https://niftyleague.com/tally" target="_blank" rel="noreferrer">
+            Tally
+          </a>
+          !
+        </p>
+        <p>
+          Our team will gradually transfer responsibilities to our DAO in order to decentralize the platform and
           encourage others to build with us! Our vision is to power rapid growth and development through community
-          contributions enabling us to build a gaming platform like no other. Simply put, DAOs are the future. We see
-          only one route to becoming the world&apos;s leading gaming platform and that&apos;s by building together. 💜
+          contributions enabling us to build a gaming platform like no other.
+        </p>
+        <p className="mb-0">
+          Read our{' '}
+          <a href="https://niftyleague.com/docs/overview/nifty-dao/guidelines" target="_blank" rel="noreferrer">
+            DAO Guidelines
+          </a>{' '}
+          to learn more!
         </p>
       </>
     ),
@@ -593,7 +679,7 @@ export const ROADMAP_CARDS = [
       width: 387,
       height: 300,
     },
-    title: 'Nifty Smashers Global Launch',
+    title: 'Nifty Smashers - Global Launch',
     body: (
       <>
         <p>We&apos;ve achieved an exceptional 55% CVR (app unit/page views), and Day 1 Retention of over 30%!</p>
@@ -602,22 +688,6 @@ export const ROADMAP_CARDS = [
           worldwide! Smashers will be available on multiple platforms (Android, iOS, Epic, Steam, and maybe Switch???)
         </p>
       </>
-    ),
-  },
-  {
-    image: {
-      src: '/img/roadmap/niftyroyale_v01.webp',
-      style: { top: '-110px' },
-      width: 541,
-      height: 381,
-    },
-    title: 'Nifty Royale',
-    body: (
-      <p className="mb-0">
-        One of the first games we&apos;d like to introduce to the NiftyVerse is a fun battle royale, codename &apos;GEM
-        HUNTER&apos;. Development kicked off in August 2023 with help from an external game studio as part of our test
-        run transitioning to a DAO and polishing our public services/SDK.
-      </p>
     ),
   },
   {
@@ -631,9 +701,9 @@ export const ROADMAP_CARDS = [
     body: (
       <>
         <p>
-          We are working with the Immutable team to launch our items marketplace using NFTL. Offerings will include cool
-          skins, weapons, consumable items, and more to enhance your DEGENS in-game. Our items are currently available
-          on{' '}
+          We are working with the Immutable team to seamlessly integrate our items marketplace in-game. Offerings will
+          include cool skins, weapons, consumable items, and more to enhance your DEGENs. Our items are currently
+          available on{' '}
           <a href="https://tokentrove.com/collection/NiftyLeague" target="_blank" rel="noreferrer">
             TokenTrove
           </a>
@@ -642,6 +712,32 @@ export const ROADMAP_CARDS = [
         <p className="mb-0">
           Future items will be provided to community testers as well as found in our games. Free-2-play mobile players
           that includes you! Players may get lucky and find rare wearables or weapons in game that are mintable on IMX!
+        </p>
+      </>
+    ),
+  },
+  {
+    image: {
+      src: '/img/roadmap/niftyroyale_v01.webp',
+      style: { top: '-110px' },
+      width: 541,
+      height: 381,
+    },
+    title: 'Nifty Royale - Alpha/Beta',
+    body: (
+      <>
+        <p>
+          An upcoming battle royale game set in the NiftyVerse, a virtual world our team strategically designed for
+          limitless creativity. Building on the success of Nifty Smashers, Nifty Royale delivers an immersive and
+          competitive experience.
+        </p>
+        <p className="mb-0">
+          Early-access is now available for playtesting! Significants polish and work is still needed to get the game in
+          Alpha state but stay-tuned! Find our latest build{' '}
+          <a href="https://app.niftyleague.com" target="_blank" rel="noreferrer">
+            here
+          </a>
+          .
         </p>
       </>
     ),

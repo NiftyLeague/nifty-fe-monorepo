@@ -31,7 +31,9 @@ export const NIFTY_GAMES = [
     video: '/video/arcade-token.mp4',
     tag: 'MOBILE GAME',
     action: {
-      isComingSoon: true,
+      title: 'PLAYTEST EARLY-ACCESS!',
+      link: 'https://app.niftyleague.com',
+      isComingSoon: false,
     },
   },
   // {
@@ -63,7 +65,7 @@ export const NIFTY_GAMES = [
     video: 'video/crypto-winter.mp4',
     tag: 'MINI-GAME',
     action: {
-      title: 'START PLAYING',
+      title: 'START PLAYING!',
       link: 'https://app.niftyleague.com/games/crypto-winter',
       isComingSoon: false,
     },
@@ -75,9 +77,10 @@ export const NIFTY_GAMES = [
     video: 'video/rugmans-peak.mp4',
     tag: 'MINI-GAME',
     action: {
-      title: 'ENTER THE MOUNTAIN',
+      title: 'MOUNTAIN CLOSED',
       link: 'https://app.niftyleague.com/games/mt-gawx',
       isComingSoon: false,
+      isDisabled: true,
     },
   },
 ];

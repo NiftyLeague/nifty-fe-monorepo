@@ -9,7 +9,6 @@ import { parseEther } from 'ethers6';
 import {
   Alert,
   Box,
-  Button,
   Checkbox,
   FormControlLabel,
   FormGroup,
@@ -32,9 +31,8 @@ import useLocalStorageContext from '@/hooks/useLocalStorageContext';
 import useNetworkContext from '@/hooks/useNetworkContext';
 import useNFTLAllowance from '@/hooks/useNFTLAllowance';
 
-import { Dialog, DialogContent, DialogContext, DialogTrigger } from '@/components/dialog';
+import { DialogContext } from '@/components/dialog';
 import TermsOfServiceDialog from '@/components/dialog/TermsOfServiceDialog';
-import BridgeSuccess from './BridgeSuccess';
 
 type BridgeFormProps = { balance: number; onBridgeSuccess: () => void };
 type IFormInput = { amountSelected: number; amountInput: string; isCheckedTerm: boolean };
@@ -300,37 +298,4 @@ export const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): JSX.E
   );
 };
 
-type BridgeButtonDialogProps = { balance: number; loading: boolean };
-
-const BridgeButtonDialog = ({ balance, loading }: BridgeButtonDialogProps) => {
-  const [successDialogOpen, setSuccessDialogOpen] = useState(false);
-
-  const onCloseBridgeDialog = () => {}; // handle actions if needed
-
-  const onBridgeSuccess = () => setSuccessDialogOpen(true);
-
-  return (
-    <>
-      <Dialog onClose={onCloseBridgeDialog}>
-        <DialogTrigger>
-          <Button fullWidth variant="contained" disabled={loading || balance < 0.5}>
-            Bridge
-          </Button>
-        </DialogTrigger>
-        <DialogContent
-          aria-labelledby="bridge-nftl-dialog"
-          dialogTitle="Bridge NFTL to Immutable"
-          sx={{
-            '& h2': { textAlign: 'center' },
-            '& .MuiDialogContent-root': { textAlign: 'center' },
-          }}
-        >
-          <BridgeForm balance={balance} onBridgeSuccess={onBridgeSuccess} />
-        </DialogContent>
-      </Dialog>
-      <BridgeSuccess successDialogOpen={successDialogOpen} setSuccessDialogOpen={setSuccessDialogOpen} />
-    </>
-  );
-};
-
-export default BridgeButtonDialog;
+export default BridgeForm;

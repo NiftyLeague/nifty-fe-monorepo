@@ -2,7 +2,7 @@
 
 import { useCallback, useContext, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Alert, Badge, Button, Stack, Typography } from '@mui/material';
+import { Alert, Stack, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import type { TransactionResponse } from 'ethers6';
 import { useSwitchChain } from 'wagmi';
@@ -12,15 +12,13 @@ import { formatNumberToDisplay } from '@/utils/numbers';
 import { useConnectedToIMXCheck } from '@/hooks/useImxProvider';
 import useClaimCallback from '@/hooks/merkleDistributor/useClaimCallback';
 import useIMXContext from '@/hooks/useIMXContext';
-import { TARGET_NETWORK } from '@/constants/networks';
 
-import { Dialog, DialogContent, DialogContext, DialogTrigger } from '@/components/dialog';
-import WithdrawSuccess from './WithdrawSuccess';
+import { DialogContext } from '@/components/dialog';
 
 type WithdrawFormProps = { balance: number; onWithdrawSuccess: () => void };
 type IFormInput = { withdrawal: string };
 
-export const WithdrawForm = ({ balance, onWithdrawSuccess }: WithdrawFormProps): JSX.Element => {
+const WithdrawForm = ({ balance, onWithdrawSuccess }: WithdrawFormProps): JSX.Element => {
   const { imxChainId } = useIMXContext();
   const isConnectedToIMX = useConnectedToIMXCheck();
   const { switchChain } = useSwitchChain();
@@ -99,49 +97,4 @@ export const WithdrawForm = ({ balance, onWithdrawSuccess }: WithdrawFormProps):
     </form>
   );
 };
-
-type WithdrawButtonDialogProps = { balance: number; loading: boolean };
-
-const WithdrawButtonDialog = ({ balance, loading }: WithdrawButtonDialogProps) => {
-  const { switchChain } = useSwitchChain();
-  const [successDialogOpen, setSuccessDialogOpen] = useState(false);
-
-  const onCloseWithdrawDialog = () => {
-    switchChain?.({ chainId: TARGET_NETWORK.chainId });
-  };
-
-  const onWithdrawSuccess = () => setSuccessDialogOpen(true);
-
-  return (
-    <>
-      <Dialog onClose={onCloseWithdrawDialog}>
-        <DialogTrigger>
-          <Badge
-            color="error"
-            variant="standard"
-            badgeContent=" "
-            invisible={loading || balance === 0}
-            sx={{ width: '100%' }}
-          >
-            <Button fullWidth variant="contained" disabled={loading || balance === 0}>
-              Withdraw
-            </Button>
-          </Badge>
-        </DialogTrigger>
-        <DialogContent
-          aria-labelledby="withdraw-earnings-dialog"
-          dialogTitle="Withdraw Earnings"
-          sx={{
-            '& h2': { textAlign: 'center' },
-            '& .MuiDialogContent-root': { textAlign: 'center' },
-          }}
-        >
-          <WithdrawForm balance={balance} onWithdrawSuccess={onWithdrawSuccess} />
-        </DialogContent>
-      </Dialog>
-      <WithdrawSuccess successDialogOpen={successDialogOpen} setSuccessDialogOpen={setSuccessDialogOpen} />
-    </>
-  );
-};
-
-export default WithdrawButtonDialog;
+export default WithdrawForm;
