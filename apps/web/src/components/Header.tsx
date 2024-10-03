@@ -225,8 +225,7 @@ const Navbar = () => {
 };
 
 const MobileNav = () => {
-  const [toggled, setToggled] = useState<boolean>(false);
-  const checkboxRef = useRef({ checked: false });
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const linkList = [
     {
       href: '/',
@@ -300,15 +299,11 @@ const MobileNav = () => {
       external: true,
     },
   ];
-  const handleUncheck = () => {
-    if (checkboxRef.current?.checked) {
-      checkboxRef.current.checked = false;
-    }
-  };
 
-  const handelChangeToggleStatus = () => {
-    setToggled(!toggled);
-    if (!toggled) {
+  const toggleMenuOpen = () => {
+    const newStateOpen = !menuOpen;
+    setMenuOpen(newStateOpen);
+    if (newStateOpen) {
       document.documentElement.classList.add('scrollDisabled');
     } else {
       document.documentElement.classList.remove('scrollDisabled');
@@ -317,22 +312,19 @@ const MobileNav = () => {
 
   return (
     <div id="nav" className="py-2 mobile-nav align-items-center d-flex position-absolute">
-      <input
-        type="checkbox"
-        id="toggle"
-        style={{ display: 'none' }}
-        ref={checkboxRef as LegacyRef<HTMLInputElement> | undefined}
-      />
-      <label className="toggle-btn toggle-btn__cross" htmlFor="toggle" onClick={handelChangeToggleStatus}>
-        {!toggled ? (
-          <Stack direction="row" gap={1} sx={{ alignItems: 'center' }}>
-            <MenuIcon fontSize="small" />
-            <p>MENU</p>
-          </Stack>
-        ) : (
-          <CloseIcon sx={{ color: 'white' }} />
-        )}
-      </label>
+      <>
+        <input type="checkbox" id="toggle" style={{ display: 'none' }} />
+        <label className="toggle-btn toggle-btn__cross" htmlFor="toggle" onClick={toggleMenuOpen}>
+          {!menuOpen ? (
+            <Stack direction="row" gap={1} sx={{ alignItems: 'center' }}>
+              <MenuIcon fontSize="small" />
+              <p>MENU</p>
+            </Stack>
+          ) : (
+            <CloseIcon sx={{ color: 'white' }} />
+          )}
+        </label>
+      </>
       <a className="ms-auto launch-app-link" href="https://app.niftyleague.com/" target="_blank" rel="noreferrer">
         <button className="btn theme-btn-primary launch-app-btn my-2 ms-auto">Launch App</button>
       </a>
@@ -341,7 +333,7 @@ const MobileNav = () => {
         <ul>
           {linkList.map(item => {
             return (
-              <li key={item.href} onClick={handleUncheck} className="mb-3">
+              <li key={item.href} onClick={toggleMenuOpen} className="mb-3">
                 <Link href={item.href} legacyBehavior>
                   <a>
                     {item.name}
