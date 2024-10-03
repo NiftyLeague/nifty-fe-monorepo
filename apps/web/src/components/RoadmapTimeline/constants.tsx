@@ -732,10 +732,10 @@ export const ROADMAP_CARDS = [
           competitive experience.
         </p>
         <p className="mb-0">
-          Early-access is now available for playtesting! Significants polish and work is still needed to get the game in
-          Alpha state but stay-tuned! Find our latest build{' '}
+          Early-access is now available for playtesting! Additional polish and work is needed to get the game in Alpha
+          state. Follow our latest updates on Twitter & Discord and find the latest build{' '}
           <a href="https://app.niftyleague.com" target="_blank" rel="noreferrer">
-            here
+            on our webapp
           </a>
           .
         </p>
