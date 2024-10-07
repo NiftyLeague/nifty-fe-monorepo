@@ -60,6 +60,6 @@
   "devDependencies": {
     "@types/gtag.js": "^0.0.20",
     "@types/react-slick": "^0.23.13",
-    "@types/uuid": "^9.0.8"
+    "@types/uuid": "^10.0.0"
   }
 }
