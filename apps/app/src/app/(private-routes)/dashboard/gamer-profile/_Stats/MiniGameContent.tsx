@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { Stack } from '@mui/material';
-import { secondsToHours } from 'date-fns';
 
 import { useGamerProfileContext } from '@/hooks/useGamerProfile';
 import type { ProfileMiniGame } from '@/types/account';
+import { secondsToHours } from '@/utils/dateTime';
 import Item from './Item';
 
 interface MiniGameContentProps {
