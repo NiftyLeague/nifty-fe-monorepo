@@ -1,3 +1,5 @@
+'use server';
+
 // third party
 import { type PropsWithChildren } from 'react';
 import { headers } from 'next/headers';
@@ -15,8 +17,9 @@ import { wagmiConfig } from '@/contexts/Web3ModalConfig';
 import { Web3ModalProvider } from '@/contexts/Web3ModalContext';
 import ReduxProvider from '@/store/ReduxProvider';
 
-const AppContextWrapper = ({ children }: PropsWithChildren) => {
-  const initialState = cookieToInitialState(wagmiConfig, headers().get('cookie'));
+const AppContextWrapper = async ({ children }: PropsWithChildren) => {
+  const headersList = await headers();
+  const initialState = cookieToInitialState(wagmiConfig, headersList.get('cookie'));
   return (
     <LocalStorageProvider>
       <Web3ModalProvider initialState={initialState}>
