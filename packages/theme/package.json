@@ -19,10 +19,10 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@emotion/cache": "^11.13.1",
+    "@emotion/cache": "^11.13.5",
     "@mui/material-nextjs": "^5.16.6",
-    "@next/font": "^14.2.13",
-    "react-intl": "^6.7.0",
+    "@next/font": "^14.2.15",
+    "react-intl": "^6.8.9",
     "stylis-plugin-rtl": "^2.1.1"
   },
   "devDependencies": {
