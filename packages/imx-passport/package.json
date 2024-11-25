@@ -9,6 +9,6 @@
     "./types": "./types.ts"
   },
   "dependencies": {
-    "@imtbl/sdk": "^1.73.0"
+    "@imtbl/sdk": "^1.73.1"
   }
 }
