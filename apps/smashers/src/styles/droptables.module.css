@@ -1,0 +1,42 @@
+.pageContainer {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  margin: auto;
+  padding-top: 100px;
+  max-width: 950px;
+}
+
+.crateGroup {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.itemsTable {
+  border: 1px solid #2c2b2a;
+  margin-bottom: 1.25rem;
+  margin-top: 5px;
+  max-height: 364px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.itemsTable table {
+  border-collapse: collapse;
+  border: 1px solid black;
+  width: 100%;
+}
+
+.itemsTable table th {
+  background-color: #620edf;
+  border: 1px solid #2c2b2a;
+  font-weight: bold;
+  padding: 0.5rem;
+  position: sticky;
+  top: 0;
+}
+
+.itemsTable table td {
+  border: 1px solid #2c2b2a;
+  padding: 0.5rem;
+}
