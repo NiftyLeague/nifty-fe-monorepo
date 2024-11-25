@@ -1,10 +1,10 @@
-import { format } from 'date-fns';
 import type { Rentals, RentalType } from '@/types/rentals';
 import { areEqualArrays } from '@/utils/array';
 import { capitalize } from '@/utils/string';
 import { v4 as uuidv4 } from 'uuid';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { RentalDataGrid } from '@/types/rentalDataGrid';
+import { formatTime } from '@/utils/dateTime';
 
 // eslint-disable-next-line import/prefer-default-export
 export const transformRentals = (rows: Rentals[], userId: string, filterCategory?: RentalType): RentalDataGrid[] =>
@@ -116,7 +116,7 @@ export const transformRentals = (rows: Rentals[], userId: string, filterCategory
         matches: matches || 0,
         wins: wins || 0,
         winRate: Number(wins) > 0 && Number(matches) > 0 ? (Number(wins) / Number(matches)) * 100 : 0,
-        timePlayed: time_played ? format(new Date(time_played), 'HH:mm:ss') : '00:00:00',
+        timePlayed: formatTime(time_played),
         totalEarnings: earnings,
         yourEarnings: yourEarnings || 0,
         costs,
