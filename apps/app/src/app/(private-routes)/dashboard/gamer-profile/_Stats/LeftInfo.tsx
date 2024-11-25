@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 import { Stack } from '@mui/material';
-import { secondsToHours } from 'date-fns';
 
 import { useGamerProfileContext } from '@/hooks/useGamerProfile';
 import type { ProfileTotal, ProfileNiftySmsher } from '@/types/account';
 import { formatNumberToDisplay } from '@/utils/numbers';
+import { secondsToHours } from '@/utils/dateTime';
 
 import Item from './Item';
 
