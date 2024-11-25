@@ -1,30 +1,8 @@
 import BackButton from '@/components/BackButton';
 
-import DROP_TABLES from '@/data/dropTables.json';
-
+import DROP_TABLES from '@/data/droptables.json';
+import type { CrateData } from '@/types/droptables';
 import styles from '@/styles/droptables.module.css';
-
-type Item = {
-  Item: string;
-  Type: string;
-  Rarity: string;
-  Weight: string;
-};
-
-type CurrencyRange = {
-  MIN: number;
-  MAX: number;
-};
-
-type Crate = {
-  TableId: string;
-  Items: Item[];
-  BonusItemOdds: string;
-  CurrencyRewardOdds: Record<string, string>;
-  CurrencyMinMax: Record<string, CurrencyRange>;
-};
-
-type CrateData = Record<string, Crate>;
 
 interface CrateTableProps {
   data: CrateData;
@@ -127,7 +105,7 @@ export default function Loot() {
     <>
       <BackButton />
       <div className={styles.pageContainer}>
-        <CrateTables data={DROP_TABLES} />
+        <CrateTables data={DROP_TABLES as CrateData} />
       </div>
     </>
   );
