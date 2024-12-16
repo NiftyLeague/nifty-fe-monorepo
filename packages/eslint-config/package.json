@@ -9,7 +9,7 @@
     "react-internal.js"
   ],
   "devDependencies": {
-    "@next/eslint-plugin-next": "^14.2.18",
+    "@next/eslint-plugin-next": "^15.1.0",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
     "eslint-config-next": "^14.2.18",
