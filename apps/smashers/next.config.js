@@ -64,6 +64,7 @@ const nextConfig = {
       ...generateAppleCountryRedirects('AU'),
       ...generateAppleCountryRedirects('BR'),
       ...generateAppleCountryRedirects('CA'),
+      ...generateAppleCountryRedirects('US'),
       {
         source: '/ios',
         destination: getAppleStoreLink(),
