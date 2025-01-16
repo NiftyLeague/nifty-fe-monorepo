@@ -27,7 +27,7 @@ const PreloaderSVG = () => (
   </svg>
 );
 
-export default function Preloader({ ready, progress }: { ready: boolean; progress: number }): JSX.Element {
+export default function Preloader({ ready, progress }: { ready: boolean; progress: number }): React.ReactNode {
   const loadingPercentage = Math.round(progress * 100);
   const [percent, setPercent] = useState(loadingPercentage);
   const { milliseconds, start, stop } = useStopwatch({ interval: 100 });

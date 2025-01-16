@@ -22,7 +22,7 @@ import WearableSubItemCard from '@/components/cards/WearableSubItemCard';
 import ItemDetail from '@/components/cards/ItemDetail';
 import ViewItemDialog from '@/components/dialog/ViewItemDialog';
 
-const DashboardComicsPage = (): JSX.Element => {
+const DashboardComicsPage = (): React.ReactNode => {
   const [selectedComic, setSelectedComic] = useState<Comic | null>(null);
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [selectedSubIndex, setSelectedSubIndex] = useState<number>(-1);

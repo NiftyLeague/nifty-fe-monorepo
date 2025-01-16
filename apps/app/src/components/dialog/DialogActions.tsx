@@ -14,8 +14,8 @@ const IconButtonStyle = styled(IconButton)(({ theme }) => ({
 
 const DialogActionComp = ({ children, isOpen }: DialogAction) => {
   const [, setIsOpen] = useContext(DialogContext);
-  return cloneElement(children, {
-    onClick: callAll(() => setIsOpen(isOpen || false), children.props.onClick),
+  return cloneElement(children as React.ReactElement<any>, {
+    onClick: callAll(() => setIsOpen(isOpen || false), (children as React.ReactElement<any>).props.onClick),
   });
 };
 

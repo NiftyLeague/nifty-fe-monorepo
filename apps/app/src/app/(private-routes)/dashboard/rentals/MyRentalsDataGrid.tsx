@@ -32,7 +32,13 @@ interface Props {
   updateRentalName: (name: string, id: string) => void;
 }
 
-const MyRentalsDataGrid = ({ rows, loading, category, onTerminateRental, updateRentalName }: Props): JSX.Element => {
+const MyRentalsDataGrid = ({
+  rows,
+  loading,
+  category,
+  onTerminateRental,
+  updateRentalName,
+}: Props): React.ReactNode => {
   // const [pageSize, setPageSize] = useState(10);
   const [selectedRowForEditing, setSelectedRowForEditing] = useState<any>();
   const [isNicknameModalOpen, setIsNicknameModalOpen] = useState(false);

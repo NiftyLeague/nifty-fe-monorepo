@@ -16,7 +16,7 @@ interface ImageProfileProps {
   avatarFee?: number;
 }
 
-const ImageProfile = ({ degens, avatar, avatarFee }: ImageProfileProps): JSX.Element => {
+const ImageProfile = ({ degens, avatar, avatarFee }: ImageProfileProps): React.ReactNode => {
   const { isLoadingDegens } = useGamerProfileContext();
   const [degenSelected, setDegenSelected] = useState<string>('');
 

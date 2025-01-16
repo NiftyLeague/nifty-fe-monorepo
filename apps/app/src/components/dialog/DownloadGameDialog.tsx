@@ -5,7 +5,7 @@ import { GetApp } from '@mui/icons-material';
 import { Dialog, DialogTrigger, DialogContent } from '@/components/dialog';
 import useVersion from '@/hooks/useVersion';
 
-export const Downloader = (): JSX.Element => {
+export const Downloader = (): React.ReactNode => {
   const { isWindows, isMacOs, downloadURL, version, message } = useVersion();
 
   return (

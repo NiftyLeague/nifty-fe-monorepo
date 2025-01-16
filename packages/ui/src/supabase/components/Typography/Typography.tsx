@@ -1,3 +1,4 @@
+import { JSX } from 'react';
 import TypographyStyles from './Typography.module.css';
 import Title from './Title';
 import Text from './Text';

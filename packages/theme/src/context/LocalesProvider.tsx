@@ -1,7 +1,10 @@
 'use client';
 
 import { useState, useEffect, type PropsWithChildren } from 'react';
-import { IntlProvider, type MessageFormatElement } from 'react-intl';
+import { IntlProvider as OriginalIntlProvider, type MessageFormatElement } from 'react-intl';
+import type { IntlConfig } from 'react-intl';
+
+const IntlProvider = OriginalIntlProvider as unknown as React.FC<IntlConfig & { children: React.ReactNode }>;
 
 import useThemeConfig from '../hooks/useThemeConfig';
 

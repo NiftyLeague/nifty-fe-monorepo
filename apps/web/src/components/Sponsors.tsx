@@ -36,7 +36,7 @@ const RenderSponsor = ({ image, url, width, height }: Sponsor) => (
   <SponsorItem key={image} image={image} url={url} width={width} height={height} />
 );
 
-const SponsorItem = ({ image, url, width, height }: Sponsor): JSX.Element => {
+const SponsorItem = ({ image, url, width, height }: Sponsor): React.ReactNode => {
   const desktop = useMediaQuery('(min-width:768px)');
   return (
     <a href={url} target="_blank" rel="noreferrer">

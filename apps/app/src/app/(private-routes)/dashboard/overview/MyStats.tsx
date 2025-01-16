@@ -9,7 +9,7 @@ import GamerProfileContext from '@/contexts/GamerProfileContext';
 import LeftInfo from '../gamer-profile/_Stats/LeftInfo';
 import type { Profile } from '@/types/account';
 
-const MyStats = ({ profile }: { profile?: Profile }): JSX.Element => {
+const MyStats = ({ profile }: { profile?: Profile }): React.ReactNode => {
   return (
     <Grid2 container spacing={sectionSpacing} sx={{ height: '100%' }}>
       <Grid2 size={{ xs: 12 }}>

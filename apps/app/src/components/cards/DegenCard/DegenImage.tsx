@@ -5,7 +5,7 @@ const IMAGE_HEIGHT = 320;
 
 const DegenImage = memo(({ tokenId, sx }: { tokenId: string | number; sx?: SxProps<{}> }) => {
   const imageURL = `/img/degens/nfts/${tokenId}`;
-  // @ts-ignore
+  // @ts-expect-error Property 'height' does not exist on type 'CSSPseudoSelectorProps<{}>'
   const imageHeight = sx?.height ?? IMAGE_HEIGHT;
   let setting: any = {
     height: imageHeight,

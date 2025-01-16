@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Ref } from 'react';
 import { FormLayout } from '../../lib/Layout/FormLayout';
 import InputErrorIcon from '../../lib/Layout/InputErrorIcon';
 import InputIconContainer from '../../lib/Layout/InputIconContainer';
@@ -11,8 +11,8 @@ export interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>,
   descriptionText?: string;
   disabled?: boolean;
   error?: string;
-  icon?: JSX.Element;
-  inputRef?: string;
+  icon?: React.ReactNode;
+  inputRef?: Ref<HTMLInputElement>;
   label?: string;
   afterLabel?: string;
   beforeLabel?: string;
@@ -156,7 +156,7 @@ export interface TextAreaProps {
   descriptionText?: string;
   disabled?: boolean;
   error?: string;
-  icon?: JSX.Element;
+  icon?: React.ReactNode;
   id?: string;
   label?: string;
   afterLabel?: string;

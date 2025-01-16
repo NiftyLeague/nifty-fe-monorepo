@@ -29,14 +29,14 @@ const options = {
       name: 'next-auth.pkce.code_verifier',
       options: {
         httpOnly: true,
-        sameSite: 'none' as 'none',
+        sameSite: 'none' as const,
         path: '/',
         secure: true,
       },
     },
   },
   callbacks: {
-    // @ts-ignore
+    // @ts-expect-error implicit any
     async jwt({ token, account }) {
       // Persist the OAuth access_token to the token right after signin
       if (account) {
@@ -45,14 +45,14 @@ const options = {
       }
       return token;
     },
-    // @ts-ignore
+    // @ts-expect-error implicit any
     async session({ session, token }) {
       // Send properties to the client, like an access_token from a provider.
       session.accessToken = token.accessToken;
       session.provider = token.provider;
       return session;
     },
-    // @ts-ignore
+    // @ts-expect-error implicit any
     async signIn(params) {
       console.log('===== signIn Callback =====', params);
       return true;

@@ -107,7 +107,7 @@ type MintEvent = CustomEvent<{
 
 const CharacterCreator = memo(
   ({ isLoaded, isPortrait, onMintCharacter, setLoaded, setProgress, unityContext }: CharacterCreatorProps) => {
-    const removedTraitsCallback = useRef<null | ((removedTraits: string) => void)>();
+    const removedTraitsCallback = useRef<null | ((removedTraits: string) => void)>(null);
     const [width, setWidth] = useState(DEFAULT_WIDTH);
     const [height, setHeight] = useState(DEFAULT_HEIGHT);
     const [refreshKey, setRefreshKey] = useState(0);

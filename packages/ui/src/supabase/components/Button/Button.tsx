@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef, useImperativeHandle, PropsWithChildren } from 'react';
+import React, { forwardRef, useRef, useImperativeHandle, PropsWithChildren, JSX } from 'react';
 import ButtonStyles from './Button.module.css';
 import { IconContext } from '../Icon/IconContext';
 import { IconLoader } from '../Icon/icons/IconLoader';
@@ -124,8 +124,6 @@ const Button = forwardRef<RefHandle, ButtonProps>(
     // custom button tag
     const CustomButton: React.FC<CustomButtonProps> = ({ ...props }) => {
       const Tag = as as keyof JSX.IntrinsicElements;
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore - onToggle works as expected
       return <Tag {...props} />;
     };
 
@@ -170,5 +168,7 @@ const Button = forwardRef<RefHandle, ButtonProps>(
     );
   },
 );
+
+Button.displayName = 'Button';
 
 export default Button;

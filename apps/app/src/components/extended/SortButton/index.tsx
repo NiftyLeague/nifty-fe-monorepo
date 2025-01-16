@@ -19,7 +19,7 @@ const SortButton = ({
   defaultSelectedItemValue = null,
   // label = 'Sort by: ',
   handleSort,
-}: Props): JSX.Element => {
+}: Props): React.ReactNode => {
   if (!Children.only(children)) console.error('SortButton only accepts one child');
 
   const [selectedSort, setSelectedSort] = useState(defaultSelectedItemValue || sortOptions[0]?.value);
@@ -43,11 +43,11 @@ const SortButton = ({
   };
 
   const Button = cloneElement(
-    children as React.ReactElement,
+    children as React.ReactElement<any>,
     {
-      ...children?.props,
+      ...(children?.props || {}),
       ref: buttonRef,
-      onClick: callAll(handleOpenSortMenu as FunctionType, children?.props?.onClick),
+      onClick: callAll(handleOpenSortMenu as FunctionType, (children.props as any)?.onClick),
     },
     sortLabel.length > 0 && sortLabel[0]?.label,
   );

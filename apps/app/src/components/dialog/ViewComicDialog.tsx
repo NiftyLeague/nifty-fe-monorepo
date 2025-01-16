@@ -9,7 +9,7 @@ export interface ViewComicDialogProps {
   onClose: () => void;
 }
 
-const ViewComicDialog = ({ comic, open, onClose }: ViewComicDialogProps): JSX.Element => {
+const ViewComicDialog = ({ comic, open, onClose }: ViewComicDialogProps): React.ReactNode => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 

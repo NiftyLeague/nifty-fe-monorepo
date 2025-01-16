@@ -26,7 +26,7 @@ const validationSchema = yup.object({
   isCheckedTerm: yup.bool().oneOf([true]),
 });
 
-const ChangeNicknameDialog = ({ rental, updateNickname }: Props): JSX.Element => {
+const ChangeNicknameDialog = ({ rental, updateNickname }: Props): React.ReactNode => {
   const { authToken } = useAuth();
   const [nicknames, setNicknames] = useLocalStorage<{
     [address: string]: string;

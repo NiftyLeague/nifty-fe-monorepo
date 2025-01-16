@@ -15,7 +15,7 @@ export interface Props {
   descriptionText?: string;
   disabled?: boolean;
   error?: string;
-  icon?: JSX.Element;
+  icon?: React.ReactNode;
   id?: string;
   inputRef?: React.RefObject<HTMLInputElement>;
   label?: string;

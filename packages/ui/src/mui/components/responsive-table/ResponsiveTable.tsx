@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import type { Dispatch, SetStateAction } from 'react';
+import PropTypes from 'prop-types';
 import Hidden from '@mui/material/Hidden';
 
 import DataList from './DataList';
@@ -134,6 +135,41 @@ const ResponsiveTable: React.FC<ResponsiveTableProps> = ({
       </Hidden>
     </div>
   );
+};
+
+ResponsiveTable.propTypes = {
+  checkboxSelection: PropTypes.bool,
+  columns: PropTypes.arrayOf(PropTypes.object).isRequired,
+  count: PropTypes.number.isRequired,
+  data: PropTypes.array.isRequired,
+  DataGridProps: PropTypes.object,
+  excludePrimaryFromDetails: PropTypes.bool,
+  ExpansionPanelDetailsProps: PropTypes.object,
+  ExpansionPanelDetailsTypographyProps: PropTypes.object,
+  ExpansionPanelMoreIconProps: PropTypes.object,
+  ExpansionPanelProps: PropTypes.object,
+  ExpansionPanelSummaryProps: PropTypes.object,
+  ExpansionPanelSummaryTypographyProps: PropTypes.object,
+  implementation: PropTypes.oneOf(['js', 'css']),
+  listBreakpoints: PropTypes.arrayOf(PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl'])),
+  noContentText: PropTypes.string,
+  onPaginationModelChange: PropTypes.func.isRequired,
+  onSelectionChange: PropTypes.func,
+  paginationModel: PropTypes.shape({
+    pageSize: PropTypes.number.isRequired,
+    page: PropTypes.number.isRequired,
+  }).isRequired,
+  rowsClassArray: PropTypes.array,
+  showPagination: PropTypes.bool.isRequired,
+  TableBodyCellProps: PropTypes.object,
+  TableBodyProps: PropTypes.object,
+  TableBodyRowProps: PropTypes.object,
+  tableBreakpoints: PropTypes.arrayOf(PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl'])),
+  TableHeadCellProps: PropTypes.object,
+  TableHeadProps: PropTypes.object,
+  TableHeadRowProps: PropTypes.object,
+  TablePaginationProps: PropTypes.object,
+  TableProps: PropTypes.object,
 };
 
 export default ResponsiveTable;

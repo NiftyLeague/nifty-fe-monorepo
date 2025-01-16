@@ -1,5 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-
 export type TraitArray = [
   [Tribe: 'Tribe', trait: number],
   [SkinColor: 'Skin Color', trait: number],

@@ -42,7 +42,7 @@ const CONTEXT_INITIAL_STATE: NFTsBalanceContext = {
 
 const NFTsBalanceContext = createContext<NFTsBalanceContext>(CONTEXT_INITIAL_STATE);
 
-export const NFTsBalanceProvider = ({ children }: PropsWithChildren): JSX.Element => {
+export const NFTsBalanceProvider = ({ children }: PropsWithChildren): React.ReactNode => {
   const firstRenderRef = useRef(true);
   const { isLoggedIn } = useAuth();
 

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Button } from '../Button';
 import { IconChevronDown } from '../../index';
 import Typography from '../Typography';

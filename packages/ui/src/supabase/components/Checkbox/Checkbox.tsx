@@ -77,6 +77,7 @@ function Group({
           ? options.map((option: InputProps) => {
               return (
                 <Checkbox
+                  key="checkbox"
                   id={option.id}
                   value={option.value}
                   label={option.label}

@@ -10,7 +10,7 @@ export interface ViewItemDialogProps {
   onClose: () => void;
 }
 
-const ViewItemDialog = ({ item, subIndex, open, onClose }: ViewItemDialogProps): JSX.Element => {
+const ViewItemDialog = ({ item, subIndex, open, onClose }: ViewItemDialogProps): React.ReactNode => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 

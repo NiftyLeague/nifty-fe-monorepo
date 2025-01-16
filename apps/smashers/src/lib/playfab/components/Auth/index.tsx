@@ -60,13 +60,13 @@ function Auth({
   view = 'sign_in',
   redirectTo,
   onlyThirdPartyProviders = false,
-}: Props): JSX.Element | null {
+}: Props): React.ReactNode | null {
   const [authView, setAuthView] = useState(view);
   const [defaultEmail, setDefaultEmail] = useState('');
   const [defaultPassword, setDefaultPassword] = useState('');
 
   const verticalSocialLayout = socialLayout === 'vertical' ? true : false;
-  let containerClasses = [AuthStyles['sbui-auth']];
+  const containerClasses = [AuthStyles['sbui-auth']];
   if (className) containerClasses.push(className);
 
   const Container = (props: any) => (
@@ -160,7 +160,6 @@ function SocialAuth({
             </Typography.Text>
             <Space size={2} direction={socialLayout}>
               {providers.map(provider => {
-                // @ts-ignore
                 const AuthIcon = SocialIcons[provider];
                 return (
                   <div key={provider} style={!verticalSocialLayout ? { flexGrow: 1 } : {}}>

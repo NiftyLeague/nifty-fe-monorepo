@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { useState } from 'react';
 import { Button } from '../Button';
 import { Divider } from '../Divider';
 import { IconSettings, IconLogOut, IconChevronDown } from './../../index';
@@ -19,7 +21,7 @@ export const Default = (args: any) => (
     <Dropdown
       {...args}
       overlay={[
-        <Dropdown.Misc>
+        <Dropdown.Misc key="misc-1">
           <div>
             <Typography.Text small className="block">
               Signed in as{' '}
@@ -30,12 +32,16 @@ export const Default = (args: any) => (
             </Typography.Text>
           </div>
         </Dropdown.Misc>,
-        <Divider light />,
-        <Dropdown.Label>Group label</Dropdown.Label>,
-        <Dropdown.Item onClick={() => console.log('clicked')}>Account</Dropdown.Item>,
-        <Dropdown.Item>Settings</Dropdown.Item>,
-        <Divider light />,
-        <Dropdown.Item icon={<IconLogIn size="tiny" />}>Log out</Dropdown.Item>,
+        <Divider light key="divider-1" />,
+        <Dropdown.Label key="label-1">Group label</Dropdown.Label>,
+        <Dropdown.Item key="item-1" onClick={() => console.log('clicked')}>
+          Account
+        </Dropdown.Item>,
+        <Dropdown.Item key="item-2">Settings</Dropdown.Item>,
+        <Divider light key="divider-2" />,
+        <Dropdown.Item key="item-3" icon={<IconLogIn size="tiny" />}>
+          Log out
+        </Dropdown.Item>,
       ]}
     >
       <Button as="span" type="outline" iconRight={<IconChevronDown />}>
@@ -52,14 +58,14 @@ export const doNotcloseOverlay = (args: any) => (
     <Dropdown
       {...args}
       overlay={[
-        <Dropdown.Misc>
+        <Dropdown.Misc key="misc-2">
           <Typography.Text>Signed in as </Typography.Text>
           <Typography.Text strong>tom@example.com </Typography.Text>
         </Dropdown.Misc>,
-        <Divider light />,
-        <Dropdown.Item>Account</Dropdown.Item>,
-        <Dropdown.Item>Settings</Dropdown.Item>,
-        <Dropdown.Item>
+        <Divider light key="divider-1" />,
+        <Dropdown.Item key="item-4">Account</Dropdown.Item>,
+        <Dropdown.Item key="item-5">Settings</Dropdown.Item>,
+        <Dropdown.Item key="item-6">
           <Button icon={<IconLogOut />}>Log out</Button>
         </Dropdown.Item>,
       ]}
@@ -87,15 +93,15 @@ export const withCustomStyles = (args: any) => (
       placement="bottomRight"
       {...args}
       overlay={[
-        <Dropdown.Item>
+        <Dropdown.Item key="item-7">
           <Typography.Text>Signed in as </Typography.Text>
           <Typography.Text strong>tom@example.com </Typography.Text>
         </Dropdown.Item>,
-        <Divider light />,
-        <Dropdown.Item>Account</Dropdown.Item>,
-        <Dropdown.Item>Settings</Dropdown.Item>,
-        <Divider light />,
-        <Dropdown.Item>
+        <Divider light key="divider-1" />,
+        <Dropdown.Item key="item-8">Account</Dropdown.Item>,
+        <Dropdown.Item key="item-8">Settings</Dropdown.Item>,
+        <Divider light key="divider-2" />,
+        <Dropdown.Item key="item-9">
           <Button type="default" icon={<IconLogOut />}>
             Log out
           </Button>
@@ -116,19 +122,19 @@ export const SearchList = (args: any) => (
     <Dropdown
       {...args}
       overlay={[
-        <Dropdown.Item>
+        <Dropdown.Item key="item-0">
           <Input size="tiny" icon={<IconSearch />} autoFocus={false} />
         </Dropdown.Item>,
-        <Dropdown.Item>
+        <Dropdown.Item key="item-10">
           <Typography.Text>Signed in as </Typography.Text>
           <Typography.Text strong>tom@example.com </Typography.Text>
         </Dropdown.Item>,
-        <Dropdown.Item>
+        <Dropdown.Item key="item-11">
           <Typography.Text>Signed in as </Typography.Text>
           <Typography.Text strong>tom@example.com </Typography.Text>
         </Dropdown.Item>,
-        <Divider light />,
-        <Dropdown.Item icon={<IconLogIn />}>
+        <Divider light key="divider-1" />,
+        <Dropdown.Item key="item-9" icon={<IconLogIn />}>
           <Typography.Text>Log out</Typography.Text>
         </Dropdown.Item>,
       ]}
@@ -150,10 +156,12 @@ export const Checkbox = (args: any) => {
       <Dropdown
         {...args}
         overlay={[
-          <Dropdown.Item icon={<IconSettings size="small" />}>Account</Dropdown.Item>,
-          <Dropdown.Item>Settings</Dropdown.Item>,
-          <Divider light />,
-          <Dropdown.Checkbox checked={checked} onChange={setChecked}>
+          <Dropdown.Item key="item-10" icon={<IconSettings size="small" />}>
+            Account
+          </Dropdown.Item>,
+          <Dropdown.Item key="item-11">Settings</Dropdown.Item>,
+          <Divider light key="divider-1" />,
+          <Dropdown.Checkbox key="checkbox-1" checked={checked} onChange={setChecked}>
             Show subtitles
           </Dropdown.Checkbox>,
         ]}
@@ -174,7 +182,7 @@ export const Radio = (args: any) => {
       <Dropdown
         {...args}
         overlay={[
-          <Dropdown.RadioGroup value={value} onChange={setValue}>
+          <Dropdown.RadioGroup key="radio-group" value={value} onChange={setValue}>
             <Dropdown.Radio value={'red'}>Red</Dropdown.Radio>
             <Dropdown.Radio value={'blue'}>Blue</Dropdown.Radio>
             <Dropdown.Radio value={'green'}>Green</Dropdown.Radio>
@@ -207,7 +215,7 @@ export const Nested = (args: any) => {
             <Dropdown
               isNested
               overlay={[
-                <Dropdown.RadioGroup value={value} onChange={setValue}>
+                <Dropdown.RadioGroup key="radio-group" value={value} onChange={setValue}>
                   <Dropdown.Radio value={'red'}>Red</Dropdown.Radio>
                   <Dropdown.Radio value={'blue'}>Blue</Dropdown.Radio>
                   <Dropdown.Radio value={'green'}>Green</Dropdown.Radio>

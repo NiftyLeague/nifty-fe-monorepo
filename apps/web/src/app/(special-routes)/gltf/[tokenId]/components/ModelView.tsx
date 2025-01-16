@@ -36,13 +36,19 @@ type ModelViewerProps = {
   src: string;
   style: React.CSSProperties;
 };
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'model-viewer': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & ModelViewerProps;
-    }
-  }
-}
+
+// declare global {
+//   export namespace JSX {
+//     interface IntrinsicElements {
+//       'model-viewer': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & ModelViewerProps;
+//     }
+//   }
+// }
+
+const ModelViewer: React.FC<ModelViewerProps> = props => {
+  // @ts-expect-error - model-viewer known attribute
+  return <model-viewer {...props} />;
+};
 
 export default function ModelView({ source }: { source: SRC }) {
   const params = useParams();
@@ -73,7 +79,7 @@ export default function ModelView({ source }: { source: SRC }) {
           <CircularProgress style={{ margin: 'auto', width: 75, height: 'auto', color: '#FFF' }} />
         </div>
       ) : null}
-      <model-viewer
+      <ModelViewer
         // https://modelviewer.dev/docs/index.html#loading-attributes
         id="model-viewer"
         alt="Nifty League DEGEN 3D model"

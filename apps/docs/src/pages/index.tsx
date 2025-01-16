@@ -13,7 +13,7 @@ const Container = styled.main`
   margin: 0 auto;
 `;
 
-export default function Home(): JSX.Element {
+export default function Home(): React.ReactNode {
   const { siteConfig } = useDocusaurusContext();
   return (
     <Layout title={siteConfig.title} description="Documentation & Guides For Nifty League">

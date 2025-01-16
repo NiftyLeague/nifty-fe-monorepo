@@ -7,7 +7,7 @@ interface ItemProps {
   isLoading?: boolean;
 }
 
-const Item = ({ label, value, isDisable = false, isLoading = true }: ItemProps): JSX.Element => (
+const Item = ({ label, value, isDisable = false, isLoading = true }: ItemProps): React.ReactNode => (
   <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
     <Typography sx={{ color: theme => (isDisable ? theme.palette.grey[400] : 'white') }}>{label}:</Typography>
     {isLoading ? (

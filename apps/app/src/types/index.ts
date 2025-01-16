@@ -43,7 +43,7 @@ export type OverrideIcon =
     })
   | React.ComponentClass<unknown>
   | FunctionComponent<React.PropsWithChildren<React.PropsWithChildren<unknown>>>
-  | ((props: IconProps) => JSX.Element);
+  | ((props: IconProps) => React.ReactNode);
 
 export interface EnhancedTableHeadProps extends TableCellProps {
   onSelectAllClick: (e: React.ChangeEvent<HTMLInputElement>) => void;

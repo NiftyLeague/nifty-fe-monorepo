@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Loading } from '.';
 import { Card } from '../Card';
 

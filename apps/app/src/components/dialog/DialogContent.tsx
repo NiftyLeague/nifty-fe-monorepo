@@ -11,7 +11,7 @@ const DialogContentBase = (props: DialogProps) => {
   return <DialogMUI {...props} onClose={() => setIsOpen(false)} open={isOpen} />;
 };
 
-const DialogContent = ({ dialogTitle, children, ...props }: DialogProps): JSX.Element => (
+const DialogContent = ({ dialogTitle, children, ...props }: DialogProps): React.ReactNode => (
   <DialogContentBase {...props}>
     <DialogTitle>
       {dialogTitle}

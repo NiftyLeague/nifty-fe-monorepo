@@ -13,7 +13,7 @@ import ViewTraitsContentDialog from '@/components/dialog/DegenDialog/ViewTraitsC
 import type { Degen, GetDegenResponse } from '@/types/degens';
 import { useCharacterSearch } from '@/hooks/useGraphQL';
 
-const DegenTraitsDetailsPage = ({ params }: { params: { id: string } }): JSX.Element => {
+const DegenTraitsDetailsPage = ({ params }: { params: { id: string } }): React.ReactNode => {
   const tokenId = params.id;
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [degenDetail, setDegenDetail] = useState<GetDegenResponse>();

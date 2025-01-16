@@ -4,16 +4,16 @@ import DoneIcon from '@mui/icons-material/Done';
 import styles from './index.module.scss';
 
 interface RoadmapCardProps {
-  body: JSX.Element;
+  body: React.ReactNode;
   current?: boolean;
   completed?: boolean;
   completionDate?: string;
   divider?: boolean;
   image?: { src: string; width: number; height: number; style: { top: string; right?: string } };
-  title: string | JSX.Element;
+  title: string | React.ReactNode;
 }
 
-export const RenderRoadmapCard = (item: RoadmapCardProps) => <RoadmapCard key={item.title.toString()} {...item} />;
+export const RenderRoadmapCard = (item: RoadmapCardProps) => <RoadmapCard key={item?.title?.toString()} {...item} />;
 
 const RoadmapCard = ({
   body,
@@ -23,7 +23,7 @@ const RoadmapCard = ({
   divider,
   image,
   title,
-}: RoadmapCardProps): JSX.Element => (
+}: RoadmapCardProps): React.ReactNode => (
   <div className={cn(styles.cd_timeline_block, styles.fade_in)}>
     {divider ? (
       <h4 className={styles.cd_timeline_divider}>Options below are TBD!</h4>
@@ -39,7 +39,7 @@ const RoadmapCard = ({
           <Image
             src={image.src}
             unoptimized={image.src.includes('gif')}
-            alt={title.toString()}
+            alt={`${title?.toString()}`}
             width={image.width}
             height={image.height}
             sizes="100vw"

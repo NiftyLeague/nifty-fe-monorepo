@@ -30,6 +30,7 @@ export default function DegenViews() {
 
   return (
     <>
+      {/* eslint-disable react/no-unknown-property */}
       <style jsx global>{`
         body,
         html {

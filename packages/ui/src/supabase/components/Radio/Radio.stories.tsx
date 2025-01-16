@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { action } from '@storybook/addon-actions';
 
 import Radio from '.';
@@ -26,10 +28,6 @@ export default {
   component: Radio,
   argTypes: { onChange: { action: 'onChange' } },
 };
-
-interface onToggleProps {
-  e?: any;
-}
 
 export const Default = (args: any) => (
   <Radio.Group {...args} onChange={action('onChange')}>
