@@ -9,7 +9,7 @@ type HookProps = {
 
 const useUnityEventHandlers = ({ address, authToken, addEventListener, removeEventListener }: HookProps) => {
   const authMsg = `true,${address || '0x0'},Vitalik,${authToken}`;
-  const authCallback = useRef<null | ((authMsg: string) => void)>();
+  const authCallback = useRef<null | ((authMsg: string) => void)>(null);
 
   useEffect(() => {
     if (address.length && authCallback.current) {
@@ -19,7 +19,6 @@ const useUnityEventHandlers = ({ address, authToken, addEventListener, removeEve
 
   const startAuthentication = useCallback(
     (e: CustomEvent<{ callback: (auth: string) => void }>) => {
-      // eslint-disable-next-line no-console
       console.log('Authenticating:', authMsg);
       e.detail.callback(authMsg);
       authCallback.current = e.detail.callback;
@@ -30,7 +29,7 @@ const useUnityEventHandlers = ({ address, authToken, addEventListener, removeEve
   const getConfiguration = useCallback((e: CustomEvent<{ callback: (network: string) => void }>) => {
     const networkName = process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' ? 'mainnet' : 'sepolia';
     const version = process.env.NEXT_PUBLIC_SUBGRAPH_VERSION;
-    // eslint-disable-next-line no-console
+
     console.log('getConfiguration', `${networkName},${version ?? ''}`);
     setTimeout(() => e.detail.callback(`${networkName},${version ?? ''}`), 1000);
   }, []);

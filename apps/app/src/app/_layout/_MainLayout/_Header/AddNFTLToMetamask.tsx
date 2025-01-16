@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import useNetworkContext from '@/hooks/useNetworkContext';
 import useImportNFTLToWallet from '@/hooks/useImportNFTLToWallet';
 
-const AddNFTLToMetamask = (): JSX.Element | null => {
+const AddNFTLToMetamask = (): React.ReactNode | null => {
   const { isConnected } = useNetworkContext();
   const { handleImportNFTLToWallet } = useImportNFTLToWallet();
 

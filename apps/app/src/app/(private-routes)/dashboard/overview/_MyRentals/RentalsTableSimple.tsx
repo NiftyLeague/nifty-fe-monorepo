@@ -12,7 +12,7 @@ interface RentalsTableSimpleProps {
   columns: ColumnType[];
 }
 
-const RentalsTableSimple = ({ rentals, columns }: RentalsTableSimpleProps): JSX.Element => {
+const RentalsTableSimple = ({ rentals, columns }: RentalsTableSimpleProps): React.ReactNode => {
   const { palette } = useTheme();
 
   return (

@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, JSX } from 'react';
 import TitleStyles from './Title.module.css';
 
 interface Props {

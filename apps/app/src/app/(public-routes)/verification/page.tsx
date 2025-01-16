@@ -7,7 +7,7 @@ import useSignAuthMsg from '@/hooks/useSignAuthMsg';
 import useAuth from '@/hooks/useAuth';
 import type { UUID_Token, Nonce } from '@/types/auth';
 
-const GameVerification = (): JSX.Element => {
+const GameVerification = (): React.ReactNode => {
   const searchParams = useSearchParams();
   const token = searchParams.get('token') as UUID_Token | undefined;
   const nonce = searchParams.get('nonce') as Nonce | undefined;

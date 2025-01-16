@@ -16,7 +16,7 @@ interface RightInfoProps {
   keyCount: number;
   rentalCount: number;
 }
-const RightInfo = ({ comicCount, degenCount, itemCount, keyCount, rentalCount }: RightInfoProps): JSX.Element => {
+const RightInfo = ({ comicCount, degenCount, itemCount, keyCount, rentalCount }: RightInfoProps): React.ReactNode => {
   const { isLoadingDegens, isLoadingComics, isLoadingItems } = useGamerProfileContext();
   const rightDataMapper: {
     label: string;

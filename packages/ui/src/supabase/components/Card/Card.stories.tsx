@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import Typography from '../Typography';
 
 import { Card } from './';

@@ -117,7 +117,7 @@ interface TableModalProps {
   myRank?: number;
 }
 
-const TableModal = ({ selectedGame, flag, selectedTimeFilter, myRank }: TableModalProps): JSX.Element | null => {
+const TableModal = ({ selectedGame, flag, selectedTimeFilter, myRank }: TableModalProps): React.ReactNode | null => {
   // let d = new Date(),
   //   t = d.toDateString().split(' ');
 
@@ -301,10 +301,16 @@ const TableModal = ({ selectedGame, flag, selectedTimeFilter, myRank }: TableMod
 };
 
 interface TopModalProps extends TableModalProps {
-  ModalIcon: JSX.Element;
+  ModalIcon: React.ReactNode;
 }
 
-const TopModal = ({ ModalIcon, selectedGame, flag, selectedTimeFilter, myRank }: TopModalProps): JSX.Element | null => {
+const TopModal = ({
+  ModalIcon,
+  selectedGame,
+  flag,
+  selectedTimeFilter,
+  myRank,
+}: TopModalProps): React.ReactNode | null => {
   return (
     <CustomModal
       ModalIcon={ModalIcon}

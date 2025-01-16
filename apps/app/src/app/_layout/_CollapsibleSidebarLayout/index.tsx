@@ -17,7 +17,7 @@ const CollapsibleSidebarLayout = ({
   renderMain,
   isDrawerOpen,
   setIsDrawerOpen,
-}: Props): JSX.Element => {
+}: Props): React.ReactNode => {
   const theme = useTheme();
   const matchDownSm = useMediaQuery(theme.breakpoints.down('md'));
   const matchUpMd = useMediaQuery(theme.breakpoints.up('md'));

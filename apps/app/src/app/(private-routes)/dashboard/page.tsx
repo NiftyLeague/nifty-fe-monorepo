@@ -1,5 +1,5 @@
 import Overview from './overview/page';
 
-const DashboardOverviewPage = (): JSX.Element => <Overview />;
+const DashboardOverviewPage = (): React.ReactNode => <Overview />;
 
 export default DashboardOverviewPage;

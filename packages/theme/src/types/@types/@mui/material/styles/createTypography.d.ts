@@ -5,7 +5,10 @@ declare module '@mui/material/styles/createTypography' {
     extends Required<{
       textTransform: TextTransform;
       fontSize: string | number; // added string
-    }> {}
+    }> {
+    textTransform: TextTransform;
+    fontSize: string | number;
+  }
   export interface FontStyleOptions extends Partial<FontStyle> {
     fontSize?: string | number; // added string
   }

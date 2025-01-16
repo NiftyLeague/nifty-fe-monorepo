@@ -24,7 +24,7 @@ const AnimatedWrapper = ({
   parallaxDirection?: string;
   transitionAmount?: string;
 }) => {
-  const ref: any = useRef<HTMLDivElement>();
+  const ref = useRef<HTMLDivElement>(new HTMLDivElement());
   const onScreen: boolean = useOnScreen<HTMLDivElement>(ref, immediate ? '0px' : '-100px');
 
   useEffect(() => {

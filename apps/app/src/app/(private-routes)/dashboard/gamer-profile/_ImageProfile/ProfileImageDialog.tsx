@@ -128,7 +128,7 @@ type ProfileImageDialogProps = {
   avatarFee?: number;
 };
 
-const ProfileImageDialog = ({ degens, onChangeAvatar, avatarFee }: ProfileImageDialogProps): JSX.Element => {
+const ProfileImageDialog = ({ degens, onChangeAvatar, avatarFee }: ProfileImageDialogProps): React.ReactNode => {
   const [degensInternal, setDegensInternal] = useState<Degen[]>([]);
   const theme = useTheme();
 

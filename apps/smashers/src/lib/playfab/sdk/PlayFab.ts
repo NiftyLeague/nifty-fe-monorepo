@@ -50,7 +50,7 @@ export function MakeRequest(
   const getParams = settings.requestGetParams;
   if (getParams != null) {
     let firstParam = true;
-    for (let key in getParams) {
+    for (const key in getParams) {
       if (firstParam) {
         urlArr.push('?');
         firstParam = false;

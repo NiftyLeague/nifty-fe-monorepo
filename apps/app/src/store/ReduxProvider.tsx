@@ -8,8 +8,8 @@ import type { Persistor } from 'redux-persist/es/types';
 import { makeStore, AppStore } from './store';
 
 export function ReduxProvider({ children }: PropsWithChildren) {
-  const storeRef = useRef<AppStore>();
-  const persistorRef = useRef<Persistor>();
+  const storeRef = useRef<AppStore | undefined>(undefined);
+  const persistorRef = useRef<Persistor | undefined>(undefined);
 
   if (!storeRef.current) {
     // Create the store instance the first time this renders

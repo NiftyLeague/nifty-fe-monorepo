@@ -38,7 +38,7 @@ const CONTEXT_INITIAL_STATE: TokensBalanceContext = {
 
 const TokensBalanceContext = createContext<TokensBalanceContext>(CONTEXT_INITIAL_STATE);
 
-export const TokensBalanceProvider = ({ children }: PropsWithChildren): JSX.Element => {
+export const TokensBalanceProvider = ({ children }: PropsWithChildren): React.ReactNode => {
   const { degenTokenIndices: degens, loadingDegens } = useNFTsBalances();
   const firstRenderRef = useRef(true);
   const { isLoggedIn } = useAuth();

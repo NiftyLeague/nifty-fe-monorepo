@@ -1,4 +1,4 @@
-declare module PlayFabAdminModule {
+declare namespace PlayFabAdminModule {
   export interface IPlayFabAdmin {
     settings: PlayFabModule.IPlayFabSettings;
     // Abort an ongoing task instance.
@@ -723,7 +723,7 @@ declare module PlayFabAdminModule {
   }
 }
 
-declare module PlayFabAdminModels {
+declare namespace PlayFabAdminModels {
   export interface AbortTaskInstanceRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
     CustomTags?: { [key: string]: string | null };

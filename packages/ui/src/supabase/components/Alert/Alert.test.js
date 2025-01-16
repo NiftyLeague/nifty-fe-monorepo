@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+import { describe, it, expect } from 'vitest';
 import Alert from './Alert';
 
 const VARIANTS = ['success', 'danger', 'warning', 'info'];

@@ -9,7 +9,7 @@ import HoverDataCard from '@/components/cards/HoverDataCard';
 import useClaimNFTL from '@/hooks/writeContracts/useClaimNFTL';
 import useNetworkContext from '@/hooks/useNetworkContext';
 
-const DegenBalance = (): JSX.Element => {
+const DegenBalance = (): React.ReactNode => {
   const theme = useTheme();
   const { isConnected } = useNetworkContext();
   const { balance, claimCallback, loading } = useClaimNFTL();

@@ -13,7 +13,7 @@ type Cache<T> = { [url: string]: T };
 // discriminated union type
 type Action<T> = { type: 'loading' } | { type: 'fetched'; payload: T } | { type: 'error'; payload: Error };
 
-const initialState = {
+const initialState: State<unknown> = {
   loading: undefined,
   error: undefined,
   data: undefined,
@@ -23,11 +23,11 @@ const initialState = {
 function fetchReducer<T>(state: State<T>, action: Action<T>): State<T> {
   switch (action.type) {
     case 'loading':
-      return { ...initialState, loading: true };
+      return { ...initialState, loading: true } as State<T>;
     case 'fetched':
-      return { ...initialState, loading: false, data: action.payload };
+      return { ...initialState, loading: false, data: action.payload } as State<T>;
     case 'error':
-      return { ...initialState, loading: false, error: action.payload };
+      return { ...initialState, loading: false, error: action.payload } as State<T>;
     default:
       return state;
   }

@@ -57,11 +57,11 @@ const style = (theme: Theme) => ({
   },
 });
 interface ModalProps {
-  ModalIcon: JSX.Element;
-  child: JSX.Element;
+  ModalIcon: React.ReactNode;
+  child: React.ReactNode;
   flag?: string;
 }
-const CustomModal = (props: ModalProps): JSX.Element | null => {
+const CustomModal = (props: ModalProps): React.ReactNode | null => {
   const { ModalIcon, child, flag } = props;
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);

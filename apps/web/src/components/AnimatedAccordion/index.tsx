@@ -30,7 +30,15 @@ const StyledAccordion = styled(Accordion)({
   },
 });
 
-const AnimatedAccordion = ({ index, question, answer }: { index: number; question: string; answer: JSX.Element }) => {
+const AnimatedAccordion = ({
+  index,
+  question,
+  answer,
+}: {
+  index: number;
+  question: string;
+  answer: React.ReactNode;
+}) => {
   return (
     <AnimatedWrapper>
       <div className="animated-fade-quick animated-fade-start transition-delay-medium">

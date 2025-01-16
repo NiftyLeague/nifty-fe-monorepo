@@ -21,7 +21,7 @@ import { getUniqueListBy } from '@/utils/array';
 import useTeminateRental from '@/hooks/useTeminateRental';
 import useAuth from '@/hooks/useAuth';
 
-const DashboardRentalPage = (): JSX.Element => {
+const DashboardRentalPage = (): React.ReactNode => {
   const { authToken } = useAuth();
   const headers = { authorizationToken: authToken || '' };
   const [rentals, setRentals] = useState<Rentals[]>([]);

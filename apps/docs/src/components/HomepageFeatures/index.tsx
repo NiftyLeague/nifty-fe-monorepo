@@ -80,7 +80,7 @@ function Feature(feature: FeatureItem) {
   );
 }
 
-export default function HomepageFeatures(): JSX.Element {
+export default function HomepageFeatures(): React.ReactNode {
   return (
     <Section>
       <RowThree>

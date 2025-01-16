@@ -17,7 +17,7 @@ interface TopInfoProps {
   walletAddress: string;
 }
 
-const TopInfo = ({ profile, walletAddress }: TopInfoProps): JSX.Element => {
+const TopInfo = ({ profile, walletAddress }: TopInfoProps): React.ReactNode => {
   const [profileName, setProfileName] = useState<string>('Unknown');
   const { isLoadingProfile } = useGamerProfileContext();
   const [, copy] = useCopyToClipboard();

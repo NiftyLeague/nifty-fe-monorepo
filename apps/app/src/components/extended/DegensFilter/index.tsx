@@ -68,7 +68,12 @@ interface DegensFilterProps {
   searchTerm?: string;
 }
 
-const DegensFilter = ({ onFilter, defaultFilterValues, isDegenOwner, searchTerm }: DegensFilterProps): JSX.Element => {
+const DegensFilter = ({
+  onFilter,
+  defaultFilterValues,
+  isDegenOwner,
+  searchTerm,
+}: DegensFilterProps): React.ReactNode => {
   const theme = useTheme();
   const mountedRef = useRef(false);
   const router = useRouter();

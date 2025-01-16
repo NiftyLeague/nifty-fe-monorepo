@@ -7,7 +7,7 @@ export const pageview = (url: string) => {
   }
 };
 // log specific events happening.
-// eslint-disable-next-line no-undef
+
 export const event = ({ action, params }: { action: string; params: Gtag.EventParams }) => {
   if (typeof window !== 'undefined' && !window.location.host.includes('localhost')) {
     window.gtag('event', action, params);

@@ -22,6 +22,9 @@ coverage
 # Vercel
 .vercel
 
+# Typescript
+*.tsbuildinfo
+
 # Build Outputs
 .next/
 out/

@@ -20,7 +20,6 @@ import { alpha } from '@mui/system';
 
 // React Toastify
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 // project imports
 import navigation from '@/constants/menu-items';

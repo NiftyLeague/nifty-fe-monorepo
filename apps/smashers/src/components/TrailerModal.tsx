@@ -21,7 +21,7 @@ const ModalContent = ({ modalIframe }: { modalIframe: RefObject<HTMLIFrameElemen
 
 export default function TrailerModal() {
   const [visible, setVisible] = useState(false);
-  const modalIframe = useRef<HTMLIFrameElement>(null);
+  const modalIframe = useRef<HTMLIFrameElement>(new HTMLIFrameElement());
 
   const openModal = useCallback(() => setVisible(true), []);
 

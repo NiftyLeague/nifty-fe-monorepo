@@ -33,7 +33,7 @@ const Game = ({ unityContext, arcadeTokenRequired = false }: GameProps) => {
   const { address } = useAccount();
   const { tokensBalances, loadingArcadeBal, refetchArcadeBal } = useTokensBalances();
   const authMsg = `true,${address || '0x0'},Vitalik,${authToken}`;
-  const authCallback = useRef<null | ((authMsg: string) => void)>();
+  const authCallback = useRef<null | ((authMsg: string) => void)>(null);
   const [isLoaded, setLoaded] = useState(false);
   const [progress, setProgress] = useState(0);
 

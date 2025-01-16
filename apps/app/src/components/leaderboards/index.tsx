@@ -26,7 +26,7 @@ const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
   },
 }));
 
-export default function LeaderBoards(): JSX.Element {
+export default function LeaderBoards(): React.ReactNode {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();

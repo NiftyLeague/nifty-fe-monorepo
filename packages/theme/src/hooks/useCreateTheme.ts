@@ -19,7 +19,7 @@ const useCreateTheme = () => {
 
   const typography = useMemo<ThemeOptions['typography']>(
     () => customTypography(colorTheme, config.borderRadius, config.fontFamily),
-    [colorTheme, config.borderRadius],
+    [colorTheme, config.borderRadius, config.fontFamily],
   );
   const shadows = useMemo<CustomShadowProps>(
     () => customShadows(colorTheme, config.paletteMode),

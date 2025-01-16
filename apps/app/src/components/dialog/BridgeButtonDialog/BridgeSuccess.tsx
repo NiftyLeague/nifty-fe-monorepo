@@ -24,7 +24,7 @@ const IconButtonStyle = styled(IconButton)(({ theme }) => ({
 
 type BridgeSuccessProps = { successDialogOpen: boolean; setSuccessDialogOpen: Dispatch<SetStateAction<boolean>> };
 
-const BridgeSuccess = ({ successDialogOpen, setSuccessDialogOpen }: BridgeSuccessProps): JSX.Element => {
+const BridgeSuccess = ({ successDialogOpen, setSuccessDialogOpen }: BridgeSuccessProps): React.ReactNode => {
   const { address } = useNetworkContext();
   const { refreshNFTLBalance } = useTokensBalances();
 

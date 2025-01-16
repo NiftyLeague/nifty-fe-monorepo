@@ -16,7 +16,7 @@ const redirectToAppStore = (userAgent: string, refcode: string, newTab = false) 
 
 // Attempt to launch App if installed. Fallback to App Store after a timeout
 const redirectToNativeApp = (userAgent: string, refcode: string) => {
-  let timeoutId = setTimeout(() => redirectToAppStore(userAgent, refcode), 500);
+  const timeoutId = setTimeout(() => redirectToAppStore(userAgent, refcode), 500);
 
   const clearTimeoutHandler = () => {
     clearTimeout(timeoutId);

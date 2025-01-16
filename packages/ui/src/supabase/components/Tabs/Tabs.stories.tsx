@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Button } from '../Button';
 import { IconMail } from '../../index';
 import Typography from '../Typography';
@@ -10,7 +12,7 @@ export default {
 };
 
 export const Default = (args: any) => (
-  <Tabs defaultActiveId={'panel-1'}>
+  <Tabs defaultActiveId={'panel-1'} {...args}>
     <Tabs.Panel id="panel-1" label="1st tab">
       <Typography.Text>Content for the first panel</Typography.Text>
     </Tabs.Panel>
@@ -80,7 +82,7 @@ export const BlockTabs = (args: any) => (
 );
 
 const limit = 30;
-const infitniteSroll: JSX.Element[] = [];
+const infitniteSroll: React.ReactNode[] = [];
 
 for (let i = 0; i < limit; i++) {
   infitniteSroll.push(

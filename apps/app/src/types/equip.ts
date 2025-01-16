@@ -1,6 +1,6 @@
 export interface EquipItemSlot {
   name: string;
-  empty: JSX.Element;
-  filled?: JSX.Element;
-  filledArr?: JSX.Element[];
+  empty: React.ReactNode;
+  filled?: React.ReactNode;
+  filledArr?: React.ReactNode[];
 }

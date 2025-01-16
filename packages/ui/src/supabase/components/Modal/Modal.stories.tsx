@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { useState } from 'react';
 import { action } from '@storybook/addon-actions';
 
@@ -152,7 +154,7 @@ export const LongModal = () => (
 
 export const customFooterOneButton = (args: any) => <Modal {...args} />;
 
-export const modalWithDropdowns = () => {
+export const ModalWithDropdowns = () => {
   const [visible, setVisible] = useState(false);
 
   return (
@@ -254,7 +256,7 @@ customFooter.args = {
   title: 'This is the title of the modal',
   description: 'And i am the description',
   customFooter: [
-    <Space>
+    <Space key="space">
       <div>
         <Badge color="red" dot size="small">
           Proceed with caution
@@ -275,7 +277,7 @@ customFooterVertical.args = {
   description: 'And i am the description',
   layout: 'vertical',
   customFooter: [
-    <Space style={{ width: '100%' }}>
+    <Space key="space" style={{ width: '100%' }}>
       <Button size="medium" block type="secondary">
         Cancel
       </Button>
@@ -296,7 +298,7 @@ customFooterOneButton.args = {
   description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur amet labore.',
   layout: 'vertical',
   customFooter: [
-    <Space style={{ width: '100%' }}>
+    <Space key="space" style={{ width: '100%' }}>
       <Button size="medium" block icon={<IconCheck />}>
         Confirm
       </Button>
