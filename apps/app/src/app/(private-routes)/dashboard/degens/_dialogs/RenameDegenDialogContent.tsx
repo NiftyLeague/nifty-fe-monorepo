@@ -33,7 +33,7 @@ interface Props {
   onSuccess?: () => void;
 }
 
-const RenameDegenDialogContent = ({ degen, onSuccess }: Props): JSX.Element => {
+const RenameDegenDialogContent = ({ degen, onSuccess }: Props): React.ReactNode => {
   const { tx, writeContracts } = useNetworkContext();
   const { tokensBalances } = useTokensBalances();
   const [input, setInput] = useState('');

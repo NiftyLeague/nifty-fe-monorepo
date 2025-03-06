@@ -28,7 +28,7 @@ const Home = () => {
   const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false);
   const [isRentDialog, setIsRentDialog] = useState<boolean>(false);
 
-  const { data } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`, { enabled: !degens.length });
+  const { data } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`);
 
   useEffect(() => {
     if (data) {

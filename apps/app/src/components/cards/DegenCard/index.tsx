@@ -143,7 +143,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
           border: `1px solid ${palette.border}`,
           backgroundColor: palette.background.default,
           pb: 2,
-          ...sx,
+          ...(sx as SxProps<Theme>),
         }}
       >
         {id && <DegenImage tokenId={id} sx={{ height: size === 'small' ? 200 : undefined }} />}
@@ -334,7 +334,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
                 />
               </Box>
             </Box>
-            <DegenClaimBal tokenId={id} fontSize={tinyFontSize} />
+            <DegenClaimBal tokenId={id} fontSize={tinyFontSize as string} />
           </Stack>
         )}
         {/* {isDashboardDegen && (

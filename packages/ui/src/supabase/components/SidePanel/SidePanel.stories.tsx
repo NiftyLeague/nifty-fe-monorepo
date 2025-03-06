@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { action } from '@storybook/addon-actions';
 import React, { useState } from 'react';
 import { Button, Space, Typography } from '../../index';
@@ -83,7 +85,7 @@ export const triggerElement = (args: any) => (
   </>
 );
 
-export const nestedSidepanels = (args: any) => {
+export const NestedSidepanels = (args: any) => {
   const [panel1Visible, setPanel1Visible] = useState(false);
   const [panel2Visible, setPanel2Visible] = useState(false);
 
@@ -92,7 +94,7 @@ export const nestedSidepanels = (args: any) => {
       <Button type="secondary" onClick={() => setPanel1Visible(true)}>
         Open panel 1
       </Button>
-      <SidePanel visible={panel1Visible}>
+      <SidePanel visible={panel1Visible} {...args}>
         <Typography.Text type="secondary">This was opened with a trigger element</Typography.Text>
         <Button type="secondary" onClick={() => setPanel2Visible(true)}>
           Open panel 2
@@ -100,7 +102,7 @@ export const nestedSidepanels = (args: any) => {
         <Button type="secondary" onClick={() => setPanel1Visible(false)}>
           Close panel 1
         </Button>
-        <SidePanel visible={panel2Visible}>
+        <SidePanel visible={panel2Visible} {...args}>
           <Button type="secondary" onClick={() => setPanel2Visible(false)}>
             close panel 2
           </Button>
@@ -161,7 +163,7 @@ customFooter.args = {
   title: 'This is the title of the SidePanel',
   description: 'And i am the description',
   customFooter: [
-    <Space>
+    <Space key="space">
       <Button type="secondary">Cancel</Button>
       <Button danger>Delete</Button>
     </Space>,

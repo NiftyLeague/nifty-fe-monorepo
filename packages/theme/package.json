@@ -1,33 +1,35 @@
 {
   "name": "@nl/theme",
   "version": "0.0.0",
+  "type": "module",
   "private": true,
-  "main": "./src/index.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./constants": "./src/constants/index.ts",
-    "./mui": "./src/mui.ts",
-    "./provider": "./src/context/ThemeProvider.tsx",
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/types/@types/index.d.ts"
+    },
     "./styles": "./src/styles/vars.module.scss",
-    "./types": "./src/types/index.ts",
-    "./useThemeConfig": "./src/hooks/useThemeConfig.ts"
+    "./types": "./src/types/@types/index.d.ts"
   },
   "scripts": {
+    "clean": "rm -rf node_modules",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --max-warnings 0 --fix",
     "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\"",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@emotion/cache": "^11.13.5",
-    "@mui/material-nextjs": "^5.16.6",
-    "@next/font": "^14.2.15",
-    "react-intl": "^6.8.9",
+    "@emotion/cache": "^11.14.0",
+    "@mui/material-nextjs": "^6.4.3",
+    "next": "^15.2.1",
+    "react-intl": "^7.1.6",
     "stylis-plugin-rtl": "^2.1.1"
   },
   "devDependencies": {
-    "@nl/eslint-config": "workspace:^",
-    "@nl/prettier-config": "workspace:^",
-    "@nl/typescript-config": "workspace:^"
+    "@nl/eslint-config": "workspace:*",
+    "@nl/prettier-config": "workspace:*",
+    "@nl/typescript-config": "workspace:*",
+    "esbuild-sass-plugin": "^3.3.1",
+    "tsup": "^8.4.0"
   }
 }

@@ -1,5 +1,4 @@
-import type { Theme, ThemeOptions } from '@mui/material/styles';
-import type { FontFamily } from '../types';
+import type { FontFamily, Theme, ThemeOptions } from '../types';
 
 const customTypography = (theme: Theme, borderRadius: number, fontFamily: FontFamily): ThemeOptions['typography'] => ({
   fontFamily: fontFamily.default.style.fontFamily,

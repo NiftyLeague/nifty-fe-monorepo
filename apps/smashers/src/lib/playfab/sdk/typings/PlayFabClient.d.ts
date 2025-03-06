@@ -1,4 +1,4 @@
-declare module PlayFabClientModule {
+declare namespace PlayFabClientModule {
   export interface IPlayFabClient {
     settings: PlayFabModule.IPlayFabSettings;
     IsClientLoggedIn(): boolean;
@@ -1135,7 +1135,7 @@ declare module PlayFabClientModule {
   }
 }
 
-declare module PlayFabClientModels {
+declare namespace PlayFabClientModels {
   export interface AcceptTradeRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Items from the accepting player's inventory in exchange for the offered items in the trade. In the case of a gift, this
     // will be null.

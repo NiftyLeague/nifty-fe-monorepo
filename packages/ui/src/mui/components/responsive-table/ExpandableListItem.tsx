@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpansionPanel from '@mui/material/Accordion';
 import ExpansionPanelSummary from '@mui/material/AccordionSummary';
@@ -11,9 +11,9 @@ import Typography from '@mui/material/Typography';
 type ExpandableListItemProps = {
   checkboxSelection?: boolean;
   panelClass?: string;
-  details: JSX.Element;
+  details: React.ReactNode;
   selected: boolean;
-  summary: JSX.Element | JSX.Element[];
+  summary: React.ReactNode | React.ReactNode[];
   ExpansionPanelDetailsProps?: any;
   ExpansionPanelDetailsTypographyProps?: any;
   ExpansionPanelMoreIconProps?: any;

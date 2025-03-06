@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import AnimatedWrapper from '@/components/AnimatedWrapper';
 
-const Definitions = (): JSX.Element => (
+const Definitions = (): React.ReactNode => (
   <>
     <AnimatedWrapper>
       <h5 className="my-3 my-md-5 animated-fade-slow animated-fade-start transition-delay-medium">

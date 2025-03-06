@@ -10,7 +10,7 @@ import EmptyState from '@/components/EmptyState';
 import ComicPlaceholder from '@/components/cards/Skeleton/ComicPlaceholder';
 import { ITEM_PURCHASE_URL } from '@/constants/url';
 
-const MyItems = (): JSX.Element => {
+const MyItems = (): React.ReactNode => {
   const router = useRouter();
   const { itemsBalances, loadingItems } = useNFTsBalances();
   const filteredItems = useMemo(() => itemsBalances.filter(item => item.balance && item.balance > 0), [itemsBalances]);

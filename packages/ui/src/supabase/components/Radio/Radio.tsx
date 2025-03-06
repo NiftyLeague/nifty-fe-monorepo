@@ -98,6 +98,7 @@ function RadioGroup({
                 ? options.map((option: InputProps) => {
                     return (
                       <Radio
+                        key="radio"
                         id={option.id}
                         label={option.label}
                         beforeLabel={option.beforeLabel}

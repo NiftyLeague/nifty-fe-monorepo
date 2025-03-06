@@ -14,7 +14,7 @@ import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 import ComicPlaceholder from '@/components/cards/Skeleton/ComicPlaceholder';
 import { COMICS_PURCHASE_URL } from '@/constants/url';
 
-const MyComics = (): JSX.Element => {
+const MyComics = (): React.ReactNode => {
   const [selectedComic, setSelectedComic] = useState<Comic | null>(null);
   const router = useRouter();
   const { comicsBalances, loadingComics } = useNFTsBalances();

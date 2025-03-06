@@ -26,7 +26,7 @@ const Loader = () => (
 
 interface LoaderProps extends LinearProgressProps {}
 
-const Loadable = (Component: LazyExoticComponent<() => JSX.Element>) => {
+const Loadable = (Component: LazyExoticComponent<() => React.ReactNode>) => {
   const LoadableComponent = (props: LoaderProps) => (
     <Suspense fallback={<Loader />}>
       <Component {...props} />

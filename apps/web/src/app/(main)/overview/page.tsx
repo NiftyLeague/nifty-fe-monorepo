@@ -65,6 +65,7 @@ const Overview: NextPage = () => {
         </div>
       </div>
 
+      {/* eslint-disable no-constant-binary-expression */}
       {false && (
         <div className="row m-0 p-0 position-relative stay-informed-section">
           <div className="p-0 w-100">

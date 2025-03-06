@@ -1,4 +1,4 @@
-import type { NextPage, Metadata } from 'next';
+import type { NextPage } from 'next';
 import { Container } from '@mui/material';
 import Definitions from '@/components/Definitions';
 import AnimatedWrapper from '@/components/AnimatedWrapper';

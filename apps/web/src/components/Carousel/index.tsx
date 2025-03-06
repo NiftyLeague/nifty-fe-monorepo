@@ -19,7 +19,7 @@ const NiftyCarousel = ({
   desktopItems?: number;
   superLargeDesktopItems?: number;
   hideGradient?: boolean;
-}): JSX.Element => (
+}): React.ReactNode => (
   <>
     {!hideGradient && (
       <span className="dark-gradient-shade">

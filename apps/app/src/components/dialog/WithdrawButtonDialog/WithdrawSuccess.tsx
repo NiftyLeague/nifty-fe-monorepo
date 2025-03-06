@@ -12,7 +12,7 @@ const IconButtonStyle = styled(IconButton)(({ theme }) => ({
 
 type WithdrawSuccessProps = { successDialogOpen: boolean; setSuccessDialogOpen: Dispatch<SetStateAction<boolean>> };
 
-const WithdrawSuccess = ({ successDialogOpen, setSuccessDialogOpen }: WithdrawSuccessProps): JSX.Element => {
+const WithdrawSuccess = ({ successDialogOpen, setSuccessDialogOpen }: WithdrawSuccessProps): React.ReactNode => {
   const { refreshNFTLBalance } = useTokensBalances();
 
   const handleClose = () => {

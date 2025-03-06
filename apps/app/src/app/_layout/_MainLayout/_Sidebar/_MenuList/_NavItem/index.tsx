@@ -30,7 +30,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
   const dispatch = useDispatch();
   const { openItem } = useSelector(state => state.menu);
 
-  const Icon = item?.icon! as (props: IconProps) => JSX.Element;
+  const Icon = item?.icon as (props: IconProps) => React.ReactNode | undefined;
   const itemIcon = item?.icon ? (
     <Icon stroke={1.5} size="20px" />
   ) : (

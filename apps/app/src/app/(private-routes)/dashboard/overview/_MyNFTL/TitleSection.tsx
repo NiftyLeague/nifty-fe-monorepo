@@ -6,7 +6,7 @@ import { formatNumberToDisplay } from '@/utils/numbers';
 import useTokensBalances from '@/hooks/balances/useTokensBalances';
 import SectionTitle from '@/components/sections/SectionTitle';
 
-const TitleSection = (): JSX.Element => {
+const TitleSection = (): React.ReactNode => {
   const { loadingNFTLBal, tokensBalances } = useTokensBalances();
   return (
     <SectionTitle

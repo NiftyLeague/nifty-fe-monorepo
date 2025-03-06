@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { useRef, useState } from 'react';
 
 import { Space, IconPackage, IconChevronRight } from './../../index';
@@ -16,7 +18,7 @@ export const withBlock = (args: any) => <Button {...args}>Button text</Button>;
 export const withOnlyIcon = (args: any) => <Button {...args} />;
 export const withOnlyLoading = (args: any) => <Button {...args} />;
 export const withLoadingCentered = (args: any) => <Button {...args}>Loading icon is centered</Button>;
-export const withRef = () => {
+export const WithRef = () => {
   const buttonRef = useRef<RefHandle>(null);
   const [msg, setMsg] = useState('Click button to console.log Ref');
 

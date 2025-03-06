@@ -79,7 +79,7 @@ function Tabs({
           >
             {addOnBefore}
             {Array.isArray(children) &&
-              children.map((tab: React.ReactElement) => {
+              children.map((tab: React.ReactElement<PanelProps>) => {
                 if (!tab) return null;
                 const activeMatch = active === tab.props.id;
                 return (
@@ -97,7 +97,7 @@ function Tabs({
                     }
                     type={activeMatch && !underlined ? 'primary' : 'text'}
                     key={`${tab.props.id}-tab-button`}
-                    onClick={() => onTabClick(tab.props.id)}
+                    onClick={() => onTabClick(`${tab.props.id}`)}
                     ariaSelected={activeMatch ? true : false}
                     ariaControls={tab.props.id}
                     tabIndex={activeMatch ? 0 : -1}

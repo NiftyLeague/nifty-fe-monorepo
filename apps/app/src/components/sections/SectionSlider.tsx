@@ -32,7 +32,7 @@ const SectionSlider = ({
   isSlider = true,
   variant = 'h2',
   styles,
-}: PropsWithChildren<Props>): JSX.Element => {
+}: PropsWithChildren<Props>): React.ReactNode => {
   const refSlider = useRef<Slider>(null);
   const settings = {
     dots: false,

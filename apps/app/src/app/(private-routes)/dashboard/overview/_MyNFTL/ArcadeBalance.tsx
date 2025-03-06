@@ -12,7 +12,7 @@ import useTokensBalances from '@/hooks/balances/useTokensBalances';
 import BuyArcadeTokensDialog from '@/components/dialog/BuyArcadeTokensDialog';
 import TokenInfoCard from '@/components/cards/TokenInfoCard';
 
-const ArcadeBalance = (): JSX.Element => {
+const ArcadeBalance = (): React.ReactNode => {
   const theme = useTheme();
   const router = useRouter();
   const { tokensBalances, loadingArcadeBal, refetchArcadeBal } = useTokensBalances();

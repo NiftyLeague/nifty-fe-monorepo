@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import Select from '.';
 import { IconBook } from '../../index';
 

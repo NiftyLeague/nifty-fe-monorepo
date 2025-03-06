@@ -76,7 +76,13 @@ export function Preloader({
   );
 }
 
-export default function PreloaderWithProgress({ ready, progress }: { ready: boolean; progress: number }): JSX.Element {
+export default function PreloaderWithProgress({
+  ready,
+  progress,
+}: {
+  ready: boolean;
+  progress: number;
+}): React.ReactNode {
   const [percent, setPercent] = useState(progress);
   const { milliseconds, start, stop } = useStopwatch({ interval: 100 });
 

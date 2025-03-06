@@ -62,7 +62,7 @@ const columns: ColumnType[] = [
 interface MyRentalsProps {
   rentals: Rentals[];
 }
-const MyRentals: FC<MyRentalsProps> = ({ rentals }): JSX.Element => {
+const MyRentals: FC<MyRentalsProps> = ({ rentals }): React.ReactNode => {
   const { profile } = usePlayerProfile();
 
   const rows = transformRentals(rentals, profile?.id || '');

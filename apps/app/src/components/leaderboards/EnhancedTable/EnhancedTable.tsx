@@ -31,7 +31,7 @@ export default function EnhancedTable({
   selectedGame,
   selectedTable,
   selectedTimeFilter,
-}: TableProps): JSX.Element | null {
+}: TableProps): React.ReactNode | null {
   const [count, setCount] = useState(0);
   const [paginationModel, setPaginationModel] = useState({
     pageSize: 50,

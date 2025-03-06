@@ -32,7 +32,7 @@ const defaultValue: {
   isLoadingComics: true,
 };
 
-const GamerProfile = (): JSX.Element => {
+const GamerProfile = (): React.ReactNode => {
   const { profile, error, loadingProfile } = useGamerProfile();
   const { address } = useAccount();
   const { avatarsAndFee } = useProfileAvatarFee();

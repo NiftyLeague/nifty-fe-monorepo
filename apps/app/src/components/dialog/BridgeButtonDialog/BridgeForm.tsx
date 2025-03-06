@@ -39,7 +39,7 @@ type IFormInput = { amountSelected: number; amountInput: string; isCheckedTerm: 
 
 const AMOUNT_SELECTS: number[] = [25, 50, 75, 100];
 
-export const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): JSX.Element => {
+export const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): React.ReactNode => {
   const { agreementAccepted, setAgreementAccepted } = useLocalStorageContext();
   const { address, writeContracts } = useNetworkContext();
   const { imxChainId } = useIMXContext();

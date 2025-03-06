@@ -9,7 +9,7 @@ interface Props {
   length?: number;
 }
 
-const FilterAccordion = ({ summary, children, expanded = true, length = 0 }: Props): JSX.Element => {
+const FilterAccordion = ({ summary, children, expanded = true, length = 0 }: Props): React.ReactNode => {
   return (
     <Accordion
       defaultExpanded={expanded}

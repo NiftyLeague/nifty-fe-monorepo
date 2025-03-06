@@ -10,7 +10,7 @@ interface MiniGameContentProps {
   data: ProfileMiniGame | undefined;
 }
 
-const MiniGameContent = ({ data }: MiniGameContentProps): JSX.Element => {
+const MiniGameContent = ({ data }: MiniGameContentProps): React.ReactNode => {
   const leftDataMapper: {
     label: string;
     value: string | number | undefined;

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Input } from '.';
 import { IconPackage } from './../../index';
 import { Button } from '../Button';
@@ -110,8 +112,10 @@ withCustomActions.args = {
   labelOptional: 'Use any react components',
   value: 'Value of input',
   actions: [
-    <Button type="secondary">Copy text</Button>,
-    <Button type="outline" danger>
+    <Button key="copy-text" type="secondary">
+      Copy text
+    </Button>,
+    <Button key="delete-this" type="outline" danger>
       Delete this
     </Button>,
   ],

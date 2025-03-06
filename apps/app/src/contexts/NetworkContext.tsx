@@ -36,7 +36,7 @@ const CONTEXT_INITIAL_STATE: NetworkContext = {
 
 const NetworkContext = createContext<NetworkContext>(CONTEXT_INITIAL_STATE);
 
-export const NetworkProvider = ({ children }: PropsWithChildren): JSX.Element => {
+export const NetworkProvider = ({ children }: PropsWithChildren): React.ReactNode => {
   const chainId = TARGET_NETWORK?.chainId || 1; // mainnet | sepolia | hardhat
   const { address, chain, isConnected } = useAccount();
 

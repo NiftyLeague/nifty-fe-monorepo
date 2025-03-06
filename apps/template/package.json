@@ -1,11 +1,12 @@
 {
   "name": "template",
   "version": "1.0.0",
+  "type": "module",
   "private": true,
   "scripts": {},
   "dependencies": {
     "@nl/theme": "workspace:^",
     "@nl/ui": "workspace:^",
-    "next": "^14.2.18"
+    "next": "^15.2.1"
   }
 }

@@ -1,7 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["**/.env.*local", ".env"],
-  "globalEnv": ["SENTRY_AUTH_TOKEN", "SENTRY_ORG", "SENTRY_PROJECT"],
+  "globalDependencies": ["apps/**/.env.*local", ".env"],
+  "globalEnv": ["SENTRY_AUTH_TOKEN", "SENTRY_ORG", "SENTRY_PROJECT", "NEXT_PUBLIC_VERCEL_ENV"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -10,7 +10,7 @@
     },
     "app#build": {
       "dependsOn": ["^build"],
-      "env": ["NEXT_PUBLIC_\\*", "\\!NEXT_PUBLIC_VERCEL_\\*"],
+      "env": ["NEXT_PUBLIC_\\*", "NEXT_PUBLIC_VERCEL_\\*"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "docs#build": {
@@ -20,13 +20,16 @@
     },
     "smashers#build": {
       "dependsOn": ["^build"],
-      "env": ["NEXT_PUBLIC_\\*", "\\!NEXT_PUBLIC_VERCEL_\\*"],
+      "env": ["NEXT_PUBLIC_\\*", "NEXT_PUBLIC_VERCEL_\\*"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "web#build": {
       "dependsOn": ["^build"],
-      "env": ["NEXT_PUBLIC_\\*", "\\!NEXT_PUBLIC_VERCEL_\\*"],
+      "env": ["NEXT_PUBLIC_\\*", "NEXT_PUBLIC_VERCEL_\\*"],
       "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "clean": {
+      "cache": false
     },
     "lint": {
       "dependsOn": ["^lint"]

@@ -1,4 +1,4 @@
-declare module PlayFabCloudScriptModule {
+declare namespace PlayFabCloudScriptModule {
   export interface IPlayFabCloudScript {
     settings: PlayFabModule.IPlayFabSettings;
     // Cloud Script is one of PlayFab's most versatile features. It allows client code to request execution of any kind of
@@ -85,7 +85,7 @@ declare module PlayFabCloudScriptModule {
   }
 }
 
-declare module PlayFabCloudScriptModels {
+declare namespace PlayFabCloudScriptModels {
   export interface AdCampaignAttributionModel {
     // UTC time stamp of attribution
     AttributedAt: string;

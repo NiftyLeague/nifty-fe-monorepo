@@ -1,4 +1,4 @@
-declare module PlayFabModule {
+declare namespace PlayFabModule {
   export interface IPlayFab {
     sdk_version: string;
     buildIdentifier: string;

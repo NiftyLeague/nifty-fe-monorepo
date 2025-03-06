@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { useState } from 'react';
 import { Button } from '../Button';
 import { Divider } from '../Divider';
@@ -32,7 +34,7 @@ export const Default = (args: any) => (
     <ContextMenu
       {...args}
       overlay={[
-        <ContextMenu.Misc>
+        <ContextMenu.Misc key="misc">
           <div>
             <Typography.Text small className="block">
               Signed in as{' '}
@@ -43,12 +45,16 @@ export const Default = (args: any) => (
             </Typography.Text>
           </div>
         </ContextMenu.Misc>,
-        <Divider light />,
-        <ContextMenu.Label>Group label</ContextMenu.Label>,
-        <ContextMenu.Item onClick={() => console.log('clicked')}>Account</ContextMenu.Item>,
-        <ContextMenu.Item>Settings</ContextMenu.Item>,
-        <Divider light />,
-        <ContextMenu.Item icon={<IconLogIn size="tiny" />}>Log out</ContextMenu.Item>,
+        <Divider key="divider1" light />,
+        <ContextMenu.Label key="groupLabel">Group label</ContextMenu.Label>,
+        <ContextMenu.Item key="account" onClick={() => console.log('clicked')}>
+          Account
+        </ContextMenu.Item>,
+        <ContextMenu.Item key="settings">Settings</ContextMenu.Item>,
+        <Divider key="divider2" light />,
+        <ContextMenu.Item key="logout" icon={<IconLogIn size="tiny" />}>
+          Log out
+        </ContextMenu.Item>,
       ]}
     >
       {triggerArea}
@@ -63,14 +69,14 @@ export const doNotcloseOverlay = (args: any) => (
     <ContextMenu
       {...args}
       overlay={[
-        <ContextMenu.Misc>
+        <ContextMenu.Misc key="misc">
           <Typography.Text>Signed in as </Typography.Text>
           <Typography.Text strong>tom@example.com </Typography.Text>
         </ContextMenu.Misc>,
-        <Divider light />,
-        <ContextMenu.Item>Account</ContextMenu.Item>,
-        <ContextMenu.Item>Settings</ContextMenu.Item>,
-        <ContextMenu.Item>
+        <Divider key="divider3" light />,
+        <ContextMenu.Item key="account">Account</ContextMenu.Item>,
+        <ContextMenu.Item key="settings">Settings</ContextMenu.Item>,
+        <ContextMenu.Item key="logoutButton">
           <Button icon={<IconLogOut />}>Log out</Button>
         </ContextMenu.Item>,
       ]}
@@ -96,15 +102,15 @@ export const withCustomStyles = (args: any) => (
       placement="bottomRight"
       {...args}
       overlay={[
-        <ContextMenu.Item>
+        <ContextMenu.Item key="signedInAs">
           <Typography.Text>Signed in as </Typography.Text>
           <Typography.Text strong>tom@example.com </Typography.Text>
         </ContextMenu.Item>,
-        <Divider light />,
-        <ContextMenu.Item>Account</ContextMenu.Item>,
-        <ContextMenu.Item>Settings</ContextMenu.Item>,
-        <Divider light />,
-        <ContextMenu.Item>
+        <Divider key="divider4" light />,
+        <ContextMenu.Item key="account">Account</ContextMenu.Item>,
+        <ContextMenu.Item key="settings">Settings</ContextMenu.Item>,
+        <Divider key="divider5" light />,
+        <ContextMenu.Item key="logout">
           <Button type="default" icon={<IconLogOut />}>
             Log out
           </Button>
@@ -126,10 +132,12 @@ export const Checkbox = (args: any) => {
       <ContextMenu
         {...args}
         overlay={[
-          <ContextMenu.Item icon={<IconSettings size="small" />}>Account</ContextMenu.Item>,
-          <ContextMenu.Item>Settings</ContextMenu.Item>,
-          <Divider light />,
-          <ContextMenu.Checkbox checked={checked} onChange={setChecked}>
+          <ContextMenu.Item key="account" icon={<IconSettings size="small" />}>
+            Account
+          </ContextMenu.Item>,
+          <ContextMenu.Item key="settings">Settings</ContextMenu.Item>,
+          <Divider key="divider6" light />,
+          <ContextMenu.Checkbox key="checkbox" checked={checked} onChange={setChecked}>
             Show subtitles
           </ContextMenu.Checkbox>,
         ]}
@@ -148,10 +156,16 @@ export const Radio = (args: any) => {
       <ContextMenu
         {...args}
         overlay={[
-          <ContextMenu.RadioGroup value={value} onChange={setValue}>
-            <ContextMenu.Radio value={'red'}>Red</ContextMenu.Radio>
-            <ContextMenu.Radio value={'blue'}>Blue</ContextMenu.Radio>
-            <ContextMenu.Radio value={'green'}>Green</ContextMenu.Radio>
+          <ContextMenu.RadioGroup key="radio-group" value={value} onChange={setValue}>
+            <ContextMenu.Radio key="red" value={'red'}>
+              Red
+            </ContextMenu.Radio>
+            <ContextMenu.Radio key="blue" value={'blue'}>
+              Blue
+            </ContextMenu.Radio>
+            <ContextMenu.Radio key="green" value={'green'}>
+              Green
+            </ContextMenu.Radio>
           </ContextMenu.RadioGroup>,
         ]}
       >

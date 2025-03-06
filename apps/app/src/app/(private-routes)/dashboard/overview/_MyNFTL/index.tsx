@@ -9,7 +9,7 @@ import GameBalance from './GameBalance';
 import TitleSection from './TitleSection';
 import WalletBalances from './WalletBalances';
 
-const MyNFTL = (): JSX.Element => (
+const MyNFTL = (): React.ReactNode => (
   <Grid2 container spacing={sectionSpacing}>
     <Grid2 size={{ xs: 12 }} sx={{ mt: '8px', mb: '4px' }}>
       <TitleSection />

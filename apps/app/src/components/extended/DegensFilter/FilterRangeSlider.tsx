@@ -7,7 +7,7 @@ interface Props extends Omit<SliderProps, 'value'> {
   label?: string;
 }
 
-const FilterRangeSlider = ({ value, unit, ...props }: Props): JSX.Element => (
+const FilterRangeSlider = ({ value, unit, ...props }: Props): React.ReactNode => (
   <Stack>
     <Stack gap={0.5}>
       <Typography variant="h6">{`${(value[0] as number).toLocaleString()} - ${(value[1] as number).toLocaleString()} ${

@@ -31,7 +31,7 @@ function Overlay({
   overlayClassName,
   // transition,
 }: Props) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(document.createElement('div'));
   const [visibleState, setVisibleState] = useState(!!visible);
 
   const classes = [OverlayStyles['sbui-overlay-container'], OverlayStyles[`sbui-overlay-container--${placement}`]];

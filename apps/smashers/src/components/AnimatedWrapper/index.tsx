@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
 import { useOnScreen } from '@/hooks/useOnScreen';
 
@@ -22,7 +24,7 @@ const AnimatedWrapper = ({
   parallaxDirection?: string;
   transitionAmount?: string;
 }) => {
-  const ref: any = useRef<HTMLDivElement>();
+  const ref = useRef<HTMLDivElement>(document.createElement('div'));
   const onScreen: boolean = useOnScreen<HTMLDivElement>(ref, immediate ? '0px' : '-100px');
 
   useEffect(() => {

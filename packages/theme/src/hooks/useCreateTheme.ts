@@ -2,14 +2,13 @@
 
 import { useMemo } from 'react';
 import { createTheme } from '@mui/material/styles';
-import type { ThemeOptions, Theme } from '@mui/material/styles';
 
 // project imports
+import type { CustomShadowProps, ThemeOptions, Theme } from '../types';
 import { customComponents, customMixins, customPalette, customShadows, customTypography } from '../utils';
 import useThemeConfig from './useThemeConfig';
-import type { CustomShadowProps } from '../types';
 
-const useCreateTheme = () => {
+const useCreateTheme = (): Theme => {
   const config = useThemeConfig();
 
   const colorTheme = useMemo<Theme>(
@@ -19,7 +18,7 @@ const useCreateTheme = () => {
 
   const typography = useMemo<ThemeOptions['typography']>(
     () => customTypography(colorTheme, config.borderRadius, config.fontFamily),
-    [colorTheme, config.borderRadius],
+    [colorTheme, config.borderRadius, config.fontFamily],
   );
   const shadows = useMemo<CustomShadowProps>(
     () => customShadows(colorTheme, config.paletteMode),

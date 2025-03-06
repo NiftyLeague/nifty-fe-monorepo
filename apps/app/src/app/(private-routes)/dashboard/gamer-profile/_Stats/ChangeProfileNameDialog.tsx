@@ -7,7 +7,7 @@ import ChangeProfileNameForm from './ChangeProfileNameForm';
 interface ChangeProfileNameDialogProps {
   handleUpdateNewName: (newName: string) => void;
 }
-const ChangeProfileNameDialog = ({ handleUpdateNewName }: ChangeProfileNameDialogProps): JSX.Element => {
+const ChangeProfileNameDialog = ({ handleUpdateNewName }: ChangeProfileNameDialogProps): React.ReactNode => {
   const theme = useTheme();
   return (
     <Dialog>

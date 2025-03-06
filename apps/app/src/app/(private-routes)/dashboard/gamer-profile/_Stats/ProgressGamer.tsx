@@ -9,7 +9,7 @@ interface ProgressGamerProps {
   size?: 'sm' | 'md';
 }
 
-const ProgressGamer = ({ data, size = 'md' }: ProgressGamerProps): JSX.Element => {
+const ProgressGamer = ({ data, size = 'md' }: ProgressGamerProps): React.ReactNode => {
   const theme = useTheme();
   return (
     <Box
