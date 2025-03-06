@@ -102,7 +102,7 @@ const Breadcrumbs = ({
   };
 
   // item separator
-  const SeparatorIcon = separator! as (props: IconProps) => JSX.Element;
+  const SeparatorIcon = separator! as (props: IconProps) => React.ReactNode;
   const separatorIcon = separator ? (
     <SeparatorIcon stroke={1.5} size="small" />
   ) : (

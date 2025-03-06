@@ -15,7 +15,7 @@ import MyItems from './MyItems';
 import MyNFTL from './_MyNFTL';
 import MyStats from './MyStats';
 
-const DashboardOverview = (): JSX.Element => {
+const DashboardOverview = (): React.ReactNode => {
   // const { authToken } = useAuth();
   // const headers = { authorizationToken: authToken || '' };
   // const { data } = useFetch<Rentals[]>(ALL_RENTAL_API_URL, {

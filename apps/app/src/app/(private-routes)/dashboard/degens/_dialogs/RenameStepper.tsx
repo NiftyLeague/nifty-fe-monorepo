@@ -120,7 +120,7 @@ function RenameStepper({
   insufficientAllowance: boolean;
   renameSuccess: boolean;
   insufficientBalance: boolean;
-}): JSX.Element {
+}): React.ReactNode {
   const [activeStep, setActiveStep] = useState(0);
   const steps = getSteps();
 

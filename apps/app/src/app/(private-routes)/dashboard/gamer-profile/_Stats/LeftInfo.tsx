@@ -12,7 +12,7 @@ interface LeftInfoProps {
   data: ProfileTotal | ProfileNiftySmsher | undefined;
 }
 
-const LeftInfo = ({ data }: LeftInfoProps): JSX.Element => {
+const LeftInfo = ({ data }: LeftInfoProps): React.ReactNode => {
   const leftDataMapper: {
     label: string;
     value: string | number | undefined;

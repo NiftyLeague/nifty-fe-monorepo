@@ -8,8 +8,8 @@ interface Props {
   placeholder?: string;
 }
 
-const SearchRental = ({ handleSearch, placeholder }: Props): JSX.Element => {
-  const inputEl: any = useRef();
+const SearchRental = ({ handleSearch, placeholder }: Props): React.ReactNode => {
+  const inputEl: any = useRef(null);
   let typingTimer: NodeJS.Timeout | undefined;
 
   useEffect(() => {

@@ -3,4 +3,4 @@ const nextConfig = {
   transpilePackages: ['@nl/theme', '@nl/ui'],
 };
 
-module.exports = nextConfig;
+export default nextConfig;

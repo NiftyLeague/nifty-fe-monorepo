@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import Grid2 from '@mui/material/Grid2';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
@@ -40,6 +41,7 @@ interface DataListProps {
 /**
  * List with expandable items - mobile table analogue
  */
+
 const DataList: React.FC<DataListProps> = props => {
   const {
     data,
@@ -176,6 +178,31 @@ const DataList: React.FC<DataListProps> = props => {
       )}
     </div>
   );
+};
+
+DataList.propTypes = {
+  data: PropTypes.array.isRequired,
+  onChangePage: PropTypes.func.isRequired,
+  onSelectionChange: PropTypes.func.isRequired,
+  rowsClassArray: PropTypes.array,
+  columns: PropTypes.array.isRequired,
+  count: PropTypes.number.isRequired,
+  checkboxSelection: PropTypes.bool,
+  excludePrimaryFromDetails: PropTypes.bool,
+  noContentText: PropTypes.string,
+  page: PropTypes.number.isRequired,
+  rowsPerPage: PropTypes.number.isRequired,
+  scrollToSelected: PropTypes.bool,
+  scrollOptions: PropTypes.object,
+  showPagination: PropTypes.bool.isRequired,
+  ExpansionPanelDetailsProps: PropTypes.object,
+  ExpansionPanelDetailsTypographyProps: PropTypes.object,
+  ExpansionPanelMoreIconProps: PropTypes.object,
+  ExpansionPanelProps: PropTypes.object,
+  ExpansionPanelSummaryProps: PropTypes.object,
+  ExpansionPanelSummaryTypographyProps: PropTypes.object,
+  SelectedExpansionPanelProps: PropTypes.object,
+  TablePaginationProps: PropTypes.object,
 };
 
 export default DataList;

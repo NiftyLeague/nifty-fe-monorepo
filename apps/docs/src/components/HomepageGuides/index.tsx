@@ -141,7 +141,7 @@ function QuickLink({ title, to }: GuideLink) {
   );
 }
 
-export default function HomepageGuides(): JSX.Element {
+export default function HomepageGuides(): React.ReactNode {
   return (
     <Section>
       <RowTwo>

@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback, useEffect, useState, useRef, RefObject } from 'react';
 import styles from '@/styles/modal.module.css';
 import cn from 'classnames';
@@ -21,7 +23,7 @@ const ModalContent = ({ modalIframe }: { modalIframe: RefObject<HTMLIFrameElemen
 
 export default function TrailerModal() {
   const [visible, setVisible] = useState(false);
-  const modalIframe = useRef<HTMLIFrameElement>(null);
+  const modalIframe = useRef<HTMLIFrameElement>(document.createElement('iframe'));
 
   const openModal = useCallback(() => setVisible(true), []);
 

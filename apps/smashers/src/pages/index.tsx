@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import Navbar from '@/components/Navbar';
 import ConsoleGame from '@/components/ConsoleGame';
 import GameSection from '@/components/GameSection';
 import DegensSection from '@/components/DegensSection';
 import Footer from '@/components/Footer';
-import TrailerModal from '@/components/TrailerModal';
 import GameSelectModal from '@/components/GameSelectModal';
 import UnityModal from '@/components/UnityModal';
 import styles from '@/styles/smashers.module.css';
 import { useSearchParams } from 'next/navigation';
+
+const TrailerModal = dynamic(() => import('@/components/TrailerModal'), { ssr: false });
 
 export default function Home() {
   const search = useSearchParams();

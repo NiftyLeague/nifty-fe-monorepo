@@ -1,7 +1,10 @@
+import dynamic from 'next/dynamic';
 import cn from 'classnames';
 import Container from '@mui/material/Container';
 import Grid2 from '@mui/material/Grid2';
-import AnimatedWrapper from '@/components/AnimatedWrapper';
+
+const AnimatedWrapper = dynamic(() => import('@/components/AnimatedWrapper'), { ssr: false });
+
 import styles from './index.module.css';
 
 const GameSection = () => {

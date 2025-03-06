@@ -25,7 +25,7 @@ const validationSchema = yup.object({
   name: yup.string().required(),
 });
 
-const ChangeProfileNameForm = ({ updateNewName }: ChangeProfileNameFormProps): JSX.Element => {
+const ChangeProfileNameForm = ({ updateNewName }: ChangeProfileNameFormProps): React.ReactNode => {
   const [isLoadingRename, setLoadingRename] = useState(false);
   const { fee, loadingFee } = useProfileRenameFee();
   const [, setIsOpen] = useContext(DialogContext);

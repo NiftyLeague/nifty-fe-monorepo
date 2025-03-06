@@ -81,7 +81,7 @@ export default function RentStepper({
 }: {
   rentSuccess: boolean;
   checkBalance: boolean;
-}): JSX.Element {
+}): React.ReactNode {
   const [activeStep, setActiveStep] = useState(0);
 
   useEffect(() => {

@@ -18,7 +18,7 @@ const DegenCardItem = ({
   name: string;
   source: string;
   createdDate: string;
-}): JSX.Element => {
+}): React.ReactNode => {
   const mobile = useMediaQuery('(max-width:615px)');
   const small = useMediaQuery('(max-width:768px)');
   return (

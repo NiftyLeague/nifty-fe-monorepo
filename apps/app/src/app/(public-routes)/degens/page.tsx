@@ -41,7 +41,7 @@ const DegenCard = dynamic(() => import('@/components/cards/DegenCard'), {
 // Needs to be divisible by 2, 3, or 4
 const DEGENS_PER_PAGE = 12;
 
-const AllDegensPage = (): JSX.Element => {
+const AllDegensPage = (): React.ReactNode => {
   const { address } = useNetworkContext();
   const [degens, setDegens] = useState<Degen[]>([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(true);

@@ -57,7 +57,7 @@ const StyledDialog = styled(Dialog)(() => ({
   },
 }));
 
-export const WhitelistModal = (): JSX.Element => {
+export const WhitelistModal = (): React.ReactNode => {
   const [email, setEmail] = useState('');
 
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {

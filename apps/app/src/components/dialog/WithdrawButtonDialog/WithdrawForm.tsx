@@ -18,7 +18,7 @@ import { DialogContext } from '@/components/dialog';
 type WithdrawFormProps = { balance: number; onWithdrawSuccess: () => void };
 type IFormInput = { withdrawal: string };
 
-const WithdrawForm = ({ balance, onWithdrawSuccess }: WithdrawFormProps): JSX.Element => {
+const WithdrawForm = ({ balance, onWithdrawSuccess }: WithdrawFormProps): React.ReactNode => {
   const { imxChainId } = useIMXContext();
   const isConnectedToIMX = useConnectedToIMXCheck();
   const { switchChain } = useSwitchChain();

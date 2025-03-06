@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, Ref } from 'react';
 import { FormLayout } from '../../lib/Layout/FormLayout';
 import InputErrorIcon from '../../lib/Layout/InputErrorIcon';
 import InputIconContainer from '../../lib/Layout/InputIconContainer';
@@ -20,8 +20,8 @@ export interface Props extends Omit<React.InputHTMLAttributes<HTMLSelectElement>
   children: React.ReactNode;
   descriptionText?: string;
   error?: string;
-  icon?: JSX.Element;
-  inputRef?: string;
+  icon?: React.ReactNode;
+  inputRef?: Ref<HTMLSelectElement>;
   label?: string;
   afterLabel?: string;
   beforeLabel?: string;
@@ -31,6 +31,7 @@ export interface Props extends Omit<React.InputHTMLAttributes<HTMLSelectElement>
   actions?: React.ReactNode;
   size?: 'tiny' | 'small' | 'medium' | 'large' | 'xlarge';
   borderless?: boolean;
+  placeholder?: string;
 }
 
 export const ColLayout = (props: PropsWithChildren) => <div className="">{props.children}</div>;

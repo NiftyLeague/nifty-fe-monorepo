@@ -47,7 +47,7 @@ const DegenCard = dynamic(() => import('@/components/cards/DegenCard'), {
 // Needs to be divisible by 2, 3, or 4
 const DEGENS_PER_PAGE = 12;
 
-const DashboardDegensPage = (): JSX.Element => {
+const DashboardDegensPage = (): React.ReactNode => {
   const { authToken } = useAuth();
   const { isConnected } = useAccount();
   const [isDrawerOpen, setIsDrawerOpen] = useState(true);

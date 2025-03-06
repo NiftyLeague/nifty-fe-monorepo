@@ -5,7 +5,7 @@ import TableRow from '@mui/material/TableRow';
 import type { EnhancedTableProps } from '@/types/leaderboard';
 import { Typography } from '@mui/material';
 
-export default function EnhancedTableHead(props: EnhancedTableProps): JSX.Element | null {
+export default function EnhancedTableHead(props: EnhancedTableProps): React.ReactNode | null {
   const { rows, handleCheckYourRank } = props;
   return (
     <TableHead>

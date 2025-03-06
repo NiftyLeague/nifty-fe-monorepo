@@ -30,7 +30,7 @@ const CONTEXT_INITIAL_STATE: Context = {
 
 const IMXContext = createContext(CONTEXT_INITIAL_STATE);
 
-export const IMXProvider = ({ children }: PropsWithChildren): JSX.Element => {
+export const IMXProvider = ({ children }: PropsWithChildren): React.ReactNode => {
   // IMX Passport instance converted to an ethers.js Provider
   const passportProvider = useImxProvider();
   const passportNetwork = getNetwork();

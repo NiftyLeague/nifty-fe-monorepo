@@ -12,7 +12,7 @@ export const RenderTeamCardItem = (item: TeamCardProps) => (
   <TeamCardItem key={item.name} name={item.name} source={item.source} />
 );
 
-const TeamCardItem = ({ name, source, link }: TeamCardProps): JSX.Element => (
+const TeamCardItem = ({ name, source, link }: TeamCardProps): React.ReactNode => (
   <div className="slide">
     <div className={styles.slide_content}>
       <div className="nifty-teams d-flex flex-column p-2" style={{ margin: 'auto' }}>

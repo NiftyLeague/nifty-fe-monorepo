@@ -12,7 +12,7 @@ import StyledIcon from '../StyledIcon';
 type FeatureItem = {
   title: string;
   href: string;
-  icon: React.ComponentType<React.ComponentProps<'svg'>>;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   to: string;
   text: string;
   color?: string;
@@ -22,7 +22,7 @@ const FEATURE_LIST: FeatureItem[] = [
   {
     title: 'What is Nifty League?',
     href: '#',
-    icon: Logo,
+    icon: Logo as React.ComponentType<React.SVGProps<SVGSVGElement>>,
     to: '/docs/overview/intro',
     text: `Explore our gaming platform's vision. Delve into core concepts, our inception, and aspirations to understand our exciting journey in Web3 gaming.`,
   },
@@ -36,7 +36,7 @@ const FEATURE_LIST: FeatureItem[] = [
   {
     title: 'NFTL',
     href: '#',
-    icon: NFTL,
+    icon: NFTL as React.ComponentType<React.SVGProps<SVGSVGElement>>,
     to: '/docs/overview/nifty-dao/nftl/overview',
     text: `Learn about our gaming ecosystem's native currency and governance token, NFTL. What is NFTL's utility? What is governance?`,
   },
@@ -80,7 +80,7 @@ function Feature(feature: FeatureItem) {
   );
 }
 
-export default function HomepageFeatures(): JSX.Element {
+export default function HomepageFeatures(): React.ReactNode {
   return (
     <Section>
       <RowThree>

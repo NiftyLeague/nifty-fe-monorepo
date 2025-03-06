@@ -1,7 +1,7 @@
 import { Button, Typography, Container } from '@mui/material';
 import useAuth from '@/hooks/useAuth';
 
-const ProfileVerification = (): JSX.Element => {
+const ProfileVerification = (): React.ReactNode => {
   const { isConnected, handleConnectWallet } = useAuth();
 
   return (
@@ -14,8 +14,8 @@ const ProfileVerification = (): JSX.Element => {
   );
 };
 
-export default function withVerification(Component: (props: any) => JSX.Element) {
-  const WrappedComponent = (props: any): JSX.Element | null => {
+export default function withVerification(Component: (props: any) => React.ReactNode) {
+  const WrappedComponent = (props: any): React.ReactNode | null => {
     const { isLoggedIn } = useAuth();
     return isLoggedIn ? <Component {...props} /> : <ProfileVerification />;
   };

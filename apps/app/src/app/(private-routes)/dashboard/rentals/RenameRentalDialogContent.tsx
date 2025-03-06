@@ -42,7 +42,7 @@ const validationSchema = yup
   })
   .required();
 
-const RenameRentalDialogContent = ({ rental, updateRentalName }: Props): JSX.Element => {
+const RenameRentalDialogContent = ({ rental, updateRentalName }: Props): React.ReactNode => {
   const { authToken } = useAuth();
   const dispatch = useDispatch();
   const [isLoadingRename, setLoadingRename] = useState(false);

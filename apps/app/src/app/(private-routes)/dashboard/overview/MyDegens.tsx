@@ -39,7 +39,7 @@ const BoxDegenStyles = {
   },
 };
 
-const MyDegens = (): JSX.Element => {
+const MyDegens = (): React.ReactNode => {
   const { authToken } = useAuth();
   const [selectedDegen, setSelectedDegen] = useState<Degen>();
   const [isRenameDegenModalOpen, setIsRenameDegenModalOpen] = useState<boolean>(false);

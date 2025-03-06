@@ -56,16 +56,19 @@ const UserProfile = () => {
       setUserName(profile?.name_cased);
       setAvatar(profile?.avatar);
       sendUserId(profile?.id);
+    } else {
+      setUserName(undefined);
+      setAvatar(undefined);
     }
   }, [profile, isLoggedIn]);
 
   const displayName = useMemo(() => {
-    if (username?.length) return username;
     if (!address) return 'Login to view dashboards';
-    const addressSubstring = `${address?.slice(0, 5)}...${address?.slice(address.length - 5, address.length - 1)}`;
+    const addressSubstring = `${address?.slice(0, 5)}..${address?.slice(-4)}`.toLowerCase();
+    if (username?.length && username !== addressSubstring) return username;
     if (ensName.isError || ensName.isLoading) return addressSubstring;
     return ensName.data || addressSubstring;
-  }, [ensName, username, address]);
+  }, [address, ensName, username]);
 
   return (
     <Box

@@ -6,7 +6,6 @@ import useLocalStorage from '@/hooks/useLocalStorage';
 import { RentalDataGrid } from '@/types/rentalDataGrid';
 import { formatTime } from '@/utils/dateTime';
 
-// eslint-disable-next-line import/prefer-default-export
 export const transformRentals = (rows: Rentals[], userId: string, filterCategory?: RentalType): RentalDataGrid[] =>
   rows.map(
     ({

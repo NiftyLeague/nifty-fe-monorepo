@@ -1,4 +1,4 @@
-@import '@nl/theme/styles';
+@use '@nl/theme/styles' as *;
 
 $defaultFont: $defaultFontFamily, 'Roboto', 'Helvetica', 'Arial', sans-serif;
 $headerFont: $headerFontFamily, $defaultFont;

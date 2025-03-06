@@ -46,7 +46,7 @@ interface JobCardProps {
   };
 }
 
-const JobCard = ({ details }: JobCardProps): JSX.Element => {
+const JobCard = ({ details }: JobCardProps): React.ReactNode => {
   const { title, location, aboutTheRole, responsibilities, requirements, benefits, link } = details;
   return (
     <StyledAccordion>

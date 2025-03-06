@@ -25,7 +25,7 @@ interface Props {
   onSuccess?: () => void;
 }
 
-const EnableDisableDegenDialogContent = ({ degen, isEnabled = false, onClose, onSuccess }: Props): JSX.Element => {
+const EnableDisableDegenDialogContent = ({ degen, isEnabled = false, onClose, onSuccess }: Props): React.ReactNode => {
   const { authToken } = useAuth();
   const [agreement, setAgreement] = useState(false);
   const handleButtonClick = async () => {

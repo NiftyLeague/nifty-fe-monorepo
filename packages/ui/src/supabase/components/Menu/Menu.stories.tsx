@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Divider } from '../Divider';
 import { IconMail } from './../../index';
 import Typography from '../Typography';
@@ -10,7 +12,7 @@ export default {
 };
 
 export const Default = (args: any) => (
-  <Menu>
+  <Menu {...args}>
     <Menu.Item icon={<IconMail />}>Account settings</Menu.Item>
     <Divider />
     <Menu.Item icon={<IconMail />}>Account settings</Menu.Item>
@@ -19,7 +21,7 @@ export const Default = (args: any) => (
 );
 
 export const withActiveState = (args: any) => (
-  <Menu>
+  <Menu {...args}>
     <Menu.Item icon={<IconMail />}>Account settings</Menu.Item>
     <Divider />
     <Menu.Item active icon={<IconMail />}>
@@ -30,7 +32,7 @@ export const withActiveState = (args: any) => (
 );
 
 export const withRounded = (args: any) => (
-  <Menu>
+  <Menu {...args}>
     <Menu.Item rounded icon={<IconMail />}>
       Account settings
     </Menu.Item>
