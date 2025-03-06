@@ -1,5 +1,5 @@
 // project imports
-import type { Theme, ThemeOptions } from '@mui/material/styles';
+import type { Theme, ThemeOptions } from '../types';
 
 const customComponents = (theme: Theme, borderRadius: number, outlinedFilled: boolean): ThemeOptions['components'] => {
   const mode = theme.palette.mode;

@@ -1,5 +1,6 @@
-import { IBM_Plex_Sans, Lilita_One, Press_Start_2P } from '@next/font/google';
-import localFont from '@next/font/local';
+import type { NextFontWithVariable } from 'next/dist/compiled/@next/font';
+import { IBM_Plex_Sans, Lilita_One, Press_Start_2P } from 'next/font/google';
+import localFont from 'next/font/local';
 
 export const imbPlexSans = IBM_Plex_Sans({
   weight: ['100', '400', '500', '700'],
@@ -9,7 +10,7 @@ export const imbPlexSans = IBM_Plex_Sans({
   display: 'swap',
 });
 
-export const lilitaOne = Lilita_One({
+export const lilitaOne: NextFontWithVariable = Lilita_One({
   weight: '400',
   style: 'normal',
   subsets: ['latin'],
@@ -17,7 +18,7 @@ export const lilitaOne = Lilita_One({
   display: 'swap',
 });
 
-export const pressStart = Press_Start_2P({
+export const pressStart: NextFontWithVariable = Press_Start_2P({
   weight: '400',
   style: 'normal',
   subsets: ['latin'],
@@ -25,7 +26,7 @@ export const pressStart = Press_Start_2P({
   display: 'swap',
 });
 
-export const nexaRustSansBlack = localFont({
+export const nexaRustSansBlack: NextFontWithVariable = localFont({
   src: './NexaRustSans_Black/NexaRustSans-Black.woff2',
   weight: '700',
   style: 'normal',

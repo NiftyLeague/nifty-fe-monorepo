@@ -1,10 +1,13 @@
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import Container from '@mui/material/Container';
 import Grid2 from '@mui/material/Grid2';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import AnimatedWrapper from '@/components/AnimatedWrapper';
+
 import { NIFTY_DEGENS } from './constants';
 import styles from './index.module.css';
+
+const AnimatedWrapper = dynamic(() => import('@/components/AnimatedWrapper'), { ssr: false });
 
 const DegensSection = () => {
   const desktop = useMediaQuery('(min-width:600px)');

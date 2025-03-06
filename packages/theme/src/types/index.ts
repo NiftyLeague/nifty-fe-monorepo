@@ -1,5 +1,9 @@
 import type { BreakpointsOptions, Color, PaletteMode } from '@mui/material';
-import type { NextFontWithVariable } from '@next/font';
+import type { NextFontWithVariable } from 'next/dist/compiled/@next/font';
+
+export type { Theme, ThemeOptions } from './@types/@mui/material/styles/extended/createTheme';
+import type { CustomShadowProps } from './@types/@mui/material/styles/extended/createPalette';
+export type { CustomShadowProps };
 
 export type CustomFonts = {
   defaultFontFamily: string;
@@ -118,21 +122,6 @@ export type ColorProps = {
   darkLevel1: string;
   darkLevel2: string;
   darkLevel3: string;
-};
-
-export type CustomShadowProps = {
-  z1: string;
-  z8: string;
-  z12: string;
-  z16: string;
-  z20: string;
-  z24: string;
-  primary: string;
-  secondary: string;
-  orange: string;
-  success: string;
-  warning: string;
-  error: string;
 };
 
 export interface CustomTypography extends ColorProps, CustomShadowProps {

@@ -1,7 +1,10 @@
 import { memo } from 'react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import cn from 'classnames';
-import AnimatedWrapper from '@/components/AnimatedWrapper';
+
+const AnimatedWrapper = dynamic(() => import('@/components/AnimatedWrapper'), { ssr: false });
+
 import styles from './index.module.css';
 
 const ConsoleGame = ({ src }: { src: string }) => {

@@ -1,14 +1,26 @@
 {
   "name": "@nl/imx-passport",
   "version": "0.0.0",
-  "private": true,
   "type": "module",
+  "private": true,
   "main": "./config.ts",
   "exports": {
     ".": "./config.ts",
     "./types": "./types.ts"
   },
+  "scripts": {
+    "clean": "rm -rf node_modules",
+    "lint": "eslint . --max-warnings 0",
+    "lint:fix": "eslint . --max-warnings 0 --fix",
+    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\"",
+    "type-check": "tsc --noEmit"
+  },
   "dependencies": {
-    "@imtbl/sdk": "^1.73.1"
+    "@imtbl/sdk": "^1.78.9"
+  },
+  "devDependencies": {
+    "@nl/eslint-config": "workspace:*",
+    "@nl/prettier-config": "workspace:*",
+    "@nl/typescript-config": "workspace:*"
   }
 }

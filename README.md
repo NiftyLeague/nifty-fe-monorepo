@@ -14,18 +14,19 @@ This Turborepo includes the following apps/packages:
 
 ### Apps
 
-- `app`: a [Next.js](https://nextjs.org/) app for our web3 dashboards at [app.niftyleague.com](http:/app.niftyleague.com)
-- `docs`: a [Docusaurus](https://docusaurus.io/) app for our docs at [niftyleague.com/docs](http://niftyleague.com/docs)
-- `smashers`: a [Next.js](https://nextjs.org/) app for our website [niftysmashers.com](http://niftysmashers.com)
-- `web`: a [Next.js](https://nextjs.org/) app for our website [niftyleague.com](http://niftyleague.com)
+- `app`: a [Next.js](https://nextjs.org/) app for our Web3 dashboards at [app.niftyleague.com](http:/app.niftyleague.com)
+- `docs`: a [Docusaurus](https://docusaurus.io/) app for our company docs at [niftyleague.com/docs](http://niftyleague.com/docs)
+- `smashers`: a [Next.js](https://nextjs.org/) app for our game's website [niftysmashers.com](http://niftysmashers.com)
+- `web`: a [Next.js](https://nextjs.org/) app for our company's website [niftyleague.com](http://niftyleague.com)
 
 ### Packages
 
-- `@nl/ui`: a stub React component library shared by all applications
-- `@nl/theme`: a common theme wrapper for NextJs apps using Material-UI
-- `@nl/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@nl/prettier-config`: `prettier` configuration overrides
-- `@nl/typescript-config`: `tsconfig.json` configs used throughout the monorepo
+- `@nl/ui`: a stub [React](https://react.dev/) component library shared by all applications
+- `@nl/theme`: a common theme wrapper for [Next.js](https://nextjs.org/) apps using [Material-UI](https://mui.com/material-ui/)
+- `@nl/imx-passport`: an [Immutable Passport](https://www.immutable.com/products/passport) instance to connect apps to the Immutable zkEVM blockchain
+- `@nl/eslint-config`: global [eslint](https://eslint.org/) configurations (includes `eslint-plugin-next` and `eslint-config-prettier`) for code analysis/linting
+- `@nl/prettier-config`: global [Prettier](https://prettier.io/) config overrides for code formatting
+- `@nl/typescript-config`: global [TypeScript](https://www.typescriptlang.org/) configs `tsconfig.json`
 
 > **Note:**
 > Each package/app strictly uses [TypeScript](https://www.typescriptlang.org/)
@@ -39,11 +40,11 @@ This Turborepo includes the following apps/packages:
 
 ### Utilities
 
-This Turborepo has some additional tools already setup for you:
+This Turborepo has several tools already setup for you:
 
 - [TypeScript](https://www.typescriptlang.org/) for static type checking
 - [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+- [Prettier](https://prettier.io) for opinionated code formatting
 
 ## Getting Started
 
@@ -57,7 +58,8 @@ pnpm install turbo --global
 
 ### Set working directory to root
 
-All commands are run from the root directory!
+> **Note:** 
+> All commands are run from the root directory!
 
 ```
 cd nifty-fe-monorepo
@@ -105,7 +107,7 @@ To lint all apps and packages, run the following command:
 turbo lint
 ```
 
-> **[?]**
+> **Note:**
 > you can also use `turbo lint:fix` to run linting with --fix
 
 To format all apps and packages, run the following command:
@@ -142,11 +144,45 @@ Tries to link all packages from the workspace. Versions are updated to match the
 
 `--interactive, -i`
 
-Show outdated dependencies and select which ones to update.
+Show outdated dependencies and select which ones to update
+
+---
+
+**Recusively update all packages (does not pull latest major releases):**
 
 ```
 pnpm up -r --workspace
 ```
+
+**Recusively show latest dependencies and select which ones to update:**
+
+```
+pnpm up -r -L -i
+```
+
+### pnpm Filtering
+
+Filtering allows you to restrict commands to specific subsets of packages.
+
+Selectors may be specified via the `--filter` (or `-F`) flag:
+
+```
+pnpm --filter <app/package_selector> <command>
+```
+
+**App Selectors:**
+- `app`
+- `docs`
+- `smashers`
+- `web`
+
+**Package Selectors:**
+- `eslint-config`
+- `imx-passport`
+- `prettier-config`
+- `theme`
+- `typescript-config`
+- `ui`
 
 ### Remote Caching
 
@@ -198,4 +234,4 @@ Email [andy@niftyleague.com](mailto:andy@niftyleague.com)
 
 **OR**
 
-Join the [Nifty League Discord Server](https://discord.gg/niftyleague) and message a admin!
+Join the Nifty League [Discord Server](https://discord.gg/niftyleague) and message an admin

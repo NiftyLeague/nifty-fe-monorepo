@@ -13,13 +13,13 @@ import { LocalStorageProvider } from '@/contexts/LocalStorageContext';
 import { NetworkProvider } from '@/contexts/NetworkContext';
 import { NFTsBalanceProvider } from '@/contexts/NFTsBalanceContext';
 import { TokensBalanceProvider } from '@/contexts/TokensBalanceContext';
-import { wagmiConfig } from '@/contexts/Web3ModalConfig';
+import { wagmiAdapter } from '@/contexts/Web3ModalConfig';
 import { Web3ModalProvider } from '@/contexts/Web3ModalContext';
 import ReduxProvider from '@/store/ReduxProvider';
 
 const AppContextWrapper = async ({ children }: PropsWithChildren) => {
   const headersList = await headers();
-  const initialState = cookieToInitialState(wagmiConfig, headersList.get('cookie'));
+  const initialState = cookieToInitialState(wagmiAdapter.wagmiConfig, headersList.get('cookie'));
   return (
     <LocalStorageProvider>
       <Web3ModalProvider initialState={initialState}>
