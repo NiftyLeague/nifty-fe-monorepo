@@ -1,18 +1,26 @@
-import '@mui/material/styles/createTypography';
+import type {
+  TypographyStyle,
+  TypographyStyleOptions,
+  TypographyUtils,
+  Variant as MuiVariant,
+} from '@mui/material/styles/createTypography';
+
+import type { Palette } from './createPalette';
 
 declare module '@mui/material/styles/createTypography' {
   export interface FontStyle
     extends Required<{
-      textTransform: TextTransform;
+      textTransform: React.CSSProperties['textTransform'];
       fontSize: string | number; // added string
-    }> {
-    textTransform: TextTransform;
-    fontSize: string | number;
-  }
+    }> {}
+
   export interface FontStyleOptions extends Partial<FontStyle> {
     fontSize?: string | number; // added string
+    allVariants?: React.CSSProperties;
   }
+
   export type Variant =
+    | MuiVariant
     | 'customInput'
     | 'mainContent'
     | 'menuCaption'
@@ -36,11 +44,17 @@ declare module '@mui/material/styles/createTypography' {
   export interface Typography extends Record<Variant, TypographyStyle>, FontStyle, TypographyUtils {
     customInput: TypographyStyle;
     mainContent: TypographyStyle;
-    menuCaption: TypographyStyleOptions;
-    subMenuCaption: TypographyStyleOptions;
+    caption: TypographyStyle;
+    menuCaption: TypographyStyle;
+    subMenuCaption: TypographyStyle;
     commonAvatar: TypographyStyle;
     smallAvatar: TypographyStyle;
     mediumAvatar: TypographyStyle;
     largeAvatar: TypographyStyle;
   }
+
+  export default function createTypography(
+    palette: Palette,
+    typography: TypographyOptions | ((palette: Palette) => TypographyOptions),
+  ): Typography;
 }

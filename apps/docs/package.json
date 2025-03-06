@@ -6,6 +6,7 @@
     "docusaurus": "docusaurus",
     "dev": "docusaurus start --no-open --port 3002",
     "build": "docusaurus build",
+    "clean": "rm -rf node_modules && rm -rf build",
     "start": "docusaurus start",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
@@ -24,9 +25,8 @@
     "@docusaurus/theme-mermaid": "3.7.0",
     "@heroicons/react": "^2.2.0",
     "@mdx-js/react": "^3.1.0",
-    "@nl/ui": "workspace:^",
-    "algoliasearch": "^5.15.0",
-    "prism-react-renderer": "^2.4.0",
+    "algoliasearch": "^5.20.4",
+    "prism-react-renderer": "^2.4.1",
     "react-player": "^2.16.0"
   },
   "devDependencies": {

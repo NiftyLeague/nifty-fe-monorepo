@@ -1,5 +1,9 @@
-const { withSentryConfig } = require('@sentry/nextjs');
-const path = require('path');
+import { withSentryConfig } from '@sentry/nextjs';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -16,7 +20,7 @@ const nextConfig = {
 
 // Injected content via Sentry wizard below
 
-module.exports = withSentryConfig(nextConfig, {
+export default withSentryConfig(nextConfig, {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options
 

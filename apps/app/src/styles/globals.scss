@@ -1,5 +1,5 @@
 // color variants
-@import '@nl/theme/styles';
+@use '@nl/theme/styles' as *;
 
 // third-party
 @import '~react-perfect-scrollbar/dist/css/styles.css';

@@ -1,7 +1,7 @@
-@use './bootstrap/mdb.min.css';
+@forward './bootstrap/mdb.min.css';
 
 // color variants
-@import './color/_theme_default.module.scss';
+@forward './color/_theme_default.module.scss';
 
 // font variants
-@import './fonts/_fonts.module.scss';
+@forward './fonts/_fonts.module.scss';

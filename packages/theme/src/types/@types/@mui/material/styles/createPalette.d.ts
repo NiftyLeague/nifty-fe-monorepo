@@ -1,22 +1,8 @@
-import '@mui/material/styles/createPalette';
+import type { PaletteColorOptions } from '@mui/material/styles/createPalette';
 
 declare module '@mui/material/styles/createPalette' {
   export interface SimplePaletteColorOptions {
     darker?: string;
-  }
-
-  export type PaletteColorOptions = SimplePaletteColorOptions | ColorPartial;
-
-  export interface Palette {
-    orange: PaletteColorOptions;
-    dark: PaletteColorOptions;
-    border: string;
-  }
-
-  export interface PaletteOptions {
-    orange?: PaletteColorOptions;
-    dark?: PaletteColorOptions;
-    border?: string;
   }
 
   export interface PaletteColor {
@@ -32,7 +18,22 @@ declare module '@mui/material/styles/createPalette' {
     900?: string;
   }
 
+  export interface Palette {
+    orange: PaletteColor;
+    dark: PaletteColor;
+    darker: PaletteColor;
+    border?: string;
+  }
+
   export interface TypeText {
     hint: string;
   }
+
+  export interface PaletteOptions {
+    orange?: PaletteColorOptions;
+    dark?: PaletteColorOptions;
+    border?: string;
+  }
+
+  export default function createPalette(palette: PaletteOptions): Palette;
 }

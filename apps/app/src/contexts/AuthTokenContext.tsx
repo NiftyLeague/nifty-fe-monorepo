@@ -1,8 +1,7 @@
 'use client';
 
 import { createContext, useCallback, useRef, useEffect, type PropsWithChildren } from 'react';
-import { useWeb3Modal } from '@web3modal/wagmi/react';
-import { useWeb3ModalEvents } from '@web3modal/wagmi/react';
+import { useAppKit, useAppKitEvents } from '@reown/appkit/react';
 import { useAccount } from 'wagmi';
 
 import type { AuthTokenContextType } from '@/types/auth';
@@ -17,13 +16,13 @@ import { DEBUG } from '@/constants/index';
 const AuthTokenContext = createContext<AuthTokenContextType | null>(null);
 
 export const AuthTokenProvider = ({ children }: PropsWithChildren) => {
-  const modal = useWeb3Modal();
+  const modal = useAppKit();
   const { isConnected } = useAccount();
   const { checkAddress } = useCheckAuth();
   const { signMessage } = useSignAuthMsg();
   const { isLoggedIn } = useSelector(state => state.account);
   const { authToken } = useLocalStorageContext();
-  const events = useWeb3ModalEvents();
+  const events = useAppKitEvents();
   const msgSent = useRef(false);
 
   const signMsg = useCallback(async () => {

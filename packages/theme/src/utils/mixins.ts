@@ -1,4 +1,4 @@
-import type { ThemeOptions } from '@mui/material/styles';
+import type { ThemeOptions } from '../types';
 
 const customMixins = (): ThemeOptions['mixins'] => ({
   toolbar: {

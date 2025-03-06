@@ -1,9 +1,8 @@
 'use client';
 
 // material-ui
-import { createTheme } from '@mui/material/styles';
-import type { PaletteMode, ThemeOptions, Theme } from '@mui/material';
-import type { ColorProps } from '../types';
+import { createTheme, type PaletteMode } from '@mui/material/styles';
+import type { ColorProps, Theme, ThemeOptions } from '../types';
 
 // assets
 import defaultColor from '../styles/color/_theme_default.module.scss';
