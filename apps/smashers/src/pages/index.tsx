@@ -7,11 +7,11 @@ import ConsoleGame from '@/components/ConsoleGame';
 import GameSection from '@/components/GameSection';
 import DegensSection from '@/components/DegensSection';
 import Footer from '@/components/Footer';
-import GameSelectModal from '@/components/GameSelectModal';
 import UnityModal from '@/components/UnityModal';
 import styles from '@/styles/smashers.module.css';
 import { useSearchParams } from 'next/navigation';
 
+const GameSelectModal = dynamic(() => import('@/components/GameSelectModal'), { ssr: false });
 const TrailerModal = dynamic(() => import('@/components/TrailerModal'), { ssr: false });
 
 export default function Home() {
@@ -35,12 +35,12 @@ export default function Home() {
         <meta property="og:title" content="Nifty Smashers - Free to Play Fighting Game" />
         <meta
           name="description"
-          content="Nifty Smashers is a free 3D platform fighting game that supports up to 16 online players. Available on iOS & Android devices - full cross-play coming soon!"
+          content="Nifty Smashers is a free-to-play online multiplayer 3D party platform fighter. Play on iOS, Android, and Steam with full cross-play support! Jump in and brawl anytime, anywhere!"
           key="desc"
         />
         <meta
           property="og:description"
-          content="Nifty Smashers is a free 3D platform fighting game that supports up to 16 online players. Available on iOS & Android devices - full cross-play coming soon!"
+          content="Nifty Smashers is a free-to-play online multiplayer 3D party platform fighter. Play on iOS, Android, and Steam with full cross-play support! Jump in and brawl anytime, anywhere!"
         />
         <meta property="og:image" content="https://niftysmashers.com/img/console-game/classic-gaming-reinvented.webp" />
         å
