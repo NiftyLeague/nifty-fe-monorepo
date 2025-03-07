@@ -30,6 +30,7 @@
     "playfab-sdk": "^2.169.250228",
     "react-device-detect": "^2.2.3",
     "react-unity-webgl": "^9.8.0",
+    "sharp": "^0.33.5",
     "swr": "^2.3.2",
     "url": "^0.11.4"
   }
