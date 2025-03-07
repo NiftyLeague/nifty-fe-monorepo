@@ -90,6 +90,26 @@ const nextConfig = {
         permanent: false,
       },
       {
+        source: '/epic',
+        destination: process.env.NEXT_PUBLIC_EPIC_LINK,
+        permanent: false,
+      },
+      {
+        source: '/epic/:params*',
+        destination: `${process.env.NEXT_PUBLIC_EPIC_LINK}:params*`,
+        permanent: false,
+      },
+      {
+        source: '/steam',
+        destination: process.env.NEXT_PUBLIC_STEAM_LINK,
+        permanent: false,
+      },
+      {
+        source: '/steam/:params*',
+        destination: `${process.env.NEXT_PUBLIC_STEAM_LINK}:params*`,
+        permanent: false,
+      },
+      {
         source: '/invite/:ref_code(\\w{1,})',
         has: [
           {
