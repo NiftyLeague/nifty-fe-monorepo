@@ -7,11 +7,11 @@ import ConsoleGame from '@/components/ConsoleGame';
 import GameSection from '@/components/GameSection';
 import DegensSection from '@/components/DegensSection';
 import Footer from '@/components/Footer';
-import GameSelectModal from '@/components/GameSelectModal';
 import UnityModal from '@/components/UnityModal';
 import styles from '@/styles/smashers.module.css';
 import { useSearchParams } from 'next/navigation';
 
+const GameSelectModal = dynamic(() => import('@/components/GameSelectModal'), { ssr: false });
 const TrailerModal = dynamic(() => import('@/components/TrailerModal'), { ssr: false });
 
 export default function Home() {
