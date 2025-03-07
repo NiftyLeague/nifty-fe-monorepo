@@ -35,12 +35,12 @@ export default function Home() {
         <meta property="og:title" content="Nifty Smashers - Free to Play Fighting Game" />
         <meta
           name="description"
-          content="Nifty Smashers is a free 3D platform fighting game that supports up to 16 online players. Available on iOS & Android devices - full cross-play coming soon!"
+          content="Nifty Smashers is a free-to-play online multiplayer 3D party platform fighter. Play on iOS, Android, and Steam with full cross-play support! Jump in and brawl anytime, anywhere!"
           key="desc"
         />
         <meta
           property="og:description"
-          content="Nifty Smashers is a free 3D platform fighting game that supports up to 16 online players. Available on iOS & Android devices - full cross-play coming soon!"
+          content="Nifty Smashers is a free-to-play online multiplayer 3D party platform fighter. Play on iOS, Android, and Steam with full cross-play support! Jump in and brawl anytime, anywhere!"
         />
         <meta property="og:image" content="https://niftysmashers.com/img/console-game/classic-gaming-reinvented.webp" />
         å

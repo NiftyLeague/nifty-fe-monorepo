@@ -49,7 +49,7 @@ const ModalContent = ({ closeModal, launchGame }: { closeModal: () => void; laun
   const { enableWebGL } = useFlags();
 
   return (
-    <Space size={4} direction="vertical" className={styles.model_select_view_content}>
+    <Space size={6} direction="vertical" className={styles.model_select_view_content}>
       <Space size={4} direction="horizontal">
         <Image
           src="/img/logos/NL/white.webp"
@@ -67,10 +67,10 @@ const ModalContent = ({ closeModal, launchGame }: { closeModal: () => void; laun
         {message}
       </Typography.Text>
       <Typography.Text style={{ lineHeight: 1.3 }}>
-        This platform fighting game will have you on the edge of your seat as you and three other players grab your
+        This party platform fighter will have you on the edge of your seat as you and three other players grab your
         weapons, unleash unique abilities, and try to smash each other out of the arena in a winner-takes-all battle!
       </Typography.Text>
-      <Space direction="horizontal" style={{ marginTop: 20 }}>
+      <Space direction="horizontal" style={{ marginTop: 30 }}>
         {/* <Button
           id="internal-close-icon"
           block
@@ -109,6 +109,22 @@ const ModalContent = ({ closeModal, launchGame }: { closeModal: () => void; laun
               priority
               style={{
                 width: '92%',
+                maxWidth: '100%',
+                height: 'auto',
+              }}
+            />
+          </a>
+        </Link>
+        <Link href="/steam" legacyBehavior>
+          <a target="_blank" rel="noreferrer" style={{ width: '100%', textAlign: 'center' }}>
+            <Image
+              src="/img/badges/steam-badge.webp"
+              alt="Steam Store Badge"
+              width={564}
+              height={168}
+              priority
+              style={{
+                width: '100%',
                 maxWidth: '100%',
                 height: 'auto',
               }}
