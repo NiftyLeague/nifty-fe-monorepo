@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import cn from 'classnames';
 import Link from 'next/link';
@@ -90,7 +92,7 @@ const ModalContent = ({ closeModal, launchGame }: { closeModal: () => void; laun
               alt="Get it on Google Play"
               width={564}
               height={169}
-              priority
+              loading="eager"
               style={{
                 width: '100%',
                 maxWidth: '100%',
@@ -106,7 +108,7 @@ const ModalContent = ({ closeModal, launchGame }: { closeModal: () => void; laun
               alt="Apple Store Badge"
               width={120}
               height={40}
-              priority
+              loading="eager"
               style={{
                 width: '92%',
                 maxWidth: '100%',
@@ -122,7 +124,7 @@ const ModalContent = ({ closeModal, launchGame }: { closeModal: () => void; laun
               alt="Steam Store Badge"
               width={564}
               height={168}
-              priority
+              loading="eager"
               style={{
                 width: '100%',
                 maxWidth: '100%',
