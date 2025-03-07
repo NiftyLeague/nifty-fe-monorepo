@@ -3,9 +3,9 @@
 import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 
-import Loading from './components/Loading';
+import Loading from '@/components/Invite/Loading';
 
-const InviteRedirect = dynamic(() => import('./components/InviteRedirect'), { ssr: false });
+const InviteRedirect = dynamic(() => import('@/components/Invite/InviteRedirect'), { ssr: false });
 
 const PageWrapper = () => {
   return (

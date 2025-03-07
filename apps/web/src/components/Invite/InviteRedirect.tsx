@@ -7,7 +7,7 @@ const isAndroid = (userAgent: string) => /.*(Mobile|Android).*/.test(userAgent);
 const isIOS = (userAgent: string) => /.*(iPhone|iPad|iPod).*/.test(userAgent);
 
 const redirectToAppStore = (userAgent: string, refcode: string, newTab = false) => {
-  let appStoreURL = 'https://niftysmashers.com';
+  let appStoreURL = 'https://niftysmashers.com/steam';
   if (isAndroid(userAgent)) appStoreURL = `https://niftysmashers.com/android`;
   if (isIOS(userAgent)) appStoreURL = `https://niftysmashers.com/ios`;
   if (newTab) window.open(`${appStoreURL}/?referral=${refcode}`, '_blank');
@@ -15,7 +15,7 @@ const redirectToAppStore = (userAgent: string, refcode: string, newTab = false) 
 };
 
 // Attempt to launch App if installed. Fallback to App Store after a timeout
-const redirectToNativeApp = (userAgent: string, refcode: string) => {
+const redirectToNativeApp = (userAgent: string, refcode: string, partyID?: string) => {
   const timeoutId = setTimeout(() => redirectToAppStore(userAgent, refcode), 500);
 
   const clearTimeoutHandler = () => {
@@ -28,22 +28,23 @@ const redirectToNativeApp = (userAgent: string, refcode: string) => {
   window.addEventListener('beforeunload', clearTimeoutHandler);
 
   // Attempt to launch the app
-  window.location.href = `niftysmashers://smashers/invite?profile=${refcode}`;
+  if (partyID) window.location.href = `niftysmashers://smashers/party?profile=${refcode}&party=${partyID}`;
+  else window.location.href = `niftysmashers://smashers/invite?profile=${refcode}`;
 };
 
-type RequestParams = { game: string; refcode: string };
+type RequestParams = { game: string; refcode: string; partyID?: string };
 
 const InviteRedirect = () => {
   const router = useRouter();
   const params = useParams();
 
-  const { game, refcode } = params as RequestParams;
+  const { game, refcode, partyID } = params as RequestParams;
   const userAgent = navigator.userAgent;
 
   switch (game) {
     case 'smashers':
       if (refcode.length > 7 && (isAndroid(userAgent) || isIOS(userAgent))) {
-        redirectToNativeApp(userAgent, refcode);
+        redirectToNativeApp(userAgent, refcode, partyID);
       } else {
         redirectToAppStore(userAgent, refcode);
       }
