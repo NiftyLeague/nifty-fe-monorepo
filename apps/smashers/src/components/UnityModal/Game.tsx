@@ -3,12 +3,12 @@ import { Button, IconMaximize } from '@nl/ui/supabase';
 import useUnityPreConfig from '@/hooks/useUnityPreConfig';
 import useUnityEventHandlers from '@/hooks/useUnityEventHandlers';
 import useUnitySafeClose from '@/hooks/useUnitySafeClose';
-// import { Auth } from '@/lib/playfab/components';
+// import { PlayFabAuthForm } from '@nl/playfab/components';
 import Preloader from './Preloader';
 import styles from '@/styles/modal.module.css';
 
 const Game = ({ closeGame }: { closeGame: () => void }) => {
-  //   const { account, publisherData } = Auth.useUserContext();
+  //   const { account, publisherData } = PlayFabAuthForm.useUserContext();
   const address = '0x0';
   const authToken = '';
 

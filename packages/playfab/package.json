@@ -1,0 +1,41 @@
+{
+  "name": "@nl/playfab",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./api": "./src/api.ts",
+    "./components": "./src/components/index.ts",
+    "./constants": "./src/constants.ts",
+    "./hooks": "./src/hooks/index.ts",
+    "./sdk": "./src/sdk/index.ts",
+    "./types": "./src/types.ts",
+    "./utils": "./src/utils/index.ts"
+  },
+  "scripts": {
+    "clean": "rm -rf node_modules",
+    "lint": "eslint . --max-warnings 0",
+    "lint:fix": "eslint . --max-warnings 0 --fix",
+    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\"",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "ethers6": "npm:ethers@^6.13.5",
+    "https": "^1.0.0",
+    "next": "^15.2.1",
+    "next-auth": "^4.24.11",
+    "notistack": "^3.0.2",
+    "playfab-sdk": "^2.169.250228",
+    "swr": "^2.3.3",
+    "url": "^0.11.4"
+  },
+  "devDependencies": {
+    "@nl/eslint-config": "workspace:*",
+    "@nl/prettier-config": "workspace:*",
+    "@nl/typescript-config": "workspace:*",
+    "@nl/ui": "workspace:*"
+  }
+}
