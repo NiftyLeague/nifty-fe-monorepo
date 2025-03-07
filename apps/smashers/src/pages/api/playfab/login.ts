@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { LoginWithEmailAddress, LoginWithCustomID } from '@/lib/playfab/api';
+import { LoginWithEmailAddress, LoginWithCustomID } from '@nl/playfab/api';
+import { errorResHandler } from '@nl/playfab/utils';
 import { withSessionRoute } from '@/utils/session';
-import { errorResHandler } from '@/utils/errorHandlers';
-import type { User } from '@/lib/playfab/types';
+import type { User } from '@nl/playfab/types';
 
 const InfoRequestParameters = {
   GetUserAccountInfo: true,

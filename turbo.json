@@ -1,7 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["apps/**/.env.*local", ".env"],
-  "globalEnv": ["SENTRY_AUTH_TOKEN", "SENTRY_ORG", "SENTRY_PROJECT", "NEXT_PUBLIC_VERCEL_ENV"],
+  "globalEnv": ["SENTRY_AUTH_TOKEN", "SENTRY_ORG", "SENTRY_PROJECT", "NEXT_PUBLIC_VERCEL_ENV", "PLAYFAB_API_KEY"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],

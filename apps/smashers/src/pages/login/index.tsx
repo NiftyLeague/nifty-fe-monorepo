@@ -1,15 +1,16 @@
 import Image from 'next/image';
-import { Card, Typography, Space } from '@nl/ui/supabase';
-import { withSessionSsr } from '@/utils/session';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import Auth from '@/lib/playfab/components/Auth';
+
+import { Card, Typography, Space } from '@nl/ui/supabase';
+import { PlayFabAuthForm } from '@nl/playfab/components';
+
+import { withSessionSsr } from '@/utils/session';
 import BackButton from '@/components/BackButton';
-import useProviders from '@/hooks/useProviders';
+
 import useFlags from '@/hooks/useFlags';
 
 const Login = () => {
-  const providers = useProviders();
-  const { enableProviderSignOn } = useFlags();
+  const { enableAccountCreation, enableProviderSignOn } = useFlags();
   const mobile = useMediaQuery('(max-width:576px)');
   return (
     <>
@@ -47,12 +48,13 @@ const Login = () => {
                 Welcome to Nifty League
               </Typography.Title>
             </div>
-            <Auth
-              providers={enableProviderSignOn ? providers : undefined}
-              view="sign_in"
-              socialLayout="horizontal"
-              socialButtonSize="xlarge"
+            <PlayFabAuthForm
+              enableAccountCreation={enableAccountCreation}
+              enableProviderSignOn={enableProviderSignOn}
               redirectTo="/profile"
+              socialButtonSize="xlarge"
+              socialLayout="horizontal"
+              view="sign_in"
             />
           </Space>
         </Card>

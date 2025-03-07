@@ -21,12 +21,13 @@ This Turborepo includes the following apps/packages:
 
 ### Packages
 
-- `@nl/ui`: a stub [React](https://react.dev/) component library shared by all applications
-- `@nl/theme`: a common theme wrapper for [Next.js](https://nextjs.org/) apps using [Material-UI](https://mui.com/material-ui/)
-- `@nl/imx-passport`: an [Immutable Passport](https://www.immutable.com/products/passport) instance to connect apps to the Immutable zkEVM blockchain
 - `@nl/eslint-config`: global [eslint](https://eslint.org/) configurations (includes `eslint-plugin-next` and `eslint-config-prettier`) for code analysis/linting
+- `@nl/imx-passport`: an [Immutable Passport](https://www.immutable.com/products/passport) instance to connect apps to the Immutable zkEVM blockchain
+- `@nl/playfab`: a [PlayFab](https://playfab.com/) client API for our game services. Includes auth UI components for PlayFab login.
 - `@nl/prettier-config`: global [Prettier](https://prettier.io/) config overrides for code formatting
+- `@nl/theme`: a common theme wrapper for [Next.js](https://nextjs.org/) apps using [Material-UI](https://mui.com/material-ui/)
 - `@nl/typescript-config`: global [TypeScript](https://www.typescriptlang.org/) configs `tsconfig.json`
+- `@nl/ui`: a stub [React](https://react.dev/) component library shared by all applications
 
 > **Note:**
 > Each package/app strictly uses [TypeScript](https://www.typescriptlang.org/)
@@ -58,7 +59,7 @@ pnpm install turbo --global
 
 ### Set working directory to root
 
-> **Note:** 
+> **Note:**
 > All commands are run from the root directory!
 
 ```
@@ -171,14 +172,17 @@ pnpm --filter <app/package_selector> <command>
 ```
 
 **App Selectors:**
+
 - `app`
 - `docs`
 - `smashers`
 - `web`
 
 **Package Selectors:**
+
 - `eslint-config`
 - `imx-passport`
+- `playfab`
 - `prettier-config`
 - `theme`
 - `typescript-config`

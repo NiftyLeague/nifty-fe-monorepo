@@ -26,7 +26,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "sass": "^1.85.1",
-    "viem": "^2.23.6"
+    "viem": "^2.23.7"
   },
   "devDependencies": {
     "@nl/eslint-config": "workspace:^",
@@ -34,6 +34,7 @@
     "@nl/typescript-config": "workspace:^",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.2.0",
+    "@types/css-modules": "^1.0.5",
     "@types/eslint": "^9.6.1",
     "@types/jest": "^29.5.14",
     "@types/lodash": "^4.17.16",

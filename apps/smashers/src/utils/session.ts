@@ -1,8 +1,8 @@
 // this file is a wrapper with defaults to be used in both API routes and `getServerSideProps` functions
 import { withIronSessionApiRoute, withIronSessionSsr } from 'iron-session/next';
+import type { GetServerSidePropsContext, GetServerSidePropsResult, NextApiHandler } from 'next';
 import type { IronSessionOptions } from 'iron-session';
-import type { User } from '@/lib/playfab/types';
-import { GetServerSidePropsContext, GetServerSidePropsResult, NextApiHandler } from 'next';
+import type { User } from '@nl/playfab/types';
 
 export const sessionOptions: IronSessionOptions = {
   password: process.env.NEXTAUTH_SECRET as string,
