@@ -2,24 +2,22 @@ import '@/styles/globals.css';
 import '@/styles/animations.css';
 import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
-import { SnackbarProvider } from 'notistack';
-import Auth from '@/lib/playfab/components/Auth';
-import { FeatureFlagProvider } from '@/components/FeatureFlagsProvider';
+import { PlayFabAuthForm } from '@nl/playfab/components';
 import { StyledEngineProvider } from '@mui/material/styles';
+
+import { FeatureFlagProvider } from '@/components/FeatureFlagsProvider';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <main className={'dark'}>
       <SessionProvider session={pageProps.session}>
-        <Auth.UserContextProvider>
+        <PlayFabAuthForm.UserContextProvider>
           <StyledEngineProvider injectFirst>
-            <SnackbarProvider maxSnack={3} autoHideDuration={5000}>
-              <FeatureFlagProvider>
-                <Component {...pageProps} />
-              </FeatureFlagProvider>
-            </SnackbarProvider>
+            <FeatureFlagProvider>
+              <Component {...pageProps} />
+            </FeatureFlagProvider>
           </StyledEngineProvider>
-        </Auth.UserContextProvider>
+        </PlayFabAuthForm.UserContextProvider>
       </SessionProvider>
     </main>
   );

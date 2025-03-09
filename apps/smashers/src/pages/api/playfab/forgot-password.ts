@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { SendAccountRecoveryEmail } from '@/lib/playfab/api';
+import { SendAccountRecoveryEmail } from '@nl/playfab/api';
+import { errorResHandler } from '@nl/playfab/utils';
 import { withSessionRoute } from '@/utils/session';
-import { errorResHandler } from '@/utils/errorHandlers';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { email } = await req.body;

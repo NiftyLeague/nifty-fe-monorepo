@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { withUserRoute } from '@/utils/session';
-import { GetPlayerCombinedInfo, GetUserPublisherData } from '@/lib/playfab/api';
-import { USER_INFO_INITIAL_STATE } from '@/lib/playfab/constants';
-import type { User, UserInfo } from '@/lib/playfab/types';
+import { GetPlayerCombinedInfo, GetUserPublisherData } from '@nl/playfab/api';
+import { USER_INFO_INITIAL_STATE } from '@nl/playfab/constants';
+import type { User, UserInfo } from '@nl/playfab/types';
 
 async function handler(req: NextApiRequest, res: NextApiResponse<UserInfo>) {
   const { SessionTicket } = req.session.user as User;

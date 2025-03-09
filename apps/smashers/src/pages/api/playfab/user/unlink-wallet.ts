@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { withUserRoute } from '@/utils/session';
-import { UnlinkWallet } from '@/lib/playfab/api';
-import { errorResHandler } from '@/utils/errorHandlers';
+import { UnlinkWallet } from '@nl/playfab/api';
+import { errorResHandler } from '@nl/playfab/utils';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { address, chain } = await req.body;
