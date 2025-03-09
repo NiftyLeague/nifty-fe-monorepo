@@ -1,6 +1,7 @@
 import { withSentryConfig } from '@sentry/nextjs';
 import { fileURLToPath } from 'url';
 import path from 'path';
+import TerserPlugin from 'terser-webpack-plugin';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -11,8 +12,25 @@ const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'src/styles')],
   },
-  webpack: config => {
-    config.resolve.fallback = { fs: false };
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        buffer: false,
+        crypto: 'crypto-browserify',
+        fs: false,
+        stream: false,
+      };
+    }
+    // Temp prod build solution: https://github.com/diegomura/react-pdf/issues/3121
+    config.optimization.minimizer = [
+      new TerserPlugin({
+        terserOptions: {
+          mangle: false, // Disable function renaming
+          keep_fnames: true, // Preserve function names (prevents SHA256 loss)
+          keep_classnames: true, // Preserve class names (for internal PDFKit use)
+        },
+      }),
+    ];
     config.externals.push('pino-pretty', 'lokijs', 'encoding');
     return config;
   },
