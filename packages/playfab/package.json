@@ -22,7 +22,6 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "crypto": "^1.0.1",
     "ethers6": "npm:ethers@^6.13.5",
     "https": "^1.0.0",
     "next": "^15.2.1",

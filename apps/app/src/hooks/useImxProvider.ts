@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserProvider, JsonRpcSigner } from 'ethers6';
 import { type Chain, immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains';
 import { useAccount } from 'wagmi';
@@ -7,13 +7,13 @@ import useEthersSigner, { type Signer } from '@/hooks/useEthersSigner';
 import passport, { passportEnv } from '@nl/imx-passport';
 import { config } from '@nl/imx-passport/types';
 
-function clientToProvider(): BrowserProvider {
-  const passportProvider = passport.connectEvm();
+async function clientToProvider(): Promise<BrowserProvider> {
+  const passportProvider = await passport.connectEvm();
   return new BrowserProvider(passportProvider);
 }
 
 async function getPassportSigner(): Promise<JsonRpcSigner> {
-  const provider = clientToProvider();
+  const provider = await clientToProvider();
   await provider.send('eth_requestAccounts', []);
   return provider.getSigner();
 }
@@ -28,8 +28,14 @@ export function useConnectedToIMXCheck(): boolean {
 }
 
 /** Memoized action to convert an IMX Passport instance to an ethers.js Provider. */
-export function useImxProvider(): BrowserProvider {
-  return useMemo(clientToProvider, []);
+export function useImxProvider(): BrowserProvider | undefined {
+  const [provider, setProvider] = useState<BrowserProvider>();
+
+  useEffect(() => {
+    clientToProvider().then(setProvider).catch(console.error);
+  }, []);
+
+  return provider;
 }
 
 /** Memoized action to convert a viem Wallet Client to an ethers.js Signer connected to IMX */
