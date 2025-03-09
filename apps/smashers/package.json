@@ -14,24 +14,18 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@metamask/eth-sig-util": "^8.2.0",
+    "@nl/playfab": "workspace:^",
     "@nl/theme": "workspace:^",
     "@nl/ui": "workspace:^",
     "@sentry/nextjs": "^8.55.0",
     "@vercel/edge": "^1.2.1",
-    "ethers6": "npm:ethers@^6.13.5",
-    "https": "^1.0.0",
     "iron-session": "^6.3.1",
     "jose": "^5.10.0",
     "lodash": "^4.17.21",
     "next": "^15.2.1",
     "next-auth": "^4.24.11",
-    "notistack": "^3.0.2",
-    "playfab-sdk": "^2.169.250228",
     "react-device-detect": "^2.2.3",
     "react-unity-webgl": "^9.8.0",
-    "sharp": "^0.33.5",
-    "swr": "^2.3.2",
-    "url": "^0.11.4"
+    "sharp": "^0.33.5"
   }
 }

@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { withUserRoute } from '@/utils/session';
-import { DeletePlayer } from '@/lib/playfab/api';
-import { errorResHandler } from '@/utils/errorHandlers';
-import type { User } from '@/lib/playfab/types';
+import { DeletePlayer } from '@nl/playfab/api';
+import { errorResHandler } from '@nl/playfab/utils';
+import type { User } from '@nl/playfab/types';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { PlayFabId } = req.session.user as User;

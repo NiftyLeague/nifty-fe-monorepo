@@ -1,14 +1,15 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { Card, IconDatabase, IconStar, IconUser, Space, Tabs, Typography } from '@nl/ui/supabase';
-import { withSessionSsr } from '@/utils/session';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import AccountDetails from '@/components/AccountDetails';
-import Inventory from '@/components/Inventory';
+
+import { Card, IconDatabase, IconStar, IconUser, Space, Tabs, Typography } from '@nl/ui/supabase';
+import { AccountDetails, Inventory } from '@nl/playfab/components';
+import { useUserSession } from '@nl/playfab/hooks';
+import type { User } from '@nl/playfab/types';
+
 import BackButton from '@/components/BackButton';
-import { useUserSession } from '@/lib/playfab/hooks';
-import type { User } from '@/lib/playfab/types';
+import { withSessionSsr } from '@/utils/session';
 import useFlags from '@/hooks/useFlags';
 
 import styles from '@/styles/profile.module.css';
@@ -17,7 +18,7 @@ export default function Profile() {
   const { user } = useUserSession();
   const mobile = useMediaQuery('(max-width:576px)');
   const router = useRouter();
-  const { enableInventory, enableStats } = useFlags();
+  const flags = useFlags();
 
   useEffect(() => {
     // logout caught after session
@@ -51,16 +52,20 @@ export default function Profile() {
           <Space direction="vertical" size={6} className={styles.userInfo}>
             <Tabs type="underlined" size="medium" tabBarStyle={{ marginTop: 16 }} tabBarGutter={8}>
               <Tabs.Panel id="account" icon={<IconUser />} label="Account">
-                <AccountDetails />
+                <AccountDetails
+                  enableAvatars={flags.enableAvatars}
+                  enableLinkProviders={flags.enableLinkProviders}
+                  enableLinkWallet={flags.enableLinkWallet}
+                />
               </Tabs.Panel>
-              {enableInventory ? (
+              {flags.enableInventory ? (
                 <Tabs.Panel id="inventory" icon={<IconDatabase />} label="Inventory">
                   <Inventory />
                 </Tabs.Panel>
               ) : (
                 <Tabs.Panel id="inventory" />
               )}
-              {enableStats ? (
+              {flags.enableStats ? (
                 <Tabs.Panel id="stats" icon={<IconStar />} label="Stats">
                   <div>coming soon...</div>
                 </Tabs.Panel>

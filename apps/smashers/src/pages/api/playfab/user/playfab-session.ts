@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { withSessionRoute } from '@/utils/session';
-import { USER_INITIAL_STATE } from '@/lib/playfab/constants';
-import type { User } from '@/lib/playfab/types';
-import { playfab } from '@/lib/playfab/sdk';
+import { USER_INITIAL_STATE } from '@nl/playfab/constants';
+import { playfab } from '@nl/playfab/sdk';
+import type { User } from '@nl/playfab/types';
 
 const { PlayFabClient } = playfab;
 

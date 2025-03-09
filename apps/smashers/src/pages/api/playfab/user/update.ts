@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { withUserRoute } from '@/utils/session';
-import { AddOrUpdateContactEmail, ChangeDisplayName, UpdateAvatarUrl } from '@/lib/playfab/api';
-import { errorResHandler } from '@/utils/errorHandlers';
-import { User } from '@/lib/playfab/types';
+import { AddOrUpdateContactEmail, ChangeDisplayName, UpdateAvatarUrl } from '@nl/playfab/api';
+import { errorResHandler } from '@nl/playfab/utils';
+import type { User } from '@nl/playfab/types';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { email, displayName, avatar_url } = await req.body;

@@ -43,7 +43,7 @@ const generateAppleCountryRedirects = countryCode => [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['@nl/theme', '@nl/ui'],
+  transpilePackages: ['@nl/playfab', '@nl/theme', '@nl/ui'],
   sassOptions: {
     includePaths: [path.join(__dirname, 'src/styles')],
   },

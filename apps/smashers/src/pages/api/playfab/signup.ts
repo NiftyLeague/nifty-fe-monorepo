@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { RegisterPlayFabUser, GenerateCustomID } from '@/lib/playfab/api';
+import { RegisterPlayFabUser, GenerateCustomID } from '@nl/playfab/api';
+import { errorResHandler } from '@nl/playfab/utils';
 import { withSessionRoute } from '@/utils/session';
-import { errorResHandler } from '@/utils/errorHandlers';
-import type { User } from '@/lib/playfab/types';
+import type { User } from '@nl/playfab/types';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { email, password, rememberMe } = await req.body;
