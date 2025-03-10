@@ -162,13 +162,13 @@ const Navbar = () => {
                         Merch <ExternalIcon />
                       </a>
                     </li> */}
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                       <Link href="/shop" legacyBehavior>
                         <a className="dropdown-item">
                           Merch <ExternalIcon />
                         </a>
                       </Link>
-                    </li>
+                    </li> */}
                     <li className="nav-item">
                       <Link href="/contact" legacyBehavior>
                         <a className="dropdown-item" target="_blank" rel="noreferrer">

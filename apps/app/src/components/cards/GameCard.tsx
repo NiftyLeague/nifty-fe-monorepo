@@ -55,7 +55,7 @@ const CardGameContent = ({
                   minWidth: 165,
                   flex: 1,
                   justifyContent: 'space-between',
-                  marginTop: -1,
+                  marginTop: -2,
                 }}
               >
                 {externalLink.title} <ExternalIcon />

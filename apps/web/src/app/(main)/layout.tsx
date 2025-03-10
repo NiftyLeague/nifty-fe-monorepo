@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     default: 'Nifty League',
   },
   description:
-    'A game studio & publisher at the cutting edge of Web3 with a mission to empower small-scale developers to create groundbreaking games.',
+    'A decentralized game studio & publisher creating an open & efficient path for indie studios to develop & publish groundbreaking games.',
   generator: 'Next.js',
   referrer: 'origin-when-cross-origin',
   keywords: ['Nifty League', 'NFT', 'Gaming', 'Web3', 'Metaverse', 'Mobile Gaming'],
@@ -27,9 +27,9 @@ export const metadata: Metadata = {
     telephone: true,
   },
   openGraph: {
-    title: 'Nifty League: Community-Governed Game Studio',
+    title: 'Nifty League: Community-Governed Game Studio & Publisher',
     description:
-      'A game studio & publisher at the cutting edge of Web3. Our mission to empower small-scale developers to create groundbreaking games.',
+      'A decentralized game studio & publisher creating an open & efficient path for indie studios to develop & publish groundbreaking games.',
     url: 'https://niftyleague.com',
     siteName: 'NiftyLeague',
     images: 'https://niftyleague.com/img/console-game/classic-gaming-reinvented.webp',
