@@ -122,11 +122,7 @@ export const ROADMAP_CARDS = [
       <>
         <p className="mb-0">
           We know our community couldn&apos;t wait to showcase their cool DEGENS on the streets! We are excited to
-          unveil our{' '}
-          <a href="https://niftyleague.com/shop" target="_blank" rel="noreferrer">
-            merch
-          </a>
-          !
+          unveil custom Nifty League merch!
         </p>
       </>
     ),
@@ -275,7 +271,7 @@ export const ROADMAP_CARDS = [
     image: {
       height: 250,
       src: '/img/logos/networks/imx.webp',
-      style: { top: '-140px', padding: '20px' },
+      style: { top: '-130px', padding: '25px' },
       width: 250,
     },
     title: 'L2 Migration',
@@ -672,7 +668,33 @@ export const ROADMAP_CARDS = [
     ),
   },
   {
-    current: true,
+    completed: true,
+    completionDate: 'Feb 7th, 2025',
+    image: {
+      src: '/img/logos/other/steam_universe_logo.webp',
+      style: { top: '-135px', padding: '25px' },
+      width: 300,
+      height: 300,
+    },
+    title: 'Nifty Smashers - Steam Launch',
+    body: (
+      <>
+        <p>
+          Nifty Smashers is now available for PC on{' '}
+          <a href="https://niftysmashers.com/steam" target="_blank" rel="noreferrer">
+            Steam
+          </a>
+          !
+        </p>
+        <p className="mb-0">
+          This marks a major milestone in our journey, expanding beyond mobile to bring the full party platform-fighting
+          experience to PC players. Expect continued updates, new content, and even more ways to play as we build
+          towards a full cross-play future!
+        </p>
+      </>
+    ),
+  },
+  {
     image: {
       src: '/img/logos/smashers/app_wordmark_logo.webp',
       style: { top: '-115px' },
@@ -691,6 +713,7 @@ export const ROADMAP_CARDS = [
     ),
   },
   {
+    current: true,
     image: {
       height: 375,
       src: '/img/roadmap/marketplace_v02.webp',
