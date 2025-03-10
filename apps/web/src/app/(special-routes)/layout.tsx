@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     default: 'Nifty League',
   },
   description:
-    'A game studio & publisher at the cutting edge of Web3 with a mission to empower small-scale developers to create groundbreaking games.',
+    'A decentralized game studio & publisher creating an open & efficient path for indie studios to develop & publish groundbreaking games',
   generator: 'Next.js',
   referrer: 'origin-when-cross-origin',
   icons: {
