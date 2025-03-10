@@ -8,7 +8,7 @@ sidebar_position: 3
 
 ### 1. **Mission Statement**
 
-Our mission is to empower indie or small-scale developers to create groundbreaking games and efficiently bring ambitious visions from sketch to screen. We encourage developers to join us in their next game project to leverage our modular tools, engaging IP, and established gaming infrastructure. As a community-driven organization, we aim to foster innovation, transparency, and collaboration within the gaming ecosystem.
+Our mission is to create an open & efficient path for indie studios to develop & publish groundbreaking games. We encourage developers to join us in their next game project to leverage our modular tools, engaging IP, and established gaming infrastructure. As a community-driven organization, we aim to foster innovation, transparency, and collaboration within the gaming ecosystem.
 
 ---
 
