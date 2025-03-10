@@ -16,7 +16,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@imtbl/sdk": "^1.78.9"
+    "@imtbl/sdk": "^2.1.3"
   },
   "devDependencies": {
     "@nl/eslint-config": "workspace:*",
