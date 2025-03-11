@@ -118,7 +118,8 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
         <div className="my-2 my-lg-4">
           <AnimatedWrapper>
             <p className="home-content-description animated-header-text animated-header-text-start transition-delay-small">
-              <span className="white-space-no-wrap">COMMUNITY-GOVERNED GAME STUDIO.</span>
+              {/* <span className="white-space-no-wrap">COMMUNITY-GOVERNED GAME STUDIO.</span> */}
+              <span className="white-space-no-wrap">DECENTRALIZED GAME STUDIO & PUBLISHER.</span>
               <br />
               <span className="white-space-no-wrap">BY GAMERS, FOR GAMERS.</span>
             </p>

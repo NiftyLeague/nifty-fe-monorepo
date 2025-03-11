@@ -1,15 +1,15 @@
 export const NIFTY_GAMES = [
   {
     name: 'NIFTY SMASHERS',
-    description: `As Nifty League's flagship game, this brawl-style action game will have you white-knuckled and on the edge of your seat as you try to out-click, out-smart and out-smash your opponent in a winner-takes-all DEGEN battle!`,
+    description: `As Nifty League's flagship game, this brawl-style party game will have you white-knuckled and on the edge of your seat as you try to out-click, out-smart and out-smash your opponent in a winner-takes-all DEGEN battle!`,
     video: 'https://www.youtube.com/embed/4lnDrx4aDq8?autoplay=1&enablejsapi=1&html5=1',
-    tag: 'MOBILE GAME',
+    tag: 'MOBILE / PC GAME',
     action: {
       title: "LET'S BRAWL!",
       link: 'https://niftysmashers.com',
       isComingSoon: false,
       secondaryLink: '/compete-and-earn',
-      secondaryTitle: "WHAT'S COMPETE & EARN?",
+      secondaryTitle: 'WANT TO COMPETE & EARN?',
     },
   },
   {
@@ -29,7 +29,7 @@ export const NIFTY_GAMES = [
     description:
       "One of the first games we'd like to introduce to the NiftyVerse is a fun battle royale, codename 'GEM HUNTER'. Development kicked off in August 2023 with help from an external game studio as part of our test run transitioning to a DAO and polishing our public services/SDK.",
     video: '/video/arcade-token.mp4',
-    tag: 'MOBILE GAME',
+    tag: 'MOBILE / PC GAME',
     action: {
       title: 'PLAYTEST EARLY-ACCESS!',
       link: 'https://app.niftyleague.com',

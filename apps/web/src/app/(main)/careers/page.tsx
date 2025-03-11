@@ -49,12 +49,12 @@ const Careers: NextPage = () => {
             </div>
             <AnimatedWrapper>
               <p className="animated-header-text animated-header-text-start transition-delay-small">
-                Nifty League&apos;s mission is to empower small-scale developers to create groundbreaking games and
-                efficiently bring ambitious visions from sketch to screen. We are backed by top VCs including RSE
-                Ventures, Lerer Hippeau, Spartan Group, and Gary Vaynerchuk, and are looking to bulk out our engineering
-                team with world-class Unity game developers. As a startup, we are lean, have low egos, work hard and
-                love what we do. You will have a large amount of ownership and work directly with the co-founders and
-                community. If this sounds exciting to you, keep reading!
+                Nifty League&apos;s mission is to create an open & efficient path for indie studios to develop & publish
+                groundbreaking games. We are backed by top VCs including RSE Ventures, Lerer Hippeau, Spartan Group, and
+                Gary Vaynerchuk, and are looking to bulk out our engineering team with world-class Unity game
+                developers. As a startup, we are lean, have low egos, work hard and love what we do. You will have a
+                large amount of ownership and work directly with the co-founders and community. If this sounds exciting
+                to you, keep reading!
               </p>
             </AnimatedWrapper>
           </div>
