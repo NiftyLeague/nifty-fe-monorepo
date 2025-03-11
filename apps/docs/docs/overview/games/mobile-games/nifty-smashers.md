@@ -9,7 +9,7 @@ import VideoURL from '/video/lobby.mp4';
 
 <div style={{ maxWidth: 500, margin: 'auto' }}>![](/img/logos/smashers/app_wordmark_logo_small.webp)</div>
 
-Nifty Smashers is live on mobile for both iOS & Android devices! Download the game at [niftysmashers.com](https://niftysmashers.com/)
+Nifty Smashers is available on iOS, Android, and Steam with full cross-play support! Download the game at [niftysmashers.com](https://niftysmashers.com/)
 
 # Game Overview
 

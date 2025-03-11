@@ -40,16 +40,16 @@ export const GITHUB_LINKS: GuideLink[] = [
     to: 'https://github.com/NiftyLeague/nifty-fe-monorepo',
   },
   {
-    title: 'nifty-smashers-web',
-    to: 'https://github.com/NiftyLeague/NiftySmashersWebApp',
+    title: 'nifty-smart-contracts',
+    to: 'https://github.com/NiftyLeague/nifty-smart-contracts',
   },
   {
     title: 'nifty-league-subgraph',
     to: 'https://github.com/NiftyLeague/nifty-league-subgraph',
   },
   {
-    title: 'nifty-smart-contracts',
-    to: 'https://github.com/NiftyLeague/nifty-smart-contracts',
+    title: 'nifty-smashers-web',
+    to: 'https://github.com/NiftyLeague/NiftySmashersWebApp',
   },
 ];
 
