@@ -22,7 +22,7 @@
     "iron-session": "^6.3.1",
     "jose": "^6.0.8",
     "lodash": "^4.17.21",
-    "next": "^15.2.1",
+    "next": "^15.2.3",
     "next-auth": "^4.24.11",
     "react-device-detect": "^2.2.3",
     "react-unity-webgl": "^9.8.0",
