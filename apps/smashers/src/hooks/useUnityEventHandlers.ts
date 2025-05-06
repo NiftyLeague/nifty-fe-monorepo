@@ -1,10 +1,17 @@
 import { useCallback, useEffect, useRef } from 'react';
+import { ReactUnityEventParameter } from 'react-unity-webgl/distribution/types/react-unity-event-parameters';
 
 type HookProps = {
   address: string;
   authToken: string;
-  addEventListener: (eventName: string, callback: (arg0: any) => void) => void;
-  removeEventListener: (eventName: string, callback: (arg0: any) => void) => void;
+  addEventListener: (
+    eventName: string,
+    callback: (...parameters: ReactUnityEventParameter[]) => ReactUnityEventParameter,
+  ) => void;
+  removeEventListener: (
+    eventName: string,
+    callback: (...parameters: ReactUnityEventParameter[]) => ReactUnityEventParameter,
+  ) => void;
 };
 
 const useUnityEventHandlers = ({ address, authToken, addEventListener, removeEventListener }: HookProps) => {
@@ -18,20 +25,22 @@ const useUnityEventHandlers = ({ address, authToken, addEventListener, removeEve
   }, [address, authMsg]);
 
   const startAuthentication = useCallback(
-    (e: CustomEvent<{ callback: (auth: string) => void }>) => {
+    (...parameters: ReactUnityEventParameter[]): ReactUnityEventParameter => {
+      const customEvent = parameters as unknown as CustomEvent<{ callback: (auth: string) => void }>;
       console.log('Authenticating:', authMsg);
-      e.detail.callback(authMsg);
-      authCallback.current = e.detail.callback;
+      customEvent.detail.callback(authMsg);
+      authCallback.current = customEvent.detail.callback;
     },
     [authMsg],
   );
 
-  const getConfiguration = useCallback((e: CustomEvent<{ callback: (network: string) => void }>) => {
+  const getConfiguration = useCallback((...parameters: ReactUnityEventParameter[]): ReactUnityEventParameter => {
+    const customEvent = parameters as unknown as CustomEvent<{ callback: (network: string) => void }>;
     const networkName = process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' ? 'mainnet' : 'sepolia';
     const version = process.env.NEXT_PUBLIC_SUBGRAPH_VERSION;
 
     console.log('getConfiguration', `${networkName},${version ?? ''}`);
-    setTimeout(() => e.detail.callback(`${networkName},${version ?? ''}`), 1000);
+    setTimeout(() => customEvent.detail.callback(`${networkName},${version ?? ''}`), 1000);
   }, []);
 
   useEffect(() => {

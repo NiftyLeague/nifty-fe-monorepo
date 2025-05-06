@@ -33,15 +33,10 @@ import Snackbar from '@/components/extended/Snackbar';
 import Header from './_Header';
 import Sidebar from './_Sidebar';
 
-interface MainStyleProps {
-  theme: Theme;
-  open: boolean;
-}
-
 // styles
-const Main = styled<any>('main', {
+const Main = styled('main', {
   shouldForwardProp: prop => prop !== 'open',
-})(({ theme }: MainStyleProps) => ({
+})<{ open: boolean }>(({ theme }) => ({
   ...theme.typography.mainContent,
 
   variants: [

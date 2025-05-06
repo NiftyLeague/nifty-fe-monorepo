@@ -1,7 +1,7 @@
-export default function safeJSONParse(input: any) {
+export default function safeJSONParse(input: unknown) {
   let output = [];
   try {
-    output = JSON.parse(input);
+    output = JSON.parse(typeof input === 'string' ? input : '');
   } catch (e) {
     if (e instanceof SyntaxError || e instanceof TypeError) {
       console.error(`Error parsing JSON: ${e.message}`);

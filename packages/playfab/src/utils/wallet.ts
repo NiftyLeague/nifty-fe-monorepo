@@ -1,10 +1,10 @@
-import { BrowserProvider } from 'ethers6';
+import { BrowserProvider, type Eip1193Provider } from 'ethers6';
 import crypto from 'crypto';
 
 declare global {
   interface Window {
-    ethereum?: any;
-    web3?: any;
+    ethereum?: Eip1193Provider;
+    web3?: Eip1193Provider;
   }
 }
 

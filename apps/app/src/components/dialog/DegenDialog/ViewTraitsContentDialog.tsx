@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import Image from 'next/image';
 import { v4 as uuidv4 } from 'uuid';
 import isEmpty from 'lodash/isEmpty';
-import { Box, Button, Grid2, Skeleton, Stack, Typography, SxProps } from '@mui/material';
+import { Box, Button, Grid, Skeleton, Stack, Typography, SxProps } from '@mui/material';
 
 import DegenImage from '@/components/cards/DegenCard/DegenImage';
 import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
@@ -37,8 +37,8 @@ const ViewTraitsContentDialog = ({
   }, []);
 
   return (
-    <Grid2 container>
-      <Grid2 size={{ xs: 12, md: 6 }} sx={{ py: 1, px: 2 }}>
+    <Grid container>
+      <Grid size={{ xs: 12, md: 6 }} sx={{ py: 1, px: 2 }}>
         <Stack direction="row" sx={{ justifyContent: 'center' }}>
           {degen?.id && <DegenImage sx={{ ...degenImageSx }} tokenId={degen.id} />}
         </Stack>
@@ -74,27 +74,27 @@ const ViewTraitsContentDialog = ({
               )}`}
           </Typography>
         </Stack>
-      </Grid2>
-      <Grid2 size={{ xs: 12, md: 6 }} sx={{ py: 1, px: 2, position: 'relative' }}>
+      </Grid>
+      <Grid size={{ xs: 12, md: 6 }} sx={{ py: 1, px: 2, position: 'relative' }}>
         <Stack gap={3} sx={{ justifyContent: 'space-between', height: '100%' }}>
           <Stack>
             <Box display="flex" flexDirection="row" alignItems="center" justifyContent="center">
               <Typography variant="h3">Degen Traits</Typography>
             </Box>
-            <Grid2 container sx={{ marginTop: 3, justifyContent: 'center' }} rowGap={3} columnGap={2}>
+            <Grid container sx={{ marginTop: 3, justifyContent: 'center' }} rowGap={3} columnGap={2}>
               {isEmpty(traits)
                 ? [...Array(9)].map(() => (
-                    <Grid2 size={{ xs: 3 }} key={uuidv4()}>
+                    <Grid size={{ xs: 3 }} key={uuidv4()}>
                       <Stack direction="column" sx={{ alignItems: 'center' }}>
                         <Skeleton animation="wave" width={60} />
                         <Skeleton animation="wave" width={40} />
                       </Stack>
-                    </Grid2>
+                    </Grid>
                   ))
                 : Object.entries(traits)
                     .filter(([, value]) => parseInt(value as unknown as string, 10) > 0)
                     .map(([key, value]) => (
-                      <Grid2 size={{ xs: 3 }} key={key}>
+                      <Grid size={{ xs: 3 }} key={key}>
                         <Stack direction="column" sx={{ alignItems: 'center' }}>
                           <Typography fontWeight={700} textAlign="center">
                             {TRAIT_NAME_MAP[key as keyof typeof TRAIT_NAME_MAP]}
@@ -103,9 +103,9 @@ const ViewTraitsContentDialog = ({
                             {TRAIT_KEY_VALUE_MAP[value as keyof typeof TRAIT_KEY_VALUE_MAP] ?? value}
                           </Typography>
                         </Stack>
-                      </Grid2>
+                      </Grid>
                     ))}
-            </Grid2>
+            </Grid>
           </Stack>
           <Stack direction="column" gap={1} width="100%">
             {/* {false && (
@@ -120,8 +120,8 @@ const ViewTraitsContentDialog = ({
             )}
           </Stack>
         </Stack>
-      </Grid2>
-    </Grid2>
+      </Grid>
+    </Grid>
   );
 };
 

@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Grid2, IconButton, Pagination, Stack, Dialog, useMediaQuery } from '@mui/material';
+import { Grid, IconButton, Pagination, Stack, Dialog, useMediaQuery } from '@mui/material';
 import { useTheme } from '@nl/theme';
 import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
 
@@ -166,7 +166,7 @@ const AllDegensPage = (): React.ReactNode => {
 
   const renderSkeletonItem = useCallback(
     () => (
-      <Grid2
+      <Grid
         key={uuidv4()}
         size={{
           xs: isGridView ? 12 : 6,
@@ -177,7 +177,7 @@ const AllDegensPage = (): React.ReactNode => {
         }}
       >
         <SkeletonDegenPlaceholder size={isGridView ? 'normal' : 'small'} />
-      </Grid2>
+      </Grid>
     ),
     [isDrawerOpen, isGridView],
   );
@@ -197,7 +197,7 @@ const AllDegensPage = (): React.ReactNode => {
 
   const renderDegen = useCallback(
     (degen: Degen) => (
-      <Grid2
+      <Grid
         key={degen.id}
         size={{
           xs: isGridView ? 12 : 6,
@@ -214,7 +214,7 @@ const AllDegensPage = (): React.ReactNode => {
           onClickDetail={() => handleViewTraits(degen)}
           // onClickRent={() => handleRentDegen(degen)}
         />
-      </Grid2>
+      </Grid>
     ),
     [
       handleClickEditName,
@@ -228,7 +228,7 @@ const AllDegensPage = (): React.ReactNode => {
   const renderMain = useCallback(
     () => (
       <Stack gap={1.5}>
-        {/* Main Grid2 title */}
+        {/* Main Grid title */}
         <SectionTitle firstSection>
           <Stack direction="row" gap={1} sx={{ alignItems: 'center', mb: 2 }}>
             <IconButton onClick={() => setIsDrawerOpen(!isDrawerOpen)} size="small">
@@ -238,9 +238,9 @@ const AllDegensPage = (): React.ReactNode => {
           </Stack>
         </SectionTitle>
         {/* Main grid content */}
-        <Grid2 container spacing={2} mt={-4.5}>
+        <Grid container spacing={2} mt={-4.5}>
           {!degens?.length ? [...Array(8)].map(renderSkeletonItem) : dataForCurrentPage.map(renderDegen)}
-        </Grid2>
+        </Grid>
         <Pagination
           count={maxPage}
           page={currentPage}

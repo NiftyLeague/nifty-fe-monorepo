@@ -1,11 +1,11 @@
 import type {
-  ColorPartial as MuiColorPartial,
   Palette as MuiPalette,
   PaletteColor as MuiPaletteColor,
+  PaletteColorOptions as MuiPaletteColorOptions,
   PaletteOptions as MuiPaletteOptions,
   SimplePaletteColorOptions as MuiSimplePaletteColorOptions,
   TypeText as MuiTypeText,
-} from '@mui/material/styles/createPalette';
+} from '@mui/material/styles';
 
 export interface SimplePaletteColorOptions extends MuiSimplePaletteColorOptions {
   darker?: string;
@@ -24,29 +24,23 @@ export interface PaletteColor extends MuiPaletteColor {
   900?: string;
 }
 
-export type PaletteColorOptions = SimplePaletteColorOptions | MuiColorPartial;
-
-export interface Palette extends MuiPalette {
+export interface Palette extends Omit<MuiPalette, 'text'> {
   orange: PaletteColor;
   dark: PaletteColor;
   darker: PaletteColor;
   border?: string;
+  text: TypeText;
 }
 
 export interface TypeText extends MuiTypeText {
   hint: string;
 }
 
-export interface PaletteOptions extends MuiPaletteOptions {
-  primary?: PaletteColorOptions;
-  secondary?: PaletteColorOptions;
-  error?: PaletteColorOptions;
-  orange?: PaletteColorOptions;
-  warning?: PaletteColorOptions;
-  success?: PaletteColorOptions;
-  dark?: PaletteColorOptions;
-  text?: Partial<TypeText>;
+export interface PaletteOptions extends Omit<MuiPaletteOptions, 'text'> {
+  orange?: MuiPaletteColorOptions;
+  dark?: MuiPaletteColorOptions;
   border?: string;
+  text?: Partial<TypeText>;
 }
 
 export interface CustomShadowProps {

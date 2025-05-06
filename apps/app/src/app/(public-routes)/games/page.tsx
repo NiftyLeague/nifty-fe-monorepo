@@ -1,6 +1,6 @@
 'use client';
 
-import { Grid2, Button } from '@mui/material';
+import { Grid, Button } from '@mui/material';
 import SectionSlider from '@/components/sections/SectionSlider';
 import useVersion from '@/hooks/useVersion';
 import Web3GameList from './_Web3GameList';
@@ -19,9 +19,9 @@ const GamesPage = () => {
           </Button>
         }
       >
-        <Grid2 container flexDirection="row" flexWrap="wrap" rowSpacing={4}>
+        <Grid container flexDirection="row" flexWrap="wrap" rowSpacing={4}>
           <Web3GameList />
-        </Grid2>
+        </Grid>
       </SectionSlider>
     </>
   );

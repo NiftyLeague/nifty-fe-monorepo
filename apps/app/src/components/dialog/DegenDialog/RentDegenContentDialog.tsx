@@ -11,7 +11,7 @@ import {
   Checkbox,
   FormControl,
   FormControlLabel,
-  Grid2,
+  Grid,
   IconButton,
   Link,
   Radio,
@@ -199,7 +199,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
       setRentSuccess(true);
 
       sendEvent(GOOGLE_ANALYTICS.EVENTS.PURCHASE, GOOGLE_ANALYTICS.CATEGORIES.ECOMMERCE);
-    } catch (err: any) {
+    } catch (err: unknown) {
       setLoading(false);
       toast.error(errorMsgHandler(err), { theme: 'dark' });
     }
@@ -362,7 +362,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                     <Stack direction="column" sx={{ alignItems: 'center', my: 1 }}>
                       <FormControl fullWidth>
                         <TextField
-                          placeholder="Paste your recruit’s eth address"
+                          placeholder="Paste your recruit's eth address"
                           name="address"
                           variant="outlined"
                           fullWidth
@@ -511,8 +511,8 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
           <Typography variant="h5" mt={4} mb={1.5}>
             Stats
           </Typography>
-          <Grid2 container spacing={6}>
-            <Grid2 size={{ xs: 12, md: 6 }}>
+          <Grid container spacing={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Stack gap={1}>
                 <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
                   <Typography>Multipliers</Typography>
@@ -523,8 +523,8 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                   <Typography className={classes.greyText}>{degen?.rental_count}</Typography>
                 </Stack>
               </Stack>
-            </Grid2>
-            <Grid2 size={{ xs: 12, md: 6 }}>
+            </Grid>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Stack gap={1}>
                 <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
                   <Typography>Rental period</Typography>
@@ -535,8 +535,8 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                   <Typography className={classes.greyText}>{degen?.price_daily}/Day</Typography>
                 </Stack>
               </Stack>
-            </Grid2>
-          </Grid2>
+            </Grid>
+          </Grid>
         </Stack>
       </Stack>
     </Root>

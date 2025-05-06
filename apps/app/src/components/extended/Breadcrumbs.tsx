@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 // material-ui
 import { useTheme, gridSpacing } from '@nl/theme';
-import { Box, Card, Divider, Grid2, Typography } from '@mui/material';
+import { Box, Card, Divider, Grid, Typography } from '@mui/material';
 import MuiBreadcrumbs from '@mui/material/Breadcrumbs';
 
 // project imports
@@ -161,7 +161,7 @@ const Breadcrumbs = ({
           {...others}
         >
           <Box sx={{ p: 2, pl: card === false ? 0 : 2 }}>
-            <Grid2
+            <Grid
               container
               direction={rightAlign ? 'row' : 'column'}
               justifyContent={rightAlign ? 'space-between' : 'flex-start'}
@@ -169,13 +169,13 @@ const Breadcrumbs = ({
               spacing={1}
             >
               {title && !titleBottom && (
-                <Grid2>
+                <Grid>
                   <Typography variant="h3" sx={{ fontWeight: 500 }}>
                     {item.title}
                   </Typography>
-                </Grid2>
+                </Grid>
               )}
-              <Grid2>
+              <Grid>
                 <MuiBreadcrumbs
                   sx={{
                     '& .MuiBreadcrumbs-separator': {
@@ -196,15 +196,15 @@ const Breadcrumbs = ({
                   {mainContent}
                   {itemContent}
                 </MuiBreadcrumbs>
-              </Grid2>
+              </Grid>
               {title && titleBottom && (
-                <Grid2>
+                <Grid>
                   <Typography variant="h3" sx={{ fontWeight: 500 }}>
                     {item.title}
                   </Typography>
-                </Grid2>
+                </Grid>
               )}
-            </Grid2>
+            </Grid>
           </Box>
           {card === false && divider !== false && (
             <Divider

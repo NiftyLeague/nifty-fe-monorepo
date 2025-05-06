@@ -6,7 +6,7 @@ import {
   Avatar,
   Card,
   CardContent,
-  Grid2,
+  Grid,
   LinearProgress,
   List,
   ListItem,
@@ -65,10 +65,10 @@ interface LinearProgressWithLabelProps {
 // ==============================|| PROGRESS BAR WITH LABEL ||============================== //
 
 const LinearProgressWithLabel = ({ value, ...others }: LinearProgressWithLabelProps) => (
-  <Grid2 container direction="column" spacing={1} sx={{ mt: 1.5 }}>
-    <Grid2>
-      <Grid2 container justifyContent="space-between">
-        <Grid2>
+  <Grid container direction="column" spacing={1} sx={{ mt: 1.5 }}>
+    <Grid>
+      <Grid container justifyContent="space-between">
+        <Grid>
           <Typography
             variant="h6"
             sx={{
@@ -78,16 +78,16 @@ const LinearProgressWithLabel = ({ value, ...others }: LinearProgressWithLabelPr
           >
             Progress
           </Typography>
-        </Grid2>
-        <Grid2>
+        </Grid>
+        <Grid>
           <Typography variant="h6" sx={{ color: 'inherit' }}>{`${Math.round(value)}%`}</Typography>
-        </Grid2>
-      </Grid2>
-    </Grid2>
-    <Grid2>
+        </Grid>
+      </Grid>
+    </Grid>
+    <Grid>
       <BorderLinearProgress variant="determinate" value={value} {...others} />
-    </Grid2>
-  </Grid2>
+    </Grid>
+  </Grid>
 );
 
 // ==============================|| SIDEBAR - MENU CARD ||============================== //

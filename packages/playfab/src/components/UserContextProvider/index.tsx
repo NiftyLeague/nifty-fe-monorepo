@@ -12,7 +12,7 @@ import type { User, UserContextType } from '../../types';
 
 export const UserContext = createContext<UserContextType>(USER_CONTEXT_INITIAL_STATE);
 
-type Props = { [propName: string]: any };
+type Props = { [propName: string]: unknown };
 
 export const UserContextProvider = (props: Props): React.ReactNode => {
   const { query } = useRouter();

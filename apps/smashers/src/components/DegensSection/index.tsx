@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import Container from '@mui/material/Container';
-import Grid2 from '@mui/material/Grid2';
+import Grid from '@mui/material/Grid';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { NIFTY_DEGENS } from './constants';
@@ -33,23 +33,23 @@ const DegensSection = () => {
 
       <div className={styles.section}>
         <AnimatedWrapper>
-          <Grid2 container spacing={0} style={{ marginBottom: 20 }}>
-            <Grid2 size={{ xs: 6, sm: 4 }}>
+          <Grid container spacing={0} style={{ marginBottom: 20 }}>
+            <Grid size={{ xs: 6, sm: 4 }}>
               <h3 className="text-align-center animated-header-text animated-header-text-start transition-delay-small">
                 TRIBE
               </h3>
-            </Grid2>
-            <Grid2 size={{ xs: 6, sm: 8 }}>
+            </Grid>
+            <Grid size={{ xs: 6, sm: 8 }}>
               <h3 className="text-align-center animated-header-text animated-header-text-start transition-delay-small">
                 SPECIAL
               </h3>
-            </Grid2>
-          </Grid2>
+            </Grid>
+          </Grid>
           <div className={styles.table}>
             <hr className={styles.divider} />
             {NIFTY_DEGENS.map(({ name, description, specialName, gif, image }) => (
-              <Grid2 container spacing={0} key={name} style={{ marginBottom: 20 }}>
-                <Grid2 size={{ xs: 6, sm: 4 }} className={styles.grid_col}>
+              <Grid container spacing={0} key={name} style={{ marginBottom: 20 }}>
+                <Grid size={{ xs: 6, sm: 4 }} className={styles.grid_col}>
                   <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <AnimatedWrapper>
                       <div
@@ -73,17 +73,17 @@ const DegensSection = () => {
                       </h5>
                     </AnimatedWrapper>
                   </div>
-                </Grid2>
+                </Grid>
                 {desktop && (
-                  <Grid2 size={{ xs: 5 }} className={styles.grid_col}>
+                  <Grid size={{ xs: 5 }} className={styles.grid_col}>
                     <AnimatedWrapper>
                       <p className="animated-header-text animated-header-text-start transition-delay-medium">
                         {description}
                       </p>
                     </AnimatedWrapper>
-                  </Grid2>
+                  </Grid>
                 )}
-                <Grid2 size={{ xs: 6, sm: 3 }} className={styles.grid_col_end}>
+                <Grid size={{ xs: 6, sm: 3 }} className={styles.grid_col_end}>
                   <AnimatedWrapper>
                     <div
                       style={{ position: 'relative' }}
@@ -104,8 +104,8 @@ const DegensSection = () => {
                     </div>
                   </AnimatedWrapper>
                   <h6 className="text-align-center">{specialName}</h6>
-                </Grid2>
-              </Grid2>
+                </Grid>
+              </Grid>
             ))}
           </div>
         </AnimatedWrapper>

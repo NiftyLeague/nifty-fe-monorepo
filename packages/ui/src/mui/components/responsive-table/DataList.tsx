@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { useState } from 'react';
-import PropTypes from 'prop-types';
-import Grid2 from '@mui/material/Grid2';
+import { cloneDeep } from 'lodash';
+import { Stack } from '@mui/material';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
@@ -11,31 +9,40 @@ import { CellRenderer, LabelRenderer } from './Renderer';
 import ExpandableListItem from './ExpandableListItem';
 import NoContent from './NoContent';
 import Pagination from './Pagination';
-import { cloneDeep } from 'lodash';
+import type {
+  AccordionDetailsProps,
+  AccordionProps,
+  AccordionSummaryProps,
+  CustomColDef,
+  Row,
+  SvgIconProps,
+  TablePaginationProps,
+  TypographyProps,
+} from './types';
 
 interface DataListProps {
-  data: any[];
-  onChangePage: (event: React.MouseEvent | null, page: number) => void;
-  onSelectionChange: (params: any) => void;
-  rowsClassArray?: string[];
-  columns: any[];
-  count: number;
+  AccordionDetailsProps?: AccordionDetailsProps;
+  AccordionDetailsTypographyProps?: TypographyProps<'div'>;
+  AccordionMoreIconProps?: SvgIconProps;
+  AccordionProps?: AccordionProps;
+  AccordionSummaryProps?: AccordionSummaryProps;
+  AccordionSummaryTypographyProps?: TypographyProps;
   checkboxSelection?: boolean;
+  columns: CustomColDef[];
+  count: number;
+  data: Row[];
   excludePrimaryFromDetails?: boolean;
   noContentText?: string;
+  onChangePage: (event: React.MouseEvent | null, page: number) => void;
+  onSelectionChange: (params: { rowIds: (string | number)[] }) => void;
   page: number;
+  rowsClassArray?: string[];
   rowsPerPage: number;
+  scrollOptions?: ScrollIntoViewOptions;
   scrollToSelected?: boolean;
-  scrollOptions?: any;
+  SelectedAccordionProps?: AccordionProps;
   showPagination: boolean;
-  ExpansionPanelDetailsProps: any;
-  ExpansionPanelDetailsTypographyProps: any;
-  ExpansionPanelMoreIconProps: any;
-  ExpansionPanelProps: any;
-  ExpansionPanelSummaryProps: any;
-  ExpansionPanelSummaryTypographyProps: any;
-  SelectedExpansionPanelProps?: any;
-  TablePaginationProps: any;
+  TablePaginationProps?: TablePaginationProps;
 }
 
 /**
@@ -44,40 +51,41 @@ interface DataListProps {
 
 const DataList: React.FC<DataListProps> = props => {
   const {
-    data,
-    onChangePage,
-    onSelectionChange,
-    rowsClassArray,
+    AccordionDetailsProps,
+    AccordionDetailsTypographyProps,
+    AccordionMoreIconProps,
+    AccordionProps,
+    AccordionSummaryProps,
+    AccordionSummaryTypographyProps,
+    checkboxSelection,
     columns,
     count,
-    checkboxSelection,
+    data,
     excludePrimaryFromDetails,
     noContentText,
+    onChangePage,
+    onSelectionChange,
     page,
+    rowsClassArray,
     rowsPerPage,
-    scrollToSelected = false,
     scrollOptions,
+    scrollToSelected = false,
+    SelectedAccordionProps,
     showPagination,
-    ExpansionPanelDetailsProps,
-    ExpansionPanelDetailsTypographyProps,
-    ExpansionPanelMoreIconProps,
-    ExpansionPanelProps,
-    ExpansionPanelSummaryProps,
-    ExpansionPanelSummaryTypographyProps,
-    SelectedExpansionPanelProps,
     TablePaginationProps,
   } = props;
 
-  const [selection, setSelection] = useState<any[]>([]);
+  const [selection, setSelection] = useState<(string | number)[]>([]);
 
   const handleChangePage = (event: React.MouseEvent | null, page: number) => onChangePage(event, page);
 
-  const handleSelection = (row: any) => {
+  const handleSelection = (row: Row) => {
     const newSelection = cloneDeep(selection);
-    if (newSelection.indexOf(row.id) === -1) {
-      newSelection.push(row.id);
+    const rowId = row.id || (row.user_id as string | number);
+    if (newSelection.indexOf(rowId) === -1) {
+      newSelection.push(rowId);
     } else {
-      newSelection.splice(newSelection.indexOf(row.id), 1);
+      newSelection.splice(newSelection.indexOf(rowId), 1);
     }
     setSelection(newSelection);
     onSelectionChange({ rowIds: newSelection });
@@ -88,7 +96,7 @@ const DataList: React.FC<DataListProps> = props => {
     if (newSelection.length > 0) {
       newSelection = [];
     } else {
-      newSelection = data.map(row => row.id);
+      newSelection = data.map(row => row.id || (row.user_id as string | number));
     }
     setSelection(newSelection);
     onSelectionChange({ rowIds: newSelection });
@@ -98,10 +106,13 @@ const DataList: React.FC<DataListProps> = props => {
     return rowsClassArray && rowsClassArray[index] ? rowsClassArray[index] : '';
   };
 
-  const createListItemTitle = (columns: any[], row: any, data: any) => {
-    const primaryColumns = columns.filter(column => column.primary);
+  const createListItemTitle = (columns: CustomColDef[], row: Row, data: Row[]) => {
+    const primaryColumns = columns.filter(column => column.field === 'id' || column.field === 'user_id');
+    const firstColumn = columns[0];
+    if (!firstColumn) return null;
+
     return primaryColumns.length === 0 ? (
-      <CellRenderer column={columns[0]} row={row} data={data} />
+      <CellRenderer column={firstColumn} row={row} data={data} />
     ) : (
       primaryColumns.map((column, index) => (
         <Typography sx={{ flex: index === 0 ? 0.5 : 1 }} key={column.field}>
@@ -111,19 +122,19 @@ const DataList: React.FC<DataListProps> = props => {
     );
   };
 
-  const createListItemDescription = (columns: any[], row: any, data: any, excludePrimary = false) => (
+  const createListItemDescription = (columns: CustomColDef[], row: Row, data: Row[], excludePrimary = false) => (
     <div>
       {columns
-        .filter(column => !excludePrimary || !column.primary)
+        .filter(column => !excludePrimary || column.field !== 'id')
         .map((column, index) => (
-          <Grid2 key={`${column.headerName}-${index}`} container>
-            <Grid2 size="grow">
+          <Stack key={`${column.headerName}-${index}`} direction="row" spacing={2} sx={{ width: '100%' }}>
+            <Box sx={{ flex: 1 }}>
               <LabelRenderer column={column} data={data} />
-            </Grid2>
-            <Grid2 size="grow">
+            </Box>
+            <Box sx={{ flex: 1 }}>
               <CellRenderer column={column} row={row} data={data} />
-            </Grid2>
-          </Grid2>
+            </Box>
+          </Stack>
         ))}
     </div>
   );
@@ -147,62 +158,37 @@ const DataList: React.FC<DataListProps> = props => {
       )}
       {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
         <ExpandableListItem
+          AccordionDetailsProps={AccordionDetailsProps}
+          AccordionDetailsTypographyProps={AccordionDetailsTypographyProps}
+          AccordionMoreIconProps={AccordionMoreIconProps}
+          AccordionProps={AccordionProps}
+          AccordionSummaryProps={AccordionSummaryProps}
+          AccordionSummaryTypographyProps={AccordionSummaryTypographyProps}
+          checkboxSelection={checkboxSelection}
+          details={createListItemDescription(columns, row, data, excludePrimaryFromDetails)}
           key={index}
           onSelect={handleSelection}
           panelClass={getRowClass(index)}
-          summary={createListItemTitle(columns, row, data)}
           row={row}
-          details={createListItemDescription(columns, row, data, excludePrimaryFromDetails)}
-          checkboxSelection={checkboxSelection}
-          selected={selection.indexOf(row.id) !== -1}
-          scrollToSelected={scrollToSelected}
           scrollOptions={scrollOptions}
-          ExpansionPanelDetailsProps={ExpansionPanelDetailsProps}
-          ExpansionPanelDetailsTypographyProps={ExpansionPanelDetailsTypographyProps}
-          ExpansionPanelMoreIconProps={ExpansionPanelMoreIconProps}
-          ExpansionPanelProps={ExpansionPanelProps}
-          ExpansionPanelSummaryProps={ExpansionPanelSummaryProps}
-          ExpansionPanelSummaryTypographyProps={ExpansionPanelSummaryTypographyProps}
-          SelectedExpansionPanelProps={SelectedExpansionPanelProps}
+          scrollToSelected={scrollToSelected}
+          selected={selection.indexOf(row.id as string | number) !== -1}
+          SelectedAccordionProps={SelectedAccordionProps}
+          summary={createListItemTitle(columns, row, data)}
         />
       ))}
       {showPagination && (
         <Pagination
           component="div"
+          {...(TablePaginationProps as TablePaginationProps)}
           count={count}
           rowsPerPage={rowsPerPage}
           page={page}
-          TablePaginationProps={TablePaginationProps}
           onChangePage={handleChangePage}
         />
       )}
     </div>
   );
-};
-
-DataList.propTypes = {
-  data: PropTypes.array.isRequired,
-  onChangePage: PropTypes.func.isRequired,
-  onSelectionChange: PropTypes.func.isRequired,
-  rowsClassArray: PropTypes.array,
-  columns: PropTypes.array.isRequired,
-  count: PropTypes.number.isRequired,
-  checkboxSelection: PropTypes.bool,
-  excludePrimaryFromDetails: PropTypes.bool,
-  noContentText: PropTypes.string,
-  page: PropTypes.number.isRequired,
-  rowsPerPage: PropTypes.number.isRequired,
-  scrollToSelected: PropTypes.bool,
-  scrollOptions: PropTypes.object,
-  showPagination: PropTypes.bool.isRequired,
-  ExpansionPanelDetailsProps: PropTypes.object,
-  ExpansionPanelDetailsTypographyProps: PropTypes.object,
-  ExpansionPanelMoreIconProps: PropTypes.object,
-  ExpansionPanelProps: PropTypes.object,
-  ExpansionPanelSummaryProps: PropTypes.object,
-  ExpansionPanelSummaryTypographyProps: PropTypes.object,
-  SelectedExpansionPanelProps: PropTypes.object,
-  TablePaginationProps: PropTypes.object,
 };
 
 export default DataList;

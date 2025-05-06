@@ -20,8 +20,9 @@ export interface ReturnDataType {
   count: number;
 }
 export interface DataType {
+  [key: string]: unknown;
   rank: number;
-  user_id: any;
+  user_id: string;
   score: string;
   stats: Stats;
   name: string;

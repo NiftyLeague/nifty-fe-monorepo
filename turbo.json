@@ -1,7 +1,14 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["apps/**/.env.*local", ".env"],
-  "globalEnv": ["SENTRY_AUTH_TOKEN", "SENTRY_ORG", "SENTRY_PROJECT", "NEXT_PUBLIC_VERCEL_ENV", "PLAYFAB_API_KEY"],
+  "globalEnv": [
+    "NEXT_PUBLIC_VERCEL_ENV",
+    "NEXT_RUNTIME",
+    "PLAYFAB_API_KEY",
+    "SENTRY_AUTH_TOKEN",
+    "SENTRY_ORG",
+    "SENTRY_PROJECT"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -20,7 +27,19 @@
     },
     "smashers#build": {
       "dependsOn": ["^build"],
-      "env": ["NEXT_PUBLIC_\\*", "NEXT_PUBLIC_VERCEL_\\*"],
+      "env": [
+        "NEXT_PUBLIC_\\*",
+        "NEXT_PUBLIC_VERCEL_\\*",
+        "APPLE_CLIENT_ID",
+        "APPLE_CLIENT_SECRET",
+        "FACEBOOK_CLIENT_ID",
+        "FACEBOOK_CLIENT_SECRET",
+        "GOOGLE_CLIENT_ID",
+        "GOOGLE_CLIENT_SECRET",
+        "NEXTAUTH_SECRET",
+        "TWITCH_CLIENT_ID",
+        "TWITCH_CLIENT_SECRET"
+      ],
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "web#build": {

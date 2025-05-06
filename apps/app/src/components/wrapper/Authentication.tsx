@@ -14,13 +14,15 @@ const ProfileVerification = (): React.ReactNode => {
   );
 };
 
-export default function withVerification(Component: (props: any) => React.ReactNode) {
-  const WrappedComponent = (props: any): React.ReactNode | null => {
+export default function withVerification<P>(
+  Component: React.ComponentType<P>,
+): React.ComponentType<React.PropsWithChildren<P>> {
+  const WrappedComponent = (props: React.PropsWithChildren<P>) => {
     const { isLoggedIn } = useAuth();
     return isLoggedIn ? <Component {...props} /> : <ProfileVerification />;
   };
 
-  WrappedComponent.displayName = `withVerification(${Component.name || 'Component'})`;
+  WrappedComponent.displayName = `withVerification(${Component.displayName || Component.name || 'Component'})`;
 
   return WrappedComponent;
 }

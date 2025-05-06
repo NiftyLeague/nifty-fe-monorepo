@@ -5,7 +5,6 @@ import {
   DataGrid,
   type GridColDef,
   type GridRenderCellParams,
-  type GridSortItem,
   type GridCallbackDetails,
   type GridColumnVisibilityModel,
   type GridSortModel,
@@ -20,6 +19,7 @@ import { formatNumberToDisplayWithCommas } from '@/utils/numbers';
 import useLocalStorage from '@/hooks/useLocalStorage';
 
 import DegenDialog from '@/components/dialog/DegenDialog';
+import { RentalDataGrid } from '@/types/rentalDataGrid';
 import ChangeNicknameDialog from './ChangeNicknameDialog';
 
 const RENTAL_COLUMN_VISIBILITY = 'rental-column-visibility-model';
@@ -40,7 +40,7 @@ const MyRentalsDataGrid = ({
   updateRentalName,
 }: Props): React.ReactNode => {
   // const [pageSize, setPageSize] = useState(10);
-  const [selectedRowForEditing, setSelectedRowForEditing] = useState<any>();
+  const [selectedRowForEditing, setSelectedRowForEditing] = useState<RentalDataGrid>({} as RentalDataGrid);
   const [isNicknameModalOpen, setIsNicknameModalOpen] = useState(false);
   const [isTerminateRentalModalOpen, setIsTerminateRentalModalOpen] = useState(false);
   const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false);
@@ -81,7 +81,7 @@ const MyRentalsDataGrid = ({
     }
 
     return filteredRows.sort((a, b) => {
-      const { field, sort: direction } = sort[0] as GridSortItem;
+      const { field, sort: direction } = sort[0] as GridSortModel[number];
       const aValue = a[field as keyof typeof a] as number;
       const bValue = b[field as keyof typeof b] as number;
 

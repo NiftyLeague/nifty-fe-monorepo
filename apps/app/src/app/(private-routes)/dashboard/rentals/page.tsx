@@ -86,15 +86,15 @@ const DashboardRentalPage = (): React.ReactNode => {
 
   const terminateRentalById = async (rentalId: string) => {
     try {
-      const result: any = await terminalRental(rentalId);
-      if (!result.ok) {
+      const result = await terminalRental(rentalId);
+      if (result && !result.ok) {
         const errMsg = await result.text();
         toast.error(`Can not terminate the rental: ${errMsg}`, {
           theme: 'dark',
         });
         return;
       }
-      const res = await result.json();
+      const res = await result?.json();
       if (res) {
         toast.success('Terminate rental successfully!', { theme: 'dark' });
         refetch();
@@ -127,13 +127,13 @@ const DashboardRentalPage = (): React.ReactNode => {
       return;
     }
     const newCurrentValue = currentValue.toLowerCase();
-    const newRental: any = data?.filter(
-      (rental: any) =>
-        rental?.accounts?.player?.address.toLowerCase().includes(newCurrentValue) ||
-        rental?.degen?.id.toLowerCase().includes(newCurrentValue) ||
-        rental?.accounts?.player?.name.toLowerCase().includes(newCurrentValue),
+    const newRental = data?.filter(
+      (rental: Rentals) =>
+        rental?.accounts?.player?.address?.toLowerCase().includes(newCurrentValue) ||
+        rental?.degen?.id?.toLowerCase().includes(newCurrentValue) ||
+        rental?.accounts?.player?.name?.toLowerCase().includes(newCurrentValue),
     );
-    setRentals(newRental);
+    setRentals(newRental || []);
   };
 
   const handleChangeCategory = (event: SelectChangeEvent) => {

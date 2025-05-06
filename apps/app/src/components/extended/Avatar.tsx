@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 // material-ui
 import { useTheme } from '@nl/theme';
 import MuiAvatar, { AvatarProps } from '@mui/material/Avatar';
-import { OverridableComponent } from '@mui/material/OverridableComponent';
+import { OverridableComponent, OverridableTypeMap } from '@mui/material/OverridableComponent';
 import type { LinkTarget } from '@/types';
 
 // ==============================|| AVATAR ||============================== //
@@ -13,7 +13,7 @@ interface avatarProps extends AvatarProps {
   src?: string;
   className?: string;
   color?: string;
-  component?: OverridableComponent<any> /** Any component can override */;
+  component?: OverridableComponent<OverridableTypeMap>;
   target?: LinkTarget;
   href?: string;
   sx?: AvatarProps['sx'];

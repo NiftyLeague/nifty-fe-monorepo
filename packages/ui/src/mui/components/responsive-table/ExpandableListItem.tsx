@@ -1,52 +1,58 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import React, { useEffect, useRef } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpansionPanel from '@mui/material/Accordion';
-import ExpansionPanelSummary from '@mui/material/AccordionSummary';
-import ExpansionPanelDetails from '@mui/material/AccordionDetails';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
 import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
+import type {
+  AccordionDetailsProps,
+  AccordionProps,
+  AccordionSummaryProps,
+  Row,
+  SvgIconProps,
+  TypographyProps,
+} from './types';
 
 type ExpandableListItemProps = {
+  AccordionDetailsProps?: AccordionDetailsProps;
+  AccordionDetailsTypographyProps?: TypographyProps<'div'>;
+  AccordionMoreIconProps?: SvgIconProps;
+  AccordionProps?: AccordionProps;
+  AccordionSummaryProps?: AccordionSummaryProps;
+  AccordionSummaryTypographyProps?: TypographyProps;
   checkboxSelection?: boolean;
-  panelClass?: string;
   details: React.ReactNode;
-  selected: boolean;
-  summary: React.ReactNode | React.ReactNode[];
-  ExpansionPanelDetailsProps?: any;
-  ExpansionPanelDetailsTypographyProps?: any;
-  ExpansionPanelMoreIconProps?: any;
-  ExpansionPanelProps?: any;
-  ExpansionPanelSummaryProps?: any;
-  ExpansionPanelSummaryTypographyProps?: any;
-  SelectedExpansionPanelProps?: any;
-  onSelect: (row: any) => void;
-  row: any;
-  scrollToSelected: boolean;
+  onSelect: (row: Row) => void;
+  panelClass?: string;
+  row: Row;
   scrollOptions?: ScrollIntoViewOptions;
+  scrollToSelected: boolean;
+  selected: boolean;
+  SelectedAccordionProps?: AccordionProps;
+  summary: React.ReactNode | React.ReactNode[];
 };
 
 /**
  * Expandable component with header text (summary) and expandable description text (details)
  */
 const ExpandableListItem: React.FC<ExpandableListItemProps> = ({
+  AccordionDetailsProps,
+  AccordionDetailsTypographyProps,
+  AccordionMoreIconProps,
+  AccordionProps,
+  AccordionSummaryProps,
+  AccordionSummaryTypographyProps,
   checkboxSelection,
-  panelClass,
   details,
-  selected,
-  summary,
-  ExpansionPanelDetailsProps,
-  ExpansionPanelDetailsTypographyProps,
-  ExpansionPanelMoreIconProps,
-  ExpansionPanelProps,
-  ExpansionPanelSummaryProps,
-  ExpansionPanelSummaryTypographyProps,
-  SelectedExpansionPanelProps,
   onSelect,
+  panelClass,
   row,
-  scrollToSelected,
   scrollOptions,
+  scrollToSelected,
+  selected,
+  SelectedAccordionProps,
+  summary,
 }) => {
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -61,14 +67,11 @@ const ExpandableListItem: React.FC<ExpandableListItemProps> = ({
     event.stopPropagation();
   };
 
-  const rootProps = selected ? { ...ExpansionPanelProps, ...SelectedExpansionPanelProps } : ExpansionPanelProps;
+  const rootProps = selected ? { ...AccordionProps, ...SelectedAccordionProps } : AccordionProps;
 
   return (
-    <ExpansionPanel sx={{ marginBottom: 0 }} className={panelClass && panelClass} {...rootProps} ref={panelRef}>
-      <ExpansionPanelSummary
-        expandIcon={<ExpandMoreIcon {...ExpansionPanelMoreIconProps} />}
-        {...ExpansionPanelSummaryProps}
-      >
+    <Accordion sx={{ marginBottom: 0 }} className={panelClass && panelClass} {...rootProps} ref={panelRef}>
+      <AccordionSummary expandIcon={<ExpandMoreIcon {...AccordionMoreIconProps} />} {...AccordionSummaryProps}>
         {checkboxSelection && (
           <Checkbox style={{ padding: `0 10px 5px 0` }} checked={selected} onClick={handleSelect} />
         )}
@@ -78,12 +81,12 @@ const ExpandableListItem: React.FC<ExpandableListItemProps> = ({
             display: 'flex',
           }}
           variant="subtitle1"
-          {...ExpansionPanelSummaryTypographyProps}
+          {...AccordionSummaryTypographyProps}
         >
           {summary}
         </Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails {...ExpansionPanelDetailsProps}>
+      </AccordionSummary>
+      <AccordionDetails {...AccordionDetailsProps}>
         <Typography
           style={{
             opacity: 0.5,
@@ -91,12 +94,12 @@ const ExpandableListItem: React.FC<ExpandableListItemProps> = ({
           }}
           gutterBottom
           component="div"
-          {...ExpansionPanelDetailsTypographyProps}
+          {...AccordionDetailsTypographyProps}
         >
           {details}
         </Typography>
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </AccordionDetails>
+    </Accordion>
   );
 };
 

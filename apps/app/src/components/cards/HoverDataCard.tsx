@@ -1,5 +1,5 @@
 // material-ui
-import { Grid2, Skeleton, Stack, Typography } from '@mui/material';
+import { Grid, Skeleton, Stack, Typography } from '@mui/material';
 import type { GenericCardProps } from '@/types';
 // project imports
 import MainCard from './MainCard';
@@ -15,8 +15,8 @@ interface HoverDataCardProps extends Omit<GenericCardProps, 'title'> {
 
 const HoverDataCard = ({ title, primary, secondary, customStyle, actions, isLoading }: HoverDataCardProps) => (
   <MainCard sx={customStyle ?? {}}>
-    <Grid2 container direction="column" sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-      <Grid2 size={{ xs: 12 }}>
+    <Grid container direction="column" sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
+      <Grid size={{ xs: 12 }}>
         {isLoading ? (
           <Skeleton variant="text" animation="wave" width={80} />
         ) : (
@@ -24,8 +24,8 @@ const HoverDataCard = ({ title, primary, secondary, customStyle, actions, isLoad
             {title}
           </Typography>
         )}
-      </Grid2>
-      <Grid2 size={{ xs: 12 }}>
+      </Grid>
+      <Grid size={{ xs: 12 }}>
         <Stack direction="row" spacing={0.5} sx={{ mt: 1.75, mb: 0.5, justifyContent: 'center' }}>
           {isLoading ? (
             <Skeleton variant="text" animation="wave" width={80} />
@@ -35,9 +35,9 @@ const HoverDataCard = ({ title, primary, secondary, customStyle, actions, isLoad
             </Typography>
           )}
         </Stack>
-      </Grid2>
+      </Grid>
       {secondary && (
-        <Grid2 size={{ xs: 12 }} sx={{ mb: 1.75 }}>
+        <Grid size={{ xs: 12 }} sx={{ mb: 1.75 }}>
           <Stack direction="row" spacing={0.5} sx={{ justifyContent: 'center' }}>
             {isLoading ? (
               <Skeleton variant="text" animation="wave" width={120} />
@@ -47,10 +47,10 @@ const HoverDataCard = ({ title, primary, secondary, customStyle, actions, isLoad
               </Typography>
             )}
           </Stack>
-        </Grid2>
+        </Grid>
       )}
       {actions}
-    </Grid2>
+    </Grid>
   </MainCard>
 );
 

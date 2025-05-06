@@ -8,7 +8,7 @@ import isEmpty from 'lodash/isEmpty';
 import xor from 'lodash/xor';
 import { useSearchParams } from 'next/navigation';
 import useFlags from '@/hooks/useFlags';
-import { Grid2, IconButton, Pagination, Stack, Dialog, useMediaQuery } from '@mui/material';
+import { Grid, IconButton, Pagination, Stack, Dialog, useMediaQuery } from '@mui/material';
 import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
 import { useTheme } from '@nl/theme';
 
@@ -224,7 +224,7 @@ const DashboardDegensPage = (): React.ReactNode => {
         }),
         headers: {
           authorizationToken: authToken,
-        } as any,
+        } as Record<string, string>,
       });
       setFavDegens(newFavs);
     },
@@ -233,7 +233,7 @@ const DashboardDegensPage = (): React.ReactNode => {
 
   const renderSkeletonItem = useCallback(
     () => (
-      <Grid2
+      <Grid
         key={uuidv4()}
         size={{
           xs: isGridView ? 12 : 6,
@@ -244,7 +244,7 @@ const DashboardDegensPage = (): React.ReactNode => {
         }}
       >
         <SkeletonDegenPlaceholder size={isGridView ? 'normal' : 'small'} />
-      </Grid2>
+      </Grid>
     ),
     [isDrawerOpen, isGridView],
   );
@@ -263,7 +263,7 @@ const DashboardDegensPage = (): React.ReactNode => {
 
   const renderDegen = useCallback(
     (degen: Degen) => (
-      <Grid2
+      <Grid
         key={degen.id}
         size={{
           xs: isGridView ? 12 : 6,
@@ -286,7 +286,7 @@ const DashboardDegensPage = (): React.ReactNode => {
           onClickRent={() => handleRentDegen(degen)}
           size={isGridView ? 'normal' : 'small'}
         />
-      </Grid2>
+      </Grid>
     ),
     [
       enableEquip,
@@ -305,7 +305,7 @@ const DashboardDegensPage = (): React.ReactNode => {
   const renderMain = useCallback(
     () => (
       <Stack gap={1.5}>
-        {/* Main Grid2 title */}
+        {/* Main Grid title */}
         <SectionTitle firstSection>
           <Stack direction="row" gap={1} sx={{ alignItems: 'center', mb: 2 }}>
             <IconButton onClick={() => setIsDrawerOpen(!isDrawerOpen)} size="small">
@@ -315,7 +315,7 @@ const DashboardDegensPage = (): React.ReactNode => {
           </Stack>
         </SectionTitle>
         {/* Main grid content */}
-        <Grid2 container spacing={2} mt={-4.5}>
+        <Grid container spacing={2} mt={-4.5}>
           {loading || !isConnected ? (
             [...Array(8)].map(renderSkeletonItem)
           ) : dataForCurrentPage.length ? (
@@ -328,7 +328,7 @@ const DashboardDegensPage = (): React.ReactNode => {
               />
             </Link>
           ) : null}
-        </Grid2>
+        </Grid>
         {dataForCurrentPage.length > 0 && (
           <Pagination
             count={maxPage}
