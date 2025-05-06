@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Button, Grid2, IconButton, Stack } from '@mui/material';
+import { Button, Grid, IconButton, Stack } from '@mui/material';
 import { useTheme } from '@nl/theme';
 
 import { formatNumberToDisplay } from '@/utils/numbers';
@@ -17,7 +17,7 @@ const WalletBalances = (): React.ReactNode => {
 
   return (
     <>
-      <Grid2 size={{ xs: 12, sm: 6 }}>
+      <Grid size={{ xs: 12, sm: 6 }}>
         <HoverDataCard
           title="IMX Wallet"
           primary={`${formatNumberToDisplay(tokensBalances.NFTL.imx)} NFTL`}
@@ -49,8 +49,8 @@ const WalletBalances = (): React.ReactNode => {
             </>
           }
         />
-      </Grid2>
-      <Grid2 size={{ xs: 12, sm: 6 }}>
+      </Grid>
+      <Grid size={{ xs: 12, sm: 6 }}>
         <HoverDataCard
           title="ETH Wallet"
           primary={`${formatNumberToDisplay(tokensBalances.NFTL.eth)} NFTL`}
@@ -71,7 +71,7 @@ const WalletBalances = (): React.ReactNode => {
             </>
           }
         />
-      </Grid2>
+      </Grid>
     </>
   );
 };

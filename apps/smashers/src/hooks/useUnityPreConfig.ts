@@ -11,6 +11,21 @@ const dataUrl = `${smashersBaseUrl}/Build/${smashersBuildVersion}.data${useCompr
 const frameworkUrl = `${smashersBaseUrl}/Build/${smashersBuildVersion}.framework.js${useCompressed ? '.br' : ''}`;
 const codeUrl = `${smashersBaseUrl}/Build/${smashersBuildVersion}.wasm${useCompressed ? '.br' : ''}`;
 
+interface UnityInstance {
+  SendMessage: (gameObjectName: string, methodName: string, parameter?: string | number | boolean) => void;
+}
+
+interface ExtendedUnityContext {
+  UNSAFE__unityInstance: UnityInstance;
+  sendMessage: (gameObjectName: string, methodName: string, parameter?: string | number | boolean) => void;
+}
+
+declare global {
+  interface Window {
+    unityInstance: UnityInstance | null;
+  }
+}
+
 const useUnityPreConfig = () => {
   const unity = useUnityContext({
     loaderUrl,
@@ -24,14 +39,16 @@ const useUnityPreConfig = () => {
   });
 
   useEffect(() => {
-    if (unity.UNSAFE__unityInstance) {
-      (window as any).unityInstance = unity.UNSAFE__unityInstance;
-      (window as any).unityInstance.SendMessage = unity.sendMessage;
+    if (unity) {
+      const extendedUnity = unity as unknown as ExtendedUnityContext;
+      window.unityInstance = {
+        SendMessage: extendedUnity.sendMessage,
+      };
     }
-    return function cleanup() {
-      (window as any).unityInstance = null;
+    return () => {
+      window.unityInstance = null;
     };
-  }, [unity.sendMessage, unity.UNSAFE__unityInstance]);
+  }, [unity]);
 
   return unity;
 };

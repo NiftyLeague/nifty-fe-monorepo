@@ -8,7 +8,7 @@
 // import EarningCap from './EarningCap';
 // import MyRentals from './MyRentals';
 // import useAuth from '@/hooks/useAuth';
-import { Grid2 } from '@mui/material';
+import { Grid } from '@mui/material';
 import MyComics from './MyComics';
 import MyDegens from './MyDegens';
 import MyItems from './MyItems';
@@ -24,7 +24,7 @@ const DashboardOverview = (): React.ReactNode => {
   // });
 
   // const [rental, setRental] = useState<Rentals>();
-  // const [rentals, setRentals] = useState<Rentals[] | any>([]);
+  // const [rentals, setRentals] = useState<Rentals[]>([] as Rentals[]);
 
   // useEffect(() => {
   //   if (data) {
@@ -37,30 +37,36 @@ const DashboardOverview = (): React.ReactNode => {
   // }, [data]);
 
   return (
-    <Grid2 container flexDirection="row" spacing={4} sx={{ height: 'inherit' }}>
-      <Grid2 container flexDirection="column" size={{ xs: 12, md: 5 }} spacing={4}>
-        <Grid2 size={{ xs: 12 }}>
+    <Grid container direction="row" spacing={4} sx={{ height: 'inherit' }}>
+      <Grid container direction="column" size={{ xs: 12, md: 5 }} spacing={4}>
+        <Grid size={{ xs: 12 }}>
           <MyNFTL />
-        </Grid2>
-        <Grid2 size={{ xs: 12 }}>
+        </Grid>
+        <Grid size={{ xs: 12 }}>
           <MyStats />
-        </Grid2>
-        {/* <Grid2 size={{ xs: 12 }}>
+        </Grid>
+        {/* <Grid size={{ xs: 12 }}>
           <EarningCap rentals={rentals} />
-        </Grid2>
-        <Grid2 size={{ xs: 12 }}>
+        </Grid>
+        <Grid size={{ xs: 12 }}>
           <MyRentals rentals={rentals} />
-        </Grid2> */}
-      </Grid2>
-      <Grid2 container flexDirection="column" size={{ xs: 12, md: 7 }} spacing={4}>
-        <MyDegens />
-        <MyComics />
-        <MyItems />
-      </Grid2>
+        </Grid> */}
+      </Grid>
+      <Grid container direction="column" size={{ xs: 12, md: 7 }} spacing={4}>
+        <Grid size={{ xs: 12 }}>
+          <MyDegens />
+        </Grid>
+        <Grid size={{ xs: 12 }}>
+          <MyComics />
+        </Grid>
+        <Grid size={{ xs: 12 }}>
+          <MyItems />
+        </Grid>
+      </Grid>
       {/* {rental && (
         <ActiveRentalDialog degenId={rentals[0].degen_id} rental={rental} />
       )} */}
-    </Grid2>
+    </Grid>
   );
 };
 

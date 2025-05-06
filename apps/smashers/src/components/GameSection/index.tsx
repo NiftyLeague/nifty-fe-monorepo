@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import cn from 'classnames';
 import Container from '@mui/material/Container';
-import Grid2 from '@mui/material/Grid2';
+import Grid from '@mui/material/Grid';
 
 const AnimatedWrapper = dynamic(() => import('@/components/AnimatedWrapper'), { ssr: false });
 
@@ -15,8 +15,8 @@ const GameSection = () => {
   }
   return (
     <Container className={styles.container}>
-      <Grid2 container spacing={6}>
-        <Grid2 size={{ xs: 12, sm: 6 }} className={styles.section}>
+      <Grid container spacing={6}>
+        <Grid size={{ xs: 12, sm: 6 }} className={styles.section}>
           <div style={{ marginBottom: 25 }}>
             <AnimatedWrapper>
               <h2 className="animated-header-text animated-header-text-start transition-delay-small">
@@ -39,8 +39,8 @@ const GameSection = () => {
               </p>
             </AnimatedWrapper>
           </div>
-        </Grid2>
-        <Grid2 size={{ xs: 12, sm: 6 }} className={styles.section}>
+        </Grid>
+        <Grid size={{ xs: 12, sm: 6 }} className={styles.section}>
           <div className={styles.highlight_video} onClick={playVid}>
             <AnimatedWrapper>
               <div className="quick-pop-anim quick-pop-anim-start transition-delay-small">
@@ -61,9 +61,9 @@ const GameSection = () => {
               </div>
             </AnimatedWrapper>
           </div>
-        </Grid2>
-      </Grid2>
-      <Grid2 container marginTop={8}>
+        </Grid>
+      </Grid>
+      <Grid container marginTop={8}>
         <AnimatedWrapper>
           <div
             style={{ position: 'relative' }}
@@ -78,7 +78,7 @@ const GameSection = () => {
             />
           </div>
         </AnimatedWrapper>
-      </Grid2>
+      </Grid>
     </Container>
   );
 };

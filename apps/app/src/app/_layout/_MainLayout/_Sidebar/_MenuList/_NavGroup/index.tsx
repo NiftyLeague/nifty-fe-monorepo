@@ -20,6 +20,7 @@ export interface NavGroupProps {
     title?: ReactNode | string;
     caption?: ReactNode | string;
     color?: 'primary' | 'secondary' | 'default' | undefined;
+    url?: string;
   };
 }
 

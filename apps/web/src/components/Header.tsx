@@ -53,8 +53,8 @@ const Navbar = () => {
                         ['active']: pathname.includes('games'),
                       })}
                     >
-                      <Link href="/games" legacyBehavior>
-                        <a className="dropdown-item">Games</a>
+                      <Link href="/games" className="dropdown-item">
+                        Games
                       </Link>
                     </li>
                     <li
@@ -62,8 +62,8 @@ const Navbar = () => {
                         ['active']: pathname.includes('degens'),
                       })}
                     >
-                      <Link href="/degens" legacyBehavior>
-                        <a className="dropdown-item">DEGENs</a>
+                      <Link href="/degens" className="dropdown-item">
+                        DEGENs
                       </Link>
                     </li>
                     <li
@@ -71,8 +71,8 @@ const Navbar = () => {
                         ['active']: pathname.includes('niftyverse'),
                       })}
                     >
-                      <Link href="/niftyverse" legacyBehavior>
-                        <a className="dropdown-item">NiftyVerse</a>
+                      <Link href="/niftyverse" className="dropdown-item">
+                        NiftyVerse
                       </Link>
                     </li>
                     {/* <li
@@ -80,8 +80,8 @@ const Navbar = () => {
                         ['active']: pathname.includes('compete-and-earn'),
                       })}
                     >
-                      <Link href="/compete-and-earn" legacyBehavior>
-                        <a className="dropdown-item">Compete & Earn</a>
+                      <Link href="/compete-and-earn" className="dropdown-item">
+                        Compete & Earn
                       </Link>
                     </li> */}
                   </ul>
@@ -91,8 +91,8 @@ const Navbar = () => {
                     ['active']: pathname.includes('roadmap'),
                   })}
                 >
-                  <Link href="/roadmap" legacyBehavior>
-                    <a className="nav-link mx-2">Roadmap</a>
+                  <Link href="/roadmap" className="nav-link mx-2">
+                    Roadmap
                   </Link>
                 </li>
                 <li className="nav-item dropdown">
@@ -111,15 +111,15 @@ const Navbar = () => {
                         ['active']: pathname.includes('overview'),
                       })}
                     >
-                      <Link href="/overview" legacyBehavior>
-                        <a className="dropdown-item">Overview / FAQ</a>
+                      <Link href="/overview" className="dropdown-item">
+                        Overview / FAQ
                       </Link>
                     </li>
                     {/* <li
                       className={cn('nav-item', { ['active']: pathname.includes('team') })}
                     >
-                      <Link href="/team" legacyBehavior>
-                        <a className="dropdown-item">Team</a>
+                      <Link href="/team" className="dropdown-item">
+                        Team
                       </Link>
                     </li> */}
                     <li
@@ -127,8 +127,8 @@ const Navbar = () => {
                         ['active']: pathname.includes('community'),
                       })}
                     >
-                      <Link href="/community" legacyBehavior>
-                        <a className="dropdown-item">Community</a>
+                      <Link href="/community" className="dropdown-item">
+                        Community
                       </Link>
                     </li>
                     <li
@@ -136,44 +136,38 @@ const Navbar = () => {
                         ['active']: pathname.includes('lore'),
                       })}
                     >
-                      <Link href="/lore" legacyBehavior>
-                        <a className="dropdown-item">Nifty Lore</a>
+                      <Link href="/lore" className="dropdown-item">
+                        Nifty Lore
                       </Link>
                     </li>
                     <li className="nav-item">
-                      <Link href="/docs" legacyBehavior>
-                        <a className="dropdown-item">
-                          Docs <ExternalIcon />
-                        </a>
+                      <Link href="/docs" className="dropdown-item">
+                        Docs <ExternalIcon />
                       </Link>
                     </li>
                     <li className="nav-item">
-                      <a href="/blog" className="dropdown-item" target="_blank" rel="noreferrer">
+                      <Link href="/blog" className="dropdown-item" target="_blank" rel="noreferrer">
                         Blog <ExternalIcon />
-                      </a>
+                      </Link>
                     </li>
                     {/* <li className="nav-item">
-                      <a
+                      <Link
                         href="https://maddies.co/official/nifty-league/"
                         className="dropdown-item"
                         target="_blank"
                         rel="noreferrer"
                       >
                         Merch <ExternalIcon />
-                      </a>
+                      </Link>
                     </li> */}
                     {/* <li className="nav-item">
-                      <Link href="/shop" legacyBehavior>
-                        <a className="dropdown-item">
-                          Merch <ExternalIcon />
-                        </a>
+                      <Link href="/shop" className="dropdown-item" target="_blank" rel="noreferrer">
+                        Merch <ExternalIcon />
                       </Link>
                     </li> */}
                     <li className="nav-item">
-                      <Link href="/contact" legacyBehavior>
-                        <a className="dropdown-item" target="_blank" rel="noreferrer">
-                          Contact <ExternalIcon />
-                        </a>
+                      <Link href="/contact" className="dropdown-item" target="_blank" rel="noreferrer">
+                        Contact <ExternalIcon />
                       </Link>
                     </li>
                   </ul>
@@ -190,24 +184,23 @@ const Navbar = () => {
                   </a>
                   <ul className="dropdown-menu py-2" aria-labelledby="navbarDaoDropdown">
                     <li className="nav-item">
-                      <Link href="/docs/overview/nifty-dao/about" legacyBehavior>
-                        <a className="dropdown-item">
-                          Docs <ExternalIcon />
-                        </a>
+                      <Link
+                        href="/docs/overview/nifty-dao/about"
+                        className="dropdown-item"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Docs <ExternalIcon />
                       </Link>
                     </li>
                     <li className="nav-item">
-                      <Link href="/snapshot" legacyBehavior>
-                        <a className="dropdown-item" target="_blank" rel="noreferrer">
-                          Snapshot <ExternalIcon />
-                        </a>
+                      <Link href="/snapshot" className="dropdown-item" target="_blank" rel="noreferrer">
+                        Snapshot <ExternalIcon />
                       </Link>
                     </li>
                     <li className="nav-item">
-                      <Link href="/tally" legacyBehavior>
-                        <a className="dropdown-item" target="_blank" rel="noreferrer">
-                          Tally <ExternalIcon />
-                        </a>
+                      <Link href="/tally" className="dropdown-item" target="_blank" rel="noreferrer">
+                        Tally <ExternalIcon />
                       </Link>
                     </li>
                   </ul>
@@ -334,7 +327,7 @@ const MobileNav = () => {
           {linkList.map(item => {
             return (
               <li key={item.href} onClick={toggleMenuOpen} className="mb-3">
-                <Link href={item.href} legacyBehavior>
+                <Link href={item.href}>
                   <a>
                     {item.name}
                     {item.external ? <ExternalIcon /> : ''}

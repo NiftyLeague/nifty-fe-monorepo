@@ -3,14 +3,14 @@
 import { useCallback, useState } from 'react';
 import { styled } from '@nl/theme';
 import { useRouter } from 'next/navigation';
-import { Grid2, Button } from '@mui/material';
+import { Grid, Button } from '@mui/material';
 import BuyArcadeTokensDialog from '@/components/dialog/BuyArcadeTokensDialog';
 import ConnectWrapper from '@/components/wrapper/ConnectWrapper';
 import GameCard from '@/components/cards/GameCard';
 import DownloadGameDialog from '@/components/dialog/DownloadGameDialog';
 import useTokensBalances from '@/hooks/balances/useTokensBalances';
 
-const GridItem = styled(Grid2)(({ theme }) => ({
+const GridItem = styled(Grid)(({ theme }) => ({
   paddingRight: 16,
   paddingBottom: 32,
   border: 'none',

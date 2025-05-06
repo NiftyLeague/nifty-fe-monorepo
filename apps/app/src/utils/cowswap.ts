@@ -7,6 +7,9 @@ import {
   type SupportedChainId,
   type UnsignedOrder,
   type OrderKind,
+  type Order,
+  type OrderCreation,
+  type SigningScheme,
 } from '@cowprotocol/cow-sdk';
 import { parseEther, formatEther, type Signer } from 'ethers6';
 import { getContractAddress, NFTL_CONTRACT, COWSWAP_VAULT_RELAYER_ADDRESS, WETH_ADDRESS } from '@/constants/contracts';
@@ -50,7 +53,7 @@ export const createOrderSwapEtherToNFTL = async ({
   etherVal: string;
   userAddress: `0x${string}`;
   handleTxnState: (state: string) => void;
-}) => {
+}): Promise<string> => {
   // Wrap ETH
   handleTxnState('Sign the wrapping with your wallet');
   const wEth = WETH__factory.connect(WETH_ADDRESS[chainId as keyof typeof WETH_ADDRESS] as string);
@@ -72,7 +75,7 @@ export const createOrderSwapEtherToNFTL = async ({
     receiver: userAddress,
     sellAmountBeforeFee: parseEther(etherVal).toString(),
     validTo: Math.floor(new Date().getTime() / 1000) + 3600,
-    kind: 'sell' as OrderQuoteSideKindSell, // Add a description here to explain why the @ts-expect-error is necessary
+    kind: 'sell' as OrderQuoteSideKindSell,
   };
   const { quote } = await orderBookApi.getQuote(quoteRequest);
 
@@ -85,20 +88,26 @@ export const createOrderSwapEtherToNFTL = async ({
       2,
     )} NFTL`,
   );
-  const signedOrder = await OrderSigningUtils.signOrder(
-    quote as UnsignedOrder, // Add a description here to explain why the @ts-expect-error is necessary
-    chainId,
-    signer as never,
-  );
+
+  // The OrderSigningUtils.signOrder types are not perfectly aligned with the SDK
+  // but we know the parameters are correct based on the SDK implementation
+  const signedOrder = await OrderSigningUtils.signOrder(quote as UnsignedOrder, chainId, signer as never);
   const signature = signedOrder?.signature;
   if (!signature) throw Error('No Signature');
 
   // Post the order
-  const orderID = await orderBookApi.sendOrder({ ...quote, ...signedOrder } as any); // Add a description here to explain why the @ts-expect-error is necessary
+  // We combine the quote and signed order to create a complete order for submission
+  const orderToSubmit: OrderCreation = {
+    ...quote,
+    signature,
+    signingScheme: signedOrder.signingScheme as unknown as SigningScheme,
+  };
+
+  const orderID = await orderBookApi.sendOrder(orderToSubmit);
   return orderID;
 };
 
-export const getOrderDetail = async (chainId: SupportedChainId, orderID: string) => {
+export const getOrderDetail = async (chainId: SupportedChainId, orderID: string): Promise<Order> => {
   const orderBookApi = new OrderBookApi({ chainId });
   const order = await orderBookApi.getOrder(orderID);
   return order;

@@ -42,12 +42,18 @@ const SortButton = ({
     handleCloseSortMenu();
   };
 
-  const Button = cloneElement(
-    children as React.ReactElement<any>,
+  if (!children || typeof children !== 'object' || !('props' in children)) {
+    throw new Error('SortButton expects a valid ReactElement as children');
+  }
+  const child = children as ReactElement<any, any>;
+  const childOnClick = typeof child.props.onClick === 'function' ? child.props.onClick : undefined;
+  // TypeScript limitation: ref typing for generic child
+  const Button = cloneElement<unknown>(
+    child,
     {
-      ...(children?.props || {}),
-      ref: buttonRef,
-      onClick: callAll(handleOpenSortMenu as FunctionType, (children.props as any)?.onClick),
+      ...(child.props || {}),
+      ref: buttonRef as React.Ref<any>, // 'any' is required here due to React's ref typing limitations
+      onClick: callAll(handleOpenSortMenu as FunctionType, childOnClick as FunctionType),
     },
     sortLabel.length > 0 && sortLabel[0]?.label,
   );

@@ -27,6 +27,18 @@ interface GameProps {
   arcadeTokenRequired?: boolean;
 }
 
+interface ExtendedUnityContext extends UnityContext {
+  send: (gameObjectName: string, methodName: string, parameter?: string | number | boolean) => void;
+  removeAllEventListeners: () => void;
+  setFullscreen: (fullscreen: boolean) => void;
+}
+
+interface CustomEventWithCallback<T> extends CustomEvent {
+  detail: {
+    callback: (data: T) => void;
+  };
+}
+
 const Game = ({ unityContext, arcadeTokenRequired = false }: GameProps) => {
   const { authToken } = useAuth();
   const pathname = usePathname();
@@ -58,8 +70,7 @@ const Game = ({ unityContext, arcadeTokenRequired = false }: GameProps) => {
   }, [pathname]);
 
   const startAuthentication = useCallback(
-    (e: CustomEvent<{ callback: (auth: string) => void }>) => {
-      // eslint-disable-next-line no-console
+    (e: CustomEventWithCallback<string>) => {
       if (DEBUG) console.log('Authenticating:', authMsg);
       e.detail.callback(authMsg);
       authCallback.current = e.detail.callback;
@@ -67,10 +78,9 @@ const Game = ({ unityContext, arcadeTokenRequired = false }: GameProps) => {
     [authMsg],
   );
 
-  const getConfiguration = useCallback((e: CustomEvent<{ callback: (network: string) => void }>) => {
+  const getConfiguration = useCallback((e: CustomEventWithCallback<string>) => {
     const networkName = NETWORK_NAME[TARGET_NETWORK.chainId];
     const version = process.env.NEXT_PUBLIC_SUBGRAPH_VERSION;
-    // eslint-disable-next-line no-console
     if (DEBUG) console.log(`${networkName},${version ?? ''}`);
     setTimeout(() => e.detail.callback(`${networkName},${version ?? ''}`), 1000);
   }, []);
@@ -78,32 +88,37 @@ const Game = ({ unityContext, arcadeTokenRequired = false }: GameProps) => {
   const onMouse = useCallback(() => {
     const content = Array.from(document.getElementsByClassName('game-canvas') as HTMLCollectionOf<HTMLElement>)[0];
     if (content) {
-      content.style['pointer-events' as any] = 'auto';
+      content.style.pointerEvents = 'auto';
       content.style.cursor = 'pointer';
     }
   }, []);
 
   useEffect(() => {
     if (unityContext) {
-      (window as any).unityInstance = unityContext;
-      (window as any).unityInstance.SendMessage = unityContext.send;
-      unityContext.on('loaded', () => setLoaded(true));
-      unityContext.on('error', console.error);
-      unityContext.on('progress', p => setProgress(p * 100));
-      (window as any).addEventListener('StartAuthentication', startAuthentication);
-      (window as any).addEventListener('GetConfiguration', getConfiguration);
+      const extendedContext = unityContext as ExtendedUnityContext;
+      window.unityInstance = extendedContext;
+      window.unityInstance.SendMessage = extendedContext.send;
+      extendedContext.on('loaded', () => setLoaded(true));
+      extendedContext.on('error', console.error);
+      extendedContext.on('progress', p => setProgress(p * 100));
+      window.addEventListener('StartAuthentication', startAuthentication as EventListener);
+      window.addEventListener('GetConfiguration', getConfiguration as EventListener);
       document.addEventListener('mousemove', onMouse, false);
     }
     return () => {
-      if ((window as any).unityInstance) (window as any).unityInstance.removeAllEventListeners();
-      (window as any).removeEventListener('StartAuthentication', startAuthentication);
-      (window as any).removeEventListener('GetConfiguration', getConfiguration);
+      if (window.unityInstance) {
+        const extendedContext = window.unityInstance as ExtendedUnityContext;
+        extendedContext.removeAllEventListeners();
+      }
+      window.removeEventListener('StartAuthentication', startAuthentication as EventListener);
+      window.removeEventListener('GetConfiguration', getConfiguration as EventListener);
       document.removeEventListener('mousemove', onMouse, false);
     };
   }, [unityContext, onMouse, startAuthentication, getConfiguration]);
 
   const handleOnClickFullscreen = () => {
-    (window as any).unityInstance.setFullscreen(true);
+    const extendedContext = window.unityInstance as ExtendedUnityContext;
+    extendedContext.setFullscreen(true);
   };
 
   if (arcadeTokenRequired && loadingArcadeBal) {

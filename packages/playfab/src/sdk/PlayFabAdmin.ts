@@ -1,5 +1,6 @@
 /// <reference path="./typings/PlayFabAdmin.d.ts" />
 
+import type { PlayFabError, PlayFabResponse } from '../types';
 import * as PlayFab from './PlayFab';
 
 export const DeletePlayer: PlayFabAdminModule.IPlayFabAdmin['DeletePlayer'] = (request, callback) => {
@@ -11,10 +12,7 @@ export const DeletePlayer: PlayFabAdminModule.IPlayFabAdmin['DeletePlayer'] = (r
     request,
     'X-SecretKey',
     PlayFab.settings.developerSecretKey,
-    function (
-      error: PlayFabModule.IPlayFabError,
-      result: PlayFabModule.IPlayFabSuccessContainer<PlayFabAdminModels.DeletePlayerResult>,
-    ) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabAdminModels.DeletePlayerResult>) {
       if (callback != null) {
         callback(error, result);
       }

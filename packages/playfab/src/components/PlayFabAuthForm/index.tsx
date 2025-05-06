@@ -53,7 +53,7 @@ export interface AuthFormProps {
   socialColors?: boolean;
   socialLayout?: 'horizontal' | 'vertical';
   style?: React.CSSProperties;
-  verticalSocialLayout?: any;
+  verticalSocialLayout?: boolean;
   view?: ViewType;
 }
 
@@ -80,7 +80,7 @@ function PlayFabAuthForm({
   const containerClasses = [styles['sbui-auth']];
   if (className) containerClasses.push(className);
 
-  const Container = (props: any) => (
+  const Container = (props: React.ComponentProps<typeof Space>) => (
     <div className={containerClasses.join(' ')} style={style}>
       <Space size={8} direction={'vertical'}>
         <SocialAuth

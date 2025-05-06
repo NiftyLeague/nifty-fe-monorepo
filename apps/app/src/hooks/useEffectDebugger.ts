@@ -1,7 +1,16 @@
 import type { DependencyList, EffectCallback } from 'react';
 import { useEffect, useRef } from 'react';
 
-const usePrevious = (value: any, initialValue: any) => {
+interface DependencyChange {
+  before: unknown;
+  after: unknown;
+}
+
+type DependencyChanges = {
+  [key: string | number]: DependencyChange;
+};
+
+const usePrevious = <T>(value: T, initialValue: T): T => {
   const ref = useRef(initialValue);
   useEffect(() => {
     ref.current = value;
@@ -14,9 +23,9 @@ const useEffectDebugger = (
   dependencies: DependencyList,
   dependencyNames: string[] = [],
 ) => {
-  const previousDeps = usePrevious(dependencies, []);
+  const previousDeps = usePrevious<DependencyList>(dependencies, []);
 
-  const changedDeps = dependencies.reduce((accum: object, dependency: any, index) => {
+  const changedDeps = dependencies.reduce<DependencyChanges>((accum, dependency, index) => {
     if (dependency !== previousDeps[index]) {
       const keyName = dependencyNames[index] || index;
       return {

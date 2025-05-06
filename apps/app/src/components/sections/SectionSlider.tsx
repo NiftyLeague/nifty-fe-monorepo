@@ -1,6 +1,6 @@
 'use client';
 
-import { Grid2, Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import PaginationIconOnly from '@/components/pagination/PaginationIconOnly';
 import { PropsWithChildren, ReactNode, useRef } from 'react';
 import Slider, { Settings } from 'react-slick';
@@ -84,8 +84,8 @@ const SectionSlider = ({
   };
 
   return (
-    <Grid2 container flexDirection="column" size={{ xs: 12 }} spacing={sectionSpacing} sx={{ ...styles?.root }}>
-      <Grid2 size={{ xs: 12 }} sx={{ ...styles?.headerRow }}>
+    <Stack direction="column" spacing={sectionSpacing} sx={{ ...styles?.root }}>
+      <Box sx={{ ...styles?.headerRow }}>
         <SectionTitle
           firstSection={firstSection}
           variant={variant}
@@ -98,8 +98,8 @@ const SectionSlider = ({
         >
           {title}
         </SectionTitle>
-      </Grid2>
-      <Grid2 size={{ xs: 12 }} sx={{ ...styles?.mainRow }}>
+      </Box>
+      <Box sx={{ ...styles?.mainRow }}>
         {isSlider ? (
           <Slider {...settings} ref={refSlider}>
             {children}
@@ -107,8 +107,8 @@ const SectionSlider = ({
         ) : (
           children
         )}
-      </Grid2>
-    </Grid2>
+      </Box>
+    </Stack>
   );
 };
 

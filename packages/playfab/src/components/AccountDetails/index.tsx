@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import isEmpty from 'lodash/isEmpty';
-import Grid2 from '@mui/material/Grid2';
+import Grid from '@mui/material/Grid';
 import { Button, IconLoader, IconSave, Input } from '@nl/ui/supabase';
 import { useSnackbar } from 'notistack';
 
@@ -138,14 +138,14 @@ export default function AccountDetails({
 
       <hr className={styles.hr} />
 
-      <Grid2 container spacing={1}>
-        <Grid2 size={{ xs: 12, sm: 6 }}>
+      <Grid container spacing={1}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <LogoutButton loading={loading} />
-        </Grid2>
-        <Grid2 size={{ xs: 12, sm: 6 }}>
+        </Grid>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <DeleteAccountDialog loading={loading} />
-        </Grid2>
-      </Grid2>
+        </Grid>
+      </Grid>
     </>
   ) : null;
 }

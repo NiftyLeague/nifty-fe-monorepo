@@ -50,10 +50,8 @@ export default function Footer({ classes }: { classes?: { footer?: string } }) {
                 <Link href="/docs" className="mt-2">
                   Docs {!mobile ? <ExternalIcon /> : null}
                 </Link>
-                <Link href="/blog" className="mt-2" legacyBehavior>
-                  <a className="mt-2" target="_blank" rel="noreferrer">
-                    Blog {!mobile ? <ExternalIcon /> : null}
-                  </a>
+                <Link href="/blog" className="mt-2" target="_blank" rel="noreferrer">
+                  Blog {!mobile ? <ExternalIcon /> : null}
                 </Link>
                 <Link href="/contact" className="mt-2" target="_blank" rel="noreferrer">
                   Contact {!mobile ? <ExternalIcon /> : null}

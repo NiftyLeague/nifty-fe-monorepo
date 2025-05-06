@@ -2,7 +2,7 @@
 
 import Head from 'next/head';
 import { styled } from '@nl/theme';
-import { Card, CardContent, CardMedia, Grid2, Typography } from '@mui/material';
+import { Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 import Layout from '@/components/Layout';
 
 // styles
@@ -62,32 +62,32 @@ const NotFoundPage = () => {
       </Head>
       <ErrorCard>
         <CardContent>
-          <Grid2 container justifyContent="center" spacing={2}>
-            <Grid2 size={{ xs: 12 }}>
+          <Grid container justifyContent="center" spacing={2}>
+            <Grid size={{ xs: 12 }}>
               <CardMediaWrapper>
                 <CardMedia component="img" image={'/img/maintenance/img-error-bg-dark.svg'} title="Slider5 image" />
                 <CardMediaBlock src={'/img/maintenance/img-error-text.svg'} title="Slider 1 image" />
                 <CardMediaBlue src={'/img/maintenance/img-error-blue.svg'} title="Slider 2 image" />
                 <CardMediaPurple src={'/img/maintenance/img-error-purple.svg'} title="Slider 3 image" />
               </CardMediaWrapper>
-            </Grid2>
-            <Grid2 size={{ xs: 12 }}>
+            </Grid>
+            <Grid size={{ xs: 12 }}>
               <ErrorWrapper>
-                <Grid2 container spacing={2}>
-                  <Grid2 size={{ xs: 12 }}>
+                <Grid container spacing={2}>
+                  <Grid size={{ xs: 12 }}>
                     <Typography variant="h4" component="div">
                       Something is wrong
                     </Typography>
-                  </Grid2>
-                  <Grid2 size={{ xs: 12 }}>
+                  </Grid>
+                  <Grid size={{ xs: 12 }}>
                     <Typography variant="body2">
                       The page you are looking was moved, removed, renamed, or might have never exist!{' '}
                     </Typography>
-                  </Grid2>
-                </Grid2>
+                  </Grid>
+                </Grid>
               </ErrorWrapper>
-            </Grid2>
-          </Grid2>
+            </Grid>
+          </Grid>
         </CardContent>
       </ErrorCard>
     </Layout>

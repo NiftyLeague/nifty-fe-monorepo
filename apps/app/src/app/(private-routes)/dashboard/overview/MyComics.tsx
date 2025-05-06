@@ -32,9 +32,15 @@ const MyComics = (): React.ReactNode => {
   };
 
   const settings = {
-    slidesToShow: 4,
+    slidesToShow: 6,
     adaptiveHeight: true,
     responsive: [
+      {
+        breakpoint: 1600,
+        settings: {
+          slidesToShow: 5,
+        },
+      },
       {
         breakpoint: 1350,
         settings: {

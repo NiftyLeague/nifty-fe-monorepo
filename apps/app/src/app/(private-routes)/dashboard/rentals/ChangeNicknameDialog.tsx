@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { DialogTitle, DialogContent, Stack, Typography, TextField, DialogActions } from '@mui/material';
 import { toast } from 'react-toastify';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm, Resolver } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import type { RentalDataGrid } from '@/types/rentalDataGrid';
@@ -18,13 +18,13 @@ interface Props {
 }
 interface IFormInput {
   name: string;
-  isCheckedTerm?: boolean;
+  isCheckedTerm: boolean;
 }
 
-const validationSchema = yup.object({
+const validationSchema = yup.object().shape({
   name: yup.string().required(),
-  isCheckedTerm: yup.bool().oneOf([true]),
-});
+  isCheckedTerm: yup.boolean().required().oneOf([true]),
+}) satisfies yup.ObjectSchema<IFormInput>;
 
 const ChangeNicknameDialog = ({ rental, updateNickname }: Props): React.ReactNode => {
   const { authToken } = useAuth();
@@ -40,7 +40,7 @@ const ChangeNicknameDialog = ({ rental, updateNickname }: Props): React.ReactNod
     reset,
     formState: { errors },
   } = useForm<IFormInput>({
-    resolver: yupResolver<IFormInput>(validationSchema),
+    resolver: yupResolver(validationSchema) as Resolver<IFormInput>,
     mode: 'onChange',
     defaultValues: {
       name: '',

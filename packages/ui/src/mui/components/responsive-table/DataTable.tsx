@@ -1,28 +1,36 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import type { Dispatch, SetStateAction } from 'react';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
+import { CustomColDef, DataGridProps, GridRenderCellParams, Row } from './types';
 
 interface DataTableProps {
-  columns: GridColDef[];
+  columns: CustomColDef[];
   count: number;
-  data: any[];
-  DataGridProps?: any;
+  data: Row[];
+  DataGridProps?: DataGridProps;
   noContentText?: string;
   onPaginationModelChange: Dispatch<SetStateAction<{ pageSize: number; page: number }>>;
   paginationModel: { pageSize: number; page: number };
   rowsClassArray?: string[];
   showPagination?: boolean;
-  TableBodyCellProps?: any;
-  TableBodyProps?: any;
-  TableBodyRowProps?: any;
-  TableHeadCellProps?: any;
-  TableHeadProps?: any;
-  TableHeadRowProps?: any;
-  TablePaginationProps?: any;
-  TableProps?: any;
 }
+
+// Convert our custom column definition to MUI's GridColDef
+const convertToGridColDef = (col: CustomColDef): CustomColDef => {
+  const { renderCell, ...rest } = col;
+  return {
+    ...rest,
+    renderCell: renderCell
+      ? params =>
+          renderCell({
+            value: params.value,
+            row: params.row as Row,
+            field: params.field as string,
+            id: params.id,
+          } as GridRenderCellParams)
+      : undefined,
+  };
+};
 
 /**
  * Material-ui DataGrid component
@@ -56,15 +64,14 @@ export default function DataTable(props: DataTableProps) {
       }}
     >
       <DataGrid
-        columns={columns}
-        rows={data}
-        paginationModel={paginationModel}
-        onPaginationModelChange={onPaginationModelChange}
-        disableSelectionOnClick
+        columns={columns.map(convertToGridColDef)}
         disableColumnMenu
-        // rowCount={count}
-        getRowId={row => row.rank}
+        disableRowSelectionOnClick
+        getRowId={row => (typeof row.id === 'string' || typeof row.id === 'number' ? row.id : row.rank)}
+        onPaginationModelChange={onPaginationModelChange}
         pageSizeOptions={[10, 25, 50]}
+        paginationModel={paginationModel}
+        rows={data}
         {...DataGridProps}
       />
     </Box>

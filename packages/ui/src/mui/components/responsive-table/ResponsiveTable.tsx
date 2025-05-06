@@ -1,84 +1,71 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import type { Dispatch, SetStateAction } from 'react';
-import PropTypes from 'prop-types';
-import Hidden from '@mui/material/Hidden';
+import Box from '@mui/material/Box';
 
 import DataList from './DataList';
 import DataTable from './DataTable';
-import { Breakpoint } from '@mui/system';
-import { GridColDef } from '@mui/x-data-grid';
+import type {
+  AccordionDetailsProps,
+  AccordionProps,
+  AccordionSummaryProps,
+  CustomColDef,
+  DataGridProps,
+  Row,
+  SvgIconProps,
+  TablePaginationProps,
+  TypographyProps,
+} from './types';
+
 type ResponsiveTableProps = {
+  AccordionDetailsProps?: AccordionDetailsProps;
+  AccordionDetailsTypographyProps?: TypographyProps<'div'>;
+  AccordionMoreIconProps?: SvgIconProps;
+  AccordionProps?: AccordionProps;
+  AccordionSummaryProps?: AccordionSummaryProps;
+  AccordionSummaryTypographyProps?: TypographyProps;
   checkboxSelection?: boolean;
-  columns: GridColDef[];
+  columns: CustomColDef[];
   count: number;
-  data: any[];
-  DataGridProps?: any;
+  data: Row[];
+  DataGridProps?: DataGridProps;
   excludePrimaryFromDetails?: boolean;
-  ExpansionPanelDetailsProps?: any;
-  ExpansionPanelDetailsTypographyProps?: any;
-  ExpansionPanelMoreIconProps?: any;
-  ExpansionPanelProps?: any;
-  ExpansionPanelSummaryProps?: any;
-  ExpansionPanelSummaryTypographyProps?: any;
-  implementation?: 'js' | 'css';
-  listBreakpoints?: Breakpoint[];
   noContentText?: string;
   onPaginationModelChange: Dispatch<SetStateAction<{ pageSize: number; page: number }>>;
-  onSelectionChange?: (selected: any) => void;
+  onSelectionChange?: (selected: { rowIds: (string | number)[] }) => void;
   paginationModel: { pageSize: number; page: number };
-  rowsClassArray?: any[];
+  rowsClassArray?: string[];
   showPagination: boolean;
-  TableBodyCellProps?: any;
-  TableBodyProps?: any;
-  TableBodyRowProps?: any;
-  tableBreakpoints?: Breakpoint[];
-  TableHeadCellProps?: any;
-  TableHeadProps?: any;
-  TableHeadRowProps?: any;
-  TablePaginationProps?: any;
-  TableProps?: any;
+  TablePaginationProps?: TablePaginationProps;
 };
 
 /**
  * Responsive read-only table (desktop devices) <-> read-only expandable list (tablet/mobile devices) for material-ui 1.0-beta.
  */
 const ResponsiveTable: React.FC<ResponsiveTableProps> = ({
+  AccordionDetailsProps,
+  AccordionDetailsTypographyProps,
+  AccordionMoreIconProps,
+  AccordionProps,
+  AccordionSummaryProps,
+  AccordionSummaryTypographyProps,
   checkboxSelection,
   columns,
   count,
   data,
   DataGridProps,
   excludePrimaryFromDetails,
-  ExpansionPanelDetailsProps,
-  ExpansionPanelDetailsTypographyProps,
-  ExpansionPanelMoreIconProps,
-  ExpansionPanelProps,
-  ExpansionPanelSummaryProps,
-  ExpansionPanelSummaryTypographyProps,
-  implementation,
-  listBreakpoints,
   noContentText,
   onPaginationModelChange,
   onSelectionChange,
   paginationModel,
   rowsClassArray,
   showPagination,
-  TableBodyCellProps,
-  TableBodyProps,
-  TableBodyRowProps,
-  tableBreakpoints,
-  TableHeadCellProps,
-  TableHeadProps,
-  TableHeadRowProps,
   TablePaginationProps,
-  TableProps,
 }) => {
   const handleChangePage = (event: React.MouseEvent | null, page: number) => {
     onPaginationModelChange(model => ({ page, pageSize: model.pageSize }));
   };
 
-  const handleSelectionChange = (selected: any) => {
+  const handleSelectionChange = (selected: { rowIds: (string | number)[] }) => {
     if (onSelectionChange) {
       onSelectionChange(selected);
     }
@@ -87,7 +74,7 @@ const ResponsiveTable: React.FC<ResponsiveTableProps> = ({
   return (
     <div>
       {/* DESKTOP BIG TABLE */}
-      <Hidden only={tableBreakpoints || ['xs', 'sm', 'md']} implementation={implementation || 'js'}>
+      <Box sx={{ display: { xs: 'none', md: 'none', lg: 'block' } }}>
         <DataTable
           columns={columns}
           count={count}
@@ -98,78 +85,35 @@ const ResponsiveTable: React.FC<ResponsiveTableProps> = ({
           paginationModel={paginationModel}
           rowsClassArray={rowsClassArray}
           showPagination={showPagination}
-          TableBodyCellProps={TableBodyCellProps}
-          TableBodyProps={TableBodyProps}
-          TableBodyRowProps={TableBodyRowProps}
-          TableHeadCellProps={TableHeadCellProps}
-          TableHeadProps={TableHeadProps}
-          TableHeadRowProps={TableHeadRowProps}
-          TablePaginationProps={TablePaginationProps}
-          TableProps={TableProps}
         />
-      </Hidden>
+      </Box>
 
       {/* MOBILE EXPANDABLE LIST OF CARDS */}
-      <Hidden only={listBreakpoints || ['lg', 'xl']} implementation={implementation || 'js'}>
+      <Box sx={{ display: { xs: 'block', md: 'block', lg: 'none' } }}>
         <DataList
+          AccordionDetailsProps={AccordionDetailsProps}
+          AccordionDetailsTypographyProps={AccordionDetailsTypographyProps}
+          AccordionMoreIconProps={AccordionMoreIconProps}
+          AccordionProps={AccordionProps}
+          AccordionSummaryProps={AccordionSummaryProps}
+          AccordionSummaryTypographyProps={AccordionSummaryTypographyProps}
+          checkboxSelection={checkboxSelection}
           columns={columns}
           count={count}
-          checkboxSelection={checkboxSelection}
           data={data}
-          onSelectionChange={handleSelectionChange}
-          rowsClassArray={rowsClassArray}
           excludePrimaryFromDetails={excludePrimaryFromDetails}
           noContentText={noContentText}
+          onChangePage={handleChangePage}
+          onSelectionChange={handleSelectionChange}
           page={paginationModel.page}
+          rowsClassArray={rowsClassArray}
           rowsPerPage={paginationModel.pageSize}
           showPagination={showPagination}
-          ExpansionPanelDetailsProps={ExpansionPanelDetailsProps}
-          ExpansionPanelDetailsTypographyProps={ExpansionPanelDetailsTypographyProps}
-          ExpansionPanelMoreIconProps={ExpansionPanelMoreIconProps}
-          ExpansionPanelProps={ExpansionPanelProps}
-          ExpansionPanelSummaryProps={ExpansionPanelSummaryProps}
-          ExpansionPanelSummaryTypographyProps={ExpansionPanelSummaryTypographyProps}
           TablePaginationProps={TablePaginationProps}
-          onChangePage={handleChangePage}
         />
-      </Hidden>
+      </Box>
     </div>
   );
-};
-
-ResponsiveTable.propTypes = {
-  checkboxSelection: PropTypes.bool,
-  columns: PropTypes.arrayOf(PropTypes.object).isRequired,
-  count: PropTypes.number.isRequired,
-  data: PropTypes.array.isRequired,
-  DataGridProps: PropTypes.object,
-  excludePrimaryFromDetails: PropTypes.bool,
-  ExpansionPanelDetailsProps: PropTypes.object,
-  ExpansionPanelDetailsTypographyProps: PropTypes.object,
-  ExpansionPanelMoreIconProps: PropTypes.object,
-  ExpansionPanelProps: PropTypes.object,
-  ExpansionPanelSummaryProps: PropTypes.object,
-  ExpansionPanelSummaryTypographyProps: PropTypes.object,
-  implementation: PropTypes.oneOf(['js', 'css']),
-  listBreakpoints: PropTypes.arrayOf(PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl'])),
-  noContentText: PropTypes.string,
-  onPaginationModelChange: PropTypes.func.isRequired,
-  onSelectionChange: PropTypes.func,
-  paginationModel: PropTypes.shape({
-    pageSize: PropTypes.number.isRequired,
-    page: PropTypes.number.isRequired,
-  }).isRequired,
-  rowsClassArray: PropTypes.array,
-  showPagination: PropTypes.bool.isRequired,
-  TableBodyCellProps: PropTypes.object,
-  TableBodyProps: PropTypes.object,
-  TableBodyRowProps: PropTypes.object,
-  tableBreakpoints: PropTypes.arrayOf(PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl'])),
-  TableHeadCellProps: PropTypes.object,
-  TableHeadProps: PropTypes.object,
-  TableHeadRowProps: PropTypes.object,
-  TablePaginationProps: PropTypes.object,
-  TableProps: PropTypes.object,
 };
 
 export default ResponsiveTable;

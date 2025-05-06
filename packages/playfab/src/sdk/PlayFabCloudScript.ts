@@ -1,5 +1,6 @@
 /// <reference path="./typings/PlayFabCloudScript.d.ts" />
 
+import type { PlayFabError, PlayFabResponse } from '../types';
 import * as PlayFab from './PlayFab';
 
 export const ExecuteFunction: PlayFabCloudScriptModule.IPlayFabCloudScript['ExecuteFunction'] = (
@@ -12,10 +13,7 @@ export const ExecuteFunction: PlayFabCloudScriptModule.IPlayFabCloudScript['Exec
     request,
     'X-EntityToken',
     EntityToken,
-    function (
-      error: PlayFabModule.IPlayFabError,
-      result: PlayFabModule.IPlayFabSuccessContainer<PlayFabCloudScriptModels.ExecuteFunctionResult>,
-    ) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabCloudScriptModels.ExecuteFunctionResult>) {
       if (callback != null) {
         callback(error, result);
       }
