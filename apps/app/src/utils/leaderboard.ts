@@ -2,7 +2,7 @@ import type { DataType, ReturnDataType, Order } from '@/types/leaderboard';
 import { GET_RANK_BY_USER_ID_API, LEADERBOARD_SCORE_API_URL, LEADERBOARD_USERNAMES_API_URL } from '@/constants/url';
 import { LEADERBOARDS } from '@/constants/leaderboards';
 
-export const fetchUserNames = async (items: any): Promise<DataType[]> => {
+export const fetchUserNames = async (items: string[]): Promise<DataType[]> => {
   try {
     const res = await fetch(`${LEADERBOARD_USERNAMES_API_URL}?ids=${items}&include_stats=false`);
     return await res.json();
@@ -60,7 +60,7 @@ export const fetchScores = async (
     };
   });
   // get names
-  const items: DataType[] = [];
+  const items: string[] = [];
   for (let i = 0; i < json.data.length; i++) {
     items.push(json.data[i].user_id);
   }

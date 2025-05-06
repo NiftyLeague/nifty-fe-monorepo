@@ -1,10 +1,14 @@
 'use client';
 
 import { useMemo } from 'react';
-import { createTheme } from '@mui/material/styles';
+import {
+  createTheme as muiCreateTheme,
+  type Theme as MuiTheme,
+  type ThemeOptions as MuiThemeOptions,
+} from '@mui/material/styles';
 
 // project imports
-import type { CustomShadowProps, ThemeOptions, Theme } from '../types';
+import type { CustomShadowProps, Theme, ThemeOptions } from '../types';
 import { customComponents, customMixins, customPalette, customShadows, customTypography } from '../utils';
 import useThemeConfig from './useThemeConfig';
 
@@ -20,32 +24,43 @@ const useCreateTheme = (): Theme => {
     () => customTypography(colorTheme, config.borderRadius, config.fontFamily),
     [colorTheme, config.borderRadius, config.fontFamily],
   );
+
   const shadows = useMemo<CustomShadowProps>(
     () => customShadows(colorTheme, config.paletteMode),
     [colorTheme, config.paletteMode],
   );
+
   const components = useMemo<ThemeOptions['components']>(
     () => customComponents(colorTheme, config.borderRadius, config.outlinedFilled),
     [colorTheme, config.borderRadius, config.outlinedFilled],
   );
+
   const mixins = useMemo<ThemeOptions['mixins']>(() => customMixins(), []);
 
-  const themeOptions: ThemeOptions = useMemo(
+  const baseThemeOptions: MuiThemeOptions = useMemo(
     () => ({
       breakpoints: config.breakpoints,
-      components,
-      customShadows: shadows,
       direction: config.rtlLayout ? 'rtl' : 'ltr',
       mixins,
       palette: colorTheme.palette,
-      typography,
+      components,
+      cssVarPrefix: 'mui',
     }),
-    [config.breakpoints, colorTheme, components, shadows, mixins, config.rtlLayout, typography],
+    [config.breakpoints, colorTheme, components, mixins, config.rtlLayout],
   );
 
-  const theme: Theme = createTheme(themeOptions);
+  // Create base theme first
+  const baseTheme = muiCreateTheme(baseThemeOptions);
 
-  return theme;
+  // Then extend it with our custom properties
+  return {
+    ...baseTheme,
+    customShadows: shadows,
+    typography: {
+      ...baseTheme.typography,
+      ...typography,
+    },
+  } as Theme;
 };
 
 export default useCreateTheme;

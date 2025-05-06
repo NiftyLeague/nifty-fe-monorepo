@@ -6,7 +6,13 @@ import { useMediaQuery } from '@mui/material';
 
 import styles from './index.module.scss';
 
-export const RenderDegen = (degen: any) => (
+export interface Degen {
+  name: string;
+  source: string;
+  createdDate: string;
+}
+
+export const RenderDegen = (degen: Degen) => (
   <DegenCardItem key={degen.name} name={degen.name} createdDate={degen.createdDate} source={degen.source} />
 );
 

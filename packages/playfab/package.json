@@ -22,12 +22,12 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "ethers6": "npm:ethers@^6.13.5",
+    "ethers6": "npm:ethers@^6.13.7",
     "https": "^1.0.0",
-    "next": "^15.2.1",
+    "next": "^15.3.1",
     "next-auth": "^4.24.11",
     "notistack": "^3.0.2",
-    "playfab-sdk": "^2.169.250228",
+    "playfab-sdk": "^2.172.250428",
     "swr": "^2.3.3",
     "url": "^0.11.4"
   },

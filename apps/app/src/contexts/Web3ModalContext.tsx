@@ -3,7 +3,7 @@
 import { createAppKit } from '@reown/appkit/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { mainnet, sepolia, immutableZkEvm, immutableZkEvmTestnet, type Chain } from '@reown/appkit/networks';
-import { State, WagmiProvider } from 'wagmi';
+import { cookieToInitialState, WagmiProvider, type Config } from 'wagmi';
 
 import type { PropsWithChildren } from 'react';
 import type { CaipNetworkId } from '@reown/appkit';
@@ -21,10 +21,10 @@ const CaipNetworkID = (network: Chain) => `eip155:${network.id}` as CaipNetworkI
 // Create modal
 createAppKit({
   adapters: [wagmiAdapter],
+  projectId,
   networks,
   defaultNetwork: mainnet,
   metadata,
-  projectId,
   features: {
     analytics: true,
   },
@@ -53,12 +53,14 @@ createAppKit({
 });
 
 type Web3ModalProviderProps = {
-  initialState?: State;
+  cookies?: string | null;
 };
 
-export function Web3ModalProvider({ children, initialState }: PropsWithChildren<Web3ModalProviderProps>) {
+export function Web3ModalProvider({ children, cookies }: PropsWithChildren<Web3ModalProviderProps>) {
+  const initialState = cookieToInitialState(wagmiAdapter.wagmiConfig as Config, cookies);
+
   return (
-    <WagmiProvider config={wagmiAdapter.wagmiConfig} initialState={initialState}>
+    <WagmiProvider config={wagmiAdapter.wagmiConfig as Config} initialState={initialState}>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </WagmiProvider>
   );

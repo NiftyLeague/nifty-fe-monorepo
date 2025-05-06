@@ -53,13 +53,11 @@ const Overview: NextPage = () => {
 
         <div className="d-flex justify-content-center my-3 my-md-4">
           <AnimatedWrapper>
-            <Link href="/docs/faq/general" legacyBehavior>
-              <a target="_blank" rel="noreferrer">
-                <button className="btn theme-btn-primary theme-learn-btn animated-fade-slow animated-fade-start transition-delay-medium">
-                  More FAQ
-                  <ExternalIcon />
-                </button>
-              </a>
+            <Link href="/docs/faq/general" target="_blank" rel="noreferrer">
+              <button className="btn theme-btn-primary theme-learn-btn animated-fade-slow animated-fade-start transition-delay-medium">
+                More FAQ
+                <ExternalIcon />
+              </button>
             </Link>
           </AnimatedWrapper>
         </div>

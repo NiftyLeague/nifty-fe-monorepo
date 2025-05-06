@@ -1,15 +1,29 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { ReactNode } from 'react';
+import { CustomColDef, GridRenderCellParams, Row } from './types';
 
-export const CellRenderer = ({ column, row }: { column: any; row: any; data: any }) => {
-  let cell = row[column.field];
-  if (column.valueGetter) {
-    cell = column.valueGetter({ value: cell, data: row });
+interface RendererProps {
+  column: CustomColDef;
+  row: Row;
+  data: Row[];
+}
+
+export const CellRenderer = ({ column, row }: RendererProps): ReactNode => {
+  const value = row[column.field] as ReactNode;
+  if (typeof column.renderCell === 'function') {
+    return column.renderCell({
+      value,
+      row,
+      field: column.field,
+      id: row.id,
+    } as GridRenderCellParams);
   }
-  if (column.renderCell) {
-    cell = column.renderCell({ value: cell, data: row });
-  }
-  return cell;
+  return value;
 };
 
-export const LabelRenderer = ({ column, data }: { column: any; data: any }) =>
-  column.renderLabel ? column.renderLabel(column, data) : column?.headerName?.toUpperCase();
+interface LabelRendererProps {
+  column: CustomColDef;
+  data: Row[];
+}
+
+export const LabelRenderer = ({ column }: LabelRendererProps): string =>
+  column.headerName?.toUpperCase() || column.field.toUpperCase();

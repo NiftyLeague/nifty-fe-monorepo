@@ -3,10 +3,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { styled } from '@nl/theme';
-import Grid2 from '@mui/material/Grid2';
+import Grid from '@mui/material/Grid';
 import GameCard from '@/components/cards/GameCard';
 
-const GridItem = styled(Grid2)(({ theme }) => ({
+const GridItem = styled(Grid)(({ theme }) => ({
   paddingRight: 16,
   paddingBottom: 32,
   border: 'none',
@@ -62,8 +62,8 @@ type StoreButtonsProps = {
 };
 
 const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
-  <Grid2 container spacing={2} style={{ width: '100%' }}>
-    <Grid2 size={4}>
+  <Grid container spacing={2} style={{ width: '100%' }}>
+    <Grid size={4}>
       {android ? (
         <Link href={android} target="_blank" rel="noreferrer">
           <GoogleBadge />
@@ -71,8 +71,8 @@ const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
       ) : (
         <GoogleBadge disabled />
       )}
-    </Grid2>
-    <Grid2 size={4}>
+    </Grid>
+    <Grid size={4}>
       {ios ? (
         <Link href={ios} target="_blank" rel="noreferrer">
           <AppleBadge />
@@ -80,8 +80,8 @@ const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
       ) : (
         <AppleBadge disabled />
       )}
-    </Grid2>
-    <Grid2 size={4}>
+    </Grid>
+    <Grid size={4}>
       {steam ? (
         <Link href={steam} target="_blank" rel="noreferrer">
           <SteamBadge />
@@ -89,8 +89,8 @@ const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
       ) : (
         <SteamBadge disabled />
       )}
-    </Grid2>
-  </Grid2>
+    </Grid>
+  </Grid>
 );
 
 const GameList = () => (

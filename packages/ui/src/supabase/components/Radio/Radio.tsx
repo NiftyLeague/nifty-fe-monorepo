@@ -21,8 +21,6 @@ interface InputProps {
 }
 
 interface GroupProps {
-  // allowedValues?: any;
-  // checkboxes?: any;
   id?: string;
   layout?: 'horizontal' | 'vertical';
   error?: string;

@@ -1,28 +1,26 @@
 import type {
   ColorSystem as MuiColorSystem,
+  Components as MuiComponents,
   CssVarsPalette as MuiCssVarsPalette,
   CssVarsTheme as MuiCssVarsTheme,
   CssVarsThemeOptions as MuiCssVarsThemeOptions,
   SupportedColorScheme as MuiSupportedColorScheme,
+  Theme as MuiTheme,
+  ThemeOptions as MuiThemeOptions,
   ThemeVars as MuiThemeVars,
-} from '@mui/material/styles/createThemeWithVars';
-import type { Components as MuiComponents } from '@mui/material/styles/components';
-import type { Theme as MuiTheme, ThemeOptions as MuiThemeOptions } from '@mui/material/styles/createTheme';
+} from '@mui/material/styles';
 
-import { CustomShadowProps, Palette, PaletteOptions } from './createPalette';
-import { Typography, TypographyOptions } from './createTypography';
+import { CustomShadowProps, Palette } from './createPalette';
+import { TypographyVariants, TypographyVariantsOptions } from './createTypography';
 
-export interface Theme extends Omit<MuiTheme, 'palette' | 'typography'> {
+export interface Theme extends Omit<MuiTheme, 'typography'> {
   customShadows?: CustomShadowProps;
-  palette: Palette;
-  typography: Typography;
+  typography: TypographyVariants;
 }
 
-export interface ThemeOptions extends Omit<MuiThemeOptions, 'components' | 'typography' | 'palette'> {
-  components?: MuiComponents<Omit<Theme, 'components'>>;
+export interface ThemeOptions extends Omit<MuiThemeOptions, 'typography'> {
   customShadows?: CustomShadowProps;
-  palette?: PaletteOptions;
-  typography?: TypographyOptions | ((palette: Palette) => TypographyOptions);
+  typography?: TypographyVariantsOptions | ((palette: Palette) => TypographyVariantsOptions);
 }
 
 export interface ColorSystem extends MuiColorSystem {

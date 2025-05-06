@@ -21,5 +21,5 @@ export type NotifyCallback = (res: NotifyTransaction | null) => void;
 
 export type Tx = (tx: EthersTransaction, callback?: NotifyCallback) => Promise<TransactionResponse | null>;
 
-export type MetamaskError = EthereumRpcError<any> | EthereumProviderError<any>;
+export type MetamaskError = EthereumRpcError<unknown> | EthereumProviderError<unknown>;
 export type NotifyError = SDKError | MetamaskError | Error | ErrorEvent;

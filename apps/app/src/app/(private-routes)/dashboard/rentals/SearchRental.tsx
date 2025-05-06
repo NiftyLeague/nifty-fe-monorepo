@@ -9,7 +9,7 @@ interface Props {
 }
 
 const SearchRental = ({ handleSearch, placeholder }: Props): React.ReactNode => {
-  const inputEl: any = useRef(null);
+  const inputEl = useRef<HTMLInputElement>(null);
   let typingTimer: NodeJS.Timeout | undefined;
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const SearchRental = ({ handleSearch, placeholder }: Props): React.ReactNode => 
   }, [typingTimer]);
 
   const onSearchLocation = () => {
-    const currentValue = inputEl?.current?.value;
+    const currentValue = inputEl?.current?.value ?? '';
     handleSearch(currentValue);
   };
 
