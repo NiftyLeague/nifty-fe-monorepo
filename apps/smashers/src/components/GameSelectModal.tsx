@@ -84,54 +84,50 @@ const ModalContent = ({ closeModal, launchGame }: { closeModal: () => void; laun
         </Button> */}
         <Link
           href="/android/&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"
-          legacyBehavior
+          target="_blank"
+          rel="noreferrer"
+          style={{ width: '100%' }}
         >
-          <a target="_blank" rel="noreferrer" style={{ width: '100%' }}>
-            <Image
-              src="/img/badges/google-play-badge.webp"
-              alt="Get it on Google Play"
-              width={564}
-              height={169}
-              loading="eager"
-              style={{
-                width: '100%',
-                maxWidth: '100%',
-                height: 'auto',
-              }}
-            />
-          </a>
+          <Image
+            src="/img/badges/google-play-badge.webp"
+            alt="Get it on Google Play"
+            width={564}
+            height={169}
+            loading="eager"
+            style={{
+              width: '100%',
+              maxWidth: '100%',
+              height: 'auto',
+            }}
+          />
         </Link>
-        <Link href="/ios" legacyBehavior>
-          <a target="_blank" rel="noreferrer" style={{ width: '100%', textAlign: 'center' }}>
-            <Image
-              src="/img/badges/apple-store-badge.svg"
-              alt="Apple Store Badge"
-              width={120}
-              height={40}
-              loading="eager"
-              style={{
-                width: '92%',
-                maxWidth: '100%',
-                height: 'auto',
-              }}
-            />
-          </a>
+        <Link href="/ios" target="_blank" rel="noreferrer" style={{ width: '100%', textAlign: 'center' }}>
+          <Image
+            src="/img/badges/apple-store-badge.svg"
+            alt="Apple Store Badge"
+            width={120}
+            height={40}
+            loading="eager"
+            style={{
+              width: '92%',
+              maxWidth: '100%',
+              height: 'auto',
+            }}
+          />
         </Link>
-        <Link href="/steam" legacyBehavior>
-          <a target="_blank" rel="noreferrer" style={{ width: '100%', textAlign: 'center' }}>
-            <Image
-              src="/img/badges/steam-badge.webp"
-              alt="Steam Store Badge"
-              width={564}
-              height={168}
-              loading="eager"
-              style={{
-                width: '100%',
-                maxWidth: '100%',
-                height: 'auto',
-              }}
-            />
-          </a>
+        <Link href="/steam" target="_blank" rel="noreferrer" style={{ width: '100%', textAlign: 'center' }}>
+          <Image
+            src="/img/badges/steam-badge.webp"
+            alt="Steam Store Badge"
+            width={564}
+            height={168}
+            loading="eager"
+            style={{
+              width: '100%',
+              maxWidth: '100%',
+              height: 'auto',
+            }}
+          />
         </Link>
         {enableWebGL ? (
           <>

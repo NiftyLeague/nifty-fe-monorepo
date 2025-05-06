@@ -15,40 +15,42 @@
     "prepare": "husky && pnpm symlinks"
   },
   "dependencies": {
+    "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
-    "@mui/icons-material": "^6.4.7",
-    "@mui/lab": "6.0.0-beta.30",
-    "@mui/material": "^6.4.7",
-    "@mui/system": "^6.4.7",
+    "@mui/icons-material": "^7.1.0",
+    "@mui/lab": "7.0.0-beta.12",
+    "@mui/material": "^7.1.0",
+    "@mui/system": "^7.1.0",
+    "@mui/x-data-grid": "^8.2.0",
     "classnames": "^2.5.1",
     "lodash": "^4.17.21",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "sass": "^1.85.1",
-    "viem": "^2.23.8"
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "sass": "^1.87.0",
+    "viem": "^2.29.0"
   },
   "devDependencies": {
     "@nl/eslint-config": "workspace:^",
     "@nl/prettier-config": "workspace:^",
     "@nl/typescript-config": "workspace:^",
     "@testing-library/dom": "^10.4.0",
-    "@testing-library/react": "^16.2.0",
+    "@testing-library/react": "^16.3.0",
     "@types/css-modules": "^1.0.5",
     "@types/eslint": "^9.6.1",
     "@types/jest": "^29.5.14",
     "@types/lodash": "^4.17.16",
-    "@types/node": "^22.13.10",
-    "@types/react": "19.0.10",
-    "@types/react-dom": "19.0.4",
-    "dotenv": "^16.4.7",
-    "eslint": "^9.22.0",
+    "@types/node": "^22.15.14",
+    "@types/react": "19.1.3",
+    "@types/react-dom": "19.1.3",
+    "dotenv": "^16.5.0",
+    "eslint": "^9.26.0",
     "husky": "^9.1.7",
     "jest": "^29.7.0",
-    "lint-staged": "^15.4.3",
+    "lint-staged": "^15.5.2",
     "prettier": "^3.5.3",
-    "turbo": "^2.4.4",
-    "typescript": "~5.8.2"
+    "turbo": "^2.5.2",
+    "typescript": "~5.8.3"
   },
   "overrides": {
     "bnc-sdk": {
@@ -58,13 +60,13 @@
   "pnpm": {
     "peerDependencyRules": {
       "allowedVersions": {
-        "@types/react-dom": "19.0.4",
-        "@types/react": "19.0.10",
+        "@types/react": "19.1.2",
+        "@types/react-dom": "19.1.3",
         "crypto-es": "^2.1.0",
-        "eslint": "^9.22.0",
+        "eslint": "^9.26.0",
         "multiformats": "13.3.2",
-        "react-dom": "^19.0.0",
-        "react": "^19.0.0",
+        "react": "^19.1.0",
+        "react-dom": "^19.1.0",
         "utf-8-validate": "6.0.5"
       }
     }

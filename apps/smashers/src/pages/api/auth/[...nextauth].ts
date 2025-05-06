@@ -4,6 +4,8 @@ import FacebookProvider from 'next-auth/providers/facebook';
 import AppleProvider from 'next-auth/providers/apple';
 import TwitchProvider from 'next-auth/providers/twitch';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import type { JWT } from 'next-auth/jwt';
+import type { Account, AuthOptions, Session, User } from 'next-auth';
 
 const options = {
   providers: [
@@ -36,8 +38,7 @@ const options = {
     },
   },
   callbacks: {
-    // @ts-expect-error implicit any
-    async jwt({ token, account }) {
+    async jwt({ token, account }: { token: JWT; account?: Account | null }) {
       // Persist the OAuth access_token to the token right after signin
       if (account) {
         token.accessToken = account.access_token;
@@ -45,15 +46,13 @@ const options = {
       }
       return token;
     },
-    // @ts-expect-error implicit any
-    async session({ session, token }) {
+    async session({ session, token }: { session: Session; token: JWT }) {
       // Send properties to the client, like an access_token from a provider.
-      session.accessToken = token.accessToken;
-      session.provider = token.provider;
+      (session as any).accessToken = token.accessToken;
+      (session as any).provider = token.provider;
       return session;
     },
-    // @ts-expect-error implicit any
-    async signIn(params) {
+    async signIn(params: { user: User; account: Account; profile?: any; email?: any; credentials?: any }) {
       console.log('===== signIn Callback =====', params);
       return true;
     },
@@ -62,5 +61,5 @@ const options = {
 
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   // Do whatever you want here, before the request is passed down to `NextAuth`
-  return await NextAuth(req, res, options);
+  return await NextAuth(req, res, options as AuthOptions);
 }

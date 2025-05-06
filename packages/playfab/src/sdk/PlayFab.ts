@@ -2,16 +2,18 @@
 
 import url from 'url';
 import https from 'https';
+import type { PlayFabError, PlayFabResponse } from '../types';
 
 export const sdk_version = '2.125.230428';
 export const api_version = '';
 export const buildIdentifier = 'adobuild_nodesdk_118';
 
 type RequestGetParams = { [key: string]: string };
-export interface Settings extends Omit<PlayFabModule.IPlayFabSettings, 'verticalName'> {
+interface Settings extends Omit<PlayFabModule.IPlayFabSettings, 'verticalName'> {
   verticalName: null | string;
   requestGetParams: RequestGetParams;
 }
+
 export const settings: Settings = {
   productionUrl: '.playfabapi.com',
   verticalName: null, // The name of a customer vertical. This is only for customers running a private cluster. Generally you shouldn't touch this
@@ -36,14 +38,17 @@ export function GetServerUrl(): string {
   }
 }
 
-export function MakeRequest(
+export function MakeRequest<
+  TRequest = unknown,
+  TResponse extends PlayFabModule.IPlayFabResultCommon = PlayFabModule.IPlayFabResultCommon,
+>(
   urlStr: string,
-  request: any,
+  request: TRequest,
   authType: string | null,
   authValue: string | null,
-  callback: (error: any, result: any) => void,
+  callback: (error: PlayFabError, result: PlayFabResponse<TResponse>) => void,
 ) {
-  if (request == null) request = {};
+  if (request == null) request = {} as TRequest;
   const requestBody = Buffer.from(JSON.stringify(request), 'utf8');
 
   const urlArr = [urlStr]; //make a new array for the URL
@@ -91,25 +96,27 @@ export function MakeRequest(
         return; // No need to bother decoding results
       }
 
-      let replyEnvelope = null;
+      let replyEnvelope: PlayFabResponse<TResponse> | null = null;
       try {
         replyEnvelope = JSON.parse(rawReply);
       } catch (e) {
         // Handle when rawReply is not valid json
-        replyEnvelope = {
+        const error: PlayFabError = {
           code: 503, // Service Unavailable
           status: 'Service Unavailable',
           error: 'Connection error',
           errorCode: 2, // PlayFabErrorCode.ConnectionError
           errorMessage: rawReply,
         };
+        callback(error, null);
+        return;
       }
 
       if (
         Object.prototype.hasOwnProperty.call(replyEnvelope, 'error') ||
         !Object.prototype.hasOwnProperty.call(replyEnvelope, 'data')
       ) {
-        callback(replyEnvelope, null);
+        callback(replyEnvelope as PlayFabError, null);
       } else {
         callback(null, replyEnvelope);
       }
@@ -121,16 +128,14 @@ export function MakeRequest(
       return; // No need to bother decoding results
     }
 
-    callback(
-      {
-        code: 503, // Service Unavailable
-        status: 'Service Unavailable',
-        error: 'Connection error',
-        errorCode: 2, // PlayFabErrorCode.ConnectionError
-        errorMessage: e.message,
-      },
-      null,
-    );
+    const error: PlayFabError = {
+      code: 503, // Service Unavailable
+      status: 'Service Unavailable',
+      error: 'Connection error',
+      errorCode: 2, // PlayFabErrorCode.ConnectionError
+      errorMessage: e.message,
+    };
+    callback(error, null);
   });
 
   postReq.write(requestBody);

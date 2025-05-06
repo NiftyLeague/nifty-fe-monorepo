@@ -57,13 +57,11 @@ const LearnCard = ({ btnText, external, image, link, subtitle, title }: LearnCar
                 </button>
               </a>
             ) : (
-              <Link href={link} passHref legacyBehavior>
-                <a target="_blank" rel="noreferrer">
-                  <button className="btn theme-btn-primary theme-learn-btn mt-md-2 animated-fade-slow animated-fade-start transition-delay-large">
-                    {btnText}
-                    <ExternalIcon />
-                  </button>
-                </a>
+              <Link href={link} target="_blank" rel="noreferrer">
+                <button className="btn theme-btn-primary theme-learn-btn mt-md-2 animated-fade-slow animated-fade-start transition-delay-large">
+                  {btnText}
+                  <ExternalIcon />
+                </button>
               </Link>
             )}
           </AnimatedWrapper>

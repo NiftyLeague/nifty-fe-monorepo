@@ -226,12 +226,10 @@ const Home: NextPage = () => {
               </a>
             </AnimatedWrapper>
             <AnimatedWrapper>
-              <Link href="/games" legacyBehavior>
-                <a>
-                  <button className="btn theme-btn-transparent section-white-button animated-fade animated-fade-start transition-delay-medium">
-                    MORE GAMES
-                  </button>
-                </a>
+              <Link href="/games">
+                <button className="btn theme-btn-transparent section-white-button animated-fade animated-fade-start transition-delay-medium">
+                  MORE GAMES
+                </button>
               </Link>
             </AnimatedWrapper>
           </Stack>
@@ -395,12 +393,10 @@ const Home: NextPage = () => {
                       </a>
                     </AnimatedWrapper>
                     <AnimatedWrapper>
-                      <Link href="/compete-and-earn" legacyBehavior>
-                        <a>
-                          <button className="btn theme-btn-transparent section-white-button animated-fade animated-fade-start transition-delay-large">
-                            LEARN MORE
-                          </button>
-                        </a>
+                      <Link href="/compete-and-earn">
+                        <button className="btn theme-btn-transparent section-white-button animated-fade animated-fade-start transition-delay-large">
+                          LEARN MORE
+                        </button>
                       </Link>
                     </AnimatedWrapper>
                   </Stack>
@@ -522,12 +518,10 @@ const Home: NextPage = () => {
                     </button>
                   </AnimatedWrapper>
                   <AnimatedWrapper>
-                    <Link href="/niftyverse" legacyBehavior>
-                      <a>
-                        <button className="btn theme-btn-transparent section-white-button animated-fade animated-fade-start transition-delay-large">
-                          LEARN MORE
-                        </button>
-                      </a>
+                    <Link href="/niftyverse">
+                      <button className="btn theme-btn-transparent section-white-button animated-fade animated-fade-start transition-delay-large">
+                        LEARN MORE
+                      </button>
                     </Link>
                   </AnimatedWrapper>
                 </Stack>
@@ -787,12 +781,10 @@ const Home: NextPage = () => {
                       </a>
                     </AnimatedWrapper>
                     <AnimatedWrapper>
-                      <Link href="/community" legacyBehavior>
-                        <a>
-                          <button className="btn theme-btn-transparent section-white-button animated-fade animated-fade-start transition-delay-large">
-                            VIEW MORE
-                          </button>
-                        </a>
+                      <Link href="/community">
+                        <button className="btn theme-btn-transparent section-white-button animated-fade animated-fade-start transition-delay-large">
+                          VIEW MORE
+                        </button>
                       </Link>
                     </AnimatedWrapper>
                   </Stack>
@@ -861,20 +853,18 @@ const Home: NextPage = () => {
             className="section-actions"
           >
             <AnimatedWrapper>
-              <Link href="/careers" legacyBehavior>
-                <a>
-                  <button className="btn theme-btn-primary section-black-button animated-fade animated-fade-start transition-delay-large">
-                    JOIN THE TEAM
-                  </button>
-                </a>
+              <Link href="/careers">
+                <button className="btn theme-btn-primary section-black-button animated-fade animated-fade-start transition-delay-large">
+                  JOIN THE TEAM
+                </button>
               </Link>
             </AnimatedWrapper>
             <AnimatedWrapper>
-              <a href="/blog" target="_blank" rel="noreferrer">
+              <Link href="/blog" target="_blank" rel="noreferrer">
                 <button className="btn theme-btn-transparent section-white-button animated-fade animated-fade-start transition-delay-large">
                   READ OUR BLOG
                 </button>
-              </a>
+              </Link>
             </AnimatedWrapper>
           </Stack>
         </div>

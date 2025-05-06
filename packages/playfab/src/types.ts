@@ -1,10 +1,11 @@
 import type { KeyedMutator } from 'swr';
 export type PlayFabClient = PlayFabClientModule.IPlayFabClient;
-export type PlayFabError = PlayFabModule.IPlayFabError;
-
+export type PlayFabError = PlayFabModule.IPlayFabError | null;
 export type LoginResult = PlayFabClientModels.LoginResult;
 export type RegisterUserResult = PlayFabClientModels.RegisterPlayFabUserResult;
 export type EntityTokenResponse = PlayFabClientModels.EntityTokenResponse;
+export type PlayFabResponse<T extends PlayFabModule.IPlayFabResultCommon = PlayFabModule.IPlayFabResultCommon> =
+  PlayFabModule.IPlayFabSuccessContainer<T> | null;
 
 // extends LoginResult & RegisterUserResult
 export type User = {

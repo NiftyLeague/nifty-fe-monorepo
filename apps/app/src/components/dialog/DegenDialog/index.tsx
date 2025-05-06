@@ -44,16 +44,11 @@ const CustomDialog = styled(Dialog, {
       borderRadius: isRent || isEquip ? '10px' : 'inherit',
     },
   },
-  variants: [
-    {
-      props: ({ isRent }) => isRent,
-      style: {
-        '& .MuiPaper-root': {
-          minWidth: 550,
-        },
-      },
+  ...(isRent && {
+    '& .MuiPaper-root': {
+      minWidth: 550,
     },
-  ],
+  }),
 }));
 
 const DegenDialog = ({

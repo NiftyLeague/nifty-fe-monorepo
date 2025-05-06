@@ -23,9 +23,9 @@ const TermsOfServiceContent = () => {
         Games.
       </p>
       <p>
-        In addition, each DEGEN NFT-Token accumulates a utility and governance token (“NFTL”). The NFTL token cannot be
-        purchased, but it can be freely accumulated by holding the DEGEN NFT-Token along with contributing to the
-        community. The Company does not provide or intend to provide a secondary market place for our NFT-Tokens or
+        In addition, each DEGEN NFT-Token accumulates a utility and governance token (&quot;NFTL&quot;). The NFTL token
+        cannot be purchased, but it can be freely accumulated by holding the DEGEN NFT-Token along with contributing to
+        the community. The Company does not provide or intend to provide a secondary market place for our NFT-Tokens or
         NFTL. NFTL does not constitute any ownership of the Company nor do we guarantee any value to the NFTL token in
         and of itself outside of the Nifty DAO, nor do we guarantee NFTL will be used for any platform-wide expenses
         outside of renaming characters. After the sale of an NFT-Token to You, the ownership of the NFT-Token, and to
@@ -98,9 +98,9 @@ const TermsOfServiceContent = () => {
         grant us a worldwide, non-exclusive, sublicensable, royalty-free license to use, copy, modify, and display any
         content, including but not limited to text, materials, images, files, communications, comments, feedback,
         suggestions, ideas, concepts, questions, data, or otherwise, that you submit or post on or through the Site or
-        the App (collectively, “User Contributions”) for our current and future business purposes, including to provide,
-        promote, and improve the Site and the App. This includes any digital file, art, or other material linked to or
-        associated with any NFTs or other crypto assets that are displayed on the Site or the App.
+        the App (collectively, &quot;User Contributions&quot;) for our current and future business purposes, including
+        to provide, promote, and improve the Site and the App. This includes any digital file, art, or other material
+        linked to or associated with any NFTs or other crypto assets that are displayed on the Site or the App.
       </p>
       <p>
         Provided that You own an ERC721 NFT-Token asset, You are granted a limited license to create fan-art and
@@ -209,19 +209,18 @@ const TermsOfServiceContent = () => {
           Smart Contracts, or any other transactions that You conduct via the Ethereum network.
         </li>
         <li>
-          Ethereum requires the payment of a transaction fee (a &quot;Gas Fee&quot;) for every transaction that occurs
-          on the Ethereum network. The Gas Fee funds the network of computers that run the decentralized Ethereum
-          network. This means that You will need to pay a Gas Fee for each transaction that occurs via the App. The Gas
-          Fee does not go to us and We have no control over its pricing.
+          Ethereum requires the payment of a transaction fee (&quot;Gas Fee&quot;) for every transaction that occurs on
+          the Ethereum network. The Gas Fee funds the network of computers that run the decentralized Ethereum network.
+          This means that You will need to pay a Gas Fee for each transaction that occurs via the App. The Gas Fee does
+          not go to us and We have no control over its pricing.
         </li>
         <li>
           All paid prices exclude any possible duties or charges. You will be solely responsible to pay any and all
-          sales, use, value-added and other taxes, duties, and assessments (except taxes on our net income) now or
-          hereafter claimed or imposed by any governmental authority (collectively, &quot;Taxes&quot;) associated with
-          Your use of the App (including, without limitation, any Taxes that may become payable as the result of Your
-          ownership of a Nifty League NFT-Token or NFTL. Except for income and net-wealth taxes levied on The Company,
-          You: (i) will pay or reimburse us for all national, federal, state, local or other taxes and assessments of
-          any jurisdiction, including value added taxes and taxes as required by international tax treaties, customs or
+          sales, use, value-added and other taxes, duties, and assessments (&quot;Taxes&quot;) associated with Your use
+          of the App (including, without limitation, any Taxes that may become payable as the result of Your ownership
+          of a Nifty League NFT-Token or NFTL. Except for income and net-wealth taxes levied on The Company, You: (i)
+          will pay or reimburse us for all national, federal, state, local or other taxes and assessments of any
+          jurisdiction, including value added taxes and taxes as required by international tax treaties, customs or
           other import or export taxes, and amounts levied in lieu thereof based on charges set, services performed or
           payments made hereunder, as are now or hereafter may be imposed under the authority of any national, state,
           local or any other taxing jurisdiction; and (ii) shall not be entitled to deduct the amount of any such taxes,
@@ -358,11 +357,11 @@ const TermsOfServiceContent = () => {
       <h4>Informal Negotiations</h4>
       <p>
         To expedite resolution and control the cost of any dispute, controversy, or claim related to these Terms of Use
-        (each a &quot;Dispute&quot; and collectively, the &quot;Disputes&quot;) brought by either You or Us
-        (individually, a &quot;Party&quot; and collectively, the &quot;Parties&quot;), the Parties agree to first
-        attempt to negotiate any Dispute (except those Disputes expressly provided below) informally for at least thirty
-        (30) days before initiating arbitration. Such informal negotiations commence upon written notice from one Party
-        to the other Party.
+        (each &quot;Dispute&quot; and collectively, the &quot;Disputes&quot;) brought by either You or Us (individually,
+        a &quot;Party&quot; and collectively, the &quot;Parties&quot;), the Parties agree to first attempt to negotiate
+        any Dispute (except those Disputes expressly provided below) informally for at least thirty (30) days before
+        initiating arbitration. Such informal negotiations commence upon written notice from one Party to the other
+        Party.
       </p>
       <h4>Binding Arbitration</h4>
       <p>

@@ -1,4 +1,4 @@
-import { Grid2 } from '@mui/material';
+import { Grid } from '@mui/material';
 import SectionTitle from '@/components/sections/SectionTitle';
 import usePlayerProfile from '@/hooks/usePlayerProfile';
 import { transformRentals } from '@/app/(private-routes)/dashboard/_utils/transformRentals';
@@ -26,16 +26,16 @@ const EarningCap: FC<EarningCapProps> = ({ rentals, hideTitle }) => {
     },
   ];
   return (
-    <Grid2 container spacing={sectionSpacing} sx={{ height: '100%' }}>
+    <Grid container spacing={sectionSpacing} sx={{ height: '100%' }}>
       {!hideTitle && (
-        <Grid2 size={{ xs: 12 }}>
+        <Grid size={{ xs: 12 }}>
           <SectionTitle firstSection>Earnings Cap</SectionTitle>
-        </Grid2>
+        </Grid>
       )}
-      <Grid2 size={{ xs: 12 }} sx={{ height: '100%' }}>
+      <Grid size={{ xs: 12 }} sx={{ height: '100%' }}>
         <RentalsTableSimple rentals={rows} columns={columns} />
-      </Grid2>
-    </Grid2>
+      </Grid>
+    </Grid>
   );
 };
 

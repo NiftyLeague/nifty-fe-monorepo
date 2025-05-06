@@ -44,14 +44,14 @@ const Team: NextPage = () => {
 
             <div className="display-buttons mt-3 mt-md-4 d-flex justify-content-center desktop">
               <AnimatedWrapper>
-                <Link href="/careers" passHref legacyBehavior>
+                <Link href="/careers">
                   <button className="btn theme-btn-primary mx-sm-2 animated-fade-slow animated-fade-start transition-delay-medium">
                     Join Us
                   </button>
                 </Link>
               </AnimatedWrapper>
               <AnimatedWrapper>
-                <Link href="/roadmap" passHref legacyBehavior>
+                <Link href="/roadmap">
                   <button className="btn theme-btn-transparent mx-sm-2 mx-0 animated-fade-slow animated-fade-start transition-delay-medium">
                     Check our roadmap
                   </button>

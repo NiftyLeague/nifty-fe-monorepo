@@ -205,7 +205,7 @@ export async function UpdateUserPublisherData(
 export async function DeletePlayer(PlayFabId: string): Promise<PlayFabAdminModels.DeletePlayerResult> {
   return new Promise((resolve, reject) => {
     PlayFabAdmin.DeletePlayer({ PlayFabId }, (error, result) => {
-      if (error) {
+      if (error || !result) {
         reject(error);
       } else {
         resolve(result.data);
@@ -223,7 +223,7 @@ async function ExecuteFunction(
 ): Promise<PlayFabCloudScriptModels.ExecuteFunctionResult> {
   return new Promise((resolve, reject) => {
     PlayFabCloudScript.ExecuteFunction({ FunctionName, FunctionParameter }, EntityToken, (error, result) => {
-      if (error) {
+      if (error || !result) {
         reject(error);
       } else {
         resolve(result.data);

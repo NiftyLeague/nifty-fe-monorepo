@@ -10,21 +10,24 @@ import useAuth from '@/hooks/useAuth';
 import usePlayerProfile from '@/hooks/usePlayerProfile';
 import { ResponsiveTable } from '@nl/ui/mui';
 import { toast } from 'react-toastify';
-import type { DataType, ReturnDataType, TableProps } from '@/types/leaderboard';
+import type { ReturnDataType, TableProps, TableRowType } from '@/types/leaderboard';
 import { sendEvent } from '@/utils/google-analytics';
 import { fetchRankByUserId, fetchScores } from '@/utils/leaderboard';
 import { errorMsgHandler } from '@/utils/errorHandlers';
 
 const TopModal = dynamic(() => import('../TopModal'), { ssr: false });
 
-const flatObject = (obj: { [key: string]: unknown }): object => {
+const flatObject = (obj: { [key: string]: unknown }): Record<string, unknown> => {
   const keys = Object.keys(obj);
-  return keys.reduce((acc, k) => {
-    const value = obj[k];
-    return typeof value === 'object'
-      ? { ...acc, ...flatObject(value as { [key: string]: unknown }) }
-      : { ...acc, [k]: value };
-  }, {});
+  return keys.reduce(
+    (acc, k) => {
+      const value = obj[k];
+      return typeof value === 'object'
+        ? { ...acc, ...flatObject(value as { [key: string]: unknown }) }
+        : { ...acc, [k]: value };
+    },
+    {} as Record<string, unknown>,
+  );
 };
 
 export default function EnhancedTable({
@@ -37,7 +40,7 @@ export default function EnhancedTable({
     pageSize: 50,
     page: 0,
   });
-  const [rows, setData] = useState<DataType[] | null>();
+  const [rows, setData] = useState<Record<string, unknown>[] | null>();
   const [myRank, setMyRank] = useState<number>();
   const { isLoggedIn } = useAuth();
   const { profile } = usePlayerProfile();
@@ -54,8 +57,8 @@ export default function EnhancedTable({
       paginationModel.pageSize,
       0,
     );
-    const leaderBoardValue: any = [];
-    returnValue.data.forEach((value: any) => {
+    const leaderBoardValue: Record<string, unknown>[] = [];
+    returnValue.data.forEach(value => {
       leaderBoardValue.push(flatObject(value));
     });
 
@@ -78,8 +81,8 @@ export default function EnhancedTable({
         paginationModel.pageSize,
         newPage * paginationModel.pageSize,
       );
-      const leaderBoardValue: any = [];
-      returnValue.data.forEach((value: any) => {
+      const leaderBoardValue: Record<string, unknown>[] = [];
+      returnValue.data.forEach(value => {
         leaderBoardValue.push(flatObject(value));
       });
       setData([...rows, ...leaderBoardValue]);
@@ -106,13 +109,16 @@ export default function EnhancedTable({
       return;
     }
     try {
-      const result: any = await fetchRankByUserId(profile?.id, selectedGame, selectedTable.key, selectedTimeFilter);
-      if (!result.ok) {
-        const errMsg = await result.text();
+      const result: unknown = await fetchRankByUserId(profile?.id, selectedGame, selectedTable.key, selectedTimeFilter);
+      if (!result || typeof result !== 'object' || !('ok' in result) || !(result as Response).ok) {
+        const errMsg =
+          result && typeof result === 'object' && 'text' in result
+            ? await (result as Response).text()
+            : 'Unknown error';
         toast.error(errMsg, { theme: 'dark' });
         return;
       }
-      const res = await result.json();
+      const res = await (result as Response).json();
       if (res < 1) {
         toast.error(errorMes, { theme: 'dark' });
         return;
@@ -126,7 +132,7 @@ export default function EnhancedTable({
   };
 
   const getColumns = () => {
-    const columns: any = [
+    const columns: Array<{ field: string; headerName: string; width: number; primary?: boolean }> = [
       { field: 'rank', headerName: 'RANK', width: 100, primary: true },
       {
         field: 'user_id',
@@ -135,7 +141,7 @@ export default function EnhancedTable({
         primary: true,
       },
     ];
-    selectedTable.rows.forEach((headerCell: any) => {
+    selectedTable.rows.forEach((headerCell: TableRowType) => {
       columns.push({
         field: headerCell.key,
         headerName: headerCell.display,

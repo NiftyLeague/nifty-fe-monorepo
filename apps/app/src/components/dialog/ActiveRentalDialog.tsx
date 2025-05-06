@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Button, Dialog, DialogContent, Grid2, Link, Typography } from '@mui/material';
+import { Box, Button, Dialog, DialogContent, Grid, Link, Typography } from '@mui/material';
 import DegenImage from '@/components/cards/DegenCard/DegenImage';
 import ProgressBar from '@/components/wrapper/ProgressBar';
 import { useState } from 'react';
@@ -31,8 +31,8 @@ const ActiveRentalDialog = ({ degenId, rental }: ActiveRentalDialogProps) => {
   return (
     <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
       <DialogContent sx={{ marginY: '50px', marginX: '16px' }}>
-        <Grid2 container spacing={2}>
-          <Grid2 size={{ xs: 12, md: 6 }}>
+        <Grid container spacing={2}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Typography sx={{ fontSize: '32px', lineHeight: '38px' }} fontWeight={600}>
               Welcome back DEGEN!
             </Typography>
@@ -54,8 +54,8 @@ const ActiveRentalDialog = ({ degenId, rental }: ActiveRentalDialogProps) => {
             <Button variant="contained" onClick={handleClickPlay}>
               Play Nifty Smashers Now
             </Button>
-          </Grid2>
-          <Grid2 size={{ xs: 12, md: 6 }}>
+          </Grid>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Box sx={{ width: '70%', display: 'inline-block', float: 'right' }}>
               <ProgressBar value={progressValue}>
                 {rental.earning_cap !== rental.earning_cap_daily ? (
@@ -88,8 +88,8 @@ const ActiveRentalDialog = ({ degenId, rental }: ActiveRentalDialogProps) => {
                 tokenId={degenId}
               />
             </Box>
-          </Grid2>
-        </Grid2>
+          </Grid>
+        </Grid>
       </DialogContent>
     </Dialog>
   );

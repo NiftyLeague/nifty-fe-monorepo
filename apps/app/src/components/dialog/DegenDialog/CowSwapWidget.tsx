@@ -123,19 +123,29 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
           userAddress: address,
         });
 
-        const { feeAmount: fee, buyAmount, sellAmount } = quoteResponse?.quote;
-        setFeeAmount(formatEther(fee));
-        if (kind === OrderKind.SELL) {
-          setFromEthAmount('');
-          setReceiveNftlAmount(formatEther(buyAmount));
-        } else {
-          setReceiveNftlAmount('');
-          setFromEthAmount(formatEther(BigInt(sellAmount) + BigInt(fee)));
+        if (quoteResponse && quoteResponse.quote) {
+          const { feeAmount: fee, buyAmount, sellAmount } = quoteResponse.quote;
+          setFeeAmount(formatEther(fee));
+          if (kind === OrderKind.SELL) {
+            setFromEthAmount('');
+            setReceiveNftlAmount(formatEther(buyAmount));
+          } else {
+            setReceiveNftlAmount('');
+            setFromEthAmount(formatEther(BigInt(sellAmount) + BigInt(fee)));
+          }
         }
-      } catch (err: any) {
-        if (err?.error_code === 'FeeExceedsFrom') {
+      } catch (err: unknown) {
+        if (
+          typeof err === 'object' &&
+          err !== null &&
+          'error_code' in err &&
+          (err as { error_code?: string }).error_code === 'FeeExceedsFrom' &&
+          'data' in err &&
+          typeof (err as { data?: unknown }).data === 'object' &&
+          (err as { data: { fee_amount?: string } }).data.fee_amount
+        ) {
           setFeeExceedAmount(true);
-          setFeeAmount(formatEther(err.data.fee_amount));
+          setFeeAmount(formatEther((err as { data: { fee_amount: string } }).data.fee_amount));
         }
       } finally {
         setLoading(false);
@@ -186,7 +196,7 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
           handleTxnState,
         });
         setOrderId(orderID);
-      } catch (err) {
+      } catch (err: unknown) {
         console.error(err);
       } finally {
         setPurchasing(false);

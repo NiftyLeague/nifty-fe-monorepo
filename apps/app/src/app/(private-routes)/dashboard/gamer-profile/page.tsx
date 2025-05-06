@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { Grid2, Stack, Typography } from '@mui/material';
+import { Grid, Stack, Typography } from '@mui/material';
 import { useAccount } from 'wagmi';
 import merge from 'lodash/merge';
 
@@ -64,23 +64,23 @@ const GamerProfile = (): React.ReactNode => {
 
   const renderEmptyProfile = () => {
     return (
-      <Grid2 container size={12} sx={{ justifyContent: 'center', alignItems: 'center' }} display="flex" height="100%">
+      <Grid container size={12} sx={{ justifyContent: 'center', alignItems: 'center' }} display="flex" height="100%">
         <EmptyState message="You don't own any Gamer Profile yet." />
-      </Grid2>
+      </Grid>
     );
   };
 
   const renderTopProfile = () => {
     return (
-      <Grid2 container size={12} spacing={3}>
-        <Grid2 size={{ xs: 12, md: 3.5 }}>
+      <Grid container size={12} spacing={3}>
+        <Grid size={{ xs: 12, md: 3.5 }}>
           <ImageProfile
             avatar={profile?.avatar}
             avatarFee={avatarsAndFee?.price}
             degens={filteredDegens && avatarsAndFee?.avatars && merge(filteredDegens, avatarsAndFee?.avatars)}
           />
-        </Grid2>
-        <Grid2 size={{ xs: 12, md: 8.5 }}>
+        </Grid>
+        <Grid size={{ xs: 12, md: 8.5 }}>
           {address && <TopInfo profile={profile} walletAddress={address} />}
           <hr />
           <Stack spacing={1}>
@@ -100,8 +100,8 @@ const GamerProfile = (): React.ReactNode => {
               />
             </Stack>
           </Stack>
-        </Grid2>
-      </Grid2>
+        </Grid>
+      </Grid>
     );
   };
 
@@ -126,10 +126,10 @@ const GamerProfile = (): React.ReactNode => {
     );
   };
   return (
-    <Grid2 container gap={4} mb="24px">
+    <Grid container gap={4} mb="24px">
       {error && !profile && !loadingProfile && renderEmptyProfile()}
       {(profile || loadingProfile) && renderGamerProfile()}
-    </Grid2>
+    </Grid>
   );
 };
 

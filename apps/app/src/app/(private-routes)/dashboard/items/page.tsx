@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
-import { Box, Button, Divider, Grid2, Stack, useMediaQuery } from '@mui/material';
+import { Box, Button, Divider, Grid, Stack, useMediaQuery } from '@mui/material';
 import { useTheme } from '@nl/theme';
 
 import ComicCard from '@/components/cards/ComicCard';
@@ -70,19 +70,19 @@ const DashboardComicsPage = (): React.ReactNode => {
   const renderComics = useMemo(() => {
     if (comicsBalances.length === 0 && loadingComics) {
       return [...Array(6)].map(() => (
-        <Grid2 key={uuidv4()}>
+        <Grid key={uuidv4()}>
           <ComicPlaceholder />
-        </Grid2>
+        </Grid>
       ));
     } else if (comicsBalances.length > 0) {
       return comicsBalances.map(comic => (
-        <Grid2 key={comic.id}>
+        <Grid key={comic.id}>
           <ComicCard
             data={comic}
             onViewComic={() => handleViewComic(comic)}
             isSelected={comic.id === selectedComic?.id}
           />
-        </Grid2>
+        </Grid>
       ));
     }
     return null;
@@ -91,21 +91,21 @@ const DashboardComicsPage = (): React.ReactNode => {
   const renderItems = useMemo(() => {
     if (itemsBalances.length === 0 && loadingItems) {
       return [...Array(6)].map(() => (
-        <Grid2 key={uuidv4()}>
+        <Grid key={uuidv4()}>
           <ComicPlaceholder />
-        </Grid2>
+        </Grid>
       ));
     } else if (itemsBalances.length > 0) {
       return itemsBalances
         .filter(item => !selectedItem?.balance || selectedItem?.balance <= 1 || item.id !== selectedItem?.id)
         .map(item => (
-          <Grid2 key={item.id}>
+          <Grid key={item.id}>
             <WearableItemCard
               data={item}
               onViewItem={() => handleViewItem(item)}
               isSelected={item.id === selectedItem?.id}
             />
-          </Grid2>
+          </Grid>
         ));
     }
     return null;
@@ -115,7 +115,7 @@ const DashboardComicsPage = (): React.ReactNode => {
   const renderSubItems = useMemo(() => {
     if (!selectedItem?.balance || selectedItem?.balance <= 1) return null;
     return Array.from(Array(selectedItem?.balance).keys()).map(itemIndex => (
-      <Grid2 key={`WearableSubItem-${itemIndex}`}>
+      <Grid key={`WearableSubItem-${itemIndex}`}>
         <WearableSubItemCard
           data={selectedItem}
           itemIndex={itemIndex}
@@ -123,7 +123,7 @@ const DashboardComicsPage = (): React.ReactNode => {
           isSelected={itemIndex === selectedSubIndex}
           sx={{ height: '100%', justifyContent: 'center' }}
         />
-      </Grid2>
+      </Grid>
     ));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedItem, selectedSubIndex]);
@@ -145,7 +145,7 @@ const DashboardComicsPage = (): React.ReactNode => {
             // }
           >
             <Stack>
-              <Grid2
+              <Grid
                 container
                 flexWrap="wrap"
                 gap={2}
@@ -160,16 +160,16 @@ const DashboardComicsPage = (): React.ReactNode => {
               >
                 {renderComics}
                 {comicsBalances.length > 0 && (
-                  <Grid2>
+                  <Grid>
                     <Link href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
                       <BuyCard
                         onBuy={() => {}}
                         isNew={!comicsBalances.some(comic => comic.balance && comic.balance > 0)}
                       />
                     </Link>
-                  </Grid2>
+                  </Grid>
                 )}
-              </Grid2>
+              </Grid>
             </Stack>
           </SectionSlider>
           {!isTablet && (
@@ -198,9 +198,9 @@ const DashboardComicsPage = (): React.ReactNode => {
                   <Stack spacing={4}>
                     <Stack direction={{ xs: 'column', lg: 'row' }} spacing={{ xs: 2, lg: 10 }}>
                       <WearableItemCard data={selectedItem} />
-                      <Grid2 container flexWrap="wrap" gap={2.5}>
+                      <Grid container flexWrap="wrap" gap={2.5}>
                         {renderSubItems}
-                      </Grid2>
+                      </Grid>
                     </Stack>
                     <Divider
                       color="#363636"
@@ -210,16 +210,16 @@ const DashboardComicsPage = (): React.ReactNode => {
                     />
                   </Stack>
                 )}
-                <Grid2 container flexWrap="wrap" gap={2} justifyContent={{ xs: 'space-between', sm: 'inherit' }}>
+                <Grid container flexWrap="wrap" gap={2} justifyContent={{ xs: 'space-between', sm: 'inherit' }}>
                   {renderItems}
                   {itemsBalances.length > 0 && (
-                    <Grid2>
+                    <Grid>
                       <Link href={ITEM_PURCHASE_URL} target="_blank" rel="noreferrer">
                         <BuyCard onBuy={() => {}} isNew={!itemsBalances.some(it => it.balance && it.balance > 0)} />
                       </Link>
-                    </Grid2>
+                    </Grid>
                   )}
-                </Grid2>
+                </Grid>
               </Stack>
             </Stack>
           </SectionSlider>

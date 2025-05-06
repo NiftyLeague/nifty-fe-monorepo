@@ -1,106 +1,108 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { Grid2, Button, Box, Dialog } from '@mui/material';
-import Link from 'next/link';
+// import { useEffect, useState } from 'react';
+import { Grid } from '@mui/material';
+// import { Grid, Button, Box, Dialog } from '@mui/material';
+// import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import SectionSlider from '@/components/sections/SectionSlider';
-import type { Degen } from '@/types/degens';
-import { DEGEN_BASE_API_URL } from '@/constants/url';
-import useFetch from '@/hooks/useFetch';
-import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder';
-import { v4 as uuidv4 } from 'uuid';
+// import type { Degen } from '@/types/degens';
+// import { DEGEN_BASE_API_URL } from '@/constants/url';
+// import useFetch from '@/hooks/useFetch';
+// import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder';
+// import { v4 as uuidv4 } from 'uuid';
 import GameList from '@/app/(public-routes)/games/_GameList';
 import Web3GameList from '@/app/(public-routes)/games/_Web3GameList';
-import DegenDialog from '@/components/dialog/DegenDialog';
-import RenameDegenDialogContent from '@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent';
-import { sendEvent } from '@/utils/google-analytics';
-import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
+// import DegenDialog from '@/components/dialog/DegenDialog';
+// import RenameDegenDialogContent from '@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent';
+// import { sendEvent } from '@/utils/google-analytics';
+// import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
 
-const DegenCard = dynamic(() => import('@/components/cards/DegenCard').then(module => module.DegenCardInView), {
-  ssr: false,
-});
+// const DegenCard = dynamic(() => import('@/components/cards/DegenCard').then(module => module.DegenCardInView), {
+//   ssr: false,
+// });
 
 const Home = () => {
-  const [degens, setDegens] = useState<Degen[]>([]);
-  const [selectedDegen, setSelectedDegen] = useState<Degen>();
-  const [isRenameDegenModalOpen, setIsRenameDegenModalOpen] = useState<boolean>(false);
-  const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false);
-  const [isRentDialog, setIsRentDialog] = useState<boolean>(false);
+  // const [degens, setDegens] = useState<Degen[]>([]);
+  // const [selectedDegen, setSelectedDegen] = useState<Degen>();
+  // const [isRenameDegenModalOpen, setIsRenameDegenModalOpen] = useState<boolean>(false);
+  // const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false);
+  // const [isRentDialog, setIsRentDialog] = useState<boolean>(false);
 
-  const { data } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`);
+  // const { data } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`);
 
-  useEffect(() => {
-    if (data) {
-      const degensArray = Object.values(data);
-      const sortDegens = degensArray
-        .filter(degen => degen.rental_count > 0)
-        .sort((degenA, degenB) => degenB.rental_count - degenA.rental_count)
-        .slice(0, 100);
-      setDegens(sortDegens);
-    }
-    return () => {
-      setDegens([]);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  // useEffect(() => {
+  //   if (data) {
+  //     const degensArray = Object.values(data);
+  //     const sortDegens = degensArray
+  //       .filter(degen => degen.rental_count > 0)
+  //       .sort((degenA, degenB) => degenB.rental_count - degenA.rental_count)
+  //       .slice(0, 100);
+  //     setDegens(sortDegens);
+  //   }
+  //   return () => {
+  //     setDegens([]);
+  //   };
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [data]);
 
-  const handleClickEditName = (degen: Degen): void => {
-    setSelectedDegen(degen);
-    setIsRenameDegenModalOpen(true);
-  };
+  // const handleClickEditName = (degen: Degen): void => {
+  //   setSelectedDegen(degen);
+  //   setIsRenameDegenModalOpen(true);
+  // };
 
-  const handleViewTraits = (degen: Degen): void => {
-    setSelectedDegen(degen);
-    setIsRentDialog(false);
-    setIsDegenModalOpen(true);
-  };
+  // const handleViewTraits = (degen: Degen): void => {
+  //   setSelectedDegen(degen);
+  //   setIsRentDialog(false);
+  //   setIsDegenModalOpen(true);
+  // };
 
-  const handleRentDegen = (degen: Degen): void => {
-    setSelectedDegen(degen);
-    setIsRentDialog(true);
-    setIsDegenModalOpen(true);
-  };
+  // const handleRentDegen = (degen: Degen): void => {
+  //   setSelectedDegen(degen);
+  //   setIsRentDialog(true);
+  //   setIsDegenModalOpen(true);
+  // };
 
-  const handleViewAllTraits = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    sendEvent(GOOGLE_ANALYTICS.EVENTS.VIEW_ITEM_LIST, GOOGLE_ANALYTICS.CATEGORIES.ENGAGEMENT);
-  };
+  // const handleViewAllTraits = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  //   sendEvent(GOOGLE_ANALYTICS.EVENTS.VIEW_ITEM_LIST, GOOGLE_ANALYTICS.CATEGORIES.ENGAGEMENT);
+  // };
 
-  const settings = {
-    slidesToShow: 5,
-    responsive: [
-      {
-        breakpoint: 1800,
-        settings: {
-          slidesToShow: 4,
-        },
-      },
-      {
-        breakpoint: 1500,
-        settings: {
-          slidesToShow: 3,
-        },
-      },
-      {
-        breakpoint: 900,
-        settings: {
-          slidesToShow: 2,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-    ],
-  };
+  // const settings = {
+  //   slidesToShow: 5,
+  //   responsive: [
+  //     {
+  //       breakpoint: 1800,
+  //       settings: {
+  //         slidesToShow: 4,
+  //       },
+  //     },
+  //     {
+  //       breakpoint: 1500,
+  //       settings: {
+  //         slidesToShow: 3,
+  //       },
+  //     },
+  //     {
+  //       breakpoint: 900,
+  //       settings: {
+  //         slidesToShow: 2,
+  //       },
+  //     },
+  //     {
+  //       breakpoint: 600,
+  //       settings: {
+  //         slidesToShow: 1,
+  //       },
+  //     },
+  //   ],
+  // };
+
   return (
     <>
       <SectionSlider firstSection title="Free-2-Play Games" isSlider={false}>
-        <Grid2 container flexDirection="row" flexWrap="wrap" rowSpacing={4}>
+        <Grid container flexDirection="row" flexWrap="wrap" rowSpacing={4}>
           <GameList />
-        </Grid2>
+        </Grid>
       </SectionSlider>
       <SectionSlider
         firstSection
@@ -114,11 +116,11 @@ const Home = () => {
         //   </Box>
         // }
       >
-        <Grid2 container flexDirection="row" flexWrap="wrap" rowSpacing={4}>
+        <Grid container flexDirection="row" flexWrap="wrap" rowSpacing={4}>
           <Web3GameList />
-        </Grid2>
+        </Grid>
       </SectionSlider>
-      <SectionSlider
+      {/* <SectionSlider
         title="Degens"
         actions={
           <Box sx={{ '& a': { textDecoration: 'none' } }}>
@@ -155,7 +157,7 @@ const Home = () => {
       />
       <Dialog open={isRenameDegenModalOpen} onClose={() => setIsRenameDegenModalOpen(false)}>
         <RenameDegenDialogContent degen={selectedDegen} onSuccess={() => setIsRenameDegenModalOpen(false)} />
-      </Dialog>
+      </Dialog> */}
     </>
   );
 };

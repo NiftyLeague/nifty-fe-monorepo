@@ -1,9 +1,8 @@
 /// <reference path="./typings/PlayFabClient.d.ts" />
 
-import type { User } from '../types';
+import type { User, PlayFabError, PlayFabResponse } from '../types';
 import * as PlayFab from './PlayFab';
-
-export const settings = PlayFab.settings;
+export { settings } from './PlayFab';
 
 export const IsClientLoggedIn = (user?: User): boolean => {
   if (!user || !user.SessionTicket || !user.EntityToken?.TokenExpiration) return false;
@@ -18,7 +17,7 @@ export const AddGenericID: PlayFabClientModule.IPlayFabClient['AddGenericID'] = 
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.AddGenericIDResult>) {
       if (callback) callback(error, result);
     },
   );
@@ -34,7 +33,7 @@ export const AddOrUpdateContactEmail: PlayFabClientModule.IPlayFabClient['AddOrU
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.AddOrUpdateContactEmailResult>) {
       if (callback) callback(error, result);
     },
   );
@@ -50,7 +49,7 @@ export const GetAccountInfo: PlayFabClientModule.IPlayFabClient['GetAccountInfo'
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.GetAccountInfoResult>) {
       if (callback) callback(error, result);
     },
   );
@@ -66,7 +65,7 @@ export const GetPlayerCombinedInfo: PlayFabClientModule.IPlayFabClient['GetPlaye
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.GetPlayerCombinedInfoResult>) {
       if (callback) callback(error, result);
     },
   );
@@ -82,7 +81,7 @@ export const GetUserPublisherReadOnlyData: PlayFabClientModule.IPlayFabClient['G
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.GetUserDataResult>) {
       if (callback) callback(error, result);
     },
   );
@@ -94,7 +93,7 @@ export const LinkApple: PlayFabClientModule.IPlayFabClient['LinkApple'] = (reque
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LinkAppleAccountResult>) {
       if (callback != null) {
         callback(error, result);
       }
@@ -108,7 +107,7 @@ export const LinkCustomID: PlayFabClientModule.IPlayFabClient['LinkCustomID'] = 
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LinkCustomIDResult>) {
       if (callback) callback(error, result);
     },
   );
@@ -124,7 +123,7 @@ export const LinkFacebookAccount: PlayFabClientModule.IPlayFabClient['LinkFacebo
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LinkFacebookAccountResult>) {
       if (callback) callback(error, result);
     },
   );
@@ -140,7 +139,7 @@ export const LinkGoogleAccount: PlayFabClientModule.IPlayFabClient['LinkGoogleAc
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LinkGoogleAccountResult>) {
       if (callback) callback(error, result);
     },
   );
@@ -152,7 +151,7 @@ export const LinkTwitch: PlayFabClientModule.IPlayFabClient['LinkTwitch'] = (req
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LinkTwitchAccountResult>) {
       if (callback) callback(error, result);
     },
   );
@@ -166,7 +165,7 @@ export const LoginWithApple: PlayFabClientModule.IPlayFabClient['LoginWithApple'
     req,
     null,
     null,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LoginResult>) {
       if (callback) callback(error, result);
     },
   );
@@ -180,7 +179,7 @@ export const LoginWithCustomID: PlayFabClientModule.IPlayFabClient['LoginWithCus
     req,
     null,
     null,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LoginResult>) {
       if (callback) callback(error, result);
     },
   );
@@ -197,7 +196,7 @@ export const LoginWithEmailAddress: PlayFabClientModule.IPlayFabClient['LoginWit
     req,
     null,
     null,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LoginResult>) {
       if (callback) callback(error, result);
     },
   );
@@ -211,7 +210,7 @@ export const LoginWithFacebook: PlayFabClientModule.IPlayFabClient['LoginWithFac
     req,
     null,
     null,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LoginResult>) {
       if (callback) callback(error, result);
     },
   );
@@ -228,7 +227,7 @@ export const LoginWithGoogleAccount: PlayFabClientModule.IPlayFabClient['LoginWi
     req,
     null,
     null,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LoginResult>) {
       if (callback) callback(error, result);
     },
   );
@@ -242,7 +241,7 @@ export const LoginWithPlayFab: PlayFabClientModule.IPlayFabClient['LoginWithPlay
     req,
     null,
     null,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LoginResult>) {
       if (callback) callback(error, result);
     },
   );
@@ -256,7 +255,7 @@ export const LoginWithTwitch: PlayFabClientModule.IPlayFabClient['LoginWithTwitc
     req,
     null,
     null,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LoginResult>) {
       if (callback) callback(error, result);
     },
   );
@@ -270,7 +269,7 @@ export const RegisterPlayFabUser: PlayFabClientModule.IPlayFabClient['RegisterPl
     req,
     null,
     null,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.RegisterPlayFabUserResult>) {
       if (callback) callback(error, result);
     },
   );
@@ -285,7 +284,7 @@ export const SendAccountRecoveryEmail: PlayFabClientModule.IPlayFabClient['SendA
     request,
     null,
     null,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.SendAccountRecoveryEmailResult>) {
       if (callback) callback(error, result);
     },
   );
@@ -297,7 +296,7 @@ export const UnlinkApple: PlayFabClientModule.IPlayFabClient['UnlinkApple'] = (r
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.UnlinkAppleResult>) {
       if (callback != null) {
         callback(error, result);
       }
@@ -315,7 +314,7 @@ export const UnlinkCustomID: PlayFabClientModule.IPlayFabClient['UnlinkCustomID'
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.UnlinkCustomIDResult>) {
       if (callback) callback(error, result);
     },
   );
@@ -331,7 +330,7 @@ export const UnlinkFacebookAccount: PlayFabClientModule.IPlayFabClient['UnlinkFa
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.UnlinkFacebookAccountResult>) {
       if (callback) callback(error, result);
     },
   );
@@ -347,7 +346,7 @@ export const UnlinkGoogleAccount: PlayFabClientModule.IPlayFabClient['UnlinkGoog
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.UnlinkGoogleAccountResult>) {
       if (callback) callback(error, result);
     },
   );
@@ -359,7 +358,7 @@ export const UnlinkTwitch: PlayFabClientModule.IPlayFabClient['UnlinkTwitch'] = 
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.UnlinkTwitchAccountResult>) {
       if (callback) callback(error, result);
     },
   );
@@ -375,7 +374,7 @@ export const UpdateAvatarUrl: PlayFabClientModule.IPlayFabClient['UpdateAvatarUr
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.UpdateAvatarUrlResult>) {
       if (callback) callback(error, result);
     },
   );
@@ -391,7 +390,7 @@ export const UpdateUserPublisherData: PlayFabClientModule.IPlayFabClient['Update
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabModule.IPlayFabError, result: any) {
+    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.UpdateUserDataResult>) {
       if (callback) callback(error, result);
     },
   );

@@ -14,8 +14,12 @@ const IconButtonStyle = styled(IconButton)(({ theme }) => ({
 
 const DialogActionComp = ({ children, isOpen }: DialogAction) => {
   const [, setIsOpen] = useContext(DialogContext);
-  return cloneElement(children as React.ReactElement<any>, {
-    onClick: callAll(() => setIsOpen(isOpen || false), (children as React.ReactElement<any>).props.onClick),
+  if (!children || typeof children !== 'object' || !('props' in children)) {
+    throw new Error('DialogActionComp expects a valid ReactElement as children');
+  }
+  const childElement = children as React.ReactElement<any, any>;
+  return cloneElement(childElement, {
+    onClick: callAll(() => setIsOpen(isOpen || false), childElement.props.onClick),
   });
 };
 

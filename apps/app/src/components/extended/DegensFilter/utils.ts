@@ -144,11 +144,16 @@ export const updateFilterValue = (
         .split('-')
         .map((type: number | string) => (key === 'prices' ? Number(type) : String(type)));
       if (actions && actions[key]) actions[key]?.(newValue || DEFAULT_STATIC_FILTER[key as keyof DegenFilter]);
-      newFilter[key as keyof typeof newFilter] = newValue as any;
+      // TypeScript limitation: dynamic key assignment to union types
+      if (key === 'prices') {
+        (newFilter as any)[key] = newValue as number[];
+      } else {
+        (newFilter as any)[key] = newValue as string[];
+      }
     }
   }
   // eslint-disable-next-line consistent-return
-  return newFilter;
+  return newFilter as DegenFilter;
 };
 
 export const getDefaultFilterValueFromData = (degens: Degen[] | undefined) => {

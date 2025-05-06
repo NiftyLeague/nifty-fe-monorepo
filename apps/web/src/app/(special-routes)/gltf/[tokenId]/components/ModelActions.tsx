@@ -1,12 +1,12 @@
 'use client';
 
 import { Dispatch, SetStateAction } from 'react';
-import styled from '@mui/material/styles/styled';
 // import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import InputBase from '@mui/material/InputBase';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { styled } from '@nl/theme';
 
 import { Color } from '@/types/gltf';
 import styles from '../gltf.module.scss';

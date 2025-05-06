@@ -2,7 +2,7 @@ import NFTL_TOKEN_ABI from './abis/NFTLToken.json';
 import NIFTY_DEGEN_ABI from './abis/NiftyDegen.json';
 
 const CONTRACTS: {
-  [contractName: string]: { address: `0x${string}`; abi: any[] };
+  [contractName: string]: { address: `0x${string}`; abi: unknown[] };
 } = {
   NFTLToken: {
     address: '0x3c8D2FCE49906e11e71cB16Fa0fFeB2B16C29638',

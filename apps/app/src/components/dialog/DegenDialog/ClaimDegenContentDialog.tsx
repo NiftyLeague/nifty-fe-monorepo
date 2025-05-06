@@ -16,7 +16,7 @@ export interface ClaimDegenContentDialogProps {
 
 const ClaimDegenContentDialog = ({ degen, onClose }: ClaimDegenContentDialogProps) => {
   const { tx, writeContracts } = useNetworkContext();
-  const tokenId: any = degen?.id;
+  const tokenId = degen?.id ?? '';
   const degenTokenIndices = useMemo(() => [parseInt(tokenId, 10)], [tokenId]);
   const { balance, refetch } = useClaimableNFTL(degenTokenIndices);
   const [mockAccumulated, setMockAccumulated] = useState(0);

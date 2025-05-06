@@ -1,24 +1,32 @@
-import type {
-  FontStyle as MuiFontStyle,
-  TypographyStyle as MuiTypographyStyle,
-  TypographyStyleOptions as MuiTypographyStyleOptions,
-  TypographyUtils as MuiTypographyUtils,
-  Variant as MuiVariant,
-} from '@mui/material/styles/createTypography';
+import type { TypographyStyle as MuiTypographyStyle, TypographyVariant } from '@mui/material/styles';
+import type { CSSProperties } from 'react';
 
-export interface FontStyle
-  extends Omit<MuiFontStyle, 'fontSize'>,
-    Required<{ fontSize: string | number; textTransform: React.CSSProperties['textTransform'] }> {
-  textTransform: React.CSSProperties['textTransform'];
-  fontSize: string | number; // added string
+type FontWeight = 'inherit' | 'initial' | 'revert' | 'unset' | 'normal' | 'bold' | 'lighter' | 'bolder' | number;
+
+// Override base TypographyStyle to allow string fontSize and CSS properties
+export interface TypographyStyle extends Omit<MuiTypographyStyle, 'fontSize' | 'fontWeight'>, CSSProperties {
+  fontSize?: string | number;
+  color?: string;
+  fontFamily?: string;
+  fontWeight?: string | number;
+  fontStyle?: CSSProperties['fontStyle'];
+  lineHeight?: string | number;
+  letterSpacing?: string | number;
+  textTransform?: CSSProperties['textTransform'];
+  [key: `& ${string}`]: any;
+}
+
+export interface FontStyle extends Omit<TypographyStyle, 'fontSize'> {
+  fontSize: string | number;
+  textTransform: CSSProperties['textTransform'];
 }
 
 export interface FontStyleOptions extends Partial<FontStyle> {
-  allVariants?: React.CSSProperties;
+  allVariants?: CSSProperties;
 }
 
-export type Variant =
-  | MuiVariant
+// Custom variants
+export type CustomVariant =
   | 'customInput'
   | 'mainContent'
   | 'menuCaption'
@@ -28,25 +36,36 @@ export type Variant =
   | 'mediumAvatar'
   | 'largeAvatar';
 
-export interface TypographyOptions extends Partial<Record<Variant, MuiTypographyStyleOptions> & FontStyleOptions> {
-  customInput?: MuiTypographyStyleOptions;
-  mainContent?: MuiTypographyStyleOptions;
-  menuCaption?: MuiTypographyStyleOptions;
-  subMenuCaption?: MuiTypographyStyleOptions;
-  commonAvatar?: MuiTypographyStyleOptions;
-  smallAvatar?: MuiTypographyStyleOptions;
-  mediumAvatar?: MuiTypographyStyleOptions;
-  largeAvatar?: MuiTypographyStyleOptions;
+export type Variant = TypographyVariant | CustomVariant;
+
+export interface TypographyVariantsOptions extends Partial<Record<Variant, TypographyStyle> & FontStyleOptions> {
+  fontFamily?: string;
+  fontSize?: number;
+  fontWeightBold?: number;
+  fontWeightLight?: number;
+  fontWeightMedium?: number;
+  fontWeightRegular?: number;
+  customInput?: TypographyStyle;
+  mainContent?: TypographyStyle;
+  menuCaption?: TypographyStyle;
+  subMenuCaption?: TypographyStyle;
+  commonAvatar?: TypographyStyle;
+  smallAvatar?: TypographyStyle;
+  mediumAvatar?: TypographyStyle;
+  largeAvatar?: TypographyStyle;
 }
 
-export interface Typography extends Record<Variant, MuiTypographyStyle>, FontStyle, MuiTypographyUtils {
-  customInput: MuiTypographyStyle;
-  mainContent: MuiTypographyStyle;
-  caption: MuiTypographyStyle;
-  menuCaption: MuiTypographyStyle;
-  subMenuCaption: MuiTypographyStyle;
-  commonAvatar: MuiTypographyStyle;
-  smallAvatar: MuiTypographyStyle;
-  mediumAvatar: MuiTypographyStyle;
-  largeAvatar: MuiTypographyStyle;
+export interface TypographyVariants extends Record<Variant, TypographyStyle>, FontStyle {
+  fontWeightBold?: number;
+  fontWeightLight?: number;
+  fontWeightMedium?: number;
+  fontWeightRegular?: number;
+  customInput: TypographyStyle;
+  mainContent: TypographyStyle;
+  menuCaption: TypographyStyle;
+  subMenuCaption: TypographyStyle;
+  commonAvatar: TypographyStyle;
+  smallAvatar: TypographyStyle;
+  mediumAvatar: TypographyStyle;
+  largeAvatar: TypographyStyle;
 }

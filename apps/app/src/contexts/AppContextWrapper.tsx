@@ -3,7 +3,6 @@
 // third party
 import { type PropsWithChildren } from 'react';
 import { headers } from 'next/headers';
-import { cookieToInitialState } from 'wagmi';
 
 // app context
 import { AuthTokenProvider } from '@/contexts/AuthTokenContext';
@@ -13,16 +12,15 @@ import { LocalStorageProvider } from '@/contexts/LocalStorageContext';
 import { NetworkProvider } from '@/contexts/NetworkContext';
 import { NFTsBalanceProvider } from '@/contexts/NFTsBalanceContext';
 import { TokensBalanceProvider } from '@/contexts/TokensBalanceContext';
-import { wagmiAdapter } from '@/contexts/Web3ModalConfig';
 import { Web3ModalProvider } from '@/contexts/Web3ModalContext';
 import ReduxProvider from '@/store/ReduxProvider';
 
 const AppContextWrapper = async ({ children }: PropsWithChildren) => {
   const headersList = await headers();
-  const initialState = cookieToInitialState(wagmiAdapter.wagmiConfig, headersList.get('cookie'));
+  const cookies = headersList.get('cookie');
   return (
     <LocalStorageProvider>
-      <Web3ModalProvider initialState={initialState}>
+      <Web3ModalProvider cookies={cookies}>
         <NetworkProvider>
           <IMXProvider>
             <ReduxProvider>
