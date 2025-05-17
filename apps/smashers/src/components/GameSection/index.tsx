@@ -75,6 +75,7 @@ const GameSection = () => {
               width={1350}
               height={556}
               style={{ width: '100%', height: 'auto', borderRadius: '40px / 40px' }}
+              unoptimized
             />
           </div>
         </AnimatedWrapper>

@@ -68,6 +68,8 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
+      <link rel="icon" href="/favicon/nl_purple/favicon.ico" />
+
       <Script strategy="lazyOnload" id="clarity-script">
         {`
           if (!window.location.host.includes('localhost')) {
