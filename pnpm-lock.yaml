@@ -367,7 +367,7 @@ importers:
     dependencies:
       '@google/model-viewer':
         specifier: ^4.1.0
-        version: 4.1.0(three@0.172.0)
+        version: 4.1.0(three@0.176.0)
       '@nl/theme':
         specifier: workspace:^
         version: link:../../packages/theme
@@ -387,8 +387,8 @@ importers:
         specifier: ^2.8.6
         version: 2.8.6
       three:
-        specifier: ^0.172.0
-        version: 0.172.0
+        specifier: ^0.176.0
+        version: 0.176.0
     devDependencies:
       '@types/gtag.js':
         specifier: ^0.0.20
@@ -12142,8 +12142,8 @@ packages:
   thread-stream@0.15.2:
     resolution: {integrity: sha512-UkEhKIg2pD+fjkHQKyJO3yoIvAP3N6RlNFt2dUhcS1FGvCD1cQa1M/PGknCLFIyZdtJOWQjejp7bdNqmN7zwdA==}
 
-  three@0.172.0:
-    resolution: {integrity: sha512-6HMgMlzU97MsV7D/tY8Va38b83kz8YJX+BefKjspMNAv0Vx6dxMogHOrnRl/sbMIs3BPUKijPqDqJ/+UwJbIow==}
+  three@0.176.0:
+    resolution: {integrity: sha512-PWRKYWQo23ojf9oZSlRGH8K09q7nRSWx6LY/HF/UUrMdYgN9i1e2OwJYHoQjwc6HF/4lvvYLC5YC1X8UJL2ZpA==}
 
   through@2.3.8:
     resolution: {integrity: sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==}
@@ -15987,11 +15987,11 @@ snapshots:
     optionalDependencies:
       typescript: 5.8.3
 
-  '@google/model-viewer@4.1.0(three@0.172.0)':
+  '@google/model-viewer@4.1.0(three@0.176.0)':
     dependencies:
-      '@monogrid/gainmap-js': 3.1.0(three@0.172.0)
+      '@monogrid/gainmap-js': 3.1.0(three@0.176.0)
       lit: 3.3.0
-      three: 0.172.0
+      three: 0.176.0
 
   '@gql.tada/cli-utils@1.6.3(@0no-co/graphqlsp@1.12.16(graphql@16.11.0)(typescript@5.8.3))(graphql@16.11.0)(typescript@5.8.3)':
     dependencies:
@@ -16784,10 +16784,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@monogrid/gainmap-js@3.1.0(three@0.172.0)':
+  '@monogrid/gainmap-js@3.1.0(three@0.176.0)':
     dependencies:
       promise-worker-transferable: 1.0.4
-      three: 0.172.0
+      three: 0.176.0
 
   '@mui/core-downloads-tracker@7.1.0': {}
 
@@ -29106,7 +29106,7 @@ snapshots:
     dependencies:
       real-require: 0.1.0
 
-  three@0.172.0: {}
+  three@0.176.0: {}
 
   through@2.3.8: {}
 
