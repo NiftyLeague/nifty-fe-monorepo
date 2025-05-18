@@ -328,10 +328,8 @@ const MobileNav = () => {
             return (
               <li key={item.href} onClick={toggleMenuOpen} className="mb-3">
                 <Link href={item.href}>
-                  <a>
-                    {item.name}
-                    {item.external ? <ExternalIcon /> : ''}
-                  </a>
+                  {item.name}
+                  {item.external ? <ExternalIcon /> : ''}
                 </Link>
               </li>
             );

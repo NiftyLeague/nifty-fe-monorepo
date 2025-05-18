@@ -21,7 +21,7 @@
   "dependencies": {
     "@emotion/cache": "^11.14.0",
     "@mui/material-nextjs": "^7.1.0",
-    "next": "^15.3.1",
+    "next": "^15.3.2",
     "react-intl": "^7.1.11",
     "stylis-plugin-rtl": "^2.1.1"
   },
@@ -30,6 +30,6 @@
     "@nl/prettier-config": "workspace:*",
     "@nl/typescript-config": "workspace:*",
     "esbuild-sass-plugin": "^3.3.1",
-    "tsup": "^8.4.0"
+    "tsup": "^8.5.0"
   }
 }
