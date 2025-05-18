@@ -1,12 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { withUserRoute } from '@/utils/session';
+import { withUserRoute, type Session } from '@/utils/session';
 import { AddOrUpdateContactEmail, ChangeDisplayName, UpdateAvatarUrl } from '@nl/playfab/api';
 import { errorResHandler } from '@nl/playfab/utils';
 import type { User } from '@nl/playfab/types';
 
-async function handler(req: NextApiRequest, res: NextApiResponse) {
+async function handler(req: NextApiRequest, res: NextApiResponse, session: Session) {
   const { email, displayName, avatar_url } = await req.body;
-  const user = req.session.user as User;
+  const user = session.user as User;
   const EntityToken = user.EntityToken?.EntityToken;
   const SessionTicket = user?.SessionTicket;
   try {

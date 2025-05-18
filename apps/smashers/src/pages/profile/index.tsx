@@ -80,8 +80,8 @@ export default function Profile() {
   );
 }
 
-export const getServerSideProps = withSessionSsr(async function ({ req }) {
-  const user = req.session.user;
+export const getServerSideProps = withSessionSsr(async function ({ session }) {
+  const user = session.user;
   // redirect to login if no user found
   if (!user || !user.isLoggedIn) {
     return {
