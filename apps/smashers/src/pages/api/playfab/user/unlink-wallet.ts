@@ -1,11 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { withUserRoute } from '@/utils/session';
+import { withUserRoute, type Session } from '@/utils/session';
 import { UnlinkWallet } from '@nl/playfab/api';
 import { errorResHandler } from '@nl/playfab/utils';
 
-async function handler(req: NextApiRequest, res: NextApiResponse) {
+async function handler(req: NextApiRequest, res: NextApiResponse, session: Session) {
   const { address, chain } = await req.body;
-  const user = req.session.user;
+  const user = session.user;
   const EntityToken = user?.EntityToken?.EntityToken;
   const SessionTicket = user?.SessionTicket;
   if (EntityToken && SessionTicket) {

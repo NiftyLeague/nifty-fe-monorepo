@@ -21,6 +21,8 @@ export type User = {
   PlayFabId?: string;
   // Unique token identifying the user and game at the server level, for the current session.
   SessionTicket?: string;
+  // The ISO Date/Time the user last logged in.
+  lastLogin?: string;
 };
 
 export type LinkGoogleResult = PlayFabClientModels.LinkGoogleAccountResult;

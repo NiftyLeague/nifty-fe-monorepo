@@ -1,10 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { RegisterPlayFabUser, GenerateCustomID } from '@nl/playfab/api';
 import { errorResHandler } from '@nl/playfab/utils';
-import { withSessionRoute } from '@/utils/session';
+import { withSessionRoute, type Session } from '@/utils/session';
 import type { User } from '@nl/playfab/types';
 
-async function handler(req: NextApiRequest, res: NextApiResponse) {
+async function handler(req: NextApiRequest, res: NextApiResponse, session: Session) {
   const { email, password, rememberMe } = await req.body;
   try {
     const params = { Email: email, Password: password };
@@ -21,8 +21,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         PlayFabId,
         SessionTicket,
       } as User;
-      req.session.user = user;
-      await req.session.save();
+      session.user = user;
+      await session.save();
       res.json(user);
     }
   } catch (error) {
