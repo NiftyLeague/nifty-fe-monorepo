@@ -1,12 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { withUserRoute } from '@/utils/session';
+import { withUserRoute, type Session } from '@/utils/session';
 import { LinkProvider } from '@nl/playfab/api';
 import { errorResHandler } from '@nl/playfab/utils';
 import type { User } from '@nl/playfab/types';
 
-async function handler(req: NextApiRequest, res: NextApiResponse) {
+async function handler(req: NextApiRequest, res: NextApiResponse, session: Session) {
   const { provider, accessToken } = await req.body;
-  const { SessionTicket } = req.session.user as User;
+  const { SessionTicket } = session.user as User;
   if (SessionTicket) {
     try {
       const data = await LinkProvider(provider, accessToken, SessionTicket);
