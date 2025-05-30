@@ -1,0 +1,86 @@
+{
+  "companies": [
+    {
+      "name": "NIFTY LEAGUE",
+      "link": "https://niftyleague.com",
+      "members": [
+        { "name": "Andrew Mahoney-Fernandes", "role": "Co-Founder & CEO" },
+        { "name": "Ali Timnak", "role": "Co-Founder & CTO" },
+        { "name": "Mike Scott", "role": "Co-Founder & Creative Director" },
+        { "name": "Dima Melnychuk", "role": "Senior Unity Developer & Online Engineer" },
+        { "name": "Shahin Aliyev", "role": "Senior Unity Developer" },
+        { "name": "Ibbi Yussop", "role": "3D Environment & Character Artist" },
+        { "name": "Anthony DeMedeiros", "role": "Unity Developer" },
+        { "name": "Ben Collie", "role": "Pixel Artist" },
+        { "name": "Keegan Thornhill", "role": "2D Animator/Cartoonist" }
+      ]
+    },
+    {
+      "name": "FROG SMASHERS",
+      "link": "https://raithza.itch.io/frogsmashers",
+      "members": [
+        { "name": "Ruan Rothmann", "role": "Programming/Design" },
+        { "name": "Mike Scott", "role": "Art/Animation" },
+        { "name": "Ben Rausch", "role": "Additional Art" },
+        { "name": "Stuart Coutts", "role": "Additional Art" },
+        { "name": "Jason Sutherland", "role": "Sound" }
+      ]
+    },
+    {
+      "name": "POCKET WHALE",
+      "link": "https://pocketwhale.com",
+      "members": [
+        { "name": "Xavier Rezgui", "role": "Managing Director" },
+        { "name": "Eric Steiner", "role": "Account Manager" }
+      ]
+    },
+    {
+      "name": "RETRO STYLE GAMES",
+      "link": "https://retrostylegames.com/portfolio/nifty-league-pixel-nft-characters-and-animations/",
+      "members": [{ "role": "3D Character & Animation" }]
+    },
+    {
+      "name": "RETRO EPIC",
+      "link": "https://retroepic.com",
+      "members": [
+        { "name": "Keith Boshoff", "role": "AI Developer" },
+        { "name": "Niki Boshoff", "role": "Unity Developer" }
+      ]
+    },
+    {
+      "name": "ARC AUDIO",
+      "members": [
+        { "name": "Daniel Caleb", "role": "Music Composer" },
+        { "name": "Aleix Ramon", "role": "Music Composer" }
+      ]
+    },
+    {
+      "name": "UPSTANDING PRODUCTIONS",
+      "members": [{ "name": "Peter O'Donoghue", "role": "Game and Character SFX" }]
+    },
+    {
+      "name": "VOLKOV STUDIO",
+      "link": "https://volkovstudio.com",
+      "members": [{ "role": "Additional Sound & Music" }]
+    }
+  ],
+  "formerMembers": [
+    "Dave Rosser",
+    "Ali Zandinejad",
+    "Meghan Vita",
+    "Jeff Elkind",
+    "Louise Pyper",
+    "Dima Valeryevich",
+    "Ashley Godbold",
+    "Brian Wang",
+    "Nicolas Morga",
+    "David Lee",
+    "Caleb Chronowski",
+    "Kayla Archer",
+    "Gideon Awolesi",
+    "Matthew Radcliffe",
+    "Magda Krasinski",
+    "Afanasy Agapov",
+    "Jeppe Peeperkorn"
+  ]
+}
