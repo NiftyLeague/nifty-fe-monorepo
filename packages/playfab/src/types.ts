@@ -21,6 +21,8 @@ export type User = {
   PlayFabId?: string;
   // Unique token identifying the user and game at the server level, for the current session.
   SessionTicket?: string;
+  // The ISO Date/Time the user last logged in.
+  lastLogin?: string;
 };
 
 export type LinkGoogleResult = PlayFabClientModels.LinkGoogleAccountResult;
@@ -28,6 +30,17 @@ export type LinkAppleResult = PlayFabClientModels.EmptyResult;
 export type LinkFacebookResult = PlayFabClientModels.LinkFacebookAccountResult;
 export type LinkTwitchResult = PlayFabClientModels.LinkTwitchAccountResult;
 export type LinkProviderResult = LinkGoogleResult | LinkAppleResult | LinkFacebookResult | LinkTwitchResult | null;
+
+export type UnlinkGoogleResult = PlayFabClientModels.UnlinkGoogleAccountResult;
+export type UnlinkAppleResult = PlayFabClientModels.UnlinkAppleResult;
+export type UnlinkFacebookResult = PlayFabClientModels.UnlinkFacebookAccountResult;
+export type UnlinkTwitchResult = PlayFabClientModels.UnlinkTwitchAccountResult;
+export type UnlinkProviderResult =
+  | UnlinkGoogleResult
+  | UnlinkAppleResult
+  | UnlinkFacebookResult
+  | UnlinkTwitchResult
+  | null;
 export type Provider =
   | 'google'
   | 'apple'

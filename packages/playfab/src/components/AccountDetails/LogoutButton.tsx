@@ -1,3 +1,5 @@
+'use client';
+
 import cn from 'classnames';
 import { IconLogOut } from '@nl/ui/supabase';
 import useUserSession from '../../hooks/useUserSession';

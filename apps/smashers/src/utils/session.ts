@@ -1,48 +1,75 @@
-// this file is a wrapper with defaults to be used in both API routes and `getServerSideProps` functions
-import { withIronSessionApiRoute, withIronSessionSsr } from 'iron-session/next';
-import type { GetServerSidePropsContext, GetServerSidePropsResult, NextApiHandler } from 'next';
-import type { IronSessionOptions } from 'iron-session';
+import { getIronSession } from 'iron-session';
+import { NextResponse } from 'next/server';
+import { cookies as nextCookies } from 'next/headers';
+import type { IronSession, SessionOptions } from 'iron-session';
 import type { User } from '@nl/playfab/types';
 
-export const sessionOptions: IronSessionOptions = {
-  password: process.env.NEXTAUTH_SECRET as string,
-  cookieName: 'iron-session/playfab',
-  // secure: true should be used in production (HTTPS) but can't be used in development (HTTP)
+const SESSION_SECRET = process.env.NEXTAUTH_SECRET;
+if (!SESSION_SECRET || SESSION_SECRET.length < 32) {
+  throw new Error('Missing or invalid NEXTAUTH_SECRET (needs 32+ chars)');
+}
+
+export const SESSION_TIMEOUT = {
+  remember: 60 * 60 * 24 * 30, // 30 days for "remember me"
+  default: 60 * 60 * 8, // 8 hours for regular sessions
+};
+
+export const sessionOptions: SessionOptions = {
+  password: SESSION_SECRET,
+  cookieName: 'iron_session_playfab',
   cookieOptions: {
     secure: process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' || process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview',
+    sameSite: 'lax',
+    httpOnly: true,
+    maxAge: SESSION_TIMEOUT.remember,
   },
 };
 
-// This is where we specify the typings of req.session.*
-declare module 'iron-session' {
-  interface IronSessionData {
-    user?: User;
-  }
+type ISODateString = string;
+type SessionData = { user?: User; expires: ISODateString };
+export type Session = IronSession<SessionData>;
+
+// App Router session helper
+export async function getSession(): Promise<Session> {
+  const cookies = await nextCookies();
+  return getIronSession(cookies, sessionOptions);
 }
 
-export function withSessionRoute(handler: NextApiHandler) {
-  return withIronSessionApiRoute(handler, sessionOptions);
-}
-
-const withUserHandler = (handler: NextApiHandler): NextApiHandler => {
-  return async function nextApiHandlerWrappedWithUser(req, res) {
-    const user = req.session.user;
-    if (!user || user.isLoggedIn === false) {
-      res.status(401).end();
-      return;
+// DRY session route wrapper for App Router
+export function withSessionRoute(handler: (request: Request, session: Session) => Promise<Response> | Response) {
+  return async function (request: Request) {
+    const session = await getSession();
+    const response = await handler(request, session);
+    if (typeof session.save === 'function') {
+      const setCookies = await session.save();
+      if (Array.isArray(setCookies) && setCookies.length > 0) {
+        if (response instanceof NextResponse) {
+          setCookies.forEach((cookie: string) => {
+            response.headers.append('Set-Cookie', cookie);
+          });
+        } else {
+          const newHeaders = new Headers(response.headers);
+          setCookies.forEach((cookie: string) => {
+            newHeaders.append('Set-Cookie', cookie);
+          });
+          return new Response(response.body, {
+            status: response.status,
+            statusText: response.statusText,
+            headers: newHeaders,
+          });
+        }
+      }
     }
-
-    return handler(req, res);
+    return response;
   };
-};
-
-export function withUserRoute(handler: NextApiHandler) {
-  return withSessionRoute(withUserHandler(handler));
 }
 
-// Theses types are compatible with InferGetStaticPropsType https://nextjs.org/docs/basic-features/data-fetching#typescript-use-getstaticprops
-export function withSessionSsr<P extends { [key: string]: unknown } = { [key: string]: unknown }>(
-  handler: (context: GetServerSidePropsContext) => GetServerSidePropsResult<P> | Promise<GetServerSidePropsResult<P>>,
-) {
-  return withIronSessionSsr(handler, sessionOptions);
+// Require user to be logged in for route access (App Router)
+export function withUserRoute(handler: (request: Request, session: Session) => Promise<Response> | Response) {
+  return withSessionRoute(async (request, session) => {
+    if (!session.user?.isLoggedIn) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    return handler(request, session);
+  });
 }

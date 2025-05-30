@@ -1,3 +1,4 @@
+import React from 'react';
 import Link from '@docusaurus/Link';
 import styled from '@emotion/styled';
 import CodeBracketIcon from '@heroicons/react/24/solid/CodeBracketIcon';

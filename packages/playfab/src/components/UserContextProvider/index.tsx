@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useCallback, useEffect, useMemo } from 'react';
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 import { SnackbarProvider } from 'notistack';
 
 import { fetchJson, FetchError } from '../../utils/fetchJson';
@@ -15,8 +15,8 @@ export const UserContext = createContext<UserContextType>(USER_CONTEXT_INITIAL_S
 type Props = { [propName: string]: unknown };
 
 export const UserContextProvider = (props: Props): React.ReactNode => {
-  const { query } = useRouter();
-  const gameToken = query['game-token'] as string | undefined;
+  const searchParams = useSearchParams();
+  const gameToken = searchParams.get('game-token');
   const { user, mutateUser } = useUserSession();
   const { userInfo, mutateUserInfo } = useUserInfo(user);
   const isLoggedIn = Boolean(user?.isLoggedIn);

@@ -1,3 +1,4 @@
+import React from 'react';
 import Link from '@docusaurus/Link';
 import Discord from '@site/public/icons/socials/discord.svg';
 import Twitter from '@site/public/icons/socials/twitterX.svg';

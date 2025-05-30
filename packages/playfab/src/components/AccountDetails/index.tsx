@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import Grid from '@mui/material/Grid';
