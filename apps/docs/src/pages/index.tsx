@@ -1,3 +1,4 @@
+import React from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styled from '@emotion/styled';
 import Layout from '@theme/Layout';
