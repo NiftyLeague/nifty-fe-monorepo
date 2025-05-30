@@ -7,6 +7,7 @@ export const USER_INITIAL_STATE = {
   EntityToken: undefined,
   PlayFabId: undefined,
   SessionTicket: undefined,
+  lastLogin: undefined,
 } as User;
 
 export const USER_INFO_INITIAL_STATE = {

@@ -17,15 +17,15 @@
     "@nl/playfab": "workspace:^",
     "@nl/theme": "workspace:^",
     "@nl/ui": "workspace:^",
-    "@sentry/nextjs": "^9.19.0",
+    "@sentry/nextjs": "^9.24.0",
     "@vercel/edge": "^1.2.1",
-    "iron-session": "^6.3.1",
+    "iron-session": "^8.0.4",
     "jose": "^6.0.11",
     "lodash": "^4.17.21",
-    "next": "^15.3.2",
+    "next": "^15.3.3",
     "next-auth": "^4.24.11",
     "react-device-detect": "^2.2.3",
     "react-unity-webgl": "^9.8.0",
-    "sharp": "^0.34.1"
+    "sharp": "^0.34.2"
   }
 }

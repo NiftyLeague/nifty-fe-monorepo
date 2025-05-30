@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 import { Button, Space } from '@nl/ui/supabase';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import cn from 'classnames';
 
 import PlayFabAuthForm from '../PlayFabAuthForm';
@@ -26,7 +26,7 @@ export default function LinkedProviders({
   const verticalSocialLayout = socialLayout === 'vertical' ? true : false;
   const [linkedProviders, setLinkedProviders] = useState<Provider[]>([]);
   const session = useSession();
-  const { asPath } = useRouter();
+  const pathname = usePathname();
 
   // initialize linkedProviders from playfab
   useEffect(() => {
@@ -47,26 +47,40 @@ export default function LinkedProviders({
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ provider, accessToken }),
           });
+          // Update the local state to show the provider is now linked
+          setLinkedProviders(prev => [...prev, provider]);
         } catch (e) {
           console.error(e);
         }
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [linkedProviders.length],
+    [linkedProviders],
   );
+
+  const handleUnlinkProvider = async (provider: Provider) => {
+    try {
+      await fetchJson('/api/playfab/user/unlink-provider', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ provider }),
+      });
+      // Update the local state to show the provider is now unlinked
+      setLinkedProviders(prev => prev.filter(p => p !== provider));
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   // handle link provider on redirect if NextAuth session authenticated
   useEffect(() => {
-    if (asPath.includes('#') && session.status === 'authenticated') {
+    if (pathname.includes('#') && session.status === 'authenticated') {
       const { provider, accessToken } = session.data as unknown as {
         provider: Provider;
         accessToken: string;
       };
       handleLinkProvider(provider, accessToken);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [asPath, session.status, handleLinkProvider]);
+  }, [pathname, session.status, session.data, handleLinkProvider]);
 
   const handleSignIn = async (provider: Provider) => {
     await signIn(provider, { callbackUrl: `/profile#link-${provider}` });
@@ -76,21 +90,18 @@ export default function LinkedProviders({
     <Space size={2} direction={socialLayout}>
       {providers.map(provider => {
         const AuthIcon = SocialIcons[provider];
+        const isLinked = linkedProviders.includes(provider);
         return (
           <div key={provider} style={!verticalSocialLayout ? { flexGrow: 1 } : {}}>
             <Button
               block
-              type="default"
+              type={isLinked ? 'outline' : 'default'}
               shadow
               size={socialButtonSize}
-              disabled={linkedProviders.includes(provider)}
               icon={AuthIcon ? <AuthIcon /> : ''}
-              onClick={() => handleSignIn(provider)}
-              className={cn(
-                'flex items-center',
-                (linkedProviders.includes(provider) || asPath.includes(provider)) && buttonStyles[provider],
-              )}
-              placeholder="Sign up"
+              onClick={isLinked ? () => handleUnlinkProvider(provider) : () => handleSignIn(provider)}
+              className={cn('flex items-center', isLinked && buttonStyles[provider])}
+              placeholder={isLinked ? 'Unlink' : 'Sign in'}
             >
               {verticalSocialLayout && 'Sign up with ' + provider}
             </Button>
