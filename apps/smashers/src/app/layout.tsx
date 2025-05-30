@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { IBM_Plex_Sans, Press_Start_2P, Lilita_One } from 'next/font/google';
+import { Suspense } from 'react';
 import { Providers } from '@/components/Providers';
 import '@/styles/globals.css';
 import '@/styles/animations.css';
@@ -70,7 +71,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         className={`${ibmPlexSans.variable} ${pressStart2P.variable} ${lilitaOne.variable} font-sans dark`}
         suppressHydrationWarning
       >
-        <Providers>{children}</Providers>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Providers>{children}</Providers>
+        </Suspense>
       </body>
     </html>
   );

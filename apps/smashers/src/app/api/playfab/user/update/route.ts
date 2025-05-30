@@ -3,9 +3,15 @@ import { AddOrUpdateContactEmail, ChangeDisplayName, UpdateAvatarUrl } from '@nl
 import { errorResHandler } from '@nl/playfab/utils';
 import type { User } from '@nl/playfab/types';
 
-import { withUserRoute } from '@/utils/session';
+import { getSession } from '@/utils/session';
 
-export const POST = withUserRoute(async (request, session) => {
+export async function POST(request: Request) {
+  const session = await getSession();
+
+  // Check if user is logged in
+  if (!session.user?.isLoggedIn) {
+    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+  }
   const body = await request.json();
   const { email, displayName, avatar_url } = body;
 
@@ -27,4 +33,4 @@ export const POST = withUserRoute(async (request, session) => {
     const { status, message } = errorResHandler(error);
     return NextResponse.json({ message: message || 'Update user failed' }, { status });
   }
-});
+}

@@ -49,3 +49,4 @@ jobs:
           NEXT_PUBLIC_GOOGLE_PLAY_LINK: ${{ secrets.NEXT_PUBLIC_GOOGLE_PLAY_LINK }}
           NEXT_PUBLIC_EPIC_LINK: ${{ secrets.NEXT_PUBLIC_EPIC_LINK }}
           NEXT_PUBLIC_STEAM_LINK: ${{ secrets.NEXT_PUBLIC_STEAM_LINK }}
+          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}

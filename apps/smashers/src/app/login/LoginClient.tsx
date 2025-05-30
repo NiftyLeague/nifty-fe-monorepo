@@ -1,18 +1,29 @@
 'use client';
 
 import Image from 'next/image';
+import { useEffect, Suspense } from 'react';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 import { Card, Typography, Space } from '@nl/ui/supabase';
 import { PlayFabAuthForm } from '@nl/playfab/components';
 import BackButton from '@/components/BackButton';
 import useFlags from '@/hooks/useFlags';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import type { User } from '@nl/playfab/types';
+import SearchParamsHandler from './SearchParamsHandler';
 
-export default function LoginClient() {
+interface SessionData {
+  user: User | null;
+}
+
+export default function LoginClient({ sessionData }: { sessionData: SessionData }) {
   const { enableAccountCreation, enableProviderSignOn } = useFlags();
   const mobile = useMediaQuery('(max-width:576px)');
 
   return (
     <>
+      <Suspense fallback={null}>
+        <SearchParamsHandler sessionData={sessionData} />
+      </Suspense>
       <BackButton />
       <div
         style={{
