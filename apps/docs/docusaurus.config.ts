@@ -16,6 +16,14 @@ const config: Config = {
   markdown: { mermaid: true },
   themes: ['@docusaurus/theme-mermaid'],
 
+  // Enable Docusaurus Faster features to improve build performance
+  future: {
+    // Enable v4 features required for experimental_faster
+    v4: true,
+    // Use true to enable all optimizations
+    experimental_faster: true,
+  },
+
   // i18n: {
   //   defaultLocale: 'en',
   //   locales: ['en'],

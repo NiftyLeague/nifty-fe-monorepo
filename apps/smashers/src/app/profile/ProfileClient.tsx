@@ -1,13 +1,24 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Card, IconDatabase, IconStar, IconUser, Space, Tabs, Typography } from '@nl/ui/supabase';
-import { AccountDetails, Inventory } from '@nl/playfab/components';
 import { useUserSession } from '@nl/playfab/hooks';
 import type { User } from '@nl/playfab/types';
+import dynamic from 'next/dynamic';
+
+// Dynamically import heavy components
+const AccountDetails = dynamic(() => import('@nl/playfab/components').then(mod => ({ default: mod.AccountDetails })), {
+  ssr: true,
+  loading: () => <div>Loading account details...</div>,
+});
+
+const Inventory = dynamic(() => import('@nl/playfab/components').then(mod => ({ default: mod.Inventory })), {
+  ssr: false,
+  loading: () => <div>Loading inventory...</div>,
+});
 
 import BackButton from '@/components/BackButton';
 import useFlags from '@/hooks/useFlags';
@@ -50,15 +61,19 @@ export default function ProfileClient({ user: initialUser }: { user: User }) {
           <Space direction="vertical" size={6} className={styles.userInfo}>
             <Tabs type="underlined" size="medium" tabBarStyle={{ marginTop: 16 }} tabBarGutter={8}>
               <Tabs.Panel id="account" icon={<IconUser />} label="Account">
-                <AccountDetails
-                  enableAvatars={flags.enableAvatars}
-                  enableLinkProviders={flags.enableLinkProviders}
-                  enableLinkWallet={flags.enableLinkWallet}
-                />
+                <Suspense fallback={<div>Loading account details...</div>}>
+                  <AccountDetails
+                    enableAvatars={flags.enableAvatars}
+                    enableLinkProviders={flags.enableLinkProviders}
+                    enableLinkWallet={flags.enableLinkWallet}
+                  />
+                </Suspense>
               </Tabs.Panel>
               {flags.enableInventory && (
                 <Tabs.Panel id="inventory" icon={<IconDatabase />} label="Inventory">
-                  <Inventory />
+                  <Suspense fallback={<div>Loading inventory...</div>}>
+                    <Inventory />
+                  </Suspense>
                 </Tabs.Panel>
               )}
               {flags.enableStats && (
