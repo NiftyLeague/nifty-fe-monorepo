@@ -1,13 +1,7 @@
-// this file is a wrapper with defaults to be used in both API routes and `getServerSideProps` functions
 import { getIronSession } from 'iron-session';
+import { NextResponse } from 'next/server';
+import { cookies as nextCookies } from 'next/headers';
 import type { IronSession, SessionOptions } from 'iron-session';
-import type {
-  GetServerSidePropsContext,
-  GetServerSidePropsResult,
-  NextApiHandler,
-  NextApiRequest,
-  NextApiResponse,
-} from 'next';
 import type { User } from '@nl/playfab/types';
 
 const SESSION_SECRET = process.env.NEXTAUTH_SECRET;
@@ -31,65 +25,51 @@ export const sessionOptions: SessionOptions = {
   },
 };
 
-type SessionData = { user?: User };
+type ISODateString = string;
+type SessionData = { user?: User; expires: ISODateString };
 export type Session = IronSession<SessionData>;
 
-// For API Routes (Pages Router)
-export async function getSession(req: NextApiRequest, res: NextApiResponse): Promise<Session> {
-  try {
-    return await getIronSession<SessionData>(req, res, sessionOptions);
-  } catch (error) {
-    console.error('Session error:', error);
-    throw new Error('Failed to get session');
-  }
+// App Router session helper
+export async function getSession(): Promise<Session> {
+  const cookies = await nextCookies();
+  return getIronSession(cookies, sessionOptions);
 }
 
-type HandlerWithSession<T = any> = (
-  req: NextApiRequest,
-  res: NextApiResponse<T>,
-  session: Session,
-) => unknown | Promise<unknown>;
-
-export function withUserRoute(handler: HandlerWithSession): NextApiHandler {
-  return async (req, res) => {
-    try {
-      const session = await getSession(req, res);
-      if (!session.user?.isLoggedIn) {
-        return res.status(401).json({ error: 'Unauthorized' });
+// DRY session route wrapper for App Router
+export function withSessionRoute(handler: (request: Request, session: Session) => Promise<Response> | Response) {
+  return async function (request: Request) {
+    const session = await getSession();
+    const response = await handler(request, session);
+    if (typeof session.save === 'function') {
+      const setCookies = await session.save();
+      if (Array.isArray(setCookies) && setCookies.length > 0) {
+        if (response instanceof NextResponse) {
+          setCookies.forEach((cookie: string) => {
+            response.headers.append('Set-Cookie', cookie);
+          });
+        } else {
+          const newHeaders = new Headers(response.headers);
+          setCookies.forEach((cookie: string) => {
+            newHeaders.append('Set-Cookie', cookie);
+          });
+          return new Response(response.body, {
+            status: response.status,
+            statusText: response.statusText,
+            headers: newHeaders,
+          });
+        }
       }
-      return handler(req, res, session);
-    } catch (error) {
-      console.error('Route error:', error);
-      return res.status(500).json({ error: 'Internal Server Error' });
     }
+    return response;
   };
 }
 
-export function withSessionRoute(handler: HandlerWithSession): NextApiHandler {
-  return async (req, res) => {
-    try {
-      const session = await getSession(req, res);
-      return handler(req, res, session);
-    } catch (error) {
-      console.error('Route error:', error);
-      return res.status(500).json({ error: 'Internal Server Error' });
+// Require user to be logged in for route access (App Router)
+export function withUserRoute(handler: (request: Request, session: Session) => Promise<Response> | Response) {
+  return withSessionRoute(async (request, session) => {
+    if (!session.user?.isLoggedIn) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
-  };
-}
-
-export function withSessionSsr<P extends { [key: string]: unknown } = { [key: string]: unknown }>(
-  handler: (context: GetServerSidePropsContext & { session: Session }) => Promise<GetServerSidePropsResult<P>>,
-) {
-  return async (context: GetServerSidePropsContext) => {
-    try {
-      const { req, res } = context;
-      const session = await getSession(req as NextApiRequest, res as NextApiResponse);
-      return handler({ ...context, session });
-    } catch (error) {
-      console.error('SSR error:', error);
-      return {
-        redirect: { destination: '/500', permanent: false },
-      };
-    }
-  };
+    return handler(request, session);
+  });
 }

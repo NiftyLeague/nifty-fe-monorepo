@@ -18,11 +18,11 @@
     "@google/model-viewer": "^4.1.0",
     "@nl/theme": "workspace:^",
     "@nl/ui": "workspace:^",
-    "@sentry/nextjs": "^9.19.0",
-    "next": "^15.3.2",
+    "@sentry/nextjs": "^9.23.0",
+    "next": "^15.3.3",
     "next-sitemap": "^4.2.3",
     "react-multi-carousel": "^2.8.6",
-    "three": "^0.172.0"
+    "three": "^0.176.0"
   },
   "devDependencies": {
     "@types/gtag.js": "^0.0.20",

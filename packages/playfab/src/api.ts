@@ -13,6 +13,11 @@ import type {
   Provider,
   PublisherDataResult,
   RegisterUserResult,
+  UnlinkAppleResult,
+  UnlinkFacebookResult,
+  UnlinkGoogleResult,
+  UnlinkProviderResult,
+  UnlinkTwitchResult,
   UserData,
 } from './types';
 import { InfoRequestParameters } from './constants';
@@ -84,7 +89,7 @@ export const SendAccountRecoveryEmail = async (Email: string): Promise<AccountRe
   return CallClientAPI<AccountRecoveryResult>('SendAccountRecoveryEmail', request);
 };
 
-/*************************************** Linked Providers **********************************************/
+/*************************************** Link Providers **********************************************/
 
 async function LinkGoogleAccount(AccessToken: string, SessionTicket: string): Promise<LinkGoogleResult> {
   const request = { ForceLink: true, AccessToken };
@@ -125,6 +130,56 @@ export const LinkProvider = async (
         break;
       case 'twitch':
         data = await LinkTwitchAccount(accesssToken, SessionTicket);
+        break;
+      default:
+        break;
+    }
+    return { data };
+  } catch (error) {
+    return { error };
+  }
+};
+
+/*************************************** Unlink Providers **********************************************/
+
+async function UnlinkGoogleAccount(SessionTicket: string): Promise<any> {
+  const request = {};
+  return CallClientAPI<UnlinkGoogleResult>('UnlinkGoogleAccount', request, SessionTicket);
+}
+
+async function UnlinkAppleAccount(SessionTicket: string): Promise<any> {
+  const request = {};
+  return CallClientAPI<UnlinkAppleResult>('UnlinkApple', request, SessionTicket);
+}
+
+async function UnlinkFacebookAccount(SessionTicket: string): Promise<any> {
+  const request = {};
+  return CallClientAPI<UnlinkFacebookResult>('UnlinkFacebookAccount', request, SessionTicket);
+}
+
+async function UnlinkTwitchAccount(SessionTicket: string): Promise<any> {
+  const request = {};
+  return CallClientAPI<UnlinkTwitchResult>('UnlinkTwitch', request, SessionTicket);
+}
+
+export const UnlinkProvider = async (
+  provider: Provider,
+  SessionTicket: string,
+): Promise<{ error?: unknown; data?: UnlinkProviderResult }> => {
+  try {
+    let data: any = null;
+    switch (provider) {
+      case 'google':
+        data = await UnlinkGoogleAccount(SessionTicket);
+        break;
+      case 'apple':
+        data = await UnlinkAppleAccount(SessionTicket);
+        break;
+      case 'facebook':
+        data = await UnlinkFacebookAccount(SessionTicket);
+        break;
+      case 'twitch':
+        data = await UnlinkTwitchAccount(SessionTicket);
         break;
       default:
         break;

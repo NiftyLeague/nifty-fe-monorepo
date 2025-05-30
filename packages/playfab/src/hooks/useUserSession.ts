@@ -1,11 +1,14 @@
+'use client';
+
 import { useEffect } from 'react';
-import Router from 'next/router';
+import { useRouter } from 'next/navigation';
 import useSWR from 'swr';
 
 import type { User } from '../types';
 import fetchJson from '../utils/fetchJson';
 
 export default function useUserSession({ redirectTo = '', redirectIfFound = false } = {}) {
+  const router = useRouter();
   const { data: user, mutate: mutateUser } = useSWR<User>('/api/playfab/user/playfab-session', fetchJson);
 
   useEffect(() => {
@@ -19,9 +22,9 @@ export default function useUserSession({ redirectTo = '', redirectIfFound = fals
       // If redirectIfFound is also set, redirect if the user was found
       (redirectIfFound && user?.isLoggedIn)
     ) {
-      Router.push(redirectTo);
+      router.push(redirectTo);
     }
-  }, [user, redirectIfFound, redirectTo]);
+  }, [user, redirectIfFound, redirectTo, router]);
 
   return { user, mutateUser };
 }

@@ -7,6 +7,6 @@
   "dependencies": {
     "@nl/theme": "workspace:^",
     "@nl/ui": "workspace:^",
-    "next": "^15.3.2"
+    "next": "^15.3.3"
   }
 }
