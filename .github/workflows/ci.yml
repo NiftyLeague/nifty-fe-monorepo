@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - staging
-  pull_request_target:
+  pull_request:
     branches:
       - main
       - staging
@@ -14,21 +14,15 @@ jobs:
   test:
     name: Test & Build Code
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [20]
-        pnpm-version: [8]
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
-      - name: Setup pnpm ${{ matrix.pnpm-version }}
-        uses: pnpm/action-setup@v3
+        uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          version: ${{ matrix.pnpm-version }}
-      - name: Setup Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
+          node-version-file: '.nvmrc'
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install
