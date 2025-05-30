@@ -1,9 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
-import { useSearchParams } from 'next/navigation';
 
 import Navbar from '@/components/Navbar';
 import ConsoleGame from '@/components/ConsoleGame';
@@ -11,26 +10,27 @@ import GameSection from '@/components/GameSection';
 import DegensSection from '@/components/DegensSection';
 import Footer from '@/components/Footer';
 import UnityModal from '@/components/UnityModal';
+import HomeSearchParamsHandler from './HomeSearchParamsHandler';
 import styles from '@/styles/smashers.module.css';
 
 const GameSelectModal = dynamic(() => import('@/components/GameSelectModal'), { ssr: false });
 const TrailerModal = dynamic(() => import('@/components/TrailerModal'), { ssr: false });
 
 export default function Home() {
-  const search = useSearchParams();
   const [gameOpen, setGameOpen] = useState(false);
   const launchGame = () => setGameOpen(true);
   const closeGame = () => setGameOpen(false);
 
-  useEffect(() => {
-    if (search && search.has('referral')) {
-      const playBtn = document.getElementById('play-btn');
-      playBtn?.click();
-    }
-  }, [search]);
+  const handleReferral = () => {
+    const playBtn = document.getElementById('play-btn');
+    playBtn?.click();
+  };
 
   return (
     <>
+      <Suspense fallback={null}>
+        <HomeSearchParamsHandler onReferral={handleReferral} />
+      </Suspense>
       <section className={styles.main}>
         <div className="radial-gradient-bg-centered" />
         <div className={styles.container}>
