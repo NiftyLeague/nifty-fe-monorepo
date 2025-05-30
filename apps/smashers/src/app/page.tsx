@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, Suspense } from 'react';
+import { useState, Suspense } from 'react';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 
@@ -10,6 +10,7 @@ import GameSection from '@/components/GameSection';
 import DegensSection from '@/components/DegensSection';
 import Footer from '@/components/Footer';
 import UnityModal from '@/components/UnityModal';
+import CreditsModal from '@/components/CreditsModal';
 import HomeSearchParamsHandler from './HomeSearchParamsHandler';
 import styles from '@/styles/smashers.module.css';
 
@@ -71,6 +72,19 @@ export default function Home() {
                 />
                 Play
               </button>
+              <button id="credits-btn">
+                <Image
+                  src="/icons/credits.svg"
+                  alt="Credits Icon"
+                  width={22}
+                  height={22}
+                  style={{
+                    maxWidth: '100%',
+                    height: 'auto',
+                  }}
+                />
+                Credits
+              </button>
             </div>
           </div>
         </div>
@@ -88,6 +102,7 @@ export default function Home() {
       <TrailerModal />
       <GameSelectModal launchGame={launchGame} />
       <UnityModal gameOpen={gameOpen} closeGame={closeGame} />
+      <CreditsModal />
     </>
   );
 }
