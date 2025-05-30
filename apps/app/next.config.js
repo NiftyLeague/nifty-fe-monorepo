@@ -19,8 +19,18 @@ const nextConfig = {
         crypto: 'crypto-browserify',
         fs: false,
         stream: false,
+        path: false,
+        os: false,
+      };
+
+      // Add aliases for problematic native modules
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        'sodium-native': false,
+        'require-addon': false,
       };
     }
+
     // Temp prod build solution: https://github.com/diegomura/react-pdf/issues/3121
     config.optimization.minimizer = [
       new TerserPlugin({
@@ -31,7 +41,19 @@ const nextConfig = {
         },
       }),
     ];
-    config.externals.push('pino-pretty', 'lokijs', 'encoding');
+
+    // Externalize native modules
+    config.externals.push('pino-pretty', 'lokijs', 'encoding', 'sodium-native', 'require-addon');
+
+    // Ignore warnings for specific modules
+    config.ignoreWarnings = [
+      // Ignore warnings about require() calls that cannot be statically analyzed
+      { module: /require-addon/ },
+      { module: /sodium-native/ },
+      { module: /node_modules\\@stellar/ },
+      { module: /node_modules\\@axelar-network/ },
+    ];
+
     return config;
   },
 };

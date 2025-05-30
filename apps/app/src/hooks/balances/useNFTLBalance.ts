@@ -47,7 +47,7 @@ export function useEthereumNFTLBalance(): NFTLBalanceState {
     },
   });
 
-  const balance = useMemo(() => Number(data) ?? 0, [data]);
+  const balance = useMemo(() => (data !== undefined ? Number(data) : 0), [data]);
 
   return { balance, error, loading: isLoading, refetch };
 }
@@ -68,7 +68,7 @@ export function useImmutableNFTLBalance(): NFTLBalanceState {
     },
   });
 
-  const balance = useMemo(() => Number(data) ?? 0, [data]);
+  const balance = useMemo(() => (data !== undefined ? Number(data) : 0), [data]);
 
   return { balance, error, loading: isLoading, refetch };
 }

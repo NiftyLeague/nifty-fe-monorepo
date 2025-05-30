@@ -118,6 +118,7 @@ html[data-theme='dark'] {
   --ifm-color-primary: white;
   --ifm-color-primary-dark: #5a91ea;
   --ifm-navbar-background-color: #1c1b1a;
+  --ifm-footer-background-color: #1c1b1a;
   --ifm-global-shadow-md: 0 5px 4px rgba(255, 255, 255, 0.448);
   --ifm-font-color-base: white;
   --ifm-heading-color: white;
@@ -148,6 +149,7 @@ html[data-theme='light'] {
   --ifm-color-primary: black;
   --ifm-color-primary-dark: #5a91ea;
   --ifm-navbar-background-color: white;
+  --ifm-footer-background-color: white;
   --ifm-global-shadow-md: 0 5px 4px rgba(255, 255, 255, 0.448);
   --ifm-font-color-base: black;
   --ifm-heading-color: black;
