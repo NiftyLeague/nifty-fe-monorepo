@@ -14,6 +14,18 @@ jobs:
   test:
     name: Test & Build Code
     runs-on: ubuntu-latest
+
+    # This concurrency setting allows multiple workflows to run at the same time,
+    # as long as they are for different branches. This is useful for pull requests
+    # since we want to validate them as quickly as possible.
+    #
+    # The `cancel-in-progress` option will cancel any existing workflows with
+    # the same name and ref, so we don't end up with multiple workflows running
+    # at the same time for the same branch.
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref == format('refs/heads/{0}', github.event.pull_request.base.ref) && github.event_name == 'pull_request' && github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
