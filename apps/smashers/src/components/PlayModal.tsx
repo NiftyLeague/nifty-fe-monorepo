@@ -32,7 +32,7 @@ const ModalContent = ({ launchGame }: { launchGame: () => void }) => {
       </Typography.Text>
       <Typography.Text style={{ lineHeight: 1.3 }}>
         This party platform fighter will have you on the edge of your seat as you and three other players grab your
-        weapons, unleash unique abilities, and try to smash each other out of the arena in a winner-takes-all battle!
+        bats, unleash unique abilities, and try to smash each other out of the arena in a winner-takes-all battle!
       </Typography.Text>
       <Space direction="horizontal" style={{ marginTop: 30 }}>
         <Link

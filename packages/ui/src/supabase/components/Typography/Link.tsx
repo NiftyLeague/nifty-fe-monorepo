@@ -1,4 +1,3 @@
-import { HandlerFunction } from '@storybook/addon-actions';
 import React from 'react';
 import LinkStyles from './Link.module.css';
 
@@ -8,7 +7,7 @@ interface Props {
   href?: string;
   className?: string;
   style?: React.CSSProperties;
-  onClick?: HandlerFunction;
+  onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
 }
 
 function Link({ children, target = '_blank', href, className, onClick, style }: Props) {
