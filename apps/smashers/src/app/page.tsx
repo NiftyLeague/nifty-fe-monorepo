@@ -56,30 +56,11 @@ export default function Home({ searchParams }: { searchParams: NextSearchParams 
     if (referral) openModal('play');
   }, [referral]);
 
-  // Preload critical modal images and assets
-  const preloadAssets = [
-    // Play Modal Badges
-    '/img/badges/google-play-badge.webp',
-    '/img/badges/apple-store-badge.svg',
-    '/img/badges/steam-badge.webp',
-  ];
-
   return (
     <>
       <Head>
-        {preloadAssets.map(src => {
-          const isSvg = src.endsWith('.svg');
-          return (
-            <link
-              key={src}
-              rel="preload"
-              as="image"
-              href={src}
-              imageSrcSet={isSvg ? undefined : `${src} 1x, ${src.replace(/\.(\w+)$/, '@2x.$1')} 2x`}
-              crossOrigin={isSvg ? 'anonymous' : undefined}
-            />
-          );
-        })}
+        {/* Preconnect to origins */}
+        <link rel="preconnect" href="https://www.niftysmashers.com" crossOrigin="anonymous" />
       </Head>
       <section className={styles.main}>
         <div className="radial-gradient-bg-centered" />
