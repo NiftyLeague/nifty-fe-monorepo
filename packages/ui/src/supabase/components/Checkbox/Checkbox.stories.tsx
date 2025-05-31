@@ -1,129 +1,135 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
+import type { Meta, StoryObj } from '@storybook/react';
 import { Checkbox } from '.';
 
-export default {
+type CheckboxStory = StoryObj<typeof Checkbox> & {
+  args?: {
+    options?: Array<{
+      id: string;
+      name: string;
+      label: string;
+      description: string;
+      size?: 'tiny' | 'small' | 'medium' | 'large' | 'xlarge';
+    }>;
+  };
+};
+
+const meta: Meta<typeof Checkbox> = {
   title: 'Data Input/Checkbox',
   component: Checkbox,
+  tags: ['autodocs'],
+  args: {
+    label: 'This is the label',
+    description: 'This is the description',
+  },
 };
 
-export const Default = (args: any) => <Checkbox {...args} />;
+export default meta;
 
-export const withGroup = (args: any) => (
-  <Checkbox.Group {...args}>
-    <Checkbox
-      id="checkbox1"
-      name="checkbox1"
-      label="JavaScript"
-      description="JavaScript, often abbreviated as JS, is a programming language that conforms to the ECMAScript specification."
-    />
-    <Checkbox
-      id="checkbox2"
-      name="checkbox2"
-      label="Typescript"
-      description="TypeScript is a programming language developed and maintained by Microsoft. It is a strict syntactical superset of JavaScript and adds optional static typing to the language. "
-    />
-    <Checkbox
-      id="checkbox3"
-      name="checkbox3"
-      label="React"
-      description="React is an open-source, front end, JavaScript library for building user interfaces or UI components. It is maintained by Facebook and a community of individual developers and companies."
-    />
-  </Checkbox.Group>
-);
+const checkboxItems = [
+  {
+    id: 'checkbox1',
+    name: 'languages',
+    label: 'JavaScript',
+    description:
+      'JavaScript, often abbreviated as JS, is a programming language that conforms to the ECMAScript specification.',
+  },
+  {
+    id: 'checkbox2',
+    name: 'languages',
+    label: 'TypeScript',
+    description: 'TypeScript is a programming language developed and maintained by Microsoft.',
+  },
+  {
+    id: 'checkbox3',
+    name: 'languages',
+    label: 'React',
+    description: 'A JavaScript library for building user interfaces.',
+  },
+];
 
-export const withGroupHorizontal = (args: any) => (
-  <Checkbox.Group {...args}>
-    <Checkbox
-      id="checkbox1"
-      name="checkbox1"
-      label="JavaScript"
-      description="JavaScript, often abbreviated as JS, is a programming language that conforms to the ECMAScript specification."
-    />
-    <Checkbox
-      id="checkbox2"
-      name="checkbox2"
-      label="Typescript"
-      description="TypeScript is a programming language developed and maintained by Microsoft. It is a strict syntactical superset of JavaScript and adds optional static typing to the language. "
-    />
-    <Checkbox
-      id="checkbox3"
-      name="checkbox3"
-      label="React"
-      description="React is an open-source, front end, JavaScript library for building user interfaces or UI components. It is maintained by Facebook and a community of individual developers and companies."
-    />
-  </Checkbox.Group>
-);
-
-export const size = (args: any) => (
-  <Checkbox.Group {...args}>
-    <Checkbox
-      id="checkbox1"
-      name="checkbox1"
-      label="JavaScript"
-      description="JavaScript, often abbreviated as JS, is a programming language that conforms to the ECMAScript specification."
-    />
-    <Checkbox
-      id="checkbox2"
-      name="checkbox2"
-      label="Typescript"
-      description="TypeScript is a programming language developed and maintained by Microsoft. It is a strict syntactical superset of JavaScript and adds optional static typing to the language. "
-    />
-    <Checkbox
-      id="checkbox3"
-      name="checkbox3"
-      label="React"
-      description="React is an open-source, front end, JavaScript library for building user interfaces or UI components. It is maintained by Facebook and a community of individual developers and companies."
-    />
-  </Checkbox.Group>
-);
-
-export const withBeforeAndAfterLabels = (args: any) => <Checkbox.Group {...args} />;
-
-Default.args = {
-  label: 'This is the label',
-  description: 'This is the description',
+export const Default: CheckboxStory = {
+  args: {
+    label: 'Single Checkbox',
+    description: 'This is a single checkbox',
+  },
 };
 
-withGroup.args = {
-  id: 'checkobox-q',
-  label: 'This is the label',
-  description: 'This is the description',
-  disabled: false,
-  className: 'font-sans',
-  layout: 'vertical',
+export const WithGroup: CheckboxStory = {
+  render: args => (
+    <Checkbox.Group {...args} name="languages" options={checkboxItems} layout="vertical">
+      {checkboxItems.map(item => (
+        <Checkbox
+          key={item.id}
+          id={item.id}
+          name={item.name}
+          label={item.label}
+          description={item.description}
+          value={item.id}
+        />
+      ))}
+    </Checkbox.Group>
+  ),
+  args: {
+    label: 'Checkbox Group',
+    description: 'A group of checkboxes',
+  },
 };
 
-withGroupHorizontal.args = {
-  id: 'checkobox-q',
-  label: 'This is the label',
-  description: 'This is the description',
-  disabled: false,
-  className: 'font-sans',
-  layout: 'horizontal',
+export const WithGroupHorizontal: CheckboxStory = {
+  ...WithGroup,
+  args: {
+    ...WithGroup.args,
+    label: 'Horizontal Checkbox Group',
+    description: 'Checkboxes in a horizontal layout',
+  },
+  render: args => (
+    <Checkbox.Group {...args} name="languages-horizontal" options={checkboxItems} layout="horizontal">
+      {checkboxItems.map(item => (
+        <Checkbox key={item.id} id={`${item.id}-h`} name={item.name} label={item.label} value={item.id} />
+      ))}
+    </Checkbox.Group>
+  ),
 };
 
-size.args = {
-  id: 'checkobox-q',
-  label: 'Control the size of the checkboxes',
-  description: 'You can add a size just the Group component and it will affect the children',
-  disabled: false,
-  className: 'font-sans',
-  layout: 'horizontal',
-  size: 'tiny',
+export const DifferentSizes: CheckboxStory = {
+  render: args => (
+    <div className="flex flex-col gap-4">
+      {checkboxItems.map((item, index) => (
+        <div key={item.id}>
+          <Checkbox
+            id={`${item.id}-size`}
+            name="sizes"
+            label={`${item.label} (${['tiny', 'small', 'medium'][index]})`}
+            size={['tiny', 'small', 'medium'][index] as any}
+          />
+        </div>
+      ))}
+    </div>
+  ),
+  args: {
+    label: 'Different Sizes',
+    description: 'Checkboxes in different sizes',
+  },
 };
 
-withBeforeAndAfterLabels.args = {
-  label: 'Label',
-  beforeLabel: 'Before : ',
-  afterLabel: ' : After',
-  options: [
-    {
-      label: 'Label',
-      beforeLabel: 'Before : ',
-      afterLabel: ' : After',
-      description: 'Description',
-    },
-  ],
-  className: 'font-sans',
+export const WithBeforeAndAfterLabels: CheckboxStory = {
+  render: args => (
+    <Checkbox.Group {...args} name="before-after" options={checkboxItems} layout="vertical">
+      {checkboxItems.map(item => (
+        <Checkbox
+          key={item.id}
+          id={`${item.id}-ba`}
+          name="before-after"
+          label={item.label}
+          beforeLabel="Before: "
+          afterLabel=" (after)"
+          value={item.id}
+        />
+      ))}
+    </Checkbox.Group>
+  ),
+  args: {
+    label: 'With Before/After Labels',
+    description: 'Checkboxes with custom labels',
+  },
 };
