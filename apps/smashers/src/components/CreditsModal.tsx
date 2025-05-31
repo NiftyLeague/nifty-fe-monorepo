@@ -1,6 +1,6 @@
 'use client';
 
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import Image from 'next/image';
 import creditsData from '@/data/credits.json';
 import styles from '@/styles/modal.module.css';
@@ -32,6 +32,8 @@ const CompanyImage = ({ company }: { company: Company }) => {
     }
   };
 
+  const companyIndex = (creditsData as CreditsData).companies.findIndex(c => c.name === company.name);
+  const isAboveTheFold = companyIndex < 2; // First two companies are above the fold
   const image = (
     <Image
       src={getCompanyImagePath(company.name)}
@@ -39,7 +41,9 @@ const CompanyImage = ({ company }: { company: Company }) => {
       width={WIDTH}
       height={HEIGHT}
       style={{ objectFit: 'contain', width: `100%`, height: 'auto', maxHeight: `${HEIGHT * 2}px` }}
-      loading="eager"
+      priority={isAboveTheFold}
+      loading={isAboveTheFold ? 'eager' : 'lazy'}
+      fetchPriority={isAboveTheFold ? 'high' : 'auto'}
       onError={handleImageError}
     />
   );
@@ -63,6 +67,29 @@ const SectionNote = ({ children }: { children: React.ReactNode }) => {
 
 const CreditsContent = () => {
   const { companies } = creditsData as CreditsData;
+
+  // Preload first two company logos with high priority
+  useEffect(() => {
+    const preloadLinks: HTMLLinkElement[] = [];
+
+    // Only preload the first two companies
+    companies.slice(0, 2).forEach(company => {
+      const imagePath = getCompanyImagePath(company.name);
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = imagePath;
+      link.fetchPriority = 'high';
+      document.head.appendChild(link);
+      preloadLinks.push(link);
+    });
+
+    return () => {
+      preloadLinks.forEach(link => {
+        document.head.removeChild(link);
+      });
+    };
+  }, [companies]);
 
   return (
     <div style={{ maxWidth: '800px', maxHeight: '80vh', overflowY: 'auto', padding: '2rem' }}>
