@@ -1,25 +1,11 @@
 'use client';
 
-import { useCallback, useEffect, useState, Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import Image from 'next/image';
-import cn from 'classnames';
 import creditsData from '@/data/credits.json';
 import styles from '@/styles/modal.module.css';
-
-interface TeamMember {
-  role: string;
-  name?: string;
-}
-
-interface Company {
-  name: string;
-  link?: string;
-  members: TeamMember[];
-}
-
-interface CreditsData {
-  companies: Company[];
-}
+import { Company, CreditsData, TeamMember } from '@/types/credits';
+import Modal from '@/components/Modal';
 
 // Helper function to convert company name from data to image filename
 const getCompanyImagePath = (companyName: string): string => {
@@ -28,8 +14,10 @@ const getCompanyImagePath = (companyName: string): string => {
 };
 
 const CompanyImage = ({ company }: { company: Company }) => {
-  const WIDTH = 500;
-  const HEIGHT = 100;
+  const WIDTH = company.name === 'FROG SMASHERS' ? 360 : 200;
+  const HEIGHT = company.name === 'FROG SMASHERS' ? 200 : 70;
+  const companyIndex = (creditsData as CreditsData).companies.findIndex(c => c.name === company.name);
+  const isAboveTheFold = companyIndex < 2; // Priority Load these images
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.currentTarget;
@@ -52,7 +40,13 @@ const CompanyImage = ({ company }: { company: Company }) => {
       alt={`${company.name} Logo`}
       width={WIDTH}
       height={HEIGHT}
-      style={{ objectFit: 'contain', width: `100%`, height: 'auto', maxHeight: `${HEIGHT * 2}px` }}
+      style={{
+        objectFit: 'contain',
+        width: '100%',
+        height: 'auto',
+        maxHeight: `${HEIGHT * 2}px`,
+      }}
+      priority={isAboveTheFold}
       onError={handleImageError}
     />
   );
@@ -71,19 +65,16 @@ const CompanyImage = ({ company }: { company: Company }) => {
 };
 
 const SectionNote = ({ children }: { children: React.ReactNode }) => {
-  return <h3 style={{ textAlign: 'center', marginBottom: '1rem', fontSize: '1.25rem' }}>{children}</h3>;
+  return <h3 style={{ textAlign: 'center', marginBottom: '1rem', fontSize: '1rem' }}>{children}</h3>;
 };
 
 const CreditsContent = () => {
   const { companies } = creditsData as CreditsData;
 
   return (
-    <div
-      className={styles.modal_paper_dark}
-      style={{ maxWidth: '800px', maxHeight: '80vh', overflowY: 'auto', padding: '2rem' }}
-    >
+    <div style={{ maxWidth: '800px', maxHeight: '80vh', overflowY: 'auto', padding: '2rem' }}>
       <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-        <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }}>NIFTY SMASHERS CREDITS</h1>
+        <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }}>CREDITS</h1>
       </div>
 
       <div>
@@ -92,8 +83,8 @@ const CreditsContent = () => {
             <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
               {company.name === 'FROG SMASHERS' ? (
                 <SectionNote>
-                  A very special thanks to Ruan Rothmann and the original creators of <br />
-                  Frog Smashers (base for Nifty League&apos;s 2D Smashers)
+                  A very special thanks to Ruan Rothmann and the original creators of Frog Smashers (base for Nifty
+                  League&apos;s 2D Smashers)
                 </SectionNote>
               ) : null}
               <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
@@ -174,47 +165,17 @@ const CreditsContent = () => {
   );
 };
 
-export default function CreditsModal() {
-  const [visible, setVisible] = useState(false);
+type CreditsModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+};
 
-  const openModal = useCallback(() => {
-    requestAnimationFrame(() => setVisible(true));
-  }, []);
-
-  const closeModal = useCallback((e?: Event) => {
-    if (e && e.target !== e.currentTarget) return;
-    requestAnimationFrame(() => {
-      setVisible(false);
-    });
-  }, []);
-
-  useEffect(() => {
-    const creditsBtn = document.getElementById('credits-btn');
-    const closeBtn = document.getElementById('credits-close-icon');
-    const modal = document.getElementById('credits-modal');
-
-    // Add event listeners with passive option where appropriate
-    creditsBtn?.addEventListener('click', openModal);
-    modal?.addEventListener('click', closeModal);
-    modal?.addEventListener('touchstart', closeModal, { passive: true });
-    closeBtn?.addEventListener('click', closeModal);
-    closeBtn?.addEventListener('touchstart', closeModal, { passive: true });
-
-    return function cleanup() {
-      creditsBtn?.removeEventListener('click', openModal);
-      modal?.removeEventListener('click', closeModal);
-      modal?.removeEventListener('touchstart', closeModal);
-      closeBtn?.removeEventListener('click', closeModal);
-      closeBtn?.removeEventListener('touchstart', closeModal);
-    };
-  }, [openModal, closeModal]);
-
+const CreditsModal = ({ isOpen, onClose }: CreditsModalProps) => {
   return (
-    <div id="credits-modal" className={cn(styles.modal, { hidden: !visible })}>
+    <Modal isOpen={isOpen} onClose={onClose} contentClassName={styles.modal_paper_dark}>
       <CreditsContent />
-      <div id="credits-close-icon" className={styles.close_icon}>
-        &times;
-      </div>
-    </div>
+    </Modal>
   );
-}
+};
+
+export default CreditsModal;

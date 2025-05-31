@@ -51,11 +51,15 @@
 
 .close_icon {
   position: absolute;
-  top: 5px;
-  right: 10px;
+  top: 12px;
+  right: 12px;
   font-size: 32px;
   font-weight: bold;
   cursor: pointer;
+  width: 50px;
+  background-color: var(--custom-panel-color);
+  border: 0;
+  z-index: 1;
 }
 
 .button_primary {
