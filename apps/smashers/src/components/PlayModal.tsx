@@ -12,29 +12,6 @@ import styles from '@/styles/modal.module.css';
 const ModalContent = ({ launchGame }: { launchGame: () => void }) => {
   const { message } = useVersion();
 
-  // Preload all app badge images
-  useEffect(() => {
-    const preloadLinks: HTMLLinkElement[] = [];
-    const images = [
-      '/img/badges/google-play-badge.webp',
-      '/img/badges/apple-store-badge.svg',
-      '/img/badges/pc-badge.png',
-    ];
-
-    images.forEach(src => {
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'image';
-      link.href = src;
-      document.head.appendChild(link);
-      preloadLinks.push(link);
-    });
-
-    return () => {
-      preloadLinks.forEach(link => document.head.removeChild(link));
-    };
-  }, []);
-
   return (
     <Space size={6} direction="vertical" className={styles.model_select_view_content}>
       <Space size={4} direction="horizontal">
@@ -68,8 +45,8 @@ const ModalContent = ({ launchGame }: { launchGame: () => void }) => {
           <Image
             src="/img/badges/google-play-badge.webp"
             alt="Get it on Google Play"
-            width={564}
-            height={169}
+            width={234}
+            height={70}
             priority
             loading="eager"
             fetchPriority="high"
@@ -84,8 +61,8 @@ const ModalContent = ({ launchGame }: { launchGame: () => void }) => {
           <Image
             src="/img/badges/apple-store-badge.svg"
             alt="Apple Store Badge"
-            width={120}
-            height={40}
+            width={215}
+            height={72}
             loading="eager"
             priority
             fetchPriority="high"
@@ -100,8 +77,8 @@ const ModalContent = ({ launchGame }: { launchGame: () => void }) => {
           <Image
             src="/img/badges/steam-badge.webp"
             alt="Steam Store Badge"
-            width={564}
-            height={168}
+            width={234}
+            height={69}
             loading="eager"
             priority
             fetchPriority="high"
