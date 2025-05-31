@@ -62,38 +62,40 @@ export default function Home({ searchParams }: { searchParams: NextSearchParams 
         {/* Preconnect to origins */}
         <link rel="preconnect" href="https://www.niftysmashers.com" crossOrigin="anonymous" />
       </Head>
-      <section className={styles.main}>
-        <div className="radial-gradient-bg-centered" />
-        <div className={styles.container}>
-          <Navbar />
-          <div className={styles.content}>
-            <Image
-              src="/img/logos/smashers/app_wordmark_logo.webp"
-              alt="Wordmark Logo"
-              className={styles.wordmark}
-              width={824}
-              height={572}
-              priority
-              sizes="(max-width: 768px) 100vw, 824px"
-              quality={85}
-            />
-            <ActionButtonsGroup
-              onPlayClick={() => openModal('play')}
-              onTrailerClick={() => openModal('trailer')}
-              onCreditsClick={() => openModal('credits')}
-            />
+      <main>
+        <section className={styles.hero}>
+          <div className="radial-gradient-bg-centered" />
+          <div className={styles.container}>
+            <Navbar />
+            <div className={styles.content}>
+              <Image
+                src="/img/logos/smashers/app_wordmark_logo.webp"
+                alt="Wordmark Logo"
+                className={styles.wordmark}
+                width={824}
+                height={572}
+                priority
+                sizes="(max-width: 768px) 100vw, 824px"
+                quality={85}
+              />
+              <ActionButtonsGroup
+                onPlayClick={() => openModal('play')}
+                onTrailerClick={() => openModal('trailer')}
+                onCreditsClick={() => openModal('credits')}
+              />
+            </div>
           </div>
-        </div>
-      </section>
-      <section className={styles.console_game}>
-        <ConsoleGame src="/video/smashers-960p.mp4" />
-      </section>
+        </section>
+        <section className={styles.console_game}>
+          <ConsoleGame src="/video/smashers-960p.mp4" />
+        </section>
 
-      <Suspense fallback={null}>
-        <LazyGameSection />
-        <LazyDegensSection />
-        <LazyFooter classes={{ footer: styles.footer }} />
-      </Suspense>
+        <Suspense fallback={null}>
+          <LazyGameSection />
+          <LazyDegensSection />
+          <LazyFooter classes={{ footer: styles.footer }} />
+        </Suspense>
+      </main>
 
       <CreditsModal isOpen={activeModal === 'credits'} onClose={closeModal} />
       <PlayModal isOpen={activeModal === 'play'} onClose={closeModal} launchGame={() => openModal('unity')} />

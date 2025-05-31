@@ -7,7 +7,9 @@ export const metadata: Metadata = { title: 'Profile' };
 export default function AuthLayout({ children }: PropsWithChildren) {
   return (
     <Suspense fallback={null}>
-      <AuthProvider>{children}</AuthProvider>
+      <AuthProvider>
+        <main id="auth-layout">{children}</main>
+      </AuthProvider>
     </Suspense>
   );
 }

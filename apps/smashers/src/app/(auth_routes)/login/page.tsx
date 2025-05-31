@@ -2,7 +2,6 @@ import { redirect } from 'next/navigation';
 import { getSession } from '@/utils/session';
 import LoginClient from './LoginClient';
 import { Suspense } from 'react';
-import type { User } from '@nl/playfab/types';
 
 export default async function LoginPage() {
   const session = await getSession();
