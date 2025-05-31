@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { use, useState, useEffect } from 'react';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 
@@ -9,29 +9,32 @@ import ConsoleGame from '@/components/ConsoleGame';
 import GameSection from '@/components/GameSection';
 import DegensSection from '@/components/DegensSection';
 import Footer from '@/components/Footer';
-import UnityModal from '@/components/UnityModal';
-import CreditsModal from '@/components/CreditsModal';
-import HomeSearchParamsHandler from './HomeSearchParamsHandler';
+import ActionButtonsGroup from '@/components/ActionButtonsGroup';
 import styles from '@/styles/smashers.module.css';
 
-const GameSelectModal = dynamic(() => import('@/components/GameSelectModal'), { ssr: false });
+const CreditsModal = dynamic(() => import('@/components/CreditsModal'), { ssr: false });
+const PlayModal = dynamic(() => import('@/components/PlayModal'), { ssr: false });
 const TrailerModal = dynamic(() => import('@/components/TrailerModal'), { ssr: false });
+const UnityModal = dynamic(() => import('@/components/UnityModal'), { ssr: false });
 
-export default function Home() {
-  const [gameOpen, setGameOpen] = useState(false);
-  const launchGame = () => setGameOpen(true);
-  const closeGame = () => setGameOpen(false);
+type NextSearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
-  const handleReferral = () => {
-    const playBtn = document.getElementById('play-btn');
-    playBtn?.click();
-  };
+type ActiveModal = 'credits' | 'play' | 'trailer' | 'unity' | null;
+
+export default function Home({ searchParams }: { searchParams: NextSearchParams }) {
+  // Modal state management
+  const [activeModal, setActiveModal] = useState<ActiveModal>(null);
+  const openModal = (modal: ActiveModal) => setActiveModal(modal);
+  const closeModal = () => setActiveModal(null);
+
+  // Handle referral link
+  const { referral } = use(searchParams);
+  useEffect(() => {
+    if (referral) openModal('play');
+  }, [referral]);
 
   return (
     <>
-      <Suspense fallback={null}>
-        <HomeSearchParamsHandler onReferral={handleReferral} />
-      </Suspense>
       <section className={styles.main}>
         <div className="radial-gradient-bg-centered" />
         <div className={styles.container}>
@@ -45,47 +48,11 @@ export default function Home() {
               height={572}
               priority
             />
-            <div className={styles.buttons}>
-              <button id="trailer-btn">
-                <Image
-                  src="/icons/socials/youtube.svg"
-                  alt="YouTube Logo"
-                  width={22}
-                  height={22}
-                  style={{
-                    maxWidth: '100%',
-                    height: 'auto',
-                  }}
-                />
-                Trailer
-              </button>
-              <button id="play-btn">
-                <Image
-                  src="/icons/controller.svg"
-                  alt="Game Icon"
-                  width={22}
-                  height={22}
-                  style={{
-                    maxWidth: '100%',
-                    height: 'auto',
-                  }}
-                />
-                Play
-              </button>
-              <button id="credits-btn">
-                <Image
-                  src="/icons/credits.svg"
-                  alt="Credits Icon"
-                  width={22}
-                  height={22}
-                  style={{
-                    maxWidth: '100%',
-                    height: 'auto',
-                  }}
-                />
-                Credits
-              </button>
-            </div>
+            <ActionButtonsGroup
+              onPlayClick={() => openModal('play')}
+              onTrailerClick={() => openModal('trailer')}
+              onCreditsClick={() => openModal('credits')}
+            />
           </div>
         </div>
       </section>
@@ -99,10 +66,11 @@ export default function Home() {
         <DegensSection />
       </section>
       <Footer classes={{ footer: styles.footer }} />
-      <TrailerModal />
-      <GameSelectModal launchGame={launchGame} />
-      <UnityModal gameOpen={gameOpen} closeGame={closeGame} />
-      <CreditsModal />
+
+      <CreditsModal isOpen={activeModal === 'credits'} onClose={closeModal} />
+      <PlayModal isOpen={activeModal === 'play'} onClose={closeModal} launchGame={() => openModal('unity')} />
+      <TrailerModal isOpen={activeModal === 'trailer'} onClose={closeModal} />
+      <UnityModal isOpen={activeModal === 'unity'} onClose={closeModal} />
     </>
   );
 }
