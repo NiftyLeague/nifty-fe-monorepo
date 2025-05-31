@@ -10,7 +10,6 @@ jobs:
   test:
     name: Test & Build Code
     runs-on: ubuntu-latest
-
     # This concurrency setting allows multiple workflows to run at the same time,
     # as long as they are for different branches. This is useful for pull requests
     # since we want to validate them as quickly as possible.
@@ -21,6 +20,10 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref == format('refs/heads/{0}', github.event.pull_request.base.ref) && github.event_name == 'pull_request' && github.event.pull_request.number || github.ref }}
       cancel-in-progress: true
+    # Vercel Remote Caching with Turborepo https://vercel.com/docs/monorepos/remote-caching
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
 
     steps:
       - name: Checkout repo
@@ -43,12 +46,12 @@ jobs:
       - name: Build
         run: pnpm build
         env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID }}
-          NEXT_PUBLIC_NETWORK: ${{ secrets.NEXT_PUBLIC_NETWORK }}
-          NEXT_PUBLIC_APPLE_STORE_ID: ${{ secrets.NEXT_PUBLIC_APPLE_STORE_ID }}
-          NEXT_PUBLIC_APPLE_STORE_LINK: ${{ secrets.NEXT_PUBLIC_APPLE_STORE_LINK }}
-          NEXT_PUBLIC_GOOGLE_PLAY_LINK: ${{ secrets.NEXT_PUBLIC_GOOGLE_PLAY_LINK }}
-          NEXT_PUBLIC_EPIC_LINK: ${{ secrets.NEXT_PUBLIC_EPIC_LINK }}
-          NEXT_PUBLIC_STEAM_LINK: ${{ secrets.NEXT_PUBLIC_STEAM_LINK }}
+          NEXT_PUBLIC_APPLE_STORE_ID: ${{ vars.NEXT_PUBLIC_APPLE_STORE_ID }}
+          NEXT_PUBLIC_APPLE_STORE_LINK: ${{ vars.NEXT_PUBLIC_APPLE_STORE_LINK }}
+          NEXT_PUBLIC_EPIC_LINK: ${{ vars.NEXT_PUBLIC_EPIC_LINK }}
+          NEXT_PUBLIC_GOOGLE_PLAY_LINK: ${{ vars.NEXT_PUBLIC_GOOGLE_PLAY_LINK }}
+          NEXT_PUBLIC_NETWORK: ${{ vars.NEXT_PUBLIC_NETWORK }}
+          NEXT_PUBLIC_STEAM_LINK: ${{ vars.NEXT_PUBLIC_STEAM_LINK }}
+          NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID: ${{ vars.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID }}
           NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
