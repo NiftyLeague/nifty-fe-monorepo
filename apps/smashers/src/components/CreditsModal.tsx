@@ -1,6 +1,6 @@
 'use client';
 
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 import Image from 'next/image';
 import creditsData from '@/data/credits.json';
 import styles from '@/styles/modal.module.css';
