@@ -1,37 +1,67 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { use, useState, useEffect, Suspense } from 'react';
+import Head from 'next/head';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 
 import Navbar from '@/components/Navbar';
 import ConsoleGame from '@/components/ConsoleGame';
-import GameSection from '@/components/GameSection';
-import DegensSection from '@/components/DegensSection';
-import Footer from '@/components/Footer';
-import UnityModal from '@/components/UnityModal';
-import CreditsModal from '@/components/CreditsModal';
-import HomeSearchParamsHandler from './HomeSearchParamsHandler';
+import ActionButtonsGroup from '@/components/ActionButtonsGroup';
 import styles from '@/styles/smashers.module.css';
 
-const GameSelectModal = dynamic(() => import('@/components/GameSelectModal'), { ssr: false });
-const TrailerModal = dynamic(() => import('@/components/TrailerModal'), { ssr: false });
+// Lazy load modals
+const CreditsModal = dynamic(() => import('@/components/CreditsModal'), { ssr: false, loading: () => null });
+const PlayModal = dynamic(() => import('@/components/PlayModal'), { ssr: false, loading: () => null });
+const TrailerModal = dynamic(() => import('@/components/TrailerModal'), { ssr: false, loading: () => null });
+const UnityModal = dynamic(() => import('@/components/UnityModal'), { ssr: false, loading: () => null });
 
-export default function Home() {
-  const [gameOpen, setGameOpen] = useState(false);
-  const launchGame = () => setGameOpen(true);
-  const closeGame = () => setGameOpen(false);
+// Lazy load below-the-fold sections with loading states
+const LazyGameSection = dynamic(() => import('@/components/GameSection'), {
+  loading: () => (
+    <section className={styles.game_details}>
+      <div style={{ minHeight: '50vh' }} />
+    </section>
+  ),
+  ssr: false,
+});
 
-  const handleReferral = () => {
-    const playBtn = document.getElementById('play-btn');
-    playBtn?.click();
-  };
+const LazyDegensSection = dynamic(() => import('@/components/DegensSection'), {
+  loading: () => (
+    <section className={styles.character_details}>
+      <div style={{ minHeight: '50vh' }} />
+    </section>
+  ),
+  ssr: false,
+});
+
+const LazyFooter = dynamic(() => import('@/components/Footer'), {
+  loading: () => <footer style={{ minHeight: '200px' }} />,
+  ssr: false,
+});
+
+type NextSearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
+type ActiveModal = 'credits' | 'play' | 'trailer' | 'unity' | null;
+
+export default function Home({ searchParams }: { searchParams: NextSearchParams }) {
+  // Modal state management
+  const [activeModal, setActiveModal] = useState<ActiveModal>(null);
+  const openModal = (modal: ActiveModal) => setActiveModal(modal);
+  const closeModal = () => setActiveModal(null);
+
+  // Handle referral link
+  const { referral } = use(searchParams);
+  useEffect(() => {
+    if (referral) openModal('play');
+  }, [referral]);
 
   return (
     <>
-      <Suspense fallback={null}>
-        <HomeSearchParamsHandler onReferral={handleReferral} />
-      </Suspense>
+      <Head>
+        {/* Preconnect to origins */}
+        <link rel="preconnect" href="https://www.niftysmashers.com" crossOrigin="anonymous" />
+      </Head>
       <section className={styles.main}>
         <div className="radial-gradient-bg-centered" />
         <div className={styles.container}>
@@ -44,65 +74,31 @@ export default function Home() {
               width={824}
               height={572}
               priority
+              sizes="(max-width: 768px) 100vw, 824px"
+              quality={85}
             />
-            <div className={styles.buttons}>
-              <button id="trailer-btn">
-                <Image
-                  src="/icons/socials/youtube.svg"
-                  alt="YouTube Logo"
-                  width={22}
-                  height={22}
-                  style={{
-                    maxWidth: '100%',
-                    height: 'auto',
-                  }}
-                />
-                Trailer
-              </button>
-              <button id="play-btn">
-                <Image
-                  src="/icons/controller.svg"
-                  alt="Game Icon"
-                  width={22}
-                  height={22}
-                  style={{
-                    maxWidth: '100%',
-                    height: 'auto',
-                  }}
-                />
-                Play
-              </button>
-              <button id="credits-btn">
-                <Image
-                  src="/icons/credits.svg"
-                  alt="Credits Icon"
-                  width={22}
-                  height={22}
-                  style={{
-                    maxWidth: '100%',
-                    height: 'auto',
-                  }}
-                />
-                Credits
-              </button>
-            </div>
+            <ActionButtonsGroup
+              onPlayClick={() => openModal('play')}
+              onTrailerClick={() => openModal('trailer')}
+              onCreditsClick={() => openModal('credits')}
+            />
           </div>
         </div>
       </section>
       <section className={styles.console_game}>
         <ConsoleGame src="/video/smashers-960p.mp4" />
       </section>
-      <section className={styles.game_details}>
-        <GameSection />
-      </section>
-      <section className={styles.character_details}>
-        <DegensSection />
-      </section>
-      <Footer classes={{ footer: styles.footer }} />
-      <TrailerModal />
-      <GameSelectModal launchGame={launchGame} />
-      <UnityModal gameOpen={gameOpen} closeGame={closeGame} />
-      <CreditsModal />
+
+      <Suspense fallback={null}>
+        <LazyGameSection />
+        <LazyDegensSection />
+        <LazyFooter classes={{ footer: styles.footer }} />
+      </Suspense>
+
+      <CreditsModal isOpen={activeModal === 'credits'} onClose={closeModal} />
+      <PlayModal isOpen={activeModal === 'play'} onClose={closeModal} launchGame={() => openModal('unity')} />
+      <TrailerModal isOpen={activeModal === 'trailer'} onClose={closeModal} />
+      <UnityModal isOpen={activeModal === 'unity'} onClose={closeModal} />
     </>
   );
 }
