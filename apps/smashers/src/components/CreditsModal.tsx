@@ -4,6 +4,7 @@ import { Fragment } from 'react';
 import Image from 'next/image';
 import creditsData from '@/data/credits.json';
 import styles from '@/styles/modal.module.css';
+import { Typography } from '@nl/ui/supabase';
 import { Company, CreditsData, TeamMember } from '@/types/credits';
 import Modal from '@/components/Modal';
 
@@ -65,7 +66,14 @@ const CompanyImage = ({ company }: { company: Company }) => {
 };
 
 const SectionNote = ({ children }: { children: React.ReactNode }) => {
-  return <h3 style={{ textAlign: 'center', marginBottom: '1rem', fontSize: '1rem' }}>{children}</h3>;
+  return (
+    <Typography.Title
+      level={3}
+      style={{ textAlign: 'center', marginBottom: '1rem', fontSize: '1rem', lineHeight: 1.3 }}
+    >
+      {children}
+    </Typography.Title>
+  );
 };
 
 const CreditsContent = () => {
@@ -74,7 +82,7 @@ const CreditsContent = () => {
   return (
     <div style={{ maxWidth: '800px', maxHeight: '80vh', overflowY: 'auto', padding: '2rem' }}>
       <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-        <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }}>CREDITS</h1>
+        <Typography.Title level={1}>CREDITS</Typography.Title>
       </div>
 
       <div>
@@ -94,46 +102,52 @@ const CreditsContent = () => {
                 {company.members.map((member: TeamMember, mIndex: number) =>
                   member.name ? (
                     <Fragment key={mIndex}>
-                      <span
+                      <Typography.Text
+                        type="default"
                         style={{
-                          justifySelf: 'end',
+                          fontSize: '1rem',
                           fontWeight: 'bold',
-                          whiteSpace: 'nowrap',
+                          justifySelf: 'end',
                           maxWidth: '40vw',
                           overflow: 'hidden',
                           textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
                         }}
                       >
                         {member.name}
-                      </span>
+                      </Typography.Text>
                       <span />
-                      <span
+                      <Typography.Text
+                        type="secondary"
                         style={{
+                          fontSize: '1rem',
                           justifySelf: 'start',
-                          whiteSpace: 'nowrap',
                           maxWidth: '40vw',
                           overflow: 'hidden',
                           textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
                         }}
                       >
                         {member.role}
-                      </span>
+                      </Typography.Text>
                     </Fragment>
                   ) : (
-                    <div
+                    <Typography.Text
                       key={mIndex}
+                      type="default"
                       style={{
-                        gridColumn: '1 / -1',
-                        textAlign: 'center',
+                        fontSize: '1rem',
                         fontWeight: 'bold',
-                        whiteSpace: 'nowrap',
-                        maxWidth: '80vw',
+                        gridColumn: '1 / -1',
                         overflow: 'hidden',
+                        textAlign: 'center',
                         textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                        width: '100%',
                       }}
                     >
                       {member.role}
-                    </div>
+                    </Typography.Text>
                   ),
                 )}
               </div>
@@ -148,17 +162,17 @@ const CreditsContent = () => {
         </SectionNote>
         <div style={{ textAlign: 'center', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '10px' }}>
           {creditsData.formerMembers.map((member, index) => (
-            <span key={index}>
+            <Typography.Text key={index} style={{ fontSize: '1rem' }}>
               {member}
               {index < creditsData.formerMembers.length - 1 ? ', ' : ''}
-            </span>
+            </Typography.Text>
           ))}
         </div>
       </div>
 
       <div style={{ textAlign: 'center', marginTop: '4rem', marginBottom: '2rem' }}>
         <SectionNote>
-          A final thanks to our community members, Discord mods, investors, and anyone else who helped along the way!
+          A final thanks to our community, Discord mods, investors, and anyone else who helped along the way!
         </SectionNote>
       </div>
     </div>

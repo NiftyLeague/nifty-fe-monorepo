@@ -1,37 +1,41 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
+import type { Meta, StoryObj } from '@storybook/react';
 import { Badge } from './';
 
-export default {
+const meta: Meta<typeof Badge> = {
   title: 'Displays/Badge',
   component: Badge,
+  tags: ['autodocs'],
+  args: {
+    children: 'Hello world',
+  },
 };
 
-export const Default = (args: any) => <Badge {...args}>Hello world</Badge>;
+export default meta;
+type Story = StoryObj<typeof Badge>;
 
-export const withColor = (args: any) => <Badge {...args}>Hello world</Badge>;
+export const Default: Story = {};
 
-export const withDot = (args: any) => <Badge {...args}>Hello world</Badge>;
-
-export const large = (args: any) => <Badge {...args}>Hello world</Badge>;
-
-export const withDotLarge = (args: any) => <Badge {...args}>Hello world</Badge>;
-
-Default.args = {};
-
-withColor.args = {
-  color: 'red',
+export const WithColor: Story = {
+  args: {
+    color: 'red',
+  },
 };
 
-withDot.args = {
-  dot: true,
+export const WithDot: Story = {
+  args: {
+    dot: true,
+  },
 };
 
-large.args = {
-  size: 'large',
+export const Large: Story = {
+  args: {
+    size: 'large',
+  },
 };
 
-withDotLarge.args = {
-  size: 'large',
-  dot: true,
+export const WithDotLarge: Story = {
+  args: {
+    size: 'large',
+    dot: true,
+  },
 };

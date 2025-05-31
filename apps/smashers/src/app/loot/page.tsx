@@ -1,5 +1,5 @@
+import { Metadata } from 'next';
 import BackButton from '@/components/BackButton';
-
 import DROP_TABLES from '@/data/droptables.json';
 import type { CrateData } from '@/types/droptables';
 import styles from '@/styles/droptables.module.css';
@@ -7,6 +7,8 @@ import styles from '@/styles/droptables.module.css';
 interface CrateTableProps {
   data: CrateData;
 }
+
+export const metadata: Metadata = { title: 'Loot' };
 
 const CrateTables: React.FC<CrateTableProps> = ({ data }) =>
   Object.keys(data).map(crateKey => {

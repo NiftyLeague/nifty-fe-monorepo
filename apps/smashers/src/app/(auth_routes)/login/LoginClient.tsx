@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, Suspense } from 'react';
+import { Suspense } from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { Card, Typography, Space } from '@nl/ui/supabase';
