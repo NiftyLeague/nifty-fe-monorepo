@@ -58,6 +58,7 @@
   cursor: pointer;
   width: 50px;
   background-color: var(--custom-panel-color);
+  color: whitesmoke !important;
   border: 0;
   z-index: 1;
 }

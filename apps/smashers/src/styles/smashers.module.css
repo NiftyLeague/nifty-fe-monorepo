@@ -1,6 +1,6 @@
 /************************************* Main Section *************************************/
 
-.main {
+.hero {
   background-image: url('/img/games/smashers/background.gif');
   background-size: cover;
   background-position: center;
@@ -84,7 +84,7 @@
 
 /************************************* Minor Sections *************************************/
 
-.main,
+.hero,
 .console_game,
 .game_details,
 .character_details,
@@ -95,7 +95,7 @@
 }
 
 @media (min-width: 600px) {
-  .main,
+  .hero,
   .console_game,
   .game_details,
   .character_details,

@@ -1,61 +1,61 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
+import type { Meta, StoryObj } from '@storybook/react';
 import Typography from '../Typography';
-
 import { Card } from './';
 
-export default {
+const meta: Meta<typeof Card> = {
   title: 'Displays/Card',
   component: Card,
+  tags: ['autodocs'],
+  args: {
+    children: (
+      <>
+        <Typography.Title level={5}>Card content</Typography.Title>
+        <Typography.Title level={5}>Card content</Typography.Title>
+        <Typography.Title level={5}>Card content</Typography.Title>
+      </>
+    ),
+  },
 };
 
-export const Default = (args: any) => (
-  <Card {...args}>
-    <Typography.Title level={5}>Card content</Typography.Title>
-    <Typography.Title level={5}>Card content</Typography.Title>
-    <Typography.Title level={5}>Card content</Typography.Title>
-  </Card>
-);
+export default meta;
+type Story = StoryObj<typeof Card>;
 
-export const withCover = (args: any) => (
-  <Card {...args}>
-    <Typography.Text type="secondary">Sub title here</Typography.Text>
-    <Typography.Title level={3}>To Do List with Vue.JS</Typography.Title>
-  </Card>
-);
-
-export const withMeta = (args: any) => (
-  <Card {...args}>
-    <Card.Meta title={'To Do List with Vue.JS'} description={'To Do List with Vue.JS'} />
-  </Card>
-);
-
-export const withHover = (args: any) => (
-  <Card {...args}>
-    <Card.Meta title={'To Do List with Vue.JS'} description={'To Do List with Vue.JS'} />
-  </Card>
-);
-
-Default.args = {
-  title: 'I am a title',
-  titleExtra: <Typography.Link>Learn more</Typography.Link>,
+export const Default: Story = {
+  args: {
+    title: 'I am a title',
+    titleExtra: <Typography.Link>Learn more</Typography.Link>,
+  },
 };
 
-withCover.args = {
-  cover: (
-    <img
-      className="h-64 w-full object-cover"
-      src={'https://supabase.io/new/img/case-study-monitoro.jpg'}
-      alt={'title'}
-    />
-  ),
+export const WithCover: Story = {
+  args: {
+    cover: (
+      <img
+        className="h-64 w-full object-cover"
+        src={'https://supabase.io/new/img/case-study-monitoro.jpg'}
+        alt={'title'}
+      />
+    ),
+    children: (
+      <>
+        <Typography.Text type="secondary">Sub title here</Typography.Text>
+        <Typography.Title level={3}>To Do List with Vue.JS</Typography.Title>
+      </>
+    ),
+  },
 };
 
-withMeta.args = {
-  title: 'title is here',
+export const WithMeta: Story = {
+  args: {
+    title: 'title is here',
+    children: <Card.Meta title={'To Do List with Vue.JS'} description={'To Do List with Vue.JS'} />,
+  },
 };
 
-withHover.args = {
-  title: 'This card can hover',
-  hoverable: true,
+export const WithHover: Story = {
+  args: {
+    title: 'This card can hover',
+    hoverable: true,
+    children: <Card.Meta title={'To Do List with Vue.JS'} description={'To Do List with Vue.JS'} />,
+  },
 };

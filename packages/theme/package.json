@@ -21,9 +21,11 @@
   "dependencies": {
     "@emotion/cache": "^11.14.0",
     "@mui/material-nextjs": "^7.1.0",
-    "next": "^15.3.3",
     "react-intl": "^7.1.11",
     "stylis-plugin-rtl": "^2.1.1"
+  },
+  "peerDependencies": {
+    "next": "^15.3.3"
   },
   "devDependencies": {
     "@nl/eslint-config": "workspace:*",

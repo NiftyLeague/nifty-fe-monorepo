@@ -1,14 +1,49 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-import { action } from '@storybook/addon-actions';
-
+import type { Meta, StoryObj } from '@storybook/react';
+import { fn } from 'storybook/test';
 import Radio from '.';
 
-const options = [
+const meta: Meta<typeof Radio.Group> = {
+  title: 'Form/Radio',
+  component: Radio.Group,
+  parameters: {
+    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
+    layout: 'centered',
+  },
+  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
+  tags: ['autodocs'],
+  argTypes: {
+    layout: {
+      control: 'select',
+      options: ['horizontal', 'vertical'],
+      description: 'Layout direction of the radio group',
+    },
+    size: {
+      control: 'select',
+      options: ['tiny', 'small', 'medium', 'large', 'xlarge'],
+      description: 'Size of the radio buttons',
+    },
+    onChange: {
+      action: 'changed',
+      description: 'Callback when selection changes',
+    },
+  },
+  args: {
+    // Default args for all stories
+    name: 'radio-group',
+    layout: 'vertical',
+    size: 'medium',
+    disabled: false,
+    onChange: fn(),
+  },
+} satisfies Meta<typeof Radio.Group>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+const radioOptions = [
   {
     label: 'Comments',
-    description:
-      'Get notified when someones posts a comment on a posting. Get notified when someones posts a comment on a posting Get notified when someones posts a comment on a posting.',
+    description: 'Get notified when someone posts a comment.',
     value: '1',
   },
   {
@@ -20,75 +55,100 @@ const options = [
     label: 'Offers',
     description: 'Get notified when a candidate accepts or rejects an offer.',
     value: '3',
+    disabled: true,
   },
 ];
 
-export default {
-  title: 'Data Input/Radio',
-  component: Radio,
-  argTypes: { onChange: { action: 'onChange' } },
+export const Default: Story = {
+  args: {
+    label: 'Notification Preferences',
+    descriptionText: 'Choose how you want to be notified',
+    options: radioOptions,
+  },
+  render: args => (
+    <div style={{ width: '400px' }}>
+      <Radio.Group {...args}>
+        {args.options?.map(option => (
+          <Radio
+            key={option.value}
+            name={args.name}
+            label={option.label}
+            description={option.description}
+            value={option.value}
+            disabled={option.disabled}
+          />
+        ))}
+      </Radio.Group>
+    </div>
+  ),
 };
 
-export const Default = (args: any) => (
-  <Radio.Group {...args} onChange={action('onChange')}>
-    {options.map((x, i) => (
-      <Radio name="sbui-radiogroup" key={i} label={x.label} description={x.description} value={x.value} />
-    ))}
-  </Radio.Group>
-);
-
-export const withOptionsObj = (args: any) => <Radio.Group {...args} />;
-
-export const withCards = (args: any) => <Radio.Group {...args} />;
-
-export const withBeforeAndAfterLabels = (args: any) => <Radio.Group {...args} />;
-
-Default.args = {
-  className: 'font-sans',
-  descriptionText: 'This is optional description',
-  disabled: false,
-  error: '',
-  label: 'Radio group main label',
-  labelOptional: 'This is an optional label',
-  layout: 'vertical',
-  name: 'radiogroup-example-1',
+export const HorizontalLayout: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    layout: 'horizontal',
+    label: 'Horizontal Radio Group',
+  },
 };
 
-withOptionsObj.args = {
-  className: 'font-sans',
-  descriptionText: 'This is optional description',
-  disabled: false,
-  error: '',
-  label: 'Radio group main label',
-  labelOptional: 'This is an optional label',
-  layout: 'vertical',
-  name: 'radiogroup-example-2',
-  options: options,
+export const WithError: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    error: 'Please select an option',
+    label: 'Radio Group with Error',
+  },
 };
 
-withCards.args = {
-  className: 'font-sans',
-  descriptionText: 'This is optional description',
-  disabled: false,
-  error: '',
-  label: 'Radio group main label',
-  labelOptional: 'This is an optional label',
-  layout: 'vertical',
-  name: 'radiogroup-example-3',
-  options: options,
-  type: 'cards',
+export const WithCustomLabels: Story = {
+  args: {
+    label: 'Pricing Plans',
+    options: [
+      {
+        label: 'Unlimited',
+        beforeLabel: 'Up to 5 team members',
+        afterLabel: '$80/month',
+        value: 'unlimited',
+      },
+      {
+        label: 'Business',
+        beforeLabel: 'Up to 3 team members',
+        afterLabel: '$60/month',
+        value: 'business',
+      },
+      {
+        label: 'Basic',
+        beforeLabel: 'Solo user',
+        afterLabel: '$30/month',
+        value: 'basic',
+      },
+    ],
+  },
+  render: args => (
+    <div style={{ width: '500px' }}>
+      <Radio.Group {...args}>
+        {args.options?.map(option => (
+          <div key={option.value} style={{ marginBottom: '1rem' }}>
+            <Radio
+              name={args.name}
+              label={option.label}
+              beforeLabel={option.beforeLabel}
+              afterLabel={option.afterLabel}
+              value={option.value}
+            />
+          </div>
+        ))}
+      </Radio.Group>
+    </div>
+  ),
 };
 
-withBeforeAndAfterLabels.args = {
-  label: 'Label',
-  beforeLabel: 'Before : ',
-  afterLabel: ' : After',
-  options: [
-    {
-      label: 'Label',
-      beforeLabel: 'Before : ',
-      afterLabel: ' : After',
-      description: 'Description',
-    },
-  ],
+export const DisabledState: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    disabled: true,
+    label: 'Disabled Radio Group',
+  },
 };

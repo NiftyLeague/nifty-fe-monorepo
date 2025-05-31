@@ -17,8 +17,8 @@ export const metadata: Metadata = {
   generator: 'Next.js',
   referrer: 'origin-when-cross-origin',
   keywords: ['Nifty League', 'NFT', 'Gaming', 'Web3', 'Metaverse', 'Mobile Gaming'],
-  authors: [{ name: 'NiftyAndy', url: 'https://niftyleague.com' }],
-  creator: 'NiftyAndy',
+  authors: [{ name: '0xPlayerOne', url: 'https://niftyleague.com' }],
+  creator: '0xPlayerOne',
   publisher: 'Nifty League',
   assets: ['https://niftyleague.com'],
   formatDetection: {
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     description:
       'A decentralized game studio & publisher creating an open & efficient path for indie studios to develop & publish groundbreaking games.',
     url: 'https://niftyleague.com',
-    siteName: 'NiftyLeague',
+    siteName: 'Nifty League',
     images: 'https://niftyleague.com/img/console-game/classic-gaming-reinvented.webp',
     locale: 'en_US',
     type: 'website',
@@ -96,7 +96,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         `}
       </Script>
 
-      <body suppressHydrationWarning={true}>
+      <body suppressHydrationWarning>
         <ThemeProvider>{children}</ThemeProvider>
 
         <Suspense fallback={null}>

@@ -20,7 +20,7 @@ interface InputProps {
   size?: 'tiny' | 'small' | 'medium' | 'large' | 'xlarge';
 }
 
-interface GroupProps {
+export interface GroupProps {
   id?: string;
   layout?: 'horizontal' | 'vertical';
   error?: string;
@@ -30,19 +30,22 @@ interface GroupProps {
   beforeLabel?: string;
   labelOptional?: string;
   name: string;
-  type: string;
+  type?: string;
   transform?: string;
   value?: string;
   className?: string;
   children?: React.ReactNode;
   options?: Array<InputProps>;
+  disabled?: boolean;
+  style?: React.CSSProperties;
   onChange?(x: React.ChangeEvent<HTMLInputElement>): void;
+  onFocus?(x: React.FocusEvent<HTMLInputElement>): void;
   size?: 'tiny' | 'small' | 'medium' | 'large' | 'xlarge';
 }
 
 function RadioGroup({
   id,
-  layout,
+  layout = 'vertical',
   error,
   descriptionText,
   label,
@@ -51,8 +54,8 @@ function RadioGroup({
   labelOptional,
   children,
   className,
-  type,
-  options,
+  type = 'default',
+  options = [],
   value,
   name,
   onChange,
