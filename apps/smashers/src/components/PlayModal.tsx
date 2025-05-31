@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Typography, Space } from '@nl/ui/supabase';
@@ -11,6 +12,29 @@ import styles from '@/styles/modal.module.css';
 const ModalContent = ({ launchGame }: { launchGame: () => void }) => {
   const { message } = useVersion();
 
+  // Preload all app badge images
+  useEffect(() => {
+    const preloadLinks: HTMLLinkElement[] = [];
+    const images = [
+      '/img/badges/google-play-badge.webp',
+      '/img/badges/apple-store-badge.svg',
+      '/img/badges/pc-badge.png',
+    ];
+
+    images.forEach(src => {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = src;
+      document.head.appendChild(link);
+      preloadLinks.push(link);
+    });
+
+    return () => {
+      preloadLinks.forEach(link => document.head.removeChild(link));
+    };
+  }, []);
+
   return (
     <Space size={6} direction="vertical" className={styles.model_select_view_content}>
       <Space size={4} direction="horizontal">
@@ -19,6 +43,7 @@ const ModalContent = ({ launchGame }: { launchGame: () => void }) => {
           alt="Company Logo"
           width={50}
           height={48}
+          priority
           style={{
             maxWidth: '100%',
             height: 'auto',
@@ -45,7 +70,9 @@ const ModalContent = ({ launchGame }: { launchGame: () => void }) => {
             alt="Get it on Google Play"
             width={564}
             height={169}
+            priority
             loading="eager"
+            fetchPriority="high"
             style={{
               width: '100%',
               maxWidth: '100%',
@@ -60,6 +87,8 @@ const ModalContent = ({ launchGame }: { launchGame: () => void }) => {
             width={120}
             height={40}
             loading="eager"
+            priority
+            fetchPriority="high"
             style={{
               width: '92%',
               maxWidth: '100%',
@@ -74,6 +103,8 @@ const ModalContent = ({ launchGame }: { launchGame: () => void }) => {
             width={564}
             height={168}
             loading="eager"
+            priority
+            fetchPriority="high"
             style={{
               width: '100%',
               maxWidth: '100%',
