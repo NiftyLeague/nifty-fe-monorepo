@@ -7,7 +7,7 @@ import DropdownStyles from './Dropdown.module.css';
 
 import type * as RadixDropdownTypes from '@radix-ui/react-dropdown-menu/';
 
-interface RootProps {
+export interface RootProps {
   open?: boolean;
   arrow?: boolean;
   onOpenChange?: RadixDropdownTypes.DropdownMenuProps['onOpenChange']; //   DropdownMenu['onOpenChange']

@@ -1,57 +1,77 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
+import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from '../Button';
 import { Space } from '../Space';
 import Typography from '../Typography';
-
 import { Divider } from './';
 
-export default {
+const meta: Meta<typeof Divider> = {
   title: 'Utilities/Divider',
   component: Divider,
+  tags: ['autodocs'],
+  argTypes: {
+    orientation: {
+      control: { type: 'select' },
+      options: ['left', 'center', 'right'],
+    },
+    type: {
+      control: { type: 'select' },
+      options: ['horizontal', 'vertical'],
+    },
+    light: {
+      control: { type: 'boolean' },
+    },
+  },
 };
 
-export const Default = (args: any) => <Divider {...args} />;
+export default meta;
+type Story = StoryObj<typeof Divider>;
 
-export const withCenterText = (args: any) => <Divider {...args}>Hello world</Divider>;
-
-export const withLeftText = (args: any) => <Divider {...args}>Hello world</Divider>;
-
-export const withRightText = (args: any) => <Divider {...args}>Hello world</Divider>;
-
-export const lighterColor = (args: any) => <Divider {...args} />;
-
-export const vertical = (args: any) => (
-  <div style={{ height: '32px' }}>
-    <Space style={{ height: '100%' }}>
-      <Divider {...args} />
-      <Button>Button one</Button>
-      <Divider {...args} />
-      <Button>Button two</Button>
-      <Divider {...args} />
-      <Typography.Text>Some text</Typography.Text>
-      <Divider {...args} />
-      <Button>Button three</Button>
-    </Space>
-  </div>
-);
-
-Default.args = {};
-
-withCenterText.args = {};
-
-withLeftText.args = {
-  orientation: 'left',
+export const Default: Story = {
+  args: {},
 };
 
-withRightText.args = {
-  orientation: 'right',
+export const WithCenterText: Story = {
+  args: {
+    children: 'Hello world',
+  },
 };
 
-lighterColor.args = {
-  light: true,
+export const WithLeftText: Story = {
+  args: {
+    children: 'Hello world',
+    orientation: 'left',
+  },
 };
 
-vertical.args = {
-  type: 'vertical',
+export const WithRightText: Story = {
+  args: {
+    children: 'Hello world',
+    orientation: 'right',
+  },
+};
+
+export const LighterColor: Story = {
+  args: {
+    light: true,
+  },
+};
+
+export const Vertical: Story = {
+  render: (args: any) => (
+    <div style={{ height: '32px' }}>
+      <Space style={{ height: '100%' }}>
+        <Divider {...args} type="vertical" />
+        <Button>Button one</Button>
+        <Divider {...args} type="vertical" />
+        <Button>Button two</Button>
+        <Divider {...args} type="vertical" />
+        <Typography.Text>Some text</Typography.Text>
+        <Divider {...args} type="vertical" />
+        <Button>Button three</Button>
+      </Space>
+    </div>
+  ),
+  args: {
+    type: 'vertical',
+  },
 };

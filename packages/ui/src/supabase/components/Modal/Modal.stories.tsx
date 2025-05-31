@@ -1,307 +1,209 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
+import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { action } from '@storybook/addon-actions';
 
 import { Modal } from '.';
 import Typography from '../Typography';
-import { Badge } from '../Badge';
 import { Button } from '../Button';
-import { Space } from '../Space';
-import { IconTrash, IconAlertCircle, IconCheck } from './../../index';
 import { Dropdown } from '../Dropdown';
+import { IconTrash, IconAlertCircle, IconCheck } from './../../index';
+import { Space } from '../Space';
 
-export default {
+const meta: Meta<typeof Modal> = {
   title: 'Overlays/Modal',
   component: Modal,
-  argTypes: { onClick: { action: 'clicked' } },
-};
-
-export const Default = (args: any) => (
-  <Modal {...args}>
-    <Typography.Text type="secondary">
-      Modal content is inserted here, if you need to insert anything into the Modal you can do so via{' '}
-      <Typography.Text code>{'{children}'}</Typography.Text>
-    </Typography.Text>
-  </Modal>
-);
-
-export const withIcon = (args: any) => (
-  <Modal {...args}>
-    <Typography.Text type="secondary">
-      Modal content is inserted here, if you need to insert anything into the Modal you can do so via{' '}
-      <Typography.Text code>{'{children}'}</Typography.Text>
-    </Typography.Text>
-  </Modal>
-);
-
-export const withVerticalLayout = (args: any) => (
-  <Modal {...args}>
-    <Typography.Text type="secondary">
-      Modal content is inserted here, if you need to insert anything into the Modal you can do so via{' '}
-      <Typography.Text code>{'{children}'}</Typography.Text>
-    </Typography.Text>
-  </Modal>
-);
-
-export const withCloseButton = (args: any) => (
-  <Modal {...args}>
-    <Typography.Text type="secondary">
-      This Modal has a close button on the top right
-      <Typography.Text code>{'{children}'}</Typography.Text>
-    </Typography.Text>
-  </Modal>
-);
-
-export const rightAlignedFooter = (args: any) => (
-  <Modal {...args}>
-    <Typography.Text type="secondary">
-      Modal content is inserted here, if you need to insert anything into the Modal you can do so via{' '}
-      <Typography.Text code>{'{children}'}</Typography.Text>
-    </Typography.Text>
-  </Modal>
-);
-
-export const hideFooter = (args: any) => (
-  <Modal {...args}>
-    <Typography.Text type="secondary">
-      Modal content is inserted here, if you need to insert anything into the Modal you can do so via{' '}
-      <Typography.Text code>{'{children}'}</Typography.Text>
-    </Typography.Text>
-  </Modal>
-);
-
-export const withFooterBackground = (args: any) => (
-  <Modal {...args}>
-    <Typography.Text type="secondary">
-      Modal content is inserted here, if you need to insert anything into the Modal you can do so via{' '}
-      <Typography.Text code>{'{children}'}</Typography.Text>
-    </Typography.Text>
-  </Modal>
-);
-
-export const customFooter = (args: any) => (
-  <Modal {...args}>
-    <Typography.Text type="secondary">
-      Modal content is inserted here, if you need to insert anything into the Modal you can do so via{' '}
-      <Typography.Text code>{'{children}'}</Typography.Text>
-    </Typography.Text>
-  </Modal>
-);
-
-export const customFooterVertical = (args: any) => (
-  <Modal {...args}>
-    <Typography.Text type="secondary">
-      Modal content is inserted here, if you need to insert anything into the Modal you can do so via{' '}
-      <Typography.Text code>{'{children}'}</Typography.Text>
-    </Typography.Text>
-  </Modal>
-);
-
-export const LongModal = () => (
-  <div>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-    <Modal visible={true}>
+  tags: ['autodocs'],
+  args: {
+    visible: true,
+    title: 'This is the title of the modal',
+    description: 'And i am the description',
+    children: (
       <Typography.Text type="secondary">
-        <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-        <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-        <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-        <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-        <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-        <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-        <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-        <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-        <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-        <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-        <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-        <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-        <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
-        <p>Modal content is inserted here, if you need to insert anything into the Modal you can do so via</p>
+        Modal content is inserted here, if you need to insert anything into the Modal you can do so via{' '}
         <Typography.Text code>{'{children}'}</Typography.Text>
       </Typography.Text>
-    </Modal>
+    ),
+  },
+  argTypes: {
+    onCancel: { action: 'cancel' },
+    onConfirm: { action: 'confirm' },
+    icon: { control: false },
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof Modal>;
+
+// Common icon for all stories
+const icon = <IconAlertCircle size="xlarge" />;
+
+// Basic Modal with icon
+export const Default: Story = {
+  args: {
+    icon,
+  },
+};
+
+// Modal with close button
+export const WithCloseButton: Story = {
+  args: {
+    closable: true,
+    icon,
+    children: 'This Modal has a close button on the top right',
+  },
+};
+
+// Modal with footer buttons
+export const WithFooter: Story = {
+  args: {
+    icon,
+    customFooter: (
+      <Space>
+        <Button type="outline">Cancel</Button>
+        <Button type="primary">Confirm</Button>
+      </Space>
+    ),
+  },
+};
+
+// Modal with right-aligned footer
+export const RightAlignedFooter: Story = {
+  args: {
+    icon,
+    alignFooter: 'right',
+    customFooter: (
+      <Space>
+        <Button type="outline">Cancel</Button>
+        <Button type="primary">Confirm</Button>
+      </Space>
+    ),
+  },
+};
+
+// Modal without footer
+export const HideFooter: Story = {
+  args: {
+    icon,
+    hideFooter: true,
+  },
+};
+
+// Modal with long content
+const LongContent = () => (
+  <div>
+    {Array(30)
+      .fill(null)
+      .map((_, i) => (
+        <p key={i}>Modal content line {i + 1}</p>
+      ))}
   </div>
 );
 
-export const customFooterOneButton = (args: any) => <Modal {...args} />;
+export const LongModal: Story = {
+  args: {
+    icon,
+    children: <LongContent />,
+  },
+};
 
-export const ModalWithDropdowns = () => {
+// Modal with dropdown
+const DropdownModal = () => {
   const [visible, setVisible] = useState(false);
-
   return (
     <>
-      <Button onClick={() => setVisible(!visible)}>Open</Button>
-      <Modal
-        visible={visible}
-        onCancel={() => setVisible(!visible)}
-        hideFooter
-        // className="pointer-events-auto"
-      >
+      <Button onClick={() => setVisible(true)}>Open Dropdown Modal</Button>
+      <Modal visible={visible} onCancel={() => setVisible(false)} hideFooter icon={icon}>
         <Dropdown
-          // className="pointer-events-auto"
           overlay={
             <>
-              <Dropdown.Item onClick={() => console.log('item 1 clicked')}>Item 1</Dropdown.Item>
-              <Dropdown.Item onClick={() => console.log('item 2 clicked')}>Item 2</Dropdown.Item>
+              <Dropdown.Item>Item 1</Dropdown.Item>
+              <Dropdown.Item>Item 2</Dropdown.Item>
+              <Dropdown.Item>Item 3</Dropdown.Item>
             </>
           }
         >
-          <Button as="span">Trigger dropdown</Button>
+          <Button type="outline" iconRight={<IconTrash />}>
+            Click me
+          </Button>
         </Dropdown>
       </Modal>
     </>
   );
 };
 
-Default.args = {
-  visible: true,
-  onCancel: action('onCancel'),
-  onConfirm: action('onConfirm'),
-  title: 'This is the title of the modal',
-  description: 'And i am the description',
+export const WithDropdowns: Story = {
+  render: () => <DropdownModal />,
 };
 
-withFooterBackground.args = {
-  visible: true,
-  footerBackground: true,
-  onCancel: action('onCancel'),
-  onConfirm: action('onConfirm'),
-  title: 'This is the title of the modal',
-  description: 'And i am the description',
+// Modal with custom footer
+const CustomFooterExample = () => {
+  const [visible, setVisible] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setVisible(true)}>Open Custom Footer Modal</Button>
+      <Modal
+        visible={visible}
+        onCancel={() => setVisible(false)}
+        title="Custom Footer Example"
+        hideFooter
+        customFooter={
+          <div className="flex items-center justify-between w-full">
+            <Button type="outline" onClick={() => setVisible(false)}>
+              Cancel
+            </Button>
+            <div className="flex items-center gap-2">
+              <Button type="outline" onClick={() => console.log('Save as draft')}>
+                Save as draft
+              </Button>
+              <Button type="primary" onClick={() => console.log('Publish')}>
+                Publish
+              </Button>
+            </div>
+          </div>
+        }
+      >
+        <Typography.Text>Custom footer content goes here</Typography.Text>
+      </Modal>
+    </>
+  );
 };
 
-const icon = <IconAlertCircle background="brand" size="xlarge" />;
-
-withIcon.args = {
-  visible: true,
-  showIcon: true,
-  onCancel: action('onCancel'),
-  onConfirm: action('onConfirm'),
-  title: 'This is the title of the modal',
-  description: 'And i am the description',
-  icon: icon,
+export const CustomFooter: Story = {
+  render: () => <CustomFooterExample />,
 };
 
-withCloseButton.args = {
-  visible: true,
-  closable: true,
-  onCancel: action('onCancel'),
-  onConfirm: action('onConfirm'),
-  title: 'This Modal has a close button on the top right',
-  description: 'And i am the description',
+// Payment success modal
+const PaymentSuccessModal = () => {
+  const [visible, setVisible] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setVisible(true)}>Open Payment Success</Button>
+      <Modal
+        visible={visible}
+        onCancel={() => setVisible(false)}
+        hideFooter
+        customFooter={
+          <div className="flex items-center justify-center w-full">
+            <Button type="primary" onClick={() => setVisible(false)}>
+              Got it
+            </Button>
+          </div>
+        }
+      >
+        <div className="flex flex-col items-center text-center">
+          <div className="p-3 bg-green-100 rounded-full mb-4">
+            <IconCheck className="text-green-600" size={24} strokeWidth={2} />
+          </div>
+          <Typography.Title level={4}>Payment successful</Typography.Title>
+          <Typography.Text type="secondary" className="mt-2">
+            Your payment has been successfully submitted. We&apos;ve sent you an email with all of the details of your
+            order.
+          </Typography.Text>
+        </div>
+      </Modal>
+    </>
+  );
 };
 
-withVerticalLayout.args = {
-  visible: true,
-  size: 'small',
-  layout: 'vertical',
-  onCancel: action('onCancel'),
-  onConfirm: action('onConfirm'),
-  title: 'This is the title of the modal',
-  description: 'And i am the description',
-  icon: icon,
-};
-
-rightAlignedFooter.args = {
-  visible: true,
-  alignFooter: 'right',
-  onCancel: action('onCancel'),
-  onConfirm: action('onConfirm'),
-  title: 'This is the title of the modal',
-  description: 'And i am the description',
-};
-
-hideFooter.args = {
-  visible: true,
-  hideFooter: true,
-  onCancel: action('onCancel'),
-  onConfirm: action('onConfirm'),
-  title: 'This is the title of the modal',
-  description: 'And i am the description',
-};
-
-customFooter.args = {
-  visible: true,
-  onCancel: action('onCancel'),
-  onConfirm: action('onConfirm'),
-  title: 'This is the title of the modal',
-  description: 'And i am the description',
-  customFooter: [
-    <Space key="space">
-      <div>
-        <Badge color="red" dot size="small">
-          Proceed with caution
-        </Badge>
-      </div>
-      <Button type="secondary">Cancel</Button>
-      <Button danger>Delete</Button>
-    </Space>,
-  ],
-};
-
-customFooterVertical.args = {
-  visible: true,
-  size: 'small',
-  onCancel: action('onCancel'),
-  onConfirm: action('onConfirm'),
-  title: 'This is the title of the modal',
-  description: 'And i am the description',
-  layout: 'vertical',
-  customFooter: [
-    <Space key="space" style={{ width: '100%' }}>
-      <Button size="medium" block type="secondary">
-        Cancel
-      </Button>
-      <Button size="medium" block danger icon={<IconTrash />}>
-        Delete
-      </Button>
-    </Space>,
-  ],
-};
-
-customFooterOneButton.args = {
-  visible: true,
-  size: 'small',
-  icon: <IconCheck background="brand" size="xxxlarge" />,
-  onCancel: action('onCancel'),
-  onConfirm: action('onConfirm'),
-  title: 'Payment succesful',
-  description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur amet labore.',
-  layout: 'vertical',
-  customFooter: [
-    <Space key="space" style={{ width: '100%' }}>
-      <Button size="medium" block icon={<IconCheck />}>
-        Confirm
-      </Button>
-    </Space>,
-  ],
+export const PaymentSuccess: Story = {
+  render: () => <PaymentSuccessModal />,
 };
