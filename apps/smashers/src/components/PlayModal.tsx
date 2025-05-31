@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Typography, Space } from '@nl/ui/supabase';
@@ -48,13 +47,7 @@ const ModalContent = ({ launchGame }: { launchGame: () => void }) => {
             width={234}
             height={70}
             priority
-            loading="eager"
-            fetchPriority="high"
-            style={{
-              width: '100%',
-              maxWidth: '100%',
-              height: 'auto',
-            }}
+            style={{ width: '100%', maxWidth: '100%', height: 'auto' }}
           />
         </Link>
         <Link href="/ios" target="_blank" rel="noreferrer" style={{ width: '100%', textAlign: 'center' }}>
@@ -63,14 +56,8 @@ const ModalContent = ({ launchGame }: { launchGame: () => void }) => {
             alt="Apple Store Badge"
             width={215}
             height={72}
-            loading="eager"
             priority
-            fetchPriority="high"
-            style={{
-              width: '92%',
-              maxWidth: '100%',
-              height: 'auto',
-            }}
+            style={{ width: '92%', maxWidth: '100%', height: 'auto' }}
           />
         </Link>
         <Link href="/steam" target="_blank" rel="noreferrer" style={{ width: '100%', textAlign: 'center' }}>
@@ -79,14 +66,8 @@ const ModalContent = ({ launchGame }: { launchGame: () => void }) => {
             alt="Steam Store Badge"
             width={234}
             height={69}
-            loading="eager"
             priority
-            fetchPriority="high"
-            style={{
-              width: '100%',
-              maxWidth: '100%',
-              height: 'auto',
-            }}
+            style={{ width: '100%', maxWidth: '100%', height: 'auto' }}
           />
         </Link>
         {/* <UnityButton launchGame={launchGame} /> */}
