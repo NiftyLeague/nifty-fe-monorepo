@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import styles from '@/styles/modal.module.css';
+import styles from '@/styles/modal.module.scss';
 import Modal from '@/components/Modal';
 
 const TrailerContent = () => {

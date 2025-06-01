@@ -1,28 +1,8 @@
 import type { Metadata, Viewport } from 'next';
-import { IBM_Plex_Sans, Press_Start_2P, Lilita_One } from 'next/font/google';
-import { StyledEngineProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@nl/theme';
 import { FeatureFlagProvider } from '@/contexts/FeatureFlagsProvider';
-import '@/styles/globals.css';
-import '@/styles/animations.css';
 
-const ibmPlexSans = IBM_Plex_Sans({
-  subsets: ['latin'],
-  weight: ['100', '400', '500', '700'],
-  variable: '--font-ibm-plex-sans',
-  display: 'swap',
-});
-const pressStart2P = Press_Start_2P({
-  subsets: ['latin'],
-  weight: ['400'],
-  variable: '--font-press-start-2p',
-  display: 'swap',
-});
-const lilitaOne = Lilita_One({
-  subsets: ['latin'],
-  weight: ['400'],
-  variable: '--font-lilita-one',
-  display: 'swap',
-});
+import '@/styles/index.scss';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://niftysmashers.com'),
@@ -102,15 +82,13 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <link rel="icon" href="/favicon/smashers/favicon.ico" />
-
-      <body
-        className={`${ibmPlexSans.variable} ${pressStart2P.variable} ${lilitaOne.variable} font-sans dark`}
-        suppressHydrationWarning
-      >
-        <StyledEngineProvider injectFirst>
+      <head>
+        <link rel="icon" href="/favicon/smashers/favicon.ico" />
+      </head>
+      <body suppressHydrationWarning className="dark">
+        <ThemeProvider>
           <FeatureFlagProvider>{children}</FeatureFlagProvider>
-        </StyledEngineProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -9,7 +9,7 @@
   width: 100vw;
 }
 
-.container {
+.heroContainer {
   position: relative;
   top: 0;
   left: 0;
@@ -17,13 +17,13 @@
   width: 100%;
 }
 
-.content {
+.heroContent {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
+  height: 100vh;
 }
 
 .wordmark {
@@ -34,51 +34,9 @@
   margin-top: 30px;
 }
 
-.buttons {
-  width: 600px;
-  max-width: 100vw;
-  display: flex;
-  justify-content: space-evenly;
-  margin-bottom: 60px;
-  z-index: 99;
-}
-
-.buttons button {
-  align-items: center;
-  background: var(--custom-color-brand);
-  border-radius: 100px;
-  border: 5px solid white;
-  color: white;
-  cursor: pointer;
-  display: flex;
-  font-size: 20px;
-  padding: 12px 20px;
-  text-transform: uppercase;
-  transition: all 0.3s ease-in-out;
-}
-
-.buttons button:hover {
-  transform: translateY(-4px);
-  transition: transform 0.2s;
-  border-color: var(--custom-color-brand);
-}
-
-.buttons button img {
-  margin-right: 8px;
-}
-
 @media only screen and (max-width: 576px) {
   .wordmark {
     margin-top: 55px;
-  }
-  .buttons {
-    margin-bottom: 45px;
-    max-width: 80vw;
-    flex-wrap: wrap;
-  }
-  .buttons button {
-    font-size: 16px;
-    margin-top: 1.5rem;
   }
 }
 
@@ -89,7 +47,7 @@
 .game_details,
 .character_details,
 .footer {
-  background-color: var(--custom-bg-color-dark);
+  background-color: var(--custom-bg-color);
   max-width: 100vw;
   font-size: calc(15px + 0.390625vw);
 }

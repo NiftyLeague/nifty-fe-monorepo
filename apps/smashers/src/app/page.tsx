@@ -5,10 +5,11 @@ import Head from 'next/head';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 
-import Navbar from '@/components/Navbar';
-import ConsoleGame from '@/components/ConsoleGame';
 import ActionButtonsGroup from '@/components/ActionButtonsGroup';
-import styles from '@/styles/smashers.module.css';
+import ConsoleGame from '@/components/ConsoleGame';
+import Navbar from '@/components/Navbar';
+
+import styles from '@/styles/app.module.scss';
 
 // Lazy load modals
 const CreditsModal = dynamic(() => import('@/components/CreditsModal'), { ssr: false, loading: () => null });
@@ -65,9 +66,9 @@ export default function Home({ searchParams }: { searchParams: NextSearchParams 
       <main>
         <section className={styles.hero}>
           <div className="radial-gradient-bg-centered" />
-          <div className={styles.container}>
+          <div className={styles.heroContainer}>
             <Navbar />
-            <div className={styles.content}>
+            <div className={styles.heroContent}>
               <Image
                 src="/img/logos/smashers/app_wordmark_logo.webp"
                 alt="Wordmark Logo"

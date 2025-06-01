@@ -50,7 +50,7 @@
 /* Button */
 
 .button {
-  color: var(--custom-color);
+  color: var(--custom-font-color);
   border: var(--custom-border);
   background-color: var(--custom-bg-color);
   text-align: center;
@@ -76,13 +76,13 @@
 }
 .button_secondary {
   composes: button;
-  background-color: var(--custom-color-secondary) !important;
-  border-color: var(--custom-color-secondary) !important;
+  /* background-color: var(--custom-panel-color) !important; */
+  /* border-color: var(--custom-panel-color) !important; */
 }
-.button_secondary:hover {
+/* .button_secondary:hover {
   background-color: var(--custom-bg-color) !important;
   border-color: var(--custom-bg-color) !important;
-}
+} */
 
 .button_danger {
   composes: button;
@@ -90,8 +90,8 @@
   border-color: var(--custom-color-error) !important;
 }
 .button_danger:hover {
-  background-color: var(--custom-color-error-secondary) !important;
-  border-color: var(--custom-color-error-secondary) !important;
+  background-color: var(--custom-color-error-dark) !important;
+  border-color: var(--custom-color-error-dark) !important;
 }
 
 .button svg {
@@ -102,7 +102,7 @@
 
 .hr {
   border: none;
-  border-top: 1px solid var(--custom-color-secondary);
+  border-top: 1px solid var(--custom-panel-color);
   width: 100%;
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -160,9 +160,9 @@
   background-color: var(--custom-bg-color) !important;
 }
 .delete_account_dialog_paper {
-  background-color: var(--custom-card-color) !important;
-  border-color: var(--custom-card-color) !important;
-  color: var(--custom-color) !important;
+  background-color: var(--custom-panel-color) !important;
+  border-color: var(--custom-panel-color) !important;
+  color: var(--custom-font-color) !important;
   width: 800px;
   max-width: 100vw;
 }

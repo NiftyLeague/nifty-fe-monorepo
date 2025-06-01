@@ -3,6 +3,7 @@
 $defaultFont: $defaultFontFamily, 'Roboto', 'Helvetica', 'Arial', sans-serif;
 $headerFont: $headerFontFamily, $defaultFont;
 $subheaderFont: $subheaderFontFamily, $defaultFont;
+$btnFont: $defaultFont;
 
 /************************************* Global Variables *************************************/
 
@@ -12,16 +13,22 @@ $subheaderFont: $subheaderFontFamily, $defaultFont;
   --custom-font-weight-medium: 500;
   --custom-font-weight-bold: 700;
 
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --background-start-rgb: 214, 219, 220;
+  --foreground-rgb: 0, 0, 0;
+
   --custom-bg-color: #{$grey900};
-  --custom-panel-color: #{$grey800};
-  --custom-font-color: #{$grey50};
-  --custom-font-color-secondary: #{$grey500};
-  --custom-color-brand: #{$primaryMain};
   --custom-color-brand-secondary: #{$secondaryMain};
+  --custom-color-brand: #{$primaryMain};
+  --custom-color-error-dark: #{$errorDark};
+  --custom-color-error-light: #{$errorLight};
+  --custom-color-error: #{$errorMain};
+  --custom-color-success-dark: #{$successDark};
+  --custom-color-success-light: #{$successLight};
   --custom-color-success: #{$successMain};
+  --custom-font-color-secondary: #{$grey400};
+  --custom-font-color: #{$grey50};
+  --custom-panel-color: #{$grey800};
 
   --primary-glow: conic-gradient(
     from 180deg at 50% 50%,
@@ -42,11 +49,12 @@ $subheaderFont: $subheaderFontFamily, $defaultFont;
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
 
-  --custom-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.8);
-  --custom-border: 1px solid #333;
-  --custom-border-radius: 5px;
-  --custom-spacing: 5px;
   --border-radius: 12px;
+  --custom-border-radius: 5px;
+  --custom-border: 1px solid #333;
+  --custom-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.8);
+  --custom-spacing: 5px;
+  --max-width: 1200px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -73,17 +81,18 @@ $subheaderFont: $subheaderFontFamily, $defaultFont;
 
 * {
   box-sizing: border-box;
-  font-family: $defaultFont;
+  font-family: $defaultFont !important;
   font-weight: var(--custom-font-weight);
   font-style: normal;
 }
 
 html,
 body,
-#__next {
+#__next,
+main {
   background: var(--custom-bg-color) !important;
   color: var(--custom-font-color) !important;
-  font-family: $defaultFont;
+  font-family: $defaultFont !important;
   font-size: calc(15px + 0.390625vw) !important;
   font-style: normal;
   font-weight: var(--custom-font-weight);
@@ -130,8 +139,21 @@ h6 {
   font-size: 0.67rem !important;
 }
 
-.btn {
-  font-size: 0.85rem;
+strong {
+  font-weight: var(--custom-font-weight-bold);
+}
+
+button,
+button span,
+.btn,
+.sbui-btn span {
+  font-family: $btnFont !important;
+  font-size: 0.875rem;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 @media (prefers-color-scheme: dark) {

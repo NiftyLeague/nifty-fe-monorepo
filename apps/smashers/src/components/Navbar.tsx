@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import styles from '@/styles/navbar.module.css';
+import styles from '@/styles/navbar.module.scss';
 import cn from 'classnames';
 
 export default function Navbar() {

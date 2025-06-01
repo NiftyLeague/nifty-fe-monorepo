@@ -6,7 +6,7 @@ import { Typography, Space } from '@nl/ui/supabase';
 import useVersion from '@/hooks/useVersion';
 import Modal from '@/components/Modal';
 // import UnityButton from '@/components/UnityButton';
-import styles from '@/styles/modal.module.css';
+import styles from '@/styles/modal.module.scss';
 
 const ModalContent = ({ launchGame }: { launchGame: () => void }) => {
   const { message } = useVersion();

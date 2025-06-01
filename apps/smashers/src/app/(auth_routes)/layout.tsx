@@ -18,7 +18,9 @@ export default function AuthLayout({ children }: PropsWithChildren) {
   return (
     <Suspense fallback={null}>
       <AuthProvider>
-        <main id="auth-layout">{children}</main>
+        <main id="auth-layout" className="min-h-screen bg-background-default">
+          {children}
+        </main>
       </AuthProvider>
     </Suspense>
   );

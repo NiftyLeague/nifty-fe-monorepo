@@ -3,7 +3,7 @@
 import { Fragment } from 'react';
 import Image from 'next/image';
 import creditsData from '@/data/credits.json';
-import styles from '@/styles/modal.module.css';
+import styles from '@/styles/modal.module.scss';
 import { Typography } from '@nl/ui/supabase';
 import { Company, CreditsData, TeamMember } from '@/types/credits';
 import Modal from '@/components/Modal';
@@ -69,7 +69,7 @@ const SectionNote = ({ children }: { children: React.ReactNode }) => {
   return (
     <Typography.Title
       level={3}
-      style={{ textAlign: 'center', marginBottom: '1rem', fontSize: '1rem', lineHeight: 1.3 }}
+      style={{ textAlign: 'center', marginBottom: '1rem', fontSize: '0.875rem', lineHeight: 1.3 }}
     >
       {children}
     </Typography.Title>
@@ -82,7 +82,7 @@ const CreditsContent = () => {
   return (
     <div style={{ maxWidth: '800px', maxHeight: '80vh', overflowY: 'auto', padding: '2rem' }}>
       <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-        <Typography.Title level={1}>CREDITS</Typography.Title>
+        <Typography.Title level={2}>CREDITS</Typography.Title>
       </div>
 
       <div>
@@ -105,7 +105,6 @@ const CreditsContent = () => {
                       <Typography.Text
                         type="default"
                         style={{
-                          fontSize: '1rem',
                           fontWeight: 'bold',
                           justifySelf: 'end',
                           maxWidth: '40vw',
@@ -120,7 +119,6 @@ const CreditsContent = () => {
                       <Typography.Text
                         type="secondary"
                         style={{
-                          fontSize: '1rem',
                           justifySelf: 'start',
                           maxWidth: '40vw',
                           overflow: 'hidden',
@@ -136,7 +134,6 @@ const CreditsContent = () => {
                       key={mIndex}
                       type="default"
                       style={{
-                        fontSize: '1rem',
                         fontWeight: 'bold',
                         gridColumn: '1 / -1',
                         overflow: 'hidden',
@@ -162,7 +159,7 @@ const CreditsContent = () => {
         </SectionNote>
         <div style={{ textAlign: 'center', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '10px' }}>
           {creditsData.formerMembers.map((member, index) => (
-            <Typography.Text key={index} style={{ fontSize: '1rem' }}>
+            <Typography.Text key={index}>
               {member}
               {index < creditsData.formerMembers.length - 1 ? ', ' : ''}
             </Typography.Text>

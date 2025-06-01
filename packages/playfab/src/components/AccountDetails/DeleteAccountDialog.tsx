@@ -10,7 +10,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { IconTrash } from '@nl/ui/supabase';
+import { Button, IconTrash } from '@nl/ui/supabase';
 
 import fetchJson from '../../utils/fetchJson';
 import { errorMsgHandler } from '../../utils/errorHandlers';
@@ -44,15 +44,17 @@ export default function DeleteAccountDialog({ loading = false }) {
 
   return (
     <div>
-      <button
-        className={cn(styles.button_danger, 'block')}
-        style={{ marginBottom: 0 }}
+      <Button
+        block
+        className={styles.button_danger}
         disabled={loading}
+        icon={<IconTrash />}
+        size="medium"
+        type="default"
         onClick={handleClickOpen}
       >
-        <IconTrash />
         Delete Account
-      </button>
+      </Button>
       <Dialog
         open={open}
         onClose={handleClose}

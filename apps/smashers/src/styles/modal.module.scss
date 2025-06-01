@@ -31,10 +31,11 @@
 }
 
 .model_select_view_content span {
-  font-size: calc(15px + 0.390625vw);
+  font-size: 0.875rem;
+  margin-top: 1rem !important;
 }
 .model_select_view_content .secondary {
-  font-size: 16px;
+  font-size: 0.8rem;
 }
 
 .modal_iframe {

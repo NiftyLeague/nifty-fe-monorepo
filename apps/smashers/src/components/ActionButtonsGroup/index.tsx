@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import styles from '@/styles/smashers.module.css';
+import styles from './index.module.css';
 
 type ActionButtonsGroupProps = {
   onPlayClick: () => void;
@@ -9,7 +9,7 @@ type ActionButtonsGroupProps = {
 
 export default function ActionButtonsGroup({ onPlayClick, onTrailerClick, onCreditsClick }: ActionButtonsGroupProps) {
   return (
-    <div className={styles.buttons}>
+    <div className={styles.heroBtnGroup}>
       <button onClick={onTrailerClick}>
         <Image
           src="/icons/socials/youtube.svg"
