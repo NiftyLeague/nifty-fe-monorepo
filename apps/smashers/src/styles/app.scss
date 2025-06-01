@@ -1,0 +1,261 @@
+/************************************* Utils *************************************/
+
+.hidden {
+  display: none !important;
+}
+.block {
+  display: block;
+  width: 100%;
+}
+.inline-block {
+  display: inline-block;
+  width: 100%;
+}
+.flex {
+  display: flex;
+}
+.flex.column {
+  flex-direction: column;
+}
+.flex.row {
+  flex-direction: row;
+}
+.flex.flex-1 {
+  flex: 1 1 0;
+}
+.flex-end {
+  justify-content: flex-end;
+}
+.flex-center {
+  justify-content: center;
+}
+.items-center {
+  align-items: center;
+}
+.text-sm {
+  font-size: 0.8rem;
+  font-weight: 300;
+}
+.text-right {
+  text-align: right;
+}
+.font-light {
+  font-weight: 300;
+}
+.opacity-half {
+  opacity: 50%;
+}
+.text-align-center {
+  text-align: center;
+}
+.white-space-no-wrap {
+  white-space: nowrap;
+}
+.pixelated {
+  image-rendering: crisp-edges;
+  image-rendering: -moz-crisp-edges; /* Firefox */
+  image-rendering: -o-crisp-edges; /* Opera */
+  image-rendering: -webkit-optimize-contrast; /* Webkit (non-standard naming)*/
+  -ms-interpolation-mode: nearest-neighbor; /* IE (non-standard property) */
+  image-rendering: pixelated;
+}
+.radial-gradient-bg {
+  position: absolute;
+  background: radial-gradient(
+    189.96% 61.18% at 50% 38.82%,
+    rgba(95, 190, 74, 0) 0%,
+    rgba(21, 18, 27, 0) 19.27%,
+    #08090a 99.74%
+  );
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
+.radial-gradient-bg-centered {
+  position: absolute;
+  background: radial-gradient(189.96% 61.18% at 50% 50%, rgba(95, 190, 74, 0) 0%, rgba(21, 18, 27, 0) 30%, #08090a 85%);
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
+.radial-gradient-bg-full {
+  position: absolute;
+  background: radial-gradient(transparent, #08090a 85%);
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+/************************************* Grid *************************************/
+
+.container {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.row {
+  position: relative;
+  width: 100%;
+}
+.row [class^='col'] {
+  float: left;
+  margin: 0.5rem 2%;
+  min-height: 0.125rem;
+}
+.col-1,
+.col-2,
+.col-3,
+.col-4,
+.col-5,
+.col-6,
+.col-7,
+.col-8,
+.col-9,
+.col-10,
+.col-11,
+.col-12 {
+  width: 96%;
+}
+.col-1-sm {
+  width: 4.33%;
+}
+.col-2-sm {
+  width: 12.66%;
+}
+.col-3-sm {
+  width: 21%;
+}
+.col-4-sm {
+  width: 29.33%;
+}
+.col-5-sm {
+  width: 37.66%;
+}
+.col-6-sm {
+  width: 46%;
+}
+.col-7-sm {
+  width: 54.33%;
+}
+.col-8-sm {
+  width: 62.66%;
+}
+.col-9-sm {
+  width: 71%;
+}
+.col-10-sm {
+  width: 79.33%;
+}
+.col-11-sm {
+  width: 87.66%;
+}
+.col-12-sm {
+  width: 96%;
+}
+.row::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.hidden-sm {
+  display: none;
+}
+
+@media only screen and (min-width: 33.75em) {
+  /* 540px */
+  .container {
+    width: 80%;
+  }
+}
+
+@media only screen and (min-width: 45em) {
+  /* 720px */
+  .col-1 {
+    width: 4.33%;
+  }
+  .col-2 {
+    width: 12.66%;
+  }
+  .col-3 {
+    width: 21%;
+  }
+  .col-4 {
+    width: 29.33%;
+  }
+  .col-5 {
+    width: 37.66%;
+  }
+  .col-6 {
+    width: 46%;
+  }
+  .col-7 {
+    width: 54.33%;
+  }
+  .col-8 {
+    width: 62.66%;
+  }
+  .col-9 {
+    width: 71%;
+  }
+  .col-10 {
+    width: 79.33%;
+  }
+  .col-11 {
+    width: 87.66%;
+  }
+  .col-12 {
+    width: 96%;
+  }
+  .hidden-sm {
+    display: block;
+  }
+}
+
+@media only screen and (min-width: 60em) {
+  /* 960px */
+  .container {
+    width: 75%;
+    max-width: 60rem;
+  }
+}
+
+/************************************* Forms *************************************/
+
+label {
+  display: block;
+  margin: 8px 0 4px 0;
+  color: var(--custom-font-color-secondary);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: var(--custom-font-weight-medium);
+}
+
+input {
+  width: 100%;
+  border-radius: 5px;
+  border: var(--custom-border);
+  padding: 8px;
+  font-size: 0.9rem;
+  background-color: var(--custom-bg-color);
+  color: var(--custom-font-color);
+}
+
+input[disabled] {
+  color: rgba(224, 224, 224, 0.75) !important;
+  background-color: var(--custom-bg-color) !important;
+}
+
+/************************************* Component Overrides *************************************/
+
+.sbui-connect-input input[disabled] {
+  background-color: transparent !important;
+}
+
+.sbui-tab-bar-inner-container {
+  /* TODO: change back after enabling Inventory & Stats tabs */
+  /* justify-content: space-around; */
+  justify-content: flex-start;
+}

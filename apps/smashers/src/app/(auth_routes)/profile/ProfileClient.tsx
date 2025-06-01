@@ -1,13 +1,18 @@
 'use client';
 
-import { useEffect, useState, lazy, Suspense } from 'react';
+import { useEffect, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
+
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Card, IconDatabase, IconStar, IconUser, Space, Tabs, Typography } from '@nl/ui/supabase';
+import BackButton from '@/components/BackButton';
 import { useUserSession } from '@nl/playfab/hooks';
 import type { User } from '@nl/playfab/types';
-import dynamic from 'next/dynamic';
+import useFlags from '@/hooks/useFlags';
+
+import styles from '@/styles/profile.module.scss';
 
 // Dynamically import heavy components
 const AccountDetails = dynamic(() => import('@nl/playfab/components').then(mod => ({ default: mod.AccountDetails })), {
@@ -19,10 +24,6 @@ const Inventory = dynamic(() => import('@nl/playfab/components').then(mod => ({ 
   ssr: false,
   loading: () => <div>Loading inventory...</div>,
 });
-
-import BackButton from '@/components/BackButton';
-import useFlags from '@/hooks/useFlags';
-import styles from '@/styles/profile.module.css';
 
 export default function ProfileClient({ user: initialUser }: { user: User }) {
   const router = useRouter();

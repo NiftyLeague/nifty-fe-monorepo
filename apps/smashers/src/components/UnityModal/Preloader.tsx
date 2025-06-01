@@ -3,7 +3,7 @@ import { Box, LinearProgress, Typography } from '@mui/material';
 import { isMobileOnly } from 'react-device-detect';
 import cn from 'classnames';
 import useStopwatch from '@/hooks/useStopwatch';
-import styles from '@/styles/preloader.module.css';
+import styles from '@/styles/preloader.module.scss';
 
 const PreloaderSVG = () => (
   <svg id="preloader-arcade" viewBox="0 0 140 186">

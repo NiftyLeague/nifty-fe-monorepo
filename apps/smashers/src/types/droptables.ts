@@ -1,8 +1,10 @@
+type Rarity = 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary' | 'mythic' | string;
+
 type Item = {
   Item: string;
   Type: string;
-  Rarity: string;
-  Weight: string;
+  Rarity: Rarity;
+  Weight: string | number;
 };
 
 type CurrencyRange = {

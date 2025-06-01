@@ -96,14 +96,14 @@ export default function AccountDetails({
           }}
         />
       ) : null}
-      <div>
+      <div style={{ marginBottom: '0.8rem' }}>
         <label htmlFor="email" style={{ marginTop: 0 }}>
           Email
         </label>
         <input id="email" type="text" value={email || ''} disabled />
       </div>
 
-      <div>
+      <div style={{ marginBottom: '0.8rem' }}>
         <label htmlFor="displayName">Display Name</label>
         <Input
           type="text"
@@ -123,7 +123,7 @@ export default function AccountDetails({
         />
       </div>
       {enableLinkWallet && (
-        <div>
+        <div style={{ marginBottom: '0.8rem' }}>
           <label htmlFor="wallets">Linked Wallet(s)</label>
           <LinkWalletInput index={1} address={linkedWallets[0] || ''} />
           {Boolean(linkedWallets[0] || '') && <LinkWalletInput index={2} address={linkedWallets[1] || ''} />}

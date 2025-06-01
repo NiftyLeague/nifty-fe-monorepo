@@ -5,7 +5,7 @@ import useUnityEventHandlers from '@/hooks/useUnityEventHandlers';
 import useUnitySafeClose from '@/hooks/useUnitySafeClose';
 // import { PlayFabAuthForm } from '@nl/playfab/components';
 import Preloader from './Preloader';
-import styles from '@/styles/modal.module.css';
+import styles from '@/styles/modal.module.scss';
 
 const Game = ({ closeGame }: { closeGame: () => void }) => {
   //   const { account, publisherData } = PlayFabAuthForm.useUserContext();

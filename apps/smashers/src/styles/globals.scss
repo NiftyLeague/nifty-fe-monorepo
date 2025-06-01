@@ -3,7 +3,7 @@
 $defaultFont: $defaultFontFamily, 'Roboto', 'Helvetica', 'Arial', sans-serif;
 $headerFont: $headerFontFamily, $defaultFont;
 $subheaderFont: $subheaderFontFamily, $defaultFont;
-$btnFont: $defaultFont;
+$btnFont: $specialFontFamily, $defaultFont;
 
 /************************************* Global Variables *************************************/
 
@@ -49,7 +49,7 @@ $btnFont: $defaultFont;
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
 
-  --border-radius: 12px;
+  --border-radius: 4px;
   --custom-border-radius: 5px;
   --custom-border: 1px solid #333;
   --custom-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.8);
@@ -127,10 +127,10 @@ h2 {
   font-size: 1.8rem !important;
 }
 h3 {
-  font-size: 1.5rem !important;
+  font-size: 1.5rem;
 }
 h4 {
-  font-size: 1.2rem !important;
+  font-size: 1.2rem;
 }
 h5 {
   font-size: 0.83rem !important;
