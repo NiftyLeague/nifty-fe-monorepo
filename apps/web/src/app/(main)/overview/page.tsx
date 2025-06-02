@@ -12,7 +12,7 @@ import ExternalIcon from '@/components/ExternalIcon';
 import LearnCards from '@/components/LearnCards';
 import { FAQS } from '@/constants/faq';
 
-import styles from './index.module.scss';
+import styles from './index.module.css';
 
 const Overview: NextPage = () => {
   const desktop = useMediaQuery('(min-width:769px)');

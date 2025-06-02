@@ -2,7 +2,7 @@ import { type PropsWithChildren } from 'react';
 import type { Metadata, Viewport } from 'next';
 import { IBM_Plex_Sans } from 'next/font/google';
 
-import '@/styles/globals.scss';
+import '@/styles/app.css';
 
 const imbPlexSans = IBM_Plex_Sans({
   weight: ['100', '400', '500', '700'],

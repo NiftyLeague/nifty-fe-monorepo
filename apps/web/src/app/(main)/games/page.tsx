@@ -9,7 +9,7 @@ import AnimatedWrapper from '@/components/AnimatedWrapper';
 import { NIFTY_GAMES } from '@/constants/games';
 import { Container } from '@mui/material';
 import ExternalIcon from '@/components/ExternalIcon';
-import styles from './index.module.scss';
+import styles from './index.module.css';
 
 const Games: NextPage = () => {
   const desktop = useMediaQuery('(min-width:769px)');

@@ -19,4 +19,6 @@ export const defaultConfig: ThemeConfigProps = {
   rtlLayout: false,
 };
 
+export const customFontClassName = `${imbPlexSans.variable} ${lilitaOne.variable} ${nexaRustSansBlack.variable} ${pressStart.variable}`;
+
 export default defaultConfig;

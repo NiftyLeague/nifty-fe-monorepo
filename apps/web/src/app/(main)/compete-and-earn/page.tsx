@@ -2,7 +2,7 @@ import cn from 'classnames';
 import Image from 'next/image';
 import type { NextPage } from 'next';
 import AnimatedWrapper from '@/components/AnimatedWrapper';
-import styles from './index.module.scss';
+import styles from './index.module.css';
 
 const CompeteAndEarn: NextPage = () => {
   return (

@@ -12,9 +12,6 @@ const __dirname = path.dirname(__filename);
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ['@nl/theme', '@nl/ui'],
-  sassOptions: {
-    includePaths: [path.join(__dirname, 'src/styles')],
-  },
   images: {
     remotePatterns: [
       {

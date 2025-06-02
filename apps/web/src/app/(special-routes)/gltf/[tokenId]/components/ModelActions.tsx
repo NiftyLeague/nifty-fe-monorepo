@@ -9,7 +9,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { styled } from '@nl/theme';
 
 import { Color } from '@/types/gltf';
-import styles from '../gltf.module.scss';
+import styles from '../gltf.module.css';
 
 type ModelActionsProps = {
   color: Color;

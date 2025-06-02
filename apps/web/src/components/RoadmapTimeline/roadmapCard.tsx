@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import Image from 'next/image';
 import DoneIcon from '@mui/icons-material/Done';
-import styles from './index.module.scss';
+import styles from './index.module.css';
 
 interface RoadmapCardProps {
   body: React.ReactNode;

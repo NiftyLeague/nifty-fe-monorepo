@@ -6,7 +6,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { Card, Typography, Space } from '@nl/ui/supabase';
 import { PlayFabAuthForm } from '@nl/playfab/components';
-import BackButton from '@/components/BackButton';
+import BackButton from '@/components/Header/BackButton';
 import useFlags from '@/hooks/useFlags';
 import type { User } from '@nl/playfab/types';
 import SearchParamsHandler from './SearchParamsHandler';

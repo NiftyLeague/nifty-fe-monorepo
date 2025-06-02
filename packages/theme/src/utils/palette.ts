@@ -5,13 +5,13 @@ import { createTheme, type PaletteMode } from '@mui/material/styles';
 import type { ColorProps, Theme, ThemeOptions } from '../types';
 
 // assets
-import defaultColor from '../styles/color/_theme_default.module.scss';
-import theme1 from '../styles/color/_theme1.module.scss';
-import theme2 from '../styles/color/_theme2.module.scss';
-import theme3 from '../styles/color/_theme3.module.scss';
-import theme4 from '../styles/color/_theme4.module.scss';
-import theme5 from '../styles/color/_theme5.module.scss';
-import theme6 from '../styles/color/_theme6.module.scss';
+import defaultColors from '../styles/color/_palette.module.css';
+// import theme1 from '../styles/color/_theme1.module.css';
+// import theme2 from '../styles/color/_theme2.module.css';
+// import theme3 from '../styles/color/_theme3.module.css';
+// import theme4 from '../styles/color/_theme4.module.css';
+// import theme5 from '../styles/color/_theme5.module.css';
+// import theme6 from '../styles/color/_theme6.module.css';
 
 // ==============================|| DEFAULT THEME - PALETTE  ||============================== //
 
@@ -85,29 +85,32 @@ const createPalette = (paletteMode: PaletteMode, colors: ColorProps): ThemeOptio
 
 const customPalette = (paletteMode: PaletteMode, presetColor: string): Theme => {
   let colors: ColorProps;
+
   switch (presetColor) {
-    case 'theme1':
-      colors = theme1 as ColorProps;
-      break;
-    case 'theme2':
-      colors = theme2 as ColorProps;
-      break;
-    case 'theme3':
-      colors = theme3 as ColorProps;
-      break;
-    case 'theme4':
-      colors = theme4 as ColorProps;
-      break;
-    case 'theme5':
-      colors = theme5 as ColorProps;
-      break;
-    case 'theme6':
-      colors = theme6 as ColorProps;
-      break;
-    case 'default':
+    // case 'theme1':
+    //   colors = theme1 as unknown as ColorProps;
+    //   break;
+    // case 'theme2':
+    //   colors = theme2 as unknown as ColorProps;
+    //   break;
+    // case 'theme3':
+    //   colors = theme3 as unknown as ColorProps;
+    //   break;
+    // case 'theme4':
+    //   colors = theme4 as unknown as ColorProps;
+    //   break;
+    // case 'theme5':
+    //   colors = theme5 as unknown as ColorProps;
+    //   break;
+    // case 'theme6':
+    //   colors = theme6 as unknown as ColorProps;
+    //   break;
     default:
-      colors = defaultColor as ColorProps;
+      colors = defaultColors as unknown as ColorProps;
   }
+
+  console.log('paletteMode', paletteMode);
+  console.log('colors', colors);
 
   return createTheme({ palette: createPalette(paletteMode, colors) });
 };

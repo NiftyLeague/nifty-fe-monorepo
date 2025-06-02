@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { memo } from 'react';
 import { useMediaQuery } from '@mui/material';
 
-import styles from './index.module.scss';
+import styles from './index.module.css';
 
 export interface Degen {
   name: string;

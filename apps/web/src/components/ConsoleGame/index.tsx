@@ -4,7 +4,7 @@ import { memo } from 'react';
 import Image from 'next/image';
 import cn from 'classnames';
 import AnimatedWrapper from '@/components/AnimatedWrapper';
-import styles from './index.module.scss';
+import styles from './index.module.css';
 
 const ConsoleGame = ({ src }: { src: string }) => {
   function playVid() {

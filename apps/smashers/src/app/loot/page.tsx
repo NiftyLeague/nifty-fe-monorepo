@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
 import { Box, Typography } from '@mui/material';
-import BackButton from '@/components/BackButton';
+import BackButton from '@/components/Header/BackButton';
 import DROP_TABLES from '@/data/droptables.json';
 import type { CrateData } from '@/types/droptables';
-import styles from '@/styles/loot.module.scss';
-import { Fragment } from 'react';
+
+import styles from './page.module.css';
 
 // Helper function to format percentage
 const formatPercentage = (value: string | number): string => {
