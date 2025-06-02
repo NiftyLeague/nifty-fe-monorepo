@@ -9,7 +9,7 @@ import { RenderTeamCardItem } from '@/components/Carousel/TeamCardItem';
 import TeamDesktop from '@/components/TeamDesktop';
 import AnimatedWrapper from '@/components/AnimatedWrapper';
 import { CORE_TEAM, DEGEN_DELEGATES } from '@/constants/team';
-import styles from './index.module.scss';
+import styles from './index.module.css';
 
 const Team: NextPage = () => {
   return (

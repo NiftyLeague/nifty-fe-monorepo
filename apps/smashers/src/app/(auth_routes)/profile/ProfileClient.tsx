@@ -7,12 +7,12 @@ import Image from 'next/image';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Card, IconDatabase, IconStar, IconUser, Space, Tabs, Typography } from '@nl/ui/supabase';
-import BackButton from '@/components/BackButton';
+import BackButton from '@/components/Header/BackButton';
 import { useUserSession } from '@nl/playfab/hooks';
 import type { User } from '@nl/playfab/types';
 import useFlags from '@/hooks/useFlags';
 
-import styles from '@/styles/profile.module.scss';
+import styles from './page.module.css';
 
 // Dynamically import heavy components
 const AccountDetails = dynamic(() => import('@nl/playfab/components').then(mod => ({ default: mod.AccountDetails })), {

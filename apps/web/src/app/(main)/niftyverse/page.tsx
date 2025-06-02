@@ -6,7 +6,7 @@ import AnimatedWrapper from '@/components/AnimatedWrapper';
 import { NIFTYVERSE_PROPERTIES } from '@/constants/niftyverse';
 import ExternalIcon from '@/components/ExternalIcon';
 import ConsoleGame from '@/components/ConsoleGame';
-import styles from './index.module.scss';
+import styles from './index.module.css';
 
 const NiftyVerse: NextPage = () => {
   return (

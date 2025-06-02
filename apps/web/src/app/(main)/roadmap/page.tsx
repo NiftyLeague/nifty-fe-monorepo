@@ -2,8 +2,8 @@ import type { NextPage } from 'next';
 import Image from 'next/image';
 
 import RoadmapTimeline from '@/components/RoadmapTimeline';
-import roadmapStyles from '@/components/RoadmapTimeline/index.module.scss';
-import satoshiStyles from './satoshi-right.module.scss';
+import roadmapStyles from '@/components/RoadmapTimeline/index.module.css';
+import satoshiStyles from './satoshi-right.module.css';
 
 const Roadmap: NextPage = () => {
   return (

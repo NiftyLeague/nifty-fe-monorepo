@@ -2,11 +2,11 @@ import type { PropsWithChildren } from 'react';
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 
-import { ThemeProvider } from '@nl/theme';
+import { ThemeProvider, customFontClassName } from '@nl/theme';
 import AppContextWrapper from '@/contexts/AppContextWrapper';
 import MainLayout from '@/app/_layout/_MainLayout';
 
-import '@/styles/globals.scss';
+import '@/styles/app.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://app.niftyleague.com'),
@@ -67,7 +67,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en">
+    <html lang="en" className={customFontClassName}>
       <link rel="icon" href="/favicon/nl_purple/favicon.ico" />
       <Script defer src="https://d7ct17ettlkln.cloudfront.net/public/stats.js" />
 

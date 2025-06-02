@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import styles from './index.module.scss';
+import styles from './index.module.css';
 
 export const ROADMAP_CARDS = [
   {

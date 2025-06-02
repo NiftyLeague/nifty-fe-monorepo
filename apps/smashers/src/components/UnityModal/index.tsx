@@ -1,8 +1,8 @@
 import dynamic from 'next/dynamic';
 import { isOpera, browserName } from 'react-device-detect';
 import { Typography } from '@nl/ui/supabase';
-import styles from '@/styles/modal.module.scss';
 import Modal from '@/components/Modal';
+import styles from '@/components/Modal/index.module.css';
 
 const Game = dynamic(() => import('./Game'), { ssr: false });
 

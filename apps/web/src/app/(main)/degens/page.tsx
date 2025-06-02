@@ -8,7 +8,7 @@ import AnimatedWrapper from '@/components/AnimatedWrapper';
 import { NIFTY_DEGENS, NIFTY_DEGENS_ALL } from '@/constants/degens';
 import ExternalIcon from '@/components/ExternalIcon';
 import ConsoleGame from '@/components/ConsoleGame';
-import styles from './index.module.scss';
+import styles from './index.module.css';
 
 const DegensSection = () => {
   const desktop = useMediaQuery('(min-width:768px)');

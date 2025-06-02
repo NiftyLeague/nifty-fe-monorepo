@@ -1,0 +1,67 @@
+:root {
+  /*  primary */
+  --primary-light: #8f57e2;
+  --primary-main: #620edf;
+  --primary-dark: #4b07af;
+  --primary-darker: #390587;
+  /*  secondary */
+  --secondary-light: #b1bbf9;
+  --secondary-main: #5e72eb;
+  --secondary-dark: #3d54e1;
+  --secondary-darker: #1a33d3;
+  /*  success Colors */
+  --success-light: #a5ef8e;
+  --success-main: #3af000;
+  --success-dark: #388e3c;
+  /*  error */
+  --error-light: #e57373;
+  --error-main: #f44336;
+  --error-dark: #d32f2f;
+  /*  orange */
+  --orange-light: #fbe9e7;
+  --orange-main: #ffab91;
+  --orange-dark: #f57c00;
+  /*  warning */
+  --warning-light: #ffed53;
+  --warning-main: #ffe500;
+  --warning-dark: #c6b200;
+  /*  grey */
+  --grey50: #fffefd;
+  --grey100: #efeeed;
+  --grey200: #dfdedd;
+  --grey300: #bfbebd;
+  --grey400: #9f9e9d;
+  --grey500: #6f6e6d;
+  --grey600: #4c4b4a;
+  --grey700: #2c2b2a;
+  --grey800: #1c1b1a;
+  --grey900: #0c0b0a;
+  /*  paper & background */
+  --paper: var(--grey50);
+  --default-background: var(--grey50);
+  /*  text variants */
+  --text-primary: var(--grey900);
+  --text-secondary: var(--grey600);
+
+  /*  ==============================|| DARK THEME VARIANTS ||============================== // */
+  /*  primary dark */
+  --dark-primary-light: #8f57e2;
+  --dark-primary-main: #620edf;
+  --dark-primary-dark: #4b07af;
+  --dark-primary-darker: #390587;
+  /*  secondary dark */
+  --dark-secondary-light: #b1bbf9;
+  --dark-secondary-main: #5e72eb;
+  --dark-secondary-dark: #3d54e1;
+  --dark-secondary-darker: #1a33d3;
+  /*  paper & background */
+  --dark-paper: var(--grey800);
+  --dark-background: var(--grey800);
+  /*  text variants */
+  --dark-text-primary: var(--grey50);
+  --dark-text-secondary: var(--grey200);
+  /*  dark - light, main, dark */
+  --dark-level1: var(--darkPaper);
+  --dark-level2: var(--darkBackground);
+  --dark-level3: var(--grey900);
+}

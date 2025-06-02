@@ -2,7 +2,7 @@
 
 import { ReactNode, useEffect } from 'react';
 import cn from 'classnames';
-import styles from '@/styles/modal.module.scss';
+import styles from './index.module.css';
 
 type ModalProps = {
   isOpen: boolean;

@@ -1,0 +1,7 @@
+:root {
+  --default-font-family: var(--font-ibm-plex-sans), 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  --header-font-family: var(--font-nexa-rust-sans-black), var(--default-font-family);
+  --subheader-font-family: var(--font-lilita-one), var(--default-font-family);
+  --special-font-family: var(--font-press-start), var(--default-font-family);
+  --btn-font-family: var(--font-lilita-one), var(--default-font-family);
+}

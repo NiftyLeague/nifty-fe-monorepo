@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from 'next';
-import { ThemeProvider } from '@nl/theme';
+import { ThemeProvider, customFontClassName } from '@nl/theme';
 import { FeatureFlagProvider } from '@/contexts/FeatureFlagsProvider';
 
-import '@/styles/index.scss';
+import '@/styles/app.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://niftysmashers.com'),
@@ -81,7 +81,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={customFontClassName}>
       <head>
         <link rel="icon" href="/favicon/smashers/favicon.ico" />
       </head>

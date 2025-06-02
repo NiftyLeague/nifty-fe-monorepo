@@ -7,7 +7,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import { DEGEN_3D_MODEL_URL } from '@/constants/degens';
 import { SRC } from '@/types/gltf';
-import styles from '../gltf.module.scss';
+import styles from '../gltf.module.css';
 
 type ModelViewerProps = {
   'animation-name'?: string;

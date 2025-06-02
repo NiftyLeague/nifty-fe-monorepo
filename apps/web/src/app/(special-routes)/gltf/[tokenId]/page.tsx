@@ -12,7 +12,7 @@ import { DEGEN_BASE_SPRITE_URL, LEGGIES } from '@/constants/degens';
 import { SRC, Color } from '@/types/gltf';
 import ErrorBoundary from '@/components/ErrorBoundry';
 
-import styles from './gltf.module.scss';
+import styles from './gltf.module.css';
 
 const TokenMenu = dynamic(() => import('./components/TokenMenu'), { ssr: false });
 const ModelView = dynamic(() => import('./components/ModelView'), { ssr: false });

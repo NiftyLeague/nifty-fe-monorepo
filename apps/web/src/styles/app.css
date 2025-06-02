@@ -1,4 +1,16 @@
-/************************************* Font Sizes, Colors, Backgrounds *************************************/
+@import '@nl/theme/styles';
+@import './animations.css';
+@import './slick.css';
+
+/* ==============================|| OVERRIDES ||============================== */
+
+:root {
+  --btn-font-family: var(--default-font-family);
+  --subheader-font-family: var(--special-font-family);
+  --custom-letter-spacing-subheader: -0.02em;
+}
+
+/* ==============================|| COLORS ||============================== */
 .color-white {
   color: #ffffff;
 }
@@ -30,7 +42,7 @@
   background: #ffffff;
 }
 
-/************************************* Themes Items *************************************/
+/* ==============================|| THEMES ITEMS ||============================== */
 .theme-btn-transparent {
   border-radius: 20px;
   border: 1px solid #d2d3db;
@@ -239,7 +251,7 @@
   }
 }
 
-/*************************************** Learn **********************************************/
+/* ==============================|| LEARN ||============================== */
 
 .learn-content-wrapper {
   max-height: 310px;
@@ -253,7 +265,7 @@
   width: auto;
 }
 
-/*************************************** Community **********************************************/
+/* ==============================|| COMMUNITY ||============================== */
 
 .com-pg {
   overflow-x: hidden;
@@ -282,8 +294,8 @@
 
 .community-data {
   border-radius: 8px;
-  background: linear-gradient(26.04deg, rgba(110, 51, 237, 0.05) -0.03%, rgba(123, 97, 255, 0.025) 99.2%),
-    rgba(36, 37, 38, 0.6);
+  background:
+    linear-gradient(26.04deg, rgba(110, 51, 237, 0.05) -0.03%, rgba(123, 97, 255, 0.025) 99.2%), rgba(36, 37, 38, 0.6);
   width: 100%;
   min-width: 100%;
   min-height: 125px;
@@ -329,8 +341,8 @@
 }
 
 .community-footer {
-  background: linear-gradient(26.04deg, rgba(110, 51, 237, 0.05) -0.03%, rgba(123, 97, 255, 0.025) 99.2%),
-    rgba(36, 37, 38, 0.6);
+  background:
+    linear-gradient(26.04deg, rgba(110, 51, 237, 0.05) -0.03%, rgba(123, 97, 255, 0.025) 99.2%), rgba(36, 37, 38, 0.6);
   backdrop-filter: blur(65.0688px);
   border-radius: 8px;
 }
@@ -338,7 +350,7 @@
   width: 112px;
 }
 
-/*************************************** TEAM **********************************************/
+/* ==============================|| TEAM ||============================== */
 
 .team-pg {
   overflow-x: hidden;
@@ -391,7 +403,7 @@
   }
 }
 
-/*************************************** Home **********************************************/
+/* ==============================|| HOME ||============================== */
 
 .row {
   width: 100%;
@@ -597,7 +609,7 @@
   );
 }
 
-.overview .radial-gradient-background  {
+.overview .radial-gradient-background {
   background: radial-gradient(
     189.96% 61.18% at 50% 38.82%,
     rgba(24, 20, 37, 0) 0%,
@@ -606,7 +618,7 @@
   );
 }
 
-.com-pg .radial-gradient-background  {
+.com-pg .radial-gradient-background {
   background: radial-gradient(
     189.96% 61.18% at 50% 38.82%,
     rgba(95, 190, 74, 0) 0%,
@@ -730,10 +742,6 @@
   text-align: left !important;
 }
 
-.fixed-top-header {
-  width: 100%;
-}
-
 .div-paragraph {
   opacity: 0.9;
 }
@@ -743,7 +751,7 @@
   z-index: 2;
 }
 
-/*************************************** Media Queries **********************************************/
+/* ==============================|| MEDIA QUERIES ||============================== */
 
 /* desktop view */
 @media (min-width: 769px) {

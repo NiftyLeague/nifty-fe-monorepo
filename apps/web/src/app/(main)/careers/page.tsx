@@ -8,7 +8,7 @@ import { Container, useMediaQuery } from '@mui/material';
 import JobCard from '@/components/Careers/JobCard';
 import AnimatedWrapper from '@/components/AnimatedWrapper';
 import { JOBS } from '@/constants/careers';
-import styles from './index.module.scss';
+import styles from './index.module.css';
 
 const Careers: NextPage = () => {
   const desktop = useMediaQuery('(min-width:769px)');
