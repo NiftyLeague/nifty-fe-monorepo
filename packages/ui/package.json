@@ -36,6 +36,6 @@
     "@storybook/react-vite": "^9.0.3",
     "@turbo/gen": "^2.5.4",
     "@types/prop-types": "^15.7.14",
-    "storybook": "^9.0.3"
+    "storybook": "^9.0.4"
   }
 }
