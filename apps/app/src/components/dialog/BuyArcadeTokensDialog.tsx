@@ -55,9 +55,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
   const fetchArcadeTokenDetails = useCallback(async () => {
     const response = await fetch(GET_PRODUCT(PRODUCT_ID, 'nftl'), {
       method: 'GET',
-      headers: {
-        authorizationToken: authToken || '',
-      },
+      headers: { authorizationToken: authToken || '' },
     });
     const body = await response.json();
     return body;
@@ -73,11 +71,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
     data: details,
     isLoading: isDetailsPending,
     error,
-  } = useQuery({
-    queryKey: ['arcade-token-details'],
-    queryFn: fetchArcadeTokenDetails,
-    enabled: open,
-  });
+  } = useQuery({ queryKey: ['arcade-token-details'], queryFn: fetchArcadeTokenDetails, enabled: open });
 
   const updateTokenCount = (v: number | string) => {
     const value = Number(v);
@@ -90,9 +84,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
     try {
       const response = await fetch(PURCHASE_ARCADE_TOKEN_BALANCE_API, {
         method: 'post',
-        headers: {
-          authorizationToken: authToken || '',
-        },
+        headers: { authorizationToken: authToken || '' },
         body: JSON.stringify({
           id: PRODUCT_ID,
           currency: details.currency,
@@ -125,21 +117,11 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
             sx={{ justifyContent: 'center', alignItems: 'center', position: 'relative' }}
           >
             <DialogTitle>Buy Arcade Token</DialogTitle>
-            <Icon
-              sx={{
-                position: 'absolute',
-                right: 0,
-              }}
-              onClick={onClose}
-            >
+            <Icon sx={{ position: 'absolute', right: 0 }} onClick={onClose}>
               <CloseIcon />
             </Icon>
           </Stack>
-          <Divider
-            sx={{
-              opacity: '0.6',
-            }}
-          />
+          <Divider sx={{ opacity: '0.6' }} />
           {(isDetailsPending || error) && (
             <Stack direction="row" sx={{ justifyContent: 'center', alignItems: 'center' }} width="390px" height="300px">
               <>
@@ -159,48 +141,27 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
               </Typography>
               <Stack direction="row" sx={{ justifyContent: 'center', alignItems: 'center' }} spacing={1} mb={3}>
                 <RemoveIcon
-                  sx={{
-                    fontSize: 50,
-                    fill: palette.grey[400],
-                    cursor: 'pointer',
-                  }}
+                  sx={{ fontSize: 50, fill: palette.grey[400], cursor: 'pointer' }}
                   onClick={() => updateTokenCount(tokenCount - 1)}
                 />
                 <TextField
                   variant="outlined"
-                  sx={{
-                    width: '100px',
-                  }}
+                  sx={{ width: '100px' }}
                   value={tokenCount}
                   onChange={e => updateTokenCount(e.target.value)}
                   slotProps={{
                     input: {
                       endAdornment: <InputAdornment position="end">PACK</InputAdornment>,
-                      inputProps: {
-                        inputMode: 'numeric',
-                        pattern: '[0-9]*',
-                        style: {
-                          textAlign: 'center',
-                        },
-                      },
+                      inputProps: { inputMode: 'numeric', pattern: '[0-9]*', style: { textAlign: 'center' } },
                     },
                   }}
                 />
                 <AddIcon
-                  sx={{
-                    fontSize: 50,
-                    fill: palette.grey[400],
-                    cursor: 'pointer',
-                  }}
+                  sx={{ fontSize: 50, fill: palette.grey[400], cursor: 'pointer' }}
                   onClick={() => updateTokenCount(tokenCount + 1)}
                 />
               </Stack>
-              <Box
-                sx={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr auto',
-                }}
-              >
+              <Box sx={{ display: 'grid', gridTemplateColumns: '1fr auto' }}>
                 <Typography
                   sx={{
                     color: theme =>

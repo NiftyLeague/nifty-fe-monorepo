@@ -51,11 +51,7 @@ const ComicCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<ComicC
     <Box
       onClick={handleViewComic}
       position="relative"
-      sx={{
-        borderRadius: '5px',
-        outline: isSelected ? '3px solid #620EDF' : 'none',
-        cursor: 'pointer',
-      }}
+      sx={{ borderRadius: '5px', outline: isSelected ? '3px solid #620EDF' : 'none', cursor: 'pointer' }}
     >
       {balance === 1 ? (
         <ComicCardPane data={data} width={comicCardWidth} height={comicCardHeight} />
@@ -67,12 +63,7 @@ const ComicCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<ComicC
               width={comicCardWidth}
               height={comicCardHeight}
               key={`ComicCardPane-${item}`}
-              sx={{
-                position: 'absolute',
-                zIndex: 2 - item,
-                top: item * 8,
-                left: (item + 1) * 8,
-              }}
+              sx={{ position: 'absolute', zIndex: 2 - item, top: item * 8, left: (item + 1) * 8 }}
             />
           ))}
           <Box
@@ -82,13 +73,7 @@ const ComicCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<ComicC
             position="absolute"
             width={38}
             height={35}
-            sx={{
-              background: '#8F4BF4',
-              borderRadius: '5px',
-              bottom: 0,
-              left: 0,
-              zIndex: 3,
-            }}
+            sx={{ background: '#8F4BF4', borderRadius: '5px', bottom: 0, left: 0, zIndex: 3 }}
           >
             <Typography sx={{ fontSize: 20, color: '#FFFFFF', fontWeight: 700 }}>
               <span>{balance}</span>

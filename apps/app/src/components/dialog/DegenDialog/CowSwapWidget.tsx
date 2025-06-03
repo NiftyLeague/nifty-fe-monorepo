@@ -25,20 +25,14 @@ import TokenInfoBox from './TokenInfoBox';
 
 const PREFIX = 'CowSwapWidget';
 
-const classes = {
-  purchaseNFTLBtn: `${PREFIX}-purchaseNFTLBtn`,
-  arrowDown: `${PREFIX}-arrowDown`,
-};
+const classes = { purchaseNFTLBtn: `${PREFIX}-purchaseNFTLBtn`, arrowDown: `${PREFIX}-arrowDown` };
 
 const StyledStack = styled(Stack)(() => ({
   [`&.${classes.purchaseNFTLBtn}`]: {
     background: '#4291E5',
     borderRadius: '10px !important',
     height: '30px !important',
-    '&:hover': {
-      background: '#4291E5',
-      opacity: 0.8,
-    },
+    '&:hover': { background: '#4291E5', opacity: 0.8 },
   },
 
   [`&.${classes.arrowDown}`]: {
@@ -52,9 +46,7 @@ const StyledStack = styled(Stack)(() => ({
   },
 }));
 
-type CowSwapWidgetProps = {
-  refreshBalance: () => void;
-};
+type CowSwapWidgetProps = { refreshBalance: () => void };
 
 const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
   const { address, signer } = useNetworkContext();
@@ -236,15 +228,7 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
         <Link href={COW_PROTOCOL_URL} target="_blank" rel="noreferrer">
           cow.fi
         </Link>
-        <CircleIcon
-          sx={{
-            width: 3,
-            height: 3,
-            color: '#5820D6',
-            marginLeft: 0.25,
-            marginBottom: 0.25,
-          }}
-        />
+        <CircleIcon sx={{ width: 3, height: 3, color: '#5820D6', marginLeft: 0.25, marginBottom: 0.25 }} />
       </Typography>
       <Box
         border={'1px solid #1c1b1a'}

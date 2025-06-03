@@ -34,9 +34,7 @@ import Header from './_Header';
 import Sidebar from './_Sidebar';
 
 // styles
-const Main = styled('main', {
-  shouldForwardProp: prop => prop !== 'open',
-})<{ open: boolean }>(({ theme }) => ({
+const Main = styled('main', { shouldForwardProp: prop => prop !== 'open' })<{ open: boolean }>(({ theme }) => ({
   ...theme.typography.mainContent,
 
   variants: [
@@ -51,14 +49,8 @@ const Main = styled('main', {
           duration: theme.transitions.duration.shorter,
         }),
         marginTop: '80px',
-        [theme.breakpoints.up('md')]: {
-          marginLeft: -(appDrawerWidth - 20),
-          width: `calc(100% - ${appDrawerWidth}px)`,
-        },
-        [theme.breakpoints.down('md')]: {
-          marginLeft: '20px',
-          width: `calc(100% - ${appDrawerWidth}px)`,
-        },
+        [theme.breakpoints.up('md')]: { marginLeft: -(appDrawerWidth - 20), width: `calc(100% - ${appDrawerWidth}px)` },
+        [theme.breakpoints.down('md')]: { marginLeft: '20px', width: `calc(100% - ${appDrawerWidth}px)` },
         [theme.breakpoints.down('sm')]: {
           marginTop: '60px',
           marginLeft: '10px',
@@ -79,13 +71,8 @@ const Main = styled('main', {
         borderBottomRightRadius: 0,
         width: `calc(100% - ${appDrawerWidth}px)`,
         marginTop: '80px',
-        [theme.breakpoints.down('md')]: {
-          marginLeft: '20px',
-        },
-        [theme.breakpoints.down('sm')]: {
-          marginTop: '60px',
-          marginLeft: '10px',
-        },
+        [theme.breakpoints.down('md')]: { marginLeft: '20px' },
+        [theme.breakpoints.down('sm')]: { marginTop: '60px', marginLeft: '10px' },
       },
     },
   ],

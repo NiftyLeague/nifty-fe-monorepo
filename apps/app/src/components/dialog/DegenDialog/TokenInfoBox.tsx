@@ -26,26 +26,13 @@ const StyledStack = styled(Stack)(() => ({
     width: '100%',
   },
 
-  [`&.${classes.tokenBox}`]: {
-    background: '#202230',
-    borderRadius: '10px',
-    width: 72,
-  },
+  [`&.${classes.tokenBox}`]: { background: '#202230', borderRadius: '10px', width: 72 },
 
-  [`&.${classes.infoUSD}`]: {
-    color: '#4D4D4F',
-    position: 'absolute',
-  },
+  [`&.${classes.infoUSD}`]: { color: '#4D4D4F', position: 'absolute' },
 
-  [`&.${classes.transactionBox}`]: {
-    borderRadius: '0px 0px 10px 10px',
-    border: '1px solid #282B3F',
-    padding: 12,
-  },
+  [`&.${classes.transactionBox}`]: { borderRadius: '0px 0px 10px 10px', border: '1px solid #282B3F', padding: 12 },
 
-  [`&.${classes.transactionValue}`]: {
-    fontSize: '20px !important',
-  },
+  [`&.${classes.transactionValue}`]: { fontSize: '20px !important' },
 }));
 
 export interface TokenInfoBoxProps {
@@ -71,10 +58,7 @@ const TokenAmountInput = styled(InputBase)(() => ({
     fontWeight: 700,
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-    '::placeholder': {
-      fontSize: 36,
-      color: '#4D4D4F',
-    },
+    '::placeholder': { fontSize: 36, color: '#4D4D4F' },
   },
 }));
 

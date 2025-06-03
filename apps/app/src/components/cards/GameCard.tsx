@@ -36,11 +36,7 @@ const CardGameContent = ({
 
   return (
     <Stack flexGrow={1} sx={{ justifyContent: 'space-between' }}>
-      <CardContent
-        sx={{
-          padding: '24px 24px 0',
-        }}
-      >
+      <CardContent sx={{ padding: '24px 24px 0' }}>
         <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
           <Typography gutterBottom variant="h4" component="div">
             {title}
@@ -51,12 +47,7 @@ const CardGameContent = ({
                 variant="contained"
                 color="primary"
                 fullWidth
-                sx={{
-                  minWidth: 165,
-                  flex: 1,
-                  justifyContent: 'space-between',
-                  marginTop: -2,
-                }}
+                sx={{ minWidth: 165, flex: 1, justifyContent: 'space-between', marginTop: -2 }}
               >
                 {externalLink.title} <ExternalIcon />
               </Button>
@@ -96,25 +87,14 @@ const CardGameContent = ({
         <Stack direction="row" flexWrap="wrap" columnGap={1} rowGap={2} width="100%">
           {actions || (
             <>
-              <Button
-                variant="contained"
-                fullWidth
-                sx={{
-                  minWidth: 80,
-                  flex: 1,
-                }}
-                onClick={onPlayOnDesktopClick}
-              >
+              <Button variant="contained" fullWidth sx={{ minWidth: 80, flex: 1 }} onClick={onPlayOnDesktopClick}>
                 Play on Desktop
               </Button>
               <Button
                 variant="outlined"
                 color="primary"
                 fullWidth
-                sx={{
-                  minWidth: 80,
-                  flex: 1,
-                }}
+                sx={{ minWidth: 80, flex: 1 }}
                 onClick={onPlayOnWebClick}
               >
                 Play on Web

@@ -13,10 +13,7 @@ const MintOMatic = () => {
             height={1778}
             className="pixelated"
             sizes="100vw"
-            style={{
-              width: '100%',
-              height: 'auto',
-            }}
+            style={{ width: '100%', height: 'auto' }}
           />
         </div>
       </AnimatedWrapper>
@@ -29,10 +26,7 @@ const MintOMatic = () => {
             height={1778}
             className="pixelated"
             sizes="100vw"
-            style={{
-              width: '100%',
-              height: 'auto',
-            }}
+            style={{ width: '100%', height: 'auto' }}
           />
         </div>
       </AnimatedWrapper>
@@ -45,10 +39,7 @@ const MintOMatic = () => {
             height={1778}
             className="pixelated"
             sizes="100vw"
-            style={{
-              width: '100%',
-              height: 'auto',
-            }}
+            style={{ width: '100%', height: 'auto' }}
           />
         </div>
       </AnimatedWrapper>
@@ -61,10 +52,7 @@ const MintOMatic = () => {
             height={1778}
             className="pixelated"
             sizes="100vw"
-            style={{
-              width: '100%',
-              height: 'auto',
-            }}
+            style={{ width: '100%', height: 'auto' }}
           />
         </div>
       </AnimatedWrapper>

@@ -21,14 +21,8 @@ const classes = {
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled('div')({
-  [`&.${classes.titleWrap}`]: {
-    padding: 0,
-  },
-  [`&.${classes.title}`]: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    fontSize: '0.85rem',
-  },
+  [`&.${classes.titleWrap}`]: { padding: 0 },
+  [`&.${classes.title}`]: { display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem' },
   [`&.${classes.sums}`]: {
     top: 432,
     left: 0,
@@ -115,13 +109,7 @@ export default function ComicsGrid({
     <Skeleton variant="rectangular" animation="wave" width={315} height={265} sx={{ ...gridStyles }} />
   ) : (
     <Root>
-      <ImageList
-        gap={10}
-        cols={3}
-        sx={{
-          ...gridStyles,
-        }}
-      >
+      <ImageList gap={10} cols={3} sx={{ ...gridStyles }}>
         {comicsBalances.map(comic => (
           <ImageListItem key={comic.image}>
             <Image
@@ -167,10 +155,7 @@ export default function ComicsGrid({
                         pattern: '[0-9]*',
                         min: 0,
                         max: comicsBalances.find(c => c.id === comic.id)?.balance || 0,
-                        style: {
-                          textAlign: 'center',
-                          padding: 2.5,
-                        },
+                        style: { textAlign: 'center', padding: 2.5 },
                       },
                     }}
                   />

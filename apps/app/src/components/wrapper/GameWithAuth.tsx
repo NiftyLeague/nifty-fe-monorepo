@@ -34,9 +34,7 @@ interface ExtendedUnityContext extends UnityContext {
 }
 
 interface CustomEventWithCallback<T> extends CustomEvent {
-  detail: {
-    callback: (data: T) => void;
-  };
+  detail: { callback: (data: T) => void };
 }
 
 const Game = ({ unityContext, arcadeTokenRequired = false }: GameProps) => {
@@ -138,11 +136,7 @@ const Game = ({ unityContext, arcadeTokenRequired = false }: GameProps) => {
             key={authToken}
             className="game-canvas"
             unityContext={unityContext}
-            style={{
-              width: 'calc(77vh * 1.33)',
-              height: '77vh',
-              visibility: isLoaded ? 'visible' : 'hidden',
-            }}
+            style={{ width: 'calc(77vh * 1.33)', height: '77vh', visibility: isLoaded ? 'visible' : 'hidden' }}
           />
           <Button variant="contained" size="large" onClick={handleOnClickFullscreen} sx={{ marginTop: '6px' }}>
             Fullscreen

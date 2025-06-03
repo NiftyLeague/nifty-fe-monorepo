@@ -10,12 +10,7 @@ interface RendererProps {
 export const CellRenderer = ({ column, row }: RendererProps): ReactNode => {
   const value = row[column.field] as ReactNode;
   if (typeof column.renderCell === 'function') {
-    return column.renderCell({
-      value,
-      row,
-      field: column.field,
-      id: row.id,
-    } as GridRenderCellParams);
+    return column.renderCell({ value, row, field: column.field, id: row.id } as GridRenderCellParams);
   }
   return value;
 };

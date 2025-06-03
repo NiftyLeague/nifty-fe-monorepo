@@ -26,11 +26,7 @@ const defaultValue: {
   isLoadingProfile: boolean | undefined;
   isLoadingDegens: boolean | undefined;
   isLoadingComics: boolean | undefined;
-} = {
-  isLoadingProfile: true,
-  isLoadingDegens: true,
-  isLoadingComics: true,
-};
+} = { isLoadingProfile: true, isLoadingDegens: true, isLoadingComics: true };
 
 const GamerProfile = (): React.ReactNode => {
   const { profile, error, loadingProfile } = useGamerProfile();

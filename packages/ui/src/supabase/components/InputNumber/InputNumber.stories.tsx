@@ -5,10 +5,7 @@ import React, { useState, useCallback } from 'react';
 import { InputNumber } from '.';
 import { IconPackage } from './../../index';
 
-export default {
-  title: 'Data Input/InputNumber',
-  component: InputNumber,
-};
+export default { title: 'Data Input/InputNumber', component: InputNumber };
 
 export const Default = (args: any) => <InputNumber {...args} />;
 
@@ -27,13 +24,7 @@ export const Controlled = (props: any) => {
   return <InputNumber {...props} onChange={onChange} value={state} />;
 };
 
-Default.args = {
-  label: 'Max of 100 and min of 0',
-  disabled: false,
-  layout: 'vertical',
-  max: 100,
-  min: 0,
-};
+Default.args = { label: 'Max of 100 and min of 0', disabled: false, layout: 'vertical', max: 100, min: 0 };
 
 ErrorState.args = {
   disabled: false,
@@ -51,10 +42,4 @@ WithIcon.args = {
   icon: <IconPackage />,
 };
 
-Controlled.args = {
-  label: 'Max of 100 and min of 0',
-  disabled: false,
-  layout: 'vertical',
-  max: 100,
-  min: 0,
-};
+Controlled.args = { label: 'Max of 100 and min of 0', disabled: false, layout: 'vertical', max: 100, min: 0 };

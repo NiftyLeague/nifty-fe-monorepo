@@ -61,10 +61,7 @@ export default function DeleteAccountDialog({ loading = false }) {
         maxWidth="md"
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        classes={{
-          container: styles.delete_account_dialog,
-          paper: styles.delete_account_dialog_paper,
-        }}
+        classes={{ container: styles.delete_account_dialog, paper: styles.delete_account_dialog_paper }}
       >
         <DialogTitle id="alert-dialog-title">{'Are you sure you want to delete your account?'}</DialogTitle>
         <DialogContent>

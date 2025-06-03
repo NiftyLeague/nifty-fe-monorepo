@@ -32,9 +32,7 @@ export default function EnhancedTableHead(props: EnhancedTableProps): React.Reac
               lineHeight: '24px',
               justifyContent: 'flex-end',
               fontWeight: 700,
-              svg: {
-                mr: '3px',
-              },
+              svg: { mr: '3px' },
             }}
             onClick={handleCheckYourRank}
           >

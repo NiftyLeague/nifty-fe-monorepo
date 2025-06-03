@@ -376,14 +376,7 @@ export interface VRFCoordinatorV2Mock extends BaseContract {
 
   getSubscription: TypedContractMethod<
     [_subId: BigNumberish],
-    [
-      [bigint, bigint, string, string[]] & {
-        balance: bigint;
-        reqCount: bigint;
-        owner: string;
-        consumers: string[];
-      },
-    ],
+    [[bigint, bigint, string, string[]] & { balance: bigint; reqCount: bigint; owner: string; consumers: string[] }],
     'view'
   >;
 
@@ -443,7 +436,9 @@ export interface VRFCoordinatorV2Mock extends BaseContract {
   getFunction(
     nameOrSignature: 'fundSubscription',
   ): TypedContractMethod<[_subId: BigNumberish, _amount: BigNumberish], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'getConfig'): TypedContractMethod<
+  getFunction(
+    nameOrSignature: 'getConfig',
+  ): TypedContractMethod<
     [],
     [
       [bigint, bigint, bigint, bigint] & {
@@ -456,7 +451,9 @@ export interface VRFCoordinatorV2Mock extends BaseContract {
     'view'
   >;
   getFunction(nameOrSignature: 'getFallbackWeiPerUnitLink'): TypedContractMethod<[], [bigint], 'view'>;
-  getFunction(nameOrSignature: 'getFeeConfig'): TypedContractMethod<
+  getFunction(
+    nameOrSignature: 'getFeeConfig',
+  ): TypedContractMethod<
     [],
     [
       [bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint, bigint] & {
@@ -474,16 +471,11 @@ export interface VRFCoordinatorV2Mock extends BaseContract {
     'view'
   >;
   getFunction(nameOrSignature: 'getRequestConfig'): TypedContractMethod<[], [[bigint, bigint, string[]]], 'view'>;
-  getFunction(nameOrSignature: 'getSubscription'): TypedContractMethod<
+  getFunction(
+    nameOrSignature: 'getSubscription',
+  ): TypedContractMethod<
     [_subId: BigNumberish],
-    [
-      [bigint, bigint, string, string[]] & {
-        balance: bigint;
-        reqCount: bigint;
-        owner: string;
-        consumers: string[];
-      },
-    ],
+    [[bigint, bigint, string, string[]] & { balance: bigint; reqCount: bigint; owner: string; consumers: string[] }],
     'view'
   >;
   getFunction(nameOrSignature: 'owner'): TypedContractMethod<[], [string], 'view'>;

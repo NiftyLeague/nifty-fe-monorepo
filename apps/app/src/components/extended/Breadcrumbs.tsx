@@ -177,13 +177,7 @@ const Breadcrumbs = ({
               )}
               <Grid>
                 <MuiBreadcrumbs
-                  sx={{
-                    '& .MuiBreadcrumbs-separator': {
-                      width: 16,
-                      ml: 1.25,
-                      mr: 1.25,
-                    },
-                  }}
+                  sx={{ '& .MuiBreadcrumbs-separator': { width: 16, ml: 1.25, mr: 1.25 } }}
                   aria-label="breadcrumb"
                   maxItems={maxItems || 8}
                   separator={separatorIcon}
@@ -207,13 +201,7 @@ const Breadcrumbs = ({
             </Grid>
           </Box>
           {card === false && divider !== false && (
-            <Divider
-              sx={{
-                borderColor: theme.palette.primary.main,
-                mb: gridSpacing,
-                opacity: '0.6',
-              }}
-            />
+            <Divider sx={{ borderColor: theme.palette.primary.main, mb: gridSpacing, opacity: '0.6' }} />
           )}
         </Card>
       );

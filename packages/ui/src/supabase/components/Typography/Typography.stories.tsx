@@ -4,10 +4,7 @@ import Typography from '.';
 
 const { Title, Text, Link } = Typography;
 
-export default {
-  title: 'General/Typography',
-  component: Typography,
-};
+export default { title: 'General/Typography', component: Typography };
 
 export const article = () => (
   <Typography tag="article">Lorem ipslum dolor sit amet, consectetur adipiscing elit. Nulla nec dui</Typography>

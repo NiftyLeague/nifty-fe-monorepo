@@ -4,12 +4,7 @@ import { useMediaQuery } from '@mui/material';
 import Image from 'next/image';
 import { type CSSProperties, memo } from 'react';
 
-type Sponsor = {
-  image: string;
-  url: string;
-  width: number;
-  height: number;
-};
+type Sponsor = { image: string; url: string; width: number; height: number };
 
 const styles = {
   container: {
@@ -20,16 +15,7 @@ const styles = {
     flexWrap: 'wrap',
     maxWidth: 1600,
   },
-  item: {
-    mobile: {
-      margin: 24,
-      width: 80,
-    },
-    desktop: {
-      margin: 32,
-      width: 160,
-    },
-  },
+  item: { mobile: { margin: 24, width: 80 }, desktop: { margin: 32, width: 160 } },
 };
 
 const RenderSponsor = ({ image, url, width, height }: Sponsor) => (
@@ -48,10 +34,7 @@ const SponsorItem = ({ image, url, width, height }: Sponsor): React.ReactNode =>
           height={height}
           priority
           sizes="100vw"
-          style={{
-            width: '100%',
-            height: 'auto',
-          }}
+          style={{ width: '100%', height: 'auto' }}
         />
       </div>
     </a>

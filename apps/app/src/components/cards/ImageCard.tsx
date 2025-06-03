@@ -8,16 +8,7 @@ interface ImageCardProps {
   ratio: number;
 }
 
-const styleImage = {
-  imageWrapper: {
-    height: 0,
-    width: '100%',
-  },
-  imageCommon: {
-    position: 'absolute',
-    width: '100%',
-  },
-};
+const styleImage = { imageWrapper: { height: 0, width: '100%' }, imageCommon: { position: 'absolute', width: '100%' } };
 
 const ImageCard = ({ image, thumbnail, title, ratio }: ImageCardProps) => {
   const { handleImageOnLoad, css } = useImageOnLoad();
@@ -29,10 +20,7 @@ const ImageCard = ({ image, thumbnail, title, ratio }: ImageCardProps) => {
           component="img"
           image={thumbnail}
           alt={`thumbnail-${title}`}
-          sx={{
-            ...styleImage.imageCommon,
-            ...css.thumbnail,
-          }}
+          sx={{ ...styleImage.imageCommon, ...css.thumbnail }}
         />
       )}
       {image && (
@@ -41,11 +29,7 @@ const ImageCard = ({ image, thumbnail, title, ratio }: ImageCardProps) => {
           component="img"
           image={image}
           alt={title}
-          sx={{
-            height: '100%',
-            ...styleImage.imageCommon,
-            ...css.fullSize,
-          }}
+          sx={{ height: '100%', ...styleImage.imageCommon, ...css.fullSize }}
         />
       )}
     </Box>

@@ -40,10 +40,7 @@ const WithdrawButtonDialog = ({ balance, loading }: WithdrawButtonDialogProps) =
         <DialogContent
           aria-labelledby="withdraw-earnings-dialog"
           dialogTitle="Withdraw Earnings"
-          sx={{
-            '& h2': { textAlign: 'center' },
-            '& .MuiDialogContent-root': { textAlign: 'center' },
-          }}
+          sx={{ '& h2': { textAlign: 'center' }, '& .MuiDialogContent-root': { textAlign: 'center' } }}
         >
           <WithdrawForm balance={balance} onWithdrawSuccess={onWithdrawSuccess} />
         </DialogContent>

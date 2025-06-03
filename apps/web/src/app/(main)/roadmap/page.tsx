@@ -19,10 +19,7 @@ const Roadmap: NextPage = () => {
               height={200}
               priority
               sizes="100vw"
-              style={{
-                width: '100%',
-                height: 'auto',
-              }}
+              style={{ width: '100%', height: 'auto' }}
             />
           </div>
           <div className={roadmapStyles.earth} />
@@ -48,10 +45,7 @@ const Roadmap: NextPage = () => {
                 height={800}
                 priority
                 sizes="100vw"
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                }}
+                style={{ width: '100%', height: 'auto' }}
               />
             </div>
           </div>

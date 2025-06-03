@@ -40,10 +40,7 @@ const Community: NextPage = () => {
                     height={437}
                     priority
                     sizes="100vw"
-                    style={{
-                      width: '100%',
-                      height: 'auto',
-                    }}
+                    style={{ width: '100%', height: 'auto' }}
                   />
                 </div>
               </AnimatedWrapper>
@@ -69,10 +66,7 @@ const Community: NextPage = () => {
                 alt="Earth"
                 priority
                 sizes="100vw"
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                }}
+                style={{ width: '100%', height: 'auto' }}
               />
             </div>
           </AnimatedWrapper>
@@ -85,10 +79,7 @@ const Community: NextPage = () => {
             width={704}
             height={704}
             sizes="100vw"
-            style={{
-              width: '100%',
-              height: 'auto',
-            }}
+            style={{ width: '100%', height: 'auto' }}
           />
         </span>
       </div>

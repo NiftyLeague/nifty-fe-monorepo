@@ -67,19 +67,10 @@ const SortButton = ({
         anchorEl={anchorEl}
         open={isSortOpen}
         onClose={handleCloseSortMenu}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         sx={{
-          '& .MuiPaper-root': {
-            background: '#1E2023',
-            borderRadius: '0px 0px 5px 5px',
-          },
+          '& .MuiPaper-root': { background: '#1E2023', borderRadius: '0px 0px 5px 5px' },
           '& .MuiMenuItem-root': {
             width: (buttonRef?.current as unknown as { clientWidth: number })?.clientWidth,
             color: '#f5f5f5',

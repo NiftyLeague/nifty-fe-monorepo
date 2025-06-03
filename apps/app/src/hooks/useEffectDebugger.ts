@@ -6,9 +6,7 @@ interface DependencyChange {
   after: unknown;
 }
 
-type DependencyChanges = {
-  [key: string | number]: DependencyChange;
-};
+type DependencyChanges = { [key: string | number]: DependencyChange };
 
 const usePrevious = <T>(value: T, initialValue: T): T => {
   const ref = useRef(initialValue);
@@ -28,13 +26,7 @@ const useEffectDebugger = (
   const changedDeps = dependencies.reduce<DependencyChanges>((accum, dependency, index) => {
     if (dependency !== previousDeps[index]) {
       const keyName = dependencyNames[index] || index;
-      return {
-        ...accum,
-        [keyName]: {
-          before: previousDeps[index],
-          after: dependency,
-        },
-      };
+      return { ...accum, [keyName]: { before: previousDeps[index], after: dependency } };
     }
 
     return accum;

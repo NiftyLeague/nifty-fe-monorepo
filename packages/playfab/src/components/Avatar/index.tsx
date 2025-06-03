@@ -55,10 +55,7 @@ export default function Avatar({
           className={cn(styles.avatar, styles.image)}
           height={size}
           width={size}
-          style={{
-            maxWidth: '100%',
-            height: 'auto',
-          }}
+          style={{ maxWidth: '100%', height: 'auto' }}
         />
       ) : (
         <div className={cn(styles.avatar, styles.no_image)} style={{ height: size, width: size }} />
@@ -74,10 +71,7 @@ export default function Avatar({
           )}
         </label>
         <input
-          style={{
-            visibility: 'hidden',
-            position: 'absolute',
-          }}
+          style={{ visibility: 'hidden', position: 'absolute' }}
           type="file"
           id="single"
           accept="image/*"

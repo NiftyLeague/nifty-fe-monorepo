@@ -38,10 +38,7 @@ const Games: NextPage = () => {
                     height={661}
                     src="/img/games/smashers/arcade.webp"
                     sizes="100vw"
-                    style={{
-                      width: '100%',
-                      height: 'auto',
-                    }}
+                    style={{ width: '100%', height: 'auto' }}
                   />
                 </div>
               </AnimatedWrapper>

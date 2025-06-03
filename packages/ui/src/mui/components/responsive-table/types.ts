@@ -8,11 +8,7 @@ import type { TypographyProps } from '@mui/material/Typography';
 import type { TablePaginationProps } from '@mui/material/TablePagination';
 import type { SvgIconProps } from '@mui/material/SvgIcon';
 
-export type Row = {
-  id?: string | number;
-  user_id?: string;
-  [key: string]: unknown;
-};
+export type Row = { id?: string | number; user_id?: string; [key: string]: unknown };
 
 export interface CustomColDef extends Omit<GridColDef, 'renderCell'> {
   renderCell?: (params: GridRenderCellParams) => ReactNode;

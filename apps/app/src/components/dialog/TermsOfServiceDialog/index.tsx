@@ -15,31 +15,18 @@ const TermsOfServiceDialog = ({ open, onClose, ...rest }: TermsOfServiceDialogPr
   return (
     <Dialog maxWidth="sm" scroll="paper" fullScreen={fullScreen} onClose={onClose} open={open} {...rest}>
       <Stack sx={{ overflow: 'none' }} direction="column" gap={0} width="100%">
-        <Container
-          sx={{
-            background: theme.palette.background.paper,
-          }}
-        >
+        <Container sx={{ background: theme.palette.background.paper }}>
           <h2>Terms and Conditions</h2>
         </Container>
         <Stack
-          sx={{
-            overflowY: 'scroll',
-            overflowX: 'hidden',
-            height: fullScreen ? 'calc(100vh - 184px)' : '65vh',
-          }}
+          sx={{ overflowY: 'scroll', overflowX: 'hidden', height: fullScreen ? 'calc(100vh - 184px)' : '65vh' }}
           direction="column"
           gap={0}
           width="100%"
         >
           <TermsOfServiceContent />
         </Stack>
-        <Container
-          sx={{
-            background: theme.palette.background.paper,
-            pt: '1.2em',
-          }}
-        >
+        <Container sx={{ background: theme.palette.background.paper, pt: '1.2em' }}>
           <Button fullWidth variant="contained" onClick={() => onClose({}, 'accepted')}>
             Accept
           </Button>

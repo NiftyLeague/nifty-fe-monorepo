@@ -22,12 +22,7 @@ const Game = ({ closeGame }: { closeGame: () => void }) => {
     unload,
   } = useUnityPreConfig();
 
-  useUnityEventHandlers({
-    address,
-    authToken,
-    addEventListener,
-    removeEventListener,
-  });
+  useUnityEventHandlers({ address, authToken, addEventListener, removeEventListener });
 
   useUnitySafeClose({ closeGame, unload });
 

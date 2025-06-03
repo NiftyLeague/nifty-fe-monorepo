@@ -57,9 +57,7 @@ export const createOrderSwapEtherToNFTL = async ({
   // Wrap ETH
   handleTxnState('Sign the wrapping with your wallet');
   const wEth = WETH__factory.connect(WETH_ADDRESS[chainId as keyof typeof WETH_ADDRESS] as string);
-  await wEth.connect(signer).deposit({
-    value: parseEther(etherVal),
-  });
+  await wEth.connect(signer).deposit({ value: parseEther(etherVal) });
 
   // Approve WETH to Vault Relayer
   handleTxnState('Allow CowSwap to use your WETH');

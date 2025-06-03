@@ -69,10 +69,7 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
     <Icon strokeWidth={1.5} size={20} style={{ marginTop: 'auto', marginBottom: 'auto' }} />
   ) : (
     <FiberManualRecordIcon
-      sx={{
-        width: selected === menu.id ? 8 : 6,
-        height: selected === menu.id ? 8 : 6,
-      }}
+      sx={{ width: selected === menu.id ? 8 : 6, height: selected === menu.id ? 8 : 6 }}
       fontSize={level > 0 ? 'inherit' : 'medium'}
     />
   );

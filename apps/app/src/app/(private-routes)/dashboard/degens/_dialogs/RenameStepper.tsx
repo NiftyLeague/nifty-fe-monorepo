@@ -42,9 +42,7 @@ const StyledIcon = styled('div')({
     backgroundImage: 'linear-gradient(89deg, #620edf 0%, #5e72eb 100%)',
     boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
   },
-  [`&.${classes.completed}`]: {
-    backgroundImage: 'linear-gradient(89deg, #620edf 0%, #5e72eb 100%)',
-  },
+  [`&.${classes.completed}`]: { backgroundImage: 'linear-gradient(89deg, #620edf 0%, #5e72eb 100%)' },
 });
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
@@ -60,35 +58,15 @@ const icons: { [index: string]: React.ReactElement } = {
 };
 
 const ColorlibConnector = styled(StepConnector)({
-  alternativeLabel: {
-    top: 22,
-  },
-  active: {
-    '& $line': {
-      backgroundImage: 'linear-gradient(89deg, #620edf 0%, #5e72eb 100%)',
-    },
-  },
-  completed: {
-    '& $line': {
-      backgroundImage: 'linear-gradient(89deg, #620edf 0%, #5e72eb 100%)',
-    },
-  },
-  line: {
-    height: 3,
-    border: 0,
-    backgroundColor: '#eaeaf0',
-    borderRadius: 1,
-  },
+  alternativeLabel: { top: 22 },
+  active: { '& $line': { backgroundImage: 'linear-gradient(89deg, #620edf 0%, #5e72eb 100%)' } },
+  completed: { '& $line': { backgroundImage: 'linear-gradient(89deg, #620edf 0%, #5e72eb 100%)' } },
+  line: { height: 3, border: 0, backgroundColor: '#eaeaf0', borderRadius: 1 },
 });
 
 function ColorlibStepIcon({ active, completed, icon }: StepIconProps) {
   return (
-    <StyledIcon
-      className={cn(classes.root, {
-        [classes.active]: active,
-        [classes.completed]: completed,
-      })}
-    >
+    <StyledIcon className={cn(classes.root, { [classes.active]: active, [classes.completed]: completed })}>
       {icons[String(icon)]}
     </StyledIcon>
   );

@@ -54,15 +54,8 @@
         { "name": "Aleix Ramon", "role": "Music Composer" }
       ]
     },
-    {
-      "name": "UPSTANDING PRODUCTIONS",
-      "members": [{ "name": "Peter O'Donoghue", "role": "Game and Character SFX" }]
-    },
-    {
-      "name": "VOLKOV STUDIO",
-      "link": "https://volkovstudio.com",
-      "members": [{ "role": "Additional Sound & Music" }]
-    }
+    { "name": "UPSTANDING PRODUCTIONS", "members": [{ "name": "Peter O'Donoghue", "role": "Game and Character SFX" }] },
+    { "name": "VOLKOV STUDIO", "link": "https://volkovstudio.com", "members": [{ "role": "Additional Sound & Music" }] }
   ],
   "formerMembers": [
     "Dave Rosser",

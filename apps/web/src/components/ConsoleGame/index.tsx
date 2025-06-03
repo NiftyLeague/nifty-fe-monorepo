@@ -24,10 +24,7 @@ const ConsoleGame = ({ src }: { src: string }) => {
             src="/img/console-game/classic-gaming-reinvented-notv.webp"
             priority
             sizes="100vw"
-            style={{
-              width: '100%',
-              height: 'auto',
-            }}
+            style={{ width: '100%', height: 'auto' }}
           />
           <video
             id="console-video"
@@ -57,10 +54,7 @@ const ConsoleGame = ({ src }: { src: string }) => {
               src="/img/console-game/bonk.webp"
               priority
               sizes="100vw"
-              style={{
-                width: '100%',
-                height: 'auto',
-              }}
+              style={{ width: '100%', height: 'auto' }}
             />
           </div>
         </div>
@@ -76,10 +70,7 @@ const ConsoleGame = ({ src }: { src: string }) => {
               src="/img/console-game/gaming_controller_left.webp"
               priority
               sizes="100vw"
-              style={{
-                width: '100%',
-                height: 'auto',
-              }}
+              style={{ width: '100%', height: 'auto' }}
             />
           </div>
         </AnimatedWrapper>
@@ -95,10 +86,7 @@ const ConsoleGame = ({ src }: { src: string }) => {
               src="/img/console-game/gaming_controller_right.webp"
               priority
               sizes="100vw"
-              style={{
-                width: '100%',
-                height: 'auto',
-              }}
+              style={{ width: '100%', height: 'auto' }}
             />
           </div>
         </AnimatedWrapper>

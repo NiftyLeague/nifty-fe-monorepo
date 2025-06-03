@@ -7,68 +7,21 @@ import type { NonPayableOverrides } from '../../../../common';
 import type { NiftyItemSale, NiftyItemSaleInterface } from '../../../../src/contracts/deprecated/NiftyItemSale';
 
 const _abi = [
-  {
-    inputs: [
-      {
-        internalType: 'string',
-        name: 'message',
-        type: 'string',
-      },
-    ],
-    name: 'AddressError',
-    type: 'error',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'string',
-        name: 'message',
-        type: 'string',
-      },
-    ],
-    name: 'InputError',
-    type: 'error',
-  },
+  { inputs: [{ internalType: 'string', name: 'message', type: 'string' }], name: 'AddressError', type: 'error' },
+  { inputs: [{ internalType: 'string', name: 'message', type: 'string' }], name: 'InputError', type: 'error' },
   {
     anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint8',
-        name: 'version',
-        type: 'uint8',
-      },
-    ],
+    inputs: [{ indexed: false, internalType: 'uint8', name: 'version', type: 'uint8' }],
     name: 'Initialized',
     type: 'event',
   },
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'by',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'itemId',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'oldLimitCount',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'newLimitCount',
-        type: 'uint256',
-      },
+      { indexed: true, internalType: 'address', name: 'by', type: 'address' },
+      { indexed: false, internalType: 'uint256', name: 'itemId', type: 'uint256' },
+      { indexed: false, internalType: 'uint256', name: 'oldLimitCount', type: 'uint256' },
+      { indexed: false, internalType: 'uint256', name: 'newLimitCount', type: 'uint256' },
     ],
     name: 'ItemLimitUpdated',
     type: 'event',
@@ -76,30 +29,10 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'by',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'itemId',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'oldItemMaxCount',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'newItemMaxCount',
-        type: 'uint256',
-      },
+      { indexed: true, internalType: 'address', name: 'by', type: 'address' },
+      { indexed: false, internalType: 'uint256', name: 'itemId', type: 'uint256' },
+      { indexed: false, internalType: 'uint256', name: 'oldItemMaxCount', type: 'uint256' },
+      { indexed: false, internalType: 'uint256', name: 'newItemMaxCount', type: 'uint256' },
     ],
     name: 'ItemMaxCountSet',
     type: 'event',
@@ -107,30 +40,10 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'by',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'itemId',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'oldItemPrice',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'newItemPrice',
-        type: 'uint256',
-      },
+      { indexed: true, internalType: 'address', name: 'by', type: 'address' },
+      { indexed: false, internalType: 'uint256', name: 'itemId', type: 'uint256' },
+      { indexed: false, internalType: 'uint256', name: 'oldItemPrice', type: 'uint256' },
+      { indexed: false, internalType: 'uint256', name: 'newItemPrice', type: 'uint256' },
     ],
     name: 'ItemPriceSet',
     type: 'event',
@@ -138,24 +51,9 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'by',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256[]',
-        name: 'itemIds',
-        type: 'uint256[]',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256[]',
-        name: 'amounts',
-        type: 'uint256[]',
-      },
+      { indexed: true, internalType: 'address', name: 'by', type: 'address' },
+      { indexed: false, internalType: 'uint256[]', name: 'itemIds', type: 'uint256[]' },
+      { indexed: false, internalType: 'uint256[]', name: 'amounts', type: 'uint256[]' },
     ],
     name: 'ItemPurchased',
     type: 'event',
@@ -163,30 +61,10 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'by',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'burnAmount',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'treasuryAmount',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'daoAmount',
-        type: 'uint256',
-      },
+      { indexed: true, internalType: 'address', name: 'by', type: 'address' },
+      { indexed: false, internalType: 'uint256', name: 'burnAmount', type: 'uint256' },
+      { indexed: false, internalType: 'uint256', name: 'treasuryAmount', type: 'uint256' },
+      { indexed: false, internalType: 'uint256', name: 'daoAmount', type: 'uint256' },
     ],
     name: 'NFTLWithdraw',
     type: 'event',
@@ -194,192 +72,75 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'previousOwner',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'newOwner',
-        type: 'address',
-      },
+      { indexed: true, internalType: 'address', name: 'previousOwner', type: 'address' },
+      { indexed: true, internalType: 'address', name: 'newOwner', type: 'address' },
     ],
     name: 'OwnershipTransferred',
     type: 'event',
   },
   {
     anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-    ],
+    inputs: [{ indexed: false, internalType: 'address', name: 'account', type: 'address' }],
     name: 'Paused',
     type: 'event',
   },
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'by',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'oldBurnPercentage',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'oldTreasuryPercentage',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'oldDAOPercentage',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'newBurnPercentage',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'newTreasuryPercentage',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'newDAOPercentage',
-        type: 'uint256',
-      },
+      { indexed: true, internalType: 'address', name: 'by', type: 'address' },
+      { indexed: false, internalType: 'uint256', name: 'oldBurnPercentage', type: 'uint256' },
+      { indexed: false, internalType: 'uint256', name: 'oldTreasuryPercentage', type: 'uint256' },
+      { indexed: false, internalType: 'uint256', name: 'oldDAOPercentage', type: 'uint256' },
+      { indexed: false, internalType: 'uint256', name: 'newBurnPercentage', type: 'uint256' },
+      { indexed: false, internalType: 'uint256', name: 'newTreasuryPercentage', type: 'uint256' },
+      { indexed: false, internalType: 'uint256', name: 'newDAOPercentage', type: 'uint256' },
     ],
     name: 'TokenPercentagesUpdated',
     type: 'event',
   },
   {
     anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-    ],
+    inputs: [{ indexed: false, internalType: 'address', name: 'account', type: 'address' }],
     name: 'Unpaused',
     type: 'event',
   },
   {
     inputs: [],
     name: 'burnPercentage',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'dao',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'daoPercentage',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_itemId',
-        type: 'uint256',
-      },
-    ],
+    inputs: [{ internalType: 'uint256', name: '_itemId', type: 'uint256' }],
     name: 'getRemainingItemCount',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: 'count',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: 'count', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: '_items',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_nftl',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_treasury',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_dao',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_burnPercentage',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_treasuryPercentage',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_daoPercentage',
-        type: 'uint256',
-      },
+      { internalType: 'address', name: '_items', type: 'address' },
+      { internalType: 'address', name: '_nftl', type: 'address' },
+      { internalType: 'address', name: '_treasury', type: 'address' },
+      { internalType: 'address', name: '_dao', type: 'address' },
+      { internalType: 'uint256', name: '_burnPercentage', type: 'uint256' },
+      { internalType: 'uint256', name: '_treasuryPercentage', type: 'uint256' },
+      { internalType: 'uint256', name: '_daoPercentage', type: 'uint256' },
     ],
     name: 'initialize',
     outputs: [],
@@ -387,158 +148,70 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'itemId',
-        type: 'uint256',
-      },
-    ],
+    inputs: [{ internalType: 'uint256', name: 'itemId', type: 'uint256' }],
     name: 'itemLimitPerAdress',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: 'limit',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: 'limit', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'itemId',
-        type: 'uint256',
-      },
-    ],
+    inputs: [{ internalType: 'uint256', name: 'itemId', type: 'uint256' }],
     name: 'itemMaxCounts',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: 'count',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: 'count', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'itemId',
-        type: 'uint256',
-      },
-    ],
+    inputs: [{ internalType: 'uint256', name: 'itemId', type: 'uint256' }],
     name: 'itemPrices',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: 'amount',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: 'amount', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'items',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'nftl',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'owner',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
-  {
-    inputs: [],
-    name: 'pause',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
+  { inputs: [], name: 'pause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   {
     inputs: [],
     name: 'paused',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [
-      {
-        internalType: 'uint256[]',
-        name: '_itemIds',
-        type: 'uint256[]',
-      },
-      {
-        internalType: 'uint256[]',
-        name: '_amounts',
-        type: 'uint256[]',
-      },
+      { internalType: 'uint256[]', name: '_itemIds', type: 'uint256[]' },
+      { internalType: 'uint256[]', name: '_amounts', type: 'uint256[]' },
     ],
     name: 'purchaseItems',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
-  {
-    inputs: [],
-    name: 'renounceOwnership',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
+  { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: '_itemId',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_limitCount',
-        type: 'uint256',
-      },
+      { internalType: 'uint256', name: '_itemId', type: 'uint256' },
+      { internalType: 'uint256', name: '_limitCount', type: 'uint256' },
     ],
     name: 'setItemLimit',
     outputs: [],
@@ -547,16 +220,8 @@ const _abi = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256[]',
-        name: '_itemIds',
-        type: 'uint256[]',
-      },
-      {
-        internalType: 'uint256[]',
-        name: '_maxCounts',
-        type: 'uint256[]',
-      },
+      { internalType: 'uint256[]', name: '_itemIds', type: 'uint256[]' },
+      { internalType: 'uint256[]', name: '_maxCounts', type: 'uint256[]' },
     ],
     name: 'setItemMaxCounts',
     outputs: [],
@@ -565,16 +230,8 @@ const _abi = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256[]',
-        name: '_itemIds',
-        type: 'uint256[]',
-      },
-      {
-        internalType: 'uint256[]',
-        name: '_nftlAmounts',
-        type: 'uint256[]',
-      },
+      { internalType: 'uint256[]', name: '_itemIds', type: 'uint256[]' },
+      { internalType: 'uint256[]', name: '_nftlAmounts', type: 'uint256[]' },
     ],
     name: 'setItemPrices',
     outputs: [],
@@ -582,13 +239,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'newOwner',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: 'newOwner', type: 'address' }],
     name: 'transferOwnership',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -597,66 +248,30 @@ const _abi = [
   {
     inputs: [],
     name: 'treasury',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'treasuryPercentage',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
-  {
-    inputs: [],
-    name: 'unpause',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
+  { inputs: [], name: 'unpause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: '_burnPercentage',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_treasuryPercentage',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_daoPercentage',
-        type: 'uint256',
-      },
+      { internalType: 'uint256', name: '_burnPercentage', type: 'uint256' },
+      { internalType: 'uint256', name: '_treasuryPercentage', type: 'uint256' },
+      { internalType: 'uint256', name: '_daoPercentage', type: 'uint256' },
     ],
     name: 'updateTokenPercentages',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
-  {
-    inputs: [],
-    name: 'withdraw',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
+  { inputs: [], name: 'withdraw', outputs: [], stateMutability: 'nonpayable', type: 'function' },
 ] as const;
 
 const _bytecode =
@@ -683,9 +298,7 @@ export class NiftyItemSale__factory extends ContractFactory {
   }
   override deploy(overrides?: NonPayableOverrides & { from?: string }) {
     return super.deploy(overrides || {}) as Promise<
-      NiftyItemSale & {
-        deploymentTransaction(): ContractTransactionResponse;
-      }
+      NiftyItemSale & { deploymentTransaction(): ContractTransactionResponse }
     >;
   }
   override connect(runner: ContractRunner | null): NiftyItemSale__factory {

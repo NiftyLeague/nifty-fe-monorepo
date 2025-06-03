@@ -81,12 +81,7 @@ export const NETWORKS: Record<NetworkName, Network> = {
 };
 
 export const NETWORK = (chainId: number): Network =>
-  Object.values(NETWORKS).find(n => n.chainId === chainId) || {
-    blockExplorer: '',
-    chainId: 1,
-    label: '',
-    rpcUrl: '',
-  };
+  Object.values(NETWORKS).find(n => n.chainId === chainId) || { blockExplorer: '', chainId: 1, label: '', rpcUrl: '' };
 
 export const TARGET_NETWORK: Network = NETWORKS[process.env.NEXT_PUBLIC_NETWORK as NetworkName] as Network;
 

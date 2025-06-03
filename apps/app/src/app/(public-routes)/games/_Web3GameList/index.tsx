@@ -14,9 +14,7 @@ const GridItem = styled(Grid)(({ theme }) => ({
   paddingRight: 16,
   paddingBottom: 32,
   border: 'none',
-  [theme.breakpoints.down('sm')]: {
-    paddingBottom: 0,
-  },
+  [theme.breakpoints.down('sm')]: { paddingBottom: 0 },
 }));
 
 const MobileGameList = () => {
@@ -53,10 +51,7 @@ const MobileGameList = () => {
       <GridItem size={{ xs: 12, sm: 6, md: 4, lg: 4, xl: 3 }}>
         <GameCard
           title="2D Smashers"
-          externalLink={{
-            title: 'Smashers Mobile',
-            src: 'https://niftysmashers.com/',
-          }}
+          externalLink={{ title: 'Smashers Mobile', src: 'https://niftysmashers.com/' }}
           required="DEPRECATED - Please download our mobile app!"
           description="The first NFT brawler on the Ethereum blockchain. Now available free-to-play on all mobile platforms!"
           image="/img/games/smashers/nifty-smashers.gif"

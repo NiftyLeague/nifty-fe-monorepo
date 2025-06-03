@@ -36,29 +36,18 @@ const StyledStack = styled(Stack)(() => ({
     paddingBottom: 4,
     paddingRight: 8,
     color: '#4D4D4D',
-    '& .MuiSvgIcon-root': {
-      width: '0.75em',
-      height: '0.75em',
-    },
+    '& .MuiSvgIcon-root': { width: '0.75em', height: '0.75em' },
   },
 
-  [`&.${classes.tribeCheckFormControl}`]: {
-    marginLeft: -8,
-    minWidth: 108,
-  },
+  [`&.${classes.tribeCheckFormControl}`]: { marginLeft: -8, minWidth: 108 },
 
   [`&.${classes.inputCheckFormControl}`]: {
     marginLeft: -8,
     marginRight: 0,
-    '& .MuiFormControlLabel-label': {
-      fontSize: '0.75rem',
-      lineHeight: '0.75rem',
-    },
+    '& .MuiFormControlLabel-label': { fontSize: '0.75rem', lineHeight: '0.75rem' },
   },
 
-  [`&.${classes.tribeName}`]: {
-    marginLeft: 8,
-  },
+  [`&.${classes.tribeName}`]: { marginLeft: 8 },
 }));
 
 interface DegensFilterProps {
@@ -80,10 +69,7 @@ const DegensFilter = ({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const params = useMemo(
-    () =>
-      Object.fromEntries(searchParams.entries()) as {
-        [key in FilterSource]?: string;
-      },
+    () => Object.fromEntries(searchParams.entries()) as { [key in FilterSource]?: string },
     [searchParams],
   );
   const isParamsEmpty = isEmpty(params);
@@ -213,10 +199,7 @@ const DegensFilter = ({
     // Once mounted, show only DEGENs with Common backgrounds if non DEGEN owner
     const newFilters = updateFilterValue(
       !params.backgrounds && !mountedRef.current
-        ? {
-            ...defaultFilterValues,
-            backgrounds: defaultFilterValues.backgrounds,
-          }
+        ? { ...defaultFilterValues, backgrounds: defaultFilterValues.backgrounds }
         : defaultFilterValues,
       params,
       {
@@ -245,15 +228,7 @@ const DegensFilter = ({
   }, [defaultFilterValues, isDegenOwner, onFilter, params]);
 
   return (
-    <StyledStack
-      gap={1.5}
-      sx={{
-        overflowX: 'hidden',
-        [theme.breakpoints.down('sm')]: {
-          paddingY: 2,
-        },
-      }}
-    >
+    <StyledStack gap={1.5} sx={{ overflowX: 'hidden', [theme.breakpoints.down('sm')]: { paddingY: 2 } }}>
       <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
         <Typography variant="h3">Filter Degens</Typography>
         <Stack direction="row" gap={2}>
@@ -437,12 +412,7 @@ const DegensFilter = ({
         {!showMore ? (
           <Typography
             variant="body1"
-            sx={{
-              textDecoration: 'underline',
-              cursor: 'pointer',
-              margin: '0 14px',
-              lineHeight: '36px',
-            }}
+            sx={{ textDecoration: 'underline', cursor: 'pointer', margin: '0 14px', lineHeight: '36px' }}
             onClick={() => setShowMore(true)}
           >
             More

@@ -7,9 +7,7 @@ import { BALANCE_MANAGER_CONTRACT } from '@/constants/contracts';
 import { DEBUG } from '@/constants';
 import useUserClaimData from './useUserClaimData';
 
-export default function useClaimCallback(): {
-  claimCallback: () => Promise<TransactionResponse | null>;
-} {
+export default function useClaimCallback(): { claimCallback: () => Promise<TransactionResponse | null> } {
   const { imxContracts, imxSigner } = useIMXContext();
   const isConnectedToIMX = useConnectedToIMXCheck();
   const distributorContract = imxContracts[BALANCE_MANAGER_CONTRACT];

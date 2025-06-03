@@ -3,12 +3,7 @@ import { imbPlexSans, lilitaOne, nexaRustSansBlack, pressStart } from './styles/
 import { borderRadius, breakpoints, container, outlinedFilled } from './constants/index';
 
 export const defaultConfig: ThemeConfigProps = {
-  fontFamily: {
-    default: imbPlexSans,
-    header: nexaRustSansBlack,
-    subheader: pressStart,
-    special: lilitaOne,
-  },
+  fontFamily: { default: imbPlexSans, header: nexaRustSansBlack, subheader: pressStart, special: lilitaOne },
   borderRadius,
   breakpoints,
   container,

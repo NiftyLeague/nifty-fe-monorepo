@@ -76,11 +76,7 @@ const Overview: NextPage = () => {
                 width={1440}
                 priority
                 sizes="100vw"
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                  objectFit: 'cover',
-                }}
+                style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
               />
             ) : (
               <Image
@@ -91,11 +87,7 @@ const Overview: NextPage = () => {
                 width={375}
                 priority
                 sizes="100vw"
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                  objectFit: 'cover',
-                }}
+                style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
               />
             )}
           </div>

@@ -6,20 +6,10 @@ import { Dialog, DialogTrigger, DialogContent } from '@/components/dialog';
 
 const PREFIX = 'WhitelistDialog';
 
-const classes = {
-  form: `${PREFIX}-form`,
-  inputEmail: `${PREFIX}-inputEmail`,
-  submitButton: `${PREFIX}-submitButton`,
-};
+const classes = { form: `${PREFIX}-form`, inputEmail: `${PREFIX}-inputEmail`, submitButton: `${PREFIX}-submitButton` };
 
 const StyledDialog = styled(Dialog)(() => ({
-  [`&.${classes.form}`]: {
-    display: 'flex',
-    width: '100%',
-    '@media (max-width: 768px)': {
-      flexDirection: 'column',
-    },
-  },
+  [`&.${classes.form}`]: { display: 'flex', width: '100%', '@media (max-width: 768px)': { flexDirection: 'column' } },
 
   [`&.${classes.inputEmail}`]: {
     flex: 1,
@@ -31,12 +21,8 @@ const StyledDialog = styled(Dialog)(() => ({
     color: '#FAFAFA',
     outline: 'none',
     fontSize: '16px',
-    '&::placeholder': {
-      color: '#B4B5C3',
-    },
-    '@media (max-width: 768px)': {
-      borderRadius: '5px',
-    },
+    '&::placeholder': { color: '#B4B5C3' },
+    '@media (max-width: 768px)': { borderRadius: '5px' },
   },
 
   [`&.${classes.submitButton}`]: {
@@ -50,10 +36,7 @@ const StyledDialog = styled(Dialog)(() => ({
     letterSpacing: '-0.02em',
     color: '#FAFAFA',
     fontWeight: 700,
-    '@media (max-width: 768px)': {
-      marginTop: 8,
-      borderRadius: '5px',
-    },
+    '@media (max-width: 768px)': { marginTop: 8, borderRadius: '5px' },
   },
 }));
 
@@ -123,9 +106,7 @@ const WhitelistDialog = () => {
         aria-labelledby="exclusive-access-to-nifty-tennis"
         dialogTitle={`Get Notified When\nNifty Tennis Is Out!`}
         sx={{
-          '& .MuiPaper-root': {
-            maxWidth: 473,
-          },
+          '& .MuiPaper-root': { maxWidth: 473 },
           '& h2': {
             fontSize: { xs: '22px', md: '28px' },
             lineHeight: { xs: '28px', md: '36px' },
@@ -133,10 +114,7 @@ const WhitelistDialog = () => {
             paddingTop: '36px',
             whiteSpace: 'pre-line',
           },
-          '& .MuiDialogContent-root': {
-            border: 'none',
-            paddingBottom: '36px',
-          },
+          '& .MuiDialogContent-root': { border: 'none', paddingBottom: '36px' },
         }}
       >
         <WhitelistModal />

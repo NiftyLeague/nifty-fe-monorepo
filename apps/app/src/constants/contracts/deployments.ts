@@ -6,11 +6,7 @@ import TESTNET_DEPLOYMENTS from './deployments.sepolia';
 import IMX_TESTNET_DEPLOYMENTS from './deployments.imxTestnet';
 import IMX_MAINNET_DEPLOYMENTS from './deployments.imxMainnet';
 
-const CONTRACTS: {
-  [chainId: number]: {
-    [contractName: string]: { address: `0x${string}`; abi: InterfaceAbi };
-  };
-} = {
+const CONTRACTS: { [chainId: number]: { [contractName: string]: { address: `0x${string}`; abi: InterfaceAbi } } } = {
   [hardhat.id]: {
     AllowedColorsStorage: {
       address: '0x4cf79525c3447AA62B2dafFA876878BEA02e85EA',
@@ -86,10 +82,7 @@ const CONTRACTS: {
     //   address: IMX_TESTNET_DEPLOYMENTS.contracts.ComicsBurner.address,
     //   abi: IMX_TESTNET_DEPLOYMENTS.contracts.ComicsBurner.abi,
     // },
-    NFTL: {
-      address: IMX_TESTNET_DEPLOYMENTS.contracts.NFTL.address,
-      abi: IMX_TESTNET_DEPLOYMENTS.contracts.NFTL.abi,
-    },
+    NFTL: { address: IMX_TESTNET_DEPLOYMENTS.contracts.NFTL.address, abi: IMX_TESTNET_DEPLOYMENTS.contracts.NFTL.abi },
     NiftyMarketplace: {
       address: IMX_TESTNET_DEPLOYMENTS.contracts.NiftyMarketplace.address,
       abi: IMX_TESTNET_DEPLOYMENTS.contracts.NiftyMarketplace.abi,
@@ -104,10 +97,7 @@ const CONTRACTS: {
     //   address: IMX_MAINNET_DEPLOYMENTS.contracts.ComicsBurner.address,
     //   abi: IMX_MAINNET_DEPLOYMENTS.contracts.ComicsBurner.abi,
     // },
-    NFTL: {
-      address: IMX_MAINNET_DEPLOYMENTS.contracts.NFTL.address,
-      abi: IMX_MAINNET_DEPLOYMENTS.contracts.NFTL.abi,
-    },
+    NFTL: { address: IMX_MAINNET_DEPLOYMENTS.contracts.NFTL.address, abi: IMX_MAINNET_DEPLOYMENTS.contracts.NFTL.abi },
     NiftyMarketplace: {
       address: IMX_MAINNET_DEPLOYMENTS.contracts.NiftyMarketplace.address,
       abi: IMX_MAINNET_DEPLOYMENTS.contracts.NiftyMarketplace.abi,

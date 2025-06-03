@@ -16,10 +16,7 @@ export default function Navbar() {
             className={styles.logo}
             width={50}
             height={48}
-            style={{
-              maxWidth: '100%',
-              height: 'auto',
-            }}
+            style={{ maxWidth: '100%', height: 'auto' }}
           />
         </div>
       </a>
@@ -31,11 +28,7 @@ export default function Navbar() {
               alt="Profile Icon"
               width={28}
               height={28}
-              style={{
-                margin: 'auto',
-                width: 28,
-                height: 28,
-              }}
+              style={{ margin: 'auto', width: 28, height: 28 }}
             />
           </div>
         </Link>

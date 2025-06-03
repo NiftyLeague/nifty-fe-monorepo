@@ -59,10 +59,7 @@ const TrailerContent = () => {
   );
 };
 
-type TrailerModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-};
+type TrailerModalProps = { isOpen: boolean; onClose: () => void };
 
 const TrailerModal = ({ isOpen, onClose }: TrailerModalProps) => {
   return (

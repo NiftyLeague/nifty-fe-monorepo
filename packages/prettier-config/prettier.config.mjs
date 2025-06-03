@@ -15,7 +15,7 @@ export default {
 
   // Control how objects are wrapped. 'collapse' keeps them on one line if they fit,
   // otherwise wraps each property on a new line
-  // objectWrap: 'collapse',
+  objectWrap: 'collapse',
 
   // Maximum line length that Prettier will try to keep under
   printWidth: 120,

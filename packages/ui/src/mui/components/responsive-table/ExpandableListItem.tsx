@@ -75,23 +75,13 @@ const ExpandableListItem: React.FC<ExpandableListItemProps> = ({
         {checkboxSelection && (
           <Checkbox style={{ padding: `0 10px 5px 0` }} checked={selected} onClick={handleSelect} />
         )}
-        <Typography
-          style={{
-            width: '100%',
-            display: 'flex',
-          }}
-          variant="subtitle1"
-          {...AccordionSummaryTypographyProps}
-        >
+        <Typography style={{ width: '100%', display: 'flex' }} variant="subtitle1" {...AccordionSummaryTypographyProps}>
           {summary}
         </Typography>
       </AccordionSummary>
       <AccordionDetails {...AccordionDetailsProps}>
         <Typography
-          style={{
-            opacity: 0.5,
-            width: '100%',
-          }}
+          style={{ opacity: 0.5, width: '100%' }}
           gutterBottom
           component="div"
           {...AccordionDetailsTypographyProps}

@@ -157,9 +157,7 @@ const Modal = ({
                   <div className={ModalStyles['sbui-modal-content']} style={contentStyle}>
                     <Space
                       size={5}
-                      style={{
-                        alignItems: layout === 'vertical' ? 'center' : 'flex-start',
-                      }}
+                      style={{ alignItems: layout === 'vertical' ? 'center' : 'flex-start' }}
                       direction={layout}
                     >
                       {icon ? icon : null}
@@ -174,13 +172,7 @@ const Modal = ({
                       >
                         <span style={{ width: 'inherit' }}>
                           {title && (
-                            <Typography.Title
-                              style={{
-                                marginBottom: '.1rem',
-                                marginTop: '0',
-                              }}
-                              level={4}
-                            >
+                            <Typography.Title style={{ marginBottom: '.1rem', marginTop: '0' }} level={4}>
                               {title}
                             </Typography.Title>
                           )}

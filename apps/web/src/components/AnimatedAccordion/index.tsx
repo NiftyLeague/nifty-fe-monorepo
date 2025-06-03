@@ -14,20 +14,14 @@ const StyledAccordion = styled(Accordion)({
   backdropFilter: 'blur(65.0688px)',
   borderRadius: 10,
 
-  '& .MuiCollapse-wrapper': {
-    marginBottom: 12,
-  },
+  '& .MuiCollapse-wrapper': { marginBottom: 12 },
   '& .MuiAccordionSummary-root': {
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
     color: 'white',
     fontWeight: 600,
     padding: '12px 24px',
   },
-  '& .MuiAccordionDetails-root': {
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
-    color: 'white',
-    padding: 24,
-  },
+  '& .MuiAccordionDetails-root': { backgroundColor: 'rgba(0, 0, 0, 0.4)', color: 'white', padding: 24 },
 });
 
 const AnimatedAccordion = ({

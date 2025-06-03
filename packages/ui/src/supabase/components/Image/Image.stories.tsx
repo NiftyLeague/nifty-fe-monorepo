@@ -2,10 +2,7 @@
 
 import { Image } from '.';
 
-export default {
-  title: 'General/Image',
-  component: Image,
-};
+export default { title: 'General/Image', component: Image };
 
 export const Normal = (args: any) => {
   return (
@@ -39,26 +36,10 @@ export const Responsive = (args: any) => {
   );
 };
 
-Normal.args = {
-  active: true,
-  source: 'https://via.placeholder.com/300',
-};
+Normal.args = { active: true, source: 'https://via.placeholder.com/300' };
 
-Circle.args = {
-  active: true,
-  type: 'circle',
-  source: 'https://via.placeholder.com/300',
-};
+Circle.args = { active: true, type: 'circle', source: 'https://via.placeholder.com/300' };
 
-Rounded.args = {
-  active: true,
-  type: 'rounded',
-  source: 'https://via.placeholder.com/300',
-};
+Rounded.args = { active: true, type: 'rounded', source: 'https://via.placeholder.com/300' };
 
-Responsive.args = {
-  active: true,
-  type: 'normal',
-  source: 'https://via.placeholder.com/300',
-  responsive: true,
-};
+Responsive.args = { active: true, type: 'normal', source: 'https://via.placeholder.com/300', responsive: true };

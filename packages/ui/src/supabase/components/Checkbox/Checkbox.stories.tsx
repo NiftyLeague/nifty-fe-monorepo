@@ -17,10 +17,7 @@ const meta: Meta<typeof Checkbox> = {
   title: 'Data Input/Checkbox',
   component: Checkbox,
   tags: ['autodocs'],
-  args: {
-    label: 'This is the label',
-    description: 'This is the description',
-  },
+  args: { label: 'This is the label', description: 'This is the description' },
 };
 
 export default meta;
@@ -47,12 +44,7 @@ const checkboxItems = [
   },
 ];
 
-export const Default: CheckboxStory = {
-  args: {
-    label: 'Single Checkbox',
-    description: 'This is a single checkbox',
-  },
-};
+export const Default: CheckboxStory = { args: { label: 'Single Checkbox', description: 'This is a single checkbox' } };
 
 export const WithGroup: CheckboxStory = {
   render: args => (
@@ -69,19 +61,12 @@ export const WithGroup: CheckboxStory = {
       ))}
     </Checkbox.Group>
   ),
-  args: {
-    label: 'Checkbox Group',
-    description: 'A group of checkboxes',
-  },
+  args: { label: 'Checkbox Group', description: 'A group of checkboxes' },
 };
 
 export const WithGroupHorizontal: CheckboxStory = {
   ...WithGroup,
-  args: {
-    ...WithGroup.args,
-    label: 'Horizontal Checkbox Group',
-    description: 'Checkboxes in a horizontal layout',
-  },
+  args: { ...WithGroup.args, label: 'Horizontal Checkbox Group', description: 'Checkboxes in a horizontal layout' },
   render: args => (
     <Checkbox.Group {...args} name="languages-horizontal" options={checkboxItems} layout="horizontal">
       {checkboxItems.map(item => (
@@ -106,10 +91,7 @@ export const DifferentSizes: CheckboxStory = {
       ))}
     </div>
   ),
-  args: {
-    label: 'Different Sizes',
-    description: 'Checkboxes in different sizes',
-  },
+  args: { label: 'Different Sizes', description: 'Checkboxes in different sizes' },
 };
 
 export const WithBeforeAndAfterLabels: CheckboxStory = {
@@ -128,8 +110,5 @@ export const WithBeforeAndAfterLabels: CheckboxStory = {
       ))}
     </Checkbox.Group>
   ),
-  args: {
-    label: 'With Before/After Labels',
-    description: 'Checkboxes with custom labels',
-  },
+  args: { label: 'With Before/After Labels', description: 'Checkboxes with custom labels' },
 };

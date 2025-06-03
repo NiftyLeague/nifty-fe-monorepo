@@ -60,12 +60,7 @@ const CollapsibleSidebarLayout = ({
         ModalProps={{ keepMounted: true }}
         onClose={handleDrawerOpen}
       >
-        <PerfectScrollbar
-          style={{
-            height: matchDownSm ? '100vh' : 'calc(100vh - 152px)',
-            padding: '20px 16px',
-          }}
-        >
+        <PerfectScrollbar style={{ height: matchDownSm ? '100vh' : 'calc(100vh - 152px)', padding: '20px 16px' }}>
           {renderDrawer()}
         </PerfectScrollbar>
       </Drawer>
@@ -87,10 +82,7 @@ const CollapsibleSidebarLayout = ({
             }),
             marginLeft: `${matchDownSm ? 0 : drawerWidth}px`,
           }),
-          [theme.breakpoints.down('md')]: {
-            paddingLeft: 0,
-            marginLeft: 0,
-          },
+          [theme.breakpoints.down('md')]: { paddingLeft: 0, marginLeft: 0 },
         }}
       >
         <PerfectScrollbar
