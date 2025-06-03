@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback, useEffect, useState } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 import { Button, Space } from '@nl/ui/supabase';
@@ -74,10 +76,7 @@ export default function LinkedProviders({
   // handle link provider on redirect if NextAuth session authenticated
   useEffect(() => {
     if (pathname.includes('#') && session.status === 'authenticated') {
-      const { provider, accessToken } = session.data as unknown as {
-        provider: Provider;
-        accessToken: string;
-      };
+      const { provider, accessToken } = session.data as unknown as { provider: Provider; accessToken: string };
       handleLinkProvider(provider, accessToken);
     }
   }, [pathname, session.status, session.data, handleLinkProvider]);

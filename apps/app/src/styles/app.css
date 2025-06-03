@@ -1,9 +1,10 @@
 @import '@nl/theme/styles';
+@import '@nl/tailwind-config/styles';
 
 /* third-party */
-@import '~react-perfect-scrollbar/dist/css/styles.css';
-@import '~slick-carousel/slick/slick.css';
-@import '~slick-carousel/slick/slick-theme.css';
+@import 'react-perfect-scrollbar/dist/css/styles.css';
+@import 'slick-carousel/slick/slick.css';
+@import 'slick-carousel/slick/slick-theme.css';
 
 /* ==============================|| OVERRIDES ||============================== */
 

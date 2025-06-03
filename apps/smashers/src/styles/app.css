@@ -1,4 +1,5 @@
 @import '@nl/theme/styles';
+@import '@nl/tailwind-config/styles';
 @import './animations.css';
 
 /* ==============================|| OVERRIDES ||============================== */

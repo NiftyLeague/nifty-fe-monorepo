@@ -1,6 +1,5 @@
 /// <reference path="./typings/PlayFab.d.ts" />
 
-import url from 'url';
 import https from 'https';
 import type { PlayFabError, PlayFabResponse } from '../types';
 
@@ -20,9 +19,7 @@ export const settings: Settings = {
   titleId: '', // You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website)
   developerSecretKey: undefined, // You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website)
   port: 443,
-  requestGetParams: {
-    sdk: `NodeSDK-${sdk_version}`,
-  },
+  requestGetParams: { sdk: `NodeSDK-${sdk_version}` },
 };
 
 export function GetServerUrl(): string {
@@ -47,7 +44,7 @@ export function MakeRequest<
   authType: string | null,
   authValue: string | null,
   callback: (error: PlayFabError, result: PlayFabResponse<TResponse>) => void,
-) {
+): void {
   if (request == null) request = {} as TRequest;
   const requestBody = Buffer.from(JSON.stringify(request), 'utf8');
 
@@ -69,21 +66,40 @@ export function MakeRequest<
   }
 
   const completeUrl = urlArr.join('');
-  const options: https.RequestOptions = url.parse(completeUrl);
-  if (options.protocol !== 'https:') {
-    throw new Error('Unsupported protocol: ' + options.protocol);
+  const url = new URL(completeUrl);
+
+  if (url.protocol !== 'https:') {
+    throw new Error('Unsupported protocol: ' + url.protocol);
   }
-  options.method = 'POST';
-  options.port = options.port || settings.port;
-  options.headers = {
+
+  // Define headers with proper type
+  interface Headers {
+    'Content-Type': string;
+    'Content-Length': number;
+    'X-PlayFabSDK': string;
+    [key: string]: string | number | string[];
+  }
+
+  // Ensure sdk is always a string
+  const sdk = settings.requestGetParams.sdk || '';
+
+  const headers: Headers = {
     'Content-Type': 'application/json',
     'Content-Length': requestBody.length,
-    'X-PlayFabSDK': settings.requestGetParams.sdk,
+    'X-PlayFabSDK': sdk,
   };
 
   if (authType && authValue) {
-    options.headers[authType] = authValue;
+    headers[authType] = authValue;
   }
+
+  const options: https.RequestOptions = {
+    hostname: url.hostname,
+    port: url.port ? parseInt(url.port, 10) : settings.port,
+    path: url.pathname + url.search,
+    method: 'POST',
+    headers,
+  };
 
   const postReq = https.request(options, function (res) {
     let rawReply = '';

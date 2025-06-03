@@ -96,10 +96,7 @@ const DegensSection = () => {
                         width={desktop ? gif.width : gif.width * 0.7}
                         height={desktop ? gif.height : gif.height * 0.7}
                         sizes="100vw"
-                        style={{
-                          width: '100%',
-                          height: 'auto',
-                        }}
+                        style={{ width: '100%', height: 'auto' }}
                       />
                     </div>
                   </AnimatedWrapper>
