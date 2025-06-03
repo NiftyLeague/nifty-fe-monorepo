@@ -123,12 +123,8 @@ export const tranformDataByFilter = (
 
 export const updateFilterValue = (
   defaultFilter?: DegenFilter,
-  params?: {
-    [key: string]: string;
-  },
-  actions?: {
-    [key: string]: React.Dispatch<SetStateAction<any[]>>;
-  },
+  params?: { [key: string]: string },
+  actions?: { [key: string]: React.Dispatch<SetStateAction<any[]>> },
 ) => {
   const newFilter: DegenFilter = { ...defaultFilter } as DegenFilter;
   // eslint-disable-next-line guard-for-in
@@ -169,10 +165,7 @@ export const getDefaultFilterValueFromData = (degens: Degen[] | undefined) => {
     maxPrice = price > maxPrice ? price : maxPrice;
   });
 
-  const newFilterValues = {
-    ...DEFAULT_STATIC_FILTER,
-    prices: [minPrice, maxPrice],
-  };
+  const newFilterValues = { ...DEFAULT_STATIC_FILTER, prices: [minPrice, maxPrice] };
 
   return newFilterValues;
 };

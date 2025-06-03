@@ -12,9 +12,7 @@ import ErrorBoundary from '@/components/wrapper/ErrorBoundary';
 import Preloader from '@/components/Preloader';
 import { DEGEN_COLLECTION_URL } from '@/constants/url';
 
-const CharacterCreator = dynamic(() => import('./_CharacterCreator'), {
-  ssr: false,
-});
+const CharacterCreator = dynamic(() => import('./_CharacterCreator'), { ssr: false });
 
 const MintPage = () => {
   const [isLoaded, setLoaded] = useState(false);

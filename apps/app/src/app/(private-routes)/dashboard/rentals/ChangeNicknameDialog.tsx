@@ -21,16 +21,16 @@ interface IFormInput {
   isCheckedTerm: boolean;
 }
 
-const validationSchema = yup.object().shape({
-  name: yup.string().required(),
-  isCheckedTerm: yup.boolean().required().oneOf([true]),
-}) satisfies yup.ObjectSchema<IFormInput>;
+const validationSchema = yup
+  .object()
+  .shape({
+    name: yup.string().required(),
+    isCheckedTerm: yup.boolean().required().oneOf([true]),
+  }) satisfies yup.ObjectSchema<IFormInput>;
 
 const ChangeNicknameDialog = ({ rental, updateNickname }: Props): React.ReactNode => {
   const { authToken } = useAuth();
-  const [nicknames, setNicknames] = useLocalStorage<{
-    [address: string]: string;
-  }>('player-nicknames', {});
+  const [nicknames, setNicknames] = useLocalStorage<{ [address: string]: string }>('player-nicknames', {});
   const [isLoadingRename, setLoadingRename] = useState(false);
   const { rentalId, degenId, renter, playerAddress } = rental;
 
@@ -42,10 +42,7 @@ const ChangeNicknameDialog = ({ rental, updateNickname }: Props): React.ReactNod
   } = useForm<IFormInput>({
     resolver: yupResolver(validationSchema) as Resolver<IFormInput>,
     mode: 'onChange',
-    defaultValues: {
-      name: '',
-      isCheckedTerm: false,
-    },
+    defaultValues: { name: '', isCheckedTerm: false },
   });
 
   const onSubmit: SubmitHandler<IFormInput> = async data => {

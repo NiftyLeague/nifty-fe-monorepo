@@ -73,12 +73,7 @@ const Team: NextPage = () => {
           <TeamDesktop />
           <section
             className="teams-slider slider px-0 mobile-block"
-            style={{
-              alignItems: 'center',
-              maxWidth: '100%',
-              textAlign: 'center',
-              minHeight: 300,
-            }}
+            style={{ alignItems: 'center', maxWidth: '100%', textAlign: 'center', minHeight: 300 }}
           >
             <Carousel isMobileViewOnly hideGradient tabletItems={2}>
               {[...CORE_TEAM, ...DEGEN_DELEGATES].map(RenderTeamCardItem)}

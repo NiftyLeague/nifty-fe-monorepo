@@ -10,10 +10,7 @@ import '@/styles/app.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://app.niftyleague.com'),
-  title: {
-    template: '%s | Nifty League App',
-    default: 'Nifty League App',
-  },
+  title: { template: '%s | Nifty League App', default: 'Nifty League App' },
   description: 'Web3 gaming app brought to you by Nifty League',
   generator: 'Next.js',
   referrer: 'origin-when-cross-origin',
@@ -22,11 +19,7 @@ export const metadata: Metadata = {
   creator: 'NiftyAndy',
   publisher: 'Nifty League',
   assets: ['https://app.niftyleague.com'],
-  formatDetection: {
-    email: true,
-    address: true,
-    telephone: true,
-  },
+  formatDetection: { email: true, address: true, telephone: true },
   openGraph: {
     title: 'Nifty League Web3 App',
     description: 'Web3 gaming app brought to you by Nifty League',
@@ -48,10 +41,7 @@ export const metadata: Metadata = {
     // siteId: '1467726470533754880',
     creator: '@NiftyLeague',
     // creatorId: '1467726470533754880',
-    images: {
-      url: 'https://niftyleague.com/img/backgrounds/banner-dark.webp',
-      alt: 'Nifty League Banner',
-    },
+    images: { url: 'https://niftyleague.com/img/backgrounds/banner-dark.webp', alt: 'Nifty League Banner' },
   },
 };
 

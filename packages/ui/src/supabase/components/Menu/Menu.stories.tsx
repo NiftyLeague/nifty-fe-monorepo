@@ -6,10 +6,7 @@ import Typography from '../Typography';
 
 import { Menu } from './';
 
-export default {
-  title: 'Navigation/Menu',
-  component: Menu,
-};
+export default { title: 'Navigation/Menu', component: Menu };
 
 export const Default = (args: any) => (
   <Menu {...args}>
@@ -82,17 +79,8 @@ export const withActiveBar = () => (
   </Menu>
 );
 
-Default.args = {
-  title: 'I am a title',
-  titleExtra: <Typography.Link>Learn more</Typography.Link>,
-};
+Default.args = { title: 'I am a title', titleExtra: <Typography.Link>Learn more</Typography.Link> };
 
-withActiveState.args = {
-  title: 'I am a title',
-  titleExtra: <Typography.Link>Learn more</Typography.Link>,
-};
+withActiveState.args = { title: 'I am a title', titleExtra: <Typography.Link>Learn more</Typography.Link> };
 
-withRounded.args = {
-  title: 'I am a title',
-  titleExtra: <Typography.Link>Learn more</Typography.Link>,
-};
+withRounded.args = { title: 'I am a title', titleExtra: <Typography.Link>Learn more</Typography.Link> };

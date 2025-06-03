@@ -43,12 +43,7 @@ function Accordion({
     containerClasses.push(className);
   }
 
-  const contextValue = {
-    defaultActiveId,
-    icon,
-    iconPosition,
-    onChange,
-  };
+  const contextValue = { defaultActiveId, icon, iconPosition, onChange };
 
   return (
     <AccordionContext.Provider value={contextValue}>

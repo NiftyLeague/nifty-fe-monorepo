@@ -1,10 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-export const STATUS = {
-  RUNNING: 'running',
-  PAUSED: 'paused',
-  STOPPED: 'stopped',
-};
+export const STATUS = { RUNNING: 'running', PAUSED: 'paused', STOPPED: 'stopped' };
 
 type Timer = { ts: number; ms?: number };
 

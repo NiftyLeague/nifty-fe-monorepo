@@ -15,12 +15,8 @@ const FilterAccordion = ({ summary, children, expanded = true, length = 0 }: Pro
       defaultExpanded={expanded}
       sx={{
         background: 'transparent',
-        '&.Mui-expanded': {
-          margin: 0,
-        },
-        '&:before': {
-          display: 'none',
-        },
+        '&.Mui-expanded': { margin: 0 },
+        '&:before': { display: 'none' },
         width: '100%',
       }}
     >
@@ -29,15 +25,8 @@ const FilterAccordion = ({ summary, children, expanded = true, length = 0 }: Pro
         sx={{
           minHeight: 36,
           padding: '0px 14px',
-          '&.Mui-expanded': {
-            minHeight: 36,
-          },
-          '& .MuiAccordionSummary-content': {
-            my: 1,
-            '&.Mui-expanded': {
-              my: 1,
-            },
-          },
+          '&.Mui-expanded': { minHeight: 36 },
+          '& .MuiAccordionSummary-content': { my: 1, '&.Mui-expanded': { my: 1 } },
         }}
       >
         <Stack width="100%" direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>

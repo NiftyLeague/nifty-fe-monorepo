@@ -3000,9 +3000,7 @@ declare namespace PlayFabAdminModels {
     // Array of virtual currency balance(s) belonging to the user.
     VirtualCurrency?: { [key: string]: number };
     // Array of remaining times and timestamps for virtual currencies.
-    VirtualCurrencyRechargeTimes?: {
-      [key: string]: VirtualCurrencyRechargeTime;
-    };
+    VirtualCurrencyRechargeTimes?: { [key: string]: VirtualCurrencyRechargeTime };
   }
 
   export interface GrantedItemInstance {

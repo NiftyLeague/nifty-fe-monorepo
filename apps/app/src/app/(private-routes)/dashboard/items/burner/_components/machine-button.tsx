@@ -22,16 +22,7 @@ const MachineButton = ({
       disabled={disabled}
       name={name}
       onClick={onClick}
-      sx={{
-        height,
-        left,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        position: 'absolute',
-        right: 0,
-        top,
-        width,
-      }}
+      sx={{ height, left, marginLeft: 'auto', marginRight: 'auto', position: 'absolute', right: 0, top, width }}
       // variant="contained"
     />
   );

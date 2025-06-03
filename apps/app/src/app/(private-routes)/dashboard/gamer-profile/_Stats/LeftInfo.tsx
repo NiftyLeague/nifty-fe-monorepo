@@ -13,35 +13,17 @@ interface LeftInfoProps {
 }
 
 const LeftInfo = ({ data }: LeftInfoProps): React.ReactNode => {
-  const leftDataMapper: {
-    label: string;
-    value: string | number | undefined;
-  }[] = useMemo(() => {
+  const leftDataMapper: { label: string; value: string | number | undefined }[] = useMemo(() => {
     return [
-      {
-        label: 'XP Rank',
-        value: data?.rank || 0,
-      },
-      {
-        label: 'XP',
-        value: Math.round(data?.xp || 0),
-      },
-      {
-        label: 'Matches',
-        value: data?.matches,
-      },
-      {
-        label: 'Wins',
-        value: data?.wins,
-      },
+      { label: 'XP Rank', value: data?.rank || 0 },
+      { label: 'XP', value: Math.round(data?.xp || 0) },
+      { label: 'Matches', value: data?.matches },
+      { label: 'Wins', value: data?.wins },
       {
         label: 'Win Rate',
         value: `${(data?.wins && data?.matches && formatNumberToDisplay((data?.wins / data?.matches) * 100)) || 0}%`,
       },
-      {
-        label: 'Time Played',
-        value: `${secondsToHours(data?.time_played ?? 0)} Hours`,
-      },
+      { label: 'Time Played', value: `${secondsToHours(data?.time_played ?? 0)} Hours` },
     ];
   }, [data]);
 

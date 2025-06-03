@@ -118,11 +118,7 @@ const NiftyVerse: NextPage = () => {
                         alt="NiftyVerse District Highlight"
                         width={500}
                         height={283}
-                        style={{
-                          width: '100%',
-                          height: 'auto',
-                          maxWidth: '100%',
-                        }}
+                        style={{ width: '100%', height: 'auto', maxWidth: '100%' }}
                       />
                     </div>
                   </AnimatedWrapper>

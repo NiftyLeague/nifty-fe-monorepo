@@ -6,10 +6,7 @@ import '@/styles/app.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://niftysmashers.com'),
-  title: {
-    template: 'Nifty Smashers | %s',
-    default: 'Nifty Smashers',
-  },
+  title: { template: 'Nifty Smashers | %s', default: 'Nifty Smashers' },
   description:
     'Free-to-play online multiplayer 3D party platform fighter. Play on iOS, Android, and Steam with full cross-play support! Jump in and brawl anytime, anywhere!',
   generator: 'Next.js',
@@ -29,11 +26,7 @@ export const metadata: Metadata = {
   creator: '0xPlayerOne',
   publisher: 'Nifty League',
   assets: ['https://niftysmashers.com'],
-  formatDetection: {
-    email: true,
-    address: true,
-    telephone: true,
-  },
+  formatDetection: { email: true, address: true, telephone: true },
   openGraph: {
     title: 'Nifty Smashers',
     description:
@@ -67,17 +60,10 @@ export const metadata: Metadata = {
       alt: 'Nifty Smashers Banner',
     },
   },
-  other: {
-    'theme-color': '#000000',
-  },
+  other: { 'theme-color': '#000000' },
 };
 
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
-};
+export const viewport: Viewport = { width: 'device-width', initialScale: 1, maximumScale: 1, userScalable: false };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

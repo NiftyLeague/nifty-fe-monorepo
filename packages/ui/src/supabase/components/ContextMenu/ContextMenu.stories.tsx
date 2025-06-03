@@ -12,11 +12,7 @@ import { IconLogIn } from '../Icon/icons/IconLogIn';
 // Extract the RootProps type from the ContextMenu component
 type RootProps = Parameters<typeof ContextMenu>[0];
 
-const meta: Meta<typeof ContextMenu> = {
-  title: 'Navigation/ContextMenu',
-  component: ContextMenu,
-  tags: ['autodocs'],
-};
+const meta: Meta<typeof ContextMenu> = { title: 'Navigation/ContextMenu', component: ContextMenu, tags: ['autodocs'] };
 
 export default meta;
 
@@ -147,9 +143,7 @@ const CheckboxMenu = (props: RootProps) => {
   );
 };
 
-export const WithCheckbox: Story = {
-  render: args => <CheckboxMenu {...args} />,
-};
+export const WithCheckbox: Story = { render: args => <CheckboxMenu {...args} /> };
 
 const RadioMenu = (props: RootProps) => {
   const [value, setValue] = useState('one');
@@ -171,6 +165,4 @@ const RadioMenu = (props: RootProps) => {
   );
 };
 
-export const WithRadio: Story = {
-  render: args => <RadioMenu {...args} />,
-};
+export const WithRadio: Story = { render: args => <RadioMenu {...args} /> };

@@ -37,12 +37,8 @@ import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 import DegensTopNav from '@/components/extended/DegensTopNav';
 import useLocalStorageContext from '@/hooks/useLocalStorageContext';
 
-const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'), {
-  ssr: false,
-});
-const DegenCard = dynamic(() => import('@/components/cards/DegenCard'), {
-  ssr: false,
-});
+const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'), { ssr: false });
+const DegenCard = dynamic(() => import('@/components/cards/DegenCard'), { ssr: false });
 
 // Needs to be divisible by 2, 3, or 4
 const DEGENS_PER_PAGE = 12;
@@ -219,12 +215,8 @@ const DashboardDegensPage = (): React.ReactNode => {
       );
       await fetch(`${PROFILE_FAV_DEGENS_API}`, {
         method: 'POST',
-        body: JSON.stringify({
-          favorites: newFavs.toString(),
-        }),
-        headers: {
-          authorizationToken: authToken,
-        } as Record<string, string>,
+        body: JSON.stringify({ favorites: newFavs.toString() }),
+        headers: { authorizationToken: authToken } as Record<string, string>,
       });
       setFavDegens(newFavs);
     },

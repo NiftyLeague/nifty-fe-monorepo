@@ -7,22 +7,8 @@ import type { NonPayableOverrides } from '../../../../common';
 import type { ShortStrings, ShortStringsInterface } from '../../../../@openzeppelin/contracts/utils/ShortStrings';
 
 const _abi = [
-  {
-    inputs: [],
-    name: 'InvalidShortString',
-    type: 'error',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'string',
-        name: 'str',
-        type: 'string',
-      },
-    ],
-    name: 'StringTooLong',
-    type: 'error',
-  },
+  { inputs: [], name: 'InvalidShortString', type: 'error' },
+  { inputs: [{ internalType: 'string', name: 'str', type: 'string' }], name: 'StringTooLong', type: 'error' },
 ] as const;
 
 const _bytecode =
@@ -49,9 +35,7 @@ export class ShortStrings__factory extends ContractFactory {
   }
   override deploy(overrides?: NonPayableOverrides & { from?: string }) {
     return super.deploy(overrides || {}) as Promise<
-      ShortStrings & {
-        deploymentTransaction(): ContractTransactionResponse;
-      }
+      ShortStrings & { deploymentTransaction(): ContractTransactionResponse }
     >;
   }
   override connect(runner: ContractRunner | null): ShortStrings__factory {

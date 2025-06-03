@@ -1,11 +1,7 @@
 import Image from 'next/image';
 import styles from './index.module.css';
 
-type ActionButtonsGroupProps = {
-  onPlayClick: () => void;
-  onTrailerClick: () => void;
-  onCreditsClick: () => void;
-};
+type ActionButtonsGroupProps = { onPlayClick: () => void; onTrailerClick: () => void; onCreditsClick: () => void };
 
 export default function ActionButtonsGroup({ onPlayClick, onTrailerClick, onCreditsClick }: ActionButtonsGroupProps) {
   return (

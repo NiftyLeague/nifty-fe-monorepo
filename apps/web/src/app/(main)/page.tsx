@@ -28,10 +28,7 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
             height={1849}
             priority
             sizes="100vw"
-            style={{
-              width: '100%',
-              height: 'auto',
-            }}
+            style={{ width: '100%', height: 'auto' }}
           />
         </div>
         <AnimatedWrapper parallax parallaxDirection="top" transitionAmount="small">
@@ -43,10 +40,7 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
               height={1849}
               priority
               sizes="100vw"
-              style={{
-                width: '100%',
-                height: 'auto',
-              }}
+              style={{ width: '100%', height: 'auto' }}
             />
           </div>
         </AnimatedWrapper>
@@ -61,10 +55,7 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
                   height={436}
                   className="pixelated"
                   sizes="100vw"
-                  style={{
-                    width: '100%',
-                    height: 'auto',
-                  }}
+                  style={{ width: '100%', height: 'auto' }}
                 />
                 <div className="position-absolute home-hero-companion-swing animation-propeller" />
               </div>
@@ -82,10 +73,7 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
                   height={117}
                   className="pixelated"
                   sizes="100vw"
-                  style={{
-                    width: '100%',
-                    height: 'auto',
-                  }}
+                  style={{ width: '100%', height: 'auto' }}
                 />
               </div>
             </AnimatedWrapper>
@@ -137,10 +125,7 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
                 width={407}
                 height={125}
                 sizes="100vw"
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                }}
+                style={{ width: '100%', height: 'auto' }}
               />
               <p className="my-0 py-0 speech-bubble-text">Learn More!</p>
             </div>
@@ -255,10 +240,7 @@ const Home: NextPage = () => {
                   height={842}
                   alt="ape degen overlay"
                   sizes="100vw"
-                  style={{
-                    width: '100%',
-                    height: 'auto',
-                  }}
+                  style={{ width: '100%', height: 'auto' }}
                 />
               </div>
               <Carousel mobileItems={2} hideGradient>
@@ -288,10 +270,7 @@ const Home: NextPage = () => {
                             height={408}
                             className="pixelated"
                             sizes="100vw"
-                            style={{
-                              width: '100%',
-                              height: 'auto',
-                            }}
+                            style={{ width: '100%', height: 'auto' }}
                           />
                         </div>
                       </AnimatedWrapper>
@@ -308,10 +287,7 @@ const Home: NextPage = () => {
                             height={390}
                             className="pixelated"
                             sizes="100vw"
-                            style={{
-                              width: '100%',
-                              height: 'auto',
-                            }}
+                            style={{ width: '100%', height: 'auto' }}
                           />
                         </div>
                       </AnimatedWrapper>
@@ -328,10 +304,7 @@ const Home: NextPage = () => {
                             height={192}
                             className="pixelated"
                             sizes="100vw"
-                            style={{
-                              width: '100%',
-                              height: 'auto',
-                            }}
+                            style={{ width: '100%', height: 'auto' }}
                           />
                         </div>
                       </AnimatedWrapper>
@@ -350,10 +323,7 @@ const Home: NextPage = () => {
                           width={3208}
                           height={1342}
                           sizes="100vw"
-                          style={{
-                            width: '100%',
-                            height: 'auto',
-                          }}
+                          style={{ width: '100%', height: 'auto' }}
                         />
                         <div className="radial-gradient-background" />
                       </div>
@@ -414,10 +384,7 @@ const Home: NextPage = () => {
                     width={1648}
                     height={1319}
                     sizes="100vw"
-                    style={{
-                      width: '100%',
-                      height: 'auto',
-                    }}
+                    style={{ width: '100%', height: 'auto' }}
                   />
                 </div>
               </AnimatedWrapper>
@@ -431,10 +398,7 @@ const Home: NextPage = () => {
                       height={640}
                       src="/img/compete-and-earn/animated/token-4.webp"
                       sizes="100vw"
-                      style={{
-                        width: '100%',
-                        height: 'auto',
-                      }}
+                      style={{ width: '100%', height: 'auto' }}
                     />
                   </div>
                 </AnimatedWrapper>
@@ -457,10 +421,7 @@ const Home: NextPage = () => {
                     width={3055}
                     height={2406}
                     sizes="100vw"
-                    style={{
-                      width: '100%',
-                      height: 'auto',
-                    }}
+                    style={{ width: '100%', height: 'auto' }}
                   />
                   <div className="radial-gradient-background" />
                 </div>
@@ -477,10 +438,7 @@ const Home: NextPage = () => {
                     width={1920}
                     height={1512}
                     sizes="100vw"
-                    style={{
-                      width: '100%',
-                      height: 'auto',
-                    }}
+                    style={{ width: '100%', height: 'auto' }}
                   />
                   <div className="radial-gradient-background" />
                 </div>
@@ -544,10 +502,7 @@ const Home: NextPage = () => {
                   height={2192}
                   className="pixelated"
                   sizes="100vw"
-                  style={{
-                    width: '100%',
-                    height: 'auto',
-                  }}
+                  style={{ width: '100%', height: 'auto' }}
                 />
                 <div className="radial-gradient-background" />
               </div>
@@ -566,10 +521,7 @@ const Home: NextPage = () => {
                     width={3590}
                     height={2192}
                     sizes="100vw"
-                    style={{
-                      width: '100%',
-                      height: 'auto',
-                    }}
+                    style={{ width: '100%', height: 'auto' }}
                   />
                   <div className="radial-gradient-background" />
                 </div>
@@ -696,10 +648,7 @@ const Home: NextPage = () => {
                     height={1525}
                     className="pixelated"
                     sizes="100vw"
-                    style={{
-                      width: '100%',
-                      height: 'auto',
-                    }}
+                    style={{ width: '100%', height: 'auto' }}
                   />
                   <div className="radial-gradient-background" />
                 </div>
@@ -722,10 +671,7 @@ const Home: NextPage = () => {
                         width={1417}
                         height={1525}
                         sizes="100vw"
-                        style={{
-                          width: '100%',
-                          height: 'auto',
-                        }}
+                        style={{ width: '100%', height: 'auto' }}
                       />
                       <div className="radial-gradient-background" />
                     </div>
@@ -740,10 +686,7 @@ const Home: NextPage = () => {
                         width={1910}
                         height={620}
                         sizes="100vw"
-                        style={{
-                          width: '100%',
-                          height: 'auto',
-                        }}
+                        style={{ width: '100%', height: 'auto' }}
                       />
                       <div className="radial-gradient-background" />
                     </div>
@@ -797,10 +740,7 @@ const Home: NextPage = () => {
                           height={620}
                           src="/img/degens/community-characters.webp"
                           sizes="100vw"
-                          style={{
-                            width: '100%',
-                            height: 'auto',
-                          }}
+                          style={{ width: '100%', height: 'auto' }}
                         />
                         <div className="radial-gradient-background" />
                       </div>
@@ -833,10 +773,7 @@ const Home: NextPage = () => {
                   height={1735}
                   src="/img/sponsors/sponsors.webp"
                   sizes="100vw"
-                  style={{
-                    width: '100%',
-                    height: 'auto',
-                  }}
+                  style={{ width: '100%', height: 'auto' }}
                 />
                 <div className="radial-gradient-background" />
               </div>

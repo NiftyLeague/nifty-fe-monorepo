@@ -20,11 +20,7 @@ const nextConfig: NextConfig = {
       };
 
       // Add aliases for problematic native modules
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        'sodium-native': false,
-        'require-addon': false,
-      };
+      config.resolve.alias = { ...config.resolve.alias, 'sodium-native': false, 'require-addon': false };
     }
 
     // Temp prod build solution: https://github.com/diegomura/react-pdf/issues/3121

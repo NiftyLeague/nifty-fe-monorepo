@@ -11,10 +11,7 @@ import { styled } from '@nl/theme';
 import { Color } from '@/types/gltf';
 import styles from '../gltf.module.css';
 
-type ModelActionsProps = {
-  color: Color;
-  setColor: Dispatch<SetStateAction<Color>>;
-};
+type ModelActionsProps = { color: Color; setColor: Dispatch<SetStateAction<Color>> };
 
 const COLOR_OPTIONS = [
   ['blue', 'Blue'],
@@ -36,9 +33,7 @@ const COLOR_OPTIONS = [
 const BootstrapInput = styled(InputBase)(() => ({
   fontSize: '0.875rem',
   fontFamily: 'inherit',
-  'label + &': {
-    marginTop: 20,
-  },
+  'label + &': { marginTop: 20 },
   '& .MuiInputBase-input': {
     borderRadius: 4,
     position: 'relative',

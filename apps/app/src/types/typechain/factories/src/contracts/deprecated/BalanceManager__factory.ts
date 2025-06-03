@@ -7,83 +7,29 @@ import type { NonPayableOverrides } from '../../../../common';
 import type { BalanceManager, BalanceManagerInterface } from '../../../../src/contracts/deprecated/BalanceManager';
 
 const _abi = [
+  { inputs: [{ internalType: 'string', name: 'message', type: 'string' }], name: 'AddressError', type: 'error' },
+  { inputs: [{ internalType: 'string', name: 'message', type: 'string' }], name: 'SignError', type: 'error' },
   {
     inputs: [
-      {
-        internalType: 'string',
-        name: 'message',
-        type: 'string',
-      },
-    ],
-    name: 'AddressError',
-    type: 'error',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'string',
-        name: 'message',
-        type: 'string',
-      },
-    ],
-    name: 'SignError',
-    type: 'error',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'nonce',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_nonce',
-        type: 'uint256',
-      },
-      {
-        internalType: 'string',
-        name: 'message',
-        type: 'string',
-      },
+      { internalType: 'uint256', name: 'nonce', type: 'uint256' },
+      { internalType: 'uint256', name: '_nonce', type: 'uint256' },
+      { internalType: 'string', name: 'message', type: 'string' },
     ],
     name: 'WithdrawError',
     type: 'error',
   },
   {
     anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint8',
-        name: 'version',
-        type: 'uint8',
-      },
-    ],
+    inputs: [{ indexed: false, internalType: 'uint8', name: 'version', type: 'uint8' }],
     name: 'Initialized',
     type: 'event',
   },
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'by',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'oldMaintainer',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'newMaintainer',
-        type: 'address',
-      },
+      { indexed: true, internalType: 'address', name: 'by', type: 'address' },
+      { indexed: true, internalType: 'address', name: 'oldMaintainer', type: 'address' },
+      { indexed: true, internalType: 'address', name: 'newMaintainer', type: 'address' },
     ],
     name: 'MaintainerUpdated',
     type: 'event',
@@ -91,18 +37,8 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'by',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'amount',
-        type: 'uint256',
-      },
+      { indexed: true, internalType: 'address', name: 'by', type: 'address' },
+      { indexed: false, internalType: 'uint256', name: 'amount', type: 'uint256' },
     ],
     name: 'NFTLDeposited',
     type: 'event',
@@ -110,24 +46,9 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'by',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'beneficiary',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'amount',
-        type: 'uint256',
-      },
+      { indexed: true, internalType: 'address', name: 'by', type: 'address' },
+      { indexed: true, internalType: 'address', name: 'beneficiary', type: 'address' },
+      { indexed: false, internalType: 'uint256', name: 'amount', type: 'uint256' },
     ],
     name: 'NFTLWithdrawn',
     type: 'event',
@@ -135,24 +56,9 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'by',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'beneficiary',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'amount',
-        type: 'uint256',
-      },
+      { indexed: true, internalType: 'address', name: 'by', type: 'address' },
+      { indexed: true, internalType: 'address', name: 'beneficiary', type: 'address' },
+      { indexed: false, internalType: 'uint256', name: 'amount', type: 'uint256' },
     ],
     name: 'NFTLWithdrawnByDAO',
     type: 'event',
@@ -160,30 +66,14 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'previousOwner',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'newOwner',
-        type: 'address',
-      },
+      { indexed: true, internalType: 'address', name: 'previousOwner', type: 'address' },
+      { indexed: true, internalType: 'address', name: 'newOwner', type: 'address' },
     ],
     name: 'OwnershipTransferred',
     type: 'event',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_amount',
-        type: 'uint256',
-      },
-    ],
+    inputs: [{ internalType: 'uint256', name: '_amount', type: 'uint256' }],
     name: 'deposit',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -191,16 +81,8 @@ const _abi = [
   },
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: '_nftl',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_maintainer',
-        type: 'address',
-      },
+      { internalType: 'address', name: '_nftl', type: 'address' },
+      { internalType: 'address', name: '_maintainer', type: 'address' },
     ],
     name: 'initialize',
     outputs: [],
@@ -210,108 +92,48 @@ const _abi = [
   {
     inputs: [],
     name: 'maintainer',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'nftl',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'user',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: 'user', type: 'address' }],
     name: 'nonce',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: 'nonce',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: 'nonce', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'owner',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
+  { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   {
-    inputs: [],
-    name: 'renounceOwnership',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'bytes',
-        name: 'signature',
-        type: 'bytes',
-      },
-    ],
+    inputs: [{ internalType: 'bytes', name: 'signature', type: 'bytes' }],
     name: 'signatures',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: 'used',
-        type: 'bool',
-      },
-    ],
+    outputs: [{ internalType: 'bool', name: 'used', type: 'bool' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'newOwner',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: 'newOwner', type: 'address' }],
     name: 'transferOwnership',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_maintainer',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: '_maintainer', type: 'address' }],
     name: 'updateMaintainer',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -319,26 +141,10 @@ const _abi = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: '_amount',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_nonce',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_expireAt',
-        type: 'uint256',
-      },
-      {
-        internalType: 'bytes',
-        name: '_signature',
-        type: 'bytes',
-      },
+      { internalType: 'uint256', name: '_amount', type: 'uint256' },
+      { internalType: 'uint256', name: '_nonce', type: 'uint256' },
+      { internalType: 'uint256', name: '_expireAt', type: 'uint256' },
+      { internalType: 'bytes', name: '_signature', type: 'bytes' },
     ],
     name: 'withdraw',
     outputs: [],
@@ -347,16 +153,8 @@ const _abi = [
   },
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: '_beneficiary',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_amount',
-        type: 'uint256',
-      },
+      { internalType: 'address', name: '_beneficiary', type: 'address' },
+      { internalType: 'uint256', name: '_amount', type: 'uint256' },
     ],
     name: 'withdrawByDAO',
     outputs: [],
@@ -389,9 +187,7 @@ export class BalanceManager__factory extends ContractFactory {
   }
   override deploy(overrides?: NonPayableOverrides & { from?: string }) {
     return super.deploy(overrides || {}) as Promise<
-      BalanceManager & {
-        deploymentTransaction(): ContractTransactionResponse;
-      }
+      BalanceManager & { deploymentTransaction(): ContractTransactionResponse }
     >;
   }
   override connect(runner: ContractRunner | null): BalanceManager__factory {

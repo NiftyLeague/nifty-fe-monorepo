@@ -13,25 +13,13 @@ const getAppleStoreLink = (countryCode = '') =>
 const generateAppleCountryRedirects = (countryCode: string) => [
   {
     source: '/ios',
-    has: [
-      {
-        type: 'header',
-        key: 'x-vercel-ip-country',
-        value: countryCode,
-      },
-    ],
+    has: [{ type: 'header', key: 'x-vercel-ip-country', value: countryCode }],
     destination: getAppleStoreLink(countryCode),
     permanent: false,
   },
   {
     source: '/ios/:params*',
-    has: [
-      {
-        type: 'header',
-        key: 'x-vercel-ip-country',
-        value: countryCode,
-      },
-    ],
+    has: [{ type: 'header', key: 'x-vercel-ip-country', value: countryCode }],
     destination: `${getAppleStoreLink(countryCode)}:params*`,
     permanent: false,
   },
@@ -41,18 +29,8 @@ const nextConfig: NextConfig = {
   transpilePackages: ['@nl/playfab', '@nl/theme', '@nl/ui'],
   images: {
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'nifty-league.s3.amazonaws.com',
-        port: '',
-        pathname: '/degens/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'nifty-league.s3.amazonaws.com',
-        port: '',
-        pathname: '/assets/**',
-      },
+      { protocol: 'https', hostname: 'nifty-league.s3.amazonaws.com', port: '', pathname: '/degens/**' },
+      { protocol: 'https', hostname: 'nifty-league.s3.amazonaws.com', port: '', pathname: '/assets/**' },
     ],
   },
   async redirects() {
@@ -61,41 +39,21 @@ const nextConfig: NextConfig = {
       ...generateAppleCountryRedirects('BR'),
       ...generateAppleCountryRedirects('CA'),
       ...generateAppleCountryRedirects('US'),
-      {
-        source: '/ios',
-        destination: getAppleStoreLink(),
-        permanent: false,
-      },
-      {
-        source: '/ios/:params*',
-        destination: `${getAppleStoreLink()}:params*`,
-        permanent: false,
-      },
-      {
-        source: '/android',
-        destination: process.env.NEXT_PUBLIC_GOOGLE_PLAY_LINK as string,
-        permanent: false,
-      },
+      { source: '/ios', destination: getAppleStoreLink(), permanent: false },
+      { source: '/ios/:params*', destination: `${getAppleStoreLink()}:params*`, permanent: false },
+      { source: '/android', destination: process.env.NEXT_PUBLIC_GOOGLE_PLAY_LINK as string, permanent: false },
       {
         source: '/android/:params*',
         destination: `${process.env.NEXT_PUBLIC_GOOGLE_PLAY_LINK as string}:params*`,
         permanent: false,
       },
-      {
-        source: '/epic',
-        destination: process.env.NEXT_PUBLIC_EPIC_LINK as string,
-        permanent: false,
-      },
+      { source: '/epic', destination: process.env.NEXT_PUBLIC_EPIC_LINK as string, permanent: false },
       {
         source: '/epic/:params*',
         destination: `${process.env.NEXT_PUBLIC_EPIC_LINK as string}:params*`,
         permanent: false,
       },
-      {
-        source: '/steam',
-        destination: process.env.NEXT_PUBLIC_STEAM_LINK as string,
-        permanent: false,
-      },
+      { source: '/steam', destination: process.env.NEXT_PUBLIC_STEAM_LINK as string, permanent: false },
       {
         source: '/steam/:params*',
         destination: `${process.env.NEXT_PUBLIC_STEAM_LINK as string}:params*`,
@@ -103,33 +61,17 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/invite/:ref_code(\\w{1,})',
-        has: [
-          {
-            type: 'header',
-            key: 'User-Agent',
-            value: '.*(iPhone|iPad|iPod).*',
-          },
-        ],
+        has: [{ type: 'header', key: 'User-Agent', value: '.*(iPhone|iPad|iPod).*' }],
         destination: '/ios/?referral=:ref_code',
         permanent: false,
       },
       {
         source: '/invite/:ref_code(\\w{1,})',
-        has: [
-          {
-            type: 'header',
-            key: 'User-Agent',
-            value: '.*(Mobile|Android).*',
-          },
-        ],
+        has: [{ type: 'header', key: 'User-Agent', value: '.*(Mobile|Android).*' }],
         destination: '/android/?referral=:ref_code',
         permanent: false,
       },
-      {
-        source: '/invite/:ref_code(\\w{1,})',
-        destination: '/?referral=:ref_code',
-        permanent: false,
-      },
+      { source: '/invite/:ref_code(\\w{1,})', destination: '/?referral=:ref_code', permanent: false },
     ];
   },
 };

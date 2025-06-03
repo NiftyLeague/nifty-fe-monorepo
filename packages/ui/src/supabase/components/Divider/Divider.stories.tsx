@@ -9,52 +9,24 @@ const meta: Meta<typeof Divider> = {
   component: Divider,
   tags: ['autodocs'],
   argTypes: {
-    orientation: {
-      control: { type: 'select' },
-      options: ['left', 'center', 'right'],
-    },
-    type: {
-      control: { type: 'select' },
-      options: ['horizontal', 'vertical'],
-    },
-    light: {
-      control: { type: 'boolean' },
-    },
+    orientation: { control: { type: 'select' }, options: ['left', 'center', 'right'] },
+    type: { control: { type: 'select' }, options: ['horizontal', 'vertical'] },
+    light: { control: { type: 'boolean' } },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof Divider>;
 
-export const Default: Story = {
-  args: {},
-};
+export const Default: Story = { args: {} };
 
-export const WithCenterText: Story = {
-  args: {
-    children: 'Hello world',
-  },
-};
+export const WithCenterText: Story = { args: { children: 'Hello world' } };
 
-export const WithLeftText: Story = {
-  args: {
-    children: 'Hello world',
-    orientation: 'left',
-  },
-};
+export const WithLeftText: Story = { args: { children: 'Hello world', orientation: 'left' } };
 
-export const WithRightText: Story = {
-  args: {
-    children: 'Hello world',
-    orientation: 'right',
-  },
-};
+export const WithRightText: Story = { args: { children: 'Hello world', orientation: 'right' } };
 
-export const LighterColor: Story = {
-  args: {
-    light: true,
-  },
-};
+export const LighterColor: Story = { args: { light: true } };
 
 export const Vertical: Story = {
   render: (args: any) => (
@@ -71,7 +43,5 @@ export const Vertical: Story = {
       </Space>
     </div>
   ),
-  args: {
-    type: 'vertical',
-  },
+  args: { type: 'vertical' },
 };

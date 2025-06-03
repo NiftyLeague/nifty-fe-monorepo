@@ -12,10 +12,7 @@ export default function BackButton() {
           className={styles.logo}
           width={45}
           height={45}
-          style={{
-            maxWidth: '100%',
-            height: 'auto',
-          }}
+          style={{ maxWidth: '100%', height: 'auto' }}
         />
       </div>
     </Link>

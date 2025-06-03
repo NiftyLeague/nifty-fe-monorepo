@@ -28,15 +28,9 @@ const DegenCard = dynamic(() => import('@/components/cards/DegenCard').then(modu
 
 const BoxDegenStyles = {
   px: 1,
-  '& .MuiCardContent-root': {
-    p: '12px',
-  },
-  '& .MuiTypography-h3': {
-    fontSize: '16px',
-  },
-  '& .MuiCardActions-root': {
-    p: '12px',
-  },
+  '& .MuiCardContent-root': { p: '12px' },
+  '& .MuiTypography-h3': { fontSize: '16px' },
+  '& .MuiCardActions-root': { p: '12px' },
 };
 
 const MyDegens = (): React.ReactNode => {
@@ -71,30 +65,10 @@ const MyDegens = (): React.ReactNode => {
     slidesToShow: 3,
     adaptiveHeight: false, // buggy behavior with degen cards
     responsive: [
-      {
-        breakpoint: 1350,
-        settings: {
-          slidesToShow: 3,
-        },
-      },
-      {
-        breakpoint: 1019,
-        settings: {
-          slidesToShow: 4,
-        },
-      },
-      {
-        breakpoint: 800,
-        settings: {
-          slidesToShow: 3,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-        },
-      },
+      { breakpoint: 1350, settings: { slidesToShow: 3 } },
+      { breakpoint: 1019, settings: { slidesToShow: 4 } },
+      { breakpoint: 800, settings: { slidesToShow: 3 } },
+      { breakpoint: 600, settings: { slidesToShow: 2 } },
     ],
   };
 
@@ -132,12 +106,8 @@ const MyDegens = (): React.ReactNode => {
       );
       await fetch(`${PROFILE_FAV_DEGENS_API}`, {
         method: 'POST',
-        body: JSON.stringify({
-          favorites: newFavs.toString(),
-        }),
-        headers: {
-          authorizationToken: authToken,
-        } as Record<string, string>,
+        body: JSON.stringify({ favorites: newFavs.toString() }),
+        headers: { authorizationToken: authToken } as Record<string, string>,
       });
       setFavDegens(newFavs);
     },

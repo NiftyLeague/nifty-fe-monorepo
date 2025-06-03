@@ -36,20 +36,14 @@ export default function EnhancedTable({
   selectedTimeFilter,
 }: TableProps): React.ReactNode | null {
   const [count, setCount] = useState(0);
-  const [paginationModel, setPaginationModel] = useState({
-    pageSize: 50,
-    page: 0,
-  });
+  const [paginationModel, setPaginationModel] = useState({ pageSize: 50, page: 0 });
   const [rows, setData] = useState<Record<string, unknown>[] | null>();
   const [myRank, setMyRank] = useState<number>();
   const { isLoggedIn } = useAuth();
   const { profile } = usePlayerProfile();
 
   const fetchTopData = async () => {
-    setPaginationModel(model => ({
-      pageSize: model.pageSize,
-      page: 0,
-    }));
+    setPaginationModel(model => ({ pageSize: model.pageSize, page: 0 }));
     const returnValue: ReturnDataType = await fetchScores(
       selectedGame,
       selectedTable.key,
@@ -134,20 +128,10 @@ export default function EnhancedTable({
   const getColumns = () => {
     const columns: Array<{ field: string; headerName: string; width: number; primary?: boolean }> = [
       { field: 'rank', headerName: 'RANK', width: 100, primary: true },
-      {
-        field: 'user_id',
-        headerName: 'USERNAME',
-        width: 250,
-        primary: true,
-      },
+      { field: 'user_id', headerName: 'USERNAME', width: 250, primary: true },
     ];
     selectedTable.rows.forEach((headerCell: TableRowType) => {
-      columns.push({
-        field: headerCell.key,
-        headerName: headerCell.display,
-        width: 250,
-        primary: headerCell.primary,
-      });
+      columns.push({ field: headerCell.key, headerName: headerCell.display, width: 250, primary: headerCell.primary });
     });
     return columns;
   };
@@ -189,28 +173,17 @@ export default function EnhancedTable({
               variant="h6"
               sx={{
                 color: theme => theme.palette.primary.main,
-                position: {
-                  lg: 'absolute',
-                },
+                position: { lg: 'absolute' },
                 textDecoration: 'underline',
-                right: {
-                  lg: '0px',
-                },
+                right: { lg: '0px' },
                 cursor: 'pointer',
                 display: 'flex',
                 lineHeight: '24px',
                 justifyContent: 'flex-end',
                 fontWeight: 700,
-                svg: {
-                  mr: '3px',
-                },
-                transform: {
-                  lg: 'translate(0px, 50%)',
-                },
-                mb: {
-                  xs: '16px',
-                  lg: '0px',
-                },
+                svg: { mr: '3px' },
+                transform: { lg: 'translate(0px, 50%)' },
+                mb: { xs: '16px', lg: '0px' },
                 zIndex: 1000,
               }}
               onClick={handleCheckYourRank}

@@ -74,10 +74,7 @@ export function useImmutableNFTLBalance(): NFTLBalanceState {
 }
 
 interface NFTLBalancesState {
-  balances: {
-    eth: number;
-    imx: number;
-  };
+  balances: { eth: number; imx: number };
   error: Error | null;
   loading: boolean;
   refetch: () => void;

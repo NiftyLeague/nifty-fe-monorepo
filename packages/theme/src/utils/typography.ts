@@ -83,23 +83,10 @@ const customTypography = (theme: Theme, borderRadius: number, fontFamily: FontFa
   customInput: {
     marginTop: 1,
     marginBottom: 1,
-    '& > label': {
-      top: 23,
-      left: 0,
-      color: theme.palette.text.secondary,
-      '&[data-shrink="false"]': {
-        top: 5,
-      },
-    },
-    '& > div > input': {
-      padding: '30.5px 14px 11.5px !important',
-    },
-    '& legend': {
-      display: 'none',
-    },
-    '& fieldset': {
-      top: 0,
-    },
+    '& > label': { top: 23, left: 0, color: theme.palette.text.secondary, '&[data-shrink="false"]': { top: 5 } },
+    '& > div > input': { padding: '30.5px 14px 11.5px !important' },
+    '& legend': { display: 'none' },
+    '& fieldset': { top: 0 },
   },
   mainContent: {
     backgroundColor: theme.palette.background.default,
@@ -122,10 +109,7 @@ const customTypography = (theme: Theme, borderRadius: number, fontFamily: FontFa
     color: theme.palette.text.secondary,
     textTransform: 'capitalize',
   },
-  commonAvatar: {
-    cursor: 'pointer',
-    borderRadius: '8px',
-  },
+  commonAvatar: { cursor: 'pointer', borderRadius: '8px' },
   smallAvatar: {
     width: '22px',
     height: '22px',

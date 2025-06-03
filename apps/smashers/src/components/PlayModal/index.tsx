@@ -20,10 +20,7 @@ const ModalContent = ({ launchGame }: { launchGame: () => void }) => {
           width={50}
           height={48}
           priority
-          style={{
-            maxWidth: '100%',
-            height: 'auto',
-          }}
+          style={{ maxWidth: '100%', height: 'auto' }}
         />
         <Typography.Title level={2}>Let&apos;s Brawl!</Typography.Title>
       </Space>
@@ -76,11 +73,7 @@ const ModalContent = ({ launchGame }: { launchGame: () => void }) => {
   );
 };
 
-type PlayModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  launchGame: () => void;
-};
+type PlayModalProps = { isOpen: boolean; onClose: () => void; launchGame: () => void };
 
 const PlayModal = ({ isOpen, onClose, launchGame }: PlayModalProps) => {
   return (

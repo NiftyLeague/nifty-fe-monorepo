@@ -12,10 +12,5 @@ export default function useUserInfo(user: User | undefined) {
     mutate: mutateUserInfo,
   } = useSWR<UserInfo>(user?.isLoggedIn ? `/api/playfab/user/info` : null, fetchJson);
 
-  return {
-    error,
-    isLoading,
-    mutateUserInfo,
-    userInfo: userInfo ?? USER_INFO_INITIAL_STATE,
-  };
+  return { error, isLoading, mutateUserInfo, userInfo: userInfo ?? USER_INFO_INITIAL_STATE };
 }

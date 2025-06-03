@@ -31,12 +31,8 @@ import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 import DegensTopNav from '@/components/extended/DegensTopNav';
 import { HYDRAS } from '@/constants/hydras';
 
-const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'), {
-  ssr: false,
-});
-const DegenCard = dynamic(() => import('@/components/cards/DegenCard'), {
-  ssr: false,
-});
+const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'), { ssr: false });
+const DegenCard = dynamic(() => import('@/components/cards/DegenCard'), { ssr: false });
 
 // Needs to be divisible by 2, 3, or 4
 const DEGENS_PER_PAGE = 12;
@@ -120,13 +116,7 @@ const AllDegensPage = (): React.ReactNode => {
     (filter: DegenFilter) => {
       // TODO: Remove temp filter overrides if we want to enable filter functionailty
       // by prices, rentals, or wearables. Temp hardcoded to empty to avoid rentals filtering
-      const newFilters = {
-        ...filter,
-        prices: [],
-        rentals: [],
-        wearable: [],
-        sort: filters.sort,
-      };
+      const newFilters = { ...filter, prices: [], rentals: [], wearable: [], sort: filters.sort };
       const result = tranformDataByFilter(degens, newFilters);
       setFilters(newFilters);
       setFilteredData(result);

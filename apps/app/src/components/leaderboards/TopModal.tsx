@@ -18,54 +18,18 @@ const TableRoot = styled('div')({
   margin: '56.6% auto 0',
   position: 'relative',
   overflow: 'hidden',
-  '& thead': {
-    position: 'initial !important',
-    display: 'contents !important',
-  },
-  '& table': {
-    width: '100%',
-  },
-  '& .cell': {
-    height: '40px !important',
-    overflow: 'initial !important',
-    position: 'relative',
-  },
-  '& th': {
-    color: '#9ba5bf !important',
-    maxWidth: '60px !important',
-  },
-  '& tbody': {
-    position: 'initial !important',
-    '& tr': {
-      '&:first-child': {
-        borderTop: 'solid 2px #8c9cb4',
-      },
-    },
-  },
+  '& thead': { position: 'initial !important', display: 'contents !important' },
+  '& table': { width: '100%' },
+  '& .cell': { height: '40px !important', overflow: 'initial !important', position: 'relative' },
+  '& th': { color: '#9ba5bf !important', maxWidth: '60px !important' },
+  '& tbody': { position: 'initial !important', '& tr': { '&:first-child': { borderTop: 'solid 2px #8c9cb4' } } },
   '& tr': {
-    '& th': {
-      '&:last-child': {
-        borderRight: 'none !important',
-        color: '#9ba5bf !important',
-      },
-    },
-    '& td': {
-      color: 'black',
-      fontWeight: 'bold',
-      fontSize: 16,
-      '&:last-child': {
-        borderRight: 'none !important',
-      },
-    },
+    '& th': { '&:last-child': { borderRight: 'none !important', color: '#9ba5bf !important' } },
+    '& td': { color: 'black', fontWeight: 'bold', fontSize: 16, '&:last-child': { borderRight: 'none !important' } },
   },
 });
 
-const RankBody = styled('span')({
-  padding: '10px',
-  borderRadius: '50px',
-  paddingTop: '5px',
-  paddingBottom: '5px',
-});
+const RankBody = styled('span')({ padding: '10px', borderRadius: '50px', paddingTop: '5px', paddingBottom: '5px' });
 
 const LineTopBox = styled('div')({
   position: 'absolute',
@@ -222,11 +186,7 @@ const TableModal = ({ selectedGame, flag, selectedTimeFilter, myRank }: TableMod
                   {i.rank === 10 && <LineBottomBox />}
                 </TableCell>
                 <TableCell
-                  style={{
-                    ...getTextStyleForRank(i.rank),
-                    fontSize: 14,
-                    background: '',
-                  }}
+                  style={{ ...getTextStyleForRank(i.rank), fontSize: 14, background: '' }}
                   className="cell ellipsis"
                 >
                   {i.user_id}
@@ -249,11 +209,7 @@ const TableModal = ({ selectedGame, flag, selectedTimeFilter, myRank }: TableMod
                 )}
                 {selectedGame === 'nifty_smashers' && (
                   <TableCell
-                    style={{
-                      ...getTextStyleForRank(i.rank),
-                      fontSize: 14,
-                      background: '',
-                    }}
+                    style={{ ...getTextStyleForRank(i.rank), fontSize: 14, background: '' }}
                     className="cell ellipsis end"
                   >
                     {i.stats.matches}
@@ -272,13 +228,7 @@ const TableModal = ({ selectedGame, flag, selectedTimeFilter, myRank }: TableMod
                   <TableCell className="cell ellipsis end">{i.stats.kills}</TableCell>
                 )}
                 {selectedGame !== 'nifty_smashers' && (
-                  <TableCell
-                    style={{
-                      ...getTextStyleForRank(i.rank),
-                      fontSize: 14,
-                    }}
-                    className="cell ellipsis end"
-                  >
+                  <TableCell style={{ ...getTextStyleForRank(i.rank), fontSize: 14 }} className="cell ellipsis end">
                     {i.score}
                   </TableCell>
                 )}

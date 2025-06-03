@@ -32,9 +32,7 @@ interface IFormInput {
   name: string;
 }
 
-const validationSchema = yup.object().shape({
-  name: yup.string().required('Name is required'),
-});
+const validationSchema = yup.object().shape({ name: yup.string().required('Name is required') });
 
 interface Props {
   rental: RentalDataGrid;
@@ -53,13 +51,7 @@ const RenameRentalDialogContent = ({ rental, updateRentalName }: Props): React.R
     setError,
     reset,
     formState: { errors },
-  } = useForm<IFormInput>({
-    resolver: yupResolver(validationSchema),
-    mode: 'onChange',
-    defaultValues: {
-      name: '',
-    },
-  });
+  } = useForm<IFormInput>({ resolver: yupResolver(validationSchema), mode: 'onChange', defaultValues: { name: '' } });
 
   const onSubmit = async (data: IFormInput) => {
     if (!rental.id || !degenId || !data.name || !authToken) {
@@ -70,30 +62,19 @@ const RenameRentalDialogContent = ({ rental, updateRentalName }: Props): React.R
       setIsLoadingRename(true);
       const result = await fetch(`${RENAME_RENTAL_API_URL}?id=${encodeURIComponent(rental.id)}`, {
         method: 'POST',
-        body: JSON.stringify({
-          name: data.name,
-          degen_id: degenId,
-        }),
-        headers: {
-          authorizationToken: authToken,
-        } as Record<string, string>,
+        body: JSON.stringify({ name: data.name, degen_id: degenId }),
+        headers: { authorizationToken: authToken } as Record<string, string>,
       });
       const res = await result.json();
       setIsLoadingRename(false);
       if (res.statusCode === 400) {
-        setError('name', {
-          type: 'custom',
-          message: res.body,
-        });
+        setError('name', { type: 'custom', message: res.body });
         return;
       }
       onRenameRentalSuccess(data.name);
     } catch (error) {
       setIsLoadingRename(false);
-      setError('name', {
-        type: 'custom',
-        message: error as unknown as string,
-      });
+      setError('name', { type: 'custom', message: error as unknown as string });
     }
   };
 
@@ -103,9 +84,7 @@ const RenameRentalDialogContent = ({ rental, updateRentalName }: Props): React.R
         open: true,
         message: 'Rename Rental Successful',
         variant: 'alert',
-        alert: {
-          color: 'success',
-        },
+        alert: { color: 'success' },
         close: false,
       }),
     );

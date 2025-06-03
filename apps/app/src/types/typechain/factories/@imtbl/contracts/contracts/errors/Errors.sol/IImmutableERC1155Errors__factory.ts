@@ -9,16 +9,8 @@ import type {
 } from '../../../../../../@imtbl/contracts/contracts/errors/Errors.sol/IImmutableERC1155Errors';
 
 const _abi = [
-  {
-    inputs: [],
-    name: 'InvalidSignature',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'PermitExpired',
-    type: 'error',
-  },
+  { inputs: [], name: 'InvalidSignature', type: 'error' },
+  { inputs: [], name: 'PermitExpired', type: 'error' },
 ] as const;
 
 export class IImmutableERC1155Errors__factory {

@@ -38,9 +38,7 @@ function useProcessFlagsFromEnv() {
   return { flags };
 }
 
-type ConfigProviderProps = {
-  children: ReactNode;
-};
+type ConfigProviderProps = { children: ReactNode };
 
 export function FeatureFlagProvider({ children }: ConfigProviderProps) {
   const { flags } = useProcessFlagsFromEnv();

@@ -67,11 +67,7 @@ export const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): React
     formState: { errors },
   } = useForm<IFormInput>({
     mode: 'onChange',
-    defaultValues: {
-      amountSelected: 0,
-      amountInput: '',
-      isCheckedTerm: agreementAccepted === 'ACCEPTED',
-    },
+    defaultValues: { amountSelected: 0, amountInput: '', isCheckedTerm: agreementAccepted === 'ACCEPTED' },
   });
 
   const resetForm = () => {

@@ -5,9 +5,7 @@ import type { User } from '@nl/playfab/types';
 
 import { withSessionRoute } from '@/utils/session';
 
-const InfoRequestParameters = {
-  GetUserAccountInfo: true,
-} as PlayFabClientModels.GetPlayerCombinedInfoRequestParams;
+const InfoRequestParameters = { GetUserAccountInfo: true } as PlayFabClientModels.GetPlayerCombinedInfoRequestParams;
 
 export const POST = withSessionRoute(async (request, session) => {
   const body = await request.json();
@@ -15,11 +13,7 @@ export const POST = withSessionRoute(async (request, session) => {
   try {
     const loginData = CustomId
       ? await LoginWithCustomID({ CustomId })
-      : await LoginWithEmailAddress({
-          Email: email,
-          Password: password,
-          InfoRequestParameters,
-        });
+      : await LoginWithEmailAddress({ Email: email, Password: password, InfoRequestParameters });
 
     const { EntityToken, SessionTicket, PlayFabId, InfoResultPayload } = loginData;
     const timestamp = new Date().toISOString();

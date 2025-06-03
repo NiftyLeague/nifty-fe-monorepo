@@ -29,12 +29,7 @@ export const SOCIAL_LINKS = [
     link: 'https://www.linkedin.com/company/niftyleague/',
     image: '/icons/socials/linkedin.svg',
   },
-  {
-    name: 'Medium',
-    description: 'Nifty League Medium',
-    link: '/blog',
-    image: '/icons/socials/medium.svg',
-  },
+  { name: 'Medium', description: 'Nifty League Medium', link: '/blog', image: '/icons/socials/medium.svg' },
   {
     name: 'Facebook',
     description: 'Nifty League Facebook',

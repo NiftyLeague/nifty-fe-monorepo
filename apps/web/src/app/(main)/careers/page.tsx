@@ -30,10 +30,7 @@ const Careers: NextPage = () => {
                 height={406}
                 priority
                 sizes="100vw"
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                }}
+                style={{ width: '100%', height: 'auto' }}
               />
             </div>
           </AnimatedWrapper>

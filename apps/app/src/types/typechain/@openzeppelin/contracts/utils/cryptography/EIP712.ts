@@ -92,7 +92,9 @@ export interface EIP712 extends BaseContract {
 
   getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T;
 
-  getFunction(nameOrSignature: 'eip712Domain'): TypedContractMethod<
+  getFunction(
+    nameOrSignature: 'eip712Domain',
+  ): TypedContractMethod<
     [],
     [
       [string, string, string, bigint, string, string, bigint[]] & {

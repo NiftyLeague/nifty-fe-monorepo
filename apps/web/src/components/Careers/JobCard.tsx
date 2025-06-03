@@ -12,25 +12,15 @@ const StyledAccordion = styled(Accordion)({
   backdropFilter: 'blur(65.0688px)',
   borderRadius: '10px',
 
-  '& .MuiCollapse-wrapper': {
-    marginBottom: 24,
-  },
+  '& .MuiCollapse-wrapper': { marginBottom: 24 },
   '& .MuiAccordionSummary-root': {
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
     color: 'white',
     fontWeight: 600,
     padding: 24,
   },
-  '& .MuiAccordionSummary-content': {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  '& .MuiAccordionDetails-root': {
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
-    color: 'white',
-    padding: 24,
-  },
+  '& .MuiAccordionSummary-content': { display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
+  '& .MuiAccordionDetails-root': { backgroundColor: 'rgba(0, 0, 0, 0.4)', color: 'white', padding: 24 },
 });
 
 interface JobCardProps {

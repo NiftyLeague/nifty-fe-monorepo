@@ -18,12 +18,7 @@ type Action<T> =
   | { type: 'fetched'; payload: T }
   | { type: 'error'; payload: Error };
 
-const initialState: State<unknown> = {
-  data: undefined,
-  error: undefined,
-  loading: undefined,
-  reset: undefined,
-};
+const initialState: State<unknown> = { data: undefined, error: undefined, loading: undefined, reset: undefined };
 
 // Keep state logic separated
 function fetchReducer<T>(state: State<T>, action: Action<T>): State<T> {
@@ -41,10 +36,7 @@ function fetchReducer<T>(state: State<T>, action: Action<T>): State<T> {
   }
 }
 
-type Options = RequestInit & {
-  enabled?: boolean;
-  stale?: boolean;
-};
+type Options = RequestInit & { enabled?: boolean; stale?: boolean };
 
 function useFetch<T = unknown>(url?: string, options?: Options, textOnly = false): State<T> {
   const cache = useRef<Cache<T>>({});

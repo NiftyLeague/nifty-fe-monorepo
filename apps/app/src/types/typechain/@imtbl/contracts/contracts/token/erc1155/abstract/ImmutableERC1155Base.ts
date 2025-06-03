@@ -474,7 +474,9 @@ export interface ImmutableERC1155Base extends BaseContract {
     nameOrSignature: 'burnBatch',
   ): TypedContractMethod<[account: AddressLike, ids: BigNumberish[], values: BigNumberish[]], [void], 'nonpayable'>;
   getFunction(nameOrSignature: 'contractURI'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'eip712Domain'): TypedContractMethod<
+  getFunction(
+    nameOrSignature: 'eip712Domain',
+  ): TypedContractMethod<
     [],
     [
       [string, string, string, bigint, string, string, bigint[]] & {

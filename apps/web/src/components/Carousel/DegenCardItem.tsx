@@ -54,10 +54,7 @@ const DegenCardItem = ({
               alt="degen image"
               priority
               sizes="100vw"
-              style={{
-                width: '100%',
-                height: 'auto',
-              }}
+              style={{ width: '100%', height: 'auto' }}
             />
           </div>
         </div>

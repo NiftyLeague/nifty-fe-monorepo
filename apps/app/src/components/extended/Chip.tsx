@@ -153,18 +153,12 @@ const Chip = ({ colorType, disabled, sx = {}, variant, ...others }: ChipProps) =
           bgcolor: 'transparent',
           border: '1px solid',
           borderColor: theme.palette.grey[500],
-          ':hover': {
-            color: theme.palette.grey[500],
-            bgcolor: 'transparent',
-          },
+          ':hover': { color: theme.palette.grey[500], bgcolor: 'transparent' },
         })
       : (defaultSX = {
           color: theme.palette.grey[500],
           bgcolor: theme.palette.grey[50],
-          ':hover': {
-            color: theme.palette.grey[500],
-            bgcolor: theme.palette.grey[50],
-          },
+          ':hover': { color: theme.palette.grey[500], bgcolor: theme.palette.grey[50] },
         });
   }
 

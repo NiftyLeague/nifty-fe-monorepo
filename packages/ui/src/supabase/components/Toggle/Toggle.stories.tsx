@@ -2,13 +2,7 @@
 
 import { Toggle } from '.';
 
-export default {
-  title: 'Data Input/Toggle',
-  component: Toggle,
-  argTypes: {
-    label: { control: 'text' },
-  },
-};
+export default { title: 'Data Input/Toggle', component: Toggle, argTypes: { label: { control: 'text' } } };
 
 export const Primary = (args: any) => <Toggle {...args} />;
 export const checkedDefault = (args: any) => <Toggle {...args} />;
@@ -33,21 +27,8 @@ checkedDefault.args = {
   labelOptional: 'This is an optional label',
 };
 
-noLabel.args = {
-  active: true,
-  disabled: false,
-  error: '',
-  name: 'radiogroup-example',
-  layout: 'horizontal',
-};
+noLabel.args = { active: true, disabled: false, error: '', name: 'radiogroup-example', layout: 'horizontal' };
 
-withBeforeAndAfterLabel.args = {
-  label: 'Label',
-  beforeLabel: 'Before : ',
-  afterLabel: ' : After',
-};
+withBeforeAndAfterLabel.args = { label: 'Label', beforeLabel: 'Before : ', afterLabel: ' : After' };
 
-size.args = {
-  label: 'Try different sizes',
-  size: 'tiny',
-};
+size.args = { label: 'Try different sizes', size: 'tiny' };

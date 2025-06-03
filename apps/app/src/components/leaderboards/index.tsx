@@ -21,9 +21,7 @@ import './modal-table.css';
 
 const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
   padding: `${theme.spacing(0.25)} ${theme.spacing(1.5)}`,
-  '&.Mui-selected': {
-    backgroundColor: 'transparent !important',
-  },
+  '&.Mui-selected': { backgroundColor: 'transparent !important' },
 }));
 
 export default function LeaderBoards(): React.ReactNode {
@@ -106,13 +104,7 @@ export default function LeaderBoards(): React.ReactNode {
         </FormControl>
         {selectedGame === 'nifty_smashers' && (
           <FormControl sx={{ minWidth: '120px' }}>
-            <Select
-              value={selectedType}
-              onChange={handleChangeType}
-              inputProps={{
-                sx: { paddingY: 0.75 },
-              }}
-            >
+            <Select value={selectedType} onChange={handleChangeType} inputProps={{ sx: { paddingY: 0.75 } }}>
               {NiftySmashersTables.map(item => (
                 <MenuItem value={item.key} key={item.key}>
                   {item.display}

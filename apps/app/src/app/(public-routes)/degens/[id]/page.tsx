@@ -7,12 +7,7 @@ export async function generateMetadata(props: { params: Params }) {
   const params = await props.params;
   const tokenId = params.id;
 
-  return {
-    title: `NL DEGEN #${tokenId}`,
-    openGraph: {
-      images: [`/img/degens/nfts/${tokenId}.webp`],
-    },
-  };
+  return { title: `NL DEGEN #${tokenId}`, openGraph: { images: [`/img/degens/nfts/${tokenId}.webp`] } };
 }
 
 export default async function DegenTraitsDetailsPage(props: { params: Params; searchParams: SearchParams }) {

@@ -77,12 +77,7 @@ const SidePanel = ({
     <div className={footerClasses.join(' ')}>{customFooter}</div>
   ) : (
     <div className={footerClasses.join(' ')}>
-      <Space
-        style={{
-          width: '100%',
-          justifyContent: alignFooter === 'right' ? 'flex-end' : 'flex-start',
-        }}
-      >
+      <Space style={{ width: '100%', justifyContent: alignFooter === 'right' ? 'flex-end' : 'flex-start' }}>
         <Button disabled={loading} type="outline" onClick={() => (onCancel ? onCancel() : null)}>
           {cancelText}
         </Button>
@@ -144,24 +139,9 @@ const SidePanel = ({
                 className={wide ? SlidePanelStyles['sbui-sidepanel--wide'] : SlidePanelStyles['sbui-sidepanel--medium']}
               >
                 <div className={sidePanelClasses.join(' ')} onClick={stopPropagation}>
-                  <Space
-                    size={6}
-                    direction="vertical"
-                    style={{
-                      minHeight: '0',
-                      flex: '1 1 0%',
-                      overflowY: 'scroll',
-                    }}
-                  >
+                  <Space size={6} direction="vertical" style={{ minHeight: '0', flex: '1 1 0%', overflowY: 'scroll' }}>
                     <header className={SlidePanelStyles['sbui-sidepanel-header']}>
-                      <Space
-                        size={3}
-                        direction="row"
-                        style={{
-                          alignItems: 'center',
-                          justifyContent: 'space-between',
-                        }}
-                      >
+                      <Space size={3} direction="row" style={{ alignItems: 'center', justifyContent: 'space-between' }}>
                         {title && (
                           <Typography.Title className="m-0" level={4}>
                             {title}

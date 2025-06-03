@@ -4,13 +4,9 @@ import type { NavItemType } from '@/types';
 
 // ==============================|| MENU ITEMS ||============================== //
 
-const PrivateItems: { items: NavItemType[] } = {
-  items: [Private],
-};
+const PrivateItems: { items: NavItemType[] } = { items: [Private] };
 
-const PublicItems: { items: NavItemType[] } = {
-  items: [Public],
-};
+const PublicItems: { items: NavItemType[] } = { items: [Public] };
 
 export default PublicItems;
 

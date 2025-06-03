@@ -42,9 +42,7 @@ const EnableDisableDegenDialogContent = ({ degen, isEnabled = false, onClose, on
     if (json.statusCode) {
       toast.error(json.body, { theme: 'dark' });
     } else {
-      toast.success(`${isEnabled ? 'Disable' : 'Enable'} successfully!`, {
-        theme: 'dark',
-      });
+      toast.success(`${isEnabled ? 'Disable' : 'Enable'} successfully!`, { theme: 'dark' });
       onSuccess?.();
       onClose();
     }

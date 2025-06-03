@@ -18,11 +18,7 @@ export const NIFTY_GAMES = [
       'A virtual social hub like none other for gamers. The vision is for NiftyVerse to be a dynamic and interoperable platform for developers to create their own games, ensuring a wide variety of immersive experiences for players.',
     video: '/video/mansion_showcase.mp4',
     tag: 'METAVERSE',
-    action: {
-      secondaryTitle: 'LEARN MORE',
-      secondaryLink: '/niftyverse',
-      isComingSoon: true,
-    },
+    action: { secondaryTitle: 'LEARN MORE', secondaryLink: '/niftyverse', isComingSoon: true },
   },
   {
     name: 'NIFTY ROYALE',
@@ -30,11 +26,7 @@ export const NIFTY_GAMES = [
       "One of the first games we'd like to introduce to the NiftyVerse is a fun battle royale, codename 'GEM HUNTER'. Development kicked off in August 2023 with help from an external game studio as part of our test run transitioning to a DAO and polishing our public services/SDK.",
     video: '/video/arcade-token.mp4',
     tag: 'MOBILE / PC GAME',
-    action: {
-      title: 'PLAYTEST EARLY-ACCESS!',
-      link: 'https://app.niftyleague.com',
-      isComingSoon: false,
-    },
+    action: { title: 'PLAYTEST EARLY-ACCESS!', link: 'https://app.niftyleague.com', isComingSoon: false },
   },
   // {
   //   name: 'NIFTY TENNIS',
@@ -53,22 +45,14 @@ export const NIFTY_GAMES = [
     description: `Never thought you'd see a batting cage on the blockchain huh? Think again. Put your baseball team cap on and get ready to hit the balls in the WEN game for your first blockchain home run. Easy to pick up, difficult to master. Wen lambo?!`,
     video: '/video/wen-ape.mp4',
     tag: 'MINI-GAME',
-    action: {
-      title: 'SWING AWAY!',
-      link: 'https://app.niftyleague.com/games/wen-game',
-      isComingSoon: false,
-    },
+    action: { title: 'SWING AWAY!', link: 'https://app.niftyleague.com/games/wen-game', isComingSoon: false },
   },
   {
     name: 'CRYPTO WINTER',
     description: `The crypto market is currently going through an extended winter season, and only few will survive until the next cycle. Dodge snowballs, bombs and icicles and utilise pickups to defeat Pengweevil to achieve a seat at the ranking table. Weak hands need not apply, diamond hands only!`,
     video: 'video/crypto-winter.mp4',
     tag: 'MINI-GAME',
-    action: {
-      title: 'START PLAYING!',
-      link: 'https://app.niftyleague.com/games/crypto-winter',
-      isComingSoon: false,
-    },
+    action: { title: 'START PLAYING!', link: 'https://app.niftyleague.com/games/crypto-winter', isComingSoon: false },
   },
   {
     name: 'MT. GAWX',

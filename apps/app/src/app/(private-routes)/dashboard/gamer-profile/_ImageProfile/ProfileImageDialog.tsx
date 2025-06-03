@@ -24,13 +24,7 @@ type ProfileImageContentProps = {
   avatarFee?: number;
 };
 
-const settings = {
-  className: 'center',
-  slidesToShow: 4,
-  rows: 2,
-  slidesPerRow: 1,
-  swipe: false,
-};
+const settings = { className: 'center', slidesToShow: 4, rows: 2, slidesPerRow: 1, swipe: false };
 
 const ProfileImageContent = ({ onSearch, onChangeAvatar, degensInternal, avatarFee }: ProfileImageContentProps) => {
   const [, setIsOpen] = useContext(DialogContext);
@@ -45,24 +39,18 @@ const ProfileImageContent = ({ onSearch, onChangeAvatar, degensInternal, avatarF
       const response = await fetch(UPDATE_PROFILE_AVATAR_API, {
         headers: { authorizationToken: authToken },
         method: 'POST',
-        body: JSON.stringify({
-          avatar: degen?.id,
-        }),
+        body: JSON.stringify({ avatar: degen?.id }),
       });
       if (!response.ok) {
         const errMsg = await response.text();
-        toast.error(`Can not update the profile avatar: ${errMsg}`, {
-          theme: 'dark',
-        });
+        toast.error(`Can not update the profile avatar: ${errMsg}`, { theme: 'dark' });
         return;
       }
       toast.success('Update Profile Avatar Successful!', { theme: 'dark' });
       onChangeAvatar(degen?.id);
       setIsOpen(false);
     } catch (error) {
-      toast.error(`Can not update the profile avatar: ${error}`, {
-        theme: 'dark',
-      });
+      toast.error(`Can not update the profile avatar: ${error}`, { theme: 'dark' });
     }
   };
 
@@ -82,12 +70,8 @@ const ProfileImageContent = ({ onSearch, onChangeAvatar, degensInternal, avatarF
             overflow: 'hidden',
             cursor: 'pointer',
             display: 'block !important',
-            '&:hover img': {
-              transform: 'scale(1.3)',
-            },
-            '& img': {
-              transition: 'transform .5s ease',
-            },
+            '&:hover img': { transform: 'scale(1.3)' },
+            '& img': { transition: 'transform .5s ease' },
           }}
           onClick={() => handleSelectedDegen(degen)}
         >
@@ -157,33 +141,16 @@ const ProfileImageDialog = ({ degens, onChangeAvatar, avatarFee }: ProfileImageD
     <Dialog>
       <DialogTrigger>
         <IconButton
-          sx={{
-            cursor: 'pointer',
-            position: 'absolute',
-            top: 1,
-            left: 1,
-          }}
+          sx={{ cursor: 'pointer', position: 'absolute', top: 1, left: 1 }}
           aria-label="edit"
           onClick={() => null}
         >
-          <EditOutlinedIcon
-            fontSize="small"
-            sx={{
-              color: theme.palette.grey[400],
-            }}
-          />
+          <EditOutlinedIcon fontSize="small" sx={{ color: theme.palette.grey[400] }} />
         </IconButton>
       </DialogTrigger>
       <DialogContent
         aria-labelledby="profile-image-dialog"
-        sx={{
-          '& .MuiPaper-root': {
-            maxWidth: '1000px',
-          },
-          '& .MuiDialogContent-root': {
-            border: 'none',
-          },
-        }}
+        sx={{ '& .MuiPaper-root': { maxWidth: '1000px' }, '& .MuiDialogContent-root': { border: 'none' } }}
       >
         <ProfileImageContent
           onSearch={handleSearch}

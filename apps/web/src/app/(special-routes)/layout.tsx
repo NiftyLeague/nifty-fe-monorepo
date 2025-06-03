@@ -13,10 +13,7 @@ const imbPlexSans = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: {
-    template: 'Nifty League | %s',
-    default: 'Nifty League',
-  },
+  title: { template: 'Nifty League | %s', default: 'Nifty League' },
   description:
     'A decentralized game studio & publisher creating an open & efficient path for indie studios to develop & publish groundbreaking games',
   generator: 'Next.js',

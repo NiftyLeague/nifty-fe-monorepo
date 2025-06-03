@@ -51,16 +51,9 @@ export default function DataTable(props: DataTableProps) {
         '.MuiDataGrid-cell:focus, .MuiDataGrid-columnHeader:focus, .MuiDataGrid-columnHeader:focus-within ': {
           outline: 'none !important',
         },
-        '.MuiDataGrid-root, .MuiDataGrid-footerContainer ': {
-          border: 'none',
-        },
-        '.MuiDataGrid-columnHeaders, .MuiDataGrid-cell': {
-          borderBottom: '1px solid #d5d9e915 !important',
-          zIndex: 1,
-        },
-        '.MuiDataGrid-iconSeparator': {
-          display: 'none',
-        },
+        '.MuiDataGrid-root, .MuiDataGrid-footerContainer ': { border: 'none' },
+        '.MuiDataGrid-columnHeaders, .MuiDataGrid-cell': { borderBottom: '1px solid #d5d9e915 !important', zIndex: 1 },
+        '.MuiDataGrid-iconSeparator': { display: 'none' },
       }}
     >
       <DataGrid

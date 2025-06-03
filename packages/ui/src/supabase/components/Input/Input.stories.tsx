@@ -4,10 +4,7 @@ import { Input } from '.';
 import { IconPackage } from './../../index';
 import { Button } from '../Button';
 
-export default {
-  title: 'Data Input/Input',
-  component: Input,
-};
+export default { title: 'Data Input/Input', component: Input };
 
 export const Default = (args: any) => <Input {...args} />;
 
@@ -39,12 +36,7 @@ export const date = (args: any) => <Input {...args} step="12" />;
 
 const icon: any = <IconPackage />;
 
-Default.args = {
-  placeholder: 'Type text here ...',
-  disabled: false,
-  label: 'Name',
-  layout: 'vertical',
-};
+Default.args = { placeholder: 'Type text here ...', disabled: false, label: 'Name', layout: 'vertical' };
 
 ErrorState.args = {
   type: 'text',
@@ -78,16 +70,9 @@ withDescription.args = {
   descriptionText: 'Make your password short and easy to guess',
 };
 
-withCustomStyle.args = {
-  type: 'text',
-  label: 'This has custom styling {width: 50%}',
-  style: { width: '50%' },
-};
+withCustomStyle.args = { type: 'text', label: 'This has custom styling {width: 50%}', style: { width: '50%' } };
 
-textArea.args = {
-  type: 'text',
-  label: 'This is a text area',
-};
+textArea.args = { type: 'text', label: 'This is a text area' };
 
 textAreaWithLimit.args = {
   type: 'text',
@@ -121,11 +106,7 @@ withCustomActions.args = {
   ],
 };
 
-size.args = {
-  type: 'text',
-  label: 'You can change the size of this Input',
-  size: 'tiny',
-};
+size.args = { type: 'text', label: 'You can change the size of this Input', size: 'tiny' };
 
 withBeforeAndAfterLabel.args = {
   type: 'text',
@@ -134,17 +115,6 @@ withBeforeAndAfterLabel.args = {
   afterLabel: ' : After label',
 };
 
-borderless.args = {
-  type: 'text',
-  label: 'This is the label',
-  borderless: true,
-  size: 'tiny',
-};
+borderless.args = { type: 'text', label: 'This is the label', borderless: true, size: 'tiny' };
 
-date.args = {
-  type: 'date',
-  placeholder: 'Type text here ...',
-  disabled: false,
-  label: 'Name',
-  layout: 'vertical',
-};
+date.args = { type: 'date', placeholder: 'Type text here ...', disabled: false, label: 'Name', layout: 'vertical' };

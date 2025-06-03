@@ -63,13 +63,7 @@ const NavGroup = ({ item }: NavGroupProps) => {
       </List>
 
       {/* group divider */}
-      <Divider
-        sx={{
-          mt: 0.25,
-          mb: 1.25,
-          opacity: '0.6',
-        }}
-      />
+      <Divider sx={{ mt: 0.25, mb: 1.25, opacity: '0.6' }} />
     </>
   );
 };

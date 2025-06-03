@@ -20,10 +20,7 @@ const UnityContent = ({ onClose }: { onClose: () => void }) => {
   );
 };
 
-type UnityModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-};
+type UnityModalProps = { isOpen: boolean; onClose: () => void };
 
 const UnityModal = ({ isOpen, onClose }: UnityModalProps) => {
   return (

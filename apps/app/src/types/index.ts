@@ -38,9 +38,7 @@ export interface GenericCardProps {
 }
 
 export type OverrideIcon =
-  | (OverridableComponent<SvgIconTypeMap<object, 'svg'>> & {
-      muiName: string;
-    })
+  | (OverridableComponent<SvgIconTypeMap<object, 'svg'>> & { muiName: string })
   | React.ComponentClass<unknown>
   | FunctionComponent<React.PropsWithChildren<React.PropsWithChildren<unknown>>>
   | ((props: IconProps) => React.ReactNode);
@@ -68,9 +66,7 @@ export type HeadCell = {
 
 export type LinkTarget = '_blank' | '_self' | '_parent' | '_top';
 
-export type NavItemTypeObject = {
-  items: NavItemType[];
-};
+export type NavItemTypeObject = { items: NavItemType[] };
 
 export type NavItemType = {
   id?: string;
@@ -88,19 +84,14 @@ export type NavItemType = {
   children?: NavItemType[];
 };
 
-export type AuthSliderProps = {
-  title: string;
-  description: string;
-};
+export type AuthSliderProps = { title: string; description: string };
 
 export interface DefaultRootStateProps {
   acount: InitialLoginContextProps;
   menu: MenuProps;
   snackbar: SnackbarProps;
 }
-export type GuardProps = {
-  children: React.ReactNode;
-};
+export type GuardProps = { children: React.ReactNode };
 
 export interface StringColorProps {
   id?: string;
@@ -117,10 +108,7 @@ export interface FormInputProps {
   label: string;
   name: string;
   required?: boolean;
-  InputProps?: {
-    label: string;
-    startAdornment?: React.ReactNode;
-  };
+  InputProps?: { label: string; startAdornment?: React.ReactNode };
 }
 
 /** ---- Common Functions types ---- */
@@ -132,9 +120,7 @@ export type ChangeEventFunc = (e: React.ChangeEvent<HTMLInputElement>) => void;
 
 // amit
 
-export type KeyedObject = {
-  [key: string]: string | number | KeyedObject;
-};
+export type KeyedObject = { [key: string]: string | number | KeyedObject };
 
 export interface MenuItemBaseProps {
   value: string;

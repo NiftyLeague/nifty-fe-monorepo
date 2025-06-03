@@ -36,10 +36,7 @@ const WearableSubItemCard: React.FC<React.PropsWithChildren<React.PropsWithChild
         height={CARD_HEIGHT}
         position="relative"
         overflow="hidden"
-        sx={{
-          borderRadius: '10px',
-          outline: isSelected ? `3px solid ${theme.palette.primary.main}` : 'none',
-        }}
+        sx={{ borderRadius: '10px', outline: isSelected ? `3px solid ${theme.palette.primary.main}` : 'none' }}
       >
         <ImageCard image={image} thumbnail={thumbnail} title={title} ratio={1} />
       </Box>

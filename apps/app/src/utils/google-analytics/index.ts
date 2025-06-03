@@ -11,13 +11,7 @@ const initGA = () => {
     const userId = window.localStorage.getItem('user-id');
     ReactGA.initialize(
       process.env.NEXT_PUBLIC_GA_CONTAINER_ID || '',
-      userId
-        ? {
-            gaOptions: {
-              userId: userId,
-            },
-          }
-        : undefined,
+      userId ? { gaOptions: { userId: userId } } : undefined,
     );
   }
 };

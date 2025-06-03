@@ -41,12 +41,7 @@ const CompanyImage = ({ company }: { company: Company }) => {
       alt={`${company.name} Logo`}
       width={WIDTH}
       height={HEIGHT}
-      style={{
-        objectFit: 'contain',
-        width: '100%',
-        height: 'auto',
-        maxHeight: `${HEIGHT * 2}px`,
-      }}
+      style={{ objectFit: 'contain', width: '100%', height: 'auto', maxHeight: `${HEIGHT * 2}px` }}
       priority={isAboveTheFold}
       onError={handleImageError}
     />
@@ -176,10 +171,7 @@ const CreditsContent = () => {
   );
 };
 
-type CreditsModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-};
+type CreditsModalProps = { isOpen: boolean; onClose: () => void };
 
 const CreditsModal = ({ isOpen, onClose }: CreditsModalProps) => {
   return (

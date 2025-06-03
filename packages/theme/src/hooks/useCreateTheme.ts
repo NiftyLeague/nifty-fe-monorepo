@@ -57,10 +57,7 @@ const useCreateTheme = (): Theme => {
     cssVariables: true,
     ...baseTheme,
     customShadows: shadows,
-    typography: {
-      ...baseTheme.typography,
-      ...typography,
-    },
+    typography: { ...baseTheme.typography, ...typography },
   } as Theme;
 };
 

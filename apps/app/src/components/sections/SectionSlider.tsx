@@ -16,11 +16,7 @@ interface Props {
   isSlider?: boolean;
   children?: React.ReactNode;
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-  styles?: {
-    root?: SxProps<Theme>;
-    headerRow?: SxProps<Theme>;
-    mainRow?: SxProps<Theme>;
-  };
+  styles?: { root?: SxProps<Theme>; headerRow?: SxProps<Theme>; mainRow?: SxProps<Theme> };
 }
 
 const SectionSlider = ({
@@ -47,30 +43,10 @@ const SectionSlider = ({
     rows: 1,
     lazyLoad: true,
     responsive: [
-      {
-        breakpoint: 1700,
-        settings: {
-          slidesToShow: 4,
-        },
-      },
-      {
-        breakpoint: 1280,
-        settings: {
-          slidesToShow: 3,
-        },
-      },
-      {
-        breakpoint: 900,
-        settings: {
-          slidesToShow: 2,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
+      { breakpoint: 1700, settings: { slidesToShow: 4 } },
+      { breakpoint: 1280, settings: { slidesToShow: 3 } },
+      { breakpoint: 900, settings: { slidesToShow: 2 } },
+      { breakpoint: 600, settings: { slidesToShow: 1 } },
     ],
     ...sliderSettingsOverride,
   } as Settings;

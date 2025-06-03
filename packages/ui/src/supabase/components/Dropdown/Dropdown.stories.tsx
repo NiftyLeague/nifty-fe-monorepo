@@ -20,20 +20,10 @@ const meta: Meta<typeof Dropdown> = {
   argTypes: {
     overlay: { control: { disable: true } },
     children: { control: { disable: true } },
-    side: {
-      control: { type: 'select' },
-      options: ['bottom', 'top', 'left', 'right'],
-    },
-    align: {
-      control: { type: 'select' },
-      options: ['start', 'center', 'end'],
-    },
+    side: { control: { type: 'select' }, options: ['bottom', 'top', 'left', 'right'] },
+    align: { control: { type: 'select' }, options: ['start', 'center', 'end'] },
   },
-  args: {
-    side: 'bottom',
-    align: 'center',
-    sideOffset: 6,
-  },
+  args: { side: 'bottom', align: 'center', sideOffset: 6 },
 };
 
 export default meta;
@@ -166,9 +156,7 @@ const SearchListComponent = (args: RootProps) => {
   );
 };
 
-const SearchListTemplate: DropdownStory = {
-  render: args => <SearchListComponent {...args} />,
-};
+const SearchListTemplate: DropdownStory = { render: args => <SearchListComponent {...args} /> };
 
 export const SearchList: DropdownStory = SearchListTemplate;
 
@@ -192,9 +180,7 @@ const CheckboxComponent = (args: RootProps) => {
   );
 };
 
-const CheckboxTemplate: DropdownStory = {
-  render: args => <CheckboxComponent {...args} />,
-};
+const CheckboxTemplate: DropdownStory = { render: args => <CheckboxComponent {...args} /> };
 
 export const Checkbox: DropdownStory = CheckboxTemplate;
 
@@ -226,9 +212,7 @@ const RadioComponent = (args: RootProps) => {
   );
 };
 
-const RadioTemplate: DropdownStory = {
-  render: args => <RadioComponent {...args} />,
-};
+const RadioTemplate: DropdownStory = { render: args => <RadioComponent {...args} /> };
 
 export const Radio: DropdownStory = RadioTemplate;
 
@@ -280,8 +264,6 @@ const NestedComponent = (args: RootProps) => {
   );
 };
 
-const NestedTemplate: DropdownStory = {
-  render: args => <NestedComponent {...args} />,
-};
+const NestedTemplate: DropdownStory = { render: args => <NestedComponent {...args} /> };
 
 export const Nested: DropdownStory = NestedTemplate;

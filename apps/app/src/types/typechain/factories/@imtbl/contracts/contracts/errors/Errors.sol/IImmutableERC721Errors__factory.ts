@@ -10,79 +10,33 @@ import type {
 
 const _abi = [
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
-      },
-    ],
+    inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
     name: 'IImmutableERC721IDAboveThreshold',
     type: 'error',
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
-      },
-      {
-        internalType: 'address',
-        name: 'currentOwner',
-        type: 'address',
-      },
+      { internalType: 'uint256', name: 'tokenId', type: 'uint256' },
+      { internalType: 'address', name: 'currentOwner', type: 'address' },
     ],
     name: 'IImmutableERC721MismatchedTokenOwner',
     type: 'error',
   },
+  { inputs: [], name: 'IImmutableERC721MismatchedTransferLengths', type: 'error' },
   {
-    inputs: [],
-    name: 'IImmutableERC721MismatchedTransferLengths',
-    type: 'error',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
-      },
-    ],
+    inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
     name: 'IImmutableERC721NotOwnerOrOperator',
     type: 'error',
   },
+  { inputs: [], name: 'IImmutableERC721SendingToZerothAddress', type: 'error' },
   {
-    inputs: [],
-    name: 'IImmutableERC721SendingToZerothAddress',
-    type: 'error',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
-      },
-    ],
+    inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
     name: 'IImmutableERC721TokenAlreadyBurned',
     type: 'error',
   },
-  {
-    inputs: [],
-    name: 'InvalidSignature',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'PermitExpired',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'SignerCannotBeZerothAddress',
-    type: 'error',
-  },
+  { inputs: [], name: 'InvalidSignature', type: 'error' },
+  { inputs: [], name: 'PermitExpired', type: 'error' },
+  { inputs: [], name: 'SignerCannotBeZerothAddress', type: 'error' },
 ] as const;
 
 export class IImmutableERC721Errors__factory {

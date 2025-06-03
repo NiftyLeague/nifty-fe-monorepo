@@ -21,10 +21,7 @@ export default meta;
 type Story = StoryObj<typeof Card>;
 
 export const Default: Story = {
-  args: {
-    title: 'I am a title',
-    titleExtra: <Typography.Link>Learn more</Typography.Link>,
-  },
+  args: { title: 'I am a title', titleExtra: <Typography.Link>Learn more</Typography.Link> },
 };
 
 export const WithCover: Story = {

@@ -67,14 +67,7 @@ export default function Preloader({ ready, progress }: { ready: boolean; progres
   return (
     <div
       className={styles.preloader_overlay}
-      style={
-        ready
-          ? {
-              transform: 'translateY(100%)',
-              display: 'none',
-            }
-          : { transform: 'transform: translateY(0)' }
-      }
+      style={ready ? { transform: 'translateY(100%)', display: 'none' } : { transform: 'transform: translateY(0)' }}
     >
       <div id="js-preloader" className={styles.preloader}>
         <div className={cn(styles.preloader_inner, styles.fadeInUp)}>

@@ -41,19 +41,10 @@ const InteractiveSidePanel = ({ args, children }: InteractiveSidePanelProps) => 
 const meta: Meta<SidePanelProps> = {
   title: 'Overlays/SidePanel',
   component: SidePanel,
-  parameters: {
-    layout: 'centered',
-  },
+  parameters: { layout: 'centered' },
   tags: ['autodocs'],
-  argTypes: {
-    onCancel: { action: 'onCancel' },
-    onConfirm: { action: 'onConfirm' },
-  },
-  args: {
-    visible: true,
-    onCancel: fn(),
-    onConfirm: fn(),
-  },
+  argTypes: { onCancel: { action: 'onCancel' }, onConfirm: { action: 'onConfirm' } },
+  args: { visible: true, onCancel: fn(), onConfirm: fn() },
 };
 
 export default meta;
@@ -71,10 +62,7 @@ export const Default: Story = {
 };
 
 export const WithWideLayout: Story = {
-  args: {
-    wide: true,
-    className: 'w-[800px]',
-  },
+  args: { wide: true, className: 'w-[800px]' },
   render: args => (
     <SidePanel {...args}>
       <Typography.Text type="secondary">This is a wider side panel with custom width.</Typography.Text>
@@ -83,9 +71,7 @@ export const WithWideLayout: Story = {
 };
 
 export const LeftAlignedFooter: Story = {
-  args: {
-    alignFooter: 'left',
-  },
+  args: { alignFooter: 'left' },
   render: args => (
     <SidePanel {...args}>
       <Typography.Text type="secondary">This side panel has a left-aligned footer.</Typography.Text>
@@ -94,9 +80,7 @@ export const LeftAlignedFooter: Story = {
 };
 
 export const LeftAligned: Story = {
-  args: {
-    align: 'left',
-  },
+  args: { align: 'left' },
   render: args => (
     <SidePanel {...args}>
       <Typography.Text type="secondary">This side panel is aligned to the left.</Typography.Text>
@@ -105,9 +89,7 @@ export const LeftAligned: Story = {
 };
 
 export const HideFooter: Story = {
-  args: {
-    hideFooter: true,
-  },
+  args: { hideFooter: true },
   render: args => (
     <SidePanel {...args}>
       <Typography.Text type="secondary">This side panel has no footer.</Typography.Text>
@@ -179,9 +161,7 @@ const NestedPanel = () => {
   );
 };
 
-export const NestedSidepanels: Story = {
-  render: () => <NestedPanel />,
-};
+export const NestedSidepanels: Story = { render: () => <NestedPanel /> };
 
 Default.args = {
   title: 'This is the title of the SidePanel',
@@ -191,30 +171,13 @@ Default.args = {
   onConfirm: fn(),
 };
 
-WithWideLayout.args = {
-  ...Default.args,
-  title: 'Wide Layout',
-  wide: true,
-  className: 'w-[800px]',
-};
+WithWideLayout.args = { ...Default.args, title: 'Wide Layout', wide: true, className: 'w-[800px]' };
 
-LeftAlignedFooter.args = {
-  ...Default.args,
-  title: 'Left Aligned Footer',
-  alignFooter: 'left',
-};
+LeftAlignedFooter.args = { ...Default.args, title: 'Left Aligned Footer', alignFooter: 'left' };
 
-LeftAligned.args = {
-  ...Default.args,
-  title: 'Left Aligned',
-  align: 'left',
-};
+LeftAligned.args = { ...Default.args, title: 'Left Aligned', align: 'left' };
 
-HideFooter.args = {
-  ...Default.args,
-  title: 'Hidden Footer',
-  hideFooter: true,
-};
+HideFooter.args = { ...Default.args, title: 'Hidden Footer', hideFooter: true };
 
 CustomFooter.args = {
   ...Default.args,

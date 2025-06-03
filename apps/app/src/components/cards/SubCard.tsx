@@ -59,14 +59,7 @@ const SubCard = forwardRef(
         )}
 
         {/* content & header divider */}
-        {title && (
-          <Divider
-            sx={{
-              opacity: 1,
-              borderColor: theme.palette.divider,
-            }}
-          />
-        )}
+        {title && <Divider sx={{ opacity: 1, borderColor: theme.palette.divider }} />}
 
         {/* card content */}
         {content && (

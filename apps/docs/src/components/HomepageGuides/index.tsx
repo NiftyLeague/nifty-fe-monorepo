@@ -11,23 +11,11 @@ import Section from '../Section';
 import StyledIcon from '../StyledIcon';
 import StyledImage from '../StyledImage';
 
-type GuideLink = {
-  title: string;
-  text?: string;
-  to: string;
-};
+type GuideLink = { title: string; text?: string; to: string };
 
 export const GUIDE_LINKS: GuideLink[] = [
-  {
-    title: 'Set Up',
-    text: 'Get started setting up your Ethereum wallet',
-    to: '/docs/guides/set-up',
-  },
-  {
-    title: 'Purchasing NFTL',
-    text: 'Learn how to purchase NFTL tokens',
-    to: '/docs/guides/buying-nftl',
-  },
+  { title: 'Set Up', text: 'Get started setting up your Ethereum wallet', to: '/docs/guides/set-up' },
+  { title: 'Purchasing NFTL', text: 'Learn how to purchase NFTL tokens', to: '/docs/guides/buying-nftl' },
   {
     title: 'Playing Nifty Smashers',
     text: 'Learn how to bonk in Nifty Smashers!',
@@ -36,45 +24,18 @@ export const GUIDE_LINKS: GuideLink[] = [
 ];
 
 export const GITHUB_LINKS: GuideLink[] = [
-  {
-    title: 'nifty-fe-monorepo',
-    to: 'https://github.com/NiftyLeague/nifty-fe-monorepo',
-  },
-  {
-    title: 'nifty-smart-contracts',
-    to: 'https://github.com/NiftyLeague/nifty-smart-contracts',
-  },
-  {
-    title: 'nifty-league-subgraph',
-    to: 'https://github.com/NiftyLeague/nifty-league-subgraph',
-  },
-  {
-    title: 'nifty-smashers-web',
-    to: 'https://github.com/NiftyLeague/NiftySmashersWebApp',
-  },
+  { title: 'nifty-fe-monorepo', to: 'https://github.com/NiftyLeague/nifty-fe-monorepo' },
+  { title: 'nifty-smart-contracts', to: 'https://github.com/NiftyLeague/nifty-smart-contracts' },
+  { title: 'nifty-league-subgraph', to: 'https://github.com/NiftyLeague/nifty-league-subgraph' },
+  { title: 'nifty-smashers-web', to: 'https://github.com/NiftyLeague/NiftySmashersWebApp' },
 ];
 
 export const QUICK_LINKS: GuideLink[] = [
-  {
-    title: 'FAQ',
-    to: '/docs/faq/general',
-  },
-  {
-    title: 'Nifty DAO',
-    to: '/docs/overview/nifty-dao/about',
-  },
-  {
-    title: 'DEGEN NFTs',
-    to: '/docs/overview/nfts/degens/about',
-  },
-  {
-    title: 'Games',
-    to: '/docs/overview/games/games-overview',
-  },
-  {
-    title: 'NiftyVerse',
-    to: '/docs/overview/games/niftyverse',
-  },
+  { title: 'FAQ', to: '/docs/faq/general' },
+  { title: 'Nifty DAO', to: '/docs/overview/nifty-dao/about' },
+  { title: 'DEGEN NFTs', to: '/docs/overview/nfts/degens/about' },
+  { title: 'Games', to: '/docs/overview/games/games-overview' },
+  { title: 'NiftyVerse', to: '/docs/overview/games/niftyverse' },
   // {
   //   title: 'Whitepaper',
   //   text: "Details  on Nifty League's vision",
@@ -128,13 +89,7 @@ function GithubLink({ title, to }: GuideLink) {
 function QuickLink({ title, to }: GuideLink) {
   return (
     <Link style={{}} to={to}>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          marginBottom: '0.5rem',
-        }}
-      >
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
         <h3 style={{ marginBottom: 0 }}>{title}</h3>
         <LinkArrow />
       </div>
@@ -164,10 +119,7 @@ export default function HomepageGuides(): React.ReactNode {
         </div>
         <StyledImage
           style={{ maxHeight: '400px', marginTop: 'auto' }}
-          sources={{
-            light: useBaseUrl('/img/misc/frog_400.webp'),
-            dark: useBaseUrl('/img/misc/smash_400.webp'),
-          }}
+          sources={{ light: useBaseUrl('/img/misc/frog_400.webp'), dark: useBaseUrl('/img/misc/smash_400.webp') }}
         />
         <div>
           <h2>Quick Links</h2>

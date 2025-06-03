@@ -132,19 +132,11 @@ export interface CustomTypography extends ColorProps, CustomShadowProps {
       top: string;
       left: number;
       color?: Color | (Color | undefined)[] | Color[];
-      '&[data-shrink="false"]': {
-        top: string;
-      };
+      '&[data-shrink="false"]': { top: string };
     };
-    '& > div > input': {
-      padding: string;
-    };
-    '& legend': {
-      display: string;
-    };
-    '& fieldset': {
-      top: number;
-    };
+    '& > div > input': { padding: string };
+    '& legend': { display: string };
+    '& fieldset': { top: number };
   };
   mainContent?: {
     backgroundColor?: string;
@@ -168,25 +160,10 @@ export interface CustomTypography extends ColorProps, CustomShadowProps {
     color: Color | (Color | undefined)[] | Color[];
     textTransform: 'uppercase' | 'lowercase' | 'capitalize' | 'inherit';
   };
-  commonAvatar?: {
-    cursor: string;
-    borderRadius: string;
-  };
-  smallAvatar?: {
-    width: string;
-    height: string;
-    fontSize: string;
-  };
-  mediumAvatar?: {
-    width: string;
-    height: string;
-    fontSize: string;
-  };
-  largeAvatar?: {
-    width: string;
-    height: string;
-    fontSize: string;
-  };
+  commonAvatar?: { cursor: string; borderRadius: string };
+  smallAvatar?: { width: string; height: string; fontSize: string };
+  mediumAvatar?: { width: string; height: string; fontSize: string };
+  largeAvatar?: { width: string; height: string; fontSize: string };
   heading?: string;
   textDark?: string;
   colors?: CustomTypography;

@@ -43,10 +43,7 @@ const RoadmapCard = ({
             width={image.width}
             height={image.height}
             sizes="100vw"
-            style={{
-              width: '100%',
-              height: 'auto',
-            }}
+            style={{ width: '100%', height: 'auto' }}
           />
         </div>
       )}
@@ -69,10 +66,7 @@ const RoadmapCard = ({
           width={200}
           height={200}
           sizes="100vw"
-          style={{
-            width: '100%',
-            height: 'auto',
-          }}
+          style={{ width: '100%', height: 'auto' }}
         />
       </div>
     ) : null}

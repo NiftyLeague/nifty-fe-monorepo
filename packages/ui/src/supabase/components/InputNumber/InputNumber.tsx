@@ -94,11 +94,7 @@ function InputNumber({
     inputRefCurrent.current?.stepUp();
     if (onChange) {
       inputRefCurrent.current?.dispatchEvent(
-        new InputEvent('change', {
-          view: window,
-          bubbles: true,
-          cancelable: false,
-        }),
+        new InputEvent('change', { view: window, bubbles: true, cancelable: false }),
       );
     }
   };
@@ -107,11 +103,7 @@ function InputNumber({
     inputRefCurrent.current?.stepDown();
     if (onChange) {
       inputRefCurrent.current?.dispatchEvent(
-        new InputEvent('change', {
-          view: window,
-          bubbles: true,
-          cancelable: false,
-        }),
+        new InputEvent('change', { view: window, bubbles: true, cancelable: false }),
       );
     }
   };

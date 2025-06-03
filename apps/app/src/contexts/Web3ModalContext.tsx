@@ -25,9 +25,7 @@ createAppKit({
   networks,
   defaultNetwork: mainnet,
   metadata,
-  features: {
-    analytics: true,
-  },
+  features: { analytics: true },
   tokens: {
     [CaipNetworkID(mainnet)]: {
       address: getContractAddress(mainnet.id, NFTL_CONTRACT),
@@ -52,9 +50,7 @@ createAppKit({
   enableEIP6963: true,
 });
 
-type Web3ModalProviderProps = {
-  cookies?: string | null;
-};
+type Web3ModalProviderProps = { cookies?: string | null };
 
 export function Web3ModalProvider({ children, cookies }: PropsWithChildren<Web3ModalProviderProps>) {
   const initialState = cookieToInitialState(wagmiAdapter.wagmiConfig as Config, cookies);

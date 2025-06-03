@@ -19,11 +19,7 @@ const useProfileAvatarFee = (): {
     headers,
     enabled: !!authToken,
   });
-  return {
-    errorAvatarsAndFee: error,
-    avatarsAndFee: data,
-    loadingAvatarsAndFee: loading,
-  };
+  return { errorAvatarsAndFee: error, avatarsAndFee: data, loadingAvatarsAndFee: loading };
 };
 
 export default useProfileAvatarFee;

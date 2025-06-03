@@ -38,22 +38,10 @@ const NiftyCarousel = ({
       draggable={isMobileViewOnly}
       showDots={isMobileViewOnly}
       responsive={{
-        superLargeDesktop: {
-          breakpoint: { max: 4000, min: 1500 },
-          items: superLargeDesktopItems,
-        },
-        desktop: {
-          breakpoint: { max: 1500, min: 1024 },
-          items: desktopItems,
-        },
-        tablet: {
-          breakpoint: { max: 1024, min: 615 },
-          items: tabletItems,
-        },
-        mobile: {
-          breakpoint: { max: 615, min: 0 },
-          items: mobileItems,
-        },
+        superLargeDesktop: { breakpoint: { max: 4000, min: 1500 }, items: superLargeDesktopItems },
+        desktop: { breakpoint: { max: 1500, min: 1024 }, items: desktopItems },
+        tablet: { breakpoint: { max: 1024, min: 615 }, items: tabletItems },
+        mobile: { breakpoint: { max: 615, min: 0 }, items: mobileItems },
       }}
       ssr={true}
       infinite={true}

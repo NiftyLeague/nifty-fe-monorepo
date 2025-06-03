@@ -8,9 +8,7 @@ const meta: Meta<typeof Button> = {
   title: 'General/Button',
   component: Button,
   tags: ['autodocs'],
-  args: {
-    children: 'Button text',
-  },
+  args: { children: 'Button text' },
 };
 
 export default meta;
@@ -20,45 +18,18 @@ export const Default: Story = {};
 
 export const WithStyles: Story = {};
 
-export const WithIcon: Story = {
-  args: {
-    icon: <IconPackage />,
-  },
-};
+export const WithIcon: Story = { args: { icon: <IconPackage /> } };
 
-export const WithIconRight: Story = {
-  args: {
-    icon: <IconChevronRight />,
-    iconRight: true,
-  },
-};
+export const WithIconRight: Story = { args: { icon: <IconChevronRight />, iconRight: true } };
 
-export const WithBlock: Story = {
-  args: {
-    block: true,
-  },
-};
+export const WithBlock: Story = { args: { block: true } };
 
-export const WithOnlyIcon: Story = {
-  args: {
-    icon: <IconPackage />,
-    children: undefined,
-  },
-};
+export const WithOnlyIcon: Story = { args: { icon: <IconPackage />, children: undefined } };
 
-export const WithOnlyLoading: Story = {
-  args: {
-    loading: true,
-    children: undefined,
-  },
-};
+export const WithOnlyLoading: Story = { args: { loading: true, children: undefined } };
 
 export const WithLoadingCentered: Story = {
-  args: {
-    loading: true,
-    loadingCentered: true,
-    children: 'Loading icon is centered',
-  },
+  args: { loading: true, loadingCentered: true, children: 'Loading icon is centered' },
 };
 
 export const WithRef: Story = {
@@ -210,44 +181,20 @@ export const WithCustomTag = (args: any) => <Button {...args}>Button text</Butto
 
 const icon = <IconPackage />;
 
-WithIcon.args = {
-  type: 'primary',
-  icon: icon,
-};
+WithIcon.args = { type: 'primary', icon: icon };
 
-WithIconRight.args = {
-  type: 'primary',
-  iconRight: <IconChevronRight strokeWidth={2} />,
-};
+WithIconRight.args = { type: 'primary', iconRight: <IconChevronRight strokeWidth={2} /> };
 
-WithStyles.args = {
-  type: 'primary',
-  style: { backgroundColor: 'red', color: 'yellow' },
-};
+WithStyles.args = { type: 'primary', style: { backgroundColor: 'red', color: 'yellow' } };
 
-WithBlock.args = {
-  type: 'primary',
-  block: true,
-};
+WithBlock.args = { type: 'primary', block: true };
 
-WithOnlyIcon.args = {
-  icon: icon,
-};
+WithOnlyIcon.args = { icon: icon };
 
-WithOnlyLoading.args = {
-  loading: true,
-};
+WithOnlyLoading.args = { loading: true };
 
-WithLoadingCentered.args = {
-  loading: true,
-  loadingCentered: true,
-};
+WithLoadingCentered.args = { loading: true, loadingCentered: true };
 
-AllButtons.args = {
-  loading: false,
-  danger: false,
-};
+AllButtons.args = { loading: false, danger: false };
 
-WithCustomTag.args = {
-  as: 'span',
-};
+WithCustomTag.args = { as: 'span' };

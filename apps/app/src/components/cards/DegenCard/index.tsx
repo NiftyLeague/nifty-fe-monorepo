@@ -177,14 +177,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
           <Stack
             direction="row"
             gap={1}
-            sx={{
-              justifyContent: 'space-between',
-              '&:hover': {
-                '& svg': {
-                  display: 'block',
-                },
-              },
-            }}
+            sx={{ justifyContent: 'space-between', '&:hover': { '& svg': { display: 'block' } } }}
           >
             <Typography gutterBottom variant={size === 'small' ? 'h6' : 'h4'}>
               {name || 'No Name DEGEN'}
@@ -203,15 +196,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
             </Link>
           </Stack>
         </CardContent>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            px: 2,
-            gap: 1,
-          }}
-        >
+        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', px: 2, gap: 1 }}>
           {/* {false && (
             <Button
               variant="contained"
@@ -245,10 +230,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
               variant={isSelected ? 'contained' : 'outlined'}
               color="primary"
               fullWidth
-              sx={{
-                minWidth: '32%',
-                fontSize: buttonFontSize,
-              }}
+              sx={{ minWidth: '32%', fontSize: buttonFontSize }}
               onClick={onClickSelect}
               disabled={isSelectionDisabled && !isSelected}
             >
@@ -259,10 +241,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
               variant="outlined"
               color="primary"
               fullWidth
-              sx={{
-                minWidth: '32%',
-                fontSize: buttonFontSize,
-              }}
+              sx={{ minWidth: '32%', fontSize: buttonFontSize }}
               onClick={onClickDetail}
             >
               Details
@@ -274,10 +253,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
               onClick={onClickClaim}
               variant="contained"
               fullWidth
-              sx={{
-                minWidth: '32%',
-                fontSize: buttonFontSize,
-              }}
+              sx={{ minWidth: '32%', fontSize: buttonFontSize }}
             >
               Claim
             </Button>
@@ -310,22 +286,8 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
                   <FavoriteIconOutlined sx={{ fontSize: size === 'small' ? 12 : 16 }} />
                 )}
               </Box>
-              <Box
-                sx={{
-                  display: 'flex',
-                  cursor: 'pointer',
-                  alignItems: 'center',
-                }}
-                onClick={onClickDownload}
-              >
-                <Typography
-                  sx={{
-                    fontSize: tinyFontSize,
-                    pr: '4px',
-                  }}
-                >
-                  IP
-                </Typography>
+              <Box sx={{ display: 'flex', cursor: 'pointer', alignItems: 'center' }} onClick={onClickDownload}>
+                <Typography sx={{ fontSize: tinyFontSize, pr: '4px' }}>IP</Typography>
                 <Image
                   src="/icons/download-solid.svg"
                   alt="Download Icon"
