@@ -2,7 +2,27 @@ import GoogleProvider from 'next-auth/providers/google';
 import FacebookProvider from 'next-auth/providers/facebook';
 import AppleProvider from 'next-auth/providers/apple';
 import TwitchProvider from 'next-auth/providers/twitch';
-import type { NextAuthOptions } from 'next-auth';
+import { getServerSession as getServerSessionInternal } from 'next-auth/next';
+import type { DefaultSession, NextAuthOptions } from 'next-auth';
+import type { DefaultJWT } from 'next-auth/jwt';
+import type { User } from '../types';
+
+// Extend the built-in session types
+declare module 'next-auth' {
+  interface Session extends DefaultSession {
+    accessToken?: string;
+    provider?: string;
+    user: User;
+  }
+}
+
+declare module 'next-auth/jwt' {
+  interface JWT extends DefaultJWT {
+    accessToken?: string;
+    provider?: string;
+    id: string;
+  }
+}
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -26,12 +46,7 @@ export const authOptions: NextAuthOptions = {
   cookies: {
     pkceCodeVerifier: {
       name: 'next-auth.pkce.code_verifier',
-      options: {
-        httpOnly: true,
-        sameSite: 'none',
-        path: '/',
-        secure: true,
-      },
+      options: { httpOnly: true, sameSite: 'none', path: '/', secure: true },
     },
   },
   callbacks: {
@@ -43,8 +58,8 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      (session as any).accessToken = token.accessToken;
-      (session as any).provider = token.provider;
+      session.accessToken = token.accessToken;
+      session.provider = token.provider;
       return session;
     },
     async signIn() {
@@ -52,3 +67,9 @@ export const authOptions: NextAuthOptions = {
     },
   },
 };
+
+/**
+ * Wrapper for getServerSession so that you don't need to import the authOptions in every file.
+ * @see https://next-auth.js.org/configuration/nextjs
+ */
+export const getServerSession = () => getServerSessionInternal(authOptions);

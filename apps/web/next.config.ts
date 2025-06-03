@@ -2,15 +2,10 @@
 // https://nextjs.org/docs/api-reference/next.config.js/introduction
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
+import type { NextConfig } from 'next';
 import { withSentryConfig } from '@sentry/nextjs';
-import { fileURLToPath } from 'url';
-import path from 'path';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   transpilePackages: ['@nl/theme', '@nl/ui'],
   images: {
     remotePatterns: [
@@ -167,9 +162,6 @@ export default withSentryConfig(nextConfig, {
   // Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
   // side errors will fail.
   tunnelRoute: '/monitoring',
-
-  // Hides source maps from generated client bundles
-  hideSourceMaps: true,
 
   // Automatically tree-shake Sentry logger statements to reduce bundle size
   disableLogger: true,

@@ -99,7 +99,7 @@ const TokenInfoBox = ({
   }, [refetch]);
 
   const debouncedGetMarketplace = useRef(
-    debounce(async amount => {
+    debounce(async (amount: string) => {
       if (!amount || Number(amount) === 0) return;
       getMarketPrice(kind === 'From' ? OrderKind.SELL : OrderKind.BUY, amount);
     }, 300),

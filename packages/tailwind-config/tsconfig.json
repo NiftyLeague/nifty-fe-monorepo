@@ -1,0 +1,6 @@
+{
+  "extends": "@nl/typescript-config/react-library.json",
+  "compilerOptions": { "outDir": "dist" },
+  "include": ["tailwind.config.ts", "postcss.config.mjs"],
+  "exclude": ["node_modules", "dist"]
+}

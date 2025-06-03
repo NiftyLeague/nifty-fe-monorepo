@@ -2,8 +2,8 @@
 
 import { PropsWithChildren } from 'react';
 
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
-import { ThemeProvider as MuiThemeProvider, StyledEngineProvider } from '@mui/material/styles';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
+import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 
 import useCreateTheme from '../hooks/useCreateTheme';
@@ -21,7 +21,7 @@ const ThemeProvider = ({ children }: PropsWithChildren) => {
         <div
           className={`${fontFamily.default.variable} ${fontFamily.header.variable} ${fontFamily.subheader.variable} ${fontFamily.special.variable}`}
         >
-          <StyledEngineProvider injectFirst>{children}</StyledEngineProvider>
+          {children}
         </div>
       </LocalesProvider>
     </MuiThemeProvider>
@@ -30,7 +30,7 @@ const ThemeProvider = ({ children }: PropsWithChildren) => {
 
 const ThemeProviderWrapper = ({ children }: PropsWithChildren) => {
   return (
-    <AppRouterCacheProvider>
+    <AppRouterCacheProvider options={{ enableCssLayer: true }}>
       <ThemeConfigProvider>
         <ThemeProvider>{children}</ThemeProvider>
       </ThemeConfigProvider>

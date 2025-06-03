@@ -51,10 +51,7 @@ export default function ProfileClient({ user: initialUser }: { user: User }) {
                 alt="Company Logo"
                 width={50}
                 height={48}
-                style={{
-                  maxWidth: '100%',
-                  height: 'auto',
-                }}
+                style={{ maxWidth: '100%', height: 'auto' }}
               />
             )}
             <Typography.Text type="success">You&apos;re signed in</Typography.Text>

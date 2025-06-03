@@ -1,6 +1,7 @@
 {
   "name": "@nl/ui",
   "version": "0.0.0",
+  "license": "GPL-3.0-only",
   "type": "module",
   "private": true,
   "exports": {
@@ -11,31 +12,41 @@
   },
   "scripts": {
     "clean": "rm -rf node_modules",
+    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\"",
+    "generate:component": "turbo gen react-component",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --max-warnings 0 --fix",
-    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\"",
-    "type-check": "tsc --noEmit",
-    "generate:component": "turbo gen react-component"
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.4",
-    "@mui/x-data-grid": "^8.5.0",
     "@radix-ui/react-context-menu": "^2.2.15",
     "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-dropdown-menu": "^2.1.15",
     "@radix-ui/react-popover": "^1.1.14",
-    "@supabase/supabase-js": "^2.49.8",
-    "prop-types": "^15.8.1",
+    "lodash": "^4.17.21",
     "react-feather": "^2.0.10"
   },
   "devDependencies": {
-    "@nl/eslint-config": "workspace:*",
-    "@nl/prettier-config": "workspace:*",
-    "@nl/typescript-config": "workspace:*",
-    "@storybook/react": "^9.0.3",
-    "@storybook/react-vite": "^9.0.3",
+    "@storybook/react": "^9.0.4",
+    "@storybook/react-vite": "^9.0.4",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.3.0",
     "@turbo/gen": "^2.5.4",
-    "@types/prop-types": "^15.7.14",
-    "storybook": "^9.0.3"
+    "@types/lodash": "^4.17.17",
+    "@types/react": "19.1.6",
+    "@types/react-dom": "19.1.5",
+    "storybook": "^9.0.4"
+  },
+  "peerDependencies": {
+    "@emotion/cache": "^11.14.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^7.1.1",
+    "@mui/material": "^7.1.1",
+    "@mui/system": "^7.1.1",
+    "@mui/x-data-grid": "^8.5.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
   }
 }

@@ -1,0 +1,19 @@
+{
+  "name": "@nl/tailwind-config",
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": {
+      "import": "./tailwind.config.ts"
+    },
+    "./postcss": "./postcss.config.mjs",
+    "./styles": "./styles/index.css"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.1.8",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^4.1.8"
+  }
+}

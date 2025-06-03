@@ -2,19 +2,15 @@
 // https://nextjs.org/docs/api-reference/next.config.js/introduction
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
+import type { NextConfig } from 'next';
 import { withSentryConfig } from '@sentry/nextjs';
-import { fileURLToPath } from 'url';
-import path from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const getAppleStoreLink = (countryCode = '') =>
   countryCode.length > 0
     ? `https://apps.apple.com/${countryCode.toLowerCase()}/app/${process.env.NEXT_PUBLIC_APPLE_STORE_ID}`
-    : process.env.NEXT_PUBLIC_APPLE_STORE_LINK;
+    : (process.env.NEXT_PUBLIC_APPLE_STORE_LINK as string);
 
-const generateAppleCountryRedirects = countryCode => [
+const generateAppleCountryRedirects = (countryCode: string) => [
   {
     source: '/ios',
     has: [
@@ -41,8 +37,7 @@ const generateAppleCountryRedirects = countryCode => [
   },
 ];
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   transpilePackages: ['@nl/playfab', '@nl/theme', '@nl/ui'],
   images: {
     remotePatterns: [
@@ -78,32 +73,32 @@ const nextConfig = {
       },
       {
         source: '/android',
-        destination: process.env.NEXT_PUBLIC_GOOGLE_PLAY_LINK,
+        destination: process.env.NEXT_PUBLIC_GOOGLE_PLAY_LINK as string,
         permanent: false,
       },
       {
         source: '/android/:params*',
-        destination: `${process.env.NEXT_PUBLIC_GOOGLE_PLAY_LINK}:params*`,
+        destination: `${process.env.NEXT_PUBLIC_GOOGLE_PLAY_LINK as string}:params*`,
         permanent: false,
       },
       {
         source: '/epic',
-        destination: process.env.NEXT_PUBLIC_EPIC_LINK,
+        destination: process.env.NEXT_PUBLIC_EPIC_LINK as string,
         permanent: false,
       },
       {
         source: '/epic/:params*',
-        destination: `${process.env.NEXT_PUBLIC_EPIC_LINK}:params*`,
+        destination: `${process.env.NEXT_PUBLIC_EPIC_LINK as string}:params*`,
         permanent: false,
       },
       {
         source: '/steam',
-        destination: process.env.NEXT_PUBLIC_STEAM_LINK,
+        destination: process.env.NEXT_PUBLIC_STEAM_LINK as string,
         permanent: false,
       },
       {
         source: '/steam/:params*',
-        destination: `${process.env.NEXT_PUBLIC_STEAM_LINK}:params*`,
+        destination: `${process.env.NEXT_PUBLIC_STEAM_LINK as string}:params*`,
         permanent: false,
       },
       {
@@ -162,9 +157,6 @@ export default withSentryConfig(nextConfig, {
   // Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
   // side errors will fail.
   tunnelRoute: '/monitoring',
-
-  // Hides source maps from generated client bundles
-  hideSourceMaps: true,
 
   // Automatically tree-shake Sentry logger statements to reduce bundle size
   disableLogger: true,

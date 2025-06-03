@@ -17,10 +17,7 @@ import defaultColors from '../styles/color/_palette.module.css';
 
 const createPalette = (paletteMode: PaletteMode, colors: ColorProps): ThemeOptions['palette'] => ({
   mode: paletteMode,
-  common: {
-    black: colors.grey900,
-    white: colors.grey50,
-  },
+  common: { black: colors.grey900, white: colors.grey50 },
   primary: {
     light: paletteMode === 'dark' ? colors.darkPrimaryLight : colors.primaryLight,
     main: paletteMode === 'dark' ? colors.darkPrimaryMain : colors.primaryMain,
@@ -33,26 +30,10 @@ const createPalette = (paletteMode: PaletteMode, colors: ColorProps): ThemeOptio
     dark: paletteMode === 'dark' ? colors.darkSecondaryDark : colors.secondaryDark,
     darker: paletteMode === 'dark' ? colors.darkSecondaryDarker : colors.secondaryDarker,
   },
-  error: {
-    light: colors.errorLight,
-    main: colors.errorMain,
-    dark: colors.errorDark,
-  },
-  orange: {
-    light: colors.orangeLight,
-    main: colors.orangeMain,
-    dark: colors.orangeDark,
-  },
-  warning: {
-    light: colors.warningLight,
-    main: colors.warningMain,
-    dark: colors.warningDark,
-  },
-  success: {
-    light: colors.successLight,
-    main: colors.successMain,
-    dark: colors.successDark,
-  },
+  error: { light: colors.errorLight, main: colors.errorMain, dark: colors.errorDark },
+  orange: { light: colors.orangeLight, main: colors.orangeMain, dark: colors.orangeDark },
+  warning: { light: colors.warningLight, main: colors.warningMain, dark: colors.warningDark },
+  success: { light: colors.successLight, main: colors.successMain, dark: colors.successDark },
   grey: {
     50: colors.grey50,
     100: colors.grey100,
@@ -65,11 +46,7 @@ const createPalette = (paletteMode: PaletteMode, colors: ColorProps): ThemeOptio
     800: colors.grey800,
     900: colors.grey900,
   },
-  dark: {
-    light: colors.darkLevel1,
-    main: colors.darkLevel2,
-    dark: colors.darkLevel3,
-  },
+  dark: { light: colors.darkLevel1, main: colors.darkLevel2, dark: colors.darkLevel3 },
   text: {
     primary: paletteMode === 'dark' ? colors.darkTextPrimary : colors.textPrimary,
     secondary: paletteMode === 'dark' ? colors.darkTextSecondary : colors.textSecondary,
@@ -108,9 +85,6 @@ const customPalette = (paletteMode: PaletteMode, presetColor: string): Theme => 
     default:
       colors = defaultColors as unknown as ColorProps;
   }
-
-  console.log('paletteMode', paletteMode);
-  console.log('colors', colors);
 
   return createTheme({ palette: createPalette(paletteMode, colors) });
 };
