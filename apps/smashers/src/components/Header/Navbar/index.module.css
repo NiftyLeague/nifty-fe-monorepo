@@ -30,7 +30,7 @@
   content: '';
   position: absolute;
   z-index: -1;
-  background: linear-gradient(to left, var(--custom-color-brand), var(--custom-color-brand-secondary));
+  background: linear-gradient(to left, var(--color-brand-purple), var(--color-brand-blue));
   border-left: 5px solid white;
   border-bottom: 7px solid white;
   top: -250%;

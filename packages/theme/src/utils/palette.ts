@@ -5,13 +5,7 @@ import { createTheme, type PaletteMode } from '@mui/material/styles';
 import type { ColorProps, Theme, ThemeOptions } from '../types';
 
 // assets
-import defaultColors from '../styles/color/_palette.module.css';
-// import theme1 from '../styles/color/_theme1.module.css';
-// import theme2 from '../styles/color/_theme2.module.css';
-// import theme3 from '../styles/color/_theme3.module.css';
-// import theme4 from '../styles/color/_theme4.module.css';
-// import theme5 from '../styles/color/_theme5.module.css';
-// import theme6 from '../styles/color/_theme6.module.css';
+import defaultColors from '../constants/_palette.module.css';
 
 // ==============================|| DEFAULT THEME - PALETTE  ||============================== //
 

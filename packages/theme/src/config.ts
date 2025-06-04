@@ -1,5 +1,5 @@
 import type { ThemeConfigProps } from './types';
-import { imbPlexSans, lilitaOne, nexaRustSansBlack, pressStart } from './styles/fonts';
+import { imbPlexSans, lilitaOne, nexaRustSansBlack, pressStart } from './fonts';
 import { borderRadius, breakpoints, container, outlinedFilled } from './constants/index';
 
 export const defaultConfig: ThemeConfigProps = {

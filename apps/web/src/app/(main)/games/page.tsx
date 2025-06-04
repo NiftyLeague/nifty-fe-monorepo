@@ -17,7 +17,7 @@ const Games: NextPage = () => {
     <div className={cn(styles.container, 'overview mx-auto px-3 position-relative')}>
       <div className={cn(styles.gradient1, 'radial-gradient-piece')} />
       <Container>
-        <div className="d-flex align-items-center justify-content-center flex-wrap px-lg-5">
+        <div className="d-flex items-center justify-content-center flex-wrap px-lg-5">
           {desktop ? (
             <div className="col-6 desktop px-2 px-lg-3">
               <AnimatedWrapper>
@@ -65,7 +65,7 @@ const Games: NextPage = () => {
         {NIFTY_GAMES.map(({ name, description, video, tag, action }, index) => (
           <div className={cn(styles.section, 'd-flex flex-column-reverse flex-md-row position-relative')} key={name}>
             <div className={cn(styles.block, 'col-12 col-md-7 pe-md-5')}>
-              <div className="d-flex flex-row align-items-center justify-content-between mb-3">
+              <div className="d-flex flex-row items-center justify-content-between mb-3">
                 <AnimatedWrapper>
                   <h4 className="my-0 animated-header-text animated-header-text-start transition-delay-small">
                     {name}

@@ -38,9 +38,6 @@ importers:
       syncpack:
         specifier: ^13.0.4
         version: 13.0.4(typescript@5.8.3)
-      tailwindcss:
-        specifier: ^4.1.8
-        version: 4.1.8
       turbo:
         specifier: ^2.5.4
         version: 2.5.4
@@ -615,7 +612,7 @@ importers:
   packages/prettier-config: {}
 
   packages/tailwind-config:
-    dependencies:
+    devDependencies:
       '@tailwindcss/postcss':
         specifier: ^4.1.8
         version: 4.1.8

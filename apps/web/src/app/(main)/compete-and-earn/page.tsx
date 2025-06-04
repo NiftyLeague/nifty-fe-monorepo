@@ -7,7 +7,7 @@ import styles from './index.module.css';
 const CompeteAndEarn: NextPage = () => {
   return (
     <div className={cn(styles.container, 'overview mx-auto px-3')}>
-      <div className="d-flex flex-column-reverse flex-md-row align-items-center justify-content-center position-relative">
+      <div className="d-flex flex-column-reverse flex-md-row items-center justify-content-center position-relative">
         <div className={cn(styles.block, 'd-flex flex-column col-12 col-md-6 pe-0 pe-md-5 position-relative')}>
           <div className="mb-2 mb-md-4">
             <AnimatedWrapper>
@@ -42,7 +42,7 @@ const CompeteAndEarn: NextPage = () => {
         </div>
       </div>
       <div className={cn(styles.content, 'mx-auto')}>
-        <div className="d-flex flex-column-reverse flex-md-row mt-3 mt-md-5 py-5 align-items-center position-relative">
+        <div className="d-flex flex-column-reverse flex-md-row mt-3 mt-md-5 py-5 items-center position-relative">
           <div className={cn(styles.block, 'col-12 col-md-6 pe-md-5')}>
             <div className="mb-3">
               <AnimatedWrapper>

@@ -191,7 +191,7 @@
   left: 25px;
   height: 100%;
   width: 4px;
-  background: var(--custom-color-brand);
+  background: var(--color-brand-purple);
 }
 
 .cd_timeline_block {
@@ -219,12 +219,12 @@
   height: 30px;
   border-radius: 50%;
   box-shadow:
-    0 0 0 4px var(--custom-color-brand-secondary),
+    0 0 0 4px var(--color-brand-blue),
     inset 0 2px 0 rgba(0, 0, 0, 0.08),
     0 3px 0 4px rgba(0, 0, 0, 0.05);
 }
 .cd_timeline_checkpoint {
-  background: linear-gradient(to left, var(--custom-color-brand-secondary), var(--custom-color-brand));
+  background: linear-gradient(to left, var(--color-brand-blue), var(--color-brand-purple));
 }
 .cd_timeline_checkpoint.completed {
   background: linear-gradient(to left, #4faa5c, #225953);

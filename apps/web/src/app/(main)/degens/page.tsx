@@ -101,7 +101,7 @@ const Degens: NextPage = () => {
       </div>
       <div className={cn(styles.container, 'overview mx-auto px-3')}>
         <Container>
-          <div className="d-flex align-items-center justify-content-center flex-wrap mb-4 mb-md-5">
+          <div className="d-flex items-center justify-content-center flex-wrap mb-4 mb-md-5">
             <div className="col-12 col-md-6 pe-md-4">
               <div className="mb-4">
                 <AnimatedWrapper>
@@ -162,7 +162,7 @@ const Degens: NextPage = () => {
             <div
               className={cn(
                 styles.list,
-                'd-flex flex-wrap align-items-center flex-md-row full-width justify-content-between',
+                'd-flex flex-wrap items-center flex-md-row full-width justify-content-between',
               )}
             >
               {NIFTY_DEGENS_ALL.map(({ name, image }) => (

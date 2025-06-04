@@ -9,7 +9,6 @@
       "import": "./src/index.ts",
       "types": "./src/types/@types/index.d.ts"
     },
-    "./styles": "./src/styles/globals.css",
     "./types": "./src/types/@types/index.d.ts"
   },
   "scripts": {

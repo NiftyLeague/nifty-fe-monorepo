@@ -141,7 +141,7 @@ const MobileIntro = () => {
     <div className="row m-0 p-0 position-relative pt-5 home-mobile-intro">
       <div className="overlay-dark min-vh-100" />
       <div className="radial-gradient-background d-block" />
-      <div className="d-flex flex-column align-items-center text-center my-auto py-3 pt-md-5 home-mobile-content">
+      <div className="d-flex flex-column items-center text-center my-auto py-3 pt-md-5 home-mobile-content">
         <h1 className="mt-0 mt-sm-4 mt-md-5">Nifty League</h1>
         <h5 className="mt-2">By Gamers. For Gamers.</h5>
         <p className="my-4 text-center white-space-no-wrap">Community-Governed Game Studio</p>
@@ -152,7 +152,7 @@ const MobileIntro = () => {
             </button>
           </a>
         </AnimatedWrapper>
-        <div className="d-flex align-items-center mt-3 mb-5 social-icons">
+        <div className="d-flex items-center mt-3 mb-5 social-icons">
           <a className="pe-4" href="https://discord.gg/niftyleague" target="_blank" rel="noreferrer">
             <Image src="/icons/socials/discord.svg" alt="Discord Logo" width={26} height={22} />
           </a>
@@ -254,7 +254,7 @@ const Home: NextPage = () => {
 
       {/* COMPETE & EARN */}
       <div className="row row-top-spacing px-0 mx-auto inner-container">
-        <div className="d-flex px-3 px-md-4 position-relative align-items-center">
+        <div className="d-flex px-3 px-md-4 position-relative items-center">
           <div className={`${desktop ? 'col-6' : 'full-width'}`}>
             <div className="d-flex flex-column compete-to-earn-section position-relative">
               {desktop && (
@@ -410,7 +410,7 @@ const Home: NextPage = () => {
 
       {/* NIFTYVERSE */}
       <div className="row row-top-spacing mx-auto inner-container">
-        <div className="d-flex px-3 px-md-4 position-relative align-items-center">
+        <div className="d-flex px-3 px-md-4 position-relative items-center">
           {desktop && (
             <div className="col-6 position-relative">
               <AnimatedWrapper>
@@ -572,7 +572,7 @@ const Home: NextPage = () => {
 
       {/* NFTL */}
       <div className="row row-top-spacing mx-auto inner-container">
-        <div className="d-flex px-3 px-md-4 position-relative align-items-center">
+        <div className="d-flex px-3 px-md-4 position-relative items-center">
           <div className={`${desktop ? 'col-6' : 'full-width'}`}>
             <div className="d-flex flex-column home-nftl-token-section">
               <Stack gap={2}>

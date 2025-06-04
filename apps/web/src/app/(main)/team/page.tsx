@@ -16,7 +16,7 @@ const Team: NextPage = () => {
     <>
       <div className={cn(styles.container, 'mx-auto px-3')}>
         <div className="about-intro mt-5 pt-5 position-relative">
-          <div className="row m-0 p-0 pt-sm-5 position-relative d-flex flex-column align-items-center">
+          <div className="row m-0 p-0 pt-sm-5 position-relative d-flex flex-column items-center">
             <AnimatedWrapper>
               <h1 className="text-center animated-header-text animated-header-text-start transition-delay-small">
                 NIFTY DAO

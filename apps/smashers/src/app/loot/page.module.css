@@ -7,7 +7,7 @@
   margin: 0 auto;
   padding: 2rem 1rem 4rem;
   max-width: 1200px;
-  color: var(--custom-font-color);
+  color: var(--custom-fg-color);
   background-color: var(--custom-bg-color);
   gap: 2rem;
 
@@ -23,7 +23,7 @@
   padding: 2.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(var(--custom-color-brand), 0.1);
+  border: 1px solid rgba(var(--color-brand-purple), 0.1);
   position: relative;
   overflow: hidden;
 }
@@ -35,18 +35,18 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--custom-color-brand), var(--custom-color-brand-secondary));
+  background: linear-gradient(90deg, var(--color-brand-purple), var(--color-brand-blue));
   opacity: 0.8;
 }
 
 .crateGroup:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  border-color: rgba(var(--custom-color-brand), 0.2);
+  border-color: rgba(var(--color-brand-purple), 0.2);
 }
 
 .crateGroup h2 {
-  color: var(--custom-font-color);
+  color: var(--custom-fg-color);
   margin: 0 0 0.5rem;
   font-size: 1.75rem;
   font-weight: 700;
@@ -61,12 +61,12 @@
   left: 0;
   width: 60px;
   height: 3px;
-  background: linear-gradient(90deg, var(--custom-color-brand), transparent);
+  background: linear-gradient(90deg, var(--color-brand-purple), transparent);
   border-radius: 2px;
 }
 
 .crateSubtitle {
-  color: var(--custom-font-color-secondary);
+  color: var(--custom-fg-secondary-color);
   margin: 0 0 2rem;
   font-size: 1.1rem;
   font-weight: 400;
@@ -82,7 +82,7 @@
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   scrollbar-width: thin;
-  scrollbar-color: var(--custom-color-brand) transparent;
+  scrollbar-color: var(--color-brand-purple) transparent;
 }
 
 .itemsTable::-webkit-scrollbar {
@@ -95,14 +95,14 @@
 }
 
 .itemsTable::-webkit-scrollbar-thumb {
-  background-color: var(--custom-color-brand);
+  background-color: var(--color-brand-purple);
   border-radius: 3px;
 }
 
 .itemsTable table {
   border-collapse: collapse;
   width: 100%;
-  color: var(--custom-font-color);
+  color: var(--custom-fg-color);
   border-collapse: separate;
   border-spacing: 0;
 }
@@ -127,8 +127,8 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   font-size: 0.75rem;
-  color: var(--custom-font-color-secondary);
-  background-color: var(--custom-color-brand);
+  color: var(--custom-fg-secondary-color);
+  background-color: var(--color-brand-purple);
   color: white;
   border: none;
 }
@@ -151,7 +151,7 @@
 }
 
 .itemsTable table tbody tr:hover {
-  background-color: rgba(var(--custom-color-brand), 0.05);
+  background-color: rgba(var(--color-brand-purple), 0.05);
 }
 
 .itemsTable table tbody td {
@@ -178,12 +178,12 @@
 
 .itemsTable table tbody td[data-rarity*='rare'],
 .itemsTable table tbody td[data-rarity*='Rare'] {
-  color: var(--custom-color-brand-secondary);
+  color: var(--color-brand-blue);
 }
 
 .itemsTable table tbody td[data-rarity*='epic'],
 .itemsTable table tbody td[data-rarity*='Epic'] {
-  color: var(--custom-color-brand);
+  color: var(--color-brand-purple);
   text-shadow: 0 0 8px rgba(156, 39, 176, 0.3);
 }
 
@@ -205,8 +205,8 @@
 }
 
 .itemsTable table th {
-  background-color: var(--custom-color-brand);
-  color: var(--custom-font-color);
+  background-color: var(--color-brand-purple);
+  color: var(--custom-fg-color);
   border: 1px solid var(--custom-border);
   font-weight: 600;
   padding: 0.75rem 1rem;
@@ -222,12 +222,12 @@
   border: 1px solid var(--custom-border);
   padding: 0.75rem 1rem;
   font-size: 0.875rem;
-  color: var(--custom-font-color-secondary);
+  color: var(--custom-fg-secondary-color);
 }
 
 /* Add hover effect for better interactivity */
 .itemsTable table tbody tr:hover {
-  background-color: rgba(var(--custom-color-brand), 0.05);
+  background-color: rgba(var(--color-brand-purple), 0.05);
   cursor: pointer;
 }
 
@@ -241,11 +241,11 @@
 }
 
 .itemsTable table td[data-rarity='Rare'] {
-  color: var(--custom-color-brand-secondary);
+  color: var(--color-brand-blue);
 }
 
 .itemsTable table td[data-rarity='Epic'] {
-  color: var(--custom-color-brand);
+  color: var(--color-brand-purple);
 }
 
 .itemsTable table td[data-rarity='Legendary'] {

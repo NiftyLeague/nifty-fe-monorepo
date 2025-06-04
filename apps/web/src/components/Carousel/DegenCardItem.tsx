@@ -32,21 +32,21 @@ const DegenCardItem = ({
       <div className={styles.slide_content}>
         <div className="browse-single">
           {!mobile ? (
-            <div className="d-flex p-2 p-sm-3 p-md-4 pb-0 align-items-center">
-              <h6 className="me-auto mb-0">{name}</h6>
-              <div className="ms-auto">
+            <div className="flex p-2 sm:p-3 md:p-4 pb-0 items-center">
+              <h6 className="mr-auto mb-0">{name}</h6>
+              <div className="ml-auto">
                 <Image src="/icons/opensea.svg" alt="OpenSea Logo" width={20} height={20} />
               </div>
             </div>
           ) : null}
           {!small ? (
-            <div className="d-flex px-2 px-sm-4 pb-3 align-items-center">
-              <button className="me-1">Created</button>
+            <div className="flex px-2 sm:px-4 pb-3 items-center">
+              <button className="mr-1">Created</button>
               <label>{createdDate}</label>
             </div>
           ) : null}
 
-          <div style={{ borderRadius: '20px' }}>
+          <div className="rounded-[20px]">
             <Image
               src={source}
               width="258"
@@ -54,7 +54,7 @@ const DegenCardItem = ({
               alt="degen image"
               priority
               sizes="100vw"
-              style={{ width: '100%', height: 'auto' }}
+              className="w-full h-auto"
             />
           </div>
         </div>

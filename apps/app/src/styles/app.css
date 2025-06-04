@@ -1,4 +1,3 @@
-@import '@nl/theme/styles';
 @import '@nl/tailwind-config/styles';
 
 /* third-party */
@@ -12,35 +11,13 @@
   --custom-font-size: 16px;
 }
 
-/* ==============================|| UTILS ||============================== */
-
-.pixelated {
-  /* IE, only works on <img> tags */
-  -ms-interpolation-mode: nearest-neighbor;
-  /* Firefox */
-  image-rendering: crisp-edges;
-  /* Chromium + Safari */
-  image-rendering: pixelated;
-}
-
 /* ==============================|| SLICK||============================== */
 .slick-arrow:before {
-  color: var(--grey500);
+  color: var(--color-gray-500);
 }
 
 .slick-track {
   margin-left: 0;
-}
-
-/* ==============================|| LIGHT BOX ||============================== */
-.fullscreen .react-images__blanket {
-  z-index: 1200;
-}
-
-/* ==============================|| APEXCHART ||============================== */
-
-.apexcharts-legend-series .apexcharts-legend-marker {
-  margin-right: 8px;
 }
 
 /* ==============================|| PERFECT SCROLLBAR ||============================== */
@@ -50,12 +27,12 @@
     &:hover > .ps__thumb-y,
     &:focus > .ps__thumb-y,
     &.ps--clicking .ps__thumb-y {
-      background-color: var(--grey500);
+      background-color: var(--color-gray-500);
       width: 5px;
     }
   }
   .ps__thumb-y {
-    background-color: var(--grey500);
+    background-color: var(--color-gray-500);
     border-radius: 6px;
     width: 5px;
     right: 0;
@@ -92,15 +69,6 @@
   }
 }
 
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
 @keyframes bounce {
   0%,
   20%,
@@ -124,6 +92,17 @@
   }
   90% {
     transform: translate3d(0, -2px, 0);
+  }
+}
+
+/* Below animations are currently unused in APP */
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 
@@ -157,29 +136,14 @@
 
 /* ==============================|| EXTRAS ||============================== */
 
-.leaderboard-icon {
-  margin: 0rem 16px;
-  cursor: pointer;
-}
-.leaderboard-icon.win-rate {
-  fill: gold;
-}
-.leaderboard-icon.xp {
-  fill: white;
-}
-.leaderboard-icon.kills {
-  fill: greenyellow;
-}
-.web3modal-modal-lightbox {
-  z-index: 10000 !important;
-}
+/* apps/app/src/constants/equips.tsx */
 .inventory {
   width: 30px;
   height: 30px;
   box-sizing: border-box;
   border-radius: 10px;
   &:active {
-    outline: 3px solid var(--primary-main);
+    outline: 3px solid var(--color-brand-purple);
     outline-offset: -3px;
   }
 }

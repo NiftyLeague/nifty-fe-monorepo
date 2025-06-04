@@ -43,7 +43,7 @@ const SponsorItem = ({ image, url, width, height }: Sponsor): React.ReactNode =>
 
 const Sponsors = ({ sponsors }: { sponsors: Sponsor[] }) => (
   <div className="container p-0">
-    <div className="row m-0 p-0 position relative py-sm-5 d-flex align-items-center justify-content-center text-center">
+    <div className="row m-0 p-0 position relative py-sm-5 d-flex items-center justify-content-center text-center">
       <section style={styles.container as CSSProperties}>{sponsors.map(RenderSponsor)}</section>
     </div>
   </div>

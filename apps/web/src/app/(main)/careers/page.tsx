@@ -14,7 +14,7 @@ const Careers: NextPage = () => {
   const desktop = useMediaQuery('(min-width:769px)');
   return (
     <Container>
-      <div className={cn(styles.topSection, 'd-flex align-items-center justify-content-center flex-wrap px-3')}>
+      <div className={cn(styles.topSection, 'd-flex items-center justify-content-center flex-wrap px-3')}>
         <div className={`${desktop ? 'col-6 pe-5' : 'full-width mb-5'}`}>
           <AnimatedWrapper>
             <div

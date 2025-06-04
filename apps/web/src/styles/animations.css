@@ -3,23 +3,13 @@
 .sliding-nfts .sliding-background-wrapper-desktop {
   overflow: hidden;
   min-height: 520px;
-  background: linear-gradient(
-    128.04deg,
-    var(--custom-color-brand) 0%,
-    var(--custom-color-brand-secondary) 46.93%,
-    #ff00c7 100%
-  );
+  background: linear-gradient(128.04deg, var(--color-brand-purple) 0%, var(--color-brand-blue) 46.93%, #ff00c7 100%);
 }
 .sliding-nfts .sliding-background-wrapper-mobile {
   overflow: hidden;
   min-height: 106px;
   margin: 16px 0px;
-  background: linear-gradient(
-    128.04deg,
-    var(--custom-color-brand) 0%,
-    var(--custom-color-brand-secondary) 46.93%,
-    #ff00c7 100%
-  );
+  background: linear-gradient(128.04deg, var(--color-brand-purple) 0%, var(--color-brand-blue) 46.93%, #ff00c7 100%);
 }
 .sliding-background-wrapper-desktop .sliding-background {
   background: url(/img/degens/site-extras/degen-slider.webp) repeat-x;

@@ -91,7 +91,7 @@ const Overview: NextPage = () => {
               />
             )}
           </div>
-          <div className="position-absolute text-center d-flex align-items-center flex-column mt-5 pt-sm-5">
+          <div className="position-absolute text-center d-flex items-center flex-column mt-5 pt-sm-5">
             <h2 className="mt-4">Stay in the loop</h2>
             <p className="my-3 text-m-center">
               Meet our community and stay up to date with our roadmap or team updates
