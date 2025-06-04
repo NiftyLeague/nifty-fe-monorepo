@@ -4,7 +4,7 @@ import { CORE_TEAM, DEGEN_DELEGATES } from '@/constants/team';
 
 const TeamDesktop = () => {
   return (
-    <div className="row m-0 p-0 position-relative text-center align-items-center my-3 desktop">
+    <div className="row m-0 p-0 position-relative text-center items-center my-3 desktop">
       {[...CORE_TEAM, ...DEGEN_DELEGATES].map((member, index) => (
         <div key={`member-${index}`} className="col-sm-3">
           <div className="nifty-teams d-flex flex-column p-3">

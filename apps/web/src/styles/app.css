@@ -1,4 +1,4 @@
-@import '@nl/theme/styles';
+@import './mdb.min.css';
 @import '@nl/tailwind-config/styles';
 @import './animations.css';
 @import './slick.css';
@@ -6,8 +6,8 @@
 /* ==============================|| OVERRIDES ||============================== */
 
 :root {
-  --btn-font-family: var(--default-font-family);
-  --subheader-font-family: var(--special-font-family);
+  --btn-font: var(--default-font);
+  --subheader-font: var(--special-font);
   --custom-letter-spacing-subheader: -0.02em;
 }
 
@@ -16,7 +16,7 @@
   color: #ffffff;
 }
 .color-purple {
-  color: var(--custom-color-brand);
+  color: var(--color-brand-purple);
 }
 .color-grey {
   color: #707070;
@@ -25,7 +25,7 @@
   color: #e0e0e0;
 }
 .color-blue {
-  color: var(--custom-color-brand-secondary);
+  color: var(--color-brand-blue);
 }
 .color-silver {
   color: #757575;
@@ -37,7 +37,7 @@
   background: var(--custom-bg-color);
 }
 .bg-purple {
-  background: var(--custom-color-brand);
+  background: var(--color-brand-purple);
 }
 .bg-white {
   background: #ffffff;
@@ -69,17 +69,12 @@
   border-width: 1px;
   border-image-source: linear-gradient(
     128.04deg,
-    var(--custom-color-brand) 0%,
-    var(--custom-color-brand-secondary) 46.93%,
+    var(--color-brand-purple) 0%,
+    var(--color-brand-blue) 46.93%,
     #ff00c7 100%
   );
   color: #ffffff;
-  background: linear-gradient(
-    128.04deg,
-    var(--custom-color-brand) 0%,
-    var(--custom-color-brand-secondary) 46.93%,
-    #ff00c7 100%
-  );
+  background: linear-gradient(128.04deg, var(--color-brand-purple) 0%, var(--color-brand-blue) 46.93%, #ff00c7 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -109,7 +104,7 @@
 }
 
 .border-purple {
-  border: 2px solid var(--custom-color-brand);
+  border: 2px solid var(--color-brand-purple);
 }
 .uppercase {
   text-transform: uppercase;
@@ -129,18 +124,13 @@
 
 .theme-learn-btn {
   color: #ffffff;
-  background: var(--custom-color-brand);
+  background: var(--color-brand-purple);
 }
 
 .theme-btn-primary:hover {
   color: #ffffff;
   box-shadow: none;
-  background: linear-gradient(
-    128.04deg,
-    var(--custom-color-brand) 0%,
-    var(--custom-color-brand-secondary) 46.93%,
-    #ff00c7 100%
-  );
+  background: linear-gradient(128.04deg, var(--color-brand-purple) 0%, var(--color-brand-blue) 46.93%, #ff00c7 100%);
 }
 
 .iconExternalLink {
@@ -632,12 +622,7 @@
   position: absolute;
   width: 400px;
   height: 400px;
-  background: linear-gradient(
-    128.04deg,
-    var(--custom-color-brand) 0%,
-    var(--custom-color-brand-secondary) 46.93%,
-    #ff00c7 100%
-  );
+  background: linear-gradient(128.04deg, var(--color-brand-purple) 0%, var(--color-brand-blue) 46.93%, #ff00c7 100%);
   opacity: 0.2;
   filter: blur(50px);
   border-radius: 398px;
@@ -705,10 +690,10 @@
   font-size: 20px;
 }
 .social-icons a:hover {
-  color: var(--custom-color-brand);
+  color: var(--color-brand-purple);
 }
 .social-icons a:hover path {
-  fill: var(--custom-color-brand);
+  fill: var(--color-brand-purple);
 }
 
 .league-floating-nfts {
@@ -1133,7 +1118,7 @@
     background: white !important;
   }
   .slick-dots li.slick-active {
-    background: var(--custom-color-brand) !important;
+    background: var(--color-brand-purple) !important;
   }
   .nifty-teams .job-label {
     background-color: yellow;

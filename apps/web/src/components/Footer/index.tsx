@@ -83,7 +83,7 @@ export default function Footer({ classes }: { classes?: { footer?: string } }) {
             </div>
           </div>
           <div className="row d-flex justify-content-center ps-0 mt-4">
-            <div className="d-flex flex-wrap align-items-center justify-content-center social-icons">
+            <div className="d-flex flex-wrap items-center justify-content-center social-icons">
               {SOCIAL_LINKS.map(social => (
                 <a className="px-2 px-md-3 py-2" href={social.link} target="_blank" rel="noreferrer" key={social.name}>
                   <Image src={social.image} width={20} height={20} alt={social.description} />

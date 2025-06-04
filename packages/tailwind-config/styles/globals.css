@@ -1,0 +1,25 @@
+/* ==============================|| TAILWIND CSS ||============================== */
+
+@import 'tailwindcss';
+@import './tailwind.theme.css';
+/* below layers may use theme */
+@import './tailwind.animate.css';
+@import './tailwind.base.css';
+@import './tailwind.components.css';
+@import './tailwind.utils.css';
+
+/* ==============================|| SCROLL STYLE ||============================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-gray-950);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-purple-600);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-purple-400);
+}

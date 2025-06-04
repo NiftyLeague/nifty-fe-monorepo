@@ -1,0 +1,129 @@
+/* ==============================|| THEME OVERRIDES ||============================== */
+
+@theme {
+  /* Screen Sizes */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* Brand Purple */
+  --color-brand-purple-50: #e0d0fa;
+  --color-brand-purple-100: #c1a0f4;
+  --color-brand-purple-200: #a270ef;
+  --color-brand-purple-300: #8340ea;
+  --color-brand-purple-400: #7226e7;
+  --color-brand-purple-500: #620edf; /* Primary */
+  --color-brand-purple-600: #570ccd;
+  --color-brand-purple-700: #4d0bba;
+  --color-brand-purple-800: #430a9e;
+  --color-brand-purple-900: #390882;
+  --color-brand-purple-950: #2e076b;
+
+  /* Brand Blue */
+  --color-brand-blue-50: #e0e5fb;
+  --color-brand-blue-100: #c1cbf8;
+  --color-brand-blue-200: #a2b0f5;
+  --color-brand-blue-300: #8396f2;
+  --color-brand-blue-400: #6f84ee;
+  --color-brand-blue-500: #5e72eb; /* Primary */
+  --color-brand-blue-600: #5567d9;
+  --color-brand-blue-700: #4c5dcb;
+  --color-brand-blue-800: #4353bc;
+  --color-brand-blue-900: #3a49ac;
+  --color-brand-blue-950: #31409f;
+
+  /* Gray */
+  --color-gray-50: #fbfbfb;
+  --color-gray-100: #eeeeee;
+  --color-gray-200: #e0e0e0;
+  --color-gray-300: #bbbbbb;
+  --color-gray-400: #666666;
+  --color-gray-500: #444444;
+  --color-gray-600: #2a2a2a;
+  --color-gray-700: #1f1f1f;
+  --color-gray-800: #181818;
+  --color-gray-900: #0f0f0f;
+  --color-gray-950: #080808;
+
+  /* Blue Gray */
+  --color-blue-gray-50: #f8fafc;
+  --color-blue-gray-100: #f1f5f9;
+  --color-blue-gray-200: #e2e8f0;
+  --color-blue-gray-300: #cbd5e1;
+  --color-blue-gray-400: #94a3b8;
+  --color-blue-gray-500: #64748b;
+  --color-blue-gray-600: #475569;
+  --color-blue-gray-700: #334155;
+  --color-blue-gray-800: #1e293b;
+  --color-blue-gray-900: #0f172a;
+  --color-blue-gray-950: #090e1b;
+
+  /* Cool Gray */
+  --color-cool-gray-50: #f9fafb;
+  --color-cool-gray-100: #f3f4f6;
+  --color-cool-gray-200: #e5e7eb;
+  --color-cool-gray-300: #d1d5db;
+  --color-cool-gray-400: #9ca3af;
+  --color-cool-gray-500: #6b7280;
+  --color-cool-gray-600: #4b5563;
+  --color-cool-gray-700: #374151;
+  --color-cool-gray-800: #1f2937;
+  --color-cool-gray-900: #111827;
+  --color-cool-gray-950: #0b0f16;
+
+  /* Dark */
+  --color-dark-50: #fbfbfb;
+  --color-dark-100: #eeeeee;
+  --color-dark-200: #e0e0e0;
+  --color-dark-300: #bbbbbb;
+  --color-dark-400: #666666;
+  --color-dark-500: #444444;
+  --color-dark-600: #2a2a2a;
+  --color-dark-700: #1f1f1f;
+  --color-dark-800: #181818;
+  --color-dark-900: #0f0f0f;
+  --color-dark-950: #080808;
+}
+
+@theme inline {
+  --default-font: var(--font-ibm-plex-sans), var(--font-sans);
+  --header-font: var(--font-nexa-rust-sans-black), var(--default-font);
+  --subheader-font: var(--font-lilita-one), var(--default-font);
+  --special-font: var(--font-press-start), var(--default-font);
+  --btn-font: var(--font-lilita-one), var(--default-font);
+
+  --custom-font-size: calc(15px + 0.390625vw);
+
+  --color-brand-purple: var(--color-brand-purple-500);
+  --color-brand-blue: var(--color-brand-blue-500);
+
+  --custom-bg-color: var(--color-gray-900); /* Background Color */
+  --custom-fg-color: var(--color-gray-100); /* Foreground Color */
+  --custom-fg-secondary-color: var(--color-gray-300);
+
+  --custom-panel-color: var(--color-gray-800);
+  --custom-panel-hover-color: var(--color-gray-700);
+  --custom-modal-color: var(--color-gray-800);
+  --custom-card-color: var(--color-gray-700);
+
+  --custom-color-error: var(--color-red-500);
+  --custom-color-error-light: var(--color-red-400);
+  --custom-color-error-dark: var(--color-red-600);
+
+  --custom-color-success: var(--color-green-500);
+  --custom-color-success-light: var(--color-green-400);
+  --custom-color-success-dark: var(--color-green-600);
+
+  --custom-letter-spacing: normal;
+  --custom-letter-spacing-header: 0.02em;
+  --custom-letter-spacing-subheader: 0.02em;
+  --custom-letter-spacing-btn: 0.02em;
+
+  --custom-border: 1px solid #333;
+  --custom-border-radius: 5px;
+  --custom-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.8);
+  --custom-spacing: 5px;
+  --custom-max-width: 1200px;
+}

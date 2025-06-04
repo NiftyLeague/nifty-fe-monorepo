@@ -9,7 +9,7 @@
 
 .heroBtnGroup button {
   align-items: center;
-  background: var(--custom-color-brand);
+  background: var(--color-brand-purple);
   border-radius: 100px;
   border: 5px solid white;
   color: white;
@@ -24,7 +24,7 @@
 .heroBtnGroup button:hover {
   transform: translateY(-4px);
   transition: transform 0.2s;
-  border-color: var(--custom-color-brand);
+  border-color: var(--color-brand-purple);
 }
 
 .heroBtnGroup button img {

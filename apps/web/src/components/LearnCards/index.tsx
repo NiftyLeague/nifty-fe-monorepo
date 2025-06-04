@@ -16,7 +16,7 @@ interface LearnCardProps {
 const LearnCard = ({ btnText, external, image, link, subtitle, title }: LearnCardProps) => {
   return (
     <div className="learn-content-wrapper col-12 col-md-6 py-2 px-2">
-      <div className="learn-content position-relative d-flex align-items-center">
+      <div className="learn-content position-relative d-flex items-center">
         <div className="position-absolute w-100 h-100">
           <AnimatedWrapper>
             <div className="animated-fade-quick animated-fade-start transition-delay-small">
@@ -33,7 +33,7 @@ const LearnCard = ({ btnText, external, image, link, subtitle, title }: LearnCar
           </AnimatedWrapper>
         </div>
 
-        <div className="text-center position-relative w-100 d-flex flex-column align-items-center p-3 p-md-4 p-lg-5">
+        <div className="text-center position-relative w-100 d-flex flex-column items-center p-3 p-md-4 p-lg-5">
           <div className="mb-md-3">
             <AnimatedWrapper>
               <h5 className="text-m-center uppercase animated-header-text animated-header-text-start transition-delay-small">

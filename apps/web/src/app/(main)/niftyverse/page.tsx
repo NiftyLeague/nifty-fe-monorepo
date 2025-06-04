@@ -48,7 +48,7 @@ const NiftyVerse: NextPage = () => {
         <div
           className={cn(
             styles.intro,
-            'pt-md-5 pt-xl-0 d-flex flex-column-reverse flex-md-row align-items-center justify-content-center position-relative',
+            'pt-md-5 pt-xl-0 d-flex flex-column-reverse flex-md-row items-center justify-content-center position-relative',
           )}
         >
           <div className={cn(styles.block, 'd-flex flex-column col-12 col-md-6 col-lg-7 pe-0 pe-md-3')}>

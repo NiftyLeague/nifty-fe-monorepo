@@ -65,7 +65,7 @@ const CrateTables: React.FC<CrateTableProps> = ({ data }) =>
           Bonus Item Odds:{' '}
           <span
             style={{
-              background: 'linear-gradient(90deg, var(--custom-color-brand), var(--custom-color-brand-secondary))',
+              background: 'linear-gradient(90deg, var(--color-brand-purple), var(--color-brand-blue))',
               fontFamily: 'inherit',
               fontSize: 'inherit',
               fontWeight: 'inherit',
@@ -119,7 +119,7 @@ export default function Loot() {
         <Typography
           variant="h1"
           sx={{
-            background: 'linear-gradient(90deg, var(--custom-color-brand), var(--custom-color-brand-secondary))',
+            background: 'linear-gradient(90deg, var(--color-brand-purple), var(--color-brand-blue))',
             fontSize: { xs: '2.5rem', sm: '3rem', md: '3.5rem' },
             fontWeight: 800,
             lineHeight: 1.2,
