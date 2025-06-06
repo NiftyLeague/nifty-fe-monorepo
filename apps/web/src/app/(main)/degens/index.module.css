@@ -4,10 +4,6 @@
   box-sizing: content-box;
 }
 
-.button {
-  width: 172px;
-}
-
 .list {
   max-width: 615px;
   margin-left: auto;

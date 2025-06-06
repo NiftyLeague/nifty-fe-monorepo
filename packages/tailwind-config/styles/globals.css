@@ -1,12 +1,15 @@
 /* ==============================|| TAILWIND CSS ||============================== */
 
 @import 'tailwindcss';
-@import './tailwind.theme.css';
-/* below layers may use theme */
-@import './tailwind.animate.css';
-@import './tailwind.base.css';
-@import './tailwind.components.css';
-@import './tailwind.utils.css';
+/*
+ * Sorted by standard Tailwind cascade order:
+ * @layer theme, base, components, utilities;
+ */
+@import './01_tailwind.theme.css';
+@import './02_tailwind.base.css';
+@import './03_tailwind.components.css';
+@import './04_tailwind.utilities.css';
+@import './05_tailwind.animate.css';
 
 /* ==============================|| SCROLL STYLE ||============================== */
 

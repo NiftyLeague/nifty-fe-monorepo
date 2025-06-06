@@ -39,7 +39,7 @@ export default function DegenViews() {
           height: 100%;
           width: 100%;
           overflow: hidden;
-          background-color: #fff !important;
+          background-color: var(--color-light) !important;
         }
       `}</style>
       {source === SRC.IMAGE && (

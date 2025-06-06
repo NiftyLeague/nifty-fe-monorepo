@@ -15,12 +15,12 @@ const StyledAccordion = styled(Accordion)({
   '& .MuiCollapse-wrapper': { marginBottom: 24 },
   '& .MuiAccordionSummary-root': {
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
-    color: 'white',
+    color: 'var(--color-light)',
     fontWeight: 600,
     padding: 24,
   },
   '& .MuiAccordionSummary-content': { display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
-  '& .MuiAccordionDetails-root': { backgroundColor: 'rgba(0, 0, 0, 0.4)', color: 'white', padding: 24 },
+  '& .MuiAccordionDetails-root': { backgroundColor: 'rgba(0, 0, 0, 0.4)', color: 'var(--color-light)', padding: 24 },
 });
 
 interface JobCardProps {
@@ -56,7 +56,7 @@ const JobCard = ({ details }: JobCardProps): React.ReactNode => {
         <div>
           <AnimatedWrapper>
             <a
-              className="btn theme-btn-primary m-3 d-md-block d-none mw-fix animated-fade-start animated-fade transition-delay-medium"
+              className="theme-btn-primary theme-btn-rounded max-w-fit mr-4 animated-fade-start animated-fade transition-delay-medium"
               href={link}
               role="button"
               target="_blank"
@@ -71,23 +71,23 @@ const JobCard = ({ details }: JobCardProps): React.ReactNode => {
 
       <AccordionDetails>
         <AnimatedWrapper>
-          <h6 className="color-purple md-text-left animated-fade-start animated-fade transition-delay-small">
+          <h6 className="text-brand-purple md:text-left animated-fade-start animated-fade transition-delay-small">
             About the Role
           </h6>
         </AnimatedWrapper>
-        <div className="md-text-left div-paragraph">
+        <div className="text-left">
           <AnimatedWrapper>
             <p className="animated-fade-start animated-fade transition-delay-medium">{aboutTheRole}</p>
           </AnimatedWrapper>
         </div>
         {responsibilities && (
-          <div className="div-paragraph">
+          <div>
             <AnimatedWrapper>
-              <h6 className="color-purple pt-5 md-text-left animated-fade-start animated-fade transition-delay-small">
+              <h6 className="text-brand-purple pt-5 md:text-left animated-fade-start animated-fade transition-delay-small">
                 Responsibilities:
               </h6>
             </AnimatedWrapper>
-            <ul className="md-text-left">
+            <ul className="text-left md:text-left">
               {responsibilities.map((resp, index) => (
                 <AnimatedWrapper key={index}>
                   <li className="animated-fade-start animated-fade transition-delay-medium">{resp}</li>
@@ -96,13 +96,13 @@ const JobCard = ({ details }: JobCardProps): React.ReactNode => {
             </ul>
           </div>
         )}
-        <div className="div-paragraph">
+        <div className="opacity-90">
           <AnimatedWrapper>
-            <h6 className="color-purple pt-5 md-text-left animated-fade-start animated-fade transition-delay-small">
+            <h6 className="text-brand-purple pt-5 md:text-left animated-fade-start animated-fade transition-delay-small">
               Requirements:
             </h6>
           </AnimatedWrapper>
-          <ul className="md-text-left">
+          <ul className="md:text-left">
             {requirements.map((req, index) => (
               <AnimatedWrapper key={index}>
                 <li className="animated-fade-start animated-fade transition-delay-medium">{req}</li>
@@ -110,13 +110,13 @@ const JobCard = ({ details }: JobCardProps): React.ReactNode => {
             ))}
           </ul>
         </div>
-        <div className="div-paragraph">
+        <div className="opacity-90">
           <AnimatedWrapper>
-            <h6 className="color-purple pt-5 md-text-left animated-fade-start animated-fade transition-delay-small">
+            <h6 className="text-brand-purple pt-5 md:text-left animated-fade-start animated-fade transition-delay-small">
               What we offer:
             </h6>
           </AnimatedWrapper>
-          <ul className="md-text-left">
+          <ul className="md:text-left">
             {benefits.map((ben, index) => (
               <AnimatedWrapper key={index}>
                 <li className="animated-fade-start animated-fade transition-delay-medium">{ben}</li>
@@ -124,10 +124,10 @@ const JobCard = ({ details }: JobCardProps): React.ReactNode => {
             ))}
           </ul>
         </div>
-        <div className="d-flex justify-content-center m-3">
+        <div className="flex justify-center m-3">
           <AnimatedWrapper>
             <a
-              className="btn theme-btn-primary btn-lg animated-fade-start animated-fade transition-delay-medium"
+              className="theme-btn-primary animated-fade-start animated-fade transition-delay-medium"
               href={link}
               role="button"
               target="_blank"

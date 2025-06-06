@@ -88,20 +88,34 @@
 }
 
 @theme inline {
-  --default-font: var(--font-ibm-plex-sans), var(--font-sans);
-  --header-font: var(--font-nexa-rust-sans-black), var(--default-font);
-  --subheader-font: var(--font-lilita-one), var(--default-font);
-  --special-font: var(--font-press-start), var(--default-font);
-  --btn-font: var(--font-lilita-one), var(--default-font);
+  /* ======================|| FONTS ||====================== */
+  --font-default: var(--font-ibm-plex-sans), var(--font-sans);
+  --font-header: var(--font-nexa-rust-sans-black), var(--font-default);
+  --font-subheader: var(--font-lilita-one), var(--font-default);
+  --font-special: var(--font-press-start), var(--font-default);
+  --font-btn: var(--font-lilita-one), var(--font-default);
 
-  --custom-font-size: calc(15px + 0.390625vw);
+  --root-font-size: calc(15px + 0.390625vw);
 
+  --default-letter-spacing: var(--tracking-wide); /* 0.025em */
+  --header-letter-spacing: var(--tracking-wide); /* 0.025em */
+  --subheader-letter-spacing: var(--tracking-wide); /* 0.025em */
+  --special-letter-spacing: var(--tracking-tight); /* -0.025em */
+  --btn-letter-spacing: var(--tracking-wide); /* 0.025em */
+
+  /* ======================|| COLORS ||====================== */
   --color-brand-purple: var(--color-brand-purple-500);
   --color-brand-blue: var(--color-brand-blue-500);
+  --gradient-brand-hover: linear-gradient(
+    128.04deg,
+    var(--color-brand-purple) 0%,
+    var(--color-brand-blue) 46.93%,
+    #ff00c7 100%
+  );
 
-  --custom-bg-color: var(--color-gray-900); /* Background Color */
-  --custom-fg-color: var(--color-gray-100); /* Foreground Color */
-  --custom-fg-secondary-color: var(--color-gray-300);
+  --color-dark: var(--color-gray-900); /* Background Color */
+  --color-light: var(--color-gray-100); /* Foreground Color */
+  --color-secondary: var(--color-gray-300); /* Foreground Secondary Color */
 
   --custom-panel-color: var(--color-gray-800);
   --custom-panel-hover-color: var(--color-gray-700);
@@ -116,11 +130,7 @@
   --custom-color-success-light: var(--color-green-400);
   --custom-color-success-dark: var(--color-green-600);
 
-  --custom-letter-spacing: normal;
-  --custom-letter-spacing-header: 0.02em;
-  --custom-letter-spacing-subheader: 0.02em;
-  --custom-letter-spacing-btn: 0.02em;
-
+  /* ======================|| OTHER ||====================== */
   --custom-border: 1px solid #333;
   --custom-border-radius: 5px;
   --custom-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.8);

@@ -6,18 +6,18 @@
     max-width: 976px;
   }
   a {
-    color: #d2d3db;
+    color: var(--color-light);
     text-align: center;
     font-size: 20px;
     font-weight: 700;
     letter-spacing: -0.02em;
   }
   a:hover {
-    color: #ffffff;
+    color: var(--color-light);
     text-shadow:
       0px 0px 5px var(--custom-panel-color),
-      0px 0px 10px #f5f5f5,
-      0px 0px 15px #f5f5f5,
+      0px 0px 10px var(--color-light),
+      0px 0px 15px var(--color-light),
       0px 0px 25px var(--custom-panel-color),
       0px 0px 40px var(--custom-panel-color);
   }
@@ -28,9 +28,6 @@
     .footer_container {
       padding-top: 24px;
       padding-bottom: 24px;
-      .row {
-        justify-content: center;
-      }
     }
     a {
       font-size: 14px;
@@ -53,10 +50,6 @@
   .footer {
     a {
       text-align: center;
-    }
-    .col-sm-8,
-    .col-sm-4 {
-      width: 50% !important;
     }
   }
 }

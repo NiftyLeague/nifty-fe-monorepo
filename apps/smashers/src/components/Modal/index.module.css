@@ -72,12 +72,12 @@
 }
 .button_primary:hover {
   background-color: var(--custom-panel-color) !important;
-  color: #fff !important;
+  color: var(--color-light) !important;
 }
 .button_secondary:hover {
   background-color: var(--custom-color-error) !important;
   border-color: var(--custom-color-error) !important;
-  color: #fff !important;
+  color: var(--color-light) !important;
 }
 .button_primary,
 .button_secondary {

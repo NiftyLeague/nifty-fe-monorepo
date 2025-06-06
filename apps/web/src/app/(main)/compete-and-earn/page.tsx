@@ -7,8 +7,8 @@ import styles from './index.module.css';
 const CompeteAndEarn: NextPage = () => {
   return (
     <div className={cn(styles.container, 'overview mx-auto px-3')}>
-      <div className="d-flex flex-column-reverse flex-md-row items-center justify-content-center position-relative">
-        <div className={cn(styles.block, 'd-flex flex-column col-12 col-md-6 pe-0 pe-md-5 position-relative')}>
+      <div className="flex flex-col-reverse md:flex-row items-center justify-center relative">
+        <div className={cn(styles.block, 'flex flex-col w-full md:w-1/2 pr-0 md:pr-5 relative')}>
           <div className="mb-2 mb-md-4">
             <AnimatedWrapper>
               <h1 className="animated-fade-slow animated-fade-start">COMPETE &amp; EARN</h1>
@@ -21,12 +21,12 @@ const CompeteAndEarn: NextPage = () => {
               </p>
             </AnimatedWrapper>
           </div>
-          <div className={cn(styles.gradient1, 'radial-gradient-piece')} />
+          <div className={cn(styles.gradient1, 'purple-bg-orb')} />
         </div>
-        <div className="col-12 col-md-6">
+        <div className="w-full md:w-1/2">
           <div className="mb-3">
             <AnimatedWrapper>
-              <div className="position-relative animated-fade-slow animated-fade-start transition-delay-medium ps-0 ps-lg-5">
+              <div className="relative animated-fade-slow animated-fade-start transition-delay-medium ps-0 lg:ps-5">
                 <Image
                   src="/img/compete-and-earn/splash.webp"
                   alt="Nifty League Compete & Earn"
@@ -42,8 +42,8 @@ const CompeteAndEarn: NextPage = () => {
         </div>
       </div>
       <div className={cn(styles.content, 'mx-auto')}>
-        <div className="d-flex flex-column-reverse flex-md-row mt-3 mt-md-5 py-5 items-center position-relative">
-          <div className={cn(styles.block, 'col-12 col-md-6 pe-md-5')}>
+        <div className="flex flex-col-reverse md:flex-row mt-3 md:mt-5 py-5 items-center relative">
+          <div className={cn(styles.block, 'w-full md:w-1/2 pr-5')}>
             <div className="mb-3">
               <AnimatedWrapper>
                 <h3 className="animated-header-text animated-header-text-start transition-delay-small">HOW IT WORKS</h3>
@@ -56,9 +56,9 @@ const CompeteAndEarn: NextPage = () => {
               </p>
             </AnimatedWrapper>
           </div>
-          <div className="col-12 col-md-6">
+          <div className="w-full md:w-1/2">
             <AnimatedWrapper>
-              <div className="position-relative text-align-right animated-fade-slow animated-fade-start transition-delay-medium mb-4 mb-md-0 ps-0 ps-lg-5">
+              <div className="relative text-right animated-fade-slow animated-fade-start transition-delay-medium mb-4 md:mb-0 ps-0 lg:ps-5">
                 <iframe
                   src="https://www.youtube.com/embed/wv_fI1PPBi0"
                   frameBorder="0"
@@ -70,10 +70,10 @@ const CompeteAndEarn: NextPage = () => {
               </div>
             </AnimatedWrapper>
           </div>
-          <div className={cn(styles.gradient3, 'radial-gradient-piece')} />
+          <div className={cn(styles.gradient3, 'purple-bg-orb')} />
         </div>
         <AnimatedWrapper>
-          <h3 className="mt-3 mt-md-5 heading-thin text-align-center animated-fade animated-fade-start transition-delay-medium">
+          <h3 className="mt-3 mt-md-5 text-center animated-fade animated-fade-start transition-delay-medium">
             GAME MODES
           </h3>
         </AnimatedWrapper>
@@ -81,25 +81,25 @@ const CompeteAndEarn: NextPage = () => {
           <div
             className={cn(
               styles.features,
-              'd-flex pt-3 pt-md-5 mx-auto animated-fade animated-fade-start transition-delay-medium position-relative',
+              'flex pt-3 md:pt-5 mx-auto animated-fade animated-fade-start transition-delay-medium relative',
             )}
           >
-            <div className="col-4 d-flex flex-column">
+            <div className="w-1/3">
               <h5 className={styles.headerCell}>FEATURES:</h5>
               <p className={styles.cell}>Requires an invite:</p>
               <p className={styles.cell}>Buy-in:</p>
               <p className={styles.cell}>Region:</p>
               <p className={styles.cell}>Player Number:</p>
             </div>
-            <hr style={{ height: 'inherit', border: '3px solid white', marginRight: 50 }} />
-            <div className="col-4 d-flex flex-column">
+            <hr style={{ height: 'inherit', border: '3px solid var(--color-light)', marginRight: 50 }} />
+            <div className="w-1/3">
               <h5 className={styles.headerCell}>PUBLIC BRAWL</h5>
               <p className={styles.cell}>No</p>
               <p className={styles.cell}>1000 NFTL</p>
               <p className={styles.cell}>Decided by the Host</p>
               <p className={styles.cell}>Decided by the Host</p>
             </div>
-            <div className="col-4 d-flex flex-column">
+            <div className="w-1/3">
               <h5 className={styles.headerCell}>PRIVATE BRAWL</h5>
               <p className={styles.cell}>Yes</p>
               <p className={styles.cell}>Decided by the Host</p>
@@ -109,10 +109,10 @@ const CompeteAndEarn: NextPage = () => {
           </div>
         </AnimatedWrapper>
 
-        <div className="d-flex justify-content-center mt-5">
+        <div className="flex justify-center mt-8 pb-8">
           <AnimatedWrapper>
             <a href="https://app.niftyleague.com/" target="_blank" rel="noreferrer">
-              <button className="btn theme-btn-primary animated-fade animated-fade-start transition-delay-small">
+              <button className="theme-btn-primary animated-fade animated-fade-start transition-delay-small">
                 START PLAYING NOW
               </button>
             </a>

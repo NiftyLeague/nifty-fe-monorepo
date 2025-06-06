@@ -65,7 +65,7 @@ export default function DeleteAccountDialog({ loading = false }) {
       >
         <DialogTitle id="alert-dialog-title">{'Are you sure you want to delete your account?'}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description" sx={{ color: '#fff' }}>
+          <DialogContentText id="alert-dialog-description" sx={{ color: 'var(--color-light)' }}>
             Once your account is deleted all of your data will be removed and there will be no way to recover your
             account.
           </DialogContentText>

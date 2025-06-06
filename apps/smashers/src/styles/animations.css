@@ -134,12 +134,24 @@
     left: -100px;
   }
 
+  @keyframes ctrl-bounce {
+    0%,
+    50%,
+    100% {
+      transform: translateY(0);
+    }
+    25%,
+    75% {
+      transform: translateY(-20px);
+    }
+  }
+
   .animation-bounce {
-    animation: bounce 4s ease infinite;
+    animation: ctrl-bounce 4s ease infinite;
   }
 
   .animation-bounce2 {
-    animation: bounce 4s ease infinite;
+    animation: ctrl-bounce 4s ease infinite;
     animation-delay: 0.5s;
   }
 
@@ -167,18 +179,6 @@
     }
     100% {
       transform: translate3d(-3010px, 0, 0);
-    }
-  }
-
-  @keyframes bounce {
-    0%,
-    50%,
-    100% {
-      transform: translateY(0);
-    }
-    25%,
-    75% {
-      transform: translateY(-20px);
     }
   }
 

@@ -29,7 +29,7 @@ const MobileNavLink = ({ children, href, toggleMobileMenu, external = false }: M
       target={external ? '_blank' : undefined}
       rel={external ? 'noopener noreferrer' : undefined}
       className={`px-3 py-2 rounded-md text-base font-medium flex items-center ${
-        isActive ? 'bg-gray-800 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+        isActive ? 'bg-gray-800 text-light' : 'text-gray-300 hover:bg-gray-700 hover:text-light'
       }`}
     >
       {children}
@@ -62,11 +62,11 @@ const MobileNav = ({ toggleMobileMenu, isMobileMenuOpen }: MobileNavProps) => {
         }`}
       >
         {/* Clickable overlay to close menu */}
-        <div className="absolute inset-0 bg-black bg-opacity-50" onClick={toggleMobileMenu} />
+        <div className="absolute inset-0 bg-dark bg-opacity-50" onClick={toggleMobileMenu} />
 
         {/* Mobile Menu Content */}
         <div
-          className={`fixed inset-0 w-full z-50 bg-gray-900 transform transition-transform duration-300 ease-in-out ${
+          className={`fixed inset-0 w-full z-50 bg-dark transform transition-transform duration-300 ease-in-out ${
             isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
         >
@@ -132,7 +132,7 @@ const MobileNav = ({ toggleMobileMenu, isMobileMenuOpen }: MobileNavProps) => {
                   href="https://app.niftyleague.com/"
                   target="_blank"
                   rel="noreferrer"
-                  className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-brand hover:bg-brand-dark"
+                  className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-light bg-brand hover:bg-brand-dark"
                   onClick={toggleMobileMenu}
                 >
                   Launch Web3 App

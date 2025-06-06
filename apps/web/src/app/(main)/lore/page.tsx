@@ -7,10 +7,10 @@ import styles from './index.module.css';
 
 const Lore: NextPage = () => {
   return (
-    <div className={cn(styles.container, 'overview mx-auto px-3')}>
+    <div className={cn(styles.container, 'overview mx-auto px-3 w-full')}>
       <div>
         <AnimatedWrapper>
-          <h1 className="text-align-center animated-fade-slow animated-fade-start transition-delay-small mb-3">LORE</h1>
+          <h1 className="text-center animated-fade-slow animated-fade-start transition-delay-small mb-3">LORE</h1>
         </AnimatedWrapper>
       </div>
       <div className={styles.content}>
@@ -123,7 +123,7 @@ const Lore: NextPage = () => {
             <div
               className={cn(
                 styles.satoshi,
-                'position-relative flex-grow-1 animated-fade-slow animated-fade-start transition-delay-large',
+                'relative flex-1 animated-fade-slow animated-fade-start transition-delay-large',
               )}
             >
               <Image
@@ -141,7 +141,7 @@ const Lore: NextPage = () => {
             <div
               className={cn(
                 styles.degens,
-                'position-relative flex-grow-1 animated-fade-slow animated-fade-start transition-delay-large',
+                'relative flex-1 animated-fade-slow animated-fade-start transition-delay-large',
               )}
             >
               <Image
@@ -154,19 +154,14 @@ const Lore: NextPage = () => {
             </div>
           </AnimatedWrapper>
         </div>
-        <div className={cn(styles.gradient1, 'radial-gradient-piece')} />
-        <div className={cn(styles.gradient2, 'radial-gradient-piece')} />
-        <div className={cn(styles.gradient3, 'radial-gradient-piece')} />
+        <div className={cn(styles.gradient1, 'purple-bg-orb')} />
+        <div className={cn(styles.gradient2, 'purple-bg-orb')} />
+        <div className={cn(styles.gradient3, 'purple-bg-orb')} />
       </div>
-      <div className="d-flex justify-content-center mb-5">
+      <div className="flex justify-center pb-8">
         <AnimatedWrapper>
           <a href="/docs/overview/intro" target="_blank" rel="noreferrer">
-            <button
-              className={cn(
-                styles.button,
-                'btn theme-btn-primary px-3 animated-fade-slow animated-fade-start transition-delay-small',
-              )}
-            >
+            <button className="theme-btn-primary animated-fade-slow animated-fade-start transition-delay-small">
               View Docs
               <ExternalIcon />
             </button>

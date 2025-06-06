@@ -27,7 +27,7 @@ const TriggerArea = () => (
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      color: 'white',
+      color: 'var(--color-light)',
     }}
   >
     <span>Right click this area</span>

@@ -48,9 +48,13 @@ const ItemDetail: React.FC<React.PropsWithChildren<React.PropsWithChildren<ItemD
             height={50}
             position="absolute"
             borderRadius="50%"
-            sx={{ background: '#5820D6', top: -12, right: -28 }}
+            sx={{ background: 'var(--color-brand-purple)', top: -12, right: -28 }}
           >
-            <Typography sx={{ color: '#FFFFFF' }} fontSize="20px" fontWeight="bold">{`${multiplier}x`}</Typography>
+            <Typography
+              sx={{ color: 'var(--color-light)' }}
+              fontSize="20px"
+              fontWeight="bold"
+            >{`${multiplier}x`}</Typography>
           </Box>
         )}
       </Box>
@@ -79,7 +83,7 @@ const ItemDetail: React.FC<React.PropsWithChildren<React.PropsWithChildren<ItemD
             <Typography
               fontSize="12px"
               fontWeight={500}
-              sx={{ color: '#5820D6', textDecorationLine: equipped ? 'underline' : 'none' }}
+              sx={{ color: 'var(--color-brand-purple)', textDecorationLine: equipped ? 'underline' : 'none' }}
             >
               {equipped ? 'DEGEN #1152' : '-'}
             </Typography>
@@ -91,7 +95,7 @@ const ItemDetail: React.FC<React.PropsWithChildren<React.PropsWithChildren<ItemD
             <Typography
               fontSize="12px"
               fontWeight={500}
-              sx={{ color: '#5820D6', textDecorationLine: equipped ? 'underline' : 'none' }}
+              sx={{ color: 'var(--color-brand-purple)', textDecorationLine: equipped ? 'underline' : 'none' }}
             >
               {equipped ? '28 days left' : '-'}
             </Typography>

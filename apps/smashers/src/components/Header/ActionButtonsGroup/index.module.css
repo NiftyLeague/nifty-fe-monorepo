@@ -11,8 +11,8 @@
   align-items: center;
   background: var(--color-brand-purple);
   border-radius: 100px;
-  border: 5px solid white;
-  color: white;
+  border: 5px solid var(--color-light);
+  color: var(--color-light);
   cursor: pointer;
   display: flex;
   font-size: 20px;

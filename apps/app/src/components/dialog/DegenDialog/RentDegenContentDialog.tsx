@@ -72,8 +72,8 @@ const Root = styled('div')(({ theme }) => ({
     position: 'absolute',
     right: 12,
     top: 6,
-    color: '#5820D6',
-    border: '1px solid #5820D6',
+    color: 'var(--color-brand-purple)',
+    border: '1px solid var(--color-brand-purple)',
     borderRadius: '50% !important',
     width: '20px',
     height: '20px !important',
@@ -357,7 +357,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                           <Typography
                             variant="caption"
                             onClick={handleBuyNFTL}
-                            sx={{ color: '#5820D6', textDecoration: 'underline', cursor: 'pointer' }}
+                            sx={{ color: 'var(--color-brand-purple)', textDecoration: 'underline', cursor: 'pointer' }}
                           >
                             Buy NFTL now
                           </Typography>
@@ -389,7 +389,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                           sx={{ justifyContent: 'space-between', alignItems: 'center', width: '100px' }}
                         >
                           <Typography>Balance:</Typography>
-                          <Typography sx={{ color: '#5820D6' }}>{rentalPassCount}</Typography>
+                          <Typography sx={{ color: 'var(--color-brand-purple)' }}>{rentalPassCount}</Typography>
                         </Stack>
                       )}
                     </Stack>

@@ -7,8 +7,8 @@
   margin: 0 auto;
   padding: 2rem 1rem 4rem;
   max-width: 1200px;
-  color: var(--custom-fg-color);
-  background-color: var(--custom-bg-color);
+  color: var(--color-light);
+  background-color: var(--color-dark);
   gap: 2rem;
 
   @media (min-width: 768px) {
@@ -18,7 +18,7 @@
 
 .crateGroup {
   width: 100%;
-  background: var(--custom-bg-color);
+  background: var(--color-dark);
   border-radius: 12px;
   padding: 2.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -46,7 +46,7 @@
 }
 
 .crateGroup h2 {
-  color: var(--custom-fg-color);
+  color: var(--color-light);
   margin: 0 0 0.5rem;
   font-size: 1.75rem;
   font-weight: 700;
@@ -66,7 +66,7 @@
 }
 
 .crateSubtitle {
-  color: var(--custom-fg-secondary-color);
+  color: var(--color-secondary);
   margin: 0 0 2rem;
   font-size: 1.1rem;
   font-weight: 400;
@@ -78,7 +78,7 @@
   max-height: 500px;
   overflow-y: auto;
   width: 100%;
-  background-color: var(--custom-bg-color);
+  background-color: var(--color-dark);
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   scrollbar-width: thin;
@@ -102,7 +102,7 @@
 .itemsTable table {
   border-collapse: collapse;
   width: 100%;
-  color: var(--custom-fg-color);
+  color: var(--color-light);
   border-collapse: separate;
   border-spacing: 0;
 }
@@ -117,7 +117,7 @@
   position: sticky;
   top: 0;
   z-index: 2;
-  background-color: var(--custom-bg-color);
+  background-color: var(--color-dark);
 }
 
 .itemsTable table thead th {
@@ -127,9 +127,8 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   font-size: 0.75rem;
-  color: var(--custom-fg-secondary-color);
   background-color: var(--color-brand-purple);
-  color: white;
+  color: var(--color-light);
   border: none;
 }
 
@@ -206,7 +205,7 @@
 
 .itemsTable table th {
   background-color: var(--color-brand-purple);
-  color: var(--custom-fg-color);
+  color: var(--color-light);
   border: 1px solid var(--custom-border);
   font-weight: 600;
   padding: 0.75rem 1rem;
@@ -222,7 +221,7 @@
   border: 1px solid var(--custom-border);
   padding: 0.75rem 1rem;
   font-size: 0.875rem;
-  color: var(--custom-fg-secondary-color);
+  color: var(--color-secondary);
 }
 
 /* Add hover effect for better interactivity */

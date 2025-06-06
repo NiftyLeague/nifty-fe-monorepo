@@ -50,9 +50,9 @@
 /* Button */
 
 .button {
-  color: var(--custom-fg-color);
+  color: var(--color-light);
   border: var(--custom-border);
-  background-color: var(--custom-bg-color);
+  background-color: var(--color-dark);
   text-align: center;
   display: flex;
   align-items: center;
@@ -80,8 +80,8 @@
   /* border-color: var(--custom-panel-color) !important; */
 }
 /* .button_secondary:hover {
-  background-color: var(--custom-bg-color) !important;
-  border-color: var(--custom-bg-color) !important;
+  background-color: var(--color-dark) !important;
+  border-color: var(--color-dark) !important;
 } */
 
 .button_danger {
@@ -125,7 +125,7 @@
   object-fit: cover;
 }
 .avatar.no_image {
-  background-color: #333;
+  background-color: var(--color-dark);
   border: 1px solid rgb(200, 200, 200);
   border-radius: 5px;
 }
@@ -157,12 +157,12 @@
 }
 
 .delete_account_dialog {
-  background-color: var(--custom-bg-color) !important;
+  background-color: var(--color-dark) !important;
 }
 .delete_account_dialog_paper {
   background-color: var(--custom-panel-color) !important;
   border-color: var(--custom-panel-color) !important;
-  color: var(--custom-fg-color) !important;
+  color: var(--color-light) !important;
   width: 800px;
   max-width: 100vw;
 }
@@ -176,7 +176,7 @@
 
 .currency {
   width: 48%;
-  color: white !important;
+  color: var(--color-light) !important;
   text-align: center;
 }
 

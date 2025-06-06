@@ -30,12 +30,8 @@
   width: 100%;
   & p {
     line-height: 1.5;
-    color: #262930;
+    color: var(--color-dark);
   }
-}
-
-.button {
-  width: 172px;
 }
 
 .satoshiContainer {

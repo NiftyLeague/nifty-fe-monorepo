@@ -15,14 +15,14 @@ const Team: NextPage = () => {
   return (
     <>
       <div className={cn(styles.container, 'mx-auto px-3')}>
-        <div className="about-intro mt-5 pt-5 position-relative">
-          <div className="row m-0 p-0 pt-sm-5 position-relative d-flex flex-column items-center">
+        <div className="about-intro mt-5 pt-5 relative">
+          <div className="flex flex-col m-0 p-0 sm:pt-5 relative items-center">
             <AnimatedWrapper>
               <h1 className="text-center animated-header-text animated-header-text-start transition-delay-small">
                 NIFTY DAO
               </h1>
             </AnimatedWrapper>
-            <div className={cn(styles.body, 'mt-5 mt-sm-3')}>
+            <div className={cn(styles.body, 'mt-5 sm:mt-3')}>
               <AnimatedWrapper>
                 <p className="text-center p1 animated-header-text animated-header-text-start transition-delay-medium">
                   Nifty League is a game studio at the cutting edge of Web3. Our mission is to inspire indie game
@@ -42,37 +42,37 @@ const Team: NextPage = () => {
               </AnimatedWrapper>
             </div>
 
-            <div className="display-buttons mt-3 mt-md-4 d-flex justify-content-center desktop">
+            <div className="display-buttons mt-3 md:mt-4 flex justify-center desktop">
               <AnimatedWrapper>
                 <Link href="/careers">
-                  <button className="btn theme-btn-primary mx-sm-2 animated-fade-slow animated-fade-start transition-delay-medium">
+                  <button className="theme-btn-primary mx-2 animated-fade-slow animated-fade-start transition-delay-medium">
                     Join Us
                   </button>
                 </Link>
               </AnimatedWrapper>
               <AnimatedWrapper>
                 <Link href="/roadmap">
-                  <button className="btn theme-btn-transparent mx-sm-2 mx-0 animated-fade-slow animated-fade-start transition-delay-medium">
+                  <button className="theme-btn-transparent mx-2 animated-fade-slow animated-fade-start transition-delay-medium">
                     Check our roadmap
                   </button>
                 </Link>
               </AnimatedWrapper>
             </div>
           </div>
-          <div className={cn(styles.gradient1, 'radial-gradient-piece')} />
+          <div className={cn(styles.gradient1, 'purple-bg-orb')} />
         </div>
       </div>
 
       <div className={cn(styles.container, 'mx-auto px-3')}>
-        <div className={cn(styles.section, 'position-relative pb-5')}>
+        <div className={cn(styles.section, 'relative pb-5')}>
           <AnimatedWrapper>
-            <h4 className="text-align-center animated-header-text animated-header-text-start transition-delay-small">
+            <h4 className="text-center animated-header-text animated-header-text-start transition-delay-small">
               MEET THE DEGENS WHO MAKE NIFTY LEAGUE POSSIBLE
             </h4>
           </AnimatedWrapper>
           <TeamDesktop />
           <section
-            className="teams-slider slider px-0 mobile-block"
+            className="teams-slider slider px-0 block md:hidden"
             style={{ alignItems: 'center', maxWidth: '100%', textAlign: 'center', minHeight: 300 }}
           >
             <Carousel isMobileViewOnly hideGradient tabletItems={2}>

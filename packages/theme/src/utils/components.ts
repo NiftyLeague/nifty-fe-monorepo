@@ -11,7 +11,7 @@ const customComponents = (theme: Theme, borderRadius: number, outlinedFilled: bo
     MuiButton: {
       styleOverrides: {
         root: { fontWeight: 500, borderRadius: '4px' },
-        outlinedPrimary: { color: '#f5f5f5', borderColor: theme.palette.primary.main },
+        outlinedPrimary: { color: 'var(--color-light)', borderColor: theme.palette.primary.main },
       },
     },
     MuiPaper: {

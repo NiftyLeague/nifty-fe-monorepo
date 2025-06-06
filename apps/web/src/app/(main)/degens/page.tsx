@@ -17,12 +17,12 @@ const DegensSection = () => {
       <AnimatedWrapper>
         <Grid container spacing={0} style={{ marginBottom: 20 }}>
           <Grid size={{ xs: 6, sm: 4 }}>
-            <h3 className="text-align-center animated-header-text animated-header-text-start transition-delay-small">
+            <h3 className="text-center animated-header-text animated-header-text-start transition-delay-small">
               TRIBE
             </h3>
           </Grid>
           <Grid size={{ xs: 6, sm: 8 }}>
-            <h3 className="text-align-center animated-header-text animated-header-text-start transition-delay-small">
+            <h3 className="text-center animated-header-text animated-header-text-start transition-delay-small">
               SPECIAL
             </h3>
           </Grid>
@@ -36,7 +36,7 @@ const DegensSection = () => {
                   <AnimatedWrapper>
                     <div
                       style={{ position: 'relative' }}
-                      className="text-align-center animated-fade-slow animated-fade-start transition-delay-small"
+                      className="text-center animated-fade-slow animated-fade-start transition-delay-small"
                     >
                       <Image
                         src={image.link}
@@ -49,7 +49,7 @@ const DegensSection = () => {
                   <AnimatedWrapper>
                     <h5
                       style={{ marginTop: 8 }}
-                      className="text-align-center animated-fade-slow animated-fade-start transition-delay-small"
+                      className="text-center animated-fade-slow animated-fade-start transition-delay-small"
                     >
                       {name}
                     </h5>
@@ -69,7 +69,7 @@ const DegensSection = () => {
                 <AnimatedWrapper>
                   <div
                     style={{ position: 'relative' }}
-                    className="text-align-center animated-fade-slow animated-fade-start transition-delay-small"
+                    className="text-center animated-fade-slow animated-fade-start transition-delay-small"
                   >
                     <Image
                       src={gif.link}
@@ -82,7 +82,7 @@ const DegensSection = () => {
                     />
                   </div>
                 </AnimatedWrapper>
-                <h6 className="text-align-center">{specialName}</h6>
+                <h6 className="text-center">{specialName}</h6>
               </Grid>
             </Grid>
           ))}
@@ -96,30 +96,30 @@ const Degens: NextPage = () => {
   const desktop = useMediaQuery('(min-width:768px)');
   return (
     <>
-      <div className="row m-0 p-0 position-relative">
+      <div className="flex m-0 p-0 relative w-full">
         <ConsoleGame src="/video/unboxing.mp4" />
       </div>
-      <div className={cn(styles.container, 'overview mx-auto px-3')}>
+      <div className={cn(styles.container, 'overview mx-auto px-3 w-full')}>
         <Container>
-          <div className="d-flex items-center justify-content-center flex-wrap mb-4 mb-md-5">
-            <div className="col-12 col-md-6 pe-md-4">
+          <div className="flex items-center justify-center flex-wrap mb-4 md:mb-5">
+            <div className="w-full md:w-1/2 md:pr-4">
               <div className="mb-4">
                 <AnimatedWrapper>
-                  <h1 className="text-align-center animated-header-text animated-header-text-start transition-delay-small">
+                  <h1 className="text-center animated-header-text animated-header-text-start transition-delay-small">
                     DEGENs
                   </h1>
                 </AnimatedWrapper>
               </div>
               <div className="mb-4">
                 <AnimatedWrapper>
-                  <h6 className="text-align-center animated-header-text animated-header-text-start transition-delay-medium">
+                  <h6 className="text-center animated-header-text animated-header-text-start transition-delay-medium">
                     COMMUNITY DESIGNED DEGEN NFTs
                   </h6>
                 </AnimatedWrapper>
               </div>
-              <div className="position-relative">
+              <div className="relative">
                 <AnimatedWrapper>
-                  <p className="text-align-center animated-header-text animated-header-text-start transition-delay-medium">
+                  <p className="text-center animated-header-text animated-header-text-start transition-delay-medium">
                     The Nifty League DEGENs were specially crafted by the community with members pitching in and
                     deciding how THEY wanted their DEGENs to look. This involved selecting special features that they
                     wanted including selection of cothing, tribe, and weapons among a few others. This led to the birth
@@ -127,12 +127,12 @@ const Degens: NextPage = () => {
                     forever tradable on secondary markets such as OpenSea.
                   </p>
                 </AnimatedWrapper>
-                <div className={cn(styles.gradient1, 'radial-gradient-piece')} />
+                <div className={cn(styles.gradient1, 'purple-bg-orb')} />
               </div>
             </div>
-            <div className="col-12 col-md-6">
+            <div className="w-full md:w-1/2">
               <AnimatedWrapper>
-                <div className="position-relative text-align-right animated-fade-slow animated-fade-start transition-delay-medium mb-4 mb-md-0 ps-0 ps-lg-5">
+                <div className="relative text-right animated-fade-slow animated-fade-start transition-delay-medium mb-4 md:mb-0 ps-0 lg:pl-5">
                   <iframe
                     width="100%"
                     height="315"
@@ -146,10 +146,10 @@ const Degens: NextPage = () => {
             </div>
           </div>
 
-          <div className="d-flex justify-content-center">
+          <div className="flex justify-center">
             <AnimatedWrapper>
               <a href="https://app.niftyleague.com/degens" target="_blank" rel="noreferrer">
-                <button className="btn theme-btn-primary px-4 animated-fade-slow animated-fade-start transition-delay-large">
+                <button className="theme-btn-primary animated-fade-slow animated-fade-start transition-delay-large">
                   SEE ALL DEGENS
                   <ExternalIcon />
                 </button>
@@ -157,19 +157,14 @@ const Degens: NextPage = () => {
             </AnimatedWrapper>
           </div>
 
-          <div className={cn(styles.section, 'position-relative')}>
-            <div className={cn(styles.gradient2, 'radial-gradient-piece')} />
-            <div
-              className={cn(
-                styles.list,
-                'd-flex flex-wrap items-center flex-md-row full-width justify-content-between',
-              )}
-            >
+          <div className={cn(styles.section, 'relative')}>
+            <div className={cn(styles.gradient2, 'purple-bg-orb')} />
+            <div className={cn(styles.list, 'flex flex-wrap items-center md:flex-row w-full justify-between')}>
               {NIFTY_DEGENS_ALL.map(({ name, image }) => (
-                <div className="mb-3 px-3 col-4" key={name}>
-                  <div className="d-flex flex-column">
+                <div className="mb-3 px-3 w-1/3" key={name}>
+                  <div className="flex flex-col">
                     <AnimatedWrapper>
-                      <div className="text-align-center position-relative animated-fade-slow animated-fade-start transition-delay-small">
+                      <div className="text-center relative animated-fade-slow animated-fade-start transition-delay-small">
                         <Image
                           src={image.link}
                           alt={name}
@@ -179,7 +174,7 @@ const Degens: NextPage = () => {
                       </div>
                     </AnimatedWrapper>
                     <AnimatedWrapper>
-                      <h6 className="text-align-center px-3 mt-3 animated-fade-slow animated-fade-start transition-delay-small">
+                      <h6 className="text-center px-3 mt-3 animated-fade-slow animated-fade-start transition-delay-small">
                         {name}
                       </h6>
                     </AnimatedWrapper>
@@ -189,35 +184,30 @@ const Degens: NextPage = () => {
             </div>
             <div className="mb-4">
               <AnimatedWrapper>
-                <h3 className="mt-2 text-align-center animated-header-text animated-header-text-start transition-delay-small">
+                <h3 className="mt-2 text-center animated-header-text animated-header-text-start transition-delay-small">
                   DEGEN TRIBES
                 </h3>
               </AnimatedWrapper>
             </div>
-            <div className="mb-0 position-relative">
+            <div className="mb-0 relative">
               <AnimatedWrapper>
-                <p className="text-align-center animated-header-text animated-header-text-start transition-delay-medium">
+                <p className="text-center animated-header-text animated-header-text-start transition-delay-medium">
                   There are 7 genesis DEGEN tribes each with their own special abilities in our games. These NFTs are
                   digital assets that represent special game avatars inside the Nifty League ecosystem. Owners can also
                   use their DEGEN NFTs in several other partner projects such as WORLDWIDE WEBB or CRYPTO FOXES.
                 </p>
               </AnimatedWrapper>
-              <div className={cn(styles.gradient1, 'radial-gradient-piece')} />
+              <div className={cn(styles.gradient1, 'purple-bg-orb')} />
             </div>
           </div>
         </Container>
 
         <DegensSection />
 
-        <div className="d-flex justify-content-center my-5">
+        <div className="flex justify-center mt-5 pb-8">
           <AnimatedWrapper>
             <a href="/docs/overview/nfts/degens/about" target="_blank" rel="noreferrer">
-              <button
-                className={cn(
-                  styles.button,
-                  'btn theme-btn-primary px-3 animated-fade-slow animated-fade-start transition-delay-medium',
-                )}
-              >
+              <button className="theme-btn-primary animated-fade-slow animated-fade-start transition-delay-medium">
                 View Docs
                 <ExternalIcon />
               </button>
