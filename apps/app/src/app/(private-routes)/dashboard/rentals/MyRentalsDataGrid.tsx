@@ -193,7 +193,7 @@ const MyRentalsDataGrid = ({
           <Link
             component="button"
             variant="body2"
-            sx={{ color: 'white', textDecorationColor: 'white' }}
+            sx={{ color: 'var(--color-light)', textDecorationColor: 'var(--color-light)' }}
             onClick={() => handleClickDegenId(params)}
           >
             #{params.value}

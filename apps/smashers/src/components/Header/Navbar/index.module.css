@@ -31,8 +31,8 @@
   position: absolute;
   z-index: -1;
   background: linear-gradient(to left, var(--color-brand-purple), var(--color-brand-blue));
-  border-left: 5px solid white;
-  border-bottom: 7px solid white;
+  border-left: 5px solid var(--color-light);
+  border-bottom: 7px solid var(--color-light);
   top: -250%;
   bottom: -100%;
   left: 0;
@@ -100,7 +100,7 @@
   top: 0;
   bottom: 0;
   width: 5px;
-  background-color: white;
+  background-color: var(--color-light);
   transform: skew(-20deg);
 }
 

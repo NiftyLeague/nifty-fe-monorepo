@@ -8,7 +8,7 @@ const ToS: NextPage = () => (
   <Container sx={{ p: { xs: 2, md: 4 }, pt: { xs: 15, md: 20 } }}>
     <div className="mb-3 mb-md-5">
       <AnimatedWrapper>
-        <h1 className="text-align-center animated-fade-slow animated-fade-start transition-delay-small">
+        <h1 className="text-center animated-fade-slow animated-fade-start transition-delay-small">
           TERMS AND CONDITIONS
         </h1>
       </AnimatedWrapper>

@@ -1,0 +1,32 @@
+/* ==============================|| CUSTOM UTILS ||============================== */
+
+@layer utilities {
+  .pixelated {
+    image-rendering: crisp-edges;
+    image-rendering: -moz-crisp-edges; /* Firefox */
+    image-rendering: -o-crisp-edges; /* Opera */
+    image-rendering: -webkit-optimize-contrast; /* Webkit (non-standard naming)*/
+    -ms-interpolation-mode: nearest-neighbor; /* IE (non-standard property) */
+    image-rendering: pixelated;
+  }
+
+  .dark-gradient-overlay {
+    @apply absolute w-full h-full top-0 left-0 pointer-events-none;
+    background: radial-gradient(500% 50% at center, transparent 50%, var(--color-dark) 98%);
+  }
+
+  .purple-bg-orb {
+    @apply absolute w-[400px] h-[400px] opacity-[0.15] blur-[50px] rounded-[398px] pointer-events-none;
+    background: linear-gradient(128.04deg, var(--color-brand-purple) 0%, var(--color-brand-blue) 50%, #ff00c7 100%);
+  }
+  /* Modifier classes (combine with purple-bg-orb) */
+  .orb-top-left {
+    @apply top-[-100px] left-[-100px];
+  }
+  .orb-top-right {
+    @apply top-[-100px] right-0;
+  }
+  .orb-bottom-right {
+    @apply bottom-[-100px] right-0;
+  }
+}

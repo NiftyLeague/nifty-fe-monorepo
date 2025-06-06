@@ -9,7 +9,7 @@ type ActiveModal = 'credits' | 'play' | 'trailer' | 'unity' | null;
 export default function Header({ openModal }: { openModal: (modal: ActiveModal) => void }) {
   return (
     <div className={styles.hero}>
-      <div className="radial-gradient-bg-centered" />
+      <div className="dark-gradient-overlay" />
       <div className={styles.heroContainer}>
         <Navbar />
         <div className={styles.heroContent}>

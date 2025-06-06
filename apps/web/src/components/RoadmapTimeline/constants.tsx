@@ -264,8 +264,8 @@ export const ROADMAP_CARDS = [
         <p>
           <strong>Comic burning remains open until further notice!</strong>
         </p>
-        <div className="d-flex flex-wrap">
-          <div className="col-6 p-1">
+        <div className="flex flex-wrap -mx-1">
+          <div className="w-1/2 p-1">
             <Image
               alt="comic 1"
               height={500}
@@ -273,9 +273,10 @@ export const ROADMAP_CARDS = [
               width={500}
               sizes="100vw"
               style={{ width: '100%', height: 'auto' }}
+              className="w-full h-auto"
             />
           </div>
-          <div className="col-6 p-1">
+          <div className="w-1/2 p-1">
             <Image
               alt="comic 2"
               height={500}
@@ -283,9 +284,10 @@ export const ROADMAP_CARDS = [
               width={500}
               sizes="100vw"
               style={{ width: '100%', height: 'auto' }}
+              className="w-full h-auto"
             />
           </div>
-          <div className="col-6 p-1">
+          <div className="w-1/2 p-1">
             <Image
               alt="comic 3"
               height={500}
@@ -293,9 +295,10 @@ export const ROADMAP_CARDS = [
               width={500}
               sizes="100vw"
               style={{ width: '100%', height: 'auto' }}
+              className="w-full h-auto"
             />
           </div>
-          <div className="col-6 p-1">
+          <div className="w-1/2 p-1">
             <Image
               alt="comic 4"
               height={500}
@@ -303,9 +306,10 @@ export const ROADMAP_CARDS = [
               width={500}
               sizes="100vw"
               style={{ width: '100%', height: 'auto' }}
+              className="w-full h-auto"
             />
           </div>
-          <div className="col-6 p-1">
+          <div className="w-1/2 p-1">
             <Image
               alt="comic 5"
               height={500}
@@ -313,9 +317,10 @@ export const ROADMAP_CARDS = [
               width={500}
               sizes="100vw"
               style={{ width: '100%', height: 'auto' }}
+              className="w-full h-auto"
             />
           </div>
-          <div className="col-6 p-1">
+          <div className="w-1/2 p-1">
             <Image
               alt="comic 6"
               height={500}
@@ -323,6 +328,7 @@ export const ROADMAP_CARDS = [
               width={500}
               sizes="100vw"
               style={{ width: '100%', height: 'auto' }}
+              className="w-full h-auto"
             />
           </div>
         </div>

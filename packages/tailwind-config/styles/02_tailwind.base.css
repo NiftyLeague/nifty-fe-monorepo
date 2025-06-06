@@ -1,3 +1,5 @@
+/* ==============================|| BASE OVERRIDES ||============================== */
+
 @layer base {
   *,
   *::before,
@@ -11,12 +13,12 @@
 
   html,
   body {
-    background: var(--custom-bg-color);
-    color: var(--custom-fg-color);
-    font-family: var(--default-font);
-    font-size: var(--custom-font-size);
+    background: var(--color-dark);
+    color: var(--color-light);
+    font-family: var(--font-default);
+    font-size: var(--root-font-size);
     font-weight: var(--font-weight-normal);
-    letter-spacing: var(--custom-letter-spacing);
+    letter-spacing: var(--default-letter-spacing);
     line-height: var(--text-base--line-height);
     max-width: 100vw;
     overflow-x: hidden;
@@ -24,28 +26,28 @@
 
   main,
   footer {
-    background: var(--custom-bg-color);
+    background: var(--color-dark);
   }
 
   p {
-    color: var(--custom-fg-color);
+    color: var(--color-light);
   }
 
   h1,
   h2,
   h3 {
-    color: var(--custom-fg-color);
-    font-family: var(--header-font);
+    color: var(--color-light);
+    font-family: var(--font-header);
     font-weight: var(--font-weight-bold);
-    letter-spacing: var(--custom-letter-spacing-header);
+    letter-spacing: var(--header-letter-spacing);
   }
   h4,
   h5,
   h6 {
-    color: var(--custom-fg-color);
-    font-family: var(--subheader-font);
+    color: var(--color-light);
+    font-family: var(--font-subheader);
     font-weight: var(--font-weight-normal);
-    letter-spacing: var(--custom-letter-spacing-subheader);
+    letter-spacing: var(--subheader-letter-spacing);
   }
 
   h1 {
@@ -75,10 +77,10 @@
 
   button,
   button span {
-    font-family: var(--btn-font);
+    font-family: var(--font-btn);
     font-size: var(--text-sm); /* 0.875rem */
     font-weight: var(--font-weight-normal);
-    letter-spacing: var(--custom-letter-spacing-btn);
+    letter-spacing: var(--btn-letter-spacing);
     line-height: var(--text-sm--line-height);
   }
 

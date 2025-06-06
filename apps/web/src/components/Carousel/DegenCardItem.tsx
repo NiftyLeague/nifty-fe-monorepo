@@ -30,7 +30,7 @@ const DegenCardItem = ({
   return (
     <div className="slide">
       <div className={styles.slide_content}>
-        <div className="browse-single">
+        <div className={styles.browse_single}>
           {!mobile ? (
             <div className="flex p-2 sm:p-3 md:p-4 pb-0 items-center">
               <h6 className="mr-auto mb-0">{name}</h6>

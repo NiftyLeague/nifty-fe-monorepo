@@ -242,7 +242,7 @@ const DegensFilter = ({
           </Button>
         </Stack>
       </Stack>
-      <Stack py={1.5} borderRadius="10px" sx={{ background: '#1E2023' }}>
+      <Stack py={1.5} borderRadius="10px" sx={{ background: 'var(--color-dark)' }}>
         <FilterAccordion summary={<Typography variant="h4">Tribe</Typography>} expanded={true} length={tribes.length}>
           <FormGroup sx={{ flexDirection: 'row' }}>
             {tribes.map(tribe => (

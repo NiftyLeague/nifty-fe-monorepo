@@ -4,8 +4,8 @@
 /* ==============================|| OVERRIDES ||============================== */
 
 :root {
-  --subheader-font: var(--special-font);
-  --custom-letter-spacing-subheader: -0.02em;
+  --font-subheader: var(--font-special);
+  --subheader-letter-spacing: var(--special-letter-spacing);
 }
 
 /* ==============================|| FORMS ||============================== */
@@ -13,7 +13,7 @@
 label {
   display: block;
   margin: 8px 0 4px 0;
-  color: var(--custom-fg-secondary-color);
+  color: var(--color-secondary);
   font-size: 0.8rem;
   text-transform: uppercase;
   font-weight: var(--font-weight-medium);
@@ -25,13 +25,13 @@ input {
   border: var(--custom-border);
   padding: 8px;
   font-size: 0.9rem;
-  background-color: var(--custom-bg-color);
-  color: var(--custom-fg-color);
+  background-color: var(--color-dark);
+  color: var(--color-light);
 }
 
 input[disabled] {
   color: rgba(224, 224, 224, 0.75) !important;
-  background-color: var(--custom-bg-color) !important;
+  background-color: var(--color-dark) !important;
 }
 
 /* ==============================|| COMPONENT OVERRIDES ||============================== */

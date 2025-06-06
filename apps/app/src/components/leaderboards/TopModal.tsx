@@ -25,7 +25,12 @@ const TableRoot = styled('div')({
   '& tbody': { position: 'initial !important', '& tr': { '&:first-child': { borderTop: 'solid 2px #8c9cb4' } } },
   '& tr': {
     '& th': { '&:last-child': { borderRight: 'none !important', color: '#9ba5bf !important' } },
-    '& td': { color: 'black', fontWeight: 'bold', fontSize: 16, '&:last-child': { borderRight: 'none !important' } },
+    '& td': {
+      color: 'var(--color-dark)',
+      fontWeight: 'bold',
+      fontSize: 16,
+      '&:last-child': { borderRight: 'none !important' },
+    },
   },
 });
 
@@ -58,8 +63,8 @@ const LoadingBox = styled('div')({
 
 const TwitterTypography = styled(Typography)({
   width: '100%',
-  background: 'white',
-  color: '#5E72EB',
+  background: 'var(--color-light)',
+  color: 'var(--color-brand-blue)',
   fontWeight: 600,
   display: 'flex',
   fontSize: '14px',

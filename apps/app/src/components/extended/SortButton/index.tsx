@@ -70,10 +70,10 @@ const SortButton = ({
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         sx={{
-          '& .MuiPaper-root': { background: '#1E2023', borderRadius: '0px 0px 5px 5px' },
+          '& .MuiPaper-root': { background: 'var(--color-dark)', borderRadius: '0px 0px 5px 5px' },
           '& .MuiMenuItem-root': {
             width: (buttonRef?.current as unknown as { clientWidth: number })?.clientWidth,
-            color: '#f5f5f5',
+            color: 'var(--color-light)',
           },
         }}
       >

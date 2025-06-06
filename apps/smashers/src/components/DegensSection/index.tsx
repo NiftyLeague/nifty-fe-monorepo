@@ -16,14 +16,14 @@ const DegensSection = () => {
       <div className={styles.section}>
         <div style={{ marginBottom: 20 }}>
           <AnimatedWrapper>
-            <h2 className="text-align-center animated-header-text animated-header-text-start transition-delay-small">
+            <h2 className="text-center animated-header-text animated-header-text-start transition-delay-small">
               Choose your fighter
             </h2>
           </AnimatedWrapper>
         </div>
         <div style={{ position: 'relative' }}>
           <AnimatedWrapper>
-            <p className="text-align-center animated-header-text animated-header-text-start transition-delay-medium">
+            <p className="text-center animated-header-text animated-header-text-start transition-delay-medium">
               There are 7 tribes to choose from, each with their own unique special ability. Some characters specialize
               in melee combat, while others are skilled in ranged attacks or magic.
             </p>
@@ -35,12 +35,12 @@ const DegensSection = () => {
         <AnimatedWrapper>
           <Grid container spacing={0} style={{ marginBottom: 20 }}>
             <Grid size={{ xs: 6, sm: 4 }}>
-              <h3 className="text-align-center animated-header-text animated-header-text-start transition-delay-small">
+              <h3 className="text-center animated-header-text animated-header-text-start transition-delay-small">
                 TRIBE
               </h3>
             </Grid>
             <Grid size={{ xs: 6, sm: 8 }}>
-              <h3 className="text-align-center animated-header-text animated-header-text-start transition-delay-small">
+              <h3 className="text-center animated-header-text animated-header-text-start transition-delay-small">
                 SPECIAL
               </h3>
             </Grid>
@@ -54,7 +54,7 @@ const DegensSection = () => {
                     <AnimatedWrapper>
                       <div
                         style={{ position: 'relative' }}
-                        className="text-align-center animated-fade-slow animated-fade-start transition-delay-small"
+                        className="text-center animated-fade-slow animated-fade-start transition-delay-small"
                       >
                         <Image
                           src={image.link}
@@ -67,7 +67,7 @@ const DegensSection = () => {
                     <AnimatedWrapper>
                       <h5
                         style={{ marginTop: 8 }}
-                        className="text-align-center animated-fade-slow animated-fade-start transition-delay-small"
+                        className="text-center animated-fade-slow animated-fade-start transition-delay-small"
                       >
                         {name}
                       </h5>
@@ -87,7 +87,7 @@ const DegensSection = () => {
                   <AnimatedWrapper>
                     <div
                       style={{ position: 'relative' }}
-                      className="text-align-center animated-fade-slow animated-fade-start transition-delay-small"
+                      className="text-center animated-fade-slow animated-fade-start transition-delay-small"
                     >
                       <Image
                         src={gif.link}
@@ -100,7 +100,7 @@ const DegensSection = () => {
                       />
                     </div>
                   </AnimatedWrapper>
-                  <h6 className="text-align-center">{specialName}</h6>
+                  <h6 className="text-center">{specialName}</h6>
                 </Grid>
               </Grid>
             ))}

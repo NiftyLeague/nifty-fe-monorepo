@@ -22,7 +22,7 @@ const GameSection = () => {
               <h2 className="animated-header-text animated-header-text-start transition-delay-small">
                 FREE-TO-PLAY
                 <br />
-                <span>PARTY PLATFORM FIGHTER</span>
+                <span className="font-default font-normal">PARTY PLATFORM FIGHTER</span>
               </h2>
             </AnimatedWrapper>
           </div>
@@ -43,7 +43,7 @@ const GameSection = () => {
         <Grid size={{ xs: 12, sm: 6 }} className={styles.section}>
           <div className={styles.highlight_video} onClick={playVid}>
             <AnimatedWrapper>
-              <div className="quick-pop-anim quick-pop-anim-start transition-delay-small">
+              <div className="relative quick-pop-anim quick-pop-anim-start transition-delay-small">
                 <video
                   id="level-video"
                   width="100%"
@@ -57,7 +57,6 @@ const GameSection = () => {
                 >
                   <source src="/video/rocket.mp4" type="video/mp4" />
                 </video>
-                <div className={cn(styles.gradient, 'radial-gradient-bg')} style={{ borderRadius: '40px / 40px' }} />
               </div>
             </AnimatedWrapper>
           </div>
@@ -67,7 +66,7 @@ const GameSection = () => {
         <AnimatedWrapper>
           <div
             style={{ position: 'relative' }}
-            className="text-align-center animated-fade-slow animated-fade-start transition-delay-small"
+            className="text-center animated-fade-slow animated-fade-start transition-delay-small"
           >
             <Image
               src="/img/games/smashers/party_modes.gif"

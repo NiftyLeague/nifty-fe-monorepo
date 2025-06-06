@@ -33,7 +33,7 @@ import useAuth from '@/hooks/useAuth';
 import { DEGEN_PURCHASE_URL } from '@/constants/url';
 
 // const chipStyles = (isSmall: boolean) => ({
-//   color: 'white',
+//   color: 'var(--color-light)',
 //   borderRadius: 1,
 //   width: '100%',
 //   fontSize: isSmall ? 9 : 11,
@@ -42,7 +42,7 @@ import { DEGEN_PURCHASE_URL } from '@/constants/url';
 //   '&:hover': {
 //     backgroundColor: 'transparent',
 //     cursor: 'auto',
-//     color: 'white',
+//     color: 'var(--color-light)',
 //   },
 // });
 

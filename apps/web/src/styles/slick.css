@@ -97,7 +97,7 @@
   margin-left: 5px;
 }
 .slick-dots li {
-  background: #c4c4c4;
+  background: var(--color-light);
   height: 2px;
   width: 74px;
   margin: 0 10px;
@@ -123,7 +123,7 @@
   margin-left: -5px;
 }
 
-/*.slide-content{padding: 2rem; box-shadow: 0 3px 14px #ddd; border-radius: 15px; margin: 1rem 0; background: #fff;}*/
+/*.slide-content{padding: 2rem; box-shadow: 0 3px 14px #ddd; border-radius: 15px; margin: 1rem 0; background: var(--color-light);}*/
 .slick-arrow {
   background: none;
   border: none;

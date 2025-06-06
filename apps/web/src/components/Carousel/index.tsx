@@ -21,17 +21,6 @@ const NiftyCarousel = ({
   hideGradient?: boolean;
 }): React.ReactNode => (
   <>
-    {!hideGradient && (
-      <span className="dark-gradient-shade">
-        <Image
-          src="/img/gradient/dark-gradient-shade-bottom.svg"
-          alt="Dark gradient shade"
-          fill
-          sizes="100vw"
-          style={{ objectFit: 'cover' }}
-        />
-      </span>
-    )}
     <Carousel
       arrows={isMobileViewOnly}
       swipeable={isMobileViewOnly}
@@ -52,10 +41,11 @@ const NiftyCarousel = ({
       containerClass="carousel-container"
       removeArrowOnDeviceType={isMobileViewOnly ? ['desktop', 'tablet'] : ['desktop', 'tablet', 'mobile']}
       dotListClass="custom-dot-list-style"
-      itemClass="carousel-item-padding-20-px"
+      itemClass="py-0 px-5"
     >
       {children}
     </Carousel>
+    {!hideGradient && <div className="dark-gradient-overlay !top-[14%] !h-[80%]" />}
   </>
 );
 

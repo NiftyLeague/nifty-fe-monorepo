@@ -18,15 +18,15 @@
 
 .tokenAndPlay {
   margin-top: 90px;
-  background: white;
-  color: #262930;
+  background: var(--color-light);
+  color: var(--color-dark);
   padding-top: 72px;
   padding-bottom: 72px;
 }
 
 .button {
-  background: black;
-  color: white;
+  background: var(--color-dark);
+  color: var(--color-light);
 }
 
 .gradient1 {

@@ -17,11 +17,11 @@ const StyledAccordion = styled(Accordion)({
   '& .MuiCollapse-wrapper': { marginBottom: 12 },
   '& .MuiAccordionSummary-root': {
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
-    color: 'white',
+    color: 'var(--color-light)',
     fontWeight: 600,
     padding: '12px 24px',
   },
-  '& .MuiAccordionDetails-root': { backgroundColor: 'rgba(0, 0, 0, 0.4)', color: 'white', padding: 24 },
+  '& .MuiAccordionDetails-root': { backgroundColor: 'rgba(0, 0, 0, 0.4)', color: 'var(--color-light)', padding: 24 },
 });
 
 const AnimatedAccordion = ({

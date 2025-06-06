@@ -33,7 +33,7 @@ const ConsoleGame = ({ src }: { src: string }) => {
   const handlePause = useCallback(() => setIsPlaying(false), []);
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div className="relative overflow-hidden">
       <AnimatedWrapper>
         <div
           style={{ position: 'relative', display: 'flex', flexGrow: 1 }}
@@ -119,7 +119,7 @@ const ConsoleGame = ({ src }: { src: string }) => {
           </div>
         </AnimatedWrapper>
       </div>
-      <div className={cn(styles.console_gradient, 'radial-gradient-bg')} />
+      <div className="dark-gradient-overlay" />
     </div>
   );
 };

@@ -29,9 +29,9 @@ const classes = {
 };
 
 const StyledStack = styled(Stack)(() => ({
-  [`&.${classes.title}`]: { fontSize: 16, fontWeight: 700, color: '#FFFFFF' },
+  [`&.${classes.title}`]: { fontSize: 16, fontWeight: 700, color: 'var(--color-light)' },
 
-  [`&.${classes.label}`]: { fontSize: 12, color: '#FFFFFF' },
+  [`&.${classes.label}`]: { fontSize: 12, color: 'var(--color-light)' },
 
   [`&.${classes.animTypeButton}`]: {
     borderRadius: '2px',
@@ -48,8 +48,8 @@ const StyledStack = styled(Stack)(() => ({
     width: 12,
     height: 12,
     borderRadius: '50%',
-    background: '#5820D6',
-    color: '#FFFFFF',
+    background: 'var(--color-brand-purple)',
+    color: 'var(--color-light)',
     fontSize: '8px',
     lineHeight: '8px',
     position: 'absolute',

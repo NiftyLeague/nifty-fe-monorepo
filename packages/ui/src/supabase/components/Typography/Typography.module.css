@@ -8,7 +8,7 @@
   max-width: 65ch;
 }
 
-.sbui-typography-container [class~="lead"] {
+.sbui-typography-container [class~='lead'] {
   color: #2a2a2a;
   font-size: 1.25em;
   line-height: 1.6;
@@ -40,7 +40,7 @@
 }
 
 .sbui-typography-container ol > li::before {
-  content: counter(list-counter) ".";
+  content: counter(list-counter) '.';
   position: absolute;
   font-weight: 400;
   color: #444444;
@@ -53,7 +53,7 @@
 }
 
 .sbui-typography-container ul > li::before {
-  content: "";
+  content: '';
   position: absolute;
   background-color: #bbbbbb;
   border-radius: 50%;
@@ -76,7 +76,7 @@
   color: #0f0f0f;
   border-left-width: 0.25rem;
   border-left-color: #e0e0e0;
-  quotes: "\201C""\201D""\2018""\2019";
+  quotes: '\201C' '\201D' '\2018' '\2019';
   margin-top: 1.6em;
   margin-bottom: 1.6em;
   padding-left: 1em;
@@ -139,11 +139,11 @@
 }
 
 .sbui-typography-container code::before {
-  content: "";
+  content: '';
 }
 
 .sbui-typography-container code::after {
-  content: "";
+  content: '';
 }
 
 .sbui-typography-container a code {
@@ -178,11 +178,11 @@
 }
 
 .sbui-typography-container pre code::before {
-  content: "";
+  content: '';
 }
 
 .sbui-typography-container pre code::after {
-  content: "";
+  content: '';
 }
 
 .sbui-typography-container table {
@@ -295,12 +295,18 @@
   margin-bottom: 1.25em;
 }
 
-.sbui-typography-container ul ul, .sbui-typography-container ul ol, .sbui-typography-container ol ul, .sbui-typography-container ol ol {
+.sbui-typography-container ul ul,
+.sbui-typography-container ul ol,
+.sbui-typography-container ol ul,
+.sbui-typography-container ol ol {
   margin-top: 0.75em;
   margin-bottom: 0.75em;
 }
 
-.prose ul ul, .prose ul ol, .prose ol ul, .prose ol ol {
+.prose ul ul,
+.prose ul ol,
+.prose ol ul,
+.prose ol ol {
   margin-top: 0.75em;
   margin-bottom: 0.75em;
   margin-top: 0.75em;
@@ -359,7 +365,7 @@
   margin-bottom: 1.1428571em;
 }
 
-.sbui-typography-container [class~="lead"] {
+.sbui-typography-container [class~='lead'] {
   font-size: 1.2857143em;
   line-height: 1.5555556;
   margin-top: 0.8888889em;
@@ -504,12 +510,18 @@
   margin-bottom: 1.1428571em;
 }
 
-.sbui-typography-container ul ul, .sbui-typography-container ul ol, .sbui-typography-container ol ul, .sbui-typography-container ol ol {
+.sbui-typography-container ul ul,
+.sbui-typography-container ul ol,
+.sbui-typography-container ol ul,
+.sbui-typography-container ol ol {
   margin-top: 0.5714286em;
   margin-bottom: 0.5714286em;
 }
 
-.prose-sm ul ul, .prose-sm ul ol, .prose-sm ol ul, .prose-sm ol ol {
+.prose-sm ul ul,
+.prose-sm ul ol,
+.prose-sm ol ul,
+.prose-sm ol ol {
   margin-top: 0.5714286em;
   margin-bottom: 0.5714286em;
   margin-top: 0.5714286em;
@@ -592,7 +604,7 @@
     margin-bottom: 1.3333333em;
   }
 
-  .sbui-typography-container [class~="lead"] {
+  .sbui-typography-container [class~='lead'] {
     font-size: 1.2222222em;
     line-height: 1.4545455;
     margin-top: 1.0909091em;
@@ -737,12 +749,18 @@
     margin-bottom: 1.3333333em;
   }
 
-  .sbui-typography-container ul ul, .sbui-typography-container ul ol, .sbui-typography-container ol ul, .sbui-typography-container ol ol {
+  .sbui-typography-container ul ul,
+  .sbui-typography-container ul ol,
+  .sbui-typography-container ol ul,
+  .sbui-typography-container ol ol {
     margin-top: 0.8888889em;
     margin-bottom: 0.8888889em;
   }
 
-  .lg\:prose-lg ul ul, .lg\:prose-lg ul ol, .lg\:prose-lg ol ul, .lg\:prose-lg ol ol {
+  .lg\:prose-lg ul ul,
+  .lg\:prose-lg ul ol,
+  .lg\:prose-lg ol ul,
+  .lg\:prose-lg ol ol {
     margin-top: 0.8888889em;
     margin-bottom: 0.8888889em;
     margin-top: 0.8888889em;
@@ -902,7 +920,7 @@
 }
 
 :global(.dark) .sbui-typography code {
-  color: white;
+  color: var(--color-light);
 }
 
 :global(.dark) .sbui-typography figcaption {

@@ -36,7 +36,7 @@ const Roadmap: NextPage = () => {
           <div className={roadmapStyles.animated_star7} />
           <div className={roadmapStyles.animated_star8} />
           <div className={roadmapStyles.animated_star9} />
-          <div className="w-100 d-flex justify-content-center">
+          <div className="w-full flex justify-center">
             <div className={roadmapStyles.moon}>
               <Image
                 src="/img/space/moon.webp"
