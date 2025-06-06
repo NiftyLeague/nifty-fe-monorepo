@@ -84,10 +84,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
         backgroundColor: 'transparent !important',
         py: level > 1 ? 1 : 1.25,
         pl: `${level * 24}px`,
-        '&:hover': {
-          border: '1px solid',
-          borderColor: theme.palette.secondary.main,
-        },
+        '&:hover': { border: '1px solid', borderColor: theme.palette.secondary.main },
       }}
       selected={openItem?.findIndex(id => id === item.id) > -1}
       onClick={() => itemHandler(item.id!)}

@@ -4,7 +4,7 @@ import AnimatedWrapper from '@/components/AnimatedWrapper';
 const Definitions = (): React.ReactNode => (
   <>
     <AnimatedWrapper>
-      <h5 className="my-3 my-md-5 animated-fade-slow animated-fade-start transition-delay-medium">
+      <h5 className="my-3 md:my-5 animated-fade-slow animated-fade-start transition-delay-medium">
         Interpretation and Definitions
       </h5>
     </AnimatedWrapper>

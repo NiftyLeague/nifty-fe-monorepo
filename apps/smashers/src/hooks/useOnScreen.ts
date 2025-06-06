@@ -10,9 +10,7 @@ export function useOnScreen<T extends Element>(ref: MutableRefObject<T>, rootMar
         // Update our state when observer callback fires
         if (entry) setIntersecting(entry.isIntersecting);
       },
-      {
-        rootMargin,
-      },
+      { rootMargin },
     );
     if (wrapperRef) {
       observer.observe(wrapperRef);

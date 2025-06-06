@@ -1,6 +1,6 @@
 import { RenderRoadmapCard } from './roadmapCard';
 import { ROADMAP_CARDS } from './constants';
-import styles from './index.module.scss';
+import styles from './index.module.css';
 
 const RoadmapTimeline = () => {
   return (

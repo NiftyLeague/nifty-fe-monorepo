@@ -14,10 +14,7 @@ interface GameAccountState {
 }
 
 const fetchGameAccount = async (authToken: AUTH_Token) => {
-  const response = await fetch(GAMER_ACCOUNT_API, {
-    method: 'GET',
-    headers: { authorizationToken: authToken || '' },
-  });
+  const response = await fetch(GAMER_ACCOUNT_API, { method: 'GET', headers: { authorizationToken: authToken || '' } });
   const body = await response.json();
   return body;
 };

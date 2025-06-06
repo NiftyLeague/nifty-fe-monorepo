@@ -101,15 +101,9 @@ interface NotifyMessages {
   [key: string]: LocaleMessages;
 }
 interface LocaleMessages {
-  transaction: {
-    [key: string]: string;
-  };
-  watched: {
-    [key: string]: string;
-  };
-  time: {
-    [key: string]: string;
-  };
+  transaction: { [key: string]: string };
+  watched: { [key: string]: string };
+  time: { [key: string]: string };
 }
 interface TransactionOptions {
   sendTransaction?: () => Promise<string>;
@@ -117,29 +111,18 @@ interface TransactionOptions {
   gasPrice?: () => Promise<string>;
   balance?: string;
   contractCall?: ContractCall;
-  txDetails?: {
-    to?: string;
-    from?: string;
-    value: string;
-  };
+  txDetails?: { to?: string; from?: string; value: string };
 }
 interface PreflightEvent {
   eventCode: string;
   contractCall?: ContractCall;
   balance: string;
-  txDetails?: {
-    to?: string;
-    from?: string;
-    value: string | number;
-  };
+  txDetails?: { to?: string; from?: string; value: string | number };
   emitter: Emitter;
   status?: string;
 }
 interface UpdateNotification {
-  (notificationObject: CustomNotificationObject): {
-    dismiss: () => void;
-    update: UpdateNotification;
-  };
+  (notificationObject: CustomNotificationObject): { dismiss: () => void; update: UpdateNotification };
 }
 interface ConfigOptions {
   system?: System;
@@ -154,40 +137,19 @@ interface ConfigOptions {
   clientLocale?: string;
 }
 interface Hash {
-  (
-    hash: string,
-    id?: string,
-  ):
-    | never
-    | {
-        details: BitcoinTransactionLog | EthereumTransactionLog;
-        emitter: Emitter;
-      };
+  (hash: string, id?: string): never | { details: BitcoinTransactionLog | EthereumTransactionLog; emitter: Emitter };
 }
 interface Transaction {
-  (options: TransactionOptions): {
-    result: Promise<string>;
-    emitter: Emitter;
-  };
+  (options: TransactionOptions): { result: Promise<string>; emitter: Emitter };
 }
 interface Account {
-  (address: string):
-    | never
-    | {
-        details: {
-          address: string;
-        };
-        emitter: Emitter;
-      };
+  (address: string): never | { details: { address: string }; emitter: Emitter };
 }
 interface Unsubscribe {
   (addressOrHash: string): void;
 }
 interface Notification {
-  (notificationObject: CustomNotificationObject): {
-    dismiss: () => void;
-    update: UpdateNotification;
-  };
+  (notificationObject: CustomNotificationObject): { dismiss: () => void; update: UpdateNotification };
 }
 interface Config {
   (options: ConfigOptions): void;
@@ -204,9 +166,7 @@ interface EmitterListener {
   (state: TransactionData): boolean | void | CustomNotificationObject;
 }
 interface Emitter {
-  listeners: {
-    [key: string]: EmitterListener;
-  };
+  listeners: { [key: string]: EmitterListener };
   on: (eventCode: TransactionEventCode, listener: EmitterListener) => void;
   emit: (state: TransactionData) => boolean | void | CustomNotificationObject;
 }

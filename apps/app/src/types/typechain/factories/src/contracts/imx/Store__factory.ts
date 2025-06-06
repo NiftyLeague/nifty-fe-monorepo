@@ -7,51 +7,19 @@ import type { NonPayableOverrides } from '../../../../common';
 import type { Store, StoreInterface } from '../../../../src/contracts/imx/Store';
 
 const _abi = [
-  {
-    inputs: [
-      {
-        internalType: 'string',
-        name: 'message',
-        type: 'string',
-      },
-    ],
-    name: 'InvalidInput',
-    type: 'error',
-  },
+  { inputs: [{ internalType: 'string', name: 'message', type: 'string' }], name: 'InvalidInput', type: 'error' },
   {
     anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint8',
-        name: 'version',
-        type: 'uint8',
-      },
-    ],
+    inputs: [{ indexed: false, internalType: 'uint8', name: 'version', type: 'uint8' }],
     name: 'Initialized',
     type: 'event',
   },
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'by',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256[]',
-        name: 'tokenIds',
-        type: 'uint256[]',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256[]',
-        name: 'values',
-        type: 'uint256[]',
-      },
+      { indexed: true, internalType: 'address', name: 'by', type: 'address' },
+      { indexed: false, internalType: 'uint256[]', name: 'tokenIds', type: 'uint256[]' },
+      { indexed: false, internalType: 'uint256[]', name: 'values', type: 'uint256[]' },
     ],
     name: 'ItemsMinted',
     type: 'event',
@@ -59,18 +27,8 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'by',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'amount',
-        type: 'uint256',
-      },
+      { indexed: true, internalType: 'address', name: 'by', type: 'address' },
+      { indexed: false, internalType: 'uint256', name: 'amount', type: 'uint256' },
     ],
     name: 'NftlSpent',
     type: 'event',
@@ -78,65 +36,29 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'previousOwner',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'newOwner',
-        type: 'address',
-      },
+      { indexed: true, internalType: 'address', name: 'previousOwner', type: 'address' },
+      { indexed: true, internalType: 'address', name: 'newOwner', type: 'address' },
     ],
     name: 'OwnershipTransferred',
     type: 'event',
   },
   {
     anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-    ],
+    inputs: [{ indexed: false, internalType: 'address', name: 'account', type: 'address' }],
     name: 'Paused',
     type: 'event',
   },
   {
     anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-    ],
+    inputs: [{ indexed: false, internalType: 'address', name: 'account', type: 'address' }],
     name: 'Unpaused',
     type: 'event',
   },
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: 'marketplace_',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: 'nftl_',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: 'treasury_',
-        type: 'address',
-      },
+      { internalType: 'address', name: 'marketplace_', type: 'address' },
+      { internalType: 'address', name: 'nftl_', type: 'address' },
+      { internalType: 'address', name: 'treasury_', type: 'address' },
     ],
     name: 'initialize',
     outputs: [],
@@ -144,41 +66,17 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'itemId',
-        type: 'uint256',
-      },
-    ],
+    inputs: [{ internalType: 'uint256', name: 'itemId', type: 'uint256' }],
     name: 'isAvailable',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: 'paused',
-        type: 'bool',
-      },
-    ],
+    outputs: [{ internalType: 'bool', name: 'paused', type: 'bool' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [
-      {
-        internalType: 'uint256[]',
-        name: 'itemIds',
-        type: 'uint256[]',
-      },
-      {
-        internalType: 'uint256[]',
-        name: 'prices',
-        type: 'uint256[]',
-      },
-      {
-        internalType: 'uint256[]',
-        name: 'supply',
-        type: 'uint256[]',
-      },
+      { internalType: 'uint256[]', name: 'itemIds', type: 'uint256[]' },
+      { internalType: 'uint256[]', name: 'prices', type: 'uint256[]' },
+      { internalType: 'uint256[]', name: 'supply', type: 'uint256[]' },
     ],
     name: 'listNewItems',
     outputs: [],
@@ -186,114 +84,52 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'itemId',
-        type: 'uint256',
-      },
-    ],
+    inputs: [{ internalType: 'uint256', name: 'itemId', type: 'uint256' }],
     name: 'listingPrice',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: 'price',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: 'price', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'marketplace',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'itemId',
-        type: 'uint256',
-      },
-    ],
+    inputs: [{ internalType: 'uint256', name: 'itemId', type: 'uint256' }],
     name: 'maxSupply',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: 'maxSupply',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: 'maxSupply', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'nftl',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'owner',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
-  {
-    inputs: [],
-    name: 'pause',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
+  { inputs: [], name: 'pause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   {
     inputs: [],
     name: 'paused',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [
-      {
-        internalType: 'uint256[]',
-        name: 'itemIds',
-        type: 'uint256[]',
-      },
-      {
-        internalType: 'uint256[]',
-        name: 'itemValues',
-        type: 'uint256[]',
-      },
+      { internalType: 'uint256[]', name: 'itemIds', type: 'uint256[]' },
+      { internalType: 'uint256[]', name: 'itemValues', type: 'uint256[]' },
     ],
     name: 'purchaseItems',
     outputs: [],
@@ -302,48 +138,16 @@ const _abi = [
   },
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: 'holder',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256[]',
-        name: 'itemIds',
-        type: 'uint256[]',
-      },
-      {
-        internalType: 'uint256[]',
-        name: 'itemValues',
-        type: 'uint256[]',
-      },
-      {
-        internalType: 'uint256',
-        name: 'value',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'deadline',
-        type: 'uint256',
-      },
+      { internalType: 'address', name: 'holder', type: 'address' },
+      { internalType: 'uint256[]', name: 'itemIds', type: 'uint256[]' },
+      { internalType: 'uint256[]', name: 'itemValues', type: 'uint256[]' },
+      { internalType: 'uint256', name: 'value', type: 'uint256' },
+      { internalType: 'uint256', name: 'deadline', type: 'uint256' },
       {
         components: [
-          {
-            internalType: 'uint8',
-            name: 'v',
-            type: 'uint8',
-          },
-          {
-            internalType: 'bytes32',
-            name: 'r',
-            type: 'bytes32',
-          },
-          {
-            internalType: 'bytes32',
-            name: 's',
-            type: 'bytes32',
-          },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
         ],
         internalType: 'struct Store.Signature',
         name: 'sig',
@@ -357,43 +161,15 @@ const _abi = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256[]',
-        name: 'itemIds',
-        type: 'uint256[]',
-      },
-      {
-        internalType: 'uint256[]',
-        name: 'itemValues',
-        type: 'uint256[]',
-      },
-      {
-        internalType: 'uint256',
-        name: 'value',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'deadline',
-        type: 'uint256',
-      },
+      { internalType: 'uint256[]', name: 'itemIds', type: 'uint256[]' },
+      { internalType: 'uint256[]', name: 'itemValues', type: 'uint256[]' },
+      { internalType: 'uint256', name: 'value', type: 'uint256' },
+      { internalType: 'uint256', name: 'deadline', type: 'uint256' },
       {
         components: [
-          {
-            internalType: 'uint8',
-            name: 'v',
-            type: 'uint8',
-          },
-          {
-            internalType: 'bytes32',
-            name: 'r',
-            type: 'bytes32',
-          },
-          {
-            internalType: 'bytes32',
-            name: 's',
-            type: 'bytes32',
-          },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
         ],
         internalType: 'struct Store.Signature',
         name: 'sig',
@@ -405,25 +181,11 @@ const _abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-  {
-    inputs: [],
-    name: 'renounceOwnership',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
+  { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   {
     inputs: [
-      {
-        internalType: 'uint256[]',
-        name: 'itemIds',
-        type: 'uint256[]',
-      },
-      {
-        internalType: 'bool[]',
-        name: 'availability',
-        type: 'bool[]',
-      },
+      { internalType: 'uint256[]', name: 'itemIds', type: 'uint256[]' },
+      { internalType: 'bool[]', name: 'availability', type: 'bool[]' },
     ],
     name: 'setItemsAvailability',
     outputs: [],
@@ -432,16 +194,8 @@ const _abi = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256[]',
-        name: 'itemIds',
-        type: 'uint256[]',
-      },
-      {
-        internalType: 'uint256[]',
-        name: 'supply',
-        type: 'uint256[]',
-      },
+      { internalType: 'uint256[]', name: 'itemIds', type: 'uint256[]' },
+      { internalType: 'uint256[]', name: 'supply', type: 'uint256[]' },
     ],
     name: 'setItemsMaxSupply',
     outputs: [],
@@ -450,16 +204,8 @@ const _abi = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256[]',
-        name: 'itemIds',
-        type: 'uint256[]',
-      },
-      {
-        internalType: 'uint256[]',
-        name: 'prices',
-        type: 'uint256[]',
-      },
+      { internalType: 'uint256[]', name: 'itemIds', type: 'uint256[]' },
+      { internalType: 'uint256[]', name: 'prices', type: 'uint256[]' },
     ],
     name: 'setItemsPrice',
     outputs: [],
@@ -467,32 +213,14 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'bytes',
-        name: 'sig',
-        type: 'bytes',
-      },
-    ],
+    inputs: [{ internalType: 'bytes', name: 'sig', type: 'bytes' }],
     name: 'splitSignature',
     outputs: [
       {
         components: [
-          {
-            internalType: 'uint8',
-            name: 'v',
-            type: 'uint8',
-          },
-          {
-            internalType: 'bytes32',
-            name: 'r',
-            type: 'bytes32',
-          },
-          {
-            internalType: 'bytes32',
-            name: 's',
-            type: 'bytes32',
-          },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
         ],
         internalType: 'struct Store.Signature',
         name: '',
@@ -503,13 +231,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'newOwner',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: 'newOwner', type: 'address' }],
     name: 'transferOwnership',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -518,31 +240,13 @@ const _abi = [
   {
     inputs: [],
     name: 'treasury',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
+  { inputs: [], name: 'unpause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   {
-    inputs: [],
-    name: 'unpause',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'treasury_',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: 'treasury_', type: 'address' }],
     name: 'updateTreasury',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -572,11 +276,7 @@ export class Store__factory extends ContractFactory {
     return super.getDeployTransaction(overrides || {});
   }
   override deploy(overrides?: NonPayableOverrides & { from?: string }) {
-    return super.deploy(overrides || {}) as Promise<
-      Store & {
-        deploymentTransaction(): ContractTransactionResponse;
-      }
-    >;
+    return super.deploy(overrides || {}) as Promise<Store & { deploymentTransaction(): ContractTransactionResponse }>;
   }
   override connect(runner: ContractRunner | null): Store__factory {
     return super.connect(runner) as Store__factory;

@@ -202,12 +202,7 @@ const DashboardComicsPage = (): React.ReactNode => {
                         {renderSubItems}
                       </Grid>
                     </Stack>
-                    <Divider
-                      color="#363636"
-                      sx={{
-                        opacity: '0.6',
-                      }}
-                    />
+                    <Divider color="#363636" sx={{ opacity: '0.6' }} />
                   </Stack>
                 )}
                 <Grid container flexWrap="wrap" gap={2} justifyContent={{ xs: 'space-between', sm: 'inherit' }}>

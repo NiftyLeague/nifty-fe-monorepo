@@ -4,28 +4,42 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3000",
     "build": "next build",
     "clean": "rm -rf node_modules && rm -rf dist",
-    "start": "next start",
+    "dev": "next dev --port 3000",
+    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\"",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
-    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\"",
-    "type-check": "tsc --noEmit",
-    "postbuild": "next-sitemap --config next-sitemap.config.cjs"
+    "postbuild": "next-sitemap --config next-sitemap.config.cjs",
+    "start": "next start",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@emotion/cache": "^11.14.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
     "@google/model-viewer": "^4.1.0",
-    "@nl/theme": "workspace:^",
-    "@nl/ui": "workspace:^",
+    "@mui/icons-material": "^7.1.1",
+    "@mui/material": "^7.1.1",
+    "@mui/system": "^7.1.1",
+    "@nl/theme": "workspace:*",
+    "@nl/ui": "workspace:*",
     "@sentry/nextjs": "^9.24.0",
-    "next": "^15.3.3",
+    "classnames": "^2.5.1",
+    "next": "15.3.3",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
     "react-multi-carousel": "^2.8.6",
     "sharp": "^0.34.2",
-    "three": "^0.177.0"
+    "three": "^0.177.0",
+    "viem": "^2.30.6"
   },
   "devDependencies": {
     "@types/gtag.js": "^0.0.20",
+    "@types/node": "^22.15.29",
+    "@types/react": "19.1.6",
+    "@types/react-dom": "19.1.5",
+    "@types/three": "^0.177.0",
     "next-sitemap": "^4.2.3"
   }
 }

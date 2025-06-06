@@ -66,14 +66,7 @@ const FormControlSelect = ({
                 {textPrimary && (
                   <>
                     <InputAdornment position="start">{textPrimary}</InputAdornment>
-                    <Divider
-                      sx={{
-                        height: 28,
-                        m: 0.5,
-                        opacity: '0.6',
-                      }}
-                      orientation="vertical"
-                    />
+                    <Divider sx={{ height: 28, m: 0.5, opacity: '0.6' }} orientation="vertical" />
                   </>
                 )}
               </>
@@ -83,14 +76,7 @@ const FormControlSelect = ({
                 {secondaryIcon && <InputAdornment position="end">{secondaryIcon}</InputAdornment>}
                 {textSecondary && (
                   <>
-                    <Divider
-                      sx={{
-                        height: 28,
-                        m: 0.5,
-                        opacity: '0.6',
-                      }}
-                      orientation="vertical"
-                    />
+                    <Divider sx={{ height: 28, m: 0.5, opacity: '0.6' }} orientation="vertical" />
                     <InputAdornment position="end">{textSecondary}</InputAdornment>
                   </>
                 )}

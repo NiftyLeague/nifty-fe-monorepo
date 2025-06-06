@@ -30,9 +30,7 @@ export default function useTokenUSDPrice({ slug }: useTokenUSDPriceProps): Token
   const fetchTokenUSDPrice = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await fetch(CONVERT_TOKEN_TO_USD_URL + slug, {
-        method: 'GET',
-      });
+      const response = await fetch(CONVERT_TOKEN_TO_USD_URL + slug, { method: 'GET' });
       const json = await response.json();
       setPrice(json.fiat.usd);
     } catch (err) {
@@ -46,9 +44,5 @@ export default function useTokenUSDPrice({ slug }: useTokenUSDPriceProps): Token
     fetchTokenUSDPrice();
   }, [fetchTokenUSDPrice]);
 
-  return {
-    price,
-    refetch: fetchTokenUSDPrice,
-    loading,
-  };
+  return { price, refetch: fetchTokenUSDPrice, loading };
 }

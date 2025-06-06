@@ -13,26 +13,16 @@ const ProgressBar: FC<ProgressBarProps> = ({ value, children }) => {
   const { palette } = useTheme();
   const centerTextRef = useRef<HTMLParagraphElement>(null);
   const progressContainerRef = useRef<HTMLDivElement>(null);
-  const [rect, setRect] = useState<{
-    left: number;
-  }>({
-    left: 0,
-  });
+  const [rect, setRect] = useState<{ left: number }>({ left: 0 });
   useEffect(() => {
     if (centerTextRef.current && progressContainerRef.current) {
       const textRect = centerTextRef.current.getBoundingClientRect();
       const containerRect = progressContainerRef.current.getBoundingClientRect();
-      setRect({
-        left: textRect.left - containerRect.left,
-      });
+      setRect({ left: textRect.left - containerRect.left });
     }
   }, [value]);
   return (
-    <Box
-      sx={{
-        position: 'relative',
-      }}
-    >
+    <Box sx={{ position: 'relative' }}>
       <Box
         sx={{
           display: 'flex',
@@ -72,14 +62,7 @@ const ProgressBar: FC<ProgressBarProps> = ({ value, children }) => {
         borderRadius={3}
         height={16}
       >
-        <Typography
-          fontSize={10}
-          sx={{
-            position: 'absolute',
-            left: `${rect.left}px`,
-            whiteSpace: 'nowrap',
-          }}
-        >
+        <Typography fontSize={10} sx={{ position: 'absolute', left: `${rect.left}px`, whiteSpace: 'nowrap' }}>
           {children}
         </Typography>
       </Box>

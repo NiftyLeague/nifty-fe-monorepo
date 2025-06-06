@@ -30,12 +30,7 @@ export async function signMessage() {
     const nonce = `0x${crypto.randomBytes(4).toString('hex')}`;
     const message = generateMessage(address, nonce);
     const signature = await signer.signMessage(message);
-    return {
-      address,
-      message,
-      nonce,
-      signature,
-    };
+    return { address, message, nonce, signature };
   }
   return null;
 }

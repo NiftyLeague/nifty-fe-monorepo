@@ -2,10 +2,7 @@
 
 import { IconMail, Typography } from './../../index';
 
-export default {
-  title: 'General/Icon',
-  component: IconMail,
-};
+export default { title: 'General/Icon', component: IconMail };
 
 export const Default = (args: any) => (
   <div className="block font-sans">
@@ -17,10 +14,7 @@ export const Default = (args: any) => (
   </div>
 );
 
-Default.args = {
-  size: 16,
-  strokeWidth: 2,
-};
+Default.args = { size: 16, strokeWidth: 2 };
 
 // export const IconList = (args: any) => (
 //   <>
@@ -31,7 +25,7 @@ Default.args = {
 //     </div>
 //     <div className="flex flex-wrap font-sans">
 //       {LIST_ICONS.map((icon) => (
-//         <div className="m-2 shadow-lg rounded-lg w-36 h-36 flex flex-col justify-center items-center dark:text-white">
+//         <div className="m-2 shadow-lg rounded-lg w-36 h-36 flex flex-col justify-center items-center dark:text-light">
 //           <Icon type={icon} key={icon} {...args} />
 //           <span className="mt-2">{icon}</span>
 //         </div>

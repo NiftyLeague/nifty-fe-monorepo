@@ -1,8 +1,5 @@
 {
   "label": "FAQ",
   "position": 3,
-  "link": {
-    "type": "generated-index",
-    "description": "5 minutes to learn the most important Nifty League concepts."
-  }
+  "link": { "type": "generated-index", "description": "5 minutes to learn the most important Nifty League concepts." }
 }

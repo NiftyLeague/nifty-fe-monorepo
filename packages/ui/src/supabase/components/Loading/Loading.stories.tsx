@@ -3,10 +3,7 @@
 import { Loading } from '.';
 import { Card } from '../Card';
 
-export default {
-  title: 'Utilities/Loading',
-  component: Loading,
-};
+export default { title: 'Utilities/Loading', component: Loading };
 
 export const Default = (args: any) => {
   return (
@@ -18,6 +15,4 @@ export const Default = (args: any) => {
   );
 };
 
-Default.args = {
-  active: true,
-};
+Default.args = { active: true };

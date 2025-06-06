@@ -51,6 +51,7 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+.windsurf/
 
 # Sentry Config File
 .sentryclirc

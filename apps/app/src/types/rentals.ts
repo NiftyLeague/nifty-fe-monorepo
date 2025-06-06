@@ -24,13 +24,7 @@ export interface Rentals {
   last_charge_at: number;
   entry_price: number;
   earning_cap: number;
-  degen: {
-    id: string;
-    traits: string;
-    background: string;
-    tribe: string;
-    multiplier: number;
-  };
+  degen: { id: string; traits: string; background: string; tribe: string; multiplier: number };
   renter_id: string;
   user_id: string;
   is_daily: boolean;
@@ -41,18 +35,10 @@ export interface Rentals {
   entry_position: number;
   is_active: boolean;
   id: string;
-  shares: {
-    owner: number;
-    player: number;
-    renter?: number;
-  };
+  shares: { owner: number; player: number; renter?: number };
   name?: string;
   name_cased?: string;
-  accounts: {
-    owner: RentalAccount;
-    renter_user?: RentalAccount;
-    player: RentalAccount;
-  };
+  accounts: { owner: RentalAccount; renter_user?: RentalAccount; player: RentalAccount };
   daily_price?: number;
   daily_cap?: number;
   item_used?: string;

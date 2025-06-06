@@ -3,13 +3,7 @@
  */
 const NoContent = ({ text }: { text?: string }) => {
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        padding: '20px',
-      }}
-    >
+    <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
       <span>{text || 'No Content'}</span>
     </div>
   );

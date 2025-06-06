@@ -105,11 +105,7 @@ const Snackbar = () => {
                 )}
               </>
             }
-            sx={{
-              ...(alert.variant === 'outlined' && {
-                bgcolor: 'background.paper',
-              }),
-            }}
+            sx={{ ...(alert.variant === 'outlined' && { bgcolor: 'background.paper' }) }}
           >
             {message}
           </Alert>

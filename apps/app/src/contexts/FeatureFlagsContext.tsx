@@ -27,10 +27,7 @@ function useProcessFlagsFromEnv(key: string, defaultValue: FlagSet) {
 }
 
 export function FeatureFlagProvider({ children }: PropsWithChildren) {
-  const { flags } = useProcessFlagsFromEnv('NEXT_PUBLIC_FEATURE_FLAGS', {
-    displayMyItems: false,
-    enableEquip: false,
-  });
+  const { flags } = useProcessFlagsFromEnv('NEXT_PUBLIC_FEATURE_FLAGS', { displayMyItems: false, enableEquip: false });
 
   return <FeatureFlagContext.Provider value={{ flags }}>{children}</FeatureFlagContext.Provider>;
 }

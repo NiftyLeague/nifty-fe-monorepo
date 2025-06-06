@@ -22,10 +22,7 @@ const meta: Meta<typeof Radio.Group> = {
       options: ['tiny', 'small', 'medium', 'large', 'xlarge'],
       description: 'Size of the radio buttons',
     },
-    onChange: {
-      action: 'changed',
-      description: 'Callback when selection changes',
-    },
+    onChange: { action: 'changed', description: 'Callback when selection changes' },
   },
   args: {
     // Default args for all stories
@@ -41,16 +38,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const radioOptions = [
-  {
-    label: 'Comments',
-    description: 'Get notified when someone posts a comment.',
-    value: '1',
-  },
-  {
-    label: 'Candidates',
-    description: 'Get notified when a candidate applies for a job.',
-    value: '2',
-  },
+  { label: 'Comments', description: 'Get notified when someone posts a comment.', value: '1' },
+  { label: 'Candidates', description: 'Get notified when a candidate applies for a job.', value: '2' },
   {
     label: 'Offers',
     description: 'Get notified when a candidate accepts or rejects an offer.',
@@ -85,44 +74,21 @@ export const Default: Story = {
 
 export const HorizontalLayout: Story = {
   ...Default,
-  args: {
-    ...Default.args,
-    layout: 'horizontal',
-    label: 'Horizontal Radio Group',
-  },
+  args: { ...Default.args, layout: 'horizontal', label: 'Horizontal Radio Group' },
 };
 
 export const WithError: Story = {
   ...Default,
-  args: {
-    ...Default.args,
-    error: 'Please select an option',
-    label: 'Radio Group with Error',
-  },
+  args: { ...Default.args, error: 'Please select an option', label: 'Radio Group with Error' },
 };
 
 export const WithCustomLabels: Story = {
   args: {
     label: 'Pricing Plans',
     options: [
-      {
-        label: 'Unlimited',
-        beforeLabel: 'Up to 5 team members',
-        afterLabel: '$80/month',
-        value: 'unlimited',
-      },
-      {
-        label: 'Business',
-        beforeLabel: 'Up to 3 team members',
-        afterLabel: '$60/month',
-        value: 'business',
-      },
-      {
-        label: 'Basic',
-        beforeLabel: 'Solo user',
-        afterLabel: '$30/month',
-        value: 'basic',
-      },
+      { label: 'Unlimited', beforeLabel: 'Up to 5 team members', afterLabel: '$80/month', value: 'unlimited' },
+      { label: 'Business', beforeLabel: 'Up to 3 team members', afterLabel: '$60/month', value: 'business' },
+      { label: 'Basic', beforeLabel: 'Solo user', afterLabel: '$30/month', value: 'basic' },
     ],
   },
   render: args => (
@@ -146,9 +112,5 @@ export const WithCustomLabels: Story = {
 
 export const DisabledState: Story = {
   ...Default,
-  args: {
-    ...Default.args,
-    disabled: true,
-    label: 'Disabled Radio Group',
-  },
+  args: { ...Default.args, disabled: true, label: 'Disabled Radio Group' },
 };

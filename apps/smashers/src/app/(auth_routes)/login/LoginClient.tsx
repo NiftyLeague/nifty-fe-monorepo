@@ -6,7 +6,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { Card, Typography, Space } from '@nl/ui/supabase';
 import { PlayFabAuthForm } from '@nl/playfab/components';
-import BackButton from '@/components/BackButton';
+import BackButton from '@/components/Header/BackButton';
 import useFlags from '@/hooks/useFlags';
 import type { User } from '@nl/playfab/types';
 import SearchParamsHandler from './SearchParamsHandler';
@@ -25,15 +25,7 @@ export default function LoginClient({ sessionData }: { sessionData: SessionData 
         <SearchParamsHandler sessionData={sessionData} />
       </Suspense>
       <BackButton />
-      <div
-        style={{
-          display: 'flex',
-          maxWidth: '450px',
-          height: '100%',
-          margin: 'auto',
-          overflowY: 'auto',
-        }}
-      >
+      <div style={{ display: 'flex', maxWidth: '450px', height: '100%', margin: 'auto', overflowY: 'auto' }}>
         <Card style={{ margin: 'auto' }}>
           <Space direction="vertical" size={8}>
             <div>
@@ -42,18 +34,11 @@ export default function LoginClient({ sessionData }: { sessionData: SessionData 
                 alt="Company Logo"
                 width={50}
                 height={50}
-                style={{
-                  maxWidth: '100%',
-                  height: 'auto',
-                }}
+                style={{ maxWidth: '100%', height: 'auto' }}
               />
               <Typography.Title
                 level={3}
-                style={{
-                  marginTop: mobile ? 70 : 16,
-                  fontSize: mobile ? '1.15rem' : '1.35rem',
-                  whiteSpace: 'nowrap',
-                }}
+                style={{ marginTop: mobile ? 70 : 16, fontSize: mobile ? '1.15rem' : '1.35rem', whiteSpace: 'nowrap' }}
               >
                 Welcome to Nifty League
               </Typography.Title>

@@ -52,12 +52,7 @@ const SearchRental = ({ handleSearch, placeholder }: Props): React.ReactNode => 
         fullWidth
         sx={{ minWidth: '480px' }}
         slotProps={{
-          htmlInput: {
-            ref: inputEl,
-            onKeyDown: handleKeyDown,
-            onKeyUp: handleKeyUp,
-            onKeyPress: handleKeyPress,
-          },
+          htmlInput: { ref: inputEl, onKeyDown: handleKeyDown, onKeyUp: handleKeyUp, onKeyPress: handleKeyPress },
         }}
       />
     </FormControl>

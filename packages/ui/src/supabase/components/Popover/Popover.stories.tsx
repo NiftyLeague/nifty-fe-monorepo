@@ -7,10 +7,7 @@ import Typography from '../Typography';
 import { Popover } from '.';
 import { Input } from '../Input';
 
-export default {
-  title: 'Navigation/Popover',
-  component: Popover,
-};
+export default { title: 'Navigation/Popover', component: Popover };
 
 export const Default = (args: any) => (
   <div className="flex justify-center">

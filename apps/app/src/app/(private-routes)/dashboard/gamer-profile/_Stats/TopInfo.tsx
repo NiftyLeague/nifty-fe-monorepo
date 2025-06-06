@@ -51,9 +51,7 @@ const TopInfo = ({ profile, walletAddress }: TopInfoProps): React.ReactNode => {
               walletAddress.length - 1,
             )}`}{' '}
             <IconButton
-              sx={{
-                cursor: 'pointer',
-              }}
+              sx={{ cursor: 'pointer' }}
               aria-label="copy"
               onClick={() => walletAddress && copy(walletAddress)}
             >

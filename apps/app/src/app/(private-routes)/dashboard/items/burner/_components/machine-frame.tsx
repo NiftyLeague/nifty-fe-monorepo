@@ -1,9 +1,6 @@
 import Image from 'next/image';
 
-type MachineFrameProps = {
-  frames: string[];
-  interval?: number;
-};
+type MachineFrameProps = { frames: string[]; interval?: number };
 
 const MachineFrame = ({ frames, interval = 0 }: MachineFrameProps) => {
   const frame = frames[(interval + 1) % frames.length];

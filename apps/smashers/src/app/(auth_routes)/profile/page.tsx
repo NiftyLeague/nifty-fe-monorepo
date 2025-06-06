@@ -1,11 +1,17 @@
-import { redirect } from 'next/navigation';
-import { getSession } from '@/utils/session';
 import dynamic from 'next/dynamic';
+import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
+import { getSession } from '@/utils/session';
+
+const Loading = () => (
+  <div style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <h3>Loading Profile...</h3>
+  </div>
+);
 
 // Dynamically import the ProfileClient component with loading fallback
 const ProfileClient = dynamic(() => import('./ProfileClient'), {
-  loading: () => <div style={{ padding: '20px', textAlign: 'center' }}>Loading profile...</div>,
+  loading: Loading,
   ssr: true, // Keep server-side rendering for initial load performance
 });
 
@@ -17,13 +23,10 @@ export default async function ProfilePage() {
   }
 
   // Extract only the necessary user data to avoid serialization issues
-  const userData = {
-    ...session.user,
-    // Ensure we're only passing serializable data
-  };
+  const userData = { ...session.user };
 
   return (
-    <Suspense fallback={<div style={{ padding: '20px', textAlign: 'center' }}>Loading profile...</div>}>
+    <Suspense fallback={<Loading />}>
       <ProfileClient user={userData} />
     </Suspense>
   );

@@ -7,21 +7,11 @@ import type { NonPayableOverrides } from '../../../../common';
 import type { Bytes, BytesInterface } from '../../../../src/contracts/utils/Bytes';
 
 const _abi = [
-  {
-    inputs: [],
-    name: 'InvalidInput',
-    type: 'error',
-  },
+  { inputs: [], name: 'InvalidInput', type: 'error' },
   {
     inputs: [],
     name: 'alphabet',
-    outputs: [
-      {
-        internalType: 'bytes',
-        name: '',
-        type: 'bytes',
-      },
-    ],
+    outputs: [{ internalType: 'bytes', name: '', type: 'bytes' }],
     stateMutability: 'view',
     type: 'function',
   },
@@ -49,11 +39,7 @@ export class Bytes__factory extends ContractFactory {
     return super.getDeployTransaction(overrides || {});
   }
   override deploy(overrides?: NonPayableOverrides & { from?: string }) {
-    return super.deploy(overrides || {}) as Promise<
-      Bytes & {
-        deploymentTransaction(): ContractTransactionResponse;
-      }
-    >;
+    return super.deploy(overrides || {}) as Promise<Bytes & { deploymentTransaction(): ContractTransactionResponse }>;
   }
   override connect(runner: ContractRunner | null): Bytes__factory {
     return super.connect(runner) as Bytes__factory;

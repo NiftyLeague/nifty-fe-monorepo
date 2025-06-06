@@ -7,14 +7,7 @@ const BInputLabel = styled((props: MUIInputLabelProps) => <MuiInputLabel {...pro
   color: theme.palette.text.primary,
   fontWeight: 500,
   marginBottom: 8,
-  variants: [
-    {
-      props: ({ horizontal }) => horizontal,
-      style: {
-        marginBottom: 0,
-      },
-    },
-  ],
+  variants: [{ props: ({ horizontal }) => horizontal, style: { marginBottom: 0 } }],
 }));
 
 interface MUIInputLabelProps extends InputLabelProps {

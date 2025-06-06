@@ -62,15 +62,7 @@ export const IMXProvider = ({ children }: PropsWithChildren): React.ReactNode =>
   }, [address, imxContracts, imxSigner, passportNetwork, passportProvider]);
 
   return (
-    <IMXContext.Provider
-      value={{
-        address,
-        imxChainId,
-        imxContracts,
-        imxSigner,
-        passportProvider,
-      }}
-    >
+    <IMXContext.Provider value={{ address, imxChainId, imxContracts, imxSigner, passportProvider }}>
       {children}
     </IMXContext.Provider>
   );

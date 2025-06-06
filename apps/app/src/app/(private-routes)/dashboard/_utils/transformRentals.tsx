@@ -82,9 +82,7 @@ export const transformRentals = (rows: Rentals[], userId: string, filterCategory
         weeklyFee = 0;
       }
 
-      const [nicknames] = useLocalStorage<{
-        [address: string]: string;
-      }>('player-nicknames', {});
+      const [nicknames] = useLocalStorage<{ [address: string]: string }>('player-nicknames', {});
 
       const costs = amIRenter ? charges : 0;
       const rentalFeeEarning = amIOwner ? entry_price * 0.45 + (charges - entry_price) * 0.1 : 0;

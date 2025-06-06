@@ -1,0 +1,28 @@
+/* ==============================|| TAILWIND CSS ||============================== */
+
+@import 'tailwindcss';
+/*
+ * Sorted by standard Tailwind cascade order:
+ * @layer theme, base, components, utilities;
+ */
+@import './01_tailwind.theme.css';
+@import './02_tailwind.base.css';
+@import './03_tailwind.components.css';
+@import './04_tailwind.utilities.css';
+@import './05_tailwind.animate.css';
+
+/* ==============================|| SCROLL STYLE ||============================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-gray-950);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-purple-600);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-purple-400);
+}

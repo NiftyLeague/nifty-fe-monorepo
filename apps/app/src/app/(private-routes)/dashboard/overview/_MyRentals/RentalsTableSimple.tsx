@@ -16,15 +16,7 @@ const RentalsTableSimple = ({ rentals, columns }: RentalsTableSimpleProps): Reac
   const { palette } = useTheme();
 
   return (
-    <Paper
-      sx={{
-        width: '100%',
-        overflow: 'hidden',
-        backgroundColor: 'transparent',
-        borderRadius: 0,
-        height: '100%',
-      }}
-    >
+    <Paper sx={{ width: '100%', overflow: 'hidden', backgroundColor: 'transparent', borderRadius: 0, height: '100%' }}>
       <TableContainer
         sx={{
           maxHeight: 750,

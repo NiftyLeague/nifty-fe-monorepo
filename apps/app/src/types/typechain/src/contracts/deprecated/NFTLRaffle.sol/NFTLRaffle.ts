@@ -24,11 +24,7 @@ import type {
 } from '../../../../common';
 
 export declare namespace NFTLRaffle {
-  export type WinnerInfoStruct = {
-    ticketId: BigNumberish;
-    winner: AddressLike;
-    prizeTokenId: BigNumberish;
-  };
+  export type WinnerInfoStruct = { ticketId: BigNumberish; winner: AddressLike; prizeTokenId: BigNumberish };
 
   export type WinnerInfoStructOutput = [ticketId: bigint, winner: string, prizeTokenId: bigint] & {
     ticketId: bigint;
@@ -472,13 +468,7 @@ export interface NFTLRaffle extends BaseContract {
 
   winners: TypedContractMethod<
     [arg0: BigNumberish],
-    [
-      [bigint, string, bigint] & {
-        ticketId: bigint;
-        winner: string;
-        prizeTokenId: bigint;
-      },
-    ],
+    [[bigint, string, bigint] & { ticketId: bigint; winner: string; prizeTokenId: bigint }],
     'view'
   >;
 
@@ -563,15 +553,11 @@ export interface NFTLRaffle extends BaseContract {
     nameOrSignature: 'updateTotalWinnerTicketCount',
   ): TypedContractMethod<[_totalWinnerTicketCount: BigNumberish], [void], 'nonpayable'>;
   getFunction(nameOrSignature: 'userDeposits'): TypedContractMethod<[user: AddressLike], [bigint], 'view'>;
-  getFunction(nameOrSignature: 'winners'): TypedContractMethod<
+  getFunction(
+    nameOrSignature: 'winners',
+  ): TypedContractMethod<
     [arg0: BigNumberish],
-    [
-      [bigint, string, bigint] & {
-        ticketId: bigint;
-        winner: string;
-        prizeTokenId: bigint;
-      },
-    ],
+    [[bigint, string, bigint] & { ticketId: bigint; winner: string; prizeTokenId: bigint }],
     'view'
   >;
   getFunction(nameOrSignature: 'withdrawLINK'): TypedContractMethod<[_to: AddressLike], [void], 'nonpayable'>;

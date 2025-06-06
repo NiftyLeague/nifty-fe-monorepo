@@ -51,14 +51,7 @@ export const AuthTokenProvider = ({ children }: PropsWithChildren) => {
   }, [events, isLoggedIn]);
 
   return (
-    <AuthTokenContext.Provider
-      value={{
-        authToken,
-        handleConnectWallet,
-        isConnected,
-        isLoggedIn,
-      }}
-    >
+    <AuthTokenContext.Provider value={{ authToken, handleConnectWallet, isConnected, isLoggedIn }}>
       {children}
     </AuthTokenContext.Provider>
   );

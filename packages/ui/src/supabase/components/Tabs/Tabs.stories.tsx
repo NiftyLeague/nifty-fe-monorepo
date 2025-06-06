@@ -6,10 +6,7 @@ import Typography from '../Typography';
 
 import { Tabs } from './';
 
-export default {
-  title: 'Displays/Tabs',
-  component: Tabs,
-};
+export default { title: 'Displays/Tabs', component: Tabs };
 
 export const Default = (args: any) => (
   <Tabs defaultActiveId={'panel-1'} {...args}>
@@ -135,32 +132,10 @@ export const OneTab = () => (
 );
 
 Default.args = {};
-Underlined.args = {
-  type: 'underlined',
-};
-WithIcons.args = {
-  type: 'underlined',
-};
-LargeButtons.args = {
-  type: 'underlined',
-  size: 'large',
-};
-BlockTabs.args = {
-  type: 'underlined',
-  block: true,
-};
-Scroll.args = {
-  type: 'underlined',
-  block: true,
-  scrollable: true,
-};
-addOnBefore.args = {
-  type: 'underlined',
-  size: 'large',
-  addOnBefore: <Button type="outline">Left button</Button>,
-};
-addOnAfter.args = {
-  type: 'underlined',
-  size: 'large',
-  addOnAfter: <Button type="outline">Right button</Button>,
-};
+Underlined.args = { type: 'underlined' };
+WithIcons.args = { type: 'underlined' };
+LargeButtons.args = { type: 'underlined', size: 'large' };
+BlockTabs.args = { type: 'underlined', block: true };
+Scroll.args = { type: 'underlined', block: true, scrollable: true };
+addOnBefore.args = { type: 'underlined', size: 'large', addOnBefore: <Button type="outline">Left button</Button> };
+addOnAfter.args = { type: 'underlined', size: 'large', addOnAfter: <Button type="outline">Right button</Button> };

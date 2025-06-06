@@ -77,9 +77,7 @@ const Sidebar = () => {
             background: theme.palette.background.default,
             color: theme.palette.text.primary,
             borderRight: 'none',
-            [theme.breakpoints.up('md')]: {
-              top: appHeaderHeight,
-            },
+            [theme.breakpoints.up('md')]: { top: appHeaderHeight },
           },
         }}
         ModalProps={{ keepMounted: true }}

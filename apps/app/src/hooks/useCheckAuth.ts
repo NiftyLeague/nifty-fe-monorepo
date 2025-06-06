@@ -24,9 +24,7 @@ const useCheckAuth = () => {
         return true;
       }
 
-      const result = await fetch(ADDRESS_VERIFICATION, {
-        headers: { authorizationToken: authToken },
-      })
+      const result = await fetch(ADDRESS_VERIFICATION, { headers: { authorizationToken: authToken } })
         .then(res => {
           if (res.status === 404) return null;
           return res.text();

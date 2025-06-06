@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import Image from 'next/image';
 import DoneIcon from '@mui/icons-material/Done';
-import styles from './index.module.scss';
+import styles from './index.module.css';
 
 interface RoadmapCardProps {
   body: React.ReactNode;
@@ -43,10 +43,7 @@ const RoadmapCard = ({
             width={image.width}
             height={image.height}
             sizes="100vw"
-            style={{
-              width: '100%',
-              height: 'auto',
-            }}
+            style={{ width: '100%', height: 'auto' }}
           />
         </div>
       )}
@@ -69,10 +66,7 @@ const RoadmapCard = ({
           width={200}
           height={200}
           sizes="100vw"
-          style={{
-            width: '100%',
-            height: 'auto',
-          }}
+          style={{ width: '100%', height: 'auto' }}
         />
       </div>
     ) : null}

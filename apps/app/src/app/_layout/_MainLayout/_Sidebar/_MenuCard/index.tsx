@@ -25,16 +25,12 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   borderRadius: 30,
   [`&.${linearProgressClasses.colorPrimary}`]: {
     backgroundColor: theme.palette.grey[50],
-    ...theme.applyStyles('dark', {
-      backgroundColor: theme.palette.grey[400],
-    }),
+    ...theme.applyStyles('dark', { backgroundColor: theme.palette.grey[400] }),
   },
   [`&.${linearProgressClasses.bar}`]: {
     borderRadius: 5,
     backgroundColor: theme.palette.primary.main,
-    ...theme.applyStyles('dark', {
-      backgroundColor: theme.palette.primary.dark,
-    }),
+    ...theme.applyStyles('dark', { backgroundColor: theme.palette.primary.dark }),
   },
 }));
 
@@ -52,9 +48,7 @@ const CardStyle = styled(Card)(({ theme }) => ({
     borderRadius: '50%',
     top: '-105px',
     right: '-96px',
-    ...theme.applyStyles('dark', {
-      background: theme.palette.dark.dark,
-    }),
+    ...theme.applyStyles('dark', { background: theme.palette.dark.dark }),
   },
 }));
 

@@ -5,7 +5,7 @@ const MintOMatic = () => {
   return (
     <>
       <AnimatedWrapper parallax parallaxDirection="top" transitionAmount="medium">
-        <div className="position-relative">
+        <div className="relative">
           <Image
             src="/img/mint-o-matic/animated/top.webp"
             alt="NFTL Token Top"
@@ -13,15 +13,12 @@ const MintOMatic = () => {
             height={1778}
             className="pixelated"
             sizes="100vw"
-            style={{
-              width: '100%',
-              height: 'auto',
-            }}
+            style={{ width: '100%', height: 'auto' }}
           />
         </div>
       </AnimatedWrapper>
       <AnimatedWrapper>
-        <div className="position-absolute home-nftl-token-image flex-grow-1">
+        <div className="absolute home-nftl-token-image flex-grow">
           <Image
             src="/img/mint-o-matic/animated/nftl-token-coin.webp"
             alt="NFTL Token Coin"
@@ -29,15 +26,12 @@ const MintOMatic = () => {
             height={1778}
             className="pixelated"
             sizes="100vw"
-            style={{
-              width: '100%',
-              height: 'auto',
-            }}
+            style={{ width: '100%', height: 'auto' }}
           />
         </div>
       </AnimatedWrapper>
       <AnimatedWrapper>
-        <div className="position-absolute animation-visible home-nftl-token-image flex-grow-1">
+        <div className="absolute animation-visible home-nftl-token-image flex-grow">
           <Image
             src="/img/mint-o-matic/animated/nftl-token-tears.webp"
             alt="NFTL Token Tears"
@@ -45,15 +39,12 @@ const MintOMatic = () => {
             height={1778}
             className="pixelated"
             sizes="100vw"
-            style={{
-              width: '100%',
-              height: 'auto',
-            }}
+            style={{ width: '100%', height: 'auto' }}
           />
         </div>
       </AnimatedWrapper>
       <AnimatedWrapper parallax parallaxDirection="right" transitionAmount="medium">
-        <div className="parallax-child position-absolute home-nftl-token-image home-nftl-token-bottom-image flex-grow-1">
+        <div className="parallax-child absolute home-nftl-token-image home-nftl-token-bottom-image flex-grow">
           <Image
             src="/img/mint-o-matic/animated/bottom.webp"
             alt="NFTL Token Bottom"
@@ -61,10 +52,7 @@ const MintOMatic = () => {
             height={1778}
             className="pixelated"
             sizes="100vw"
-            style={{
-              width: '100%',
-              height: 'auto',
-            }}
+            style={{ width: '100%', height: 'auto' }}
           />
         </div>
       </AnimatedWrapper>

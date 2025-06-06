@@ -5,10 +5,7 @@ import { IconBook } from '../../index';
 
 const { Option, OptGroup } = Select;
 
-export default {
-  title: 'Data Input/Select',
-  component: Select,
-};
+export default { title: 'Data Input/Select', component: Select };
 
 export const Default = (args: any) => (
   <Select {...args}>

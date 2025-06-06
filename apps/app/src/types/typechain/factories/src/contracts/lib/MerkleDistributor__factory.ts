@@ -9,77 +9,30 @@ import type { MerkleDistributor, MerkleDistributorInterface } from '../../../../
 const _abi = [
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: 'token_',
-        type: 'address',
-      },
-      {
-        internalType: 'bytes32',
-        name: 'merkleRoot_',
-        type: 'bytes32',
-      },
+      { internalType: 'address', name: 'token_', type: 'address' },
+      { internalType: 'bytes32', name: 'merkleRoot_', type: 'bytes32' },
     ],
     stateMutability: 'nonpayable',
     type: 'constructor',
   },
-  {
-    inputs: [],
-    name: 'AlreadyClaimed',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'InvalidProof',
-    type: 'error',
-  },
+  { inputs: [], name: 'AlreadyClaimed', type: 'error' },
+  { inputs: [], name: 'InvalidProof', type: 'error' },
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'index',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'amount',
-        type: 'uint256',
-      },
+      { indexed: false, internalType: 'uint256', name: 'index', type: 'uint256' },
+      { indexed: false, internalType: 'address', name: 'account', type: 'address' },
+      { indexed: false, internalType: 'uint256', name: 'amount', type: 'uint256' },
     ],
     name: 'Claimed',
     type: 'event',
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'index',
-        type: 'uint256',
-      },
-      {
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: 'amount',
-        type: 'uint256',
-      },
-      {
-        internalType: 'bytes32[]',
-        name: 'merkleProof',
-        type: 'bytes32[]',
-      },
+      { internalType: 'uint256', name: 'index', type: 'uint256' },
+      { internalType: 'address', name: 'account', type: 'address' },
+      { internalType: 'uint256', name: 'amount', type: 'uint256' },
+      { internalType: 'bytes32[]', name: 'merkleProof', type: 'bytes32[]' },
     ],
     name: 'claim',
     outputs: [],
@@ -87,47 +40,23 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'index',
-        type: 'uint256',
-      },
-    ],
+    inputs: [{ internalType: 'uint256', name: 'index', type: 'uint256' }],
     name: 'isClaimed',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'merkleRoot',
-    outputs: [
-      {
-        internalType: 'bytes32',
-        name: '',
-        type: 'bytes32',
-      },
-    ],
+    outputs: [{ internalType: 'bytes32', name: '', type: 'bytes32' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'token',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
@@ -159,9 +88,7 @@ export class MerkleDistributor__factory extends ContractFactory {
   }
   override deploy(token_: AddressLike, merkleRoot_: BytesLike, overrides?: NonPayableOverrides & { from?: string }) {
     return super.deploy(token_, merkleRoot_, overrides || {}) as Promise<
-      MerkleDistributor & {
-        deploymentTransaction(): ContractTransactionResponse;
-      }
+      MerkleDistributor & { deploymentTransaction(): ContractTransactionResponse }
     >;
   }
   override connect(runner: ContractRunner | null): MerkleDistributor__factory {

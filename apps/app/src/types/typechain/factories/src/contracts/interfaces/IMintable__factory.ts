@@ -8,21 +8,9 @@ import type { IMintable, IMintableInterface } from '../../../../src/contracts/in
 const _abi = [
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: 'to',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: 'quantity',
-        type: 'uint256',
-      },
-      {
-        internalType: 'bytes',
-        name: 'mintingBlob',
-        type: 'bytes',
-      },
+      { internalType: 'address', name: 'to', type: 'address' },
+      { internalType: 'uint256', name: 'quantity', type: 'uint256' },
+      { internalType: 'bytes', name: 'mintingBlob', type: 'bytes' },
     ],
     name: 'mintFor',
     outputs: [],

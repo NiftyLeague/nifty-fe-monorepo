@@ -4,8 +4,8 @@ import useUnityPreConfig from '@/hooks/useUnityPreConfig';
 import useUnityEventHandlers from '@/hooks/useUnityEventHandlers';
 import useUnitySafeClose from '@/hooks/useUnitySafeClose';
 // import { PlayFabAuthForm } from '@nl/playfab/components';
-import Preloader from './Preloader';
-import styles from '@/styles/modal.module.css';
+import Preloader from '@/components/Preloader';
+import styles from '@/components/Modal/index.module.css';
 
 const Game = ({ closeGame }: { closeGame: () => void }) => {
   //   const { account, publisherData } = PlayFabAuthForm.useUserContext();
@@ -22,12 +22,7 @@ const Game = ({ closeGame }: { closeGame: () => void }) => {
     unload,
   } = useUnityPreConfig();
 
-  useUnityEventHandlers({
-    address,
-    authToken,
-    addEventListener,
-    removeEventListener,
-  });
+  useUnityEventHandlers({ address, authToken, addEventListener, removeEventListener });
 
   useUnitySafeClose({ closeGame, unload });
 

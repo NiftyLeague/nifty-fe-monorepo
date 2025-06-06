@@ -1,5 +1,6 @@
 'use client';
 
+import type { PropsWithChildren } from 'react';
 import { createContext, useCallback, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { SnackbarProvider } from 'notistack';
@@ -12,9 +13,7 @@ import type { User, UserContextType } from '../../types';
 
 export const UserContext = createContext<UserContextType>(USER_CONTEXT_INITIAL_STATE);
 
-type Props = { [propName: string]: unknown };
-
-export const UserContextProvider = (props: Props): React.ReactNode => {
+export const UserContextProvider = (props: PropsWithChildren) => {
   const searchParams = useSearchParams();
   const gameToken = searchParams.get('game-token');
   const { user, mutateUser } = useUserSession();
@@ -77,7 +76,7 @@ export const UserContextProvider = (props: Props): React.ReactNode => {
 
   return (
     <SnackbarProvider maxSnack={3} autoHideDuration={5000}>
-      <UserContext.Provider value={value} {...props} />;
+      <UserContext.Provider value={value} {...props} />
     </SnackbarProvider>
   );
 };

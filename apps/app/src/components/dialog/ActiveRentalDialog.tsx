@@ -37,12 +37,7 @@ const ActiveRentalDialog = ({ degenId, rental }: ActiveRentalDialogProps) => {
               Welcome back DEGEN!
             </Typography>
             <Typography
-              sx={{
-                fontSize: '16px',
-                lineHeight: '20px',
-                marginTop: '24px',
-                marginBottom: '30px',
-              }}
+              sx={{ fontSize: '16px', lineHeight: '20px', marginTop: '24px', marginBottom: '30px' }}
               fontWeight={700}
             >
               Your active{' '}
@@ -70,21 +65,9 @@ const ActiveRentalDialog = ({ degenId, rental }: ActiveRentalDialogProps) => {
                 )}
               </ProgressBar>
             </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-end',
-                marginTop: '14px',
-              }}
-            >
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', marginTop: '14px' }}>
               <DegenImage
-                sx={{
-                  width: '174px',
-                  height: 'auto',
-                  marginTop: '16px',
-                  borderRadius: '8px',
-                }}
+                sx={{ width: '174px', height: 'auto', marginTop: '16px', borderRadius: '8px' }}
                 tokenId={degenId}
               />
             </Box>

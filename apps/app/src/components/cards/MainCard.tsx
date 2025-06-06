@@ -14,9 +14,7 @@ import {
 } from '@mui/material';
 
 // constant
-const headerSX = {
-  '& .MuiCardHeader-action': { mr: 0 },
-};
+const headerSX = { '& .MuiCardHeader-action': { mr: 0 } };
 
 // ==============================|| CUSTOM MAIN CARD ||============================== //
 
@@ -82,13 +80,7 @@ const MainCard = forwardRef(
         )}
 
         {/* content & header divider */}
-        {title && (
-          <Divider
-            sx={{
-              opacity: '0.6',
-            }}
-          />
-        )}
+        {title && <Divider sx={{ opacity: '0.6' }} />}
 
         {/* card content */}
         {content && (

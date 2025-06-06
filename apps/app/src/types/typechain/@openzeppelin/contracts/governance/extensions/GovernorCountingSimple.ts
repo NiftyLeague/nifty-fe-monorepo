@@ -448,13 +448,7 @@ export interface GovernorCountingSimple extends BaseContract {
 
   proposalVotes: TypedContractMethod<
     [proposalId: BigNumberish],
-    [
-      [bigint, bigint, bigint] & {
-        againstVotes: bigint;
-        forVotes: bigint;
-        abstainVotes: bigint;
-      },
-    ],
+    [[bigint, bigint, bigint] & { againstVotes: bigint; forVotes: bigint; abstainVotes: bigint }],
     'view'
   >;
 
@@ -527,7 +521,9 @@ export interface GovernorCountingSimple extends BaseContract {
     'nonpayable'
   >;
   getFunction(nameOrSignature: 'clock'): TypedContractMethod<[], [bigint], 'view'>;
-  getFunction(nameOrSignature: 'eip712Domain'): TypedContractMethod<
+  getFunction(
+    nameOrSignature: 'eip712Domain',
+  ): TypedContractMethod<
     [],
     [
       [string, string, string, bigint, string, string, bigint[]] & {
@@ -591,15 +587,11 @@ export interface GovernorCountingSimple extends BaseContract {
   getFunction(nameOrSignature: 'proposalProposer'): TypedContractMethod<[proposalId: BigNumberish], [string], 'view'>;
   getFunction(nameOrSignature: 'proposalSnapshot'): TypedContractMethod<[proposalId: BigNumberish], [bigint], 'view'>;
   getFunction(nameOrSignature: 'proposalThreshold'): TypedContractMethod<[], [bigint], 'view'>;
-  getFunction(nameOrSignature: 'proposalVotes'): TypedContractMethod<
+  getFunction(
+    nameOrSignature: 'proposalVotes',
+  ): TypedContractMethod<
     [proposalId: BigNumberish],
-    [
-      [bigint, bigint, bigint] & {
-        againstVotes: bigint;
-        forVotes: bigint;
-        abstainVotes: bigint;
-      },
-    ],
+    [[bigint, bigint, bigint] & { againstVotes: bigint; forVotes: bigint; abstainVotes: bigint }],
     'view'
   >;
   getFunction(

@@ -100,10 +100,7 @@ interface CharacterCreatorProps extends CharacterCreatorContainerProps {
   unityContext: UnityContext;
 }
 
-type MintEvent = CustomEvent<{
-  callback: (reset: string) => void;
-  traits: TraitArray;
-}>;
+type MintEvent = CustomEvent<{ callback: (reset: string) => void; traits: TraitArray }>;
 
 const CharacterCreator = memo(
   ({ isLoaded, isPortrait, onMintCharacter, setLoaded, setProgress, unityContext }: CharacterCreatorProps) => {
@@ -230,11 +227,7 @@ const CharacterCreator = memo(
           <Unity
             className="character-canvas"
             unityContext={unityContext}
-            style={{
-              width,
-              height,
-              visibility: isLoaded ? 'visible' : 'hidden',
-            }}
+            style={{ width, height, visibility: isLoaded ? 'visible' : 'hidden' }}
           />
         </div>
         {removedTraitsCallback.current && refreshKey ? (

@@ -53,13 +53,7 @@ export default function HomepageHeader() {
     <DocsHeader>
       <HeaderBanner>
         <Heading as="h1">{siteConfig.title}</Heading>
-        <p
-          style={{
-            maxWidth: '640px',
-            marginTop: '1rem',
-            fontWeight: 500,
-          }}
-        >
+        <p style={{ maxWidth: '640px', marginTop: '1rem', fontWeight: 500 }}>
           The pages that follow contain comprehensive documentation of the Nifty League ecosystem. If you are new to
           Nifty League, you might want to check out our{' '}
           <Link style={{ color: '#ff007a' }} to="/docs/faq/general">

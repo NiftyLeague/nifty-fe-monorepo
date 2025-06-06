@@ -10,21 +10,9 @@ import type {
 
 const _abi = [
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'target',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: 'target', type: 'address' }],
     name: 'isAllowlisted',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function',
   },

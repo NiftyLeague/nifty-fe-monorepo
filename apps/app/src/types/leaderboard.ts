@@ -52,11 +52,7 @@ export enum TimeFilter {
   AllTime = 'All Time',
 }
 
-export type LeaderboardGame = {
-  key: string;
-  display: Game;
-  tables: TableType[];
-};
+export type LeaderboardGame = { key: string; display: Game; tables: TableType[] };
 
 export type Order = 'asc' | 'desc';
 

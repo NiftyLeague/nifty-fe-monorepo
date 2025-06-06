@@ -1,10 +1,8 @@
 # Nifty League Frontend Monorepo
 
-[![Validate, lint, and test on every push](https://github.com/NiftyLeague/nifty-fe-monorepo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/NiftyLeague/nifty-fe-monorepo/actions/workflows/ci.yml)
-
 [![Algolia Search](https://github.com/NiftyLeague/nifty-fe-monorepo/actions/workflows/search.yaml/badge.svg?branch=main)](https://github.com/NiftyLeague/nifty-fe-monorepo/actions/workflows/search.yaml)
-
 [![CodeQL](https://github.com/NiftyLeague/nifty-fe-monorepo/actions/workflows/github-code-scanning/codeql/badge.svg?branch=main)](https://github.com/NiftyLeague/nifty-fe-monorepo/actions/workflows/github-code-scanning/codeql)
+[![CI](https://github.com/NiftyLeague/nifty-fe-monorepo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/NiftyLeague/nifty-fe-monorepo/actions/workflows/ci.yml)
 
 > Built with [Turborepo](https://turbo.build/)!
 
@@ -26,6 +24,7 @@ This Turborepo includes the following apps/packages:
 - `@nl/playfab`: a [PlayFab](https://playfab.com/) client API for our game services. Includes auth UI components for PlayFab login.
 - `@nl/prettier-config`: global [Prettier](https://prettier.io/) config overrides for code formatting
 - `@nl/theme`: a common theme wrapper for [Next.js](https://nextjs.org/) apps using [Material-UI](https://mui.com/material-ui/)
+- `@nl/tailwind-config`: global [Tailwind CSS](https://tailwindcss.com/) configs `tailwind.config.js`
 - `@nl/typescript-config`: global [TypeScript](https://www.typescriptlang.org/) configs `tsconfig.json`
 - `@nl/ui`: a stub [React](https://react.dev/) component library shared by all applications
 
@@ -46,6 +45,9 @@ This Turborepo has several tools already setup for you:
 - [TypeScript](https://www.typescriptlang.org/) for static type checking
 - [ESLint](https://eslint.org/) for code linting
 - [Prettier](https://prettier.io) for opinionated code formatting
+- [Turbo](https://turbo.build/) for parallelizing and caching your build steps
+- [Syncpack](https://syncpack.io/) for managing dependencies
+- [Tailwind CSS](https://tailwindcss.com/) for style utility classes
 
 ## Getting Started
 
@@ -129,7 +131,32 @@ To run all of the above test commands together, run the following command:
 turbo test
 ```
 
-### Updating dependencies
+### Managing dependencies
+
+We use [Syncpack](https://jamiemason.github.io/syncpack/) to ensure consistent dependency versions.
+
+`syncpack lint`
+
+Lint all versions and ranges and exit with 0 or 1 based on whether all files match your Syncpack configuration file.
+
+`syncpack fix-mismatches`
+
+Fix all mismatches in your dependencies uncovered by `syncpack lint`.
+
+`syncpack format`
+
+Format all package.json files to match our Syncpack configuration file `.syncpackrc.ts`.
+
+`syncpack list`
+
+Query and inspect all dependencies in our project, both valid and invalid.
+
+`syncpack update`
+
+Update all dependencies to the latest versions on the npm registry.  
+This covers dev, prod, and peer dependencies and updates all apps/packages recursively.
+
+### Updating dependencies via pnpm instead
 
 `--recursive, -r`
 

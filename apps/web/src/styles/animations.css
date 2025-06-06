@@ -1,25 +1,15 @@
-/*************************************** Animation Classes **********************************************/
+/* ==============================|| ANIMATIONS ||============================== */
 
 .sliding-nfts .sliding-background-wrapper-desktop {
   overflow: hidden;
   min-height: 520px;
-  background: linear-gradient(
-    128.04deg,
-    var(--custom-color-brand) 0%,
-    var(--custom-color-brand-secondary) 46.93%,
-    #ff00c7 100%
-  );
+  background: linear-gradient(128.04deg, var(--color-brand-purple) 0%, var(--color-brand-blue) 46.93%, #ff00c7 100%);
 }
 .sliding-nfts .sliding-background-wrapper-mobile {
   overflow: hidden;
   min-height: 106px;
   margin: 16px 0px;
-  background: linear-gradient(
-    128.04deg,
-    var(--custom-color-brand) 0%,
-    var(--custom-color-brand-secondary) 46.93%,
-    #ff00c7 100%
-  );
+  background: linear-gradient(128.04deg, var(--color-brand-purple) 0%, var(--color-brand-blue) 46.93%, #ff00c7 100%);
 }
 .sliding-background-wrapper-desktop .sliding-background {
   background: url(/img/degens/site-extras/degen-slider.webp) repeat-x;
@@ -176,12 +166,24 @@
     left: -100px;
   }
 
+  @keyframes ctrl-bounce {
+    0%,
+    50%,
+    100% {
+      transform: translateY(0);
+    }
+    25%,
+    75% {
+      transform: translateY(-20px);
+    }
+  }
+
   .animation-bounce {
-    animation: bounce 4s ease infinite;
+    animation: ctrl-bounce 4s ease infinite;
   }
 
   .animation-bounce2 {
-    animation: bounce 4s ease infinite;
+    animation: ctrl-bounce 4s ease infinite;
     animation-delay: 0.5s;
   }
 
@@ -209,18 +211,6 @@
     }
     100% {
       transform: translate3d(-3010px, 0, 0);
-    }
-  }
-
-  @keyframes bounce {
-    0%,
-    50%,
-    100% {
-      transform: translateY(0);
-    }
-    25%,
-    75% {
-      transform: translateY(-20px);
     }
   }
 

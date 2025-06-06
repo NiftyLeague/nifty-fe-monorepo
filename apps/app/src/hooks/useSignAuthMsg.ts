@@ -29,12 +29,7 @@ const useSignAuthMsg = (params: Params = {}) => {
     try {
       const result = await fetch(WALLET_VERIFICATION, {
         method: 'POST',
-        body: JSON.stringify({
-          token,
-          nonce,
-          verification,
-          address: addressToLower,
-        }),
+        body: JSON.stringify({ token, nonce, verification, address: addressToLower }),
       })
         .then(res => {
           if (res.status === 404) {

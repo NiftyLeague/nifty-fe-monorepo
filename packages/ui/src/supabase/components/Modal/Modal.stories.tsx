@@ -23,11 +23,7 @@ const meta: Meta<typeof Modal> = {
       </Typography.Text>
     ),
   },
-  argTypes: {
-    onCancel: { action: 'cancel' },
-    onConfirm: { action: 'confirm' },
-    icon: { control: false },
-  },
+  argTypes: { onCancel: { action: 'cancel' }, onConfirm: { action: 'confirm' }, icon: { control: false } },
 };
 
 export default meta;
@@ -37,19 +33,11 @@ type Story = StoryObj<typeof Modal>;
 const icon = <IconAlertCircle size="xlarge" />;
 
 // Basic Modal with icon
-export const Default: Story = {
-  args: {
-    icon,
-  },
-};
+export const Default: Story = { args: { icon } };
 
 // Modal with close button
 export const WithCloseButton: Story = {
-  args: {
-    closable: true,
-    icon,
-    children: 'This Modal has a close button on the top right',
-  },
+  args: { closable: true, icon, children: 'This Modal has a close button on the top right' },
 };
 
 // Modal with footer buttons
@@ -80,12 +68,7 @@ export const RightAlignedFooter: Story = {
 };
 
 // Modal without footer
-export const HideFooter: Story = {
-  args: {
-    icon,
-    hideFooter: true,
-  },
-};
+export const HideFooter: Story = { args: { icon, hideFooter: true } };
 
 // Modal with long content
 const LongContent = () => (
@@ -98,12 +81,7 @@ const LongContent = () => (
   </div>
 );
 
-export const LongModal: Story = {
-  args: {
-    icon,
-    children: <LongContent />,
-  },
-};
+export const LongModal: Story = { args: { icon, children: <LongContent /> } };
 
 // Modal with dropdown
 const DropdownModal = () => {
@@ -130,9 +108,7 @@ const DropdownModal = () => {
   );
 };
 
-export const WithDropdowns: Story = {
-  render: () => <DropdownModal />,
-};
+export const WithDropdowns: Story = { render: () => <DropdownModal /> };
 
 // Modal with custom footer
 const CustomFooterExample = () => {
@@ -167,9 +143,7 @@ const CustomFooterExample = () => {
   );
 };
 
-export const CustomFooter: Story = {
-  render: () => <CustomFooterExample />,
-};
+export const CustomFooter: Story = { render: () => <CustomFooterExample /> };
 
 // Payment success modal
 const PaymentSuccessModal = () => {
@@ -204,6 +178,4 @@ const PaymentSuccessModal = () => {
   );
 };
 
-export const PaymentSuccess: Story = {
-  render: () => <PaymentSuccessModal />,
-};
+export const PaymentSuccess: Story = { render: () => <PaymentSuccessModal /> };

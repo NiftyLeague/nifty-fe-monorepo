@@ -29,16 +29,9 @@ const classes = {
 };
 
 const StyledStack = styled(Stack)(() => ({
-  [`&.${classes.title}`]: {
-    fontSize: 16,
-    fontWeight: 700,
-    color: '#FFFFFF',
-  },
+  [`&.${classes.title}`]: { fontSize: 16, fontWeight: 700, color: 'var(--color-light)' },
 
-  [`&.${classes.label}`]: {
-    fontSize: 12,
-    color: '#FFFFFF',
-  },
+  [`&.${classes.label}`]: { fontSize: 12, color: 'var(--color-light)' },
 
   [`&.${classes.animTypeButton}`]: {
     borderRadius: '2px',
@@ -49,18 +42,14 @@ const StyledStack = styled(Stack)(() => ({
     background: 'transparent',
   },
 
-  [`&.${classes.animTypeActiveButton}`]: {
-    borderRadius: '2px',
-    height: 24,
-    fontSize: 12,
-  },
+  [`&.${classes.animTypeActiveButton}`]: { borderRadius: '2px', height: 24, fontSize: 12 },
 
   [`&.${classes.tag}`]: {
     width: 12,
     height: 12,
     borderRadius: '50%',
-    background: '#5820D6',
-    color: '#FFFFFF',
+    background: 'var(--color-brand-purple)',
+    color: 'var(--color-light)',
     fontSize: '8px',
     lineHeight: '8px',
     position: 'absolute',
@@ -154,9 +143,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
         open: true,
         message: 'Settings saved successfuly...',
         variant: 'alert',
-        alert: {
-          color: 'success',
-        },
+        alert: { color: 'success' },
         close: false,
       }),
     );
@@ -274,15 +261,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
         </Stack>
         <Stack mt={2.75} ml={3.75} mr={1.5}>
           {degen?.id && (
-            <DegenImage
-              sx={{
-                objectFit: 'cover',
-                width: 183,
-                height: 244,
-                borderRadius: '10px',
-              }}
-              tokenId={degen.id}
-            />
+            <DegenImage sx={{ objectFit: 'cover', width: 183, height: 244, borderRadius: '10px' }} tokenId={degen.id} />
           )}
           <Stack mt={1.25} gap={1.5} direction="row">
             <Button

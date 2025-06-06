@@ -34,11 +34,7 @@ export const NiftyButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
       link: 'text-primary underline-offset-4 hover:underline',
     };
 
-    const sizes = {
-      sm: 'h-9 px-3 text-sm',
-      md: 'h-10 py-2 px-4',
-      lg: 'h-11 px-8',
-    };
+    const sizes = { sm: 'h-9 px-3 text-sm', md: 'h-10 py-2 px-4', lg: 'h-11 px-8' };
 
     const width = fullWidth ? 'w-full' : '';
 

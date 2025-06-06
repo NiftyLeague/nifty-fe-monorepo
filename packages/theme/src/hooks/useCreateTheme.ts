@@ -54,12 +54,10 @@ const useCreateTheme = (): Theme => {
 
   // Then extend it with our custom properties
   return {
+    cssVariables: true,
     ...baseTheme,
     customShadows: shadows,
-    typography: {
-      ...baseTheme.typography,
-      ...typography,
-    },
+    typography: { ...baseTheme.typography, ...typography },
   } as Theme;
 };
 
