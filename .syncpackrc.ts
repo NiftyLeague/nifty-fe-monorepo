@@ -19,6 +19,7 @@ export default {
     'devDependencies',
     'peerDependencies',
     'pnpm',
+    'onlyBuiltDependencies',
     'browserslist',
     'engines',
     'packageManager',
