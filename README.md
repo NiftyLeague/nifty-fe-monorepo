@@ -215,6 +215,33 @@ pnpm --filter <app/package_selector> <command>
 - `typescript-config`
 - `ui`
 
+### CI Tests
+
+We have several GitHub Actions workflows pre-configured to run tests such as linting, formatting, and type checking on pull requests to `main` or `staging`. All tests must pass before a pull request can be merged.
+
+If you want to run the CI tests locally, you can use [act](https://github.com/nektar/act) to run the workflows.
+
+On **MacOS**, you can install act using Homebrew:
+
+```
+brew install act
+```
+
+On **Windows**, you can install act using Chocolatey:
+
+```
+choco install act
+```
+
+After you have act installed, you can run the following command to run the all CI tests locally via Docker:
+
+```
+pnpm act-ci
+```
+
+> **Note:**
+> GitHub automatically provides a `GITHUB_TOKEN` secret when running workflows inside GitHub. With act, you need to mannually provide yours each run. The above command will automatically prompt you to input your GitHub personal access token!
+
 ### Remote Caching
 
 Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
