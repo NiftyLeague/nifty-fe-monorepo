@@ -5,8 +5,8 @@ import Image from 'next/image';
 import cn from 'classnames';
 
 import { Container, useMediaQuery } from '@mui/material';
+import { AnimatedWrapper } from '@nl/ui/animations';
 import JobCard from '@/components/Careers/JobCard';
-import AnimatedWrapper from '@/components/AnimatedWrapper';
 import { JOBS } from '@/constants/careers';
 import styles from './index.module.css';
 
@@ -20,7 +20,7 @@ const Careers: NextPage = () => {
             <div
               className={cn(
                 styles.imageContainer,
-                'relative flex-grow-1 animated-fade-start animated-fade transition-delay-small',
+                'relative flex-grow-1 transition-fade-start transition-fade delay-lite',
               )}
             >
               <Image
@@ -39,11 +39,13 @@ const Careers: NextPage = () => {
           <div className={styles.description}>
             <div className="mb-3">
               <AnimatedWrapper>
-                <h3 className="animated-header-text animated-header-text-start whitespace-nowrap">JOIN NIFTY LEAGUE</h3>
+                <h3 className="transition-vertical-fade transition-vertical-fade-start whitespace-nowrap">
+                  JOIN NIFTY LEAGUE
+                </h3>
               </AnimatedWrapper>
             </div>
             <AnimatedWrapper>
-              <p className="animated-header-text animated-header-text-start transition-delay-small">
+              <p className="transition-vertical-fade transition-vertical-fade-start delay-lite">
                 Nifty League&apos;s mission is to create an open & efficient path for indie studios to develop & publish
                 groundbreaking games. We are backed by top VCs including RSE Ventures, Lerer Hippeau, Spartan Group, and
                 Gary Vaynerchuk, and are looking to bulk out our engineering team with world-class Unity game

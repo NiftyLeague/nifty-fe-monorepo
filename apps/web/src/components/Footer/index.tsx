@@ -4,7 +4,7 @@ import cn from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useMediaQuery } from '@mui/material';
-import AnimatedWrapper from '@/components/AnimatedWrapper';
+import { AnimatedWrapper } from '@nl/ui/animations';
 import ExternalIcon from '@/components/ExternalIcon';
 import { SOCIAL_LINKS } from '@/constants/socials';
 
@@ -14,9 +14,7 @@ export default function Footer({ classes }: { classes?: { footer?: string } }) {
   return (
     <footer className={cn(styles.footer, classes?.footer)}>
       <AnimatedWrapper>
-        <div
-          className={cn(styles.footer_container, 'mx-auto animated-fade animated-fade-start transition-delay-small')}
-        >
+        <div className={cn(styles.footer_container, 'mx-auto transition-fade transition-fade-start delay-lite')}>
           <div className="flex m-0 py-0 md:py-5 relative justify-between">
             <div className="px-0 pt-4 md:pt-0">
               <div className="flex flex-col m-0 p-0 relative">

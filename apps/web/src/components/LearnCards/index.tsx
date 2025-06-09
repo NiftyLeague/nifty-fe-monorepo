@@ -1,8 +1,8 @@
-import AnimatedWrapper from '@/components/AnimatedWrapper';
 import Image from 'next/image';
 import Link from 'next/link';
-import { LEARN_CARDS } from './constants';
+import { AnimatedWrapper } from '@nl/ui/animations';
 import ExternalIcon from '@/components/ExternalIcon';
+import { LEARN_CARDS } from './constants';
 
 interface LearnCardProps {
   btnText: string;
@@ -18,7 +18,7 @@ const LearnCard = ({ btnText, external, image, link, subtitle, title }: LearnCar
     <div className="relative flex items-center w-full h-full rounded-2xl overflow-hidden">
       <div className="absolute inset-0">
         <AnimatedWrapper>
-          <div className="animated-fade-quick animated-fade-start transition-delay-small">
+          <div className="transition-fade-quick transition-fade-start delay-lite">
             <Image
               alt={`${title} card background`}
               priority
@@ -35,14 +35,14 @@ const LearnCard = ({ btnText, external, image, link, subtitle, title }: LearnCar
       <div className="relative w-full h-full flex flex-col items-center justify-center p-3 md:p-4 lg:p-5 text-center z-10">
         <div className="mb-4 md:mb-6">
           <AnimatedWrapper>
-            <h5 className="text-center uppercase animated-header-text animated-header-text-start transition-delay-small text-xl font-bold">
+            <h5 className="text-center uppercase transition-vertical-fade transition-vertical-fade-start delay-lite text-xl font-bold">
               {title}
             </h5>
           </AnimatedWrapper>
         </div>
         <div className="mb-4 md:mb-6">
           <AnimatedWrapper>
-            <p className="text-center animated-header-text animated-header-text-start transition-delay-medium">
+            <p className="text-center transition-vertical-fade transition-vertical-fade-start delay-normal">
               {subtitle}
             </p>
           </AnimatedWrapper>
@@ -50,14 +50,14 @@ const LearnCard = ({ btnText, external, image, link, subtitle, title }: LearnCar
         <AnimatedWrapper>
           {external ? (
             <a target="_blank" rel="noreferrer" href={link}>
-              <button className="theme-btn-primary theme-btn-rounded max-w-fit animated-fade-slow animated-fade-start transition-delay-large">
+              <button className="theme-btn-primary theme-btn-rounded max-w-fit transition-fade-slow transition-fade-start delay-long">
                 {btnText}
                 <ExternalIcon className="ml-1" />
               </button>
             </a>
           ) : (
             <Link href={link} target="_blank" rel="noreferrer">
-              <button className="theme-btn-primary theme-btn-rounded max-w-fit animated-fade-slow animated-fade-start transition-delay-large">
+              <button className="theme-btn-primary theme-btn-rounded max-w-fit transition-fade-slow transition-fade-start delay-long">
                 {btnText}
                 <ExternalIcon className="ml-1" />
               </button>

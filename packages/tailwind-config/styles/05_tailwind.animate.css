@@ -1,547 +1,305 @@
-/**
- * TailwindCSS v4.0 compatible replacement for `tailwindcss-animate`.
- *
- * @author Luca Bosin <https://github.com/Wombosvideo/tw-animate-css>
- * @license MIT
- */
+/* =======================|| CUSTOM ANIMATIONS/TRANSITIONS  ||======================= */
 
-:root {
-  /* @property declarations for animation variables, to prevent inheritance */
-  @property --tw-animation-delay {
-    syntax: '*';
-    inherits: false;
-    initial-value: 0s;
-  }
-
-  @property --tw-animation-direction {
-    syntax: '*';
-    inherits: false;
-    initial-value: normal;
-  }
-
-  @property --tw-animation-duration {
-    syntax: '*';
-    inherits: false;
-    /* does not have an initial value in order for the `--tw-duration` variable to work */
-  }
-
-  @property --tw-animation-fill-mode {
-    syntax: '*';
-    inherits: false;
-    initial-value: forwards;
-  }
-
-  @property --tw-animation-iteration-count {
-    syntax: '*';
-    inherits: false;
-    initial-value: 1;
-  }
-
-  @property --tw-enter-opacity {
-    syntax: '*';
-    inherits: false;
-    initial-value: 1;
-  }
-
-  @property --tw-enter-rotate {
-    syntax: '*';
-    inherits: false;
-    initial-value: 0;
-  }
-
-  @property --tw-enter-scale {
-    syntax: '*';
-    inherits: false;
-    initial-value: 1;
-  }
-
-  @property --tw-enter-translate-x {
-    syntax: '*';
-    inherits: false;
-    initial-value: 0;
-  }
-
-  @property --tw-enter-translate-y {
-    syntax: '*';
-    inherits: false;
-    initial-value: 0;
-  }
-
-  @property --tw-exit-opacity {
-    syntax: '*';
-    inherits: false;
-    initial-value: 1;
-  }
-
-  @property --tw-exit-rotate {
-    syntax: '*';
-    inherits: false;
-    initial-value: 0;
-  }
-
-  @property --tw-exit-scale {
-    syntax: '*';
-    inherits: false;
-    initial-value: 1;
-  }
-
-  @property --tw-exit-translate-x {
-    syntax: '*';
-    inherits: false;
-    initial-value: 0;
-  }
-
-  @property --tw-exit-translate-y {
-    syntax: '*';
-    inherits: false;
-    initial-value: 0;
-  }
+@utility animation-hidden {
+  @apply !animate-none !transform-none !transition-none;
 }
 
-@theme inline {
-  /* Predefined values */
+/* ===== Transition Delays ===== */
+@utility delay-lite {
+  @apply !delay-50 md:!delay-100;
+}
+@utility delay-normal {
+  @apply !delay-100 md:!delay-250;
+}
+@utility delay-long {
+  @apply !delay-250 md:!delay-500;
+}
+@utility delay-extreme {
+  @apply !delay-1000 md:!delay-2000;
+}
 
-  --animation-delay-0: 0s;
-  --animation-delay-75: 75ms;
-  --animation-delay-100: 0.1s;
-  --animation-delay-150: 0.15s;
-  --animation-delay-200: 0.2s;
-  --animation-delay-300: 0.3s;
-  --animation-delay-500: 0.5s;
-  --animation-delay-700: 0.7s;
-  --animation-delay-1000: 1s;
+@layer animations {
+  /* ==============================|| TRANSITIONS ||============================== */
 
-  --animation-repeat-0: 0;
-  --animation-repeat-1: 1;
-  --animation-repeat-infinite: infinite;
-
-  --animation-direction-normal: normal;
-  --animation-direction-reverse: reverse;
-  --animation-direction-alternate: alternate;
-  --animation-direction-alternate-reverse: alternate-reverse;
-
-  --animation-fill-mode-none: none;
-  --animation-fill-mode-forwards: forwards;
-  --animation-fill-mode-backwards: backwards;
-  --animation-fill-mode-both: both;
-
-  --percentage-0: 0;
-  --percentage-5: 0.05;
-  --percentage-10: 0.1;
-  --percentage-15: 0.15;
-  --percentage-20: 0.2;
-  --percentage-25: 0.25;
-  --percentage-30: 0.3;
-  --percentage-35: 0.35;
-  --percentage-40: 0.4;
-  --percentage-45: 0.45;
-  --percentage-50: 0.5;
-  --percentage-55: 0.55;
-  --percentage-60: 0.6;
-  --percentage-65: 0.65;
-  --percentage-70: 0.7;
-  --percentage-75: 0.75;
-  --percentage-80: 0.8;
-  --percentage-85: 0.85;
-  --percentage-90: 0.9;
-  --percentage-95: 0.95;
-  --percentage-100: 1;
-  --percentage-translate-full: 1;
-
-  /* Animations and keyframes */
-
-  --animate-in: enter var(--tw-animation-duration, var(--tw-duration, 150ms)) var(--tw-ease, ease)
-    var(--tw-animation-delay, 0s) var(--tw-animation-iteration-count, 1) var(--tw-animation-direction, normal)
-    var(--tw-animation-fill-mode, forwards);
-  --animate-out: exit var(--tw-animation-duration, var(--tw-duration, 150ms)) var(--tw-ease, ease)
-    var(--tw-animation-delay, 0s) var(--tw-animation-iteration-count, 1) var(--tw-animation-direction, normal)
-    var(--tw-animation-fill-mode, forwards);
-
-  @keyframes enter {
-    from {
-      opacity: var(--tw-enter-opacity, 1);
-      transform: translate3d(var(--tw-enter-translate-x, 0), var(--tw-enter-translate-y, 0), 0)
-        scale3d(var(--tw-enter-scale, 1), var(--tw-enter-scale, 1), var(--tw-enter-scale, 1))
-        rotate(var(--tw-enter-rotate, 0));
-    }
+  /* ===== Fade Transitions ===== */
+  .transition-fade {
+    transition: opacity 1s ease-in-out;
+  }
+  .transition-fade-quick {
+    transition: opacity 0.75s ease-in-out;
+  }
+  .transition-fade-slow {
+    transition: opacity 2s ease-in-out;
+  }
+  .transition-fade-start {
+    opacity: 0;
   }
 
-  @keyframes exit {
-    to {
-      opacity: var(--tw-exit-opacity, 1);
-      transform: translate3d(var(--tw-exit-translate-x, 0), var(--tw-exit-translate-y, 0), 0)
-        scale3d(var(--tw-exit-scale, 1), var(--tw-exit-scale, 1), var(--tw-exit-scale, 1))
-        rotate(var(--tw-exit-rotate, 0));
-    }
+  /* ===== Fade + Slide Down  ===== */
+  .transition-vertical-fade {
+    top: 0;
+    transition:
+      opacity 2s ease-in-out,
+      top 1s ease-in-out;
+  }
+  .transition-vertical-fade-start {
+    top: -100px;
+    opacity: 0;
   }
 
-  /*
-  * Radix, Bits UI and Reka UI utilize CSS variables to define the height of Accordion and Collapsible
-  * content during open/close animations. The `--radix/bits/reka-accordion-content-height` variables
-  * control the height of Accordion content, while `collapsible` variables are used for Collapsibles.
-  *
-  * The fallback value `auto` is used here, but it depends on the `interpolate-size: allow-keywords`
-  * property, which currently has limited browser support. For more details, see: 
-  * <https://developer.mozilla.org/en-US/docs/Web/CSS/interpolate-size>
-  */
-
-  --animate-accordion-down: accordion-down var(--tw-animation-duration, var(--tw-duration, 200ms)) ease-out;
-  --animate-accordion-up: accordion-up var(--tw-animation-duration, var(--tw-duration, 200ms)) ease-out;
-  --animate-collapsible-down: collapsible-down var(--tw-animation-duration, var(--tw-duration, 200ms)) ease-out;
-  --animate-collapsible-up: collapsible-up var(--tw-animation-duration, var(--tw-duration, 200ms)) ease-out;
-
-  @keyframes accordion-down {
-    from {
-      height: 0;
-    }
-    to {
-      height: var(
-        --radix-accordion-content-height,
-        var(
-          --bits-accordion-content-height,
-          var(--reka-accordion-content-height, var(--kb-accordion-content-height, auto))
-        )
-      );
-    }
+  /* ===== Pop Transitions ===== */
+  .transition-quick-pop {
+    transition:
+      opacity 0.5s,
+      transform 1s;
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .transition-quick-pop-start {
+    opacity: 0;
+    transform: scale(0);
   }
 
-  @keyframes accordion-up {
-    from {
-      height: var(
-        --radix-accordion-content-height,
-        var(
-          --bits-accordion-content-height,
-          var(--reka-accordion-content-height, var(--kb-accordion-content-height, auto))
-        )
-      );
-    }
-    to {
-      height: 0;
-    }
+  /* ===== Pop + Slide Right ===== */
+  .transition-quick-pop-left {
+    left: 0;
+    transition:
+      opacity 0.2s,
+      transform 0.4s,
+      left 0.3s;
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .transition-quick-pop-left-start {
+    left: -100px;
+    opacity: 0;
+    transform: scale(0);
   }
 
-  @keyframes collapsible-down {
-    from {
-      height: 0;
-    }
-    to {
-      height: var(
-        --radix-collapsible-content-height,
-        var(
-          --bits-collapsible-content-height,
-          var(--reka-collapsible-content-height, var(--kb-collapsible-content-height, auto))
-        )
-      );
-    }
+  /* ==============================|| ANIMATIONS ||============================== */
+
+  /* ===== Blinking Animations ===== */
+  .animate-blink {
+    animation: blink 0.8s ease infinite;
   }
 
-  @keyframes collapsible-up {
-    from {
-      height: var(
-        --radix-collapsible-content-height,
-        var(
-          --bits-collapsible-content-height,
-          var(--reka-collapsible-content-height, var(--kb-collapsible-content-height, auto))
-        )
-      );
-    }
-    to {
-      height: 0;
-    }
-  }
-
-  --animate-caret-blink: caret-blink 1.25s ease-out infinite;
-
-  @keyframes caret-blink {
-    0%,
-    70%,
-    100% {
-      opacity: 1;
-    }
-    20%,
+  @keyframes blink {
     50% {
       opacity: 0;
     }
+    100% {
+      opacity: 1;
+    }
   }
-}
 
-/* Utility classes */
+  /* ===== Zoom Animations ===== */
+  .animate-zoom-out {
+    animation: zoom-out 3s;
+  }
 
-@utility animation-duration-* {
-  --tw-animation-duration: calc(--value(number) * 1ms);
-  --tw-animation-duration: --value(--animation-duration- *, [duration], 'initial', [ *]);
-  animation-duration: calc(--value(number) * 1ms);
-  animation-duration: --value(--animation-duration- *, [duration], 'initial', [ *]);
-}
+  @keyframes zoom-out {
+    0% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
 
-@utility delay-* {
-  animation-delay: calc(--value(number) * 1ms);
-  animation-delay: --value(--animation-delay- *, [duration], 'initial', [ *]);
-  --tw-animation-delay: calc(--value(number) * 1ms);
-  --tw-animation-delay: --value(--animation-delay- *, [duration], 'initial', [ *]);
-}
+  .animate-zoom-out-large {
+    animation: zoom-out-2x 3s;
+  }
 
-@utility repeat-* {
-  animation-iteration-count: --value(--animation-repeat- *, number, 'initial', [ *]);
-  --tw-animation-iteration-count: --value(--animation-repeat- *, number, 'initial', [ *]);
-}
+  @keyframes zoom-out-2x {
+    0% {
+      transform: scale(2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
 
-@utility direction-* {
-  animation-direction: --value(--animation-direction- *, 'initial', [ *]);
-  --tw-animation-direction: --value(--animation-direction- *, 'initial', [ *]);
-}
+  /* ===== Bounce Animations ===== */
+  .animate-bounce-coin1 {
+    animation: coin-bounce 3s ease infinite;
+  }
+  .animate-bounce-coin2 {
+    animation: coin-bounce 3s ease infinite 0.5s;
+  }
+  .animate-bounce-coin3 {
+    animation: coin-bounce 3s ease infinite 1s;
+  }
 
-@utility fill-mode-* {
-  animation-fill-mode: --value(--animation-fill-mode- *, 'initial', [ *]);
-  --tw-animation-fill-mode: --value(--animation-fill-mode- *, 'initial', [ *]);
-}
+  @keyframes coin-bounce {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-60px);
+    }
+    60% {
+      transform: translateY(-30px);
+    }
+  }
 
-@utility running {
-  animation-play-state: running;
-}
-@utility paused {
-  animation-play-state: paused;
-}
-@utility play-state-* {
-  animation-play-state: --value('initial', [ *]);
-}
+  /* ===== Hover Animations ===== */
+  .animate-hover {
+    animation: hover 4s ease infinite;
+  }
+  .animate-hover2 {
+    animation: hover 4s ease infinite 0.5s;
+  }
 
-@utility fade-in {
-  --tw-enter-opacity: 0;
-}
-@utility fade-in-* {
-  --tw-enter-opacity: calc(--value(number) / 100);
-  --tw-enter-opacity: --value(--percentage- *, [ *]);
-}
+  @keyframes hover {
+    0%,
+    50%,
+    100% {
+      transform: translateY(0);
+    }
+    25%,
+    75% {
+      transform: translateY(-20px);
+    }
+  }
 
-@utility fade-out {
-  --tw-exit-opacity: 0;
-}
-@utility fade-out-* {
-  --tw-exit-opacity: calc(--value(number) / 100);
-  --tw-exit-opacity: --value(--percentage- *, [ *]);
-}
+  /* ===== Slide Animations ===== */
+  .animate-slide-y {
+    animation: slideY 1s ease-in;
+  }
 
-@utility zoom-in {
-  --tw-enter-scale: 0;
-}
-@utility zoom-in-* {
-  --tw-enter-scale: calc(--value(number) * 1%);
-  --tw-enter-scale: calc(--value(ratio));
-  --tw-enter-scale: --value(--percentage- *, [ *]);
-}
-@utility -zoom-in-* {
-  --tw-enter-scale: calc(--value(number) * -1%);
-  --tw-enter-scale: calc(--value(ratio) * -1);
-  --tw-enter-scale: --value(--percentage- *, [ *]);
-}
+  @keyframes slideY {
+    0%,
+    50%,
+    100% {
+      transform: translateY(0px);
+    }
+    25% {
+      transform: translateY(-10px);
+    }
+    75% {
+      transform: translateY(10px);
+    }
+  }
 
-@utility zoom-out {
-  --tw-exit-scale: 0;
-}
-@utility zoom-out-* {
-  --tw-exit-scale: calc(--value(number) * 1%);
-  --tw-exit-scale: calc(--value(ratio));
-  --tw-exit-scale: --value(--percentage- *, [ *]);
-}
-@utility -zoom-out-* {
-  --tw-exit-scale: calc(--value(number) * -1%);
-  --tw-exit-scale: calc(--value(ratio) * -1);
-  --tw-exit-scale: --value(--percentage- *, [ *]);
-}
+  .animate-slide-x {
+    animation: slideX 1s ease-in;
+  }
 
-@utility spin-in {
-  --tw-enter-rotate: 30deg;
-}
-@utility spin-in-* {
-  --tw-enter-rotate: calc(--value(number) * 1deg);
-  --tw-enter-rotate: calc(--value(ratio) * 360deg);
-  --tw-enter-rotate: --value(--rotate- *, [ *]);
-}
-@utility -spin-in {
-  --tw-enter-rotate: -30deg;
-}
-@utility -spin-in-* {
-  --tw-enter-rotate: calc(--value(number) * -1deg);
-  --tw-enter-rotate: calc(--value(ratio) * -360deg);
-  --tw-enter-rotate: --value(--rotate- *, [ *]);
-}
+  @keyframes slideX {
+    0%,
+    50%,
+    100% {
+      transform: translateX(0px);
+    }
+    25% {
+      transform: translateX(-10px);
+    }
+    75% {
+      transform: translateX(10px);
+    }
+  }
 
-@utility spin-out {
-  --tw-exit-rotate: 30deg;
-}
-@utility spin-out-* {
-  --tw-exit-rotate: calc(--value(number) * 1deg);
-  --tw-exit-rotate: calc(--value(ratio) * 360deg);
-  --tw-exit-rotate: --value(--rotate- *, [ *]);
-}
-@utility -spin-out {
-  --tw-exit-rotate: -30deg;
-}
-@utility -spin-out-* {
-  --tw-exit-rotate: calc(--value(number) * -1deg);
-  --tw-exit-rotate: calc(--value(ratio) * -360deg);
-  --tw-exit-rotate: --value(--rotate- *, [ *]);
-}
+  /* ===== Companion Propeller ===== */
+  .animate-propeller {
+    animation: propeller 0.5s ease infinite;
+  }
 
-@utility slide-in-from-top {
-  --tw-enter-translate-y: -100%;
-}
-@utility slide-in-from-top-* {
-  --tw-enter-translate-y: calc(--value(integer) * var(--spacing) * -1);
-  --tw-enter-translate-y: calc(--value(--percentage- *, --percentage-translate- *) * -100%);
-  --tw-enter-translate-y: calc(--value(ratio) * -100%);
-  --tw-enter-translate-y: calc(--value(--translate- *, [percentage], [length]) * -1);
-}
-@utility slide-in-from-bottom {
-  --tw-enter-translate-y: 100%;
-}
-@utility slide-in-from-bottom-* {
-  --tw-enter-translate-y: calc(--value(integer) * var(--spacing));
-  --tw-enter-translate-y: calc(--value(--percentage- *, --percentage-translate- *) * 100%);
-  --tw-enter-translate-y: calc(--value(ratio) * 100%);
-  --tw-enter-translate-y: --value(--translate- *, [percentage], [length]);
-}
-@utility slide-in-from-left {
-  --tw-enter-translate-x: -100%;
-}
-@utility slide-in-from-left-* {
-  --tw-enter-translate-x: calc(--value(integer) * var(--spacing) * -1);
-  --tw-enter-translate-x: calc(--value(--percentage- *, --percentage-translate- *) * -100%);
-  --tw-enter-translate-x: calc(--value(ratio) * 100%);
-  --tw-enter-translate-x: calc(--value(--translate- *, [percentage], [length]) * -1);
-}
-@utility slide-in-from-right {
-  --tw-enter-translate-x: 100%;
-}
-@utility slide-in-from-right-* {
-  --tw-enter-translate-x: calc(--value(integer) * var(--spacing));
-  --tw-enter-translate-x: calc(--value(--percentage- *, --percentage-translate- *) * 100%);
-  --tw-enter-translate-x: calc(--value(ratio) * 100%);
-  --tw-enter-translate-x: --value(--translate- *, [percentage], [length]);
-}
-@utility slide-in-from-start {
-  &:dir(ltr) {
-    --tw-enter-translate-x: -100%;
+  @keyframes propeller {
+    0%,
+    100% {
+      background-image: url('/img/hero/companion-anim1.webp');
+    }
+    25% {
+      background-image: url('/img/hero/companion-anim2.webp');
+    }
+    50% {
+      background-image: url('/img/hero/companion-anim3.webp');
+    }
+    75% {
+      background-image: url('/img/hero/companion-anim4.webp');
+    }
   }
-  &:dir(rtl) {
-    --tw-enter-translate-x: 100%;
-  }
-}
-@utility slide-in-from-start-* {
-  &:where(:dir(ltr), [dir='ltr'], [dir='ltr'] *) {
-    --tw-enter-translate-x: calc(--value(integer) * var(--spacing) * -1);
-    --tw-enter-translate-x: calc(--value(--percentage- *, --percentage-translate- *) * -100%);
-    --tw-enter-translate-x: calc(--value(ratio) * -100%);
-    --tw-enter-translate-x: calc(--value(--translate- *, [percentage], [length]) * -1);
-  }
-  &:where(:dir(rtl), [dir='rtl'], [dir='rtl'] *) {
-    --tw-enter-translate-x: calc(--value(integer) * var(--spacing));
-    --tw-enter-translate-x: calc(--value(--percentage- *, --percentage-translate- *) * 100%);
-    --tw-enter-translate-x: calc(--value(ratio) * 100%);
-    --tw-enter-translate-x: --value(--translate- *, [percentage], [length]);
-  }
-}
-@utility slide-in-from-end {
-  &:dir(ltr) {
-    --tw-enter-translate-x: 100%;
-  }
-  &:dir(rtl) {
-    --tw-enter-translate-x: -100%;
-  }
-}
-@utility slide-in-from-end-* {
-  &:where(:dir(ltr), [dir='ltr'], [dir='ltr'] *) {
-    --tw-enter-translate-x: calc(--value(integer) * var(--spacing));
-    --tw-enter-translate-x: calc(--value(--percentage- *, --percentage-translate- *) * 100%);
-    --tw-enter-translate-x: calc(--value(ratio) * 100%);
-    --tw-enter-translate-x: --value(--translate- *, [percentage], [length]);
-  }
-  &:where(:dir(rtl), [dir='rtl'], [dir='rtl'] *) {
-    --tw-enter-translate-x: calc(--value(integer) * var(--spacing) * -1);
-    --tw-enter-translate-x: calc(--value(--percentage- *, --percentage-translate- *) * -100%);
-    --tw-enter-translate-x: calc(--value(ratio) * -100%);
-    --tw-enter-translate-x: calc(--value(--translate- *, [percentage], [length]) * -1);
-  }
-}
 
-@utility slide-out-to-top {
-  --tw-exit-translate-y: -100%;
-}
-@utility slide-out-to-top-* {
-  --tw-exit-translate-y: calc(--value(integer) * var(--spacing) * -1);
-  --tw-exit-translate-y: calc(--value(--percentage- *, --percentage-translate- *) * -100%);
-  --tw-exit-translate-y: calc(--value(ratio) * 100%);
-  --tw-exit-translate-y: calc(--value(--translate- *, [percentage], [length]) * -1);
-}
-@utility slide-out-to-bottom {
-  --tw-exit-translate-y: 100%;
-}
-@utility slide-out-to-bottom-* {
-  --tw-exit-translate-y: calc(--value(integer) * var(--spacing));
-  --tw-exit-translate-y: calc(--value(--percentage- *, --percentage-translate- *) * 100%);
-  --tw-exit-translate-y: calc(--value(ratio) * 100%);
-  --tw-exit-translate-y: --value(--translate- *, [percentage], [length]);
-}
-@utility slide-out-to-left {
-  --tw-exit-translate-x: -100%;
-}
-@utility slide-out-to-left-* {
-  --tw-exit-translate-x: calc(--value(integer) * var(--spacing) * -1);
-  --tw-exit-translate-x: calc(--value(--percentage- *, --percentage-translate- *) * -100%);
-  --tw-exit-translate-x: calc(--value(ratio) * 100%);
-  --tw-exit-translate-x: calc(--value(--translate- *, [percentage], [length]) * -1);
-}
-@utility slide-out-to-right {
-  --tw-exit-translate-x: 100%;
-}
-@utility slide-out-to-right-* {
-  --tw-exit-translate-x: calc(--value(integer) * var(--spacing));
-  --tw-exit-translate-x: calc(--value(--percentage- *, --percentage-translate- *) * 100%);
-  --tw-exit-translate-x: calc(--value(ratio) * 100%);
-  --tw-exit-translate-x: --value(--translate- *, [percentage], [length]);
-}
-@utility slide-out-to-start {
-  &:dir(ltr) {
-    --tw-exit-translate-x: -100%;
+  /* ===== Background Slider ===== */
+  .sliding-nfts .sliding-background-wrapper-desktop,
+  .sliding-nfts .sliding-background-wrapper-mobile {
+    overflow: hidden;
+    background: linear-gradient(128.04deg, var(--color-brand-purple) 0%, var(--color-brand-blue) 46.93%, #ff00c7 100%);
   }
-  &:dir(rtl) {
-    --tw-exit-translate-x: 100%;
+  .sliding-nfts .sliding-background-wrapper-desktop {
+    min-height: 520px;
   }
-}
-@utility slide-out-to-start-* {
-  &:where(:dir(ltr), [dir='ltr'], [dir='ltr'] *) {
-    --tw-exit-translate-x: calc(--value(integer) * var(--spacing) * -1);
-    --tw-exit-translate-x: calc(--value(--percentage- *, --percentage-translate- *) * -100%);
-    --tw-exit-translate-x: calc(--value(ratio) * -100%);
-    --tw-exit-translate-x: calc(--value(--translate- *, [percentage], [length]) * -1);
+  .sliding-nfts .sliding-background-wrapper-mobile {
+    min-height: 106px;
+    margin: 16px 0;
   }
-  &:where(:dir(rtl), [dir='rtl'], [dir='rtl'] *) {
-    --tw-exit-translate-x: calc(--value(integer) * var(--spacing));
-    --tw-exit-translate-x: calc(--value(--percentage- *, --percentage-translate- *) * 100%);
-    --tw-exit-translate-x: calc(--value(ratio) * 100%);
-    --tw-exit-translate-x: --value(--translate- *, [percentage], [length]);
+
+  .sliding-background-wrapper-desktop .sliding-background,
+  .sliding-background-wrapper-mobile .sliding-background {
+    background: url(/img/degens/site-extras/degen-slider.webp) repeat-x;
+    image-rendering: crisp-edges;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    -ms-interpolation-mode: nearest-neighbor;
+    image-rendering: pixelated;
+    width: 5000px;
   }
-}
-@utility slide-out-to-end {
-  &:dir(ltr) {
-    --tw-exit-translate-x: 100%;
+  .sliding-background-wrapper-desktop .sliding-background {
+    height: 100%;
+    animation: slideBg 60s linear infinite;
   }
-  &:dir(rtl) {
-    --tw-exit-translate-x: -100%;
+  .sliding-background-wrapper-mobile .sliding-background {
+    height: 106px;
+    animation: slideBg 240s linear infinite;
+    background-size: contain;
   }
-}
-@utility slide-out-to-end-* {
-  &:where(:dir(ltr), [dir='ltr'], [dir='ltr'] *) {
-    --tw-exit-translate-x: calc(--value(integer) * var(--spacing));
-    --tw-exit-translate-x: calc(--value(--percentage- *, --percentage-translate- *) * 100%);
-    --tw-exit-translate-x: calc(--value(ratio) * 100%);
-    --tw-exit-translate-x: --value(--translate- *, [percentage], [length]);
+
+  @keyframes slideBg {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-3750px, 0, 0);
+    }
   }
-  &:where(:dir(rtl), [dir='rtl'], [dir='rtl'] *) {
-    --tw-exit-translate-x: calc(--value(integer) * var(--spacing) * -1);
-    --tw-exit-translate-x: calc(--value(--percentage- *, --percentage-translate- *) * -100%);
-    --tw-exit-translate-x: calc(--value(ratio) * -100%);
-    --tw-exit-translate-x: calc(--value(--translate- *, [percentage], [length]) * -1);
+
+  /* ==============================|| EXTRA KEYFRAMES ||============================== */
+
+  @keyframes custom-bounce {
+    0%,
+    20%,
+    53%,
+    to {
+      animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+      transform: translateZ(0);
+    }
+    40%,
+    43% {
+      animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+      transform: translate3d(0, -5px, 0);
+    }
+    70% {
+      animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+      transform: translate3d(0, -7px, 0);
+    }
+    80% {
+      animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+      transform: translateZ(0);
+    }
+    90% {
+      transform: translate3d(0, -2px, 0);
+    }
+  }
+
+  @keyframes wings {
+    50% {
+      transform: translateY(-40px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
   }
 }

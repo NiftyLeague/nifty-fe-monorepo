@@ -5,8 +5,9 @@ import { useRef } from 'react';
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import { AnimatedWrapper } from '@nl/ui/animations';
 import Layout from '@/components/Layout';
-import AnimatedWrapper from '@/components/AnimatedWrapper';
 import Sponsors from '@/components/Sponsors';
 import Carousel from '@/components/Carousel';
 import ExternalIcon from '@/components/ExternalIcon';
@@ -20,7 +21,7 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
   return (
     <div className="p-0 relative home-intro">
       <div>
-        <div className="relative flex-grow home-banner animation-zoomin">
+        <div className="relative flex-grow home-banner animate-zoom-out">
           <Image
             src="/img/hero/bg.webp"
             alt="Nifty Home Banner"
@@ -31,8 +32,8 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
             className="w-full h-auto"
           />
         </div>
-        <AnimatedWrapper parallax parallaxDirection="top" transitionAmount="small">
-          <div className="parallax-hero-child absolute home-hero-characters-image flex-grow animation-zoomin-large">
+        <AnimatedWrapper>
+          <div className="absolute home-hero-characters-image flex-grow animate-zoom-out-large">
             <Image
               src="/img/hero/characters.webp"
               alt="Nifty Hero Characters"
@@ -47,7 +48,7 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
         <div className="home-hero-companion">
           <div className="relative flex-grow">
             <AnimatedWrapper>
-              <div className="animation-bounce animated-fade-start animated-fade transition-delay-extreme">
+              <div className="animate-hover transition-fade-start transition-fade delay-extreme">
                 <Image
                   src="/img/hero/companion-base.webp"
                   alt="Home Hero Companion Base"
@@ -56,7 +57,7 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
                   className="pixelated w-full h-auto"
                   sizes="100vw"
                 />
-                <div className="absolute home-hero-companion-swing animation-propeller" />
+                <div className="absolute home-hero-companion-swing animate-propeller" />
               </div>
             </AnimatedWrapper>
           </div>
@@ -64,7 +65,7 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
         <div className="home-hero-halo">
           <div className="flex-grow">
             <AnimatedWrapper>
-              <div className="animation-bounce2 animated-fade-start animated-fade transition-delay-extreme">
+              <div className="animate-hover2 transition-fade-start transition-fade delay-extreme">
                 <Image
                   src="/img/hero/halo.webp"
                   alt="Home Hero Halo"
@@ -81,7 +82,7 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
       </div>
       <div className="home-satoshi-container">
         <AnimatedWrapper>
-          <div className="relative flex-grow home-satoshi satoshi-quick-pop-anim satoshi-quick-pop-anim-start transition-delay-medium">
+          <div className="relative flex-grow home-satoshi transition-quick-pop-left transition-quick-pop-left-start delay-normal">
             <Image
               alt="Satoshi"
               src="/img/hero/satoshi.webp"
@@ -96,14 +97,14 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
       </div>
       <div className="flex flex-col mt-auto home-content">
         <AnimatedWrapper>
-          <h1 className="home-content-title animated-header-text animated-header-text-start">
+          <h1 className="home-content-title transition-vertical-fade transition-vertical-fade-start">
             WELCOME TO <br />
             NIFTY LEAGUE
           </h1>
         </AnimatedWrapper>
         <div className="my-2 lg:my-4">
           <AnimatedWrapper>
-            <p className="home-content-description animated-header-text animated-header-text-start transition-delay-small">
+            <p className="home-content-description transition-vertical-fade transition-vertical-fade-start delay-lite">
               <span className="whitespace-nowrap">DECENTRALIZED GAME STUDIO & PUBLISHER.</span>
               <br />
               <span className="whitespace-nowrap">BY GAMERS, FOR GAMERS.</span>
@@ -113,7 +114,7 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
         <div>
           <AnimatedWrapper>
             <div
-              className="inline-block relative flex-grow satoshi-learn-more animated-fade-slow animated-fade-start transition-delay-large"
+              className="inline-block relative flex-grow satoshi-learn-more transition-fade-slow transition-fade-start delay-long"
               onClick={scrollToGamingSection}
             >
               <Image
@@ -147,7 +148,7 @@ const MobileIntro = () => {
             href="https://app.niftyleague.com/"
             target="_blank"
             rel="noreferrer"
-            className="theme-btn-primary animated-fade animated-fade-start transition-delay-medium"
+            className="theme-btn-primary transition-fade transition-fade-start delay-normal"
           >
             START PLAYING <ExternalIcon className="inline-block ml-1" />
           </a>
@@ -189,7 +190,7 @@ const Home: NextPage = () => {
       <div className="relative p-0 m-0" ref={gamingSectionRef}>
         <div className="flex flex-col text-center relative p-0">
           <AnimatedWrapper>
-            <h2 className="absolute w-full z-10 mt-8 md:mt-16 lg:mt-22 animated-header-text animated-header-text-start">
+            <h2 className="absolute w-full z-10 mt-8 md:mt-16 lg:mt-22 transition-vertical-fade transition-vertical-fade-start">
               CLASSIC GAMING REINVENTED
             </h2>
           </AnimatedWrapper>
@@ -202,16 +203,13 @@ const Home: NextPage = () => {
                 href="https://niftysmashers.com"
                 target="_blank"
                 rel="noreferrer"
-                className="theme-btn-primary animated-fade animated-fade-start transition-delay-medium"
+                className="theme-btn-primary transition-fade transition-fade-start delay-normal"
               >
                 START PLAYING
               </a>
             </AnimatedWrapper>
             <AnimatedWrapper>
-              <Link
-                href="/games"
-                className="theme-btn-transparent animated-fade animated-fade-start transition-delay-medium"
-              >
+              <Link href="/games" className="theme-btn-transparent transition-fade transition-fade-start delay-normal">
                 MORE GAMES
               </Link>
             </AnimatedWrapper>
@@ -224,7 +222,7 @@ const Home: NextPage = () => {
         <div className="flex flex-col text-center relative p-0">
           <div className="my-3 lg:my-5">
             <AnimatedWrapper>
-              <h2 className="px-5 sm:px-8 animated-header-text animated-header-text-start">
+              <h2 className="px-5 sm:px-8 transition-vertical-fade transition-vertical-fade-start">
                 COMMUNITY-GENERATED AVATARS
               </h2>
             </AnimatedWrapper>
@@ -255,8 +253,8 @@ const Home: NextPage = () => {
                 <>
                   <div className="compete-to-earn-section-token-1">
                     <div className="relative flex-grow">
-                      <AnimatedWrapper parallax parallaxDirection="left">
-                        <div className="animation-bounce-coin1 animated-fade animated-fade-start transition-delay-large">
+                      <AnimatedWrapper parallax parallaxDirection="right">
+                        <div className="animate-bounce-coin1 transition-fade transition-fade-start delay-long">
                           <Image
                             src="/img/compete-and-earn/animated/token-1.webp"
                             alt="Compete and Earn NFTL 1"
@@ -271,8 +269,8 @@ const Home: NextPage = () => {
                   </div>
                   <div className="compete-to-earn-section-token-2">
                     <div className="relative flex-grow">
-                      <AnimatedWrapper parallax parallaxDirection="right">
-                        <div className="animation-bounce-coin2 animated-fade animated-fade-start transition-delay-large">
+                      <AnimatedWrapper parallax parallaxDirection="left">
+                        <div className="animate-bounce-coin2 transition-fade transition-fade-start delay-long">
                           <Image
                             src="/img/compete-and-earn/animated/token-2.webp"
                             alt="Compete and Earn NFTL 2"
@@ -287,8 +285,8 @@ const Home: NextPage = () => {
                   </div>
                   <div className="compete-to-earn-section-token-3">
                     <div className="relative flex-grow">
-                      <AnimatedWrapper parallax parallaxDirection="top">
-                        <div className="animation-bounce-coin3 animated-fade animated-fade-start transition-delay-large">
+                      <AnimatedWrapper parallax parallaxDirection="down">
+                        <div className="animate-bounce-coin3 transition-fade transition-fade-start delay-long">
                           <Image
                             src="/img/compete-and-earn/animated/token-3.webp"
                             alt="Compete and Earn NFTL 3"
@@ -307,7 +305,7 @@ const Home: NextPage = () => {
                 {!isDesktop && (
                   <div className="relative flex-grow w-full">
                     <AnimatedWrapper>
-                      <div className="quick-pop-anim quick-pop-anim-start transition-delay-small">
+                      <div className="transition-quick-pop transition-quick-pop-start delay-lite">
                         <Image
                           src="/img/compete-and-earn/mobile.webp"
                           alt="Compete and Earn"
@@ -325,7 +323,7 @@ const Home: NextPage = () => {
                   <div className="orb-top-left purple-bg-orb" />
                   <div className="mb-3">
                     <AnimatedWrapper>
-                      <h2 className="max-w-[400px] section-heading animated-header-text animated-header-text-start transition-delay-small">
+                      <h2 className="max-w-[400px] section-heading transition-vertical-fade transition-vertical-fade-start delay-lite">
                         SMASHERS
                         <br />
                         <span className="whitespace-nowrap">COMPETE & EARN</span>
@@ -334,7 +332,7 @@ const Home: NextPage = () => {
                   </div>
                   <div className="my-0">
                     <AnimatedWrapper>
-                      <p className="py-1 py-lg-3 section-description animated-header-text animated-header-text-start transition-delay-medium">
+                      <p className="py-1 py-lg-3 section-description transition-vertical-fade transition-vertical-fade-start delay-normal">
                         4 - 16 PLAYERS COMPETE IN A CUT-THROAT BATTLE FOR THE SURVIVAL OF THE FITTEST!
                       </p>
                     </AnimatedWrapper>
@@ -351,7 +349,7 @@ const Home: NextPage = () => {
                         href="https://niftysmashers.com"
                         target="_blank"
                         rel="noreferrer"
-                        className="theme-btn-primary animated-fade animated-fade-start transition-delay-large"
+                        className="theme-btn-primary transition-fade transition-fade-start delay-long"
                       >
                         LET&apos;S BRAWL!
                       </a>
@@ -359,7 +357,7 @@ const Home: NextPage = () => {
                     <AnimatedWrapper>
                       <Link
                         href="/compete-and-earn"
-                        className="theme-btn-transparent animated-fade animated-fade-start transition-delay-large"
+                        className="theme-btn-transparent transition-fade transition-fade-start delay-long"
                       >
                         LEARN MORE
                       </Link>
@@ -372,7 +370,7 @@ const Home: NextPage = () => {
           {isDesktop && (
             <div className="w-1/2 relative">
               <AnimatedWrapper>
-                <div className="quick-pop-anim quick-pop-anim-start transition-delay-medium">
+                <div className="transition-quick-pop transition-quick-pop-start delay-normal">
                   <Image
                     src="/img/compete-and-earn/animated/competitors.webp"
                     alt="Compete and Earn"
@@ -384,8 +382,8 @@ const Home: NextPage = () => {
                 </div>
               </AnimatedWrapper>
               <div className="absolute compete-to-earn-section-token-4">
-                <AnimatedWrapper parallax parallaxDirection="bottom" transitionAmount="extreme">
-                  <div className="animated-fade-start animated-fade transition-delay-large">
+                <AnimatedWrapper parallax parallaxDirection="up" parallaxIntensity="extreme">
+                  <div className="transition-fade-start transition-fade delay-long">
                     <Image
                       alt="Compete and Earn NFTL Token"
                       className="pixelated w-full h-auto"
@@ -408,7 +406,7 @@ const Home: NextPage = () => {
           {isDesktop && (
             <div className="w-1/2 relative">
               <AnimatedWrapper>
-                <div className="animated-fade animated-fade-start transition-delay-medium">
+                <div className="transition-fade transition-fade-start delay-normal">
                   <Image
                     src="/img/logos/niftyverse/app_logo.webp"
                     alt="Land in the Niftyverse"
@@ -439,7 +437,7 @@ const Home: NextPage = () => {
                 <div className="orb-bottom-right purple-bg-orb" />
                 <div className="mb-3">
                   <AnimatedWrapper>
-                    <h2 className="section-title section-heading animated-header-text animated-header-text-start transition-delay-small">
+                    <h2 className="section-title section-heading transition-vertical-fade transition-vertical-fade-start delay-lite">
                       <span className="whitespace-nowrap">DISCOVER THE</span>
                       <br />
                       NIFTYVERSE
@@ -448,24 +446,21 @@ const Home: NextPage = () => {
                 </div>
                 <div className="my-0">
                   <AnimatedWrapper>
-                    <p className="py-1 lg:py-3 section-description animated-header-text animated-header-text-start transition-delay-medium">
+                    <p className="py-1 lg:py-3 section-description transition-vertical-fade transition-vertical-fade-start delay-normal">
                       A VIRTUAL SOCIAL HUB LIKE NONE OTHER FOR GAMERS.
                     </p>
                   </AnimatedWrapper>
                 </div>
                 <div className="flex flex-row flex-wrap items-center gap-1.25 xl:gap-4 mt-1.25 xl:mt-4 section-actions">
                   <AnimatedWrapper>
-                    <button
-                      disabled
-                      className="theme-btn-primary animated-fade animated-fade-start transition-delay-large"
-                    >
+                    <button disabled className="theme-btn-primary transition-fade transition-fade-start delay-long">
                       COMING SOON
                     </button>
                   </AnimatedWrapper>
                   <AnimatedWrapper>
                     <Link
                       href="/niftyverse"
-                      className="theme-btn-transparent animated-fade animated-fade-start transition-delay-large"
+                      className="theme-btn-transparent transition-fade transition-fade-start delay-long"
                     >
                       LEARN MORE
                     </Link>
@@ -482,7 +477,7 @@ const Home: NextPage = () => {
         <div className="w-full relative">
           {isDesktop && (
             <AnimatedWrapper>
-              <div className="relative flex-grow animated-fade animated-fade-start transition-delay-small">
+              <div className="relative flex-grow transition-fade transition-fade-start delay-lite">
                 <Image
                   src="/img/misc/dashboard.webp"
                   alt="App Dashboard"
@@ -513,14 +508,14 @@ const Home: NextPage = () => {
               <div className="flex flex-col home-dashboard-section-body">
                 <div className="mb-3">
                   <AnimatedWrapper>
-                    <h2 className="section-heading animated-header-text animated-header-text-start transition-delay-small">
+                    <h2 className="section-heading transition-vertical-fade transition-vertical-fade-start delay-lite">
                       DASHBOARDS
                     </h2>
                   </AnimatedWrapper>
                 </div>
                 <div className="my-0">
                   <AnimatedWrapper>
-                    <p className="py-1 py-lg-3 section-description animated-header-text animated-header-text-start transition-delay-medium">
+                    <p className="py-1 py-lg-3 section-description transition-vertical-fade transition-vertical-fade-start delay-normal">
                       ACCESS WEB3-ENABLED PLAYER DASHBOARDS TO SEE YOUR GAME STATS, WINNINGS, AND NIFTY LEAGUE ASSETS.
                     </p>
                   </AnimatedWrapper>
@@ -538,7 +533,7 @@ const Home: NextPage = () => {
                       href="https://app.niftyleague.com/"
                       target="_blank"
                       rel="noreferrer"
-                      className="theme-btn-primary animated-fade animated-fade-start transition-delay-large"
+                      className="theme-btn-primary transition-fade transition-fade-start delay-long"
                     >
                       LAUNCH APP
                     </a>
@@ -548,7 +543,7 @@ const Home: NextPage = () => {
                       href="https://opensea.io/collection/niftydegen"
                       target="_blank"
                       rel="noreferrer"
-                      className="theme-btn-transparent animated-fade animated-fade-start transition-delay-large"
+                      className="theme-btn-transparent transition-fade transition-fade-start delay-long"
                     >
                       BUY A DEGEN
                     </a>
@@ -575,13 +570,13 @@ const Home: NextPage = () => {
                   <div className="orb-top-left purple-bg-orb" />
                   <div className="mb-3">
                     <AnimatedWrapper>
-                      <h2 className="home-nftl-token-section-title section-heading animated-header-text animated-header-text-start transition-delay-small">
+                      <h2 className="home-nftl-token-section-title section-heading transition-vertical-fade transition-vertical-fade-start delay-lite">
                         NFTL TOKEN
                       </h2>
                     </AnimatedWrapper>
                   </div>
                   <AnimatedWrapper>
-                    <p className="py-1 lg:py-3 home-nftl-token-section-description animated-header-text animated-header-text-start transition-delay-medium">
+                    <p className="py-1 lg:py-3 home-nftl-token-section-description transition-vertical-fade transition-vertical-fade-start delay-normal">
                       NFTL IS OUR GOVERNANCE &amp; UTILITY TOKEN. GOVERN THE FUTURE OF NIFTY LEAGUE &amp; ACCESS
                       EXCLUSIVE GAME ASSETS.
                     </p>
@@ -592,7 +587,7 @@ const Home: NextPage = () => {
                         href="https://quickswap.exchange/#/analytics/v3/token/0xb0d7e9ff5fb8e739c4990f7920d8047acfae4884"
                         target="_blank"
                         rel="noreferrer"
-                        className="theme-btn-primary animated-fade animated-fade-start transition-delay-large"
+                        className="theme-btn-primary transition-fade transition-fade-start delay-long"
                       >
                         TRADE NFTL
                       </a>
@@ -602,7 +597,7 @@ const Home: NextPage = () => {
                         href="/docs/overview/nifty-dao/nftl/overview"
                         target="_blank"
                         rel="noreferrer"
-                        className="theme-btn-transparent animated-fade animated-fade-start transition-delay-large"
+                        className="theme-btn-transparent transition-fade transition-fade-start delay-long"
                       >
                         LEARN MORE
                       </a>
@@ -626,7 +621,7 @@ const Home: NextPage = () => {
           {isDesktop && (
             <div className="w-1/2">
               <AnimatedWrapper>
-                <div className="relative flex-grow quick-pop-anim quick-pop-anim-start transition-delay-medium home-community-image">
+                <div className="relative flex-grow transition-quick-pop transition-quick-pop-start delay-normal home-community-image">
                   <Image
                     src="/img/leaderboards/podium.webp"
                     alt="The Best Community on Earth"
@@ -648,7 +643,7 @@ const Home: NextPage = () => {
               <Stack gap={2} className="home-community-section-container">
                 {!isDesktop && (
                   <AnimatedWrapper>
-                    <div className="relative flex-grow w-full quick-pop-anim quick-pop-anim-start transition-delay-small">
+                    <div className="relative flex-grow w-full transition-quick-pop transition-quick-pop-start delay-lite">
                       <Image
                         src="/img/leaderboards/podium.webp"
                         alt="The Best Community on Earth"
@@ -662,7 +657,7 @@ const Home: NextPage = () => {
                 )}
                 {!isDesktop && (
                   <AnimatedWrapper>
-                    <div className="relative flex-grow animated-fade animated-fade-start transition-delay-small home-community-characters">
+                    <div className="relative flex-grow transition-fade transition-fade-start delay-lite home-community-characters">
                       <Image
                         src="/img/degens/community-characters.webp"
                         alt="Community DEGENs"
@@ -678,13 +673,13 @@ const Home: NextPage = () => {
                   <div className="orb-top-right purple-bg-orb" />
                   <div className="mb-3">
                     <AnimatedWrapper>
-                      <h2 className="section-title section-heading animated-header-text animated-header-text-start transition-delay-small">
+                      <h2 className="section-title section-heading transition-vertical-fade transition-vertical-fade-start delay-lite">
                         COMMUNITY
                       </h2>
                     </AnimatedWrapper>
                   </div>
                   <AnimatedWrapper>
-                    <p className={`py-1 animated-header-text animated-header-text-start transition-delay-medium`}>
+                    <p className={`py-1 transition-vertical-fade transition-vertical-fade-start delay-normal`}>
                       WE HATE TO BRAG, BUT OUR COMMUNITY IS TRULY TOP-NOTCH! JOIN OUR DISCORD TO CONNECT WITH OTHERS
                       DEGENS &amp; HELP SHAPE NIFTY LEAGUE&apos;S FUTURE.
                     </p>
@@ -695,7 +690,7 @@ const Home: NextPage = () => {
                         href="https://discord.gg/niftyleague"
                         target="_blank"
                         rel="noreferrer"
-                        className="theme-btn-primary animated-fade animated-fade-start transition-delay-large"
+                        className="theme-btn-primary transition-fade transition-fade-start delay-long"
                       >
                         JOIN OUR DISCORD
                       </a>
@@ -703,7 +698,7 @@ const Home: NextPage = () => {
                     <AnimatedWrapper>
                       <Link
                         href="/community"
-                        className="theme-btn-transparent animated-fade animated-fade-start transition-delay-large"
+                        className="theme-btn-transparent transition-fade transition-fade-start delay-long"
                       >
                         VIEW MORE
                       </Link>
@@ -711,7 +706,7 @@ const Home: NextPage = () => {
                   </div>
                   {isDesktop && (
                     <AnimatedWrapper>
-                      <div className="relative flex-grow animated-fade animated-fade-start transition-delay-large -ml-[20px]">
+                      <div className="relative flex-grow transition-fade transition-fade-start delay-long -ml-[20px]">
                         <Image
                           alt="Community DEGENs"
                           width={1910}
@@ -735,14 +730,14 @@ const Home: NextPage = () => {
         <div className="w-full relative">
           <div className="my-3 lg:my-5 text-center">
             <AnimatedWrapper>
-              <h2 className="section-heading animated-header-text animated-header-text-start transition-delay-small">
+              <h2 className="section-heading transition-vertical-fade transition-vertical-fade-start delay-lite">
                 PROUDLY BACKED BY
               </h2>
             </AnimatedWrapper>
           </div>
           {isDesktop ? (
             <AnimatedWrapper>
-              <div className="w-full relative flex-grow animated-fade animated-fade-start transition-delay-medium">
+              <div className="w-full relative flex-grow transition-fade transition-fade-start delay-normal">
                 <Image
                   alt="Proudly Backed By"
                   className="pixelated w-full h-auto"
@@ -759,10 +754,7 @@ const Home: NextPage = () => {
           )}
           <div className="flex flex-row flex-wrap justify-center items-center gap-4 xl:gap-6 mt-8 md:mt-12 w-full section-actions">
             <AnimatedWrapper>
-              <Link
-                href="/careers"
-                className="theme-btn-primary animated-fade animated-fade-start transition-delay-large"
-              >
+              <Link href="/careers" className="theme-btn-primary transition-fade transition-fade-start delay-long">
                 JOIN THE TEAM
               </Link>
             </AnimatedWrapper>
@@ -771,7 +763,7 @@ const Home: NextPage = () => {
                 href="/blog"
                 target="_blank"
                 rel="noreferrer"
-                className="theme-btn-transparent animated-fade animated-fade-start transition-delay-large"
+                className="theme-btn-transparent transition-fade transition-fade-start delay-long"
               >
                 READ OUR BLOG
               </Link>

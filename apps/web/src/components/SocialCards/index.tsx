@@ -1,8 +1,8 @@
 'use client';
 
-import AnimatedWrapper from '@/components/AnimatedWrapper';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import Image from 'next/image';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { AnimatedWrapper } from '@nl/ui/animations';
 import { SOCIALS } from './constants';
 
 interface SocialProps {

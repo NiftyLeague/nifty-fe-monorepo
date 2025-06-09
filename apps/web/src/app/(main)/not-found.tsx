@@ -25,7 +25,7 @@ const CardMediaBlock = styled('img')({
   top: 0,
   left: 0,
   width: '100%',
-  animation: '3s bounce ease-in-out infinite',
+  animation: '3s custom-bounce ease-in-out infinite',
 });
 
 const CardMediaBlue = styled('img')({

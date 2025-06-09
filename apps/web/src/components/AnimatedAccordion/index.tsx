@@ -4,7 +4,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import AnimatedWrapper from '@/components/AnimatedWrapper';
+import { AnimatedWrapper } from '@nl/ui/animations';
 import { styled } from '@nl/theme';
 
 const StyledAccordion = styled(Accordion)({
@@ -35,7 +35,7 @@ const AnimatedAccordion = ({
 }) => {
   return (
     <AnimatedWrapper>
-      <div className="animated-fade-quick animated-fade-start transition-delay-medium">
+      <div className="transition-fade-quick transition-fade-start delay-normal">
         <StyledAccordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}

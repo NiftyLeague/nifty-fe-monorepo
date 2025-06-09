@@ -1,5 +1,4 @@
 @import '@nl/tailwind-config/styles';
-@import './animations.css';
 
 /* ==============================|| OVERRIDES ||============================== */
 
@@ -30,7 +29,7 @@ input {
 }
 
 input[disabled] {
-  color: rgba(224, 224, 224, 0.75) !important;
+  color: var(--color-secondary) !important;
   background-color: var(--color-dark) !important;
 }
 

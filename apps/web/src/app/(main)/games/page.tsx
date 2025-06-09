@@ -5,7 +5,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import AnimatedWrapper from '@/components/AnimatedWrapper';
+import { AnimatedWrapper } from '@nl/ui/animations';
 import { NIFTY_GAMES } from '@/constants/games';
 import { Container } from '@mui/material';
 import ExternalIcon from '@/components/ExternalIcon';
@@ -21,7 +21,7 @@ const Games: NextPage = () => {
           {desktop ? (
             <div className="w-1/2 px-2 lg:px-3">
               <AnimatedWrapper>
-                <div className="animation-zoomin animated-fade-start animated-fade transition-delay-large">
+                <div className="animate-zoom-out transition-fade-start transition-fade delay-long">
                   <video id="lobby" width="100%" height="100%" muted autoPlay loop playsInline data-keepplaying>
                     <source src="/video/lobby.mp4" type="video/mp4" />
                   </video>
@@ -31,7 +31,7 @@ const Games: NextPage = () => {
           ) : (
             <div className="w-1/3">
               <AnimatedWrapper>
-                <div className="animation-zoomin animated-fade-start animated-fade transition-delay-large">
+                <div className="animate-zoom-out transition-fade-start transition-fade delay-long">
                   <Image
                     alt="Arcade"
                     width={339}
@@ -47,14 +47,14 @@ const Games: NextPage = () => {
           <div className="w-full md:w-1/2 px-2 lg:px-3">
             <div className="mb-4">
               <AnimatedWrapper>
-                <h1 className="text-center animated-fade-slow animated-fade-start transition-delay-small whitespace-nowrap">
+                <h1 className="text-center transition-fade-slow transition-fade-start delay-lite whitespace-nowrap">
                   GAMES
                 </h1>
               </AnimatedWrapper>
             </div>
             <div className="mb-5">
               <AnimatedWrapper>
-                <p className="text-center animated-fade-slow animated-fade-start transition-delay-medium">
+                <p className="text-center transition-fade-slow transition-fade-start delay-normal">
                   Join thousands of players around the world competing for the top spot in Nifty League!{' '}
                 </p>
               </AnimatedWrapper>
@@ -67,23 +67,21 @@ const Games: NextPage = () => {
             <div className={cn(styles.block, 'w-full md:w-7/12 pr-0 md:pr-5')}>
               <div className="flex flex-row items-center justify-between mb-3">
                 <AnimatedWrapper>
-                  <h4 className="m-0 animated-header-text animated-header-text-start transition-delay-small">{name}</h4>
+                  <h4 className="m-0 transition-vertical-fade transition-vertical-fade-start delay-lite">{name}</h4>
                 </AnimatedWrapper>
                 <AnimatedWrapper>
-                  <p
-                    className={cn(styles.tagGame, 'm-0 animated-fade-slow animated-fade-start transition-delay-medium')}
-                  >
+                  <p className={cn(styles.tagGame, 'm-0 transition-fade-slow transition-fade-start delay-normal')}>
                     {tag}
                   </p>
                 </AnimatedWrapper>
               </div>
               <AnimatedWrapper>
-                <p className="animated-header-text animated-header-text-start transition-delay-medium">{description}</p>
+                <p className="transition-vertical-fade transition-vertical-fade-start delay-normal">{description}</p>
               </AnimatedWrapper>
               <div className="flex justify-center md:justify-start mt-4">
                 {action.isComingSoon ? (
                   <AnimatedWrapper>
-                    <div className="animated-fade-slow animated-fade-start transition-delay-medium">
+                    <div className="transition-fade-slow transition-fade-start delay-normal">
                       <button className="theme-btn-transparent theme-btn-rounded min-w-fit disabled px-3">
                         COMING SOON
                       </button>
@@ -103,7 +101,7 @@ const Games: NextPage = () => {
                         className={
                           action.isDisabled
                             ? 'theme-btn-transparent theme-btn-rounded'
-                            : 'theme-btn-primary theme-btn-rounded animated-fade-slow animated-fade-start transition-delay-medium'
+                            : 'theme-btn-primary theme-btn-rounded transition-fade-slow transition-fade-start delay-normal'
                         }
                       >
                         {action.title}
@@ -114,7 +112,7 @@ const Games: NextPage = () => {
                 {action.secondaryLink ? (
                   <AnimatedWrapper>
                     <Link href={action.secondaryLink}>
-                      <button className="theme-btn-primary theme-btn-rounded mx-3 animated-fade-slow animated-fade-start transition-delay-medium">
+                      <button className="theme-btn-primary theme-btn-rounded mx-3 transition-fade-slow transition-fade-start delay-normal">
                         {action.secondaryTitle}
                       </button>
                     </Link>
@@ -124,7 +122,7 @@ const Games: NextPage = () => {
             </div>
             <div className="w-full md:w-5/12">
               <AnimatedWrapper>
-                <div className="relative text-right animated-fade-slow animated-fade-start transition-delay-medium mb-4">
+                <div className="relative text-right transition-fade-slow transition-fade-start delay-normal mb-4">
                   {video.includes('youtube') ? (
                     <iframe
                       src={video}
@@ -164,7 +162,7 @@ const Games: NextPage = () => {
       <div className="flex justify-center mt-5 md:mt-3 pb-8">
         <AnimatedWrapper>
           <a href="/docs/guides/nifty-smashers/general-info" target="_blank" rel="noreferrer">
-            <button className="theme-btn-primary animated-fade-slow animated-fade-start transition-delay-medium">
+            <button className="theme-btn-primary transition-fade-slow transition-fade-start delay-normal">
               View Docs
               <ExternalIcon />
             </button>
