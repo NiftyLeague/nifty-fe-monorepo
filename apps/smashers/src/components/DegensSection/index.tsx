@@ -1,13 +1,11 @@
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { AnimatedWrapper } from '@nl/ui/animations';
 
 import { NIFTY_DEGENS } from './constants';
 import styles from './index.module.css';
-
-const AnimatedWrapper = dynamic(() => import('@/components/AnimatedWrapper'), { ssr: false });
 
 const DegensSection = () => {
   const desktop = useMediaQuery('(min-width:600px)');
@@ -16,14 +14,14 @@ const DegensSection = () => {
       <div className={styles.section}>
         <div style={{ marginBottom: 20 }}>
           <AnimatedWrapper>
-            <h2 className="text-center animated-header-text animated-header-text-start transition-delay-small">
+            <h2 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">
               Choose your fighter
             </h2>
           </AnimatedWrapper>
         </div>
         <div style={{ position: 'relative' }}>
           <AnimatedWrapper>
-            <p className="text-center animated-header-text animated-header-text-start transition-delay-medium">
+            <p className="text-center transition-vertical-fade transition-vertical-fade-start delay-normal">
               There are 7 tribes to choose from, each with their own unique special ability. Some characters specialize
               in melee combat, while others are skilled in ranged attacks or magic.
             </p>
@@ -35,12 +33,10 @@ const DegensSection = () => {
         <AnimatedWrapper>
           <Grid container spacing={0} style={{ marginBottom: 20 }}>
             <Grid size={{ xs: 6, sm: 4 }}>
-              <h3 className="text-center animated-header-text animated-header-text-start transition-delay-small">
-                TRIBE
-              </h3>
+              <h3 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">TRIBE</h3>
             </Grid>
             <Grid size={{ xs: 6, sm: 8 }}>
-              <h3 className="text-center animated-header-text animated-header-text-start transition-delay-small">
+              <h3 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">
                 SPECIAL
               </h3>
             </Grid>
@@ -54,7 +50,7 @@ const DegensSection = () => {
                     <AnimatedWrapper>
                       <div
                         style={{ position: 'relative' }}
-                        className="text-center animated-fade-slow animated-fade-start transition-delay-small"
+                        className="text-center transition-fade-slow transition-fade-start delay-lite"
                       >
                         <Image
                           src={image.link}
@@ -67,7 +63,7 @@ const DegensSection = () => {
                     <AnimatedWrapper>
                       <h5
                         style={{ marginTop: 8 }}
-                        className="text-center animated-fade-slow animated-fade-start transition-delay-small"
+                        className="text-center transition-fade-slow transition-fade-start delay-lite"
                       >
                         {name}
                       </h5>
@@ -77,7 +73,7 @@ const DegensSection = () => {
                 {desktop && (
                   <Grid size={{ xs: 5 }} className={styles.grid_col}>
                     <AnimatedWrapper>
-                      <p className="animated-header-text animated-header-text-start transition-delay-medium">
+                      <p className="transition-vertical-fade transition-vertical-fade-start delay-normal">
                         {description}
                       </p>
                     </AnimatedWrapper>
@@ -87,7 +83,7 @@ const DegensSection = () => {
                   <AnimatedWrapper>
                     <div
                       style={{ position: 'relative' }}
-                      className="text-center animated-fade-slow animated-fade-start transition-delay-small"
+                      className="text-center transition-fade-slow transition-fade-start delay-lite"
                     >
                       <Image
                         src={gif.link}

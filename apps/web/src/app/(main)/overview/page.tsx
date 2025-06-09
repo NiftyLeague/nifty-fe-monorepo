@@ -6,8 +6,8 @@ import Image from 'next/image';
 import cn from 'classnames';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
+import { AnimatedWrapper } from '@nl/ui/animations';
 import AnimatedAccordion from '@/components/AnimatedAccordion';
-import AnimatedWrapper from '@/components/AnimatedWrapper';
 import ExternalIcon from '@/components/ExternalIcon';
 import LearnCards from '@/components/LearnCards';
 import { FAQS } from '@/constants/faq';
@@ -21,13 +21,11 @@ const Overview: NextPage = () => {
       <div className={cn(styles.gradient1, 'purple-bg-orb')} />
       <div className="relative">
         <AnimatedWrapper>
-          <h1 className="text-center animated-header-text animated-header-text-start transition-delay-small">
-            OVERVIEW
-          </h1>
+          <h1 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">OVERVIEW</h1>
         </AnimatedWrapper>
         <div className="mt-3">
           <AnimatedWrapper>
-            <p className="text-center animated-header-text animated-header-text-start transition-delay-medium">
+            <p className="text-center transition-vertical-fade transition-vertical-fade-start delay-normal">
               Learn how to navigate the Nifty League Platform
             </p>
           </AnimatedWrapper>
@@ -40,7 +38,7 @@ const Overview: NextPage = () => {
       <div className="pb-0 md:pb-5 pt-5">
         <div className="text-center mb-3 md:mb-5 relative">
           <AnimatedWrapper>
-            <h2 className="animated-header-text animated-header-text-start transition-delay-small">
+            <h2 className="transition-vertical-fade transition-vertical-fade-start delay-lite">
               Frequently Asked Questions
             </h2>
           </AnimatedWrapper>
@@ -54,7 +52,7 @@ const Overview: NextPage = () => {
         <div className="flex justify-center my-3 md:my-4">
           <AnimatedWrapper>
             <Link href="/docs/faq/general" target="_blank" rel="noreferrer">
-              <button className="theme-btn-primary theme-btn-purple animated-fade-slow animated-fade-start transition-delay-medium">
+              <button className="theme-btn-primary theme-btn-purple transition-fade-slow transition-fade-start delay-normal">
                 More FAQ
                 <ExternalIcon />
               </button>

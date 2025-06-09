@@ -1,15 +1,9 @@
 'use client';
 
 import { memo, useRef, useState, useCallback } from 'react';
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import cn from 'classnames';
-
-// Lazy load AnimatedWrapper with no SSR
-const AnimatedWrapper = dynamic(() => import('@/components/AnimatedWrapper'), {
-  ssr: false,
-  loading: () => <div style={{ minHeight: '300px' }} />,
-});
+import { AnimatedWrapper } from '@nl/ui/animations';
 
 import styles from './index.module.css';
 
@@ -37,7 +31,7 @@ const ConsoleGame = ({ src }: { src: string }) => {
       <AnimatedWrapper>
         <div
           style={{ position: 'relative', display: 'flex', flexGrow: 1 }}
-          className="animated-fade-slow animated-fade-start transition-delay-small animation-sm-hidden"
+          className="transition-fade-slow transition-fade-start delay-lite md:animation-hidden"
         >
           <Image
             alt="Classic Gaming Reinvented"
@@ -72,7 +66,7 @@ const ConsoleGame = ({ src }: { src: string }) => {
             onClick={togglePlay}
             style={{ cursor: 'pointer' }}
             aria-label={isPlaying ? 'Pause video' : 'Play video'}
-            className={cn(styles.bonk_note, 'animated-fade-start animated-fade transition-delay-medium')}
+            className={cn(styles.bonk_note, 'transition-fade-start transition-fade delay-normal')}
           >
             <Image
               alt="Classic Gaming Reinvented Bonk"
@@ -88,8 +82,8 @@ const ConsoleGame = ({ src }: { src: string }) => {
         </div>
       </AnimatedWrapper>
       <div className={styles.gaming_controller}>
-        <AnimatedWrapper parallax parallaxDirection="bottom" transitionAmount="small">
-          <div className="animation-bounce animated-fade-start animated-fade transition-delay-large">
+        <AnimatedWrapper parallax parallaxDirection="down" parallaxIntensity="normal">
+          <div className="animate-hover transition-fade-start transition-fade delay-long">
             <Image
               alt="Classic Gaming Reinvented Controller Left"
               className="pixelated"
@@ -104,8 +98,8 @@ const ConsoleGame = ({ src }: { src: string }) => {
         </AnimatedWrapper>
       </div>
       <div className={styles.gaming_controller}>
-        <AnimatedWrapper parallax parallaxDirection="bottom" transitionAmount="small">
-          <div className="animation-bounce2 animated-fade-start animated-fade transition-delay-large">
+        <AnimatedWrapper parallax parallaxDirection="down" parallaxIntensity="normal">
+          <div className="animate-hover2 transition-fade-start transition-fade delay-long">
             <Image
               alt="Classic Gaming Reinvented Controller Right"
               className="pixelated"

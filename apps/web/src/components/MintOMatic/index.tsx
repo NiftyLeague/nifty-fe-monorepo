@@ -1,10 +1,10 @@
 import Image from 'next/image';
-import AnimatedWrapper from '@/components/AnimatedWrapper';
+import { AnimatedWrapper } from '@nl/ui/animations';
 
 const MintOMatic = () => {
   return (
     <>
-      <AnimatedWrapper parallax parallaxDirection="top" transitionAmount="medium">
+      <AnimatedWrapper parallax parallaxDirection="down" parallaxIntensity="normal">
         <div className="relative">
           <Image
             src="/img/mint-o-matic/animated/top.webp"
@@ -31,7 +31,7 @@ const MintOMatic = () => {
         </div>
       </AnimatedWrapper>
       <AnimatedWrapper>
-        <div className="absolute animation-visible home-nftl-token-image flex-grow">
+        <div className="absolute animate-blink home-nftl-token-image flex-grow">
           <Image
             src="/img/mint-o-matic/animated/nftl-token-tears.webp"
             alt="NFTL Token Tears"
@@ -43,7 +43,7 @@ const MintOMatic = () => {
           />
         </div>
       </AnimatedWrapper>
-      <AnimatedWrapper parallax parallaxDirection="right" transitionAmount="medium">
+      <AnimatedWrapper parallax parallaxDirection="left" parallaxIntensity="normal">
         <div className="parallax-child absolute home-nftl-token-image home-nftl-token-bottom-image flex-grow">
           <Image
             src="/img/mint-o-matic/animated/bottom.webp"

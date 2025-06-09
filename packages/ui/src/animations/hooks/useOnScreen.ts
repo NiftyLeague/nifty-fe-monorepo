@@ -1,9 +1,14 @@
-import { MutableRefObject, useState, useEffect } from 'react';
+import { RefObject, useState, useEffect } from 'react';
 
-export function useOnScreen<T extends Element>(ref: MutableRefObject<T>, rootMargin: string = '0px'): boolean {
+export function useOnScreen<T extends Element = HTMLDivElement>(
+  ref: RefObject<T | null>,
+  rootMargin: string = '0px',
+): boolean {
   // State and setter for storing whether element is visible
   const [isIntersecting, setIntersecting] = useState<boolean>(false);
   useEffect(() => {
+    if (!ref || !ref.current) return;
+
     const wrapperRef = ref.current;
     const observer = new IntersectionObserver(
       ([entry]) => {

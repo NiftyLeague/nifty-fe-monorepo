@@ -4,10 +4,10 @@ import cn from 'classnames';
 import type { NextPage } from 'next';
 import Link from 'next/link';
 
+import { AnimatedWrapper } from '@nl/ui/animations';
 import Carousel from '@/components/Carousel';
 import { RenderTeamCardItem } from '@/components/Carousel/TeamCardItem';
 import TeamDesktop from '@/components/TeamDesktop';
-import AnimatedWrapper from '@/components/AnimatedWrapper';
 import { CORE_TEAM, DEGEN_DELEGATES } from '@/constants/team';
 import styles from './index.module.css';
 
@@ -18,13 +18,13 @@ const Team: NextPage = () => {
         <div className="about-intro mt-5 pt-5 relative">
           <div className="flex flex-col m-0 p-0 sm:pt-5 relative items-center">
             <AnimatedWrapper>
-              <h1 className="text-center animated-header-text animated-header-text-start transition-delay-small">
+              <h1 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">
                 NIFTY DAO
               </h1>
             </AnimatedWrapper>
             <div className={cn(styles.body, 'mt-5 sm:mt-3')}>
               <AnimatedWrapper>
-                <p className="text-center p1 animated-header-text animated-header-text-start transition-delay-medium">
+                <p className="text-center p1 transition-vertical-fade transition-vertical-fade-start delay-normal">
                   Nifty League is a game studio at the cutting edge of Web3. Our mission is to inspire indie game
                   developers to build a decentralized future with us by establishing a game studio focused on
                   unparalleled quality and player experiences.
@@ -32,7 +32,7 @@ const Team: NextPage = () => {
                 <br />
               </AnimatedWrapper>
               <AnimatedWrapper>
-                <p className="text-center p1 animated-header-text animated-header-text-start transition-delay-medium">
+                <p className="text-center p1 transition-vertical-fade transition-vertical-fade-start delay-normal">
                   We will gradually transfer ownership of Nifty League to our DAO in order to decentralize the platform
                   and encourage others to build with us! Our vision is to power rapid growth and development through
                   community contributions enabling us to build a gaming platform like no other. Simply put, DAOs are the
@@ -45,14 +45,14 @@ const Team: NextPage = () => {
             <div className="display-buttons mt-3 md:mt-4 flex justify-center desktop">
               <AnimatedWrapper>
                 <Link href="/careers">
-                  <button className="theme-btn-primary mx-2 animated-fade-slow animated-fade-start transition-delay-medium">
+                  <button className="theme-btn-primary mx-2 transition-fade-slow transition-fade-start delay-normal">
                     Join Us
                   </button>
                 </Link>
               </AnimatedWrapper>
               <AnimatedWrapper>
                 <Link href="/roadmap">
-                  <button className="theme-btn-transparent mx-2 animated-fade-slow animated-fade-start transition-delay-medium">
+                  <button className="theme-btn-transparent mx-2 transition-fade-slow transition-fade-start delay-normal">
                     Check our roadmap
                   </button>
                 </Link>
@@ -66,7 +66,7 @@ const Team: NextPage = () => {
       <div className={cn(styles.container, 'mx-auto px-3')}>
         <div className={cn(styles.section, 'relative pb-5')}>
           <AnimatedWrapper>
-            <h4 className="text-center animated-header-text animated-header-text-start transition-delay-small">
+            <h4 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">
               MEET THE DEGENS WHO MAKE NIFTY LEAGUE POSSIBLE
             </h4>
           </AnimatedWrapper>
