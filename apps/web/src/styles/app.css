@@ -33,7 +33,7 @@
 }
 
 .community-data {
-  border-radius: 8px;
+  border-radius: var(--border-radius-default);
   background:
     linear-gradient(26.04deg, rgba(110, 51, 237, 0.05) -0.03%, rgba(123, 97, 255, 0.025) 99.2%), rgba(36, 37, 38, 0.6);
   width: 100%;
@@ -565,7 +565,7 @@
   .slick-dots li {
     width: 8px !important;
     height: 8px !important;
-    border-radius: 8px;
+    border-radius: var(--border-radius-default);
     background: var(--color-light) !important;
   }
   .slick-dots li.slick-active {

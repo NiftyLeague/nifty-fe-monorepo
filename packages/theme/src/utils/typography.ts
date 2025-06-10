@@ -109,7 +109,7 @@ const customTypography = (theme: Theme, borderRadius: number, fontFamily: FontFa
     color: theme.palette.text.secondary,
     textTransform: 'capitalize',
   },
-  commonAvatar: { cursor: 'pointer', borderRadius: '8px' },
+  commonAvatar: { cursor: 'pointer', borderRadius: 'var(--border-radius-default)' },
   smallAvatar: {
     width: '22px',
     height: '22px',

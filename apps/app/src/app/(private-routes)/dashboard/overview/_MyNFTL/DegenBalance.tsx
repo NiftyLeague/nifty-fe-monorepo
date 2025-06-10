@@ -20,8 +20,7 @@ const DegenBalance = (): React.ReactNode => {
       primary={`${balance ? formatNumberToDisplay(balance) : '0.00'} NFTL`}
       customStyle={{
         backgroundColor: theme.palette.background.default,
-        border: '1px solid',
-        borderColor: theme.palette.border,
+        border: 'var(--border-light)',
         position: 'relative',
       }}
       secondary="Available to Claim"

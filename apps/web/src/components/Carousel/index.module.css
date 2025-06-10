@@ -10,15 +10,15 @@
   .browse_single {
     background:
       linear-gradient(26.04deg, rgba(123, 97, 255, 0.1) -0.03%, rgba(109, 50, 237, 0) 99.2%), rgba(36, 37, 38, 0.7);
-    border-radius: 8px;
+    border-radius: var(--border-radius-default);
   }
 
   .browse_single button {
     font-size: 9px;
     height: 12px;
     width: 53px;
-    color: #757575;
-    border: 1px solid #757575;
+    color: var(--color-gray-400);
+    border: var(--border-light);
     border-radius: 2px;
     text-transform: uppercase;
     background: transparent;
@@ -29,7 +29,7 @@
   }
   .browse_single label {
     font-size: 10px;
-    color: #757575;
+    color: var(--color-gray-400);
   }
   .browse_single select {
     color: var(--color-light);

@@ -18,9 +18,9 @@
 
 .tagGame {
   padding: 8px 30px;
-  border: 1px solid #b4b5c3;
-  border-radius: 5px;
-  color: #b4b5c3;
+  border: var(--border-light);
+  border-radius: var(--border-radius-default);
+  color: var(--color-secondary);
   font-size: 0.75rem;
   white-space: nowrap;
 }

@@ -97,7 +97,7 @@ code.sbui-typography-text {
   /* font-size: 85%; */
   background: hsla(0, 0%, 58.8%, 0.1);
   border: 1px solid hsla(0, 0%, 39.2%, 0.2);
-  border-radius: 3px;
+  border-radius: var(--border-radius-default);
 }
 
 kbd.sbui-typography-text {
@@ -107,5 +107,5 @@ kbd.sbui-typography-text {
   background: hsla(0, 0%, 58.8%, 0.06);
   border: solid hsla(0, 0%, 39.2%, 0.2);
   border-width: 1px 1px 2px;
-  border-radius: 3px;
+  border-radius: var(--border-radius-default);
 }

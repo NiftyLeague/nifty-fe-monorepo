@@ -19,7 +19,7 @@ const FilterRangeSlider = ({ value, unit, ...props }: Props): React.ReactNode =>
         sx={{
           ml: 1,
           width: 'calc(100% - 16px)',
-          '& .MuiSlider-thumb': { background: 'rgb(30, 32, 35)', border: '1px solid rgb(98, 14, 223)' },
+          '& .MuiSlider-thumb': { background: 'var(--color-purple)', border: 'var(--border-purple)' },
         }}
       />
     </Stack>

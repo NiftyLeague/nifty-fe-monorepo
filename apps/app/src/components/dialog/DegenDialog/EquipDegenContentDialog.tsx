@@ -36,8 +36,8 @@ const StyledStack = styled(Stack)(() => ({
   [`&.${classes.animTypeButton}`]: {
     borderRadius: '2px',
     height: 24,
-    border: '1px solid #757575',
-    color: '#757575',
+    border: 'var(--border-light)',
+    color: 'var(--color-light)',
     fontSize: 12,
     background: 'transparent',
   },

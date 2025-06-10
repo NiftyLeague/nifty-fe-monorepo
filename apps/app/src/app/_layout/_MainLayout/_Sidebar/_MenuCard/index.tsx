@@ -28,7 +28,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     ...theme.applyStyles('dark', { backgroundColor: theme.palette.grey[400] }),
   },
   [`&.${linearProgressClasses.bar}`]: {
-    borderRadius: 5,
+    borderRadius: 'var(--border-radius-default)',
     backgroundColor: theme.palette.primary.main,
     ...theme.applyStyles('dark', { backgroundColor: theme.palette.primary.dark }),
   },
@@ -101,8 +101,7 @@ const MenuCard = () => {
                   ...theme.typography.commonAvatar,
                   ...theme.typography.largeAvatar,
                   color: theme.palette.primary.main,
-                  border: theme.palette.mode === 'dark' ? '1px solid' : 'none',
-                  borderColor: theme.palette.primary.main,
+                  border: theme.palette.mode === 'dark' ? 'var(--border-purple)' : 'none',
                   background: theme.palette.mode === 'dark' ? theme.palette.dark.dark : theme.palette.grey[50],
                   marginRight: '12px',
                 }}

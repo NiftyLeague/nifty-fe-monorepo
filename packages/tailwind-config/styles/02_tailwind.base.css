@@ -29,6 +29,8 @@
     background: var(--color-dark);
   }
 
+  /* =============================|| TYPOGRAPHY ||============================= */
+
   p {
     color: var(--color-light);
   }
@@ -87,6 +89,33 @@
   a {
     color: var(--color-brand-blue);
     text-decoration: none;
+  }
+
+  /* ===============================|| FORMS ||=============================== */
+
+  label {
+    color: var(--color-secondary);
+    display: block;
+    font-size: var(--text-xs); /* 0.75rem */
+    font-weight: var(--font-weight-medium);
+    margin: 8px 0 4px 0;
+    text-transform: uppercase;
+  }
+
+  input {
+    background-color: inherit;
+    border-radius: var(--border-radius-default) !important;
+    border: var(--border-light) !important;
+    color: var(--color-light) !important;
+    font-size: var(--text-sm) !important; /* 0.875rem */
+    padding: 0.5rem 0.75rem !important;
+    width: 100%;
+  }
+
+  input[disabled] {
+    background-color: var(--color-dark) !important;
+    border: var(--border-dark) !important;
+    color: var(--color-secondary) !important;
   }
 
   /* @media (prefers-color-scheme: light) {

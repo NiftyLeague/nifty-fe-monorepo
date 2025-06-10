@@ -1,5 +1,5 @@
 .sbui-alert-container {
-  border-radius: 0.375rem;
+  border-radius: var(--border-radius-default);
   padding: 1rem;
 }
 
@@ -71,7 +71,7 @@
 .sbui-close-button {
   display: inline-flex;
   cursor: pointer;
-  border-radius: 0.375rem;
+  border-radius: var(--border-radius-default);
   border-color: transparent;
   background-color: transparent;
   padding: 0.375rem;
@@ -83,9 +83,33 @@
 }
 
 .sbui-close-button {
-  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, -webkit-transform, -webkit-filter, -webkit-backdrop-filter;
-  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-transform, -webkit-filter, -webkit-backdrop-filter;
+  transition-property:
+    background-color,
+    border-color,
+    color,
+    fill,
+    stroke,
+    opacity,
+    box-shadow,
+    -webkit-transform,
+    -webkit-filter,
+    -webkit-backdrop-filter;
+  transition-property:
+    background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property:
+    background-color,
+    border-color,
+    color,
+    fill,
+    stroke,
+    opacity,
+    box-shadow,
+    transform,
+    filter,
+    backdrop-filter,
+    -webkit-transform,
+    -webkit-filter,
+    -webkit-backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
   transition-duration: 200ms;

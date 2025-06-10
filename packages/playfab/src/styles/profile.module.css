@@ -51,13 +51,13 @@
 
 .button {
   color: var(--color-light);
-  border: var(--custom-border);
+  border: var(--border-dark);
   background-color: var(--color-dark);
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--custom-border-radius);
+  border-radius: var(--border-radius-default);
   padding: 0.5rem 1rem;
   cursor: pointer;
   font-size: 0.9rem;
@@ -111,13 +111,13 @@
 .card {
   width: 100%;
   display: block;
-  border: var(--custom-border);
-  border-radius: var(--custom-border-radius);
+  border: var(--border-dark);
+  border-radius: var(--border-radius-default);
   padding: var(--custom-spacing);
 }
 
 .avatar {
-  border-radius: var(--custom-border-radius);
+  border-radius: var(--border-radius-default);
   overflow: hidden;
   max-width: 100%;
 }
@@ -126,8 +126,8 @@
 }
 .avatar.no_image {
   background-color: var(--color-dark);
-  border: 1px solid rgb(200, 200, 200);
-  border-radius: 5px;
+  border: var(--border-light);
+  border-radius: var(--border-radius-default);
 }
 
 @keyframes spin {
@@ -146,8 +146,8 @@
 }
 
 .avatarPlaceholder {
-  border: var(--custom-border);
-  border-radius: var(--custom-border-radius);
+  border: var(--border-dark);
+  border-radius: var(--border-radius-default);
   width: 35px;
   height: 35px;
   background-color: rgba(255, 255, 255, 0.2);

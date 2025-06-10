@@ -109,6 +109,7 @@ export default function AccountDetails({
             <Button
               placeholder="Loading..."
               key="save"
+              size="tiny"
               className={styles.button_primary}
               icon={loading ? <IconLoader /> : <IconSave />}
               onClick={() => updateProfile({ displayName })}

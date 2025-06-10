@@ -21,8 +21,7 @@ const GameBalance: React.FC = memo(() => {
       isLoading={loading}
       customStyle={{
         backgroundColor: theme.palette.background.default,
-        border: '1px solid',
-        borderColor: theme.palette.border,
+        border: 'var(--border-light)',
         position: 'relative',
       }}
       secondary="Available to Withdraw"

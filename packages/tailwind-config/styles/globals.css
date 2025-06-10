@@ -21,7 +21,7 @@
 }
 ::-webkit-scrollbar-thumb {
   background: var(--color-brand-purple-600);
-  border-radius: 5px;
+  border-radius: var(--border-radius-default);
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-brand-purple-400);

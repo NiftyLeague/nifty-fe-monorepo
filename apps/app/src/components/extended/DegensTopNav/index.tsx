@@ -10,15 +10,18 @@ const SearchTextField = styled(TextField)({
   '& .MuiOutlinedInput-root': {
     height: 32,
     '& input': { paddingTop: '6px', paddingBottom: '6px' },
-    '& fieldset': { borderRadius: '5px' },
+    '& fieldset': { borderRadius: 'var(--border-radius-default)' },
   },
 });
 
-const LayoutModeButtonsGroup = styled(ToggleButtonGroup)({ border: '1px solid #2f2f2f', borderRadius: '5px' });
+const LayoutModeButtonsGroup = styled(ToggleButtonGroup)({
+  border: 'var(--border-light)',
+  borderRadius: 'var(--border-radius-default)',
+});
 
 const LayoutModeButton = styled(ToggleButton)({
   border: 'none',
-  borderRadius: '5px',
+  borderRadius: 'var(--border-radius-default)',
   padding: '5px 16px',
   '&.Mui-selected': { background: 'rgba(88, 32, 214, 0.2)', '&:hover': { background: 'rgba(88, 32, 214, 0.2)' } },
   '& svg': { width: 20, height: 20 },
@@ -60,7 +63,7 @@ const DegensTopNav = ({
             endIcon={<KeyboardArrowDown />}
             sx={{
               fontWeight: 400,
-              border: `1px solid ${theme.palette.primary.main}`,
+              border: 'var(--border-purple)',
               padding: '3px 16px',
               color: theme.palette.text.primary,
             }}

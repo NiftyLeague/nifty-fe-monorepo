@@ -149,8 +149,7 @@ const GameCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<GameCar
         flexDirection: 'column',
         width: '100%',
         height: autoHeight ? 'auto' : '100%',
-        backgroundColor: theme.palette.background.default,
-        border: `1px solid ${theme.palette.border}`,
+        border: 'var(--border-light)',
         ...sx,
       }}
     >

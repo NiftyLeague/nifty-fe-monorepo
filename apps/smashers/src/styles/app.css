@@ -7,32 +7,6 @@
   --subheader-letter-spacing: var(--special-letter-spacing);
 }
 
-/* ==============================|| FORMS ||============================== */
-
-label {
-  display: block;
-  margin: 8px 0 4px 0;
-  color: var(--color-secondary);
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  font-weight: var(--font-weight-medium);
-}
-
-input {
-  width: 100%;
-  border-radius: 5px;
-  border: var(--custom-border);
-  padding: 8px;
-  font-size: 0.9rem;
-  background-color: var(--color-dark);
-  color: var(--color-light);
-}
-
-input[disabled] {
-  color: var(--color-secondary) !important;
-  background-color: var(--color-dark) !important;
-}
-
 /* ==============================|| COMPONENT OVERRIDES ||============================== */
 
 .sbui-connect-input input[disabled] {
