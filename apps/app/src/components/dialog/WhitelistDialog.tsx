@@ -22,12 +22,12 @@ const StyledDialog = styled(Dialog)(() => ({
     outline: 'none',
     fontSize: '16px',
     '&::placeholder': { color: '#B4B5C3' },
-    '@media (max-width: 768px)': { borderRadius: '5px' },
+    '@media (max-width: 768px)': { borderRadius: 'var(--border-radius-default)' },
   },
 
   [`&.${classes.submitButton}`]: {
     background: 'var(--color-brand-purple)',
-    borderRadius: '0px 5px 5px 0px',
+    borderRadius: '0px var(--border-radius-default) var(--border-radius-default) 0px',
     border: 'none',
     cursor: 'pointer',
     padding: '8px 36px',
@@ -36,7 +36,7 @@ const StyledDialog = styled(Dialog)(() => ({
     letterSpacing: '-0.02em',
     color: 'var(--color-light)',
     fontWeight: 700,
-    '@media (max-width: 768px)': { marginTop: 8, borderRadius: '5px' },
+    '@media (max-width: 768px)': { marginTop: 8, borderRadius: 'var(--border-radius-default)' },
   },
 }));
 

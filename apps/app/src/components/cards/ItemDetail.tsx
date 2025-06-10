@@ -63,7 +63,7 @@ const ItemDetail: React.FC<React.PropsWithChildren<React.PropsWithChildren<ItemD
           width={225}
           border="1px solid #5D5F74"
           borderTop="none"
-          sx={{ borderRadius: '0px 0px 5px 5px' }}
+          sx={{ borderRadius: '0px 0px var(--border-radius-default) var(--border-radius-default)' }}
           spacing={1.5}
           p={1}
           pb={3}

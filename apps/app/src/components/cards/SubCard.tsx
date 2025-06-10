@@ -40,8 +40,7 @@ const SubCard = forwardRef(
       <Card
         ref={ref}
         sx={{
-          border: '1px solid',
-          borderColor: theme.palette.border,
+          border: 'var(--border-light)',
           ':hover': {
             boxShadow:
               theme.palette.mode === 'dark' ? '0 2px 14px 0 rgb(33 150 243 / 10%)' : '0 2px 14px 0 rgb(32 40 45 / 8%)',

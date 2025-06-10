@@ -154,8 +154,7 @@ const Breadcrumbs = ({
         <Card
           sx={{
             marginBottom: card === false ? 0 : theme.spacing(gridSpacing),
-            border: card === false ? 'none' : '1px solid',
-            borderColor: theme.palette.mode === 'dark' ? theme.palette.background.default : theme.palette.primary.main,
+            border: card === false ? 'none' : 'var(--border-light)',
             background: card === false ? 'transparent' : theme.palette.background.default,
           }}
           {...others}

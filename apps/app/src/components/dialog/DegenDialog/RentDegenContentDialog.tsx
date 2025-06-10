@@ -73,7 +73,7 @@ const Root = styled('div')(({ theme }) => ({
     right: 12,
     top: 6,
     color: 'var(--color-brand-purple)',
-    border: '1px solid var(--color-brand-purple)',
+    border: 'var(--border-purple)',
     borderRadius: '50% !important',
     width: '20px',
     height: '20px !important',
@@ -252,7 +252,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                     width: 132,
                     height: 146,
                     borderRadius: '10px',
-                    border: '1px solid #0c0b0a',
+                    border: 'var(--border-light)',
                   }}
                   tokenId={degen.id}
                 />

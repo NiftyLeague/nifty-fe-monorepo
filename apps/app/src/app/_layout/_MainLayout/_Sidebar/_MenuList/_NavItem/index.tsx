@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 // material-ui
-import { useTheme, borderRadius } from '@nl/theme';
+import { useTheme } from '@nl/theme';
 import { Avatar, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery } from '@mui/material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import Chip from '@/components/extended/Chip';
@@ -77,14 +77,14 @@ const NavItem = ({ item, level }: NavItemProps) => {
       {...listItemProps}
       disabled={item.disabled}
       sx={{
-        borderRadius: `${borderRadius}px`,
+        borderRadius: 'var(--border-radius-default)',
         border: '1px solid transparent',
         mb: 0.5,
         alignItems: 'flex-start',
         backgroundColor: 'transparent !important',
         py: level > 1 ? 1 : 1.25,
         pl: `${level * 24}px`,
-        '&:hover': { border: '1px solid', borderColor: theme.palette.secondary.main },
+        '&:hover': { border: 'var(--border-blue)' },
       }}
       selected={openItem?.findIndex(id => id === item.id) > -1}
       onClick={() => itemHandler(item.id!)}

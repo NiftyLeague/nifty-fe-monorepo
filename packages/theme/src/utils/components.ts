@@ -10,7 +10,7 @@ const customComponents = (theme: Theme, borderRadius: number, outlinedFilled: bo
   return {
     MuiButton: {
       styleOverrides: {
-        root: { fontWeight: 500, borderRadius: '4px' },
+        root: { fontWeight: 500, borderRadius: 'var(--border-radius-default)' },
         outlinedPrimary: { color: 'var(--color-light)', borderColor: theme.palette.primary.main },
       },
     },
@@ -93,7 +93,7 @@ const customComponents = (theme: Theme, borderRadius: number, outlinedFilled: bo
         root: {
           '& .MuiAutocomplete-tag': {
             background: mode === 'dark' ? theme.palette.text.primary + 20 : theme.palette.secondary.light,
-            borderRadius: 4,
+            borderRadius: 'var(--border-radius-default)',
             color: theme.palette.text.primary,
             '.MuiChip-deleteIcon': {
               color: mode === 'dark' ? theme.palette.text.primary + 80 : theme.palette.secondary.main,

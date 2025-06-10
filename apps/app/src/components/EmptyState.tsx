@@ -23,7 +23,7 @@ const EmptyState: React.FC<React.PropsWithChildren<React.PropsWithChildren<Empty
           mt: 5,
           width: { xs: 'calc(100% - 24px)', sm: 400 },
           bgcolor: 'transparent',
-          border: noBorder ? 'none' : `1px solid ${theme.palette.primary.main}`,
+          border: noBorder ? 'none' : 'var(--border-purple)',
           boxShadow: 'none',
           p: 4,
           textAlign: 'center',

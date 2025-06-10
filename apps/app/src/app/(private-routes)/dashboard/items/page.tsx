@@ -184,8 +184,8 @@ const DashboardComicsPage = (): React.ReactNode => {
               <Stack
                 sx={{
                   minHeight: 375,
-                  border: '1px solid #363636',
-                  borderRadius: '5px',
+                  border: 'var(--border-dark)',
+                  borderRadius: 'var(--border-radius-default)',
                   px: 2,
                   pt: 4,
                   pb: 2,

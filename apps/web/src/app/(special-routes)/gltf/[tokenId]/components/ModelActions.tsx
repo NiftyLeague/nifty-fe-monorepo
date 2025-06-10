@@ -35,15 +35,15 @@ const BootstrapInput = styled(InputBase)(() => ({
   fontFamily: 'inherit',
   'label + &': { marginTop: 20 },
   '& .MuiInputBase-input': {
-    borderRadius: 4,
+    borderRadius: 'var(--border-radius-default)',
     position: 'relative',
     color: 'var(--color-brand-purple)',
     backgroundColor: 'var(--color-light)',
-    border: '1px solid var(--color-brand-purple)',
+    border: 'var(--border-purple)',
     padding: '0.4rem 1rem 0.4rem 0.8rem',
     boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
     '&:focus': {
-      borderRadius: 4,
+      borderRadius: 'var(--border-radius-default)',
       borderColor: 'var(--color-brand-purple)',
       backgroundColor: 'var(--color-light)',
       boxShadow: '0 0 0 0.2rem rgba(95,76,230,.25)',

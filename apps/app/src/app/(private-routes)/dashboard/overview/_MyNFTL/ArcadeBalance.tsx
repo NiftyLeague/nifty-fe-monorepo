@@ -35,9 +35,8 @@ const ArcadeBalance = (): React.ReactNode => {
         isLoading={loadingArcadeBal}
         customStyle={{
           backgroundColor: theme.palette.background.default,
-          border: '1px solid',
-          borderColor: theme.palette.border,
-          borderRadius: '8px',
+          border: 'var(--border-light)',
+          borderRadius: 'var(--border-radius-default)',
         }}
         actions={
           <Stack

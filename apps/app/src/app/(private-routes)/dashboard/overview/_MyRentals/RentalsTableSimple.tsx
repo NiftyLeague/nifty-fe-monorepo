@@ -22,8 +22,7 @@ const RentalsTableSimple = ({ rentals, columns }: RentalsTableSimpleProps): Reac
           maxHeight: 750,
           backgroundColor: palette.background.default,
           borderRadius: 2,
-          border: '1px solid',
-          borderColor: palette.border,
+          border: 'var(--border-light)',
           height: '100%',
         }}
       >

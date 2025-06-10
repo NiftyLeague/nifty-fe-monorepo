@@ -136,16 +136,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
     const tinyFontSize = size === 'small' ? '8px' : typography.caption.fontSize;
 
     return (
-      <Card
-        sx={{
-          width: '100%',
-          height: '100%',
-          border: `1px solid ${palette.border}`,
-          backgroundColor: palette.background.default,
-          pb: 2,
-          ...(sx as SxProps<Theme>),
-        }}
-      >
+      <Card sx={{ width: '100%', height: '100%', border: 'var(--border-light)', pb: 2, ...(sx as SxProps<Theme>) }}>
         {id && <DegenImage tokenId={id} sx={{ height: size === 'small' ? 200 : undefined }} />}
         {/* <Stack
           direction="row"

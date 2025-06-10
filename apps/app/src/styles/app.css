@@ -33,7 +33,7 @@
   }
   .ps__thumb-y {
     background-color: var(--color-gray-500);
-    border-radius: 6px;
+    border-radius: var(--border-radius-default);
     width: 5px;
     right: 0;
   }
@@ -65,7 +65,7 @@
   width: 30px;
   height: 30px;
   box-sizing: border-box;
-  border-radius: 10px;
+  border-radius: var(--border-radius-default);
   &:active {
     outline: 3px solid var(--color-brand-purple);
     outline-offset: -3px;

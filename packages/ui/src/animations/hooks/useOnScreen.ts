@@ -1,3 +1,5 @@
+'use client';
+
 import { RefObject, useState, useEffect } from 'react';
 
 export function useOnScreen<T extends Element = HTMLDivElement>(

@@ -100,7 +100,7 @@ const WearableItemCard: React.FC<React.PropsWithChildren<React.PropsWithChildren
                   zIndex: 2 - item,
                   top: item * 8,
                   left: (item + 1) * 8,
-                  border: '1px solid #0c0b0a',
+                  border: 'var(--border-light)',
                 }}
               />
             ))}

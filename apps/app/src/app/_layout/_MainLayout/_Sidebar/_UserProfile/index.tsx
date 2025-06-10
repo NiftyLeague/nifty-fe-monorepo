@@ -78,7 +78,7 @@ const UserProfile = () => {
       bgcolor={palette.background.default}
       borderRadius={2}
       p={4}
-      sx={{ border: `1px solid ${palette.border}` }}
+      sx={{ border: 'var(--border-light)' }}
     >
       <Avatar alt="avatar" src={ensAvatar.data || avatar?.url} sx={{ height: 80, width: 80 }} />
       <Stack direction="column" marginY={2} sx={{ alignItems: 'center' }}>

@@ -24,8 +24,7 @@ const WalletBalances = (): React.ReactNode => {
           isLoading={loadingNFTLBal}
           customStyle={{
             backgroundColor: theme.palette.background.default,
-            border: '1px solid',
-            borderColor: theme.palette.border,
+            border: 'var(--border-light)',
             position: 'relative',
           }}
           secondary="Available to Use"
@@ -56,8 +55,7 @@ const WalletBalances = (): React.ReactNode => {
           primary={`${formatNumberToDisplay(tokensBalances.NFTL.eth)} NFTL`}
           customStyle={{
             backgroundColor: theme.palette.background.default,
-            border: '1px solid',
-            borderColor: theme.palette.border,
+            border: 'var(--border-light)',
             position: 'relative',
           }}
           secondary="Available to Bridge"
