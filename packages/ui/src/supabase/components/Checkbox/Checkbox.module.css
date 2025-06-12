@@ -14,7 +14,7 @@
   height: 1rem;
   width: 1rem;
   color: #2563eb;
-  background-color: var(--color-light);
+  background-color: var(--color-foreground);
   border-color: #6b7280;
   border-width: 1px;
 }

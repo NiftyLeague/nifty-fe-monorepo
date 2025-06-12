@@ -62,7 +62,7 @@ const Root = styled('div')(({ theme }) => ({
     '& h5': { fontSize: '16px', fontWeight: 700, textTransform: 'uppercase' },
     '& p,span': { fontSize: '14px', lineHeight: 1.2 },
   },
-  [`&.${classes.greyText}`]: { color: '#4C4F52' },
+  [`&.${classes.greyText}`]: { color: 'var(--color-foreground-2)' },
   [`&.${classes.input}`]: { padding: '8px 8px 4px 8px', fontSize: '12px', '&::placeholder': { fontSize: '12px' } },
   [`&.${classes.formHelper}`]: { marginLeft: 0 },
   [`&.${classes.inputCheck}`]: { padding: 4, '& .MuiSvgIcon-root': { width: '0.75em', height: '0.75em' } },
@@ -72,7 +72,7 @@ const Root = styled('div')(({ theme }) => ({
     position: 'absolute',
     right: 12,
     top: 6,
-    color: 'var(--color-brand-purple)',
+    color: 'var(--color-purple)',
     border: 'var(--border-purple)',
     borderRadius: '50% !important',
     width: '20px',
@@ -252,7 +252,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                     width: 132,
                     height: 146,
                     borderRadius: '10px',
-                    border: 'var(--border-light)',
+                    border: 'var(--border-default)',
                   }}
                   tokenId={degen.id}
                 />
@@ -357,7 +357,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                           <Typography
                             variant="caption"
                             onClick={handleBuyNFTL}
-                            sx={{ color: 'var(--color-brand-purple)', textDecoration: 'underline', cursor: 'pointer' }}
+                            sx={{ color: 'var(--color-purple)', textDecoration: 'underline', cursor: 'pointer' }}
                           >
                             Buy NFTL now
                           </Typography>
@@ -389,7 +389,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                           sx={{ justifyContent: 'space-between', alignItems: 'center', width: '100px' }}
                         >
                           <Typography>Balance:</Typography>
-                          <Typography sx={{ color: 'var(--color-brand-purple)' }}>{rentalPassCount}</Typography>
+                          <Typography sx={{ color: 'var(--color-purple)' }}>{rentalPassCount}</Typography>
                         </Stack>
                       )}
                     </Stack>

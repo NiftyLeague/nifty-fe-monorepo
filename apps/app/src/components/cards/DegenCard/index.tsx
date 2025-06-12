@@ -33,7 +33,7 @@ import useAuth from '@/hooks/useAuth';
 import { DEGEN_PURCHASE_URL } from '@/constants/url';
 
 // const chipStyles = (isSmall: boolean) => ({
-//   color: 'var(--color-light)',
+//   color: 'var(--color-foreground)',
 //   borderRadius: 1,
 //   width: '100%',
 //   fontSize: isSmall ? 9 : 11,
@@ -42,7 +42,7 @@ import { DEGEN_PURCHASE_URL } from '@/constants/url';
 //   '&:hover': {
 //     backgroundColor: 'transparent',
 //     cursor: 'auto',
-//     color: 'var(--color-light)',
+//     color: 'var(--color-foreground)',
 //   },
 // });
 
@@ -136,7 +136,16 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
     const tinyFontSize = size === 'small' ? '8px' : typography.caption.fontSize;
 
     return (
-      <Card sx={{ width: '100%', height: '100%', border: 'var(--border-light)', pb: 2, ...(sx as SxProps<Theme>) }}>
+      <Card
+        sx={{
+          width: '100%',
+          height: '100%',
+          background: 'var(--color-background-3)',
+          border: 'var(--border-default)',
+          pb: 2,
+          ...(sx as SxProps<Theme>),
+        }}
+      >
         {id && <DegenImage tokenId={id} sx={{ height: size === 'small' ? 200 : undefined }} />}
         {/* <Stack
           direction="row"
@@ -180,8 +189,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
               href={id ? DEGEN_PURCHASE_URL(id) : '#'}
               target="_blank"
               rel="nofollow"
-              color={palette.text.secondary}
-              sx={{ fontSize: buttonFontSize }}
+              sx={{ fontSize: buttonFontSize, color: 'var(--color-foreground-2)' }}
             >
               {`#${id}`}
             </Link>
@@ -257,7 +265,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
           >
             {/* {false && (
               <Typography
-                sx={{ color: theme => theme.palette.grey[700] }}
+                sx={{ color: 'var(--color-background-3)' }}
                 sx={{
                   textDecoration: 'underline',
                   cursor: 'pointer',

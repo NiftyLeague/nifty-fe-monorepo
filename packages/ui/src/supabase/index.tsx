@@ -1,5 +1,3 @@
-import './globals-vars.css';
-
 // // GENERAL
 
 export * from './components/Button/index';

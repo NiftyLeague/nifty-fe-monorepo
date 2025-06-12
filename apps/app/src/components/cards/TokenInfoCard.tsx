@@ -30,7 +30,7 @@ const TokenInfoCard = ({ title, secondary, customStyle, actions, isLoading }: To
                 <Typography
                   variant="body1"
                   fontWeight="bold"
-                  sx={{ color: theme => theme.palette.text.secondary }}
+                  sx={{ color: 'var(--color-foreground-2)' }}
                   textAlign="center"
                 >
                   {secondary}

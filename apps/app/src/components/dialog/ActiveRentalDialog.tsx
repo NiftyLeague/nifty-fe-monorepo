@@ -58,7 +58,7 @@ const ActiveRentalDialog = ({ degenId, rental }: ActiveRentalDialogProps) => {
                 ) : (
                   <Typography fontSize={10}>
                     LIMIT REACHED. RENEWS IN{' '}
-                    <Typography sx={{ color: theme => theme.palette.warning.main }} variant="caption" fontSize={10}>
+                    <Typography sx={{ color: 'var(--color-warning)' }} variant="caption" fontSize={10}>
                       <Countdown date={new Date(rental.next_charge_at * 1000)} />
                     </Typography>
                   </Typography>

@@ -178,7 +178,7 @@
 }
 
 .home-mobile-intro {
-  background: var(--custom-panel-color);
+  background: var(--color-background-2);
   background-size: cover;
   background-image: url(/img/backgrounds/banner-dark.webp);
   min-height: 100vh;
@@ -262,10 +262,10 @@
   font-size: 20px;
 }
 .social-icons a:hover {
-  color: var(--color-brand-purple);
+  color: var(--color-purple);
 }
 .social-icons a:hover path {
-  fill: var(--color-brand-purple);
+  fill: var(--color-purple);
 }
 
 /* ==============================|| MEDIA QUERIES ||============================== */
@@ -566,10 +566,10 @@
     width: 8px !important;
     height: 8px !important;
     border-radius: var(--border-radius-default);
-    background: var(--color-light) !important;
+    background: var(--color-foreground) !important;
   }
   .slick-dots li.slick-active {
-    background: var(--color-brand-purple) !important;
+    background: var(--color-purple) !important;
   }
   .earth-grad {
     left: 0;

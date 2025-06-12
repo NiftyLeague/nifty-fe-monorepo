@@ -2,129 +2,104 @@ import type { FontFamily, Theme, ThemeOptions } from '../types';
 
 const customTypography = (theme: Theme, borderRadius: number, fontFamily: FontFamily): ThemeOptions['typography'] => ({
   fontFamily: fontFamily.default.style.fontFamily,
-  fontWeightLight: 100,
+  fontWeightLight: 200,
   fontWeightRegular: 400,
   fontWeightMedium: 500,
   fontWeightBold: 700,
   fontSize: 16,
   h1: {
-    fontSize: '2.5rem', // 40px
-    color: theme.palette.text.primary,
-    fontFamily: fontFamily.header.style.fontFamily,
-    fontWeight: fontFamily.header.style.fontWeight,
-    fontStyle: fontFamily.header.style.fontStyle,
+    color: 'var(--color-foreground)',
+    fontFamily: 'var(--font-header)',
+    fontSize: 'var(--text-4xl)' /* 2.25rem */,
+    fontWeight: 'var(--font-weight-bold)',
+    letterSpacing: 'var(--header-letter-spacing)',
+    lineHeight: 'var(--text-4xl--line-height)',
   },
   h2: {
-    fontSize: '1.8rem', // 28px
-    color: theme.palette.text.primary,
-    fontFamily: fontFamily.header.style.fontFamily,
-    fontWeight: fontFamily.header.style.fontWeight,
-    fontStyle: fontFamily.header.style.fontStyle,
+    color: 'var(--color-foreground)',
+    fontFamily: 'var(--font-header)',
+    fontSize: 'var(--text-3xl)' /* 1.875rem */,
+    fontWeight: 'var(--font-weight-bold)',
+    letterSpacing: 'var(--header-letter-spacing)',
+    lineHeight: 'var(--text-3xl--line-height)',
   },
   h3: {
-    fontSize: '1.25rem', // 20px
-    color: theme.palette.text.primary,
-    fontFamily: fontFamily.header.style.fontFamily,
-    fontWeight: fontFamily.header.style.fontWeight,
-    fontStyle: fontFamily.header.style.fontStyle,
+    color: 'var(--color-foreground)',
+    fontFamily: 'var(--font-header)',
+    fontSize: 'var(--text-2xl)' /* 1.5rem */,
+    fontWeight: 'var(--font-weight-bold)',
+    letterSpacing: 'var(--header-letter-spacing)',
+    lineHeight: 'var(--text-2xl--line-height)',
   },
   h4: {
-    fontSize: '1rem', // 16px
-    color: theme.palette.text.secondary,
-    fontFamily: fontFamily.header.style.fontFamily,
-    fontWeight: fontFamily.header.style.fontWeight,
-    fontStyle: fontFamily.header.style.fontStyle,
+    color: 'var(--color-foreground)',
+    fontFamily: 'var(--font-subheader)',
+    fontSize: 'var(--text-xl)' /* 1.25rem */,
+    fontWeight: 'var(--font-weight-normal)',
+    letterSpacing: 'var(--subheader-letter-spacing)',
+    lineHeight: 'var(--text-xl--line-height)',
   },
   h5: {
-    fontSize: '0.875rem', // 14px
-    color: theme.palette.text.secondary,
-    fontFamily: fontFamily.subheader.style.fontFamily,
-    fontWeight: fontFamily.subheader.style.fontWeight,
-    fontStyle: fontFamily.subheader.style.fontStyle,
+    color: 'var(--color-foreground)',
+    fontFamily: 'var(--font-subheader)',
+    fontSize: 'var(--text-lg)' /* 1.125rem */,
+    fontWeight: 'var(--font-weight-normal)',
+    letterSpacing: 'var(--subheader-letter-spacing)',
+    lineHeight: 'var(--text-lg--line-height)',
   },
   h6: {
-    fontSize: '0.75rem', // 12px
-    color: theme.palette.text.secondary,
-    fontFamily: fontFamily.subheader.style.fontFamily,
-    fontWeight: fontFamily.subheader.style.fontWeight,
-    fontStyle: fontFamily.subheader.style.fontStyle,
+    color: 'var(--color-foreground)',
+    fontFamily: 'var(--font-subheader)',
+    fontSize: 'var(--text-base)' /* 1rem */,
+    fontWeight: 'var(--font-weight-normal)',
+    letterSpacing: 'var(--subheader-letter-spacing)',
+    lineHeight: 'var(--text-base--line-height)',
   },
-  subtitle1: {
-    fontSize: '0.875rem', // 14px
-    fontWeight: 500,
-    color: theme.palette.text.primary,
-  },
-  subtitle2: {
-    fontSize: '0.75rem', // 12px
-    fontWeight: 400,
-    color: theme.palette.text.secondary,
-  },
-  caption: {
-    fontSize: '0.75rem', // 12px
-    color: theme.palette.text.secondary,
-    fontWeight: 400,
-  },
-  body1: {
-    fontSize: '1rem', // 16px
-    fontWeight: 400,
-    lineHeight: '1.334em',
-  },
+  subtitle1: { fontSize: 'var(--text-sm)' /* 0.875rem */, fontWeight: 500, color: 'var(--color-foreground)' },
+  subtitle2: { fontSize: 'var(--text-xs)' /* 0.75rem */, fontWeight: 400, color: 'var(--color-foreground-2)' },
+  caption: { fontSize: 'var(--text-xs)' /* 0.75rem */, color: 'var(--color-foreground-2)', fontWeight: 400 },
+  body1: { fontSize: 'var(--text-base)' /* 1rem */, fontWeight: 400, lineHeight: '1.334em' },
   body2: {
-    fontSize: '0.875rem', // 14px
+    fontSize: 'var(--text-sm)' /* 0.875rem */,
     letterSpacing: '0em',
-    fontWeight: 400,
+    fontWeight: 'var(--font-normal)',
     lineHeight: '1.5em',
-    color: theme.palette.text.primary,
+    color: 'var(--color-foreground)',
   },
-  button: {
-    textTransform: 'capitalize',
-    fontSize: '0.875rem', // 14px
-  },
+  button: { textTransform: 'capitalize', fontSize: 'var(--text-sm)' /* 0.875rem */ },
   customInput: {
     marginTop: 1,
     marginBottom: 1,
-    '& > label': { top: 23, left: 0, color: theme.palette.text.secondary, '&[data-shrink="false"]': { top: 5 } },
+    '& > label': { top: 23, left: 0, color: 'var(--color-foreground-2)', '&[data-shrink="false"]': { top: 5 } },
     '& > div > input': { padding: '30.5px 14px 11.5px !important' },
     '& legend': { display: 'none' },
     '& fieldset': { top: 0 },
   },
   mainContent: {
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: 'var(--color-background)',
     width: '100%',
     minHeight: 'calc(100vh - 100px)',
     flexGrow: 1,
-    borderRadius: `${borderRadius}px`,
+    borderRadius: 'var(--border-radius-default)',
   },
   menuCaption: {
-    fontSize: '0.875rem', // 14px
-    fontWeight: 500,
-    color: theme.palette.text.secondary,
+    fontSize: 'var(--text-sm)' /* 0.875rem */,
+    fontWeight: 'var(--font-medium)',
+    color: 'var(--color-foreground-2)',
     padding: '6px',
     textTransform: 'capitalize',
     marginTop: '10px',
   },
   subMenuCaption: {
-    fontSize: '0.75rem', // 12px
-    fontWeight: 500,
-    color: theme.palette.text.secondary,
+    fontSize: 'var(--text-xs)' /* 0.75rem */,
+    fontWeight: 'var(--font-medium)',
+    color: 'var(--color-foreground-2)',
     textTransform: 'capitalize',
   },
   commonAvatar: { cursor: 'pointer', borderRadius: 'var(--border-radius-default)' },
-  smallAvatar: {
-    width: '22px',
-    height: '22px',
-    fontSize: '1rem', // 16px
-  },
-  mediumAvatar: {
-    width: '34px',
-    height: '34px',
-    fontSize: '1.25rem', // 20px
-  },
-  largeAvatar: {
-    width: '44px',
-    height: '44px',
-    fontSize: '1.5rem', // 24px
-  },
+  smallAvatar: { width: '22px', height: '22px', fontSize: 'var(--text-base)' /* 1rem */ },
+  mediumAvatar: { width: '34px', height: '34px', fontSize: 'var(--text-xl)' /* 1.25rem */ },
+  largeAvatar: { width: '44px', height: '44px', fontSize: 'var(--text-2xl)' /* 1.5rem */ },
 });
 
 export default customTypography;

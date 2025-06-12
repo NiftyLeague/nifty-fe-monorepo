@@ -21,7 +21,7 @@ import type { NavItemType, NavItemTypeObject, OverrideIcon } from '@/types';
 
 const linkSX = {
   display: 'flex',
-  color: 'grey.900',
+  color: 'var(--color-background)',
   textDecoration: 'none',
   alignContent: 'center',
   alignItems: 'center',
@@ -68,7 +68,7 @@ const Breadcrumbs = ({
     marginTop: `-${theme.spacing(0.25)}`,
     width: '16px',
     height: '16px',
-    color: theme.palette.secondary.main,
+    color: 'var(--color-blue)',
   };
 
   const [main, setMain] = useState<NavItemType | undefined>();
@@ -140,7 +140,7 @@ const Breadcrumbs = ({
           textDecoration: 'none',
           alignContent: 'center',
           alignItems: 'center',
-          color: 'grey.500',
+          color: 'var(--color-foreground-2)',
         }}
       >
         {icons && <ItemIcon style={iconStyle} />}
@@ -154,8 +154,8 @@ const Breadcrumbs = ({
         <Card
           sx={{
             marginBottom: card === false ? 0 : theme.spacing(gridSpacing),
-            border: card === false ? 'none' : 'var(--border-light)',
-            background: card === false ? 'transparent' : theme.palette.background.default,
+            border: card === false ? 'none' : 'var(--border-default)',
+            background: card === false ? 'transparent' : 'var(--color-background)',
           }}
           {...others}
         >
@@ -200,7 +200,7 @@ const Breadcrumbs = ({
             </Grid>
           </Box>
           {card === false && divider !== false && (
-            <Divider sx={{ borderColor: theme.palette.primary.main, mb: gridSpacing, opacity: '0.6' }} />
+            <Divider sx={{ borderColor: 'var(--color-purple)', mb: gridSpacing, opacity: '0.6' }} />
           )}
         </Card>
       );

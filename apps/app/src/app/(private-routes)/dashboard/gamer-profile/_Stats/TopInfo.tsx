@@ -45,7 +45,7 @@ const TopInfo = ({ profile, walletAddress }: TopInfoProps): React.ReactNode => {
           <Box width="50%">{total && <ProgressGamer data={total} />}</Box>
         </Stack>
         <Stack direction="row" spacing={5} sx={{ alignItems: 'center' }}>
-          <Typography width="50%" variant="h4" component="div" sx={{ color: theme => theme.palette.grey[400] }}>
+          <Typography width="50%" variant="h4" component="div" sx={{ color: 'var(--color-foreground-2)' }}>
             {`${walletAddress.slice(0, 5)}...${walletAddress.slice(
               walletAddress.length - 5,
               walletAddress.length - 1,
@@ -55,7 +55,7 @@ const TopInfo = ({ profile, walletAddress }: TopInfoProps): React.ReactNode => {
               aria-label="copy"
               onClick={() => walletAddress && copy(walletAddress)}
             >
-              <ContentCopyOutlinedIcon fontSize="small" sx={{ color: theme => theme.palette.grey[400] }} />
+              <ContentCopyOutlinedIcon fontSize="small" sx={{ color: 'var(--color-foreground-2)' }} />
             </IconButton>
           </Typography>
           <Typography width="50%" variant="h4" component="div">
@@ -63,7 +63,7 @@ const TopInfo = ({ profile, walletAddress }: TopInfoProps): React.ReactNode => {
             <Typography
               variant="h4"
               component="div"
-              sx={{ color: theme => theme.palette.grey[400] }}
+              sx={{ color: 'var(--color-foreground-2)' }}
               display="inline"
               ml="4px"
             >

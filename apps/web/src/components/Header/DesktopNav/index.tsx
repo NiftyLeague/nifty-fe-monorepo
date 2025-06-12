@@ -24,7 +24,7 @@ const NavLink = (props: NavLinkProps) => {
   return (
     <Link
       href={href}
-      className={`text-light hover:text-gray-300 px-1 py-2 text-lg font-bold uppercase ${className}`}
+      className={`text-foreground hover:text-foreground-2 px-1 py-2 text-lg font-bold uppercase ${className}`}
       target={external ? '_blank' : undefined}
       rel={external ? 'noreferrer' : undefined}
     >
@@ -71,7 +71,7 @@ const Dropdown = (props: DropdownProps) => {
     <div className="relative group" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
-        className="text-light hover:text-gray-300 px-1 py-2 text-lg font-bold uppercase flex items-center"
+        className="text-foreground hover:text-foreground-2 px-1 py-2 text-lg font-bold uppercase flex items-center"
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
@@ -88,7 +88,7 @@ const Dropdown = (props: DropdownProps) => {
         </svg>
       </button>
       <div
-        className={`absolute left-0 mt-0 w-48 rounded-md shadow-lg bg-gray-800 ring-1 ring-dark ring-opacity-5 ${
+        className={`absolute left-0 mt-0 w-48 rounded-md shadow-lg bg-background-2 ring-1 ring-background-2 ring-opacity-5 ${
           isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         } transition-all duration-200 z-10`}
         role="menu"
@@ -119,7 +119,9 @@ const DropdownLink = ({ href, children, external = false }: DropdownLinkProps) =
       rel={external ? 'noreferrer' : undefined}
       target={external ? '_blank' : undefined}
       className={`block px-4 py-2 rounded-md text-base ${
-        isActive ? 'bg-gray-700 text-light' : '!text-gray-300 hover:bg-gray-600 hover:!text-light'
+        isActive
+          ? 'bg-background-3 text-foreground-2'
+          : 'bg-background-2 hover:bg-background-4 !text-foreground-2 hover:!text-foreground'
       }`}
     >
       {children}
@@ -137,7 +139,7 @@ const MobileMenuButton = ({ toggleMobileMenu, isMobileMenuOpen }: MobileMenuButt
   <div className="flex md:hidden">
     <button
       onClick={toggleMobileMenu}
-      className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-light hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-light"
+      className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-foreground-2 hover:bg-background-2 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-foreground"
       aria-expanded="false"
     >
       <span className="sr-only">Open main menu</span>

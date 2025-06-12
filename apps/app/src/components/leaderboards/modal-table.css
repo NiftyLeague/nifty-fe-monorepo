@@ -36,7 +36,7 @@
   left: 90px;
   top: 480px;
   width: 100%;
-  color: var(--color-dark);
+  color: var(--color-background);
 }
 
 .modal-table .body .row .cell {

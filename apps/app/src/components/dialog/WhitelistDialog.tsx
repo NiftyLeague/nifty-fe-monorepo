@@ -18,7 +18,7 @@ const StyledDialog = styled(Dialog)(() => ({
     border: 'none',
     padding: '13px 16px',
     letterSpacing: '-0.02em',
-    color: 'var(--color-light)',
+    color: 'var(--color-foreground)',
     outline: 'none',
     fontSize: '16px',
     '&::placeholder': { color: '#B4B5C3' },
@@ -26,7 +26,7 @@ const StyledDialog = styled(Dialog)(() => ({
   },
 
   [`&.${classes.submitButton}`]: {
-    background: 'var(--color-brand-purple)',
+    background: 'var(--color-purple)',
     borderRadius: '0px var(--border-radius-default) var(--border-radius-default) 0px',
     border: 'none',
     cursor: 'pointer',
@@ -34,7 +34,7 @@ const StyledDialog = styled(Dialog)(() => ({
     fontSize: '14px',
     lineHeight: '28px',
     letterSpacing: '-0.02em',
-    color: 'var(--color-light)',
+    color: 'var(--color-foreground)',
     fontWeight: 700,
     '@media (max-width: 768px)': { marginTop: 8, borderRadius: 'var(--border-radius-default)' },
   },

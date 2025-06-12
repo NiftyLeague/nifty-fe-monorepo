@@ -68,22 +68,19 @@ export function AnimatedWrapper({
 }: AnimatedWrapperProps) {
   const ref = useRef<HTMLElement>(null);
   const onScreen = useOnScreen(ref, immediate ? '0px' : '-100px');
-  const [isAnimating, setIsAnimating] = useState(immediate);
 
   useEffect(() => {
-    if (onScreen && ref.current && !isAnimating) {
+    if (onScreen && ref.current) {
       if (delay > 0) {
         const timer = setTimeout(() => {
-          setIsAnimating(true);
           startAnimation(ref.current);
         }, delay);
         return () => clearTimeout(timer);
       } else {
-        setIsAnimating(true);
         startAnimation(ref.current);
       }
     }
-  }, [onScreen, isAnimating, delay]);
+  }, [onScreen, delay]);
 
   useParallax(ref, { enabled: parallax, direction: parallaxDirection, intensity: parallaxIntensity });
 

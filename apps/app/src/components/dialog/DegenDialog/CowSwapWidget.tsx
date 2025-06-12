@@ -228,13 +228,11 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
         <Link href={COW_PROTOCOL_URL} target="_blank" rel="noreferrer">
           cow.fi
         </Link>
-        <CircleIcon
-          sx={{ width: 3, height: 3, color: 'var(--color-brand-purple)', marginLeft: 0.25, marginBottom: 0.25 }}
-        />
+        <CircleIcon sx={{ width: 3, height: 3, color: 'var(--color-purple)', marginLeft: 0.25, marginBottom: 0.25 }} />
       </Typography>
       <Box
         border={'1px solid #1c1b1a'}
-        boxShadow="0px 0px 9px var(--color-brand-purple)"
+        boxShadow="0px 0px 9px var(--color-purple)"
         borderRadius="10px"
         px={1}
         py={1.25}
@@ -260,7 +258,7 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
               className={classes.arrowDown}
               sx={{ top: fromEthAmount ? 126 : 76 }}
             >
-              <SouthIcon fontSize="small" sx={{ color: 'var(--color-light)' }} />
+              <SouthIcon fontSize="small" sx={{ color: 'var(--color-foreground)' }} />
             </Box>
             <TokenInfoBox
               balance={accountBalance}

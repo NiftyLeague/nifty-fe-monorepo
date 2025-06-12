@@ -61,7 +61,7 @@ const Header = () => {
   return (
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-dark bg-opacity-90 backdrop-blur-sm' : 'bg-transparent'
+        scrolled ? 'bg-background bg-opacity-90 backdrop-blur-sm' : 'bg-transparent'
       }`}
     >
       <DesktopNav toggleMobileMenu={toggleMobileMenu} isMobileMenuOpen={isMobileMenuOpen} />

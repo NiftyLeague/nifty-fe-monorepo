@@ -141,7 +141,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
               </Typography>
               <Stack direction="row" sx={{ justifyContent: 'center', alignItems: 'center' }} spacing={1} mb={3}>
                 <RemoveIcon
-                  sx={{ fontSize: 50, fill: palette.grey[400], cursor: 'pointer' }}
+                  sx={{ fontSize: 50, fill: 'var(--color-foreground-2)', cursor: 'pointer' }}
                   onClick={() => updateTokenCount(tokenCount - 1)}
                 />
                 <TextField
@@ -157,7 +157,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                   }}
                 />
                 <AddIcon
-                  sx={{ fontSize: 50, fill: palette.grey[400], cursor: 'pointer' }}
+                  sx={{ fontSize: 50, fill: 'var(--color-foreground-2)', cursor: 'pointer' }}
                   onClick={() => updateTokenCount(tokenCount + 1)}
                 />
               </Stack>
@@ -166,8 +166,8 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                   sx={{
                     color: theme =>
                       accountBalance && accountBalance > tokenCount * details.price
-                        ? theme.palette.success.main
-                        : theme.palette.text.primary,
+                        ? 'var(--color-success)'
+                        : 'var(--color-foreground)',
                   }}
                   fontWeight="500"
                 >
@@ -185,7 +185,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                   {tokenCount * details.items['arcade-token']} Arcade Tokens
                 </Typography>
                 {accountBalance > 0 && accountBalance < tokenCount * details.price && (
-                  <Typography variant="caption" sx={{ color: theme => theme.palette.warning.main }} my={1}>
+                  <Typography variant="caption" sx={{ color: 'var(--color-warning)' }} my={1}>
                     Balance is too low.{' '}
                     <Link href={NFTL_PURCHASE_URL} target="_blank" rel="noreferrer">
                       Buy NFTL
@@ -193,7 +193,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                   </Typography>
                 )}
                 {!accountBalance && (
-                  <Typography variant="caption" sx={{ color: theme => theme.palette.error.main }} my={1}>
+                  <Typography variant="caption" sx={{ color: 'var(--color-error)' }} my={1}>
                     You have zero balance.{' '}
                     <Link href={NFTL_PURCHASE_URL} target="_blank" rel="noreferrer">
                       Buy NFTL

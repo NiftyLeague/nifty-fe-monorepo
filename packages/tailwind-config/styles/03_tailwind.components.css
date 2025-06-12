@@ -11,29 +11,29 @@
   /* ===========|| Theme Button (Purple/Blue/Pink Gradient Hover) ||=========== */
   .theme-btn-primary {
     @apply theme-btn;
-    @apply text-dark bg-light;
+    @apply text-background bg-foreground;
   }
   .theme-btn-primary:hover {
     @apply text-light shadow-none;
-    background: var(--gradient-brand-hover);
+    background: var(--gradient-brand-pink);
   }
 
   .theme-btn-purple {
     @apply theme-btn;
-    @apply text-light bg-brand-purple;
+    @apply text-foreground bg-purple;
   }
   .theme-btn-purple:hover {
     @apply text-light shadow-none;
-    background: var(--gradient-brand-hover);
+    background: var(--gradient-brand-pink);
   }
 
   .theme-btn-transparent {
     @apply theme-btn;
-    @apply border border-[1px] border-light text-light bg-transparent;
+    @apply border border-[1px] border-foreground text-foreground bg-transparent;
   }
   .theme-btn-transparent:hover {
-    background: var(--gradient-brand-hover);
-    border-image-source: var(--gradient-brand-hover);
+    background: var(--gradient-brand-pink);
+    border-image-source: var(--gradient-brand-pink);
     border-image-slice: 1 !important;
     @apply bg-clip-text text-transparent shadow-none border-[1px];
   }

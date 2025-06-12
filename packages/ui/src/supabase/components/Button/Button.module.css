@@ -413,10 +413,6 @@
   color: rgba(255, 255, 255, var(--tw-text-opacity));
 }
 
-/* {
-  @apply hover:bg-red-600 hover:text-light hover:border-red-600;
-} */
-
 /* 
   Animation for icon
 */

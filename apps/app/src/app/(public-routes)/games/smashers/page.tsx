@@ -26,12 +26,7 @@ const SmashersGame = () => (
       <strong>
         Note: This is a deprecated version of Nifty Smashers. If you&apos;re looking for our latest mobile game please
         visit{' '}
-        <a
-          href="https://niftysmashers.com"
-          target="_blank"
-          rel="noreferrer"
-          style={{ color: 'var(--color-brand-blue)' }}
-        >
+        <a href="https://niftysmashers.com" target="_blank" rel="noreferrer" style={{ color: 'var(--color-blue)' }}>
           niftysmashers.com
         </a>
       </strong>

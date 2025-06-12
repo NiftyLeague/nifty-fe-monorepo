@@ -20,8 +20,8 @@ const GameBalance: React.FC = memo(() => {
       primary={`${formatNumberToDisplay(nftlUnclaimed)} NFTL`}
       isLoading={loading}
       customStyle={{
-        backgroundColor: theme.palette.background.default,
-        border: 'var(--border-light)',
+        backgroundColor: 'var(--color-background-3)',
+        border: 'var(--border-default)',
         position: 'relative',
       }}
       secondary="Available to Withdraw"

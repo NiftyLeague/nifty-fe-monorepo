@@ -23,7 +23,7 @@ const StyledIcon = styled('div')({
   [`&.${classes.root}`]: {
     backgroundColor: '#ccc',
     zIndex: 1,
-    color: 'var(--color-light)',
+    color: 'var(--color-foreground)',
     width: 50,
     height: 50,
     display: 'flex',
@@ -31,27 +31,14 @@ const StyledIcon = styled('div')({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  [`&.${classes.active}`]: {
-    backgroundImage: 'linear-gradient(89deg, var(--color-brand-purple) 0%, var(--color-brand-blue) 100%)',
-    boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
-  },
-  [`&.${classes.completed}`]: {
-    backgroundImage: 'linear-gradient(89deg, var(--color-brand-purple) 0%, var(--color-brand-blue) 100%)',
-  },
+  [`&.${classes.active}`]: { backgroundImage: 'var(--gradient-brand)', boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)' },
+  [`&.${classes.completed}`]: { backgroundImage: 'var(--gradient-brand)' },
 });
 
 const ColorlibConnector = styled(StepConnector)({
   alternativeLabel: { top: 22 },
-  active: {
-    '& $line': {
-      backgroundImage: 'linear-gradient(89deg, var(--color-brand-purple) 0%, var(--color-brand-blue) 100%)',
-    },
-  },
-  completed: {
-    '& $line': {
-      backgroundImage: 'linear-gradient(89deg, var(--color-brand-purple) 0%, var(--color-brand-blue) 100%)',
-    },
-  },
+  active: { '& $line': { backgroundImage: 'var(--gradient-brand)' } },
+  completed: { '& $line': { backgroundImage: 'var(--gradient-brand)' } },
   line: { height: 3, border: 0, backgroundColor: '#eaeaf0', borderRadius: 1 },
 });
 
@@ -94,7 +81,7 @@ export default function RentStepper({
       >
         {steps.map(label => (
           <Step key={label}>
-            <StepLabel style={{ color: 'var(--color-light) !important' }} StepIconComponent={ColorlibStepIcon}>
+            <StepLabel style={{ color: 'var(--color-foreground) !important' }} StepIconComponent={ColorlibStepIcon}>
               {label}
             </StepLabel>
           </Step>

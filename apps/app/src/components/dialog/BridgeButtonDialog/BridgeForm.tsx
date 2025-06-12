@@ -176,7 +176,7 @@ export const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): React
                 setValue('amountInput', calculatedAmount.toString());
                 setBridgeAmount(calculatedAmount);
               }}
-              sx={{ bgcolor: theme => theme.palette.secondary.main }}
+              sx={{ bgcolor: 'var(--color-blue)' }}
             >
               {AMOUNT_SELECTS.map(amount => (
                 <ToggleButton

@@ -920,7 +920,7 @@
 }
 
 :global(.dark) .sbui-typography code {
-  color: var(--color-light);
+  color: var(--color-foreground);
 }
 
 :global(.dark) .sbui-typography figcaption {

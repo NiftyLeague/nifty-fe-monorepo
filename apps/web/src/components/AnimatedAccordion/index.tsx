@@ -16,12 +16,16 @@ const StyledAccordion = styled(Accordion)({
 
   '& .MuiCollapse-wrapper': { marginBottom: 12 },
   '& .MuiAccordionSummary-root': {
-    backgroundColor: 'rgba(0, 0, 0, 0.2)',
-    color: 'var(--color-light)',
+    backgroundColor: 'var(--color-background-3)',
+    color: 'var(--color-foreground)',
     fontWeight: 600,
     padding: '12px 24px',
   },
-  '& .MuiAccordionDetails-root': { backgroundColor: 'rgba(0, 0, 0, 0.4)', color: 'var(--color-light)', padding: 24 },
+  '& .MuiAccordionDetails-root': {
+    backgroundColor: 'var(--color-background-2)',
+    color: 'var(--color-foreground)',
+    padding: 24,
+  },
 });
 
 const AnimatedAccordion = ({

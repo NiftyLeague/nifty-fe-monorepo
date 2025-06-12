@@ -29,15 +29,15 @@ const classes = {
 };
 
 const StyledStack = styled(Stack)(() => ({
-  [`&.${classes.title}`]: { fontSize: 16, fontWeight: 700, color: 'var(--color-light)' },
+  [`&.${classes.title}`]: { fontSize: 16, fontWeight: 700, color: 'var(--color-foreground)' },
 
-  [`&.${classes.label}`]: { fontSize: 12, color: 'var(--color-light)' },
+  [`&.${classes.label}`]: { fontSize: 12, color: 'var(--color-foreground)' },
 
   [`&.${classes.animTypeButton}`]: {
     borderRadius: '2px',
     height: 24,
-    border: 'var(--border-light)',
-    color: 'var(--color-light)',
+    border: 'var(--border-default)',
+    color: 'var(--color-foreground)',
     fontSize: 12,
     background: 'transparent',
   },
@@ -48,8 +48,8 @@ const StyledStack = styled(Stack)(() => ({
     width: 12,
     height: 12,
     borderRadius: '50%',
-    background: 'var(--color-brand-purple)',
-    color: 'var(--color-light)',
+    background: 'var(--color-purple)',
+    color: 'var(--color-foreground)',
     fontSize: '8px',
     lineHeight: '8px',
     position: 'absolute',

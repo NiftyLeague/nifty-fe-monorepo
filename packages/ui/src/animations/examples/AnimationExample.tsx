@@ -14,7 +14,7 @@ export const AnimationExample: React.FC = () => {
       //   easing: AnimationEasing.EaseIn,
       // }}
       >
-        <div className="p-4 bg-gray-100 rounded">Fade in content</div>
+        <div className="p-4 bg-background text-foreground rounded">Fade in content</div>
       </AnimatedWrapper>
 
       {/* Slide in from left */}

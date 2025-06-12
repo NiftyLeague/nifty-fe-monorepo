@@ -40,14 +40,14 @@ const ViewTraitsContentDialog = ({
     <Grid container>
       <Grid size={{ xs: 12, md: 6 }} sx={{ py: 1, px: 2 }}>
         <Stack direction="row" sx={{ justifyContent: 'center' }}>
-          {degen?.id && <DegenImage sx={{ ...degenImageSx }} tokenId={degen.id} />}
+          {degen?.id && <DegenImage sx={{ maxWidth: '500px', ...degenImageSx }} tokenId={degen.id} />}
         </Stack>
         <Stack direction="column" sx={{ alignItems: 'center', my: 2 }}>
           <Typography gutterBottom variant="h4">
             {displayName}
           </Typography>
           <a href={DEGEN_PURCHASE_URL(degen?.id as string)} target="_blank" rel="noreferrer">
-            <Typography sx={{ color: 'gray', textDecoration: 'none' }}>
+            <Typography sx={{ color: 'var(--color-foreground-2)', textDecoration: 'none' }}>
               DEGEN ID #{degen?.id}{' '}
               <Image src="/img/logos/other/OpenSea.webp" alt="OpenSea Logo" width={16} height={16} />
             </Typography>
@@ -65,7 +65,7 @@ const ViewTraitsContentDialog = ({
           </Typography>
         </Stack> */}
         <Stack direction="column" sx={{ alignItems: 'center' }} gap={1}>
-          <Typography sx={{ color: 'gray' }}>
+          <Typography sx={{ color: 'var(--color-foreground-2)' }}>
             Owned by{' '}
             {degen?.name ||
               `${degen?.owner?.slice(0, 5)}...${degen?.owner?.slice(
@@ -114,7 +114,7 @@ const ViewTraitsContentDialog = ({
               </Button>
             )} */}
             {onClose && (
-              <Button fullWidth onClick={onClose}>
+              <Button variant="contained" fullWidth onClick={onClose}>
                 Close
               </Button>
             )}

@@ -24,18 +24,18 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
   borderRadius: 30,
   [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor: theme.palette.grey[50],
-    ...theme.applyStyles('dark', { backgroundColor: theme.palette.grey[400] }),
+    backgroundColor: 'var(--color-foreground)',
+    ...theme.applyStyles('dark', { backgroundColor: 'var(--color-foreground-2)' }),
   },
   [`&.${linearProgressClasses.bar}`]: {
     borderRadius: 'var(--border-radius-default)',
-    backgroundColor: theme.palette.primary.main,
-    ...theme.applyStyles('dark', { backgroundColor: theme.palette.primary.dark }),
+    backgroundColor: 'var(--color-purple)',
+    ...theme.applyStyles('dark', { backgroundColor: 'var(--color-purple)' }),
   },
 }));
 
 const CardStyle = styled(Card)(({ theme }) => ({
-  background: theme.palette.background.paper,
+  background: 'var(--color-background-3)',
   marginBottom: '22px',
   overflow: 'hidden',
   position: 'relative',
@@ -44,11 +44,11 @@ const CardStyle = styled(Card)(({ theme }) => ({
     position: 'absolute',
     width: '157px',
     height: '157px',
-    background: theme.palette.primary.light,
+    background: 'var(--color-purple-200)',
     borderRadius: '50%',
     top: '-105px',
     right: '-96px',
-    ...theme.applyStyles('dark', { background: theme.palette.dark.dark }),
+    ...theme.applyStyles('dark', { background: 'var(--color-background)' }),
   },
 }));
 
@@ -63,13 +63,7 @@ const LinearProgressWithLabel = ({ value, ...others }: LinearProgressWithLabelPr
     <Grid>
       <Grid container justifyContent="space-between">
         <Grid>
-          <Typography
-            variant="h6"
-            sx={{
-              color: theme =>
-                theme.palette.mode === 'dark' ? theme.palette.text.primary : theme.palette.primary.darker,
-            }}
-          >
+          <Typography variant="h6" sx={{ color: 'var(--color-foreground)' }}>
             Progress
           </Typography>
         </Grid>
@@ -100,9 +94,9 @@ const MenuCard = () => {
                 sx={{
                   ...theme.typography.commonAvatar,
                   ...theme.typography.largeAvatar,
-                  color: theme.palette.primary.main,
-                  border: theme.palette.mode === 'dark' ? 'var(--border-purple)' : 'none',
-                  background: theme.palette.mode === 'dark' ? theme.palette.dark.dark : theme.palette.grey[50],
+                  color: 'var(--color-purple)',
+                  border: 'var(--border-purple)',
+                  background: 'var(--color-background)',
                   marginRight: '12px',
                 }}
               >
@@ -112,13 +106,7 @@ const MenuCard = () => {
             <ListItemText
               sx={{ mt: 0 }}
               primary={
-                <Typography
-                  variant="subtitle1"
-                  sx={{
-                    color: theme =>
-                      theme.palette.mode === 'dark' ? theme.palette.text.primary : theme.palette.primary.darker,
-                  }}
-                >
+                <Typography variant="subtitle1" sx={{ color: 'var(--color-foreground)' }}>
                   Get Extra Space
                 </Typography>
               }

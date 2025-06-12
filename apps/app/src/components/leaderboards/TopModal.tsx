@@ -26,7 +26,7 @@ const TableRoot = styled('div')({
   '& tr': {
     '& th': { '&:last-child': { borderRight: 'none !important', color: '#9ba5bf !important' } },
     '& td': {
-      color: 'var(--color-dark)',
+      color: 'var(--color-background)',
       fontWeight: 'bold',
       fontSize: 16,
       '&:last-child': { borderRight: 'none !important' },
@@ -63,8 +63,8 @@ const LoadingBox = styled('div')({
 
 const TwitterTypography = styled(Typography)({
   width: '100%',
-  background: 'var(--color-light)',
-  color: 'var(--color-brand-blue)',
+  background: 'var(--color-foreground)',
+  color: 'var(--color-blue)',
   fontWeight: 600,
   display: 'flex',
   fontSize: '14px',

@@ -89,7 +89,7 @@ const CompeteAndEarn: NextPage = () => {
               <p className={styles.cell}>Region:</p>
               <p className={styles.cell}>Player Number:</p>
             </div>
-            <hr style={{ height: 'inherit', border: '3px solid var(--color-light)', marginRight: 50 }} />
+            <hr style={{ height: 'inherit', border: '3px solid var(--color-foreground)', marginRight: 50 }} />
             <div className="w-1/3">
               <h5 className={styles.headerCell}>PUBLIC BRAWL</h5>
               <p className={styles.cell}>No</p>

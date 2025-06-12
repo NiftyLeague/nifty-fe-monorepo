@@ -75,10 +75,9 @@ const UserProfile = () => {
       display="flex"
       flexDirection="column"
       alignItems="center"
-      bgcolor={palette.background.default}
       borderRadius={2}
       p={4}
-      sx={{ border: 'var(--border-light)' }}
+      sx={{ background: 'var(--color-background-3)', border: 'var(--border-default)' }}
     >
       <Avatar alt="avatar" src={ensAvatar.data || avatar?.url} sx={{ height: 80, width: 80 }} />
       <Stack direction="column" marginY={2} sx={{ alignItems: 'center' }}>

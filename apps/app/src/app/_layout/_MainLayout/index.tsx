@@ -12,11 +12,10 @@ import { useDispatch, useSelector } from '@/store/hooks';
 
 // material-ui
 import { IconChevronRight } from '@tabler/icons-react';
-import { useTheme, styled, appDrawerWidth, container } from '@nl/theme';
+import { useTheme, styled, appDrawerWidth, appHeaderHeight, container } from '@nl/theme';
 import WarningIcon from '@mui/icons-material/Warning';
 import InfoIcon from '@mui/icons-material/InfoRounded';
-import { AppBar, Box, Button, Container, Icon, Toolbar, Typography, useMediaQuery, Theme } from '@mui/material';
-import { alpha } from '@mui/system';
+import { AppBar, Box, Button, Container, Icon, Toolbar, Typography, useMediaQuery } from '@mui/material';
 
 // React Toastify
 import { ToastContainer } from 'react-toastify';
@@ -48,7 +47,8 @@ const Main = styled('main', { shouldForwardProp: prop => prop !== 'open' })<{ op
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.shorter,
         }),
-        marginTop: '80px',
+        marginTop: appHeaderHeight,
+        height: `calc(100vh - ${appHeaderHeight}px)`,
         [theme.breakpoints.up('md')]: { marginLeft: -(appDrawerWidth - 20), width: `calc(100% - ${appDrawerWidth}px)` },
         [theme.breakpoints.down('md')]: { marginLeft: '20px', width: `calc(100% - ${appDrawerWidth}px)` },
         [theme.breakpoints.down('sm')]: {
@@ -69,8 +69,9 @@ const Main = styled('main', { shouldForwardProp: prop => prop !== 'open' })<{ op
         marginLeft: 0,
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0,
+        marginTop: appHeaderHeight,
+        height: `calc(100vh - ${appHeaderHeight}px)`,
         width: `calc(100% - ${appDrawerWidth}px)`,
-        marginTop: '80px',
         [theme.breakpoints.down('md')]: { marginLeft: '20px' },
         [theme.breakpoints.down('sm')]: { marginTop: '60px', marginLeft: '10px' },
       },
@@ -91,7 +92,6 @@ const MainLayout = ({ children }: PropsWithChildren) => {
   const theme = useTheme();
   const matchDownMd = useMediaQuery(theme.breakpoints.down('lg'));
   const matchDownSm = useMediaQuery(theme.breakpoints.down('md'));
-  const matchUpMd = useMediaQuery(theme.breakpoints.up('md'));
   const { drawerOpen } = useSelector(state => state.menu);
 
   useEffect(() => {
@@ -135,7 +135,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
           color="inherit"
           elevation={0}
           sx={{
-            bgcolor: theme => theme.palette.background.default,
+            bgcolor: 'var(--color-background-2)',
             transition: theme => (drawerOpen ? theme.transitions.create('width') : 'none'),
           }}
         >
@@ -143,14 +143,13 @@ const MainLayout = ({ children }: PropsWithChildren) => {
             <Box
               sx={{
                 display: 'flex',
-                backgroundColor: theme =>
-                  isConnectedToIMX ? alpha(theme.palette.success.dark, 0.8) : alpha(theme.palette.error.light, 0.8),
                 width: '100%',
                 position: 'absolute',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
-              height={50}
+              className={isConnectedToIMX ? 'bg-success-dark/[80%]' : 'bg-error/[80%]'}
+              height={appHeaderHeight}
               zIndex={1}
             >
               <Icon sx={{ width: 24, height: 24, display: 'flex' }}>
@@ -183,13 +182,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
         {/* main content */}
         <Main open={drawerOpen}>
           {!isNoFilterPage ? (
-            <PerfectScrollbar
-              style={{
-                padding: matchDownSm ? '10px 20px' : '20px 40px',
-                height: !matchUpMd ? 'calc(100vh - 120px)' : 'calc(100vh - 100px)',
-                // background: 'var(--color-dark)',
-              }}
-            >
+            <PerfectScrollbar style={{ padding: matchDownSm ? '10px 20px' : '20px 40px' }}>
               {getContent()}
             </PerfectScrollbar>
           ) : (

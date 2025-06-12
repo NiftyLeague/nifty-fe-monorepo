@@ -45,12 +45,9 @@ const Header = () => {
             ...theme.typography.mediumAvatar,
             overflow: 'hidden',
             transition: 'all .2s ease-in-out',
-            background: theme.palette.background.default,
-            color: theme.palette.secondary.main,
-            '&:hover': {
-              background: theme.palette.mode === 'dark' ? theme.palette.secondary.main : theme.palette.secondary.dark,
-              color: theme.palette.secondary.light,
-            },
+            background: 'var(--color-background-3)',
+            color: 'var(--color-blue)',
+            '&:hover': { background: 'var(--color-purple)', color: 'var(--color-foreground)' },
           }}
           onClick={() => dispatch(openDrawer(!drawerOpen))}
           color="inherit"
@@ -65,7 +62,7 @@ const Header = () => {
             key={page.name}
             href={page.link}
             target="_blank"
-            color="inherit"
+            color="var(--color-foreground)"
             underline="hover"
             className="flex flex-nowrap gap-2"
           >

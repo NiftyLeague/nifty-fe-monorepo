@@ -8,87 +8,71 @@
   --breakpoint-xl: 1280px;
   --breakpoint-2xl: 1536px;
 
-  /* Brand Purple */
-  --color-brand-purple-50: #e0d0fa;
-  --color-brand-purple-100: #c1a0f4;
-  --color-brand-purple-200: #a270ef;
-  --color-brand-purple-300: #8340ea;
-  --color-brand-purple-400: #7226e7;
-  --color-brand-purple-500: #620edf; /* Primary */
-  --color-brand-purple-600: #570ccd;
-  --color-brand-purple-700: #4d0bba;
-  --color-brand-purple-800: #430a9e;
-  --color-brand-purple-900: #390882;
-  --color-brand-purple-950: #2e076b;
+  /* Disable Default Colors https://tailwindcss.com/docs/colors */
+  --color-amber-*: initial;
+  --color-lime-*: initial;
+  --color-emerald-*: initial;
+  --color-teal-*: initial;
+  --color-sky-*: initial;
+  --color-blue-*: initial; /* overridden below */
+  --color-indigo-*: initial;
+  --color-violet-*: initial;
+  --color-purple-*: initial; /* overridden below */
+  --color-fuchsia-*: initial;
+  --color-rose-*: initial;
+  --color-slate-*: initial;
+  --color-gray-*: initial;
+  --color-zinc-*: initial;
+  --color-neutral-*: initial;
+  --color-stone-*: initial;
 
-  /* Brand Blue */
-  --color-brand-blue-50: #e0e5fb;
-  --color-brand-blue-100: #c1cbf8;
-  --color-brand-blue-200: #a2b0f5;
-  --color-brand-blue-300: #8396f2;
-  --color-brand-blue-400: #6f84ee;
-  --color-brand-blue-500: #5e72eb; /* Primary */
-  --color-brand-blue-600: #5567d9;
-  --color-brand-blue-700: #4c5dcb;
-  --color-brand-blue-800: #4353bc;
-  --color-brand-blue-900: #3a49ac;
-  --color-brand-blue-950: #31409f;
-
-  /* Gray */
-  --color-gray-50: #fbfbfb;
-  --color-gray-100: #eeeeee;
-  --color-gray-200: #e0e0e0;
-  --color-gray-300: #bbbbbb;
-  --color-gray-400: #666666;
-  --color-gray-500: #444444;
-  --color-gray-600: #2a2a2a;
-  --color-gray-700: #1f1f1f;
-  --color-gray-800: #181818;
-  --color-gray-900: #0f0f0f;
-  --color-gray-950: #080808;
-
-  /* Blue Gray */
-  --color-blue-gray-50: #f8fafc;
-  --color-blue-gray-100: #f1f5f9;
-  --color-blue-gray-200: #e2e8f0;
-  --color-blue-gray-300: #cbd5e1;
-  --color-blue-gray-400: #94a3b8;
-  --color-blue-gray-500: #64748b;
-  --color-blue-gray-600: #475569;
-  --color-blue-gray-700: #334155;
-  --color-blue-gray-800: #1e293b;
-  --color-blue-gray-900: #0f172a;
-  --color-blue-gray-950: #090e1b;
-
-  /* Cool Gray */
-  --color-cool-gray-50: #f9fafb;
-  --color-cool-gray-100: #f3f4f6;
-  --color-cool-gray-200: #e5e7eb;
-  --color-cool-gray-300: #d1d5db;
-  --color-cool-gray-400: #9ca3af;
-  --color-cool-gray-500: #6b7280;
-  --color-cool-gray-600: #4b5563;
-  --color-cool-gray-700: #374151;
-  --color-cool-gray-800: #1f2937;
-  --color-cool-gray-900: #111827;
-  --color-cool-gray-950: #0b0f16;
-
-  /* Dark */
-  --color-dark-50: #fbfbfb;
-  --color-dark-100: #eeeeee;
-  --color-dark-200: #e0e0e0;
-  --color-dark-300: #bbbbbb;
-  --color-dark-400: #666666;
-  --color-dark-500: #444444;
-  --color-dark-600: #2a2a2a;
-  --color-dark-700: #1f1f1f;
-  --color-dark-800: #181818;
-  --color-dark-900: #0f0f0f;
-  --color-dark-950: #080808;
+  /* Colors Remaining: Red, Orange, Yellow, Green, Cyan, Pink */
 }
 
-@theme inline {
-  /* ======================|| FONTS ||====================== */
+/* Set to static so they are always available in /packages */
+@theme static {
+  /* Gray (Zinc) https://tailwindcss.com/docs/colors */
+  --color-base-50: oklch(98.5% 0 0);
+  --color-base-100: oklch(96.7% 0.001 286.375);
+  --color-base-200: oklch(92% 0.004 286.32);
+  --color-base-300: oklch(87.1% 0.006 286.286);
+  --color-base-400: oklch(70.5% 0.015 286.067);
+  --color-base-500: oklch(55.2% 0.016 285.938);
+  --color-base-600: oklch(44.2% 0.017 285.786);
+  --color-base-700: oklch(37% 0.013 285.805);
+  --color-base-800: oklch(27.4% 0.006 286.033);
+  --color-base-900: oklch(21% 0.006 285.885); /* Background #18181b */
+  --color-base-950: oklch(14.1% 0.005 285.823);
+
+  /* Brand Blue https://www.tints.dev/brand/5E72EB */
+  --color-blue-50: oklch(97.74% 0.009 279.8);
+  --color-blue-100: oklch(94.28% 0.023 277.99);
+  --color-blue-200: oklch(87.64% 0.052 276.85);
+  --color-blue-300: oklch(80.75% 0.081 276.7);
+  --color-blue-400: oklch(71.65% 0.125 275.68);
+  --color-blue-500: oklch(59.97% 0.182 272.64); /* Secondary #5e72eb */
+  --color-blue-600: oklch(55.45% 0.204 270.82);
+  --color-blue-700: oklch(50.86% 0.23 268.43);
+  --color-blue-800: oklch(45.39% 0.243 266.28);
+  --color-blue-900: oklch(35.53% 0.185 266.77);
+  --color-blue-950: oklch(28.39% 0.139 267.54);
+
+  /* Brand Purple https://www.tints.dev/brand/620EDF */
+  --color-purple-50: oklch(96.58% 0.018 303.52);
+  --color-purple-100: oklch(94.15% 0.031 304.32);
+  --color-purple-200: oklch(85.93% 0.077 303.4);
+  --color-purple-300: oklch(78% 0.123 302.02);
+  --color-purple-400: oklch(66.95% 0.189 299.79);
+  --color-purple-500: oklch(46.94% 0.261 288.7); /* Primary #620edf */
+  --color-purple-600: oklch(44.27% 0.246 288.68);
+  --color-purple-700: oklch(39.9% 0.22 289.2);
+  --color-purple-800: oklch(33.61% 0.182 290);
+  --color-purple-900: oklch(29.49% 0.158 290.42);
+  --color-purple-950: oklch(22.93% 0.117 292.74);
+}
+
+@theme inline static {
+  /* ======================|| FONTS ||======================= */
   --font-default: var(--font-ibm-plex-sans), var(--font-sans);
   --font-header: var(--font-nexa-rust-sans-black), var(--font-default);
   --font-subheader: var(--font-lilita-one), var(--font-default);
@@ -104,39 +88,72 @@
   --btn-letter-spacing: var(--tracking-wide); /* 0.025em */
 
   /* ======================|| COLORS ||====================== */
-  --color-brand-blue: var(--color-brand-blue-500);
-  --color-brand-purple: var(--color-brand-purple-500);
-  --gradient-brand-hover: linear-gradient(
-    128.04deg,
-    var(--color-brand-purple) 0%,
-    var(--color-brand-blue) 46.93%,
-    #ff00c7 100%
+  --color-blue: var(--color-blue-500);
+  --color-purple: var(--color-purple-500);
+
+  --gradient-brand: linear-gradient(90deg, var(--color-purple) 0%, var(--color-blue) 100%);
+  --gradient-brand-pink: linear-gradient(
+    128deg,
+    var(--color-purple) 0%,
+    var(--color-blue) 46.93%,
+    var(--color-pink-600) 100%
   );
 
-  --color-dark: var(--color-gray-900); /* Background Color */
-  --color-light: var(--color-gray-100); /* Foreground Color */
-  --color-secondary: var(--color-gray-300); /* Foreground Secondary Color */
+  --color-error: var(--color-red-400);
+  --color-error-dark: var(--color-red-600);
+  --color-error-light: var(--color-red-200);
 
-  --custom-panel-color: var(--color-gray-800);
-  --custom-panel-hover-color: var(--color-gray-700);
-  --custom-modal-color: var(--color-gray-800);
-  --custom-card-color: var(--color-gray-700);
+  --color-warning: var(--color-yellow-400);
+  --color-warning-dark: var(--color-yellow-600);
+  --color-warning-light: var(--color-yellow-200);
 
-  --custom-color-error: var(--color-red-500);
-  --custom-color-error-dark: var(--color-red-600);
-  --custom-color-error-light: var(--color-red-400);
+  --color-success: var(--color-green-400);
+  --color-success-dark: var(--color-green-600);
+  --color-success-light: var(--color-green-200);
 
-  --custom-color-success: var(--color-green-500);
-  --custom-color-success-dark: var(--color-green-600);
-  --custom-color-success-light: var(--color-green-400);
+  --color-info: var(--color-blue-400);
+  --color-info-dark: var(--color-blue-600);
+  --color-info-light: var(--color-blue-200);
 
-  /* ======================|| OTHER ||====================== */
-  --border-dark: 1px solid var(--color-gray-700);
-  --border-light: 1px solid var(--color-gray-400);
-  --border-blue: 1px solid var(--color-brand-blue);
-  --border-purple: 1px solid var(--color-brand-purple);
+  --color-dark: var(--color-base-950);
+  --color-light: var(--color-base-50);
+
+  /* =================|| APP BACKGROUNDS ||================== */
+  --color-background: light-dark(var(--color-base-100), var(--color-base-950));
+  --color-background-2: light-dark(var(--color-base-200), var(--color-base-900));
+  --color-background-3: light-dark(var(--color-base-300), var(--color-base-800));
+  --color-background-4: light-dark(var(--color-base-400), var(--color-base-700));
+
+  /* ==================|| APP FOREGROUND ||================== */
+  --color-foreground: light-dark(var(--color-dark), var(--color-light));
+  --color-foreground-2: light-dark(var(--color-base-800), var(--color-base-300));
+  --color-foreground-3: light-dark(var(--color-base-700), var(--color-base-400));
+  --color-foreground-4: light-dark(var(--color-base-600), var(--color-base-500));
+
+  --color-foreground-blue: var(--color-blue-50);
+  --color-foreground-purple: var(--color-purple-50);
+
+  /* =====================|| BORDERS ||====================== */
+  --color-border-default: light-dark(var(--color-base-500), var(--color-base-500));
+  --color-divider-default: light-dark(var(--color-base-500), var(--color-base-500));
+
+  --border-default: 1px solid var(--color-border-default);
+  --border-hidden: 1px solid transparent;
+  --border-blue: 1px solid var(--color-blue);
+  --border-purple: 1px solid var(--color-purple);
+
   --border-radius-default: var(--radius-md); /* 0.375rem (6px) */
 
+  /* ======================|| FORMS ||======================= */
+  --input-label: light-dark(var(--color-base-600), var(--color-base-200));
+  --input-placeholder: light-dark(var(--color-base-300), var(--color-base-400));
+  --input-value: light-dark(var(--color-base-600), var(--color-base-200));
+
+  --input-border: light-dark(var(--color-base-300), var(--color-base-500));
+  --input-border-hover: light-dark(var(--color-base-400), var(--color-base-400));
+  --input-border-focus: light-dark(var(--color-blue), var(--color-blue));
+
+  /* ======================|| OTHER ||======================= */
   --custom-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.8);
   --custom-spacing: 5px;
   --custom-max-width: 1200px;

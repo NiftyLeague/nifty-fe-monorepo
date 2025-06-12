@@ -47,11 +47,12 @@ const CollapsibleSidebarLayout = ({
           }),
           '& .MuiDrawer-paper': {
             height: matchDownSm ? '100%' : 'auto',
-            backgroundColor: theme.palette.background.paper,
+            backgroundColor: 'var(--color-background-2)',
             width: drawerWidth,
             boxSizing: 'border-box',
             position: 'relative',
             border: 'none',
+            borderRadius: 'var(--border-radius-default)',
           },
         }}
         variant={matchDownSm ? 'temporary' : 'persistent'}
@@ -67,7 +68,7 @@ const CollapsibleSidebarLayout = ({
 
       {/* Main grid */}
       <Stack
-        component="main"
+        component="div"
         sx={{
           flexGrow: 1,
           paddingLeft: isDrawerOpen ? theme.spacing(3) : 0,

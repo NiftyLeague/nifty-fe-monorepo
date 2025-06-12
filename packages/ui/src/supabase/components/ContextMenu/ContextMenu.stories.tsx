@@ -21,13 +21,13 @@ type Story = StoryObj<typeof ContextMenu>;
 const TriggerArea = () => (
   <div
     style={{
-      background: 'gray',
+      background: 'var(--color-background-3)',
       width: '280px',
       height: '180px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      color: 'var(--color-light)',
+      color: 'var(--color-foreground)',
     }}
   >
     <span>Right click this area</span>

@@ -29,7 +29,9 @@ const MobileNavLink = ({ children, href, toggleMobileMenu, external = false }: M
       target={external ? '_blank' : undefined}
       rel={external ? 'noopener noreferrer' : undefined}
       className={`px-3 py-2 rounded-md text-base font-medium flex items-center ${
-        isActive ? 'bg-gray-800 text-light' : 'text-gray-300 hover:bg-gray-700 hover:text-light'
+        isActive
+          ? 'bg-background-2 text-foreground-2'
+          : 'bg-background hover:bg-background-3 text-foreground hover:text-foreground2'
       }`}
     >
       {children}
@@ -41,7 +43,7 @@ const MobileNavLink = ({ children, href, toggleMobileMenu, external = false }: M
 const MobileNavGroup = ({ title, children }: { title: string; children: React.ReactNode }) => {
   return (
     <div className="pt-3 pb-2">
-      <h3 className="px-3 text-xs text-gray-400 uppercase tracking-wider">{title}</h3>
+      <h3 className="px-3 text-xs text-foreground-2 uppercase tracking-wider">{title}</h3>
       <div className="mt-1 space-y-1">{children}</div>
     </div>
   );
@@ -62,11 +64,11 @@ const MobileNav = ({ toggleMobileMenu, isMobileMenuOpen }: MobileNavProps) => {
         }`}
       >
         {/* Clickable overlay to close menu */}
-        <div className="absolute inset-0 bg-dark bg-opacity-50" onClick={toggleMobileMenu} />
+        <div className="absolute inset-0 bg-background bg-opacity-50" onClick={toggleMobileMenu} />
 
         {/* Mobile Menu Content */}
         <div
-          className={`fixed inset-0 w-full z-50 bg-dark transform transition-transform duration-300 ease-in-out ${
+          className={`fixed inset-0 w-full z-50 bg-background transform transition-transform duration-300 ease-in-out ${
             isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
         >
@@ -127,12 +129,12 @@ const MobileNav = ({ toggleMobileMenu, isMobileMenuOpen }: MobileNavProps) => {
               </MobileNavGroup>
 
               {/* Launch App Button */}
-              <div className="pt-4 pb-3 border-t border-gray-700">
+              <div className="pt-4 pb-3 border-t border-background-3">
                 <a
                   href="https://app.niftyleague.com/"
                   target="_blank"
                   rel="noreferrer"
-                  className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-light bg-brand hover:bg-brand-dark"
+                  className="w-full flex items-center justify-center px-4 py-2 border border-foreground rounded-md shadow-sm text-base font-medium text-foreground bg-background hover:bg-background-2"
                   onClick={toggleMobileMenu}
                 >
                   Launch Web3 App

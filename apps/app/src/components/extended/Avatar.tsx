@@ -25,12 +25,12 @@ interface avatarProps extends AvatarProps {
 const Avatar = ({ className, color, outline, size, sx, ...others }: avatarProps) => {
   const theme = useTheme();
 
-  const colorSX = color && !outline && { color: theme.palette.background.paper, bgcolor: `${color}.main` };
+  const colorSX = color && !outline && { color: 'var(--color-background-3)', bgcolor: `${color}.main` };
   const outlineSX = outline && {
-    color: color ? `${color}.main` : `primary.main`,
-    bgcolor: theme.palette.background.paper,
+    color: color ? `${color}.main` : 'var(--color-purple)',
+    bgcolor: 'var(--color-background-3)',
     border: '2px solid',
-    borderColor: color ? `${color}.main` : `primary.main`,
+    borderColor: color ? `${color}.main` : 'var(--color-purple)',
   };
   let sizeSX = {};
   switch (size) {

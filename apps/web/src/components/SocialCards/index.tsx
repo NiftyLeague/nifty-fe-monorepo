@@ -27,8 +27,8 @@ const SocialCard = ({ link, title, subtitle, image }: SocialProps) => {
           >
             <div className="flex flex-1">
               <div className="mr-4 flex-1 flex flex-col justify-center">
-                <h4 className="text-brand-purple text-lg font-medium mb-1">{title}</h4>
-                <p className="text-light text-sm sm:text-base">{subtitle}</p>
+                <h4 className="text-purple text-lg font-medium mb-1">{title}</h4>
+                <p className="text-foreground text-sm sm:text-base">{subtitle}</p>
               </div>
               <div className="flex-shrink-0 flex items-center">
                 <Image

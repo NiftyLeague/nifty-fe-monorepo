@@ -153,8 +153,8 @@ export const azure = () => (
         gradientTransform="matrix(1 0 0 -1 1075 158)"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0" stopColor="var(--color-light)"></stop>
-        <stop offset="1" stopColor="var(--color-light)"></stop>
+        <stop offset="0" stopColor="var(--color-foreground)"></stop>
+        <stop offset="1" stopColor="var(--color-foreground)"></stop>
       </linearGradient>
       <linearGradient
         id="ac2a6fc2-ca48-4327-9a3c-d4dcc3256e15"
@@ -180,8 +180,8 @@ export const azure = () => (
         gradientTransform="matrix(1 0 0 -1 1075 158)"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0" stopColor="var(--color-light)"></stop>
-        <stop offset="1" stopColor="var(--color-light)"></stop>
+        <stop offset="0" stopColor="var(--color-foreground)"></stop>
+        <stop offset="1" stopColor="var(--color-foreground)"></stop>
       </linearGradient>
     </defs>
     <path

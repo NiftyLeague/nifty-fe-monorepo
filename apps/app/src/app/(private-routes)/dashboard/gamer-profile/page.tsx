@@ -68,7 +68,7 @@ const GamerProfile = (): React.ReactNode => {
 
   const renderTopProfile = () => {
     return (
-      <Grid container size={12} spacing={3}>
+      <Grid container size={12} spacing={3} className="bg-background-3 p-8 rounded-md">
         <Grid size={{ xs: 12, md: 3.5 }}>
           <ImageProfile
             avatar={profile?.avatar}
@@ -78,8 +78,8 @@ const GamerProfile = (): React.ReactNode => {
         </Grid>
         <Grid size={{ xs: 12, md: 8.5 }}>
           {address && <TopInfo profile={profile} walletAddress={address} />}
-          <hr />
-          <Stack spacing={1}>
+          <hr className="mb-4" />
+          <Stack spacing={2}>
             <Stack>
               <Typography variant="h3" component="div">
                 Nifty League Player Stats
@@ -102,8 +102,24 @@ const GamerProfile = (): React.ReactNode => {
   };
 
   const renderBottomProfile = () => {
+    const sliderSettingsOverride = {
+      slidesToShow: 3,
+      responsive: [
+        { breakpoint: 1700, settings: { slidesToShow: 3 } },
+        { breakpoint: 1280, settings: { slidesToShow: 3 } },
+        { breakpoint: 900, settings: { slidesToShow: 2 } },
+        { breakpoint: 600, settings: { slidesToShow: 1 } },
+      ],
+    };
     return (
-      <SectionSlider firstSection variant="h3" title="Player Stats by Web3 Game" isSlider={false}>
+      <SectionSlider
+        firstSection
+        variant="h3"
+        title="Player Stats by Web3 Game"
+        isSlider={false}
+        sliderSettingsOverride={sliderSettingsOverride}
+        styles={{ root: { width: '100%' } }}
+      >
         <BottomInfo
           nifty_smashers={profile?.stats?.nifty_smashers}
           wen_game={profile?.stats?.wen_game}

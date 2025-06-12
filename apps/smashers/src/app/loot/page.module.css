@@ -7,8 +7,8 @@
   margin: 0 auto;
   padding: 2rem 1rem 4rem;
   max-width: 1200px;
-  color: var(--color-light);
-  background-color: var(--color-dark);
+  color: var(--color-foreground);
+  background-color: var(--color-background);
   gap: 2rem;
 
   @media (min-width: 768px) {
@@ -18,12 +18,12 @@
 
 .crateGroup {
   width: 100%;
-  background: var(--color-dark);
+  background: var(--color-background);
   border-radius: 12px;
   padding: 2.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(var(--color-brand-purple), 0.1);
+  border: 1px solid rgba(var(--color-purple), 0.1);
   position: relative;
   overflow: hidden;
 }
@@ -35,18 +35,18 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--color-brand-purple), var(--color-brand-blue));
+  background: var(--gradient-brand);
   opacity: 0.8;
 }
 
 .crateGroup:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  border-color: rgba(var(--color-brand-purple), 0.2);
+  border-color: rgba(var(--color-purple), 0.2);
 }
 
 .crateGroup h2 {
-  color: var(--color-light);
+  color: var(--color-foreground);
   margin: 0 0 0.5rem;
   font-size: 1.75rem;
   font-weight: 700;
@@ -61,28 +61,28 @@
   left: 0;
   width: 60px;
   height: 3px;
-  background: linear-gradient(90deg, var(--color-brand-purple), transparent);
+  background: linear-gradient(90deg, var(--color-purple), transparent);
   border-radius: 2px;
 }
 
 .crateSubtitle {
-  color: var(--color-secondary);
+  color: var(--color-foreground-2);
   margin: 0 0 2rem;
   font-size: 1.1rem;
   font-weight: 400;
 }
 
 .itemsTable {
-  border: var(--border-dark);
+  border: var(--border-default);
   margin: 0;
   max-height: 500px;
   overflow-y: auto;
   width: 100%;
-  background-color: var(--color-dark);
+  background-color: var(--color-background);
   border-radius: var(--border-radius-default);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   scrollbar-width: thin;
-  scrollbar-color: var(--color-brand-purple) transparent;
+  scrollbar-color: var(--color-purple) transparent;
 }
 
 .itemsTable::-webkit-scrollbar {
@@ -95,14 +95,14 @@
 }
 
 .itemsTable::-webkit-scrollbar-thumb {
-  background-color: var(--color-brand-purple);
+  background-color: var(--color-purple);
   border-radius: 3px;
 }
 
 .itemsTable table {
   border-collapse: collapse;
   width: 100%;
-  color: var(--color-light);
+  color: var(--color-foreground);
   border-collapse: separate;
   border-spacing: 0;
 }
@@ -117,7 +117,7 @@
   position: sticky;
   top: 0;
   z-index: 2;
-  background-color: var(--color-dark);
+  background-color: var(--color-background);
 }
 
 .itemsTable table thead th {
@@ -127,8 +127,8 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   font-size: 0.75rem;
-  background-color: var(--color-brand-purple);
-  color: var(--color-light);
+  background-color: var(--color-purple);
+  color: var(--color-foreground);
   border: none;
 }
 
@@ -142,7 +142,7 @@
 
 .itemsTable table tbody tr {
   transition: background-color 0.2s ease;
-  border-bottom: var(--border-dark);
+  border-bottom: var(--border-default);
 }
 
 .itemsTable table tbody tr:last-child {
@@ -150,7 +150,7 @@
 }
 
 .itemsTable table tbody tr:hover {
-  background-color: rgba(var(--color-brand-purple), 0.05);
+  background-color: rgba(var(--color-purple), 0.05);
 }
 
 .itemsTable table tbody td {
@@ -177,12 +177,12 @@
 
 .itemsTable table tbody td[data-rarity*='rare'],
 .itemsTable table tbody td[data-rarity*='Rare'] {
-  color: var(--color-brand-blue);
+  color: var(--color-blue);
 }
 
 .itemsTable table tbody td[data-rarity*='epic'],
 .itemsTable table tbody td[data-rarity*='Epic'] {
-  color: var(--color-brand-purple);
+  color: var(--color-purple);
   text-shadow: 0 0 8px rgba(156, 39, 176, 0.3);
 }
 
@@ -195,18 +195,15 @@
 
 .itemsTable table tbody td[data-rarity*='mythic'],
 .itemsTable table tbody td[data-rarity*='Mythic'] {
-  background: linear-gradient(90deg, #ff4081, #7c4dff);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 700;
+  color: #ff4081; /* Pink */
   text-shadow: 0 0 8px rgba(255, 64, 129, 0.3);
+  font-weight: 600;
 }
 
 .itemsTable table th {
-  background-color: var(--color-brand-purple);
-  color: var(--color-light);
-  border: var(--border-dark);
+  background-color: var(--color-purple);
+  color: var(--color-foreground);
+  border: var(--border-default);
   font-weight: 600;
   padding: 0.75rem 1rem;
   position: sticky;
@@ -218,15 +215,15 @@
 }
 
 .itemsTable table td {
-  border: var(--border-dark);
+  border: var(--border-default);
   padding: 0.75rem 1rem;
   font-size: 0.875rem;
-  color: var(--color-secondary);
+  color: var(--color-foreground-2);
 }
 
 /* Add hover effect for better interactivity */
 .itemsTable table tbody tr:hover {
-  background-color: rgba(var(--color-brand-purple), 0.05);
+  background-color: rgba(var(--color-purple), 0.05);
   cursor: pointer;
 }
 
@@ -240,11 +237,11 @@
 }
 
 .itemsTable table td[data-rarity='Rare'] {
-  color: var(--color-brand-blue);
+  color: var(--color-blue);
 }
 
 .itemsTable table td[data-rarity='Epic'] {
-  color: var(--color-brand-purple);
+  color: var(--color-purple);
 }
 
 .itemsTable table td[data-rarity='Legendary'] {

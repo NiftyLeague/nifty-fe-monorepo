@@ -9,7 +9,7 @@ const IconButtonStyle = styled(IconButton)(({ theme }) => ({
   position: 'absolute',
   right: 0,
   top: 0,
-  color: theme.palette.grey[500],
+  color: 'var(--color-foreground-2)',
 }));
 
 const DialogActionComp = ({ children, isOpen }: DialogAction) => {

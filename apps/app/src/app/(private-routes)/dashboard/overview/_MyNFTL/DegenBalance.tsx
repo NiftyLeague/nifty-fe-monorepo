@@ -19,8 +19,8 @@ const DegenBalance = (): React.ReactNode => {
       title="DEGEN Balance"
       primary={`${balance ? formatNumberToDisplay(balance) : '0.00'} NFTL`}
       customStyle={{
-        backgroundColor: theme.palette.background.default,
-        border: 'var(--border-light)',
+        backgroundColor: 'var(--color-background-3)',
+        border: 'var(--border-default)',
         position: 'relative',
       }}
       secondary="Available to Claim"
