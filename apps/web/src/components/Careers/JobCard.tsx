@@ -15,12 +15,16 @@ const StyledAccordion = styled(Accordion)({
   '& .MuiCollapse-wrapper': { marginBottom: 24 },
   '& .MuiAccordionSummary-root': {
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
-    color: 'var(--color-light)',
+    color: 'var(--color-foreground)',
     fontWeight: 600,
     padding: 24,
   },
   '& .MuiAccordionSummary-content': { display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
-  '& .MuiAccordionDetails-root': { backgroundColor: 'rgba(0, 0, 0, 0.4)', color: 'var(--color-light)', padding: 24 },
+  '& .MuiAccordionDetails-root': {
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    color: 'var(--color-foreground)',
+    padding: 24,
+  },
 });
 
 interface JobCardProps {
@@ -71,9 +75,7 @@ const JobCard = ({ details }: JobCardProps): React.ReactNode => {
 
       <AccordionDetails>
         <AnimatedWrapper>
-          <h6 className="text-brand-purple md:text-left transition-fade-start transition-fade delay-lite">
-            About the Role
-          </h6>
+          <h6 className="text-purple md:text-left transition-fade-start transition-fade delay-lite">About the Role</h6>
         </AnimatedWrapper>
         <div className="text-left">
           <AnimatedWrapper>
@@ -83,7 +85,7 @@ const JobCard = ({ details }: JobCardProps): React.ReactNode => {
         {responsibilities && (
           <div>
             <AnimatedWrapper>
-              <h6 className="text-brand-purple pt-5 md:text-left transition-fade-start transition-fade delay-lite">
+              <h6 className="text-purple pt-5 md:text-left transition-fade-start transition-fade delay-lite">
                 Responsibilities:
               </h6>
             </AnimatedWrapper>
@@ -98,7 +100,7 @@ const JobCard = ({ details }: JobCardProps): React.ReactNode => {
         )}
         <div className="opacity-90">
           <AnimatedWrapper>
-            <h6 className="text-brand-purple pt-5 md:text-left transition-fade-start transition-fade delay-lite">
+            <h6 className="text-purple pt-5 md:text-left transition-fade-start transition-fade delay-lite">
               Requirements:
             </h6>
           </AnimatedWrapper>
@@ -112,7 +114,7 @@ const JobCard = ({ details }: JobCardProps): React.ReactNode => {
         </div>
         <div className="opacity-90">
           <AnimatedWrapper>
-            <h6 className="text-brand-purple pt-5 md:text-left transition-fade-start transition-fade delay-lite">
+            <h6 className="text-purple pt-5 md:text-left transition-fade-start transition-fade delay-lite">
               What we offer:
             </h6>
           </AnimatedWrapper>

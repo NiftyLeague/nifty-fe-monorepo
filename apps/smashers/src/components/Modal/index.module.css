@@ -21,8 +21,8 @@
 
 .modal_paper_dark {
   position: relative;
-  background-color: var(--custom-panel-color);
-  border: 2px solid var(--custom-panel-color);
+  background-color: var(--color-background-2);
+  border: 2px solid var(--color-background-2);
   border-radius: var(--border-radius-default);
 }
 
@@ -60,24 +60,24 @@
   font-weight: bold;
   cursor: pointer;
   width: 50px;
-  background-color: var(--custom-panel-color);
+  background-color: var(--color-background-2);
   color: whitesmoke !important;
   border: 0;
   z-index: 1;
 }
 
 .button_primary {
-  background-color: var(--color-brand-purple) !important;
-  border: 1px solid var(--color-brand-purple) !important;
+  background-color: var(--color-purple) !important;
+  border: 1px solid var(--color-purple) !important;
 }
 .button_primary:hover {
-  background-color: var(--custom-panel-color) !important;
-  color: var(--color-light) !important;
+  background-color: var(--color-background-2) !important;
+  color: var(--color-foreground) !important;
 }
 .button_secondary:hover {
-  background-color: var(--custom-color-error) !important;
-  border-color: var(--custom-color-error) !important;
-  color: var(--color-light) !important;
+  background-color: var(--color-error) !important;
+  border-color: var(--color-error) !important;
+  color: var(--color-foreground) !important;
 }
 .button_primary,
 .button_secondary {
@@ -85,8 +85,8 @@
 }
 .button_mobile:hover {
   color: rgba(0, 0, 0, 0.5);
-  background-color: var(--color-brand-purple) !important;
-  border-color: var(--color-brand-purple) !important;
+  background-color: var(--color-purple) !important;
+  border-color: var(--color-purple) !important;
 }
 
 @media only screen and (max-width: 576px) {

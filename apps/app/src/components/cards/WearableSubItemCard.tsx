@@ -36,14 +36,14 @@ const WearableSubItemCard: React.FC<React.PropsWithChildren<React.PropsWithChild
         height={CARD_HEIGHT}
         position="relative"
         overflow="hidden"
-        sx={{ borderRadius: '10px', outline: isSelected ? `3px solid ${theme.palette.primary.main}` : 'none' }}
+        sx={{ borderRadius: '10px', outline: isSelected ? '3px solid var(--color-purple)' : 'none' }}
       >
         <ImageCard image={image} thumbnail={thumbnail} title={title} ratio={1} />
       </Box>
       <Typography
         maxWidth={CARD_WIDTH}
         textAlign="center"
-        sx={{ color: theme => (isSelected ? theme.palette.primary.main : theme.palette.text.primary) }}
+        sx={{ color: isSelected ? 'var(--color-blue)' : 'var(--color-foreground)' }}
       >{`${title} #${itemIndex + 1}`}</Typography>
     </Stack>
   );

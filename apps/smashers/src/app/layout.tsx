@@ -60,10 +60,15 @@ export const metadata: Metadata = {
       alt: 'Nifty Smashers Banner',
     },
   },
-  other: { 'theme-color': '#000000' },
 };
 
-export const viewport: Viewport = { width: 'device-width', initialScale: 1, maximumScale: 1, userScalable: false };
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: '#18181b',
+  colorScheme: 'dark',
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

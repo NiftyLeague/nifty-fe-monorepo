@@ -85,7 +85,7 @@ const WearableItemCard: React.FC<React.PropsWithChildren<React.PropsWithChildren
             data={data}
             width={CARD_WIDTH}
             height={CARD_HEIGHT}
-            sx={{ outline: isSelected ? '3px solid var(--color-brand-purple)' : 'none' }}
+            sx={{ outline: isSelected ? '3px solid var(--color-purple)' : 'none' }}
           />
         ) : (
           <>
@@ -100,7 +100,7 @@ const WearableItemCard: React.FC<React.PropsWithChildren<React.PropsWithChildren
                   zIndex: 2 - item,
                   top: item * 8,
                   left: (item + 1) * 8,
-                  border: 'var(--border-light)',
+                  border: 'var(--border-default)',
                 }}
               />
             ))}
@@ -113,7 +113,9 @@ const WearableItemCard: React.FC<React.PropsWithChildren<React.PropsWithChildren
               height={35}
               sx={{ background: '#8F4BF4', borderRadius: '10px', bottom: 0, left: 0, zIndex: 3 }}
             >
-              <Typography sx={{ fontSize: 20, color: 'var(--color-light)', fontWeight: 700 }}>{balance}</Typography>
+              <Typography sx={{ fontSize: 20, color: 'var(--color-foreground)', fontWeight: 700 }}>
+                {balance}
+              </Typography>
             </Box>
           </>
         )}

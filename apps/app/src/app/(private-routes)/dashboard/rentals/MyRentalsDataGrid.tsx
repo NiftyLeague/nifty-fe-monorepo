@@ -193,7 +193,7 @@ const MyRentalsDataGrid = ({
           <Link
             component="button"
             variant="body2"
-            sx={{ color: 'var(--color-light)', textDecorationColor: 'var(--color-light)' }}
+            sx={{ color: 'var(--color-foreground)', textDecorationColor: 'var(--color-foreground)' }}
             onClick={() => handleClickDegenId(params)}
           >
             #{params.value}
@@ -219,7 +219,7 @@ const MyRentalsDataGrid = ({
         ...commonColumnProp,
         width: 150,
         renderCell: (params: GridRenderCellParams) => (
-          <Typography sx={{ color: theme => theme.palette.warning.main }}>
+          <Typography sx={{ color: 'var(--color-warning)' }}>
             <Countdown date={new Date(params.value * 1000)} />
           </Typography>
         ),
@@ -298,9 +298,9 @@ const MyRentalsDataGrid = ({
             <Typography
               sx={{
                 color: theme => {
-                  if (params.value === 0) return theme.palette.text.primary;
-                  if (params.value > 0) return theme.palette.success.main;
-                  if (params.value < 0) return theme.palette.error.main;
+                  if (params.value === 0) return 'var(--color-foreground)';
+                  if (params.value > 0) return 'var(--color-success)';
+                  if (params.value < 0) return 'var(--color-error)';
                 },
               }}
             >

@@ -6,16 +6,16 @@ import SortButton from '@/components/extended/SortButton';
 const SearchTextField = styled(TextField)({
   flex: 1,
   height: 32,
-  '& .MuiInputLabel-root': { color: '#424453', top: -4 },
+  '& .MuiInputLabel-root': { color: 'var(--color-foreground-2)', top: -12 },
   '& .MuiOutlinedInput-root': {
     height: 32,
-    '& input': { paddingTop: '6px', paddingBottom: '6px' },
-    '& fieldset': { borderRadius: 'var(--border-radius-default)' },
+    '& input': { backgroundColor: 'var(--color-background-3)', paddingTop: '6px', paddingBottom: '6px' },
+    '& fieldset': { border: 'none' },
   },
 });
 
 const LayoutModeButtonsGroup = styled(ToggleButtonGroup)({
-  border: 'var(--border-light)',
+  border: 'var(--border-default)',
   borderRadius: 'var(--border-radius-default)',
 });
 
@@ -52,7 +52,6 @@ const DegensTopNav = ({
         size="small"
         value={searchTerm}
         onChange={handleChangeSearchTerm}
-        InputLabelProps={{ style: { color: theme.palette.text.secondary } }}
       />
       <Stack direction="row" gap={1} sx={{ justifyContent: 'space-between' }}>
         <SortButton handleSort={handleSort}>
@@ -65,7 +64,7 @@ const DegensTopNav = ({
               fontWeight: 400,
               border: 'var(--border-purple)',
               padding: '3px 16px',
-              color: theme.palette.text.primary,
+              color: 'var(--color-foreground)',
             }}
           />
         </SortButton>

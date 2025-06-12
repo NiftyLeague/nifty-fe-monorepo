@@ -7,14 +7,10 @@
     box-sizing: border-box;
   }
 
-  html {
-    color-scheme: dark;
-  }
-
   html,
   body {
-    background: var(--color-dark);
-    color: var(--color-light);
+    background: var(--color-background) !important;
+    color: var(--color-foreground);
     font-family: var(--font-default);
     font-size: var(--root-font-size);
     font-weight: var(--font-weight-normal);
@@ -26,19 +22,19 @@
 
   main,
   footer {
-    background: var(--color-dark);
+    background: var(--color-background);
   }
 
   /* =============================|| TYPOGRAPHY ||============================= */
 
   p {
-    color: var(--color-light);
+    color: var(--color-foreground);
   }
 
   h1,
   h2,
   h3 {
-    color: var(--color-light);
+    color: var(--color-foreground);
     font-family: var(--font-header);
     font-weight: var(--font-weight-bold);
     letter-spacing: var(--header-letter-spacing);
@@ -46,7 +42,7 @@
   h4,
   h5,
   h6 {
-    color: var(--color-light);
+    color: var(--color-foreground);
     font-family: var(--font-subheader);
     font-weight: var(--font-weight-normal);
     letter-spacing: var(--subheader-letter-spacing);
@@ -87,14 +83,14 @@
   }
 
   a {
-    color: var(--color-brand-blue);
+    color: var(--color-blue);
     text-decoration: none;
   }
 
   /* ===============================|| FORMS ||=============================== */
 
   label {
-    color: var(--color-secondary);
+    color: var(--color-foreground-2);
     display: block;
     font-size: var(--text-xs); /* 0.75rem */
     font-weight: var(--font-weight-medium);
@@ -105,22 +101,16 @@
   input {
     background-color: inherit;
     border-radius: var(--border-radius-default) !important;
-    border: var(--border-light) !important;
-    color: var(--color-light) !important;
+    border: var(--border-default) !important;
+    color: var(--color-foreground) !important;
     font-size: var(--text-sm) !important; /* 0.875rem */
     padding: 0.5rem 0.75rem !important;
     width: 100%;
   }
 
   input[disabled] {
-    background-color: var(--color-dark) !important;
-    border: var(--border-dark) !important;
-    color: var(--color-secondary) !important;
+    background-color: var(--color-background) !important;
+    border: var(--border-hidden) !important;
+    color: var(--color-foreground-2) !important;
   }
-
-  /* @media (prefers-color-scheme: light) {
-    html {
-      color-scheme: light;
-    }
-  } */
 }

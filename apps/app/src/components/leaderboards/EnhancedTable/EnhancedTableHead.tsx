@@ -25,7 +25,7 @@ export default function EnhancedTableHead(props: EnhancedTableProps): React.Reac
           <Typography
             variant="h4"
             sx={{
-              color: theme => theme.palette.primary.main,
+              color: 'var(--color-purple)',
               textDecoration: 'underline',
               cursor: 'pointer',
               display: 'flex',

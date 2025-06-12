@@ -17,8 +17,8 @@
     font-size: 9px;
     height: 12px;
     width: 53px;
-    color: var(--color-gray-400);
-    border: var(--border-light);
+    color: var(--color-base-400);
+    border: var(--border-default);
     border-radius: 2px;
     text-transform: uppercase;
     background: transparent;
@@ -29,10 +29,10 @@
   }
   .browse_single label {
     font-size: 10px;
-    color: var(--color-gray-400);
+    color: var(--color-base-400);
   }
   .browse_single select {
-    color: var(--color-light);
+    color: var(--color-foreground);
     background: transparent;
     border-style: none;
     font-size: 14px;

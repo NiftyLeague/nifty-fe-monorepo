@@ -172,7 +172,7 @@ export default function EnhancedTable({
             <Typography
               variant="h6"
               sx={{
-                color: theme => theme.palette.primary.main,
+                color: 'var(--color-purple)',
                 position: { lg: 'absolute' },
                 textDecoration: 'underline',
                 right: { lg: '0px' },

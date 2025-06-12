@@ -236,13 +236,13 @@ const DegensFilter = ({
             variant="outlined"
             disabled={isParamsEmpty}
             onClick={handleReset}
-            sx={{ height: 28, color: theme.palette.primary.main }}
+            sx={{ height: 28, color: 'var(--color-purple)' }}
           >
             Reset
           </Button>
         </Stack>
       </Stack>
-      <Stack py={1.5} borderRadius="10px" sx={{ background: 'var(--color-dark)' }}>
+      <Stack py={1.5} borderRadius="10px" sx={{ background: 'var(--color-background-3)' }}>
         <FilterAccordion summary={<Typography variant="h4">Tribe</Typography>} expanded={true} length={tribes.length}>
           <FormGroup sx={{ flexDirection: 'row' }}>
             {tribes.map(tribe => (

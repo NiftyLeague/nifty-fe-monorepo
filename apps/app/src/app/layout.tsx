@@ -50,9 +50,10 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'cyan' },
-    { media: '(prefers-color-scheme: dark)', color: 'var(--color-brand-purple)' },
+    { media: '(prefers-color-scheme: dark)', color: '#18181b' },
+    { media: '(prefers-color-scheme: light)', color: '#fafafa' },
   ],
+  colorScheme: 'dark light',
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {

@@ -27,7 +27,7 @@ const ProgressGamer = ({ data, size = 'md' }: ProgressGamerProps): React.ReactNo
           right: '-6px',
           bottom: 0,
           margin: 'auto',
-          background: theme.palette.primary.main,
+          background: 'var(--color-purple)',
           content: `'${(data && data?.xp > data?.rank_xp_previous ? data?.rank + 1 : data?.rank) || 0}'`,
           zIndex: 1,
           fontWeight: 'bold',
@@ -41,7 +41,7 @@ const ProgressGamer = ({ data, size = 'md' }: ProgressGamerProps): React.ReactNo
         value={data ? (data?.xp / data?.rank_xp_next) * 100 : 0}
         sx={{
           height: size === 'md' ? '25px' : '14px',
-          [`&.${linearProgressClasses.colorPrimary}`]: { backgroundColor: theme.palette.grey[400] },
+          [`&.${linearProgressClasses.colorPrimary}`]: { backgroundColor: 'var(--color-foreground-2)' },
         }}
       />
     </Box>

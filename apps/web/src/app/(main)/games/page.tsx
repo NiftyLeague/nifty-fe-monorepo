@@ -94,7 +94,7 @@ const Games: NextPage = () => {
                       href={action.link}
                       target="_blank"
                       rel="noreferrer"
-                      style={action.isDisabled ? { pointerEvents: 'none', color: 'var(--color-light)' } : {}}
+                      style={action.isDisabled ? { pointerEvents: 'none', color: 'var(--color-foreground)' } : {}}
                     >
                       <button
                         disabled={action.isDisabled}

@@ -6,20 +6,20 @@
     max-width: 976px;
   }
   a {
-    color: var(--color-light);
+    color: var(--color-foreground);
     text-align: center;
     font-size: 20px;
     font-weight: 700;
     letter-spacing: -0.02em;
   }
   a:hover {
-    color: var(--color-light);
+    color: var(--color-foreground);
     text-shadow:
-      0px 0px 5px var(--custom-panel-color),
-      0px 0px 10px var(--color-light),
-      0px 0px 15px var(--color-light),
-      0px 0px 25px var(--custom-panel-color),
-      0px 0px 40px var(--custom-panel-color);
+      0px 0px 5px var(--color-background-2),
+      0px 0px 10px var(--color-foreground),
+      0px 0px 15px var(--color-foreground),
+      0px 0px 25px var(--color-background-2),
+      0px 0px 40px var(--color-background-2);
   }
 }
 

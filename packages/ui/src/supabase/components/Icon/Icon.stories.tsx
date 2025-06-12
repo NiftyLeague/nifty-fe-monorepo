@@ -25,7 +25,7 @@ Default.args = { size: 16, strokeWidth: 2 };
 //     </div>
 //     <div className="flex flex-wrap font-sans">
 //       {LIST_ICONS.map((icon) => (
-//         <div className="m-2 shadow-lg rounded-lg w-36 h-36 flex flex-col justify-center items-center dark:text-light">
+//         <div className="m-2 shadow-lg rounded-lg w-36 h-36 flex flex-col justify-center items-center text-foreground">
 //           <Icon type={icon} key={icon} {...args} />
 //           <span className="mt-2">{icon}</span>
 //         </div>

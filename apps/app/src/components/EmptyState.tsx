@@ -29,7 +29,7 @@ const EmptyState: React.FC<React.PropsWithChildren<React.PropsWithChildren<Empty
           textAlign: 'center',
         }}
       >
-        <Typography sx={{ mt: 2, color: 'var(--color-light)' }}>{message}</Typography>
+        <Typography sx={{ mt: 2, color: 'var(--color-foreground)' }}>{message}</Typography>
         {buttonText && (
           <Button variant="contained" sx={{ mt: 2 }} onClick={onClick}>
             {buttonText}

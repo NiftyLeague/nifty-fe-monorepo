@@ -73,17 +73,17 @@
   }
   button:hover {
     cursor: pointer;
-    background-color: var(--color-light);
+    background-color: var(--color-foreground);
   }
   .btn {
-    background-color: var(--color-light);
-    color: var(--color-brand-purple);
+    background-color: var(--color-foreground);
+    color: var(--color-purple);
     font-family: var(--default-font);
     font-size: var(--default-font-size);
   }
   .btn_selected {
-    background-color: var(--color-brand-purple) !important;
-    color: var(--color-light) !important;
+    background-color: var(--color-purple) !important;
+    color: var(--color-foreground) !important;
   }
 }
 
@@ -92,9 +92,9 @@
   display: flex;
 
   .background__picker {
-    color: var(--color-brand-purple);
+    color: var(--color-purple);
     svg {
-      color: var(--color-brand-purple);
+      color: var(--color-purple);
       padding-left: 5px;
     }
   }
@@ -110,8 +110,8 @@
   position: absolute;
   bottom: 1rem;
   right: 1rem;
-  background-color: var(--color-light);
-  color: var(--color-brand-purple);
+  background-color: var(--color-foreground);
+  color: var(--color-purple);
   padding: 0.3rem 0.8rem;
   border: var(--border-purple);
   font-size: var(--default-font-size);

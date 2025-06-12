@@ -13,7 +13,7 @@ const ChangeProfileNameDialog = ({ handleUpdateNewName }: ChangeProfileNameDialo
     <Dialog>
       <DialogTrigger>
         <IconButton sx={{ cursor: 'pointer' }} aria-label="edit">
-          <EditOutlinedIcon fontSize="small" sx={{ color: theme.palette.grey[400] }} />
+          <EditOutlinedIcon fontSize="small" sx={{ color: 'var(--color-foreground-2)' }} />
         </IconButton>
       </DialogTrigger>
       <DialogContent

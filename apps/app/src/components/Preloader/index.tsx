@@ -63,7 +63,7 @@ export function Preloader({
             <Box sx={{ minWidth: 35 }}>
               <Typography
                 variant="body2"
-                sx={{ color: theme => theme.palette.text.secondary }}
+                sx={{ color: 'var(--color-foreground-2)' }}
               >{`${Math.round(percent)}%`}</Typography>
             </Box>
           </Box>

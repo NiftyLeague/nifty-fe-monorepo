@@ -30,9 +30,9 @@
   content: '';
   position: absolute;
   z-index: -1;
-  background: linear-gradient(to left, var(--color-brand-purple), var(--color-brand-blue));
-  border-left: 5px solid var(--color-light);
-  border-bottom: 7px solid var(--color-light);
+  background: var(--gradient-brand);
+  border-left: 5px solid var(--color-foreground);
+  border-bottom: 7px solid var(--color-foreground);
   top: -250%;
   bottom: -100%;
   left: 0;
@@ -100,7 +100,7 @@
   top: 0;
   bottom: 0;
   width: 5px;
-  background-color: var(--color-light);
+  background-color: var(--color-foreground);
   transform: skew(-20deg);
 }
 

@@ -15,7 +15,7 @@ const TermsOfServiceDialog = ({ open, onClose, ...rest }: TermsOfServiceDialogPr
   return (
     <Dialog maxWidth="sm" scroll="paper" fullScreen={fullScreen} onClose={onClose} open={open} {...rest}>
       <Stack sx={{ overflow: 'none' }} direction="column" gap={0} width="100%">
-        <Container sx={{ background: theme.palette.background.paper }}>
+        <Container sx={{ background: 'var(--color-background-3)' }}>
           <h2>Terms and Conditions</h2>
         </Container>
         <Stack
@@ -26,7 +26,7 @@ const TermsOfServiceDialog = ({ open, onClose, ...rest }: TermsOfServiceDialogPr
         >
           <TermsOfServiceContent />
         </Stack>
-        <Container sx={{ background: theme.palette.background.paper, pt: '1.2em' }}>
+        <Container sx={{ background: 'var(--color-background-3)', pt: '1.2em' }}>
           <Button fullWidth variant="contained" onClick={() => onClose({}, 'accepted')}>
             Accept
           </Button>

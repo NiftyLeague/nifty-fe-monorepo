@@ -14,12 +14,12 @@ const hasSpecial: StringBoolFunc = number => new RegExp(/[!#@$%^&*)(+=._-]/).tes
 
 // set color based on password strength
 export const strengthColor: NumbColorFunc = (count, theme) => {
-  if (count < 2) return { label: 'Poor', color: theme.palette.error.main };
-  if (count < 3) return { label: 'Weak', color: theme.palette.warning.dark };
-  if (count < 4) return { label: 'Normal', color: theme.palette.orange.main };
-  if (count < 5) return { label: 'Good', color: theme.palette.success.main };
-  if (count < 6) return { label: 'Strong', color: theme.palette.success.dark };
-  return { label: 'Poor', color: theme.palette.error.main };
+  if (count < 2) return { label: 'Poor', color: 'var(--color-error)' };
+  if (count < 3) return { label: 'Weak', color: 'var(--color-orange-400)' };
+  if (count < 4) return { label: 'Normal', color: 'var(--color-warning)' };
+  if (count < 5) return { label: 'Good', color: 'var(--color-success-dark)' };
+  if (count < 6) return { label: 'Strong', color: 'var(--color-success)' };
+  return { label: 'Poor', color: 'var(--color-error)' };
 };
 
 // password strength indicator

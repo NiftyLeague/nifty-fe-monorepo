@@ -16,130 +16,132 @@ interface ChipProps extends MuiChipProps {
 
 const Chip = ({ colorType, disabled, sx = {}, variant, ...others }: ChipProps) => {
   const theme = useTheme();
+  const { mode } = theme.palette;
 
   let defaultSX = {
-    color: theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.main,
-    bgcolor: theme.palette.mode === 'dark' ? theme.palette.primary.main : theme.palette.primary.light,
+    color: mode === 'dark' ? 'var(--color-purple-200)' : 'var(--color-purple-600)',
+    bgcolor: mode === 'dark' ? 'var(--color-purple-600)' : 'var(--color-purple-200)',
     ':hover': {
-      color: theme.palette.primary.light,
-      bgcolor: theme.palette.mode === 'dark' ? theme.palette.primary.dark + 90 : theme.palette.primary.dark,
+      color: 'var(--color-purple-200)',
+      bgcolor: mode === 'dark' ? 'var(--color-purple-600)' : 'var(--color-purple-600)',
     },
   };
 
   let outlineSX = {
-    color: theme.palette.primary.main,
+    color: 'var(--color-purple-400)',
     bgcolor: 'transparent',
     border: '1px solid',
-    borderColor: theme.palette.border,
+    borderColor: 'var(--color-purple-400)',
     ':hover': {
-      color: theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.light,
-      bgcolor: theme.palette.mode === 'dark' ? theme.palette.primary.main : theme.palette.primary.dark,
+      color: mode === 'dark' ? 'var(--color-purple-200)' : 'var(--color-purple-200)',
+      bgcolor: mode === 'dark' ? 'var(--color-purple-600)' : 'var(--color-purple-600)',
     },
   };
 
   switch (colorType) {
+    case 'info':
     case 'secondary':
       variant === 'outlined'
         ? (outlineSX = {
-            color: theme.palette.secondary.main,
+            color: 'var(--color-info)',
             bgcolor: 'transparent',
             border: '1px solid',
-            borderColor: theme.palette.secondary.main,
+            borderColor: 'var(--color-info)',
             ':hover': {
-              color: theme.palette.mode === 'dark' ? theme.palette.secondary.light : theme.palette.secondary.main,
-              bgcolor: theme.palette.mode === 'dark' ? theme.palette.secondary.dark : theme.palette.secondary.light,
+              color: mode === 'dark' ? 'var(--color-info-light)' : 'var(--color-info-dark)',
+              bgcolor: mode === 'dark' ? 'var(--color-info-dark)' : 'var(--color-info-light)',
             },
           })
         : (defaultSX = {
-            color: theme.palette.mode === 'dark' ? theme.palette.secondary.light : theme.palette.secondary.main,
-            bgcolor: theme.palette.mode === 'dark' ? theme.palette.secondary.dark : theme.palette.secondary.light,
+            color: mode === 'dark' ? 'var(--color-info-light)' : 'var(--color-info-dark)',
+            bgcolor: mode === 'dark' ? 'var(--color-info-dark)' : 'var(--color-info-light)',
             ':hover': {
-              color: theme.palette.secondary.light,
-              bgcolor: theme.palette.mode === 'dark' ? theme.palette.secondary.dark + 90 : theme.palette.secondary.main,
+              color: 'var(--color-info-light)',
+              bgcolor: mode === 'dark' ? 'var(--color-info-dark)' + 90 : 'var(--color-info-dark)',
             },
           });
       break;
     case 'success':
       variant === 'outlined'
         ? (outlineSX = {
-            color: theme.palette.success.main,
+            color: 'var(--color-success)',
             bgcolor: 'transparent',
             border: '1px solid',
-            borderColor: theme.palette.success.main,
+            borderColor: 'var(--color-success)',
             ':hover': {
-              color: theme.palette.mode === 'dark' ? theme.palette.error.light : theme.palette.error.dark,
-              bgcolor: theme.palette.mode === 'dark' ? theme.palette.success.dark : theme.palette.success.light,
+              color: mode === 'dark' ? 'var(--color-success-light)' : 'var(--color-success-dark)',
+              bgcolor: mode === 'dark' ? 'var(--color-success-dark)' : 'var(--color-success-light)',
             },
           })
         : (defaultSX = {
-            color: theme.palette.mode === 'dark' ? theme.palette.success.light : theme.palette.success.dark,
-            bgcolor: theme.palette.mode === 'dark' ? theme.palette.success.dark : theme.palette.success.light,
+            color: mode === 'dark' ? 'var(--color-success-light)' : 'var(--color-success-dark)',
+            bgcolor: mode === 'dark' ? 'var(--color-success-dark)' : 'var(--color-success-light)',
             ':hover': {
-              color: theme.palette.success.light,
-              bgcolor: theme.palette.mode === 'dark' ? theme.palette.success.dark + 90 : theme.palette.success.dark,
+              color: 'var(--color-success-light)',
+              bgcolor: mode === 'dark' ? 'var(--color-success-dark)' + 90 : 'var(--color-success-dark)',
             },
           });
       break;
     case 'error':
       variant === 'outlined'
         ? (outlineSX = {
-            color: theme.palette.error.main,
+            color: 'var(--color-error)',
             bgcolor: 'transparent',
             border: '1px solid',
-            borderColor: theme.palette.error.main,
+            borderColor: 'var(--color-error)',
             ':hover': {
-              color: theme.palette.mode === 'dark' ? theme.palette.error.light : theme.palette.error.dark,
-              bgcolor: theme.palette.mode === 'dark' ? theme.palette.error.dark : theme.palette.error.light,
+              color: mode === 'dark' ? 'var(--color-error-light)' : 'var(--color-error-dark)',
+              bgcolor: mode === 'dark' ? 'var(--color-error-dark)' : 'var(--color-error-light)',
             },
           })
         : (defaultSX = {
-            color: theme.palette.mode === 'dark' ? theme.palette.error.light : theme.palette.error.dark,
-            bgcolor: theme.palette.mode === 'dark' ? theme.palette.error.dark : theme.palette.error.light,
+            color: mode === 'dark' ? 'var(--color-error-light)' : 'var(--color-error-dark)',
+            bgcolor: mode === 'dark' ? 'var(--color-error-dark)' : 'var(--color-error-light)',
             ':hover': {
-              color: theme.palette.error.light,
-              bgcolor: theme.palette.mode === 'dark' ? theme.palette.error.dark + 90 : theme.palette.error.dark,
+              color: 'var(--color-error-light)',
+              bgcolor: mode === 'dark' ? 'var(--color-error-dark)' + 90 : 'var(--color-error-dark)',
             },
           });
       break;
     case 'orange':
       variant === 'outlined'
         ? (outlineSX = {
-            color: theme.palette.orange.main,
+            color: 'var(--color-orange-400)',
             bgcolor: 'transparent',
             border: '1px solid',
-            borderColor: theme.palette.orange.main,
+            borderColor: 'var(--color-orange-400)',
             ':hover': {
-              color: theme.palette.mode === 'dark' ? theme.palette.orange.light : theme.palette.orange.dark,
-              bgcolor: theme.palette.mode === 'dark' ? theme.palette.orange.dark : theme.palette.orange.light,
+              color: mode === 'dark' ? 'var(--color-orange-200)' : 'var(--color-orange-600)',
+              bgcolor: mode === 'dark' ? 'var(--color-orange-600)' : 'var(--color-orange-200)',
             },
           })
         : (defaultSX = {
-            color: theme.palette.mode === 'dark' ? theme.palette.orange.light : theme.palette.orange.dark,
-            bgcolor: theme.palette.mode === 'dark' ? theme.palette.orange.dark : theme.palette.orange.light,
+            color: mode === 'dark' ? 'var(--color-orange-200)' : 'var(--color-orange-600)',
+            bgcolor: mode === 'dark' ? 'var(--color-orange-600)' : 'var(--color-orange-200)',
             ':hover': {
-              color: theme.palette.orange.light,
-              bgcolor: theme.palette.mode === 'dark' ? theme.palette.orange.dark + 90 : theme.palette.orange.dark,
+              color: 'var(--color-orange-200)',
+              bgcolor: mode === 'dark' ? 'var(--color-orange-600)' + 90 : 'var(--color-orange-600)',
             },
           });
       break;
     case 'warning':
       variant === 'outlined'
         ? (outlineSX = {
-            color: theme.palette.warning.main,
+            color: 'var(--color-warning)',
             bgcolor: 'transparent',
             border: '1px solid',
-            borderColor: theme.palette.warning.main,
+            borderColor: 'var(--color-warning)',
             ':hover': {
-              color: theme.palette.mode === 'dark' ? theme.palette.warning.light : theme.palette.warning.dark,
-              bgcolor: theme.palette.mode === 'dark' ? theme.palette.warning.dark : theme.palette.warning.light,
+              color: mode === 'dark' ? 'var(--color-warning-light)' : 'var(--color-warning-dark)',
+              bgcolor: mode === 'dark' ? 'var(--color-warning-dark)' : 'var(--color-warning-light)',
             },
           })
         : (defaultSX = {
-            color: theme.palette.mode === 'dark' ? theme.palette.warning.light : theme.palette.warning.dark,
-            bgcolor: theme.palette.mode === 'dark' ? theme.palette.warning.dark : theme.palette.warning.light,
+            color: mode === 'dark' ? 'var(--color-warning-light)' : 'var(--color-warning-dark)',
+            bgcolor: mode === 'dark' ? 'var(--color-warning-dark)' : 'var(--color-warning-light)',
             ':hover': {
-              color: theme.palette.warning.light,
-              bgcolor: theme.palette.mode === 'dark' ? theme.palette.warning.dark + 90 : theme.palette.warning.dark,
+              color: 'var(--color-warning-light)',
+              bgcolor: mode === 'dark' ? 'var(--color-warning-dark)' : 'var(--color-warning-dark)',
             },
           });
       break;
@@ -149,16 +151,16 @@ const Chip = ({ colorType, disabled, sx = {}, variant, ...others }: ChipProps) =
   if (disabled) {
     variant === 'outlined'
       ? (outlineSX = {
-          color: theme.palette.grey[500],
+          color: 'var(--color-base-500)',
           bgcolor: 'transparent',
           border: '1px solid',
-          borderColor: theme.palette.grey[500],
-          ':hover': { color: theme.palette.grey[500], bgcolor: 'transparent' },
+          borderColor: 'var(--color-base-500)',
+          ':hover': { color: 'var(--color-base-500)', bgcolor: 'transparent' },
         })
       : (defaultSX = {
-          color: theme.palette.grey[500],
-          bgcolor: theme.palette.grey[50],
-          ':hover': { color: theme.palette.grey[500], bgcolor: theme.palette.grey[50] },
+          color: 'var(--color-base-500)',
+          bgcolor: 'var(--color-base-50)',
+          ':hover': { color: 'var(--color-base-500)', bgcolor: 'var(--color-base-50)' },
         });
   }
 

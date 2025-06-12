@@ -17,7 +17,7 @@ const ErrorCard = styled(Card)({
   alignItems: 'center',
   justifyContent: 'center',
   backgroundColor: 'transparent',
-  color: 'var(--color-light)',
+  color: 'var(--color-foreground)',
 });
 
 const CardMediaBlock = styled('img')({

@@ -36,7 +36,7 @@ const NavGroup = ({ item }: NavGroupProps) => {
         return <NavItem key={menu.id} item={menu} level={1} />;
       default:
         return (
-          <Typography key={menu.id} variant="h6" sx={{ color: theme => theme.palette.error.main }} align="center">
+          <Typography key={menu.id} variant="h6" sx={{ color: 'var(--color-error)' }} align="center">
             Menu Items Error
           </Typography>
         );

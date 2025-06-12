@@ -20,9 +20,9 @@ const RentalsTableSimple = ({ rentals, columns }: RentalsTableSimpleProps): Reac
       <TableContainer
         sx={{
           maxHeight: 750,
-          backgroundColor: palette.background.default,
+          backgroundColor: 'var(--color-background)',
           borderRadius: 2,
-          border: 'var(--border-light)',
+          border: 'var(--border-default)',
           height: '100%',
         }}
       >
@@ -56,7 +56,7 @@ const RentalsTableSimple = ({ rentals, columns }: RentalsTableSimpleProps): Reac
                     if (column.id === 'rentalRenewsIn') {
                       return (
                         <TableCell key={column.id} align={column.align}>
-                          <Typography sx={{ color: theme => theme.palette.warning.main }}>
+                          <Typography sx={{ color: 'var(--color-warning)' }}>
                             <Countdown date={new Date((value as number) * 1000)} />
                           </Typography>
                         </TableCell>
@@ -89,11 +89,7 @@ const RentalsTableSimple = ({ rentals, columns }: RentalsTableSimpleProps): Reac
                             ) : (
                               <Typography fontSize={10}>
                                 LIMIT REACHED. RENEWS IN{' '}
-                                <Typography
-                                  sx={{ color: theme => theme.palette.warning.main }}
-                                  variant="caption"
-                                  fontSize={10}
-                                >
+                                <Typography sx={{ color: 'var(--color-warning)' }} variant="caption" fontSize={10}>
                                   <Countdown date={new Date((rental.rentalRenewsIn ?? 0) * 1000)} />
                                 </Typography>
                               </Typography>
@@ -114,7 +110,7 @@ const RentalsTableSimple = ({ rentals, columns }: RentalsTableSimpleProps): Reac
             ) : (
               <TableRow>
                 <TableCell colSpan={7} sx={{ height: '100%' }}>
-                  <Typography sx={{ color: theme => theme.palette.grey[500] }}>
+                  <Typography sx={{ color: 'var(--color-foreground-2)' }}>
                     You don&apos;t have any rentals yet
                   </Typography>
                 </TableCell>

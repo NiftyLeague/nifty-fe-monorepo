@@ -29,10 +29,8 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'cyan' },
-    { media: '(prefers-color-scheme: dark)', color: 'var(--color-brand-purple)' },
-  ],
+  themeColor: '#18181b',
+  colorScheme: 'dark',
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {

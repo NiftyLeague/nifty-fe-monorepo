@@ -255,7 +255,7 @@ const AllDegensPage = (): React.ReactNode => {
 
   return (
     <>
-      <Stack spacing={2} sx={{ mt: 2.5 }}>
+      <Stack spacing={2} sx={{ mt: 2.5 }} component="main">
         <Stack sx={{ pl: 2, pr: 3 }}>
           <DegensTopNav
             searchTerm={searchTerm || ''}

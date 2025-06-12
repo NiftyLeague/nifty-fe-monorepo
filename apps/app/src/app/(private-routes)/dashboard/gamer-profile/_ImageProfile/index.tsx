@@ -42,9 +42,17 @@ const ImageProfile = ({ degens, avatar, avatarFee }: ImageProfileProps): React.R
       return <Skeleton variant="rectangular" width="100%" height="320px" />;
     } else {
       if (!degenSelected) {
-        return <CardMedia component="img" height="auto" image="/img/degens/unavailable-image.webp" alt="no avatar" />;
+        return (
+          <CardMedia
+            component="img"
+            height="auto"
+            image="/img/degens/unavailable-image.webp"
+            alt="no avatar"
+            sx={{ objectFit: 'cover', maxWidth: '500px', margin: 'auto' }}
+          />
+        );
       }
-      return <DegenImage tokenId={degenSelected} />;
+      return <DegenImage tokenId={degenSelected} sx={{ maxWidth: '500px' }} />;
     }
   };
 

@@ -60,7 +60,7 @@ const MainCard = forwardRef(
         ref={ref}
         {...others}
         sx={{
-          border: border ? 'var(--border-light)' : 'none',
+          border: border ? 'var(--border-default)' : 'none',
           ':hover': {
             boxShadow: boxShadow
               ? shadow ||

@@ -64,7 +64,7 @@
 
 .table {
   position: relative;
-  border: var(--border-light);
+  border: var(--border-default);
   border-radius: 20px;
 }
 

@@ -226,7 +226,7 @@
   .sliding-nfts .sliding-background-wrapper-desktop,
   .sliding-nfts .sliding-background-wrapper-mobile {
     overflow: hidden;
-    background: linear-gradient(128.04deg, var(--color-brand-purple) 0%, var(--color-brand-blue) 46.93%, #ff00c7 100%);
+    background: linear-gradient(128.04deg, var(--color-purple) 0%, var(--color-blue) 46.93%, #ff00c7 100%);
   }
   .sliding-nfts .sliding-background-wrapper-desktop {
     min-height: 520px;

@@ -145,7 +145,7 @@ const ProfileImageDialog = ({ degens, onChangeAvatar, avatarFee }: ProfileImageD
           aria-label="edit"
           onClick={() => null}
         >
-          <EditOutlinedIcon fontSize="small" sx={{ color: theme.palette.grey[400] }} />
+          <EditOutlinedIcon fontSize="small" sx={{ color: 'var(--color-foreground-2)' }} />
         </IconButton>
       </DialogTrigger>
       <DialogContent
