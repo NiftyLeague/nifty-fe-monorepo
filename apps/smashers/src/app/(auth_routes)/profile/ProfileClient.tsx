@@ -6,7 +6,10 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { Card, Space, Tabs, Typography } from '@nl/ui/supabase';
+import Card from '@nl/ui/supabase/Card';
+import Space from '@nl/ui/supabase/Space';
+import Tabs from '@nl/ui/supabase/Tabs';
+import Typography from '@nl/ui/supabase/Typography';
 import { IconDatabase, IconStar, IconUser } from '@nl/ui/supabase/Icon';
 import BackButton from '@/components/Header/BackButton';
 import { useUserSession } from '@nl/playfab/hooks';

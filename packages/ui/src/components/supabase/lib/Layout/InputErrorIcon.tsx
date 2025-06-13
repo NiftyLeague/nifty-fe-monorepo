@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconAlertCircle } from './../../index';
+import { IconAlertCircle } from '@nl/ui/supabase/Icon';
 import InputErrorIconStyles from './InputErrorIcon.module.css';
 
 interface Props {

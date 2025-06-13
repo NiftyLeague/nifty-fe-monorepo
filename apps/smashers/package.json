@@ -24,7 +24,7 @@
     "@nl/playfab": "workspace:*",
     "@nl/theme": "workspace:*",
     "@nl/ui": "workspace:*",
-    "@sentry/nextjs": "^9.28.1",
+    "@sentry/nextjs": "^9.29.0",
     "@vercel/edge": "^1.2.2",
     "iron-session": "^8.0.4",
     "next": "15.3.3",

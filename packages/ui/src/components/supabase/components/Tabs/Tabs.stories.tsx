@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Button } from '../Button';
-import { IconMail } from '../../index';
+import Button from '../Button';
 import Typography from '../Typography';
+import { IconMail } from '../Icon/icons/IconMail';
 
 import { Tabs } from './';
 

@@ -35,13 +35,13 @@
     },
     "peerDependencyRules": {
       "allowedVersions": {
-        "@types/react-dom": "19.1.5",
-        "@types/react": "19.1.6",
+        "@types/react-dom": "19.1.6",
+        "@types/react": "19.1.8",
         "crypto-es": "^2.1.0",
         "eslint": "^9.28.0",
         "multiformats": "13.3.6",
-        "react-dom": "^19.0.0",
-        "react": "^19.0.0",
+        "react-dom": "^19.1.0",
+        "react": "^19.1.0",
         "three": "0.177.0",
         "utf-8-validate": "6.0.5"
       }

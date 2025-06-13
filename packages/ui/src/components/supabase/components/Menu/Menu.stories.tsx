@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Divider } from '../Divider';
-import { IconMail } from './../../index';
+import { IconMail } from '../Icon/icons/IconMail';
 import Typography from '../Typography';
 
 import { Menu } from './';

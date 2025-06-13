@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button } from '../Button';
 import { Divider } from '../Divider';
-import { IconSettings, IconLogOut, IconChevronDown } from '../../index';
+import { IconLogOut, IconChevronDown } from '../Icon';
 import Typography from '../Typography';
 import { Dropdown } from './';
 import type { RootProps } from './Dropdown';

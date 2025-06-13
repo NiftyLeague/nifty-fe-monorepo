@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { IconMail, Typography } from './../../index';
+import Typography from '../Typography';
+import { IconMail } from './icons/IconMail';
 
 export default { title: 'General/Icon', component: IconMail };
 

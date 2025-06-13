@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import SlidePanelStyles from './SidePanel.module.css';
-import { Button, IconX, Space, Typography } from '../../index';
+import Button from '../Button';
+import Typography from '../Typography';
+import Space from '../Space';
+import { IconX } from '../Icon/icons/IconX';
 import { AnimationTailwindClasses } from '../../types';
 
 import * as Dialog from '@radix-ui/react-dialog';

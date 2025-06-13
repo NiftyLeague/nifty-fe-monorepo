@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import Grid from '@mui/material/Grid';
-import { Button, Input } from '@nl/ui/supabase';
+import Button from '@nl/ui/supabase/Button';
+import Input from '@nl/ui/supabase/Input';
 import { IconLoader, IconSave } from '@nl/ui/supabase/Icon';
 import { useSnackbar } from 'notistack';
 

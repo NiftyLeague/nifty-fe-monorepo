@@ -3,7 +3,7 @@
 import React, { useState, useCallback } from 'react';
 
 import { InputNumber } from '.';
-import { IconPackage } from './../../index';
+import { IconPackage } from '../Icon';
 
 export default { title: 'Data Input/InputNumber', component: InputNumber };
 

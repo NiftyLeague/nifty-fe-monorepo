@@ -1,1 +1,4 @@
-export { default as Space } from './Space';
+import Space from './Space';
+
+export { Space };
+export default Space;

@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import { Space } from '../../../index';
+import Space from '@nl/ui/supabase/Space';
 import FormLayoutStyles from './FormLayout.module.css';
 
 type Props = {

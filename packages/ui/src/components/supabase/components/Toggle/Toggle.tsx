@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FormLayout } from '../../lib/Layout/FormLayout';
 import ToggleStyles from './Toggle.module.css';
 

@@ -1,120 +1,73 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
+import type { Meta, StoryObj } from '@storybook/react';
 import { Input } from '.';
-import { IconPackage } from './../../index';
+import { IconSearch } from '../Icon';
 import { Button } from '../Button';
 
-export default { title: 'Data Input/Input', component: Input };
+const meta: Meta<typeof Input> = { title: 'Data Input/Input', component: Input, parameters: { layout: 'centered' } };
 
-export const Default = (args: any) => <Input {...args} />;
+export default meta;
 
-export const ErrorState = (args: any) => <Input {...args} />;
+type Story = StoryObj<typeof Input>;
 
-export const withIcon = (args: any) => <Input {...args} />;
-
-export const withOption = (args: any) => <Input {...args} />;
-
-export const withDescription = (args: any) => <Input {...args} />;
-
-export const withCustomStyle = (args: any) => <Input {...args} />;
-
-export const textArea = (args: any) => <Input.TextArea {...args} />;
-
-export const textAreaWithLimit = (args: any) => <Input.TextArea {...args} />;
-
-export const withRevealAndCopy = (args: any) => <Input {...args} />;
-
-export const withCustomActions = (args: any) => <Input {...args} />;
-
-export const withBeforeAndAfterLabel = (args: any) => <Input {...args} />;
-
-export const size = (args: any) => <Input {...args} />;
-
-export const borderless = (args: any) => <Input {...args} />;
-
-export const date = (args: any) => <Input {...args} step="12" />;
-
-const icon: any = <IconPackage />;
-
-Default.args = { placeholder: 'Type text here ...', disabled: false, label: 'Name', layout: 'vertical' };
-
-ErrorState.args = {
-  type: 'text',
-  placeholder: 'Type text here ...',
-  disabled: false,
-  label: 'Input with an error message',
-  error: 'Your password must be less than 4 characters.',
+export const Default: Story = {
+  args: { placeholder: 'Type text here ...', disabled: false, label: 'Name', layout: 'vertical' },
 };
 
-withIcon.args = {
-  type: 'text',
-  placeholder: 'Type text here ...',
-  disabled: false,
-  label: 'Input with an icon',
-  icon: icon,
+export const WithError: Story = {
+  args: { ...Default.args, label: 'Input with an error message', error: 'This field is required' },
 };
 
-withOption.args = {
-  type: 'text',
-  placeholder: 'Type text here ...',
-  disabled: false,
-  label: 'Input with an error message',
-  labelOptional: 'This is required',
+export const WithIcon: Story = {
+  args: { ...Default.args, label: 'Search', icon: <IconSearch />, placeholder: 'Search...' },
 };
 
-withDescription.args = {
-  type: 'text',
-  placeholder: 'Type text here ...',
-  disabled: false,
-  label: 'Input with an error message',
-  descriptionText: 'Make your password short and easy to guess',
+export const WithOptional: Story = { args: { ...Default.args, label: 'Optional Field', labelOptional: '(optional)' } };
+
+export const WithDescription: Story = {
+  args: {
+    ...Default.args,
+    label: 'Input with description',
+    descriptionText: 'This is a description of what this input is for',
+  },
 };
 
-withCustomStyle.args = { type: 'text', label: 'This has custom styling {width: 50%}', style: { width: '50%' } };
-
-textArea.args = { type: 'text', label: 'This is a text area' };
-
-textAreaWithLimit.args = {
-  type: 'text',
-  label: 'This is a text area, with 10 rows',
-  labelOptional: '500 character limit',
-  rows: 10,
-  limit: 500,
+export const WithCustomWidth: Story = {
+  args: { ...Default.args, label: 'Custom width input', style: { width: '300px' } },
 };
 
-withRevealAndCopy.args = {
-  type: 'text',
-  label: 'Reveal and copy',
-  labelOptional: 'Reveal the text, then copy it',
-  value: '12341234HDGRHSGR/adJDJD',
-  copy: true,
-  reveal: true,
+export const WithRevealAndCopy: Story = {
+  args: {
+    ...Default.args,
+    type: 'password',
+    label: 'Password',
+    placeholder: 'Enter your password...',
+    reveal: true,
+    copy: true,
+  },
 };
 
-withCustomActions.args = {
-  type: 'text',
-  label: 'Custom actions',
-  labelOptional: 'Use any react components',
-  value: 'Value of input',
-  actions: [
-    <Button key="copy-text" type="secondary">
-      Copy text
-    </Button>,
-    <Button key="delete-this" type="outline" danger>
-      Delete this
-    </Button>,
-  ],
+export const WithCustomActions: Story = {
+  args: {
+    ...Default.args,
+    label: 'Input with actions',
+    value: 'Editable text',
+    actions: [
+      <Button key="action1" type="default" size="tiny">
+        Action 1
+      </Button>,
+      <Button key="action2" type="default" size="tiny">
+        Action 2
+      </Button>,
+    ],
+  },
 };
 
-size.args = { type: 'text', label: 'You can change the size of this Input', size: 'tiny' };
-
-withBeforeAndAfterLabel.args = {
-  type: 'text',
-  label: 'This is the label',
-  beforeLabel: 'Before label : ',
-  afterLabel: ' : After label',
+export const WithBeforeAndAfterLabel: Story = {
+  args: { ...Default.args, beforeLabel: 'Before', afterLabel: 'After', label: 'Input with labels' },
 };
 
-borderless.args = { type: 'text', label: 'This is the label', borderless: true, size: 'tiny' };
+export const CustomSize: Story = { args: { ...Default.args, label: 'Large Input', size: 'large' } };
 
-date.args = { type: 'date', placeholder: 'Type text here ...', disabled: false, label: 'Name', layout: 'vertical' };
+export const Borderless: Story = { args: { ...Default.args, label: 'Borderless Input', borderless: true } };
+
+export const DateInput: Story = { args: { ...Default.args, type: 'date', label: 'Date Input' } };

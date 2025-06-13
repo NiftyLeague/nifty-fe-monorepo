@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import Select from '.';
-import { IconBook } from '../../index';
+import { IconBook } from '../Icon/icons/IconBook';
 
 const { Option, OptGroup } = Select;
 
