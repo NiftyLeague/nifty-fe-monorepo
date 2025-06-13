@@ -1,6 +1,6 @@
 {
   "extends": "@nl/typescript-config/react-library.json",
-  "compilerOptions": { "outDir": "dist", "paths": { "@/*": ["./src/*"] } },
-  "include": ["src"],
+  "compilerOptions": { "baseUrl": ".", "paths": { "@workspace/ui/*": ["./src/*"] } },
+  "include": ["."],
   "exclude": ["node_modules", "dist"]
 }

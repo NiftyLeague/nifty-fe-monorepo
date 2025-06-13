@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Stack from '@mui/material/Stack';
 import { SOCIAL_LINKS } from './constants';
 
-export default function Footer({ classes }: { classes?: { footer?: string } }) {
+export default function SocialsFooter({ classes }: { classes?: { footer?: string } }) {
   return (
     <footer className={`${classes?.footer || ''}`} style={{ padding: '40px 20px' }}>
       <Stack direction="column" spacing={3}>

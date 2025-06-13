@@ -6,7 +6,7 @@ import type { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { AnimatedWrapper } from '@nl/ui/animations';
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import Layout from '@/components/Layout';
 import Sponsors from '@/components/Sponsors';
 import Carousel from '@/components/Carousel';

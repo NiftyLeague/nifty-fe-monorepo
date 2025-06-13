@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode, useEffect } from 'react';
-import cn from 'classnames';
+import { cn } from '@nl/ui/lib/utils';
 import styles from './index.module.css';
 
 type ModalProps = {

@@ -3,10 +3,10 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import cn from 'classnames';
+import { cn } from '@nl/ui/lib/utils';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-import { AnimatedWrapper } from '@nl/ui/animations';
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import AnimatedAccordion from '@/components/AnimatedAccordion';
 import ExternalIcon from '@/components/ExternalIcon';
 import LearnCards from '@/components/LearnCards';

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useSnackbar } from 'notistack';
-import { Button, IconLink2, Input } from '@nl/ui/supabase';
+import { Button, Input } from '@nl/ui/supabase';
+import { IconLink2 } from '@nl/ui/supabase/Icon';
 
 import fetchJson from '../../utils/fetchJson';
 import { errorMsgHandler } from '../../utils/errorHandlers';

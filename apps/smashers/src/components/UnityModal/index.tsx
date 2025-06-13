@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import { isOpera, browserName } from 'react-device-detect';
-import { Typography } from '@nl/ui/supabase';
+import Typography from '@nl/ui/supabase/Typography';
 import Modal from '@/components/Modal';
 import styles from '@/components/Modal/index.module.css';
 

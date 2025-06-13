@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import { AnimatedWrapper } from '@nl/ui/animations';
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 
 import styles from './index.module.css';
 

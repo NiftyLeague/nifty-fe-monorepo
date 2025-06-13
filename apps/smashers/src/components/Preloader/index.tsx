@@ -1,7 +1,7 @@
-import cn from 'classnames';
 import { useEffect, useState } from 'react';
 import { Box, LinearProgress, Typography } from '@mui/material';
 import { isMobileOnly } from 'react-device-detect';
+import { cn } from '@nl/ui/lib/utils';
 import useStopwatch from '@/hooks/useStopwatch';
 import styles from './index.module.css';
 

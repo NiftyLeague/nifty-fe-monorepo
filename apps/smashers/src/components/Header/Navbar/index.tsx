@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import cn from 'classnames';
+import { cn } from '@nl/ui/lib/utils';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import styles from './index.module.css';

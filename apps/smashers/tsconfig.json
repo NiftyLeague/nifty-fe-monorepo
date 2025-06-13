@@ -1,6 +1,10 @@
 {
   "extends": "@nl/typescript-config/nextjs.json",
-  "compilerOptions": { "paths": { "@/*": ["./src/*"] }, "plugins": [{ "name": "next" }] },
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": { "@/*": ["./src/*"], "@nl/ui/*": ["../../packages/ui/src/*"] },
+    "plugins": [{ "name": "next" }]
+  },
   "include": [
     "**/*.ts",
     "**/*.tsx",

@@ -1,11 +1,11 @@
 'use client';
 
-import cn from 'classnames';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { AnimatedWrapper } from '@nl/ui/animations';
+import { cn } from '@nl/ui/lib/utils';
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import { NIFTY_GAMES } from '@/constants/games';
 import { Container } from '@mui/material';
 import ExternalIcon from '@/components/ExternalIcon';

@@ -3,14 +3,15 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
-import cn from 'classnames';
+import { cn } from '@nl/ui/lib/utils';
 
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Button, IconTrash } from '@nl/ui/supabase';
+import Button from '@nl/ui/supabase/Button';
+import { IconTrash } from '@nl/ui/supabase/Icon';
 
 import fetchJson from '../../utils/fetchJson';
 import { errorMsgHandler } from '../../utils/errorHandlers';

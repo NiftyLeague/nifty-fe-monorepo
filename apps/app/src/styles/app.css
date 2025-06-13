@@ -1,4 +1,4 @@
-@import '@nl/tailwind-config/styles';
+@import '@nl/ui/styles.css';
 
 /* third-party */
 @import 'react-perfect-scrollbar/dist/css/styles.css';

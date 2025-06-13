@@ -1,5 +1,6 @@
 import { Unity } from 'react-unity-webgl';
-import { Button, IconMaximize } from '@nl/ui/supabase';
+import Button from '@nl/ui/supabase/Button';
+import { IconMaximize } from '@nl/ui/supabase/Icon';
 import useUnityPreConfig from '@/hooks/useUnityPreConfig';
 import useUnityEventHandlers from '@/hooks/useUnityEventHandlers';
 import useUnitySafeClose from '@/hooks/useUnitySafeClose';

@@ -1,10 +1,10 @@
 'use client';
 
-import cn from 'classnames';
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import { Container, Grid, useMediaQuery } from '@mui/material';
-import { AnimatedWrapper } from '@nl/ui/animations';
+import { cn } from '@nl/ui/lib/utils';
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import { NIFTY_DEGENS, NIFTY_DEGENS_ALL } from '@/constants/degens';
 import ExternalIcon from '@/components/ExternalIcon';
 import ConsoleGame from '@/components/ConsoleGame';

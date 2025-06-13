@@ -1,7 +1,7 @@
-import cn from 'classnames';
 import type { NextPage } from 'next';
 import Image from 'next/image';
-import { AnimatedWrapper } from '@nl/ui/animations';
+import { cn } from '@nl/ui/lib/utils';
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import ExternalIcon from '@/components/ExternalIcon';
 import styles from './index.module.css';
 

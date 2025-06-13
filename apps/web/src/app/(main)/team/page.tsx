@@ -1,10 +1,9 @@
 'use client';
 
-import cn from 'classnames';
 import type { NextPage } from 'next';
 import Link from 'next/link';
-
-import { AnimatedWrapper } from '@nl/ui/animations';
+import { cn } from '@nl/ui/lib/utils';
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import Carousel from '@/components/Carousel';
 import { RenderTeamCardItem } from '@/components/Carousel/TeamCardItem';
 import TeamDesktop from '@/components/TeamDesktop';

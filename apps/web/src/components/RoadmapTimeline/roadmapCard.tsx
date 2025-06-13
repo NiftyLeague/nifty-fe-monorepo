@@ -1,6 +1,6 @@
-import cn from 'classnames';
 import Image from 'next/image';
 import DoneIcon from '@mui/icons-material/Done';
+import { cn } from '@nl/ui/lib/utils';
 import styles from './index.module.css';
 
 interface RoadmapCardProps {

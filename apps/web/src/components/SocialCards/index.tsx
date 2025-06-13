@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { AnimatedWrapper } from '@nl/ui/animations';
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import { SOCIALS } from './constants';
 
 interface SocialProps {

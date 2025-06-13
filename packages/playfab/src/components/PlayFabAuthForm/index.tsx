@@ -1,19 +1,9 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  Input,
-  Checkbox,
-  Button,
-  Space,
-  Typography,
-  Divider,
-  IconKey,
-  IconMail,
-  IconInbox,
-  IconLock,
-} from '@nl/ui/supabase';
-import cn from 'classnames';
+import { Button, Checkbox, Divider, Input, Space, Typography } from '@nl/ui/supabase';
+import { IconInbox, IconKey, IconLock, IconMail } from '@nl/ui/supabase/Icon';
+import { cn } from '@nl/ui/lib/utils';
 
 import fetchJson from '../../utils/fetchJson';
 import { errorMsgHandler } from '../../utils/errorHandlers';

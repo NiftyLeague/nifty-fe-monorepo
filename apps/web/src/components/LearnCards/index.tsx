@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { AnimatedWrapper } from '@nl/ui/animations';
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import ExternalIcon from '@/components/ExternalIcon';
 import { LEARN_CARDS } from './constants';
 

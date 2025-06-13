@@ -1,3 +1,1 @@
-import postcssConfig from '@nl/tailwind-config/postcss';
-
-export default postcssConfig;
+export { default } from '@nl/ui/postcss.config';
