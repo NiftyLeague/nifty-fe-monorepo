@@ -1,14 +1,20 @@
 import Image from 'next/image';
-import Stack from '@mui/material/Stack';
+import type { ReactNode } from 'react';
+import { cn } from '@nl/ui/lib/utils';
 import { SOCIAL_LINKS } from './constants';
 
-export default function SocialsFooter({ classes }: { classes?: { footer?: string } }) {
+export const linkClass = 'font-medium text-foreground';
+export const animateClass =
+  'transition duration-200 ease-in-out hover:-translate-y-0.5 hover:scale-102 hover:opacity-70';
+
+export function SocialsFooter({ children, classes }: { children?: ReactNode; classes?: { footer?: string } }) {
   return (
-    <footer className={`${classes?.footer || ''}`} style={{ padding: '40px 20px' }}>
-      <Stack direction="column" spacing={3}>
-        <Stack direction="row" sx={{ justifyContent: 'center', alignItems: 'center' }} spacing={3}>
+    <footer className={cn('py-10 px-5', classes?.footer)}>
+      {children}
+      <div className="flex flex-col space-y-6">
+        <div className="flex justify-center items-center space-x-6">
           <a
-            className="text-foreground hover:text-blue font-medium"
+            className={cn(linkClass, animateClass)}
             href="https://niftyleague.com/terms-of-service"
             target="_blank"
             rel="noreferrer"
@@ -16,7 +22,7 @@ export default function SocialsFooter({ classes }: { classes?: { footer?: string
             Terms
           </a>
           <a
-            className="text-foreground hover:text-blue font-medium"
+            className={cn(linkClass, animateClass)}
             href="https://niftyleague.com/disclaimer"
             target="_blank"
             rel="noreferrer"
@@ -24,29 +30,25 @@ export default function SocialsFooter({ classes }: { classes?: { footer?: string
             Disclaimer
           </a>
           <a
-            className="text-foreground hover:text-blue font-medium"
+            className={cn(linkClass, animateClass)}
             href="https://niftyleague.com/privacy-policy"
             target="_blank"
             rel="noreferrer"
           >
             Privacy Policy
           </a>
-        </Stack>
+        </div>
 
-        <Stack direction="row" sx={{ justifyContent: 'center', alignItems: 'center' }} spacing={3}>
+        <div className="flex justify-center items-center space-x-5 sm:space-x-6">
           {SOCIAL_LINKS.map(social => (
-            <a href={social.link} target="_blank" rel="noreferrer" key={social.name}>
-              <Image
-                src={social.image}
-                width={20}
-                height={20}
-                alt={social.description}
-                className="max-w-[20px] max-h-[20px]"
-              />
+            <a key={social.name} href={social.link} target="_blank" rel="noreferrer" className={animateClass}>
+              <Image src={social.image} width={20} height={20} alt={social.description} className="w-5 h-5" />
             </a>
           ))}
-        </Stack>
-      </Stack>
+        </div>
+      </div>
     </footer>
   );
 }
+
+export default SocialsFooter;
