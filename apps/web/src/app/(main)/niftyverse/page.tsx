@@ -1,8 +1,8 @@
-import cn from 'classnames';
 import Image from 'next/image';
 import type { NextPage } from 'next';
 import { Container, Stack } from '@mui/material';
-import { AnimatedWrapper } from '@nl/ui/animations';
+import { cn } from '@nl/ui/lib/utils';
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import { NIFTYVERSE_PROPERTIES } from '@/constants/niftyverse';
 import ExternalIcon from '@/components/ExternalIcon';
 import ConsoleGame from '@/components/ConsoleGame';

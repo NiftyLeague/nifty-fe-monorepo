@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
 import Header from '@/components/Header';
+import SocialsFooter from '@nl/ui/custom/SocialsFooter';
 
 // Lazy load modals
 const CreditsModal = dynamic(() => import('@/components/CreditsModal'), { ssr: false, loading: () => null });
@@ -24,10 +25,6 @@ const Loading = () => (
 const ConsoleSection = dynamic(() => import('@/components/ConsoleGame'), { loading: Loading, ssr: false });
 const GameSection = dynamic(() => import('@/components/GameSection'), { loading: Loading, ssr: false });
 const DegensSection = dynamic(() => import('@/components/DegensSection'), { loading: Loading, ssr: false });
-const Footer = dynamic(() => import('@/components/Footer'), {
-  loading: () => <footer style={{ minHeight: '200px' }} />,
-  ssr: false,
-});
 
 type NextSearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
@@ -66,7 +63,7 @@ export default function Home({ searchParams }: { searchParams: NextSearchParams 
           <section id="degens-section">
             <DegensSection />
           </section>
-          <Footer />
+          <SocialsFooter />
         </Suspense>
       </main>
 

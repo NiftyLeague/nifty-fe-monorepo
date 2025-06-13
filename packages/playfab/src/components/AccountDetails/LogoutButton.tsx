@@ -1,6 +1,7 @@
 'use client';
 
-import { Button, IconLogOut } from '@nl/ui/supabase';
+import Button from '@nl/ui/supabase/Button';
+import { IconLogOut } from '@nl/ui/supabase/Icon';
 import useUserSession from '../../hooks/useUserSession';
 import fetchJson from '../../utils/fetchJson';
 

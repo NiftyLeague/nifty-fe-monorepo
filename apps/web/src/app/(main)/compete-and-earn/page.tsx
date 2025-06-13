@@ -1,7 +1,7 @@
-import cn from 'classnames';
 import Image from 'next/image';
 import type { NextPage } from 'next';
-import { AnimatedWrapper } from '@nl/ui/animations';
+import { cn } from '@nl/ui/lib/utils';
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import styles from './index.module.css';
 
 const CompeteAndEarn: NextPage = () => {

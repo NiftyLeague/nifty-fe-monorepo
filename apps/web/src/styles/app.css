@@ -1,4 +1,4 @@
-@import '@nl/tailwind-config/styles';
+@import '@nl/ui/styles.css';
 @import './slick.css';
 
 /* ==============================|| OVERRIDES ||============================== */

@@ -1,7 +1,9 @@
 'use client';
 
 import { useEffect } from 'react';
-import { ParallaxDirection, ParallaxIntensity } from '../types';
+
+export type ParallaxDirection = 'up' | 'down' | 'left' | 'right';
+export type ParallaxIntensity = 'lite' | 'normal' | 'strong' | 'extreme';
 
 // Function to apply the transform to the element or its child
 const applyTransform = <T extends HTMLElement>(element: T, childClass: string, transform: string): void => {
@@ -68,3 +70,5 @@ export function useParallax<T extends HTMLElement = HTMLDivElement>(
     };
   }, [elementRef, options.enabled, options.direction, options.intensity]);
 }
+
+export default useParallax;

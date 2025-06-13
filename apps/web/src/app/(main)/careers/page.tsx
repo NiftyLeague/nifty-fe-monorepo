@@ -2,10 +2,10 @@
 
 import type { NextPage } from 'next';
 import Image from 'next/image';
-import cn from 'classnames';
+import { cn } from '@nl/ui/lib/utils';
 
 import { Container, useMediaQuery } from '@mui/material';
-import { AnimatedWrapper } from '@nl/ui/animations';
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import JobCard from '@/components/Careers/JobCard';
 import { JOBS } from '@/constants/careers';
 import styles from './index.module.css';

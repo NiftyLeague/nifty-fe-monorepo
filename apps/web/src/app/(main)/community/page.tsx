@@ -3,7 +3,7 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import { useMediaQuery } from '@mui/material';
-import { AnimatedWrapper } from '@nl/ui/animations';
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import SocialCards from '@/components/SocialCards';
 
 const Community: NextPage = () => {

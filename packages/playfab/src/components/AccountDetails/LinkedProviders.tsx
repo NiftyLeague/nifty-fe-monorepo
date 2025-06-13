@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 import { Button, Space } from '@nl/ui/supabase';
 import { usePathname } from 'next/navigation';
-import cn from 'classnames';
+import { cn } from '@nl/ui/lib/utils';
 
 import PlayFabAuthForm from '../PlayFabAuthForm';
 import * as SocialIcons from '../SocialIcons';

@@ -1,10 +1,9 @@
 'use client';
-
-import cn from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useMediaQuery } from '@mui/material';
-import { AnimatedWrapper } from '@nl/ui/animations';
+import { cn } from '@nl/ui/lib/utils';
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import ExternalIcon from '@/components/ExternalIcon';
 import { SOCIAL_LINKS } from '@/constants/socials';
 

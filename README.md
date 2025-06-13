@@ -24,9 +24,8 @@ This Turborepo includes the following apps/packages:
 - `@nl/playfab`: a [PlayFab](https://playfab.com/) client API for our game services. Includes auth UI components for PlayFab login.
 - `@nl/prettier-config`: global [Prettier](https://prettier.io/) config overrides for code formatting
 - `@nl/theme`: a common theme wrapper for [Next.js](https://nextjs.org/) apps using [Material-UI](https://mui.com/material-ui/)
-- `@nl/tailwind-config`: global [Tailwind CSS](https://tailwindcss.com/) configs `tailwind.config.js`
 - `@nl/typescript-config`: global [TypeScript](https://www.typescriptlang.org/) configs `tsconfig.json`
-- `@nl/ui`: a stub [React](https://react.dev/) component library shared by all applications
+- `@nl/ui`: a stub [React](https://react.dev/) component library shared by all applications. Includes global [Tailwind CSS](https://tailwindcss.com/) configs,
 
 > **Note:**
 > Each package/app strictly uses [TypeScript](https://www.typescriptlang.org/)

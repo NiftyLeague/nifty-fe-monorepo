@@ -3,7 +3,7 @@
 import { Fragment } from 'react';
 import Image from 'next/image';
 import creditsData from '@/data/credits.json';
-import { Typography } from '@nl/ui/supabase';
+import Typography from '@nl/ui/supabase/Typography';
 import { Company, CreditsData, TeamMember } from '@/types/credits';
 import Modal from '@/components/Modal';
 import styles from '@/components/Modal/index.module.css';

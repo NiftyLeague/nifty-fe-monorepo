@@ -6,7 +6,8 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { Card, IconDatabase, IconStar, IconUser, Space, Tabs, Typography } from '@nl/ui/supabase';
+import { Card, Space, Tabs, Typography } from '@nl/ui/supabase';
+import { IconDatabase, IconStar, IconUser } from '@nl/ui/supabase/Icon';
 import BackButton from '@/components/Header/BackButton';
 import { useUserSession } from '@nl/playfab/hooks';
 import type { User } from '@nl/playfab/types';

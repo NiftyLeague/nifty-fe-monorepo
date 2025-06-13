@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import Grid from '@mui/material/Grid';
-import { Button, IconLoader, IconSave, Input } from '@nl/ui/supabase';
+import { Button, Input } from '@nl/ui/supabase';
+import { IconLoader, IconSave } from '@nl/ui/supabase/Icon';
 import { useSnackbar } from 'notistack';
 
 import { fetchJson, parseLinkedWalletResult } from '../../utils';

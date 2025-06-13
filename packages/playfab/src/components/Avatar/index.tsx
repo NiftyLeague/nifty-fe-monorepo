@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import cn from 'classnames';
+import { cn } from '@nl/ui/lib/utils';
 import { useSnackbar } from 'notistack';
-import { IconUpload } from '@nl/ui/supabase';
+import { IconUpload } from '@nl/ui/supabase/Icon';
 
 import styles from '../../styles/profile.module.css';
 

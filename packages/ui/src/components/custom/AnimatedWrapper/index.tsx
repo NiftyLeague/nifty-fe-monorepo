@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { useOnScreen } from '../hooks/useOnScreen';
-import { useParallax } from '../hooks/useParallax';
-import type { ParallaxDirection, ParallaxIntensity } from '../types';
+import { useEffect, useRef } from 'react';
+import { useOnScreen } from '@nl/ui/hooks/useOnScreen';
+import { useParallax } from '@nl/ui/hooks/useParallax';
+import type { ParallaxDirection, ParallaxIntensity } from '@nl/ui/hooks/useParallax';
 
 interface AnimatedWrapperProps extends Omit<React.HTMLAttributes<HTMLElement>, 'className'> {
   /**

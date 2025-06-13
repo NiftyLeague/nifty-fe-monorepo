@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { AnimatedWrapper } from '@nl/ui/animations';
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 
 const MintOMatic = () => {
   return (

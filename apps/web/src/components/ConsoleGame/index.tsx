@@ -2,9 +2,8 @@
 
 import { memo, useRef, useState, useCallback } from 'react';
 import Image from 'next/image';
-import cn from 'classnames';
-
-import { AnimatedWrapper } from '@nl/ui/animations';
+import { cn } from '@nl/ui/lib/utils';
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 
 import styles from './index.module.css';
 

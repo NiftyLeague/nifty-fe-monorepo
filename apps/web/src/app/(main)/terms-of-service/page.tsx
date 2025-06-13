@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Link from 'next/link';
 import { Container } from '@mui/material';
 import Definitions from '@/components/Definitions';
-import { AnimatedWrapper } from '@nl/ui/animations';
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 
 const ToS: NextPage = () => (
   <Container sx={{ p: { xs: 2, md: 4 }, pt: { xs: 15, md: 20 } }}>
