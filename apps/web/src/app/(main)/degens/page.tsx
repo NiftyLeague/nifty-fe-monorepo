@@ -3,11 +3,13 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import { Container, Grid, useMediaQuery } from '@mui/material';
-import { cn } from '@nl/ui/lib/utils';
+
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
+import ConsoleGame from '@nl/ui/custom/ConsoleGame';
+import { cn } from '@nl/ui/lib/utils';
+
 import { NIFTY_DEGENS, NIFTY_DEGENS_ALL } from '@/constants/degens';
 import ExternalIcon from '@/components/ExternalIcon';
-import ConsoleGame from '@/components/ConsoleGame';
 import styles from './index.module.css';
 
 const DegensSection = () => {
@@ -92,7 +94,7 @@ const Degens: NextPage = () => {
   const desktop = useMediaQuery('(min-width:768px)');
   return (
     <>
-      <div className="flex m-0 p-0 relative w-full">
+      <div className="relative xl:-top-20 2xl:-top-35">
         <ConsoleGame src="/video/unboxing.mp4" />
       </div>
       <div className={cn(styles.container, 'overview mx-auto px-3 w-full')}>
