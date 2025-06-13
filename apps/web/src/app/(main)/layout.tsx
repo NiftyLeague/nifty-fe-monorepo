@@ -1,17 +1,14 @@
 import { type PropsWithChildren, Suspense } from 'react';
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
-import { ThemeProvider } from '@nl/theme';
+import { ThemeProvider, customFontClassName } from '@nl/theme';
 import { NavigationEvents } from '@/components/NavigationEvents';
 
-import '@/styles/index.scss';
+import '@/styles/app.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://niftyleague.com'),
-  title: {
-    template: 'Nifty League | %s',
-    default: 'Nifty League',
-  },
+  title: { template: 'Nifty League | %s', default: 'Nifty League' },
   description:
     'A decentralized game studio & publisher creating an open & efficient path for indie studios to develop & publish groundbreaking games.',
   generator: 'Next.js',
@@ -21,11 +18,7 @@ export const metadata: Metadata = {
   creator: '0xPlayerOne',
   publisher: 'Nifty League',
   assets: ['https://niftyleague.com'],
-  formatDetection: {
-    email: true,
-    address: true,
-    telephone: true,
-  },
+  formatDetection: { email: true, address: true, telephone: true },
   openGraph: {
     title: 'Nifty League: Community-Governed Game Studio & Publisher',
     description:
@@ -59,43 +52,42 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'cyan' },
-    { media: '(prefers-color-scheme: dark)', color: '#620EDF' },
-  ],
+  themeColor: '#18181b',
+  colorScheme: 'dark',
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en">
-      <link rel="icon" href="/favicon/nl_purple/favicon.ico" />
+    <html lang="en" className={customFontClassName}>
+      <head>
+        <link rel="icon" href="/favicon/nl_purple/favicon.ico" />
 
-      <Script strategy="lazyOnload" id="clarity-script">
-        {`
+        <Script strategy="lazyOnload" id="clarity-script">
+          {`
           if (!window.location.host.includes('localhost')) {
             (function(c,l,a,r,i,t,y){
               c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
               t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
               y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "${process.env.NEXT_PUBLIC_CLARITY_TAG}");
-          }
-        `}
-      </Script>
+              })(window, document, "clarity", "script", "${process.env.NEXT_PUBLIC_CLARITY_TAG}");
+              }
+              `}
+        </Script>
 
-      <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`} />
-      <Script id="google-analytics">
-        {`
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`} />
+        <Script id="google-analytics">
+          {`
           if (!window.location.host.includes('localhost')) {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
               page_path: window.location.pathname,
-            });
-          }
-        `}
-      </Script>
-
+              });
+              }
+              `}
+        </Script>
+      </head>
       <body suppressHydrationWarning>
         <ThemeProvider>{children}</ThemeProvider>
 

@@ -43,7 +43,5 @@ export default function useImportNFTLToWallet(): ImportNFTLToWalletState {
     }
   }, [writeContracts, walletClient]);
 
-  return {
-    handleImportNFTLToWallet,
-  };
+  return { handleImportNFTLToWallet };
 }

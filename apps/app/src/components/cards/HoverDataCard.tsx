@@ -42,7 +42,7 @@ const HoverDataCard = ({ title, primary, secondary, customStyle, actions, isLoad
             {isLoading ? (
               <Skeleton variant="text" animation="wave" width={120} />
             ) : (
-              <Typography variant="body2" sx={{ color: theme => theme.palette.text.secondary }}>
+              <Typography variant="body2" sx={{ color: 'var(--color-foreground-2)' }}>
                 {secondary}
               </Typography>
             )}

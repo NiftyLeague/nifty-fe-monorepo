@@ -29,9 +29,10 @@ export interface DegenDialogProps extends DialogProps {
   onRent?: (degen: Degen) => void;
 }
 
-const CustomDialog = styled(Dialog, {
-  shouldForwardProp: prop => prop !== 'isRent' && prop !== 'isEquip',
-})<{ isRent?: boolean; isEquip?: boolean }>(({ theme, isRent, isEquip }) => ({
+const CustomDialog = styled(Dialog, { shouldForwardProp: prop => prop !== 'isRent' && prop !== 'isEquip' })<{
+  isRent?: boolean;
+  isEquip?: boolean;
+}>(({ theme, isRent, isEquip }) => ({
   '& .MuiPaper-root': {
     overflowX: 'hidden',
     minWidth: 'inherit',
@@ -44,11 +45,7 @@ const CustomDialog = styled(Dialog, {
       borderRadius: isRent || isEquip ? '10px' : 'inherit',
     },
   },
-  ...(isRent && {
-    '& .MuiPaper-root': {
-      minWidth: 550,
-    },
-  }),
+  ...(isRent && { '& .MuiPaper-root': { minWidth: 550 } }),
 }));
 
 const DegenDialog = ({
@@ -70,22 +67,10 @@ const DegenDialog = ({
   const { readContracts } = useNetworkContext();
   const { authToken } = useAuth();
   const [degenDetail, setDegenDetail] = useState<GetDegenResponse>();
-  const [character, setCharacter] = useState<CharacterType>({
-    name: null,
-    owner: null,
-    traitList: [],
-  });
-  const { name, traitList } = character as unknown as {
-    name: string;
-    owner: string;
-    traitList: number[];
-  };
+  const [character, setCharacter] = useState<CharacterType>({ name: null, owner: null, traitList: [] });
+  const { name, traitList } = character as unknown as { name: string; owner: string; traitList: number[] };
   const resetDialog = () => {
-    setCharacter({
-      name: null,
-      owner: null,
-      traitList: [],
-    });
+    setCharacter({ name: null, owner: null, traitList: [] });
   };
 
   useEffect(() => {

@@ -19,7 +19,7 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
 
   return (
     <Grid container flexDirection="row" flexWrap="wrap" spacing={2}>
-      <Grid size={{ sm: 12, md: 6, lg: 4, xl: 3 }}>
+      <Grid size={{ sm: 12, md: 6, lg: 4 }}>
         <GameCard
           image="/img/games/smashers/nifty-smashers.gif"
           contents={
@@ -38,7 +38,7 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
                   <Typography
                     variant="h4"
                     component="div"
-                    sx={{ color: theme => theme.palette.grey[400] }}
+                    sx={{ color: 'var(--color-foreground-2)' }}
                     display="inline"
                     ml="4px"
                   >
@@ -54,7 +54,7 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
           }
         />
       </Grid>
-      <Grid size={{ sm: 12, md: 6, lg: 4, xl: 3 }}>
+      <Grid size={{ sm: 12, md: 6, lg: 4 }}>
         <GameCard
           image="/img/games/wen.gif"
           contents={
@@ -73,7 +73,7 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
                   <Typography
                     variant="h4"
                     component="div"
-                    sx={{ color: theme => theme.palette.grey[400] }}
+                    sx={{ color: 'var(--color-foreground-2)' }}
                     display="inline"
                     ml="4px"
                   >
@@ -89,7 +89,7 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
           }
         />
       </Grid>
-      <Grid size={{ sm: 12, md: 6, lg: 4, xl: 3 }}>
+      <Grid size={{ sm: 12, md: 6, lg: 4 }}>
         <GameCard
           image="/img/games/crypto-winter.webp"
           contents={
@@ -108,7 +108,7 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
                   <Typography
                     variant="h4"
                     component="div"
-                    sx={{ color: theme => theme.palette.grey[400] }}
+                    sx={{ color: 'var(--color-foreground-2)' }}
                     display="inline"
                     ml="4px"
                   >

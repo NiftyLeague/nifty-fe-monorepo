@@ -12,16 +12,8 @@ import type {
 const _abi = [
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: 'newOwner',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: 'pendingOwner',
-        type: 'address',
-      },
+      { internalType: 'address', name: 'newOwner', type: 'address' },
+      { internalType: 'address', name: 'pendingOwner', type: 'address' },
     ],
     stateMutability: 'nonpayable',
     type: 'constructor',
@@ -29,18 +21,8 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'from',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'to',
-        type: 'address',
-      },
+      { indexed: true, internalType: 'address', name: 'from', type: 'address' },
+      { indexed: true, internalType: 'address', name: 'to', type: 'address' },
     ],
     name: 'OwnershipTransferRequested',
     type: 'event',
@@ -48,50 +30,22 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'from',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'to',
-        type: 'address',
-      },
+      { indexed: true, internalType: 'address', name: 'from', type: 'address' },
+      { indexed: true, internalType: 'address', name: 'to', type: 'address' },
     ],
     name: 'OwnershipTransferred',
     type: 'event',
   },
-  {
-    inputs: [],
-    name: 'acceptOwnership',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
+  { inputs: [], name: 'acceptOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   {
     inputs: [],
     name: 'owner',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'to',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: 'to', type: 'address' }],
     name: 'transferOwnership',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -130,9 +84,7 @@ export class ConfirmedOwnerWithProposal__factory extends ContractFactory {
     overrides?: NonPayableOverrides & { from?: string },
   ) {
     return super.deploy(newOwner, pendingOwner, overrides || {}) as Promise<
-      ConfirmedOwnerWithProposal & {
-        deploymentTransaction(): ContractTransactionResponse;
-      }
+      ConfirmedOwnerWithProposal & { deploymentTransaction(): ContractTransactionResponse }
     >;
   }
   override connect(runner: ContractRunner | null): ConfirmedOwnerWithProposal__factory {

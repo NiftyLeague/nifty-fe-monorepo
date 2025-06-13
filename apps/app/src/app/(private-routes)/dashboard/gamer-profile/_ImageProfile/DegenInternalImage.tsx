@@ -12,20 +12,9 @@ type CardMediaWithComponent = Partial<React.ComponentProps<typeof CardMedia>> & 
 };
 
 const DegenInternalImage = memo(({ degen }: { degen: Degen }) => {
-  let setting: CardMediaWithComponent = {
-    sx: { height: 320 },
-    component: 'img',
-    image: degen?.url,
-    alt: degen?.name,
-  };
+  let setting: CardMediaWithComponent = { sx: { height: 320 }, component: 'img', image: degen?.url, alt: degen?.name };
   if (degen?.background === 'legendary') {
-    setting = {
-      ...setting,
-      component: 'video',
-      autoPlay: true,
-      loop: true,
-      muted: true,
-    };
+    setting = { ...setting, component: 'video', autoPlay: true, loop: true, muted: true };
   }
   return <CardMedia {...setting} />;
 });

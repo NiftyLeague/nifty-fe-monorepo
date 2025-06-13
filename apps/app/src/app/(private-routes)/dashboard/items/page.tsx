@@ -150,8 +150,9 @@ const DashboardComicsPage = (): React.ReactNode => {
                 flexWrap="wrap"
                 gap={2}
                 minHeight={375}
-                border="1px solid #363636"
-                borderRadius="5px"
+                border="var(--border-default)"
+                borderRadius="var(--border-radius-default)"
+                bgcolor="var(--color-background-3)"
                 px={2}
                 py={3}
                 width="100%"
@@ -184,8 +185,9 @@ const DashboardComicsPage = (): React.ReactNode => {
               <Stack
                 sx={{
                   minHeight: 375,
-                  border: '1px solid #363636',
-                  borderRadius: '5px',
+                  border: 'var(--border-default)',
+                  borderRadius: 'var(--border-radius-default)',
+                  backgroundColor: 'var(--color-background-3)',
                   px: 2,
                   pt: 4,
                   pb: 2,
@@ -202,12 +204,7 @@ const DashboardComicsPage = (): React.ReactNode => {
                         {renderSubItems}
                       </Grid>
                     </Stack>
-                    <Divider
-                      color="#363636"
-                      sx={{
-                        opacity: '0.6',
-                      }}
-                    />
+                    <Divider color="#363636" sx={{ opacity: '0.6' }} />
                   </Stack>
                 )}
                 <Grid container flexWrap="wrap" gap={2} justifyContent={{ xs: 'space-between', sm: 'inherit' }}>

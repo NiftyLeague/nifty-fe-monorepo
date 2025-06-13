@@ -1,14 +1,8 @@
 import type { MenuItemBaseProps } from '@/types';
 
 const DegenSortOptions: MenuItemBaseProps[] = [
-  {
-    value: 'idUp',
-    label: 'ID Low to High',
-  },
-  {
-    value: 'idDown',
-    label: 'ID High to Low',
-  },
+  { value: 'idUp', label: 'ID Low to High' },
+  { value: 'idDown', label: 'ID High to Low' },
   //   value: 'priceUp',
   //   label: 'Price Low to High',
   // },

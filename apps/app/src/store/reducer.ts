@@ -6,10 +6,6 @@ import snackbarReducer from './slices/snackbar';
 
 // ==============================|| COMBINE REDUCER ||============================== //
 
-const reducer = combineReducers({
-  account: accountReducer,
-  menu: menuReducer,
-  snackbar: snackbarReducer,
-});
+const reducer = combineReducers({ account: accountReducer, menu: menuReducer, snackbar: snackbarReducer });
 
 export default reducer;

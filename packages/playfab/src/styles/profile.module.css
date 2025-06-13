@@ -50,14 +50,14 @@
 /* Button */
 
 .button {
-  color: var(--custom-color);
-  border: var(--custom-border);
-  background-color: var(--custom-bg-color);
+  color: var(--color-foreground);
+  border: var(--border-hidden);
+  background-color: var(--color-background);
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--custom-border-radius);
+  border-radius: var(--border-radius-default);
   padding: 0.5rem 1rem;
   cursor: pointer;
   font-size: 0.9rem;
@@ -67,31 +67,31 @@
 
 .button_primary {
   composes: button;
-  background-color: var(--custom-color-brand) !important;
-  border-color: var(--custom-color-brand) !important;
+  background-color: var(--color-purple) !important;
+  border-color: var(--color-purple) !important;
 }
 .button_primary:hover {
-  background-color: var(--custom-color-brand-secondary) !important;
-  border-color: var(--custom-color-brand-secondary) !important;
+  background-color: var(--color-blue) !important;
+  border-color: var(--color-blue) !important;
 }
 .button_secondary {
   composes: button;
-  background-color: var(--custom-color-secondary) !important;
-  border-color: var(--custom-color-secondary) !important;
+  /* background-color: var(--color-background-2) !important; */
+  /* border-color: var(--color-background-2) !important; */
 }
-.button_secondary:hover {
-  background-color: var(--custom-bg-color) !important;
-  border-color: var(--custom-bg-color) !important;
-}
+/* .button_secondary:hover {
+  background-color: var(--color-background) !important;
+  border-color: var(--color-background) !important;
+} */
 
 .button_danger {
   composes: button;
-  background-color: var(--custom-color-error) !important;
-  border-color: var(--custom-color-error) !important;
+  background-color: var(--color-error) !important;
+  border-color: var(--color-error) !important;
 }
 .button_danger:hover {
-  background-color: var(--custom-color-error-secondary) !important;
-  border-color: var(--custom-color-error-secondary) !important;
+  background-color: var(--color-error-dark) !important;
+  border-color: var(--color-error-dark) !important;
 }
 
 .button svg {
@@ -102,7 +102,7 @@
 
 .hr {
   border: none;
-  border-top: 1px solid var(--custom-color-secondary);
+  border-top: 1px solid var(--color-background-2);
   width: 100%;
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -111,13 +111,13 @@
 .card {
   width: 100%;
   display: block;
-  border: var(--custom-border);
-  border-radius: var(--custom-border-radius);
+  border: var(--border-hidden);
+  border-radius: var(--border-radius-default);
   padding: var(--custom-spacing);
 }
 
 .avatar {
-  border-radius: var(--custom-border-radius);
+  border-radius: var(--border-radius-default);
   overflow: hidden;
   max-width: 100%;
 }
@@ -125,9 +125,9 @@
   object-fit: cover;
 }
 .avatar.no_image {
-  background-color: #333;
-  border: 1px solid rgb(200, 200, 200);
-  border-radius: 5px;
+  background-color: var(--color-background);
+  border: var(--border-default);
+  border-radius: var(--border-radius-default);
 }
 
 @keyframes spin {
@@ -146,8 +146,8 @@
 }
 
 .avatarPlaceholder {
-  border: var(--custom-border);
-  border-radius: var(--custom-border-radius);
+  border: var(--border-hidden);
+  border-radius: var(--border-radius-default);
   width: 35px;
   height: 35px;
   background-color: rgba(255, 255, 255, 0.2);
@@ -157,12 +157,12 @@
 }
 
 .delete_account_dialog {
-  background-color: var(--custom-bg-color) !important;
+  background-color: var(--color-background) !important;
 }
 .delete_account_dialog_paper {
-  background-color: var(--custom-card-color) !important;
-  border-color: var(--custom-card-color) !important;
-  color: var(--custom-color) !important;
+  background-color: var(--color-background-2) !important;
+  border-color: var(--color-background-2) !important;
+  color: var(--color-foreground) !important;
   width: 800px;
   max-width: 100vw;
 }
@@ -176,7 +176,7 @@
 
 .currency {
   width: 48%;
-  color: white !important;
+  color: var(--color-foreground) !important;
   text-align: center;
 }
 

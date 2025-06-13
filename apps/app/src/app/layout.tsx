@@ -2,18 +2,15 @@ import type { PropsWithChildren } from 'react';
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 
-import { ThemeProvider } from '@nl/theme';
+import { ThemeProvider, customFontClassName } from '@nl/theme';
 import AppContextWrapper from '@/contexts/AppContextWrapper';
 import MainLayout from '@/app/_layout/_MainLayout';
 
-import '@/styles/globals.scss';
+import '@/styles/app.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://app.niftyleague.com'),
-  title: {
-    template: '%s | Nifty League App',
-    default: 'Nifty League App',
-  },
+  title: { template: '%s | Nifty League App', default: 'Nifty League App' },
   description: 'Web3 gaming app brought to you by Nifty League',
   generator: 'Next.js',
   referrer: 'origin-when-cross-origin',
@@ -22,11 +19,7 @@ export const metadata: Metadata = {
   creator: 'NiftyAndy',
   publisher: 'Nifty League',
   assets: ['https://app.niftyleague.com'],
-  formatDetection: {
-    email: true,
-    address: true,
-    telephone: true,
-  },
+  formatDetection: { email: true, address: true, telephone: true },
   openGraph: {
     title: 'Nifty League Web3 App',
     description: 'Web3 gaming app brought to you by Nifty League',
@@ -48,10 +41,7 @@ export const metadata: Metadata = {
     // siteId: '1467726470533754880',
     creator: '@NiftyLeague',
     // creatorId: '1467726470533754880',
-    images: {
-      url: 'https://niftyleague.com/img/backgrounds/banner-dark.webp',
-      alt: 'Nifty League Banner',
-    },
+    images: { url: 'https://niftyleague.com/img/backgrounds/banner-dark.webp', alt: 'Nifty League Banner' },
   },
 };
 
@@ -60,14 +50,15 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'cyan' },
-    { media: '(prefers-color-scheme: dark)', color: '#620EDF' },
+    { media: '(prefers-color-scheme: dark)', color: '#18181b' },
+    { media: '(prefers-color-scheme: light)', color: '#fafafa' },
   ],
+  colorScheme: 'dark light',
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en">
+    <html lang="en" className={customFontClassName}>
       <link rel="icon" href="/favicon/nl_purple/favicon.ico" />
       <Script defer src="https://d7ct17ettlkln.cloudfront.net/public/stats.js" />
 

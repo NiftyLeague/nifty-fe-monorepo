@@ -3,14 +3,15 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
-import cn from 'classnames';
+import { cn } from '@nl/ui/lib/utils';
 
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { IconTrash } from '@nl/ui/supabase';
+import Button from '@nl/ui/supabase/Button';
+import { IconTrash } from '@nl/ui/supabase/Icon';
 
 import fetchJson from '../../utils/fetchJson';
 import { errorMsgHandler } from '../../utils/errorHandlers';
@@ -44,29 +45,28 @@ export default function DeleteAccountDialog({ loading = false }) {
 
   return (
     <div>
-      <button
-        className={cn(styles.button_danger, 'block')}
-        style={{ marginBottom: 0 }}
+      <Button
+        block
+        className={styles.button_danger}
         disabled={loading}
+        icon={<IconTrash />}
+        size="medium"
+        type="default"
         onClick={handleClickOpen}
       >
-        <IconTrash />
         Delete Account
-      </button>
+      </Button>
       <Dialog
         open={open}
         onClose={handleClose}
         maxWidth="md"
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        classes={{
-          container: styles.delete_account_dialog,
-          paper: styles.delete_account_dialog_paper,
-        }}
+        classes={{ container: styles.delete_account_dialog, paper: styles.delete_account_dialog_paper }}
       >
         <DialogTitle id="alert-dialog-title">{'Are you sure you want to delete your account?'}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description" sx={{ color: '#fff' }}>
+          <DialogContentText id="alert-dialog-description" sx={{ color: 'var(--color-foreground)' }}>
             Once your account is deleted all of your data will be removed and there will be no way to recover your
             account.
           </DialogContentText>

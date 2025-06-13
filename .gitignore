@@ -26,13 +26,14 @@ coverage
 *.tsbuildinfo
 
 # Build Outputs
+.docusaurus/
 .next/
+.storybook/
 out/
 build
 dist
 
 # Generated files
-.docusaurus/
 .cache-loader/
 ca.*
 cert.*
@@ -51,6 +52,7 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+.windsurf/
 
 # Sentry Config File
 .sentryclirc

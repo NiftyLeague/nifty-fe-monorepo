@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import cn from 'classnames';
+import { cn } from '@nl/ui/lib/utils';
 
 import { styled } from '@nl/theme';
 import { StepIconProps } from '@mui/material/StepIcon';
@@ -30,7 +30,7 @@ const StyledIcon = styled('div')({
   [`&.${classes.root}`]: {
     backgroundColor: '#ccc',
     zIndex: 1,
-    color: '#fff',
+    color: 'var(--color-foreground)',
     width: 50,
     height: 50,
     display: 'flex',
@@ -38,13 +38,8 @@ const StyledIcon = styled('div')({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  [`&.${classes.active}`]: {
-    backgroundImage: 'linear-gradient(89deg, #620edf 0%, #5e72eb 100%)',
-    boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
-  },
-  [`&.${classes.completed}`]: {
-    backgroundImage: 'linear-gradient(89deg, #620edf 0%, #5e72eb 100%)',
-  },
+  [`&.${classes.active}`]: { backgroundImage: 'var(--gradient-brand)', boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)' },
+  [`&.${classes.completed}`]: { backgroundImage: 'var(--gradient-brand)' },
 });
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
@@ -60,35 +55,15 @@ const icons: { [index: string]: React.ReactElement } = {
 };
 
 const ColorlibConnector = styled(StepConnector)({
-  alternativeLabel: {
-    top: 22,
-  },
-  active: {
-    '& $line': {
-      backgroundImage: 'linear-gradient(89deg, #620edf 0%, #5e72eb 100%)',
-    },
-  },
-  completed: {
-    '& $line': {
-      backgroundImage: 'linear-gradient(89deg, #620edf 0%, #5e72eb 100%)',
-    },
-  },
-  line: {
-    height: 3,
-    border: 0,
-    backgroundColor: '#eaeaf0',
-    borderRadius: 1,
-  },
+  alternativeLabel: { top: 22 },
+  active: { '& $line': { backgroundImage: 'var(--gradient-brand)' } },
+  completed: { '& $line': { backgroundImage: 'var(--gradient-brand)' } },
+  line: { height: 3, border: 0, backgroundColor: 'var(--color-foreground)', borderRadius: 1 },
 });
 
 function ColorlibStepIcon({ active, completed, icon }: StepIconProps) {
   return (
-    <StyledIcon
-      className={cn(classes.root, {
-        [classes.active]: active,
-        [classes.completed]: completed,
-      })}
-    >
+    <StyledIcon className={cn(classes.root, { [classes.active]: active, [classes.completed]: completed })}>
       {icons[String(icon)]}
     </StyledIcon>
   );
@@ -149,7 +124,7 @@ function RenameStepper({
       >
         {steps.map(label => (
           <Step key={label}>
-            <StepLabel style={{ color: 'white !important' }} StepIconComponent={ColorlibStepIcon}>
+            <StepLabel style={{ color: 'var(--color-foreground) !important' }} StepIconComponent={ColorlibStepIcon}>
               {label}
             </StepLabel>
           </Step>

@@ -29,18 +29,8 @@ declare global {
       onProgress?: (progression: number) => void,
     ) => Promise<UnityInstance>;
     ethereum?: Ethereumish;
-    ReactUnityWebGL: {
-      canvas: () => void;
-      error: () => void;
-      loaded: () => void;
-      [eventName: string]: () => void;
-    };
+    ReactUnityWebGL: { canvas: () => void; error: () => void; loaded: () => void; [eventName: string]: () => void };
     unityInstance: UnityInstance | null;
-    Web3?: {
-      providers?: {
-        HttpProvider?: BrowserProvider;
-        IpcProvider?: Provider;
-      };
-    };
+    Web3?: { providers?: { HttpProvider?: BrowserProvider; IpcProvider?: Provider } };
   }
 }

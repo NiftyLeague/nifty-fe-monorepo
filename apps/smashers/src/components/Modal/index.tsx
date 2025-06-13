@@ -1,8 +1,8 @@
 'use client';
 
 import { ReactNode, useEffect } from 'react';
-import cn from 'classnames';
-import styles from '@/styles/modal.module.css';
+import { cn } from '@nl/ui/lib/utils';
+import styles from './index.module.css';
 
 type ModalProps = {
   isOpen: boolean;

@@ -57,10 +57,7 @@ export const getContract = (address: string, ABI: InterfaceAbi, signer: JsonRpcS
 
 export const getProviderAndSigner = async (
   providerOrSigner: Provider | JsonRpcSigner,
-): Promise<{
-  provider: Provider | undefined;
-  signer: JsonRpcSigner | undefined;
-}> => {
+): Promise<{ provider: Provider | undefined; signer: JsonRpcSigner | undefined }> => {
   let signer: JsonRpcSigner | undefined;
   let provider: Provider | undefined;
   if (providerOrSigner && 'signMessage' in providerOrSigner) {

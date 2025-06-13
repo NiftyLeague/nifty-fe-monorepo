@@ -71,7 +71,7 @@ export const NFTL_PURCHASE_URL = `https://quickswap.exchange/#/analytics/v3/toke
 // DEGEN URLs
 export const DEGEN_COLLECTION_URL = 'https://opensea.io/collection/niftydegen';
 export const DEGEN_PURCHASE_URL = (id: string | number) =>
-  `https://opensea.io/assets/${getContractAddress(mainnet.id, DEGEN_CONTRACT)}/${id}`;
+  `https://opensea.io/item/ethereum/${getContractAddress(mainnet.id, DEGEN_CONTRACT)}/${id}`;
 
 // Marketplace URLs
 export const COMICS_PURCHASE_URL = 'https://tokentrove.com/collection/NiftyLeague';

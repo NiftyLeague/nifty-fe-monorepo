@@ -2,7 +2,7 @@ import { type PropsWithChildren } from 'react';
 import type { Metadata, Viewport } from 'next';
 import { IBM_Plex_Sans } from 'next/font/google';
 
-import '@/styles/globals.scss';
+import '@/styles/app.css';
 
 const imbPlexSans = IBM_Plex_Sans({
   weight: ['100', '400', '500', '700'],
@@ -13,10 +13,7 @@ const imbPlexSans = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: {
-    template: 'Nifty League | %s',
-    default: 'Nifty League',
-  },
+  title: { template: 'Nifty League | %s', default: 'Nifty League' },
   description:
     'A decentralized game studio & publisher creating an open & efficient path for indie studios to develop & publish groundbreaking games',
   generator: 'Next.js',
@@ -32,10 +29,8 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'cyan' },
-    { media: '(prefers-color-scheme: dark)', color: '#620EDF' },
-  ],
+  themeColor: '#18181b',
+  colorScheme: 'dark',
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {

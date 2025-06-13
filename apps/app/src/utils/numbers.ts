@@ -1,18 +1,8 @@
 export const formatNumberToDisplay = (num: number, digits = 2) =>
-  num
-    ? num.toLocaleString(undefined, {
-        minimumFractionDigits: digits,
-        maximumFractionDigits: digits,
-      })
-    : 0;
+  num ? num.toLocaleString(undefined, { minimumFractionDigits: digits, maximumFractionDigits: digits }) : 0;
 
 export const formatNumberToDisplay2 = (num: number, digits = 2) =>
-  num
-    ? num.toLocaleString(undefined, {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: digits,
-      })
-    : '0';
+  num ? num.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: digits }) : '0';
 
 export const formatNumberToDisplayWithCommas = (num?: number) => {
   if (num) {

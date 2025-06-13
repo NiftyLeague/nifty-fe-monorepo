@@ -74,12 +74,10 @@ const Sidebar = () => {
         sx={{
           '& .MuiDrawer-paper': {
             width: appDrawerWidth,
-            background: theme.palette.background.default,
-            color: theme.palette.text.primary,
+            background: 'var(--color-background-2)',
+            color: 'var(--color-foreground)',
             borderRight: 'none',
-            [theme.breakpoints.up('md')]: {
-              top: appHeaderHeight,
-            },
+            [theme.breakpoints.up('md')]: { top: appHeaderHeight },
           },
         }}
         ModalProps={{ keepMounted: true }}

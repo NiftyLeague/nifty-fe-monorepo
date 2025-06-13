@@ -33,9 +33,7 @@ export default {
     navbar: {
       items: [
         // highlight-start
-        {
-          type: 'docsVersionDropdown',
-        },
+        { type: 'docsVersionDropdown' },
         // highlight-end
       ],
     },

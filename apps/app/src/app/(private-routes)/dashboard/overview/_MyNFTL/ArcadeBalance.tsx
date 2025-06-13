@@ -34,10 +34,9 @@ const ArcadeBalance = (): React.ReactNode => {
         secondary={`${tokensBalances.AT} Tokens`}
         isLoading={loadingArcadeBal}
         customStyle={{
-          backgroundColor: theme.palette.background.default,
-          border: '1px solid',
-          borderColor: theme.palette.border,
-          borderRadius: '8px',
+          backgroundColor: 'var(--color-background-3)',
+          border: 'var(--border-default)',
+          borderRadius: 'var(--border-radius-default)',
         }}
         actions={
           <Stack
@@ -47,11 +46,11 @@ const ArcadeBalance = (): React.ReactNode => {
             paddingX={{ xl: 1, xs: 3 }}
             paddingY={{ xl: 0.5, xs: 1.5 }}
           >
-            <Button fullWidth variant="outlined" onClick={handlePlayArcade}>
-              Play Arcade Games
-            </Button>
-            <Button fullWidth variant="contained" onClick={handleBuyArcadeTokens}>
+            <Button fullWidth variant="outlined" onClick={handleBuyArcadeTokens}>
               Buy Tokens
+            </Button>
+            <Button fullWidth variant="contained" onClick={handlePlayArcade}>
+              Play Games
             </Button>
           </Stack>
         }

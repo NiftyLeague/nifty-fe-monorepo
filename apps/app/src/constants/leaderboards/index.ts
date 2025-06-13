@@ -37,57 +37,28 @@ export const NiftySmashersTables: TableType[] = [
 ];
 
 const WenGameTables: TableType[] = [
-  {
-    key: 'score',
-    display: 'HIGH SCORE',
-    rows: [{ key: 'score', display: 'HIGH SCORE', primary: true }],
-  },
+  { key: 'score', display: 'HIGH SCORE', rows: [{ key: 'score', display: 'HIGH SCORE', primary: true }] },
 ];
 
 const MtGawxTables: TableType[] = [
-  {
-    key: 'burnings',
-    display: 'NFTL BURNED',
-    rows: [{ key: 'score', display: 'NFTL BURNED', primary: true }],
-  },
+  { key: 'burnings', display: 'NFTL BURNED', rows: [{ key: 'score', display: 'NFTL BURNED', primary: true }] },
 ];
 
 const CryptoWinterTables: TableType[] = [
-  {
-    key: 'score',
-    display: 'HIGH SCORE',
-    rows: [{ key: 'score', display: 'HIGH SCORE', primary: true }],
-  },
+  { key: 'score', display: 'HIGH SCORE', rows: [{ key: 'score', display: 'HIGH SCORE', primary: true }] },
 ];
 
 export const LEADERBOARD_GAME_LIST: LeaderboardGame[] = [
-  {
-    key: 'nifty_smashers',
-    display: Game.NiftySmashers,
-    tables: NiftySmashersTables,
-  },
+  { key: 'nifty_smashers', display: Game.NiftySmashers, tables: NiftySmashersTables },
   { key: 'wen_game', display: Game.WenGame, tables: WenGameTables },
   { key: 'nftl_burner', display: Game.MtGawx, tables: MtGawxTables },
-  {
-    key: 'crypto_winter',
-    display: Game.CryptoWinter,
-    tables: CryptoWinterTables,
-  },
+  { key: 'crypto_winter', display: Game.CryptoWinter, tables: CryptoWinterTables },
 ];
 
 export const LEADERBOARD_TIME_FILTERS = [
-  {
-    key: 'weekly',
-    display: TimeFilter.Weekly,
-  },
-  {
-    key: 'monthly',
-    display: TimeFilter.Monthly,
-  },
-  {
-    key: 'all_time',
-    display: TimeFilter.AllTime,
-  },
+  { key: 'weekly', display: TimeFilter.Weekly },
+  { key: 'monthly', display: TimeFilter.Monthly },
+  { key: 'all_time', display: TimeFilter.AllTime },
 ];
 
 export const getGameLeaderboardViewedAnalyticsEventName = (selectedGame: string) => {

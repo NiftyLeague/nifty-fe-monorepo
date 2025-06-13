@@ -4,11 +4,7 @@ import { Stack } from '@mui/material';
 import { useGamerProfileContext } from '@/hooks/useGamerProfile';
 import Item from './Item';
 
-const commonValue = {
-  value: 'N/A',
-  isDisable: true,
-  isLoading: false,
-};
+const commonValue = { value: 'N/A', isDisable: true, isLoading: false };
 interface RightInfoProps {
   comicCount: number;
   degenCount: number;
@@ -25,31 +21,15 @@ const RightInfo = ({ comicCount, degenCount, itemCount, keyCount, rentalCount }:
     isDisable?: boolean;
   }[] = useMemo(() => {
     return [
-      {
-        label: 'Degens Owned',
-        value: degenCount,
-        isLoading: isLoadingDegens,
-      },
+      { label: 'Degens Owned', value: degenCount, isLoading: isLoadingDegens },
       // {
       //   label: 'Degens Rented',
       //   value: rentalCount,
       //   isLoading: isLoadingDegens,
       // },
-      {
-        label: 'Comics Owned',
-        value: comicCount,
-        isLoading: isLoadingComics,
-      },
-      {
-        label: 'Items Owned',
-        value: itemCount,
-        isLoading: isLoadingItems,
-      },
-      {
-        label: 'Keys Owned',
-        value: keyCount,
-        isLoading: isLoadingItems,
-      },
+      { label: 'Comics Owned', value: comicCount, isLoading: isLoadingComics },
+      { label: 'Items Owned', value: itemCount, isLoading: isLoadingItems },
+      { label: 'Keys Owned', value: keyCount, isLoading: isLoadingItems },
       // {
       //   label: 'Pets Owned',
       //   ...commonValue,

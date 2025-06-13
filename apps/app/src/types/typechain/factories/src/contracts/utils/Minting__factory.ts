@@ -6,13 +6,7 @@ import type { Signer, ContractDeployTransaction, ContractRunner } from 'ethers6'
 import type { NonPayableOverrides } from '../../../../common';
 import type { Minting, MintingInterface } from '../../../../src/contracts/utils/Minting';
 
-const _abi = [
-  {
-    inputs: [],
-    name: 'SeparatorMustExist',
-    type: 'error',
-  },
-] as const;
+const _abi = [{ inputs: [], name: 'SeparatorMustExist', type: 'error' }] as const;
 
 const _bytecode =
   '0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220d6875d66a754da98c0b0c319f38765cc4d629c739f7ee3ee5c9ed424195a731664736f6c63430008130033';
@@ -37,11 +31,7 @@ export class Minting__factory extends ContractFactory {
     return super.getDeployTransaction(overrides || {});
   }
   override deploy(overrides?: NonPayableOverrides & { from?: string }) {
-    return super.deploy(overrides || {}) as Promise<
-      Minting & {
-        deploymentTransaction(): ContractTransactionResponse;
-      }
-    >;
+    return super.deploy(overrides || {}) as Promise<Minting & { deploymentTransaction(): ContractTransactionResponse }>;
   }
   override connect(runner: ContractRunner | null): Minting__factory {
     return super.connect(runner) as Minting__factory;

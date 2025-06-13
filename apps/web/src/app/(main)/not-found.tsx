@@ -6,17 +6,9 @@ import { Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 import Layout from '@/components/Layout';
 
 // styles
-const CardMediaWrapper = styled('div')({
-  maxWidth: 720,
-  margin: '0 auto',
-  position: 'relative',
-});
+const CardMediaWrapper = styled('div')({ maxWidth: 720, margin: '0 auto', position: 'relative' });
 
-const ErrorWrapper = styled('div')({
-  maxWidth: 350,
-  margin: '0 auto',
-  textAlign: 'center',
-});
+const ErrorWrapper = styled('div')({ maxWidth: 350, margin: '0 auto', textAlign: 'center' });
 
 const ErrorCard = styled(Card)({
   paddingTop: '100px',
@@ -25,7 +17,7 @@ const ErrorCard = styled(Card)({
   alignItems: 'center',
   justifyContent: 'center',
   backgroundColor: 'transparent',
-  color: 'white',
+  color: 'var(--color-foreground)',
 });
 
 const CardMediaBlock = styled('img')({
@@ -33,7 +25,7 @@ const CardMediaBlock = styled('img')({
   top: 0,
   left: 0,
   width: '100%',
-  animation: '3s bounce ease-in-out infinite',
+  animation: '3s custom-bounce ease-in-out infinite',
 });
 
 const CardMediaBlue = styled('img')({

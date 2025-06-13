@@ -68,13 +68,8 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           editUrl: 'https://github.com/NiftyLeague/nifty-fe-monorepo/tree/main/apps/docs',
         },
-        googleAnalytics: {
-          trackingID: 'G-DKL8WWG236',
-          anonymizeIP: true,
-        },
-        theme: {
-          customCss: ['./src/css/colors.css', './src/css/fonts.css', './src/css/custom.css'],
-        },
+        googleAnalytics: { trackingID: 'G-DKL8WWG236', anonymizeIP: true },
+        theme: { customCss: ['./src/css/colors.css', './src/css/fonts.css', './src/css/custom.css'] },
       } satisfies Preset.Options,
     ],
   ],
@@ -83,10 +78,7 @@ const config: Config = {
     image: 'img/twitter_card_bg.webp',
     navbar: {
       title: 'Nifty League Docs',
-      logo: {
-        alt: 'Nifty League Logo',
-        src: 'img/logos/NL/logo.svg',
-      },
+      logo: { alt: 'Nifty League Logo', src: 'img/logos/NL/logo.svg' },
       items: [
         // {
         //   type: 'docsVersionDropdown',
@@ -96,24 +88,9 @@ const config: Config = {
         //   docsPluginId: 'default',
         //   className: 'persistent',
         // },
-        {
-          to: '/docs/overview/intro',
-          label: 'Overview',
-          position: 'left',
-          className: 'persistent',
-        },
-        {
-          to: '/docs/guides/set-up',
-          label: 'Guides',
-          position: 'left',
-          className: 'persistent',
-        },
-        {
-          to: '/docs/faq/general',
-          label: 'FAQ',
-          position: 'left',
-          className: 'persistent',
-        },
+        { to: '/docs/overview/intro', label: 'Overview', position: 'left', className: 'persistent' },
+        { to: '/docs/guides/set-up', label: 'Guides', position: 'left', className: 'persistent' },
+        { to: '/docs/faq/general', label: 'FAQ', position: 'left', className: 'persistent' },
         // {
         //   type: 'docSidebar',
         //   sidebarId: 'tutorialSidebar',
@@ -121,24 +98,9 @@ const config: Config = {
         //   label: 'Tutorial',
         //   className: 'persistent',
         // },
-        {
-          href: 'https://niftyleague.com/',
-          label: 'Website',
-          position: 'right',
-          className: 'persistent',
-        },
-        {
-          href: 'https://github.com/NiftyLeague/docs',
-          label: 'GitHub',
-          position: 'right',
-          className: 'persistent',
-        },
-        {
-          href: 'https://discord.gg/niftyleague',
-          label: 'Discord',
-          position: 'right',
-          className: 'persistent',
-        },
+        { href: 'https://niftyleague.com/', label: 'Website', position: 'right', className: 'persistent' },
+        { href: 'https://github.com/NiftyLeague/docs', label: 'GitHub', position: 'right', className: 'persistent' },
+        { href: 'https://discord.gg/niftyleague', label: 'Discord', position: 'right', className: 'persistent' },
         // {
         //   type: 'localeDropdown',
         //   position: 'right',
@@ -151,18 +113,9 @@ const config: Config = {
         {
           title: 'Official',
           items: [
-            {
-              label: 'Nifty League Website',
-              href: 'https://niftyleague.com',
-            },
-            {
-              label: 'Nifty Smashers Website',
-              href: 'https://niftysmashers.com',
-            },
-            {
-              label: 'Dune Analytics',
-              href: 'https://dune.com/niftyleague/dashboard',
-            },
+            { label: 'Nifty League Website', href: 'https://niftyleague.com' },
+            { label: 'Nifty Smashers Website', href: 'https://niftysmashers.com' },
+            { label: 'Dune Analytics', href: 'https://dune.com/niftyleague/dashboard' },
             {
               label: 'Subgraph',
               href: 'https://thegraph.com/explorer/subgraphs/Fv2ptHrpfiYGwMumJry3XjS8kS1WfjQ3jAhJCyPcyvTT?view=Overview&chain=arbitrum-one',
@@ -180,26 +133,11 @@ const config: Config = {
         {
           title: 'Socials',
           items: [
-            {
-              label: 'Discord',
-              href: 'https://discord.gg/niftyleague',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/NiftyLeague',
-            },
-            {
-              label: 'Twitch',
-              href: 'https://www.twitch.tv/NiftyLeagueOfficial',
-            },
-            {
-              label: 'YouTube',
-              href: 'https://www.youtube.com/c/NiftyLeague',
-            },
-            {
-              label: 'Instagram',
-              href: 'https://www.instagram.com/niftyleague',
-            },
+            { label: 'Discord', href: 'https://discord.gg/niftyleague' },
+            { label: 'Twitter', href: 'https://twitter.com/NiftyLeague' },
+            { label: 'Twitch', href: 'https://www.twitch.tv/NiftyLeagueOfficial' },
+            { label: 'YouTube', href: 'https://www.youtube.com/c/NiftyLeague' },
+            { label: 'Instagram', href: 'https://www.instagram.com/niftyleague' },
           ],
         },
         {
@@ -213,14 +151,8 @@ const config: Config = {
               label: 'Uniswap NFTL/ETH LP (Ethereum)',
               href: 'https://app.uniswap.org/explore/tokens/ethereum/0x3c8d2fce49906e11e71cb16fa0ffeb2b16c29638',
             },
-            {
-              label: 'CoinGecko',
-              href: 'https://www.coingecko.com/en/coins/nifty-league',
-            },
-            {
-              label: 'CoinMarketCap',
-              href: 'https://coinmarketcap.com/currencies/nifty-league',
-            },
+            { label: 'CoinGecko', href: 'https://www.coingecko.com/en/coins/nifty-league' },
+            { label: 'CoinMarketCap', href: 'https://coinmarketcap.com/currencies/nifty-league' },
             // {
             //   label: 'Etherscan Token Contract',
             //   href: 'https://etherscan.io/token/0x3c8D2FCE49906e11e71cB16Fa0fFeB2B16C29638',
@@ -234,14 +166,8 @@ const config: Config = {
         {
           title: 'NFTs',
           items: [
-            {
-              label: 'OpenSea - DEGENS',
-              href: 'https://opensea.io/collection/niftydegen',
-            },
-            {
-              label: 'TokenTrove - COMICS & ITEMS',
-              href: 'https://tokentrove.com/collection/NiftyLeague',
-            },
+            { label: 'OpenSea - DEGENS', href: 'https://opensea.io/collection/niftydegen' },
+            { label: 'TokenTrove - COMICS & ITEMS', href: 'https://tokentrove.com/collection/NiftyLeague' },
             {
               label: 'NiftyDegen NFT Contract',
               href: 'https://etherscan.io/token/0x986aea67C7d6A15036e18678065eb663Fc5BE883',
@@ -260,20 +186,14 @@ const config: Config = {
       disableSwitch: false,
       respectPrefersColorScheme: false,
     },
-    prism: {
-      theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
-      additionalLanguages: ['solidity'],
-    },
+    prism: { theme: prismThemes.github, darkTheme: prismThemes.dracula, additionalLanguages: ['solidity'] },
     algolia: {
       // Search only api key
       apiKey: '2c367ae53326c8a85e805323aee56a75',
       indexName: 'docs',
       appId: 'R1BEZXQES6',
     },
-    mermaid: {
-      theme: { light: 'forest', dark: 'dark' },
-    },
+    mermaid: { theme: { light: 'forest', dark: 'dark' } },
   } satisfies Preset.ThemeConfig,
 };
 

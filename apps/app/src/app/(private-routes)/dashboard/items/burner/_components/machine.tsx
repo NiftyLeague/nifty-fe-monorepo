@@ -8,11 +8,7 @@ import type { Comic } from '@/types/marketplace';
 
 const ComicsBurnerMachine: React.FC<
   React.PropsWithChildren<
-    React.PropsWithChildren<{
-      address?: `0x${string}`;
-      burnDisabled: boolean;
-      selectedComics: Comic[];
-    }>
+    React.PropsWithChildren<{ address?: `0x${string}`; burnDisabled: boolean; selectedComics: Comic[] }>
   >
 > = memo(({ address, burnDisabled, selectedComics }) => {
   const [count, setCount] = useState<number>(0);

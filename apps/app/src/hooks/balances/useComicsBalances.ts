@@ -23,17 +23,9 @@ import type { UseReadContractParams } from '@/types/web3';
 
 const COMICS_IDS = [1, 2, 3, 4, 5, 6];
 
-type ComicsBalancesState = {
-  balances: Comic[];
-  error: Error | null;
-  loading: boolean;
-  refetch: () => void;
-};
+type ComicsBalancesState = { balances: Comic[]; error: Error | null; loading: boolean; refetch: () => void };
 
-type BalanceOfBatch = {
-  args: [AddressLike[], BigNumberish[]];
-  result: bigint[];
-};
+type BalanceOfBatch = { args: [AddressLike[], BigNumberish[]]; result: bigint[] };
 
 export default function useComicsBalances(): ComicsBalancesState {
   const { isLoggedIn } = useAuth();
@@ -55,10 +47,7 @@ export default function useComicsBalances(): ComicsBalancesState {
     chainId: imxChainId,
     functionName: 'balanceOfBatch',
     args: [ownerArr, COMICS_IDS],
-    query: {
-      staleTime: 10_000,
-      enabled: isConnected && isLoggedIn,
-    },
+    query: { staleTime: 10_000, enabled: isConnected && isLoggedIn },
   });
 
   const balances = useMemo(

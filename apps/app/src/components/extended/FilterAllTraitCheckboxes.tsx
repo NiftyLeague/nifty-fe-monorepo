@@ -27,12 +27,7 @@ const FilterAllTraitCheckboxes: FC<FilterAllTraitCheckboxesProps> = ({
   inputCheckBoxStyle,
   inputCheckFormControlStyle,
 }: FilterAllTraitCheckboxesProps) => (
-  <FormGroup
-    sx={{
-      flexDirection: 'row',
-      rowGap: 0.5,
-    }}
-  >
+  <FormGroup sx={{ flexDirection: 'row', rowGap: 0.5 }}>
     {traitGroup.map(traitKey => {
       const traitValue = TRAIT_VALUE_MAP[categoryKey as keyof typeof TRAIT_VALUE_MAP][
         traitKey as keyof (typeof TRAIT_VALUE_MAP)[keyof typeof TRAIT_VALUE_MAP]

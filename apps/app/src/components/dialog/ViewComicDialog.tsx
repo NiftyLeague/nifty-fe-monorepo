@@ -22,10 +22,7 @@ const ViewComicDialog = ({ comic, open, onClose }: ViewComicDialogProps): React.
             alt={`Comic: ${comic?.title}`}
             width={500}
             height={500}
-            style={{
-              width: fullScreen ? '100%' : 500,
-              height: 'auto',
-            }}
+            style={{ width: fullScreen ? '100%' : 500, height: 'auto' }}
           />
         ) : null}
       </DialogContent>

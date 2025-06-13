@@ -9,26 +9,14 @@ const _abi = [
   {
     inputs: [],
     name: 'CLOCK_MODE',
-    outputs: [
-      {
-        internalType: 'string',
-        name: '',
-        type: 'string',
-      },
-    ],
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'clock',
-    outputs: [
-      {
-        internalType: 'uint48',
-        name: '',
-        type: 'uint48',
-      },
-    ],
+    outputs: [{ internalType: 'uint48', name: '', type: 'uint48' }],
     stateMutability: 'view',
     type: 'function',
   },

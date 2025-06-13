@@ -34,11 +34,11 @@ const FormControlSelect = ({
 }: FormControlSelectProps) => {
   const theme = useTheme();
   const IconPrimary = iconPrimary!;
-  const primaryIcon = iconPrimary ? <IconPrimary fontSize="small" sx={{ color: theme.palette.grey[700] }} /> : null;
+  const primaryIcon = iconPrimary ? <IconPrimary fontSize="small" sx={{ color: 'var(--color-base-700)' }} /> : null;
 
   const IconSecondary = iconSecondary!;
   const secondaryIcon = iconSecondary ? (
-    <IconSecondary fontSize="small" sx={{ color: theme.palette.grey[700] }} />
+    <IconSecondary fontSize="small" sx={{ color: 'var(--color-base-700)' }} />
   ) : null;
 
   const errorState = formState === 'error';
@@ -66,14 +66,7 @@ const FormControlSelect = ({
                 {textPrimary && (
                   <>
                     <InputAdornment position="start">{textPrimary}</InputAdornment>
-                    <Divider
-                      sx={{
-                        height: 28,
-                        m: 0.5,
-                        opacity: '0.6',
-                      }}
-                      orientation="vertical"
-                    />
+                    <Divider sx={{ height: 28, m: 0.5, opacity: '0.6' }} orientation="vertical" />
                   </>
                 )}
               </>
@@ -83,14 +76,7 @@ const FormControlSelect = ({
                 {secondaryIcon && <InputAdornment position="end">{secondaryIcon}</InputAdornment>}
                 {textSecondary && (
                   <>
-                    <Divider
-                      sx={{
-                        height: 28,
-                        m: 0.5,
-                        opacity: '0.6',
-                      }}
-                      orientation="vertical"
-                    />
+                    <Divider sx={{ height: 28, m: 0.5, opacity: '0.6' }} orientation="vertical" />
                     <InputAdornment position="end">{textSecondary}</InputAdornment>
                   </>
                 )}

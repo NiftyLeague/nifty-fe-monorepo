@@ -47,11 +47,7 @@ export default {
     'intro',
     // highlight-next-line
     'hello',
-    {
-      type: 'category',
-      label: 'Tutorial',
-      items: ['tutorial-basics/create-a-document'],
-    },
+    { type: 'category', label: 'Tutorial', items: ['tutorial-basics/create-a-document'] },
   ],
 };
 ```

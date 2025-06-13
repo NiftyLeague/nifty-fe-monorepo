@@ -1,27 +1,27 @@
 'use client';
 
-import cn from 'classnames';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import AnimatedWrapper from '@/components/AnimatedWrapper';
+import { cn } from '@nl/ui/lib/utils';
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import { NIFTY_GAMES } from '@/constants/games';
 import { Container } from '@mui/material';
 import ExternalIcon from '@/components/ExternalIcon';
-import styles from './index.module.scss';
+import styles from './index.module.css';
 
 const Games: NextPage = () => {
   const desktop = useMediaQuery('(min-width:769px)');
   return (
-    <div className={cn(styles.container, 'overview mx-auto px-3 position-relative')}>
-      <div className={cn(styles.gradient1, 'radial-gradient-piece')} />
+    <div className={cn(styles.container, 'overview mx-auto px-3 relative w-full')}>
+      <div className={cn(styles.gradient1, 'purple-bg-orb')} />
       <Container>
-        <div className="d-flex align-items-center justify-content-center flex-wrap px-lg-5">
+        <div className="flex items-center justify-center flex-wrap px-4 lg:px-5">
           {desktop ? (
-            <div className="col-6 desktop px-2 px-lg-3">
+            <div className="w-1/2 px-2 lg:px-3">
               <AnimatedWrapper>
-                <div className="animation-zoomin animated-fade-start animated-fade transition-delay-large">
+                <div className="animate-zoom-out transition-fade-start transition-fade delay-long">
                   <video id="lobby" width="100%" height="100%" muted autoPlay loop playsInline data-keepplaying>
                     <source src="/video/lobby.mp4" type="video/mp4" />
                   </video>
@@ -29,35 +29,32 @@ const Games: NextPage = () => {
               </AnimatedWrapper>
             </div>
           ) : (
-            <div className="col-4">
+            <div className="w-1/3">
               <AnimatedWrapper>
-                <div className="animation-zoomin animated-fade-start animated-fade transition-delay-large">
+                <div className="animate-zoom-out transition-fade-start transition-fade delay-long">
                   <Image
                     alt="Arcade"
                     width={339}
                     height={661}
                     src="/img/games/smashers/arcade.webp"
                     sizes="100vw"
-                    style={{
-                      width: '100%',
-                      height: 'auto',
-                    }}
+                    style={{ width: '100%', height: 'auto' }}
                   />
                 </div>
               </AnimatedWrapper>
             </div>
           )}
-          <div className="col-8 col-md-6 px-2 px-lg-3">
+          <div className="w-full md:w-1/2 px-2 lg:px-3">
             <div className="mb-4">
               <AnimatedWrapper>
-                <h1 className="text-align-center animated-fade-slow animated-fade-start transition-delay-small white-space-no-wrap">
+                <h1 className="text-center transition-fade-slow transition-fade-start delay-lite whitespace-nowrap">
                   GAMES
                 </h1>
               </AnimatedWrapper>
             </div>
             <div className="mb-5">
               <AnimatedWrapper>
-                <p className="text-align-center animated-fade-slow animated-fade-start transition-delay-medium">
+                <p className="text-center transition-fade-slow transition-fade-start delay-normal">
                   Join thousands of players around the world competing for the top spot in Nifty League!{' '}
                 </p>
               </AnimatedWrapper>
@@ -66,33 +63,28 @@ const Games: NextPage = () => {
         </div>
 
         {NIFTY_GAMES.map(({ name, description, video, tag, action }, index) => (
-          <div className={cn(styles.section, 'd-flex flex-column-reverse flex-md-row position-relative')} key={name}>
-            <div className={cn(styles.block, 'col-12 col-md-7 pe-md-5')}>
-              <div className="d-flex flex-row align-items-center justify-content-between mb-3">
+          <div className={cn(styles.section, 'flex flex-col-reverse md:flex-row relative')} key={name}>
+            <div className={cn(styles.block, 'w-full md:w-7/12 pr-0 md:pr-5')}>
+              <div className="flex flex-row items-center justify-between mb-3">
                 <AnimatedWrapper>
-                  <h4 className="my-0 animated-header-text animated-header-text-start transition-delay-small">
-                    {name}
-                  </h4>
+                  <h4 className="m-0 transition-vertical-fade transition-vertical-fade-start delay-lite">{name}</h4>
                 </AnimatedWrapper>
                 <AnimatedWrapper>
-                  <p
-                    className={cn(
-                      styles.tagGame,
-                      'my-0 animated-fade-slow animated-fade-start transition-delay-medium',
-                    )}
-                  >
+                  <p className={cn(styles.tagGame, 'm-0 transition-fade-slow transition-fade-start delay-normal')}>
                     {tag}
                   </p>
                 </AnimatedWrapper>
               </div>
               <AnimatedWrapper>
-                <p className="animated-header-text animated-header-text-start transition-delay-medium">{description}</p>
+                <p className="transition-vertical-fade transition-vertical-fade-start delay-normal">{description}</p>
               </AnimatedWrapper>
-              <div className="d-flex justify-content-center justify-content-md-start mt-4">
+              <div className="flex justify-center md:justify-start mt-4">
                 {action.isComingSoon ? (
                   <AnimatedWrapper>
-                    <div className="animated-fade-slow animated-fade-start transition-delay-medium">
-                      <button className="btn theme-btn-transparent disabled px-3">COMING SOON</button>
+                    <div className="transition-fade-slow transition-fade-start delay-normal">
+                      <button className="theme-btn-transparent theme-btn-rounded min-w-fit disabled px-3">
+                        COMING SOON
+                      </button>
                     </div>
                   </AnimatedWrapper>
                 ) : null}
@@ -102,13 +94,14 @@ const Games: NextPage = () => {
                       href={action.link}
                       target="_blank"
                       rel="noreferrer"
-                      style={action.isDisabled ? { pointerEvents: 'none', color: 'white' } : {}}
+                      style={action.isDisabled ? { pointerEvents: 'none', color: 'var(--color-foreground)' } : {}}
                     >
                       <button
+                        disabled={action.isDisabled}
                         className={
                           action.isDisabled
-                            ? 'btn theme-btn-transparent disabled px-3'
-                            : 'btn theme-btn-primary px-3 animated-fade-slow animated-fade-start transition-delay-medium'
+                            ? 'theme-btn-transparent theme-btn-rounded'
+                            : 'theme-btn-primary theme-btn-rounded transition-fade-slow transition-fade-start delay-normal'
                         }
                       >
                         {action.title}
@@ -119,7 +112,7 @@ const Games: NextPage = () => {
                 {action.secondaryLink ? (
                   <AnimatedWrapper>
                     <Link href={action.secondaryLink}>
-                      <button className="btn theme-btn-primary mx-3 animated-fade-slow animated-fade-start transition-delay-medium">
+                      <button className="theme-btn-primary theme-btn-rounded mx-3 transition-fade-slow transition-fade-start delay-normal">
                         {action.secondaryTitle}
                       </button>
                     </Link>
@@ -127,9 +120,9 @@ const Games: NextPage = () => {
                 ) : null}
               </div>
             </div>
-            <div className="col-12 col-md-5">
+            <div className="w-full md:w-5/12">
               <AnimatedWrapper>
-                <div className="position-relative text-align-right animated-fade-slow animated-fade-start transition-delay-medium mb-4">
+                <div className="relative text-right transition-fade-slow transition-fade-start delay-normal mb-4">
                   {video.includes('youtube') ? (
                     <iframe
                       src={video}
@@ -160,21 +153,16 @@ const Games: NextPage = () => {
             <div
               className={cn(
                 index === 0 ? styles.gradient2 : index === 1 ? styles.gradient1 : styles.gradient3,
-                'radial-gradient-piece',
+                'purple-bg-orb',
               )}
             />
           </div>
         ))}
       </Container>
-      <div className="d-flex justify-content-center mt-5 mt-md-3 mb-5">
+      <div className="flex justify-center mt-5 md:mt-3 pb-8">
         <AnimatedWrapper>
           <a href="/docs/guides/nifty-smashers/general-info" target="_blank" rel="noreferrer">
-            <button
-              className={cn(
-                styles.button,
-                'btn theme-btn-primary px-3 animated-fade-slow animated-fade-start transition-delay-medium',
-              )}
-            >
+            <button className="theme-btn-primary transition-fade-slow transition-fade-start delay-normal">
               View Docs
               <ExternalIcon />
             </button>

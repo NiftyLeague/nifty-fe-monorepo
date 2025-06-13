@@ -47,11 +47,12 @@ const CollapsibleSidebarLayout = ({
           }),
           '& .MuiDrawer-paper': {
             height: matchDownSm ? '100%' : 'auto',
-            backgroundColor: theme.palette.background.paper,
+            backgroundColor: 'var(--color-background-2)',
             width: drawerWidth,
             boxSizing: 'border-box',
             position: 'relative',
             border: 'none',
+            borderRadius: 'var(--border-radius-default)',
           },
         }}
         variant={matchDownSm ? 'temporary' : 'persistent'}
@@ -60,19 +61,14 @@ const CollapsibleSidebarLayout = ({
         ModalProps={{ keepMounted: true }}
         onClose={handleDrawerOpen}
       >
-        <PerfectScrollbar
-          style={{
-            height: matchDownSm ? '100vh' : 'calc(100vh - 152px)',
-            padding: '20px 16px',
-          }}
-        >
+        <PerfectScrollbar style={{ height: matchDownSm ? '100vh' : 'calc(100vh - 152px)', padding: '20px 16px' }}>
           {renderDrawer()}
         </PerfectScrollbar>
       </Drawer>
 
       {/* Main grid */}
       <Stack
-        component="main"
+        component="div"
         sx={{
           flexGrow: 1,
           paddingLeft: isDrawerOpen ? theme.spacing(3) : 0,
@@ -87,10 +83,7 @@ const CollapsibleSidebarLayout = ({
             }),
             marginLeft: `${matchDownSm ? 0 : drawerWidth}px`,
           }),
-          [theme.breakpoints.down('md')]: {
-            paddingLeft: 0,
-            marginLeft: 0,
-          },
+          [theme.breakpoints.down('md')]: { paddingLeft: 0, marginLeft: 0 },
         }}
       >
         <PerfectScrollbar

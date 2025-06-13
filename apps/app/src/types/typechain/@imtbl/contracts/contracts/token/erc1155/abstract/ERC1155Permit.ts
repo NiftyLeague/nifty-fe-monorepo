@@ -273,7 +273,9 @@ export interface ERC1155Permit extends BaseContract {
   getFunction(
     nameOrSignature: 'burnBatch',
   ): TypedContractMethod<[account: AddressLike, ids: BigNumberish[], values: BigNumberish[]], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'eip712Domain'): TypedContractMethod<
+  getFunction(
+    nameOrSignature: 'eip712Domain',
+  ): TypedContractMethod<
     [],
     [
       [string, string, string, bigint, string, string, bigint[]] & {

@@ -6,41 +6,25 @@ import SortButton from '@/components/extended/SortButton';
 const SearchTextField = styled(TextField)({
   flex: 1,
   height: 32,
-  '& .MuiInputLabel-root': {
-    color: '#424453',
-    top: -4,
-  },
+  '& .MuiInputLabel-root': { color: 'var(--color-foreground-2)', top: -12 },
   '& .MuiOutlinedInput-root': {
     height: 32,
-    '& input': {
-      paddingTop: '6px',
-      paddingBottom: '6px',
-    },
-    '& fieldset': {
-      borderRadius: '5px',
-    },
+    '& input': { backgroundColor: 'var(--color-background-3)', paddingTop: '6px', paddingBottom: '6px' },
+    '& fieldset': { border: 'none' },
   },
 });
 
 const LayoutModeButtonsGroup = styled(ToggleButtonGroup)({
-  border: '1px solid #2f2f2f',
-  borderRadius: '5px',
+  border: 'var(--border-default)',
+  borderRadius: 'var(--border-radius-default)',
 });
 
 const LayoutModeButton = styled(ToggleButton)({
   border: 'none',
-  borderRadius: '5px',
+  borderRadius: 'var(--border-radius-default)',
   padding: '5px 16px',
-  '&.Mui-selected': {
-    background: 'rgba(88, 32, 214, 0.2)',
-    '&:hover': {
-      background: 'rgba(88, 32, 214, 0.2)',
-    },
-  },
-  '& svg': {
-    width: 20,
-    height: 20,
-  },
+  '&.Mui-selected': { background: 'rgba(88, 32, 214, 0.2)', '&:hover': { background: 'rgba(88, 32, 214, 0.2)' } },
+  '& svg': { width: 20, height: 20 },
 });
 
 interface DegensTopNavProps {
@@ -68,9 +52,6 @@ const DegensTopNav = ({
         size="small"
         value={searchTerm}
         onChange={handleChangeSearchTerm}
-        InputLabelProps={{
-          style: { color: theme.palette.text.secondary },
-        }}
       />
       <Stack direction="row" gap={1} sx={{ justifyContent: 'space-between' }}>
         <SortButton handleSort={handleSort}>
@@ -81,9 +62,9 @@ const DegensTopNav = ({
             endIcon={<KeyboardArrowDown />}
             sx={{
               fontWeight: 400,
-              border: `1px solid ${theme.palette.primary.main}`,
+              border: 'var(--border-purple)',
               padding: '3px 16px',
-              color: theme.palette.text.primary,
+              color: 'var(--color-foreground)',
             }}
           />
         </SortButton>
