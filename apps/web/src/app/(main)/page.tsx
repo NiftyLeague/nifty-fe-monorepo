@@ -7,11 +7,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
+import ConsoleGame from '@nl/ui/custom/ConsoleGame';
+
 import Layout from '@/components/Layout';
 import Sponsors from '@/components/Sponsors';
 import Carousel from '@/components/Carousel';
 import ExternalIcon from '@/components/ExternalIcon';
-import ConsoleGame from '@/components/ConsoleGame';
 import MintOMatic from '@/components/MintOMatic';
 import { RenderDegen } from '@/components/Carousel/DegenCardItem';
 import { COMMUNITY_DEGEN_LIST } from '@/constants/degens';

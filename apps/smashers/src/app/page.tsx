@@ -22,7 +22,7 @@ const Loading = () => (
   </section>
 );
 
-const ConsoleSection = dynamic(() => import('@/components/ConsoleGame'), { loading: Loading, ssr: false });
+const ConsoleSection = dynamic(() => import('@nl/ui/custom/ConsoleGame'), { loading: Loading, ssr: false });
 const GameSection = dynamic(() => import('@/components/GameSection'), { loading: Loading, ssr: false });
 const DegensSection = dynamic(() => import('@/components/DegensSection'), { loading: Loading, ssr: false });
 

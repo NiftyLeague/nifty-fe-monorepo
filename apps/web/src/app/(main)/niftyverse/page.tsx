@@ -1,53 +1,46 @@
 import Image from 'next/image';
 import type { NextPage } from 'next';
 import { Container, Stack } from '@mui/material';
-import { cn } from '@nl/ui/lib/utils';
+
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
+import ConsoleGame from '@nl/ui/custom/ConsoleGame';
+import { cn } from '@nl/ui/lib/utils';
+
 import { NIFTYVERSE_PROPERTIES } from '@/constants/niftyverse';
 import ExternalIcon from '@/components/ExternalIcon';
-import ConsoleGame from '@/components/ConsoleGame';
 import styles from './index.module.css';
 
 const NiftyVerse: NextPage = () => {
   return (
-    <div className="relative">
-      <div className={cn(styles.introContainer, 'm-0 p-0 relative')}>
-        <div className="flex flex-col text-center relative p-0">
-          <ConsoleGame src="/video/mansion_showcase.mp4" />
-          <Stack
-            direction="row"
-            sx={{ justifyContent: 'center', alignItems: 'center' }}
-            gap={{ xs: 1.25, xl: 4 }}
-            px={{ xs: 2, md: 0 }}
-            mt={{ xs: 2, sm: 0 }}
-            className="game-playing-actions"
-          >
-            <AnimatedWrapper>
-              <a href="https://app.niftyleague.com/games/niftyverse" target="_blank" rel="noreferrer">
-                <button disabled className="theme-btn-primary transition-fade transition-fade-start delay-normal">
-                  COMING SOON
-                </button>
-              </a>
-            </AnimatedWrapper>
-            <AnimatedWrapper>
-              <a href="https://twitter.com/search?q=%23NiftyLeaks&src=typed_query" target="_blank" rel="noreferrer">
-                <button className="theme-btn-transparent transition-fade transition-fade-start delay-normal">
-                  VIEW MORE
-                  <ExternalIcon />
-                </button>
-              </a>
-            </AnimatedWrapper>
-          </Stack>
-        </div>
+    <>
+      <div className="relative xl:-top-20 2xl:-top-35">
+        <ConsoleGame src="/video/mansion_showcase.mp4" />
+        <Stack
+          direction="row"
+          sx={{ justifyContent: 'center', alignItems: 'center' }}
+          gap={{ xs: 1.25, xl: 4 }}
+          px={{ xs: 2, md: 0 }}
+          mt={{ xs: 2, sm: 0 }}
+          className="game-playing-actions !bottom-4"
+        >
+          <AnimatedWrapper>
+            <button disabled className="theme-btn-primary transition-fade transition-fade-start delay-normal">
+              COMING SOON
+            </button>
+          </AnimatedWrapper>
+          <AnimatedWrapper>
+            <a href="https://twitter.com/search?q=%23NiftyLeaks&src=typed_query" target="_blank" rel="noreferrer">
+              <button className="theme-btn-transparent transition-fade transition-fade-start delay-normal">
+                VIEW MORE
+                <ExternalIcon />
+              </button>
+            </a>
+          </AnimatedWrapper>
+        </Stack>
       </div>
 
-      <Container>
-        <div
-          className={cn(
-            styles.intro,
-            'md:pt-5 xl:pt-0 flex flex-col-reverse md:flex-row items-center justify-center relative',
-          )}
-        >
+      <Container className="pt-12">
+        <div className={'flex flex-col-reverse md:flex-row items-center justify-center pb-12 md:pb-20'}>
           <div className={cn(styles.block, 'flex flex-col w-full md:w-1/2 lg:w-7/12 pr-0 md:pr-3')}>
             <div className="mb-2 mb-md-3">
               <AnimatedWrapper>
@@ -129,7 +122,7 @@ const NiftyVerse: NextPage = () => {
           </div>
         </div>
       </Container>
-    </div>
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
 /* ==============================|| CUSTOM COMPONENTS ||============================== */
 
 @utility theme-btn {
-  @apply flex items-center justify-center;
+  @apply flex items-center justify-center hover:cursor-pointer;
   @apply font-bold uppercase whitespace-nowrap p-[4px_16px] tracking-wider;
   @apply h-[40px] md:h-[50px] lg:h-[60px] xl:h-[80px] min-h-fit;
   @apply w-[180px] md:w-[220px] lg:w-[240px] xl:w-[272px] min-w-fit;

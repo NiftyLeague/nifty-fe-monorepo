@@ -1,9 +1,9 @@
 'use client';
 
-import { memo, useRef, useState, useCallback } from 'react';
 import Image from 'next/image';
-import { cn } from '@nl/ui/lib/utils';
+import { memo, useRef, useState, useCallback } from 'react';
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
+import { cn } from '@nl/ui/lib/utils';
 
 import styles from './index.module.css';
 
@@ -34,7 +34,7 @@ const ConsoleGame = ({ src }: { src: string }) => {
           className="transition-fade-slow transition-fade-start delay-lite md:animation-hidden"
         >
           <Image
-            alt="Classic Gaming Reinvented"
+            alt="Game Console Backdrop"
             className="pixelated"
             width={1920}
             height={1080}
@@ -69,7 +69,7 @@ const ConsoleGame = ({ src }: { src: string }) => {
             className={cn(styles.bonk_note, 'transition-fade-start transition-fade delay-normal')}
           >
             <Image
-              alt="Classic Gaming Reinvented Bonk"
+              alt="Bonk Sticker"
               className="pixelated"
               width={1920}
               height={1080}
@@ -85,7 +85,7 @@ const ConsoleGame = ({ src }: { src: string }) => {
         <AnimatedWrapper parallax parallaxDirection="down" parallaxIntensity="normal">
           <div className="animate-hover transition-fade-start transition-fade delay-long">
             <Image
-              alt="Classic Gaming Reinvented Controller Left"
+              alt="Controller Left"
               className="pixelated"
               width={1920}
               height={1080}
@@ -101,7 +101,7 @@ const ConsoleGame = ({ src }: { src: string }) => {
         <AnimatedWrapper parallax parallaxDirection="down" parallaxIntensity="normal">
           <div className="animate-hover2 transition-fade-start transition-fade delay-long">
             <Image
-              alt="Classic Gaming Reinvented Controller Right"
+              alt="Controller Right"
               className="pixelated"
               width={1920}
               height={1080}
