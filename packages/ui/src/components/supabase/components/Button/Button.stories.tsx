@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useRef, useState } from 'react';
 
-import { Space, IconPackage, IconChevronRight } from './../../index';
+import Space from '../Space';
+import { IconPackage, IconChevronRight } from '../Icon';
+import './Button.module.css';
 import Button, { type RefHandle } from './Button';
 
 const meta: Meta<typeof Button> = {

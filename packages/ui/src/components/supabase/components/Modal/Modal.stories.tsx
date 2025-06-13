@@ -3,10 +3,10 @@ import { useState } from 'react';
 
 import { Modal } from '.';
 import Typography from '../Typography';
-import { Button } from '../Button';
+import Button from '../Button';
+import Space from '../Space';
 import { Dropdown } from '../Dropdown';
-import { IconTrash, IconAlertCircle, IconCheck } from './../../index';
-import { Space } from '../Space';
+import { IconTrash, IconAlertCircle, IconCheck } from '../Icon';
 
 const meta: Meta<typeof Modal> = {
   title: 'Overlays/Modal',

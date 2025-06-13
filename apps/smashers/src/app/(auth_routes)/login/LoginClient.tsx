@@ -4,7 +4,9 @@ import Image from 'next/image';
 import { Suspense } from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-import { Card, Typography, Space } from '@nl/ui/supabase';
+import Card from '@nl/ui/supabase/Card';
+import Space from '@nl/ui/supabase/Space';
+import Typography from '@nl/ui/supabase/Typography';
 import { PlayFabAuthForm } from '@nl/playfab/components';
 import BackButton from '@/components/Header/BackButton';
 import useFlags from '@/hooks/useFlags';

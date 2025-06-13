@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Typography, Space } from '@nl/ui/supabase';
+import Typography from '@nl/ui/supabase/Typography';
+import Space from '@nl/ui/supabase/Space';
 import useVersion from '@/hooks/useVersion';
 import Modal from '@/components/Modal';
 import styles from '@/components/Modal/index.module.css';

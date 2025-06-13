@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Button } from '../Button';
-import { IconChevronDown } from '../../index';
+import Button from '../Button';
+import { IconChevronDown } from '../Icon/icons/IconChevronDown';
 import Typography from '../Typography';
 
 import { Popover } from '.';

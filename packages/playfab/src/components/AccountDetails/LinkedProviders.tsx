@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { signIn, useSession } from 'next-auth/react';
-import { Button, Space } from '@nl/ui/supabase';
+import Button from '@nl/ui/supabase/Button';
+import Space from '@nl/ui/supabase/Space';
 import { usePathname } from 'next/navigation';
 import { cn } from '@nl/ui/lib/utils';
 

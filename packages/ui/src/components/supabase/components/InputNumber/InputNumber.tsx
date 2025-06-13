@@ -4,7 +4,7 @@ import InputErrorIcon from '../../lib/Layout/InputErrorIcon';
 import { IconChevronDown } from '../Icon/icons/IconChevronDown';
 import { IconChevronUp } from '../Icon/icons/IconChevronUp';
 import InputIconContainer from '../../lib/Layout/InputIconContainer';
-import { Space } from '../../index';
+import Space from '../Space';
 import InputNumberStyles from './InputNumber.module.css';
 
 export interface Props {

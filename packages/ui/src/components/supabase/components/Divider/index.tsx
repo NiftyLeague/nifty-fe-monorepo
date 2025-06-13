@@ -1,1 +1,4 @@
-export { default as Divider } from './Divider';
+import Divider from './Divider';
+
+export { Divider };
+export default Divider;

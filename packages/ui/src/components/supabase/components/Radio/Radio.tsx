@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FormLayout } from '../../lib/Layout/FormLayout';
-import { Space } from '../Space';
+import Space from '../Space';
 
 import RadioStyles from './Radio.module.css';
 import { RadioContext } from './RadioContext';

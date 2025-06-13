@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, Ref } from 'react';
+import React from 'react';
 import { FormLayout } from '../../lib/Layout/FormLayout';
 import InputErrorIcon from '../../lib/Layout/InputErrorIcon';
 import InputIconContainer from '../../lib/Layout/InputIconContainer';
@@ -15,13 +15,13 @@ interface OptGroupProps {
   children: React.ReactNode;
 }
 
-export interface Props extends Omit<React.InputHTMLAttributes<HTMLSelectElement>, 'size'> {
+export interface Props extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'size'> {
   autofocus?: boolean;
   children: React.ReactNode;
   descriptionText?: string;
   error?: string;
   icon?: React.ReactNode;
-  inputRef?: Ref<HTMLSelectElement>;
+  inputRef?: React.Ref<HTMLSelectElement>;
   label?: string;
   afterLabel?: string;
   beforeLabel?: string;
@@ -34,7 +34,7 @@ export interface Props extends Omit<React.InputHTMLAttributes<HTMLSelectElement>
   placeholder?: string;
 }
 
-export const ColLayout = (props: PropsWithChildren) => <div className="">{props.children}</div>;
+export const ColLayout = (props: React.PropsWithChildren) => <div className="">{props.children}</div>;
 
 function Select({
   autoComplete,
@@ -98,7 +98,7 @@ function Select({
           value={value}
           disabled={disabled}
           required={required}
-          // @ts-expect-error - the placeholder prop is not available on select elements
+          // @ts-expect-error placeholder is not a prop on select
           placeholder={placeholder}
           {...props}
         >

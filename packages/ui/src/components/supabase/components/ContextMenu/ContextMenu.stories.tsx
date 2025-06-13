@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { Button } from '../Button';
 import { Divider } from '../Divider';
-import { IconLogOut } from '../../index';
+import { IconLogOut } from '../Icon/icons/IconLogOut';
 import Typography from '../Typography';
 import { ContextMenu } from '.';
 import { IconLogIn } from '../Icon/icons/IconLogIn';

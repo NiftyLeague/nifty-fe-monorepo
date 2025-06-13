@@ -1,8 +1,11 @@
-import React, { useState, Ref } from 'react';
+import React, { useState } from 'react';
 import { FormLayout } from '../../lib/Layout/FormLayout';
 import InputErrorIcon from '../../lib/Layout/InputErrorIcon';
 import InputIconContainer from '../../lib/Layout/InputIconContainer';
-import { Button, Space, Typography, IconCopy } from '../../index';
+import Button from '../Button';
+import Space from '../Space';
+import Typography from '../Typography';
+import { IconCopy } from '../Icon/icons/IconCopy';
 import InputStyles from './Input.module.css';
 
 export interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
@@ -12,7 +15,7 @@ export interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>,
   disabled?: boolean;
   error?: string;
   icon?: React.ReactNode;
-  inputRef?: Ref<HTMLInputElement>;
+  inputRef?: React.Ref<HTMLInputElement>;
   label?: string;
   afterLabel?: string;
   beforeLabel?: string;

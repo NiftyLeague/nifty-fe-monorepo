@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from 'storybook/test';
 import React, { useState } from 'react';
-import { Button, Typography } from '../../index';
+import Button from '../Button';
+import Typography from '../Typography';
 import { SidePanel } from './index';
 
 type SidePanelProps = React.ComponentProps<typeof SidePanel> & {

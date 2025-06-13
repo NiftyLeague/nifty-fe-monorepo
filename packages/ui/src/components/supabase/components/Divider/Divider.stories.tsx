@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button } from '../Button';
-import { Space } from '../Space';
+import Button from '../Button';
+import Space from '../Space';
 import Typography from '../Typography';
 import { Divider } from './';
 
