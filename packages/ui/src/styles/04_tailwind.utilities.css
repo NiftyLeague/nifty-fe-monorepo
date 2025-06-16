@@ -1,5 +1,23 @@
 /* ==============================|| CUSTOM UTILS ||============================== */
 
+@utility container-fluid {
+  @apply mx-auto;
+  @apply px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-0;
+  @apply w-full max-w-full 2xl:max-w-5xl;
+}
+@utility container-fixed {
+  @apply mx-auto;
+  @apply px-4 sm:px-0;
+  @apply w-full sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-4xl 2xl:max-w-5xl;
+}
+@utility container {
+  @apply container-fluid;
+}
+
+@utility section {
+  @apply my-20;
+}
+
 @layer utilities {
   .pixelated {
     image-rendering: crisp-edges;

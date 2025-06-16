@@ -33,7 +33,7 @@ const FooterLink = ({ href, name, external = false, first = false }: FooterLinkP
 export default function Footer() {
   return (
     <SocialsFooter>
-      <div className="flex justify-evenly pb-10 sm:pb-12">
+      <div className="flex justify-evenly mb-10 sm:mb-12">
         <div className="flex flex-col">
           <FooterLink href="/" name="Home" first />
           <FooterLink href="/games" name="Games" />

@@ -2,93 +2,16 @@
 
 import type { NextPage } from 'next';
 import Image from 'next/image';
-import { Container, Grid, useMediaQuery } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
 
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import ConsoleGame from '@nl/ui/custom/ConsoleGame';
+import DegenSpecialsTable from '@nl/ui/custom/DegenSpecialsTable';
 import { cn } from '@nl/ui/lib/utils';
 
-import { NIFTY_DEGENS, NIFTY_DEGENS_ALL } from '@/constants/degens';
+import { NIFTY_DEGENS_ALL } from '@/constants/degens';
 import ExternalIcon from '@/components/ExternalIcon';
 import styles from './index.module.css';
-
-const DegensSection = () => {
-  const desktop = useMediaQuery('(min-width:768px)');
-  return (
-    <div className={styles.section}>
-      <AnimatedWrapper>
-        <Grid container spacing={0} style={{ marginBottom: 20 }}>
-          <Grid size={{ xs: 6, sm: 4 }}>
-            <h3 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">TRIBE</h3>
-          </Grid>
-          <Grid size={{ xs: 6, sm: 8 }}>
-            <h3 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">SPECIAL</h3>
-          </Grid>
-        </Grid>
-        <div className={styles.table}>
-          <hr className={styles.divider} />
-          {NIFTY_DEGENS.map(({ name, description, specialName, gif, image }) => (
-            <Grid container spacing={0} key={name} style={{ marginBottom: 20 }}>
-              <Grid size={{ xs: 6, sm: 4 }} className={styles.grid_col}>
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  <AnimatedWrapper>
-                    <div
-                      style={{ position: 'relative' }}
-                      className="text-center transition-fade-slow transition-fade-start delay-lite"
-                    >
-                      <Image
-                        src={image.link}
-                        alt={name}
-                        width={desktop ? image.width : image.width / 2}
-                        height={desktop ? image.height : image.height / 2}
-                      />
-                    </div>
-                  </AnimatedWrapper>
-                  <AnimatedWrapper>
-                    <h5
-                      style={{ marginTop: 8 }}
-                      className="text-center transition-fade-slow transition-fade-start delay-lite"
-                    >
-                      {name}
-                    </h5>
-                  </AnimatedWrapper>
-                </div>
-              </Grid>
-              {desktop && (
-                <Grid size={{ xs: 5 }} className={styles.grid_col}>
-                  <AnimatedWrapper>
-                    <p className="transition-vertical-fade transition-vertical-fade-start delay-normal">
-                      {description}
-                    </p>
-                  </AnimatedWrapper>
-                </Grid>
-              )}
-              <Grid size={{ xs: 6, sm: 3 }} className={styles.grid_col_end}>
-                <AnimatedWrapper>
-                  <div
-                    style={{ position: 'relative' }}
-                    className="text-center transition-fade-slow transition-fade-start delay-lite"
-                  >
-                    <Image
-                      src={gif.link}
-                      unoptimized
-                      alt={name}
-                      width={desktop ? gif.width : gif.width * 0.7}
-                      height={desktop ? gif.height : gif.height * 0.7}
-                      sizes="100vw"
-                      style={{ width: '95%', height: 'auto' }}
-                    />
-                  </div>
-                </AnimatedWrapper>
-                <h6 className="text-center">{specialName}</h6>
-              </Grid>
-            </Grid>
-          ))}
-        </div>
-      </AnimatedWrapper>
-    </div>
-  );
-};
 
 const Degens: NextPage = () => {
   const desktop = useMediaQuery('(min-width:768px)');
@@ -97,8 +20,8 @@ const Degens: NextPage = () => {
       <div className="relative xl:-top-20 2xl:-top-35">
         <ConsoleGame src="/video/unboxing.mp4" />
       </div>
-      <div className={cn(styles.container, 'overview mx-auto px-3 w-full')}>
-        <Container>
+      <div className="container">
+        <section className="section">
           <div className="flex items-center justify-center flex-wrap mb-4 md:mb-5">
             <div className="w-full md:w-1/2 md:pr-4">
               <div className="mb-4">
@@ -154,40 +77,44 @@ const Degens: NextPage = () => {
               </a>
             </AnimatedWrapper>
           </div>
+        </section>
 
-          <div className={cn(styles.section, 'relative')}>
-            <div className={cn(styles.gradient2, 'purple-bg-orb')} />
-            <div className={cn(styles.list, 'flex flex-wrap items-center md:flex-row w-full justify-between')}>
-              {NIFTY_DEGENS_ALL.map(({ name, image }) => (
-                <div className="mb-3 px-3 w-1/3" key={name}>
-                  <div className="flex flex-col">
-                    <AnimatedWrapper>
-                      <div className="text-center relative transition-fade-slow transition-fade-start delay-lite">
-                        <Image
-                          src={image.link}
-                          alt={name}
-                          width={desktop ? image.width : image.width / 2}
-                          height={desktop ? image.height : image.height / 2}
-                        />
-                      </div>
-                    </AnimatedWrapper>
-                    <AnimatedWrapper>
-                      <h6 className="text-center px-3 mt-3 transition-fade-slow transition-fade-start delay-lite">
-                        {name}
-                      </h6>
-                    </AnimatedWrapper>
+        <section className="section">
+          <div className={cn(styles.gradient2, 'purple-bg-orb')} />
+          <div className={cn(styles.list, 'flex flex-wrap items-center md:flex-row w-full justify-between')}>
+            {NIFTY_DEGENS_ALL.map(({ name, image }) => (
+              <div className="flex flex-col mb-3 px-3 w-1/3" key={name}>
+                <AnimatedWrapper>
+                  <div className="transition-fade-slow transition-fade-start delay-lite">
+                    <Image
+                      src={image.link}
+                      alt={name}
+                      width={desktop ? image.width : image.width / 2}
+                      height={desktop ? image.height : image.height / 2}
+                      className="mx-auto"
+                    />
                   </div>
-                </div>
-              ))}
-            </div>
-            <div className="mb-4">
+                </AnimatedWrapper>
+                <AnimatedWrapper>
+                  <h6 className="mx-auto text-center mt-3 transition-fade-slow transition-fade-start delay-lite">
+                    {name}
+                  </h6>
+                </AnimatedWrapper>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="mb-10 max-w-3xl mx-auto">
+            <div className="mb-5">
               <AnimatedWrapper>
-                <h3 className="mt-2 text-center transition-vertical-fade transition-vertical-fade-start delay-lite">
+                <h2 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">
                   DEGEN TRIBES
-                </h3>
+                </h2>
               </AnimatedWrapper>
             </div>
-            <div className="mb-0 relative">
+            <div className="relative">
               <AnimatedWrapper>
                 <p className="text-center transition-vertical-fade transition-vertical-fade-start delay-normal">
                   There are 7 genesis DEGEN tribes each with their own special abilities in our games. These NFTs are
@@ -198,20 +125,20 @@ const Degens: NextPage = () => {
               <div className={cn(styles.gradient1, 'purple-bg-orb')} />
             </div>
           </div>
-        </Container>
 
-        <DegensSection />
+          <DegenSpecialsTable />
 
-        <div className="flex justify-center mt-5 pb-8">
-          <AnimatedWrapper>
-            <a href="/docs/overview/nfts/degens/about" target="_blank" rel="noreferrer">
-              <button className="theme-btn-primary transition-fade-slow transition-fade-start delay-normal">
-                View Docs
-                <ExternalIcon />
-              </button>
-            </a>
-          </AnimatedWrapper>
-        </div>
+          <div className="flex justify-center mt-8">
+            <AnimatedWrapper>
+              <a href="/docs/overview/nfts/degens/about" target="_blank" rel="noreferrer">
+                <button className="theme-btn-primary transition-fade-slow transition-fade-start delay-normal">
+                  View Docs
+                  <ExternalIcon />
+                </button>
+              </a>
+            </AnimatedWrapper>
+          </div>
+        </section>
       </div>
     </>
   );

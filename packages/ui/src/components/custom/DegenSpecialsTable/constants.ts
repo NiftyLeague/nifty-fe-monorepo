@@ -1,7 +1,15 @@
+export interface DegenSpecial {
+  name: string;
+  description: string;
+  specialName: string;
+  gif: { link: string; width: number; height: number };
+  image: { link: string; width: number; height: number };
+}
+
 export const NIFTY_DEGENS = [
   {
     name: 'APE',
-    description: `If this ape is not eating bananas, he's throwing them. And those bananas hurt.`,
+    description: `If this ape is not eating bananas, he's throwing them. And those bananas hurt!`,
     specialName: 'Banana Boomerang',
     gif: { link: '/img/degens/specials/ape.gif', width: 512, height: 512 },
     image: { link: '/icons/tribes/ape.svg', width: 91, height: 100 },
@@ -22,14 +30,14 @@ export const NIFTY_DEGENS = [
   },
   {
     name: 'FROG',
-    description: `Watch out for the frog's sticky tongue! Draws another player in so that frog can issue a bonk. Also attaches to ceilings, walls and some platforms.`,
+    description: `Watch out for that sticky tongue! If it tags another player, they'll be reeled in for a bonk. Plus, that tongue can cling to ceilings, walls, and even some platforms.`,
     specialName: 'Sticky Tongue',
     gif: { link: '/img/degens/specials/frog.gif', width: 500, height: 500 },
     image: { link: '/icons/tribes/frog.svg', width: 120, height: 95 },
   },
   {
     name: 'CAT',
-    description: `Charging up Cat's wiggle results in a temporary speed and power buff. The longer the charge-up, the longer and more powerful the buffs. Me-OW.`,
+    description: `Charging up Cat's wiggle results in a temporary speed and power buff. The longer the charge-up, the longer and more powerful the buffs. Me-OW!`,
     specialName: 'Charge Up',
     gif: { link: '/img/degens/specials/cat.gif', width: 512, height: 512 },
     image: { link: '/icons/tribes/cat.svg', width: 120, height: 100 },
@@ -43,9 +51,9 @@ export const NIFTY_DEGENS = [
   },
   {
     name: 'HYDRA',
-    description: `The Hydras use a trident spear. They are an ancient tribe with a deep combat lineage and a VERY vicious special move.`,
+    description: `The Hydras use a trident spear. They are an ancient tribe with a deep combat lineage and a VERY vicious special move!`,
     specialName: 'Trident Dash',
     gif: { link: '/img/degens/specials/hydra.gif', width: 512, height: 512 },
     image: { link: '/icons/tribes/hydra.svg', width: 120, height: 120 },
   },
-];
+] as DegenSpecial[];
