@@ -9,7 +9,7 @@ export const animateClass =
 
 export function SocialsFooter({ children, classes }: { children?: ReactNode; classes?: { footer?: string } }) {
   return (
-    <footer className={cn('py-10 px-5', classes?.footer)}>
+    <footer className={cn('my-10 px-5', classes?.footer)}>
       {children}
       <div className="flex flex-col space-y-6">
         <div className="flex justify-center items-center space-x-6">

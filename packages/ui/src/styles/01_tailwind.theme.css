@@ -2,11 +2,11 @@
 
 @theme {
   /* Screen Sizes */
-  --breakpoint-sm: 640px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 1024px;
-  --breakpoint-xl: 1280px;
-  --breakpoint-2xl: 1536px;
+  --breakpoint-sm: 40rem; /* 640px */
+  --breakpoint-md: 48rem; /* 768px */
+  --breakpoint-lg: 64rem; /* 1024px */
+  --breakpoint-xl: 80rem; /* 1280px */
+  --breakpoint-2xl: 96rem; /* 1536px */
 
   /* Disable Default Colors https://tailwindcss.com/docs/colors */
   --color-amber-*: initial;
@@ -156,5 +156,5 @@
   /* ======================|| OTHER ||======================= */
   --custom-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.8);
   --custom-spacing: 5px;
-  --custom-max-width: 1200px;
+  --custom-max-width: var(--max-w-5xl); /* 1024px */
 }

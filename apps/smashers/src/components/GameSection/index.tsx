@@ -1,10 +1,6 @@
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
-
-import styles from './index.module.css';
 
 const GameSection = () => {
   function playVid() {
@@ -12,10 +8,10 @@ const GameSection = () => {
     vid?.play();
   }
   return (
-    <Container className={styles.container}>
+    <div className="flex flex-col-reverse lg:flex-col">
       <Grid container spacing={6}>
-        <Grid size={{ xs: 12, sm: 6 }} className={styles.section}>
-          <div style={{ marginBottom: 25 }}>
+        <Grid size={{ xs: 12, md: 7, lg: 6 }}>
+          <div className="text-center lg:text-left mb-6">
             <AnimatedWrapper>
               <h2 className="transition-vertical-fade transition-vertical-fade-start delay-lite">
                 FREE-TO-PLAY
@@ -24,7 +20,7 @@ const GameSection = () => {
               </h2>
             </AnimatedWrapper>
           </div>
-          <div style={{ position: 'relative' }}>
+          <div className="text-center lg:text-left">
             <AnimatedWrapper>
               <p className="transition-vertical-fade transition-vertical-fade-start delay-normal">
                 Nifty Smashers is an <strong>online multiplayer</strong> that blends elements of a{' '}
@@ -38,10 +34,10 @@ const GameSection = () => {
             </AnimatedWrapper>
           </div>
         </Grid>
-        <Grid size={{ xs: 12, sm: 6 }} className={styles.section}>
-          <div className={styles.highlight_video} onClick={playVid}>
+        <Grid size={{ xs: 12, md: 5, lg: 6 }}>
+          <div onClick={playVid}>
             <AnimatedWrapper>
-              <div className="relative transition-quick-pop transition-quick-pop-start delay-lite">
+              <div className="transition-quick-pop transition-quick-pop-start delay-lite">
                 <video
                   id="level-video"
                   width="100%"
@@ -60,24 +56,19 @@ const GameSection = () => {
           </div>
         </Grid>
       </Grid>
-      <Grid container marginTop={8}>
-        <AnimatedWrapper>
-          <div
-            style={{ position: 'relative' }}
-            className="text-center transition-fade-slow transition-fade-start delay-lite"
-          >
-            <Image
-              src="/img/games/smashers/party_modes.gif"
-              alt="Smashers Party Modes"
-              width={1350}
-              height={556}
-              style={{ width: '100%', height: 'auto', borderRadius: '40px / 40px' }}
-              unoptimized
-            />
-          </div>
-        </AnimatedWrapper>
-      </Grid>
-    </Container>
+      <AnimatedWrapper>
+        <div className="my-10 text-center transition-fade-slow transition-fade-start delay-lite">
+          <Image
+            src="/img/games/smashers/party_modes.gif"
+            alt="Smashers Party Modes"
+            width={1350}
+            height={556}
+            style={{ width: '100%', height: 'auto', borderRadius: '40px / 40px' }}
+            unoptimized
+          />
+        </div>
+      </AnimatedWrapper>
+    </div>
   );
 };
 
