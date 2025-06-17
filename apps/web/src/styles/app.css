@@ -26,49 +26,7 @@
   width: auto;
 }
 
-/* ==============================|| COMMUNITY ||============================== */
-
-.com-pg {
-  overflow-x: hidden;
-}
-
-.community-data {
-  border-radius: var(--border-radius-default);
-  background:
-    linear-gradient(26.04deg, rgba(110, 51, 237, 0.05) -0.03%, rgba(123, 97, 255, 0.025) 99.2%), rgba(36, 37, 38, 0.6);
-  width: 100%;
-  min-width: 100%;
-  min-height: 125px;
-  cursor: pointer;
-}
-
-.moon-grad {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: -1;
-}
-
-@media (min-width: 1200px) {
-  .earth-com {
-    margin-bottom: -100px;
-  }
-}
-
-.earth-grad {
-  position: absolute;
-  right: 0;
-  left: auto;
-  top: 300px;
-  width: 80%;
-  z-index: -1;
-}
-
 /* ==============================|| TEAM ||============================== */
-
-.team-pg {
-  overflow-x: hidden;
-}
 
 .about-team-name {
   overflow: hidden;
@@ -82,15 +40,6 @@
 
 /* ==============================|| HOME ||============================== */
 
-.home-pg {
-  overflow-x: hidden;
-}
-
-.home-pg .container {
-  padding-left: 0px;
-  padding-right: 0px;
-}
-
 .home-satoshi-container {
   position: absolute;
   bottom: 74px;
@@ -100,12 +49,6 @@
 .home-satoshi {
   width: 226px;
   height: 240px;
-}
-
-.home-intro {
-  width: 100%;
-  max-height: 100vh;
-  overflow: hidden;
 }
 
 .home-content {
@@ -211,10 +154,6 @@
   position: absolute;
   top: 200px;
   left: 52px;
-}
-
-.inner-container {
-  max-width: 1400px;
 }
 
 .home-nftl-token-section-description {
@@ -340,9 +279,6 @@
 }
 
 @media (max-width: 1200px) {
-  .home-pg .btn {
-    height: 40px;
-  }
   .home-content {
     left: 188px;
     bottom: 20px;
@@ -400,9 +336,6 @@
 }
 
 @media (max-width: 920px) {
-  .home-intro {
-    margin-top: 90px;
-  }
   .home-content {
     left: 0px;
     width: 100%;
@@ -464,9 +397,6 @@
 }
 
 @media (max-width: 768px) {
-  .home-intro {
-    display: none;
-  }
   .home-satoshi {
     width: 80px;
     height: 84px;
@@ -536,15 +466,6 @@
   .mobile {
     display: flex !important;
   }
-  .community-data {
-    min-width: auto;
-  }
-  .stay-informed-section {
-    margin-top: 100px !important;
-  }
-  .team-pg .about-intro .display-buttons {
-    justify-content: center;
-  }
   .video-detail-container a img {
     width: 315px;
     height: auto;
@@ -571,27 +492,9 @@
   .slick-dots li.slick-active {
     background: var(--color-purple) !important;
   }
-  .earth-grad {
-    left: 0;
-    width: 100%;
-  }
-  .com-intro {
-    max-width: 100% !important;
-    padding-top: 48px;
-  }
-  .com-intro p br {
-    display: none;
-  }
-  .earth-com {
-    margin-top: 100px;
-  }
 }
 
 @media (max-width: 600px) {
-  .home-pg .btn {
-    height: 36px;
-    border-radius: 20px;
-  }
   .home-satoshi {
     width: 60px;
     height: 63px;
@@ -607,12 +510,6 @@
   }
   .mobile {
     display: flex !important;
-  }
-  .community-data {
-    min-width: auto;
-  }
-  .stay-informed-section {
-    margin-top: 100px !important;
   }
 }
 

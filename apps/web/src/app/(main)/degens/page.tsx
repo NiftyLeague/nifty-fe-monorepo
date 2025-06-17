@@ -11,15 +11,17 @@ import { cn } from '@nl/ui/lib/utils';
 
 import { NIFTY_DEGENS_ALL } from '@/constants/degens';
 import ExternalIcon from '@/components/ExternalIcon';
+import ViewDocsBtn from '@/components/ViewDocsBtn';
 import styles from './index.module.css';
 
 const Degens: NextPage = () => {
   const desktop = useMediaQuery('(min-width:768px)');
   return (
     <>
-      <div className="relative xl:-top-20 2xl:-top-35">
+      <section className="relative xl:-top-20 2xl:-top-35">
         <ConsoleGame src="/video/unboxing.mp4" />
-      </div>
+      </section>
+
       <div className="container">
         <section className="section">
           <div className="flex items-center justify-center flex-wrap mb-4 md:mb-5">
@@ -128,16 +130,7 @@ const Degens: NextPage = () => {
 
           <DegenSpecialsTable />
 
-          <div className="flex justify-center mt-8">
-            <AnimatedWrapper>
-              <a href="/docs/overview/nfts/degens/about" target="_blank" rel="noreferrer">
-                <button className="theme-btn-primary transition-fade-slow transition-fade-start delay-normal">
-                  View Docs
-                  <ExternalIcon />
-                </button>
-              </a>
-            </AnimatedWrapper>
-          </div>
+          <ViewDocsBtn href="/docs/overview/nfts/degens/about" />
         </section>
       </div>
     </>

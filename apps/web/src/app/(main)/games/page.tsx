@@ -1,69 +1,70 @@
 'use client';
 
-import useMediaQuery from '@mui/material/useMediaQuery';
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { cn } from '@nl/ui/lib/utils';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
+import { cn } from '@nl/ui/lib/utils';
+
+import ViewDocsBtn from '@/components/ViewDocsBtn';
 import { NIFTY_GAMES } from '@/constants/games';
-import { Container } from '@mui/material';
-import ExternalIcon from '@/components/ExternalIcon';
 import styles from './index.module.css';
 
 const Games: NextPage = () => {
   const desktop = useMediaQuery('(min-width:769px)');
   return (
-    <div className={cn(styles.container, 'overview mx-auto px-3 relative w-full')}>
+    <div className="container pt-20">
       <div className={cn(styles.gradient1, 'purple-bg-orb')} />
-      <Container>
-        <div className="flex items-center justify-center flex-wrap px-4 lg:px-5">
-          {desktop ? (
-            <div className="w-1/2 px-2 lg:px-3">
-              <AnimatedWrapper>
-                <div className="animate-zoom-out transition-fade-start transition-fade delay-long">
-                  <video id="lobby" width="100%" height="100%" muted autoPlay loop playsInline data-keepplaying>
-                    <source src="/video/lobby.mp4" type="video/mp4" />
-                  </video>
-                </div>
-              </AnimatedWrapper>
-            </div>
-          ) : (
-            <div className="w-1/3">
-              <AnimatedWrapper>
-                <div className="animate-zoom-out transition-fade-start transition-fade delay-long">
-                  <Image
-                    alt="Arcade"
-                    width={339}
-                    height={661}
-                    src="/img/games/smashers/arcade.webp"
-                    sizes="100vw"
-                    style={{ width: '100%', height: 'auto' }}
-                  />
-                </div>
-              </AnimatedWrapper>
-            </div>
-          )}
-          <div className="w-full md:w-1/2 px-2 lg:px-3">
-            <div className="mb-4">
-              <AnimatedWrapper>
-                <h1 className="text-center transition-fade-slow transition-fade-start delay-lite whitespace-nowrap">
-                  GAMES
-                </h1>
-              </AnimatedWrapper>
-            </div>
-            <div className="mb-5">
-              <AnimatedWrapper>
-                <p className="text-center transition-fade-slow transition-fade-start delay-normal">
-                  Join thousands of players around the world competing for the top spot in Nifty League!{' '}
-                </p>
-              </AnimatedWrapper>
-            </div>
+      <section className="section flex items-center justify-center flex-wrap">
+        {desktop ? (
+          <div className="w-1/2 px-2 lg:px-3">
+            <AnimatedWrapper>
+              <div className="animate-zoom-out transition-fade-start transition-fade delay-long">
+                <video id="lobby" width="100%" height="100%" muted autoPlay loop playsInline data-keepplaying>
+                  <source src="/video/lobby.mp4" type="video/mp4" />
+                </video>
+              </div>
+            </AnimatedWrapper>
+          </div>
+        ) : (
+          <div className="w-1/3">
+            <AnimatedWrapper>
+              <div className="animate-zoom-out transition-fade-start transition-fade delay-long">
+                <Image
+                  alt="Arcade"
+                  width={339}
+                  height={661}
+                  src="/img/games/smashers/arcade.webp"
+                  sizes="100vw"
+                  style={{ width: '100%', height: 'auto', marginBottom: '6rem' }}
+                />
+              </div>
+            </AnimatedWrapper>
+          </div>
+        )}
+        <div className="w-full md:w-1/2 px-2 lg:px-3">
+          <div className="mb-4">
+            <AnimatedWrapper>
+              <h1 className="text-center transition-fade-slow transition-fade-start delay-lite whitespace-nowrap">
+                GAMES
+              </h1>
+            </AnimatedWrapper>
+          </div>
+          <div className="mb-5">
+            <AnimatedWrapper>
+              <p className="text-center transition-fade-slow transition-fade-start delay-normal">
+                Join thousands of players around the world competing for the top spot in Nifty League!{' '}
+              </p>
+            </AnimatedWrapper>
           </div>
         </div>
+      </section>
 
+      <section className="section">
         {NIFTY_GAMES.map(({ name, description, video, tag, action }, index) => (
-          <div className={cn(styles.section, 'flex flex-col-reverse md:flex-row relative')} key={name}>
+          <article className="flex flex-col-reverse md:flex-row relative mb-8" key={name}>
             <div className={cn(styles.block, 'w-full md:w-7/12 pr-0 md:pr-5')}>
               <div className="flex flex-row items-center justify-between mb-3">
                 <AnimatedWrapper>
@@ -156,19 +157,11 @@ const Games: NextPage = () => {
                 'purple-bg-orb',
               )}
             />
-          </div>
+          </article>
         ))}
-      </Container>
-      <div className="flex justify-center mt-5 md:mt-3 pb-8">
-        <AnimatedWrapper>
-          <a href="/docs/guides/nifty-smashers/general-info" target="_blank" rel="noreferrer">
-            <button className="theme-btn-primary transition-fade-slow transition-fade-start delay-normal">
-              View Docs
-              <ExternalIcon />
-            </button>
-          </a>
-        </AnimatedWrapper>
-      </div>
+
+        <ViewDocsBtn href="/docs/guides/nifty-smashers/general-info" />
+      </section>
     </div>
   );
 };

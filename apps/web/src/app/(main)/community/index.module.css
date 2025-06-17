@@ -1,0 +1,24 @@
+/* ==============================|| COMMUNITY ||============================== */
+
+.moon_grad {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: -1;
+}
+
+.earth_grad {
+  position: absolute;
+  right: 0;
+  left: auto;
+  top: 300px;
+  width: 80%;
+  z-index: -1;
+}
+
+@media (max-width: 768px) {
+  .earth_grad {
+    left: 0;
+    width: 100%;
+  }
+}

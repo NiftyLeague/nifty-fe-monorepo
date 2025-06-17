@@ -6,8 +6,8 @@ import styles from './index.module.css';
 
 const CompeteAndEarn: NextPage = () => {
   return (
-    <div className={cn(styles.container, 'overview mx-auto px-3')}>
-      <div className="flex flex-col-reverse md:flex-row items-center justify-center relative">
+    <div className="container pt-20">
+      <section className="section flex flex-col-reverse md:flex-row items-center justify-center relative">
         <div className={cn(styles.block, 'flex flex-col w-full md:w-1/2 pr-0 md:pr-5 relative')}>
           <div className="mb-2 mb-md-4">
             <AnimatedWrapper>
@@ -40,38 +40,40 @@ const CompeteAndEarn: NextPage = () => {
             </AnimatedWrapper>
           </div>
         </div>
-      </div>
-      <div className={cn(styles.content, 'mx-auto')}>
-        <div className="flex flex-col-reverse md:flex-row mt-3 md:mt-5 py-5 items-center relative">
-          <div className={cn(styles.block, 'w-full md:w-1/2 pr-5')}>
-            <div className="mb-3">
-              <AnimatedWrapper>
-                <h3 className="transition-vertical-fade transition-vertical-fade-start delay-lite">HOW IT WORKS</h3>
-              </AnimatedWrapper>
-            </div>
+      </section>
+
+      <section className="section flex flex-col-reverse md:flex-row mt-3 md:mt-5 py-5 items-center relative">
+        <div className={cn(styles.block, 'w-full md:w-1/2 pr-5')}>
+          <div className="mb-3">
             <AnimatedWrapper>
-              <p className="transition-vertical-fade transition-vertical-fade-start delay-normal">
-                4 - 16 Players pool NFTL together in a cuththroat battle for the survuval of the fittest. Only the
-                first, second and third positions will take home earnings from the pooled pot!
-              </p>
+              <h3 className="transition-vertical-fade transition-vertical-fade-start delay-lite">HOW IT WORKS</h3>
             </AnimatedWrapper>
           </div>
-          <div className="w-full md:w-1/2">
-            <AnimatedWrapper>
-              <div className="relative text-right transition-fade-slow transition-fade-start delay-normal mb-4 md:mb-0 ps-0 lg:ps-5">
-                <iframe
-                  src="https://www.youtube.com/embed/wv_fI1PPBi0"
-                  frameBorder="0"
-                  allow="autoplay; encrypted-media"
-                  allowFullScreen
-                  title="Nifty League Compete & Earn"
-                  className={styles.video}
-                />
-              </div>
-            </AnimatedWrapper>
-          </div>
-          <div className={cn(styles.gradient3, 'purple-bg-orb')} />
+          <AnimatedWrapper>
+            <p className="transition-vertical-fade transition-vertical-fade-start delay-normal">
+              4 - 16 Players pool NFTL together in a cuththroat battle for the survuval of the fittest. Only the first,
+              second and third positions will take home earnings from the pooled pot!
+            </p>
+          </AnimatedWrapper>
         </div>
+        <div className="w-full md:w-1/2">
+          <AnimatedWrapper>
+            <div className="relative text-right transition-fade-slow transition-fade-start delay-normal mb-4 md:mb-0 ps-0 lg:ps-5">
+              <iframe
+                src="https://www.youtube.com/embed/wv_fI1PPBi0"
+                frameBorder="0"
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+                title="Nifty League Compete & Earn"
+                className={styles.video}
+              />
+            </div>
+          </AnimatedWrapper>
+        </div>
+        <div className={cn(styles.gradient3, 'purple-bg-orb')} />
+      </section>
+
+      <section className="section">
         <AnimatedWrapper>
           <h3 className="mt-3 mt-md-5 text-center transition-fade transition-fade-start delay-normal">GAME MODES</h3>
         </AnimatedWrapper>
@@ -107,7 +109,7 @@ const CompeteAndEarn: NextPage = () => {
           </div>
         </AnimatedWrapper>
 
-        <div className="flex justify-center mt-8 pb-8">
+        <div className="flex justify-center mt-10">
           <AnimatedWrapper>
             <a href="https://app.niftyleague.com/" target="_blank" rel="noreferrer">
               <button className="theme-btn-primary transition-fade transition-fade-start delay-lite">
@@ -116,7 +118,7 @@ const CompeteAndEarn: NextPage = () => {
             </a>
           </AnimatedWrapper>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

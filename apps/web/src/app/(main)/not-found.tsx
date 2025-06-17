@@ -3,7 +3,7 @@
 import Head from 'next/head';
 import { styled } from '@nl/theme';
 import { Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
-import Layout from '@/components/Layout';
+import MainLayout from '@/components/MainLayout';
 
 // styles
 const CardMediaWrapper = styled('div')({ maxWidth: 720, margin: '0 auto', position: 'relative' });
@@ -48,7 +48,7 @@ const CardMediaPurple = styled('img')({
 
 const NotFoundPage = () => {
   return (
-    <Layout>
+    <MainLayout>
       <Head>
         <title>Nifty League | 404</title>
       </Head>
@@ -82,7 +82,7 @@ const NotFoundPage = () => {
           </Grid>
         </CardContent>
       </ErrorCard>
-    </Layout>
+    </MainLayout>
   );
 };
 

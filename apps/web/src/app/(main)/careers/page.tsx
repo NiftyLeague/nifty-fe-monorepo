@@ -2,27 +2,20 @@
 
 import type { NextPage } from 'next';
 import Image from 'next/image';
-import { cn } from '@nl/ui/lib/utils';
+import { useMediaQuery } from '@mui/material';
 
-import { Container, useMediaQuery } from '@mui/material';
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import JobCard from '@/components/Careers/JobCard';
 import { JOBS } from '@/constants/careers';
-import styles from './index.module.css';
 
 const Careers: NextPage = () => {
   const desktop = useMediaQuery('(min-width:769px)');
   return (
-    <Container>
-      <div className={cn(styles.topSection, 'flex items-center justify-center flex-wrap px-3')}>
+    <div className="container pt-20">
+      <section className="section flex items-center justify-center flex-wrap">
         <div className={`${desktop ? 'w-1/2 pr-5' : 'w-full mb-5'}`}>
           <AnimatedWrapper>
-            <div
-              className={cn(
-                styles.imageContainer,
-                'relative flex-grow-1 transition-fade-start transition-fade delay-lite',
-              )}
-            >
+            <div className="relative flex-grow-1 transition-fade-start transition-fade delay-lite">
               <Image
                 src="/img/careers/careers_v02_2x.webp"
                 alt="Satoshi moon"
@@ -36,7 +29,7 @@ const Careers: NextPage = () => {
           </AnimatedWrapper>
         </div>
         <div className={`${desktop ? 'w-1/2' : 'w-full'}`}>
-          <div className={styles.description}>
+          <div className="flex-1 text-center md:text-left">
             <div className="mb-3">
               <AnimatedWrapper>
                 <h3 className="transition-vertical-fade transition-vertical-fade-start whitespace-nowrap">
@@ -56,14 +49,14 @@ const Careers: NextPage = () => {
             </AnimatedWrapper>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div className="py-5">
+      <section className="section">
         {JOBS.map(details => (
           <JobCard key={details.id} details={details} />
         ))}
-      </div>
-    </Container>
+      </section>
+    </div>
   );
 };
 

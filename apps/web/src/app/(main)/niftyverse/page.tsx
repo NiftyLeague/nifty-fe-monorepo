@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import type { NextPage } from 'next';
-import { Container, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import ConsoleGame from '@nl/ui/custom/ConsoleGame';
@@ -8,12 +8,13 @@ import { cn } from '@nl/ui/lib/utils';
 
 import { NIFTYVERSE_PROPERTIES } from '@/constants/niftyverse';
 import ExternalIcon from '@/components/ExternalIcon';
+import ViewDocsBtn from '@/components/ViewDocsBtn';
 import styles from './index.module.css';
 
 const NiftyVerse: NextPage = () => {
   return (
     <>
-      <div className="relative xl:-top-20 2xl:-top-35">
+      <section className="relative xl:-top-20 2xl:-top-35">
         <ConsoleGame src="/video/mansion_showcase.mp4" />
         <Stack
           direction="row"
@@ -37,11 +38,11 @@ const NiftyVerse: NextPage = () => {
             </a>
           </AnimatedWrapper>
         </Stack>
-      </div>
+      </section>
 
-      <Container className="pt-12">
-        <div className={'flex flex-col-reverse md:flex-row items-center justify-center pb-12 md:pb-20'}>
-          <div className={cn(styles.block, 'flex flex-col w-full md:w-1/2 lg:w-7/12 pr-0 md:pr-3')}>
+      <div className="container">
+        <section className="section flex flex-col-reverse md:flex-row items-center justify-center">
+          <div className="flex flex-col w-full md:w-1/2 lg:w-7/12 pr-0 md:pr-3 text-center md:text-left">
             <div className="mb-2 mb-md-3">
               <AnimatedWrapper>
                 <h1 className="transition-vertical-fade transition-vertical-fade-start">NIFTYVERSE</h1>
@@ -69,8 +70,9 @@ const NiftyVerse: NextPage = () => {
             </AnimatedWrapper>
           </div>
           <div className={cn(styles.gradient1, 'purple-bg-orb')} />
-        </div>
-        <div className={cn(styles.section, 'relative')}>
+        </section>
+
+        <section className="section">
           <div className={cn(styles.gradient2, 'purple-bg-orb')} />
           <div className="mb-3 mb-md-5">
             <AnimatedWrapper>
@@ -79,11 +81,9 @@ const NiftyVerse: NextPage = () => {
               </h3>
             </AnimatedWrapper>
           </div>
-          <div
-            className={cn(styles.properties, 'flex flex-col items-start md:flex-row w-full justify-between flex-wrap')}
-          >
+          <div className="flex flex-col items-start md:flex-row w-full justify-between flex-wrap">
             {NIFTYVERSE_PROPERTIES.map(({ name, description, image }) => (
-              <div className={'w-full flex flex-col lg:flex-row relative py-3 px-2 mb-3 md:mb-5'} key={name}>
+              <div className="w-full md:w-1/2 flex flex-col lg:flex-row relative py-3 px-2 mb-3 md:mb-5" key={name}>
                 <div className="w-full lg:w-1/2 lg:pr-2 flex flex-col">
                   <AnimatedWrapper>
                     <h6 className="my-0 transition-fade-slow transition-fade-start delay-lite">{name}</h6>
@@ -110,18 +110,9 @@ const NiftyVerse: NextPage = () => {
               </div>
             ))}
           </div>
-          <div className="flex justify-center mt-5 pb-8">
-            <AnimatedWrapper>
-              <a href="/docs/overview/games/niftyverse" target="_blank" rel="noreferrer">
-                <button className="theme-btn-primary transition-fade-slow transition-fade-start delay-lite">
-                  View Docs
-                  <ExternalIcon />
-                </button>
-              </a>
-            </AnimatedWrapper>
-          </div>
-        </div>
-      </Container>
+          <ViewDocsBtn href="/docs/overview/games/niftyverse" />
+        </section>
+      </div>
     </>
   );
 };

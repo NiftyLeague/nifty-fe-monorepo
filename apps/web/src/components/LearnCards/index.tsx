@@ -73,7 +73,7 @@ const LearnCards = () => {
   return (
     <div className="flex flex-wrap -mx-1 sm:-mx-2 pt-3 lg:pt-5 lg:mt-3">
       {LEARN_CARDS.map(({ btnText, external, image, link, subtitle, title }) => (
-        <div key={title} className="w-full sm:w-1/2 p-1 sm:p-2">
+        <div key={title} className="w-full sm:w-1/2 p-2">
           <LearnCard
             btnText={btnText}
             external={external}
