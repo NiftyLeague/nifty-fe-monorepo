@@ -1,5 +1,4 @@
 @import '@nl/ui/styles.css';
-@import './slick.css';
 
 /* ==============================|| OVERRIDES ||============================== */
 
@@ -24,31 +23,17 @@
   -webkit-box-orient: vertical;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   .teams-slider .nifty-teams {
     width: 100%;
     text-align: center;
     justify-content: center;
   }
-
-  .slick-dots {
-    justify-content: center;
-    margin-bottom: 30px;
-  }
-  .slick-dots li {
-    width: 8px !important;
-    height: 8px !important;
-    border-radius: var(--border-radius-default);
-    background: var(--color-foreground) !important;
-  }
-  .slick-dots li.slick-active {
-    background: var(--color-purple) !important;
-  }
 }
 
 /* ==============================|| MEDIA QUERIES ||============================== */
 
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
   .desktop {
     display: flex !important;
   }
@@ -57,7 +42,7 @@
   }
 }
 
-@media (max-width: 768px) or (orientation: landscape) and (max-width: 550px) {
+@media (max-width: 48rem) or ((orientation: landscape) and (max-width: 550px)) {
   .desktop {
     display: none !important;
   }
