@@ -2,26 +2,25 @@
 
 import type { NextPage } from 'next';
 import Link from 'next/link';
-import { cn } from '@nl/ui/lib/utils';
+
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import Carousel from '@/components/Carousel';
 import { RenderTeamCardItem } from '@/components/Carousel/TeamCardItem';
 import TeamDesktop from '@/components/TeamDesktop';
 import { CORE_TEAM, DEGEN_DELEGATES } from '@/constants/team';
-import styles from './index.module.css';
 
 const Team: NextPage = () => {
   return (
     <>
-      <div className={cn(styles.container, 'mx-auto px-3')}>
-        <div className="about-intro mt-5 pt-5 relative">
-          <div className="flex flex-col m-0 p-0 sm:pt-5 relative items-center">
+      <div className="container pt-20">
+        <section className="section relative">
+          <div className="flex flex-col items-center">
             <AnimatedWrapper>
               <h1 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">
                 NIFTY DAO
               </h1>
             </AnimatedWrapper>
-            <div className={cn(styles.body, 'mt-5 sm:mt-3')}>
+            <div className="mt-5 sm:mt-3 max-w-2xl">
               <AnimatedWrapper>
                 <p className="text-center p1 transition-vertical-fade transition-vertical-fade-start delay-normal">
                   Nifty League is a game studio at the cutting edge of Web3. Our mission is to inspire indie game
@@ -41,7 +40,7 @@ const Team: NextPage = () => {
               </AnimatedWrapper>
             </div>
 
-            <div className="display-buttons mt-3 md:mt-4 flex justify-center desktop">
+            <div className="mt-3 md:mt-4 flex justify-center desktop">
               <AnimatedWrapper>
                 <Link href="/careers">
                   <button className="theme-btn-primary mx-2 transition-fade-slow transition-fade-start delay-normal">
@@ -58,27 +57,25 @@ const Team: NextPage = () => {
               </AnimatedWrapper>
             </div>
           </div>
-          <div className={cn(styles.gradient1, 'purple-bg-orb')} />
-        </div>
-      </div>
+          <div className="purple-bg-orb top-0 right-0" />
+        </section>
 
-      <div className={cn(styles.container, 'mx-auto px-3')}>
-        <div className={cn(styles.section, 'relative pb-5')}>
+        <section className="section">
           <AnimatedWrapper>
             <h4 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">
               MEET THE DEGENS WHO MAKE NIFTY LEAGUE POSSIBLE
             </h4>
           </AnimatedWrapper>
           <TeamDesktop />
-          <section
+          <div
             className="teams-slider slider px-0 block md:hidden"
             style={{ alignItems: 'center', maxWidth: '100%', textAlign: 'center', minHeight: 300 }}
           >
             <Carousel isMobileViewOnly hideGradient tabletItems={2}>
               {[...CORE_TEAM, ...DEGEN_DELEGATES].map(RenderTeamCardItem)}
             </Carousel>
-          </section>
-        </div>
+          </div>
+        </section>
       </div>
     </>
   );

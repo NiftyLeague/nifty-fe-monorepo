@@ -2,17 +2,16 @@ import type { NextPage } from 'next';
 import Image from 'next/image';
 import { cn } from '@nl/ui/lib/utils';
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
-import ExternalIcon from '@/components/ExternalIcon';
+import ViewDocsBtn from '@/components/ViewDocsBtn';
 import styles from './index.module.css';
 
 const Lore: NextPage = () => {
   return (
-    <div className={cn(styles.container, 'overview mx-auto px-3 w-full')}>
-      <div>
-        <AnimatedWrapper>
-          <h1 className="text-center transition-fade-slow transition-fade-start delay-lite mb-3">LORE</h1>
-        </AnimatedWrapper>
-      </div>
+    <div className="pt-20">
+      <AnimatedWrapper>
+        <h1 className="text-center transition-fade-slow transition-fade-start delay-lite mb-3">LORE</h1>
+      </AnimatedWrapper>
+
       <div className={styles.content}>
         <div className={styles.background}>
           <div className={styles.inner}>
@@ -150,15 +149,9 @@ const Lore: NextPage = () => {
         <div className={cn(styles.gradient2, 'purple-bg-orb')} />
         <div className={cn(styles.gradient3, 'purple-bg-orb')} />
       </div>
-      <div className="flex justify-center pb-8">
-        <AnimatedWrapper>
-          <a href="/docs/overview/intro" target="_blank" rel="noreferrer">
-            <button className="theme-btn-primary transition-fade-slow transition-fade-start delay-lite">
-              View Docs
-              <ExternalIcon />
-            </button>
-          </a>
-        </AnimatedWrapper>
+
+      <div className="w-full absolute -mt-40">
+        <ViewDocsBtn href="/docs/overview/intro" />
       </div>
     </div>
   );
