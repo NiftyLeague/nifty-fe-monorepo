@@ -18,11 +18,10 @@ const NiftyVerse: NextPage = () => {
         <ConsoleGame src="/video/mansion_showcase.mp4" />
         <Stack
           direction="row"
-          sx={{ justifyContent: 'center', alignItems: 'center' }}
           gap={{ xs: 1.25, xl: 4 }}
           px={{ xs: 2, md: 0 }}
           mt={{ xs: 2, sm: 0 }}
-          className="game-playing-actions !bottom-4"
+          className="absolute w-full justify-center items-center bottom-0 sm:bottom-4"
         >
           <AnimatedWrapper>
             <button disabled className="theme-btn-primary transition-fade transition-fade-start delay-normal">

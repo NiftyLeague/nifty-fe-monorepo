@@ -1,0 +1,425 @@
+/* ==============================|| HOME PG ||============================== */
+
+.home-satoshi-container {
+  position: absolute;
+  bottom: 74px;
+  left: -14px;
+}
+
+.home-satoshi {
+  width: 226px;
+  height: 240px;
+}
+
+.home-content {
+  position: absolute;
+  z-index: 3;
+  left: 232px;
+  bottom: 4rem;
+}
+
+.home-content-description {
+  max-width: 450px;
+}
+
+.speech-bubble-text {
+  color: var(--color-dark) !important;
+  text-transform: uppercase;
+  font-size: 24px;
+  position: absolute;
+  top: 56px;
+  left: 133px;
+  font-weight: 700;
+}
+
+.home-hero-characters-image,
+.home-nftl-token-image {
+  width: 100%;
+  height: 100%;
+  bottom: 0px;
+  right: 0px;
+}
+
+.home-nftl-token-bottom-image {
+  right: 50px;
+}
+
+.home-hero-companion-swing {
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  background-size: cover;
+}
+
+.home-hero-companion {
+  position: absolute;
+  right: 12%;
+  top: 12%;
+  width: 12%;
+}
+
+.home-hero-halo {
+  position: absolute;
+  right: 25.5%;
+  top: 21.5%;
+  width: 9%;
+}
+
+.satoshi-learn-more {
+  width: 407px;
+  height: 125px;
+  margin-left: -40px;
+  cursor: pointer;
+}
+
+.home-mobile-intro {
+  background: var(--color-background-2);
+  background-size: cover;
+  background-image: url(/img/backgrounds/banner-dark.webp);
+  min-height: 100vh;
+}
+.home-mobile-intro .overlay-dark {
+  width: 100%;
+  height: 100vh;
+  background: rgba(25, 27, 31, 1);
+  opacity: 0.8999999761581421;
+  position: absolute;
+  top: 0px;
+  overflow: hidden;
+}
+
+.section-title {
+  max-width: 545px;
+}
+
+.section-description {
+  max-width: 410px;
+}
+
+.compete-to-earn-section {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: 30px;
+}
+
+.home-dashboard-section {
+  position: absolute;
+  top: 200px;
+  left: 52px;
+}
+
+.home-nftl-token-section-description {
+  max-width: 560px;
+}
+
+.compete-to-earn-section-token-1 {
+  position: absolute;
+  left: -226px;
+  top: calc(50% - 110px);
+  width: 226px;
+  height: 223px;
+}
+
+.compete-to-earn-section-token-2 {
+  position: absolute;
+  right: -32px;
+  top: 0px;
+  width: 226px;
+  height: 221px;
+}
+
+.compete-to-earn-section-token-3 {
+  position: absolute;
+  bottom: -126px;
+  width: 246px;
+  z-index: -1;
+  left: calc(50% - 123px);
+}
+
+.compete-to-earn-section-token-4 {
+  width: 246px;
+  left: calc(50% - 123px);
+  top: calc(50% - 123px);
+}
+
+.social-icons a {
+  font-size: 20px;
+}
+.social-icons a:hover {
+  color: var(--color-purple);
+}
+.social-icons a:hover path {
+  fill: var(--color-purple);
+}
+
+/* ==============================|| MEDIA QUERIES ||============================== */
+
+@media (max-width: 1600px) {
+  .speech-bubble-text {
+    font-size: 20px;
+    top: 50px;
+    left: 123px;
+  }
+  .home-content {
+    left: 188px;
+    bottom: 1.5rem;
+  }
+  .home-satoshi-container {
+    bottom: 43px;
+  }
+  .home-satoshi {
+    width: 180px;
+    height: 190px;
+  }
+  .satoshi-learn-more {
+    width: 348px;
+    height: 107px;
+  }
+  .compete-to-earn-section {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .compete-to-earn-section-token-1 {
+    width: 180px;
+    height: 185px;
+    left: -180px;
+    top: calc(50% - 90px);
+  }
+  .compete-to-earn-section-token-2 {
+    width: 180px;
+    height: 185px;
+  }
+  .compete-to-earn-section-token-3 {
+    width: 200px;
+    left: calc(50% - 100px);
+  }
+  .compete-to-earn-section-token-4 {
+    width: 200px;
+    left: calc(50% - 100px);
+    top: calc(50% - 100px);
+  }
+}
+
+@media (max-width: 1400px) {
+  .home-satoshi-container {
+    bottom: 44px;
+  }
+  .home-satoshi {
+    width: 140px;
+    height: 148px;
+  }
+  .home-dashboard-section {
+    top: 100px;
+    left: 8px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .home-content {
+    left: 188px;
+    bottom: 20px;
+  }
+  .home-satoshi-container {
+    bottom: 40px;
+  }
+  .section-description {
+    max-width: 340px;
+  }
+  .home-dashboard-section {
+    top: 100px;
+  }
+  .compete-to-earn-section-token-4 {
+    width: 160px;
+    left: calc(50% - 80px);
+    top: calc(50% - 80px);
+  }
+}
+
+@media (max-width: 1052px) {
+  .home-content {
+    left: 126px;
+    bottom: 0px;
+  }
+  .satoshi-learn-more {
+    width: 260px;
+    height: 80px;
+    margin-left: -28px;
+  }
+  .speech-bubble-text {
+    font-size: 16px;
+    top: 36px;
+    left: 86px;
+  }
+  .home-satoshi-container {
+    bottom: 20px;
+  }
+  .home-satoshi {
+    width: 120px;
+    height: 127px;
+  }
+  .section-title {
+    max-width: 460px;
+  }
+  .compete-to-earn-section-token-1 {
+    display: none;
+  }
+  .compete-to-earn-section-token-2 {
+    display: none;
+  }
+  .home-dashboard-section {
+    top: 100px;
+  }
+}
+
+@media (max-width: 920px) {
+  .home-content {
+    left: 0px;
+    width: 100%;
+  }
+  .home-content-title {
+    max-width: inherit;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .home-content-description {
+    max-width: 600px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+  .satoshi-learn-more {
+    margin-left: 75px;
+  }
+  .speech-bubble-text {
+    font-size: 16px;
+    top: 36px;
+    left: 86px;
+  }
+  .home-satoshi-container {
+    bottom: 30px;
+    left: 0 !important;
+    display: block;
+  }
+  .home-satoshi {
+    width: 100px;
+    height: 105px;
+    left: 0 !important;
+    display: block;
+  }
+  .section-title {
+    max-width: 400px;
+  }
+  .section-description {
+    max-width: 280px;
+  }
+  .home-community-section .section-actions {
+    max-width: 400px;
+  }
+  .home-hero-characters-image {
+    height: calc(100% - 72px);
+  }
+  .home-hero-companion {
+    top: calc(14% + 50px);
+  }
+  .home-hero-halo {
+    right: 25%;
+    top: calc(22.5% + 50px);
+  }
+}
+
+@media (max-width: 768px) {
+  .home-satoshi {
+    width: 80px;
+    height: 84px;
+  }
+  .compete-to-earn-section {
+    width: 100%;
+    margin-left: 0px;
+  }
+  .section-description {
+    max-width: 600px;
+    text-align: center;
+  }
+  .compete-to-earn-section-body .section-actions {
+    justify-content: center;
+  }
+  .home-dashboard-section {
+    position: relative;
+    top: 0px;
+    left: 0px;
+  }
+  .home-dashboard-section-body {
+    align-items: center;
+  }
+  .home-nftl-token-section {
+    width: 100%;
+  }
+  .home-community-section-container {
+    width: 100%;
+  }
+  .home-community-section .section-actions {
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+  .section-heading {
+    max-width: inherit;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 24px;
+  }
+  .home-nftl-token-section-body {
+    width: 100%;
+    align-items: center;
+  }
+  .home-nftl-token-section-description {
+    max-width: 600px;
+    text-align: center;
+  }
+  .home-nftl-token-bottom-image {
+    right: 25px;
+  }
+  .home-community-characters {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .home-satoshi {
+    width: 60px;
+    height: 63px;
+  }
+  .home-mobile-intro button {
+    width: 195px;
+  }
+}
+
+@media (max-width: 400px) {
+  .section-actions {
+    width: 100%;
+  }
+  .section-actions > div {
+    flex: 1;
+  }
+  .section-actions button {
+    width: 100%;
+  }
+  .home-hero-characters-image {
+    height: calc(100% - 62px);
+  }
+  .home-hero-companion {
+    display: none;
+  }
+  .home-hero-halo {
+    display: none;
+  }
+}

@@ -18,6 +18,8 @@ import { RenderDegen } from '@/components/Carousel/DegenCardItem';
 import { COMMUNITY_DEGEN_LIST } from '@/constants/degens';
 import { SPONSORS } from '@/constants/sponsors';
 
+import '@/styles/home.css';
+
 const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => void }) => {
   return (
     <section className="relative w-screen max-h-screen overflow-hidden">
@@ -197,7 +199,7 @@ const Home: NextPage = () => {
 
         <ConsoleGame src="/video/smashers.mp4" />
 
-        <div className="flex flex-row justify-center items-center gap-2 xl:gap-4 px-2 md:px-0 mt-2 sm:mt-0 md:pb-4 game-playing-actions">
+        <div className="absolute w-full flex flex-row justify-center items-center gap-2 xl:gap-4 bottom-0 sm:bottom-4">
           <AnimatedWrapper>
             <a
               href="https://niftysmashers.com"
@@ -605,7 +607,7 @@ const Home: NextPage = () => {
       </section>
 
       {/* COMMUNITY */}
-      <section className="section container relative flex items-end">
+      <section className="section container relative flex items-center">
         {isDesktop && (
           <div className="w-1/2">
             <AnimatedWrapper>
@@ -657,17 +659,17 @@ const Home: NextPage = () => {
                   </div>
                 </AnimatedWrapper>
               )}
-              <div className={`flex flex-col relative home-community-section-body`}>
+              <div className="flex flex-col relative text-center sm:text-left">
                 <div className="orb-top-right purple-bg-orb" />
-                <div className="mb-3">
+                <div className="w-full xl:mt-20">
                   <AnimatedWrapper>
-                    <h2 className="section-title section-heading transition-vertical-fade transition-vertical-fade-start delay-lite">
+                    <h2 className="mb-3 section-title section-heading transition-vertical-fade transition-vertical-fade-start delay-lite">
                       COMMUNITY
                     </h2>
                   </AnimatedWrapper>
                 </div>
                 <AnimatedWrapper>
-                  <p className={`py-1 transition-vertical-fade transition-vertical-fade-start delay-normal`}>
+                  <p className="py-1 transition-vertical-fade transition-vertical-fade-start delay-normal">
                     WE HATE TO BRAG, BUT OUR COMMUNITY IS TRULY TOP-NOTCH! JOIN OUR DISCORD TO CONNECT WITH OTHERS
                     DEGENS &amp; HELP SHAPE NIFTY LEAGUE&apos;S FUTURE.
                   </p>
