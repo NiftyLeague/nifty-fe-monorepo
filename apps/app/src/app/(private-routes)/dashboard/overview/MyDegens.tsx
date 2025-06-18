@@ -62,7 +62,7 @@ const MyDegens = (): React.ReactNode => {
   }, [degensBalances, degensData]) as Degen[];
 
   const settings = {
-    slidesToShow: 3,
+    slidesToShow: 4,
     adaptiveHeight: false, // buggy behavior with degen cards
     responsive: [
       { breakpoint: 1536, settings: { slidesToShow: 4 } },

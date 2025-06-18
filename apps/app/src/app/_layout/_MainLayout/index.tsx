@@ -15,12 +15,13 @@ import { IconChevronRight } from '@tabler/icons-react';
 import { useTheme, styled, appDrawerWidth, appHeaderHeight, container } from '@nl/theme';
 import WarningIcon from '@mui/icons-material/Warning';
 import InfoIcon from '@mui/icons-material/InfoRounded';
-import { AppBar, Box, Button, Container, Icon, Toolbar, Typography, useMediaQuery } from '@mui/material';
+import { AppBar, Box, Button, Icon, Toolbar, Typography, useMediaQuery } from '@mui/material';
 
 // React Toastify
 import { ToastContainer } from 'react-toastify';
 
 // project imports
+import { cn } from '@nl/ui/lib/utils';
 import navigation from '@/constants/menu-items';
 import useGoogleAnalytics from '@/hooks/useGoogleAnalytics';
 import { useConnectedToIMXCheck } from '@/hooks/useImxProvider';
@@ -91,7 +92,6 @@ const MainLayout = ({ children }: PropsWithChildren) => {
 
   const theme = useTheme();
   const matchDownXL = useMediaQuery(theme.breakpoints.down('xl'));
-  const matchDownLG = useMediaQuery(theme.breakpoints.down('lg'));
   const { drawerOpen } = useSelector(state => state.menu);
 
   useEffect(() => {
@@ -109,12 +109,12 @@ const MainLayout = ({ children }: PropsWithChildren) => {
   const isNoFilterPage = pathname && /(degens|dashboard\/degens)/.test(pathname);
 
   const getContent = () => {
-    if (container) {
+    if (container && !isNoFilterPage) {
       return (
-        <Container maxWidth="lg">
+        <div className="container">
           <Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign />
           {children}
-        </Container>
+        </div>
       );
     }
     return (
@@ -182,7 +182,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
         {/* main content */}
         <Main open={drawerOpen}>
           {!isNoFilterPage ? (
-            <PerfectScrollbar style={{ padding: matchDownLG ? '10px 20px' : '20px 40px' }}>
+            <PerfectScrollbar className={cn('py-5 md:py-10', !container && 'px-5 md:px-20')}>
               {getContent()}
             </PerfectScrollbar>
           ) : (

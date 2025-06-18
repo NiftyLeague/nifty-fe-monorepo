@@ -1,9 +1,5 @@
 @import '@nl/ui/styles.css';
-
-/* third-party */
-@import 'react-perfect-scrollbar/dist/css/styles.css';
-@import 'slick-carousel/slick/slick.css';
-@import 'slick-carousel/slick/slick-theme.css';
+@import './scrollbar.css';
 
 /* ==============================|| OVERRIDES ||============================== */
 
@@ -11,65 +7,6 @@
   color-scheme: dark light;
 
   --root-font-size: 16px;
-}
 
-/* ==============================|| SLICK||============================== */
-.slick-arrow:before {
-  color: var(--color-base-500);
-}
-
-.slick-track {
-  margin-left: 0;
-}
-
-/* ==============================|| PERFECT SCROLLBAR ||============================== */
-
-.scrollbar-container {
-  .ps__rail-y {
-    &:hover > .ps__thumb-y,
-    &:focus > .ps__thumb-y,
-    &.ps--clicking .ps__thumb-y {
-      background-color: var(--color-base-500);
-      width: 5px;
-    }
-  }
-  .ps__thumb-y {
-    background-color: var(--color-base-500);
-    border-radius: var(--border-radius-default);
-    width: 5px;
-    right: 0;
-  }
-}
-
-.scrollbar-container.ps,
-.scrollbar-container > .ps {
-  &.ps--active-y > .ps__rail-y {
-    width: 5px;
-    background-color: transparent !important;
-    z-index: 999;
-    &:hover,
-    &.ps--clicking {
-      width: 5px;
-      background-color: transparent;
-    }
-  }
-  &.ps--scrolling-y > .ps__rail-y,
-  &.ps--scrolling-x > .ps__rail-x {
-    opacity: 0.4;
-    background-color: transparent;
-  }
-}
-
-/* ==============================|| EXTRAS ||============================== */
-
-/* apps/app/src/constants/equips.tsx */
-.inventory {
-  width: 30px;
-  height: 30px;
-  box-sizing: border-box;
-  border-radius: var(--border-radius-default);
-  &:active {
-    outline: 3px solid var(--color-purple);
-    outline-offset: -3px;
-  }
+  --custom-max-width: var(--container-7xl); /* 1280px */
 }

@@ -4,7 +4,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { useEnsAvatar, useEnsName } from 'wagmi';
 import { normalize } from 'viem/ens';
 import { Avatar, Box, Button, Skeleton, Stack, Typography } from '@mui/material';
-import { useTheme } from '@nl/theme';
 
 import { formatNumberToDisplay } from '@/utils/numbers';
 import { sendUserId } from '@/utils/google-analytics';
@@ -39,7 +38,6 @@ const ClaimNFTLView = () => {
 
 const UserProfile = () => {
   const { isLoggedIn, isConnected } = useAuth();
-  const { palette } = useTheme();
   const { address } = useNetworkContext();
   const ensName = useEnsName({ address, chainId: 1, query: { enabled: isConnected && !!address } });
   const ensAvatar = useEnsAvatar({

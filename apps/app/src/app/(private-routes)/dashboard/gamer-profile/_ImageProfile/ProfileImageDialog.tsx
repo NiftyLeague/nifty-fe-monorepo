@@ -2,7 +2,6 @@
 
 import { useContext, useState, useEffect } from 'react';
 import { IconButton, Box, Typography, Stack } from '@mui/material';
-import { useTheme } from '@nl/theme';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { toast } from 'react-toastify';
 
@@ -114,7 +113,6 @@ type ProfileImageDialogProps = {
 
 const ProfileImageDialog = ({ degens, onChangeAvatar, avatarFee }: ProfileImageDialogProps): React.ReactNode => {
   const [degensInternal, setDegensInternal] = useState<Degen[]>([]);
-  const theme = useTheme();
 
   useEffect(() => {
     if (degens) {

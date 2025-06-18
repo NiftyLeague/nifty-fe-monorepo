@@ -1,5 +1,5 @@
 import { Button, Stack, TextField, ToggleButton, ToggleButtonGroup } from '@mui/material';
-import { styled, useTheme } from '@nl/theme';
+import { styled } from '@nl/theme';
 import { GridOn, GridView, KeyboardArrowDown } from '@mui/icons-material';
 import SortButton from '@/components/extended/SortButton';
 
@@ -41,50 +41,47 @@ const DegensTopNav = ({
   handleSort,
   layoutMode,
   handleChangeLayoutMode,
-}: DegensTopNavProps) => {
-  const theme = useTheme();
-  return (
-    <Stack direction={{ xs: 'column', sm: 'row' }} gap={1}>
-      <SearchTextField
-        label="Search degens by token # or name"
-        name="search-degen-by-token-id-name"
-        variant="outlined"
+}: DegensTopNavProps) => (
+  <Stack direction={{ xs: 'column', sm: 'row' }} gap={1}>
+    <SearchTextField
+      label="Search degens by token # or name"
+      name="search-degen-by-token-id-name"
+      variant="outlined"
+      size="small"
+      value={searchTerm}
+      onChange={handleChangeSearchTerm}
+    />
+    <Stack direction="row" gap={1} sx={{ justifyContent: 'space-between' }}>
+      <SortButton handleSort={handleSort}>
+        <Button
+          id="sort-button"
+          aria-controls="sort-menu"
+          aria-haspopup="true"
+          endIcon={<KeyboardArrowDown />}
+          sx={{
+            fontWeight: 400,
+            border: 'var(--border-purple)',
+            padding: '3px 16px',
+            color: 'var(--color-foreground)',
+          }}
+        />
+      </SortButton>
+      <LayoutModeButtonsGroup
         size="small"
-        value={searchTerm}
-        onChange={handleChangeSearchTerm}
-      />
-      <Stack direction="row" gap={1} sx={{ justifyContent: 'space-between' }}>
-        <SortButton handleSort={handleSort}>
-          <Button
-            id="sort-button"
-            aria-controls="sort-menu"
-            aria-haspopup="true"
-            endIcon={<KeyboardArrowDown />}
-            sx={{
-              fontWeight: 400,
-              border: 'var(--border-purple)',
-              padding: '3px 16px',
-              color: 'var(--color-foreground)',
-            }}
-          />
-        </SortButton>
-        <LayoutModeButtonsGroup
-          size="small"
-          value={layoutMode}
-          exclusive
-          aria-label="Layout mode"
-          onChange={handleChangeLayoutMode}
-        >
-          <LayoutModeButton size="small" value="gridView" aria-label="GridView">
-            <GridView />
-          </LayoutModeButton>
-          <LayoutModeButton size="small" value="gridOn" aria-label="GridOn">
-            <GridOn />
-          </LayoutModeButton>
-        </LayoutModeButtonsGroup>
-      </Stack>
+        value={layoutMode}
+        exclusive
+        aria-label="Layout mode"
+        onChange={handleChangeLayoutMode}
+      >
+        <LayoutModeButton size="small" value="gridView" aria-label="GridView">
+          <GridView />
+        </LayoutModeButton>
+        <LayoutModeButton size="small" value="gridOn" aria-label="GridOn">
+          <GridOn />
+        </LayoutModeButton>
+      </LayoutModeButtonsGroup>
     </Stack>
-  );
-};
+  </Stack>
+);
 
 export default DegensTopNav;

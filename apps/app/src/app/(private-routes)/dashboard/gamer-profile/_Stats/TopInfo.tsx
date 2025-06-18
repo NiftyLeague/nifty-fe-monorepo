@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import { Stack, Typography, Box, IconButton } from '@mui/material';
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 
+import useCopyToClipboard from '@nl/ui/hooks/useCopyToClipboard';
 import { useGamerProfileContext } from '@/hooks/useGamerProfile';
-import useCopyToClipboard from '@/hooks/useCopyToClipboard';
 import type { Profile } from '@/types/account';
 
 import ProgressGamer from './ProgressGamer';

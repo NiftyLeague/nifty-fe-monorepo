@@ -1,5 +1,4 @@
 // material-ui
-import { useTheme } from '@nl/theme';
 import { Divider, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
 import MUIFormControl from '@mui/material/FormControl';
 import type { GenericCardProps } from '@/types';
@@ -25,7 +24,6 @@ const FormControl = ({
   textPrimary,
   textSecondary,
 }: FormControlProps) => {
-  const theme = useTheme();
   const IconPrimary = iconPrimary!;
   const primaryIcon = iconPrimary ? <IconPrimary fontSize="small" sx={{ color: 'var(--color-base-700)' }} /> : null;
 

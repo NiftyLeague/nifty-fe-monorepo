@@ -20,7 +20,6 @@ import {
   Alert,
   InputAdornment,
 } from '@mui/material';
-import { useTheme } from '@nl/theme';
 import type { DialogProps } from '@/types/dialog';
 import { sendEvent } from '@/utils/google-analytics';
 import CloseIcon from '@mui/icons-material/Close';
@@ -43,7 +42,6 @@ interface BuyArcadeTokensDialogProps extends DialogProps {
 }
 
 const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess, onClose, ...rest }) => {
-  const { palette } = useTheme();
   const [agreement, setAgreement] = useState<boolean>(false);
   const [showError, setShowError] = useState<boolean>(false);
   const [tokenCount, setTokenCount] = useState<number>(1);

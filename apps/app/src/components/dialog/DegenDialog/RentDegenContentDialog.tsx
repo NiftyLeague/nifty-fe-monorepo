@@ -1,6 +1,6 @@
 'use client';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { styled, useTheme } from '@nl/theme';
+import { styled } from '@nl/theme';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { isAddress } from 'ethers6';
@@ -122,8 +122,6 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
 
   const [, , rentalPassCount] = useRentalPassCount(degen?.id);
   const rent = useRent(degen?.id, degen?.rental_count || 0, degen?.price || 0, ethAddress, isUseRentalPass);
-
-  const theme = useTheme();
 
   const handleChangeRentingFor = (_: React.ChangeEvent<HTMLInputElement>, value: string) => {
     if (value === 'recruit') {
@@ -415,14 +413,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                             label={
                               <Typography variant="caption">
                                 I have read the{' '}
-                                <Link
-                                  sx={{
-                                    mx: '4px',
-                                    textDecoration: 'none',
-                                    fontWeight: theme.typography.fontWeightBold,
-                                  }}
-                                  onClick={openTOSDialog}
-                                >
+                                <Link className="mx-1 no-underline font-bold" onClick={openTOSDialog}>
                                   terms &amp; conditions
                                 </Link>{' '}
                                 regarding rentals

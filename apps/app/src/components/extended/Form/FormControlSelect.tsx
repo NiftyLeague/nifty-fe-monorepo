@@ -1,12 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-
-// material-ui
-import { useTheme } from '@nl/theme';
 import { Divider, FormControl, InputAdornment, MenuItem, TextField } from '@mui/material';
 
-// project imports
 import type { GenericCardProps } from '@/types';
 
 // ==============================|| FORM CONTROL SELECT ||============================== //
@@ -32,7 +28,6 @@ const FormControlSelect = ({
   textPrimary,
   textSecondary,
 }: FormControlSelectProps) => {
-  const theme = useTheme();
   const IconPrimary = iconPrimary!;
   const primaryIcon = iconPrimary ? <IconPrimary fontSize="small" sx={{ color: 'var(--color-base-700)' }} /> : null;
 

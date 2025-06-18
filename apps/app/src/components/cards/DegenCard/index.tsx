@@ -94,7 +94,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
     onClickFavorite,
     onClickSelect,
   }) => {
-    const { palette, typography } = useTheme();
+    const { typography } = useTheme();
     const {
       id,
       name,
