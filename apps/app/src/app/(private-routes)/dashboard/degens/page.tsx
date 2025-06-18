@@ -307,7 +307,7 @@ const DashboardDegensPage = (): React.ReactNode => {
           </Stack>
         </SectionTitle>
         {/* Main grid content */}
-        <Grid container spacing={2} mt={-4.5}>
+        <Grid container spacing={2} mt={-4.5} className="justify-center">
           {loading || !isConnected ? (
             [...Array(8)].map(renderSkeletonItem)
           ) : dataForCurrentPage.length ? (
@@ -349,7 +349,7 @@ const DashboardDegensPage = (): React.ReactNode => {
 
   return (
     <>
-      <Stack mt={2.5} spacing={2}>
+      <Stack spacing={2} className="h-full justify-center pl-2">
         <Stack pl={2} pr={3}>
           <DegensTopNav
             searchTerm={searchTerm || ''}

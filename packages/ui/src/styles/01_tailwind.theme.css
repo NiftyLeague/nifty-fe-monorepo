@@ -156,5 +156,5 @@
   /* ======================|| OTHER ||======================= */
   --custom-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.8);
   --custom-spacing: 5px;
-  --custom-max-width: var(--max-w-5xl); /* 1024px */
+  --custom-max-width: var(--container-5xl); /* 1024px */
 }

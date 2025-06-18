@@ -1,6 +1,8 @@
 import type { EquipItemSlot } from '@/types/equip';
 import Image from 'next/image';
-import { GOOGLE_ANALYTICS } from './google-analytics';
+import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
+
+import styles from './index.module.css';
 
 export const SLOTS: EquipItemSlot[] = [
   {
@@ -33,12 +35,12 @@ export const INVENTORIES: EquipItemSlot[] = [
   {
     name: 'Cape',
     empty: <Image src="/img/items/equips/cape-inventory-empty.svg" alt="Cape Inventory Empty" width={30} height={30} />,
-    filled: <Image src="/img/items/equips/cape.webp" alt="Cape" className="inventory" width={30} height={30} />,
+    filled: <Image src="/img/items/equips/cape.webp" alt="Cape" className={styles.inventory} width={30} height={30} />,
   },
   {
     name: 'Halo',
     empty: <Image src="/img/items/equips/halo-inventory-empty.svg" alt="Halo Inventory Empty" width={30} height={30} />,
-    filled: <Image src="/img/items/equips/halo.webp" alt="Halo" className="inventory" width={30} height={30} />,
+    filled: <Image src="/img/items/equips/halo.webp" alt="Halo" className={styles.inventory} width={30} height={30} />,
   },
   {
     name: 'Companion',
@@ -51,28 +53,52 @@ export const INVENTORIES: EquipItemSlot[] = [
       />
     ),
     filled: (
-      <Image src="/img/items/equips/companion.webp" alt="Companion" className="inventory" width={30} height={30} />
+      <Image
+        src="/img/items/equips/companion.webp"
+        alt="Companion"
+        className={styles.inventory}
+        width={30}
+        height={30}
+      />
     ),
   },
   {
     name: 'Diamond Bat',
     empty: <Image src="/img/items/equips/bat-inventory-empty.svg" alt="Bat Inventory Empty" width={30} height={30} />,
     filled: (
-      <Image src="/img/items/equips/diamond-bat.webp" alt="Diamond Bat" className="inventory" width={30} height={30} />
+      <Image
+        src="/img/items/equips/diamond-bat.webp"
+        alt="Diamond Bat"
+        className={styles.inventory}
+        width={30}
+        height={30}
+      />
     ),
   },
   {
     name: 'Purple Bat',
     empty: <Image src="/img/items/equips/bat-inventory-empty.svg" alt="Bat Inventory Empty" width={30} height={30} />,
     filled: (
-      <Image src="/img/items/equips/purple-bat.webp" alt="Purple Bat" className="inventory" width={30} height={30} />
+      <Image
+        src="/img/items/equips/purple-bat.webp"
+        alt="Purple Bat"
+        className={styles.inventory}
+        width={30}
+        height={30}
+      />
     ),
   },
   {
     name: 'Bread Bat',
     empty: <Image src="/img/items/equips/bat-inventory-empty.svg" alt="Bat Inventory Empty" width={30} height={30} />,
     filled: (
-      <Image src="/img/items/equips/bread-bat.webp" alt="Bread Bat" className="inventory" width={30} height={30} />
+      <Image
+        src="/img/items/equips/bread-bat.webp"
+        alt="Bread Bat"
+        className={styles.inventory}
+        width={30}
+        height={30}
+      />
     ),
   },
 ];

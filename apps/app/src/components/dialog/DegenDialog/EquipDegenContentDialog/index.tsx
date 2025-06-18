@@ -1,7 +1,6 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { styled } from '@nl/theme';
 import Link from 'next/link';
 import { Box, Button, CircularProgress, Grid, Stack, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
@@ -16,47 +15,10 @@ import { COMICS_PURCHASE_URL } from '@/constants/url';
 import type { Degen } from '@/types/degens';
 import DegenImage from '@/components/cards/DegenCard/DegenImage';
 import EmptyState from '@/components/EmptyState';
-import { getInventoryAnalyticsEventName, getSlotAnalyticsEventName, INVENTORIES, SLOTS } from '@/constants/equips';
 
-const PREFIX = 'EquipDegenContentDialog';
+import { getInventoryAnalyticsEventName, getSlotAnalyticsEventName, INVENTORIES, SLOTS } from './equips';
 
-const classes = {
-  title: `${PREFIX}-title`,
-  label: `${PREFIX}-label`,
-  animTypeButton: `${PREFIX}-animTypeButton`,
-  animTypeActiveButton: `${PREFIX}-animTypeActiveButton`,
-  tag: `${PREFIX}-tag`,
-};
-
-const StyledStack = styled(Stack)(() => ({
-  [`&.${classes.title}`]: { fontSize: 16, fontWeight: 700, color: 'var(--color-foreground)' },
-
-  [`&.${classes.label}`]: { fontSize: 12, color: 'var(--color-foreground)' },
-
-  [`&.${classes.animTypeButton}`]: {
-    borderRadius: '2px',
-    height: 24,
-    border: 'var(--border-default)',
-    color: 'var(--color-foreground)',
-    fontSize: 12,
-    background: 'transparent',
-  },
-
-  [`&.${classes.animTypeActiveButton}`]: { borderRadius: '2px', height: 24, fontSize: 12 },
-
-  [`&.${classes.tag}`]: {
-    width: 12,
-    height: 12,
-    borderRadius: '50%',
-    background: 'var(--color-purple)',
-    color: 'var(--color-foreground)',
-    fontSize: '8px',
-    lineHeight: '8px',
-    position: 'absolute',
-    right: -5,
-    top: -3,
-  },
-}));
+import styles from './index.module.css';
 
 export interface EquipDegenContentDialogProps {
   degen?: Degen;
@@ -82,7 +44,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
   const [animationType, setAnimationType] = useState<string>('pose');
   const [equipped, setEquipped] = useState<boolean[]>(initEquipped);
   const [pendingEquipped, setPendingEquipped] = useState<boolean[]>(initEquipped);
-  const { animTypeActiveButton, animTypeButton, label, tag, title } = classes;
+  const { animTypeActiveButton, animTypeButton, label, tag, title } = styles;
 
   useEffect(() => {
     sendEvent(GOOGLE_ANALYTICS.EVENTS.DEGEN_EQUIP_CLICKED, GOOGLE_ANALYTICS.CATEGORIES.ECOMMERCE);
@@ -206,9 +168,9 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
   if (filteredComics.length === 0) {
     if (loadingComics) {
       return (
-        <StyledStack direction="row" justifyContent="center" alignItems="center" height={200} mx="auto">
+        <Stack direction="row" justifyContent="center" alignItems="center" height={200} mx="auto">
           <CircularProgress />
-        </StyledStack>
+        </Stack>
       );
     }
     return (

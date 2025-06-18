@@ -3,10 +3,12 @@
 import { Box, Stack } from '@mui/material';
 import PaginationIconOnly from '@/components/pagination/PaginationIconOnly';
 import { PropsWithChildren, ReactNode, useRef } from 'react';
+import type { SxProps, Theme } from '@mui/system';
 import Slider, { Settings } from 'react-slick';
 import { sectionSpacing } from '@nl/theme';
 import SectionTitle from './SectionTitle';
-import type { SxProps, Theme } from '@mui/system';
+
+import '@/styles/slick.css';
 
 interface Props {
   title: string | React.ReactNode;

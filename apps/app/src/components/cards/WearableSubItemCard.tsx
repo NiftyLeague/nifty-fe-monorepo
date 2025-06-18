@@ -1,7 +1,6 @@
 import { Box, Theme, Stack, SxProps, Typography } from '@mui/material';
 import type { Item } from '@/types/marketplace';
 import ImageCard from '@/components/cards/ImageCard';
-import { useTheme } from '@nl/theme';
 
 export interface WearableSubItemCardProps {
   data: Item;
@@ -21,7 +20,6 @@ const WearableSubItemCard: React.FC<React.PropsWithChildren<React.PropsWithChild
   sx,
   isSelected = false,
 }) => {
-  const theme = useTheme();
   const { image, thumbnail, title } = data;
 
   const handleViewItem = (e: React.MouseEvent<HTMLDivElement>) => {

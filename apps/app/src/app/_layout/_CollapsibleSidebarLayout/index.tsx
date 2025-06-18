@@ -1,7 +1,7 @@
 import { Drawer, Stack, useMediaQuery } from '@mui/material';
 import { useEffect, ReactNode, SetStateAction, useCallback } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { useTheme } from '@nl/theme';
+import { appHeaderHeight, useTheme } from '@nl/theme';
 
 interface Props {
   drawerWidth?: number;
@@ -37,6 +37,7 @@ const CollapsibleSidebarLayout = ({
       <Drawer
         sx={{
           width: drawerWidth,
+          marginLeft: '16px',
           flexShrink: 0,
           zIndex: isDrawerOpen ? 1100 : -1,
           ...(!matchDownLG && {
@@ -60,7 +61,9 @@ const CollapsibleSidebarLayout = ({
         ModalProps={{ keepMounted: true }}
         onClose={handleDrawerOpen}
       >
-        <PerfectScrollbar style={{ height: matchDownLG ? '100vh' : 'calc(100vh - 152px)', padding: '20px 16px' }}>
+        <PerfectScrollbar
+          style={{ height: matchDownLG ? '100vh' : `calc(100vh - ${appHeaderHeight + 100}px)`, padding: '20px 16px' }}
+        >
           {renderDrawer()}
         </PerfectScrollbar>
       </Drawer>
@@ -88,7 +91,10 @@ const CollapsibleSidebarLayout = ({
         <PerfectScrollbar
           style={{
             padding: matchDownLG ? '10px 16px' : '16px 24px',
-            height: matchDownLG ? 'calc(100vh - 280px)' : 'calc(100vh - 152px)',
+            height: `calc(100vh - ${appHeaderHeight + 100}px)`,
+            borderRadius: '10px',
+            backgroundColor: 'var(--color-background-2)',
+            marginRight: '24px',
           }}
         >
           {renderMain()}

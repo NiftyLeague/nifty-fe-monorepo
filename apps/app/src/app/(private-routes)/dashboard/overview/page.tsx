@@ -38,7 +38,7 @@ const DashboardOverview = (): React.ReactNode => {
 
   return (
     <Grid container direction="row" spacing={4} sx={{ height: 'inherit' }}>
-      <Grid container direction="column" size={{ xs: 12, lg: 5 }} spacing={4}>
+      <Grid container direction="column" size={{ xs: 12, lg: 5.5 }} spacing={4}>
         <Grid size={{ xs: 12 }}>
           <MyNFTL />
         </Grid>
@@ -52,7 +52,7 @@ const DashboardOverview = (): React.ReactNode => {
           <MyRentals rentals={rentals} />
         </Grid> */}
       </Grid>
-      <Grid container direction="column" size={{ xs: 12, lg: 7 }} spacing={4}>
+      <Grid container direction="column" size={{ xs: 12, lg: 6.5 }} spacing={4}>
         <Grid size={{ xs: 12 }}>
           <MyDegens />
         </Grid>

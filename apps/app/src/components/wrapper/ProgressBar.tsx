@@ -1,7 +1,6 @@
 'use client';
 
 import { Box, Typography } from '@mui/material';
-import { useTheme } from '@nl/theme';
 import { FC, ReactNode, useEffect, useRef, useState } from 'react';
 
 interface ProgressBarProps {
@@ -10,7 +9,6 @@ interface ProgressBarProps {
 }
 
 const ProgressBar: FC<ProgressBarProps> = ({ value, children }) => {
-  const { palette } = useTheme();
   const centerTextRef = useRef<HTMLParagraphElement>(null);
   const progressContainerRef = useRef<HTMLDivElement>(null);
   const [rect, setRect] = useState<{ left: number }>({ left: 0 });

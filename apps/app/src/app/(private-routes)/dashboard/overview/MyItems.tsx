@@ -16,7 +16,7 @@ const MyItems = (): React.ReactNode => {
   const filteredItems = useMemo(() => itemsBalances.filter(item => item.balance && item.balance > 0), [itemsBalances]);
 
   const settings = {
-    slidesToShow: 6,
+    slidesToShow: 5,
     adaptiveHeight: true,
     responsive: [
       { breakpoint: 1536, settings: { slidesToShow: 4 } },
