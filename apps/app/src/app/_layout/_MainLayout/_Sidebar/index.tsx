@@ -19,14 +19,14 @@ import LogoutButton from './_LogoutButton';
 
 const Sidebar = () => {
   const theme = useTheme();
-  const matchUpMd = useMediaQuery(theme.breakpoints.up('md'));
+  const matchUpLG = useMediaQuery(theme.breakpoints.up('lg'));
 
   const dispatch = useDispatch();
   const { drawerOpen } = useSelector(state => state.menu);
 
   const logo = useMemo(
     () => (
-      <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+      <Box sx={{ display: { xs: 'block', lg: 'none' } }}>
         <Box sx={{ display: 'flex', p: 2, mx: 'auto' }}>
           <LogoSection />
         </Box>
@@ -40,7 +40,7 @@ const Sidebar = () => {
       <PerfectScrollbar
         component="div"
         style={{
-          height: !matchUpMd ? 'calc(100vh - 56px)' : 'calc(100vh - 100px)',
+          height: !matchUpLG ? 'calc(100vh - 56px)' : 'calc(100vh - 100px)',
           paddingLeft: '16px',
           paddingRight: '16px',
         }}
@@ -57,17 +57,17 @@ const Sidebar = () => {
       </PerfectScrollbar>
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [matchUpMd],
+    [matchUpLG],
   );
 
   return (
     <Box
       component="nav"
-      sx={{ flexShrink: { md: 0 }, width: matchUpMd ? appDrawerWidth : 'auto' }}
+      sx={{ flexShrink: { lg: 0 }, width: matchUpLG ? appDrawerWidth : 'auto' }}
       aria-label="mailbox folders"
     >
       <Drawer
-        variant={matchUpMd ? 'persistent' : 'temporary'}
+        variant={matchUpLG ? 'persistent' : 'temporary'}
         anchor="left"
         open={drawerOpen}
         onClose={() => dispatch(openDrawer(!drawerOpen))}
@@ -77,7 +77,7 @@ const Sidebar = () => {
             background: 'var(--color-background-2)',
             color: 'var(--color-foreground)',
             borderRight: 'none',
-            [theme.breakpoints.up('md')]: { top: appHeaderHeight },
+            [theme.breakpoints.up('lg')]: { top: appHeaderHeight },
           },
         }}
         ModalProps={{ keepMounted: true }}

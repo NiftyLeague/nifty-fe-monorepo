@@ -120,7 +120,7 @@ export default function Loot() {
           variant="h1"
           sx={{
             background: 'var(--gradient-brand)',
-            fontSize: { xs: '2.5rem', sm: '3rem', md: '3.5rem' },
+            fontSize: { xs: '2.5rem', sm: '3rem', lg: '3.5rem' },
             fontWeight: 800,
             lineHeight: 1.2,
             mb: 2,

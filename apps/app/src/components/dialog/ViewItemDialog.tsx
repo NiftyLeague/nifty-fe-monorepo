@@ -12,11 +12,11 @@ export interface ViewItemDialogProps {
 
 const ViewItemDialog = ({ item, subIndex, open, onClose }: ViewItemDialogProps): React.ReactNode => {
   const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Dialog maxWidth="lg" open={open} onClose={onClose} fullScreen={fullScreen}>
-      <DialogContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <Dialog maxWidth="md" open={open} onClose={onClose} fullScreen={fullScreen}>
+      <DialogContent className="flex justify-center">
         {item && <ItemDetail data={item} subIndex={subIndex} />}
       </DialogContent>
       <DialogActions>

@@ -1,4 +1,3 @@
-
 .sbui-formlayout {
   display: grid;
   gap: 0.5rem;
@@ -69,14 +68,18 @@
   color: rgba(224, 224, 224, var(--tw-text-opacity));
 }
 
-.sbui-formlayout__label-opt, .sbui-formlayout__label .sbui-formlayout__label-before, .sbui-formlayout__label .sbui-formlayout__label-after {
+.sbui-formlayout__label-opt,
+.sbui-formlayout__label .sbui-formlayout__label-before,
+.sbui-formlayout__label .sbui-formlayout__label-after {
   font-size: 0.875rem;
   line-height: 1.25rem;
   --tw-text-opacity: 1;
   color: rgba(102, 102, 102, var(--tw-text-opacity));
 }
 
-:global(.dark) .sbui-formlayout__label-opt, :global(.dark) .sbui-formlayout__label .sbui-formlayout__label-before, :global(.dark) .sbui-formlayout__label .sbui-formlayout__label-after {
+:global(.dark) .sbui-formlayout__label-opt,
+:global(.dark) .sbui-formlayout__label .sbui-formlayout__label-before,
+:global(.dark) .sbui-formlayout__label .sbui-formlayout__label-after {
   --tw-text-opacity: 1;
   color: rgba(187, 187, 187, var(--tw-text-opacity));
 }
@@ -110,28 +113,43 @@
   Layout sizes
 */
 
-.sbui-formlayout--tiny .sbui-formlayout__label, .sbui-formlayout--tiny .sbui-formlayout__label-opt, .sbui-formlayout--tiny .sbui-formlayout__error, .sbui-formlayout--tiny .sbui-formlayout__description {
+.sbui-formlayout--tiny .sbui-formlayout__label,
+.sbui-formlayout--tiny .sbui-formlayout__label-opt,
+.sbui-formlayout--tiny .sbui-formlayout__error,
+.sbui-formlayout--tiny .sbui-formlayout__description {
   font-size: 0.75rem;
   line-height: 1rem;
 }
 
-.sbui-formlayout--small .sbui-formlayout__label, .sbui-formlayout--small .sbui-formlayout__label-opt, .sbui-formlayout--small .sbui-formlayout__error, .sbui-formlayout--small .sbui-formlayout__description {
+.sbui-formlayout--small .sbui-formlayout__label,
+.sbui-formlayout--small .sbui-formlayout__label-opt,
+.sbui-formlayout--small .sbui-formlayout__error,
+.sbui-formlayout--small .sbui-formlayout__description {
   font-size: 0.875rem;
   line-height: 1.25rem;
   line-height: 1rem;
 }
 
-.sbui-formlayout--medium .sbui-formlayout__label, .sbui-formlayout--medium .sbui-formlayout__label-opt, .sbui-formlayout--medium .sbui-formlayout__error, .sbui-formlayout--medium .sbui-formlayout__description {
+.sbui-formlayout--medium .sbui-formlayout__label,
+.sbui-formlayout--medium .sbui-formlayout__label-opt,
+.sbui-formlayout--medium .sbui-formlayout__error,
+.sbui-formlayout--medium .sbui-formlayout__description {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
 
-.sbui-formlayout--large .sbui-formlayout__label, .sbui-formlayout--large .sbui-formlayout__label-opt, .sbui-formlayout--large .sbui-formlayout__error, .sbui-formlayout--large .sbui-formlayout__description {
+.sbui-formlayout--large .sbui-formlayout__label,
+.sbui-formlayout--large .sbui-formlayout__label-opt,
+.sbui-formlayout--large .sbui-formlayout__error,
+.sbui-formlayout--large .sbui-formlayout__description {
   font-size: 1rem;
   line-height: 1.5rem;
 }
 
-.sbui-formlayout--xlarge .sbui-formlayout__label, .sbui-formlayout--xlarge .sbui-formlayout__label-opt, .sbui-formlayout--xlarge .sbui-formlayout__error, .sbui-formlayout--xlarge .sbui-formlayout__description {
+.sbui-formlayout--xlarge .sbui-formlayout__label,
+.sbui-formlayout--xlarge .sbui-formlayout__label-opt,
+.sbui-formlayout--xlarge .sbui-formlayout__error,
+.sbui-formlayout--xlarge .sbui-formlayout__description {
   font-size: 1rem;
   line-height: 1.5rem;
 }

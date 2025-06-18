@@ -155,7 +155,7 @@
 
 /* ==============================|| MEDIA QUERIES ||============================== */
 
-@media (max-width: 1600px) {
+@media (max-width: 1536px) {
   .speech-bubble-text {
     font-size: 20px;
     top: 50px;
@@ -202,9 +202,6 @@
 }
 
 @media (max-width: 1400px) {
-  .home-satoshi-container {
-    bottom: 44px;
-  }
   .home-satoshi {
     width: 140px;
     height: 148px;
@@ -215,7 +212,7 @@
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1280px) {
   .home-content {
     left: 188px;
     bottom: 20px;
@@ -236,7 +233,7 @@
   }
 }
 
-@media (max-width: 1052px) {
+@media (max-width: 1024px) {
   .home-content {
     left: 126px;
     bottom: 0px;
@@ -393,7 +390,7 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   .home-satoshi {
     width: 60px;
     height: 63px;

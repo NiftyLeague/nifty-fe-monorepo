@@ -11,7 +11,7 @@ const RenderSponsor = ({ image, url, width, height }: Sponsor) => (
 );
 
 const SponsorItem = ({ image, url, width, height }: Sponsor): React.ReactNode => {
-  const desktop = useMediaQuery('(min-width:768px)');
+  const desktop = useMediaQuery('(min-width:769px)');
   return (
     <a href={url} target="_blank" rel="noreferrer" className="block">
       <div className={desktop ? 'm-8 w-40' : 'm-6 w-20'}>

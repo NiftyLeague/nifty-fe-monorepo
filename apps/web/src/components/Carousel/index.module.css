@@ -39,7 +39,7 @@
     margin-top: -10px;
   }
 
-  @media (max-width: 615px) {
+  @media (max-width: 640px) {
     .browse_single {
       height: 185px;
       min-height: auto;

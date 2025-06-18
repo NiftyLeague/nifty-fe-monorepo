@@ -458,7 +458,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
             Stats
           </Typography>
           <Grid container spacing={6}>
-            <Grid size={{ xs: 12, md: 6 }}>
+            <Grid size={{ xs: 12, lg: 6 }}>
               <Stack gap={1}>
                 <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
                   <Typography>Multipliers</Typography>
@@ -470,7 +470,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                 </Stack>
               </Stack>
             </Grid>
-            <Grid size={{ xs: 12, md: 6 }}>
+            <Grid size={{ xs: 12, lg: 6 }}>
               <Stack gap={1}>
                 <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
                   <Typography>Rental period</Typography>

@@ -69,14 +69,14 @@ const GamerProfile = (): React.ReactNode => {
   const renderTopProfile = () => {
     return (
       <Grid container size={12} spacing={3} className="bg-background-3 p-8 rounded-md">
-        <Grid size={{ xs: 12, md: 3.5 }}>
+        <Grid size={{ xs: 12, lg: 3.5 }}>
           <ImageProfile
             avatar={profile?.avatar}
             avatarFee={avatarsAndFee?.price}
             degens={filteredDegens && avatarsAndFee?.avatars && merge(filteredDegens, avatarsAndFee?.avatars)}
           />
         </Grid>
-        <Grid size={{ xs: 12, md: 8.5 }}>
+        <Grid size={{ xs: 12, lg: 8.5 }}>
           {address && <TopInfo profile={profile} walletAddress={address} />}
           <hr className="mb-4" />
           <Stack spacing={2}>
@@ -105,10 +105,11 @@ const GamerProfile = (): React.ReactNode => {
     const sliderSettingsOverride = {
       slidesToShow: 3,
       responsive: [
-        { breakpoint: 1700, settings: { slidesToShow: 3 } },
+        { breakpoint: 1536, settings: { slidesToShow: 3 } },
         { breakpoint: 1280, settings: { slidesToShow: 3 } },
-        { breakpoint: 900, settings: { slidesToShow: 2 } },
-        { breakpoint: 600, settings: { slidesToShow: 1 } },
+        { breakpoint: 1024, settings: { slidesToShow: 2 } },
+        { breakpoint: 768, settings: { slidesToShow: 1 } },
+        { breakpoint: 640, settings: { slidesToShow: 1 } },
       ],
     };
     return (

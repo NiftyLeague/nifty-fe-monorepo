@@ -53,7 +53,7 @@ export const WhitelistModal = (): React.ReactNode => {
   };
 
   return (
-    <Container sx={{ textAlign: 'center', pt: { xs: 1, md: 4 }, px: 0 }}>
+    <Container sx={{ textAlign: 'center', pt: { xs: 1, lg: 4 }, px: 0 }}>
       <form onSubmit={handleSubmit} className={classes.form}>
         <input
           name="email"
@@ -108,8 +108,8 @@ const WhitelistDialog = () => {
         sx={{
           '& .MuiPaper-root': { maxWidth: 473 },
           '& h2': {
-            fontSize: { xs: '22px', md: '28px' },
-            lineHeight: { xs: '28px', md: '36px' },
+            fontSize: { xs: '22px', lg: '28px' },
+            lineHeight: { xs: '28px', lg: '36px' },
             textAlign: 'center',
             paddingTop: '36px',
             whiteSpace: 'pre-line',

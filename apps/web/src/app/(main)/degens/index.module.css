@@ -14,7 +14,7 @@
   right: -200px;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .list {
     max-width: 426px;
   }

@@ -31,7 +31,7 @@ const Inventory = dynamic(() => import('@nl/playfab/components').then(mod => ({ 
 
 export default function ProfileClient({ user: initialUser }: { user: User }) {
   const router = useRouter();
-  const mobile = useMediaQuery('(max-width:576px)');
+  const mobile = useMediaQuery('(max-width:640px)');
   const flags = useFlags();
   const { user } = useUserSession() || { user: initialUser };
 

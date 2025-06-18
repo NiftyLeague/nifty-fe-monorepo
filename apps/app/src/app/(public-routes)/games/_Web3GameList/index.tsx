@@ -48,7 +48,7 @@ const MobileGameList = () => {
 
   return (
     <>
-      <GridItem size={{ xs: 12, sm: 6, md: 4, lg: 4, xl: 3 }}>
+      <GridItem size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
         <GameCard
           title="2D Smashers"
           externalLink={{ title: 'Smashers Mobile', src: 'https://niftysmashers.com/' }}
@@ -75,7 +75,7 @@ const MobileGameList = () => {
           }
         />
       </GridItem>
-      <GridItem size={{ xs: 12, sm: 6, md: 4, lg: 4, xl: 3 }}>
+      <GridItem size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
         <GameCard
           title="WEN Game"
           required="Arcade Tokens Required"
@@ -97,7 +97,7 @@ const MobileGameList = () => {
           }
         />
       </GridItem>
-      <GridItem size={{ xs: 12, sm: 6, md: 4, lg: 4, xl: 3 }}>
+      <GridItem size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
         <GameCard
           title="Crypto Winter"
           required="Arcade Tokens Required"
@@ -119,7 +119,7 @@ const MobileGameList = () => {
           }
         />
       </GridItem>
-      <GridItem size={{ xs: 12, sm: 6, md: 4, lg: 4, xl: 3 }}>
+      <GridItem size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
         <GameCard
           title="Mt. Gawx"
           required="NFTL required"
@@ -143,7 +143,7 @@ const MobileGameList = () => {
           }
         />
       </GridItem>
-      <GridItem size={{ xs: 12, sm: 6, md: 4, lg: 4, xl: 3 }}>
+      <GridItem size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
         <GameCard
           title="Nifty Tennis"
           required="Unreleased"
