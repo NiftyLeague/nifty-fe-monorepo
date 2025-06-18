@@ -7,6 +7,7 @@ import Unity, { UnityContext } from 'react-unity-webgl';
 import { Box, Button, Stack } from '@mui/material';
 import { useAccount } from 'wagmi';
 
+import Preloader from '@nl/ui/custom/Preloader';
 import useTokensBalances from '@/hooks/balances/useTokensBalances';
 // import useFetch from '@/hooks/useFetch';
 import { NETWORK_NAME, TARGET_NETWORK } from '@/constants/networks';
@@ -16,7 +17,6 @@ import { getGameViewedAnalyticsEventName } from '@/constants/games';
 import { DEBUG } from '@/constants/index';
 import { sendEvent } from '@/utils/google-analytics';
 import withVerification from '@/components/wrapper/Authentication';
-import Preloader from '@/components/Preloader';
 // import type { Rentals } from '@/types/rentals';
 // import EarningCap from '@/app/dashboard/overview/EarningCap';
 import ArcadeTokensRequired from '@/components/ArcadeTokensRequired';

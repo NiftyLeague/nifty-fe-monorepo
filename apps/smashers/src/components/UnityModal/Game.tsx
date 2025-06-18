@@ -1,11 +1,14 @@
 import { Unity } from 'react-unity-webgl';
-import Button from '@nl/ui/supabase/Button';
+
 import { IconMaximize } from '@nl/ui/supabase/Icon';
+import Button from '@nl/ui/supabase/Button';
+import Preloader from '@nl/ui/custom/Preloader';
+// import { PlayFabAuthForm } from '@nl/playfab/components';
+
 import useUnityPreConfig from '@/hooks/useUnityPreConfig';
 import useUnityEventHandlers from '@/hooks/useUnityEventHandlers';
 import useUnitySafeClose from '@/hooks/useUnitySafeClose';
-// import { PlayFabAuthForm } from '@nl/playfab/components';
-import Preloader from '@/components/Preloader';
+
 import styles from '@/components/Modal/index.module.css';
 
 const Game = ({ closeGame }: { closeGame: () => void }) => {

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Button from '@nl/ui/supabase/Button';
 import useVersion from '@/hooks/useVersion';
 import useFlags from '@/hooks/useFlags';
-import styles from '@/styles/modal.module.css';
+import styles from '@/components/Modal/index.module.css';
 
 const UnityButton = ({ launchGame }: { launchGame: () => void }) => {
   const { isWindows, downloadURL, version } = useVersion();
