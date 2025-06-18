@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 export const STATUS = { RUNNING: 'running', PAUSED: 'paused', STOPPED: 'stopped' };
@@ -22,7 +24,7 @@ type ReturnType = {
 };
 
 function useStopwatch({ interval = 10, onStop, onStart, onPause, onRestart }: HookParams): ReturnType {
-  const stopwatchRef = useRef<NodeJS.Timer | null>(null);
+  const stopwatchRef = useRef<number | null>(null);
   const [status, setStatus] = useState(STATUS.STOPPED);
   const [milliseconds, setMilliseconds] = useState(0);
   const msRef = useRef(milliseconds);
@@ -57,17 +59,30 @@ function useStopwatch({ interval = 10, onStop, onStart, onPause, onRestart }: Ho
   }, [onStop]);
 
   const setStopwatch = useCallback(() => {
-    stopwatchRef.current = setInterval(() => {
+    if (stopwatchRef.current) {
+      clearInterval(stopwatchRef.current);
+    }
+    const id = setInterval(() => {
       setMilliseconds(msRef.current + interval);
-    }, interval);
+    }, interval) as unknown as number;
+    stopwatchRef.current = id;
   }, [interval]);
 
   useEffect(() => {
     if (status === STATUS.RUNNING) {
       setStopwatch();
     } else if (status === STATUS.STOPPED || status === STATUS.PAUSED) {
-      clearInterval(stopwatchRef.current as NodeJS.Timeout);
+      if (stopwatchRef.current !== null) {
+        clearInterval(stopwatchRef.current);
+        stopwatchRef.current = null;
+      }
     }
+
+    return () => {
+      if (stopwatchRef.current !== null) {
+        clearInterval(stopwatchRef.current);
+      }
+    };
   }, [status, setStopwatch]);
 
   return { milliseconds, status, start, pause, stop, restart };

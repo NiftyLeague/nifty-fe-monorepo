@@ -1,8 +1,11 @@
-import { useEffect, useState } from 'react';
-import { Box, LinearProgress, Typography } from '@mui/material';
-import { isMobileOnly } from 'react-device-detect';
+'use client';
+
+import { useEffect, useMemo, useState } from 'react';
+import { LinearProgress } from '@mui/material';
+
 import { cn } from '@nl/ui/lib/utils';
-import useStopwatch from '@/hooks/useStopwatch';
+import useStopwatch from '@nl/ui/hooks/useStopwatch';
+import useUserAgent from '@nl/ui/hooks/useUserAgent';
 import styles from './index.module.css';
 
 const PreloaderSVG = () => (
@@ -27,43 +30,13 @@ const PreloaderSVG = () => (
   </svg>
 );
 
-export default function Preloader({ ready, progress }: { ready: boolean; progress: number }): React.ReactNode {
-  const loadingPercentage = Math.round(progress * 100);
-  const [percent, setPercent] = useState(loadingPercentage);
-  const { milliseconds, start, stop } = useStopwatch({ interval: 100 });
+interface PreloaderProps {
+  ready?: boolean;
+  percent?: number;
+  showWarning?: boolean;
+}
 
-  useEffect(() => {
-    if (!ready) start();
-    return function cleanup() {
-      stop();
-    };
-  }, [start, stop, ready]);
-
-  useEffect(() => {
-    if (loadingPercentage !== 90) {
-      setPercent(loadingPercentage);
-    } else {
-      const id = setInterval(() => {
-        setPercent(p => Math.round(p < 80 ? p + 10 : 90));
-      }, 100);
-      return () => clearInterval(id);
-    }
-    return undefined;
-  }, [loadingPercentage, stop]);
-
-  useEffect(() => {
-    const htmlElement = document.querySelector('html') as HTMLElement;
-    if (!ready) {
-      htmlElement.style.overflow = 'hidden';
-    } else {
-      htmlElement.style.overflow = 'auto';
-      stop();
-    }
-    return function cleanup() {
-      htmlElement.style.overflow = 'auto';
-    };
-  }, [ready, stop]);
-
+export function Preloader({ ready, percent, showWarning }: PreloaderProps) {
   return (
     <div
       className={styles.preloader_overlay}
@@ -79,20 +52,71 @@ export default function Preloader({ ready, progress }: { ready: boolean; progres
           </svg>
         </div>
       </div>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Box sx={{ width: '100%', mr: 1 }}>
-          <LinearProgress
-            value={percent}
-            color="success"
-            variant="determinate"
-            style={{ width: 160, marginLeft: 32 }}
-          />
-        </Box>
-        <Box sx={{ minWidth: 35 }}>
-          <Typography variant="body2" sx={{ color: 'var(--color-foreground)' }}>{`${Math.round(percent)}%`}</Typography>
-        </Box>
-      </Box>
-      {isMobileOnly && milliseconds > 12000 ? 'For the best experience try us out on desktop!' : null}
+
+      {percent ? (
+        <>
+          <div className="flex justify-center items-center">
+            <div className="w-full mr-1">
+              <LinearProgress
+                value={percent}
+                color="success"
+                variant="determinate"
+                style={{ width: 160, marginLeft: 32 }}
+              />
+            </div>
+            <div className="text-foreground text-sm min-w-[35px]">{`${Math.round(percent)}%`}</div>
+          </div>
+          <div className="text-warning mt-2">{showWarning ? 'For the best experience try us out on desktop!' : ''}</div>
+        </>
+      ) : null}
     </div>
   );
 }
+
+export function PreloaderWithProgress({ ready, progress }: { ready: boolean; progress: number }): React.ReactNode {
+  const loadingPercentage = Math.round(progress <= 1 ? progress * 100 : progress);
+  const [percent, setPercent] = useState<number>(loadingPercentage);
+  const { milliseconds, start, stop } = useStopwatch({ interval: 100 });
+
+  const device = useUserAgent();
+  const isMobile = useMemo(() => device.isMobile(), [device]);
+  const [showWarning, setShowWarning] = useState(false);
+
+  useEffect(() => {
+    if (!ready) start();
+    else stop();
+    return function cleanup() {
+      stop();
+    };
+  }, [start, stop, ready]);
+
+  useEffect(() => {
+    if (isMobile && !showWarning && milliseconds > 1200) {
+      setShowWarning(true);
+    }
+  }, [isMobile, showWarning, milliseconds]);
+
+  useEffect(() => {
+    if (loadingPercentage !== 90) {
+      setPercent(loadingPercentage);
+    } else {
+      const id = setInterval(() => {
+        setPercent(p => Math.round(p < 80 ? p + 10 : 90));
+      }, 100);
+      return () => clearInterval(id);
+    }
+    return undefined;
+  }, [loadingPercentage, stop]);
+
+  useEffect(() => {
+    const htmlElement = document.querySelector('html') as HTMLElement;
+    htmlElement.style.overflow = !ready ? 'hidden' : '';
+    return function cleanup() {
+      htmlElement.style.overflow = '';
+    };
+  }, [ready]);
+
+  return <Preloader ready={ready} percent={percent} showWarning={showWarning} />;
+}
+
+export default PreloaderWithProgress;

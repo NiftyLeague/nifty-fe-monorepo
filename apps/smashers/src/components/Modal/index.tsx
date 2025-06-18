@@ -15,20 +15,20 @@ type ModalProps = {
 const Modal = ({ isOpen, onClose, children, className = '', contentClassName = '' }: ModalProps) => {
   // Close on Escape key
   useEffect(() => {
+    const htmlElement = document.querySelector('html') as HTMLElement;
+
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
+      if (e.key === 'Escape') onClose();
     };
 
     if (isOpen) {
       document.addEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+      htmlElement.style.overflow = 'hidden'; // Prevent scrolling when modal is open
     }
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = ''; // Re-enable scrolling when modal is closed
+      htmlElement.style.overflow = ''; // Re-enable scrolling when modal is closed
     };
   }, [isOpen, onClose]);
 
