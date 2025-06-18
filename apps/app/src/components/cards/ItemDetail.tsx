@@ -28,7 +28,7 @@ const ItemDetail: React.FC<React.PropsWithChildren<React.PropsWithChildren<ItemD
 
   return (
     <Stack
-      sx={{ justifyContent: 'center', alignItems: 'center' }}
+      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
       border={{ xs: 'none', lg: '1px solid #363636' }}
       borderRadius="5px"
       minWidth={{ xs: '100%', lg: 345 }}

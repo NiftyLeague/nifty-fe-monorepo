@@ -15,7 +15,7 @@ import ViewDocsBtn from '@/components/ViewDocsBtn';
 import styles from './index.module.css';
 
 const Degens: NextPage = () => {
-  const desktop = useMediaQuery('(min-width:768px)');
+  const desktop = useMediaQuery('(min-width:769px)');
   return (
     <>
       <section className="relative xl:-top-20 2xl:-top-35">

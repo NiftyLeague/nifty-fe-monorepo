@@ -23,7 +23,7 @@
   -webkit-box-orient: vertical;
 }
 
-@media (max-width: 48rem) {
+@media (max-width: 768px) {
   .teams-slider .nifty-teams {
     width: 100%;
     text-align: center;
@@ -33,7 +33,7 @@
 
 /* ==============================|| MEDIA QUERIES ||============================== */
 
-@media (min-width: 48rem) {
+@media (min-width: 769px) {
   .desktop {
     display: flex !important;
   }
@@ -42,7 +42,7 @@
   }
 }
 
-@media (max-width: 48rem) or ((orientation: landscape) and (max-width: 550px)) {
+@media (max-width: 768px) or ((orientation: landscape) and (max-width: 550px)) {
   .desktop {
     display: none !important;
   }

@@ -32,7 +32,7 @@ const ActiveRentalDialog = ({ degenId, rental }: ActiveRentalDialogProps) => {
     <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
       <DialogContent sx={{ marginY: '50px', marginX: '16px' }}>
         <Grid container spacing={2}>
-          <Grid size={{ xs: 12, md: 6 }}>
+          <Grid size={{ xs: 12, lg: 6 }}>
             <Typography sx={{ fontSize: '32px', lineHeight: '38px' }} fontWeight={600}>
               Welcome back DEGEN!
             </Typography>
@@ -50,7 +50,7 @@ const ActiveRentalDialog = ({ degenId, rental }: ActiveRentalDialogProps) => {
               Play Nifty Smashers Now
             </Button>
           </Grid>
-          <Grid size={{ xs: 12, md: 6 }}>
+          <Grid size={{ xs: 12, lg: 6 }}>
             <Box sx={{ width: '70%', display: 'inline-block', float: 'right' }}>
               <ProgressBar value={progressValue}>
                 {rental.earning_cap !== rental.earning_cap_daily ? (

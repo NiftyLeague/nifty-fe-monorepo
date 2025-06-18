@@ -5,7 +5,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 import styles from './index.module.css';
 export default function Navbar() {
-  const mobile = useMediaQuery('(max-width:576px)');
+  const mobile = useMediaQuery('(max-width:640px)');
   return mobile ? (
     <>
       <a href="https://niftyleague.com" target="_blank" rel="noreferrer">

@@ -19,7 +19,7 @@ interface SessionData {
 
 export default function LoginClient({ sessionData }: { sessionData: SessionData }) {
   const { enableAccountCreation, enableProviderSignOn } = useFlags();
-  const mobile = useMediaQuery('(max-width:576px)');
+  const mobile = useMediaQuery('(max-width:640px)');
 
   return (
     <>

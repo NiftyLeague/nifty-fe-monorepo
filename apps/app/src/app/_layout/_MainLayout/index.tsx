@@ -49,9 +49,9 @@ const Main = styled('main', { shouldForwardProp: prop => prop !== 'open' })<{ op
         }),
         marginTop: appHeaderHeight,
         height: `calc(100vh - ${appHeaderHeight}px)`,
-        [theme.breakpoints.up('md')]: { marginLeft: -(appDrawerWidth - 20), width: `calc(100% - ${appDrawerWidth}px)` },
-        [theme.breakpoints.down('md')]: { marginLeft: '20px', width: `calc(100% - ${appDrawerWidth}px)` },
-        [theme.breakpoints.down('sm')]: {
+        [theme.breakpoints.up('lg')]: { marginLeft: -appDrawerWidth, width: `calc(100% - ${appDrawerWidth}px)` },
+        [theme.breakpoints.down('lg')]: { marginLeft: '20px', width: `calc(100% - ${appDrawerWidth}px)` },
+        [theme.breakpoints.down('md')]: {
           marginTop: '60px',
           marginLeft: '10px',
           width: `calc(100% - ${appDrawerWidth}px)`,
@@ -72,8 +72,8 @@ const Main = styled('main', { shouldForwardProp: prop => prop !== 'open' })<{ op
         marginTop: appHeaderHeight,
         height: `calc(100vh - ${appHeaderHeight}px)`,
         width: `calc(100% - ${appDrawerWidth}px)`,
-        [theme.breakpoints.down('md')]: { marginLeft: '20px' },
-        [theme.breakpoints.down('sm')]: { marginTop: '60px', marginLeft: '10px' },
+        [theme.breakpoints.down('lg')]: { marginLeft: '20px' },
+        [theme.breakpoints.down('md')]: { marginTop: '60px', marginLeft: '10px' },
       },
     },
   ],
@@ -90,17 +90,17 @@ const MainLayout = ({ children }: PropsWithChildren) => {
   const isConnectedToIMX = useConnectedToIMXCheck();
 
   const theme = useTheme();
-  const matchDownMd = useMediaQuery(theme.breakpoints.down('lg'));
-  const matchDownSm = useMediaQuery(theme.breakpoints.down('md'));
+  const matchDownXL = useMediaQuery(theme.breakpoints.down('xl'));
+  const matchDownLG = useMediaQuery(theme.breakpoints.down('lg'));
   const { drawerOpen } = useSelector(state => state.menu);
 
   useEffect(() => {
-    dispatch(openDrawer(!matchDownMd));
-  }, [matchDownMd, dispatch]);
+    dispatch(openDrawer(!matchDownXL));
+  }, [matchDownXL, dispatch]);
 
   const header = useMemo(
     () => (
-      <Toolbar sx={{ py: { xs: 1, md: 0 } }}>
+      <Toolbar sx={{ py: { xs: 1, lg: 0 } }}>
         <Header />
       </Toolbar>
     ),
@@ -182,7 +182,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
         {/* main content */}
         <Main open={drawerOpen}>
           {!isNoFilterPage ? (
-            <PerfectScrollbar style={{ padding: matchDownSm ? '10px 20px' : '20px 40px' }}>
+            <PerfectScrollbar style={{ padding: matchDownLG ? '10px 20px' : '20px 40px' }}>
               {getContent()}
             </PerfectScrollbar>
           ) : (

@@ -13,9 +13,9 @@ import { useTheme } from '@nl/theme';
 
 export default function useComicDimension() {
   const theme = useTheme();
-  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  const isScreenLG = useMediaQuery(theme.breakpoints.up('lg'));
 
-  if (isTablet) {
+  if (!isScreenLG) {
     return { width: 90, height: 90 };
   }
 

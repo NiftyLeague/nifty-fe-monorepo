@@ -107,11 +107,11 @@ const DashboardDegensPage = (): React.ReactNode => {
   }, [degensBalances.length, !!data]);
 
   const theme = useTheme();
-  const isScreenLg = useMediaQuery(theme.breakpoints.between('lg', 'xl'));
+  const isScreenXL = useMediaQuery(theme.breakpoints.up('xl'));
 
   const { jump, dataForCurrentPage, maxPage, currentPage } = usePagination<Degen>(
     filteredData,
-    isScreenLg && layoutMode !== 'gridView' && !isDrawerOpen ? 15 : DEGENS_PER_PAGE,
+    isScreenXL && layoutMode !== 'gridView' && !isDrawerOpen ? 18 : DEGENS_PER_PAGE,
   );
 
   useEffect(() => {
@@ -231,8 +231,8 @@ const DashboardDegensPage = (): React.ReactNode => {
           xs: isGridView ? 12 : 6,
           sm: isGridView ? 6 : 4,
           md: isGridView ? 4 : 3,
-          lg: isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2.4,
-          xl: isGridView ? 3 : 2,
+          lg: isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2,
+          xl: isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2,
         }}
       >
         <SkeletonDegenPlaceholder size={isGridView ? 'normal' : 'small'} />
@@ -261,8 +261,8 @@ const DashboardDegensPage = (): React.ReactNode => {
           xs: isGridView ? 12 : 6,
           sm: isGridView ? 6 : 4,
           md: isGridView ? 4 : 3,
-          lg: isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2.4,
-          xl: isGridView ? 3 : 2,
+          lg: isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2,
+          xl: isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2,
         }}
       >
         <DegenCard

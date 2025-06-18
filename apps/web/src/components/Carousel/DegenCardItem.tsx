@@ -25,7 +25,7 @@ const DegenCardItem = ({
   source: string;
   createdDate: string;
 }): React.ReactNode => {
-  const mobile = useMediaQuery('(max-width:615px)');
+  const mobile = useMediaQuery('(max-width:640px)');
   const small = useMediaQuery('(max-width:768px)');
   return (
     <div className="slide">

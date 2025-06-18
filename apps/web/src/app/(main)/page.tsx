@@ -176,8 +176,8 @@ const MobileIntro = () => {
 };
 
 const Home: NextPage = () => {
-  const isDesktop = useMediaQuery('(min-width:769px)');
   const isMobile = useMediaQuery('(max-width:768px)');
+  const isDesktop = !isMobile;
   const gamingSectionRef = useRef<HTMLDivElement>(null);
 
   const scrollToGamingSection = () => {

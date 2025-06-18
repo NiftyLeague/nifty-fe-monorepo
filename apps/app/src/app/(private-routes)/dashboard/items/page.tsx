@@ -29,7 +29,7 @@ const DashboardComicsPage = (): React.ReactNode => {
   const { comicsBalances, loadingComics, itemsBalances, loadingItems } = useNFTsBalances();
   const router = useRouter();
   const theme = useTheme();
-  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  const isScreenXL = useMediaQuery(theme.breakpoints.up('xl'));
 
   const handleViewComic = (comic: Comic) => {
     setSelectedComic(comic);
@@ -173,7 +173,7 @@ const DashboardComicsPage = (): React.ReactNode => {
               </Grid>
             </Stack>
           </SectionSlider>
-          {!isTablet && (
+          {isScreenXL && (
             <Stack sx={{ mt: 7.5 }}>
               <ComicDetail data={selectedComic} />
             </Stack>
@@ -198,7 +198,7 @@ const DashboardComicsPage = (): React.ReactNode => {
               >
                 {selectedItem?.balance && selectedItem?.balance > 1 && (
                   <Stack spacing={4}>
-                    <Stack direction={{ xs: 'column', lg: 'row' }} spacing={{ xs: 2, lg: 10 }}>
+                    <Stack direction={{ xs: 'column', md: 'row' }} spacing={{ xs: 2, md: 10 }}>
                       <WearableItemCard data={selectedItem} />
                       <Grid container flexWrap="wrap" gap={2.5}>
                         {renderSubItems}
@@ -220,17 +220,17 @@ const DashboardComicsPage = (): React.ReactNode => {
               </Stack>
             </Stack>
           </SectionSlider>
-          {!isTablet && (
+          {isScreenXL && (
             <Stack sx={{ mt: 7.5 }}>
               <ItemDetail data={selectedItem} subIndex={selectedSubIndex} />
             </Stack>
           )}
         </Stack>
       </Stack>
-      {isTablet && (
+      {!isScreenXL && (
         <ViewComicDialog comic={selectedComic} open={Boolean(selectedComic)} onClose={handleCloseComicDialog} />
       )}
-      {isTablet && (
+      {!isScreenXL && (
         <ViewItemDialog
           item={selectedItem}
           subIndex={selectedSubIndex}
