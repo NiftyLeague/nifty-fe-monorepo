@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import Link from 'next/link';
+
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
-import ExternalIcon from '@/components/ExternalIcon';
+import ThemeBtnGroup from '@/components/ThemeBtnGroup';
 import { LEARN_CARDS } from './constants';
 
 interface LearnCardProps {
@@ -40,30 +40,16 @@ const LearnCard = ({ btnText, external, image, link, subtitle, title }: LearnCar
             </h5>
           </AnimatedWrapper>
         </div>
-        <div className="mb-4 md:mb-6">
+        <div className="mb-0">
           <AnimatedWrapper>
             <p className="text-center transition-vertical-fade transition-vertical-fade-start delay-normal">
               {subtitle}
             </p>
           </AnimatedWrapper>
         </div>
-        <AnimatedWrapper>
-          {external ? (
-            <a target="_blank" rel="noreferrer" href={link}>
-              <button className="theme-btn-primary theme-btn-rounded max-w-fit transition-fade-slow transition-fade-start delay-long">
-                {btnText}
-                <ExternalIcon className="ml-1" />
-              </button>
-            </a>
-          ) : (
-            <Link href={link} target="_blank" rel="noreferrer">
-              <button className="theme-btn-primary theme-btn-rounded max-w-fit transition-fade-slow transition-fade-start delay-long">
-                {btnText}
-                <ExternalIcon className="ml-1" />
-              </button>
-            </Link>
-          )}
-        </AnimatedWrapper>
+        <ThemeBtnGroup
+          primary={{ href: link, title: btnText, external: external, className: 'theme-btn-rounded max-w-fit' }}
+        />
       </div>
     </div>
   );

@@ -1,14 +1,13 @@
 'use client';
 
 import type { NextPage } from 'next';
-import Link from 'next/link';
 import Image from 'next/image';
 import { cn } from '@nl/ui/lib/utils';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import AnimatedAccordion from '@/components/AnimatedAccordion';
-import ExternalIcon from '@/components/ExternalIcon';
+import ThemeBtnGroup from '@/components/ThemeBtnGroup';
 import LearnCards from '@/components/LearnCards';
 import { FAQS } from '@/constants/faq';
 
@@ -50,16 +49,10 @@ const Overview: NextPage = () => {
             <AnimatedAccordion key={faq.question} index={index} question={faq.question} answer={faq.answer} />
           ))}
 
-          <div className="flex justify-center mt-8">
-            <AnimatedWrapper>
-              <Link href="/docs/faq/general" target="_blank" rel="noreferrer">
-                <button className="theme-btn-primary theme-btn-purple transition-fade-slow transition-fade-start delay-lite">
-                  More FAQ
-                  <ExternalIcon />
-                </button>
-              </Link>
-            </AnimatedWrapper>
-          </div>
+          <ThemeBtnGroup
+            className="mt-6 xl:mt-8"
+            primary={{ href: '/docs/faq/general', title: 'More FAQ', external: true, className: 'theme-btn-purple' }}
+          />
         </section>
       </div>
 
@@ -93,9 +86,10 @@ const Overview: NextPage = () => {
           <p className="my-3 px-4 text-center">
             Meet our community and stay up to date with our roadmap or team updates
           </p>
-          <a href="https://discord.gg/niftyleague" target="_blank" rel="noreferrer">
-            <button className="theme-btn-primary w-auto my-3">join our Discord server</button>
-          </a>
+          <ThemeBtnGroup
+            className="mt-2 xl:mt-2"
+            primary={{ href: 'https://discord.gg/niftyleague', title: 'JOIN DISCORD', external: true }}
+          />
         </div>
       </section>
     </>

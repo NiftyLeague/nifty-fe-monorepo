@@ -2,6 +2,7 @@ import Image from 'next/image';
 import type { NextPage } from 'next';
 import { cn } from '@nl/ui/lib/utils';
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
+import ThemeBtnGroup from '@/components/ThemeBtnGroup';
 import styles from './index.module.css';
 
 const CompeteAndEarn: NextPage = () => {
@@ -109,15 +110,10 @@ const CompeteAndEarn: NextPage = () => {
           </div>
         </AnimatedWrapper>
 
-        <div className="flex justify-center mt-10">
-          <AnimatedWrapper>
-            <a href="https://app.niftyleague.com/" target="_blank" rel="noreferrer">
-              <button className="theme-btn-primary transition-fade transition-fade-start delay-lite">
-                START PLAYING NOW
-              </button>
-            </a>
-          </AnimatedWrapper>
-        </div>
+        <ThemeBtnGroup
+          className="mt-6 xl:mt-10"
+          primary={{ href: 'https://app.niftyleague.com', title: 'PLAY NOW', external: true }}
+        />
       </section>
     </div>
   );
