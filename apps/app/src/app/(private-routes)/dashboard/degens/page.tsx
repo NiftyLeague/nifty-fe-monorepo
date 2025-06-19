@@ -315,7 +315,7 @@ const DashboardDegensPage = (): React.ReactNode => {
           ) : !degensBalances?.length ? (
             <Link href={DEGEN_COLLECTION_URL} target="_blank" rel="noreferrer">
               <EmptyState
-                message="No DEGENs found. Please check your address or go purchase a degen if you have not done so already!"
+                message="No DEGENs found. Please check your address or go purchase a DEGEN if you have not done so already!"
                 buttonText="Buy a DEGEN"
               />
             </Link>

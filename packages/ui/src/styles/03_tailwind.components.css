@@ -3,8 +3,8 @@
 @utility theme-btn {
   @apply flex items-center justify-center hover:cursor-pointer;
   @apply font-bold uppercase whitespace-nowrap p-[4px_16px] tracking-wider;
-  @apply h-[40px] md:h-[50px] lg:h-[60px] xl:h-[80px] min-h-fit;
-  @apply w-[180px] md:w-[220px] lg:w-[240px] xl:w-[272px] min-w-fit;
+  @apply h-[40px] md:h-[50px] lg:h-[60px] xl:h-[70px] 2xl:h-[80px] min-h-fit;
+  @apply w-[180px] md:w-[280px] lg:w-[200px] xl:w-[240px] 2xl:w-[272px] min-w-fit;
 }
 
 @layer components {
@@ -38,7 +38,8 @@
     @apply bg-clip-text text-transparent shadow-none border-[1px];
   }
 
-  [class*='theme-btn-'][disabled] {
+  [class*='theme-btn-'][disabled],
+  [class*='theme-btn-'].disabled {
     @apply cursor-not-allowed opacity-50 pointer-events-none;
   }
 

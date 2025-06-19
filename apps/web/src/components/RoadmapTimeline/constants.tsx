@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import styles from './index.module.css';
+import { DEGEN_COLLECTION_URL } from '@/constants/degens';
 
 export const ROADMAP_CARDS = [
   {
@@ -11,7 +12,7 @@ export const ROADMAP_CARDS = [
       <p className="mb-0">
         Nifty League{' '}
         <strong>
-          <a href="https://opensea.io/collection/niftydegen" target="_blank" rel="noreferrer">
+          <a href={DEGEN_COLLECTION_URL} target="_blank" rel="noreferrer">
             DEGEN NFTs
           </a>
         </strong>{' '}

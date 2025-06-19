@@ -2,8 +2,10 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
+
 import { styled } from '@nl/theme';
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
+import ThemeBtnGroup from '@/components/ThemeBtnGroup';
 
 const StyledAccordion = styled(Accordion)({
   border: 'none',
@@ -57,20 +59,10 @@ const JobCard = ({ details }: JobCardProps): React.ReactNode => {
             <p className="transition-fade transition-fade-start delay-normal m-0">{location}</p>
           </AnimatedWrapper>
         </div>
-        <div>
-          <AnimatedWrapper>
-            <a
-              className="theme-btn-primary theme-btn-rounded max-w-fit mr-4 transition-fade-start transition-fade delay-normal"
-              href={link}
-              role="button"
-              target="_blank"
-              rel="noreferrer"
-              onClick={e => e.stopPropagation()}
-            >
-              Apply
-            </a>
-          </AnimatedWrapper>
-        </div>
+        <ThemeBtnGroup
+          className="max-w-40 mt-0 xl:mt-0"
+          primary={{ href: link, title: 'APPLY', external: true, className: 'theme-btn-rounded max-w-fit' }}
+        />
       </AccordionSummary>
 
       <AccordionDetails>
@@ -126,19 +118,7 @@ const JobCard = ({ details }: JobCardProps): React.ReactNode => {
             ))}
           </ul>
         </div>
-        <div className="flex justify-center m-3">
-          <AnimatedWrapper>
-            <a
-              className="theme-btn-primary transition-fade-start transition-fade delay-normal"
-              href={link}
-              role="button"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Apply
-            </a>
-          </AnimatedWrapper>
-        </div>
+        <ThemeBtnGroup primary={{ href: link, title: 'APPLY', external: true, className: 'theme-btn-purple' }} />
       </AccordionDetails>
     </StyledAccordion>
   );

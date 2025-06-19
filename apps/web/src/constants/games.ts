@@ -9,7 +9,7 @@ export const NIFTY_GAMES = [
       link: 'https://niftysmashers.com',
       isComingSoon: false,
       secondaryLink: '/compete-and-earn',
-      secondaryTitle: 'WANT TO COMPETE & EARN?',
+      secondaryTitle: 'COMPETE & EARN?',
     },
   },
   {

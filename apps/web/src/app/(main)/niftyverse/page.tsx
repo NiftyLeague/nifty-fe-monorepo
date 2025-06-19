@@ -1,14 +1,12 @@
 import Image from 'next/image';
 import type { NextPage } from 'next';
-import { Stack } from '@mui/material';
 
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import ConsoleGame from '@nl/ui/custom/ConsoleGame';
 import { cn } from '@nl/ui/lib/utils';
 
 import { NIFTYVERSE_PROPERTIES } from '@/constants/niftyverse';
-import ExternalIcon from '@/components/ExternalIcon';
-import ViewDocsBtn from '@/components/ViewDocsBtn';
+import ThemeBtnGroup from '@/components/ThemeBtnGroup';
 import styles from './index.module.css';
 
 const NiftyVerse: NextPage = () => {
@@ -16,27 +14,16 @@ const NiftyVerse: NextPage = () => {
     <>
       <section className="relative xl:-top-20 2xl:-top-35">
         <ConsoleGame src="/video/mansion_showcase.mp4" />
-        <Stack
-          direction="row"
-          gap={{ xs: 1.25, xl: 4 }}
-          px={{ xs: 2, md: 0 }}
-          mt={{ xs: 2, sm: 0 }}
-          className="absolute w-full justify-center items-center bottom-0 sm:bottom-4"
-        >
-          <AnimatedWrapper>
-            <button disabled className="theme-btn-primary transition-fade transition-fade-start delay-normal">
-              COMING SOON
-            </button>
-          </AnimatedWrapper>
-          <AnimatedWrapper>
-            <a href="https://twitter.com/search?q=%23NiftyLeaks&src=typed_query" target="_blank" rel="noreferrer">
-              <button className="theme-btn-transparent transition-fade transition-fade-start delay-normal">
-                VIEW MORE
-                <ExternalIcon />
-              </button>
-            </a>
-          </AnimatedWrapper>
-        </Stack>
+
+        <ThemeBtnGroup
+          className="absolute bottom-0 sm:bottom-4"
+          primary={{ title: 'COMING SOON', disabled: true }}
+          secondary={{
+            href: 'https://twitter.com/search?q=%23NiftyLeaks&src=typed_query',
+            title: 'VIEW MORE',
+            external: true,
+          }}
+        />
       </section>
 
       <div className="container">
@@ -109,7 +96,7 @@ const NiftyVerse: NextPage = () => {
               </div>
             ))}
           </div>
-          <ViewDocsBtn href="/docs/overview/games/niftyverse" />
+          <ThemeBtnGroup primary={{ href: '/docs/overview/games/niftyverse', title: 'VIEW DOCS', external: true }} />
         </section>
       </div>
     </>

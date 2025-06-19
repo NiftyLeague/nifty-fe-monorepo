@@ -1,11 +1,11 @@
 'use client';
 
 import type { NextPage } from 'next';
-import Link from 'next/link';
 
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import Carousel from '@/components/Carousel';
 import { RenderTeamCardItem } from '@/components/Carousel/TeamCardItem';
+import ThemeBtnGroup from '@/components/ThemeBtnGroup';
 import TeamDesktop from '@/components/TeamDesktop';
 import { CORE_TEAM, DEGEN_DELEGATES } from '@/constants/team';
 
@@ -40,22 +40,10 @@ const Team: NextPage = () => {
               </AnimatedWrapper>
             </div>
 
-            <div className="mt-3 md:mt-4 flex justify-center desktop">
-              <AnimatedWrapper>
-                <Link href="/careers">
-                  <button className="theme-btn-primary mx-2 transition-fade-slow transition-fade-start delay-normal">
-                    Join Us
-                  </button>
-                </Link>
-              </AnimatedWrapper>
-              <AnimatedWrapper>
-                <Link href="/roadmap">
-                  <button className="theme-btn-transparent mx-2 transition-fade-slow transition-fade-start delay-normal">
-                    Check our roadmap
-                  </button>
-                </Link>
-              </AnimatedWrapper>
-            </div>
+            <ThemeBtnGroup
+              primary={{ href: '/careers', title: 'JOIN US' }}
+              secondary={{ href: '/roadmap', title: 'VIEW OUR ROADMAP' }}
+            />
           </div>
           <div className="purple-bg-orb top-0 right-0" />
         </section>

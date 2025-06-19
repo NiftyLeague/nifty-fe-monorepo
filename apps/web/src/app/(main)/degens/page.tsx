@@ -10,8 +10,7 @@ import DegenSpecialsTable from '@nl/ui/custom/DegenSpecialsTable';
 import { cn } from '@nl/ui/lib/utils';
 
 import { NIFTY_DEGENS_ALL } from '@/constants/degens';
-import ExternalIcon from '@/components/ExternalIcon';
-import ViewDocsBtn from '@/components/ViewDocsBtn';
+import ThemeBtnGroup from '@/components/ThemeBtnGroup';
 import styles from './index.module.css';
 
 const Degens: NextPage = () => {
@@ -69,16 +68,10 @@ const Degens: NextPage = () => {
             </div>
           </div>
 
-          <div className="flex justify-center">
-            <AnimatedWrapper>
-              <a href="https://app.niftyleague.com/degens" target="_blank" rel="noreferrer">
-                <button className="theme-btn-primary transition-fade-slow transition-fade-start delay-long">
-                  SEE ALL DEGENS
-                  <ExternalIcon />
-                </button>
-              </a>
-            </AnimatedWrapper>
-          </div>
+          <ThemeBtnGroup
+            className="mt-6 xl:mt-10"
+            primary={{ href: 'https://app.niftyleague.com/degens', title: 'SEE ALL DEGENS', external: true }}
+          />
         </section>
 
         <section className="section">
@@ -130,7 +123,10 @@ const Degens: NextPage = () => {
 
           <DegenSpecialsTable />
 
-          <ViewDocsBtn href="/docs/overview/nfts/degens/about" />
+          <ThemeBtnGroup
+            className="mt-6 xl:mt-8"
+            primary={{ href: '/docs/overview/nfts/degens/about', title: 'VIEW DOCS', external: true }}
+          />
         </section>
       </div>
     </>

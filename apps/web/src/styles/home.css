@@ -103,16 +103,6 @@
   margin-right: 30px;
 }
 
-.home-dashboard-section {
-  position: absolute;
-  top: 200px;
-  left: 52px;
-}
-
-.home-nftl-token-section-description {
-  max-width: 560px;
-}
-
 .compete-to-earn-section-token-1 {
   position: absolute;
   left: -226px;
@@ -123,7 +113,7 @@
 
 .compete-to-earn-section-token-2 {
   position: absolute;
-  right: -32px;
+  right: -80px;
   top: 0px;
   width: 226px;
   height: 221px;
@@ -141,16 +131,6 @@
   width: 246px;
   left: calc(50% - 123px);
   top: calc(50% - 123px);
-}
-
-.social-icons a {
-  font-size: 20px;
-}
-.social-icons a:hover {
-  color: var(--color-purple);
-}
-.social-icons a:hover path {
-  fill: var(--color-purple);
 }
 
 /* ==============================|| MEDIA QUERIES ||============================== */
@@ -206,10 +186,6 @@
     width: 140px;
     height: 148px;
   }
-  .home-dashboard-section {
-    top: 100px;
-    left: 8px;
-  }
 }
 
 @media (max-width: 1280px) {
@@ -222,9 +198,6 @@
   }
   .section-description {
     max-width: 340px;
-  }
-  .home-dashboard-section {
-    top: 100px;
   }
   .compete-to-earn-section-token-4 {
     width: 160px;
@@ -263,9 +236,6 @@
   }
   .compete-to-earn-section-token-2 {
     display: none;
-  }
-  .home-dashboard-section {
-    top: 100px;
   }
 }
 
@@ -315,9 +285,6 @@
   .section-description {
     max-width: 280px;
   }
-  .home-community-section .section-actions {
-    max-width: 400px;
-  }
   .home-hero-characters-image {
     height: calc(100% - 72px);
   }
@@ -343,27 +310,6 @@
     max-width: 600px;
     text-align: center;
   }
-  .compete-to-earn-section-body .section-actions {
-    justify-content: center;
-  }
-  .home-dashboard-section {
-    position: relative;
-    top: 0px;
-    left: 0px;
-  }
-  .home-dashboard-section-body {
-    align-items: center;
-  }
-  .home-nftl-token-section {
-    width: 100%;
-  }
-  .home-community-section-container {
-    width: 100%;
-  }
-  .home-community-section .section-actions {
-    align-items: flex-end;
-    justify-content: flex-end;
-  }
   .section-heading {
     max-width: inherit;
     text-align: center;
@@ -371,22 +317,8 @@
     margin-right: auto;
     margin-top: 24px;
   }
-  .home-nftl-token-section-body {
-    width: 100%;
-    align-items: center;
-  }
-  .home-nftl-token-section-description {
-    max-width: 600px;
-    text-align: center;
-  }
   .home-nftl-token-bottom-image {
     right: 25px;
-  }
-  .home-community-characters {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: -32px;
   }
 }
 
@@ -395,21 +327,9 @@
     width: 60px;
     height: 63px;
   }
-  .home-mobile-intro button {
-    width: 195px;
-  }
 }
 
 @media (max-width: 400px) {
-  .section-actions {
-    width: 100%;
-  }
-  .section-actions > div {
-    flex: 1;
-  }
-  .section-actions button {
-    width: 100%;
-  }
   .home-hero-characters-image {
     height: calc(100% - 62px);
   }

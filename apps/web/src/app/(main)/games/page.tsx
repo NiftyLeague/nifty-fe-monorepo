@@ -1,14 +1,13 @@
 'use client';
 
 import type { NextPage } from 'next';
-import Link from 'next/link';
 import Image from 'next/image';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import { cn } from '@nl/ui/lib/utils';
 
-import ViewDocsBtn from '@/components/ViewDocsBtn';
+import ThemeBtnGroup from '@/components/ThemeBtnGroup';
 import { NIFTY_GAMES } from '@/constants/games';
 import styles from './index.module.css';
 
@@ -81,43 +80,32 @@ const Games: NextPage = () => {
               </AnimatedWrapper>
               <div className="flex justify-center md:justify-start mt-4">
                 {action.isComingSoon ? (
-                  <AnimatedWrapper>
-                    <div className="transition-fade-slow transition-fade-start delay-normal">
-                      <button className="theme-btn-transparent theme-btn-rounded min-w-fit disabled px-3">
-                        COMING SOON
-                      </button>
-                    </div>
-                  </AnimatedWrapper>
+                  <ThemeBtnGroup
+                    className="justify-start mt-3 xl:mt-3"
+                    primary={{ title: 'COMING SOON', disabled: true, className: 'theme-btn-rounded max-w-fit' }}
+                  />
                 ) : null}
+
                 {action.link ? (
-                  <AnimatedWrapper>
-                    <Link
-                      href={action.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      style={action.isDisabled ? { pointerEvents: 'none', color: 'var(--color-foreground)' } : {}}
-                    >
-                      <button
-                        disabled={action.isDisabled}
-                        className={
-                          action.isDisabled
-                            ? 'theme-btn-transparent theme-btn-rounded'
-                            : 'theme-btn-primary theme-btn-rounded transition-fade-slow transition-fade-start delay-normal'
-                        }
-                      >
-                        {action.title}
-                      </button>
-                    </Link>
-                  </AnimatedWrapper>
-                ) : null}
-                {action.secondaryLink ? (
-                  <AnimatedWrapper>
-                    <Link href={action.secondaryLink}>
-                      <button className="theme-btn-primary theme-btn-rounded mx-3 transition-fade-slow transition-fade-start delay-normal">
-                        {action.secondaryTitle}
-                      </button>
-                    </Link>
-                  </AnimatedWrapper>
+                  <ThemeBtnGroup
+                    className="justify-start mt-3 xl:mt-3"
+                    primary={{
+                      href: action.link,
+                      title: action.title,
+                      external: action.link.includes('http'),
+                      className: 'theme-btn-rounded max-w-fit',
+                    }}
+                    secondary={
+                      action.secondaryLink
+                        ? {
+                            href: action.secondaryLink,
+                            title: action.secondaryTitle,
+                            external: action.secondaryLink.includes('http'),
+                            className: 'theme-btn-rounded max-w-fit ml-3',
+                          }
+                        : undefined
+                    }
+                  />
                 ) : null}
               </div>
             </div>
@@ -160,7 +148,10 @@ const Games: NextPage = () => {
           </article>
         ))}
 
-        <ViewDocsBtn href="/docs/guides/nifty-smashers/general-info" />
+        <ThemeBtnGroup
+          className="mt-6 xl:mt-8"
+          primary={{ href: '/docs/guides/nifty-smashers/general-info', title: 'VIEW DOCS', external: true }}
+        />
       </section>
     </div>
   );

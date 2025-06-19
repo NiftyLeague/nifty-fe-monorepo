@@ -1,8 +1,10 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
+
 import { cn } from '@nl/ui/lib/utils';
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
-import ViewDocsBtn from '@/components/ViewDocsBtn';
+import ThemeBtnGroup from '@/components/ThemeBtnGroup';
+
 import styles from './index.module.css';
 
 const Lore: NextPage = () => {
@@ -150,9 +152,10 @@ const Lore: NextPage = () => {
         <div className={cn(styles.gradient3, 'purple-bg-orb')} />
       </div>
 
-      <div className="w-full absolute -mt-40">
-        <ViewDocsBtn href="/docs/overview/intro" />
-      </div>
+      <ThemeBtnGroup
+        className="absolute -mt-50 md:-mt-40 xl:-mt-30"
+        primary={{ href: '/docs/overview/intro', title: 'VIEW DOCS', external: true }}
+      />
     </div>
   );
 };

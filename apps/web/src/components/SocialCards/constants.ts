@@ -1,3 +1,5 @@
+import { DEGEN_COLLECTION_URL } from '@/constants/degens';
+
 export const SOCIALS = [
   {
     link: 'https://discord.gg/niftyleague',
@@ -6,7 +8,7 @@ export const SOCIALS = [
     image: '/icons/socials/discord.svg',
   },
   {
-    link: 'https://opensea.io/collection/niftydegen',
+    link: DEGEN_COLLECTION_URL,
     title: 'OpenSea',
     subtitle: 'Browse our collection of DEGEN NFTs for sale on OpenSea',
     image: '/icons/opensea.svg',
