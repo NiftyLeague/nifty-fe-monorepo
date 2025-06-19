@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 
-import useMediaQuery from '@mui/material/useMediaQuery';
 import Card from '@nl/ui/supabase/Card';
 import Space from '@nl/ui/supabase/Space';
 import Tabs from '@nl/ui/supabase/Tabs';
@@ -31,7 +30,6 @@ const Inventory = dynamic(() => import('@nl/playfab/components').then(mod => ({ 
 
 export default function ProfileClient({ user: initialUser }: { user: User }) {
   const router = useRouter();
-  const mobile = useMediaQuery('(max-width:640px)');
   const flags = useFlags();
   const { user } = useUserSession() || { user: initialUser };
 
@@ -47,17 +45,13 @@ export default function ProfileClient({ user: initialUser }: { user: User }) {
       <div className={styles.profileContainer}>
         <Card className={styles.profileCard}>
           <div className={styles.profileCardHeader}>
-            {mobile ? (
-              <div />
-            ) : (
-              <Image
-                src="/img/logos/NL/white.webp"
-                alt="Company Logo"
-                width={50}
-                height={48}
-                style={{ maxWidth: '100%', height: 'auto' }}
-              />
-            )}
+            <Image
+              src="/img/logos/NL/white.webp"
+              alt="Company Logo"
+              width={50}
+              height={48}
+              className="max-w-full h-auto hidden md:block"
+            />
             <Typography.Text type="success">You&apos;re signed in</Typography.Text>
           </div>
           <Space direction="vertical" size={6} className={styles.userInfo}>

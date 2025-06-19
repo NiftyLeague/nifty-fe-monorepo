@@ -4,11 +4,12 @@ import { usePathname } from 'next/navigation';
 
 // material-ui
 import { useTheme } from '@nl/theme';
-import { Avatar, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery } from '@mui/material';
+import { Avatar, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import Chip from '@/components/extended/Chip';
 
 // project imports
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 import { useDispatch, useSelector } from '@/store/hooks';
 import { activeItem, openDrawer } from '@/store/slices/menu';
 
@@ -26,7 +27,7 @@ interface NavItemProps {
 const NavItem = ({ item, level }: NavItemProps) => {
   const pathname = usePathname();
   const theme = useTheme();
-  const matchesSM = useMediaQuery(theme.breakpoints.down('lg'));
+  const matchesSM = useMediaQuery('(max-width:1024px)');
   const dispatch = useDispatch();
   const isSelected = pathname === item.url;
 

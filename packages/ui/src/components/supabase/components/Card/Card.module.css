@@ -10,7 +10,8 @@
 
 :global(.dark) .sbui-card {
   --tw-bg-opacity: 1;
-  background-color: rgba(31, 31, 31, var(--tw-bg-opacity));
+  background-color: var(--color-background-2);
+  /* background-color: rgba(31, 31, 31, var(--tw-bg-opacity)); */
 }
 
 .sbui-card {

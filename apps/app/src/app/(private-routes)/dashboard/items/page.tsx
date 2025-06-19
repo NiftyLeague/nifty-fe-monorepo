@@ -4,8 +4,8 @@ import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
-import { Box, Button, Divider, Grid, Stack, useMediaQuery } from '@mui/material';
-import { useTheme } from '@nl/theme';
+import { Divider, Grid, Stack } from '@mui/material';
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 
 import ComicCard from '@/components/cards/ComicCard';
 import ViewComicDialog from '@/components/dialog/ViewComicDialog';
@@ -27,9 +27,8 @@ const DashboardComicsPage = (): React.ReactNode => {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [selectedSubIndex, setSelectedSubIndex] = useState<number>(-1);
   const { comicsBalances, loadingComics, itemsBalances, loadingItems } = useNFTsBalances();
+  const isSmallScreen = useMediaQuery('(max-width:1280px)');
   const router = useRouter();
-  const theme = useTheme();
-  const isScreenXL = useMediaQuery(theme.breakpoints.up('xl'));
 
   const handleViewComic = (comic: Comic) => {
     setSelectedComic(comic);
@@ -173,7 +172,7 @@ const DashboardComicsPage = (): React.ReactNode => {
               </Grid>
             </Stack>
           </SectionSlider>
-          {isScreenXL && (
+          {!isSmallScreen && (
             <Stack sx={{ mt: 7.5 }}>
               <ComicDetail data={selectedComic} />
             </Stack>
@@ -220,17 +219,17 @@ const DashboardComicsPage = (): React.ReactNode => {
               </Stack>
             </Stack>
           </SectionSlider>
-          {isScreenXL && (
+          {!isSmallScreen && (
             <Stack sx={{ mt: 7.5 }}>
               <ItemDetail data={selectedItem} subIndex={selectedSubIndex} />
             </Stack>
           )}
         </Stack>
       </Stack>
-      {!isScreenXL && (
+      {isSmallScreen && (
         <ViewComicDialog comic={selectedComic} open={Boolean(selectedComic)} onClose={handleCloseComicDialog} />
       )}
-      {!isScreenXL && (
+      {isSmallScreen && (
         <ViewItemDialog
           item={selectedItem}
           subIndex={selectedSubIndex}

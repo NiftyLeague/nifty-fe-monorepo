@@ -2,7 +2,8 @@
 
 import Image from 'next/image';
 import { memo } from 'react';
-import { useMediaQuery } from '@mui/material';
+
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 
 import styles from './index.module.css';
 

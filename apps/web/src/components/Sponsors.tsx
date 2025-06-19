@@ -1,8 +1,9 @@
 'use client';
 
-import { useMediaQuery } from '@mui/material';
 import Image from 'next/image';
 import { memo } from 'react';
+
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 
 type Sponsor = { image: string; url: string; width: number; height: number };
 

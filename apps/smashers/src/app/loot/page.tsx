@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { Box, Typography } from '@mui/material';
+import Typography from '@nl/ui/supabase/Typography';
 import BackButton from '@/components/Header/BackButton';
 import DROP_TABLES from '@/data/droptables.json';
 import type { CrateData } from '@/types/droptables';
@@ -24,20 +24,18 @@ const CrateTables: React.FC<CrateTableProps> = ({ data }) =>
     if (!crate) return null;
 
     return (
-      <Box key={crate.TableId} className={styles.crateGroup}>
-        <Typography variant="h2">
+      <div key={crate.TableId} className={styles.crateGroup}>
+        <Typography.Title level={2}>
           {crateKey
             .split('.')
             .reverse()
             .map(word => word.charAt(0).toUpperCase() + word.slice(1))
             .join(' ')}
-        </Typography>
-        <Typography className="crateSubtitle" sx={{ mb: 4 }}>
-          Drop Tables & Odds
-        </Typography>
+        </Typography.Title>
+        <Typography className="crateSubtitle mb-4">Drop Tables & Odds</Typography>
 
         {/* Items Table */}
-        <Box className={styles.itemsTable}>
+        <div className={styles.itemsTable}>
           <table>
             <thead>
               <tr>
@@ -58,10 +56,10 @@ const CrateTables: React.FC<CrateTableProps> = ({ data }) =>
               ))}
             </tbody>
           </table>
-        </Box>
+        </div>
 
         {/* Bonus Item Odds */}
-        <Typography variant="h3" sx={{ mt: 4, mb: 2, fontSize: '1.25rem', fontWeight: 600 }}>
+        <Typography.Title level={5} className="mt-4 mb-2">
           Bonus Item Odds:{' '}
           <span
             style={{
@@ -75,15 +73,15 @@ const CrateTables: React.FC<CrateTableProps> = ({ data }) =>
           >
             {crate.BonusItemOdds}
           </span>
-        </Typography>
+        </Typography.Title>
 
         {/* Currency Rewards */}
         {crate.CurrencyMinMax && Object.keys(crate.CurrencyMinMax).length > 0 && (
           <>
-            <Typography variant="h3" sx={{ mt: 4, mb: 2, fontSize: '1.25rem', fontWeight: 600 }}>
+            <Typography.Title level={3} className="mt-4 mb-2">
               Currency Rewards
-            </Typography>
-            <Box className={styles.itemsTable}>
+            </Typography.Title>
+            <div className={styles.itemsTable}>
               <table>
                 <thead>
                   <tr>
@@ -104,41 +102,40 @@ const CrateTables: React.FC<CrateTableProps> = ({ data }) =>
                   ))}
                 </tbody>
               </table>
-            </Box>
+            </div>
           </>
         )}
-      </Box>
+      </div>
     );
   });
 
 export default function Loot() {
   return (
-    <Box className={styles.pageContainer}>
+    <div className={styles.pageContainer}>
       <BackButton />
-      <Box sx={{ width: '100%', textAlign: 'center', mb: 6 }}>
-        <Typography
-          variant="h1"
-          sx={{
+      <div className="w-full text-center mb-6">
+        <Typography.Title
+          level={1}
+          className="mb-2"
+          style={{
             background: 'var(--gradient-brand)',
-            fontSize: { xs: '2.5rem', sm: '3rem', lg: '3.5rem' },
             fontWeight: 800,
             lineHeight: 1.2,
-            mb: 2,
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
           }}
         >
           Loot Tables
-        </Typography>
-        <Typography
-          variant="h5"
-          color="text.secondary"
-          sx={{ fontWeight: 400, lineHeight: 1.6, maxWidth: '700px', mx: 'auto' }}
+        </Typography.Title>
+        <Typography.Title
+          level={5}
+          className="text-foreground-2"
+          style={{ fontWeight: 400, lineHeight: 1.6, maxWidth: '700px', marginInline: 'auto' }}
         >
-          Explore the drop rates and rewards for all available crates and loot boxes.
-        </Typography>
-      </Box>
+          Explore the drop rates and rewards for all available crates and loot dives.
+        </Typography.Title>
+      </div>
       <CrateTables data={DROP_TABLES as CrateData} />
-    </Box>
+    </div>
   );
 }
