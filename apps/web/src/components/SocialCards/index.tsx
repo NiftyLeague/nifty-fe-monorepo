@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 import { SOCIALS } from './constants';
 
 interface SocialProps {

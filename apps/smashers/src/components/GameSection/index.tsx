@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Grid from '@mui/material/Grid';
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 
 const GameSection = () => {
@@ -9,8 +8,8 @@ const GameSection = () => {
   }
   return (
     <div className="flex flex-col-reverse lg:flex-col">
-      <Grid container spacing={6}>
-        <Grid size={{ xs: 12, md: 7, lg: 6 }}>
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+        <div className="md:col-span-12 lg:col-span-6">
           <div className="text-center lg:text-left mb-6">
             <AnimatedWrapper>
               <h2 className="transition-vertical-fade transition-vertical-fade-start delay-lite">
@@ -22,40 +21,30 @@ const GameSection = () => {
           </div>
           <div className="text-center lg:text-left">
             <AnimatedWrapper>
-              <p className="transition-vertical-fade transition-vertical-fade-start delay-normal">
-                Nifty Smashers is an <strong>online multiplayer</strong> that blends elements of a{' '}
-                <strong>casual party survival</strong> experience with the fast-paced action of a{' '}
-                <strong>platform fighter</strong>!
+              <p className="leading-relaxed transition-vertical-fade transition-vertical-fade-start delay-normal">
+                Nifty Smashers is an <strong className="font-semibold">online multiplayer</strong> that blends elements
+                of a <strong className="font-semibold">casual party survival</strong> experience with the fast-paced
+                action of a <strong className="font-semibold">platform fighter</strong>!
                 <br />
                 <br />
-                Play on iOS, Android, and Steam with <strong>full cross-play support</strong>! Jump in and brawl
-                anytime, anywhere!
+                Play on iOS, Android, and Steam with <strong className="font-semibold">full cross-play support</strong>!
+                Jump in and brawl anytime, anywhere!
               </p>
             </AnimatedWrapper>
           </div>
-        </Grid>
-        <Grid size={{ xs: 12, md: 5, lg: 6 }}>
+        </div>
+        <div className="md:col-span-12 lg:col-span-6">
           <div onClick={playVid}>
             <AnimatedWrapper>
-              <div className="transition-quick-pop transition-quick-pop-start delay-lite">
-                <video
-                  id="level-video"
-                  width="100%"
-                  height="100%"
-                  style={{ borderRadius: '40px / 40px' }}
-                  muted
-                  autoPlay
-                  loop
-                  playsInline
-                  data-keepplaying
-                >
+              <div className="transition-quick-pop transition-quick-pop-start delay-lite rounded-[40px] overflow-hidden">
+                <video id="level-video" className="w-full h-auto" muted autoPlay loop playsInline data-keepplaying>
                   <source src="/video/rocket.mp4" type="video/mp4" />
                 </video>
               </div>
             </AnimatedWrapper>
           </div>
-        </Grid>
-      </Grid>
+        </div>
+      </div>
       <AnimatedWrapper>
         <div className="my-10 text-center transition-fade-slow transition-fade-start delay-lite">
           <Image
@@ -63,7 +52,7 @@ const GameSection = () => {
             alt="Smashers Party Modes"
             width={1350}
             height={556}
-            style={{ width: '100%', height: 'auto', borderRadius: '40px / 40px' }}
+            className="w-full h-auto rounded-[40px]"
             unoptimized
           />
         </div>

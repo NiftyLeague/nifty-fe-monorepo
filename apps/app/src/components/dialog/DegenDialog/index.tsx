@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Dialog, DialogProps, useMediaQuery } from '@mui/material';
-import { useTheme, styled } from '@nl/theme';
+import { Dialog, DialogProps } from '@mui/material';
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
+import { styled } from '@nl/theme';
 import { toast } from 'react-toastify';
 
 import { DEGEN_CONTRACT } from '@/constants/contracts';
@@ -61,9 +62,8 @@ const DegenDialog = ({
   onClose,
   ...rest
 }: DegenDialogProps) => {
-  const theme = useTheme();
   const tokenId = degen?.id || 0;
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const fullScreen = useMediaQuery('(max-width:768px)');
   const { readContracts } = useNetworkContext();
   const { authToken } = useAuth();
   const [degenDetail, setDegenDetail] = useState<GetDegenResponse>();

@@ -48,10 +48,7 @@ const createPalette = (paletteMode: PaletteMode, colors: ColorProps): ThemeOptio
   },
   divider: paletteMode === 'dark' ? colors.grey700 : colors.grey200,
   border: paletteMode === 'dark' ? colors.grey700 : colors.grey200,
-  background: {
-    paper: paletteMode === 'dark' ? colors.darkPaper : colors.paper,
-    default: paletteMode === 'dark' ? colors.darkBackground : colors.defaultBackground,
-  },
+  background: { paper: 'var(--color-background-2)', default: 'var(--color-background)' },
 });
 
 const customPalette = (paletteMode: PaletteMode, presetColor: string): Theme => {

@@ -6,9 +6,9 @@ import { useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Grid, IconButton, Pagination, Stack, Dialog, useMediaQuery } from '@mui/material';
-import { useTheme } from '@nl/theme';
+import { Grid, IconButton, Pagination, Stack, Dialog } from '@mui/material';
 import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder';
 import DegensFilter from '@/components/extended/DegensFilter';
@@ -73,11 +73,10 @@ const AllDegensPage = (): React.ReactNode => {
 
   const { isDegenOwner } = useNFTsBalances();
 
-  const theme = useTheme();
-  const isScreenXL = useMediaQuery(theme.breakpoints.up('xl'));
+  const isSmallScreen = useMediaQuery('(max-width:1280px)');
   const { jump, dataForCurrentPage, maxPage, currentPage } = usePagination<Degen>(
     filteredData,
-    isScreenXL && layoutMode !== 'gridView' && !isDrawerOpen ? 18 : DEGENS_PER_PAGE,
+    !isSmallScreen && layoutMode !== 'gridView' && !isDrawerOpen ? 18 : DEGENS_PER_PAGE,
   );
 
   useEffect(() => {

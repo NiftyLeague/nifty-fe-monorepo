@@ -12,16 +12,17 @@ import { useDispatch, useSelector } from '@/store/hooks';
 
 // material-ui
 import { IconChevronRight } from '@tabler/icons-react';
-import { useTheme, styled, appDrawerWidth, appHeaderHeight, container } from '@nl/theme';
+import { styled, appDrawerWidth, appHeaderHeight, container } from '@nl/theme';
 import WarningIcon from '@mui/icons-material/Warning';
 import InfoIcon from '@mui/icons-material/InfoRounded';
-import { AppBar, Box, Button, Icon, Toolbar, Typography, useMediaQuery } from '@mui/material';
+import { AppBar, Box, Button, Icon, Toolbar, Typography } from '@mui/material';
 
 // React Toastify
 import { ToastContainer } from 'react-toastify';
 
 // project imports
 import { cn } from '@nl/ui/lib/utils';
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 import navigation from '@/constants/menu-items';
 import useGoogleAnalytics from '@/hooks/useGoogleAnalytics';
 import { useConnectedToIMXCheck } from '@/hooks/useImxProvider';
@@ -90,8 +91,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
   const { switchChain } = useSwitchChain();
   const isConnectedToIMX = useConnectedToIMXCheck();
 
-  const theme = useTheme();
-  const matchDownXL = useMediaQuery(theme.breakpoints.down('xl'));
+  const matchDownXL = useMediaQuery('(max-width:1280px)');
   const { drawerOpen } = useSelector(state => state.menu);
 
   useEffect(() => {

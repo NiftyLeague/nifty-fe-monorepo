@@ -27,7 +27,7 @@
   body,
   main,
   footer {
-    background-color: var(--color-background) !important;
+    background-color: var(--color-background);
   }
 
   /* =============================|| TYPOGRAPHY ||============================= */

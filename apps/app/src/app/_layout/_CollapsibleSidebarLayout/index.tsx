@@ -1,6 +1,7 @@
-import { Drawer, Stack, useMediaQuery } from '@mui/material';
+import { Drawer, Stack } from '@mui/material';
 import { useEffect, ReactNode, SetStateAction, useCallback } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 import { appHeaderHeight, useTheme } from '@nl/theme';
 
 interface Props {
@@ -19,7 +20,7 @@ const CollapsibleSidebarLayout = ({
   setIsDrawerOpen,
 }: Props): React.ReactNode => {
   const theme = useTheme();
-  const matchDownLG = useMediaQuery(theme.breakpoints.down('lg'));
+  const matchDownLG = useMediaQuery('(max-width:1024px)');
 
   // toggle sidebar
   const handleDrawerOpen = useCallback(() => {

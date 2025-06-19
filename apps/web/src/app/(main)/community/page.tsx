@@ -2,7 +2,8 @@
 
 import type { NextPage } from 'next';
 import Image from 'next/image';
-import { useMediaQuery } from '@mui/material';
+
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import SocialCards from '@/components/SocialCards';
 

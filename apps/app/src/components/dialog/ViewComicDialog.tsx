@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import { Button, Dialog, DialogActions, DialogContent, useMediaQuery } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent } from '@mui/material';
 import type { Comic } from '@/types/marketplace';
-import { useTheme } from '@nl/theme';
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 
 export interface ViewComicDialogProps {
   comic?: Comic | null;
@@ -10,8 +10,7 @@ export interface ViewComicDialogProps {
 }
 
 const ViewComicDialog = ({ comic, open, onClose }: ViewComicDialogProps): React.ReactNode => {
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const fullScreen = useMediaQuery('(max-width:640px)');
 
   return (
     <Dialog maxWidth="md" open={open} onClose={onClose} fullScreen={fullScreen}>

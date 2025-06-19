@@ -8,9 +8,9 @@ import isEmpty from 'lodash/isEmpty';
 import xor from 'lodash/xor';
 import { useSearchParams } from 'next/navigation';
 import useFlags from '@/hooks/useFlags';
-import { Grid, IconButton, Pagination, Stack, Dialog, useMediaQuery } from '@mui/material';
+import { Grid, IconButton, Pagination, Stack, Dialog } from '@mui/material';
 import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
-import { useTheme } from '@nl/theme';
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder';
 import DegensFilter from '@/components/extended/DegensFilter';
@@ -106,12 +106,11 @@ const DashboardDegensPage = (): React.ReactNode => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [degensBalances.length, !!data]);
 
-  const theme = useTheme();
-  const isScreenXL = useMediaQuery(theme.breakpoints.up('xl'));
+  const isSmallScreen = useMediaQuery('(max-width:1280px)');
 
   const { jump, dataForCurrentPage, maxPage, currentPage } = usePagination<Degen>(
     filteredData,
-    isScreenXL && layoutMode !== 'gridView' && !isDrawerOpen ? 18 : DEGENS_PER_PAGE,
+    !isSmallScreen && layoutMode !== 'gridView' && !isDrawerOpen ? 18 : DEGENS_PER_PAGE,
   );
 
   useEffect(() => {

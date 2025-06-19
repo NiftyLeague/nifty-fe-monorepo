@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { cn } from '@nl/ui/lib/utils';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 
 import styles from './index.module.css';
 export default function Navbar() {
   const mobile = useMediaQuery('(max-width:640px)');
+
   return mobile ? (
     <>
       <a href="https://niftyleague.com" target="_blank" rel="noreferrer">

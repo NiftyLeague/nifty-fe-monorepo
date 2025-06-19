@@ -3,8 +3,8 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import { cn } from '@nl/ui/lib/utils';
-import useMediaQuery from '@mui/material/useMediaQuery';
 
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import AnimatedAccordion from '@/components/AnimatedAccordion';
 import ThemeBtnGroup from '@/components/ThemeBtnGroup';
