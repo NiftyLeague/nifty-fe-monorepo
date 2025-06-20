@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import isEmpty from 'lodash/isEmpty';
-import Grid from '@mui/material/Grid';
 import Button from '@nl/ui/supabase/Button';
 import Input from '@nl/ui/supabase/Input';
 import { IconLoader, IconSave } from '@nl/ui/supabase/Icon';
@@ -139,14 +138,14 @@ export default function AccountDetails({
 
       <hr className={styles.hr} />
 
-      <Grid container spacing={1}>
-        <Grid size={{ xs: 12, sm: 6 }}>
+      <div className="flex flex-col sm:flex-row gap-2 w-full">
+        <div className="w-full sm:w-1/2">
           <LogoutButton loading={loading} />
-        </Grid>
-        <Grid size={{ xs: 12, sm: 6 }}>
+        </div>
+        <div className="w-full sm:w-1/2">
           <DeleteAccountDialog loading={loading} />
-        </Grid>
-      </Grid>
+        </div>
+      </div>
     </>
   ) : null;
 }

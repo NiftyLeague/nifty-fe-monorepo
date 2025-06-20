@@ -3,14 +3,9 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
-import { cn } from '@nl/ui/lib/utils';
 
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@nl/ui/supabase/Button';
+import Modal from '@nl/ui/supabase/Modal';
 import { IconTrash } from '@nl/ui/supabase/Icon';
 
 import fetchJson from '../../utils/fetchJson';
@@ -56,30 +51,18 @@ export default function DeleteAccountDialog({ loading = false }) {
       >
         Delete Account
       </Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        maxWidth="md"
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-        classes={{ container: styles.delete_account_dialog, paper: styles.delete_account_dialog_paper }}
-      >
-        <DialogTitle id="alert-dialog-title">{'Are you sure you want to delete your account?'}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description" sx={{ color: 'var(--color-foreground)' }}>
-            Once your account is deleted all of your data will be removed and there will be no way to recover your
-            account.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <button className={cn(styles.button_secondary)} onClick={handleClose}>
-            Cancel
-          </button>
-          <button className={cn(styles.button_danger)} onClick={handleDeleteUser}>
-            Delete Account
-          </button>
-        </DialogActions>
-      </Dialog>
+      <Modal
+        visible={open}
+        onCancel={handleClose}
+        title="Delete Account"
+        description="Are you sure you want to delete your account? This action cannot be undone."
+        variant="danger"
+        size="small"
+        onConfirm={handleDeleteUser}
+        confirmText="Delete Account"
+        cancelText="Cancel"
+        closable
+      />
     </div>
   );
 }
