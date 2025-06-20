@@ -17,7 +17,6 @@
   "scripts": {
     "clean": "rm -rf node_modules",
     "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\"",
-    "generate:component": "turbo gen react-component",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --max-warnings 0 --fix",
     "type-check": "tsc --noEmit"
@@ -28,6 +27,7 @@
     "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-dropdown-menu": "^2.1.15",
     "@radix-ui/react-popover": "^1.1.14",
+    "@radix-ui/react-progress": "^1.1.7",
     "clsx": "^2.1.1",
     "cva": "npm:class-variance-authority@^0.7.1",
     "lodash": "^4.17.21",
@@ -47,13 +47,6 @@
     "tailwindcss": "^4.1.10"
   },
   "peerDependencies": {
-    "@emotion/cache": "^11.14.0",
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
-    "@mui/icons-material": "^7.1.2",
-    "@mui/material": "^7.1.2",
-    "@mui/system": "^7.1.1",
-    "@mui/x-data-grid": "^8.5.3",
     "next": "15.3.3",
     "react": "19.1.0",
     "react-dom": "19.1.0"
