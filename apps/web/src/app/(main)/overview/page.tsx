@@ -67,6 +67,7 @@ const Overview: NextPage = () => {
             priority
             sizes="100vw"
             style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+            suppressHydrationWarning
           />
         ) : (
           <Image
@@ -78,6 +79,7 @@ const Overview: NextPage = () => {
             priority
             sizes="100vw"
             style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+            suppressHydrationWarning
           />
         )}
         <div className="dark-gradient-overlay" />

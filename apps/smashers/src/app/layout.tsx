@@ -1,5 +1,8 @@
+import { type PropsWithChildren } from 'react';
 import type { Metadata, Viewport } from 'next';
-import { ThemeProvider, customFontClassName } from '@nl/theme';
+import Head from 'next/head';
+
+import { customFontClassName } from '@nl/ui/fonts';
 import { FeatureFlagProvider } from '@/contexts/FeatureFlagsProvider';
 
 import '@/styles/app.css';
@@ -70,16 +73,14 @@ export const viewport: Viewport = {
   colorScheme: 'dark',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" className={customFontClassName}>
-      <head>
+      <Head>
         <link rel="icon" href="/favicon/smashers/favicon.ico" />
-      </head>
+      </Head>
       <body suppressHydrationWarning className="dark">
-        <ThemeProvider>
-          <FeatureFlagProvider>{children}</FeatureFlagProvider>
-        </ThemeProvider>
+        <FeatureFlagProvider>{children}</FeatureFlagProvider>
       </body>
     </html>
   );

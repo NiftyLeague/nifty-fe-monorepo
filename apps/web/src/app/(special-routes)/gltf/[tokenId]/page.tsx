@@ -32,14 +32,15 @@ export default function DegenViews() {
     <>
       {/* eslint-disable react/no-unknown-property */}
       <style jsx global>{`
+        html,
         body,
-        html {
+        main {
           margin: 0;
           padding: 0;
           height: 100%;
           width: 100%;
           overflow: hidden;
-          background-color: var(--color-light) !important;
+          background-color: var(--color-light);
         }
       `}</style>
       {source === SRC.IMAGE && (

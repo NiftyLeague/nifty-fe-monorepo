@@ -1,7 +1,7 @@
 'use client';
 
 import Head from 'next/head';
-import { styled } from '@nl/theme';
+import { styled } from '@mui/material/styles';
 import { Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 import MainLayout from '@/components/MainLayout';
 

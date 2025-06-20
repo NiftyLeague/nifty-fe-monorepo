@@ -6,7 +6,7 @@ import type { NextConfig } from 'next';
 import { withSentryConfig } from '@sentry/nextjs';
 
 const nextConfig: NextConfig = {
-  transpilePackages: ['@nl/theme', '@nl/ui'],
+  transpilePackages: ['@nl/ui'],
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'nifty-league.s3.amazonaws.com', port: '', pathname: '/degens/**' },

@@ -5,14 +5,14 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
-import { styled } from '@nl/theme';
+import { styled } from '@mui/material/styles';
 
 const StyledAccordion = styled(Accordion)({
   border: 'none',
   marginBottom: 12,
-  background: '#1e242b',
   backdropFilter: 'blur(65.0688px)',
-  borderRadius: 10,
+  backgroundColor: 'transparent',
+  borderRadius: 20,
 
   '& .MuiCollapse-wrapper': { marginBottom: 12 },
   '& .MuiAccordionSummary-root': {
@@ -20,11 +20,14 @@ const StyledAccordion = styled(Accordion)({
     color: 'var(--color-foreground)',
     fontWeight: 600,
     padding: '12px 24px',
+    borderRadius: 20,
   },
+  '& .MuiAccordionSummary-expandIconWrapper': { color: 'var(--color-foreground)' },
   '& .MuiAccordionDetails-root': {
     backgroundColor: 'var(--color-background-2)',
     color: 'var(--color-foreground)',
     padding: 24,
+    borderRadius: 20,
   },
 });
 
