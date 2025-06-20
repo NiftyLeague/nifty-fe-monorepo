@@ -1,6 +1,5 @@
 import type { PropsWithChildren } from 'react';
 import type { Metadata, Viewport } from 'next';
-import Head from 'next/head';
 
 import { ThemeProvider } from '@nl/theme';
 import { customFontClassName } from '@nl/ui/fonts';
@@ -61,9 +60,9 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" className={customFontClassName}>
-      <Head>
+      <head>
         <link rel="icon" href="/favicon/nl_purple/favicon.ico" />
-      </Head>
+      </head>
 
       <AnalyticsScripts />
 

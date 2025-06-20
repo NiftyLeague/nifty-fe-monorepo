@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { LinearProgress } from '@mui/material';
+import * as Progress from '@radix-ui/react-progress';
 
 import { cn } from '@nl/ui/lib/utils';
 import useStopwatch from '@nl/ui/hooks/useStopwatch';
@@ -55,16 +55,21 @@ export function Preloader({ ready, percent, showWarning }: PreloaderProps) {
 
       {percent ? (
         <>
-          <div className="flex justify-center items-center">
-            <div className="w-full mr-1">
-              <LinearProgress
-                value={percent}
-                color="success"
-                variant="determinate"
-                style={{ width: 160, marginLeft: 32 }}
+          <div className="flex justify-center items-center ml-[50px] mt-[5px]">
+            <Progress.Root
+              className="relative overflow-hidden w-[160px] h-[10px] mt-[3px] bg-background-3 rounded-lg"
+              style={{ transform: 'translateZ(0)' }} /* Fix overflow clipping in Safari */
+              value={percent}
+            >
+              <Progress.Indicator
+                className="bg-success w-full h-full rounded-lg"
+                style={{
+                  transform: `translateX(-${100 - percent}%)`,
+                  transition: 'transform 660ms cubic-bezier(0.65, 0, 0.35, 1)',
+                }}
               />
-            </div>
-            <div className="text-foreground text-sm min-w-[35px]">{`${Math.round(percent)}%`}</div>
+            </Progress.Root>
+            <div className="text-foreground text-sm min-w-[50px] ml-[10px]">{`${Math.round(percent)}%`}</div>
           </div>
           <div className="text-warning mt-2">{showWarning ? 'For the best experience try us out on desktop!' : ''}</div>
         </>

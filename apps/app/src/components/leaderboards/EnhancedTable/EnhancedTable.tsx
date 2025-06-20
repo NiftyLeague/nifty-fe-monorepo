@@ -8,7 +8,7 @@ import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
 import { getLeaderboardRankAnalyticsEventName } from '@/constants/leaderboards';
 import useAuth from '@/hooks/useAuth';
 import usePlayerProfile from '@/hooks/usePlayerProfile';
-import { ResponsiveTable } from '@nl/ui/custom/ResponsiveTable';
+import { ResponsiveTable } from '@/components/ResponsiveTable';
 import { toast } from 'react-toastify';
 import type { ReturnDataType, TableProps, TableRowType } from '@/types/leaderboard';
 import { sendEvent } from '@/utils/google-analytics';
