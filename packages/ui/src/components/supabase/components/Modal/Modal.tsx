@@ -174,12 +174,8 @@ const Modal = ({
                         }}
                       >
                         <span style={{ width: 'inherit' }}>
-                          {title && (
-                            <Typography.Title style={{ marginBottom: '.1rem', marginTop: '0' }} level={4}>
-                              {title}
-                            </Typography.Title>
-                          )}
-                          {description && <Typography.Text>{description}</Typography.Text>}
+                          {title && <Dialog.Title className="my-0 text-lg">{title}</Dialog.Title>}
+                          {description && <Dialog.Description>{description}</Dialog.Description>}
                         </span>
 
                         {children}
