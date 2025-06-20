@@ -19,6 +19,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@nl/ui": "workspace:*",
     "react-intl": "^7.1.11",
     "stylis-plugin-rtl": "^2.1.1"
   },

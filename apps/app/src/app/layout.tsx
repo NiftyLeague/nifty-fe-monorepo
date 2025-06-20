@@ -1,8 +1,10 @@
 import type { PropsWithChildren } from 'react';
 import type { Metadata, Viewport } from 'next';
-import Script from 'next/script';
+import Head from 'next/head';
 
-import { ThemeProvider, customFontClassName } from '@nl/theme';
+import { ThemeProvider } from '@nl/theme';
+import { customFontClassName } from '@nl/ui/fonts';
+import AnalyticsScripts from '@/components/AnalyticsScripts';
 import AppContextWrapper from '@/contexts/AppContextWrapper';
 import MainLayout from '@/app/_layout/_MainLayout';
 
@@ -59,36 +61,13 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" className={customFontClassName}>
-      <link rel="icon" href="/favicon/nl_purple/favicon.ico" />
-      <Script defer src="https://d7ct17ettlkln.cloudfront.net/public/stats.js" />
+      <Head>
+        <link rel="icon" href="/favicon/nl_purple/favicon.ico" />
+      </Head>
 
-      <Script strategy="lazyOnload" id="clarity-script">
-        {`
-          if (!window.location.host.includes('localhost')) {
-            (function(c,l,a,r,i,t,y){
-              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "box6efnxlz");
-          }
-        `}
-      </Script>
+      <AnalyticsScripts />
 
-      <Script src="https://www.googletagmanager.com/gtag/js?id=G-7GJRQ9KGCE" />
-      <Script id="google-analytics">
-        {`
-          if (!window.location.host.includes('localhost')) {
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-7GJRQ9KGCE', {
-              page_path: window.location.pathname,
-            });
-          }
-        `}
-      </Script>
-
-      <body suppressHydrationWarning={true}>
+      <body suppressHydrationWarning>
         <ThemeProvider>
           <AppContextWrapper>
             <MainLayout>{children}</MainLayout>

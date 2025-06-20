@@ -26,7 +26,7 @@ const generateAppleCountryRedirects = (countryCode: string) => [
 ];
 
 const nextConfig: NextConfig = {
-  transpilePackages: ['@nl/playfab', '@nl/theme', '@nl/ui'],
+  transpilePackages: ['@nl/playfab', '@nl/ui'],
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'nifty-league.s3.amazonaws.com', port: '', pathname: '/degens/**' },

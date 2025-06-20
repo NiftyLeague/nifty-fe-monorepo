@@ -23,6 +23,7 @@
 .image {
   position: absolute;
   width: 112%;
+  min-width: 112%;
   height: auto;
   min-height: 100%;
   top: 45%;
