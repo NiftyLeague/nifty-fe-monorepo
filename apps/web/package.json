@@ -24,7 +24,7 @@
     "@mui/system": "^7.1.1",
     "@nl/ui": "workspace:*",
     "@sentry/nextjs": "^9.30.0",
-    "next": "15.3.3",
+    "next": "15.3.4",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-multi-carousel": "^2.8.6",
