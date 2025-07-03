@@ -130,19 +130,59 @@ const DropdownLink = ({ href, children, external = false }: DropdownLinkProps) =
   );
 };
 
-interface MobileMenuButtonProps {
+const DesktopNavLinks = () => (
+  <div className="hidden md:flex items-center space-x-4">
+    <Dropdown title="Products">
+      {PRODUCT_LINKS.map(link => (
+        <DropdownLink key={link.href} href={link.href} external={link.external}>
+          {link.name}
+        </DropdownLink>
+      ))}
+    </Dropdown>
+
+    {/* <NavLink href="/roadmap">Roadmap</NavLink> */}
+
+    <Dropdown title="About">
+      {ABOUT_LINKS.map(link => (
+        <DropdownLink key={link.href} href={link.href} external={link.external}>
+          {link.name}
+        </DropdownLink>
+      ))}
+    </Dropdown>
+
+    <Dropdown title="DAO">
+      {DAO_LINKS.map(link => (
+        <DropdownLink key={link.href} href={link.href} external={link.external}>
+          {link.name}
+        </DropdownLink>
+      ))}
+    </Dropdown>
+
+    {/* Launch App Button */}
+    <a
+      href="https://app.niftyleague.com"
+      target="_blank"
+      rel="noreferrer"
+      className="theme-btn-primary theme-btn-rounded max-w-fit"
+    >
+      Web3 App
+    </a>
+  </div>
+);
+
+interface NavMenuButtonProps {
   toggleMobileMenu: () => void;
   isMobileMenuOpen: boolean;
 }
 
-const MobileMenuButton = ({ toggleMobileMenu, isMobileMenuOpen }: MobileMenuButtonProps) => (
+const NavMenuButton = ({ toggleMobileMenu, isMobileMenuOpen }: NavMenuButtonProps) => (
   <div className="flex md:hidden">
     <button
       onClick={toggleMobileMenu}
       className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-foreground-2 hover:bg-background-2 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-foreground"
       aria-expanded="false"
     >
-      <span className="sr-only">Open main menu</span>
+      <span className="sr-only">Open Nav Menu</span>
       {isMobileMenuOpen ? (
         <CloseIcon className="block h-6 w-6" aria-hidden="true" />
       ) : (
@@ -152,14 +192,14 @@ const MobileMenuButton = ({ toggleMobileMenu, isMobileMenuOpen }: MobileMenuButt
   </div>
 );
 
-interface DesktopNavProps {
+interface NavbarProps {
   toggleMobileMenu: () => void;
   isMobileMenuOpen: boolean;
 }
 
-const DesktopNav = ({ toggleMobileMenu, isMobileMenuOpen }: DesktopNavProps) => {
+const Navbar = ({ toggleMobileMenu, isMobileMenuOpen }: NavbarProps) => {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="w-screen max-w-screen 2xl:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex items-center justify-between h-20">
         {/* Logo */}
         <Link href="/" className="flex-shrink-0">
@@ -174,48 +214,13 @@ const DesktopNav = ({ toggleMobileMenu, isMobileMenuOpen }: DesktopNavProps) => 
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-4">
-          <Dropdown title="Products">
-            {PRODUCT_LINKS.map(link => (
-              <DropdownLink key={link.href} href={link.href} external={link.external}>
-                {link.name}
-              </DropdownLink>
-            ))}
-          </Dropdown>
+        <DesktopNavLinks />
 
-          {/* <NavLink href="/roadmap">Roadmap</NavLink> */}
-
-          <Dropdown title="About">
-            {ABOUT_LINKS.map(link => (
-              <DropdownLink key={link.href} href={link.href} external={link.external}>
-                {link.name}
-              </DropdownLink>
-            ))}
-          </Dropdown>
-
-          <Dropdown title="DAO">
-            {DAO_LINKS.map(link => (
-              <DropdownLink key={link.href} href={link.href} external={link.external}>
-                {link.name}
-              </DropdownLink>
-            ))}
-          </Dropdown>
-
-          {/* Launch App Button */}
-          <a
-            href="https://app.niftyleague.com"
-            target="_blank"
-            rel="noreferrer"
-            className="theme-btn-primary theme-btn-rounded max-w-fit"
-          >
-            Web3 App
-          </a>
-        </div>
-
-        <MobileMenuButton toggleMobileMenu={toggleMobileMenu} isMobileMenuOpen={isMobileMenuOpen} />
+        {/* Mobile Menu Button */}
+        <NavMenuButton toggleMobileMenu={toggleMobileMenu} isMobileMenuOpen={isMobileMenuOpen} />
       </div>
     </div>
   );
 };
 
-export default DesktopNav;
+export default Navbar;

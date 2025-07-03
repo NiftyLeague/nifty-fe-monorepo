@@ -15,7 +15,7 @@ export const RenderTeamCardItem = (item: TeamCardProps) => (
 const TeamCardItem = ({ name, source, link }: TeamCardProps): React.ReactNode => (
   <div className="slide">
     <div className={styles.slide_content}>
-      <div className="nifty-teams flex flex-col p-2 mx-auto">
+      <div className="w-full flex flex-col justify-center text-center mx-auto p-2">
         <a href={link} target="_blank" rel="noreferrer">
           <div className="w-full rounded-[10px] overflow-hidden">
             <Image
@@ -28,7 +28,7 @@ const TeamCardItem = ({ name, source, link }: TeamCardProps): React.ReactNode =>
             />
           </div>
         </a>
-        <h4 className="my-5 about-team-name">{name}</h4>
+        <h4 className="my-5 truncate-text-1">{name}</h4>
       </div>
     </div>
   </div>

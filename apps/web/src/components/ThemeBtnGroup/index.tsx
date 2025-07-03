@@ -34,7 +34,7 @@ export const ThemeBtn = ({
     )}
   >
     {title}
-    {external && <ExternalIcon className="ml-1 mt-0.5" />}
+    {external && <ExternalIcon className="mt-0.5" />}
   </Link>
 );
 

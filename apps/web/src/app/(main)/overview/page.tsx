@@ -2,7 +2,6 @@
 
 import type { NextPage } from 'next';
 import Image from 'next/image';
-import { cn } from '@nl/ui/lib/utils';
 
 import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
@@ -11,15 +10,13 @@ import ThemeBtnGroup from '@/components/ThemeBtnGroup';
 import LearnCards from '@/components/LearnCards';
 import { FAQS } from '@/constants/faq';
 
-import styles from './index.module.css';
-
 const Overview: NextPage = () => {
   const desktop = useMediaQuery('(min-width:769px)');
   return (
     <>
-      <div className="container pt-20">
-        <div className={cn(styles.gradient1, 'purple-bg-orb')} />
-        <section className="section">
+      <div className="container relative pt-20">
+        <div className="purple-bg-orb orb-top-right" />
+        <section className="section relative">
           <AnimatedWrapper>
             <h1 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">OVERVIEW</h1>
           </AnimatedWrapper>
@@ -31,8 +28,8 @@ const Overview: NextPage = () => {
             </AnimatedWrapper>
           </div>
           <LearnCards />
-          <div className={cn(styles.gradient2, 'purple-bg-orb')} />
-          <div className={cn(styles.gradient3, 'purple-bg-orb')} />
+          <div className="purple-bg-orb orb-bottom-left" />
+          <div className="purple-bg-orb orb-bottom-right" />
         </section>
 
         <section className="section">
@@ -42,7 +39,7 @@ const Overview: NextPage = () => {
                 Frequently Asked Questions
               </h2>
             </AnimatedWrapper>
-            <div className={cn(styles.gradient4, 'purple-bg-orb')} />
+            <div className="purple-bg-orb" style={{ left: 'calc(50% - 200px)', top: '100px' }} />
           </div>
 
           {FAQS.map((faq, index) => (

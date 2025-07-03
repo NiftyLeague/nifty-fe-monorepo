@@ -3,11 +3,9 @@ import type { NextPage } from 'next';
 
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import ConsoleGame from '@nl/ui/custom/ConsoleGame';
-import { cn } from '@nl/ui/lib/utils';
 
 import { NIFTYVERSE_PROPERTIES } from '@/constants/niftyverse';
 import ThemeBtnGroup from '@/components/ThemeBtnGroup';
-import styles from './index.module.css';
 
 const NiftyVerse: NextPage = () => {
   return (
@@ -26,7 +24,7 @@ const NiftyVerse: NextPage = () => {
         />
       </section>
 
-      <div className="container">
+      <div className="container relative">
         <section className="section flex flex-col-reverse md:flex-row items-center justify-center">
           <div className="flex flex-col w-full md:w-1/2 lg:w-7/12 pr-0 md:pr-3 text-center md:text-left">
             <div className="mb-2 mb-md-3">
@@ -55,11 +53,11 @@ const NiftyVerse: NextPage = () => {
               </div>
             </AnimatedWrapper>
           </div>
-          <div className={cn(styles.gradient1, 'purple-bg-orb')} />
+          <div className="purple-bg-orb orb-top-right" />
         </section>
 
-        <section className="section">
-          <div className={cn(styles.gradient2, 'purple-bg-orb')} />
+        <section className="section relative">
+          <div className="purple-bg-orb orb-top-left" />
           <div className="mb-3 mb-md-5">
             <AnimatedWrapper>
               <h3 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">

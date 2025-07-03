@@ -4,7 +4,7 @@
   @apply flex items-center justify-center hover:cursor-pointer;
   @apply font-bold uppercase whitespace-nowrap p-[4px_16px] tracking-wider;
   @apply h-[40px] md:h-[50px] lg:h-[60px] xl:h-[70px] 2xl:h-[80px] min-h-fit;
-  @apply w-[180px] md:w-[280px] lg:w-[200px] xl:w-[240px] 2xl:w-[272px] min-w-fit;
+  @apply w-[160px] md:w-[280px] lg:w-[200px] xl:w-[240px] 2xl:w-[272px] min-w-fit;
 }
 
 @layer components {

@@ -34,7 +34,7 @@ const DegenCardItem = ({
         <div className={styles.browse_single}>
           {!mobile ? (
             <div className="flex p-2 sm:p-3 md:p-4 pb-0 items-center">
-              <h6 className="mr-auto mb-0">{name}</h6>
+              <h6 className="mr-auto mb-0 truncate-text-1 text-xs">{name}</h6>
               <div className="ml-auto">
                 <Image src="/icons/opensea.svg" alt="OpenSea Logo" width={20} height={20} />
               </div>

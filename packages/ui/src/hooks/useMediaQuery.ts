@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useLayoutEffect, useState } from 'react';
 
 export const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;

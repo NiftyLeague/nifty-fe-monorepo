@@ -49,6 +49,7 @@ const Community: NextPage = () => {
                 height={685}
               />
             </div>
+            <div className="purple-bg-orb orb-top-right" />
           </div>
         </div>
 

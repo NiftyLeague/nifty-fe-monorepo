@@ -22,7 +22,7 @@ import '@/styles/home.css';
 
 const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => void }) => {
   return (
-    <section className="relative w-screen max-h-screen overflow-hidden">
+    <section className="desktop relative w-screen max-h-screen overflow-hidden">
       <div>
         <div className="relative flex-grow home-banner animate-zoom-out">
           <Image
@@ -139,12 +139,12 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
 
 const MobileIntro = () => {
   return (
-    <section className="m-0 p-0 relative pt-5 home-mobile-intro">
+    <section className="mobile m-0 p-0 relative pt-5 home-mobile-intro">
       <div className="overlay-dark min-h-screen" />
       <div className="dark-gradient-overlay" />
-      <div className="relative min-h-screen flex flex-col justify-center items-center">
+      <div className="w-full relative min-h-screen flex flex-col justify-center text-center items-center">
         <h1 className="mt-0 sm:mt-4 md:mt-5">Nifty League</h1>
-        <h5 className="mt-2">By Gamers. For Gamers.</h5>
+        <h5 className="mt-2 [word-spacing:-10px]">By Gamers. For Gamers.</h5>
         <p className="my-4 text-center whitespace-nowrap">Community-Governed Game Studio</p>
         <ThemeBtnGroup
           className="mt-2 xl:mt-2 mb-2"
@@ -180,7 +180,8 @@ const Home: NextPage = () => {
 
   return (
     <MainLayout classes={{ root: 'home-pg' }}>
-      {isMobile ? <MobileIntro /> : <DesktopIntro scrollToGamingSection={scrollToGamingSection} />}
+      <MobileIntro />
+      <DesktopIntro scrollToGamingSection={scrollToGamingSection} />
 
       {/* SMASHERS */}
       <section className="w-screen relative text-center" ref={gamingSectionRef}>
@@ -290,7 +291,7 @@ const Home: NextPage = () => {
               </div>
             )}
             <div className={`flex flex-col relative compete-to-earn-section-body`}>
-              <div className="orb-top-left purple-bg-orb" />
+              <div className="purple-bg-orb orb-top-left" />
               <AnimatedWrapper>
                 <h2 className="mb-3 max-w-[400px] section-heading transition-vertical-fade transition-vertical-fade-start delay-lite">
                   SMASHERS
@@ -360,7 +361,7 @@ const Home: NextPage = () => {
           </AnimatedWrapper>
         </div>
         <div className="w-full md:w-1/2 flex flex-col relative gap-2 pl-0 md:pl-6 items-center md:items-start">
-          <div className="orb-top-right purple-bg-orb" />
+          <div className="purple-bg-orb orb-top-right" />
           <AnimatedWrapper>
             <h2 className="mb-3 section-title section-heading transition-vertical-fade transition-vertical-fade-start delay-lite">
               <span className="whitespace-nowrap">DISCOVER THE</span>
@@ -410,7 +411,7 @@ const Home: NextPage = () => {
           </AnimatedWrapper>
           <ThemeBtnGroup
             className="md:justify-start"
-            primary={{ href: 'https://app.niftyleague.com', title: 'LAUNCH APP', external: true }}
+            primary={{ href: 'https://app.niftyleague.com', title: 'WEB3 APP', external: true }}
             secondary={{ href: DEGEN_COLLECTION_URL, title: 'BUY A DEGEN', external: true }}
           />
         </div>
@@ -419,7 +420,7 @@ const Home: NextPage = () => {
       {/* NFTL TOKEN */}
       <section className="section container relative flex flex-row flex-wrap-reverse items-center">
         <div className="relative w-full md:w-1/2 flex flex-col">
-          <div className="orb-top-left purple-bg-orb" />
+          <div className="purple-bg-orb orb-top-left" />
           <AnimatedWrapper>
             <h2 className="mb-3 section-heading transition-vertical-fade transition-vertical-fade-start delay-lite">
               NFTL TOKEN
@@ -480,7 +481,7 @@ const Home: NextPage = () => {
           </div>
 
           <div className="w-full flex flex-col relative text-center md:text-left">
-            <div className="orb-top-right purple-bg-orb" />
+            <div className="purple-bg-orb orb-top-right" />
             <div className="w-full xl:mt-20">
               <AnimatedWrapper>
                 <h2 className="mb-3 section-title section-heading transition-vertical-fade transition-vertical-fade-start delay-lite">

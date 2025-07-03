@@ -13,17 +13,7 @@
   white-space: nowrap;
 }
 
-.gradient1 {
-  right: -200px;
-  top: 0px;
-}
-
-.gradient2 {
-  left: -200px;
-  bottom: -200px;
-}
-
-.gradient3 {
+.gradient_custom {
   left: calc(50% - 200px);
   top: 200px;
   display: none; /* TODO: Define better system with more position variations */

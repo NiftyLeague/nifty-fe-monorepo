@@ -21,21 +21,6 @@
   max-width: 460px;
 }
 
-.gradient1 {
-  left: -300px;
-  top: -100px;
-}
-
-.gradient2 {
-  left: 0px;
-  bottom: -300px;
-}
-
-.gradient3 {
-  right: -300px;
-  bottom: -300px;
-}
-
 @media (max-width: 992px) {
   .headerCell {
     height: 48px;
@@ -44,9 +29,6 @@
   .cell {
     height: 24px;
     text-align: center;
-  }
-  .gradient2 {
-    display: none;
   }
 }
 
