@@ -113,8 +113,8 @@
 }
 
 .sbui-input--medium {
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 0.875rem;
+  padding-right: 0.875rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   font-size: 0.875rem;

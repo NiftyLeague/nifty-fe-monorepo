@@ -25,7 +25,7 @@ export default function LoginClient({ sessionData }: { sessionData: SessionData 
         <SearchParamsHandler sessionData={sessionData} />
       </Suspense>
       <BackButton />
-      <div style={{ display: 'flex', maxWidth: '600px', height: '100%', margin: 'auto', overflowY: 'auto' }}>
+      <div style={{ display: 'flex', maxWidth: '600px', height: '100vh', margin: 'auto', overflowY: 'auto' }}>
         <Card style={{ margin: 'auto' }}>
           <Space direction="vertical" size={8}>
             <div>

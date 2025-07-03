@@ -103,11 +103,11 @@
 
   input {
     background-color: inherit;
-    border-radius: var(--border-radius-default) !important;
-    border: var(--border-default) !important;
-    color: var(--color-foreground) !important;
-    font-size: var(--text-sm) !important; /* 0.875rem */
-    padding: 0.5rem 0.75rem !important;
+    border-radius: var(--border-radius-default);
+    border: var(--border-default);
+    color: var(--color-foreground);
+    font-size: var(--text-sm); /* 0.875rem */
+    padding: 0.5rem 0.875rem;
     width: 100%;
   }
 
