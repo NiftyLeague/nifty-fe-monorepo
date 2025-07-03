@@ -52,7 +52,9 @@ export default function ProfileClient({ user: initialUser }: { user: User }) {
               height={48}
               className="max-w-full h-auto hidden md:block"
             />
-            <Typography.Text type="success">You&apos;re signed in</Typography.Text>
+            <Typography.Text type="success" className="ml-auto">
+              You&apos;re signed in
+            </Typography.Text>
           </div>
           <Space direction="vertical" size={6} className={styles.userInfo}>
             <Tabs type="underlined" size="medium" tabBarStyle={{ marginTop: 16 }} tabBarGutter={8}>
