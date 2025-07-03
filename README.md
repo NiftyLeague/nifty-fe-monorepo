@@ -25,7 +25,7 @@ This Turborepo includes the following apps/packages:
 - `@nl/prettier-config`: global [Prettier](https://prettier.io/) config overrides for code formatting
 - `@nl/theme`: a common theme wrapper for [Next.js](https://nextjs.org/) apps using [Material-UI](https://mui.com/material-ui/)
 - `@nl/typescript-config`: global [TypeScript](https://www.typescriptlang.org/) configs `tsconfig.json`
-- `@nl/ui`: a stub [React](https://react.dev/) component library shared by all applications. Includes global [Tailwind CSS](https://tailwindcss.com/) configs,
+- `@nl/ui`: a stub [React](https://react.dev/) component library shared by all applications. Includes global [Tailwind CSS](https://tailwindcss.com/) styles.
 
 > **Note:**
 > Each package/app strictly uses [TypeScript](https://www.typescriptlang.org/)

@@ -18,6 +18,16 @@
   @apply my-20;
 }
 
+@utility truncate-text-* {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-break: anywhere;
+  display: -webkit-box;
+  line-clamp: --value(integer); /* number of lines to show */
+  -webkit-line-clamp: --value(integer);
+  -webkit-box-orient: vertical;
+}
+
 @layer utilities {
   .pixelated {
     image-rendering: crisp-edges;
@@ -36,15 +46,20 @@
   .purple-bg-orb {
     @apply absolute w-[400px] h-[400px] opacity-[0.15] blur-[50px] rounded-[398px] pointer-events-none;
     background: var(--gradient-brand-pink);
+    transform: translateZ(0); /* Creates a new stacking context */
+    contain: strict; /* Prevents the blur from affecting layout */
   }
-  /* Modifier classes (combine with purple-bg-orb) */
+  /* Position modifier classes (combine with purple-bg-orb) */
   .orb-top-left {
     @apply top-[-100px] left-[-100px];
   }
   .orb-top-right {
-    @apply top-[-100px] right-0;
+    @apply top-[-100px] right-[-100px];
+  }
+  .orb-bottom-left {
+    @apply bottom-[-100px] left-[-100px];
   }
   .orb-bottom-right {
-    @apply bottom-[-100px] right-0;
+    @apply bottom-[-100px] right-[-100px];
   }
 }

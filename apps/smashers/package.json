@@ -17,7 +17,7 @@
   "dependencies": {
     "@nl/playfab": "workspace:*",
     "@nl/ui": "workspace:*",
-    "@sentry/nextjs": "^9.30.0",
+    "@sentry/nextjs": "^9.34.0",
     "@vercel/edge": "^1.2.2",
     "iron-session": "^8.0.4",
     "next": "15.3.3",
@@ -29,7 +29,7 @@
     "sharp": "^0.34.2"
   },
   "devDependencies": {
-    "@types/node": "^24.0.3",
+    "@types/node": "^24.0.10",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
     "jose": "^6.0.11",

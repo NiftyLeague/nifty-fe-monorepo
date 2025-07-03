@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import DesktopNav from './DesktopNav';
-import MobileNav from './MobileNav';
+import Navbar from './Navbar';
+import NavMenu from './NavMenu';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -60,12 +60,12 @@ const Header = () => {
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${
+      className={`fixed inset-x-0 top-0 w-screen max-w-screen z-50 transition-all duration-300 ${
         scrolled ? 'bg-background bg-opacity-90 backdrop-blur-sm' : 'bg-transparent'
       }`}
     >
-      <DesktopNav toggleMobileMenu={toggleMobileMenu} isMobileMenuOpen={isMobileMenuOpen} />
-      <MobileNav toggleMobileMenu={toggleMobileMenu} isMobileMenuOpen={isMobileMenuOpen} />
+      <Navbar toggleMobileMenu={toggleMobileMenu} isMobileMenuOpen={isMobileMenuOpen} />
+      <NavMenu toggleMobileMenu={toggleMobileMenu} isMobileMenuOpen={isMobileMenuOpen} />
     </nav>
   );
 };

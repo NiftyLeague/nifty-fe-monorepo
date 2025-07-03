@@ -9,7 +9,7 @@ import styles from './index.module.css';
 
 const Lore: NextPage = () => {
   return (
-    <div className="pt-20">
+    <div className="pt-20 overflow-hidden">
       <AnimatedWrapper>
         <h1 className="text-center transition-fade-slow transition-fade-start delay-lite mb-3">LORE</h1>
       </AnimatedWrapper>
@@ -147,9 +147,8 @@ const Lore: NextPage = () => {
             </div>
           </AnimatedWrapper>
         </div>
-        <div className={cn(styles.gradient1, 'purple-bg-orb')} />
-        <div className={cn(styles.gradient2, 'purple-bg-orb')} />
-        <div className={cn(styles.gradient3, 'purple-bg-orb')} />
+        <div className="purple-bg-orb orb-top-right" />
+        <div className="purple-bg-orb orb-top-left" />
       </div>
 
       <ThemeBtnGroup

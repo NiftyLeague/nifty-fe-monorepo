@@ -11,26 +11,6 @@
   --subheader-letter-spacing: var(--special-letter-spacing);
 }
 
-/* ==============================|| TEAM ||============================== */
-
-.about-team-name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-break: anywhere;
-  display: -webkit-box;
-  -webkit-line-clamp: 1; /* number of lines to show */
-  line-clamp: 1;
-  -webkit-box-orient: vertical;
-}
-
-@media (max-width: 768px) {
-  .teams-slider .nifty-teams {
-    width: 100%;
-    text-align: center;
-    justify-content: center;
-  }
-}
-
 /* ==============================|| MEDIA QUERIES ||============================== */
 
 @media (min-width: 769px) {

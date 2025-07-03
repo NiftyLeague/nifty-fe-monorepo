@@ -35,7 +35,7 @@ const Degens: NextPage = () => {
               <div className="mb-4">
                 <AnimatedWrapper>
                   <h6 className="text-center transition-vertical-fade transition-vertical-fade-start delay-normal">
-                    COMMUNITY DESIGNED DEGEN NFTs
+                    COMMUNITY DESIGNED NFTs
                   </h6>
                 </AnimatedWrapper>
               </div>
@@ -49,7 +49,7 @@ const Degens: NextPage = () => {
                     forever tradable on secondary markets such as OpenSea.
                   </p>
                 </AnimatedWrapper>
-                <div className={cn(styles.gradient1, 'purple-bg-orb')} />
+                <div className="purple-bg-orb orb-top-left" />
               </div>
             </div>
             <div className="w-full md:w-1/2">
@@ -74,8 +74,8 @@ const Degens: NextPage = () => {
           />
         </section>
 
-        <section className="section">
-          <div className={cn(styles.gradient2, 'purple-bg-orb')} />
+        <section className="section relative">
+          <div className="purple-bg-orb orb-bottom-right" />
           <div className={cn(styles.list, 'flex flex-wrap items-center md:flex-row w-full justify-between')}>
             {NIFTY_DEGENS_ALL.map(({ name, image }) => (
               <div className="flex flex-col mb-3 px-3 w-1/3" key={name}>
@@ -117,7 +117,7 @@ const Degens: NextPage = () => {
                   use their DEGEN NFTs in several other partner projects such as WORLDWIDE WEBB or CRYPTO FOXES.
                 </p>
               </AnimatedWrapper>
-              <div className={cn(styles.gradient1, 'purple-bg-orb')} />
+              <div className="purple-bg-orb orb-top-left" />
             </div>
           </div>
 

@@ -14,8 +14,8 @@ import styles from './index.module.css';
 const Games: NextPage = () => {
   const desktop = useMediaQuery('(min-width:769px)');
   return (
-    <div className="container pt-20">
-      <div className={cn(styles.gradient1, 'purple-bg-orb')} />
+    <div className="container relative pt-20">
+      <div className="purple-bg-orb orb-top-right" />
       <section className="section flex items-center justify-center flex-wrap">
         {desktop ? (
           <div className="w-1/2 px-2 lg:px-3">
@@ -141,7 +141,7 @@ const Games: NextPage = () => {
             </div>
             <div
               className={cn(
-                index === 0 ? styles.gradient2 : index === 1 ? styles.gradient1 : styles.gradient3,
+                index === 0 ? 'orb-bottom-left' : index === 1 ? 'orb-top-right' : styles.gradient_custom,
                 'purple-bg-orb',
               )}
             />

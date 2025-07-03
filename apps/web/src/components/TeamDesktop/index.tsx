@@ -7,7 +7,7 @@ const TeamDesktop = () => {
     <div className="m-0 p-0 relative text-center items-center my-3 desktop flex flex-wrap">
       {[...CORE_TEAM, ...DEGEN_DELEGATES].map((member, index) => (
         <div key={`member-${index}`} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-4 mb-8">
-          <div className="nifty-teams flex flex-col p-3">
+          <div className="flex flex-col p-3">
             <a href={member.link} target="_blank" rel="noreferrer" className="block">
               <div className="rounded-lg overflow-hidden">
                 <Image
@@ -21,7 +21,7 @@ const TeamDesktop = () => {
                 />
               </div>
             </a>
-            <h6 className="mt-4 text-lg font-medium about-team-name">{member.name}</h6>
+            <h6 className="mt-4 text-lg font-medium truncate-text-1">{member.name}</h6>
           </div>
         </div>
       ))}

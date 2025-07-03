@@ -22,7 +22,7 @@ const CompeteAndEarn: NextPage = () => {
               </p>
             </AnimatedWrapper>
           </div>
-          <div className={cn(styles.gradient1, 'purple-bg-orb')} />
+          <div className="purple-bg-orb orb-top-left" />
         </div>
         <div className="w-full md:w-1/2">
           <div className="mb-3">
@@ -71,7 +71,7 @@ const CompeteAndEarn: NextPage = () => {
             </div>
           </AnimatedWrapper>
         </div>
-        <div className={cn(styles.gradient3, 'purple-bg-orb')} />
+        <div className="purple-bg-orb orb-bottom-right" />
       </section>
 
       <section className="section">
@@ -86,7 +86,7 @@ const CompeteAndEarn: NextPage = () => {
             )}
           >
             <div className="w-1/3">
-              <h5 className={styles.headerCell}>FEATURES:</h5>
+              <h6 className={styles.headerCell}>FEATURES:</h6>
               <p className={styles.cell}>Requires an invite:</p>
               <p className={styles.cell}>Buy-in:</p>
               <p className={styles.cell}>Region:</p>
@@ -94,14 +94,14 @@ const CompeteAndEarn: NextPage = () => {
             </div>
             <hr style={{ height: 'inherit', border: '3px solid var(--color-foreground)', marginRight: 50 }} />
             <div className="w-1/3">
-              <h5 className={styles.headerCell}>PUBLIC BRAWL</h5>
+              <h6 className={styles.headerCell}>PUBLIC</h6>
               <p className={styles.cell}>No</p>
               <p className={styles.cell}>1000 NFTL</p>
               <p className={styles.cell}>Decided by the Host</p>
               <p className={styles.cell}>Decided by the Host</p>
             </div>
             <div className="w-1/3">
-              <h5 className={styles.headerCell}>PRIVATE BRAWL</h5>
+              <h6 className={styles.headerCell}>PRIVATE</h6>
               <p className={styles.cell}>Yes</p>
               <p className={styles.cell}>Decided by the Host</p>
               <p className={styles.cell}>Decided by the Host</p>

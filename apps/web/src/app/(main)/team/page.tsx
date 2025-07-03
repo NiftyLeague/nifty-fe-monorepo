@@ -45,10 +45,10 @@ const Team: NextPage = () => {
               secondary={{ href: '/roadmap', title: 'VIEW OUR ROADMAP' }}
             />
           </div>
-          <div className="purple-bg-orb top-0 right-0" />
+          <div className="purple-bg-orb orb-top-right" />
         </section>
 
-        <section className="section">
+        <section className="section relative">
           <AnimatedWrapper>
             <h4 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">
               MEET THE DEGENS WHO MAKE NIFTY LEAGUE POSSIBLE
@@ -63,6 +63,7 @@ const Team: NextPage = () => {
               {[...CORE_TEAM, ...DEGEN_DELEGATES].map(RenderTeamCardItem)}
             </Carousel>
           </div>
+          <div className="purple-bg-orb orb-top-left" />
         </section>
       </div>
     </>

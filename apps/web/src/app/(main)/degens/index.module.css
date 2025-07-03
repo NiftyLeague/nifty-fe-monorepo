@@ -4,16 +4,6 @@
   margin-right: auto;
 }
 
-.gradient1 {
-  top: -200px;
-  left: -200px;
-}
-
-.gradient2 {
-  top: -200px;
-  right: -200px;
-}
-
 @media (max-width: 768px) {
   .list {
     max-width: 426px;
