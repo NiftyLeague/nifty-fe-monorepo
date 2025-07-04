@@ -1,17 +1,12 @@
 {
-  "$schema": "https://turbo.build/schema.json",
+  "$schema": "https://turborepo.com/schema.json",
   "ui": "tui",
   "globalDependencies": ["apps/**/.env.*local", ".env"],
   "globalEnv": [
-    "NEXT_PUBLIC_VERCEL_ENV",
-    "NEXT_RUNTIME",
     "PLAYFAB_API_KEY",
     "SENTRY_AUTH_TOKEN",
     "SENTRY_ORG",
     "SENTRY_PROJECT",
-    "NEXT_PUBLIC_SENTRY_DSN",
-    "NEXT_PUBLIC_PLAYFAB_TITLE_ID",
-    "NEXT_PUBLIC_AUTH_PROVIDERS",
     "APPLE_CLIENT_ID",
     "APPLE_CLIENT_SECRET",
     "FACEBOOK_CLIENT_ID",
@@ -22,14 +17,10 @@
     "TWITCH_CLIENT_SECRET"
   ],
   "tasks": {
-    "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["build/**"],
-      "inputs": ["$TURBO_DEFAULT$", ".env.production.local", ".env.local", ".env.production", ".env"]
-    },
+    "build": { "dependsOn": ["^build"], "inputs": ["$TURBO_DEFAULT$", ".env*"], "outputs": ["dist/**"] },
     "app#build": {
       "dependsOn": ["^build"],
-      "env": ["NEXT_PUBLIC_\\*", "NEXT_PUBLIC_VERCEL_\\*"],
+      "env": ["NEXT_RUNTIME", "NEXT_PUBLIC_*"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "docs#build": {
@@ -39,27 +30,20 @@
     },
     "smashers#build": {
       "dependsOn": ["^build"],
-      "env": ["NEXT_PUBLIC_\\*", "NEXT_PUBLIC_VERCEL_\\*", "NEXTAUTH_SECRET"],
+      "env": ["NEXT_RUNTIME", "NEXT_PUBLIC_*", "NEXTAUTH_SECRET"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "web#build": {
       "dependsOn": ["^build"],
-      "env": ["NEXT_PUBLIC_\\*", "NEXT_PUBLIC_VERCEL_\\*"],
+      "env": ["NEXT_RUNTIME", "NEXT_PUBLIC_*", "EDGE_CONFIG"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "clean": { "cache": false },
-    "lint": { "dependsOn": ["^lint"] },
-    "lint:fix": { "dependsOn": ["^lint:fix"] },
+    "lint": { "dependsOn": ["^lint"], "env": ["NEXT_PUBLIC_VERCEL_ENV"] },
+    "lint:fix": { "dependsOn": ["^lint:fix"], "env": ["NEXT_PUBLIC_VERCEL_ENV"] },
     "format": { "dependsOn": ["^format"] },
     "type-check": { "dependsOn": ["^type-check"] },
-    "test": {
-      "dependsOn": ["^test", "lint:fix", "format", "type-check"],
-      "inputs": ["$TURBO_DEFAULT$", ".env.test.local", ".env.local", ".env.test", ".env"]
-    },
-    "dev": {
-      "cache": false,
-      "persistent": true,
-      "inputs": ["$TURBO_DEFAULT$", ".env.development.local", ".env.local", ".env.development", ".env"]
-    }
+    "test": { "dependsOn": ["^test", "lint:fix", "format", "type-check"], "inputs": ["$TURBO_DEFAULT$", ".env*"] },
+    "dev": { "cache": false, "persistent": true, "inputs": ["$TURBO_DEFAULT$", ".env*"] }
   }
 }
