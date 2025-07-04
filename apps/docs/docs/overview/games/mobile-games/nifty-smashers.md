@@ -19,11 +19,7 @@ For some background, the local-multiplayer version of Nifty Smashers was made av
 
 You can play using any other compatible controller (Playstation, Xbox, etc.) if you wish. For the deprecated desktop version you must have a [DEGEN NFT](/docs/overview/nfts/degens/about) to play. Simply connect your crypto wallet holding your DEGEN, enter the game lobby, and select your DEGEN for battle.
 
-<ReactPlayer
-  controls
-  url="https://www.youtube.com/embed/4lnDrx4aDq8"
-  width="100%"
-/>
+<ReactPlayer controls src="https://www.youtube.com/embed/4lnDrx4aDq8" width="100%" height={500} />
 
 ---
 
@@ -114,7 +110,7 @@ All DEGEN tribes have a Special Ability (”SA”), which are consistent across 
 
 For an in-depth overview of the games progression system read our [Pregression Doc](https://docs.google.com/document/d/160WTUFqiL4oyap0x0Zf1rM9zxQGBCIGQbrWxF_604bM/edit?usp=sharing)
 
-<ReactPlayer controls url={VideoURL} width="100%" />
+<ReactPlayer playing playsInline src={VideoURL} width="100%" height={500} />
 
 ---
 

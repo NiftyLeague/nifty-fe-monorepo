@@ -28,13 +28,13 @@ Powerful bats or other weapons used in various Nifty League games such as [Nifty
 
 Earned from burning Comic Page #6
 
-<ReactPlayer controls url={VideoURL1} width="100%" />
+<ReactPlayer controls src={VideoURL1} width="100%" height={500} />
 
 ### Citadel Key
 
 Earned from burning a full-set of all 6 pages
 
-<ReactPlayer controls url={VideoURL2} width="100%" />
+<ReactPlayer controls src={VideoURL2} width="100%" height={500} />
 
 ### Immutable zkEVM Items Marketplace
 

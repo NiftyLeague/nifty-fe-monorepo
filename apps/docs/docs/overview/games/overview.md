@@ -7,7 +7,7 @@ sidebar_position: 1
 import ReactPlayer from 'react-player';
 import VideoURL from '/video/game-console.mp4';
 
-<ReactPlayer playing controls url={VideoURL} width="100%" />
+<ReactPlayer playing playsInline src={VideoURL} width="100%" height={500} />
 
 ---
 

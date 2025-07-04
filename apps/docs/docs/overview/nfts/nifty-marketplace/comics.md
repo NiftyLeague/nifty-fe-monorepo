@@ -26,7 +26,7 @@ There was a snapshot on 1/31/2022 for **Comic 5** awarded to all DEGEN holders, 
 
 In addition, all [Meta background](/docs/overview/nfts/degens/backgrounds) DEGENs received one **Comic 6** NFT, and all [Legendary background](/docs/overview/nfts/degens/backgrounds) DEGENs received two **Comic 6** NFTs.
 
-<ReactPlayer controls url={VideoURL1} width="100%" />
+<ReactPlayer controls src={VideoURL1} width="100%" height={500} />
 
 :::tip[Note]
 
