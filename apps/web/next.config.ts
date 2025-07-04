@@ -57,7 +57,7 @@ const nextConfig: NextConfig = {
 
 export default withSentryConfig(nextConfig, {
   // For all available options, see:
-  // https://github.com/getsentry/sentry-webpack-plugin#options
+  // https://www.npmjs.com/package/@sentry/webpack-plugin#options
 
   org: 'niftyleague',
   project: 'nifty-league-web',
