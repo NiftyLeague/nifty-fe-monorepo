@@ -216,7 +216,7 @@ function TextArea({
   if (borderless) classes.push(InputStyles['sbui-input--borderless']);
 
   function onInputChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    setCharLength(e.target.value.length);
+    setCharLength(e.target.value?.length);
     if (onChange) {
       onChange(e);
     }

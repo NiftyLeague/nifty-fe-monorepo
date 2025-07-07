@@ -23,12 +23,7 @@ import FilterAllTraitCheckboxes from '../FilterAllTraitCheckboxes';
 
 const PREFIX = 'DegensFilter';
 
-const classes = {
-  inputCheck: `${PREFIX}-inputCheck`,
-  tribeCheckFormControl: `${PREFIX}-tribeCheckFormControl`,
-  inputCheckFormControl: `${PREFIX}-inputCheckFormControl`,
-  tribeName: `${PREFIX}-tribeName`,
-};
+const classes = { inputCheck: `${PREFIX}-inputCheck`, inputCheckFormControl: `${PREFIX}-inputCheckFormControl` };
 
 const StyledStack = styled(Stack)(() => ({
   [`&.${classes.inputCheck}`]: {
@@ -39,15 +34,11 @@ const StyledStack = styled(Stack)(() => ({
     '& .MuiSvgIcon-root': { width: '0.75em', height: '0.75em' },
   },
 
-  [`&.${classes.tribeCheckFormControl}`]: { marginLeft: -8, minWidth: 108 },
-
   [`&.${classes.inputCheckFormControl}`]: {
     marginLeft: -8,
     marginRight: 0,
     '& .MuiFormControlLabel-label': { fontSize: '0.75rem', lineHeight: '0.75rem' },
   },
-
-  [`&.${classes.tribeName}`]: { marginLeft: 8 },
 }));
 
 interface DegensFilterProps {
@@ -219,6 +210,7 @@ const DegensFilter = ({
         multipliers: newFilters.multipliers,
         rentals: newFilters.rentals,
         tribes: newFilters.tribes,
+        tokenId: newFilters.tokenId,
         backgrounds: newFilters.backgrounds,
         cosmetics: newFilters.cosmetics,
         wearables: newFilters.wearables,
@@ -236,7 +228,7 @@ const DegensFilter = ({
             variant="outlined"
             disabled={isParamsEmpty}
             onClick={handleReset}
-            sx={{ height: 28, color: 'var(--color-purple)' }}
+            sx={{ height: 28, color: 'var(--color-error)', borderColor: 'var(--color-error)' }}
           >
             Reset
           </Button>
@@ -258,14 +250,14 @@ const DegensFilter = ({
                   />
                 }
                 label={
-                  <Stack direction="row" sx={{ alignItems: 'center' }}>
+                  <div className="flex flex-row items-center -ml-1">
                     <Image src={tribe.icon} alt="Tribe Icon" width={18} height={18} />
-                    <Typography variant="body1" className={classes.tribeName}>
+                    <Typography variant="body1" className="!ml-2">
                       {tribe.name}
                     </Typography>
-                  </Stack>
+                  </div>
                 }
-                className={classes.tribeCheckFormControl}
+                className="min-w-[122px]"
                 sx={{ flex: '0 0 33.333333%' }}
               />
             ))}

@@ -76,7 +76,7 @@ const DashboardDegensPage = (): React.ReactNode => {
   const loading = loadingAllRentals || loadingDegens;
 
   const populatedDegens: Degen[] = useMemo(() => {
-    if (!degensBalances.length || !data) return [];
+    if (!degensBalances?.length || !data) return [];
     // TODO: remove temp fix for 7th tribes
     // return degens.map((degen) => data[degen.id]);
     return degensBalances.map(degen =>
@@ -104,7 +104,7 @@ const DashboardDegensPage = (): React.ReactNode => {
           } as Degen),
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [degensBalances.length, !!data]);
+  }, [degensBalances?.length, !!data]);
 
   const isSmallScreen = useMediaQuery('(max-width:1280px)');
 
@@ -295,7 +295,7 @@ const DashboardDegensPage = (): React.ReactNode => {
 
   const renderMain = useCallback(
     () => (
-      <Stack gap={1.5}>
+      <Stack gap={1.5} className="h-full">
         {/* Main Grid title */}
         <SectionTitle firstSection>
           <Stack direction="row" gap={1} sx={{ alignItems: 'center', mb: 2 }}>
@@ -306,7 +306,12 @@ const DashboardDegensPage = (): React.ReactNode => {
           </Stack>
         </SectionTitle>
         {/* Main grid content */}
-        <Grid container spacing={2} mt={-4.5} className="justify-center">
+        <Grid
+          container
+          spacing={2}
+          mt={-4.5}
+          className={!degensBalances?.length ? 'h-full justify-center items-center' : ''}
+        >
           {loading || !isConnected ? (
             [...Array(8)].map(renderSkeletonItem)
           ) : dataForCurrentPage.length ? (
@@ -325,7 +330,7 @@ const DashboardDegensPage = (): React.ReactNode => {
             count={maxPage}
             page={currentPage}
             color="primary"
-            sx={{ margin: '0 auto' }}
+            sx={{ margin: '0 auto', paddingBottom: '16px' }}
             onChange={(e: React.ChangeEvent<unknown>, p: number) => jump(p)}
           />
         )}
@@ -348,7 +353,7 @@ const DashboardDegensPage = (): React.ReactNode => {
 
   return (
     <>
-      <Stack spacing={2} className="h-full justify-center pl-2">
+      <Stack spacing={2} className="h-full justify-center align-top pl-2">
         <Stack pl={2} pr={3}>
           <DegensTopNav
             searchTerm={searchTerm || ''}

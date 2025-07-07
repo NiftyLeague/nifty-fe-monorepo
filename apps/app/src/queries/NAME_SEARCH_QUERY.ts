@@ -8,6 +8,9 @@ const NAME_SEARCH_QUERY = gql`
       createdAt
       name
       nameHistory
+      owner {
+        address
+      }
       traits {
         tribe
         skinColor
@@ -31,6 +34,7 @@ const NAME_SEARCH_QUERY = gql`
         neckwear
         leftItem
         rightItem
+        background
       }
     }
   }

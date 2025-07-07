@@ -37,7 +37,7 @@ const GamerProfile = (): React.ReactNode => {
   const { comicsBalances, degenCount, degensBalances, itemsBalances } = useNFTsBalances();
 
   const filteredDegens: Degen[] = useMemo(() => {
-    if (degensBalances.length && data) {
+    if (degensBalances?.length && data) {
       const mapDegens = degensBalances.map(degen => data[Number(degen.id)]) as Degen[];
       return mapDegens;
     }

@@ -17,7 +17,11 @@
     "TWITCH_CLIENT_SECRET"
   ],
   "tasks": {
-    "build": { "dependsOn": ["^build"], "inputs": ["$TURBO_DEFAULT$", ".env*"], "outputs": ["dist/**"] },
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
+      "outputs": ["dist/**"]
+    },
     "app#build": {
       "dependsOn": ["^build"],
       "env": ["NEXT_RUNTIME", "NEXT_PUBLIC_*"],
@@ -39,11 +43,15 @@
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "clean": { "cache": false },
-    "lint": { "dependsOn": ["^lint"], "env": ["NEXT_PUBLIC_VERCEL_ENV"] },
-    "lint:fix": { "dependsOn": ["^lint:fix"], "env": ["NEXT_PUBLIC_VERCEL_ENV"] },
-    "format": { "dependsOn": ["^format"] },
-    "type-check": { "dependsOn": ["^type-check"] },
-    "test": { "dependsOn": ["^test", "lint:fix", "format", "type-check"], "inputs": ["$TURBO_DEFAULT$", ".env*"] },
-    "dev": { "cache": false, "persistent": true, "inputs": ["$TURBO_DEFAULT$", ".env*"] }
+    "transit": { "dependsOn": ["^transit"] },
+    "lint": { "dependsOn": ["transit"], "env": ["NEXT_PUBLIC_VERCEL_ENV"] },
+    "lint:fix": { "dependsOn": ["transit"], "env": ["NEXT_PUBLIC_VERCEL_ENV"] },
+    "format": { "dependsOn": ["transit"] },
+    "type-check": { "dependsOn": ["transit"] },
+    "test": {
+      "dependsOn": ["transit", "lint:fix", "format", "type-check"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"]
+    },
+    "dev": { "cache": false, "persistent": true, "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"] }
   }
 }

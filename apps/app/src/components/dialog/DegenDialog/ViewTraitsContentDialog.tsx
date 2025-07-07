@@ -46,11 +46,22 @@ const ViewTraitsContentDialog = ({
           <Typography gutterBottom variant="h4">
             {displayName}
           </Typography>
-          <a href={DEGEN_PURCHASE_URL(degen?.id as string)} target="_blank" rel="noreferrer">
+          <a
+            href={DEGEN_PURCHASE_URL(degen?.id as string)}
+            target="_blank"
+            rel="noreferrer"
+            className="flex flex-row flex-nowrap items-center"
+          >
             <Typography sx={{ color: 'var(--color-foreground-2)', textDecoration: 'none' }}>
               DEGEN ID #{degen?.id}{' '}
-              <Image src="/img/logos/other/OpenSea.webp" alt="OpenSea Logo" width={16} height={16} />
             </Typography>
+            <Image
+              src="/img/logos/other/OpenSea.webp"
+              alt="OpenSea Logo"
+              width={18}
+              height={18}
+              className="ml-1 w-[18px] h-[18px]"
+            />
           </a>
         </Stack>
         {/* <Stack direction="column"  sx={{ alignItems: 'center' }} sx={{ my: 2 }}>
@@ -64,16 +75,17 @@ const ViewTraitsContentDialog = ({
             {degenDetail?.price} NFTL/ 1 Week
           </Typography>
         </Stack> */}
-        <Stack direction="column" sx={{ alignItems: 'center' }} gap={1}>
-          <Typography sx={{ color: 'var(--color-foreground-2)' }}>
-            Owned by{' '}
-            {degen?.name ||
-              `${degen?.owner?.slice(0, 5)}...${degen?.owner?.slice(
+        {degen?.owner && (
+          <Stack direction="column" sx={{ alignItems: 'center' }} gap={1}>
+            <Typography sx={{ color: 'var(--color-foreground-2)' }}>
+              Owned by{' '}
+              {`${degen?.owner?.slice(0, 5)}...${degen?.owner?.slice(
                 degen?.owner?.length - 5,
                 degen?.owner?.length - 1,
               )}`}
-          </Typography>
-        </Stack>
+            </Typography>
+          </Stack>
+        )}
       </Grid>
       <Grid size={{ xs: 12, md: 6 }} sx={{ py: 1, px: 2, position: 'relative' }}>
         <Stack gap={3} sx={{ justifyContent: 'space-between', height: '100%' }}>

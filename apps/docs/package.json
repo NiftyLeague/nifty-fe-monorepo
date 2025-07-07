@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "docusaurus build",
-    "clean": "rm -rf node_modules && rm -rf build",
+    "clean": "rm -rf node_modules && rm -rf build && rm -rf .turbo && rm -rf .docusaurus",
     "clear": "docusaurus clear",
     "deploy": "docusaurus deploy",
     "dev": "docusaurus start --no-open --port 3002",

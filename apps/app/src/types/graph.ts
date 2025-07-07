@@ -1,34 +1,12 @@
 export interface Character {
   id: string;
   tokenId: bigint;
-  owner: Owner;
   createdAt: bigint;
-  name: string;
-  transactionHash: string;
-  traits: {
-    tribe: number;
-    skinColor: number;
-    furColor: number;
-    eyeColor: number;
-    pupilColor: number;
-    hair: number;
-    mouth: number;
-    beard: number;
-    top: number;
-    outerwear: number;
-    print: number;
-    bottom: number;
-    footwear: number;
-    belt: number;
-    hat: number;
-    eyewear: number;
-    piercing: number;
-    wrist: number;
-    hands: number;
-    neckwear: number;
-    leftItem: number;
-    rightItem: number;
-  };
+  name: string | null;
+  nameHistory: string[] | null;
+  owner: Pick<Owner, 'address'>;
+  traits: Partial<TraitMap>;
+  transactionHash?: string;
 }
 
 export interface CharactersQueryData {
@@ -43,7 +21,7 @@ export interface Contract {
   removedTraits: number[];
 }
 
-export interface Characters {
+export interface DefaultQueryData {
   characters: Character[];
   contracts: Contract[];
 }
@@ -86,8 +64,9 @@ export interface TraitMap {
   neckwear: number;
   leftItem: number;
   rightItem: number;
+  background: number;
 }
 
-export interface TraitMaps {
+export interface TraitMapsQueryData {
   traitMaps: TraitMap[];
 }

@@ -121,7 +121,7 @@ const AllDegensPage = (): React.ReactNode => {
       setFilteredData(result);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [degens.length, filters.sort],
+    [degens?.length, filters.sort],
   );
 
   const handleSort = useCallback(
@@ -131,7 +131,7 @@ const AllDegensPage = (): React.ReactNode => {
       setFilteredData(tranformDataByFilter(degens, newSort));
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [degens.length, filters],
+    [degens?.length, filters],
   );
 
   const handleClickEditName = useCallback((degen: Degen): void => {
@@ -162,7 +162,7 @@ const AllDegensPage = (): React.ReactNode => {
           sm: isGridView ? 6 : 4,
           md: isGridView ? 4 : 3,
           lg: isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2,
-          xl: isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2,
+          xl: isGridView ? (isDrawerOpen ? 3 : 2) : isDrawerOpen ? 2 : 1.5,
         }}
       >
         <SkeletonDegenPlaceholder size={isGridView ? 'normal' : 'small'} />
@@ -193,7 +193,7 @@ const AllDegensPage = (): React.ReactNode => {
           sm: isGridView ? 6 : 4,
           md: isGridView ? 4 : 3,
           lg: isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2,
-          xl: isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2,
+          xl: isGridView ? (isDrawerOpen ? 3 : 2) : isDrawerOpen ? 2 : 1.5,
         }}
       >
         <DegenCard
@@ -216,7 +216,7 @@ const AllDegensPage = (): React.ReactNode => {
 
   const renderMain = useCallback(
     () => (
-      <Stack gap={1.5}>
+      <Stack gap={1.5} className="h-full">
         {/* Main Grid title */}
         <SectionTitle firstSection>
           <Stack direction="row" gap={1} sx={{ alignItems: 'center', mb: 2 }}>
@@ -234,7 +234,7 @@ const AllDegensPage = (): React.ReactNode => {
           count={maxPage}
           page={currentPage}
           color="primary"
-          sx={{ margin: '0 auto' }}
+          sx={{ margin: '0 auto', paddingBottom: '16px' }}
           onChange={(e: React.ChangeEvent<unknown>, p: number) => jump(p)}
         />
       </Stack>
@@ -254,7 +254,7 @@ const AllDegensPage = (): React.ReactNode => {
 
   return (
     <>
-      <Stack spacing={2} className="h-full justify-center pl-2">
+      <Stack spacing={2} className="h-full justify-center align-top pl-2">
         <Stack sx={{ pl: 2, pr: 3 }}>
           <DegensTopNav
             searchTerm={searchTerm || ''}

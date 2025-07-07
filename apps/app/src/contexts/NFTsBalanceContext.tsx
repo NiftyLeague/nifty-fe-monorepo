@@ -52,8 +52,7 @@ export const NFTsBalanceProvider = ({ children }: PropsWithChildren): React.Reac
   const isDegenOwner = degenCount > 0;
 
   const degensBalances = useMemo(() => {
-    const characterList = owner?.characters ? [...owner.characters] : [];
-    return characterList.sort((a, b) => parseInt(a.id, 10) - parseInt(b.id, 10));
+    return owner?.characters ? owner.characters.map(degen => ({ ...degen, id: degen.tokenId.toString() })) : [];
   }, [owner]);
 
   const degenTokenIndices = useMemo(() => degensBalances.map(d => parseInt(d.id, 10)), [degensBalances]);

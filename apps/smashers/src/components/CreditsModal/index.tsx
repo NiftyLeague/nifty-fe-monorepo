@@ -75,7 +75,7 @@ const CreditsContent = () => {
   const { companies } = creditsData as CreditsData;
 
   return (
-    <div style={{ maxWidth: '800px', maxHeight: '80vh', overflowY: 'auto', padding: '2rem' }}>
+    <div style={{ maxWidth: '900px', maxHeight: '80vh', overflowY: 'auto', overflowX: 'hidden', padding: '2rem' }}>
       <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
         <Typography.Title level={2}>CREDITS</Typography.Title>
       </div>

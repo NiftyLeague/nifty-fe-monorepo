@@ -16,7 +16,7 @@
     "./utils": "./src/utils/index.ts"
   },
   "scripts": {
-    "clean": "rm -rf node_modules",
+    "clean": "rm -rf node_modules && rm -rf .turbo",
     "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\"",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --max-warnings 0 --fix",
