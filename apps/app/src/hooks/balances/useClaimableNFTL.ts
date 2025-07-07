@@ -37,7 +37,7 @@ export default function useClaimableNFTL(degenTokenIndices: number[]): NFTLClaim
     args: [degenTokenIndices],
     query: {
       staleTime: 10_000,
-      enabled: degenTokenIndices.length > 0 && isLoggedIn,
+      enabled: degenTokenIndices?.length > 0 && isLoggedIn,
       select: data => parseFloat(formatEther(data as bigint)),
     },
   });

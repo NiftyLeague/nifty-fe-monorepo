@@ -26,13 +26,6 @@ const DegenCard = dynamic(() => import('@/components/cards/DegenCard').then(modu
   ssr: false,
 });
 
-const BoxDegenStyles = {
-  px: 1,
-  '& .MuiCardContent-root': { p: '12px' },
-  '& .MuiTypography-h3': { fontSize: '16px' },
-  '& .MuiCardActions-root': { p: '12px' },
-};
-
 const MyDegens = (): React.ReactNode => {
   const { authToken } = useAuth();
   const [selectedDegen, setSelectedDegen] = useState<Degen>();
@@ -55,7 +48,7 @@ const MyDegens = (): React.ReactNode => {
   const { data: degensData } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`);
 
   const filteredDegens = useMemo(() => {
-    if (degensBalances.length && degensData) {
+    if (degensBalances?.length && degensData) {
       return degensBalances.map(degen => degensData[Number(degen.id)]).filter(Boolean);
     }
     return [];
@@ -63,13 +56,13 @@ const MyDegens = (): React.ReactNode => {
 
   const settings = {
     slidesToShow: 4,
-    adaptiveHeight: false, // buggy behavior with degen cards
+    adaptiveHeight: true, // disable if buggy behavior with degen cards
     responsive: [
-      { breakpoint: 1536, settings: { slidesToShow: 4 } },
+      { breakpoint: 1536, settings: { slidesToShow: 3 } },
       { breakpoint: 1280, settings: { slidesToShow: 3 } },
-      { breakpoint: 1024, settings: { slidesToShow: 4 } },
-      { breakpoint: 768, settings: { slidesToShow: 3 } },
-      { breakpoint: 640, settings: { slidesToShow: 2 } },
+      { breakpoint: 1024, settings: { slidesToShow: 5 } },
+      { breakpoint: 768, settings: { slidesToShow: 4 } },
+      { breakpoint: 640, settings: { slidesToShow: 3 } },
     ],
   };
 
@@ -128,7 +121,7 @@ const MyDegens = (): React.ReactNode => {
             View All DEGENs
           </Button>
         }
-        styles={{ mainRow: { height: 343, overflow: 'hidden' } }}
+        styles={{ mainRow: { minHeight: 300, maxHeight: 330, overflow: 'hidden' } }}
       >
         {loadingDegens ? (
           [...Array(8)].map(() => (
@@ -138,7 +131,15 @@ const MyDegens = (): React.ReactNode => {
           ))
         ) : filteredDegens.length && degensBalances.length ? (
           filteredDegens.map(degen => (
-            <Box sx={BoxDegenStyles} key={degen.id}>
+            <Box
+              sx={{
+                px: 1,
+                '& .MuiCardContent-root': { p: '12px' },
+                '& .MuiTypography-h3': { fontSize: '16px' },
+                '& .MuiCardActions-root': { p: '12px' },
+              }}
+              key={degen.id}
+            >
               <DegenCard
                 degen={degen}
                 favs={favDegens}

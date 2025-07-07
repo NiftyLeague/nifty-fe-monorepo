@@ -160,7 +160,7 @@ function SocialAuth({
   };
 
   return (
-    <Space size={8} direction="vertical">
+    <Space size={4} direction="vertical">
       {providers && providers.length > 0 && (
         <React.Fragment>
           <Space size={4} direction="vertical">
@@ -287,7 +287,7 @@ function EmailAuth({
 
   return (
     <form id={id} onSubmit={handleSubmit}>
-      <Space size={6} direction={'vertical'}>
+      <Space size={4} direction={'vertical'}>
         <Space size={3} direction={'vertical'}>
           <Input
             label="Email address"

@@ -34,12 +34,12 @@
   grey400: #9f9e9d;
   grey500: #6f6e6d;
   grey600: #4c4b4a;
-  grey700: #2c2b2a;
-  grey800: #1c1b1a;
-  grey900: #0c0b0a;
-  grey950: #010101;
+  grey700: #3f3f46;
+  grey800: #27272a;
+  grey900: #18181b;
+  grey950: #09090b;
   /*  paper & background */
-  paper: #fffefd;
+  paper: #e4e4e7;
   defaultBackground: #fffefd;
   /*  text variants */
   textPrimary: #0c0b0a;
@@ -57,13 +57,13 @@
   darkSecondaryDark: #3d54e1;
   darkSecondaryDarker: #1a33d3;
   /*  paper & background */
-  darkPaper: #1c1b1a;
-  darkBackground: #1c1b1a;
+  darkPaper: #18181b;
+  darkBackground: #09090b;
   /*  text variants */
   darkTextPrimary: #fffefd;
   darkTextSecondary: #bfbebd;
   /*  dark - light, main, dark */
-  darkLevel1: #1c1b1a;
+  darkLevel1: #27272a;
   darkLevel2: #1c1b1a;
-  darkLevel3: #0c0b0a;
+  darkLevel3: #09090b;
 }

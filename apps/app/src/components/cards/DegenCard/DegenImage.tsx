@@ -1,16 +1,21 @@
-import { memo } from 'react';
-import { CardMedia, SxProps } from '@mui/material';
+import { memo, ElementType } from 'react';
+import CardMedia, { type CardMediaProps } from '@mui/material/CardMedia';
 import { LEGGIES } from '@/constants/degens';
 const IMAGE_HEIGHT = 320;
 
-const DegenImage = memo(({ tokenId, sx }: { tokenId: string | number; sx?: SxProps<{}> }) => {
+const DegenImage = memo(({ tokenId, sx }: { tokenId: string | number; sx?: CardMediaProps['sx'] }) => {
   const imageURL = `/img/degens/nfts/${tokenId}`;
-  // @ts-expect-error Property 'height' does not exist on type 'CSSPseudoSelectorProps<{}>'
-  const imageHeight = sx?.height ?? IMAGE_HEIGHT;
-  let setting: any = { height: imageHeight, component: 'img', image: `${imageURL}.webp` };
+
+  const sxHeight = sx && typeof sx === 'object' && 'height' in sx ? (sx.height as string | number) : undefined;
+  const imageHeight = sxHeight ?? IMAGE_HEIGHT;
+  const setting: { height: string | number; component: ElementType; image: string } = {
+    height: imageHeight,
+    component: 'img',
+    image: `${imageURL}.webp`,
+  };
 
   if (LEGGIES.includes(Number(tokenId))) {
-    setting = { ...setting, component: 'video', image: `${imageURL}.gif`, autoPlay: true, loop: true, muted: true };
+    setting.image = `${imageURL}.gif`;
   }
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement | HTMLVideoElement, Event>) => {
@@ -19,7 +24,7 @@ const DegenImage = memo(({ tokenId, sx }: { tokenId: string | number; sx?: SxPro
     target.src = '/img/degens/unavailable-image.webp';
   };
 
-  return <CardMedia sx={{ objectFit: 'cover', ...sx }} {...setting} onError={handleImageError} />;
+  return <CardMedia className="pixelated" sx={{ objectFit: 'cover', ...sx }} {...setting} onError={handleImageError} />;
 });
 
 DegenImage.displayName = 'DegenImage';

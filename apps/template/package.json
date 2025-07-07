@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "clean": "rm -rf node_modules && rm -rf .turbo && rm -rf .next"
+  },
   "dependencies": {
     "@nl/ui": "workspace:*",
     "next": "15.3.5",

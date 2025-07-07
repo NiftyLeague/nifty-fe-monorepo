@@ -1,20 +1,26 @@
-import DegenTraitsDetailsDialog from '@/components/dialog/DegenDialog/DegenTraitsDetailsDialog';
+import { use } from 'react';
+import { redirect } from 'next/navigation';
+import { LEGGIES } from '@/constants/degens';
+import type { Metadata, ResolvingMetadata } from 'next';
 
-type Params = Promise<{ id: string }>;
-type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+interface PageProps {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+export async function generateMetadata({ params }: PageProps, parent: ResolvingMetadata): Promise<Metadata> {
+  const { id: tokenId } = await params;
+  const fileType = LEGGIES.includes(Number(tokenId)) ? 'gif' : 'webp';
 
-export async function generateMetadata(props: { params: Params }) {
-  const params = await props.params;
-  const tokenId = params.id;
+  // access and extend (rather than replace) parent metadata
+  const previousImages = (await parent).openGraph?.images || [];
 
-  return { title: `NL DEGEN #${tokenId}`, openGraph: { images: [`/img/degens/nfts/${tokenId}.webp`] } };
+  return {
+    title: `NL DEGEN #${tokenId}`,
+    openGraph: { images: [`/img/degens/nfts/${tokenId}.${fileType}`, ...previousImages] },
+  };
 }
 
-export default async function DegenTraitsDetailsPage(props: { params: Params; searchParams: SearchParams }) {
-  const params = await props.params;
-  const searchParams = await props.searchParams;
-  const tokenId = params.id;
-  const query = searchParams.query;
-
-  return <DegenTraitsDetailsDialog tokenId={tokenId} query={query} />;
+export default function Page({ params }: PageProps) {
+  const { id: tokenId } = use(params);
+  redirect(`/degens?tokenId=${tokenId}`);
 }

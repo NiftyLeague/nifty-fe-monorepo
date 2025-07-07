@@ -43,19 +43,17 @@ const TrailerContent = () => {
   }, [isLoaded]);
 
   return (
-    <div className={styles.modal_paper}>
-      <iframe
-        ref={modalIframe}
-        id="trailer-modal-iframe"
-        title="Nifty Smashers - Trailer"
-        className={styles.modal_iframe}
-        src="https://www.youtube.com/embed/4lnDrx4aDq8?enablejsapi=1&html5=1&autoplay=1&playsinline=1&rel=0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-        loading="lazy"
-        frameBorder="0"
-      />
-    </div>
+    <iframe
+      ref={modalIframe}
+      id="trailer-modal-iframe"
+      title="Nifty Smashers - Trailer"
+      className={styles.modal_iframe}
+      src="https://www.youtube.com/embed/4lnDrx4aDq8?enablejsapi=1&html5=1&autoplay=1&playsinline=1&rel=0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowFullScreen
+      loading="lazy"
+      frameBorder="0"
+    />
   );
 };
 
@@ -63,7 +61,7 @@ type TrailerModalProps = { isOpen: boolean; onClose: () => void };
 
 const TrailerModal = ({ isOpen, onClose }: TrailerModalProps) => {
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} contentClassName={styles.modal_paper}>
       <TrailerContent />
     </Modal>
   );

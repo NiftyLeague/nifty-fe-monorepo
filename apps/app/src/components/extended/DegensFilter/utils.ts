@@ -10,11 +10,12 @@ export const tranformDataByFilter = (
     // prices = [],
     // multipliers = [],
     // rentals = [],
-    tribes = [],
     backgrounds = [],
     cosmetics = [],
-    sort,
     searchTerm = [],
+    sort,
+    tokenId = [],
+    tribes = [],
     walletAddress = [],
   }: DegenFilter,
 ): Degen[] => {
@@ -23,12 +24,12 @@ export const tranformDataByFilter = (
       // price,
       // multiplier,
       // rental_count,
-      tribe = '',
       background = '',
-      traits_string = '',
-      name = '',
       id = '',
+      name = '',
       owner = '',
+      traits_string = '',
+      tribe = '',
     }: Degen) => {
       // Filter all burn addys
       if (BURN_ADDYS.includes(owner)) return false;
@@ -39,6 +40,10 @@ export const tranformDataByFilter = (
         walletAddress[0].length > 26 &&
         !(owner.toLowerCase() === walletAddress[0].toLowerCase())
       ) {
+        return false;
+      }
+
+      if (tokenId?.length && tokenId[0] && tokenId[0].length > 0 && !(id === tokenId[0])) {
         return false;
       }
 
@@ -90,7 +95,7 @@ export const tranformDataByFilter = (
       if (
         searchTerm.length === 1 &&
         !(
-          name.toLowerCase().includes((searchTerm[0] as string).toLowerCase()) ||
+          name?.toLowerCase().includes((searchTerm[0] as string).toLowerCase()) ||
           id.toLocaleLowerCase().includes((searchTerm[0] as string).toLowerCase())
         )
       ) {
@@ -130,7 +135,7 @@ export const updateFilterValue = (
   // eslint-disable-next-line guard-for-in
   for (const key in params) {
     const value = params[key as keyof DegenFilter];
-    if (key === 'searchTerm' || key === 'walletAddress') {
+    if (key === 'searchTerm' || key === 'walletAddress' || key === 'tokenId') {
       newFilter[key] = [value as string];
     } else {
       if (!value) {

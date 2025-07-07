@@ -9,15 +9,19 @@ export * from './dateTime';
  */
 export const isZero = (hexNumberString: string): boolean => /^0x0*$/.test(hexNumberString);
 
-export const formatBalance = (value: bigint, decimals = 18, maxFraction = 0): string => {
-  const formatted = formatUnits(value, decimals);
-  const split = formatted.split('.');
-  if (maxFraction > 0) {
-    if (split.length > 1) {
+export const formatBalance = (value: bigint | undefined | null, decimals = 18, maxFraction = 0): string => {
+  if (value === undefined || value === null) return '0';
+  try {
+    const formatted = formatUnits(value, decimals);
+    const split = formatted.split('.');
+    if (maxFraction > 0 && split.length > 1) {
       return `${split[0]}.${split[1]?.substring(0, maxFraction)}`;
     }
+    return split[0] ?? '0';
+  } catch (error) {
+    console.error('Error formatting balance:', error);
+    return '0';
   }
-  return split[0] ?? '0';
 };
 
 export const parseBalance = (value: string, decimals = 18): bigint => parseUnits(value || '0', decimals);

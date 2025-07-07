@@ -69,7 +69,7 @@ const DegenClaimBal: React.FC<React.PropsWithChildren<React.PropsWithChildren<{ 
   memo(({ tokenId, fontSize }) => {
     const degenTokenIndices = useMemo(() => [parseInt(tokenId, 10)], [tokenId]);
     const { balance } = useClaimableNFTL(degenTokenIndices);
-    const amountParsed = formatNumberToDisplay(balance);
+    const amountParsed = formatNumberToDisplay(balance, 0);
     return <Typography sx={{ textAlign: 'center', fontSize }}>{`${amountParsed} NFTL`}</Typography>;
   });
 
@@ -146,7 +146,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
           ...(sx as SxProps<Theme>),
         }}
       >
-        {id && <DegenImage tokenId={id} sx={{ height: size === 'small' ? 200 : undefined }} />}
+        {id && <DegenImage tokenId={id} />}
         {/* <Stack
           direction="row"
           sx={{ m: size === 'small' ? 0.5 : 1, width: 'auto', justifyContent: 'space-evenly' }}
@@ -179,8 +179,8 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
             gap={1}
             sx={{ justifyContent: 'space-between', '&:hover': { '& svg': { display: 'block' } } }}
           >
-            <Typography gutterBottom variant={size === 'small' ? 'h6' : 'h4'}>
-              {name || 'No Name DEGEN'}
+            <Typography gutterBottom variant={size === 'small' ? 'h6' : 'h5'} className="truncate-text-1">
+              {name || '[No Name]'}
             </Typography>
             {isDashboardDegen && (
               <EditIcon sx={{ cursor: 'pointer', display: 'none' }} onClick={onClickEditName} fontSize="small" />
@@ -277,15 +277,15 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
                 {isEnabled ? 'Disable' : 'Enable'} Rentals
               </Typography>
             )} */}
-            <Box sx={{ display: 'flex' }}>
-              <Box sx={{ cursor: 'pointer', marginRight: 1 }} onClick={onClickFavorite}>
+            <div className="flex flex-row items-center">
+              <div className="flex items-center cursor-pointer mr-3" onClick={onClickFavorite}>
                 {fav ? (
                   <FavoriteIconFilled sx={{ fontSize: size === 'small' ? 12 : 16 }} />
                 ) : (
                   <FavoriteIconOutlined sx={{ fontSize: size === 'small' ? 12 : 16 }} />
                 )}
-              </Box>
-              <Box sx={{ display: 'flex', cursor: 'pointer', alignItems: 'center' }} onClick={onClickDownload}>
+              </div>
+              <div className="flex items-center cursor-pointer" onClick={onClickDownload}>
                 <Typography sx={{ fontSize: tinyFontSize, pr: '4px' }}>IP</Typography>
                 <Image
                   src="/icons/download-solid.svg"
@@ -293,8 +293,8 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
                   width={size === 'small' ? 12 : 16}
                   height={size === 'small' ? 12 : 16}
                 />
-              </Box>
-            </Box>
+              </div>
+            </div>
             <DegenClaimBal tokenId={id} fontSize={tinyFontSize as string} />
           </Stack>
         )}

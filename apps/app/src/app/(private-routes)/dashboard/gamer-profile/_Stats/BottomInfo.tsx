@@ -19,7 +19,7 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
 
   return (
     <Grid container flexDirection="row" flexWrap="wrap" spacing={2}>
-      <Grid size={{ sm: 12, lg: 6, xl: 4 }}>
+      <Grid size={{ xs: 12, lg: 6, xl: 4 }}>
         <GameCard
           image="/img/games/smashers/nifty-smashers.gif"
           contents={
@@ -54,7 +54,7 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
           }
         />
       </Grid>
-      <Grid size={{ sm: 12, lg: 6, xl: 4 }}>
+      <Grid size={{ xs: 12, lg: 6, xl: 4 }}>
         <GameCard
           image="/img/games/wen.gif"
           contents={
@@ -89,7 +89,7 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
           }
         />
       </Grid>
-      <Grid size={{ sm: 12, lg: 6, xl: 4 }}>
+      <Grid size={{ xs: 12, lg: 6, xl: 4 }}>
         <GameCard
           image="/img/games/crypto-winter.webp"
           contents={
