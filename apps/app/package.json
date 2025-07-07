@@ -32,7 +32,7 @@
     "@reduxjs/toolkit": "^2.8.2",
     "@reown/appkit": "^1.7.12",
     "@reown/appkit-adapter-wagmi": "^1.7.12",
-    "@sentry/nextjs": "^9.34.0",
+    "@sentry/nextjs": "^9.35.0",
     "@tabler/icons-react": "^3.34.0",
     "@tanstack/react-query": "^5.81.5",
     "@wagmi/connectors": "^5.8.5",
