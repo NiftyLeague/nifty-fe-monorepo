@@ -73,6 +73,7 @@ const AllDegensPage = (): React.ReactNode => {
 
   const { isDegenOwner } = useNFTsBalances();
 
+  const isMobile = useMediaQuery('(max-width:640px)');
   const isSmallScreen = useMediaQuery('(max-width:1280px)');
   const { jump, dataForCurrentPage, maxPage, currentPage } = usePagination<Degen>(
     filteredData,
@@ -235,20 +236,22 @@ const AllDegensPage = (): React.ReactNode => {
           page={currentPage}
           color="primary"
           sx={{ margin: '0 auto', paddingBottom: '16px' }}
+          size={isMobile ? 'small' : 'medium'}
           onChange={(e: React.ChangeEvent<unknown>, p: number) => jump(p)}
         />
       </Stack>
     ),
     [
-      isDrawerOpen,
-      filteredData.length,
-      degens?.length,
-      renderSkeletonItem,
-      dataForCurrentPage,
-      renderDegen,
-      maxPage,
       currentPage,
+      dataForCurrentPage,
+      degens?.length,
+      filteredData.length,
+      isDrawerOpen,
+      isMobile,
       jump,
+      maxPage,
+      renderDegen,
+      renderSkeletonItem,
     ],
   );
 

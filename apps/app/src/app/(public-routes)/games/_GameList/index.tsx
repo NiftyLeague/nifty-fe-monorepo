@@ -87,7 +87,7 @@ const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
   </Grid>
 );
 
-const GameList = () => (
+const F2PGameList = () => (
   <>
     <GridItem size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
       <GameCard
@@ -120,4 +120,4 @@ const GameList = () => (
   </>
 );
 
-export default GameList;
+export default F2PGameList;

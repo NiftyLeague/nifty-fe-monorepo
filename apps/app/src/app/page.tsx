@@ -4,7 +4,7 @@
 import { Grid } from '@mui/material';
 // import { Grid, Button, Box, Dialog } from '@mui/material';
 // import Link from 'next/link';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 import SectionSlider from '@/components/sections/SectionSlider';
 // import type { Degen } from '@/types/degens';
 // import { DEGEN_BASE_API_URL } from '@/constants/url';
@@ -100,7 +100,13 @@ const Home = () => {
   return (
     <>
       <SectionSlider firstSection title="Free-2-Play Games" isSlider={false}>
-        <Grid container flexDirection="row" flexWrap="wrap" rowSpacing={4}>
+        <Grid
+          container
+          flexDirection="row"
+          flexWrap="wrap"
+          rowSpacing={{ xs: 4, sm: 0 }}
+          paddingBottom={{ xs: 8, sm: 4, md: 0 }}
+        >
           <GameList />
         </Grid>
       </SectionSlider>
@@ -116,7 +122,13 @@ const Home = () => {
         //   </Box>
         // }
       >
-        <Grid container flexDirection="row" flexWrap="wrap" rowSpacing={4}>
+        <Grid
+          container
+          flexDirection="row"
+          flexWrap="wrap"
+          rowSpacing={{ xs: 4, sm: 0 }}
+          paddingBottom={{ xs: 8, sm: 4, md: 0 }}
+        >
           <Web3GameList />
         </Grid>
       </SectionSlider>
