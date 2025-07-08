@@ -1,13 +1,17 @@
 /* ==============================|| MAIN SECTION ||============================== */
 
+.controlledDVH {
+  min-height: 100vh; /* Fallback */
+  min-height: 100dvh; /* Modern browsers */
+  height: auto !important; /* Prevent height from expanding */
+  overflow: hidden; /* Prevent content from expanding the container */
+}
 .hero {
   background-image: url('/img/games/smashers/background.gif');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   width: 100vw;
-  height: 100vh;
-  height: 100dvh;
 }
 
 .heroContainer {

@@ -47,9 +47,9 @@ interface ThemeBtnGroupProps {
 export const ThemeBtnGroup = ({ className, primary, secondary }: ThemeBtnGroupProps) => (
   <div
     className={cn(
-      'w-full flex flex-row flex-wrap justify-center z-10',
+      'w-full flex flex-row flex-wrap justify-center items-center z-10',
       'gap-2 md:gap-3 xl:gap-4',
-      'mt-4 xl:mt-6',
+      'mt-4 xl:mt-6 -mx-2 sm:mx-0',
       className,
     )}
   >

@@ -17,20 +17,14 @@ const Games: NextPage = () => {
     <div className="container relative pt-20">
       <div className="purple-bg-orb orb-top-right" />
       <section className="section flex items-center justify-center flex-wrap">
-        {desktop ? (
-          <div className="w-1/2 px-2 lg:px-3">
-            <AnimatedWrapper>
-              <div className="animate-zoom-out transition-fade-start transition-fade delay-long">
+        <div className="w-1/3 md:w-1/2 md:px-2 lg:px-3">
+          <AnimatedWrapper>
+            <div className="animate-zoom-out transition-fade-start transition-fade delay-long">
+              {desktop ? (
                 <video id="lobby" width="100%" height="100%" muted autoPlay loop playsInline data-keepplaying>
                   <source src="/video/lobby.mp4" type="video/mp4" />
                 </video>
-              </div>
-            </AnimatedWrapper>
-          </div>
-        ) : (
-          <div className="w-1/3">
-            <AnimatedWrapper>
-              <div className="animate-zoom-out transition-fade-start transition-fade delay-long">
+              ) : (
                 <Image
                   alt="Arcade"
                   width={339}
@@ -39,10 +33,11 @@ const Games: NextPage = () => {
                   sizes="100vw"
                   style={{ width: '100%', height: 'auto', marginBottom: '6rem' }}
                 />
-              </div>
-            </AnimatedWrapper>
-          </div>
-        )}
+              )}
+            </div>
+          </AnimatedWrapper>
+        </div>
+
         <div className="w-full md:w-1/2 px-2 lg:px-3">
           <div className="mb-4">
             <AnimatedWrapper>
@@ -86,7 +81,7 @@ const Games: NextPage = () => {
                   />
                 ) : null}
 
-                {action.link ? (
+                {action.link && action.title ? (
                   <ThemeBtnGroup
                     className="justify-start mt-3 xl:mt-3"
                     primary={{
@@ -96,7 +91,7 @@ const Games: NextPage = () => {
                       className: 'theme-btn-rounded max-w-fit',
                     }}
                     secondary={
-                      action.secondaryLink
+                      action.secondaryLink && action.secondaryTitle
                         ? {
                             href: action.secondaryLink,
                             title: action.secondaryTitle,
