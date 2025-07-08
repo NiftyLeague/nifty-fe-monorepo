@@ -1,3 +1,4 @@
+'use client';
 /* eslint-disable no-console */
 import { useCallback } from 'react';
 import Notify, { API, InitOptions } from 'bnc-notify';

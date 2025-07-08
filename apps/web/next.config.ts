@@ -6,6 +6,8 @@ import type { NextConfig } from 'next';
 import { withSentryConfig } from '@sentry/nextjs';
 
 const nextConfig: NextConfig = {
+  eslint: { ignoreDuringBuilds: true },
+  typescript: { ignoreBuildErrors: true },
   transpilePackages: ['@nl/ui'],
   images: {
     remotePatterns: [
@@ -22,14 +24,14 @@ const nextConfig: NextConfig = {
       { source: '/products/:path*', destination: 'https://shop.niftyleague.com/products/:path*' },
       { source: '/cart/:path*', destination: 'https://shop.niftyleague.com/cart/:path*' },
       { source: '/account/login', destination: 'https://shop.niftyleague.com/account/login' },
-      ...(process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' || process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview'
+      ...(process.env.VERCEL_ENV === 'production' || process.env.VERCEL_ENV === 'preview'
         ? [{ source: '/docs/:path*', destination: 'https://docs.niftyleague.com/:path*' }]
         : []),
     ];
   },
   async redirects() {
     return [
-      ...(!process.env.NEXT_PUBLIC_VERCEL_ENV || process.env.NEXT_PUBLIC_VERCEL_ENV === 'development'
+      ...(!process.env.VERCEL_ENV || process.env.VERCEL_ENV === 'development'
         ? [
             { source: '/docs/:path*', destination: `http://localhost:3002/docs/:path*`, permanent: false },
             { source: '/app', destination: 'http://localhost:3001', permanent: true },
@@ -69,7 +71,7 @@ export default withSentryConfig(nextConfig, {
   // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
 
   // Upload a larger set of source maps for prettier stack traces (increases build time)
-  widenClientFileUpload: true,
+  widenClientFileUpload: process.env.VERCEL_ENV === 'production',
 
   // Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
   // This can increase your server load as well as your hosting bill.

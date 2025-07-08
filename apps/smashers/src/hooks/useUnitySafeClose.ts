@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback, useEffect } from 'react';
 
 type HookProps = { closeGame: () => void; unload: () => Promise<void> };

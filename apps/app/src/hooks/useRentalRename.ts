@@ -1,3 +1,5 @@
+'use client';
+
 import { RENTAL_RENAME_URL } from '@/constants/url';
 import useAuth from './useAuth';
 

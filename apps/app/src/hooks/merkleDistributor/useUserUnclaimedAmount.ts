@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect } from 'react';
 import { formatEther } from 'ethers6';
 import { BALANCE_MANAGER_CONTRACT } from '@/constants/contracts';
