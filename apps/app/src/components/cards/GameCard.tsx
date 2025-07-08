@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useTheme } from '@nl/theme';
 import { Button, Card, CardActions, CardContent, CardMedia, Stack, SxProps, Theme, Typography } from '@mui/material';
 import ExternalIcon from '@/components/ExternalIcon';
 
@@ -35,12 +34,8 @@ const CardGameContent = ({
   };
 
   return (
-    <Stack flexGrow={1} sx={{ justifyContent: 'space-between' }}>
-      <CardContent
-        sx={{
-          padding: '24px 24px 0',
-        }}
-      >
+    <Stack flexGrow={1} sx={{ justifyContent: 'space-between', backgroundColor: 'var(--color-background-3)' }}>
+      <CardContent sx={{ padding: '24px 24px 0' }}>
         <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
           <Typography gutterBottom variant="h4" component="div">
             {title}
@@ -51,12 +46,7 @@ const CardGameContent = ({
                 variant="contained"
                 color="primary"
                 fullWidth
-                sx={{
-                  minWidth: 165,
-                  flex: 1,
-                  justifyContent: 'space-between',
-                  marginTop: -2,
-                }}
+                sx={{ minWidth: 165, flex: 1, justifyContent: 'space-between', marginTop: -2 }}
               >
                 {externalLink.title} <ExternalIcon />
               </Button>
@@ -64,12 +54,12 @@ const CardGameContent = ({
           ) : null}
         </Stack>
         {isComingSoon && (
-          <Typography variant="body2" gutterBottom sx={{ color: theme => theme.palette.warning.main }}>
+          <Typography variant="body2" gutterBottom sx={{ color: 'var(--color-warning)' }}>
             Coming 2023
           </Typography>
         )}
         {required && (
-          <Typography variant="body2" gutterBottom sx={{ color: theme => theme.palette.warning.main }}>
+          <Typography variant="body2" gutterBottom sx={{ color: 'var(--color-warning)' }}>
             {required}
           </Typography>
         )}
@@ -77,14 +67,14 @@ const CardGameContent = ({
           variant="body2"
           whiteSpace="pre-wrap"
           maxHeight={moreStatus ? 'inherit' : 42}
-          sx={{ color: theme => theme.palette.text.secondary, overflowY: 'hidden' }}
+          sx={{ color: 'var(--color-foreground-2)', overflowY: 'hidden' }}
         >
           {description}
         </Typography>
         {showMore && !moreStatus && (
           <Typography
             variant="body2"
-            sx={{ color: theme => theme.palette.primary.main, cursor: 'pointer' }}
+            sx={{ color: 'var(--color-purple)', cursor: 'pointer' }}
             whiteSpace="pre-wrap"
             onClick={handleMoreStatus}
           >
@@ -96,25 +86,14 @@ const CardGameContent = ({
         <Stack direction="row" flexWrap="wrap" columnGap={1} rowGap={2} width="100%">
           {actions || (
             <>
-              <Button
-                variant="contained"
-                fullWidth
-                sx={{
-                  minWidth: 80,
-                  flex: 1,
-                }}
-                onClick={onPlayOnDesktopClick}
-              >
+              <Button variant="contained" fullWidth sx={{ minWidth: 80, flex: 1 }} onClick={onPlayOnDesktopClick}>
                 Play on Desktop
               </Button>
               <Button
                 variant="outlined"
                 color="primary"
                 fullWidth
-                sx={{
-                  minWidth: 80,
-                  flex: 1,
-                }}
+                sx={{ minWidth: 80, flex: 1 }}
                 onClick={onPlayOnWebClick}
               >
                 Play on Web
@@ -160,8 +139,6 @@ const GameCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<GameCar
   sx,
   title,
 }) => {
-  const theme = useTheme();
-
   return (
     <Card
       sx={{
@@ -169,12 +146,19 @@ const GameCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<GameCar
         flexDirection: 'column',
         width: '100%',
         height: autoHeight ? 'auto' : '100%',
-        backgroundColor: theme.palette.background.default,
-        border: `1px solid ${theme.palette.border}`,
+        border: 'var(--border-default)',
+        overflow: 'hidden',
         ...sx,
       }}
     >
-      <CardMedia component="img" height={275} image={image} alt={title} />
+      <div style={{ position: 'relative', width: '100%', paddingTop: '56.25%' /* 16:9 Aspect Ratio */ }}>
+        <CardMedia
+          component="img"
+          image={image}
+          alt={title}
+          sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+        />
+      </div>
       {contents || (
         <CardGameContent
           actions={actions}

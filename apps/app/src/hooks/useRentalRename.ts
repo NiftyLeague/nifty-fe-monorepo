@@ -15,10 +15,7 @@ const useRentalRename = (
     const res = await fetch(RENTAL_RENAME_URL(rentalId), {
       method: 'POST',
       headers: { authorizationToken: authToken },
-      body: JSON.stringify({
-        degen_id: degenId,
-        name,
-      }),
+      body: JSON.stringify({ degen_id: degenId, name }),
     });
     if (res.status === 404) {
       throw Error('Not Found');

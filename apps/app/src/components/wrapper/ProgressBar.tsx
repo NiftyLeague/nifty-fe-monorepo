@@ -1,7 +1,6 @@
 'use client';
 
 import { Box, Typography } from '@mui/material';
-import { useTheme } from '@nl/theme';
 import { FC, ReactNode, useEffect, useRef, useState } from 'react';
 
 interface ProgressBarProps {
@@ -10,33 +9,22 @@ interface ProgressBarProps {
 }
 
 const ProgressBar: FC<ProgressBarProps> = ({ value, children }) => {
-  const { palette } = useTheme();
   const centerTextRef = useRef<HTMLParagraphElement>(null);
   const progressContainerRef = useRef<HTMLDivElement>(null);
-  const [rect, setRect] = useState<{
-    left: number;
-  }>({
-    left: 0,
-  });
+  const [rect, setRect] = useState<{ left: number }>({ left: 0 });
   useEffect(() => {
     if (centerTextRef.current && progressContainerRef.current) {
       const textRect = centerTextRef.current.getBoundingClientRect();
       const containerRect = progressContainerRef.current.getBoundingClientRect();
-      setRect({
-        left: textRect.left - containerRect.left,
-      });
+      setRect({ left: textRect.left - containerRect.left });
     }
   }, [value]);
   return (
-    <Box
-      sx={{
-        position: 'relative',
-      }}
-    >
+    <Box sx={{ position: 'relative' }}>
       <Box
         sx={{
           display: 'flex',
-          backgroundColor: palette.text.secondary,
+          backgroundColor: 'var(--color-foreground-2)',
           width: '100%',
           position: 'absolute',
           alignItems: 'center',
@@ -51,7 +39,7 @@ const ProgressBar: FC<ProgressBarProps> = ({ value, children }) => {
             position: 'absolute',
             left: `50%`,
             transform: `translateX(-50%)`,
-            color: theme => theme.palette.primary.main,
+            color: 'var(--color-purple)',
             whiteSpace: 'nowrap',
           }}
         >
@@ -62,7 +50,7 @@ const ProgressBar: FC<ProgressBarProps> = ({ value, children }) => {
         ref={progressContainerRef}
         sx={{
           width: `${value}%`,
-          backgroundColor: palette.primary.main,
+          backgroundColor: 'var(--color-purple)',
           overflow: 'hidden',
           zIndex: 1,
           position: 'absolute',
@@ -72,14 +60,7 @@ const ProgressBar: FC<ProgressBarProps> = ({ value, children }) => {
         borderRadius={3}
         height={16}
       >
-        <Typography
-          fontSize={10}
-          sx={{
-            position: 'absolute',
-            left: `${rect.left}px`,
-            whiteSpace: 'nowrap',
-          }}
-        >
+        <Typography fontSize={10} sx={{ position: 'absolute', left: `${rect.left}px`, whiteSpace: 'nowrap' }}>
           {children}
         </Typography>
       </Box>

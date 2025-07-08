@@ -36,11 +36,7 @@ function fetchClaim(account: string, chainId: ChainId): ClaimPromise {
     .then((data: { claims: { [address: string]: UserClaimData } }) => {
       const claim: UserClaimData | null = data.claims[getAddress(account)] ?? null;
       if (!claim) return null;
-      return {
-        index: claim.index,
-        amount: claim.amount,
-        proof: claim.proof,
-      } as UserClaimData;
+      return { index: claim.index, amount: claim.amount, proof: claim.proof } as UserClaimData;
     })
     .catch(error => {
       console.error('Failed to get claim data', error);
@@ -60,9 +56,7 @@ export default function useUserClaimData(): { claimData: UserClaimData | null; l
   // Use useMemo to compute the key once to avoid recalculating on every render
   const key = useMemo(() => `${imxChainId}:${account}`, [imxChainId, account]);
 
-  const [claimInfo, setClaimInfo] = useState<{
-    [key: string]: UserClaimData | null;
-  }>({});
+  const [claimInfo, setClaimInfo] = useState<{ [key: string]: UserClaimData | null }>({});
 
   useEffect(() => {
     if (!account || !imxChainId) return;
@@ -74,10 +68,7 @@ export default function useUserClaimData(): { claimData: UserClaimData | null; l
       // Only update state if the claim data has changed
       setClaimInfo(prevClaimInfo => {
         if (prevClaimInfo[key] !== accountClaimInfo) {
-          return {
-            ...prevClaimInfo,
-            [key]: accountClaimInfo as UserClaimData,
-          };
+          return { ...prevClaimInfo, [key]: accountClaimInfo as UserClaimData };
         }
         return prevClaimInfo;
       });

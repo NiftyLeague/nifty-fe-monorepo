@@ -6,11 +6,9 @@ export function formatDateTime(timestamp: number | string): string {
 
 export function formatTime(time: number | string): string {
   return time
-    ? new Intl.DateTimeFormat('default', {
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-      }).format(new Date(time))
+    ? new Intl.DateTimeFormat('default', { hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(
+        new Date(time),
+      )
     : '00:00:00';
 }
 

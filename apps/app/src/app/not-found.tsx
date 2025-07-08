@@ -12,31 +12,18 @@ import { DASHBOARD_PATH } from '@/config';
 import AnimateButton from '@/components/extended/AnimateButton';
 
 // styles
-const CardMediaWrapper = styled('div')({
-  maxWidth: 720,
-  margin: '0 auto',
-  position: 'relative',
-});
+const CardMediaWrapper = styled('div')({ maxWidth: 720, margin: '0 auto', position: 'relative' });
 
-const ErrorWrapper = styled('div')({
-  maxWidth: 350,
-  margin: '0 auto',
-  textAlign: 'center',
-});
+const ErrorWrapper = styled('div')({ maxWidth: 350, margin: '0 auto', textAlign: 'center' });
 
-const ErrorCard = styled(Card)({
-  minHeight: '80vh',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-});
+const ErrorCard = styled(Card)({ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' });
 
 const CardMediaBlock = styled('img')({
   position: 'absolute',
   top: 0,
   left: 0,
   width: '100%',
-  animation: '3s bounce ease-in-out infinite',
+  animation: '3s custom-bounce ease-in-out infinite',
 });
 
 const CardMediaBlue = styled('img')({

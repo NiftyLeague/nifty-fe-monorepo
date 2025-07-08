@@ -13,12 +13,10 @@ import { formatUnits } from 'viem';
   const {balance, refetch, loading} = useEtherBalance();
 */
 
-type RefetchEthBalance = (options: { throwOnError: boolean; cancelRefetch: boolean }) => Promise<{
-  decimals: number;
-  formatted: string;
-  symbol: string;
-  value: bigint;
-}>;
+type RefetchEthBalance = (options: {
+  throwOnError: boolean;
+  cancelRefetch: boolean;
+}) => Promise<{ decimals: number; formatted: string; symbol: string; value: bigint }>;
 
 interface EtherBalanceState {
   balance: number;
@@ -30,11 +28,7 @@ export default function useEtherBalance(): EtherBalanceState {
   const { address, isConnected } = useAccount();
   const { data, isLoading, isFetched, refetch } = useBalance({
     address,
-    query: {
-      enabled: isConnected,
-      staleTime: 10_000,
-      select: data => formatUnits(data.value, data.decimals),
-    },
+    query: { enabled: isConnected, staleTime: 10_000, select: data => formatUnits(data.value, data.decimals) },
   });
 
   return {

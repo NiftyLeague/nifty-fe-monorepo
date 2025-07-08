@@ -2,7 +2,7 @@ import { gql } from 'graphql-request';
 
 const ID_SEARCH_QUERY = gql`
   query CharacterByID($search: String) {
-    characters(where: { id: $search }) {
+    characters(where: { tokenId: $search }) {
       id
       tokenId
       createdAt
@@ -34,6 +34,7 @@ const ID_SEARCH_QUERY = gql`
         neckwear
         leftItem
         rightItem
+        background
       }
     }
   }

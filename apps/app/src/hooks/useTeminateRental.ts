@@ -8,15 +8,10 @@ const useTeminateRental = () => {
       return;
     }
 
-    const res = await fetch(
-      `${TERMINATE_RENTAL_API_URL}?${new URLSearchParams({
-        id: rentalId,
-      })}`,
-      {
-        method: 'POST',
-        headers: { authorizationToken: authToken },
-      },
-    );
+    const res = await fetch(`${TERMINATE_RENTAL_API_URL}?${new URLSearchParams({ id: rentalId })}`, {
+      method: 'POST',
+      headers: { authorizationToken: authToken },
+    });
     return res;
   };
 

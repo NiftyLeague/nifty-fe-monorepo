@@ -7,7 +7,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import { DEGEN_3D_MODEL_URL } from '@/constants/degens';
 import { SRC } from '@/types/gltf';
-import styles from '../gltf.module.scss';
+import styles from '../gltf.module.css';
 
 type ModelViewerProps = {
   'animation-name'?: string;
@@ -76,7 +76,7 @@ export default function ModelView({ source }: { source: SRC }) {
     <div className={styles.model__wrapper}>
       {source === SRC.MODEL && loading ? (
         <div style={{ minHeight: '100vh', width: '100%', position: 'absolute', display: 'flex', zIndex: 2 }}>
-          <CircularProgress style={{ margin: 'auto', width: 75, height: 'auto', color: '#FFF' }} />
+          <CircularProgress style={{ margin: 'auto', width: 75, height: 'auto', color: 'var(--color-foreground)' }} />
         </div>
       ) : null}
       <ModelViewer

@@ -7,15 +7,9 @@ const initialState: SnackbarProps = {
   action: false,
   open: false,
   message: 'Note archived',
-  anchorOrigin: {
-    vertical: 'top',
-    horizontal: 'right',
-  },
+  anchorOrigin: { vertical: 'top', horizontal: 'right' },
   variant: 'default',
-  alert: {
-    color: 'primary' as AlertColor,
-    variant: 'filled',
-  },
+  alert: { color: 'primary' as AlertColor, variant: 'filled' },
   transition: 'Fade',
   close: true,
   actionButton: false,

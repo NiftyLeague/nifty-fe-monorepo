@@ -1,0 +1,11 @@
+.list {
+  max-width: 615px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 768px) {
+  .list {
+    max-width: 426px;
+  }
+}

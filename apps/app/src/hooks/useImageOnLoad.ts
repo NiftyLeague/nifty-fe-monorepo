@@ -28,10 +28,7 @@ function useImageOnLoad(): ImageOnLoadType {
       transition: 'visibility 0ms ease-out 500ms',
     },
     // Full image style.
-    fullSize: {
-      opacity: isLoaded ? 1 : 0,
-      transition: 'opacity 500ms ease-in 0ms',
-    },
+    fullSize: { opacity: isLoaded ? 1 : 0, transition: 'opacity 500ms ease-in 0ms' },
   };
 
   return { handleImageOnLoad, css };

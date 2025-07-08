@@ -41,9 +41,7 @@ const useUnityPreConfig = () => {
   useEffect(() => {
     if (unity) {
       const extendedUnity = unity as unknown as ExtendedUnityContext;
-      window.unityInstance = {
-        SendMessage: extendedUnity.sendMessage,
-      };
+      window.unityInstance = { SendMessage: extendedUnity.sendMessage };
     }
     return () => {
       window.unityInstance = null;

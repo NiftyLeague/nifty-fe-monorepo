@@ -7,7 +7,7 @@ sidebar_position: 2
 import ReactPlayer from 'react-player';
 import VideoURL from '/video/wen-ape.mp4';
 
-<ReactPlayer controls url={VideoURL} width="100%" />
+<ReactPlayer controls playsInline src={VideoURL} width="100%" height={500} />
 
 ---
 

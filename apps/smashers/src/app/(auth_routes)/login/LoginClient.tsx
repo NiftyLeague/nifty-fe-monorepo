@@ -2,11 +2,12 @@
 
 import Image from 'next/image';
 import { Suspense } from 'react';
-import useMediaQuery from '@mui/material/useMediaQuery';
 
-import { Card, Typography, Space } from '@nl/ui/supabase';
+import Card from '@nl/ui/supabase/Card';
+import Space from '@nl/ui/supabase/Space';
+import Typography from '@nl/ui/supabase/Typography';
 import { PlayFabAuthForm } from '@nl/playfab/components';
-import BackButton from '@/components/BackButton';
+import BackButton from '@/components/Header/BackButton';
 import useFlags from '@/hooks/useFlags';
 import type { User } from '@nl/playfab/types';
 import SearchParamsHandler from './SearchParamsHandler';
@@ -17,7 +18,6 @@ interface SessionData {
 
 export default function LoginClient({ sessionData }: { sessionData: SessionData }) {
   const { enableAccountCreation, enableProviderSignOn } = useFlags();
-  const mobile = useMediaQuery('(max-width:576px)');
 
   return (
     <>
@@ -25,15 +25,7 @@ export default function LoginClient({ sessionData }: { sessionData: SessionData 
         <SearchParamsHandler sessionData={sessionData} />
       </Suspense>
       <BackButton />
-      <div
-        style={{
-          display: 'flex',
-          maxWidth: '450px',
-          height: '100%',
-          margin: 'auto',
-          overflowY: 'auto',
-        }}
-      >
+      <div style={{ display: 'flex', maxWidth: '600px', height: '100vh', margin: 'auto', overflowY: 'auto' }}>
         <Card style={{ margin: 'auto' }}>
           <Space direction="vertical" size={8}>
             <div>
@@ -42,19 +34,9 @@ export default function LoginClient({ sessionData }: { sessionData: SessionData 
                 alt="Company Logo"
                 width={50}
                 height={50}
-                style={{
-                  maxWidth: '100%',
-                  height: 'auto',
-                }}
+                className="max-w-full h-auto ml-auto sm:ml-0 -mt-5 sm:mt-0"
               />
-              <Typography.Title
-                level={3}
-                style={{
-                  marginTop: mobile ? 70 : 16,
-                  fontSize: mobile ? '1.15rem' : '1.35rem',
-                  whiteSpace: 'nowrap',
-                }}
-              >
+              <Typography.Title level={3} className="mt-12 sm:mt-4 !text-lg !sm:text-xl whitespace-nowrap">
                 Welcome to Nifty League
               </Typography.Title>
             </div>

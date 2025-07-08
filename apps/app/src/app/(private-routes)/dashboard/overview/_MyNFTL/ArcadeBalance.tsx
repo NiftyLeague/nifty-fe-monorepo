@@ -3,17 +3,15 @@
 import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button, Stack } from '@mui/material';
-import { useTheme } from '@nl/theme';
 
 import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
 import { sendEvent } from '@/utils/google-analytics';
 import useTokensBalances from '@/hooks/balances/useTokensBalances';
 
 import BuyArcadeTokensDialog from '@/components/dialog/BuyArcadeTokensDialog';
-import TokenInfoCard from '@/components/cards/TokenInfoCard';
+import HoverDataCard from '@/components/cards/HoverDataCard';
 
 const ArcadeBalance = (): React.ReactNode => {
-  const theme = useTheme();
   const router = useRouter();
   const { tokensBalances, loadingArcadeBal, refetchArcadeBal } = useTokensBalances();
   const [openBuyAT, setOpenBuyAT] = useState(false);
@@ -29,31 +27,27 @@ const ArcadeBalance = (): React.ReactNode => {
 
   return (
     <>
-      <TokenInfoCard
+      <HoverDataCard
         title="Arcade Token Balance"
-        secondary={`${tokensBalances.AT} Tokens`}
-        isLoading={loadingArcadeBal}
+        primary={`${tokensBalances.AT} Tokens`}
         customStyle={{
-          backgroundColor: theme.palette.background.default,
-          border: '1px solid',
-          borderColor: theme.palette.border,
-          borderRadius: '8px',
+          backgroundColor: 'var(--color-background-3)',
+          border: 'var(--border-default)',
+          position: 'relative',
         }}
+        secondary=" "
+        isLoading={loadingArcadeBal}
         actions={
-          <Stack
-            direction="row"
-            sx={{ alignItems: 'center' }}
-            spacing={1}
-            paddingX={{ xl: 1, xs: 3 }}
-            paddingY={{ xl: 0.5, xs: 1.5 }}
-          >
-            <Button fullWidth variant="outlined" onClick={handlePlayArcade}>
-              Play Arcade Games
-            </Button>
-            <Button fullWidth variant="contained" onClick={handleBuyArcadeTokens}>
-              Buy Tokens
-            </Button>
-          </Stack>
+          <>
+            <Stack direction="row" className="w-full items-center" spacing={1}>
+              <Button fullWidth variant="outlined" onClick={handleBuyArcadeTokens}>
+                Buy Tokens
+              </Button>
+              <Button fullWidth variant="contained" onClick={handlePlayArcade}>
+                Play Games
+              </Button>
+            </Stack>
+          </>
         }
       />
       <BuyArcadeTokensDialog

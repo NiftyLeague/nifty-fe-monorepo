@@ -30,10 +30,7 @@ export const handleError = (e: NotifyError): void => {
     return;
   }
 
-  toast.error(({ data }) => `Transaction Error: ${data}`, {
-    data: message,
-    theme: 'dark',
-  });
+  toast.error(({ data }) => `Transaction Error: ${data}`, { data: message, theme: 'dark' });
 };
 
 export const submitTxWithGasEstimate = (

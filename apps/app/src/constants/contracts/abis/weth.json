@@ -34,10 +34,7 @@
     "inputs": [
       { "name": "src", "type": "address" },
       { "name": "dst", "type": "address" },
-      {
-        "name": "wad",
-        "type": "uint256"
-      }
+      { "name": "wad", "type": "uint256" }
     ],
     "name": "transferFrom",
     "outputs": [{ "name": "", "type": "bool" }],
@@ -119,11 +116,7 @@
     "anonymous": false,
     "inputs": [
       { "indexed": true, "name": "src", "type": "address" },
-      {
-        "indexed": true,
-        "name": "guy",
-        "type": "address"
-      },
+      { "indexed": true, "name": "guy", "type": "address" },
       { "indexed": false, "name": "wad", "type": "uint256" }
     ],
     "name": "Approval",
@@ -133,11 +126,7 @@
     "anonymous": false,
     "inputs": [
       { "indexed": true, "name": "src", "type": "address" },
-      {
-        "indexed": true,
-        "name": "dst",
-        "type": "address"
-      },
+      { "indexed": true, "name": "dst", "type": "address" },
       { "indexed": false, "name": "wad", "type": "uint256" }
     ],
     "name": "Transfer",
@@ -147,11 +136,7 @@
     "anonymous": false,
     "inputs": [
       { "indexed": true, "name": "dst", "type": "address" },
-      {
-        "indexed": false,
-        "name": "wad",
-        "type": "uint256"
-      }
+      { "indexed": false, "name": "wad", "type": "uint256" }
     ],
     "name": "Deposit",
     "type": "event"
@@ -160,11 +145,7 @@
     "anonymous": false,
     "inputs": [
       { "indexed": true, "name": "src", "type": "address" },
-      {
-        "indexed": false,
-        "name": "wad",
-        "type": "uint256"
-      }
+      { "indexed": false, "name": "wad", "type": "uint256" }
     ],
     "name": "Withdrawal",
     "type": "event"

@@ -48,10 +48,5 @@ export const GOOGLE_ANALYTICS = {
     LEADERBOARD_CHECK_YOUR_RANK_CLICKED_MT_GAWX: 'check_your_rank_clicked_gawx',
     LEADERBOARD_CHECK_YOUR_RANK_CLICKED_CRYPTO_WINTER: 'check_your_rank_clicked_crypto_winter',
   },
-  CATEGORIES: {
-    ECOMMERCE: 'ecommerce',
-    ENGAGEMENT: 'engagement',
-    GAMEPLAY: 'gameplay',
-    LEADERBOARD: 'leaderboard',
-  },
+  CATEGORIES: { ECOMMERCE: 'ecommerce', ENGAGEMENT: 'engagement', GAMEPLAY: 'gameplay', LEADERBOARD: 'leaderboard' },
 };

@@ -1,6 +1,7 @@
 {
   "name": "@nl/playfab",
   "version": "0.0.0",
+  "license": "GPL-3.0-only",
   "type": "module",
   "private": true,
   "main": "./src/index.ts",
@@ -15,28 +16,32 @@
     "./utils": "./src/utils/index.ts"
   },
   "scripts": {
-    "clean": "rm -rf node_modules",
+    "clean": "rm -rf node_modules && rm -rf .turbo",
+    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\"",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --max-warnings 0 --fix",
-    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\"",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "ethers6": "npm:ethers@^6.14.3",
+    "@nl/ui": "workspace:*",
+    "ethers6": "npm:ethers@^6.15.0",
     "https": "^1.0.0",
-    "next-auth": "^4.24.11",
+    "lodash": "^4.17.21",
     "notistack": "^3.0.2",
-    "playfab-sdk": "^2.174.250526",
-    "swr": "^2.3.3",
+    "playfab-sdk": "^2.176.250620",
+    "swr": "^2.3.4",
     "url": "^0.11.4"
   },
-  "peerDependencies": {
-    "next": "^15.3.3"
-  },
   "devDependencies": {
-    "@nl/eslint-config": "workspace:*",
-    "@nl/prettier-config": "workspace:*",
-    "@nl/typescript-config": "workspace:*",
-    "@nl/ui": "workspace:*"
+    "@types/lodash": "^4.17.20",
+    "@types/node": "^24.0.10",
+    "@types/react": "19.1.8",
+    "@types/react-dom": "19.1.6"
+  },
+  "peerDependencies": {
+    "next": "15.3.5",
+    "next-auth": "^4.24.11",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
   }
 }

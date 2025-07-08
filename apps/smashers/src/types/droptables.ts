@@ -1,14 +1,8 @@
-type Item = {
-  Item: string;
-  Type: string;
-  Rarity: string;
-  Weight: string;
-};
+type Rarity = 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary' | 'mythic' | string;
 
-type CurrencyRange = {
-  MIN: number;
-  MAX: number;
-};
+type Item = { Item: string; Type: string; Rarity: Rarity; Weight: string | number };
+
+type CurrencyRange = { MIN: number; MAX: number };
 
 type Crate = {
   TableId: string;

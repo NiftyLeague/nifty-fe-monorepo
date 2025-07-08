@@ -1,0 +1,50 @@
+/* ==============================|| CUSTOM COMPONENTS ||============================== */
+
+@utility theme-btn {
+  @apply flex items-center justify-center hover:cursor-pointer;
+  @apply font-bold uppercase whitespace-nowrap p-[4px_16px] tracking-wider;
+  @apply h-[40px] md:h-[50px] lg:h-[60px] xl:h-[70px] 2xl:h-[80px] min-h-fit;
+  @apply w-[150px] md:w-[280px] lg:w-[200px] xl:w-[240px] 2xl:w-[272px] min-w-fit;
+}
+
+@layer components {
+  /* ===========|| Theme Button (Purple/Blue/Pink Gradient Hover) ||=========== */
+  .theme-btn-primary {
+    @apply theme-btn;
+    @apply text-background bg-foreground;
+  }
+  .theme-btn-primary:hover {
+    @apply text-light shadow-none;
+    background: var(--gradient-brand-pink);
+  }
+
+  .theme-btn-purple {
+    @apply theme-btn;
+    @apply text-foreground bg-purple;
+  }
+  .theme-btn-purple:hover {
+    @apply text-light shadow-none;
+    background: var(--gradient-brand-pink);
+  }
+
+  .theme-btn-transparent {
+    @apply theme-btn;
+    @apply border border-[1px] border-foreground text-foreground bg-transparent;
+  }
+  .theme-btn-transparent:hover {
+    background: var(--gradient-brand-pink);
+    border-image-source: var(--gradient-brand-pink);
+    border-image-slice: 1 !important;
+    @apply bg-clip-text text-transparent shadow-none border-[1px];
+  }
+
+  [class*='theme-btn-'][disabled],
+  [class*='theme-btn-'].disabled {
+    @apply cursor-not-allowed opacity-50 pointer-events-none;
+  }
+
+  /* Modifier classes (combine with above variants) */
+  .theme-btn-rounded {
+    @apply rounded-[20px] h-auto;
+  }
+}

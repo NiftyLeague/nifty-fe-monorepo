@@ -23,17 +23,9 @@ import type { UseReadContractParams } from '@/types/web3';
 
 const ITEM_IDS = [101, 102, 103, 104, 105, 106, 107];
 
-type ItemsBalancesState = {
-  balances: Item[];
-  error: Error | null;
-  loading: boolean;
-  refetch: () => void;
-};
+type ItemsBalancesState = { balances: Item[]; error: Error | null; loading: boolean; refetch: () => void };
 
-type BalanceOfBatch = {
-  args: [AddressLike[], BigNumberish[]];
-  result: bigint[];
-};
+type BalanceOfBatch = { args: [AddressLike[], BigNumberish[]]; result: bigint[] };
 
 export default function useItemssBalances(): ItemsBalancesState {
   const { isLoggedIn } = useAuth();
@@ -55,10 +47,7 @@ export default function useItemssBalances(): ItemsBalancesState {
     chainId: imxChainId,
     functionName: 'balanceOfBatch',
     args: [ownerArr, ITEM_IDS],
-    query: {
-      staleTime: 10_000,
-      enabled: isConnected && isLoggedIn,
-    },
+    query: { staleTime: 10_000, enabled: isConnected && isLoggedIn },
   });
 
   const balances = useMemo(

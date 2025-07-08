@@ -7,76 +7,29 @@ import type { NonPayableOverrides } from '../../../../common';
 import type { ComicsBurner, ComicsBurnerInterface } from '../../../../src/contracts/imx/ComicsBurner';
 
 const _abi = [
-  {
-    inputs: [
-      {
-        internalType: 'string',
-        name: 'message',
-        type: 'string',
-      },
-    ],
-    name: 'InvalidInput',
-    type: 'error',
-  },
+  { inputs: [{ internalType: 'string', name: 'message', type: 'string' }], name: 'InvalidInput', type: 'error' },
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'by',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256[]',
-        name: 'tokenIds',
-        type: 'uint256[]',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256[]',
-        name: 'values',
-        type: 'uint256[]',
-      },
+      { indexed: true, internalType: 'address', name: 'by', type: 'address' },
+      { indexed: false, internalType: 'uint256[]', name: 'tokenIds', type: 'uint256[]' },
+      { indexed: false, internalType: 'uint256[]', name: 'values', type: 'uint256[]' },
     ],
     name: 'ComicsBurned',
     type: 'event',
   },
   {
     anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint8',
-        name: 'version',
-        type: 'uint8',
-      },
-    ],
+    inputs: [{ indexed: false, internalType: 'uint8', name: 'version', type: 'uint8' }],
     name: 'Initialized',
     type: 'event',
   },
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'by',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256[]',
-        name: 'tokenIds',
-        type: 'uint256[]',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256[]',
-        name: 'values',
-        type: 'uint256[]',
-      },
+      { indexed: true, internalType: 'address', name: 'by', type: 'address' },
+      { indexed: false, internalType: 'uint256[]', name: 'tokenIds', type: 'uint256[]' },
+      { indexed: false, internalType: 'uint256[]', name: 'values', type: 'uint256[]' },
     ],
     name: 'ItemsMinted',
     type: 'event',
@@ -84,60 +37,28 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'previousOwner',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'newOwner',
-        type: 'address',
-      },
+      { indexed: true, internalType: 'address', name: 'previousOwner', type: 'address' },
+      { indexed: true, internalType: 'address', name: 'newOwner', type: 'address' },
     ],
     name: 'OwnershipTransferred',
     type: 'event',
   },
   {
     anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-    ],
+    inputs: [{ indexed: false, internalType: 'address', name: 'account', type: 'address' }],
     name: 'Paused',
     type: 'event',
   },
   {
     anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-    ],
+    inputs: [{ indexed: false, internalType: 'address', name: 'account', type: 'address' }],
     name: 'Unpaused',
     type: 'event',
   },
   {
     inputs: [
-      {
-        internalType: 'uint256[]',
-        name: 'comicIds',
-        type: 'uint256[]',
-      },
-      {
-        internalType: 'uint256[]',
-        name: 'comicValues',
-        type: 'uint256[]',
-      },
+      { internalType: 'uint256[]', name: 'comicIds', type: 'uint256[]' },
+      { internalType: 'uint256[]', name: 'comicValues', type: 'uint256[]' },
     ],
     name: 'burnComics',
     outputs: [],
@@ -146,31 +67,11 @@ const _abi = [
   },
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: 'owner',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256[]',
-        name: 'comicIds',
-        type: 'uint256[]',
-      },
-      {
-        internalType: 'uint256[]',
-        name: 'comicValues',
-        type: 'uint256[]',
-      },
-      {
-        internalType: 'uint256',
-        name: 'deadline',
-        type: 'uint256',
-      },
-      {
-        internalType: 'bytes',
-        name: 'sig',
-        type: 'bytes',
-      },
+      { internalType: 'address', name: 'owner', type: 'address' },
+      { internalType: 'uint256[]', name: 'comicIds', type: 'uint256[]' },
+      { internalType: 'uint256[]', name: 'comicValues', type: 'uint256[]' },
+      { internalType: 'uint256', name: 'deadline', type: 'uint256' },
+      { internalType: 'bytes', name: 'sig', type: 'bytes' },
     ],
     name: 'burnComicsForWithPermit',
     outputs: [],
@@ -179,26 +80,10 @@ const _abi = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256[]',
-        name: 'comicIds',
-        type: 'uint256[]',
-      },
-      {
-        internalType: 'uint256[]',
-        name: 'comicValues',
-        type: 'uint256[]',
-      },
-      {
-        internalType: 'uint256',
-        name: 'deadline',
-        type: 'uint256',
-      },
-      {
-        internalType: 'bytes',
-        name: 'sig',
-        type: 'bytes',
-      },
+      { internalType: 'uint256[]', name: 'comicIds', type: 'uint256[]' },
+      { internalType: 'uint256[]', name: 'comicValues', type: 'uint256[]' },
+      { internalType: 'uint256', name: 'deadline', type: 'uint256' },
+      { internalType: 'bytes', name: 'sig', type: 'bytes' },
     ],
     name: 'burnComicsWithPermit',
     outputs: [],
@@ -206,13 +91,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'marketplace_',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: 'marketplace_', type: 'address' }],
     name: 'initialize',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -221,76 +100,34 @@ const _abi = [
   {
     inputs: [],
     name: 'marketplace',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'owner',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
-  {
-    inputs: [],
-    name: 'pause',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
+  { inputs: [], name: 'pause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   {
     inputs: [],
     name: 'paused',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function',
   },
+  { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   {
-    inputs: [],
-    name: 'renounceOwnership',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'newOwner',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: 'newOwner', type: 'address' }],
     name: 'transferOwnership',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
-  {
-    inputs: [],
-    name: 'unpause',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
+  { inputs: [], name: 'unpause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
 ] as const;
 
 const _bytecode =
@@ -317,9 +154,7 @@ export class ComicsBurner__factory extends ContractFactory {
   }
   override deploy(overrides?: NonPayableOverrides & { from?: string }) {
     return super.deploy(overrides || {}) as Promise<
-      ComicsBurner & {
-        deploymentTransaction(): ContractTransactionResponse;
-      }
+      ComicsBurner & { deploymentTransaction(): ContractTransactionResponse }
     >;
   }
   override connect(runner: ContractRunner | null): ComicsBurner__factory {

@@ -3,12 +3,13 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 // material-ui
-import { useTheme, borderRadius } from '@nl/theme';
-import { Avatar, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery } from '@mui/material';
+import { useTheme } from '@nl/theme';
+import { Avatar, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import Chip from '@/components/extended/Chip';
 
 // project imports
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 import { useDispatch, useSelector } from '@/store/hooks';
 import { activeItem, openDrawer } from '@/store/slices/menu';
 
@@ -26,19 +27,16 @@ interface NavItemProps {
 const NavItem = ({ item, level }: NavItemProps) => {
   const pathname = usePathname();
   const theme = useTheme();
-  const matchesSM = useMediaQuery(theme.breakpoints.down('lg'));
+  const matchesSM = useMediaQuery('(max-width:1024px)');
   const dispatch = useDispatch();
-  const { openItem } = useSelector(state => state.menu);
+  const isSelected = pathname === item.url;
 
   const Icon = item?.icon as (props: IconProps) => React.ReactNode | undefined;
   const itemIcon = item?.icon ? (
     <Icon stroke={1.5} size="20px" />
   ) : (
     <FiberManualRecordIcon
-      sx={{
-        width: openItem.findIndex(id => id === item?.id) > -1 ? 8 : 6,
-        height: openItem.findIndex(id => id === item?.id) > -1 ? 8 : 6,
-      }}
+      sx={{ width: isSelected ? 8 : 6, height: isSelected ? 8 : 6 }}
       fontSize={level > 0 ? 'inherit' : 'medium'}
     />
   );
@@ -77,29 +75,23 @@ const NavItem = ({ item, level }: NavItemProps) => {
       {...listItemProps}
       disabled={item.disabled}
       sx={{
-        borderRadius: `${borderRadius}px`,
+        borderRadius: 'var(--border-radius-default)',
         border: '1px solid transparent',
         mb: 0.5,
         alignItems: 'flex-start',
-        backgroundColor: 'transparent !important',
+        backgroundColor: 'transparent',
+        zIndex: 1,
         py: level > 1 ? 1 : 1.25,
         pl: `${level * 24}px`,
-        '&:hover': {
-          border: '1px solid',
-          borderColor: theme.palette.secondary.main,
-        },
+        '&:hover': { border: 'var(--border-purple)', backgroundColor: 'var(--color-background-3)' },
       }}
-      selected={openItem?.findIndex(id => id === item.id) > -1}
+      selected={isSelected}
       onClick={() => itemHandler(item.id!)}
     >
       <ListItemIcon sx={{ my: 'auto', minWidth: !item?.icon ? 18 : 36 }}>{itemIcon}</ListItemIcon>
       <ListItemText
         primary={
-          <Typography
-            variant="body1"
-            fontWeight={openItem?.findIndex(id => id === item.id) > -1 ? 'bold' : 'normal'}
-            sx={{ color: 'inherit' }}
-          >
+          <Typography variant="body1" fontWeight={isSelected ? 'bold' : 'normal'} sx={{ color: 'inherit' }}>
             {item.title}
           </Typography>
         }

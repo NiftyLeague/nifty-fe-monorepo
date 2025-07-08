@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import { memo } from 'react';
 import IconButton from '@mui/material/IconButton';
-import { useTheme } from '@nl/theme';
 
 import { formatNumberToDisplay } from '@/utils/numbers';
 import useUserUnclaimedAmount from '@/hooks/merkleDistributor/useUserUnclaimedAmount';
@@ -11,7 +10,6 @@ import WithdrawButtonDialog from '@/components/dialog/WithdrawButtonDialog';
 import HoverDataCard from '@/components/cards/HoverDataCard';
 
 const GameBalance: React.FC = memo(() => {
-  const theme = useTheme();
   const { nftlUnclaimed, loading } = useUserUnclaimedAmount();
 
   return (
@@ -20,9 +18,8 @@ const GameBalance: React.FC = memo(() => {
       primary={`${formatNumberToDisplay(nftlUnclaimed)} NFTL`}
       isLoading={loading}
       customStyle={{
-        backgroundColor: theme.palette.background.default,
-        border: '1px solid',
-        borderColor: theme.palette.border,
+        backgroundColor: 'var(--color-background-3)',
+        border: 'var(--border-default)',
         position: 'relative',
       }}
       secondary="Available to Withdraw"

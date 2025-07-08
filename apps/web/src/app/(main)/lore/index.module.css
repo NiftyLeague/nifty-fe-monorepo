@@ -1,0 +1,88 @@
+.content {
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: auto;
+  top: -75px;
+}
+
+.background {
+  background: url('/img/backgrounds/lore/background.webp');
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: 100% 100%;
+}
+
+.inner {
+  padding: 325px 20% 325px 16%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 100%;
+  & p {
+    line-height: 1.5;
+    color: var(--color-dark);
+  }
+}
+
+.satoshiContainer {
+  position: absolute;
+  top: 145px;
+  left: calc(50% - 50px);
+}
+
+.degensContainer {
+  position: absolute;
+  bottom: 160px;
+  left: calc(50% - 150px);
+}
+
+.satoshi {
+  width: 100px;
+  height: 100px;
+}
+
+.degens {
+  width: 300px;
+  height: 97px;
+}
+
+@media (max-width: 1280px) {
+  .degensContainer {
+    bottom: 170px;
+  }
+}
+
+@media (max-width: 920px) {
+  .satoshiContainer {
+    top: 175px;
+  }
+  .degensContainer {
+    bottom: 185px;
+  }
+}
+
+@media (max-width: 768px) {
+  .inner {
+    padding: 400px 18% 400px 14%;
+  }
+  .satoshiContainer {
+    top: 185px;
+  }
+  .degensContainer {
+    bottom: 200px;
+  }
+}
+
+@media (max-width: 420px) {
+  .content {
+    top: -200px;
+  }
+  .inner {
+    padding: 550px 17% 550px 13%;
+  }
+  .satoshiContainer {
+    top: 280px;
+  }
+}

@@ -12,16 +12,8 @@ import type {
 const _abi = [
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'tribe',
-        type: 'uint256',
-      },
-      {
-        internalType: 'string',
-        name: 'message',
-        type: 'string',
-      },
+      { internalType: 'uint256', name: 'tribe', type: 'uint256' },
+      { internalType: 'string', name: 'message', type: 'string' },
     ],
     name: 'InvalidTribe',
     type: 'error',
@@ -29,83 +21,35 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'previousOwner',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'newOwner',
-        type: 'address',
-      },
+      { indexed: true, internalType: 'address', name: 'previousOwner', type: 'address' },
+      { indexed: true, internalType: 'address', name: 'newOwner', type: 'address' },
     ],
     name: 'OwnershipTransferred',
     type: 'event',
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'tribe',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'color',
-        type: 'uint256',
-      },
+      { internalType: 'uint256', name: 'tribe', type: 'uint256' },
+      { internalType: 'uint256', name: 'color', type: 'uint256' },
     ],
     name: 'isAllowedColor',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: 'allowed',
-        type: 'bool',
-      },
-    ],
+    outputs: [{ internalType: 'bool', name: 'allowed', type: 'bool' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'owner',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
-  {
-    inputs: [],
-    name: 'renounceOwnership',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
+  { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'tribe',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256[]',
-        name: 'colors',
-        type: 'uint256[]',
-      },
-      {
-        internalType: 'bool',
-        name: 'allowed',
-        type: 'bool',
-      },
+      { internalType: 'uint256', name: 'tribe', type: 'uint256' },
+      { internalType: 'uint256[]', name: 'colors', type: 'uint256[]' },
+      { internalType: 'bool', name: 'allowed', type: 'bool' },
     ],
     name: 'setAllowedColorsOnTribe',
     outputs: [],
@@ -113,13 +57,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'newOwner',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: 'newOwner', type: 'address' }],
     name: 'transferOwnership',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -151,9 +89,7 @@ export class AllowedColorsStorage__factory extends ContractFactory {
   }
   override deploy(overrides?: NonPayableOverrides & { from?: string }) {
     return super.deploy(overrides || {}) as Promise<
-      AllowedColorsStorage & {
-        deploymentTransaction(): ContractTransactionResponse;
-      }
+      AllowedColorsStorage & { deploymentTransaction(): ContractTransactionResponse }
     >;
   }
   override connect(runner: ContractRunner | null): AllowedColorsStorage__factory {

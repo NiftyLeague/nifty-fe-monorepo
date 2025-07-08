@@ -12,21 +12,10 @@ const isLocalhost =
 
 if (!isLocalhost) {
   Sentry.init({
-    dsn: 'https://296c598e04794e26a6d93a4e6cfe732e@o1377979.ingest.us.sentry.io/6689430',
-
-    // Add optional integrations for additional features
-    integrations: [Sentry.replayIntegration()],
+    dsn: 'https://f020bae820a14d61a9f226eb08fcfbb8@o1377979.ingest.us.sentry.io/6689430',
 
     // Define how likely traces are sampled. Adjust this value in production, or use tracesSampler for greater control.
     tracesSampleRate: 1,
-
-    // Define how likely Replay events are sampled.
-    // This sets the sample rate to be 10%. You may want this to be 100% while
-    // in development and sample at a lower rate in production
-    replaysSessionSampleRate: 0.1,
-
-    // Define how likely Replay events are sampled when an error occurs.
-    replaysOnErrorSampleRate: 1.0,
 
     // Setting this option to true will print useful information to the console while you're setting up Sentry.
     debug: false,

@@ -9,81 +9,37 @@ import type {
 } from '../../../../../@imtbl/contracts/contracts/allowlist/OperatorAllowlistEnforced';
 
 const _abi = [
+  { inputs: [], name: 'AllowlistDoesNotImplementIOperatorAllowlist', type: 'error' },
   {
-    inputs: [],
-    name: 'AllowlistDoesNotImplementIOperatorAllowlist',
-    type: 'error',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'target',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: 'target', type: 'address' }],
     name: 'ApproveTargetNotInAllowlist',
     type: 'error',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'approver',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: 'approver', type: 'address' }],
     name: 'ApproverNotInAllowlist',
     type: 'error',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'caller',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: 'caller', type: 'address' }],
     name: 'CallerNotInAllowlist',
     type: 'error',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'from',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: 'from', type: 'address' }],
     name: 'TransferFromNotInAllowlist',
     type: 'error',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'to',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: 'to', type: 'address' }],
     name: 'TransferToNotInAllowlist',
     type: 'error',
   },
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'oldRegistry',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'newRegistry',
-        type: 'address',
-      },
+      { indexed: false, internalType: 'address', name: 'oldRegistry', type: 'address' },
+      { indexed: false, internalType: 'address', name: 'newRegistry', type: 'address' },
     ],
     name: 'OperatorAllowlistRegistryUpdated',
     type: 'event',
@@ -91,13 +47,7 @@ const _abi = [
   {
     inputs: [],
     name: 'operatorAllowlist',
-    outputs: [
-      {
-        internalType: 'contract IOperatorAllowlist',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'contract IOperatorAllowlist', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },

@@ -1,9 +1,6 @@
 import Image from 'next/image';
 
-type SatoshiFrameProps = {
-  frames: string[];
-  interval?: number;
-};
+type SatoshiFrameProps = { frames: string[]; interval?: number };
 
 const SatoshiFrame = ({ frames, interval = 0 }: SatoshiFrameProps) => {
   const frame = frames[(interval + 1) % frames.length];

@@ -25,8 +25,4 @@ Currently, earning Arcade Tokens that can be used to play WEN Game is based on N
 
 Interested in testing the old version? Learn how to get started below:
 
-<ReactPlayer
-  controls
-  url="https://www.youtube.com/embed/ZiY-TwtzYVk"
-  width="100%"
-/>
+<ReactPlayer controls src="https://www.youtube.com/embed/ZiY-TwtzYVk" width="100%" height={500} />

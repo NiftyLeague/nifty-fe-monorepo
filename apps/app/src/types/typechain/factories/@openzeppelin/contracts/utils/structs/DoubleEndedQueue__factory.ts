@@ -10,16 +10,8 @@ import type {
 } from '../../../../../@openzeppelin/contracts/utils/structs/DoubleEndedQueue';
 
 const _abi = [
-  {
-    inputs: [],
-    name: 'Empty',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'OutOfBounds',
-    type: 'error',
-  },
+  { inputs: [], name: 'Empty', type: 'error' },
+  { inputs: [], name: 'OutOfBounds', type: 'error' },
 ] as const;
 
 const _bytecode =
@@ -46,9 +38,7 @@ export class DoubleEndedQueue__factory extends ContractFactory {
   }
   override deploy(overrides?: NonPayableOverrides & { from?: string }) {
     return super.deploy(overrides || {}) as Promise<
-      DoubleEndedQueue & {
-        deploymentTransaction(): ContractTransactionResponse;
-      }
+      DoubleEndedQueue & { deploymentTransaction(): ContractTransactionResponse }
     >;
   }
   override connect(runner: ContractRunner | null): DoubleEndedQueue__factory {

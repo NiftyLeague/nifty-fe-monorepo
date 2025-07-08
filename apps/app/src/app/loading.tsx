@@ -1,5 +1,1 @@
-import { Preloader } from '@/components/Preloader';
-
-export default function Loading() {
-  return <Preloader />;
-}
+export { default } from '@nl/ui/custom/Loading';

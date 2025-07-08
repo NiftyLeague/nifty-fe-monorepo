@@ -1,6 +1,6 @@
 'use client';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { styled, useTheme } from '@nl/theme';
+import { styled } from '@nl/theme';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { isAddress } from 'ethers6';
@@ -58,67 +58,28 @@ const classes = {
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled('div')(({ theme }) => ({
   [`&.${classes.root}`]: {
-    '& button': {
-      height: 28,
-      borderRadius: '2px',
-    },
-    '& h5': {
-      fontSize: '16px',
-      fontWeight: 700,
-      textTransform: 'uppercase',
-    },
-    '& p,span': {
-      fontSize: '14px',
-      lineHeight: 1.2,
-    },
+    '& button': { height: 28, borderRadius: '2px' },
+    '& h5': { fontSize: '16px', fontWeight: 700, textTransform: 'uppercase' },
+    '& p,span': { fontSize: '14px', lineHeight: 1.2 },
   },
-  [`&.${classes.greyText}`]: {
-    color: '#4C4F52',
-  },
-  [`&.${classes.input}`]: {
-    padding: '8px 8px 4px 8px',
-    fontSize: '12px',
-    '&::placeholder': {
-      fontSize: '12px',
-    },
-  },
-  [`&.${classes.formHelper}`]: {
-    marginLeft: 0,
-  },
-  [`&.${classes.inputCheck}`]: {
-    padding: 4,
-    '& .MuiSvgIcon-root': {
-      width: '0.75em',
-      height: '0.75em',
-    },
-  },
-  [`&.${classes.inputCheckFormControl}`]: {
-    marginLeft: -4,
-    marginRight: 0,
-  },
-  [`&.${classes.successInfo}`]: {
-    fontSize: '16px',
-    fontWeight: 700,
-    lineHeight: 1.25,
-  },
+  [`&.${classes.greyText}`]: { color: 'var(--color-foreground-2)' },
+  [`&.${classes.input}`]: { padding: '8px 8px 4px 8px', fontSize: '12px', '&::placeholder': { fontSize: '12px' } },
+  [`&.${classes.formHelper}`]: { marginLeft: 0 },
+  [`&.${classes.inputCheck}`]: { padding: 4, '& .MuiSvgIcon-root': { width: '0.75em', height: '0.75em' } },
+  [`&.${classes.inputCheckFormControl}`]: { marginLeft: -4, marginRight: 0 },
+  [`&.${classes.successInfo}`]: { fontSize: '16px', fontWeight: 700, lineHeight: 1.25 },
   [`&.${classes.closeBtn}`]: {
     position: 'absolute',
     right: 12,
     top: 6,
-    color: '#5820D6',
-    border: '1px solid #5820D6',
+    color: 'var(--color-purple)',
+    border: 'var(--border-purple)',
     borderRadius: '50% !important',
     width: '20px',
     height: '20px !important',
     zIndex: 1,
-    '& .MuiSvgIcon-root': {
-      width: 16,
-      height: 16,
-    },
-    [theme.breakpoints.down('md')]: {
-      right: 20,
-      top: 20,
-    },
+    '& .MuiSvgIcon-root': { width: 16, height: 16 },
+    [theme.breakpoints.down('md')]: { right: 20, top: 20 },
   },
 }));
 
@@ -161,8 +122,6 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
 
   const [, , rentalPassCount] = useRentalPassCount(degen?.id);
   const rent = useRent(degen?.id, degen?.rental_count || 0, degen?.price || 0, ethAddress, isUseRentalPass);
-
-  const theme = useTheme();
 
   const handleChangeRentingFor = (_: React.ChangeEvent<HTMLInputElement>, value: string) => {
     if (value === 'recruit') {
@@ -291,7 +250,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                     width: 132,
                     height: 146,
                     borderRadius: '10px',
-                    border: '1px solid #0c0b0a',
+                    border: 'var(--border-default)',
                   }}
                   tokenId={degen.id}
                 />
@@ -344,12 +303,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                             <Tooltip title="DEGEN ownership is required to sponsor Recruits on this DEGEN.">
                               <InfoOutlinedIcon
                                 fontSize="small"
-                                sx={{
-                                  ml: 0.5,
-                                  mt: -1.5,
-                                  width: '16px',
-                                  height: '16px',
-                                }}
+                                sx={{ ml: 0.5, mt: -1.5, width: '16px', height: '16px' }}
                               />
                             </Tooltip>
                           )}
@@ -371,13 +325,9 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                           helperText={addressError}
                           onChange={event => validateAddress(event.target.value)}
                           slotProps={{
-                            htmlInput: {
-                              className: classes.input,
-                            },
+                            htmlInput: { className: classes.input },
 
-                            formHelperText: {
-                              className: classes.formHelper,
-                            },
+                            formHelperText: { className: classes.formHelper },
                           }}
                         />
                       </FormControl>
@@ -388,9 +338,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                   <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
                     <Typography>Rental Cost:</Typography>
                     <Typography
-                      sx={{
-                        textDecoration: isUseRentalPass ? 'line-through' : 'none',
-                      }}
+                      sx={{ textDecoration: isUseRentalPass ? 'line-through' : 'none' }}
                     >{`${formatNumberToDisplay(degen?.price || 0)} NFTL`}</Typography>
                   </Stack>
                   {checkBalance && (
@@ -407,11 +355,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                           <Typography
                             variant="caption"
                             onClick={handleBuyNFTL}
-                            sx={{
-                              color: '#5820D6',
-                              textDecoration: 'underline',
-                              cursor: 'pointer',
-                            }}
+                            sx={{ color: 'var(--color-purple)', textDecoration: 'underline', cursor: 'pointer' }}
                           >
                             Buy NFTL now
                           </Typography>
@@ -443,7 +387,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                           sx={{ justifyContent: 'space-between', alignItems: 'center', width: '100px' }}
                         >
                           <Typography>Balance:</Typography>
-                          <Typography sx={{ color: '#5820D6' }}>{rentalPassCount}</Typography>
+                          <Typography sx={{ color: 'var(--color-purple)' }}>{rentalPassCount}</Typography>
                         </Stack>
                       )}
                     </Stack>
@@ -469,14 +413,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                             label={
                               <Typography variant="caption">
                                 I have read the{' '}
-                                <Link
-                                  sx={{
-                                    mx: '4px',
-                                    textDecoration: 'none',
-                                    fontWeight: theme.typography.fontWeightBold,
-                                  }}
-                                  onClick={openTOSDialog}
-                                >
+                                <Link className="mx-1 no-underline font-bold" onClick={openTOSDialog}>
                                   terms &amp; conditions
                                 </Link>{' '}
                                 regarding rentals
@@ -512,7 +449,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
             Stats
           </Typography>
           <Grid container spacing={6}>
-            <Grid size={{ xs: 12, md: 6 }}>
+            <Grid size={{ xs: 12, lg: 6 }}>
               <Stack gap={1}>
                 <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
                   <Typography>Multipliers</Typography>
@@ -524,7 +461,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                 </Stack>
               </Stack>
             </Grid>
-            <Grid size={{ xs: 12, md: 6 }}>
+            <Grid size={{ xs: 12, lg: 6 }}>
               <Stack gap={1}>
                 <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
                   <Typography>Rental period</Typography>

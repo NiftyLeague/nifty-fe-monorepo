@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import type { PropsWithChildren } from 'react';
-import MainLayout from '@/components/Layout';
+import MainLayout from '@/components/MainLayout';
 
 export const metadata: Metadata = {
   title: 'Compete & Earn',

@@ -1,7 +1,7 @@
-import cn from 'classnames';
 import Image from 'next/image';
 import DoneIcon from '@mui/icons-material/Done';
-import styles from './index.module.scss';
+import { cn } from '@nl/ui/lib/utils';
+import styles from './index.module.css';
 
 interface RoadmapCardProps {
   body: React.ReactNode;
@@ -43,14 +43,11 @@ const RoadmapCard = ({
             width={image.width}
             height={image.height}
             sizes="100vw"
-            style={{
-              width: '100%',
-              height: 'auto',
-            }}
+            style={{ width: '100%', height: 'auto' }}
           />
         </div>
       )}
-      <h5>{title}</h5>
+      <h5 className="[word-spacing:-10px]">{title}</h5>
       {completed && (
         <div className={styles.timeline_content_info}>
           <span className={styles.timeline_content_info_title}>Mission Accomplished</span>
@@ -69,10 +66,7 @@ const RoadmapCard = ({
           width={200}
           height={200}
           sizes="100vw"
-          style={{
-            width: '100%',
-            height: 'auto',
-          }}
+          style={{ width: '100%', height: 'auto' }}
         />
       </div>
     ) : null}

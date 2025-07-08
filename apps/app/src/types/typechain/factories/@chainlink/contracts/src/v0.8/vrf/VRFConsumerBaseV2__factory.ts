@@ -11,32 +11,16 @@ import type {
 const _abi = [
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: 'have',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: 'want',
-        type: 'address',
-      },
+      { internalType: 'address', name: 'have', type: 'address' },
+      { internalType: 'address', name: 'want', type: 'address' },
     ],
     name: 'OnlyCoordinatorCanFulfill',
     type: 'error',
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'requestId',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256[]',
-        name: 'randomWords',
-        type: 'uint256[]',
-      },
+      { internalType: 'uint256', name: 'requestId', type: 'uint256' },
+      { internalType: 'uint256[]', name: 'randomWords', type: 'uint256[]' },
     ],
     name: 'rawFulfillRandomWords',
     outputs: [],

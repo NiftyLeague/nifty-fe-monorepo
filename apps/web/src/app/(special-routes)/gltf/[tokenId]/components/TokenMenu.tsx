@@ -3,7 +3,7 @@
 import useClaimableNFTL from '@/hooks/useClaimableNFTL';
 import { formatNumberToDisplay } from '@/lib/numbers';
 
-import styles from '../gltf.module.scss';
+import styles from '../gltf.module.css';
 
 const TokenMenu = ({ tokenId }: { tokenId: string }) => {
   const { balance } = useClaimableNFTL(tokenId as string);

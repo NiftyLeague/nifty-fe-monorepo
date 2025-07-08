@@ -50,13 +50,7 @@ function MermaidContent({ value, caption }: MermaidProps): React.JSX.Element {
     pie8: '#ffe500',
   };
 
-  const result = useMermaidRenderResult({
-    text: value,
-    config: {
-      theme: getTheme(),
-      themeVariables: themeVariables,
-    },
-  });
+  const result = useMermaidRenderResult({ text: value, config: { theme: getTheme(), themeVariables: themeVariables } });
 
   // Extract svg and check for errors
   const svg = result?.svg;
@@ -67,13 +61,8 @@ function MermaidContent({ value, caption }: MermaidProps): React.JSX.Element {
     return (
       <div className="alert alert--warning">
         {translate(
-          {
-            id: 'theme.Mermaid.error',
-            message: 'Failed to render Mermaid diagram:',
-          },
-          {
-            error: error.message,
-          },
+          { id: 'theme.Mermaid.error', message: 'Failed to render Mermaid diagram:' },
+          { error: error.message },
         )}
       </div>
     );
@@ -97,10 +86,7 @@ export default function Mermaid(props: MermaidProps): React.JSX.Element {
     <BrowserOnly
       fallback={
         <div className="alert alert--warning">
-          {translate({
-            id: 'theme.Mermaid.loading',
-            message: 'Loading diagram...',
-          })}
+          {translate({ id: 'theme.Mermaid.loading', message: 'Loading diagram...' })}
         </div>
       }
     >

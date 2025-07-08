@@ -33,7 +33,7 @@ import useAuth from '@/hooks/useAuth';
 import { DEGEN_PURCHASE_URL } from '@/constants/url';
 
 // const chipStyles = (isSmall: boolean) => ({
-//   color: 'white',
+//   color: 'var(--color-foreground)',
 //   borderRadius: 1,
 //   width: '100%',
 //   fontSize: isSmall ? 9 : 11,
@@ -42,7 +42,7 @@ import { DEGEN_PURCHASE_URL } from '@/constants/url';
 //   '&:hover': {
 //     backgroundColor: 'transparent',
 //     cursor: 'auto',
-//     color: 'white',
+//     color: 'var(--color-foreground)',
 //   },
 // });
 
@@ -69,7 +69,7 @@ const DegenClaimBal: React.FC<React.PropsWithChildren<React.PropsWithChildren<{ 
   memo(({ tokenId, fontSize }) => {
     const degenTokenIndices = useMemo(() => [parseInt(tokenId, 10)], [tokenId]);
     const { balance } = useClaimableNFTL(degenTokenIndices);
-    const amountParsed = formatNumberToDisplay(balance);
+    const amountParsed = formatNumberToDisplay(balance, 0);
     return <Typography sx={{ textAlign: 'center', fontSize }}>{`${amountParsed} NFTL`}</Typography>;
   });
 
@@ -94,7 +94,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
     onClickFavorite,
     onClickSelect,
   }) => {
-    const { palette, typography } = useTheme();
+    const { typography } = useTheme();
     const {
       id,
       name,
@@ -140,13 +140,13 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
         sx={{
           width: '100%',
           height: '100%',
-          border: `1px solid ${palette.border}`,
-          backgroundColor: palette.background.default,
+          background: 'var(--color-background-3)',
+          border: 'var(--border-default)',
           pb: 2,
           ...(sx as SxProps<Theme>),
         }}
       >
-        {id && <DegenImage tokenId={id} sx={{ height: size === 'small' ? 200 : undefined }} />}
+        {id && <DegenImage tokenId={id} />}
         {/* <Stack
           direction="row"
           sx={{ m: size === 'small' ? 0.5 : 1, width: 'auto', justifyContent: 'space-evenly' }}
@@ -177,17 +177,10 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
           <Stack
             direction="row"
             gap={1}
-            sx={{
-              justifyContent: 'space-between',
-              '&:hover': {
-                '& svg': {
-                  display: 'block',
-                },
-              },
-            }}
+            sx={{ justifyContent: 'space-between', '&:hover': { '& svg': { display: 'block' } } }}
           >
-            <Typography gutterBottom variant={size === 'small' ? 'h6' : 'h4'}>
-              {name || 'No Name DEGEN'}
+            <Typography gutterBottom variant={size === 'small' ? 'h6' : 'h5'} className="truncate-text-1">
+              {name || '[No Name]'}
             </Typography>
             {isDashboardDegen && (
               <EditIcon sx={{ cursor: 'pointer', display: 'none' }} onClick={onClickEditName} fontSize="small" />
@@ -196,22 +189,13 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
               href={id ? DEGEN_PURCHASE_URL(id) : '#'}
               target="_blank"
               rel="nofollow"
-              color={palette.text.secondary}
-              sx={{ fontSize: buttonFontSize }}
+              sx={{ fontSize: buttonFontSize, color: 'var(--color-foreground-2)' }}
             >
               {`#${id}`}
             </Link>
           </Stack>
         </CardContent>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            px: 2,
-            gap: 1,
-          }}
-        >
+        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', px: 2, gap: 1 }}>
           {/* {false && (
             <Button
               variant="contained"
@@ -245,10 +229,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
               variant={isSelected ? 'contained' : 'outlined'}
               color="primary"
               fullWidth
-              sx={{
-                minWidth: '32%',
-                fontSize: buttonFontSize,
-              }}
+              sx={{ minWidth: '32%', fontSize: buttonFontSize }}
               onClick={onClickSelect}
               disabled={isSelectionDisabled && !isSelected}
             >
@@ -259,10 +240,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
               variant="outlined"
               color="primary"
               fullWidth
-              sx={{
-                minWidth: '32%',
-                fontSize: buttonFontSize,
-              }}
+              sx={{ minWidth: '32%', fontSize: buttonFontSize }}
               onClick={onClickDetail}
             >
               Details
@@ -274,10 +252,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
               onClick={onClickClaim}
               variant="contained"
               fullWidth
-              sx={{
-                minWidth: '32%',
-                fontSize: buttonFontSize,
-              }}
+              sx={{ minWidth: '32%', fontSize: buttonFontSize }}
             >
               Claim
             </Button>
@@ -290,7 +265,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
           >
             {/* {false && (
               <Typography
-                sx={{ color: theme => theme.palette.grey[700] }}
+                sx={{ color: 'var(--color-background-3)' }}
                 sx={{
                   textDecoration: 'underline',
                   cursor: 'pointer',
@@ -302,38 +277,24 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
                 {isEnabled ? 'Disable' : 'Enable'} Rentals
               </Typography>
             )} */}
-            <Box sx={{ display: 'flex' }}>
-              <Box sx={{ cursor: 'pointer', marginRight: 1 }} onClick={onClickFavorite}>
+            <div className="flex flex-row items-center">
+              <div className="flex items-center cursor-pointer mr-3" onClick={onClickFavorite}>
                 {fav ? (
                   <FavoriteIconFilled sx={{ fontSize: size === 'small' ? 12 : 16 }} />
                 ) : (
                   <FavoriteIconOutlined sx={{ fontSize: size === 'small' ? 12 : 16 }} />
                 )}
-              </Box>
-              <Box
-                sx={{
-                  display: 'flex',
-                  cursor: 'pointer',
-                  alignItems: 'center',
-                }}
-                onClick={onClickDownload}
-              >
-                <Typography
-                  sx={{
-                    fontSize: tinyFontSize,
-                    pr: '4px',
-                  }}
-                >
-                  IP
-                </Typography>
+              </div>
+              <div className="flex items-center cursor-pointer" onClick={onClickDownload}>
+                <Typography sx={{ fontSize: tinyFontSize, pr: '4px' }}>IP</Typography>
                 <Image
                   src="/icons/download-solid.svg"
                   alt="Download Icon"
                   width={size === 'small' ? 12 : 16}
                   height={size === 'small' ? 12 : 16}
                 />
-              </Box>
-            </Box>
+              </div>
+            </div>
             <DegenClaimBal tokenId={id} fontSize={tinyFontSize as string} />
           </Stack>
         )}

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import cn from 'classnames';
+import { cn } from '@nl/ui/lib/utils';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
@@ -12,7 +12,7 @@ import { DEGEN_BASE_SPRITE_URL, LEGGIES } from '@/constants/degens';
 import { SRC, Color } from '@/types/gltf';
 import ErrorBoundary from '@/components/ErrorBoundry';
 
-import styles from './gltf.module.scss';
+import styles from './gltf.module.css';
 
 const TokenMenu = dynamic(() => import('./components/TokenMenu'), { ssr: false });
 const ModelView = dynamic(() => import('./components/ModelView'), { ssr: false });
@@ -32,14 +32,15 @@ export default function DegenViews() {
     <>
       {/* eslint-disable react/no-unknown-property */}
       <style jsx global>{`
+        html,
         body,
-        html {
+        main {
           margin: 0;
           padding: 0;
           height: 100%;
           width: 100%;
           overflow: hidden;
-          background-color: #fff !important;
+          background-color: var(--color-light);
         }
       `}</style>
       {source === SRC.IMAGE && (

@@ -1,17 +1,11 @@
 import type { PlayFabError } from '../types';
 import { FetchError } from './fetchJson';
 
-export function errorResHandler(e: unknown): {
-  status: number;
-  message: string;
-} {
+export function errorResHandler(e: unknown): { status: number; message: string } {
   if (e instanceof Error) {
     return { status: 500, message: (e as Error).message };
   } else {
-    return {
-      status: (e as PlayFabError)?.code ?? 500,
-      message: (e as PlayFabError)?.errorMessage ?? 'Unknown error',
-    };
+    return { status: (e as PlayFabError)?.code ?? 500, message: (e as PlayFabError)?.errorMessage ?? 'Unknown error' };
   }
 }
 

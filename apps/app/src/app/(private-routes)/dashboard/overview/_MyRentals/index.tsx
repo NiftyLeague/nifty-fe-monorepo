@@ -27,36 +27,13 @@ export interface ColumnType {
 
 const columns: ColumnType[] = [
   { id: 'renter', label: 'Player Address', minWidth: 150, align: 'center' },
-  {
-    id: 'playerNickname',
-    label: 'Player Nickname',
-    minWidth: 150,
-  },
-  {
-    id: 'earningCap',
-    label: 'Earning Cap',
-    minWidth: 150,
-  },
-  {
-    id: 'rentalRenewsIn',
-    label: 'Rental Renews In',
-    minWidth: 150,
-    align: 'center',
-  },
+  { id: 'playerNickname', label: 'Player Nickname', minWidth: 150 },
+  { id: 'earningCap', label: 'Earning Cap', minWidth: 150 },
+  { id: 'rentalRenewsIn', label: 'Rental Renews In', minWidth: 150, align: 'center' },
   { id: 'degenId', label: 'Degen ID', minWidth: 100, align: 'center' },
   { id: 'winRate', label: 'Win Rate', minWidth: 120, align: 'center' },
-  {
-    id: 'profits',
-    label: 'Gross Gameplay Earnings',
-    minWidth: 200,
-    align: 'center',
-  },
-  {
-    id: 'netEarning',
-    label: 'Your NET Earnings',
-    minWidth: 150,
-    align: 'center',
-  },
+  { id: 'profits', label: 'Gross Gameplay Earnings', minWidth: 200, align: 'center' },
+  { id: 'netEarning', label: 'Your NET Earnings', minWidth: 150, align: 'center' },
   { id: 'roi', label: 'ROI %', minWidth: 80, align: 'center' },
 ];
 interface MyRentalsProps {

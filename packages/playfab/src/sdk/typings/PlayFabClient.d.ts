@@ -2259,9 +2259,7 @@ declare namespace PlayFabClientModels {
     // Array of virtual currency balance(s) belonging to the character.
     VirtualCurrency?: { [key: string]: number };
     // Array of remaining times and timestamps for virtual currencies.
-    VirtualCurrencyRechargeTimes?: {
-      [key: string]: VirtualCurrencyRechargeTime;
-    };
+    VirtualCurrencyRechargeTimes?: { [key: string]: VirtualCurrencyRechargeTime };
   }
 
   export interface GetCharacterLeaderboardRequest extends PlayFabModule.IPlayFabRequestCommon {
@@ -2550,9 +2548,7 @@ declare namespace PlayFabClientModels {
     // Dictionary of virtual currency balance(s) belonging to the user.
     UserVirtualCurrency?: { [key: string]: number };
     // Dictionary of remaining times and timestamps for virtual currencies.
-    UserVirtualCurrencyRechargeTimes?: {
-      [key: string]: VirtualCurrencyRechargeTime;
-    };
+    UserVirtualCurrencyRechargeTimes?: { [key: string]: VirtualCurrencyRechargeTime };
   }
 
   export interface GetPlayerProfileRequest extends PlayFabModule.IPlayFabRequestCommon {
@@ -2940,9 +2936,7 @@ declare namespace PlayFabClientModels {
     // Array of virtual currency balance(s) belonging to the user.
     VirtualCurrency?: { [key: string]: number };
     // Array of remaining times and timestamps for virtual currencies.
-    VirtualCurrencyRechargeTimes?: {
-      [key: string]: VirtualCurrencyRechargeTime;
-    };
+    VirtualCurrencyRechargeTimes?: { [key: string]: VirtualCurrencyRechargeTime };
   }
 
   export interface GooglePlayFabIdPair {

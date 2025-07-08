@@ -41,7 +41,7 @@ export const CenterCard: React.FC<ComponentProps<typeof Card>> = styled(Card)`
 
 export const ShadowCard: React.FC<ComponentProps<typeof Card>> = styled(Card)`
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.05);
-  background-color: #ffffff10;
+  background-color: var(--color-light);
   backdrop-filter: blur(10px);
   min-height: 200px;
 `;

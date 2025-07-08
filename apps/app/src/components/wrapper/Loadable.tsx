@@ -6,13 +6,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import { styled } from '@nl/theme';
 
 // styles
-const LoaderWrapper = styled('div')({
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  zIndex: 1301,
-  width: '100%',
-});
+const LoaderWrapper = styled('div')({ position: 'fixed', top: 0, left: 0, zIndex: 1301, width: '100%' });
 
 // ==============================|| LOADER ||============================== //
 

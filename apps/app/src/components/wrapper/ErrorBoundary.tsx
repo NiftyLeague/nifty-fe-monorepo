@@ -1,22 +1,14 @@
 import { Component, ErrorInfo } from 'react';
 import { isMobileOnly } from 'react-device-detect';
 
-type MyProps = {
-  children: React.ReactNode;
-};
+type MyProps = { children: React.ReactNode };
 
-type State = {
-  error?: Error;
-  errorInfo?: ErrorInfo;
-};
+type State = { error?: Error; errorInfo?: ErrorInfo };
 
 class ErrorBoundary extends Component<MyProps, State> {
   constructor(props: MyProps) {
     super(props);
-    const state: State = {
-      error: undefined,
-      errorInfo: undefined,
-    };
+    const state: State = { error: undefined, errorInfo: undefined };
     this.state = state;
   }
 

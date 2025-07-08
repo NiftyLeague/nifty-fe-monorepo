@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import { Button, IconButton } from '@mui/material';
-import { useTheme } from '@nl/theme';
 
 import { formatNumberToDisplay } from '@/utils/numbers';
 import HoverDataCard from '@/components/cards/HoverDataCard';
@@ -10,7 +9,6 @@ import useClaimNFTL from '@/hooks/writeContracts/useClaimNFTL';
 import useNetworkContext from '@/hooks/useNetworkContext';
 
 const DegenBalance = (): React.ReactNode => {
-  const theme = useTheme();
   const { isConnected } = useNetworkContext();
   const { balance, claimCallback, loading } = useClaimNFTL();
 
@@ -19,9 +17,8 @@ const DegenBalance = (): React.ReactNode => {
       title="DEGEN Balance"
       primary={`${balance ? formatNumberToDisplay(balance) : '0.00'} NFTL`}
       customStyle={{
-        backgroundColor: theme.palette.background.default,
-        border: '1px solid',
-        borderColor: theme.palette.border,
+        backgroundColor: 'var(--color-background-3)',
+        border: 'var(--border-default)',
         position: 'relative',
       }}
       secondary="Available to Claim"

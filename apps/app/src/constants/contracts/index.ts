@@ -4,12 +4,7 @@ import { IMX_ID, IMX_TESTNET_ID, MAINNET_ID, SEPOLIA_ID } from '../networks';
 import DEPLOYMENTS from './deployments';
 
 export const getDeployedContract = (chainId: Network['chainId'], contractName: string) => {
-  const deployments = DEPLOYMENTS[chainId] as {
-    [contractName: string]: {
-      address: `0x${string}`;
-      abi: Abi;
-    };
-  };
+  const deployments = DEPLOYMENTS[chainId] as { [contractName: string]: { address: `0x${string}`; abi: Abi } };
   return deployments[contractName];
 };
 

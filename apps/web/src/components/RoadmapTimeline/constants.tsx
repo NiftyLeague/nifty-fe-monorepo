@@ -1,22 +1,18 @@
 import Image from 'next/image';
-import styles from './index.module.scss';
+import styles from './index.module.css';
+import { DEGEN_COLLECTION_URL } from '@/constants/degens';
 
 export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Sept 24th - 30th, 2021',
-    image: {
-      height: 350,
-      src: '/img/mint-o-matic/creation.webp',
-      style: { top: '-90px' },
-      width: 661,
-    },
+    image: { height: 350, src: '/img/mint-o-matic/creation.webp', style: { top: '-90px' }, width: 661 },
     title: 'DEGEN Minting',
     body: (
       <p className="mb-0">
         Nifty League{' '}
         <strong>
-          <a href="https://opensea.io/collection/niftydegen" target="_blank" rel="noreferrer">
+          <a href={DEGEN_COLLECTION_URL} target="_blank" rel="noreferrer">
             DEGEN NFTs
           </a>
         </strong>{' '}
@@ -34,12 +30,7 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Sept 24th, 2021',
-    image: {
-      height: 272,
-      src: '/img/misc/smash_200.webp',
-      style: { top: '-80px', right: '-50px' },
-      width: 518,
-    },
+    image: { height: 272, src: '/img/misc/smash_200.webp', style: { top: '-80px', right: '-50px' }, width: 518 },
     title: '2D Nifty Smashers - PC Early-Access',
     body: (
       <>
@@ -62,12 +53,7 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Dec 2nd, 2021',
-    image: {
-      height: 350,
-      src: '/img/roadmap/desktop-app_v02.webp',
-      style: { top: '-115px' },
-      width: 514,
-    },
+    image: { height: 350, src: '/img/roadmap/desktop-app_v02.webp', style: { top: '-115px' }, width: 514 },
     title: 'Desktop App',
     body: (
       <>
@@ -82,12 +68,7 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Jan 22nd, 2022',
-    image: {
-      height: 364,
-      src: '/img/roadmap/p2e_v02.webp',
-      style: { top: '-95px' },
-      width: 586,
-    },
+    image: { height: 364, src: '/img/roadmap/p2e_v02.webp', style: { top: '-95px' }, width: 586 },
     title: 'Play-&-Earn (DEPRECATED)',
     body: (
       <>
@@ -111,12 +92,7 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Feb 16th, 2022',
-    image: {
-      height: 412,
-      src: '/img/roadmap/merch_02.webp',
-      style: { top: '-100px' },
-      width: 634,
-    },
+    image: { height: 412, src: '/img/roadmap/merch_02.webp', style: { top: '-100px' }, width: 634 },
     title: 'Merch',
     body: (
       <>
@@ -130,12 +106,7 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'May 3rd, 2022',
-    image: {
-      height: 375,
-      src: '/img/roadmap/rentals_v02.webp',
-      style: { top: '-100px' },
-      width: 609,
-    },
+    image: { height: 375, src: '/img/roadmap/rentals_v02.webp', style: { top: '-100px' }, width: 609 },
     title: 'DEGEN Rentals (DEPRECATED)',
     body: (
       <>
@@ -157,12 +128,7 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Jun 8th, 2022',
-    image: {
-      height: 450,
-      src: '/img/roadmap/leaderboards_v02.webp',
-      style: { top: '-120px' },
-      width: 649,
-    },
+    image: { height: 450, src: '/img/roadmap/leaderboards_v02.webp', style: { top: '-120px' }, width: 649 },
     title: 'Leaderboards',
     body: (
       <>
@@ -189,12 +155,7 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Jun 15th, 2022',
-    image: {
-      height: 1080,
-      src: '/img/games/wen.gif',
-      style: { top: '-130px' },
-      width: 1440,
-    },
+    image: { height: 1080, src: '/img/games/wen.gif', style: { top: '-130px' }, width: 1440 },
     title: 'WEN Game',
     body: (
       <>
@@ -218,12 +179,7 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Aug 4th, 2022',
-    image: {
-      height: 1080,
-      src: '/img/games/mt-gawx.gif',
-      style: { top: '-135px' },
-      width: 1440,
-    },
+    image: { height: 1080, src: '/img/games/mt-gawx.gif', style: { top: '-135px' }, width: 1440 },
     title: 'Mt. Gawx',
     body: (
       <>
@@ -244,12 +200,7 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Sept 20th, 2022',
-    image: {
-      height: 1080,
-      src: '/img/games/crypto-winter.gif',
-      style: { top: '-120px' },
-      width: 1440,
-    },
+    image: { height: 1080, src: '/img/games/crypto-winter.gif', style: { top: '-120px' }, width: 1440 },
     title: 'Crypto Winter',
     body: (
       <>
@@ -268,12 +219,7 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Nov 11th, 2022',
-    image: {
-      height: 250,
-      src: '/img/logos/networks/imx.webp',
-      style: { top: '-130px', padding: '25px' },
-      width: 250,
-    },
+    image: { height: 250, src: '/img/logos/networks/imx.webp', style: { top: '-130px', padding: '25px' }, width: 250 },
     title: 'L2 Migration',
     body: (
       <>
@@ -319,83 +265,71 @@ export const ROADMAP_CARDS = [
         <p>
           <strong>Comic burning remains open until further notice!</strong>
         </p>
-        <div className="d-flex flex-wrap">
-          <div className="col-6 p-1">
+        <div className="flex flex-wrap -mx-1">
+          <div className="w-1/2 p-1">
             <Image
               alt="comic 1"
               height={500}
               src="/img/comics/thumbnail/1.webp"
               width={500}
               sizes="100vw"
-              style={{
-                width: '100%',
-                height: 'auto',
-              }}
+              style={{ width: '100%', height: 'auto' }}
+              className="w-full h-auto"
             />
           </div>
-          <div className="col-6 p-1">
+          <div className="w-1/2 p-1">
             <Image
               alt="comic 2"
               height={500}
               src="/img/comics/thumbnail/2.webp"
               width={500}
               sizes="100vw"
-              style={{
-                width: '100%',
-                height: 'auto',
-              }}
+              style={{ width: '100%', height: 'auto' }}
+              className="w-full h-auto"
             />
           </div>
-          <div className="col-6 p-1">
+          <div className="w-1/2 p-1">
             <Image
               alt="comic 3"
               height={500}
               src="/img/comics/thumbnail/3.webp"
               width={500}
               sizes="100vw"
-              style={{
-                width: '100%',
-                height: 'auto',
-              }}
+              style={{ width: '100%', height: 'auto' }}
+              className="w-full h-auto"
             />
           </div>
-          <div className="col-6 p-1">
+          <div className="w-1/2 p-1">
             <Image
               alt="comic 4"
               height={500}
               src="/img/comics/thumbnail/4.webp"
               width={500}
               sizes="100vw"
-              style={{
-                width: '100%',
-                height: 'auto',
-              }}
+              style={{ width: '100%', height: 'auto' }}
+              className="w-full h-auto"
             />
           </div>
-          <div className="col-6 p-1">
+          <div className="w-1/2 p-1">
             <Image
               alt="comic 5"
               height={500}
               src="/img/comics/thumbnail/5.webp"
               width={500}
               sizes="100vw"
-              style={{
-                width: '100%',
-                height: 'auto',
-              }}
+              style={{ width: '100%', height: 'auto' }}
+              className="w-full h-auto"
             />
           </div>
-          <div className="col-6 p-1">
+          <div className="w-1/2 p-1">
             <Image
               alt="comic 6"
               height={500}
               src="/img/comics/thumbnail/6.webp"
               width={500}
               sizes="100vw"
-              style={{
-                width: '100%',
-                height: 'auto',
-              }}
+              style={{ width: '100%', height: 'auto' }}
+              className="w-full h-auto"
             />
           </div>
         </div>
@@ -405,12 +339,7 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Feb 13th, 2023',
-    image: {
-      height: 400,
-      src: '/img/games/smashers/nifty-smashers.gif',
-      style: { top: '-135px' },
-      width: 544,
-    },
+    image: { height: 400, src: '/img/games/smashers/nifty-smashers.gif', style: { top: '-135px' }, width: 544 },
     title: '2D Nifty Smashers - PC Alpha',
     body: (
       <p className="mb-0">
@@ -423,12 +352,7 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Feb 17th, 2023',
-    image: {
-      height: 384,
-      src: '/img/degens/hydra.webp',
-      style: { top: '-160px' },
-      width: 384,
-    },
+    image: { height: 384, src: '/img/degens/hydra.webp', style: { top: '-160px' }, width: 384 },
     title: 'The Hatching',
     body: (
       <>
@@ -448,12 +372,7 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'May 10th, 2023',
-    image: {
-      height: 400,
-      src: '/img/roadmap/free2play_v02.webp',
-      style: { top: '-140px' },
-      width: 507,
-    },
+    image: { height: 400, src: '/img/roadmap/free2play_v02.webp', style: { top: '-140px' }, width: 507 },
     title: 'Free-2-Play',
     body: (
       <>
@@ -471,12 +390,7 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Sept 2nd, 2023',
-    image: {
-      height: 1070,
-      src: '/img/games/smashers/apartment.webp',
-      style: { top: '-90px' },
-      width: 1618,
-    },
+    image: { height: 1070, src: '/img/games/smashers/apartment.webp', style: { top: '-90px' }, width: 1618 },
     title: 'Nifty Smashers - Progression Design',
     body: (
       <>
@@ -495,12 +409,7 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Oct 11th, 2023',
-    image: {
-      src: '/img/logos/other/pocket-whale.webp',
-      style: { top: '-155px' },
-      width: 387,
-      height: 300,
-    },
+    image: { src: '/img/logos/other/pocket-whale.webp', style: { top: '-155px' }, width: 387, height: 300 },
     title: 'PocketWhale Partnership',
     body: (
       <>
@@ -523,12 +432,7 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Dec 10th, 2023',
-    image: {
-      src: '/img/roadmap/mobile_v02.webp',
-      style: { top: '-155px' },
-      width: 387,
-      height: 300,
-    },
+    image: { src: '/img/roadmap/mobile_v02.webp', style: { top: '-155px' }, width: 387, height: 300 },
     title: 'Nifty Smashers - Mobile Alpha',
     body: (
       <>
@@ -549,12 +453,7 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'July 15th, 2024',
-    image: {
-      src: '/img/roadmap/beta_v02.webp',
-      style: { top: '-125px' },
-      width: 387,
-      height: 300,
-    },
+    image: { src: '/img/roadmap/beta_v02.webp', style: { top: '-125px' }, width: 387, height: 300 },
     title: 'Nifty Smashers - Mobile Beta',
     body: (
       <>
@@ -575,12 +474,7 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Sept 13th, 2024',
-    image: {
-      src: '/img/roadmap/niftyroyale_v01.webp',
-      style: { top: '-110px' },
-      width: 541,
-      height: 381,
-    },
+    image: { src: '/img/roadmap/niftyroyale_v01.webp', style: { top: '-110px' }, width: 541, height: 381 },
     title: (
       <>
         Nifty Royale - <br />
@@ -607,12 +501,7 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Sept 24th, 2024',
-    image: {
-      height: 166,
-      src: '/img/logos/networks/imx_polygon.webp',
-      style: { top: '-115px' },
-      width: 250,
-    },
+    image: { height: 166, src: '/img/logos/networks/imx_polygon.webp', style: { top: '-115px' }, width: 250 },
     title: 'Immutable zkEVM',
     body: (
       <>
@@ -636,12 +525,7 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Oct 1st, 2024 - Present',
-    image: {
-      src: '/img/roadmap/dao_v02.webp',
-      style: { top: '-80px' },
-      width: 532,
-      height: 302,
-    },
+    image: { src: '/img/roadmap/dao_v02.webp', style: { top: '-80px' }, width: 532, height: 302 },
     title: 'Nifty DAO',
     body: (
       <>
@@ -695,12 +579,7 @@ export const ROADMAP_CARDS = [
     ),
   },
   {
-    image: {
-      src: '/img/logos/smashers/app_wordmark_logo.webp',
-      style: { top: '-115px' },
-      width: 387,
-      height: 300,
-    },
+    image: { src: '/img/logos/smashers/app_wordmark_logo.webp', style: { top: '-115px' }, width: 387, height: 300 },
     title: 'Nifty Smashers - Global Launch',
     body: (
       <>
@@ -714,12 +593,7 @@ export const ROADMAP_CARDS = [
   },
   {
     current: true,
-    image: {
-      height: 375,
-      src: '/img/roadmap/marketplace_v02.webp',
-      style: { top: '-90px' },
-      width: 609,
-    },
+    image: { height: 375, src: '/img/roadmap/marketplace_v02.webp', style: { top: '-90px' }, width: 609 },
     title: 'Items Marketplace',
     body: (
       <>
@@ -740,12 +614,7 @@ export const ROADMAP_CARDS = [
     ),
   },
   {
-    image: {
-      src: '/img/roadmap/niftyroyale_v01.webp',
-      style: { top: '-110px' },
-      width: 541,
-      height: 381,
-    },
+    image: { src: '/img/roadmap/niftyroyale_v01.webp', style: { top: '-110px' }, width: 541, height: 381 },
     title: 'Nifty Royale - Alpha/Beta',
     body: (
       <>
@@ -766,12 +635,7 @@ export const ROADMAP_CARDS = [
     ),
   },
   {
-    image: {
-      src: '/img/roadmap/niftyverse_v02.webp',
-      style: { top: '-145px' },
-      width: 757,
-      height: 675,
-    },
+    image: { src: '/img/roadmap/niftyverse_v02.webp', style: { top: '-145px' }, width: 757, height: 675 },
     title: 'NiftyVerse',
     body: (
       <>
@@ -798,12 +662,7 @@ export const ROADMAP_CARDS = [
   },
   {
     divider: true,
-    image: {
-      src: '/img/logos/niftyverse/app_logo.webp',
-      style: { top: '-90px' },
-      width: 1920,
-      height: 1080,
-    },
+    image: { src: '/img/logos/niftyverse/app_logo.webp', style: { top: '-90px' }, width: 1920, height: 1080 },
     title: 'Land',
     body: (
       <>
@@ -820,12 +679,7 @@ export const ROADMAP_CARDS = [
     ),
   },
   {
-    image: {
-      src: '/img/roadmap/pets_v02.webp',
-      style: { top: '-140px' },
-      width: 379,
-      height: 325,
-    },
+    image: { src: '/img/roadmap/pets_v02.webp', style: { top: '-140px' }, width: 379, height: 325 },
     title: 'DEGEN Pets',
     body: (
       <>
@@ -848,12 +702,7 @@ export const ROADMAP_CARDS = [
     ),
   },
   {
-    image: {
-      src: '/img/games/nifty-tennis.webp',
-      style: { top: '-135px' },
-      width: 500,
-      height: 281,
-    },
+    image: { src: '/img/games/nifty-tennis.webp', style: { top: '-135px' }, width: 500, height: 281 },
     title: 'Nifty Tennis',
     body: (
       <p className="mb-0">
@@ -864,12 +713,7 @@ export const ROADMAP_CARDS = [
     ),
   },
   {
-    image: {
-      src: '/img/roadmap/niftykart_v01.webp',
-      style: { top: '-160px' },
-      width: 494,
-      height: 462,
-    },
+    image: { src: '/img/roadmap/niftykart_v01.webp', style: { top: '-160px' }, width: 494, height: 462 },
     title: 'Nifty Kart',
     body: (
       <p className="mb-0">
@@ -879,12 +723,7 @@ export const ROADMAP_CARDS = [
     ),
   },
   {
-    image: {
-      src: '/img/roadmap/gen2_v01.webp',
-      style: { top: '-120px' },
-      width: 550,
-      height: 451,
-    },
+    image: { src: '/img/roadmap/gen2_v01.webp', style: { top: '-120px' }, width: 550, height: 451 },
     title: 'Gen2 DEGENs',
     body: (
       <p className="mb-0">

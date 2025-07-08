@@ -11,9 +11,7 @@ export interface Degen {
   background: string;
   traits_string: string;
   multiplier: number;
-  multipliers: {
-    background: number;
-  };
+  multipliers: { background: number };
   name: string;
   owner: string;
   earning_cap: number;
@@ -28,20 +26,12 @@ export interface CharacterType {
 }
 
 export interface GetDegenResponse {
-  degen: {
-    background: string;
-    id: string;
-    traits: { [key: string]: number };
-    traits_string: string;
-    tribe: string;
-  };
+  degen: { background: string; id: string; traits: { [key: string]: number }; traits_string: string; tribe: string };
   id: string;
   is_active: boolean;
   last_rented_at: number;
   multiplier: number;
-  multipliers: {
-    background: number;
-  };
+  multipliers: { background: number };
   price: number;
   price_daily: number;
   rental_count: number;

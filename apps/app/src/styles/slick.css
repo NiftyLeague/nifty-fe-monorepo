@@ -1,0 +1,12 @@
+/* ==============================|| SLICK ||============================== */
+
+@import 'slick-carousel/slick/slick.css';
+@import 'slick-carousel/slick/slick-theme.css';
+
+.slick-arrow:before {
+  color: var(--color-base-500);
+}
+
+.slick-track {
+  margin-left: 0;
+}

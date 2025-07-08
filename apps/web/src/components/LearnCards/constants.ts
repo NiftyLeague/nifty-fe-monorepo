@@ -1,6 +1,7 @@
 export const LEARN_CARDS = [
   {
     btnText: 'Learn More',
+    external: true,
     image: '/img/backgrounds/learn/getting-started.webp',
     link: '/docs/overview/intro',
     subtitle: `Deep dive into Nifty League's vision with curated guides and information.`,
@@ -8,6 +9,7 @@ export const LEARN_CARDS = [
   },
   {
     btnText: 'Begin',
+    external: true,
     image: '/img/backgrounds/learn/gitbook.webp',
     link: '/docs/guides/set-up',
     subtitle: 'Setup your Ethereum wallet and buy a DEGEN for premium content.',
@@ -15,6 +17,7 @@ export const LEARN_CARDS = [
   },
   {
     btnText: 'See tutorials',
+    external: true,
     image: '/img/backgrounds/learn/tutorials.webp',
     link: '/docs/guides/nifty-smashers/general-info',
     subtitle: 'Learn about Nifty Smashers gameplay and how points are counted.',

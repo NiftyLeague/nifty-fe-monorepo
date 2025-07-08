@@ -7,48 +7,16 @@ import type { NonPayableOverrides } from '../../../../common';
 import type { MockStarkExchange, MockStarkExchangeInterface } from '../../../../src/contracts/mocks/MockStarkExchange';
 
 const _abi = [
+  { inputs: [], name: 'DepositAmountMustBeGreaterThanZero', type: 'error' },
+  { inputs: [], name: 'InsufficientBalance', type: 'error' },
+  { inputs: [], name: 'WithdrawalAmountMustBeGreaterThanZero', type: 'error' },
+  { inputs: [], name: 'deposit', outputs: [], stateMutability: 'payable', type: 'function' },
   {
-    inputs: [],
-    name: 'DepositAmountMustBeGreaterThanZero',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'InsufficientBalance',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'WithdrawalAmountMustBeGreaterThanZero',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'deposit',
-    outputs: [],
-    stateMutability: 'payable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'amount',
-        type: 'uint256',
-      },
-    ],
+    inputs: [{ internalType: 'uint256', name: 'amount', type: 'uint256' }],
     name: 'withdraw',
     outputs: [
-      {
-        internalType: 'bool',
-        name: 'success',
-        type: 'bool',
-      },
-      {
-        internalType: 'bytes',
-        name: 'data',
-        type: 'bytes',
-      },
+      { internalType: 'bool', name: 'success', type: 'bool' },
+      { internalType: 'bytes', name: 'data', type: 'bytes' },
     ],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -79,9 +47,7 @@ export class MockStarkExchange__factory extends ContractFactory {
   }
   override deploy(overrides?: NonPayableOverrides & { from?: string }) {
     return super.deploy(overrides || {}) as Promise<
-      MockStarkExchange & {
-        deploymentTransaction(): ContractTransactionResponse;
-      }
+      MockStarkExchange & { deploymentTransaction(): ContractTransactionResponse }
     >;
   }
   override connect(runner: ContractRunner | null): MockStarkExchange__factory {

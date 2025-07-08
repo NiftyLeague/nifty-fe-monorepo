@@ -23,12 +23,7 @@ import FilterAllTraitCheckboxes from '../FilterAllTraitCheckboxes';
 
 const PREFIX = 'DegensFilter';
 
-const classes = {
-  inputCheck: `${PREFIX}-inputCheck`,
-  tribeCheckFormControl: `${PREFIX}-tribeCheckFormControl`,
-  inputCheckFormControl: `${PREFIX}-inputCheckFormControl`,
-  tribeName: `${PREFIX}-tribeName`,
-};
+const classes = { inputCheck: `${PREFIX}-inputCheck`, inputCheckFormControl: `${PREFIX}-inputCheckFormControl` };
 
 const StyledStack = styled(Stack)(() => ({
   [`&.${classes.inputCheck}`]: {
@@ -36,28 +31,13 @@ const StyledStack = styled(Stack)(() => ({
     paddingBottom: 4,
     paddingRight: 8,
     color: '#4D4D4D',
-    '& .MuiSvgIcon-root': {
-      width: '0.75em',
-      height: '0.75em',
-    },
-  },
-
-  [`&.${classes.tribeCheckFormControl}`]: {
-    marginLeft: -8,
-    minWidth: 108,
+    '& .MuiSvgIcon-root': { width: '0.75em', height: '0.75em' },
   },
 
   [`&.${classes.inputCheckFormControl}`]: {
     marginLeft: -8,
     marginRight: 0,
-    '& .MuiFormControlLabel-label': {
-      fontSize: '0.75rem',
-      lineHeight: '0.75rem',
-    },
-  },
-
-  [`&.${classes.tribeName}`]: {
-    marginLeft: 8,
+    '& .MuiFormControlLabel-label': { fontSize: '0.75rem', lineHeight: '0.75rem' },
   },
 }));
 
@@ -80,10 +60,7 @@ const DegensFilter = ({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const params = useMemo(
-    () =>
-      Object.fromEntries(searchParams.entries()) as {
-        [key in FilterSource]?: string;
-      },
+    () => Object.fromEntries(searchParams.entries()) as { [key in FilterSource]?: string },
     [searchParams],
   );
   const isParamsEmpty = isEmpty(params);
@@ -213,10 +190,7 @@ const DegensFilter = ({
     // Once mounted, show only DEGENs with Common backgrounds if non DEGEN owner
     const newFilters = updateFilterValue(
       !params.backgrounds && !mountedRef.current
-        ? {
-            ...defaultFilterValues,
-            backgrounds: defaultFilterValues.backgrounds,
-          }
+        ? { ...defaultFilterValues, backgrounds: defaultFilterValues.backgrounds }
         : defaultFilterValues,
       params,
       {
@@ -236,6 +210,7 @@ const DegensFilter = ({
         multipliers: newFilters.multipliers,
         rentals: newFilters.rentals,
         tribes: newFilters.tribes,
+        tokenId: newFilters.tokenId,
         backgrounds: newFilters.backgrounds,
         cosmetics: newFilters.cosmetics,
         wearables: newFilters.wearables,
@@ -245,15 +220,7 @@ const DegensFilter = ({
   }, [defaultFilterValues, isDegenOwner, onFilter, params]);
 
   return (
-    <StyledStack
-      gap={1.5}
-      sx={{
-        overflowX: 'hidden',
-        [theme.breakpoints.down('sm')]: {
-          paddingY: 2,
-        },
-      }}
-    >
+    <StyledStack gap={1.5} sx={{ overflowX: 'hidden', [theme.breakpoints.down('sm')]: { paddingY: 2 } }}>
       <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
         <Typography variant="h3">Filter Degens</Typography>
         <Stack direction="row" gap={2}>
@@ -261,13 +228,13 @@ const DegensFilter = ({
             variant="outlined"
             disabled={isParamsEmpty}
             onClick={handleReset}
-            sx={{ height: 28, color: theme.palette.primary.main }}
+            sx={{ height: 28, color: 'var(--color-error)', borderColor: 'var(--color-error)' }}
           >
             Reset
           </Button>
         </Stack>
       </Stack>
-      <Stack py={1.5} borderRadius="10px" sx={{ background: '#1E2023' }}>
+      <Stack py={1.5} borderRadius="10px" sx={{ background: 'var(--color-background-3)' }}>
         <FilterAccordion summary={<Typography variant="h4">Tribe</Typography>} expanded={true} length={tribes.length}>
           <FormGroup sx={{ flexDirection: 'row' }}>
             {tribes.map(tribe => (
@@ -283,14 +250,14 @@ const DegensFilter = ({
                   />
                 }
                 label={
-                  <Stack direction="row" sx={{ alignItems: 'center' }}>
+                  <div className="flex flex-row items-center -ml-1">
                     <Image src={tribe.icon} alt="Tribe Icon" width={18} height={18} />
-                    <Typography variant="body1" className={classes.tribeName}>
+                    <Typography variant="body1" className="!ml-2">
                       {tribe.name}
                     </Typography>
-                  </Stack>
+                  </div>
                 }
-                className={classes.tribeCheckFormControl}
+                className="min-w-[122px]"
                 sx={{ flex: '0 0 33.333333%' }}
               />
             ))}
@@ -437,12 +404,7 @@ const DegensFilter = ({
         {!showMore ? (
           <Typography
             variant="body1"
-            sx={{
-              textDecoration: 'underline',
-              cursor: 'pointer',
-              margin: '0 14px',
-              lineHeight: '36px',
-            }}
+            sx={{ textDecoration: 'underline', cursor: 'pointer', margin: '0 14px', lineHeight: '36px' }}
             onClick={() => setShowMore(true)}
           >
             More

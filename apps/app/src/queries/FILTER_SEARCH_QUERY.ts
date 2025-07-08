@@ -50,8 +50,10 @@ const FILTER_SEARCH_QUERY = gql`
         neckwear_in: $neckwear
         leftItem_in: $leftItems
         rightItem_in: $rightItems
+        background_in: $background
       }
     ) {
+      id
       tokenId
       character {
         id
@@ -59,6 +61,9 @@ const FILTER_SEARCH_QUERY = gql`
         createdAt
         name
         nameHistory
+        owner {
+          address
+        }
         traits {
           tribe
           skinColor
@@ -82,6 +87,7 @@ const FILTER_SEARCH_QUERY = gql`
           neckwear
           leftItem
           rightItem
+          background
         }
       }
     }

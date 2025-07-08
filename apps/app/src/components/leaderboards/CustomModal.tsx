@@ -31,7 +31,7 @@ const style = (theme: Theme) => ({
   width: '67.5vh',
   height: '90vh',
   bgcolor: 'background.paper',
-  border: `2px solid ${theme.palette.grey[900]}`,
+  border: '2px solid var(--color-background)',
   pt: 2,
   px: 4,
   pb: 3,
@@ -43,17 +43,9 @@ const style = (theme: Theme) => ({
     width: '90vw',
     height: '120vw',
     backgroundSize: 'cover',
-    '& .title-header': {
-      fontSize: '24px',
-      top: '-28px',
-    },
-    '& .box-table': {
-      marginTop: '18px',
-    },
-    '& p.MuiTypography-body2': {
-      width: '100%',
-      marginTop: '4px',
-    },
+    '& .title-header': { fontSize: '24px', top: '-28px' },
+    '& .box-table': { marginTop: '18px' },
+    '& p.MuiTypography-body2': { width: '100%', marginTop: '4px' },
   },
 });
 interface ModalProps {

@@ -1,7 +1,7 @@
 'use client';
 
-import cn from 'classnames';
-import { IconLogOut } from '@nl/ui/supabase';
+import Button from '@nl/ui/supabase/Button';
+import { IconLogOut } from '@nl/ui/supabase/Icon';
 import useUserSession from '../../hooks/useUserSession';
 import fetchJson from '../../utils/fetchJson';
 
@@ -11,18 +11,20 @@ export default function LogoutButton({ loading = false }) {
   const { mutateUser } = useUserSession({ redirectTo: '/login' });
   return (
     <div>
-      <button
-        className={cn(styles.button_secondary, 'block')}
-        style={{ marginBottom: 0 }}
+      <Button
+        block
+        className={styles.button_secondary}
         disabled={loading}
+        icon={<IconLogOut />}
+        size="medium"
+        type="default"
         onClick={async e => {
           e.preventDefault();
           mutateUser(await fetchJson('/api/playfab/logout', { method: 'POST' }));
         }}
       >
-        <IconLogOut />
         Sign Out
-      </button>
+      </Button>
     </div>
   );
 }

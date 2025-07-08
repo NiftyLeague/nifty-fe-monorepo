@@ -1,125 +1,47 @@
 'use client';
 
-import cn from 'classnames';
 import type { NextPage } from 'next';
 import Image from 'next/image';
-import { Container, Grid, useMediaQuery } from '@mui/material';
-import AnimatedWrapper from '@/components/AnimatedWrapper';
-import { NIFTY_DEGENS, NIFTY_DEGENS_ALL } from '@/constants/degens';
-import ExternalIcon from '@/components/ExternalIcon';
-import ConsoleGame from '@/components/ConsoleGame';
-import styles from './index.module.scss';
 
-const DegensSection = () => {
-  const desktop = useMediaQuery('(min-width:768px)');
-  return (
-    <div className={styles.section}>
-      <AnimatedWrapper>
-        <Grid container spacing={0} style={{ marginBottom: 20 }}>
-          <Grid size={{ xs: 6, sm: 4 }}>
-            <h3 className="text-align-center animated-header-text animated-header-text-start transition-delay-small">
-              TRIBE
-            </h3>
-          </Grid>
-          <Grid size={{ xs: 6, sm: 8 }}>
-            <h3 className="text-align-center animated-header-text animated-header-text-start transition-delay-small">
-              SPECIAL
-            </h3>
-          </Grid>
-        </Grid>
-        <div className={styles.table}>
-          <hr className={styles.divider} />
-          {NIFTY_DEGENS.map(({ name, description, specialName, gif, image }) => (
-            <Grid container spacing={0} key={name} style={{ marginBottom: 20 }}>
-              <Grid size={{ xs: 6, sm: 4 }} className={styles.grid_col}>
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  <AnimatedWrapper>
-                    <div
-                      style={{ position: 'relative' }}
-                      className="text-align-center animated-fade-slow animated-fade-start transition-delay-small"
-                    >
-                      <Image
-                        src={image.link}
-                        alt={name}
-                        width={desktop ? image.width : image.width / 2}
-                        height={desktop ? image.height : image.height / 2}
-                      />
-                    </div>
-                  </AnimatedWrapper>
-                  <AnimatedWrapper>
-                    <h5
-                      style={{ marginTop: 8 }}
-                      className="text-align-center animated-fade-slow animated-fade-start transition-delay-small"
-                    >
-                      {name}
-                    </h5>
-                  </AnimatedWrapper>
-                </div>
-              </Grid>
-              {desktop && (
-                <Grid size={{ xs: 5 }} className={styles.grid_col}>
-                  <AnimatedWrapper>
-                    <p className="animated-header-text animated-header-text-start transition-delay-medium">
-                      {description}
-                    </p>
-                  </AnimatedWrapper>
-                </Grid>
-              )}
-              <Grid size={{ xs: 6, sm: 3 }} className={styles.grid_col_end}>
-                <AnimatedWrapper>
-                  <div
-                    style={{ position: 'relative' }}
-                    className="text-align-center animated-fade-slow animated-fade-start transition-delay-small"
-                  >
-                    <Image
-                      src={gif.link}
-                      unoptimized
-                      alt={name}
-                      width={desktop ? gif.width : gif.width * 0.7}
-                      height={desktop ? gif.height : gif.height * 0.7}
-                      sizes="100vw"
-                      style={{ width: '95%', height: 'auto' }}
-                    />
-                  </div>
-                </AnimatedWrapper>
-                <h6 className="text-align-center">{specialName}</h6>
-              </Grid>
-            </Grid>
-          ))}
-        </div>
-      </AnimatedWrapper>
-    </div>
-  );
-};
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
+import ConsoleGame from '@nl/ui/custom/ConsoleGame';
+import DegenSpecialsTable from '@nl/ui/custom/DegenSpecialsTable';
+import { cn } from '@nl/ui/lib/utils';
+
+import { NIFTY_DEGENS_ALL } from '@/constants/degens';
+import ThemeBtnGroup from '@/components/ThemeBtnGroup';
+import styles from './index.module.css';
 
 const Degens: NextPage = () => {
-  const desktop = useMediaQuery('(min-width:768px)');
+  const desktop = useMediaQuery('(min-width:769px)');
   return (
     <>
-      <div className="row m-0 p-0 position-relative">
+      <section className="relative xl:-top-20 2xl:-top-35">
         <ConsoleGame src="/video/unboxing.mp4" />
-      </div>
-      <div className={cn(styles.container, 'overview mx-auto px-3')}>
-        <Container>
-          <div className="d-flex align-items-center justify-content-center flex-wrap mb-4 mb-md-5">
-            <div className="col-12 col-md-6 pe-md-4">
+      </section>
+
+      <div className="container">
+        <section className="section">
+          <div className="flex items-center justify-center flex-wrap mb-4 md:mb-5">
+            <div className="w-full md:w-1/2 md:pr-4">
               <div className="mb-4">
                 <AnimatedWrapper>
-                  <h1 className="text-align-center animated-header-text animated-header-text-start transition-delay-small">
+                  <h1 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">
                     DEGENs
                   </h1>
                 </AnimatedWrapper>
               </div>
               <div className="mb-4">
                 <AnimatedWrapper>
-                  <h6 className="text-align-center animated-header-text animated-header-text-start transition-delay-medium">
-                    COMMUNITY DESIGNED DEGEN NFTs
+                  <h6 className="text-center transition-vertical-fade transition-vertical-fade-start delay-normal">
+                    COMMUNITY DESIGNED NFTs
                   </h6>
                 </AnimatedWrapper>
               </div>
-              <div className="position-relative">
+              <div className="relative">
                 <AnimatedWrapper>
-                  <p className="text-align-center animated-header-text animated-header-text-start transition-delay-medium">
+                  <p className="text-center transition-vertical-fade transition-vertical-fade-start delay-normal">
                     The Nifty League DEGENs were specially crafted by the community with members pitching in and
                     deciding how THEY wanted their DEGENs to look. This involved selecting special features that they
                     wanted including selection of cothing, tribe, and weapons among a few others. This led to the birth
@@ -127,12 +49,12 @@ const Degens: NextPage = () => {
                     forever tradable on secondary markets such as OpenSea.
                   </p>
                 </AnimatedWrapper>
-                <div className={cn(styles.gradient1, 'radial-gradient-piece')} />
+                <div className="purple-bg-orb orb-top-left" />
               </div>
             </div>
-            <div className="col-12 col-md-6">
+            <div className="w-full md:w-1/2">
               <AnimatedWrapper>
-                <div className="position-relative text-align-right animated-fade-slow animated-fade-start transition-delay-medium mb-4 mb-md-0 ps-0 ps-lg-5">
+                <div className="relative text-right transition-fade-slow transition-fade-start delay-normal mb-4 md:mb-0 ps-0 lg:pl-5">
                   <iframe
                     width="100%"
                     height="315"
@@ -146,84 +68,66 @@ const Degens: NextPage = () => {
             </div>
           </div>
 
-          <div className="d-flex justify-content-center">
-            <AnimatedWrapper>
-              <a href="https://app.niftyleague.com/degens" target="_blank" rel="noreferrer">
-                <button className="btn theme-btn-primary px-4 animated-fade-slow animated-fade-start transition-delay-large">
-                  SEE ALL DEGENS
-                  <ExternalIcon />
-                </button>
-              </a>
-            </AnimatedWrapper>
-          </div>
+          <ThemeBtnGroup
+            className="mt-6 xl:mt-10"
+            primary={{ href: 'https://app.niftyleague.com/degens', title: 'SEE ALL DEGENS', external: true }}
+          />
+        </section>
 
-          <div className={cn(styles.section, 'position-relative')}>
-            <div className={cn(styles.gradient2, 'radial-gradient-piece')} />
-            <div
-              className={cn(
-                styles.list,
-                'd-flex flex-wrap align-items-center flex-md-row full-width justify-content-between',
-              )}
-            >
-              {NIFTY_DEGENS_ALL.map(({ name, image }) => (
-                <div className="mb-3 px-3 col-4" key={name}>
-                  <div className="d-flex flex-column">
-                    <AnimatedWrapper>
-                      <div className="text-align-center position-relative animated-fade-slow animated-fade-start transition-delay-small">
-                        <Image
-                          src={image.link}
-                          alt={name}
-                          width={desktop ? image.width : image.width / 2}
-                          height={desktop ? image.height : image.height / 2}
-                        />
-                      </div>
-                    </AnimatedWrapper>
-                    <AnimatedWrapper>
-                      <h6 className="text-align-center px-3 mt-3 animated-fade-slow animated-fade-start transition-delay-small">
-                        {name}
-                      </h6>
-                    </AnimatedWrapper>
+        <section className="section relative">
+          <div className="purple-bg-orb orb-bottom-right" />
+          <div className={cn(styles.list, 'flex flex-wrap items-center md:flex-row w-full justify-between')}>
+            {NIFTY_DEGENS_ALL.map(({ name, image }) => (
+              <div className="flex flex-col mb-3 px-3 w-1/3" key={name}>
+                <AnimatedWrapper>
+                  <div className="transition-fade-slow transition-fade-start delay-lite">
+                    <Image
+                      src={image.link}
+                      alt={name}
+                      width={desktop ? image.width : image.width / 2}
+                      height={desktop ? image.height : image.height / 2}
+                      className="mx-auto"
+                    />
                   </div>
-                </div>
-              ))}
-            </div>
-            <div className="mb-4">
+                </AnimatedWrapper>
+                <AnimatedWrapper>
+                  <h6 className="mx-auto text-center mt-3 transition-fade-slow transition-fade-start delay-lite">
+                    {name}
+                  </h6>
+                </AnimatedWrapper>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="mb-10 max-w-3xl mx-auto">
+            <div className="mb-5">
               <AnimatedWrapper>
-                <h3 className="mt-2 text-align-center animated-header-text animated-header-text-start transition-delay-small">
+                <h2 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">
                   DEGEN TRIBES
-                </h3>
+                </h2>
               </AnimatedWrapper>
             </div>
-            <div className="mb-0 position-relative">
+            <div className="relative">
               <AnimatedWrapper>
-                <p className="text-align-center animated-header-text animated-header-text-start transition-delay-medium">
+                <p className="text-center transition-vertical-fade transition-vertical-fade-start delay-normal">
                   There are 7 genesis DEGEN tribes each with their own special abilities in our games. These NFTs are
                   digital assets that represent special game avatars inside the Nifty League ecosystem. Owners can also
                   use their DEGEN NFTs in several other partner projects such as WORLDWIDE WEBB or CRYPTO FOXES.
                 </p>
               </AnimatedWrapper>
-              <div className={cn(styles.gradient1, 'radial-gradient-piece')} />
+              <div className="purple-bg-orb orb-top-left" />
             </div>
           </div>
-        </Container>
 
-        <DegensSection />
+          <DegenSpecialsTable />
 
-        <div className="d-flex justify-content-center my-5">
-          <AnimatedWrapper>
-            <a href="/docs/overview/nfts/degens/about" target="_blank" rel="noreferrer">
-              <button
-                className={cn(
-                  styles.button,
-                  'btn theme-btn-primary px-3 animated-fade-slow animated-fade-start transition-delay-medium',
-                )}
-              >
-                View Docs
-                <ExternalIcon />
-              </button>
-            </a>
-          </AnimatedWrapper>
-        </div>
+          <ThemeBtnGroup
+            className="mt-6 xl:mt-8"
+            primary={{ href: '/docs/overview/nfts/degens/about', title: 'VIEW DOCS', external: true }}
+          />
+        </section>
       </div>
     </>
   );

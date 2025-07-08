@@ -14,12 +14,10 @@ const GridItem = styled(Grid)(({ theme }) => ({
   paddingRight: 16,
   paddingBottom: 32,
   border: 'none',
-  [theme.breakpoints.down('sm')]: {
-    paddingBottom: 0,
-  },
+  [theme.breakpoints.down('sm')]: { paddingBottom: 0 },
 }));
 
-const MobileGameList = () => {
+const Web3GameList = () => {
   const router = useRouter();
   const { tokensBalances, refetchArcadeBal } = useTokensBalances();
   const [openBuyAT, setOpenBuyAT] = useState(false);
@@ -50,13 +48,10 @@ const MobileGameList = () => {
 
   return (
     <>
-      <GridItem size={{ xs: 12, sm: 6, md: 4, lg: 4, xl: 3 }}>
+      <GridItem size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
         <GameCard
           title="2D Smashers"
-          externalLink={{
-            title: 'Smashers Mobile',
-            src: 'https://niftysmashers.com/',
-          }}
+          externalLink={{ title: 'Smashers Mobile', src: 'https://niftysmashers.com/' }}
           required="DEPRECATED - Please download our mobile app!"
           description="The first NFT brawler on the Ethereum blockchain. Now available free-to-play on all mobile platforms!"
           image="/img/games/smashers/nifty-smashers.gif"
@@ -80,7 +75,7 @@ const MobileGameList = () => {
           }
         />
       </GridItem>
-      <GridItem size={{ xs: 12, sm: 6, md: 4, lg: 4, xl: 3 }}>
+      <GridItem size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
         <GameCard
           title="WEN Game"
           required="Arcade Tokens Required"
@@ -102,7 +97,7 @@ const MobileGameList = () => {
           }
         />
       </GridItem>
-      <GridItem size={{ xs: 12, sm: 6, md: 4, lg: 4, xl: 3 }}>
+      <GridItem size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
         <GameCard
           title="Crypto Winter"
           required="Arcade Tokens Required"
@@ -124,7 +119,7 @@ const MobileGameList = () => {
           }
         />
       </GridItem>
-      <GridItem size={{ xs: 12, sm: 6, md: 4, lg: 4, xl: 3 }}>
+      <GridItem size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
         <GameCard
           title="Mt. Gawx"
           required="NFTL required"
@@ -148,7 +143,7 @@ const MobileGameList = () => {
           }
         />
       </GridItem>
-      <GridItem size={{ xs: 12, sm: 6, md: 4, lg: 4, xl: 3 }}>
+      <GridItem size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
         <GameCard
           title="Nifty Tennis"
           required="Unreleased"
@@ -186,4 +181,4 @@ const MobileGameList = () => {
   );
 };
 
-export default MobileGameList;
+export default Web3GameList;

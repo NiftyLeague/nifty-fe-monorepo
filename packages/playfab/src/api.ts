@@ -51,11 +51,7 @@ async function CallClientAPI<T extends PlayFabModule.IPlayFabResultCommon>(
 /*************************************** Login / Sign Up **********************************************/
 
 export const RegisterPlayFabUser = async (params: { Email: string; Password: string }): Promise<RegisterUserResult> => {
-  const request = {
-    ...params,
-    Username: getRandomKey(20),
-    RequireBothUsernameAndEmail: true,
-  };
+  const request = { ...params, Username: getRandomKey(20), RequireBothUsernameAndEmail: true };
   return CallClientAPI<RegisterUserResult>('RegisterPlayFabUser', request);
 };
 
@@ -205,13 +201,7 @@ export async function GetUserPublisherReadOnlyData(
   Keys: string[],
   SessionTicket: string,
 ): Promise<PublisherDataResult> {
-  return CallClientAPI<PublisherDataResult>(
-    'GetUserPublisherReadOnlyData',
-    {
-      Keys,
-    },
-    SessionTicket,
-  );
+  return CallClientAPI<PublisherDataResult>('GetUserPublisherReadOnlyData', { Keys }, SessionTicket);
 }
 
 export const GetUserPublisherData = async (SessionTicket: string): Promise<UserData> => {
@@ -323,22 +313,12 @@ export async function LinkWallet({
     throw new Error(`${address.substring(0, 6)}... address is already linked to this account`);
 
   const FunctionName = 'Accounts_LinkWallet';
-  const FunctionParameter = {
-    Chain: chain,
-    Address: address.toLowerCase(),
-    Signature: signature,
-    Nonce: nonce,
-  };
+  const FunctionParameter = { Chain: chain, Address: address.toLowerCase(), Signature: signature, Nonce: nonce };
 
   return ExecuteFunction(FunctionName, FunctionParameter, EntityToken);
 }
 
-type UnlinkWalletParams = {
-  chain?: string;
-  address: string;
-  EntityToken: string;
-  SessionTicket: string;
-};
+type UnlinkWalletParams = { chain?: string; address: string; EntityToken: string; SessionTicket: string };
 
 export async function UnlinkWallet({
   chain = 'ethereum',
@@ -354,10 +334,7 @@ export async function UnlinkWallet({
     throw new Error(`${address.substring(0, 6)}... address is not linked to this account`);
 
   const FunctionName = 'Accounts_UnlinkWallet';
-  const FunctionParameter = {
-    Chain: chain,
-    Address: address.toLowerCase(),
-  };
+  const FunctionParameter = { Chain: chain, Address: address.toLowerCase() };
 
   return ExecuteFunction(FunctionName, FunctionParameter, EntityToken);
 }

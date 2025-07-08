@@ -1113,9 +1113,7 @@ export const RIGHT_ITEMS = {
   1023: 'Wand',
 };
 
-export const PROPERTY = {
-  1024: 'Naked Gang',
-};
+export const PROPERTY = { 1024: 'Naked Gang' };
 
 export const TRAIT_VALUE_MAP = {
   // Tribes: TRIBES,

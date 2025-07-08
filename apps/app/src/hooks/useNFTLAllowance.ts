@@ -13,10 +13,7 @@ import type { UseReadContractParams } from '@/types/web3';
 
 const NFTL_CONTRACT = getDeployedContract(TARGET_NETWORK.chainId, NFTL_CONTRACT_NAME);
 
-type Allowance = {
-  args: [AddressLike, AddressLike];
-  result: bigint;
-};
+type Allowance = { args: [AddressLike, AddressLike]; result: bigint };
 
 type NFTLAllowanceState = { allowance: number; loading: boolean; refetch: () => void };
 
@@ -36,10 +33,7 @@ export default function useNFTLAllowance(contractAddress: `0x${string}`): NFTLAl
     chainId: TARGET_NETWORK.chainId,
     functionName: 'allowance',
     args: [address, contractAddress],
-    query: {
-      staleTime: 10_000,
-      enabled: isLoggedIn && isConnected && contractAddress.length > 0,
-    },
+    query: { staleTime: 10_000, enabled: isLoggedIn && isConnected && contractAddress.length > 0 },
   });
 
   // Convert the allowance from wei bigint to ether number

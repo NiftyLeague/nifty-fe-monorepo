@@ -20,9 +20,7 @@ const useRentalRenameFee = (degenId: string | undefined): [boolean, boolean, num
         setLoading(true);
         const res = await fetch(RENTAL_RENAME_URL(degenId as string), {
           method: 'GET',
-          headers: {
-            authorizationToken: authToken,
-          },
+          headers: { authorizationToken: authToken },
         });
         if (res.status === 404 || res.status === 401) {
           throw Error('Not Found');
