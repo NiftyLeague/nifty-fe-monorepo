@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect } from 'react';
 import { useUnityContext } from 'react-unity-webgl';
 

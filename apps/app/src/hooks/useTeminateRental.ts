@@ -1,3 +1,5 @@
+'use client';
+
 import { TERMINATE_RENTAL_API_URL } from '@/constants/url';
 import useAuth from './useAuth';
 

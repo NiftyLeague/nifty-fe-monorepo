@@ -1,3 +1,5 @@
+'use client';
+
 import { PROFILE_RENAME_API } from '@/constants/url';
 import useAuth from '@/hooks/useAuth';
 import useFetch from '@/hooks/useFetch';

@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback, useEffect, useRef } from 'react';
 import { ReactUnityEventParameter } from 'react-unity-webgl/distribution/types/react-unity-event-parameters';
 

@@ -1,3 +1,5 @@
+'use client';
+
 import useSWR from 'swr';
 import type { User, UserInfo } from '../types';
 import { USER_INFO_INITIAL_STATE } from '../constants';

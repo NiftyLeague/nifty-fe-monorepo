@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { GET_ARCADE_TOKEN_BALANCE_API } from '@/constants/url';

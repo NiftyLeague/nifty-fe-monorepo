@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import type { Abi, GetBlockNumberErrorType } from 'viem';
 import { formatEther } from 'viem';
