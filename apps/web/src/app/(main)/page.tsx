@@ -186,7 +186,7 @@ const Home: NextPage = () => {
       {/* SMASHERS */}
       <section className="w-screen relative text-center" ref={gamingSectionRef}>
         <AnimatedWrapper>
-          <h2 className="absolute w-full z-10 mt-8 md:mt-16 lg:mt-22 transition-vertical-fade transition-vertical-fade-start">
+          <h2 className="absolute w-full z-10 mt-0 sm:mt-8 md:mt-16 lg:mt-22 transition-vertical-fade transition-vertical-fade-start">
             CLASSIC GAMING REINVENTED
           </h2>
         </AnimatedWrapper>
@@ -195,7 +195,7 @@ const Home: NextPage = () => {
 
         <ThemeBtnGroup
           className="absolute bottom-0 sm:bottom-4"
-          primary={{ href: 'https://niftysmashers.com', title: 'START PLAYING', external: true }}
+          primary={{ href: 'https://niftysmashers.com', title: 'SMASHERS', external: true }}
           secondary={{ href: '/games', title: 'MORE GAMES' }}
         />
       </section>
@@ -419,7 +419,7 @@ const Home: NextPage = () => {
 
       {/* NFTL TOKEN */}
       <section className="section container relative flex flex-row flex-wrap-reverse items-center">
-        <div className="relative w-full md:w-1/2 flex flex-col">
+        <div className="relative w-full md:w-1/2 flex flex-col text-center md:text-left">
           <div className="purple-bg-orb orb-top-left" />
           <AnimatedWrapper>
             <h2 className="mb-3 section-heading transition-vertical-fade transition-vertical-fade-start delay-lite">
@@ -497,7 +497,11 @@ const Home: NextPage = () => {
             </AnimatedWrapper>
             <ThemeBtnGroup
               className="md:justify-start"
-              primary={{ href: 'https://discord.gg/niftyleague', title: 'JOIN DISCORD', external: true }}
+              primary={{
+                href: 'https://discord.gg/niftyleague',
+                title: isMobile ? 'DISCORD' : 'JOIN DISCORD',
+                external: true,
+              }}
               secondary={{ href: '/community', title: 'VIEW MORE' }}
             />
           </div>
@@ -530,7 +534,7 @@ const Home: NextPage = () => {
         )}
         <ThemeBtnGroup
           primary={{ href: '/careers', title: 'JOIN THE TEAM' }}
-          secondary={{ href: '/blog', title: 'READ OUR BLOG', external: true }}
+          secondary={{ href: '/blog', title: isMobile ? 'READ BLOG' : 'READ OUR BLOG', external: true }}
         />
       </section>
     </MainLayout>

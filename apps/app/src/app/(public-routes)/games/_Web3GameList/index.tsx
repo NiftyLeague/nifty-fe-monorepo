@@ -17,7 +17,7 @@ const GridItem = styled(Grid)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: { paddingBottom: 0 },
 }));
 
-const MobileGameList = () => {
+const Web3GameList = () => {
   const router = useRouter();
   const { tokensBalances, refetchArcadeBal } = useTokensBalances();
   const [openBuyAT, setOpenBuyAT] = useState(false);
@@ -181,4 +181,4 @@ const MobileGameList = () => {
   );
 };
 
-export default MobileGameList;
+export default Web3GameList;

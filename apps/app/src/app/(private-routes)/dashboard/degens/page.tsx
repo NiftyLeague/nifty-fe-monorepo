@@ -106,8 +106,8 @@ const DashboardDegensPage = (): React.ReactNode => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [degensBalances?.length, !!data]);
 
+  const isMobile = useMediaQuery('(max-width:640px)');
   const isSmallScreen = useMediaQuery('(max-width:1280px)');
-
   const { jump, dataForCurrentPage, maxPage, currentPage } = usePagination<Degen>(
     filteredData,
     !isSmallScreen && layoutMode !== 'gridView' && !isDrawerOpen ? 18 : DEGENS_PER_PAGE,
@@ -331,6 +331,7 @@ const DashboardDegensPage = (): React.ReactNode => {
             page={currentPage}
             color="primary"
             sx={{ margin: '0 auto', paddingBottom: '16px' }}
+            size={isMobile ? 'small' : 'medium'}
             onChange={(e: React.ChangeEvent<unknown>, p: number) => jump(p)}
           />
         )}
@@ -343,6 +344,7 @@ const DashboardDegensPage = (): React.ReactNode => {
       filteredData.length,
       isConnected,
       isDrawerOpen,
+      isMobile,
       jump,
       loading,
       maxPage,
