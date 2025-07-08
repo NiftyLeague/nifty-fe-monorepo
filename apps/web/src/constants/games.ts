@@ -1,4 +1,19 @@
-export const NIFTY_GAMES = [
+interface NiftyGame {
+  name: string;
+  description: string;
+  video: string;
+  tag: string;
+  action: {
+    title?: string;
+    link?: string;
+    secondaryLink?: string;
+    secondaryTitle?: string;
+    isComingSoon?: boolean;
+    isDisabled?: boolean;
+  };
+}
+
+export const NIFTY_GAMES: NiftyGame[] = [
   {
     name: 'NIFTY SMASHERS',
     description: `As Nifty League's flagship game, this brawl-style party game will have you white-knuckled and on the edge of your seat as you try to out-click, out-smart and out-smash your opponent in a winner-takes-all DEGEN battle!`,
@@ -8,8 +23,8 @@ export const NIFTY_GAMES = [
       title: "LET'S BRAWL!",
       link: 'https://niftysmashers.com',
       isComingSoon: false,
-      secondaryLink: '/compete-and-earn',
-      secondaryTitle: 'COMPETE & EARN?',
+      // secondaryLink: '/compete-and-earn',
+      // secondaryTitle: 'COMPETE & EARN?',
     },
   },
   {

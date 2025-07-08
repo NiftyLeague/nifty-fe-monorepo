@@ -186,7 +186,7 @@ const Home: NextPage = () => {
       {/* SMASHERS */}
       <section className="w-screen relative text-center" ref={gamingSectionRef}>
         <AnimatedWrapper>
-          <h2 className="absolute w-full z-10 mt-0 sm:mt-8 md:mt-16 lg:mt-22 transition-vertical-fade transition-vertical-fade-start">
+          <h2 className="absolute w-full z-10 -mt-4 sm:mt-8 md:mt-16 lg:mt-22 transition-vertical-fade transition-vertical-fade-start">
             CLASSIC GAMING REINVENTED
           </h2>
         </AnimatedWrapper>
@@ -204,7 +204,7 @@ const Home: NextPage = () => {
       <section className="section w-screen relative flex flex-col text-center sliding-nfts">
         <AnimatedWrapper>
           <h2 className="my-3 lg:my-5 px-5 sm:px-8 transition-vertical-fade transition-vertical-fade-start">
-            COMMUNITY-GENERATED AVATARS
+            {isMobile ? 'OWN YOUR AVATAR' : 'COMMUNITY-GENERATED AVATARS'}
           </h2>
         </AnimatedWrapper>
 
@@ -306,7 +306,11 @@ const Home: NextPage = () => {
               </AnimatedWrapper>
               <ThemeBtnGroup
                 className="md:justify-start"
-                primary={{ href: 'https://niftysmashers.com', title: "LET'S BRAWL!", external: true }}
+                primary={{
+                  href: 'https://niftysmashers.com',
+                  title: isMobile ? 'BRAWL!' : "LET'S BRAWL!",
+                  external: true,
+                }}
                 secondary={{ href: '/compete-and-earn', title: 'LEARN MORE' }}
               />
             </div>
