@@ -1,3 +1,5 @@
+'use client';
+
 import type { ProfileAvatar } from '@/types/account';
 import { GET_PROFILE_AVATARS_AND_COST_API } from '@/constants/url';
 import useFetch from '@/hooks/useFetch';

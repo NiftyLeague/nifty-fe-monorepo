@@ -1,3 +1,4 @@
+'use client';
 // import { useState, useEffect } from 'react';
 // import { getProviders } from 'next-auth/react';
 import type { Provider } from '../types';

@@ -1,3 +1,5 @@
+'use client';
+
 import { useContext } from 'react';
 import { UserContext } from '../components/UserContextProvider';
 import type { UserContextType } from '../types';

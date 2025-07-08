@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import { BrowserProvider, JsonRpcSigner } from 'ethers6';
 import { type Chain, immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains';

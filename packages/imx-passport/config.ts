@@ -23,8 +23,8 @@ const env = {
 };
 
 const baseURL = typeof window !== 'undefined' && window?.location?.origin;
-const environment =
-  process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' ? config.Environment.PRODUCTION : config.Environment.SANDBOX;
+const isProduction = process.env.NEXT_PUBLIC_VERCEL_ENV === 'production';
+const environment = isProduction ? config.Environment.PRODUCTION : config.Environment.SANDBOX;
 
 const passportConfig: PassportModuleConfiguration = {
   baseConfig: {

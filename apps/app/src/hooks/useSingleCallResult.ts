@@ -1,5 +1,4 @@
 'use client';
-
 /* eslint-disable no-console */
 import { useState, useEffect } from 'react';
 import type { BaseContract, Contract, ContractMethod } from 'ethers6';

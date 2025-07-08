@@ -1,3 +1,5 @@
+'use client';
+
 import { useContext } from 'react';
 import { FlagSet, ProviderConfig, FeatureFlagContext } from '@/contexts/FeatureFlagsContext';
 

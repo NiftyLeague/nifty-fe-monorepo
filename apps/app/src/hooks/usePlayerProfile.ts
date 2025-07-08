@@ -1,3 +1,5 @@
+'use client';
+
 import { MY_PROFILE_API_URL } from '@/constants/url';
 import type { Profile } from '@/types/account';
 import useAuth from './useAuth';
