@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { cn } from '@nl/ui/lib/utils';
 import ActionButtonsGroup from './ActionButtonsGroup';
 import Navbar from './Navbar';
 
@@ -9,8 +8,8 @@ type ActiveModal = 'credits' | 'play' | 'trailer' | 'unity' | null;
 
 export default function Header({ openModal }: { openModal: (modal: ActiveModal) => void }) {
   return (
-    <div className={cn(styles.hero, styles.controlledDVH)}>
-      <div className={cn('dark-gradient-overlay', styles.controlledDVH)} />
+    <div className={styles.hero}>
+      <div className="dark-gradient-overlay !h-screen" />
       <div className={styles.heroContainer}>
         <Navbar />
         <div className={styles.heroContent}>
