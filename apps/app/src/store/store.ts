@@ -5,10 +5,7 @@ import storage from 'redux-persist/lib/storage';
 
 import rootReducer from './reducer';
 
-const persistConfig = {
-  key: 'persist',
-  storage,
-};
+const persistConfig = { key: 'persist', storage };
 
 // ==============================|| REDUX - MAIN STORE ||============================== //
 

@@ -2,27 +2,20 @@
 
 import type { NextPage } from 'next';
 import Image from 'next/image';
-import cn from 'classnames';
 
-import { Container, useMediaQuery } from '@mui/material';
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import JobCard from '@/components/Careers/JobCard';
-import AnimatedWrapper from '@/components/AnimatedWrapper';
 import { JOBS } from '@/constants/careers';
-import styles from './index.module.scss';
 
 const Careers: NextPage = () => {
   const desktop = useMediaQuery('(min-width:769px)');
   return (
-    <Container>
-      <div className={cn(styles.topSection, 'd-flex align-items-center justify-content-center flex-wrap px-3')}>
-        <div className={`${desktop ? 'col-6 pe-5' : 'full-width mb-5'}`}>
+    <div className="container pt-20">
+      <section className="section flex items-center justify-center flex-wrap">
+        <div className={`${desktop ? 'w-1/2 pr-5' : 'w-full mb-5'}`}>
           <AnimatedWrapper>
-            <div
-              className={cn(
-                styles.imageContainer,
-                'position-relative flex-grow-1 animated-fade-start animated-fade transition-delay-small',
-              )}
-            >
+            <div className="relative flex-grow-1 transition-fade-start transition-fade delay-lite">
               <Image
                 src="/img/careers/careers_v02_2x.webp"
                 alt="Satoshi moon"
@@ -30,25 +23,22 @@ const Careers: NextPage = () => {
                 height={406}
                 priority
                 sizes="100vw"
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                }}
+                style={{ width: '100%', height: 'auto' }}
               />
             </div>
           </AnimatedWrapper>
         </div>
-        <div className={`${desktop ? 'col-6' : 'full-width'}`}>
-          <div className={styles.description}>
+        <div className={`${desktop ? 'w-1/2' : 'w-full'}`}>
+          <div className="flex-1 text-center md:text-left">
             <div className="mb-3">
               <AnimatedWrapper>
-                <h3 className="animated-header-text animated-header-text-start" style={{ whiteSpace: 'nowrap' }}>
+                <h3 className="transition-vertical-fade transition-vertical-fade-start whitespace-nowrap">
                   JOIN NIFTY LEAGUE
                 </h3>
               </AnimatedWrapper>
             </div>
             <AnimatedWrapper>
-              <p className="animated-header-text animated-header-text-start transition-delay-small">
+              <p className="transition-vertical-fade transition-vertical-fade-start delay-lite">
                 Nifty League&apos;s mission is to create an open & efficient path for indie studios to develop & publish
                 groundbreaking games. We are backed by top VCs including RSE Ventures, Lerer Hippeau, Spartan Group, and
                 Gary Vaynerchuk, and are looking to bulk out our engineering team with world-class Unity game
@@ -59,14 +49,14 @@ const Careers: NextPage = () => {
             </AnimatedWrapper>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div className="py-5">
+      <section className="section">
         {JOBS.map(details => (
           <JobCard key={details.id} details={details} />
         ))}
-      </div>
-    </Container>
+      </section>
+    </div>
   );
 };
 

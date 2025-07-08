@@ -5,6 +5,7 @@ export interface DegenFilter {
   tribes: string[];
   backgrounds: string[];
   sort?: string;
+  tokenId?: string[];
   cosmetics: string[];
   wearables: string[];
   searchTerm: string[];

@@ -14,9 +14,7 @@ import {
 } from '@mui/material';
 
 // constant
-const headerSX = {
-  '& .MuiCardHeader-action': { mr: 0 },
-};
+const headerSX = { '& .MuiCardHeader-action': { mr: 0 } };
 
 // ==============================|| CUSTOM MAIN CARD ||============================== //
 
@@ -62,8 +60,8 @@ const MainCard = forwardRef(
         ref={ref}
         {...others}
         sx={{
-          border: border ? '1px solid' : 'none',
-          borderColor: theme.palette.mode === 'dark' ? theme.palette.background.default : theme.palette.primary.main,
+          height: '100%',
+          border: border ? 'var(--border-default)' : 'none',
           ':hover': {
             boxShadow: boxShadow
               ? shadow ||
@@ -82,13 +80,7 @@ const MainCard = forwardRef(
         )}
 
         {/* content & header divider */}
-        {title && (
-          <Divider
-            sx={{
-              opacity: '0.6',
-            }}
-          />
-        )}
+        {title && <Divider sx={{ opacity: '0.6' }} />}
 
         {/* card content */}
         {content && (

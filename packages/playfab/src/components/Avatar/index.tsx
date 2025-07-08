@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import cn from 'classnames';
+import { cn } from '@nl/ui/lib/utils';
 import { useSnackbar } from 'notistack';
-import { IconUpload } from '@nl/ui/supabase';
+import { IconUpload } from '@nl/ui/supabase/Icon';
 
 import styles from '../../styles/profile.module.css';
 
@@ -55,10 +55,7 @@ export default function Avatar({
           className={cn(styles.avatar, styles.image)}
           height={size}
           width={size}
-          style={{
-            maxWidth: '100%',
-            height: 'auto',
-          }}
+          style={{ maxWidth: '100%', height: 'auto' }}
         />
       ) : (
         <div className={cn(styles.avatar, styles.no_image)} style={{ height: size, width: size }} />
@@ -74,10 +71,7 @@ export default function Avatar({
           )}
         </label>
         <input
-          style={{
-            visibility: 'hidden',
-            position: 'absolute',
-          }}
+          style={{ visibility: 'hidden', position: 'absolute' }}
           type="file"
           id="single"
           accept="image/*"

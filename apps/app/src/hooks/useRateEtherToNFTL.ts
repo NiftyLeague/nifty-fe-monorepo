@@ -26,9 +26,7 @@ export default function useRateEtherToNFTL(): RateEtherToNFTLState {
   const fetchRateEtherToNFTL = async () => {
     try {
       setLoading(true);
-      const response = await fetch(CONVERT_TOKEN_TO_USD_URL + 'nifty-league', {
-        method: 'GET',
-      });
+      const response = await fetch(CONVERT_TOKEN_TO_USD_URL + 'nifty-league', { method: 'GET' });
       const json = await response.json();
       setRate(json.crypto.eth);
     } catch (err) {
@@ -42,9 +40,5 @@ export default function useRateEtherToNFTL(): RateEtherToNFTLState {
     fetchRateEtherToNFTL();
   }, []);
 
-  return {
-    rate,
-    refetch: fetchRateEtherToNFTL,
-    loading,
-  };
+  return { rate, refetch: fetchRateEtherToNFTL, loading };
 }

@@ -5,6 +5,7 @@ const DEFAULT_STATIC_FILTER: DegenFilter = {
   multipliers: [],
   rentals: [],
   tribes: [],
+  tokenId: [],
   backgrounds: [],
   sort: 'idUp',
   cosmetics: [],

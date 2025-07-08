@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button, Grid, IconButton, Stack } from '@mui/material';
-import { useTheme } from '@nl/theme';
 
 import { formatNumberToDisplay } from '@/utils/numbers';
 import useTokensBalances from '@/hooks/balances/useTokensBalances';
@@ -12,7 +11,6 @@ import HoverDataCard from '@/components/cards/HoverDataCard';
 import { GOVERNANCE_PORTAL_URL, SNAPSHOT_PORTAL_URL } from '@/constants/url';
 
 const WalletBalances = (): React.ReactNode => {
-  const theme = useTheme();
   const { loadingNFTLBal, tokensBalances } = useTokensBalances();
 
   return (
@@ -23,9 +21,8 @@ const WalletBalances = (): React.ReactNode => {
           primary={`${formatNumberToDisplay(tokensBalances.NFTL.imx)} NFTL`}
           isLoading={loadingNFTLBal}
           customStyle={{
-            backgroundColor: theme.palette.background.default,
-            border: '1px solid',
-            borderColor: theme.palette.border,
+            backgroundColor: 'var(--color-background-3)',
+            border: 'var(--border-default)',
             position: 'relative',
           }}
           secondary="Available to Use"
@@ -55,9 +52,8 @@ const WalletBalances = (): React.ReactNode => {
           title="ETH Wallet"
           primary={`${formatNumberToDisplay(tokensBalances.NFTL.eth)} NFTL`}
           customStyle={{
-            backgroundColor: theme.palette.background.default,
-            border: '1px solid',
-            borderColor: theme.palette.border,
+            backgroundColor: 'var(--color-background-3)',
+            border: 'var(--border-default)',
             position: 'relative',
           }}
           secondary="Available to Bridge"

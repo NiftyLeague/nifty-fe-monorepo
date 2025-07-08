@@ -1,30 +1,28 @@
 'use client';
 
-import cn from 'classnames';
 import type { NextPage } from 'next';
-import Link from 'next/link';
 
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import Carousel from '@/components/Carousel';
 import { RenderTeamCardItem } from '@/components/Carousel/TeamCardItem';
+import ThemeBtnGroup from '@/components/ThemeBtnGroup';
 import TeamDesktop from '@/components/TeamDesktop';
-import AnimatedWrapper from '@/components/AnimatedWrapper';
 import { CORE_TEAM, DEGEN_DELEGATES } from '@/constants/team';
-import styles from './index.module.scss';
 
 const Team: NextPage = () => {
   return (
     <>
-      <div className={cn(styles.container, 'mx-auto px-3')}>
-        <div className="about-intro mt-5 pt-5 position-relative">
-          <div className="row m-0 p-0 pt-sm-5 position-relative d-flex flex-column align-items-center">
+      <div className="container pt-20">
+        <section className="section relative">
+          <div className="flex flex-col items-center">
             <AnimatedWrapper>
-              <h1 className="text-center animated-header-text animated-header-text-start transition-delay-small">
+              <h1 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">
                 NIFTY DAO
               </h1>
             </AnimatedWrapper>
-            <div className={cn(styles.body, 'mt-5 mt-sm-3')}>
+            <div className="mt-5 sm:mt-3 max-w-2xl">
               <AnimatedWrapper>
-                <p className="text-center p1 animated-header-text animated-header-text-start transition-delay-medium">
+                <p className="text-center p1 transition-vertical-fade transition-vertical-fade-start delay-normal">
                   Nifty League is a game studio at the cutting edge of Web3. Our mission is to inspire indie game
                   developers to build a decentralized future with us by establishing a game studio focused on
                   unparalleled quality and player experiences.
@@ -32,7 +30,7 @@ const Team: NextPage = () => {
                 <br />
               </AnimatedWrapper>
               <AnimatedWrapper>
-                <p className="text-center p1 animated-header-text animated-header-text-start transition-delay-medium">
+                <p className="text-center p1 transition-vertical-fade transition-vertical-fade-start delay-normal">
                   We will gradually transfer ownership of Nifty League to our DAO in order to decentralize the platform
                   and encourage others to build with us! Our vision is to power rapid growth and development through
                   community contributions enabling us to build a gaming platform like no other. Simply put, DAOs are the
@@ -42,49 +40,31 @@ const Team: NextPage = () => {
               </AnimatedWrapper>
             </div>
 
-            <div className="display-buttons mt-3 mt-md-4 d-flex justify-content-center desktop">
-              <AnimatedWrapper>
-                <Link href="/careers">
-                  <button className="btn theme-btn-primary mx-sm-2 animated-fade-slow animated-fade-start transition-delay-medium">
-                    Join Us
-                  </button>
-                </Link>
-              </AnimatedWrapper>
-              <AnimatedWrapper>
-                <Link href="/roadmap">
-                  <button className="btn theme-btn-transparent mx-sm-2 mx-0 animated-fade-slow animated-fade-start transition-delay-medium">
-                    Check our roadmap
-                  </button>
-                </Link>
-              </AnimatedWrapper>
-            </div>
+            <ThemeBtnGroup
+              primary={{ href: '/careers', title: 'JOIN US' }}
+              secondary={{ href: '/roadmap', title: 'VIEW OUR ROADMAP' }}
+            />
           </div>
-          <div className={cn(styles.gradient1, 'radial-gradient-piece')} />
-        </div>
-      </div>
+          <div className="purple-bg-orb orb-top-right" />
+        </section>
 
-      <div className={cn(styles.container, 'mx-auto px-3')}>
-        <div className={cn(styles.section, 'position-relative pb-5')}>
+        <section className="section relative">
           <AnimatedWrapper>
-            <h4 className="text-align-center animated-header-text animated-header-text-start transition-delay-small">
+            <h4 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">
               MEET THE DEGENS WHO MAKE NIFTY LEAGUE POSSIBLE
             </h4>
           </AnimatedWrapper>
           <TeamDesktop />
-          <section
-            className="teams-slider slider px-0 mobile-block"
-            style={{
-              alignItems: 'center',
-              maxWidth: '100%',
-              textAlign: 'center',
-              minHeight: 300,
-            }}
+          <div
+            className="teams-slider slider px-0 block md:hidden"
+            style={{ alignItems: 'center', maxWidth: '100%', textAlign: 'center', minHeight: 300 }}
           >
             <Carousel isMobileViewOnly hideGradient tabletItems={2}>
               {[...CORE_TEAM, ...DEGEN_DELEGATES].map(RenderTeamCardItem)}
             </Carousel>
-          </section>
-        </div>
+          </div>
+          <div className="purple-bg-orb orb-top-left" />
+        </section>
       </div>
     </>
   );

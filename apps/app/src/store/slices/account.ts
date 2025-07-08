@@ -2,9 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 // action - state management
 import type { InitialLoginContextProps } from '@/types/auth';
 
-export const initialState: InitialLoginContextProps = {
-  isLoggedIn: false,
-};
+export const initialState: InitialLoginContextProps = { isLoggedIn: false };
 
 // ==============================|| SLICE - ACCOUNT ||============================== //
 

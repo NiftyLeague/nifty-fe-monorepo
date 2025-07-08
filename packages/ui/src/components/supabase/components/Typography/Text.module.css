@@ -1,0 +1,111 @@
+.sbui-typography-text {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  --tw-text-opacity: 1;
+  color: rgba(75, 85, 99, var(--tw-text-opacity));
+}
+
+:global(.dark) .sbui-typography-text {
+  --tw-text-opacity: 1;
+  color: rgba(238, 238, 238, var(--tw-text-opacity));
+}
+
+.sbui-typography-text-small {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.sbui-typography-text-secondary {
+  --tw-text-opacity: 1;
+  color: rgba(107, 114, 128, var(--tw-text-opacity));
+}
+
+:global(.dark) .sbui-typography-text-secondary {
+  --tw-text-opacity: 1;
+  color: rgba(187, 187, 187, var(--tw-text-opacity));
+}
+
+.sbui-typography-text-success {
+  --tw-text-opacity: 1;
+  color: rgba(16, 185, 129, var(--tw-text-opacity));
+}
+
+:global(.dark) .sbui-typography-text-success {
+  --tw-text-opacity: 1;
+  color: rgba(16, 185, 129, var(--tw-text-opacity));
+}
+
+.sbui-typography-text-warning {
+  --tw-text-opacity: 1;
+  color: rgba(245, 158, 11, var(--tw-text-opacity));
+}
+
+:global(.dark) .sbui-typography-text-warning {
+  --tw-text-opacity: 1;
+  color: rgba(245, 158, 11, var(--tw-text-opacity));
+}
+
+.sbui-typography-text-danger {
+  --tw-text-opacity: 1;
+  color: rgba(239, 68, 68, var(--tw-text-opacity));
+}
+
+:global(.dark) .sbui-typography-text-danger {
+  --tw-text-opacity: 1;
+  color: rgba(239, 68, 68, var(--tw-text-opacity));
+}
+
+.sbui-typography-text-disabled {
+  --tw-text-opacity: 1;
+  color: rgba(187, 187, 187, var(--tw-text-opacity));
+}
+
+:global(.dark) .sbui-typography-text-disabled {
+  --tw-text-opacity: 1;
+  color: rgba(102, 102, 102, var(--tw-text-opacity));
+}
+
+.sbui-typography-text-disabled {
+  /* color: rgba(0,0,0,.25); */
+  cursor: not-allowed;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.sbui-typography-text-underline {
+  text-decoration: underline;
+}
+
+.sbui-typography-text-strikethrough {
+  text-decoration: line-through;
+}
+
+.sbui-typography-text strong {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+mark.sbui-typography-text {
+  padding: 0;
+  background-color: #ffe58f;
+}
+
+code.sbui-typography-text {
+  /* margin: 0 .2em; */
+  padding: 0.2em 0.4em 0.1em;
+  /* font-size: 85%; */
+  background: hsla(0, 0%, 58.8%, 0.1);
+  border: 1px solid hsla(0, 0%, 39.2%, 0.2);
+  border-radius: var(--border-radius-default);
+}
+
+kbd.sbui-typography-text {
+  /* margin: 0 .2em; */
+  padding: 0.15em 0.4em 0.1em;
+  /* font-size: 90%; */
+  background: hsla(0, 0%, 58.8%, 0.06);
+  border: solid hsla(0, 0%, 39.2%, 0.2);
+  border-width: 1px 1px 2px;
+  border-radius: var(--border-radius-default);
+}

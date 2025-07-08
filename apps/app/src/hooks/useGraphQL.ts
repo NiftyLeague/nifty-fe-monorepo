@@ -10,13 +10,14 @@ import { TARGET_NETWORK } from '@/constants/networks';
 import useAuth from '@/hooks/useAuth';
 
 const endpoint = TARGET_NETWORK.name === 'mainnet' ? SUBGRAPH_URI : SUBGRAPH_DEV_URI;
+const headers = { Authorization: `Bearer ${process.env.NEXT_PUBLIC_GRAPH_API_KEY}` };
 
 export function useCharacterSearch(tokenId?: string): UseQueryResult<CharactersQueryData['characters']> {
   const variables = { search: tokenId };
   return useQuery({
     queryKey: ['characters', tokenId],
     queryFn: async () => {
-      const { characters } = await request<CharactersQueryData>(endpoint, ID_SEARCH_QUERY, variables);
+      const { characters } = await request<CharactersQueryData>(endpoint, ID_SEARCH_QUERY, variables, headers);
       return characters;
     },
     enabled: !!tokenId,
@@ -31,7 +32,7 @@ export function useOwnerSearch(overrideAddress?: `0x${string}`): UseQueryResult<
   return useQuery({
     queryKey: ['owner', key],
     queryFn: async () => {
-      const { owner } = await request<OwnerQueryData>(endpoint, OWNER_QUERY, variables);
+      const { owner } = await request<OwnerQueryData>(endpoint, OWNER_QUERY, variables, headers);
       return owner;
     },
     enabled: key.length > 20 && isLoggedIn,

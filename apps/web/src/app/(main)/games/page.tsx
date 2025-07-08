@@ -1,135 +1,112 @@
 'use client';
 
-import cn from 'classnames';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import type { NextPage } from 'next';
-import Link from 'next/link';
 import Image from 'next/image';
-import AnimatedWrapper from '@/components/AnimatedWrapper';
+
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
+import { cn } from '@nl/ui/lib/utils';
+
+import ThemeBtnGroup from '@/components/ThemeBtnGroup';
 import { NIFTY_GAMES } from '@/constants/games';
-import { Container } from '@mui/material';
-import ExternalIcon from '@/components/ExternalIcon';
-import styles from './index.module.scss';
+import styles from './index.module.css';
 
 const Games: NextPage = () => {
   const desktop = useMediaQuery('(min-width:769px)');
   return (
-    <div className={cn(styles.container, 'overview mx-auto px-3 position-relative')}>
-      <div className={cn(styles.gradient1, 'radial-gradient-piece')} />
-      <Container>
-        <div className="d-flex align-items-center justify-content-center flex-wrap px-lg-5">
-          {desktop ? (
-            <div className="col-6 desktop px-2 px-lg-3">
-              <AnimatedWrapper>
-                <div className="animation-zoomin animated-fade-start animated-fade transition-delay-large">
-                  <video id="lobby" width="100%" height="100%" muted autoPlay loop playsInline data-keepplaying>
-                    <source src="/video/lobby.mp4" type="video/mp4" />
-                  </video>
-                </div>
-              </AnimatedWrapper>
+    <div className="container relative pt-20">
+      <div className="purple-bg-orb orb-top-right" />
+      <section className="section flex items-center justify-center flex-wrap">
+        <div className="w-1/3 md:w-1/2 md:px-2 lg:px-3">
+          <AnimatedWrapper>
+            <div className="animate-zoom-out transition-fade-start transition-fade delay-long">
+              {desktop ? (
+                <video id="lobby" width="100%" height="100%" muted autoPlay loop playsInline data-keepplaying>
+                  <source src="/video/lobby.mp4" type="video/mp4" />
+                </video>
+              ) : (
+                <Image
+                  alt="Arcade"
+                  width={339}
+                  height={661}
+                  src="/img/games/smashers/arcade.webp"
+                  sizes="100vw"
+                  style={{ width: '100%', height: 'auto', marginBottom: '6rem' }}
+                />
+              )}
             </div>
-          ) : (
-            <div className="col-4">
-              <AnimatedWrapper>
-                <div className="animation-zoomin animated-fade-start animated-fade transition-delay-large">
-                  <Image
-                    alt="Arcade"
-                    width={339}
-                    height={661}
-                    src="/img/games/smashers/arcade.webp"
-                    sizes="100vw"
-                    style={{
-                      width: '100%',
-                      height: 'auto',
-                    }}
-                  />
-                </div>
-              </AnimatedWrapper>
-            </div>
-          )}
-          <div className="col-8 col-md-6 px-2 px-lg-3">
-            <div className="mb-4">
-              <AnimatedWrapper>
-                <h1 className="text-align-center animated-fade-slow animated-fade-start transition-delay-small white-space-no-wrap">
-                  GAMES
-                </h1>
-              </AnimatedWrapper>
-            </div>
-            <div className="mb-5">
-              <AnimatedWrapper>
-                <p className="text-align-center animated-fade-slow animated-fade-start transition-delay-medium">
-                  Join thousands of players around the world competing for the top spot in Nifty League!{' '}
-                </p>
-              </AnimatedWrapper>
-            </div>
-          </div>
+          </AnimatedWrapper>
         </div>
 
+        <div className="w-full md:w-1/2 px-2 lg:px-3">
+          <div className="mb-4">
+            <AnimatedWrapper>
+              <h1 className="text-center transition-fade-slow transition-fade-start delay-lite whitespace-nowrap">
+                GAMES
+              </h1>
+            </AnimatedWrapper>
+          </div>
+          <div className="mb-5">
+            <AnimatedWrapper>
+              <p className="text-center transition-fade-slow transition-fade-start delay-normal">
+                Join thousands of players around the world competing for the top spot in Nifty League!{' '}
+              </p>
+            </AnimatedWrapper>
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
         {NIFTY_GAMES.map(({ name, description, video, tag, action }, index) => (
-          <div className={cn(styles.section, 'd-flex flex-column-reverse flex-md-row position-relative')} key={name}>
-            <div className={cn(styles.block, 'col-12 col-md-7 pe-md-5')}>
-              <div className="d-flex flex-row align-items-center justify-content-between mb-3">
+          <article className="flex flex-col-reverse md:flex-row relative mb-8" key={name}>
+            <div className={cn(styles.block, 'w-full md:w-7/12 pr-0 md:pr-5')}>
+              <div className="flex flex-row items-center justify-between mb-3">
                 <AnimatedWrapper>
-                  <h4 className="my-0 animated-header-text animated-header-text-start transition-delay-small">
-                    {name}
-                  </h4>
+                  <h4 className="m-0 transition-vertical-fade transition-vertical-fade-start delay-lite">{name}</h4>
                 </AnimatedWrapper>
                 <AnimatedWrapper>
-                  <p
-                    className={cn(
-                      styles.tagGame,
-                      'my-0 animated-fade-slow animated-fade-start transition-delay-medium',
-                    )}
-                  >
+                  <p className={cn(styles.tagGame, 'm-0 transition-fade-slow transition-fade-start delay-normal')}>
                     {tag}
                   </p>
                 </AnimatedWrapper>
               </div>
               <AnimatedWrapper>
-                <p className="animated-header-text animated-header-text-start transition-delay-medium">{description}</p>
+                <p className="transition-vertical-fade transition-vertical-fade-start delay-normal">{description}</p>
               </AnimatedWrapper>
-              <div className="d-flex justify-content-center justify-content-md-start mt-4">
+              <div className="flex justify-center md:justify-start mt-4">
                 {action.isComingSoon ? (
-                  <AnimatedWrapper>
-                    <div className="animated-fade-slow animated-fade-start transition-delay-medium">
-                      <button className="btn theme-btn-transparent disabled px-3">COMING SOON</button>
-                    </div>
-                  </AnimatedWrapper>
+                  <ThemeBtnGroup
+                    className="justify-start mt-3 xl:mt-3"
+                    primary={{ title: 'COMING SOON', disabled: true, className: 'theme-btn-rounded max-w-fit' }}
+                  />
                 ) : null}
-                {action.link ? (
-                  <AnimatedWrapper>
-                    <Link
-                      href={action.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      style={action.isDisabled ? { pointerEvents: 'none', color: 'white' } : {}}
-                    >
-                      <button
-                        className={
-                          action.isDisabled
-                            ? 'btn theme-btn-transparent disabled px-3'
-                            : 'btn theme-btn-primary px-3 animated-fade-slow animated-fade-start transition-delay-medium'
-                        }
-                      >
-                        {action.title}
-                      </button>
-                    </Link>
-                  </AnimatedWrapper>
-                ) : null}
-                {action.secondaryLink ? (
-                  <AnimatedWrapper>
-                    <Link href={action.secondaryLink}>
-                      <button className="btn theme-btn-primary mx-3 animated-fade-slow animated-fade-start transition-delay-medium">
-                        {action.secondaryTitle}
-                      </button>
-                    </Link>
-                  </AnimatedWrapper>
+
+                {action.link && action.title ? (
+                  <ThemeBtnGroup
+                    className="justify-start mt-3 xl:mt-3"
+                    primary={{
+                      href: action.link,
+                      title: action.title,
+                      external: action.link.includes('http'),
+                      className: 'theme-btn-rounded max-w-fit',
+                    }}
+                    secondary={
+                      action.secondaryLink && action.secondaryTitle
+                        ? {
+                            href: action.secondaryLink,
+                            title: action.secondaryTitle,
+                            external: action.secondaryLink.includes('http'),
+                            className: 'theme-btn-rounded max-w-fit ml-3',
+                          }
+                        : undefined
+                    }
+                  />
                 ) : null}
               </div>
             </div>
-            <div className="col-12 col-md-5">
+            <div className="w-full md:w-5/12">
               <AnimatedWrapper>
-                <div className="position-relative text-align-right animated-fade-slow animated-fade-start transition-delay-medium mb-4">
+                <div className="relative text-right transition-fade-slow transition-fade-start delay-normal mb-4">
                   {video.includes('youtube') ? (
                     <iframe
                       src={video}
@@ -159,28 +136,18 @@ const Games: NextPage = () => {
             </div>
             <div
               className={cn(
-                index === 0 ? styles.gradient2 : index === 1 ? styles.gradient1 : styles.gradient3,
-                'radial-gradient-piece',
+                index === 0 ? 'orb-bottom-left' : index === 1 ? 'orb-top-right' : styles.gradient_custom,
+                'purple-bg-orb',
               )}
             />
-          </div>
+          </article>
         ))}
-      </Container>
-      <div className="d-flex justify-content-center mt-5 mt-md-3 mb-5">
-        <AnimatedWrapper>
-          <a href="/docs/guides/nifty-smashers/general-info" target="_blank" rel="noreferrer">
-            <button
-              className={cn(
-                styles.button,
-                'btn theme-btn-primary px-3 animated-fade-slow animated-fade-start transition-delay-medium',
-              )}
-            >
-              View Docs
-              <ExternalIcon />
-            </button>
-          </a>
-        </AnimatedWrapper>
-      </div>
+
+        <ThemeBtnGroup
+          className="mt-6 xl:mt-8"
+          primary={{ href: '/docs/guides/nifty-smashers/general-info', title: 'VIEW DOCS', external: true }}
+        />
+      </section>
     </div>
   );
 };

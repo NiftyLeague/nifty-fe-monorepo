@@ -12,21 +12,9 @@ import type {
 const _abi = [
   {
     inputs: [
-      {
-        internalType: 'contract IERC20',
-        name: 'token_',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: 'beneficiary_',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: 'releaseTime_',
-        type: 'uint256',
-      },
+      { internalType: 'contract IERC20', name: 'token_', type: 'address' },
+      { internalType: 'address', name: 'beneficiary_', type: 'address' },
+      { internalType: 'uint256', name: 'releaseTime_', type: 'uint256' },
     ],
     stateMutability: 'nonpayable',
     type: 'constructor',
@@ -34,46 +22,22 @@ const _abi = [
   {
     inputs: [],
     name: 'beneficiary',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
-  {
-    inputs: [],
-    name: 'release',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
+  { inputs: [], name: 'release', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   {
     inputs: [],
     name: 'releaseTime',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'token',
-    outputs: [
-      {
-        internalType: 'contract IERC20',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'contract IERC20', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
@@ -111,9 +75,7 @@ export class TokenTimelock__factory extends ContractFactory {
     overrides?: NonPayableOverrides & { from?: string },
   ) {
     return super.deploy(token_, beneficiary_, releaseTime_, overrides || {}) as Promise<
-      TokenTimelock & {
-        deploymentTransaction(): ContractTransactionResponse;
-      }
+      TokenTimelock & { deploymentTransaction(): ContractTransactionResponse }
     >;
   }
   override connect(runner: ContractRunner | null): TokenTimelock__factory {

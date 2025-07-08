@@ -7,12 +7,15 @@ const OWNER_QUERY = gql`
       address
       createdAt
       characterCount
-      characters(first: 500) {
+      characters(orderBy: createdAt, first: 500) {
         id
+        tokenId
+        createdAt
         name
         nameHistory
-        createdAt
-        transactionHash
+        owner {
+          address
+        }
         traits {
           tribe
           skinColor
@@ -36,6 +39,7 @@ const OWNER_QUERY = gql`
           neckwear
           leftItem
           rightItem
+          background
         }
       }
     }

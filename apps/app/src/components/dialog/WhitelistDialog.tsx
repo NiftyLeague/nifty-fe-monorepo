@@ -6,20 +6,10 @@ import { Dialog, DialogTrigger, DialogContent } from '@/components/dialog';
 
 const PREFIX = 'WhitelistDialog';
 
-const classes = {
-  form: `${PREFIX}-form`,
-  inputEmail: `${PREFIX}-inputEmail`,
-  submitButton: `${PREFIX}-submitButton`,
-};
+const classes = { form: `${PREFIX}-form`, inputEmail: `${PREFIX}-inputEmail`, submitButton: `${PREFIX}-submitButton` };
 
 const StyledDialog = styled(Dialog)(() => ({
-  [`&.${classes.form}`]: {
-    display: 'flex',
-    width: '100%',
-    '@media (max-width: 768px)': {
-      flexDirection: 'column',
-    },
-  },
+  [`&.${classes.form}`]: { display: 'flex', width: '100%', '@media (max-width: 768px)': { flexDirection: 'column' } },
 
   [`&.${classes.inputEmail}`]: {
     flex: 1,
@@ -28,32 +18,25 @@ const StyledDialog = styled(Dialog)(() => ({
     border: 'none',
     padding: '13px 16px',
     letterSpacing: '-0.02em',
-    color: '#FAFAFA',
+    color: 'var(--color-foreground)',
     outline: 'none',
     fontSize: '16px',
-    '&::placeholder': {
-      color: '#B4B5C3',
-    },
-    '@media (max-width: 768px)': {
-      borderRadius: '5px',
-    },
+    '&::placeholder': { color: '#B4B5C3' },
+    '@media (max-width: 768px)': { borderRadius: 'var(--border-radius-default)' },
   },
 
   [`&.${classes.submitButton}`]: {
-    background: '#620EDF',
-    borderRadius: '0px 5px 5px 0px',
+    background: 'var(--color-purple)',
+    borderRadius: '0px var(--border-radius-default) var(--border-radius-default) 0px',
     border: 'none',
     cursor: 'pointer',
     padding: '8px 36px',
     fontSize: '14px',
     lineHeight: '28px',
     letterSpacing: '-0.02em',
-    color: '#FAFAFA',
+    color: 'var(--color-foreground)',
     fontWeight: 700,
-    '@media (max-width: 768px)': {
-      marginTop: 8,
-      borderRadius: '5px',
-    },
+    '@media (max-width: 768px)': { marginTop: 8, borderRadius: 'var(--border-radius-default)' },
   },
 }));
 
@@ -70,7 +53,7 @@ export const WhitelistModal = (): React.ReactNode => {
   };
 
   return (
-    <Container sx={{ textAlign: 'center', pt: { xs: 1, md: 4 }, px: 0 }}>
+    <Container sx={{ textAlign: 'center', pt: { xs: 1, lg: 4 }, px: 0 }}>
       <form onSubmit={handleSubmit} className={classes.form}>
         <input
           name="email"
@@ -123,20 +106,15 @@ const WhitelistDialog = () => {
         aria-labelledby="exclusive-access-to-nifty-tennis"
         dialogTitle={`Get Notified When\nNifty Tennis Is Out!`}
         sx={{
-          '& .MuiPaper-root': {
-            maxWidth: 473,
-          },
+          '& .MuiPaper-root': { maxWidth: 473 },
           '& h2': {
-            fontSize: { xs: '22px', md: '28px' },
-            lineHeight: { xs: '28px', md: '36px' },
+            fontSize: { xs: '22px', lg: '28px' },
+            lineHeight: { xs: '28px', lg: '36px' },
             textAlign: 'center',
             paddingTop: '36px',
             whiteSpace: 'pre-line',
           },
-          '& .MuiDialogContent-root': {
-            border: 'none',
-            paddingBottom: '36px',
-          },
+          '& .MuiDialogContent-root': { border: 'none', paddingBottom: '36px' },
         }}
       >
         <WhitelistModal />

@@ -1,13 +1,21 @@
 'use client';
 
-import { useEffect, useState, lazy, Suspense } from 'react';
+import { useEffect, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { Card, IconDatabase, IconStar, IconUser, Space, Tabs, Typography } from '@nl/ui/supabase';
+
+import Card from '@nl/ui/supabase/Card';
+import Space from '@nl/ui/supabase/Space';
+import Tabs from '@nl/ui/supabase/Tabs';
+import Typography from '@nl/ui/supabase/Typography';
+import { IconDatabase, IconStar, IconUser } from '@nl/ui/supabase/Icon';
+import BackButton from '@/components/Header/BackButton';
 import { useUserSession } from '@nl/playfab/hooks';
 import type { User } from '@nl/playfab/types';
-import dynamic from 'next/dynamic';
+import useFlags from '@/hooks/useFlags';
+
+import styles from './page.module.css';
 
 // Dynamically import heavy components
 const AccountDetails = dynamic(() => import('@nl/playfab/components').then(mod => ({ default: mod.AccountDetails })), {
@@ -20,13 +28,8 @@ const Inventory = dynamic(() => import('@nl/playfab/components').then(mod => ({ 
   loading: () => <div>Loading inventory...</div>,
 });
 
-import BackButton from '@/components/BackButton';
-import useFlags from '@/hooks/useFlags';
-import styles from '@/styles/profile.module.css';
-
 export default function ProfileClient({ user: initialUser }: { user: User }) {
   const router = useRouter();
-  const mobile = useMediaQuery('(max-width:576px)');
   const flags = useFlags();
   const { user } = useUserSession() || { user: initialUser };
 
@@ -42,21 +45,16 @@ export default function ProfileClient({ user: initialUser }: { user: User }) {
       <div className={styles.profileContainer}>
         <Card className={styles.profileCard}>
           <div className={styles.profileCardHeader}>
-            {mobile ? (
-              <div />
-            ) : (
-              <Image
-                src="/img/logos/NL/white.webp"
-                alt="Company Logo"
-                width={50}
-                height={48}
-                style={{
-                  maxWidth: '100%',
-                  height: 'auto',
-                }}
-              />
-            )}
-            <Typography.Text type="success">You&apos;re signed in</Typography.Text>
+            <Image
+              src="/img/logos/NL/white.webp"
+              alt="Company Logo"
+              width={50}
+              height={48}
+              className="max-w-full h-auto hidden md:block"
+            />
+            <Typography.Text type="success" className="ml-auto">
+              You&apos;re signed in
+            </Typography.Text>
           </div>
           <Space direction="vertical" size={6} className={styles.userInfo}>
             <Tabs type="underlined" size="medium" tabBarStyle={{ marginTop: 16 }} tabBarGutter={8}>

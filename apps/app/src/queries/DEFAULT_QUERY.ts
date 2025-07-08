@@ -11,6 +11,9 @@ const DEFAULT_QUERY = gql`
       createdAt
       name
       nameHistory
+      owner {
+        address
+      }
       traits {
         tribe
         skinColor
@@ -34,6 +37,7 @@ const DEFAULT_QUERY = gql`
         neckwear
         leftItem
         rightItem
+        background
       }
     }
   }

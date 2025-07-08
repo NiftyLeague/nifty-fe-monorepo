@@ -14,22 +14,10 @@ import LogoSection from '../_LogoSection';
 // ==============================|| MAIN NAVBAR / HEADER ||============================== //
 
 const pages = [
-  {
-    name: 'Website',
-    link: 'https://niftyleague.com/',
-  },
-  {
-    name: 'Mobile Smashers',
-    link: 'https://niftysmashers.com/',
-  },
-  {
-    name: 'Docs',
-    link: 'https://niftyleague.com/docs',
-  },
-] as {
-  name: string;
-  link: string;
-}[];
+  { name: 'Website', link: 'https://niftyleague.com/' },
+  { name: 'Mobile Smashers', link: 'https://niftysmashers.com/' },
+  { name: 'Docs', link: 'https://niftyleague.com/docs' },
+] as { name: string; link: string }[];
 
 const Header = () => {
   const theme = useTheme();
@@ -40,26 +28,14 @@ const Header = () => {
   return (
     <Stack
       direction="row"
-      sx={{
-        justifyContent: 'space-between',
-        [theme.breakpoints.up('md')]: {
-          height: appHeaderHeight,
-        },
-        width: '100%',
-      }}
+      sx={{ justifyContent: 'space-between', [theme.breakpoints.up('lg')]: { height: appHeaderHeight }, width: '100%' }}
     >
       {/* logo & toggler button */}
       <Box
-        sx={{
-          width: drawerOpen ? 228 : 80,
-          display: 'flex',
-          [theme.breakpoints.down('md')]: {
-            width: 'auto',
-          },
-        }}
+        sx={{ width: drawerOpen ? 228 : 80, display: 'flex', [theme.breakpoints.down('lg')]: { width: 'auto' } }}
         alignItems="center"
       >
-        <Box component="span" sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1 }}>
+        <Box component="span" sx={{ display: { xs: 'none', lg: 'block' }, flexGrow: 1 }}>
           <LogoSection />
         </Box>
         <Avatar
@@ -69,12 +45,9 @@ const Header = () => {
             ...theme.typography.mediumAvatar,
             overflow: 'hidden',
             transition: 'all .2s ease-in-out',
-            background: theme.palette.background.default,
-            color: theme.palette.secondary.main,
-            '&:hover': {
-              background: theme.palette.mode === 'dark' ? theme.palette.secondary.main : theme.palette.secondary.dark,
-              color: theme.palette.secondary.light,
-            },
+            background: 'var(--color-background-3)',
+            color: 'var(--color-blue)',
+            '&:hover': { background: 'var(--color-purple)', color: 'var(--color-foreground)' },
           }}
           onClick={() => dispatch(openDrawer(!drawerOpen))}
           color="inherit"
@@ -82,18 +55,21 @@ const Header = () => {
           <IconMenu2 stroke={1.5} size="20px" />
         </Avatar>
       </Box>
-      <Box
-        sx={{
-          display: { xs: 'none', md: 'flex' },
-          justifyContent: 'space-between',
-          gap: 4,
-          alignItems: 'center',
-        }}
-      >
+      <Box sx={{ display: { xs: 'none', lg: 'flex' }, justifyContent: 'space-between', gap: 4, alignItems: 'center' }}>
         <AddNFTL />
         {pages.map(page => (
-          <Link key={page.name} href={page.link} target="_blank" color="inherit" underline="hover">
-            {page.name} <ExternalIcon />
+          <Link
+            key={page.name}
+            href={page.link}
+            target="_blank"
+            color="var(--color-foreground)"
+            underline="hover"
+            className="flex flex-nowrap gap-2"
+          >
+            {page.name}{' '}
+            <span className="mt-0.5">
+              <ExternalIcon />
+            </span>
           </Link>
         ))}
       </Box>

@@ -10,117 +10,42 @@ import type {
 } from '../../../../../src/contracts/deprecated/NFTLRaffle.sol/NFTLRaffle';
 
 const _abi = [
-  {
-    inputs: [],
-    stateMutability: 'nonpayable',
-    type: 'constructor',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'string',
-        name: 'message',
-        type: 'string',
-      },
-    ],
-    name: 'AccessError',
-    type: 'error',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'string',
-        name: 'message',
-        type: 'string',
-      },
-    ],
-    name: 'AddressError',
-    type: 'error',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'string',
-        name: 'message',
-        type: 'string',
-      },
-    ],
-    name: 'InputError',
-    type: 'error',
-  },
+  { inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
+  { inputs: [{ internalType: 'string', name: 'message', type: 'string' }], name: 'AccessError', type: 'error' },
+  { inputs: [{ internalType: 'string', name: 'message', type: 'string' }], name: 'AddressError', type: 'error' },
+  { inputs: [{ internalType: 'string', name: 'message', type: 'string' }], name: 'InputError', type: 'error' },
   {
     anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint8',
-        name: 'version',
-        type: 'uint8',
-      },
-    ],
+    inputs: [{ indexed: false, internalType: 'uint8', name: 'version', type: 'uint8' }],
     name: 'Initialized',
     type: 'event',
   },
   {
     anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'to',
-        type: 'address',
-      },
-    ],
+    inputs: [{ indexed: true, internalType: 'address', name: 'to', type: 'address' }],
     name: 'NewUser',
     type: 'event',
   },
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'previousOwner',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'newOwner',
-        type: 'address',
-      },
+      { indexed: true, internalType: 'address', name: 'previousOwner', type: 'address' },
+      { indexed: true, internalType: 'address', name: 'newOwner', type: 'address' },
     ],
     name: 'OwnershipTransferred',
     type: 'event',
   },
   {
     anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-    ],
+    inputs: [{ indexed: false, internalType: 'address', name: 'account', type: 'address' }],
     name: 'Paused',
     type: 'event',
   },
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'requestId',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256[]',
-        name: 'randomWords',
-        type: 'uint256[]',
-      },
+      { indexed: false, internalType: 'uint256', name: 'requestId', type: 'uint256' },
+      { indexed: false, internalType: 'uint256[]', name: 'randomWords', type: 'uint256[]' },
     ],
     name: 'RandomWordsReceived',
     type: 'event',
@@ -128,18 +53,8 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'requestId',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'randomCountToRequest',
-        type: 'uint256',
-      },
+      { indexed: false, internalType: 'uint256', name: 'requestId', type: 'uint256' },
+      { indexed: false, internalType: 'uint256', name: 'randomCountToRequest', type: 'uint256' },
     ],
     name: 'RandomWordsRequested',
     type: 'event',
@@ -147,50 +62,23 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'to',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'ticketCount',
-        type: 'uint256',
-      },
+      { indexed: true, internalType: 'address', name: 'to', type: 'address' },
+      { indexed: false, internalType: 'uint256', name: 'ticketCount', type: 'uint256' },
     ],
     name: 'TicketDistributed',
     type: 'event',
   },
   {
     anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-    ],
+    inputs: [{ indexed: false, internalType: 'address', name: 'account', type: 'address' }],
     name: 'Unpaused',
     type: 'event',
   },
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'user',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'nftlAmount',
-        type: 'uint256',
-      },
+      { indexed: true, internalType: 'address', name: 'user', type: 'address' },
+      { indexed: false, internalType: 'uint256', name: 'nftlAmount', type: 'uint256' },
     ],
     name: 'UserDeposited',
     type: 'event',
@@ -198,30 +86,10 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'by',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'winner',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'ticketId',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'prizeTokenId',
-        type: 'uint256',
-      },
+      { indexed: true, internalType: 'address', name: 'by', type: 'address' },
+      { indexed: true, internalType: 'address', name: 'winner', type: 'address' },
+      { indexed: false, internalType: 'uint256', name: 'ticketId', type: 'uint256' },
+      { indexed: false, internalType: 'uint256', name: 'prizeTokenId', type: 'uint256' },
     ],
     name: 'WinnerSelected',
     type: 'event',
@@ -229,114 +97,46 @@ const _abi = [
   {
     inputs: [],
     name: 'NFTL_AMOUNT_FOR_TICKET',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
+  { inputs: [], name: 'allowUserDeposit', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+  { inputs: [], name: 'assignTicketToUsers', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+  { inputs: [], name: 'cancelSubscription', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   {
-    inputs: [],
-    name: 'allowUserDeposit',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'assignTicketToUsers',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'cancelSubscription',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_amount',
-        type: 'uint256',
-      },
-    ],
+    inputs: [{ internalType: 'uint256', name: '_amount', type: 'uint256' }],
     name: 'chargeLINK',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: 'success',
-        type: 'bool',
-      },
-    ],
+    outputs: [{ internalType: 'bool', name: 'success', type: 'bool' }],
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
     inputs: [],
     name: 'currentWinnerTicketCount',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_amount',
-        type: 'uint256',
-      },
-    ],
+    inputs: [{ internalType: 'uint256', name: '_amount', type: 'uint256' }],
     name: 'deposit',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256[]',
-        name: '_prizeNFTTokenIds',
-        type: 'uint256[]',
-      },
-    ],
+    inputs: [{ internalType: 'uint256[]', name: '_prizeNFTTokenIds', type: 'uint256[]' }],
     name: 'depositPrizeNFT',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
-  {
-    inputs: [],
-    name: 'disallowUserDeposit',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
+  { inputs: [], name: 'disallowUserDeposit', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   {
     inputs: [
-      {
-        internalType: 'address[]',
-        name: '_holders',
-        type: 'address[]',
-      },
-      {
-        internalType: 'uint256[]',
-        name: '_keyCount',
-        type: 'uint256[]',
-      },
+      { internalType: 'address[]', name: '_holders', type: 'address[]' },
+      { internalType: 'uint256[]', name: '_keyCount', type: 'uint256[]' },
     ],
     name: 'distributeTicketsToCitadelKeyHolders',
     outputs: [],
@@ -345,16 +145,8 @@ const _abi = [
   },
   {
     inputs: [
-      {
-        internalType: 'address[]',
-        name: '_users',
-        type: 'address[]',
-      },
-      {
-        internalType: 'uint256[]',
-        name: '_ticketCount',
-        type: 'uint256[]',
-      },
+      { internalType: 'address[]', name: '_users', type: 'address[]' },
+      { internalType: 'uint256[]', name: '_ticketCount', type: 'uint256[]' },
     ],
     name: 'distributeTicketsToUsers',
     outputs: [],
@@ -364,39 +156,21 @@ const _abi = [
   {
     inputs: [],
     name: 'getRandomWordsList',
-    outputs: [
-      {
-        internalType: 'uint256[]',
-        name: 'wordList',
-        type: 'uint256[]',
-      },
-    ],
+    outputs: [{ internalType: 'uint256[]', name: 'wordList', type: 'uint256[]' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'getUserCount',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: 'count',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: 'count', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'getUserList',
-    outputs: [
-      {
-        internalType: 'address[]',
-        name: 'userList',
-        type: 'address[]',
-      },
-    ],
+    outputs: [{ internalType: 'address[]', name: 'userList', type: 'address[]' }],
     stateMutability: 'view',
     type: 'function',
   },
@@ -406,21 +180,9 @@ const _abi = [
     outputs: [
       {
         components: [
-          {
-            internalType: 'uint256',
-            name: 'ticketId',
-            type: 'uint256',
-          },
-          {
-            internalType: 'address',
-            name: 'winner',
-            type: 'address',
-          },
-          {
-            internalType: 'uint256',
-            name: 'prizeTokenId',
-            type: 'uint256',
-          },
+          { internalType: 'uint256', name: 'ticketId', type: 'uint256' },
+          { internalType: 'address', name: 'winner', type: 'address' },
+          { internalType: 'uint256', name: 'prizeTokenId', type: 'uint256' },
         ],
         internalType: 'struct NFTLRaffle.WinnerInfo[]',
         name: 'winnerList',
@@ -432,31 +194,11 @@ const _abi = [
   },
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: '_nftl',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_pendingPeriod',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_totalWinnerTicketCount',
-        type: 'uint256',
-      },
-      {
-        internalType: 'address',
-        name: '_prizeNFT',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '__vrfCoordinator',
-        type: 'address',
-      },
+      { internalType: 'address', name: '_nftl', type: 'address' },
+      { internalType: 'uint256', name: '_pendingPeriod', type: 'uint256' },
+      { internalType: 'uint256', name: '_totalWinnerTicketCount', type: 'uint256' },
+      { internalType: 'address', name: '_prizeNFT', type: 'address' },
+      { internalType: 'address', name: '__vrfCoordinator', type: 'address' },
     ],
     name: 'initialize',
     outputs: [],
@@ -466,60 +208,28 @@ const _abi = [
   {
     inputs: [],
     name: 'isTicketAssignedToUsers',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'isUserDepositAllowed',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'ticketId',
-        type: 'uint256',
-      },
-    ],
+    inputs: [{ internalType: 'uint256', name: 'ticketId', type: 'uint256' }],
     name: 'isWinnerTicketId',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: 'isWinner',
-        type: 'bool',
-      },
-    ],
+    outputs: [{ internalType: 'bool', name: 'isWinner', type: 'bool' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: '_consumer',
-        type: 'address',
-      },
-      {
-        internalType: 'bool',
-        name: '_add',
-        type: 'bool',
-      },
+      { internalType: 'address', name: '_consumer', type: 'address' },
+      { internalType: 'bool', name: '_add', type: 'bool' },
     ],
     name: 'manageConsumers',
     outputs: [],
@@ -529,237 +239,103 @@ const _abi = [
   {
     inputs: [],
     name: 'nftl',
-    outputs: [
-      {
-        internalType: 'contract IERC20BurnableUpgradeable',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'contract IERC20BurnableUpgradeable', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-      {
-        internalType: 'bytes',
-        name: '',
-        type: 'bytes',
-      },
+      { internalType: 'address', name: '', type: 'address' },
+      { internalType: 'address', name: '', type: 'address' },
+      { internalType: 'uint256', name: '', type: 'uint256' },
+      { internalType: 'bytes', name: '', type: 'bytes' },
     ],
     name: 'onERC721Received',
-    outputs: [
-      {
-        internalType: 'bytes4',
-        name: '',
-        type: 'bytes4',
-      },
-    ],
+    outputs: [{ internalType: 'bytes4', name: '', type: 'bytes4' }],
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
     inputs: [],
     name: 'owner',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
-  {
-    inputs: [],
-    name: 'pause',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
+  { inputs: [], name: 'pause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   {
     inputs: [],
     name: 'paused',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'prizeNFT',
-    outputs: [
-      {
-        internalType: 'contract IERC721Upgradeable',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'contract IERC721Upgradeable', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
+    inputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     name: 'prizeNFTokenIds',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'raffleStartAt',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
+    inputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     name: 'randomWordList',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: '_requestId',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256[]',
-        name: '_randomWords',
-        type: 'uint256[]',
-      },
+      { internalType: 'uint256', name: '_requestId', type: 'uint256' },
+      { internalType: 'uint256[]', name: '_randomWords', type: 'uint256[]' },
     ],
     name: 'rawFulfillRandomWords',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
-  {
-    inputs: [],
-    name: 'renounceOwnership',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
+  { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   {
     inputs: [],
     name: 'requestRandomWordsForWinnerSelection',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: 'requestId',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: 'requestId', type: 'uint256' }],
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
     inputs: [],
     name: 'subscriptionId',
-    outputs: [
-      {
-        internalType: 'uint64',
-        name: '',
-        type: 'uint64',
-      },
-    ],
+    outputs: [{ internalType: 'uint64', name: '', type: 'uint64' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'user',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: 'user', type: 'address' }],
     name: 'ticketCountByUser',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: 'count',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: 'count', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'user',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: 'user', type: 'address' }],
     name: 'ticketRangeByUser',
     outputs: [
-      {
-        internalType: 'uint256',
-        name: 'startTicketId',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'endTicketId',
-        type: 'uint256',
-      },
+      { internalType: 'uint256', name: 'startTicketId', type: 'uint256' },
+      { internalType: 'uint256', name: 'endTicketId', type: 'uint256' },
     ],
     stateMutability: 'view',
     type: 'function',
@@ -767,118 +343,52 @@ const _abi = [
   {
     inputs: [],
     name: 'totalTicketCount',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'totalWinnerTicketCount',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'newOwner',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: 'newOwner', type: 'address' }],
     name: 'transferOwnership',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
+  { inputs: [], name: 'unpause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   {
-    inputs: [],
-    name: 'unpause',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_totalWinnerTicketCount',
-        type: 'uint256',
-      },
-    ],
+    inputs: [{ internalType: 'uint256', name: '_totalWinnerTicketCount', type: 'uint256' }],
     name: 'updateTotalWinnerTicketCount',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'user',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: 'user', type: 'address' }],
     name: 'userDeposits',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: 'amount',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: 'amount', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
+    inputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     name: 'winners',
     outputs: [
-      {
-        internalType: 'uint256',
-        name: 'ticketId',
-        type: 'uint256',
-      },
-      {
-        internalType: 'address',
-        name: 'winner',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: 'prizeTokenId',
-        type: 'uint256',
-      },
+      { internalType: 'uint256', name: 'ticketId', type: 'uint256' },
+      { internalType: 'address', name: 'winner', type: 'address' },
+      { internalType: 'uint256', name: 'prizeTokenId', type: 'uint256' },
     ],
     stateMutability: 'view',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_to',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: '_to', type: 'address' }],
     name: 'withdrawLINK',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -910,9 +420,7 @@ export class NFTLRaffle__factory extends ContractFactory {
   }
   override deploy(overrides?: NonPayableOverrides & { from?: string }) {
     return super.deploy(overrides || {}) as Promise<
-      NFTLRaffle & {
-        deploymentTransaction(): ContractTransactionResponse;
-      }
+      NFTLRaffle & { deploymentTransaction(): ContractTransactionResponse }
     >;
   }
   override connect(runner: ContractRunner | null): NFTLRaffle__factory {

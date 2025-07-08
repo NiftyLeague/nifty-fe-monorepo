@@ -1,35 +1,15 @@
+import { type PropsWithChildren } from 'react';
 import type { Metadata, Viewport } from 'next';
-import { IBM_Plex_Sans, Press_Start_2P, Lilita_One } from 'next/font/google';
-import { StyledEngineProvider } from '@mui/material/styles';
-import { FeatureFlagProvider } from '@/contexts/FeatureFlagsProvider';
-import '@/styles/globals.css';
-import '@/styles/animations.css';
+import Head from 'next/head';
 
-const ibmPlexSans = IBM_Plex_Sans({
-  subsets: ['latin'],
-  weight: ['100', '400', '500', '700'],
-  variable: '--font-ibm-plex-sans',
-  display: 'swap',
-});
-const pressStart2P = Press_Start_2P({
-  subsets: ['latin'],
-  weight: ['400'],
-  variable: '--font-press-start-2p',
-  display: 'swap',
-});
-const lilitaOne = Lilita_One({
-  subsets: ['latin'],
-  weight: ['400'],
-  variable: '--font-lilita-one',
-  display: 'swap',
-});
+import { customFontClassName } from '@nl/ui/fonts';
+import { FeatureFlagProvider } from '@/contexts/FeatureFlagsProvider';
+
+import '@/styles/app.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://niftysmashers.com'),
-  title: {
-    template: 'Nifty Smashers | %s',
-    default: 'Nifty Smashers',
-  },
+  title: { template: 'Nifty Smashers | %s', default: 'Nifty Smashers' },
   description:
     'Free-to-play online multiplayer 3D party platform fighter. Play on iOS, Android, and Steam with full cross-play support! Jump in and brawl anytime, anywhere!',
   generator: 'Next.js',
@@ -49,11 +29,7 @@ export const metadata: Metadata = {
   creator: '0xPlayerOne',
   publisher: 'Nifty League',
   assets: ['https://niftysmashers.com'],
-  formatDetection: {
-    email: true,
-    address: true,
-    telephone: true,
-  },
+  formatDetection: { email: true, address: true, telephone: true },
   openGraph: {
     title: 'Nifty Smashers',
     description:
@@ -87,30 +63,24 @@ export const metadata: Metadata = {
       alt: 'Nifty Smashers Banner',
     },
   },
-  other: {
-    'theme-color': '#000000',
-  },
 };
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
-  userScalable: false,
+  themeColor: '#18181b',
+  colorScheme: 'dark',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en">
-      <link rel="icon" href="/favicon/smashers/favicon.ico" />
-
-      <body
-        className={`${ibmPlexSans.variable} ${pressStart2P.variable} ${lilitaOne.variable} font-sans dark`}
-        suppressHydrationWarning
-      >
-        <StyledEngineProvider injectFirst>
-          <FeatureFlagProvider>{children}</FeatureFlagProvider>
-        </StyledEngineProvider>
+    <html lang="en" className={customFontClassName}>
+      <Head>
+        <link rel="icon" href="/favicon/smashers/favicon.ico" />
+      </Head>
+      <body suppressHydrationWarning className="dark">
+        <FeatureFlagProvider>{children}</FeatureFlagProvider>
       </body>
     </html>
   );

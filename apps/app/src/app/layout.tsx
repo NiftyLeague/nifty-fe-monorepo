@@ -1,19 +1,17 @@
 import type { PropsWithChildren } from 'react';
 import type { Metadata, Viewport } from 'next';
-import Script from 'next/script';
 
 import { ThemeProvider } from '@nl/theme';
+import { customFontClassName } from '@nl/ui/fonts';
+import AnalyticsScripts from '@/components/AnalyticsScripts';
 import AppContextWrapper from '@/contexts/AppContextWrapper';
 import MainLayout from '@/app/_layout/_MainLayout';
 
-import '@/styles/globals.scss';
+import '@/styles/app.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://app.niftyleague.com'),
-  title: {
-    template: '%s | Nifty League App',
-    default: 'Nifty League App',
-  },
+  title: { template: '%s | Nifty League App', default: 'Nifty League App' },
   description: 'Web3 gaming app brought to you by Nifty League',
   generator: 'Next.js',
   referrer: 'origin-when-cross-origin',
@@ -22,11 +20,7 @@ export const metadata: Metadata = {
   creator: 'NiftyAndy',
   publisher: 'Nifty League',
   assets: ['https://app.niftyleague.com'],
-  formatDetection: {
-    email: true,
-    address: true,
-    telephone: true,
-  },
+  formatDetection: { email: true, address: true, telephone: true },
   openGraph: {
     title: 'Nifty League Web3 App',
     description: 'Web3 gaming app brought to you by Nifty League',
@@ -48,10 +42,7 @@ export const metadata: Metadata = {
     // siteId: '1467726470533754880',
     creator: '@NiftyLeague',
     // creatorId: '1467726470533754880',
-    images: {
-      url: 'https://niftyleague.com/img/backgrounds/banner-dark.webp',
-      alt: 'Nifty League Banner',
-    },
+    images: { url: 'https://niftyleague.com/img/backgrounds/banner-dark.webp', alt: 'Nifty League Banner' },
   },
 };
 
@@ -60,44 +51,22 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'cyan' },
-    { media: '(prefers-color-scheme: dark)', color: '#620EDF' },
+    { media: '(prefers-color-scheme: dark)', color: '#18181b' },
+    { media: '(prefers-color-scheme: light)', color: '#fafafa' },
   ],
+  colorScheme: 'dark light',
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en">
-      <link rel="icon" href="/favicon/nl_purple/favicon.ico" />
-      <Script defer src="https://d7ct17ettlkln.cloudfront.net/public/stats.js" />
+    <html lang="en" className={customFontClassName}>
+      <head>
+        <link rel="icon" href="/favicon/nl_purple/favicon.ico" />
+      </head>
 
-      <Script strategy="lazyOnload" id="clarity-script">
-        {`
-          if (!window.location.host.includes('localhost')) {
-            (function(c,l,a,r,i,t,y){
-              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "box6efnxlz");
-          }
-        `}
-      </Script>
+      <AnalyticsScripts />
 
-      <Script src="https://www.googletagmanager.com/gtag/js?id=G-7GJRQ9KGCE" />
-      <Script id="google-analytics">
-        {`
-          if (!window.location.host.includes('localhost')) {
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-7GJRQ9KGCE', {
-              page_path: window.location.pathname,
-            });
-          }
-        `}
-      </Script>
-
-      <body suppressHydrationWarning={true}>
+      <body suppressHydrationWarning>
         <ThemeProvider>
           <AppContextWrapper>
             <MainLayout>{children}</MainLayout>

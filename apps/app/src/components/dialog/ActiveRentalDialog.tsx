@@ -32,17 +32,12 @@ const ActiveRentalDialog = ({ degenId, rental }: ActiveRentalDialogProps) => {
     <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
       <DialogContent sx={{ marginY: '50px', marginX: '16px' }}>
         <Grid container spacing={2}>
-          <Grid size={{ xs: 12, md: 6 }}>
+          <Grid size={{ xs: 12, lg: 6 }}>
             <Typography sx={{ fontSize: '32px', lineHeight: '38px' }} fontWeight={600}>
               Welcome back DEGEN!
             </Typography>
             <Typography
-              sx={{
-                fontSize: '16px',
-                lineHeight: '20px',
-                marginTop: '24px',
-                marginBottom: '30px',
-              }}
+              sx={{ fontSize: '16px', lineHeight: '20px', marginTop: '24px', marginBottom: '30px' }}
               fontWeight={700}
             >
               Your active{' '}
@@ -55,7 +50,7 @@ const ActiveRentalDialog = ({ degenId, rental }: ActiveRentalDialogProps) => {
               Play Nifty Smashers Now
             </Button>
           </Grid>
-          <Grid size={{ xs: 12, md: 6 }}>
+          <Grid size={{ xs: 12, lg: 6 }}>
             <Box sx={{ width: '70%', display: 'inline-block', float: 'right' }}>
               <ProgressBar value={progressValue}>
                 {rental.earning_cap !== rental.earning_cap_daily ? (
@@ -63,28 +58,16 @@ const ActiveRentalDialog = ({ degenId, rental }: ActiveRentalDialogProps) => {
                 ) : (
                   <Typography fontSize={10}>
                     LIMIT REACHED. RENEWS IN{' '}
-                    <Typography sx={{ color: theme => theme.palette.warning.main }} variant="caption" fontSize={10}>
+                    <Typography sx={{ color: 'var(--color-warning)' }} variant="caption" fontSize={10}>
                       <Countdown date={new Date(rental.next_charge_at * 1000)} />
                     </Typography>
                   </Typography>
                 )}
               </ProgressBar>
             </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-end',
-                marginTop: '14px',
-              }}
-            >
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', marginTop: '14px' }}>
               <DegenImage
-                sx={{
-                  width: '174px',
-                  height: 'auto',
-                  marginTop: '16px',
-                  borderRadius: '8px',
-                }}
+                sx={{ width: '174px', height: 'auto', marginTop: '16px', borderRadius: 'var(--border-radius-default)' }}
                 tokenId={degenId}
               />
             </Box>

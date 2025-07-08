@@ -9,21 +9,9 @@ import type { NFTLTimelock, NFTLTimelockInterface } from '../../../../src/contra
 const _abi = [
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: 'nftlAddress',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: 'beneficiary_',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: 'releaseTime_',
-        type: 'uint256',
-      },
+      { internalType: 'address', name: 'nftlAddress', type: 'address' },
+      { internalType: 'address', name: 'beneficiary_', type: 'address' },
+      { internalType: 'uint256', name: 'releaseTime_', type: 'uint256' },
     ],
     stateMutability: 'nonpayable',
     type: 'constructor',
@@ -31,46 +19,22 @@ const _abi = [
   {
     inputs: [],
     name: 'beneficiary',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
-  {
-    inputs: [],
-    name: 'release',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
+  { inputs: [], name: 'release', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   {
     inputs: [],
     name: 'releaseTime',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'token',
-    outputs: [
-      {
-        internalType: 'contract IERC20',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'contract IERC20', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
@@ -108,9 +72,7 @@ export class NFTLTimelock__factory extends ContractFactory {
     overrides?: NonPayableOverrides & { from?: string },
   ) {
     return super.deploy(nftlAddress, beneficiary_, releaseTime_, overrides || {}) as Promise<
-      NFTLTimelock & {
-        deploymentTransaction(): ContractTransactionResponse;
-      }
+      NFTLTimelock & { deploymentTransaction(): ContractTransactionResponse }
     >;
   }
   override connect(runner: ContractRunner | null): NFTLTimelock__factory {

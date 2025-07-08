@@ -1,8 +1,8 @@
 import dynamic from 'next/dynamic';
 import { isOpera, browserName } from 'react-device-detect';
-import { Typography } from '@nl/ui/supabase';
-import styles from '@/styles/modal.module.css';
+import Typography from '@nl/ui/supabase/Typography';
 import Modal from '@/components/Modal';
+import styles from '@/components/Modal/index.module.css';
 
 const Game = dynamic(() => import('./Game'), { ssr: false });
 
@@ -20,10 +20,7 @@ const UnityContent = ({ onClose }: { onClose: () => void }) => {
   );
 };
 
-type UnityModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-};
+type UnityModalProps = { isOpen: boolean; onClose: () => void };
 
 const UnityModal = ({ isOpen, onClose }: UnityModalProps) => {
   return (

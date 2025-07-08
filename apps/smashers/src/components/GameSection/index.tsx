@@ -1,12 +1,5 @@
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import cn from 'classnames';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-
-const AnimatedWrapper = dynamic(() => import('@/components/AnimatedWrapper'), { ssr: false });
-
-import styles from './index.module.css';
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 
 const GameSection = () => {
   function playVid() {
@@ -14,73 +7,57 @@ const GameSection = () => {
     vid?.play();
   }
   return (
-    <Container className={styles.container}>
-      <Grid container spacing={6}>
-        <Grid size={{ xs: 12, sm: 6 }} className={styles.section}>
-          <div style={{ marginBottom: 25 }}>
+    <div className="flex flex-col-reverse lg:flex-col">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+        <div className="md:col-span-12 lg:col-span-6">
+          <div className="text-center lg:text-left mb-6">
             <AnimatedWrapper>
-              <h2 className="animated-header-text animated-header-text-start transition-delay-small">
+              <h2 className="transition-vertical-fade transition-vertical-fade-start delay-lite">
                 FREE-TO-PLAY
                 <br />
-                <span>PARTY PLATFORM FIGHTER</span>
+                <span className="font-default font-normal">PARTY PLATFORM FIGHTER</span>
               </h2>
             </AnimatedWrapper>
           </div>
-          <div style={{ position: 'relative' }}>
+          <div className="text-center lg:text-left">
             <AnimatedWrapper>
-              <p className="animated-header-text animated-header-text-start transition-delay-medium">
-                Nifty Smashers is an <strong>online multiplayer</strong> that blends elements of a{' '}
-                <strong>casual party survival</strong> experience with the fast-paced action of a{' '}
-                <strong>platform fighter</strong>!
+              <p className="leading-relaxed transition-vertical-fade transition-vertical-fade-start delay-normal">
+                Nifty Smashers is an <strong className="font-semibold">online multiplayer</strong> that blends elements
+                of a <strong className="font-semibold">casual party survival</strong> experience with the fast-paced
+                action of a <strong className="font-semibold">platform fighter</strong>!
                 <br />
                 <br />
-                Play on iOS, Android, and Steam with <strong>full cross-play support</strong>! Jump in and brawl
-                anytime, anywhere!
+                Play on iOS, Android, and Steam with <strong className="font-semibold">full cross-play support</strong>!
+                Jump in and brawl anytime, anywhere!
               </p>
             </AnimatedWrapper>
           </div>
-        </Grid>
-        <Grid size={{ xs: 12, sm: 6 }} className={styles.section}>
-          <div className={styles.highlight_video} onClick={playVid}>
+        </div>
+        <div className="md:col-span-12 lg:col-span-6">
+          <div onClick={playVid}>
             <AnimatedWrapper>
-              <div className="quick-pop-anim quick-pop-anim-start transition-delay-small">
-                <video
-                  id="level-video"
-                  width="100%"
-                  height="100%"
-                  style={{ borderRadius: '40px / 40px' }}
-                  muted
-                  autoPlay
-                  loop
-                  playsInline
-                  data-keepplaying
-                >
+              <div className="transition-quick-pop transition-quick-pop-start delay-lite rounded-[40px] overflow-hidden">
+                <video id="level-video" className="w-full h-auto" muted autoPlay loop playsInline data-keepplaying>
                   <source src="/video/rocket.mp4" type="video/mp4" />
                 </video>
-                <div className={cn(styles.gradient, 'radial-gradient-bg')} style={{ borderRadius: '40px / 40px' }} />
               </div>
             </AnimatedWrapper>
           </div>
-        </Grid>
-      </Grid>
-      <Grid container marginTop={8}>
-        <AnimatedWrapper>
-          <div
-            style={{ position: 'relative' }}
-            className="text-align-center animated-fade-slow animated-fade-start transition-delay-small"
-          >
-            <Image
-              src="/img/games/smashers/party_modes.gif"
-              alt="Smashers Party Modes"
-              width={1350}
-              height={556}
-              style={{ width: '100%', height: 'auto', borderRadius: '40px / 40px' }}
-              unoptimized
-            />
-          </div>
-        </AnimatedWrapper>
-      </Grid>
-    </Container>
+        </div>
+      </div>
+      <AnimatedWrapper>
+        <div className="my-10 text-center transition-fade-slow transition-fade-start delay-lite">
+          <Image
+            src="/img/games/smashers/party_modes.gif"
+            alt="Smashers Party Modes"
+            width={1350}
+            height={556}
+            className="w-full h-auto rounded-[40px]"
+            unoptimized
+          />
+        </div>
+      </AnimatedWrapper>
+    </div>
   );
 };
 

@@ -1,0 +1,43 @@
+/* ==============================|| TAILWIND CSS ||============================== */
+
+@import 'tailwindcss';
+@source "../../../../apps/**/*.{ts,tsx}";
+@source "../../../playfab/**/*.{ts,tsx}";
+@source "../**/*.{ts,tsx}";
+
+/*
+ * Sorted by standard Tailwind cascade order:
+ * @layer theme, base, components, utilities;
+ */
+@import './01_tailwind.theme.css';
+@import './02_tailwind.base.css';
+@import './03_tailwind.components.css';
+@import './04_tailwind.utilities.css';
+@import './05_tailwind.animate.css';
+
+/* ==============================|| GLOBAL STYLE ||============================== */
+
+/* 
+ * Default to dark mode ONLY for all apps. 
+ * To enable light-dark() CSS function, override color-scheme in app with `dark light`.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark
+ */
+:root {
+  color-scheme: dark;
+}
+
+/* ==============================|| SCROLL STYLE ||============================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-base-800);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-purple-500);
+  border-radius: var(--border-radius-default);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-purple-400);
+}

@@ -2,8 +2,8 @@ import type { NextPage } from 'next';
 import Image from 'next/image';
 
 import RoadmapTimeline from '@/components/RoadmapTimeline';
-import roadmapStyles from '@/components/RoadmapTimeline/index.module.scss';
-import satoshiStyles from './satoshi-right.module.scss';
+import roadmapStyles from '@/components/RoadmapTimeline/index.module.css';
+import satoshiStyles from './satoshi-right.module.css';
 
 const Roadmap: NextPage = () => {
   return (
@@ -19,10 +19,7 @@ const Roadmap: NextPage = () => {
               height={200}
               priority
               sizes="100vw"
-              style={{
-                width: '100%',
-                height: 'auto',
-              }}
+              style={{ width: '100%', height: 'auto' }}
             />
           </div>
           <div className={roadmapStyles.earth} />
@@ -39,7 +36,7 @@ const Roadmap: NextPage = () => {
           <div className={roadmapStyles.animated_star7} />
           <div className={roadmapStyles.animated_star8} />
           <div className={roadmapStyles.animated_star9} />
-          <div className="w-100 d-flex justify-content-center">
+          <div className="w-full flex justify-center">
             <div className={roadmapStyles.moon}>
               <Image
                 src="/img/space/moon.webp"
@@ -48,10 +45,7 @@ const Roadmap: NextPage = () => {
                 height={800}
                 priority
                 sizes="100vw"
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                }}
+                style={{ width: '100%', height: 'auto' }}
               />
             </div>
           </div>

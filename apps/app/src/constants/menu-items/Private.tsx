@@ -2,10 +2,7 @@
 import { IconDashboard, IconLayoutGrid } from '@tabler/icons-react';
 
 // constant
-const icons = {
-  IconDashboard,
-  IconLayoutGrid,
-};
+const icons = { IconDashboard, IconLayoutGrid };
 
 // ==============================|| SAMPLE PAGE & DOCUMENTATION MENU ITEMS ||============================== //
 
@@ -19,24 +16,9 @@ const PrivateItems = {
       type: 'collapse',
       icon: icons.IconLayoutGrid,
       children: [
-        {
-          id: 'dashboard',
-          title: 'Overview',
-          type: 'item',
-          url: '/dashboard',
-        },
-        {
-          id: 'degens',
-          title: 'DEGENs',
-          type: 'item',
-          url: '/dashboard/degens',
-        },
-        {
-          id: 'items',
-          title: 'Comics & Items',
-          type: 'item',
-          url: '/dashboard/items',
-        },
+        { id: 'dashboard', title: 'Overview', type: 'item', url: '/dashboard' },
+        { id: 'degens', title: 'DEGENs', type: 'item', url: '/dashboard/degens' },
+        { id: 'items', title: 'Comics & Items', type: 'item', url: '/dashboard/items' },
         // {
         //   id: 'rentals',
         //   title: 'Rentals',

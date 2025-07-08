@@ -1,10 +1,6 @@
 export type HandleFunction = (i: string, s: string) => Promise<void>;
 
-export type ProfileProgress = {
-  label: string;
-  variant: string;
-  value: number;
-};
+export type ProfileProgress = { label: string; variant: string; value: number };
 
 export type UserProfile = {
   id?: string;
@@ -35,43 +31,17 @@ export type UserProfile = {
   Progress?: ProfileProgress;
 };
 
-export type Profile = {
-  id: string;
-  avatar: string;
-  name: string;
-  time: string;
-};
+export type Profile = { id: string; avatar: string; name: string; time: string };
 
-export type PostImage = {
-  img: string;
-  featured?: boolean;
-  title?: string;
-};
+export type PostImage = { img: string; featured?: boolean; title?: string };
 
-export type Likes = {
-  like: boolean;
-  value: number;
-};
+export type Likes = { like: boolean; value: number };
 
-export type Group = {
-  id: string;
-  avatar: string;
-  name: string;
-};
+export type Group = { id: string; avatar: string; name: string };
 
-export type Reply = {
-  id: string;
-  profile: Profile;
-  data: CommentData;
-};
+export type Reply = { id: string; profile: Profile; data: CommentData };
 
-export type CommentData = {
-  name?: string;
-  comment?: string;
-  likes?: Likes;
-  video?: string;
-  replies?: Reply[];
-};
+export type CommentData = { name?: string; comment?: string; likes?: Likes; video?: string; replies?: Reply[] };
 
 export type PostData = {
   id?: string;
@@ -81,16 +51,8 @@ export type PostData = {
   likes: Likes;
   comments?: Comment[];
 };
-export type Comment = {
-  id: string;
-  profile: Profile;
-  data?: CommentData;
-};
-export type Post = {
-  id?: string;
-  profile: Profile;
-  data: PostData;
-};
+export type Comment = { id: string; profile: Profile; data?: CommentData };
+export type Post = { id?: string; profile: Profile; data: PostData };
 
 export type PostDataType = { id: string; data: PostData; profile: Profile };
 

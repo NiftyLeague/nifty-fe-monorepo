@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useSnackbar } from 'notistack';
-import { Button, IconLink2, Input } from '@nl/ui/supabase';
+import Button from '@nl/ui/supabase/Button';
+import Input from '@nl/ui/supabase/Input';
+import { IconLink2 } from '@nl/ui/supabase/Icon';
 
 import fetchJson from '../../utils/fetchJson';
 import { errorMsgHandler } from '../../utils/errorHandlers';
@@ -59,6 +61,7 @@ export default function LinkWalletInput({ index, address }: { index: number; add
   };
 
   const linked = Boolean(address && address.length > 1);
+  const addressParsed = address?.split(':')[1] || '';
 
   return (
     <Input
@@ -66,7 +69,7 @@ export default function LinkWalletInput({ index, address }: { index: number; add
       copy={linked}
       disabled
       error={error}
-      value={address}
+      value={addressParsed}
       className={linked ? 'sbui-linked-input' : 'sbui-connect-input'}
       style={{ marginBottom: 3 }}
       actions={

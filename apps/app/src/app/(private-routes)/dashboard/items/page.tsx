@@ -4,8 +4,8 @@ import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
-import { Box, Button, Divider, Grid, Stack, useMediaQuery } from '@mui/material';
-import { useTheme } from '@nl/theme';
+import { Divider, Grid, Stack } from '@mui/material';
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 
 import ComicCard from '@/components/cards/ComicCard';
 import ViewComicDialog from '@/components/dialog/ViewComicDialog';
@@ -27,9 +27,8 @@ const DashboardComicsPage = (): React.ReactNode => {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [selectedSubIndex, setSelectedSubIndex] = useState<number>(-1);
   const { comicsBalances, loadingComics, itemsBalances, loadingItems } = useNFTsBalances();
+  const isSmallScreen = useMediaQuery('(max-width:1280px)');
   const router = useRouter();
-  const theme = useTheme();
-  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleViewComic = (comic: Comic) => {
     setSelectedComic(comic);
@@ -150,8 +149,9 @@ const DashboardComicsPage = (): React.ReactNode => {
                 flexWrap="wrap"
                 gap={2}
                 minHeight={375}
-                border="1px solid #363636"
-                borderRadius="5px"
+                border="var(--border-default)"
+                borderRadius="var(--border-radius-default)"
+                bgcolor="var(--color-background-3)"
                 px={2}
                 py={3}
                 width="100%"
@@ -172,7 +172,7 @@ const DashboardComicsPage = (): React.ReactNode => {
               </Grid>
             </Stack>
           </SectionSlider>
-          {!isTablet && (
+          {!isSmallScreen && (
             <Stack sx={{ mt: 7.5 }}>
               <ComicDetail data={selectedComic} />
             </Stack>
@@ -184,8 +184,9 @@ const DashboardComicsPage = (): React.ReactNode => {
               <Stack
                 sx={{
                   minHeight: 375,
-                  border: '1px solid #363636',
-                  borderRadius: '5px',
+                  border: 'var(--border-default)',
+                  borderRadius: 'var(--border-radius-default)',
+                  backgroundColor: 'var(--color-background-3)',
                   px: 2,
                   pt: 4,
                   pb: 2,
@@ -196,18 +197,13 @@ const DashboardComicsPage = (): React.ReactNode => {
               >
                 {selectedItem?.balance && selectedItem?.balance > 1 && (
                   <Stack spacing={4}>
-                    <Stack direction={{ xs: 'column', lg: 'row' }} spacing={{ xs: 2, lg: 10 }}>
+                    <Stack direction={{ xs: 'column', md: 'row' }} spacing={{ xs: 2, md: 10 }}>
                       <WearableItemCard data={selectedItem} />
                       <Grid container flexWrap="wrap" gap={2.5}>
                         {renderSubItems}
                       </Grid>
                     </Stack>
-                    <Divider
-                      color="#363636"
-                      sx={{
-                        opacity: '0.6',
-                      }}
-                    />
+                    <Divider color="#363636" sx={{ opacity: '0.6' }} />
                   </Stack>
                 )}
                 <Grid container flexWrap="wrap" gap={2} justifyContent={{ xs: 'space-between', sm: 'inherit' }}>
@@ -223,17 +219,17 @@ const DashboardComicsPage = (): React.ReactNode => {
               </Stack>
             </Stack>
           </SectionSlider>
-          {!isTablet && (
+          {!isSmallScreen && (
             <Stack sx={{ mt: 7.5 }}>
               <ItemDetail data={selectedItem} subIndex={selectedSubIndex} />
             </Stack>
           )}
         </Stack>
       </Stack>
-      {isTablet && (
+      {isSmallScreen && (
         <ViewComicDialog comic={selectedComic} open={Boolean(selectedComic)} onClose={handleCloseComicDialog} />
       )}
-      {isTablet && (
+      {isSmallScreen && (
         <ViewItemDialog
           item={selectedItem}
           subIndex={selectedSubIndex}

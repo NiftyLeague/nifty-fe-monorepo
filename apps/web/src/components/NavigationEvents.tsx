@@ -16,3 +16,5 @@ export function NavigationEvents() {
 
   return null;
 }
+
+export default NavigationEvents;

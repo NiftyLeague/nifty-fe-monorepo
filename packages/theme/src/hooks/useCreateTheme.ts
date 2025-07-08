@@ -15,6 +15,11 @@ import useThemeConfig from './useThemeConfig';
 const useCreateTheme = (): Theme => {
   const config = useThemeConfig();
 
+  if (typeof window !== 'undefined') {
+    const paletteMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    config.paletteMode = paletteMode;
+  }
+
   const colorTheme = useMemo<Theme>(
     () => customPalette(config.paletteMode, config.presetColor),
     [config.paletteMode, config.presetColor],
@@ -54,12 +59,10 @@ const useCreateTheme = (): Theme => {
 
   // Then extend it with our custom properties
   return {
+    cssVariables: true,
     ...baseTheme,
     customShadows: shadows,
-    typography: {
-      ...baseTheme.typography,
-      ...typography,
-    },
+    typography: { ...baseTheme.typography, ...typography },
   } as Theme;
 };
 

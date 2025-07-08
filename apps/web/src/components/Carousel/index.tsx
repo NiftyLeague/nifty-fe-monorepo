@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { memo } from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
@@ -21,39 +20,16 @@ const NiftyCarousel = ({
   hideGradient?: boolean;
 }): React.ReactNode => (
   <>
-    {!hideGradient && (
-      <span className="dark-gradient-shade">
-        <Image
-          src="/img/gradient/dark-gradient-shade-bottom.svg"
-          alt="Dark gradient shade"
-          fill
-          sizes="100vw"
-          style={{ objectFit: 'cover' }}
-        />
-      </span>
-    )}
     <Carousel
       arrows={isMobileViewOnly}
       swipeable={isMobileViewOnly}
       draggable={isMobileViewOnly}
       showDots={isMobileViewOnly}
       responsive={{
-        superLargeDesktop: {
-          breakpoint: { max: 4000, min: 1500 },
-          items: superLargeDesktopItems,
-        },
-        desktop: {
-          breakpoint: { max: 1500, min: 1024 },
-          items: desktopItems,
-        },
-        tablet: {
-          breakpoint: { max: 1024, min: 615 },
-          items: tabletItems,
-        },
-        mobile: {
-          breakpoint: { max: 615, min: 0 },
-          items: mobileItems,
-        },
+        superLargeDesktop: { breakpoint: { max: 4000, min: 1500 }, items: superLargeDesktopItems },
+        desktop: { breakpoint: { max: 1500, min: 1024 }, items: desktopItems },
+        tablet: { breakpoint: { max: 1024, min: 615 }, items: tabletItems },
+        mobile: { breakpoint: { max: 615, min: 0 }, items: mobileItems },
       }}
       ssr={true}
       infinite={true}
@@ -64,10 +40,11 @@ const NiftyCarousel = ({
       containerClass="carousel-container"
       removeArrowOnDeviceType={isMobileViewOnly ? ['desktop', 'tablet'] : ['desktop', 'tablet', 'mobile']}
       dotListClass="custom-dot-list-style"
-      itemClass="carousel-item-padding-20-px"
+      itemClass="py-0 px-5"
     >
       {children}
     </Carousel>
+    {!hideGradient && <div className="dark-gradient-overlay !top-[14%] !h-[80%]" />}
   </>
 );
 

@@ -26,9 +26,7 @@ const useGamerProfile = (): {
   });
 
   const fetchUserProfile = async () => {
-    const res = await fetch(GET_GAMER_PROFILE_API, {
-      headers,
-    });
+    const res = await fetch(GET_GAMER_PROFILE_API, { headers });
     if (res.status === 404) {
       throw Error('Not Found');
     }
@@ -42,12 +40,7 @@ const useGamerProfile = (): {
     throw Error('Something wrong!');
   };
 
-  return {
-    error,
-    profile: data,
-    loadingProfile: loading,
-    fetchUserProfile,
-  };
+  return { error, profile: data, loadingProfile: loading, fetchUserProfile };
 };
 
 export default useGamerProfile;

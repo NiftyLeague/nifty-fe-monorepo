@@ -56,14 +56,7 @@ const DashboardRentalPage = (): React.ReactNode => {
 
   const fetchRentals = async (): Promise<Rentals[]> => {
     const urls = getFetchUrl();
-    const responses = await Promise.all(
-      urls.map(url =>
-        fetch(url, {
-          method: 'GET',
-          headers,
-        }),
-      ),
-    );
+    const responses = await Promise.all(urls.map(url => fetch(url, { method: 'GET', headers })));
 
     const rentalArrays = await Promise.all(responses.map(response => response.json()));
 
@@ -89,9 +82,7 @@ const DashboardRentalPage = (): React.ReactNode => {
       const result = await terminalRental(rentalId);
       if (result && !result.ok) {
         const errMsg = await result.text();
-        toast.error(`Can not terminate the rental: ${errMsg}`, {
-          theme: 'dark',
-        });
+        toast.error(`Can not terminate the rental: ${errMsg}`, { theme: 'dark' });
         return;
       }
       const res = await result?.json();
@@ -100,9 +91,7 @@ const DashboardRentalPage = (): React.ReactNode => {
         refetch();
       }
     } catch (error) {
-      toast.error(`Can not terminate the rental: ${error}`, {
-        theme: 'dark',
-      });
+      toast.error(`Can not terminate the rental: ${error}`, { theme: 'dark' });
     }
   };
 
@@ -112,10 +101,7 @@ const DashboardRentalPage = (): React.ReactNode => {
 
     setRentals([
       ...rentals.slice(0, rentalIndex),
-      {
-        ...newRentals,
-        name: newName,
-      },
+      { ...newRentals, name: newName },
       ...rentals.slice(rentalIndex + 1),
     ] as Rentals[]);
     refetch();

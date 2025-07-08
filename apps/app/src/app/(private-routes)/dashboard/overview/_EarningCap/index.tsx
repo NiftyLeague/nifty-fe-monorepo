@@ -16,14 +16,8 @@ const EarningCap: FC<EarningCapProps> = ({ rentals, hideTitle }) => {
 
   const rows = transformRentals(rentals, profile?.id || '');
   const columns: ColumnType[] = [
-    {
-      id: 'degenId',
-      label: 'DEGEN ID',
-    },
-    {
-      id: 'earningCapProgress',
-      label: 'Earnings Cap',
-    },
+    { id: 'degenId', label: 'DEGEN ID' },
+    { id: 'earningCapProgress', label: 'Earnings Cap' },
   ];
   return (
     <Grid container spacing={sectionSpacing} sx={{ height: '100%' }}>

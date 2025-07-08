@@ -1,46 +1,21 @@
 'use client';
 
-import { useMediaQuery } from '@mui/material';
 import Image from 'next/image';
-import { type CSSProperties, memo } from 'react';
+import { memo } from 'react';
 
-type Sponsor = {
-  image: string;
-  url: string;
-  width: number;
-  height: number;
-};
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 
-const styles = {
-  container: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: '0 auto',
-    flexWrap: 'wrap',
-    maxWidth: 1600,
-  },
-  item: {
-    mobile: {
-      margin: 24,
-      width: 80,
-    },
-    desktop: {
-      margin: 32,
-      width: 160,
-    },
-  },
-};
+type Sponsor = { image: string; url: string; width: number; height: number };
 
 const RenderSponsor = ({ image, url, width, height }: Sponsor) => (
   <SponsorItem key={image} image={image} url={url} width={width} height={height} />
 );
 
 const SponsorItem = ({ image, url, width, height }: Sponsor): React.ReactNode => {
-  const desktop = useMediaQuery('(min-width:768px)');
+  const desktop = useMediaQuery('(min-width:769px)');
   return (
-    <a href={url} target="_blank" rel="noreferrer">
-      <div style={desktop ? styles.item.desktop : styles.item.mobile}>
+    <a href={url} target="_blank" rel="noreferrer" className="block">
+      <div className={desktop ? 'm-8 w-40' : 'm-6 w-20'}>
         <Image
           alt="sponsor image"
           src={image}
@@ -48,10 +23,7 @@ const SponsorItem = ({ image, url, width, height }: Sponsor): React.ReactNode =>
           height={height}
           priority
           sizes="100vw"
-          style={{
-            width: '100%',
-            height: 'auto',
-          }}
+          className="w-full h-auto"
         />
       </div>
     </a>
@@ -59,9 +31,11 @@ const SponsorItem = ({ image, url, width, height }: Sponsor): React.ReactNode =>
 };
 
 const Sponsors = ({ sponsors }: { sponsors: Sponsor[] }) => (
-  <div className="container p-0">
-    <div className="row m-0 p-0 position relative py-sm-5 d-flex align-items-center justify-content-center text-center">
-      <section style={styles.container as CSSProperties}>{sponsors.map(RenderSponsor)}</section>
+  <div className="container mx-auto px-0">
+    <div className="m-0 p-0 relative py-0 sm:py-5 flex items-center justify-center text-center">
+      <section className="flex flex-wrap items-center justify-center max-w-[1600px] mx-auto">
+        {sponsors.map(RenderSponsor)}
+      </section>
     </div>
   </div>
 );

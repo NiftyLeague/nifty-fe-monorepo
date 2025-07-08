@@ -1,14 +1,11 @@
 'use client';
 
 import { use, useState, useEffect, Suspense } from 'react';
-import Head from 'next/head';
-import Image from 'next/image';
 import dynamic from 'next/dynamic';
+import Head from 'next/head';
 
-import Navbar from '@/components/Navbar';
-import ConsoleGame from '@/components/ConsoleGame';
-import ActionButtonsGroup from '@/components/ActionButtonsGroup';
-import styles from '@/styles/smashers.module.css';
+import Header from '@/components/Header';
+import SocialsFooter from '@nl/ui/custom/SocialsFooter';
 
 // Lazy load modals
 const CreditsModal = dynamic(() => import('@/components/CreditsModal'), { ssr: false, loading: () => null });
@@ -17,28 +14,17 @@ const TrailerModal = dynamic(() => import('@/components/TrailerModal'), { ssr: f
 const UnityModal = dynamic(() => import('@/components/UnityModal'), { ssr: false, loading: () => null });
 
 // Lazy load below-the-fold sections with loading states
-const LazyGameSection = dynamic(() => import('@/components/GameSection'), {
-  loading: () => (
-    <section className={styles.game_details}>
-      <div style={{ minHeight: '50vh' }} />
-    </section>
-  ),
-  ssr: false,
-});
+const Loading = () => (
+  <section>
+    <div style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <h3>Loading...</h3>
+    </div>
+  </section>
+);
 
-const LazyDegensSection = dynamic(() => import('@/components/DegensSection'), {
-  loading: () => (
-    <section className={styles.character_details}>
-      <div style={{ minHeight: '50vh' }} />
-    </section>
-  ),
-  ssr: false,
-});
-
-const LazyFooter = dynamic(() => import('@/components/Footer'), {
-  loading: () => <footer style={{ minHeight: '200px' }} />,
-  ssr: false,
-});
+const ConsoleSection = dynamic(() => import('@nl/ui/custom/ConsoleGame'), { loading: Loading, ssr: false });
+const GameSection = dynamic(() => import('@/components/GameSection'), { loading: Loading, ssr: false });
+const DegensSection = dynamic(() => import('@/components/DegensSection'), { loading: Loading, ssr: false });
 
 type NextSearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
@@ -63,37 +49,24 @@ export default function Home({ searchParams }: { searchParams: NextSearchParams 
         <link rel="preconnect" href="https://www.niftysmashers.com" crossOrigin="anonymous" />
       </Head>
       <main>
-        <section className={styles.hero}>
-          <div className="radial-gradient-bg-centered" />
-          <div className={styles.container}>
-            <Navbar />
-            <div className={styles.content}>
-              <Image
-                src="/img/logos/smashers/app_wordmark_logo.webp"
-                alt="Wordmark Logo"
-                className={styles.wordmark}
-                width={824}
-                height={572}
-                priority
-                sizes="(max-width: 768px) 100vw, 824px"
-                quality={85}
-              />
-              <ActionButtonsGroup
-                onPlayClick={() => openModal('play')}
-                onTrailerClick={() => openModal('trailer')}
-                onCreditsClick={() => openModal('credits')}
-              />
-            </div>
-          </div>
-        </section>
-        <section className={styles.console_game}>
-          <ConsoleGame src="/video/smashers-960p.mp4" />
+        <section id="header">
+          <Header openModal={openModal} />
         </section>
 
         <Suspense fallback={null}>
-          <LazyGameSection />
-          <LazyDegensSection />
-          <LazyFooter classes={{ footer: styles.footer }} />
+          <section id="console-game">
+            <ConsoleSection src="/video/smashers-960p.mp4" />
+          </section>
+          <section id="game-section" className="container section relative">
+            <div className="purple-bg-orb orb-top-left" />
+            <GameSection />
+          </section>
+          <section id="degens-section" className="container section relative">
+            <div className="purple-bg-orb orb-top-right" />
+            <div className="purple-bg-orb orb-bottom-left" />
+            <DegensSection />
+          </section>
+          <SocialsFooter />
         </Suspense>
       </main>
 

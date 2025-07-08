@@ -10,34 +10,12 @@ import type {
 } from '../../../../src/contracts/deprecated/HydraDistributor';
 
 const _abi = [
-  {
-    inputs: [],
-    stateMutability: 'nonpayable',
-    type: 'constructor',
-  },
+  { inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
+  { inputs: [{ internalType: 'string', name: 'message', type: 'string' }], name: 'AddressError', type: 'error' },
   {
     inputs: [
-      {
-        internalType: 'string',
-        name: 'message',
-        type: 'string',
-      },
-    ],
-    name: 'AddressError',
-    type: 'error',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'count',
-        type: 'uint256',
-      },
-      {
-        internalType: 'string',
-        name: 'message',
-        type: 'string',
-      },
+      { internalType: 'uint256', name: 'count', type: 'uint256' },
+      { internalType: 'string', name: 'message', type: 'string' },
     ],
     name: 'BurnCountError',
     type: 'error',
@@ -45,133 +23,61 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'user',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256[]',
-        name: 'tokenIdsBurned',
-        type: 'uint256[]',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'hydraTokenId',
-        type: 'uint256',
-      },
+      { indexed: true, internalType: 'address', name: 'user', type: 'address' },
+      { indexed: false, internalType: 'uint256[]', name: 'tokenIdsBurned', type: 'uint256[]' },
+      { indexed: false, internalType: 'uint256', name: 'hydraTokenId', type: 'uint256' },
     ],
     name: 'HydraClaimed',
     type: 'event',
   },
   {
     anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint8',
-        name: 'version',
-        type: 'uint8',
-      },
-    ],
+    inputs: [{ indexed: false, internalType: 'uint8', name: 'version', type: 'uint8' }],
     name: 'Initialized',
     type: 'event',
   },
   {
     anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'niftyDegen',
-        type: 'address',
-      },
-    ],
+    inputs: [{ indexed: true, internalType: 'address', name: 'niftyDegen', type: 'address' }],
     name: 'NiftyDegenSet',
     type: 'event',
   },
   {
     anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'niftyWallet',
-        type: 'address',
-      },
-    ],
+    inputs: [{ indexed: true, internalType: 'address', name: 'niftyWallet', type: 'address' }],
     name: 'NiftyWalletSet',
     type: 'event',
   },
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'previousOwner',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'newOwner',
-        type: 'address',
-      },
+      { indexed: true, internalType: 'address', name: 'previousOwner', type: 'address' },
+      { indexed: true, internalType: 'address', name: 'newOwner', type: 'address' },
     ],
     name: 'OwnershipTransferred',
     type: 'event',
   },
   {
     anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-    ],
+    inputs: [{ indexed: false, internalType: 'address', name: 'account', type: 'address' }],
     name: 'Paused',
     type: 'event',
   },
   {
     anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-    ],
+    inputs: [{ indexed: false, internalType: 'address', name: 'account', type: 'address' }],
     name: 'Unpaused',
     type: 'event',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256[]',
-        name: '_degenTokenIdList',
-        type: 'uint256[]',
-      },
-    ],
+    inputs: [{ internalType: 'uint256[]', name: '_degenTokenIdList', type: 'uint256[]' }],
     name: 'claimRandomHydra',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256[]',
-        name: '_hydraTokenIdList',
-        type: 'uint256[]',
-      },
-    ],
+    inputs: [{ internalType: 'uint256[]', name: '_hydraTokenIdList', type: 'uint256[]' }],
     name: 'depositHydra',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -180,60 +86,28 @@ const _abi = [
   {
     inputs: [],
     name: 'getHydraCount',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: 'hydraCount',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: 'hydraCount', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'getHydraTokenIds',
-    outputs: [
-      {
-        internalType: 'uint256[]',
-        name: 'tokenIds',
-        type: 'uint256[]',
-      },
-    ],
+    outputs: [{ internalType: 'uint256[]', name: 'tokenIds', type: 'uint256[]' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
+    inputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     name: 'hydraTokenIds',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: '_niftyDegen',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_niftyWallet',
-        type: 'address',
-      },
+      { internalType: 'address', name: '_niftyDegen', type: 'address' },
+      { internalType: 'address', name: '_niftyWallet', type: 'address' },
     ],
     name: 'initialize',
     outputs: [],
@@ -243,157 +117,69 @@ const _abi = [
   {
     inputs: [],
     name: 'niftyDegen',
-    outputs: [
-      {
-        internalType: 'contract IERC721Upgradeable',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'contract IERC721Upgradeable', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [],
     name: 'niftyWallet',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-      {
-        internalType: 'bytes',
-        name: '',
-        type: 'bytes',
-      },
+      { internalType: 'address', name: '', type: 'address' },
+      { internalType: 'address', name: '', type: 'address' },
+      { internalType: 'uint256', name: '', type: 'uint256' },
+      { internalType: 'bytes', name: '', type: 'bytes' },
     ],
     name: 'onERC721Received',
-    outputs: [
-      {
-        internalType: 'bytes4',
-        name: '',
-        type: 'bytes4',
-      },
-    ],
+    outputs: [{ internalType: 'bytes4', name: '', type: 'bytes4' }],
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
     inputs: [],
     name: 'owner',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function',
   },
-  {
-    inputs: [],
-    name: 'pause',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
+  { inputs: [], name: 'pause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   {
     inputs: [],
     name: 'paused',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function',
   },
+  { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   {
-    inputs: [],
-    name: 'renounceOwnership',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'newOwner',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: 'newOwner', type: 'address' }],
     name: 'transferOwnership',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
+  { inputs: [], name: 'unpause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   {
-    inputs: [],
-    name: 'unpause',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_niftyDegen',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: '_niftyDegen', type: 'address' }],
     name: 'updateNiftyDegen',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_niftyWallet',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: '_niftyWallet', type: 'address' }],
     name: 'updateNiftyWallet',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_to',
-        type: 'address',
-      },
-    ],
+    inputs: [{ internalType: 'address', name: '_to', type: 'address' }],
     name: 'withdrawAllHydra',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -425,9 +211,7 @@ export class HydraDistributor__factory extends ContractFactory {
   }
   override deploy(overrides?: NonPayableOverrides & { from?: string }) {
     return super.deploy(overrides || {}) as Promise<
-      HydraDistributor & {
-        deploymentTransaction(): ContractTransactionResponse;
-      }
+      HydraDistributor & { deploymentTransaction(): ContractTransactionResponse }
     >;
   }
   override connect(runner: ContractRunner | null): HydraDistributor__factory {

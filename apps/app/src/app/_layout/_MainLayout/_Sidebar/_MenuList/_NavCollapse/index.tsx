@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 // material-ui
-import { useTheme, borderRadius } from '@nl/theme';
+import { useTheme } from '@nl/theme';
 import { Collapse, List, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
@@ -57,7 +57,7 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
         return <NavItem key={item.id} item={item} level={level + 1} />;
       default:
         return (
-          <Typography key={item.id} variant="h6" sx={{ color: theme => theme.palette.error.main }} align="center">
+          <Typography key={item.id} variant="h6" sx={{ color: 'var(--color-error)' }} align="center">
             Menu Items Error
           </Typography>
         );
@@ -69,10 +69,7 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
     <Icon strokeWidth={1.5} size={20} style={{ marginTop: 'auto', marginBottom: 'auto' }} />
   ) : (
     <FiberManualRecordIcon
-      sx={{
-        width: selected === menu.id ? 8 : 6,
-        height: selected === menu.id ? 8 : 6,
-      }}
+      sx={{ width: selected === menu.id ? 8 : 6, height: selected === menu.id ? 8 : 6 }}
       fontSize={level > 0 ? 'inherit' : 'medium'}
     />
   );
@@ -81,7 +78,7 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
     <>
       <ListItemButton
         sx={{
-          borderRadius: `${borderRadius}px`,
+          borderRadius: 'var(--border-radius-default)',
           mb: 0.5,
           alignItems: 'flex-start',
           backgroundColor: level > 1 ? 'transparent !important' : 'inherit',
@@ -132,7 +129,7 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
                 height: '100%',
                 width: '1px',
                 opacity: 1,
-                background: theme.palette.divider,
+                background: 'var(--color-divider-default)',
               },
             }}
           >

@@ -3,7 +3,6 @@
 import { useEffect, useState, ReactElement } from 'react';
 
 // material-ui
-import { useTheme } from '@nl/theme';
 import Box from '@mui/material/Box';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
@@ -32,8 +31,6 @@ interface accordionProps {
 // ==============================|| ACCORDION ||============================== //
 
 const Accordion = ({ data, defaultExpandedId = null, expandIcon, square, toggle }: accordionProps) => {
-  const theme = useTheme();
-
   const [expanded, setExpanded] = useState<string | boolean | null>(null);
   const handleChange = (panel: string) => (event: React.SyntheticEvent<Element, Event>, newExpanded: boolean) => {
     toggle && setExpanded(newExpanded ? panel : false);
@@ -57,10 +54,7 @@ const Accordion = ({ data, defaultExpandedId = null, expandIcon, square, toggle 
           >
             <MuiAccordionSummary
               expandIcon={expandIcon || expandIcon === false ? expandIcon : <ExpandMoreIcon />}
-              sx={{
-                color: theme.palette.mode === 'dark' ? 'grey.500' : 'grey.800',
-                fontWeight: 500,
-              }}
+              sx={{ color: 'var(--color-foreground)', fontWeight: 500 }}
             >
               {item.title}
             </MuiAccordionSummary>

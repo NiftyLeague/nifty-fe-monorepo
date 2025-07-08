@@ -11,31 +11,13 @@ interface MiniGameContentProps {
 }
 
 const MiniGameContent = ({ data }: MiniGameContentProps): React.ReactNode => {
-  const leftDataMapper: {
-    label: string;
-    value: string | number | undefined;
-  }[] = useMemo(() => {
+  const leftDataMapper: { label: string; value: string | number | undefined }[] = useMemo(() => {
     return [
-      {
-        label: 'XP Rank',
-        value: data?.rank || 0,
-      },
-      {
-        label: 'XP',
-        value: Math.round(data?.xp || 0),
-      },
-      {
-        label: 'High Score',
-        value: data?.score,
-      },
-      {
-        label: 'Games',
-        value: data?.matches,
-      },
-      {
-        label: 'Time Played',
-        value: `${secondsToHours(data?.time_played ?? 0)} Hours`,
-      },
+      { label: 'XP Rank', value: data?.rank || 0 },
+      { label: 'XP', value: Math.round(data?.xp || 0) },
+      { label: 'High Score', value: data?.score },
+      { label: 'Games', value: data?.matches },
+      { label: 'Time Played', value: `${secondsToHours(data?.time_played ?? 0)} Hours` },
     ];
   }, [data]);
 

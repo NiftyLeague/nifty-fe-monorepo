@@ -26,11 +26,7 @@ const defaultValue: {
   isLoadingProfile: boolean | undefined;
   isLoadingDegens: boolean | undefined;
   isLoadingComics: boolean | undefined;
-} = {
-  isLoadingProfile: true,
-  isLoadingDegens: true,
-  isLoadingComics: true,
-};
+} = { isLoadingProfile: true, isLoadingDegens: true, isLoadingComics: true };
 
 const GamerProfile = (): React.ReactNode => {
   const { profile, error, loadingProfile } = useGamerProfile();
@@ -41,7 +37,7 @@ const GamerProfile = (): React.ReactNode => {
   const { comicsBalances, degenCount, degensBalances, itemsBalances } = useNFTsBalances();
 
   const filteredDegens: Degen[] = useMemo(() => {
-    if (degensBalances.length && data) {
+    if (degensBalances?.length && data) {
       const mapDegens = degensBalances.map(degen => data[Number(degen.id)]) as Degen[];
       return mapDegens;
     }
@@ -72,18 +68,18 @@ const GamerProfile = (): React.ReactNode => {
 
   const renderTopProfile = () => {
     return (
-      <Grid container size={12} spacing={3}>
-        <Grid size={{ xs: 12, md: 3.5 }}>
+      <Grid container size={12} spacing={3} className="bg-background-3 p-8 rounded-md">
+        <Grid size={{ xs: 12, lg: 3.5 }}>
           <ImageProfile
             avatar={profile?.avatar}
             avatarFee={avatarsAndFee?.price}
             degens={filteredDegens && avatarsAndFee?.avatars && merge(filteredDegens, avatarsAndFee?.avatars)}
           />
         </Grid>
-        <Grid size={{ xs: 12, md: 8.5 }}>
+        <Grid size={{ xs: 12, lg: 8.5 }}>
           {address && <TopInfo profile={profile} walletAddress={address} />}
-          <hr />
-          <Stack spacing={1}>
+          <hr className="mb-4" />
+          <Stack spacing={2}>
             <Stack>
               <Typography variant="h3" component="div">
                 Nifty League Player Stats
@@ -106,8 +102,25 @@ const GamerProfile = (): React.ReactNode => {
   };
 
   const renderBottomProfile = () => {
+    const sliderSettingsOverride = {
+      slidesToShow: 3,
+      responsive: [
+        { breakpoint: 1536, settings: { slidesToShow: 3 } },
+        { breakpoint: 1280, settings: { slidesToShow: 3 } },
+        { breakpoint: 1024, settings: { slidesToShow: 2 } },
+        { breakpoint: 768, settings: { slidesToShow: 1 } },
+        { breakpoint: 640, settings: { slidesToShow: 1 } },
+      ],
+    };
     return (
-      <SectionSlider firstSection variant="h3" title="Player Stats by Web3 Game" isSlider={false}>
+      <SectionSlider
+        firstSection
+        variant="h3"
+        title="Player Stats by Web3 Game"
+        isSlider={false}
+        sliderSettingsOverride={sliderSettingsOverride}
+        styles={{ root: { width: '100%' } }}
+      >
         <BottomInfo
           nifty_smashers={profile?.stats?.nifty_smashers}
           wen_game={profile?.stats?.wen_game}

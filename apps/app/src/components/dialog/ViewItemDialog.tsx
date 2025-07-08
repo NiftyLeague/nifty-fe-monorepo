@@ -1,6 +1,6 @@
-import { Button, Dialog, DialogActions, DialogContent, useMediaQuery } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent } from '@mui/material';
 import type { Item } from '@/types/marketplace';
-import { useTheme } from '@nl/theme';
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 import ItemDetail from '@/components/cards/ItemDetail';
 
 export interface ViewItemDialogProps {
@@ -11,12 +11,11 @@ export interface ViewItemDialogProps {
 }
 
 const ViewItemDialog = ({ item, subIndex, open, onClose }: ViewItemDialogProps): React.ReactNode => {
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const fullScreen = useMediaQuery('(max-width:640px)');
 
   return (
-    <Dialog maxWidth="lg" open={open} onClose={onClose} fullScreen={fullScreen}>
-      <DialogContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <Dialog maxWidth="md" open={open} onClose={onClose} fullScreen={fullScreen}>
+      <DialogContent className="flex justify-center">
         {item && <ItemDetail data={item} subIndex={subIndex} />}
       </DialogContent>
       <DialogActions>

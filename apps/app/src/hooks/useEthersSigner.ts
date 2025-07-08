@@ -6,11 +6,7 @@ import { type Config, useConnectorClient } from 'wagmi';
 export type Signer = JsonRpcSigner | undefined;
 function clientToSigner(client: Client<Transport, Chain, Account>): Signer {
   const { account, chain, transport } = client;
-  const network = {
-    chainId: chain.id,
-    name: chain.name,
-    ensAddress: chain.contracts?.ensRegistry?.address,
-  };
+  const network = { chainId: chain.id, name: chain.name, ensAddress: chain.contracts?.ensRegistry?.address };
   const provider = new BrowserProvider(transport, network);
   const signer = new JsonRpcSigner(provider, account.address);
   return signer;

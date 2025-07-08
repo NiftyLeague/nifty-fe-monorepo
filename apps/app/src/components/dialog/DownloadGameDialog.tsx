@@ -26,7 +26,7 @@ export const Downloader = (): React.ReactNode => {
           href={downloadURL}
           size="large"
           startIcon={<GetApp />}
-          // style={{ color: currentTheme === 'dark' ? 'white' : 'black' }}
+          // style={{ color: 'var(--color-foreground)' }}
           variant="contained"
         >
           {!version && isWindows ? 'Fetching installer version...' : message}

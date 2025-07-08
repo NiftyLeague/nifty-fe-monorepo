@@ -1,0 +1,57 @@
+/* ==============================|| PROFILE ||============================== */
+
+.profileContainer {
+  display: flex;
+  max-width: 800px;
+  height: 100vh;
+  margin: auto;
+}
+
+.profileCard {
+  margin: auto;
+  width: 100%;
+  padding: 0px 10px;
+}
+
+.profileCard .profileCardHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.profileCard .userInfo {
+  font-weight: 300;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profileCard .userInfo p {
+  margin: 0;
+}
+
+.profileCard .userInfo .username {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.profileCard .userInfo .avatarContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+@media only screen and (max-width: 576px) {
+  .profileContainer {
+    max-width: 100vw;
+    margin: 0;
+    overflow: hidden;
+  }
+  .profileCard {
+    margin: 0;
+    padding: 0;
+    padding-top: 25px;
+    max-width: 100vw;
+    overflow-y: auto !important;
+  }
+}

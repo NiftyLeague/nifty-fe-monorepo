@@ -24,15 +24,9 @@ import type {
 } from '../../../common';
 
 export declare namespace ERC20Votes {
-  export type CheckpointStruct = {
-    fromBlock: BigNumberish;
-    votes: BigNumberish;
-  };
+  export type CheckpointStruct = { fromBlock: BigNumberish; votes: BigNumberish };
 
-  export type CheckpointStructOutput = [fromBlock: bigint, votes: bigint] & {
-    fromBlock: bigint;
-    votes: bigint;
-  };
+  export type CheckpointStructOutput = [fromBlock: bigint, votes: bigint] & { fromBlock: bigint; votes: bigint };
 }
 
 export interface NFTLInterface extends Interface {
@@ -471,7 +465,9 @@ export interface NFTL extends BaseContract {
     'nonpayable'
   >;
   getFunction(nameOrSignature: 'delegates'): TypedContractMethod<[account: AddressLike], [string], 'view'>;
-  getFunction(nameOrSignature: 'eip712Domain'): TypedContractMethod<
+  getFunction(
+    nameOrSignature: 'eip712Domain',
+  ): TypedContractMethod<
     [],
     [
       [string, string, string, bigint, string, string, bigint[]] & {

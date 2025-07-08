@@ -49,12 +49,7 @@ export default function HomepageSocials() {
       </RowThree>
       <Row>
         <Link
-          style={{
-            textDecoration: 'none',
-            maxWidth: '960px',
-            margin: '0 auto 4rem auto',
-            width: '100%',
-          }}
+          style={{ textDecoration: 'none', maxWidth: '960px', margin: '0 auto 4rem auto', width: '100%' }}
           href={'https://www.twitch.tv/NiftyLeagueOfficial'}
         >
           <WideCard>

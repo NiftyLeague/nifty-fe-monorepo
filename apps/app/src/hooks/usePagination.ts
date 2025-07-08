@@ -21,12 +21,7 @@ const usePagination = <T>(data: T[], itemsPerPage: number) => {
     [maxPage],
   );
 
-  return {
-    jump,
-    dataForCurrentPage,
-    currentPage,
-    maxPage,
-  };
+  return { jump, dataForCurrentPage, currentPage, maxPage };
 };
 
 export default usePagination;

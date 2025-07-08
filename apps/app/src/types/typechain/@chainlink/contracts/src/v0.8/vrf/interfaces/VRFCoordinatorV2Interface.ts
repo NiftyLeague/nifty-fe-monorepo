@@ -107,14 +107,7 @@ export interface VRFCoordinatorV2Interface extends BaseContract {
 
   getSubscription: TypedContractMethod<
     [subId: BigNumberish],
-    [
-      [bigint, bigint, string, string[]] & {
-        balance: bigint;
-        reqCount: bigint;
-        owner: string;
-        consumers: string[];
-      },
-    ],
+    [[bigint, bigint, string, string[]] & { balance: bigint; reqCount: bigint; owner: string; consumers: string[] }],
     'view'
   >;
 
@@ -153,16 +146,11 @@ export interface VRFCoordinatorV2Interface extends BaseContract {
   ): TypedContractMethod<[subId: BigNumberish, to: AddressLike], [void], 'nonpayable'>;
   getFunction(nameOrSignature: 'createSubscription'): TypedContractMethod<[], [bigint], 'nonpayable'>;
   getFunction(nameOrSignature: 'getRequestConfig'): TypedContractMethod<[], [[bigint, bigint, string[]]], 'view'>;
-  getFunction(nameOrSignature: 'getSubscription'): TypedContractMethod<
+  getFunction(
+    nameOrSignature: 'getSubscription',
+  ): TypedContractMethod<
     [subId: BigNumberish],
-    [
-      [bigint, bigint, string, string[]] & {
-        balance: bigint;
-        reqCount: bigint;
-        owner: string;
-        consumers: string[];
-      },
-    ],
+    [[bigint, bigint, string, string[]] & { balance: bigint; reqCount: bigint; owner: string; consumers: string[] }],
     'view'
   >;
   getFunction(nameOrSignature: 'pendingRequestExists'): TypedContractMethod<[subId: BigNumberish], [boolean], 'view'>;

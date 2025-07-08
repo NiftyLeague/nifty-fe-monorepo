@@ -22,7 +22,7 @@ import type { Provider } from '../types';
 
 // PREFER MANUAL APPROACH BECAUSE ABOVE CODE ADDS EXCESS LOAD TIME
 
-const PROVIDERS = process.env.NEXT_PUBLIC_AUTH_PROVIDERS;
+const PROVIDERS = process.env.NEXT_PUBLIC_AUTH_PROVIDERS as string;
 const PROVIDERS_LIST = PROVIDERS ? (PROVIDERS.split(',') as Provider[]) : [];
 
 export default function useProviders(): Provider[] {

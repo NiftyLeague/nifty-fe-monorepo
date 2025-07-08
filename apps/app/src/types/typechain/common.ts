@@ -41,9 +41,7 @@ export type TypedListener<TCEvent extends TypedContractEvent> = (
   ...listenerArg: [...__TypechainAOutputTuple<TCEvent>, TypedEventLog<TCEvent>, ...undefined[]]
 ) => void;
 
-export type MinEthersFactory<C, ARGS> = {
-  deploy(...a: ARGS[]): Promise<C>;
-};
+export type MinEthersFactory<C, ARGS> = { deploy(...a: ARGS[]): Promise<C> };
 
 export type GetContractTypeFromFactory<F> = F extends MinEthersFactory<infer C, any> ? C : never;
 export type GetARGsTypeFromFactory<F> = F extends MinEthersFactory<any, any> ? Parameters<F['deploy']> : never;

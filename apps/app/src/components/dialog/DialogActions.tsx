@@ -9,7 +9,7 @@ const IconButtonStyle = styled(IconButton)(({ theme }) => ({
   position: 'absolute',
   right: 0,
   top: 0,
-  color: theme.palette.grey[500],
+  color: 'var(--color-foreground-2)',
 }));
 
 const DialogActionComp = ({ children, isOpen }: DialogAction) => {
@@ -18,9 +18,7 @@ const DialogActionComp = ({ children, isOpen }: DialogAction) => {
     throw new Error('DialogActionComp expects a valid ReactElement as children');
   }
   const childElement = children as React.ReactElement<any, any>;
-  return cloneElement(childElement, {
-    onClick: callAll(() => setIsOpen(isOpen || false), childElement.props.onClick),
-  });
+  return cloneElement(childElement, { onClick: callAll(() => setIsOpen(isOpen || false), childElement.props.onClick) });
 };
 
 const DialogTrigger = ({ children }: DialogAction) => DialogActionComp({ children, isOpen: true });

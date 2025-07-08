@@ -15,10 +15,7 @@ function PaperComponent(props: PaperProps) {
   );
 }
 
-type DraggableDialogProps = {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-};
+type DraggableDialogProps = { open: boolean; setOpen: (open: boolean) => void };
 
 export default function DraggableDialog({ open, setOpen }: DraggableDialogProps) {
   const handleClose = () => setOpen(false);

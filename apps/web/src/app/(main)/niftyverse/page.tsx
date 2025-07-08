@@ -1,65 +1,40 @@
-import cn from 'classnames';
 import Image from 'next/image';
 import type { NextPage } from 'next';
-import { Container, Stack } from '@mui/material';
-import AnimatedWrapper from '@/components/AnimatedWrapper';
+
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
+import ConsoleGame from '@nl/ui/custom/ConsoleGame';
+
 import { NIFTYVERSE_PROPERTIES } from '@/constants/niftyverse';
-import ExternalIcon from '@/components/ExternalIcon';
-import ConsoleGame from '@/components/ConsoleGame';
-import styles from './index.module.scss';
+import ThemeBtnGroup from '@/components/ThemeBtnGroup';
 
 const NiftyVerse: NextPage = () => {
   return (
-    <div className="position-relative">
-      <div className={cn(styles.introContainer, 'row m-0 p-0 position-relative')}>
-        <div className="d-flex flex-column text-center position-relative p-0">
-          <ConsoleGame src="/video/mansion_showcase.mp4" />
-          <Stack
-            direction="row"
-            sx={{ justifyContent: 'center', alignItems: 'center' }}
-            gap={{ xs: 1.25, xl: 4 }}
-            px={{ xs: 2, md: 0 }}
-            mt={{ xs: 2, sm: 0 }}
-            className="game-playing-actions"
-          >
-            <AnimatedWrapper>
-              <a href="https://app.niftyleague.com/games/niftyverse" target="_blank" rel="noreferrer">
-                <button
-                  disabled
-                  className="btn theme-btn-primary section-black-button animated-fade animated-fade-start transition-delay-medium"
-                >
-                  COMING SOON
-                </button>
-              </a>
-            </AnimatedWrapper>
-            <AnimatedWrapper>
-              <a href="https://twitter.com/search?q=%23NiftyLeaks&src=typed_query" target="_blank" rel="noreferrer">
-                <button className="btn theme-btn-transparent section-white-button animated-fade animated-fade-start transition-delay-medium">
-                  VIEW MORE
-                  <ExternalIcon />
-                </button>
-              </a>
-            </AnimatedWrapper>
-          </Stack>
-        </div>
-      </div>
+    <>
+      <section className="relative xl:-top-20 2xl:-top-35">
+        <ConsoleGame src="/video/mansion_showcase.mp4" />
 
-      <Container>
-        <div
-          className={cn(
-            styles.intro,
-            'pt-md-5 pt-xl-0 d-flex flex-column-reverse flex-md-row align-items-center justify-content-center position-relative',
-          )}
-        >
-          <div className={cn(styles.block, 'd-flex flex-column col-12 col-md-6 col-lg-7 pe-0 pe-md-3')}>
+        <ThemeBtnGroup
+          className="absolute bottom-0 sm:bottom-4"
+          primary={{ title: 'COMING SOON', disabled: true }}
+          secondary={{
+            href: 'https://twitter.com/search?q=%23NiftyLeaks&src=typed_query',
+            title: 'VIEW MORE',
+            external: true,
+          }}
+        />
+      </section>
+
+      <div className="container relative">
+        <section className="section flex flex-col-reverse md:flex-row items-center justify-center">
+          <div className="flex flex-col w-full md:w-1/2 lg:w-7/12 pr-0 md:pr-3 text-center md:text-left">
             <div className="mb-2 mb-md-3">
               <AnimatedWrapper>
-                <h1 className="animated-header-text animated-header-text-start">NIFTYVERSE</h1>
+                <h1 className="transition-vertical-fade transition-vertical-fade-start">NIFTYVERSE</h1>
               </AnimatedWrapper>
             </div>
             <div className="mb-3 mb-md-0">
               <AnimatedWrapper>
-                <p className="animated-header-text animated-header-text-start transition-delay-small">
+                <p className="transition-vertical-fade transition-vertical-fade-start delay-lite">
                   NiftyVerse is a virtual space for gamers to connect, collaborate, and compete with each other. The
                   initial districts are designed by the Nifty League team, but ultimately the vision is for NiftyVerse
                   to be a dynamic and interoperable platform for developers to create their own games, ensuring a wide
@@ -69,60 +44,49 @@ const NiftyVerse: NextPage = () => {
               </AnimatedWrapper>
             </div>
           </div>
-          <div className="col-12 col-md-6 col-lg-5">
+          <div className="w-full md:w-1/2 lg:w-5/12">
             <AnimatedWrapper>
-              <div className="position-relative text-align-right animated-fade-slow animated-fade-start transition-delay-medium ps-0 ps-lg-5 mb-3">
+              <div className="relative text-right transition-fade-slow transition-fade-start delay-normal ps-0 lg:ps-5 mb-3">
                 <video width="100%" height="100%" muted autoPlay loop playsInline data-keepplaying>
                   <source src="/video/arcade-token.mp4" type="video/mp4" />
                 </video>
               </div>
             </AnimatedWrapper>
           </div>
-          <div className={cn(styles.gradient1, 'radial-gradient-piece')} />
-        </div>
-        <div className={cn(styles.section, 'position-relative')}>
-          <div className={cn(styles.gradient2, 'radial-gradient-piece')} />
+          <div className="purple-bg-orb orb-top-right" />
+        </section>
+
+        <section className="section relative">
+          <div className="purple-bg-orb orb-top-left" />
           <div className="mb-3 mb-md-5">
             <AnimatedWrapper>
-              <h3 className="text-align-center animated-header-text animated-header-text-start transition-delay-small">
+              <h3 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">
                 PROPERTY TYPES FOR EVERYONE
               </h3>
             </AnimatedWrapper>
           </div>
-          <div
-            className={cn(
-              styles.properties,
-              'd-flex flex-column align-items-start flex-md-row full-width justify-content-md-between flex-wrap',
-            )}
-          >
+          <div className="flex flex-col items-start md:flex-row w-full justify-between flex-wrap">
             {NIFTYVERSE_PROPERTIES.map(({ name, description, image }) => (
-              <div
-                className={'full-width d-flex flex-column flex-lg-row position-relative py-3 px-2 mb-3 mb-md-5'}
-                key={name}
-              >
-                <div className="col-12 col-lg-6 pe-lg-2 d-flex flex-column">
+              <div className="w-full md:w-1/2 flex flex-col lg:flex-row relative py-3 px-2 mb-3 md:mb-5" key={name}>
+                <div className="w-full lg:w-1/2 lg:pr-2 flex flex-col">
                   <AnimatedWrapper>
-                    <h6 className="my-0 animated-fade-slow animated-fade-start transition-delay-small">{name}</h6>
+                    <h6 className="my-0 transition-fade-slow transition-fade-start delay-lite">{name}</h6>
                   </AnimatedWrapper>
                   <AnimatedWrapper>
-                    <p className="my-0 mt-2 mt-md-4 mb-4 mb-lg-0 animated-fade-slow animated-fade-start transition-delay-medium">
+                    <p className="mt-2 md:mt-4 mb-4 lg:mb-0 transition-fade-slow transition-fade-start delay-normal">
                       {description}
                     </p>
                   </AnimatedWrapper>
                 </div>
-                <div className="col-12 col-lg-6 ps-lg-2 position-relative">
+                <div className="w-full lg:w-1/2 lg:pl-2 relative">
                   <AnimatedWrapper>
-                    <div className="animated-fade animated-fade-start transition-delay-medium">
+                    <div className="transition-fade transition-fade-start delay-normal">
                       <Image
                         src={image}
                         alt="NiftyVerse District Highlight"
                         width={500}
                         height={283}
-                        style={{
-                          width: '100%',
-                          height: 'auto',
-                          maxWidth: '100%',
-                        }}
+                        style={{ width: '100%', height: 'auto', maxWidth: '100%' }}
                       />
                     </div>
                   </AnimatedWrapper>
@@ -130,24 +94,10 @@ const NiftyVerse: NextPage = () => {
               </div>
             ))}
           </div>
-          <div className="d-flex justify-content-center mt-5">
-            <AnimatedWrapper>
-              <a href="/docs/overview/games/niftyverse" target="_blank" rel="noreferrer">
-                <button
-                  className={cn(
-                    styles.button,
-                    'btn theme-btn-primary px-3 animated-fade-slow animated-fade-start transition-delay-small',
-                  )}
-                >
-                  View Docs
-                  <ExternalIcon />
-                </button>
-              </a>
-            </AnimatedWrapper>
-          </div>
-        </div>
-      </Container>
-    </div>
+          <ThemeBtnGroup primary={{ href: '/docs/overview/games/niftyverse', title: 'VIEW DOCS', external: true }} />
+        </section>
+      </div>
+    </>
   );
 };
 

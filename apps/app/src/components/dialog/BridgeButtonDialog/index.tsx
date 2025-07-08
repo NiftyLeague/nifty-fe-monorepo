@@ -26,10 +26,7 @@ const BridgeButtonDialog = ({ balance, loading }: BridgeButtonDialogProps) => {
         <DialogContent
           aria-labelledby="bridge-nftl-dialog"
           dialogTitle="Bridge NFTL to Immutable"
-          sx={{
-            '& h2': { textAlign: 'center' },
-            '& .MuiDialogContent-root': { textAlign: 'center' },
-          }}
+          sx={{ '& h2': { textAlign: 'center' }, '& .MuiDialogContent-root': { textAlign: 'center' } }}
         >
           <BridgeForm balance={balance} onBridgeSuccess={onBridgeSuccess} />
         </DialogContent>

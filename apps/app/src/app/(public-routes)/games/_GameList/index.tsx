@@ -10,9 +10,7 @@ const GridItem = styled(Grid)(({ theme }) => ({
   paddingRight: 16,
   paddingBottom: 32,
   border: 'none',
-  [theme.breakpoints.down('sm')]: {
-    paddingBottom: 0,
-  },
+  [theme.breakpoints.down('sm')]: { paddingBottom: 0 },
 }));
 
 const AppleBadge = ({ disabled = false }) => (
@@ -55,11 +53,7 @@ const SteamBadge = ({ disabled = false }) => (
   />
 );
 
-type StoreButtonsProps = {
-  android?: string;
-  ios?: string;
-  steam?: string;
-};
+type StoreButtonsProps = { android?: string; ios?: string; steam?: string };
 
 const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
   <Grid container spacing={2} style={{ width: '100%' }}>
@@ -93,7 +87,7 @@ const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
   </Grid>
 );
 
-const GameList = () => (
+const F2PGameList = () => (
   <>
     <GridItem size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
       <GameCard
@@ -126,4 +120,4 @@ const GameList = () => (
   </>
 );
 
-export default GameList;
+export default F2PGameList;

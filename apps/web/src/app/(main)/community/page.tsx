@@ -2,66 +2,60 @@
 
 import type { NextPage } from 'next';
 import Image from 'next/image';
-import { useMediaQuery } from '@mui/material';
+
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import SocialCards from '@/components/SocialCards';
-import AnimatedWrapper from '@/components/AnimatedWrapper';
+
+import styles from './index.module.css';
 
 const Community: NextPage = () => {
   const desktop = useMediaQuery('(min-width:769px)');
   return (
     <>
-      <div className="position-relative com-intro">
-        <div className="container pt-5 mt-sm-5 px-0 px-sm-5" style={{ maxWidth: '90%' }}>
-          <div className="row m-0 position-relative com-intro-content">
-            <div className="col-md-6 px-0 com-intro-text">
-              <div className="mt-5">
-                <AnimatedWrapper>
-                  <h4 className="animated-header-text animated-header-text-start">Nifty League</h4>
-                </AnimatedWrapper>
-              </div>
-              <AnimatedWrapper>
-                <h1 className="animated-header-text animated-header-text-start">Community</h1>
-              </AnimatedWrapper>
-              <div className="my-3">
-                <AnimatedWrapper>
-                  <p className="animated-header-text animated-header-text-start transition-delay-small">
-                    Meet our global community of gamers
-                  </p>
-                </AnimatedWrapper>
-              </div>
-            </div>
-            <div className="col-sm-8 col-md-6 col-xl-4 position-relative text-center com-banner">
-              <AnimatedWrapper>
-                <div className="position-relative animated-fade-start animated-fade transition-delay-medium">
-                  <Image
-                    src="/img/space/moon-satoshi.webp"
-                    alt="Satoshi moon"
-                    width={445}
-                    height={437}
-                    priority
-                    sizes="100vw"
-                    style={{
-                      width: '100%',
-                      height: 'auto',
-                    }}
-                  />
-                </div>
-              </AnimatedWrapper>
-              <div className="moon-grad">
+      <section className="relative min-h-screen">
+        <div className="container pt-40 relative flex flex-col md:flex-row z-[2]">
+          <div className="w-full md:w-1/2 px-0 text-center md:text-left">
+            <AnimatedWrapper>
+              <h4 className="transition-vertical-fade transition-vertical-fade-start whitespace-nowrap">
+                Nifty League
+              </h4>
+              <h2 className="transition-vertical-fade transition-vertical-fade-start">Community</h2>
+              <p className="mt-3 transition-vertical-fade transition-vertical-fade-start delay-lite">
+                Meet our global community of gamers
+              </p>
+            </AnimatedWrapper>
+          </div>
+          <div className="w-full sm:w-2/3 md:w-1/2 xl:w-1/3 relative mx-auto text-center">
+            <AnimatedWrapper>
+              <div className="relative transition-fade-start transition-fade delay-normal">
                 <Image
-                  src="/img/gradient/purple-light-grad.svg"
+                  src="/img/space/moon-satoshi.webp"
+                  alt="Satoshi moon"
+                  width={445}
+                  height={437}
                   priority
-                  alt="gradient background"
-                  width={685}
-                  height={685}
+                  sizes="100vw"
+                  className="w-full h-auto"
                 />
               </div>
+            </AnimatedWrapper>
+            <div className={styles.moon_grad}>
+              <Image
+                src="/img/gradient/purple-light-grad.svg"
+                priority
+                alt="gradient background"
+                width={685}
+                height={685}
+              />
             </div>
+            <div className="purple-bg-orb orb-top-right" />
           </div>
         </div>
-        <div className="w-100 h-auto position-absolute bottom-0 earth-com">
+
+        <div className="w-full h-auto absolute -bottom-10 md:-bottom-20">
           <AnimatedWrapper>
-            <div className="position-relative animated-fade-start animated-fade transition-delay-medium">
+            <div className="relative transition-fade-start transition-fade delay-normal">
               <Image
                 src="/img/space/earth-darkened.webp"
                 width={1684}
@@ -69,58 +63,50 @@ const Community: NextPage = () => {
                 alt="Earth"
                 priority
                 sizes="100vw"
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                }}
+                className="w-full h-auto"
               />
             </div>
           </AnimatedWrapper>
-          <div className="radial-gradient-background" />
+          <div className="dark-gradient-overlay" />
         </div>
-        <span className="earth-grad">
+        <span className={styles.earth_grad}>
           <Image
             src="/img/gradient/purple-grad.svg"
             alt="Purple eclipse"
             width={704}
             height={704}
             sizes="100vw"
-            style={{
-              width: '100%',
-              height: 'auto',
-            }}
+            className="w-full h-auto"
           />
         </span>
-      </div>
+      </section>
 
-      <div className="container com-content pb-md-5" style={{ maxWidth: '100%' }}>
-        <div className="row m-0 p-0 position-relative text-center coversation-container">
-          <div className="">
-            <AnimatedWrapper>
-              <h3 className="animated-header-text animated-header-text-start transition-delay-small">
-                Join the conversation
-              </h3>
-            </AnimatedWrapper>
-            <AnimatedWrapper>
-              <p className="text-m-center animated-header-text animated-header-text-start transition-delay-medium my-3">
-                Nifty League&apos;s community is unlike any other. Get your questions answers and connect with fellow
-                DEGENs!
-              </p>
-            </AnimatedWrapper>
-          </div>
+      <section className="container section">
+        <div className="relative text-center mb-8">
+          <AnimatedWrapper>
+            <h3 className="transition-vertical-fade transition-vertical-fade-start delay-lite">
+              Join the conversation
+            </h3>
+          </AnimatedWrapper>
+          <AnimatedWrapper>
+            <p className="text-center my-3 mx-auto max-w-2xl transition-vertical-fade transition-vertical-fade-start delay-normal">
+              Nifty League&apos;s community is unlike any other. Get your questions answered and connect with fellow
+              DEGENs!
+            </p>
+          </AnimatedWrapper>
         </div>
-      </div>
 
-      <SocialCards />
+        <SocialCards />
+      </section>
 
-      <div className="row row-top-spacing m-0 p-0 position-relative sliding-nfts">
-        <div className="d-flex flex-column text-center position-relative p-0">
-          <div className={`position-relative sliding-background-wrapper-${desktop ? 'desktop' : 'mobile'}`}>
+      <section className="section flex sliding-nfts relative overflow-hidden">
+        <div className="flex flex-col text-center relative p-0">
+          <div className={`relative sliding-background-wrapper-${desktop ? 'desktop' : 'mobile'}`}>
             <div className="sliding-background" />
-            <div className="radial-gradient-background top" />
+            <div className="dark-gradient-overlay" />
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 };

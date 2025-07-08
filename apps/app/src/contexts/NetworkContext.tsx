@@ -82,15 +82,7 @@ export const NetworkProvider = ({ children }: PropsWithChildren): React.ReactNod
     }
   }, [address, chain, isConnected, publicProvider, readContracts, signer, writeContracts]);
 
-  const context = {
-    address,
-    isConnected,
-    publicProvider,
-    readContracts,
-    signer,
-    tx,
-    writeContracts,
-  };
+  const context = { address, isConnected, publicProvider, readContracts, signer, tx, writeContracts };
 
   return <NetworkContext.Provider value={context}>{children}</NetworkContext.Provider>;
 };

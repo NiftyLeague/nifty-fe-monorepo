@@ -14,13 +14,7 @@ export const POST = withUserRoute(async (request, session) => {
 
   if (EntityToken && SessionTicket) {
     try {
-      const data = await LinkWallet({
-        address,
-        signature,
-        nonce,
-        EntityToken,
-        SessionTicket,
-      });
+      const data = await LinkWallet({ address, signature, nonce, EntityToken, SessionTicket });
       return NextResponse.json(data);
     } catch (error) {
       const { status, message } = errorResHandler(error);

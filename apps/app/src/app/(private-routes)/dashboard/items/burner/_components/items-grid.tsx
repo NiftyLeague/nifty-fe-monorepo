@@ -6,20 +6,11 @@ import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 
 const PREFIX = 'items-grid';
 
-const classes = {
-  titleWrap: `${PREFIX}-titleWrap`,
-  title: `${PREFIX}-title`,
-};
+const classes = { titleWrap: `${PREFIX}-titleWrap`, title: `${PREFIX}-title` };
 
 const Root = styled('div')({
-  [`&.${classes.titleWrap}`]: {
-    padding: 0,
-  },
-  [`&.${classes.title}`]: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    fontSize: '0.85rem',
-  },
+  [`&.${classes.titleWrap}`]: { padding: 0 },
+  [`&.${classes.title}`]: { display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem' },
 });
 
 const ITEMS = [
@@ -42,11 +33,7 @@ const containerStyles = {
   top: 950,
 } as React.CSSProperties;
 
-const gridStyles = {
-  flexGrow: 1,
-  rowGap: '0 !important',
-  marginBottom: 0,
-};
+const gridStyles = { flexGrow: 1, rowGap: '0 !important', marginBottom: 0 };
 
 export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
   const { loadingItems } = useNFTsBalances();
@@ -56,13 +43,7 @@ export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
   ) : (
     <Root style={containerStyles}>
       <div>ITEMS I OWN</div>
-      <ImageList
-        gap={10}
-        cols={3}
-        sx={{
-          ...gridStyles,
-        }}
-      >
+      <ImageList gap={10} cols={3} sx={{ ...gridStyles }}>
         {ITEMS.map(item => (
           <ImageListItem key={item.id}>
             <Image

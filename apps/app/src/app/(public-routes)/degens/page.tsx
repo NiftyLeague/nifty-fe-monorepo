@@ -6,9 +6,9 @@ import { useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Grid, IconButton, Pagination, Stack, Dialog, useMediaQuery } from '@mui/material';
-import { useTheme } from '@nl/theme';
+import { Grid, IconButton, Pagination, Stack, Dialog } from '@mui/material';
 import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder';
 import DegensFilter from '@/components/extended/DegensFilter';
@@ -31,12 +31,8 @@ import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 import DegensTopNav from '@/components/extended/DegensTopNav';
 import { HYDRAS } from '@/constants/hydras';
 
-const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'), {
-  ssr: false,
-});
-const DegenCard = dynamic(() => import('@/components/cards/DegenCard'), {
-  ssr: false,
-});
+const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'), { ssr: false });
+const DegenCard = dynamic(() => import('@/components/cards/DegenCard'), { ssr: false });
 
 // Needs to be divisible by 2, 3, or 4
 const DEGENS_PER_PAGE = 12;
@@ -77,11 +73,11 @@ const AllDegensPage = (): React.ReactNode => {
 
   const { isDegenOwner } = useNFTsBalances();
 
-  const theme = useTheme();
-  const isScreenLg = useMediaQuery(theme.breakpoints.between('lg', 'xl'));
+  const isMobile = useMediaQuery('(max-width:640px)');
+  const isSmallScreen = useMediaQuery('(max-width:1280px)');
   const { jump, dataForCurrentPage, maxPage, currentPage } = usePagination<Degen>(
     filteredData,
-    isScreenLg && layoutMode !== 'gridView' && !isDrawerOpen ? 15 : DEGENS_PER_PAGE,
+    !isSmallScreen && layoutMode !== 'gridView' && !isDrawerOpen ? 18 : DEGENS_PER_PAGE,
   );
 
   useEffect(() => {
@@ -120,19 +116,13 @@ const AllDegensPage = (): React.ReactNode => {
     (filter: DegenFilter) => {
       // TODO: Remove temp filter overrides if we want to enable filter functionailty
       // by prices, rentals, or wearables. Temp hardcoded to empty to avoid rentals filtering
-      const newFilters = {
-        ...filter,
-        prices: [],
-        rentals: [],
-        wearable: [],
-        sort: filters.sort,
-      };
+      const newFilters = { ...filter, prices: [], rentals: [], wearable: [], sort: filters.sort };
       const result = tranformDataByFilter(degens, newFilters);
       setFilters(newFilters);
       setFilteredData(result);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [degens.length, filters.sort],
+    [degens?.length, filters.sort],
   );
 
   const handleSort = useCallback(
@@ -142,7 +132,7 @@ const AllDegensPage = (): React.ReactNode => {
       setFilteredData(tranformDataByFilter(degens, newSort));
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [degens.length, filters],
+    [degens?.length, filters],
   );
 
   const handleClickEditName = useCallback((degen: Degen): void => {
@@ -172,8 +162,8 @@ const AllDegensPage = (): React.ReactNode => {
           xs: isGridView ? 12 : 6,
           sm: isGridView ? 6 : 4,
           md: isGridView ? 4 : 3,
-          lg: isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2.4,
-          xl: isGridView ? 3 : 2,
+          lg: isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2,
+          xl: isGridView ? (isDrawerOpen ? 3 : 2) : isDrawerOpen ? 2 : 1.5,
         }}
       >
         <SkeletonDegenPlaceholder size={isGridView ? 'normal' : 'small'} />
@@ -203,8 +193,8 @@ const AllDegensPage = (): React.ReactNode => {
           xs: isGridView ? 12 : 6,
           sm: isGridView ? 6 : 4,
           md: isGridView ? 4 : 3,
-          lg: isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2.4,
-          xl: isGridView ? 3 : 2,
+          lg: isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2,
+          xl: isGridView ? (isDrawerOpen ? 3 : 2) : isDrawerOpen ? 2 : 1.5,
         }}
       >
         <DegenCard
@@ -227,7 +217,7 @@ const AllDegensPage = (): React.ReactNode => {
 
   const renderMain = useCallback(
     () => (
-      <Stack gap={1.5}>
+      <Stack gap={1.5} className="h-full">
         {/* Main Grid title */}
         <SectionTitle firstSection>
           <Stack direction="row" gap={1} sx={{ alignItems: 'center', mb: 2 }}>
@@ -245,27 +235,29 @@ const AllDegensPage = (): React.ReactNode => {
           count={maxPage}
           page={currentPage}
           color="primary"
-          sx={{ margin: '0 auto' }}
+          sx={{ margin: '0 auto', paddingBottom: '16px' }}
+          size={isMobile ? 'small' : 'medium'}
           onChange={(e: React.ChangeEvent<unknown>, p: number) => jump(p)}
         />
       </Stack>
     ),
     [
-      isDrawerOpen,
-      filteredData.length,
-      degens?.length,
-      renderSkeletonItem,
-      dataForCurrentPage,
-      renderDegen,
-      maxPage,
       currentPage,
+      dataForCurrentPage,
+      degens?.length,
+      filteredData.length,
+      isDrawerOpen,
+      isMobile,
       jump,
+      maxPage,
+      renderDegen,
+      renderSkeletonItem,
     ],
   );
 
   return (
     <>
-      <Stack spacing={2} sx={{ mt: 2.5 }}>
+      <Stack spacing={2} className="h-full justify-center align-top pl-2">
         <Stack sx={{ pl: 2, pr: 3 }}>
           <DegensTopNav
             searchTerm={searchTerm || ''}

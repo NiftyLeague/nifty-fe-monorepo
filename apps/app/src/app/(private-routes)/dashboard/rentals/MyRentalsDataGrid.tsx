@@ -120,10 +120,7 @@ const MyRentalsDataGrid = ({
   };
 
   const handleClickDegenId = (params: GridRenderCellParams) => {
-    setSelectedDegen({
-      ...params?.row,
-      id: params?.row?.degenId,
-    });
+    setSelectedDegen({ ...params?.row, id: params?.row?.degenId });
     setIsRentDialog(false);
     setIsDegenModalOpen(true);
   };
@@ -132,9 +129,7 @@ const MyRentalsDataGrid = ({
     setSort(model);
   };
 
-  const commonColumnProp = {
-    minWidth: 100,
-  };
+  const commonColumnProp = { minWidth: 100 };
 
   const columns: GridColDef[] = useMemo(() => {
     const results = [
@@ -185,11 +180,7 @@ const MyRentalsDataGrid = ({
           );
         },
       },
-      {
-        field: 'rentalCategory',
-        headerName: 'Category',
-        width: 150,
-      },
+      { field: 'rentalCategory', headerName: 'Category', width: 150 },
       // {
       //   field: 'player',
       //   headerName: "Who's playing?",
@@ -202,21 +193,15 @@ const MyRentalsDataGrid = ({
           <Link
             component="button"
             variant="body2"
-            sx={{ color: 'white', textDecorationColor: 'white' }}
+            sx={{ color: 'var(--color-foreground)', textDecorationColor: 'var(--color-foreground)' }}
             onClick={() => handleClickDegenId(params)}
           >
             #{params.value}
           </Link>
         ),
       },
-      {
-        field: 'background',
-        headerName: 'Background',
-      },
-      {
-        field: 'tribe',
-        headerName: 'Tribe',
-      },
+      { field: 'background', headerName: 'Background' },
+      { field: 'tribe', headerName: 'Tribe' },
       {
         field: 'earningCap',
         headerName: 'Earning Cap',
@@ -234,42 +219,27 @@ const MyRentalsDataGrid = ({
         ...commonColumnProp,
         width: 150,
         renderCell: (params: GridRenderCellParams) => (
-          <Typography sx={{ color: theme => theme.palette.warning.main }}>
+          <Typography sx={{ color: 'var(--color-warning)' }}>
             <Countdown date={new Date(params.value * 1000)} />
           </Typography>
         ),
       },
-      {
-        field: 'multiplier',
-        headerName: 'Multiplier',
-        width: 150,
-        ...commonColumnProp,
-      },
+      { field: 'multiplier', headerName: 'Multiplier', width: 150, ...commonColumnProp },
       // {
       //   field: 'timePlayed',
       //   headerName: 'Time Played',
       //   ...commonColumnProp,
       //   width: 120,
       // },
-      {
-        field: 'matches',
-        headerName: 'Matches',
-      },
-      {
-        field: 'wins',
-        headerName: 'Wins',
-      },
+      { field: 'matches', headerName: 'Matches' },
+      { field: 'wins', headerName: 'Wins' },
       {
         field: 'winRate',
         headerName: 'Win Rate',
         ...commonColumnProp,
         renderCell: (params: GridRenderCellParams) => <span>{formatNumberToDisplayWithCommas(params.value)}%</span>,
       },
-      {
-        field: 'weeklyFee',
-        headerName: 'Weekly Fee',
-        ...commonColumnProp,
-      },
+      { field: 'weeklyFee', headerName: 'Weekly Fee', ...commonColumnProp },
       {
         field: 'dailyFee',
         headerName: 'Current Daily Fee',
@@ -328,9 +298,9 @@ const MyRentalsDataGrid = ({
             <Typography
               sx={{
                 color: theme => {
-                  if (params.value === 0) return theme.palette.text.primary;
-                  if (params.value > 0) return theme.palette.success.main;
-                  if (params.value < 0) return theme.palette.error.main;
+                  if (params.value === 0) return 'var(--color-foreground)';
+                  if (params.value > 0) return 'var(--color-success)';
+                  if (params.value < 0) return 'var(--color-error)';
                 },
               }}
             >
@@ -362,13 +332,7 @@ const MyRentalsDataGrid = ({
         columnVisibilityModel={columnVisibilityModel}
         onColumnVisibilityModelChange={handleColumnVisibilityChange}
         onSortModelChange={handleSortColumn}
-        sx={{
-          '& .MuiDataGrid-row:hover': {
-            '& button': {
-              display: 'block',
-            },
-          },
-        }}
+        sx={{ '& .MuiDataGrid-row:hover': { '& button': { display: 'block' } } }}
       />
       {/* Nickname Degen Dialog */}
       <Dialog open={isNicknameModalOpen} onClose={() => setIsNicknameModalOpen(false)}>

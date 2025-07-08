@@ -1,5 +1,4 @@
-import { useMediaQuery } from '@mui/material';
-import { useTheme } from '@nl/theme';
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 
 /*
   ~ What it does? ~
@@ -12,10 +11,9 @@ import { useTheme } from '@nl/theme';
 */
 
 export default function useComicDimension() {
-  const theme = useTheme();
-  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  const isSmallScreen = useMediaQuery('(max-width:1024px)');
 
-  if (isTablet) {
+  if (isSmallScreen) {
     return { width: 90, height: 90 };
   }
 

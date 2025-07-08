@@ -21,9 +21,7 @@ interface IFormInput {
   name: string;
 }
 
-const validationSchema = yup.object({
-  name: yup.string().required(),
-});
+const validationSchema = yup.object({ name: yup.string().required() });
 
 const ChangeProfileNameForm = ({ updateNewName }: ChangeProfileNameFormProps): React.ReactNode => {
   const [isLoadingRename, setLoadingRename] = useState(false);
@@ -36,13 +34,7 @@ const ChangeProfileNameForm = ({ updateNewName }: ChangeProfileNameFormProps): R
     control,
     reset,
     formState: { errors },
-  } = useForm<IFormInput>({
-    resolver: yupResolver(validationSchema),
-    mode: 'onChange',
-    defaultValues: {
-      name: '',
-    },
-  });
+  } = useForm<IFormInput>({ resolver: yupResolver(validationSchema), mode: 'onChange', defaultValues: { name: '' } });
 
   const onSubmit: SubmitHandler<IFormInput> = async data => {
     if (!data.name || !authToken) {
@@ -54,25 +46,19 @@ const ChangeProfileNameForm = ({ updateNewName }: ChangeProfileNameFormProps): R
       const response = await fetch(PROFILE_RENAME_API, {
         headers: { authorizationToken: authToken as string },
         method: 'POST',
-        body: JSON.stringify({
-          name: data.name,
-        }),
+        body: JSON.stringify({ name: data.name }),
       });
       if (!response.ok) {
         const errMsg = await response.text();
         setLoadingRename(false);
-        toast.error(`Can not update the new name: ${errMsg}`, {
-          theme: 'dark',
-        });
+        toast.error(`Can not update the new name: ${errMsg}`, { theme: 'dark' });
         return;
       }
       const res = await response.json();
       onRenameRentalSuccess(res?.name_cased);
     } catch (error) {
       setLoadingRename(false);
-      toast.error(`Can not update the new name: ${error}`, {
-        theme: 'dark',
-      });
+      toast.error(`Can not update the new name: ${error}`, { theme: 'dark' });
     }
   };
 

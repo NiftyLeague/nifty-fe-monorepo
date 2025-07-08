@@ -2,9 +2,7 @@ import type { TransactionResponse, TransactionRequest, TransactionReceipt } from
 import type { EthereumTransactionLog, EthereumTransactionData, SDKError, NotificationObject } from 'bnc-sdk';
 import type { EthereumRpcError, EthereumProviderError } from 'eth-rpc-errors';
 
-type Deferrable<T> = {
-  [K in keyof T]: T[K] | Promise<T[K]>;
-};
+type Deferrable<T> = { [K in keyof T]: T[K] | Promise<T[K]> };
 
 export declare type TransactionData = EthereumTransactionData;
 export declare type TransactionEventLog = EthereumTransactionLog;

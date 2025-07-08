@@ -2,7 +2,15 @@ import Image from 'next/image';
 import { BaseCard, BaseButton, Code } from '@nl/ui/base';
 import styles from './page.module.css';
 
-function Gradient({ conic, className, small }: { small?: boolean; conic?: boolean; className?: string }): React.ReactNode {
+function Gradient({
+  conic,
+  className,
+  small,
+}: {
+  small?: boolean;
+  conic?: boolean;
+  className?: string;
+}): React.ReactNode {
   return (
     <span
       className={[

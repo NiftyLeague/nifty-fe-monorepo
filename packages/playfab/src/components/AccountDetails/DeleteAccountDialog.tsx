@@ -3,14 +3,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
-import cn from 'classnames';
 
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import { IconTrash } from '@nl/ui/supabase';
+import Button from '@nl/ui/supabase/Button';
+import Modal from '@nl/ui/supabase/Modal';
+import { IconTrash } from '@nl/ui/supabase/Icon';
 
 import fetchJson from '../../utils/fetchJson';
 import { errorMsgHandler } from '../../utils/errorHandlers';
@@ -44,42 +40,29 @@ export default function DeleteAccountDialog({ loading = false }) {
 
   return (
     <div>
-      <button
-        className={cn(styles.button_danger, 'block')}
-        style={{ marginBottom: 0 }}
+      <Button
+        block
+        className={styles.button_danger}
         disabled={loading}
+        icon={<IconTrash />}
+        size="medium"
+        type="default"
         onClick={handleClickOpen}
       >
-        <IconTrash />
         Delete Account
-      </button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        maxWidth="md"
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-        classes={{
-          container: styles.delete_account_dialog,
-          paper: styles.delete_account_dialog_paper,
-        }}
-      >
-        <DialogTitle id="alert-dialog-title">{'Are you sure you want to delete your account?'}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description" sx={{ color: '#fff' }}>
-            Once your account is deleted all of your data will be removed and there will be no way to recover your
-            account.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <button className={cn(styles.button_secondary)} onClick={handleClose}>
-            Cancel
-          </button>
-          <button className={cn(styles.button_danger)} onClick={handleDeleteUser}>
-            Delete Account
-          </button>
-        </DialogActions>
-      </Dialog>
+      </Button>
+      <Modal
+        visible={open}
+        onCancel={handleClose}
+        title="Delete Account"
+        description="Are you sure you want to delete your account? This action cannot be undone."
+        variant="danger"
+        size="small"
+        onConfirm={handleDeleteUser}
+        confirmText="Delete Account"
+        cancelText="Cancel"
+        closable
+      />
     </div>
   );
 }

@@ -40,7 +40,7 @@ const MenuList = () => {
         return <NavGroup key={item.id} item={item} />;
       default:
         return (
-          <Typography key={item.id} variant="h6" sx={{ color: theme => theme.palette.error.main }} align="center">
+          <Typography key={item.id} variant="h6" sx={{ color: 'var(--color-error)' }} align="center">
             Menu Items Error
           </Typography>
         );

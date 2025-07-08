@@ -1,0 +1,305 @@
+/* =======================|| CUSTOM ANIMATIONS/TRANSITIONS  ||======================= */
+
+@utility animation-hidden {
+  @apply !animate-none !transform-none !transition-none;
+}
+
+/* ===== Transition Delays ===== */
+@utility delay-lite {
+  @apply !delay-50 md:!delay-100;
+}
+@utility delay-normal {
+  @apply !delay-100 md:!delay-250;
+}
+@utility delay-long {
+  @apply !delay-250 md:!delay-500;
+}
+@utility delay-extreme {
+  @apply !delay-1000 md:!delay-2000;
+}
+
+@layer animations {
+  /* ==============================|| TRANSITIONS ||============================== */
+
+  /* ===== Fade Transitions ===== */
+  .transition-fade {
+    transition: opacity 1s ease-in-out;
+  }
+  .transition-fade-quick {
+    transition: opacity 0.75s ease-in-out;
+  }
+  .transition-fade-slow {
+    transition: opacity 2s ease-in-out;
+  }
+  .transition-fade-start {
+    opacity: 0;
+  }
+
+  /* ===== Fade + Slide Down  ===== */
+  .transition-vertical-fade {
+    top: 0;
+    transition:
+      opacity 2s ease-in-out,
+      top 1s ease-in-out;
+  }
+  .transition-vertical-fade-start {
+    top: -100px;
+    opacity: 0;
+  }
+
+  /* ===== Pop Transitions ===== */
+  .transition-quick-pop {
+    transition:
+      opacity 0.5s,
+      transform 1s;
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .transition-quick-pop-start {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  /* ===== Pop + Slide Right ===== */
+  .transition-quick-pop-left {
+    left: 0;
+    transition:
+      opacity 0.2s,
+      transform 0.4s,
+      left 0.3s;
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .transition-quick-pop-left-start {
+    left: -100px;
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  /* ==============================|| ANIMATIONS ||============================== */
+
+  /* ===== Blinking Animations ===== */
+  .animate-blink {
+    animation: blink 0.8s ease infinite;
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  /* ===== Zoom Animations ===== */
+  .animate-zoom-out {
+    animation: zoom-out 3s;
+  }
+
+  @keyframes zoom-out {
+    0% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .animate-zoom-out-large {
+    animation: zoom-out-2x 3s;
+  }
+
+  @keyframes zoom-out-2x {
+    0% {
+      transform: scale(2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  /* ===== Bounce Animations ===== */
+  .animate-bounce-coin1 {
+    animation: coin-bounce 3s ease infinite;
+  }
+  .animate-bounce-coin2 {
+    animation: coin-bounce 3s ease infinite 0.5s;
+  }
+  .animate-bounce-coin3 {
+    animation: coin-bounce 3s ease infinite 1s;
+  }
+
+  @keyframes coin-bounce {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-60px);
+    }
+    60% {
+      transform: translateY(-30px);
+    }
+  }
+
+  /* ===== Hover Animations ===== */
+  .animate-hover {
+    animation: hover 4s ease infinite;
+  }
+  .animate-hover2 {
+    animation: hover 4s ease infinite 0.5s;
+  }
+
+  @keyframes hover {
+    0%,
+    50%,
+    100% {
+      transform: translateY(0);
+    }
+    25%,
+    75% {
+      transform: translateY(-20px);
+    }
+  }
+
+  /* ===== Slide Animations ===== */
+  .animate-slide-y {
+    animation: slideY 1s ease-in;
+  }
+
+  @keyframes slideY {
+    0%,
+    50%,
+    100% {
+      transform: translateY(0px);
+    }
+    25% {
+      transform: translateY(-10px);
+    }
+    75% {
+      transform: translateY(10px);
+    }
+  }
+
+  .animate-slide-x {
+    animation: slideX 1s ease-in;
+  }
+
+  @keyframes slideX {
+    0%,
+    50%,
+    100% {
+      transform: translateX(0px);
+    }
+    25% {
+      transform: translateX(-10px);
+    }
+    75% {
+      transform: translateX(10px);
+    }
+  }
+
+  /* ===== Companion Propeller ===== */
+  .animate-propeller {
+    animation: propeller 0.5s ease infinite;
+  }
+
+  @keyframes propeller {
+    0%,
+    100% {
+      background-image: url('/img/hero/companion-anim1.webp');
+    }
+    25% {
+      background-image: url('/img/hero/companion-anim2.webp');
+    }
+    50% {
+      background-image: url('/img/hero/companion-anim3.webp');
+    }
+    75% {
+      background-image: url('/img/hero/companion-anim4.webp');
+    }
+  }
+
+  /* ===== Background Slider ===== */
+  .sliding-nfts .sliding-background-wrapper-desktop,
+  .sliding-nfts .sliding-background-wrapper-mobile {
+    overflow: hidden;
+    background: linear-gradient(128.04deg, var(--color-purple) 0%, var(--color-blue) 46.93%, #ff00c7 100%);
+  }
+  .sliding-nfts .sliding-background-wrapper-desktop {
+    min-height: 520px;
+  }
+  .sliding-nfts .sliding-background-wrapper-mobile {
+    min-height: 106px;
+    margin: 16px 0;
+  }
+
+  .sliding-background-wrapper-desktop .sliding-background,
+  .sliding-background-wrapper-mobile .sliding-background {
+    background: url(/img/degens/site-extras/degen-slider.webp) repeat-x;
+    image-rendering: crisp-edges;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    -ms-interpolation-mode: nearest-neighbor;
+    image-rendering: pixelated;
+    width: 5000px;
+  }
+  .sliding-background-wrapper-desktop .sliding-background {
+    height: 100%;
+    animation: slideBg 60s linear infinite;
+  }
+  .sliding-background-wrapper-mobile .sliding-background {
+    height: 106px;
+    animation: slideBg 240s linear infinite;
+    background-size: contain;
+  }
+
+  @keyframes slideBg {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-3750px, 0, 0);
+    }
+  }
+
+  /* ==============================|| EXTRA KEYFRAMES ||============================== */
+
+  @keyframes custom-bounce {
+    0%,
+    20%,
+    53%,
+    to {
+      animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+      transform: translateZ(0);
+    }
+    40%,
+    43% {
+      animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+      transform: translate3d(0, -5px, 0);
+    }
+    70% {
+      animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+      transform: translate3d(0, -7px, 0);
+    }
+    80% {
+      animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+      transform: translateZ(0);
+    }
+    90% {
+      transform: translate3d(0, -2px, 0);
+    }
+  }
+
+  @keyframes wings {
+    50% {
+      transform: translateY(-40px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+}

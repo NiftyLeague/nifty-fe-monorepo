@@ -26,11 +26,7 @@ import type {
 export declare namespace Store {
   export type SignatureStruct = { v: BigNumberish; r: BytesLike; s: BytesLike };
 
-  export type SignatureStructOutput = [v: bigint, r: string, s: string] & {
-    v: bigint;
-    r: string;
-    s: string;
-  };
+  export type SignatureStructOutput = [v: bigint, r: string, s: string] & { v: bigint; r: string; s: string };
 }
 
 export interface StoreInterface extends Interface {

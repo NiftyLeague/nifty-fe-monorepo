@@ -1,8 +1,8 @@
-import AnimatedWrapper from '@/components/AnimatedWrapper';
 import Image from 'next/image';
-import Link from 'next/link';
+
+import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
+import ThemeBtnGroup from '@/components/ThemeBtnGroup';
 import { LEARN_CARDS } from './constants';
-import ExternalIcon from '@/components/ExternalIcon';
 
 interface LearnCardProps {
   btnText: string;
@@ -15,57 +15,41 @@ interface LearnCardProps {
 
 const LearnCard = ({ btnText, external, image, link, subtitle, title }: LearnCardProps) => {
   return (
-    <div className="learn-content-wrapper col-12 col-md-6 py-2 px-2">
-      <div className="learn-content position-relative d-flex align-items-center">
-        <div className="position-absolute w-100 h-100">
-          <AnimatedWrapper>
-            <div className="animated-fade-quick animated-fade-start transition-delay-small">
-              <Image
-                alt={`${title} card background`}
-                priority
-                src={image}
-                width={552}
-                height={310}
-                sizes="100vw"
-                style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
-              />
-            </div>
-          </AnimatedWrapper>
-        </div>
+    <div className="relative flex items-center w-full h-full rounded-2xl overflow-hidden">
+      <div className="absolute inset-0">
+        <AnimatedWrapper>
+          <div className="transition-fade-quick transition-fade-start delay-lite">
+            <Image
+              alt={`${title} card background`}
+              priority
+              src={image}
+              width={552}
+              height={310}
+              sizes="100vw"
+              style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
+            />
+          </div>
+        </AnimatedWrapper>
+      </div>
 
-        <div className="text-center position-relative w-100 d-flex flex-column align-items-center p-3 p-md-4 p-lg-5">
-          <div className="mb-md-3">
-            <AnimatedWrapper>
-              <h5 className="text-m-center uppercase animated-header-text animated-header-text-start transition-delay-small">
-                {title}
-              </h5>
-            </AnimatedWrapper>
-          </div>
-          <div className="mb-md-3">
-            <AnimatedWrapper>
-              <p className="text-center animated-header-text animated-header-text-start transition-delay-medium">
-                {subtitle}
-              </p>
-            </AnimatedWrapper>
-          </div>
+      <div className="relative w-full h-full flex flex-col items-center justify-center p-3 md:p-4 lg:p-5 text-center z-10">
+        <div className="mb-4 md:mb-6">
           <AnimatedWrapper>
-            {external ? (
-              <a target="_blank" rel="noreferrer" href={link}>
-                <button className="btn theme-btn-primary theme-learn-btn mt-md-2 animated-fade-slow animated-fade-start transition-delay-large">
-                  {btnText}
-                  <ExternalIcon />
-                </button>
-              </a>
-            ) : (
-              <Link href={link} target="_blank" rel="noreferrer">
-                <button className="btn theme-btn-primary theme-learn-btn mt-md-2 animated-fade-slow animated-fade-start transition-delay-large">
-                  {btnText}
-                  <ExternalIcon />
-                </button>
-              </Link>
-            )}
+            <h5 className="text-center uppercase transition-vertical-fade transition-vertical-fade-start delay-lite text-xl font-bold">
+              {title}
+            </h5>
           </AnimatedWrapper>
         </div>
+        <div className="mb-0">
+          <AnimatedWrapper>
+            <p className="text-center transition-vertical-fade transition-vertical-fade-start delay-normal">
+              {subtitle}
+            </p>
+          </AnimatedWrapper>
+        </div>
+        <ThemeBtnGroup
+          primary={{ href: link, title: btnText, external: external, className: 'theme-btn-rounded max-w-fit' }}
+        />
       </div>
     </div>
   );
@@ -73,17 +57,18 @@ const LearnCard = ({ btnText, external, image, link, subtitle, title }: LearnCar
 
 const LearnCards = () => {
   return (
-    <div className="row pt-3 pt-lg-5 mt-lg-3">
+    <div className="flex flex-wrap -mx-1 sm:-mx-2 pt-3 lg:pt-5 lg:mt-3">
       {LEARN_CARDS.map(({ btnText, external, image, link, subtitle, title }) => (
-        <LearnCard
-          key={title}
-          btnText={btnText}
-          external={external}
-          image={image}
-          link={link}
-          subtitle={subtitle}
-          title={title}
-        />
+        <div key={title} className="w-full sm:w-1/2 p-2">
+          <LearnCard
+            btnText={btnText}
+            external={external}
+            image={image}
+            link={link}
+            subtitle={subtitle}
+            title={title}
+          />
+        </div>
       ))}
     </div>
   );
