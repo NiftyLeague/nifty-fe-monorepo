@@ -1,3 +1,5 @@
+'use client';
+
 import { RENT_URL } from '@/constants/url';
 import type { MyRental } from '@/types/rental';
 import useAuth from './useAuth';

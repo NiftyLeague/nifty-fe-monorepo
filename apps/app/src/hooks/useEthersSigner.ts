@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo } from 'react';
 import { BrowserProvider, JsonRpcSigner } from 'ethers6';
 import type { Account, Chain, Client, Transport } from 'viem';

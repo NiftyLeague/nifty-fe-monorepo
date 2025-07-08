@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect, useCallback } from 'react';
 import type { TransactionResponse } from 'ethers6';
 import type { MetamaskError } from '@/types/notify';

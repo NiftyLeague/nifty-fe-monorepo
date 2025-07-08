@@ -1,3 +1,5 @@
+'use client';
+
 import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 
 /*

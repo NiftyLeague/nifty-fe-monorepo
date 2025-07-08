@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback } from 'react';
 import { useWalletClient } from 'wagmi';
 import useNetworkContext from '@/hooks/useNetworkContext';

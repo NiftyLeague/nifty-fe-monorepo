@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo } from 'react';
 import { FallbackProvider, JsonRpcProvider } from 'ethers6';
 import type { Chain, Client, Transport } from 'viem';
