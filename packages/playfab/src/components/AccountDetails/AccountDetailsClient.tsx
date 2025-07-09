@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import Button from '@nl/ui/supabase/Button';
 import Input from '@nl/ui/supabase/Input';
-import { IconLoader, IconSave } from '@nl/ui/supabase/Icon';
+import Icon from '@nl/ui/base/Icon';
 import { useSnackbar } from 'notistack';
 
 import { fetchJson, parseLinkedWalletResult } from '../../utils';
@@ -110,9 +110,9 @@ export default function AccountDetails({
             <Button
               placeholder="Loading..."
               key="save"
-              size="tiny"
+              size="xs"
               className={styles.button_primary}
-              icon={loading ? <IconLoader /> : <IconSave />}
+              icon={loading ? <Icon name="loader" /> : <Icon name="save" />}
               onClick={() => updateProfile({ displayName })}
             >
               {loading ? 'Loading ...' : 'Update'}

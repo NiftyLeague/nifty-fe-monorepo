@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import Button from '../Button';
-import { IconChevronDown } from '../Icon/icons/IconChevronDown';
 import Typography from '../Typography';
 
 import { Popover } from '.';
@@ -25,21 +24,21 @@ export const Default = (args: any) => (
               Title is here
             </Typography.Title>
             <Input
-              size="tiny"
+              size="xs"
               label="Width"
               defaultValue="100%"
               descriptionText="Set the width of something"
               layout="horizontal"
             />
             <Input
-              size="tiny"
+              size="xs"
               label="Width"
               defaultValue="100%"
               descriptionText="Set the width of something"
               layout="horizontal"
             />
             <Input
-              size="tiny"
+              size="xs"
               label="Width"
               defaultValue="100%"
               descriptionText="Set the width of something"
@@ -49,7 +48,7 @@ export const Default = (args: any) => (
         </>,
       ]}
     >
-      <Button as="span" type="outline" iconRight={<IconChevronDown />}>
+      <Button as="span" type="outline" iconRight="chevron-down">
         Click for Popover
       </Button>
     </Popover>

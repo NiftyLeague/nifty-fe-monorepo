@@ -8,7 +8,7 @@ type CheckboxStory = StoryObj<typeof Checkbox> & {
       name: string;
       label: string;
       description: string;
-      size?: 'tiny' | 'small' | 'medium' | 'large' | 'xlarge';
+      size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     }>;
   };
 };
@@ -84,8 +84,8 @@ export const DifferentSizes: CheckboxStory = {
           <Checkbox
             id={`${item.id}-size`}
             name="sizes"
-            label={`${item.label} (${['tiny', 'small', 'medium'][index]})`}
-            size={['tiny', 'small', 'medium'][index] as any}
+            label={`${item.label} (${['xs', 'sm', 'md'][index]})`}
+            size={['xs', 'sm', 'md'][index] as any}
           />
         </div>
       ))}

@@ -2,16 +2,16 @@
 
 import React, { createContext, useCallback, useContext } from 'react';
 import { Disclosure, Transition } from '@headlessui/react';
-import AccordionStyles from './Accordion.module.css';
-import { IconChevronUp } from '../Icon/icons/IconChevronUp';
+import Icon from '@nl/ui/base/Icon';
 import Typography from '../Typography';
+import AccordionStyles from './Accordion.module.css';
 
 type ContextValue = Required<Pick<AccordionProps, 'defaultActiveId' | 'icon' | 'iconPosition'>> &
   Pick<AccordionProps, 'onChange'>;
 
 const AccordionContext = createContext<ContextValue>({
   defaultActiveId: [],
-  icon: <IconChevronUp strokeWidth={2} />,
+  icon: <Icon name="chevron-up" />,
   iconPosition: 'right',
   onChange: undefined,
 });
@@ -30,7 +30,7 @@ function Accordion({
   children,
   className,
   defaultActiveId = [],
-  icon = <IconChevronUp strokeWidth={2} />,
+  icon = <Icon name="chevron-up" />,
   iconPosition = 'right',
   bordered,
   onChange,

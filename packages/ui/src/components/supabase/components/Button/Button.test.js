@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import Button from './Button';
 
-const SIZES = ['tiny', 'small', 'medium', 'large', 'xlarge'];
+const SIZES = ['xs', 'sm', 'md', 'lg', 'xl'];
 const TYPES = ['primary', 'default', 'secondary', 'outline', 'dashed', 'link', 'text'];
 
 describe('#Button', () => {
@@ -53,7 +53,7 @@ describe('#Button', () => {
   it('should have "w-full" class', async () => {
     render(<Button block>Button Block</Button>);
     expect(screen.queryByRole('button')).toHaveClass(
-      'sbui-btn sbui-btn-primary sbui-btn--w-full sbui-btn-container--shadow sbui-btn--tiny',
+      'sbui-btn sbui-btn-primary sbui-btn--w-full sbui-btn-container--shadow sbui-btn--xs',
     );
   });
 
@@ -62,10 +62,10 @@ describe('#Button', () => {
 
     if (type !== 'text' && type !== 'link') {
       expect(screen.queryByRole('button')).toHaveClass(
-        `sbui-btn sbui-btn-${type} sbui-btn-container--shadow sbui-btn--tiny`,
+        `sbui-btn sbui-btn-${type} sbui-btn-container--shadow sbui-btn--xs`,
       );
     } else {
-      expect(screen.queryByRole('button')).toHaveClass(`sbui-btn sbui-btn-${type} sbui-btn--tiny`);
+      expect(screen.queryByRole('button')).toHaveClass(`sbui-btn sbui-btn-${type} sbui-btn--xs`);
     }
   });
 

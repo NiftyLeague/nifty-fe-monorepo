@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSnackbar } from 'notistack';
 import Button from '@nl/ui/supabase/Button';
 import Input from '@nl/ui/supabase/Input';
-import { IconLink2 } from '@nl/ui/supabase/Icon';
+import Icon from '@nl/ui/base/Icon';
 
 import fetchJson from '../../utils/fetchJson';
 import { errorMsgHandler } from '../../utils/errorHandlers';
@@ -89,7 +89,7 @@ export default function LinkWalletInput({ index, address }: { index: number; add
           : [
               <Button
                 type="dashed"
-                icon={<IconLink2 />}
+                icon={<Icon name="link-2" />}
                 key="connect"
                 onClick={handleLinkWallet}
                 placeholder="Connect Wallet"

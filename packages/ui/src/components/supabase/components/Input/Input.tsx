@@ -5,7 +5,6 @@ import InputIconContainer from '../../lib/Layout/InputIconContainer';
 import Button from '../Button';
 import Space from '../Space';
 import Typography from '../Typography';
-import { IconCopy } from '../Icon/icons/IconCopy';
 import InputStyles from './Input.module.css';
 
 export interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
@@ -24,7 +23,7 @@ export interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>,
   name?: string;
   reveal?: boolean;
   actions?: React.ReactNode;
-  size?: 'tiny' | 'small' | 'medium' | 'large' | 'xlarge';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   borderless?: boolean;
 }
 
@@ -56,7 +55,7 @@ function Input({
   style,
   reveal = false,
   actions,
-  size = 'medium',
+  size = 'md',
   borderless = false,
   ...props
 }: Props) {
@@ -134,12 +133,12 @@ function Input({
             <Space className={InputStyles['sbui-input-actions-container']} size={1}>
               {error && <InputErrorIcon size={size} />}
               {copy && !(reveal && hidden) ? (
-                <Button size="tiny" type="default" onClick={() => onCopy(value as string)} icon={<IconCopy />}>
+                <Button size="xs" type="default" onClick={() => onCopy(value as string)} icon="copy">
                   {copyLabel}
                 </Button>
               ) : null}
               {reveal && hidden ? (
-                <Button size="tiny" type="default" onClick={onReveal}>
+                <Button size="xs" type="default" onClick={onReveal}>
                   Reveal
                 </Button>
               ) : null}
@@ -176,7 +175,7 @@ export interface TextAreaProps {
   style?: React.CSSProperties;
   rows?: number;
   limit?: number;
-  size?: 'tiny' | 'small' | 'medium' | 'large' | 'xlarge';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   borderless?: boolean;
 }
 

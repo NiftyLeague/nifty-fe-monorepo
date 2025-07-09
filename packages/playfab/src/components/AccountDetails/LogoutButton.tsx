@@ -1,7 +1,7 @@
 'use client';
 
 import Button from '@nl/ui/supabase/Button';
-import { IconLogOut } from '@nl/ui/supabase/Icon';
+import Icon from '@nl/ui/base/Icon';
 import useUserSession from '../../hooks/useUserSession';
 import fetchJson from '../../utils/fetchJson';
 
@@ -15,8 +15,8 @@ export default function LogoutButton({ loading = false }) {
         block
         className={styles.button_secondary}
         disabled={loading}
-        icon={<IconLogOut />}
-        size="medium"
+        icon={<Icon name="log-out" />}
+        size="md"
         type="default"
         onClick={async e => {
           e.preventDefault();

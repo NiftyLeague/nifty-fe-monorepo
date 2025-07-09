@@ -17,18 +17,14 @@ const meta: Meta<typeof Radio.Group> = {
       options: ['horizontal', 'vertical'],
       description: 'Layout direction of the radio group',
     },
-    size: {
-      control: 'select',
-      options: ['tiny', 'small', 'medium', 'large', 'xlarge'],
-      description: 'Size of the radio buttons',
-    },
+    size: { control: 'select', options: ['xs', 'sm', 'md', 'lg', 'xl'], description: 'Size of the radio buttons' },
     onChange: { action: 'changed', description: 'Callback when selection changes' },
   },
   args: {
     // Default args for all stories
     name: 'radio-group',
     layout: 'vertical',
-    size: 'medium',
+    size: 'md',
     disabled: false,
     onChange: fn(),
   },

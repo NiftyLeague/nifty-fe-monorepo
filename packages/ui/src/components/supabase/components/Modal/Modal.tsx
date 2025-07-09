@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
+import Icon, { IconProps } from '@nl/ui/base/Icon';
 import ModalStyles from './Modal.module.css';
 import Button from '../Button';
 import Space from '../Space';
-import Typography from '../Typography';
-import { IconX } from '../Icon/icons/IconX';
 import { AnimationTailwindClasses } from '../../types';
 
 import * as Dialog from '@radix-ui/react-dialog';
@@ -28,7 +27,7 @@ export interface Props {
   title?: string;
   variant?: 'danger' | 'warning' | 'success';
   visible: boolean;
-  size?: 'tiny' | 'small' | 'medium' | 'large';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   style?: React.CSSProperties;
   overlayStyle?: React.CSSProperties;
   contentStyle?: React.CSSProperties;
@@ -57,7 +56,7 @@ const Modal = ({
   icon,
   variant = 'success',
   visible = false,
-  size = 'large',
+  size = 'lg',
   style,
   overlayStyle,
   contentStyle,
@@ -186,7 +185,7 @@ const Modal = ({
                   {!hideFooter && footerBackground && <div className={footerClasses.join(' ')}>{footerContent}</div>}
                   {closable && (
                     <div className={ModalStyles['sbui-modal-close-container']}>
-                      <Button onClick={onCancel} type="text" shadow={false} icon={<IconX size="medium" />} />
+                      <Button onClick={onCancel} type="text" shadow={false} icon="x" />
                     </div>
                   )}
                 </div>
