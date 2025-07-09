@@ -16,7 +16,7 @@
   color: rgba(36, 180, 126, var(--tw-text-opacity));
 }
 
-.sbui-badge--large {
+.sbui-badge--lg {
   border-radius: 9999px;
   padding-left: 0.75rem;
   padding-right: 0.75rem;

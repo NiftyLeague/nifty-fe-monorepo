@@ -113,43 +113,43 @@
   Layout sizes
 */
 
-.sbui-formlayout--tiny .sbui-formlayout__label,
-.sbui-formlayout--tiny .sbui-formlayout__label-opt,
-.sbui-formlayout--tiny .sbui-formlayout__error,
-.sbui-formlayout--tiny .sbui-formlayout__description {
+.sbui-formlayout--xs .sbui-formlayout__label,
+.sbui-formlayout--xs .sbui-formlayout__label-opt,
+.sbui-formlayout--xs .sbui-formlayout__error,
+.sbui-formlayout--xs .sbui-formlayout__description {
   font-size: 0.75rem;
   line-height: 1rem;
 }
 
-.sbui-formlayout--small .sbui-formlayout__label,
-.sbui-formlayout--small .sbui-formlayout__label-opt,
-.sbui-formlayout--small .sbui-formlayout__error,
-.sbui-formlayout--small .sbui-formlayout__description {
+.sbui-formlayout--sm .sbui-formlayout__label,
+.sbui-formlayout--sm .sbui-formlayout__label-opt,
+.sbui-formlayout--sm .sbui-formlayout__error,
+.sbui-formlayout--sm .sbui-formlayout__description {
   font-size: 0.875rem;
   line-height: 1.25rem;
   line-height: 1rem;
 }
 
-.sbui-formlayout--medium .sbui-formlayout__label,
-.sbui-formlayout--medium .sbui-formlayout__label-opt,
-.sbui-formlayout--medium .sbui-formlayout__error,
-.sbui-formlayout--medium .sbui-formlayout__description {
+.sbui-formlayout--md .sbui-formlayout__label,
+.sbui-formlayout--md .sbui-formlayout__label-opt,
+.sbui-formlayout--md .sbui-formlayout__error,
+.sbui-formlayout--md .sbui-formlayout__description {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
 
-.sbui-formlayout--large .sbui-formlayout__label,
-.sbui-formlayout--large .sbui-formlayout__label-opt,
-.sbui-formlayout--large .sbui-formlayout__error,
-.sbui-formlayout--large .sbui-formlayout__description {
+.sbui-formlayout--lg .sbui-formlayout__label,
+.sbui-formlayout--lg .sbui-formlayout__label-opt,
+.sbui-formlayout--lg .sbui-formlayout__error,
+.sbui-formlayout--lg .sbui-formlayout__description {
   font-size: 1rem;
   line-height: 1.5rem;
 }
 
-.sbui-formlayout--xlarge .sbui-formlayout__label,
-.sbui-formlayout--xlarge .sbui-formlayout__label-opt,
-.sbui-formlayout--xlarge .sbui-formlayout__error,
-.sbui-formlayout--xlarge .sbui-formlayout__description {
+.sbui-formlayout--xl .sbui-formlayout__label,
+.sbui-formlayout--xl .sbui-formlayout__label-opt,
+.sbui-formlayout--xl .sbui-formlayout__error,
+.sbui-formlayout--xl .sbui-formlayout__description {
   font-size: 1rem;
   line-height: 1.5rem;
 }

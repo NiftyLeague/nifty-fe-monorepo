@@ -1,10 +1,9 @@
 import React from 'react';
-
 import * as RadixPopover from '@radix-ui/react-popover';
-import type * as RadixPopoverTypes from '@radix-ui/react-popover/';
+import type * as RadixPopoverTypes from '@radix-ui/react-popover';
+import Icon from '@nl/ui/base/Icon';
 
 import DropdownStyles from './Popover.module.css';
-import { IconX } from '../Icon/icons/IconX';
 
 interface RootProps {
   align?: RadixPopoverTypes.PopoverContentProps['align'];
@@ -67,7 +66,7 @@ function Popover({
         {overlay}
         {showClose && (
           <RadixPopover.Close className={DropdownStyles['sbui-popover__close']}>
-            <IconX size={16} />
+            <Icon name="x" size="sm" />
           </RadixPopover.Close>
         )}
       </RadixPopover.Content>

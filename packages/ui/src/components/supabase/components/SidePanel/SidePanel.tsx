@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
-import SlidePanelStyles from './SidePanel.module.css';
+import { Transition } from '@headlessui/react';
+import * as Dialog from '@radix-ui/react-dialog';
+import Icon from '@nl/ui/base/Icon';
+
 import Button from '../Button';
 import Typography from '../Typography';
 import Space from '../Space';
-import { IconX } from '../Icon/icons/IconX';
+
 import { AnimationTailwindClasses } from '../../types';
 
-import * as Dialog from '@radix-ui/react-dialog';
-
-import { Transition } from '@headlessui/react';
+import SlidePanelStyles from './SidePanel.module.css';
 
 export interface Props {
   className?: string;
@@ -138,9 +139,7 @@ const SidePanel = ({
                 left ? SlidePanelStyles[`sbui-sidepanel--leaveTo--left`] : SlidePanelStyles[`sbui-sidepanel--leaveTo`]
               }
             >
-              <div
-                className={wide ? SlidePanelStyles['sbui-sidepanel--wide'] : SlidePanelStyles['sbui-sidepanel--medium']}
-              >
+              <div className={wide ? SlidePanelStyles['sbui-sidepanel--wide'] : SlidePanelStyles['sbui-sidepanel--md']}>
                 <div className={sidePanelClasses.join(' ')} onClick={stopPropagation}>
                   <Space size={6} direction="vertical" style={{ minHeight: '0', flex: '1 1 0%', overflowY: 'scroll' }}>
                     <header className={SlidePanelStyles['sbui-sidepanel-header']}>
@@ -157,7 +156,7 @@ const SidePanel = ({
                             type="text"
                             shadow={false}
                             style={{ padding: 0 }}
-                            icon={<IconX size="xlarge" strokeWidth={2} />}
+                            icon={<Icon name="x" size="lg" />}
                           />
                         </div>
                       </Space>

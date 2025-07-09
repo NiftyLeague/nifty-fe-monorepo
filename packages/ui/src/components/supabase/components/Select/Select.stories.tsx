@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import Icon from '@nl/ui/base/Icon';
 import Select from '.';
-import { IconBook } from '../Icon/icons/IconBook';
 
 const { Option, OptGroup } = Select;
 
@@ -78,7 +78,7 @@ export const size = (args: any) => (
 );
 
 const data = ['England', 'Wales', 'Scotland', 'Ireland'];
-const icon = <IconBook type={'Book'} />;
+const icon = <Icon name="book" />;
 
 Default.args = {
   disabled: false,
@@ -176,5 +176,5 @@ size.args = {
   descriptionText: 'Choose a different size and font and padding will change',
   allowedValues: data,
   layout: 'vertical',
-  size: 'tiny',
+  size: 'xs',
 };

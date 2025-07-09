@@ -6,7 +6,7 @@ import { useSnackbar } from 'notistack';
 
 import Button from '@nl/ui/supabase/Button';
 import Modal from '@nl/ui/supabase/Modal';
-import { IconTrash } from '@nl/ui/supabase/Icon';
+import Icon from '@nl/ui/base/Icon';
 
 import fetchJson from '../../utils/fetchJson';
 import { errorMsgHandler } from '../../utils/errorHandlers';
@@ -44,8 +44,8 @@ export default function DeleteAccountDialog({ loading = false }) {
         block
         className={styles.button_danger}
         disabled={loading}
-        icon={<IconTrash />}
-        size="medium"
+        icon={<Icon name="trash" />}
+        size="md"
         type="default"
         onClick={handleClickOpen}
       >
@@ -57,7 +57,7 @@ export default function DeleteAccountDialog({ loading = false }) {
         title="Delete Account"
         description="Are you sure you want to delete your account? This action cannot be undone."
         variant="danger"
-        size="small"
+        size="sm"
         onConfirm={handleDeleteUser}
         confirmText="Delete Account"
         cancelText="Cancel"

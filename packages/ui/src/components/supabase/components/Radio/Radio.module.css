@@ -181,37 +181,37 @@
   Label sizes
 */
 
-.sbui-radio-container--tiny .sbui-radio-label,
-.sbui-radio-container--tiny .sbui-radio-label-text,
-.sbui-radio-container--tiny .sbui-radio-label-description {
+.sbui-radio-container--xs .sbui-radio-label,
+.sbui-radio-container--xs .sbui-radio-label-text,
+.sbui-radio-container--xs .sbui-radio-label-description {
   font-size: 0.75rem;
   line-height: 1rem;
 }
 
-.sbui-radio-container--small .sbui-radio-label,
-.sbui-radio-container--small .sbui-radio-label-text,
-.sbui-radio-container--small .sbui-radio-label-description {
+.sbui-radio-container--sm .sbui-radio-label,
+.sbui-radio-container--sm .sbui-radio-label-text,
+.sbui-radio-container--sm .sbui-radio-label-description {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
 
-.sbui-radio-container--medium .sbui-radio-label,
-.sbui-radio-container--medium .sbui-radio-label-text,
-.sbui-radio-container--medium .sbui-radio-label-description {
+.sbui-radio-container--md .sbui-radio-label,
+.sbui-radio-container--md .sbui-radio-label-text,
+.sbui-radio-container--md .sbui-radio-label-description {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
 
-.sbui-radio-container--large .sbui-radio-label,
-.sbui-radio-container--large .sbui-radio-label-text,
-.sbui-radio-container--large .sbui-radio-label-description {
+.sbui-radio-container--lg .sbui-radio-label,
+.sbui-radio-container--lg .sbui-radio-label-text,
+.sbui-radio-container--lg .sbui-radio-label-description {
   font-size: 1rem;
   line-height: 1.5rem;
 }
 
-.sbui-radio-container--xlarge .sbui-radio-label,
-.sbui-radio-container--xlarge .sbui-radio-label-text,
-.sbui-radio-container--xlarge .sbui-radio-label-description {
+.sbui-radio-container--xl .sbui-radio-label,
+.sbui-radio-container--xl .sbui-radio-label-text,
+.sbui-radio-container--xl .sbui-radio-label-description {
   font-size: 1rem;
   line-height: 1.5rem;
 }

@@ -1,6 +1,6 @@
 import { Unity } from 'react-unity-webgl';
 
-import { IconMaximize } from '@nl/ui/supabase/Icon';
+import Icon from '@nl/ui/base/Icon';
 import Button from '@nl/ui/supabase/Button';
 import Preloader from '@nl/ui/custom/Preloader';
 // import { PlayFabAuthForm } from '@nl/playfab/components';
@@ -41,10 +41,10 @@ const Game = ({ closeGame }: { closeGame: () => void }) => {
       />
       <Button
         type="outline"
-        size="large"
+        size="lg"
         onClick={() => requestFullscreen(true)}
         style={{ position: 'absolute', top: 5, right: 5 }}
-        icon={<IconMaximize />}
+        icon={<Icon name="maximize-2" />}
       />
     </>
   );

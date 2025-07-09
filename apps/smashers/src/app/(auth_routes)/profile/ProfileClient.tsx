@@ -5,11 +5,11 @@ import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 
+import Icon from '@nl/ui/base/Icon';
 import Card from '@nl/ui/supabase/Card';
 import Space from '@nl/ui/supabase/Space';
 import Tabs from '@nl/ui/supabase/Tabs';
 import Typography from '@nl/ui/supabase/Typography';
-import { IconDatabase, IconStar, IconUser } from '@nl/ui/supabase/Icon';
 import BackButton from '@/components/Header/BackButton';
 import { useUserSession } from '@nl/playfab/hooks';
 import type { User } from '@nl/playfab/types';
@@ -57,8 +57,8 @@ export default function ProfileClient({ user: initialUser }: { user: User }) {
             </Typography.Text>
           </div>
           <Space direction="vertical" size={6} className={styles.userInfo}>
-            <Tabs type="underlined" size="medium" tabBarStyle={{ marginTop: 16 }} tabBarGutter={8}>
-              <Tabs.Panel id="account" icon={<IconUser />} label="Account">
+            <Tabs type="underlined" size="md" tabBarStyle={{ marginTop: 16 }} tabBarGutter={8}>
+              <Tabs.Panel id="account" icon={<Icon name="user" />} label="Account">
                 <Suspense fallback={<div>Loading account details...</div>}>
                   <AccountDetails
                     enableAvatars={flags.enableAvatars}
@@ -68,14 +68,14 @@ export default function ProfileClient({ user: initialUser }: { user: User }) {
                 </Suspense>
               </Tabs.Panel>
               {flags.enableInventory && (
-                <Tabs.Panel id="inventory" icon={<IconDatabase />} label="Inventory">
+                <Tabs.Panel id="inventory" icon={<Icon name="database" />} label="Inventory">
                   <Suspense fallback={<div>Loading inventory...</div>}>
                     <Inventory />
                   </Suspense>
                 </Tabs.Panel>
               )}
               {flags.enableStats && (
-                <Tabs.Panel id="stats" icon={<IconStar />} label="Stats">
+                <Tabs.Panel id="stats" icon={<Icon name="book-heart" />} label="Stats">
                   <div>coming soon...</div>
                 </Tabs.Panel>
               )}

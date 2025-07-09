@@ -44,7 +44,7 @@ export default function LoginClient({ sessionData }: { sessionData: SessionData 
               enableAccountCreation={enableAccountCreation}
               enableProviderSignOn={enableProviderSignOn}
               redirectTo="/profile"
-              socialButtonSize="xlarge"
+              socialButtonSize="lg"
               socialLayout="horizontal"
               view="sign_in"
             />

@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import Badge from './Badge';
 
-const SIZES = ['small', 'large'];
+const SIZES = ['sm', 'lg'];
 const COLORS = ['gray', 'red', 'yellow', 'green', 'blue', 'indigo', 'purple', 'pink'];
 
 describe('#Badge', () => {
@@ -32,6 +32,6 @@ describe('#Badge', () => {
 
   it.each(SIZES)('should render with %s size', size => {
     render(<Badge size={size}>{size}</Badge>);
-    expect(screen.getByText(size)).toHaveClass(`sbui-badge ${size === 'large' ? 'sbui-badge--large' : ''}`);
+    expect(screen.getByText(size)).toHaveClass(`sbui-badge ${size === 'lg' ? 'sbui-badge--lg' : ''}`);
   });
 });
