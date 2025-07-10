@@ -1,15 +1,16 @@
 // material-ui
 import { Divider, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
 import MUIFormControl from '@mui/material/FormControl';
-import type { GenericCardProps } from '@/types';
+
+import { Icon, type IconName } from '@nl/ui/base/Icon';
 
 // ==============================|| FORM CONTROL ||============================== //
 
 interface FormControlProps {
   captionLabel?: string;
   formState?: string;
-  iconPrimary?: GenericCardProps['iconPrimary'];
-  iconSecondary?: GenericCardProps['iconPrimary'];
+  iconPrimary?: IconName;
+  iconSecondary?: IconName;
   placeholder?: string;
   textPrimary?: string;
   textSecondary?: string;
@@ -24,13 +25,8 @@ const FormControl = ({
   textPrimary,
   textSecondary,
 }: FormControlProps) => {
-  const IconPrimary = iconPrimary!;
-  const primaryIcon = iconPrimary ? <IconPrimary fontSize="small" sx={{ color: 'var(--color-base-700)' }} /> : null;
-
-  const IconSecondary = iconSecondary!;
-  const secondaryIcon = iconSecondary ? (
-    <IconSecondary fontSize="small" sx={{ color: 'var(--color-base-700)' }} />
-  ) : null;
+  const primaryIcon = iconPrimary ? <Icon name={iconPrimary} size="sm" color="gray" /> : null;
+  const secondaryIcon = iconSecondary ? <Icon name={iconSecondary} size="sm" color="gray" /> : null;
 
   const errorState = formState === 'error';
 

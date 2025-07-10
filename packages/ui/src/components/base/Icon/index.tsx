@@ -1,6 +1,7 @@
 import type { LucideProps } from 'lucide-react';
 import { DynamicIcon, type IconName } from 'lucide-react/dynamic';
 
+export type { IconName } from 'lucide-react/dynamic';
 export type IconSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 const DEFAULT_SIZES: Record<IconSizes, number> = { xs: 14, sm: 18, md: 20, lg: 24, xl: 28 };
@@ -33,7 +34,7 @@ export const Icon = ({
   color = 'currentColor',
   name,
   size = 'md',
-  strokeWidth = 2,
+  strokeWidth = 1.5,
   ...props
 }: IconProps) => {
   const iconSize = typeof size === 'number' ? size : DEFAULT_SIZES[size];

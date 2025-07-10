@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from '@/store/hooks';
 import { openDrawer } from '@/store/slices/menu';
 
 // assets
-import { IconMenu2 } from '@tabler/icons-react';
+import { Icon } from '@nl/ui/base/Icon';
 import AddNFTL from './AddNFTLToMetamask';
 import ExternalIcon from '@/components/ExternalIcon';
 import LogoSection from '../_LogoSection';
@@ -52,7 +52,7 @@ const Header = () => {
           onClick={() => dispatch(openDrawer(!drawerOpen))}
           color="inherit"
         >
-          <IconMenu2 stroke={1.5} size="20px" />
+          <Icon name="menu" />
         </Avatar>
       </Box>
       <Box sx={{ display: { xs: 'none', lg: 'flex' }, justifyContent: 'space-between', gap: 4, alignItems: 'center' }}>

@@ -47,7 +47,7 @@ const Alert = ({ variant = 'success', className, title, withIcon, closable, chil
                     onClick={() => setVisible(false)}
                     className={closeButtonClasses.join(' ')}
                   >
-                    <Icon name="x" size="lg" strokeWidth={1.5} />
+                    <Icon name="x" size="lg" />
                   </button>
                 </div>
               </div>

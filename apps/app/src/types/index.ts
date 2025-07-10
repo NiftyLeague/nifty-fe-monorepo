@@ -1,10 +1,8 @@
-import { FunctionComponent } from 'react';
-import { IconProps } from '@tabler/icons-react';
+import type { IconName } from '@nl/ui/base/Icon';
 
 // material-ui
 import { Theme } from '@nl/theme';
-import { SvgIconTypeMap, ChipProps, TableCellProps } from '@mui/material';
-import { OverridableComponent } from '@mui/material/OverridableComponent';
+import { ChipProps, TableCellProps } from '@mui/material';
 
 // project imports
 import { InitialLoginContextProps } from './auth';
@@ -32,16 +30,9 @@ export interface GenericCardProps {
   content?: string;
   image?: string;
   dateTime?: string;
-  iconPrimary?: OverrideIcon;
   color?: string;
   size?: string;
 }
-
-export type OverrideIcon =
-  | (OverridableComponent<SvgIconTypeMap<object, 'svg'>> & { muiName: string })
-  | React.ComponentClass<unknown>
-  | FunctionComponent<React.PropsWithChildren<React.PropsWithChildren<unknown>>>
-  | ((props: IconProps) => React.ReactNode);
 
 export interface EnhancedTableHeadProps extends TableCellProps {
   onSelectAllClick: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -70,7 +61,7 @@ export type NavItemTypeObject = { items: NavItemType[] };
 
 export type NavItemType = {
   id?: string;
-  icon?: GenericCardProps['iconPrimary'];
+  icon?: IconName;
   target?: boolean;
   external?: string;
   url?: string | undefined;
