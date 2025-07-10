@@ -11,11 +11,8 @@ import { openDrawer } from '@/store/slices/menu';
 import { useDispatch, useSelector } from '@/store/hooks';
 
 // material-ui
-import { IconChevronRight } from '@tabler/icons-react';
 import { styled, appDrawerWidth, appHeaderHeight, container } from '@nl/theme';
-import WarningIcon from '@mui/icons-material/Warning';
-import InfoIcon from '@mui/icons-material/InfoRounded';
-import { AppBar, Box, Button, Icon, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
 
 // React Toastify
 import { ToastContainer } from 'react-toastify';
@@ -29,6 +26,7 @@ import { useConnectedToIMXCheck } from '@/hooks/useImxProvider';
 import { TARGET_NETWORK } from '@/constants/networks';
 
 // components
+import Icon from '@nl/ui/base/Icon';
 import Breadcrumbs from '@/components/extended/Breadcrumbs';
 import Snackbar from '@/components/extended/Snackbar';
 import Header from './_Header';
@@ -112,14 +110,14 @@ const MainLayout = ({ children }: PropsWithChildren) => {
     if (container && !isNoFilterPage) {
       return (
         <div className="container">
-          <Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign />
+          <Breadcrumbs separator="chevron-right" navigation={navigation} icon title rightAlign />
           {children}
         </div>
       );
     }
     return (
       <>
-        <Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign />
+        <Breadcrumbs separator="chevron-right" navigation={navigation} icon title rightAlign />
         {children}
       </>
     );
@@ -152,13 +150,8 @@ const MainLayout = ({ children }: PropsWithChildren) => {
               height={appHeaderHeight}
               zIndex={1}
             >
-              <Icon sx={{ width: 24, height: 24, display: 'flex' }}>
-                {isConnectedToIMX ? (
-                  <InfoIcon sx={{ width: 'inherit', height: 'inherit' }} />
-                ) : (
-                  <WarningIcon sx={{ width: 'inherit', height: 'inherit' }} />
-                )}
-              </Icon>
+              <Icon name={isConnectedToIMX ? 'info' : 'triangle-alert'} size="lg" strokeWidth={2.5} />
+
               <Typography px={2} fontSize={20} fontWeight={600}>
                 {isConnectedToIMX
                   ? `You're connected to Immutable zkEVM! Switch back to ${TARGET_NETWORK.label}`

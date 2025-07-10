@@ -1,30 +1,19 @@
-// assets
-import {
-  IconDeviceGamepad,
-  IconListNumbers,
-  IconMoodCrazyHappy,
-  IconSquarePlus,
-  IconTag,
-  IconTicket,
-} from '@tabler/icons-react';
-
-// constant
-const icons = { IconDeviceGamepad, IconListNumbers, IconMoodCrazyHappy, IconSquarePlus, IconTag, IconTicket };
+import type { NavItemType } from '@/types';
 
 // ==============================|| SAMPLE PAGE & DOCUMENTATION MENU ITEMS ||============================== //
 
-const PublicItems = {
+const PublicItems: NavItemType = {
   id: 'public-items',
   type: 'group',
   children: [
-    { id: '', title: 'Games', type: 'item', url: '/', icon: icons.IconDeviceGamepad, breadcrumbs: false },
-    { id: 'degens', title: 'DEGENs', type: 'item', url: '/degens', icon: icons.IconMoodCrazyHappy, breadcrumbs: false },
+    { id: '', title: 'Games', type: 'item', url: '/', icon: 'gamepad', breadcrumbs: false },
+    { id: 'degens', title: 'DEGENs', type: 'item', url: '/degens', icon: 'cat', breadcrumbs: false },
     {
       id: 'leaderboards',
       title: 'Leaderboards',
       type: 'item',
       url: '/leaderboards',
-      icon: icons.IconListNumbers,
+      icon: 'list-ordered',
       breadcrumbs: false,
     },
     {
@@ -32,7 +21,7 @@ const PublicItems = {
       title: 'Mint-O-Matic',
       type: 'item',
       url: '/mint-o-matic',
-      icon: icons.IconSquarePlus,
+      icon: 'sparkles',
       breadcrumbs: false,
     },
   ],
