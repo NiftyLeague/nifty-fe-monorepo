@@ -96,7 +96,7 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): React.ReactNode 
       <DialogTitle sx={{ textAlign: 'center' }} variant="h4">
         Rename DEGEN
       </DialogTitle>
-      <DialogContent dividers sx={{ maxWidth: '820px' }}>
+      <DialogContent dividers>
         <Stack rowGap={2}>
           <Stack rowGap={1}>
             <CardMedia

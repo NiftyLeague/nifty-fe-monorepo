@@ -7,7 +7,7 @@ import Divider from '@nl/ui/supabase/Divider';
 import Input from '@nl/ui/supabase/Input';
 import Space from '@nl/ui/supabase/Space';
 import Typography from '@nl/ui/supabase/Typography';
-import { IconInbox, IconKey, IconLock, IconMail } from '@nl/ui/supabase/Icon';
+import Icon from '@nl/ui/base/Icon';
 import { cn } from '@nl/ui/lib/utils';
 
 import fetchJson from '../../utils/fetchJson';
@@ -46,7 +46,7 @@ export interface AuthFormProps {
   onlyThirdPartyProviders?: boolean;
   providers?: Provider[];
   redirectTo?: RedirectTo;
-  socialButtonSize?: 'tiny' | 'small' | 'medium' | 'large' | 'xlarge';
+  socialButtonSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   socialColors?: boolean;
   socialLayout?: 'horizontal' | 'vertical';
   style?: React.CSSProperties;
@@ -62,7 +62,7 @@ function PlayFabAuthForm({
   enableProviderSignOn = false,
   onlyThirdPartyProviders = false,
   redirectTo,
-  socialButtonSize = 'medium',
+  socialButtonSize = 'md',
   socialColors = false,
   socialLayout = 'vertical',
   style,
@@ -293,7 +293,7 @@ function EmailAuth({
             label="Email address"
             autoComplete="email"
             defaultValue={email}
-            icon={<IconMail size={21} stroke={'#666666'} />}
+            icon={<Icon name="mail" color="gray" />}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
           />
           <Input
@@ -301,7 +301,7 @@ function EmailAuth({
             type="password"
             defaultValue={password}
             autoComplete="current-password"
-            icon={<IconKey size={21} stroke={'#666666'} />}
+            icon={<Icon name="key" color="gray" />}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
           />
         </Space>
@@ -311,7 +311,7 @@ function EmailAuth({
               label="Remember me"
               name="remember_me"
               id="remember_me"
-              size="medium"
+              size="md"
               checked={rememberMe}
               onChange={(value: React.ChangeEvent<HTMLInputElement>) => setRememberMe(value.target.checked)}
             />
@@ -331,8 +331,8 @@ function EmailAuth({
           <Button
             htmlType="submit"
             type="primary"
-            size="large"
-            icon={<IconLock size={21} />}
+            size="lg"
+            icon={<Icon name="lock" />}
             loading={loading}
             block
             placeholder="Sign Up"
@@ -409,14 +409,14 @@ function ForgottenPassword({ setAuthView }: ForgotPasswordProps): React.ReactNod
           <Input
             label="Email address"
             placeholder="Your email address"
-            icon={<IconMail size={21} stroke={'#666666'} />}
+            icon={<Icon name="mail" color="gray" />}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
           />
           <Button
             block
-            size="large"
+            size="lg"
             htmlType="submit"
-            icon={<IconInbox size={21} />}
+            icon={<Icon name="inbox" />}
             loading={loading}
             placeholder="Send reset password instructions"
           >
@@ -478,14 +478,14 @@ function UpdatePassword(): React.ReactNode {
             label="New password"
             placeholder="Enter your new password"
             type="password"
-            icon={<IconKey size={21} stroke={'#666666'} />}
+            icon={<Icon name="key" color="gray" />}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
           />
           <Button
             block
-            size="large"
+            size="lg"
             htmlType="submit"
-            icon={<IconKey size={21} />}
+            icon={<Icon name="key" />}
             loading={loading}
             placeholder="Update password"
           >

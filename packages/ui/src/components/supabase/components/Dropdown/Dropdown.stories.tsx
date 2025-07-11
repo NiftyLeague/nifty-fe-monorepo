@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import Icon from '@nl/ui/base/Icon';
+
 import { Button } from '../Button';
 import { Divider } from '../Divider';
-import { IconLogOut, IconChevronDown } from '../Icon';
 import Typography from '../Typography';
-import { Dropdown } from './';
-import type { RootProps } from './Dropdown';
-import { IconLogIn } from '../Icon/icons/IconLogIn';
 import { Input } from '../Input';
-import { IconSearch } from '../Icon/icons/IconSearch';
+
+import type { RootProps } from './Dropdown';
+import { Dropdown } from './';
 
 // Define the story type
 type DropdownStory = StoryObj<typeof Dropdown>;
@@ -52,12 +52,12 @@ const DefaultTemplate: DropdownStory = {
           </Dropdown.Item>,
           <Dropdown.Item key="item-2">Settings</Dropdown.Item>,
           <Divider light key="divider-2" />,
-          <Dropdown.Item key="item-3" icon={<IconLogIn size="tiny" />}>
+          <Dropdown.Item key="item-3" icon="log-in">
             Log out
           </Dropdown.Item>,
         ]}
       >
-        <Button as="span" type="outline" iconRight={<IconChevronDown />}>
+        <Button as="span" type="outline" iconRight="chevron-down">
           Click for dropdown
         </Button>
       </Dropdown>
@@ -81,11 +81,11 @@ const DoNotCloseOverlayTemplate: DropdownStory = {
           <Dropdown.Item key="item-4">Account</Dropdown.Item>,
           <Dropdown.Item key="item-5">Settings</Dropdown.Item>,
           <Dropdown.Item key="item-6">
-            <Button icon={<IconLogOut />}>Log out</Button>
+            <Button icon="log-out">Log out</Button>
           </Dropdown.Item>,
         ]}
       >
-        <Button as="span" type="outline" iconRight={<IconChevronDown />}>
+        <Button as="span" type="outline" iconRight="chevron-down">
           Click for dropdown (doesn&apos;t close on click inside)
         </Button>
       </Dropdown>
@@ -111,13 +111,13 @@ const WithCustomStylesTemplate: DropdownStory = {
           <Dropdown.Item key="settings">Settings</Dropdown.Item>,
           <Divider light key="divider-5" />,
           <Dropdown.Item key="logout">
-            <Button type="default" icon={<IconLogOut />}>
+            <Button type="default" icon="log-out">
               Log out
             </Button>
           </Dropdown.Item>,
         ]}
       >
-        <Button as="span" type="outline" iconRight={<IconChevronDown />}>
+        <Button as="span" type="outline" iconRight="chevron-down">
           Custom styles
         </Button>
       </Dropdown>
@@ -136,7 +136,7 @@ const SearchListComponent = (args: RootProps) => {
         overlay={[
           <div key="search-input" className="px-3 py-2">
             <Input
-              icon={<IconSearch />}
+              icon={<Icon name="search" />}
               placeholder="Search"
               value={search}
               onChange={e => setSearch(e.target.value)}
@@ -148,7 +148,7 @@ const SearchListComponent = (args: RootProps) => {
           <Dropdown.Item key="search-3">Search result 3</Dropdown.Item>,
         ]}
       >
-        <Button as="span" type="outline" iconRight={<IconChevronDown />}>
+        <Button as="span" type="outline" iconRight="chevron-down">
           Search list
         </Button>
       </Dropdown>
@@ -172,7 +172,7 @@ const CheckboxComponent = (args: RootProps) => {
           </Dropdown.Checkbox>,
         ]}
       >
-        <Button as="span" type="outline" iconRight={<IconChevronDown />}>
+        <Button as="span" type="outline" iconRight="chevron-down">
           Checkbox
         </Button>
       </Dropdown>
@@ -204,7 +204,7 @@ const RadioComponent = (args: RootProps) => {
           </Dropdown.RadioGroup>,
         ]}
       >
-        <Button as="span" type="outline" iconRight={<IconChevronDown />}>
+        <Button as="span" type="outline" iconRight="chevron-down">
           Radio
         </Button>
       </Dropdown>
@@ -256,7 +256,7 @@ const NestedComponent = (args: RootProps) => {
           <Dropdown.Item key="hello">Hello</Dropdown.Item>,
         ]}
       >
-        <Button as="span" type="outline" iconRight={<IconChevronDown />}>
+        <Button as="span" type="outline" iconRight="chevron-down">
           Nested Menu
         </Button>
       </Dropdown>

@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { cn } from '@nl/ui/lib/utils';
 import { useSnackbar } from 'notistack';
-import { IconUpload } from '@nl/ui/supabase/Icon';
+import { cn } from '@nl/ui/lib/utils';
+import Icon from '@nl/ui/base/Icon';
 
 import styles from '../../styles/profile.module.css';
 
@@ -66,7 +66,7 @@ export default function Avatar({
             'Uploading ...'
           ) : (
             <>
-              <IconUpload /> Upload
+              <Icon name="upload" /> Upload
             </>
           )}
         </label>

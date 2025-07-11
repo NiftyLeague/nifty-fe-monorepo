@@ -17,7 +17,7 @@ interface Props {
   defaultChecked?: boolean;
   checked?: boolean;
   align?: 'right' | 'left';
-  size?: 'tiny' | 'small' | 'medium' | 'large' | 'xlarge';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
 function Toggle({
@@ -35,7 +35,7 @@ function Toggle({
   checked,
   className,
   align = 'right',
-  size = 'medium',
+  size = 'md',
 }: Props) {
   const [intChecked, setIntChecked] = useState((defaultChecked || checked) ?? false);
 

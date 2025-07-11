@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 
 import * as RadixDropdown from '@radix-ui/react-dropdown-menu';
-import { IconCheck } from '../Icon/icons/IconCheck';
+import type * as RadixDropdownTypes from '@radix-ui/react-dropdown-menu';
+import Icon from '@nl/ui/base/Icon';
 
 import DropdownStyles from './Dropdown.module.css';
-
-import type * as RadixDropdownTypes from '@radix-ui/react-dropdown-menu/';
 
 export interface RootProps {
   open?: boolean;
@@ -124,7 +123,7 @@ export function Checkbox({ children, checked: propsChecked, onChange, disabled, 
       disabled={disabled}
     >
       <RadixDropdown.ItemIndicator className={DropdownStyles['sbui-dropdown-input__check']}>
-        {ItemIndicator ? ItemIndicator : <IconCheck size="tiny" />}
+        {ItemIndicator ? ItemIndicator : <Icon name="check" size="xs" />}
         <RadixDropdown.CheckboxItem />
       </RadixDropdown.ItemIndicator>
       <span>{children}</span>
@@ -145,7 +144,7 @@ export function Radio({ children, value, ItemIndicator }: RadioProps) {
       className={`${DropdownStyles['sbui-dropdown-item']} ${DropdownStyles['sbui-dropdown-input']}`}
     >
       <RadixDropdown.ItemIndicator className={DropdownStyles['sbui-dropdown-input__check']}>
-        {ItemIndicator ? ItemIndicator : <IconCheck size="tiny" />}
+        {ItemIndicator ? ItemIndicator : <Icon name="check" size="xs" />}
       </RadixDropdown.ItemIndicator>
       <span>{children}</span>
     </RadixDropdown.RadioItem>

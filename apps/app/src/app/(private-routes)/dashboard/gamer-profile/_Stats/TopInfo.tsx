@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Stack, Typography, Box, IconButton } from '@mui/material';
-import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
+import Icon from '@nl/ui/base/Icon';
 
 import useCopyToClipboard from '@nl/ui/hooks/useCopyToClipboard';
 import { useGamerProfileContext } from '@/hooks/useGamerProfile';
@@ -55,7 +55,7 @@ const TopInfo = ({ profile, walletAddress }: TopInfoProps): React.ReactNode => {
               aria-label="copy"
               onClick={() => walletAddress && copy(walletAddress)}
             >
-              <ContentCopyOutlinedIcon fontSize="small" sx={{ color: 'var(--color-foreground-2)' }} />
+              <Icon name="copy" size="sm" color="var(--color-foreground-2)" />
             </IconButton>
           </Typography>
           <Typography width="50%" variant="h4" component="div">

@@ -131,37 +131,37 @@
   Label sizes
 */
 
-.sbui-checkbox-container--tiny .sbui-checkbox__label-container__label,
-.sbui-checkbox-container--tiny .sbui-checkbox__label-container__label__span,
-.sbui-checkbox-container--tiny .sbui-checkbox__label-container__label__p {
+.sbui-checkbox-container--xs .sbui-checkbox__label-container__label,
+.sbui-checkbox-container--xs .sbui-checkbox__label-container__label__span,
+.sbui-checkbox-container--xs .sbui-checkbox__label-container__label__p {
   font-size: 0.75rem;
   line-height: 1rem;
 }
 
-.sbui-checkbox-container--small .sbui-checkbox__label-container__label,
-.sbui-checkbox-container--small .sbui-checkbox__label-container__label__span,
-.sbui-checkbox-container--small .sbui-checkbox__label-container__label__p {
+.sbui-checkbox-container--sm .sbui-checkbox__label-container__label,
+.sbui-checkbox-container--sm .sbui-checkbox__label-container__label__span,
+.sbui-checkbox-container--sm .sbui-checkbox__label-container__label__p {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
 
-.sbui-checkbox-container--medium .sbui-checkbox__label-container__label,
-.sbui-checkbox-container--medium .sbui-checkbox__label-container__label__span,
-.sbui-checkbox-container--medium .sbui-checkbox__label-container__label__p {
+.sbui-checkbox-container--md .sbui-checkbox__label-container__label,
+.sbui-checkbox-container--md .sbui-checkbox__label-container__label__span,
+.sbui-checkbox-container--md .sbui-checkbox__label-container__label__p {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
 
-.sbui-checkbox-container--large .sbui-checkbox__label-container__label,
-.sbui-checkbox-container--large .sbui-checkbox__label-container__label__span,
-.sbui-checkbox-container--large .sbui-checkbox__label-container__label__p {
+.sbui-checkbox-container--lg .sbui-checkbox__label-container__label,
+.sbui-checkbox-container--lg .sbui-checkbox__label-container__label__span,
+.sbui-checkbox-container--lg .sbui-checkbox__label-container__label__p {
   font-size: 1rem;
   line-height: 1.5rem;
 }
 
-.sbui-checkbox-container--xlarge .sbui-checkbox__label-container__label,
-.sbui-checkbox-container--xlarge .sbui-checkbox__label-container__label__span,
-.sbui-checkbox-container--xlarge .sbui-checkbox__label-container__label__p {
+.sbui-checkbox-container--xl .sbui-checkbox__label-container__label,
+.sbui-checkbox-container--xl .sbui-checkbox__label-container__label__span,
+.sbui-checkbox-container--xl .sbui-checkbox__label-container__label__p {
   font-size: 1rem;
   line-height: 1.5rem;
 }
@@ -170,35 +170,35 @@
   Checkbox sizes
 */
 
-.sbui-checkbox-container--tiny .sbui-checkbox {
+.sbui-checkbox-container--xs .sbui-checkbox {
   margin-top: 0.25rem;
   margin-right: 0.75rem;
   height: 0.75rem;
   width: 0.75rem;
 }
 
-.sbui-checkbox-container--small .sbui-checkbox {
+.sbui-checkbox-container--sm .sbui-checkbox {
   margin-top: 0.125rem;
   margin-right: 0.875rem;
   height: 0.875rem;
   width: 0.875rem;
 }
 
-.sbui-checkbox-container--medium .sbui-checkbox {
+.sbui-checkbox-container--md .sbui-checkbox {
   margin-top: 0.125rem;
   margin-right: 0.875rem;
   height: 1rem;
   width: 1rem;
 }
 
-.sbui-checkbox-container--large .sbui-checkbox {
+.sbui-checkbox-container--lg .sbui-checkbox {
   margin-top: 0.125rem;
   margin-right: 1rem;
   height: 1.25rem;
   width: 1.25rem;
 }
 
-.sbui-checkbox-container--xlarge .sbui-checkbox {
+.sbui-checkbox-container--xl .sbui-checkbox {
   margin-top: 0.125rem;
   margin-right: 1rem;
   height: 1.25rem;

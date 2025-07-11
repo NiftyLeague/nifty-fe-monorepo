@@ -3,6 +3,8 @@ import Box from '@mui/material/Box';
 
 import DataList from './DataList';
 import DataTable from './DataTable';
+
+import type { IconProps } from '@nl/ui/base/Icon';
 import type {
   AccordionDetailsProps,
   AccordionProps,
@@ -10,7 +12,6 @@ import type {
   CustomColDef,
   DataGridProps,
   Row,
-  SvgIconProps,
   TablePaginationProps,
   TypographyProps,
 } from './types';
@@ -18,7 +19,7 @@ import type {
 type ResponsiveTableProps = {
   AccordionDetailsProps?: AccordionDetailsProps;
   AccordionDetailsTypographyProps?: TypographyProps<'div'>;
-  AccordionMoreIconProps?: SvgIconProps;
+  AccordionMoreIconProps?: IconProps;
   AccordionProps?: AccordionProps;
   AccordionSummaryProps?: AccordionSummaryProps;
   AccordionSummaryTypographyProps?: TypographyProps;

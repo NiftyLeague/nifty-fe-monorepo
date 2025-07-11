@@ -28,13 +28,13 @@
     "https": "^1.0.0",
     "lodash": "^4.17.21",
     "notistack": "^3.0.2",
-    "playfab-sdk": "^2.176.250620",
+    "playfab-sdk": "^2.177.250704",
     "swr": "^2.3.4",
     "url": "^0.11.4"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.20",
-    "@types/node": "^24.0.10",
+    "@types/node": "^24.0.13",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6"
   },

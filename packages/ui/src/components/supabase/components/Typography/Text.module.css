@@ -10,7 +10,7 @@
   color: rgba(238, 238, 238, var(--tw-text-opacity));
 }
 
-.sbui-typography-text-small {
+.sbui-typography-text-sm {
   font-size: 0.75rem;
   line-height: 1rem;
 }

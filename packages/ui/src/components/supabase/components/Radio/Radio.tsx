@@ -17,7 +17,7 @@ interface InputProps {
   checked?: boolean;
   onChange?(x: React.ChangeEvent<HTMLInputElement>): void;
   onFocus?(x: React.FocusEvent<HTMLInputElement>): void;
-  size?: 'tiny' | 'small' | 'medium' | 'large' | 'xlarge';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
 export interface GroupProps {
@@ -40,7 +40,7 @@ export interface GroupProps {
   style?: React.CSSProperties;
   onChange?(x: React.ChangeEvent<HTMLInputElement>): void;
   onFocus?(x: React.FocusEvent<HTMLInputElement>): void;
-  size?: 'tiny' | 'small' | 'medium' | 'large' | 'xlarge';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
 function RadioGroup({
@@ -59,7 +59,7 @@ function RadioGroup({
   value,
   name,
   onChange,
-  size = 'medium',
+  size = 'md',
 }: GroupProps) {
   const [activeId, setActiveId] = useState('');
 
@@ -130,7 +130,7 @@ function Radio({
   checked,
   onChange,
   onFocus,
-  size = 'medium',
+  size = 'md',
 }: InputProps) {
   const inputName = name;
   return (

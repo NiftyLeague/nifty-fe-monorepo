@@ -20,6 +20,6 @@ describe('#Select', () => {
         <option>2</option>
       </Select>,
     );
-    expect(screen.queryByTestId('form-select')).toHaveClass('sbui-select sbui-select--error sbui-select--medium');
+    expect(screen.queryByTestId('form-select')).toHaveClass('sbui-select sbui-select--error sbui-select--md');
   });
 });

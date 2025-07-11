@@ -51,7 +51,7 @@ function Text({
   }
 
   if (small) {
-    classes.push(TextStyles['sbui-typography-text-small']);
+    classes.push(TextStyles['sbui-typography-text-sm']);
   }
 
   if (code)

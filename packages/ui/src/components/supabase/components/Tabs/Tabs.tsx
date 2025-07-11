@@ -10,7 +10,7 @@ export interface TabsProps {
   type?: 'pills' | 'underlined' | 'cards';
   defaultActiveId?: string;
   activeId?: string;
-  size?: 'tiny' | 'small' | 'medium' | 'large' | 'xlarge';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   block?: boolean;
   tabBarGutter?: number;
   tabBarStyle?: React.CSSProperties;

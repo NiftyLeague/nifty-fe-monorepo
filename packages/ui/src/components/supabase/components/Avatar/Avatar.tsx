@@ -1,6 +1,5 @@
 import React from 'react';
-import { Icon } from '../../types';
-import { IconUser } from '../Icon/icons/IconUser';
+import Icon from '@nl/ui/base/Icon';
 import AvatarStyles from './Avatar.module.css';
 
 interface Props {
@@ -12,11 +11,10 @@ interface Props {
   responsive?: boolean;
   text?: string;
   variant?: 'circle' | 'square';
-  AvatarIcon?: Icon;
   size: number;
 }
 
-export default function Avatar({ src, style, className, alt, text, AvatarIcon, size, children }: Props) {
+export default function Avatar({ src, style, className, alt, text, size, children }: Props) {
   const classes = [AvatarStyles['sbui-avatar']];
   classes.push(className);
   let objectToRender;
@@ -42,13 +40,6 @@ export default function Avatar({ src, style, className, alt, text, AvatarIcon, s
     objectToRender = (
       <img className={classes.join(' ')} src={src} alt={alt} style={{ height: size, width: size, ...style }} />
     );
-  } else if (AvatarIcon) {
-    classes.push(AvatarStyles['sbui-avatar-icon']);
-    objectToRender = (
-      <div className={classes.join(' ')} style={{ height: size, width: size, ...style }}>
-        <AvatarIcon />
-      </div>
-    );
   } else if (text) {
     classes.push(AvatarStyles['sbui-avatar-text']);
     objectToRender = (
@@ -67,7 +58,7 @@ export default function Avatar({ src, style, className, alt, text, AvatarIcon, s
     classes.push(AvatarStyles['sbui-avatar-fallback']);
     objectToRender = (
       <div className={classes.join(' ')} style={{ height: size, width: size, ...style }}>
-        <IconUser />
+        <Icon name="user" />
       </div>
     );
   }

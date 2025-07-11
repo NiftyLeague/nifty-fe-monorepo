@@ -1,10 +1,10 @@
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
 import { styled } from '@mui/material/styles';
+
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
+import Icon from '@nl/ui/base/Icon';
 import ThemeBtnGroup from '@/components/ThemeBtnGroup';
 
 const StyledAccordion = styled(Accordion)({
@@ -47,7 +47,7 @@ const JobCard = ({ details }: JobCardProps): React.ReactNode => {
   return (
     <StyledAccordion>
       <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
+        expandIcon={<Icon name="chevron-down" size="xl" strokeWidth={2.5} />}
         aria-controls={`panel-${title}-content`}
         id={`panel-${title}-header`}
       >

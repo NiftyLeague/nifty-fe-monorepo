@@ -1,7 +1,6 @@
 import React, { forwardRef, useRef, useImperativeHandle, PropsWithChildren, JSX } from 'react';
+import Icon, { type IconProps } from '@nl/ui/base/Icon';
 import ButtonStyles from './Button.module.css';
-import { IconContext } from '../Icon/IconContext';
-import { IconLoader } from '../Icon/icons/IconLoader';
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   block?: boolean;
@@ -9,12 +8,12 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
   disabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  icon?: React.ReactNode;
-  iconRight?: React.ReactNode;
+  icon?: IconProps['name'] | React.ReactNode;
+  iconRight?: IconProps['name'] | React.ReactNode;
   loading?: boolean;
   loadingCentered?: boolean;
   shadow?: boolean;
-  size?: 'tiny' | 'small' | 'medium' | 'large' | 'xlarge';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   style?: React.CSSProperties;
   type?: 'primary' | 'default' | 'secondary' | 'outline' | 'dashed' | 'link' | 'text';
   danger?: boolean;
@@ -54,7 +53,7 @@ const Button = forwardRef<RefHandle, ButtonProps>(
       loading = false,
       loadingCentered = false,
       shadow = true,
-      size = 'tiny',
+      size = 'xs',
       style,
       type = 'primary',
       htmlType,
@@ -155,14 +154,18 @@ const Button = forwardRef<RefHandle, ButtonProps>(
         <RenderedButton>
           {showIcon &&
             (loading ? (
-              <IconLoader size={size} className={iconLoaderClasses.join(' ')} />
+              <Icon name="loader" size={size} className={iconLoaderClasses.join(' ')} />
             ) : icon ? (
-              <IconContext.Provider value={{ contextSize: size }}>{icon}</IconContext.Provider>
+              typeof icon === 'string' ? (
+                <Icon name={icon as IconProps['name']} size={size} />
+              ) : (
+                icon
+              )
             ) : null)}
           {children && <span>{children}</span>}
-          {iconRight && !loading && (
-            <IconContext.Provider value={{ contextSize: size }}>{iconRight}</IconContext.Provider>
-          )}
+          {iconRight &&
+            !loading &&
+            (typeof iconRight === 'string' ? <Icon name={iconRight as IconProps['name']} size={size} /> : iconRight)}
         </RenderedButton>
       </span>
     );

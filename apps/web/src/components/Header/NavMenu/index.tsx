@@ -2,13 +2,8 @@
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { OpenInNew as OpenInNewIcon } from '@mui/icons-material';
+import ExternalIcon from '@nl/ui/custom/ExternalIcon';
 import { ABOUT_LINKS, DAO_LINKS, MOBILE_GENERAL_LINKS, PRODUCT_LINKS } from '../constants';
-
-// Define ExternalIcon at the top level
-const ExternalIcon = (props: { className?: string }) => (
-  <OpenInNewIcon className={`h-4 w-4 mb-1 ${props.className || ''}`} sx={{ fontSize: '0.875rem' }} />
-);
 
 interface NavMenuLinkProps {
   children: React.ReactNode;
@@ -35,7 +30,7 @@ const NavMenuLink = ({ children, href, toggleMobileMenu, external = false }: Nav
       }`}
     >
       {children}
-      {external && <ExternalIcon className="ml-1.5 h-4 w-4" />}
+      {external && <ExternalIcon />}
     </Link>
   );
 };

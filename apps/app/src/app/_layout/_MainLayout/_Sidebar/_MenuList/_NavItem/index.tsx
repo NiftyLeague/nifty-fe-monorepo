@@ -5,17 +5,16 @@ import { usePathname } from 'next/navigation';
 // material-ui
 import { useTheme } from '@nl/theme';
 import { Avatar, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import Chip from '@/components/extended/Chip';
 
 // project imports
+import Icon from '@nl/ui/base/Icon';
 import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
-import { useDispatch, useSelector } from '@/store/hooks';
+import { useDispatch } from '@/store/hooks';
 import { activeItem, openDrawer } from '@/store/slices/menu';
 
 // types
 import type { LinkTarget, NavItemType } from '@/types';
-import type { IconProps } from '@tabler/icons-react';
 
 interface NavItemProps {
   item: NavItemType;
@@ -30,16 +29,6 @@ const NavItem = ({ item, level }: NavItemProps) => {
   const matchesSM = useMediaQuery('(max-width:1024px)');
   const dispatch = useDispatch();
   const isSelected = pathname === item.url;
-
-  const Icon = item?.icon as (props: IconProps) => React.ReactNode | undefined;
-  const itemIcon = item?.icon ? (
-    <Icon stroke={1.5} size="20px" />
-  ) : (
-    <FiberManualRecordIcon
-      sx={{ width: isSelected ? 8 : 6, height: isSelected ? 8 : 6 }}
-      fontSize={level > 0 ? 'inherit' : 'medium'}
-    />
-  );
 
   let itemTarget: LinkTarget = '_self';
   if (item.target) {
@@ -88,7 +77,9 @@ const NavItem = ({ item, level }: NavItemProps) => {
       selected={isSelected}
       onClick={() => itemHandler(item.id!)}
     >
-      <ListItemIcon sx={{ my: 'auto', minWidth: !item?.icon ? 18 : 36 }}>{itemIcon}</ListItemIcon>
+      <ListItemIcon sx={{ my: 'auto', minWidth: !item?.icon ? 18 : 36 }}>
+        <Icon name={item?.icon ?? 'dot'} size="lg" />
+      </ListItemIcon>
       <ListItemText
         primary={
           <Typography variant="body1" fontWeight={isSelected ? 'bold' : 'normal'} sx={{ color: 'inherit' }}>

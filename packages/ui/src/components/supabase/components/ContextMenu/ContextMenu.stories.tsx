@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import type { Meta, StoryObj } from '@storybook/react';
+import Icon from '@nl/ui/base/Icon';
 import { useState } from 'react';
 import { Button } from '../Button';
 import { Divider } from '../Divider';
-import { IconLogOut } from '../Icon/icons/IconLogOut';
 import Typography from '../Typography';
 import { ContextMenu } from '.';
-import { IconLogIn } from '../Icon/icons/IconLogIn';
 
 // Extract the RootProps type from the ContextMenu component
 type RootProps = Parameters<typeof ContextMenu>[0];
@@ -57,7 +56,7 @@ export const Default: Story = {
           </ContextMenu.Item>,
           <ContextMenu.Item key="settings">Settings</ContextMenu.Item>,
           <Divider key="divider2" light />,
-          <ContextMenu.Item key="logout" icon={<IconLogIn size="tiny" />}>
+          <ContextMenu.Item key="logout" icon={<Icon name="log-out" size="xs" />}>
             Log out
           </ContextMenu.Item>,
         ]}
@@ -87,7 +86,7 @@ export const DoNotCloseOverlay: Story = {
           <ContextMenu.Item key="account">Account</ContextMenu.Item>,
           <ContextMenu.Item key="settings">Settings</ContextMenu.Item>,
           <ContextMenu.Item key="logoutButton">
-            <Button type="default" icon={<IconLogOut />}>
+            <Button type="default" icon={<Icon name="log-out" size="xs" />}>
               Log out
             </Button>
           </ContextMenu.Item>,
@@ -113,7 +112,7 @@ export const WithCustomStyles: Story = {
           <Divider key="divider4" light />,
           <ContextMenu.Item key="account">Account</ContextMenu.Item>,
           <ContextMenu.Item key="settings">Settings</ContextMenu.Item>,
-          <ContextMenu.Item key="logout" icon={<IconLogOut />}>
+          <ContextMenu.Item key="logout" icon={<Icon name="log-out" size="xs" />}>
             Log out
           </ContextMenu.Item>,
         ]}

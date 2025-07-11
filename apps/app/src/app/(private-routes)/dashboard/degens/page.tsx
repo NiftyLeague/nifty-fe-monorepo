@@ -1,16 +1,16 @@
 'use client';
 /* eslint-disable no-nested-ternary */
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { useAccount } from 'wagmi';
 import isEmpty from 'lodash/isEmpty';
 import xor from 'lodash/xor';
-import { useSearchParams } from 'next/navigation';
-import useFlags from '@/hooks/useFlags';
 import { Grid, IconButton, Pagination, Stack, Dialog } from '@mui/material';
-import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
+
 import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
+import Icon from '@nl/ui/base/Icon';
 
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder';
 import DegensFilter from '@/components/extended/DegensFilter';
@@ -25,8 +25,9 @@ import SectionTitle from '@/components/sections/SectionTitle';
 import { DEGEN_BASE_API_URL, DEGEN_COLLECTION_URL, PROFILE_FAV_DEGENS_API } from '@/constants/url';
 import { HYDRAS } from '@/constants/hydras';
 import { useProfileFavDegens } from '@/hooks/useGamerProfile';
-import useFetch from '@/hooks/useFetch';
 import useAuth from '@/hooks/useAuth';
+import useFetch from '@/hooks/useFetch';
+import useFlags from '@/hooks/useFlags';
 import usePagination from '@/hooks/usePagination';
 import type { DegenFilter } from '@/types/degenFilter';
 import type { Degen } from '@/types/degens';
@@ -300,7 +301,7 @@ const DashboardDegensPage = (): React.ReactNode => {
         <SectionTitle firstSection>
           <Stack direction="row" gap={1} sx={{ alignItems: 'center', mb: 2 }}>
             <IconButton onClick={() => setIsDrawerOpen(!isDrawerOpen)} size="small">
-              {isDrawerOpen ? <ArrowBackIosNew /> : <ArrowForwardIos />}
+              <Icon name={isDrawerOpen ? 'chevron-left' : 'chevron-right'} size="xl" />
             </IconButton>
             {filteredData.length} Degens
           </Stack>

@@ -3,6 +3,7 @@
 import { memo, useMemo } from 'react';
 import Image from 'next/image';
 import { useInView } from 'react-intersection-observer';
+import { toast } from 'react-toastify';
 import {
   Box,
   Button,
@@ -15,10 +16,8 @@ import {
   // Dialog,
 } from '@mui/material';
 import { useTheme, Theme } from '@nl/theme';
-import EditIcon from '@mui/icons-material/Edit';
-import FavoriteIconFilled from '@mui/icons-material/Favorite';
-import FavoriteIconOutlined from '@mui/icons-material/FavoriteBorderOutlined';
-import { toast } from 'react-toastify';
+
+import Icon from '@nl/ui/base/Icon';
 // import Chip from '@/components/extended/Chip';
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder';
 import useClaimableNFTL from '@/hooks/balances/useClaimableNFTL';
@@ -59,7 +58,7 @@ export interface DegenCardProps {
   onClickDetail?: React.MouseEventHandler<HTMLButtonElement>;
   onClickEditName?: React.MouseEventHandler<SVGSVGElement>;
   onClickEquip?: React.MouseEventHandler<HTMLButtonElement>;
-  onClickFavorite?: React.MouseEventHandler<HTMLDivElement>;
+  onClickFavorite?: React.MouseEventHandler<SVGSVGElement>;
   onClickRent?: React.MouseEventHandler<HTMLButtonElement>;
   onClickSelect?: React.MouseEventHandler<HTMLButtonElement>;
   sx?: SxProps<Theme>;
@@ -179,12 +178,14 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
             gap={1}
             sx={{ justifyContent: 'space-between', '&:hover': { '& svg': { display: 'block' } } }}
           >
-            <Typography gutterBottom variant={size === 'small' ? 'h6' : 'h5'} className="truncate-text-1">
-              {name || '[No Name]'}
-            </Typography>
-            {isDashboardDegen && (
-              <EditIcon sx={{ cursor: 'pointer', display: 'none' }} onClick={onClickEditName} fontSize="small" />
-            )}
+            <div className="flex">
+              <Typography gutterBottom variant={size === 'small' ? 'h6' : 'h5'} className="truncate-text-1">
+                {name || '[No Name]'}
+              </Typography>
+              {isDashboardDegen && (
+                <Icon name="pencil" size="sm" onClick={onClickEditName} className="hidden cursor-pointer ml-1" />
+              )}
+            </div>
             <Link
               href={id ? DEGEN_PURCHASE_URL(id) : '#'}
               target="_blank"
@@ -278,13 +279,14 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
               </Typography>
             )} */}
             <div className="flex flex-row items-center">
-              <div className="flex items-center cursor-pointer mr-3" onClick={onClickFavorite}>
-                {fav ? (
-                  <FavoriteIconFilled sx={{ fontSize: size === 'small' ? 12 : 16 }} />
-                ) : (
-                  <FavoriteIconOutlined sx={{ fontSize: size === 'small' ? 12 : 16 }} />
-                )}
-              </div>
+              <Icon
+                name="heart"
+                strokeWidth={fav ? 0 : 1.5}
+                fill={fav ? 'foreground' : undefined}
+                size={size === 'small' ? 12 : 16}
+                onClick={onClickFavorite}
+                className="cursor-pointer mr-3"
+              />
               <div className="flex items-center cursor-pointer" onClick={onClickDownload}>
                 <Typography sx={{ fontSize: tinyFontSize, pr: '4px' }}>IP</Typography>
                 <Image

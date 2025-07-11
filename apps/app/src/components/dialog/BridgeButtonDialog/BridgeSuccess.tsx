@@ -1,26 +1,11 @@
 import Link from 'next/link';
 import type { Dispatch, SetStateAction } from 'react';
-import {
-  Alert,
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  IconButton,
-  styled,
-  Typography,
-} from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { Alert, Dialog, DialogContent, DialogContentText, DialogTitle, IconButton, Typography } from '@mui/material';
+
+import Icon from '@nl/ui/base/Icon';
 import useTokensBalances from '@/hooks/balances/useTokensBalances';
 import useNetworkContext from '@/hooks/useNetworkContext';
 import { AXELAR_TRANSACTIONS_URL } from '@/constants/url';
-
-const IconButtonStyle = styled(IconButton)(({ theme }) => ({
-  position: 'absolute',
-  right: 0,
-  top: 0,
-  color: 'var(--color-foreground-2)',
-}));
 
 type BridgeSuccessProps = { successDialogOpen: boolean; setSuccessDialogOpen: Dispatch<SetStateAction<boolean>> };
 
@@ -41,10 +26,10 @@ const BridgeSuccess = ({ successDialogOpen, setSuccessDialogOpen }: BridgeSucces
       aria-describedby="alert-dialog-bridge-success"
     >
       <DialogTitle id="alert-dialog-title" sx={{ textAlign: 'center' }}>
-        {'Success!'}
-        <IconButtonStyle aria-label="close" onClick={handleClose}>
-          <CloseIcon />
-        </IconButtonStyle>
+        Success!
+        <IconButton aria-label="close" onClick={handleClose} sx={{ position: 'absolute', right: 0, top: 0 }}>
+          <Icon name="x" size="lg" color="dim" />
+        </IconButton>
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">

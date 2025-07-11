@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useMemo } from 'react';
 import { Stack, Typography, Button, Dialog, DialogContent, Link, IconButton } from '@mui/material';
 import {
   DataGrid,
@@ -9,8 +10,8 @@ import {
   type GridColumnVisibilityModel,
   type GridSortModel,
 } from '@mui/x-data-grid';
-import EditIcon from '@mui/icons-material/Edit';
-import { useState, useMemo } from 'react';
+
+import Icon from '@nl/ui/base/Icon';
 import type { Rentals, RentalType } from '@/types/rentals';
 import { transformRentals } from '@/app/(private-routes)/dashboard/_utils/transformRentals';
 import usePlayerProfile from '@/hooks/usePlayerProfile';
@@ -173,7 +174,7 @@ const MyRentalsDataGrid = ({
               <Typography>{params.value}</Typography>
               {params.row.isEditable && (
                 <IconButton aria-label="edit" onClick={() => handleOpenNickname(params)} sx={{ display: 'none' }}>
-                  <EditIcon fontSize="small" />
+                  <Icon name="pencil" />
                 </IconButton>
               )}
             </Stack>

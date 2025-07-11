@@ -1,6 +1,6 @@
 import { useContext, cloneElement } from 'react';
 import { IconButton, styled } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import Icon from '@nl/ui/base/Icon';
 import { DialogContext } from '.';
 import type { DialogAction } from '@/types/dialog';
 import callAll from '@/utils/callAll';
@@ -29,7 +29,7 @@ const CloseIconButton = () => {
   return (
     <DialogDismissButton>
       <IconButtonStyle aria-label="close">
-        <CloseIcon />
+        <Icon name="x" size="lg" />
       </IconButtonStyle>
     </DialogDismissButton>
   );

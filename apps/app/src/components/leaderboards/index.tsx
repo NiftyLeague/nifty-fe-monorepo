@@ -15,7 +15,6 @@ import {
   NiftySmashersTables,
 } from '@/constants/leaderboards';
 import EnhancedTable from '@/components/leaderboards/EnhancedTable/EnhancedTable';
-// import { EmojiEvents, Paid, CrisisAlert } from '@mui/icons-material';
 // const TopModal = dynamic(() => import('../TopModal'), { ssr: false });
 import './modal-table.css';
 

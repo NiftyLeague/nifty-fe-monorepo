@@ -1,14 +1,7 @@
 import type { Dispatch, SetStateAction } from 'react';
-import { Dialog, DialogContent, DialogContentText, DialogTitle, IconButton, styled } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { Dialog, DialogContent, DialogContentText, DialogTitle, IconButton } from '@mui/material';
+import Icon from '@nl/ui/base/Icon';
 import useTokensBalances from '@/hooks/balances/useTokensBalances';
-
-const IconButtonStyle = styled(IconButton)(({ theme }) => ({
-  position: 'absolute',
-  right: 0,
-  top: 0,
-  color: 'var(--color-foreground-2)',
-}));
 
 type WithdrawSuccessProps = { successDialogOpen: boolean; setSuccessDialogOpen: Dispatch<SetStateAction<boolean>> };
 
@@ -28,10 +21,10 @@ const WithdrawSuccess = ({ successDialogOpen, setSuccessDialogOpen }: WithdrawSu
       aria-describedby="alert-dialog-withdraw-success"
     >
       <DialogTitle id="alert-dialog-title" sx={{ textAlign: 'center' }}>
-        {'Success!'}
-        <IconButtonStyle aria-label="close" onClick={handleClose}>
-          <CloseIcon />
-        </IconButtonStyle>
+        Success!
+        <IconButton aria-label="close" onClick={handleClose} sx={{ position: 'absolute', right: 0, top: 0 }}>
+          <Icon name="x" size="lg" color="dim" />
+        </IconButton>
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">

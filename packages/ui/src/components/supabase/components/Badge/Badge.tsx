@@ -3,7 +3,7 @@ import BadgeStyles from './Badge.module.css';
 interface Props {
   color?: 'gray' | 'red' | 'yellow' | 'green' | 'blue' | 'indigo' | 'purple' | 'pink';
   children: string;
-  size?: 'large' | 'small';
+  size?: 'sm' | 'lg';
   dot?: boolean;
 }
 
@@ -12,8 +12,8 @@ function Badge({ color, children, size, dot }: Props) {
   if (color) {
     classes.push(BadgeStyles[`sbui-badge--${color}`]);
   }
-  if (size === 'large') {
-    classes.push(BadgeStyles['sbui-badge--large']);
+  if (size === 'lg') {
+    classes.push(BadgeStyles['sbui-badge--lg']);
   }
 
   return (
