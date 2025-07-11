@@ -1,6 +1,6 @@
 import { Button, Stack, TextField, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { styled } from '@nl/theme';
-import { GridOn, GridView, KeyboardArrowDown } from '@mui/icons-material';
+import Icon from '@nl/ui/base/Icon';
 import SortButton from '@/components/extended/SortButton';
 
 const SearchTextField = styled(TextField)({
@@ -57,7 +57,7 @@ const DegensTopNav = ({
           id="sort-button"
           aria-controls="sort-menu"
           aria-haspopup="true"
-          endIcon={<KeyboardArrowDown />}
+          endIcon={<Icon name="chevron-down" />}
           sx={{
             fontWeight: 400,
             border: 'var(--border-purple)',
@@ -74,10 +74,10 @@ const DegensTopNav = ({
         onChange={handleChangeLayoutMode}
       >
         <LayoutModeButton size="small" value="gridView" aria-label="GridView">
-          <GridView />
+          <Icon name="layout-grid" size="lg" />
         </LayoutModeButton>
         <LayoutModeButton size="small" value="gridOn" aria-label="GridOn">
-          <GridOn />
+          <Icon name="grid-3x3" size="lg" />
         </LayoutModeButton>
       </LayoutModeButtonsGroup>
     </Stack>

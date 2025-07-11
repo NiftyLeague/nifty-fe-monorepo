@@ -4,13 +4,9 @@ import { useState, useRef, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu as MenuIcon, Close as CloseIcon, OpenInNew as OpenInNewIcon } from '@mui/icons-material';
+import Icon from '@nl/ui/base/Icon';
+import ExternalIcon from '@nl/ui/custom/ExternalIcon';
 import { ABOUT_LINKS, DAO_LINKS, PRODUCT_LINKS } from '../constants';
-
-// Define ExternalIcon at the top level
-const ExternalIcon = (props: { className?: string }) => (
-  <OpenInNewIcon className={`h-4 w-4 mb-1 ${props.className || ''}`} sx={{ fontSize: '0.875rem' }} />
-);
 
 interface NavLinkProps {
   href: string;
@@ -76,16 +72,12 @@ const Dropdown = (props: DropdownProps) => {
         aria-haspopup="true"
       >
         {title}
-        <svg
-          className={`ml-1 h-4 w-4 transition-transform ${isOpen ? 'transform rotate-180' : ''}`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
+        <Icon
+          name="chevron-down"
+          size="xl"
+          strokeWidth={2.5}
+          className={`ml-1 transition-transform ${isOpen ? 'transform rotate-180' : ''}`}
+        />
       </button>
       <div
         className={`absolute left-0 mt-0 w-48 rounded-md shadow-lg bg-background-2 ring-1 ring-background-2 ring-opacity-5 ${
@@ -125,7 +117,7 @@ const DropdownLink = ({ href, children, external = false }: DropdownLinkProps) =
       }`}
     >
       {children}
-      {external && <ExternalIcon className="ml-1" />}
+      {external && <ExternalIcon />}
     </Link>
   );
 };
@@ -176,18 +168,14 @@ interface NavMenuButtonProps {
 }
 
 const NavMenuButton = ({ toggleMobileMenu, isMobileMenuOpen }: NavMenuButtonProps) => (
-  <div className="flex md:hidden">
+  <div className="flex md:hidden z-100">
     <button
       onClick={toggleMobileMenu}
-      className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-foreground-2 hover:bg-background-2 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-foreground"
+      className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-foreground-2 hover:bg-background-2 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-foreground cursor-pointer"
       aria-expanded="false"
     >
       <span className="sr-only">Open Nav Menu</span>
-      {isMobileMenuOpen ? (
-        <CloseIcon className="block h-6 w-6" aria-hidden="true" />
-      ) : (
-        <MenuIcon className="block h-6 w-6" aria-hidden="true" />
-      )}
+      <Icon name={isMobileMenuOpen ? 'x' : 'menu'} size="xl" aria-hidden="true" />
     </button>
   </div>
 );

@@ -1,12 +1,13 @@
 'use client';
 
 import { FC, useCallback, useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import LoadingButton from '@mui/lab/LoadingButton';
 import {
   Container,
   Dialog,
   Stack,
   DialogTitle,
-  Icon,
   Typography,
   Divider,
   TextField,
@@ -20,18 +21,16 @@ import {
   Alert,
   InputAdornment,
 } from '@mui/material';
+
+import Icon from '@nl/ui/base/Icon';
 import type { DialogProps } from '@/types/dialog';
-import { sendEvent } from '@/utils/google-analytics';
-import CloseIcon from '@mui/icons-material/Close';
-import RemoveIcon from '@mui/icons-material/Remove';
-import AddIcon from '@mui/icons-material/Add';
-import LoadingButton from '@mui/lab/LoadingButton';
-import { useQuery } from '@tanstack/react-query';
 import { formatNumberToDisplay } from '@/utils/numbers';
 import { GET_PRODUCT, NFTL_PURCHASE_URL, PURCHASE_ARCADE_TOKEN_BALANCE_API } from '@/constants/url';
 import useGameAccount from '@/hooks/useGameAccount';
-import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
 import useAuth from '@/hooks/useAuth';
+
+import { sendEvent } from '@/utils/google-analytics';
+import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
 
 const PRODUCT_ID = 'arcade-token-four-pack';
 
@@ -109,16 +108,16 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
     <Dialog open={open} onClose={onClose} {...rest} maxWidth="xs">
       <Container>
         <>
-          <Stack
-            direction="row"
-            spacing={2}
-            sx={{ justifyContent: 'center', alignItems: 'center', position: 'relative' }}
-          >
+          <div className="relative text-center">
             <DialogTitle>Buy Arcade Token</DialogTitle>
-            <Icon sx={{ position: 'absolute', right: 0 }} onClick={onClose}>
-              <CloseIcon />
-            </Icon>
-          </Stack>
+            <Icon
+              aria-label="close"
+              name="x"
+              size="xl"
+              className="absolute right-0 top-1/4 cursor-pointer"
+              onClick={onClose}
+            />
+          </div>
           <Divider sx={{ opacity: '0.6' }} />
           {(isDetailsPending || error) && (
             <Stack direction="row" sx={{ justifyContent: 'center', alignItems: 'center' }} width="390px" height="300px">
@@ -130,16 +129,19 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
           )}
           {!error && !isDetailsPending && details && (
             <>
-              <Typography textAlign="center" mt={2}>
-                <Typography>
-                  To play an arcade game, you need at least 1 arcade token. Arcade tokens are sold in packs containing{' '}
-                  {details.items['arcade-token']} tokens (i.e 1 pack = {details.items['arcade-token']} tokens)
-                </Typography>
-                <Typography my={2}>{details.price} NFTL Each</Typography>
+              <Typography className="max-w-[450px] text-center !mt-4 !mx-auto">
+                To play an arcade game, you need at least 1 arcade token. Arcade tokens are sold in packs containing{' '}
+                {details.items['arcade-token']} tokens (i.e 1 pack = {details.items['arcade-token']} tokens)
               </Typography>
+              <Typography className="text-center !font-bold text-warning !my-4">{details.price} NFTL Each</Typography>
               <Stack direction="row" sx={{ justifyContent: 'center', alignItems: 'center' }} spacing={1} mb={3}>
-                <RemoveIcon
-                  sx={{ fontSize: 50, fill: 'var(--color-foreground-2)', cursor: 'pointer' }}
+                <Icon
+                  aria-label="subtract"
+                  name="minus"
+                  size={50}
+                  color="dim"
+                  strokeWidth={2.5}
+                  className="cursor-pointer"
                   onClick={() => updateTokenCount(tokenCount - 1)}
                 />
                 <TextField
@@ -154,8 +156,13 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                     },
                   }}
                 />
-                <AddIcon
-                  sx={{ fontSize: 50, fill: 'var(--color-foreground-2)', cursor: 'pointer' }}
+                <Icon
+                  aria-label="add"
+                  name="plus"
+                  size={50}
+                  color="dim"
+                  strokeWidth={2.5}
+                  className="cursor-pointer"
                   onClick={() => updateTokenCount(tokenCount + 1)}
                 />
               </Stack>

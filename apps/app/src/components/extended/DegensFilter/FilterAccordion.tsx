@@ -1,6 +1,6 @@
-import { Accordion, AccordionSummary, AccordionDetails, Stack, Typography } from '@mui/material';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { ReactNode } from 'react';
+import { Accordion, AccordionSummary, AccordionDetails, Stack, Typography } from '@mui/material';
+import Icon from '@nl/ui/base/Icon';
 
 interface Props {
   summary: ReactNode;
@@ -21,7 +21,7 @@ const FilterAccordion = ({ summary, children, expanded = true, length = 0 }: Pro
       }}
     >
       <AccordionSummary
-        expandIcon={<KeyboardArrowDownIcon width={18} />}
+        expandIcon={<Icon name="chevron-down" />}
         sx={{
           minHeight: 36,
           padding: '0px 14px',

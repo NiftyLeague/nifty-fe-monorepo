@@ -2,7 +2,7 @@
 import { Divider, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
 import MUIFormControl from '@mui/material/FormControl';
 
-import { Icon, type IconName } from '@nl/ui/base/Icon';
+import Icon, { type IconName } from '@nl/ui/base/Icon';
 
 // ==============================|| FORM CONTROL ||============================== //
 

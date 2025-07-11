@@ -4,9 +4,7 @@ import { SyntheticEvent } from 'react';
 import { Alert, Button, Fade, Grow, IconButton, Slide, SlideProps } from '@mui/material';
 import MuiSnackbar from '@mui/material/Snackbar';
 
-// assets
-import CloseIcon from '@mui/icons-material/Close';
-
+import Icon from '@nl/ui/base/Icon';
 import { useDispatch, useSelector } from '@/store/hooks';
 import { closeSnackbar } from '@/store/slices/snackbar';
 
@@ -72,7 +70,7 @@ const Snackbar = () => {
                 UNDO
               </Button>
               <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose} sx={{ mt: 0.25 }}>
-                <CloseIcon fontSize="small" />
+                <Icon name="x" size="sm" />
               </IconButton>
             </>
           }
@@ -100,7 +98,7 @@ const Snackbar = () => {
                 )}
                 {close !== false && (
                   <IconButton sx={{ color: 'background.paper' }} size="small" aria-label="close" onClick={handleClose}>
-                    <CloseIcon fontSize="small" />
+                    <Icon name="x" size="sm" />
                   </IconButton>
                 )}
               </>

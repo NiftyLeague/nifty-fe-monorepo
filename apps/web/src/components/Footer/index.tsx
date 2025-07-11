@@ -4,7 +4,7 @@ import Link from 'next/link';
 import type { UrlObject } from 'url';
 import { cn } from '@nl/ui/lib/utils';
 import SocialsFooter, { animateClass, linkClass } from '@nl/ui/custom/SocialsFooter';
-import ExternalIcon from '@/components/ExternalIcon';
+import ExternalIcon from '@nl/ui/custom/ExternalIcon';
 
 interface FooterLinkProps {
   external?: boolean;
@@ -26,7 +26,7 @@ const FooterLink = ({ href, name, external = false, first = false }: FooterLinkP
     rel={external ? 'noreferrer' : undefined}
   >
     <span className="whitespace-nowrap">{name}</span>
-    {external && <ExternalIcon className="ml-1 flex-shrink-0" />}
+    {external && <ExternalIcon />}
   </Link>
 );
 

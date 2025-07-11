@@ -9,13 +9,14 @@ import { CellRenderer, LabelRenderer } from './Renderer';
 import ExpandableListItem from './ExpandableListItem';
 import NoContent from './NoContent';
 import Pagination from './Pagination';
+
+import type { IconProps } from '@nl/ui/base/Icon';
 import type {
   AccordionDetailsProps,
   AccordionProps,
   AccordionSummaryProps,
   CustomColDef,
   Row,
-  SvgIconProps,
   TablePaginationProps,
   TypographyProps,
 } from './types';
@@ -23,7 +24,7 @@ import type {
 interface DataListProps {
   AccordionDetailsProps?: AccordionDetailsProps;
   AccordionDetailsTypographyProps?: TypographyProps<'div'>;
-  AccordionMoreIconProps?: SvgIconProps;
+  AccordionMoreIconProps?: IconProps;
   AccordionProps?: AccordionProps;
   AccordionSummaryProps?: AccordionSummaryProps;
   AccordionSummaryTypographyProps?: TypographyProps;

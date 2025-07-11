@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Button, Card, CardActions, CardContent, CardMedia, Stack, SxProps, Theme, Typography } from '@mui/material';
-import ExternalIcon from '@/components/ExternalIcon';
+import ExternalIcon from '@nl/ui/custom/ExternalIcon';
 
 type CardGameContentProps = {
   actions?: React.ReactNode;
@@ -42,12 +42,7 @@ const CardGameContent = ({
           </Typography>
           {externalLink ? (
             <Link href={externalLink.src} target="_blank" rel="noreferrer">
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                sx={{ minWidth: 165, flex: 1, justifyContent: 'space-between', marginTop: -2 }}
-              >
+              <Button variant="contained" color="primary" fullWidth className="!-mt-2">
                 {externalLink.title} <ExternalIcon />
               </Button>
             </Link>

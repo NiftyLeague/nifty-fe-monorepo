@@ -4,7 +4,7 @@ import Image from 'next/image';
 import xor from 'lodash/xor';
 import sum from 'lodash/sum';
 import { ImageList, ImageListItem, ImageListItemBar, Skeleton, TextField, InputAdornment } from '@mui/material';
-import BurnIcon from '@mui/icons-material/Whatshot';
+import Icon from '@nl/ui/base/Icon';
 
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 import type { Comic } from '@/types/marketplace';
@@ -145,7 +145,7 @@ export default function ComicsGrid({
                       input: {
                         startAdornment: (
                           <InputAdornment position="start">
-                            <BurnIcon sx={{ fontSize: 14 }} />
+                            <Icon name="flame" size="xs" />
                           </InputAdornment>
                         ),
                       },

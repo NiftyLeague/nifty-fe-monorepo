@@ -8,7 +8,7 @@ import { useTheme } from '@nl/theme';
 import { Collapse, List, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 
 // project imports
-import { Icon } from '@nl/ui/base/Icon';
+import Icon from '@nl/ui/base/Icon';
 import { NavGroupProps } from '../_NavGroup';
 import NavItem from '../_NavItem';
 
@@ -97,7 +97,7 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
             )
           }
         />
-        <Icon name={open ? 'chevron-up' : 'chevron-down'} size="md" />
+        <Icon name="chevron-down" size="md" className={`transition-transform ${open ? 'transform rotate-180' : ''}`} />
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         {open && (

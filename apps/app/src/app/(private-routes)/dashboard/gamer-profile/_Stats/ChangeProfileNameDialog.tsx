@@ -1,5 +1,5 @@
 import { IconButton } from '@mui/material';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import Icon from '@nl/ui/base/Icon';
 import { Dialog, DialogTrigger, DialogContent } from '@/components/dialog';
 import ChangeProfileNameForm from './ChangeProfileNameForm';
 
@@ -10,7 +10,7 @@ const ChangeProfileNameDialog = ({ handleUpdateNewName }: ChangeProfileNameDialo
   <Dialog>
     <DialogTrigger>
       <IconButton sx={{ cursor: 'pointer' }} aria-label="edit">
-        <EditOutlinedIcon fontSize="small" sx={{ color: 'var(--color-foreground-2)' }} />
+        <Icon name="pencil" />
       </IconButton>
     </DialogTrigger>
     <DialogContent

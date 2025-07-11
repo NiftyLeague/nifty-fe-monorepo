@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { cloneElement, useEffect, useState, type ReactElement } from 'react';
 import Image from 'next/image';
 import { cn } from '@nl/ui/lib/utils';
 
@@ -12,9 +12,7 @@ import StepLabel from '@mui/material/StepLabel';
 import Stepper from '@mui/material/Stepper';
 import Typography from '@mui/material/Typography';
 
-import DoneAll from '@mui/icons-material/DoneAll';
-import HowToReg from '@mui/icons-material/HowToReg';
-import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import Icon, { type IconProps } from '@nl/ui/base/Icon';
 
 const PREFIX = 'RenameStepper';
 
@@ -49,9 +47,9 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 
 const icons: { [index: string]: React.ReactElement } = {
   1: <Image src="/img/logos/NFTL/logo.webp" alt="NFTL" width={30} height={30} />,
-  2: <VerifiedUserIcon />,
-  3: <HowToReg />,
-  4: <DoneAll />,
+  2: <Icon name="shield-check" size="xl" strokeWidth={2.5} />,
+  3: <Icon name="user-round-check" size="xl" strokeWidth={2.5} />,
+  4: <Icon name="check-check" size="xl" strokeWidth={2.5} />,
 };
 
 const ColorlibConnector = styled(StepConnector)({
@@ -64,7 +62,10 @@ const ColorlibConnector = styled(StepConnector)({
 function ColorlibStepIcon({ active, completed, icon }: StepIconProps) {
   return (
     <StyledIcon className={cn(classes.root, { [classes.active]: active, [classes.completed]: completed })}>
-      {icons[String(icon)]}
+      {(() => {
+        const iconElement = icons[String(icon)] as unknown as ReactElement<IconProps>;
+        return iconElement ? cloneElement(iconElement, { color: active ? 'light' : 'purple' }) : null;
+      })()}
     </StyledIcon>
   );
 }
@@ -131,7 +132,13 @@ function RenameStepper({
         ))}
       </Stepper>
       <em style={{ textAlign: 'center' }}>
-        {activeStep !== steps.length ? <StyledTypography>{getStepContent(activeStep)}</StyledTypography> : null}
+        {activeStep !== steps.length ? (
+          <StyledTypography
+            className={activeStep === 0 ? 'text-error' : activeStep === 1 ? 'text-warning' : 'text-success'}
+          >
+            {getStepContent(activeStep)}
+          </StyledTypography>
+        ) : null}
       </em>
     </div>
   );

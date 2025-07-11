@@ -4,10 +4,10 @@ import Link from 'next/link';
 
 // material-ui
 import { useTheme, gridSpacing, styled } from '@nl/theme';
-import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
 import { Button, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 
 // project imports
+import Icon from '@nl/ui/base/Icon';
 import { DASHBOARD_PATH } from '@/config';
 import AnimateButton from '@/components/extended/AnimateButton';
 
@@ -16,7 +16,13 @@ const CardMediaWrapper = styled('div')({ maxWidth: 720, margin: '0 auto', positi
 
 const ErrorWrapper = styled('div')({ maxWidth: 350, margin: '0 auto', textAlign: 'center' });
 
-const ErrorCard = styled(Card)({ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' });
+const ErrorCard = styled(Card)({
+  minHeight: '80vh',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  backgroundColor: 'var(--color-background)',
+});
 
 const CardMediaBlock = styled('img')({
   position: 'absolute',
@@ -83,7 +89,7 @@ const NotFoundPage = () => {
                 <Grid size={12}>
                   <AnimateButton>
                     <Button variant="contained" size="large" component={Link} href={DASHBOARD_PATH}>
-                      <HomeTwoToneIcon sx={{ fontSize: '20px', mr: 0.75 }} /> Home
+                      <Icon name="home" size="sm" className="mr-1" /> Home
                     </Button>
                   </AnimateButton>
                 </Grid>
