@@ -1,8 +1,7 @@
 import type { ComponentType, ReactNode, SVGProps } from 'react';
 import Link from '@docusaurus/Link';
 import styled from '@emotion/styled';
-import { CodeXmlIcon, type LucideProps } from 'lucide-react';
-import LinkArrow from '@site/public/icons/link-arrow.svg';
+import { CodeXmlIcon, ArrowUpRightIcon, type LucideProps } from 'lucide-react';
 import NFTL from '@site/public/img/logos/NFTL/logo.svg';
 import Logo from '@site/public/img/logos/NL/logo.svg';
 import { RowThree } from '../Row';
@@ -72,7 +71,7 @@ function Feature(feature: FeatureItem) {
             </StyledIcon>
           </IconWrapper>
 
-          <LinkArrow />
+          <ArrowUpRightIcon color="#494749" size={32} strokeWidth={1.5} />
         </TopSection>
         <h3 style={{ marginBottom: '.75rem', color: feature.color }}>{feature.title}</h3>
         <p style={{ marginBottom: '0.5rem' }}>{feature.text}</p>

@@ -17,6 +17,6 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@imtbl/sdk": "^2.3.2"
+    "@imtbl/sdk": "^2.3.3"
   }
 }
