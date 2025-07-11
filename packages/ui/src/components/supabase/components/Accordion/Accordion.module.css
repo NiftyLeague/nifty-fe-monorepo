@@ -79,25 +79,6 @@
   padding-left: 0.5rem;
 }
 
-.sbui-accordion-item__button .sbui-icon {
-  margin-top: 1px;
-}
-
-.sbui-accordion-item__button--open .sbui-icon {
-  --tw-translate-x: 0;
-  --tw-translate-y: 0;
-  --tw-rotate: 0;
-  --tw-skew-x: 0;
-  --tw-skew-y: 0;
-  --tw-scale-x: 1;
-  --tw-scale-y: 1;
-  -webkit-transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate))
-    skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-  transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate))
-    skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-  --tw-rotate: 180deg;
-}
-
 .sbui-accordion-container--bordered .sbui-accordion-item__button:not(:first-child) {
   border-radius: 0px;
   border-top-width: 1px;

@@ -172,7 +172,7 @@
     Input sizes
   */
 
-.sbui-inputnumber--tiny {
+.sbui-inputnumber--xs {
   padding-left: 0.625rem;
   padding-right: 0.625rem;
   padding-top: 0.375rem;
@@ -181,7 +181,7 @@
   line-height: 1rem;
 }
 
-.sbui-inputnumber--small {
+.sbui-inputnumber--sm {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
   padding-top: 0.5rem;
@@ -191,7 +191,7 @@
   line-height: 1rem;
 }
 
-.sbui-inputnumber--medium {
+.sbui-inputnumber--md {
   padding-left: 1rem;
   padding-right: 1rem;
   padding-top: 0.5rem;
@@ -200,7 +200,7 @@
   line-height: 1.25rem;
 }
 
-.sbui-inputnumber--large {
+.sbui-inputnumber--lg {
   padding-left: 1rem;
   padding-right: 1rem;
   padding-top: 0.5rem;
@@ -209,7 +209,7 @@
   line-height: 1.5rem;
 }
 
-.sbui-inputnumber--xlarge {
+.sbui-inputnumber--xl {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   padding-top: 0.75rem;
@@ -218,23 +218,23 @@
   line-height: 1.5rem;
 }
 
-.sbui-inputnumber-nav--tiny {
+.sbui-inputnumber-nav--xs {
   height: 30px;
 }
 
-.sbui-inputnumber-nav--small {
+.sbui-inputnumber-nav--sm {
   height: 34px;
 }
 
-.sbui-inputnumber-nav--medium {
+.sbui-inputnumber-nav--md {
   height: 38px;
 }
 
-.sbui-inputnumber-nav--large {
+.sbui-inputnumber-nav--lg {
   height: 42px;
 }
 
-.sbui-inputnumber-nav--xlarge {
+.sbui-inputnumber-nav--xl {
   height: 50px;
 }
 

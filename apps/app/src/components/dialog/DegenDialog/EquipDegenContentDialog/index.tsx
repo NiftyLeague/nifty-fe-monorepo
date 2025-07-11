@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { Box, Button, CircularProgress, Grid, Stack, Typography } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
 import isEqual from 'lodash/isEqual';
 
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
@@ -15,6 +14,7 @@ import { COMICS_PURCHASE_URL } from '@/constants/url';
 import type { Degen } from '@/types/degens';
 import DegenImage from '@/components/cards/DegenCard/DegenImage';
 import EmptyState from '@/components/EmptyState';
+import Icon from '@nl/ui/base/Icon';
 
 import { getInventoryAnalyticsEventName, getSlotAnalyticsEventName, INVENTORIES, SLOTS } from './equips';
 
@@ -214,7 +214,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
                     className={tag}
                     onClick={() => handleUnequip(index)}
                   >
-                    <CloseIcon sx={{ fontSize: '10px', cursor: 'pointer' }} />
+                    <Icon name="x" size={12} className="cursor-pointer" />
                   </Box>
                 )}
               </Box>

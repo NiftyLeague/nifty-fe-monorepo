@@ -17,6 +17,6 @@ export const WithColor: Story = { args: { color: 'red' } };
 
 export const WithDot: Story = { args: { dot: true } };
 
-export const Large: Story = { args: { size: 'large' } };
+export const Large: Story = { args: { size: 'lg' } };
 
-export const WithDotLarge: Story = { args: { size: 'large', dot: true } };
+export const WithDotLarge: Story = { args: { size: 'lg', dot: true } };

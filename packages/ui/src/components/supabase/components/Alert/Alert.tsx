@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import { IconAlertTriangle } from '../Icon/icons/IconAlertTriangle';
-import { IconCheck } from '../Icon/icons/IconCheck';
-import { IconInfo } from '../Icon/icons/IconInfo';
-import { IconX } from '../Icon/icons/IconX';
-import { IconXCircle } from '../Icon/icons/IconXCircle';
+import Icon from '@nl/ui/base/Icon';
 
 import AlertStyles from './Alert.module.css';
 
@@ -17,10 +13,10 @@ interface Props {
 }
 
 const icons: Record<'success' | 'danger' | 'warning' | 'info', React.ReactElement> = {
-  danger: <IconXCircle size="medium" />,
-  success: <IconCheck size="medium" />,
-  warning: <IconAlertTriangle size="medium" />,
-  info: <IconInfo size="medium" />,
+  danger: <Icon name="x-circle" />,
+  success: <Icon name="check" />,
+  warning: <Icon name="triangle-alert" />,
+  info: <Icon name="info" />,
 };
 
 const Alert = ({ variant = 'success', className, title, withIcon, closable, children }: Props) => {
@@ -51,7 +47,7 @@ const Alert = ({ variant = 'success', className, title, withIcon, closable, chil
                     onClick={() => setVisible(false)}
                     className={closeButtonClasses.join(' ')}
                   >
-                    <IconX size="xlarge" strokeWidth={1.5} />
+                    <Icon name="x" size="lg" />
                   </button>
                 </div>
               </div>

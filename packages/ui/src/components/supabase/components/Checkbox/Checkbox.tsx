@@ -17,7 +17,7 @@ interface InputProps {
   onChange?(x: React.ChangeEvent<HTMLInputElement>): void;
   onFocus?(x: React.FocusEvent<HTMLInputElement>): void;
   onBlur?(x: React.FocusEvent<HTMLInputElement>): void;
-  size?: 'tiny' | 'small' | 'medium' | 'large' | 'xlarge';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
 interface GroupProps {
@@ -36,7 +36,7 @@ interface GroupProps {
   options: Array<InputProps>;
   defaultValue?: string;
   onChange?(x: React.ChangeEvent<HTMLInputElement>): void;
-  size?: 'tiny' | 'small' | 'medium' | 'large' | 'xlarge';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
 function Group({
@@ -53,7 +53,7 @@ function Group({
   name,
   options,
   onChange,
-  size = 'medium',
+  size = 'md',
 }: GroupProps) {
   const parentCallback = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (onChange) onChange(e);
@@ -108,7 +108,7 @@ export function Checkbox({
   onChange,
   onFocus,
   onBlur,
-  size = 'medium',
+  size = 'md',
   disabled = false,
   ...props
 }: InputProps) {

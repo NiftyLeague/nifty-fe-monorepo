@@ -10,14 +10,8 @@ import MuiBreadcrumbs from '@mui/material/Breadcrumbs';
 
 // project imports
 import { BASE_PATH } from '@/config';
-import type { IconProps } from '@tabler/icons-react';
-
-// assets
-import { IconTallymark1 } from '@tabler/icons-react';
-import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
-import HomeIcon from '@mui/icons-material/Home';
-import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
-import type { NavItemType, NavItemTypeObject, OverrideIcon } from '@/types';
+import Icon, { type IconName } from '@nl/ui/base/Icon';
+import type { NavItemType, NavItemTypeObject } from '@/types';
 
 const linkSX = {
   display: 'flex',
@@ -40,7 +34,7 @@ interface BreadCrumbsProps {
   maxItems?: number;
   navigation?: NavItemTypeObject;
   rightAlign?: boolean;
-  separator?: OverrideIcon;
+  separator?: IconName;
   title?: boolean;
   titleBottom?: boolean;
   sx?: BreadCrumbSxProps;
@@ -68,7 +62,6 @@ const Breadcrumbs = ({
     marginTop: `-${theme.spacing(0.25)}`,
     width: '16px',
     height: '16px',
-    color: 'var(--color-blue)',
   };
 
   const [main, setMain] = useState<NavItemType | undefined>();
@@ -102,26 +95,17 @@ const Breadcrumbs = ({
   };
 
   // item separator
-  const SeparatorIcon = separator! as (props: IconProps) => React.ReactNode;
-  const separatorIcon = separator ? (
-    <SeparatorIcon stroke={1.5} size="small" />
-  ) : (
-    <IconTallymark1 stroke={1.5} size="small" />
-  );
+  const separatorIcon = <Icon name={separator || 'tally-1'} size="sm" />;
 
   let mainContent;
   let itemContent;
   let breadcrumbContent: React.ReactElement = <Typography />;
-  let itemTitle: NavItemType['title'] = '';
-  let CollapseIcon;
-  let ItemIcon;
 
   // collapse item
   if (main && main.type === 'collapse') {
-    CollapseIcon = main.icon ? main.icon : AccountTreeTwoToneIcon;
     mainContent = (
       <Typography component={Link} href="#" variant="subtitle1" sx={linkSX}>
-        {icons && <CollapseIcon style={iconStyle} />}
+        {icons && <Icon name={main.icon ?? 'list-tree'} style={iconStyle} />}
         {main.title}
       </Typography>
     );
@@ -129,9 +113,6 @@ const Breadcrumbs = ({
 
   // items
   if (item && item.type === 'item') {
-    itemTitle = item.title;
-
-    ItemIcon = item.icon ? item.icon : AccountTreeTwoToneIcon;
     itemContent = (
       <Typography
         variant="subtitle1"
@@ -143,8 +124,8 @@ const Breadcrumbs = ({
           color: 'var(--color-foreground-2)',
         }}
       >
-        {icons && <ItemIcon style={iconStyle} />}
-        {itemTitle}
+        {icons && <Icon name={item.icon ?? 'list-tree'} style={iconStyle} />}
+        {item.title}
       </Typography>
     );
 
@@ -182,8 +163,8 @@ const Breadcrumbs = ({
                   separator={separatorIcon}
                 >
                   <Typography component={Link} href="/" sx={{ ...linkSX, color: 'inherit' }} variant="subtitle1">
-                    {icons && <HomeTwoToneIcon sx={iconStyle} />}
-                    {icon && <HomeIcon sx={{ ...iconStyle, mr: 0 }} />}
+                    {icons && <Icon name="house" color="blue" fill="dim" style={iconStyle} />}
+                    {icon && <Icon name="house" color="blue" style={{ ...iconStyle, marginRight: 0 }} />}
                     {!icon && 'Dashboard'}
                   </Typography>
                   {mainContent}

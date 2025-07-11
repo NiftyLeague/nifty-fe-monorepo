@@ -15,29 +15,26 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@google/model-viewer": "^4.1.0",
-    "@mui/icons-material": "^7.2.0",
     "@mui/material": "^7.2.0",
-    "@mui/system": "^7.2.0",
     "@nl/ui": "workspace:*",
-    "@sentry/nextjs": "^9.34.0",
+    "@sentry/nextjs": "^9.37.0",
     "next": "15.3.5",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-multi-carousel": "^2.8.6",
-    "sharp": "^0.34.2",
+    "sharp": "^0.34.3",
     "three": "^0.178.0",
-    "viem": "^2.31.6"
+    "viem": "^2.31.7"
   },
   "devDependencies": {
     "@types/gtag.js": "^0.0.20",
-    "@types/node": "^24.0.10",
+    "@types/node": "^24.0.13",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
-    "@types/three": "^0.178.0",
+    "@types/three": "^0.178.1",
     "next-sitemap": "^4.2.3"
   }
 }

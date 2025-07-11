@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconLoader } from '../Icon';
+import Icon from '@nl/ui/base/Icon';
 import LoadingStyles from './Loading.module.css';
 
 interface Props {
@@ -15,7 +15,7 @@ export default function Loading({ children, active }: Props) {
   return (
     <div className={classNames.join(' ')}>
       <div className={LoadingStyles['sbui-loading-content']}>{children}</div>
-      {active && <IconLoader size="xlarge" className={LoadingStyles['sbui-loading-spinner']} />}
+      {active && <Icon name="loader" size="lg" className={LoadingStyles['sbui-loading-spinner']} />}
     </div>
   );
 }

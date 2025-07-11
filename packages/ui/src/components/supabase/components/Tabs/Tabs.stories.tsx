@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import Icon from '@nl/ui/base/Icon';
 import Button from '../Button';
 import Typography from '../Typography';
-import { IconMail } from '../Icon/icons/IconMail';
 
 import { Tabs } from './';
 
@@ -38,13 +38,13 @@ export const Underlined = (args: any) => (
 
 export const WithIcons = (args: any) => (
   <Tabs defaultActiveId={'panel-1'} {...args}>
-    <Tabs.Panel id="panel-1" label="1st tab" icon={<IconMail />}>
+    <Tabs.Panel id="panel-1" label="1st tab" icon={<Icon name="mail" />}>
       <Typography.Text>Content for the first panel</Typography.Text>
     </Tabs.Panel>
-    <Tabs.Panel id="panel-2" label="2nd tab" icon={<IconMail />}>
+    <Tabs.Panel id="panel-2" label="2nd tab" icon={<Icon name="mail" />}>
       <Typography.Text>Content for the second panel</Typography.Text>
     </Tabs.Panel>
-    <Tabs.Panel id="panel-3" label="3rd tab" icon={<IconMail />}>
+    <Tabs.Panel id="panel-3" label="3rd tab" icon={<Icon name="mail" />}>
       <Typography.Text>Content for the third panel</Typography.Text>
     </Tabs.Panel>
   </Tabs>
@@ -134,8 +134,8 @@ export const OneTab = () => (
 Default.args = {};
 Underlined.args = { type: 'underlined' };
 WithIcons.args = { type: 'underlined' };
-LargeButtons.args = { type: 'underlined', size: 'large' };
+LargeButtons.args = { type: 'underlined', size: 'lg' };
 BlockTabs.args = { type: 'underlined', block: true };
 Scroll.args = { type: 'underlined', block: true, scrollable: true };
-addOnBefore.args = { type: 'underlined', size: 'large', addOnBefore: <Button type="outline">Left button</Button> };
-addOnAfter.args = { type: 'underlined', size: 'large', addOnAfter: <Button type="outline">Right button</Button> };
+addOnBefore.args = { type: 'underlined', size: 'lg', addOnBefore: <Button type="outline">Left button</Button> };
+addOnAfter.args = { type: 'underlined', size: 'lg', addOnAfter: <Button type="outline">Right button</Button> };

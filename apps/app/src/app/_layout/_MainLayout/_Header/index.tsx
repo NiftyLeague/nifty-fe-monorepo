@@ -6,9 +6,9 @@ import { useDispatch, useSelector } from '@/store/hooks';
 import { openDrawer } from '@/store/slices/menu';
 
 // assets
-import { IconMenu2 } from '@tabler/icons-react';
+import Icon from '@nl/ui/base/Icon';
+import ExternalIcon from '@nl/ui/custom/ExternalIcon';
 import AddNFTL from './AddNFTLToMetamask';
-import ExternalIcon from '@/components/ExternalIcon';
 import LogoSection from '../_LogoSection';
 
 // ==============================|| MAIN NAVBAR / HEADER ||============================== //
@@ -52,24 +52,14 @@ const Header = () => {
           onClick={() => dispatch(openDrawer(!drawerOpen))}
           color="inherit"
         >
-          <IconMenu2 stroke={1.5} size="20px" />
+          <Icon name="menu" />
         </Avatar>
       </Box>
       <Box sx={{ display: { xs: 'none', lg: 'flex' }, justifyContent: 'space-between', gap: 4, alignItems: 'center' }}>
         <AddNFTL />
         {pages.map(page => (
-          <Link
-            key={page.name}
-            href={page.link}
-            target="_blank"
-            color="var(--color-foreground)"
-            underline="hover"
-            className="flex flex-nowrap gap-2"
-          >
-            {page.name}{' '}
-            <span className="mt-0.5">
-              <ExternalIcon />
-            </span>
+          <Link key={page.name} href={page.link} target="_blank" color="var(--color-foreground)" underline="hover">
+            {page.name} <ExternalIcon />
           </Link>
         ))}
       </Box>

@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import Icon from '@nl/ui/base/Icon';
 
 import { Modal } from '.';
 import Typography from '../Typography';
 import Button from '../Button';
 import Space from '../Space';
 import { Dropdown } from '../Dropdown';
-import { IconTrash, IconAlertCircle, IconCheck } from '../Icon';
 
 const meta: Meta<typeof Modal> = {
   title: 'Overlays/Modal',
@@ -30,7 +30,7 @@ export default meta;
 type Story = StoryObj<typeof Modal>;
 
 // Common icon for all stories
-const icon = <IconAlertCircle size="xlarge" />;
+const icon = <Icon name="alert-circle" size="lg" />;
 
 // Basic Modal with icon
 export const Default: Story = { args: { icon } };
@@ -99,7 +99,7 @@ const DropdownModal = () => {
             </>
           }
         >
-          <Button type="outline" iconRight={<IconTrash />}>
+          <Button type="outline" iconRight="trash">
             Click me
           </Button>
         </Dropdown>
@@ -165,7 +165,7 @@ const PaymentSuccessModal = () => {
       >
         <div className="flex flex-col items-center text-center">
           <div className="p-3 bg-green-100 rounded-full mb-4">
-            <IconCheck className="text-green-600" size={24} strokeWidth={2} />
+            <Icon name="check" size="lg" color="success" />
           </div>
           <Typography.Title level={4}>Payment successful</Typography.Title>
           <Typography.Text type="secondary" className="mt-2">

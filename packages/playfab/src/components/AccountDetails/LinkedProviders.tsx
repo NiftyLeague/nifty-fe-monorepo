@@ -16,15 +16,11 @@ import buttonStyles from '../../styles/socials.module.css';
 
 export interface Props {
   providers: Provider[];
-  socialButtonSize?: 'tiny' | 'small' | 'medium' | 'large' | 'xlarge';
+  socialButtonSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   socialLayout?: 'horizontal' | 'vertical';
 }
 
-export default function LinkedProviders({
-  providers,
-  socialButtonSize = 'medium',
-  socialLayout = 'horizontal',
-}: Props) {
+export default function LinkedProviders({ providers, socialButtonSize = 'md', socialLayout = 'horizontal' }: Props) {
   const player: UserContextType = PlayFabAuthForm.useUserContext();
   const verticalSocialLayout = socialLayout === 'vertical' ? true : false;
   const [linkedProviders, setLinkedProviders] = useState<Provider[]>([]);

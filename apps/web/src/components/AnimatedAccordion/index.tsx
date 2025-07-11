@@ -3,8 +3,9 @@
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
+import Icon from '@nl/ui/base/Icon';
 import { styled } from '@mui/material/styles';
 
 const StyledAccordion = styled(Accordion)({
@@ -45,7 +46,7 @@ const AnimatedAccordion = ({
       <div className="transition-fade-quick transition-fade-start delay-normal">
         <StyledAccordion>
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
+            expandIcon={<Icon name="chevron-down" size="xl" strokeWidth={2.5} />}
             aria-controls={`panel${index}-content`}
             id={`panel${index}-header`}
           >

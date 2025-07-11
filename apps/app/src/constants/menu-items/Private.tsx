@@ -1,12 +1,8 @@
-// assets
-import { IconDashboard, IconLayoutGrid } from '@tabler/icons-react';
-
-// constant
-const icons = { IconDashboard, IconLayoutGrid };
+import type { NavItemType } from '@/types';
 
 // ==============================|| SAMPLE PAGE & DOCUMENTATION MENU ITEMS ||============================== //
 
-const PrivateItems = {
+const PrivateItems: NavItemType = {
   id: 'private-items',
   type: 'group',
   children: [
@@ -14,7 +10,7 @@ const PrivateItems = {
       id: 'dashboard',
       title: 'My Dashboard',
       type: 'collapse',
-      icon: icons.IconLayoutGrid,
+      icon: 'layout-grid',
       children: [
         { id: 'dashboard', title: 'Overview', type: 'item', url: '/dashboard' },
         { id: 'degens', title: 'DEGENs', type: 'item', url: '/dashboard/degens' },

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import Icon from '@nl/ui/base/Icon';
 import { Input } from '.';
-import { IconSearch } from '../Icon';
 import { Button } from '../Button';
 
 const meta: Meta<typeof Input> = { title: 'Data Input/Input', component: Input, parameters: { layout: 'centered' } };
@@ -18,7 +18,7 @@ export const WithError: Story = {
 };
 
 export const WithIcon: Story = {
-  args: { ...Default.args, label: 'Search', icon: <IconSearch />, placeholder: 'Search...' },
+  args: { ...Default.args, label: 'Search', icon: <Icon name="search" />, placeholder: 'Search...' },
 };
 
 export const WithOptional: Story = { args: { ...Default.args, label: 'Optional Field', labelOptional: '(optional)' } };
@@ -52,10 +52,10 @@ export const WithCustomActions: Story = {
     label: 'Input with actions',
     value: 'Editable text',
     actions: [
-      <Button key="action1" type="default" size="tiny">
+      <Button key="action1" type="default" size="xs">
         Action 1
       </Button>,
-      <Button key="action2" type="default" size="tiny">
+      <Button key="action2" type="default" size="xs">
         Action 2
       </Button>,
     ],
@@ -66,7 +66,7 @@ export const WithBeforeAndAfterLabel: Story = {
   args: { ...Default.args, beforeLabel: 'Before', afterLabel: 'After', label: 'Input with labels' },
 };
 
-export const CustomSize: Story = { args: { ...Default.args, label: 'Large Input', size: 'large' } };
+export const CustomSize: Story = { args: { ...Default.args, label: 'Large Input', size: 'lg' } };
 
 export const Borderless: Story = { args: { ...Default.args, label: 'Borderless Input', borderless: true } };
 

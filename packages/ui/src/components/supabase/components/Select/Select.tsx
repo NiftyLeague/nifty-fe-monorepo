@@ -29,7 +29,7 @@ export interface Props extends Omit<React.SelectHTMLAttributes<HTMLSelectElement
   layout?: 'horizontal' | 'vertical';
   reveal?: boolean;
   actions?: React.ReactNode;
-  size?: 'tiny' | 'small' | 'medium' | 'large' | 'xlarge';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   borderless?: boolean;
   placeholder?: string;
 }
@@ -60,7 +60,7 @@ function Select({
   required,
   value,
   style,
-  size = 'medium',
+  size = 'md',
   borderless = false,
   ...props
 }: Props) {

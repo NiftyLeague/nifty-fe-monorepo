@@ -14,7 +14,7 @@ type Props = {
   style?: React.CSSProperties;
   flex?: boolean;
   responsive?: boolean;
-  size?: 'tiny' | 'small' | 'medium' | 'large' | 'xlarge';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   beforeLabel?: string;
   afterLabel?: string;
 };
@@ -32,7 +32,7 @@ export function FormLayout({
   style,
   flex,
   responsive = true,
-  size = 'medium',
+  size = 'md',
   beforeLabel,
   afterLabel,
 }: PropsWithChildren<Props>) {

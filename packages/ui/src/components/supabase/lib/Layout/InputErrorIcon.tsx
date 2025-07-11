@@ -1,16 +1,16 @@
 import React from 'react';
-import { IconAlertCircle } from '@nl/ui/supabase/Icon';
+import Icon from '@nl/ui/base/Icon';
 import InputErrorIconStyles from './InputErrorIcon.module.css';
 
 interface Props {
   style?: React.CSSProperties;
-  size?: 'tiny' | 'small' | 'medium' | 'large' | 'xlarge';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
 export default function InputErrorIcon({ style, size }: Props) {
   return (
     <div className={InputErrorIconStyles['sbui-input-error-icon']} style={style}>
-      <IconAlertCircle size={size} strokeWidth={2} stroke={'#f56565'} className="" />
+      <Icon name="alert-circle" size={size} color="error" />
     </div>
   );
 }

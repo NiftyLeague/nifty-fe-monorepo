@@ -2,9 +2,9 @@ import React from 'react';
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import styled from '@emotion/styled';
+import { ArrowUpRightIcon } from 'lucide-react';
 
 import Github from '@site/public/icons/socials/github.svg';
-import LinkArrow from '@site/public/icons/link-arrow.svg';
 import { RowTwo } from '../Row';
 import Card from '../Card';
 import Section from '../Section';
@@ -42,6 +42,8 @@ export const QUICK_LINKS: GuideLink[] = [
   //   to: 'http://niftyleague.com/whitepaper',
   // },
 ];
+
+const LinkArrow = () => <ArrowUpRightIcon color="#494749" size={32} strokeWidth={1.5} />;
 
 const LinkRow = styled.div`
   width: 100%;

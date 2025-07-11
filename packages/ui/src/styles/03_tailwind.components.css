@@ -29,13 +29,16 @@
 
   .theme-btn-transparent {
     @apply theme-btn;
-    @apply border border-[1px] border-foreground text-foreground bg-transparent;
+    @apply border border-foreground text-foreground bg-transparent;
   }
   .theme-btn-transparent:hover {
     background: var(--gradient-brand-pink);
     border-image-source: var(--gradient-brand-pink);
     border-image-slice: 1 !important;
     @apply bg-clip-text text-transparent shadow-none border-[1px];
+  }
+  .theme-btn-transparent:hover > svg {
+    color: var(--color-pink-400);
   }
 
   [class*='theme-btn-'][disabled],

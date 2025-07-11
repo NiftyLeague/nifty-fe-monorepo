@@ -1,23 +1,18 @@
 import React, { useEffect, useRef } from 'react';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
-import type {
-  AccordionDetailsProps,
-  AccordionProps,
-  AccordionSummaryProps,
-  Row,
-  SvgIconProps,
-  TypographyProps,
-} from './types';
+
+import Icon, { type IconProps } from '@nl/ui/base/Icon';
+import type { AccordionDetailsProps, AccordionProps, AccordionSummaryProps, Row, TypographyProps } from './types';
 
 type ExpandableListItemProps = {
   AccordionDetailsProps?: AccordionDetailsProps;
   AccordionDetailsTypographyProps?: TypographyProps<'div'>;
-  AccordionMoreIconProps?: SvgIconProps;
+  AccordionMoreIconProps?: IconProps;
   AccordionProps?: AccordionProps;
   AccordionSummaryProps?: AccordionSummaryProps;
   AccordionSummaryTypographyProps?: TypographyProps;
@@ -71,7 +66,10 @@ const ExpandableListItem: React.FC<ExpandableListItemProps> = ({
 
   return (
     <Accordion sx={{ marginBottom: 0 }} className={panelClass && panelClass} {...rootProps} ref={panelRef}>
-      <AccordionSummary expandIcon={<ExpandMoreIcon {...AccordionMoreIconProps} />} {...AccordionSummaryProps}>
+      <AccordionSummary
+        expandIcon={<Icon name="chevron-down" size="lg" {...AccordionMoreIconProps} />}
+        {...AccordionSummaryProps}
+      >
         {checkboxSelection && (
           <Checkbox style={{ padding: `0 10px 5px 0` }} checked={selected} onClick={handleSelect} />
         )}

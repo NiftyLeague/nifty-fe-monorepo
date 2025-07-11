@@ -1,8 +1,7 @@
 import React from 'react';
+import Icon from '@nl/ui/base/Icon';
 import { FormLayout } from '../../lib/Layout/FormLayout';
 import InputErrorIcon from '../../lib/Layout/InputErrorIcon';
-import { IconChevronDown } from '../Icon/icons/IconChevronDown';
-import { IconChevronUp } from '../Icon/icons/IconChevronUp';
 import InputIconContainer from '../../lib/Layout/InputIconContainer';
 import Space from '../Space';
 import InputNumberStyles from './InputNumber.module.css';
@@ -31,7 +30,7 @@ export interface Props {
   placeholder?: string;
   style?: React.CSSProperties;
   value?: string;
-  size?: 'tiny' | 'small' | 'medium' | 'large' | 'xlarge';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   min?: number;
   max?: number;
   borderless?: boolean;
@@ -61,7 +60,7 @@ function InputNumber({
   placeholder,
   value,
   style,
-  size = 'medium',
+  size = 'md',
   min,
   max,
   borderless = false,
@@ -143,14 +142,16 @@ function InputNumber({
             max={max}
           />
           <div className={iconNavClasses.join(' ')}>
-            <IconChevronUp
+            <Icon
+              name="chevron-up"
               className={iconUpClasses.join(' ')}
               onClick={onClickChevronUp}
               onMouseDown={(e: React.MouseEvent) => {
                 e.preventDefault();
               }}
             />
-            <IconChevronDown
+            <Icon
+              name="chevron-down"
               className={iconDownClasses.join(' ')}
               onClick={onClickChevronDown}
               onMouseDown={(e: React.MouseEvent) => {

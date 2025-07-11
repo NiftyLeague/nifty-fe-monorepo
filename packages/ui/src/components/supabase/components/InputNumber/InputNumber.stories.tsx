@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React, { useState, useCallback } from 'react';
+import Icon from '@nl/ui/base/Icon';
 
 import { InputNumber } from '.';
-import { IconPackage } from '../Icon';
 
 export default { title: 'Data Input/InputNumber', component: InputNumber };
 
@@ -39,7 +39,7 @@ WithIcon.args = {
   layout: 'vertical',
   max: 100,
   min: 0,
-  icon: <IconPackage />,
+  icon: <Icon name="package" />,
 };
 
 Controlled.args = { label: 'Max of 100 and min of 0', disabled: false, layout: 'vertical', max: 100, min: 0 };

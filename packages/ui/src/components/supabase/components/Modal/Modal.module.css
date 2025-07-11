@@ -248,7 +248,7 @@
 }
 
 @media (min-width: 640px) {
-  .sbui-modal--tiny {
+  .sbui-modal--xs {
     width: 100%;
     max-width: 20rem;
     vertical-align: middle;
@@ -256,7 +256,7 @@
 }
 
 @media (min-width: 640px) {
-  .sbui-modal--small {
+  .sbui-modal--sm {
     width: 100%;
     max-width: 24rem;
     vertical-align: middle;
@@ -264,19 +264,19 @@
 }
 
 @media (min-width: 640px) {
-  .sbui-modal--medium {
+  .sbui-modal--md {
     width: 100%;
     max-width: 32rem;
     vertical-align: middle;
   }
 }
 
-.sbui-modal--large {
+.sbui-modal--lg {
   max-width: 36rem;
 }
 
 @media (min-width: 640px) {
-  .sbui-modal--large {
+  .sbui-modal--lg {
     width: 100%;
     vertical-align: middle;
   }

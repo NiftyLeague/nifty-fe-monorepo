@@ -5,9 +5,9 @@ import { useTheme } from '@nl/theme';
 import { Divider, List, Typography } from '@mui/material';
 
 // project imports
+import type { IconName } from '@nl/ui/base/Icon';
 import NavItem from '../_NavItem';
 import NavCollapse from '../_NavCollapse';
-import type { GenericCardProps } from '@/types';
 
 // ==============================|| SIDEBAR MENU LIST GROUP ||============================== //
 
@@ -15,8 +15,8 @@ export interface NavGroupProps {
   item: {
     id?: string;
     type?: string;
-    icon?: GenericCardProps['iconPrimary'];
     children?: NavGroupProps['item'][];
+    icon?: IconName;
     title?: ReactNode | string;
     caption?: ReactNode | string;
     color?: 'primary' | 'secondary' | 'default' | undefined;

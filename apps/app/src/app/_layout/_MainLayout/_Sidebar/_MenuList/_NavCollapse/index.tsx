@@ -6,14 +6,11 @@ import { usePathname } from 'next/navigation';
 // material-ui
 import { useTheme } from '@nl/theme';
 import { Collapse, List, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 // project imports
-import NavItem from '../_NavItem';
+import Icon from '@nl/ui/base/Icon';
 import { NavGroupProps } from '../_NavGroup';
-
-// assets
-import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
+import NavItem from '../_NavItem';
 
 // ==============================|| SIDEBAR MENU LIST COLLAPSE ITEMS ||============================== //
 
@@ -64,23 +61,13 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
     }
   });
 
-  const Icon = menu.icon!;
-  const menuIcon = menu.icon ? (
-    <Icon strokeWidth={1.5} size={20} style={{ marginTop: 'auto', marginBottom: 'auto' }} />
-  ) : (
-    <FiberManualRecordIcon
-      sx={{ width: selected === menu.id ? 8 : 6, height: selected === menu.id ? 8 : 6 }}
-      fontSize={level > 0 ? 'inherit' : 'medium'}
-    />
-  );
-
   return (
     <>
       <ListItemButton
         sx={{
           borderRadius: 'var(--border-radius-default)',
           mb: 0.5,
-          alignItems: 'flex-start',
+          alignItems: 'center',
           backgroundColor: level > 1 ? 'transparent !important' : 'inherit',
           py: level > 1 ? 1 : 1.25,
           pl: `${level * 24}px`,
@@ -88,7 +75,9 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
         selected={selected === menu.id}
         onClick={handleClick}
       >
-        <ListItemIcon sx={{ my: 'auto', minWidth: !menu.icon ? 18 : 36 }}>{menuIcon}</ListItemIcon>
+        <ListItemIcon sx={{ my: 'auto', minWidth: !menu.icon ? 18 : 36 }}>
+          <Icon name={menu?.icon ?? 'dot'} size="lg" className="ml-1" />
+        </ListItemIcon>
         <ListItemText
           primary={
             <Typography
@@ -108,11 +97,7 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
             )
           }
         />
-        {open ? (
-          <IconChevronUp stroke={1.5} size="16px" style={{ marginTop: 'auto', marginBottom: 'auto' }} />
-        ) : (
-          <IconChevronDown stroke={1.5} size="16px" style={{ marginTop: 'auto', marginBottom: 'auto' }} />
-        )}
+        <Icon name="chevron-down" size="md" className={`transition-transform ${open ? 'transform rotate-180' : ''}`} />
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         {open && (

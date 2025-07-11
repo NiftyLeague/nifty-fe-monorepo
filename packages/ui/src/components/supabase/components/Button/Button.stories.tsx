@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useRef, useState } from 'react';
+import Icon from '@nl/ui/base/Icon';
 
 import Space from '../Space';
-import { IconPackage, IconChevronRight } from '../Icon';
-import './Button.module.css';
 import Button, { type RefHandle } from './Button';
+import './Button.module.css';
 
 const meta: Meta<typeof Button> = {
   title: 'General/Button',
@@ -20,13 +20,13 @@ export const Default: Story = {};
 
 export const WithStyles: Story = {};
 
-export const WithIcon: Story = { args: { icon: <IconPackage /> } };
+export const WithIcon: Story = { args: { icon: 'package' } };
 
-export const WithIconRight: Story = { args: { icon: <IconChevronRight />, iconRight: true } };
+export const WithIconRight: Story = { args: { iconRight: 'chevron-right' } };
 
 export const WithBlock: Story = { args: { block: true } };
 
-export const WithOnlyIcon: Story = { args: { icon: <IconPackage />, children: undefined } };
+export const WithOnlyIcon: Story = { args: { icon: 'package', children: undefined } };
 
 export const WithOnlyLoading: Story = { args: { loading: true, children: undefined } };
 
@@ -61,116 +61,116 @@ export const AllButtons: Story = {
     <>
       <Space direction="vertical" size={6}>
         <Space>
-          <Button {...args} size="tiny">
+          <Button {...args} size="xs">
             Button text
           </Button>
-          <Button {...args} size="tiny" type="secondary">
+          <Button {...args} size="xs" type="secondary">
             Button text
           </Button>
-          <Button {...args} size="tiny" type="default">
+          <Button {...args} size="xs" type="default">
             Button text
           </Button>
-          <Button {...args} size="tiny" type="link">
+          <Button {...args} size="xs" type="link">
             Button text
           </Button>
-          <Button {...args} size="tiny" type="text">
+          <Button {...args} size="xs" type="text">
             Button text
           </Button>
-          <Button {...args} size="tiny" type="dashed">
+          <Button {...args} size="xs" type="dashed">
             Button text
           </Button>
-          <Button {...args} size="tiny" type="outline">
+          <Button {...args} size="xs" type="outline">
             Button text
           </Button>
         </Space>
 
         <Space>
-          <Button {...args} size="small">
+          <Button {...args} size="sm">
             Button text
           </Button>
-          <Button {...args} size="small" type="secondary">
+          <Button {...args} size="sm" type="secondary">
             Button text
           </Button>
-          <Button {...args} size="small" type="default">
+          <Button {...args} size="sm" type="default">
             Button text
           </Button>
-          <Button {...args} size="small" type="link">
+          <Button {...args} size="sm" type="link">
             Button text
           </Button>
-          <Button {...args} size="small" type="text">
+          <Button {...args} size="sm" type="text">
             Button text
           </Button>
-          <Button {...args} size="small" type="dashed">
+          <Button {...args} size="sm" type="dashed">
             Button text
           </Button>
-          <Button {...args} size="small" type="outline">
+          <Button {...args} size="sm" type="outline">
             Button text
           </Button>
         </Space>
         <Space>
           <Button {...args}>Button text</Button>
-          <Button {...args} size="medium" type="secondary">
+          <Button {...args} size="md" type="secondary">
             Button text
           </Button>
-          <Button {...args} size="medium" type="default">
+          <Button {...args} size="md" type="default">
             Button text
           </Button>
-          <Button {...args} size="medium" type="link">
+          <Button {...args} size="md" type="link">
             Button text
           </Button>
-          <Button {...args} size="medium" type="text">
+          <Button {...args} size="md" type="text">
             Button text
           </Button>
-          <Button {...args} size="medium" type="dashed">
+          <Button {...args} size="md" type="dashed">
             Button text
           </Button>
-          <Button {...args} size="medium" type="outline">
-            Button text
-          </Button>
-        </Space>
-        <Space>
-          <Button {...args} size="large">
-            Button text
-          </Button>
-          <Button {...args} size="large" type="secondary">
-            Button text
-          </Button>
-          <Button {...args} size="large" type="default">
-            Button text
-          </Button>
-          <Button {...args} size="large" type="link">
-            Button text
-          </Button>
-          <Button {...args} size="large" type="text">
-            Button text
-          </Button>
-          <Button {...args} size="large" type="dashed">
-            Button text
-          </Button>
-          <Button {...args} size="large" type="outline">
+          <Button {...args} size="md" type="outline">
             Button text
           </Button>
         </Space>
         <Space>
-          <Button {...args} size="xlarge">
+          <Button {...args} size="lg">
             Button text
           </Button>
-          <Button {...args} size="xlarge" type="secondary">
+          <Button {...args} size="lg" type="secondary">
             Button text
           </Button>
-          <Button {...args} size="xlarge" type="default">
+          <Button {...args} size="lg" type="default">
             Button text
           </Button>
-          <Button {...args} size="xlarge" type="link">
+          <Button {...args} size="lg" type="link">
             Button text
           </Button>
-          <Button {...args} size="xlarge" type="text">
+          <Button {...args} size="lg" type="text">
             Button text
           </Button>
-          <Button {...args} size="xlarge" type="dashed">
+          <Button {...args} size="lg" type="dashed">
             Button text
           </Button>
-          <Button {...args} size="xlarge" type="outline">
+          <Button {...args} size="lg" type="outline">
+            Button text
+          </Button>
+        </Space>
+        <Space>
+          <Button {...args} size="xl">
+            Button text
+          </Button>
+          <Button {...args} size="xl" type="secondary">
+            Button text
+          </Button>
+          <Button {...args} size="xl" type="default">
+            Button text
+          </Button>
+          <Button {...args} size="xl" type="link">
+            Button text
+          </Button>
+          <Button {...args} size="xl" type="text">
+            Button text
+          </Button>
+          <Button {...args} size="xl" type="dashed">
+            Button text
+          </Button>
+          <Button {...args} size="xl" type="outline">
             Button text
           </Button>
         </Space>
@@ -181,17 +181,15 @@ export const AllButtons: Story = {
 
 export const WithCustomTag = (args: any) => <Button {...args}>Button text</Button>;
 
-const icon = <IconPackage />;
+WithIcon.args = { type: 'primary', icon: 'package' };
 
-WithIcon.args = { type: 'primary', icon: icon };
-
-WithIconRight.args = { type: 'primary', iconRight: <IconChevronRight strokeWidth={2} /> };
+WithIconRight.args = { type: 'primary', iconRight: 'chevron-right' };
 
 WithStyles.args = { type: 'primary', style: { backgroundColor: 'red', color: 'yellow' } };
 
 WithBlock.args = { type: 'primary', block: true };
 
-WithOnlyIcon.args = { icon: icon };
+WithOnlyIcon.args = { icon: 'package' };
 
 WithOnlyLoading.args = { loading: true };
 

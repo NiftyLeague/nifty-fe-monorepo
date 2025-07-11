@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
-
-// import * as RadixContextMenu from '@radix-ui/react-dropdown-menu'
-import { IconCheck } from '../Icon/icons/IconCheck';
+import type * as RadixContextMenuTypes from '@radix-ui/react-context-menu/';
+import * as RadixContextMenu from '@radix-ui/react-context-menu';
+import Icon from '@nl/ui/base/Icon';
 
 import ContextMenuStyles from './ContextMenu.module.css';
-
-import type * as RadixContextMenuTypes from '@radix-ui/react-context-menu/';
-
-import * as RadixContextMenu from '@radix-ui/react-context-menu';
 
 interface RootProps {
   onOpenChange?(x: boolean): void;
@@ -97,7 +93,7 @@ export function Checkbox({ children, checked: propsChecked, onChange, disabled, 
       disabled={disabled}
     >
       <RadixContextMenu.ItemIndicator className={ContextMenuStyles['sbui-contextmenu-input__check']}>
-        {ItemIndicator ? ItemIndicator : <IconCheck size="tiny" />}
+        {ItemIndicator ? ItemIndicator : <Icon name="check" size="xs" />}
         <RadixContextMenu.CheckboxItem />
       </RadixContextMenu.ItemIndicator>
       <span>{children}</span>
@@ -118,7 +114,7 @@ export function Radio({ children, value, ItemIndicator }: RadioProps) {
       className={`${ContextMenuStyles['sbui-contextmenu-item']} ${ContextMenuStyles['sbui-contextmenu-input']}`}
     >
       <RadixContextMenu.ItemIndicator className={ContextMenuStyles['sbui-contextmenu-input__check']}>
-        {ItemIndicator ? ItemIndicator : <IconCheck size="tiny" />}
+        {ItemIndicator ? ItemIndicator : <Icon name="check" size="xs" />}
       </RadixContextMenu.ItemIndicator>
       <span>{children}</span>
     </RadixContextMenu.RadioItem>

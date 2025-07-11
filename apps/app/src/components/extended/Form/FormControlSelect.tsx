@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Divider, FormControl, InputAdornment, MenuItem, TextField } from '@mui/material';
 
-import type { GenericCardProps } from '@/types';
+import Icon, { type IconName } from '@nl/ui/base/Icon';
 
 // ==============================|| FORM CONTROL SELECT ||============================== //
 
@@ -11,8 +11,8 @@ interface FormControlSelectProps {
   captionLabel?: string;
   currencies?: { value: string; label: string }[];
   formState?: string;
-  iconPrimary?: GenericCardProps['iconPrimary'];
-  iconSecondary?: GenericCardProps['iconPrimary'];
+  iconPrimary?: IconName;
+  iconSecondary?: IconName;
   selected?: string;
   textPrimary?: string;
   textSecondary?: string;
@@ -28,13 +28,8 @@ const FormControlSelect = ({
   textPrimary,
   textSecondary,
 }: FormControlSelectProps) => {
-  const IconPrimary = iconPrimary!;
-  const primaryIcon = iconPrimary ? <IconPrimary fontSize="small" sx={{ color: 'var(--color-base-700)' }} /> : null;
-
-  const IconSecondary = iconSecondary!;
-  const secondaryIcon = iconSecondary ? (
-    <IconSecondary fontSize="small" sx={{ color: 'var(--color-base-700)' }} />
-  ) : null;
+  const primaryIcon = iconPrimary ? <Icon name={iconPrimary} size="sm" color="gray" /> : null;
+  const secondaryIcon = iconSecondary ? <Icon name={iconSecondary} size="sm" color="gray" /> : null;
 
   const errorState = formState === 'error';
   const val = selected || '';

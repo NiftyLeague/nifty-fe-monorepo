@@ -31,4 +31,4 @@ noLabel.args = { active: true, disabled: false, error: '', name: 'radiogroup-exa
 
 withBeforeAndAfterLabel.args = { label: 'Label', beforeLabel: 'Before : ', afterLabel: ' : After' };
 
-size.args = { label: 'Try different sizes', size: 'tiny' };
+size.args = { label: 'Try different sizes', size: 'xs' };
