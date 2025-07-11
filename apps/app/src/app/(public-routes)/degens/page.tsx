@@ -5,9 +5,9 @@ import isEmpty from 'lodash/isEmpty';
 import { useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { v4 as uuidv4 } from 'uuid';
-
 import { Grid, IconButton, Pagination, Stack, Dialog } from '@mui/material';
-import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
+
+import Icon from '@nl/ui/base/Icon';
 import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder';
@@ -222,7 +222,7 @@ const AllDegensPage = (): React.ReactNode => {
         <SectionTitle firstSection>
           <Stack direction="row" gap={1} sx={{ alignItems: 'center', mb: 2 }}>
             <IconButton onClick={() => setIsDrawerOpen(!isDrawerOpen)} size="small">
-              {isDrawerOpen ? <ArrowBackIosNew /> : <ArrowForwardIos />}
+              <Icon name={isDrawerOpen ? 'chevron-left' : 'chevron-right'} size="xl" />
             </IconButton>
             {filteredData.length} Degens
           </Stack>

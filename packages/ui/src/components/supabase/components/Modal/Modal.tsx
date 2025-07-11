@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import Icon, { IconProps } from '@nl/ui/base/Icon';
 import ModalStyles from './Modal.module.css';
 import Button from '../Button';
 import Space from '../Space';

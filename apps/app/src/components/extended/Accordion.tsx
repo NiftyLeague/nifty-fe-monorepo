@@ -8,8 +8,7 @@ import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 
-// assets
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Icon from '@nl/ui/base/Icon';
 
 type AccordionItem = {
   id: string;
@@ -53,7 +52,7 @@ const Accordion = ({ data, defaultExpandedId = null, expandIcon, square, toggle 
             onChange={handleChange(item.id)}
           >
             <MuiAccordionSummary
-              expandIcon={expandIcon || expandIcon === false ? expandIcon : <ExpandMoreIcon />}
+              expandIcon={expandIcon || expandIcon === false ? expandIcon : <Icon name="chevron-down" />}
               sx={{ color: 'var(--color-foreground)', fontWeight: 500 }}
             >
               {item.title}

@@ -5,7 +5,7 @@ import { useTheme } from '@nl/theme';
 import { Divider, List, Typography } from '@mui/material';
 
 // project imports
-import { IconName } from '@nl/ui/base/Icon';
+import type { IconName } from '@nl/ui/base/Icon';
 import NavItem from '../_NavItem';
 import NavCollapse from '../_NavCollapse';
 

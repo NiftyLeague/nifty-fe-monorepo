@@ -229,10 +229,6 @@
 .cd_timeline_checkpoint.completed {
   background: linear-gradient(to left, #4faa5c, #225953);
 }
-.done_icon {
-  font-size: 20px !important;
-  margin: auto;
-}
 
 .cd_timeline_divider {
   border-bottom: var(--color-foreground) dotted 2px;

@@ -1,6 +1,5 @@
 import { IconButton, Stack } from '@mui/material';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import Icon from '@nl/ui/base/Icon';
 
 export interface PaginationIconOnlyProps {
   hasNext?: boolean;
@@ -17,10 +16,10 @@ const PaginationIconOnly: React.FC<React.PropsWithChildren<React.PropsWithChildr
 }) => (
   <Stack direction="row" gap={1}>
     <IconButton disabled={hasPrev === false} onClick={onClickPrev}>
-      <ArrowBackIosNewIcon fontSize="small" />
+      <Icon name="chevron-left" size="sm" />
     </IconButton>
     <IconButton disabled={hasNext === false} onClick={onClickNext}>
-      <ArrowForwardIosIcon fontSize="small" />
+      <Icon name="chevron-right" size="sm" />
     </IconButton>
   </Stack>
 );

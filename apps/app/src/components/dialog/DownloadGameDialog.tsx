@@ -1,7 +1,7 @@
 'use client';
 
 import { Container, Button, Typography } from '@mui/material';
-import { GetApp } from '@mui/icons-material';
+import Icon from '@nl/ui/base/Icon';
 import { Dialog, DialogTrigger, DialogContent } from '@/components/dialog';
 import useVersion from '@/hooks/useVersion';
 
@@ -25,8 +25,7 @@ export const Downloader = (): React.ReactNode => {
           disabled={isMacOs || !version}
           href={downloadURL}
           size="large"
-          startIcon={<GetApp />}
-          // style={{ color: 'var(--color-foreground)' }}
+          startIcon={<Icon name="download" />}
           variant="contained"
         >
           {!version && isWindows ? 'Fetching installer version...' : message}

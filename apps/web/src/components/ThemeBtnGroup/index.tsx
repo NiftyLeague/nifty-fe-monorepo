@@ -3,7 +3,7 @@ import type { UrlObject } from 'url';
 
 import { cn } from '@nl/ui/lib/utils';
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
-import ExternalIcon from '@/components/ExternalIcon';
+import ExternalIcon from '@nl/ui/custom/ExternalIcon';
 
 interface ButtonProps {
   href?: string | UrlObject;
@@ -34,7 +34,7 @@ export const ThemeBtn = ({
     )}
   >
     {title}
-    {external && <ExternalIcon className="mt-0.5" />}
+    {external && <ExternalIcon />}
   </Link>
 );
 

@@ -6,7 +6,6 @@ import type { AccordionProps } from '@mui/material/Accordion';
 import type { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import type { TypographyProps } from '@mui/material/Typography';
 import type { TablePaginationProps } from '@mui/material/TablePagination';
-import type { SvgIconProps } from '@mui/material/SvgIcon';
 
 export type Row = { id?: string | number; user_id?: string; [key: string]: unknown };
 
@@ -20,7 +19,6 @@ export type {
   AccordionSummaryProps,
   DataGridProps,
   GridRenderCellParams,
-  SvgIconProps,
   TablePaginationProps,
   TypographyProps,
 };

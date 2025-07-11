@@ -2,9 +2,9 @@
 
 import { useContext, useState, useEffect } from 'react';
 import { IconButton, Box, Typography, Stack } from '@mui/material';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { toast } from 'react-toastify';
 
+import Icon from '@nl/ui/base/Icon';
 import { Dialog, DialogTrigger, DialogContent, DialogContext } from '@/components/dialog';
 import SectionSlider from '@/components/sections/SectionSlider';
 import DegenImage from '@/components/cards/DegenCard/DegenImage';
@@ -143,7 +143,7 @@ const ProfileImageDialog = ({ degens, onChangeAvatar, avatarFee }: ProfileImageD
           aria-label="edit"
           onClick={() => null}
         >
-          <EditOutlinedIcon fontSize="small" sx={{ color: 'var(--color-foreground-2)' }} />
+          <Icon name="edit" size="xl" strokeWidth={2.5} />
         </IconButton>
       </DialogTrigger>
       <DialogContent

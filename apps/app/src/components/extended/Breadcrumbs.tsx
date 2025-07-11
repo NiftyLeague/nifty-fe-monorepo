@@ -10,11 +10,7 @@ import MuiBreadcrumbs from '@mui/material/Breadcrumbs';
 
 // project imports
 import { BASE_PATH } from '@/config';
-import Icon, { IconName } from '@nl/ui/base/Icon';
-
-// assets
-import HomeIcon from '@mui/icons-material/Home';
-import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
+import Icon, { type IconName } from '@nl/ui/base/Icon';
 import type { NavItemType, NavItemTypeObject } from '@/types';
 
 const linkSX = {
@@ -66,7 +62,6 @@ const Breadcrumbs = ({
     marginTop: `-${theme.spacing(0.25)}`,
     width: '16px',
     height: '16px',
-    color: 'var(--color-blue)',
   };
 
   const [main, setMain] = useState<NavItemType | undefined>();
@@ -168,8 +163,8 @@ const Breadcrumbs = ({
                   separator={separatorIcon}
                 >
                   <Typography component={Link} href="/" sx={{ ...linkSX, color: 'inherit' }} variant="subtitle1">
-                    {icons && <HomeTwoToneIcon sx={iconStyle} />}
-                    {icon && <HomeIcon sx={{ ...iconStyle, mr: 0 }} />}
+                    {icons && <Icon name="house" color="blue" fill="dim" style={iconStyle} />}
+                    {icon && <Icon name="house" color="blue" style={{ ...iconStyle, marginRight: 0 }} />}
                     {!icon && 'Dashboard'}
                   </Typography>
                   {mainContent}

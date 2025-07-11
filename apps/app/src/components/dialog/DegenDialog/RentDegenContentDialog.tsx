@@ -21,10 +21,9 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
 import LoadingButton from '@mui/lab/LoadingButton';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
+import Icon from '@nl/ui/base/Icon';
 import type { Degen } from '@/types/degens';
 import { errorMsgHandler } from '@/utils/errorHandlers';
 import { formatNumberToDisplay } from '@/utils/numbers';
@@ -52,7 +51,6 @@ const classes = {
   inputCheck: `${PREFIX}-inputCheck`,
   inputCheckFormControl: `${PREFIX}-inputCheckFormControl`,
   successInfo: `${PREFIX}-successInfo`,
-  closeBtn: `${PREFIX}-closeBtn`,
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
@@ -68,19 +66,6 @@ const Root = styled('div')(({ theme }) => ({
   [`&.${classes.inputCheck}`]: { padding: 4, '& .MuiSvgIcon-root': { width: '0.75em', height: '0.75em' } },
   [`&.${classes.inputCheckFormControl}`]: { marginLeft: -4, marginRight: 0 },
   [`&.${classes.successInfo}`]: { fontSize: '16px', fontWeight: 700, lineHeight: 1.25 },
-  [`&.${classes.closeBtn}`]: {
-    position: 'absolute',
-    right: 12,
-    top: 6,
-    color: 'var(--color-purple)',
-    border: 'var(--border-purple)',
-    borderRadius: '50% !important',
-    width: '20px',
-    height: '20px !important',
-    zIndex: 1,
-    '& .MuiSvgIcon-root': { width: 16, height: 16 },
-    [theme.breakpoints.down('md')]: { right: 20, top: 20 },
-  },
 }));
 
 export interface RentDegenContentDialogProps {
@@ -225,9 +210,23 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
   return (
     <Root>
       <Stack maxWidth={430} rowGap={{ xs: 6, lg: 4 }} mx={{ xs: 1, sm: 'auto' }} className={classes.root}>
-        <IconButton aria-label="close" onClick={onClose} className={classes.closeBtn}>
-          <CloseIcon />
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: 'absolute',
+            right: 12,
+            top: 6,
+            border: 'var(--border-purple)',
+            borderRadius: '50% !important',
+            width: '20px',
+            height: '20px !important',
+            zIndex: 1,
+          }}
+        >
+          <Icon name="x" size="sm" color="purple" />
         </IconButton>
+
         <RentStepper rentSuccess={rentSuccess} checkBalance={checkBalance} />
         <Box
           display="flex"
@@ -301,10 +300,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                           <Typography>Recruit</Typography>
                           {disabledRentFor && (
                             <Tooltip title="DEGEN ownership is required to sponsor Recruits on this DEGEN.">
-                              <InfoOutlinedIcon
-                                fontSize="small"
-                                sx={{ ml: 0.5, mt: -1.5, width: '16px', height: '16px' }}
-                              />
+                              <Icon name="info" size="sm" className="-mt-1" />
                             </Tooltip>
                           )}
                         </Box>

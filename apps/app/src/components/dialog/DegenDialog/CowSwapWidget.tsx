@@ -8,9 +8,8 @@ import { createOrderSwapEtherToNFTL, getCowMarketPrice, getOrderDetail } from '@
 
 import { Box, Button, LinearProgress, Link, Stack, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
-import SouthIcon from '@mui/icons-material/South';
-import CircleIcon from '@mui/icons-material/Circle';
 
+import Icon from '@nl/ui/base/Icon';
 import { COW_PROTOCOL_URL } from '@/constants/url';
 import { formatNumberToDisplay, formatNumberToDisplay2 } from '@/utils/numbers';
 import { TARGET_NETWORK } from '@/constants/networks';
@@ -228,7 +227,7 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
         <Link href={COW_PROTOCOL_URL} target="_blank" rel="noreferrer">
           cow.fi
         </Link>
-        <CircleIcon sx={{ width: 3, height: 3, color: 'var(--color-purple)', marginLeft: 0.25, marginBottom: 0.25 }} />
+        <Icon name="circle" color="purple" size={3} className="ml-1 mb-1" />
       </Typography>
       <Box
         border={'1px solid #1c1b1a'}
@@ -258,7 +257,7 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
               className={classes.arrowDown}
               sx={{ top: fromEthAmount ? 126 : 76 }}
             >
-              <SouthIcon fontSize="small" sx={{ color: 'var(--color-foreground)' }} />
+              <Icon name="arrow-down" color="foreground" />
             </Box>
             <TokenInfoBox
               balance={accountBalance}

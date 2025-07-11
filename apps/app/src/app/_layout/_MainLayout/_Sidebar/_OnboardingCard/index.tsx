@@ -16,8 +16,7 @@ import {
   linearProgressClasses,
 } from '@mui/material';
 
-// assets
-import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
+import Icon from '@nl/ui/base/Icon';
 
 // styles
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
@@ -36,6 +35,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 
 const CardStyle = styled(Card)(({ theme }) => ({
   background: 'var(--color-background-3)',
+  border: 'var(--border-default)',
   marginBottom: '22px',
   overflow: 'hidden',
   position: 'relative',
@@ -78,9 +78,9 @@ const LinearProgressWithLabel = ({ value, ...others }: LinearProgressWithLabelPr
   </Grid>
 );
 
-// ==============================|| SIDEBAR - MENU CARD ||============================== //
+// ==============================|| SIDEBAR - ONBOARDING CARD ||============================== //
 
-const MenuCard = () => {
+const OnboardingCard = () => {
   const theme = useTheme();
 
   return (
@@ -100,17 +100,17 @@ const MenuCard = () => {
                   marginRight: '12px',
                 }}
               >
-                <TableChartOutlinedIcon fontSize="inherit" />
+                <Icon name="book-open-check" />
               </Avatar>
             </ListItemAvatar>
             <ListItemText
               sx={{ mt: 0 }}
               primary={
                 <Typography variant="subtitle1" sx={{ color: 'var(--color-foreground)' }}>
-                  Get Extra Space
+                  Onboarding
                 </Typography>
               }
-              secondary={<Typography variant="caption"> 28/23 GB</Typography>}
+              secondary={<Typography variant="caption"> 28/23 Tasks</Typography>}
             />
           </ListItem>
         </List>
@@ -120,4 +120,4 @@ const MenuCard = () => {
   );
 };
 
-export default memo(MenuCard);
+export default memo(OnboardingCard);

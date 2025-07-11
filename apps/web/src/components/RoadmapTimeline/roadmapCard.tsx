@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import DoneIcon from '@mui/icons-material/Done';
+import Icon from '@nl/ui/base/Icon';
 import { cn } from '@nl/ui/lib/utils';
 import styles from './index.module.css';
 
@@ -29,7 +29,7 @@ const RoadmapCard = ({
       <h4 className={styles.cd_timeline_divider}>Options below are TBD!</h4>
     ) : (
       <div className={cn(styles.cd_timeline_checkpoint, { [styles.completed as string]: completed })}>
-        {completed && <DoneIcon className={styles.done_icon} />}
+        {completed && <Icon name="check" strokeWidth={2.5} className="m-auto" />}
       </div>
     )}
 
