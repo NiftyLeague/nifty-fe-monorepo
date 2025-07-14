@@ -1,8 +1,9 @@
-import { type PropsWithChildren } from 'react';
+import { type PropsWithChildren, Suspense } from 'react';
 import type { Metadata, Viewport } from 'next';
 import Head from 'next/head';
 
 import { customFontClassName } from '@nl/ui/fonts';
+import { AnalyticsScripts, NavigationEvents } from '@nl/ui/ga';
 import { FeatureFlagProvider } from '@/contexts/FeatureFlagsProvider';
 
 import '@/styles/app.css';
@@ -79,6 +80,12 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <Head>
         <link rel="icon" href="/favicon/smashers/favicon.ico" />
       </Head>
+
+      <Suspense fallback={null}>
+        <NavigationEvents />
+      </Suspense>
+      <AnalyticsScripts />
+
       <body suppressHydrationWarning className="dark">
         <FeatureFlagProvider>{children}</FeatureFlagProvider>
       </body>

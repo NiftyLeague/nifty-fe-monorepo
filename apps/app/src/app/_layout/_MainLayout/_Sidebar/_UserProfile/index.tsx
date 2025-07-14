@@ -5,7 +5,7 @@ import { useEnsAvatar, useEnsName } from 'wagmi';
 import { normalize } from 'viem/ens';
 import { Avatar, Box, Button, Skeleton, Stack, Typography } from '@mui/material';
 
-import { formatNumberToDisplay } from '@/utils/numbers';
+import { formatNumberToDisplay } from '@nl/ui/utils';
 import { sendUserId } from '@/utils/google-analytics';
 import { useGamerProfile } from '@/hooks/useGamerProfile';
 import type { ProfileAvatar } from '@/types/account';

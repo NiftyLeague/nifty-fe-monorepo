@@ -7,12 +7,13 @@
   "exports": {
     "./base/*": "./src/components/base/*/index.tsx",
     "./custom/*": "./src/components/custom/*/index.tsx",
-    "./fonts": "./src/fonts/index.ts",
+    "./supabase/*": "./src/components/supabase/components/*/index.tsx",
     "./hooks/*": "./src/hooks/*.ts",
-    "./lib/*": "./src/lib/*.ts",
+    "./fonts": "./src/lib/fonts/index.ts",
+    "./ga": "./src/lib/ga/index.tsx",
+    "./utils": "./src/lib/utils.ts",
     "./postcss.config": "./postcss.config.mjs",
-    "./styles.css": "./src/styles/globals.css",
-    "./supabase/*": "./src/components/supabase/components/*/index.tsx"
+    "./styles.css": "./src/styles/globals.css"
   },
   "scripts": {
     "clean": "rm -rf node_modules && rm -rf .turbo && rm -rf .storybook",
@@ -40,6 +41,7 @@
     "@tailwindcss/postcss": "^4.1.11",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.3.0",
+    "@types/gtag.js": "^0.0.20",
     "@types/lodash": "^4.17.20",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",

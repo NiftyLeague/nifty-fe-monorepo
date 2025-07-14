@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 
-import { cn } from '@nl/ui/lib/utils';
+import { cn } from '@nl/ui/utils';
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import ThemeBtnGroup from '@/components/ThemeBtnGroup';
 

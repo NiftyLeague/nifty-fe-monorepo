@@ -8,7 +8,7 @@ import Input from '@nl/ui/supabase/Input';
 import Space from '@nl/ui/supabase/Space';
 import Typography from '@nl/ui/supabase/Typography';
 import Icon from '@nl/ui/base/Icon';
-import { cn } from '@nl/ui/lib/utils';
+import { cn } from '@nl/ui/utils';
 
 import fetchJson from '../../utils/fetchJson';
 import { errorMsgHandler } from '../../utils/errorHandlers';

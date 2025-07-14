@@ -335,6 +335,9 @@ importers:
         specifier: ^0.34.3
         version: 0.34.3
     devDependencies:
+      '@types/gtag.js':
+        specifier: ^0.0.20
+        version: 0.0.20
       '@types/node':
         specifier: ^24.0.13
         version: 24.0.13
@@ -635,6 +638,9 @@ importers:
       '@testing-library/react':
         specifier: ^16.3.0
         version: 16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@types/gtag.js':
+        specifier: ^0.0.20
+        version: 0.0.20
       '@types/lodash':
         specifier: ^4.17.20
         version: 4.17.20

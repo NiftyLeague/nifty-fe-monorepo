@@ -1,3 +1,5 @@
+'use client';
+
 // log the pageview with their URL
 export const pageview = (url: string) => {
   if (typeof window !== 'undefined' && !window.location.host.includes('localhost')) {

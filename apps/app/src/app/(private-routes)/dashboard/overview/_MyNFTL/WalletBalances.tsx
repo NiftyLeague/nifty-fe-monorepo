@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button, Grid, IconButton, Stack } from '@mui/material';
 
-import { formatNumberToDisplay } from '@/utils/numbers';
+import { formatNumberToDisplay } from '@nl/ui/utils';
 import useTokensBalances from '@/hooks/balances/useTokensBalances';
 import BridgeButtonDialog from '@/components/dialog/BridgeButtonDialog';
 import HoverDataCard from '@/components/cards/HoverDataCard';
