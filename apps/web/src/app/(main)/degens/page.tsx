@@ -7,7 +7,7 @@ import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import ConsoleGame from '@nl/ui/custom/ConsoleGame';
 import DegenSpecialsTable from '@nl/ui/custom/DegenSpecialsTable';
-import { cn } from '@nl/ui/lib/utils';
+import { cn } from '@nl/ui/utils';
 
 import { NIFTY_DEGENS_ALL } from '@/constants/degens';
 import ThemeBtnGroup from '@/components/ThemeBtnGroup';

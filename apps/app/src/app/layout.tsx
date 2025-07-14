@@ -1,10 +1,11 @@
 import type { PropsWithChildren } from 'react';
 import type { Metadata, Viewport } from 'next';
 import Head from 'next/head';
+import Script from 'next/script';
 
 import { ThemeProvider } from '@nl/theme';
 import { customFontClassName } from '@nl/ui/fonts';
-import AnalyticsScripts from '@/components/AnalyticsScripts';
+import { AnalyticsScripts } from '@nl/ui/ga';
 import AppContextWrapper from '@/contexts/AppContextWrapper';
 import MainLayout from '@/app/_layout/_MainLayout';
 
@@ -64,6 +65,8 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <Head>
         <link rel="icon" href="/favicon/nl_purple/favicon.ico" />
       </Head>
+
+      <Script defer src="https://d7ct17ettlkln.cloudfront.net/public/stats.js" />
 
       <AnalyticsScripts />
 

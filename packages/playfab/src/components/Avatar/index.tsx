@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { useSnackbar } from 'notistack';
-import { cn } from '@nl/ui/lib/utils';
+import { cn } from '@nl/ui/utils';
 import Icon from '@nl/ui/base/Icon';
 
 import styles from '../../styles/profile.module.css';

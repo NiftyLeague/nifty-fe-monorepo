@@ -7,7 +7,7 @@ import useNetworkContext from '@/hooks/useNetworkContext';
 import useClaimableNFTL from '@/hooks/balances/useClaimableNFTL';
 import { NFTL_CONTRACT } from '@/constants/contracts';
 import { DEBUG } from '@/constants/index';
-import { formatNumberToDisplay } from '@/utils/numbers';
+import { formatNumberToDisplay } from '@nl/ui/utils';
 
 export interface ClaimDegenContentDialogProps {
   degen?: Degen;

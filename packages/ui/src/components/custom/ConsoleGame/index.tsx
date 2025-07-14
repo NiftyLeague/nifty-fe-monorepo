@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { memo, useRef, useState, useCallback } from 'react';
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
-import { cn } from '@nl/ui/lib/utils';
+import { cn } from '@nl/ui/utils';
 
 import styles from './index.module.css';
 
