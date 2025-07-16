@@ -1,7 +1,7 @@
 'use server';
 
 // third party
-import { type PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 import { headers } from 'next/headers';
 
 // app context

@@ -5,7 +5,7 @@ import Script from 'next/script';
 
 import { ThemeProvider } from '@nl/theme';
 import { customFontClassName } from '@nl/ui/fonts';
-import { AnalyticsScripts } from '@nl/ui/ga';
+import { MicrosoftClarityScript } from '@nl/ui/ga';
 import AppContextWrapper from '@/contexts/AppContextWrapper';
 import MainLayout from '@/app/_layout/_MainLayout';
 
@@ -66,10 +66,6 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <link rel="icon" href="/favicon/nl_purple/favicon.ico" />
       </Head>
 
-      <Script defer src="https://d7ct17ettlkln.cloudfront.net/public/stats.js" />
-
-      <AnalyticsScripts />
-
       <body suppressHydrationWarning>
         <ThemeProvider>
           <AppContextWrapper>
@@ -77,6 +73,10 @@ export default function RootLayout({ children }: PropsWithChildren) {
           </AppContextWrapper>
         </ThemeProvider>
       </body>
+
+      <Script defer src="https://d7ct17ettlkln.cloudfront.net/public/stats.js" />
+
+      <MicrosoftClarityScript />
     </html>
   );
 }

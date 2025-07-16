@@ -55,7 +55,7 @@ export const LocalStorageProvider = ({ children }: PropsWithChildren) => {
   );
   const [uuidToken, setUUIDToken] = useLocalStorage<UUID_Token>('uuid-token', initialState.uuidToken);
   const [nonce, setNonce] = useLocalStorage<Nonce>('nonce', initialState.nonce);
-  const [userId, setUserId, clearUserId] = useLocalStorage<USER_ID>('user-id', initialState.userId);
+  const [userId, setUserId, clearUserId] = useLocalStorage<USER_ID>('user_id', initialState.userId);
   const [favDegens, setFavDegens] = useLocalStorage<string[]>('FAV_DEGENS', initialState.favDegens);
   const [agreementAccepted, setAgreementAccepted] = useLocalStorage<AgreementAccepted>(
     'aggreement-accepted',

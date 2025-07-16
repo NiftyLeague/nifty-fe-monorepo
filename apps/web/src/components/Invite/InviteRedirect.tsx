@@ -1,6 +1,8 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import { gtag } from '@nl/ui/ga';
 import Loading from './Loading';
 
 const isAndroid = (userAgent: string) => /.*(Mobile|Android).*/.test(userAgent);
@@ -40,6 +42,17 @@ const InviteRedirect = () => {
 
   const { game, refcode, partyID } = params as RequestParams;
   const userAgent = navigator.userAgent;
+
+  useEffect(() => {
+    // GA4 event to track user referrals with custom parameters.
+    gtag.sendEvent('referral', {
+      game_name: game.charAt(0).toUpperCase() + game.substring(1),
+      invite_method: partyID ? 'Party Invite' : 'Invite Link',
+      invitee_agent: userAgent,
+      redirect_route: isAndroid(userAgent) ? 'Android App' : isIOS(userAgent) ? 'iOS App' : 'Web Store',
+      referrer_id: refcode,
+    });
+  }, [game, partyID, refcode, userAgent]);
 
   switch (game) {
     case 'smashers':

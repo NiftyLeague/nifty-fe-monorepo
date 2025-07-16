@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useReportWebVitals } from 'next/web-vitals';
 import { initGA, sendPageView, sendWebVitals } from '@/utils/google-analytics';
@@ -8,18 +8,23 @@ import { initGA, sendPageView, sendWebVitals } from '@/utils/google-analytics';
 const useGoogleAnalytics = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const search = searchParams.toString();
+  const url = `${pathname}${search ? `?${search}` : ''}`;
+
+  const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
     initGA();
+    setInitialized(true);
   }, []);
 
   useEffect(() => {
-    const search = searchParams.toString();
-    const url = `${pathname}${search ? `?${search}` : ''}`;
+    if (!initialized) return;
     sendPageView(url);
-  }, [pathname, searchParams]);
+  }, [initialized, url]);
 
   useReportWebVitals(metric => {
+    if (!initialized) return;
     sendWebVitals({
       category: 'Web Vitals',
       action: metric.name,
