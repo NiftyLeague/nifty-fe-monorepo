@@ -2,26 +2,28 @@
 
 import Script from 'next/script';
 
-const GoogleAnalyticsScript = () => (
+export const GoogleAnalyticsScript = () => (
   <>
-    <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`} />
-    <Script id="google-analytics">
+    <Script
+      id="google-tag-manager"
+      strategy="afterInteractive"
+      src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+    />
+    <Script id="google-analytics" strategy="afterInteractive">
       {`
         if (!window.location.host.includes('localhost') && !window.location.host.includes('staging')) {
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
-            page_path: window.location.pathname,
-          });
+          gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
         }
       `}
     </Script>
   </>
 );
 
-const MicrosoftClarityScript = () => (
-  <Script strategy="lazyOnload" id="clarity-script">
+export const MicrosoftClarityScript = () => (
+  <Script id="microsoft-clarity" strategy="lazyOnload">
     {`
       if (!window.location.host.includes('localhost') && !window.location.host.includes('staging')) {
         (function(c,l,a,r,i,t,y){
@@ -42,5 +44,3 @@ export function AnalyticsScripts() {
     </>
   );
 }
-
-export default AnalyticsScripts;
