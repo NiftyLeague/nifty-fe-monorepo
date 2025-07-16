@@ -1,7 +1,7 @@
 'use client';
 
 import useClaimableNFTL from '@/hooks/useClaimableNFTL';
-import { formatNumberToDisplay } from '@/lib/numbers';
+import { formatNumberToDisplay } from '@nl/ui/utils';
 
 import styles from '../gltf.module.css';
 

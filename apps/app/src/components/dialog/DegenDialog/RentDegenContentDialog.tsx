@@ -26,7 +26,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import Icon from '@nl/ui/base/Icon';
 import type { Degen } from '@/types/degens';
 import { errorMsgHandler } from '@/utils/errorHandlers';
-import { formatNumberToDisplay } from '@/utils/numbers';
+import { formatNumberToDisplay } from '@nl/ui/utils';
 import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
 import { sendEvent } from '@/utils/google-analytics';
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances';

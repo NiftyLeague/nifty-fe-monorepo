@@ -2,7 +2,7 @@
 
 import { Skeleton, Stack, Typography } from '@mui/material';
 
-import { formatNumberToDisplay } from '@/utils/numbers';
+import { formatNumberToDisplay } from '@nl/ui/utils';
 import useTokensBalances from '@/hooks/balances/useTokensBalances';
 import SectionTitle from '@/components/sections/SectionTitle';
 

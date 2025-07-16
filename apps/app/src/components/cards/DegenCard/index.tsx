@@ -21,7 +21,7 @@ import Icon from '@nl/ui/base/Icon';
 // import Chip from '@/components/extended/Chip';
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder';
 import useClaimableNFTL from '@/hooks/balances/useClaimableNFTL';
-import { formatNumberToDisplay } from '@/utils/numbers';
+import { formatNumberToDisplay } from '@nl/ui/utils';
 import DegenImage from './DegenImage';
 import { downloadDegenAsZip } from '@/utils/file';
 import { errorMsgHandler } from '@/utils/errorHandlers';

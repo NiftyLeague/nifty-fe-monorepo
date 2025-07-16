@@ -3,7 +3,7 @@ import type { RentalDataGrid } from '@/types/rentalDataGrid';
 import type { ColumnType } from '.';
 import { v4 as uuidv4 } from 'uuid';
 import Countdown from 'react-countdown';
-import { formatNumberToDisplayWithCommas } from '@/utils/numbers';
+import { formatNumberToDisplay } from '@nl/ui/utils';
 import ProgressBar from '@/components/wrapper/ProgressBar';
 
 interface RentalsTableSimpleProps {
@@ -42,8 +42,7 @@ const RentalsTableSimple = ({ rentals, columns }: RentalsTableSimpleProps): Reac
                     return (
                       <TableCell key={column.id} align={column.align}>
                         <Typography>
-                          {formatNumberToDisplayWithCommas(rental.totalEarnings)} /{' '}
-                          {formatNumberToDisplayWithCommas(value as number)}
+                          {formatNumberToDisplay(rental.totalEarnings)} / {formatNumberToDisplay(value as number)}
                         </Typography>
                       </TableCell>
                     );
@@ -62,7 +61,7 @@ const RentalsTableSimple = ({ rentals, columns }: RentalsTableSimpleProps): Reac
                   if (column.id === 'winRate') {
                     return (
                       <TableCell key={column.id} align={column.align}>
-                        {formatNumberToDisplayWithCommas(value as number)}%
+                        {formatNumberToDisplay(value as number)}%
                       </TableCell>
                     );
                   }
@@ -70,7 +69,7 @@ const RentalsTableSimple = ({ rentals, columns }: RentalsTableSimpleProps): Reac
                   if (column.id === 'profits' || column.id === 'netEarning') {
                     return (
                       <TableCell key={column.id} align={column.align}>
-                        {formatNumberToDisplayWithCommas(value as number)}
+                        {formatNumberToDisplay(value as number)}
                       </TableCell>
                     );
                   }

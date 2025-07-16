@@ -13,7 +13,7 @@ import {
 } from '@cowprotocol/cow-sdk';
 import { parseEther, formatEther, type Signer } from 'ethers6';
 import { getContractAddress, NFTL_CONTRACT, COWSWAP_VAULT_RELAYER_ADDRESS, WETH_ADDRESS } from '@/constants/contracts';
-import { formatNumberToDisplay2 } from './numbers';
+import { formatNumberToDisplay } from '@nl/ui/utils';
 import { ERC20__factory, WETH__factory } from '@/types/typechain';
 
 export const getCowMarketPrice = async ({
@@ -81,7 +81,7 @@ export const createOrderSwapEtherToNFTL = async ({
 
   // Sign the order
   handleTxnState(
-    `Swapping ${formatNumberToDisplay2(Number(etherVal), 4)} WETH for ${formatNumberToDisplay2(
+    `Swapping ${formatNumberToDisplay(Number(etherVal), 4)} WETH for ${formatNumberToDisplay(
       Number(formatEther(quote.buyAmount)),
       2,
     )} NFTL`,

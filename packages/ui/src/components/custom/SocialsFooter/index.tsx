@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import type { ReactNode } from 'react';
-import { cn } from '@nl/ui/lib/utils';
+import { cn } from '@nl/ui/utils';
 import { SOCIAL_LINKS } from './constants';
 
 export const linkClass = 'font-medium text-foreground';

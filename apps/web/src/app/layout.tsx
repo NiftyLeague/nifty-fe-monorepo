@@ -1,4 +1,4 @@
-import { type PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 import type { Metadata, Viewport } from 'next';
 import Head from 'next/head';
 

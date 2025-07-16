@@ -8,7 +8,7 @@ import type { TransactionResponse } from 'ethers6';
 import { useSwitchChain } from 'wagmi';
 
 import { formatDateTime } from '@/utils/dateTime';
-import { formatNumberToDisplay } from '@/utils/numbers';
+import { formatNumberToDisplay } from '@nl/ui/utils';
 import { useConnectedToIMXCheck } from '@/hooks/useImxProvider';
 import useClaimCallback from '@/hooks/merkleDistributor/useClaimCallback';
 import useIMXContext from '@/hooks/useIMXContext';

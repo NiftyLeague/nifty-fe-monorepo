@@ -23,7 +23,7 @@ import type { Theme } from '@mui/material/styles';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 import { bridgeNFTL, increaseBridgeAllowance } from '@/utils/interchainTokenService';
-import { formatNumberToDisplay } from '@/utils/numbers';
+import { formatNumberToDisplay } from '@nl/ui/utils';
 import { IMX_SQUID_BRIDGE_URL } from '@/constants/url';
 import { INTERCHAIN_TOKEN_SERVICE_ADDRESS } from '@/constants/contracts';
 import useIMXContext from '@/hooks/useIMXContext';
