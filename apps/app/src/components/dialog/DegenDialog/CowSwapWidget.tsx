@@ -11,7 +11,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 
 import Icon from '@nl/ui/base/Icon';
 import { COW_PROTOCOL_URL } from '@/constants/url';
-import { formatNumberToDisplay, formatNumberToDisplay2 } from '@/utils/numbers';
+import { formatNumberToDisplay } from '@nl/ui/utils';
 import { TARGET_NETWORK } from '@/constants/networks';
 import useNetworkContext from '@/hooks/useNetworkContext';
 import useTokensBalances from '@/hooks/balances/useTokensBalances';
@@ -165,7 +165,7 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
       setFeeAmount('');
       return;
     }
-    setEthAmount(formatNumberToDisplay2(Number(inputNftlAmount) * rateEtherToNftl, 8));
+    setEthAmount(formatNumberToDisplay(Number(inputNftlAmount) * rateEtherToNftl, 8));
   }, [inputNftlAmount, rateEtherToNftl]);
 
   const sufficientBalance: boolean = Number(ethAmount) <= etherBalance;
@@ -275,7 +275,7 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
                 <Stack direction="row" sx={{ justifyContent: 'space-between', my: 1 }}>
                   <Typography ml={1}>Fees</Typography>
                   <Typography mr={1}>
-                    {`${formatNumberToDisplay(Number(feeAmount), 4)} ETH (~$${formatNumberToDisplay2(
+                    {`${formatNumberToDisplay(Number(feeAmount), 4)} ETH (~$${formatNumberToDisplay(
                       etherPrice * Number(feeAmount),
                       2,
                     )})`}

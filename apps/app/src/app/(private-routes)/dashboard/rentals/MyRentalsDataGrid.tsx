@@ -12,11 +12,11 @@ import {
 } from '@mui/x-data-grid';
 
 import Icon from '@nl/ui/base/Icon';
+import { formatNumberToDisplay } from '@nl/ui/utils';
 import type { Rentals, RentalType } from '@/types/rentals';
 import { transformRentals } from '@/app/(private-routes)/dashboard/_utils/transformRentals';
 import usePlayerProfile from '@/hooks/usePlayerProfile';
 import Countdown from 'react-countdown';
-import { formatNumberToDisplayWithCommas } from '@/utils/numbers';
 import useLocalStorage from '@/hooks/useLocalStorage';
 
 import DegenDialog from '@/components/dialog/DegenDialog';
@@ -209,8 +209,7 @@ const MyRentalsDataGrid = ({
         width: 150,
         renderCell: (params: GridRenderCellParams) => (
           <Typography>
-            {formatNumberToDisplayWithCommas(params.row.totalEarnings)} /{' '}
-            {formatNumberToDisplayWithCommas(params.value)}
+            {formatNumberToDisplay(params.row.totalEarnings)} / {formatNumberToDisplay(params.value)}
           </Typography>
         ),
       },
@@ -238,56 +237,56 @@ const MyRentalsDataGrid = ({
         field: 'winRate',
         headerName: 'Win Rate',
         ...commonColumnProp,
-        renderCell: (params: GridRenderCellParams) => <span>{formatNumberToDisplayWithCommas(params.value)}%</span>,
+        renderCell: (params: GridRenderCellParams) => <span>{formatNumberToDisplay(params.value)}%</span>,
       },
       { field: 'weeklyFee', headerName: 'Weekly Fee', ...commonColumnProp },
       {
         field: 'dailyFee',
         headerName: 'Current Daily Fee',
         width: 150,
-        renderCell: (params: GridRenderCellParams) => formatNumberToDisplayWithCommas(params.value),
+        renderCell: (params: GridRenderCellParams) => formatNumberToDisplay(params.value),
         ...commonColumnProp,
       },
       {
         field: 'dailyFeesToDate',
         headerName: 'Daily Fees To Date',
         width: 150,
-        renderCell: (params: GridRenderCellParams) => formatNumberToDisplayWithCommas(params.value),
+        renderCell: (params: GridRenderCellParams) => formatNumberToDisplay(params.value),
         ...commonColumnProp,
       },
       {
         field: 'costs',
         headerName: 'Rental Fee Costs',
         width: 150,
-        renderCell: (params: GridRenderCellParams) => formatNumberToDisplayWithCommas(params.value),
+        renderCell: (params: GridRenderCellParams) => formatNumberToDisplay(params.value),
         ...commonColumnProp,
       },
       {
         field: 'rentalFeeEarning',
         headerName: 'Rental Fees Earned',
         width: 150,
-        renderCell: (params: GridRenderCellParams) => formatNumberToDisplayWithCommas(params.value),
+        renderCell: (params: GridRenderCellParams) => formatNumberToDisplay(params.value),
         ...commonColumnProp,
       },
       {
         field: 'profits',
         headerName: 'Gross Gameplay Earnings',
         width: 180,
-        renderCell: (params: GridRenderCellParams) => formatNumberToDisplayWithCommas(params.value),
+        renderCell: (params: GridRenderCellParams) => formatNumberToDisplay(params.value),
         ...commonColumnProp,
       },
       {
         field: 'netGameEarning',
         headerName: 'Net Gameplay Earnings',
         width: 200,
-        renderCell: (params: GridRenderCellParams) => formatNumberToDisplayWithCommas(params.value),
+        renderCell: (params: GridRenderCellParams) => formatNumberToDisplay(params.value),
         ...commonColumnProp,
       },
       {
         field: 'netEarning',
         headerName: 'Net Earnings',
         width: 150,
-        renderCell: (params: GridRenderCellParams) => formatNumberToDisplayWithCommas(params.value),
+        renderCell: (params: GridRenderCellParams) => formatNumberToDisplay(params.value),
         ...commonColumnProp,
       },
       {
@@ -305,7 +304,7 @@ const MyRentalsDataGrid = ({
                 },
               }}
             >
-              {formatNumberToDisplayWithCommas(params.value)}%
+              {formatNumberToDisplay(params.value)}%
             </Typography>
           );
         },

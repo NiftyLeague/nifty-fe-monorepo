@@ -3,7 +3,7 @@ import { Stack } from '@mui/material';
 
 import { useGamerProfileContext } from '@/hooks/useGamerProfile';
 import type { ProfileTotal, ProfileNiftySmsher } from '@/types/account';
-import { formatNumberToDisplay } from '@/utils/numbers';
+import { formatNumberToDisplay } from '@nl/ui/utils';
 import { secondsToHours } from '@/utils/dateTime';
 
 import Item from './Item';

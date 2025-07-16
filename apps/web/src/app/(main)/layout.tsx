@@ -1,15 +1,11 @@
-import { type PropsWithChildren, Suspense } from 'react';
+import type { PropsWithChildren } from 'react';
 
-import AnalyticsScripts from '@/components/AnalyticsScripts';
-import NavigationEvents from '@/components/NavigationEvents';
+import { AnalyticsScripts } from '@nl/ui/ga';
 
 export default function Layout({ children }: PropsWithChildren) {
   return (
     <>
       {children}
-      <Suspense fallback={null}>
-        <NavigationEvents />
-      </Suspense>
       <AnalyticsScripts />
     </>
   );

@@ -18,7 +18,7 @@ import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
 import { ToastContainer } from 'react-toastify';
 
 // project imports
-import { cn } from '@nl/ui/lib/utils';
+import { cn } from '@nl/ui/utils';
 import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 import navigation from '@/constants/menu-items';
 import useGoogleAnalytics from '@/hooks/useGoogleAnalytics';

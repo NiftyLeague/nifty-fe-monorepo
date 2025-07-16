@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { cn } from '@nl/ui/lib/utils';
+import { cn } from '@nl/ui/utils';
 import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 
 import styles from './index.module.css';

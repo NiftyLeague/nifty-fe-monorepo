@@ -2,7 +2,7 @@
 
 import { cloneElement, useEffect, useState, type ReactElement } from 'react';
 import Image from 'next/image';
-import { cn } from '@nl/ui/lib/utils';
+import { cn } from '@nl/ui/utils';
 
 import { styled } from '@nl/theme';
 import { StepIconProps } from '@mui/material/StepIcon';

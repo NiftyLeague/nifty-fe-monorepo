@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef } from 'react';
 import { styled } from '@nl/theme';
 import { Box, InputBase, Stack, Typography } from '@mui/material';
 import debounce from 'lodash/debounce';
-import { formatNumberToDisplay, formatNumberToDisplay2 } from '@/utils/numbers';
+import { formatNumberToDisplay } from '@nl/ui/utils';
 import useTokenUSDPrice from '@/hooks/useTokenUSDPrice';
 import { OrderKind } from '@cowprotocol/cow-sdk';
 
@@ -175,7 +175,7 @@ const TokenInfoBox = ({
             )}
           </Stack>
           <Typography variant="body1" fontWeight="bold" sx={{ color: '#4D4D4F' }}>
-            {`Balance: ${balance ? formatNumberToDisplay2(balance, 4) : '0.00'}`}
+            {`Balance: ${balance ? formatNumberToDisplay(balance, 4) : '0.00'}`}
           </Typography>
         </Stack>
       </Box>
@@ -187,7 +187,7 @@ const TokenInfoBox = ({
         >
           <Typography>{`${kind} (incl. fee)`}</Typography>
           <Typography className={classes.transactionValue}>
-            {`${formatNumberToDisplay2(Number(transactionValue), 4)}`}
+            {`${formatNumberToDisplay(Number(transactionValue), 4)}`}
           </Typography>
         </Stack>
       )}

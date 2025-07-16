@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
-import { cn } from '@nl/ui/lib/utils';
+import { cn } from '@nl/ui/utils';
 
 import ThemeBtnGroup from '@/components/ThemeBtnGroup';
 import { NIFTY_GAMES } from '@/constants/games';
