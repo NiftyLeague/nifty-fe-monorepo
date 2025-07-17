@@ -27,7 +27,7 @@
     "@nl/imx-passport": "workspace:*",
     "@nl/theme": "workspace:*",
     "@nl/ui": "workspace:*",
-    "@openzeppelin/contracts": "^5.3.0",
+    "@openzeppelin/contracts": "^5.4.0",
     "@reduxjs/toolkit": "^2.8.2",
     "@reown/appkit": "^1.7.13",
     "@reown/appkit-adapter-wagmi": "^1.7.13",
