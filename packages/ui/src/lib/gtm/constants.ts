@@ -7,8 +7,8 @@ export const CATEGORIES = {
   ENGAGEMENT: 'Engagement',
   GAMEPLAY: 'Gameplay',
   LEADERBOARD: 'Leaderboard',
+  NEXTJS_METRICS: 'Next.js Metrics',
   WEB_VITALS: 'Web Vitals',
-  NEXT_CUSTOM_METRICS: 'Next.js Custom Metrics',
 } as const;
 
 export type CustomEventCategories = (typeof CATEGORIES)[keyof typeof CATEGORIES];
@@ -60,19 +60,9 @@ export const EVENTS = {
   MT_GAWX_LEADERBOARD_VIEWED: 'mt_gawx_leaderboard_viewed',
   NIFTY_SMASHERS_LEADERBOARD_VIEWED: 'nifty_smashers_leaderboard_viewed',
   WEN_GAME_LEADERBOARD_VIEWED: 'wen_game_leaderboard_viewed',
-  // Web Vitals
-  CLS: 'CLS',
-  FCP: 'FCP',
-  FID: 'FID',
-  INP: 'INP',
-  LCP: 'LCP',
-  TTFB: 'TTFB',
-  // Next.js Custom Metrics
-  NEXT_HYDRATION: 'Next.js-hydration',
-  NEXT_ROUTE_CHANGE_TO_RENDER: 'Next.js-route-change-to-render',
-  NEXT_RENDER: 'Next.js-render',
   // Other
   GAME_REFERRAL: 'game_referral',
+  WEB_VITALS: 'web_vitals',
 } as const;
 
 export type CustomEventNames = (typeof EVENTS)[keyof typeof EVENTS];
