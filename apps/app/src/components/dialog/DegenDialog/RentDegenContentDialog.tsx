@@ -27,8 +27,7 @@ import Icon from '@nl/ui/base/Icon';
 import type { Degen } from '@/types/degens';
 import { errorMsgHandler } from '@/utils/errorHandlers';
 import { formatNumberToDisplay } from '@nl/ui/utils';
-import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
-import { sendEvent } from '@/utils/google-analytics';
+import { gtm, GTM_EVENTS } from '@nl/ui/gtm';
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 import ConnectWrapper from '@/components/wrapper/ConnectWrapper';
 import DegenImage from '@/components/cards/DegenCard/DegenImage';
@@ -110,14 +109,14 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
 
   const handleChangeRentingFor = (_: React.ChangeEvent<HTMLInputElement>, value: string) => {
     if (value === 'recruit') {
-      sendEvent(GOOGLE_ANALYTICS.EVENTS.RENTAL_RECRUIT_CLICKED, GOOGLE_ANALYTICS.CATEGORIES.ECOMMERCE);
+      gtm.sendEvent(GTM_EVENTS.RENTAL_RECRUIT_CLICKED);
     }
     setRentFor(value);
   };
 
   const handleChangeUseRentalPass = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      sendEvent(GOOGLE_ANALYTICS.EVENTS.RENTAL_PASS_CLICKED, GOOGLE_ANALYTICS.CATEGORIES.ECOMMERCE);
+      gtm.sendEvent(GTM_EVENTS.RENTAL_PASS_CLICKED);
     }
     setIsUseRentalPass(event.target.checked);
   };
@@ -134,7 +133,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
   };
 
   const handleRent = useCallback(async () => {
-    sendEvent(GOOGLE_ANALYTICS.EVENTS.BEGIN_CHECKOUT, GOOGLE_ANALYTICS.CATEGORIES.ECOMMERCE);
+    gtm.sendEvent(GTM_EVENTS.BEGIN_CHECKOUT);
 
     setLoading(true);
     try {
@@ -142,7 +141,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
       setLoading(false);
       setRentSuccess(true);
 
-      sendEvent(GOOGLE_ANALYTICS.EVENTS.PURCHASE, GOOGLE_ANALYTICS.CATEGORIES.ECOMMERCE);
+      gtm.sendEvent(GTM_EVENTS.PURCHASE);
     } catch (err: unknown) {
       setLoading(false);
       toast.error(errorMsgHandler(err), { theme: 'dark' });
@@ -152,7 +151,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
   const isShowRentalPassOption = () => rentalPassCount > 0 && !degen?.rental_count;
 
   useEffect(() => {
-    sendEvent(GOOGLE_ANALYTICS.EVENTS.ADD_TO_CART, GOOGLE_ANALYTICS.CATEGORIES.ECOMMERCE);
+    gtm.sendEvent(GTM_EVENTS.ADD_TO_CART);
   }, []);
 
   const openTOSDialog: React.MouseEventHandler<HTMLAnchorElement> = event => {
@@ -176,7 +175,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
   };
 
   const handleRefreshBalance = () => {
-    sendEvent(GOOGLE_ANALYTICS.EVENTS.RENTAL_REFRESH_BALANCE_CLICKED, GOOGLE_ANALYTICS.CATEGORIES.ECOMMERCE, 'method');
+    gtm.sendEvent(GTM_EVENTS.RENTAL_REFRESH_BALANCE_CLICKED);
     refetchAccount();
   };
 
@@ -203,7 +202,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
   }, [router]);
 
   const handleBuyNFTL = () => {
-    sendEvent(GOOGLE_ANALYTICS.EVENTS.RENTAL_BUY_NFTL_CLICKED, GOOGLE_ANALYTICS.CATEGORIES.ECOMMERCE);
+    gtm.sendEvent(GTM_EVENTS.RENTAL_BUY_NFTL_CLICKED);
     setPurchasingNFTL(true);
   };
 

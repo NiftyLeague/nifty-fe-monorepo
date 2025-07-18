@@ -4,8 +4,7 @@ import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button, Stack } from '@mui/material';
 
-import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
-import { sendEvent } from '@/utils/google-analytics';
+import { gtm, GTM_EVENTS } from '@nl/ui/gtm';
 import useTokensBalances from '@/hooks/balances/useTokensBalances';
 
 import BuyArcadeTokensDialog from '@/components/dialog/BuyArcadeTokensDialog';
@@ -21,7 +20,7 @@ const ArcadeBalance = (): React.ReactNode => {
   };
 
   const handlePlayArcade = useCallback(() => {
-    sendEvent(GOOGLE_ANALYTICS.EVENTS.PLAY_ARCADE_GAMES_BUTTON_TAPPED, GOOGLE_ANALYTICS.CATEGORIES.GAMEPLAY);
+    gtm.sendEvent(GTM_EVENTS.PLAY_ARCADE_GAMES_BUTTON_TAPPED);
     router.push('/games');
   }, [router]);
 

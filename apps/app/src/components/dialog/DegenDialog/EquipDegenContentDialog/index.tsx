@@ -5,11 +5,10 @@ import Link from 'next/link';
 import { Box, Button, CircularProgress, Grid, Stack, Typography } from '@mui/material';
 import isEqual from 'lodash/isEqual';
 
+import { gtm, GTM_EVENTS } from '@nl/ui/gtm';
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 import { useDispatch } from '@/store/hooks';
 import { openSnackbar } from '@/store/slices/snackbar';
-import { sendEvent } from '@/utils/google-analytics';
-import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
 import { COMICS_PURCHASE_URL } from '@/constants/url';
 import type { Degen } from '@/types/degens';
 import DegenImage from '@/components/cards/DegenCard/DegenImage';
@@ -47,7 +46,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
   const { animTypeActiveButton, animTypeButton, label, tag, title } = styles;
 
   useEffect(() => {
-    sendEvent(GOOGLE_ANALYTICS.EVENTS.DEGEN_EQUIP_CLICKED, GOOGLE_ANALYTICS.CATEGORIES.ECOMMERCE);
+    gtm.sendEvent(GTM_EVENTS.DEGEN_EQUIP_CLICKED);
   }, []);
 
   const handleEquip = useCallback(
@@ -65,7 +64,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
         setPendingEquipped(newEquipped);
         const eventName = getInventoryAnalyticsEventName(item.name);
         if (eventName) {
-          sendEvent(eventName, GOOGLE_ANALYTICS.CATEGORIES.ECOMMERCE);
+          gtm.sendEvent(eventName);
         }
       }
     },
@@ -87,7 +86,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
         setPendingEquipped(newEquipped);
         const eventName = getSlotAnalyticsEventName(slot.name);
         if (eventName) {
-          sendEvent(eventName, GOOGLE_ANALYTICS.CATEGORIES.ECOMMERCE);
+          gtm.sendEvent(eventName);
         }
       }
     },
@@ -97,7 +96,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
   const stateChanged = useMemo(() => !isEqual(equipped, pendingEquipped), [equipped, pendingEquipped]);
 
   const handleSave = useCallback(() => {
-    sendEvent(GOOGLE_ANALYTICS.EVENTS.DEGEN_EQUIP_STARTED, GOOGLE_ANALYTICS.CATEGORIES.ECOMMERCE);
+    gtm.sendEvent(GTM_EVENTS.DEGEN_EQUIP_STARTED);
     // Should call proper api here
     setEquipped(pendingEquipped);
     dispatch(
@@ -109,7 +108,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
         close: false,
       }),
     );
-    sendEvent(GOOGLE_ANALYTICS.EVENTS.DEGEN_EQUIP_SUCCESS, GOOGLE_ANALYTICS.CATEGORIES.ECOMMERCE);
+    gtm.sendEvent(GTM_EVENTS.DEGEN_EQUIP_SUCCESS);
   }, [dispatch, pendingEquipped]);
 
   const getSlotImage = useCallback(
@@ -156,12 +155,12 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
   }, [pendingEquipped]);
 
   const handleSetPose = () => {
-    sendEvent(GOOGLE_ANALYTICS.EVENTS.DEGEN_EQUIP_ANIMATION_POSE_CLICKED, GOOGLE_ANALYTICS.CATEGORIES.ENGAGEMENT);
+    gtm.sendEvent(GTM_EVENTS.DEGEN_EQUIP_ANIMATION_POSE_CLICKED);
     setAnimationType('pose');
   };
 
   const handleSetRotate = () => {
-    sendEvent(GOOGLE_ANALYTICS.EVENTS.DEGEN_EQUIP_ANIMATION_ROTATE_CLICKED, GOOGLE_ANALYTICS.CATEGORIES.ENGAGEMENT);
+    gtm.sendEvent(GTM_EVENTS.DEGEN_EQUIP_ANIMATION_ROTATE_CLICKED);
     setAnimationType('rotate');
   };
 

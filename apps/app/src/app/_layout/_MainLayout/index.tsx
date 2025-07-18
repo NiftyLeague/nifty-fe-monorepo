@@ -3,8 +3,9 @@
 // third party
 import { type PropsWithChildren, useEffect, useMemo } from 'react';
 import { usePathname } from 'next/navigation';
-import PerfectScrollbar from 'react-perfect-scrollbar';
+import { useReportWebVitals } from 'next/web-vitals';
 import { useAccount, useSwitchChain } from 'wagmi';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 
 // Redux
 import { openDrawer } from '@/store/slices/menu';
@@ -19,9 +20,9 @@ import { ToastContainer } from 'react-toastify';
 
 // project imports
 import { cn } from '@nl/ui/utils';
+import { gtm } from '@nl/ui/gtm';
 import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
 import navigation from '@/constants/menu-items';
-import useGoogleAnalytics from '@/hooks/useGoogleAnalytics';
 import { useConnectedToIMXCheck } from '@/hooks/useImxProvider';
 import { TARGET_NETWORK } from '@/constants/networks';
 
@@ -82,7 +83,7 @@ const Main = styled('main', { shouldForwardProp: prop => prop !== 'open' })<{ op
 // ==============================|| MAIN LAYOUT ||============================== //
 
 const MainLayout = ({ children }: PropsWithChildren) => {
-  useGoogleAnalytics();
+  useReportWebVitals(metric => gtm.sendWebVitals(metric));
   const pathname = usePathname();
   const dispatch = useDispatch();
   const { address, chain } = useAccount();
