@@ -29,8 +29,7 @@ import { GET_PRODUCT, NFTL_PURCHASE_URL, PURCHASE_ARCADE_TOKEN_BALANCE_API } fro
 import useGameAccount from '@/hooks/useGameAccount';
 import useAuth from '@/hooks/useAuth';
 
-import { sendEvent } from '@/utils/google-analytics';
-import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
+import { gtm, GTM_EVENTS } from '@nl/ui/gtm';
 
 const PRODUCT_ID = 'arcade-token-four-pack';
 
@@ -60,7 +59,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
 
   useEffect(() => {
     if (open) {
-      sendEvent(GOOGLE_ANALYTICS.EVENTS.BUY_ARCADE_TOKEN_STARTED, GOOGLE_ANALYTICS.CATEGORIES.ECOMMERCE);
+      gtm.sendEvent(GTM_EVENTS.BUY_ARCADE_TOKEN_STARTED);
     }
   }, [open]);
 
@@ -92,7 +91,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
       if (!response.ok) {
         throw new Error(response.statusText);
       }
-      sendEvent(GOOGLE_ANALYTICS.EVENTS.BUY_ARCADE_TOKEN_COMPLETE, GOOGLE_ANALYTICS.CATEGORIES.ECOMMERCE);
+      gtm.sendEvent(GTM_EVENTS.BUY_ARCADE_TOKEN_COMPLETE);
       refetchAccount();
       onSuccess();
     } catch {

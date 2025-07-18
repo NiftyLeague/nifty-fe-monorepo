@@ -4,14 +4,14 @@ import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { Box, CircularProgress, Typography } from '@mui/material';
-import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
-import { getLeaderboardRankAnalyticsEventName } from '@/constants/leaderboards';
+import { toast } from 'react-toastify';
+
+import { gtm } from '@nl/ui/gtm';
 import useAuth from '@/hooks/useAuth';
 import usePlayerProfile from '@/hooks/usePlayerProfile';
 import { ResponsiveTable } from '@/components/ResponsiveTable';
-import { toast } from 'react-toastify';
 import type { ReturnDataType, TableProps, TableRowType } from '@/types/leaderboard';
-import { sendEvent } from '@/utils/google-analytics';
+import { getLeaderboardRankAnalyticsEventName } from '@/constants/leaderboards';
 import { fetchRankByUserId, fetchScores } from '@/utils/leaderboard';
 import { errorMsgHandler } from '@/utils/errorHandlers';
 
@@ -94,7 +94,7 @@ export default function EnhancedTable({
   const handleCheckYourRank = async () => {
     const eventName = getLeaderboardRankAnalyticsEventName(selectedGame);
     if (eventName) {
-      sendEvent(eventName, GOOGLE_ANALYTICS.CATEGORIES.LEADERBOARD, selectedTable.display);
+      gtm.sendEvent(eventName, { event_label: selectedTable.display });
     }
     const errorMes = 'You have not played the game yet! Play the game to see your rank on the leaderboard.';
 

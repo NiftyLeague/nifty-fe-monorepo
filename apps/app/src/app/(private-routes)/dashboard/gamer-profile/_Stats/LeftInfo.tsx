@@ -17,8 +17,8 @@ const LeftInfo = ({ data }: LeftInfoProps): React.ReactNode => {
     return [
       { label: 'XP Rank', value: data?.rank || 0 },
       { label: 'XP', value: Math.round(data?.xp || 0) },
-      { label: 'Matches', value: data?.matches },
-      { label: 'Wins', value: data?.wins },
+      { label: 'Matches', value: data?.matches || 0 },
+      { label: 'Wins', value: data?.wins || 0 },
       {
         label: 'Win Rate',
         value: `${(data?.wins && data?.matches && formatNumberToDisplay((data?.wins / data?.matches) * 100)) || 0}%`,
