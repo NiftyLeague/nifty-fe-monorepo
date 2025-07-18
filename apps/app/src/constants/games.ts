@@ -1,5 +1,5 @@
 import type { Game } from '@/types/games';
-import { GOOGLE_ANALYTICS } from './google-analytics';
+import { GTM_EVENTS } from '@nl/ui/gtm';
 
 const games: Game[] = [
   {
@@ -79,13 +79,13 @@ const games: Game[] = [
 export const getGameViewedAnalyticsEventName = (pathname: string) => {
   let eventName = '';
   if (pathname.includes('smashers')) {
-    eventName = GOOGLE_ANALYTICS.EVENTS.NIFTY_SMASHERS_GAME_VIEWED;
+    eventName = GTM_EVENTS.NIFTY_SMASHERS_GAME_VIEWED;
   } else if (pathname.includes('wen-game')) {
-    eventName = GOOGLE_ANALYTICS.EVENTS.WEN_GAME_VIEWED;
+    eventName = GTM_EVENTS.WEN_GAME_VIEWED;
   } else if (pathname.includes('mt-gawx')) {
-    eventName = GOOGLE_ANALYTICS.EVENTS.MT_GAWX_GAME_VIEWED;
+    eventName = GTM_EVENTS.MT_GAWX_GAME_VIEWED;
   } else if (pathname.includes('crypto-winter')) {
-    eventName = GOOGLE_ANALYTICS.EVENTS.CRYPTO_WINTER_GAME_VIEWED;
+    eventName = GTM_EVENTS.CRYPTO_WINTER_GAME_VIEWED;
   }
   return eventName;
 };

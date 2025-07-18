@@ -6,9 +6,8 @@ import { useAccount, useSignMessage } from 'wagmi';
 import { useDispatch } from '@/store/hooks';
 import { login, logout } from '@/store/slices/account';
 
+import { gtm } from '@nl/ui/gtm';
 import type { AUTH_Token, UUID_Token, Nonce } from '@/types/auth';
-import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
-import { sendEvent } from '@/utils/google-analytics';
 import { WALLET_VERIFICATION } from '@/constants/url';
 import useLocalStorageContext from '@/hooks/useLocalStorageContext';
 
@@ -27,6 +26,7 @@ const useSignAuthMsg = (params: Params = {}) => {
 
   const verifyWallet = async (verification: string) => {
     try {
+      if (!addressToLower) return;
       const result = await fetch(WALLET_VERIFICATION, {
         method: 'POST',
         body: JSON.stringify({ token, nonce, verification, address: addressToLower }),
@@ -48,13 +48,14 @@ const useSignAuthMsg = (params: Params = {}) => {
         setNonce(nonce);
 
         await dispatch(login());
-        sendEvent(GOOGLE_ANALYTICS.EVENTS.LOGIN, GOOGLE_ANALYTICS.CATEGORIES.ENGAGEMENT, 'method');
+        gtm.sendUserId(addressToLower);
       } else {
         throw Error('Failed to verify signature!');
       }
     } catch (err) {
       console.error('verifyWallet', err);
       dispatch(logout());
+      gtm.removeUserId();
     }
   };
 

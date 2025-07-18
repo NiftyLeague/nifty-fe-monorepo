@@ -5,6 +5,7 @@ import { Grid } from '@mui/material';
 // import { Grid, Button, Box, Dialog } from '@mui/material';
 // import Link from 'next/link';
 // import dynamic from 'next/dynamic';
+
 import SectionSlider from '@/components/sections/SectionSlider';
 // import type { Degen } from '@/types/degens';
 // import { DEGEN_BASE_API_URL } from '@/constants/url';
@@ -15,8 +16,6 @@ import GameList from '@/app/(public-routes)/games/_GameList';
 import Web3GameList from '@/app/(public-routes)/games/_Web3GameList';
 // import DegenDialog from '@/components/dialog/DegenDialog';
 // import RenameDegenDialogContent from '@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent';
-// import { sendEvent } from '@/utils/google-analytics';
-// import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
 
 // const DegenCard = dynamic(() => import('@/components/cards/DegenCard').then(module => module.DegenCardInView), {
 //   ssr: false,
@@ -63,9 +62,7 @@ const Home = () => {
   //   setIsDegenModalOpen(true);
   // };
 
-  // const handleViewAllTraits = (event: React.MouseEvent<HTMLAnchorElement>) => {
-  //   sendEvent(GOOGLE_ANALYTICS.EVENTS.VIEW_ITEM_LIST, GOOGLE_ANALYTICS.CATEGORIES.ENGAGEMENT);
-  // };
+  // const handleViewAllTraits = (event: React.MouseEvent<HTMLAnchorElement>) => {};
 
   // const settings = {
   //   slidesToShow: 5,
