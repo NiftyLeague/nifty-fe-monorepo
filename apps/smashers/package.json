@@ -20,7 +20,7 @@
     "@sentry/nextjs": "^9.40.0",
     "@vercel/edge": "^1.2.2",
     "iron-session": "^8.0.4",
-    "next": "15.3.5",
+    "next": "15.4.2",
     "next-auth": "^4.24.11",
     "react": "19.1.0",
     "react-device-detect": "^2.2.3",
