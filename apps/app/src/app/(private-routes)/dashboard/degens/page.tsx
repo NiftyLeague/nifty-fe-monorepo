@@ -9,7 +9,7 @@ import isEmpty from 'lodash/isEmpty';
 import xor from 'lodash/xor';
 import { Grid, IconButton, Pagination, Stack, Dialog } from '@mui/material';
 
-import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
 import Icon from '@nl/ui/base/Icon';
 
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder';

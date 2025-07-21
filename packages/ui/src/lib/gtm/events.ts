@@ -2,7 +2,7 @@
 
 import type { NextWebVitalsMetric } from 'next/app';
 import { sendGTMEvent } from '@next/third-parties/google';
-import { CATEGORIES, EVENTS, EVENT_CATEGORIES } from './constants';
+import { EVENTS, EVENT_CATEGORIES } from './constants';
 import type { CustomEventNames } from './constants';
 
 const getUserID = () => {
@@ -79,7 +79,6 @@ interface WebVitalsParams extends EventParams {
 // https://nextjs.org/docs/app/api-reference/functions/use-report-web-vitals
 export const sendWebVitals = (metric: NextWebVitalsMetric) => {
   sendEvent(EVENTS.WEB_VITALS, {
-    event_category: metric.label === 'web-vital' ? CATEGORIES.WEB_VITALS : CATEGORIES.NEXTJS_METRICS,
     metric_name: metric.name, // "CLS" | "FCP" | "FID" | "INP" | "LCP" | "TTFB" | "Next.js-hydration" | "Next.js-route-change-to-render" | "Next.js-render"
     metric_label: metric.id, // id unique to current page load
     metric_value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value), // values must be integers

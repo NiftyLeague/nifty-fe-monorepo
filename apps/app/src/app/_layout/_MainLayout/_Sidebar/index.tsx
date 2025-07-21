@@ -3,7 +3,7 @@ import { memo, useMemo } from 'react';
 // material-ui
 import { useTheme, appDrawerWidth, appHeaderHeight } from '@nl/theme';
 import { Drawer, Stack, Box } from '@mui/material';
-import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
 
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';

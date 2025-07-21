@@ -50,6 +50,7 @@
       "@axelar-network/axelarjs-sdk",
       "@opensea/seaport-js",
       "@prisma/engines",
+      "@reown/appkit",
       "@sentry/cli",
       "@swc/core",
       "@tailwindcss/oxide",

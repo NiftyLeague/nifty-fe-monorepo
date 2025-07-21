@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Stack, Typography, Box, IconButton } from '@mui/material';
 import Icon from '@nl/ui/base/Icon';
 
-import useCopyToClipboard from '@nl/ui/hooks/useCopyToClipboard';
+import { useCopyToClipboard } from '@nl/ui/hooks/useCopyToClipboard';
 import { useGamerProfileContext } from '@/hooks/useGamerProfile';
 import type { Profile } from '@/types/account';
 

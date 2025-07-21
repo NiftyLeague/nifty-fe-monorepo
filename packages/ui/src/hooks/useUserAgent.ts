@@ -13,7 +13,7 @@ const getUserAgent = (userAgent: NavigatorID['userAgent']) => {
   return { isMobile, isDesktop, isAndroid, isIos, isSSR };
 };
 
-const useUserAgent = () => {
+export const useUserAgent = () => {
   useEffect(() => {}, []);
   const userAgent = typeof navigator === 'undefined' ? 'SSR' : navigator.userAgent;
   return getUserAgent(userAgent);

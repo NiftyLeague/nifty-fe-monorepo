@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
 import { Divider, Grid, Stack } from '@mui/material';
-import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
 
 import ComicCard from '@/components/cards/ComicCard';
 import ViewComicDialog from '@/components/dialog/ViewComicDialog';

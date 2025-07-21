@@ -1,7 +1,7 @@
 import { Drawer, Stack } from '@mui/material';
 import { useEffect, ReactNode, SetStateAction, useCallback } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
 import { appHeaderHeight, useTheme } from '@nl/theme';
 
 interface Props {

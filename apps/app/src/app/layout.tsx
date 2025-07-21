@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Script from 'next/script';
 
 import { ThemeProvider } from '@nl/theme';
-import { GoogleTagManager } from '@nl/ui/gtm';
+import { GoogleTagManager, WebVitals } from '@nl/ui/gtm';
 import { customFontClassName } from '@nl/ui/fonts';
 import AppContextWrapper from '@/contexts/AppContextWrapper';
 import MainLayout from '@/app/_layout/_MainLayout';
@@ -67,7 +67,11 @@ export default function RootLayout({ children }: PropsWithChildren) {
       </Head>
 
       <GoogleTagManager />
-      <Script id="device-stats" defer src="https://d7ct17ettlkln.cloudfront.net/public/stats.js" />
+      <Script
+        id="device-stats"
+        strategy="beforeInteractive"
+        src="https://d7ct17ettlkln.cloudfront.net/public/stats.js"
+      />
 
       <body suppressHydrationWarning>
         <ThemeProvider>
@@ -75,6 +79,8 @@ export default function RootLayout({ children }: PropsWithChildren) {
             <MainLayout>{children}</MainLayout>
           </AppContextWrapper>
         </ThemeProvider>
+
+        <WebVitals />
       </body>
     </html>
   );

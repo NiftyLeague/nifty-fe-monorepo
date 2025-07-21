@@ -3,7 +3,6 @@
 // third party
 import { type PropsWithChildren, useEffect, useMemo } from 'react';
 import { usePathname } from 'next/navigation';
-import { useReportWebVitals } from 'next/web-vitals';
 import { useAccount, useSwitchChain } from 'wagmi';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
@@ -20,8 +19,7 @@ import { ToastContainer } from 'react-toastify';
 
 // project imports
 import { cn } from '@nl/ui/utils';
-import { gtm } from '@nl/ui/gtm';
-import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
 import navigation from '@/constants/menu-items';
 import { useConnectedToIMXCheck } from '@/hooks/useImxProvider';
 import { TARGET_NETWORK } from '@/constants/networks';
@@ -83,7 +81,6 @@ const Main = styled('main', { shouldForwardProp: prop => prop !== 'open' })<{ op
 // ==============================|| MAIN LAYOUT ||============================== //
 
 const MainLayout = ({ children }: PropsWithChildren) => {
-  useReportWebVitals(metric => gtm.sendWebVitals(metric));
   const pathname = usePathname();
   const dispatch = useDispatch();
   const { address, chain } = useAccount();
