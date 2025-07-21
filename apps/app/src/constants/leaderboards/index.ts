@@ -1,4 +1,4 @@
-import { GOOGLE_ANALYTICS } from '../google-analytics';
+import { GTM_EVENTS } from '@nl/ui/gtm';
 import type { TableType, LeaderboardGame } from '@/types/leaderboard';
 import { Game, TimeFilter } from '@/types/leaderboard';
 
@@ -60,48 +60,6 @@ export const LEADERBOARD_TIME_FILTERS = [
   { key: 'monthly', display: TimeFilter.Monthly },
   { key: 'all_time', display: TimeFilter.AllTime },
 ];
-
-export const getGameLeaderboardViewedAnalyticsEventName = (selectedGame: string) => {
-  let eventName = '';
-  switch (selectedGame) {
-    case 'nifty_smashers':
-      eventName = GOOGLE_ANALYTICS.EVENTS.NIFTY_SMASHERS_LEADERBOARD_VIEWED;
-      break;
-    case 'wen_game':
-      eventName = GOOGLE_ANALYTICS.EVENTS.WEN_GAME_LEADERBOARD_VIEWED;
-      break;
-    case 'nftl_burner':
-      eventName = GOOGLE_ANALYTICS.EVENTS.MT_GAWX_LEADERBOARD_VIEWED;
-      break;
-    case 'crypto_winter':
-      eventName = GOOGLE_ANALYTICS.EVENTS.CRYPTO_WINTER_LEADERBOARD_VIEWED;
-      break;
-    default:
-      break;
-  }
-  return eventName;
-};
-
-export const getLeaderboardRankAnalyticsEventName = (selectedGame: string) => {
-  let eventName = '';
-  switch (selectedGame) {
-    case 'nifty_smashers':
-      eventName = GOOGLE_ANALYTICS.EVENTS.LEADERBOARD_CHECK_YOUR_RANK_CLICKED_SMASHERS;
-      break;
-    case 'wen_game':
-      eventName = GOOGLE_ANALYTICS.EVENTS.LEADERBOARD_CHECK_YOUR_RANK_CLICKED_WEN;
-      break;
-    case 'nftl_burner':
-      eventName = GOOGLE_ANALYTICS.EVENTS.LEADERBOARD_CHECK_YOUR_RANK_CLICKED_MT_GAWX;
-      break;
-    case 'crypto_winter':
-      eventName = GOOGLE_ANALYTICS.EVENTS.LEADERBOARD_CHECK_YOUR_RANK_CLICKED_CRYPTO_WINTER;
-      break;
-    default:
-      break;
-  }
-  return eventName;
-};
 
 // Leaderboard Data
 

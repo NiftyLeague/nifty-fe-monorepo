@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { gtag } from '@nl/ui/ga';
+import { gtm } from '@nl/ui/gtm';
 import Loading from './Loading';
 
 const isAndroid = (userAgent: string) => /.*(Mobile|Android).*/.test(userAgent);
@@ -45,7 +45,7 @@ const InviteRedirect = () => {
 
   useEffect(() => {
     // GA4 event to track user referrals with custom parameters.
-    gtag.sendEvent('referral', {
+    gtm.sendGameReferral({
       game_name: game.charAt(0).toUpperCase() + game.substring(1),
       invite_method: partyID ? 'Party Invite' : 'Invite Link',
       invitee_agent: userAgent,

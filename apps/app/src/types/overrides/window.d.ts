@@ -22,7 +22,6 @@ interface UnityParameters {
 
 declare global {
   interface Window {
-    gtag: Gtag.Gtag;
     createUnityInstance: (
       canvasHtmlElement: HTMLCanvasElement,
       parameters: UnityParameters,

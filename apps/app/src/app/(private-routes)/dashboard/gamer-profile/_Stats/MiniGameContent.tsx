@@ -15,8 +15,8 @@ const MiniGameContent = ({ data }: MiniGameContentProps): React.ReactNode => {
     return [
       { label: 'XP Rank', value: data?.rank || 0 },
       { label: 'XP', value: Math.round(data?.xp || 0) },
-      { label: 'High Score', value: data?.score },
-      { label: 'Games', value: data?.matches },
+      { label: 'High Score', value: data?.score || 0 },
+      { label: 'Games', value: data?.matches || 0 },
       { label: 'Time Played', value: `${secondsToHours(data?.time_played ?? 0)} Hours` },
     ];
   }, [data]);

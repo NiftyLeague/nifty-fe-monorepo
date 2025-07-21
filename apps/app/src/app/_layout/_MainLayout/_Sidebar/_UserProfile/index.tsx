@@ -6,7 +6,6 @@ import { normalize } from 'viem/ens';
 import { Avatar, Box, Button, Skeleton, Stack, Typography } from '@mui/material';
 
 import { formatNumberToDisplay } from '@nl/ui/utils';
-import { sendUserId } from '@/utils/google-analytics';
 import { useGamerProfile } from '@/hooks/useGamerProfile';
 import type { ProfileAvatar } from '@/types/account';
 import ConnectWrapper from '@/components/wrapper/ConnectWrapper';
@@ -53,7 +52,6 @@ const UserProfile = () => {
     if (isLoggedIn && profile) {
       setUserName(profile?.name_cased);
       setAvatar(profile?.avatar);
-      sendUserId(profile?.id);
     } else {
       setUserName(undefined);
       setAvatar(undefined);

@@ -1,12 +1,12 @@
 import type { PropsWithChildren } from 'react';
-
-import { AnalyticsScripts } from '@nl/ui/ga';
+import { GoogleTagManager, WebVitals } from '@nl/ui/gtm';
 
 export default function Layout({ children }: PropsWithChildren) {
   return (
     <>
+      <GoogleTagManager />
       {children}
-      <AnalyticsScripts />
+      <WebVitals />
     </>
   );
 }

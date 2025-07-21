@@ -7,15 +7,14 @@ import Unity, { UnityContext } from 'react-unity-webgl';
 import { Box, Button, Stack } from '@mui/material';
 import { useAccount } from 'wagmi';
 
+import { gtm, GTM_EVENTS } from '@nl/ui/gtm';
 import Preloader from '@nl/ui/custom/Preloader';
 import useTokensBalances from '@/hooks/balances/useTokensBalances';
 // import useFetch from '@/hooks/useFetch';
 import { NETWORK_NAME, TARGET_NETWORK } from '@/constants/networks';
-import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
-import { getGameViewedAnalyticsEventName } from '@/constants/games';
+import { getGameViewedAnalyticsContentId } from '@/constants/games';
 // import { ALL_RENTAL_API_URL } from '@/constants/url';
 import { DEBUG } from '@/constants/index';
-import { sendEvent } from '@/utils/google-analytics';
 import withVerification from '@/components/wrapper/Authentication';
 // import type { Rentals } from '@/types/rentals';
 // import EarningCap from '@/app/dashboard/overview/EarningCap';
@@ -61,9 +60,9 @@ const Game = ({ unityContext, arcadeTokenRequired = false }: GameProps) => {
   }, [address, authMsg]);
 
   useEffect(() => {
-    const eventName = getGameViewedAnalyticsEventName(pathname);
-    if (eventName) {
-      sendEvent(eventName, GOOGLE_ANALYTICS.CATEGORIES.GAMEPLAY);
+    const contentId = getGameViewedAnalyticsContentId(pathname);
+    if (contentId) {
+      gtm.sendEvent(GTM_EVENTS.SELECT_CONTENT, { content_type: 'game', content_id: contentId });
     }
   }, [pathname]);
 

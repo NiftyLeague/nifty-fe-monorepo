@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent } from '@mui/material';
 import type { Item } from '@/types/marketplace';
-import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
 import ItemDetail from '@/components/cards/ItemDetail';
 
 export interface ViewItemDialogProps {

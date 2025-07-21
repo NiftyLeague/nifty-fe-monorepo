@@ -1,5 +1,5 @@
 import { Button, Container, Dialog, DialogProps, Stack } from '@mui/material';
-import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
 
 import TermsOfServiceContent from './TermsOfServiceContent';
 

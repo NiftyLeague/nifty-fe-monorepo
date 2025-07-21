@@ -5,6 +5,8 @@
 import type { NextConfig } from 'next';
 import { withSentryConfig } from '@sentry/nextjs';
 
+const ENV = (process.env.VERCEL_ENV as 'production' | 'preview' | undefined) ?? 'development';
+
 const nextConfig: NextConfig = {
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
@@ -24,19 +26,30 @@ const nextConfig: NextConfig = {
       { source: '/products/:path*', destination: 'https://shop.niftyleague.com/products/:path*' },
       { source: '/cart/:path*', destination: 'https://shop.niftyleague.com/cart/:path*' },
       { source: '/account/login', destination: 'https://shop.niftyleague.com/account/login' },
-      ...(process.env.VERCEL_ENV === 'production' || process.env.VERCEL_ENV === 'preview'
-        ? [{ source: '/docs/:path*', destination: 'https://docs.niftyleague.com/:path*' }]
+      ...(ENV === 'production' || ENV === 'preview'
+        ? [
+            {
+              source: '/docs/:path*',
+              destination: `https://${ENV === 'preview' ? 'staging.' : ''}docs.niftyleague.com/:path*`,
+            },
+          ]
         : []),
     ];
   },
   async redirects() {
     return [
-      ...(!process.env.VERCEL_ENV || process.env.VERCEL_ENV === 'development'
+      ...(ENV === 'development'
         ? [
-            { source: '/docs/:path*', destination: `http://localhost:3002/docs/:path*`, permanent: false },
+            { source: '/docs/:path*', destination: `http://localhost:3002/docs/:path*`, permanent: true },
             { source: '/app', destination: 'http://localhost:3001', permanent: true },
           ]
-        : [{ source: '/app', destination: 'https://app.niftyleague.com', permanent: true }]),
+        : [
+            {
+              source: '/app',
+              destination: `https://${ENV === 'preview' ? 'staging.' : ''}app.niftyleague.com`,
+              permanent: true,
+            },
+          ]),
       { source: '/blog', destination: 'https://niftyleague.medium.com', permanent: true },
       { source: '/feedback', destination: 'https://feedback.niftyleague.com', permanent: true },
       { source: '/snapshot', destination: 'https://snapshot.niftyleague.com', permanent: true },
@@ -71,7 +84,7 @@ export default withSentryConfig(nextConfig, {
   // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
 
   // Upload a larger set of source maps for prettier stack traces (increases build time)
-  widenClientFileUpload: process.env.VERCEL_ENV === 'production',
+  widenClientFileUpload: ENV === 'production',
 
   // Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
   // This can increase your server load as well as your hosting bill.

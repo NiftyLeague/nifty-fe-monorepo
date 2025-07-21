@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Grid, IconButton, Pagination, Stack, Dialog } from '@mui/material';
 
 import Icon from '@nl/ui/base/Icon';
-import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
 
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder';
 import DegensFilter from '@/components/extended/DegensFilter';

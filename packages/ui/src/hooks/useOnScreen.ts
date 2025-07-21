@@ -31,3 +31,5 @@ export function useOnScreen<T extends Element = HTMLDivElement>(
   }, []); // Empty array ensures that effect is only run on mount and unmount
   return isIntersecting;
 }
+
+export default useOnScreen;

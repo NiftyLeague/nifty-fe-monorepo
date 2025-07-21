@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { Button, Dialog, DialogActions, DialogContent } from '@mui/material';
 import type { Comic } from '@/types/marketplace';
-import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
 
 export interface ViewComicDialogProps {
   comic?: Comic | null;

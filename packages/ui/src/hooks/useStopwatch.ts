@@ -23,7 +23,7 @@ type ReturnType = {
   restart: () => void;
 };
 
-function useStopwatch({ interval = 10, onStop, onStart, onPause, onRestart }: HookParams): ReturnType {
+export const useStopwatch = ({ interval = 10, onStop, onStart, onPause, onRestart }: HookParams): ReturnType => {
   const stopwatchRef = useRef<number | null>(null);
   const [status, setStatus] = useState(STATUS.STOPPED);
   const [milliseconds, setMilliseconds] = useState(0);
@@ -86,6 +86,6 @@ function useStopwatch({ interval = 10, onStop, onStart, onPause, onRestart }: Ho
   }, [status, setStopwatch]);
 
   return { milliseconds, status, start, pause, stop, restart };
-}
+};
 
 export default useStopwatch;
