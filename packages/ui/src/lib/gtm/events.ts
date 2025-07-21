@@ -14,15 +14,33 @@ const getUserID = () => {
 const getEventCategory = (name: EventName) => EVENT_CATEGORIES[name];
 
 type EventName = CustomEventNames | (string & {});
+interface Item {
+  item_id: string;
+  item_name: string;
+  affiliation?: string;
+  coupon?: string;
+  discount?: number;
+  index?: number;
+  item_brand?: string;
+  item_category?: string;
+  item_list_id?: string;
+  item_list_name?: string;
+  item_variant?: string;
+  price?: number;
+  quantity?: number;
+}
 interface EventParams {
   content_id?: string;
   content_type?: string;
   description?: string;
   event_category?: string;
   event_label?: string;
+  item_name?: string;
+  items?: Array<Item>;
   method?: string;
   user_id?: string | null;
   value?: number;
+  virtual_currency_name?: string;
 }
 
 // Send custom events to Google Tag Manager

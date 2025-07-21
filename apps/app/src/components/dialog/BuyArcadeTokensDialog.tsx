@@ -59,7 +59,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
 
   useEffect(() => {
     if (open) {
-      gtm.sendEvent(GTM_EVENTS.BUY_ARCADE_TOKEN_STARTED);
+      gtm.sendEvent(GTM_EVENTS.ADD_TO_CART, { items: [{ item_id: PRODUCT_ID, item_name: 'Arcade Tokens' }] });
     }
   }, [open]);
 
@@ -77,6 +77,8 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
   };
 
   const purchaseArcadeToken = useCallback(async () => {
+    const items = [{ item_id: PRODUCT_ID, item_name: 'Arcade Tokens', quantity: tokenCount }];
+    gtm.sendEvent(GTM_EVENTS.BEGIN_CHECKOUT, { items });
     try {
       const response = await fetch(PURCHASE_ARCADE_TOKEN_BALANCE_API, {
         method: 'post',
@@ -91,7 +93,12 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
       if (!response.ok) {
         throw new Error(response.statusText);
       }
-      gtm.sendEvent(GTM_EVENTS.BUY_ARCADE_TOKEN_COMPLETE);
+      gtm.sendEvent(GTM_EVENTS.PURCHASE_COMPLETE, { items });
+      gtm.sendEvent(GTM_EVENTS.SPEND_VIRTUAL_CURRENCY, {
+        virtual_currency_name: `${details.currency}`.toUpperCase(),
+        value: details.price,
+        item_name: 'Arcade Tokens',
+      });
       refetchAccount();
       onSuccess();
     } catch {
