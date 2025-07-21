@@ -5,15 +5,10 @@ import { styled } from '@nl/theme';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Box, FormControl, List, ListItemButton, ListItemText, MenuItem, Stack, Typography } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { sendEvent } from '@/utils/google-analytics';
+
+import { gtm, GTM_EVENTS } from '@nl/ui/gtm';
 import type { LeaderboardGame, TableType } from '@/types/leaderboard';
-import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
-import {
-  getGameLeaderboardViewedAnalyticsEventName,
-  LEADERBOARD_GAME_LIST,
-  LEADERBOARD_TIME_FILTERS,
-  NiftySmashersTables,
-} from '@/constants/leaderboards';
+import { LEADERBOARD_GAME_LIST, LEADERBOARD_TIME_FILTERS, NiftySmashersTables } from '@/constants/leaderboards';
 import EnhancedTable from '@/components/leaderboards/EnhancedTable/EnhancedTable';
 // const TopModal = dynamic(() => import('../TopModal'), { ssr: false });
 import './modal-table.css';
@@ -38,10 +33,7 @@ export default function LeaderBoards(): React.ReactNode {
   const [selectedTimeFilter, setTimeFilter] = useState<string>('all_time');
 
   useEffect(() => {
-    const eventName = getGameLeaderboardViewedAnalyticsEventName(selectedGame);
-    if (eventName) {
-      sendEvent(eventName, GOOGLE_ANALYTICS.CATEGORIES.LEADERBOARD);
-    }
+    gtm.sendEvent(GTM_EVENTS.SELECT_CONTENT, { content_type: 'leaderboard', content_id: selectedGame });
     const params = new URLSearchParams(searchParams);
     params.set('game', selectedGame);
     router.push(pathname + '?' + params.toString());
@@ -54,11 +46,6 @@ export default function LeaderBoards(): React.ReactNode {
     const currentGame = LEADERBOARD_GAME_LIST.filter(game => game.key === gameKey)?.[0];
     if (!currentGame) return;
     const { display, tables } = currentGame;
-    sendEvent(
-      GOOGLE_ANALYTICS.EVENTS.LEADERBOARD_GAME_FILTER_CHANGED,
-      GOOGLE_ANALYTICS.CATEGORIES.LEADERBOARD,
-      display,
-    );
 
     if (gameKey === 'nftl_burner' && selectedTimeFilter === 'weekly') {
       // Since NFTL Burner doesn't have weekly leaderboard
@@ -74,11 +61,6 @@ export default function LeaderBoards(): React.ReactNode {
     if (table) {
       setTable(table);
       setType(table.key);
-      sendEvent(
-        GOOGLE_ANALYTICS.EVENTS.LEADERBOARD_TYPE_FILTER_CHANGED,
-        GOOGLE_ANALYTICS.CATEGORIES.LEADERBOARD,
-        table.display,
-      );
     }
   };
 

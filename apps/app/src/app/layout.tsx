@@ -4,8 +4,8 @@ import Head from 'next/head';
 import Script from 'next/script';
 
 import { ThemeProvider } from '@nl/theme';
+import { GoogleTagManager, WebVitals } from '@nl/ui/gtm';
 import { customFontClassName } from '@nl/ui/fonts';
-import { MicrosoftClarityScript } from '@nl/ui/ga';
 import AppContextWrapper from '@/contexts/AppContextWrapper';
 import MainLayout from '@/app/_layout/_MainLayout';
 
@@ -66,17 +66,22 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <link rel="icon" href="/favicon/nl_purple/favicon.ico" />
       </Head>
 
+      <GoogleTagManager />
+      <Script
+        id="device-stats"
+        strategy="beforeInteractive"
+        src="https://d7ct17ettlkln.cloudfront.net/public/stats.js"
+      />
+
       <body suppressHydrationWarning>
         <ThemeProvider>
           <AppContextWrapper>
             <MainLayout>{children}</MainLayout>
           </AppContextWrapper>
         </ThemeProvider>
+
+        <WebVitals />
       </body>
-
-      <Script defer src="https://d7ct17ettlkln.cloudfront.net/public/stats.js" />
-
-      <MicrosoftClarityScript />
     </html>
   );
 }

@@ -1,6 +1,6 @@
 import type { EquipItemSlot } from '@/types/equip';
 import Image from 'next/image';
-import { GOOGLE_ANALYTICS } from '@/constants/google-analytics';
+import { GTM_EVENTS } from '@nl/ui/gtm';
 
 import styles from './index.module.css';
 
@@ -107,22 +107,22 @@ export const getInventoryAnalyticsEventName = (inventory: string) => {
   let eventName = '';
   switch (inventory) {
     case 'Cape':
-      eventName = GOOGLE_ANALYTICS.EVENTS.DEGEN_INVENTORY_CAPE_EQUIPPED;
+      eventName = GTM_EVENTS.DEGEN_INVENTORY_CAPE_EQUIPPED;
       break;
     case 'Halo':
-      eventName = GOOGLE_ANALYTICS.EVENTS.DEGEN_INVENTORY_HALO_EQUIPPED;
+      eventName = GTM_EVENTS.DEGEN_INVENTORY_HALO_EQUIPPED;
       break;
     case 'Companion':
-      eventName = GOOGLE_ANALYTICS.EVENTS.DEGEN_INVENTORY_COMPANION_EQUIPPED;
+      eventName = GTM_EVENTS.DEGEN_INVENTORY_COMPANION_EQUIPPED;
       break;
     case 'Diamond Bat':
-      eventName = GOOGLE_ANALYTICS.EVENTS.DEGEN_INVENTORY_DIAMOND_BAT_EQUIPPED;
+      eventName = GTM_EVENTS.DEGEN_INVENTORY_DIAMOND_BAT_EQUIPPED;
       break;
     case 'Purple Bat':
-      eventName = GOOGLE_ANALYTICS.EVENTS.DEGEN_INVENTORY_PURPLE_BAT_EQUIPPED;
+      eventName = GTM_EVENTS.DEGEN_INVENTORY_PURPLE_BAT_EQUIPPED;
       break;
     case 'Bread Bat':
-      eventName = GOOGLE_ANALYTICS.EVENTS.DEGEN_INVENTORY_BREAD_BAT_EQUIPPED;
+      eventName = GTM_EVENTS.DEGEN_INVENTORY_BREAD_BAT_EQUIPPED;
       break;
     default:
       break;
@@ -134,16 +134,16 @@ export const getSlotAnalyticsEventName = (slot: string) => {
   let eventName = '';
   switch (slot) {
     case 'Back':
-      eventName = GOOGLE_ANALYTICS.EVENTS.DEGEN_SLOT_BACK_UNEQUIPPED;
+      eventName = GTM_EVENTS.DEGEN_SLOT_BACK_UNEQUIPPED;
       break;
     case 'Head':
-      eventName = GOOGLE_ANALYTICS.EVENTS.DEGEN_SLOT_HEAD_UNEQUIPPED;
+      eventName = GTM_EVENTS.DEGEN_SLOT_HEAD_UNEQUIPPED;
       break;
     case 'Pet':
-      eventName = GOOGLE_ANALYTICS.EVENTS.DEGEN_SLOT_PET_UNEQUIPPED;
+      eventName = GTM_EVENTS.DEGEN_SLOT_PET_UNEQUIPPED;
       break;
     case 'Weapon':
-      eventName = GOOGLE_ANALYTICS.EVENTS.DEGEN_SLOT_WEAPON_UNEQUIPPED;
+      eventName = GTM_EVENTS.DEGEN_SLOT_WEAPON_UNEQUIPPED;
       break;
     default:
       break;

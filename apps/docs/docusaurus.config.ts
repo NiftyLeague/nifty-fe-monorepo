@@ -68,7 +68,7 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           editUrl: 'https://github.com/NiftyLeague/nifty-fe-monorepo/tree/main/apps/docs',
         },
-        googleAnalytics: { trackingID: 'G-DKL8WWG236', anonymizeIP: true },
+        googleTagManager: { containerId: 'GTM-MHCXVXJZ' },
         theme: { customCss: ['./src/css/colors.css', './src/css/fonts.css', './src/css/custom.css'] },
       } satisfies Preset.Options,
     ],

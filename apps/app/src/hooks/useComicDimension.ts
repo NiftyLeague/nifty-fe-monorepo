@@ -1,6 +1,6 @@
 'use client';
 
-import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
 
 /*
   ~ What it does? ~

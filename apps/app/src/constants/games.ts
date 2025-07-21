@@ -1,5 +1,4 @@
 import type { Game } from '@/types/games';
-import { GOOGLE_ANALYTICS } from './google-analytics';
 
 const games: Game[] = [
   {
@@ -76,18 +75,17 @@ const games: Game[] = [
   },
 ];
 
-export const getGameViewedAnalyticsEventName = (pathname: string) => {
-  let eventName = '';
+export const getGameViewedAnalyticsContentId = (pathname: string) => {
   if (pathname.includes('smashers')) {
-    eventName = GOOGLE_ANALYTICS.EVENTS.NIFTY_SMASHERS_GAME_VIEWED;
+    return 'nifty_smashers';
   } else if (pathname.includes('wen-game')) {
-    eventName = GOOGLE_ANALYTICS.EVENTS.WEN_GAME_VIEWED;
+    return 'wen_game';
   } else if (pathname.includes('mt-gawx')) {
-    eventName = GOOGLE_ANALYTICS.EVENTS.MT_GAWX_GAME_VIEWED;
+    return 'mt_gawx';
   } else if (pathname.includes('crypto-winter')) {
-    eventName = GOOGLE_ANALYTICS.EVENTS.CRYPTO_WINTER_GAME_VIEWED;
+    return 'crypto_winter';
   }
-  return eventName;
+  return null;
 };
 
 export default games;

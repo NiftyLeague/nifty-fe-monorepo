@@ -9,7 +9,7 @@ import Chip from '@/components/extended/Chip';
 
 // project imports
 import Icon from '@nl/ui/base/Icon';
-import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
 import { useDispatch } from '@/store/hooks';
 import { activeItem, openDrawer } from '@/store/slices/menu';
 

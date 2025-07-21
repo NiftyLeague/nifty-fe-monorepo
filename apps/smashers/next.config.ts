@@ -5,6 +5,25 @@
 import type { NextConfig } from 'next';
 import { withSentryConfig } from '@sentry/nextjs';
 
+// Fail-fast environment variable validation
+const requiredEnvs = [
+  'NEXT_PUBLIC_APPLE_STORE_ID',
+  'NEXT_PUBLIC_APPLE_STORE_LINK',
+  'NEXT_PUBLIC_GOOGLE_PLAY_LINK',
+  'NEXT_PUBLIC_EPIC_LINK',
+  'NEXT_PUBLIC_STEAM_LINK',
+];
+
+if (process.env.GITHUB_ACTIONS !== 'true') {
+  for (const env of requiredEnvs) {
+    if (!process.env[env]) {
+      throw new Error(`Build failed: Missing required environment variable "${env}"`);
+    }
+  }
+}
+
+const ENV = (process.env.VERCEL_ENV as 'production' | 'preview' | undefined) ?? 'development';
+
 const getAppleStoreLink = (countryCode = '') =>
   countryCode.length > 0
     ? `https://apps.apple.com/${countryCode.toLowerCase()}/app/${process.env.NEXT_PUBLIC_APPLE_STORE_ID}`
@@ -94,7 +113,7 @@ export default withSentryConfig(nextConfig, {
   // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
 
   // Upload a larger set of source maps for prettier stack traces (increases build time)
-  widenClientFileUpload: process.env.VERCEL_ENV === 'production',
+  widenClientFileUpload: ENV === 'production',
 
   // Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
   // This can increase your server load as well as your hosting bill.
