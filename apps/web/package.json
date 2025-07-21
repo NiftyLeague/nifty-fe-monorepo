@@ -30,7 +30,7 @@
     "viem": "^2.32.0"
   },
   "devDependencies": {
-    "@types/node": "^24.0.14",
+    "@types/node": "^24.0.15",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
     "@types/three": "^0.178.1",
