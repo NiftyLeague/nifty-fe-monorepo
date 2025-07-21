@@ -7,12 +7,12 @@ import Unity, { UnityContext } from 'react-unity-webgl';
 import { Box, Button, Stack } from '@mui/material';
 import { useAccount } from 'wagmi';
 
-import { gtm } from '@nl/ui/gtm';
+import { gtm, GTM_EVENTS } from '@nl/ui/gtm';
 import Preloader from '@nl/ui/custom/Preloader';
 import useTokensBalances from '@/hooks/balances/useTokensBalances';
 // import useFetch from '@/hooks/useFetch';
 import { NETWORK_NAME, TARGET_NETWORK } from '@/constants/networks';
-import { getGameViewedAnalyticsEventName } from '@/constants/games';
+import { getGameViewedAnalyticsContentId } from '@/constants/games';
 // import { ALL_RENTAL_API_URL } from '@/constants/url';
 import { DEBUG } from '@/constants/index';
 import withVerification from '@/components/wrapper/Authentication';
@@ -60,9 +60,9 @@ const Game = ({ unityContext, arcadeTokenRequired = false }: GameProps) => {
   }, [address, authMsg]);
 
   useEffect(() => {
-    const eventName = getGameViewedAnalyticsEventName(pathname);
-    if (eventName) {
-      gtm.sendEvent(eventName);
+    const contentId = getGameViewedAnalyticsContentId(pathname);
+    if (contentId) {
+      gtm.sendEvent(GTM_EVENTS.SELECT_CONTENT, { content_type: 'game', content_id: contentId });
     }
   }, [pathname]);
 
