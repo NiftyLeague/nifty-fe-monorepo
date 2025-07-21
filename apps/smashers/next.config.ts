@@ -14,9 +14,11 @@ const requiredEnvs = [
   'NEXT_PUBLIC_STEAM_LINK',
 ];
 
-for (const env of requiredEnvs) {
-  if (!process.env[env]) {
-    throw new Error(`Build failed: Missing required environment variable "${env}"`);
+if (process.env.GITHUB_ACTIONS !== 'true') {
+  for (const env of requiredEnvs) {
+    if (!process.env[env]) {
+      throw new Error(`Build failed: Missing required environment variable "${env}"`);
+    }
   }
 }
 
