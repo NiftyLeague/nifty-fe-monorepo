@@ -2,7 +2,7 @@ import type { PropsWithChildren } from 'react';
 import type { Metadata, Viewport } from 'next';
 import Head from 'next/head';
 
-import { GoogleTagManager } from '@nl/ui/gtm';
+import { GoogleTagManager, WebVitals } from '@nl/ui/gtm';
 import { customFontClassName } from '@nl/ui/fonts';
 import { FeatureFlagProvider } from '@/contexts/FeatureFlagsProvider';
 
@@ -85,6 +85,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
 
       <body suppressHydrationWarning className="dark">
         <FeatureFlagProvider>{children}</FeatureFlagProvider>
+        <WebVitals />
       </body>
     </html>
   );

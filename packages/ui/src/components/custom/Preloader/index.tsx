@@ -4,8 +4,8 @@ import { useEffect, useMemo, useState } from 'react';
 import * as Progress from '@radix-ui/react-progress';
 
 import { cn } from '@nl/ui/utils';
-import useStopwatch from '@nl/ui/hooks/useStopwatch';
-import useUserAgent from '@nl/ui/hooks/useUserAgent';
+import { useStopwatch } from '@nl/ui/hooks/useStopwatch';
+import { useUserAgent } from '@nl/ui/hooks/useUserAgent';
 import styles from './index.module.css';
 
 const PreloaderSVG = () => (

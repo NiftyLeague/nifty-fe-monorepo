@@ -18,7 +18,7 @@ const usePrevious = <T>(value: T, initialValue: T): T => {
   return ref.current;
 };
 
-const useEffectDebugger = (
+export const useEffectDebugger = (
   effectHook: EffectCallback,
   dependencies: DependencyList,
   dependencyNames: string[] = [],

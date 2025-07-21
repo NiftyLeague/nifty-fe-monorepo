@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import type { NextPage } from 'next';
 import Image from 'next/image';
 
-import useMediaQuery from '@nl/ui/hooks/useMediaQuery';
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
 import ConsoleGame from '@nl/ui/custom/ConsoleGame';
 
