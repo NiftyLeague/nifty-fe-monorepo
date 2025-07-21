@@ -6,12 +6,11 @@ import Image from 'next/image';
 import { Box, CircularProgress, Typography } from '@mui/material';
 import { toast } from 'react-toastify';
 
-import { gtm } from '@nl/ui/gtm';
+import { gtm, GTM_EVENTS } from '@nl/ui/gtm';
 import useAuth from '@/hooks/useAuth';
 import usePlayerProfile from '@/hooks/usePlayerProfile';
 import { ResponsiveTable } from '@/components/ResponsiveTable';
 import type { ReturnDataType, TableProps, TableRowType } from '@/types/leaderboard';
-import { getLeaderboardRankAnalyticsEventName } from '@/constants/leaderboards';
 import { fetchRankByUserId, fetchScores } from '@/utils/leaderboard';
 import { errorMsgHandler } from '@/utils/errorHandlers';
 
@@ -92,10 +91,7 @@ export default function EnhancedTable({
   }, [paginationModel.page]);
 
   const handleCheckYourRank = async () => {
-    const eventName = getLeaderboardRankAnalyticsEventName(selectedGame);
-    if (eventName) {
-      gtm.sendEvent(eventName, { event_label: selectedTable.display });
-    }
+    gtm.sendEvent(GTM_EVENTS.SELECT_CONTENT, { content_type: 'leaderboard_rank', content_id: selectedGame });
     const errorMes = 'You have not played the game yet! Play the game to see your rank on the leaderboard.';
 
     if (!profile?.id) {

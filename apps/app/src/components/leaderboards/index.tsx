@@ -8,12 +8,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 import { gtm, GTM_EVENTS } from '@nl/ui/gtm';
 import type { LeaderboardGame, TableType } from '@/types/leaderboard';
-import {
-  getGameLeaderboardViewedAnalyticsEventName,
-  LEADERBOARD_GAME_LIST,
-  LEADERBOARD_TIME_FILTERS,
-  NiftySmashersTables,
-} from '@/constants/leaderboards';
+import { LEADERBOARD_GAME_LIST, LEADERBOARD_TIME_FILTERS, NiftySmashersTables } from '@/constants/leaderboards';
 import EnhancedTable from '@/components/leaderboards/EnhancedTable/EnhancedTable';
 // const TopModal = dynamic(() => import('../TopModal'), { ssr: false });
 import './modal-table.css';
@@ -38,10 +33,7 @@ export default function LeaderBoards(): React.ReactNode {
   const [selectedTimeFilter, setTimeFilter] = useState<string>('all_time');
 
   useEffect(() => {
-    const eventName = getGameLeaderboardViewedAnalyticsEventName(selectedGame);
-    if (eventName) {
-      gtm.sendEvent(eventName);
-    }
+    gtm.sendEvent(GTM_EVENTS.SELECT_CONTENT, { content_type: 'leaderboard', content_id: selectedGame });
     const params = new URLSearchParams(searchParams);
     params.set('game', selectedGame);
     router.push(pathname + '?' + params.toString());
@@ -54,7 +46,6 @@ export default function LeaderBoards(): React.ReactNode {
     const currentGame = LEADERBOARD_GAME_LIST.filter(game => game.key === gameKey)?.[0];
     if (!currentGame) return;
     const { display, tables } = currentGame;
-    gtm.sendEvent(GTM_EVENTS.LEADERBOARD_GAME_FILTER_CHANGED, { event_label: display });
 
     if (gameKey === 'nftl_burner' && selectedTimeFilter === 'weekly') {
       // Since NFTL Burner doesn't have weekly leaderboard
@@ -70,7 +61,6 @@ export default function LeaderBoards(): React.ReactNode {
     if (table) {
       setTable(table);
       setType(table.key);
-      gtm.sendEvent(GTM_EVENTS.LEADERBOARD_TYPE_FILTER_CHANGED, { event_label: table.display });
     }
   };
 

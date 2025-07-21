@@ -6,6 +6,8 @@ import type { NextConfig } from 'next';
 import { withSentryConfig } from '@sentry/nextjs';
 import TerserPlugin from 'terser-webpack-plugin';
 
+const ENV = (process.env.VERCEL_ENV as 'production' | 'preview' | undefined) ?? 'development';
+
 const nextConfig: NextConfig = {
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
@@ -71,7 +73,7 @@ export default withSentryConfig(nextConfig, {
   // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
 
   // Upload a larger set of source maps for prettier stack traces (increases build time)
-  widenClientFileUpload: process.env.VERCEL_ENV === 'production',
+  widenClientFileUpload: ENV === 'production',
 
   // Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
   // This can increase your server load as well as your hosting bill.
