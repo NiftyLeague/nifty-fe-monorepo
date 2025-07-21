@@ -11,8 +11,6 @@ export const CATEGORIES = {
 
 export type CustomEventCategories = (typeof CATEGORIES)[keyof typeof CATEGORIES];
 
-// TODO: cleanup custom events and use GA4 recommended events where possible
-// https://support.google.com/analytics/answer/9267735?hl=en
 export const EVENTS = {
   // Authentication
   LOGIN: 'login',
@@ -20,14 +18,16 @@ export const EVENTS = {
   // Ecommerce
   ADD_TO_CART: 'add_to_cart',
   BEGIN_CHECKOUT: 'begin_checkout',
-  BUY_ARCADE_TOKEN_COMPLETE: 'buy_arcade_token_complete',
-  BUY_ARCADE_TOKEN_STARTED: 'buy_arcade_token_started',
-  PURCHASE: 'purchase',
-  RENTAL_BUY_NFTL_CLICKED: 'rental_buy_nftl_clicked',
-  RENTAL_PASS_CLICKED: 'rental_pass_clicked',
-  RENTAL_RECRUIT_CLICKED: 'rental_recruit_clicked',
-  RENTAL_REFRESH_BALANCE_CLICKED: 'rental_refresh_balance_clicked',
+  PURCHASE_COMPLETE: 'purchase',
+  SPEND_VIRTUAL_CURRENCY: 'spend_virtual_currency',
   // Engagement
+  SELECT_CONTENT: 'select_content',
+  // Other
+  GAME_REFERRAL: 'game_referral',
+  WEB_VITALS: 'web_vitals',
+  // Deprecated
+  // TODO: cleanup custom events and use GA4 recommended events where possible
+  // https://support.google.com/analytics/answer/9267735?hl=en
   DEGEN_EQUIP_ANIMATION_POSE_CLICKED: 'degen_equip_animation_pose_clicked',
   DEGEN_EQUIP_ANIMATION_ROTATE_CLICKED: 'degen_equip_animation_rotate_clicked',
   DEGEN_EQUIP_CLICKED: 'degen_equip_clicked',
@@ -44,10 +44,10 @@ export const EVENTS = {
   DEGEN_SLOT_PET_UNEQUIPPED: 'degen_slot_pet_unequipped',
   DEGEN_SLOT_WEAPON_UNEQUIPPED: 'degen_slot_weapon_unequipped',
   PLAY_ARCADE_GAMES_BUTTON_TAPPED: 'play_arcade_games_button_tapped',
-  SELECT_CONTENT: 'select_content',
-  // Other
-  GAME_REFERRAL: 'game_referral',
-  WEB_VITALS: 'web_vitals',
+  RENTAL_BUY_NFTL_CLICKED: 'rental_buy_nftl_clicked',
+  RENTAL_PASS_CLICKED: 'rental_pass_clicked',
+  RENTAL_RECRUIT_CLICKED: 'rental_recruit_clicked',
+  RENTAL_REFRESH_BALANCE_CLICKED: 'rental_refresh_balance_clicked',
 } as const;
 
 export type CustomEventNames = (typeof EVENTS)[keyof typeof EVENTS];
@@ -59,14 +59,14 @@ export const EVENT_CATEGORIES = {
   // Ecommerce
   [EVENTS.ADD_TO_CART]: CATEGORIES.ECOMMERCE,
   [EVENTS.BEGIN_CHECKOUT]: CATEGORIES.ECOMMERCE,
-  [EVENTS.BUY_ARCADE_TOKEN_COMPLETE]: CATEGORIES.ECOMMERCE,
-  [EVENTS.BUY_ARCADE_TOKEN_STARTED]: CATEGORIES.ECOMMERCE,
-  [EVENTS.PURCHASE]: CATEGORIES.ECOMMERCE,
-  [EVENTS.RENTAL_BUY_NFTL_CLICKED]: CATEGORIES.ECOMMERCE,
-  [EVENTS.RENTAL_PASS_CLICKED]: CATEGORIES.ECOMMERCE,
-  [EVENTS.RENTAL_RECRUIT_CLICKED]: CATEGORIES.ECOMMERCE,
-  [EVENTS.RENTAL_REFRESH_BALANCE_CLICKED]: CATEGORIES.ECOMMERCE,
+  [EVENTS.PURCHASE_COMPLETE]: CATEGORIES.ECOMMERCE,
+  [EVENTS.SPEND_VIRTUAL_CURRENCY]: CATEGORIES.ECOMMERCE,
   // Engagement
+  [EVENTS.SELECT_CONTENT]: CATEGORIES.ENGAGEMENT,
+  // Other
+  [EVENTS.GAME_REFERRAL]: CATEGORIES.REFERRAL,
+  [EVENTS.WEB_VITALS]: CATEGORIES.WEB_VITALS,
+  // Deprecated
   [EVENTS.DEGEN_EQUIP_ANIMATION_POSE_CLICKED]: CATEGORIES.ENGAGEMENT,
   [EVENTS.DEGEN_EQUIP_ANIMATION_ROTATE_CLICKED]: CATEGORIES.ENGAGEMENT,
   [EVENTS.DEGEN_EQUIP_CLICKED]: CATEGORIES.ENGAGEMENT,
@@ -83,8 +83,8 @@ export const EVENT_CATEGORIES = {
   [EVENTS.DEGEN_SLOT_PET_UNEQUIPPED]: CATEGORIES.ENGAGEMENT,
   [EVENTS.DEGEN_SLOT_WEAPON_UNEQUIPPED]: CATEGORIES.ENGAGEMENT,
   [EVENTS.PLAY_ARCADE_GAMES_BUTTON_TAPPED]: CATEGORIES.ENGAGEMENT,
-  [EVENTS.SELECT_CONTENT]: CATEGORIES.ENGAGEMENT,
-  // Other
-  [EVENTS.GAME_REFERRAL]: CATEGORIES.REFERRAL,
-  [EVENTS.WEB_VITALS]: CATEGORIES.WEB_VITALS,
+  [EVENTS.RENTAL_BUY_NFTL_CLICKED]: CATEGORIES.ECOMMERCE,
+  [EVENTS.RENTAL_PASS_CLICKED]: CATEGORIES.ECOMMERCE,
+  [EVENTS.RENTAL_RECRUIT_CLICKED]: CATEGORIES.ECOMMERCE,
+  [EVENTS.RENTAL_REFRESH_BALANCE_CLICKED]: CATEGORIES.ECOMMERCE,
 } as Record<CustomEventNames | (string & {}), CustomEventCategories>;

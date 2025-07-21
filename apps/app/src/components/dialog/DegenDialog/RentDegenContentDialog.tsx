@@ -133,7 +133,8 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
   };
 
   const handleRent = useCallback(async () => {
-    gtm.sendEvent(GTM_EVENTS.BEGIN_CHECKOUT);
+    const items = [{ item_id: `${degen?.id}`, item_name: 'DEGEN Rental' }];
+    gtm.sendEvent(GTM_EVENTS.BEGIN_CHECKOUT, { items });
 
     setLoading(true);
     try {
@@ -141,18 +142,23 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
       setLoading(false);
       setRentSuccess(true);
 
-      gtm.sendEvent(GTM_EVENTS.PURCHASE);
+      gtm.sendEvent(GTM_EVENTS.PURCHASE_COMPLETE, { items });
+      gtm.sendEvent(GTM_EVENTS.SPEND_VIRTUAL_CURRENCY, {
+        virtual_currency_name: 'NFTL',
+        value: degen?.price || 0,
+        item_name: 'DEGEN Rental',
+      });
     } catch (err: unknown) {
       setLoading(false);
       toast.error(errorMsgHandler(err), { theme: 'dark' });
     }
-  }, [rent]);
+  }, [degen?.id, degen?.price, rent]);
 
   const isShowRentalPassOption = () => rentalPassCount > 0 && !degen?.rental_count;
 
   useEffect(() => {
-    gtm.sendEvent(GTM_EVENTS.ADD_TO_CART);
-  }, []);
+    gtm.sendEvent(GTM_EVENTS.ADD_TO_CART, { items: [{ item_id: `${degen?.id}`, item_name: 'DEGEN Rental' }] });
+  }, [degen?.id]);
 
   const openTOSDialog: React.MouseEventHandler<HTMLAnchorElement> = event => {
     event.preventDefault();

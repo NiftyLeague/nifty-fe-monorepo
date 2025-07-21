@@ -13,6 +13,7 @@ import {
   Typography,
 } from '@mui/material';
 
+import { gtm, GTM_EVENTS } from '@nl/ui/gtm';
 import useNetworkContext from '@/hooks/useNetworkContext';
 import useNFTLAllowance from '@/hooks/useNFTLAllowance';
 import useTokensBalances from '@/hooks/balances/useTokensBalances';
@@ -75,6 +76,11 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): React.ReactNode 
       const result = await submitTxWithGasEstimate(tx, degenContract, 'changeName', args);
       if (result) {
         setRenameSuccess(true);
+        gtm.sendEvent(GTM_EVENTS.SPEND_VIRTUAL_CURRENCY, {
+          virtual_currency_name: 'NFTL',
+          value: 1000,
+          item_name: 'DEGEN Rename Fee',
+        });
         onSuccess?.();
       }
     }
