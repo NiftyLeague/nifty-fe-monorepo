@@ -1,74 +1,20 @@
-/* stylelint-disable docusaurus/copyright-header */
 /**
  * Any CSS included here will be global. The classic template
  * bundles Infima by default. Infima is a CSS framework designed to
  * work well for content-centric websites.
  */
 
-/* You can override the default Infima variables here. */
-
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans:wght@100;400;500;700&family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&family=Roboto+Mono&display=swap');
 
 :root {
-    --ifm-font-family-base: "IBM Plex Sans", "DM Sans", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu,
-        Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont, "Segoe UI", Helvetica,
-        Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    /* --ifm-heading-font-family: inherit; */
-    /* --ifm-heading-font-family: "Press Start 2P", "DM Sans", "IBM Plex Sans", sans-serif; */
-    --ifm-heading-font-family: "DM Sans", "IBM Plex Sans", sans-serif;
-    --ifm-font-family-monospace: "IBM Plex Mono", SFMono-Regular, Menlo, Monaco, Consolas,
-        "Liberation Mono", "Courier New", monospace;
-
-    --ifm-font-size-base: 100%;
-    --ifm-font-weight-light: 300;
-    --ifm-font-weight-normal: 400;
-    --ifm-font-weight-semibold: 500;
-    --ifm-font-weight-bold: 700;
-
-    --ifm-h1-font-size: 2rem;
-    --ifm-h2-font-size: 1.8rem;
-    --ifm-h3-font-size: 1.2rem;
-    --ifm-h4-font-size: 1rem;
-    --ifm-h5-font-size: 0.83rem;
-    --ifm-h6-font-size: 0.67rem;
-
-    --ifm-font-weight-base: var(--ifm-font-weight-normal);
-    --ifm-blockquote-font-size: var(--ifm-font-size-base);
-    --ifm-button-font-weight: var(--ifm-font-weight-bold);
-    --ifm-code-font-size: 90%;
-    --ifm-dropdown-font-weight: var(--ifm-font-weight-semibold);
-    --ifm-heading-font-weight: var(--ifm-font-weight-bold);
-    --ifm-heading-line-height: 1.25;
-    --ifm-heading-margin-bottom: var(--ifm-spacing-vertical);
-    --ifm-heading-margin-top: 0;
-    --ifm-line-height-base: 1.65;
-    --ifm-pagination-font-size: 1rem;
-    --ifm-pre-line-height: 1.45;
-    --ifm-table-head-font-weight: var(--ifm-font-weight-bold);
-    --ifm-link-decoration: none;
-    --ifm-link-hover-decoration: underline;
-}
-
-p {
-    line-height: 1.5rem;
-    font-weight: 400;
-}
-
-.markdown h1 {
-    --ifm-h1-font-size: 2rem;
-}
-.markdown h2 {
-    --ifm-h2-font-size: 1.8rem;
-}
-.markdown h3 {
-    --ifm-h3-font-size: 1.2rem;
-}
-.markdown h4 {
-    --ifm-h4-font-size: 1rem;
-}
-.markdown h5 {
-    --ifm-h5-font-size: 0.83rem;
-}
-.markdown h6 {
-    --ifm-h6-font-size: 0.67rem;
+  --ifm-font-family-base: 'IBM Plex Sans', sans-serif;
+  --ifm-font-family-monospace: 'Roboto Mono', monospace;
+  --ifm-font-size-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+  --ifm-h1-font-size: 2.25rem;
+  --ifm-h2-font-size: 1.875rem;
+  --ifm-h3-font-size: 1.5rem;
+  --ifm-h4-font-size: 1.25rem;
+  --ifm-h5-font-size: 1.125rem;
+  --ifm-h6-font-size: 1rem;
+  --ifm-code-font-size: 95%;
 }
