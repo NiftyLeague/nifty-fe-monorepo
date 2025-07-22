@@ -19,7 +19,7 @@ const DocsHeader = styled.header`
 
 const HeaderBanner = styled.div`
   display: flex;
-  padding: 4rem 0;
+  padding: 4rem 0 2rem 0;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -53,13 +53,9 @@ export default function HomepageHeader() {
     <DocsHeader>
       <HeaderBanner>
         <Heading as="h1">{siteConfig.title}</Heading>
-        <p style={{ maxWidth: '640px', marginTop: '1rem', fontWeight: 500 }}>
+        <p style={{ maxWidth: '550px', marginTop: '1rem', fontWeight: 500 }}>
           The pages that follow contain comprehensive documentation of the Nifty League ecosystem. If you are new to
-          Nifty League, you might want to check out our{' '}
-          <Link style={{ color: '#ff007a' }} to="/docs/faq/general">
-            FAQ
-          </Link>{' '}
-          first.
+          Nifty League, you might want to check out our <Link to="/docs/faq/general">FAQ</Link> first.
         </p>
         <HideMedium>
           <SearchBar />

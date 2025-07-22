@@ -18,7 +18,7 @@ export default function HomepageSocials() {
               <Discord style={{ width: '48px', height: '48px' }} />
             </StyledIcon>
             <div>
-              <h3>Discord</h3>
+              <h4>Discord</h4>
               <p>Join our community for realtime Q&amp;A.</p>
             </div>
           </CenterCard>
@@ -29,7 +29,7 @@ export default function HomepageSocials() {
               <Twitter style={{ width: '48px', height: '48px' }} />
             </StyledIcon>
             <div>
-              <h3>Twitter (X)</h3>
+              <h4>Twitter (X)</h4>
               <p>Follow our latest annoucements.</p>
             </div>
           </CenterCard>
@@ -41,7 +41,7 @@ export default function HomepageSocials() {
               <Github style={{ width: '48px', height: '48px' }} />
             </StyledIcon>
             <div>
-              <h3>Github</h3>
+              <h4>Github</h4>
               <p>View all public Nifty League repositories.</p>
             </div>
           </CenterCard>

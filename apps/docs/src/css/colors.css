@@ -1,158 +1,131 @@
-/* stylelint-disable docusaurus/copyright-header */
 /**
  * Any CSS included here will be global. The classic template
  * bundles Infima by default. Infima is a CSS framework designed to
  * work well for content-centric websites.
  */
 
-/* You can override the default Infima variables here. */
-
 :root {
-  --ifm-dark-value: 10%;
-  --ifm-darker-value: 15%;
-  --ifm-darkest-value: 30%;
-  --ifm-light-value: 15%;
-  --ifm-lighter-value: 30%;
-  --ifm-lightest-value: 50%;
-  --ifm-color-primary: #3578e5;
-  --ifm-color-primary-dark: rgb(48, 108, 206);
-  --ifm-color-primary-darker: rgb(45, 102, 195);
-  --ifm-color-primary-darkest: rgb(37, 84, 160);
-  --ifm-color-primary-light: rgb(83, 140, 233);
-  --ifm-color-primary-lighter: rgb(114, 161, 237);
-  --ifm-color-primary-lightest: rgb(154, 188, 242);
-  --ifm-color-secondary: #ebedf0;
-  --ifm-color-secondary-dark: rgb(212, 213, 216);
-  --ifm-color-secondary-darker: rgb(200, 201, 204);
-  --ifm-color-secondary-darkest: rgb(164, 166, 168);
-  --ifm-color-secondary-light: rgb(238, 240, 242);
-  --ifm-color-secondary-lighter: rgb(241, 242, 245);
-  --ifm-color-secondary-lightest: rgb(245, 246, 248);
-  --ifm-color-success: #00a400;
-  --ifm-color-success-dark: rgb(0, 148, 0);
-  --ifm-color-success-darker: rgb(0, 139, 0);
-  --ifm-color-success-darkest: rgb(0, 115, 0);
-  --ifm-color-success-light: rgb(38, 178, 38);
-  --ifm-color-success-lighter: rgb(77, 191, 77);
-  --ifm-color-success-lightest: rgb(128, 210, 128);
-  --ifm-color-info: #54c7ec;
-  --ifm-color-info-dark: rgb(76, 179, 212);
-  --ifm-color-info-darker: rgb(71, 169, 201);
-  --ifm-color-info-darkest: rgb(59, 139, 165);
-  --ifm-color-info-light: rgb(110, 207, 239);
-  --ifm-color-info-lighter: rgb(135, 216, 242);
-  --ifm-color-info-lightest: rgb(170, 227, 246);
-  --ifm-color-warning: #ffba00;
-  --ifm-color-warning-dark: rgb(230, 167, 0);
-  --ifm-color-warning-darker: rgb(217, 158, 0);
-  --ifm-color-warning-darkest: rgb(179, 130, 0);
-  --ifm-color-warning-light: rgb(255, 196, 38);
-  --ifm-color-warning-lighter: rgb(255, 207, 77);
-  --ifm-color-warning-lightest: rgb(255, 221, 128);
-  --ifm-color-danger: #fa383e;
-  --ifm-color-danger-dark: rgb(225, 50, 56);
-  --ifm-color-danger-darker: rgb(213, 48, 53);
-  --ifm-color-danger-darkest: rgb(175, 39, 43);
-  --ifm-color-danger-light: rgb(251, 86, 91);
-  --ifm-color-danger-lighter: rgb(251, 116, 120);
-  --ifm-color-danger-lightest: rgb(253, 156, 159);
-  --ifm-color-white: #fffefd;
-  --ifm-color-black: #0c0b0a;
-  --ifm-color-gray-0: var(--ifm-color-white);
-  --ifm-color-gray-100: #f5f6f7;
-  --ifm-color-gray-200: #ebedf0;
-  --ifm-color-gray-300: #dadde1;
-  --ifm-color-gray-400: #ccd0d5;
-  --ifm-color-gray-500: #bec3c9;
-  --ifm-color-gray-600: #8d949e;
-  --ifm-color-gray-700: #606770;
-  --ifm-color-gray-800: #444950;
-  --ifm-color-gray-900: #1c1e21;
-  --ifm-color-gray-1000: var(--ifm-color-black);
-  --ifm-color-emphasis-0: var(--ifm-color-gray-0);
-  --ifm-color-emphasis-100: var(--ifm-color-gray-100);
-  --ifm-color-emphasis-200: var(--ifm-color-gray-200);
-  --ifm-color-emphasis-300: var(--ifm-color-gray-300);
-  --ifm-color-emphasis-400: var(--ifm-color-gray-400);
-  --ifm-color-emphasis-500: var(--ifm-color-gray-500);
-  --ifm-color-emphasis-600: var(--ifm-color-gray-600);
-  --ifm-color-emphasis-700: var(--ifm-color-gray-700);
-  --ifm-color-emphasis-800: var(--ifm-color-gray-800);
-  --ifm-color-emphasis-900: var(--ifm-color-gray-900);
-  --ifm-color-emphasis-1000: var(--ifm-color-gray-1000);
-  --ifm-color-content: var(--ifm-color-emphasis-900);
-  --ifm-color-content-inverse: var(--ifm-color-emphasis-0);
-  --ifm-color-content-secondary: #606770;
-  --ifm-font-color-base: var(--ifm-color-content);
-  --ifm-font-color-base-inverse: var(--ifm-color-content-inverse);
-  --ifm-font-color-secondary: var(--ifm-color-content-secondary);
-  --ifm-background-color: transparent;
-  --ifm-background-surface-color: var(--ifm-color-content-inverse);
+  --ifm-color-white: oklch(98.5% 0 0);
+  --ifm-color-gray-100: oklch(96.7% 0.001 286.375);
+  --ifm-color-gray-200: oklch(92% 0.004 286.32);
+  --ifm-color-gray-300: oklch(87.1% 0.006 286.286);
+  --ifm-color-gray-400: oklch(70.5% 0.015 286.067);
+  --ifm-color-gray-500: oklch(55.2% 0.016 285.938);
+  --ifm-color-gray-600: oklch(44.2% 0.017 285.786);
+  --ifm-color-gray-700: oklch(37% 0.013 285.805);
+  --ifm-color-gray-800: oklch(27.4% 0.006 286.033);
+  --ifm-color-gray-900: oklch(21% 0.006 285.885);
+  --ifm-color-black: oklch(14.1% 0.005 285.823);
 
-  --ifm-global-shadow-lw: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
-  --ifm-global-shadow-md: 0 5px 40px rgba(0, 0, 0, 0.2);
-  --ifm-global-shadow-tl: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-  
-  --collapse-button-bg-color-dark: #2e333a;
-  --ifm-alert-background-color: inherit;
-  --ifm-alert-border-color: inherit;
-  --ifm-alert-color: var(--ifm-font-color-base-inverse);
-  --ifm-badge-background-color: inherit;
-  --ifm-badge-border-color: inherit;
-  --ifm-badge-color: var(--ifm-color-white);
-  --ifm-blockquote-color: #6a737d;
-  --ifm-breadcrumb-color-active: var(--ifm-color-primary);
-  --ifm-breadcrumb-item-background-active: var(--ifm-hover-overlay);
-  --ifm-button-background-color: inherit;
-  --ifm-button-border-color: var(--ifm-button-background-color);
-  --ifm-button-color: var(--ifm-font-color-base-inverse);
-  --ifm-card-background-color: var(--ifm-background-surface-color);
-  --ifm-code-background: var(--ifm-color-emphasis-200);
-  --ifm-code-color: var(--ifm-color-emphasis-900);
-  --ifm-dropdown-background-color: var(--ifm-background-surface-color);
-  --ifm-dropdown-hover-background-color: var(--ifm-hover-overlay);
-  --ifm-dropdown-link-color: var(--ifm-font-color-base);
-  --ifm-footer-background-color: var(--ifm-color-emphasis-100);
-  --ifm-footer-color: inherit;
-  --ifm-footer-link-color: var(--ifm-color-emphasis-700);
-  --ifm-footer-link-hover-color: var(--ifm-color-primary);
-  --ifm-footer-title-color: inherit;
-  --ifm-heading-color: inherit;
-  --ifm-hero-background-color: var(--ifm-background-surface-color);
-  --ifm-hero-text-color: var(--ifm-color-emphasis-800);
-  --ifm-hr-border-color: var(--ifm-color-emphasis-500);
+  --ifm-color-success: #06df72;
+  --ifm-color-success-dark: #05c967;
+  --ifm-color-success-darker: #05be61;
+  --ifm-color-success-darkest: #049c50;
+  --ifm-color-success-light: #07f57d;
+  --ifm-color-success-lighter: #0ff983;
+  --ifm-color-success-lightest: #30f994;
+
+  --ifm-color-warning: #fdc700;
+  --ifm-color-warning-dark: #e4b300;
+  --ifm-color-warning-darker: #d7a900;
+  --ifm-color-warning-darkest: #b18b00;
+  --ifm-color-warning-light: #ffce17;
+  --ifm-color-warning-lighter: #ffd024;
+  --ifm-color-warning-lightest: #ffd84a;
+
+  --ifm-color-danger: #ff6467;
+  --ifm-color-danger-dark: #ff4144;
+  --ifm-color-danger-darker: #ff2f33;
+  --ifm-color-danger-darkest: #f90005;
+  --ifm-color-danger-light: #ff878a;
+  --ifm-color-danger-lighter: #ff999b;
+  --ifm-color-danger-lightest: #ffcfcf;
+}
+
+html[data-theme='dark'] {
+  --ifm-color-primary: #5e72eb;
+  --ifm-color-primary-dark: #4158e7;
+  --ifm-color-primary-darker: #324ce6;
+  --ifm-color-primary-darkest: #1933cd;
+  --ifm-color-primary-light: #7b8cef;
+  --ifm-color-primary-lighter: #8a98f0;
+  --ifm-color-primary-lightest: #b6bff6;
+
+  --ifm-background-color: var(--ifm-color-black);
+  --ifm-font-color-base: var(--ifm-color-white);
+  --ifm-footer-background-color: var(--ifm-color-gray-900);
+  --ifm-heading-color: var(--ifm-color-white);
   --ifm-link-color: var(--ifm-color-primary);
-  --ifm-link-hover-color: var(--ifm-link-color);
-  --ifm-menu-color-active: var(--ifm-color-primary);
-  --ifm-menu-color-background-active: var(--ifm-hover-overlay);
-  --ifm-menu-color-background-hover: var(--ifm-hover-overlay);
-  --ifm-menu-color: var(--ifm-color-emphasis-700);
-  --ifm-navbar-background-color: var(--ifm-background-surface-color);
-  --ifm-navbar-link-active-color: var(--ifm-link-color);
-  --ifm-navbar-link-color: var(--ifm-font-color-base);
-  --ifm-navbar-link-hover-color: var(--ifm-color-primary);
-  --ifm-navbar-search-input-background-color: var(--ifm-color-emphasis-200);
-  --ifm-navbar-search-input-color: var(--ifm-color-emphasis-800);
-  --ifm-navbar-search-input-placeholder-color: var(--ifm-color-emphasis-500);
-  --ifm-navbar-shadow: var(--ifm-global-shadow-lw);
-  --ifm-pagination-color-active: var(--ifm-color-primary);
-  --ifm-pagination-item-active-background: var(--ifm-hover-overlay);
-  --ifm-pagination-nav-color-hover: var(--ifm-color-primary);
-  --ifm-pills-color-active: var(--ifm-color-primary);
-  --ifm-pills-color-background-active: var(--ifm-hover-overlay);
-  --ifm-pre-background: var(--ifm-color-emphasis-100);
-  --ifm-pre-color: inherit;
-  --ifm-scrollbar-thumb-background-color: #888;
-  --ifm-scrollbar-thumb-hover-background-color: #555;
-  --ifm-scrollbar-track-background-color: #f1f1f1;
-  --ifm-table-background: transparent;
-  --ifm-table-border-color: var(--ifm-color-emphasis-200);
-  --ifm-table-cell-color: inherit;
-  --ifm-table-head-background: inherit;
-  --ifm-table-head-color: inherit;
-  --ifm-table-stripe-background: var(--ifm-color-emphasis-100);
-  --ifm-tabs-color-active: var(--ifm-color-primary);
-  --ifm-tabs-color: var(--ifm-font-color-secondary);
-  --ifm-toc-border-color: var(--ifm-color-emphasis-300);
-  --ifm-toc-link-color: var(--ifm-color-content-secondary);
+  --ifm-menu-color: var(--ifm-color-white);
+  --ifm-menu-color-active: var(--ifm-color-primary-lightest);
+  --ifm-menu-color-background-active: var(--ifm-color-primary-dark);
+  --ifm-menu-background-color: var(--ifm-color-white);
+  --ifm-navbar-background-color: var(--ifm-color-gray-900);
+  --ifm-tabs-color: var(--ifm-color-white);
+}
+
+html[data-theme='light'] {
+  --ifm-color-primary: #620edf;
+  --ifm-color-primary-dark: #580dc9;
+  --ifm-color-primary-darker: #530cbe;
+  --ifm-color-primary-darkest: #450a9c;
+  --ifm-color-primary-light: #6d14f0;
+  --ifm-color-primary-lighter: #7420f1;
+  --ifm-color-primary-lightest: #8941f3;
+
+  --ifm-background-color: var(--ifm-color-white);
+  --ifm-font-color-base: var(--ifm-color-black);
+  --ifm-footer-background-color: var(--ifm-color-gray-100);
+  --ifm-heading-color: var(--ifm-color-black);
+  --ifm-link-color: oklch(59.2% 0.249 0.584);
+  --ifm-menu-color: var(--ifm-color-black);
+  --ifm-menu-color-active: var(--ifm-color-primary-darkest);
+  --ifm-menu-color-background-active: var(--ifm-color-primary-lightest);
+  --ifm-navbar-background-color: var(--ifm-color-white);
+  --ifm-tabs-color: var(--ifm-color-black);
+}
+
+/* ==================================|| NAVBAR ||================================== */
+
+html[data-theme='dark'] .navbar__logo {
+  filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(337deg) brightness(112%) contrast(104%);
+}
+
+/* ==============================|| ALGOLIA SEARCH ||============================== */
+html[data-theme='dark'] .DocSearch {
+  /* Modal */
+  --docsearch-container-background: rgba(47, 55, 69, 0.7);
+  --docsearch-modal-background: var(--ifm-background-color);
+  /* Search box */
+  --docsearch-text-color: var(--ifm-color-white);
+  --docsearch-searchbox-background: var(--ifm-background-color);
+  --docsearch-searchbox-focus-background: var(--ifm-color-black);
+  /* Hit */
+  --docsearch-hit-color: var(--ifm-font-color-base);
+  --docsearch-hit-active-color: var(--ifm-color-gray-300);
+  --docsearch-hit-background: var(--ifm-color-gray-900);
+  --docsearch-searchbox-background: rgba(0, 0, 0, 0.2);
+  --docsearch-muted-color: var(--ifm-color-secondary-darkest);
+  /* Footer */
+  --docsearch-footer-background: var(--ifm-background-surface-color);
+  --docsearch-key-gradient: linear-gradient(-26.5deg, var(--ifm-color-gray-800) 0%, var(--ifm-color-gray-900) 100%);
+}
+
+html[data-theme='light'] .DocSearch {
+  /* Modal */
+  --docsearch-container-background: rgba(94, 100, 112, 0.7);
+  --docsearch-modal-background: var(--ifm-color-secondary-lighter);
+  /* Search box */
+  --docsearch-text-color: var(--ifm-color-black);
+  --docsearch-searchbox-background: var(--ifm-color-secondary);
+  --docsearch-searchbox-focus-background: var(--ifm-color-white);
+  /* Hit */
+  --docsearch-hit-color: var(--ifm-font-color-base);
+  --docsearch-hit-active-color: var(--ifm-color-white);
+  --docsearch-hit-background: var(--ifm-color-white);
+  --docsearch-searchbox-background: rgba(0, 0, 0, 0.05);
+  --docsearch-highlight-color: var(--ifm-color-primary);
+  --docsearch-muted-color: var(--ifm-color-secondary-darkest);
+  /* Footer */
+  --docsearch-footer-background: var(--ifm-color-white);
 }
