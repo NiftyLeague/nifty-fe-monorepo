@@ -27,7 +27,7 @@ export const GITHUB_LINKS: GuideLink[] = [
   { title: 'nifty-fe-monorepo', to: 'https://github.com/NiftyLeague/nifty-fe-monorepo' },
   { title: 'nifty-smart-contracts', to: 'https://github.com/NiftyLeague/nifty-smart-contracts' },
   { title: 'nifty-league-subgraph', to: 'https://github.com/NiftyLeague/nifty-league-subgraph' },
-  { title: 'nifty-smashers-web', to: 'https://github.com/NiftyLeague/NiftySmashersWebApp' },
+  { title: 'nifty-world', to: 'https://github.com/NiftyLeague/NiftyWorld' },
 ];
 
 export const QUICK_LINKS: GuideLink[] = [
@@ -51,7 +51,7 @@ const LinkRow = styled.div`
   justify-content: space-between;
   display: flex;
   flex-direction: row;
-  a h3 {
+  a h4 {
     color: black !important;
   }
 `;
@@ -62,7 +62,7 @@ function Guide({ title, text, to }: GuideLink) {
       <Card key={title} style={{ marginBottom: '1rem' }}>
         <LinkRow>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <h3 style={{ marginBottom: 0 }}>{title}</h3>
+            <h4 style={{ marginBottom: 0 }}>{title}</h4>
           </div>
           <LinkArrow />
         </LinkRow>
@@ -79,7 +79,7 @@ function GithubLink({ title, to }: GuideLink) {
         <LinkRow>
           <StyledIcon>
             <Github />
-            <h3 style={{ marginBottom: 0, marginLeft: 16 }}>{title}</h3>
+            <h4 style={{ marginBottom: 0, marginLeft: 16 }}>{title}</h4>
           </StyledIcon>
           <LinkArrow />
         </LinkRow>
@@ -92,7 +92,7 @@ function QuickLink({ title, to }: GuideLink) {
   return (
     <Link style={{}} to={to}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-        <h3 style={{ marginBottom: 0 }}>{title}</h3>
+        <h4 style={{ marginBottom: 0 }}>{title}</h4>
         <LinkArrow />
       </div>
     </Link>
