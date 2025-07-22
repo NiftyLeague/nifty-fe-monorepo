@@ -24,21 +24,21 @@ const FEATURE_LIST: FeatureItem[] = [
     href: '#',
     icon: Logo,
     to: '/docs/overview/intro',
-    text: `Explore our gaming platform's vision. Delve into core concepts, our inception, and aspirations to understand our exciting journey in Web3 gaming.`,
+    text: `Explore our platform's vision. Delve into core concepts, our inception, and aspirations to understand our exciting journey in Web3 gaming!`,
   },
   {
     title: 'Developers or Creators',
     href: '#',
     icon: CodeXmlIcon,
     to: '/docs/overview/nifty-dao/about',
-    text: `Nifty League offers game developers a streamlined platform to kickstart their development process. Start your next game's journey with us!`,
+    text: `Nifty League offers game developers a streamlined platform to kickstart their development process. Start your next game's journey here!`,
   },
   {
     title: 'NFTL',
     href: '#',
     icon: NFTL,
     to: '/docs/overview/nifty-dao/nftl/overview',
-    text: `Learn about our gaming ecosystem's native currency and governance token, NFTL. What is NFTL's utility? What is governance?`,
+    text: `Learn about our gaming ecosystem's native currency and governance token, NFTL. What is NFTL's utility? What does governance mean?`,
   },
 ];
 
@@ -73,7 +73,7 @@ function Feature(feature: FeatureItem) {
 
           <ArrowUpRightIcon color="#494749" size={32} strokeWidth={1.5} />
         </TopSection>
-        <h3 style={{ marginBottom: '.75rem', color: feature.color }}>{feature.title}</h3>
+        <h4 style={{ marginBottom: '.75rem', color: feature.color }}>{feature.title}</h4>
         <p style={{ marginBottom: '0.5rem' }}>{feature.text}</p>
       </ShadowCard>
     </Link>
