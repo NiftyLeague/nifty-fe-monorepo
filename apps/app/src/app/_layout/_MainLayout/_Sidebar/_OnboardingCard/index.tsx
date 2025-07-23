@@ -16,7 +16,7 @@ import {
   linearProgressClasses,
 } from '@mui/material';
 
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 
 // styles
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({

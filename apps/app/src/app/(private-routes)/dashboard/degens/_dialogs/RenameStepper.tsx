@@ -12,7 +12,7 @@ import StepLabel from '@mui/material/StepLabel';
 import Stepper from '@mui/material/Stepper';
 import Typography from '@mui/material/Typography';
 
-import Icon, { type IconProps } from '@nl/ui/base/Icon';
+import { Icon, type IconProps } from '@nl/ui/base/icon';
 
 const PREFIX = 'RenameStepper';
 

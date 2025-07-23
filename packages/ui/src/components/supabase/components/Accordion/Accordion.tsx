@@ -2,7 +2,7 @@
 
 import React, { createContext, useCallback, useContext } from 'react';
 import { Disclosure, Transition } from '@headlessui/react';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import Typography from '../Typography';
 import AccordionStyles from './Accordion.module.css';
 

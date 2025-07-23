@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSnackbar } from 'notistack';
 import Button from '@nl/ui/supabase/Button';
 import Input from '@nl/ui/supabase/Input';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 
 import fetchJson from '../../utils/fetchJson';
 import { errorMsgHandler } from '../../utils/errorHandlers';

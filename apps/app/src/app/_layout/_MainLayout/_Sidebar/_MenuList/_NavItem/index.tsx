@@ -8,7 +8,7 @@ import { Avatar, ListItemButton, ListItemIcon, ListItemText, Typography } from '
 import Chip from '@/components/extended/Chip';
 
 // project imports
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
 import { useDispatch } from '@/store/hooks';
 import { activeItem, openDrawer } from '@/store/slices/menu';

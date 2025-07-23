@@ -10,7 +10,7 @@ import MuiBreadcrumbs from '@mui/material/Breadcrumbs';
 
 // project imports
 import { BASE_PATH } from '@/config';
-import Icon, { type IconName } from '@nl/ui/base/Icon';
+import { Icon, type IconName } from '@nl/ui/base/icon';
 import type { NavItemType, NavItemTypeObject } from '@/types';
 
 const linkSX = {

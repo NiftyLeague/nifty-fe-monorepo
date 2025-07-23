@@ -1,4 +1,4 @@
-import type { IconName } from '@nl/ui/base/Icon';
+import type { IconName } from '@nl/ui/base/icon';
 
 // material-ui
 import { Theme } from '@nl/theme';

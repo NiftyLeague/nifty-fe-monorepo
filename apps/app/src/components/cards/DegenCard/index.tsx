@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 import { useTheme, Theme } from '@nl/theme';
 
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 // import Chip from '@/components/extended/Chip';
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder';
 import useClaimableNFTL from '@/hooks/balances/useClaimableNFTL';

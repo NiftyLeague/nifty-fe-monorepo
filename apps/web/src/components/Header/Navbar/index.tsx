@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import ExternalIcon from '@nl/ui/custom/ExternalIcon';
 import { ABOUT_LINKS, DAO_LINKS, PRODUCT_LINKS } from '../constants';
 

@@ -7,7 +7,7 @@ import Divider from '@nl/ui/supabase/Divider';
 import Input from '@nl/ui/supabase/Input';
 import Space from '@nl/ui/supabase/Space';
 import Typography from '@nl/ui/supabase/Typography';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import { cn } from '@nl/ui/utils';
 
 import fetchJson from '../../utils/fetchJson';

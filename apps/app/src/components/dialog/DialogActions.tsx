@@ -1,6 +1,6 @@
 import { useContext, cloneElement } from 'react';
 import { IconButton, styled } from '@mui/material';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import { DialogContext } from '.';
 import type { DialogAction } from '@/types/dialog';
 import callAll from '@/utils/callAll';

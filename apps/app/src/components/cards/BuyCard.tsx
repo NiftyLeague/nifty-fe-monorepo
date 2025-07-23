@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import useComicDimension from '@/hooks/useComicDimension';
 
 export interface BuyCardProps {

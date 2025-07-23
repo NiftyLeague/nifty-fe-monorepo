@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import { FormLayout } from '../../lib/Layout/FormLayout';
 import InputErrorIcon from '../../lib/Layout/InputErrorIcon';
 import InputIconContainer from '../../lib/Layout/InputIconContainer';

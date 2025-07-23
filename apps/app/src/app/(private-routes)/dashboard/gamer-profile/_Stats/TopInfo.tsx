@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Stack, Typography, Box, IconButton } from '@mui/material';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 
 import { useCopyToClipboard } from '@nl/ui/hooks/useCopyToClipboard';
 import { useGamerProfileContext } from '@/hooks/useGamerProfile';

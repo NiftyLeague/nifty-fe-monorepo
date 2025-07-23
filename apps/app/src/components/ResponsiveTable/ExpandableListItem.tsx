@@ -6,7 +6,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
 
-import Icon, { type IconProps } from '@nl/ui/base/Icon';
+import { Icon, type IconProps } from '@nl/ui/base/icon';
 import type { AccordionDetailsProps, AccordionProps, AccordionSummaryProps, Row, TypographyProps } from './types';
 
 type ExpandableListItemProps = {

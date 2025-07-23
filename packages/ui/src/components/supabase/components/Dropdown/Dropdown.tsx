@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import * as RadixDropdown from '@radix-ui/react-dropdown-menu';
 import type * as RadixDropdownTypes from '@radix-ui/react-dropdown-menu';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 
 import DropdownStyles from './Dropdown.module.css';
 
