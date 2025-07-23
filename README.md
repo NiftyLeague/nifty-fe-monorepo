@@ -16,16 +16,17 @@ This Turborepo includes the following apps/packages:
 - `docs`: a [Docusaurus](https://docusaurus.io/) app for our company docs at [niftyleague.com/docs](http://niftyleague.com/docs)
 - `smashers`: a [Next.js](https://nextjs.org/) app for our game's website [niftysmashers.com](http://niftysmashers.com)
 - `web`: a [Next.js](https://nextjs.org/) app for our company's website [niftyleague.com](http://niftyleague.com)
+- `template`: a [Next.js](https://nextjs.org/) template to fork for new apps or test new features
 
 ### Packages
 
 - `@nl/eslint-config`: global [eslint](https://eslint.org/) configurations (includes `eslint-plugin-next` and `eslint-config-prettier`) for code analysis/linting
 - `@nl/imx-passport`: an [Immutable Passport](https://www.immutable.com/products/passport) instance to connect apps to the Immutable zkEVM blockchain
-- `@nl/playfab`: a [PlayFab](https://playfab.com/) client API for our game services. Includes auth UI components for PlayFab login.
+- `@nl/playfab`: a [PlayFab](https://playfab.com/) client API for our game services. Includes auth UI components for PlayFab login
 - `@nl/prettier-config`: global [Prettier](https://prettier.io/) config overrides for code formatting
 - `@nl/theme`: a common theme wrapper for [Next.js](https://nextjs.org/) apps using [Material-UI](https://mui.com/material-ui/)
 - `@nl/typescript-config`: global [TypeScript](https://www.typescriptlang.org/) configs `tsconfig.json`
-- `@nl/ui`: a stub [React](https://react.dev/) component library shared by all applications. Includes global [Tailwind CSS](https://tailwindcss.com/) styles.
+- `@nl/ui`: a stub [React](https://react.dev/) component library using [Shadcn/ui](https://ui.shadcn.com/). Includes global [Tailwind CSS](https://tailwindcss.com/) styles
 
 > **Note:**
 > Each package/app strictly uses [TypeScript](https://www.typescriptlang.org/)
@@ -36,6 +37,7 @@ This Turborepo includes the following apps/packages:
 - `docs`: [http://localhost:3002](http://localhost:3002/docs/)
 - `smashers`: [http://localhost:3003](http://localhost:3003/)
 - `web`: [http://localhost:3000](http://localhost:3000)
+- `template`: [http://localhost:3005](http://localhost:3005)
 
 ### Utilities
 
@@ -75,16 +77,6 @@ We use [pnpm](https://pnpm.io/) to manage dependencies.
 pnpm install
 ```
 
-### Add dependencies
-
-Please install dependencies only where they're used.
-
-To add a dependency to a specific app directory use `--filter`
-
-```
-pnpm add PACKAGE_NAME --filter=DIRECTORY_NAME
-```
-
 ### Build
 
 To build all apps and packages, run the following command:
@@ -93,15 +85,18 @@ To build all apps and packages, run the following command:
 turbo build
 ```
 
+> **Note:**
+> This step is only necessary for running app in prod with `turbo start`
+
 ### Develop
 
-To develop all apps and packages, run the following command:
+To run all apps and packages locally, run the following command:
 
 ```
 turbo dev
 ```
 
-### Testing
+## Testing
 
 To lint all apps and packages, run the following command:
 
@@ -130,7 +125,74 @@ To run all of the above test commands together, run the following command:
 turbo test
 ```
 
-### Managing dependencies
+### CI Tests
+
+We have several GitHub Actions workflows pre-configured to run tests such as linting, formatting, and type checking on pull requests to `main` or `staging`. All tests must pass before a pull request can be merged.
+
+If you want to run the CI tests locally, you can use [act](https://github.com/nektar/act) to run the workflows.
+
+On **MacOS**, you can install act using Homebrew:
+
+```
+brew install act
+```
+
+On **Windows**, you can install act using Chocolatey:
+
+```
+choco install act
+```
+
+After you have act installed, you can run the following command to run the all CI tests locally via Docker:
+
+```
+pnpm act-ci
+```
+
+> **Note:**
+> GitHub automatically provides a `GITHUB_TOKEN` secret when running workflows inside GitHub. With act, you need to mannually provide yours each run. The above command will automatically prompt you to input your GitHub personal access token!
+
+## Managing dependencies
+
+### Add dependencies
+
+Please install dependencies only where they're used.
+
+To add a dependency to a specific app directory use `--filter`
+
+```
+pnpm add PACKAGE_NAME --filter=DIRECTORY_NAME
+```
+
+### `pnpm` Filtering
+
+Filtering allows you to restrict commands to specific subsets of packages.
+
+Selectors may be specified via the `--filter` (or `-F`) flag:
+
+```
+pnpm --filter <app/package_selector> <command>
+```
+
+**App Selectors:**
+
+- `app`
+- `docs`
+- `smashers`
+- `web`
+- `template`
+
+**Package Selectors:**
+
+- `eslint-config`
+- `imx-passport`
+- `playfab`
+- `prettier-config`
+- `theme`
+- `typescript-config`
+- `ui`
+
+### Update dependencies
 
 We use [Syncpack](https://jamiemason.github.io/syncpack/) to ensure consistent dependency versions.
 
@@ -152,10 +214,9 @@ Query and inspect all dependencies in our project, both valid and invalid.
 
 `syncpack update`
 
-Update all dependencies to the latest versions on the npm registry.  
-This covers dev, prod, and peer dependencies and updates all apps/packages recursively.
+Update all dependencies to the latest versions on the npm registry. This covers dev, prod, and peer dependencies and updates all apps/packages recursively.
 
-### Updating dependencies via pnpm instead
+### Updating dependencies via `pnpm` instead
 
 `--recursive, -r`
 
@@ -187,61 +248,24 @@ pnpm up -r --workspace
 pnpm up -r -L -i
 ```
 
-### pnpm Filtering
+## Global Component Library
 
-Filtering allows you to restrict commands to specific subsets of packages.
+We use [Shadcn/ui](https://ui.shadcn.com/) as foundational components for all of our apps. All Shadcn UI components are located at `@nl/ui/base`.
 
-Selectors may be specified via the `--filter` (or `-F`) flag:
+### Adding New Components
 
-```
-pnpm --filter <app/package_selector> <command>
-```
-
-**App Selectors:**
-
-- `app`
-- `docs`
-- `smashers`
-- `web`
-
-**Package Selectors:**
-
-- `eslint-config`
-- `imx-passport`
-- `playfab`
-- `prettier-config`
-- `theme`
-- `typescript-config`
-- `ui`
-
-### CI Tests
-
-We have several GitHub Actions workflows pre-configured to run tests such as linting, formatting, and type checking on pull requests to `main` or `staging`. All tests must pass before a pull request can be merged.
-
-If you want to run the CI tests locally, you can use [act](https://github.com/nektar/act) to run the workflows.
-
-On **MacOS**, you can install act using Homebrew:
+Add Shadcn UI components to `@nl/ui/base` using the provided script:
 
 ```
-brew install act
+pnpm add-ui COMPONENT_NAME
 ```
 
-On **Windows**, you can install act using Chocolatey:
-
-```
-choco install act
-```
-
-After you have act installed, you can run the following command to run the all CI tests locally via Docker:
-
-```
-pnpm act-ci
-```
+If you need to customize, extend, or build custom global components they should be placed in the `@nl/ui/custom` package.
 
 > **Note:**
-> GitHub automatically provides a `GITHUB_TOKEN` secret when running workflows inside GitHub. With act, you need to mannually provide yours each run. The above command will automatically prompt you to input your GitHub personal access token!
+> Use **named exports** for explicit & consistent naming
 
-### Remote Caching
+## Remote Caching
 
 Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
 
@@ -283,7 +307,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 ## Support
 
