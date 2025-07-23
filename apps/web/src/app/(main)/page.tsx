@@ -68,7 +68,7 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
         <div className="home-hero-halo">
           <div className="flex-grow">
             <AnimatedWrapper>
-              <div className="animate-hover2 transition-fade-start transition-fade delay-extreme">
+              <div className="animate-hover transition-fade-start transition-fade delay-extreme-offset">
                 <Image
                   src="/img/hero/halo.webp"
                   alt="Home Hero Halo"

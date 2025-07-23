@@ -8,12 +8,7 @@ Many packages can be shared across apps. Packages can be things like `ui | lib |
 2. go to `ui` folder and create a `package.json` with proper namespace
 
 ```json
-{
-  "name": "@nl/ui",
-  "version": "0.0.0",
-  "type": "module",
-  "main": "index.js"
-}
+{ "name": "@nl/ui", "version": "0.0.0", "type": "module", "main": "index.js" }
 ```
 
 3. add the `package` to the `app` you need it in using the `pnpm --filter` + `pnpm add` command
@@ -29,7 +24,7 @@ cd apps/web
 pnpm add @nl/ui
 ```
 
-4. pnpm adds the workspace at the bottom of your `docs/package.json`
+4. pnpm adds the workspace at the bottom of your app's `package.json`
 
 ```json
 "dependencies": {

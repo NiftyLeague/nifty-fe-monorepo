@@ -99,7 +99,7 @@ const ConsoleGame = ({ src }: { src: string }) => {
       </div>
       <div className={styles.gaming_controller}>
         <AnimatedWrapper parallax parallaxDirection="down" parallaxIntensity="normal">
-          <div className="animate-hover2 transition-fade-start transition-fade delay-long">
+          <div className="animate-hover transition-fade-start transition-fade delay-long-offset">
             <Image
               alt="Controller Right"
               className="pixelated"
