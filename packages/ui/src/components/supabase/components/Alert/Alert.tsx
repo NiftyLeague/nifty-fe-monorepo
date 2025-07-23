@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 
 import AlertStyles from './Alert.module.css';
 

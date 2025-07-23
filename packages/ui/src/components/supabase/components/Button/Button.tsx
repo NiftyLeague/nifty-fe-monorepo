@@ -1,5 +1,5 @@
 import React, { forwardRef, useRef, useImperativeHandle, PropsWithChildren, JSX } from 'react';
-import Icon, { type IconProps } from '@nl/ui/base/Icon';
+import { Icon, type IconProps } from '@nl/ui/base/icon';
 import ButtonStyles from './Button.module.css';
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {

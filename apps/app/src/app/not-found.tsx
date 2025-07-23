@@ -7,7 +7,7 @@ import { useTheme, gridSpacing, styled } from '@nl/theme';
 import { Button, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 
 // project imports
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import { DASHBOARD_PATH } from '@/config';
 import AnimateButton from '@/components/extended/AnimateButton';
 

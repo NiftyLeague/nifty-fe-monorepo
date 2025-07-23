@@ -8,7 +8,7 @@ import { useTheme } from '@nl/theme';
 import { Collapse, List, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 
 // project imports
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import { NavGroupProps } from '../_NavGroup';
 import NavItem from '../_NavItem';
 

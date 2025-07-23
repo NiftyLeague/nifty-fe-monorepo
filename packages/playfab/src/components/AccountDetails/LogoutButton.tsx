@@ -1,7 +1,7 @@
 'use client';
 
 import Button from '@nl/ui/supabase/Button';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import useUserSession from '../../hooks/useUserSession';
 import fetchJson from '../../utils/fetchJson';
 

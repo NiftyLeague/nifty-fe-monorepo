@@ -1,6 +1,6 @@
 import { Button, Stack, TextField, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { styled } from '@nl/theme';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import SortButton from '@/components/extended/SortButton';
 
 const SearchTextField = styled(TextField)({

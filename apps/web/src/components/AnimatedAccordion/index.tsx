@@ -5,7 +5,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import { styled } from '@mui/material/styles';
 
 const StyledAccordion = styled(Accordion)({

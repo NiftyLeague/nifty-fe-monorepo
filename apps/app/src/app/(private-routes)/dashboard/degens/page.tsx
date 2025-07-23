@@ -10,7 +10,7 @@ import xor from 'lodash/xor';
 import { Grid, IconButton, Pagination, Stack, Dialog } from '@mui/material';
 
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder';
 import DegensFilter from '@/components/extended/DegensFilter';

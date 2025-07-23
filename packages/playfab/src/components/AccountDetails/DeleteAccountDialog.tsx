@@ -6,7 +6,7 @@ import { useSnackbar } from 'notistack';
 
 import Button from '@nl/ui/supabase/Button';
 import Modal from '@nl/ui/supabase/Modal';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 
 import fetchJson from '../../utils/fetchJson';
 import { errorMsgHandler } from '../../utils/errorHandlers';

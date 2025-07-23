@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from '@/store/hooks';
 import { openDrawer } from '@/store/slices/menu';
 
 // assets
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import ExternalIcon from '@nl/ui/custom/ExternalIcon';
 import AddNFTL from './AddNFTLToMetamask';
 import LogoSection from '../_LogoSection';

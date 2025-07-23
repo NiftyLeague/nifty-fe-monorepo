@@ -9,7 +9,7 @@ import { createOrderSwapEtherToNFTL, getCowMarketPrice, getOrderDetail } from '@
 import { Box, Button, LinearProgress, Link, Stack, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import { COW_PROTOCOL_URL } from '@/constants/url';
 import { formatNumberToDisplay } from '@nl/ui/utils';
 import { TARGET_NETWORK } from '@/constants/networks';

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import { Input } from '.';
 import { Button } from '../Button';
 

@@ -2,9 +2,7 @@
 
 import type { LucideProps } from 'lucide-react';
 import { DynamicIcon, type IconName } from 'lucide-react/dynamic';
-
-export type { IconName } from 'lucide-react/dynamic';
-export type IconSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type IconSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 const DEFAULT_SIZES: Record<IconSizes, number> = { xs: 14, sm: 18, md: 20, lg: 24, xl: 28 };
 
@@ -24,16 +22,16 @@ const DEFAULT_COLORS: Record<string, string> = {
   gray: 'var(--color-base-500)',
 };
 
-export type IconColor = keyof typeof DEFAULT_COLORS;
+type IconColor = keyof typeof DEFAULT_COLORS;
 
-export interface IconProps extends Omit<LucideProps, 'size'> {
+interface IconProps extends Omit<LucideProps, 'size'> {
   name: IconName;
   size?: IconSizes | number;
   color?: IconColor | (string & {});
   fill?: IconColor | (string & {});
 }
 
-export const Icon = ({
+const Icon = ({
   absoluteStrokeWidth = true,
   color = 'currentColor',
   fill = 'none',
@@ -61,4 +59,5 @@ export const Icon = ({
   );
 };
 
-export default Icon;
+export { Icon };
+export type { IconColor, IconName, IconProps, IconSizes };

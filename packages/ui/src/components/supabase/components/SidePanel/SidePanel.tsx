@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Transition } from '@headlessui/react';
 import * as Dialog from '@radix-ui/react-dialog';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 
 import Button from '../Button';
 import Typography from '../Typography';

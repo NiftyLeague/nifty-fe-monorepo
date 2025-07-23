@@ -4,7 +4,7 @@ import { useContext, useState, useEffect } from 'react';
 import { IconButton, Box, Typography, Stack } from '@mui/material';
 import { toast } from 'react-toastify';
 
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import { Dialog, DialogTrigger, DialogContent, DialogContext } from '@/components/dialog';
 import SectionSlider from '@/components/sections/SectionSlider';
 import DegenImage from '@/components/cards/DegenCard/DegenImage';
