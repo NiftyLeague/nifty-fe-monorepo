@@ -16,6 +16,7 @@
     "./styles.css": "./src/styles/globals.css"
   },
   "scripts": {
+    "add-component": "pnpm dlx shadcn@latest add $@",
     "clean": "rm -rf node_modules && rm -rf .turbo && rm -rf .storybook",
     "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\"",
     "lint": "eslint . --max-warnings 0",
