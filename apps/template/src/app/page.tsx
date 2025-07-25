@@ -64,7 +64,7 @@ export default function Page(): React.ReactNode {
       <div className={styles.description}>
         <p>
           examples/basic&nbsp;
-          <Code className="font-bold">app</Code>
+          <Code className="font-bold">app/page.tsx</Code>
         </p>
         <div>
           <a
@@ -73,7 +73,15 @@ export default function Page(): React.ReactNode {
             target="_blank"
             className="text-foreground"
           >
-            By <Image alt="Vercel Logo" height={24} priority src="icons/platform/vercel.svg" width={100} color="red" />
+            By{' '}
+            <Image
+              alt="Vercel Logo"
+              height={24}
+              priority
+              src="icons/platform/vercel.svg"
+              width={100}
+              className="dark:invert"
+            />
           </a>
         </div>
       </div>

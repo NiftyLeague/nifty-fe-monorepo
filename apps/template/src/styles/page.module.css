@@ -29,9 +29,10 @@
   position: relative;
   margin: 0;
   padding: 1rem;
-  background-color: rgba(var(--callout-rgb), 0.5);
-  border: 1px solid rgba(var(--callout-border-rgb), 0.3);
+  background-color: var(--color-muted);
+  border: var(--border-default);
   border-radius: var(--border-radius-default);
+  color: var(--color-muted-foreground);
 }
 
 .hero {
@@ -184,7 +185,7 @@
 
 .turborepoWordmark {
   width: 160px;
-  fill: white;
+  fill: var(--color-foreground);
 
   @media (min-width: 768px) {
     width: 200px;

@@ -1,6 +1,5 @@
 'use client';
 
-import { Stack } from '@mui/material';
 import { useRef } from 'react';
 import type { NextPage } from 'next';
 import Image from 'next/image';
@@ -272,7 +271,7 @@ const Home: NextPage = () => {
               </div>
             </>
           )}
-          <Stack gap={2} sx={{ alignItems: 'center' }}>
+          <div className="gap-2 items-center">
             {isMobile && (
               <div className="relative flex-grow w-full">
                 <AnimatedWrapper>
@@ -314,7 +313,7 @@ const Home: NextPage = () => {
                 secondary={{ href: '/compete-and-earn', title: 'LEARN MORE' }}
               />
             </div>
-          </Stack>
+          </div>
         </div>
         {!isMobile && (
           <div className="w-1/2 relative">
