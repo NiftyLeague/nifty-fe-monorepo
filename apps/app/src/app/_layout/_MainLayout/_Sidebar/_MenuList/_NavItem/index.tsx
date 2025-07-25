@@ -72,7 +72,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
         zIndex: 1,
         py: level > 1 ? 1 : 1.25,
         pl: `${level * 24}px`,
-        '&:hover': { border: 'var(--border-purple)', backgroundColor: 'var(--color-background-3)' },
+        '&:hover': { border: 'var(--border-purple)', backgroundColor: 'var(--color-muted)' },
       }}
       selected={isSelected}
       onClick={() => itemHandler(item.id!)}

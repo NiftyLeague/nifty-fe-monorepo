@@ -24,7 +24,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   borderRadius: 30,
   [`&.${linearProgressClasses.colorPrimary}`]: {
     backgroundColor: 'var(--color-foreground)',
-    ...theme.applyStyles('dark', { backgroundColor: 'var(--color-foreground-2)' }),
+    ...theme.applyStyles('dark', { backgroundColor: 'var(--color-muted-foreground)' }),
   },
   [`&.${linearProgressClasses.bar}`]: {
     borderRadius: 'var(--border-radius-default)',
@@ -34,7 +34,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 }));
 
 const CardStyle = styled(Card)(({ theme }) => ({
-  background: 'var(--color-background-3)',
+  background: 'var(--color-muted)',
   border: 'var(--border-default)',
   marginBottom: '22px',
   overflow: 'hidden',

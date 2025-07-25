@@ -20,7 +20,7 @@ type Story = StoryObj<typeof ContextMenu>;
 const TriggerArea = () => (
   <div
     style={{
-      background: 'var(--color-background-3)',
+      background: 'var(--color-muted)',
       width: '280px',
       height: '180px',
       display: 'flex',

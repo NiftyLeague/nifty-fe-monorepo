@@ -131,7 +131,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
           color="inherit"
           elevation={0}
           sx={{
-            bgcolor: 'var(--color-background-2)',
+            bgcolor: 'var(--color-sidebar)',
             transition: theme => (drawerOpen ? theme.transitions.create('width') : 'none'),
           }}
         >

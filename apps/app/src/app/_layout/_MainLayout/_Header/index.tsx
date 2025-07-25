@@ -45,7 +45,7 @@ const Header = () => {
             ...theme.typography.mediumAvatar,
             overflow: 'hidden',
             transition: 'all .2s ease-in-out',
-            background: 'var(--color-background-3)',
+            background: 'var(--color-muted)',
             color: 'var(--color-blue)',
             '&:hover': { background: 'var(--color-purple)', color: 'var(--color-foreground)' },
           }}
