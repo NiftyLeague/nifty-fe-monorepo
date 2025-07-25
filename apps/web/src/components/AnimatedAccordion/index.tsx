@@ -1,59 +1,27 @@
-'use client';
-
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-
 import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
-import { Icon } from '@nl/ui/base/icon';
-import { styled } from '@mui/material/styles';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@nl/ui/base/accordion';
 
-const StyledAccordion = styled(Accordion)({
-  border: 'none',
-  marginBottom: 12,
-  backdropFilter: 'blur(65.0688px)',
-  backgroundColor: 'transparent',
-  borderRadius: 20,
-
-  '& .MuiCollapse-wrapper': { marginBottom: 12 },
-  '& .MuiAccordionSummary-root': {
-    backgroundColor: 'var(--color-muted)',
-    color: 'var(--color-foreground)',
-    fontWeight: 600,
-    padding: '12px 24px',
-    borderRadius: 20,
-  },
-  '& .MuiAccordionSummary-expandIconWrapper': { color: 'var(--color-foreground)' },
-  '& .MuiAccordionDetails-root': {
-    backgroundColor: 'var(--color-card)',
-    color: 'var(--color-foreground)',
-    padding: 24,
-    borderRadius: 20,
-  },
-});
-
-const AnimatedAccordion = ({
-  index,
-  question,
-  answer,
-}: {
-  index: number;
+interface AccordionItemProps {
   question: string;
-  answer: React.ReactNode;
-}) => {
+  answer: string | React.ReactNode;
+}
+
+interface AccordionProps {
+  items: AccordionItemProps[];
+}
+
+const AnimatedAccordion = ({ items }: AccordionProps) => {
   return (
     <AnimatedWrapper>
-      <div className="transition-fade-quick transition-fade-start delay-normal">
-        <StyledAccordion>
-          <AccordionSummary
-            expandIcon={<Icon name="chevron-down" size="xl" strokeWidth={2.5} />}
-            aria-controls={`panel${index}-content`}
-            id={`panel${index}-header`}
-          >
-            {question}
-          </AccordionSummary>
-          <AccordionDetails>{answer}</AccordionDetails>
-        </StyledAccordion>
+      <div className="transition-fade-quick transition-fade-start delay-normal bg-card border-1 rounded-md">
+        <Accordion type="single" collapsible>
+          {items.map(({ question, answer }, index) => (
+            <AccordionItem value={`item-${index}`} key={index}>
+              <AccordionTrigger className="px-4 md:px-6">{question}</AccordionTrigger>
+              <AccordionContent className="px-4 md:px-6 text-muted-foreground">{answer}</AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
       </div>
     </AnimatedWrapper>
   );

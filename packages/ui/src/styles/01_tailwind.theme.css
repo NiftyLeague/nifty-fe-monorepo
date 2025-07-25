@@ -87,7 +87,7 @@
   --secondary: var(--color-blue-500);
   --secondary-foreground: var(--color-blue-50);
 
-  --muted: var(--color-base-100);
+  --muted: var(--color-base-200);
   --muted-foreground: var(--color-base-600);
   --accent: var(--color-base-100);
   --accent-foreground: var(--color-base-900);
