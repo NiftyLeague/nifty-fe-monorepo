@@ -17,7 +17,7 @@ const StyledAccordion = styled(Accordion)({
 
   '& .MuiCollapse-wrapper': { marginBottom: 12 },
   '& .MuiAccordionSummary-root': {
-    backgroundColor: 'var(--color-background-3)',
+    backgroundColor: 'var(--color-muted)',
     color: 'var(--color-foreground)',
     fontWeight: 600,
     padding: '12px 24px',
@@ -25,7 +25,7 @@ const StyledAccordion = styled(Accordion)({
   },
   '& .MuiAccordionSummary-expandIconWrapper': { color: 'var(--color-foreground)' },
   '& .MuiAccordionDetails-root': {
-    backgroundColor: 'var(--color-background-2)',
+    backgroundColor: 'var(--color-card)',
     color: 'var(--color-foreground)',
     padding: 24,
     borderRadius: 20,

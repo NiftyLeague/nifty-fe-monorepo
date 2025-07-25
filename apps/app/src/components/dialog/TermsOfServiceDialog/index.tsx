@@ -1,4 +1,4 @@
-import { Button, Container, Dialog, DialogProps, Stack } from '@mui/material';
+import { Button, Dialog, DialogProps, Stack } from '@mui/material';
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
 
 import TermsOfServiceContent from './TermsOfServiceContent';
@@ -13,9 +13,7 @@ const TermsOfServiceDialog = ({ open, onClose, ...rest }: TermsOfServiceDialogPr
   return (
     <Dialog maxWidth="sm" scroll="paper" fullScreen={fullScreen} onClose={onClose} open={open} {...rest}>
       <Stack sx={{ overflow: 'none' }} direction="column" gap={0} width="100%">
-        <Container sx={{ background: 'var(--color-background-3)' }}>
-          <h2>Terms and Conditions</h2>
-        </Container>
+        <h2 className="text-center mb-5">Terms and Conditions</h2>
         <Stack
           sx={{ overflowY: 'scroll', overflowX: 'hidden', height: fullScreen ? 'calc(100vh - 184px)' : '65vh' }}
           direction="column"
@@ -24,14 +22,14 @@ const TermsOfServiceDialog = ({ open, onClose, ...rest }: TermsOfServiceDialogPr
         >
           <TermsOfServiceContent />
         </Stack>
-        <Container sx={{ background: 'var(--color-background-3)', pt: '1.2em' }}>
+        <div className="flex mt-3 px-4">
           <Button fullWidth variant="contained" onClick={() => onClose({}, 'accepted')}>
             Accept
           </Button>
           <Button fullWidth onClick={() => onClose({}, 'cancel')}>
             Close
           </Button>
-        </Container>
+        </div>
       </Stack>
     </Dialog>
   );

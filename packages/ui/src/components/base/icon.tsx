@@ -8,7 +8,7 @@ const DEFAULT_SIZES: Record<IconSizes, number> = { xs: 14, sm: 18, md: 20, lg: 2
 
 const DEFAULT_COLORS: Record<string, string> = {
   foreground: 'var(--color-foreground)',
-  dim: 'var(--color-foreground-2)',
+  dim: 'var(--color-muted-foreground)',
   dark: 'var(--color-dark)',
   light: 'var(--color-light)',
 

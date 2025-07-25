@@ -16,7 +16,7 @@
   width: 100%;
   height: 100%;
   text-align: center;
-  background-color: var(--color-background-2);
+  background-color: var(--color-popover);
   z-index: 9999;
   transform: translateY(0);
   transition: all 0.7s cubic-bezier(0.86, 0, 0.07, 1) 0.55s;

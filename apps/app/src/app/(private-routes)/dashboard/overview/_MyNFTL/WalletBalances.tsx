@@ -20,11 +20,7 @@ const WalletBalances = (): React.ReactNode => {
           title="IMX Wallet"
           primary={`${formatNumberToDisplay(tokensBalances.NFTL.imx)} NFTL`}
           isLoading={loadingNFTLBal}
-          customStyle={{
-            backgroundColor: 'var(--color-background-3)',
-            border: 'var(--border-default)',
-            position: 'relative',
-          }}
+          customStyle={{ backgroundColor: 'var(--color-card)', border: 'var(--border-default)', position: 'relative' }}
           secondary="Available to Use"
           actions={
             <>
@@ -51,11 +47,7 @@ const WalletBalances = (): React.ReactNode => {
         <HoverDataCard
           title="ETH Wallet"
           primary={`${formatNumberToDisplay(tokensBalances.NFTL.eth)} NFTL`}
-          customStyle={{
-            backgroundColor: 'var(--color-background-3)',
-            border: 'var(--border-default)',
-            position: 'relative',
-          }}
+          customStyle={{ backgroundColor: 'var(--color-card)', border: 'var(--border-default)', position: 'relative' }}
           secondary="Available to Bridge"
           isLoading={loadingNFTLBal}
           actions={

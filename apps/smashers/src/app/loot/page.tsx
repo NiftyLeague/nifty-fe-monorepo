@@ -129,7 +129,7 @@ export default function Loot() {
         </Typography.Title>
         <Typography.Title
           level={5}
-          className="text-foreground-2"
+          className="text-muted-foreground"
           style={{ fontWeight: 400, lineHeight: 1.6, maxWidth: '700px', marginInline: 'auto' }}
         >
           Explore the drop rates and rewards for all available crates and loot dives.

@@ -139,7 +139,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
         sx={{
           width: '100%',
           height: '100%',
-          background: 'var(--color-background-3)',
+          background: 'var(--color-card)',
           border: 'var(--border-default)',
           pb: 2,
           ...(sx as SxProps<Theme>),
@@ -190,7 +190,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
               href={id ? DEGEN_PURCHASE_URL(id) : '#'}
               target="_blank"
               rel="nofollow"
-              sx={{ fontSize: buttonFontSize, color: 'var(--color-foreground-2)' }}
+              sx={{ fontSize: buttonFontSize, color: 'var(--color-muted-foreground)' }}
             >
               {`#${id}`}
             </Link>
@@ -266,7 +266,6 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
           >
             {/* {false && (
               <Typography
-                sx={{ color: 'var(--color-background-3)' }}
                 sx={{
                   textDecoration: 'underline',
                   cursor: 'pointer',

@@ -25,8 +25,8 @@ const NavMenuLink = ({ children, href, toggleMobileMenu, external = false }: Nav
       rel={external ? 'noopener noreferrer' : undefined}
       className={`px-3 py-2 rounded-md text-base font-medium flex items-center ${
         isActive
-          ? 'bg-background-2 text-foreground-2'
-          : 'bg-background hover:bg-background-3 text-foreground hover:text-foreground2'
+          ? 'bg-primary text-primary-foreground'
+          : 'bg-none hover:bg-accent text-foreground hover:text-accent-foreground'
       }`}
     >
       {children}
@@ -38,7 +38,7 @@ const NavMenuLink = ({ children, href, toggleMobileMenu, external = false }: Nav
 const NavMenuGroup = ({ title, children }: { title: string; children: React.ReactNode }) => {
   return (
     <div className="pt-3 pb-2">
-      <h3 className="px-3 text-base text-foreground-2 uppercase tracking-wider">{title}</h3>
+      <h3 className="px-3 text-base text-muted-foreground uppercase tracking-wider">{title}</h3>
       <div className="mt-1 space-y-1">{children}</div>
     </div>
   );
@@ -93,12 +93,12 @@ const NavMenu = ({ toggleMobileMenu, isMobileMenuOpen }: NavMenuProps) => {
         </NavMenuGroup>
 
         {/* Launch App Button */}
-        <div className="pt-4 pb-3 border-t border-background-3">
+        <div className="pt-4 pb-3 border-t border-divider">
           <a
             href="https://app.niftyleague.com/"
             target="_blank"
             rel="noreferrer"
-            className="w-full flex items-center justify-center px-4 py-2 border border-foreground rounded-md shadow-sm text-base font-medium text-foreground bg-background hover:bg-background-2"
+            className="w-full flex items-center justify-center px-4 py-2 border border-foreground rounded-md shadow-sm text-base font-medium text-foreground bg-background hover:bg-accent"
             onClick={toggleMobileMenu}
           >
             Launch Web3 App

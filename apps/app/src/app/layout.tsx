@@ -6,6 +6,8 @@ import Script from 'next/script';
 import { ThemeProvider } from '@nl/theme';
 import { GoogleTagManager, WebVitals } from '@nl/ui/gtm';
 import { customFontClassName } from '@nl/ui/fonts';
+import { cn } from '@nl/ui/utils';
+
 import AppContextWrapper from '@/contexts/AppContextWrapper';
 import MainLayout from '@/app/_layout/_MainLayout';
 
@@ -61,17 +63,12 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en" className={customFontClassName}>
+    <html lang="en" suppressHydrationWarning className={cn(customFontClassName, 'dark')}>
       <Head>
         <link rel="icon" href="/favicon/nl_purple/favicon.ico" />
       </Head>
 
       <GoogleTagManager />
-      <Script
-        id="device-stats"
-        strategy="beforeInteractive"
-        src="https://d7ct17ettlkln.cloudfront.net/public/stats.js"
-      />
 
       <body suppressHydrationWarning>
         <ThemeProvider>
@@ -81,6 +78,11 @@ export default function RootLayout({ children }: PropsWithChildren) {
         </ThemeProvider>
 
         <WebVitals />
+        <Script
+          id="device-stats"
+          strategy="beforeInteractive"
+          src="https://d7ct17ettlkln.cloudfront.net/public/stats.js"
+        />
       </body>
     </html>
   );

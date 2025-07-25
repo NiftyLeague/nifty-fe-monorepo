@@ -121,7 +121,7 @@ const Breadcrumbs = ({
           textDecoration: 'none',
           alignContent: 'center',
           alignItems: 'center',
-          color: 'var(--color-foreground-2)',
+          color: 'var(--color-muted-foreground)',
         }}
       >
         {icons && <Icon name={item.icon ?? 'list-tree'} style={iconStyle} />}

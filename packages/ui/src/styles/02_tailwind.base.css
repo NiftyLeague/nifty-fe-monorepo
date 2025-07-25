@@ -6,6 +6,10 @@
   *::after {
     box-sizing: border-box;
   }
+  * {
+    /* necessary for shadcn/ui */
+    @apply border-border outline-ring/50;
+  }
 
   html {
     font-size: var(--root-font-size);
@@ -93,7 +97,7 @@
   /* ===============================|| FORMS ||=============================== */
 
   label {
-    color: var(--color-foreground-2);
+    color: var(--color-input-label);
     display: block;
     font-size: var(--text-xs); /* 0.75rem */
     font-weight: var(--font-weight-medium);
@@ -102,18 +106,18 @@
   }
 
   input {
-    background-color: inherit;
+    background-color: var(--color-input);
     border-radius: var(--border-radius-default);
     border: var(--border-default);
-    color: var(--color-foreground);
+    color: var(--color-input-value);
     font-size: var(--text-sm); /* 0.875rem */
     padding: 0.5rem 0.875rem;
     width: 100%;
   }
 
   input[disabled] {
-    background-color: var(--color-background) !important;
+    background-color: transparent !important;
     border: var(--border-hidden) !important;
-    color: var(--color-foreground-2) !important;
+    color: var(--color-muted-foreground) !important;
   }
 }

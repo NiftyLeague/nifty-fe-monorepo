@@ -28,15 +28,15 @@ const customComponents = (theme: Theme, borderRadius: number, outlinedFilled: bo
           paddingTop: '10px',
           paddingBottom: '10px',
           '&.Mui-selected': {
-            color: 'var(--color-foreground-purple)',
+            color: 'var(--color-primary-foreground)',
             backgroundColor: 'var(--color-purple)',
             '&:hover': { backgroundColor: 'var(--color-purple)' },
-            '& .MuiListItemIcon-root': { color: 'var(--color-foreground-purple)' },
+            '& .MuiListItemIcon-root': { color: 'var(--color-primary-foreground)' },
           },
           '&:hover': {
             backgroundColor: 'var(--color-purple)',
-            color: 'var(--color-foreground-purple)',
-            '& .MuiListItemIcon-root': { color: 'var(--color-foreground-purple)' },
+            color: 'var(--color-primary-foreground)',
+            '& .MuiListItemIcon-root': { color: 'var(--color-primary-foreground)' },
           },
         },
       },
@@ -47,7 +47,7 @@ const customComponents = (theme: Theme, borderRadius: number, outlinedFilled: bo
       styleOverrides: {
         input: {
           color: 'var(--color-foreground)',
-          '&::placeholder': { color: 'var(--color-foreground-2)', fontSize: '0.875rem' },
+          '&::placeholder': { color: 'var(--color-muted-foreground)', fontSize: '0.875rem' },
         },
       },
     },
@@ -77,7 +77,7 @@ const customComponents = (theme: Theme, borderRadius: number, outlinedFilled: bo
     MuiSlider: {
       styleOverrides: {
         root: { '&.Mui-disabled': { color: 'var(--color-foreground)' } },
-        mark: { backgroundColor: 'var(--color-background-3)', width: '4px' },
+        mark: { backgroundColor: 'var(--color-muted)', width: '4px' },
         valueLabel: { color: mode === 'dark' ? 'var(--color-purple)' : 'var(--color-purple-200)' },
       },
     },
@@ -99,7 +99,7 @@ const customComponents = (theme: Theme, borderRadius: number, outlinedFilled: bo
       },
     },
     MuiDivider: {
-      styleOverrides: { root: { borderColor: 'var(--color-divider-default)', opacity: mode === 'dark' ? 0.2 : 1 } },
+      styleOverrides: { root: { borderColor: 'var(--color-divider)', opacity: mode === 'dark' ? 0.2 : 1 } },
     },
     MuiSelect: { styleOverrides: { select: { '&:focus': { backgroundColor: 'transparent' } } } },
     MuiAvatar: {
@@ -111,27 +111,20 @@ const customComponents = (theme: Theme, borderRadius: number, outlinedFilled: bo
     },
     MuiDialog: {
       styleOverrides: {
-        paper: {
-          padding: '12px 0 12px 0',
-          backgroundColor: 'var(--color-background-3)',
-          width: '1000px',
-          maxWidth: '91vw',
-        },
+        paper: { padding: '12px 0 12px 0', backgroundColor: 'var(--color-popover)', width: '1000px', maxWidth: '91vw' },
       },
     },
     MuiTableCell: {
       styleOverrides: {
         root: {
-          borderColor: 'var(--color-border-default)',
-          '&.MuiTableCell-head': { fontSize: '0.875rem', color: 'var(--color-foreground-2)', fontWeight: 500 },
+          borderColor: 'var(--color-border)',
+          '&.MuiTableCell-head': { fontSize: '0.875rem', color: 'var(--color-muted-foreground)', fontWeight: 500 },
         },
       },
     },
-    MuiTooltip: {
-      styleOverrides: { tooltip: { color: 'var(--color-background-3)', background: 'var(--color-foreground)' } },
-    },
+    MuiTooltip: { styleOverrides: { tooltip: { color: 'var(--color-muted)', background: 'var(--color-foreground)' } } },
     MuiDialogTitle: { styleOverrides: { root: { fontSize: '1.25rem' } } },
-    MuiDialogContent: { styleOverrides: { dividers: { borderColor: 'var(--color-border-default)' } } },
+    MuiDialogContent: { styleOverrides: { dividers: { borderColor: 'var(--color-border)' } } },
   };
 };
 

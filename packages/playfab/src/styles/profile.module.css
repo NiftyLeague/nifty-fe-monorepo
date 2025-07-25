@@ -76,8 +76,8 @@
 }
 .button_secondary {
   composes: button;
-  /* background-color: var(--color-background-2) !important; */
-  /* border-color: var(--color-background-2) !important; */
+  /* background-color: var(--color-muted) !important; */
+  /* border-color: var(--color-muted) !important; */
 }
 /* .button_secondary:hover {
   background-color: var(--color-background) !important;
@@ -102,7 +102,7 @@
 
 .hr {
   border: none;
-  border-top: 1px solid var(--color-background-2);
+  border-top: 1px solid var(--color-divider);
   width: 100%;
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -113,7 +113,7 @@
   display: block;
   border: var(--border-hidden);
   border-radius: var(--border-radius-default);
-  padding: var(--custom-spacing);
+  padding: var(--spacing);
 }
 
 .avatar {
@@ -160,8 +160,8 @@
   background-color: var(--color-background) !important;
 }
 .delete_account_dialog_paper {
-  background-color: var(--color-background-2) !important;
-  border-color: var(--color-background-2) !important;
+  background-color: var(--color-popover) !important;
+  border-color: var(--color-border) !important;
   color: var(--color-foreground) !important;
   width: 800px;
   max-width: 100vw;
