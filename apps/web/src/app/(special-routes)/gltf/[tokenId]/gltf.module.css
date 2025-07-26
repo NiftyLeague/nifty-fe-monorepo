@@ -1,6 +1,6 @@
 .main__wrapper {
-  --default-font: var(--font-ibm-plex-sans), 'Roboto', 'Helvetica', 'Arial', sans-serif;
-  --default-font-size: 0.875rem;
+  --default-font: var(--font-default);
+  --default-font-size: var(--text-sm); /* 0.875rem */
 }
 
 /* ==============================|| FILES ||============================== */
@@ -64,40 +64,43 @@
   justify-content: space-between;
 }
 
-.menu__overlay__boggs {
+.menu__overlay__toggle {
   display: flex;
   margin-right: 5px;
   button {
-    padding: 0.3rem 0.8rem;
+    background-color: var(--color-primary-foreground);
+    color: var(--color-primary);
+    border: var(--border-purple);
     margin-right: -1px;
-    border: var(--border-purple) !important;
-  }
-  button:hover {
-    cursor: pointer;
-    background-color: var(--color-foreground);
-  }
-  .btn {
-    background-color: var(--color-foreground);
-    color: var(--color-purple);
     font-family: var(--default-font);
     font-size: var(--default-font-size);
+    font-weight: var(--font-weight-medium);
   }
-  .btn_selected {
-    background-color: var(--color-purple) !important;
-    color: var(--color-foreground) !important;
+  button[data-state='off']:hover {
+    cursor: pointer;
+    opacity: 70%;
+  }
+  button[data-state='on'] {
+    background-color: var(--color-primary);
+    color: var(--color-primary-foreground);
   }
 }
 
 .menu__overlay__animation,
 .menu__overlay__colorpicker {
   display: flex;
-
-  .background__picker {
-    color: var(--color-purple);
-    svg {
-      color: var(--color-purple);
-      padding-left: 5px;
-    }
+  button {
+    background-color: var(--color-primary);
+  }
+  button span {
+    color: var(--color-primary-foreground);
+    font-family: var(--default-font);
+    font-size: var(--default-font-size);
+    font-weight: var(--font-weight-medium);
+  }
+  button svg {
+    color: var(--color-primary-foreground);
+    fill: var(--color-primary-foreground);
   }
 }
 
