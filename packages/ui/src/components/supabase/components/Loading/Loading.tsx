@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import LoadingStyles from './Loading.module.css';
 
 interface Props {

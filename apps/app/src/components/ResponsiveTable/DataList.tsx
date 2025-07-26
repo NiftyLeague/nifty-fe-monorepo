@@ -10,7 +10,7 @@ import ExpandableListItem from './ExpandableListItem';
 import NoContent from './NoContent';
 import Pagination from './Pagination';
 
-import type { IconProps } from '@nl/ui/base/Icon';
+import type { IconProps } from '@nl/ui/base/icon';
 import type {
   AccordionDetailsProps,
   AccordionProps,

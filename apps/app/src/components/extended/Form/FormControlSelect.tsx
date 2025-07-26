@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Divider, FormControl, InputAdornment, MenuItem, TextField } from '@mui/material';
 
-import Icon, { type IconName } from '@nl/ui/base/Icon';
+import { Icon, type IconName } from '@nl/ui/base/icon';
 
 // ==============================|| FORM CONTROL SELECT ||============================== //
 

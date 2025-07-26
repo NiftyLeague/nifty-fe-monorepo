@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import Card from '@nl/ui/supabase/Card';
 import Space from '@nl/ui/supabase/Space';
 import Tabs from '@nl/ui/supabase/Tabs';

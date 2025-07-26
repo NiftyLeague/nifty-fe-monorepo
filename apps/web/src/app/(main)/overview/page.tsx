@@ -42,9 +42,7 @@ const Overview: NextPage = () => {
             <div className="purple-bg-orb" style={{ left: 'calc(50% - 200px)', top: '100px' }} />
           </div>
 
-          {FAQS.map((faq, index) => (
-            <AnimatedAccordion key={faq.question} index={index} question={faq.question} answer={faq.answer} />
-          ))}
+          <AnimatedAccordion items={FAQS} />
 
           <ThemeBtnGroup
             className="mt-6 xl:mt-8"

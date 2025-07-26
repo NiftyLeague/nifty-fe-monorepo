@@ -23,7 +23,7 @@ import {
 } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import type { Degen } from '@/types/degens';
 import { errorMsgHandler } from '@/utils/errorHandlers';
 import { formatNumberToDisplay } from '@nl/ui/utils';
@@ -59,7 +59,7 @@ const Root = styled('div')(({ theme }) => ({
     '& h5': { fontSize: '16px', fontWeight: 700, textTransform: 'uppercase' },
     '& p,span': { fontSize: '14px', lineHeight: 1.2 },
   },
-  [`&.${classes.greyText}`]: { color: 'var(--color-foreground-2)' },
+  [`&.${classes.greyText}`]: { color: 'var(--color-muted-foreground)' },
   [`&.${classes.input}`]: { padding: '8px 8px 4px 8px', fontSize: '12px', '&::placeholder': { fontSize: '12px' } },
   [`&.${classes.formHelper}`]: { marginLeft: 0 },
   [`&.${classes.inputCheck}`]: { padding: 4, '& .MuiSvgIcon-root': { width: '0.75em', height: '0.75em' } },

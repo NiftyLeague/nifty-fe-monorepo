@@ -1,5 +1,5 @@
 import { IconButton } from '@mui/material';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import { Dialog, DialogTrigger, DialogContent } from '@/components/dialog';
 import ChangeProfileNameForm from './ChangeProfileNameForm';
 

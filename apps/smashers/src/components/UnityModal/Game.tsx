@@ -1,6 +1,6 @@
 import { Unity } from 'react-unity-webgl';
 
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import Button from '@nl/ui/supabase/Button';
 import Preloader from '@nl/ui/custom/Preloader';
 // import { PlayFabAuthForm } from '@nl/playfab/components';

@@ -105,7 +105,9 @@ const RentalsTableSimple = ({ rentals, columns }: RentalsTableSimpleProps): Reac
           ) : (
             <TableRow>
               <TableCell colSpan={7} sx={{ height: '100%' }}>
-                <Typography sx={{ color: 'var(--color-foreground-2)' }}>You don&apos;t have any rentals yet</Typography>
+                <Typography sx={{ color: 'var(--color-muted-foreground)' }}>
+                  You don&apos;t have any rentals yet
+                </Typography>
               </TableCell>
             </TableRow>
           )}

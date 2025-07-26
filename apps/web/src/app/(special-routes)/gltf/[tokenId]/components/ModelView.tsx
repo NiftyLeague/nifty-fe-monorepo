@@ -3,7 +3,7 @@
 import '@google/model-viewer';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
+import { CircularProgress } from '@nl/ui/custom/CircularProgress';
 
 import { DEGEN_3D_MODEL_URL } from '@/constants/degens';
 import { SRC } from '@/types/gltf';
@@ -76,7 +76,7 @@ export default function ModelView({ source }: { source: SRC }) {
     <div className={styles.model__wrapper}>
       {source === SRC.MODEL && loading ? (
         <div style={{ minHeight: '100vh', width: '100%', position: 'absolute', display: 'flex', zIndex: 2 }}>
-          <CircularProgress style={{ margin: 'auto', width: 75, height: 'auto', color: 'var(--color-foreground)' }} />
+          <CircularProgress size={75} color="light" className="m-auto" />
         </div>
       ) : null}
       <ModelViewer

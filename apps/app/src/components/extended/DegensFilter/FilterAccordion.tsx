@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { Accordion, AccordionSummary, AccordionDetails, Stack, Typography } from '@mui/material';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 
 interface Props {
   summary: ReactNode;

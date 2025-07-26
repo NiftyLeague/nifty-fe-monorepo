@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { Dispatch, SetStateAction } from 'react';
 import { Alert, Dialog, DialogContent, DialogContentText, DialogTitle, IconButton, Typography } from '@mui/material';
 
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import useTokensBalances from '@/hooks/balances/useTokensBalances';
 import useNetworkContext from '@/hooks/useNetworkContext';
 import { AXELAR_TRANSACTIONS_URL } from '@/constants/url';

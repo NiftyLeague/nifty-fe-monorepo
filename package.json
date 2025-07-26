@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "act-ci": "act --container-architecture linux/amd64 -P ubuntu-latest=-self-hosted -s GITHUB_TOKEN --var-file .env.act --secret-file .env.act -W '.github/workflows/ci.yml'",
+    "add-ui": "pnpm --filter ui add-component $@",
     "build": "turbo build",
     "clean": "turbo clean",
     "dev": "turbo dev",

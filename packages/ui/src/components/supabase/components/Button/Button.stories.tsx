@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useRef, useState } from 'react';
-import Icon from '@nl/ui/base/Icon';
 
 import Space from '../Space';
 import Button, { type RefHandle } from './Button';

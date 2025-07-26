@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import styles from '../Navbar/index.module.css';
 
 export default function BackButton() {

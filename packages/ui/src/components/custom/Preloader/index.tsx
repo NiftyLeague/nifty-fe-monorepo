@@ -57,7 +57,7 @@ export function Preloader({ ready, percent, showWarning }: PreloaderProps) {
         <>
           <div className="flex justify-center items-center ml-[50px] mt-[5px]">
             <Progress.Root
-              className="relative overflow-hidden w-[160px] h-[10px] mt-[3px] bg-background-3 rounded-lg"
+              className="relative overflow-hidden w-[160px] h-[10px] mt-[3px] bg-muted rounded-lg"
               style={{ transform: 'translateZ(0)' }} /* Fix overflow clipping in Safari */
               value={percent}
             >

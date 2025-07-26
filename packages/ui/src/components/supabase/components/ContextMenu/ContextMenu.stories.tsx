@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import type { Meta, StoryObj } from '@storybook/react';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import { useState } from 'react';
 import { Button } from '../Button';
 import { Divider } from '../Divider';
@@ -20,7 +20,7 @@ type Story = StoryObj<typeof ContextMenu>;
 const TriggerArea = () => (
   <div
     style={{
-      background: 'var(--color-background-3)',
+      background: 'var(--color-muted)',
       width: '280px',
       height: '180px',
       display: 'flex',

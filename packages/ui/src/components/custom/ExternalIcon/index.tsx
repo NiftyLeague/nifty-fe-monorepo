@@ -1,4 +1,4 @@
-import Icon, { type IconProps } from '@nl/ui/base/Icon';
+import { Icon, type IconProps } from '@nl/ui/base/icon';
 import { cn } from '@nl/ui/utils';
 
 const ExternalIcon = ({ className = '', size = 'xs', ...props }: Omit<IconProps, 'name'>) => (

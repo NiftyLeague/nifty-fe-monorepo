@@ -1,6 +1,6 @@
 import type { Dispatch, SetStateAction } from 'react';
 import { Dialog, DialogContent, DialogContentText, DialogTitle, IconButton } from '@mui/material';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import useTokensBalances from '@/hooks/balances/useTokensBalances';
 
 type WithdrawSuccessProps = { successDialogOpen: boolean; setSuccessDialogOpen: Dispatch<SetStateAction<boolean>> };

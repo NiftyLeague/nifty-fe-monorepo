@@ -1,7 +1,7 @@
 import React from 'react';
 import * as RadixPopover from '@radix-ui/react-popover';
 import type * as RadixPopoverTypes from '@radix-ui/react-popover';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 
 import DropdownStyles from './Popover.module.css';
 

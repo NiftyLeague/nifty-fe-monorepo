@@ -24,7 +24,7 @@ const ProgressBar: FC<ProgressBarProps> = ({ value, children }) => {
       <Box
         sx={{
           display: 'flex',
-          backgroundColor: 'var(--color-foreground-2)',
+          backgroundColor: 'var(--color-muted-foreground)',
           width: '100%',
           position: 'absolute',
           alignItems: 'center',

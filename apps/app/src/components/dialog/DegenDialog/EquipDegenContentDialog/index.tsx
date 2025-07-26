@@ -13,7 +13,7 @@ import { COMICS_PURCHASE_URL } from '@/constants/url';
 import type { Degen } from '@/types/degens';
 import DegenImage from '@/components/cards/DegenCard/DegenImage';
 import EmptyState from '@/components/EmptyState';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 
 import { getInventoryAnalyticsEventName, getSlotAnalyticsEventName, INVENTORIES, SLOTS } from './equips';
 

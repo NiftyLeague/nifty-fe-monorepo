@@ -1,15 +1,15 @@
 import { Button, Stack, TextField, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { styled } from '@nl/theme';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import SortButton from '@/components/extended/SortButton';
 
 const SearchTextField = styled(TextField)({
   flex: 1,
   height: 32,
-  '& .MuiInputLabel-root': { color: 'var(--color-foreground-2)', top: -12 },
+  '& .MuiInputLabel-root': { color: 'var(--color-muted-foreground)', top: -12 },
   '& .MuiOutlinedInput-root': {
     height: 32,
-    '& input': { backgroundColor: 'var(--color-background-3)', paddingTop: '6px', paddingBottom: '6px' },
+    '& input': { backgroundColor: 'var(--color-muted)', paddingTop: '6px', paddingBottom: '6px' },
     '& fieldset': { border: 'none' },
   },
 });

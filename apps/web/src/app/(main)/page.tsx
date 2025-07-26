@@ -1,6 +1,5 @@
 'use client';
 
-import { Stack } from '@mui/material';
 import { useRef } from 'react';
 import type { NextPage } from 'next';
 import Image from 'next/image';
@@ -68,7 +67,7 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
         <div className="home-hero-halo">
           <div className="flex-grow">
             <AnimatedWrapper>
-              <div className="animate-hover2 transition-fade-start transition-fade delay-extreme">
+              <div className="animate-hover transition-fade-start transition-fade delay-extreme-offset">
                 <Image
                   src="/img/hero/halo.webp"
                   alt="Home Hero Halo"
@@ -272,7 +271,7 @@ const Home: NextPage = () => {
               </div>
             </>
           )}
-          <Stack gap={2} sx={{ alignItems: 'center' }}>
+          <div className="gap-2 items-center">
             {isMobile && (
               <div className="relative flex-grow w-full">
                 <AnimatedWrapper>
@@ -314,7 +313,7 @@ const Home: NextPage = () => {
                 secondary={{ href: '/compete-and-earn', title: 'LEARN MORE' }}
               />
             </div>
-          </Stack>
+          </div>
         </div>
         {!isMobile && (
           <div className="w-1/2 relative">

@@ -1,6 +1,13 @@
 import Image from 'next/image';
-import { BaseCard, BaseButton, Code } from '@nl/ui/base';
-import styles from './page.module.css';
+import Link from 'next/link';
+
+import { Button } from '@nl/ui/base/button';
+import { Code } from '@nl/ui/base/code';
+import { Card, CardTitle, CardDescription } from '@nl/ui/base/card';
+import { Icon } from '@nl/ui/base/icon';
+import { ThemeToggle } from '@nl/ui/custom/Theme';
+
+import styles from '@/styles/page.module.css';
 
 function Gradient({
   conic,
@@ -51,39 +58,59 @@ const LINKS = [
 export default function Page(): React.ReactNode {
   return (
     <main className={styles.main}>
+      <div className="absolute top-5 right-10">
+        <ThemeToggle />
+      </div>
       <div className={styles.description}>
         <p>
           examples/basic&nbsp;
-          <Code className={styles.code}>app</Code>
+          <Code className="font-bold">app/page.tsx</Code>
         </p>
         <div>
           <a
             href="https://vercel.com?utm_source=create-turbo&utm_medium=basic&utm_campaign=create-turbo"
             rel="noopener noreferrer"
             target="_blank"
+            className="text-foreground"
           >
             By{' '}
-            <Image alt="Vercel Logo" className={styles.vercelLogo} height={24} priority src="/vercel.svg" width={100} />
+            <Image
+              alt="Vercel Logo"
+              height={24}
+              priority
+              src="icons/platform/vercel.svg"
+              width={100}
+              className="dark:invert"
+            />
           </a>
         </div>
       </div>
-
-      <BaseButton appName="docs" className={styles.button}>
-        Click me!
-      </BaseButton>
 
       <div className={styles.hero}>
         <div className={styles.heroContent}>
           <div className={styles.logos}>
             <div className={styles.circles}>
-              <Image alt="Turborepo" height={614} src="circles.svg" width={614} style={{ pointerEvents: 'none' }} />
+              <Image
+                alt="Turborepo"
+                height={614}
+                src="icons/circles.svg"
+                width={614}
+                style={{ pointerEvents: 'none' }}
+              />
             </div>
             <div className={styles.logoGradientContainer}>
               <Gradient className={styles.logoGradient} conic small />
             </div>
 
             <div className={styles.logo}>
-              <Image alt="" height={120} priority src="turborepo.svg" width={120} style={{ pointerEvents: 'none' }} />
+              <Image
+                alt=""
+                height={120}
+                priority
+                src="icons/platform/turborepo.svg"
+                width={120}
+                style={{ pointerEvents: 'none' }}
+              />
             </div>
           </div>
           <Gradient className={styles.backgroundGradient} conic />
@@ -109,11 +136,42 @@ export default function Page(): React.ReactNode {
         </div>
       </div>
 
+      <div className="w-full flex justify-center gap-4 items-center mb-8 -mt-8 z-1">
+        <h6>Button Variants:</h6>
+        <Button variant="default">
+          <Icon name="atom" />
+          Primary
+        </Button>
+        <Button variant="secondary">
+          <Icon name="circle-alert" />
+          Secondary
+        </Button>
+        <Button variant="outline">
+          <Icon name="badge" />
+          Outline
+        </Button>
+        <Button variant="destructive">
+          <Icon name="circle-x" />
+          Destructive
+        </Button>
+        <Button variant="ghost">
+          <Icon name="ghost" />
+          Ghost
+        </Button>
+        <Button variant="link">
+          <Icon name="link" />
+          Link
+        </Button>
+      </div>
+
       <div className={styles.grid}>
         {LINKS.map(({ title, href, description }) => (
-          <BaseCard className={styles.card} href={href} key={title} title={title}>
-            {description}
-          </BaseCard>
+          <Link key={title} href={href} target="_blank" rel="noreferrer">
+            <Card className="px-8">
+              <CardTitle>{title}</CardTitle>
+              <CardDescription>{description}</CardDescription>
+            </Card>
+          </Link>
         ))}
       </div>
     </main>

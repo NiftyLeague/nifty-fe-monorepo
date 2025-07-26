@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import { cn } from '@nl/ui/utils';
 import styles from './index.module.css';
 

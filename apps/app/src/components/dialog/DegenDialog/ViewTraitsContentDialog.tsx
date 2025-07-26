@@ -44,7 +44,7 @@ const ViewTraitsContentDialog = ({
           rel="noreferrer"
           className="flex flex-row flex-nowrap items-center"
         >
-          <Typography sx={{ color: 'var(--color-foreground-2)', textDecoration: 'none' }}>
+          <Typography sx={{ color: 'var(--color-muted-foreground)', textDecoration: 'none' }}>
             DEGEN ID #{degen?.id}{' '}
           </Typography>
           <Image
@@ -69,7 +69,7 @@ const ViewTraitsContentDialog = ({
         </Stack> */}
       {degen?.owner && (
         <Stack direction="column" sx={{ alignItems: 'center' }} gap={1}>
-          <Typography sx={{ color: 'var(--color-foreground-2)' }}>
+          <Typography sx={{ color: 'var(--color-muted-foreground)' }}>
             Owned by{' '}
             {`${degen?.owner?.slice(0, 5)}...${degen?.owner?.slice(
               degen?.owner?.length - 5,

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Stack, Typography, Box, IconButton } from '@mui/material';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 
 import { useCopyToClipboard } from '@nl/ui/hooks/useCopyToClipboard';
 import { useGamerProfileContext } from '@/hooks/useGamerProfile';
@@ -45,7 +45,7 @@ const TopInfo = ({ profile, walletAddress }: TopInfoProps): React.ReactNode => {
           <Box width="50%">{total && <ProgressGamer data={total} />}</Box>
         </Stack>
         <Stack direction="row" spacing={5} sx={{ alignItems: 'center' }}>
-          <Typography width="50%" variant="h4" component="div" sx={{ color: 'var(--color-foreground-2)' }}>
+          <Typography width="50%" variant="h4" component="div" sx={{ color: 'var(--color-muted-foreground)' }}>
             {`${walletAddress.slice(0, 5)}...${walletAddress.slice(
               walletAddress.length - 5,
               walletAddress.length - 1,
@@ -55,7 +55,7 @@ const TopInfo = ({ profile, walletAddress }: TopInfoProps): React.ReactNode => {
               aria-label="copy"
               onClick={() => walletAddress && copy(walletAddress)}
             >
-              <Icon name="copy" size="sm" color="var(--color-foreground-2)" />
+              <Icon name="copy" size="sm" color="var(--color-muted-foreground)" />
             </IconButton>
           </Typography>
           <Typography width="50%" variant="h4" component="div">
@@ -63,7 +63,7 @@ const TopInfo = ({ profile, walletAddress }: TopInfoProps): React.ReactNode => {
             <Typography
               variant="h4"
               component="div"
-              sx={{ color: 'var(--color-foreground-2)' }}
+              sx={{ color: 'var(--color-muted-foreground)' }}
               display="inline"
               ml="4px"
             >

@@ -68,7 +68,7 @@ const GamerProfile = (): React.ReactNode => {
 
   const renderTopProfile = () => {
     return (
-      <Grid container size={12} spacing={3} className="bg-background-3 p-8 rounded-md">
+      <Grid container size={12} spacing={3} className="bg-muted p-8 rounded-md">
         <Grid size={{ xs: 12, lg: 3.5 }}>
           <ImageProfile
             avatar={profile?.avatar}

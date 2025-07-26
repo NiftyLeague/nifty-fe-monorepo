@@ -56,8 +56,8 @@ const customTypography = (theme: Theme, borderRadius: number, fontFamily: FontFa
     lineHeight: 'var(--text-base--line-height)',
   },
   subtitle1: { fontSize: 'var(--text-sm)' /* 0.875rem */, fontWeight: 500, color: 'var(--color-foreground)' },
-  subtitle2: { fontSize: 'var(--text-xs)' /* 0.75rem */, fontWeight: 400, color: 'var(--color-foreground-2)' },
-  caption: { fontSize: 'var(--text-xs)' /* 0.75rem */, color: 'var(--color-foreground-2)', fontWeight: 400 },
+  subtitle2: { fontSize: 'var(--text-xs)' /* 0.75rem */, fontWeight: 400, color: 'var(--color-muted-foreground)' },
+  caption: { fontSize: 'var(--text-xs)' /* 0.75rem */, color: 'var(--color-muted-foreground)', fontWeight: 400 },
   body1: { fontSize: 'var(--text-base)' /* 1rem */, fontWeight: 400, lineHeight: '1.334em' },
   body2: {
     fontSize: 'var(--text-sm)' /* 0.875rem */,
@@ -70,7 +70,7 @@ const customTypography = (theme: Theme, borderRadius: number, fontFamily: FontFa
   customInput: {
     marginTop: 1,
     marginBottom: 1,
-    '& > label': { top: 23, left: 0, color: 'var(--color-foreground-2)', '&[data-shrink="false"]': { top: 5 } },
+    '& > label': { top: 23, left: 0, color: 'var(--color-muted-foreground)', '&[data-shrink="false"]': { top: 5 } },
     '& > div > input': { padding: '30.5px 14px 11.5px !important' },
     '& legend': { display: 'none' },
     '& fieldset': { top: 0 },
@@ -85,7 +85,7 @@ const customTypography = (theme: Theme, borderRadius: number, fontFamily: FontFa
   menuCaption: {
     fontSize: 'var(--text-sm)' /* 0.875rem */,
     fontWeight: 'var(--font-medium)',
-    color: 'var(--color-foreground-2)',
+    color: 'var(--color-muted-foreground)',
     padding: '6px',
     textTransform: 'capitalize',
     marginTop: '10px',
@@ -93,7 +93,7 @@ const customTypography = (theme: Theme, borderRadius: number, fontFamily: FontFa
   subMenuCaption: {
     fontSize: 'var(--text-xs)' /* 0.75rem */,
     fontWeight: 'var(--font-medium)',
-    color: 'var(--color-foreground-2)',
+    color: 'var(--color-muted-foreground)',
     textTransform: 'capitalize',
   },
   commonAvatar: { cursor: 'pointer', borderRadius: 'var(--border-radius-default)' },

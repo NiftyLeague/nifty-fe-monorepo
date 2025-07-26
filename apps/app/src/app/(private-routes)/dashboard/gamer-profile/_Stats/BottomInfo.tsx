@@ -38,7 +38,7 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
                   <Typography
                     variant="h4"
                     component="div"
-                    sx={{ color: 'var(--color-foreground-2)' }}
+                    sx={{ color: 'var(--color-muted-foreground)' }}
                     display="inline"
                     ml="4px"
                   >
@@ -73,7 +73,7 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
                   <Typography
                     variant="h4"
                     component="div"
-                    sx={{ color: 'var(--color-foreground-2)' }}
+                    sx={{ color: 'var(--color-muted-foreground)' }}
                     display="inline"
                     ml="4px"
                   >
@@ -108,7 +108,7 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
                   <Typography
                     variant="h4"
                     component="div"
-                    sx={{ color: 'var(--color-foreground-2)' }}
+                    sx={{ color: 'var(--color-muted-foreground)' }}
                     display="inline"
                     ml="4px"
                   >

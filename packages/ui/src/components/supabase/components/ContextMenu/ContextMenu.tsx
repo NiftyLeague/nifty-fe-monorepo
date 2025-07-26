@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import type * as RadixContextMenuTypes from '@radix-ui/react-context-menu/';
 import * as RadixContextMenu from '@radix-ui/react-context-menu';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 
 import ContextMenuStyles from './ContextMenu.module.css';
 
