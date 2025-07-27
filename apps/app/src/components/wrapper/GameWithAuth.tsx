@@ -8,7 +8,7 @@ import { Box, Button, Stack } from '@mui/material';
 import { useAccount } from 'wagmi';
 
 import { gtm, GTM_EVENTS } from '@nl/ui/gtm';
-import Preloader from '@nl/ui/custom/Preloader';
+import { PreloaderWithProgress } from '@nl/ui/custom/Preloader';
 import useTokensBalances from '@/hooks/balances/useTokensBalances';
 // import useFetch from '@/hooks/useFetch';
 import { NETWORK_NAME, TARGET_NETWORK } from '@/constants/networks';
@@ -128,7 +128,7 @@ const Game = ({ unityContext, arcadeTokenRequired = false }: GameProps) => {
 
   return (
     <>
-      <Preloader ready={isLoaded} progress={progress} />
+      <PreloaderWithProgress ready={isLoaded} progress={progress} />
       <Stack direction="row" sx={{ alignItems: 'flex-start' }}>
         <Stack sx={{ alignItems: 'flex-start' }}>
           <Unity
