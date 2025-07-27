@@ -2,7 +2,7 @@ import { Unity } from 'react-unity-webgl';
 
 import { Icon } from '@nl/ui/base/icon';
 import Button from '@nl/ui/supabase/Button';
-import Preloader from '@nl/ui/custom/Preloader';
+import { PreloaderWithProgress } from '@nl/ui/custom/Preloader';
 // import { PlayFabAuthForm } from '@nl/playfab/components';
 
 import useUnityPreConfig from '@/hooks/useUnityPreConfig';
@@ -32,7 +32,7 @@ const Game = ({ closeGame }: { closeGame: () => void }) => {
 
   return (
     <>
-      <Preloader ready={isLoaded} progress={loadingProgression} />
+      <PreloaderWithProgress ready={isLoaded} progress={loadingProgression} />
       <Unity
         key={authToken}
         unityProvider={unityProvider}

@@ -1,3 +1,6 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -5,6 +8,7 @@ import { Button } from '@nl/ui/base/button';
 import { Code } from '@nl/ui/base/code';
 import { Card, CardTitle, CardDescription } from '@nl/ui/base/card';
 import { Icon } from '@nl/ui/base/icon';
+import { PreloaderWithProgress } from '@nl/ui/custom/Preloader';
 import { ThemeToggle } from '@nl/ui/custom/Theme';
 
 import styles from '@/styles/page.module.css';
@@ -54,6 +58,26 @@ const LINKS = [
     description: 'Instantly deploy your Turborepo to a shareable URL with Vercel.',
   },
 ];
+
+function TestProgress(): React.ReactNode {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress(prevProgress => {
+        const newProgress = prevProgress + 5;
+        if (newProgress > 100) {
+          clearInterval(interval);
+          return 100;
+        }
+        return newProgress;
+      });
+    }, 75);
+    return () => clearInterval(interval);
+  }, []);
+
+  return <PreloaderWithProgress ready={progress === 100} progress={progress} />;
+}
 
 export default function Page(): React.ReactNode {
   return (
@@ -174,6 +198,8 @@ export default function Page(): React.ReactNode {
           </Link>
         ))}
       </div>
+
+      <TestProgress />
     </main>
   );
 }
