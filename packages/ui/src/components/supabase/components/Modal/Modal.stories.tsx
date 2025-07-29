@@ -6,7 +6,6 @@ import { Modal } from '.';
 import Typography from '../Typography';
 import Button from '../Button';
 import Space from '../Space';
-import { Dropdown } from '../Dropdown';
 
 const meta: Meta<typeof Modal> = {
   title: 'Overlays/Modal',
@@ -82,33 +81,6 @@ const LongContent = () => (
 );
 
 export const LongModal: Story = { args: { icon, children: <LongContent /> } };
-
-// Modal with dropdown
-const DropdownModal = () => {
-  const [visible, setVisible] = useState(false);
-  return (
-    <>
-      <Button onClick={() => setVisible(true)}>Open Dropdown Modal</Button>
-      <Modal visible={visible} onCancel={() => setVisible(false)} hideFooter icon={icon}>
-        <Dropdown
-          overlay={
-            <>
-              <Dropdown.Item>Item 1</Dropdown.Item>
-              <Dropdown.Item>Item 2</Dropdown.Item>
-              <Dropdown.Item>Item 3</Dropdown.Item>
-            </>
-          }
-        >
-          <Button type="outline" iconRight="trash">
-            Click me
-          </Button>
-        </Dropdown>
-      </Modal>
-    </>
-  );
-};
-
-export const WithDropdowns: Story = { render: () => <DropdownModal /> };
 
 // Modal with custom footer
 const CustomFooterExample = () => {

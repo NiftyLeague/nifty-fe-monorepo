@@ -2,10 +2,18 @@ import React, { useEffect } from 'react';
 import ModalStyles from './Modal.module.css';
 import Button from '../Button';
 import Space from '../Space';
-import { AnimationTailwindClasses } from '../../types';
 
 import * as Dialog from '@radix-ui/react-dialog';
 import { Transition, TransitionChild } from '@headlessui/react';
+
+export interface AnimationTailwindClasses {
+  enter?: string;
+  enterFrom?: string;
+  enterTo?: string;
+  leave?: string;
+  leaveFrom?: string;
+  leaveTo?: string;
+}
 
 export interface Props {
   children?: React.ReactNode;
