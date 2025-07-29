@@ -14,7 +14,7 @@ export default async function AuthLayout({ children }: PropsWithChildren) {
   return (
     <Suspense fallback={null}>
       <AuthProvider session={session}>
-        <main id="auth-layout" className="min-h-screen bg-card md:bg-background">
+        <main id="auth-layout" className="min-h-screen">
           {children}
         </main>
       </AuthProvider>

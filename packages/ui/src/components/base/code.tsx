@@ -1,4 +1,4 @@
-import { cn } from '@nl/ui/lib/utils';
+import { cn } from '@nl/ui/utils';
 
 function Code({ children, className }: { children: React.ReactNode; className?: string }): React.ReactNode {
   return (

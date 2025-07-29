@@ -1,7 +1,9 @@
 'use client';
 
+import { forwardRef } from 'react';
 import type { LucideProps } from 'lucide-react';
 import { DynamicIcon, type IconName } from 'lucide-react/dynamic';
+
 type IconSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 const DEFAULT_SIZES: Record<IconSizes, number> = { xs: 14, sm: 18, md: 20, lg: 24, xl: 28 };
@@ -31,33 +33,41 @@ interface IconProps extends Omit<LucideProps, 'size'> {
   fill?: IconColor | (string & {});
 }
 
-const Icon = ({
-  absoluteStrokeWidth = true,
-  color = 'currentColor',
-  fill = 'none',
-  name,
-  size = 'md',
-  strokeWidth = 1.5,
-  ...props
-}: IconProps) => {
-  const iconColor = DEFAULT_COLORS[color] || color;
-  const iconFill = DEFAULT_COLORS[fill] || fill;
-  const iconSize = typeof size === 'number' ? size : DEFAULT_SIZES[size];
-  const fallback = () => <div style={{ width: iconSize, height: iconSize }} />;
+const Icon = forwardRef<SVGSVGElement, IconProps>(
+  (
+    {
+      absoluteStrokeWidth = true,
+      color = 'currentColor',
+      fill = 'none',
+      name,
+      size = 'md',
+      strokeWidth = 1.5,
+      ...props
+    },
+    ref,
+  ) => {
+    const iconColor = DEFAULT_COLORS[color] || color;
+    const iconFill = DEFAULT_COLORS[fill] || fill;
+    const iconSize = typeof size === 'number' ? size : DEFAULT_SIZES[size];
+    const fallback = () => <div style={{ width: iconSize, height: iconSize }} />;
 
-  return (
-    <DynamicIcon
-      absoluteStrokeWidth={absoluteStrokeWidth}
-      color={iconColor}
-      fallback={fallback}
-      fill={iconFill}
-      name={name}
-      size={iconSize}
-      strokeWidth={strokeWidth}
-      {...props}
-    />
-  );
-};
+    return (
+      <DynamicIcon
+        ref={ref}
+        absoluteStrokeWidth={absoluteStrokeWidth}
+        color={iconColor}
+        fallback={fallback}
+        fill={iconFill}
+        name={name}
+        size={iconSize}
+        strokeWidth={strokeWidth}
+        {...props}
+      />
+    );
+  },
+);
+
+Icon.displayName = 'Icon';
 
 export { Icon };
 export type { IconColor, IconName, IconProps, IconSizes };

@@ -8,7 +8,7 @@ import { Icon } from '@nl/ui/base/icon';
 import { useSnackbar } from 'notistack';
 
 import { fetchJson, parseLinkedWalletResult } from '../../utils';
-import useProviders from '../../hooks/useProviders';
+import useProviders from '@nl/ui/hooks/useProviders';
 import PlayFabAuthForm from '../PlayFabAuthForm';
 import Avatar from '../Avatar';
 
