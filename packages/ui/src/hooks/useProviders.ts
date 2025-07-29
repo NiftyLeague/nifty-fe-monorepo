@@ -1,7 +1,14 @@
 'use client';
 // import { useState, useEffect } from 'react';
 // import { getProviders } from 'next-auth/react';
-import type { Provider } from '../types';
+
+export type Provider =
+  | 'google'
+  | 'apple'
+  | 'facebook'
+  | 'twitch'
+  | 'discord' // not implemented in playfab
+  | 'twitter'; // not implemented in playfab
 
 // export default function useProviders(): Provider[] {
 //   const [providers, setProviders] = useState<Provider[]>([]);
@@ -26,6 +33,8 @@ import type { Provider } from '../types';
 const PROVIDERS = process.env.NEXT_PUBLIC_AUTH_PROVIDERS as string;
 const PROVIDERS_LIST = PROVIDERS ? (PROVIDERS.split(',') as Provider[]) : [];
 
-export default function useProviders(): Provider[] {
+export function useProviders(): Provider[] {
   return PROVIDERS_LIST;
 }
+
+export default useProviders;

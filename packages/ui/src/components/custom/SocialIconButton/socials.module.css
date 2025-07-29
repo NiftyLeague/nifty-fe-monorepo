@@ -13,6 +13,11 @@
   color: var(--color-light);
 }
 
+.meta {
+  background-color: #4267b2;
+  color: var(--color-light);
+}
+
 .github {
   background-color: #333;
   color: var(--color-light);
