@@ -95,10 +95,11 @@
   }
 
   /* ===============================|| FORMS ||=============================== */
-  label {
+  label,
+  legend {
     color: var(--color-input-label);
-    font-size: var(--text-xs); /* 0.75rem */
-    font-weight: var(--font-weight-medium);
+    font-size: var(--text-xs) !important; /* 0.75rem */
+    font-weight: var(--font-weight-medium) !important;
     text-transform: uppercase;
   }
 

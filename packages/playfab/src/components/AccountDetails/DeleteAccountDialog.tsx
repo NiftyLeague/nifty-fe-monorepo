@@ -4,15 +4,13 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
 
-import Button from '@nl/ui/supabase/Button';
+import { Button } from '@nl/ui/base/button';
 import Modal from '@nl/ui/supabase/Modal';
 import { Icon } from '@nl/ui/base/icon';
 
-import fetchJson from '../../utils/fetchJson';
+import { fetchJson } from '../../utils/fetchJson';
 import { errorMsgHandler } from '../../utils/errorHandlers';
-import useUserSession from '../../hooks/useUserSession';
-
-import styles from '../../styles/profile.module.css';
+import { useUserSession } from '../../hooks/useUserSession';
 
 export default function DeleteAccountDialog({ loading = false }) {
   const { mutateUser } = useUserSession({ redirectTo: '/login' });
@@ -41,14 +39,13 @@ export default function DeleteAccountDialog({ loading = false }) {
   return (
     <div>
       <Button
-        block
-        className={styles.button_danger}
+        variant="destructive"
+        size="lg"
+        className="w-full cursor-pointer disabled:cursor-not-allowed"
         disabled={loading}
-        icon={<Icon name="trash" />}
-        size="md"
-        type="default"
         onClick={handleClickOpen}
       >
+        <Icon name="trash" />
         Delete Account
       </Button>
       <Modal

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { UnlinkProvider } from '@nl/playfab/api';
-import { errorResHandler } from '@nl/playfab/utils';
+import { errorResHandler } from '@nl/playfab/utils/errorHandlers';
 import type { User } from '@nl/playfab/types';
 
 import { withUserRoute } from '@/utils/session';

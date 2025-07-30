@@ -1,54 +1,79 @@
 .azure {
   background-color: #008ad7;
   color: var(--color-light);
+  transition: opacity 0.2s ease-in-out;
 }
 
 .bitbucket {
   background-color: #205081;
   color: var(--color-light);
+  transition: opacity 0.2s ease-in-out;
 }
 
 .facebook {
   background-color: #4267b2;
   color: var(--color-light);
+  transition: opacity 0.2s ease-in-out;
 }
 
 .meta {
   background-color: #4267b2;
   color: var(--color-light);
+  transition: opacity 0.2s ease-in-out;
 }
 
 .github {
   background-color: #333;
   color: var(--color-light);
+  transition: opacity 0.2s ease-in-out;
 }
 
 .gitlab {
   background-color: #fc6d27;
   color: var(--color-light);
+  transition: opacity 0.2s ease-in-out;
 }
 
 .google {
   background-color: #ce4430;
   color: var(--color-light);
+  transition: opacity 0.2s ease-in-out;
 }
 
 .twitter {
   background-color: #1da1f2;
   color: var(--color-light);
+  transition: opacity 0.2s ease-in-out;
 }
 
 .apple {
   background-color: #000;
   color: var(--color-light);
+  transition: opacity 0.2s ease-in-out;
 }
 
 .discord {
   background-color: #404fec;
   color: var(--color-light);
+  transition: opacity 0.2s ease-in-out;
 }
 
 .twitch {
   background-color: #9146ff;
   color: var(--color-light);
+  transition: opacity 0.2s ease-in-out;
+}
+
+.azure:hover,
+.bitbucket:hover,
+.facebook:hover,
+.meta:hover,
+.github:hover,
+.gitlab:hover,
+.google:hover,
+.twitter:hover,
+.apple:hover,
+.discord:hover,
+.twitch:hover {
+  opacity: 0.8;
 }

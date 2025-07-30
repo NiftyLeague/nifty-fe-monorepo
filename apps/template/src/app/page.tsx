@@ -160,35 +160,45 @@ export default function Page(): React.ReactNode {
         </div>
       </div>
 
-      <div className="w-full flex justify-center gap-4 items-center mb-8 -mt-8 z-1">
+      <div className="w-full grid gap-4 mb-8 md:-mt-28 z-1">
         <h6>Button Variants:</h6>
-        <Button variant="default">
-          <Icon name="atom" />
-          Primary
-        </Button>
-        <Button variant="secondary">
-          <Icon name="circle-alert" />
-          Secondary
-        </Button>
-        <Button variant="outline">
-          <Icon name="badge" />
-          Outline
-        </Button>
-        <Button variant="destructive">
-          <Icon name="circle-x" />
-          Destructive
-        </Button>
-        <Button variant="ghost">
-          <Icon name="ghost" />
-          Ghost
-        </Button>
-        <Button variant="link">
-          <Icon name="link" />
-          Link
-        </Button>
+        <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
+          <Button variant="default">
+            <Icon name="atom" />
+            Primary
+          </Button>
+          <Button variant="secondary">
+            <Icon name="circle-alert" />
+            Secondary
+          </Button>
+          <Button variant="muted">
+            <Icon name="sun-dim" />
+            Muted
+          </Button>
+          <Button variant="destructive">
+            <Icon name="circle-x" />
+            Destructive
+          </Button>
+          <Button variant="outline">
+            <Icon name="badge" />
+            Outline
+          </Button>
+          <Button variant="dashed">
+            <Icon name="minus" />
+            Dashed
+          </Button>
+          <Button variant="ghost">
+            <Icon name="ghost" />
+            Ghost
+          </Button>
+          <Button variant="link">
+            <Icon name="link" />
+            Link
+          </Button>
+        </div>
       </div>
 
-      <div className={styles.grid}>
+      <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-4 z-1">
         {LINKS.map(({ title, href, description }) => (
           <Link key={title} href={href} target="_blank" rel="noreferrer">
             <Card className="px-8">

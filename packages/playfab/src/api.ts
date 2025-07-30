@@ -1,5 +1,7 @@
 import { playfab } from './sdk';
-import { getRandomKey, isEthereumSignatureValid, parseLinkedWalletResult } from './utils';
+import { parseLinkedWalletResult } from './utils/parseData';
+import { isEthereumSignatureValid } from './utils/wallet';
+import { getRandomKey } from './utils/getRandomKey';
 import type {
   AccountResult,
   LinkAppleResult,

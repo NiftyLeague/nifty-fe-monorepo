@@ -1,7 +1,8 @@
+import { Suspense } from 'react';
 import { redirect } from 'next/navigation';
 import { getSession } from '@/utils/session';
+import Loading from '@nl/ui/custom/Loading';
 import LoginClient from './LoginClient';
-import { Suspense } from 'react';
 
 export default async function LoginPage() {
   const session = await getSession();
@@ -18,7 +19,7 @@ export default async function LoginPage() {
   };
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading />}>
       <LoginClient sessionData={sessionData} />
     </Suspense>
   );

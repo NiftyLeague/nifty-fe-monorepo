@@ -1,8 +1,8 @@
 'use client';
 
 import { Suspense } from 'react';
-import { PlayFabAuthForm } from '@nl/playfab/components';
 import type { User } from '@nl/playfab/types';
+import PlayFabAuthForm from '@nl/playfab/components/PlayFabAuthForm';
 import BackButton from '@/components/Header/BackButton';
 import useFlags from '@/hooks/useFlags';
 import SearchParamsHandler from './SearchParamsHandler';

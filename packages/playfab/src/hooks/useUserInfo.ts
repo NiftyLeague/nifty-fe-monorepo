@@ -5,7 +5,7 @@ import type { User, UserInfo } from '../types';
 import { USER_INFO_INITIAL_STATE } from '../constants';
 import fetchJson from '../utils/fetchJson';
 
-export default function useUserInfo(user: User | undefined) {
+export function useUserInfo(user: User | undefined) {
   // We do a request to /api/playfab/user/info only if the user is logged in
   const {
     data: userInfo,
@@ -16,3 +16,5 @@ export default function useUserInfo(user: User | undefined) {
 
   return { error, isLoading, mutateUserInfo, userInfo: userInfo ?? USER_INFO_INITIAL_STATE };
 }
+
+export default useUserInfo;

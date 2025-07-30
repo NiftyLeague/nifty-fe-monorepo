@@ -7,8 +7,8 @@ import { SnackbarProvider } from 'notistack';
 
 import { fetchJson, FetchError } from '../../utils/fetchJson';
 import { USER_CONTEXT_INITIAL_STATE } from '../../constants';
-import useUserSession from '../../hooks/useUserSession';
-import useUserInfo from '../../hooks/useUserInfo';
+import { useUserInfo } from '../../hooks/useUserInfo';
+import { useUserSession } from '../../hooks/useUserSession';
 import type { User, UserContextType } from '../../types';
 
 export const UserContext = createContext<UserContextType>(USER_CONTEXT_INITIAL_STATE);

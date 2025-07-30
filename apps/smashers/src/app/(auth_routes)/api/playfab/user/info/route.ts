@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { GetPlayerCombinedInfo, GetUserPublisherData } from '@nl/playfab/api';
-import { errorResHandler } from '@nl/playfab/utils';
+import { errorResHandler } from '@nl/playfab/utils/errorHandlers';
 import { USER_INFO_INITIAL_STATE } from '@nl/playfab/constants';
 import type { User } from '@nl/playfab/types';
 
