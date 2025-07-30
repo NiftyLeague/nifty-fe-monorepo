@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useSnackbar } from 'notistack';
+
 import Button from '@nl/ui/supabase/Button';
-import Input from '@nl/ui/supabase/Input';
+import { Input } from '@nl/ui/custom/Input';
 import { Icon } from '@nl/ui/base/icon';
 
 import fetchJson from '../../utils/fetchJson';
@@ -64,40 +65,43 @@ export default function LinkWalletInput({ index, address }: { index: number; add
   const addressParsed = address?.split(':')[1] || '';
 
   return (
-    <Input
-      key={index}
-      copy={linked}
-      disabled
-      error={error}
-      value={addressParsed}
-      className={linked ? 'sbui-linked-input' : 'sbui-connect-input'}
-      style={{ marginBottom: 3 }}
-      actions={
-        linked
-          ? [
-              <Button
-                danger
-                key="remove"
-                onClick={handleUnLinkWallet}
-                loading={deleteLoading}
-                style={{ opacity: 1 }}
-                placeholder="Remove"
-              >
-                Remove
-              </Button>,
-            ]
-          : [
-              <Button
-                type="dashed"
-                icon={<Icon name="link-2" />}
-                key="connect"
-                onClick={handleLinkWallet}
-                placeholder="Connect Wallet"
-              >
-                Connect Wallet
-              </Button>,
-            ]
-      }
-    />
+    <>
+      <Input
+        key={index}
+        type="text"
+        disabled
+        copy={linked}
+        error={!!error}
+        value={addressParsed}
+        className={!linked ? '!bg-transparent' : ''}
+        actions={
+          linked
+            ? [
+                <Button
+                  danger
+                  key="remove"
+                  onClick={handleUnLinkWallet}
+                  loading={deleteLoading}
+                  style={{ opacity: 1 }}
+                  placeholder="Remove"
+                >
+                  Remove
+                </Button>,
+              ]
+            : [
+                <Button
+                  type="dashed"
+                  icon={<Icon name="link-2" />}
+                  key="connect"
+                  onClick={handleLinkWallet}
+                  placeholder="Connect Wallet"
+                >
+                  Connect Wallet
+                </Button>,
+              ]
+        }
+      />
+      {error && error.length > 0 && <p className="text-error text-xs font-bold !mt-2">{error}</p>}
+    </>
   );
 }

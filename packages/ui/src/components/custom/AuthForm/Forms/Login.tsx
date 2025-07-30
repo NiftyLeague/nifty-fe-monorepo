@@ -8,7 +8,7 @@ import { cn } from '@nl/ui/utils';
 import { Button } from '@nl/ui/base/button';
 import { Checkbox } from '@nl/ui/base/checkbox';
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@nl/ui/base/form';
-import { IconInput } from '@nl/ui/base/icon-input';
+import { Input } from '@nl/ui/custom/Input';
 import { Icon } from '@nl/ui/base/icon';
 
 import { SocialAuth, type SocialAuthProps } from '../SocialAuth';
@@ -70,10 +70,10 @@ export function LoginForm({
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <IconInput
+                <Input
                   {...field}
                   type="email"
-                  autoComplete="on"
+                  autoComplete={view === VIEWS.LOGIN ? 'on' : 'off'}
                   disabled={disabled}
                   startIcon={<Icon name="mail" />}
                 />
@@ -89,10 +89,10 @@ export function LoginForm({
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <IconInput
+                <Input
                   {...field}
                   type="password"
-                  autoComplete="current-password"
+                  autoComplete={view === VIEWS.LOGIN ? 'current-password' : 'new-password'}
                   disabled={disabled}
                   startIcon={<Icon name="key-round" />}
                 />
