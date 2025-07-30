@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import Button from '@nl/ui/supabase/Button';
-import Input from '@nl/ui/supabase/Input';
+import { Input } from '@nl/ui/custom/Input';
 import { Icon } from '@nl/ui/base/icon';
 import { useSnackbar } from 'notistack';
 
@@ -93,19 +93,21 @@ export default function AccountDetails({
           }}
         />
       ) : null}
-      <div style={{ marginBottom: '0.8rem' }}>
+      <div className="mb-2">
         <label htmlFor="email" style={{ marginTop: 0 }}>
           Email
         </label>
-        <input id="email" type="text" value={email || ''} disabled />
+        <Input id="email" type="email" value={email || ''} disabled startIcon={<Icon name="mail" />} />
       </div>
 
-      <div style={{ marginBottom: '0.8rem' }}>
+      <div className="mb-2">
         <label htmlFor="displayName">Display Name</label>
         <Input
+          id="name"
           type="text"
           value={displayName || ''}
           onChange={e => setDisplayName(e.target.value)}
+          startIcon={<Icon name="user-pen" />}
           actions={[
             <Button
               placeholder="Loading..."
@@ -121,7 +123,7 @@ export default function AccountDetails({
         />
       </div>
       {enableLinkWallet && (
-        <div style={{ marginBottom: '0.8rem' }}>
+        <div className="flex flex-col gap-1 mb-2">
           <label htmlFor="wallets">Linked Wallet(s)</label>
           <LinkWalletInput index={1} address={linkedWallets[0] || ''} />
           {Boolean(linkedWallets[0] || '') && <LinkWalletInput index={2} address={linkedWallets[1] || ''} />}

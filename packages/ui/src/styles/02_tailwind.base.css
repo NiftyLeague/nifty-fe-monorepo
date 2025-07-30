@@ -95,29 +95,26 @@
   }
 
   /* ===============================|| FORMS ||=============================== */
-
   label {
     color: var(--color-input-label);
-    display: block;
     font-size: var(--text-xs); /* 0.75rem */
     font-weight: var(--font-weight-medium);
-    margin: 8px 0 4px 0;
     text-transform: uppercase;
   }
 
-  input {
+  /* input {
     background-color: var(--color-input);
     border-radius: var(--border-radius-default);
     border: var(--border-default);
     color: var(--color-input-value);
-    font-size: var(--text-sm); /* 0.875rem */
+    font-size: var(--text-sm);
     padding: 0.5rem 0.875rem;
     width: 100%;
-  }
+  } */
 
-  input[disabled] {
+  /* input[disabled] {
     background-color: transparent !important;
     border: var(--border-hidden) !important;
     color: var(--color-muted-foreground) !important;
-  }
+  } */
 }

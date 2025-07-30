@@ -6,7 +6,7 @@ import { z } from 'zod';
 
 import { Button } from '@nl/ui/base/button';
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@nl/ui/base/form';
-import { IconInput } from '@nl/ui/base/icon-input';
+import { Input } from '@nl/ui/custom/Input';
 import { Icon } from '@nl/ui/base/icon';
 
 import { VIEWS } from '../constants';
@@ -37,7 +37,7 @@ export function ForgotPasswordForm({ setAuthView, handleResetPassword }: ForgotP
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <IconInput {...field} type="email" autoComplete="on" startIcon={<Icon name="mail" />} />
+                <Input {...field} type="email" autoComplete="on" startIcon={<Icon name="mail" />} />
               </FormControl>
               <FormMessage />
             </FormItem>

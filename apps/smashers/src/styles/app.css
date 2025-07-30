@@ -9,10 +9,6 @@
 
 /* ==============================|| COMPONENT OVERRIDES ||============================== */
 
-.sbui-connect-input input[disabled] {
-  background-color: transparent !important;
-}
-
 .sbui-tab-bar-inner-container {
   /* TODO: change back after enabling Inventory & Stats tabs */
   /* justify-content: space-around; */

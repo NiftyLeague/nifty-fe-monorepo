@@ -6,7 +6,7 @@ import { z } from 'zod';
 
 import { Button } from '@nl/ui/base/button';
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@nl/ui/base/form';
-import { IconInput } from '@nl/ui/base/icon-input';
+import { Input } from '@nl/ui/custom/Input';
 import { Icon } from '@nl/ui/base/icon';
 
 export interface UpdatePasswordFormProps {
@@ -45,7 +45,7 @@ export function UpdatePasswordForm({ handleUpdatePassword }: UpdatePasswordFormP
             <FormItem>
               <FormLabel>Old Password</FormLabel>
               <FormControl>
-                <IconInput
+                <Input
                   {...field}
                   type="password"
                   autoComplete="current-password"
@@ -63,12 +63,7 @@ export function UpdatePasswordForm({ handleUpdatePassword }: UpdatePasswordFormP
             <FormItem>
               <FormLabel>New Password</FormLabel>
               <FormControl>
-                <IconInput
-                  {...field}
-                  type="password"
-                  autoComplete="new-password"
-                  startIcon={<Icon name="key-round" />}
-                />
+                <Input {...field} type="password" autoComplete="new-password" startIcon={<Icon name="key-round" />} />
               </FormControl>
               <FormMessage />
             </FormItem>
