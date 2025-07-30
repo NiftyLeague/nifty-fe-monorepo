@@ -2,23 +2,22 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { signIn, useSession } from 'next-auth/react';
-import Space from '@nl/ui/supabase/Space';
 import { usePathname } from 'next/navigation';
 
+import { cn } from '@nl/ui/utils';
 import { SocialIconButton } from '@nl/ui/custom/SocialIconButton';
-import PlayFabAuthForm from '../PlayFabAuthForm';
-import fetchJson from '../../utils/fetchJson';
+import { useUserContext } from '../../hooks/useUserContext';
+import { fetchJson } from '../../utils/fetchJson';
 import type { Provider, UserContextType } from '../../types';
 
 export interface Props {
   providers: Provider[];
-  socialButtonSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   socialLayout?: 'horizontal' | 'vertical';
+  loading?: boolean;
 }
 
-export default function LinkedProviders({ providers, socialButtonSize = 'md', socialLayout = 'horizontal' }: Props) {
-  const player: UserContextType = PlayFabAuthForm.useUserContext();
-  const verticalSocialLayout = socialLayout === 'vertical' ? true : false;
+export default function LinkedProviders({ providers, socialLayout = 'horizontal', loading = false }: Props) {
+  const player: UserContextType = useUserContext();
   const [linkedProviders, setLinkedProviders] = useState<Provider[]>([]);
   const session = useSession();
   const pathname = usePathname();
@@ -79,21 +78,22 @@ export default function LinkedProviders({ providers, socialButtonSize = 'md', so
   };
 
   return providers && providers.length > 0 ? (
-    <Space size={2} direction={socialLayout}>
+    <div className={cn('w-full grid gap-2', socialLayout === 'horizontal' && 'flex flex-row')}>
       {providers.map(provider => {
         const isLinked = linkedProviders.includes(provider);
         return (
-          <div key={provider} style={!verticalSocialLayout ? { flexGrow: 1 } : {}}>
+          <div key={provider} className="w-full">
             <SocialIconButton
               key={provider}
               label={isLinked ? 'Unlink' : 'Sign in'}
               onClick={isLinked ? () => handleUnlinkProvider(provider) : () => handleSignIn(provider)}
               provider={provider}
               withColor={isLinked}
+              disabled={loading}
             />
           </div>
         );
       })}
-    </Space>
+    </div>
   ) : null;
 }

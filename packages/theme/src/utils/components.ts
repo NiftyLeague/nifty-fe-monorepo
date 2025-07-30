@@ -99,7 +99,7 @@ const customComponents = (theme: Theme, borderRadius: number, outlinedFilled: bo
       },
     },
     MuiDivider: {
-      styleOverrides: { root: { borderColor: 'var(--color-divider)', opacity: mode === 'dark' ? 0.2 : 1 } },
+      styleOverrides: { root: { borderColor: 'var(--color-separator)', opacity: mode === 'dark' ? 0.2 : 1 } },
     },
     MuiSelect: { styleOverrides: { select: { '&:focus': { backgroundColor: 'transparent' } } } },
     MuiAvatar: {

@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
-import Image from 'next/image';
+import React, { useState, useRef } from 'react';
 import { useSnackbar } from 'notistack';
-import { cn } from '@nl/ui/utils';
-import { Icon } from '@nl/ui/base/icon';
+import Image from 'next/image';
 
-import styles from '../../styles/profile.module.css';
+import { Button } from '@nl/ui/base/button';
+import { Input } from '@nl/ui/custom/Input';
+import { Icon } from '@nl/ui/base/icon';
 
 export default function Avatar({
   uid,
@@ -19,6 +19,7 @@ export default function Avatar({
   size: number;
   onUpload: (url: string) => void;
 }) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
@@ -46,34 +47,43 @@ export default function Avatar({
     }
   };
 
+  const handleButtonClick = () => {
+    if (fileInputRef.current && !uploading) {
+      fileInputRef.current.click();
+    }
+  };
+
   return (
-    <div className={styles.avatarContainer}>
+    <div className="w-full grid justify-items-center gap-2">
       {url ? (
         <Image
           src={url}
           alt="Avatar"
-          className={cn(styles.avatar, styles.image)}
+          className="rounded-full"
           height={size}
           width={size}
-          style={{ maxWidth: '100%', height: 'auto' }}
+          style={{ width: size, height: size }}
         />
       ) : (
-        <div className={cn(styles.avatar, styles.no_image)} style={{ height: size, width: size }} />
+        <div className="bg-background border rounded-full" style={{ height: size, width: size }} />
       )}
       <div style={{ width: size }}>
-        <label className={cn(styles.button_primary, 'block btn')} style={{ marginBottom: 0 }} htmlFor="single">
+        <Button disabled={uploading} className="w-full" onClick={handleButtonClick}>
           {uploading ? (
-            'Uploading ...'
+            <>
+              <Icon name="loader" className="animate-spin" /> Uploading
+            </>
           ) : (
             <>
               <Icon name="upload" /> Upload
             </>
           )}
-        </label>
-        <input
+        </Button>
+        <Input
+          ref={fileInputRef}
           style={{ visibility: 'hidden', position: 'absolute' }}
           type="file"
-          id="single"
+          id="upload-hidden-input"
           accept="image/*"
           onChange={uploadAvatar}
           disabled={uploading}

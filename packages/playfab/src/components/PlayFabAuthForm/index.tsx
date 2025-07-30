@@ -3,12 +3,11 @@
 import React, { useState } from 'react';
 import { AuthForm, type AuthFormProps } from '@nl/ui/custom/AuthForm';
 
-import fetchJson from '../../utils/fetchJson';
+import type { Provider, User } from '../../types';
 import { errorMsgHandler } from '../../utils/errorHandlers';
-import useUserSession from '../../hooks/useUserSession';
-import useUserContext from '../../hooks/useUserContext';
-import UserContextProvider from '../UserContextProvider';
-import type { Provider, User, UserContextType, UseUserSessionFunction } from '../../types';
+import { fetchJson } from '../../utils/fetchJson';
+import { useUserContext } from '../../hooks/useUserContext';
+import { useUserSession } from '../../hooks/useUserSession';
 
 export interface PlayFabAuthFormProps
   extends Omit<
@@ -118,7 +117,4 @@ function PlayFabAuthForm({ redirectTo, ...props }: PlayFabAuthFormProps): React.
   );
 }
 
-PlayFabAuthForm.UserContextProvider = UserContextProvider as (props: React.PropsWithChildren) => React.ReactNode;
-PlayFabAuthForm.useUserContext = useUserContext as () => UserContextType;
-PlayFabAuthForm.useUserSession = useUserSession as UseUserSessionFunction;
 export default PlayFabAuthForm;

@@ -1,7 +1,7 @@
 import { type PropsWithChildren, Suspense } from 'react';
 import { type Metadata } from 'next';
 import { AuthProvider } from '@/contexts/AuthProvider';
-import { getServerSession } from '@nl/playfab/utils';
+import { getServerSession } from '@nl/playfab/utils/auth';
 
 export const metadata: Metadata = {
   title: 'Profile',

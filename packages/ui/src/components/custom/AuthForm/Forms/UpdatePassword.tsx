@@ -37,7 +37,7 @@ export function UpdatePasswordForm({ handleUpdatePassword }: UpdatePasswordFormP
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
         <FormField
           control={form.control}
           name="old_password"

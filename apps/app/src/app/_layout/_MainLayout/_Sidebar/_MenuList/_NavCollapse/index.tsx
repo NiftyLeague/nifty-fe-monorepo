@@ -114,7 +114,7 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
                 height: '100%',
                 width: '1px',
                 opacity: 1,
-                background: 'var(--color-divider)',
+                background: 'var(--color-separator)',
               },
             }}
           >

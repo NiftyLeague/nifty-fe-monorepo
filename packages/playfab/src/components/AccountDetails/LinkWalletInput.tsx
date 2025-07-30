@@ -1,20 +1,28 @@
 import { useState } from 'react';
 import { useSnackbar } from 'notistack';
 
-import Button from '@nl/ui/supabase/Button';
+import { Button } from '@nl/ui/base/button';
 import { Input } from '@nl/ui/custom/Input';
 import { Icon } from '@nl/ui/base/icon';
 
-import fetchJson from '../../utils/fetchJson';
 import { errorMsgHandler } from '../../utils/errorHandlers';
+import { fetchJson } from '../../utils/fetchJson';
 import { signMessage } from '../../utils/wallet';
-import PlayFabAuthForm from '../PlayFabAuthForm';
+import { useUserContext } from '../../hooks/useUserContext';
 
-export default function LinkWalletInput({ index, address }: { index: number; address?: string }) {
+export default function LinkWalletInput({
+  index,
+  address,
+  loading,
+}: {
+  index: number;
+  address?: string;
+  loading?: boolean;
+}) {
   const [error, setError] = useState<string | undefined>();
   const [deleteLoading, setDeleteLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
-  const { refetchPlayer } = PlayFabAuthForm.useUserContext();
+  const { refetchPlayer } = useUserContext();
 
   const handleLinkWallet = async () => {
     setError(undefined);
@@ -73,29 +81,33 @@ export default function LinkWalletInput({ index, address }: { index: number; add
         copy={linked}
         error={!!error}
         value={addressParsed}
+        hiddenLabel
+        label={`Link Wallet ${index}`}
         className={!linked ? '!bg-transparent' : ''}
         actions={
           linked
             ? [
                 <Button
-                  danger
                   key="remove"
+                  variant="destructive"
+                  size="sm"
+                  className="cursor-pointer disabled:cursor-not-allowed"
+                  disabled={deleteLoading}
                   onClick={handleUnLinkWallet}
-                  loading={deleteLoading}
-                  style={{ opacity: 1 }}
-                  placeholder="Remove"
                 >
                   Remove
                 </Button>,
               ]
             : [
                 <Button
-                  type="dashed"
-                  icon={<Icon name="link-2" />}
                   key="connect"
+                  variant="dashed"
+                  size="sm"
+                  className="cursor-pointer disabled:cursor-not-allowed"
+                  disabled={loading}
                   onClick={handleLinkWallet}
-                  placeholder="Connect Wallet"
                 >
+                  <Icon name="link-2" />
                   Connect Wallet
                 </Button>,
               ]
