@@ -133,7 +133,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                   variant="outline"
                   size="sm"
                   onClick={() => onCopy(props.value as string)}
-                  className="px-2 cursor-pointer"
+                  className="px-2 cursor-copy"
                   aria-live="polite"
                 >
                   <Icon name="copy" size="sm" />

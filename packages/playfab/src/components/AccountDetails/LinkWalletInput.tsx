@@ -103,7 +103,7 @@ export default function LinkWalletInput({
                   key="connect"
                   variant="dashed"
                   size="sm"
-                  className="cursor-pointer disabled:cursor-not-allowed"
+                  className="cursor-pointer disabled:cursor-progress"
                   disabled={loading}
                   onClick={handleLinkWallet}
                 >

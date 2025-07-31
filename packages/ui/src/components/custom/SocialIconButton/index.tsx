@@ -31,7 +31,7 @@ export function SocialIconButton({
       key={provider}
       variant="outline"
       type="button"
-      className={cn('w-full cursor-pointer disabled:cursor-not-allowed', withColor && buttonStyles[provider])}
+      className={cn('w-full cursor-pointer disabled:cursor-progress', withColor && buttonStyles[provider])}
       disabled={disabled}
       onClick={onClick}
     >

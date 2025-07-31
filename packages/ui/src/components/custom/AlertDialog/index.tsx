@@ -44,10 +44,10 @@ export function AlertDialog({
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel variant={cancelVariant} onClick={onCancel}>
+          <AlertDialogCancel variant={cancelVariant} onClick={onCancel} className="cursor-pointer">
             {cancelText}
           </AlertDialogCancel>
-          <AlertDialogAction variant={confirmVariant} onClick={onConfirm}>
+          <AlertDialogAction variant={confirmVariant} onClick={onConfirm} className="cursor-pointer">
             {confirmText}
           </AlertDialogAction>
         </AlertDialogFooter>

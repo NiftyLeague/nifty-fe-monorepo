@@ -4,9 +4,10 @@ import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 
+import { cn } from '@nl/ui/utils';
 import { Card, CardContent, CardHeader, CardDescription } from '@nl/ui/base/card';
 import { Icon } from '@nl/ui/base/icon';
-import Tabs from '@nl/ui/supabase/Tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@nl/ui/base/tabs';
 
 import BackButton from '@/components/Header/BackButton';
 import type { User } from '@nl/playfab/types';
@@ -29,6 +30,10 @@ interface SessionData {
 
 export default function ProfileClient({ sessionData }: { sessionData: SessionData }) {
   const flags = useFlags();
+  flags.enableStats = false;
+
+  const tabsEnabled = flags.enableInventory || flags.enableStats;
+
   return (
     <>
       <BackButton />
@@ -45,8 +50,30 @@ export default function ProfileClient({ sessionData }: { sessionData: SessionDat
             <CardDescription className="ml-auto text-success">You&apos;re signed in</CardDescription>
           </CardHeader>
           <CardContent>
-            <Tabs type="underlined" size="md" tabBarStyle={{ marginTop: 16 }} tabBarGutter={8}>
-              <Tabs.Panel id="account" icon={<Icon name="user" />} label="Account">
+            <Tabs defaultValue="account" className="w-full gap-4">
+              <TabsList className={cn('w-full', !tabsEnabled && 'bg-card')}>
+                <TabsTrigger
+                  value="account"
+                  className={cn(
+                    tabsEnabled
+                      ? 'cursor-pointer data-[state=active]:cursor-not-allowed'
+                      : '!bg-card border-0 border-b-1 rounded-none outline-none justify-start',
+                  )}
+                >
+                  <Icon name="user" /> Account
+                </TabsTrigger>
+                {flags.enableInventory && (
+                  <TabsTrigger value="inventory" className="cursor-pointer data-[state=active]:cursor-not-allowed">
+                    <Icon name="database" /> Inventory
+                  </TabsTrigger>
+                )}
+                {flags.enableStats && (
+                  <TabsTrigger value="stats" className="cursor-pointer data-[state=active]:cursor-not-allowed">
+                    <Icon name="book-heart" /> Stats
+                  </TabsTrigger>
+                )}
+              </TabsList>
+              <TabsContent value="account">
                 <Suspense fallback={<div className="text-center py-8">Loading account details...</div>}>
                   <AccountDetails
                     enableAvatars={flags.enableAvatars}
@@ -54,19 +81,15 @@ export default function ProfileClient({ sessionData }: { sessionData: SessionDat
                     enableLinkWallet={flags.enableLinkWallet}
                   />
                 </Suspense>
-              </Tabs.Panel>
-              {flags.enableInventory && (
-                <Tabs.Panel id="inventory" icon={<Icon name="database" />} label="Inventory">
-                  <Suspense fallback={<div className="text-center py-8">Loading player inventory...</div>}>
-                    <Inventory />
-                  </Suspense>
-                </Tabs.Panel>
-              )}
-              {flags.enableStats && (
-                <Tabs.Panel id="stats" icon={<Icon name="book-heart" />} label="Stats">
-                  <div>coming soon...</div>
-                </Tabs.Panel>
-              )}
+              </TabsContent>
+              <TabsContent value="inventory">
+                <Suspense fallback={<div className="text-center py-8">Loading player inventory...</div>}>
+                  <Inventory />
+                </Suspense>
+              </TabsContent>
+              <TabsContent value="stats">
+                <div>coming soon...</div>
+              </TabsContent>
             </Tabs>
           </CardContent>
         </Card>
