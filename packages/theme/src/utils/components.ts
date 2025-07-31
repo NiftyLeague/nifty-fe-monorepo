@@ -7,13 +7,13 @@ const customComponents = (theme: Theme, borderRadius: number, outlinedFilled: bo
   return {
     MuiButton: {
       styleOverrides: {
-        root: { fontWeight: 'var(--font-weight-normal)', borderRadius: 'var(--border-radius-default)' },
+        root: { fontWeight: 'var(--font-weight-normal)', borderRadius: 'var(--radius-default)' },
         outlinedPrimary: { color: 'var(--color-foreground)', borderColor: 'var(--color-purple)' },
       },
     },
     MuiPaper: {
       defaultProps: { elevation: 0 },
-      styleOverrides: { root: { backgroundImage: 'none' }, rounded: { borderRadius: 'var(--border-radius-default)' } },
+      styleOverrides: { root: { backgroundImage: 'none' }, rounded: { borderRadius: 'var(--radius-default)' } },
     },
     MuiCardHeader: {
       styleOverrides: { root: { color: 'var(--color-foreground)', padding: '24px' }, title: { fontSize: '1.125rem' } },
@@ -55,7 +55,7 @@ const customComponents = (theme: Theme, borderRadius: number, outlinedFilled: bo
       styleOverrides: {
         root: {
           background: outlinedFilled ? 'var(--color-background)' : 'transparent',
-          borderRadius: 'var(--border-radius-default)',
+          borderRadius: 'var(--radius-default)',
           '& .MuiOutlinedInput-notchedOutline': { borderColor: 'var(--color-foreground)' },
           '&:hover $notchedOutline': { borderColor: 'var(--color-purple-200)' },
           '&.MuiInputBase-multiline': { padding: 1 },
@@ -64,14 +64,14 @@ const customComponents = (theme: Theme, borderRadius: number, outlinedFilled: bo
           fontWeight: 'var(--font-weight-normal)',
           background: outlinedFilled ? 'var(--color-background)' : 'transparent',
           padding: '15.5px 14px',
-          borderRadius: 'var(--border-radius-default)',
+          borderRadius: 'var(--radius-default)',
           '&.MuiInputBase-inputSizeSmall': {
             padding: '10px 14px',
             '&.MuiInputBase-inputAdornedStart': { paddingLeft: 0 },
           },
         },
         inputAdornedStart: { paddingLeft: 4 },
-        notchedOutline: { borderRadius: 'var(--border-radius-default)' },
+        notchedOutline: { borderRadius: 'var(--radius-default)' },
       },
     },
     MuiSlider: {
@@ -86,13 +86,13 @@ const customComponents = (theme: Theme, borderRadius: number, outlinedFilled: bo
         root: {
           '& .MuiAutocomplete-tag': {
             background: mode === 'dark' ? 'var(--color-foreground)' : 'var(--color-blue)',
-            borderRadius: 'var(--border-radius-default)',
+            borderRadius: 'var(--radius-default)',
             color: 'var(--color-foreground)',
             '.MuiChip-deleteIcon': { color: mode === 'dark' ? 'var(--color-foreground)' : 'var(--color-blue)' },
           },
         },
         popper: {
-          borderRadius: 'var(--border-radius-default)',
+          borderRadius: 'var(--radius-default)',
           boxShadow:
             '0px 8px 10px -5px rgb(0 0 0 / 20%), 0px 16px 24px 2px rgb(0 0 0 / 14%), 0px 6px 30px 5px rgb(0 0 0 / 12%)',
         },

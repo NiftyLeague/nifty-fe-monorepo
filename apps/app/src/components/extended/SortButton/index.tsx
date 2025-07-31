@@ -72,7 +72,7 @@ const SortButton = ({
         sx={{
           '& .MuiPaper-root': {
             background: 'var(--color-background)',
-            borderRadius: '0px 0px var(--border-radius-default) var(--border-radius-default)',
+            borderRadius: '0px 0px var(--radius-default) var(--radius-default)',
           },
           '& .MuiMenuItem-root': {
             width: (buttonRef?.current as unknown as { clientWidth: number })?.clientWidth,

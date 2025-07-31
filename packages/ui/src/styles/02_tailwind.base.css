@@ -20,7 +20,7 @@
     font-family: var(--font-default);
     font-size: var(--text-base); /* 1rem */
     font-weight: var(--font-weight-normal);
-    letter-spacing: var(--default-letter-spacing);
+    letter-spacing: var(--tracking-default);
     line-height: var(--text-base--line-height);
   }
   html,
@@ -44,7 +44,7 @@
     color: var(--color-foreground);
     font-family: var(--font-header);
     font-weight: var(--font-weight-bold);
-    letter-spacing: var(--header-letter-spacing);
+    letter-spacing: var(--tracking-header);
   }
   h4,
   h5,
@@ -52,7 +52,7 @@
     color: var(--color-foreground);
     font-family: var(--font-subheader);
     font-weight: var(--font-weight-normal);
-    letter-spacing: var(--subheader-letter-spacing);
+    letter-spacing: var(--tracking-subheader);
   }
 
   h1 {
@@ -85,7 +85,7 @@
     font-family: var(--font-btn);
     font-size: var(--text-sm); /* 0.875rem */
     font-weight: var(--font-weight-normal);
-    letter-spacing: var(--btn-letter-spacing);
+    letter-spacing: var(--tracking-btn);
     line-height: var(--text-sm--line-height);
   }
 
@@ -105,7 +105,7 @@
 
   /* input {
     background-color: var(--color-input);
-    border-radius: var(--border-radius-default);
+    border-radius: var(--radius-default);
     border: var(--border-default);
     color: var(--color-input-value);
     font-size: var(--text-sm);

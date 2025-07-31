@@ -65,7 +65,7 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
     <>
       <ListItemButton
         sx={{
-          borderRadius: 'var(--border-radius-default)',
+          borderRadius: 'var(--radius-default)',
           mb: 0.5,
           alignItems: 'center',
           backgroundColor: level > 1 ? 'transparent !important' : 'inherit',

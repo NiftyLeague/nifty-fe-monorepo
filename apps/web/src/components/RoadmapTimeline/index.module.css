@@ -241,7 +241,7 @@
   margin-left: 60px;
   margin-right: 30px;
   background: var(--color-card);
-  border-radius: var(--border-radius-default);
+  border-radius: var(--radius-default);
   padding: 1em;
 }
 .timeline_content_img {

@@ -150,7 +150,7 @@ const DashboardComicsPage = (): React.ReactNode => {
                 gap={2}
                 minHeight={375}
                 border="var(--border-default)"
-                borderRadius="var(--border-radius-default)"
+                borderRadius="var(--radius-default)"
                 bgcolor="var(--color-muted)"
                 px={2}
                 py={3}
@@ -185,7 +185,7 @@ const DashboardComicsPage = (): React.ReactNode => {
                 sx={{
                   minHeight: 375,
                   border: 'var(--border-default)',
-                  borderRadius: 'var(--border-radius-default)',
+                  borderRadius: 'var(--radius-default)',
                   backgroundColor: 'var(--color-muted)',
                   px: 2,
                   pt: 4,

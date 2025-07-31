@@ -2,8 +2,8 @@
 
 import { Fragment } from 'react';
 import Image from 'next/image';
+import { Text, Title } from '@nl/ui/custom/Typography';
 import creditsData from '@/data/credits.json';
-import Typography from '@nl/ui/supabase/Typography';
 import { Company, CreditsData, TeamMember } from '@/types/credits';
 import Modal from '@/components/Modal';
 import styles from '@/components/Modal/index.module.css';
@@ -62,12 +62,9 @@ const CompanyImage = ({ company }: { company: Company }) => {
 
 const SectionNote = ({ children }: { children: React.ReactNode }) => {
   return (
-    <Typography.Title
-      level={3}
-      style={{ textAlign: 'center', marginBottom: '1rem', fontSize: '0.875rem', lineHeight: 1.3 }}
-    >
+    <Title level={3} className="text-sm mb-4 text-center">
       {children}
-    </Typography.Title>
+    </Title>
   );
 };
 
@@ -76,9 +73,9 @@ const CreditsContent = () => {
 
   return (
     <div style={{ maxWidth: '900px', maxHeight: '80vh', overflowY: 'auto', overflowX: 'hidden', padding: '2rem' }}>
-      <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-        <Typography.Title level={2}>CREDITS</Typography.Title>
-      </div>
+      <Title level={2} className="mb-8 text-center">
+        CREDITS
+      </Title>
 
       <div>
         {companies.map((company, index) => (
@@ -97,10 +94,9 @@ const CreditsContent = () => {
                 {company.members.map((member: TeamMember, mIndex: number) =>
                   member.name ? (
                     <Fragment key={mIndex}>
-                      <Typography.Text
-                        type="default"
+                      <Text
+                        strong
                         style={{
-                          fontWeight: 'bold',
                           justifySelf: 'end',
                           maxWidth: '40vw',
                           overflow: 'hidden',
@@ -109,10 +105,10 @@ const CreditsContent = () => {
                         }}
                       >
                         {member.name}
-                      </Typography.Text>
+                      </Text>
                       <span />
-                      <Typography.Text
-                        type="secondary"
+                      <Text
+                        variant="muted"
                         style={{
                           justifySelf: 'start',
                           maxWidth: '40vw',
@@ -122,14 +118,13 @@ const CreditsContent = () => {
                         }}
                       >
                         {member.role}
-                      </Typography.Text>
+                      </Text>
                     </Fragment>
                   ) : (
-                    <Typography.Text
+                    <Text
                       key={mIndex}
-                      type="default"
+                      strong
                       style={{
-                        fontWeight: 'bold',
                         gridColumn: '1 / -1',
                         overflow: 'hidden',
                         textAlign: 'center',
@@ -139,7 +134,7 @@ const CreditsContent = () => {
                       }}
                     >
                       {member.role}
-                    </Typography.Text>
+                    </Text>
                   ),
                 )}
               </div>
@@ -148,21 +143,21 @@ const CreditsContent = () => {
         ))}
       </div>
 
-      <div style={{ marginTop: '4rem' }}>
+      <div className="mt-16">
         <SectionNote>
           Special thanks to former team members who contributed early support, development, and ideas!
         </SectionNote>
         <div style={{ textAlign: 'center', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '10px' }}>
           {creditsData.formerMembers.map((member, index) => (
-            <Typography.Text key={index}>
+            <Text key={index}>
               {member}
               {index < creditsData.formerMembers.length - 1 ? ', ' : ''}
-            </Typography.Text>
+            </Text>
           ))}
         </div>
       </div>
 
-      <div style={{ textAlign: 'center', marginTop: '4rem', marginBottom: '2rem' }}>
+      <div className="mt-16 mb-8 text-center">
         <SectionNote>
           A final thanks to our community, Discord mods, investors, and anyone else who helped along the way!
         </SectionNote>

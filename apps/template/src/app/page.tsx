@@ -5,10 +5,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { Button } from '@nl/ui/base/button';
-import { Code } from '@nl/ui/base/code';
 import { Card, CardTitle, CardDescription } from '@nl/ui/base/card';
 import { Icon } from '@nl/ui/base/icon';
 import { PreloaderWithProgress } from '@nl/ui/custom/Preloader';
+import { Text } from '@nl/ui/custom/Typography';
 import { ThemeToggle } from '@nl/ui/custom/Theme';
 
 import styles from '@/styles/page.module.css';
@@ -88,7 +88,7 @@ export default function Page(): React.ReactNode {
       <div className={styles.description}>
         <p>
           examples/basic&nbsp;
-          <Code className="font-bold">app/page.tsx</Code>
+          <Text code>app/page.tsx</Text>
         </p>
         <div>
           <a

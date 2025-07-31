@@ -35,7 +35,7 @@
 }
 ::-webkit-scrollbar-thumb {
   background: var(--color-purple-500);
-  border-radius: var(--border-radius-default);
+  border-radius: var(--radius-default);
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-purple-400);

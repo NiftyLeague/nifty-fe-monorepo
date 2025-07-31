@@ -13,7 +13,7 @@
   }
   .ps__thumb-y {
     background-color: var(--color-base-500);
-    border-radius: var(--border-radius-default);
+    border-radius: var(--radius-default);
     width: 5px;
     right: 0;
   }

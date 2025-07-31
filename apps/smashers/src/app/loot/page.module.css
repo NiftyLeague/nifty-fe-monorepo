@@ -65,13 +65,6 @@
   border-radius: 2px;
 }
 
-.crateSubtitle {
-  color: var(--color-muted-foreground);
-  margin: 0 0 2rem;
-  font-size: 1.1rem;
-  font-weight: 400;
-}
-
 .itemsTable {
   border: var(--border-default);
   margin: 0;
@@ -79,7 +72,7 @@
   overflow-y: auto;
   width: 100%;
   background-color: var(--color-background);
-  border-radius: var(--border-radius-default);
+  border-radius: var(--radius-default);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   scrollbar-width: thin;
   scrollbar-color: var(--color-purple) transparent;

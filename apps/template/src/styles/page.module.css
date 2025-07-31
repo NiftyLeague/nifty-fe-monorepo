@@ -12,7 +12,7 @@
   justify-content: inherit;
   align-items: inherit;
   font-size: 0.85rem;
-  max-width: var(--custom-max-width);
+  max-width: var(--container-default);
   width: 100%;
   z-index: 2;
   font-family: var(--font-mono);
@@ -31,7 +31,7 @@
   padding: 1rem;
   background-color: var(--color-muted);
   border: var(--border-default);
-  border-radius: var(--border-radius-default);
+  border-radius: var(--radius-default);
   color: var(--color-muted-foreground);
 }
 
