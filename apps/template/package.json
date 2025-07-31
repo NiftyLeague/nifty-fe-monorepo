@@ -10,13 +10,13 @@
   },
   "dependencies": {
     "@nl/ui": "workspace:*",
-    "next": "15.3.5",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "next": "15.4.5",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
   },
   "devDependencies": {
-    "@types/node": "^24.0.14",
-    "@types/react": "19.1.8",
-    "@types/react-dom": "19.1.6"
+    "@types/node": "^24.1.0",
+    "@types/react": "19.1.9",
+    "@types/react-dom": "19.1.7"
   }
 }

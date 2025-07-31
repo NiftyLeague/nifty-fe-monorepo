@@ -102,20 +102,4 @@
     font-weight: var(--font-weight-medium) !important;
     text-transform: uppercase;
   }
-
-  /* input {
-    background-color: var(--color-input);
-    border-radius: var(--radius-default);
-    border: var(--border-default);
-    color: var(--color-input-value);
-    font-size: var(--text-sm);
-    padding: 0.5rem 0.875rem;
-    width: 100%;
-  } */
-
-  /* input[disabled] {
-    background-color: transparent !important;
-    border: var(--border-hidden) !important;
-    color: var(--color-muted-foreground) !important;
-  } */
 }

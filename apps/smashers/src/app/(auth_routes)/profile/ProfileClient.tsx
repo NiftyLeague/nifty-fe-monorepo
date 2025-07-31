@@ -30,10 +30,7 @@ interface SessionData {
 
 export default function ProfileClient({ sessionData }: { sessionData: SessionData }) {
   const flags = useFlags();
-  flags.enableStats = false;
-
   const tabsEnabled = flags.enableInventory || flags.enableStats;
-
   return (
     <>
       <BackButton />
