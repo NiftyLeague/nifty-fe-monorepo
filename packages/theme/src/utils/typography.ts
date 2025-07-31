@@ -12,7 +12,7 @@ const customTypography = (theme: Theme, borderRadius: number, fontFamily: FontFa
     fontFamily: 'var(--font-header)',
     fontSize: 'var(--text-4xl)' /* 2.25rem */,
     fontWeight: 'var(--font-weight-bold)',
-    letterSpacing: 'var(--header-letter-spacing)',
+    letterSpacing: 'var(--tracking-header)',
     lineHeight: 'var(--text-4xl--line-height)',
   },
   h2: {
@@ -20,7 +20,7 @@ const customTypography = (theme: Theme, borderRadius: number, fontFamily: FontFa
     fontFamily: 'var(--font-header)',
     fontSize: 'var(--text-3xl)' /* 1.875rem */,
     fontWeight: 'var(--font-weight-bold)',
-    letterSpacing: 'var(--header-letter-spacing)',
+    letterSpacing: 'var(--tracking-header)',
     lineHeight: 'var(--text-3xl--line-height)',
   },
   h3: {
@@ -28,7 +28,7 @@ const customTypography = (theme: Theme, borderRadius: number, fontFamily: FontFa
     fontFamily: 'var(--font-header)',
     fontSize: 'var(--text-2xl)' /* 1.5rem */,
     fontWeight: 'var(--font-weight-bold)',
-    letterSpacing: 'var(--header-letter-spacing)',
+    letterSpacing: 'var(--tracking-header)',
     lineHeight: 'var(--text-2xl--line-height)',
   },
   h4: {
@@ -36,7 +36,7 @@ const customTypography = (theme: Theme, borderRadius: number, fontFamily: FontFa
     fontFamily: 'var(--font-subheader)',
     fontSize: 'var(--text-xl)' /* 1.25rem */,
     fontWeight: 'var(--font-weight-normal)',
-    letterSpacing: 'var(--subheader-letter-spacing)',
+    letterSpacing: 'var(--tracking-subheader)',
     lineHeight: 'var(--text-xl--line-height)',
   },
   h5: {
@@ -44,7 +44,7 @@ const customTypography = (theme: Theme, borderRadius: number, fontFamily: FontFa
     fontFamily: 'var(--font-subheader)',
     fontSize: 'var(--text-lg)' /* 1.125rem */,
     fontWeight: 'var(--font-weight-normal)',
-    letterSpacing: 'var(--subheader-letter-spacing)',
+    letterSpacing: 'var(--tracking-subheader)',
     lineHeight: 'var(--text-lg--line-height)',
   },
   h6: {
@@ -52,7 +52,7 @@ const customTypography = (theme: Theme, borderRadius: number, fontFamily: FontFa
     fontFamily: 'var(--font-subheader)',
     fontSize: 'var(--text-base)' /* 1rem */,
     fontWeight: 'var(--font-weight-normal)',
-    letterSpacing: 'var(--subheader-letter-spacing)',
+    letterSpacing: 'var(--tracking-subheader)',
     lineHeight: 'var(--text-base--line-height)',
   },
   subtitle1: { fontSize: 'var(--text-sm)' /* 0.875rem */, fontWeight: 500, color: 'var(--color-foreground)' },
@@ -80,7 +80,7 @@ const customTypography = (theme: Theme, borderRadius: number, fontFamily: FontFa
     width: '100%',
     minHeight: 'calc(100vh - 100px)',
     flexGrow: 1,
-    borderRadius: 'var(--border-radius-default)',
+    borderRadius: 'var(--radius-default)',
   },
   menuCaption: {
     fontSize: 'var(--text-sm)' /* 0.875rem */,
@@ -96,7 +96,7 @@ const customTypography = (theme: Theme, borderRadius: number, fontFamily: FontFa
     color: 'var(--color-muted-foreground)',
     textTransform: 'capitalize',
   },
-  commonAvatar: { cursor: 'pointer', borderRadius: 'var(--border-radius-default)' },
+  commonAvatar: { cursor: 'pointer', borderRadius: 'var(--radius-default)' },
   smallAvatar: { width: '22px', height: '22px', fontSize: 'var(--text-base)' /* 1rem */ },
   mediumAvatar: { width: '34px', height: '34px', fontSize: 'var(--text-xl)' /* 1.25rem */ },
   largeAvatar: { width: '44px', height: '44px', fontSize: 'var(--text-2xl)' /* 1.5rem */ },

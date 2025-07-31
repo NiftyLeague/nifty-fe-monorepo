@@ -3,7 +3,7 @@ import TitleStyles from './Title.module.css';
 
 interface Props {
   className?: string;
-  level?: 1 | 2 | 3 | 4 | 5;
+  level?: 1 | 2 | 3 | 4 | 5 | 6;
   style?: React.CSSProperties;
 }
 

@@ -3,7 +3,7 @@
 /* ==============================|| OVERRIDES ||============================== */
 
 :root {
-  --font-subheader: var(--font-special);
+  --subheader-font: var(--special-font);
   --subheader-letter-spacing: var(--special-letter-spacing);
 }
 

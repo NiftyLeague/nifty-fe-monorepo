@@ -10,7 +10,7 @@
   .browse_single {
     background:
       linear-gradient(26.04deg, rgba(123, 97, 255, 0.1) -0.03%, rgba(109, 50, 237, 0) 99.2%), rgba(36, 37, 38, 0.7);
-    border-radius: var(--border-radius-default);
+    border-radius: var(--radius-default);
   }
 
   .browse_single button {

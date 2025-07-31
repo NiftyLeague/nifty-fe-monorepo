@@ -52,7 +52,7 @@ const ComicCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<ComicC
       onClick={handleViewComic}
       position="relative"
       sx={{
-        borderRadius: 'var(--border-radius-default)',
+        borderRadius: 'var(--radius-default)',
         outline: isSelected ? '3px solid var(--color-purple)' : 'none',
         cursor: 'pointer',
       }}
@@ -77,7 +77,7 @@ const ComicCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<ComicC
             position="absolute"
             width={38}
             height={35}
-            sx={{ background: '#8F4BF4', borderRadius: 'var(--border-radius-default)', bottom: 0, left: 0, zIndex: 3 }}
+            sx={{ background: '#8F4BF4', borderRadius: 'var(--radius-default)', bottom: 0, left: 0, zIndex: 3 }}
           >
             <Typography sx={{ fontSize: 20, color: 'var(--color-foreground)', fontWeight: 700 }}>
               <span>{balance}</span>

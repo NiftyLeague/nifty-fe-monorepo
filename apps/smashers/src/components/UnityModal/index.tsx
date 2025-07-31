@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import { isOpera, browserName } from 'react-device-detect';
-import Typography from '@nl/ui/supabase/Typography';
+import { Title } from '@nl/ui/custom/Typography';
 import Modal from '@/components/Modal';
 import styles from '@/components/Modal/index.module.css';
 
@@ -10,9 +10,9 @@ const UnityContent = ({ onClose }: { onClose: () => void }) => {
   return (
     <div>
       {isOpera ? (
-        <Typography.Title level={2} style={{ textAlign: 'center', marginTop: 8, padding: '10rem 3rem' }}>
+        <Title level={2} style={{ textAlign: 'center', marginTop: 8, padding: '10rem 3rem' }}>
           {browserName} Browser Not Supported
-        </Typography.Title>
+        </Title>
       ) : (
         <Game closeGame={onClose} />
       )}

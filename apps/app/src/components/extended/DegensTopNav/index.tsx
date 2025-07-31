@@ -16,12 +16,12 @@ const SearchTextField = styled(TextField)({
 
 const LayoutModeButtonsGroup = styled(ToggleButtonGroup)({
   border: 'var(--border-default)',
-  borderRadius: 'var(--border-radius-default)',
+  borderRadius: 'var(--radius-default)',
 });
 
 const LayoutModeButton = styled(ToggleButton)({
   border: 'none',
-  borderRadius: 'var(--border-radius-default)',
+  borderRadius: 'var(--radius-default)',
   padding: '5px 16px',
   '&.Mui-selected': { background: 'rgba(88, 32, 214, 0.2)', '&:hover': { background: 'rgba(88, 32, 214, 0.2)' } },
   '& svg': { width: 20, height: 20 },

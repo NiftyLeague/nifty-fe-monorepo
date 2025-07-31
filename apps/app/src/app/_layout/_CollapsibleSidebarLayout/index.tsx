@@ -53,7 +53,7 @@ const CollapsibleSidebarLayout = ({
             boxSizing: 'border-box',
             position: 'relative',
             border: 'none',
-            borderRadius: 'var(--border-radius-default)',
+            borderRadius: 'var(--radius-default)',
           },
         }}
         variant={matchDownLG ? 'temporary' : 'persistent'}
