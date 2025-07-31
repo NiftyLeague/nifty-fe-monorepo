@@ -217,7 +217,6 @@
 /* Add hover effect for better interactivity */
 .itemsTable table tbody tr:hover {
   background-color: rgba(var(--color-purple), 0.05);
-  cursor: pointer;
 }
 
 /* Style for different rarities */

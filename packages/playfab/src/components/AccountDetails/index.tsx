@@ -110,7 +110,7 @@ export default function AccountDetails({
             key="save"
             size="sm"
             disabled={loading}
-            className="cursor-pointer disabled:cursor-not-allowed"
+            className="cursor-pointer disabled:cursor-progress"
             onClick={() => updateProfile({ displayName })}
           >
             {loading ? <Icon name="loader" className="animate-spin" /> : <Icon name="save" />}
