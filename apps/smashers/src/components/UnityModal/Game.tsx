@@ -1,7 +1,7 @@
 import { Unity } from 'react-unity-webgl';
 
+import { Button } from '@nl/ui/base/button';
 import { Icon } from '@nl/ui/base/icon';
-import Button from '@nl/ui/supabase/Button';
 import { PreloaderWithProgress } from '@nl/ui/custom/Preloader';
 // import { useUserContext } from '@nl/playfab/hooks/useUserContext';
 
@@ -40,12 +40,13 @@ const Game = ({ closeGame }: { closeGame: () => void }) => {
         style={{ visibility: isLoaded ? 'visible' : 'hidden' }}
       />
       <Button
-        type="outline"
-        size="lg"
+        variant="outline"
+        size="icon"
         onClick={() => requestFullscreen(true)}
-        style={{ position: 'absolute', top: 5, right: 5 }}
-        icon={<Icon name="maximize-2" />}
-      />
+        className="absolute top-5 right-5 cursor-pointer"
+      >
+        <Icon name="maximize-2" />
+      </Button>
     </>
   );
 };
