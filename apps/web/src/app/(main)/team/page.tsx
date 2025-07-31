@@ -2,7 +2,7 @@
 
 import type { NextPage } from 'next';
 
-import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
+import { AnimatedWrapper } from '@nl/ui/custom/AnimatedWrapper';
 import Carousel from '@/components/Carousel';
 import { RenderTeamCardItem } from '@/components/Carousel/TeamCardItem';
 import ThemeBtnGroup from '@/components/ThemeBtnGroup';

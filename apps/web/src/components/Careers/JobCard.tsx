@@ -1,5 +1,5 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@nl/ui/base/accordion';
-import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
+import { AnimatedWrapper } from '@nl/ui/custom/AnimatedWrapper';
 import ThemeBtnGroup from '@/components/ThemeBtnGroup';
 
 interface JobCardProps {

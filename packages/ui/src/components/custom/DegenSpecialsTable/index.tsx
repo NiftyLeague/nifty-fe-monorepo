@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
+import { AnimatedWrapper } from '@nl/ui/custom/AnimatedWrapper';
 import { NIFTY_DEGENS, type DegenSpecial } from './constants';
 
 export const DegenSpecialsTable = () => (

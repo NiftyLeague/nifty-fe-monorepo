@@ -1,4 +1,4 @@
-import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
+import { AnimatedWrapper } from '@nl/ui/custom/AnimatedWrapper';
 import DegenSpecialsTable from '@nl/ui/custom/DegenSpecialsTable';
 
 const DegensSection = () => {
