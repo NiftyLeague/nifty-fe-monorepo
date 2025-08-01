@@ -8,10 +8,11 @@ import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
 import { AnimatedWrapper } from '@nl/ui/custom/AnimatedWrapper';
 import ConsoleGame from '@nl/ui/custom/ConsoleGame';
 
-import MainLayout from '@/components/MainLayout';
-import Sponsors from '@/components/Sponsors';
+import BouncingNFTL from '@/components/BouncingNFTL';
 import Carousel from '@/components/Carousel';
+import MainLayout from '@/components/MainLayout';
 import MintOMatic from '@/components/MintOMatic';
+import Sponsors from '@/components/Sponsors';
 import ThemeBtnGroup from '@/components/ThemeBtnGroup';
 import { RenderDegen } from '@/components/Carousel/DegenCardItem';
 import { COMMUNITY_DEGEN_LIST, DEGEN_COLLECTION_URL } from '@/constants/degens';
@@ -27,8 +28,8 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
           <Image
             src="/img/hero/bg.webp"
             alt="Nifty Home Banner"
-            width={3408}
-            height={1849}
+            width={1920}
+            height={1042}
             priority
             sizes="100vw"
             className="w-full h-auto"
@@ -39,8 +40,8 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
             <Image
               src="/img/hero/characters.webp"
               alt="Nifty Hero Characters"
-              width={3408}
-              height={1849}
+              width={1920}
+              height={1042}
               priority
               sizes="100vw"
               className="w-full h-auto"
@@ -54,8 +55,8 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
                 <Image
                   src="/img/hero/companion-base.webp"
                   alt="Home Hero Companion Base"
-                  width={436}
-                  height={436}
+                  width={175}
+                  height={175}
                   className="pixelated w-full h-auto"
                   sizes="100vw"
                 />
@@ -71,8 +72,8 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
                 <Image
                   src="/img/hero/halo.webp"
                   alt="Home Hero Halo"
-                  width={200}
-                  height={200}
+                  width={133}
+                  height={50}
                   sizes="100vw"
                   className="w-full h-auto"
                 />
@@ -90,8 +91,8 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
               alt="Satoshi"
               src="/img/hero/satoshi.webp"
               priority
-              width={556}
-              height={589}
+              width={180}
+              height={190}
               sizes="100vw"
               className="object-cover w-full h-auto"
             />
@@ -123,8 +124,8 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
             <Image
               src="/img/hero/speech-bubble.webp"
               alt="Learn More"
-              width={407}
-              height={125}
+              width={348}
+              height={108}
               sizes="100vw"
               className="w-full h-auto"
             />
@@ -212,8 +213,8 @@ const Home: NextPage = () => {
             <Image
               className="pixelated w-full h-auto max-w-[90vw] md:max-w-[80%] lg:max-w-[700px] xl:max-w-[800px]"
               src="/img/degens/nifty-ape.webp"
-              width={856}
-              height={842}
+              width={800}
+              height={788}
               alt="ape degen overlay"
               sizes="(max-width: 576px) 90vw, (max-width: 992px) 80%, 700px"
             />
@@ -224,127 +225,80 @@ const Home: NextPage = () => {
 
       {/* COMPETE & EARN */}
       <section className="container section relative flex items-center">
-        <div className="w-full md:w-1/2 flex flex-col compete-to-earn-section relative">
-          {!isMobile && (
-            <>
-              <div className="relative flex-grow compete-to-earn-section-token-1">
-                <AnimatedWrapper parallax parallaxDirection="right">
-                  <div className="animate-bounce-coin1 transition-fade transition-fade-start delay-long">
-                    <Image
-                      src="/img/compete-and-earn/animated/token-1.webp"
-                      alt="Compete and Earn NFTL 1"
-                      width={413}
-                      height={408}
-                      className="w-full h-auto"
-                      sizes="100vw"
-                    />
-                  </div>
-                </AnimatedWrapper>
-              </div>
-              <div className="relative flex-grow compete-to-earn-section-token-2">
-                <AnimatedWrapper parallax parallaxDirection="left">
-                  <div className="animate-bounce-coin2 transition-fade transition-fade-start delay-long">
-                    <Image
-                      src="/img/compete-and-earn/animated/token-2.webp"
-                      alt="Compete and Earn NFTL 2"
-                      width={398}
-                      height={390}
-                      className="w-full h-auto"
-                      sizes="100vw"
-                    />
-                  </div>
-                </AnimatedWrapper>
-              </div>
-              <div className="relative flex-grow compete-to-earn-section-token-3">
-                <AnimatedWrapper parallax parallaxDirection="down">
-                  <div className="animate-bounce-coin3 transition-fade transition-fade-start delay-long">
-                    <Image
-                      src="/img/compete-and-earn/animated/token-3.webp"
-                      alt="Compete and Earn NFTL 3"
-                      width={492}
-                      height={192}
-                      className="w-full h-auto"
-                      sizes="100vw"
-                    />
-                  </div>
-                </AnimatedWrapper>
-              </div>
-            </>
-          )}
-          <div className="gap-2 items-center">
-            {isMobile && (
-              <div className="relative flex-grow w-full">
-                <AnimatedWrapper>
-                  <div className="transition-quick-pop transition-quick-pop-start delay-lite">
-                    <Image
-                      src="/img/compete-and-earn/mobile.webp"
-                      alt="Compete and Earn"
-                      width={3208}
-                      height={1342}
-                      sizes="100vw"
-                      className="w-full h-auto"
-                    />
-                    <div className="dark-gradient-overlay" />
-                  </div>
-                </AnimatedWrapper>
-              </div>
-            )}
-            <div className={`flex flex-col relative compete-to-earn-section-body`}>
-              <div className="purple-bg-orb orb-top-left" />
-              <AnimatedWrapper>
-                <h2 className="mb-3 max-w-[400px] section-heading transition-vertical-fade transition-vertical-fade-start delay-lite">
-                  SMASHERS
-                  <br />
-                  <span className="whitespace-nowrap font-default font-normal">COMPETE & EARN</span>
-                </h2>
-              </AnimatedWrapper>
-              <AnimatedWrapper>
-                <p className="my-0 py-1 py-lg-3 section-description transition-vertical-fade transition-vertical-fade-start delay-normal">
-                  4 - 16 PLAYERS COMPETE IN A CUT-THROAT BATTLE FOR THE SURVIVAL OF THE FITTEST!
-                </p>
-              </AnimatedWrapper>
-              <ThemeBtnGroup
-                className="md:justify-start"
-                primary={{
-                  href: 'https://niftysmashers.com',
-                  title: isMobile ? 'BRAWL!' : "LET'S BRAWL!",
-                  external: true,
-                }}
-                secondary={{ href: '/compete-and-earn', title: 'LEARN MORE' }}
-              />
-            </div>
-          </div>
-        </div>
-        {!isMobile && (
-          <div className="w-1/2 relative">
+        <div className="w-full md:w-1/2 flex flex-col relative">
+          <div className="purple-bg-orb orb-top-left" />
+          <div className="block md:hidden relative w-full">
             <AnimatedWrapper>
-              <div className="transition-quick-pop transition-quick-pop-start delay-normal">
+              <div className="transition-quick-pop transition-quick-pop-start delay-lite">
                 <Image
-                  src="/img/compete-and-earn/animated/competitors.webp"
+                  src="/img/compete-and-earn/mobile.webp"
                   alt="Compete and Earn"
-                  width={1648}
-                  height={1319}
+                  width={655}
+                  height={275}
                   sizes="100vw"
                   className="w-full h-auto"
                 />
               </div>
             </AnimatedWrapper>
-            <div className="absolute compete-to-earn-section-token-4">
-              <AnimatedWrapper parallax parallaxDirection="up" parallaxIntensity="extreme">
-                <div className="transition-fade-start transition-fade delay-long">
-                  <Image
-                    alt="Compete and Earn NFTL Token"
-                    className="pixelated w-full h-auto"
-                    width={641}
-                    height={640}
-                    src="/img/compete-and-earn/animated/token-4.webp"
-                    sizes="100vw"
-                  />
-                </div>
-              </AnimatedWrapper>
-            </div>
           </div>
-        )}
+
+          <div className="hidden md:block relative">
+            <BouncingNFTL classes={{ token3: 'hidden' }} />
+          </div>
+
+          <div className="relative flex flex-col items-center md:items-start">
+            <AnimatedWrapper>
+              <h2 className="mb-3 max-w-[400px] section-heading transition-vertical-fade transition-vertical-fade-start delay-lite">
+                SMASHERS
+                <br />
+                <span className="whitespace-nowrap font-default font-normal">COMPETE & EARN</span>
+              </h2>
+            </AnimatedWrapper>
+            <AnimatedWrapper>
+              <p className="my-0 py-1 md:py-3 section-description transition-vertical-fade transition-vertical-fade-start delay-normal">
+                4 - 16 PLAYERS COMPETE IN A CUT-THROAT BATTLE FOR THE SURVIVAL OF THE FITTEST!
+              </p>
+            </AnimatedWrapper>
+            <ThemeBtnGroup
+              className="md:justify-start"
+              primary={{
+                href: 'https://niftysmashers.com',
+                title: isMobile ? 'BRAWL!' : "LET'S BRAWL!",
+                external: true,
+              }}
+              secondary={{ href: '/compete-and-earn', title: 'LEARN MORE' }}
+            />
+          </div>
+        </div>
+
+        <div className="hidden md:block w-1/2 relative">
+          <AnimatedWrapper>
+            <div className="transition-quick-pop transition-quick-pop-start delay-normal">
+              <Image
+                src="/img/compete-and-earn/animated/competitors.webp"
+                alt="Compete and Earn"
+                width={668}
+                height={535}
+                sizes="100vw"
+                className="w-full h-auto"
+              />
+            </div>
+          </AnimatedWrapper>
+          <div className="absolute scrolling-nftl-token">
+            <AnimatedWrapper parallax parallaxDirection="up" parallaxIntensity="extreme">
+              <div className="transition-fade-start transition-fade delay-long">
+                <Image
+                  alt="Scrolling NFTL Token"
+                  className="pixelated w-full h-auto"
+                  width={200}
+                  height={195}
+                  src="/img/compete-and-earn/animated/token-4.webp"
+                  sizes="100vw"
+                />
+              </div>
+            </AnimatedWrapper>
+          </div>
+        </div>
       </section>
 
       {/* NIFTYVERSE */}
@@ -355,33 +309,35 @@ const Home: NextPage = () => {
               <Image
                 src="/img/logos/niftyverse/app_logo.webp"
                 alt="Land in the Niftyverse"
-                width={1920}
-                height={1512}
+                width={612}
+                height={482}
                 sizes="100vw"
                 className="w-full h-auto"
               />
             </div>
           </AnimatedWrapper>
         </div>
-        <div className="w-full md:w-1/2 flex flex-col relative gap-2 pl-0 md:pl-6 items-center md:items-start">
+        <div className="w-full md:w-1/2 relative pl-0 md:pl-6">
           <div className="purple-bg-orb orb-top-right" />
-          <AnimatedWrapper>
-            <h2 className="mb-3 section-title section-heading transition-vertical-fade transition-vertical-fade-start delay-lite">
-              <span className="whitespace-nowrap">DISCOVER THE</span>
-              <br />
-              NIFTYVERSE
-            </h2>
-          </AnimatedWrapper>
-          <AnimatedWrapper>
-            <p className="my-0 py-1 lg:py-3 section-description transition-vertical-fade transition-vertical-fade-start delay-normal">
-              A VIRTUAL SOCIAL HUB LIKE NONE OTHER FOR GAMERS.
-            </p>
-          </AnimatedWrapper>
-          <ThemeBtnGroup
-            className="md:justify-start"
-            primary={{ title: 'COMING SOON', disabled: true }}
-            secondary={{ href: '/niftyverse', title: 'LEARN MORE' }}
-          />
+          <div className="flex flex-col relative items-center md:items-start">
+            <AnimatedWrapper>
+              <h2 className="mb-3 section-title section-heading transition-vertical-fade transition-vertical-fade-start delay-lite">
+                <span className="whitespace-nowrap">DISCOVER THE</span>
+                <br />
+                NIFTYVERSE
+              </h2>
+            </AnimatedWrapper>
+            <AnimatedWrapper>
+              <p className="my-0 py-1 lg:py-3 section-description transition-vertical-fade transition-vertical-fade-start delay-normal">
+                A VIRTUAL SOCIAL HUB LIKE NONE OTHER FOR GAMERS.
+              </p>
+            </AnimatedWrapper>
+            <ThemeBtnGroup
+              className="md:justify-start"
+              primary={{ title: 'COMING SOON', disabled: true }}
+              secondary={{ href: '/niftyverse', title: 'LEARN MORE' }}
+            />
+          </div>
         </div>
       </section>
 
@@ -392,8 +348,8 @@ const Home: NextPage = () => {
             <Image
               src="/img/misc/dashboard.webp"
               alt="App Dashboard"
-              width={3590}
-              height={2192}
+              width={1920}
+              height={1172}
               className="w-full h-auto"
               sizes="100vw"
             />
@@ -424,6 +380,10 @@ const Home: NextPage = () => {
       <section className="section container relative flex flex-row flex-wrap-reverse items-center">
         <div className="relative w-full md:w-1/2 flex flex-col text-center md:text-left">
           <div className="purple-bg-orb orb-top-left" />
+          <div className="hidden md:block relative">
+            <BouncingNFTL classes={{ token2: 'hidden' }} />
+          </div>
+
           <AnimatedWrapper>
             <h2 className="mb-3 section-heading transition-vertical-fade transition-vertical-fade-start delay-lite">
               NFTL TOKEN
@@ -458,8 +418,8 @@ const Home: NextPage = () => {
               <Image
                 src="/img/leaderboards/podium.webp"
                 alt="The Best Community on Earth"
-                width={1417}
-                height={1525}
+                width={382}
+                height={411}
                 className="w-85 h-auto"
                 sizes="100vw"
               />
@@ -474,10 +434,10 @@ const Home: NextPage = () => {
                 <Image
                   src="/img/degens/community-characters.webp"
                   alt="Community DEGENs"
-                  width={1910}
-                  height={620}
+                  width={596}
+                  height={194}
                   sizes="100vw"
-                  className="w-full h-auto"
+                  className="w-full h-auto pixelated"
                 />
               </div>
             </AnimatedWrapper>
@@ -518,23 +478,7 @@ const Home: NextPage = () => {
             PROUDLY BACKED BY
           </h2>
         </AnimatedWrapper>
-        {isMobile ? (
-          <Sponsors sponsors={SPONSORS} />
-        ) : (
-          <AnimatedWrapper>
-            <div className="w-full relative flex-grow transition-fade transition-fade-start delay-normal">
-              <Image
-                alt="Proudly Backed By"
-                className="pixelated w-full h-auto"
-                width={3600}
-                height={1735}
-                src="/img/sponsors/sponsors.webp"
-                sizes="100vw"
-              />
-              <div className="dark-gradient-overlay" />
-            </div>
-          </AnimatedWrapper>
-        )}
+        <Sponsors sponsors={SPONSORS} />
         <ThemeBtnGroup
           primary={{ href: '/careers', title: 'JOIN THE TEAM' }}
           secondary={{ href: '/blog', title: isMobile ? 'READ BLOG' : 'READ OUR BLOG', external: true }}

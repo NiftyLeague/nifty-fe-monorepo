@@ -1,27 +1,31 @@
 import Image from 'next/image';
+import { cn } from '@nl/ui/utils';
 
-const Error404 = () => (
-  <div className="flex min-h-screen items-center justify-center bg-transparent pt-[100px] text-foreground">
+const Error404 = ({ className }: { className?: string }) => (
+  <div
+    className={cn(`flex min-h-[95vh] mt-[5vh] items-center justify-center bg-transparent text-foreground`, className)}
+  >
     <div className="flex w-full flex-col items-center justify-center space-y-4">
       <div className="relative mx-auto w-full max-w-[720px] aspect-[720/360]">
-        <Image src="/img/maintenance/img-error-bg-dark.svg" alt="Background" fill priority />
+        <Image src="/img/maintenance/img-error-bg-dark.svg" alt="Background Dark" fill priority />
+        <Image src="/img/maintenance/img-error-bg.svg" alt="Background Light" fill priority />
         <Image
           src="/img/maintenance/img-error-text.svg"
-          alt="Error Text"
+          alt="404 Text"
           fill
           priority
           className="animate-[custom-bounce_3s_ease-in-out_infinite]"
         />
         <Image
           src="/img/maintenance/img-error-blue.svg"
-          alt="Blue Shape"
+          alt="Blue Shapes"
           fill
           priority
           className="animate-[wings_15s_ease-in-out_infinite]"
         />
         <Image
           src="/img/maintenance/img-error-purple.svg"
-          alt="Purple Shape"
+          alt="Purple Shapes"
           fill
           priority
           className="animate-[wings_12s_ease-in-out_infinite]"
