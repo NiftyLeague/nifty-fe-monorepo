@@ -56,7 +56,8 @@ export type Currencies = { [key: string]: number };
 export type ItemInstance = PlayFabClientModels.ItemInstance;
 export type UserInventory = ItemInstance[];
 export type CharacterInventory = PlayFabClientModels.CharacterInventory[];
-export type CharacterList = PlayFabClientModels.CharacterResult[];
+export type CharacterInstance = PlayFabClientModels.CharacterResult;
+export type CharacterList = CharacterInstance[];
 export type PlayerResult = PlayFabClientModels.GetPlayerCombinedInfoResult;
 export type PublisherDataResult = PlayFabClientModels.GetUserDataResult;
 export type UserDataRecord = PlayFabClientModels.UserDataRecord;
@@ -96,6 +97,7 @@ export type UserInfo = {
 
 export interface UserContextType {
   account?: UserAccountInfo;
+  characters?: CharacterList;
   currencies?: Currencies;
   customId?: string;
   inventory?: UserInventory;
