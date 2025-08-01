@@ -16,7 +16,7 @@ import {
   linearProgressClasses,
 } from '@mui/material';
 
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 
 // styles
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
@@ -24,17 +24,17 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   borderRadius: 30,
   [`&.${linearProgressClasses.colorPrimary}`]: {
     backgroundColor: 'var(--color-foreground)',
-    ...theme.applyStyles('dark', { backgroundColor: 'var(--color-foreground-2)' }),
+    ...theme.applyStyles('dark', { backgroundColor: 'var(--color-muted-foreground)' }),
   },
   [`&.${linearProgressClasses.bar}`]: {
-    borderRadius: 'var(--border-radius-default)',
+    borderRadius: 'var(--radius-default)',
     backgroundColor: 'var(--color-purple)',
     ...theme.applyStyles('dark', { backgroundColor: 'var(--color-purple)' }),
   },
 }));
 
 const CardStyle = styled(Card)(({ theme }) => ({
-  background: 'var(--color-background-3)',
+  background: 'var(--color-muted)',
   border: 'var(--border-default)',
   marginBottom: '22px',
   overflow: 'hidden',

@@ -1,5 +1,5 @@
 import { IconButton, Stack } from '@mui/material';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 
 export interface PaginationIconOnlyProps {
   hasNext?: boolean;

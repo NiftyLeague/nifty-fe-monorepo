@@ -5,6 +5,7 @@ import Head from 'next/head';
 import { GoogleTagManager, WebVitals } from '@nl/ui/gtm';
 import { customFontClassName } from '@nl/ui/fonts';
 import { FeatureFlagProvider } from '@/contexts/FeatureFlagsProvider';
+import { cn } from '@nl/ui/utils';
 
 import '@/styles/app.css';
 
@@ -76,14 +77,14 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en" className={customFontClassName}>
+    <html lang="en" suppressHydrationWarning className={cn(customFontClassName, 'dark')}>
       <Head>
         <link rel="icon" href="/favicon/smashers/favicon.ico" />
       </Head>
 
       <GoogleTagManager />
 
-      <body suppressHydrationWarning className="dark">
+      <body suppressHydrationWarning>
         <FeatureFlagProvider>{children}</FeatureFlagProvider>
         <WebVitals />
       </body>

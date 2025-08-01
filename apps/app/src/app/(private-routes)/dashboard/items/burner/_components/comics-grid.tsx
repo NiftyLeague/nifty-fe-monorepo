@@ -4,7 +4,7 @@ import Image from 'next/image';
 import xor from 'lodash/xor';
 import sum from 'lodash/sum';
 import { ImageList, ImageListItem, ImageListItemBar, Skeleton, TextField, InputAdornment } from '@mui/material';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
 import type { Comic } from '@/types/marketplace';

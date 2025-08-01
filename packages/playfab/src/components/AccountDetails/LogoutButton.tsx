@@ -1,28 +1,37 @@
 'use client';
 
-import Button from '@nl/ui/supabase/Button';
-import Icon from '@nl/ui/base/Icon';
-import useUserSession from '../../hooks/useUserSession';
-import fetchJson from '../../utils/fetchJson';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-import styles from '../../styles/profile.module.css';
+import { Button } from '@nl/ui/base/button';
+import { Icon } from '@nl/ui/base/icon';
+import { fetchJson } from '../../utils/fetchJson';
+import { useUserSession } from '../../hooks/useUserSession';
+import type { User } from '../../types';
 
 export default function LogoutButton({ loading = false }) {
+  const [logout, setLogout] = useState(false);
   const { mutateUser } = useUserSession({ redirectTo: '/login' });
+  const router = useRouter();
+
+  const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    setLogout(true);
+    e.preventDefault();
+    const res = await fetchJson<User>('/api/playfab/logout', { method: 'POST' });
+    mutateUser(res, { revalidate: true });
+    router.push('/login');
+  };
+
   return (
     <div>
       <Button
-        block
-        className={styles.button_secondary}
-        disabled={loading}
-        icon={<Icon name="log-out" />}
-        size="md"
-        type="default"
-        onClick={async e => {
-          e.preventDefault();
-          mutateUser(await fetchJson('/api/playfab/logout', { method: 'POST' }));
-        }}
+        variant="muted"
+        size="lg"
+        className="w-full cursor-pointer disabled:cursor-not-allowed"
+        disabled={loading || logout}
+        onClick={handleLogout}
       >
+        <Icon name="log-out" />
         Sign Out
       </Button>
     </div>

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { UrlObject } from 'url';
 
 import { cn } from '@nl/ui/utils';
-import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
+import { AnimatedWrapper } from '@nl/ui/custom/AnimatedWrapper';
 import ExternalIcon from '@nl/ui/custom/ExternalIcon';
 
 interface ButtonProps {

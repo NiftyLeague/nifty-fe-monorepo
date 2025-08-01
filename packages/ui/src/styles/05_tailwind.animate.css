@@ -14,8 +14,14 @@
 @utility delay-long {
   @apply !delay-250 md:!delay-500;
 }
+@utility delay-long-offset {
+  @apply !delay-350 md:!delay-600;
+}
 @utility delay-extreme {
   @apply !delay-1000 md:!delay-2000;
+}
+@utility delay-extreme-offset {
+  @apply !delay-1200 md:!delay-2200;
 }
 
 @layer animations {
@@ -144,12 +150,9 @@
     }
   }
 
-  /* ===== Hover Animations ===== */
+  /* ===== Hover Animation ===== */
   .animate-hover {
     animation: hover 4s ease infinite;
-  }
-  .animate-hover2 {
-    animation: hover 4s ease infinite 0.5s;
   }
 
   @keyframes hover {

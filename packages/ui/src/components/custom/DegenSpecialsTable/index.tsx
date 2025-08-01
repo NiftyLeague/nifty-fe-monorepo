@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
+import { AnimatedWrapper } from '@nl/ui/custom/AnimatedWrapper';
 import { NIFTY_DEGENS, type DegenSpecial } from './constants';
 
 export const DegenSpecialsTable = () => (
@@ -17,8 +17,8 @@ export const DegenSpecialsTable = () => (
       </div>
     </AnimatedWrapper>
 
-    <div className="relative border border-gray-200 rounded-2xl overflow-clip">
-      <hr className="absolute top-0 bottom-0 left-1/2 w-px h-full my-0 mx-0 border-0 bg-[#b4b5c3] md:left-1/3" />
+    <div className="relative border-2 rounded-2xl overflow-clip">
+      <hr className="absolute top-0 bottom-0 left-1/2 w-[2px] h-full my-0 mx-0 border-0 bg-border md:left-1/3" />
       {NIFTY_DEGENS.map(({ name, description, specialName, gif, image }: DegenSpecial) => (
         <div key={name} className="flex flex-row py-8">
           <div className="w-1/2 sm:w-1/3 my-auto sm:mx-auto">

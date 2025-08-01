@@ -2,7 +2,7 @@
   width: 30px;
   height: 30px;
   box-sizing: border-box;
-  border-radius: var(--border-radius-default);
+  border-radius: var(--radius-default);
 }
 .inventory:active {
   outline: 3px solid var(--color-purple);

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import Typography from '@nl/ui/supabase/Typography';
+import { Typography } from '@nl/ui/custom/Typography';
 import BackButton from '@/components/Header/BackButton';
 import DROP_TABLES from '@/data/droptables.json';
 import type { CrateData } from '@/types/droptables';
@@ -32,7 +32,7 @@ const CrateTables: React.FC<CrateTableProps> = ({ data }) =>
             .map(word => word.charAt(0).toUpperCase() + word.slice(1))
             .join(' ')}
         </Typography.Title>
-        <Typography className="crateSubtitle mb-4">Drop Tables & Odds</Typography>
+        <Typography className="mb-4">Drop Tables & Odds</Typography>
 
         {/* Items Table */}
         <div className={styles.itemsTable}>
@@ -59,7 +59,7 @@ const CrateTables: React.FC<CrateTableProps> = ({ data }) =>
         </div>
 
         {/* Bonus Item Odds */}
-        <Typography.Title level={5} className="mt-4 mb-2">
+        <Typography.Title level={6} className="mt-4 mb-2">
           Bonus Item Odds:{' '}
           <span
             style={{
@@ -119,20 +119,14 @@ export default function Loot() {
           className="mb-2"
           style={{
             background: 'var(--gradient-brand)',
-            fontWeight: 800,
-            lineHeight: 1.2,
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
           }}
         >
           Loot Tables
         </Typography.Title>
-        <Typography.Title
-          level={5}
-          className="text-foreground-2"
-          style={{ fontWeight: 400, lineHeight: 1.6, maxWidth: '700px', marginInline: 'auto' }}
-        >
-          Explore the drop rates and rewards for all available crates and loot dives.
+        <Typography.Title level={6} className="text-muted-foreground">
+          Explore the drop rates and rewards for all available crates and loot boxes.
         </Typography.Title>
       </div>
       <CrateTables data={DROP_TABLES as CrateData} />

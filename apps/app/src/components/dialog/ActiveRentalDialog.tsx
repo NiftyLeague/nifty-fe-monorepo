@@ -67,7 +67,7 @@ const ActiveRentalDialog = ({ degenId, rental }: ActiveRentalDialogProps) => {
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', marginTop: '14px' }}>
               <DegenImage
-                sx={{ width: '174px', height: 'auto', marginTop: '16px', borderRadius: 'var(--border-radius-default)' }}
+                sx={{ width: '174px', height: 'auto', marginTop: '16px', borderRadius: 'var(--radius-default)' }}
                 tokenId={degenId}
               />
             </Box>

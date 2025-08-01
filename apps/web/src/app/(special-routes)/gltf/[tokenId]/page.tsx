@@ -4,10 +4,9 @@ import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { cn } from '@nl/ui/utils';
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
 
+import { cn } from '@nl/ui/utils';
+import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group';
 import { DEGEN_BASE_SPRITE_URL, LEGGIES } from '@/constants/degens';
 import { SRC, Color } from '@/types/gltf';
 import ErrorBoundary from '@/components/ErrorBoundry';
@@ -81,32 +80,25 @@ export default function DegenViews() {
         <ModelView source={source} />
         {Number(tokenId) < 9999 ? (
           <div className={styles.menu__overlay}>
-            <div className={styles.menu__overlay__dimension}>
-              <div className={styles.menu__overlay__boggs}>
-                <ButtonGroup variant="contained" size="small" aria-label="outlined primary button group">
-                  <Button
-                    onClick={() => setSource(SRC.IMAGE)}
-                    className={cn(styles.btn, { [styles.btn_selected as string]: source === SRC.IMAGE })}
-                  >
-                    2D
-                  </Button>
-                  <Button
-                    onClick={() => setSource(SRC.MODEL)}
-                    className={cn(styles.btn, { [styles.btn_selected as string]: source === SRC.MODEL })}
-                  >
-                    3D
-                  </Button>
-                  {Number(tokenId) < 9901 ? (
-                    <Button
-                      onClick={() => setSource(SRC.SPRITE)}
-                      className={cn(styles.btn, { [styles.btn_selected as string]: source === SRC.SPRITE })}
-                    >
-                      Sprite
-                    </Button>
-                  ) : null}
-                </ButtonGroup>
-              </div>
-            </div>
+            <ToggleGroup
+              type="single"
+              variant="outline"
+              value={source}
+              onValueChange={(value: SRC) => value && setSource(value)}
+              className={styles.menu__overlay__toggle}
+            >
+              <ToggleGroupItem value={SRC.IMAGE} aria-label="Toggle 2D">
+                2D
+              </ToggleGroupItem>
+              <ToggleGroupItem value={SRC.MODEL} aria-label="Toggle 3D">
+                3D
+              </ToggleGroupItem>
+              {Number(tokenId) < 9901 ? (
+                <ToggleGroupItem value={SRC.SPRITE} aria-label="Toggle Sprite" className="px-5">
+                  SPRITE
+                </ToggleGroupItem>
+              ) : null}
+            </ToggleGroup>
             {source === SRC.MODEL && <ModelActions color={color} setColor={setColor} />}
           </div>
         ) : null}

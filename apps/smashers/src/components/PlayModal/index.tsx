@@ -2,8 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import Typography from '@nl/ui/supabase/Typography';
-import Space from '@nl/ui/supabase/Space';
+import { Text, Title } from '@nl/ui/custom/Typography';
 import useVersion from '@/hooks/useVersion';
 import Modal from '@/components/Modal';
 import styles from '@/components/Modal/index.module.css';
@@ -13,8 +12,8 @@ const ModalContent = ({ launchGame }: { launchGame: () => void }) => {
   const { message } = useVersion();
 
   return (
-    <Space size={6} direction="vertical" className={styles.model_select_view_content}>
-      <Space size={4} direction="horizontal">
+    <div className="grid gap-4 w-[800px] max-w-screen px-10 py-8">
+      <div className="grid auto-cols-max grid-flow-col gap-4 items-center">
         <Image
           src="/img/logos/NL/white.webp"
           alt="Company Logo"
@@ -23,21 +22,21 @@ const ModalContent = ({ launchGame }: { launchGame: () => void }) => {
           priority
           style={{ maxWidth: '100%', height: 'auto' }}
         />
-        <Typography.Title level={2}>Let&apos;s Brawl!</Typography.Title>
-      </Space>
-      <Typography.Text type="secondary" className={styles.secondary}>
+        <Title level={2}>Let&apos;s Brawl!</Title>
+      </div>
+      <Text variant="muted" sm>
         {message}
-      </Typography.Text>
-      <Typography.Text style={{ lineHeight: 1.3 }}>
+      </Text>
+      <Text>
         This party platform fighter will have you on the edge of your seat as you and three other players grab your
         bats, unleash unique abilities, and try to smash each other out of the arena in a winner-takes-all battle!
-      </Typography.Text>
-      <Space direction="horizontal" style={{ marginTop: 30 }}>
+      </Text>
+      <div className="grid grid-cols-3 gap-2 items-center">
         <Link
           href="/android/&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"
           target="_blank"
           rel="noreferrer"
-          style={{ width: '100%' }}
+          className="w-full justify-items-center"
         >
           <Image
             src="/img/badges/google-play-badge.webp"
@@ -48,7 +47,7 @@ const ModalContent = ({ launchGame }: { launchGame: () => void }) => {
             style={{ width: '100%', maxWidth: '100%', height: 'auto' }}
           />
         </Link>
-        <Link href="/ios" target="_blank" rel="noreferrer" style={{ width: '100%', textAlign: 'center' }}>
+        <Link href="/ios" target="_blank" rel="noreferrer" className="w-full justify-items-center">
           <Image
             src="/img/badges/apple-store-badge.svg"
             alt="Apple Store Badge"
@@ -58,7 +57,7 @@ const ModalContent = ({ launchGame }: { launchGame: () => void }) => {
             style={{ width: '92%', maxWidth: '100%', height: 'auto' }}
           />
         </Link>
-        <Link href="/steam" target="_blank" rel="noreferrer" style={{ width: '100%', textAlign: 'center' }}>
+        <Link href="/steam" target="_blank" rel="noreferrer" className="w-full justify-items-center">
           <Image
             src="/img/badges/steam-badge.webp"
             alt="Steam Store Badge"
@@ -69,8 +68,8 @@ const ModalContent = ({ launchGame }: { launchGame: () => void }) => {
           />
         </Link>
         {/* <UnityButton launchGame={launchGame} /> */}
-      </Space>
-    </Space>
+      </div>
+    </div>
   );
 };
 

@@ -52,6 +52,12 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: 'https', hostname: 'nifty-league.s3.amazonaws.com', port: '', pathname: '/degens/**' },
       { protocol: 'https', hostname: 'nifty-league.s3.amazonaws.com', port: '', pathname: '/assets/**' },
+      {
+        protocol: 'https',
+        hostname: 'niftyworldprodbb95.blob.core.windows.net',
+        port: '',
+        pathname: '/account-avatars/**',
+      },
     ],
   },
   async redirects() {

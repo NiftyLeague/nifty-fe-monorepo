@@ -2,27 +2,22 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { signIn, useSession } from 'next-auth/react';
-import Button from '@nl/ui/supabase/Button';
-import Space from '@nl/ui/supabase/Space';
 import { usePathname } from 'next/navigation';
+
 import { cn } from '@nl/ui/utils';
-
-import PlayFabAuthForm from '../PlayFabAuthForm';
-import * as SocialIcons from '../SocialIcons';
-import fetchJson from '../../utils/fetchJson';
+import { SocialIconButton } from '@nl/ui/custom/SocialIconButton';
+import { useUserContext } from '../../hooks/useUserContext';
+import { fetchJson } from '../../utils/fetchJson';
 import type { Provider, UserContextType } from '../../types';
-
-import buttonStyles from '../../styles/socials.module.css';
 
 export interface Props {
   providers: Provider[];
-  socialButtonSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   socialLayout?: 'horizontal' | 'vertical';
+  loading?: boolean;
 }
 
-export default function LinkedProviders({ providers, socialButtonSize = 'md', socialLayout = 'horizontal' }: Props) {
-  const player: UserContextType = PlayFabAuthForm.useUserContext();
-  const verticalSocialLayout = socialLayout === 'vertical' ? true : false;
+export default function LinkedProviders({ providers, socialLayout = 'horizontal', loading = false }: Props) {
+  const player: UserContextType = useUserContext();
   const [linkedProviders, setLinkedProviders] = useState<Provider[]>([]);
   const session = useSession();
   const pathname = usePathname();
@@ -83,27 +78,22 @@ export default function LinkedProviders({ providers, socialButtonSize = 'md', so
   };
 
   return providers && providers.length > 0 ? (
-    <Space size={2} direction={socialLayout}>
+    <div className={cn('w-full grid gap-2', socialLayout === 'horizontal' && 'flex flex-row')}>
       {providers.map(provider => {
-        const AuthIcon = SocialIcons[provider];
         const isLinked = linkedProviders.includes(provider);
         return (
-          <div key={provider} style={!verticalSocialLayout ? { flexGrow: 1 } : {}}>
-            <Button
-              block
-              type={isLinked ? 'outline' : 'default'}
-              shadow
-              size={socialButtonSize}
-              icon={AuthIcon ? <AuthIcon /> : ''}
+          <div key={provider} className="w-full">
+            <SocialIconButton
+              key={provider}
+              label={isLinked ? 'Unlink' : 'Sign in'}
               onClick={isLinked ? () => handleUnlinkProvider(provider) : () => handleSignIn(provider)}
-              className={cn('flex items-center', isLinked && buttonStyles[provider])}
-              placeholder={isLinked ? 'Unlink' : 'Sign in'}
-            >
-              {verticalSocialLayout && 'Sign up with ' + provider}
-            </Button>
+              provider={provider}
+              withColor={isLinked}
+              disabled={loading}
+            />
           </div>
         );
       })}
-    </Space>
+    </div>
   ) : null;
 }

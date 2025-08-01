@@ -8,7 +8,7 @@ import { useTheme } from '@nl/theme';
 import { Collapse, List, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 
 // project imports
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import { NavGroupProps } from '../_NavGroup';
 import NavItem from '../_NavItem';
 
@@ -65,7 +65,7 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
     <>
       <ListItemButton
         sx={{
-          borderRadius: 'var(--border-radius-default)',
+          borderRadius: 'var(--radius-default)',
           mb: 0.5,
           alignItems: 'center',
           backgroundColor: level > 1 ? 'transparent !important' : 'inherit',
@@ -114,7 +114,7 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
                 height: '100%',
                 width: '1px',
                 opacity: 1,
-                background: 'var(--color-divider-default)',
+                background: 'var(--color-separator)',
               },
             }}
           >

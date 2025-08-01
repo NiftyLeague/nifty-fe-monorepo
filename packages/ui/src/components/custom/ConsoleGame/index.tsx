@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { memo, useRef, useState, useCallback } from 'react';
-import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
+import { AnimatedWrapper } from '@nl/ui/custom/AnimatedWrapper';
 import { cn } from '@nl/ui/utils';
 
 import styles from './index.module.css';
@@ -99,7 +99,7 @@ const ConsoleGame = ({ src }: { src: string }) => {
       </div>
       <div className={styles.gaming_controller}>
         <AnimatedWrapper parallax parallaxDirection="down" parallaxIntensity="normal">
-          <div className="animate-hover2 transition-fade-start transition-fade delay-long">
+          <div className="animate-hover transition-fade-start transition-fade delay-long-offset">
             <Image
               alt="Controller Right"
               className="pixelated"
