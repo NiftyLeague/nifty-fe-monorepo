@@ -44,7 +44,7 @@ const NiftyCarousel = ({
     >
       {children}
     </Carousel>
-    {!hideGradient && <div className="dark-gradient-overlay !top-[14%] !h-[80%]" />}
+    {!hideGradient && <div className="dark-gradient-overlay !top-[13%] !h-[82%]" />}
   </>
 );
 

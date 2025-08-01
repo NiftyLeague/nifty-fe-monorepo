@@ -3,6 +3,7 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 
+import { cn } from '@nl/ui/utils';
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
 import { AnimatedWrapper } from '@nl/ui/custom/AnimatedWrapper';
 import SocialCards from '@/components/SocialCards';
@@ -101,7 +102,7 @@ const Community: NextPage = () => {
 
       <section className="section flex sliding-nfts relative overflow-hidden">
         <div className="flex flex-col text-center relative p-0">
-          <div className={`relative sliding-background-wrapper-${desktop ? 'desktop' : 'mobile'}`}>
+          <div className={cn('relative', `sliding-background-wrapper-${desktop ? 'desktop' : 'mobile'}`)}>
             <div className="sliding-background" />
             <div className="dark-gradient-overlay" />
           </div>

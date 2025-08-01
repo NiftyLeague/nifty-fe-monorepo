@@ -6,11 +6,3 @@
   --subheader-font: var(--special-font);
   --subheader-letter-spacing: var(--special-letter-spacing);
 }
-
-/* ==============================|| COMPONENT OVERRIDES ||============================== */
-
-.sbui-tab-bar-inner-container {
-  /* TODO: change back after enabling Inventory & Stats tabs */
-  /* justify-content: space-around; */
-  justify-content: flex-start;
-}

@@ -120,6 +120,6 @@ export const NIFTY_DEGENS = [
 
 export const NIFTY_DEGENS_ALL = [
   ...NIFTY_DEGENS,
-  { name: 'SATOSHI', image: { link: '/icons/tribes/satoshi.svg', width: 120, height: 120 } },
   { name: 'RUGMAN', image: { link: '/icons/tribes/rugman.svg', width: 140, height: 120 } },
+  { name: 'SATOSHI', image: { link: '/icons/tribes/satoshi.svg', width: 120, height: 120 } },
 ];
