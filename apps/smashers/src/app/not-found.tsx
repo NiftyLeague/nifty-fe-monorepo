@@ -1,8 +1,16 @@
-export default function NotFound() {
+import type { Metadata } from 'next';
+import BackButton from '@/components/Header/BackButton';
+import { Error404 } from '@nl/ui/custom/Error404';
+
+export const metadata: Metadata = { title: '404' };
+
+const NotFoundPage = () => {
   return (
-    <div style={{ padding: 32, textAlign: 'center' }}>
-      <h1>404 - Page Not Found</h1>
-      <p>The page you are looking for does not exist.</p>
-    </div>
+    <>
+      <BackButton />
+      <Error404 />
+    </>
   );
-}
+};
+
+export default NotFoundPage;

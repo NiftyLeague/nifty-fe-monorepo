@@ -11,7 +11,7 @@ import '@/styles/app.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://niftysmashers.com'),
-  title: { template: 'Nifty Smashers | %s', default: 'Nifty Smashers' },
+  title: { template: '%s | Nifty Smashers', default: 'Nifty Smashers' },
   description:
     'Free-to-play online multiplayer 3D party platform fighter. Play on iOS, Android, and Steam with full cross-play support! Jump in and brawl anytime, anywhere!',
   generator: 'Next.js',

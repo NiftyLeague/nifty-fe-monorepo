@@ -9,7 +9,7 @@ import '@/styles/app.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://niftyleague.com'),
-  title: { template: 'Nifty League | %s', default: 'Nifty League' },
+  title: { template: ' %s | Nifty League', default: 'Nifty League' },
   description:
     'A decentralized game studio & publisher creating an open & efficient path for indie studios to develop & publish groundbreaking games.',
   generator: 'Next.js',
