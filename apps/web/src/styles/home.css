@@ -97,37 +97,7 @@
   max-width: 410px;
 }
 
-.compete-to-earn-section {
-  width: fit-content;
-  margin-left: auto;
-  margin-right: 30px;
-}
-
-.compete-to-earn-section-token-1 {
-  position: absolute;
-  left: -226px;
-  top: calc(50% - 110px);
-  width: 226px;
-  height: 223px;
-}
-
-.compete-to-earn-section-token-2 {
-  position: absolute;
-  right: -80px;
-  top: 0px;
-  width: 226px;
-  height: 221px;
-}
-
-.compete-to-earn-section-token-3 {
-  position: absolute;
-  bottom: -126px;
-  width: 246px;
-  z-index: -1;
-  left: calc(50% - 123px);
-}
-
-.compete-to-earn-section-token-4 {
+.scrolling-nftl-token {
   width: 246px;
   left: calc(50% - 123px);
   top: calc(50% - 123px);
@@ -156,25 +126,7 @@
     width: 348px;
     height: 107px;
   }
-  .compete-to-earn-section {
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .compete-to-earn-section-token-1 {
-    width: 180px;
-    height: 185px;
-    left: -180px;
-    top: calc(50% - 90px);
-  }
-  .compete-to-earn-section-token-2 {
-    width: 180px;
-    height: 185px;
-  }
-  .compete-to-earn-section-token-3 {
-    width: 200px;
-    left: calc(50% - 100px);
-  }
-  .compete-to-earn-section-token-4 {
+  .scrolling-nftl-token {
     width: 200px;
     left: calc(50% - 100px);
     top: calc(50% - 100px);
@@ -199,7 +151,7 @@
   .section-description {
     max-width: 340px;
   }
-  .compete-to-earn-section-token-4 {
+  .scrolling-nftl-token {
     width: 160px;
     left: calc(50% - 80px);
     top: calc(50% - 80px);
@@ -301,10 +253,6 @@
   .home-satoshi {
     width: 80px;
     height: 84px;
-  }
-  .compete-to-earn-section {
-    width: 100%;
-    margin-left: 0px;
   }
   .section-description {
     max-width: 600px;
