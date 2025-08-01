@@ -6,14 +6,13 @@
   "private": true,
   "main": "./src/index.ts",
   "exports": {
-    ".": "./src/index.ts",
     "./api": "./src/api.ts",
-    "./components": "./src/components/index.ts",
+    "./components/*": "./src/components/*/index.tsx",
     "./constants": "./src/constants.ts",
-    "./hooks": "./src/hooks/index.ts",
+    "./hooks/*": "./src/hooks/*.ts",
     "./sdk": "./src/sdk/index.ts",
     "./types": "./src/types.ts",
-    "./utils": "./src/utils/index.ts"
+    "./utils/*": "./src/utils/*.ts"
   },
   "scripts": {
     "clean": "rm -rf node_modules && rm -rf .turbo",
@@ -28,20 +27,20 @@
     "https": "^1.0.0",
     "lodash": "^4.17.21",
     "notistack": "^3.0.2",
-    "playfab-sdk": "^2.177.250704",
+    "playfab-sdk": "^2.178.250718",
     "swr": "^2.3.4",
     "url": "^0.11.4"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.20",
-    "@types/node": "^24.0.14",
-    "@types/react": "19.1.8",
-    "@types/react-dom": "19.1.6"
+    "@types/node": "^24.1.0",
+    "@types/react": "19.1.9",
+    "@types/react-dom": "19.1.7"
   },
   "peerDependencies": {
-    "next": "15.3.5",
+    "next": "15.4.5",
     "next-auth": "^4.24.11",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
   }
 }

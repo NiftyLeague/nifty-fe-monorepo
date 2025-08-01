@@ -1,6 +1,6 @@
 // Import the handler and configuration
 import NextAuth from 'next-auth';
-import { authOptions } from '@nl/playfab/utils';
+import { authOptions } from '@nl/playfab/utils/auth';
 import type { DefaultSession } from 'next-auth';
 import type { DefaultJWT } from 'next-auth/jwt';
 import type { User } from '@nl/playfab/types';

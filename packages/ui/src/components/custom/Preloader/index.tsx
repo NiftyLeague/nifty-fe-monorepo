@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import * as Progress from '@radix-ui/react-progress';
 
 import { cn } from '@nl/ui/utils';
+import { Progress } from '@nl/ui/base/progress';
 import { useStopwatch } from '@nl/ui/hooks/useStopwatch';
 import { useUserAgent } from '@nl/ui/hooks/useUserAgent';
 import styles from './index.module.css';
@@ -36,7 +36,7 @@ interface PreloaderProps {
   showWarning?: boolean;
 }
 
-export function Preloader({ ready, percent, showWarning }: PreloaderProps) {
+function Preloader({ ready, percent, showWarning }: PreloaderProps) {
   return (
     <div
       className={styles.preloader_overlay}
@@ -55,20 +55,8 @@ export function Preloader({ ready, percent, showWarning }: PreloaderProps) {
 
       {percent ? (
         <>
-          <div className="flex justify-center items-center ml-[50px] mt-[5px]">
-            <Progress.Root
-              className="relative overflow-hidden w-[160px] h-[10px] mt-[3px] bg-background-3 rounded-lg"
-              style={{ transform: 'translateZ(0)' }} /* Fix overflow clipping in Safari */
-              value={percent}
-            >
-              <Progress.Indicator
-                className="bg-success w-full h-full rounded-lg"
-                style={{
-                  transform: `translateX(-${100 - percent}%)`,
-                  transition: 'transform 660ms cubic-bezier(0.65, 0, 0.35, 1)',
-                }}
-              />
-            </Progress.Root>
+          <div className="flex justify-center items-center ml-[50px] mt-[8px]">
+            <Progress value={percent} className="w-[160px]" />
             <div className="text-foreground text-sm min-w-[50px] ml-[10px]">{`${Math.round(percent)}%`}</div>
           </div>
           <div className="text-warning mt-2">{showWarning ? 'For the best experience try us out on desktop!' : ''}</div>
@@ -78,7 +66,7 @@ export function Preloader({ ready, percent, showWarning }: PreloaderProps) {
   );
 }
 
-export function PreloaderWithProgress({ ready, progress }: { ready: boolean; progress: number }): React.ReactNode {
+function PreloaderWithProgress({ ready, progress }: { ready: boolean; progress: number }): React.ReactNode {
   const loadingPercentage = Math.round(progress <= 1 ? progress * 100 : progress);
   const [percent, setPercent] = useState<number>(loadingPercentage);
   const { milliseconds, start, stop } = useStopwatch({ interval: 100 });
@@ -124,4 +112,4 @@ export function PreloaderWithProgress({ ready, progress }: { ready: boolean; pro
   return <Preloader ready={ready} percent={percent} showWarning={showWarning} />;
 }
 
-export default PreloaderWithProgress;
+export { Preloader, PreloaderWithProgress };

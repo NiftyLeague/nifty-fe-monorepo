@@ -1,4 +1,4 @@
-export default function safeJSONParse(input: unknown) {
+export function safeJSONParse(input: unknown) {
   let output = [];
   try {
     output = JSON.parse(typeof input === 'string' ? input : '');

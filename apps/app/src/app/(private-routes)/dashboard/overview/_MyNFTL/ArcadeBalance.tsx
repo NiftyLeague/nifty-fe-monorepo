@@ -29,11 +29,7 @@ const ArcadeBalance = (): React.ReactNode => {
       <HoverDataCard
         title="Arcade Token Balance"
         primary={`${tokensBalances.AT} Tokens`}
-        customStyle={{
-          backgroundColor: 'var(--color-background-3)',
-          border: 'var(--border-default)',
-          position: 'relative',
-        }}
+        customStyle={{ backgroundColor: 'var(--color-card)', border: 'var(--border-default)', position: 'relative' }}
         secondary=" "
         isLoading={loadingArcadeBal}
         actions={

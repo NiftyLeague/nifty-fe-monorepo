@@ -6,7 +6,6 @@ const DEFAULT_FLAGS = {
   enableAccountCreation: false,
   enableAvatars: false,
   enableInventory: false,
-  enableIOS: false,
   enableLinkProviders: true,
   enableLinkWallet: true,
   enableProviderSignOn: false,

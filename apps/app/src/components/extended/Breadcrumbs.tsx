@@ -10,7 +10,7 @@ import MuiBreadcrumbs from '@mui/material/Breadcrumbs';
 
 // project imports
 import { BASE_PATH } from '@/config';
-import Icon, { type IconName } from '@nl/ui/base/Icon';
+import { Icon, type IconName } from '@nl/ui/base/icon';
 import type { NavItemType, NavItemTypeObject } from '@/types';
 
 const linkSX = {
@@ -121,7 +121,7 @@ const Breadcrumbs = ({
           textDecoration: 'none',
           alignContent: 'center',
           alignItems: 'center',
-          color: 'var(--color-foreground-2)',
+          color: 'var(--color-muted-foreground)',
         }}
       >
         {icons && <Icon name={item.icon ?? 'list-tree'} style={iconStyle} />}

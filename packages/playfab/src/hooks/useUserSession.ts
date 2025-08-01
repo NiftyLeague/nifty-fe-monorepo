@@ -7,7 +7,7 @@ import useSWR from 'swr';
 import type { User } from '../types';
 import fetchJson from '../utils/fetchJson';
 
-export default function useUserSession({ redirectTo = '', redirectIfFound = false } = {}) {
+export function useUserSession({ redirectTo = '', redirectIfFound = false } = {}) {
   const router = useRouter();
   const { data: user, mutate: mutateUser } = useSWR<User>('/api/playfab/user/playfab-session', fetchJson);
 
@@ -28,3 +28,5 @@ export default function useUserSession({ redirectTo = '', redirectIfFound = fals
 
   return { user, mutateUser };
 }
+
+export default useUserSession;

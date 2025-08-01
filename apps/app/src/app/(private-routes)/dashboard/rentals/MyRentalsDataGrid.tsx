@@ -11,7 +11,7 @@ import {
   type GridSortModel,
 } from '@mui/x-data-grid';
 
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import { formatNumberToDisplay } from '@nl/ui/utils';
 import type { Rentals, RentalType } from '@/types/rentals';
 import { transformRentals } from '@/app/(private-routes)/dashboard/_utils/transformRentals';

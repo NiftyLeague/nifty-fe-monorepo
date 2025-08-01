@@ -5,13 +5,6 @@
     "paths": { "@/*": ["./src/*"], "@nl/ui/*": ["../../packages/ui/src/*"] },
     "plugins": [{ "name": "next" }]
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "next-env.d.ts",
-    "next.config.ts",
-    ".next/types/**/*.ts",
-    "../../packages/theme/src/types/@types/index.d.ts"
-  ],
+  "include": ["**/*.ts", "**/*.tsx", "next-env.d.ts", "next.config.ts", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

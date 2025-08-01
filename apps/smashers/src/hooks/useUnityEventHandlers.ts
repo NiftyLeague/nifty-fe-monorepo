@@ -1,18 +1,18 @@
 'use client';
 
 import { useCallback, useEffect, useRef } from 'react';
-import { ReactUnityEventParameter } from 'react-unity-webgl/distribution/types/react-unity-event-parameters';
+import { UnityEventParameter } from 'react-unity-webgl/distribution/types/unity-event-parameters';
 
 type HookProps = {
   address: string;
   authToken: string;
   addEventListener: (
     eventName: string,
-    callback: (...parameters: ReactUnityEventParameter[]) => ReactUnityEventParameter,
+    callback: (...parameters: UnityEventParameter[]) => UnityEventParameter,
   ) => void;
   removeEventListener: (
     eventName: string,
-    callback: (...parameters: ReactUnityEventParameter[]) => ReactUnityEventParameter,
+    callback: (...parameters: UnityEventParameter[]) => UnityEventParameter,
   ) => void;
 };
 
@@ -27,7 +27,7 @@ const useUnityEventHandlers = ({ address, authToken, addEventListener, removeEve
   }, [address, authMsg]);
 
   const startAuthentication = useCallback(
-    (...parameters: ReactUnityEventParameter[]): ReactUnityEventParameter => {
+    (...parameters: UnityEventParameter[]): UnityEventParameter => {
       const customEvent = parameters as unknown as CustomEvent<{ callback: (auth: string) => void }>;
       console.log('Authenticating:', authMsg);
       customEvent.detail.callback(authMsg);
@@ -36,7 +36,7 @@ const useUnityEventHandlers = ({ address, authToken, addEventListener, removeEve
     [authMsg],
   );
 
-  const getConfiguration = useCallback((...parameters: ReactUnityEventParameter[]): ReactUnityEventParameter => {
+  const getConfiguration = useCallback((...parameters: UnityEventParameter[]): UnityEventParameter => {
     const customEvent = parameters as unknown as CustomEvent<{ callback: (network: string) => void }>;
     const networkName = process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' ? 'mainnet' : 'sepolia';
     const version = process.env.NEXT_PUBLIC_SUBGRAPH_VERSION;

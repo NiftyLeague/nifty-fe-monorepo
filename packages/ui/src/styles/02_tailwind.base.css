@@ -6,6 +6,10 @@
   *::after {
     box-sizing: border-box;
   }
+  * {
+    /* necessary for shadcn/ui */
+    @apply border-border outline-ring/50;
+  }
 
   html {
     font-size: var(--root-font-size);
@@ -16,7 +20,7 @@
     font-family: var(--font-default);
     font-size: var(--text-base); /* 1rem */
     font-weight: var(--font-weight-normal);
-    letter-spacing: var(--default-letter-spacing);
+    letter-spacing: var(--tracking-default);
     line-height: var(--text-base--line-height);
   }
   html,
@@ -40,7 +44,7 @@
     color: var(--color-foreground);
     font-family: var(--font-header);
     font-weight: var(--font-weight-bold);
-    letter-spacing: var(--header-letter-spacing);
+    letter-spacing: var(--tracking-header);
   }
   h4,
   h5,
@@ -48,7 +52,7 @@
     color: var(--color-foreground);
     font-family: var(--font-subheader);
     font-weight: var(--font-weight-normal);
-    letter-spacing: var(--subheader-letter-spacing);
+    letter-spacing: var(--tracking-subheader);
   }
 
   h1 {
@@ -81,7 +85,7 @@
     font-family: var(--font-btn);
     font-size: var(--text-sm); /* 0.875rem */
     font-weight: var(--font-weight-normal);
-    letter-spacing: var(--btn-letter-spacing);
+    letter-spacing: var(--tracking-btn);
     line-height: var(--text-sm--line-height);
   }
 
@@ -91,29 +95,11 @@
   }
 
   /* ===============================|| FORMS ||=============================== */
-
-  label {
-    color: var(--color-foreground-2);
-    display: block;
-    font-size: var(--text-xs); /* 0.75rem */
-    font-weight: var(--font-weight-medium);
-    margin: 8px 0 4px 0;
+  label,
+  legend {
+    color: var(--color-input-label);
+    font-size: var(--text-xs) !important; /* 0.75rem */
+    font-weight: var(--font-weight-medium) !important;
     text-transform: uppercase;
-  }
-
-  input {
-    background-color: inherit;
-    border-radius: var(--border-radius-default);
-    border: var(--border-default);
-    color: var(--color-foreground);
-    font-size: var(--text-sm); /* 0.875rem */
-    padding: 0.5rem 0.875rem;
-    width: 100%;
-  }
-
-  input[disabled] {
-    background-color: var(--color-background) !important;
-    border: var(--border-hidden) !important;
-    color: var(--color-foreground-2) !important;
   }
 }

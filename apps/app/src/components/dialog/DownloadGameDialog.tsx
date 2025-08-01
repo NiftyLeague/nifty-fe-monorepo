@@ -1,7 +1,7 @@
 'use client';
 
 import { Container, Button, Typography } from '@mui/material';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import { Dialog, DialogTrigger, DialogContent } from '@/components/dialog';
 import useVersion from '@/hooks/useVersion';
 

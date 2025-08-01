@@ -1,9 +1,9 @@
 import { Unity } from 'react-unity-webgl';
 
-import Icon from '@nl/ui/base/Icon';
-import Button from '@nl/ui/supabase/Button';
-import Preloader from '@nl/ui/custom/Preloader';
-// import { PlayFabAuthForm } from '@nl/playfab/components';
+import { Button } from '@nl/ui/base/button';
+import { Icon } from '@nl/ui/base/icon';
+import { PreloaderWithProgress } from '@nl/ui/custom/Preloader';
+// import { useUserContext } from '@nl/playfab/hooks/useUserContext';
 
 import useUnityPreConfig from '@/hooks/useUnityPreConfig';
 import useUnityEventHandlers from '@/hooks/useUnityEventHandlers';
@@ -12,7 +12,7 @@ import useUnitySafeClose from '@/hooks/useUnitySafeClose';
 import styles from '@/components/Modal/index.module.css';
 
 const Game = ({ closeGame }: { closeGame: () => void }) => {
-  //   const { account, publisherData } = PlayFabAuthForm.useUserContext();
+  //   const { account, publisherData } = useUserContext();
   const address = '0x0';
   const authToken = '';
 
@@ -32,7 +32,7 @@ const Game = ({ closeGame }: { closeGame: () => void }) => {
 
   return (
     <>
-      <Preloader ready={isLoaded} progress={loadingProgression} />
+      <PreloaderWithProgress ready={isLoaded} progress={loadingProgression} />
       <Unity
         key={authToken}
         unityProvider={unityProvider}
@@ -40,12 +40,13 @@ const Game = ({ closeGame }: { closeGame: () => void }) => {
         style={{ visibility: isLoaded ? 'visible' : 'hidden' }}
       />
       <Button
-        type="outline"
-        size="lg"
+        variant="outline"
+        size="icon"
         onClick={() => requestFullscreen(true)}
-        style={{ position: 'absolute', top: 5, right: 5 }}
-        icon={<Icon name="maximize-2" />}
-      />
+        className="absolute top-5 right-5 cursor-pointer"
+      >
+        <Icon name="maximize-2" />
+      </Button>
     </>
   );
 };

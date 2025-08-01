@@ -34,7 +34,7 @@ const CardGameContent = ({
   };
 
   return (
-    <Stack flexGrow={1} sx={{ justifyContent: 'space-between', backgroundColor: 'var(--color-background-3)' }}>
+    <Stack flexGrow={1} sx={{ justifyContent: 'space-between', backgroundColor: 'var(--color-card)' }}>
       <CardContent sx={{ padding: '24px 24px 0' }}>
         <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
           <Typography gutterBottom variant="h4" component="div">
@@ -62,7 +62,7 @@ const CardGameContent = ({
           variant="body2"
           whiteSpace="pre-wrap"
           maxHeight={moreStatus ? 'inherit' : 42}
-          sx={{ color: 'var(--color-foreground-2)', overflowY: 'hidden' }}
+          sx={{ color: 'var(--color-muted-foreground)', overflowY: 'hidden' }}
         >
           {description}
         </Typography>

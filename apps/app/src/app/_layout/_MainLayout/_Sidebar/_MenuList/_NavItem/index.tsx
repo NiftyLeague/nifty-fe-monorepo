@@ -8,7 +8,7 @@ import { Avatar, ListItemButton, ListItemIcon, ListItemText, Typography } from '
 import Chip from '@/components/extended/Chip';
 
 // project imports
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
 import { useDispatch } from '@/store/hooks';
 import { activeItem, openDrawer } from '@/store/slices/menu';
@@ -64,7 +64,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
       {...listItemProps}
       disabled={item.disabled}
       sx={{
-        borderRadius: 'var(--border-radius-default)',
+        borderRadius: 'var(--radius-default)',
         border: '1px solid transparent',
         mb: 0.5,
         alignItems: 'flex-start',
@@ -72,7 +72,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
         zIndex: 1,
         py: level > 1 ? 1 : 1.25,
         pl: `${level * 24}px`,
-        '&:hover': { border: 'var(--border-purple)', backgroundColor: 'var(--color-background-3)' },
+        '&:hover': { border: 'var(--border-purple)', backgroundColor: 'var(--color-muted)' },
       }}
       selected={isSelected}
       onClick={() => itemHandler(item.id!)}

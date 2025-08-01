@@ -22,7 +22,7 @@ import {
   InputAdornment,
 } from '@mui/material';
 
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import type { DialogProps } from '@/types/dialog';
 import { formatNumberToDisplay } from '@nl/ui/utils';
 import { GET_PRODUCT, NFTL_PURCHASE_URL, PURCHASE_ARCADE_TOKEN_BALANCE_API } from '@/constants/url';

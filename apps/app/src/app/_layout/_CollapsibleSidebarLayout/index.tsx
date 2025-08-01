@@ -48,12 +48,12 @@ const CollapsibleSidebarLayout = ({
           }),
           '& .MuiDrawer-paper': {
             height: matchDownLG ? '100%' : 'auto',
-            backgroundColor: 'var(--color-background-2)',
+            backgroundColor: 'var(--color-sidebar)',
             width: drawerWidth,
             boxSizing: 'border-box',
             position: 'relative',
             border: 'none',
-            borderRadius: 'var(--border-radius-default)',
+            borderRadius: 'var(--radius-default)',
           },
         }}
         variant={matchDownLG ? 'temporary' : 'persistent'}
@@ -94,7 +94,7 @@ const CollapsibleSidebarLayout = ({
             padding: matchDownLG ? '10px 16px' : '16px 24px',
             height: `calc(100vh - ${appHeaderHeight + 100}px)`,
             borderRadius: '10px',
-            backgroundColor: 'var(--color-background-2)',
+            backgroundColor: 'var(--color-sidebar)',
             marginRight: '24px',
           }}
         >

@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import DataList from './DataList';
 import DataTable from './DataTable';
 
-import type { IconProps } from '@nl/ui/base/Icon';
+import type { IconProps } from '@nl/ui/base/icon';
 import type {
   AccordionDetailsProps,
   AccordionProps,

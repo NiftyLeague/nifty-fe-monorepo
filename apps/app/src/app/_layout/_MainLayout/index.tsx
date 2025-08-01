@@ -25,7 +25,7 @@ import { useConnectedToIMXCheck } from '@/hooks/useImxProvider';
 import { TARGET_NETWORK } from '@/constants/networks';
 
 // components
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import Breadcrumbs from '@/components/extended/Breadcrumbs';
 import Snackbar from '@/components/extended/Snackbar';
 import Header from './_Header';
@@ -131,7 +131,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
           color="inherit"
           elevation={0}
           sx={{
-            bgcolor: 'var(--color-background-2)',
+            bgcolor: 'var(--color-sidebar)',
             transition: theme => (drawerOpen ? theme.transitions.create('width') : 'none'),
           }}
         >

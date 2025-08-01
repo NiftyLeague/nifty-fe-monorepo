@@ -1,6 +1,6 @@
 import { useContext, cloneElement } from 'react';
 import { IconButton, styled } from '@mui/material';
-import Icon from '@nl/ui/base/Icon';
+import { Icon } from '@nl/ui/base/icon';
 import { DialogContext } from '.';
 import type { DialogAction } from '@/types/dialog';
 import callAll from '@/utils/callAll';
@@ -9,7 +9,7 @@ const IconButtonStyle = styled(IconButton)(({ theme }) => ({
   position: 'absolute',
   right: 0,
   top: 0,
-  color: 'var(--color-foreground-2)',
+  color: 'var(--color-muted-foreground)',
 }));
 
 const DialogActionComp = ({ children, isOpen }: DialogAction) => {

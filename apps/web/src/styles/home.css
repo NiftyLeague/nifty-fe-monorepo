@@ -74,7 +74,7 @@
 }
 
 .home-mobile-intro {
-  background: var(--color-background-2);
+  background: var(--color-background);
   background-size: cover;
   background-image: url(/img/backgrounds/banner-dark.webp);
   min-height: 100vh;

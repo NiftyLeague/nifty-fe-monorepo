@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import type { NextPage } from 'next';
 
-import AnimatedWrapper from '@nl/ui/custom/AnimatedWrapper';
+import { AnimatedWrapper } from '@nl/ui/custom/AnimatedWrapper';
 import ConsoleGame from '@nl/ui/custom/ConsoleGame';
 
 import { NIFTYVERSE_PROPERTIES } from '@/constants/niftyverse';

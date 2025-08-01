@@ -17,11 +17,7 @@ const GameBalance: React.FC = memo(() => {
       title="Game Balance"
       primary={`${formatNumberToDisplay(nftlUnclaimed)} NFTL`}
       isLoading={loading}
-      customStyle={{
-        backgroundColor: 'var(--color-background-3)',
-        border: 'var(--border-default)',
-        position: 'relative',
-      }}
+      customStyle={{ backgroundColor: 'var(--color-card)', border: 'var(--border-default)', position: 'relative' }}
       secondary="Available to Withdraw"
       actions={
         <>

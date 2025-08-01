@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { LoginWithEmailAddress, LoginWithCustomID } from '@nl/playfab/api';
-import { errorResHandler } from '@nl/playfab/utils';
+import { errorResHandler } from '@nl/playfab/utils/errorHandlers';
 import type { User } from '@nl/playfab/types';
 
 import { withSessionRoute } from '@/utils/session';

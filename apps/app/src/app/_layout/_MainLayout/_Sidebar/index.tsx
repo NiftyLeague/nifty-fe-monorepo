@@ -77,8 +77,8 @@ const Sidebar = () => {
         sx={{
           '& .MuiDrawer-paper': {
             width: appDrawerWidth,
-            background: 'var(--color-background-2)',
-            color: 'var(--color-foreground)',
+            background: 'var(--color-sidebar)',
+            color: 'var(--color-sidebar-foreground)',
             borderRight: 'none',
             [theme.breakpoints.up('lg')]: { top: appHeaderHeight },
           },

@@ -5,9 +5,10 @@
 :root {
   --default-letter-spacing: var(--tracking-wider); /* 0.05em */
 
-  --font-btn: var(--font-default);
+  --btn-font: var(--default-font);
+  --btn-letter-spacing: var(--default-letter-spacing);
 
-  --font-subheader: var(--font-special);
+  --subheader-font: var(--special-font);
   --subheader-letter-spacing: var(--special-letter-spacing);
 }
 

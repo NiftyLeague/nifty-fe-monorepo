@@ -58,7 +58,7 @@ const ImageProfile = ({ degens, avatar, avatarFee }: ImageProfileProps): React.R
 
   return (
     <>
-      <Box sx={{ '& img': { borderRadius: 'var(--border-radius-default)' } }} position="relative">
+      <Box sx={{ '& img': { borderRadius: 'var(--radius-default)' } }} position="relative">
         {renderImage()}
         {degens && degens.length > 0 && (
           <ProfileImageDialog onChangeAvatar={handleChangeAvatar} degens={degens} avatarFee={avatarFee} />
