@@ -185,7 +185,7 @@ interface NavbarProps {
 
 const Navbar = ({ toggleMobileMenu, isMobileMenuOpen }: NavbarProps) => {
   return (
-    <div className="w-screen max-w-screen 2xl:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="w-screen max-w-screen 2xl:max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex items-center justify-between h-20">
         {/* Logo */}
         <Link href="/" className="flex-shrink-0">

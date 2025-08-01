@@ -1,11 +1,5 @@
-'use client';
-
 import Image from 'next/image';
 import { memo } from 'react';
-
-import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
-
-import styles from './index.module.css';
 
 export interface Degen {
   name: string;
@@ -25,44 +19,27 @@ const DegenCardItem = ({
   name: string;
   source: string;
   createdDate: string;
-}): React.ReactNode => {
-  const mobile = useMediaQuery('(max-width:640px)');
-  const small = useMediaQuery('(max-width:768px)');
-  return (
-    <div className="slide">
-      <div className={styles.slide_content}>
-        <div className={styles.browse_single}>
-          {!mobile ? (
-            <div className="flex p-2 sm:p-3 md:p-4 pb-0 items-center">
-              <h6 className="mr-auto mb-0 truncate-text-1 text-xs">{name}</h6>
-              <div className="ml-auto">
-                <Image src="/icons/opensea.svg" alt="OpenSea Logo" width={20} height={20} />
-              </div>
-            </div>
-          ) : null}
-          {!small ? (
-            <div className="flex px-2 sm:px-4 pb-3 items-center">
-              <button className="mr-1">Created</button>
-              <label>{createdDate}</label>
-            </div>
-          ) : null}
-
-          <div className="rounded-[20px]">
-            <Image
-              src={source}
-              width="258"
-              height="278"
-              alt="degen image"
-              priority
-              sizes="100vw"
-              className="w-full h-auto"
-            />
-          </div>
+}): React.ReactNode => (
+  <div className="grid h-full bg-card border-1 rounded-default">
+    <div className="p-3 md:p-4">
+      <div className="flex justify-between items-center">
+        <h6 className="truncate-text-1 text-xs">{name}</h6>
+        <div className="hidden sm:inline-block">
+          <Image src="/icons/opensea.svg" alt="OpenSea Logo" width={20} height={20} />
         </div>
       </div>
+      <div className="hidden md:flex items-center pt-3">
+        <button className="text-muted-foreground text-[9px] border-2 rounded-sm uppercase py-0.5 px-1 mr-2">
+          Created
+        </button>
+        <span className="text-muted-foreground text-xs">{createdDate}</span>
+      </div>
     </div>
-  );
-};
+    <div className="rounded-[20px]">
+      <Image src={source} width="258" height="278" alt="degen image" priority sizes="100vw" className="w-full h-auto" />
+    </div>
+  </div>
+);
 
 const MemoizedDegenCardItem = memo(DegenCardItem);
 export default MemoizedDegenCardItem;
