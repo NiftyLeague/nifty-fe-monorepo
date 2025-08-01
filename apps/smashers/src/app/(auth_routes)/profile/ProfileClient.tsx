@@ -24,6 +24,11 @@ const Inventory = dynamic(() => import('@nl/playfab/components/Inventory'), {
   loading: () => <div className="text-center py-8">Fetching player inventory...</div>,
 });
 
+const Stats = dynamic(() => import('@nl/playfab/components/Stats'), {
+  ssr: false,
+  loading: () => <div className="text-center py-8">Fetching player stats...</div>,
+});
+
 interface SessionData {
   user: User;
 }
@@ -85,7 +90,9 @@ export default function ProfileClient({ sessionData }: { sessionData: SessionDat
                 </Suspense>
               </TabsContent>
               <TabsContent value="stats">
-                <div>coming soon...</div>
+                <Suspense fallback={<div className="text-center py-8">Loading player stats...</div>}>
+                  <Stats />
+                </Suspense>
               </TabsContent>
             </Tabs>
           </CardContent>

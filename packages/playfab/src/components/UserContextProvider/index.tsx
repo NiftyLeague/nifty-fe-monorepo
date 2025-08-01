@@ -61,6 +61,7 @@ export const UserContextProvider = (props: PropsWithChildren) => {
   const value = useMemo(
     () => ({
       account: userInfo?.AccountInfo,
+      characters: userInfo?.CharacterList,
       currencies: userInfo?.UserVirtualCurrency,
       customId: user?.CustomId,
       inventory: userInfo?.UserInventory,
