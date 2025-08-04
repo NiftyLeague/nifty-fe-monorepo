@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 
-import { AnimatedWrapper } from '@nl/ui/custom/AnimatedWrapper';
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
 import JobCard from '@/components/Careers/JobCard';
 import { JOBS } from '@/constants/careers';
 

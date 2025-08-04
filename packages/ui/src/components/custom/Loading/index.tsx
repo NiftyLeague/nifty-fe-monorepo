@@ -1,5 +1,7 @@
-import { Preloader } from '@nl/ui/custom/Preloader';
+import { Preloader } from '../preloader/base';
 
-export default function Loading({ ready = false }: { ready?: boolean }) {
+export function Loading({ ready = false }: { ready?: boolean }) {
   return <Preloader ready={ready} />;
 }
+
+export default Loading;

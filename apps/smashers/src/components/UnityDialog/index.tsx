@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import { isOpera, browserName } from 'react-device-detect';
-import { Dialog } from '@nl/ui/custom/Dialog';
-import { Title } from '@nl/ui/custom/Typography';
+import { Dialog } from '@nl/ui/custom/dialog';
+import { Title } from '@nl/ui/custom/typography';
 import UnityButton from './UnityButton';
 
 const Game = dynamic(() => import('./Game'), { ssr: false });

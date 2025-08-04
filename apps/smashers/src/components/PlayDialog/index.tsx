@@ -3,8 +3,8 @@
 // import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Dialog } from '@nl/ui/custom/Dialog';
-import { Text } from '@nl/ui/custom/Typography';
+import { Dialog } from '@nl/ui/custom/dialog';
+import { Text } from '@nl/ui/custom/typography';
 import useVersion from '@/hooks/useVersion';
 
 // const UnityDialog = dynamic(() => import('@/components/UnityDialog'), { ssr: false, loading: () => null });

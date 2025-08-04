@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 import { cn } from '@nl/ui/utils';
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
-import { AnimatedWrapper } from '@nl/ui/custom/AnimatedWrapper';
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
 import SocialCards from '@/components/SocialCards';
 
 import styles from './index.module.css';

@@ -6,7 +6,7 @@ interface TitleProps {
   style?: React.CSSProperties;
 }
 
-function Title({ children, className, level, style }: React.PropsWithChildren<TitleProps>) {
+export function Title({ children, className, level, style }: React.PropsWithChildren<TitleProps>) {
   const CustomTag = `h${level}` as keyof React.JSX.IntrinsicElements;
 
   const levelClasses = {

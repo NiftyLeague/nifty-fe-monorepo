@@ -8,10 +8,10 @@ import { cn } from '@nl/ui/utils';
 import { Button } from '@nl/ui/base/button';
 import { Checkbox } from '@nl/ui/base/checkbox';
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@nl/ui/base/form';
-import { Input } from '@nl/ui/custom/Input';
+import { Input } from '@nl/ui/custom/input';
 import { Icon } from '@nl/ui/base/icon';
 
-import { SocialAuth, type SocialAuthProps } from '../SocialAuth';
+import { SocialAuth, type SocialAuthProps } from '../social-auth';
 import { VIEWS } from '../constants';
 
 type ViewType = (typeof VIEWS)[keyof typeof VIEWS];
@@ -162,3 +162,5 @@ export function LoginForm({
     </Form>
   );
 }
+
+export default LoginForm;

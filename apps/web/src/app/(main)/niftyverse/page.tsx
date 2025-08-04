@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import type { NextPage } from 'next';
 
-import { AnimatedWrapper } from '@nl/ui/custom/AnimatedWrapper';
-import ConsoleGame from '@nl/ui/custom/ConsoleGame';
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
+import { ConsoleGame } from '@nl/ui/custom/console-game';
 
 import { NIFTYVERSE_PROPERTIES } from '@/constants/niftyverse';
 import ThemeBtnGroup from '@/components/ThemeBtnGroup';

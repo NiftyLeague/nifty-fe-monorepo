@@ -5,7 +5,7 @@ import { useSnackbar } from 'notistack';
 import Image from 'next/image';
 
 import { Button } from '@nl/ui/base/button';
-import { Input } from '@nl/ui/custom/Input';
+import { Input } from '@nl/ui/custom/input';
 import { Icon } from '@nl/ui/base/icon';
 
 export default function Avatar({

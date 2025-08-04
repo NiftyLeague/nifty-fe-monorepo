@@ -2,9 +2,9 @@
 
 import type { NextPage } from 'next';
 
-import { AnimatedWrapper } from '@nl/ui/custom/AnimatedWrapper';
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
 import Carousel from '@/components/Carousel';
-import { RenderTeamCardItem } from '@/components/Carousel/TeamCardItem';
+import TeamCardItem from '@/components/Carousel/TeamCardItem';
 import ThemeBtnGroup from '@/components/ThemeBtnGroup';
 import TeamDesktop from '@/components/TeamDesktop';
 import { CORE_TEAM, DEGEN_DELEGATES } from '@/constants/team';
@@ -60,7 +60,9 @@ const Team: NextPage = () => {
             style={{ alignItems: 'center', maxWidth: '100%', textAlign: 'center', minHeight: 300 }}
           >
             <Carousel isMobileViewOnly hideGradient tabletItems={2}>
-              {[...CORE_TEAM, ...DEGEN_DELEGATES].map(RenderTeamCardItem)}
+              {[...CORE_TEAM, ...DEGEN_DELEGATES].map(item => (
+                <TeamCardItem key={item.name} {...item} />
+              ))}
             </Carousel>
           </div>
           <div className="purple-bg-orb orb-top-left" />

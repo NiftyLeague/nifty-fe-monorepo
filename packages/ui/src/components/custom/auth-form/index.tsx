@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 import { cn } from '@nl/ui/utils';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@nl/ui/base/card';
 
-import { LoginForm, type LoginFormProps } from './Forms/Login';
-import { ForgotPasswordForm, type ForgotPasswordFormProps } from './Forms/ForgotPassword';
-import { UpdatePasswordForm, type UpdatePasswordFormProps } from './Forms/UpdatePassword';
+import { LoginForm, type LoginFormProps } from './forms/login';
+import { ForgotPasswordForm, type ForgotPasswordFormProps } from './forms/forgot-password';
+import { UpdatePasswordForm, type UpdatePasswordFormProps } from './forms/update-password';
 import { FORM_DESC, FORM_TITLE, VIEWS } from './constants';
 
 export { VIEWS } from './constants';

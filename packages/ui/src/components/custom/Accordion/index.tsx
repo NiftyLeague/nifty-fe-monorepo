@@ -1,4 +1,6 @@
-import { AnimatedWrapper } from '@nl/ui/custom/AnimatedWrapper';
+'use client';
+
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
 import { Accordion as AccordionBase, AccordionContent, AccordionItem, AccordionTrigger } from '@nl/ui/base/accordion';
 
 interface AccordionItemProps {
@@ -13,7 +15,7 @@ interface AccordionProps {
   type?: 'single' | 'multiple';
 }
 
-export const Accordion = ({ collapsible = true, defaultValue, items, type = 'single' }: AccordionProps) => {
+export function Accordion({ collapsible = true, defaultValue, items, type = 'single' }: AccordionProps) {
   return (
     <AnimatedWrapper>
       <div className="transition-fade-quick transition-fade-start delay-normal bg-card border-1 rounded-md">
@@ -28,6 +30,6 @@ export const Accordion = ({ collapsible = true, defaultValue, items, type = 'sin
       </div>
     </AnimatedWrapper>
   );
-};
+}
 
 export default Accordion;

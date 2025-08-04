@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import type { PropsWithChildren } from 'react';
 import { customFontClassName } from '@nl/ui/fonts';
-import { ThemeProvider } from '@nl/ui/custom/Theme';
+import { ThemeProvider } from '@nl/ui/custom/theme';
 
 import '@/styles/app.css';
 

@@ -1,3 +1,5 @@
+'use client';
+
 import { type VariantProps } from 'class-variance-authority';
 import { Button, buttonVariants } from '@nl/ui/base/button';
 import {
@@ -12,7 +14,7 @@ import {
 } from '@nl/ui/base/dialog';
 import React from 'react';
 
-export interface DialogProps {
+interface DialogProps {
   cancelText?: string;
   cancelVariant?: VariantProps<typeof buttonVariants>['variant'];
   confirmText?: string;

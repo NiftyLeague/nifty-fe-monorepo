@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import type { ReactNode } from 'react';
 import { cn } from '@nl/ui/utils';
 import { SOCIAL_LINKS } from './constants';
 
@@ -7,7 +6,12 @@ export const linkClass = 'font-medium text-foreground';
 export const animateClass =
   'transition duration-200 ease-in-out hover:-translate-y-0.5 hover:scale-102 hover:opacity-70';
 
-export function SocialsFooter({ children, classes }: { children?: ReactNode; classes?: { footer?: string } }) {
+interface SocialsFooterProps extends React.ComponentProps<'footer'> {
+  children?: React.ReactNode;
+  classes?: { footer?: string };
+}
+
+export function SocialsFooter({ children, classes }: SocialsFooterProps) {
   return (
     <footer className={cn('my-10 px-5', classes?.footer)}>
       {children}

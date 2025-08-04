@@ -1,6 +1,6 @@
 import { cn } from '@nl/ui/utils';
 
-export interface TextProps {
+interface TextProps {
   blockquote?: boolean;
   className?: string;
   code?: boolean;
@@ -16,7 +16,7 @@ export interface TextProps {
   xs?: boolean;
 }
 
-function Text({
+export function Text({
   blockquote,
   children,
   className,

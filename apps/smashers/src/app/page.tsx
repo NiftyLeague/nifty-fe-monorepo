@@ -4,7 +4,7 @@ import { use, useState, useEffect, Suspense } from 'react';
 import dynamic from 'next/dynamic';
 
 import Header from '@/components/Header';
-import SocialsFooter from '@nl/ui/custom/SocialsFooter';
+import { SocialsFooter } from '@nl/ui/custom/socials-footer';
 
 // Lazy load below-the-fold sections with loading states
 const Loading = () => (
@@ -15,7 +15,10 @@ const Loading = () => (
   </section>
 );
 
-const ConsoleSection = dynamic(() => import('@nl/ui/custom/ConsoleGame'), { loading: Loading, ssr: false });
+const ConsoleSection = dynamic(() => import('@nl/ui/custom/console-game').then(mod => mod.ConsoleGame), {
+  loading: Loading,
+  ssr: false,
+});
 const GameSection = dynamic(() => import('@/components/GameSection'), { loading: Loading, ssr: false });
 const DegensSection = dynamic(() => import('@/components/DegensSection'), { loading: Loading, ssr: false });
 

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { cn } from '@nl/ui/utils';
 import { useProviders, type Provider } from '@nl/ui/hooks/useProviders';
-import { SocialIconButton } from '@nl/ui/custom/SocialIconButton';
+import { SocialIconButton } from '@nl/ui/custom/social-icon-button';
 
 const gridCols: Record<number, string> = {
   1: 'grid-cols-1',

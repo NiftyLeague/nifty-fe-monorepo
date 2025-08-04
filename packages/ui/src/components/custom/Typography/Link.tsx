@@ -9,7 +9,15 @@ interface LinkProps {
   target?: '_blank' | '_self' | '_parent' | '_top' | 'framename';
 }
 
-function Link({ children, className, disabled, href, onClick, style, target }: React.PropsWithChildren<LinkProps>) {
+export function Link({
+  children,
+  className,
+  disabled,
+  href,
+  onClick,
+  style,
+  target,
+}: React.PropsWithChildren<LinkProps>) {
   const classes = cn(
     'cursor-pointer text-base text-blue no-underline hover:underline',
     { 'text-muted-foreground cursor-not-allowed': disabled },

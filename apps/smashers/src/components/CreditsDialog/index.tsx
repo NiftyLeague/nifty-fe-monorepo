@@ -2,8 +2,8 @@
 
 import { Fragment } from 'react';
 import Image from 'next/image';
-import { Dialog } from '@nl/ui/custom/Dialog';
-import { Text, Title } from '@nl/ui/custom/Typography';
+import { Dialog } from '@nl/ui/custom/dialog';
+import { Text, Title } from '@nl/ui/custom/typography';
 
 import type { Company, CreditsData, TeamMember } from '@/types/credits';
 import creditsData from '@/data/credits.json';

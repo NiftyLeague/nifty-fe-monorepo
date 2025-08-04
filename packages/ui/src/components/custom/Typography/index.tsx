@@ -1,21 +1,28 @@
 import type { JSX } from 'react';
 import { cn } from '@nl/ui/utils';
 
-import Link from './Link';
-import Text from './Text';
-import Title from './Title';
+import { Link } from './link';
+import { Text } from './text';
+import { Title } from './title';
 
-interface TypographyProps {
+interface TypographyProps<T extends React.ElementType> {
+  children?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
-  tag?: keyof JSX.IntrinsicElements;
+  tag?: T;
 }
 
-function Typography({ children, className, tag = 'div', style }: React.PropsWithChildren<TypographyProps>) {
+function Typography<T extends React.ElementType>({
+  children,
+  className,
+  tag,
+  ...rest
+}: TypographyProps<T> & React.ComponentPropsWithoutRef<T>) {
+  const CustomTag = tag || 'div';
   const classes = cn('text-foreground text-base font-default font-normal tracking-default', className);
-  const CustomTag: keyof JSX.IntrinsicElements = tag;
+
   return (
-    <CustomTag className={classes} style={style}>
+    <CustomTag className={classes} style={rest.style} {...rest}>
       {children}
     </CustomTag>
   );

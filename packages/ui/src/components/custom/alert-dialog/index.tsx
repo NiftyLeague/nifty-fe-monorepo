@@ -1,3 +1,5 @@
+'use client';
+
 import { type VariantProps } from 'class-variance-authority';
 import { buttonVariants } from '@nl/ui/base/button';
 import {
@@ -12,7 +14,7 @@ import {
   AlertDialogTrigger,
 } from '@nl/ui/base/alert-dialog';
 
-export interface AlertDialogProps {
+interface AlertDialogProps {
   cancelText?: string;
   cancelVariant?: VariantProps<typeof buttonVariants>['variant'];
   confirmText?: string;

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import MainLayout from '@/components/MainLayout';
-import { Error404 } from '@nl/ui/custom/Error404';
+import { Error404 } from '@nl/ui/custom/error-404';
 
 export const metadata: Metadata = { title: '404' };
 
