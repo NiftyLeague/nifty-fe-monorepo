@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSnackbar } from 'notistack';
 
 import { Button } from '@nl/ui/base/button';
-import { Input } from '@nl/ui/custom/Input';
+import { Input } from '@nl/ui/custom/input';
 import { Icon } from '@nl/ui/base/icon';
 
 import { errorMsgHandler } from '../../utils/errorHandlers';

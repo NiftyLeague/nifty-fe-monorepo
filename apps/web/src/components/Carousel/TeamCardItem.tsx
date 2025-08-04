@@ -6,10 +6,6 @@ interface TeamCardProps {
   link?: string;
 }
 
-export const RenderTeamCardItem = (item: TeamCardProps) => (
-  <TeamCardItem key={item.name} name={item.name} source={item.source} />
-);
-
 const TeamCardItem = ({ name, source, link }: TeamCardProps): React.ReactNode => (
   <div className="grid h-full bg-card border-1 rounded-default">
     <div className="w-full flex flex-col justify-center text-center mx-auto p-2">

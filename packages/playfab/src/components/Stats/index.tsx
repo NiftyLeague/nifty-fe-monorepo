@@ -1,6 +1,6 @@
 import { formatNumberToDisplay } from '@nl/ui/utils';
 import { useUserContext } from '../../hooks/useUserContext';
-import { Input } from '@nl/ui/custom/Input';
+import { Input } from '@nl/ui/custom/input';
 
 const STAT_MAP = {
   NiftyPlayersWin: { displayName: 'Total Wins', icon: '🏆' },

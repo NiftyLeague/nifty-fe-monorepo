@@ -2,12 +2,12 @@
 
 import Image from 'next/image';
 import { memo, useRef, useState, useCallback } from 'react';
-import { AnimatedWrapper } from '@nl/ui/custom/AnimatedWrapper';
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
 import { cn } from '@nl/ui/utils';
 
 import styles from './index.module.css';
 
-const ConsoleGame = ({ src }: { src: string }) => {
+export const ConsoleGame = memo(function ConsoleGame({ src }: { src: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -116,7 +116,6 @@ const ConsoleGame = ({ src }: { src: string }) => {
       <div className="dark-gradient-overlay" />
     </div>
   );
-};
+});
 
-const MemoizedConsoleGame = memo(ConsoleGame);
-export default MemoizedConsoleGame;
+export default ConsoleGame;

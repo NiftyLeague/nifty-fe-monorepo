@@ -2,8 +2,8 @@ import Link from 'next/link';
 import type { UrlObject } from 'url';
 
 import { cn } from '@nl/ui/utils';
-import { AnimatedWrapper } from '@nl/ui/custom/AnimatedWrapper';
-import ExternalIcon from '@nl/ui/custom/ExternalIcon';
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
+import { ExternalIcon } from '@nl/ui/custom/external-icon';
 
 interface ButtonProps {
   href?: string | UrlObject;

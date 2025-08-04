@@ -6,7 +6,7 @@ import { z } from 'zod';
 
 import { Button } from '@nl/ui/base/button';
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@nl/ui/base/form';
-import { Input } from '@nl/ui/custom/Input';
+import { Input } from '@nl/ui/custom/input';
 import { Icon } from '@nl/ui/base/icon';
 
 import { VIEWS } from '../constants';
@@ -63,3 +63,5 @@ export function ForgotPasswordForm({ setAuthView, handleResetPassword }: ForgotP
     </Form>
   );
 }
+
+export default ForgotPasswordForm;

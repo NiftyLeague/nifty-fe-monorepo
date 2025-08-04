@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import ExternalIcon from '@nl/ui/custom/ExternalIcon';
+import { ExternalIcon } from '@nl/ui/custom/external-icon';
 import { ABOUT_LINKS, DAO_LINKS, MOBILE_GENERAL_LINKS, PRODUCT_LINKS } from '../constants';
 
 interface NavMenuLinkProps {

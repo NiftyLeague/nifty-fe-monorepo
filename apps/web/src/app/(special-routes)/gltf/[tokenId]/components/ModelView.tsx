@@ -3,7 +3,7 @@
 import '@google/model-viewer';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { CircularProgress } from '@nl/ui/custom/CircularProgress';
+import { CircularProgress } from '@nl/ui/custom/circular-progress';
 
 import { DEGEN_3D_MODEL_URL } from '@/constants/degens';
 import { SRC } from '@/types/gltf';

@@ -263,7 +263,7 @@ pnpm add-ui COMPONENT_NAME
 If you need to customize, extend, or build custom global components they should be placed in the `@nl/ui/custom` package.
 
 > **Note:**
-> Use **named exports** for explicit & consistent naming
+> `@nl/ui/custom` expects a folder for each component. Use **kebab case** for folder names. Also use **named exports** for explicit & consistent naming.
 
 ## Remote Caching
 

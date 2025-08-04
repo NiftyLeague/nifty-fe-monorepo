@@ -5,7 +5,7 @@ import { signIn, useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 
 import { cn } from '@nl/ui/utils';
-import { SocialIconButton } from '@nl/ui/custom/SocialIconButton';
+import { SocialIconButton } from '@nl/ui/custom/social-icon-button';
 import { useUserContext } from '../../hooks/useUserContext';
 import { fetchJson } from '../../utils/fetchJson';
 import type { Provider, UserContextType } from '../../types';

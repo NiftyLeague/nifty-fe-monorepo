@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useEffect, useState, useRef } from 'react';
-import { Dialog } from '@nl/ui/custom/Dialog';
+import { Dialog } from '@nl/ui/custom/dialog';
 
 const TrailerContent = () => {
   const [isLoaded, setIsLoaded] = useState(false);

@@ -7,9 +7,9 @@ import Link from 'next/link';
 import { Button } from '@nl/ui/base/button';
 import { Card, CardTitle, CardDescription } from '@nl/ui/base/card';
 import { Icon } from '@nl/ui/base/icon';
-import { PreloaderWithProgress } from '@nl/ui/custom/Preloader';
-import { Text } from '@nl/ui/custom/Typography';
-import { ThemeToggle } from '@nl/ui/custom/Theme';
+import { Preloader } from '@nl/ui/custom/preloader';
+import { Text } from '@nl/ui/custom/typography';
+import { ThemeToggle } from '@nl/ui/custom/theme';
 
 import styles from '@/styles/page.module.css';
 
@@ -76,7 +76,7 @@ function TestProgress(): React.ReactNode {
     return () => clearInterval(interval);
   }, []);
 
-  return <PreloaderWithProgress ready={progress === 100} progress={progress} />;
+  return <Preloader ready={progress === 100} progress={progress} />;
 }
 
 export default function Page(): React.ReactNode {

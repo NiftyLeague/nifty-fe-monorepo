@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { formatNumberToDisplay } from '@nl/ui/utils';
 import { useUserContext } from '../../hooks/useUserContext';
 import { Icon } from '@nl/ui/base/icon';
-import { Input } from '@nl/ui/custom/Input';
+import { Input } from '@nl/ui/custom/input';
 import { Separator } from '@nl/ui/base/separator';
 import type { CharacterInstance, ItemInstance } from '@nl/playfab/types';
 

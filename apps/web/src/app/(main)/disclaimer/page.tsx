@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Definitions from '@/components/Definitions';
-import { AnimatedWrapper } from '@nl/ui/custom/AnimatedWrapper';
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
 
 const Disclaimer: NextPage = () => (
   <div className="container pt-30 mb-20">

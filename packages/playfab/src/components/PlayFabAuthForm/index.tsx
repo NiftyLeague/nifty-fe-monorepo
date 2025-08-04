@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { AuthForm, type AuthFormProps } from '@nl/ui/custom/AuthForm';
+import { AuthForm, type AuthFormProps } from '@nl/ui/custom/auth-form';
 
 import type { Provider, User } from '../../types';
 import { errorMsgHandler } from '../../utils/errorHandlers';

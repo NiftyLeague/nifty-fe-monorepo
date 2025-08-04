@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { memo } from 'react';
 
-import { AnimatedWrapper } from '@nl/ui/custom/AnimatedWrapper';
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
 
 type Sponsor = { image: string; url: string; width: number; height: number };
 

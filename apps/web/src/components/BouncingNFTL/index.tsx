@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 import { cn } from '@nl/ui/utils';
-import { AnimatedWrapper } from '@nl/ui/custom/AnimatedWrapper';
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
 
 interface ComponentProps {
   classes?: { token1?: string; token2?: string; token3?: string };
