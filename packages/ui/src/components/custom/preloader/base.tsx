@@ -32,7 +32,7 @@ interface PreloaderProps {
   showWarning?: boolean;
 }
 
-export function Preloader({ ready, percent, showWarning }: PreloaderProps) {
+export function PreloaderBase({ ready, percent, showWarning }: PreloaderProps) {
   return (
     <div
       className={styles.preloader_overlay}

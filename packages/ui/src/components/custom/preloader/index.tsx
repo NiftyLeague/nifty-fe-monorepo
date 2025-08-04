@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useStopwatch } from '@nl/ui/hooks/useStopwatch';
 import { useUserAgent } from '@nl/ui/hooks/useUserAgent';
 
-import { Preloader as PreloaderBase } from './base';
+import { PreloaderBase } from './base';
 
 export function Preloader({ ready, progress }: { ready: boolean; progress: number }): React.ReactNode {
   const loadingPercentage = Math.round(progress <= 1 ? progress * 100 : progress);
