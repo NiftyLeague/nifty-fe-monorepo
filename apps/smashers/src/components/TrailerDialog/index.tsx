@@ -1,8 +1,8 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useState, useRef } from 'react';
-import Modal from '@/components/Modal';
-import styles from '@/components/Modal/index.module.css';
+import { Dialog } from '@nl/ui/custom/Dialog';
 
 const TrailerContent = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -47,7 +47,7 @@ const TrailerContent = () => {
       ref={modalIframe}
       id="trailer-modal-iframe"
       title="Nifty Smashers - Trailer"
-      className={styles.modal_iframe}
+      className=" -m-6 mt-0 w-[calc(100%+3rem)] aspect-video"
       src="https://www.youtube.com/embed/4lnDrx4aDq8?enablejsapi=1&html5=1&autoplay=1&playsinline=1&rel=0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       allowFullScreen
@@ -57,14 +57,28 @@ const TrailerContent = () => {
   );
 };
 
-type TrailerModalProps = { isOpen: boolean; onClose: () => void };
+const TrailerDialog = ({ open }: { open: boolean }) => (
+  <Dialog
+    defaultOpen={open}
+    title="Nifty Smashers - Trailer"
+    description="3D free-to-play platform fighter"
+    hideDescription
+    hideTitle
+    triggerElement={
+      <button>
+        <Image
+          src="/icons/socials/youtube.svg"
+          alt="YouTube Logo"
+          width={22}
+          height={22}
+          style={{ maxWidth: '100%', height: 'auto' }}
+        />
+        Trailer
+      </button>
+    }
+  >
+    <TrailerContent />
+  </Dialog>
+);
 
-const TrailerModal = ({ isOpen, onClose }: TrailerModalProps) => {
-  return (
-    <Modal isOpen={isOpen} onClose={onClose} contentClassName={styles.modal_paper}>
-      <TrailerContent />
-    </Modal>
-  );
-};
-
-export default TrailerModal;
+export default TrailerDialog;
