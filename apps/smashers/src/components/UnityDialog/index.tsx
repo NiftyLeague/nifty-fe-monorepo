@@ -1,8 +1,8 @@
 import dynamic from 'next/dynamic';
 import { isOpera, browserName } from 'react-device-detect';
+import { Dialog } from '@nl/ui/custom/Dialog';
 import { Title } from '@nl/ui/custom/Typography';
-import Modal from '@/components/Modal';
-import styles from '@/components/Modal/index.module.css';
+import UnityButton from './UnityButton';
 
 const Game = dynamic(() => import('./Game'), { ssr: false });
 
@@ -20,13 +20,19 @@ const UnityContent = ({ onClose }: { onClose: () => void }) => {
   );
 };
 
-type UnityModalProps = { isOpen: boolean; onClose: () => void };
+const UnityModal = () => {
+  const onClose = () => {};
 
-const UnityModal = ({ isOpen, onClose }: UnityModalProps) => {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} contentClassName={styles.modal_paper_dark}>
+    <Dialog
+      title="Play in Browser"
+      description="Play Smashers in your browser or download the Windows version."
+      hideDescription
+      hideTitle
+      triggerElement={<UnityButton />}
+    >
       <UnityContent onClose={onClose} />
-    </Modal>
+    </Dialog>
   );
 };
 

@@ -4,9 +4,8 @@ import Image from 'next/image';
 import { Button } from '@nl/ui/base/button';
 import useVersion from '@/hooks/useVersion';
 import useFlags from '@/hooks/useFlags';
-import styles from '@/components/Modal/index.module.css';
 
-const UnityButton = ({ launchGame }: { launchGame: () => void }) => {
+const UnityButton = () => {
   const { isWindows, downloadURL, version } = useVersion();
   const loading = !version && isWindows;
   const { enableWebGL } = useFlags();
@@ -15,7 +14,7 @@ const UnityButton = ({ launchGame }: { launchGame: () => void }) => {
     <>
       {isWindows && (
         <a href={downloadURL || ''}>
-          <Button variant="outline" size="lg" disabled={!isWindows || !version} className={styles.button_primary}>
+          <Button variant="default" size="lg" disabled={!isWindows || !version} className="h-full cursor-pointer">
             <Image
               src="/icons/platform/windows.svg"
               alt="Windows Logo"
@@ -27,12 +26,12 @@ const UnityButton = ({ launchGame }: { launchGame: () => void }) => {
           </Button>
         </a>
       )}
-      <Button variant="outline" size="lg" className="cursor-pointer" onClick={launchGame}>
+      <Button variant="outline" size="lg" className="h-full cursor-pointer">
         <Image
           src="/icons/platform/webgl.svg"
           alt="Webgl Logo"
-          width={22}
-          height={22}
+          width={32}
+          height={28}
           style={{ maxWidth: '100%', height: 'auto' }}
         />
         Browser

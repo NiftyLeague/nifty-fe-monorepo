@@ -32,6 +32,7 @@
 }
 ::-webkit-scrollbar-track {
   background: var(--color-base-800);
+  border-radius: var(--radius-default);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--color-purple-500);
