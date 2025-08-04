@@ -6,10 +6,10 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 
 import { cn } from '@nl/ui/utils';
+import { ErrorBoundary } from '@nl/ui/custom/error-boundry';
 import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group';
 import { DEGEN_BASE_SPRITE_URL, LEGGIES } from '@/constants/degens';
 import { SRC, Color } from '@/types/gltf';
-import ErrorBoundary from '@/components/ErrorBoundry';
 
 import styles from './gltf.module.css';
 
