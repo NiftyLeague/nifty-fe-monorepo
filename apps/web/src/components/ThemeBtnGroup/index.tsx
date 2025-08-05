@@ -32,6 +32,7 @@ export const ThemeBtn = ({
       disabled && 'disabled',
       className,
     )}
+    suppressHydrationWarning
   >
     {title}
     {external && <ExternalIcon />}
