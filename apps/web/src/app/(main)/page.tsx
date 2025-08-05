@@ -203,7 +203,10 @@ const Home: NextPage = () => {
       {/* DEGENS */}
       <section className="section w-screen relative flex flex-col text-center sliding-nfts">
         <AnimatedWrapper>
-          <h2 className="my-3 lg:my-5 px-5 sm:px-8 transition-vertical-fade transition-vertical-fade-start">
+          <h2
+            className="my-3 lg:my-5 px-5 sm:px-8 transition-vertical-fade transition-vertical-fade-start"
+            suppressHydrationWarning
+          >
             {isMobile ? 'OWN YOUR AVATAR' : 'COMMUNITY-GENERATED AVATARS'}
           </h2>
         </AnimatedWrapper>

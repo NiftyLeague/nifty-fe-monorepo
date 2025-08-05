@@ -16,11 +16,12 @@
   },
   "scripts": {
     "add-component": "pnpm dlx shadcn@latest add $@",
+    "postadd-component": "pnpm migrate && pnpm format",
     "clean": "rm -rf node_modules && rm -rf .turbo && rm -rf .storybook",
     "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\"",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --max-warnings 0 --fix",
-    "migrate": "pnpm dlx shadcn@latest migrate radix",
+    "migrate": "pnpm dlx shadcn@latest migrate radix -y",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {

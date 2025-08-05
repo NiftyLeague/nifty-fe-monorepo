@@ -41,7 +41,7 @@ export const ConsoleGame = memo(function ConsoleGame({ src }: { src: string }) {
             src="/img/console-game/classic-gaming-reinvented-notv.webp"
             priority
             fetchPriority="high"
-            sizes="(max-width: 1200px) 100vw, 1200px"
+            sizes="(max-width: 1920px) 100vw, 1920px"
             style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
             loading="eager"
           />
@@ -75,7 +75,7 @@ export const ConsoleGame = memo(function ConsoleGame({ src }: { src: string }) {
               height={1080}
               src="/img/console-game/bonk.webp"
               loading="lazy"
-              sizes="(max-width: 1200px) 100vw, 1200px"
+              sizes="(max-width: 1920px) 100vw, 1920px"
               style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
             />
           </div>
@@ -91,7 +91,7 @@ export const ConsoleGame = memo(function ConsoleGame({ src }: { src: string }) {
               height={1080}
               src="/img/console-game/gaming_controller_left.webp"
               loading="lazy"
-              sizes="(max-width: 1200px) 100vw, 1200px"
+              sizes="(max-width: 1920px) 100vw, 1920px"
               style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
             />
           </div>
@@ -107,7 +107,7 @@ export const ConsoleGame = memo(function ConsoleGame({ src }: { src: string }) {
               height={1080}
               src="/img/console-game/gaming_controller_right.webp"
               loading="lazy"
-              sizes="(max-width: 1200px) 100vw, 1200px"
+              sizes="(max-width: 1920px) 100vw, 1920px"
               style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
             />
           </div>

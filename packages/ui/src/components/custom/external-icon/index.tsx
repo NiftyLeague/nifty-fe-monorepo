@@ -8,7 +8,7 @@ export function ExternalIcon({ className = '', size = 'xs', ...props }: Omit<Ico
     <Icon
       name="external-link"
       size={size}
-      className={cn('inline-block flex-shrink-0 cursor-pointer ml-1 mb-1.5', className)}
+      className={cn('size-3 inline-block flex-shrink-0 cursor-pointer ml-1 mb-1.5', className)}
       aria-hidden="true"
       {...props}
     />
