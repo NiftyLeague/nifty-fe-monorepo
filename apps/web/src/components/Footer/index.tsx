@@ -38,7 +38,7 @@ export default function Footer() {
           <FooterLink href="/" name="Home" first />
           <FooterLink href="/games" name="Games" />
           <FooterLink href="/degens" name="DEGENs" />
-          <FooterLink href="/niftyverse" name="NiftyVerse" />
+          <FooterLink href="/niftyworld" name="NiftyWorld" />
         </div>
         <div className="flex flex-col">
           <FooterLink href="/overview" name="Overview" first />

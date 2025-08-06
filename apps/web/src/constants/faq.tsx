@@ -15,14 +15,14 @@ export const FAQS = [
     ),
   },
   {
-    question: 'What is the NiftyVerse?',
+    question: 'What is NiftyWorld?',
     answer: (
       <>
-        The NiftyVerse is a digital world centered around nostalgia. It not only acts as a social hub for connecting
-        with friends online, but is THE ultimate Nifty League game hub with fun missions and launch points into our
-        other game titles. Land parcels will be available to build custom areas for holders, and players can show off
-        their digital assets from Nifty League or other partner communities to stand out.{' '}
-        <Link href="/niftyverse" target="_blank" rel="noreferrer">
+        NiftyWorld is a digital world centered around nostalgia. It not only acts as a social hub for connecting with
+        friends online, but is THE ultimate Nifty League game hub with fun missions and launch points into our other
+        game titles. Land parcels will be available to build custom areas for holders, and players can show off their
+        digital assets from Nifty League or other partner communities to stand out.{' '}
+        <Link href="/niftyworld" target="_blank" rel="noreferrer">
           Learn more
         </Link>
       </>
@@ -40,7 +40,7 @@ export const FAQS = [
         Utility includes, but is not limited to:
         <ol>
           <li>Governance: on-chain DAO governance available on Tally.xyz</li>
-          <li>NFT drops: Raffles, NiftyVerse Land, special weapons/wearables, others TBA</li>
+          <li>NFT drops: Raffles, NiftyWorld Land, special weapons/wearables, others TBA</li>
           <li>Ecosystem currency: Redemption of in-game currencies, compete-2-earn wagering (deprecated)</li>
           <li>Platform fees: Renaming DEGENs, DEGEN rentals (deprecated), Mini-Games (deprecated), etc</li>
         </ol>

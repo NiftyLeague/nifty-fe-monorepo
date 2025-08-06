@@ -29,36 +29,36 @@ const Lore: NextPage = () => {
             <AnimatedWrapper immediate>
               <p className="transition-fade-slow transition-fade-start delay-lite">
                 One day Satoshi met a panicked Frog from a parallel dimension (as you do). The Frog explained that he
-                hailed from the NiftyGalaxy, an alternate universe that was in deep trouble. With not much time left to
-                save his world, the Frog sought out the greatest minds across the multiverse to aid him in saving his
-                world, and that journey had brought him to Satoshi.
+                hailed from NiftyWorld, a planet in an alternate universe that was in deep trouble. With not much time
+                left to save his world, the Frog sought out the greatest minds across the multiverse to aid him in
+                saving his world, and that journey had brought him to Satoshi.
               </p>
             </AnimatedWrapper>
             <br />
             <AnimatedWrapper immediate>
               <p className="transition-fade-slow transition-fade-start delay-lite">
-                Satoshi got into his Space Bubble and warp-jumped to the NiftyGalaxy. Once there he learned that 6
-                tribes that inhabited the NiftyGalaxy (Frogs, Cats, Doges, Humans, Aliens and Apes) had all declared war
-                amongst each other due to simple misunderstandings.
+                Satoshi got into his Space Bubble and warp-jumped to NiftyWorld. Once there he learned that 6 tribes
+                that inhabited NiftyWorld (Frogs, Cats, Doges, Humans, Aliens and Apes) had all declared war amongst
+                each other due to simple misunderstandings.
               </p>
             </AnimatedWrapper>
             <br />
             <AnimatedWrapper immediate>
               <p className="transition-fade-slow transition-fade-start delay-lite">
-                The Cat tribe couldn’t stand how the Doge tribe rolled around so carefree, such blissful ignorance, wow.
-                The calculated Aliens were sickened by the Apes and their constant fomo-ing into everything that moved.
-                And the Frogs despised the Human tribe and their penchant for walking around without clothes.
+                The Cat tribe couldn&apos;t stand how the Doge tribe rolled around so carefree, such blissful ignorance,
+                wow! The calculated Aliens were sickened by the Apes and their constant fomo-ing into everything that
+                moved. And the Frogs despised the Human tribe and their penchant for walking around without clothes.
               </p>
             </AnimatedWrapper>
             <br />
             <AnimatedWrapper immediate>
               <p className="transition-fade-slow transition-fade-start delay-lite">
-                Satoshi however was impressed with the various tribes’ competitiveness, and decided to form The Nifty
-                League - a project whereby tribes from all over The NiftyGalaxy would be able to channel their
-                grievances into fun, friendly and safe competitive games. He formalized anyone’s entrance into the Nifty
-                League by minting them with unique attributes in his novel Mint-O-Matic machine, and named those
-                enrollees ‘DEGENs’. Satoshi started up tournaments as a way to formalize the competitions, and provided
-                rewards to those who contributed towards the Nifty League’s success.
+                Satoshi however was impressed with the various tribes&apos; competitiveness, and decided to form The
+                Nifty League - a project whereby tribes from all over NiftyWorld would be able to channel their
+                grievances into fun, friendly and safe competitive games. He formalized anyone&apos;s entrance into the
+                Nifty League by minting them with unique attributes in his novel Mint-O-Matic machine, and named those
+                enrollees &apos;DEGENs&apos;. Satoshi started up tournaments as a way to formalize the competitions, and
+                provided rewards to those who contributed towards the Nifty League&apos;s success.
               </p>
             </AnimatedWrapper>
             <br />
@@ -66,39 +66,40 @@ const Lore: NextPage = () => {
               <p className="transition-fade-slow transition-fade-start delay-lite">
                 This culminated in Satoshi building The Citadel; an oasis of peace, prosperity, and the occasional bonk
                 on the head with a baseball bat. Any Degen with a special Citadel Key would be granted access to this
-                idyllic area, and would be the Degens Satoshi considered assets to the Nifty League community, and the
-                NiftyGalaxy as a whole.
+                idyllic area, and would be the Degens Satoshi considered assets to the Nifty League community, and
+                NiftyWorld as a whole.
               </p>
             </AnimatedWrapper>
             <br />
             <AnimatedWrapper immediate>
               <p className="transition-fade-slow transition-fade-start delay-lite">
-                The tribes made a pact that Satoshi’s Nifty League was considered neutral and peaceful territory, and
-                with the help of the Degens, Satoshi brought about peace in his newly dubbed ‘NiftyVerse’.
+                The tribes made a pact that Satoshi&apos;s Nifty League was considered neutral and peaceful territory,
+                and with the help of the Degens, Satoshi brought about peace to NiftyWorld.
               </p>
             </AnimatedWrapper>
             <br />
             <AnimatedWrapper immediate>
               <p className="transition-fade-slow transition-fade-start delay-lite">
-                Inspired by the world growing before him, Satoshi reached out to tribes from other universes such as The
-                Kongz and Forgotten Runes Wizards to share in the fun of what he and his faithful Degens were creating
-                in The NiftyVerse.
+                Inspired by the world growing before him, Satoshi reached out to tribes from other universes such as
+                CyberKongz and Forgotten Runes Wizards to share in the fun of what he and his faithful Degens were
+                creating in NiftyWorld.
               </p>
             </AnimatedWrapper>
             <br />
             <AnimatedWrapper immediate>
               <p className="transition-fade-slow transition-fade-start delay-lite">
-                Satoshi also discovered an ancient 7th tribe - the Hydras. A primordial group long forgotten to Planet
-                Degen, they existed long before Satoshi or any of the other tribes had ever lived. He figured out a way
-                to bring them back from extinction, as they joined the ranks of Nifty League after some bargaining to
-                get the coolest outfits.
+                Satoshi also discovered an ancient 7th tribe - the Hydras. A primordial group long forgotten to
+                NiftyWorld, they existed long before Satoshi or any of the other tribes had ever lived. He figured out a
+                way to bring them back from extinction, as they joined the ranks of Nifty League after some bargaining
+                to get the coolest outfits.
               </p>
             </AnimatedWrapper>
             <br />
             <AnimatedWrapper immediate>
               <p className="transition-fade-slow transition-fade-start delay-lite">
-                But Satoshi’s astronomic rise as the savior of the Niftyverse perhaps went a step too far, as Satoshi’s
-                tinkering with this parallel world has seen an ancient evil once feared in the Niftyverse awaken.
+                But Satoshi&apos;s astronomic rise as the savior of NiftyWorld perhaps went a step too far, as
+                Satoshi&apos;s tinkering with this parallel world has seen an ancient evil once feared in NiftyWorld
+                awaken.
               </p>
             </AnimatedWrapper>
             <br />
@@ -112,9 +113,9 @@ const Lore: NextPage = () => {
             </AnimatedWrapper>
             <AnimatedWrapper immediate>
               <p className="transition-fade-slow transition-fade-start delay-lite">
-                Feeling responsible for bringing his now peaceful world into danger once more, Satoshi has vowed to put
+                Feeling responsible for bringing the now peaceful world into danger once more, Satoshi has vowed to put
                 an end to RugMan once and for all, and with his faithful army of Degens under his control, the battle
-                for the NiftyVerse has just begun.{' '}
+                for NiftyWorld has just begun.
               </p>
             </AnimatedWrapper>
           </div>

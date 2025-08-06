@@ -42,4 +42,4 @@ Immutable enables seamless blockchain integration for our games. Onboarding new 
 
 Items and skins are an important part of our games. They help you stand-out, show-off, and just be yourself. With our migration to Immutable now complete, our next step is expanding our items marketplace so users can easily earn or purchase additional items for use in our games.
 
-![alt text](/img/niftyverse/billboard_01.webp)
+![alt text](/img/niftyworld/billboard_01.webp)
