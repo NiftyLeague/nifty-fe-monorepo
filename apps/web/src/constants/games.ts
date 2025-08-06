@@ -28,17 +28,17 @@ export const NIFTY_GAMES: NiftyGame[] = [
     },
   },
   {
-    name: 'NIFTYVERSE',
+    name: 'NIFTYWORLD',
     description:
-      'A virtual social hub like none other for gamers. The vision is for NiftyVerse to be a dynamic and interoperable platform for developers to create their own games, ensuring a wide variety of immersive experiences for players.',
+      'A virtual social hub like none other for gamers. The vision is for NiftyWorld to be a dynamic and interoperable platform for developers to create their own games, ensuring a wide variety of immersive experiences for players.',
     video: '/video/mansion_showcase.mp4',
     tag: 'METAVERSE',
-    action: { secondaryTitle: 'LEARN MORE', secondaryLink: '/niftyverse', isComingSoon: true },
+    action: { secondaryTitle: 'LEARN MORE', secondaryLink: '/niftyworld', isComingSoon: true },
   },
   {
     name: 'NIFTY ROYALE',
     description:
-      "One of the first games we'd like to introduce to the NiftyVerse is a fun battle royale, codename 'GEM HUNTER'. Development kicked off in August 2023 with help from an external game studio as part of our test run transitioning to a DAO and polishing our public services/SDK.",
+      "One of the first games we'd like to introduce to NiftyWorld is a fun battle royale, codename 'GEM HUNTER'. Development kicked off in August 2023 with help from an external game studio as part of our test run transitioning to a DAO and polishing our public services/SDK.",
     video: '/video/arcade-token.mp4',
     tag: 'MOBILE / PC GAME',
     action: { title: 'PLAYTEST EARLY-ACCESS!', link: 'https://app.niftyleague.com', isComingSoon: false },

@@ -4,10 +4,10 @@ import type { NextPage } from 'next';
 import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
 import { ConsoleGame } from '@nl/ui/custom/console-game';
 
-import { NIFTYVERSE_PROPERTIES } from '@/constants/niftyverse';
+import { NIFTYWORLD_PROPERTIES } from '@/constants/niftyworld';
 import ThemeBtnGroup from '@/components/ThemeBtnGroup';
 
-const NiftyVerse: NextPage = () => {
+const NiftyWorld: NextPage = () => {
   return (
     <>
       <section className="relative xl:-top-20 2xl:-top-35">
@@ -29,17 +29,17 @@ const NiftyVerse: NextPage = () => {
           <div className="flex flex-col w-full md:w-1/2 lg:w-7/12 pr-0 md:pr-3 text-center md:text-left">
             <div className="mb-2 mb-md-3">
               <AnimatedWrapper>
-                <h1 className="transition-vertical-fade transition-vertical-fade-start">NIFTYVERSE</h1>
+                <h1 className="transition-vertical-fade transition-vertical-fade-start">NIFTYWORLD</h1>
               </AnimatedWrapper>
             </div>
             <div className="mb-3 mb-md-0">
               <AnimatedWrapper>
                 <p className="transition-vertical-fade transition-vertical-fade-start delay-lite">
-                  NiftyVerse is a virtual space for gamers to connect, collaborate, and compete with each other. The
-                  initial districts are designed by the Nifty League team, but ultimately the vision is for NiftyVerse
+                  NiftyWorld is a virtual space for gamers to connect, collaborate, and compete with each other. The
+                  initial districts are designed by the Nifty League team, but ultimately the vision is for NiftyWorld
                   to be a dynamic and interoperable platform for developers to create their own games, ensuring a wide
                   variety of immersive experiences for players. Do note: all DEGEN holders have been promised free land
-                  parcels in the NiftyVerse!
+                  parcels in NiftyWorld!
                 </p>
               </AnimatedWrapper>
             </div>
@@ -66,7 +66,7 @@ const NiftyVerse: NextPage = () => {
             </AnimatedWrapper>
           </div>
           <div className="flex flex-col items-start md:flex-row w-full justify-between flex-wrap">
-            {NIFTYVERSE_PROPERTIES.map(({ name, description, image }) => (
+            {NIFTYWORLD_PROPERTIES.map(({ name, description, image }) => (
               <div className="w-full md:w-1/2 flex flex-col lg:flex-row relative py-3 px-2 mb-3 md:mb-5" key={name}>
                 <div className="w-full lg:w-1/2 lg:pr-2 flex flex-col">
                   <AnimatedWrapper>
@@ -83,7 +83,7 @@ const NiftyVerse: NextPage = () => {
                     <div className="transition-fade transition-fade-start delay-normal">
                       <Image
                         src={image}
-                        alt="NiftyVerse District Highlight"
+                        alt="NiftyWorld District Highlight"
                         width={500}
                         height={283}
                         style={{ width: '100%', height: 'auto', maxWidth: '100%' }}
@@ -94,11 +94,11 @@ const NiftyVerse: NextPage = () => {
               </div>
             ))}
           </div>
-          <ThemeBtnGroup primary={{ href: '/docs/overview/games/niftyverse', title: 'VIEW DOCS', external: true }} />
+          <ThemeBtnGroup primary={{ href: '/docs/overview/games/niftyworld', title: 'VIEW DOCS', external: true }} />
         </section>
       </div>
     </>
   );
 };
 
-export default NiftyVerse;
+export default NiftyWorld;

@@ -12,7 +12,7 @@ const NAV_ITEMS: NavItemData[] = [
     pages: [
       { title: 'Games', href: '/games', description: 'Explore and play Nifty League games' },
       { title: 'DEGENs', href: '/degens', description: 'Discover our flagship NFT collection' },
-      { title: 'NiftyVerse', href: '/niftyverse', description: 'Take a sneak peek of our virtual world' },
+      { title: 'NiftyWorld', href: '/niftyworld', description: 'Take a sneak peek of our virtual world' },
     ],
   },
   {
@@ -22,7 +22,7 @@ const NAV_ITEMS: NavItemData[] = [
       { title: 'Overview / FAQ', href: '/overview', description: 'Quick introduction and common Q/As' },
       { title: 'Roadmap', href: '/roadmap', description: 'Track our progress and future plans' },
       { title: 'Community', href: '/community', description: 'Join and connect with other players' },
-      { title: 'Nifty Lore', href: '/lore', description: "Dive into Nifty League's rich history" },
+      { title: 'Nifty Lore', href: '/lore', description: "Dive into NiftyWorld's rich history" },
       { title: 'Docs', href: '/docs', external: true, description: 'Platform technical documentation' },
       { title: 'Blog', href: '/blog', external: true, description: 'Latest news and announcements' },
       { title: 'Contact', href: '/contact', external: true, description: 'Get in touch with our team' },

@@ -138,7 +138,7 @@ export const ROADMAP_CARDS = [
         </p>
         <p>
           We&apos;ll include game stats for daily, weekly, monthly, and of course all-time leaders for all of our games
-          in the NiftyVerse. Some early honorary DEGENS:
+          in NiftyWorld. Some early honorary DEGENS:
         </p>
         <ul className={styles.content_skills}>
           <li>fvsvy 🌊</li>
@@ -484,9 +484,9 @@ export const ROADMAP_CARDS = [
     body: (
       <>
         <p>
-          The first game set in the NiftyVerse is an action-packed battle royale! Initial development kicked off in
-          August 2023 as part of a case study into our decentalized vision. Nifty League is managing an external game
-          studio responsible for development.
+          The first game set in NiftyWorld is an action-packed battle royale! Initial development kicked off in August
+          2023 as part of a case study into our decentalized vision. Nifty League is managing an external game studio
+          responsible for development.
         </p>
         <p className="mb-0">
           Early-access is available for playtesting! Find the latest build{' '}
@@ -619,7 +619,7 @@ export const ROADMAP_CARDS = [
     body: (
       <>
         <p>
-          An upcoming battle royale game set in the NiftyVerse, a virtual world our team strategically designed for
+          An upcoming battle royale game set in NiftyWorld, a virtual world our team strategically designed for
           limitless creativity. Building on the success of Nifty Smashers, Nifty Royale delivers an immersive and
           competitive experience.
         </p>
@@ -635,40 +635,39 @@ export const ROADMAP_CARDS = [
     ),
   },
   {
-    image: { src: '/img/roadmap/niftyverse_v02.webp', style: { top: '-145px' }, width: 757, height: 675 },
-    title: 'NiftyVerse',
+    image: { src: '/img/roadmap/niftyworld_v02.webp', style: { top: '-145px' }, width: 757, height: 675 },
+    title: 'NiftyWorld',
     body: (
       <>
         <p>
-          Welcome to the NiftyVerse; a world filled with DEGENs and NFT communities alike with a shared vision to have
-          fun and build a thriving gaming ecosystem. What makes the Niftyverse stand apart from other metaverses is our
-          games being the centerpiece. Walk into our arcade room filled with fun mini-games or venture to destinations
-          on the map to jump into our classic titles like Nifty Smashers and Nifty Kart.
+          Welcome to NiftyWorld; a world filled with DEGENs and NFT communities alike with a shared vision to have fun
+          and build a thriving gaming ecosystem. What makes NiftyWorld stand apart from other metaverses is our games
+          being the centerpiece. Walk into our arcade room filled with fun mini-games or venture to destinations on the
+          map to jump into our classic titles like Nifty Smashers and Nifty Kart.
         </p>
         <p>
           While Nifty League focuses on building a decentralized game platform with titles such as Nifty Smashers and
-          other Nintendo-inspired games, NiftyVerse stands at the heart of our ecosystem tying everything together.
+          other Nintendo-inspired games, NiftyWorld stands at the heart of our ecosystem tying everything together.
           It&apos;s not only the central lobby system or launch point for many of these games, but the main hub for all
           social interactions (and quite frankly our biggest game in and of itself).
         </p>
         <p className="mb-0">
           If you&apos;re a creative type, don&apos;t miss this opportunity - we will have an asset store for you to
           design assets such as buildings or trees and list them for sale based on your defined limits and pricing. Do
-          you want a cool DEGEN theme park or Cyber Kongz meetup? Build out the NiftyVerse to whatever your heart
-          desires!
+          you want a cool DEGEN theme park or Cyber Kongz meetup? Build out NiftyWorld to whatever your heart desires!
         </p>
       </>
     ),
   },
   {
     divider: true,
-    image: { src: '/img/logos/niftyverse/app_logo.webp', style: { top: '-90px' }, width: 1920, height: 1080 },
+    image: { src: '/img/logos/niftyworld/app_logo.webp', style: { top: '-90px' }, width: 1920, height: 1080 },
     title: 'Land',
     body: (
       <>
         <p>
-          Land parcels give you ownership in the NiftyVerse. Each DEGEN NFT will recieve 1 free plot of land if and when
-          the mint goes live. As a land holder you can build freely on your parcels as long as they meet platform
+          Land parcels give you ownership in NiftyWorld. Each DEGEN NFT will recieve 1 free plot of land if and when the
+          mint goes live. As a land holder you can build freely on your parcels as long as they meet platform
           guidelines. For larger developments that span across a region we will introduce an HOA model for build
           proposals.
         </p>
@@ -684,8 +683,8 @@ export const ROADMAP_CARDS = [
     body: (
       <>
         <p>
-          Following our NiftyVerse launch we want to introduce cool pets for your DEGENS! A lot of community members
-          have asked us to dust off and bring back Satoshi&apos;s{' '}
+          Following NiftyWorld launch we want to introduce cool pets for your DEGENS! A lot of community members have
+          asked us to dust off and bring back Satoshi&apos;s{' '}
           <strong>
             <a href="https://app.niftyleague.com/mint-o-matic" target="_blank" rel="noreferrer">
               Mint-O-Matic

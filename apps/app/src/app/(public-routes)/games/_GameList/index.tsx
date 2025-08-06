@@ -110,7 +110,7 @@ const F2PGameList = () => (
       <GameCard
         title="Party Royale (Early-Alpha)"
         required="Party Battle Royale"
-        description="Step into the NiftyVerse - our next hit game is ready to playtest! This game is still in early development so bugs are expected!"
+        description="Step into NiftyWorld - our next hit game is ready to playtest! This game is still in early development so bugs are expected!"
         image="/img/games/nifty-royale/nifty-royale.gif"
         onlineCounter={200}
         autoHeight={false}
