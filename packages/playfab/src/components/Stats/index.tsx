@@ -24,7 +24,9 @@ export default function Stats() {
     <div className="grid gap-4">
       <fieldset>
         <div className="grid gap-2">
-          <legend>Player STATs</legend>
+          <legend>
+            <h3 className="text-lg">Player STATs</h3>
+          </legend>
           <div className="grid grid-cols-2 gap-2">
             {stats?.map(stat => {
               const { StatisticName, Value } = stat;
@@ -39,7 +41,8 @@ export default function Stats() {
                   id={StatisticName}
                   className="w-full text-center !opacity-100 !bg-purple/20 !text-purple-200"
                   type="text"
-                  value={`${statInfo.icon}  ${statInfo.displayName}:  ${formatNumberToDisplay(Value, 0)}`}
+                  value={`${statInfo.icon} ${formatNumberToDisplay(Value, 0)}`}
+                  label={statInfo.displayName}
                   disabled
                 />
               );
