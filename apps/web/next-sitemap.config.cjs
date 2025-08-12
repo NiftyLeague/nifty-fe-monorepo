@@ -1,4 +1,4 @@
-const HIGH_PRIORITY_PATHS = ['/', '/games', '/niftyverse', '/degens', '/roadmap', '/community'];
+const HIGH_PRIORITY_PATHS = ['/', '/games', '/niftyworld', '/degens', '/roadmap', '/community'];
 const MID_PRIORITY_PATHS = ['/compete-and-earn', '/lore', '/overview', '/team', '/docs', '/shop'];
 
 function customPathPriority(path) {

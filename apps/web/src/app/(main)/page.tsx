@@ -5,8 +5,8 @@ import type { NextPage } from 'next';
 import Image from 'next/image';
 
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
-import { AnimatedWrapper } from '@nl/ui/custom/AnimatedWrapper';
-import ConsoleGame from '@nl/ui/custom/ConsoleGame';
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
+import { ConsoleGame } from '@nl/ui/custom/console-game';
 
 import BouncingNFTL from '@/components/BouncingNFTL';
 import Carousel from '@/components/Carousel';
@@ -203,7 +203,10 @@ const Home: NextPage = () => {
       {/* DEGENS */}
       <section className="section w-screen relative flex flex-col text-center sliding-nfts">
         <AnimatedWrapper>
-          <h2 className="my-3 lg:my-5 px-5 sm:px-8 transition-vertical-fade transition-vertical-fade-start">
+          <h2
+            className="my-3 lg:my-5 px-5 sm:px-8 transition-vertical-fade transition-vertical-fade-start"
+            suppressHydrationWarning
+          >
             {isMobile ? 'OWN YOUR AVATAR' : 'COMMUNITY-GENERATED AVATARS'}
           </h2>
         </AnimatedWrapper>
@@ -301,14 +304,14 @@ const Home: NextPage = () => {
         </div>
       </section>
 
-      {/* NIFTYVERSE */}
+      {/* NIFTYWORLD */}
       <section className="container section relative flex flex-row flex-wrap items-center">
         <div className="w-full md:w-1/2">
           <AnimatedWrapper>
             <div className="transition-fade transition-fade-start delay-normal">
               <Image
-                src="/img/logos/niftyverse/app_logo.webp"
-                alt="Land in the Niftyverse"
+                src="/img/logos/niftyworld/app_logo.webp"
+                alt="Land in NiftyWorld"
                 width={612}
                 height={482}
                 sizes="100vw"
@@ -322,9 +325,9 @@ const Home: NextPage = () => {
           <div className="flex flex-col relative items-center md:items-start">
             <AnimatedWrapper>
               <h2 className="mb-3 section-title section-heading transition-vertical-fade transition-vertical-fade-start delay-lite">
-                <span className="whitespace-nowrap">DISCOVER THE</span>
+                DISCOVER
                 <br />
-                NIFTYVERSE
+                <span className="whitespace-nowrap font-default font-normal">NIFTYWORLD</span>
               </h2>
             </AnimatedWrapper>
             <AnimatedWrapper>
@@ -335,7 +338,7 @@ const Home: NextPage = () => {
             <ThemeBtnGroup
               className="md:justify-start"
               primary={{ title: 'COMING SOON', disabled: true }}
-              secondary={{ href: '/niftyverse', title: 'LEARN MORE' }}
+              secondary={{ href: '/niftyworld', title: 'LEARN MORE' }}
             />
           </div>
         </div>

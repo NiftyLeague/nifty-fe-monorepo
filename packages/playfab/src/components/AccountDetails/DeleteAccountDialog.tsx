@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
 
-import { AlertDialog } from '@nl/ui/custom/AlertDialog';
+import { AlertDialog } from '@nl/ui/custom/alert-dialog';
 import { Button } from '@nl/ui/base/button';
 import { Icon } from '@nl/ui/base/icon';
 

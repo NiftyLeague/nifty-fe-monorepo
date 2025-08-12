@@ -11,7 +11,7 @@ import VideoURL from '/video/arcade-token.mp4';
 
 ---
 
-Arcade Tokens were initially intoduced back in 2022 as a way to play for rewards in our first on-chain mini-games, [WEN Game](./wen-game) & [Crypto Winter](./crypto-winter). This system is since **deprecated**, however, Mini Games & Arcade Tokens are being brought back to life in all our mobile game titles, including [NiftyVerse](/docs/overview/games/niftyverse).
+Arcade Tokens were initially intoduced back in 2022 as a way to play for rewards in our first on-chain mini-games, [WEN Game](./wen-game) & [Crypto Winter](./crypto-winter). This system is since **deprecated**, however, Mini Games & Arcade Tokens are being brought back to life in all our mobile game titles, including [NiftyWorld](/docs/overview/games/niftyworld).
 
 :::tip[Note]
 

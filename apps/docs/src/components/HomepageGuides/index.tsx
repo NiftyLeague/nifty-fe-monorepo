@@ -35,7 +35,7 @@ export const QUICK_LINKS: GuideLink[] = [
   { title: 'Nifty DAO', to: '/docs/overview/nifty-dao/about' },
   { title: 'DEGEN NFTs', to: '/docs/overview/nfts/degens/about' },
   { title: 'Games', to: '/docs/overview/games/games-overview' },
-  { title: 'NiftyVerse', to: '/docs/overview/games/niftyverse' },
+  { title: 'NiftyWorld', to: '/docs/overview/games/niftyworld' },
   // {
   //   title: 'Whitepaper',
   //   text: "Details  on Nifty League's vision",

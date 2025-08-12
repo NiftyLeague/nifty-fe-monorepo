@@ -32,7 +32,7 @@ Beyond governance, NFTL may have additional utility within the ecosystem, such a
 
 NFTL has been exclusive for all on-chain systems built to-date, for example:
 
-1. **NFT drops**: Raffles, NiftyVerse Land & IMX Items Marketplace (upcoming)
+1. **NFT drops**: Raffles, NiftyWorld Land & IMX Items Marketplace (upcoming)
 2. **Ecosystem currency**: Redemption of in-game currencies, compete-2-earn wagering (deprecated)
 3. **Platform fees**: Renaming DEGENs, DEGEN rentals (deprecated), Mini-Games (deprecated)
 
@@ -50,4 +50,4 @@ If additional on-chain activations are introduced in the future NFTL will be con
 
 Nifty League's primary focus is mobile games which exclude NFTL at the moment mostly due to unnecessary friction it would cause players but also potential legal concerns. NFTL integration isn’t promised but can be explored in the future, if and when we have a successful game.
 
-![](/img/niftyverse/mall_01.webp)
+![](/img/niftyworld/mall_01.webp)

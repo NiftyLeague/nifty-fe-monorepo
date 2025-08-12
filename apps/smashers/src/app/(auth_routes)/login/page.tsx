@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { redirect } from 'next/navigation';
 import { getSession } from '@/utils/session';
-import Loading from '@nl/ui/custom/Loading';
+import { Loading } from '@nl/ui/custom/loading';
 import LoginClient from './LoginClient';
 
 export default async function LoginPage() {

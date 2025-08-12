@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Nifty League | Team',
     description: 'Build a decentralized future with the Nifty DAO',
-    images: 'https://niftyleague.com/img/niftyverse/mansion_livingroom_int_03.webp',
+    images: 'https://niftyleague.com/img/niftyworld/mansion_livingroom_int_03.webp',
   },
 };
 

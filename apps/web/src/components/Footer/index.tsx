@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import type { UrlObject } from 'url';
 import { cn } from '@nl/ui/utils';
-import SocialsFooter, { animateClass, linkClass } from '@nl/ui/custom/SocialsFooter';
-import ExternalIcon from '@nl/ui/custom/ExternalIcon';
+import { SocialsFooter, animateClass, linkClass } from '@nl/ui/custom/socials-footer';
+import { ExternalIcon } from '@nl/ui/custom/external-icon';
 
 interface FooterLinkProps {
   external?: boolean;
@@ -38,7 +38,7 @@ export default function Footer() {
           <FooterLink href="/" name="Home" first />
           <FooterLink href="/games" name="Games" />
           <FooterLink href="/degens" name="DEGENs" />
-          <FooterLink href="/niftyverse" name="NiftyVerse" />
+          <FooterLink href="/niftyworld" name="NiftyWorld" />
         </div>
         <div className="flex flex-col">
           <FooterLink href="/overview" name="Overview" first />

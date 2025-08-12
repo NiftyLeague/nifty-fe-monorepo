@@ -1,8 +1,8 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 
-import { Accordion } from '@nl/ui/custom/Accordion';
-import { AnimatedWrapper } from '@nl/ui/custom/AnimatedWrapper';
+import { Accordion } from '@nl/ui/custom/accordion';
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
 import ThemeBtnGroup from '@/components/ThemeBtnGroup';
 import LearnCards from '@/components/LearnCards';
 import { FAQS } from '@/constants/faq';

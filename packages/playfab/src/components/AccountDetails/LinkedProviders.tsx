@@ -5,7 +5,7 @@ import { signIn, useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 
 import { cn } from '@nl/ui/utils';
-import { SocialIconButton } from '@nl/ui/custom/SocialIconButton';
+import { SocialIconButton } from '@nl/ui/custom/social-icon-button';
 import { useUserContext } from '../../hooks/useUserContext';
 import { fetchJson } from '../../utils/fetchJson';
 import type { Provider, UserContextType } from '../../types';
@@ -78,7 +78,7 @@ export default function LinkedProviders({ providers, socialLayout = 'horizontal'
   };
 
   return providers && providers.length > 0 ? (
-    <div className={cn('w-full grid gap-2', socialLayout === 'horizontal' && 'flex flex-row')}>
+    <div className={cn('w-full grid gap-2', socialLayout === 'horizontal' && 'grid-cols-2 md:grid-cols-4')}>
       {providers.map(provider => {
         const isLinked = linkedProviders.includes(provider);
         return (

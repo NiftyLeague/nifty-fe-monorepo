@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Button, Card, CardActions, CardContent, CardMedia, Stack, SxProps, Theme, Typography } from '@mui/material';
-import ExternalIcon from '@nl/ui/custom/ExternalIcon';
+import { ExternalIcon } from '@nl/ui/custom/external-icon';
 
 type CardGameContentProps = {
   actions?: React.ReactNode;
