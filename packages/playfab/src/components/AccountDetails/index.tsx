@@ -10,7 +10,7 @@ import { useUserContext } from '../../hooks/useUserContext';
 import { useProviders } from '@nl/ui/hooks/useProviders';
 
 import { Button } from '@nl/ui/base/button';
-import { Input } from '@nl/ui/custom/Input';
+import { Input } from '@nl/ui/custom/input';
 import { Icon } from '@nl/ui/base/icon';
 import { Separator } from '@nl/ui/base/separator';
 

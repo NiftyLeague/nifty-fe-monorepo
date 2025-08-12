@@ -8,7 +8,8 @@ import { Box, Button, Stack } from '@mui/material';
 import { useAccount } from 'wagmi';
 
 import { gtm, GTM_EVENTS } from '@nl/ui/gtm';
-import { PreloaderWithProgress } from '@nl/ui/custom/Preloader';
+import { ErrorBoundary } from '@nl/ui/custom/error-boundry';
+import { Preloader } from '@nl/ui/custom/preloader';
 import useTokensBalances from '@/hooks/balances/useTokensBalances';
 // import useFetch from '@/hooks/useFetch';
 import { NETWORK_NAME, TARGET_NETWORK } from '@/constants/networks';
@@ -45,6 +46,10 @@ const Game = ({ unityContext, arcadeTokenRequired = false }: GameProps) => {
   const authCallback = useRef<null | ((authMsg: string) => void)>(null);
   const [isLoaded, setLoaded] = useState(false);
   const [progress, setProgress] = useState(0);
+
+  const [unityError, setUnityError] = useState<Error | null>(null);
+  // Conditionally throw errors to be caught by the ErrorBoundary
+  if (unityError) throw unityError;
 
   // const headers = { authorizationToken: authToken || '' };
   // const { data: rentals } = useFetch<Rentals[]>(ALL_RENTAL_API_URL, {
@@ -96,7 +101,7 @@ const Game = ({ unityContext, arcadeTokenRequired = false }: GameProps) => {
       window.unityInstance = extendedContext;
       window.unityInstance.SendMessage = extendedContext.send;
       extendedContext.on('loaded', () => setLoaded(true));
-      extendedContext.on('error', console.error);
+      extendedContext.on('error', error => setUnityError(new Error(error || 'Unity loading error')));
       extendedContext.on('progress', p => setProgress(p * 100));
       window.addEventListener('StartAuthentication', startAuthentication as EventListener);
       window.addEventListener('GetConfiguration', getConfiguration as EventListener);
@@ -128,7 +133,7 @@ const Game = ({ unityContext, arcadeTokenRequired = false }: GameProps) => {
 
   return (
     <>
-      <PreloaderWithProgress ready={isLoaded} progress={progress} />
+      <Preloader ready={isLoaded} progress={progress} />
       <Stack direction="row" sx={{ alignItems: 'flex-start' }}>
         <Stack sx={{ alignItems: 'flex-start' }}>
           <Unity
@@ -157,7 +162,9 @@ const GameWithAuth = withVerification((props: GameProps) =>
       {browserName} Browser Not Supported
     </Box>
   ) : (
-    Game(props)
+    <ErrorBoundary>
+      <Game {...props} />
+    </ErrorBoundary>
   ),
 );
 

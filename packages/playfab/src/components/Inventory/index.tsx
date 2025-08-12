@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { formatNumberToDisplay } from '@nl/ui/utils';
 import { useUserContext } from '../../hooks/useUserContext';
 import { Icon } from '@nl/ui/base/icon';
-import { Input } from '@nl/ui/custom/Input';
+import { Input } from '@nl/ui/custom/input';
 import { Separator } from '@nl/ui/base/separator';
 import type { CharacterInstance, ItemInstance } from '@nl/playfab/types';
 
@@ -55,13 +55,16 @@ export default function Inventory() {
     <div className="grid gap-4">
       <fieldset>
         <div className="grid gap-2">
-          <legend>Currencies</legend>
+          <legend>
+            <h3 className="text-lg">Currencies</h3>
+          </legend>
           <div className="grid grid-cols-3 gap-2">
             <Input
               id="T1"
               className="w-full text-center !opacity-100 !bg-purple/20 !text-purple-200"
               type="text"
-              value={`Brawl Bucks: ${formatNumberToDisplay(currencies?.T1, 0)}`}
+              value={formatNumberToDisplay(currencies?.T1, 0)}
+              label="Brawl Bucks"
               disabled
               startIcon={<Icon name="receipt" className="text-purple-200" />}
             />
@@ -69,7 +72,8 @@ export default function Inventory() {
               id="T2"
               className="w-full text-center !opacity-100 !bg-warning/20 !text-yellow-200"
               type="text"
-              value={`Nifty Nuggets: ${formatNumberToDisplay(currencies?.T2, 0)}`}
+              value={formatNumberToDisplay(currencies?.T2, 0)}
+              label="Nifty Nuggets"
               disabled
               startIcon={<Icon name="piggy-bank" className="text-yellow-200" />}
             />
@@ -77,7 +81,8 @@ export default function Inventory() {
               id="CE"
               className="w-full text-center !opacity-100 !bg-success/20 !text-green-200"
               type="text"
-              value={`Combat Essence: ${formatNumberToDisplay(currencies?.CE, 0)}`}
+              value={formatNumberToDisplay(currencies?.CE, 0)}
+              label="Combat Essence"
               disabled
               startIcon={<Icon name="flask-round" className="text-green-200" />}
             />
@@ -89,31 +94,36 @@ export default function Inventory() {
 
       <fieldset>
         <div className="grid gap-2">
-          <legend>Items</legend>
+          <legend>
+            <h3 className="text-lg">Items</h3>
+          </legend>
           <div className="grid grid-cols-3 gap-4">
             <Input
               id="weapons"
-              className="w-full text-center"
+              className="w-full text-center !opacity-100 !bg-blue/20 !text-blue-200"
               type="text"
-              value={`Weapons: ${weapons.length} `}
+              value={weapons.length}
+              label="Weapons"
               disabled
-              startIcon={<Icon name="axe" />}
+              startIcon={<Icon name="axe" className="text-blue-200" />}
             />
             <Input
               id="wearables"
-              className="w-full text-center"
+              className="w-full text-center !opacity-100 !bg-blue/20 !text-blue-200"
               type="text"
-              value={`Wearables: ${wearables.length} `}
+              value={wearables.length}
+              label="Wearables"
               disabled
-              startIcon={<Icon name="medal" />}
+              startIcon={<Icon name="medal" className="text-blue-200" />}
             />
             <Input
               id="emotes"
-              className="w-full text-center"
+              className="w-full text-center !opacity-100 !bg-blue/20 !text-blue-200"
               type="text"
-              value={`Emotes: ${emotes.length} `}
+              value={emotes.length}
+              label="Emotes"
               disabled
-              startIcon={<Icon name="laugh" />}
+              startIcon={<Icon name="laugh" className="text-blue-200" />}
             />
           </div>
         </div>
@@ -123,31 +133,36 @@ export default function Inventory() {
 
       <fieldset>
         <div className="grid gap-2">
-          <legend>Characters</legend>
+          <legend>
+            <h3 className="text-lg">Characters</h3>
+          </legend>
           <div className="grid grid-cols-3 gap-4">
             <Input
               id="nft-degens"
-              className="w-full text-center"
+              className="w-full text-center !opacity-100 !bg-blue/20 !text-blue-200"
               type="text"
-              value={`NFT Degens: ${nft_degens.length} `}
+              value={nft_degens.length}
+              label="NFT Degens"
               disabled
-              startIcon={<Icon name="shield-check" />}
+              startIcon={<Icon name="shield-check" className="text-blue-200" />}
             />
             <Input
               id="f2p-degens"
-              className="w-full text-center"
+              className="w-full text-center !opacity-100 !bg-blue/20 !text-blue-200"
               type="text"
-              value={`F2P Degens: ${f2p_degens.length} `}
+              value={f2p_degens.length}
+              label="F2P Degens"
               disabled
-              startIcon={<Icon name="cat" />}
+              startIcon={<Icon name="cat" className="text-blue-200" />}
             />
             <Input
               id="other-degens"
-              className="w-full text-center"
+              className="w-full text-center !opacity-100 !bg-blue/20 !text-blue-200"
               type="text"
-              value={`Other: ${other_chars.length} `}
+              value={other_chars.length}
+              label="Other"
               disabled
-              startIcon={<Icon name="panda" />}
+              startIcon={<Icon name="panda" className="text-blue-200" />}
             />
           </div>
         </div>

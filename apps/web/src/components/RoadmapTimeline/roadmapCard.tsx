@@ -13,8 +13,6 @@ interface RoadmapCardProps {
   title: string | React.ReactNode;
 }
 
-export const RenderRoadmapCard = (item: RoadmapCardProps) => <RoadmapCard key={item?.title?.toString()} {...item} />;
-
 const RoadmapCard = ({
   body,
   current,

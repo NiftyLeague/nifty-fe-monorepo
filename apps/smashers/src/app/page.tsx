@@ -2,16 +2,9 @@
 
 import { use, useState, useEffect, Suspense } from 'react';
 import dynamic from 'next/dynamic';
-import Head from 'next/head';
 
 import Header from '@/components/Header';
-import SocialsFooter from '@nl/ui/custom/SocialsFooter';
-
-// Lazy load modals
-const CreditsModal = dynamic(() => import('@/components/CreditsModal'), { ssr: false, loading: () => null });
-const PlayModal = dynamic(() => import('@/components/PlayModal'), { ssr: false, loading: () => null });
-const TrailerModal = dynamic(() => import('@/components/TrailerModal'), { ssr: false, loading: () => null });
-const UnityModal = dynamic(() => import('@/components/UnityModal'), { ssr: false, loading: () => null });
+import { SocialsFooter } from '@nl/ui/custom/socials-footer';
 
 // Lazy load below-the-fold sections with loading states
 const Loading = () => (
@@ -22,7 +15,10 @@ const Loading = () => (
   </section>
 );
 
-const ConsoleSection = dynamic(() => import('@nl/ui/custom/ConsoleGame'), { loading: Loading, ssr: false });
+const ConsoleSection = dynamic(() => import('@nl/ui/custom/console-game').then(mod => mod.ConsoleGame), {
+  loading: Loading,
+  ssr: false,
+});
 const GameSection = dynamic(() => import('@/components/GameSection'), { loading: Loading, ssr: false });
 const DegensSection = dynamic(() => import('@/components/DegensSection'), { loading: Loading, ssr: false });
 
@@ -34,7 +30,6 @@ export default function Home({ searchParams }: { searchParams: NextSearchParams 
   // Modal state management
   const [activeModal, setActiveModal] = useState<ActiveModal>(null);
   const openModal = (modal: ActiveModal) => setActiveModal(modal);
-  const closeModal = () => setActiveModal(null);
 
   // Handle referral link
   const { referral } = use(searchParams);
@@ -44,13 +39,9 @@ export default function Home({ searchParams }: { searchParams: NextSearchParams 
 
   return (
     <>
-      <Head>
-        {/* Preconnect to origins */}
-        <link rel="preconnect" href="https://www.niftysmashers.com" crossOrigin="anonymous" />
-      </Head>
       <main>
         <section id="header">
-          <Header openModal={openModal} />
+          <Header activeModal={activeModal} />
         </section>
 
         <Suspense fallback={null}>
@@ -69,11 +60,6 @@ export default function Home({ searchParams }: { searchParams: NextSearchParams 
           <SocialsFooter />
         </Suspense>
       </main>
-
-      <CreditsModal isOpen={activeModal === 'credits'} onClose={closeModal} />
-      <PlayModal isOpen={activeModal === 'play'} onClose={closeModal} launchGame={() => openModal('unity')} />
-      <TrailerModal isOpen={activeModal === 'trailer'} onClose={closeModal} />
-      <UnityModal isOpen={activeModal === 'unity'} onClose={closeModal} />
     </>
   );
 }

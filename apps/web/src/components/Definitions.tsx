@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { AnimatedWrapper } from '@nl/ui/custom/AnimatedWrapper';
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
 
 const Definitions = (): React.ReactNode => (
   <>

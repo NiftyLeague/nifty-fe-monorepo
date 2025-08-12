@@ -44,7 +44,7 @@ Hydras are amphibious water dragons that roam freely underwater or on land. Thei
 
 ### 1 of 1s
 
-Following the Hydra claim we held a NFTL raffle for the final 2 DEGENS - both unique and very special tribes, RugMan & Satoshi. Holders of these special tokens are granted the highest perks available in the NiftyVerse.
+Following the Hydra claim we held a NFTL raffle for the final 2 DEGENS - both unique and very special tribes, RugMan & Satoshi. Holders of these special tokens are granted the highest perks available in NiftyWorld.
 
 | ![](/img/degens/grails/9999.webp) | ![](/img/degens/grails/10000.webp) |
 | --------------------------------- | ---------------------------------- |

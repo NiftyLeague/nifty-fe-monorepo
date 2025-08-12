@@ -6,10 +6,10 @@ import dynamic from 'next/dynamic';
 import { useSearchParams } from 'next/navigation';
 import { Button, Stack, Typography } from '@mui/material';
 
-import { PreloaderWithProgress } from '@nl/ui/custom/Preloader';
+import { ErrorBoundary } from '@nl/ui/custom/error-boundry';
+import { Preloader } from '@nl/ui/custom/preloader';
 import useAuth from '@/hooks/useAuth';
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
-import ErrorBoundary from '@/components/wrapper/ErrorBoundary';
 import { DEGEN_COLLECTION_URL } from '@/constants/url';
 
 const CharacterCreator = dynamic(() => import('./_CharacterCreator'), { ssr: false });
@@ -56,7 +56,7 @@ const MintPage = () => {
   return (
     <div style={{ textAlign: 'center', overflowX: 'hidden' }}>
       <ErrorBoundary>
-        <PreloaderWithProgress ready={isLoaded} progress={progress} />
+        <Preloader ready={isLoaded} progress={progress} />
         <CharacterCreator isLoaded={isLoaded} setLoaded={setLoaded} setProgress={setProgress} />
       </ErrorBoundary>
     </div>

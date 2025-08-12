@@ -7,7 +7,7 @@ import { openDrawer } from '@/store/slices/menu';
 
 // assets
 import { Icon } from '@nl/ui/base/icon';
-import ExternalIcon from '@nl/ui/custom/ExternalIcon';
+import { ExternalIcon } from '@nl/ui/custom/external-icon';
 import AddNFTL from './AddNFTLToMetamask';
 import LogoSection from '../_LogoSection';
 

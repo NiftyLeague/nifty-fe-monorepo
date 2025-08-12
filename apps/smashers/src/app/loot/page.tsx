@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { Typography } from '@nl/ui/custom/Typography';
+import { Typography } from '@nl/ui/custom/typography';
 import BackButton from '@/components/Header/BackButton';
 import DROP_TABLES from '@/data/droptables.json';
 import type { CrateData } from '@/types/droptables';
@@ -18,96 +18,101 @@ interface CrateTableProps {
 
 export const metadata: Metadata = { title: 'Loot' };
 
-const CrateTables: React.FC<CrateTableProps> = ({ data }) =>
-  Object.keys(data).map(crateKey => {
-    const crate = data[crateKey];
-    if (!crate) return null;
+const CrateTables: React.FC<CrateTableProps> = ({ data }) => {
+  return (
+    <>
+      {Object.keys(data).map(crateKey => {
+        const crate = data[crateKey];
+        if (!crate) return null;
 
-    return (
-      <div key={crate.TableId} className={styles.crateGroup}>
-        <Typography.Title level={2}>
-          {crateKey
-            .split('.')
-            .reverse()
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(' ')}
-        </Typography.Title>
-        <Typography className="mb-4">Drop Tables & Odds</Typography>
-
-        {/* Items Table */}
-        <div className={styles.itemsTable}>
-          <table>
-            <thead>
-              <tr>
-                <th>Item</th>
-                <th>Type</th>
-                <th>Rarity</th>
-                <th>Odds</th>
-              </tr>
-            </thead>
-            <tbody>
-              {crate.Items.map((item, index) => (
-                <tr key={`items-${index}`}>
-                  <td data-rarity={item.Rarity?.toLowerCase()}>{item.Item}</td>
-                  <td>{item.Type}</td>
-                  <td data-rarity={item.Rarity?.toLowerCase()}>{item.Rarity}</td>
-                  <td>{formatPercentage(item.Weight)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Bonus Item Odds */}
-        <Typography.Title level={6} className="mt-4 mb-2">
-          Bonus Item Odds:{' '}
-          <span
-            style={{
-              background: 'var(--gradient-brand)',
-              fontFamily: 'inherit',
-              fontSize: 'inherit',
-              fontWeight: 'inherit',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            {crate.BonusItemOdds}
-          </span>
-        </Typography.Title>
-
-        {/* Currency Rewards */}
-        {crate.CurrencyMinMax && Object.keys(crate.CurrencyMinMax).length > 0 && (
-          <>
-            <Typography.Title level={3} className="mt-4 mb-2">
-              Currency Rewards
+        return (
+          <div key={crate.TableId} className={styles.crateGroup}>
+            <Typography.Title level={2}>
+              {crateKey
+                .split('.')
+                .reverse()
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ')}
             </Typography.Title>
+            <Typography className="mb-4">Drop Tables & Odds</Typography>
+
+            {/* Items Table */}
             <div className={styles.itemsTable}>
               <table>
                 <thead>
                   <tr>
-                    <th>Currency</th>
+                    <th>Item</th>
+                    <th>Type</th>
+                    <th>Rarity</th>
                     <th>Odds</th>
-                    <th>Min</th>
-                    <th>Max</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {Object.entries(crate.CurrencyMinMax).map(([currency, range]) => (
-                    <tr key={`range-${currency}`}>
-                      <td>{currency}</td>
-                      <td>{formatPercentage(crate.CurrencyRewardOdds[currency] ?? '0%')}</td>
-                      <td>{range?.MIN ?? 'N/A'}</td>
-                      <td>{range?.MAX ?? 'N/A'}</td>
+                  {crate.Items.map((item, index) => (
+                    <tr key={`items-${index}`}>
+                      <td data-rarity={item.Rarity?.toLowerCase()}>{item.Item}</td>
+                      <td>{item.Type}</td>
+                      <td data-rarity={item.Rarity?.toLowerCase()}>{item.Rarity}</td>
+                      <td>{formatPercentage(item.Weight)}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-          </>
-        )}
-      </div>
-    );
-  });
+
+            {/* Bonus Item Odds */}
+            <Typography.Title level={6} className="mt-4 mb-2">
+              Bonus Item Odds:{' '}
+              <span
+                style={{
+                  background: 'var(--gradient-brand)',
+                  fontFamily: 'inherit',
+                  fontSize: 'inherit',
+                  fontWeight: 'inherit',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                {crate.BonusItemOdds}
+              </span>
+            </Typography.Title>
+
+            {/* Currency Rewards */}
+            {crate.CurrencyMinMax && Object.keys(crate.CurrencyMinMax).length > 0 && (
+              <>
+                <Typography.Title level={3} className="mt-4 mb-2">
+                  Currency Rewards
+                </Typography.Title>
+                <div className={styles.itemsTable}>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Currency</th>
+                        <th>Odds</th>
+                        <th>Min</th>
+                        <th>Max</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {Object.entries(crate.CurrencyMinMax).map(([currency, range]) => (
+                        <tr key={`range-${currency}`}>
+                          <td>{currency}</td>
+                          <td>{formatPercentage(crate.CurrencyRewardOdds[currency] ?? '0%')}</td>
+                          <td>{range?.MIN ?? 'N/A'}</td>
+                          <td>{range?.MAX ?? 'N/A'}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </>
+            )}
+          </div>
+        );
+      })}
+    </>
+  );
+};
 
 export default function Loot() {
   return (

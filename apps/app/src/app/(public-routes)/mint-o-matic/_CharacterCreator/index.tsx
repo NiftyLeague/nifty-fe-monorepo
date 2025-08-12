@@ -110,6 +110,10 @@ const CharacterCreator = memo(
     const [refreshKey, setRefreshKey] = useState(0);
     const [isMinting, setIsMinting] = useState(false);
 
+    const [unityError, setUnityError] = useState<Error | null>(null);
+    // Conditionally throw errors to be caught by the ErrorBoundary
+    if (unityError) throw unityError;
+
     const getRemovedTraits = useCallback((e: CustomEvent<{ callback: (removedTraits: string) => void }>) => {
       removedTraitsCallback.current = e.detail.callback;
       setRefreshKey(Math.random() + 1);
@@ -179,7 +183,7 @@ const CharacterCreator = memo(
           }, 2000);
         });
         unityContext.on('loaded', () => setLoaded(true));
-        unityContext.on('error', console.error);
+        unityContext.on('error', error => setUnityError(new Error(error || 'Unity loading error')));
         unityContext.on('progress', p => setProgress(p * 100));
         window.addEventListener('resize', reportWindowSize as EventListener);
         window.addEventListener('GetConfiguration', getConfiguration as EventListener);
@@ -242,6 +246,11 @@ const CharacterCreatorContainer = memo(
   ({ isLoaded, isPortrait, setLoaded, setProgress }: CharacterCreatorContainerProps) => {
     const { address, tx, writeContracts } = useNetworkContext();
     const [saleLocked, setSaleLocked] = useState(false);
+
+    const [asyncError, setAsyncError] = useState<Error | null>(null);
+    // Conditionally throw errors to be caught by the ErrorBoundary
+    if (asyncError) throw asyncError;
+
     const totalSupply = 9900;
 
     useEffect(() => {
@@ -264,16 +273,31 @@ const CharacterCreatorContainer = memo(
 
     const mintCharacter = useCallback(
       async (e: MintEvent) => {
-        const { character, head, clothing, accessories, items } = getMintableTraits(e.detail);
-        const nftContract = writeContracts[DEGEN_CONTRACT];
-        const args = [character, head, clothing, accessories, items];
-        const value = (await nftContract.getNFTPrice()) as bigint;
-        const minimumGas = 250000n;
-        const txCallback: NotifyCallback = mintTx => {
-          if (mintTx?.status === 'pending') e.detail.callback('true');
-        };
-        const res = await submitTxWithGasEstimate(tx, nftContract, 'purchase', args, { value }, minimumGas, txCallback);
-        if (!res) e.detail.callback('false');
+        try {
+          const { character, head, clothing, accessories, items } = getMintableTraits(e.detail);
+          const nftContract = writeContracts[DEGEN_CONTRACT];
+          const args = [character, head, clothing, accessories, items];
+          const value = (await nftContract.getNFTPrice()) as bigint;
+          const minimumGas = 250000n;
+          const txCallback: NotifyCallback = mintTx => {
+            if (mintTx?.status === 'pending') e.detail.callback('true');
+          };
+          const res = await submitTxWithGasEstimate(
+            tx,
+            nftContract,
+            'purchase',
+            args,
+            { value },
+            minimumGas,
+            txCallback,
+          );
+          if (!res) e.detail.callback('false');
+        } catch (error) {
+          // If an error occurs, set the state to trigger a re-render
+          // The re-render will then trigger the conditional throw.
+          setAsyncError(error as Error);
+          e.detail.callback('false'); // Ensure the Unity app is notified
+        }
       },
       [writeContracts, tx],
     );

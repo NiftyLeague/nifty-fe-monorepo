@@ -1,41 +1,19 @@
-import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import styles from './index.module.css';
 
-type ActionButtonsGroupProps = { onPlayClick: () => void; onTrailerClick: () => void; onCreditsClick: () => void };
+// Lazy load dialogs
+const CreditsDialog = dynamic(() => import('@/components/CreditsDialog'), { ssr: false, loading: () => null });
+const PlayDialog = dynamic(() => import('@/components/PlayDialog'), { ssr: false, loading: () => null });
+const TrailerDialog = dynamic(() => import('@/components/TrailerDialog'), { ssr: false, loading: () => null });
 
-export default function ActionButtonsGroup({ onPlayClick, onTrailerClick, onCreditsClick }: ActionButtonsGroupProps) {
-  return (
-    <div className={styles.heroBtnGroup}>
-      <button onClick={onTrailerClick}>
-        <Image
-          src="/icons/socials/youtube.svg"
-          alt="YouTube Logo"
-          width={22}
-          height={22}
-          style={{ maxWidth: '100%', height: 'auto' }}
-        />
-        Trailer
-      </button>
-      <button onClick={onPlayClick}>
-        <Image
-          src="/icons/controller.svg"
-          alt="Game Icon"
-          width={22}
-          height={22}
-          style={{ maxWidth: '100%', height: 'auto' }}
-        />
-        Play
-      </button>
-      <button onClick={onCreditsClick}>
-        <Image
-          src="/icons/credits.svg"
-          alt="Credits Icon"
-          width={22}
-          height={22}
-          style={{ maxWidth: '100%', height: 'auto' }}
-        />
-        Credits
-      </button>
-    </div>
-  );
-}
+type ActiveModal = 'credits' | 'play' | 'trailer' | 'unity' | null;
+
+const ActionButtonsGroup = ({ activeModal }: { activeModal: ActiveModal }) => (
+  <div className={styles.heroBtnGroup}>
+    <TrailerDialog open={activeModal === 'trailer'} />
+    <PlayDialog open={activeModal === 'play'} />
+    <CreditsDialog open={activeModal === 'credits'} />
+  </div>
+);
+
+export default ActionButtonsGroup;

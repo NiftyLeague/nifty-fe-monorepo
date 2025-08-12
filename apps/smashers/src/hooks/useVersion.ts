@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { isMacOs, isAndroid, isIOS, isWindows } from 'react-device-detect';
 
 const COMMON_MSG = 'Download Nifty Smashers Beta on mobile or PC!';
-const DESKTOP_MSG = 'Epic Store will be supported soon.';
+const DESKTOP_MSG = ''; //'Epic Store will be supported soon.';
 
 enum MSGS {
   Windows = `${COMMON_MSG} ${DESKTOP_MSG}`,
