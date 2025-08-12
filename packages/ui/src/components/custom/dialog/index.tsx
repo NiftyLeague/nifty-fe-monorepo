@@ -56,9 +56,13 @@ export function Dialog({
       <DialogContent showCloseButton={showCloseButton}>
         <DialogHeader>
           <DialogTitle
-            className={hideTitle ? 'hidden' : 'bg-background grid grid-cols-[50px_1fr_50px] gap-4 items-center'}
+            className={
+              hideTitle
+                ? 'hidden'
+                : 'bg-background grid grid-cols-[40px_1fr_40px] gap-4 items-center text-2xl md:text-3xl'
+            }
           >
-            <img src="/img/logos/NL/white.webp" alt="Company Logo" width={50} height={48} />
+            <img src="/img/logos/NL/white.webp" alt="Company Logo" width={45} height={42} />
             {title}
           </DialogTitle>
           <DialogDescription className={hideDescription ? 'hidden' : ''}>{description}</DialogDescription>

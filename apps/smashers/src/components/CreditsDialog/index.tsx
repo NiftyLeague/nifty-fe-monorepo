@@ -15,8 +15,8 @@ const getCompanyImagePath = (companyName: string): string => {
 };
 
 const CompanyImage = ({ company }: { company: Company }) => {
-  const WIDTH = company.name === 'FROG SMASHERS' ? 360 : 200;
-  const HEIGHT = company.name === 'FROG SMASHERS' ? 200 : 70;
+  const WIDTH = company.name === 'FROG SMASHERS' ? 315 : 200;
+  const HEIGHT = company.name === 'FROG SMASHERS' ? 175 : 70;
   const companyIndex = (creditsData as CreditsData).companies.findIndex(c => c.name === company.name);
   const isAboveTheFold = companyIndex < 2; // Priority Load these images
 
@@ -61,7 +61,7 @@ const CompanyImage = ({ company }: { company: Company }) => {
 };
 
 const SectionNote = ({ children }: { children: React.ReactNode }) => (
-  <Title level={3} className="text-sm mb-4 text-center">
+  <Title level={3} className="text-sm text-center">
     {children}
   </Title>
 );
@@ -71,16 +71,16 @@ const CreditsContent = () => {
   return (
     <>
       {companies.map((company, index) => (
-        <div key={index} className="text-center my-4">
+        <div key={index} className="grid justify-items-center text-center gap-4 my-4">
           {company.name === 'FROG SMASHERS' ? (
             <SectionNote>
               A very special thanks to Ruan Rothmann and the original creators of Frog Smashers (base for Nifty
               League&apos;s 2D Smashers)
             </SectionNote>
           ) : null}
-          <div className="justify-items-center mb-4">
-            <CompanyImage company={company} />
-          </div>
+
+          <CompanyImage company={company} />
+
           <div className="grid grid-cols-[1fr_10px_1fr] gap-3">
             {company.members.map((member: TeamMember, mIndex: number) =>
               member.name ? (
@@ -120,7 +120,7 @@ const CreditsContent = () => {
         </div>
       ))}
 
-      <div className="mt-12">
+      <div className="grid gap-4 mt-12">
         <SectionNote>
           Special thanks to former team members who contributed early support, development, and ideas!
         </SectionNote>

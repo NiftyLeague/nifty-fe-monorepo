@@ -78,7 +78,7 @@ export default function LinkedProviders({ providers, socialLayout = 'horizontal'
   };
 
   return providers && providers.length > 0 ? (
-    <div className={cn('w-full grid gap-2', socialLayout === 'horizontal' && 'flex flex-row')}>
+    <div className={cn('w-full grid gap-2', socialLayout === 'horizontal' && 'grid-cols-2 md:grid-cols-4')}>
       {providers.map(provider => {
         const isLinked = linkedProviders.includes(provider);
         return (

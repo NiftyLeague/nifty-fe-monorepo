@@ -40,8 +40,8 @@ export default function ProfileClient({ sessionData }: { sessionData: SessionDat
     <>
       <BackButton />
       <div className="w-full h-screen flex justify-center items-center">
-        <Card className="relative w-full max-w-[800px] overflow-hidden">
-          <CardHeader className="">
+        <Card className="relative w-full max-w-[800px] h-screen md:h-auto overflow-auto md:overflow-hidden">
+          <CardHeader className="pt-8 md:pt-0">
             <Image
               src="/img/logos/NL/white.webp"
               alt="Company Logo"

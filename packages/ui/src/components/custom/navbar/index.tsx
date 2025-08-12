@@ -11,7 +11,6 @@ import { Button } from '@nl/ui/base/button';
 import { ExternalIcon } from '@nl/ui/custom/external-icon';
 import { Icon } from '@nl/ui/base/icon';
 import { Separator } from '@nl/ui/base/separator';
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@nl/ui/base/sheet';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -21,6 +20,15 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@nl/ui/base/navigation-menu';
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@nl/ui/base/sheet';
 
 interface Page {
   title: string;
@@ -142,7 +150,11 @@ function MobileMenuGroup({ group, pages }: GroupedMenuItemData) {
       <h3 className="text-base text-muted-foreground uppercase tracking-wider">{group}</h3>
       <ul className="flex flex-col w-full">
         {pages.map(page => (
-          <ListItem key={page.title} {...page} />
+          <li key={page.title}>
+            <SheetClose asChild>
+              <NavLink className="text-base font-medium" {...page} />
+            </SheetClose>
+          </li>
         ))}
       </ul>
     </NavigationMenuItem>
@@ -152,7 +164,9 @@ function MobileMenuGroup({ group, pages }: GroupedMenuItemData) {
 function MobileMenuItem({ type, ...page }: SingleMenuItemData) {
   return (
     <NavigationMenuItem value={page.title.toLowerCase()} className="w-full">
-      <NavLink className="text-base font-medium" {...page} />
+      <SheetClose asChild>
+        <NavLink className="text-base font-medium" {...page} />
+      </SheetClose>
     </NavigationMenuItem>
   );
 }

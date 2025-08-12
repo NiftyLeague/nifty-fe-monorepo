@@ -26,7 +26,7 @@ function LabelContainer({ children: input, error, id, hiddenLabel, label }: Inpu
       <Label
         data-slot="form-label"
         data-error={error}
-        className={cn('data-[error=true]:text-destructive', hiddenLabel && 'hidden')}
+        className={cn('data-[error=true]:text-destructive inline-block truncate', hiddenLabel && 'hidden')}
         htmlFor={id}
       >
         {label ?? ''}
