@@ -1,7 +1,7 @@
 'use client';
 
 import { Menu, MenuItem, Stack } from '@mui/material';
-import { Children, cloneElement, ReactElement, useRef, useState } from 'react';
+import { Children, cloneElement, ReactElement, useCallback, useEffect, useState } from 'react';
 import type { MenuItemBaseProps } from '@/types';
 import callAll, { type FunctionType } from '@/utils/callAll';
 import DegenSortOptions from '@/constants/sort';
@@ -24,9 +24,22 @@ const SortButton = ({
 
   const [selectedSort, setSelectedSort] = useState(defaultSelectedItemValue || sortOptions[0]?.value);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const buttonRef = useRef(null);
+  const [buttonNode, setButtonNode] = useState<HTMLElement | null>(null);
+  const buttonRef = useCallback((node: HTMLElement | null) => {
+    if (node !== null) {
+      setButtonNode(node);
+    }
+  }, []);
   const isSortOpen = Boolean(anchorEl);
   const sortLabel = sortOptions.filter(items => items.value === selectedSort);
+  const [buttonWidth, setButtonWidth] = useState<number | undefined>(undefined);
+
+  useEffect(() => {
+    if (buttonNode) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setButtonWidth(buttonNode.clientWidth);
+    }
+  }, [buttonNode, isSortOpen]);
 
   const handleOpenSortMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -52,7 +65,7 @@ const SortButton = ({
     child,
     {
       ...(child.props || {}),
-      ref: buttonRef as React.Ref<any>, // 'any' is required here due to React's ref typing limitations
+      ref: buttonRef,
       onClick: callAll(handleOpenSortMenu as FunctionType, childOnClick as FunctionType),
     },
     sortLabel.length > 0 && sortLabel[0]?.label,
@@ -74,10 +87,7 @@ const SortButton = ({
             background: 'var(--color-background)',
             borderRadius: '0px 0px var(--radius-default) var(--radius-default)',
           },
-          '& .MuiMenuItem-root': {
-            width: (buttonRef?.current as unknown as { clientWidth: number })?.clientWidth,
-            color: 'var(--color-foreground)',
-          },
+          '& .MuiMenuItem-root': { width: buttonWidth, color: 'var(--color-foreground)' },
         }}
       >
         {sortOptions.map(option => (

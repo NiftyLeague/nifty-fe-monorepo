@@ -1,6 +1,6 @@
 'use client';
 
-import { Dispatch, SetStateAction, useCallback, useEffect, useState, useRef } from 'react';
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 import isEqual from 'lodash/isEqual';
 import { safeJSONParse } from '@/utils/json';
 
@@ -10,7 +10,6 @@ export default function useLocalStorage<T>(
   key: string,
   initialValue: T,
 ): [T | undefined, Dispatch<SetStateAction<T | undefined>>, () => void] {
-  const isEqualRef = useRef(false);
   // Initialize value in state in order to prevent SSR inconsistencies and errors.
   // This will update the state with the value found in localStorage or initialValue.
   const [storedValue, setStoredValue] = useState<T | undefined>(() => {
@@ -19,9 +18,7 @@ export default function useLocalStorage<T>(
     }
     try {
       const item = window.localStorage.getItem(key);
-      const storageValue = safeJSONParse(item) as T;
-      isEqualRef.current = isEqual(storageValue, initialValue);
-      return item ? storageValue : initialValue;
+      return item ? (safeJSONParse(item) as T) : initialValue;
     } catch (error) {
       console.error(error);
       return initialValue;
@@ -31,8 +28,11 @@ export default function useLocalStorage<T>(
   // Instead of replacing the setState function, react to changes.
   // Whenever the state value changes, save it in the local storage.
   useEffect(() => {
-    if (typeof window !== 'undefined' && storedValue && isEqualRef.current === false) {
-      window.localStorage.setItem(key, JSON.stringify(storedValue));
+    if (typeof window !== 'undefined') {
+      const currentValueInStorage = safeJSONParse(window.localStorage.getItem(key)) as T;
+      if (!isEqual(currentValueInStorage, storedValue)) {
+        window.localStorage.setItem(key, JSON.stringify(storedValue));
+      }
     }
   }, [storedValue, key]);
 

@@ -17,23 +17,12 @@ export const config = tseslint.config(
   eslint.configs.recommended,
   tseslint.configs.recommended,
   eslintConfigPrettier,
-  {
-    plugins: {
-      turbo: pluginTurbo,
-    },
-    rules: {
-      'turbo/no-undeclared-env-vars': 'warn',
-    },
-  },
+  { plugins: { turbo: pluginTurbo }, rules: { 'turbo/no-undeclared-env-vars': 'warn' } },
   {
     ...pluginReact.configs.flat.recommended,
     languageOptions: {
       ...pluginReact.configs.flat.recommended.languageOptions,
-      globals: {
-        ...globals.serviceworker,
-        ...globals.browser,
-        ...globals.node,
-      },
+      globals: { ...globals.serviceworker, ...globals.browser, ...globals.node },
     },
     rules: {
       ...pluginReact.configs.flat.recommended.rules,
@@ -43,19 +32,11 @@ export const config = tseslint.config(
     },
   },
   {
-    plugins: {
-      'react-hooks': pluginReactHooks,
-    },
+    plugins: { 'react-hooks': pluginReactHooks },
     settings: { react: { version: 'detect' } },
-    rules: {
-      ...pluginReactHooks.configs.recommended.rules,
-    },
+    rules: { ...pluginReactHooks.configs.recommended.rules },
   },
-  {
-    plugins: {
-      onlyWarn: pluginOnlyWarn,
-    },
-  },
+  { plugins: { onlyWarn: pluginOnlyWarn } },
   {
     rules: {
       '@typescript-eslint/no-empty-object-type': 'off',
@@ -65,12 +46,6 @@ export const config = tseslint.config(
       '@typescript-eslint/triple-slash-reference': 'off',
     },
   },
-  {
-    linterOptions: {
-      reportUnusedDisableDirectives: 'off',
-    },
-  },
-  {
-    ignores: ['build/**', 'dist/**'],
-  },
+  { linterOptions: { reportUnusedDisableDirectives: 'off' } },
+  { ignores: ['build/**', 'dist/**'] },
 );

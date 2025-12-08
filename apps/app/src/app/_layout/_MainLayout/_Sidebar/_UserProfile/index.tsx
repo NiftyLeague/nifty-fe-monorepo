@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useEnsAvatar, useEnsName } from 'wagmi';
 import { normalize } from 'viem/ens';
 import { Avatar, Box, Button, Skeleton, Stack, Typography } from '@mui/material';
@@ -44,19 +44,10 @@ const UserProfile = () => {
     chainId: 1,
     query: { enabled: isConnected && !!ensName.data },
   });
-  const [username, setUserName] = useState<string | undefined>();
-  const [avatar, setAvatar] = useState<ProfileAvatar | undefined>(undefined);
   const { profile } = useGamerProfile();
 
-  useEffect(() => {
-    if (isLoggedIn && profile) {
-      setUserName(profile?.name_cased);
-      setAvatar(profile?.avatar);
-    } else {
-      setUserName(undefined);
-      setAvatar(undefined);
-    }
-  }, [profile, isLoggedIn]);
+  const username = isLoggedIn && profile ? profile.name_cased : undefined;
+  const avatar = isLoggedIn && profile ? profile.avatar : undefined;
 
   const displayName = useMemo(() => {
     if (!address) return 'Login to view dashboards';

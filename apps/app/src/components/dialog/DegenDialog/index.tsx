@@ -74,45 +74,63 @@ const DegenDialog = ({
   };
 
   useEffect(() => {
-    let active = true;
-    async function getCharacter() {
-      const contract = readContracts[DEGEN_CONTRACT];
-      if (!contract || !tokenId) return;
-      const characterData = {
-        name: await contract.getName(tokenId),
-        owner: await contract.ownerOf(tokenId),
-        traitList: await contract.getCharacterTraits(tokenId),
-      } as CharacterType;
-      if (active && open) setCharacter(characterData);
-    }
+    const controller = new AbortController();
+    const { signal } = controller;
 
-    async function getDegenDetail() {
-      if (!tokenId || !authToken) return;
+    const fetchData = async () => {
+      if (!open || !tokenId || !readContracts || !readContracts[DEGEN_CONTRACT] || !authToken) {
+        return;
+      }
+
       try {
-        const res = await fetch(GET_DEGEN_DETAIL_URL(tokenId), {
+        // Fetch Degen details from API
+        const degenDetailPromise = fetch(GET_DEGEN_DETAIL_URL(tokenId), {
           method: 'GET',
           headers: { authorizationToken: authToken },
+          signal,
         });
 
-        if (res.status === 404) {
-          throw Error('Not Found');
-        }
-        const json = await res.json();
-        if (active && open) setDegenDetail(json);
-      } catch (err) {
-        toast.error(errorMsgHandler(err), { theme: 'dark' });
-      }
-    }
+        // Fetch character data from contract
+        const contract = readContracts[DEGEN_CONTRACT];
+        const characterDataPromise =
+          contract &&
+          Promise.all([contract.getName(tokenId), contract.ownerOf(tokenId), contract.getCharacterTraits(tokenId)]);
 
-    if (open && tokenId && readContracts && readContracts[DEGEN_CONTRACT]) {
-      // eslint-disable-next-line no-void
-      void getCharacter();
-      // eslint-disable-next-line no-void
-      void getDegenDetail();
-    }
+        const [degenRes, characterData] = await Promise.all([degenDetailPromise, characterDataPromise]);
+
+        // Process Degen details
+        if (degenRes) {
+          if (degenRes.status === 404) {
+            throw new Error('Degen not found');
+          }
+          if (!degenRes.ok) {
+            throw new Error('Failed to fetch Degen details');
+          }
+          const json: GetDegenResponse = await degenRes.json();
+          if (!signal.aborted) {
+            setDegenDetail(json);
+          }
+        }
+
+        // Process character data
+        if (characterData) {
+          const [name, owner, traitList] = characterData;
+          if (!signal.aborted) {
+            setCharacter({ name, owner, traitList });
+          }
+        }
+      } catch (err) {
+        if (!signal.aborted) {
+          toast.error(errorMsgHandler(err), { theme: 'dark' });
+        }
+      }
+    };
+
+    // eslint-disable-next-line no-void
+    void fetchData();
 
     return () => {
-      active = false;
+      controller.abort();
     };
   }, [tokenId, readContracts, open, authToken]);
 

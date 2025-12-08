@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 
 import { cn } from '@nl/ui/utils';
 import { styled } from '@nl/theme';
@@ -55,11 +55,10 @@ export default function RentStepper({
   rentSuccess: boolean;
   checkBalance: boolean;
 }): React.ReactNode {
-  const [activeStep, setActiveStep] = useState(0);
-
-  useEffect(() => {
-    if (rentSuccess) setActiveStep(2);
-    else if (checkBalance) setActiveStep(1);
+  const activeStep = useMemo(() => {
+    if (rentSuccess) return 2;
+    if (checkBalance) return 1;
+    return 0;
   }, [checkBalance, rentSuccess]);
 
   return (

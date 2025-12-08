@@ -32,20 +32,19 @@ const getAppleStoreLink = (countryCode = '') =>
 const generateAppleCountryRedirects = (countryCode: string) => [
   {
     source: '/ios',
-    has: [{ type: 'header', key: 'x-vercel-ip-country', value: countryCode }],
+    has: [{ type: 'header' as const, key: 'x-vercel-ip-country', value: countryCode }],
     destination: getAppleStoreLink(countryCode),
     permanent: false,
   },
   {
     source: '/ios/:params*',
-    has: [{ type: 'header', key: 'x-vercel-ip-country', value: countryCode }],
+    has: [{ type: 'header' as const, key: 'x-vercel-ip-country', value: countryCode }],
     destination: `${getAppleStoreLink(countryCode)}:params*`,
     permanent: false,
   },
 ];
 
 const nextConfig: NextConfig = {
-  eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
   transpilePackages: ['@nl/playfab', '@nl/ui'],
   images: {
@@ -88,13 +87,13 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/invite/:ref_code(\\w{1,})',
-        has: [{ type: 'header', key: 'User-Agent', value: '.*(iPhone|iPad|iPod).*' }],
+        has: [{ type: 'header' as const, key: 'User-Agent', value: '.*(iPhone|iPad|iPod).*' }],
         destination: '/ios/?referral=:ref_code',
         permanent: false,
       },
       {
         source: '/invite/:ref_code(\\w{1,})',
-        has: [{ type: 'header', key: 'User-Agent', value: '.*(Mobile|Android).*' }],
+        has: [{ type: 'header' as const, key: 'User-Agent', value: '.*(Mobile|Android).*' }],
         destination: '/android/?referral=:ref_code',
         permanent: false,
       },

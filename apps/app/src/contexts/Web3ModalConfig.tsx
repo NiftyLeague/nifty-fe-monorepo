@@ -1,7 +1,6 @@
 import { mainnet, sepolia, hardhat, immutableZkEvm, immutableZkEvmTestnet, type Chain } from '@reown/appkit/networks';
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
 import { cookieStorage, createStorage } from '@wagmi/core';
-// import { coinbaseWallet, injected, metaMask, safe, walletConnect } from '@wagmi/connectors';
 
 // Get projectId at https://cloud.walletconnect.com
 export const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID as string;
@@ -19,7 +18,6 @@ export const networks: [Chain, ...Chain[]] = [mainnet, sepolia, immutableZkEvm, 
 export const wagmiAdapter = new WagmiAdapter({
   projectId,
   networks,
-  // connectors: [coinbaseWallet(), injected(), metaMask(), safe(), walletConnect({ projectId })],
   storage: createStorage({ storage: cookieStorage }),
   ssr: true,
 });
