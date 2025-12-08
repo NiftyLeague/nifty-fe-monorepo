@@ -10,7 +10,7 @@ import type {
   ContractRunner,
   ContractMethod,
   Listener,
-} from 'ethers6';
+} from 'ethers';
 import type {
   TypedContractEvent,
   TypedDeferredTopicFilter,

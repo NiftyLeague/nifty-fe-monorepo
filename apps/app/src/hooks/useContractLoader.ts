@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { Contract, JsonRpcSigner, type InterfaceAbi } from 'ethers6';
+import { Contract, JsonRpcSigner, type InterfaceAbi } from 'ethers';
 import type { Contracts, Provider } from '@/types/web3';
 import CONTRACTS from '@/constants/contracts/deployments';
 import EXTERNAL_CONTRACTS from '@/constants/contracts/externalContracts';

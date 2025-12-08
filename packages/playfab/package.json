@@ -23,11 +23,11 @@
   },
   "dependencies": {
     "@nl/ui": "workspace:*",
-    "ethers6": "npm:ethers@^6.16.0",
+    "ethers": "^6.16.0",
     "https": "^1.0.0",
     "lodash": "^4.17.21",
     "notistack": "^3.0.2",
-    "playfab-sdk": "^2.186.251121",
+    "playfab-sdk": "^2.187.251205",
     "swr": "^2.3.7",
     "url": "^0.11.4"
   },

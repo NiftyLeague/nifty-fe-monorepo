@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { toast } from 'react-toastify';
-import { toBeHex } from 'ethers6';
-import type { BaseContract, ContractMethod, JsonRpcSigner, TransactionRequest, TransactionResponse } from 'ethers6';
+import { toBeHex } from 'ethers';
+import type { BaseContract, ContractMethod, JsonRpcSigner, TransactionRequest, TransactionResponse } from 'ethers';
 import { serializeError } from 'eth-rpc-errors';
 // import { setIntervalAsync, clearIntervalAsync } from 'set-interval-async/dynamic';
 

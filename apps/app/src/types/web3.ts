@@ -7,7 +7,7 @@ import type {
   InfuraProvider,
   JsonRpcApiProvider,
   JsonRpcProvider,
-} from 'ethers6';
+} from 'ethers';
 import type { Abi } from 'viem';
 import type { Config } from 'wagmi';
 

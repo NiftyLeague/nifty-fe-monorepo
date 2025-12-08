@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { useAccount, useReadContract } from 'wagmi';
-import type { AddressLike, BigNumberish } from 'ethers6';
+import type { AddressLike, BigNumberish } from 'ethers';
 import type { Item } from '@/types/marketplace';
 
 import { getDeployedContract, MARKETPLACE_CONTRACT } from '@/constants/contracts';

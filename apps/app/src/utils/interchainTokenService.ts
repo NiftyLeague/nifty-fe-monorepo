@@ -1,13 +1,13 @@
 // https://docs.axelar.dev/dev/send-tokens/interchain-tokens/developer-guides/link-custom-tokens-deployed-across-multiple-chains-into-interchain-tokens/
 
-import { parseEther, formatEther } from 'ethers6';
+import { parseEther, formatEther } from 'ethers';
 import type {
   AddressLike,
   Contract,
   ContractMethod,
   ContractTransactionReceipt,
   ContractTransactionResponse,
-} from 'ethers6';
+} from 'ethers';
 import { AxelarQueryAPI, Environment, EvmChain, GasToken } from '@axelar-network/axelarjs-sdk';
 
 import {

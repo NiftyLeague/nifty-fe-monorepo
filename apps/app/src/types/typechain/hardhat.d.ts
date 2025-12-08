@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ethers } from 'ethers6';
+import { ethers } from 'ethers';
 import {
   DeployContractOptions,
   FactoryOptions,

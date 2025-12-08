@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers6';
+import { Contract, Interface, type ContractRunner } from 'ethers';
 import type { IVotes, IVotesInterface } from '../../../../../@openzeppelin/contracts/governance/utils/IVotes';
 
 const _abi = [

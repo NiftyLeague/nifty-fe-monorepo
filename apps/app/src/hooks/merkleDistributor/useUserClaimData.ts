@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useAccount } from 'wagmi';
 import { mainnet, sepolia } from 'viem/chains';
-import { getAddress, isAddress } from 'ethers6';
+import { getAddress, isAddress } from 'ethers';
 import { MERKLE_TREE } from '@/constants/contracts';
 import useIMXContext from '../useIMXContext';
 
