@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Stack, Typography, FormControl, MenuItem } from '@mui/material';
 import { Box } from '@mui/system';
 import { toast } from 'react-toastify';
@@ -24,7 +24,7 @@ import useAuth from '@/hooks/useAuth';
 const DashboardRentalPage = (): React.ReactNode => {
   const { authToken } = useAuth();
   const headers = { authorizationToken: authToken || '' };
-  const [rentals, setRentals] = useState<Rentals[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const [category, setCategory] = useState<RentalType>('all');
   const terminalRental = useTeminateRental();
 
@@ -64,18 +64,25 @@ const DashboardRentalPage = (): React.ReactNode => {
     return getUniqueListBy<Rentals>(totalRentals, 'id');
   };
 
-  const { data, isLoading, isFetching, refetch, isSuccess } = useQuery<Rentals[]>({
+  const { data, isLoading, isFetching, refetch } = useQuery<Rentals[]>({
     queryKey: ['rentals'],
     queryFn: fetchRentals,
     // TODO: enable if query needed
     enabled: false,
   });
 
-  useEffect(() => {
-    if (isSuccess && data) {
-      setRentals(data || []);
-    }
-  }, [isSuccess, data]);
+  const rentals = useMemo(() => {
+    if (!data) return [];
+    if (searchTerm.trim() === '') return data;
+
+    const lowercasedValue = searchTerm.toLowerCase();
+    return data.filter(
+      (rental: Rentals) =>
+        rental?.accounts?.player?.address?.toLowerCase().includes(lowercasedValue) ||
+        rental?.degen?.id?.toLowerCase().includes(lowercasedValue) ||
+        rental?.accounts?.player?.name?.toLowerCase().includes(lowercasedValue),
+    );
+  }, [data, searchTerm]);
 
   const terminateRentalById = async (rentalId: string) => {
     try {
@@ -95,38 +102,18 @@ const DashboardRentalPage = (): React.ReactNode => {
     }
   };
 
-  const updateRentalName = (newName: string, id: string) => {
-    const newRentals = rentals.find(ren => ren.id === id);
-    const rentalIndex = rentals.findIndex(ren => ren.id === id);
-
-    setRentals([
-      ...rentals.slice(0, rentalIndex),
-      { ...newRentals, name: newName },
-      ...rentals.slice(rentalIndex + 1),
-    ] as Rentals[]);
+  const updateRentalName = () => {
     refetch();
   };
 
   const handleSearch = (currentValue: string) => {
-    if (currentValue?.trim() === '') {
-      if (data) setRentals(data);
-      return;
-    }
-    const newCurrentValue = currentValue.toLowerCase();
-    const newRental = data?.filter(
-      (rental: Rentals) =>
-        rental?.accounts?.player?.address?.toLowerCase().includes(newCurrentValue) ||
-        rental?.degen?.id?.toLowerCase().includes(newCurrentValue) ||
-        rental?.accounts?.player?.name?.toLowerCase().includes(newCurrentValue),
-    );
-    setRentals(newRental || []);
+    setSearchTerm(currentValue);
   };
 
   const handleChangeCategory = (event: SelectChangeEvent) => {
     const newCategory = event.target.value as RentalType;
     if (newCategory !== category) {
       setCategory(newCategory);
-      setRentals([]);
     } else {
       refetch();
     }

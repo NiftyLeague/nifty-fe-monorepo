@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useMemo } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 
@@ -18,33 +18,31 @@ export interface Props {
 
 export default function LinkedProviders({ providers, socialLayout = 'horizontal', loading = false }: Props) {
   const player: UserContextType = useUserContext();
-  const [linkedProviders, setLinkedProviders] = useState<Provider[]>([]);
+  const [optimisticLinked, setOptimisticLinked] = useState<Provider[]>([]);
+  const [optimisticUnlinked, setOptimisticUnlinked] = useState<Provider[]>([]);
   const session = useSession();
   const pathname = usePathname();
 
-  // initialize linkedProviders from playfab
-  useEffect(() => {
-    if (player.profile && player.profile.LinkedAccounts) {
-      const providersList = player.profile.LinkedAccounts.map(p =>
-        p.Platform === 'GooglePlay' ? 'google' : p.Platform?.toLowerCase(),
-      );
-      setLinkedProviders(providersList as Provider[]);
-    }
-  }, [player.profile]);
+  const linkedProviders = useMemo(() => {
+    const fromProfile =
+      player.profile?.LinkedAccounts?.map(p => (p.Platform === 'GooglePlay' ? 'google' : p.Platform?.toLowerCase())) ||
+      [];
+    return [...new Set([...fromProfile, ...optimisticLinked])].filter(p => !optimisticUnlinked.includes(p as never));
+  }, [player.profile, optimisticLinked, optimisticUnlinked]);
 
   const handleLinkProvider = useCallback(
     async (provider: Provider, accessToken: string) => {
       if (!linkedProviders.includes(provider)) {
         try {
+          setOptimisticLinked(prev => [...prev, provider]);
           await fetchJson('/api/playfab/user/link-provider', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ provider, accessToken }),
           });
-          // Update the local state to show the provider is now linked
-          setLinkedProviders(prev => [...prev, provider]);
         } catch (e) {
           console.error(e);
+          setOptimisticLinked(prev => prev.filter(p => p !== provider));
         }
       }
     },
@@ -53,15 +51,15 @@ export default function LinkedProviders({ providers, socialLayout = 'horizontal'
 
   const handleUnlinkProvider = async (provider: Provider) => {
     try {
+      setOptimisticUnlinked(prev => [...prev, provider]);
       await fetchJson('/api/playfab/user/unlink-provider', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ provider }),
       });
-      // Update the local state to show the provider is now unlinked
-      setLinkedProviders(prev => prev.filter(p => p !== provider));
     } catch (e) {
       console.error(e);
+      setOptimisticUnlinked(prev => prev.filter(p => p !== provider));
     }
   };
 
@@ -69,6 +67,7 @@ export default function LinkedProviders({ providers, socialLayout = 'horizontal'
   useEffect(() => {
     if (pathname.includes('#') && session.status === 'authenticated') {
       const { provider, accessToken } = session.data as unknown as { provider: Provider; accessToken: string };
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       handleLinkProvider(provider, accessToken);
     }
   }, [pathname, session.status, session.data, handleLinkProvider]);

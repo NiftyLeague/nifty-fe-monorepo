@@ -10,13 +10,15 @@ interface Props {
 
 const SearchRental = ({ handleSearch, placeholder }: Props): React.ReactNode => {
   const inputEl = useRef<HTMLInputElement>(null);
-  let typingTimer: NodeJS.Timeout | undefined;
+  const typingTimer = useRef<NodeJS.Timeout>(undefined);
 
   useEffect(() => {
     return () => {
-      clearTimeout(typingTimer);
+      if (typingTimer.current) {
+        clearTimeout(typingTimer.current);
+      }
     };
-  }, [typingTimer]);
+  }, []);
 
   const onSearchLocation = () => {
     const currentValue = inputEl?.current?.value ?? '';
@@ -35,12 +37,16 @@ const SearchRental = ({ handleSearch, placeholder }: Props): React.ReactNode => 
 
   const handleKeyUp = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') return;
-    clearTimeout(typingTimer);
-    typingTimer = setTimeout(doneTyping, 500);
+    if (typingTimer.current) {
+      clearTimeout(typingTimer.current);
+    }
+    typingTimer.current = setTimeout(doneTyping, 500);
   };
 
   const handleKeyDown = () => {
-    clearTimeout(typingTimer);
+    if (typingTimer.current) {
+      clearTimeout(typingTimer.current);
+    }
   };
 
   return (

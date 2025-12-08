@@ -1,6 +1,6 @@
 'use client';
 
-import { cloneElement, useEffect, useState, type ReactElement } from 'react';
+import { cloneElement, useMemo, type ReactElement } from 'react';
 import Image from 'next/image';
 import { cn } from '@nl/ui/utils';
 
@@ -97,13 +97,11 @@ function RenameStepper({
   renameSuccess: boolean;
   insufficientBalance: boolean;
 }): React.ReactNode {
-  const [activeStep, setActiveStep] = useState(0);
   const steps = getSteps();
-
-  useEffect(() => {
-    if (renameSuccess) setActiveStep(3);
-    else if (insufficientBalance) setActiveStep(0);
-    else setActiveStep(insufficientAllowance ? 1 : 2);
+  const activeStep = useMemo(() => {
+    if (renameSuccess) return 3;
+    if (insufficientBalance) return 0;
+    return insufficientAllowance ? 1 : 2;
   }, [insufficientAllowance, insufficientBalance, renameSuccess]);
 
   return (

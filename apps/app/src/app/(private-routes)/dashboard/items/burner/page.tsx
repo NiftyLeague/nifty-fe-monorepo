@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useMemo } from 'react';
 import { type AddressLike } from 'ethers6';
 import { useRouter } from 'next/navigation';
 import { Button } from '@mui/material';
@@ -22,21 +22,22 @@ import ItemsGrid from './_components/items-grid';
 
 const ComicsBurner = () => {
   const router = useRouter();
-  const { itemsBalances } = useNFTsBalances();
+  const { itemsBalances, refreshItemsBalances } = useNFTsBalances();
   const { address, tx, writeContracts } = useNetworkContext();
   const [isApprovedForAll, setIsApprovedForAll] = useState(false);
   const [helpDialogOpen, setHelpDialogOpen] = useState(false);
   const [selectedComics, setSelectedComics] = useState<Comic[]>([]);
-  const [itemCounts, setItemsCounts] = useState([0, 0, 0, 0, 0, 0, 0]);
   const [burnCount, setBurnCount] = useState([0, 0, 0, 0, 0, 0]);
   const [burning, setBurning] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
   const burnDisabled = burning || selectedComics.length < 1 || burnCount.every(c => !c);
 
-  useEffect(() => {
+  // const [itemCounts, setItemsCounts] = useState([0, 0, 0, 0, 0, 0, 0]);
+  const itemCounts = useMemo(() => {
     if (itemsBalances.length) {
-      setItemsCounts(itemsBalances.map(it => it.balance || 0));
+      return itemsBalances.map(it => it.balance || 0);
     }
+    return [0, 0, 0, 0, 0, 0, 0];
   }, [itemsBalances]);
 
   useEffect(() => {
@@ -72,20 +73,21 @@ const ComicsBurner = () => {
     setBurning(false);
     if (res) {
       setSelectedComics([]);
-      const keyCount = burnCount.some(v => v === 0) ? 0 : Math.min(...burnCount);
-      setItemsCounts([
-        (itemCounts[0] ?? 0) + (burnCount[0] ?? 0) - keyCount,
-        (itemCounts[1] ?? 0) + (burnCount[1] ?? 0) - keyCount,
-        (itemCounts[2] ?? 0) + (burnCount[2] ?? 0) - keyCount,
-        (itemCounts[3] ?? 0) + (burnCount[3] ?? 0) - keyCount,
-        (itemCounts[4] ?? 0) + (burnCount[4] ?? 0) - keyCount,
-        (itemCounts[5] ?? 0) + (burnCount[5] ?? 0) - keyCount,
-        (itemCounts[6] ?? 0) + keyCount,
-      ]);
+      // const keyCount = burnCount.some(v => v === 0) ? 0 : Math.min(...burnCount);
+      // setItemsCounts([
+      //   (itemCounts[0] ?? 0) + (burnCount[0] ?? 0) - keyCount,
+      //   (itemCounts[1] ?? 0) + (burnCount[1] ?? 0) - keyCount,
+      //   (itemCounts[2] ?? 0) + (burnCount[2] ?? 0) - keyCount,
+      //   (itemCounts[3] ?? 0) + (burnCount[3] ?? 0) - keyCount,
+      //   (itemCounts[4] ?? 0) + (burnCount[4] ?? 0) - keyCount,
+      //   (itemCounts[5] ?? 0) + (burnCount[5] ?? 0) - keyCount,
+      //   (itemCounts[6] ?? 0) + keyCount,
+      // ]);
+      refreshItemsBalances();
       setBurnCount([0, 0, 0, 0, 0, 0]);
       setTimeout(() => setRefreshKey(Math.random() + 1), 5000);
     }
-  }, [burnCount, handleSetApproval, isApprovedForAll, itemCounts, tx, writeContracts]);
+  }, [burnCount, handleSetApproval, isApprovedForAll, refreshItemsBalances, tx, writeContracts]);
 
   const handleReturnPage = () => router.push('/dashboard/items');
 

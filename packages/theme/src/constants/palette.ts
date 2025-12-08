@@ -1,0 +1,65 @@
+// Color palette constants
+export const palette = {
+  // primary
+  primaryLight: '#8f57e2',
+  primaryMain: '#620edf',
+  primaryDark: '#4b07af',
+  primaryDarker: '#390587',
+  // secondary
+  secondaryLight: '#b1bbf9',
+  secondaryMain: '#5e72eb',
+  secondaryDark: '#3d54e1',
+  secondaryDarker: '#1a33d3',
+  // success
+  successLight: '#a5ef8e',
+  successMain: '#3af000',
+  successDark: '#388e3c',
+  // error
+  errorLight: '#e57373',
+  errorMain: '#f44336',
+  errorDark: '#d32f2f',
+  // orange
+  orangeLight: '#fbe9e7',
+  orangeMain: '#ffab91',
+  orangeDark: '#f57c00',
+  // warning
+  warningLight: '#ffed53',
+  warningMain: '#ffe500',
+  warningDark: '#c6b200',
+  // grey
+  grey50: '#fffefd',
+  grey100: '#efeeed',
+  grey200: '#dfdedd',
+  grey300: '#bfbebd',
+  grey400: '#9f9e9d',
+  grey500: '#6f6e6d',
+  grey600: '#4c4b4a',
+  grey700: '#3f3f46',
+  grey800: '#27272a',
+  grey900: '#18181b',
+  grey950: '#09090b',
+  // paper & background
+  paper: '#e4e4e7',
+  defaultBackground: '#fffefd',
+  // text variants
+  textPrimary: '#0c0b0a',
+  textSecondary: '#4c4b4a',
+  // dark theme variants
+  darkPrimaryLight: '#8f57e2',
+  darkPrimaryMain: '#620edf',
+  darkPrimaryDark: '#4b07af',
+  darkPrimaryDarker: '#390587',
+  darkSecondaryLight: '#b1bbf9',
+  darkSecondaryMain: '#5e72eb',
+  darkSecondaryDark: '#3d54e1',
+  darkSecondaryDarker: '#1a33d3',
+  darkPaper: '#18181b',
+  darkBackground: '#09090b',
+  darkTextPrimary: '#fffefd',
+  darkTextSecondary: '#bfbebd',
+  darkLevel1: '#27272a',
+  darkLevel2: '#1c1b1a',
+  darkLevel3: '#09090b',
+};
+
+export default palette;

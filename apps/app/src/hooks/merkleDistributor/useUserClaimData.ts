@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { useAccount } from 'wagmi';
 import { mainnet, sepolia } from 'viem/chains';
 import { getAddress, isAddress } from 'ethers6';
 import { MERKLE_TREE } from '@/constants/contracts';
@@ -52,7 +53,10 @@ function fetchClaim(account: string, chainId: ChainId): ClaimPromise {
 // null means we know it does not
 export default function useUserClaimData(): { claimData: UserClaimData | null; loading: boolean } {
   const [loading, setLoading] = useState(true);
-  const { address: account, imxChainId } = useIMXContext();
+  const { address, imxChainId } = useIMXContext();
+  const { address: wagmiAddress } = useAccount();
+  const account = address ?? wagmiAddress;
+
   // Use useMemo to compute the key once to avoid recalculating on every render
   const key = useMemo(() => `${imxChainId}:${account}`, [imxChainId, account]);
 
@@ -62,7 +66,11 @@ export default function useUserClaimData(): { claimData: UserClaimData | null; l
     if (!account || !imxChainId) return;
 
     // Avoid setting the state unnecessarily if the claim data already exists
-    if (claimInfo[key]) return;
+    if (claimInfo[key]) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setLoading(false);
+      return;
+    }
 
     void fetchClaim(account, imxChainId).then(accountClaimInfo => {
       // Only update state if the claim data has changed

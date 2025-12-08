@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
 import { GET_GAMER_PROFILE_API } from '@/constants/url';
 import useAuth from '@/hooks/useAuth';
 import useFetch from '@/hooks/useFetch';
@@ -12,17 +11,12 @@ const useGamerProfile = (): {
   loadingProfile?: boolean;
   fetchUserProfile?: () => Promise<Profile>;
 } => {
-  const firstRenderRef = useRef(true);
-  useEffect(() => {
-    firstRenderRef.current = false;
-  }, []);
-
   const { isLoggedIn, authToken } = useAuth();
   const headers = { authorizationToken: authToken || '' };
 
   const { error, data, loading } = useFetch<Profile>(GET_GAMER_PROFILE_API, {
     headers,
-    enabled: isLoggedIn && !!authToken && !firstRenderRef.current,
+    enabled: isLoggedIn && !!authToken,
   });
 
   const fetchUserProfile = async () => {

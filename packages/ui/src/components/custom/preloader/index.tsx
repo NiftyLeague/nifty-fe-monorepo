@@ -25,13 +25,16 @@ export function Preloader({ ready, progress }: { ready: boolean; progress: numbe
 
   useEffect(() => {
     if (isMobile && !showWarning && milliseconds > 1200) {
-      setShowWarning(true);
+      const id = setTimeout(() => setShowWarning(true), 0);
+      return () => clearTimeout(id);
     }
+    return undefined;
   }, [isMobile, showWarning, milliseconds]);
 
   useEffect(() => {
     if (loadingPercentage !== 90) {
-      setPercent(loadingPercentage);
+      const id = setTimeout(() => setPercent(loadingPercentage), 0);
+      return () => clearTimeout(id);
     } else {
       const id = setInterval(() => {
         setPercent(p => Math.round(p < 80 ? p + 10 : 90));

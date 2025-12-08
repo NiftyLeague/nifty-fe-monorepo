@@ -42,7 +42,8 @@ export interface CssVarsTheme extends Omit<MuiCssVarsTheme, 'typography'> {
 }
 
 export interface CssVarsThemeOptions
-  extends Omit<MuiCssVarsThemeOptions, 'components' | 'typography'>,
+  extends
+    Omit<MuiCssVarsThemeOptions, 'components' | 'typography'>,
     Omit<ThemeOptions, 'palette' | 'components' | 'customShadows'> {
   components?: MuiComponents<Omit<Theme, 'components'> & CssVarsTheme>;
   customShadows?: CustomShadowProps;
