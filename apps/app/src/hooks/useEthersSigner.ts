@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { BrowserProvider, JsonRpcSigner } from 'ethers6';
+import { BrowserProvider, JsonRpcSigner } from 'ethers';
 import type { Account, Chain, Client, Transport } from 'viem';
 import { type Config, useConnectorClient } from 'wagmi';
 

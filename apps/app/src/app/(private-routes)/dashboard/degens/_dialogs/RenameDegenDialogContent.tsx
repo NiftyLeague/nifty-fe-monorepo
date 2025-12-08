@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { parseEther } from 'ethers6';
+import { parseEther } from 'ethers';
 import {
   Button,
   CardMedia,

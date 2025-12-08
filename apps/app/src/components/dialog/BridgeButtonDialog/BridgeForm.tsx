@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useContext, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { NumericFormat } from 'react-number-format';
-import { parseEther } from 'ethers6';
+import { parseEther } from 'ethers';
 
 import {
   Alert,

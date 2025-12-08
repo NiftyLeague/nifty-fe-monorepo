@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { styled } from '@nl/theme';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
-import { isAddress } from 'ethers6';
+import { isAddress } from 'ethers';
 
 import {
   Box,

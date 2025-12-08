@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState, useMemo } from 'react';
-import { type AddressLike } from 'ethers6';
+import { type AddressLike } from 'ethers';
 import { useRouter } from 'next/navigation';
 import { Button } from '@mui/material';
 

@@ -11,7 +11,7 @@ import {
   type OrderCreation,
   type SigningScheme,
 } from '@cowprotocol/cow-sdk';
-import { parseEther, formatEther, type Signer } from 'ethers6';
+import { parseEther, formatEther, type Signer } from 'ethers';
 import { getContractAddress, NFTL_CONTRACT, COWSWAP_VAULT_RELAYER_ADDRESS, WETH_ADDRESS } from '@/constants/contracts';
 import { formatNumberToDisplay } from '@nl/ui/utils';
 import { ERC20__factory, WETH__factory } from '@/types/typechain';

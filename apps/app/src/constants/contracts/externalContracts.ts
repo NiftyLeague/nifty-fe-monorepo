@@ -3,7 +3,7 @@ import WETH_ABI from './abis/weth.json';
 import { INTERCHAIN_TOKEN_SERVICE_ADDRESS, WETH_ADDRESS } from '@/constants/contracts';
 import INTERCHAIN_TOKEN_SERVICE_ABI from '@/constants/contracts/abis/@axelar-network/interchain-token-service/contracts/interchainTokenServiceABI.json';
 import { LOCAL_CHAIN_ID } from '@/constants/networks';
-import type { InterfaceAbi } from 'ethers6';
+import type { InterfaceAbi } from 'ethers';
 
 const EXTERNAL_CONTRACTS: {
   [chainId: number]: { [contractName: string]: { address: `0x${string}`; abi: InterfaceAbi } };

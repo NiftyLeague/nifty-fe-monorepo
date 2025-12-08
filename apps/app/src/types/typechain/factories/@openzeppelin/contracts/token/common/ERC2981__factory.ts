@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers6';
+import { Contract, Interface, type ContractRunner } from 'ethers';
 import type { ERC2981, ERC2981Interface } from '../../../../../@openzeppelin/contracts/token/common/ERC2981';
 
 const _abi = [

@@ -28,7 +28,7 @@
     "@nl/theme": "workspace:*",
     "@nl/ui": "workspace:*",
     "@openzeppelin/contracts": "^5.4.0",
-    "@reduxjs/toolkit": "^2.11.0",
+    "@reduxjs/toolkit": "^2.11.1",
     "@reown/appkit": "^1.8.14",
     "@reown/appkit-adapter-wagmi": "^1.8.14",
     "@sentry/nextjs": "^10.29.0",
@@ -39,8 +39,7 @@
     "bnc-sdk": "^4.6.9",
     "crypto-browserify": "^3.12.1",
     "eth-rpc-errors": "^4.0.3",
-    "ethers": "~6.16.0",
-    "ethers6": "npm:ethers@^6.16.0",
+    "ethers": "^6.16.0",
     "framer-motion": "^12.23.25",
     "graphql": "^16.12.0",
     "graphql-request": "^7.3.5",
@@ -78,7 +77,7 @@
     "@types/react-dom": "19.2.3",
     "@types/react-slick": "^0.23.13",
     "import-in-the-middle": "2.0.0",
-    "porto": "~0.2.35",
+    "porto": "~0.2.37",
     "require-in-the-middle": "8.0.1",
     "terser-webpack-plugin": "^5.3.15"
   }

@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { FallbackProvider, JsonRpcProvider } from 'ethers6';
+import { FallbackProvider, JsonRpcProvider } from 'ethers';
 import type { Chain, Client, Transport } from 'viem';
 import { type Config, useClient } from 'wagmi';
 
