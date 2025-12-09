@@ -1,4 +1,6 @@
 name: Algolia Search
+permissions:
+  contents: read
 
 on:
   # Allow to run manually
