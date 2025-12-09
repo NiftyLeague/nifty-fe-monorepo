@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers6';
+import { Contract, Interface, type ContractRunner } from 'ethers';
 import type { EIP712, EIP712Interface } from '../../../../../@openzeppelin/contracts/utils/cryptography/EIP712';
 
 const _abi = [

@@ -2,8 +2,8 @@
 
 import { useMemo } from 'react';
 import { useAccount, useReadContract } from 'wagmi';
-import { formatEther } from 'ethers6';
-import type { AddressLike } from 'ethers6';
+import { formatEther } from 'ethers';
+import type { AddressLike } from 'ethers';
 import type { Abi } from 'viem';
 
 import useAuth from '@/hooks/useAuth';

@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers6';
+import { Contract, Interface, type ContractRunner } from 'ethers';
 import type { Ownable, OwnableInterface } from '../../../../@openzeppelin/contracts/access/Ownable';
 
 const _abi = [

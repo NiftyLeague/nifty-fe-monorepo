@@ -82,12 +82,14 @@ const TokenInfoBox = ({
     return () => clearInterval(timer);
   }, [refetch]);
 
-  const debouncedGetMarketplace = useRef(
-    debounce(async (amount: string) => {
-      if (!amount || Number(amount) === 0) return;
-      getMarketPrice(kind === 'From' ? OrderKind.SELL : OrderKind.BUY, amount);
-    }, 300),
-  ).current;
+  const debouncedGetMarketplace = useMemo(
+    () =>
+      debounce(async (amount: string) => {
+        if (!amount || Number(amount) === 0) return;
+        getMarketPrice(kind === 'From' ? OrderKind.SELL : OrderKind.BUY, amount);
+      }, 300),
+    [getMarketPrice, kind],
+  );
 
   useEffect(() => {
     return () => {

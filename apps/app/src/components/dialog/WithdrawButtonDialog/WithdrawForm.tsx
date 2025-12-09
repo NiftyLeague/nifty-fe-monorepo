@@ -4,7 +4,7 @@ import { useCallback, useContext, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Alert, Stack, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
-import type { TransactionResponse } from 'ethers6';
+import type { TransactionResponse } from 'ethers';
 import { useSwitchChain } from 'wagmi';
 
 import { formatDateTime } from '@/utils/dateTime';

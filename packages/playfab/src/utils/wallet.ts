@@ -1,4 +1,4 @@
-import { BrowserProvider, type Eip1193Provider } from 'ethers6';
+import { BrowserProvider, type Eip1193Provider } from 'ethers';
 import crypto from 'crypto';
 
 declare global {

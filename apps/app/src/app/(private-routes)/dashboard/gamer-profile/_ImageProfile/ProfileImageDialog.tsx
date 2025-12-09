@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useMemo } from 'react';
 import { IconButton, Box, Typography, Stack } from '@mui/material';
 import { toast } from 'react-toastify';
 
@@ -112,27 +112,20 @@ type ProfileImageDialogProps = {
 };
 
 const ProfileImageDialog = ({ degens, onChangeAvatar, avatarFee }: ProfileImageDialogProps): React.ReactNode => {
-  const [degensInternal, setDegensInternal] = useState<Degen[]>([]);
+  const [searchValue, setSearchValue] = useState('');
 
-  useEffect(() => {
-    if (degens) {
-      setDegensInternal(degens);
-    }
-  }, [degens]);
+  const degensInternal = useMemo(() => {
+    if (!degens) return [];
+    if (searchValue.trim() === '') return degens;
+
+    const lowercasedValue = searchValue.toLowerCase();
+    return degens.filter(
+      degen => degen?.id.toLowerCase().includes(lowercasedValue) || degen?.name.toLowerCase().includes(lowercasedValue),
+    );
+  }, [degens, searchValue]);
 
   const handleSearch = (currentValue: string) => {
-    if (currentValue?.trim() === '' && degens) {
-      setDegensInternal(degens);
-      return;
-    }
-    const newCurrentValue = currentValue.toLowerCase();
-    const newDegen: Degen[] | undefined = degens?.filter(
-      (degen: Degen) =>
-        degen?.id.toLowerCase().includes(newCurrentValue) || degen?.name.toLowerCase().includes(newCurrentValue),
-    );
-    if (newDegen) {
-      setDegensInternal(newDegen);
-    }
+    setSearchValue(currentValue);
   };
 
   return (

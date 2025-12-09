@@ -51,8 +51,7 @@ function AuthContainer({ className, children: form, view, message, error, ...pro
 }
 
 export interface AuthFormProps
-  extends AuthContainerProps,
-    Omit<LoginFormProps & ForgotPasswordFormProps & UpdatePasswordFormProps, 'setAuthView'> {}
+  extends AuthContainerProps, Omit<LoginFormProps & ForgotPasswordFormProps & UpdatePasswordFormProps, 'setAuthView'> {}
 
 export function AuthForm({
   enableAccountCreation = false,

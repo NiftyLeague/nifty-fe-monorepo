@@ -13,12 +13,12 @@ import { customComponents, customMixins, customPalette, customShadows, customTyp
 import useThemeConfig from './useThemeConfig';
 
 const useCreateTheme = (): Theme => {
-  const config = useThemeConfig();
-
+  const themeConfig = useThemeConfig();
+  let paletteMode = themeConfig.paletteMode;
   if (typeof window !== 'undefined') {
-    const paletteMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    config.paletteMode = paletteMode;
+    paletteMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
+  const config = { ...themeConfig, paletteMode };
 
   const colorTheme = useMemo<Theme>(
     () => customPalette(config.paletteMode, config.presetColor),

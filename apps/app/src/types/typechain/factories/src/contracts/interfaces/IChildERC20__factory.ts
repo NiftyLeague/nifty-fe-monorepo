@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers6';
+import { Contract, Interface, type ContractRunner } from 'ethers';
 import type { IChildERC20, IChildERC20Interface } from '../../../../src/contracts/interfaces/IChildERC20';
 
 const _abi = [

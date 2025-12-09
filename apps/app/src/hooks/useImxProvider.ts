@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { BrowserProvider, JsonRpcSigner } from 'ethers6';
+import { BrowserProvider, JsonRpcSigner } from 'ethers';
 import { type Chain, immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains';
 import { useAccount } from 'wagmi';
 

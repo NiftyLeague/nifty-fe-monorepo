@@ -34,9 +34,11 @@ export default function LeaderBoards(): React.ReactNode {
 
   useEffect(() => {
     gtm.sendEvent(GTM_EVENTS.SELECT_CONTENT, { content_type: 'leaderboard', content_id: selectedGame });
-    const params = new URLSearchParams(searchParams);
-    params.set('game', selectedGame);
-    router.push(pathname + '?' + params.toString());
+    if (searchParams.get('game') !== selectedGame) {
+      const params = new URLSearchParams(searchParams);
+      params.set('game', selectedGame);
+      router.push(pathname + '?' + params.toString());
+    }
   }, [selectedGame, router, pathname, searchParams]);
 
   const handleChangeGame = (event: SelectChangeEvent) => {

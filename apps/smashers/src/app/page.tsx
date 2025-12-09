@@ -34,7 +34,10 @@ export default function Home({ searchParams }: { searchParams: NextSearchParams 
   // Handle referral link
   const { referral } = use(searchParams);
   useEffect(() => {
-    if (referral) openModal('play');
+    if (referral) {
+      const id = setTimeout(() => openModal('play'), 0);
+      return () => clearTimeout(id);
+    }
   }, [referral]);
 
   return (

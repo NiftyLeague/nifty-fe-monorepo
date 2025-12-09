@@ -1,4 +1,4 @@
-import type { InterfaceAbi } from 'ethers6';
+import type { InterfaceAbi } from 'ethers';
 import { mainnet, sepolia, hardhat, immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains';
 
 import MAINNET_DEPLOYMENTS from './deployments.mainnet';

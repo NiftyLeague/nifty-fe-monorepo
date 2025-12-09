@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { formatEther } from 'ethers6';
+import { formatEther } from 'ethers';
 import { BALANCE_MANAGER_CONTRACT } from '@/constants/contracts';
 import { DEBUG } from '@/constants/index';
 import useIMXContext from '@/hooks/useIMXContext';
