@@ -4,9 +4,9 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "next build",
+    "build": "next build --webpack",
     "clean": "rm -rf node_modules && rm -rf .turbo && rm -rf .next",
-    "dev": "next dev --port 3001",
+    "dev": "next dev --webpack --port 3001",
     "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\"",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
@@ -33,7 +33,6 @@
     "@reown/appkit-adapter-wagmi": "^1.8.14",
     "@sentry/nextjs": "^10.29.0",
     "@tanstack/react-query": "^5.90.12",
-    "@wagmi/core": "^3.0.0",
     "axios": "^1.13.2",
     "bnc-notify": "^1.9.8",
     "bnc-sdk": "^4.6.9",
@@ -50,7 +49,6 @@
     "react-device-detect": "^2.2.3",
     "react-dom": "19.2.1",
     "react-draggable": "^4.5.0",
-    "react-ga4": "^2.1.0",
     "react-hook-form": "^7.68.0",
     "react-intersection-observer": "^10.0.0",
     "react-number-format": "^5.4.4",
@@ -71,14 +69,9 @@
     "yup": "^1.7.1"
   },
   "devDependencies": {
-    "@metamask/sdk": "~0.33.1",
     "@types/lodash": "^4.17.21",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
-    "@types/react-slick": "^0.23.13",
-    "import-in-the-middle": "2.0.0",
-    "porto": "~0.2.37",
-    "require-in-the-middle": "8.0.1",
-    "terser-webpack-plugin": "^5.3.15"
+    "@types/react-slick": "^0.23.13"
   }
 }

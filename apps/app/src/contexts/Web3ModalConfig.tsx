@@ -1,6 +1,6 @@
 import { mainnet, sepolia, hardhat, immutableZkEvm, immutableZkEvmTestnet, type Chain } from '@reown/appkit/networks';
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
-import { cookieStorage, createStorage } from '@wagmi/core';
+import { cookieStorage, createStorage } from 'wagmi';
 
 // Get projectId at https://cloud.walletconnect.com
 export const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID as string;
