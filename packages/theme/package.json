@@ -13,7 +13,7 @@
   },
   "scripts": {
     "clean": "rm -rf node_modules && rm -rf .turbo",
-    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\"",
+    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\" --ignore-path ../../.gitignore",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --max-warnings 0 --fix",
     "type-check": "tsc --noEmit"

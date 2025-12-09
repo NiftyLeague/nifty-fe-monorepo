@@ -7,7 +7,7 @@
     "build": "next build --webpack",
     "clean": "rm -rf node_modules && rm -rf .turbo && rm -rf .next",
     "dev": "next dev --webpack --port 3001",
-    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\"",
+    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\" --ignore-path ../../.gitignore",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "start": "next start",

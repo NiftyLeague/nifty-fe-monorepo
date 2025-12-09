@@ -9,7 +9,7 @@
     "deploy": "docusaurus deploy",
     "dev": "docusaurus start --no-open --port 3002",
     "docusaurus": "docusaurus",
-    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\"",
+    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\" --ignore-path ../../.gitignore",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --max-warnings 0 --fix",
     "serve": "docusaurus serve",
