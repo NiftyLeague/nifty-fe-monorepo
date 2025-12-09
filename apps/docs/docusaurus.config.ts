@@ -188,9 +188,8 @@ const config: Config = {
     },
     prism: { theme: prismThemes.github, darkTheme: prismThemes.dracula, additionalLanguages: ['solidity'] },
     algolia: {
-      // Search only api key
-      apiKey: process.env.ALGOLIA_API_KEY || '',
-      appId: process.env.ALGOLIA_APP_ID || '',
+      appId: process.env.ALGOLIA_APP_ID || 'QHFGNYFTED',
+      apiKey: process.env.ALGOLIA_API_KEY || 'a279745db091a62dd51ec3212d11a5d0', // SEARCH ONLY api key
       indexName: 'docs',
     },
     mermaid: { theme: { light: 'forest', dark: 'dark' } },
