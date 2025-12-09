@@ -189,9 +189,9 @@ const config: Config = {
     prism: { theme: prismThemes.github, darkTheme: prismThemes.dracula, additionalLanguages: ['solidity'] },
     algolia: {
       // Search only api key
-      apiKey: '2c367ae53326c8a85e805323aee56a75',
+      apiKey: process.env.ALGOLIA_API_KEY || '',
+      appId: process.env.ALGOLIA_APP_ID || '',
       indexName: 'docs',
-      appId: 'R1BEZXQES6',
     },
     mermaid: { theme: { light: 'forest', dark: 'dark' } },
   } satisfies Preset.ThemeConfig,
