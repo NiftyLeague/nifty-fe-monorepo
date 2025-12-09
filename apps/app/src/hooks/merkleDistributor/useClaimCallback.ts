@@ -1,6 +1,6 @@
 'use client';
 
-import { formatEther, parseEther, type TransactionResponse } from 'ethers6';
+import { formatEther, parseEther, type TransactionResponse } from 'ethers';
 import { handleError } from '@/utils/bnc-notify';
 import useIMXContext from '@/hooks/useIMXContext';
 import { useConnectedToIMXCheck } from '@/hooks/useImxProvider';

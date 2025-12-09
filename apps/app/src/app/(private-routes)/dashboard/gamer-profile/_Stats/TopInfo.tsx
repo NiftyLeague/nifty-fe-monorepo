@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { Stack, Typography, Box, IconButton } from '@mui/material';
 import { Icon } from '@nl/ui/base/icon';
 
@@ -18,19 +18,13 @@ interface TopInfoProps {
 }
 
 const TopInfo = ({ profile, walletAddress }: TopInfoProps): React.ReactNode => {
-  const [profileName, setProfileName] = useState<string>('Unknown');
-  const { isLoadingProfile } = useGamerProfileContext();
+  const { isLoadingProfile, fetchUserProfile } = useGamerProfileContext();
   const [, copy] = useCopyToClipboard();
   const total = profile?.stats?.total;
+  const profileName = useMemo(() => profile?.name_cased ?? 'Unknown', [profile]);
 
-  useEffect(() => {
-    if (profile && profile?.name_cased) {
-      setProfileName(profile.name_cased);
-    }
-  }, [profile]);
-
-  const handleUpdateNewName = (newName: string) => {
-    setProfileName(newName);
+  const handleUpdateNewName = () => {
+    fetchUserProfile?.();
   };
 
   const renderTopInfo = () => {

@@ -13,29 +13,29 @@
   },
   "scripts": {
     "clean": "rm -rf node_modules && rm -rf .turbo",
-    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\"",
+    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\" --ignore-path ../../.gitignore",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --max-warnings 0 --fix",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@nl/ui": "workspace:*",
-    "react-intl": "^7.1.11",
+    "react-intl": "^7.1.14",
     "stylis-plugin-rtl": "^2.1.1"
   },
   "devDependencies": {
-    "@types/react": "19.1.9",
-    "@types/react-dom": "19.1.7"
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3"
   },
   "peerDependencies": {
     "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
-    "@mui/material": "^7.2.0",
+    "@mui/material": "^7.3.6",
     "@mui/material-nextjs": "^7.2.0",
-    "@mui/system": "^7.2.0",
-    "next": "15.4.5",
-    "react": "19.1.1",
-    "react-dom": "19.1.1"
+    "@mui/system": "^7.3.6",
+    "next": "16.0.7",
+    "react": "19.2.1",
+    "react-dom": "19.2.1"
   }
 }

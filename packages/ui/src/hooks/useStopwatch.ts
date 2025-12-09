@@ -28,7 +28,9 @@ export const useStopwatch = ({ interval = 10, onStop, onStart, onPause, onRestar
   const [status, setStatus] = useState(STATUS.STOPPED);
   const [milliseconds, setMilliseconds] = useState(0);
   const msRef = useRef(milliseconds);
-  msRef.current = milliseconds;
+  useEffect(() => {
+    msRef.current = milliseconds;
+  }, [milliseconds]);
 
   const restart = useCallback(() => {
     const ts = Date.now();

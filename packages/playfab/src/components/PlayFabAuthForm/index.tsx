@@ -9,11 +9,10 @@ import { fetchJson } from '../../utils/fetchJson';
 import { useUserContext } from '../../hooks/useUserContext';
 import { useUserSession } from '../../hooks/useUserSession';
 
-export interface PlayFabAuthFormProps
-  extends Omit<
-    AuthFormProps,
-    'handleLogin' | 'handleProviderLogin' | 'handleSignup' | 'handleResetPassword' | 'handleUpdatePassword'
-  > {
+export interface PlayFabAuthFormProps extends Omit<
+  AuthFormProps,
+  'handleLogin' | 'handleProviderLogin' | 'handleSignup' | 'handleResetPassword' | 'handleUpdatePassword'
+> {
   redirectTo: string;
 }
 

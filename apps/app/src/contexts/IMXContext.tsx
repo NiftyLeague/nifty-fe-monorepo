@@ -4,7 +4,7 @@ import { type PropsWithChildren, createContext, useEffect } from 'react';
 import { immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains';
 import isEmpty from 'lodash/isEmpty';
 
-import type { BrowserProvider } from 'ethers6';
+import type { BrowserProvider } from 'ethers';
 import type { Contracts } from '@/types/web3';
 import { DEBUG } from '@/constants/index';
 

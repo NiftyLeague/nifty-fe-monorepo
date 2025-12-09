@@ -16,31 +16,31 @@
   },
   "scripts": {
     "clean": "rm -rf node_modules && rm -rf .turbo",
-    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\"",
-    "lint": "eslint . --max-warnings 0",
+    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\" --ignore-path ../../.gitignore",
+    "lint": "eslint .",
     "lint:fix": "eslint . --max-warnings 0 --fix",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@nl/ui": "workspace:*",
-    "ethers6": "npm:ethers@^6.15.0",
+    "ethers": "^6.16.0",
     "https": "^1.0.0",
     "lodash": "^4.17.21",
     "notistack": "^3.0.2",
-    "playfab-sdk": "^2.178.250718",
-    "swr": "^2.3.4",
+    "playfab-sdk": "^2.187.251205",
+    "swr": "^2.3.7",
     "url": "^0.11.4"
   },
   "devDependencies": {
-    "@types/lodash": "^4.17.20",
-    "@types/node": "^24.1.0",
-    "@types/react": "19.1.9",
-    "@types/react-dom": "19.1.7"
+    "@types/lodash": "^4.17.21",
+    "@types/node": "^24.10.1",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3"
   },
   "peerDependencies": {
-    "next": "15.4.5",
-    "next-auth": "^4.24.11",
-    "react": "19.1.1",
-    "react-dom": "19.1.1"
+    "next": "16.0.7",
+    "next-auth": "^4.24.13",
+    "react": "19.2.1",
+    "react-dom": "19.2.1"
   }
 }

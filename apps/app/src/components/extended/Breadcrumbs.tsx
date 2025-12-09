@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 
 // material-ui
@@ -67,32 +67,34 @@ const Breadcrumbs = ({
   const [main, setMain] = useState<NavItemType | undefined>();
   const [item, setItem] = useState<NavItemType>();
 
+  const getCollapse = useCallback(
+    (menu: NavItemType) => {
+      const recurse = (m: NavItemType, parentMenu: NavItemType) => {
+        if (m.children) {
+          m.children.forEach(collapse => {
+            if (collapse.type === 'collapse') {
+              recurse(collapse, collapse);
+            } else if (collapse.type === 'item') {
+              if (document.location.pathname === BASE_PATH + collapse.url) {
+                setMain(parentMenu);
+                setItem(collapse);
+              }
+            }
+          });
+        }
+      };
+      recurse(menu, menu);
+    },
+    [setMain, setItem],
+  );
+
   useEffect(() => {
-    navigation?.items?.map((menu: NavItemType) => {
+    navigation?.items?.forEach((menu: NavItemType) => {
       if (menu.type && menu.type === 'group') {
         getCollapse(menu as { children: NavItemType[]; type?: string });
       }
-      return false;
     });
-  });
-
-  // set active item state
-
-  const getCollapse = (menu: NavItemType) => {
-    if (menu?.children) {
-      menu.children.filter((collapse: NavItemType) => {
-        if (collapse.type && collapse.type === 'collapse') {
-          getCollapse(collapse as { children: NavItemType[]; type?: string });
-        } else if (collapse.type && collapse.type === 'item') {
-          if (document.location.pathname === BASE_PATH + collapse.url) {
-            setMain(menu);
-            setItem(collapse);
-          }
-        }
-        return false;
-      });
-    }
-  };
+  }, [navigation, getCollapse]);
 
   // item separator
   const separatorIcon = <Icon name={separator || 'tally-1'} size="sm" />;

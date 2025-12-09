@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 import { useCallback } from 'react';
 import Notify, { API, InitOptions } from 'bnc-notify';
-import type { JsonRpcSigner } from 'ethers6';
+import type { JsonRpcSigner } from 'ethers';
 
 import { handleError, handleLocalNotify, sendTransaction } from '@/utils/bnc-notify';
 import type { NotifyCallback, NotifyError, Tx, TransactionEvent } from '@/types/notify';

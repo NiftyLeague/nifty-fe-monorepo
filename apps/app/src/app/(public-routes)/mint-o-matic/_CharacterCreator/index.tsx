@@ -104,7 +104,7 @@ type MintEvent = CustomEvent<{ callback: (reset: string) => void; traits: TraitA
 
 const CharacterCreator = memo(
   ({ isLoaded, isPortrait, onMintCharacter, setLoaded, setProgress, unityContext }: CharacterCreatorProps) => {
-    const removedTraitsCallback = useRef<null | ((removedTraits: string) => void)>(null);
+    const [removedTraitsCallback, setRemovedTraitsCallback] = useState<null | ((removedTraits: string) => void)>(null);
     const [width, setWidth] = useState(DEFAULT_WIDTH);
     const [height, setHeight] = useState(DEFAULT_HEIGHT);
     const [refreshKey, setRefreshKey] = useState(0);
@@ -115,7 +115,7 @@ const CharacterCreator = memo(
     if (unityError) throw unityError;
 
     const getRemovedTraits = useCallback((e: CustomEvent<{ callback: (removedTraits: string) => void }>) => {
-      removedTraitsCallback.current = e.detail.callback;
+      setRemovedTraitsCallback(() => e.detail.callback);
       setRefreshKey(Math.random() + 1);
     }, []);
 
@@ -124,7 +124,9 @@ const CharacterCreator = memo(
         unityContext.send('CharacterCreatorLevel', 'UI_SetPortrait', isPortrait ? 'true' : 'false');
         const safeIsPortrait = isPortrait ?? true;
         const { width: newWidth, height: newHeight } = getMobileSize(safeIsPortrait);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setWidth(newWidth);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setHeight(newHeight);
       }
     }, [isPortrait, isLoaded, unityContext]);
@@ -234,8 +236,8 @@ const CharacterCreator = memo(
             style={{ width, height, visibility: isLoaded ? 'visible' : 'hidden' }}
           />
         </div>
-        {removedTraitsCallback.current && refreshKey ? (
-          <RemovedTraits callback={removedTraitsCallback.current} refreshKey={refreshKey} />
+        {removedTraitsCallback && refreshKey ? (
+          <RemovedTraits callback={removedTraitsCallback} refreshKey={refreshKey} />
         ) : null}
       </>
     );

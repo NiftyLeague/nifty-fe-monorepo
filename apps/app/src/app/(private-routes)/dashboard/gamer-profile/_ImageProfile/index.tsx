@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { Box, Skeleton, CardMedia } from '@mui/material';
 
 import DegenImage from '@/components/cards/DegenCard/DegenImage';
@@ -17,24 +17,11 @@ interface ImageProfileProps {
 }
 
 const ImageProfile = ({ degens, avatar, avatarFee }: ImageProfileProps): React.ReactNode => {
-  const { isLoadingDegens } = useGamerProfileContext();
-  const [degenSelected, setDegenSelected] = useState<string>('');
+  const { isLoadingDegens, fetchUserProfile } = useGamerProfileContext();
+  const degenSelected = useMemo(() => avatar?.id ?? degens?.[0]?.id, [avatar, degens]);
 
-  useEffect(() => {
-    if (avatar?.id) {
-      setDegenSelected(avatar?.id);
-      return;
-    }
-    if (degens && degens[0]) {
-      setDegenSelected(degens[0].id);
-      return;
-    }
-  }, [degens, avatar]);
-
-  const handleChangeAvatar = (degenId: string) => {
-    if (degenId) {
-      setDegenSelected(degenId);
-    }
+  const handleChangeAvatar = () => {
+    fetchUserProfile?.();
   };
 
   const renderImage = () => {

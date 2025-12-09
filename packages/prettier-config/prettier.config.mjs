@@ -1,4 +1,8 @@
-export default {
+/**
+ * @see https://prettier.io/docs/configuration
+ * @type {import("prettier").Config}
+ */
+const config = {
   // Use 'avoid' to omit parens when possible. Example: `x => x` instead of `(x) => x`
   arrowParens: 'avoid',
 
@@ -33,3 +37,5 @@ export default {
   // 'all' adds them to function calls, objects, arrays, etc.
   trailingComma: 'all',
 };
+
+export default config;

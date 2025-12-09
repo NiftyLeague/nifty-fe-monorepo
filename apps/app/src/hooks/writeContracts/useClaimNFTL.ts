@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import type { TransactionResponse } from 'ethers6';
+import type { TransactionResponse } from 'ethers';
 import type { MetamaskError } from '@/types/notify';
 import { handleError } from '@/utils/bnc-notify';
 

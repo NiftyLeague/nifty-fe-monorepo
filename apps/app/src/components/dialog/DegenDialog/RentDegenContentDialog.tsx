@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { styled } from '@nl/theme';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
-import { isAddress } from 'ethers6';
+import { isAddress } from 'ethers';
 
 import {
   Box,
@@ -77,7 +77,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
   const { account, refetchAccount } = useGameAccount();
   const { agreementAccepted, setAgreementAccepted } = useLocalStorageContext();
   const agreement = agreementAccepted === 'ACCEPTED';
-  const [rentFor, setRentFor] = useState<string>('myself');
+  const [rentForUserSelection, setRentForUserSelection] = useState<string>('myself');
   const [ethAddress, setEthAddress] = useState<string>('');
   const [isUseRentalPass, setIsUseRentalPass] = useState<boolean>(false);
   const [addressError, setAddressError] = useState<string>('');
@@ -85,24 +85,18 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
   const [checkBalance, setCheckBalance] = useState<boolean>(false);
   const [rentSuccess, setRentSuccess] = useState<boolean>(false);
   const [openTOS, setOpenTOS] = useState<boolean>(false);
-  const [disabledRentFor, setDisabledRentFor] = useState<boolean>(false);
   const [purchasingNFTL, setPurchasingNFTL] = useState<boolean>(false);
   const { isDegenOwner } = useNFTsBalances();
 
+  const disabledRentFor = useMemo(() => {
+    if (!degen || degen?.background === 'common') return false;
+    return !isDegenOwner;
+  }, [degen, isDegenOwner]);
+
+  const rentFor = disabledRentFor ? 'myself' : rentForUserSelection;
+
   const accountBalance = account?.balance ?? 0;
   const sufficientBalance = useMemo(() => accountBalance >= (degen?.price || 0), [accountBalance, degen?.price]);
-
-  useEffect(() => {
-    if (!degen || degen?.background === 'common') return;
-    if (!isDegenOwner) {
-      setRentFor('myself');
-      setDisabledRentFor(true);
-    } else {
-      setDisabledRentFor(false);
-      // Once api is ready,
-      // need to check if user has reached out to max Sponsorship cap, then disable RentFor option
-    }
-  }, [degen, isDegenOwner]);
 
   const [, , rentalPassCount] = useRentalPassCount(degen?.id);
   const rent = useRent(degen?.id, degen?.rental_count || 0, degen?.price || 0, ethAddress, isUseRentalPass);
@@ -111,7 +105,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
     if (value === 'recruit') {
       gtm.sendEvent(GTM_EVENTS.RENTAL_RECRUIT_CLICKED);
     }
-    setRentFor(value);
+    setRentForUserSelection(value);
   };
 
   const handleChangeUseRentalPass = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -152,7 +146,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
       setLoading(false);
       toast.error(errorMsgHandler(err), { theme: 'dark' });
     }
-  }, [degen?.id, degen?.price, rent]);
+  }, [degen, rent]);
 
   const isShowRentalPassOption = () => rentalPassCount > 0 && !degen?.rental_count;
 

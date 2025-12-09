@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers6';
+import { Contract, Interface, type ContractRunner } from 'ethers';
 import type { IERC5267, IERC5267Interface } from '../../../../@openzeppelin/contracts/interfaces/IERC5267';
 
 const _abi = [
