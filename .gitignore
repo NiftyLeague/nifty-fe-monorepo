@@ -30,6 +30,7 @@ coverage/
 
 # Typescript
 *.tsbuildinfo
+next-env.d.ts
 
 # Build Outputs
 .docusaurus/
