@@ -18,7 +18,7 @@
     "@google/model-viewer": "^4.1.0",
     "@nl/ui": "workspace:*",
     "@sentry/nextjs": "^10.29.0",
-    "next": "16.0.7",
+    "next": "16.0.9",
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "react-multi-carousel": "^2.8.6",
