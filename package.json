@@ -43,10 +43,11 @@
         "cross-fetch": "4",
         "crypto-es": "^2.1.0",
         "lit": "3.3.1",
+        "multiformats": "14",
         "next": "16.2.10",
         "react-dom": "^19.2.7",
         "react": "^19.2.7",
-        "three": "0.181.2"
+        "three": "0.183.2"
       }
     },
     "onlyBuiltDependencies": [

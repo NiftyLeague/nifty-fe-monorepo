@@ -14,8 +14,8 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@axelar-network/axelarjs-sdk": "^0.17.9",
-    "@cowprotocol/cow-sdk": "^7.2.3",
+    "@axelar-network/axelarjs-sdk": "^0.21.0",
+    "@cowprotocol/cow-sdk": "^9.2.2",
     "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
@@ -63,7 +63,7 @@
     "set-interval-async": "^3.0.3",
     "sharp": "^0.34.5",
     "slick-carousel": "~1.8.1",
-    "uuid": "^13.0.0",
+    "uuid": "^14.0.1",
     "viem": "^2.55.2",
     "wagmi": "^3.7.1",
     "yup": "^1.7.1"
