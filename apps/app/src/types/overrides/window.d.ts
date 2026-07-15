@@ -1,10 +1,12 @@
 import { BrowserProvider, Provider } from 'ethers';
 
-import { UnityContext } from 'react-unity-webgl';
+import type { UnityInstance as ReactUnityInstance, UnityMessageParameter } from 'react-unity-webgl';
 import type { Ethereumish } from '@/types/web3';
 
-interface UnityInstance extends UnityContext {
-  SendMessage?: (gameObjectName: string, methodName: string, parameter?: string | number | boolean) => void;
+interface UnityWindowBridge {
+  SendMessage: (gameObjectName: string, methodName: string, parameter?: UnityMessageParameter) => void;
+  removeAllEventListeners: () => void;
+  setFullscreen?: (fullscreen: boolean) => void;
 }
 
 interface UnityParameters {
@@ -26,10 +28,10 @@ declare global {
       canvasHtmlElement: HTMLCanvasElement,
       parameters: UnityParameters,
       onProgress?: (progression: number) => void,
-    ) => Promise<UnityInstance>;
+    ) => Promise<ReactUnityInstance>;
     ethereum?: Ethereumish;
     ReactUnityWebGL: { canvas: () => void; error: () => void; loaded: () => void; [eventName: string]: () => void };
-    unityInstance: UnityInstance | null;
+    unityInstance: UnityWindowBridge | null;
     Web3?: { providers?: { HttpProvider?: BrowserProvider; IpcProvider?: Provider } };
   }
 }

@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { isOpera, browserName } from 'react-device-detect';
-import Unity, { UnityContext } from 'react-unity-webgl';
+import { Unity, useUnityContext } from 'react-unity-webgl';
+import type { UnityConfig } from 'react-unity-webgl';
 import { Box, Button, Stack } from '@mui/material';
 import { useAccount } from 'wagmi';
 
@@ -11,52 +12,43 @@ import { gtm, GTM_EVENTS } from '@nl/ui/gtm';
 import { ErrorBoundary } from '@nl/ui/custom/error-boundry';
 import { Preloader } from '@nl/ui/custom/preloader';
 import useTokensBalances from '@/hooks/balances/useTokensBalances';
-// import useFetch from '@/hooks/useFetch';
 import { NETWORK_NAME, TARGET_NETWORK } from '@/constants/networks';
 import { getGameViewedAnalyticsContentId } from '@/constants/games';
-// import { ALL_RENTAL_API_URL } from '@/constants/url';
 import { DEBUG } from '@/constants/index';
 import withVerification from '@/components/wrapper/Authentication';
-// import type { Rentals } from '@/types/rentals';
-// import EarningCap from '@/app/dashboard/overview/EarningCap';
 import ArcadeTokensRequired from '@/components/ArcadeTokensRequired';
 import useAuth from '@/hooks/useAuth';
 
 interface GameProps {
-  unityContext: UnityContext;
+  unityConfig: UnityConfig;
   arcadeTokenRequired?: boolean;
-}
-
-interface ExtendedUnityContext extends UnityContext {
-  send: (gameObjectName: string, methodName: string, parameter?: string | number | boolean) => void;
-  removeAllEventListeners: () => void;
-  setFullscreen: (fullscreen: boolean) => void;
 }
 
 interface CustomEventWithCallback<T> extends CustomEvent {
   detail: { callback: (data: T) => void };
 }
 
-const Game = ({ unityContext, arcadeTokenRequired = false }: GameProps) => {
+const Game = ({ unityConfig, arcadeTokenRequired = false }: GameProps) => {
   const { authToken } = useAuth();
   const pathname = usePathname();
   const { address } = useAccount();
   const { tokensBalances, loadingArcadeBal, refetchArcadeBal } = useTokensBalances();
   const authMsg = `true,${address || '0x0'},Vitalik,${authToken}`;
   const authCallback = useRef<null | ((authMsg: string) => void)>(null);
-  const [isLoaded, setLoaded] = useState(false);
-  const [progress, setProgress] = useState(0);
-
   const [unityError, setUnityError] = useState<Error | null>(null);
+
+  const {
+    unityProvider,
+    isLoaded,
+    loadingProgression,
+    sendMessage,
+    requestFullscreen,
+    addEventListener,
+    removeEventListener,
+  } = useUnityContext(unityConfig);
+
   // Conditionally throw errors to be caught by the ErrorBoundary
   if (unityError) throw unityError;
-
-  // const headers = { authorizationToken: authToken || '' };
-  // const { data: rentals } = useFetch<Rentals[]>(ALL_RENTAL_API_URL, {
-  //   headers,
-  //   enabled:
-  //     !!authToken && unityContext.unityConfig.productName === 'NiftySmashers',
-  // });
 
   useEffect(() => {
     if (address?.length && authCallback.current) {
@@ -95,32 +87,59 @@ const Game = ({ unityContext, arcadeTokenRequired = false }: GameProps) => {
     }
   }, []);
 
+  const handleLoaded = useCallback(() => {
+    if (DEBUG) console.log('Unity loaded');
+  }, []);
+
+  const handleError = useCallback((error: string) => {
+    setUnityError(new Error(error || 'Unity loading error'));
+  }, []);
+
+  const handleProgress = useCallback((progress: number) => {
+    // v10: loadingProgression is already 0-1, progress param is also 0-1
+    if (DEBUG) console.log(`Unity progress: ${progress * 100}%`);
+  }, []);
+
   useEffect(() => {
-    if (unityContext) {
-      const extendedContext = unityContext as ExtendedUnityContext;
-      window.unityInstance = extendedContext;
-      window.unityInstance.SendMessage = extendedContext.send;
-      extendedContext.on('loaded', () => setLoaded(true));
-      extendedContext.on('error', error => setUnityError(new Error(error || 'Unity loading error')));
-      extendedContext.on('progress', p => setProgress(p * 100));
-      window.addEventListener('StartAuthentication', startAuthentication as EventListener);
-      window.addEventListener('GetConfiguration', getConfiguration as EventListener);
-      document.addEventListener('mousemove', onMouse, false);
-    }
+    // Bridge sendMessage to window.unityInstance for external callers (Unity C# -> JS)
+    window.unityInstance = {
+      SendMessage: (...args) => sendMessage(...args),
+      removeAllEventListeners: () => {
+        removeEventListener('loaded', handleLoaded);
+        removeEventListener('error', handleError);
+        removeEventListener('progress', handleProgress);
+      },
+      setFullscreen: requestFullscreen,
+    };
+
+    addEventListener('loaded', handleLoaded);
+    addEventListener('error', handleError);
+    addEventListener('progress', handleProgress);
+    window.addEventListener('StartAuthentication', startAuthentication as EventListener);
+    window.addEventListener('GetConfiguration', getConfiguration as EventListener);
+    document.addEventListener('mousemove', onMouse, false);
+
     return () => {
-      if (window.unityInstance) {
-        const extendedContext = window.unityInstance as ExtendedUnityContext;
-        extendedContext.removeAllEventListeners();
-      }
+      window.unityInstance?.removeAllEventListeners();
       window.removeEventListener('StartAuthentication', startAuthentication as EventListener);
       window.removeEventListener('GetConfiguration', getConfiguration as EventListener);
       document.removeEventListener('mousemove', onMouse, false);
     };
-  }, [unityContext, onMouse, startAuthentication, getConfiguration]);
+  }, [
+    sendMessage,
+    requestFullscreen,
+    addEventListener,
+    removeEventListener,
+    handleLoaded,
+    handleError,
+    handleProgress,
+    onMouse,
+    startAuthentication,
+    getConfiguration,
+  ]);
 
   const handleOnClickFullscreen = () => {
-    const extendedContext = window.unityInstance as ExtendedUnityContext;
-    extendedContext.setFullscreen(true);
+    requestFullscreen(true);
   };
 
   if (arcadeTokenRequired && loadingArcadeBal) {
@@ -133,24 +152,19 @@ const Game = ({ unityContext, arcadeTokenRequired = false }: GameProps) => {
 
   return (
     <>
-      <Preloader ready={isLoaded} progress={progress} />
+      <Preloader ready={isLoaded} progress={loadingProgression * 100} />
       <Stack direction="row" sx={{ alignItems: 'flex-start' }}>
         <Stack sx={{ alignItems: 'flex-start' }}>
           <Unity
             key={authToken}
             className="game-canvas"
-            unityContext={unityContext}
+            unityProvider={unityProvider}
             style={{ width: 'calc(77vh * 1.33)', height: '77vh', visibility: isLoaded ? 'visible' : 'hidden' }}
           />
           <Button variant="contained" size="large" onClick={handleOnClickFullscreen} sx={{ marginTop: '6px' }}>
             Fullscreen
           </Button>
         </Stack>
-        {/* {unityContext.unityConfig.productName === 'NiftySmashers' && (
-          <Box ml={2} minWidth={350}>
-            <EarningCap rentals={rentals ?? []} hideTitle={true} />
-          </Box>
-        )} */}
       </Stack>
     </>
   );

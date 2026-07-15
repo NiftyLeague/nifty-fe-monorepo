@@ -81,10 +81,10 @@ const config: RcFile = {
       pinVersion: '^6.17.0',
     },
     {
-      label: 'Pin react-unity-webgl to v8.8.0',
-      packages: ['app'],
+      label: 'Pin react-unity-webgl to v10.2.0',
+      packages: ['app', 'smashers'],
       dependencies: ['react-unity-webgl'],
-      pinVersion: '~8.8.0',
+      pinVersion: '~10.2.0',
     },
   ],
 };

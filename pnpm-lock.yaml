@@ -175,8 +175,8 @@ importers:
         specifier: ^11.1.0
         version: 11.1.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       react-unity-webgl:
-        specifier: ~8.8.0
-        version: 8.8.0(react@19.2.7)
+        specifier: ~10.2.0
+        version: 10.2.0(react@19.2.7)
       redux:
         specifier: ^5.0.1
         version: 5.0.1
@@ -11871,11 +11871,6 @@ packages:
 
   react-unity-webgl@10.2.0:
     resolution: {integrity: sha512-I1Uo6qbKK5aEQq4mzorRz45QUWvtFQ2UbcdGxlig8cbFt9JqDMuLjiqbk1hjR+Xj4Zxxic/LF3NP+97G3O/lOQ==}
-    peerDependencies:
-      react: '>=16.8.0'
-
-  react-unity-webgl@8.8.0:
-    resolution: {integrity: sha512-4PHTEwUQd70IJAy+jdVvHM+A6No9GMTmA/PCFOWkgpy2g0SlKJF3LREt92TfhttnMJ+CLL9iF8X03wMBvNvsjA==}
     peerDependencies:
       react: '>=16.8.0'
 
@@ -28107,10 +28102,6 @@ snapshots:
       react-dom: 19.2.7(react@19.2.7)
 
   react-unity-webgl@10.2.0(react@19.2.7):
-    dependencies:
-      react: 19.2.7
-
-  react-unity-webgl@8.8.0(react@19.2.7):
     dependencies:
       react: 19.2.7
 

@@ -1,7 +1,8 @@
 'use client';
 
-import { memo, useCallback, useEffect, useState, useRef } from 'react';
-import Unity, { UnityContext } from 'react-unity-webgl';
+import { memo, useCallback, useEffect, useState } from 'react';
+import { Unity, useUnityContext } from 'react-unity-webgl';
+import type { UnityConfig } from 'react-unity-webgl';
 import { isMobileOnly, withOrientationChange } from 'react-device-detect';
 
 import useRemovedTraits from '@/hooks/useRemovedTraits';
@@ -22,7 +23,7 @@ const buildVersion = isMobileOnly
 
 const useCompressed = process.env.NEXT_PUBLIC_UNITY_USE_COMPRESSED !== 'false';
 
-const creatorContext = new UnityContext({
+const creatorConfig: UnityConfig = {
   loaderUrl: `${baseUrl}/Build/${buildVersion}.loader.js`,
   dataUrl: `${baseUrl}/Build/${buildVersion}.data${useCompressed ? '.br' : ''}`,
   frameworkUrl: `${baseUrl}/Build/${buildVersion}.framework.js${useCompressed ? '.br' : ''}`,
@@ -31,7 +32,7 @@ const creatorContext = new UnityContext({
   companyName: 'NiftyLeague',
   productName: 'NiftyCreator',
   productVersion: buildVersion,
-});
+};
 
 const WIDTH_SCALE = 280;
 const HEIGHT_SCALE = 210;
@@ -97,13 +98,14 @@ interface CharacterCreatorContainerProps {
 }
 interface CharacterCreatorProps extends CharacterCreatorContainerProps {
   onMintCharacter: (e: MintEvent) => Promise<void> | void;
-  unityContext: UnityContext;
+  unityContext: ReturnType<typeof useUnityContext>;
 }
 
 type MintEvent = CustomEvent<{ callback: (reset: string) => void; traits: TraitArray }>;
 
 const CharacterCreator = memo(
   ({ isLoaded, isPortrait, onMintCharacter, setLoaded, setProgress, unityContext }: CharacterCreatorProps) => {
+    const { sendMessage, addEventListener, removeEventListener, unityProvider } = unityContext;
     const [removedTraitsCallback, setRemovedTraitsCallback] = useState<null | ((removedTraits: string) => void)>(null);
     const [width, setWidth] = useState(DEFAULT_WIDTH);
     const [height, setHeight] = useState(DEFAULT_HEIGHT);
@@ -120,8 +122,8 @@ const CharacterCreator = memo(
     }, []);
 
     useEffect(() => {
-      if (isMobileOnly && isLoaded && unityContext?.send) {
-        unityContext.send('CharacterCreatorLevel', 'UI_SetPortrait', isPortrait ? 'true' : 'false');
+      if (isMobileOnly && isLoaded) {
+        sendMessage('CharacterCreatorLevel', 'UI_SetPortrait', isPortrait ? 'true' : 'false');
         const safeIsPortrait = isPortrait ?? true;
         const { width: newWidth, height: newHeight } = getMobileSize(safeIsPortrait);
         // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -129,23 +131,20 @@ const CharacterCreator = memo(
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setHeight(newHeight);
       }
-    }, [isPortrait, isLoaded, unityContext]);
+    }, [isPortrait, isLoaded, sendMessage]);
 
-    const reportWindowSize = useCallback(
-      (e: UIEvent) => {
-        if (isMobileOnly) {
-          const safeIsPortrait = isPortrait ?? true;
-          const { width: newWidth, height: newHeight } = getMobileSize(safeIsPortrait);
-          setWidth(newWidth);
-          setHeight(newHeight);
-        } else {
-          const { width: newWidth, height: newHeight } = getBrowserGameSize();
-          setWidth(newWidth);
-          setHeight(newHeight);
-        }
-      },
-      [isPortrait],
-    );
+    const reportWindowSize = useCallback(() => {
+      if (isMobileOnly) {
+        const safeIsPortrait = isPortrait ?? true;
+        const { width: newWidth, height: newHeight } = getMobileSize(safeIsPortrait);
+        setWidth(newWidth);
+        setHeight(newHeight);
+      } else {
+        const { width: newWidth, height: newHeight } = getBrowserGameSize();
+        setWidth(newWidth);
+        setHeight(newHeight);
+      }
+    }, [isPortrait]);
 
     const getConfiguration = useCallback((e: CustomEvent<{ callback: (network: string) => void }>) => {
       const networkName = NETWORK_NAME[TARGET_NETWORK.chainId];
@@ -174,30 +173,46 @@ const CharacterCreator = memo(
       }
     }, []);
 
+    const handleCanvas = useCallback(() => {
+      setWidth(DEFAULT_WIDTH);
+      setHeight(DEFAULT_HEIGHT);
+      setTimeout(() => {
+        if (isMobileOnly) sendMessage('CharacterCreatorLevel', 'UI_SetPortrait', isPortrait ? 'true' : 'false');
+      }, 2000);
+    }, [isPortrait, sendMessage]);
+
+    const handleLoaded = useCallback(() => {
+      setLoaded(true);
+    }, [setLoaded]);
+
+    const handleError = useCallback((error: string) => {
+      setUnityError(new Error(error || 'Unity loading error'));
+    }, []);
+
+    const handleProgress = useCallback(
+      (progress: number) => {
+        setProgress(progress * 100);
+      },
+      [setProgress],
+    );
+
     useEffect(() => {
-      if (unityContext) {
-        unityContext.on('canvas', () => {
-          setWidth(DEFAULT_WIDTH);
-          setHeight(DEFAULT_HEIGHT);
-          setTimeout(() => {
-            if (isMobileOnly && unityContext?.send)
-              unityContext.send('CharacterCreatorLevel', 'UI_SetPortrait', isPortrait ? 'true' : 'false');
-          }, 2000);
-        });
-        unityContext.on('loaded', () => setLoaded(true));
-        unityContext.on('error', error => setUnityError(new Error(error || 'Unity loading error')));
-        unityContext.on('progress', p => setProgress(p * 100));
-        window.addEventListener('resize', reportWindowSize as EventListener);
-        window.addEventListener('GetConfiguration', getConfiguration as EventListener);
-        window.addEventListener('GetRemovedTraits', getRemovedTraits as EventListener);
-        window.addEventListener('OnMintEffectToggle', toggleIsMinting as EventListener);
-        window.addEventListener('SubmitTraits', onMintCharacter as EventListener);
-        document.addEventListener('wheel', onScroll, false);
-        document.addEventListener('mousemove', onMouse, false);
-      }
+      addEventListener('canvas', handleCanvas);
+      addEventListener('loaded', handleLoaded);
+      addEventListener('error', handleError);
+      addEventListener('progress', handleProgress);
+      window.addEventListener('resize', reportWindowSize as EventListener);
+      window.addEventListener('GetConfiguration', getConfiguration as EventListener);
+      window.addEventListener('GetRemovedTraits', getRemovedTraits as EventListener);
+      window.addEventListener('OnMintEffectToggle', toggleIsMinting as EventListener);
+      window.addEventListener('SubmitTraits', onMintCharacter as EventListener);
+      document.addEventListener('wheel', onScroll, false);
+      document.addEventListener('mousemove', onMouse, false);
       return () => {
-        if (window.unityInstance) window.unityInstance.removeAllEventListeners();
-        if (unityContext) unityContext.removeAllEventListeners();
+        removeEventListener('canvas', handleCanvas);
+        removeEventListener('loaded', handleLoaded);
+        removeEventListener('error', handleError);
+        removeEventListener('progress', handleProgress);
         window.removeEventListener('resize', reportWindowSize as EventListener);
         window.removeEventListener('GetConfiguration', getConfiguration as EventListener);
         window.removeEventListener('GetRemovedTraits', getRemovedTraits as EventListener);
@@ -207,17 +222,19 @@ const CharacterCreator = memo(
         document.removeEventListener('mousemove', onMouse, false);
       };
     }, [
+      addEventListener,
+      removeEventListener,
+      handleCanvas,
+      handleLoaded,
+      handleError,
+      handleProgress,
       getConfiguration,
       getRemovedTraits,
-      isPortrait,
       onMintCharacter,
       onMouse,
       onScroll,
       reportWindowSize,
-      setLoaded,
-      setProgress,
       toggleIsMinting,
-      unityContext,
     ]);
 
     return (
@@ -232,7 +249,7 @@ const CharacterCreator = memo(
         >
           <Unity
             className="character-canvas"
-            unityContext={unityContext}
+            unityProvider={unityProvider}
             style={{ width, height, visibility: isLoaded ? 'visible' : 'hidden' }}
           />
         </div>
@@ -245,9 +262,11 @@ const CharacterCreator = memo(
 );
 
 const CharacterCreatorContainer = memo(
-  ({ isLoaded, isPortrait, setLoaded, setProgress }: CharacterCreatorContainerProps) => {
+  ({ isPortrait, setLoaded, setProgress }: Omit<CharacterCreatorContainerProps, 'isLoaded'>) => {
     const { address, tx, writeContracts } = useNetworkContext();
     const [saleLocked, setSaleLocked] = useState(false);
+
+    const unityCtx = useUnityContext(creatorConfig);
 
     const [asyncError, setAsyncError] = useState<Error | null>(null);
     // Conditionally throw errors to be caught by the ErrorBoundary
@@ -264,10 +283,17 @@ const CharacterCreatorContainer = memo(
       }
     }, [totalSupply, address]);
 
+    const { sendMessage } = unityCtx;
+
+    // Bridge sendMessage to window.unityInstance for external callers
     useEffect(() => {
-      window.unityInstance = creatorContext;
-      window.unityInstance.SendMessage = creatorContext.send;
-    }, []);
+      window.unityInstance = {
+        SendMessage: (...args) => sendMessage(...args),
+        removeAllEventListeners: () => {
+          // Cleanup is handled by the CharacterCreator component
+        },
+      };
+    }, [sendMessage]);
 
     const stashMintState = useCallback((e: MintEvent) => {
       setTimeout(() => e.detail.callback('false'), 1000);
@@ -308,12 +334,12 @@ const CharacterCreatorContainer = memo(
       <>
         {window.unityInstance && (
           <CharacterCreator
-            isLoaded={isLoaded}
+            isLoaded={unityCtx.isLoaded}
             isPortrait={isPortrait}
             onMintCharacter={writeContracts[DEGEN_CONTRACT] && !saleLocked ? mintCharacter : stashMintState}
             setLoaded={setLoaded}
             setProgress={setProgress}
-            unityContext={creatorContext}
+            unityContext={unityCtx}
           />
         )}
       </>
