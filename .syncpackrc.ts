@@ -1,6 +1,17 @@
-export default {
-  // Dependency types to manage with syncpack
-  dependencyTypes: ['dev', 'prod', 'peer'],
+import type { RcFile } from 'syncpack';
+
+const config: RcFile = {
+  // pnpm overrides still live under `pnpm.overrides` in package.json (the
+  // legacy location) so this monorepo stays installable on Vercel, which
+  // detects pnpm 9 based on the project creation date. Once Vercel moves to
+  // pnpm 10 we can switch to the new pnpm-workspace.yaml convention and
+  // drop this `pnpmOverridesLegacy` customType.
+  customTypes: {
+    pnpmOverridesLegacy: {
+      strategy: 'versionsByName',
+      path: 'pnpm.overrides',
+    },
+  },
   // A list of Glob patterns to find package.json files you want to manage with syncpack.
   source: ['package.json', 'packages/*/package.json', 'apps/*/package.json'],
   // package.json properties to sort first
@@ -61,8 +72,14 @@ export default {
       dependencies: ['$LOCAL'],
       dependencyTypes: ['!local'],
       pinVersion: 'workspace:*',
+      severity: { RefuseToPinLocal: 'fix' },
     },
-    { label: 'Pin ethers to v6.17.0', packages: ['app', '@nl/playfab'], dependencies: ['ethers'], pinVersion: '^6.17.0' },
+    {
+      label: 'Pin ethers to v6.17.0',
+      packages: ['app', '@nl/playfab'],
+      dependencies: ['ethers'],
+      pinVersion: '^6.17.0',
+    },
     {
       label: 'Pin react-unity-webgl to v8.8.0',
       packages: ['app'],
@@ -70,4 +87,6 @@ export default {
       pinVersion: '~8.8.0',
     },
   ],
-} satisfies import('syncpack').RcFile;
+};
+
+export default config;
