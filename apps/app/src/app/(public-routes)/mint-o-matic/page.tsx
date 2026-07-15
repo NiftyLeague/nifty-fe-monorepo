@@ -57,7 +57,7 @@ const MintPage = () => {
     <div style={{ textAlign: 'center', overflowX: 'hidden' }}>
       <ErrorBoundary>
         <Preloader ready={isLoaded} progress={progress} />
-        <CharacterCreator isLoaded={isLoaded} setLoaded={setLoaded} setProgress={setProgress} />
+        <CharacterCreator setLoaded={setLoaded} setProgress={setProgress} />
       </ErrorBoundary>
     </div>
   );

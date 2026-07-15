@@ -1,13 +1,13 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { UnityContext } from 'react-unity-webgl';
+import type { UnityConfig } from 'react-unity-webgl';
 const GameWithAuth = dynamic(() => import('@/components/wrapper/GameWithAuth'), { ssr: false });
 
 const wenBaseUrl = process.env.NEXT_PUBLIC_UNITY_WEN_BASE_URL as string;
 const wenBuildVersion = process.env.NEXT_PUBLIC_UNITY_WEN_BASE_VERSION as string;
 
-const wenContext = new UnityContext({
+const wenConfig: UnityConfig = {
   loaderUrl: `${wenBaseUrl}/Build/${wenBuildVersion}.loader.js`,
   dataUrl: `${wenBaseUrl}/Build/${wenBuildVersion}.data.br`,
   frameworkUrl: `${wenBaseUrl}/Build/${wenBuildVersion}.framework.js.br`,
@@ -16,8 +16,8 @@ const wenContext = new UnityContext({
   companyName: 'NiftyLeague',
   productName: 'WENGame',
   productVersion: wenBuildVersion,
-});
+};
 
-const WenGame = () => <GameWithAuth unityContext={wenContext} arcadeTokenRequired />;
+const WenGame = () => <GameWithAuth unityConfig={wenConfig} arcadeTokenRequired />;
 
 export default WenGame;
