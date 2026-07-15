@@ -72,17 +72,11 @@ export function AuthForm({
     setAuthView(view);
   }, [view]);
 
-  const Container = ({ children: form }: React.PropsWithChildren) => (
-    <AuthContainer view={authView} {...props}>
-      {form}
-    </AuthContainer>
-  );
-
-  switch (authView) {
-    case VIEWS.LOGIN:
-    case VIEWS.SIGN_UP:
-      return (
-        <Container>
+  const renderForm = () => {
+    switch (authView) {
+      case VIEWS.LOGIN:
+      case VIEWS.SIGN_UP:
+        return (
           <LoginForm
             enableAccountCreation={enableAccountCreation}
             enableProviderSignOn={enableProviderSignOn}
@@ -93,21 +87,21 @@ export function AuthForm({
             setAuthView={setAuthView}
             view={authView}
           />
-        </Container>
-      );
-    case VIEWS.FORGOT_PASSWORD:
-      return (
-        <Container>
-          <ForgotPasswordForm handleResetPassword={handleResetPassword} setAuthView={setAuthView} />
-        </Container>
-      );
-    case VIEWS.UPDATE_PASSWORD:
-      return (
-        <Container>
-          <UpdatePasswordForm handleUpdatePassword={handleUpdatePassword} />
-        </Container>
-      );
-  }
+        );
+      case VIEWS.FORGOT_PASSWORD:
+        return <ForgotPasswordForm handleResetPassword={handleResetPassword} setAuthView={setAuthView} />;
+      case VIEWS.UPDATE_PASSWORD:
+        return <UpdatePasswordForm handleUpdatePassword={handleUpdatePassword} />;
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <AuthContainer view={authView} {...props}>
+      {renderForm()}
+    </AuthContainer>
+  );
 }
 
 export default AuthForm;

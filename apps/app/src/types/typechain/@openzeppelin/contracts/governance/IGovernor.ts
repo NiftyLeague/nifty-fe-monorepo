@@ -55,11 +55,7 @@ export interface IGovernorInterface extends Interface {
 
   getEvent(
     nameOrSignatureOrTopic:
-      | 'ProposalCanceled'
-      | 'ProposalCreated'
-      | 'ProposalExecuted'
-      | 'VoteCast'
-      | 'VoteCastWithParams',
+      'ProposalCanceled' | 'ProposalCreated' | 'ProposalExecuted' | 'VoteCast' | 'VoteCastWithParams',
   ): EventFragment;
 
   encodeFunctionData(functionFragment: 'CLOCK_MODE', values?: undefined): string;
