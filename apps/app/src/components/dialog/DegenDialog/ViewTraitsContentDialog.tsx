@@ -68,7 +68,7 @@ const ViewTraitsContentDialog = ({
           </Typography>
         </Stack> */}
       {degen?.owner && (
-        <Stack direction="column" sx={{ alignItems: 'center' }} gap={1}>
+        <Stack direction="column" sx={{ gap: 1, alignItems: 'center' }}>
           <Typography sx={{ color: 'var(--color-muted-foreground)' }}>
             Owned by{' '}
             {`${degen?.owner?.slice(0, 5)}...${degen?.owner?.slice(
@@ -80,12 +80,12 @@ const ViewTraitsContentDialog = ({
       )}
     </Grid>
     <Grid size={{ xs: 12, md: 6 }} sx={{ py: 1, px: 2, position: 'relative' }}>
-      <Stack gap={3} sx={{ justifyContent: 'space-between', height: '100%' }}>
+      <Stack sx={{ gap: 3, justifyContent: 'space-between', height: '100%' }}>
         <Stack>
-          <Box display="flex" flexDirection="row" alignItems="center" justifyContent="center">
+          <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
             <Typography variant="h3">Degen Traits</Typography>
           </Box>
-          <Grid container sx={{ marginTop: 3, justifyContent: 'center' }} rowGap={3} columnGap={2}>
+          <Grid container sx={{ rowGap: 3, columnGap: 2, marginTop: 3, justifyContent: 'center' }}>
             {isEmpty(traits)
               ? [...Array(9)].map(() => (
                   <Grid size={{ xs: 3 }} key={uuidv4()}>
@@ -100,10 +100,10 @@ const ViewTraitsContentDialog = ({
                   .map(([key, value]) => (
                     <Grid size={{ xs: 3 }} key={key}>
                       <Stack direction="column" sx={{ alignItems: 'center' }}>
-                        <Typography fontWeight={700} textAlign="center">
+                        <Typography sx={{ fontWeight: 700, textAlign: 'center' }}>
                           {TRAIT_NAME_MAP[key as keyof typeof TRAIT_NAME_MAP]}
                         </Typography>
-                        <Typography textAlign="center">
+                        <Typography sx={{ textAlign: 'center' }}>
                           {TRAIT_KEY_VALUE_MAP[value as keyof typeof TRAIT_KEY_VALUE_MAP] ?? value}
                         </Typography>
                       </Stack>
@@ -111,7 +111,7 @@ const ViewTraitsContentDialog = ({
                   ))}
           </Grid>
         </Stack>
-        <Stack direction="column" gap={1} width="100%">
+        <Stack direction="column" sx={{ gap: 1, width: '100%' }}>
           {/* {false && (
               <Button variant="contained" fullWidth onClick={onRent || onClaim}>
                 {onRent ? 'Rent Degen' : 'Claim Degen'}

@@ -136,7 +136,7 @@ export const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): React
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack alignItems="center" gap={2}>
+      <Stack sx={{ alignItems: 'center', gap: 2 }}>
         <Typography variant="h4" sx={{ opacity: 0.7 }}>
           Powered by:{'  '}
           <Image src="/icons/axelar.svg" alt="Axelar" width={126} height={30} />

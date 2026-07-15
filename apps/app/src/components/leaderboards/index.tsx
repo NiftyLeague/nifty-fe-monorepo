@@ -75,7 +75,11 @@ export default function LeaderBoards(): React.ReactNode {
 
   return (
     <Box sx={{ margin: 'auto' }}>
-      <Stack direction={{ sm: 'row', xs: 'column' }} alignItems={{ sm: 'center', xs: 'inherit' }} mb={2} spacing={1.5}>
+      <Stack
+        direction={{ sm: 'row', xs: 'column' }}
+        spacing={1.5}
+        sx={{ alignItems: { sm: 'center', xs: 'inherit' }, mb: 2 }}
+      >
         <FormControl sx={{ minWidth: '164px' }}>
           <Select value={selectedGame} onChange={handleChangeGame} inputProps={{ sx: { paddingY: 0.75 } }}>
             {LEADERBOARD_GAME_LIST.map(item => (

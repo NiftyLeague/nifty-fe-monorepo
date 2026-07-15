@@ -175,8 +175,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
         <CardContent sx={{ py: 2, px: 2 }}>
           <Stack
             direction="row"
-            gap={1}
-            sx={{ justifyContent: 'space-between', '&:hover': { '& svg': { display: 'block' } } }}
+            sx={{ gap: 1, justifyContent: 'space-between', '&:hover': { '& svg': { display: 'block' } } }}
           >
             <div className="flex">
               <Typography gutterBottom variant={size === 'small' ? 'h6' : 'h5'} className="truncate-text-1">

@@ -26,8 +26,8 @@ const MintPage = () => {
   if (!isForNiftyArtists) {
     if (!isLoggedIn) {
       return (
-        <Stack width="100%" height="100%" sx={{ justifyContent: 'center', alignItems: 'center' }}>
-          <Typography variant="h3" component="div" textAlign="center">
+        <Stack sx={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
+          <Typography variant="h3" component="div" sx={{ textAlign: 'center' }}>
             Please connect your wallet
           </Typography>
           <Button variant="contained" color="primary" onClick={handleConnectWallet} sx={{ mt: 4 }}>
@@ -39,8 +39,8 @@ const MintPage = () => {
 
     if (!isDegenOwner) {
       return (
-        <Stack width="100%" height="100%" sx={{ justifyContent: 'center', alignItems: 'center' }}>
-          <Typography variant="h3" component="div" textAlign="center">
+        <Stack sx={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
+          <Typography variant="h3" component="div" sx={{ textAlign: 'center' }}>
             This page is accessible to DEGEN owners only.
           </Typography>
           <Link href={DEGEN_COLLECTION_URL} target="_blank" rel="noreferrer">

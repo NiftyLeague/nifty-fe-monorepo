@@ -69,7 +69,7 @@ const SectionSlider = ({
           firstSection={firstSection}
           variant={variant}
           actions={
-            <Stack direction="row" gap={2}>
+            <Stack direction="row" sx={{ gap: 2 }}>
               {actions}
               {isSlider && <PaginationIconOnly onClickNext={onClickNext} onClickPrev={onClickPrev} />}
             </Stack>

@@ -208,7 +208,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
 
   return (
     <Root>
-      <Stack maxWidth={430} rowGap={{ xs: 6, lg: 4 }} mx={{ xs: 1, sm: 'auto' }} className={classes.root}>
+      <Stack className={classes.root} sx={{ maxWidth: 430, rowGap: { xs: 6, lg: 4 }, mx: { xs: 1, sm: 'auto' } }}>
         <IconButton
           aria-label="close"
           onClick={onClose}
@@ -228,17 +228,19 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
 
         <RentStepper rentSuccess={rentSuccess} checkBalance={checkBalance} />
         <Box
-          display="flex"
-          flexDirection="row"
-          alignItems="center"
-          justifyContent="center"
-          width="100%"
-          p={1}
-          sx={{ backgroundColor: '#262930' }}
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
+            p: 1,
+            backgroundColor: '#262930',
+          }}
         >
           <Typography variant="h5">Rental Overview</Typography>
         </Box>
-        <Stack direction="row" spacing={{ xs: 1.5, sm: 3.5 }} mt={0.5}>
+        <Stack direction="row" spacing={{ xs: 1.5, sm: 3.5 }} sx={{ mt: 0.5 }}>
           <Stack direction="column">
             <Stack direction="row" sx={{ justifyContent: 'center' }}>
               {degen?.id && (
@@ -260,16 +262,14 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
               </Typography>
             </Stack>
           </Stack>
-          <Stack direction="column" width="100%">
+          <Stack direction="column" sx={{ width: '100%' }}>
             {rentSuccess ? (
               <Stack
                 direction="column"
-                width="100%"
                 spacing={1}
-                height="146px"
-                sx={{ justifyContent: 'space-between', alignItems: 'center' }}
+                sx={{ width: '100%', height: '146px', justifyContent: 'space-between', alignItems: 'center' }}
               >
-                <Typography variant="h6" className={classes.successInfo} mt={2}>
+                <Typography variant="h6" className={classes.successInfo} sx={{ mt: 2 }}>
                   Congratulations!
                 </Typography>
                 <Typography variant="h6" className={classes.successInfo}>
@@ -282,12 +282,10 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
             ) : (
               <Stack
                 direction="column"
-                width="100%"
                 spacing={1.25}
-                height="146px"
-                sx={{ justifyContent: 'space-between' }}
+                sx={{ width: '100%', height: '146px', justifyContent: 'space-between' }}
               >
-                <Stack direction="column" display={checkBalance ? 'none' : 'flex'}>
+                <Stack direction="column" sx={{ display: checkBalance ? 'none' : 'flex' }}>
                   <Typography sx={{ fontSize: '10px', lineHeight: 2 }}>Who are you renting for?</Typography>
                   <RadioGroup row onChange={handleChangeRentingFor} value={rentFor}>
                     <FormControlLabel value="myself" control={<Radio size="small" />} label="Myself" />
@@ -295,7 +293,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                       value="recruit"
                       control={<Radio size="small" />}
                       label={
-                        <Box display="flex" alignItems="center">
+                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
                           <Typography>Recruit</Typography>
                           {disabledRentFor && (
                             <Tooltip title="DEGEN ownership is required to sponsor Recruits on this DEGEN.">
@@ -345,7 +343,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                         } NFTL`}</Typography>
                       </Stack>
                       {!sufficientBalance && (
-                        <Typography variant="caption" mt={1} ml="auto">
+                        <Typography variant="caption" sx={{ mt: 1, ml: 'auto' }}>
                           Balance low.{' '}
                           <Typography
                             variant="caption"
@@ -438,14 +436,14 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
             )}
           </Stack>
         </Stack>
-        <Stack direction="column" mb={6}>
+        <Stack direction="column" sx={{ mb: 6 }}>
           {/* {purchasingNFTL && <CowSwapWidget refreshBalance={refetchAccount} />} */}
-          <Typography variant="h5" mt={4} mb={1.5}>
+          <Typography variant="h5" sx={{ mt: 4, mb: 1.5 }}>
             Stats
           </Typography>
           <Grid container spacing={6}>
             <Grid size={{ xs: 12, lg: 6 }}>
-              <Stack gap={1}>
+              <Stack sx={{ gap: 1 }}>
                 <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
                   <Typography>Multipliers</Typography>
                   <Typography className={classes.greyText}>{degen?.multiplier}x</Typography>
@@ -457,7 +455,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
               </Stack>
             </Grid>
             <Grid size={{ xs: 12, lg: 6 }}>
-              <Stack gap={1}>
+              <Stack sx={{ gap: 1 }}>
                 <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
                   <Typography>Rental period</Typography>
                   <Typography className={classes.greyText}>1 week</Typography>

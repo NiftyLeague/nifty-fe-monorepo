@@ -18,12 +18,12 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
   const { isLoadingProfile } = useGamerProfileContext();
 
   return (
-    <Grid container flexDirection="row" flexWrap="wrap" spacing={2}>
+    <Grid container spacing={2} sx={{ flexDirection: 'row', flexWrap: 'wrap' }}>
       <Grid size={{ xs: 12, lg: 6, xl: 4 }}>
         <GameCard
           image="/img/games/smashers/nifty-smashers.gif"
           contents={
-            <Stack padding="16px" gap={2}>
+            <Stack sx={{ padding: '16px', gap: 2 }}>
               {nifty_smashers && <ProgressGamer size="sm" data={nifty_smashers} />}
               <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography variant="h3" component="div">
@@ -38,9 +38,7 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
                   <Typography
                     variant="h4"
                     component="div"
-                    sx={{ color: 'var(--color-muted-foreground)' }}
-                    display="inline"
-                    ml="4px"
+                    sx={{ display: 'inline', ml: '4px', color: 'var(--color-muted-foreground)' }}
                   >
                     XP
                   </Typography>
@@ -58,7 +56,7 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
         <GameCard
           image="/img/games/wen.gif"
           contents={
-            <Stack padding="16px" gap={2} flex={1} sx={{ justifyContent: 'space-between' }}>
+            <Stack sx={{ padding: '16px', gap: 2, flex: 1, justifyContent: 'space-between' }}>
               {wen_game && <ProgressGamer size="sm" data={wen_game} />}
               <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography variant="h3" component="div">
@@ -73,9 +71,7 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
                   <Typography
                     variant="h4"
                     component="div"
-                    sx={{ color: 'var(--color-muted-foreground)' }}
-                    display="inline"
-                    ml="4px"
+                    sx={{ display: 'inline', ml: '4px', color: 'var(--color-muted-foreground)' }}
                   >
                     XP
                   </Typography>
@@ -93,7 +89,7 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
         <GameCard
           image="/img/games/crypto-winter.webp"
           contents={
-            <Stack padding="16px" gap={2} flex={1} sx={{ justifyContent: 'space-between' }}>
+            <Stack sx={{ padding: '16px', gap: 2, flex: 1, justifyContent: 'space-between' }}>
               <ProgressGamer size="sm" data={crypto_winter} />
               <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography variant="h3" component="div">
@@ -108,9 +104,7 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
                   <Typography
                     variant="h4"
                     component="div"
-                    sx={{ color: 'var(--color-muted-foreground)' }}
-                    display="inline"
-                    ml="4px"
+                    sx={{ display: 'inline', ml: '4px', color: 'var(--color-muted-foreground)' }}
                   >
                     XP
                   </Typography>

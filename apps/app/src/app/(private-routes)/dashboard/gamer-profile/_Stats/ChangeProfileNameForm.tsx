@@ -86,7 +86,7 @@ const ChangeProfileNameForm = ({ updateNewName }: ChangeProfileNameFormProps): R
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack rowGap={2}>
+      <Stack sx={{ rowGap: 2 }}>
         {renderFee()}
         <Controller
           name="name"

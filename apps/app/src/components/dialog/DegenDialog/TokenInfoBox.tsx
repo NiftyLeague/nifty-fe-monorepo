@@ -129,26 +129,29 @@ const TokenInfoBox = ({
   return (
     <StyledStack direction="column">
       <Box
-        display="flex"
-        flexDirection="column"
-        justifyContent="space-between"
         className={classes.swapBox}
-        sx={{ borderRadius: transactionValue ? '10px 10px 0px 0px' : '10px' }}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          borderRadius: transactionValue ? '10px 10px 0px 0px' : '10px',
+        }}
       >
-        <Stack direction="row" sx={{ alignItems: 'center' }} px={1} py={0.5} className={classes.tokenBox} spacing={0.5}>
+        <Stack direction="row" className={classes.tokenBox} spacing={0.5} sx={{ px: 1, py: 0.5, alignItems: 'center' }}>
           {icon}
-          <Typography variant="body1" fontWeight="bold">
+          <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
             {name}
           </Typography>
         </Stack>
-        <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }} spacing={1} width="100%">
+        <Stack
+          direction="row"
+          spacing={1}
+          sx={{ width: '100%', justifyContent: 'space-between', alignItems: 'center' }}
+        >
           <Stack
             direction="row"
-            sx={{ alignItems: 'center' }}
             spacing={1}
-            flex={1}
-            position="relative"
-            overflow="hidden"
+            sx={{ flex: 1, position: 'relative', overflow: 'hidden', alignItems: 'center' }}
           >
             <TokenAmountInput
               inputProps={{
@@ -168,15 +171,14 @@ const TokenInfoBox = ({
             {value !== '0' && priceInfo && (
               <Typography
                 variant="body1"
-                fontWeight="bold"
                 className={classes.infoUSD}
-                sx={{ left: value.length > 0 ? value.length * 19 + 10 : 86 }}
+                sx={{ fontWeight: 'bold', left: value.length > 0 ? value.length * 19 + 10 : 86 }}
               >
                 {`~$${priceInfo}`}
               </Typography>
             )}
           </Stack>
-          <Typography variant="body1" fontWeight="bold" sx={{ color: '#4D4D4F' }}>
+          <Typography variant="body1" sx={{ fontWeight: 'bold', color: '#4D4D4F' }}>
             {`Balance: ${balance ? formatNumberToDisplay(balance, 4) : '0.00'}`}
           </Typography>
         </Stack>

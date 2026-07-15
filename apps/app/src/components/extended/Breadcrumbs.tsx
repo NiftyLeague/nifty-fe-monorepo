@@ -145,10 +145,12 @@ const Breadcrumbs = ({
           <Box sx={{ p: 2, pl: card === false ? 0 : 2 }}>
             <Grid
               container
-              direction={rightAlign ? 'row' : 'column'}
-              justifyContent={rightAlign ? 'space-between' : 'flex-start'}
-              alignItems={rightAlign ? 'center' : 'flex-start'}
               spacing={1}
+              sx={{
+                flexDirection: rightAlign ? 'row' : 'column',
+                justifyContent: rightAlign ? 'space-between' : 'flex-start',
+                alignItems: rightAlign ? 'center' : 'flex-start',
+              }}
             >
               {title && !titleBottom && (
                 <Grid>

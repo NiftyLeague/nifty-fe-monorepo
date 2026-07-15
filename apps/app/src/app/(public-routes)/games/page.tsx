@@ -13,10 +13,8 @@ const GamesPage = () => {
       <SectionSlider firstSection title="Free-2-Play Games" isSlider={false}>
         <Grid
           container
-          flexDirection="row"
-          flexWrap="wrap"
           rowSpacing={{ xs: 4, sm: 0 }}
-          paddingBottom={{ xs: 8, sm: 4, md: 0 }}
+          sx={{ flexDirection: 'row', flexWrap: 'wrap', paddingBottom: { xs: 8, sm: 4, md: 0 } }}
         >
           <GameList />
         </Grid>
@@ -33,10 +31,8 @@ const GamesPage = () => {
       >
         <Grid
           container
-          flexDirection="row"
-          flexWrap="wrap"
           rowSpacing={{ xs: 4, sm: 0 }}
-          paddingBottom={{ xs: 8, sm: 4, md: 0 }}
+          sx={{ flexDirection: 'row', flexWrap: 'wrap', paddingBottom: { xs: 8, sm: 4, md: 0 } }}
         >
           <Web3GameList />
         </Grid>

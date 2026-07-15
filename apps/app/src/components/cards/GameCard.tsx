@@ -34,7 +34,7 @@ const CardGameContent = ({
   };
 
   return (
-    <Stack flexGrow={1} sx={{ justifyContent: 'space-between', backgroundColor: 'var(--color-card)' }}>
+    <Stack sx={{ flexGrow: 1, justifyContent: 'space-between', backgroundColor: 'var(--color-card)' }}>
       <CardContent sx={{ padding: '24px 24px 0' }}>
         <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
           <Typography gutterBottom variant="h4" component="div">
@@ -60,25 +60,27 @@ const CardGameContent = ({
         )}
         <Typography
           variant="body2"
-          whiteSpace="pre-wrap"
-          maxHeight={moreStatus ? 'inherit' : 42}
-          sx={{ color: 'var(--color-muted-foreground)', overflowY: 'hidden' }}
+          sx={{
+            whiteSpace: 'pre-wrap',
+            maxHeight: moreStatus ? 'inherit' : 42,
+            color: 'var(--color-muted-foreground)',
+            overflowY: 'hidden',
+          }}
         >
           {description}
         </Typography>
         {showMore && !moreStatus && (
           <Typography
             variant="body2"
-            sx={{ color: 'var(--color-purple)', cursor: 'pointer' }}
-            whiteSpace="pre-wrap"
             onClick={handleMoreStatus}
+            sx={{ whiteSpace: 'pre-wrap', color: 'var(--color-purple)', cursor: 'pointer' }}
           >
             more..
           </Typography>
         )}
       </CardContent>
       <CardActions>
-        <Stack direction="row" flexWrap="wrap" columnGap={1} rowGap={2} width="100%">
+        <Stack direction="row" sx={{ flexWrap: 'wrap', columnGap: 1, rowGap: 2, width: '100%' }}>
           {actions || (
             <>
               <Button variant="contained" fullWidth sx={{ minWidth: 80, flex: 1 }} onClick={onPlayOnDesktopClick}>

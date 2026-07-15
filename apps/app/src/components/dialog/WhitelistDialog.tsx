@@ -69,7 +69,7 @@ export const WhitelistModal = (): React.ReactNode => {
           Get Access
         </button>
       </form>
-      <Typography variant="body1" mt={3.5}>
+      <Typography variant="body1" sx={{ mt: 3.5 }}>
         Not into email? Follow on{' '}
         <Link
           href="https://twitter.com/NiftyLeague"

@@ -17,19 +17,21 @@ const BuyCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<BuyCardP
 
   return (
     <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      border="1px solid #363636"
-      borderRadius="5px"
-      width={cardWidth}
-      height={cardHeight}
       onClick={handleBuyComic}
-      sx={{ cursor: 'pointer' }}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        border: '1px solid #363636',
+        borderRadius: '5px',
+        width: cardWidth,
+        height: cardHeight,
+        cursor: 'pointer',
+      }}
     >
       <Icon name="shopping-cart" color="purple" size={cardWidth - 50} strokeWidth={3} />
-      <Typography mt={0.5} sx={{ textDecoration: 'underline', color: 'var(--color-purple)' }}>
+      <Typography sx={{ mt: 0.5, textDecoration: 'underline', color: 'var(--color-purple)' }}>
         {isNew ? 'Buy' : 'Buy More'}
       </Typography>
     </Box>

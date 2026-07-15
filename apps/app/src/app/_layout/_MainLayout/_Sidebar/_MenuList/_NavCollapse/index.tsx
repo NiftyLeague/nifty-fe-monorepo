@@ -82,16 +82,14 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
           primary={
             <Typography
               variant="body1"
-              fontWeight={selected === menu.id ? 'bold' : 'normal'}
-              color="inherit"
-              sx={{ my: 'auto' }}
+              sx={{ fontWeight: selected === menu.id ? 'bold' : 'normal', color: 'inherit', my: 'auto' }}
             >
               {menu.title}
             </Typography>
           }
           secondary={
             menu.caption && (
-              <Typography variant="caption" sx={{ ...theme.typography.subMenuCaption }} display="block" gutterBottom>
+              <Typography variant="caption" gutterBottom sx={{ display: 'block', ...theme.typography.subMenuCaption }}>
                 {menu.caption}
               </Typography>
             )

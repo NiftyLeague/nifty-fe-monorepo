@@ -33,7 +33,7 @@ const CollapsibleSidebarLayout = ({
   }, [matchDownLG, setIsDrawerOpen]);
 
   return (
-    <Stack direction="row" position="relative" sx={{ alignItems: 'start' }}>
+    <Stack direction="row" sx={{ position: 'relative', alignItems: 'start' }}>
       {/* Filter drawer */}
       <Drawer
         sx={{
@@ -68,7 +68,6 @@ const CollapsibleSidebarLayout = ({
           {renderDrawer()}
         </PerfectScrollbar>
       </Drawer>
-
       {/* Main grid */}
       <Stack
         component="div"

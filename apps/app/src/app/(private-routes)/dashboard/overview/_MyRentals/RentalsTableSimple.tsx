@@ -82,9 +82,9 @@ const RentalsTableSimple = ({ rentals, columns }: RentalsTableSimpleProps): Reac
                           {rental.earningCap !== rental.totalEarnings ? (
                             `${rental.totalEarnings} / ${rental.earningCap}`
                           ) : (
-                            <Typography fontSize={10}>
+                            <Typography sx={{ fontSize: 10 }}>
                               LIMIT REACHED. RENEWS IN{' '}
-                              <Typography sx={{ color: 'var(--color-warning)' }} variant="caption" fontSize={10}>
+                              <Typography variant="caption" sx={{ fontSize: 10, color: 'var(--color-warning)' }}>
                                 <Countdown date={new Date((rental.rentalRenewsIn ?? 0) * 1000)} />
                               </Typography>
                             </Typography>

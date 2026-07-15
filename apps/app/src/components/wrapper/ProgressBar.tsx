@@ -23,19 +23,19 @@ const ProgressBar: FC<ProgressBarProps> = ({ value, children }) => {
     <Box sx={{ position: 'relative' }}>
       <Box
         sx={{
+          borderRadius: 3,
+          height: 16,
           display: 'flex',
           backgroundColor: 'var(--color-muted-foreground)',
           width: '100%',
           position: 'absolute',
           alignItems: 'center',
         }}
-        borderRadius={3}
-        height={16}
       >
         <Typography
           ref={centerTextRef}
-          fontSize={10}
           sx={{
+            fontSize: 10,
             position: 'absolute',
             left: `50%`,
             transform: `translateX(-50%)`,
@@ -49,6 +49,8 @@ const ProgressBar: FC<ProgressBarProps> = ({ value, children }) => {
       <Box
         ref={progressContainerRef}
         sx={{
+          borderRadius: 3,
+          height: 16,
           width: `${value}%`,
           backgroundColor: 'var(--color-purple)',
           overflow: 'hidden',
@@ -57,10 +59,8 @@ const ProgressBar: FC<ProgressBarProps> = ({ value, children }) => {
           display: 'flex',
           alignItems: 'center',
         }}
-        borderRadius={3}
-        height={16}
       >
-        <Typography fontSize={10} sx={{ position: 'absolute', left: `${rect.left}px`, whiteSpace: 'nowrap' }}>
+        <Typography sx={{ fontSize: 10, position: 'absolute', left: `${rect.left}px`, whiteSpace: 'nowrap' }}>
           {children}
         </Typography>
       </Box>

@@ -17,7 +17,7 @@ const MyStats = ({ profile }: { profile?: Profile }): React.ReactNode => {
           firstSection
           variant="h3"
           actions={
-            <Stack direction="row" gap={2}>
+            <Stack direction="row" sx={{ gap: 2 }}>
               <Button variant="outlined" component={Link} href="/dashboard/gamer-profile">
                 View All Stats
               </Button>

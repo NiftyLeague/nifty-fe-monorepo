@@ -46,7 +46,7 @@ const RightInfo = ({ comicCount, degenCount, itemCount, keyCount, rentalCount }:
   }, [comicCount, degenCount, isLoadingComics, isLoadingDegens, isLoadingItems, itemCount, keyCount]);
 
   return (
-    <Stack flex={1} spacing={1}>
+    <Stack spacing={1} sx={{ flex: 1 }}>
       {rightDataMapper.map(child => (
         <Item key={child.label} {...child} />
       ))}

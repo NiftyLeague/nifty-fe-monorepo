@@ -30,18 +30,23 @@ const WearableSubItemCard: React.FC<React.PropsWithChildren<React.PropsWithChild
   return (
     <Stack spacing={2.5} sx={{ cursor: 'pointer', alignItems: 'center', ...sx }} onClick={handleViewItem}>
       <Box
-        width={CARD_WIDTH}
-        height={CARD_HEIGHT}
-        position="relative"
-        overflow="hidden"
-        sx={{ borderRadius: '10px', outline: isSelected ? '3px solid var(--color-purple)' : 'none' }}
+        sx={{
+          width: CARD_WIDTH,
+          height: CARD_HEIGHT,
+          position: 'relative',
+          overflow: 'hidden',
+          borderRadius: '10px',
+          outline: isSelected ? '3px solid var(--color-purple)' : 'none',
+        }}
       >
         <ImageCard image={image} thumbnail={thumbnail} title={title} ratio={1} />
       </Box>
       <Typography
-        maxWidth={CARD_WIDTH}
-        textAlign="center"
-        sx={{ color: isSelected ? 'var(--color-blue)' : 'var(--color-foreground)' }}
+        sx={{
+          maxWidth: CARD_WIDTH,
+          textAlign: 'center',
+          color: isSelected ? 'var(--color-blue)' : 'var(--color-foreground)',
+        }}
       >{`${title} #${itemIndex + 1}`}</Typography>
     </Stack>
   );

@@ -133,7 +133,7 @@ export default function EnhancedTable({
   };
 
   return (
-    <Box mb={{ xs: 10, sm: 0 }}>
+    <Box sx={{ mb: { xs: 10, sm: 0 } }}>
       {!rows ? (
         <Box
           sx={{

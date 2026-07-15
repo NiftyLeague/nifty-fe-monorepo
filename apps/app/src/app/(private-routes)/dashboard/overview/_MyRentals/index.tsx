@@ -50,7 +50,7 @@ const MyRentals: FC<MyRentalsProps> = ({ rentals }): React.ReactNode => {
         <SectionTitle
           firstSection
           actions={
-            <Stack direction="row" gap={2}>
+            <Stack direction="row" sx={{ gap: 2 }}>
               <Button variant="outlined" component={Link} href="/dashboard/rentals">
                 View All Rentals
               </Button>

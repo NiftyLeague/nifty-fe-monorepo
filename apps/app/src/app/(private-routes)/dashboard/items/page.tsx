@@ -129,8 +129,8 @@ const DashboardComicsPage = (): React.ReactNode => {
 
   return (
     <>
-      <Stack gap={4}>
-        <Stack direction="row" gap={5}>
+      <Stack sx={{ gap: 4 }}>
+        <Stack direction="row" sx={{ gap: 5 }}>
           <SectionSlider
             firstSection
             title="My Comics"
@@ -146,17 +146,19 @@ const DashboardComicsPage = (): React.ReactNode => {
             <Stack>
               <Grid
                 container
-                flexWrap="wrap"
-                gap={2}
-                minHeight={375}
-                border="var(--border-default)"
-                borderRadius="var(--radius-default)"
-                bgcolor="var(--color-muted)"
-                px={2}
-                py={3}
-                width="100%"
-                justifyContent={{ xs: 'space-between', sm: 'inherit' }}
                 onClick={removeComicSelection}
+                sx={{
+                  flexWrap: 'wrap',
+                  gap: 2,
+                  minHeight: 375,
+                  border: 'var(--border-default)',
+                  borderRadius: 'var(--radius-default)',
+                  bgcolor: 'var(--color-muted)',
+                  px: 2,
+                  py: 3,
+                  width: '100%',
+                  justifyContent: { xs: 'space-between', sm: 'inherit' },
+                }}
               >
                 {renderComics}
                 {comicsBalances.length > 0 && (
@@ -178,7 +180,7 @@ const DashboardComicsPage = (): React.ReactNode => {
             </Stack>
           )}
         </Stack>
-        <Stack direction="row" gap={5}>
+        <Stack direction="row" sx={{ gap: 5 }}>
           <SectionSlider firstSection title="My Items" isSlider={false}>
             <Stack>
               <Stack
@@ -199,14 +201,17 @@ const DashboardComicsPage = (): React.ReactNode => {
                   <Stack spacing={4}>
                     <Stack direction={{ xs: 'column', md: 'row' }} spacing={{ xs: 2, md: 10 }}>
                       <WearableItemCard data={selectedItem} />
-                      <Grid container flexWrap="wrap" gap={2.5}>
+                      <Grid container sx={{ flexWrap: 'wrap', gap: 2.5 }}>
                         {renderSubItems}
                       </Grid>
                     </Stack>
                     <Divider color="#363636" sx={{ opacity: '0.6' }} />
                   </Stack>
                 )}
-                <Grid container flexWrap="wrap" gap={2} justifyContent={{ xs: 'space-between', sm: 'inherit' }}>
+                <Grid
+                  container
+                  sx={{ flexWrap: 'wrap', gap: 2, justifyContent: { xs: 'space-between', sm: 'inherit' } }}
+                >
                   {renderItems}
                   {itemsBalances.length > 0 && (
                     <Grid>

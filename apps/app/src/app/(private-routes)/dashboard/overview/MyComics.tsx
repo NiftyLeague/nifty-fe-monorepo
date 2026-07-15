@@ -58,12 +58,12 @@ const MyComics = (): React.ReactNode => {
         }
       >
         {loadingComics ? (
-          <Box px={1}>
+          <Box sx={{ px: 1 }}>
             <ComicPlaceholder />
           </Box>
         ) : filteredComics.length ? (
           filteredComics.map(comic => (
-            <Box px={1} key={comic.wearableName}>
+            <Box key={comic.wearableName} sx={{ px: 1 }}>
               <ComicCard data={comic} onViewComic={() => handleViewComic(comic)} />
             </Box>
           ))
