@@ -19,9 +19,9 @@
     "type-check": "turbo type-check"
   },
   "devDependencies": {
-    "@nl/eslint-config": "0.0.0",
-    "@nl/prettier-config": "0.0.0",
-    "@nl/typescript-config": "0.0.0",
+    "@nl/eslint-config": "workspace:*",
+    "@nl/prettier-config": "workspace:*",
+    "@nl/typescript-config": "workspace:*",
     "eslint": "^9.39.5",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
