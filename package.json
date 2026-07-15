@@ -19,33 +19,33 @@
     "type-check": "turbo type-check"
   },
   "devDependencies": {
-    "@nl/eslint-config": "workspace:*",
-    "@nl/prettier-config": "workspace:*",
-    "@nl/typescript-config": "workspace:*",
-    "eslint": "^9.39.1",
+    "@nl/eslint-config": "0.0.0",
+    "@nl/prettier-config": "0.0.0",
+    "@nl/typescript-config": "0.0.0",
+    "eslint": "^9.39.5",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
-    "prettier": "^3.7.4",
-    "semver": "^7.7.3",
+    "prettier": "^3.9.5",
+    "semver": "^7.8.5",
     "syncpack": "^13.0.4",
-    "turbo": "^2.6.3",
-    "typescript": "~5.8.3"
+    "turbo": "^2.10.5",
+    "typescript": "~5.9.3"
   },
   "pnpm": {
     "overrides": {
       "bnc-sdk>crypto-es": "^2.1.0",
-      "zod": "^4.0.14"
+      "zod": "^4.4.3"
     },
     "peerDependencyRules": {
       "allowedVersions": {
         "@types/react-dom": "19.2.3",
-        "@types/react": "19.2.7",
+        "@types/react": "19.2.17",
         "cross-fetch": "4",
         "crypto-es": "^2.1.0",
         "lit": "3.3.1",
-        "next": "16.0.7",
-        "react-dom": "^19.2.1",
-        "react": "^19.2.1",
+        "next": "16.2.10",
+        "react-dom": "^19.2.7",
+        "react": "^19.2.7",
         "three": "0.181.2"
       }
     },
