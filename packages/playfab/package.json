@@ -22,7 +22,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@nl/ui": "0.0.0",
+    "@nl/ui": "workspace:*",
     "ethers": "^6.17.0",
     "https": "^1.0.0",
     "lodash": "^4.18.1",
