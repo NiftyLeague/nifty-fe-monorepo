@@ -34,7 +34,15 @@ export const config = tseslint.config(
   {
     plugins: { 'react-hooks': pluginReactHooks },
     settings: { react: { version: 'detect' } },
-    rules: { ...pluginReactHooks.configs.recommended.rules },
+    rules: {
+      ...pluginReactHooks.configs.recommended.rules,
+      // These rules were promoted to "recommended" in eslint-plugin-react-hooks 7.1.1.
+      // They are disabled to preserve existing behavior; refactor the code to adopt them in a follow-up.
+      'react-hooks/set-state-in-effect': 'off',
+      'react-hooks/static-components': 'off',
+      'react-hooks/use-memo': 'off',
+      'react-hooks/immutability': 'off',
+    },
   },
   { plugins: { onlyWarn: pluginOnlyWarn } },
   {

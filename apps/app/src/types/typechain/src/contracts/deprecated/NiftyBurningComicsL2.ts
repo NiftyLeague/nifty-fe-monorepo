@@ -41,13 +41,7 @@ export interface NiftyBurningComicsL2Interface extends Interface {
 
   getEvent(
     nameOrSignatureOrTopic:
-      | 'ComicsBurned'
-      | 'Initialized'
-      | 'ItemMinted'
-      | 'KeyMinted'
-      | 'OwnershipTransferred'
-      | 'Paused'
-      | 'Unpaused',
+      'ComicsBurned' | 'Initialized' | 'ItemMinted' | 'KeyMinted' | 'OwnershipTransferred' | 'Paused' | 'Unpaused',
   ): EventFragment;
 
   encodeFunctionData(functionFragment: 'burnComics', values: [BigNumberish[]]): string;

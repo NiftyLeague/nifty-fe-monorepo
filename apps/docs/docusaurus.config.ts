@@ -18,10 +18,10 @@ const config: Config = {
 
   // Enable Docusaurus Faster features to improve build performance
   future: {
-    // Enable v4 features required for experimental_faster
+    // Enable v4 features required for faster
     v4: true,
     // Use true to enable all optimizations
-    experimental_faster: true,
+    faster: true,
   },
 
   // i18n: {
