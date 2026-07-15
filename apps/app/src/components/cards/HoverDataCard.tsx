@@ -15,12 +15,12 @@ interface HoverDataCardProps extends Omit<GenericCardProps, 'title'> {
 
 const HoverDataCard = ({ title, primary, secondary, customStyle, actions, isLoading }: HoverDataCardProps) => (
   <MainCard sx={customStyle ?? {}}>
-    <Grid container direction="column" sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
+    <Grid container sx={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
       <Grid size={{ xs: 12 }}>
         {isLoading ? (
           <Skeleton variant="text" animation="wave" width={80} />
         ) : (
-          <Typography variant="h4" sx={{ color: 'inherit' }} textAlign="center">
+          <Typography variant="h4" sx={{ textAlign: 'center', color: 'inherit' }}>
             {title}
           </Typography>
         )}
@@ -30,7 +30,7 @@ const HoverDataCard = ({ title, primary, secondary, customStyle, actions, isLoad
           {isLoading ? (
             <Skeleton variant="text" animation="wave" width={80} />
           ) : (
-            <Typography variant="body1" fontWeight="bold">
+            <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
               {primary}
             </Typography>
           )}

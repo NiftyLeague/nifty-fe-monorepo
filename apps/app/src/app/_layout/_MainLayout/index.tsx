@@ -137,20 +137,20 @@ const MainLayout = ({ children }: PropsWithChildren) => {
         >
           {address && TARGET_NETWORK.chainId !== chain?.id && (
             <Box
+              className={isConnectedToIMX ? 'bg-success-dark/[80%]' : 'bg-error/[80%]'}
               sx={{
+                height: appHeaderHeight,
+                zIndex: 1,
                 display: 'flex',
                 width: '100%',
                 position: 'absolute',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
-              className={isConnectedToIMX ? 'bg-success-dark/[80%]' : 'bg-error/[80%]'}
-              height={appHeaderHeight}
-              zIndex={1}
             >
               <Icon name={isConnectedToIMX ? 'info' : 'triangle-alert'} size="lg" strokeWidth={2.5} />
 
-              <Typography px={2} fontSize={20} fontWeight={600}>
+              <Typography sx={{ px: 2, fontSize: 20, fontWeight: 600 }}>
                 {isConnectedToIMX
                   ? `You're connected to Immutable zkEVM! Switch back to ${TARGET_NETWORK.label}`
                   : `Please switch to ${TARGET_NETWORK.label}`}
@@ -181,9 +181,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
           )}
         </Main>
       </Box>
-
       <Snackbar />
-
       <ToastContainer closeOnClick draggable />
     </>
   );

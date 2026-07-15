@@ -22,7 +22,7 @@ const ComicCardPane: React.FC<ComicCardPaneProps> = ({ width, height, data, sx }
   const { image, title, thumbnail } = data;
   return (
     <Box sx={sx}>
-      <Box width={width} height={height} borderRadius="5px" position="relative" overflow="hidden">
+      <Box sx={{ width: width, height: height, borderRadius: '5px', position: 'relative', overflow: 'hidden' }}>
         <ImageCard image={image} thumbnail={thumbnail} title={title} ratio={1} />
       </Box>
     </Box>
@@ -45,13 +45,15 @@ const ComicCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<ComicC
   };
 
   if (!balance)
-    return <Box border="1px solid #363636" borderRadius="5px" width={comicCardWidth} height={comicCardHeight} />;
+    return (
+      <Box sx={{ border: '1px solid #363636', borderRadius: '5px', width: comicCardWidth, height: comicCardHeight }} />
+    );
 
   return (
     <Box
       onClick={handleViewComic}
-      position="relative"
       sx={{
+        position: 'relative',
         borderRadius: 'var(--radius-default)',
         outline: isSelected ? '3px solid var(--color-purple)' : 'none',
         cursor: 'pointer',
@@ -60,7 +62,7 @@ const ComicCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<ComicC
       {balance === 1 ? (
         <ComicCardPane data={data} width={comicCardWidth} height={comicCardHeight} />
       ) : (
-        <Box width={comicCardWidth + 24} height={comicCardHeight + 16}>
+        <Box sx={{ width: comicCardWidth + 24, height: comicCardHeight + 16 }}>
           {[0, 1, 2].map(item => (
             <ComicCardPane
               data={data}
@@ -71,13 +73,19 @@ const ComicCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<ComicC
             />
           ))}
           <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            position="absolute"
-            width={38}
-            height={35}
-            sx={{ background: '#8F4BF4', borderRadius: 'var(--radius-default)', bottom: 0, left: 0, zIndex: 3 }}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'absolute',
+              width: 38,
+              height: 35,
+              background: '#8F4BF4',
+              borderRadius: 'var(--radius-default)',
+              bottom: 0,
+              left: 0,
+              zIndex: 3,
+            }}
           >
             <Typography sx={{ fontSize: 20, color: 'var(--color-foreground)', fontWeight: 700 }}>
               <span>{balance}</span>

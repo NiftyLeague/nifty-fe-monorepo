@@ -21,8 +21,13 @@ interface WearableItemCardPaneProps {
 const WearableItemCardPane: React.FC<WearableItemCardPaneProps> = ({ width, height, data, sx }) => {
   const { image, title, thumbnail } = data;
   return (
-    <Box width={width} height={height} borderRadius="10px" overflow="hidden" sx={sx}>
-      <Box position="relative">
+    <Box
+      sx={[
+        { width: width, height: height, borderRadius: '10px', overflow: 'hidden' },
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
+    >
+      <Box sx={{ position: 'relative' }}>
         <ImageCard image={image} thumbnail={thumbnail} title={title} ratio={1} />
       </Box>
     </Box>
@@ -48,15 +53,25 @@ const WearableItemCard: React.FC<React.PropsWithChildren<React.PropsWithChildren
 
   if (!balance)
     return (
-      <Box display="flex" alignItems="center" justifyContent="center" width={CARD_WIDTH + 24} height={CARD_HEIGHT + 24}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: CARD_WIDTH + 24,
+          height: CARD_HEIGHT + 24,
+        }}
+      >
         <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          border="1px solid #363636"
-          borderRadius="10px"
-          width={CARD_WIDTH}
-          height={CARD_HEIGHT}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            border: '1px solid #363636',
+            borderRadius: '10px',
+            width: CARD_WIDTH,
+            height: CARD_HEIGHT,
+          }}
         >
           <Image src={empty as string} alt={title} width={CARD_WIDTH} height={CARD_HEIGHT} unoptimized />
         </Box>
@@ -64,21 +79,24 @@ const WearableItemCard: React.FC<React.PropsWithChildren<React.PropsWithChildren
     );
 
   return (
-    <Stack position="relative">
+    <Stack sx={{ position: 'relative' }}>
       {isNew && (
-        <Typography sx={{ color: '#E3B210', top: -16 }} textAlign="center" position="absolute" width="100%">
+        <Typography sx={{ textAlign: 'center', position: 'absolute', width: '100%', color: '#E3B210', top: -16 }}>
           New!
         </Typography>
       )}
       <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        position="relative"
-        width={CARD_WIDTH + 24}
-        height={CARD_HEIGHT + 24}
         onClick={handleViewItem}
-        sx={{ borderRadius: '10px', cursor: 'pointer' }}
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'relative',
+          width: CARD_WIDTH + 24,
+          height: CARD_HEIGHT + 24,
+          borderRadius: '10px',
+          cursor: 'pointer',
+        }}
       >
         {balance === 1 ? (
           <WearableItemCardPane
@@ -105,13 +123,19 @@ const WearableItemCard: React.FC<React.PropsWithChildren<React.PropsWithChildren
               />
             ))}
             <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              position="absolute"
-              width={38}
-              height={35}
-              sx={{ background: '#8F4BF4', borderRadius: '10px', bottom: 0, left: 0, zIndex: 3 }}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                position: 'absolute',
+                width: 38,
+                height: 35,
+                background: '#8F4BF4',
+                borderRadius: '10px',
+                bottom: 0,
+                left: 0,
+                zIndex: 3,
+              }}
             >
               <Typography sx={{ fontSize: 20, color: 'var(--color-foreground)', fontWeight: 700 }}>
                 {balance}

@@ -63,7 +63,7 @@ const Snackbar = () => {
           autoHideDuration={6000}
           onClose={handleClose}
           message={message}
-          TransitionComponent={animation[transition as keyof typeof animation]}
+          slots={{ transition: animation[transition as keyof typeof animation] }}
           action={
             <>
               <Button color="secondary" size="small" onClick={handleClose}>
@@ -80,7 +80,7 @@ const Snackbar = () => {
       {/* alert snackbar */}
       {variant === 'alert' && (
         <MuiSnackbar
-          TransitionComponent={animation[transition as keyof typeof animation]}
+          slots={{ transition: animation[transition as keyof typeof animation] }}
           anchorOrigin={anchorOrigin}
           open={open}
           autoHideDuration={6000}

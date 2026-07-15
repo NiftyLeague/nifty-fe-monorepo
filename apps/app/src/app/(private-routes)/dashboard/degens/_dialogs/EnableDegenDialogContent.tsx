@@ -54,14 +54,14 @@ const EnableDisableDegenDialogContent = ({ degen, isEnabled = false, onClose, on
         {isEnabled ? 'Disable' : 'Enable'} Degen #{degen?.id} Rentals
       </DialogTitle>
       <DialogContent dividers sx={{ maxWidth: '320px' }}>
-        <Stack rowGap={2}>
-          <Stack rowGap={1}>
+        <Stack sx={{ rowGap: 2 }}>
+          <Stack sx={{ rowGap: 1 }}>
             {degen?.id && <DegenImage tokenId={degen.id} />}
             <Typography variant="caption" component="p" sx={{ textAlign: 'center' }}>
               Owned by {degen?.owner}
             </Typography>
           </Stack>
-          <Stack direction="row" mb={1} sx={{ justifyContent: 'center' }}>
+          <Stack direction="row" sx={{ mb: 1, justifyContent: 'center' }}>
             {isEnabled ? (
               <Typography align="center">
                 Disabling your rental makes your rental queue private. Note that your queue will clear as existing

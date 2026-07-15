@@ -172,7 +172,7 @@ const Game = ({ unityConfig, arcadeTokenRequired = false }: GameProps) => {
 
 const GameWithAuth = withVerification((props: GameProps) =>
   isOpera ? (
-    <Box component="h2" textAlign="center" mt={8}>
+    <Box component="h2" sx={{ textAlign: 'center', mt: 8 }}>
       {browserName} Browser Not Supported
     </Box>
   ) : (

@@ -32,8 +32,12 @@ const Header = () => {
     >
       {/* logo & toggler button */}
       <Box
-        sx={{ width: drawerOpen ? 228 : 80, display: 'flex', [theme.breakpoints.down('lg')]: { width: 'auto' } }}
-        alignItems="center"
+        sx={{
+          alignItems: 'center',
+          width: drawerOpen ? 228 : 80,
+          display: 'flex',
+          [theme.breakpoints.down('lg')]: { width: 'auto' },
+        }}
       >
         <Box component="span" sx={{ display: { xs: 'none', lg: 'block' }, flexGrow: 1 }}>
           <LogoSection />
@@ -58,7 +62,13 @@ const Header = () => {
       <Box sx={{ display: { xs: 'none', lg: 'flex' }, justifyContent: 'space-between', gap: 4, alignItems: 'center' }}>
         <AddNFTL />
         {pages.map(page => (
-          <Link key={page.name} href={page.link} target="_blank" color="var(--color-foreground)" underline="hover">
+          <Link
+            key={page.name}
+            href={page.link}
+            target="_blank"
+            underline="hover"
+            sx={{ color: 'var(--color-foreground)' }}
+          >
             {page.name} <ExternalIcon />
           </Link>
         ))}

@@ -123,7 +123,7 @@ function RenameStepper({
       >
         {steps.map(label => (
           <Step key={label}>
-            <StepLabel style={{ color: 'var(--color-foreground) !important' }} StepIconComponent={ColorlibStepIcon}>
+            <StepLabel sx={{ color: 'var(--color-foreground) !important' }} slots={{ stepIcon: ColorlibStepIcon }}>
               {label}
             </StepLabel>
           </Step>

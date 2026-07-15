@@ -60,7 +60,11 @@ const GamerProfile = (): React.ReactNode => {
 
   const renderEmptyProfile = () => {
     return (
-      <Grid container size={12} sx={{ justifyContent: 'center', alignItems: 'center' }} display="flex" height="100%">
+      <Grid
+        container
+        size={12}
+        sx={{ display: 'flex', height: '100%', justifyContent: 'center', alignItems: 'center' }}
+      >
         <EmptyState message="You don't own any Gamer Profile yet." />
       </Grid>
     );
@@ -139,7 +143,7 @@ const GamerProfile = (): React.ReactNode => {
     );
   };
   return (
-    <Grid container gap={4} mb="24px">
+    <Grid container sx={{ gap: 4, mb: '24px' }}>
       {error && !profile && !loadingProfile && renderEmptyProfile()}
       {(profile || loadingProfile) && renderGamerProfile()}
     </Grid>

@@ -221,10 +221,10 @@ const DegensFilter = ({
   }, [defaultFilterValues, isDegenOwner, onFilter, params]);
 
   return (
-    <StyledStack gap={1.5} sx={{ overflowX: 'hidden', [theme.breakpoints.down('sm')]: { paddingY: 2 } }}>
+    <StyledStack sx={{ gap: 1.5, overflowX: 'hidden', [theme.breakpoints.down('sm')]: { paddingY: 2 } }}>
       <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
         <Typography variant="h3">Filter Degens</Typography>
-        <Stack direction="row" gap={2}>
+        <Stack direction="row" sx={{ gap: 2 }}>
           <Button
             variant="outlined"
             disabled={isParamsEmpty}
@@ -235,7 +235,7 @@ const DegensFilter = ({
           </Button>
         </Stack>
       </Stack>
-      <Stack py={1.5} className="bg-muted rounded-md">
+      <Stack className="bg-muted rounded-md" sx={{ py: 1.5 }}>
         <FilterAccordion summary={<Typography variant="h4">Tribe</Typography>} expanded={true} length={tribes.length}>
           <FormGroup sx={{ flexDirection: 'row' }}>
             {tribes.map(tribe => (

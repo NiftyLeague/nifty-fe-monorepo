@@ -16,8 +16,7 @@ const Item = ({ label, value, isDisable = false, isLoading = true }: ItemProps):
       <Skeleton variant="rectangular" width="15%" height="18.67px" />
     ) : (
       <Typography
-        sx={{ color: isDisable ? 'var(--color-muted-foreground)' : 'var(--color-warning)' }}
-        fontWeight="bold"
+        sx={{ fontWeight: 'bold', color: isDisable ? 'var(--color-muted-foreground)' : 'var(--color-warning)' }}
       >
         {value}
       </Typography>

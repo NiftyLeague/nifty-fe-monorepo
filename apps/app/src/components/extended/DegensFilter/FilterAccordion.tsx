@@ -29,13 +29,9 @@ const FilterAccordion = ({ summary, children, expanded = true, length = 0 }: Pro
           '& .MuiAccordionSummary-content': { my: 1, '&.Mui-expanded': { my: 1 } },
         }}
       >
-        <Stack width="100%" direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
+        <Stack direction="row" sx={{ width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
           {summary}
-          {length > 0 && (
-            <Typography sx={{ color: '#D7DCFF' }} fontSize="10px" mr={1}>
-              {length}
-            </Typography>
-          )}
+          {length > 0 && <Typography sx={{ fontSize: '10px', mr: 1, color: '#D7DCFF' }}>{length}</Typography>}
         </Stack>
       </AccordionSummary>
       <AccordionDetails>{children}</AccordionDetails>

@@ -13,11 +13,11 @@ const TitleSection = (): React.ReactNode => {
       firstSection
       variant="h3"
       actions={
-        <Stack direction="row" gap={2}>
+        <Stack direction="row" sx={{ gap: 2 }}>
           {loadingNFTLBal ? (
             <Skeleton variant="rectangular" animation="wave" width={120} height={40} />
           ) : (
-            <Typography variant="body1" fontWeight="bold">
+            <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
               NFTL in Wallet: {formatNumberToDisplay(tokensBalances.NFTL.eth + tokensBalances.NFTL.imx)}
             </Typography>
           )}

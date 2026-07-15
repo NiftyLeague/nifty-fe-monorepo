@@ -4,7 +4,7 @@ import LeaderBoards from '@/components/leaderboards';
 const LeaderboardPage = () => {
   return (
     <>
-      <Typography mb={4} variant="h2">
+      <Typography variant="h2" sx={{ mb: 4 }}>
         Leaderboards (Archived)
       </Typography>
       <LeaderBoards />

@@ -23,7 +23,7 @@ const MiniGameContent = ({ data }: MiniGameContentProps): React.ReactNode => {
 
   const { isLoadingProfile } = useGamerProfileContext();
   return (
-    <Stack flex={1} spacing={1}>
+    <Stack spacing={1} sx={{ flex: 1 }}>
       {leftDataMapper.map(child => (
         <Item key={child.label} {...child} isLoading={isLoadingProfile} />
       ))}
