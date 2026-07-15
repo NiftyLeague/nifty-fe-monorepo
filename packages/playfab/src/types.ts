@@ -36,11 +36,7 @@ export type UnlinkAppleResult = PlayFabClientModels.UnlinkAppleResult;
 export type UnlinkFacebookResult = PlayFabClientModels.UnlinkFacebookAccountResult;
 export type UnlinkTwitchResult = PlayFabClientModels.UnlinkTwitchAccountResult;
 export type UnlinkProviderResult =
-  | UnlinkGoogleResult
-  | UnlinkAppleResult
-  | UnlinkFacebookResult
-  | UnlinkTwitchResult
-  | null;
+  UnlinkGoogleResult | UnlinkAppleResult | UnlinkFacebookResult | UnlinkTwitchResult | null;
 export type Provider =
   | 'google'
   | 'apple'

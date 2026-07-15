@@ -134,13 +134,7 @@ export interface NameableCharacterInterface extends Interface {
 
   getEvent(
     nameOrSignatureOrTopic:
-      | 'Approval'
-      | 'ApprovalForAll'
-      | 'NameUpdated'
-      | 'OwnershipTransferred'
-      | 'Paused'
-      | 'Transfer'
-      | 'Unpaused',
+      'Approval' | 'ApprovalForAll' | 'NameUpdated' | 'OwnershipTransferred' | 'Paused' | 'Transfer' | 'Unpaused',
   ): EventFragment;
 
   encodeFunctionData(functionFragment: 'NAME_CHANGE_PRICE', values?: undefined): string;

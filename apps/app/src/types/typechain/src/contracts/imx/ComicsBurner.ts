@@ -41,12 +41,7 @@ export interface ComicsBurnerInterface extends Interface {
 
   getEvent(
     nameOrSignatureOrTopic:
-      | 'ComicsBurned'
-      | 'Initialized'
-      | 'ItemsMinted'
-      | 'OwnershipTransferred'
-      | 'Paused'
-      | 'Unpaused',
+      'ComicsBurned' | 'Initialized' | 'ItemsMinted' | 'OwnershipTransferred' | 'Paused' | 'Unpaused',
   ): EventFragment;
 
   encodeFunctionData(functionFragment: 'burnComics', values: [BigNumberish[], BigNumberish[]]): string;

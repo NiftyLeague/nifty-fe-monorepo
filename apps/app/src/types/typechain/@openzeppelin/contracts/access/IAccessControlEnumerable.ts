@@ -26,13 +26,7 @@ import type {
 export interface IAccessControlEnumerableInterface extends Interface {
   getFunction(
     nameOrSignature:
-      | 'getRoleAdmin'
-      | 'getRoleMember'
-      | 'getRoleMemberCount'
-      | 'grantRole'
-      | 'hasRole'
-      | 'renounceRole'
-      | 'revokeRole',
+      'getRoleAdmin' | 'getRoleMember' | 'getRoleMemberCount' | 'grantRole' | 'hasRole' | 'renounceRole' | 'revokeRole',
   ): FunctionFragment;
 
   getEvent(nameOrSignatureOrTopic: 'RoleAdminChanged' | 'RoleGranted' | 'RoleRevoked'): EventFragment;
