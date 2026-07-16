@@ -3,20 +3,28 @@
   "version": "1.0.0",
   "license": "GPL-3.0-only",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "act-ci": "act --container-architecture linux/amd64 -P ubuntu-latest=-self-hosted -s GITHUB_TOKEN --var-file .env.act --secret-file .env.act -W '.github/workflows/ci.yml'",
-    "add-ui": "pnpm --filter ui add-component $@",
+    "add-ui": "bun --filter ui add-component $@",
     "build": "turbo build",
     "clean": "turbo clean",
     "dev": "turbo dev",
     "format": "turbo format",
     "lint": "turbo lint",
     "lint:fix": "turbo lint:fix",
-    "migrate-ui": "pnpm --filter ui migrate",
-    "prepare": "husky && pnpm symlinks",
-    "symlinks": "pnpm exec .sh/symlinks.sh",
-    "sync-node-versions": "pnpm exec .sh/sync-node-versions.sh",
-    "type-check": "turbo type-check"
+    "migrate-ui": "bun --filter ui migrate",
+    "prepare": "husky && bun run symlinks",
+    "symlinks": "bun exec .sh/symlinks.sh",
+    "sync-node-versions": "bun exec .sh/sync-node-versions.sh",
+    "type-check": "turbo type-check",
+    "type:check": "turbo type-check",
+    "test": "turbo test",
+    "start": "turbo start",
+    "format:check": "turbo run format:check"
   },
   "devDependencies": {
     "@nl/eslint-config": "workspace:*",
@@ -31,45 +39,29 @@
     "turbo": "^2.10.5",
     "typescript": "~5.9.3"
   },
-  "pnpm": {
-    "overrides": {
-      "bnc-sdk>crypto-es": "^2.1.0",
-      "zod": "^4.4.3"
-    },
-    "peerDependencyRules": {
-      "allowedVersions": {
-        "@types/react-dom": "19.2.3",
-        "@types/react": "19.2.17",
-        "cross-fetch": "4",
-        "crypto-es": "^2.1.0",
-        "lit": "3.3.1",
-        "multiformats": "14",
-        "next": "16.2.10",
-        "react-dom": "^19.2.7",
-        "react": "^19.2.7",
-        "three": "0.183.2"
-      }
-    },
-    "onlyBuiltDependencies": [
-      "@axelar-network/axelarjs-sdk",
-      "@opensea/seaport-js",
-      "@prisma/engines",
-      "@reown/appkit",
-      "@sentry/cli",
-      "@swc/core",
-      "@tailwindcss/oxide",
-      "bufferutil",
-      "core-js",
-      "core-js-pure",
-      "esbuild",
-      "keccak",
-      "prisma",
-      "protobufjs",
-      "sharp",
-      "unrs-resolver",
-      "utf-8-validate"
-    ]
+  "overrides": {
+    "bnc-sdk>crypto-es": "^2.1.0",
+    "zod": "^4.4.3"
   },
+  "trustedDependencies": [
+    "@axelar-network/axelarjs-sdk",
+    "@opensea/seaport-js",
+    "@prisma/engines",
+    "@reown/appkit",
+    "@sentry/cli",
+    "@swc/core",
+    "@tailwindcss/oxide",
+    "bufferutil",
+    "core-js",
+    "core-js-pure",
+    "esbuild",
+    "keccak",
+    "prisma",
+    "protobufjs",
+    "sharp",
+    "unrs-resolver",
+    "utf-8-validate"
+  ],
   "browserslist": {
     "production": [
       ">0.5%",
@@ -85,5 +77,5 @@
   "engines": {
     "node": ">=24"
   },
-  "packageManager": "pnpm@10.24.0+sha512.01ff8ae71b4419903b65c60fb2dc9d34cf8bb6e06d03bde112ef38f7a34d6904c424ba66bea5cdcf12890230bf39f9580473140ed9c946fef328b6e5238a345a"
+  "packageManager": "bun@1.3.14"
 }
