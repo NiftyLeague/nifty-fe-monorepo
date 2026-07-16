@@ -2,5 +2,10 @@
   "name": "@nl/typescript-config",
   "version": "0.0.0",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "scripts": {
+    "test": "vitest run --config ../../vitest.config.ts --project typescript-config",
+    "test:coverage": "VITEST_SCOPE=packages/typescript-config vitest run --config ../../vitest.config.ts --project typescript-config --coverage",
+    "test:watch": "vitest --config ../../vitest.config.ts --project typescript-config"
+  }
 }

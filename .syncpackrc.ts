@@ -62,7 +62,12 @@ export default {
       dependencyTypes: ['!local'],
       pinVersion: 'workspace:*',
     },
-    { label: 'Pin ethers to v5.8.0', packages: ['app'], dependencies: ['ethers'], pinVersion: '~5.8.0' },
+    {
+      label: 'Pin ethers to v6.17.0',
+      packages: ['app', '@nl/playfab'],
+      dependencies: ['ethers'],
+      pinVersion: '^6.17.0',
+    },
     {
       label: 'Pin react-unity-webgl to v8.8.0',
       packages: ['app'],

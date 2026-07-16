@@ -16,6 +16,9 @@
     "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\" --ignore-path ../../.gitignore",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --max-warnings 0 --fix",
+    "test": "vitest run --config ../../vitest.config.ts --project theme",
+    "test:coverage": "VITEST_SCOPE=packages/theme vitest run --config ../../vitest.config.ts --project theme --coverage",
+    "test:watch": "vitest --config ../../vitest.config.ts --project theme",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
@@ -24,7 +27,7 @@
     "stylis-plugin-rtl": "^2.1.1"
   },
   "devDependencies": {
-    "@types/react": "19.2.7",
+    "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3"
   },
   "peerDependencies": {
@@ -34,8 +37,8 @@
     "@mui/material": "^7.3.6",
     "@mui/material-nextjs": "^7.2.0",
     "@mui/system": "^7.3.6",
-    "next": "16.0.7",
-    "react": "19.2.1",
-    "react-dom": "19.2.1"
+    "next": "16.2.10",
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
   }
 }

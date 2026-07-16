@@ -1,50 +1,61 @@
-name: Validate Pull Requests
+name: Validate, test, and build
+
 permissions:
   contents: read
 
 on:
+  push:
+    branches: [main, staging]
   pull_request:
-    branches:
-      - main
-      - staging
+    branches: [main, staging]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  test:
-    name: Test & Build Code
+  quality:
+    name: Quality, coverage, audit, and build
+    if: github.event_name != 'pull_request' || github.head_ref != 'staging'
     runs-on: ubuntu-latest
-    # This concurrency setting allows multiple workflows to run at the same time,
-    # as long as they are for different branches. This is useful for pull requests
-    # since we want to validate them as quickly as possible.
-    #
-    # The `cancel-in-progress` option will cancel any existing workflows with
-    # the same name and ref, so we don't end up with multiple workflows running
-    # at the same time for the same branch.
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref == format('refs/heads/{0}', github.event.pull_request.base.ref) && github.event_name == 'pull_request' && github.event.pull_request.number || github.ref }}
-      cancel-in-progress: true
-    # Vercel Remote Caching with Turborepo https://vercel.com/docs/monorepos/remote-caching
+    timeout-minutes: 45
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v6
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
+        with:
+          version: 11.13.1
+          run_install: false
+
       - name: Install Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version-file: '.nvmrc'
-          cache: 'pnpm'
+          cache: pnpm
+
       - name: Install dependencies
-        run: pnpm install
-      - name: Run prettier
-        run: pnpm format
-      - name: Check linter
+        run: pnpm install --frozen-lockfile
+
+      - name: Check formatting
+        run: pnpm format:check
+
+      - name: Lint
         run: pnpm lint
+
       - name: Check TypeScript
         run: pnpm type-check
+
+      - name: Run tests with coverage
+        run: pnpm test:coverage
+
+      - name: Audit critical production dependencies
+        run: pnpm audit --prod --audit-level critical
+
       - name: Build
         run: pnpm build
         env:

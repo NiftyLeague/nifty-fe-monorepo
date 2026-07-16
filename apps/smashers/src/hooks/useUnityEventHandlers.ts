@@ -28,7 +28,7 @@ const useUnityEventHandlers = ({ address, authToken, addEventListener, removeEve
 
   const startAuthentication = useCallback(
     (...parameters: UnityEventParameter[]): UnityEventParameter => {
-      const customEvent = parameters as unknown as CustomEvent<{ callback: (auth: string) => void }>;
+      const customEvent = parameters[0] as unknown as CustomEvent<{ callback: (auth: string) => void }>;
       console.log('Authenticating:', authMsg);
       customEvent.detail.callback(authMsg);
       authCallback.current = customEvent.detail.callback;
@@ -37,7 +37,7 @@ const useUnityEventHandlers = ({ address, authToken, addEventListener, removeEve
   );
 
   const getConfiguration = useCallback((...parameters: UnityEventParameter[]): UnityEventParameter => {
-    const customEvent = parameters as unknown as CustomEvent<{ callback: (network: string) => void }>;
+    const customEvent = parameters[0] as unknown as CustomEvent<{ callback: (network: string) => void }>;
     const networkName = process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' ? 'mainnet' : 'sepolia';
     const version = process.env.NEXT_PUBLIC_SUBGRAPH_VERSION;
 

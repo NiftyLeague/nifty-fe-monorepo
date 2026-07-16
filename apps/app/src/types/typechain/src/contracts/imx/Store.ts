@@ -58,12 +58,7 @@ export interface StoreInterface extends Interface {
 
   getEvent(
     nameOrSignatureOrTopic:
-      | 'Initialized'
-      | 'ItemsMinted'
-      | 'NftlSpent'
-      | 'OwnershipTransferred'
-      | 'Paused'
-      | 'Unpaused',
+      'Initialized' | 'ItemsMinted' | 'NftlSpent' | 'OwnershipTransferred' | 'Paused' | 'Unpaused',
   ): EventFragment;
 
   encodeFunctionData(functionFragment: 'initialize', values: [AddressLike, AddressLike, AddressLike]): string;

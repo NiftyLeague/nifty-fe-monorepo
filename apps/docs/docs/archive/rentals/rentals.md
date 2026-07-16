@@ -40,7 +40,7 @@ No, but the rental fee increases with each subsequent rental.
 
 <details>
 <summary>How does the rental fee work?</summary>
-  
+
 You can initiate a rental by paying the initial rental fee, which covers the cost of the rental for one week. After the first week, the rental switches to daily. The daily rental fee will automatically deduct from your <code>Game & Rental Balance</code> until either the rental is terminated or the DEGEN is no longer available for rent.
 
 View your <code>Game & Rental Balance</code> by opening our [app](https://app.niftyleague.com), clicking <code>My Dashboard</code> in the side navigation, then [<code>Overview</code>](https://app.niftyleague.com/dashboard), which opens your dashboard where <code>Game & Rental Balance</code> is visible.
@@ -97,9 +97,9 @@ The active rental is not disrupted, and the renter can continues to play/use you
 
 <details>
 <summary>Help! I tried to rent a DEGEN but I see an error stating "insufficient funds". What now?</summary>
-  
+
 Rental costs are deducted from your <code>Game & Rental Balance</code>. If you have a balance of NFTL available in <code>Daily NFTL Accrued</code>, you can click <code>Claim</code> and follow the prompts via your crypto wallet, which will move the balance from <code>Daily NFTL Accured</code> to your <code>Game & Rental Balance</code>. which will allow you to activate a Rental (assuming you claimed enough NFTL to cover the rental).
-  
+
 </details>
 
 <details>
@@ -111,9 +111,9 @@ Yes, once the items marketplace is live! This includes items acquired through co
 
 <details>
 <summary>Can the same two DEGENs play each other simultaneously in Nifty Smashers?</summary>
-  
+
 Yes! Crazy, right.
-  
+
 </details>
 
 ## Tokenomics
@@ -171,9 +171,9 @@ The first version of the rental system will set the Player (Recruit if sponsored
 
 <details>
 <summary>Are in-game earnings capped on the DEGENs I own?</summary>
-  
+
 Yes, all DEGENs have their weekly earnings capped based on their multiplier. This ensures that our most active players are spreading the love (and NFTL) to other DEGENs as well!
-  
+
 </details>
 
 <details>
@@ -212,7 +212,7 @@ It's not. Solution? ✨COMPETE & EARN✨ (more details to come soon).
 
 <details>
 <summary>What is a rental pass?</summary>
-  
+
 Rental passes let you rent a DEGEN for free, bypassing the rental fee entirely! Please note, rental passes can only be applied to DEGENs with Common backgrounds and zero rentals in queue (these typically cost 1,000 NFTL for a week-long rental).
 <br /><br />
 
@@ -232,7 +232,7 @@ Click <code>Launch App</code> on the top right corner of our [website](https://n
 <details>
 <summary>How do I issue a rental pass?</summary>
 <br />
- 
+
 Open our <a href="https://app.niftyleague.com">app</a>, connect your wallet, select the DEGEN you wish to apply the rental pass to - either by browsing the Degen Rentals marketplace or selecting a DEGEN you own.
 <br />
 
@@ -255,13 +255,13 @@ Check out our [tutorial video on issuing rental passes](https://www.loom.com/sha
 
 <details>
 <summary>Help! I received an error when attempting to issue a rental pass. Now what?</summary>
-  
+
 If you receive an error after attempting to rent a DEGEN using a rental pass, this is likely because the DEGEN either does not have a Common background, has an ongoing active rental, or, the address you attempted to issue the pass to is not recognized as a profile in our system. If the address is not recognized, please instruct your Recruit/Player (friend, family, etc.) to connect their crypto wallet to our <a href="https://app.niftyleague.com">app</a>.
 
 If you are encountering other issues with your rental pass, please reach out to a community moderators in our Discord server.
 
 </details>
-  
+
 <details>
 <summary>How can I get a rental pass?</summary>
 

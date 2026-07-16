@@ -29,6 +29,10 @@ export default function useLocalStorage<T>(
   // Whenever the state value changes, save it in the local storage.
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      if (storedValue === undefined) {
+        window.localStorage.removeItem(key);
+        return;
+      }
       const currentValueInStorage = safeJSONParse(window.localStorage.getItem(key)) as T;
       if (!isEqual(currentValueInStorage, storedValue)) {
         window.localStorage.setItem(key, JSON.stringify(storedValue));

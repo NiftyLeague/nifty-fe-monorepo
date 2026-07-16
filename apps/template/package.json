@@ -6,17 +6,20 @@
   "scripts": {
     "clean": "rm -rf node_modules && rm -rf .turbo && rm -rf .next",
     "dev": "next dev --port 3005",
-    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\" --ignore-path ../../.gitignore"
+    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\" --ignore-path ../../.gitignore",
+    "test": "vitest run --config ../../vitest.config.ts --project template",
+    "test:coverage": "VITEST_SCOPE=apps/template vitest run --config ../../vitest.config.ts --project template --coverage",
+    "test:watch": "vitest --config ../../vitest.config.ts --project template"
   },
   "dependencies": {
     "@nl/ui": "workspace:*",
-    "next": "16.0.7",
-    "react": "19.2.1",
-    "react-dom": "19.2.1"
+    "next": "16.2.10",
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",
-    "@types/react": "19.2.7",
+    "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3"
   }
 }
