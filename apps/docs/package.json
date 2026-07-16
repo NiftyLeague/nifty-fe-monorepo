@@ -15,6 +15,9 @@
     "serve": "docusaurus serve",
     "start": "docusaurus start",
     "swizzle": "docusaurus swizzle",
+    "test": "vitest run --config ../../vitest.config.ts --project docs",
+    "test:coverage": "VITEST_SCOPE=apps/docs vitest run --config ../../vitest.config.ts --project docs --coverage",
+    "test:watch": "vitest --config ../../vitest.config.ts --project docs",
     "type-check": "tsc --noEmit",
     "write-heading-ids": "docusaurus write-heading-ids",
     "write-translations": "docusaurus write-translations"
@@ -31,6 +34,8 @@
     "algoliasearch": "^5.55.2",
     "lucide-react": "^0.556.0",
     "prism-react-renderer": "^2.4.1",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
     "react-player": "^3.4.0"
   },
   "devDependencies": {

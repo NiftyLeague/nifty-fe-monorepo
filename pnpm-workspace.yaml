@@ -1,3 +1,56 @@
 packages:
   - 'apps/*'
   - 'packages/*'
+
+nodeVersion: 24.18.0
+engineStrict: true
+optimisticRepeatInstall: false
+verifyDepsBeforeRun: error
+
+publicHoistPattern:
+  - '*import-in-the-middle*'
+  - '*require-in-the-middle*'
+
+overrides:
+  'bnc-sdk>crypto-es': ^2.1.0
+  'shell-quote@<=1.8.3': 1.8.4
+  'websocket-driver@<0.7.5': 0.7.5
+  zod: ^4.4.3
+
+# protobufjs 6.x is pinned by legacy Axelar/Cow/IPFS SDKs. The critical fix is
+# only published in 7.x, which is a breaking upgrade for those transitive
+# consumers; dependency review still blocks newly introduced high-risk changes.
+auditConfig:
+  ignoreGhsas:
+    - GHSA-xq3m-2v4x-88gg
+
+peerDependencyRules:
+  allowedVersions:
+    '@types/react-dom': 19.2.3
+    '@types/react': 19.2.17
+    cross-fetch: '4'
+    crypto-es: ^2.1.0
+    lit: 3.3.1
+    next: 16.2.10
+    react-dom: ^19.2.7
+    react: ^19.2.7
+    three: 0.181.2
+
+allowBuilds:
+  '@axelar-network/axelarjs-sdk': true
+  '@opensea/seaport-js': true
+  '@prisma/engines': true
+  '@reown/appkit': true
+  '@sentry/cli': true
+  '@swc/core': true
+  '@tailwindcss/oxide': true
+  bufferutil: true
+  core-js: true
+  core-js-pure: true
+  esbuild: true
+  keccak: true
+  prisma: true
+  protobufjs: true
+  sharp: true
+  unrs-resolver: true
+  utf-8-validate: true
