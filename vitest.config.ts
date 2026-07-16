@@ -77,7 +77,7 @@ export default defineConfig({
         'apps/app/src/constants/leaderboards/leaderboard-*.ts',
       ],
       excludeAfterRemap: true,
-      thresholds: coverageScope ? undefined : { branches: 26, functions: 26, lines: 27, statements: 27 },
+      thresholds: coverageScope ? undefined : { branches: 26.05, functions: 26.2, lines: 27.8, statements: 27.6 },
     },
   },
 });

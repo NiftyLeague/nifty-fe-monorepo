@@ -13,16 +13,29 @@ publicHoistPattern:
 
 overrides:
   'bnc-sdk>crypto-es': ^2.1.0
+  'bnc-notify>uuid': 3.4.0
+  'bn.js@>=4 <4.12.3': 4.12.3
+  'brace-expansion@>=2 <2.0.3': 2.0.3
+  'cookie@<0.7.0': 0.7.2
+  'diff@>=5 <5.2.2': 5.2.2
+  'esbuild@<0.28.1': 0.28.1
+  'fast-uri@>=3 <3.1.2': 3.1.2
+  'immutable@>=4 <4.3.8': 4.3.8
+  'minimatch@>=5 <5.1.8': 5.1.8
+  'minimatch@>=9 <9.0.7': 9.0.7
+  'postcss@<8.5.10': 8.5.19
+  protobufjs: 7.6.3
+  'serialize-javascript@<7.0.5': 7.0.5
   'shell-quote@<=1.8.3': 1.8.4
+  'tmp@<0.2.7': 0.2.7
+  'undici@<6.27.0': 6.27.0
+  'uuid@<11.1.1': 11.1.1
+  'vite@>=7 <7.3.5': 7.3.5
   'websocket-driver@<0.7.5': 0.7.5
+  'webpack@>=5 <5.104.1': 5.104.1
+  'ws@>=7 <7.5.11': 7.5.11
+  'ws@>=8 <8.21.0': 8.21.0
   zod: ^4.4.3
-
-# protobufjs 6.x is pinned by legacy Axelar/Cow/IPFS SDKs. The critical fix is
-# only published in 7.x, which is a breaking upgrade for those transitive
-# consumers; dependency review still blocks newly introduced high-risk changes.
-auditConfig:
-  ignoreGhsas:
-    - GHSA-xq3m-2v4x-88gg
 
 peerDependencyRules:
   allowedVersions:

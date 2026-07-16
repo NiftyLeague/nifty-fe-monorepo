@@ -49,8 +49,5 @@ export default withSentryConfig(nextConfig, {
   tunnelRoute: true, // Generates a random route for each build (recommended)
 
   // Capture React component names to see which component a user clicked on.
-  reactComponentAnnotation: { enabled: true },
-
-  // Automatically tree-shake Sentry logger statements to reduce bundle size
-  disableLogger: true,
+  webpack: { reactComponentAnnotation: { enabled: true }, treeshake: { removeDebugLogging: true } },
 });
