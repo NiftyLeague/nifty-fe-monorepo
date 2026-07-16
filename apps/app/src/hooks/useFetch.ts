@@ -13,10 +13,7 @@ type Cache<T> = { [url: string]: T };
 
 // discriminated union type
 type Action<T> =
-  | { type: 'loading' }
-  | { type: 'reset' }
-  | { type: 'fetched'; payload: T }
-  | { type: 'error'; payload: Error };
+  { type: 'loading' } | { type: 'reset' } | { type: 'fetched'; payload: T } | { type: 'error'; payload: Error };
 
 const initialState: State<unknown> = { data: undefined, error: undefined, loading: undefined, reset: undefined };
 

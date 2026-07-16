@@ -3850,10 +3850,7 @@ declare namespace PlayFabAdminModels {
   }
 
   type ScheduledTaskType =
-    | 'CloudScript'
-    | 'ActionsOnPlayerSegment'
-    | 'CloudScriptAzureFunctions'
-    | 'InsightsScheduledScaling';
+    'CloudScript' | 'ActionsOnPlayerSegment' | 'CloudScriptAzureFunctions' | 'InsightsScheduledScaling';
 
   export interface ScriptExecutionError {
     // Error code, such as CloudScriptNotFound, JavascriptException, CloudScriptFunctionArgumentSizeExceeded,

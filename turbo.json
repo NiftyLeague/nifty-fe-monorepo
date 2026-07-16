@@ -51,10 +51,9 @@
     "lint:fix": { "dependsOn": ["transit"], "env": ["NEXT_PUBLIC_VERCEL_ENV"] },
     "format": { "dependsOn": ["transit"] },
     "type-check": { "dependsOn": ["transit"] },
-    "test": {
-      "dependsOn": ["transit", "lint:fix", "format", "type-check"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"]
-    },
+    "test": { "dependsOn": ["^test"], "outputs": [] },
+    "test:coverage": { "dependsOn": ["^test:coverage"], "outputs": ["coverage/**"] },
+    "test:watch": { "cache": false, "persistent": true },
     "dev": { "cache": false, "persistent": true, "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"] }
   }
 }

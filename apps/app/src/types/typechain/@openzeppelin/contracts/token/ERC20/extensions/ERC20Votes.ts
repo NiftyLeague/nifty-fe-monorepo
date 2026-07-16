@@ -61,11 +61,7 @@ export interface ERC20VotesInterface extends Interface {
 
   getEvent(
     nameOrSignatureOrTopic:
-      | 'Approval'
-      | 'DelegateChanged'
-      | 'DelegateVotesChanged'
-      | 'EIP712DomainChanged'
-      | 'Transfer',
+      'Approval' | 'DelegateChanged' | 'DelegateVotesChanged' | 'EIP712DomainChanged' | 'Transfer',
   ): EventFragment;
 
   encodeFunctionData(functionFragment: 'CLOCK_MODE', values?: undefined): string;

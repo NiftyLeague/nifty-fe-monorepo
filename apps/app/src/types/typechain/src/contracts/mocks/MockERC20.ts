@@ -58,13 +58,7 @@ export interface MockERC20Interface extends Interface {
 
   getEvent(
     nameOrSignatureOrTopic:
-      | 'Approval'
-      | 'Paused'
-      | 'RoleAdminChanged'
-      | 'RoleGranted'
-      | 'RoleRevoked'
-      | 'Transfer'
-      | 'Unpaused',
+      'Approval' | 'Paused' | 'RoleAdminChanged' | 'RoleGranted' | 'RoleRevoked' | 'Transfer' | 'Unpaused',
   ): EventFragment;
 
   encodeFunctionData(functionFragment: 'DEFAULT_ADMIN_ROLE', values?: undefined): string;
