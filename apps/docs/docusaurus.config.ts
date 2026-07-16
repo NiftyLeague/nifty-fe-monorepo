@@ -11,9 +11,8 @@ const config: Config = {
   organizationName: 'NiftyLeague',
   projectName: 'docs',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
   staticDirectories: ['public'],
-  markdown: { mermaid: true },
+  markdown: { mermaid: true, hooks: { onBrokenMarkdownLinks: 'warn' } },
   themes: ['@docusaurus/theme-mermaid'],
 
   // Enable Docusaurus Faster features to improve build performance
