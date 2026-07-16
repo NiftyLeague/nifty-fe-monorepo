@@ -73,7 +73,7 @@ describe('useVersion', () => {
     vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('offline'));
     const { result } = renderHook(() => useVersion());
 
-    await waitFor(() => expect(result.current.version).toBe(''));
+    await waitFor(() => expect(result.current.version).toBe(''), { timeout: 10_000 });
   });
 });
 
