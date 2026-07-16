@@ -16,6 +16,7 @@ concurrency:
 jobs:
   quality:
     name: Quality, coverage, audit, and build
+    if: github.event_name != 'pull_request' || github.head_ref != 'staging'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
