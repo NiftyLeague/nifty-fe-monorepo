@@ -59,7 +59,7 @@
     "react-redux": "^9.3.0",
     "react-slick": "^0.31.0",
     "react-toastify": "^11.1.0",
-    "react-unity-webgl": "~8.8.0",
+    "react-unity-webgl": "~10.2.0",
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
     "save-as": "^0.1.8",
