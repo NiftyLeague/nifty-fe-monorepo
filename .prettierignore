@@ -1,0 +1,10 @@
+.next
+.turbo
+**/.docusaurus
+**/.next
+**/build
+**/coverage
+**/next-env.d.ts
+**/node_modules
+**/public
+pnpm-lock.yaml
