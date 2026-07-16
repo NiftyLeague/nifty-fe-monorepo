@@ -3,6 +3,11 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import useAsyncInterval from './useAsyncInterval';
 import useFetch from './useFetch';
 import useLocalStorage from './useLocalStorage';
+import useRemovedTraits from './useRemovedTraits';
+
+const contractReader = vi.hoisted(() => vi.fn());
+
+vi.mock('./useContractReader', () => ({ default: contractReader }));
 
 const interval = vi.hoisted(() => ({ clear: vi.fn(async () => undefined), set: vi.fn(() => 'interval-id') }));
 
@@ -109,5 +114,18 @@ describe('useAsyncInterval', () => {
     renderHook(() => useAsyncInterval(callback, 100, false));
     await waitFor(() => expect(interval.set).toHaveBeenCalledWith(expect.any(Function), 100));
     expect(callback).not.toHaveBeenCalled();
+  });
+});
+
+describe('useRemovedTraits', () => {
+  it('returns contract results and falls back to an empty list', () => {
+    contractReader.mockReturnValueOnce([3, 7]);
+    const readContracts = {} as Parameters<typeof useRemovedTraits>[0];
+    const { result, rerender } = renderHook(() => useRemovedTraits(readContracts));
+
+    expect(result.current).toEqual([3, 7]);
+    contractReader.mockReturnValueOnce(undefined);
+    rerender();
+    expect(result.current).toEqual([]);
   });
 });
