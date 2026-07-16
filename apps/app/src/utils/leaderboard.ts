@@ -32,7 +32,7 @@ export const fetchScores = async (
     const { earnings, matches } = data?.stats || {};
     const avg = earnings && matches ? Math.round((parseFloat(earnings) * 100) / parseFloat(matches)) / 100 : 0;
     let rate = 0;
-    let earningsParsed = Math.round(parseFloat(earnings ?? '0') * 10) / 10;
+    let earningsParsed = Math.round(parseFloat(earnings || '0') * 10) / 10;
     let kills = Number(data.stats?.kills ?? '0');
     switch (scoreType) {
       case 'win_rate':
