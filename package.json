@@ -10,64 +10,37 @@
     "clean": "turbo clean",
     "dev": "turbo dev",
     "format": "turbo format",
+    "format:check": "prettier --check \"**/*.{js,ts,tsx,md,mdx,json,yml,yaml}\" --ignore-path .gitignore",
     "lint": "turbo lint",
     "lint:fix": "turbo lint:fix",
     "migrate-ui": "pnpm --filter ui migrate",
     "prepare": "husky && pnpm symlinks",
     "symlinks": "pnpm exec .sh/symlinks.sh",
     "sync-node-versions": "pnpm exec .sh/sync-node-versions.sh",
+    "test": "turbo test",
+    "test:coverage": "vitest run --coverage",
+    "test:coverage:workspaces": "turbo test:coverage",
+    "test:watch": "turbo test:watch",
     "type-check": "turbo type-check"
   },
   "devDependencies": {
     "@nl/eslint-config": "workspace:*",
     "@nl/prettier-config": "workspace:*",
     "@nl/typescript-config": "workspace:*",
+    "@testing-library/jest-dom": "6.9.1",
+    "@testing-library/react": "16.3.2",
+    "@testing-library/user-event": "14.6.1",
+    "@vitest/coverage-v8": "4.1.10",
     "eslint": "^9.39.5",
     "husky": "^9.1.7",
+    "jsdom": "29.1.1",
     "lint-staged": "^16.2.7",
     "prettier": "^3.9.5",
     "semver": "^7.8.5",
     "syncpack": "^13.0.4",
     "turbo": "^2.10.5",
-    "typescript": "~5.9.3"
-  },
-  "pnpm": {
-    "overrides": {
-      "bnc-sdk>crypto-es": "^2.1.0",
-      "zod": "^4.4.3"
-    },
-    "peerDependencyRules": {
-      "allowedVersions": {
-        "@types/react-dom": "19.2.3",
-        "@types/react": "19.2.17",
-        "cross-fetch": "4",
-        "crypto-es": "^2.1.0",
-        "lit": "3.3.1",
-        "next": "16.2.10",
-        "react-dom": "^19.2.7",
-        "react": "^19.2.7",
-        "three": "0.181.2"
-      }
-    },
-    "onlyBuiltDependencies": [
-      "@axelar-network/axelarjs-sdk",
-      "@opensea/seaport-js",
-      "@prisma/engines",
-      "@reown/appkit",
-      "@sentry/cli",
-      "@swc/core",
-      "@tailwindcss/oxide",
-      "bufferutil",
-      "core-js",
-      "core-js-pure",
-      "esbuild",
-      "keccak",
-      "prisma",
-      "protobufjs",
-      "sharp",
-      "unrs-resolver",
-      "utf-8-validate"
-    ]
+    "typescript": "~5.9.3",
+    "vitest": "4.1.10"
   },
   "browserslist": {
     "production": [
@@ -82,7 +55,7 @@
     ]
   },
   "engines": {
-    "node": ">=24"
+    "node": "24.18.0"
   },
-  "packageManager": "pnpm@10.24.0+sha512.01ff8ae71b4419903b65c60fb2dc9d34cf8bb6e06d03bde112ef38f7a34d6904c424ba66bea5cdcf12890230bf39f9580473140ed9c946fef328b6e5238a345a"
+  "packageManager": "pnpm@11.13.1"
 }
