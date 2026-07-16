@@ -12,6 +12,9 @@
     "lint:fix": "eslint --fix .",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs",
     "start": "next start",
+    "test": "vitest run --config ../../vitest.config.ts --project smashers",
+    "test:coverage": "VITEST_SCOPE=apps/smashers vitest run --config ../../vitest.config.ts --project smashers --coverage",
+    "test:watch": "vitest --config ../../vitest.config.ts --project smashers",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {

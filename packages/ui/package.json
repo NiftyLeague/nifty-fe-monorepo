@@ -22,6 +22,9 @@
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --max-warnings 0 --fix",
     "migrate": "pnpm dlx shadcn@latest migrate radix -y",
+    "test": "vitest run --config ../../vitest.config.ts --project ui",
+    "test:coverage": "VITEST_SCOPE=packages/ui vitest run --config ../../vitest.config.ts --project ui --coverage",
+    "test:watch": "vitest --config ../../vitest.config.ts --project ui",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {

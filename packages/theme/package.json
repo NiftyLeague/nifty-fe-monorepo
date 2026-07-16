@@ -16,6 +16,9 @@
     "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\" --ignore-path ../../.gitignore",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --max-warnings 0 --fix",
+    "test": "vitest run --config ../../vitest.config.ts --project theme",
+    "test:coverage": "VITEST_SCOPE=packages/theme vitest run --config ../../vitest.config.ts --project theme --coverage",
+    "test:watch": "vitest --config ../../vitest.config.ts --project theme",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
