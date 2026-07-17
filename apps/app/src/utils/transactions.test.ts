@@ -1,14 +1,12 @@
-import {beforeEach, describe, expect, it, spyOn} from 'bun:test';
+import { beforeEach, describe, expect, it, spyOn } from 'bun:test';
 import { mock } from 'bun:test';
-;
-
-const { calculateGasMarginMock, loadGasPriceMock, toastError, toastInfo, toastSuccess } = ({
+const { calculateGasMarginMock, loadGasPriceMock, toastError, toastInfo, toastSuccess } = {
   calculateGasMarginMock: mock(() => 123n),
   loadGasPriceMock: mock().mockResolvedValue(25n),
   toastError: mock(),
   toastInfo: mock(),
   toastSuccess: mock(),
-});
+};
 
 mock.module('react-toastify', () => ({ toast: { error: toastError, info: toastInfo, success: toastSuccess } }));
 mock.module('eth-rpc-errors', () => ({

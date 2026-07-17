@@ -1,7 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'bun:test';
 import { mock } from 'bun:test';
-;
 import GameCard from './cards/GameCard';
 import MainCard from './cards/MainCard';
 import SubCard from './cards/SubCard';
@@ -9,7 +8,7 @@ import AnimateButton from './extended/AnimateButton';
 import Breadcrumbs from './extended/Breadcrumbs';
 import Transitions from './extended/Transitions';
 
-const themeState = ({ mode: 'light' as 'dark' | 'light' });
+const themeState = { mode: 'light' as 'dark' | 'light' };
 
 mock.module('@nl/theme', () => ({
   gridSpacing: 3,

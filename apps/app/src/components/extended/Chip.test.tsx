@@ -1,13 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'bun:test';
 import { mock } from 'bun:test';
-;
 import Chip from './Chip';
 
-const mocks = ({
+const mocks = {
   mode: 'light' as 'dark' | 'light',
   chip: mock(({ label }: { label?: React.ReactNode }) => <span>{label}</span>),
-});
+};
 
 mock.module('@nl/theme', () => ({ useTheme: () => ({ palette: { mode: mocks.mode } }) }));
 mock.module('@mui/material/Chip', () => ({ default: mocks.chip }));

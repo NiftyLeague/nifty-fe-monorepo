@@ -1,7 +1,6 @@
 import axios from 'axios';
-import {describe, expect, it, spyOn} from 'bun:test';
+import { describe, expect, it, spyOn } from 'bun:test';
 import { mock } from 'bun:test';
-;
 import { areEqualArrays, getUniqueListBy } from './array';
 import callAll from './callAll';
 import { formatDateTime, formatTime, secondsToHours } from './dateTime';

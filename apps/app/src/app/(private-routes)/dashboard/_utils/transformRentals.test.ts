@@ -1,7 +1,5 @@
 import { describe, expect, it } from 'bun:test';
 import { mock } from 'bun:test';
-;
-
 mock.module('uuid', () => ({ v4: mock(() => 'generated-id') }));
 mock.module('@/hooks/useLocalStorage', () => ({
   default: mock(() => [{ length: 1, '0xplayer': 'Known Player' }, mock()]),

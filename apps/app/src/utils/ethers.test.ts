@@ -1,7 +1,6 @@
 import { ZeroAddress } from 'ethers';
-import {afterEach, describe, expect, it, spyOn} from 'bun:test';
+import { afterEach, describe, expect, it, spyOn } from 'bun:test';
 import { mock } from 'bun:test';
-;
 import {
   formatBalance,
   getContract,

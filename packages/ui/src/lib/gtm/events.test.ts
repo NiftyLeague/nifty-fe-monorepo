@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it } from 'bun:test';
 import { mock } from 'bun:test';
-;
 import { sendGTMEvent } from '@next/third-parties/google';
 import { EVENTS } from './constants';
 import { removeUserId, sendEvent, sendGameReferral, sendUserId, sendWebVitals } from './events';

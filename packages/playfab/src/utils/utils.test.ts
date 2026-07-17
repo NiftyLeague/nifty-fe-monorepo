@@ -1,8 +1,9 @@
-const stubGlobal = (name, value) => { Object.defineProperty(globalThis, name, { value, configurable: true, writable: true }); };
+const stubGlobal = (name, value) => {
+  Object.defineProperty(globalThis, name, { value, configurable: true, writable: true });
+};
 
-import {beforeEach, describe, expect, it, spyOn} from 'bun:test';
+import { beforeEach, describe, expect, it, spyOn } from 'bun:test';
 import { mock } from 'bun:test';
-;
 import { errorMsgHandler, errorResHandler } from './errorHandlers';
 import { FetchError, fetchJson } from './fetchJson';
 import { getRandomKey } from './getRandomKey';

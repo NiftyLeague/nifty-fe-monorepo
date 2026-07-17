@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'bun:test';
-;
 import { cn, formatNumberToDisplay } from './utils';
 
 describe('UI utility helpers', () => {

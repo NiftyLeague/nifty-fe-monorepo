@@ -1,12 +1,11 @@
 import { parseEther } from 'ethers';
 import { afterEach, describe, expect, it } from 'bun:test';
 import { mock } from 'bun:test';
-;
 import { IMX_TESTNET_ID, MAINNET_ID, SEPOLIA_ID } from '@/constants/networks';
 import { INTERCHAIN_SERVICE_CONTRACT, NFTL_CONTRACT } from '@/constants/contracts';
 import { bridgeNFTL, getInterchainTokenRecord, increaseBridgeAllowance } from './interchainTokenService';
 
-const sdk = ({ estimateGasFee: mock().mockResolvedValue(123n) });
+const sdk = { estimateGasFee: mock().mockResolvedValue(123n) };
 
 mock.module('@axelar-network/axelarjs-sdk', () => ({
   AxelarQueryAPI: class {

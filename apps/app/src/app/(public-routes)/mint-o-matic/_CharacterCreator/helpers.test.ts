@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'bun:test';
-;
 import { getMintableTraits, type TraitArray } from './helpers';
 
 describe('getMintableTraits', () => {

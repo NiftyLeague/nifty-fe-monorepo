@@ -14,15 +14,7 @@ function customPathPriority(path) {
 module.exports = {
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://niftysmashers.com',
   generateRobotsTxt: true,
-  robotsTxtOptions: {
-    policies: [
-      {
-        userAgent: '*',
-        allow: '/',
-        disallow: ['/api/', '/invite/'],
-      },
-    ],
-  },
+  robotsTxtOptions: { policies: [{ userAgent: '*', allow: '/', disallow: ['/api/', '/invite/'] }] },
   generateIndexSitemap: false,
   exclude: ['/api/*', '/invite/*'],
   transform: async (config, path) => {
