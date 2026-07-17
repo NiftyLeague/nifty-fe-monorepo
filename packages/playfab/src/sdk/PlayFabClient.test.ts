@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it } from 'bun:test';
 import { mock } from 'bun:test';
 
 import * as PlayFab from './PlayFab';
+import * as client from './PlayFabClient';
 import { DeletePlayer } from './PlayFabAdmin';
 import { ExecuteFunction } from './PlayFabCloudScript';
 
