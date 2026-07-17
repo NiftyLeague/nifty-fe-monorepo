@@ -1,6 +1,8 @@
-import '@testing-library/jest-dom/vitest';
+import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'bun:test';
+import { mock } from 'bun:test';
+;
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './accordion';
 import {
   AlertDialog,
@@ -72,7 +74,7 @@ import { Toggle } from './toggle';
 import { ToggleGroup, ToggleGroupItem } from './toggle-group';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip';
 
-vi.mock('lucide-react/dynamic', () => ({
+mock.module('lucide-react/dynamic', () => ({
   DynamicIcon: ({ name, fallback: Fallback }: { name: string; fallback: () => React.ReactNode }) =>
     name === 'circle' ? <svg aria-label={name} /> : <Fallback />,
 }));
@@ -204,7 +206,7 @@ describe('base controlled primitives', () => {
 
 describe('base overlay and navigation primitives', () => {
   it('opens and closes dialogs while forwarding state callbacks', () => {
-    const onOpenChange = vi.fn();
+    const onOpenChange = mock();
     render(
       <Dialog onOpenChange={onOpenChange}>
         <DialogTrigger>Open dialog</DialogTrigger>

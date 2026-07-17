@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'bun:test';
+import { mock } from 'bun:test';
+;
 import { areEqualArrays, getUniqueListBy } from './array';
 import callAll from './callAll';
 import { formatDateTime, formatTime, secondsToHours } from './dateTime';
@@ -9,7 +11,7 @@ import { safeJSONParse } from './json';
 import { getErrorForName } from './name';
 import { strengthColor, strengthIndicator } from './password-strength';
 
-vi.mock('axios', () => ({ default: { get: vi.fn() } }));
+mock.module('axios', () => ({ default: { get: mock() } }));
 
 describe('array helpers', () => {
   it('compares values and preserves the last object for each unique key', () => {
@@ -33,8 +35,8 @@ describe('array helpers', () => {
 
 describe('callAll', () => {
   it('forwards arguments to each callback in order', () => {
-    const first = vi.fn();
-    const second = vi.fn();
+    const first = mock();
+    const second = mock();
 
     callAll(first, second)('value', 7);
 
@@ -87,7 +89,7 @@ describe('error and gas helpers', () => {
   it('normalizes error-shaped values', () => {
     expect(errorMsgHandler(new Error('broken'))).toBe('broken');
     expect(errorMsgHandler({ message: 'plain' })).toBe('plain');
-    vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    spyOn(console, 'error').mockImplementation(() => undefined);
     expect(errorMsgHandler('unknown')).toBe('Unknown error: unknown');
   });
 

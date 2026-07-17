@@ -1,6 +1,8 @@
-// @vitest-environment jsdom
+const stubGlobal = (name, value) => { Object.defineProperty(globalThis, name, { value, configurable: true, writable: true }); };
 
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it } from 'bun:test';
+import { mock } from 'bun:test';
+;
 import { errorMsgHandler, errorResHandler } from './errorHandlers';
 import { FetchError, fetchJson } from './fetchJson';
 import { getRandomKey } from './getRandomKey';
@@ -8,14 +10,14 @@ import { parseLinkedWalletResult, safeJSONParse } from './parseData';
 import { isEthereumSignatureValid } from './wallet';
 
 describe('fetchJson', () => {
-  beforeEach(() => vi.unstubAllGlobals());
+  beforeEach(() => undefined);
 
   it('returns JSON from successful responses', async () => {
     const response = new Response(JSON.stringify({ ok: true }), {
       status: 200,
       headers: { 'content-type': 'application/json' },
     });
-    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(response));
+    stubGlobal('fetch', mock().mockResolvedValue(response));
 
     await expect(fetchJson('/profile')).resolves.toEqual({ ok: true });
   });
@@ -26,7 +28,7 @@ describe('fetchJson', () => {
       statusText: 'Forbidden',
       headers: { 'content-type': 'application/json' },
     });
-    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(response));
+    stubGlobal('fetch', mock().mockResolvedValue(response));
 
     await expect(fetchJson('/profile')).rejects.toMatchObject({
       name: 'FetchError',
@@ -50,7 +52,7 @@ describe('PlayFab utility helpers', () => {
 
   it('parses stored wallet data and safely handles invalid JSON', () => {
     expect(safeJSONParse('["ethereum:0xabc"]')).toEqual(['ethereum:0xabc']);
-    vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    spyOn(console, 'error').mockImplementation(() => undefined);
     expect(safeJSONParse('invalid')).toEqual([]);
     expect(parseLinkedWalletResult({ LinkedWallets: { LastUpdated: 'now', Value: '["ethereum:0xdef"]' } })).toEqual([
       'ethereum:0xdef',

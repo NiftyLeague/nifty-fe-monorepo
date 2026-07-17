@@ -22,9 +22,9 @@
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --max-warnings 0 --fix",
     "migrate": "bun dlx shadcn@latest migrate radix -y",
-    "test": "vitest run --config ../../vitest.config.ts --project ui",
-    "test:coverage": "VITEST_SCOPE=packages/ui vitest run --config ../../vitest.config.ts --project ui --coverage",
-    "test:watch": "vitest --config ../../vitest.config.ts --project ui",
+    "test": "bun test --project-placeholder ui",
+    "test:coverage": "VITEST_SCOPE=packages/ui bun test --project-placeholder ui --coverage",
+    "test:watch": "bun test --watch",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {

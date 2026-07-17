@@ -1,19 +1,21 @@
-import '@testing-library/jest-dom/vitest';
+import '@testing-library/jest-dom';
 import { act, render, screen } from '@testing-library/react';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'bun:test';
+import { mock } from 'bun:test';
+;
 import CharacterCreatorContainer from './index';
 
-const unity = vi.hoisted(() => ({
+const unity = ({
   handlers: new Map<string, (...args: any[]) => void>(),
-  removeAll: vi.fn(),
-  send: vi.fn(),
-}));
+  removeAll: mock(),
+  send: mock(),
+});
 
-vi.mock('react-device-detect', () => ({
+mock.module('react-device-detect', () => ({
   isMobileOnly: false,
   withOrientationChange: (Component: React.ComponentType<any>) => Component,
 }));
-vi.mock('react-unity-webgl', () => {
+mock.module('react-unity-webgl', () => {
   const Unity = ({ className, style }: { className: string; style: React.CSSProperties }) => (
     <canvas aria-label="character creator" className={className} style={style} />
   );
@@ -54,35 +56,35 @@ vi.mock('react-unity-webgl', () => {
   },
   };
 });
-vi.mock('@/hooks/useRemovedTraits', () => ({ default: () => [3, 7] }));
-vi.mock('@/constants/networks', async importOriginal => {
+mock.module('@/hooks/useRemovedTraits', () => ({ default: () => [3, 7] }));
+mock.module('@/constants/networks', async importOriginal => {
   const actual = await importOriginal<typeof import('@/constants/networks')>();
   return { ...actual, TARGET_NETWORK: actual.NETWORKS.mainnet };
 });
-vi.mock('@/hooks/useNetworkContext', () => ({
+mock.module('@/hooks/useNetworkContext', () => ({
   default: () => ({
     address: '0xabc',
     readContracts: {},
-    tx: vi.fn(),
-    writeContracts: { Degen: { getNFTPrice: vi.fn().mockResolvedValue(1n) } },
+    tx: mock(),
+    writeContracts: { Degen: { getNFTPrice: mock().mockResolvedValue(1n) } },
   }),
 }));
-vi.mock('@/utils/bnc-notify', () => ({ submitTxWithGasEstimate: vi.fn() }));
+mock.module('@/utils/bnc-notify', () => ({ submitTxWithGasEstimate: mock() }));
 
 beforeEach(() => {
-  vi.useFakeTimers();
+  jest.useFakeTimers();
   unity.handlers.clear();
   unity.removeAll.mockClear();
   unity.send.mockClear();
   Reflect.deleteProperty(window, 'unityInstance');
 });
 
-afterEach(() => vi.useRealTimers());
+afterEach(() => jest.useRealTimers());
 
 describe('CharacterCreatorContainer', () => {
   it('bridges Unity lifecycle and browser events while the sold-out mint is locked', async () => {
-    const setLoaded = vi.fn();
-    const setProgress = vi.fn();
+    const setLoaded = mock();
+    const setProgress = mock();
     const { rerender, unmount } = render(
       <CharacterCreatorContainer isLoaded={false} isPortrait={false} setLoaded={setLoaded} setProgress={setProgress} />,
     );
@@ -98,23 +100,23 @@ describe('CharacterCreatorContainer', () => {
     expect(setProgress).toHaveBeenCalledWith(42);
 
     act(() => unity.handlers.get('canvas')?.());
-    act(() => vi.advanceTimersByTime(2_000));
+    act(() => jest.advanceTimersByTime(2_000));
 
-    const configuration = vi.fn();
+    const configuration = mock();
     act(() => window.dispatchEvent(new CustomEvent('GetConfiguration', { detail: { callback: configuration } })));
-    act(() => vi.advanceTimersByTime(1_000));
+    act(() => jest.advanceTimersByTime(1_000));
     expect(configuration).toHaveBeenCalledWith(expect.stringContaining(','));
 
-    const removedTraits = vi.fn();
+    const removedTraits = mock();
     act(() => window.dispatchEvent(new CustomEvent('GetRemovedTraits', { detail: { callback: removedTraits } })));
     expect(removedTraits).toHaveBeenCalledWith('[3,7]');
 
     act(() => window.dispatchEvent(new CustomEvent('OnMintEffectToggle', { detail: true })));
-    const mintCallback = vi.fn();
+    const mintCallback = mock();
     act(() =>
       window.dispatchEvent(new CustomEvent('SubmitTraits', { detail: { callback: mintCallback, traits: [] } })),
     );
-    act(() => vi.advanceTimersByTime(1_000));
+    act(() => jest.advanceTimersByTime(1_000));
     expect(mintCallback).toHaveBeenCalledWith('false');
 
     const canvas = screen.getByLabelText('character creator');

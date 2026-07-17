@@ -1,6 +1,8 @@
-import '@testing-library/jest-dom/vitest';
+import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it } from 'bun:test';
+import { mock } from 'bun:test';
+;
 import GameCard from './cards/GameCard';
 import MainCard from './cards/MainCard';
 import SubCard from './cards/SubCard';
@@ -8,14 +10,14 @@ import AnimateButton from './extended/AnimateButton';
 import Breadcrumbs from './extended/Breadcrumbs';
 import Transitions from './extended/Transitions';
 
-const themeState = vi.hoisted(() => ({ mode: 'light' as 'dark' | 'light' }));
+const themeState = ({ mode: 'light' as 'dark' | 'light' });
 
-vi.mock('@nl/theme', () => ({
+mock.module('@nl/theme', () => ({
   gridSpacing: 3,
   useTheme: () => ({ palette: { mode: themeState.mode }, spacing: (value: number) => `${value * 8}px` }),
 }));
-vi.mock('@nl/ui/base/icon', () => ({ Icon: ({ name }: { name: string }) => <span data-icon={name}>{name}</span> }));
-vi.mock('@nl/ui/custom/external-icon', () => ({ ExternalIcon: () => <span>external</span> }));
+mock.module('@nl/ui/base/icon', () => ({ Icon: ({ name }: { name: string }) => <span data-icon={name}>{name}</span> }));
+mock.module('@nl/ui/custom/external-icon', () => ({ ExternalIcon: () => <span>external</span> }));
 
 afterEach(() => {
   themeState.mode = 'light';
@@ -148,8 +150,8 @@ describe('card presentation', () => {
   });
 
   it('renders game calls to action, expands descriptions, and supports custom content', () => {
-    const desktop = vi.fn();
-    const web = vi.fn();
+    const desktop = mock();
+    const web = mock();
     const { rerender } = render(
       <GameCard
         title="Smashers"

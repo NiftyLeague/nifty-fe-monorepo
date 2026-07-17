@@ -1,12 +1,14 @@
-import '@testing-library/jest-dom/vitest';
+import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'bun:test';
+import { mock } from 'bun:test';
+;
 import HomepageFeatures from './HomepageFeatures';
 import HomepageGuides, { GITHUB_LINKS, GUIDE_LINKS, QUICK_LINKS } from './HomepageGuides';
 
-vi.mock('@site/public/icons/socials/github.svg', () => ({ default: () => <svg aria-label="GitHub" /> }));
-vi.mock('@site/public/img/logos/NFTL/logo.svg', () => ({ default: () => <svg aria-label="NFTL" /> }));
-vi.mock('@site/public/img/logos/NL/logo.svg', () => ({ default: () => <svg aria-label="Nifty League" /> }));
+mock.module('@site/public/icons/socials/github.svg', () => ({ default: () => <svg aria-label="GitHub" /> }));
+mock.module('@site/public/img/logos/NFTL/logo.svg', () => ({ default: () => <svg aria-label="NFTL" /> }));
+mock.module('@site/public/img/logos/NL/logo.svg', () => ({ default: () => <svg aria-label="Nifty League" /> }));
 
 describe('documentation homepage content', () => {
   it('renders every guide, repository, and quick link', () => {

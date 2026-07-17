@@ -1,4 +1,5 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
+;
 import accountReducer, { initialState as accountInitialState, login, logout } from './account';
 import menuReducer, { activeItem, openDrawer } from './menu';
 import snackbarReducer, { closeSnackbar, openSnackbar } from './snackbar';

@@ -1,8 +1,10 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'bun:test';
+import { mock } from 'bun:test';
+;
 
-vi.mock('uuid', () => ({ v4: vi.fn(() => 'generated-id') }));
-vi.mock('@/hooks/useLocalStorage', () => ({
-  default: vi.fn(() => [{ length: 1, '0xplayer': 'Known Player' }, vi.fn()]),
+mock.module('uuid', () => ({ v4: mock(() => 'generated-id') }));
+mock.module('@/hooks/useLocalStorage', () => ({
+  default: mock(() => [{ length: 1, '0xplayer': 'Known Player' }, mock()]),
 }));
 
 import { transformRentals } from './transformRentals';

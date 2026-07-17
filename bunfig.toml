@@ -1,0 +1,9 @@
+[test]
+# CRITICAL: isolate each test file's module registry for vitest-compatible mock isolation.
+isolate = true
+# preload runs before every test file: registers happy-dom + docusaurus stubs.
+preload = ["./test/preload.ts", "./test/setup.ts"]
+# Never run stale compiled test artifacts.
+exclude = ["dist/**", "node_modules/**", "coverage/**", "**/*.test.js", "**/*.spec.js", ".next/**", ".docusaurus/**", "build/**"]
+# testTimeout in ms (vitest config used 15s).
+timeout = 15000

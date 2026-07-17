@@ -1,26 +1,28 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it } from 'bun:test';
+import { mock } from 'bun:test';
+;
 
-const { calculateGasMarginMock, loadGasPriceMock, toastError, toastInfo, toastSuccess } = vi.hoisted(() => ({
-  calculateGasMarginMock: vi.fn(() => 123n),
-  loadGasPriceMock: vi.fn().mockResolvedValue(25n),
-  toastError: vi.fn(),
-  toastInfo: vi.fn(),
-  toastSuccess: vi.fn(),
-}));
+const { calculateGasMarginMock, loadGasPriceMock, toastError, toastInfo, toastSuccess } = ({
+  calculateGasMarginMock: mock(() => 123n),
+  loadGasPriceMock: mock().mockResolvedValue(25n),
+  toastError: mock(),
+  toastInfo: mock(),
+  toastSuccess: mock(),
+});
 
-vi.mock('react-toastify', () => ({ toast: { error: toastError, info: toastInfo, success: toastSuccess } }));
-vi.mock('eth-rpc-errors', () => ({
+mock.module('react-toastify', () => ({ toast: { error: toastError, info: toastInfo, success: toastSuccess } }));
+mock.module('eth-rpc-errors', () => ({
   serializeError: (error: unknown) => ({ message: `serialized: ${String(error)}` }),
 }));
-vi.mock('@/constants/index', () => ({ DEBUG: false }));
-vi.mock('@/constants/networks', () => ({ TARGET_NETWORK: { label: 'Local', gasPrice: undefined } }));
-vi.mock('@/utils/gas', () => ({ calculateGasMargin: calculateGasMarginMock, loadGasPrice: loadGasPriceMock }));
+mock.module('@/constants/index', () => ({ DEBUG: false }));
+mock.module('@/constants/networks', () => ({ TARGET_NETWORK: { label: 'Local', gasPrice: undefined } }));
+mock.module('@/utils/gas', () => ({ calculateGasMargin: calculateGasMarginMock, loadGasPrice: loadGasPriceMock }));
 
 import { handleError, handleLocalNotify, sendTransaction, submitTxWithGasEstimate } from './bnc-notify';
 
 beforeEach(() => {
-  vi.clearAllMocks();
-  vi.spyOn(console, 'error').mockImplementation(() => undefined);
+  mock.clearAllMocks();
+  spyOn(console, 'error').mockImplementation(() => undefined);
 });
 
 describe('handleError', () => {
@@ -44,11 +46,11 @@ describe('handleError', () => {
 
 describe('submitTxWithGasEstimate', () => {
   it('estimates gas, applies the margin, and submits the contract result', async () => {
-    const contractFn = Object.assign(vi.fn().mockReturnValue('contract-call'), {
-      estimateGas: vi.fn().mockResolvedValue(100n),
+    const contractFn = Object.assign(mock().mockReturnValue('contract-call'), {
+      estimateGas: mock().mockResolvedValue(100n),
     });
-    const tx = vi.fn().mockResolvedValue({ hash: '0xsubmitted' });
-    const callback = vi.fn();
+    const tx = mock().mockResolvedValue({ hash: '0xsubmitted' });
+    const callback = mock();
 
     await expect(
       submitTxWithGasEstimate(tx, { mint: contractFn } as never, 'mint', [7], { value: 2n }, 80n, callback),
@@ -59,18 +61,18 @@ describe('submitTxWithGasEstimate', () => {
   });
 
   it('reports estimate failures and validates the requested method', async () => {
-    const contractFn = Object.assign(vi.fn(), {
-      estimateGas: vi.fn().mockRejectedValue({ error: { message: 'estimate failed' } }),
+    const contractFn = Object.assign(mock(), {
+      estimateGas: mock().mockRejectedValue({ error: { message: 'estimate failed' } }),
     });
 
-    await expect(submitTxWithGasEstimate(vi.fn(), { mint: contractFn } as never, 'mint', [])).resolves.toBeUndefined();
+    await expect(submitTxWithGasEstimate(mock(), { mint: contractFn } as never, 'mint', [])).resolves.toBeUndefined();
     expect(toastError.mock.calls[0]?.[1]).toMatchObject({ data: 'estimate failed' });
-    expect(() => submitTxWithGasEstimate(vi.fn(), {} as never, 'missing', [])).toThrow(
+    expect(() => submitTxWithGasEstimate(mock(), {} as never, 'missing', [])).toThrow(
       'Function missing is not available',
     );
 
-    const withoutEstimate = vi.fn();
-    expect(() => submitTxWithGasEstimate(vi.fn(), { mint: withoutEstimate } as never, 'mint', [])).toThrow(
+    const withoutEstimate = mock();
+    expect(() => submitTxWithGasEstimate(mock(), { mint: withoutEstimate } as never, 'mint', [])).toThrow(
       'Function Estimate Gas is not available on mint',
     );
   });
@@ -84,7 +86,7 @@ describe('sendTransaction', () => {
 
   it('fills default gas fields before asking the signer to send', async () => {
     const result = { hash: '0xsent' };
-    const sendTransactionMock = vi.fn().mockResolvedValue(result);
+    const sendTransactionMock = mock().mockResolvedValue(result);
 
     await expect(
       sendTransaction({ sendTransaction: sendTransactionMock } as never, { to: '0xabc' } as never),
@@ -99,9 +101,9 @@ describe('sendTransaction', () => {
 describe('handleLocalNotify', () => {
   it('waits for confirmation, emits notifications, and calls back with the receipt', async () => {
     const receipt = { status: 1 };
-    const callback = vi.fn();
-    const result = { hash: '0xconfirmed', wait: vi.fn().mockResolvedValue(receipt) };
-    const signer = { provider: { getTransactionReceipt: vi.fn().mockResolvedValue(receipt) } };
+    const callback = mock();
+    const result = { hash: '0xconfirmed', wait: mock().mockResolvedValue(receipt) };
+    const signer = { provider: { getTransactionReceipt: mock().mockResolvedValue(receipt) } };
 
     await handleLocalNotify(signer as never, result as never, callback);
 
@@ -112,10 +114,10 @@ describe('handleLocalNotify', () => {
   });
 
   it('does not request a receipt when no callback is supplied', async () => {
-    const getTransactionReceipt = vi.fn();
+    const getTransactionReceipt = mock();
     await handleLocalNotify(
       { provider: { getTransactionReceipt } } as never,
-      { hash: '0xconfirmed', wait: vi.fn().mockResolvedValue(undefined) } as never,
+      { hash: '0xconfirmed', wait: mock().mockResolvedValue(undefined) } as never,
     );
 
     expect(getTransactionReceipt).not.toHaveBeenCalled();

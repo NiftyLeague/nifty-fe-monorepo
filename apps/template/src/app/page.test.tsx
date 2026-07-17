@@ -1,43 +1,45 @@
 import type { ComponentProps, PropsWithChildren } from 'react';
 import { act, render, screen } from '@testing-library/react';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'bun:test';
+import { mock } from 'bun:test';
+;
 import Page from './page';
 
-vi.mock('next/image', () => ({
+mock.module('next/image', () => ({
   default: ({ alt, priority: _priority, ...props }: ComponentProps<'img'> & { priority?: boolean }) => (
     <img alt={alt} {...props} />
   ),
 }));
-vi.mock('next/link', () => ({
+mock.module('next/link', () => ({
   default: ({ children, href, ...props }: PropsWithChildren<{ href: string }>) => (
     <a href={href} {...props}>
       {children}
     </a>
   ),
 }));
-vi.mock('@nl/ui/base/button', () => ({
+mock.module('@nl/ui/base/button', () => ({
   default: undefined,
   Button: (props: ComponentProps<'button'>) => <button {...props} />,
 }));
-vi.mock('@nl/ui/base/card', () => ({
+mock.module('@nl/ui/base/card', () => ({
   Card: (props: ComponentProps<'div'>) => <div {...props} />,
   CardTitle: (props: ComponentProps<'h3'>) => <h3 {...props} />,
   CardDescription: (props: ComponentProps<'p'>) => <p {...props} />,
 }));
-vi.mock('@nl/ui/base/icon', () => ({ Icon: ({ name }: { name: string }) => <span>{name}</span> }));
-vi.mock('@nl/ui/custom/preloader', () => ({
+mock.module('@nl/ui/base/icon', () => ({ Icon: ({ name }: { name: string }) => <span>{name}</span> }));
+mock.module('@nl/ui/custom/preloader', () => ({
   Preloader: ({ progress, ready }: { progress: number; ready: boolean }) => (
     <output data-ready={ready}>{progress}</output>
   ),
 }));
-vi.mock('@nl/ui/custom/typography', () => ({
+mock.module('@nl/ui/custom/typography', () => ({
   Text: ({ code: _code, ...props }: ComponentProps<'code'> & { code?: boolean }) => <code {...props} />,
 }));
-vi.mock('@nl/ui/custom/theme', () => ({ ThemeToggle: () => <button>Toggle theme</button> }));
+mock.module('@nl/ui/custom/theme', () => ({ ThemeToggle: () => <button>Toggle theme</button> }));
 
 describe('template page', () => {
-  beforeEach(() => vi.useFakeTimers());
-  afterEach(() => vi.useRealTimers());
+  beforeEach(() => jest.useFakeTimers());
+  afterEach(() => jest.useRealTimers());
 
   it('renders starter links, component variants, and completed preload state', () => {
     render(<Page />);
@@ -47,7 +49,7 @@ describe('template page', () => {
     expect(screen.getByRole('button', { name: /Destructive/i })).toBeInTheDocument();
     expect(screen.getByRole('status')).toHaveTextContent('0');
 
-    act(() => vi.advanceTimersByTime(1_600));
+    act(() => jest.advanceTimersByTime(1_600));
     expect(screen.getByRole('status')).toHaveAttribute('data-ready', 'true');
     expect(screen.getByRole('status')).toHaveTextContent('100');
   });

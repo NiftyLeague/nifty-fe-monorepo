@@ -1,17 +1,20 @@
+const stubGlobal = (name, value) => { Object.defineProperty(globalThis, name, { value, configurable: true, writable: true }); };
 import { act, renderHook } from '@testing-library/react';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it } from 'bun:test';
+import { mock } from 'bun:test';
+;
 import { useOnScreen } from './useOnScreen';
 import { useParallax } from './useParallax';
 
 describe('useOnScreen', () => {
   let intersectionCallback: IntersectionObserverCallback;
-  const observe = vi.fn();
-  const unobserve = vi.fn();
+  const observe = mock();
+  const unobserve = mock();
 
   beforeEach(() => {
     observe.mockReset();
     unobserve.mockReset();
-    vi.stubGlobal(
+    stubGlobal(
       'IntersectionObserver',
       class {
         constructor(callback: IntersectionObserverCallback) {
@@ -49,13 +52,13 @@ describe('useParallax', () => {
       child.className = 'parallax-child';
       element.append(child);
     }
-    vi.spyOn(element, 'getBoundingClientRect').mockReturnValue({ top } as DOMRect);
+    spyOn(element, 'getBoundingClientRect').mockReturnValue({ top } as DOMRect);
     return element;
   }
 
   it('applies vertical movement to the child and removes its scroll listener', () => {
-    vi.spyOn(window, 'addEventListener');
-    vi.spyOn(window, 'removeEventListener');
+    spyOn(window, 'addEventListener');
+    spyOn(window, 'removeEventListener');
     const element = elementWithTop(100);
     const { unmount } = renderHook(() =>
       useParallax({ current: element }, { enabled: true, direction: 'down', intensity: 'strong' }),
@@ -77,7 +80,7 @@ describe('useParallax', () => {
   });
 
   it('does nothing while disabled or before the ref is mounted', () => {
-    const addEventListener = vi.spyOn(window, 'addEventListener');
+    const addEventListener = spyOn(window, 'addEventListener');
     renderHook(() => useParallax({ current: null }, { enabled: true, direction: 'up', intensity: 'normal' }));
     renderHook(() =>
       useParallax({ current: elementWithTop(10) }, { enabled: false, direction: 'left', intensity: 'extreme' }),

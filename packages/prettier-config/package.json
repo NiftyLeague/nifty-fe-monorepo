@@ -5,8 +5,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "test": "vitest run --config ../../vitest.config.ts --project prettier-config",
-    "test:coverage": "VITEST_SCOPE=packages/prettier-config vitest run --config ../../vitest.config.ts --project prettier-config --coverage",
+    "test": "bun test --project-placeholder prettier-config",
+    "test:coverage": "VITEST_SCOPE=packages/prettier-config bun test --project-placeholder prettier-config --coverage",
     "test:watch": "vitest --config ../../vitest.config.ts --project prettier-config"
   },
   "exports": {
