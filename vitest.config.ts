@@ -21,6 +21,8 @@ function workspaceProject(name: string, directory: string, environment: TestEnvi
 
   return {
     extends: true,
+    oxc: { jsx: { runtime: 'automatic' } },
+    esbuild: { jsx: 'automatic' },
     resolve: { alias: aliases },
     test: {
       name,
