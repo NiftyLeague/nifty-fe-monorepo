@@ -1,6 +1,6 @@
 import type { ComponentProps, PropsWithChildren } from 'react';
 import { act, render, screen } from '@testing-library/react';
-import { afterEach, beforeEach, describe, expect, it } from 'bun:test';
+import {afterEach, beforeEach, describe, expect, it, jest} from 'bun:test';
 import { mock } from 'bun:test';
 ;
 import Page from './page';

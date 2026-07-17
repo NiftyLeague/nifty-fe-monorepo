@@ -1,7 +1,5 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
-import { afterEach, describe, expect, it } from 'bun:test';
-import { mock } from 'bun:test';
-;
+import { afterEach, describe, expect, it, mock, spyOn } from 'bun:test';
 import useAsyncInterval from './useAsyncInterval';
 import useFetch from './useFetch';
 import useLocalStorage from './useLocalStorage';
@@ -23,8 +21,7 @@ afterEach(() => {
 
 describe('useFetch', () => {
   it('loads JSON, caches it, and supports text responses', async () => {
-    const fetchMock = mock
-      .spyOn(globalThis, 'fetch')
+    const fetchMock = spyOn(globalThis, 'fetch')
       .mockResolvedValueOnce(new Response(JSON.stringify({ id: 7 }), { status: 200 }));
     const { result, rerender } = renderHook(({ url, textOnly }) => useFetch(url, undefined, textOnly), {
       initialProps: { url: '/payload', textOnly: false },
@@ -47,8 +44,7 @@ describe('useFetch', () => {
   });
 
   it('resets when disabled and reports unsuccessful responses', async () => {
-    const fetchMock = mock
-      .spyOn(globalThis, 'fetch')
+    const fetchMock = spyOn(globalThis, 'fetch')
       .mockResolvedValue(new Response('missing', { status: 404, statusText: 'Not Found' }));
     const { result, rerender } = renderHook(({ enabled }) => useFetch('/missing', { enabled }), {
       initialProps: { enabled: true },

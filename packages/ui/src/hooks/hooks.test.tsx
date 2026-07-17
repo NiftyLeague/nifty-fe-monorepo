@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react';
-import { afterEach, beforeEach, describe, expect, it } from 'bun:test';
+import {afterEach, beforeEach, describe, expect, it, spyOn, jest} from 'bun:test';
 import { mock } from 'bun:test';
 ;
 import { useCopyToClipboard } from './useCopyToClipboard';
@@ -85,7 +85,7 @@ describe('useStopwatch', () => {
 
 describe('useUserAgent', () => {
   it('classifies mobile and desktop agents', () => {
-    spyOn(window.navigator, 'userAgent', 'get').mockReturnValue('Mozilla/5.0 (iPhone)');
+    Object.defineProperty(window.navigator, 'userAgent', { configurable: true, get: () => 'Mozilla/5.0 (iPhone)' });
     const mobile = renderHook(() => useUserAgent()).result.current;
     expect(mobile.isIos()).toBe(true);
     expect(mobile.isMobile()).toBe(true);
