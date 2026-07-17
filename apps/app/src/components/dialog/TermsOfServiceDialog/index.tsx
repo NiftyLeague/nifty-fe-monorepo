@@ -12,13 +12,17 @@ const TermsOfServiceDialog = ({ open, onClose, ...rest }: TermsOfServiceDialogPr
 
   return (
     <Dialog maxWidth="sm" scroll="paper" fullScreen={fullScreen} onClose={onClose} open={open} {...rest}>
-      <Stack sx={{ overflow: 'none' }} direction="column" gap={0} width="100%">
+      <Stack direction="column" sx={{ gap: 0, width: '100%', overflow: 'none' }}>
         <h2 className="text-center mb-5">Terms and Conditions</h2>
         <Stack
-          sx={{ overflowY: 'scroll', overflowX: 'hidden', height: fullScreen ? 'calc(100vh - 184px)' : '65vh' }}
           direction="column"
-          gap={0}
-          width="100%"
+          sx={{
+            gap: 0,
+            width: '100%',
+            overflowY: 'scroll',
+            overflowX: 'hidden',
+            height: fullScreen ? 'calc(100vh - 184px)' : '65vh',
+          }}
         >
           <TermsOfServiceContent />
         </Stack>

@@ -12,14 +12,14 @@ static_dir="$root_dir/assets"
 create_static_link() {
   if test -d $apps_dir/$1/public; then
     # failure message
-    pnpm exec echo "    📁 apps/$1/public folder exists!"
+    echo "    📁 apps/$1/public folder exists!"
   else
     # create static symlinked folder
     cd $apps_dir/$1/
     ln -sf $static_dir public
     cd ../..
 
-    pnpm exec echo "    ✅ apps/$1/public folder created!"
+    echo "    ✅ apps/$1/public folder created!"
   fi
 }
 
@@ -27,7 +27,7 @@ create_static_link() {
 ##################################################################
 
 create_symlinks() {
-    pnpm exec echo "
+    echo "
     
     creating $1 symlinks ...
     ⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼"
@@ -41,4 +41,4 @@ create_symlinks "smashers"
 create_symlinks "web"
 create_symlinks "template"
 
-pnpm exec echo "  "
+echo "  "

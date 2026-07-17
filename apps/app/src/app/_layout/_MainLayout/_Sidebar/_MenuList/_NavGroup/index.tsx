@@ -48,10 +48,14 @@ const NavGroup = ({ item }: NavGroupProps) => {
       <List
         subheader={
           item.title && (
-            <Typography variant="caption" sx={{ ...theme.typography.menuCaption }} display="block" gutterBottom>
+            <Typography variant="caption" gutterBottom sx={{ display: 'block', ...theme.typography.menuCaption }}>
               {item.title}
               {item.caption && (
-                <Typography variant="caption" sx={{ ...theme.typography.subMenuCaption }} display="block" gutterBottom>
+                <Typography
+                  variant="caption"
+                  gutterBottom
+                  sx={{ display: 'block', ...theme.typography.subMenuCaption }}
+                >
                   {item.caption}
                 </Typography>
               )}
@@ -61,7 +65,6 @@ const NavGroup = ({ item }: NavGroupProps) => {
       >
         {items}
       </List>
-
       {/* group divider */}
       <Divider sx={{ mt: 0.25, mb: 1.25, opacity: '0.6' }} />
     </>

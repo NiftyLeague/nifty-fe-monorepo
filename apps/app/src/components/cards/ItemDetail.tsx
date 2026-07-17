@@ -17,7 +17,7 @@ const ItemDetail: React.FC<React.PropsWithChildren<React.PropsWithChildren<ItemD
   const { enableEquip } = useFlags();
 
   if (!data || (data?.balance && data?.balance > 1 && subIndex < 0)) {
-    return <Box border="1px solid #363636" borderRadius="5px" minWidth={345} height={375} />;
+    return <Box sx={{ border: '1px solid #363636', borderRadius: '5px', minWidth: 345, height: 375 }} />;
   }
 
   const { equipped, image, multiplier, title, thumbnail } = data;
@@ -28,45 +28,53 @@ const ItemDetail: React.FC<React.PropsWithChildren<React.PropsWithChildren<ItemD
 
   return (
     <Stack
-      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-      border={{ xs: 'none', lg: '1px solid #363636' }}
-      borderRadius="5px"
-      minWidth={{ xs: '100%', lg: 345 }}
-      width={345}
-      height={375}
+      sx={{
+        border: { xs: 'none', lg: '1px solid #363636' },
+        borderRadius: '5px',
+        minWidth: { xs: '100%', lg: 345 },
+        width: 345,
+        height: 375,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
     >
-      <Box position="relative" width={225} height={226}>
-        <Box position="relative" overflow="hidden" sx={{ borderRadius: '10px 10px 0px 0px' }}>
+      <Box sx={{ position: 'relative', width: 225, height: 226 }}>
+        <Box sx={{ position: 'relative', overflow: 'hidden', borderRadius: '10px 10px 0px 0px' }}>
           <ImageCard image={image} thumbnail={thumbnail} title={title} ratio={1} />
         </Box>
         {multiplier && multiplier >= 2 && (
           <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            width={50}
-            height={50}
-            position="absolute"
-            borderRadius="50%"
-            sx={{ background: 'var(--color-purple)', top: -12, right: -28 }}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 50,
+              height: 50,
+              position: 'absolute',
+              borderRadius: '50%',
+              background: 'var(--color-purple)',
+              top: -12,
+              right: -28,
+            }}
           >
             <Typography
-              sx={{ color: 'var(--color-foreground)' }}
-              fontSize="20px"
-              fontWeight="bold"
+              sx={{ fontSize: '20px', fontWeight: 'bold', color: 'var(--color-foreground)' }}
             >{`${multiplier}x`}</Typography>
           </Box>
         )}
       </Box>
       {enableEquip ? (
         <Stack
-          width={225}
-          border="1px solid #5D5F74"
-          borderTop="none"
-          sx={{ borderRadius: '0px 0px var(--radius-default) var(--radius-default)' }}
           spacing={1.5}
-          p={1}
-          pb={3}
+          sx={{
+            width: 225,
+            border: '1px solid #5D5F74',
+            borderTop: 'none',
+            p: 1,
+            pb: 3,
+            borderRadius: '0px 0px var(--radius-default) var(--radius-default)',
+          }}
         >
           <Button
             variant="contained"
@@ -77,25 +85,27 @@ const ItemDetail: React.FC<React.PropsWithChildren<React.PropsWithChildren<ItemD
             {equipped ? 'Unequip' : 'Equip on a DEGEN'}
           </Button>
           <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-            <Typography sx={{ color: '#363636' }} fontSize="12px" fontWeight={600}>
-              Equipped:
-            </Typography>
+            <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#363636' }}>Equipped:</Typography>
             <Typography
-              fontSize="12px"
-              fontWeight={500}
-              sx={{ color: 'var(--color-purple)', textDecorationLine: equipped ? 'underline' : 'none' }}
+              sx={{
+                fontSize: '12px',
+                fontWeight: 500,
+                color: 'var(--color-purple)',
+                textDecorationLine: equipped ? 'underline' : 'none',
+              }}
             >
               {equipped ? 'DEGEN #1152' : '-'}
             </Typography>
           </Stack>
           <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-            <Typography sx={{ color: '#363636' }} fontSize="12px" fontWeight={600}>
-              Rental:
-            </Typography>
+            <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#363636' }}>Rental:</Typography>
             <Typography
-              fontSize="12px"
-              fontWeight={500}
-              sx={{ color: 'var(--color-purple)', textDecorationLine: equipped ? 'underline' : 'none' }}
+              sx={{
+                fontSize: '12px',
+                fontWeight: 500,
+                color: 'var(--color-purple)',
+                textDecorationLine: equipped ? 'underline' : 'none',
+              }}
             >
               {equipped ? '28 days left' : '-'}
             </Typography>

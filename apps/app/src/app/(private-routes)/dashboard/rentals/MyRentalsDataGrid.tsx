@@ -159,7 +159,7 @@ const MyRentalsDataGrid = ({
         headerName: 'Player',
         width: 120,
         renderCell: (params: GridRenderCellParams) => (
-          <Stack direction="row" columnGap={1} sx={{ alignItems: 'center' }}>
+          <Stack direction="row" sx={{ columnGap: 1, alignItems: 'center' }}>
             <Typography>{params.value}</Typography>
           </Stack>
         ),
@@ -170,7 +170,7 @@ const MyRentalsDataGrid = ({
         width: 150,
         renderCell: (params: GridRenderCellParams) => {
           return (
-            <Stack direction="row" columnGap={1} sx={{ alignItems: 'center' }}>
+            <Stack direction="row" sx={{ columnGap: 1, alignItems: 'center' }}>
               <Typography>{params.value}</Typography>
               {params.row.isEditable && (
                 <IconButton aria-label="edit" onClick={() => handleOpenNickname(params)} sx={{ display: 'none' }}>
@@ -344,7 +344,7 @@ const MyRentalsDataGrid = ({
           <Typography variant="h4" align="center">
             Are you sure you want to terminate this rental?
           </Typography>
-          <Stack mt={3} direction="column" gap={1} sx={{ justifyContent: 'center' }}>
+          <Stack direction="column" sx={{ mt: 3, gap: 1, justifyContent: 'center' }}>
             <Button onClick={handleConfirmTerminateRental} autoFocus variant="contained" fullWidth>
               Terminate Rental
             </Button>

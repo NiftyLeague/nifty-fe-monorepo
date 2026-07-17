@@ -91,7 +91,7 @@ const ProfileImageContent = ({ onSearch, onChangeAvatar, degensInternal, avatarF
       sliderSettingsOverride={settings}
       firstSection
       title={
-        <Stack flex={1} gap={1}>
+        <Stack sx={{ flex: 1, gap: 1 }}>
           <Typography variant="h2">Choose a new profile degen</Typography>
           <Typography variant="h5" component="p">
             There is a {avatarFee} NFTL fee for changing your gamer profile avatar

@@ -31,15 +31,15 @@ const TopInfo = ({ profile, walletAddress }: TopInfoProps): React.ReactNode => {
     return (
       <Stack>
         <Stack direction="row" spacing={5} sx={{ alignItems: 'center' }}>
-          <Box width="50%">
+          <Box sx={{ width: '50%' }}>
             <Typography variant="h2" component="div">
               {profileName} <ChangeProfileNameDialog handleUpdateNewName={handleUpdateNewName} />
             </Typography>
           </Box>
-          <Box width="50%">{total && <ProgressGamer data={total} />}</Box>
+          <Box sx={{ width: '50%' }}>{total && <ProgressGamer data={total} />}</Box>
         </Stack>
         <Stack direction="row" spacing={5} sx={{ alignItems: 'center' }}>
-          <Typography width="50%" variant="h4" component="div" sx={{ color: 'var(--color-muted-foreground)' }}>
+          <Typography variant="h4" component="div" sx={{ width: '50%', color: 'var(--color-muted-foreground)' }}>
             {`${walletAddress.slice(0, 5)}...${walletAddress.slice(
               walletAddress.length - 5,
               walletAddress.length - 1,
@@ -52,14 +52,12 @@ const TopInfo = ({ profile, walletAddress }: TopInfoProps): React.ReactNode => {
               <Icon name="copy" size="sm" color="var(--color-muted-foreground)" />
             </IconButton>
           </Typography>
-          <Typography width="50%" variant="h4" component="div">
+          <Typography variant="h4" component="div" sx={{ width: '50%' }}>
             {Math.round(total?.xp || 0)}/{total?.rank_xp_next}
             <Typography
               variant="h4"
               component="div"
-              sx={{ color: 'var(--color-muted-foreground)' }}
-              display="inline"
-              ml="4px"
+              sx={{ display: 'inline', ml: '4px', color: 'var(--color-muted-foreground)' }}
             >
               XP
             </Typography>

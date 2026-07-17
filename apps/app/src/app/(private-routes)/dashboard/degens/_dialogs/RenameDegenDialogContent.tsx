@@ -103,8 +103,8 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): React.ReactNode 
         Rename DEGEN
       </DialogTitle>
       <DialogContent dividers>
-        <Stack rowGap={2}>
-          <Stack rowGap={1}>
+        <Stack sx={{ rowGap: 2 }}>
+          <Stack sx={{ rowGap: 1 }}>
             <CardMedia
               component="img"
               image={`/img/degens/nfts/${degen?.id}.${degen?.background === 'Legendary' ? 'gif' : 'webp'}`}

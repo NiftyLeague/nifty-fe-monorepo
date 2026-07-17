@@ -217,10 +217,10 @@ const AllDegensPage = (): React.ReactNode => {
 
   const renderMain = useCallback(
     () => (
-      <Stack gap={1.5} className="h-full">
+      <Stack className="h-full" sx={{ gap: 1.5 }}>
         {/* Main Grid title */}
         <SectionTitle firstSection>
-          <Stack direction="row" gap={1} sx={{ alignItems: 'center', mb: 2 }}>
+          <Stack direction="row" sx={{ gap: 1, alignItems: 'center', mb: 2 }}>
             <IconButton onClick={() => setIsDrawerOpen(!isDrawerOpen)} size="small">
               <Icon name={isDrawerOpen ? 'chevron-left' : 'chevron-right'} size="xl" />
             </IconButton>
@@ -228,7 +228,7 @@ const AllDegensPage = (): React.ReactNode => {
           </Stack>
         </SectionTitle>
         {/* Main grid content */}
-        <Grid container spacing={2} mt={-4.5}>
+        <Grid container spacing={2} sx={{ mt: -4.5 }}>
           {!degens?.length ? [...Array(8)].map(renderSkeletonItem) : dataForCurrentPage.map(renderDegen)}
         </Grid>
         <Pagination

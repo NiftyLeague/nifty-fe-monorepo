@@ -33,12 +33,9 @@ const ActiveRentalDialog = ({ degenId, rental }: ActiveRentalDialogProps) => {
       <DialogContent sx={{ marginY: '50px', marginX: '16px' }}>
         <Grid container spacing={2}>
           <Grid size={{ xs: 12, lg: 6 }}>
-            <Typography sx={{ fontSize: '32px', lineHeight: '38px' }} fontWeight={600}>
-              Welcome back DEGEN!
-            </Typography>
+            <Typography sx={{ fontWeight: 600, fontSize: '32px', lineHeight: '38px' }}>Welcome back DEGEN!</Typography>
             <Typography
-              sx={{ fontSize: '16px', lineHeight: '20px', marginTop: '24px', marginBottom: '30px' }}
-              fontWeight={700}
+              sx={{ fontWeight: 700, fontSize: '16px', lineHeight: '20px', marginTop: '24px', marginBottom: '30px' }}
             >
               Your active{' '}
               <Link sx={{ cursor: 'pointer' }} onClick={handleClickRental}>
@@ -56,9 +53,9 @@ const ActiveRentalDialog = ({ degenId, rental }: ActiveRentalDialogProps) => {
                 {rental.earning_cap !== rental.earning_cap_daily ? (
                   `${rental.earning_cap_daily} / ${rental.earning_cap}`
                 ) : (
-                  <Typography fontSize={10}>
+                  <Typography sx={{ fontSize: 10 }}>
                     LIMIT REACHED. RENEWS IN{' '}
-                    <Typography sx={{ color: 'var(--color-warning)' }} variant="caption" fontSize={10}>
+                    <Typography variant="caption" sx={{ fontSize: 10, color: 'var(--color-warning)' }}>
                       <Countdown date={new Date(rental.next_charge_at * 1000)} />
                     </Typography>
                   </Typography>

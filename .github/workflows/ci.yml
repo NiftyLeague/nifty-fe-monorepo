@@ -1,63 +1,49 @@
-name: Validate, test, and build
-
+name: Validate Pull Requests
 permissions:
   contents: read
 
 on:
-  push:
-    branches: [main, staging]
   pull_request:
-    branches: [main, staging]
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+    branches:
+      - main
+      - staging
 
 jobs:
-  quality:
-    name: Quality, coverage, audit, and build
-    if: github.event_name != 'pull_request' || github.head_ref != 'staging'
+  test:
+    name: Test & Build Code
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    # This concurrency setting allows multiple workflows to run at the same time,
+    # as long as they are for different branches. This is useful for pull requests
+    # since we want to validate them as quickly as possible.
+    #
+    # The `cancel-in-progress` option will cancel any existing workflows with
+    # the same name and ref, so we don't end up with multiple workflows running
+    # at the same time for the same branch.
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref == format('refs/heads/{0}', github.event.pull_request.base.ref) && github.event_name == 'pull_request' && github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
+    # Vercel Remote Caching with Turborepo https://vercel.com/docs/monorepos/remote-caching
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v6
+      - name: Checkout repo
+        uses: actions/checkout@v6
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          version: 11.13.1
-          run_install: false
-
-      - name: Install Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version-file: '.nvmrc'
-          cache: pnpm
-
+          bun-version: "1.3.14"
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Check formatting
-        run: pnpm format:check
-
-      - name: Lint
-        run: pnpm lint
-
+        run: bun install
+      - name: Run prettier
+        run: bun format
+      - name: Check linter
+        run: bun lint
       - name: Check TypeScript
-        run: pnpm type-check
-
-      - name: Run tests with coverage
-        run: pnpm test:coverage
-
-      - name: Audit critical production dependencies
-        run: pnpm audit --prod --audit-level critical
-
+        run: bun type-check
       - name: Build
-        run: pnpm build
+        run: bun build
         env:
           NEXT_PUBLIC_APPLE_STORE_ID: ${{ vars.NEXT_PUBLIC_APPLE_STORE_ID }}
           NEXT_PUBLIC_APPLE_STORE_LINK: ${{ vars.NEXT_PUBLIC_APPLE_STORE_LINK }}

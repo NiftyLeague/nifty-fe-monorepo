@@ -167,13 +167,13 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
   if (filteredComics.length === 0) {
     if (loadingComics) {
       return (
-        <Stack direction="row" justifyContent="center" alignItems="center" height={200} mx="auto">
+        <Stack direction="row" sx={{ justifyContent: 'center', alignItems: 'center', height: 200, mx: 'auto' }}>
           <CircularProgress />
         </Stack>
       );
     }
     return (
-      <Grid container justifyContent="center" alignItems="center" display="flex" height={200}>
+      <Grid container sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex', height: 200 }}>
         <Link href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
           <EmptyState message="You don't own any Comics yet." buttonText="Buy a Comic" noBorder />
         </Link>
@@ -182,36 +182,36 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
   }
 
   return (
-    <Stack py={1} maxWidth={330} mx="auto">
+    <Stack sx={{ py: 1, maxWidth: 330, mx: 'auto' }}>
       <Box
-        display="flex"
-        flexDirection="row"
-        alignItems="center"
-        justifyContent="center"
-        p={1.25}
-        mx={1.25}
-        sx={{ backgroundColor: '#262930' }}
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          p: 1.25,
+          mx: 1.25,
+          backgroundColor: '#262930',
+        }}
       >
         <Typography variant="h5" className={title}>
           {name || `DEGEN #${degen?.id}`}
         </Typography>
       </Box>
-      <Stack direction="row" mt={2.25}>
+      <Stack direction="row" sx={{ mt: 2.25 }}>
         <Stack sx={{ alignItems: 'center' }}>
-          <Typography variant="body1" mb={2} className={label}>
+          <Typography variant="body1" className={label} sx={{ mb: 2 }}>
             SLOTS
           </Typography>
-          <Stack rowGap={3}>
+          <Stack sx={{ rowGap: 3 }}>
             {SLOTS.map((slot, index) => (
-              <Box key={slot.name} width={40} height={40} position="relative">
+              <Box key={slot.name} sx={{ width: 40, height: 40, position: 'relative' }}>
                 {getSlotImage(index)}
                 {isEquippedSlot(index) && (
                   <Box
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
                     className={tag}
                     onClick={() => handleUnequip(index)}
+                    sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                   >
                     <Icon name="x" size={12} className="cursor-pointer" />
                   </Box>
@@ -220,11 +220,11 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
             ))}
           </Stack>
         </Stack>
-        <Stack mt={2.75} ml={3.75} mr={1.5}>
+        <Stack sx={{ mt: 2.75, ml: 3.75, mr: 1.5 }}>
           {degen?.id && (
             <DegenImage sx={{ objectFit: 'cover', width: 183, height: 244, borderRadius: '10px' }} tokenId={degen.id} />
           )}
-          <Stack mt={1.25} gap={1.5} direction="row">
+          <Stack direction="row" sx={{ mt: 1.25, gap: 1.5 }}>
             <Button
               variant="contained"
               fullWidth
@@ -242,7 +242,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
               ROTATE
             </Button>
           </Stack>
-          <Typography variant="body1" my={2.25} mx="auto" fontWeight={700} className={label}>
+          <Typography variant="body1" className={label} sx={{ my: 2.25, mx: 'auto', fontWeight: 700 }}>
             {totalMultiplierApplied}
           </Typography>
           <Button variant="contained" disabled={!stateChanged} sx={{ width: 116, mx: 'auto' }} onClick={handleSave}>
@@ -250,26 +250,26 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
           </Button>
         </Stack>
         <Stack sx={{ alignItems: 'center' }}>
-          <Typography variant="body1" mb={2} textAlign="center" className={label}>
+          <Typography variant="body1" className={label} sx={{ mb: 2, textAlign: 'center' }}>
             INVENTORY
           </Typography>
-          <Stack rowGap={1.25}>
+          <Stack sx={{ rowGap: 1.25 }}>
             {INVENTORIES.map((inventory, index) => (
               <Box
                 key={inventory.name}
-                width={30}
-                height={30}
-                position="relative"
-                sx={{ cursor: pendingEquipped[index] ? 'inherit' : 'pointer' }}
                 onClick={() => handleEquip(index)}
+                sx={{
+                  width: 30,
+                  height: 30,
+                  position: 'relative',
+                  cursor: pendingEquipped[index] ? 'inherit' : 'pointer',
+                }}
               >
                 {pendingEquipped[index] ? inventory.empty : inventory.filled}
                 {!pendingEquipped[index] && (multipliers[index] ?? 0) >= 2 && (
                   <Box
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
                     className={tag}
+                    sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                   >{`${multipliers[index]}x`}</Box>
                 )}
               </Box>

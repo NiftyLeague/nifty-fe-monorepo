@@ -19,15 +19,14 @@ const ClaimNFTLView = () => {
 
   return (
     <>
-      <Stack direction="column" marginY={2} sx={{ alignItems: 'center' }}>
+      <Stack direction="column" sx={{ marginY: 2, alignItems: 'center' }}>
         {loading ? (
           <Skeleton variant="text" animation="wave" width={80} />
         ) : (
-          <Typography fontWeight="bold">{balance ? formatNumberToDisplay(balance) : '0.00'} NFTL</Typography>
+          <Typography sx={{ fontWeight: 'bold' }}>{balance ? formatNumberToDisplay(balance) : '0.00'} NFTL</Typography>
         )}
         <Typography>Available to Claim</Typography>
       </Stack>
-
       <Button variant="contained" fullWidth disabled={!(balance > 0.0 && isConnected)} onClick={claimCallback}>
         Claim NFTL
       </Button>
@@ -59,16 +58,19 @@ const UserProfile = () => {
 
   return (
     <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      borderRadius={2}
-      p={4}
-      sx={{ background: 'var(--color-muted)', border: 'var(--border-default)' }}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        borderRadius: 2,
+        p: 4,
+        background: 'var(--color-muted)',
+        border: 'var(--border-default)',
+      }}
     >
       <Avatar alt="avatar" src={ensAvatar.data || avatar?.url} sx={{ height: 80, width: 80 }} />
-      <Stack direction="column" marginY={2} sx={{ alignItems: 'center' }}>
-        <Typography whiteSpace="nowrap">{displayName}</Typography>
+      <Stack direction="column" sx={{ marginY: 2, alignItems: 'center' }}>
+        <Typography sx={{ whiteSpace: 'nowrap' }}>{displayName}</Typography>
       </Stack>
       <ConnectWrapper fullWidth>
         <ClaimNFTLView />

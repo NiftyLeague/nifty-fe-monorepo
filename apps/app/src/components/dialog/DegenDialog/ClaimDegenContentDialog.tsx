@@ -41,9 +41,9 @@ const ClaimDegenContentDialog = ({ degen, onClose }: ClaimDegenContentDialogProp
   const amountParsed = formatNumberToDisplay(balance);
 
   return (
-    <Stack padding={3} gap={2}>
+    <Stack sx={{ padding: 3, gap: 2 }}>
       <Typography align="center" variant="h4">{`${amountParsed} claimable for this DEGEN`}</Typography>
-      <Stack gap={1}>
+      <Stack sx={{ gap: 1 }}>
         <Button
           disabled={!(balance > 0.0 && writeContracts[NFTL_CONTRACT])}
           variant="contained"

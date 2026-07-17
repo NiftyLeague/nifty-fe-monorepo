@@ -42,7 +42,7 @@ const DegensTopNav = ({
   layoutMode,
   handleChangeLayoutMode,
 }: DegensTopNavProps) => (
-  <Stack direction={{ xs: 'column', sm: 'row' }} gap={1}>
+  <Stack direction={{ xs: 'column', sm: 'row' }} sx={{ gap: 1 }}>
     <SearchTextField
       label="Search degens by token # or name"
       name="search-degen-by-token-id-name"
@@ -51,7 +51,7 @@ const DegensTopNav = ({
       value={searchTerm}
       onChange={handleChangeSearchTerm}
     />
-    <Stack direction="row" gap={1} sx={{ justifyContent: 'space-between' }}>
+    <Stack direction="row" sx={{ gap: 1, justifyContent: 'space-between' }}>
       <SortButton handleSort={handleSort}>
         <Button
           id="sort-button"
