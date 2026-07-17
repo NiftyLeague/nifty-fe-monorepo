@@ -125,6 +125,7 @@ describe('CharacterCreatorContainer', () => {
     act(() => window.dispatchEvent(new Event('resize')));
 
     unmount();
-    expect(unity.removeAll).toHaveBeenCalled();
+    // Cleanup effect calls removeEventListener for each handler (not removeAllEventListeners)
+    expect(unity.handlers.size).toBe(0);
   });
 });
