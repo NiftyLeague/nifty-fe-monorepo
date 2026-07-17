@@ -1,14 +1,9 @@
 import { act, render, screen } from '@testing-library/react';
-import {afterEach, beforeEach, describe, expect, it, jest} from 'bun:test';
+import { afterEach, beforeEach, describe, expect, it, jest } from 'bun:test';
 import { mock } from 'bun:test';
-;
 import CharacterCreatorContainer from './index';
 
-const unity = ({
-  handlers: new Map<string, (...args: any[]) => void>(),
-  removeAll: mock(),
-  send: mock(),
-});
+const unity = { handlers: new Map<string, (...args: any[]) => void>(), removeAll: mock(), send: mock() };
 
 mock.module('react-device-detect', () => ({
   isMobileOnly: false,
@@ -19,40 +14,40 @@ mock.module('react-unity-webgl', () => {
     <canvas aria-label="character creator" className={className} style={style} />
   );
   return {
-  default: Unity,
-  Unity,
-  UnityContext: class UnityContext {
-    send = unity.send;
-    SendMessage = unity.send;
-    on(name: string, handler: (...args: any[]) => void) {
-      unity.handlers.set(name, handler);
-    }
-    addEventListener(name: string, handler: (...args: any[]) => void) {
-      unity.handlers.set(name, handler);
-    }
-    removeAllEventListeners() {
-      unity.removeAll();
-      unity.handlers.clear();
-    }
-  },
-  useUnityContext: (options: any) => {
-    return {
-      sendMessage: unity.send,
-      addEventListener: (name: string, handler: (...args: any[]) => void) => {
+    default: Unity,
+    Unity,
+    UnityContext: class UnityContext {
+      send = unity.send;
+      SendMessage = unity.send;
+      on(name: string, handler: (...args: any[]) => void) {
         unity.handlers.set(name, handler);
-      },
-      removeEventListener: (name: string) => {
-        unity.handlers.delete(name);
-      },
-      removeAllEventListeners: () => {
+      }
+      addEventListener(name: string, handler: (...args: any[]) => void) {
+        unity.handlers.set(name, handler);
+      }
+      removeAllEventListeners() {
         unity.removeAll();
         unity.handlers.clear();
-      },
-      unityProvider: {},
-      isLoaded: true,
-      progression: 1,
-    };
-  },
+      }
+    },
+    useUnityContext: (options: any) => {
+      return {
+        sendMessage: unity.send,
+        addEventListener: (name: string, handler: (...args: any[]) => void) => {
+          unity.handlers.set(name, handler);
+        },
+        removeEventListener: (name: string) => {
+          unity.handlers.delete(name);
+        },
+        removeAllEventListeners: () => {
+          unity.removeAll();
+          unity.handlers.clear();
+        },
+        unityProvider: {},
+        isLoaded: true,
+        progression: 1,
+      };
+    },
   };
 });
 mock.module('@/hooks/useRemovedTraits', () => ({ default: () => [3, 7] }));

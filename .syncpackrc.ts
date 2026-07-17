@@ -6,12 +6,7 @@ const config: RcFile = {
   // detects pnpm 9 based on the project creation date. Once Vercel moves to
   // pnpm 10 we can switch to the new pnpm-workspace.yaml convention and
   // drop this `pnpmOverridesLegacy` customType.
-  customTypes: {
-    pnpmOverridesLegacy: {
-      strategy: 'versionsByName',
-      path: 'pnpm.overrides',
-    },
-  },
+  customTypes: { pnpmOverridesLegacy: { strategy: 'versionsByName', path: 'pnpm.overrides' } },
   // A list of Glob patterns to find package.json files you want to manage with syncpack.
   source: ['package.json', 'packages/*/package.json', 'apps/*/package.json'],
   // package.json properties to sort first

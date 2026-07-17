@@ -1,55 +1,46 @@
-name: Validate Pull Requests
+name: CI
+
+on:
+  push:
+    branches: [main, staging]
+  pull_request:
+    branches: [main, staging]
+
 permissions:
   contents: read
 
-on:
-  pull_request:
-    branches:
-      - main
-      - staging
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  test:
-    name: Test & Build Code
+  quality:
+    name: Build, Format, Lint & Type Check
     runs-on: ubuntu-latest
-    # This concurrency setting allows multiple workflows to run at the same time,
-    # as long as they are for different branches. This is useful for pull requests
-    # since we want to validate them as quickly as possible.
-    #
-    # The `cancel-in-progress` option will cancel any existing workflows with
-    # the same name and ref, so we don't end up with multiple workflows running
-    # at the same time for the same branch.
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref == format('refs/heads/{0}', github.event.pull_request.base.ref) && github.event_name == 'pull_request' && github.event.pull_request.number || github.ref }}
-      cancel-in-progress: true
-    # Vercel Remote Caching with Turborepo https://vercel.com/docs/monorepos/remote-caching
-    env:
-      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v6
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v2
         with:
-          bun-version: "1.3.14"
-      - name: Install dependencies
-        run: bun install
-      - name: Run prettier
-        run: bun format
-      - name: Check linter
-        run: bun lint
-      - name: Check TypeScript
-        run: bun type-check
+          cache: true
+      - run: bun install --frozen-lockfile
+      - name: Format check
+        run: bun run format:check
+      - name: Lint
+        run: bun run lint
+      - name: Type check
+        run: bun run type:check
       - name: Build
-        run: bun build
-        env:
-          NEXT_PUBLIC_APPLE_STORE_ID: ${{ vars.NEXT_PUBLIC_APPLE_STORE_ID }}
-          NEXT_PUBLIC_APPLE_STORE_LINK: ${{ vars.NEXT_PUBLIC_APPLE_STORE_LINK }}
-          NEXT_PUBLIC_EPIC_LINK: ${{ vars.NEXT_PUBLIC_EPIC_LINK }}
-          NEXT_PUBLIC_GOOGLE_PLAY_LINK: ${{ vars.NEXT_PUBLIC_GOOGLE_PLAY_LINK }}
-          NEXT_PUBLIC_NETWORK: ${{ vars.NEXT_PUBLIC_NETWORK }}
-          NEXT_PUBLIC_STEAM_LINK: ${{ vars.NEXT_PUBLIC_STEAM_LINK }}
-          NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID: ${{ vars.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID }}
-          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+        run: bun run build
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    needs: quality
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v2
+        with:
+          cache: true
+      - run: bun install --frozen-lockfile
+      - name: Test
+        run: bun run test

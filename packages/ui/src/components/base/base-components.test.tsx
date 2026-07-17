@@ -1,7 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'bun:test';
 import { mock } from 'bun:test';
-;
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './accordion';
 import {
   AlertDialog,

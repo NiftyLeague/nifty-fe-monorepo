@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'bun:test';
-;
 import customComponents from './components';
 import customMixins from './mixins';
 import customPalette from './palette';

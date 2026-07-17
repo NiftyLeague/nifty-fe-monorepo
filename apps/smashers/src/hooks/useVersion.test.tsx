@@ -17,10 +17,18 @@ afterEach(() => {
 describe('useVersion', () => {
   it('fetches the Windows launcher version and creates its download URL', async () => {
     mock.module('react-device-detect', () => ({
-      get isAndroid() { return device.android; },
-      get isIOS() { return device.ios; },
-      get isMacOs() { return device.mac; },
-      get isWindows() { return device.windows; },
+      get isAndroid() {
+        return device.android;
+      },
+      get isIOS() {
+        return device.ios;
+      },
+      get isMacOs() {
+        return device.mac;
+      },
+      get isWindows() {
+        return device.windows;
+      },
     }));
     useVersion = (await import('./useVersion')).default;
     spyOn(globalThis, 'fetch').mockResolvedValue(new Response('1.2.3-build\n', { status: 200 }));
@@ -35,10 +43,18 @@ describe('useVersion', () => {
     device.windows = false;
     device.android = true;
     mock.module('react-device-detect', () => ({
-      get isAndroid() { return device.android; },
-      get isIOS() { return device.ios; },
-      get isMacOs() { return device.mac; },
-      get isWindows() { return device.windows; },
+      get isAndroid() {
+        return device.android;
+      },
+      get isIOS() {
+        return device.ios;
+      },
+      get isMacOs() {
+        return device.mac;
+      },
+      get isWindows() {
+        return device.windows;
+      },
     }));
     useVersion = (await import('./useVersion')).default;
     const fetchMock = spyOn(globalThis, 'fetch');
@@ -58,10 +74,18 @@ describe('useVersion', () => {
     device.ios = flags.ios ?? false;
     device.mac = flags.mac ?? false;
     mock.module('react-device-detect', () => ({
-      get isAndroid() { return device.android; },
-      get isIOS() { return device.ios; },
-      get isMacOs() { return device.mac; },
-      get isWindows() { return device.windows; },
+      get isAndroid() {
+        return device.android;
+      },
+      get isIOS() {
+        return device.ios;
+      },
+      get isMacOs() {
+        return device.mac;
+      },
+      get isWindows() {
+        return device.windows;
+      },
     }));
     useVersion = (await import('./useVersion')).default;
     if (flags.linux) Object.defineProperty(window.navigator, 'userAgent', { configurable: true, get: () => 'Linux' });
@@ -72,10 +96,18 @@ describe('useVersion', () => {
 
   it('handles launcher version failures', async () => {
     mock.module('react-device-detect', () => ({
-      get isAndroid() { return device.android; },
-      get isIOS() { return device.ios; },
-      get isMacOs() { return device.mac; },
-      get isWindows() { return device.windows; },
+      get isAndroid() {
+        return device.android;
+      },
+      get isIOS() {
+        return device.ios;
+      },
+      get isMacOs() {
+        return device.mac;
+      },
+      get isWindows() {
+        return device.windows;
+      },
     }));
     useVersion = (await import('./useVersion')).default;
     spyOn(globalThis, 'fetch').mockRejectedValue(new Error('offline'));

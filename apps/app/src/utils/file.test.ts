@@ -1,9 +1,9 @@
-const stubGlobal = (name, value) => { Object.defineProperty(globalThis, name, { value, configurable: true, writable: true }); };
+const stubGlobal = (name, value) => {
+  Object.defineProperty(globalThis, name, { value, configurable: true, writable: true });
+};
 import { beforeEach, describe, expect, it } from 'bun:test';
 import { mock } from 'bun:test';
-;
-
-const { saveAsMock } = ({ saveAsMock: mock() });
+const { saveAsMock } = { saveAsMock: mock() };
 
 mock.module('save-as', () => ({ saveAs: saveAsMock }));
 mock.module('@/constants/url', () => ({ DEGEN_ASSETS_DOWNLOAD_URL: 'https://assets.example/degen' }));

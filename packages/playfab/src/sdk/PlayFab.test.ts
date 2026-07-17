@@ -1,8 +1,7 @@
 import { EventEmitter } from 'node:events';
 import https from 'node:https';
-import {afterEach, describe, expect, it, spyOn} from 'bun:test';
+import { afterEach, describe, expect, it, spyOn } from 'bun:test';
 import { mock } from 'bun:test';
-;
 import { GetServerUrl, MakeRequest, settings } from './PlayFab';
 
 function mockHttpsRequest(reply: string) {

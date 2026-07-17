@@ -6,12 +6,9 @@
   font-style: normal;
   font-weight: 700;
   src: url('./Nexa_Rust_Sans_Black/NexaRustSans-Black.eot'); /* IE9 Compat Modes */
-  src: url('./Nexa_Rust_Sans_Black/NexaRustSans-Black.eot?#iefix')
-      format('embedded-opentype'),
-    /* IE6-IE8 */ url('./Nexa_Rust_Sans_Black/NexaRustSans-Black.woff2')
-      format('woff2'),
-    /* Super Modern Browsers */
-      url('./Nexa_Rust_Sans_Black/NexaRustSans-Black.woff') format('woff'),
-    /* Modern Browsers */ url('./Nexa_Rust_Sans_Black/NexaRustSans-Black.ttf')
-      format('truetype');
+  src:
+    url('./Nexa_Rust_Sans_Black/NexaRustSans-Black.eot?#iefix') format('embedded-opentype'),
+    /* IE6-IE8 */ url('./Nexa_Rust_Sans_Black/NexaRustSans-Black.woff2') format('woff2'),
+    /* Super Modern Browsers */ url('./Nexa_Rust_Sans_Black/NexaRustSans-Black.woff') format('woff'),
+    /* Modern Browsers */ url('./Nexa_Rust_Sans_Black/NexaRustSans-Black.ttf') format('truetype');
 }

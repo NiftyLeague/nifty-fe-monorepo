@@ -9,9 +9,12 @@ const contractReader = mock();
 
 mock.module('./useContractReader', () => ({ default: contractReader }));
 
-const interval = ({ clear: mock(async () => undefined), set: mock(() => 'interval-id') });
+const interval = { clear: mock(async () => undefined), set: mock(() => 'interval-id') };
 
-mock.module('set-interval-async/dynamic', () => ({ clearIntervalAsync: interval.clear, setIntervalAsync: interval.set }));
+mock.module('set-interval-async/dynamic', () => ({
+  clearIntervalAsync: interval.clear,
+  setIntervalAsync: interval.set,
+}));
 
 afterEach(() => {
   mock.restore();
@@ -21,8 +24,9 @@ afterEach(() => {
 
 describe('useFetch', () => {
   it('loads JSON, caches it, and supports text responses', async () => {
-    const fetchMock = spyOn(globalThis, 'fetch')
-      .mockResolvedValueOnce(new Response(JSON.stringify({ id: 7 }), { status: 200 }));
+    const fetchMock = spyOn(globalThis, 'fetch').mockResolvedValueOnce(
+      new Response(JSON.stringify({ id: 7 }), { status: 200 }),
+    );
     const { result, rerender } = renderHook(({ url, textOnly }) => useFetch(url, undefined, textOnly), {
       initialProps: { url: '/payload', textOnly: false },
     });
@@ -44,8 +48,9 @@ describe('useFetch', () => {
   });
 
   it('resets when disabled and reports unsuccessful responses', async () => {
-    const fetchMock = spyOn(globalThis, 'fetch')
-      .mockResolvedValue(new Response('missing', { status: 404, statusText: 'Not Found' }));
+    const fetchMock = spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response('missing', { status: 404, statusText: 'Not Found' }),
+    );
     const { result, rerender } = renderHook(({ enabled }) => useFetch('/missing', { enabled }), {
       initialProps: { enabled: true },
     });

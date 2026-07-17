@@ -1,8 +1,10 @@
-const stubEnv = (k, v) => { process.env[k] = v; };
+const stubEnv = (k, v) => {
+  process.env[k] = v;
+};
 import { beforeAll, beforeEach, describe, expect, it } from 'bun:test';
 import { mock } from 'bun:test';
 
-const mocks = ({ getIronSession: mock(), cookies: mock().mockResolvedValue({}) });
+const mocks = { getIronSession: mock(), cookies: mock().mockResolvedValue({}) };
 
 mock.module('iron-session', () => ({ getIronSession: mocks.getIronSession }));
 mock.module('next/headers', () => ({ cookies: mocks.cookies }));

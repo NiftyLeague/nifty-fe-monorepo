@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'bun:test';
 import { mock } from 'bun:test';
-;
 import { BURN_ADDYS } from '@/constants/addresses';
 import DEFAULT_STATIC_FILTER from './constants';
 import { getDefaultFilterValueFromData, tranformDataByFilter, updateFilterValue } from './utils';

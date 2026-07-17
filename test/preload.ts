@@ -19,24 +19,14 @@ GlobalRegistrator.register();
 //   @docusaurus/Link            -> test/stubs/DocusaurusLink.tsx
 //   @docusaurus/useBaseUrl     -> test/stubs/useBaseUrl.ts
 //   @theme/ThemedImage          -> test/stubs/ThemedImage.tsx
-mock.module('@docusaurus/Link', () => ({
-  default: (props: any) => null,
-}));
+mock.module('@docusaurus/Link', () => ({ default: (props: any) => null }));
 
-mock.module('@docusaurus/useBaseUrl', () => ({
-  default: (s: string) => s,
-}));
+mock.module('@docusaurus/useBaseUrl', () => ({ default: (s: string) => s }));
 
 // --- next/font (bun's resolver cannot load next's generated font modules) ---
 // Return a permissive stub: any named font export becomes a function returning a
 // CSS-font object. Mirrors how vitest+jsdom never actually evaluated the font CSS.
-const nextFontStub = () =>
-  new Proxy(
-    {},
-    {
-      get: () => () => ({ className: '', style: {}, variable: '' }),
-    },
-  );
+const nextFontStub = () => new Proxy({}, { get: () => () => ({ className: '', style: {}, variable: '' }) });
 
 mock.module('next/font/google', nextFontStub);
 mock.module('next/font/local', nextFontStub);

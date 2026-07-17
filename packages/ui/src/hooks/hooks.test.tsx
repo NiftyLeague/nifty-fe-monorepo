@@ -1,7 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
-import {afterEach, beforeEach, describe, expect, it, spyOn, jest} from 'bun:test';
+import { afterEach, beforeEach, describe, expect, it, spyOn, jest } from 'bun:test';
 import { mock } from 'bun:test';
-;
 import { useCopyToClipboard } from './useCopyToClipboard';
 import { useMediaQuery } from './useMediaQuery';
 import { STATUS, useStopwatch } from './useStopwatch';

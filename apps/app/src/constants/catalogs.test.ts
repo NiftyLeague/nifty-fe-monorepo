@@ -1,6 +1,4 @@
 import { describe, expect, it } from 'bun:test';
-;
-
 const catalogLoaders = {
   addresses: () => import('./addresses'),
   cosmetics: () => import('./cosmeticsFilters'),

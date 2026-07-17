@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'bun:test';
 import { mock } from 'bun:test';
-;
 import HomepageFeatures from './HomepageFeatures';
 import HomepageGuides, { GITHUB_LINKS, GUIDE_LINKS, QUICK_LINKS } from './HomepageGuides';
 
@@ -16,7 +15,9 @@ describe('documentation homepage content', () => {
     expect(screen.getByRole('heading', { name: 'Getting Started' })).not.toBeNull();
     expect(screen.getByRole('heading', { name: 'Developer Links' })).not.toBeNull();
     expect(screen.getAllByRole('link')).toHaveLength(GUIDE_LINKS.length + GITHUB_LINKS.length + QUICK_LINKS.length);
-    expect(screen.getByRole('link', { name: /nifty-fe-monorepo/i })?.getAttribute('href')).toBe('https://github.com/NiftyLeague/nifty-fe-monorepo',);
+    expect(screen.getByRole('link', { name: /nifty-fe-monorepo/i })?.getAttribute('href')).toBe(
+      'https://github.com/NiftyLeague/nifty-fe-monorepo',
+    );
   });
 
   it('renders the three primary product feature cards', () => {

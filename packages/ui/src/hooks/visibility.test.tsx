@@ -1,8 +1,9 @@
-const stubGlobal = (name, value) => { Object.defineProperty(globalThis, name, { value, configurable: true, writable: true }); };
+const stubGlobal = (name, value) => {
+  Object.defineProperty(globalThis, name, { value, configurable: true, writable: true });
+};
 import { act, renderHook } from '@testing-library/react';
-import {beforeEach, describe, expect, it, spyOn} from 'bun:test';
+import { beforeEach, describe, expect, it, spyOn } from 'bun:test';
 import { mock } from 'bun:test';
-;
 import { useOnScreen } from './useOnScreen';
 import { useParallax } from './useParallax';
 

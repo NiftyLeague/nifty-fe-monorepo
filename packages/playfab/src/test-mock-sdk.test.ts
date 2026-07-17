@@ -28,11 +28,11 @@ for (const m of clientMethods) {
   clientMocks[m] = mock();
 }
 
-export const sdk = ({
+export const sdk = {
   client: { settings: { titleId: 'TITLE' }, ...clientMocks } as Record<string, unknown>,
   admin: { DeletePlayer: mock() },
   cloudScript: { ExecuteFunction: mock() },
-});
+};
 
 mock.module('./sdk/index', () => ({
   playfab: { PlayFabClient: sdk.client, PlayFabAdmin: sdk.admin, PlayFabCloudScript: sdk.cloudScript },

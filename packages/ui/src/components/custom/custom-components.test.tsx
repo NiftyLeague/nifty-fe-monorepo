@@ -1,10 +1,11 @@
-const stubGlobal = (name, value) => { Object.defineProperty(globalThis, name, { value, configurable: true, writable: true }); };
+const stubGlobal = (name, value) => {
+  Object.defineProperty(globalThis, name, { value, configurable: true, writable: true });
+};
 import type { ComponentProps, PropsWithChildren } from 'react';
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {afterEach, describe, expect, it, jest} from 'bun:test';
+import { afterEach, describe, expect, it, jest } from 'bun:test';
 import { mock } from 'bun:test';
-;
 import { Icon } from '@nl/ui/base/icon';
 import { AnimatedWrapper } from './animated-wrapper';
 import { AuthForm, VIEWS } from './auth-form';
@@ -14,7 +15,7 @@ import { Navbar } from './navbar';
 import { Preloader } from './preloader';
 import { PreloaderBase } from './preloader/base';
 
-const state = ({
+const state = {
   intersecting: true,
   mobile: true,
   milliseconds: 1_500,
@@ -23,7 +24,7 @@ const state = ({
   start: mock(),
   stop: mock(),
   parallax: mock(),
-});
+};
 
 mock.module('next/link', () => ({
   default: ({ children, href, ...props }: PropsWithChildren<{ href: string }>) => (

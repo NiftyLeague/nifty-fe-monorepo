@@ -1,8 +1,8 @@
-const stubGlobal = (name, value) => { Object.defineProperty(globalThis, name, { value, configurable: true, writable: true }); };
+const stubGlobal = (name, value) => {
+  Object.defineProperty(globalThis, name, { value, configurable: true, writable: true });
+};
 import { afterEach, describe, expect, it } from 'bun:test';
 import { mock } from 'bun:test';
-;
-
 mock.module('@/constants/leaderboards', () => {
   const row = (score: string, userId: string, stats: Record<string, string> = {}) => ({
     rank: 1,
