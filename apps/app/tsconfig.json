@@ -27,9 +27,6 @@
   "exclude": [
     "node_modules",
     "**/*.test.ts",
-    "**/*.test.tsx",
-    "src/app/(public-routes)/mint-o-matic/**",
-    "src/app/(public-routes)/games/**",
-    "src/components/wrapper/GameWithAuth.tsx"
+    "**/*.test.tsx"
   ]
 }
