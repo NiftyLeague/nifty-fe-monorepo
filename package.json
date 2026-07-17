@@ -21,7 +21,9 @@
     "test:coverage": "bun test --coverage",
     "test:coverage:workspaces": "turbo test:coverage",
     "test:watch": "bun test --watch",
-    "type-check": "turbo type-check"
+    "type-check": "turbo type-check",
+    "type:check": "turbo type-check",
+    "start": "turbo run dev"
   },
   "devDependencies": {
     "@nl/eslint-config": "workspace:*",
