@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'bun:test';
 import { mock } from 'bun:test';
 ;
@@ -159,7 +159,8 @@ describe('base visual primitives', () => {
 });
 
 describe('base controlled primitives', () => {
-  it('renders disclosure, selection, range, tab, and toggle controls', () => {
+  it('renders disclosure, selection, range, tab, and toggle controls', async () => {
+    await act(async () => {
     render(
       <>
         <Accordion type="single" defaultValue="details">
@@ -195,9 +196,12 @@ describe('base controlled primitives', () => {
         </ToggleGroup>
       </>,
     );
+    });
+    // allow Radix Popper async positioning updates to settle
+    await act(async () => { await Promise.resolve(); });
 
     expect(screen.getByText('Expanded details')).toBeTruthy();
-    expect(screen.getByRole('checkbox', { name: 'Accept' })).toBeChecked();
+    expect((screen.getByRole('checkbox', { name: 'Accept' }) as HTMLInputElement)?.checked).toBe(true);
     expect(screen.getByRole('tab', { name: 'First' })?.getAttribute('data-state')).toBe('active');
     expect(screen.getByText('First panel')).toBeTruthy();
   });
