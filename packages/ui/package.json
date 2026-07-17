@@ -15,13 +15,13 @@
     "./styles.css": "./src/styles/globals.css"
   },
   "scripts": {
-    "add-component": "pnpm dlx shadcn@latest add $@",
-    "postadd-component": "pnpm migrate && pnpm format",
+    "add-component": "bun dlx shadcn@latest add $@",
+    "postadd-component": "bun migrate && bun format",
     "clean": "rm -rf node_modules && rm -rf .turbo && rm -rf .storybook",
     "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\" --ignore-path ../../.gitignore",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --max-warnings 0 --fix",
-    "migrate": "pnpm dlx shadcn@latest migrate radix -y",
+    "migrate": "bun dlx shadcn@latest migrate radix -y",
     "test": "vitest run --config ../../vitest.config.ts --project ui",
     "test:coverage": "VITEST_SCOPE=packages/ui vitest run --config ../../vitest.config.ts --project ui --coverage",
     "test:watch": "vitest --config ../../vitest.config.ts --project ui",
