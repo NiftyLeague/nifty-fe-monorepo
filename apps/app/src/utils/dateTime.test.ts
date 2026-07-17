@@ -17,10 +17,10 @@ describe('dateTime utils', () => {
   });
 
   describe('formatTime', () => {
-    it('formats a valid time string as HH:MM:SS in local time', () => {
-      // Intl.DateTimeFormat('default') honors the local timezone, so assert shape not literal.
+    it('formats a valid time string with hour/minute/second', () => {
+      // Intl.DateTimeFormat('default', {hour,minute,second}) honors local TZ + 12h clock.
       const out = formatTime('2024-01-15T09:05:03Z');
-      expect(out).toMatch(/^\d{2}:\d{2}:\d{2}$/);
+      expect(out).toMatch(/^\d{2}:\d{2}:\d{2}/);
     });
 
     it('returns a zero placeholder for falsy input', () => {
