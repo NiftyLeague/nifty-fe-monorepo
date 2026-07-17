@@ -60,7 +60,8 @@ Create a markdown file in its respective docs directory.
 Copy the `.env.example` file in this directory to `.env.local` (which will be ignored by Git):
 
 ```bash
-cp .env.example .env.local
+vercel env pull .env.local   # preferred: pulls from Vercel (source of truth)
+# fallback: cp .env.example .env.local
 ```
 
 ### Installation
@@ -122,3 +123,24 @@ pnpm write-translations
 We use Github integration through Crowdin so please skip running `pnpm crowdin upload` to upload all the JSON and Markdown translation files.
 
 As translations occcur in Crowdin it will automatically create pull requests from `l10n_staging` into `staging` so there is no need to downloading anything as well.
+
+## Environment Variables
+
+Environment variables are managed in **Vercel** (source of truth). Sync them locally:
+
+```bash
+# Link this project to its Vercel project (one-time)
+vercel link --scope niftyleague 
+
+# Pull all env vars into .env.local (gitignored)
+vercel env pull .env.local
+```
+
+To push local changes back to Vercel:
+
+```bash
+vercel env push .env.local
+# or set them per-environment (Production / Preview) in the Vercel dashboard
+```
+
+> Never commit `.env.local` — it is gitignored. For team projects use `vercel --scope niftyleague`.

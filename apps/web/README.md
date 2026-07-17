@@ -16,7 +16,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 Copy the `.env.example` file in this directory to `.env.local` (which will be ignored by Git):
 
 ```bash
-cp .env.example .env.local
+vercel env pull .env.local   # preferred: pulls from Vercel (source of truth)
+# fallback: cp .env.example .env.local
 ```
 
 ### Run the development server
@@ -47,3 +48,24 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_source=github.com&utm_medium=referral&utm_campaign=turborepo-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Environment Variables
+
+Environment variables are managed in **Vercel** (source of truth). Sync them locally:
+
+```bash
+# Link this project to its Vercel project (one-time)
+vercel link --scope niftyleague 
+
+# Pull all env vars into .env.local (gitignored)
+vercel env pull .env.local
+```
+
+To push local changes back to Vercel:
+
+```bash
+vercel env push .env.local
+# or set them per-environment (Production / Preview) in the Vercel dashboard
+```
+
+> Never commit `.env.local` — it is gitignored. For team projects use `vercel --scope niftyleague`.

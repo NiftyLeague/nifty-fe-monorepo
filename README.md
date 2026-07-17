@@ -316,3 +316,19 @@ Email [andy@niftyleague.com](mailto:andy@niftyleague.com)
 **OR**
 
 Join the Nifty League [Discord Server](https://discord.gg/niftyleague) and message an admin
+
+## Environment Variables
+
+Environment variables are managed in **Vercel** (source of truth). Each app in `apps/` is linked to its own Vercel project under the `niftyleague` team. Sync locally:
+
+```bash
+# From any app directory:
+cd apps/app
+vercel link --scope niftyleague
+vercel env pull .env.local
+
+# Push local changes back:
+vercel env push .env.local
+```
+
+> Never commit `.env.local` — it is gitignored.
