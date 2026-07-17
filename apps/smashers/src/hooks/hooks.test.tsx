@@ -1,9 +1,11 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it } from 'bun:test';
+import { mock } from 'bun:test';
+;
 
-const device = vi.hoisted(() => ({ android: false, ios: false, mac: false, windows: true }));
+const device = ({ android: false, ios: false, mac: false, windows: true });
 
-vi.mock('react-device-detect', () => ({
+mock.module('react-device-detect', () => ({
   get isAndroid() {
     return device.android;
   },
@@ -23,7 +25,7 @@ import useUnitySafeClose from './useUnitySafeClose';
 import useVersion from './useVersion';
 
 afterEach(() => {
-  vi.restoreAllMocks();
+  mock.restore();
   device.android = false;
   device.ios = false;
   device.mac = false;
@@ -33,7 +35,7 @@ afterEach(() => {
 
 describe('useVersion', () => {
   it('fetches the Windows launcher version and creates its download URL', async () => {
-    vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('1.2.3-build\n', { status: 200 }));
+    spyOn(globalThis, 'fetch').mockResolvedValue(new Response('1.2.3-build\n', { status: 200 }));
     const { result } = renderHook(() => useVersion());
 
     await waitFor(() => expect(result.current.version).toBe('1.2.3-build\n'));
@@ -45,7 +47,7 @@ describe('useVersion', () => {
   it('returns the platform message without fetching for Android', () => {
     device.windows = false;
     device.android = true;
-    const fetchMock = vi.spyOn(globalThis, 'fetch');
+    const fetchMock = spyOn(globalThis, 'fetch');
     const { result } = renderHook(() => useVersion());
 
     expect(result.current.isWindows).toBe(false);
@@ -62,7 +64,7 @@ describe('useVersion', () => {
     device.windows = false;
     device.ios = flags.ios ?? false;
     device.mac = flags.mac ?? false;
-    if (flags.linux) vi.spyOn(window.navigator, 'userAgent', 'get').mockReturnValue('Linux');
+    if (flags.linux) spyOn(window.navigator, 'userAgent', 'get').mockReturnValue('Linux');
 
     const { result } = renderHook(() => useVersion());
     expect(result.current.message).toBe(message);
@@ -70,7 +72,7 @@ describe('useVersion', () => {
   });
 
   it('handles launcher version failures', async () => {
-    vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('offline'));
+    spyOn(globalThis, 'fetch').mockRejectedValue(new Error('offline'));
     const { result } = renderHook(() => useVersion());
 
     await waitFor(() => expect(result.current.version).toBe(''), { timeout: 10_000 });
@@ -80,28 +82,28 @@ describe('useVersion', () => {
 describe('useUnityEventHandlers', () => {
   it('registers Unity callbacks, authenticates, configures, and cleans up', async () => {
     const listeners = new Map<string, (...parameters: unknown[]) => unknown>();
-    const addEventListener = vi.fn((name: string, callback: (...parameters: unknown[]) => unknown) => {
+    const addEventListener = mock((name: string, callback: (...parameters: unknown[]) => unknown) => {
       listeners.set(name, callback);
     });
-    const removeEventListener = vi.fn();
+    const removeEventListener = mock();
     const { rerender, unmount } = renderHook(
       ({ address, authToken }) => useUnityEventHandlers({ address, authToken, addEventListener, removeEventListener }),
       { initialProps: { address: '0xABC', authToken: 'token-1' } },
     );
 
-    const authCallback = vi.fn();
+    const authCallback = mock();
     act(() => listeners.get('StartAuthentication')?.({ detail: { callback: authCallback } }));
     expect(authCallback).toHaveBeenCalledWith('true,0xABC,Vitalik,token-1');
 
     rerender({ address: '0xDEF', authToken: 'token-2' });
     expect(authCallback).toHaveBeenLastCalledWith('true,0xDEF,Vitalik,token-2');
 
-    vi.useFakeTimers();
-    const configuration = vi.fn();
+    jest.useFakeTimers();
+    const configuration = mock();
     act(() => listeners.get('GetConfiguration')?.({ detail: { callback: configuration } }));
-    act(() => vi.advanceTimersByTime(1_000));
+    act(() => jest.advanceTimersByTime(1_000));
     expect(configuration).toHaveBeenCalledWith(expect.stringMatching(/^sepolia,/));
-    vi.useRealTimers();
+    jest.useRealTimers();
 
     unmount();
     expect(removeEventListener).toHaveBeenCalledTimes(4);
@@ -111,8 +113,8 @@ describe('useUnityEventHandlers', () => {
 describe('useUnitySafeClose', () => {
   it('unloads and closes only when the modal or close button is clicked', async () => {
     document.body.innerHTML = '<div id="unity-modal"><button id="unity-close-icon">Close</button></div>';
-    const closeGame = vi.fn();
-    const unload = vi.fn(async () => undefined);
+    const closeGame = mock();
+    const unload = mock(async () => undefined);
     const { unmount } = renderHook(() => useUnitySafeClose({ closeGame, unload }));
 
     document.body.dispatchEvent(new MouseEvent('click', { bubbles: true }));

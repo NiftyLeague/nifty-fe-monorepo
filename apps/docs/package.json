@@ -15,9 +15,9 @@
     "serve": "docusaurus serve",
     "start": "docusaurus start",
     "swizzle": "docusaurus swizzle",
-    "test": "vitest run --config ../../vitest.config.ts --project docs",
-    "test:coverage": "VITEST_SCOPE=apps/docs vitest run --config ../../vitest.config.ts --project docs --coverage",
-    "test:watch": "vitest --config ../../vitest.config.ts --project docs",
+    "test": "bun test --project-placeholder docs",
+    "test:coverage": "VITEST_SCOPE=apps/docs bun test --project-placeholder docs --coverage",
+    "test:watch": "bun test --watch",
     "type-check": "tsc --noEmit",
     "write-heading-ids": "docusaurus write-heading-ids",
     "write-translations": "docusaurus write-translations"

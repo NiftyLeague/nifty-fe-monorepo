@@ -1,9 +1,11 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it } from 'bun:test';
+import { mock } from 'bun:test';
+;
 import { sendGTMEvent } from '@next/third-parties/google';
 import { EVENTS } from './constants';
 import { removeUserId, sendEvent, sendGameReferral, sendUserId, sendWebVitals } from './events';
 
-vi.mock('@next/third-parties/google', () => ({ sendGTMEvent: vi.fn() }));
+mock.module('@next/third-parties/google', () => ({ sendGTMEvent: mock() }));
 
 describe('Google Tag Manager events', () => {
   beforeEach(() => window.localStorage.clear());

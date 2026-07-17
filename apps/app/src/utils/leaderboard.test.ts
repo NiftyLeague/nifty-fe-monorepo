@@ -1,6 +1,9 @@
-import { afterEach, describe, expect, it, vi } from 'vitest';
+const stubGlobal = (name, value) => { Object.defineProperty(globalThis, name, { value, configurable: true, writable: true }); };
+import { afterEach, describe, expect, it } from 'bun:test';
+import { mock } from 'bun:test';
+;
 
-vi.mock('@/constants/leaderboards', () => {
+mock.module('@/constants/leaderboards', () => {
   const row = (score: string, userId: string, stats: Record<string, string> = {}) => ({
     rank: 1,
     score,
@@ -21,14 +24,14 @@ vi.mock('@/constants/leaderboards', () => {
 
 import { fetchRankByUserId, fetchScores, fetchUserNames, getComparator, stableSort } from './leaderboard';
 
-afterEach(() => vi.unstubAllGlobals());
+afterEach(() => undefined);
 
 describe('leaderboard data loaders', () => {
   it('loads usernames and handles transport errors', async () => {
-    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ json: vi.fn().mockResolvedValue([{ name: 'Alpha' }]) }));
+    stubGlobal('fetch', mock().mockResolvedValue({ json: mock().mockResolvedValue([{ name: 'Alpha' }]) }));
     await expect(fetchUserNames(['user-1'])).resolves.toEqual([{ name: 'Alpha' }]);
 
-    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('offline')));
+    stubGlobal('fetch', mock().mockRejectedValue(new Error('offline')));
     await expect(fetchUserNames(['user-1'])).resolves.toEqual([]);
   });
 
@@ -38,9 +41,9 @@ describe('leaderboard data loaders', () => {
     ['kills', '0%', '12.5', '11'],
     ['score', '0%', '0', '3'],
   ])('normalizes %s score rows', async (scoreType, winRate, earnings, kills) => {
-    vi.stubGlobal(
+    stubGlobal(
       'fetch',
-      vi.fn().mockResolvedValue({ json: vi.fn().mockResolvedValue({ [`user-${scoreType}`]: { name: 'Player' } }) }),
+      mock().mockResolvedValue({ json: mock().mockResolvedValue({ [`user-${scoreType}`]: { name: 'Player' } }) }),
     );
 
     const result = await fetchScores('smashers', scoreType, 'all', 5, 0);
@@ -51,13 +54,13 @@ describe('leaderboard data loaders', () => {
 
   it('returns rank responses and caught rank errors', async () => {
     const response = new Response('{}', { status: 200 });
-    const fetchMock = vi.fn().mockResolvedValue(response);
-    vi.stubGlobal('fetch', fetchMock);
+    const fetchMock = mock().mockResolvedValue(response);
+    stubGlobal('fetch', fetchMock);
     await expect(fetchRankByUserId('user-1', 'smashers', 'wins', 'week')).resolves.toBe(response);
     expect(fetchMock.mock.calls[0]?.[0]).toContain('user_id=user-1');
 
     const error = new Error('offline');
-    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(error));
+    stubGlobal('fetch', mock().mockRejectedValue(error));
     await expect(fetchRankByUserId('user-1', 'smashers', 'wins', 'week')).resolves.toBe(error);
   });
 });

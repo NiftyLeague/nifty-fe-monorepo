@@ -1,4 +1,5 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
+;
 import { cn, formatNumberToDisplay } from './utils';
 
 describe('UI utility helpers', () => {

@@ -11,9 +11,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "start": "next start",
-    "test": "vitest run --config ../../vitest.config.ts --project app",
-    "test:coverage": "VITEST_SCOPE=apps/app vitest run --config ../../vitest.config.ts --project app --coverage",
-    "test:watch": "vitest --config ../../vitest.config.ts --project app",
+    "test": "bun test --project-placeholder app",
+    "test:coverage": "VITEST_SCOPE=apps/app bun test --project-placeholder app --coverage",
+    "test:watch": "bun test --watch",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {

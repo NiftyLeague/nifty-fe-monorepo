@@ -1,14 +1,16 @@
-import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
+const stubEnv = (k, v) => { process.env[k] = v; };
+import { beforeAll, beforeEach, describe, expect, it } from 'bun:test';
+import { mock } from 'bun:test';
 
-const mocks = vi.hoisted(() => ({ getIronSession: vi.fn(), cookies: vi.fn().mockResolvedValue({}) }));
+const mocks = ({ getIronSession: mock(), cookies: mock().mockResolvedValue({}) });
 
-vi.mock('iron-session', () => ({ getIronSession: mocks.getIronSession }));
-vi.mock('next/headers', () => ({ cookies: mocks.cookies }));
+mock.module('iron-session', () => ({ getIronSession: mocks.getIronSession }));
+mock.module('next/headers', () => ({ cookies: mocks.cookies }));
 
 let sessionModule: typeof import('./session');
 
 beforeAll(async () => {
-  vi.stubEnv('NEXTAUTH_SECRET', 'a-secure-test-secret-that-is-at-least-32-characters');
+  stubEnv('NEXTAUTH_SECRET', 'a-secure-test-secret-that-is-at-least-32-characters');
   sessionModule = await import('./session');
 });
 
@@ -24,9 +26,9 @@ describe('session configuration', () => {
 
 describe('route wrappers', () => {
   it('passes the session to handlers and appends saved cookies', async () => {
-    const session = { user: { isLoggedIn: true }, save: vi.fn().mockResolvedValue(['session=updated']) };
+    const session = { user: { isLoggedIn: true }, save: mock().mockResolvedValue(['session=updated']) };
     mocks.getIronSession.mockResolvedValue(session);
-    const handler = vi.fn().mockResolvedValue(new Response('ok', { status: 200 }));
+    const handler = mock().mockResolvedValue(new Response('ok', { status: 200 }));
 
     const response = await sessionModule.withSessionRoute(handler)(new Request('https://example.com/api'));
 
@@ -36,8 +38,8 @@ describe('route wrappers', () => {
   });
 
   it('rejects anonymous users before invoking protected handlers', async () => {
-    mocks.getIronSession.mockResolvedValue({ user: undefined, save: vi.fn() });
-    const handler = vi.fn();
+    mocks.getIronSession.mockResolvedValue({ user: undefined, save: mock() });
+    const handler = mock();
 
     const response = await sessionModule.withUserRoute(handler)(new Request('https://example.com/private'));
 
@@ -47,9 +49,9 @@ describe('route wrappers', () => {
   });
 
   it('allows authenticated users through protected routes', async () => {
-    const session = { user: { isLoggedIn: true }, save: vi.fn() };
+    const session = { user: { isLoggedIn: true }, save: mock() };
     mocks.getIronSession.mockResolvedValue(session);
-    const handler = vi.fn().mockReturnValue(new Response('private'));
+    const handler = mock().mockReturnValue(new Response('private'));
 
     const response = await sessionModule.withUserRoute(handler)(new Request('https://example.com/private'));
     await expect(response.text()).resolves.toBe('private');

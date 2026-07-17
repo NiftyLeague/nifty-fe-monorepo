@@ -1,21 +1,23 @@
 import { EventEmitter } from 'node:events';
 import https from 'node:https';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it } from 'bun:test';
+import { mock } from 'bun:test';
+;
 import { GetServerUrl, MakeRequest, settings } from './PlayFab';
 
 function mockHttpsRequest(reply: string) {
-  return vi.spyOn(https, 'request').mockImplementation(((
+  return spyOn(https, 'request').mockImplementation(((
     options: https.RequestOptions,
     callback: (res: EventEmitter) => void,
   ) => {
     const request = new EventEmitter() as EventEmitter & {
-      write: ReturnType<typeof vi.fn>;
-      end: ReturnType<typeof vi.fn>;
+      write: ReturnType<typeof mock>;
+      end: ReturnType<typeof mock>;
     };
-    request.write = vi.fn();
-    request.end = vi.fn(() => {
-      const response = new EventEmitter() as EventEmitter & { setEncoding: ReturnType<typeof vi.fn> };
-      response.setEncoding = vi.fn();
+    request.write = mock();
+    request.end = mock(() => {
+      const response = new EventEmitter() as EventEmitter & { setEncoding: ReturnType<typeof mock> };
+      response.setEncoding = mock();
       callback(response);
       response.emit('data', reply);
       response.emit('end');
@@ -45,7 +47,7 @@ describe('GetServerUrl', () => {
 describe('MakeRequest', () => {
   it('posts JSON with authentication and returns successful envelopes', () => {
     const requestSpy = mockHttpsRequest('{"code":200,"data":{"value":7}}');
-    const callback = vi.fn();
+    const callback = mock();
 
     MakeRequest('https://title.playfabapi.com/Client/Test', { input: true }, 'X-Authorization', 'ticket', callback);
 
@@ -62,13 +64,13 @@ describe('MakeRequest', () => {
   });
 
   it('returns service and invalid-JSON errors through the callback', () => {
-    const serviceCallback = vi.fn();
+    const serviceCallback = mock();
     mockHttpsRequest('{"code":400,"error":"BadRequest","errorMessage":"bad"}');
     MakeRequest('https://title.playfabapi.com/Test', {}, null, null, serviceCallback);
     expect(serviceCallback).toHaveBeenCalledWith(expect.objectContaining({ error: 'BadRequest' }), null);
 
-    vi.restoreAllMocks();
-    const invalidCallback = vi.fn();
+    mock.restore();
+    const invalidCallback = mock();
     mockHttpsRequest('not-json');
     MakeRequest('https://title.playfabapi.com/Test', {}, null, null, invalidCallback);
     expect(invalidCallback).toHaveBeenCalledWith(
@@ -78,22 +80,22 @@ describe('MakeRequest', () => {
   });
 
   it('rejects insecure protocols before sending a request', () => {
-    expect(() => MakeRequest('http://title.playfabapi.com/Test', {}, null, null, vi.fn())).toThrow(
+    expect(() => MakeRequest('http://title.playfabapi.com/Test', {}, null, null, mock())).toThrow(
       'Unsupported protocol: http:',
     );
   });
 
   it('converts transport errors into PlayFab connection errors', () => {
-    vi.spyOn(https, 'request').mockImplementation((() => {
+    spyOn(https, 'request').mockImplementation((() => {
       const request = new EventEmitter() as EventEmitter & {
-        write: ReturnType<typeof vi.fn>;
-        end: ReturnType<typeof vi.fn>;
+        write: ReturnType<typeof mock>;
+        end: ReturnType<typeof mock>;
       };
-      request.write = vi.fn();
-      request.end = vi.fn(() => request.emit('error', new Error('socket closed')));
+      request.write = mock();
+      request.end = mock(() => request.emit('error', new Error('socket closed')));
       return request as never;
     }) as never);
-    const callback = vi.fn();
+    const callback = mock();
 
     MakeRequest('https://title.playfabapi.com/Test', {}, null, null, callback);
     expect(callback).toHaveBeenCalledWith(expect.objectContaining({ code: 503, errorMessage: 'socket closed' }), null);

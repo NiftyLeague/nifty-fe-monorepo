@@ -11,8 +11,8 @@
   },
   "scripts": {
     "clean": "rm -rf node_modules",
-    "test": "vitest run --config ../../vitest.config.ts --project eslint-config",
-    "test:coverage": "VITEST_SCOPE=packages/eslint-config vitest run --config ../../vitest.config.ts --project eslint-config --coverage",
+    "test": "bun test --project-placeholder eslint-config",
+    "test:coverage": "VITEST_SCOPE=packages/eslint-config bun test --project-placeholder eslint-config --coverage",
     "test:watch": "vitest --config ../../vitest.config.ts --project eslint-config"
   },
   "devDependencies": {

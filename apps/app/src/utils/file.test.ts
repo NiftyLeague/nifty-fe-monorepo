@@ -1,20 +1,23 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+const stubGlobal = (name, value) => { Object.defineProperty(globalThis, name, { value, configurable: true, writable: true }); };
+import { beforeEach, describe, expect, it } from 'bun:test';
+import { mock } from 'bun:test';
+;
 
-const { saveAsMock } = vi.hoisted(() => ({ saveAsMock: vi.fn() }));
+const { saveAsMock } = ({ saveAsMock: mock() });
 
-vi.mock('save-as', () => ({ saveAs: saveAsMock }));
-vi.mock('@/constants/url', () => ({ DEGEN_ASSETS_DOWNLOAD_URL: 'https://assets.example/degen' }));
+mock.module('save-as', () => ({ saveAs: saveAsMock }));
+mock.module('@/constants/url', () => ({ DEGEN_ASSETS_DOWNLOAD_URL: 'https://assets.example/degen' }));
 
 import { downloadDegenAsZip } from './file';
 
 beforeEach(() => {
-  vi.clearAllMocks();
+  mock.clearAllMocks();
 });
 
 describe('downloadDegenAsZip', () => {
   it('downloads base64 data and saves it as a ZIP blob', async () => {
-    const fetchMock = vi.fn().mockResolvedValue({ text: vi.fn().mockResolvedValue('UEs=') });
-    vi.stubGlobal('fetch', fetchMock);
+    const fetchMock = mock().mockResolvedValue({ text: mock().mockResolvedValue('UEs=') });
+    stubGlobal('fetch', fetchMock);
 
     await downloadDegenAsZip('auth-token', 42);
 
@@ -30,9 +33,9 @@ describe('downloadDegenAsZip', () => {
 
   it('rejects when invoked without a browser window', async () => {
     const currentWindow = window;
-    vi.stubGlobal('window', undefined);
+    stubGlobal('window', undefined);
 
     await expect(downloadDegenAsZip('token', 1)).rejects.toThrow('Window undefined');
-    vi.stubGlobal('window', currentWindow);
+    stubGlobal('window', currentWindow);
   });
 });

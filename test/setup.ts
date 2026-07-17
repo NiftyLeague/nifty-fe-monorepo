@@ -1,33 +1,31 @@
-import '@testing-library/jest-dom/vitest';
+import '@testing-library/jest-dom';
 import { cleanup } from '@testing-library/react';
-import { afterEach, vi } from 'vitest';
+import { afterEach, mock } from 'bun:test';
 
 afterEach(() => {
   cleanup();
-  vi.clearAllMocks();
+  mock.restore();
 });
 
 Object.defineProperty(window, 'matchMedia', {
   configurable: true,
-  value: vi
-    .fn()
-    .mockImplementation((query: string) => ({
-      matches: false,
-      media: query,
-      onchange: null,
-      addEventListener: vi.fn(),
-      removeEventListener: vi.fn(),
-      addListener: vi.fn(),
-      removeListener: vi.fn(),
-      dispatchEvent: vi.fn(),
-    })),
+  value: mock().mockImplementation((query: string) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addEventListener: mock(),
+    removeEventListener: mock(),
+    addListener: mock(),
+    removeListener: mock(),
+    dispatchEvent: mock(),
+  })),
 });
 
 class NoopObserver {
-  disconnect = vi.fn();
-  observe = vi.fn();
-  takeRecords = vi.fn(() => []);
-  unobserve = vi.fn();
+  disconnect = mock();
+  observe = mock();
+  takeRecords = mock(() => []);
+  unobserve = mock();
 }
 
 Object.defineProperty(window, 'IntersectionObserver', { configurable: true, value: NoopObserver });

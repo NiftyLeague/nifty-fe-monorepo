@@ -1,4 +1,6 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'bun:test';
+import { mock } from 'bun:test';
+;
 import { BURN_ADDYS } from '@/constants/addresses';
 import DEFAULT_STATIC_FILTER from './constants';
 import { getDefaultFilterValueFromData, tranformDataByFilter, updateFilterValue } from './utils';
@@ -59,7 +61,7 @@ describe('degen filtering', () => {
 
 describe('filter state helpers', () => {
   it('hydrates scalar, numeric, and list query parameters and invokes matching actions', () => {
-    const tribesAction = vi.fn();
+    const tribesAction = mock();
     const result = updateFilterValue(
       DEFAULT_STATIC_FILTER,
       { searchTerm: 'alpha', walletAddress: degen.owner, tokenId: '42', prices: '2-9', tribes: 'hydra-ape' },

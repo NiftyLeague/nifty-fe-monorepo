@@ -1,5 +1,7 @@
 import { act, renderHook } from '@testing-library/react';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'bun:test';
+import { mock } from 'bun:test';
+;
 import { useCopyToClipboard } from './useCopyToClipboard';
 import { useMediaQuery } from './useMediaQuery';
 import { STATUS, useStopwatch } from './useStopwatch';
@@ -7,7 +9,7 @@ import { useUserAgent } from './useUserAgent';
 
 describe('useCopyToClipboard', () => {
   it('copies text and exposes the last successful value', async () => {
-    const writeText = vi.fn().mockResolvedValue(undefined);
+    const writeText = mock().mockResolvedValue(undefined);
     Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText } });
     const { result } = renderHook(() => useCopyToClipboard());
 
@@ -18,10 +20,10 @@ describe('useCopyToClipboard', () => {
   });
 
   it('reports clipboard failures without retaining stale text', async () => {
-    vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    spyOn(console, 'warn').mockImplementation(() => undefined);
     Object.defineProperty(navigator, 'clipboard', {
       configurable: true,
-      value: { writeText: vi.fn().mockRejectedValue(new Error('denied')) },
+      value: { writeText: mock().mockRejectedValue(new Error('denied')) },
     });
     const { result } = renderHook(() => useCopyToClipboard());
 
@@ -38,12 +40,12 @@ describe('useMediaQuery', () => {
       get matches() {
         return matches;
       },
-      addListener: vi.fn((callback: () => void) => {
+      addListener: mock((callback: () => void) => {
         listener = callback;
       }),
-      removeListener: vi.fn(),
+      removeListener: mock(),
     };
-    vi.spyOn(window, 'matchMedia').mockReturnValue(media as never);
+    spyOn(window, 'matchMedia').mockReturnValue(media as never);
     const { result, unmount } = renderHook(() => useMediaQuery('(min-width: 900px)'));
 
     expect(result.current).toBe(false);
@@ -56,19 +58,19 @@ describe('useMediaQuery', () => {
 });
 
 describe('useStopwatch', () => {
-  beforeEach(() => vi.useFakeTimers());
-  afterEach(() => vi.useRealTimers());
+  beforeEach(() => jest.useFakeTimers());
+  afterEach(() => jest.useRealTimers());
 
   it('moves through start, pause, restart, and stop states', () => {
-    const onStart = vi.fn();
-    const onPause = vi.fn();
-    const onRestart = vi.fn();
-    const onStop = vi.fn();
+    const onStart = mock();
+    const onPause = mock();
+    const onRestart = mock();
+    const onStop = mock();
     const { result } = renderHook(() => useStopwatch({ interval: 10, onStart, onPause, onRestart, onStop }));
 
     act(() => result.current.start());
     expect(result.current.status).toBe(STATUS.RUNNING);
-    act(() => vi.advanceTimersByTime(10));
+    act(() => jest.advanceTimersByTime(10));
     expect(result.current.milliseconds).toBe(10);
 
     act(() => result.current.pause());
@@ -83,7 +85,7 @@ describe('useStopwatch', () => {
 
 describe('useUserAgent', () => {
   it('classifies mobile and desktop agents', () => {
-    vi.spyOn(window.navigator, 'userAgent', 'get').mockReturnValue('Mozilla/5.0 (iPhone)');
+    spyOn(window.navigator, 'userAgent', 'get').mockReturnValue('Mozilla/5.0 (iPhone)');
     const mobile = renderHook(() => useUserAgent()).result.current;
     expect(mobile.isIos()).toBe(true);
     expect(mobile.isMobile()).toBe(true);

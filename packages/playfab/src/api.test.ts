@@ -1,16 +1,17 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it } from 'bun:test';
+import { mock } from 'bun:test';
 
-const sdk = vi.hoisted(() => ({
+const sdk = ({
   client: { settings: { titleId: 'TITLE' } } as Record<string, unknown>,
-  admin: { DeletePlayer: vi.fn() },
-  cloudScript: { ExecuteFunction: vi.fn() },
-}));
+  admin: { DeletePlayer: mock() },
+  cloudScript: { ExecuteFunction: mock() },
+});
 
-vi.mock('./sdk', () => ({
+mock.module('./sdk', () => ({
   playfab: { PlayFabClient: sdk.client, PlayFabAdmin: sdk.admin, PlayFabCloudScript: sdk.cloudScript },
 }));
-vi.mock('./utils/getRandomKey', () => ({ getRandomKey: vi.fn((size: number) => `random-${size}`) }));
-vi.mock('./utils/wallet', () => ({ isEthereumSignatureValid: vi.fn(() => true) }));
+mock.module('./utils/getRandomKey', () => ({ getRandomKey: mock((size: number) => `random-${size}`) }));
+mock.module('./utils/wallet', () => ({ isEthereumSignatureValid: mock(() => true) }));
 
 import {
   AddOrUpdateContactEmail,
@@ -36,13 +37,13 @@ import {
 type Callback = (error: unknown, result: unknown) => void;
 
 function clientSuccess(method: string, data: unknown) {
-  const mock = vi.fn((_request: unknown, callback: Callback) => callback(null, { data }));
+  const mock = mock((_request: unknown, callback: Callback) => callback(null, { data }));
   sdk.client[method] = mock;
   return mock;
 }
 
 function clientFailure(method: string, error: unknown) {
-  const mock = vi.fn((_request: unknown, callback: Callback) => callback(error, null));
+  const mock = mock((_request: unknown, callback: Callback) => callback(error, null));
   sdk.client[method] = mock;
   return mock;
 }

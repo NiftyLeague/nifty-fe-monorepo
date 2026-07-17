@@ -1,5 +1,7 @@
 import { ZeroAddress } from 'ethers';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it } from 'bun:test';
+import { mock } from 'bun:test';
+;
 import {
   formatBalance,
   getContract,
@@ -13,7 +15,7 @@ import {
 
 const ADDRESS = '0x0000000000000000000000000000000000000001';
 
-afterEach(() => vi.restoreAllMocks());
+afterEach(() => mock.restore());
 
 describe('Ethereum value helpers', () => {
   it('formats, parses, and validates common values', () => {
@@ -32,7 +34,7 @@ describe('Ethereum value helpers', () => {
   });
 
   it('returns zero when balance formatting fails', () => {
-    vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    spyOn(console, 'error').mockImplementation(() => undefined);
     expect(formatBalance(1n, 81)).toBe('0');
   });
 
@@ -40,14 +42,14 @@ describe('Ethereum value helpers', () => {
     expect(() => getContract(ZeroAddress, [], {} as never)).toThrow("Invalid 'address'");
     expect(() => getContract('invalid', [], {} as never)).toThrow("Invalid 'address'");
 
-    const directSigner = { signMessage: vi.fn(), provider: { id: 'direct-provider' } };
+    const directSigner = { signMessage: mock(), provider: { id: 'direct-provider' } };
     await expect(getProviderAndSigner(directSigner as never)).resolves.toEqual({
       signer: directSigner,
       provider: directSigner.provider,
     });
 
     const signer = { id: 'resolved-signer' };
-    const userProvider = { getSigner: vi.fn().mockResolvedValue(signer) };
+    const userProvider = { getSigner: mock().mockResolvedValue(signer) };
     await expect(getProviderAndSigner(userProvider as never)).resolves.toEqual({ signer, provider: userProvider });
     expect(getProviderOrSigner(userProvider as never)).toBe(userProvider);
 

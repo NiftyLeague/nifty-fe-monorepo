@@ -1,27 +1,29 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it } from 'bun:test';
+import { mock } from 'bun:test';
+;
 import useAsyncInterval from './useAsyncInterval';
 import useFetch from './useFetch';
 import useLocalStorage from './useLocalStorage';
 import useRemovedTraits from './useRemovedTraits';
 
-const contractReader = vi.hoisted(() => vi.fn());
+const contractReader = mock();
 
-vi.mock('./useContractReader', () => ({ default: contractReader }));
+mock.module('./useContractReader', () => ({ default: contractReader }));
 
-const interval = vi.hoisted(() => ({ clear: vi.fn(async () => undefined), set: vi.fn(() => 'interval-id') }));
+const interval = ({ clear: mock(async () => undefined), set: mock(() => 'interval-id') });
 
-vi.mock('set-interval-async/dynamic', () => ({ clearIntervalAsync: interval.clear, setIntervalAsync: interval.set }));
+mock.module('set-interval-async/dynamic', () => ({ clearIntervalAsync: interval.clear, setIntervalAsync: interval.set }));
 
 afterEach(() => {
-  vi.restoreAllMocks();
+  mock.restore();
   interval.clear.mockClear();
   interval.set.mockClear();
 });
 
 describe('useFetch', () => {
   it('loads JSON, caches it, and supports text responses', async () => {
-    const fetchMock = vi
+    const fetchMock = mock
       .spyOn(globalThis, 'fetch')
       .mockResolvedValueOnce(new Response(JSON.stringify({ id: 7 }), { status: 200 }));
     const { result, rerender } = renderHook(({ url, textOnly }) => useFetch(url, undefined, textOnly), {
@@ -45,7 +47,7 @@ describe('useFetch', () => {
   });
 
   it('resets when disabled and reports unsuccessful responses', async () => {
-    const fetchMock = vi
+    const fetchMock = mock
       .spyOn(globalThis, 'fetch')
       .mockResolvedValue(new Response('missing', { status: 404, statusText: 'Not Found' }));
     const { result, rerender } = renderHook(({ enabled }) => useFetch('/missing', { enabled }), {
@@ -60,7 +62,7 @@ describe('useFetch', () => {
   });
 
   it('skips requests without a URL or when disabled', () => {
-    const fetchMock = vi.spyOn(globalThis, 'fetch');
+    const fetchMock = spyOn(globalThis, 'fetch');
     const { result } = renderHook(() => useFetch('/skip', { enabled: false }));
 
     expect(result.current).toMatchObject({ data: undefined, error: undefined, loading: false, reset: undefined });
@@ -96,7 +98,7 @@ describe('useLocalStorage', () => {
 
 describe('useAsyncInterval', () => {
   it('runs leading and manually refreshed callbacks and installs an interval', async () => {
-    const callback = vi.fn(async () => undefined);
+    const callback = mock(async () => undefined);
     renderHook(() => useAsyncInterval(callback, 100, true, 'refresh'));
 
     await waitFor(() => expect(callback).toHaveBeenCalledTimes(2));
@@ -104,7 +106,7 @@ describe('useAsyncInterval', () => {
   });
 
   it('does not install an interval when no delay is provided', async () => {
-    const callback = vi.fn(async () => undefined);
+    const callback = mock(async () => undefined);
     renderHook(() => useAsyncInterval(callback, undefined, false));
 
     await Promise.resolve();

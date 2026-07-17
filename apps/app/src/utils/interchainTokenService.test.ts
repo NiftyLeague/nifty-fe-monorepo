@@ -1,12 +1,14 @@
 import { parseEther } from 'ethers';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it } from 'bun:test';
+import { mock } from 'bun:test';
+;
 import { IMX_TESTNET_ID, MAINNET_ID, SEPOLIA_ID } from '@/constants/networks';
 import { INTERCHAIN_SERVICE_CONTRACT, NFTL_CONTRACT } from '@/constants/contracts';
 import { bridgeNFTL, getInterchainTokenRecord, increaseBridgeAllowance } from './interchainTokenService';
 
-const sdk = vi.hoisted(() => ({ estimateGasFee: vi.fn().mockResolvedValue(123n) }));
+const sdk = ({ estimateGasFee: mock().mockResolvedValue(123n) });
 
-vi.mock('@axelar-network/axelarjs-sdk', () => ({
+mock.module('@axelar-network/axelarjs-sdk', () => ({
   AxelarQueryAPI: class {
     estimateGasFee = sdk.estimateGasFee;
   },
@@ -16,7 +18,7 @@ vi.mock('@axelar-network/axelarjs-sdk', () => ({
 }));
 
 afterEach(() => {
-  vi.restoreAllMocks();
+  mock.restore();
   sdk.estimateGasFee.mockClear();
 });
 
@@ -27,9 +29,9 @@ describe('interchain token service', () => {
   });
 
   it('approves only when Immutable needs more allowance', async () => {
-    const wait = vi.fn().mockResolvedValue('approval-receipt');
-    const approve = vi.fn().mockResolvedValue({ wait });
-    const nftl = { allowance: vi.fn().mockResolvedValue(0n), approve };
+    const wait = mock().mockResolvedValue('approval-receipt');
+    const approve = mock().mockResolvedValue({ wait });
+    const nftl = { allowance: mock().mockResolvedValue(0n), approve };
     const contracts = { [NFTL_CONTRACT]: nftl };
 
     await expect(increaseBridgeAllowance(contracts as never, '0xwallet', IMX_TESTNET_ID, 5n)).resolves.toBe(
@@ -46,8 +48,8 @@ describe('interchain token service', () => {
   });
 
   it('estimates gas and submits an interchain transfer', async () => {
-    const wait = vi.fn().mockResolvedValue('transfer-receipt');
-    const interchainTransfer = vi.fn().mockResolvedValue({ hash: '0xhash', wait });
+    const wait = mock().mockResolvedValue('transfer-receipt');
+    const interchainTransfer = mock().mockResolvedValue({ hash: '0xhash', wait });
     const contracts = { [INTERCHAIN_SERVICE_CONTRACT]: { interchainTransfer } };
     const amount = parseEther('2');
 

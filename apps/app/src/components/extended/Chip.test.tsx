@@ -1,15 +1,17 @@
-import '@testing-library/jest-dom/vitest';
+import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it } from 'bun:test';
+import { mock } from 'bun:test';
+;
 import Chip from './Chip';
 
-const mocks = vi.hoisted(() => ({
+const mocks = ({
   mode: 'light' as 'dark' | 'light',
-  chip: vi.fn(({ label }: { label?: React.ReactNode }) => <span>{label}</span>),
-}));
+  chip: mock(({ label }: { label?: React.ReactNode }) => <span>{label}</span>),
+});
 
-vi.mock('@nl/theme', () => ({ useTheme: () => ({ palette: { mode: mocks.mode } }) }));
-vi.mock('@mui/material/Chip', () => ({ default: mocks.chip }));
+mock.module('@nl/theme', () => ({ useTheme: () => ({ palette: { mode: mocks.mode } }) }));
+mock.module('@mui/material/Chip', () => ({ default: mocks.chip }));
 
 afterEach(() => {
   mocks.mode = 'light';

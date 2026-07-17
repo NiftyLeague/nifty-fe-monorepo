@@ -17,10 +17,10 @@
     "prepare": "husky && bun symlinks",
     "symlinks": "bun exec .sh/symlinks.sh",
     "sync-node-versions": "bun exec .sh/sync-node-versions.sh",
-    "test": "bunx vitest run",
-    "test:coverage": "bunx vitest run --coverage",
+    "test": "bun test",
+    "test:coverage": "bun test --coverage",
     "test:coverage:workspaces": "turbo test:coverage",
-    "test:watch": "bunx vitest",
+    "test:watch": "bun test --watch",
     "type-check": "turbo type-check"
   },
   "devDependencies": {
@@ -28,20 +28,18 @@
     "@nl/prettier-config": "workspace:*",
     "@nl/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "^4.3.3",
+    "@happy-dom/global-registrator": "^18.0.1",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
     "@testing-library/user-event": "14.6.1",
-    "@vitest/coverage-v8": "4.1.10",
     "eslint": "^9.39.5",
     "husky": "^9.1.7",
-    "jsdom": "29.1.1",
     "lint-staged": "^16.4.0",
     "prettier": "^3.9.5",
     "semver": "^7.8.5",
     "syncpack": "^13.0.4",
     "turbo": "^2.10.5",
-    "typescript": "~5.9.3",
-    "vitest": "4.1.10"
+    "typescript": "~5.9.3"
   },
   "browserslist": {
     "production": [
