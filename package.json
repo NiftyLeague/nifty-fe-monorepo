@@ -14,7 +14,7 @@
     "lint": "turbo lint",
     "lint:fix": "turbo lint:fix",
     "migrate-ui": "bun --filter ui migrate",
-    "prepare": "husky && bun symlinks",
+    "prepare": "husky || true && bun symlinks",
     "symlinks": "bun exec .sh/symlinks.sh",
     "sync-node-versions": "bun exec .sh/sync-node-versions.sh",
     "test": "bun test",
