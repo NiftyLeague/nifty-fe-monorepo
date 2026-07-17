@@ -14,7 +14,7 @@ beforeAll(async () => {
   sessionModule = await import('./session');
 });
 
-beforeEach(() => mocks.getIronSession.mockReset());
+beforeEach(() => mocks.getIronSession.mockClear());
 
 describe('session configuration', () => {
   it('uses secure, HTTP-only cookies with explicit timeouts', () => {

@@ -44,7 +44,7 @@ const loginMethods = [
   'RegisterPlayFabUser',
 ] as const;
 
-beforeEach(() => PlayFab.MakeRequest.mockReset());
+beforeEach(() => PlayFab.MakeRequest.mockClear());
 
 describe('PlayFabClient session state', () => {
   it('requires a ticket and an unexpired entity token', () => {

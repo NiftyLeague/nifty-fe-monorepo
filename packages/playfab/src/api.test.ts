@@ -37,20 +37,20 @@ import {
 type Callback = (error: unknown, result: unknown) => void;
 
 function clientSuccess(method: string, data: unknown) {
-  const mock = mock((_request: unknown, callback: Callback) => callback(null, { data }));
-  sdk.client[method] = mock;
-  return mock;
+  const spy = mock((_request: unknown, callback: Callback) => callback(null, { data }));
+  sdk.client[method] = spy;
+  return spy;
 }
 
 function clientFailure(method: string, error: unknown) {
-  const mock = mock((_request: unknown, callback: Callback) => callback(error, null));
-  sdk.client[method] = mock;
-  return mock;
+  const spy = mock((_request: unknown, callback: Callback) => callback(error, null));
+  sdk.client[method] = spy;
+  return spy;
 }
 
 beforeEach(() => {
-  sdk.admin.DeletePlayer.mockReset();
-  sdk.cloudScript.ExecuteFunction.mockReset();
+  sdk.admin.DeletePlayer.mockClear();
+  sdk.cloudScript.ExecuteFunction.mockClear();
 });
 
 describe('PlayFab account API', () => {
