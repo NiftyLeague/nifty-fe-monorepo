@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'bun:test';
 import { mock } from 'bun:test';
@@ -23,12 +22,12 @@ describe('Chip color variants', () => {
     'maps filled and outlined %s palettes',
     colorType => {
       const { rerender } = render(<Chip colorType={colorType} label={`${colorType} filled`} />);
-      expect(screen.getByText(`${colorType} filled`)).toBeInTheDocument();
+      expect(screen.getByText(`${colorType} filled`)).not.toBeNull();
       expect(mocks.chip).toHaveBeenLastCalledWith(expect.objectContaining({ sx: expect.any(Object) }), undefined);
 
       mocks.mode = 'dark';
       rerender(<Chip colorType={colorType} label={`${colorType} outlined`} variant="outlined" />);
-      expect(screen.getByText(`${colorType} outlined`)).toBeInTheDocument();
+      expect(screen.getByText(`${colorType} outlined`)).not.toBeNull();
     },
   );
 
@@ -40,6 +39,6 @@ describe('Chip color variants', () => {
     );
 
     rerender(<Chip disabled label="disabled outline" variant="outlined" />);
-    expect(screen.getByText('disabled outline')).toBeInTheDocument();
+    expect(screen.getByText('disabled outline')).not.toBeNull();
   });
 });

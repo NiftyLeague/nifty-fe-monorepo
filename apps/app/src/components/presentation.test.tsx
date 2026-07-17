@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'bun:test';
 import { mock } from 'bun:test';
@@ -48,14 +47,14 @@ describe('Breadcrumbs', () => {
     );
 
     expect(await screen.findAllByText('Profile')).toHaveLength(2);
-    expect(screen.getByText('Settings')).toBeInTheDocument();
-    expect(screen.getByText('Dashboard')).toBeInTheDocument();
+    expect(screen.getByText('Settings')).not.toBeNull();
+    expect(screen.getByText('Dashboard')).not.toBeNull();
     expect(screen.getAllByText('chevron-right')).toHaveLength(2);
 
     rerender(
       <Breadcrumbs navigation={navigation as never} card={false} divider={false} icon title titleBottom maxItems={3} />,
     );
-    expect(screen.getByText('house')).toBeInTheDocument();
+    expect(screen.getByText('house')).not.toBeNull();
     expect(screen.getAllByText('Profile')).toHaveLength(2);
   });
 
@@ -73,11 +72,11 @@ describe('Breadcrumbs', () => {
     };
     const { container, rerender } = render(<Breadcrumbs navigation={hiddenNavigation as never} />);
     await Promise.resolve();
-    expect(container.querySelector('[aria-label="breadcrumb"]')).not.toBeInTheDocument();
+    expect(container.querySelector('[aria-label="breadcrumb"]')).toBeNull();
 
     window.history.replaceState({}, '', '/missing');
     rerender(<Breadcrumbs navigation={navigation as never} />);
-    expect(container.querySelector('[aria-label="breadcrumb"]')).not.toBeInTheDocument();
+    expect(container.querySelector('[aria-label="breadcrumb"]')).toBeNull();
   });
 });
 
@@ -95,7 +94,7 @@ describe('animated presentation helpers', () => {
         <div>{type}</div>
       </Transitions>,
     );
-    expect(screen.getByText(type)).toBeInTheDocument();
+    expect(screen.getByText(type)).not.toBeNull();
   });
 
   it.each([
@@ -113,7 +112,7 @@ describe('animated presentation helpers', () => {
     const wrapper = container.firstElementChild as HTMLElement;
     fireEvent.mouseEnter(wrapper);
     fireEvent.mouseLeave(wrapper);
-    expect(screen.getByRole('button', { name: 'Animate' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Animate' })).not.toBeNull();
   });
 });
 
@@ -124,7 +123,7 @@ describe('card presentation', () => {
         Main body
       </MainCard>,
     );
-    expect(screen.getByText('Main body')).toBeInTheDocument();
+    expect(screen.getByText('Main body')).not.toBeNull();
 
     themeState.mode = 'dark';
     rerender(
@@ -132,21 +131,21 @@ describe('card presentation', () => {
         Raw body
       </MainCard>,
     );
-    expect(screen.getByText('Raw body')).toBeInTheDocument();
+    expect(screen.getByText('Raw body')).not.toBeNull();
 
     rerender(
       <SubCard title="Sub" secondary="Action">
         Sub body
       </SubCard>,
     );
-    expect(screen.getByText('Sub body')).toBeInTheDocument();
+    expect(screen.getByText('Sub body')).not.toBeNull();
 
     rerender(
       <SubCard title="Dark sub" darkTitle content={false}>
         Raw sub body
       </SubCard>,
     );
-    expect(screen.getByText('Raw sub body')).toBeInTheDocument();
+    expect(screen.getByText('Raw sub body')).not.toBeNull();
   });
 
   it('renders game calls to action, expands descriptions, and supports custom content', () => {
@@ -170,12 +169,12 @@ describe('card presentation', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Play on Web' }));
     expect(desktop).toHaveBeenCalledOnce();
     expect(web).toHaveBeenCalledOnce();
-    expect(screen.getByRole('link', { name: /Guide/ })).toHaveAttribute('href', '/guide');
+    expect(screen.getByRole('link', { name: /Guide/ })?.getAttribute('href')).toBe('/guide');
 
     rerender(<GameCard title="Custom" image="/custom.png" autoHeight contents={<div>Custom content</div>} />);
-    expect(screen.getByText('Custom content')).toBeInTheDocument();
+    expect(screen.getByText('Custom content')).not.toBeNull();
 
     rerender(<GameCard title="Actions" image="/actions.png" actions={<button>Custom action</button>} />);
-    expect(screen.getByRole('button', { name: 'Custom action' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Custom action' })).not.toBeNull();
   });
 });
