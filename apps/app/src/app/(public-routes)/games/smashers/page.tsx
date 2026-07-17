@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { UnityContext } from 'react-unity-webgl';
+import type { UnityConfig } from 'react-unity-webgl';
 const GameWithAuth = dynamic(() => import('@/components/wrapper/GameWithAuth'), { ssr: false });
 
 const smashersBaseUrl = process.env.NEXT_PUBLIC_UNITY_SMASHERS_BASE_URL as string;
@@ -9,7 +9,7 @@ const smashersBuildVersion = process.env.NEXT_PUBLIC_UNITY_SMASHERS_BASE_VERSION
 
 const useCompressed = process.env.NEXT_PUBLIC_UNITY_USE_COMPRESSED !== 'false';
 
-const smashersContext = new UnityContext({
+const smashersConfig: UnityConfig = {
   loaderUrl: `${smashersBaseUrl}/Build/${smashersBuildVersion}.loader.js`,
   dataUrl: `${smashersBaseUrl}/Build/${smashersBuildVersion}.data${useCompressed ? '.br' : ''}`,
   frameworkUrl: `${smashersBaseUrl}/Build/${smashersBuildVersion}.framework.js${useCompressed ? '.br' : ''}`,
@@ -18,7 +18,7 @@ const smashersContext = new UnityContext({
   companyName: 'NiftyLeague',
   productName: 'NiftySmashers',
   productVersion: smashersBuildVersion,
-});
+};
 
 const SmashersGame = () => (
   <>
@@ -32,7 +32,7 @@ const SmashersGame = () => (
       </strong>
     </div>
 
-    <GameWithAuth unityContext={smashersContext} />
+    <GameWithAuth unityConfig={smashersConfig} />
   </>
 );
 

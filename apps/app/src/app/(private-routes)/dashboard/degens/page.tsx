@@ -296,10 +296,10 @@ const DashboardDegensPage = (): React.ReactNode => {
 
   const renderMain = useCallback(
     () => (
-      <Stack gap={1.5} className="h-full">
+      <Stack className="h-full" sx={{ gap: 1.5 }}>
         {/* Main Grid title */}
         <SectionTitle firstSection>
-          <Stack direction="row" gap={1} sx={{ alignItems: 'center', mb: 2 }}>
+          <Stack direction="row" sx={{ gap: 1, alignItems: 'center', mb: 2 }}>
             <IconButton onClick={() => setIsDrawerOpen(!isDrawerOpen)} size="small">
               <Icon name={isDrawerOpen ? 'chevron-left' : 'chevron-right'} size="xl" />
             </IconButton>
@@ -310,8 +310,8 @@ const DashboardDegensPage = (): React.ReactNode => {
         <Grid
           container
           spacing={2}
-          mt={-4.5}
           className={!degensBalances?.length ? 'h-full justify-center items-center' : ''}
+          sx={{ mt: -4.5 }}
         >
           {loading || !isConnected ? (
             [...Array(8)].map(renderSkeletonItem)
@@ -357,7 +357,7 @@ const DashboardDegensPage = (): React.ReactNode => {
   return (
     <>
       <Stack spacing={2} className="h-full justify-center align-top pl-2">
-        <Stack pl={2} pr={3}>
+        <Stack sx={{ pl: 2, pr: 3 }}>
           <DegensTopNav
             searchTerm={searchTerm || ''}
             handleChangeSearchTerm={handleChangeSearchTerm}

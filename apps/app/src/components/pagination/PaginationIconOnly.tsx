@@ -14,7 +14,7 @@ const PaginationIconOnly: React.FC<React.PropsWithChildren<React.PropsWithChildr
   onClickPrev,
   onClickNext,
 }) => (
-  <Stack direction="row" gap={1}>
+  <Stack direction="row" sx={{ gap: 1 }}>
     <IconButton disabled={hasPrev === false} onClick={onClickPrev}>
       <Icon name="chevron-left" size="sm" />
     </IconButton>

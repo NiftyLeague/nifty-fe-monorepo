@@ -9,15 +9,15 @@ const DegenPlaceholder = ({ size = 'normal' }: DegenPlaceholderProps) => (
   <MainCard content={false} boxShadow={false} border={false}>
     <Skeleton variant="rectangular" height={size === 'small' ? 200 : 320} />
     <CardContent sx={{ pb: 0, pt: 1 }}>
-      <Stack direction="row" gap={1} sx={{ mb: 1, justifyContent: 'space-between' }}>
+      <Stack direction="row" sx={{ gap: 1, mb: 1, justifyContent: 'space-between' }}>
         <Skeleton variant="rectangular" width={100} height={32} />
         <Skeleton variant="rectangular" width={100} height={32} />
         <Skeleton variant="rectangular" width={100} height={32} />
       </Stack>
-      <Stack direction="row" mb="10px">
+      <Stack direction="row" sx={{ mb: '10px' }}>
         <Skeleton variant="rectangular" width="100%" height={20} />
       </Stack>
-      <Stack direction="row" gap={1} sx={{ justifyContent: 'space-between' }}>
+      <Stack direction="row" sx={{ gap: 1, justifyContent: 'space-between' }}>
         <Skeleton variant="rectangular" width="100%" height={21} />
         <Skeleton variant="rectangular" width="100%" height={21} />
       </Stack>

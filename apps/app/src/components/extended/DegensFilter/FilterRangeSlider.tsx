@@ -9,7 +9,7 @@ interface Props extends Omit<SliderProps, 'value'> {
 
 const FilterRangeSlider = ({ value, unit, ...props }: Props): React.ReactNode => (
   <Stack>
-    <Stack gap={0.5}>
+    <Stack sx={{ gap: 0.5 }}>
       <Typography variant="h6">{`${(value[0] as number).toLocaleString()} - ${(value[1] as number).toLocaleString()} ${
         unit || ''
       }`}</Typography>

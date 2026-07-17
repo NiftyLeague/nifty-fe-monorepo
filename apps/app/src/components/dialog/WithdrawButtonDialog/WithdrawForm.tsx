@@ -67,7 +67,7 @@ const WithdrawForm = ({ balance, onWithdrawSuccess }: WithdrawFormProps): React.
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack gap={2} sx={{ alignItems: 'center' }}>
+      <Stack sx={{ gap: 2, alignItems: 'center' }}>
         <Typography variant="h4">Game &amp; Rental Balance</Typography>
         <Typography variant="h2" sx={{ opacity: 0.7 }}>
           {formatNumberToDisplay(balance)} NFTL

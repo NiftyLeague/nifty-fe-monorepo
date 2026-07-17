@@ -65,8 +65,8 @@ const ChangeNicknameDialog = ({ rental, updateNickname }: Props): React.ReactNod
     <form onSubmit={handleSubmit(onSubmit)}>
       <DialogTitle sx={{ textAlign: 'center' }}>Assign a Nickname</DialogTitle>
       <DialogContent dividers sx={{ maxWidth: '380px' }}>
-        <Stack rowGap={2}>
-          <Stack rowGap={1}>
+        <Stack sx={{ rowGap: 2 }}>
+          <Stack sx={{ rowGap: 1 }}>
             {degenId && <DegenImage tokenId={degenId} />}
             <Typography variant="caption" component="p" sx={{ textAlign: 'center' }}>
               Recruit

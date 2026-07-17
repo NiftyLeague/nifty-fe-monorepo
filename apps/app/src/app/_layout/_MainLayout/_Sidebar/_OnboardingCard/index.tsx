@@ -59,9 +59,9 @@ interface LinearProgressWithLabelProps {
 // ==============================|| PROGRESS BAR WITH LABEL ||============================== //
 
 const LinearProgressWithLabel = ({ value, ...others }: LinearProgressWithLabelProps) => (
-  <Grid container direction="column" spacing={1} sx={{ mt: 1.5 }}>
+  <Grid container sx={{ flexDirection: 'column', mt: 1.5 }} spacing={1}>
     <Grid>
-      <Grid container justifyContent="space-between">
+      <Grid container sx={{ justifyContent: 'space-between' }}>
         <Grid>
           <Typography variant="h6" sx={{ color: 'var(--color-foreground)' }}>
             Progress

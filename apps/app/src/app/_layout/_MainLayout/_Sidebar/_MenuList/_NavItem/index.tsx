@@ -82,13 +82,13 @@ const NavItem = ({ item, level }: NavItemProps) => {
       </ListItemIcon>
       <ListItemText
         primary={
-          <Typography variant="body1" fontWeight={isSelected ? 'bold' : 'normal'} sx={{ color: 'inherit' }}>
+          <Typography variant="body1" sx={{ fontWeight: isSelected ? 'bold' : 'normal', color: 'inherit' }}>
             {item.title}
           </Typography>
         }
         secondary={
           item.caption && (
-            <Typography variant="caption" sx={{ ...theme.typography.subMenuCaption }} display="block" gutterBottom>
+            <Typography variant="caption" gutterBottom sx={{ display: 'block', ...theme.typography.subMenuCaption }}>
               {item.caption}
             </Typography>
           )

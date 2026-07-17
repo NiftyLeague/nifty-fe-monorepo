@@ -222,7 +222,7 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
 
   return (
     <StyledStack direction="column">
-      <Typography variant="caption" ml="auto" mb={1}>
+      <Typography variant="caption" sx={{ ml: 'auto', mb: 1 }}>
         This transaction is taking place live on{' '}
         <Link href={COW_PROTOCOL_URL} target="_blank" rel="noreferrer">
           cow.fi
@@ -230,15 +230,17 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
         <Icon name="circle" color="purple" size={3} className="ml-1 mb-1" />
       </Typography>
       <Box
-        border={'1px solid #1c1b1a'}
-        boxShadow="0px 0px 9px var(--color-purple)"
-        borderRadius="10px"
-        px={1}
-        py={1.25}
-        sx={{ background: '#202230' }}
+        sx={{
+          border: '1px solid #1c1b1a',
+          boxShadow: '0px 0px 9px var(--color-purple)',
+          borderRadius: '10px',
+          px: 1,
+          py: 1.25,
+          background: '#202230',
+        }}
       >
         {!orderId ? (
-          <Stack direction="column" spacing={0.75} position="relative">
+          <Stack direction="column" spacing={0.75} sx={{ position: 'relative' }}>
             <TokenInfoBox
               balance={etherBalance}
               icon={<Image src="/img/logos/networks/mainnet-network.webp" alt="ETH Icon" width={12} height={12} />}
@@ -251,11 +253,8 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
               getMarketPrice={getMarketPrice}
             />
             <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
               className={classes.arrowDown}
-              sx={{ top: fromEthAmount ? 126 : 76 }}
+              sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', top: fromEthAmount ? 126 : 76 }}
             >
               <Icon name="arrow-down" color="foreground" />
             </Box>
@@ -273,8 +272,8 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
             <Stack direction="column">
               {feeAmount && (
                 <Stack direction="row" sx={{ justifyContent: 'space-between', my: 1 }}>
-                  <Typography ml={1}>Fees</Typography>
-                  <Typography mr={1}>
+                  <Typography sx={{ ml: 1 }}>Fees</Typography>
+                  <Typography sx={{ mr: 1 }}>
                     {`${formatNumberToDisplay(Number(feeAmount), 4)} ETH (~$${formatNumberToDisplay(
                       etherPrice * Number(feeAmount),
                       2,
@@ -304,9 +303,7 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
         ) : (
           <Stack
             direction="column"
-            sx={{ justifyContent: 'center', alignItems: 'center', position: 'relative' }}
-            height={228}
-            gap={1}
+            sx={{ height: 228, gap: 1, justifyContent: 'center', alignItems: 'center', position: 'relative' }}
           >
             <Typography variant="h4">{!orderFulfilled ? 'Order In Progress' : 'Order Confirmed'}</Typography>
             {!orderFulfilled && (
@@ -318,14 +315,14 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
               View on explorer
             </Link>
             {orderFulfilled && !deposited && (
-              <Stack mt={1}>
-                <Typography px={4} textAlign="center">
+              <Stack sx={{ mt: 1 }}>
+                <Typography sx={{ px: 4, textAlign: 'center' }}>
                   Congrats! Your transaction has been confirmed successfully! 🚀 Click below Deposit button to purchase
                   in-game NFTL balance from your wallet.
                 </Typography>
               </Stack>
             )}
-            <Stack direction="row" sx={{ alignItems: 'center', mt: 2 }} gap={1}>
+            <Stack direction="row" sx={{ gap: 1, alignItems: 'center', mt: 2 }}>
               <Button
                 variant="outlined"
                 onClick={handleImportNFTLToWallet}

@@ -126,7 +126,10 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
           </div>
           <Divider sx={{ opacity: '0.6' }} />
           {(isDetailsPending || error) && (
-            <Stack direction="row" sx={{ justifyContent: 'center', alignItems: 'center' }} width="390px" height="300px">
+            <Stack
+              direction="row"
+              sx={{ width: '390px', height: '300px', justifyContent: 'center', alignItems: 'center' }}
+            >
               <>
                 {isDetailsPending && <CircularProgress />}
                 {error && <Typography variant="h4">Something went wrong!</Typography>}
@@ -140,7 +143,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                 {details.items['arcade-token']} tokens (i.e 1 pack = {details.items['arcade-token']} tokens)
               </Typography>
               <Typography className="text-center !font-bold text-warning !my-4">{details.price} NFTL Each</Typography>
-              <Stack direction="row" sx={{ justifyContent: 'center', alignItems: 'center' }} spacing={1} mb={3}>
+              <Stack direction="row" spacing={1} sx={{ mb: 3, justifyContent: 'center', alignItems: 'center' }}>
                 <Icon
                   aria-label="subtract"
                   name="minus"
@@ -175,28 +178,28 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
               <Box sx={{ display: 'grid', gridTemplateColumns: '1fr auto' }}>
                 <Typography
                   sx={{
+                    fontWeight: '500',
+
                     color: theme =>
                       accountBalance && accountBalance > tokenCount * details.price
                         ? 'var(--color-success)'
                         : 'var(--color-foreground)',
                   }}
-                  fontWeight="500"
                 >
                   Bal: {accountBalance ? formatNumberToDisplay(accountBalance) : '0.00'} NFTL
                 </Typography>
-                <Typography fontWeight="500" display="flex">
+                <Typography sx={{ fontWeight: '500', display: 'flex' }}>
                   Total:{' '}
                   <Box
                     component="img"
                     src="/icons/currencies/arcade-token.svg"
                     alt="Arcade Token"
-                    width="16px"
-                    mx={0.5}
+                    sx={{ width: '16px', mx: 0.5 }}
                   />{' '}
                   {tokenCount * details.items['arcade-token']} Arcade Tokens
                 </Typography>
                 {accountBalance > 0 && accountBalance < tokenCount * details.price && (
-                  <Typography variant="caption" sx={{ color: 'var(--color-warning)' }} my={1}>
+                  <Typography variant="caption" sx={{ my: 1, color: 'var(--color-warning)' }}>
                     Balance is too low.{' '}
                     <Link href={NFTL_PURCHASE_URL} target="_blank" rel="noreferrer">
                       Buy NFTL
@@ -204,7 +207,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                   </Typography>
                 )}
                 {!accountBalance && (
-                  <Typography variant="caption" sx={{ color: 'var(--color-error)' }} my={1}>
+                  <Typography variant="caption" sx={{ my: 1, color: 'var(--color-error)' }}>
                     You have zero balance.{' '}
                     <Link href={NFTL_PURCHASE_URL} target="_blank" rel="noreferrer">
                       Buy NFTL

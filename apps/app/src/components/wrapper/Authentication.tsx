@@ -6,7 +6,9 @@ const ProfileVerification = (): React.ReactNode => {
 
   return (
     <Container style={{ textAlign: 'center', padding: '40px' }}>
-      <Typography mb={2}>{isConnected ? 'Please sign message to log in' : 'Please connect your wallet'}</Typography>
+      <Typography sx={{ mb: 2 }}>
+        {isConnected ? 'Please sign message to log in' : 'Please connect your wallet'}
+      </Typography>
       <Button variant="contained" onClick={handleConnectWallet}>
         {isConnected ? 'Log In' : 'Connect Wallet'}
       </Button>

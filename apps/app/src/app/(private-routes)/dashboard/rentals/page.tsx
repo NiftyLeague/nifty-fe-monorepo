@@ -132,15 +132,12 @@ const DashboardRentalPage = (): React.ReactNode => {
       {/* Header */}
       <Stack
         direction="row"
-        sx={{ justifyContent: 'space-between', alignItems: 'center' }}
-        flexWrap="wrap"
-        columnGap={3}
-        rowGap={1}
+        sx={{ flexWrap: 'wrap', columnGap: 3, rowGap: 1, justifyContent: 'space-between', alignItems: 'center' }}
       >
         <Typography variant="h2">My Rentals</Typography>
 
         {/* Header form */}
-        <Stack direction="row" rowGap={1} columnGap={2} sx={{ flexWrap: 'wrap', alignItems: 'center' }}>
+        <Stack direction="row" sx={{ rowGap: 1, columnGap: 2, flexWrap: 'wrap', alignItems: 'center' }}>
           <FormControl sx={{ minWidth: '200px' }}>
             <InputLabel id="category-label">Category</InputLabel>
             <Select
@@ -163,8 +160,7 @@ const DashboardRentalPage = (): React.ReactNode => {
           <SearchRental handleSearch={handleSearch} />
         </Stack>
       </Stack>
-
-      <Box height="calc(100vh - 208px)">
+      <Box sx={{ height: 'calc(100vh - 208px)' }}>
         <MyRentalsDataGrid
           loading={isLoading || isFetching}
           rows={rentals}

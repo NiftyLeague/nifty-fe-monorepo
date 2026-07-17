@@ -19,15 +19,15 @@ const ArcadeTokensRequired: React.FC<ArcadeTokensRequiredProps> = ({ refetchArca
 
   return (
     <>
-      <Grid container height="100%" alignItems="center" spacing={gridSpacing}>
+      <Grid container spacing={gridSpacing} sx={{ height: '100%', alignItems: 'center' }}>
         <Grid size={{ xs: 12 }}>
           <Grid container spacing={gridSpacing}>
             <Grid size={{ xs: 12 }}>
-              <Typography variant="h1" component="div" textAlign="center">
+              <Typography variant="h1" component="div" sx={{ textAlign: 'center' }}>
                 Arcade Tokens Required
               </Typography>
             </Grid>
-            <Grid size={{ xs: 12 }} textAlign="center">
+            <Grid size={{ xs: 12 }} sx={{ textAlign: 'center' }}>
               <Button variant="outlined" color="primary" onClick={handleBuyArcadeTokens}>
                 Buy Arcade Tokens
               </Button>

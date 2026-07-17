@@ -7,8 +7,16 @@ const customComponents = (theme: Theme, borderRadius: number, outlinedFilled: bo
   return {
     MuiButton: {
       styleOverrides: {
-        root: { fontWeight: 'var(--font-weight-normal)', borderRadius: 'var(--radius-default)' },
-        outlinedPrimary: { color: 'var(--color-foreground)', borderColor: 'var(--color-purple)' },
+        root: {
+          fontWeight: 'var(--font-weight-normal)',
+          borderRadius: 'var(--radius-default)',
+          variants: [
+            {
+              props: { variant: 'outlined', color: 'primary' },
+              style: { color: 'var(--color-foreground)', borderColor: 'var(--color-purple)' },
+            },
+          ],
+        },
       },
     },
     MuiPaper: {
@@ -70,7 +78,7 @@ const customComponents = (theme: Theme, borderRadius: number, outlinedFilled: bo
             '&.MuiInputBase-inputAdornedStart': { paddingLeft: 0 },
           },
         },
-        inputAdornedStart: { paddingLeft: 4 },
+        adornedStart: { paddingLeft: 4 },
         notchedOutline: { borderRadius: 'var(--radius-default)' },
       },
     },
@@ -107,7 +115,9 @@ const customComponents = (theme: Theme, borderRadius: number, outlinedFilled: bo
     },
     MuiChip: { styleOverrides: { root: { '&.MuiChip-deletable .MuiChip-deleteIcon': { color: 'inherit' } } } },
     MuiTabs: {
-      styleOverrides: { flexContainer: { borderBottom: '1px solid', borderColor: 'var(--color-foreground)' } },
+      styleOverrides: {
+        root: { '& .MuiTabs-flexContainer': { borderBottom: '1px solid', borderColor: 'var(--color-foreground)' } },
+      },
     },
     MuiDialog: {
       styleOverrides: {

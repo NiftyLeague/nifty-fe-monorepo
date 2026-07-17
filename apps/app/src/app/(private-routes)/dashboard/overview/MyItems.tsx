@@ -42,12 +42,12 @@ const MyItems = (): React.ReactNode => {
         }
       >
         {loadingItems ? (
-          <Box px={1}>
+          <Box sx={{ px: 1 }}>
             <ComicPlaceholder />
           </Box>
         ) : filteredItems.length ? (
           filteredItems.map(item => (
-            <Box px={1} key={item.wearableName}>
+            <Box key={item.wearableName} sx={{ px: 1 }}>
               <WearableItemCard data={item} />
             </Box>
           ))

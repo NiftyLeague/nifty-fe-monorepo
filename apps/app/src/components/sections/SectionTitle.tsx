@@ -14,8 +14,14 @@ const SectionTitle: React.FC<React.PropsWithChildren<React.PropsWithChildren<Sec
 }) => (
   <Stack
     direction="row"
-    gap={2}
-    sx={{ justifyContent: 'space-between', alignItems: 'center', mb: 2, mt: firstSection ? 0 : 4, flexWrap: 'wrap' }}
+    sx={{
+      gap: 2,
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      mb: 2,
+      mt: firstSection ? 0 : 4,
+      flexWrap: 'wrap',
+    }}
   >
     {typeof children === 'string' ? <Typography variant={variant}>{children}</Typography> : children}
     {actions}
