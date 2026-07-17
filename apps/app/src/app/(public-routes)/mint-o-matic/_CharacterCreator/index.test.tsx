@@ -13,14 +13,20 @@ vi.mock('react-device-detect', () => ({
   isMobileOnly: false,
   withOrientationChange: (Component: React.ComponentType<any>) => Component,
 }));
-vi.mock('react-unity-webgl', () => ({
-  default: ({ className, style }: { className: string; style: React.CSSProperties }) => (
+vi.mock('react-unity-webgl', () => {
+  const Unity = ({ className, style }: { className: string; style: React.CSSProperties }) => (
     <canvas aria-label="character creator" className={className} style={style} />
-  ),
+  );
+  return {
+  default: Unity,
+  Unity,
   UnityContext: class UnityContext {
     send = unity.send;
     SendMessage = unity.send;
     on(name: string, handler: (...args: any[]) => void) {
+      unity.handlers.set(name, handler);
+    }
+    addEventListener(name: string, handler: (...args: any[]) => void) {
       unity.handlers.set(name, handler);
     }
     removeAllEventListeners() {
@@ -28,7 +34,26 @@ vi.mock('react-unity-webgl', () => ({
       unity.handlers.clear();
     }
   },
-}));
+  useUnityContext: (options: any) => {
+    return {
+      sendMessage: unity.send,
+      addEventListener: (name: string, handler: (...args: any[]) => void) => {
+        unity.handlers.set(name, handler);
+      },
+      removeEventListener: (name: string) => {
+        unity.handlers.delete(name);
+      },
+      removeAllEventListeners: () => {
+        unity.removeAll();
+        unity.handlers.clear();
+      },
+      unityProvider: {},
+      isLoaded: true,
+      progression: 1,
+    };
+  },
+  };
+});
 vi.mock('@/hooks/useRemovedTraits', () => ({ default: () => [3, 7] }));
 vi.mock('@/constants/networks', async importOriginal => {
   const actual = await importOriginal<typeof import('@/constants/networks')>();
