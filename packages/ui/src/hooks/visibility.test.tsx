@@ -12,8 +12,8 @@ describe('useOnScreen', () => {
   const unobserve = mock();
 
   beforeEach(() => {
-    observe.mockReset();
-    unobserve.mockReset();
+    observe.mockClear();
+    unobserve.mockClear();
     stubGlobal(
       'IntersectionObserver',
       class {
