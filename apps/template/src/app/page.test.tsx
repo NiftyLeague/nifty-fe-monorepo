@@ -44,13 +44,13 @@ describe('template page', () => {
   it('renders starter links, component variants, and completed preload state', () => {
     render(<Page />);
 
-    expect(screen.getByRole('link', { name: /Docs/i })).toHaveAttribute('href', 'https://turbo.build/repo/docs');
-    expect(screen.getByRole('button', { name: /Primary/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Destructive/i })).toBeInTheDocument();
-    expect(screen.getByRole('status')).toHaveTextContent('0');
+    expect(screen.getByRole('link', { name: /Docs/i })?.getAttribute('href')).toBe('https://turbo.build/repo/docs');
+    expect(screen.getByRole('button', { name: /Primary/i })).not.toBeNull();
+    expect(screen.getByRole('button', { name: /Destructive/i })).not.toBeNull();
+    expect(screen.getByRole('status')?.textContent).toContain('0');
 
     act(() => jest.advanceTimersByTime(1_600));
-    expect(screen.getByRole('status')).toHaveAttribute('data-ready', 'true');
-    expect(screen.getByRole('status')).toHaveTextContent('100');
+    expect(screen.getByRole('status')?.getAttribute('data-ready')).toBe('true');
+    expect(screen.getByRole('status')?.textContent).toContain('100');
   });
 });

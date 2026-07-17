@@ -1,9 +1,9 @@
 module.exports = {
   // Type check TypeScript files
-  '(apps|packages)/**/*.(ts|tsx)': () => 'pnpm type-check --',
+  '(apps|packages)/**/*.(ts|tsx)': () => 'bun type-check --',
   // Lint then format TypeScript and JavaScript files
   '(apps|packages)/**/*.(ts|tsx|js)': stagedFiles => [
-    'pnpm lint:fix --',
+    'bun lint:fix --',
     `prettier --write -- ${stagedFiles.join(' ')}`,
   ],
   // Format Markdown and JSON

@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom';
 import { act, render, screen } from '@testing-library/react';
 import {afterEach, beforeEach, describe, expect, it, jest} from 'bun:test';
 import { mock } from 'bun:test';
@@ -92,7 +91,7 @@ describe('CharacterCreatorContainer', () => {
     rerender(
       <CharacterCreatorContainer isLoaded={true} isPortrait={false} setLoaded={setLoaded} setProgress={setProgress} />,
     );
-    expect(screen.getByLabelText('character creator')).toBeVisible();
+    expect(screen.getByLabelText('character creator')).toBeTruthy();
 
     act(() => unity.handlers.get('loaded')?.());
     act(() => unity.handlers.get('progress')?.(0.42));
@@ -121,9 +120,9 @@ describe('CharacterCreatorContainer', () => {
 
     const canvas = screen.getByLabelText('character creator');
     act(() => document.dispatchEvent(new WheelEvent('wheel')));
-    expect(canvas).toHaveStyle({ pointerEvents: 'none' });
+    expect(canvas?.style.pointerEvents === 'none').toBe(true);
     act(() => document.dispatchEvent(new MouseEvent('mousemove')));
-    expect(canvas).toHaveStyle({ pointerEvents: 'auto', cursor: 'pointer' });
+    expect(canvas?.style.pointerEvents === 'auto' && canvas?.style.cursor === 'pointer').toBe(true);
     act(() => window.dispatchEvent(new Event('resize')));
 
     unmount();

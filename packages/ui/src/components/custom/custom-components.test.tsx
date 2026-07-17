@@ -1,5 +1,4 @@
 const stubGlobal = (name, value) => { Object.defineProperty(globalThis, name, { value, configurable: true, writable: true }); };
-import '@testing-library/jest-dom';
 import type { ComponentProps, PropsWithChildren } from 'react';
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -80,19 +79,19 @@ describe('custom Input', () => {
     );
 
     const input = screen.getByLabelText('Password');
-    expect(input).toHaveAttribute('type', 'password');
+    expect(input?.getAttribute('type')).toBe('password');
     fireEvent.click(screen.getByRole('button', { name: 'Reveal' }));
-    expect(input).toHaveAttribute('type', 'text');
+    expect(input?.getAttribute('type')).toBe('text');
     fireEvent.click(screen.getByRole('button', { name: 'Hide' }));
     fireEvent.click(screen.getByRole('button', { name: /Copy/ }));
     await act(async () => Promise.resolve());
     expect(writeText).toHaveBeenCalledWith('secret');
-    expect(screen.getByRole('button', { name: /Copied/ })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Copied/ })).not.toBeNull();
     act(() => jest.advanceTimersByTime(3_000));
-    expect(screen.getByRole('button', { name: /Copy/ })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Copy/ })).not.toBeNull();
 
     rerender(<Input hiddenLabel label="Hidden" error value="bad" readOnly />);
-    expect(screen.getByLabelText('Hidden')).toHaveAttribute('aria-invalid', 'true');
+    expect(screen.getByLabelText('Hidden')?.getAttribute('aria-invalid')).toBe('true');
   });
 
   it('handles copy rejection and bare unlabeled inputs', async () => {
@@ -100,10 +99,10 @@ describe('custom Input', () => {
     stubGlobal('navigator', { ...navigator, clipboard: { writeText } });
     const { rerender } = render(<Input id="copy" value="value" copy readOnly />);
     fireEvent.click(screen.getByRole('button', { name: /Copy/ }));
-    expect(await screen.findByRole('button', { name: /Failed to copy/ })).toBeInTheDocument();
+    expect(await screen.findByRole('button', { name: /Failed to copy/ })).not.toBeNull();
 
     rerender(<Input id="plain" />);
-    expect(screen.getByRole('textbox')).toHaveAttribute('id', 'plain');
+    expect(screen.getByRole('textbox')?.getAttribute('id')).toBe('plain');
   });
 });
 
@@ -129,18 +128,18 @@ describe('Navbar', () => {
       />,
     );
 
-    expect(screen.getByRole('img', { name: 'Home' })).toBeInTheDocument();
-    expect(screen.getAllByRole('link', { name: /About/ })[0]).toHaveAttribute('data-active', 'true');
+    expect(screen.getByRole('img', { name: 'Home' })).not.toBeNull();
+    expect(screen.getAllByRole('link', { name: /About/ })[0]?.getAttribute('data-active')).toBe('true');
     fireEvent.click(screen.getByRole('button', { name: 'Products' }));
-    expect(screen.getAllByRole('link', { name: /Docs/ })[0]).toHaveAttribute('target', '_blank');
-    expect(screen.getByRole('link', { name: 'Game' })).toHaveAttribute('rel', 'noreferrer');
-    expect(screen.getByRole('button', { name: /Open Nav Menu/ })).toBeInTheDocument();
+    expect(screen.getAllByRole('link', { name: /Docs/ })[0]?.getAttribute('target')).toBe('_blank');
+    expect(screen.getByRole('link', { name: 'Game' })?.getAttribute('rel')).toBe('noreferrer');
+    expect(screen.getByRole('button', { name: /Open Nav Menu/ })).not.toBeNull();
   });
 
   it('switches the navbar backdrop after the scroll sentinel leaves view', () => {
     state.intersecting = false;
     const { container } = render(<Navbar navItems={navItems} />);
-    expect(container.querySelector('[data-slot="navigation-menu"]')).toHaveClass('bg-background/90');
+    expect(container.querySelector('[data-slot="navigation-menu"]')?.className).toContain('bg-background/90');
   });
 });
 
@@ -152,10 +151,10 @@ describe('AnimatedWrapper and Preloader', () => {
         <div className="fade-start slide-start keep">Animated</div>
       </AnimatedWrapper>,
     );
-    expect(screen.getByText('Animated')).toHaveClass('fade-start');
+    expect(screen.getByText('Animated')?.className).toContain('fade-start');
     act(() => jest.advanceTimersByTime(20));
-    expect(screen.getByText('Animated')).not.toHaveClass('fade-start');
-    expect(screen.getByText('Animated')).toHaveClass('keep');
+    expect(screen.getByText('Animated')?.className).not.toContain('fade-start');
+    expect(screen.getByText('Animated')?.className).toContain('keep');
     expect(state.parallax).toHaveBeenCalled();
 
     rerender(
@@ -163,7 +162,7 @@ describe('AnimatedWrapper and Preloader', () => {
         <div className="zoom-start">Immediate</div>
       </AnimatedWrapper>,
     );
-    expect(screen.getByText('Immediate')).not.toHaveClass('zoom-start');
+    expect(screen.getByText('Immediate')?.className).not.toContain('zoom-start');
 
     state.onScreen = false;
     rerender(
@@ -171,14 +170,14 @@ describe('AnimatedWrapper and Preloader', () => {
         <div className="hold-start">Held</div>
       </AnimatedWrapper>,
     );
-    expect(screen.getByText('Held')).toHaveClass('hold-start');
+    expect(screen.getByText('Held')?.className).toContain('hold-start');
   });
 
   it('normalizes progress, controls page scrolling, and displays slow-mobile guidance', () => {
     jest.useFakeTimers();
     const { rerender } = render(<Preloader ready={false} progress={0.9} />);
     act(() => jest.runOnlyPendingTimers());
-    expect(screen.getByText('For the best experience try us out on desktop!')).toBeInTheDocument();
+    expect(screen.getByText('For the best experience try us out on desktop!')).not.toBeNull();
     expect(document.documentElement.style.overflow).toBe('hidden');
     expect(state.start).toHaveBeenCalled();
 
@@ -188,9 +187,9 @@ describe('AnimatedWrapper and Preloader', () => {
     expect(document.documentElement.style.overflow).toBe('');
 
     rerender(<PreloaderBase ready={false} percent={0} showWarning={false} />);
-    expect(screen.queryByText('%')).not.toBeInTheDocument();
+    expect(screen.queryByText('%')).toBeNull();
     rerender(<PreloaderBase ready percent={42.4} showWarning />);
-    expect(screen.getByText('42%')).toBeInTheDocument();
+    expect(screen.getByText('42%')).not.toBeNull();
   });
 });
 
@@ -234,12 +233,12 @@ describe('authentication forms', () => {
     const { rerender } = render(
       <AuthForm {...handlers} view={VIEWS.SIGN_UP} message="Ready" error="Try again" enableAccountCreation />,
     );
-    expect(screen.getByText('Welcome to Nifty League')).toBeInTheDocument();
-    expect(screen.getByText('Ready')).toBeInTheDocument();
-    expect(screen.getByText('Try again')).toBeInTheDocument();
+    expect(screen.getByText('Welcome to Nifty League')).not.toBeNull();
+    expect(screen.getByText('Ready')).not.toBeNull();
+    expect(screen.getByText('Try again')).not.toBeNull();
 
     rerender(<AuthForm {...handlers} view={VIEWS.FORGOT_PASSWORD} />);
-    expect(screen.getByText('Forgot Password')).toBeInTheDocument();
+    expect(screen.getByText('Forgot Password')).not.toBeNull();
     rerender(<AuthForm {...handlers} view={VIEWS.UPDATE_PASSWORD} />);
     expect(screen.getAllByText('Update Password')).toHaveLength(2);
   });

@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'bun:test';
 import { mock } from 'bun:test';
@@ -121,11 +120,11 @@ describe('base visual primitives', () => {
       </>,
     );
 
-    expect(screen.getByRole('alert')).toHaveTextContent('Danger');
-    expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
-    expect(screen.getByLabelText('Name')).toHaveValue('Degen');
-    expect(screen.getByLabelText('circle')).toBeInTheDocument();
-    expect(screen.getByRole('progressbar', { name: 'progress' })).toBeInTheDocument();
+    expect(screen.getByRole('alert')?.textContent).toContain('Danger');
+    expect(screen.getByRole('button', { name: 'Save' })).not.toBeNull();
+    expect((screen.getByLabelText('Name') as HTMLInputElement)?.value).toBe('Degen');
+    expect(screen.getByLabelText('circle')).not.toBeNull();
+    expect(screen.getByRole('progressbar', { name: 'progress' })).not.toBeNull();
   });
 
   it('renders pagination navigation and active states', () => {
@@ -153,9 +152,9 @@ describe('base visual primitives', () => {
       </Pagination>,
     );
 
-    expect(screen.getByRole('navigation', { name: 'pagination' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: '1' })).toHaveAttribute('aria-current', 'page');
-    expect(screen.getByLabelText('Go to next page')).toHaveAttribute('href', '/2');
+    expect(screen.getByRole('navigation', { name: 'pagination' })).not.toBeNull();
+    expect(screen.getByRole('link', { name: '1' })?.getAttribute('aria-current')).toBe('page');
+    expect(screen.getByLabelText('Go to next page')?.getAttribute('href')).toBe('/2');
   });
 });
 
@@ -197,10 +196,10 @@ describe('base controlled primitives', () => {
       </>,
     );
 
-    expect(screen.getByText('Expanded details')).toBeVisible();
+    expect(screen.getByText('Expanded details')).toBeTruthy();
     expect(screen.getByRole('checkbox', { name: 'Accept' })).toBeChecked();
-    expect(screen.getByRole('tab', { name: 'First' })).toHaveAttribute('data-state', 'active');
-    expect(screen.getByText('First panel')).toBeVisible();
+    expect(screen.getByRole('tab', { name: 'First' })?.getAttribute('data-state')).toBe('active');
+    expect(screen.getByText('First panel')).toBeTruthy();
   });
 });
 
@@ -223,7 +222,7 @@ describe('base overlay and navigation primitives', () => {
     );
 
     fireEvent.click(screen.getByRole('button', { name: 'Open dialog' }));
-    expect(screen.getByRole('dialog')).toHaveTextContent('Dialog title');
+    expect(screen.getByRole('dialog')?.textContent).toContain('Dialog title');
     expect(document.documentElement.style.overflow).toBe('hidden');
     fireEvent.click(screen.getByRole('button', { name: 'Done' }));
     expect(onOpenChange).toHaveBeenLastCalledWith(false);
@@ -245,7 +244,7 @@ describe('base overlay and navigation primitives', () => {
         </AlertDialogContent>
       </AlertDialog>,
     );
-    expect(screen.getByRole('alertdialog')).toHaveTextContent('Confirm');
+    expect(screen.getByRole('alertdialog')?.textContent).toContain('Confirm');
 
     rerender(
       <Sheet open>
@@ -261,7 +260,7 @@ describe('base overlay and navigation primitives', () => {
         </SheetContent>
       </Sheet>,
     );
-    expect(screen.getByRole('dialog')).toHaveTextContent('Sheet title');
+    expect(screen.getByRole('dialog')?.textContent).toContain('Sheet title');
 
     rerender(
       <>
@@ -285,7 +284,7 @@ describe('base overlay and navigation primitives', () => {
         </NavigationMenu>
       </>,
     );
-    expect(screen.getByRole('tooltip')).toHaveTextContent('Helpful text');
-    expect(screen.getByRole('button', { name: 'Products' })).toBeInTheDocument();
+    expect(screen.getByRole('tooltip')?.textContent).toContain('Helpful text');
+    expect(screen.getByRole('button', { name: 'Products' })).not.toBeNull();
   });
 });

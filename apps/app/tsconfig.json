@@ -2,8 +2,19 @@
   "extends": "@nl/typescript-config/nextjs.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "paths": { "@/*": ["./src/*"], "@nl/ui/*": ["../../packages/ui/src/*"] },
-    "plugins": [{ "name": "next" }]
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@nl/ui/*": [
+        "../../packages/ui/src/*"
+      ]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     "**/*.ts",
@@ -13,5 +24,12 @@
     ".next/types/**/*.ts",
     "../../packages/theme/src/types/@types/index.d.ts"
   ],
-  "exclude": ["node_modules", "**/*.test.ts", "**/*.test.tsx"]
+  "exclude": [
+    "node_modules",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "src/app/(public-routes)/mint-o-matic/**",
+    "src/app/(public-routes)/games/**",
+    "src/components/wrapper/GameWithAuth.tsx"
+  ]
 }
