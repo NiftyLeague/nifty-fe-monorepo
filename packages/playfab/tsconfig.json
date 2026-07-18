@@ -2,5 +2,5 @@
   "extends": "@nl/typescript-config/react-library.json",
   "compilerOptions": { "outDir": "dist", "rootDir": "." },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "src/**/*.test.ts", "src/**/*.test.tsx", "**/*.test.ts", "**/*.test.tsx"]
+  "exclude": ["node_modules", "dist", "src/**/*.test.ts", "src/**/*.test.tsx", "**/*.test.ts", "**/*.test.tsx", "src/test-mock-sdk.ts"]
 }
