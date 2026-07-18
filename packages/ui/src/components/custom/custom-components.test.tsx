@@ -1,19 +1,12 @@
 const stubGlobal = (name, value) => {
   Object.defineProperty(globalThis, name, { value, configurable: true, writable: true });
 };
-import type { ComponentProps, PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { afterEach, describe, expect, it, jest } from 'bun:test';
-import { mock } from 'bun:test';
-import { Icon } from '@nl/ui/base/icon';
-import { AnimatedWrapper } from './animated-wrapper';
-import { AuthForm, VIEWS } from './auth-form';
-import { LoginForm } from './auth-form/forms/login';
-import { Input } from './input';
-import { Navbar } from './navbar';
-import { Preloader } from './preloader';
-import { PreloaderBase } from './preloader/base';
+import { afterEach, beforeEach, describe, expect, it, jest, mock } from 'bun:test';
+
+type ComponentProps<T extends keyof JSX.IntrinsicElements> = JSX.IntrinsicElements[T];
 
 const state = {
   intersecting: true,
@@ -26,30 +19,32 @@ const state = {
   parallax: mock(),
 };
 
-mock.module('next/link', () => ({
-  default: ({ children, href, ...props }: PropsWithChildren<{ href: string }>) => (
-    <a href={href} {...props}>
-      {children}
-    </a>
-  ),
-}));
-mock.module('next/image', () => ({
-  default: ({ alt, priority: _priority, ...props }: ComponentProps<'img'> & { priority?: boolean }) => (
-    <img alt={alt} {...props} />
-  ),
-}));
-mock.module('next/navigation', () => ({ usePathname: () => state.pathname }));
-mock.module('@nl/ui/hooks/useScrollDetection', () => ({
-  useScrollDetection: () => ({ ref: mock(), isIntersecting: state.intersecting }),
-}));
-mock.module('@nl/ui/hooks/useOnScreen', () => ({ useOnScreen: () => state.onScreen }));
-mock.module('@nl/ui/hooks/useParallax', () => ({ useParallax: (...args: unknown[]) => state.parallax(...args) }));
-mock.module('@nl/ui/hooks/useStopwatch', () => ({
-  useStopwatch: () => ({ milliseconds: state.milliseconds, start: state.start, stop: state.stop }),
-}));
-mock.module('@nl/ui/hooks/useUserAgent', () => ({ useUserAgent: () => ({ isMobile: () => state.mobile }) }));
-mock.module('@nl/ui/hooks/useProviders', () => ({ useProviders: () => ['google'] }));
-mock.module('lucide-react/dynamic', () => ({ DynamicIcon: ({ name }: { name: string }) => <svg aria-label={name} /> }));
+beforeEach(() => {
+  mock.module('next/link', () => ({
+    default: ({ children, href, ...props }: PropsWithChildren<{ href: string }>) => (
+      <a href={href} {...props}>
+        {children}
+      </a>
+    ),
+  }));
+  mock.module('next/image', () => ({
+    default: ({ alt, priority: _priority, ...props }: ComponentProps<'img'> & { priority?: boolean }) => (
+      <img alt={alt} {...props} />
+    ),
+  }));
+  mock.module('next/navigation', () => ({ usePathname: () => state.pathname }));
+  mock.module('@nl/ui/hooks/useScrollDetection', () => ({
+    useScrollDetection: () => ({ ref: mock(), isIntersecting: state.intersecting }),
+  }));
+  mock.module('@nl/ui/hooks/useOnScreen', () => ({ useOnScreen: () => state.onScreen }));
+  mock.module('@nl/ui/hooks/useParallax', () => ({ useParallax: (...args: unknown[]) => state.parallax(...args) }));
+  mock.module('@nl/ui/hooks/useStopwatch', () => ({
+    useStopwatch: () => ({ milliseconds: state.milliseconds, start: state.start, stop: state.stop }),
+  }));
+  mock.module('@nl/ui/hooks/useUserAgent', () => ({ useUserAgent: () => ({ isMobile: () => state.mobile }) }));
+  mock.module('@nl/ui/hooks/useProviders', () => ({ useProviders: () => ['google'] }));
+  mock.module('lucide-react/dynamic', () => ({ DynamicIcon: ({ name }: { name: string }) => <svg aria-label={name} /> }));
+});
 
 afterEach(() => {
   jest.useRealTimers();
@@ -62,6 +57,24 @@ afterEach(() => {
 });
 
 describe('custom Input', () => {
+  let Icon: typeof import('@nl/ui/base/icon').Icon;
+  let Input: typeof import('./input').default;
+  let LoginForm: typeof import('./auth-form/forms/login').default;
+  let AuthForm: typeof import('./auth-form').AuthForm;
+  let VIEWS: typeof import('./auth-form').VIEWS;
+
+  beforeEach(async () => {
+    const iconModule = await import('@nl/ui/base/icon');
+    const inputModule = await import('./input');
+    const loginModule = await import('./auth-form/forms/login');
+    const authModule = await import('./auth-form');
+    Icon = iconModule.Icon;
+    Input = inputModule.default;
+    LoginForm = loginModule.LoginForm;
+    AuthForm = authModule.AuthForm;
+    VIEWS = authModule.VIEWS;
+  });
+
   it('labels, reveals, copies, decorates, and resets a password value', async () => {
     jest.useFakeTimers();
     const writeText = mock().mockResolvedValue(undefined);
@@ -108,6 +121,13 @@ describe('custom Input', () => {
 });
 
 describe('Navbar', () => {
+  let Navbar: typeof import('./navbar').default;
+
+  beforeEach(async () => {
+    const navbarModule = await import('./navbar');
+    Navbar = navbarModule.default;
+  });
+
   const navItems = [
     { type: 'single' as const, title: 'Home', href: '/' },
     { type: 'single' as const, title: 'About', href: '/about', description: 'About Nifty' },
@@ -145,6 +165,19 @@ describe('Navbar', () => {
 });
 
 describe('AnimatedWrapper and Preloader', () => {
+  let AnimatedWrapper: typeof import('./animated-wrapper').AnimatedWrapper;
+  let Preloader: typeof import('./preloader').Preloader;
+  let PreloaderBase: typeof import('./preloader/base').PreloaderBase;
+
+  beforeEach(async () => {
+    const animatedModule = await import('./animated-wrapper');
+    const preloaderModule = await import('./preloader');
+    const preloaderBaseModule = await import('./preloader/base');
+    AnimatedWrapper = animatedModule.AnimatedWrapper;
+    Preloader = preloaderModule.Preloader;
+    PreloaderBase = preloaderBaseModule.PreloaderBase;
+  });
+
   it('starts delayed and immediate nested animations and configures parallax', () => {
     jest.useFakeTimers();
     const { rerender } = render(
@@ -195,6 +228,18 @@ describe('AnimatedWrapper and Preloader', () => {
 });
 
 describe('authentication forms', () => {
+  let LoginForm: typeof import('./auth-form/forms/login').default;
+  let AuthForm: typeof import('./auth-form').AuthForm;
+  let VIEWS: typeof import('./auth-form').VIEWS;
+
+  beforeEach(async () => {
+    const loginModule = await import('./auth-form/forms/login');
+    const authModule = await import('./auth-form');
+    LoginForm = loginModule.LoginForm;
+    AuthForm = authModule.AuthForm;
+    VIEWS = authModule.VIEWS;
+  });
+
   const handlers = {
     handleLogin: mock().mockResolvedValue(undefined),
     handleProviderLogin: mock().mockResolvedValue(undefined),

@@ -1,81 +1,19 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'bun:test';
-import { mock } from 'bun:test';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './accordion';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from './alert-dialog';
-import { Alert, AlertDescription, AlertTitle } from './alert';
-import { Avatar, AvatarFallback, AvatarImage } from './avatar';
-import { Badge } from './badge';
-import { Button } from './button';
-import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './card';
-import { Checkbox } from './checkbox';
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from './dialog';
-import { Icon } from './icon';
-import { Input } from './input';
-import { Label } from './label';
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
-} from './navigation-menu';
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from './pagination';
-import { Progress } from './progress';
-import { RadioGroup, RadioGroupItem } from './radio-group';
-import { Separator } from './separator';
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from './sheet';
-import { Skeleton } from './skeleton';
-import { Slider } from './slider';
-import { Switch } from './switch';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs';
-import { Toggle } from './toggle';
-import { ToggleGroup, ToggleGroupItem } from './toggle-group';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip';
+import { beforeEach, describe, expect, it, jest, mock } from 'bun:test';
 
-mock.module('lucide-react/dynamic', () => ({
-  DynamicIcon: ({ name, fallback: Fallback }: { name: string; fallback: () => React.ReactNode }) =>
-    name === 'circle' ? <svg aria-label={name} /> : <Fallback />,
-}));
+beforeEach(() => {
+  mock.module('lucide-react/dynamic', () => ({
+    DynamicIcon: ({ name, fallback: Fallback }: { name: string; fallback: () => React.ReactNode }) =>
+      name === 'circle' ? <svg aria-label={name} /> : <Fallback />,
+  }));
+});
+
+let Icon: typeof import('./icon').Icon;
+
+beforeEach(async () => {
+  const iconModule = await import('./icon');
+  Icon = iconModule.Icon;
+});
 
 describe('base visual primitives', () => {
   it('renders semantic content and style variants', () => {

@@ -17,7 +17,14 @@ beforeEach(() => {
   setTheme.mockClear();
 });
 
-import { ThemeProvider, ThemeToggle } from './index';
+let ThemeProvider: typeof import('./index').ThemeProvider;
+let ThemeToggle: typeof import('./index').ThemeToggle;
+
+beforeEach(async () => {
+  const mod = await import('./index');
+  ThemeProvider = mod.ThemeProvider;
+  ThemeToggle = mod.ThemeToggle;
+});
 
 describe('ThemeProvider', () => {
   it('renders children through next-themes provider', () => {

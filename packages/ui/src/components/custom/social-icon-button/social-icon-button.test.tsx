@@ -1,9 +1,16 @@
 import { fireEvent, render } from '@testing-library/react';
-import { describe, expect, it, mock } from 'bun:test';
+import { beforeEach, describe, expect, it, jest, mock } from 'bun:test';
 
-mock.module('lucide-react/dynamic', () => ({ DynamicIcon: ({ name }: { name: string }) => <svg aria-label={name} /> }));
+beforeEach(() => {
+  mock.module('lucide-react/dynamic', () => ({ DynamicIcon: ({ name }: { name: string }) => <svg aria-label={name} /> }));
+});
 
-import { SocialIconButton } from './index';
+let SocialIconButton: typeof import('./index').SocialIconButton;
+
+beforeEach(async () => {
+  const indexModule = await import('./index');
+  SocialIconButton = indexModule.SocialIconButton;
+});
 
 describe('SocialIconButton', () => {
   it('renders the provider icon and hidden label', () => {

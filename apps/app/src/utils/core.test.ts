@@ -1,16 +1,23 @@
 import axios from 'axios';
-import { describe, expect, it, spyOn } from 'bun:test';
+import { beforeEach, describe, expect, it, spyOn } from 'bun:test';
 import { mock } from 'bun:test';
 import { areEqualArrays, getUniqueListBy } from './array';
 import callAll from './callAll';
 import { formatDateTime, formatTime, secondsToHours } from './dateTime';
 import { errorMsgHandler } from './errorHandlers';
-import { calculateGasMargin, loadGasPrice } from './gas';
 import { safeJSONParse } from './json';
 import { getErrorForName } from './name';
 import { strengthColor, strengthIndicator } from './password-strength';
 
-mock.module('axios', () => ({ default: { get: mock() } }));
+let calculateGasMargin: typeof import('./gas').calculateGasMargin;
+let loadGasPrice: typeof import('./gas').loadGasPrice;
+
+beforeEach(async () => {
+  mock.module('axios', () => ({ default: { get: mock() } }));
+  const gas = await import('./gas');
+  calculateGasMargin = gas.calculateGasMargin;
+  loadGasPrice = gas.loadGasPrice;
+});
 
 describe('array helpers', () => {
   it('compares values and preserves the last object for each unique key', () => {
@@ -59,7 +66,7 @@ describe('date and JSON helpers', () => {
 });
 
 describe('name and password validation', () => {
-  it.each([
+  it.each<[string, string]>([
     ['', 'Please input a name.'],
     ['x'.repeat(33), 'Max character length of 32.'],
     ['bad!', 'Please only use numbers, letters, or spaces.'],

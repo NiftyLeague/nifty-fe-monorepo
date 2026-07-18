@@ -1,10 +1,30 @@
 import { beforeEach, describe, expect, it } from 'bun:test';
 import { mock } from 'bun:test';
-import { sendGTMEvent } from '@next/third-parties/google';
-import { EVENTS } from './constants';
-import { removeUserId, sendEvent, sendGameReferral, sendUserId, sendWebVitals } from './events';
 
-mock.module('@next/third-parties/google', () => ({ sendGTMEvent: mock() }));
+beforeEach(() => {
+  mock.module('@next/third-parties/google', () => ({ sendGTMEvent: mock() }));
+});
+
+let sendGTMEvent: ReturnType<typeof mock>;
+let sendEvent: typeof import('./events').sendEvent;
+let sendGameReferral: typeof import('./events').sendGameReferral;
+let sendWebVitals: typeof import('./events').sendWebVitals;
+let sendUserId: typeof import('./events').sendUserId;
+let removeUserId: typeof import('./events').removeUserId;
+let EVENTS: typeof import('./constants').EVENTS;
+
+beforeEach(async () => {
+  const googleModule = await import('@next/third-parties/google');
+  const eventsModule = await import('./events');
+  const constantsModule = await import('./constants');
+  sendGTMEvent = googleModule.sendGTMEvent as ReturnType<typeof mock>;
+  sendEvent = eventsModule.sendEvent;
+  sendGameReferral = eventsModule.sendGameReferral;
+  sendWebVitals = eventsModule.sendWebVitals;
+  sendUserId = eventsModule.sendUserId;
+  removeUserId = eventsModule.removeUserId;
+  EVENTS = constantsModule.EVENTS;
+});
 
 describe('Google Tag Manager events', () => {
   beforeEach(() => window.localStorage.clear());

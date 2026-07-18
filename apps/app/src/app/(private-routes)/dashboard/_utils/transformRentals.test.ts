@@ -1,11 +1,17 @@
-import { describe, expect, it } from 'bun:test';
+import { beforeEach, describe, expect, it } from 'bun:test';
 import { mock } from 'bun:test';
-mock.module('uuid', () => ({ v4: mock(() => 'generated-id') }));
-mock.module('@/hooks/useLocalStorage', () => ({
-  default: mock(() => [{ length: 1, '0xplayer': 'Known Player' }, mock()]),
-}));
 
-import { transformRentals } from './transformRentals';
+let transformRentals: typeof import('./transformRentals').transformRentals;
+
+beforeEach(async () => {
+  mock.module('uuid', () => ({ v4: mock(() => 'generated-id') }));
+  mock.module('@/hooks/useLocalStorage', () => ({
+    default: mock(() => [{ length: 1, '0xplayer': 'Known Player' }, mock()]),
+  }));
+
+  const transformModule = await import('./transformRentals');
+  transformRentals = transformModule.transformRentals;
+});
 
 const viewer = 'viewer';
 
