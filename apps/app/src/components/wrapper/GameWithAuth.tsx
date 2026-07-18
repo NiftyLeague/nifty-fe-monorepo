@@ -4,8 +4,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { isOpera, browserName } from 'react-device-detect';
-import { Unity, useUnityContext } from 'react-unity-webgl';
+import Unity from 'react-unity-webgl';
 import type { UnityConfig } from 'react-unity-webgl';
+import { useUnityContext } from '@/lib/use-unity-context';
 import { Box, Button, Stack } from '@mui/material';
 import { useAccount } from 'wagmi';
 
