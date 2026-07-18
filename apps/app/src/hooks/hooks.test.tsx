@@ -1,20 +1,19 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
-import { afterEach, describe, expect, it, mock, spyOn } from 'bun:test';
-import useAsyncInterval from './useAsyncInterval';
+import { afterEach, beforeEach, describe, expect, it, mock, spyOn } from 'bun:test';
 import useFetch from './useFetch';
 import useLocalStorage from './useLocalStorage';
-import useRemovedTraits from './useRemovedTraits';
 
 const contractReader = mock();
 
-mock.module('./useContractReader', () => ({ default: contractReader }));
-
 const interval = { clear: mock(async () => undefined), set: mock(() => 'interval-id') };
 
-mock.module('set-interval-async/dynamic', () => ({
-  clearIntervalAsync: interval.clear,
-  setIntervalAsync: interval.set,
-}));
+beforeEach(() => {
+  mock.module('./useContractReader', () => ({ default: contractReader }));
+  mock.module('set-interval-async/dynamic', () => ({
+    clearIntervalAsync: interval.clear,
+    setIntervalAsync: interval.set,
+  }));
+});
 
 afterEach(() => {
   mock.restore();
@@ -100,6 +99,7 @@ describe('useLocalStorage', () => {
 describe('useAsyncInterval', () => {
   it('runs leading and manually refreshed callbacks and installs an interval', async () => {
     const callback = mock(async () => undefined);
+    const { default: useAsyncInterval } = await import('./useAsyncInterval');
     renderHook(() => useAsyncInterval(callback, 100, true, 'refresh'));
 
     await waitFor(() => expect(callback).toHaveBeenCalledTimes(2));
@@ -108,6 +108,7 @@ describe('useAsyncInterval', () => {
 
   it('does not install an interval when no delay is provided', async () => {
     const callback = mock(async () => undefined);
+    const { default: useAsyncInterval } = await import('./useAsyncInterval');
     renderHook(() => useAsyncInterval(callback, undefined, false));
 
     await Promise.resolve();
@@ -121,7 +122,8 @@ describe('useAsyncInterval', () => {
 });
 
 describe('useRemovedTraits', () => {
-  it('returns contract results and falls back to an empty list', () => {
+  it('returns contract results and falls back to an empty list', async () => {
+    const { default: useRemovedTraits } = await import('./useRemovedTraits');
     contractReader.mockReturnValueOnce([3, 7]);
     const readContracts = {} as Parameters<typeof useRemovedTraits>[0];
     const { result, rerender } = renderHook(() => useRemovedTraits(readContracts));

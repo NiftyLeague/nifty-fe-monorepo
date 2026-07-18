@@ -3,18 +3,15 @@
  * Runs once per isolated test file (bunfig [test].preload) BEFORE the test module
  * and its imports are evaluated, so module mocks registered here win.
  *
- * 1. Registers happy-dom as the global DOM environment (replaces vitest `jsdom`).
- * 2. Stubs the Docusaurus virtual modules that the docs app imports. Under vitest
- *    these were resolved via `resolve.alias` to test/stubs/*.tsx — here we register
- *    them as module mocks (same effect, no real package needed).
+ * NOTE: happy-dom is registered by test/000-setup-dom.test.ts (NOT here) because
+ * bun's preload realm is separate from the test-file realm — a GlobalRegistrator
+ * call here would set the "already registered" global flag and BREAK the real
+ * registration in 000-setup-dom. Only module mocks belong in preload.
+ *
+ * 1. Stubs the Docusaurus virtual modules that the docs app imports (mirrors the
+ *    previous vitest.config resolve.alias to test/stubs/*.tsx).
  */
-import { GlobalRegistrator } from '@happy-dom/global-registrator';
 import { mock } from 'bun:test';
-
-// --- happy-dom global registration (jsdom replacement) ---
-GlobalRegistrator.register();
-
-// --- Docusaurus / theme virtual-module stubs ---
 // Mirrors the previous vitest.config alias:
 //   @docusaurus/Link            -> test/stubs/DocusaurusLink.tsx
 //   @docusaurus/useBaseUrl     -> test/stubs/useBaseUrl.ts
