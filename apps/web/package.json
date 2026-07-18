@@ -33,7 +33,7 @@
     "@types/node": "^24.13.3",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
-    "@types/three": "^0.181.0",
+    "@types/three": "^0.185.1",
     "next-sitemap": "^4.2.3"
   }
 }
