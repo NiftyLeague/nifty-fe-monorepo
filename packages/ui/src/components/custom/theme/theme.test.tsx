@@ -1,15 +1,19 @@
 import { fireEvent, render } from '@testing-library/react';
-import { describe, expect, it, mock } from 'bun:test';
+import { beforeEach, describe, expect, it, mock } from 'bun:test';
 
 const setTheme = mock();
 const themeState = { resolvedTheme: 'light' as string };
 
-mock.module('next-themes', () => ({
-  ThemeProvider: ({ children }: { children?: React.ReactNode }) => <div data-testid="next-themes">{children}</div>,
-  useTheme: () => ({ setTheme, resolvedTheme: themeState.resolvedTheme }),
-}));
-
-mock.module('lucide-react/dynamic', () => ({ DynamicIcon: ({ name }: { name: string }) => <svg aria-label={name} /> }));
+// Register the next-themes / lucide mocks inside beforeEach so they are scoped
+// to this file and properly restored (top-level mock.module leaks across files).
+beforeEach(() => {
+  mock.module('next-themes', () => ({
+    ThemeProvider: ({ children }: { children?: React.ReactNode }) => <div data-testid="next-themes">{children}</div>,
+    useTheme: () => ({ setTheme, resolvedTheme: themeState.resolvedTheme }),
+  }));
+  mock.module('lucide-react/dynamic', () => ({ DynamicIcon: ({ name }: { name: string }) => <svg aria-label={name} /> }));
+  setTheme.mockClear();
+});
 
 import { ThemeProvider, ThemeToggle } from './index';
 
