@@ -1,19 +1,24 @@
 import { render, screen } from '@testing-library/react';
-import { afterEach, describe, expect, it } from 'bun:test';
+import { afterEach, beforeEach, describe, expect, it } from 'bun:test';
 import { mock } from 'bun:test';
-import Chip from './Chip';
 
 const mocks = {
   mode: 'light' as 'dark' | 'light',
   chip: mock(({ label }: { label?: React.ReactNode }) => <span>{label}</span>),
 };
 
-mock.module('@nl/theme', () => ({ useTheme: () => ({ palette: { mode: mocks.mode } }) }));
-mock.module('@mui/material/Chip', () => ({ default: mocks.chip }));
+let Chip: typeof import('./Chip').default;
 
-afterEach(() => {
+beforeEach(async () => {
+  mock.module('@nl/theme', () => ({ useTheme: () => ({ palette: { mode: mocks.mode } }) }));
+  mock.module('@mui/material/Chip', () => ({ default: mocks.chip }));
   mocks.mode = 'light';
   mocks.chip.mockClear();
+  Chip = (await import('./Chip')).default;
+});
+
+afterEach(() => {
+  mock.restore();
 });
 
 describe('Chip color variants', () => {

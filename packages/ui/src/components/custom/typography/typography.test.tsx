@@ -1,9 +1,17 @@
 import { render } from '@testing-library/react';
-import { describe, expect, it, mock } from 'bun:test';
-import { Link } from './link';
-import { Text } from './text';
-import { Title } from './title';
-import Typography from './index';
+import { beforeEach, describe, expect, it, mock } from 'bun:test';
+
+let Link: typeof import('./link').default;
+let Text: typeof import('./text').default;
+let Title: typeof import('./title').default;
+let Typography: typeof import('./index').default;
+
+beforeEach(async () => {
+  Link = (await import('./link')).default;
+  Text = (await import('./text')).default;
+  Title = (await import('./title')).default;
+  Typography = (await import('./index')).default;
+});
 
 describe('Text', () => {
   it('renders a span by default', () => {
