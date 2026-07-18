@@ -52,6 +52,7 @@ export const config = tseslint.config(
       '@typescript-eslint/no-unused-expressions': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/triple-slash-reference': 'off',
+      '@typescript-eslint/ban-ts-comment': 'off',
     },
   },
   { linterOptions: { reportUnusedDisableDirectives: 'off' } },
