@@ -4,19 +4,22 @@
 > Any AI agent working in this repo MUST follow the commands below. No guessing.
 
 ## Stack
+
 - **Language:** TypeScript (web: Next.js / React)
 - **Package manager:** bun
 - **Why:** Web stays TypeScript. Tooling for Rust+WASM web is not ready; do NOT rewrite web in Rust.
 
 ## Commands
-- Install:    `bun install`
-- Dev:        `bun dev`
-- Build:      `bun run build`
-- Test:       `bun test`  (or `bun run test`)
-- Lint:       `bun run lint`
-- Typecheck:  `bun run typecheck` (or `tsc --noEmit`)
+
+- Install: `bun install`
+- Dev: `bun dev`
+- Build: `bun run build`
+- Test: `bun test` (or `bun run test`)
+- Lint: `bun run lint`
+- Typecheck: `bun run typecheck` (or `tsc --noEmit`)
 
 ## Conventions
+
 - Monorepo? Use workspace root scripts. Never `cd` into packages and run raw `npm`.
 - Husky + lint-staged active. Commits run hooks — don't bypass with --no-verify.
 - 5-verb repo standard: the repo exposes exactly 5 root scripts.
