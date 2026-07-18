@@ -2,8 +2,9 @@
 'use client';
 
 import { memo, useCallback, useEffect, useState } from 'react';
-import { Unity, UnityContext } from 'react-unity-webgl';
+import Unity, { UnityContext } from 'react-unity-webgl';
 import type { IUnityConfig } from 'react-unity-webgl';
+import { useUnityContext } from '@/lib/use-unity-context';
 import { isMobileOnly, withOrientationChange } from 'react-device-detect';
 
 import useRemovedTraits from '@/hooks/useRemovedTraits';
