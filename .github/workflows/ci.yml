@@ -22,7 +22,9 @@ jobs:
       NEXT_PUBLIC_APPLE_STORE_LINK: "https://apps.apple.com/app/id000000000"
       NEXT_PUBLIC_EPIC_LINK: "https://store.epicgames.com/"
       NEXT_PUBLIC_GOOGLE_PLAY_LINK: "https://play.google.com/store"
+      NEXT_PUBLIC_STEAM_LINK: "https://store.steampowered.com/"
       NEXT_PUBLIC_NETWORK: "mainnet"
+      NEXTAUTH_SECRET: "build-validation-placeholder-secret-32chars"
     steps:
       - uses: actions/checkout@v4
       - uses: jdx/mise-action@v2
