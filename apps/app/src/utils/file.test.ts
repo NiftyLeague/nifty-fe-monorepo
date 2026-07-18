@@ -3,12 +3,18 @@ const stubGlobal = (name, value) => {
 };
 import { beforeEach, describe, expect, it } from 'bun:test';
 import { mock } from 'bun:test';
+
 const { saveAsMock } = { saveAsMock: mock() };
 
-mock.module('save-as', () => ({ saveAs: saveAsMock }));
-mock.module('@/constants/url', () => ({ DEGEN_ASSETS_DOWNLOAD_URL: 'https://assets.example/degen' }));
+let downloadDegenAsZip: typeof import('./file').downloadDegenAsZip;
 
-import { downloadDegenAsZip } from './file';
+beforeEach(async () => {
+  mock.module('save-as', () => ({ saveAs: saveAsMock }));
+  mock.module('@/constants/url', () => ({ DEGEN_ASSETS_DOWNLOAD_URL: 'https://assets.example/degen' }));
+
+  const fileModule = await import('./file');
+  downloadDegenAsZip = fileModule.downloadDegenAsZip;
+});
 
 beforeEach(() => {
   mock.clearAllMocks();

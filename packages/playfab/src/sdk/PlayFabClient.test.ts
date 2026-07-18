@@ -1,18 +1,31 @@
 import { beforeEach, describe, expect, it } from 'bun:test';
 import { mock } from 'bun:test';
 
-import * as PlayFab from './PlayFab';
-import * as client from './PlayFabClient';
-import { DeletePlayer } from './PlayFabAdmin';
-import { ExecuteFunction } from './PlayFabCloudScript';
-
-mock.module('./PlayFab', () => ({
-  settings: { titleId: 'TITLE', developerSecretKey: 'secret' },
-  GetServerUrl: mock(() => 'https://TITLE.playfabapi.com'),
-  MakeRequest: mock(),
-}));
+beforeEach(() => {
+  mock.module('./PlayFab', () => ({
+    settings: { titleId: 'TITLE', developerSecretKey: 'secret' },
+    GetServerUrl: mock(() => 'https://TITLE.playfabapi.com'),
+    MakeRequest: mock(),
+  }));
+});
 
 type ApiFunction = (request: Record<string, unknown>, callback: (...args: unknown[]) => void, ticket?: string) => void;
+
+let PlayFab: typeof import('./PlayFab');
+let client: typeof import('./PlayFabClient');
+let DeletePlayer: typeof import('./PlayFabAdmin').DeletePlayer;
+let ExecuteFunction: typeof import('./PlayFabCloudScript').ExecuteFunction;
+
+beforeEach(async () => {
+  const playFabModule = await import('./PlayFab');
+  const clientModule = await import('./PlayFabClient');
+  const adminModule = await import('./PlayFabAdmin');
+  const cloudScriptModule = await import('./PlayFabCloudScript');
+  PlayFab = playFabModule;
+  client = clientModule;
+  DeletePlayer = adminModule.DeletePlayer;
+  ExecuteFunction = cloudScriptModule.ExecuteFunction;
+});
 
 const authorizedMethods = [
   'AddGenericID',

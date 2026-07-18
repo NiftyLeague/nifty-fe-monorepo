@@ -8,15 +8,26 @@ const { calculateGasMarginMock, loadGasPriceMock, toastError, toastInfo, toastSu
   toastSuccess: mock(),
 };
 
-mock.module('react-toastify', () => ({ toast: { error: toastError, info: toastInfo, success: toastSuccess } }));
-mock.module('eth-rpc-errors', () => ({
-  serializeError: (error: unknown) => ({ message: `serialized: ${String(error)}` }),
-}));
-mock.module('@/constants/index', () => ({ DEBUG: false }));
-mock.module('@/constants/networks', () => ({ TARGET_NETWORK: { label: 'Local', gasPrice: undefined } }));
-mock.module('@/utils/gas', () => ({ calculateGasMargin: calculateGasMarginMock, loadGasPrice: loadGasPriceMock }));
+let handleError: typeof import('./bnc-notify').handleError;
+let handleLocalNotify: typeof import('./bnc-notify').handleLocalNotify;
+let sendTransaction: typeof import('./bnc-notify').sendTransaction;
+let submitTxWithGasEstimate: typeof import('./bnc-notify').submitTxWithGasEstimate;
 
-import { handleError, handleLocalNotify, sendTransaction, submitTxWithGasEstimate } from './bnc-notify';
+beforeEach(() => {
+  mock.module('react-toastify', () => ({ toast: { error: toastError, info: toastInfo, success: toastSuccess } }));
+  mock.module('eth-rpc-errors', () => ({
+    serializeError: (error: unknown) => ({ message: `serialized: ${String(error)}` }),
+  }));
+  mock.module('@/constants/index', () => ({ DEBUG: false }));
+  mock.module('@/constants/networks', () => ({ TARGET_NETWORK: { label: 'Local', gasPrice: undefined } }));
+  mock.module('@/utils/gas', () => ({ calculateGasMargin: calculateGasMarginMock, loadGasPrice: loadGasPriceMock }));
+  return import('./bnc-notify').then(module => {
+    handleError = module.handleError;
+    handleLocalNotify = module.handleLocalNotify;
+    sendTransaction = module.sendTransaction;
+    submitTxWithGasEstimate = module.submitTxWithGasEstimate;
+  });
+});
 
 beforeEach(() => {
   mock.clearAllMocks();
@@ -33,7 +44,7 @@ describe('handleError', () => {
     expect(toastError.mock.calls[1]?.[1].data).toContain('serialized:');
   });
 
-  it.each(['There was a WebSocket error', 'Configuration with scope local failed'])(
+  it.each<string>(['There was a WebSocket error', 'Configuration with scope local failed'])(
     'suppresses non-actionable transport errors: %s',
     message => {
       handleError({ message });

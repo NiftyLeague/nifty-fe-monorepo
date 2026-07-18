@@ -8,12 +8,16 @@ class MockBrowserProvider {
   getSigner = getSigner;
 }
 
-import { signMessage, isEthereumSignatureValid } from './wallet';
+let signMessage: typeof import('./wallet').signMessage;
+let isEthereumSignatureValid: typeof import('./wallet').isEthereumSignatureValid;
+let originalEthereum: unknown;
 
-const originalEthereum = (window as { ethereum?: unknown }).ethereum;
-
-beforeEach(() => {
+beforeEach(async () => {
   mock.module('ethers', () => ({ BrowserProvider: MockBrowserProvider }));
+  const { signMessage: sm, isEthereumSignatureValid: iesv } = await import('./wallet');
+  signMessage = sm;
+  isEthereumSignatureValid = iesv;
+  originalEthereum = (window as { ethereum?: unknown }).ethereum;
   getSigner.mockReset();
   getAddress.mockReset();
   signMessageMock.mockReset();

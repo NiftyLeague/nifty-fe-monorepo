@@ -4,11 +4,32 @@ const stubGlobal = (name, value) => {
 
 import { beforeEach, describe, expect, it, spyOn } from 'bun:test';
 import { mock } from 'bun:test';
-import { errorMsgHandler, errorResHandler } from './errorHandlers';
-import { FetchError, fetchJson } from './fetchJson';
-import { getRandomKey } from './getRandomKey';
-import { parseLinkedWalletResult, safeJSONParse } from './parseData';
-import { isEthereumSignatureValid } from './wallet';
+
+let errorMsgHandler: typeof import('./errorHandlers').errorMsgHandler;
+let errorResHandler: typeof import('./errorHandlers').errorResHandler;
+let FetchError: typeof import('./fetchJson').FetchError;
+let fetchJson: typeof import('./fetchJson').fetchJson;
+let getRandomKey: typeof import('./getRandomKey').getRandomKey;
+let parseLinkedWalletResult: typeof import('./parseData').parseLinkedWalletResult;
+let safeJSONParse: typeof import('./parseData').safeJSONParse;
+let isEthereumSignatureValid: typeof import('./wallet').isEthereumSignatureValid;
+
+beforeEach(async () => {
+  const errorHandlers = await import('./errorHandlers');
+  const fetchJsonModule = await import('./fetchJson');
+  const getRandomKeyModule = await import('./getRandomKey');
+  const parseData = await import('./parseData');
+  const wallet = await import('./wallet');
+
+  errorMsgHandler = errorHandlers.errorMsgHandler;
+  errorResHandler = errorHandlers.errorResHandler;
+  FetchError = fetchJsonModule.FetchError;
+  fetchJson = fetchJsonModule.fetchJson;
+  getRandomKey = getRandomKeyModule.getRandomKey;
+  parseLinkedWalletResult = parseData.parseLinkedWalletResult;
+  safeJSONParse = parseData.safeJSONParse;
+  isEthereumSignatureValid = wallet.isEthereumSignatureValid;
+});
 
 describe('fetchJson', () => {
   beforeEach(() => undefined);

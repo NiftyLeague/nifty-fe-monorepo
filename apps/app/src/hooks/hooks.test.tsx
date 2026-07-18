@@ -1,18 +1,23 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, mock, spyOn } from 'bun:test';
-import useFetch from './useFetch';
-import useLocalStorage from './useLocalStorage';
 
 const contractReader = mock();
 
 const interval = { clear: mock(async () => undefined), set: mock(() => 'interval-id') };
 
-beforeEach(() => {
+let useFetch: typeof import('./useFetch').default;
+let useLocalStorage: typeof import('./useLocalStorage').default;
+
+beforeEach(async () => {
   mock.module('./useContractReader', () => ({ default: contractReader }));
   mock.module('set-interval-async/dynamic', () => ({
     clearIntervalAsync: interval.clear,
     setIntervalAsync: interval.set,
   }));
+  const useFetchModule = await import('./useFetch');
+  const useLocalStorageModule = await import('./useLocalStorage');
+  useFetch = useFetchModule.default;
+  useLocalStorage = useLocalStorageModule.default;
 });
 
 afterEach(() => {

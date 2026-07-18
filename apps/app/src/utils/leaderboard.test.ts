@@ -1,28 +1,42 @@
 const stubGlobal = (name, value) => {
   Object.defineProperty(globalThis, name, { value, configurable: true, writable: true });
 };
-import { afterEach, describe, expect, it } from 'bun:test';
+import { afterEach, beforeEach, describe, expect, it } from 'bun:test';
 import { mock } from 'bun:test';
-mock.module('@/constants/leaderboards', () => {
-  const row = (score: string, userId: string, stats: Record<string, string> = {}) => ({
-    rank: 1,
-    score,
-    user_id: userId,
-    stats: { earnings: '12.5', matches: '5', kills: '3', ...stats },
-  });
-  return {
-    LEADERBOARDS: {
-      smashers: {
-        win_rate: [row('0.75', 'user-1')],
-        earnings: [row('99.1', 'user-2')],
-        kills: [row('11', 'user-3')],
-        score: [row('4', 'user-4', { earnings: '', matches: '' })],
-      },
-    },
-  };
-});
 
-import { fetchRankByUserId, fetchScores, fetchUserNames, getComparator, stableSort } from './leaderboard';
+let fetchRankByUserId: typeof import('./leaderboard').fetchRankByUserId;
+let fetchScores: typeof import('./leaderboard').fetchScores;
+let fetchUserNames: typeof import('./leaderboard').fetchUserNames;
+let getComparator: typeof import('./leaderboard').getComparator;
+let stableSort: typeof import('./leaderboard').stableSort;
+
+beforeEach(async () => {
+  mock.module('@/constants/leaderboards', () => {
+    const row = (score: string, userId: string, stats: Record<string, string> = {}) => ({
+      rank: 1,
+      score,
+      user_id: userId,
+      stats: { earnings: '12.5', matches: '5', kills: '3', ...stats },
+    });
+    return {
+      LEADERBOARDS: {
+        smashers: {
+          win_rate: [row('0.75', 'user-1')],
+          earnings: [row('99.1', 'user-2')],
+          kills: [row('11', 'user-3')],
+          score: [row('4', 'user-4', { earnings: '', matches: '' })],
+        },
+      },
+    };
+  });
+
+  const leaderboard = await import('./leaderboard');
+  fetchRankByUserId = leaderboard.fetchRankByUserId;
+  fetchScores = leaderboard.fetchScores;
+  fetchUserNames = leaderboard.fetchUserNames;
+  getComparator = leaderboard.getComparator;
+  stableSort = leaderboard.stableSort;
+});
 
 afterEach(() => undefined);
 
@@ -35,7 +49,7 @@ describe('leaderboard data loaders', () => {
     await expect(fetchUserNames(['user-1'])).resolves.toEqual([]);
   });
 
-  it.each([
+  it.each<[string, string, string, string]>([
     ['win_rate', '75%', '12.5', '3'],
     ['earnings', '0%', '99.1', '3'],
     ['kills', '0%', '12.5', '11'],

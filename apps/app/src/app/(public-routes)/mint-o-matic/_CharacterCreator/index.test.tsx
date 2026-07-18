@@ -1,71 +1,79 @@
 import { act, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, jest } from 'bun:test';
 import { mock } from 'bun:test';
-import CharacterCreatorContainer from './index';
 
 const unity = { handlers: new Map<string, (...args: any[]) => void>(), removeAll: mock(), send: mock() };
 
-mock.module('react-device-detect', () => ({
-  isMobileOnly: false,
-  withOrientationChange: (Component: React.ComponentType<any>) => Component,
-}));
-mock.module('react-unity-webgl', () => {
-  const Unity = ({ className, style }: { className: string; style: React.CSSProperties }) => (
-    <canvas aria-label="character creator" className={className} style={style} />
-  );
-  return {
-    default: Unity,
-    Unity,
-    UnityContext: class UnityContext {
-      send = unity.send;
-      SendMessage = unity.send;
-      on(name: string, handler: (...args: any[]) => void) {
-        unity.handlers.set(name, handler);
-      }
-      addEventListener(name: string, handler: (...args: any[]) => void) {
-        unity.handlers.set(name, handler);
-      }
-      removeAllEventListeners() {
-        unity.removeAll();
-        unity.handlers.clear();
-      }
-    },
-    useUnityContext: (options: any) => {
-      return {
-        sendMessage: unity.send,
-        addEventListener: (name: string, handler: (...args: any[]) => void) => {
-          unity.handlers.set(name, handler);
-        },
-        removeEventListener: (name: string) => {
-          unity.handlers.delete(name);
-        },
-        removeAllEventListeners: () => {
-          unity.removeAll();
-          unity.handlers.clear();
-        },
-        unityProvider: {},
-        isLoaded: true,
-        progression: 1,
-      };
-    },
-  };
-});
-mock.module('@/hooks/useRemovedTraits', () => ({ default: () => [3, 7] }));
+// `mock.module` only receives `importOriginal` when registered at module top-level
+// (bun 1.3.x does not pass it inside beforeEach), so this import-original-based
+// mock must stay here. It mocks a constant module, not the module-under-test.
 mock.module('@/constants/networks', async importOriginal => {
   const actual = await importOriginal<typeof import('@/constants/networks')>();
   return { ...actual, TARGET_NETWORK: actual.NETWORKS.mainnet };
 });
-mock.module('@/hooks/useNetworkContext', () => ({
-  default: () => ({
-    address: '0xabc',
-    readContracts: {},
-    tx: mock(),
-    writeContracts: { Degen: { getNFTPrice: mock().mockResolvedValue(1n) } },
-  }),
-}));
-mock.module('@/utils/bnc-notify', () => ({ submitTxWithGasEstimate: mock() }));
 
-beforeEach(() => {
+let CharacterCreatorContainer: typeof import('./index').default;
+
+beforeEach(async () => {
+  mock.module('react-device-detect', () => ({
+    isMobileOnly: false,
+    withOrientationChange: (Component: React.ComponentType<any>) => Component,
+  }));
+  mock.module('react-unity-webgl', () => {
+    const Unity = ({ className, style }: { className: string; style: React.CSSProperties }) => (
+      <canvas aria-label="character creator" className={className} style={style} />
+    );
+    return {
+      default: Unity,
+      Unity,
+      UnityContext: class UnityContext {
+        send = unity.send;
+        SendMessage = unity.send;
+        on(name: string, handler: (...args: any[]) => void) {
+          unity.handlers.set(name, handler);
+        }
+        addEventListener(name: string, handler: (...args: any[]) => void) {
+          unity.handlers.set(name, handler);
+        }
+        removeAllEventListeners() {
+          unity.removeAll();
+          unity.handlers.clear();
+        }
+      },
+      useUnityContext: (options: any) => {
+        return {
+          sendMessage: unity.send,
+          addEventListener: (name: string, handler: (...args: any[]) => void) => {
+            unity.handlers.set(name, handler);
+          },
+          removeEventListener: (name: string) => {
+            unity.handlers.delete(name);
+          },
+          removeAllEventListeners: () => {
+            unity.removeAll();
+            unity.handlers.clear();
+          },
+          unityProvider: {},
+          isLoaded: true,
+          progression: 1,
+        };
+      },
+    };
+  });
+  mock.module('@/hooks/useRemovedTraits', () => ({ default: () => [3, 7] }));
+  mock.module('@/hooks/useNetworkContext', () => ({
+    default: () => ({
+      address: '0xabc',
+      readContracts: {},
+      tx: mock(),
+      writeContracts: { Degen: { getNFTPrice: mock().mockResolvedValue(1n) } },
+    }),
+  }));
+  mock.module('@/utils/bnc-notify', () => ({ submitTxWithGasEstimate: mock() }));
+
+  const indexModule = await import('./index');
+  CharacterCreatorContainer = indexModule.default;
+
   jest.useFakeTimers();
   unity.handlers.clear();
   unity.removeAll.mockClear();

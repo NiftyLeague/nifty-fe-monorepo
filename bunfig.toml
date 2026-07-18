@@ -2,8 +2,8 @@
 # isolate intentionally OFF: happy-dom registered by test/000-setup-dom.test.ts
 # (runs first in the root `bun test` invocation) propagates to sibling files
 # via the shared realm. With isolate=true, happy-dom globals do NOT reach test
-# files (bun 1.3.x preload/test-file realms are separate). Mock leakage between
-# files is prevented by scoping every mock.module into beforeEach (see test files).
+# files (bun 1.3.x preload/test-file realms are separate) AND module mocks still
+# leak. Mock leakage is prevented by scoping every mock.module into beforeEach.
 preload = ["./test/preload.ts", "./test/setup.ts"]
 exclude = ["dist/**", "node_modules/**", "coverage/**", "**/*.test.js", "**/*.spec.js", ".next/**", ".docusaurus/**", "build/**"]
 timeout = 15000
