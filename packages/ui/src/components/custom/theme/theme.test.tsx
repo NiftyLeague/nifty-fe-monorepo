@@ -11,7 +11,9 @@ beforeEach(() => {
     ThemeProvider: ({ children }: { children?: React.ReactNode }) => <div data-testid="next-themes">{children}</div>,
     useTheme: () => ({ setTheme, resolvedTheme: themeState.resolvedTheme }),
   }));
-  mock.module('lucide-react/dynamic', () => ({ DynamicIcon: ({ name }: { name: string }) => <svg aria-label={name} /> }));
+  mock.module('lucide-react/dynamic', () => ({
+    DynamicIcon: ({ name }: { name: string }) => <svg aria-label={name} />,
+  }));
   setTheme.mockClear();
 });
 

@@ -38,4 +38,7 @@ mock.module('./sdk/index', () => ({
   playfab: { PlayFabClient: sdk.client, PlayFabAdmin: sdk.admin, PlayFabCloudScript: sdk.cloudScript },
 }));
 mock.module('./utils/getRandomKey', () => ({ getRandomKey: mock((size: number) => `random-${size}`) }));
-mock.module('./utils/wallet', () => ({ signMessage: mock(async () => '0xsigned'), isEthereumSignatureValid: mock(() => true) }));
+mock.module('./utils/wallet', () => ({
+  signMessage: mock(async () => '0xsigned'),
+  isEthereumSignatureValid: mock(() => true),
+}));
