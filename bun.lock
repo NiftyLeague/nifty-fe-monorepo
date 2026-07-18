@@ -4,6 +4,9 @@
   "workspaces": {
     "": {
       "name": "nifty-fe-monorepo",
+      "dependencies": {
+        "playfab-sdk": "^2.187.251205",
+      },
       "devDependencies": {
         "@happy-dom/global-registrator": "^18.0.1",
         "@nl/eslint-config": "workspace:*",

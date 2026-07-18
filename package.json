@@ -61,5 +61,8 @@
   "workspaces": [
     "packages/*",
     "apps/*"
-  ]
+  ],
+  "dependencies": {
+    "playfab-sdk": "^2.187.251205"
+  }
 }
