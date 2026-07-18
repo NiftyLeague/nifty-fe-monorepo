@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@axelar-network/axelarjs-sdk": "^0.17.9",
-    "@cowprotocol/cow-sdk": "^7.4.2",
+    "@cowprotocol/cow-sdk": "^9.2.2",
     "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
