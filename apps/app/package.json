@@ -64,7 +64,7 @@
     "redux-persist": "^6.0.0",
     "save-as": "^0.1.8",
     "set-interval-async": "^3.0.3",
-    "sharp": "^0.34.5",
+    "sharp": "^0.35.3",
     "slick-carousel": "~1.8.1",
     "uuid": "^13.0.2",
     "viem": "^2.55.2",
