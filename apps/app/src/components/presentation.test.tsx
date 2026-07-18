@@ -1,25 +1,43 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { afterEach, describe, expect, it } from 'bun:test';
+import { afterEach, beforeEach, describe, expect, it } from 'bun:test';
 import { mock } from 'bun:test';
-import GameCard from './cards/GameCard';
-import MainCard from './cards/MainCard';
-import SubCard from './cards/SubCard';
-import AnimateButton from './extended/AnimateButton';
-import Breadcrumbs from './extended/Breadcrumbs';
-import Transitions from './extended/Transitions';
 
 const themeState = { mode: 'light' as 'dark' | 'light' };
 
-mock.module('@nl/theme', () => ({
-  gridSpacing: 3,
-  useTheme: () => ({ palette: { mode: themeState.mode }, spacing: (value: number) => `${value * 8}px` }),
-}));
-mock.module('@nl/ui/base/icon', () => ({ Icon: ({ name }: { name: string }) => <span data-icon={name}>{name}</span> }));
-mock.module('@nl/ui/custom/external-icon', () => ({ ExternalIcon: () => <span>external</span> }));
+let GameCard: typeof import('./cards/GameCard').default;
+let MainCard: typeof import('./cards/MainCard').default;
+let SubCard: typeof import('./cards/SubCard').default;
+let AnimateButton: typeof import('./extended/AnimateButton').default;
+let Breadcrumbs: typeof import('./extended/Breadcrumbs').default;
+let Transitions: typeof import('./extended/Transitions').default;
 
-afterEach(() => {
+beforeEach(async () => {
+  mock.module('@nl/theme', () => ({
+    gridSpacing: 3,
+    useTheme: () => ({ palette: { mode: themeState.mode }, spacing: (value: number) => `${value * 8}px` }),
+  }));
+  mock.module('@nl/ui/base/icon', () => ({ Icon: ({ name }: { name: string }) => <span data-icon={name}>{name}</span> }));
+  mock.module('@nl/ui/custom/external-icon', () => ({ ExternalIcon: () => <span>external</span> }));
   themeState.mode = 'light';
   window.history.replaceState({}, '', '/');
+
+  const gameCard = await import('./cards/GameCard');
+  const mainCard = await import('./cards/MainCard');
+  const subCard = await import('./cards/SubCard');
+  const animateButton = await import('./extended/AnimateButton');
+  const breadcrumbs = await import('./extended/Breadcrumbs');
+  const transitions = await import('./extended/Transitions');
+
+  GameCard = gameCard.default;
+  MainCard = mainCard.default;
+  SubCard = subCard.default;
+  AnimateButton = animateButton.default;
+  Breadcrumbs = breadcrumbs.default;
+  Transitions = transitions.default;
+});
+
+afterEach(() => {
+  mock.restore();
 });
 
 describe('Breadcrumbs', () => {

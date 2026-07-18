@@ -1,11 +1,15 @@
 import { render } from '@testing-library/react';
-import { describe, expect, it } from 'bun:test';
-import * as SocialIcons from './social-icons';
+import { beforeEach, describe, expect, it } from 'bun:test';
 
-const iconNames = Object.keys(SocialIcons) as (keyof typeof SocialIcons)[];
+let SocialIcons: typeof import('./social-icons');
+
+beforeEach(async () => {
+  SocialIcons = await import('./social-icons');
+});
 
 describe('social-icons', () => {
   it('exports icon render functions', () => {
+    const iconNames = Object.keys(SocialIcons) as (keyof typeof SocialIcons)[];
     expect(iconNames.length).toBeGreaterThan(0);
     for (const name of iconNames) {
       expect(typeof SocialIcons[name]).toBe('function');
@@ -13,6 +17,7 @@ describe('social-icons', () => {
   });
 
   it('renders every icon as an svg with a path', () => {
+    const iconNames = Object.keys(SocialIcons) as (keyof typeof SocialIcons)[];
     for (const name of iconNames) {
       const IconFn = SocialIcons[name];
       const { container } = render(<IconFn />);
