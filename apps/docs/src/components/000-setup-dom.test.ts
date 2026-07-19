@@ -1,5 +1,5 @@
 import { GlobalRegistrator } from '@happy-dom/global-registrator';
-import { mock } from 'bun:test';
+import { describe, expect, it, mock } from 'bun:test';
 
 if (typeof (globalThis as any).document === 'undefined') {
   try {
