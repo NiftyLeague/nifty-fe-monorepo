@@ -4,17 +4,11 @@ import { mock } from 'bun:test';
 
 const unity = { handlers: new Map<string, (...args: any[]) => void>(), removeAll: mock(), send: mock() };
 
-// `mock.module` only receives `importOriginal` when registered at module top-level
-// (bun 1.3.x does not pass it inside beforeEach), so this import-original-based
-// mock must stay here. It mocks a constant module, not the module-under-test.
-mock.module('@/constants/networks', async importOriginal => {
-  const actual = await importOriginal<typeof import('@/constants/networks')>();
-  return { ...actual, TARGET_NETWORK: actual.NETWORKS.mainnet };
-});
-
 let CharacterCreatorContainer: typeof import('./index').default;
 
 beforeEach(async () => {
+  const networks = await import('@/constants/networks');
+  mock.module('@/constants/networks', () => ({ ...networks, TARGET_NETWORK: networks.NETWORKS.mainnet }));
   mock.module('react-device-detect', () => ({
     isMobileOnly: false,
     withOrientationChange: (Component: React.ComponentType<any>) => Component,
