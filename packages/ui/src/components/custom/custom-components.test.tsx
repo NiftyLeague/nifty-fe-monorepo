@@ -43,7 +43,9 @@ beforeEach(() => {
   }));
   mock.module('@nl/ui/hooks/useUserAgent', () => ({ useUserAgent: () => ({ isMobile: () => state.mobile }) }));
   mock.module('@nl/ui/hooks/useProviders', () => ({ useProviders: () => ['google'] }));
-  mock.module('lucide-react/dynamic', () => ({ DynamicIcon: ({ name }: { name: string }) => <svg aria-label={name} /> }));
+  mock.module('lucide-react/dynamic', () => ({
+    DynamicIcon: ({ name }: { name: string }) => <svg aria-label={name} />,
+  }));
 });
 
 afterEach(() => {

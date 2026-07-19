@@ -16,7 +16,9 @@ beforeEach(async () => {
     gridSpacing: 3,
     useTheme: () => ({ palette: { mode: themeState.mode }, spacing: (value: number) => `${value * 8}px` }),
   }));
-  mock.module('@nl/ui/base/icon', () => ({ Icon: ({ name }: { name: string }) => <span data-icon={name}>{name}</span> }));
+  mock.module('@nl/ui/base/icon', () => ({
+    Icon: ({ name }: { name: string }) => <span data-icon={name}>{name}</span>,
+  }));
   mock.module('@nl/ui/custom/external-icon', () => ({ ExternalIcon: () => <span>external</span> }));
   themeState.mode = 'light';
   window.history.replaceState({}, '', '/');
