@@ -3,6 +3,7 @@ import { afterEach, beforeEach, describe, expect, it } from 'bun:test';
 import { mock } from 'bun:test';
 
 beforeEach(() => {
+  mock.module('@theme/ThemedImage', () => ({ default: ({ alt }: { alt: string }) => <img alt={alt} /> }));
   mock.module('@site/public/icons/socials/github.svg', () => ({ default: () => <svg aria-label="GitHub" /> }));
   mock.module('@site/public/img/logos/NFTL/logo.svg', () => ({ default: () => <svg aria-label="NFTL" /> }));
   mock.module('@site/public/img/logos/NL/logo.svg', () => ({ default: () => <svg aria-label="Nifty League" /> }));

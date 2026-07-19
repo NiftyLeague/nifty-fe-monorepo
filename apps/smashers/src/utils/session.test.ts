@@ -38,7 +38,8 @@ describe('route wrappers', () => {
 
     expect(handler).toHaveBeenCalledWith(expect.any(Request), session);
     expect(response.status).toBe(200);
-    expect(response.headers.get('set-cookie')).toContain('session=updated');
+    const setCookie = response.headers.get('set-cookie');
+    expect(String(setCookie)).toContain('session=updated');
   });
 
   it('rejects anonymous users before invoking protected handlers', async () => {
