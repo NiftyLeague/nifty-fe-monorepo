@@ -211,7 +211,7 @@ describe('AnimatedWrapper and Preloader', () => {
 
   it('normalizes progress, controls page scrolling, and displays slow-mobile guidance', () => {
     jest.useFakeTimers();
-    const { rerender } = render(<Preloader ready={false} progress={0.9} />);
+    const { rerender } = render(<Preloader ready={false} progress={0.9} showWarning />);
     act(() => jest.runOnlyPendingTimers());
     expect(screen.getByText('For the best experience try us out on desktop!')).not.toBeNull();
     expect(document.documentElement.style.overflow).toBe('hidden');

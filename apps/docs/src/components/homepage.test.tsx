@@ -4,6 +4,10 @@ import { mock } from 'bun:test';
 
 beforeEach(() => {
   mock.module('@theme/ThemedImage', () => ({ default: ({ alt }: { alt: string }) => <img alt={alt} /> }));
+  mock.module('@docusaurus/Link', () => ({
+    default: ({ to, href, children }: any) => <a href={to ?? href}>{children}</a>,
+  }));
+  mock.module('@docusaurus/useBaseUrl', () => ({ default: (url: string) => url }));
   mock.module('@site/public/icons/socials/github.svg', () => ({ default: () => <svg aria-label="GitHub" /> }));
   mock.module('@site/public/img/logos/NFTL/logo.svg', () => ({ default: () => <svg aria-label="NFTL" /> }));
   mock.module('@site/public/img/logos/NL/logo.svg', () => ({ default: () => <svg aria-label="Nifty League" /> }));

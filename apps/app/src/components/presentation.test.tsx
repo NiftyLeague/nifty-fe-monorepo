@@ -60,7 +60,9 @@ describe('Breadcrumbs', () => {
   };
 
   it('resolves nested routes and renders the full title and icon variants', async () => {
-    window.history.replaceState({}, '', '/profile');
+    const originalLoc = document.location;
+    const loc = { pathname: '/profile' } as Location;
+    Object.defineProperty(document, 'location', { value: loc, writable: true, configurable: true });
     const { rerender } = render(
       <Breadcrumbs navigation={navigation as never} card={false} icons rightAlign title separator="chevron-right" />,
     );
@@ -75,6 +77,8 @@ describe('Breadcrumbs', () => {
     );
     expect(screen.getByText('house')).not.toBeNull();
     expect(screen.getAllByText('Profile')).toHaveLength(2);
+
+    Object.defineProperty(document, 'location', { value: originalLoc, writable: true, configurable: true });
   });
 
   it('omits the card when an item disables breadcrumbs or no route matches', async () => {

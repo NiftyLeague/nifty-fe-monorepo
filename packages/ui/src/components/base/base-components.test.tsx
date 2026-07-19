@@ -204,7 +204,7 @@ describe('base controlled primitives', () => {
     );
 
     expect(screen.getByText('Expanded details')).toBeTruthy();
-    expect((screen.getByRole('checkbox', { name: 'Accept' }) as HTMLInputElement)?.checked).toBe(true);
+    expect(screen.getByRole('checkbox', { name: 'Accept' })?.getAttribute('data-state')).toBe('checked');
     expect(screen.getByRole('tab', { name: 'First' })?.getAttribute('data-state')).toBe('active');
     expect(screen.getByText('First panel')).toBeTruthy();
   });
