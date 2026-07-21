@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   quality:
-    name: CI / Build, Format, Lint & Type Check
+    name: Build, Format, Lint & Type Check
     runs-on: ubuntu-latest
     env:
       NEXT_PUBLIC_APPLE_STORE_ID: '000000000'
@@ -39,7 +39,7 @@ jobs:
         run: bun run build
 
   test:
-    name: CI / Test
+    name: Test
     runs-on: ubuntu-latest
     needs: quality
     steps:
