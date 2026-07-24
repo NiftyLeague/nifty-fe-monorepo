@@ -2,12 +2,7 @@ import { act, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, jest, mock } from 'bun:test';
 import { Preloader } from './index';
 
-const state = {
-  mobile: false,
-  milliseconds: 0,
-  start: mock(),
-  stop: mock(),
-};
+const state = { mobile: false, milliseconds: 0, start: mock(), stop: mock() };
 
 beforeEach(() => {
   mock.module('@nl/ui/hooks/useStopwatch', () => ({
@@ -20,9 +15,7 @@ beforeEach(() => {
       restart: mock(),
     }),
   }));
-  mock.module('@nl/ui/hooks/useUserAgent', () => ({
-    useUserAgent: () => ({ isMobile: () => state.mobile }),
-  }));
+  mock.module('@nl/ui/hooks/useUserAgent', () => ({ useUserAgent: () => ({ isMobile: () => state.mobile }) }));
 });
 
 afterEach(() => {
