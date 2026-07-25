@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: ci-${{ github.ref }}
+  group: ci-${{{{ github.ref }}}}
   cancel-in-progress: true
 
 jobs:
@@ -18,14 +18,6 @@ jobs:
     name: Build, Format, Lint & Type Check
     if: github.event_name != 'pull_request' || github.head_ref != 'staging'
     runs-on: ubuntu-latest
-    env:
-      NEXT_PUBLIC_APPLE_STORE_ID: '000000000'
-      NEXT_PUBLIC_APPLE_STORE_LINK: 'https://apps.apple.com/app/id000000000'
-      NEXT_PUBLIC_EPIC_LINK: 'https://store.epicgames.com/'
-      NEXT_PUBLIC_GOOGLE_PLAY_LINK: 'https://play.google.com/store'
-      NEXT_PUBLIC_STEAM_LINK: 'https://store.steampowered.com/'
-      NEXT_PUBLIC_NETWORK: 'mainnet'
-      NEXTAUTH_SECRET: 'build-validation-placeholder-secret-32chars'
     steps:
       - uses: actions/checkout@v7
       - uses: jdx/mise-action@v4
