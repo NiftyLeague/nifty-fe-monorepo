@@ -40,15 +40,15 @@ This is a **Turborepo** monorepo managed with **Bun** (v1.3.14) and **Node.js** 
 
 ### Commands
 
-| Command          | What it does                                            |
-| ---------------- | ------------------------------------------------------- |
-| `turbo build`    | Build all apps & packages                               |
-| `turbo dev`      | Run everything in dev mode                              |
-| `turbo test`     | Run tests (bun native, not vitest/jest)                 |
-| `turbo format`   | Check formatting                                        |
-| `turbo format:fix` | Auto-format                                           |
-| `turbo lint`     | ESLint + Prettier                                       |
-| `turbo type-check` | TypeScript checks                                      |
+| Command            | What it does                            |
+| ------------------ | --------------------------------------- |
+| `turbo build`      | Build all apps & packages               |
+| `turbo dev`        | Run everything in dev mode              |
+| `turbo test`       | Run tests (bun native, not vitest/jest) |
+| `turbo format`     | Check formatting                        |
+| `turbo format:fix` | Auto-format                             |
+| `turbo lint`       | ESLint + Prettier                       |
+| `turbo type-check` | TypeScript checks                       |
 
 ---
 
@@ -260,11 +260,11 @@ Since a commit can never be simultaneously pushed to `main`/`staging` AND be a P
 
 ### CI jobs
 
-| Job                                | What it checks                                      |
-| ---------------------------------- | --------------------------------------------------- |
-| `Build, Format, Lint & Type Check` | Compilation, formatting, ESLint, TypeScript         |
-| `Test`                             | `turbo test` — all unit + integration tests       |
-| `Vercel Preview Comments`          | Preview deployment verification                     |
+| Job                                | What it checks                              |
+| ---------------------------------- | ------------------------------------------- |
+| `Build, Format, Lint & Type Check` | Compilation, formatting, ESLint, TypeScript |
+| `Test`                             | `turbo test` — all unit + integration tests |
+| `Vercel Preview Comments`          | Preview deployment verification             |
 
 ### If CI fails
 
