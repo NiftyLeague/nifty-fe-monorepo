@@ -12,7 +12,7 @@
     "lint:fix": "eslint --fix .",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs",
     "start": "next start",
-    "test": "bun test --project-placeholder web",
+    "test": "bun test",
     "test:coverage": "VITEST_SCOPE=apps/web bun test --project-placeholder web --coverage",
     "test:watch": "bun test --watch",
     "type-check": "tsc --noEmit"
