@@ -349,26 +349,9 @@ When squashing, the commit message should be:
 
 ---
 
-## 10. Fallback Behavior — Private Repos Without Enforced Protections
+## 10. Workflow Discipline
 
-Some Nifty League repositories are **private** and hosted on individual accounts (not org accounts).  
-GitHub Free does not enforce branch protection rules on private repositories via the API.
-
-**When branch protections are not enforced by GitHub, you must enforce them yourself.**  
-This applies to:
-
-- `pink-binder` (private, 0xPlayerOne account)
-- Any future private repos on Free plans
-
-### Self-enforcement rules for private repos
-
-1. **Never push directly to `main`** — even though GitHub won't stop you. If you push directly to main, roll back immediately.
-2. **Only merge into `main` from `staging`.** No other branch may merge into main. When opening a PR that targets main, verify the source branch is `staging` before creating it. **GitHub has no API-level way to restrict which branch a PR comes from** — this is a manual/agent audit gate.
-3. **Wait for all CI to pass** before merging into `main` or `staging`. Do not override CI failures.
-4. **Follow the exact same workflow** documented in sections 2–9 of this guide. These are the rules regardless of whether GitHub enforces them.
-5. **Agents must self-audit** — Hermes agents operating on these repos must explicitly check that CI passed before merging, since no branch protection gate exists.
-
-> **Philosophy:** Branch protection is a safety net, not a workflow definition. The workflow is defined here. When the safety net is absent, we simply walk the tightrope more carefully.
+Branch protections are a safety net, not a workflow definition. The workflow defined in sections 2–9 is authoritative regardless of whether GitHub's API enforces every rule. Always follow the documented process — do not bypass quality gates even when technically possible.
 
 ---
 
