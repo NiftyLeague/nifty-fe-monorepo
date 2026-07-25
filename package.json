@@ -47,9 +47,8 @@
     "lint": "turbo lint",
     "lint:fix": "turbo lint:fix",
     "migrate-ui": "bun --filter ui migrate",
-    "install:ci": "bun install --frozen-lockfile",
-    "install": "bun install --frozen-lockfile --ignore-scripts && bun run prepare",
-    "prepare": "husky || true && bun symlinks",
+    "install": "bun install --frozen-lockfile",
+  "prepare": "husky || true && bun symlinks",
     "symlinks": "bun exec .sh/symlinks.sh",
     "sync-node-versions": "bun exec .sh/sync-node-versions.sh",
     "test": "turbo test",
@@ -86,16 +85,5 @@
       "name": "bun",
       "version": "1.3.14"
     }
-  },
-  "overrides": {
-    "adm-zip": "0.5.16",
-    "fast-uri": "4.0.1",
-    "serialize-javascript": "6.0.2",
-    "ws": "8.18.2",
-    "undici": "6.21.2",
-    "tmp": "0.2.3",
-    "brace-expansion": "2.0.2",
-    "crypto-es": "2.1.0",
-    "protobufjs": "7.5.0"
   }
 }

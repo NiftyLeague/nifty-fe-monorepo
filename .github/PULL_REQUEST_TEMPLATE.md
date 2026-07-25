@@ -2,25 +2,10 @@
 
 <!-- Summarize the change. Link to any related issues. -->
 
-## Type
-
-- [ ] **feat** — New feature or enhancement
-- [ ] **fix** — Bug fix
-- [ ] **chore** — Tooling, config, CI, dependencies
-- [ ] **refactor** — Code change with no functional change
-- [ ] **docs** — Documentation only
-- [ ] **test** — Adding or updating tests
-- [ ] **style** — Formatting, imports, whitespace (no logic change)
-
-## Target Branch
-
-- [ ] `staging` (default — all PRs target staging)
-- [ ] `main` (release only — must originate from `staging`)
-
 ## CI Status (do not merge until all pass)
 
 - [ ] `Build, Format, Lint & Type Check` — `bun run lint && bun run type:check && bun run build`
-- [ ] `Test` — `bun test`
+- [ ] `Test` — `bun run test`
 - [ ] Preview deployment passes (if applicable)
 
 ## Compliance Checklist
