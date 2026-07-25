@@ -30,7 +30,7 @@ jobs:
       - uses: jdx/mise-action@v4
         with:
           cache: true
-      - run: bun run install
+      - run: bun install --frozen-lockfile
       - name: Format check
         run: bun run format:check
       - name: Lint
@@ -49,6 +49,6 @@ jobs:
       - uses: jdx/mise-action@v4
         with:
           cache: true
-      - run: bun run install
+      - run: bun install --frozen-lockfile
       - name: Test
         run: bun run test
