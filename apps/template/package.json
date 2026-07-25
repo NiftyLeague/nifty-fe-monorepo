@@ -7,15 +7,15 @@
     "clean": "rm -rf node_modules && rm -rf .turbo && rm -rf .next",
     "dev": "next dev --port 3005",
     "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\" --ignore-path ../../.gitignore",
-    "test": "bun test || true",
+    "test": "bun test --project-placeholder template",
     "test:coverage": "VITEST_SCOPE=apps/template bun test --project-placeholder template --coverage",
     "test:watch": "vitest --config ../../vitest.config.ts --project template"
   },
   "dependencies": {
     "@nl/ui": "workspace:*",
     "next": "16.2.11",
-    "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
   },
   "devDependencies": {
     "@types/node": "^26.1.1",
