@@ -30,26 +30,26 @@ This is a **Turborepo** monorepo managed with **Bun** (v1.3.14) and **Node.js** 
 
 ### Apps
 
-| App | Stack | Port |
-|---|---|---|
-| `app` | Next.js (Web3 dashboard) | — |
-| `docs` | Docusaurus | — |
-| `web` | Next.js (company website) | — |
-| `smashers` | Next.js (game site) | — |
-| `template` | Next.js (new-app scaffold) | — |
+| App        | Stack                      | Port |
+| ---------- | -------------------------- | ---- |
+| `app`      | Next.js (Web3 dashboard)   | —    |
+| `docs`     | Docusaurus                 | —    |
+| `web`      | Next.js (company website)  | —    |
+| `smashers` | Next.js (game site)        | —    |
+| `template` | Next.js (new-app scaffold) | —    |
 
 ### Commands
 
-| Command | What it does |
-|---|---|
+| Command                         | What it does                                            |
+| ------------------------------- | ------------------------------------------------------- |
 | `bun install --frozen-lockfile` | Install deps (CI-style, never modify lockfile casually) |
-| `turbo build` | Build all apps & packages |
-| `turbo dev` | Run everything in dev mode |
-| `bun test --isolate` | Run tests (bun native, not vitest/jest) |
-| `turbo format` | Check formatting |
-| `turbo format:fix` | Auto-format |
-| `turbo lint` | ESLint + Prettier |
-| `turbo type:check` | TypeScript checks |
+| `turbo build`                   | Build all apps & packages                               |
+| `turbo dev`                     | Run everything in dev mode                              |
+| `bun test --isolate`            | Run tests (bun native, not vitest/jest)                 |
+| `turbo format`                  | Check formatting                                        |
+| `turbo format:fix`              | Auto-format                                             |
+| `turbo lint`                    | ESLint + Prettier                                       |
+| `turbo type:check`              | TypeScript checks                                       |
 
 ---
 
@@ -233,12 +233,12 @@ git push origin feat/your-feature
 
 ### What runs when
 
-| Event | CI trigger | Reason |
-|---|---|---|
-| Push to `main` or `staging` | `push` trigger → **full CI runs** | Covers direct pushes to staging, and staging→main merge commits |
-| PR opened/synchronized targeting `staging` | `pull_request` trigger → **full CI runs** | Covers sub-branch→staging PRs |
-| Push to a feature branch (`feat/*`, `fix/*`, etc.) | **No CI** | CI only runs when a PR is opened into staging |
-| Direct push to `main` | **Blocked by branch protection** | Only possible via staging→main merge |
+| Event                                              | CI trigger                                | Reason                                                          |
+| -------------------------------------------------- | ----------------------------------------- | --------------------------------------------------------------- |
+| Push to `main` or `staging`                        | `push` trigger → **full CI runs**         | Covers direct pushes to staging, and staging→main merge commits |
+| PR opened/synchronized targeting `staging`         | `pull_request` trigger → **full CI runs** | Covers sub-branch→staging PRs                                   |
+| Push to a feature branch (`feat/*`, `fix/*`, etc.) | **No CI**                                 | CI only runs when a PR is opened into staging                   |
+| Direct push to `main`                              | **Blocked by branch protection**          | Only possible via staging→main merge                            |
 
 ### Why no duplicates
 
@@ -249,20 +249,20 @@ CI runs on `push` events (to main/staging) and `pull_request` events (targeting 
 
 Since a commit can never be simultaneously pushed to `main`/`staging` AND be a PR's head commit from a different branch, **no commit ever triggers CI twice**.
 
-| Scenario | Push trigger? | PR trigger? | Double? |
-|---|---|---|---|
-| Push to sub-branch `feat/foo` | No (wrong branch) | No (no PR event) | ✅ No |
-| Open PR `feat/foo` → `staging` | No (commit is on sub-branch) | Yes | ✅ No |
-| Push to `staging` directly | Yes | No | ✅ No |
-| Merge staging→main (push to `main`) | Yes | No | ✅ No |
+| Scenario                            | Push trigger?                | PR trigger?      | Double? |
+| ----------------------------------- | ---------------------------- | ---------------- | ------- |
+| Push to sub-branch `feat/foo`       | No (wrong branch)            | No (no PR event) | ✅ No   |
+| Open PR `feat/foo` → `staging`      | No (commit is on sub-branch) | Yes              | ✅ No   |
+| Push to `staging` directly          | Yes                          | No               | ✅ No   |
+| Merge staging→main (push to `main`) | Yes                          | No               | ✅ No   |
 
 ### CI jobs
 
-| Job | What it checks |
-|---|---|
-| `Build, Format, Lint & Type Check` | Compilation, formatting, ESLint, TypeScript |
-| `Test` | `bun test --isolate` — all unit + integration tests |
-| `Vercel Preview Comments` | Preview deployment verification |
+| Job                                | What it checks                                      |
+| ---------------------------------- | --------------------------------------------------- |
+| `Build, Format, Lint & Type Check` | Compilation, formatting, ESLint, TypeScript         |
+| `Test`                             | `bun test --isolate` — all unit + integration tests |
+| `Vercel Preview Comments`          | Preview deployment verification                     |
 
 ### If CI fails
 
@@ -283,6 +283,7 @@ Since a commit can never be simultaneously pushed to `main`/`staging` AND be a P
 Types: `feat`, `fix`, `chore`, `refactor`, `docs`, `test`, `ci`, `perf`, `style`.
 
 Examples:
+
 - `feat(wallet): add Ledger hardware wallet support`
 - `fix(dashboard): correct TVL calculation for maturing vaults`
 - `chore(deps): upgrade next.js to v15`
@@ -328,17 +329,18 @@ Examples:
 
 ## 9. Merge Protocol
 
-| From | To | Method | Reviewer | Notes |
-|---|---|---|---|---|
-| Sub-branch | `staging` | Squash merge | Optional (self-merge OK) | Delete branch after merge |
-| Direct push to `staging` | `staging` | Push | N/A | For small fixes or urgent bugs |
-| `staging` | `main` | Squash merge | 0xPlayerOne / agent | Only when all CI passes on staging |
+| From                     | To        | Method       | Reviewer                 | Notes                              |
+| ------------------------ | --------- | ------------ | ------------------------ | ---------------------------------- |
+| Sub-branch               | `staging` | Squash merge | Optional (self-merge OK) | Delete branch after merge          |
+| Direct push to `staging` | `staging` | Push         | N/A                      | For small fixes or urgent bugs     |
+| `staging`                | `main`    | Squash merge | 0xPlayerOne / agent      | Only when all CI passes on staging |
 
 ### Squash merge convention
 
 All merges use **squash merge** — every PR becomes a single commit on the target branch. This keeps history clean and linear.
 
 When squashing, the commit message should be:
+
 ```
 <type>(<scope>): <summary>
 
@@ -396,5 +398,5 @@ This must be followed by a CI-fixing follow-up commit within 24 hours. Abuse of 
 
 ---
 
-*Last updated: 2026-07-25*  
-*Maintainers: Nifty League engineering team*
+_Last updated: 2026-07-25_  
+_Maintainers: Nifty League engineering team_
