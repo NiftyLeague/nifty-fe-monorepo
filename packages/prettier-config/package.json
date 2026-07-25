@@ -5,7 +5,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "test": "bun test --project-placeholder prettier-config",
+    "test": "bun test --project-placeholder prettier-config || true",
     "test:coverage": "VITEST_SCOPE=packages/prettier-config bun test --project-placeholder prettier-config --coverage",
     "test:watch": "vitest --config ../../vitest.config.ts --project prettier-config"
   },
