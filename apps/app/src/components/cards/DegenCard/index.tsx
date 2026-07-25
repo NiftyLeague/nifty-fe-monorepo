@@ -1,5 +1,4 @@
 'use client';
-// @ts-nocheck — MUI 9 sx prop type mismatch between @mui/system and @mui/material Theme
 
 import { memo, useMemo } from 'react';
 import Image from 'next/image';
@@ -136,6 +135,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
     const tinyFontSize = size === 'small' ? '8px' : typography.caption.fontSize;
 
     return (
+      // @ts-expect-error MUI 9 sx prop type incompatibility
       <Card
         sx={{
           width: '100%',
