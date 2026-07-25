@@ -19,7 +19,7 @@ All agents (Hermes and other automation) must read and follow this document befo
 7. [Pull Request Guidelines](#7-pull-request-guidelines)
 8. [Code Review Standards](#8-code-review-standards)
 9. [Merge Protocol](#9-merge-protocol)
-10. [Fallback Behavior — Private Repos Without Enforced Protections](#10-fallback-behavior--private-repos-without-enforced-protections)
+10. [Workflow Discipline](#10-workflow-discipline)
 11. [Emergency Procedures](#11-emergency-procedures)
 
 ---
@@ -42,14 +42,14 @@ This is a **Turborepo** monorepo managed with **Bun** (v1.3.14) and **Node.js** 
 
 | Command                         | What it does                                            |
 | ------------------------------- | ------------------------------------------------------- |
-| `bun install --frozen-lockfile` | Install deps (CI-style, never modify lockfile casually) |
-| `turbo build`                   | Build all apps & packages                               |
-| `turbo dev`                     | Run everything in dev mode                              |
-| `bun test --isolate`            | Run tests (bun native, not vitest/jest)                 |
-| `turbo format`                  | Check formatting                                        |
-| `turbo format:fix`              | Auto-format                                             |
-| `turbo lint`                    | ESLint + Prettier                                       |
-| `turbo type:check`              | TypeScript checks                                       |
+| `bun run install`               | Install deps (`bun install --frozen-lockfile`)          |
+| `bun run build`                 | Build all apps & packages (`turbo build`)               |
+| `bun run dev`                   | Run everything in dev mode (`turbo dev`)                |
+| `bun run test`                  | Run tests (`turbo test`)                                |
+| `bun run format`                | Check formatting (`turbo format`)                       |
+| `bun run format:fix`            | Auto-format                                             |
+| `bun run lint`                  | ESLint                                                  |
+| `bun run type:check`            | TypeScript checks                                       |
 
 ---
 
@@ -75,6 +75,7 @@ feat/foo  fix/bar  chore/baz  ...          (feature branches)
 ### `staging` — Integration Branch
 
 - **Default workflow: branch → PR → merge.** Create a new branch for your work, open a PR into staging, and let CI verify it. This is the preferred path.
+- **PRs are created as drafts** automatically by CI when a feature branch is pushed. Once CI passes, the PR is marked ready for review/merge.
 - **Can push directly** for small fixes or urgent bugs (YOLO) when a branch+PR would be overkill.
 - **CI must pass** before merging into staging (enforced by required status checks on the PR).
 - **Force pushes allowed** — needed for rebasing sub-branches.
@@ -83,6 +84,7 @@ feat/foo  fix/bar  chore/baz  ...          (feature branches)
   - Fix the issue on the sub-branch and re-merge, OR
   - Merge anyway and fix directly on staging (this is intentionally flexible).
   - The only hard rule: **before staging→main, CI must pass.**
+- **Rebase staging after main release.** After `staging` is merged into `main`, rebase `staging` on `main` to keep history aligned and prevent merge conflicts in future PRs.
 
 ### Feature Branches — `feat/*`, `fix/*`, `chore/*`, `refactor/*`
 
@@ -112,7 +114,7 @@ cd nifty-fe-monorepo
 mise install
 
 # Install dependencies
-bun install --frozen-lockfile
+bun run install
 
 # Run everything in dev mode
 turbo dev
@@ -121,9 +123,9 @@ turbo dev
 ### Before committing
 
 ```bash
-bun run lint           # ESLint + formatting checks
+bun run lint           # ESLint
 bun run type:check     # TypeScript type checking
-bun test --isolate     # Run all tests
+bun run test           # Run all tests (turbo test)
 bun run format:fix     # Auto-format (runs via husky pre-commit too)
 ```
 
@@ -175,11 +177,12 @@ git push origin feat/my-feature
 
 ### 4.5 Staging → Main (release)
 
-- Only 0xPlayerOne (or the daily review agent) merges `staging` into `main`.
+- **Only admins can merge into `main`.** The daily review agent may pick up PRs once they are approved by an admin on GitHub.
 - All CI must be green on staging before this PR opens.
 - All Vercel preview deployments (if any) must pass.
 - Squash merge with a release summary message.
 - The `main` branch is then deployed to production by CI.
+- **After merge, rebase `staging` on `main`** to keep branch histories aligned and prevent future merge conflicts.
 
 ---
 
@@ -261,7 +264,7 @@ Since a commit can never be simultaneously pushed to `main`/`staging` AND be a P
 | Job                                | What it checks                                      |
 | ---------------------------------- | --------------------------------------------------- |
 | `Build, Format, Lint & Type Check` | Compilation, formatting, ESLint, TypeScript         |
-| `Test`                             | `bun test --isolate` — all unit + integration tests |
+| `Test`                             | `bun run test` — all unit + integration tests       |
 | `Vercel Preview Comments`          | Preview deployment verification                     |
 
 ### If CI fails
@@ -274,30 +277,20 @@ Since a commit can never be simultaneously pushed to `main`/`staging` AND be a P
 
 ## 7. Pull Request Guidelines
 
-### Title format
+Every PR must use the [pull request template](./PULL_REQUEST_TEMPLATE.md) — do not delete sections.
 
-```
-<type>(<scope>): <description>
-```
+The template covers:
 
-Types: `feat`, `fix`, `chore`, `refactor`, `docs`, `test`, `ci`, `perf`, `style`.
+- **Description** — what changed and why
+- **CI Status** — checkbox for each required check
+- **Compliance Checklist** — locking, format, dep hygiene, no generated artifacts
+- **Additional Context** — breaking changes, migration steps, related PRs
 
-Examples:
+Since feature branches are already prefixed (`feat/`, `fix/`, `chore/`, etc.) and all PRs target `staging`, the template intentionally omits type-picker and target-branch fields — they are inferred from the branch and CI context.
 
-- `feat(wallet): add Ledger hardware wallet support`
-- `fix(dashboard): correct TVL calculation for maturing vaults`
-- `chore(deps): upgrade next.js to v15`
-- `ci: pin actions to commit hashes for supply-chain security`
+### Staging→main (release) PRs
 
-### PR description checklist
-
-- [ ] Linked issue (if applicable)
-- [ ] Brief description of changes
-- [ ] Screenshots / screen recordings for UI changes
-- [ ] Testing steps / verification notes
-- [ ] Any known side effects or migration steps
-
-### Size discipline
+Release PRs follow the same template but add a release summary describing the batch.
 
 - Prefer small, focused PRs (under 400 lines changed when possible).
 - Large features should be broken into multiple PRs targeting staging.
@@ -315,7 +308,7 @@ Examples:
 
 ### Staging → Main PRs
 
-- **Reviewed by 0xPlayerOne** (or the daily review agent).
+- **Only admins can merge into `main`.** The daily review agent picks up PRs once they are approved by an admin on GitHub (via review approval).
 - Focused on: does CI pass? Are there breaking changes? Is the release summary complete?
 - This is a release gate, not a code-level review (code review happened on sub-branch→staging).
 
@@ -329,11 +322,11 @@ Examples:
 
 ## 9. Merge Protocol
 
-| From                     | To        | Method       | Reviewer                 | Notes                              |
-| ------------------------ | --------- | ------------ | ------------------------ | ---------------------------------- |
-| Sub-branch               | `staging` | Squash merge | Optional (self-merge OK) | Delete branch after merge          |
-| Direct push to `staging` | `staging` | Push         | N/A                      | For small fixes or urgent bugs     |
-| `staging`                | `main`    | Squash merge | 0xPlayerOne / agent      | Only when all CI passes on staging |
+| From                     | To        | Method       | Reviewer                         | Notes                                     |
+| ------------------------ | --------- | ------------ | -------------------------------- | ----------------------------------------- |
+| Sub-branch               | `staging` | Squash merge | Optional (self-merge OK)         | Delete branch after merge; auto-draft PR  |
+| Direct push to `staging` | `staging` | Push         | N/A                              | For small fixes or urgent bugs             |
+| `staging`                | `main`    | Squash merge | Admin (0xPlayerOne / daily agent) | Only when all CI passes on staging         |
 
 ### Squash merge convention
 
