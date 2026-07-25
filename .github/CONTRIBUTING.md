@@ -40,16 +40,16 @@ This is a **Turborepo** monorepo managed with **Bun** (v1.3.14) and **Node.js** 
 
 ### Commands
 
-| Command                         | What it does                                            |
-| ------------------------------- | ------------------------------------------------------- |
-| `bun run install`               | Install deps (`bun install --frozen-lockfile`)          |
-| `bun run build`                 | Build all apps & packages (`turbo build`)               |
-| `bun run dev`                   | Run everything in dev mode (`turbo dev`)                |
-| `bun run test`                  | Run tests (`turbo test`)                                |
-| `bun run format`                | Check formatting (`turbo format`)                       |
-| `bun run format:fix`            | Auto-format                                             |
-| `bun run lint`                  | ESLint                                                  |
-| `bun run type:check`            | TypeScript checks                                       |
+| Command              | What it does                                   |
+| -------------------- | ---------------------------------------------- |
+| `bun run install`    | Install deps (`bun install --frozen-lockfile`) |
+| `bun run build`      | Build all apps & packages (`turbo build`)      |
+| `bun run dev`        | Run everything in dev mode (`turbo dev`)       |
+| `bun run test`       | Run tests (`turbo test`)                       |
+| `bun run format`     | Check formatting (`turbo format`)              |
+| `bun run format:fix` | Auto-format                                    |
+| `bun run lint`       | ESLint                                         |
+| `bun run type:check` | TypeScript checks                              |
 
 ---
 
@@ -261,11 +261,11 @@ Since a commit can never be simultaneously pushed to `main`/`staging` AND be a P
 
 ### CI jobs
 
-| Job                                | What it checks                                      |
-| ---------------------------------- | --------------------------------------------------- |
-| `Build, Format, Lint & Type Check` | Compilation, formatting, ESLint, TypeScript         |
-| `Test`                             | `bun run test` — all unit + integration tests       |
-| `Vercel Preview Comments`          | Preview deployment verification                     |
+| Job                                | What it checks                                |
+| ---------------------------------- | --------------------------------------------- |
+| `Build, Format, Lint & Type Check` | Compilation, formatting, ESLint, TypeScript   |
+| `Test`                             | `bun run test` — all unit + integration tests |
+| `Vercel Preview Comments`          | Preview deployment verification               |
 
 ### If CI fails
 
@@ -322,11 +322,11 @@ Release PRs follow the same template but add a release summary describing the ba
 
 ## 9. Merge Protocol
 
-| From                     | To        | Method       | Reviewer                         | Notes                                     |
-| ------------------------ | --------- | ------------ | -------------------------------- | ----------------------------------------- |
-| Sub-branch               | `staging` | Squash merge | Optional (self-merge OK)         | Delete branch after merge; auto-draft PR  |
-| Direct push to `staging` | `staging` | Push         | N/A                              | For small fixes or urgent bugs             |
-| `staging`                | `main`    | Squash merge | Admin (0xPlayerOne / daily agent) | Only when all CI passes on staging         |
+| From                     | To        | Method       | Reviewer                          | Notes                                    |
+| ------------------------ | --------- | ------------ | --------------------------------- | ---------------------------------------- |
+| Sub-branch               | `staging` | Squash merge | Optional (self-merge OK)          | Delete branch after merge; auto-draft PR |
+| Direct push to `staging` | `staging` | Push         | N/A                               | For small fixes or urgent bugs           |
+| `staging`                | `main`    | Squash merge | Admin (0xPlayerOne / daily agent) | Only when all CI passes on staging       |
 
 ### Squash merge convention
 
