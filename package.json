@@ -86,5 +86,11 @@
       "name": "bun",
       "version": "1.3.14"
     }
+  },
+  "overrides": {
+    "adm-zip": "0.5.16",
+    "fast-uri": "4.0.1",
+    "serialize-javascript": "6.0.2",
+    "ws": "8.18.2"
   }
 }
