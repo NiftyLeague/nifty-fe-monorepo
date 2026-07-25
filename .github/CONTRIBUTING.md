@@ -40,16 +40,15 @@ This is a **Turborepo** monorepo managed with **Bun** (v1.3.14) and **Node.js** 
 
 ### Commands
 
-| Command              | What it does                                   |
-| -------------------- | ---------------------------------------------- |
-| `bun run install`    | Install deps (`bun install --frozen-lockfile`) |
-| `bun run build`      | Build all apps & packages (`turbo build`)      |
-| `bun run dev`        | Run everything in dev mode (`turbo dev`)       |
-| `bun run test`       | Run tests (`turbo test`)                       |
-| `bun run format`     | Check formatting (`turbo format`)              |
-| `bun run format:fix` | Auto-format                                    |
-| `bun run lint`       | ESLint                                         |
-| `bun run type:check` | TypeScript checks                              |
+| Command          | What it does                                            |
+| ---------------- | ------------------------------------------------------- |
+| `turbo build`    | Build all apps & packages                               |
+| `turbo dev`      | Run everything in dev mode                              |
+| `turbo test`     | Run tests (bun native, not vitest/jest)                 |
+| `turbo format`   | Check formatting                                        |
+| `turbo format:fix` | Auto-format                                           |
+| `turbo lint`     | ESLint + Prettier                                       |
+| `turbo type-check` | TypeScript checks                                      |
 
 ---
 
@@ -114,7 +113,7 @@ cd nifty-fe-monorepo
 mise install
 
 # Install dependencies
-bun run install
+bun install --frozen-lockfile
 
 # Run everything in dev mode
 turbo dev
@@ -123,10 +122,10 @@ turbo dev
 ### Before committing
 
 ```bash
-bun run lint           # ESLint
-bun run type:check     # TypeScript type checking
-bun run test           # Run all tests (turbo test)
-bun run format:fix     # Auto-format (runs via husky pre-commit too)
+turbo lint           # ESLint + Prettier
+turbo type-check     # TypeScript type checking
+turbo test           # Run all tests
+turbo format:fix     # Auto-format (runs via husky pre-commit too)
 ```
 
 > **Note:** Husky + lint-staged are active. Pre-commit hooks run `turbo format:fix` on staged files.  
@@ -261,11 +260,11 @@ Since a commit can never be simultaneously pushed to `main`/`staging` AND be a P
 
 ### CI jobs
 
-| Job                                | What it checks                                |
-| ---------------------------------- | --------------------------------------------- |
-| `Build, Format, Lint & Type Check` | Compilation, formatting, ESLint, TypeScript   |
-| `Test`                             | `bun run test` — all unit + integration tests |
-| `Vercel Preview Comments`          | Preview deployment verification               |
+| Job                                | What it checks                                      |
+| ---------------------------------- | --------------------------------------------------- |
+| `Build, Format, Lint & Type Check` | Compilation, formatting, ESLint, TypeScript         |
+| `Test`                             | `turbo test` — all unit + integration tests       |
+| `Vercel Preview Comments`          | Preview deployment verification                     |
 
 ### If CI fails
 
