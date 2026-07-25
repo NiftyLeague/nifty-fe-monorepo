@@ -5,11 +5,11 @@
 Only the **latest commit on `staging`** receives security patches.  
 Patches are fast-forwarded to `main` on the next release cycle.
 
-| Branch | Supported |
-|---|---|
-| `staging` | ✅ |
-| `main` | ✅ (via staging→main release) |
-| Feature branches | ❌ |
+| Branch           | Supported                     |
+| ---------------- | ----------------------------- |
+| `staging`        | ✅                            |
+| `main`           | ✅ (via staging→main release) |
+| Feature branches | ❌                            |
 
 ## Reporting a Vulnerability
 
@@ -21,6 +21,7 @@ Report privately via one of the following channels:
 2. **Email** — Contact Andrew Mahoney-Fernandes at the email listed on [niftyleague.com](https://niftyleague.com)
 
 Within 48 hours you will receive:
+
 - Confirmation of receipt
 - An assessment timeline
 - A target date for the fix
