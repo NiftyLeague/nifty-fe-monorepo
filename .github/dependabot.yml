@@ -5,8 +5,72 @@ updates:
     target-branch: staging
     schedule:
       interval: weekly
-      day: sunday
-    open-pull-requests-limit: 99
+      day: monday
+    open-pull-requests-limit: 10
+    groups:
+      production-dependencies:
+        dependency-type: production
+        update-types:
+          - patch
+          - minor
+      development-dependencies:
+        dependency-type: development
+
+  - package-ecosystem: npm
+    directory: /apps/app
+    target-branch: staging
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      production-dependencies:
+        dependency-type: production
+        update-types:
+          - patch
+          - minor
+      development-dependencies:
+        dependency-type: development
+
+  - package-ecosystem: npm
+    directory: /apps/docs
+    target-branch: staging
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      production-dependencies:
+        dependency-type: production
+        update-types:
+          - patch
+          - minor
+      development-dependencies:
+        dependency-type: development
+
+  - package-ecosystem: npm
+    directory: /apps/smashers
+    target-branch: staging
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      production-dependencies:
+        dependency-type: production
+        update-types:
+          - patch
+          - minor
+      development-dependencies:
+        dependency-type: development
+
+  - package-ecosystem: npm
+    directory: /apps/web
+    target-branch: staging
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
     groups:
       production-dependencies:
         dependency-type: production
@@ -21,5 +85,5 @@ updates:
     target-branch: staging
     schedule:
       interval: weekly
-      day: sunday
-    open-pull-requests-limit: 99
+      day: monday
+    open-pull-requests-limit: 5
