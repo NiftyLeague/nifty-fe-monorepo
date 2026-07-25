@@ -236,7 +236,7 @@ git push origin feat/your-feature
 | Event | CI trigger | Reason |
 |---|---|---|
 | Push to `main` or `staging` | `push` trigger → **full CI runs** | Covers direct pushes to staging, and staging→main merge commits |
-| PR opened/synchronized targeting `main` or `staging` | `pull_request` trigger → **full CI runs** | Covers sub-branch→staging PRs and staging→main PRs |
+| PR opened/synchronized targeting `staging` | `pull_request` trigger → **full CI runs** | Covers sub-branch→staging PRs |
 | Push to a feature branch (`feat/*`, `fix/*`, etc.) | **No CI** | CI only runs when a PR is opened into staging |
 | Direct push to `main` | **Blocked by branch protection** | Only possible via staging→main merge |
 
@@ -254,7 +254,6 @@ Since a commit can never be simultaneously pushed to `main`/`staging` AND be a P
 | Push to sub-branch `feat/foo` | No (wrong branch) | No (no PR event) | ✅ No |
 | Open PR `feat/foo` → `staging` | No (commit is on sub-branch) | Yes | ✅ No |
 | Push to `staging` directly | Yes | No | ✅ No |
-| Open PR `staging` → `main` | No | Yes | ✅ No |
 | Merge staging→main (push to `main`) | Yes | No | ✅ No |
 
 ### CI jobs
