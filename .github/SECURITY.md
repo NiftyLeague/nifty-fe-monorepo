@@ -1,16 +1,37 @@
 # Security Policy
 
+## Supported Versions
+
+Only the **latest commit on `staging`** receives security patches.  
+Patches are fast-forwarded to `main` on the next release cycle.
+
+| Branch | Supported |
+|---|---|
+| `staging` | ✅ |
+| `main` | ✅ (via staging→main release) |
+| Feature branches | ❌ |
+
 ## Reporting a Vulnerability
 
-If there are any vulnerabilities in **nifty-fe-monorepo**, don't hesitate to _report them_.
+**Do not open a public GitHub issue for security vulnerabilities.**
 
-1. Use any of the [contact options](https://github.com/NiftyLeague/nifty-fe-monorepo#support).
-2. Describe the vulnerability.
+Report privately via one of the following channels:
 
-   If you have a fix, that is most welcome -- please attach or summarize it in your message!
+1. **Discord** — DM NiftyAndy (`0xPlayerOne`) directly in the [Nifty League Discord](https://discord.gg/niftyleague)
+2. **Email** — Contact Andrew Mahoney-Fernandes at the email listed on [niftyleague.com](https://niftyleague.com)
 
-3. We will evaluate the vulnerability and, if necessary, release a fix or mitigating steps to address it. We will contact you to let you know the outcome, and will credit you in the report.
+Within 48 hours you will receive:
+- Confirmation of receipt
+- An assessment timeline
+- A target date for the fix
 
-   Please **do not disclose the vulnerability publicly** until a fix is released!
+## Disclosure Policy
 
-4. Once we have either a) published a fix, or b) declined to address the vulnerability for whatever reason, you are free to publicly disclose it.
+- The reporter and the Nifty League team coordinate disclosure.
+- Public disclosure happens **after** a fix has been deployed to production.
+- We appreciate responsible disclosure and will acknowledge reporters in release notes (unless anonymity is requested).
+
+## Scope
+
+This policy covers all code in the `NiftyLeague/nifty-fe-monorepo` repository, including all apps and packages within the monorepo.  
+For vulnerabilities in smart contracts, see `nifty-smart-contracts` security policy.
