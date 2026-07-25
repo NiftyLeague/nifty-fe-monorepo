@@ -16,7 +16,7 @@
     "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\" --ignore-path ../../.gitignore",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --max-warnings 0 --fix",
-    "test": "bun test --project-placeholder theme",
+    "test": "bun test",
     "test:coverage": "VITEST_SCOPE=packages/theme bun test --project-placeholder theme --coverage",
     "test:watch": "bun test --watch",
     "type-check": "tsc --noEmit"

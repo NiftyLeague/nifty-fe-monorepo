@@ -22,7 +22,7 @@
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --max-warnings 0 --fix",
     "migrate": "bun dlx shadcn@latest migrate radix -y",
-    "test": "bun test --project-placeholder ui",
+    "test": "bun test",
     "test:coverage": "VITEST_SCOPE=packages/ui bun test --project-placeholder ui --coverage",
     "test:watch": "bun test --watch",
     "type-check": "tsc --noEmit"
