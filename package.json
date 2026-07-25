@@ -91,6 +91,8 @@
     "adm-zip": "0.5.16",
     "fast-uri": "4.0.1",
     "serialize-javascript": "6.0.2",
-    "ws": "8.18.2"
+    "ws": "8.18.2",
+    "undici": "6.21.2",
+    "tmp": "0.2.3"
   }
 }
