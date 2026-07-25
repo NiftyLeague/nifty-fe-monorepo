@@ -74,7 +74,7 @@ cd nifty-fe-monorepo
 We use [Bun](https://bun.sh/) to manage dependencies.
 
 ```
-bun run install
+bun install --frozen-lockfile
 ```
 
 ### Build
@@ -82,18 +82,18 @@ bun run install
 To build all apps and packages, run the following command:
 
 ```
-bun run build
+turbo build
 ```
 
 > **Note:**
-> This step is only necessary for running app in prod with `bun run start`
+> This step is only necessary for running app in prod with `turbo start`
 
 ### Develop
 
 To run all apps and packages locally, run the following command:
 
 ```
-bun run dev
+turbo dev
 ```
 
 ## Testing
@@ -101,32 +101,29 @@ bun run dev
 To lint all apps and packages, run the following command:
 
 ```
-bun run lint
+turbo lint
 ```
 
 > **Note:**
-> you can also use `bun run lint:fix` to run linting with `--fix`
+> you can also use `turbo lint:fix` to run linting with `--fix`
 
 To format all apps and packages, run the following command:
 
 ```
-bun run format
+turbo format
 ```
 
 To check TypeScript in all apps and packages, run the following command:
 
 ```
-bun run type:check
+turbo type-check
 ```
 
 To run all tests, run the following command:
 
 ```
-bun run test
+turbo test
 ```
-
-> **Note:**
-> `bun run test` runs `turbo test`, which executes `bun test --isolate` in each workspace with proper dependency ordering and caching.
 
 ### CI Tests
 
@@ -149,7 +146,7 @@ choco install act
 After you have act installed, you can run the following command to run all CI tests locally via Docker:
 
 ```
-bun run act-ci
+pnpm act-ci
 ```
 
 > **Note:**
@@ -228,7 +225,7 @@ We use [Shadcn/ui](https://ui.shadcn.com/) as foundational components for all of
 Add Shadcn UI components to `@nl/ui/base` using the provided script:
 
 ```
-bun run add-ui COMPONENT_NAME
+pnpm add-ui COMPONENT_NAME
 ```
 
 If you need to customize, extend, or build custom global components they should be placed in the `@nl/ui/custom` package.
