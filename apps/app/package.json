@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "start": "next start",
-    "test": "bun test --project-placeholder app",
+    "test": "bun test",
     "test:coverage": "VITEST_SCOPE=apps/app bun test --project-placeholder app --coverage",
     "test:watch": "bun test --watch",
     "type-check": "tsc --noEmit"
