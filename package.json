@@ -49,6 +49,7 @@
     "migrate-ui": "bun --filter ui migrate",
     "install:ci": "bun install --frozen-lockfile",
     "prepare": "husky || true && bun symlinks",
+    "symlinks": "bun exec .sh/symlinks.sh",
     "sync-node-versions": "bun exec .sh/sync-node-versions.sh",
     "test": "turbo test",
     "test:coverage": "bun test --isolate --coverage",
