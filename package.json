@@ -93,6 +93,7 @@
     "serialize-javascript": "6.0.2",
     "ws": "8.18.2",
     "undici": "6.21.2",
-    "tmp": "0.2.3"
+    "tmp": "0.2.3",
+    "brace-expansion": "2.0.2"
   }
 }
