@@ -21,5 +21,8 @@
   },
   "dependencies": {
     "@imtbl/sdk": "^2.21.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
   }
 }
