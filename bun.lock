@@ -317,6 +317,7 @@
   "overrides": {
     "adm-zip": "0.5.16",
     "brace-expansion": "2.0.2",
+    "crypto-es": "3.1.3",
     "fast-uri": "4.0.1",
     "serialize-javascript": "6.0.2",
     "tmp": "0.2.3",
@@ -2968,7 +2969,7 @@
 
     "crypto-browserify": ["crypto-browserify@3.12.1", "", { "dependencies": { "browserify-cipher": "^1.0.1", "browserify-sign": "^4.2.3", "create-ecdh": "^4.0.4", "create-hash": "^1.2.0", "create-hmac": "^1.1.7", "diffie-hellman": "^5.0.3", "hash-base": "~3.0.4", "inherits": "^2.0.4", "pbkdf2": "^3.1.2", "public-encrypt": "^4.0.3", "randombytes": "^2.1.0", "randomfill": "^1.0.4" } }, "sha512-r4ESw/IlusD17lgQi1O20Fa3qNnsckR126TdUuBgAu7GBYSIPvdNyONd3Zrxh0xCwA4+6w/TDArBPsMvhur+KQ=="],
 
-    "crypto-es": ["crypto-es@1.2.7", "", {}, "sha512-UUqiVJ2gUuZFmbFsKmud3uuLcNP2+Opt+5ysmljycFCyhA0+T16XJmo1ev/t5kMChMqWh7IEvURNCqsg+SjZGQ=="],
+    "crypto-es": ["crypto-es@3.1.3", "", {}, "sha512-NtOYHzTz98pZFeC2Tytv15mijxrdo+7cgUD3LmYPkJQ8DWauCo1ObOOBJFHzE3DnzPTn27UzcfPy/7qUTrFH7g=="],
 
     "crypto-js": ["crypto-js@4.2.0", "", {}, "sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q=="],
 
