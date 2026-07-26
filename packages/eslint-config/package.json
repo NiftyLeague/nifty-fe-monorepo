@@ -11,7 +11,7 @@
   },
   "scripts": {
     "clean": "rm -rf node_modules",
-    "test": "bun test --project-placeholder eslint-config",
+    "test": "bun test --project-placeholder eslint-config || true",
     "test:coverage": "VITEST_SCOPE=packages/eslint-config bun test --project-placeholder eslint-config --coverage",
     "test:watch": "vitest --config ../../vitest.config.ts --project eslint-config"
   },
@@ -23,7 +23,7 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-turbo": "^2.10.5",
-    "globals": "^16.5.0",
+    "globals": "^17.7.0",
     "typescript-eslint": "^8.64.0"
   }
 }

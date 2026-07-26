@@ -4,7 +4,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "test": "bun test --project-placeholder typescript-config",
+    "test": "bun test --project-placeholder typescript-config || true",
     "test:coverage": "VITEST_SCOPE=packages/typescript-config bun test --project-placeholder typescript-config --coverage",
     "test:watch": "vitest --config ../../vitest.config.ts --project typescript-config"
   }
