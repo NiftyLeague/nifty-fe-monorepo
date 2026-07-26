@@ -150,14 +150,17 @@ describe('Preloader', () => {
   });
 
   it('re-renders with updated progress value after timer flush', async () => {
+    jest.useFakeTimers();
     const { rerender } = render(<Preloader ready={false} progress={0.3} />);
     expect(screen.getByText('30%')).toBeTruthy();
 
     rerender(<Preloader ready={false} progress={0.8} />);
-    // The percent state update uses setTimeout(0), so we need to wait for the next tick
+    // The percent state update uses setTimeout(0), so we need to flush timers
+    act(() => jest.advanceTimersByTime(1));
     await waitFor(() => {
       expect(screen.getByText('80%')).toBeTruthy();
     });
+    jest.useRealTimers();
   });
 
   it('stops stopwatch and unlocks scroll when ready transitions from false to true', () => {

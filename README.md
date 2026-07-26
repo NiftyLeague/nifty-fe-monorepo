@@ -12,7 +12,7 @@ This Turborepo includes the following apps/packages:
 
 ### Apps
 
-- `app`: a [Next.js](https://nextjs.org/) app for our Web3 dashboards at [app.niftyleague.com](http:/app.niftyleague.com)
+- `app`: a [Next.js](https://nextjs.org/) app for our Web3 dashboards at [app.niftyleague.com](http://app.niftyleague.com)
 - `docs`: a [Docusaurus](https://docusaurus.io/) app for our company docs at [niftyleague.com/docs](http://niftyleague.com/docs)
 - `smashers`: a [Next.js](https://nextjs.org/) app for our game's website [niftysmashers.com](http://niftysmashers.com)
 - `web`: a [Next.js](https://nextjs.org/) app for our company's website [niftyleague.com](http://niftyleague.com)
@@ -57,7 +57,7 @@ This Turborepo has several tools already setup for you:
 To install turbo globally for ease of use:
 
 ```
-pnpm install turbo --global
+bun add -g turbo
 ```
 
 ### Set working directory to root
@@ -71,10 +71,10 @@ cd nifty-fe-monorepo
 
 ### Install dependencies
 
-We use [pnpm](https://pnpm.io/) to manage dependencies.
+We use [Bun](https://bun.sh/) to manage dependencies.
 
 ```
-pnpm install
+bun install --frozen-lockfile
 ```
 
 ### Build
@@ -105,7 +105,7 @@ turbo lint
 ```
 
 > **Note:**
-> you can also use `turbo lint:fix` to run linting with --fix
+> you can also use `turbo lint:fix` to run linting with `--fix`
 
 To format all apps and packages, run the following command:
 
@@ -119,7 +119,7 @@ To check TypeScript in all apps and packages, run the following command:
 turbo type-check
 ```
 
-To run all of the above test commands together, run the following command:
+To run all tests, run the following command:
 
 ```
 turbo test
@@ -127,11 +127,11 @@ turbo test
 
 ### CI Tests
 
-We have several GitHub Actions workflows pre-configured to run tests such as linting, formatting, and type checking on pull requests to `main` or `staging`. All tests must pass before a pull request can be merged.
+We have several GitHub Actions workflows pre-configured to run tests such as linting, formatting, and type checking on pushes to `main` or `staging` and on pull requests targeting `staging`. All tests must pass before a pull request can be merged.
 
 If you want to run the CI tests locally, you can use [act](https://github.com/nektar/act) to run the workflows.
 
-On **MacOS**, you can install act using Homebrew:
+On **macOS**, you can install act using Homebrew:
 
 ```
 brew install act
@@ -143,14 +143,14 @@ On **Windows**, you can install act using Chocolatey:
 choco install act
 ```
 
-After you have act installed, you can run the following command to run the all CI tests locally via Docker:
+After you have act installed, you can run the following command to run all CI tests locally via Docker:
 
 ```
 pnpm act-ci
 ```
 
 > **Note:**
-> GitHub automatically provides a `GITHUB_TOKEN` secret when running workflows inside GitHub. With act, you need to mannually provide yours each run. The above command will automatically prompt you to input your GitHub personal access token!
+> GitHub automatically provides a `GITHUB_TOKEN` secret when running workflows inside GitHub. With act, you need to manually provide yours each run. The above command will automatically prompt you to input your GitHub personal access token!
 
 ## Managing dependencies
 
@@ -161,17 +161,17 @@ Please install dependencies only where they're used.
 To add a dependency to a specific app directory use `--filter`
 
 ```
-pnpm add PACKAGE_NAME --filter=DIRECTORY_NAME
+bun --filter DIRECTORY_NAME add PACKAGE_NAME
 ```
 
-### `pnpm` Filtering
+### Bun Filtering
 
 Filtering allows you to restrict commands to specific subsets of packages.
 
 Selectors may be specified via the `--filter` (or `-F`) flag:
 
 ```
-pnpm --filter <app/package_selector> <command>
+bun --filter <app/package_selector> <command>
 ```
 
 **App Selectors:**
@@ -196,57 +196,25 @@ pnpm --filter <app/package_selector> <command>
 
 We use [Syncpack](https://jamiemason.github.io/syncpack/) to ensure consistent dependency versions.
 
-`syncpack lint`
+`bunx syncpack lint`
 
 Lint all versions and ranges and exit with 0 or 1 based on whether all files match your Syncpack configuration file.
 
-`syncpack fix-mismatches`
+`bunx syncpack fix-mismatches`
 
 Fix all mismatches in your dependencies uncovered by `syncpack lint`.
 
-`syncpack format`
+`bunx syncpack format`
 
 Format all package.json files to match our Syncpack configuration file `.syncpackrc.ts`.
 
-`syncpack list`
+`bunx syncpack list`
 
 Query and inspect all dependencies in our project, both valid and invalid.
 
-`syncpack update`
+`bunx syncpack update`
 
 Update all dependencies to the latest versions on the npm registry. This covers dev, prod, and peer dependencies and updates all apps/packages recursively.
-
-### Updating dependencies via `pnpm` instead
-
-`--recursive, -r`
-
-Concurrently runs update in all subdirectories with a package.json (excluding node_modules).
-
-`--latest, -L`
-
-Update the dependencies to their latest stable version as determined by their latest tags.
-
-`--workspace`
-
-Tries to link all packages from the workspace. Versions are updated to match the versions of packages inside the workspace.
-
-`--interactive, -i`
-
-Show outdated dependencies and select which ones to update
-
----
-
-**Recusively update all packages (does not pull latest major releases):**
-
-```
-pnpm up -r --workspace
-```
-
-**Recusively show latest dependencies and select which ones to update:**
-
-```
-pnpm up -r -L -i
-```
 
 ## Global Component Library
 

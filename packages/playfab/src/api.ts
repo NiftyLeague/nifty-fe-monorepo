@@ -111,23 +111,23 @@ async function LinkTwitchAccount(AccessToken: string, SessionTicket: string): Pr
 
 export const LinkProvider = async (
   provider: Provider,
-  accesssToken: string,
+  accessToken: string,
   SessionTicket: string,
 ): Promise<{ error?: unknown; data?: LinkProviderResult }> => {
   try {
     let data: LinkProviderResult = null;
     switch (provider) {
       case 'google':
-        data = await LinkGoogleAccount(accesssToken, SessionTicket);
+        data = await LinkGoogleAccount(accessToken, SessionTicket);
         break;
       case 'apple':
-        data = await LinkAppleAccount(accesssToken, SessionTicket);
+        data = await LinkAppleAccount(accessToken, SessionTicket);
         break;
       case 'facebook':
-        data = await LinkFacebookAccount(accesssToken, SessionTicket);
+        data = await LinkFacebookAccount(accessToken, SessionTicket);
         break;
       case 'twitch':
-        data = await LinkTwitchAccount(accesssToken, SessionTicket);
+        data = await LinkTwitchAccount(accessToken, SessionTicket);
         break;
       default:
         break;
