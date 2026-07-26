@@ -94,6 +94,7 @@
     "ws": "8.18.2",
     "undici": "6.21.2",
     "tmp": "0.2.3",
-    "brace-expansion": "2.0.2"
+    "brace-expansion": "2.0.2",
+    "crypto-es": "3.1.3"
   }
 }
