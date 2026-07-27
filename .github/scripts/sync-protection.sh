@@ -28,9 +28,9 @@ contexts=(Format Lint Type-Check Build Unit Integration E2E Smoke 'Dependency Au
 
 if [ "$is_private" != true ]; then
   contexts+=("Analyze (Actions)")
-  if git ls-files -- '*.ts' '*.tsx' '*.js' '*.jsx' package.json tsconfig\*.json | grep -q .; then contexts+=("Analyze (TypeScript)"); fi
-  if git ls-files -- '*.py' pyproject.toml requirements\*.txt setup.py ':!.github/**' | grep -q .; then contexts+=("Analyze (Python)"); fi
-  if git ls-files -- '*.rs' Cargo.toml Cargo.lock | grep -q .; then contexts+=("Analyze (Rust)"); fi
+  if git ls-files -- '*.ts' '*.tsx' '*.js' '*.jsx' package.json tsconfig\*.json | grep -q .; then contexts+=("Analyze (javascript-typescript)"); fi
+  if git ls-files -- '*.py' pyproject.toml requirements\*.txt setup.py ':!.github/**' | grep -q .; then contexts+=("Analyze (python)"); fi
+  if git ls-files -- '*.rs' Cargo.toml Cargo.lock | grep -q .; then contexts+=("Analyze (rust)"); fi
 fi
 
 protection="$(gh api "repos/$repo/branches/$branch/protection" 2>/dev/null || true)"
