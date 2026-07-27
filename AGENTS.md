@@ -1,62 +1,152 @@
-## Stack
+# Agent Instructions
 
-- **Monorepo:** Turborepo (`turbo` ^2.10.5) over Bun workspaces (`packages/*`, `apps/*`).
-- **Runtime:** Bun only. `packageManager: bun@1.3.14` in root `package.json`; toolchain pinned in `mise.toml` (`node = "24.18.0"`, `bun = "1.3.14"`). CI uses `jdx/mise-action@v2` with `cache: true`.
-- **Language:** TypeScript ~5.9.3. Shared `tsconfig` bases live in `@nl/typescript-config`.
-- **Apps:** Next.js 16 / React 19 (`app`, `smashers`, `web`, `template`) + Docusaurus 3 (`docs`).
-- **UI:** `@nl/ui` = Shadcn/ui + Tailwind CSS 4 (also hosts Storybook 10 + the `add-ui` / `migrate-ui` shadcn flow). `@nl/theme` = Material-UI 7 + Emotion + `react-intl` (with RTL plugin) for Next.js apps.
-- **Web3:** wagmi, viem, Reown AppKit, `@imtbl/sdk`, `@cowprotocol/cow-sdk`, `@axelar-network/axelarjs-sdk`, `@x402/*`, `react-unity-webgl`.
-- **Tooling:** ESLint 9 (flat config from `@nl/eslint-config`), Prettier 3 (from `@nl/prettier-config`), Husky 9 + lint-staged 16, Syncpack 13, Sentry Next.js.
-- **CI:** `.github/workflows/ci.yml` runs `bun install --frozen-lockfile` → `bun run format:check`, `bun run lint`, `bun run type:check`, `bun run build`, `bun run test` on `main` / `staging`.
+These instructions are the repository-level operating contract for coding agents, including Hermes, OpenCode, and other automation.
 
-## Commands
+They complement `CONTRIBUTING.md`. More specific instructions in nested `AGENTS.md` files and project documentation take precedence for their directory.
 
-All from the repo root. Names match the root `package.json` `scripts` block exactly.
+## Mission
 
-- **Install:** `bun install --frozen-lockfile` (lockfile is `bun.lock`; never `npm`/`pnpm`/`yarn` install).
-- **Dev:** `bun dev` → `turbo dev`. Port map: `web` 3000, `app` 3001, `docs` 3002, `smashers` 3003, `template` 3005.
-- **Build:** `bun run build` → `turbo build`.
-- **Test:** `bun test --isolate` — **Bun's native test runner, NOT vitest, NOT jest.**
-- **Lint:** `bun run lint` → `turbo lint`. Fix mode: `bun run lint:fix`.
-- **Type-check:** `bun run type-check` → `turbo type-check`. `type:check` is a CI alias of the same task.
-- **Format:** `bun run format` → `turbo format`.
-- **Format check:** `bun run format:check` — root-level Prettier directly (NOT turbo). This is what CI runs.
-- **Other root scripts (don't invent new ones):** `bun run start` (`turbo run dev`), `bun run clean` (`turbo clean`), `bun run act-ci` (local act invocation of CI), `bun run add-ui` (`bun --filter ui add-component $@`), `bun run migrate-ui`, `bun run sync-node-versions`, `bun run symlinks`, `bun run test:coverage` (`bun test --isolate --coverage`), `bun run test:coverage:workspaces` (`turbo test:coverage`), `bun run test:watch` (root = `bun test --watch`).
+- Keep formatting, linting, type checking, builds, tests, and coverage reproducible locally and in CI.
+- Prefer the versions pinned in `.mise.toml`.
+- Do not commit secrets, generated credentials, local environment files, or machine-specific paths.
+- Add tests for behavior changes and keep coverage thresholds explicit in the project configuration.
+  Make the smallest complete, well-tested change that solves the requested problem without disturbing unrelated work.
 
-## Structure
+This repository may contain TypeScript, Rust, Python, or any combination of them. Detect the active stack from the files present; do not assume every check applies.
 
-Workspaces: `packages/*`, `apps/*` (declared in root `package.json` `workspaces`). No root `tsconfig.json` — each workspace extends a base from `@nl/typescript-config`.
+## Read before acting
 
-### Apps (`apps/*`)
+Before editing:
 
-- `app` — Next.js 16 dashboard (`app.niftyleague.com`, port 3001). Web3 wallets, PlayFab, Sentry, MUI, Redux Toolkit, Reown AppKit.
-- `docs` — Docusaurus 3 docs site (`niftyleague.com/docs`, port 3002). Algolia search, Mermaid theme, GTM plugin.
-- `smashers` — Next.js 16 Nifty Smashers marketing/game site (`niftysmashers.com`, port 3003). NextAuth + iron-session, PlayFab, Sentry, sitemap.
-- `web` — Next.js 16 corporate marketing site (`niftyleague.com`, port 3000). three.js + model-viewer, Sentry, sitemap.
-- `template` — Next.js 16 starter template to fork for new apps / feature testing (port 3005).
+1. Read this file and `.github/CONTRIBUTING.md`.
+2. Find and read any nested `AGENTS.md` that covers the files you will touch.
+3. Read the nearest README, package manifest, build configuration, and relevant tests.
+4. Inspect the current branch, worktree, remotes, and recent history:
 
-### Packages (`packages/*`)
+   ```sh
+   git status --short --branch
+   git remote -v
+   git log -5 --oneline
+   ```
 
-- `@nl/typescript-config` — Shared `tsconfig.json` bases.
-- `@nl/eslint-config` — Flat-config ESLint presets (`.`, `./base`, `./next-js`, `./react-internal`).
-- `@nl/prettier-config` — Single shared Prettier config.
-- `@nl/ui` — Shadcn/ui + Tailwind 4 component library (`base/`, `custom/`, `hooks/`, `lib/`); Storybook 10.
-- `@nl/theme` — MUI 7 + Emotion + `react-intl` theme wrapper.
-- `@nl/playfab` — PlayFab client SDK wrappers, hooks, components, types.
-- `@nl/imx-passport` — Immutable Passport client/config for Immutable zkEVM.
+5. Identify the repository's package manager, lockfile, runtime versions, test commands, deployment assumptions, and generated files.
 
-## Conventions & Gotchas
+If the worktree is dirty, preserve existing changes and avoid overlapping edits until their ownership is clear.
 
-- **Bun-only.** `bun install --frozen-lockfile` for fresh checkouts and CI. Never `npm install`, never `pnpm install`. Run `mise install` so Bun resolves correctly.
-- **Use root scripts, never `cd` into a workspace to run `turbo` or `npm`.** That bypasses the task graph defined in `turbo.json` (^build, transit, lint:fix). Add per-workspace deps with `bun --filter <name> add <pkg>`. Workspace names: `app`, `docs`, `smashers`, `web`, `template`, `ui`, `theme`, `playfab`, `imx-passport`, `eslint-config`, `prettier-config`, `typescript-config`.
-- **Test runner is `bun test` (native).** Not vitest, not jest. The dead-cruft exception below is the only place `vitest` appears in this repo, and you must NOT execute it.
-- **DO NOT run `test:watch` in `apps/template`, `packages/typescript-config`, `packages/eslint-config`, or `packages/prettier-config`.** Those four workspaces still ship `"test:watch": "vitest --config ../../vitest.config.ts --project <name>"` from the original Turborepo template. `vitest` is NOT a declared dependency anywhere — invoking these scripts will fail. The real runner is `bun test`. Other workspaces (`app`, `docs`, `smashers`, `web`, `ui`, `imx-passport`, `playfab`, `theme`) correctly delegate `test:watch` to `bun test --watch` and are safe.
-- **No vitest, no jest, anywhere.** Do not add either to any `package.json`. A stray `VITEST_SCOPE=…` env var in some `test:coverage` scripts is a label only — the command still resolves to `bun test` and the env var is ignored.
-- **Husky + lint-staged are active.** `prepare` runs `husky || true && bun symlinks`; pre-commit hooks format/lint staged files. Never bypass with `--no-verify`.
-- **Turbo task graph is opinionated** (`turbo.json`): `lint`, `lint:fix`, `format`, `type-check` all `dependsOn: ["transit"]`; `test` additionally `dependsOn: ["transit", "lint:fix", "format", "type-check"]`; `build` does `^build`. Don't bypass with raw `turbo` flag overrides.
-- **`format:check` is the only root script that does NOT go through turbo** — it runs Prettier directly against the glob `**/*.{js,ts,tsx,md,mdx,json,yml,yaml}` (respecting `.prettierignore`). CI uses this exact script.
-- **Env vars are Vercel-managed.** `globalEnv` in `turbo.json` (Apple/Facebook/Google/Twitch OAuth, `PLAYFAB_API_KEY`, Sentry tokens, `VERCEL_ENV`, `CI`/`GITHUB_ACTIONS`) + per-app `env` (`NEXT_PUBLIC_*`, `EDGE_CONFIG`, `ALGOLIA_*`, `NEXTAUTH_SECRET`). Pull locally with `vercel env pull .env.local` from inside the app dir. Never commit `.env.local`.
-- **TypeScript configs:** no root `tsconfig.json`. Each workspace must `"extends": "@nl/typescript-config/<base>.json"`.
-- **Syncpack enforces version alignment.** Run `bunx syncpack lint` (or `fix-mismatches` / `format` / `update`) when adding or upgrading deps to keep ranges consistent across workspaces.
-- **No new root scripts.** The root already exposes the standard verbs (build / dev / test / lint / type-check) plus the format pair and a few ops helpers. Add new functionality as workspace scripts or via Turbo task definitions, not as additional root scripts.
-- **Solidity exception (out of scope):** `bun test` covers TypeScript workspaces. Solidity lives in the separate `nifty-smart-contracts` repo and uses Foundry there — do not pull Foundry/Hardhat tooling into this repo.
+## Priorities
+
+When instructions conflict, use this order:
+
+1. System and user instructions
+2. This repository's instructions and explicit task scope
+3. Nested directory instructions
+4. Existing project conventions
+5. General best practices
+
+Ask for clarification when a missing decision would materially change the implementation. Otherwise make the smallest reasonable assumption and document it.
+
+## Safety boundaries
+
+- Do not discard, reset, overwrite, or rewrite user-owned changes.
+- Do not expose or commit secrets, credentials, tokens, private keys, local environment files, or personal machine paths.
+- Do not modify production resources, repository settings, branch protections, secrets, deployments, or external systems unless explicitly requested.
+- Do not add organization- or product-specific details to this reusable baseline.
+- Do not change dependency managers or lockfiles unnecessarily.
+- Do not bypass hooks, tests, review requirements, or required checks to hide a failure.
+- Do not claim completion while required validation, review, deployment, or user decisions remain pending.
+- Publishing, committing, or opening a pull request requires explicit task scope or user authorization.
+
+## Standard workflow
+
+1. Restate the desired outcome and identify the files or systems in scope.
+2. Inspect before editing; preserve unrelated work.
+3. Plan the smallest coherent change.
+4. Implement with existing project patterns.
+5. Run focused checks while iterating.
+6. Inspect the final diff for accidental changes, secrets, formatting, and generated files.
+7. Run the broadest applicable validation available.
+8. Report what changed, exact checks and results, skipped checks with reasons, risks, and remaining work.
+
+For normal feature work, branch from `staging` and target pull requests at `staging`. Treat `main` as the protected release branch. Follow `.github/CONTRIBUTING.md` for the complete internal and external contribution flow.
+
+## Toolchain and dependencies
+
+- Use the versions pinned in `.mise.toml`; run `mise install` when needed.
+- Use the package manager indicated by the existing lockfile:
+  - `bun.lock` or `bun.lockb` → Bun
+  - `pnpm-lock.yaml` → pnpm
+  - `yarn.lock` → Yarn
+  - `package-lock.json` → npm
+- Use the existing Python environment and dependency manifest. Prefer a project-managed virtual environment.
+- Use Cargo commands and the committed Cargo lockfile for Rust projects.
+- Do not mix package managers or regenerate lockfiles as a side effect.
+- Keep dependency additions narrowly scoped and explain security, licensing, and runtime impact.
+
+## Validation
+
+Use the shared scripts when present. They detect supported tools and skip inapplicable checks:
+
+```sh
+bash .github/scripts/ci.sh format
+bash .github/scripts/ci.sh lint
+bash .github/scripts/ci.sh type_check
+bash .github/scripts/ci.sh build
+bash .github/scripts/ci.sh unit
+bash .github/scripts/ci.sh integration
+bash .github/scripts/ci.sh e2e
+bash .github/scripts/ci.sh smoke
+bash .github/scripts/security.sh
+```
+
+Run focused tests first, then the complete applicable set for release, security, workflow, dependency, and configuration changes.
+
+At minimum:
+
+- TypeScript/JavaScript: Prettier formatting, ESLint linting, type-check, build, unit tests, and relevant browser/integration tests
+- Rust: default rustfmt, Clippy with warnings treated as errors, check, unit/integration tests, and dependency audit
+- Python: Ruff formatting and linting, compile or type checks, pytest, coverage, and dependency audit
+- Mixed projects: validate each active ecosystem and its integration boundaries
+
+If a check cannot run, state the exact reason. A skipped check is not a passing check.
+
+## Tests and coverage
+
+- Add or update tests for behavior changes and regressions.
+- Keep unit, integration, E2E, and smoke coverage in the suite where each applies.
+- Preserve project-specific coverage thresholds; do not lower them to make CI green.
+- Keep test data deterministic and remove secrets from logs and fixtures.
+- Use the narrowest test command while iterating, then run the affected package or workspace suite.
+
+## GitHub workflows and configuration
+
+- Keep workflows concise, independently runnable, and safe to re-run.
+- Use `push` for `main, staging` and `pull_request` for `staging` unless a workflow has a documented event-specific reason.
+- Give workflows clear names and jobs concise names; avoid repeating the workflow name in the job name.
+- Use per-workflow concurrency groups that cancel superseded runs while allowing independent workflows to run in parallel.
+- Use least-privilege permissions and pin action versions consistently with the template.
+- Keep CI, Test, Security, CodeQL, Draft PR, Release PR, and Release concerns separated.
+- Security and CodeQL may skip when repository visibility or GitHub plan support does not permit them. Do not make an unavailable check required.
+- Optional Turborepo Remote Caching uses `TURBO_TOKEN` and `TURBO_TEAM`; do not add Vercel deployment behavior just to enable caching.
+- Update branch protection when adding or renaming required job checks; verify the actual GitHub status context.
+
+## Documentation and generated files
+
+- Update documentation when behavior, setup, configuration, commands, or operational procedures change.
+- Keep `.env.example` limited to variable names and safe placeholders.
+- Do not commit build output, caches, coverage output, dependency directories, generated credentials, or temporary files.
+- Preserve formatting and line-ending conventions from `.editorconfig` and `.gitattributes`.
+
+## Completion report
+
+End every agent task with:
+
+```text
+Summary:
+Files changed:
+Validation:
+Skipped checks:
+Risks or follow-up:
+Branch/PR:
+```
+
+Use exact command names and outcomes. Mention external changes separately from local changes, and distinguish completed work from recommendations.
