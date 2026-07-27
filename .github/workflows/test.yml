@@ -28,7 +28,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          fetch-depth: 2
+          fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 1 }}
       - name: Detect
         id: applicability
         run: bash .github/scripts/ci.sh task_profile unit >> "$GITHUB_OUTPUT"
