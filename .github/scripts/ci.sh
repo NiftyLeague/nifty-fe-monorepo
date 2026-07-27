@@ -89,6 +89,10 @@ NODE
   return 1
 }
 
+has_graph_project() {
+  [ -f package.json ] && node -e 'const p=require("./package.json"); process.exit(p.devDependencies?.["@graphprotocol/graph-cli"] ? 0 : 1)'
+}
+
 package_manager() {
   local configured=""
   if [ -f .github/template.yml ]; then
@@ -392,11 +396,7 @@ lint_python() {
   if has_python && command -v ruff >/dev/null 2>&1; then ruff check .; fi
 }
 
-lint() {
-  run_parallel lint_javascript lint_rust lint_python
-}
-
-typecheck_javascript() {
+type_check() {
   if has_graph_project; then
     echo "Skipping TypeScript type-check (Graph AssemblyScript project uses graph build/codegen)"
   elif has_script type-check; then run_script type-check
