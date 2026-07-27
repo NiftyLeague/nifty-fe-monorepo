@@ -28,6 +28,7 @@ jobs:
         uses: actions/checkout@v7
         with:
           fetch-depth: 2
+          filter: blob:none
       - name: Detect
         id: applicability
         run: bash .github/scripts/ci.sh task_profile unit >> "$GITHUB_OUTPUT"
@@ -73,6 +74,7 @@ jobs:
         uses: actions/checkout@v7
         with:
           fetch-depth: 2
+          filter: blob:none
       - name: Detect
         id: applicability
         run: bash .github/scripts/ci.sh task_profile integration >> "$GITHUB_OUTPUT"
@@ -102,6 +104,7 @@ jobs:
         uses: actions/checkout@v7
         with:
           fetch-depth: 2
+          filter: blob:none
       - name: Detect
         id: applicability
         run: bash .github/scripts/ci.sh task_profile e2e >> "$GITHUB_OUTPUT"
@@ -142,6 +145,7 @@ jobs:
         uses: actions/checkout@v7
         with:
           fetch-depth: 2
+          filter: blob:none
       - name: Detect
         id: applicability
         run: bash .github/scripts/ci.sh task_profile smoke >> "$GITHUB_OUTPUT"
