@@ -39,8 +39,8 @@ export function Preloader({
 
   useEffect(() => {
     if (loadingPercentage !== 90) {
-      const id = setTimeout(() => setPercent(loadingPercentage), 0)
-      return () => clearTimeout(id)
+      setPercent(loadingPercentage)
+      return undefined
     } else {
       const id = setInterval(() => {
         setPercent((p) => Math.round(p < 80 ? p + 10 : 90))

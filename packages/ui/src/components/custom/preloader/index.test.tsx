@@ -157,11 +157,7 @@ describe('Preloader', () => {
     expect(screen.getByText('30%')).toBeTruthy()
 
     rerender(<Preloader ready={false} progress={0.8} />)
-    // The percent state update uses setTimeout(0), so we need to flush timers
-    act(() => jest.advanceTimersByTime(1))
-    await waitFor(() => {
-      expect(screen.getByText('80%')).toBeTruthy()
-    })
+    expect(screen.getByText('80%')).toBeTruthy()
     jest.useRealTimers()
   })
 
