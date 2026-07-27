@@ -52,7 +52,7 @@
     "symlinks": "bun exec .sh/symlinks.sh",
     "sync-node-versions": "bun exec .sh/sync-node-versions.sh",
     "test": "turbo test",
-    "test:coverage": "bun test --isolate --coverage",
+    "test:coverage": "bun test --isolate --coverage --max-concurrency=1",
     "test:coverage:workspaces": "turbo test:coverage",
     "test:watch": "bun test --watch",
     "type-check": "turbo type-check",

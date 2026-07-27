@@ -71,42 +71,39 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      ...generateAppleCountryRedirects('AU'),
-      ...generateAppleCountryRedirects('BR'),
-      ...generateAppleCountryRedirects('CA'),
-      ...generateAppleCountryRedirects('US'),
-      { source: '/ios', destination: getAppleStoreLink(), permanent: false },
-      { source: '/ios/:params*', destination: `${getAppleStoreLink()}:params*`, permanent: false },
-      {
-        source: '/android',
-        destination: process.env.NEXT_PUBLIC_GOOGLE_PLAY_LINK as string,
-        permanent: false,
-      },
-      {
-        source: '/android/:params*',
-        destination: `${process.env.NEXT_PUBLIC_GOOGLE_PLAY_LINK as string}:params*`,
-        permanent: false,
-      },
-      {
-        source: '/epic',
-        destination: process.env.NEXT_PUBLIC_EPIC_LINK as string,
-        permanent: false,
-      },
-      {
-        source: '/epic/:params*',
-        destination: `${process.env.NEXT_PUBLIC_EPIC_LINK as string}:params*`,
-        permanent: false,
-      },
-      {
-        source: '/steam',
-        destination: process.env.NEXT_PUBLIC_STEAM_LINK as string,
-        permanent: false,
-      },
-      {
-        source: '/steam/:params*',
-        destination: `${process.env.NEXT_PUBLIC_STEAM_LINK as string}:params*`,
-        permanent: false,
-      },
+      ...(process.env.NEXT_PUBLIC_APPLE_STORE_ID || process.env.NEXT_PUBLIC_APPLE_STORE_LINK
+        ? [
+            ...generateAppleCountryRedirects('AU'),
+            ...generateAppleCountryRedirects('BR'),
+            ...generateAppleCountryRedirects('CA'),
+            ...generateAppleCountryRedirects('US'),
+            { source: '/ios', destination: getAppleStoreLink(), permanent: false },
+            {
+              source: '/ios/:params*',
+              destination: `${getAppleStoreLink()}:params*`,
+              permanent: false,
+            },
+          ]
+        : []),
+      ...(
+        [
+          ['GOOGLE_PLAY', 'android'],
+          ['EPIC', 'epic'],
+          ['STEAM', 'steam'],
+        ] as const
+      ).flatMap(([name, path]) => {
+        const destination = process.env[`NEXT_PUBLIC_${name}_LINK`]
+        return destination
+          ? [
+              { source: `/${path}`, destination, permanent: false },
+              {
+                source: `/${path}/:params*`,
+                destination: `${destination}:params*`,
+                permanent: false,
+              },
+            ]
+          : []
+      }),
       {
         source: '/invite/:ref_code(\\w{1,})',
         has: [{ type: 'header' as const, key: 'User-Agent', value: '.*(iPhone|iPad|iPod).*' }],
