@@ -1,5 +1,7 @@
 .next
 .turbo
+.venv
+**/.venv
 **/.docusaurus
 **/.next
 **/build

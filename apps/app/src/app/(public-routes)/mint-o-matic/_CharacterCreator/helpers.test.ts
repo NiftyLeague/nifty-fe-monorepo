@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'bun:test';
-import { getMintableTraits, type TraitArray } from './helpers';
+import { describe, expect, it } from 'bun:test'
+import { getMintableTraits, type TraitArray } from './helpers'
 
 describe('getMintableTraits', () => {
   it('groups every configured trait for the minting contract', () => {
@@ -26,7 +26,7 @@ describe('getMintableTraits', () => {
       ['Neckwear', 20],
       ['Left Item', 21],
       ['Right Item', 22],
-    ] as TraitArray;
+    ] as TraitArray
 
     expect(getMintableTraits({ traits })).toEqual({
       character: [1, 2, 3, 4, 5],
@@ -34,8 +34,8 @@ describe('getMintableTraits', () => {
       clothing: [9, 10, 11, 12, 13, 14],
       accessories: [15, 16, 17, 18, 19, 20],
       items: [21, 22],
-    });
-  });
+    })
+  })
 
   it('uses zero for every absent trait', () => {
     expect(getMintableTraits({ traits: [] as unknown as TraitArray })).toEqual({
@@ -44,6 +44,6 @@ describe('getMintableTraits', () => {
       clothing: [0, 0, 0, 0, 0, 0],
       accessories: [0, 0, 0, 0, 0, 0],
       items: [0, 0],
-    });
-  });
-});
+    })
+  })
+})

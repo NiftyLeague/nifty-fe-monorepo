@@ -2,8 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
-import type { IVotes, IVotesInterface } from '../../../../../@openzeppelin/contracts/governance/utils/IVotes';
+import { Contract, Interface, type ContractRunner } from 'ethers'
+import type {
+  IVotes,
+  IVotesInterface,
+} from '../../../../../@openzeppelin/contracts/governance/utils/IVotes'
 
 const _abi = [
   {
@@ -78,14 +81,14 @@ const _abi = [
     stateMutability: 'view',
     type: 'function',
   },
-] as const;
+] as const
 
 export class IVotes__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): IVotesInterface {
-    return new Interface(_abi) as IVotesInterface;
+    return new Interface(_abi) as IVotesInterface
   }
   static connect(address: string, runner?: ContractRunner | null): IVotes {
-    return new Contract(address, _abi, runner) as unknown as IVotes;
+    return new Contract(address, _abi, runner) as unknown as IVotes
   }
 }

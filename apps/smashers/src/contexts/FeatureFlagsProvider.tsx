@@ -1,6 +1,6 @@
-'use client';
+'use client'
 
-import { createContext, ReactNode, useState } from 'react';
+import { createContext, ReactNode, useState } from 'react'
 
 const DEFAULT_FLAGS = {
   enableAccountCreation: false,
@@ -11,36 +11,38 @@ const DEFAULT_FLAGS = {
   enableProviderSignOn: false,
   enableStats: false,
   enableWebGL: false,
-} as FlagSet;
+} as FlagSet
 
 /**
  * A map of feature flags from their keys to their values.
  */
-export type FlagSet = { [camelCasedKey: string]: boolean };
+export type FlagSet = { [camelCasedKey: string]: boolean }
 
 /**
  * The sdk context stored in the Provider state and passed to consumers.
  */
-export type ProviderConfig = { flags: FlagSet };
+export type ProviderConfig = { flags: FlagSet }
 
 // ==============================|| FEATURE FLAG CONTEXT & PROVIDER ||============================== //
 
-const initialState: ProviderConfig = { flags: {} };
-export const FeatureFlagContext = createContext<ProviderConfig>(initialState);
+const initialState: ProviderConfig = { flags: {} }
+export const FeatureFlagContext = createContext<ProviderConfig>(initialState)
 
 function useProcessFlagsFromEnv() {
   const [flags] = useState<FlagSet>(() => {
-    const storedValue = process.env.NEXT_PUBLIC_FEATURE_FLAGS;
-    return storedValue === undefined ? DEFAULT_FLAGS : { ...DEFAULT_FLAGS, ...JSON.parse(storedValue) };
-  });
+    const storedValue = process.env.NEXT_PUBLIC_FEATURE_FLAGS
+    return storedValue === undefined
+      ? DEFAULT_FLAGS
+      : { ...DEFAULT_FLAGS, ...JSON.parse(storedValue) }
+  })
 
-  return { flags };
+  return { flags }
 }
 
-type ConfigProviderProps = { children: ReactNode };
+type ConfigProviderProps = { children: ReactNode }
 
 export function FeatureFlagProvider({ children }: ConfigProviderProps) {
-  const { flags } = useProcessFlagsFromEnv();
+  const { flags } = useProcessFlagsFromEnv()
 
-  return <FeatureFlagContext.Provider value={{ flags }}>{children}</FeatureFlagContext.Provider>;
+  return <FeatureFlagContext.Provider value={{ flags }}>{children}</FeatureFlagContext.Provider>
 }

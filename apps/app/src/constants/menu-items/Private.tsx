@@ -1,4 +1,4 @@
-import type { NavItemType } from '@/types';
+import type { NavItemType } from '@/types'
 
 // ==============================|| SAMPLE PAGE & DOCUMENTATION MENU ITEMS ||============================== //
 
@@ -24,6 +24,6 @@ const PrivateItems: NavItemType = {
       ],
     },
   ],
-};
+}
 
-export default PrivateItems;
+export default PrivateItems

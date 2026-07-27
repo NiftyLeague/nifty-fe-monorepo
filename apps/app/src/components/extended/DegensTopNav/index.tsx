@@ -1,7 +1,7 @@
-import { Button, Stack, TextField, ToggleButton, ToggleButtonGroup } from '@mui/material';
-import { styled } from '@nl/theme';
-import { Icon } from '@nl/ui/base/icon';
-import SortButton from '@/components/extended/SortButton';
+import { Button, Stack, TextField, ToggleButton, ToggleButtonGroup } from '@mui/material'
+import { styled } from '@nl/theme'
+import { Icon } from '@nl/ui/base/icon'
+import SortButton from '@/components/extended/SortButton'
 
 const SearchTextField = styled(TextField)({
   flex: 1,
@@ -12,27 +12,30 @@ const SearchTextField = styled(TextField)({
     '& input': { backgroundColor: 'var(--color-muted)', paddingTop: '6px', paddingBottom: '6px' },
     '& fieldset': { border: 'none' },
   },
-});
+})
 
 const LayoutModeButtonsGroup = styled(ToggleButtonGroup)({
   border: 'var(--border-default)',
   borderRadius: 'var(--radius-default)',
-});
+})
 
 const LayoutModeButton = styled(ToggleButton)({
   border: 'none',
   borderRadius: 'var(--radius-default)',
   padding: '5px 16px',
-  '&.Mui-selected': { background: 'rgba(88, 32, 214, 0.2)', '&:hover': { background: 'rgba(88, 32, 214, 0.2)' } },
+  '&.Mui-selected': {
+    background: 'rgba(88, 32, 214, 0.2)',
+    '&:hover': { background: 'rgba(88, 32, 214, 0.2)' },
+  },
   '& svg': { width: 20, height: 20 },
-});
+})
 
 interface DegensTopNavProps {
-  searchTerm: string;
-  handleChangeSearchTerm: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
-  handleSort: (sortOptions: string) => void;
-  layoutMode: string;
-  handleChangeLayoutMode: (_: React.MouseEvent<HTMLElement>, newMode: string) => void;
+  searchTerm: string
+  handleChangeSearchTerm: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
+  handleSort: (sortOptions: string) => void
+  layoutMode: string
+  handleChangeLayoutMode: (_: React.MouseEvent<HTMLElement>, newMode: string) => void
 }
 
 const DegensTopNav = ({
@@ -82,6 +85,6 @@ const DegensTopNav = ({
       </LayoutModeButtonsGroup>
     </Stack>
   </Stack>
-);
+)
 
-export default DegensTopNav;
+export default DegensTopNav

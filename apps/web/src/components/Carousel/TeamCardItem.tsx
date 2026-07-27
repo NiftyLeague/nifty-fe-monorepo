@@ -1,9 +1,9 @@
-import Image from 'next/image';
+import Image from 'next/image'
 
 interface TeamCardProps {
-  name: string;
-  source: string;
-  link?: string;
+  name: string
+  source: string
+  link?: string
 }
 
 const TeamCardItem = ({ name, source, link }: TeamCardProps): React.ReactNode => (
@@ -24,6 +24,6 @@ const TeamCardItem = ({ name, source, link }: TeamCardProps): React.ReactNode =>
       <h6 className="my-5 truncate-text-1">{name}</h6>
     </div>
   </div>
-);
+)
 
-export default TeamCardItem;
+export default TeamCardItem

@@ -1,4 +1,4 @@
-import { gql } from 'graphql-request';
+import { gql } from 'graphql-request'
 
 const NAME_SEARCH_QUERY = gql`
   query CharactersLikeName($search: String) {
@@ -38,6 +38,6 @@ const NAME_SEARCH_QUERY = gql`
       }
     }
   }
-`;
+`
 
-export default NAME_SEARCH_QUERY;
+export default NAME_SEARCH_QUERY

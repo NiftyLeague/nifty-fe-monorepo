@@ -1,9 +1,9 @@
-'use client';
+'use client'
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import type { GuardProps } from '@/types';
-import useAuth from '@/hooks/useAuth';
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import type { GuardProps } from '@/types'
+import useAuth from '@/hooks/useAuth'
 
 // ==============================|| AUTH GUARD ||============================== //
 
@@ -12,14 +12,14 @@ import useAuth from '@/hooks/useAuth';
  * @param {PropTypes.node} children children element/node
  */
 const AuthGuard = ({ children }: GuardProps) => {
-  const router = useRouter();
-  const { isLoggedIn } = useAuth();
+  const router = useRouter()
+  const { isLoggedIn } = useAuth()
 
   useEffect(() => {
-    if (!isLoggedIn) router.replace('/');
-  }, [isLoggedIn, router]);
+    if (!isLoggedIn) router.replace('/')
+  }, [isLoggedIn, router])
 
-  return children;
-};
+  return children
+}
 
-export default AuthGuard;
+export default AuthGuard

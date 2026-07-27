@@ -1,21 +1,21 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { Button, Grid, Typography } from '@mui/material';
-import { gridSpacing } from '@nl/theme';
-import BuyArcadeTokensDialog from '@/components/dialog/BuyArcadeTokensDialog';
+import { useState } from 'react'
+import { Button, Grid, Typography } from '@mui/material'
+import { gridSpacing } from '@nl/theme'
+import BuyArcadeTokensDialog from '@/components/dialog/BuyArcadeTokensDialog'
 
 interface ArcadeTokensRequiredProps {
-  refetchArcadeBal: () => void;
+  refetchArcadeBal: () => void
 }
 
 const ArcadeTokensRequired: React.FC<ArcadeTokensRequiredProps> = ({ refetchArcadeBal }) => {
-  const [openBuyAT, setOpenBuyAT] = useState(false);
+  const [openBuyAT, setOpenBuyAT] = useState(false)
 
   const handleBuyArcadeTokens = () => {
     // TODO: Integrate Buy Arcade Tokens here
-    setOpenBuyAT(true);
-  };
+    setOpenBuyAT(true)
+  }
 
   return (
     <>
@@ -38,13 +38,13 @@ const ArcadeTokensRequired: React.FC<ArcadeTokensRequiredProps> = ({ refetchArca
       <BuyArcadeTokensDialog
         open={openBuyAT}
         onSuccess={() => {
-          setOpenBuyAT(false);
-          refetchArcadeBal();
+          setOpenBuyAT(false)
+          refetchArcadeBal()
         }}
         onClose={() => setOpenBuyAT(false)}
       />
     </>
-  );
-};
+  )
+}
 
-export default ArcadeTokensRequired;
+export default ArcadeTokensRequired

@@ -1,8 +1,8 @@
-'use client';
+'use client'
 
-import { cn } from '@nl/ui/utils';
-import { Progress } from '@nl/ui/base/progress';
-import styles from './index.module.css';
+import { cn } from '@nl/ui/utils'
+import { Progress } from '@nl/ui/base/progress'
+import styles from './index.module.css'
 
 const PreloaderSVG = () => (
   <svg id="preloader-arcade" viewBox="0 0 140 186">
@@ -24,19 +24,23 @@ const PreloaderSVG = () => (
       <path d="M42,118h56c11.046,0,20-8.954,20-20V72c0-11.046-8.954-20-20-20H42c-11.046,0-20,8.954-20,20v26C22,109.046,30.954,118,42,118z M26,72c0-8.822,7.178-16,16-16h56c8.822,0,16,7.178,16,16v26c0,8.822-7.178,16-16,16H42c-8.822,0-16-7.178-16-16V72z"></path>
     </g>
   </svg>
-);
+)
 
 interface PreloaderProps {
-  ready?: boolean;
-  percent?: number;
-  showWarning?: boolean;
+  ready?: boolean
+  percent?: number
+  showWarning?: boolean
 }
 
 export function PreloaderBase({ ready, percent, showWarning }: PreloaderProps) {
   return (
     <div
       className={styles.preloader_overlay}
-      style={ready ? { transform: 'translateY(100%)', display: 'none' } : { transform: 'transform: translateY(0)' }}
+      style={
+        ready
+          ? { transform: 'translateY(100%)', display: 'none' }
+          : { transform: 'transform: translateY(0)' }
+      }
     >
       <div id="js-preloader" className={styles.preloader}>
         <div className={cn(styles.preloader_inner, styles.fadeInUp)}>
@@ -55,9 +59,11 @@ export function PreloaderBase({ ready, percent, showWarning }: PreloaderProps) {
             <Progress value={percent} className="w-[160px]" />
             <div className="text-foreground text-sm min-w-[50px] ml-[10px]">{`${Math.round(percent)}%`}</div>
           </div>
-          <div className="text-warning mt-2">{showWarning ? 'For the best experience try us out on desktop!' : ''}</div>
+          <div className="text-warning mt-2">
+            {showWarning ? 'For the best experience try us out on desktop!' : ''}
+          </div>
         </>
       ) : null}
     </div>
-  );
+  )
 }

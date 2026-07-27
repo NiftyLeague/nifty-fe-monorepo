@@ -1,10 +1,10 @@
-import type { Dispatch, SetStateAction } from 'react';
-import Box from '@mui/material/Box';
+import type { Dispatch, SetStateAction } from 'react'
+import Box from '@mui/material/Box'
 
-import DataList from './DataList';
-import DataTable from './DataTable';
+import DataList from './DataList'
+import DataTable from './DataTable'
 
-import type { IconProps } from '@nl/ui/base/icon';
+import type { IconProps } from '@nl/ui/base/icon'
 import type {
   AccordionDetailsProps,
   AccordionProps,
@@ -14,29 +14,29 @@ import type {
   Row,
   TablePaginationProps,
   TypographyProps,
-} from './types';
+} from './types'
 
 type ResponsiveTableProps = {
-  AccordionDetailsProps?: AccordionDetailsProps;
-  AccordionDetailsTypographyProps?: TypographyProps<'div'>;
-  AccordionMoreIconProps?: IconProps;
-  AccordionProps?: AccordionProps;
-  AccordionSummaryProps?: AccordionSummaryProps;
-  AccordionSummaryTypographyProps?: TypographyProps;
-  checkboxSelection?: boolean;
-  columns: CustomColDef[];
-  count: number;
-  data: Row[];
-  DataGridProps?: DataGridProps;
-  excludePrimaryFromDetails?: boolean;
-  noContentText?: string;
-  onPaginationModelChange: Dispatch<SetStateAction<{ pageSize: number; page: number }>>;
-  onSelectionChange?: (selected: { rowIds: (string | number)[] }) => void;
-  paginationModel: { pageSize: number; page: number };
-  rowsClassArray?: string[];
-  showPagination: boolean;
-  TablePaginationProps?: TablePaginationProps;
-};
+  AccordionDetailsProps?: AccordionDetailsProps
+  AccordionDetailsTypographyProps?: TypographyProps<'div'>
+  AccordionMoreIconProps?: IconProps
+  AccordionProps?: AccordionProps
+  AccordionSummaryProps?: AccordionSummaryProps
+  AccordionSummaryTypographyProps?: TypographyProps
+  checkboxSelection?: boolean
+  columns: CustomColDef[]
+  count: number
+  data: Row[]
+  DataGridProps?: DataGridProps
+  excludePrimaryFromDetails?: boolean
+  noContentText?: string
+  onPaginationModelChange: Dispatch<SetStateAction<{ pageSize: number; page: number }>>
+  onSelectionChange?: (selected: { rowIds: (string | number)[] }) => void
+  paginationModel: { pageSize: number; page: number }
+  rowsClassArray?: string[]
+  showPagination: boolean
+  TablePaginationProps?: TablePaginationProps
+}
 
 /**
  * Responsive read-only table (desktop devices) <-> read-only expandable list (tablet/mobile devices) for material-ui 1.0-beta.
@@ -63,14 +63,14 @@ const ResponsiveTable: React.FC<ResponsiveTableProps> = ({
   TablePaginationProps,
 }) => {
   const handleChangePage = (event: React.MouseEvent | null, page: number) => {
-    onPaginationModelChange(model => ({ page, pageSize: model.pageSize }));
-  };
+    onPaginationModelChange((model) => ({ page, pageSize: model.pageSize }))
+  }
 
   const handleSelectionChange = (selected: { rowIds: (string | number)[] }) => {
     if (onSelectionChange) {
-      onSelectionChange(selected);
+      onSelectionChange(selected)
     }
-  };
+  }
 
   return (
     <div>
@@ -114,7 +114,7 @@ const ResponsiveTable: React.FC<ResponsiveTableProps> = ({
         />
       </Box>
     </div>
-  );
-};
+  )
+}
 
-export default ResponsiveTable;
+export default ResponsiveTable

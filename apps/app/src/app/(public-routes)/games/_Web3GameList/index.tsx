@@ -1,50 +1,50 @@
-'use client';
+'use client'
 
-import { useCallback, useState } from 'react';
-import { styled } from '@nl/theme';
-import { useRouter } from 'next/navigation';
-import { Grid, Button } from '@mui/material';
-import BuyArcadeTokensDialog from '@/components/dialog/BuyArcadeTokensDialog';
-import ConnectWrapper from '@/components/wrapper/ConnectWrapper';
-import GameCard from '@/components/cards/GameCard';
-import DownloadGameDialog from '@/components/dialog/DownloadGameDialog';
-import useTokensBalances from '@/hooks/balances/useTokensBalances';
+import { useCallback, useState } from 'react'
+import { styled } from '@nl/theme'
+import { useRouter } from 'next/navigation'
+import { Grid, Button } from '@mui/material'
+import BuyArcadeTokensDialog from '@/components/dialog/BuyArcadeTokensDialog'
+import ConnectWrapper from '@/components/wrapper/ConnectWrapper'
+import GameCard from '@/components/cards/GameCard'
+import DownloadGameDialog from '@/components/dialog/DownloadGameDialog'
+import useTokensBalances from '@/hooks/balances/useTokensBalances'
 
 const GridItem = styled(Grid)(({ theme }) => ({
   paddingRight: 16,
   paddingBottom: 32,
   border: 'none',
   [theme.breakpoints.down('sm')]: { paddingBottom: 0 },
-}));
+}))
 
 const Web3GameList = () => {
-  const router = useRouter();
-  const { tokensBalances, refetchArcadeBal } = useTokensBalances();
-  const [openBuyAT, setOpenBuyAT] = useState(false);
+  const router = useRouter()
+  const { tokensBalances, refetchArcadeBal } = useTokensBalances()
+  const [openBuyAT, setOpenBuyAT] = useState(false)
 
   const goToPlayOnGame = useCallback(() => {
-    router.push('/games/smashers');
-  }, [router]);
+    router.push('/games/smashers')
+  }, [router])
 
   const goToPlayWENGame = useCallback(() => {
     if (Number(tokensBalances.AT) > 0) {
-      router.push('/games/wen-game');
+      router.push('/games/wen-game')
     } else {
-      setOpenBuyAT(true);
+      setOpenBuyAT(true)
     }
-  }, [tokensBalances.AT, router]);
+  }, [tokensBalances.AT, router])
 
   const goToPlayMtGawx = useCallback(() => {
-    router.push('/games/mt-gawx');
-  }, [router]);
+    router.push('/games/mt-gawx')
+  }, [router])
 
   const goToPlayCryptoWinter = useCallback(() => {
     if (Number(tokensBalances.AT) > 0) {
-      router.push('/games/crypto-winter');
+      router.push('/games/crypto-winter')
     } else {
-      setOpenBuyAT(true);
+      setOpenBuyAT(true)
     }
-  }, [tokensBalances.AT, router]);
+  }, [tokensBalances.AT, router])
 
   return (
     <>
@@ -172,13 +172,13 @@ const Web3GameList = () => {
       <BuyArcadeTokensDialog
         open={openBuyAT}
         onSuccess={() => {
-          setOpenBuyAT(false);
-          refetchArcadeBal();
+          setOpenBuyAT(false)
+          refetchArcadeBal()
         }}
         onClose={() => setOpenBuyAT(false)}
       />
     </>
-  );
-};
+  )
+}
 
-export default Web3GameList;
+export default Web3GameList

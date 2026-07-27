@@ -1,20 +1,25 @@
-'use client';
+'use client'
 
-import Image from 'next/image';
-import { Button } from '@nl/ui/base/button';
-import useVersion from '@/hooks/useVersion';
-import useFlags from '@/hooks/useFlags';
+import Image from 'next/image'
+import { Button } from '@nl/ui/base/button'
+import useVersion from '@/hooks/useVersion'
+import useFlags from '@/hooks/useFlags'
 
 const UnityButton = () => {
-  const { isWindows, downloadURL, version } = useVersion();
-  const loading = !version && isWindows;
-  const { enableWebGL } = useFlags();
+  const { isWindows, downloadURL, version } = useVersion()
+  const loading = !version && isWindows
+  const { enableWebGL } = useFlags()
 
   return enableWebGL ? (
     <>
       {isWindows && (
         <a href={downloadURL || ''}>
-          <Button variant="default" size="lg" disabled={!isWindows || !version} className="h-full cursor-pointer">
+          <Button
+            variant="default"
+            size="lg"
+            disabled={!isWindows || !version}
+            className="h-full cursor-pointer"
+          >
             <Image
               src="/icons/platform/windows.svg"
               alt="Windows Logo"
@@ -37,7 +42,7 @@ const UnityButton = () => {
         Browser
       </Button>
     </>
-  ) : null;
-};
+  ) : null
+}
 
-export default UnityButton;
+export default UnityButton

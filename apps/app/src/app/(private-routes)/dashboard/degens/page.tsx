@@ -1,86 +1,90 @@
-'use client';
+'use client'
 /* eslint-disable no-nested-ternary */
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
-import Link from 'next/link';
-import dynamic from 'next/dynamic';
-import { useAccount } from 'wagmi';
-import isEmpty from 'lodash/isEmpty';
-import xor from 'lodash/xor';
-import { Grid, IconButton, Pagination, Stack, Dialog } from '@mui/material';
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+import Link from 'next/link'
+import dynamic from 'next/dynamic'
+import { useAccount } from 'wagmi'
+import isEmpty from 'lodash/isEmpty'
+import xor from 'lodash/xor'
+import { Grid, IconButton, Pagination, Stack, Dialog } from '@mui/material'
 
-import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
-import { Icon } from '@nl/ui/base/icon';
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
+import { Icon } from '@nl/ui/base/icon'
 
-import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder';
-import DegensFilter from '@/components/extended/DegensFilter';
-import DEFAULT_STATIC_FILTER from '@/components/extended/DegensFilter/constants';
+import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
+import DegensFilter from '@/components/extended/DegensFilter'
+import DEFAULT_STATIC_FILTER from '@/components/extended/DegensFilter/constants'
 import {
   tranformDataByFilter,
   updateFilterValue,
   getDefaultFilterValueFromData,
-} from '@/components/extended/DegensFilter/utils';
-import RenameDegenDialogContent from '@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent';
-import SectionTitle from '@/components/sections/SectionTitle';
-import { DEGEN_BASE_API_URL, DEGEN_COLLECTION_URL, PROFILE_FAV_DEGENS_API } from '@/constants/url';
-import { HYDRAS } from '@/constants/hydras';
-import { useProfileFavDegens } from '@/hooks/useGamerProfile';
-import useAuth from '@/hooks/useAuth';
-import useFetch from '@/hooks/useFetch';
-import useFlags from '@/hooks/useFlags';
-import usePagination from '@/hooks/usePagination';
-import type { DegenFilter } from '@/types/degenFilter';
-import type { Degen } from '@/types/degens';
-import { v4 as uuidv4 } from 'uuid';
-import EmptyState from '@/components/EmptyState';
-import DegenDialog from '@/components/dialog/DegenDialog';
-import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
-import DegensTopNav from '@/components/extended/DegensTopNav';
-import useLocalStorageContext from '@/hooks/useLocalStorageContext';
+} from '@/components/extended/DegensFilter/utils'
+import RenameDegenDialogContent from '@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent'
+import SectionTitle from '@/components/sections/SectionTitle'
+import { DEGEN_BASE_API_URL, DEGEN_COLLECTION_URL, PROFILE_FAV_DEGENS_API } from '@/constants/url'
+import { HYDRAS } from '@/constants/hydras'
+import { useProfileFavDegens } from '@/hooks/useGamerProfile'
+import useAuth from '@/hooks/useAuth'
+import useFetch from '@/hooks/useFetch'
+import useFlags from '@/hooks/useFlags'
+import usePagination from '@/hooks/usePagination'
+import type { DegenFilter } from '@/types/degenFilter'
+import type { Degen } from '@/types/degens'
+import { v4 as uuidv4 } from 'uuid'
+import EmptyState from '@/components/EmptyState'
+import DegenDialog from '@/components/dialog/DegenDialog'
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
+import DegensTopNav from '@/components/extended/DegensTopNav'
+import useLocalStorageContext from '@/hooks/useLocalStorageContext'
 
-const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'), { ssr: false });
-const DegenCard = dynamic(() => import('@/components/cards/DegenCard'), { ssr: false });
+const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'), {
+  ssr: false,
+})
+const DegenCard = dynamic(() => import('@/components/cards/DegenCard'), { ssr: false })
 
 // Needs to be divisible by 2, 3, or 4
-const DEGENS_PER_PAGE = 12;
+const DEGENS_PER_PAGE = 12
 
 const DashboardDegensPage = (): React.ReactNode => {
-  const { authToken } = useAuth();
-  const { isConnected } = useAccount();
-  const [isDrawerOpen, setIsDrawerOpen] = useState(true);
-  const [filters, setFilters] = useState<DegenFilter>(DEFAULT_STATIC_FILTER);
-  const [defaultValues, setDefaultValues] = useState<DegenFilter | undefined>(DEFAULT_STATIC_FILTER);
-  const [filteredData, setFilteredData] = useState<Degen[]>([]);
-  const [selectedDegen, setSelectedDegen] = useState<Degen>();
-  const [isRenameDegenModalOpen, setIsRenameDegenModalOpen] = useState<boolean>(false);
-  const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false);
-  const [isClaimDialog, setIsClaimDialog] = useState<boolean>(false);
-  const [isRentDialog, setIsRentDialog] = useState<boolean>(false);
-  const [isEquipDialog, setIsEquipDialog] = useState<boolean>(false);
-  const searchParams = useSearchParams();
-  const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined);
-  const [layoutMode, setLayoutMode] = useState<string>('gridView');
-  const { enableEquip } = useFlags();
-  const { favs: favsData } = useProfileFavDegens();
-  const { favDegens, setFavDegens } = useLocalStorageContext();
+  const { authToken } = useAuth()
+  const { isConnected } = useAccount()
+  const [isDrawerOpen, setIsDrawerOpen] = useState(true)
+  const [filters, setFilters] = useState<DegenFilter>(DEFAULT_STATIC_FILTER)
+  const [defaultValues, setDefaultValues] = useState<DegenFilter | undefined>(DEFAULT_STATIC_FILTER)
+  const [filteredData, setFilteredData] = useState<Degen[]>([])
+  const [selectedDegen, setSelectedDegen] = useState<Degen>()
+  const [isRenameDegenModalOpen, setIsRenameDegenModalOpen] = useState<boolean>(false)
+  const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false)
+  const [isClaimDialog, setIsClaimDialog] = useState<boolean>(false)
+  const [isRentDialog, setIsRentDialog] = useState<boolean>(false)
+  const [isEquipDialog, setIsEquipDialog] = useState<boolean>(false)
+  const searchParams = useSearchParams()
+  const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined)
+  const [layoutMode, setLayoutMode] = useState<string>('gridView')
+  const { enableEquip } = useFlags()
+  const { favs: favsData } = useProfileFavDegens()
+  const { favDegens, setFavDegens } = useLocalStorageContext()
 
   useEffect(() => {
     if (favsData && favsData !== 'null') {
-      setFavDegens(favsData.split(','));
+      setFavDegens(favsData.split(','))
     }
-  }, [favsData, setFavDegens]);
+  }, [favsData, setFavDegens])
 
-  const { loading: loadingAllRentals, data } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`);
+  const { loading: loadingAllRentals, data } = useFetch<Degen[]>(
+    `${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`
+  )
 
-  const { degensBalances, loadingDegens } = useNFTsBalances();
+  const { degensBalances, loadingDegens } = useNFTsBalances()
 
-  const loading = loadingAllRentals || loadingDegens;
+  const loading = loadingAllRentals || loadingDegens
 
   const populatedDegens: Degen[] = useMemo(() => {
-    if (!degensBalances?.length || !data) return [];
+    if (!degensBalances?.length || !data) return []
     // TODO: remove temp fix for 7th tribes
     // return degens.map((degen) => data[degen.id]);
-    return degensBalances.map(degen =>
+    return degensBalances.map((degen) =>
       Number(degen.id) <= 9900
         ? (data[Number(degen.id)] as Degen)
         : ({
@@ -101,127 +105,134 @@ const DashboardDegensPage = (): React.ReactNode => {
             price_daily: 0,
             rental_count: 0,
             total_rented: 0,
-            tribe: Number(degen.id) >= 9999 ? (Number(degen.id) === 9999 ? 'rugman' : 'satoshi') : 'hydra',
-          } as Degen),
-    );
+            tribe:
+              Number(degen.id) >= 9999
+                ? Number(degen.id) === 9999
+                  ? 'rugman'
+                  : 'satoshi'
+                : 'hydra',
+          } as Degen)
+    )
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [degensBalances?.length, !!data]);
+  }, [degensBalances?.length, !!data])
 
-  const isMobile = useMediaQuery('(max-width:640px)');
-  const isSmallScreen = useMediaQuery('(max-width:1280px)');
+  const isMobile = useMediaQuery('(max-width:640px)')
+  const isSmallScreen = useMediaQuery('(max-width:1280px)')
   const { jump, dataForCurrentPage, maxPage, currentPage } = usePagination<Degen>(
     filteredData,
-    !isSmallScreen && layoutMode !== 'gridView' && !isDrawerOpen ? 18 : DEGENS_PER_PAGE,
-  );
+    !isSmallScreen && layoutMode !== 'gridView' && !isDrawerOpen ? 18 : DEGENS_PER_PAGE
+  )
 
   useEffect(() => {
     if (!populatedDegens.length) {
-      return;
+      return
     }
 
-    setDefaultValues(getDefaultFilterValueFromData(populatedDegens));
-    const params = Object.fromEntries(searchParams.entries());
-    let newDegens = populatedDegens;
+    setDefaultValues(getDefaultFilterValueFromData(populatedDegens))
+    const params = Object.fromEntries(searchParams.entries())
+    let newDegens = populatedDegens
     if (!isEmpty(params)) {
-      if (params.searchTerm) setSearchTerm(params.searchTerm);
-      const newFilterOptions = updateFilterValue(defaultValues, params);
+      if (params.searchTerm) setSearchTerm(params.searchTerm)
+      const newFilterOptions = updateFilterValue(defaultValues, params)
       if (newFilterOptions) {
-        setFilters(newFilterOptions);
-        newDegens = tranformDataByFilter(populatedDegens, newFilterOptions);
+        setFilters(newFilterOptions)
+        newDegens = tranformDataByFilter(populatedDegens, newFilterOptions)
       }
     }
-    setFilteredData(newDegens);
+    setFilteredData(newDegens)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [populatedDegens.length]);
+  }, [populatedDegens.length])
 
-  const handleChangeSearchTerm: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = e => {
-    setSearchTerm(e.target.value);
-  };
+  const handleChangeSearchTerm: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (
+    e
+  ) => {
+    setSearchTerm(e.target.value)
+  }
 
   const handleChangeLayoutMode = (_: React.MouseEvent<HTMLElement>, newMode: string) => {
-    setLayoutMode(newMode);
-  };
+    setLayoutMode(newMode)
+  }
 
   const handleFilter = useCallback(
     (filter: DegenFilter) => {
-      const newFilters = { ...filter, sort: filters.sort };
-      const result = tranformDataByFilter(populatedDegens, newFilters);
-      setFilters(newFilters);
-      setFilteredData(result);
+      const newFilters = { ...filter, sort: filters.sort }
+      const result = tranformDataByFilter(populatedDegens, newFilters)
+      setFilters(newFilters)
+      setFilteredData(result)
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [populatedDegens.length, filters.sort],
-  );
+    [populatedDegens.length, filters.sort]
+  )
 
   useEffect(() => {
-    jump(1);
+    jump(1)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filteredData.length]);
+  }, [filteredData.length])
 
   const handleSort = useCallback(
     (sort: string) => {
-      const newSort = { ...filters, sort };
-      setFilters(newSort);
-      setFilteredData(tranformDataByFilter(populatedDegens, newSort));
+      const newSort = { ...filters, sort }
+      setFilters(newSort)
+      setFilteredData(tranformDataByFilter(populatedDegens, newSort))
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [populatedDegens.length, filters],
-  );
+    [populatedDegens.length, filters]
+  )
 
   const handleClickEditName = useCallback((degen: Degen): void => {
-    setSelectedDegen(degen);
-    setIsRenameDegenModalOpen(true);
-  }, []);
+    setSelectedDegen(degen)
+    setIsRenameDegenModalOpen(true)
+  }, [])
 
   const handleViewTraits = useCallback((degen: Degen): void => {
-    setSelectedDegen(degen);
-    setIsClaimDialog(false);
-    setIsEquipDialog(false);
-    setIsRentDialog(false);
-    setIsDegenModalOpen(true);
-  }, []);
+    setSelectedDegen(degen)
+    setIsClaimDialog(false)
+    setIsEquipDialog(false)
+    setIsRentDialog(false)
+    setIsDegenModalOpen(true)
+  }, [])
 
   const handleClaimDegen = useCallback((degen: Degen): void => {
-    setSelectedDegen(degen);
-    setIsClaimDialog(true);
-    setIsEquipDialog(false);
-    setIsRentDialog(false);
-    setIsDegenModalOpen(true);
-  }, []);
+    setSelectedDegen(degen)
+    setIsClaimDialog(true)
+    setIsEquipDialog(false)
+    setIsRentDialog(false)
+    setIsDegenModalOpen(true)
+  }, [])
 
   const handleRentDegen = useCallback((degen: Degen): void => {
-    setSelectedDegen(degen);
-    setIsRentDialog(true);
-    setIsClaimDialog(false);
-    setIsEquipDialog(false);
-    setIsDegenModalOpen(true);
-  }, []);
+    setSelectedDegen(degen)
+    setIsRentDialog(true)
+    setIsClaimDialog(false)
+    setIsEquipDialog(false)
+    setIsDegenModalOpen(true)
+  }, [])
 
   const handleEquipDegen = useCallback((degen: Degen): void => {
-    setSelectedDegen(degen);
-    setIsRentDialog(false);
-    setIsClaimDialog(false);
-    setIsEquipDialog(true);
-    setIsDegenModalOpen(true);
-  }, []);
+    setSelectedDegen(degen)
+    setIsRentDialog(false)
+    setIsClaimDialog(false)
+    setIsEquipDialog(true)
+    setIsDegenModalOpen(true)
+  }, [])
 
-  const isGridView = layoutMode === 'gridView';
+  const isGridView = layoutMode === 'gridView'
 
   const handleClickFavorite = useCallback(
     async (degen: Degen) => {
       const newFavs = xor(
-        favDegens?.filter(f => f),
-        [degen.id],
-      );
+        favDegens?.filter((f) => f),
+        [degen.id]
+      )
       await fetch(`${PROFILE_FAV_DEGENS_API}`, {
         method: 'POST',
         body: JSON.stringify({ favorites: newFavs.toString() }),
         headers: { authorizationToken: authToken } as Record<string, string>,
-      });
-      setFavDegens(newFavs);
+      })
+      setFavDegens(newFavs)
     },
-    [authToken, favDegens, setFavDegens],
-  );
+    [authToken, favDegens, setFavDegens]
+  )
 
   const renderSkeletonItem = useCallback(
     () => (
@@ -238,8 +249,8 @@ const DashboardDegensPage = (): React.ReactNode => {
         <SkeletonDegenPlaceholder size={isGridView ? 'normal' : 'small'} />
       </Grid>
     ),
-    [isDrawerOpen, isGridView],
-  );
+    [isDrawerOpen, isGridView]
+  )
 
   const renderDrawer = useCallback(
     () => (
@@ -250,8 +261,8 @@ const DashboardDegensPage = (): React.ReactNode => {
         searchTerm={searchTerm}
       />
     ),
-    [defaultValues, handleFilter, searchTerm],
-  );
+    [defaultValues, handleFilter, searchTerm]
+  )
 
   const renderDegen = useCallback(
     (degen: Degen) => (
@@ -291,8 +302,8 @@ const DashboardDegensPage = (): React.ReactNode => {
       handleViewTraits,
       isDrawerOpen,
       isGridView,
-    ],
-  );
+    ]
+  )
 
   const renderMain = useCallback(
     () => (
@@ -351,8 +362,8 @@ const DashboardDegensPage = (): React.ReactNode => {
       maxPage,
       renderDegen,
       renderSkeletonItem,
-    ],
-  );
+    ]
+  )
 
   return (
     <>
@@ -384,10 +395,13 @@ const DashboardDegensPage = (): React.ReactNode => {
         onClose={() => setIsDegenModalOpen(false)}
       />
       <Dialog open={isRenameDegenModalOpen} onClose={() => setIsRenameDegenModalOpen(false)}>
-        <RenameDegenDialogContent degen={selectedDegen} onSuccess={() => setIsRenameDegenModalOpen(false)} />
+        <RenameDegenDialogContent
+          degen={selectedDegen}
+          onSuccess={() => setIsRenameDegenModalOpen(false)}
+        />
       </Dialog>
     </>
-  );
-};
+  )
+}
 
-export default DashboardDegensPage;
+export default DashboardDegensPage

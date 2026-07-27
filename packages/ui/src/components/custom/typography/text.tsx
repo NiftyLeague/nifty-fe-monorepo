@@ -1,19 +1,19 @@
-import { cn } from '@nl/ui/utils';
+import { cn } from '@nl/ui/utils'
 
 interface TextProps {
-  blockquote?: boolean;
-  className?: string;
-  code?: boolean;
-  disabled?: boolean;
-  keyboard?: boolean;
-  mark?: boolean;
-  sm?: boolean;
-  strikethrough?: boolean;
-  strong?: boolean;
-  style?: React.CSSProperties;
-  underline?: boolean;
-  variant?: 'default' | 'error' | 'muted' | 'primary' | 'secondary' | 'success' | 'warning';
-  xs?: boolean;
+  blockquote?: boolean
+  className?: string
+  code?: boolean
+  disabled?: boolean
+  keyboard?: boolean
+  mark?: boolean
+  sm?: boolean
+  strikethrough?: boolean
+  strong?: boolean
+  style?: React.CSSProperties
+  underline?: boolean
+  variant?: 'default' | 'error' | 'muted' | 'primary' | 'secondary' | 'success' | 'warning'
+  xs?: boolean
 }
 
 export function Text({
@@ -40,7 +40,7 @@ export function Text({
     secondary: 'text-secondary-foreground',
     success: 'text-success',
     warning: 'text-warning',
-  };
+  }
 
   const classes = cn(
     'text-base font-default font-normal tracking-default',
@@ -49,15 +49,15 @@ export function Text({
     { underline: underline },
     { 'line-through': strikethrough },
     { 'text-sm leading-none': sm },
-    { 'text-xs leading-none': xs },
-  );
+    { 'text-xs leading-none': xs }
+  )
 
   if (blockquote) {
     return (
       <blockquote className={cn(classes, 'mt-6 border-l-2 pl-6 italic', className)} style={style}>
         {children}
       </blockquote>
-    );
+    )
   }
 
   if (code) {
@@ -66,13 +66,13 @@ export function Text({
         className={cn(
           classes,
           'bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold',
-          className,
+          className
         )}
         style={style}
       >
         {children}
       </code>
-    );
+    )
   }
 
   if (mark) {
@@ -80,15 +80,18 @@ export function Text({
       <mark className={cn(classes, 'p-0 bg-yellow-200', className)} style={style}>
         {children}
       </mark>
-    );
+    )
   }
 
   if (keyboard) {
     return (
-      <kbd className={cn(classes, 'px-1 py-0.5 bg-gray-100 border border-gray-300 rounded', className)} style={style}>
+      <kbd
+        className={cn(classes, 'px-1 py-0.5 bg-gray-100 border border-gray-300 rounded', className)}
+        style={style}
+      >
         {children}
       </kbd>
-    );
+    )
   }
 
   if (strong) {
@@ -96,14 +99,14 @@ export function Text({
       <strong className={cn(classes, 'font-semibold', className)} style={style}>
         {children}
       </strong>
-    );
+    )
   }
 
   return (
     <span className={cn(classes, className)} style={style}>
       {children}
     </span>
-  );
+  )
 }
 
-export default Text;
+export default Text

@@ -1,11 +1,11 @@
-'use client';
+'use client'
 
 /* eslint-disable no-console */
-import { useCallback, useState, useMemo } from 'react';
-import isEqual from 'lodash/isEqual';
-import type { Contracts } from '@/types/web3';
-import type { BaseContract, Contract, ContractMethod } from 'ethers';
-import useAsyncInterval from './useAsyncInterval';
+import { useCallback, useState, useMemo } from 'react'
+import isEqual from 'lodash/isEqual'
+import type { Contracts } from '@/types/web3'
+import type { BaseContract, Contract, ContractMethod } from 'ethers'
+import useAsyncInterval from './useAsyncInterval'
 
 /*
   Enables you to read values from contracts and keep track of them in the local React states
@@ -32,37 +32,37 @@ export default function useContractReader(
   pollTime?: number,
   formatter?: (value: unknown) => void,
   refreshKey?: string | number,
-  skip: boolean = false,
+  skip: boolean = false
 ): unknown {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState()
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const argsMemoized = useMemo(() => args, [JSON.stringify(args)]);
+  const argsMemoized = useMemo(() => args, [JSON.stringify(args)])
 
   const readContract = useCallback(async () => {
     if (!skip && contracts && contracts[contractName]) {
       try {
-        let newValue;
-        const contract = contracts[contractName] as BaseContract as Contract;
+        let newValue
+        const contract = contracts[contractName] as BaseContract as Contract
         if (contract) {
-          const fn = contract[functionName] as ContractMethod;
+          const fn = contract[functionName] as ContractMethod
           if (fn && args && args.length > 0) {
-            newValue = await fn(...args);
+            newValue = await fn(...args)
           } else if (fn) {
-            newValue = await fn();
+            newValue = await fn()
           }
         }
-        if (formatter && typeof formatter === 'function') newValue = formatter(newValue);
-        if (!isEqual(newValue, value)) setValue(newValue);
-        return;
+        if (formatter && typeof formatter === 'function') newValue = formatter(newValue)
+        if (!isEqual(newValue, value)) setValue(newValue)
+        return
       } catch (e) {
-        console.error('Read Contract Error:', contractName, e);
+        console.error('Read Contract Error:', contractName, e)
       }
     }
-    return;
+    return
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [argsMemoized, contractName, contracts, formatter, functionName, refreshKey, skip, value]);
+  }, [argsMemoized, contractName, contracts, formatter, functionName, refreshKey, skip, value])
 
-  useAsyncInterval(readContract, pollTime, true, JSON.stringify(args));
+  useAsyncInterval(readContract, pollTime, true, JSON.stringify(args))
 
-  return value;
+  return value
 }

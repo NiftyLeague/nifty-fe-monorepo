@@ -1,26 +1,26 @@
-import GoogleProvider from 'next-auth/providers/google';
-import FacebookProvider from 'next-auth/providers/facebook';
-import AppleProvider from 'next-auth/providers/apple';
-import TwitchProvider from 'next-auth/providers/twitch';
-import { getServerSession as getServerSessionInternal } from 'next-auth/next';
-import type { DefaultSession, NextAuthOptions } from 'next-auth';
-import type { DefaultJWT } from 'next-auth/jwt';
-import type { User } from '../types';
+import GoogleProvider from 'next-auth/providers/google'
+import FacebookProvider from 'next-auth/providers/facebook'
+import AppleProvider from 'next-auth/providers/apple'
+import TwitchProvider from 'next-auth/providers/twitch'
+import { getServerSession as getServerSessionInternal } from 'next-auth/next'
+import type { DefaultSession, NextAuthOptions } from 'next-auth'
+import type { DefaultJWT } from 'next-auth/jwt'
+import type { User } from '../types'
 
 // Extend the built-in session types
 declare module 'next-auth' {
   interface Session extends DefaultSession {
-    accessToken?: string;
-    provider?: string;
-    user: User;
+    accessToken?: string
+    provider?: string
+    user: User
   }
 }
 
 declare module 'next-auth/jwt' {
   interface JWT extends DefaultJWT {
-    accessToken?: string;
-    provider?: string;
-    id: string;
+    accessToken?: string
+    provider?: string
+    id: string
   }
 }
 
@@ -52,24 +52,24 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, account }) {
       if (account) {
-        token.accessToken = account.access_token;
-        token.provider = account.provider;
+        token.accessToken = account.access_token
+        token.provider = account.provider
       }
-      return token;
+      return token
     },
     async session({ session, token }) {
-      session.accessToken = token.accessToken;
-      session.provider = token.provider;
-      return session;
+      session.accessToken = token.accessToken
+      session.provider = token.provider
+      return session
     },
     async signIn() {
-      return true;
+      return true
     },
   },
-};
+}
 
 /**
  * Wrapper for getServerSession so that you don't need to import the authOptions in every file.
  * @see https://next-auth.js.org/configuration/nextjs
  */
-export const getServerSession = () => getServerSessionInternal(authOptions);
+export const getServerSession = () => getServerSessionInternal(authOptions)

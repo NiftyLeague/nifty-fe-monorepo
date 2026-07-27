@@ -1,18 +1,18 @@
-'use client';
+'use client'
 
-import { Suspense } from 'react';
-import type { User } from '@nl/playfab/types';
-import PlayFabAuthForm from '@nl/playfab/components/PlayFabAuthForm';
-import BackButton from '@/components/Header/BackButton';
-import useFlags from '@/hooks/useFlags';
-import SearchParamsHandler from './SearchParamsHandler';
+import { Suspense } from 'react'
+import type { User } from '@nl/playfab/types'
+import PlayFabAuthForm from '@nl/playfab/components/PlayFabAuthForm'
+import BackButton from '@/components/Header/BackButton'
+import useFlags from '@/hooks/useFlags'
+import SearchParamsHandler from './SearchParamsHandler'
 
 interface SessionData {
-  user: User | null;
+  user: User | null
 }
 
 export default function LoginClient({ sessionData }: { sessionData: SessionData }) {
-  const { enableAccountCreation, enableProviderSignOn } = useFlags();
+  const { enableAccountCreation, enableProviderSignOn } = useFlags()
 
   return (
     <>
@@ -27,5 +27,5 @@ export default function LoginClient({ sessionData }: { sessionData: SessionData 
         view="login"
       />
     </>
-  );
+  )
 }

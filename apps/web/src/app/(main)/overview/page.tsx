@@ -1,11 +1,11 @@
-import type { NextPage } from 'next';
-import Image from 'next/image';
+import type { NextPage } from 'next'
+import Image from 'next/image'
 
-import { Accordion } from '@nl/ui/custom/accordion';
-import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
-import ThemeBtnGroup from '@/components/ThemeBtnGroup';
-import LearnCards from '@/components/LearnCards';
-import { FAQS } from '@/constants/faq';
+import { Accordion } from '@nl/ui/custom/accordion'
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
+import ThemeBtnGroup from '@/components/ThemeBtnGroup'
+import LearnCards from '@/components/LearnCards'
+import { FAQS } from '@/constants/faq'
 
 const Overview: NextPage = () => (
   <>
@@ -13,7 +13,9 @@ const Overview: NextPage = () => (
       <div className="purple-bg-orb orb-top-right" />
       <section className="section relative">
         <AnimatedWrapper>
-          <h1 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">OVERVIEW</h1>
+          <h1 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">
+            OVERVIEW
+          </h1>
         </AnimatedWrapper>
         <div className="mt-3">
           <AnimatedWrapper>
@@ -41,7 +43,12 @@ const Overview: NextPage = () => (
 
         <ThemeBtnGroup
           className="mt-6 xl:mt-8"
-          primary={{ href: '/docs/faq/general', title: 'More FAQ', external: true, className: 'theme-btn-purple' }}
+          primary={{
+            href: '/docs/faq/general',
+            title: 'More FAQ',
+            external: true,
+            className: 'theme-btn-purple',
+          }}
         />
       </section>
     </div>
@@ -72,14 +79,20 @@ const Overview: NextPage = () => (
       <div className="dark-gradient-overlay" />
       <div className="w-full h-auto absolute top-0 text-center flex items-center flex-col mt-40 md:mt-10 lg:mt-20">
         <h2 className="mt-4">Stay in the loop</h2>
-        <p className="my-3 px-4 text-center">Meet our community and stay up to date with our roadmap or team updates</p>
+        <p className="my-3 px-4 text-center">
+          Meet our community and stay up to date with our roadmap or team updates
+        </p>
         <ThemeBtnGroup
           className="mt-2 xl:mt-2"
-          primary={{ href: 'https://discord.gg/niftyleague', title: 'JOIN DISCORD', external: true }}
+          primary={{
+            href: 'https://discord.gg/niftyleague',
+            title: 'JOIN DISCORD',
+            external: true,
+          }}
         />
       </div>
     </section>
   </>
-);
+)
 
-export default Overview;
+export default Overview

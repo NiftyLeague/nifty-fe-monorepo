@@ -1,30 +1,30 @@
-'use client';
-import { useCallback, useEffect, useState } from 'react';
-import { styled } from '@nl/theme';
-import Image from 'next/image';
-import { formatEther } from 'ethers';
-import { OrderKind } from '@cowprotocol/cow-sdk';
-import { createOrderSwapEtherToNFTL, getCowMarketPrice, getOrderDetail } from '@/utils/cowswap';
+'use client'
+import { useCallback, useEffect, useState } from 'react'
+import { styled } from '@nl/theme'
+import Image from 'next/image'
+import { formatEther } from 'ethers'
+import { OrderKind } from '@cowprotocol/cow-sdk'
+import { createOrderSwapEtherToNFTL, getCowMarketPrice, getOrderDetail } from '@/utils/cowswap'
 
-import { Box, Button, LinearProgress, Link, Stack, Typography } from '@mui/material';
-import LoadingButton from '@mui/lab/LoadingButton';
+import { Box, Button, LinearProgress, Link, Stack, Typography } from '@mui/material'
+import LoadingButton from '@mui/lab/LoadingButton'
 
-import { Icon } from '@nl/ui/base/icon';
-import { COW_PROTOCOL_URL } from '@/constants/url';
-import { formatNumberToDisplay } from '@nl/ui/utils';
-import { TARGET_NETWORK } from '@/constants/networks';
-import useNetworkContext from '@/hooks/useNetworkContext';
-import useTokensBalances from '@/hooks/balances/useTokensBalances';
-import useEtherBalance from '@/hooks/balances/useEtherBalance';
-import useGameAccount from '@/hooks/useGameAccount';
-import useImportNFTLToWallet from '@/hooks/useImportNFTLToWallet';
-import useRateEtherToNFTL from '@/hooks/useRateEtherToNFTL';
-import useTokenUSDPrice from '@/hooks/useTokenUSDPrice';
-import TokenInfoBox from './TokenInfoBox';
+import { Icon } from '@nl/ui/base/icon'
+import { COW_PROTOCOL_URL } from '@/constants/url'
+import { formatNumberToDisplay } from '@nl/ui/utils'
+import { TARGET_NETWORK } from '@/constants/networks'
+import useNetworkContext from '@/hooks/useNetworkContext'
+import useTokensBalances from '@/hooks/balances/useTokensBalances'
+import useEtherBalance from '@/hooks/balances/useEtherBalance'
+import useGameAccount from '@/hooks/useGameAccount'
+import useImportNFTLToWallet from '@/hooks/useImportNFTLToWallet'
+import useRateEtherToNFTL from '@/hooks/useRateEtherToNFTL'
+import useTokenUSDPrice from '@/hooks/useTokenUSDPrice'
+import TokenInfoBox from './TokenInfoBox'
 
-const PREFIX = 'CowSwapWidget';
+const PREFIX = 'CowSwapWidget'
 
-const classes = { purchaseNFTLBtn: `${PREFIX}-purchaseNFTLBtn`, arrowDown: `${PREFIX}-arrowDown` };
+const classes = { purchaseNFTLBtn: `${PREFIX}-purchaseNFTLBtn`, arrowDown: `${PREFIX}-arrowDown` }
 
 const StyledStack = styled(Stack)(() => ({
   [`&.${classes.purchaseNFTLBtn}`]: {
@@ -43,86 +43,86 @@ const StyledStack = styled(Stack)(() => ({
     border: '1px solid #282B3F',
     left: 'calc(50% - 16px)',
   },
-}));
+}))
 
-type CowSwapWidgetProps = { refreshBalance: () => void };
+type CowSwapWidgetProps = { refreshBalance: () => void }
 
 const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
-  const { address, signer } = useNetworkContext();
-  const { account, refetchAccount } = useGameAccount();
-  const { balance: etherBalance } = useEtherBalance();
-  const { rate: rateEtherToNftl, refetch: refetchRateEtherToNftl } = useRateEtherToNFTL();
-  const { handleImportNFTLToWallet } = useImportNFTLToWallet();
-  const { refreshNFTLBalance } = useTokensBalances();
+  const { address, signer } = useNetworkContext()
+  const { account, refetchAccount } = useGameAccount()
+  const { balance: etherBalance } = useEtherBalance()
+  const { rate: rateEtherToNftl, refetch: refetchRateEtherToNftl } = useRateEtherToNFTL()
+  const { handleImportNFTLToWallet } = useImportNFTLToWallet()
+  const { refreshNFTLBalance } = useTokensBalances()
 
-  const [inputEthAmount, setInputEthAmount] = useState<string>('');
-  const [inputNftlAmount, setInputNftlAmount] = useState<string>('');
-  const [ethAmount, setEthAmount] = useState<string>('');
-  const [nftlAmount, setNftlAmount] = useState<string>('');
-  const [fromEthAmount, setFromEthAmount] = useState<string>('');
-  const [receiveNftlAmount, setReceiveNftlAmount] = useState<string>('');
-  const [feeAmount, setFeeAmount] = useState<string>('');
-  const [purchasing, setPurchasing] = useState<boolean>(false);
-  const [orderId, setOrderId] = useState<string>('');
-  const [feeExceedAmount, setFeeExceedAmount] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
-  const { price: etherPrice } = useTokenUSDPrice({ slug: 'ethereum' });
-  const [txnState, setTxnState] = useState<string>('Buy NFTL');
-  const [orderFulfilled, setOrderFulfilled] = useState<boolean>(false);
-  const [orderBuyAmount, setOrderBuyAmount] = useState<string>('');
-  const [deposited, setDeposited] = useState<boolean>(false);
+  const [inputEthAmount, setInputEthAmount] = useState<string>('')
+  const [inputNftlAmount, setInputNftlAmount] = useState<string>('')
+  const [ethAmount, setEthAmount] = useState<string>('')
+  const [nftlAmount, setNftlAmount] = useState<string>('')
+  const [fromEthAmount, setFromEthAmount] = useState<string>('')
+  const [receiveNftlAmount, setReceiveNftlAmount] = useState<string>('')
+  const [feeAmount, setFeeAmount] = useState<string>('')
+  const [purchasing, setPurchasing] = useState<boolean>(false)
+  const [orderId, setOrderId] = useState<string>('')
+  const [feeExceedAmount, setFeeExceedAmount] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
+  const { price: etherPrice } = useTokenUSDPrice({ slug: 'ethereum' })
+  const [txnState, setTxnState] = useState<string>('Buy NFTL')
+  const [orderFulfilled, setOrderFulfilled] = useState<boolean>(false)
+  const [orderBuyAmount, setOrderBuyAmount] = useState<string>('')
+  const [deposited, setDeposited] = useState<boolean>(false)
 
-  const accountBalance = account?.balance ?? 0;
+  const accountBalance = account?.balance ?? 0
 
   useEffect(() => {
     const timer = setInterval(() => {
-      refetchRateEtherToNftl();
-      refetchAccount();
-    }, 10000);
-    return () => clearInterval(timer);
-  }, [refetchRateEtherToNftl, refetchAccount]);
+      refetchRateEtherToNftl()
+      refetchAccount()
+    }, 10000)
+    return () => clearInterval(timer)
+  }, [refetchRateEtherToNftl, refetchAccount])
 
   const checkOrderStatus = useCallback(async () => {
-    const orderDetail = await getOrderDetail(TARGET_NETWORK.chainId, orderId);
+    const orderDetail = await getOrderDetail(TARGET_NETWORK.chainId, orderId)
     if (orderDetail?.status === 'fulfilled') {
-      setOrderFulfilled(true);
-      setOrderBuyAmount(formatEther(orderDetail?.buyAmount ?? ''));
-      refreshNFTLBalance();
+      setOrderFulfilled(true)
+      setOrderBuyAmount(formatEther(orderDetail?.buyAmount ?? ''))
+      refreshNFTLBalance()
     } else {
       setTimeout(() => {
-        checkOrderStatus();
-      }, 3000);
+        checkOrderStatus()
+      }, 3000)
     }
-  }, [orderId, refreshNFTLBalance]);
+  }, [orderId, refreshNFTLBalance])
 
   useEffect(() => {
     if (orderId && TARGET_NETWORK.chainId) {
-      checkOrderStatus();
+      checkOrderStatus()
     }
-  }, [orderId, checkOrderStatus]);
+  }, [orderId, checkOrderStatus])
 
   const getMarketPrice = async (kind: OrderKind, amount: string) => {
     if (address) {
       try {
-        setLoading(true);
-        setFeeExceedAmount(false);
-        setFeeAmount('');
+        setLoading(true)
+        setFeeExceedAmount(false)
+        setFeeAmount('')
         const quoteResponse = await getCowMarketPrice({
           kind,
           chainId: TARGET_NETWORK.chainId,
           amount,
           userAddress: address,
-        });
+        })
 
         if (quoteResponse && quoteResponse.quote) {
-          const { feeAmount: fee, buyAmount, sellAmount } = quoteResponse.quote;
-          setFeeAmount(formatEther(fee));
+          const { feeAmount: fee, buyAmount, sellAmount } = quoteResponse.quote
+          setFeeAmount(formatEther(fee))
           if (kind === OrderKind.SELL) {
-            setFromEthAmount('');
-            setReceiveNftlAmount(formatEther(buyAmount));
+            setFromEthAmount('')
+            setReceiveNftlAmount(formatEther(buyAmount))
           } else {
-            setReceiveNftlAmount('');
-            setFromEthAmount(formatEther(BigInt(sellAmount) + BigInt(fee)));
+            setReceiveNftlAmount('')
+            setFromEthAmount(formatEther(BigInt(sellAmount) + BigInt(fee)))
           }
         }
       } catch (err: unknown) {
@@ -135,90 +135,90 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
           typeof (err as { data?: unknown }).data === 'object' &&
           (err as { data: { fee_amount?: string } }).data.fee_amount
         ) {
-          setFeeExceedAmount(true);
-          setFeeAmount(formatEther((err as { data: { fee_amount: string } }).data.fee_amount));
+          setFeeExceedAmount(true)
+          setFeeAmount(formatEther((err as { data: { fee_amount: string } }).data.fee_amount))
         }
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
     }
-  };
+  }
 
   useEffect(() => {
-    if (!rateEtherToNftl) return;
+    if (!rateEtherToNftl) return
     if (!inputEthAmount || Number(inputEthAmount) === 0) {
-      setNftlAmount('');
-      setFromEthAmount('');
-      setReceiveNftlAmount('');
-      setFeeAmount('');
-      return;
+      setNftlAmount('')
+      setFromEthAmount('')
+      setReceiveNftlAmount('')
+      setFeeAmount('')
+      return
     }
-    setNftlAmount(Math.floor(Number(inputEthAmount) / rateEtherToNftl).toString());
-  }, [inputEthAmount, rateEtherToNftl]);
+    setNftlAmount(Math.floor(Number(inputEthAmount) / rateEtherToNftl).toString())
+  }, [inputEthAmount, rateEtherToNftl])
 
   useEffect(() => {
-    if (!rateEtherToNftl) return;
+    if (!rateEtherToNftl) return
     if (!inputNftlAmount || Number(inputNftlAmount) === 0) {
-      setEthAmount('');
-      setFromEthAmount('');
-      setReceiveNftlAmount('');
-      setFeeAmount('');
-      return;
+      setEthAmount('')
+      setFromEthAmount('')
+      setReceiveNftlAmount('')
+      setFeeAmount('')
+      return
     }
-    setEthAmount(formatNumberToDisplay(Number(inputNftlAmount) * rateEtherToNftl, 8));
-  }, [inputNftlAmount, rateEtherToNftl]);
+    setEthAmount(formatNumberToDisplay(Number(inputNftlAmount) * rateEtherToNftl, 8))
+  }, [inputNftlAmount, rateEtherToNftl])
 
-  const sufficientBalance: boolean = Number(ethAmount) <= etherBalance;
+  const sufficientBalance: boolean = Number(ethAmount) <= etherBalance
 
   const handleTxnState = (status: string) => {
-    setTxnState(status);
-  };
+    setTxnState(status)
+  }
 
   const handleBuyNFTL = useCallback(async () => {
     if (address) {
       try {
-        if (!signer) return;
-        setPurchasing(true);
+        if (!signer) return
+        setPurchasing(true)
         const orderID = await createOrderSwapEtherToNFTL({
           signer,
           chainId: TARGET_NETWORK.chainId,
           etherVal: fromEthAmount ? fromEthAmount : ethAmount,
           userAddress: address,
           handleTxnState,
-        });
-        setOrderId(orderID);
+        })
+        setOrderId(orderID)
       } catch (err: unknown) {
-        console.error(err);
+        console.error(err)
       } finally {
-        setPurchasing(false);
+        setPurchasing(false)
       }
     }
-  }, [address, fromEthAmount, ethAmount, signer]);
+  }, [address, fromEthAmount, ethAmount, signer])
 
   const initialize = () => {
-    setDeposited(false);
-    setOrderBuyAmount('');
-    setOrderId('');
-    setOrderFulfilled(false);
-    setInputEthAmount('');
-    setInputNftlAmount('');
-    setEthAmount('');
-    setNftlAmount('');
-    setFromEthAmount('');
-    setReceiveNftlAmount('');
-    setFeeAmount('');
-    setTxnState('Buy NFTL');
-  };
+    setDeposited(false)
+    setOrderBuyAmount('')
+    setOrderId('')
+    setOrderFulfilled(false)
+    setInputEthAmount('')
+    setInputNftlAmount('')
+    setEthAmount('')
+    setNftlAmount('')
+    setFromEthAmount('')
+    setReceiveNftlAmount('')
+    setFeeAmount('')
+    setTxnState('Buy NFTL')
+  }
 
   const handleEthAmount = (val: string) => {
-    setEthAmount(val);
-    setInputEthAmount(val);
-  };
+    setEthAmount(val)
+    setInputEthAmount(val)
+  }
 
   const handleNftlAmount = (val: string) => {
-    setNftlAmount(val);
-    setInputNftlAmount(val);
-  };
+    setNftlAmount(val)
+    setInputNftlAmount(val)
+  }
 
   return (
     <StyledStack direction="column">
@@ -243,7 +243,14 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
           <Stack direction="column" spacing={0.75} sx={{ position: 'relative' }}>
             <TokenInfoBox
               balance={etherBalance}
-              icon={<Image src="/img/logos/networks/mainnet-network.webp" alt="ETH Icon" width={12} height={12} />}
+              icon={
+                <Image
+                  src="/img/logos/networks/mainnet-network.webp"
+                  alt="ETH Icon"
+                  width={12}
+                  height={12}
+                />
+              }
               name="ETH"
               slug="ethereum"
               value={ethAmount}
@@ -254,13 +261,20 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
             />
             <Box
               className={classes.arrowDown}
-              sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', top: fromEthAmount ? 126 : 76 }}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                top: fromEthAmount ? 126 : 76,
+              }}
             >
               <Icon name="arrow-down" color="foreground" />
             </Box>
             <TokenInfoBox
               balance={accountBalance}
-              icon={<Image src="/img/logos/NFTL/logo.webp" alt="NFTL Token" width={12} height={12} />}
+              icon={
+                <Image src="/img/logos/NFTL/logo.webp" alt="NFTL Token" width={12} height={12} />
+              }
               name="NFTL"
               slug="nifty-league"
               value={nftlAmount}
@@ -276,7 +290,7 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
                   <Typography sx={{ mr: 1 }}>
                     {`${formatNumberToDisplay(Number(feeAmount), 4)} ETH (~$${formatNumberToDisplay(
                       etherPrice * Number(feeAmount),
-                      2,
+                      2
                     )})`}
                   </Typography>
                 </Stack>
@@ -303,22 +317,34 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
         ) : (
           <Stack
             direction="column"
-            sx={{ height: 228, gap: 1, justifyContent: 'center', alignItems: 'center', position: 'relative' }}
+            sx={{
+              height: 228,
+              gap: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              position: 'relative',
+            }}
           >
-            <Typography variant="h4">{!orderFulfilled ? 'Order In Progress' : 'Order Confirmed'}</Typography>
+            <Typography variant="h4">
+              {!orderFulfilled ? 'Order In Progress' : 'Order Confirmed'}
+            </Typography>
             {!orderFulfilled && (
               <Box sx={{ width: '100px' }}>
                 <LinearProgress />
               </Box>
             )}
-            <Link href={`https://explorer.cow.fi/mainnet/orders/${orderId}`} target="_blank" rel="noreferrer">
+            <Link
+              href={`https://explorer.cow.fi/mainnet/orders/${orderId}`}
+              target="_blank"
+              rel="noreferrer"
+            >
               View on explorer
             </Link>
             {orderFulfilled && !deposited && (
               <Stack sx={{ mt: 1 }}>
                 <Typography sx={{ px: 4, textAlign: 'center' }}>
-                  Congrats! Your transaction has been confirmed successfully! 🚀 Click below Deposit button to purchase
-                  in-game NFTL balance from your wallet.
+                  Congrats! Your transaction has been confirmed successfully! 🚀 Click below Deposit
+                  button to purchase in-game NFTL balance from your wallet.
                 </Typography>
               </Stack>
             )}
@@ -346,7 +372,7 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
         )}
       </Box>
     </StyledStack>
-  );
-};
+  )
+}
 
-export default CowSwapWidget;
+export default CowSwapWidget

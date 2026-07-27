@@ -1,8 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 // action - state management
-import type { InitialLoginContextProps } from '@/types/auth';
+import type { InitialLoginContextProps } from '@/types/auth'
 
-export const initialState: InitialLoginContextProps = { isLoggedIn: false };
+export const initialState: InitialLoginContextProps = { isLoggedIn: false }
 
 // ==============================|| SLICE - ACCOUNT ||============================== //
 
@@ -11,14 +11,14 @@ const account = createSlice({
   initialState,
   reducers: {
     login(state) {
-      state.isLoggedIn = true;
+      state.isLoggedIn = true
     },
     logout(state) {
-      state.isLoggedIn = false;
+      state.isLoggedIn = false
     },
   },
-});
+})
 
-export default account.reducer;
+export default account.reducer
 
-export const { login, logout } = account.actions;
+export const { login, logout } = account.actions

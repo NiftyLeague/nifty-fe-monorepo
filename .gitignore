@@ -1,65 +1,73 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Operating system
+.DS_Store
+Thumbs.db
+.Trashes
 
-# Dependencies
-node_modules/
-.pnp
-.pnp.js
-
-# env
+# Secrets and local environment
 .env
 .env.*
 !.env.example
+*.pem
+*.key
 
-# Sentry
-.sentryclirc
-.env.sentry-build-plugin
-sentry.properties
-
-# Testing
-coverage/
-
-# Turborepo
+# JavaScript and TypeScript
+node_modules/
+.pnp/
+.pnp.js
 .turbo/
-
-# Dev Tools
-.cursor/
-.idea/
-.vercel/
-.vscode/
-.windsurf/
-
-# Typescript
 *.tsbuildinfo
 next-env.d.ts
 
-# Build Outputs
-.docusaurus/
-.next/
-.storybook/
-build/
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Rust
+target/
+
+# Build and test output
 dist/
+build/
 out/
+coverage/
+htmlcov/
+.coverage*
+.next/
+artifacts/
+cache/
+typechain/
+coverage.json
+tests/.bin/
+**/.app/
 
-# Generated files
-.cache-loader/
-.husky/_/
-ca.*
-cert.*
-certificates/
-public
-robots.txt
-sitemap.xml
-
-# Debug
+# Logs and temporary files
+*.log
+*.tmp
+*.pid
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
-log/
 
-# Misc
-.DS_Store
-.Trashes
-*.pem
-ehthumbs.db
-Thumbs.db
+# Editors, agents, and local tools
+.claude/
+.kilo/
+.codex/
+.cursor/
+.windsurf/
+.vscode/
+.idea/
+.zed/
+.fleet/
+.opencode/
+.kluster/
+.direnv/
+.envrc
+.vercel/
+mise.local.toml
+.mise.local.toml
+*.code-workspace

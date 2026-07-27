@@ -1,30 +1,32 @@
-import { useRouter } from 'next/navigation';
-import { Box, Button, Stack, Typography } from '@mui/material';
-import useFlags from '@/hooks/useFlags';
-import type { Item } from '@/types/marketplace';
-import ImageCard from '@/components/cards/ImageCard';
+import { useRouter } from 'next/navigation'
+import { Box, Button, Stack, Typography } from '@mui/material'
+import useFlags from '@/hooks/useFlags'
+import type { Item } from '@/types/marketplace'
+import ImageCard from '@/components/cards/ImageCard'
 
 export interface ItemDetailProps {
-  data: Item | null;
-  subIndex: number;
+  data: Item | null
+  subIndex: number
 }
 
 const ItemDetail: React.FC<React.PropsWithChildren<React.PropsWithChildren<ItemDetailProps>>> = ({
   data,
   subIndex,
 }) => {
-  const router = useRouter();
-  const { enableEquip } = useFlags();
+  const router = useRouter()
+  const { enableEquip } = useFlags()
 
   if (!data || (data?.balance && data?.balance > 1 && subIndex < 0)) {
-    return <Box sx={{ border: '1px solid #363636', borderRadius: '5px', minWidth: 345, height: 375 }} />;
+    return (
+      <Box sx={{ border: '1px solid #363636', borderRadius: '5px', minWidth: 345, height: 375 }} />
+    )
   }
 
-  const { equipped, image, multiplier, title, thumbnail } = data;
+  const { equipped, image, multiplier, title, thumbnail } = data
 
   const handleEquip = () => {
-    router.push('/dashboard/degens');
-  };
+    router.push('/dashboard/degens')
+  }
 
   return (
     <Stack
@@ -85,7 +87,9 @@ const ItemDetail: React.FC<React.PropsWithChildren<React.PropsWithChildren<ItemD
             {equipped ? 'Unequip' : 'Equip on a DEGEN'}
           </Button>
           <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-            <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#363636' }}>Equipped:</Typography>
+            <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#363636' }}>
+              Equipped:
+            </Typography>
             <Typography
               sx={{
                 fontSize: '12px',
@@ -98,7 +102,9 @@ const ItemDetail: React.FC<React.PropsWithChildren<React.PropsWithChildren<ItemD
             </Typography>
           </Stack>
           <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-            <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#363636' }}>Rental:</Typography>
+            <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#363636' }}>
+              Rental:
+            </Typography>
             <Typography
               sx={{
                 fontSize: '12px',
@@ -113,7 +119,7 @@ const ItemDetail: React.FC<React.PropsWithChildren<React.PropsWithChildren<ItemD
         </Stack>
       ) : null}
     </Stack>
-  );
-};
+  )
+}
 
-export default ItemDetail;
+export default ItemDetail

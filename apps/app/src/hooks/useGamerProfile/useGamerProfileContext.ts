@@ -1,18 +1,18 @@
-'use client';
+'use client'
 
-import { useContext } from 'react';
+import { useContext } from 'react'
 
 // auth provider
-import GamerProfileContext from '@/contexts/GamerProfileContext';
+import GamerProfileContext from '@/contexts/GamerProfileContext'
 
 // ==============================|| AUTH HOOKS ||============================== //
 
 const useGamerProfileContext = () => {
-  const context = useContext(GamerProfileContext);
+  const context = useContext(GamerProfileContext)
 
-  if (!context) throw new Error('context must be use inside provider');
+  if (!context) throw new Error('context must be use inside provider')
 
-  return context;
-};
+  return context
+}
 
-export default useGamerProfileContext;
+export default useGamerProfileContext

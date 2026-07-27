@@ -2,8 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
-import type { Pausable, PausableInterface } from '../../../../@openzeppelin/contracts/security/Pausable';
+import { Contract, Interface, type ContractRunner } from 'ethers'
+import type {
+  Pausable,
+  PausableInterface,
+} from '../../../../@openzeppelin/contracts/security/Pausable'
 
 const _abi = [
   {
@@ -25,14 +28,14 @@ const _abi = [
     stateMutability: 'view',
     type: 'function',
   },
-] as const;
+] as const
 
 export class Pausable__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): PausableInterface {
-    return new Interface(_abi) as PausableInterface;
+    return new Interface(_abi) as PausableInterface
   }
   static connect(address: string, runner?: ContractRunner | null): Pausable {
-    return new Contract(address, _abi, runner) as unknown as Pausable;
+    return new Contract(address, _abi, runner) as unknown as Pausable
   }
 }

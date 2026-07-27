@@ -1,12 +1,12 @@
 // @ts-nocheck
-'use client';
+'use client'
 
-import dynamic from 'next/dynamic';
-import type { UnityConfig } from 'react-unity-webgl';
-const GameWithAuth = dynamic(() => import('@/components/wrapper/GameWithAuth'), { ssr: false });
+import dynamic from 'next/dynamic'
+import type { UnityConfig } from 'react-unity-webgl'
+const GameWithAuth = dynamic(() => import('@/components/wrapper/GameWithAuth'), { ssr: false })
 
-const baseUrl = process.env.NEXT_PUBLIC_UNITY_CRYPTO_WINTER_BASE_URL as string;
-const buildVersion = process.env.NEXT_PUBLIC_UNITY_CRYPTO_WINTER_BASE_VERSION as string;
+const baseUrl = process.env.NEXT_PUBLIC_UNITY_CRYPTO_WINTER_BASE_URL as string
+const buildVersion = process.env.NEXT_PUBLIC_UNITY_CRYPTO_WINTER_BASE_VERSION as string
 
 const cryptoWinterConfig: UnityConfig = {
   loaderUrl: `${baseUrl}/Build/${buildVersion}.loader.js`,
@@ -17,8 +17,8 @@ const cryptoWinterConfig: UnityConfig = {
   companyName: 'NiftyLeague',
   productName: 'CryptoWinter',
   productVersion: buildVersion,
-};
+}
 
-const CryptoWinterGame = () => <GameWithAuth unityConfig={cryptoWinterConfig} arcadeTokenRequired />;
+const CryptoWinterGame = () => <GameWithAuth unityConfig={cryptoWinterConfig} arcadeTokenRequired />
 
-export default CryptoWinterGame;
+export default CryptoWinterGame

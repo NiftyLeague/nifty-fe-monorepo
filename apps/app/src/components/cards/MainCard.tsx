@@ -1,7 +1,7 @@
-import { Ref, forwardRef } from 'react';
+import { Ref, forwardRef } from 'react'
 
 // material-ui
-import { useTheme } from '@nl/theme';
+import { useTheme } from '@nl/theme'
 import {
   Card,
   CardContent,
@@ -11,28 +11,28 @@ import {
   CardProps,
   CardHeaderProps,
   CardContentProps,
-} from '@mui/material';
+} from '@mui/material'
 
 // constant
-const headerSX = { '& .MuiCardHeader-action': { mr: 0 } };
+const headerSX = { '& .MuiCardHeader-action': { mr: 0 } }
 
 // ==============================|| CUSTOM MAIN CARD ||============================== //
 
 export interface MainCardProps {
-  border?: boolean;
-  boxShadow?: boolean;
-  children: React.ReactNode | string;
-  style?: React.CSSProperties;
-  content?: boolean;
-  className?: string;
-  contentClass?: string;
-  contentSX?: CardContentProps['sx'];
-  darkTitle?: boolean;
-  sx?: CardProps['sx'];
-  secondary?: CardHeaderProps['action'];
-  shadow?: string;
-  elevation?: number;
-  title?: React.ReactNode | string;
+  border?: boolean
+  boxShadow?: boolean
+  children: React.ReactNode | string
+  style?: React.CSSProperties
+  content?: boolean
+  className?: string
+  contentClass?: string
+  contentSX?: CardContentProps['sx']
+  darkTitle?: boolean
+  sx?: CardProps['sx']
+  secondary?: CardHeaderProps['action']
+  shadow?: string
+  elevation?: number
+  title?: React.ReactNode | string
 }
 
 const MainCard = forwardRef(
@@ -51,9 +51,9 @@ const MainCard = forwardRef(
       title,
       ...others
     }: MainCardProps,
-    ref: Ref<HTMLDivElement>,
+    ref: Ref<HTMLDivElement>
   ) => {
-    const theme = useTheme();
+    const theme = useTheme()
 
     return (
       <Card
@@ -76,7 +76,11 @@ const MainCard = forwardRef(
         {/* card header and action */}
         {!darkTitle && title && <CardHeader sx={headerSX} title={title} action={secondary} />}
         {darkTitle && title && (
-          <CardHeader sx={headerSX} title={<Typography variant="h3">{title}</Typography>} action={secondary} />
+          <CardHeader
+            sx={headerSX}
+            title={<Typography variant="h3">{title}</Typography>}
+            action={secondary}
+          />
         )}
 
         {/* content & header divider */}
@@ -90,9 +94,9 @@ const MainCard = forwardRef(
         )}
         {!content && children}
       </Card>
-    );
-  },
-);
+    )
+  }
+)
 
-MainCard.displayName = 'MainCard';
-export default MainCard;
+MainCard.displayName = 'MainCard'
+export default MainCard

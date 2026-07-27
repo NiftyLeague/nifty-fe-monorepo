@@ -1,43 +1,43 @@
 // @ts-nocheck
-'use client';
+'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { usePathname } from 'next/navigation';
-import { isOpera, browserName } from 'react-device-detect';
-import Unity from 'react-unity-webgl';
-import type { UnityConfig } from 'react-unity-webgl';
-import { useUnityContext } from '@/lib/use-unity-context';
-import { Box, Button, Stack } from '@mui/material';
-import { useAccount } from 'wagmi';
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { usePathname } from 'next/navigation'
+import { isOpera, browserName } from 'react-device-detect'
+import Unity from 'react-unity-webgl'
+import type { UnityConfig } from 'react-unity-webgl'
+import { useUnityContext } from '@/lib/use-unity-context'
+import { Box, Button, Stack } from '@mui/material'
+import { useAccount } from 'wagmi'
 
-import { gtm, GTM_EVENTS } from '@nl/ui/gtm';
-import { ErrorBoundary } from '@nl/ui/custom/error-boundry';
-import { Preloader } from '@nl/ui/custom/preloader';
-import useTokensBalances from '@/hooks/balances/useTokensBalances';
-import { NETWORK_NAME, TARGET_NETWORK } from '@/constants/networks';
-import { getGameViewedAnalyticsContentId } from '@/constants/games';
-import { DEBUG } from '@/constants/index';
-import withVerification from '@/components/wrapper/Authentication';
-import ArcadeTokensRequired from '@/components/ArcadeTokensRequired';
-import useAuth from '@/hooks/useAuth';
+import { gtm, GTM_EVENTS } from '@nl/ui/gtm'
+import { ErrorBoundary } from '@nl/ui/custom/error-boundry'
+import { Preloader } from '@nl/ui/custom/preloader'
+import useTokensBalances from '@/hooks/balances/useTokensBalances'
+import { NETWORK_NAME, TARGET_NETWORK } from '@/constants/networks'
+import { getGameViewedAnalyticsContentId } from '@/constants/games'
+import { DEBUG } from '@/constants/index'
+import withVerification from '@/components/wrapper/Authentication'
+import ArcadeTokensRequired from '@/components/ArcadeTokensRequired'
+import useAuth from '@/hooks/useAuth'
 
 interface GameProps {
-  unityConfig: UnityConfig;
-  arcadeTokenRequired?: boolean;
+  unityConfig: UnityConfig
+  arcadeTokenRequired?: boolean
 }
 
 interface CustomEventWithCallback<T> extends CustomEvent {
-  detail: { callback: (data: T) => void };
+  detail: { callback: (data: T) => void }
 }
 
 const Game = ({ unityConfig, arcadeTokenRequired = false }: GameProps) => {
-  const { authToken } = useAuth();
-  const pathname = usePathname();
-  const { address } = useAccount();
-  const { tokensBalances, loadingArcadeBal, refetchArcadeBal } = useTokensBalances();
-  const authMsg = `true,${address || '0x0'},Vitalik,${authToken}`;
-  const authCallback = useRef<null | ((authMsg: string) => void)>(null);
-  const [unityError, setUnityError] = useState<Error | null>(null);
+  const { authToken } = useAuth()
+  const pathname = usePathname()
+  const { address } = useAccount()
+  const { tokensBalances, loadingArcadeBal, refetchArcadeBal } = useTokensBalances()
+  const authMsg = `true,${address || '0x0'},Vitalik,${authToken}`
+  const authCallback = useRef<null | ((authMsg: string) => void)>(null)
+  const [unityError, setUnityError] = useState<Error | null>(null)
 
   const {
     unityProvider,
@@ -47,86 +47,88 @@ const Game = ({ unityConfig, arcadeTokenRequired = false }: GameProps) => {
     requestFullscreen,
     addEventListener,
     removeEventListener,
-  } = useUnityContext(unityConfig);
+  } = useUnityContext(unityConfig)
 
   // Conditionally throw errors to be caught by the ErrorBoundary
-  if (unityError) throw unityError;
+  if (unityError) throw unityError
 
   useEffect(() => {
     if (address?.length && authCallback.current) {
-      authCallback.current(authMsg);
+      authCallback.current(authMsg)
     }
-  }, [address, authMsg]);
+  }, [address, authMsg])
 
   useEffect(() => {
-    const contentId = getGameViewedAnalyticsContentId(pathname);
+    const contentId = getGameViewedAnalyticsContentId(pathname)
     if (contentId) {
-      gtm.sendEvent(GTM_EVENTS.SELECT_CONTENT, { content_type: 'game', content_id: contentId });
+      gtm.sendEvent(GTM_EVENTS.SELECT_CONTENT, { content_type: 'game', content_id: contentId })
     }
-  }, [pathname]);
+  }, [pathname])
 
   const startAuthentication = useCallback(
     (e: CustomEventWithCallback<string>) => {
-      if (DEBUG) console.log('Authenticating:', authMsg);
-      e.detail.callback(authMsg);
-      authCallback.current = e.detail.callback;
+      if (DEBUG) console.log('Authenticating:', authMsg)
+      e.detail.callback(authMsg)
+      authCallback.current = e.detail.callback
     },
-    [authMsg],
-  );
+    [authMsg]
+  )
 
   const getConfiguration = useCallback((e: CustomEventWithCallback<string>) => {
-    const networkName = NETWORK_NAME[TARGET_NETWORK.chainId];
-    const version = process.env.NEXT_PUBLIC_SUBGRAPH_VERSION;
-    if (DEBUG) console.log(`${networkName},${version ?? ''}`);
-    setTimeout(() => e.detail.callback(`${networkName},${version ?? ''}`), 1000);
-  }, []);
+    const networkName = NETWORK_NAME[TARGET_NETWORK.chainId]
+    const version = process.env.NEXT_PUBLIC_SUBGRAPH_VERSION
+    if (DEBUG) console.log(`${networkName},${version ?? ''}`)
+    setTimeout(() => e.detail.callback(`${networkName},${version ?? ''}`), 1000)
+  }, [])
 
   const onMouse = useCallback(() => {
-    const content = Array.from(document.getElementsByClassName('game-canvas') as HTMLCollectionOf<HTMLElement>)[0];
+    const content = Array.from(
+      document.getElementsByClassName('game-canvas') as HTMLCollectionOf<HTMLElement>
+    )[0]
     if (content) {
-      content.style.pointerEvents = 'auto';
-      content.style.cursor = 'pointer';
+      content.style.pointerEvents = 'auto'
+      content.style.cursor = 'pointer'
     }
-  }, []);
+  }, [])
 
   const handleLoaded = useCallback(() => {
-    if (DEBUG) console.log('Unity loaded');
-  }, []);
+    if (DEBUG) console.log('Unity loaded')
+  }, [])
 
   const handleError = useCallback((error: string) => {
-    setUnityError(new Error(error || 'Unity loading error'));
-  }, []);
+    setUnityError(new Error(error || 'Unity loading error'))
+  }, [])
 
   const handleProgress = useCallback((progress: number) => {
     // v10: loadingProgression is already 0-1, progress param is also 0-1
-    if (DEBUG) console.log(`Unity progress: ${progress * 100}%`);
-  }, []);
+    if (DEBUG) console.log(`Unity progress: ${progress * 100}%`)
+  }, [])
 
   useEffect(() => {
     // Bridge sendMessage to window.unityInstance for external callers (Unity C# -> JS)
     window.unityInstance = {
       SendMessage: (...args) => sendMessage(...args),
       removeAllEventListeners: () => {
-        removeEventListener('loaded', handleLoaded);
-        removeEventListener('error', handleError);
-        removeEventListener('progress', handleProgress);
+        removeEventListener('loaded', handleLoaded)
+        removeEventListener('error', handleError)
+        removeEventListener('progress', handleProgress)
       },
       setFullscreen: requestFullscreen,
-    };
+    }
 
-    addEventListener('loaded', handleLoaded);
-    addEventListener('error', handleError);
-    addEventListener('progress', handleProgress);
-    window.addEventListener('StartAuthentication', startAuthentication as EventListener);
-    window.addEventListener('GetConfiguration', getConfiguration as EventListener);
-    document.addEventListener('mousemove', onMouse, false);
+    addEventListener('loaded', handleLoaded)
+    addEventListener('error', handleError)
+    addEventListener('progress', handleProgress)
+    window.addEventListener('StartAuthentication', startAuthentication as EventListener)
+    window.addEventListener('GetConfiguration', getConfiguration as EventListener)
+    document.addEventListener('mousemove', onMouse, false)
 
     return () => {
-      window.unityInstance?.removeAllEventListeners();
-      window.removeEventListener('StartAuthentication', startAuthentication as EventListener);
-      window.removeEventListener('GetConfiguration', getConfiguration as EventListener);
-      document.removeEventListener('mousemove', onMouse, false);
-    };
+      window.unityInstance?.removeAllEventListeners()
+      window.removeEventListener('StartAuthentication', startAuthentication as EventListener)
+      window.removeEventListener('GetConfiguration', getConfiguration as EventListener)
+      document.removeEventListener('mousemove', onMouse, false)
+    }
   }, [
     sendMessage,
     requestFullscreen,
@@ -138,18 +140,18 @@ const Game = ({ unityConfig, arcadeTokenRequired = false }: GameProps) => {
     onMouse,
     startAuthentication,
     getConfiguration,
-  ]);
+  ])
 
   const handleOnClickFullscreen = () => {
-    requestFullscreen(true);
-  };
+    requestFullscreen(true)
+  }
 
   if (arcadeTokenRequired && loadingArcadeBal) {
-    return <></>;
+    return <></>
   }
 
   if (arcadeTokenRequired && Number(tokensBalances.AT) === 0) {
-    return <ArcadeTokensRequired refetchArcadeBal={refetchArcadeBal} />;
+    return <ArcadeTokensRequired refetchArcadeBal={refetchArcadeBal} />
   }
 
   return (
@@ -161,16 +163,25 @@ const Game = ({ unityConfig, arcadeTokenRequired = false }: GameProps) => {
             key={authToken}
             className="game-canvas"
             unityProvider={unityProvider}
-            style={{ width: 'calc(77vh * 1.33)', height: '77vh', visibility: isLoaded ? 'visible' : 'hidden' }}
+            style={{
+              width: 'calc(77vh * 1.33)',
+              height: '77vh',
+              visibility: isLoaded ? 'visible' : 'hidden',
+            }}
           />
-          <Button variant="contained" size="large" onClick={handleOnClickFullscreen} sx={{ marginTop: '6px' }}>
+          <Button
+            variant="contained"
+            size="large"
+            onClick={handleOnClickFullscreen}
+            sx={{ marginTop: '6px' }}
+          >
             Fullscreen
           </Button>
         </Stack>
       </Stack>
     </>
-  );
-};
+  )
+}
 
 const GameWithAuth = withVerification((props: GameProps) =>
   isOpera ? (
@@ -181,7 +192,7 @@ const GameWithAuth = withVerification((props: GameProps) =>
     <ErrorBoundary>
       <Game {...props} />
     </ErrorBoundary>
-  ),
-);
+  )
+)
 
-export default GameWithAuth;
+export default GameWithAuth

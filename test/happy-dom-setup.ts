@@ -1,8 +1,8 @@
-import { GlobalRegistrator } from '@happy-dom/global-registrator';
-import { mock } from 'bun:test';
+import { GlobalRegistrator } from '@happy-dom/global-registrator'
+import { mock } from 'bun:test'
 
 try {
-  GlobalRegistrator.register();
+  GlobalRegistrator.register()
 } catch {
   /* already registered */
 }
@@ -20,13 +20,13 @@ if (typeof window !== 'undefined') {
       removeListener: mock(),
       dispatchEvent: mock(),
     })),
-  });
+  })
   class NoopObserver {
-    disconnect = mock();
-    observe = mock();
-    takeRecords = mock(() => []);
-    unobserve = mock();
+    disconnect = mock()
+    observe = mock()
+    takeRecords = mock(() => [])
+    unobserve = mock()
   }
-  Object.defineProperty(window, 'IntersectionObserver', { configurable: true, value: NoopObserver });
-  Object.defineProperty(window, 'ResizeObserver', { configurable: true, value: NoopObserver });
+  Object.defineProperty(window, 'IntersectionObserver', { configurable: true, value: NoopObserver })
+  Object.defineProperty(window, 'ResizeObserver', { configurable: true, value: NoopObserver })
 }

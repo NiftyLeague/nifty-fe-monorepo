@@ -1,15 +1,15 @@
-import type { Metadata } from 'next';
-import MainLayout from '@/components/MainLayout';
-import { Error404 } from '@nl/ui/custom/error-404';
+import type { Metadata } from 'next'
+import MainLayout from '@/components/MainLayout'
+import { Error404 } from '@nl/ui/custom/error-404'
 
-export const metadata: Metadata = { title: '404' };
+export const metadata: Metadata = { title: '404' }
 
 const NotFoundPage = () => {
   return (
     <MainLayout>
       <Error404 />
     </MainLayout>
-  );
-};
+  )
+}
 
-export default NotFoundPage;
+export default NotFoundPage

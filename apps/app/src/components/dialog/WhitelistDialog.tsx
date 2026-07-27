@@ -1,15 +1,23 @@
-'use client';
-import { useState } from 'react';
-import { styled } from '@nl/theme';
-import { Button, Container, Link, Typography } from '@mui/material';
-import { Dialog, DialogTrigger, DialogContent } from '@/components/dialog';
+'use client'
+import { useState } from 'react'
+import { styled } from '@nl/theme'
+import { Button, Container, Link, Typography } from '@mui/material'
+import { Dialog, DialogTrigger, DialogContent } from '@/components/dialog'
 
-const PREFIX = 'WhitelistDialog';
+const PREFIX = 'WhitelistDialog'
 
-const classes = { form: `${PREFIX}-form`, inputEmail: `${PREFIX}-inputEmail`, submitButton: `${PREFIX}-submitButton` };
+const classes = {
+  form: `${PREFIX}-form`,
+  inputEmail: `${PREFIX}-inputEmail`,
+  submitButton: `${PREFIX}-submitButton`,
+}
 
 const StyledDialog = styled(Dialog)(() => ({
-  [`&.${classes.form}`]: { display: 'flex', width: '100%', '@media (max-width: 768px)': { flexDirection: 'column' } },
+  [`&.${classes.form}`]: {
+    display: 'flex',
+    width: '100%',
+    '@media (max-width: 768px)': { flexDirection: 'column' },
+  },
 
   [`&.${classes.inputEmail}`]: {
     flex: 1,
@@ -38,19 +46,19 @@ const StyledDialog = styled(Dialog)(() => ({
     fontWeight: 700,
     '@media (max-width: 768px)': { marginTop: 8, borderRadius: 'var(--radius-default)' },
   },
-}));
+}))
 
 export const WhitelistModal = (): React.ReactNode => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('')
 
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
+    setEmail(e.target.value)
+  }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     // Need to integrate whitelist api here
-    e.preventDefault();
-  };
+    e.preventDefault()
+  }
 
   return (
     <Container sx={{ textAlign: 'center', pt: { xs: 1, lg: 4 }, px: 0 }}>
@@ -90,11 +98,11 @@ export const WhitelistModal = (): React.ReactNode => {
         </Link>
       </Typography>
     </Container>
-  );
-};
+  )
+}
 
 const WhitelistDialog = () => {
-  const whitelistEnabled = false;
+  const whitelistEnabled = false
   return (
     <StyledDialog>
       <DialogTrigger>
@@ -120,7 +128,7 @@ const WhitelistDialog = () => {
         <WhitelistModal />
       </DialogContent>
     </StyledDialog>
-  );
-};
+  )
+}
 
-export default WhitelistDialog;
+export default WhitelistDialog

@@ -1,22 +1,22 @@
-import Image from 'next/image';
-import { v4 as uuidv4 } from 'uuid';
-import isEmpty from 'lodash/isEmpty';
-import { Box, Button, Grid, Skeleton, Stack, Typography, SxProps } from '@mui/material';
+import Image from 'next/image'
+import { v4 as uuidv4 } from 'uuid'
+import isEmpty from 'lodash/isEmpty'
+import { Box, Button, Grid, Skeleton, Stack, Typography, SxProps } from '@mui/material'
 
-import DegenImage from '@/components/cards/DegenCard/DegenImage';
-import { TRAIT_KEY_VALUE_MAP, TRAIT_NAME_MAP } from '@/constants/cosmeticsFilters';
-import type { Degen, GetDegenResponse } from '@/types/degens';
-import { DEGEN_PURCHASE_URL } from '@/constants/url';
+import DegenImage from '@/components/cards/DegenCard/DegenImage'
+import { TRAIT_KEY_VALUE_MAP, TRAIT_NAME_MAP } from '@/constants/cosmeticsFilters'
+import type { Degen, GetDegenResponse } from '@/types/degens'
+import { DEGEN_PURCHASE_URL } from '@/constants/url'
 
 export interface ViewTraitsContentDialogProps {
-  degen?: Degen;
-  degenDetail?: GetDegenResponse;
-  traits: { [traitType: string]: number };
-  displayName?: string;
-  onRent?: () => void;
-  onClaim?: () => void;
-  onClose?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  degenImageSx?: SxProps<{}>;
+  degen?: Degen
+  degenDetail?: GetDegenResponse
+  traits: { [traitType: string]: number }
+  displayName?: string
+  onRent?: () => void
+  onClaim?: () => void
+  onClose?: (event: React.MouseEvent<HTMLButtonElement>) => void
+  degenImageSx?: SxProps<{}>
 }
 
 const ViewTraitsContentDialog = ({
@@ -73,7 +73,7 @@ const ViewTraitsContentDialog = ({
             Owned by{' '}
             {`${degen?.owner?.slice(0, 5)}...${degen?.owner?.slice(
               degen?.owner?.length - 5,
-              degen?.owner?.length - 1,
+              degen?.owner?.length - 1
             )}`}
           </Typography>
         </Stack>
@@ -82,7 +82,14 @@ const ViewTraitsContentDialog = ({
     <Grid size={{ xs: 12, md: 6 }} sx={{ py: 1, px: 2, position: 'relative' }}>
       <Stack sx={{ gap: 3, justifyContent: 'space-between', height: '100%' }}>
         <Stack>
-          <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
             <Typography variant="h3">Degen Traits</Typography>
           </Box>
           <Grid container sx={{ rowGap: 3, columnGap: 2, marginTop: 3, justifyContent: 'center' }}>
@@ -126,6 +133,6 @@ const ViewTraitsContentDialog = ({
       </Stack>
     </Grid>
   </Grid>
-);
+)
 
-export default ViewTraitsContentDialog;
+export default ViewTraitsContentDialog

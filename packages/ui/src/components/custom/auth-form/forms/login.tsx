@@ -1,28 +1,28 @@
-'use client';
+'use client'
 
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 
-import { cn } from '@nl/ui/utils';
-import { Button } from '@nl/ui/base/button';
-import { Checkbox } from '@nl/ui/base/checkbox';
-import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@nl/ui/base/form';
-import { Input } from '@nl/ui/custom/input';
-import { Icon } from '@nl/ui/base/icon';
+import { cn } from '@nl/ui/utils'
+import { Button } from '@nl/ui/base/button'
+import { Checkbox } from '@nl/ui/base/checkbox'
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@nl/ui/base/form'
+import { Input } from '@nl/ui/custom/input'
+import { Icon } from '@nl/ui/base/icon'
 
-import { SocialAuth, type SocialAuthProps } from '../social-auth';
-import { VIEWS } from '../constants';
+import { SocialAuth, type SocialAuthProps } from '../social-auth'
+import { VIEWS } from '../constants'
 
-type ViewType = (typeof VIEWS)[keyof typeof VIEWS];
+type ViewType = (typeof VIEWS)[keyof typeof VIEWS]
 
 export interface LoginFormProps extends SocialAuthProps {
-  enableAccountCreation?: boolean;
-  enableProviderSignOn?: boolean;
-  setAuthView: React.Dispatch<React.SetStateAction<ViewType>>;
-  handleLogin: (values: { email: string; password: string; remember_me: boolean }) => Promise<void>;
-  handleSignup: (values: { email: string; password: string; remember_me: boolean }) => Promise<void>;
-  view: ViewType;
+  enableAccountCreation?: boolean
+  enableProviderSignOn?: boolean
+  setAuthView: React.Dispatch<React.SetStateAction<ViewType>>
+  handleLogin: (values: { email: string; password: string; remember_me: boolean }) => Promise<void>
+  handleSignup: (values: { email: string; password: string; remember_me: boolean }) => Promise<void>
+  view: ViewType
 }
 
 const passwordSchema = z
@@ -32,7 +32,7 @@ const passwordSchema = z
   .regex(/[a-z]/, 'Password must contain at least one lowercase letter')
   .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
   .regex(/\d/, 'Password must contain at least one number')
-  .regex(/[!@#$%^&*(),.?":{}|<>]/, 'Password must contain at least one special character');
+  .regex(/[!@#$%^&*(),.?":{}|<>]/, 'Password must contain at least one special character')
 
 export function LoginForm({
   enableAccountCreation = false,
@@ -48,17 +48,17 @@ export function LoginForm({
     email: z.email(),
     password: view === VIEWS.LOGIN ? z.string().min(1) : passwordSchema,
     remember_me: z.boolean(),
-  });
+  })
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: { email: '', password: '', remember_me: true },
-  });
-  const disabled = form.formState.isSubmitting;
+  })
+  const disabled = form.formState.isSubmitting
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    if (view === VIEWS.LOGIN) await handleLogin(values);
-    else if (view === VIEWS.SIGN_UP) await handleSignup(values);
-  };
+    if (view === VIEWS.LOGIN) await handleLogin(values)
+    else if (view === VIEWS.SIGN_UP) await handleSignup(values)
+  }
 
   return (
     <Form {...form}>
@@ -110,7 +110,7 @@ export function LoginForm({
                 <FormControl>
                   <Checkbox
                     checked={form.getValues('remember_me')}
-                    onCheckedChange={checked => field.onChange(checked)}
+                    onCheckedChange={(checked) => field.onChange(checked)}
                     disabled={disabled}
                   />
                 </FormControl>
@@ -120,7 +120,7 @@ export function LoginForm({
                     onClick={() => !disabled && setAuthView(VIEWS.FORGOT_PASSWORD)}
                     className={cn(
                       'ml-auto mt-0.5 text-sm underline-offset-4',
-                      !disabled && 'hover:underline cursor-pointer',
+                      !disabled && 'hover:underline cursor-pointer'
                     )}
                   >
                     Forgot your password?
@@ -151,7 +151,9 @@ export function LoginForm({
           <div className="text-center text-sm">
             {view === VIEWS.LOGIN ? "Don't have an account? " : 'Already have an account? '}
             <a
-              onClick={() => !disabled && setAuthView(view === VIEWS.LOGIN ? VIEWS.SIGN_UP : VIEWS.LOGIN)}
+              onClick={() =>
+                !disabled && setAuthView(view === VIEWS.LOGIN ? VIEWS.SIGN_UP : VIEWS.LOGIN)
+              }
               className={cn('underline underline-offset-4', !disabled && 'cursor-pointer')}
             >
               {view === VIEWS.LOGIN ? 'Sign up' : 'Login'}
@@ -160,7 +162,7 @@ export function LoginForm({
         )}
       </form>
     </Form>
-  );
+  )
 }
 
-export default LoginForm;
+export default LoginForm

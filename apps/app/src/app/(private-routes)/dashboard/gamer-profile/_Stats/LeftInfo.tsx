@@ -1,15 +1,15 @@
-import { useMemo } from 'react';
-import { Stack } from '@mui/material';
+import { useMemo } from 'react'
+import { Stack } from '@mui/material'
 
-import { useGamerProfileContext } from '@/hooks/useGamerProfile';
-import type { ProfileTotal, ProfileNiftySmsher } from '@/types/account';
-import { formatNumberToDisplay } from '@nl/ui/utils';
-import { secondsToHours } from '@/utils/dateTime';
+import { useGamerProfileContext } from '@/hooks/useGamerProfile'
+import type { ProfileTotal, ProfileNiftySmsher } from '@/types/account'
+import { formatNumberToDisplay } from '@nl/ui/utils'
+import { secondsToHours } from '@/utils/dateTime'
 
-import Item from './Item';
+import Item from './Item'
 
 interface LeftInfoProps {
-  data: ProfileTotal | ProfileNiftySmsher | undefined;
+  data: ProfileTotal | ProfileNiftySmsher | undefined
 }
 
 const LeftInfo = ({ data }: LeftInfoProps): React.ReactNode => {
@@ -24,17 +24,17 @@ const LeftInfo = ({ data }: LeftInfoProps): React.ReactNode => {
         value: `${(data?.wins && data?.matches && formatNumberToDisplay((data?.wins / data?.matches) * 100)) || 0}%`,
       },
       { label: 'Time Played', value: `${secondsToHours(data?.time_played ?? 0)} Hours` },
-    ];
-  }, [data]);
+    ]
+  }, [data])
 
-  const { isLoadingProfile } = useGamerProfileContext();
+  const { isLoadingProfile } = useGamerProfileContext()
   return (
     <Stack spacing={1} sx={{ flex: 1 }}>
-      {leftDataMapper.map(child => (
+      {leftDataMapper.map((child) => (
         <Item key={child.label} {...child} isLoading={isLoadingProfile} />
       ))}
     </Stack>
-  );
-};
+  )
+}
 
-export default LeftInfo;
+export default LeftInfo

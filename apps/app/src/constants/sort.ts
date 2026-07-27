@@ -1,4 +1,4 @@
-import type { MenuItemBaseProps } from '@/types';
+import type { MenuItemBaseProps } from '@/types'
 
 const DegenSortOptions: MenuItemBaseProps[] = [
   { value: 'idUp', label: 'ID Low to High' },
@@ -26,6 +26,6 @@ const DegenSortOptions: MenuItemBaseProps[] = [
   //   value: 'recentRented',
   //   label: 'Recently Rented',
   // },
-];
+]
 
-export default DegenSortOptions;
+export default DegenSortOptions

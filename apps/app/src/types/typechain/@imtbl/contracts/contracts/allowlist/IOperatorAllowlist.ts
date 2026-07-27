@@ -11,61 +11,71 @@ import type {
   ContractRunner,
   ContractMethod,
   Listener,
-} from 'ethers';
+} from 'ethers'
 import type {
   TypedContractEvent,
   TypedDeferredTopicFilter,
   TypedEventLog,
   TypedListener,
   TypedContractMethod,
-} from '../../../../common';
+} from '../../../../common'
 
 export interface IOperatorAllowlistInterface extends Interface {
-  getFunction(nameOrSignature: 'isAllowlisted'): FunctionFragment;
+  getFunction(nameOrSignature: 'isAllowlisted'): FunctionFragment
 
-  encodeFunctionData(functionFragment: 'isAllowlisted', values: [AddressLike]): string;
+  encodeFunctionData(functionFragment: 'isAllowlisted', values: [AddressLike]): string
 
-  decodeFunctionResult(functionFragment: 'isAllowlisted', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'isAllowlisted', data: BytesLike): Result
 }
 
 export interface IOperatorAllowlist extends BaseContract {
-  connect(runner?: ContractRunner | null): IOperatorAllowlist;
-  waitForDeployment(): Promise<this>;
+  connect(runner?: ContractRunner | null): IOperatorAllowlist
+  waitForDeployment(): Promise<this>
 
-  interface: IOperatorAllowlistInterface;
+  interface: IOperatorAllowlistInterface
 
   queryFilter<TCEvent extends TypedContractEvent>(
     event: TCEvent,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
-  ): Promise<Array<TypedEventLog<TCEvent>>>;
+    toBlock?: string | number | undefined
+  ): Promise<Array<TypedEventLog<TCEvent>>>
   queryFilter<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
-  ): Promise<Array<TypedEventLog<TCEvent>>>;
+    toBlock?: string | number | undefined
+  ): Promise<Array<TypedEventLog<TCEvent>>>
 
-  on<TCEvent extends TypedContractEvent>(event: TCEvent, listener: TypedListener<TCEvent>): Promise<this>;
+  on<TCEvent extends TypedContractEvent>(
+    event: TCEvent,
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
   on<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
-    listener: TypedListener<TCEvent>,
-  ): Promise<this>;
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
 
-  once<TCEvent extends TypedContractEvent>(event: TCEvent, listener: TypedListener<TCEvent>): Promise<this>;
+  once<TCEvent extends TypedContractEvent>(
+    event: TCEvent,
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
   once<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
-    listener: TypedListener<TCEvent>,
-  ): Promise<this>;
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
 
-  listeners<TCEvent extends TypedContractEvent>(event: TCEvent): Promise<Array<TypedListener<TCEvent>>>;
-  listeners(eventName?: string): Promise<Array<Listener>>;
-  removeAllListeners<TCEvent extends TypedContractEvent>(event?: TCEvent): Promise<this>;
+  listeners<TCEvent extends TypedContractEvent>(
+    event: TCEvent
+  ): Promise<Array<TypedListener<TCEvent>>>
+  listeners(eventName?: string): Promise<Array<Listener>>
+  removeAllListeners<TCEvent extends TypedContractEvent>(event?: TCEvent): Promise<this>
 
-  isAllowlisted: TypedContractMethod<[target: AddressLike], [boolean], 'view'>;
+  isAllowlisted: TypedContractMethod<[target: AddressLike], [boolean], 'view'>
 
-  getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T;
+  getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T
 
-  getFunction(nameOrSignature: 'isAllowlisted'): TypedContractMethod<[target: AddressLike], [boolean], 'view'>;
+  getFunction(
+    nameOrSignature: 'isAllowlisted'
+  ): TypedContractMethod<[target: AddressLike], [boolean], 'view'>
 
-  filters: {};
+  filters: {}
 }

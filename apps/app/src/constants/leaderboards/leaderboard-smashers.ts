@@ -22844,7 +22844,7 @@ const SMASHERS_WIN_RATE = {
     },
   ],
   count: 1269,
-};
+}
 
 const SMASHERS_EARNINGS = {
   data: [
@@ -45710,7 +45710,7 @@ const SMASHERS_EARNINGS = {
     },
   ],
   count: 1270,
-};
+}
 
 const SMASHERS_KILLS = {
   data: [
@@ -68558,10 +68558,10 @@ const SMASHERS_KILLS = {
     },
   ],
   count: 1269,
-};
+}
 
 export const SMASHERS_LEADERBOARDS = {
   win_rate: SMASHERS_WIN_RATE.data,
   earnings: SMASHERS_EARNINGS.data,
   kills: SMASHERS_KILLS.data,
-};
+}

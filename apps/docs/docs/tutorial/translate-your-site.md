@@ -11,7 +11,7 @@ Let's translate `docs/intro.md` to French.
 Modify `docusaurus.config.js` to add support for the `fr` locale:
 
 ```js title="docusaurus.config.js"
-export default { i18n: { defaultLocale: 'en', locales: ['en', 'fr'] } };
+export default { i18n: { defaultLocale: 'en', locales: ['en', 'fr'] } }
 ```
 
 ## Translate a doc
@@ -59,7 +59,7 @@ export default {
       ],
     },
   },
-};
+}
 ```
 
 The locale dropdown now appears in your navbar:

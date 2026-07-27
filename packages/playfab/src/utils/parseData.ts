@@ -1,17 +1,19 @@
 export function safeJSONParse(input: unknown) {
-  let output = [];
+  let output = []
   try {
-    output = JSON.parse(typeof input === 'string' ? input : '');
+    output = JSON.parse(typeof input === 'string' ? input : '')
   } catch (e) {
     if (e instanceof SyntaxError || e instanceof TypeError) {
-      console.error(`Error parsing JSON: ${e.message}`);
+      console.error(`Error parsing JSON: ${e.message}`)
     } else {
-      console.error(`Unknown error: ${e}`);
+      console.error(`Unknown error: ${e}`)
     }
   }
-  return output;
+  return output
 }
 
-export const parseLinkedWalletResult = (data?: { [key: string]: PlayFabClientModels.UserDataRecord }): string[] => {
-  return safeJSONParse(data?.LinkedWallets?.Value);
-};
+export const parseLinkedWalletResult = (data?: {
+  [key: string]: PlayFabClientModels.UserDataRecord
+}): string[] => {
+  return safeJSONParse(data?.LinkedWallets?.Value)
+}

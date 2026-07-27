@@ -1,17 +1,17 @@
-'use client';
+'use client'
 
-import type { NextPage } from 'next';
-import Image from 'next/image';
+import type { NextPage } from 'next'
+import Image from 'next/image'
 
-import { cn } from '@nl/ui/utils';
-import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
-import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
-import SocialCards from '@/components/SocialCards';
+import { cn } from '@nl/ui/utils'
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
+import SocialCards from '@/components/SocialCards'
 
-import styles from './index.module.css';
+import styles from './index.module.css'
 
 const Community: NextPage = () => {
-  const desktop = useMediaQuery('(min-width:769px)');
+  const desktop = useMediaQuery('(min-width:769px)')
   return (
     <>
       <section className="relative min-h-screen">
@@ -91,8 +91,8 @@ const Community: NextPage = () => {
           </AnimatedWrapper>
           <AnimatedWrapper>
             <p className="text-center my-3 mx-auto max-w-2xl transition-vertical-fade transition-vertical-fade-start delay-normal">
-              Nifty League&apos;s community is unlike any other. Get your questions answered and connect with fellow
-              DEGENs!
+              Nifty League&apos;s community is unlike any other. Get your questions answered and
+              connect with fellow DEGENs!
             </p>
           </AnimatedWrapper>
         </div>
@@ -102,14 +102,19 @@ const Community: NextPage = () => {
 
       <section className="section flex sliding-nfts relative overflow-hidden">
         <div className="flex flex-col text-center relative p-0">
-          <div className={cn('relative', `sliding-background-wrapper-${desktop ? 'desktop' : 'mobile'}`)}>
+          <div
+            className={cn(
+              'relative',
+              `sliding-background-wrapper-${desktop ? 'desktop' : 'mobile'}`
+            )}
+          >
             <div className="sliding-background" />
             <div className="dark-gradient-overlay" />
           </div>
         </div>
       </section>
     </>
-  );
-};
+  )
+}
 
-export default Community;
+export default Community

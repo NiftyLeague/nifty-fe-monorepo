@@ -1,4 +1,4 @@
-import { gql } from 'graphql-request';
+import { gql } from 'graphql-request'
 
 const OWNER_QUERY = gql`
   query addressCharactersSearch($address: ID!) {
@@ -44,6 +44,6 @@ const OWNER_QUERY = gql`
       }
     }
   }
-`;
+`
 
-export default OWNER_QUERY;
+export default OWNER_QUERY

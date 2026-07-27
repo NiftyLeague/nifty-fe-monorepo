@@ -1,13 +1,13 @@
-import Image from 'next/image';
-import { memo } from 'react';
+import Image from 'next/image'
+import { memo } from 'react'
 
-import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
 
-type Sponsor = { image: string; url: string; width: number; height: number };
+type Sponsor = { image: string; url: string; width: number; height: number }
 
 const RenderSponsor = ({ image, url, width, height }: Sponsor) => (
   <SponsorItem key={image} image={image} url={url} width={width} height={height} />
-);
+)
 
 const SponsorItem = ({ image, url, width, height }: Sponsor): React.ReactNode => (
   <a href={url} target="_blank" rel="noreferrer" className="block">
@@ -23,7 +23,7 @@ const SponsorItem = ({ image, url, width, height }: Sponsor): React.ReactNode =>
       />
     </div>
   </a>
-);
+)
 
 const Sponsors = ({ sponsors }: { sponsors: Sponsor[] }) => (
   <>
@@ -50,7 +50,7 @@ const Sponsors = ({ sponsors }: { sponsors: Sponsor[] }) => (
       </AnimatedWrapper>
     </div>
   </>
-);
+)
 
-const MemoizedSponsors = memo(Sponsors);
-export default MemoizedSponsors;
+const MemoizedSponsors = memo(Sponsors)
+export default MemoizedSponsors

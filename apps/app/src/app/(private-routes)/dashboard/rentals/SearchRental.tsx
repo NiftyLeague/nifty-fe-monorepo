@@ -1,53 +1,53 @@
-'use client';
+'use client'
 
-import { useEffect, useRef } from 'react';
-import { TextField, FormControl } from '@mui/material';
+import { useEffect, useRef } from 'react'
+import { TextField, FormControl } from '@mui/material'
 
 interface Props {
-  handleSearch: (currentValue: string) => void;
-  placeholder?: string;
+  handleSearch: (currentValue: string) => void
+  placeholder?: string
 }
 
 const SearchRental = ({ handleSearch, placeholder }: Props): React.ReactNode => {
-  const inputEl = useRef<HTMLInputElement>(null);
-  const typingTimer = useRef<NodeJS.Timeout>(undefined);
+  const inputEl = useRef<HTMLInputElement>(null)
+  const typingTimer = useRef<NodeJS.Timeout>(undefined)
 
   useEffect(() => {
     return () => {
       if (typingTimer.current) {
-        clearTimeout(typingTimer.current);
+        clearTimeout(typingTimer.current)
       }
-    };
-  }, []);
+    }
+  }, [])
 
   const onSearchLocation = () => {
-    const currentValue = inputEl?.current?.value ?? '';
-    handleSearch(currentValue);
-  };
+    const currentValue = inputEl?.current?.value ?? ''
+    handleSearch(currentValue)
+  }
 
   const doneTyping = () => {
-    onSearchLocation();
-  };
+    onSearchLocation()
+  }
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      onSearchLocation();
+      onSearchLocation()
     }
-  };
+  }
 
   const handleKeyUp = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') return;
+    if (e.key === 'Enter') return
     if (typingTimer.current) {
-      clearTimeout(typingTimer.current);
+      clearTimeout(typingTimer.current)
     }
-    typingTimer.current = setTimeout(doneTyping, 500);
-  };
+    typingTimer.current = setTimeout(doneTyping, 500)
+  }
 
   const handleKeyDown = () => {
     if (typingTimer.current) {
-      clearTimeout(typingTimer.current);
+      clearTimeout(typingTimer.current)
     }
-  };
+  }
 
   return (
     <FormControl>
@@ -58,11 +58,16 @@ const SearchRental = ({ handleSearch, placeholder }: Props): React.ReactNode => 
         fullWidth
         sx={{ minWidth: '480px' }}
         slotProps={{
-          htmlInput: { ref: inputEl, onKeyDown: handleKeyDown, onKeyUp: handleKeyUp, onKeyPress: handleKeyPress },
+          htmlInput: {
+            ref: inputEl,
+            onKeyDown: handleKeyDown,
+            onKeyUp: handleKeyUp,
+            onKeyPress: handleKeyPress,
+          },
         }}
       />
     </FormControl>
-  );
-};
+  )
+}
 
-export default SearchRental;
+export default SearchRental

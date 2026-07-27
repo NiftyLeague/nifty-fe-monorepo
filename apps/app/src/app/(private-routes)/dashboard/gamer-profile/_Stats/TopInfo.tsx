@@ -1,31 +1,31 @@
-'use client';
+'use client'
 
-import { useMemo } from 'react';
-import { Stack, Typography, Box, IconButton } from '@mui/material';
-import { Icon } from '@nl/ui/base/icon';
+import { useMemo } from 'react'
+import { Stack, Typography, Box, IconButton } from '@mui/material'
+import { Icon } from '@nl/ui/base/icon'
 
-import { useCopyToClipboard } from '@nl/ui/hooks/useCopyToClipboard';
-import { useGamerProfileContext } from '@/hooks/useGamerProfile';
-import type { Profile } from '@/types/account';
+import { useCopyToClipboard } from '@nl/ui/hooks/useCopyToClipboard'
+import { useGamerProfileContext } from '@/hooks/useGamerProfile'
+import type { Profile } from '@/types/account'
 
-import ProgressGamer from './ProgressGamer';
-import ChangeProfileNameDialog from './ChangeProfileNameDialog';
-import TopInfoSkeleton from './TopInfoSkeleton';
+import ProgressGamer from './ProgressGamer'
+import ChangeProfileNameDialog from './ChangeProfileNameDialog'
+import TopInfoSkeleton from './TopInfoSkeleton'
 
 interface TopInfoProps {
-  profile: Profile | undefined;
-  walletAddress: string;
+  profile: Profile | undefined
+  walletAddress: string
 }
 
 const TopInfo = ({ profile, walletAddress }: TopInfoProps): React.ReactNode => {
-  const { isLoadingProfile, fetchUserProfile } = useGamerProfileContext();
-  const [, copy] = useCopyToClipboard();
-  const total = profile?.stats?.total;
-  const profileName = useMemo(() => profile?.name_cased ?? 'Unknown', [profile]);
+  const { isLoadingProfile, fetchUserProfile } = useGamerProfileContext()
+  const [, copy] = useCopyToClipboard()
+  const total = profile?.stats?.total
+  const profileName = useMemo(() => profile?.name_cased ?? 'Unknown', [profile])
 
   const handleUpdateNewName = () => {
-    fetchUserProfile?.();
-  };
+    fetchUserProfile?.()
+  }
 
   const renderTopInfo = () => {
     return (
@@ -39,10 +39,14 @@ const TopInfo = ({ profile, walletAddress }: TopInfoProps): React.ReactNode => {
           <Box sx={{ width: '50%' }}>{total && <ProgressGamer data={total} />}</Box>
         </Stack>
         <Stack direction="row" spacing={5} sx={{ alignItems: 'center' }}>
-          <Typography variant="h4" component="div" sx={{ width: '50%', color: 'var(--color-muted-foreground)' }}>
+          <Typography
+            variant="h4"
+            component="div"
+            sx={{ width: '50%', color: 'var(--color-muted-foreground)' }}
+          >
             {`${walletAddress.slice(0, 5)}...${walletAddress.slice(
               walletAddress.length - 5,
-              walletAddress.length - 1,
+              walletAddress.length - 1
             )}`}{' '}
             <IconButton
               sx={{ cursor: 'pointer' }}
@@ -64,10 +68,10 @@ const TopInfo = ({ profile, walletAddress }: TopInfoProps): React.ReactNode => {
           </Typography>
         </Stack>
       </Stack>
-    );
-  };
+    )
+  }
 
-  return isLoadingProfile ? <TopInfoSkeleton /> : renderTopInfo();
-};
+  return isLoadingProfile ? <TopInfoSkeleton /> : renderTopInfo()
+}
 
-export default TopInfo;
+export default TopInfo

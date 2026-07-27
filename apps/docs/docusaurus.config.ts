@@ -1,6 +1,6 @@
-import { themes as prismThemes } from 'prism-react-renderer';
-import type { Config } from '@docusaurus/types';
-import type * as Preset from '@docusaurus/preset-classic';
+import { themes as prismThemes } from 'prism-react-renderer'
+import type { Config } from '@docusaurus/types'
+import type * as Preset from '@docusaurus/preset-classic'
 
 const config: Config = {
   title: 'Nifty League Docs',
@@ -68,7 +68,9 @@ const config: Config = {
           editUrl: 'https://github.com/NiftyLeague/nifty-fe-monorepo/tree/main/apps/docs',
         },
         googleTagManager: { containerId: 'GTM-MHCXVXJZ' },
-        theme: { customCss: ['./src/css/colors.css', './src/css/fonts.css', './src/css/custom.css'] },
+        theme: {
+          customCss: ['./src/css/colors.css', './src/css/fonts.css', './src/css/custom.css'],
+        },
       } satisfies Preset.Options,
     ],
   ],
@@ -87,7 +89,12 @@ const config: Config = {
         //   docsPluginId: 'default',
         //   className: 'persistent',
         // },
-        { to: '/docs/overview/intro', label: 'Overview', position: 'left', className: 'persistent' },
+        {
+          to: '/docs/overview/intro',
+          label: 'Overview',
+          position: 'left',
+          className: 'persistent',
+        },
         { to: '/docs/guides/set-up', label: 'Guides', position: 'left', className: 'persistent' },
         { to: '/docs/faq/general', label: 'FAQ', position: 'left', className: 'persistent' },
         // {
@@ -97,9 +104,24 @@ const config: Config = {
         //   label: 'Tutorial',
         //   className: 'persistent',
         // },
-        { href: 'https://niftyleague.com/', label: 'Website', position: 'right', className: 'persistent' },
-        { href: 'https://github.com/NiftyLeague/docs', label: 'GitHub', position: 'right', className: 'persistent' },
-        { href: 'https://discord.gg/niftyleague', label: 'Discord', position: 'right', className: 'persistent' },
+        {
+          href: 'https://niftyleague.com/',
+          label: 'Website',
+          position: 'right',
+          className: 'persistent',
+        },
+        {
+          href: 'https://github.com/NiftyLeague/docs',
+          label: 'GitHub',
+          position: 'right',
+          className: 'persistent',
+        },
+        {
+          href: 'https://discord.gg/niftyleague',
+          label: 'Discord',
+          position: 'right',
+          className: 'persistent',
+        },
         // {
         //   type: 'localeDropdown',
         //   position: 'right',
@@ -166,7 +188,10 @@ const config: Config = {
           title: 'NFTs',
           items: [
             { label: 'OpenSea - DEGENS', href: 'https://opensea.io/collection/niftydegen' },
-            { label: 'TokenTrove - COMICS & ITEMS', href: 'https://tokentrove.com/collection/NiftyLeague' },
+            {
+              label: 'TokenTrove - COMICS & ITEMS',
+              href: 'https://tokentrove.com/collection/NiftyLeague',
+            },
             {
               label: 'NiftyDegen NFT Contract',
               href: 'https://etherscan.io/token/0x986aea67C7d6A15036e18678065eb663Fc5BE883',
@@ -185,7 +210,11 @@ const config: Config = {
       disableSwitch: false,
       respectPrefersColorScheme: false,
     },
-    prism: { theme: prismThemes.github, darkTheme: prismThemes.dracula, additionalLanguages: ['solidity'] },
+    prism: {
+      theme: prismThemes.github,
+      darkTheme: prismThemes.dracula,
+      additionalLanguages: ['solidity'],
+    },
     algolia: {
       appId: process.env.ALGOLIA_APP_ID || 'QHFGNYFTED',
       apiKey: process.env.ALGOLIA_API_KEY || 'a279745db091a62dd51ec3212d11a5d0', // SEARCH ONLY api key
@@ -193,6 +222,6 @@ const config: Config = {
     },
     mermaid: { theme: { light: 'forest', dark: 'dark' } },
   } satisfies Preset.ThemeConfig,
-};
+}
 
-export default config;
+export default config

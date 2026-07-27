@@ -1,9 +1,9 @@
-'use client';
+'use client'
 
-import { Grid } from '@mui/material';
-import SectionSlider from '@/components/sections/SectionSlider';
-import GameList from '@/app/(public-routes)/games/_GameList';
-import Web3GameList from '@/app/(public-routes)/games/_Web3GameList';
+import { Grid } from '@mui/material'
+import SectionSlider from '@/components/sections/SectionSlider'
+import GameList from '@/app/(public-routes)/games/_GameList'
+import Web3GameList from '@/app/(public-routes)/games/_Web3GameList'
 
 const Home = () => {
   return (
@@ -36,7 +36,7 @@ const Home = () => {
         </Grid>
       </SectionSlider>
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

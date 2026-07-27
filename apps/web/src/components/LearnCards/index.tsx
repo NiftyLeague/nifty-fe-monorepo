@@ -1,16 +1,16 @@
-import Image from 'next/image';
+import Image from 'next/image'
 
-import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
-import ThemeBtnGroup from '@/components/ThemeBtnGroup';
-import { LEARN_CARDS } from './constants';
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
+import ThemeBtnGroup from '@/components/ThemeBtnGroup'
+import { LEARN_CARDS } from './constants'
 
 interface LearnCardProps {
-  btnText: string;
-  external?: boolean;
-  image: string;
-  link: string;
-  subtitle: string;
-  title: string;
+  btnText: string
+  external?: boolean
+  image: string
+  link: string
+  subtitle: string
+  title: string
 }
 
 const LearnCard = ({ btnText, external, image, link, subtitle, title }: LearnCardProps) => {
@@ -48,12 +48,17 @@ const LearnCard = ({ btnText, external, image, link, subtitle, title }: LearnCar
           </AnimatedWrapper>
         </div>
         <ThemeBtnGroup
-          primary={{ href: link, title: btnText, external: external, className: 'theme-btn-rounded max-w-fit' }}
+          primary={{
+            href: link,
+            title: btnText,
+            external: external,
+            className: 'theme-btn-rounded max-w-fit',
+          }}
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
 const LearnCards = () => {
   return (
@@ -71,7 +76,7 @@ const LearnCards = () => {
         </div>
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default LearnCards;
+export default LearnCards

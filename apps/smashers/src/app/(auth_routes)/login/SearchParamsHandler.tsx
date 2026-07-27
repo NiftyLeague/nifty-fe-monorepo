@@ -1,17 +1,17 @@
-'use client';
+'use client'
 
-import { useEffect } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
-import type { User } from '@nl/playfab/types';
+import { useEffect } from 'react'
+import { useSearchParams, useRouter } from 'next/navigation'
+import type { User } from '@nl/playfab/types'
 
 interface SessionData {
-  user: User | null;
+  user: User | null
 }
 
 export default function SearchParamsHandler({ sessionData }: { sessionData: SessionData }) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const hasGameToken = searchParams.has('game-token');
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const hasGameToken = searchParams.has('game-token')
 
   useEffect(() => {
     if (hasGameToken) {
@@ -20,11 +20,11 @@ export default function SearchParamsHandler({ sessionData }: { sessionData: Sess
       fetch('/api/playfab/logout', { method: 'POST' })
         .then(() => {
           // Refresh the page to reflect the logged out state
-          router.refresh();
+          router.refresh()
         })
-        .catch(console.error);
+        .catch(console.error)
     }
-  }, [hasGameToken, router]);
+  }, [hasGameToken, router])
 
-  return null;
+  return null
 }

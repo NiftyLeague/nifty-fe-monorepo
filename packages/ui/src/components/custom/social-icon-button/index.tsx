@@ -1,19 +1,19 @@
-'use client';
+'use client'
 
-import { cn } from '@nl/ui/utils';
-import { Button } from '@nl/ui/base/button';
-import { Icon } from '@nl/ui/base/icon';
+import { cn } from '@nl/ui/utils'
+import { Button } from '@nl/ui/base/button'
+import { Icon } from '@nl/ui/base/icon'
 
-import * as SocialIcons from './social-icons';
-import buttonStyles from './socials.module.css';
+import * as SocialIcons from './social-icons'
+import buttonStyles from './socials.module.css'
 
 interface ButtonProps {
-  disabled?: boolean;
-  label?: string;
-  loading?: boolean;
-  onClick?: () => void;
-  provider: keyof typeof SocialIcons;
-  withColor?: boolean;
+  disabled?: boolean
+  label?: string
+  loading?: boolean
+  onClick?: () => void
+  provider: keyof typeof SocialIcons
+  withColor?: boolean
 }
 
 export function SocialIconButton({
@@ -24,14 +24,17 @@ export function SocialIconButton({
   provider,
   withColor = false,
 }: ButtonProps) {
-  const AuthIcon = SocialIcons[provider];
+  const AuthIcon = SocialIcons[provider]
 
   return (
     <Button
       key={provider}
       variant="outline"
       type="button"
-      className={cn('w-full cursor-pointer disabled:cursor-progress', withColor && buttonStyles[provider])}
+      className={cn(
+        'w-full cursor-pointer disabled:cursor-progress',
+        withColor && buttonStyles[provider]
+      )}
       disabled={disabled}
       onClick={onClick}
     >
@@ -39,7 +42,7 @@ export function SocialIconButton({
       {label && label}
       <span className="sr-only">{provider}</span>
     </Button>
-  );
+  )
 }
 
-export default SocialIconButton;
+export default SocialIconButton

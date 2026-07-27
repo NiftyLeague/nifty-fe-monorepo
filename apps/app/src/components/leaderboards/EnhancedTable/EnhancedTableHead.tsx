@@ -1,12 +1,12 @@
-import Image from 'next/image';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import type { EnhancedTableProps } from '@/types/leaderboard';
-import { Typography } from '@mui/material';
+import Image from 'next/image'
+import TableCell from '@mui/material/TableCell'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import type { EnhancedTableProps } from '@/types/leaderboard'
+import { Typography } from '@mui/material'
 
 export default function EnhancedTableHead(props: EnhancedTableProps): React.ReactNode | null {
-  const { rows, handleCheckYourRank } = props;
+  const { rows, handleCheckYourRank } = props
   return (
     <TableHead>
       <TableRow>
@@ -16,7 +16,7 @@ export default function EnhancedTableHead(props: EnhancedTableProps): React.Reac
         <TableCell align="left" padding="normal">
           USERNAME
         </TableCell>
-        {rows.map(headCell => (
+        {rows.map((headCell) => (
           <TableCell key={headCell.key} align="left" padding="normal">
             {headCell.display}
           </TableCell>
@@ -36,11 +36,17 @@ export default function EnhancedTableHead(props: EnhancedTableProps): React.Reac
             }}
             onClick={handleCheckYourRank}
           >
-            <Image src="/icons/rank_icon.svg" alt="Rank Icon" width={25} height={20} style={{ marginRight: 4 }} />
+            <Image
+              src="/icons/rank_icon.svg"
+              alt="Rank Icon"
+              width={25}
+              height={20}
+              style={{ marginRight: 4 }}
+            />
             RANK
           </Typography>
         </TableCell>
       </TableRow>
     </TableHead>
-  );
+  )
 }

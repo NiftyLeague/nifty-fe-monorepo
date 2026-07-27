@@ -1,16 +1,16 @@
-'use client';
+'use client'
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { Fragment } from 'react';
-import { usePathname } from 'next/navigation';
-import { useScrollDetection } from '@nl/ui/hooks/useScrollDetection';
-import { cn } from '@nl/ui/utils';
+import Link from 'next/link'
+import Image from 'next/image'
+import { Fragment } from 'react'
+import { usePathname } from 'next/navigation'
+import { useScrollDetection } from '@nl/ui/hooks/useScrollDetection'
+import { cn } from '@nl/ui/utils'
 
-import { Button } from '@nl/ui/base/button';
-import { ExternalIcon } from '@nl/ui/custom/external-icon';
-import { Icon } from '@nl/ui/base/icon';
-import { Separator } from '@nl/ui/base/separator';
+import { Button } from '@nl/ui/base/button'
+import { ExternalIcon } from '@nl/ui/custom/external-icon'
+import { Icon } from '@nl/ui/base/icon'
+import { Separator } from '@nl/ui/base/separator'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -19,7 +19,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from '@nl/ui/base/navigation-menu';
+} from '@nl/ui/base/navigation-menu'
 import {
   Sheet,
   SheetClose,
@@ -28,30 +28,30 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@nl/ui/base/sheet';
+} from '@nl/ui/base/sheet'
 
 interface Page {
-  title: string;
-  href: string;
-  description?: string;
-  external?: boolean;
+  title: string
+  href: string
+  description?: string
+  external?: boolean
 }
 
 interface SingleMenuItemData extends Page {
-  type: 'single';
+  type: 'single'
 }
 
 interface GroupedMenuItemData {
-  type: 'group';
-  group: string; // The main title for the group (e.g., "Products")
-  pages: Page[]; // The sub-pages within this group
+  type: 'group'
+  group: string // The main title for the group (e.g., "Products")
+  pages: Page[] // The sub-pages within this group
 }
 
-export type NavItemData = SingleMenuItemData | GroupedMenuItemData;
+export type NavItemData = SingleMenuItemData | GroupedMenuItemData
 
 interface NavbarProps {
-  actionButton?: Omit<Page, 'description'>;
-  navItems: NavItemData[];
+  actionButton?: Omit<Page, 'description'>
+  navItems: NavItemData[]
 }
 
 function NavLink({
@@ -61,24 +61,38 @@ function NavLink({
   title,
   ...props
 }: React.ComponentProps<typeof NavigationMenuLink> & Page) {
-  const pathname = usePathname();
-  const isActive = href === pathname;
+  const pathname = usePathname()
+  const isActive = href === pathname
   return (
     <NavigationMenuLink asChild data-active={isActive} {...props}>
-      <Link href={href} target={external ? '_blank' : undefined} rel={external ? 'noreferrer' : undefined}>
+      <Link
+        href={href}
+        target={external ? '_blank' : undefined}
+        rel={external ? 'noreferrer' : undefined}
+      >
         <div className="w-full leading-none">
           {title}
           {external && <ExternalIcon />}
         </div>
-        {description && <p className="w-full text-xs text-muted-foreground line-clamp-2 leading-snug">{description}</p>}
+        {description && (
+          <p className="w-full text-xs text-muted-foreground line-clamp-2 leading-snug">
+            {description}
+          </p>
+        )}
       </Link>
     </NavigationMenuLink>
-  );
+  )
 }
 
 /* ==============================|| DESKTOP NAV ||============================== */
 
-function ListItem({ description, external, href, title, ...props }: React.ComponentPropsWithoutRef<'li'> & Page) {
+function ListItem({
+  description,
+  external,
+  href,
+  title,
+  ...props
+}: React.ComponentPropsWithoutRef<'li'> & Page) {
   return (
     <li {...props}>
       <NavLink
@@ -89,7 +103,7 @@ function ListItem({ description, external, href, title, ...props }: React.Compon
         title={title}
       />
     </li>
-  );
+  )
 }
 
 function DropdownMenuItem({ group, pages }: GroupedMenuItemData) {
@@ -98,13 +112,13 @@ function DropdownMenuItem({ group, pages }: GroupedMenuItemData) {
       <NavigationMenuTrigger>{group}</NavigationMenuTrigger>
       <NavigationMenuContent>
         <ul className="flex flex-col w-[300px] max-w-max">
-          {pages.map(page => (
+          {pages.map((page) => (
             <ListItem key={page.title} {...page} />
           ))}
         </ul>
       </NavigationMenuContent>
     </NavigationMenuItem>
-  );
+  )
 }
 
 function SingleMenuItem({ type, ...page }: SingleMenuItemData) {
@@ -112,7 +126,7 @@ function SingleMenuItem({ type, ...page }: SingleMenuItemData) {
     <NavigationMenuItem value={page.title.toLowerCase()}>
       <NavLink className={navigationMenuTriggerStyle()} {...page} />
     </NavigationMenuItem>
-  );
+  )
 }
 
 function DesktopNavMenu({
@@ -122,7 +136,7 @@ function DesktopNavMenu({
 }: React.ComponentProps<typeof NavigationMenuList> & NavbarProps) {
   return (
     <NavigationMenuList className="hidden md:flex" {...props}>
-      {navItems.map(item => (
+      {navItems.map((item) => (
         <Fragment key={item.type === 'single' ? item.title : item.group}>
           {item.type === 'single' && <SingleMenuItem {...item} />}
           {item.type === 'group' && <DropdownMenuItem {...item} />}
@@ -139,7 +153,7 @@ function DesktopNavMenu({
         </a>
       )}
     </NavigationMenuList>
-  );
+  )
 }
 
 /* ==============================|| MOBILE NAV ||=============================== */
@@ -149,7 +163,7 @@ function MobileMenuGroup({ group, pages }: GroupedMenuItemData) {
     <NavigationMenuItem value={group.toLowerCase()} className="w-full">
       <h3 className="text-base text-muted-foreground uppercase tracking-wider">{group}</h3>
       <ul className="flex flex-col w-full">
-        {pages.map(page => (
+        {pages.map((page) => (
           <li key={page.title}>
             <SheetClose asChild>
               <NavLink className="text-base font-medium" {...page} />
@@ -158,7 +172,7 @@ function MobileMenuGroup({ group, pages }: GroupedMenuItemData) {
         ))}
       </ul>
     </NavigationMenuItem>
-  );
+  )
 }
 
 function MobileMenuItem({ type, ...page }: SingleMenuItemData) {
@@ -168,10 +182,14 @@ function MobileMenuItem({ type, ...page }: SingleMenuItemData) {
         <NavLink className="text-base font-medium" {...page} />
       </SheetClose>
     </NavigationMenuItem>
-  );
+  )
 }
 
-function MobileNavMenu({ actionButton, navItems, ...props }: React.ComponentProps<typeof Sheet> & NavbarProps) {
+function MobileNavMenu({
+  actionButton,
+  navItems,
+  ...props
+}: React.ComponentProps<typeof Sheet> & NavbarProps) {
   return (
     <div className="flex md:hidden">
       <Sheet {...props}>
@@ -188,7 +206,7 @@ function MobileNavMenu({ actionButton, navItems, ...props }: React.ComponentProp
           </SheetHeader>
           <div className="flex flex-col gap-6 px-8 pb-4 overflow-y-auto">
             <NavigationMenuList className="flex flex-col gap-4" data-orientation="vertical">
-              {navItems.map(item => (
+              {navItems.map((item) => (
                 <Fragment key={item.type === 'single' ? item.title : item.group}>
                   {item.type === 'single' && <MobileMenuItem {...item} />}
                   {item.type === 'group' && <MobileMenuGroup {...item} />}
@@ -213,7 +231,7 @@ function MobileNavMenu({ actionButton, navItems, ...props }: React.ComponentProp
         </SheetContent>
       </Sheet>
     </div>
-  );
+  )
 }
 
 /* ================================|| NAVBAR ||================================= */
@@ -223,7 +241,7 @@ export function Navbar({
   navItems,
   ...props
 }: React.ComponentProps<typeof NavigationMenu> & NavbarProps) {
-  const { ref: scrollSentinelRef, isIntersecting } = useScrollDetection();
+  const { ref: scrollSentinelRef, isIntersecting } = useScrollDetection()
   return (
     <>
       {/*
@@ -238,7 +256,7 @@ export function Navbar({
         // value="products"
         className={cn(
           'fixed top-0 inset-x-0 h-20 z-50 transition-all duration-500',
-          isIntersecting ? 'bg-transparent backdrop-blur-xs' : 'bg-background/90 backdrop-blur-sm',
+          isIntersecting ? 'bg-transparent backdrop-blur-xs' : 'bg-background/90 backdrop-blur-sm'
         )}
         {...props}
       >
@@ -257,7 +275,7 @@ export function Navbar({
           <DesktopNavMenu
             actionButton={actionButton}
             navItems={navItems.filter(
-              item => item.type === 'group' || (item.type === 'single' && item?.title !== 'Home'),
+              (item) => item.type === 'group' || (item.type === 'single' && item?.title !== 'Home')
             )}
           />
 
@@ -265,7 +283,7 @@ export function Navbar({
         </div>
       </NavigationMenu>
     </>
-  );
+  )
 }
 
-export default Navbar;
+export default Navbar

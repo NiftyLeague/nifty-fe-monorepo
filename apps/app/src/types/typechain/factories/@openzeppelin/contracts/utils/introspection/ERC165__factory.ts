@@ -2,8 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
-import type { ERC165, ERC165Interface } from '../../../../../@openzeppelin/contracts/utils/introspection/ERC165';
+import { Contract, Interface, type ContractRunner } from 'ethers'
+import type {
+  ERC165,
+  ERC165Interface,
+} from '../../../../../@openzeppelin/contracts/utils/introspection/ERC165'
 
 const _abi = [
   {
@@ -13,14 +16,14 @@ const _abi = [
     stateMutability: 'view',
     type: 'function',
   },
-] as const;
+] as const
 
 export class ERC165__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): ERC165Interface {
-    return new Interface(_abi) as ERC165Interface;
+    return new Interface(_abi) as ERC165Interface
   }
   static connect(address: string, runner?: ContractRunner | null): ERC165 {
-    return new Contract(address, _abi, runner) as unknown as ERC165;
+    return new Contract(address, _abi, runner) as unknown as ERC165
   }
 }

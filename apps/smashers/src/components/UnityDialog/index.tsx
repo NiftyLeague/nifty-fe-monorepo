@@ -1,10 +1,10 @@
-import dynamic from 'next/dynamic';
-import { isOpera, browserName } from 'react-device-detect';
-import { Dialog } from '@nl/ui/custom/dialog';
-import { Title } from '@nl/ui/custom/typography';
-import UnityButton from './UnityButton';
+import dynamic from 'next/dynamic'
+import { isOpera, browserName } from 'react-device-detect'
+import { Dialog } from '@nl/ui/custom/dialog'
+import { Title } from '@nl/ui/custom/typography'
+import UnityButton from './UnityButton'
 
-const Game = dynamic(() => import('./Game'), { ssr: false });
+const Game = dynamic(() => import('./Game'), { ssr: false })
 
 const UnityContent = ({ onClose }: { onClose: () => void }) => {
   return (
@@ -17,11 +17,11 @@ const UnityContent = ({ onClose }: { onClose: () => void }) => {
         <Game closeGame={onClose} />
       )}
     </div>
-  );
-};
+  )
+}
 
 const UnityModal = () => {
-  const onClose = () => {};
+  const onClose = () => {}
 
   return (
     <Dialog
@@ -33,7 +33,7 @@ const UnityModal = () => {
     >
       <UnityContent onClose={onClose} />
     </Dialog>
-  );
-};
+  )
+}
 
-export default UnityModal;
+export default UnityModal

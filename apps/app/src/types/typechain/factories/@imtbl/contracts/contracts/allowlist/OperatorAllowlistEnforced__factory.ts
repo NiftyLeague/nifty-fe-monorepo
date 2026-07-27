@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   OperatorAllowlistEnforced,
   OperatorAllowlistEnforcedInterface,
-} from '../../../../../@imtbl/contracts/contracts/allowlist/OperatorAllowlistEnforced';
+} from '../../../../../@imtbl/contracts/contracts/allowlist/OperatorAllowlistEnforced'
 
 const _abi = [
   { inputs: [], name: 'AllowlistDoesNotImplementIOperatorAllowlist', type: 'error' },
@@ -51,14 +51,14 @@ const _abi = [
     stateMutability: 'view',
     type: 'function',
   },
-] as const;
+] as const
 
 export class OperatorAllowlistEnforced__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): OperatorAllowlistEnforcedInterface {
-    return new Interface(_abi) as OperatorAllowlistEnforcedInterface;
+    return new Interface(_abi) as OperatorAllowlistEnforcedInterface
   }
   static connect(address: string, runner?: ContractRunner | null): OperatorAllowlistEnforced {
-    return new Contract(address, _abi, runner) as unknown as OperatorAllowlistEnforced;
+    return new Contract(address, _abi, runner) as unknown as OperatorAllowlistEnforced
   }
 }

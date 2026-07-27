@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'bun:test';
+import { describe, expect, it } from 'bun:test'
 const catalogLoaders = {
   careers: () => import('./careers'),
   contracts: () => import('./contracts'),
@@ -10,12 +10,15 @@ const catalogLoaders = {
   learnCards: () => import('../components/LearnCards/constants'),
   roadmap: () => import('../components/RoadmapTimeline/constants'),
   socialCards: () => import('../components/SocialCards/constants'),
-};
+}
 
 describe('website catalogs', () => {
-  it.each(Object.entries(catalogLoaders))('%s loads a non-empty catalog', async (_name, loadModule) => {
-    const catalog = await loadModule();
-    expect(Object.keys(catalog).length).toBeGreaterThan(0);
-    expect(Object.values(catalog).some(Boolean)).toBe(true);
-  });
-});
+  it.each(Object.entries(catalogLoaders))(
+    '%s loads a non-empty catalog',
+    async (_name, loadModule) => {
+      const catalog = await loadModule()
+      expect(Object.keys(catalog).length).toBeGreaterThan(0)
+      expect(Object.values(catalog).some(Boolean)).toBe(true)
+    }
+  )
+})

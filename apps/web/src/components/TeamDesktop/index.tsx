@@ -1,6 +1,6 @@
-import { memo } from 'react';
-import Image from 'next/image';
-import { CORE_TEAM, DEGEN_DELEGATES } from '@/constants/team';
+import { memo } from 'react'
+import Image from 'next/image'
+import { CORE_TEAM, DEGEN_DELEGATES } from '@/constants/team'
 
 const TeamDesktop = () => {
   return (
@@ -26,8 +26,8 @@ const TeamDesktop = () => {
         </div>
       ))}
     </div>
-  );
-};
+  )
+}
 
-const MemoizedTeamDesktop = memo(TeamDesktop);
-export default MemoizedTeamDesktop;
+const MemoizedTeamDesktop = memo(TeamDesktop)
+export default MemoizedTeamDesktop

@@ -1,15 +1,22 @@
-import { useMemo } from 'react';
-import { styled } from '@nl/theme';
-import Image from 'next/image';
-import xor from 'lodash/xor';
-import sum from 'lodash/sum';
-import { ImageList, ImageListItem, ImageListItemBar, Skeleton, TextField, InputAdornment } from '@mui/material';
-import { Icon } from '@nl/ui/base/icon';
+import { useMemo } from 'react'
+import { styled } from '@nl/theme'
+import Image from 'next/image'
+import xor from 'lodash/xor'
+import sum from 'lodash/sum'
+import {
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
+  Skeleton,
+  TextField,
+  InputAdornment,
+} from '@mui/material'
+import { Icon } from '@nl/ui/base/icon'
 
-import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
-import type { Comic } from '@/types/marketplace';
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
+import type { Comic } from '@/types/marketplace'
 
-const PREFIX = 'comics-grid';
+const PREFIX = 'comics-grid'
 
 const classes = {
   titleWrap: `${PREFIX}-titleWrap`,
@@ -17,7 +24,7 @@ const classes = {
   sums: `${PREFIX}-sums`,
   keySum: `${PREFIX}-keySum`,
   itemSum: `${PREFIX}-itemSum`,
-};
+}
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled('div')({
@@ -39,7 +46,7 @@ const Root = styled('div')({
   },
   [`&.${classes.keySum}`]: {},
   [`&.${classes.itemSum}`]: {},
-});
+})
 
 const COMPRESSED_COMIC_IMAGES = [
   '/img/comics/thumbnail/1.webp',
@@ -48,7 +55,7 @@ const COMPRESSED_COMIC_IMAGES = [
   '/img/comics/thumbnail/4.webp',
   '/img/comics/thumbnail/5.webp',
   '/img/comics/thumbnail/6.webp',
-];
+]
 
 const gridStyles = {
   flexGrow: 1,
@@ -61,7 +68,7 @@ const gridStyles = {
   width: 315,
   top: 130,
   rowGap: '0 !important',
-};
+}
 
 export default function ComicsGrid({
   burnCount,
@@ -70,47 +77,56 @@ export default function ComicsGrid({
   setSelectedComics,
   refreshKey,
 }: {
-  burnCount: number[];
-  selectedComics: Comic[];
-  setBurnCount: React.Dispatch<React.SetStateAction<number[]>>;
-  setSelectedComics: React.Dispatch<React.SetStateAction<Comic[]>>;
-  refreshKey: number;
+  burnCount: number[]
+  selectedComics: Comic[]
+  setBurnCount: React.Dispatch<React.SetStateAction<number[]>>
+  setSelectedComics: React.Dispatch<React.SetStateAction<Comic[]>>
+  refreshKey: number
 }) {
-  const { comicsBalances, loadingComics } = useNFTsBalances();
-  const keyCount = useMemo(() => (burnCount.some(v => v === 0) ? 0 : Math.min(...burnCount)), [burnCount]);
-  const itemCount = useMemo(() => sum(burnCount) - keyCount * 6, [burnCount, keyCount]);
+  const { comicsBalances, loadingComics } = useNFTsBalances()
+  const keyCount = useMemo(
+    () => (burnCount.some((v) => v === 0) ? 0 : Math.min(...burnCount)),
+    [burnCount]
+  )
+  const itemCount = useMemo(() => sum(burnCount) - keyCount * 6, [burnCount, keyCount])
 
   const handleManualSetBurnCount = (comic: Comic, value: string) => {
-    const newBurnCount = [...burnCount];
-    newBurnCount[comic.id - 1] = !value ? 0 : parseInt(value);
-    setBurnCount(newBurnCount);
-  };
+    const newBurnCount = [...burnCount]
+    newBurnCount[comic.id - 1] = !value ? 0 : parseInt(value)
+    setBurnCount(newBurnCount)
+  }
 
   const handleUpdateBurnCount = (comic: Comic, newSelectedComics: Comic[]) => {
-    const removed = !newSelectedComics.includes(comic);
-    const newBurnCount = [...burnCount];
+    const removed = !newSelectedComics.includes(comic)
+    const newBurnCount = [...burnCount]
     if (removed) {
-      newBurnCount[comic.id - 1] = 0;
+      newBurnCount[comic.id - 1] = 0
     } else {
-      const comicCount = comicsBalances.find(c => c.id === comic.id)?.balance || 0;
-      newBurnCount[comic.id - 1] = comicCount;
+      const comicCount = comicsBalances.find((c) => c.id === comic.id)?.balance || 0
+      newBurnCount[comic.id - 1] = comicCount
     }
-    setBurnCount(newBurnCount);
-  };
+    setBurnCount(newBurnCount)
+  }
 
   const handleSelectComic = (comic: Comic) => {
     // xor creates an array of unique values that is the symmetric difference of the given arrays
-    const newSelectedComics = xor(selectedComics, [comic]);
-    setSelectedComics(newSelectedComics);
-    handleUpdateBurnCount(comic, newSelectedComics);
-  };
+    const newSelectedComics = xor(selectedComics, [comic])
+    setSelectedComics(newSelectedComics)
+    handleUpdateBurnCount(comic, newSelectedComics)
+  }
 
   return loadingComics ? (
-    <Skeleton variant="rectangular" animation="wave" width={315} height={265} sx={{ ...gridStyles }} />
+    <Skeleton
+      variant="rectangular"
+      animation="wave"
+      width={315}
+      height={265}
+      sx={{ ...gridStyles }}
+    />
   ) : (
     <Root>
       <ImageList gap={10} cols={3} sx={{ ...gridStyles }}>
-        {comicsBalances.map(comic => (
+        {comicsBalances.map((comic) => (
           <ImageListItem key={comic.image}>
             <Image
               src={COMPRESSED_COMIC_IMAGES[comic.id - 1] as string}
@@ -136,7 +152,7 @@ export default function ComicsGrid({
                   <TextField
                     value={burnCount[comic.id - 1]}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                      handleManualSetBurnCount(comic, event.target.value);
+                      handleManualSetBurnCount(comic, event.target.value)
                     }}
                     size="small"
                     sx={{ m: 0, width: 98 }}
@@ -154,7 +170,7 @@ export default function ComicsGrid({
                         inputMode: 'numeric',
                         pattern: '[0-9]*',
                         min: 0,
-                        max: comicsBalances.find(c => c.id === comic.id)?.balance || 0,
+                        max: comicsBalances.find((c) => c.id === comic.id)?.balance || 0,
                         style: { textAlign: 'center', padding: 2.5 },
                       },
                     }}
@@ -176,5 +192,5 @@ export default function ComicsGrid({
         <span className={classes.itemSum}>{itemCount} Items</span>
       </div>
     </Root>
-  );
+  )
 }

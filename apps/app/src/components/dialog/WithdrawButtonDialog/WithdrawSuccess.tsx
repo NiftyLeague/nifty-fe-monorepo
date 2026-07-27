@@ -1,17 +1,23 @@
-import type { Dispatch, SetStateAction } from 'react';
-import { Dialog, DialogContent, DialogContentText, DialogTitle, IconButton } from '@mui/material';
-import { Icon } from '@nl/ui/base/icon';
-import useTokensBalances from '@/hooks/balances/useTokensBalances';
+import type { Dispatch, SetStateAction } from 'react'
+import { Dialog, DialogContent, DialogContentText, DialogTitle, IconButton } from '@mui/material'
+import { Icon } from '@nl/ui/base/icon'
+import useTokensBalances from '@/hooks/balances/useTokensBalances'
 
-type WithdrawSuccessProps = { successDialogOpen: boolean; setSuccessDialogOpen: Dispatch<SetStateAction<boolean>> };
+type WithdrawSuccessProps = {
+  successDialogOpen: boolean
+  setSuccessDialogOpen: Dispatch<SetStateAction<boolean>>
+}
 
-const WithdrawSuccess = ({ successDialogOpen, setSuccessDialogOpen }: WithdrawSuccessProps): React.ReactNode => {
-  const { refreshNFTLBalance } = useTokensBalances();
+const WithdrawSuccess = ({
+  successDialogOpen,
+  setSuccessDialogOpen,
+}: WithdrawSuccessProps): React.ReactNode => {
+  const { refreshNFTLBalance } = useTokensBalances()
 
   const handleClose = () => {
-    refreshNFTLBalance();
-    setSuccessDialogOpen(false);
-  };
+    refreshNFTLBalance()
+    setSuccessDialogOpen(false)
+  }
 
   return (
     <Dialog
@@ -22,7 +28,11 @@ const WithdrawSuccess = ({ successDialogOpen, setSuccessDialogOpen }: WithdrawSu
     >
       <DialogTitle id="alert-dialog-title" sx={{ textAlign: 'center' }}>
         Success!
-        <IconButton aria-label="close" onClick={handleClose} sx={{ position: 'absolute', right: 0, top: 0 }}>
+        <IconButton
+          aria-label="close"
+          onClick={handleClose}
+          sx={{ position: 'absolute', right: 0, top: 0 }}
+        >
           <Icon name="x" size="lg" color="dim" />
         </IconButton>
       </DialogTitle>
@@ -32,7 +42,7 @@ const WithdrawSuccess = ({ successDialogOpen, setSuccessDialogOpen }: WithdrawSu
         </DialogContentText>
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}
 
-export default WithdrawSuccess;
+export default WithdrawSuccess

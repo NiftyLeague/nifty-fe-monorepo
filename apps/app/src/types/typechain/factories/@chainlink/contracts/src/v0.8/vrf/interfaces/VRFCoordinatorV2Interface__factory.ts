@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   VRFCoordinatorV2Interface,
   VRFCoordinatorV2InterfaceInterface,
-} from '../../../../../../../@chainlink/contracts/src/v0.8/vrf/interfaces/VRFCoordinatorV2Interface';
+} from '../../../../../../../@chainlink/contracts/src/v0.8/vrf/interfaces/VRFCoordinatorV2Interface'
 
 const _abi = [
   {
@@ -106,14 +106,14 @@ const _abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-] as const;
+] as const
 
 export class VRFCoordinatorV2Interface__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): VRFCoordinatorV2InterfaceInterface {
-    return new Interface(_abi) as VRFCoordinatorV2InterfaceInterface;
+    return new Interface(_abi) as VRFCoordinatorV2InterfaceInterface
   }
   static connect(address: string, runner?: ContractRunner | null): VRFCoordinatorV2Interface {
-    return new Contract(address, _abi, runner) as unknown as VRFCoordinatorV2Interface;
+    return new Contract(address, _abi, runner) as unknown as VRFCoordinatorV2Interface
   }
 }

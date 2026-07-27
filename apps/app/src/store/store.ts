@@ -1,41 +1,43 @@
 // third-party
-import { configureStore } from '@reduxjs/toolkit';
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import { configureStore } from '@reduxjs/toolkit'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 
-import rootReducer from './reducer';
+import rootReducer from './reducer'
 
-const persistConfig = { key: 'persist', storage };
+const persistConfig = { key: 'persist', storage }
 
 // ==============================|| REDUX - MAIN STORE ||============================== //
 
 const makeConfiguredStore = () =>
   configureStore({
     reducer: rootReducer,
-    middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false, immutableCheck: false }),
-  });
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({ serializableCheck: false, immutableCheck: false }),
+  })
 
 export const makeStore = () => {
-  const isServer = typeof window === 'undefined';
+  const isServer = typeof window === 'undefined'
   if (isServer) {
-    return { store: makeConfiguredStore() };
+    return { store: makeConfiguredStore() }
   } else {
-    const persistedReducer = persistReducer(persistConfig, rootReducer);
+    const persistedReducer = persistReducer(persistConfig, rootReducer)
 
     const store = configureStore({
       reducer: persistedReducer,
-      middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false, immutableCheck: false }),
-    });
+      middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({ serializableCheck: false, immutableCheck: false }),
+    })
 
-    const persister = persistStore(store);
+    const persister = persistStore(store)
 
-    return { store, persister };
+    return { store, persister }
   }
-};
+}
 
-export type AppStore = ReturnType<typeof makeStore> extends { store: infer S } ? S : never;
-export type RootState = ReturnType<AppStore['getState']>;
-export type AppDispatch = AppStore['dispatch'];
+export type AppStore = ReturnType<typeof makeStore> extends { store: infer S } ? S : never
+export type RootState = ReturnType<AppStore['getState']>
+export type AppDispatch = AppStore['dispatch']
 
 // const persistedReducer = persistReducer(persistConfig, rootReducer);
 

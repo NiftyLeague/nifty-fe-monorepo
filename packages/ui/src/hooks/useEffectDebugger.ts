@@ -1,41 +1,41 @@
-'use client';
+'use client'
 
-import type { DependencyList, EffectCallback } from 'react';
-import { useEffect, useRef } from 'react';
+import type { DependencyList, EffectCallback } from 'react'
+import { useEffect, useRef } from 'react'
 
 interface DependencyChange {
-  before: unknown;
-  after: unknown;
+  before: unknown
+  after: unknown
 }
 
-type DependencyChanges = { [key: string | number]: DependencyChange };
+type DependencyChanges = { [key: string | number]: DependencyChange }
 
 export const useEffectDebugger = (
   effectHook: EffectCallback,
   dependencies: DependencyList,
-  dependencyNames: string[] = [],
+  dependencyNames: string[] = []
 ) => {
-  const previousDepsRef = useRef<DependencyList>([]);
+  const previousDepsRef = useRef<DependencyList>([])
 
   useEffect(() => {
-    const previousDeps = previousDepsRef.current;
+    const previousDeps = previousDepsRef.current
     const changedDeps = dependencies.reduce<DependencyChanges>((accum, dependency, index) => {
       if (dependency !== previousDeps[index]) {
-        const keyName = dependencyNames[index] || index;
-        return { ...accum, [keyName]: { before: previousDeps[index], after: dependency } };
+        const keyName = dependencyNames[index] || index
+        return { ...accum, [keyName]: { before: previousDeps[index], after: dependency } }
       }
-      return accum;
-    }, {});
+      return accum
+    }, {})
 
     if (Object.keys(changedDeps).length) {
-      console.log('[use-effect-debugger] ', changedDeps);
+      console.log('[use-effect-debugger] ', changedDeps)
     }
 
-    previousDepsRef.current = dependencies;
-  }, [dependencies, dependencyNames]);
+    previousDepsRef.current = dependencies
+  }, [dependencies, dependencyNames])
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(effectHook, dependencies);
-};
+  useEffect(effectHook, dependencies)
+}
 
-export default useEffectDebugger;
+export default useEffectDebugger

@@ -1,23 +1,23 @@
-import { Typography, Title, Text, Link } from '.';
+import { Typography, Title, Text, Link } from '.'
 
-export default { title: 'General/Typography', component: Typography };
+export default { title: 'General/Typography', component: Typography }
 
 export const Article = () => (
   <Typography tag="article">
     <h1>Article Title</h1>
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec dui vitae nisl ultricies aliquam. Donec eu
-      efficitur purus. Suspendisse potenti. Praesent dapibus, libero id laoreet posuere, erat enim efficitur massa, quis
-      varius sapien turpis et elit.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec dui vitae nisl ultricies
+      aliquam. Donec eu efficitur purus. Suspendisse potenti. Praesent dapibus, libero id laoreet
+      posuere, erat enim efficitur massa, quis varius sapien turpis et elit.
     </p>
     <h2>Sub-heading</h2>
     <p>
-      Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris quis est eu
-      eros tempor facilisis. Sed et ex vitae quam eleifend maximus. Integer in purus id justo volutpat iaculis. Donec
-      quis justo in sem scelerisque tincidunt.
+      Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+      Mauris quis est eu eros tempor facilisis. Sed et ex vitae quam eleifend maximus. Integer in
+      purus id justo volutpat iaculis. Donec quis justo in sem scelerisque tincidunt.
     </p>
   </Typography>
-);
+)
 
 export const Titles = () => (
   <div className="space-y-2">
@@ -27,7 +27,7 @@ export const Titles = () => (
     <Title level={4}>Title 4</Title>
     <Title level={5}>Title 5</Title>
   </div>
-);
+)
 
 export const Texts = () => (
   <div className="space-y-2">
@@ -47,7 +47,7 @@ export const Texts = () => (
     <Text sm>Small text</Text>
     <Text xs>Extra-small text</Text>
   </div>
-);
+)
 
 export const Links = () => (
   <div className="space-y-2">
@@ -56,4 +56,4 @@ export const Links = () => (
       Disabled Link
     </Link>
   </div>
-);
+)

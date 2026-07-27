@@ -8,15 +8,15 @@ const tribes = [
   { name: 'Hydra', icon: '/icons/tribes/hydra.svg' },
   { name: 'Rugman', icon: '/icons/tribes/rugman.svg' },
   { name: 'Satoshi', icon: '/icons/tribes/satoshi.svg' },
-];
+]
 
-const backgrounds = ['Common', 'Rare', 'Meta', 'Legendary'];
+const backgrounds = ['Common', 'Rare', 'Meta', 'Legendary']
 
-const rentals = ['1', '2', '3+'];
+const rentals = ['1', '2', '3+']
 
-const multipliers = ['1', '2', '3+'];
+const multipliers = ['1', '2', '3+']
 
-const wearables = ['Hand', 'Back', 'Head', 'Pet'];
+const wearables = ['Hand', 'Back', 'Head', 'Pet']
 
 export type FilterSource =
   | 'prices'
@@ -27,6 +27,6 @@ export type FilterSource =
   | 'cosmetics'
   | 'wearables'
   | 'searchTerm'
-  | 'walletAddress';
+  | 'walletAddress'
 
-export { tribes, backgrounds, rentals, multipliers, wearables };
+export { tribes, backgrounds, rentals, multipliers, wearables }

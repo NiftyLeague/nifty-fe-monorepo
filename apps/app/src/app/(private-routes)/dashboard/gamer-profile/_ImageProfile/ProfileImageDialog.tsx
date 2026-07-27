@@ -1,37 +1,42 @@
-'use client';
+'use client'
 
-import { useContext, useState, useMemo } from 'react';
-import { IconButton, Box, Typography, Stack } from '@mui/material';
-import { toast } from 'react-toastify';
+import { useContext, useState, useMemo } from 'react'
+import { IconButton, Box, Typography, Stack } from '@mui/material'
+import { toast } from 'react-toastify'
 
-import { Icon } from '@nl/ui/base/icon';
-import { Dialog, DialogTrigger, DialogContent, DialogContext } from '@/components/dialog';
-import SectionSlider from '@/components/sections/SectionSlider';
-import DegenImage from '@/components/cards/DegenCard/DegenImage';
-import SearchRental from '@/app/(private-routes)/dashboard/rentals/SearchRental';
-import EmptyState from '@/components/EmptyState';
-import DegenInternalImage from './DegenInternalImage';
+import { Icon } from '@nl/ui/base/icon'
+import { Dialog, DialogTrigger, DialogContent, DialogContext } from '@/components/dialog'
+import SectionSlider from '@/components/sections/SectionSlider'
+import DegenImage from '@/components/cards/DegenCard/DegenImage'
+import SearchRental from '@/app/(private-routes)/dashboard/rentals/SearchRental'
+import EmptyState from '@/components/EmptyState'
+import DegenInternalImage from './DegenInternalImage'
 
-import type { Degen } from '@/types/degens';
-import { UPDATE_PROFILE_AVATAR_API } from '@/constants/url';
-import useAuth from '@/hooks/useAuth';
+import type { Degen } from '@/types/degens'
+import { UPDATE_PROFILE_AVATAR_API } from '@/constants/url'
+import useAuth from '@/hooks/useAuth'
 
 type ProfileImageContentProps = {
-  onSearch: (currentValue: string) => void;
-  onChangeAvatar: (degenId: string) => void;
-  degensInternal: Degen[];
-  avatarFee?: number;
-};
+  onSearch: (currentValue: string) => void
+  onChangeAvatar: (degenId: string) => void
+  degensInternal: Degen[]
+  avatarFee?: number
+}
 
-const settings = { className: 'center', slidesToShow: 4, rows: 2, slidesPerRow: 1, swipe: false };
+const settings = { className: 'center', slidesToShow: 4, rows: 2, slidesPerRow: 1, swipe: false }
 
-const ProfileImageContent = ({ onSearch, onChangeAvatar, degensInternal, avatarFee }: ProfileImageContentProps) => {
-  const [, setIsOpen] = useContext(DialogContext);
-  const { authToken } = useAuth();
+const ProfileImageContent = ({
+  onSearch,
+  onChangeAvatar,
+  degensInternal,
+  avatarFee,
+}: ProfileImageContentProps) => {
+  const [, setIsOpen] = useContext(DialogContext)
+  const { authToken } = useAuth()
 
   const handleSelectedDegen = async (degen: Degen) => {
     if (!degen?.id || !authToken) {
-      return;
+      return
     }
 
     try {
@@ -39,30 +44,30 @@ const ProfileImageContent = ({ onSearch, onChangeAvatar, degensInternal, avatarF
         headers: { authorizationToken: authToken },
         method: 'POST',
         body: JSON.stringify({ avatar: degen?.id }),
-      });
+      })
       if (!response.ok) {
-        const errMsg = await response.text();
-        toast.error(`Can not update the profile avatar: ${errMsg}`, { theme: 'dark' });
-        return;
+        const errMsg = await response.text()
+        toast.error(`Can not update the profile avatar: ${errMsg}`, { theme: 'dark' })
+        return
       }
-      toast.success('Update Profile Avatar Successful!', { theme: 'dark' });
-      onChangeAvatar(degen?.id);
-      setIsOpen(false);
+      toast.success('Update Profile Avatar Successful!', { theme: 'dark' })
+      onChangeAvatar(degen?.id)
+      setIsOpen(false)
     } catch (error) {
-      toast.error(`Can not update the profile avatar: ${error}`, { theme: 'dark' });
+      toast.error(`Can not update the profile avatar: ${error}`, { theme: 'dark' })
     }
-  };
+  }
 
   const renderDegenImage = (degen: Degen) => {
     if (degen?.url) {
-      return <DegenInternalImage degen={degen} />;
+      return <DegenInternalImage degen={degen} />
     }
-    return <DegenImage tokenId={degen?.id} />;
-  };
+    return <DegenImage tokenId={degen?.id} />
+  }
 
   const renderDegens = () => {
     if (degensInternal.length > 0) {
-      return degensInternal.map(degen => (
+      return degensInternal.map((degen) => (
         <Box
           key={degen?.id}
           sx={{
@@ -76,14 +81,14 @@ const ProfileImageContent = ({ onSearch, onChangeAvatar, degensInternal, avatarF
         >
           {renderDegenImage(degen)}
         </Box>
-      ));
+      ))
     }
     return (
       <Stack sx={{ justifyContent: 'center', alignItems: 'center' }}>
         <EmptyState message="No DEGENs found." />
       </Stack>
-    );
-  };
+    )
+  }
 
   return (
     <SectionSlider
@@ -98,35 +103,43 @@ const ProfileImageContent = ({ onSearch, onChangeAvatar, degensInternal, avatarF
           </Typography>
         </Stack>
       }
-      actions={<SearchRental placeholder="Search degen by token # or name" handleSearch={onSearch} />}
+      actions={
+        <SearchRental placeholder="Search degen by token # or name" handleSearch={onSearch} />
+      }
     >
       {renderDegens()}
     </SectionSlider>
-  );
-};
+  )
+}
 
 type ProfileImageDialogProps = {
-  degens: Degen[] | undefined;
-  onChangeAvatar: (degenId: string) => void;
-  avatarFee?: number;
-};
+  degens: Degen[] | undefined
+  onChangeAvatar: (degenId: string) => void
+  avatarFee?: number
+}
 
-const ProfileImageDialog = ({ degens, onChangeAvatar, avatarFee }: ProfileImageDialogProps): React.ReactNode => {
-  const [searchValue, setSearchValue] = useState('');
+const ProfileImageDialog = ({
+  degens,
+  onChangeAvatar,
+  avatarFee,
+}: ProfileImageDialogProps): React.ReactNode => {
+  const [searchValue, setSearchValue] = useState('')
 
   const degensInternal = useMemo(() => {
-    if (!degens) return [];
-    if (searchValue.trim() === '') return degens;
+    if (!degens) return []
+    if (searchValue.trim() === '') return degens
 
-    const lowercasedValue = searchValue.toLowerCase();
+    const lowercasedValue = searchValue.toLowerCase()
     return degens.filter(
-      degen => degen?.id.toLowerCase().includes(lowercasedValue) || degen?.name.toLowerCase().includes(lowercasedValue),
-    );
-  }, [degens, searchValue]);
+      (degen) =>
+        degen?.id.toLowerCase().includes(lowercasedValue) ||
+        degen?.name.toLowerCase().includes(lowercasedValue)
+    )
+  }, [degens, searchValue])
 
   const handleSearch = (currentValue: string) => {
-    setSearchValue(currentValue);
-  };
+    setSearchValue(currentValue)
+  }
 
   return (
     <Dialog>
@@ -141,7 +154,10 @@ const ProfileImageDialog = ({ degens, onChangeAvatar, avatarFee }: ProfileImageD
       </DialogTrigger>
       <DialogContent
         aria-labelledby="profile-image-dialog"
-        sx={{ '& .MuiPaper-root': { maxWidth: '1000px' }, '& .MuiDialogContent-root': { border: 'none' } }}
+        sx={{
+          '& .MuiPaper-root': { maxWidth: '1000px' },
+          '& .MuiDialogContent-root': { border: 'none' },
+        }}
       >
         <ProfileImageContent
           onSearch={handleSearch}
@@ -151,7 +167,7 @@ const ProfileImageDialog = ({ degens, onChangeAvatar, avatarFee }: ProfileImageD
         />
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}
 
-export default ProfileImageDialog;
+export default ProfileImageDialog

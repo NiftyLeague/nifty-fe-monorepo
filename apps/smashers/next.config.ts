@@ -2,8 +2,8 @@
 // https://nextjs.org/docs/api-reference/next.config.js/introduction
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
-import type { NextConfig } from 'next';
-import { withSentryConfig } from '@sentry/nextjs';
+import type { NextConfig } from 'next'
+import { withSentryConfig } from '@sentry/nextjs'
 
 // Fail-fast environment variable validation
 const requiredEnvs = [
@@ -12,22 +12,22 @@ const requiredEnvs = [
   'NEXT_PUBLIC_GOOGLE_PLAY_LINK',
   'NEXT_PUBLIC_EPIC_LINK',
   'NEXT_PUBLIC_STEAM_LINK',
-];
+]
 
 if (process.env.GITHUB_ACTIONS !== 'true') {
   for (const env of requiredEnvs) {
     if (!process.env[env]) {
-      throw new Error(`Build failed: Missing required environment variable "${env}"`);
+      throw new Error(`Build failed: Missing required environment variable "${env}"`)
     }
   }
 }
 
-const ENV = (process.env.VERCEL_ENV as 'production' | 'preview' | undefined) ?? 'development';
+const ENV = (process.env.VERCEL_ENV as 'production' | 'preview' | undefined) ?? 'development'
 
 const getAppleStoreLink = (countryCode = '') =>
   countryCode.length > 0
     ? `https://apps.apple.com/${countryCode.toLowerCase()}/app/${process.env.NEXT_PUBLIC_APPLE_STORE_ID}`
-    : (process.env.NEXT_PUBLIC_APPLE_STORE_LINK as string);
+    : (process.env.NEXT_PUBLIC_APPLE_STORE_LINK as string)
 
 const generateAppleCountryRedirects = (countryCode: string) => [
   {
@@ -42,15 +42,25 @@ const generateAppleCountryRedirects = (countryCode: string) => [
     destination: `${getAppleStoreLink(countryCode)}:params*`,
     permanent: false,
   },
-];
+]
 
 const nextConfig: NextConfig = {
   typescript: { ignoreBuildErrors: true },
   transpilePackages: ['@nl/playfab', '@nl/ui'],
   images: {
     remotePatterns: [
-      { protocol: 'https', hostname: 'nifty-league.s3.amazonaws.com', port: '', pathname: '/degens/**' },
-      { protocol: 'https', hostname: 'nifty-league.s3.amazonaws.com', port: '', pathname: '/assets/**' },
+      {
+        protocol: 'https',
+        hostname: 'nifty-league.s3.amazonaws.com',
+        port: '',
+        pathname: '/degens/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'nifty-league.s3.amazonaws.com',
+        port: '',
+        pathname: '/assets/**',
+      },
       {
         protocol: 'https',
         hostname: 'niftyworldprodbb95.blob.core.windows.net',
@@ -61,30 +71,39 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      ...generateAppleCountryRedirects('AU'),
-      ...generateAppleCountryRedirects('BR'),
-      ...generateAppleCountryRedirects('CA'),
-      ...generateAppleCountryRedirects('US'),
-      { source: '/ios', destination: getAppleStoreLink(), permanent: false },
-      { source: '/ios/:params*', destination: `${getAppleStoreLink()}:params*`, permanent: false },
-      { source: '/android', destination: process.env.NEXT_PUBLIC_GOOGLE_PLAY_LINK as string, permanent: false },
-      {
-        source: '/android/:params*',
-        destination: `${process.env.NEXT_PUBLIC_GOOGLE_PLAY_LINK as string}:params*`,
-        permanent: false,
-      },
-      { source: '/epic', destination: process.env.NEXT_PUBLIC_EPIC_LINK as string, permanent: false },
-      {
-        source: '/epic/:params*',
-        destination: `${process.env.NEXT_PUBLIC_EPIC_LINK as string}:params*`,
-        permanent: false,
-      },
-      { source: '/steam', destination: process.env.NEXT_PUBLIC_STEAM_LINK as string, permanent: false },
-      {
-        source: '/steam/:params*',
-        destination: `${process.env.NEXT_PUBLIC_STEAM_LINK as string}:params*`,
-        permanent: false,
-      },
+      ...(process.env.NEXT_PUBLIC_APPLE_STORE_ID || process.env.NEXT_PUBLIC_APPLE_STORE_LINK
+        ? [
+            ...generateAppleCountryRedirects('AU'),
+            ...generateAppleCountryRedirects('BR'),
+            ...generateAppleCountryRedirects('CA'),
+            ...generateAppleCountryRedirects('US'),
+            { source: '/ios', destination: getAppleStoreLink(), permanent: false },
+            {
+              source: '/ios/:params*',
+              destination: `${getAppleStoreLink()}:params*`,
+              permanent: false,
+            },
+          ]
+        : []),
+      ...(
+        [
+          ['GOOGLE_PLAY', 'android'],
+          ['EPIC', 'epic'],
+          ['STEAM', 'steam'],
+        ] as const
+      ).flatMap(([name, path]) => {
+        const destination = process.env[`NEXT_PUBLIC_${name}_LINK`]
+        return destination
+          ? [
+              { source: `/${path}`, destination, permanent: false },
+              {
+                source: `/${path}/:params*`,
+                destination: `${destination}:params*`,
+                permanent: false,
+              },
+            ]
+          : []
+      }),
       {
         source: '/invite/:ref_code(\\w{1,})',
         has: [{ type: 'header' as const, key: 'User-Agent', value: '.*(iPhone|iPad|iPod).*' }],
@@ -97,10 +116,14 @@ const nextConfig: NextConfig = {
         destination: '/android/?referral=:ref_code',
         permanent: false,
       },
-      { source: '/invite/:ref_code(\\w{1,})', destination: '/?referral=:ref_code', permanent: false },
-    ];
+      {
+        source: '/invite/:ref_code(\\w{1,})',
+        destination: '/?referral=:ref_code',
+        permanent: false,
+      },
+    ]
   },
-};
+}
 
 // Injected content via Sentry wizard below
 
@@ -130,4 +153,4 @@ export default withSentryConfig(nextConfig, {
 
   // Capture React component names to see which component a user clicked on.
   webpack: { reactComponentAnnotation: { enabled: true }, treeshake: { removeDebugLogging: true } },
-});
+})

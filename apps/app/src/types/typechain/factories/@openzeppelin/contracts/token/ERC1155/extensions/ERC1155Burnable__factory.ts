@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   ERC1155Burnable,
   ERC1155BurnableInterface,
-} from '../../../../../../@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable';
+} from '../../../../../../@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable'
 
 const _abi = [
   {
@@ -154,14 +154,14 @@ const _abi = [
     stateMutability: 'view',
     type: 'function',
   },
-] as const;
+] as const
 
 export class ERC1155Burnable__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): ERC1155BurnableInterface {
-    return new Interface(_abi) as ERC1155BurnableInterface;
+    return new Interface(_abi) as ERC1155BurnableInterface
   }
   static connect(address: string, runner?: ContractRunner | null): ERC1155Burnable {
-    return new Contract(address, _abi, runner) as unknown as ERC1155Burnable;
+    return new Contract(address, _abi, runner) as unknown as ERC1155Burnable
   }
 }

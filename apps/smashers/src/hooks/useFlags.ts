@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import { useContext } from 'react';
-import { FeatureFlagContext, FlagSet, ProviderConfig } from '@/contexts/FeatureFlagsProvider';
+import { useContext } from 'react'
+import { FeatureFlagContext, FlagSet, ProviderConfig } from '@/contexts/FeatureFlagsProvider'
 
 /**
  * `useFlags` is a custom hook which returns all feature flags. It uses the `useContext` primitive
@@ -10,9 +10,9 @@ import { FeatureFlagContext, FlagSet, ProviderConfig } from '@/contexts/FeatureF
  * @return All the feature flags configured
  */
 const useFlags = <T extends FlagSet = FlagSet>(): T => {
-  const { flags } = useContext<ProviderConfig>(FeatureFlagContext);
+  const { flags } = useContext<ProviderConfig>(FeatureFlagContext)
 
-  return flags as T;
-};
+  return flags as T
+}
 
-export default useFlags;
+export default useFlags

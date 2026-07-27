@@ -1,4 +1,4 @@
-import type { Comic, Item } from '@/types/marketplace';
+import type { Comic, Item } from '@/types/marketplace'
 
 export const COMICS: Comic[] = [
   {
@@ -55,7 +55,7 @@ export const COMICS: Comic[] = [
     image: '/img/comics/page/6.webp',
     thumbnail: '/img/comics/thumbnail/6.webp',
   },
-];
+]
 
 export const ITEMS: Item[] = [
   {
@@ -130,4 +130,4 @@ export const ITEMS: Item[] = [
     empty: '/img/items/empty/7.svg',
     isNew: false,
   },
-];
+]

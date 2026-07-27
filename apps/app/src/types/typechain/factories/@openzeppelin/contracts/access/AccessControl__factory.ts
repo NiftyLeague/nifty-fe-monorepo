@@ -2,8 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
-import type { AccessControl, AccessControlInterface } from '../../../../@openzeppelin/contracts/access/AccessControl';
+import { Contract, Interface, type ContractRunner } from 'ethers'
+import type {
+  AccessControl,
+  AccessControlInterface,
+} from '../../../../@openzeppelin/contracts/access/AccessControl'
 
 const _abi = [
   {
@@ -97,14 +100,14 @@ const _abi = [
     stateMutability: 'view',
     type: 'function',
   },
-] as const;
+] as const
 
 export class AccessControl__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): AccessControlInterface {
-    return new Interface(_abi) as AccessControlInterface;
+    return new Interface(_abi) as AccessControlInterface
   }
   static connect(address: string, runner?: ContractRunner | null): AccessControl {
-    return new Contract(address, _abi, runner) as unknown as AccessControl;
+    return new Contract(address, _abi, runner) as unknown as AccessControl
   }
 }

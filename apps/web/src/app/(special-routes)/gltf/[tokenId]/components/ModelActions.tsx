@@ -1,6 +1,6 @@
-'use client';
+'use client'
 
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react'
 
 import {
   Select,
@@ -10,12 +10,12 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from '@nl/ui/base/select';
+} from '@nl/ui/base/select'
 
-import { Color } from '@/types/gltf';
-import styles from '../gltf.module.css';
+import { Color } from '@/types/gltf'
+import styles from '../gltf.module.css'
 
-type ModelActionsProps = { color: Color; setColor: Dispatch<SetStateAction<Color>> };
+type ModelActionsProps = { color: Color; setColor: Dispatch<SetStateAction<Color>> }
 
 const COLOR_OPTIONS: [string, string][] = [
   ['blue', 'Blue'],
@@ -32,10 +32,10 @@ const COLOR_OPTIONS: [string, string][] = [
   ['purple', 'Purple'],
   ['salmon', 'Salmon'],
   ['yellow', 'Yellow'],
-];
+]
 
 export default function ModelActions({ color, setColor }: ModelActionsProps) {
-  const handleSelectColor = (value: Color) => value && setColor(value);
+  const handleSelectColor = (value: Color) => value && setColor(value)
 
   return (
     <div className={styles.menu__overlay__colorpicker}>
@@ -59,5 +59,5 @@ export default function ModelActions({ color, setColor }: ModelActionsProps) {
         View in your space
       </Button> */}
     </div>
-  );
+  )
 }

@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   IERC721EnumerableUpgradeable,
   IERC721EnumerableUpgradeableInterface,
-} from '../../../../../../@openzeppelin/contracts-upgradeable/token/ERC721/extensions/IERC721EnumerableUpgradeable';
+} from '../../../../../../@openzeppelin/contracts-upgradeable/token/ERC721/extensions/IERC721EnumerableUpgradeable'
 
 const _abi = [
   {
@@ -155,14 +155,14 @@ const _abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-] as const;
+] as const
 
 export class IERC721EnumerableUpgradeable__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): IERC721EnumerableUpgradeableInterface {
-    return new Interface(_abi) as IERC721EnumerableUpgradeableInterface;
+    return new Interface(_abi) as IERC721EnumerableUpgradeableInterface
   }
   static connect(address: string, runner?: ContractRunner | null): IERC721EnumerableUpgradeable {
-    return new Contract(address, _abi, runner) as unknown as IERC721EnumerableUpgradeable;
+    return new Contract(address, _abi, runner) as unknown as IERC721EnumerableUpgradeable
   }
 }

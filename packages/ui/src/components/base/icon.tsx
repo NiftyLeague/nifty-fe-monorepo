@@ -1,12 +1,12 @@
-'use client';
+'use client'
 
-import { forwardRef } from 'react';
-import type { LucideProps } from 'lucide-react';
-import { DynamicIcon, type IconName } from 'lucide-react/dynamic';
+import { forwardRef } from 'react'
+import type { LucideProps } from 'lucide-react'
+import { DynamicIcon, type IconName } from 'lucide-react/dynamic'
 
-type IconSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type IconSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
-const DEFAULT_SIZES: Record<IconSizes, number> = { xs: 14, sm: 18, md: 20, lg: 24, xl: 28 };
+const DEFAULT_SIZES: Record<IconSizes, number> = { xs: 14, sm: 18, md: 20, lg: 24, xl: 28 }
 
 const DEFAULT_COLORS: Record<string, string> = {
   foreground: 'var(--color-foreground)',
@@ -22,15 +22,15 @@ const DEFAULT_COLORS: Record<string, string> = {
   blue: 'var(--color-blue)',
   purple: 'var(--color-purple)',
   gray: 'var(--color-base-500)',
-};
+}
 
-type IconColor = keyof typeof DEFAULT_COLORS;
+type IconColor = keyof typeof DEFAULT_COLORS
 
 interface IconProps extends Omit<LucideProps, 'size'> {
-  name: IconName;
-  size?: IconSizes | number;
-  color?: IconColor | (string & {});
-  fill?: IconColor | (string & {});
+  name: IconName
+  size?: IconSizes | number
+  color?: IconColor | (string & {})
+  fill?: IconColor | (string & {})
 }
 
 const Icon = forwardRef<SVGSVGElement, IconProps>(
@@ -44,12 +44,12 @@ const Icon = forwardRef<SVGSVGElement, IconProps>(
       strokeWidth = 1.5,
       ...props
     },
-    ref,
+    ref
   ) => {
-    const iconColor = DEFAULT_COLORS[color] || color;
-    const iconFill = DEFAULT_COLORS[fill] || fill;
-    const iconSize = typeof size === 'number' ? size : DEFAULT_SIZES[size];
-    const fallback = () => <div style={{ width: iconSize, height: iconSize }} />;
+    const iconColor = DEFAULT_COLORS[color] || color
+    const iconFill = DEFAULT_COLORS[fill] || fill
+    const iconSize = typeof size === 'number' ? size : DEFAULT_SIZES[size]
+    const fallback = () => <div style={{ width: iconSize, height: iconSize }} />
 
     return (
       <DynamicIcon
@@ -63,11 +63,11 @@ const Icon = forwardRef<SVGSVGElement, IconProps>(
         strokeWidth={strokeWidth}
         {...props}
       />
-    );
-  },
-);
+    )
+  }
+)
 
-Icon.displayName = 'Icon';
+Icon.displayName = 'Icon'
 
-export { Icon };
-export type { IconColor, IconName, IconProps, IconSizes };
+export { Icon }
+export type { IconColor, IconName, IconProps, IconSizes }
