@@ -27,6 +27,7 @@ prune=false
 languages_set=false
 features_set=false
 package_manager=""
+template_ref=""
 gitignore_backup=""
 custom_ignores=""
 
@@ -89,6 +90,7 @@ if [ -f .github/template.yml ]; then
     [ -n "$configured_features" ] && features="$configured_features"
   fi
   package_manager="$(awk -F': ' '/^package_manager:/ {print $2; exit}' .github/template.yml)"
+  template_ref="$(awk -F': ' '/^template:/ {print $2; exit}' .github/template.yml)"
 fi
 validate_list language "$languages" "$valid_languages"
 validate_list feature "$features" "$valid_features"
@@ -256,6 +258,9 @@ if [ "$mode" = "apply" ]; then
   mkdir -p .github
   {
     printf 'version: 1\n'
+    if [ -n "$template_ref" ]; then
+      printf 'template: %s\n' "$template_ref"
+    fi
     printf 'languages: %s\n' "$languages"
     printf 'features: %s\n' "$features"
     if [ -n "$package_manager" ]; then
