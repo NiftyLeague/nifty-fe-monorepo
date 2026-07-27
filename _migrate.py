@@ -1,4 +1,5 @@
-import re, pathlib, subprocess
+import pathlib
+import re
 
 ROOT = pathlib.Path("/Users/amf/Developer/NiftyLeague/nifty-fe-monorepo")
 
@@ -18,35 +19,12 @@ import_terms = [
 
 
 def transform(text, fname):
-    orig = text
-    needs_mock = (
-        "vi.fn" in text
-        or "vi.mock" in text
-        or "vi.spyOn" in text
-        or "vi.hoisted" in text
-        or "vi.stubGlobal" in text
-        or "vi.mocked" in text
-        or "vi.clearAllMocks" in text
-        or "vi.restoreAllMocks" in text
-        or "vi.unstubAllGlobals" in text
-    )
-    needs_jest = (
-        "vi.useFakeTimers" in text
-        or "vi.useRealTimers" in text
-        or "vi.advanceTimersByTime" in text
-        or "vi.runOnlyPendingTimers" in text
-        or "vi.setSystemTime" in text
-    )
-
     # 1) import line
     # capture existing vitest import names
     m = re.search(r"import\s*\{([^}]*)\}\s*from\s*['\"]vitest['\"]", text)
     if m:
         names = [n.strip() for n in m.group(1).split(",") if n.strip()]
         # remove vitest-only or replace
-        mapped = {
-            "vi": None,  # dropped; replaced with mock/jest/spyOn
-        }
         keep = []
         need_mock = False
         need_jest = False
