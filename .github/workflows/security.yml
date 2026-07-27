@@ -126,7 +126,6 @@ jobs:
   dependency-audit-python:
     name: Dependency Audit (Python) / ${{ matrix.requirement }}
     needs: profile
-    if: needs.profile.outputs.python == 'true'
     strategy:
       fail-fast: false
       max-parallel: 8
@@ -137,6 +136,7 @@ jobs:
       REPO_FOUNDRY_PYTHON_REQUIREMENT: ${{ matrix.requirement }}
     steps:
       - name: Checkout
+        if: matrix.requirement != 'none'
         uses: actions/checkout@v7
         with:
           # Python audits only need manifests, lockfiles, and audit config.
@@ -155,11 +155,16 @@ jobs:
             **/uv.lock
           sparse-checkout-cone-mode: false
       - name: Setup
+        if: matrix.requirement != 'none' && needs.profile.outputs.python == 'true'
         uses: ./.github/actions/setup
         with:
           mise-scope: python
       - name: Audit dependencies
+        if: matrix.requirement != 'none' && needs.profile.outputs.python == 'true'
         run: bash .github/scripts/security.sh audit python
+      - name: Skip
+        if: matrix.requirement == 'none'
+        run: echo 'Skipping Python audit (no applicable Python dependencies)'
 
   dependency-review:
     name: Dependency Review
