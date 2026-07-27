@@ -1,14 +1,14 @@
-import TableCell from '@mui/material/TableCell';
-import TablePagination from '@mui/material/TablePagination';
-import { TablePaginationProps } from './types';
+import TableCell from '@mui/material/TableCell'
+import TablePagination from '@mui/material/TablePagination'
+import { TablePaginationProps } from './types'
 
 interface PaginationProps {
-  component?: React.ElementType;
-  count: number;
-  onChangePage: (event: React.MouseEvent | null, page: number) => void;
-  page: number;
-  rowsPerPage: number;
-  TablePaginationProps?: TablePaginationProps;
+  component?: React.ElementType
+  count: number
+  onChangePage: (event: React.MouseEvent | null, page: number) => void
+  page: number
+  rowsPerPage: number
+  TablePaginationProps?: TablePaginationProps
 }
 
 const Pagination: React.FC<PaginationProps> = ({
@@ -19,9 +19,12 @@ const Pagination: React.FC<PaginationProps> = ({
   rowsPerPage,
   TablePaginationProps,
 }) => {
-  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, page: number) => {
-    onChangePage(event, page);
-  };
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    page: number
+  ) => {
+    onChangePage(event, page)
+  }
 
   return (
     <TablePagination
@@ -33,7 +36,7 @@ const Pagination: React.FC<PaginationProps> = ({
       page={page}
       onPageChange={handleChangePage}
     />
-  );
-};
+  )
+}
 
-export default Pagination;
+export default Pagination

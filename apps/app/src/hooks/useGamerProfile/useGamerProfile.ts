@@ -1,40 +1,40 @@
-'use client';
+'use client'
 
-import { GET_GAMER_PROFILE_API } from '@/constants/url';
-import useAuth from '@/hooks/useAuth';
-import useFetch from '@/hooks/useFetch';
-import type { Profile } from '@/types/account';
+import { GET_GAMER_PROFILE_API } from '@/constants/url'
+import useAuth from '@/hooks/useAuth'
+import useFetch from '@/hooks/useFetch'
+import type { Profile } from '@/types/account'
 
 const useGamerProfile = (): {
-  error?: Error;
-  profile?: Profile;
-  loadingProfile?: boolean;
-  fetchUserProfile?: () => Promise<Profile>;
+  error?: Error
+  profile?: Profile
+  loadingProfile?: boolean
+  fetchUserProfile?: () => Promise<Profile>
 } => {
-  const { isLoggedIn, authToken } = useAuth();
-  const headers = { authorizationToken: authToken || '' };
+  const { isLoggedIn, authToken } = useAuth()
+  const headers = { authorizationToken: authToken || '' }
 
   const { error, data, loading } = useFetch<Profile>(GET_GAMER_PROFILE_API, {
     headers,
     enabled: isLoggedIn && !!authToken,
-  });
+  })
 
   const fetchUserProfile = async () => {
-    const res = await fetch(GET_GAMER_PROFILE_API, { headers });
+    const res = await fetch(GET_GAMER_PROFILE_API, { headers })
     if (res.status === 404) {
-      throw Error('Not Found');
+      throw Error('Not Found')
     }
     if (res.status === 200) {
-      const json = await res.json();
+      const json = await res.json()
       if (json.statusCode === 400) {
-        throw Error(json.body);
+        throw Error(json.body)
       }
-      return json as Profile;
+      return json as Profile
     }
-    throw Error('Something wrong!');
-  };
+    throw Error('Something wrong!')
+  }
 
-  return { error, profile: data, loadingProfile: loading, fetchUserProfile };
-};
+  return { error, profile: data, loadingProfile: loading, fetchUserProfile }
+}
 
-export default useGamerProfile;
+export default useGamerProfile

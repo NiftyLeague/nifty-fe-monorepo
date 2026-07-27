@@ -1,32 +1,34 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import Link from 'next/link';
-import dynamic from 'next/dynamic';
-import { useSearchParams } from 'next/navigation';
-import { Button, Stack, Typography } from '@mui/material';
+import { useState } from 'react'
+import Link from 'next/link'
+import dynamic from 'next/dynamic'
+import { useSearchParams } from 'next/navigation'
+import { Button, Stack, Typography } from '@mui/material'
 
-import { ErrorBoundary } from '@nl/ui/custom/error-boundry';
-import { Preloader } from '@nl/ui/custom/preloader';
-import useAuth from '@/hooks/useAuth';
-import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
-import { DEGEN_COLLECTION_URL } from '@/constants/url';
+import { ErrorBoundary } from '@nl/ui/custom/error-boundry'
+import { Preloader } from '@nl/ui/custom/preloader'
+import useAuth from '@/hooks/useAuth'
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
+import { DEGEN_COLLECTION_URL } from '@/constants/url'
 
-const CharacterCreator = dynamic(() => import('./_CharacterCreator'), { ssr: false });
+const CharacterCreator = dynamic(() => import('./_CharacterCreator'), { ssr: false })
 
 const MintPage = () => {
-  const [isLoaded, setLoaded] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const { isDegenOwner } = useNFTsBalances();
-  const { isConnected, isLoggedIn, handleConnectWallet } = useAuth();
+  const [isLoaded, setLoaded] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const { isDegenOwner } = useNFTsBalances()
+  const { isConnected, isLoggedIn, handleConnectWallet } = useAuth()
 
-  const searchParams = useSearchParams();
-  const { nifty_artists: isForNiftyArtists } = Object.fromEntries(searchParams.entries());
+  const searchParams = useSearchParams()
+  const { nifty_artists: isForNiftyArtists } = Object.fromEntries(searchParams.entries())
 
   if (!isForNiftyArtists) {
     if (!isLoggedIn) {
       return (
-        <Stack sx={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
+        <Stack
+          sx={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}
+        >
           <Typography variant="h3" component="div" sx={{ textAlign: 'center' }}>
             Please connect your wallet
           </Typography>
@@ -34,12 +36,14 @@ const MintPage = () => {
             {isConnected ? 'Log In' : 'Connect Wallet'}
           </Button>
         </Stack>
-      );
+      )
     }
 
     if (!isDegenOwner) {
       return (
-        <Stack sx={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
+        <Stack
+          sx={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}
+        >
           <Typography variant="h3" component="div" sx={{ textAlign: 'center' }}>
             This page is accessible to DEGEN owners only.
           </Typography>
@@ -49,7 +53,7 @@ const MintPage = () => {
             </Button>
           </Link>
         </Stack>
-      );
+      )
     }
   }
 
@@ -60,7 +64,7 @@ const MintPage = () => {
         <CharacterCreator setLoaded={setLoaded} setProgress={setProgress} />
       </ErrorBoundary>
     </div>
-  );
-};
+  )
+}
 
-export default MintPage;
+export default MintPage

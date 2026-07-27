@@ -1,12 +1,17 @@
-import Image from 'next/image';
-import styles from './index.module.css';
-import { DEGEN_COLLECTION_URL } from '@/constants/degens';
+import Image from 'next/image'
+import styles from './index.module.css'
+import { DEGEN_COLLECTION_URL } from '@/constants/degens'
 
 export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Sept 24th - 30th, 2021',
-    image: { height: 350, src: '/img/mint-o-matic/creation.webp', style: { top: '-90px' }, width: 661 },
+    image: {
+      height: 350,
+      src: '/img/mint-o-matic/creation.webp',
+      style: { top: '-90px' },
+      width: 661,
+    },
     title: 'DEGEN Minting',
     body: (
       <p className="mb-0">
@@ -16,8 +21,8 @@ export const ROADMAP_CARDS = [
             DEGEN NFTs
           </a>
         </strong>{' '}
-        were brought to life by our community in Sept 2021. The minting process was a one-of-a-kind spectacle that
-        allowed minters the ability to design their own DEGEN using Satoshi&apos;s{' '}
+        were brought to life by our community in Sept 2021. The minting process was a one-of-a-kind
+        spectacle that allowed minters the ability to design their own DEGEN using Satoshi&apos;s{' '}
         <strong>
           <a href="https://app.niftyleague.com/mint-o-matic" target="_blank" rel="noreferrer">
             Mint-O-Matic
@@ -30,7 +35,12 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Sept 24th, 2021',
-    image: { height: 272, src: '/img/misc/smash_200.webp', style: { top: '-80px', right: '-50px' }, width: 518 },
+    image: {
+      height: 272,
+      src: '/img/misc/smash_200.webp',
+      style: { top: '-80px', right: '-50px' },
+      width: 518,
+    },
     title: '2D Nifty Smashers - PC Early-Access',
     body: (
       <>
@@ -44,8 +54,9 @@ export const ROADMAP_CARDS = [
           .
         </p>
         <p className="mb-0">
-          Nifty Smashers stands as one of the earliest NFT-enabled games on Ethereum. At the time, it was especially
-          rare for a game to sell avatars or digital assets with a playable prototype.
+          Nifty Smashers stands as one of the earliest NFT-enabled games on Ethereum. At the time,
+          it was especially rare for a game to sell avatars or digital assets with a playable
+          prototype.
         </p>
       </>
     ),
@@ -53,14 +64,20 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Dec 2nd, 2021',
-    image: { height: 350, src: '/img/roadmap/desktop-app_v02.webp', style: { top: '-115px' }, width: 514 },
+    image: {
+      height: 350,
+      src: '/img/roadmap/desktop-app_v02.webp',
+      style: { top: '-115px' },
+      width: 514,
+    },
     title: 'Desktop App',
     body: (
       <>
         <p className="mb-0">
-          Considering browser limitations with WebGL games, we made a point to focus our immediate efforts on creating a
-          launcher to house our games going forward. Avoiding browser memory limits allows us to introduce additional
-          animations, movesets, and other NFT integrations - all while significantly improving ping for our players.
+          Considering browser limitations with WebGL games, we made a point to focus our immediate
+          efforts on creating a launcher to house our games going forward. Avoiding browser memory
+          limits allows us to introduce additional animations, movesets, and other NFT integrations
+          - all while significantly improving ping for our players.
         </p>
       </>
     ),
@@ -73,8 +90,9 @@ export const ROADMAP_CARDS = [
     body: (
       <>
         <p>
-          How cool is it to earn rewards while playing games you actually enjoy? With the rollout of our P2E system
-          players were able to accumulate <strong>NFTL</strong> through competitive matches in{' '}
+          How cool is it to earn rewards while playing games you actually enjoy? With the rollout of
+          our P2E system players were able to accumulate <strong>NFTL</strong> through competitive
+          matches in{' '}
           <strong>
             <a href="https://niftysmashers.com" target="_blank" rel="noreferrer">
               Nifty Smashers
@@ -83,8 +101,9 @@ export const ROADMAP_CARDS = [
           .
         </p>
         <p className="mb-0">
-          While the largest winnings went to those players who stood victorious, all participants were rewarded{' '}
-          <strong>NFTL</strong> every match for their efforts in helping us playtest the game.
+          While the largest winnings went to those players who stood victorious, all participants
+          were rewarded <strong>NFTL</strong> every match for their efforts in helping us playtest
+          the game.
         </p>
       </>
     ),
@@ -97,8 +116,8 @@ export const ROADMAP_CARDS = [
     body: (
       <>
         <p className="mb-0">
-          We know our community couldn&apos;t wait to showcase their cool DEGENS on the streets! We are excited to
-          unveil custom Nifty League merch!
+          We know our community couldn&apos;t wait to showcase their cool DEGENS on the streets! We
+          are excited to unveil custom Nifty League merch!
         </p>
       </>
     ),
@@ -106,21 +125,27 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'May 3rd, 2022',
-    image: { height: 375, src: '/img/roadmap/rentals_v02.webp', style: { top: '-100px' }, width: 609 },
+    image: {
+      height: 375,
+      src: '/img/roadmap/rentals_v02.webp',
+      style: { top: '-100px' },
+      width: 609,
+    },
     title: 'DEGEN Rentals (DEPRECATED)',
     body: (
       <>
         <p>
-          Our initial player-base was limited to the number of unique <strong>DEGEN NFT</strong> holders. We introduced
-          a rental system to scale our playerbase as much as possible without devaluing our genesis DEGEN NFT
-          collection.
+          Our initial player-base was limited to the number of unique <strong>DEGEN NFT</strong>{' '}
+          holders. We introduced a rental system to scale our playerbase as much as possible without
+          devaluing our genesis DEGEN NFT collection.
         </p>
         <p className="mb-0">
-          We introduced a bespoke rental system allowing DEGEN holders to earn <strong>NFTL</strong> daily through fees.
-          Each DEGEN could be rented indefinitely but the cost for doing so increased exponentially with each additional
-          rental. This allowed the market to decide the price for each DEGEN individually while spreading out the
-          rentals across the board as some equipped with precious items, wearables, or backgrounds had a higher earn
-          rate with multipliers.
+          We introduced a bespoke rental system allowing DEGEN holders to earn <strong>NFTL</strong>{' '}
+          daily through fees. Each DEGEN could be rented indefinitely but the cost for doing so
+          increased exponentially with each additional rental. This allowed the market to decide the
+          price for each DEGEN individually while spreading out the rentals across the board as some
+          equipped with precious items, wearables, or backgrounds had a higher earn rate with
+          multipliers.
         </p>
       </>
     ),
@@ -128,17 +153,22 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Jun 8th, 2022',
-    image: { height: 450, src: '/img/roadmap/leaderboards_v02.webp', style: { top: '-120px' }, width: 649 },
+    image: {
+      height: 450,
+      src: '/img/roadmap/leaderboards_v02.webp',
+      style: { top: '-120px' },
+      width: 649,
+    },
     title: 'Leaderboards',
     body: (
       <>
         <p>
-          Our games are meant to be competitive; what better way to showcase this than a leaderboard with star players
-          like FVSVY at the top? 😏
+          Our games are meant to be competitive; what better way to showcase this than a leaderboard
+          with star players like FVSVY at the top? 😏
         </p>
         <p>
-          We&apos;ll include game stats for daily, weekly, monthly, and of course all-time leaders for all of our games
-          in NiftyWorld. Some early honorary DEGENS:
+          We&apos;ll include game stats for daily, weekly, monthly, and of course all-time leaders
+          for all of our games in NiftyWorld. Some early honorary DEGENS:
         </p>
         <ul className={styles.content_skills}>
           <li>fvsvy 🌊</li>
@@ -165,13 +195,13 @@ export const ROADMAP_CARDS = [
               WEN
             </a>
           </strong>{' '}
-          is a game of timing and reflex. The purpose of the mini-game is to try and hit as many baseballs (launched
-          from a baseball machine) as possible in a row to get a high score.
+          is a game of timing and reflex. The purpose of the mini-game is to try and hit as many
+          baseballs (launched from a baseball machine) as possible in a row to get a high score.
         </p>
         <p className="mb-0">
-          With this mini-game we introduced our Arcade Tokens system! Players earn Arcade Tokens every day they complete
-          a Nifty Smashers match! This game marks our first Arcade Game launched and can be played without owning or
-          renting a DEGEN.
+          With this mini-game we introduced our Arcade Tokens system! Players earn Arcade Tokens
+          every day they complete a Nifty Smashers match! This game marks our first Arcade Game
+          launched and can be played without owning or renting a DEGEN.
         </p>
       </>
     ),
@@ -184,15 +214,16 @@ export const ROADMAP_CARDS = [
     body: (
       <>
         <p className="mb-0">
-          Hearing the DEGENs&apos; pleas to spend their hard-earned NFTL and with bigger sinks still under development,
-          Satoshi suggests the DEGENs climb to the top of the{' '}
+          Hearing the DEGENs&apos; pleas to spend their hard-earned NFTL and with bigger sinks still
+          under development, Satoshi suggests the DEGENs climb to the top of the{' '}
           <strong>
             <a href="https://app.niftyleague.com/games/mt-gawx" target="_blank" rel="noreferrer">
               Mt. Gawx
             </a>
           </strong>{' '}
-          volcano to offer their NFTL sacrifices to the fiery depths to see who might burn the most, and to discover
-          whether the rumors of Rugman offering interesting rewards to burners are true.
+          volcano to offer their NFTL sacrifices to the fiery depths to see who might burn the most,
+          and to discover whether the rumors of Rugman offering interesting rewards to burners are
+          true.
         </p>
       </>
     ),
@@ -200,18 +231,27 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Sept 20th, 2022',
-    image: { height: 1080, src: '/img/games/crypto-winter.gif', style: { top: '-120px' }, width: 1440 },
+    image: {
+      height: 1080,
+      src: '/img/games/crypto-winter.gif',
+      style: { top: '-120px' },
+      width: 1440,
+    },
     title: 'Crypto Winter',
     body: (
       <>
         <p className="mb-0">
           <strong>
-            <a href="https://app.niftyleague.com/games/crypto-winter" target="_blank" rel="noreferrer">
+            <a
+              href="https://app.niftyleague.com/games/crypto-winter"
+              target="_blank"
+              rel="noreferrer"
+            >
               Crypto Winter
             </a>
           </strong>{' '}
-          is a our second arcade style mini-game which also depends on skillful timing and reflex. Play this
-          single-player dodgeball-inspired arcade game and rank as high as you can!
+          is a our second arcade style mini-game which also depends on skillful timing and reflex.
+          Play this single-player dodgeball-inspired arcade game and rank as high as you can!
         </p>
       </>
     ),
@@ -219,13 +259,18 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Nov 11th, 2022',
-    image: { height: 250, src: '/img/logos/networks/imx.webp', style: { top: '-130px', padding: '25px' }, width: 250 },
+    image: {
+      height: 250,
+      src: '/img/logos/networks/imx.webp',
+      style: { top: '-130px', padding: '25px' },
+      width: 250,
+    },
     title: 'L2 Migration',
     body: (
       <>
         <p>
-          Selecting a suitable Layer 2 partner is crucial to scaling our ecosystem at Nifty League, and we couldn&apos;t
-          be more excited to start rolling out products on{' '}
+          Selecting a suitable Layer 2 partner is crucial to scaling our ecosystem at Nifty League,
+          and we couldn&apos;t be more excited to start rolling out products on{' '}
           <strong>
             <a href="https://www.immutable.com/" target="_blank" rel="noreferrer">
               Immutable X (IMX)
@@ -234,8 +279,8 @@ export const ROADMAP_CARDS = [
           .
         </p>
         <p className="mb-0">
-          IMX is solely focused on powering the next generation of Web3 games which positions Nifty League to capitalize
-          on the upcoming wave of mainstream adoption.
+          IMX is solely focused on powering the next generation of Web3 games which positions Nifty
+          League to capitalize on the upcoming wave of mainstream adoption.
         </p>
       </>
     ),
@@ -254,13 +299,18 @@ export const ROADMAP_CARDS = [
       <>
         <p>
           <strong>
-            <a href="https://tokentrove.com/collection/NiftyLeagueComics" target="_blank" rel="noreferrer">
+            <a
+              href="https://tokentrove.com/collection/NiftyLeagueComics"
+              target="_blank"
+              rel="noreferrer"
+            >
               Comic pages
             </a>
           </strong>{' '}
-          were free gifts airdropped to early DEGEN NFT minters & holders. Our team eventually revealed that each comic
-          page could be burned to receive rare game weapons or wearables. Alternatively, holders could burn all six
-          comics at once for an exclusive key to the Citadel!
+          were free gifts airdropped to early DEGEN NFT minters & holders. Our team eventually
+          revealed that each comic page could be burned to receive rare game weapons or wearables.
+          Alternatively, holders could burn all six comics at once for an exclusive key to the
+          Citadel!
         </p>
         <p>
           <strong>Comic burning remains open until further notice!</strong>
@@ -339,13 +389,18 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Feb 13th, 2023',
-    image: { height: 400, src: '/img/games/smashers/nifty-smashers.gif', style: { top: '-135px' }, width: 544 },
+    image: {
+      height: 400,
+      src: '/img/games/smashers/nifty-smashers.gif',
+      style: { top: '-135px' },
+      width: 544,
+    },
     title: '2D Nifty Smashers - PC Alpha',
     body: (
       <p className="mb-0">
-        We implemented a new deterministic roll-back netcode solution which improved lag considerably. This netcode also
-        enables some cool features such as broadcasting live games and having replays readily available through our
-        archive.
+        We implemented a new deterministic roll-back netcode solution which improved lag
+        considerably. This netcode also enables some cool features such as broadcasting live games
+        and having replays readily available through our archive.
       </p>
     ),
   },
@@ -357,14 +412,15 @@ export const ROADMAP_CARDS = [
     body: (
       <>
         <p>
-          The ultimate sacrifice was made on this day to bring the ancient Hydras back from extinction. Community
-          members lined up to send 8 DEGENs through a portal forever burning their existence from the blockchain. In
-          return? A claim at one of 98 rare Hydra eggs.
+          The ultimate sacrifice was made on this day to bring the ancient Hydras back from
+          extinction. Community members lined up to send 8 DEGENs through a portal forever burning
+          their existence from the blockchain. In return? A claim at one of 98 rare Hydra eggs.
         </p>
         <p className="mb-0">
-          Hydras are amphibious water dragons that roam freely underwater or on land. Their cuteness belies their wise
-          and fighting prowess. They pack a punch with their tridents, spears, and ranged attacks and bring a wealth of
-          lore knowledge to Nifty League, being the oldest tribe.
+          Hydras are amphibious water dragons that roam freely underwater or on land. Their cuteness
+          belies their wise and fighting prowess. They pack a punch with their tridents, spears, and
+          ranged attacks and bring a wealth of lore knowledge to Nifty League, being the oldest
+          tribe.
         </p>
       </>
     ),
@@ -372,17 +428,22 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'May 10th, 2023',
-    image: { height: 400, src: '/img/roadmap/free2play_v02.webp', style: { top: '-140px' }, width: 507 },
+    image: {
+      height: 400,
+      src: '/img/roadmap/free2play_v02.webp',
+      style: { top: '-140px' },
+      width: 507,
+    },
     title: 'Free-2-Play',
     body: (
       <>
         <p>
-          Scaling our platform is a high priority. Part of this process is onboarding new users who may not be able to
-          afford expensive digital assets.
+          Scaling our platform is a high priority. Part of this process is onboarding new users who
+          may not be able to afford expensive digital assets.
         </p>
         <p className="mb-0">
-          Our new free-2-play focus allows players to experience our games using generic characters of each tribe while
-          more premium access is still restricted to DEGEN holders.
+          Our new free-2-play focus allows players to experience our games using generic characters
+          of each tribe while more premium access is still restricted to DEGEN holders.
         </p>
       </>
     ),
@@ -390,18 +451,24 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Sept 2nd, 2023',
-    image: { height: 1070, src: '/img/games/smashers/apartment.webp', style: { top: '-90px' }, width: 1618 },
+    image: {
+      height: 1070,
+      src: '/img/games/smashers/apartment.webp',
+      style: { top: '-90px' },
+      width: 1618,
+    },
     title: 'Nifty Smashers - Progression Design',
     body: (
       <>
         <p>
-          We designed several fundamental tools for our games including progression and marketplace systems. These
-          systems incentivize players to stick around by rewarding them for milestones that drive engagement and
-          retention.
+          We designed several fundamental tools for our games including progression and marketplace
+          systems. These systems incentivize players to stick around by rewarding them for
+          milestones that drive engagement and retention.
         </p>
         <p className="mb-0">
-          Nifty Smashers is the first game we integrated with live ops tooling as part of its mobile launch. In
-          addition, we are training Smashers AI to keep lobbies full and accomodate multiple skill levels.
+          Nifty Smashers is the first game we integrated with live ops tooling as part of its mobile
+          launch. In addition, we are training Smashers AI to keep lobbies full and accomodate
+          multiple skill levels.
         </p>
       </>
     ),
@@ -409,22 +476,27 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Oct 11th, 2023',
-    image: { src: '/img/logos/other/pocket-whale.webp', style: { top: '-155px' }, width: 387, height: 300 },
+    image: {
+      src: '/img/logos/other/pocket-whale.webp',
+      style: { top: '-155px' },
+      width: 387,
+      height: 300,
+    },
     title: 'PocketWhale Partnership',
     body: (
       <>
         <p className="mb-0">
-          Video game creative and marketing agency focusing on mobile, PC and console games. With offices in USA,
-          Germany, France and Japan,{' '}
+          Video game creative and marketing agency focusing on mobile, PC and console games. With
+          offices in USA, Germany, France and Japan,{' '}
           <a href="https://www.pocketwhale.com/" target="_blank" rel="noreferrer">
             PocketWhale
           </a>{' '}
           plans and executes our global game marketing campaigns.
         </p>
         <p className="mb-0">
-          Their team designs tailor-made creative assets and has a holistic approach to media. They operate marketing
-          campaigns online and offline through PR, influencer marketing, TV advertising, digital advertising, and
-          events.
+          Their team designs tailor-made creative assets and has a holistic approach to media. They
+          operate marketing campaigns online and offline through PR, influencer marketing, TV
+          advertising, digital advertising, and events.
         </p>
       </>
     ),
@@ -432,7 +504,12 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Dec 10th, 2023',
-    image: { src: '/img/roadmap/mobile_v02.webp', style: { top: '-155px' }, width: 387, height: 300 },
+    image: {
+      src: '/img/roadmap/mobile_v02.webp',
+      style: { top: '-155px' },
+      width: 387,
+      height: 300,
+    },
     title: 'Nifty Smashers - Mobile Alpha',
     body: (
       <>
@@ -444,8 +521,8 @@ export const ROADMAP_CARDS = [
           !
         </p>
         <p className="mb-0">
-          Going forward all of our games will be mobile compatible. With a high concentration of gamers using mobile
-          platforms, this release was pivotal for the direction of Nifty League.
+          Going forward all of our games will be mobile compatible. With a high concentration of
+          gamers using mobile platforms, this release was pivotal for the direction of Nifty League.
         </p>
       </>
     ),
@@ -464,17 +541,24 @@ export const ROADMAP_CARDS = [
           is now feature complete and available in multiple countries!
         </p>
         <p>
-          After months of refining complex in-game progression and metasystem mechanics, we&apos;ve crafted a top-tier
-          mobile experience that players will love.
+          After months of refining complex in-game progression and metasystem mechanics, we&apos;ve
+          crafted a top-tier mobile experience that players will love.
         </p>
-        <p className="mb-0">We are now in the final stages of testing and polishing before the global launch!</p>
+        <p className="mb-0">
+          We are now in the final stages of testing and polishing before the global launch!
+        </p>
       </>
     ),
   },
   {
     completed: true,
     completionDate: 'Sept 13th, 2024',
-    image: { src: '/img/roadmap/niftyroyale_v01.webp', style: { top: '-110px' }, width: 541, height: 381 },
+    image: {
+      src: '/img/roadmap/niftyroyale_v01.webp',
+      style: { top: '-110px' },
+      width: 541,
+      height: 381,
+    },
     title: (
       <>
         Nifty Royale - <br />
@@ -484,9 +568,9 @@ export const ROADMAP_CARDS = [
     body: (
       <>
         <p>
-          The first game set in NiftyWorld is an action-packed battle royale! Initial development kicked off in August
-          2023 as part of a case study into our decentalized vision. Nifty League is managing an external game studio
-          responsible for development.
+          The first game set in NiftyWorld is an action-packed battle royale! Initial development
+          kicked off in August 2023 as part of a case study into our decentalized vision. Nifty
+          League is managing an external game studio responsible for development.
         </p>
         <p className="mb-0">
           Early-access is available for playtesting! Find the latest build{' '}
@@ -501,23 +585,32 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Sept 24th, 2024',
-    image: { height: 166, src: '/img/logos/networks/imx_polygon.webp', style: { top: '-115px' }, width: 250 },
+    image: {
+      height: 166,
+      src: '/img/logos/networks/imx_polygon.webp',
+      style: { top: '-115px' },
+      width: 250,
+    },
     title: 'Immutable zkEVM',
     body: (
       <>
         <p>
           In partnership with Polygon, Immutable introduced the{' '}
           <strong>
-            <a href="https://www.immutable.com/products/immutable-zkevm" target="_blank" rel="noreferrer">
+            <a
+              href="https://www.immutable.com/products/immutable-zkevm"
+              target="_blank"
+              rel="noreferrer"
+            >
               Immutable zkEVM
             </a>
           </strong>{' '}
-          - a chain for games that offers EVM compatibility, low cost, massive scale, and Ethereum security. The most
-          cutting-edge technology in gaming with the largest ecosystem in web3.
+          - a chain for games that offers EVM compatibility, low cost, massive scale, and Ethereum
+          security. The most cutting-edge technology in gaming with the largest ecosystem in web3.
         </p>
         <p className="mb-0">
-          We migrated NFTL along with our Items & Comics collections, allowing our users to benefit from low fees and
-          scalability for our platform.
+          We migrated NFTL along with our Items & Comics collections, allowing our users to benefit
+          from low fees and scalability for our platform.
         </p>
       </>
     ),
@@ -530,20 +623,26 @@ export const ROADMAP_CARDS = [
     body: (
       <>
         <p>
-          With our migration to Immutable zkEVM, we launched our DAO including on-chain NFTL token governance on{' '}
+          With our migration to Immutable zkEVM, we launched our DAO including on-chain NFTL token
+          governance on{' '}
           <a href="https://niftyleague.com/tally" target="_blank" rel="noreferrer">
             Tally
           </a>
           !
         </p>
         <p>
-          Our team will gradually transfer responsibilities to our DAO in order to decentralize the platform and
-          encourage others to build with us! Our vision is to power rapid growth and development through community
-          contributions enabling us to build a gaming platform like no other.
+          Our team will gradually transfer responsibilities to our DAO in order to decentralize the
+          platform and encourage others to build with us! Our vision is to power rapid growth and
+          development through community contributions enabling us to build a gaming platform like no
+          other.
         </p>
         <p className="mb-0">
           Read our{' '}
-          <a href="https://niftyleague.com/docs/overview/nifty-dao/guidelines" target="_blank" rel="noreferrer">
+          <a
+            href="https://niftyleague.com/docs/overview/nifty-dao/guidelines"
+            target="_blank"
+            rel="noreferrer"
+          >
             DAO Guidelines
           </a>{' '}
           to learn more!
@@ -571,61 +670,82 @@ export const ROADMAP_CARDS = [
           !
         </p>
         <p className="mb-0">
-          This marks a major milestone in our journey, expanding beyond mobile to bring the full party platform-fighting
-          experience to PC players. Expect continued updates, new content, and even more ways to play as we build
-          towards a full cross-play future!
+          This marks a major milestone in our journey, expanding beyond mobile to bring the full
+          party platform-fighting experience to PC players. Expect continued updates, new content,
+          and even more ways to play as we build towards a full cross-play future!
         </p>
       </>
     ),
   },
   {
-    image: { src: '/img/logos/smashers/app_wordmark_logo.webp', style: { top: '-115px' }, width: 387, height: 300 },
+    image: {
+      src: '/img/logos/smashers/app_wordmark_logo.webp',
+      style: { top: '-115px' },
+      width: 387,
+      height: 300,
+    },
     title: 'Nifty Smashers - Global Launch',
     body: (
       <>
-        <p>We&apos;ve achieved an exceptional 55% CVR (app unit/page views), and Day 1 Retention of over 30%!</p>
+        <p>
+          We&apos;ve achieved an exceptional 55% CVR (app unit/page views), and Day 1 Retention of
+          over 30%!
+        </p>
         <p className="mb-0">
-          We are very close! After a few more iterations and monetization testing we look forward to releasing Smashers
-          worldwide! Smashers will be available on multiple platforms (Android, iOS, Epic, Steam, and maybe Switch???)
+          We are very close! After a few more iterations and monetization testing we look forward to
+          releasing Smashers worldwide! Smashers will be available on multiple platforms (Android,
+          iOS, Epic, Steam, and maybe Switch???)
         </p>
       </>
     ),
   },
   {
     current: true,
-    image: { height: 375, src: '/img/roadmap/marketplace_v02.webp', style: { top: '-90px' }, width: 609 },
+    image: {
+      height: 375,
+      src: '/img/roadmap/marketplace_v02.webp',
+      style: { top: '-90px' },
+      width: 609,
+    },
     title: 'Items Marketplace',
     body: (
       <>
         <p>
-          We are working with the Immutable team to seamlessly integrate our items marketplace in-game. Offerings will
-          include cool skins, weapons, consumable items, and more to enhance your DEGENs. Our items are currently
-          available on{' '}
+          We are working with the Immutable team to seamlessly integrate our items marketplace
+          in-game. Offerings will include cool skins, weapons, consumable items, and more to enhance
+          your DEGENs. Our items are currently available on{' '}
           <a href="https://tokentrove.com/collection/NiftyLeague" target="_blank" rel="noreferrer">
             TokenTrove
           </a>
           !
         </p>
         <p className="mb-0">
-          Future items will be provided to community testers as well as found in our games. Free-2-play mobile players
-          that includes you! Players may get lucky and find rare wearables or weapons in game that are mintable on IMX!
+          Future items will be provided to community testers as well as found in our games.
+          Free-2-play mobile players that includes you! Players may get lucky and find rare
+          wearables or weapons in game that are mintable on IMX!
         </p>
       </>
     ),
   },
   {
-    image: { src: '/img/roadmap/niftyroyale_v01.webp', style: { top: '-110px' }, width: 541, height: 381 },
+    image: {
+      src: '/img/roadmap/niftyroyale_v01.webp',
+      style: { top: '-110px' },
+      width: 541,
+      height: 381,
+    },
     title: 'Nifty Royale - Alpha/Beta',
     body: (
       <>
         <p>
-          An upcoming battle royale game set in NiftyWorld, a virtual world our team strategically designed for
-          limitless creativity. Building on the success of Nifty Smashers, Nifty Royale delivers an immersive and
-          competitive experience.
+          An upcoming battle royale game set in NiftyWorld, a virtual world our team strategically
+          designed for limitless creativity. Building on the success of Nifty Smashers, Nifty Royale
+          delivers an immersive and competitive experience.
         </p>
         <p className="mb-0">
-          Early-access is now available for playtesting! Additional polish and work is needed to get the game in Alpha
-          state. Follow our latest updates on Twitter & Discord and find the latest build{' '}
+          Early-access is now available for playtesting! Additional polish and work is needed to get
+          the game in Alpha state. Follow our latest updates on Twitter & Discord and find the
+          latest build{' '}
           <a href="https://app.niftyleague.com" target="_blank" rel="noreferrer">
             on our webapp
           </a>
@@ -635,44 +755,58 @@ export const ROADMAP_CARDS = [
     ),
   },
   {
-    image: { src: '/img/roadmap/niftyworld_v02.webp', style: { top: '-145px' }, width: 757, height: 675 },
+    image: {
+      src: '/img/roadmap/niftyworld_v02.webp',
+      style: { top: '-145px' },
+      width: 757,
+      height: 675,
+    },
     title: 'NiftyWorld',
     body: (
       <>
         <p>
-          Welcome to NiftyWorld; a world filled with DEGENs and NFT communities alike with a shared vision to have fun
-          and build a thriving gaming ecosystem. What makes NiftyWorld stand apart from other metaverses is our games
-          being the centerpiece. Walk into our arcade room filled with fun mini-games or venture to destinations on the
-          map to jump into our classic titles like Nifty Smashers and Nifty Kart.
+          Welcome to NiftyWorld; a world filled with DEGENs and NFT communities alike with a shared
+          vision to have fun and build a thriving gaming ecosystem. What makes NiftyWorld stand
+          apart from other metaverses is our games being the centerpiece. Walk into our arcade room
+          filled with fun mini-games or venture to destinations on the map to jump into our classic
+          titles like Nifty Smashers and Nifty Kart.
         </p>
         <p>
-          While Nifty League focuses on building a decentralized game platform with titles such as Nifty Smashers and
-          other Nintendo-inspired games, NiftyWorld stands at the heart of our ecosystem tying everything together.
-          It&apos;s not only the central lobby system or launch point for many of these games, but the main hub for all
-          social interactions (and quite frankly our biggest game in and of itself).
+          While Nifty League focuses on building a decentralized game platform with titles such as
+          Nifty Smashers and other Nintendo-inspired games, NiftyWorld stands at the heart of our
+          ecosystem tying everything together. It&apos;s not only the central lobby system or launch
+          point for many of these games, but the main hub for all social interactions (and quite
+          frankly our biggest game in and of itself).
         </p>
         <p className="mb-0">
-          If you&apos;re a creative type, don&apos;t miss this opportunity - we will have an asset store for you to
-          design assets such as buildings or trees and list them for sale based on your defined limits and pricing. Do
-          you want a cool DEGEN theme park or Cyber Kongz meetup? Build out NiftyWorld to whatever your heart desires!
+          If you&apos;re a creative type, don&apos;t miss this opportunity - we will have an asset
+          store for you to design assets such as buildings or trees and list them for sale based on
+          your defined limits and pricing. Do you want a cool DEGEN theme park or Cyber Kongz
+          meetup? Build out NiftyWorld to whatever your heart desires!
         </p>
       </>
     ),
   },
   {
     divider: true,
-    image: { src: '/img/logos/niftyworld/app_logo.webp', style: { top: '-90px' }, width: 1920, height: 1080 },
+    image: {
+      src: '/img/logos/niftyworld/app_logo.webp',
+      style: { top: '-90px' },
+      width: 1920,
+      height: 1080,
+    },
     title: 'Land',
     body: (
       <>
         <p>
-          Land parcels give you ownership in NiftyWorld. Each DEGEN NFT will recieve 1 free plot of land if and when the
-          mint goes live. As a land holder you can build freely on your parcels as long as they meet platform
-          guidelines. For larger developments that span across a region we will introduce an HOA model for build
-          proposals.
+          Land parcels give you ownership in NiftyWorld. Each DEGEN NFT will recieve 1 free plot of
+          land if and when the mint goes live. As a land holder you can build freely on your parcels
+          as long as they meet platform guidelines. For larger developments that span across a
+          region we will introduce an HOA model for build proposals.
         </p>
         <p className="mb-0">
-          Oh... and it&apos;s probably worth noting the land and assets will be sold with <strong>NFTL</strong>.
+          Oh... and it&apos;s probably worth noting the land and assets will be sold with{' '}
+          <strong>NFTL</strong>.
         </p>
       </>
     ),
@@ -683,8 +817,8 @@ export const ROADMAP_CARDS = [
     body: (
       <>
         <p>
-          Following NiftyWorld launch we want to introduce cool pets for your DEGENS! A lot of community members have
-          asked us to dust off and bring back Satoshi&apos;s{' '}
+          Following NiftyWorld launch we want to introduce cool pets for your DEGENS! A lot of
+          community members have asked us to dust off and bring back Satoshi&apos;s{' '}
           <strong>
             <a href="https://app.niftyleague.com/mint-o-matic" target="_blank" rel="noreferrer">
               Mint-O-Matic
@@ -693,31 +827,42 @@ export const ROADMAP_CARDS = [
           , and we couldn&apos;t agree more!
         </p>
         <p className="mb-0">
-          DEGEN NFT holders would receive whitelist spots so our community can create pets at their leisure. A public
-          offering will follow for any remaining pets. If you missed the first minting experience be sure to keep this
-          one on your calendar!
+          DEGEN NFT holders would receive whitelist spots so our community can create pets at their
+          leisure. A public offering will follow for any remaining pets. If you missed the first
+          minting experience be sure to keep this one on your calendar!
         </p>
       </>
     ),
   },
   {
-    image: { src: '/img/games/nifty-tennis.webp', style: { top: '-135px' }, width: 500, height: 281 },
+    image: {
+      src: '/img/games/nifty-tennis.webp',
+      style: { top: '-135px' },
+      width: 500,
+      height: 281,
+    },
     title: 'Nifty Tennis',
     body: (
       <p className="mb-0">
-        It&apos;s important to note that any subsequent games will be voted upon by the DAO. Early development of Nifty
-        Tennis started in 2022, making Tennis a top release candidate. We plan to accommodate all playstyles whether
-        playing competitively or just for fun.
+        It&apos;s important to note that any subsequent games will be voted upon by the DAO. Early
+        development of Nifty Tennis started in 2022, making Tennis a top release candidate. We plan
+        to accommodate all playstyles whether playing competitively or just for fun.
       </p>
     ),
   },
   {
-    image: { src: '/img/roadmap/niftykart_v01.webp', style: { top: '-160px' }, width: 494, height: 462 },
+    image: {
+      src: '/img/roadmap/niftykart_v01.webp',
+      style: { top: '-160px' },
+      width: 494,
+      height: 462,
+    },
     title: 'Nifty Kart',
     body: (
       <p className="mb-0">
-        Old school classics are core to our game offerings as we recognize the power of reliving childhood favorites
-        with a Web3 twist. Own your characters &amp; karts and get ready to race for <strong>NFTL</strong>!
+        Old school classics are core to our game offerings as we recognize the power of reliving
+        childhood favorites with a Web3 twist. Own your characters &amp; karts and get ready to race
+        for <strong>NFTL</strong>!
       </p>
     ),
   },
@@ -726,9 +871,9 @@ export const ROADMAP_CARDS = [
     title: 'Gen2 DEGENs',
     body: (
       <p className="mb-0">
-        As our platform grows and demand increases for DEGENs - we may consider introducing new tribes. Do note that the
-        final decision to go this route will rest with the DAO.
+        As our platform grows and demand increases for DEGENs - we may consider introducing new
+        tribes. Do note that the final decision to go this route will rest with the DAO.
       </p>
     ),
   },
-];
+]

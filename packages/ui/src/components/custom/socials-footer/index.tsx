@@ -1,14 +1,14 @@
-import Image from 'next/image';
-import { cn } from '@nl/ui/utils';
-import { SOCIAL_LINKS } from './constants';
+import Image from 'next/image'
+import { cn } from '@nl/ui/utils'
+import { SOCIAL_LINKS } from './constants'
 
-export const linkClass = 'font-medium text-foreground';
+export const linkClass = 'font-medium text-foreground'
 export const animateClass =
-  'transition duration-200 ease-in-out hover:-translate-y-0.5 hover:scale-102 hover:opacity-70';
+  'transition duration-200 ease-in-out hover:-translate-y-0.5 hover:scale-102 hover:opacity-70'
 
 interface SocialsFooterProps extends React.ComponentProps<'footer'> {
-  children?: React.ReactNode;
-  classes?: { footer?: string };
+  children?: React.ReactNode
+  classes?: { footer?: string }
 }
 
 export function SocialsFooter({ children, classes }: SocialsFooterProps) {
@@ -44,15 +44,27 @@ export function SocialsFooter({ children, classes }: SocialsFooterProps) {
         </div>
 
         <div className="flex justify-center items-center space-x-5 sm:space-x-6">
-          {SOCIAL_LINKS.map(social => (
-            <a key={social.name} href={social.link} target="_blank" rel="noreferrer" className={animateClass}>
-              <Image src={social.image} width={20} height={20} alt={social.description} className="w-5 h-5" />
+          {SOCIAL_LINKS.map((social) => (
+            <a
+              key={social.name}
+              href={social.link}
+              target="_blank"
+              rel="noreferrer"
+              className={animateClass}
+            >
+              <Image
+                src={social.image}
+                width={20}
+                height={20}
+                alt={social.description}
+                className="w-5 h-5"
+              />
             </a>
           ))}
         </div>
       </div>
     </footer>
-  );
+  )
 }
 
-export default SocialsFooter;
+export default SocialsFooter

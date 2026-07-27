@@ -1,6 +1,10 @@
-import type { FontFamily, Theme, ThemeOptions } from '../types';
+import type { FontFamily, Theme, ThemeOptions } from '../types'
 
-const customTypography = (theme: Theme, borderRadius: number, fontFamily: FontFamily): ThemeOptions['typography'] => ({
+const customTypography = (
+  theme: Theme,
+  borderRadius: number,
+  fontFamily: FontFamily
+): ThemeOptions['typography'] => ({
   fontFamily: fontFamily.default.style.fontFamily,
   fontWeightLight: 200,
   fontWeightRegular: 400,
@@ -55,9 +59,21 @@ const customTypography = (theme: Theme, borderRadius: number, fontFamily: FontFa
     letterSpacing: 'var(--tracking-subheader)',
     lineHeight: 'var(--text-base--line-height)',
   },
-  subtitle1: { fontSize: 'var(--text-sm)' /* 0.875rem */, fontWeight: 500, color: 'var(--color-foreground)' },
-  subtitle2: { fontSize: 'var(--text-xs)' /* 0.75rem */, fontWeight: 400, color: 'var(--color-muted-foreground)' },
-  caption: { fontSize: 'var(--text-xs)' /* 0.75rem */, color: 'var(--color-muted-foreground)', fontWeight: 400 },
+  subtitle1: {
+    fontSize: 'var(--text-sm)' /* 0.875rem */,
+    fontWeight: 500,
+    color: 'var(--color-foreground)',
+  },
+  subtitle2: {
+    fontSize: 'var(--text-xs)' /* 0.75rem */,
+    fontWeight: 400,
+    color: 'var(--color-muted-foreground)',
+  },
+  caption: {
+    fontSize: 'var(--text-xs)' /* 0.75rem */,
+    color: 'var(--color-muted-foreground)',
+    fontWeight: 400,
+  },
   body1: { fontSize: 'var(--text-base)' /* 1rem */, fontWeight: 400, lineHeight: '1.334em' },
   body2: {
     fontSize: 'var(--text-sm)' /* 0.875rem */,
@@ -70,7 +86,12 @@ const customTypography = (theme: Theme, borderRadius: number, fontFamily: FontFa
   customInput: {
     marginTop: 1,
     marginBottom: 1,
-    '& > label': { top: 23, left: 0, color: 'var(--color-muted-foreground)', '&[data-shrink="false"]': { top: 5 } },
+    '& > label': {
+      top: 23,
+      left: 0,
+      color: 'var(--color-muted-foreground)',
+      '&[data-shrink="false"]': { top: 5 },
+    },
     '& > div > input': { padding: '30.5px 14px 11.5px !important' },
     '& legend': { display: 'none' },
     '& fieldset': { top: 0 },
@@ -100,6 +121,6 @@ const customTypography = (theme: Theme, borderRadius: number, fontFamily: FontFa
   smallAvatar: { width: '22px', height: '22px', fontSize: 'var(--text-base)' /* 1rem */ },
   mediumAvatar: { width: '34px', height: '34px', fontSize: 'var(--text-xl)' /* 1.25rem */ },
   largeAvatar: { width: '44px', height: '44px', fontSize: 'var(--text-2xl)' /* 1.5rem */ },
-});
+})
 
-export default customTypography;
+export default customTypography

@@ -1,16 +1,24 @@
-'use client';
+'use client'
 
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import { TableBody, TableHead, TableRow, Table, TableCell, CircularProgress, Typography } from '@mui/material';
-import { Box } from '@mui/system';
+import { useEffect, useState } from 'react'
+import Image from 'next/image'
+import {
+  TableBody,
+  TableHead,
+  TableRow,
+  Table,
+  TableCell,
+  CircularProgress,
+  Typography,
+} from '@mui/material'
+import { Box } from '@mui/system'
 
-import { styled } from '@nl/theme';
-import { fetchScores } from '@/utils/leaderboard';
-import type { DataType, ReturnDataType } from '@/types/leaderboard';
-import { LEADERBOARD_GAME_LIST } from '@/constants/leaderboards';
-import CustomModal from './CustomModal';
-import './modal-table.css';
+import { styled } from '@nl/theme'
+import { fetchScores } from '@/utils/leaderboard'
+import type { DataType, ReturnDataType } from '@/types/leaderboard'
+import { LEADERBOARD_GAME_LIST } from '@/constants/leaderboards'
+import CustomModal from './CustomModal'
+import './modal-table.css'
 
 const TableRoot = styled('div')({
   width: '76%',
@@ -22,7 +30,10 @@ const TableRoot = styled('div')({
   '& table': { width: '100%' },
   '& .cell': { height: '40px !important', overflow: 'initial !important', position: 'relative' },
   '& th': { color: '#9ba5bf !important', maxWidth: '60px !important' },
-  '& tbody': { position: 'initial !important', '& tr': { '&:first-child': { borderTop: 'solid 2px #8c9cb4' } } },
+  '& tbody': {
+    position: 'initial !important',
+    '& tr': { '&:first-child': { borderTop: 'solid 2px #8c9cb4' } },
+  },
   '& tr': {
     '& th': { '&:last-child': { borderRight: 'none !important', color: '#9ba5bf !important' } },
     '& td': {
@@ -32,9 +43,14 @@ const TableRoot = styled('div')({
       '&:last-child': { borderRight: 'none !important' },
     },
   },
-});
+})
 
-const RankBody = styled('span')({ padding: '10px', borderRadius: '50px', paddingTop: '5px', paddingBottom: '5px' });
+const RankBody = styled('span')({
+  padding: '10px',
+  borderRadius: '50px',
+  paddingTop: '5px',
+  paddingBottom: '5px',
+})
 
 const LineTopBox = styled('div')({
   position: 'absolute',
@@ -42,7 +58,7 @@ const LineTopBox = styled('div')({
   right: '-2px',
   height: 15,
   borderRight: 'solid 2px #8c9cb4',
-});
+})
 
 const LineBottomBox = styled('div')({
   position: 'absolute',
@@ -50,7 +66,7 @@ const LineBottomBox = styled('div')({
   right: '-2px',
   height: 15,
   borderRight: 'solid 2px #8c9cb4',
-});
+})
 
 const LoadingBox = styled('div')({
   width: '100%',
@@ -59,7 +75,7 @@ const LoadingBox = styled('div')({
   justifyContent: 'center',
   position: 'absolute',
   display: 'flex',
-});
+})
 
 const TwitterTypography = styled(Typography)({
   width: '100%',
@@ -77,25 +93,30 @@ const TwitterTypography = styled(Typography)({
   gap: '10px',
   textDecoration: 'underline',
   cursor: 'pointer',
-});
+})
 
 interface TableModalProps {
-  selectedGame: string;
-  flag: string;
-  selectedTimeFilter: string;
-  myRank?: number;
+  selectedGame: string
+  flag: string
+  selectedTimeFilter: string
+  myRank?: number
 }
 
-const TableModal = ({ selectedGame, flag, selectedTimeFilter, myRank }: TableModalProps): React.ReactNode | null => {
+const TableModal = ({
+  selectedGame,
+  flag,
+  selectedTimeFilter,
+  myRank,
+}: TableModalProps): React.ReactNode | null => {
   // let d = new Date(),
   //   t = d.toDateString().split(' ');
 
-  const [data, setData] = useState<DataType[]>();
+  const [data, setData] = useState<DataType[]>()
 
   // get the top ten items
   const fetchDataItems = async () => {
     if (!myRank) {
-      return;
+      return
     }
 
     const ret: ReturnDataType = await fetchScores(
@@ -103,34 +124,34 @@ const TableModal = ({ selectedGame, flag, selectedTimeFilter, myRank }: TableMod
       flag,
       selectedTimeFilter,
       10,
-      myRank < 3 ? 0 : myRank - 3,
-    );
-    setData(ret.data);
-  };
+      myRank < 3 ? 0 : myRank - 3
+    )
+    setData(ret.data)
+  }
 
   useEffect(() => {
-    fetchDataItems();
+    fetchDataItems()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [myRank]);
+  }, [myRank])
 
   const getTextStyleForRank = (rank: number) => {
-    return rank === myRank ? { color: '#E49C8E' } : {};
-  };
+    return rank === myRank ? { color: '#E49C8E' } : {}
+  }
 
   // shorten user id letters
   const handleShareOnTwitter = () => {
-    const currentGame = LEADERBOARD_GAME_LIST.filter(game => game.key === selectedGame)?.[0];
-    if (!currentGame) return;
-    const { display } = currentGame;
+    const currentGame = LEADERBOARD_GAME_LIST.filter((game) => game.key === selectedGame)?.[0]
+    if (!currentGame) return
+    const { display } = currentGame
     const obj = {
       original_referer: 'https://app.niftyleague.com/',
       ref_src: 'twsrc^tfw|twcamp^buttonembed|twterm^share|twgr^',
       text: `I ranked #${myRank} on the ${display} Top Score Leaderboard. Check out @niftyleague games: https://app.niftyleague.com/`,
       hashtags: 'NiftyLeague,NFT,NFTGaming',
-    };
+    }
     if (typeof window !== 'undefined')
-      window.open(`https://twitter.com/intent/tweet?${`${new URLSearchParams(obj)}`}`, '_blank');
-  };
+      window.open(`https://twitter.com/intent/tweet?${`${new URLSearchParams(obj)}`}`, '_blank')
+  }
 
   return (
     <TableRoot>
@@ -149,17 +170,29 @@ const TableModal = ({ selectedGame, flag, selectedTimeFilter, myRank }: TableMod
               </TableCell>
             )}
             {flag === 'earnings' && (
-              <TableCell component="th" className="cell ellipsis" style={{ fontSize: 10, textAlign: 'center' }}>
+              <TableCell
+                component="th"
+                className="cell ellipsis"
+                style={{ fontSize: 10, textAlign: 'center' }}
+              >
                 <code>TOTAL NFTL EARNED</code>
               </TableCell>
             )}
             {selectedGame === 'nifty_smashers' && (
-              <TableCell component="th" className="cell ellipsis" style={{ fontSize: 10, textAlign: 'center' }}>
+              <TableCell
+                component="th"
+                className="cell ellipsis"
+                style={{ fontSize: 10, textAlign: 'center' }}
+              >
                 <code>MATCHES PLAYED</code>
               </TableCell>
             )}
             {flag === 'earnings' && (
-              <TableCell component="th" className="cell ellipsis" style={{ fontSize: 10, textAlign: 'center' }}>
+              <TableCell
+                component="th"
+                className="cell ellipsis"
+                style={{ fontSize: 10, textAlign: 'center' }}
+              >
                 <code>AVG,NFTL / MATCH</code>
               </TableCell>
             )}
@@ -183,7 +216,7 @@ const TableModal = ({ selectedGame, flag, selectedTimeFilter, myRank }: TableMod
         <Box className="box-table" sx={{ marginTop: '20px' }} />
         <TableBody className="body">
           {data ? (
-            data.map(i => (
+            data.map((i) => (
               <TableRow className="row first" key={`${i}`}>
                 <TableCell className="cell index" style={{ color: '#9ba5bf' }}>
                   <RankBody style={getTextStyleForRank(i.rank)}>{i.rank}</RankBody>
@@ -233,7 +266,10 @@ const TableModal = ({ selectedGame, flag, selectedTimeFilter, myRank }: TableMod
                   <TableCell className="cell ellipsis end">{i.stats.kills}</TableCell>
                 )}
                 {selectedGame !== 'nifty_smashers' && (
-                  <TableCell style={{ ...getTextStyleForRank(i.rank), fontSize: 14 }} className="cell ellipsis end">
+                  <TableCell
+                    style={{ ...getTextStyleForRank(i.rank), fontSize: 14 }}
+                    className="cell ellipsis end"
+                  >
                     {i.score}
                   </TableCell>
                 )}
@@ -246,17 +282,18 @@ const TableModal = ({ selectedGame, flag, selectedTimeFilter, myRank }: TableMod
           )}
           {data && (
             <TwitterTypography variant="body2" onClick={handleShareOnTwitter}>
-              Share on twitter <Image src="/icons/socials/twitter.svg" alt="Twitter Icon" width={22} height={20} />
+              Share on twitter{' '}
+              <Image src="/icons/socials/twitter.svg" alt="Twitter Icon" width={22} height={20} />
             </TwitterTypography>
           )}
         </TableBody>
       </Table>
     </TableRoot>
-  );
-};
+  )
+}
 
 interface TopModalProps extends TableModalProps {
-  ModalIcon: React.ReactNode;
+  ModalIcon: React.ReactNode
 }
 
 const TopModal = ({
@@ -270,10 +307,15 @@ const TopModal = ({
     <CustomModal
       ModalIcon={ModalIcon}
       child={
-        <TableModal selectedGame={selectedGame} flag={flag} selectedTimeFilter={selectedTimeFilter} myRank={myRank} />
+        <TableModal
+          selectedGame={selectedGame}
+          flag={flag}
+          selectedTimeFilter={selectedTimeFilter}
+          myRank={myRank}
+        />
       }
       flag={flag}
     />
-  );
-};
-export default TopModal;
+  )
+}
+export default TopModal

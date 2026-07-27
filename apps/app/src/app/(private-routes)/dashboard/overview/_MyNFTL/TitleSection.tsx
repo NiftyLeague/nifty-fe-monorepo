@@ -1,13 +1,13 @@
-'use client';
+'use client'
 
-import { Skeleton, Stack, Typography } from '@mui/material';
+import { Skeleton, Stack, Typography } from '@mui/material'
 
-import { formatNumberToDisplay } from '@nl/ui/utils';
-import useTokensBalances from '@/hooks/balances/useTokensBalances';
-import SectionTitle from '@/components/sections/SectionTitle';
+import { formatNumberToDisplay } from '@nl/ui/utils'
+import useTokensBalances from '@/hooks/balances/useTokensBalances'
+import SectionTitle from '@/components/sections/SectionTitle'
 
 const TitleSection = (): React.ReactNode => {
-  const { loadingNFTLBal, tokensBalances } = useTokensBalances();
+  const { loadingNFTLBal, tokensBalances } = useTokensBalances()
   return (
     <SectionTitle
       firstSection
@@ -18,7 +18,8 @@ const TitleSection = (): React.ReactNode => {
             <Skeleton variant="rectangular" animation="wave" width={120} height={40} />
           ) : (
             <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-              NFTL in Wallet: {formatNumberToDisplay(tokensBalances.NFTL.eth + tokensBalances.NFTL.imx)}
+              NFTL in Wallet:{' '}
+              {formatNumberToDisplay(tokensBalances.NFTL.eth + tokensBalances.NFTL.imx)}
             </Typography>
           )}
         </Stack>
@@ -26,7 +27,7 @@ const TitleSection = (): React.ReactNode => {
     >
       My Tokens
     </SectionTitle>
-  );
-};
+  )
+}
 
-export default TitleSection;
+export default TitleSection

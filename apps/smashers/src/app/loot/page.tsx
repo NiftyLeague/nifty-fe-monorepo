@@ -1,29 +1,29 @@
-import { Metadata } from 'next';
-import { Typography } from '@nl/ui/custom/typography';
-import BackButton from '@/components/Header/BackButton';
-import DROP_TABLES from '@/data/droptables.json';
-import type { CrateData } from '@/types/droptables';
+import { Metadata } from 'next'
+import { Typography } from '@nl/ui/custom/typography'
+import BackButton from '@/components/Header/BackButton'
+import DROP_TABLES from '@/data/droptables.json'
+import type { CrateData } from '@/types/droptables'
 
-import styles from './page.module.css';
+import styles from './page.module.css'
 
 // Helper function to format percentage
 const formatPercentage = (value: string | number): string => {
-  if (typeof value === 'number') return `${value}%`;
-  return value.endsWith('%') ? value : `${value}%`;
-};
-
-interface CrateTableProps {
-  data: CrateData;
+  if (typeof value === 'number') return `${value}%`
+  return value.endsWith('%') ? value : `${value}%`
 }
 
-export const metadata: Metadata = { title: 'Loot' };
+interface CrateTableProps {
+  data: CrateData
+}
+
+export const metadata: Metadata = { title: 'Loot' }
 
 const CrateTables: React.FC<CrateTableProps> = ({ data }) => {
   return (
     <>
-      {Object.keys(data).map(crateKey => {
-        const crate = data[crateKey];
-        if (!crate) return null;
+      {Object.keys(data).map((crateKey) => {
+        const crate = data[crateKey]
+        if (!crate) return null
 
         return (
           <div key={crate.TableId} className={styles.crateGroup}>
@@ -31,7 +31,7 @@ const CrateTables: React.FC<CrateTableProps> = ({ data }) => {
               {crateKey
                 .split('.')
                 .reverse()
-                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
                 .join(' ')}
             </Typography.Title>
             <Typography className="mb-4">Drop Tables & Odds</Typography>
@@ -108,11 +108,11 @@ const CrateTables: React.FC<CrateTableProps> = ({ data }) => {
               </>
             )}
           </div>
-        );
+        )
       })}
     </>
-  );
-};
+  )
+}
 
 export default function Loot() {
   return (
@@ -136,5 +136,5 @@ export default function Loot() {
       </div>
       <CrateTables data={DROP_TABLES as CrateData} />
     </div>
-  );
+  )
 }

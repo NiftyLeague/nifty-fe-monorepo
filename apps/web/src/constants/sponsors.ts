@@ -1,14 +1,44 @@
 export const SPONSORS = [
   { image: '/img/sponsors/rse.webp', url: 'https://rseventures.com/', width: 300, height: 98 },
-  { image: '/img/sponsors/imx-logo-horiz.webp', url: 'https://www.immutable.com/', width: 300, height: 76 },
-  { image: '/img/sponsors/lerer.webp', url: 'https://www.lererhippeau.com/', width: 800, height: 61 },
-  { image: '/img/sponsors/spartan.webp', url: 'https://www.spartangroup.io/index.html', width: 473, height: 157 },
+  {
+    image: '/img/sponsors/imx-logo-horiz.webp',
+    url: 'https://www.immutable.com/',
+    width: 300,
+    height: 76,
+  },
+  {
+    image: '/img/sponsors/lerer.webp',
+    url: 'https://www.lererhippeau.com/',
+    width: 800,
+    height: 61,
+  },
+  {
+    image: '/img/sponsors/spartan.webp',
+    url: 'https://www.spartangroup.io/index.html',
+    width: 473,
+    height: 157,
+  },
   { image: '/img/sponsors/vayner2.webp', url: 'https://vaynerfund.com/', width: 684, height: 500 },
-  { image: '/img/sponsors/PVG.webp', url: 'https://www.privateventuresgroup.com/', width: 496, height: 250 },
+  {
+    image: '/img/sponsors/PVG.webp',
+    url: 'https://www.privateventuresgroup.com/',
+    width: 496,
+    height: 250,
+  },
   // { image: '/img/sponsors/avocado.webp', url: 'https://avocadoguild.com/', width: 578, height: 194 },
-  { image: '/img/sponsors/attn-evos.webp', url: 'https://careers.attn.sg/', width: 800, height: 232 },
+  {
+    image: '/img/sponsors/attn-evos.webp',
+    url: 'https://careers.attn.sg/',
+    width: 800,
+    height: 232,
+  },
   // { image: '/img/sponsors/nyan.webp', url: 'https://nyanheroes.com/', width: 417, height: 190 },
-  { image: '/img/sponsors/advancit.webp', url: 'https://www.advancitcapital.com/', width: 330, height: 71 },
+  {
+    image: '/img/sponsors/advancit.webp',
+    url: 'https://www.advancitcapital.com/',
+    width: 330,
+    height: 71,
+  },
   {
     image: '/img/sponsors/matt-kalish.webp',
     url: 'https://www.linkedin.com/in/matt-kalish-529ab33/',
@@ -17,5 +47,10 @@ export const SPONSORS = [
   },
   { image: '/img/sponsors/y2z.webp', url: 'https://y2z.io/', width: 289, height: 120 },
   { image: '/img/sponsors/teoh.webp', url: 'https://teohcapital.com/', width: 749, height: 290 },
-  { image: '/img/sponsors/3SE.webp', url: 'https://www.laconiacapitalgroup.com/', width: 135, height: 65 },
-];
+  {
+    image: '/img/sponsors/3SE.webp',
+    url: 'https://www.laconiacapitalgroup.com/',
+    width: 135,
+    height: 65,
+  },
+]

@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   IERC1155MetadataURI,
   IERC1155MetadataURIInterface,
-} from '../../../../../../@openzeppelin/contracts/token/ERC1155/extensions/IERC1155MetadataURI';
+} from '../../../../../../@openzeppelin/contracts/token/ERC1155/extensions/IERC1155MetadataURI'
 
 const _abi = [
   {
@@ -132,14 +132,14 @@ const _abi = [
     stateMutability: 'view',
     type: 'function',
   },
-] as const;
+] as const
 
 export class IERC1155MetadataURI__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): IERC1155MetadataURIInterface {
-    return new Interface(_abi) as IERC1155MetadataURIInterface;
+    return new Interface(_abi) as IERC1155MetadataURIInterface
   }
   static connect(address: string, runner?: ContractRunner | null): IERC1155MetadataURI {
-    return new Contract(address, _abi, runner) as unknown as IERC1155MetadataURI;
+    return new Contract(address, _abi, runner) as unknown as IERC1155MetadataURI
   }
 }

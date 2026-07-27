@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   IERC20Permit,
   IERC20PermitInterface,
-} from '../../../../../../@openzeppelin/contracts/token/ERC20/extensions/IERC20Permit';
+} from '../../../../../../@openzeppelin/contracts/token/ERC20/extensions/IERC20Permit'
 
 const _abi = [
   {
@@ -38,14 +38,14 @@ const _abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-] as const;
+] as const
 
 export class IERC20Permit__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): IERC20PermitInterface {
-    return new Interface(_abi) as IERC20PermitInterface;
+    return new Interface(_abi) as IERC20PermitInterface
   }
   static connect(address: string, runner?: ContractRunner | null): IERC20Permit {
-    return new Contract(address, _abi, runner) as unknown as IERC20Permit;
+    return new Contract(address, _abi, runner) as unknown as IERC20Permit
   }
 }

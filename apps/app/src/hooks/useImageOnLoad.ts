@@ -1,24 +1,24 @@
-'use client';
+'use client'
 
-import { CSSProperties, useState } from 'react';
+import { CSSProperties, useState } from 'react'
 
 interface ImageStyle {
-  thumbnail: CSSProperties;
-  fullSize: CSSProperties;
+  thumbnail: CSSProperties
+  fullSize: CSSProperties
 }
 
 interface ImageOnLoadType {
-  handleImageOnLoad: () => void;
-  css: ImageStyle;
+  handleImageOnLoad: () => void
+  css: ImageStyle
 }
 
 function useImageOnLoad(): ImageOnLoadType {
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false)
 
   // Triggered when full image will be loaded.
   const handleImageOnLoad = () => {
-    setIsLoaded(true);
-  };
+    setIsLoaded(true)
+  }
 
   const css: ImageStyle = {
     // Thumbnail style.
@@ -29,9 +29,9 @@ function useImageOnLoad(): ImageOnLoadType {
     },
     // Full image style.
     fullSize: { opacity: isLoaded ? 1 : 0, transition: 'opacity 500ms ease-in 0ms' },
-  };
+  }
 
-  return { handleImageOnLoad, css };
+  return { handleImageOnLoad, css }
 }
 
-export default useImageOnLoad;
+export default useImageOnLoad

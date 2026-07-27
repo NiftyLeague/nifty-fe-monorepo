@@ -1,12 +1,12 @@
-import eslint from '@eslint/js';
-import eslintConfigPrettier from 'eslint-config-prettier';
-import tseslint from 'typescript-eslint';
-import globals from 'globals';
+import eslint from '@eslint/js'
+import eslintConfigPrettier from 'eslint-config-prettier'
+import tseslint from 'typescript-eslint'
+import globals from 'globals'
 
-import pluginOnlyWarn from 'eslint-plugin-only-warn';
-import pluginReact from 'eslint-plugin-react';
-import pluginReactHooks from 'eslint-plugin-react-hooks';
-import pluginTurbo from 'eslint-plugin-turbo';
+import pluginOnlyWarn from 'eslint-plugin-only-warn'
+import pluginReact from 'eslint-plugin-react'
+import pluginReactHooks from 'eslint-plugin-react-hooks'
+import pluginTurbo from 'eslint-plugin-turbo'
 
 /**
  * A shared ESLint configuration for the repository.
@@ -56,5 +56,5 @@ export const config = tseslint.config(
     },
   },
   { linterOptions: { reportUnusedDisableDirectives: 'off' } },
-  { ignores: ['build/**', 'dist/**'] },
-);
+  { ignores: ['build/**', 'dist/**'] }
+)

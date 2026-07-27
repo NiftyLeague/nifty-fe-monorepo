@@ -1,47 +1,56 @@
-'use client';
+'use client'
 
-import { Box, Button, Dialog, DialogContent, Grid, Link, Typography } from '@mui/material';
-import DegenImage from '@/components/cards/DegenCard/DegenImage';
-import ProgressBar from '@/components/wrapper/ProgressBar';
-import { useState } from 'react';
-import Countdown from 'react-countdown';
-import { useRouter } from 'next/navigation';
-import type { Rentals } from '@/types/rentals';
-import useLocalStorage from '@/hooks/useLocalStorage';
+import { Box, Button, Dialog, DialogContent, Grid, Link, Typography } from '@mui/material'
+import DegenImage from '@/components/cards/DegenCard/DegenImage'
+import ProgressBar from '@/components/wrapper/ProgressBar'
+import { useState } from 'react'
+import Countdown from 'react-countdown'
+import { useRouter } from 'next/navigation'
+import type { Rentals } from '@/types/rentals'
+import useLocalStorage from '@/hooks/useLocalStorage'
 
 interface ActiveRentalDialogProps {
-  degenId: string | number;
-  rental: Rentals;
+  degenId: string | number
+  rental: Rentals
 }
 
 const ActiveRentalDialog = ({ degenId, rental }: ActiveRentalDialogProps) => {
-  const router = useRouter();
-  const progressValue = (100 / rental.earning_cap) * rental.earning_cap_daily;
-  const [activeRental] = useLocalStorage<boolean>('active_rental', false);
-  const [isOpen, setIsOpen] = useState<boolean>(activeRental ? false : true);
+  const router = useRouter()
+  const progressValue = (100 / rental.earning_cap) * rental.earning_cap_daily
+  const [activeRental] = useLocalStorage<boolean>('active_rental', false)
+  const [isOpen, setIsOpen] = useState<boolean>(activeRental ? false : true)
 
   const handleClickRental = () => {
-    router.push('/dashboard/rentals');
-  };
+    router.push('/dashboard/rentals')
+  }
 
   const handleClickPlay = () => {
-    router.push('/games/smashers');
-  };
+    router.push('/games/smashers')
+  }
 
   return (
     <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
       <DialogContent sx={{ marginY: '50px', marginX: '16px' }}>
         <Grid container spacing={2}>
           <Grid size={{ xs: 12, lg: 6 }}>
-            <Typography sx={{ fontWeight: 600, fontSize: '32px', lineHeight: '38px' }}>Welcome back DEGEN!</Typography>
+            <Typography sx={{ fontWeight: 600, fontSize: '32px', lineHeight: '38px' }}>
+              Welcome back DEGEN!
+            </Typography>
             <Typography
-              sx={{ fontWeight: 700, fontSize: '16px', lineHeight: '20px', marginTop: '24px', marginBottom: '30px' }}
+              sx={{
+                fontWeight: 700,
+                fontSize: '16px',
+                lineHeight: '20px',
+                marginTop: '24px',
+                marginBottom: '30px',
+              }}
             >
               Your active{' '}
               <Link sx={{ cursor: 'pointer' }} onClick={handleClickRental}>
                 rental
               </Link>{' '}
-              is at {progressValue.toFixed(2)}% of it’s earning cap. Earn more NFTL when you play NOW.
+              is at {progressValue.toFixed(2)}% of it’s earning cap. Earn more NFTL when you play
+              NOW.
             </Typography>
             <Button variant="contained" onClick={handleClickPlay}>
               Play Nifty Smashers Now
@@ -55,16 +64,31 @@ const ActiveRentalDialog = ({ degenId, rental }: ActiveRentalDialogProps) => {
                 ) : (
                   <Typography sx={{ fontSize: 10 }}>
                     LIMIT REACHED. RENEWS IN{' '}
-                    <Typography variant="caption" sx={{ fontSize: 10, color: 'var(--color-warning)' }}>
+                    <Typography
+                      variant="caption"
+                      sx={{ fontSize: 10, color: 'var(--color-warning)' }}
+                    >
                       <Countdown date={new Date(rental.next_charge_at * 1000)} />
                     </Typography>
                   </Typography>
                 )}
               </ProgressBar>
             </Box>
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', marginTop: '14px' }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-end',
+                marginTop: '14px',
+              }}
+            >
               <DegenImage
-                sx={{ width: '174px', height: 'auto', marginTop: '16px', borderRadius: 'var(--radius-default)' }}
+                sx={{
+                  width: '174px',
+                  height: 'auto',
+                  marginTop: '16px',
+                  borderRadius: 'var(--radius-default)',
+                }}
                 tokenId={degenId}
               />
             </Box>
@@ -72,7 +96,7 @@ const ActiveRentalDialog = ({ degenId, rental }: ActiveRentalDialogProps) => {
         </Grid>
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}
 
-export default ActiveRentalDialog;
+export default ActiveRentalDialog

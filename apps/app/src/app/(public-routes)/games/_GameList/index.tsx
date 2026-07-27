@@ -1,17 +1,17 @@
-'use client';
+'use client'
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { styled } from '@nl/theme';
-import Grid from '@mui/material/Grid';
-import GameCard from '@/components/cards/GameCard';
+import Link from 'next/link'
+import Image from 'next/image'
+import { styled } from '@nl/theme'
+import Grid from '@mui/material/Grid'
+import GameCard from '@/components/cards/GameCard'
 
 const GridItem = styled(Grid)(({ theme }) => ({
   paddingRight: 16,
   paddingBottom: 32,
   border: 'none',
   [theme.breakpoints.down('sm')]: { paddingBottom: 0 },
-}));
+}))
 
 const AppleBadge = ({ disabled = false }) => (
   <Image
@@ -29,7 +29,7 @@ const AppleBadge = ({ disabled = false }) => (
       opacity: disabled ? 0.25 : 1,
     }}
   />
-);
+)
 
 const GoogleBadge = ({ disabled = false }) => (
   <Image
@@ -40,7 +40,7 @@ const GoogleBadge = ({ disabled = false }) => (
     loading="eager"
     style={{ width: '100%', maxWidth: '100%', height: 'auto', opacity: disabled ? 0.25 : 1 }}
   />
-);
+)
 
 const SteamBadge = ({ disabled = false }) => (
   <Image
@@ -51,9 +51,9 @@ const SteamBadge = ({ disabled = false }) => (
     loading="eager"
     style={{ width: '100%', maxWidth: '100%', height: 'auto', opacity: disabled ? 0.25 : 1 }}
   />
-);
+)
 
-type StoreButtonsProps = { android?: string; ios?: string; steam?: string };
+type StoreButtonsProps = { android?: string; ios?: string; steam?: string }
 
 const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
   <Grid container spacing={2} style={{ width: '100%' }}>
@@ -85,7 +85,7 @@ const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
       )}
     </Grid>
   </Grid>
-);
+)
 
 const F2PGameList = () => (
   <>
@@ -118,6 +118,6 @@ const F2PGameList = () => (
       />
     </GridItem>
   </>
-);
+)
 
-export default F2PGameList;
+export default F2PGameList

@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   MintingAccessControl,
   MintingAccessControlInterface,
-} from '../../../../../@imtbl/contracts/contracts/access/MintingAccessControl';
+} from '../../../../../@imtbl/contracts/contracts/access/MintingAccessControl'
 
 const _abi = [
   {
@@ -145,14 +145,14 @@ const _abi = [
     stateMutability: 'view',
     type: 'function',
   },
-] as const;
+] as const
 
 export class MintingAccessControl__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): MintingAccessControlInterface {
-    return new Interface(_abi) as MintingAccessControlInterface;
+    return new Interface(_abi) as MintingAccessControlInterface
   }
   static connect(address: string, runner?: ContractRunner | null): MintingAccessControl {
-    return new Contract(address, _abi, runner) as unknown as MintingAccessControl;
+    return new Contract(address, _abi, runner) as unknown as MintingAccessControl
   }
 }

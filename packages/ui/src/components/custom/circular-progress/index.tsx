@@ -1,9 +1,13 @@
-'use client';
+'use client'
 
-import { Icon, type IconProps } from '@nl/ui/base/icon';
-import { cn } from '@nl/ui/utils';
+import { Icon, type IconProps } from '@nl/ui/base/icon'
+import { cn } from '@nl/ui/utils'
 
-export function CircularProgress({ className = '', size = 'xl', ...props }: Omit<IconProps, 'name'>) {
+export function CircularProgress({
+  className = '',
+  size = 'xl',
+  ...props
+}: Omit<IconProps, 'name'>) {
   return (
     <Icon
       name="loader-circle"
@@ -13,7 +17,7 @@ export function CircularProgress({ className = '', size = 'xl', ...props }: Omit
       aria-hidden="true"
       {...props}
     />
-  );
+  )
 }
 
-export default CircularProgress;
+export default CircularProgress

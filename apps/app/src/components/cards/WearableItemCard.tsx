@@ -1,25 +1,25 @@
-import Image from 'next/image';
-import { Box, Stack, SxProps, Typography } from '@mui/material';
-import { Theme } from '@nl/theme';
-import type { Item } from '@/types/marketplace';
-import ImageCard from '@/components/cards/ImageCard';
+import Image from 'next/image'
+import { Box, Stack, SxProps, Typography } from '@mui/material'
+import { Theme } from '@nl/theme'
+import type { Item } from '@/types/marketplace'
+import ImageCard from '@/components/cards/ImageCard'
 
 export interface WearableItemCardProps {
-  data: Item;
-  sx?: SxProps<Theme>;
-  isSelected?: boolean;
-  onViewItem?: () => void;
+  data: Item
+  sx?: SxProps<Theme>
+  isSelected?: boolean
+  onViewItem?: () => void
 }
 
 interface WearableItemCardPaneProps {
-  data: Item;
-  sx?: SxProps<Theme>;
-  width: number;
-  height: number;
+  data: Item
+  sx?: SxProps<Theme>
+  width: number
+  height: number
 }
 
 const WearableItemCardPane: React.FC<WearableItemCardPaneProps> = ({ width, height, data, sx }) => {
-  const { image, title, thumbnail } = data;
+  const { image, title, thumbnail } = data
   return (
     <Box
       sx={[
@@ -31,25 +31,22 @@ const WearableItemCardPane: React.FC<WearableItemCardPaneProps> = ({ width, heig
         <ImageCard image={image} thumbnail={thumbnail} title={title} ratio={1} />
       </Box>
     </Box>
-  );
-};
+  )
+}
 
-const CARD_WIDTH = 106;
-const CARD_HEIGHT = 106;
+const CARD_WIDTH = 106
+const CARD_HEIGHT = 106
 
-const WearableItemCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<WearableItemCardProps>>> = ({
-  data,
-  onViewItem,
-  sx,
-  isSelected = false,
-}) => {
-  const { balance, empty, isNew, title } = data;
+const WearableItemCard: React.FC<
+  React.PropsWithChildren<React.PropsWithChildren<WearableItemCardProps>>
+> = ({ data, onViewItem, sx, isSelected = false }) => {
+  const { balance, empty, isNew, title } = data
 
   const handleViewItem = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-    if (!onViewItem) return;
-    onViewItem();
-  };
+    e.stopPropagation()
+    if (!onViewItem) return
+    onViewItem()
+  }
 
   if (!balance)
     return (
@@ -73,15 +70,29 @@ const WearableItemCard: React.FC<React.PropsWithChildren<React.PropsWithChildren
             height: CARD_HEIGHT,
           }}
         >
-          <Image src={empty as string} alt={title} width={CARD_WIDTH} height={CARD_HEIGHT} unoptimized />
+          <Image
+            src={empty as string}
+            alt={title}
+            width={CARD_WIDTH}
+            height={CARD_HEIGHT}
+            unoptimized
+          />
         </Box>
       </Box>
-    );
+    )
 
   return (
     <Stack sx={{ position: 'relative' }}>
       {isNew && (
-        <Typography sx={{ textAlign: 'center', position: 'absolute', width: '100%', color: '#E3B210', top: -16 }}>
+        <Typography
+          sx={{
+            textAlign: 'center',
+            position: 'absolute',
+            width: '100%',
+            color: '#E3B210',
+            top: -16,
+          }}
+        >
           New!
         </Typography>
       )}
@@ -107,7 +118,7 @@ const WearableItemCard: React.FC<React.PropsWithChildren<React.PropsWithChildren
           />
         ) : (
           <>
-            {[0, 1, 2].map(item => (
+            {[0, 1, 2].map((item) => (
               <WearableItemCardPane
                 data={data}
                 width={CARD_WIDTH}
@@ -145,7 +156,7 @@ const WearableItemCard: React.FC<React.PropsWithChildren<React.PropsWithChildren
         )}
       </Box>
     </Stack>
-  );
-};
+  )
+}
 
-export default WearableItemCard;
+export default WearableItemCard

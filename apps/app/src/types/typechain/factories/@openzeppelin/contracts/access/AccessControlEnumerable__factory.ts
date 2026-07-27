@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   AccessControlEnumerable,
   AccessControlEnumerableInterface,
-} from '../../../../@openzeppelin/contracts/access/AccessControlEnumerable';
+} from '../../../../@openzeppelin/contracts/access/AccessControlEnumerable'
 
 const _abi = [
   {
@@ -117,14 +117,14 @@ const _abi = [
     stateMutability: 'view',
     type: 'function',
   },
-] as const;
+] as const
 
 export class AccessControlEnumerable__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): AccessControlEnumerableInterface {
-    return new Interface(_abi) as AccessControlEnumerableInterface;
+    return new Interface(_abi) as AccessControlEnumerableInterface
   }
   static connect(address: string, runner?: ContractRunner | null): AccessControlEnumerable {
-    return new Contract(address, _abi, runner) as unknown as AccessControlEnumerable;
+    return new Contract(address, _abi, runner) as unknown as AccessControlEnumerable
   }
 }

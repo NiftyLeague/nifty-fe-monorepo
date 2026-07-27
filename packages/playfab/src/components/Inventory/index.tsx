@@ -1,55 +1,55 @@
-import { useMemo } from 'react';
-import { formatNumberToDisplay } from '@nl/ui/utils';
-import { useUserContext } from '../../hooks/useUserContext';
-import { Icon } from '@nl/ui/base/icon';
-import { Input } from '@nl/ui/custom/input';
-import { Separator } from '@nl/ui/base/separator';
-import type { CharacterInstance, ItemInstance } from '@nl/playfab/types';
+import { useMemo } from 'react'
+import { formatNumberToDisplay } from '@nl/ui/utils'
+import { useUserContext } from '../../hooks/useUserContext'
+import { Icon } from '@nl/ui/base/icon'
+import { Input } from '@nl/ui/custom/input'
+import { Separator } from '@nl/ui/base/separator'
+import type { CharacterInstance, ItemInstance } from '@nl/playfab/types'
 
-type Items = Record<'wearables' | 'weapons' | 'emotes' | 'items', ItemInstance[]>;
-type Characters = Record<'nft_degens' | 'f2p_degens' | 'other_chars', CharacterInstance[]>;
+type Items = Record<'wearables' | 'weapons' | 'emotes' | 'items', ItemInstance[]>
+type Characters = Record<'nft_degens' | 'f2p_degens' | 'other_chars', CharacterInstance[]>
 
 export default function Inventory() {
-  const { characters, currencies, inventory, isLoggedIn } = useUserContext();
+  const { characters, currencies, inventory, isLoggedIn } = useUserContext()
 
   const { wearables, weapons, emotes } = useMemo(() => {
-    const categorized: Items = { wearables: [], weapons: [], emotes: [], items: [] };
-    inventory?.forEach(item => {
+    const categorized: Items = { wearables: [], weapons: [], emotes: [], items: [] }
+    inventory?.forEach((item) => {
       switch (item.ItemClass) {
         case 'WearablesData':
-          categorized.wearables.push(item);
-          break;
+          categorized.wearables.push(item)
+          break
         case 'WeaponTag':
-          categorized.weapons.push(item);
-          break;
+          categorized.weapons.push(item)
+          break
         case 'EffectData':
-          categorized.emotes.push(item);
-          break;
+          categorized.emotes.push(item)
+          break
         default:
-          categorized.items.push(item);
-          break;
+          categorized.items.push(item)
+          break
       }
-    });
-    return categorized;
-  }, [inventory]);
+    })
+    return categorized
+  }, [inventory])
 
   const { nft_degens, f2p_degens, other_chars } = useMemo(() => {
-    const categorized: Characters = { nft_degens: [], f2p_degens: [], other_chars: [] };
-    characters?.forEach(char => {
+    const categorized: Characters = { nft_degens: [], f2p_degens: [], other_chars: [] }
+    characters?.forEach((char) => {
       switch (char.CharacterType) {
         case 'degen_token':
-          categorized.nft_degens.push(char);
-          break;
+          categorized.nft_degens.push(char)
+          break
         case 'degen_f2p':
-          categorized.f2p_degens.push(char);
-          break;
+          categorized.f2p_degens.push(char)
+          break
         default:
-          categorized.other_chars.push(char);
-          break;
+          categorized.other_chars.push(char)
+          break
       }
-    });
-    return categorized;
-  }, [characters]);
+    })
+    return categorized
+  }, [characters])
 
   return isLoggedIn ? (
     <div className="grid gap-4">
@@ -168,5 +168,5 @@ export default function Inventory() {
         </div>
       </fieldset>
     </div>
-  ) : null;
+  ) : null
 }

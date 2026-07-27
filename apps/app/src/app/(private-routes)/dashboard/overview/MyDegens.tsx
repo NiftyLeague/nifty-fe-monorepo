@@ -1,58 +1,63 @@
-'use client';
+'use client'
 
 /* eslint-disable no-nested-ternary */
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import dynamic from 'next/dynamic';
-import Link from 'next/link';
-import xor from 'lodash/xor';
-import { v4 as uuidv4 } from 'uuid';
-import { Box, Button, Grid, Dialog, Stack } from '@mui/material';
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import dynamic from 'next/dynamic'
+import Link from 'next/link'
+import xor from 'lodash/xor'
+import { v4 as uuidv4 } from 'uuid'
+import { Box, Button, Grid, Dialog, Stack } from '@mui/material'
 
-import SectionSlider from '@/components/sections/SectionSlider';
-import { DEGEN_BASE_API_URL, DEGEN_COLLECTION_URL, PROFILE_FAV_DEGENS_API } from '@/constants/url';
-import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder';
-import EmptyState from '@/components/EmptyState';
-import DegenDialog from '@/components/dialog/DegenDialog';
-import RenameDegenDialogContent from '@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent';
-import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
-import useFetch from '@/hooks/useFetch';
-import { useProfileFavDegens } from '@/hooks/useGamerProfile';
-import useAuth from '@/hooks/useAuth';
-import type { Degen } from '@/types/degens';
-import useLocalStorageContext from '@/hooks/useLocalStorageContext';
+import SectionSlider from '@/components/sections/SectionSlider'
+import { DEGEN_BASE_API_URL, DEGEN_COLLECTION_URL, PROFILE_FAV_DEGENS_API } from '@/constants/url'
+import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
+import EmptyState from '@/components/EmptyState'
+import DegenDialog from '@/components/dialog/DegenDialog'
+import RenameDegenDialogContent from '@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent'
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
+import useFetch from '@/hooks/useFetch'
+import { useProfileFavDegens } from '@/hooks/useGamerProfile'
+import useAuth from '@/hooks/useAuth'
+import type { Degen } from '@/types/degens'
+import useLocalStorageContext from '@/hooks/useLocalStorageContext'
 
-const DegenCard = dynamic(() => import('@/components/cards/DegenCard').then(module => module.DegenCardInView), {
-  ssr: false,
-});
+const DegenCard = dynamic(
+  () => import('@/components/cards/DegenCard').then((module) => module.DegenCardInView),
+  {
+    ssr: false,
+  }
+)
 
 const MyDegens = (): React.ReactNode => {
-  const { authToken } = useAuth();
-  const [selectedDegen, setSelectedDegen] = useState<Degen>();
-  const [isRenameDegenModalOpen, setIsRenameDegenModalOpen] = useState<boolean>(false);
-  const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false);
-  const [isClaimDialog, setIsClaimDialog] = useState<boolean>(false);
-  const [isRentDialog, setIsRentDialog] = useState<boolean>(false);
-  const router = useRouter();
-  const { favs: favsData } = useProfileFavDegens();
-  const { favDegens, setFavDegens } = useLocalStorageContext();
+  const { authToken } = useAuth()
+  const [selectedDegen, setSelectedDegen] = useState<Degen>()
+  const [isRenameDegenModalOpen, setIsRenameDegenModalOpen] = useState<boolean>(false)
+  const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false)
+  const [isClaimDialog, setIsClaimDialog] = useState<boolean>(false)
+  const [isRentDialog, setIsRentDialog] = useState<boolean>(false)
+  const router = useRouter()
+  const { favs: favsData } = useProfileFavDegens()
+  const { favDegens, setFavDegens } = useLocalStorageContext()
 
   useEffect(() => {
     if (favsData && favsData !== 'null') {
-      setFavDegens(favsData.split(','));
+      setFavDegens(favsData.split(','))
     }
-  }, [favsData, setFavDegens]);
+  }, [favsData, setFavDegens])
 
-  const { loadingDegens, degensBalances } = useNFTsBalances();
+  const { loadingDegens, degensBalances } = useNFTsBalances()
 
-  const { data: degensData } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`);
+  const { data: degensData } = useFetch<Degen[]>(
+    `${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`
+  )
 
   const filteredDegens = useMemo(() => {
     if (degensBalances?.length && degensData) {
-      return degensBalances.map(degen => degensData[Number(degen.id)]).filter(Boolean);
+      return degensBalances.map((degen) => degensData[Number(degen.id)]).filter(Boolean)
     }
-    return [];
-  }, [degensBalances, degensData]) as Degen[];
+    return []
+  }, [degensBalances, degensData]) as Degen[]
 
   const settings = {
     slidesToShow: 4,
@@ -64,49 +69,49 @@ const MyDegens = (): React.ReactNode => {
       { breakpoint: 768, settings: { slidesToShow: 4 } },
       { breakpoint: 640, settings: { slidesToShow: 3 } },
     ],
-  };
+  }
 
   const handleClickEditName = (degen: Degen): void => {
-    setSelectedDegen(degen);
-    setIsRenameDegenModalOpen(true);
-  };
+    setSelectedDegen(degen)
+    setIsRenameDegenModalOpen(true)
+  }
 
   const handleViewTraits = (degen: Degen): void => {
-    setSelectedDegen(degen);
-    setIsClaimDialog(false);
-    setIsRentDialog(false);
-    setIsDegenModalOpen(true);
-  };
+    setSelectedDegen(degen)
+    setIsClaimDialog(false)
+    setIsRentDialog(false)
+    setIsDegenModalOpen(true)
+  }
 
   const handleClaimDegen = (degen: Degen): void => {
-    setSelectedDegen(degen);
-    setIsClaimDialog(true);
-    setIsRentDialog(false);
-    setIsDegenModalOpen(true);
-  };
+    setSelectedDegen(degen)
+    setIsClaimDialog(true)
+    setIsRentDialog(false)
+    setIsDegenModalOpen(true)
+  }
 
   const handleRentDegen = (degen: Degen): void => {
-    setSelectedDegen(degen);
-    setIsRentDialog(true);
-    setIsClaimDialog(false);
-    setIsDegenModalOpen(true);
-  };
+    setSelectedDegen(degen)
+    setIsRentDialog(true)
+    setIsClaimDialog(false)
+    setIsDegenModalOpen(true)
+  }
 
   const handleClickFavorite = useCallback(
     async (degen: Degen) => {
       const newFavs = xor(
-        favDegens?.filter(f => f),
-        [degen.id],
-      );
+        favDegens?.filter((f) => f),
+        [degen.id]
+      )
       await fetch(`${PROFILE_FAV_DEGENS_API}`, {
         method: 'POST',
         body: JSON.stringify({ favorites: newFavs.toString() }),
         headers: { authorizationToken: authToken } as Record<string, string>,
-      });
-      setFavDegens(newFavs);
+      })
+      setFavDegens(newFavs)
     },
-    [authToken, favDegens, setFavDegens],
-  );
+    [authToken, favDegens, setFavDegens]
+  )
 
   return (
     <>
@@ -130,7 +135,7 @@ const MyDegens = (): React.ReactNode => {
             </Grid>
           ))
         ) : filteredDegens.length && degensBalances.length ? (
-          filteredDegens.map(degen => (
+          filteredDegens.map((degen) => (
             <Box
               sx={{
                 px: 1,
@@ -173,10 +178,13 @@ const MyDegens = (): React.ReactNode => {
         onClose={() => setIsDegenModalOpen(false)}
       />
       <Dialog open={isRenameDegenModalOpen} onClose={() => setIsRenameDegenModalOpen(false)}>
-        <RenameDegenDialogContent degen={selectedDegen} onSuccess={() => setIsRenameDegenModalOpen(false)} />
+        <RenameDegenDialogContent
+          degen={selectedDegen}
+          onSuccess={() => setIsRenameDegenModalOpen(false)}
+        />
       </Dialog>
     </>
-  );
-};
+  )
+}
 
-export default MyDegens;
+export default MyDegens

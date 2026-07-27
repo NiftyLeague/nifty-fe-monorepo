@@ -2,8 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
-import type { IMintable, IMintableInterface } from '../../../../src/contracts/interfaces/IMintable';
+import { Contract, Interface, type ContractRunner } from 'ethers'
+import type { IMintable, IMintableInterface } from '../../../../src/contracts/interfaces/IMintable'
 
 const _abi = [
   {
@@ -17,14 +17,14 @@ const _abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-] as const;
+] as const
 
 export class IMintable__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): IMintableInterface {
-    return new Interface(_abi) as IMintableInterface;
+    return new Interface(_abi) as IMintableInterface
   }
   static connect(address: string, runner?: ContractRunner | null): IMintable {
-    return new Contract(address, _abi, runner) as unknown as IMintable;
+    return new Contract(address, _abi, runner) as unknown as IMintable
   }
 }

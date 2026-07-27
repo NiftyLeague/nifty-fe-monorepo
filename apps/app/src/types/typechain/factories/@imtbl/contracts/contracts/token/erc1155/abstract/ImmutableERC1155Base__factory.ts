@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   ImmutableERC1155Base,
   ImmutableERC1155BaseInterface,
-} from '../../../../../../../@imtbl/contracts/contracts/token/erc1155/abstract/ImmutableERC1155Base';
+} from '../../../../../../../@imtbl/contracts/contracts/token/erc1155/abstract/ImmutableERC1155Base'
 
 const _abi = [
   { inputs: [], name: 'AllowlistDoesNotImplementIOperatorAllowlist', type: 'error' },
@@ -28,7 +28,11 @@ const _abi = [
   { inputs: [], name: 'InvalidShortString', type: 'error' },
   { inputs: [], name: 'InvalidSignature', type: 'error' },
   { inputs: [], name: 'PermitExpired', type: 'error' },
-  { inputs: [{ internalType: 'string', name: 'str', type: 'string' }], name: 'StringTooLong', type: 'error' },
+  {
+    inputs: [{ internalType: 'string', name: 'str', type: 'string' }],
+    name: 'StringTooLong',
+    type: 'error',
+  },
   {
     inputs: [{ internalType: 'address', name: 'from', type: 'address' }],
     name: 'TransferFromNotInAllowlist',
@@ -459,14 +463,14 @@ const _abi = [
     stateMutability: 'view',
     type: 'function',
   },
-] as const;
+] as const
 
 export class ImmutableERC1155Base__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): ImmutableERC1155BaseInterface {
-    return new Interface(_abi) as ImmutableERC1155BaseInterface;
+    return new Interface(_abi) as ImmutableERC1155BaseInterface
   }
   static connect(address: string, runner?: ContractRunner | null): ImmutableERC1155Base {
-    return new Contract(address, _abi, runner) as unknown as ImmutableERC1155Base;
+    return new Contract(address, _abi, runner) as unknown as ImmutableERC1155Base
   }
 }

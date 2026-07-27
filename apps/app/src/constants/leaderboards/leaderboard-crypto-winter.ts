@@ -2417,6 +2417,6 @@ const CRYPTO_WINTER_SCORES = {
     },
   ],
   count: 161,
-};
+}
 
-export const CRYPTO_WINTER_LEADERBOARDS = { score: CRYPTO_WINTER_SCORES.data };
+export const CRYPTO_WINTER_LEADERBOARDS = { score: CRYPTO_WINTER_SCORES.data }

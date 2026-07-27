@@ -1,4 +1,4 @@
-import { gql } from 'graphql-request';
+import { gql } from 'graphql-request'
 
 const FILTER_SEARCH_QUERY = gql`
   query CharactersFiltered(
@@ -92,6 +92,6 @@ const FILTER_SEARCH_QUERY = gql`
       }
     }
   }
-`;
+`
 
-export default FILTER_SEARCH_QUERY;
+export default FILTER_SEARCH_QUERY

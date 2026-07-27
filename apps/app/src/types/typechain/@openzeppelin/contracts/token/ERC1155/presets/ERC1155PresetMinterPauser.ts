@@ -13,7 +13,7 @@ import type {
   ContractRunner,
   ContractMethod,
   Listener,
-} from 'ethers';
+} from 'ethers'
 import type {
   TypedContractEvent,
   TypedDeferredTopicFilter,
@@ -21,7 +21,7 @@ import type {
   TypedLogDescription,
   TypedListener,
   TypedContractMethod,
-} from '../../../../../common';
+} from '../../../../../common'
 
 export interface ERC1155PresetMinterPauserInterface extends Interface {
   getFunction(
@@ -50,8 +50,8 @@ export interface ERC1155PresetMinterPauserInterface extends Interface {
       | 'setApprovalForAll'
       | 'supportsInterface'
       | 'unpause'
-      | 'uri',
-  ): FunctionFragment;
+      | 'uri'
+  ): FunctionFragment
 
   getEvent(
     nameOrSignatureOrTopic:
@@ -63,137 +63,152 @@ export interface ERC1155PresetMinterPauserInterface extends Interface {
       | 'TransferBatch'
       | 'TransferSingle'
       | 'URI'
-      | 'Unpaused',
-  ): EventFragment;
+      | 'Unpaused'
+  ): EventFragment
 
-  encodeFunctionData(functionFragment: 'DEFAULT_ADMIN_ROLE', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'MINTER_ROLE', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'PAUSER_ROLE', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'balanceOf', values: [AddressLike, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'balanceOfBatch', values: [AddressLike[], BigNumberish[]]): string;
-  encodeFunctionData(functionFragment: 'burn', values: [AddressLike, BigNumberish, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'burnBatch', values: [AddressLike, BigNumberish[], BigNumberish[]]): string;
-  encodeFunctionData(functionFragment: 'getRoleAdmin', values: [BytesLike]): string;
-  encodeFunctionData(functionFragment: 'getRoleMember', values: [BytesLike, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'getRoleMemberCount', values: [BytesLike]): string;
-  encodeFunctionData(functionFragment: 'grantRole', values: [BytesLike, AddressLike]): string;
-  encodeFunctionData(functionFragment: 'hasRole', values: [BytesLike, AddressLike]): string;
-  encodeFunctionData(functionFragment: 'isApprovedForAll', values: [AddressLike, AddressLike]): string;
-  encodeFunctionData(functionFragment: 'mint', values: [AddressLike, BigNumberish, BigNumberish, BytesLike]): string;
+  encodeFunctionData(functionFragment: 'DEFAULT_ADMIN_ROLE', values?: undefined): string
+  encodeFunctionData(functionFragment: 'MINTER_ROLE', values?: undefined): string
+  encodeFunctionData(functionFragment: 'PAUSER_ROLE', values?: undefined): string
+  encodeFunctionData(functionFragment: 'balanceOf', values: [AddressLike, BigNumberish]): string
+  encodeFunctionData(
+    functionFragment: 'balanceOfBatch',
+    values: [AddressLike[], BigNumberish[]]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'burn',
+    values: [AddressLike, BigNumberish, BigNumberish]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'burnBatch',
+    values: [AddressLike, BigNumberish[], BigNumberish[]]
+  ): string
+  encodeFunctionData(functionFragment: 'getRoleAdmin', values: [BytesLike]): string
+  encodeFunctionData(functionFragment: 'getRoleMember', values: [BytesLike, BigNumberish]): string
+  encodeFunctionData(functionFragment: 'getRoleMemberCount', values: [BytesLike]): string
+  encodeFunctionData(functionFragment: 'grantRole', values: [BytesLike, AddressLike]): string
+  encodeFunctionData(functionFragment: 'hasRole', values: [BytesLike, AddressLike]): string
+  encodeFunctionData(
+    functionFragment: 'isApprovedForAll',
+    values: [AddressLike, AddressLike]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'mint',
+    values: [AddressLike, BigNumberish, BigNumberish, BytesLike]
+  ): string
   encodeFunctionData(
     functionFragment: 'mintBatch',
-    values: [AddressLike, BigNumberish[], BigNumberish[], BytesLike],
-  ): string;
-  encodeFunctionData(functionFragment: 'pause', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'paused', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, AddressLike]): string;
-  encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, AddressLike]): string;
+    values: [AddressLike, BigNumberish[], BigNumberish[], BytesLike]
+  ): string
+  encodeFunctionData(functionFragment: 'pause', values?: undefined): string
+  encodeFunctionData(functionFragment: 'paused', values?: undefined): string
+  encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, AddressLike]): string
+  encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, AddressLike]): string
   encodeFunctionData(
     functionFragment: 'safeBatchTransferFrom',
-    values: [AddressLike, AddressLike, BigNumberish[], BigNumberish[], BytesLike],
-  ): string;
+    values: [AddressLike, AddressLike, BigNumberish[], BigNumberish[], BytesLike]
+  ): string
   encodeFunctionData(
     functionFragment: 'safeTransferFrom',
-    values: [AddressLike, AddressLike, BigNumberish, BigNumberish, BytesLike],
-  ): string;
-  encodeFunctionData(functionFragment: 'setApprovalForAll', values: [AddressLike, boolean]): string;
-  encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
-  encodeFunctionData(functionFragment: 'unpause', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'uri', values: [BigNumberish]): string;
+    values: [AddressLike, AddressLike, BigNumberish, BigNumberish, BytesLike]
+  ): string
+  encodeFunctionData(functionFragment: 'setApprovalForAll', values: [AddressLike, boolean]): string
+  encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string
+  encodeFunctionData(functionFragment: 'unpause', values?: undefined): string
+  encodeFunctionData(functionFragment: 'uri', values: [BigNumberish]): string
 
-  decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'MINTER_ROLE', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'PAUSER_ROLE', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'balanceOfBatch', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'burn', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'burnBatch', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getRoleAdmin', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getRoleMember', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getRoleMemberCount', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'grantRole', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'hasRole', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'isApprovedForAll', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'mintBatch', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'pause', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'paused', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'safeBatchTransferFrom', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'safeTransferFrom', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setApprovalForAll', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'unpause', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'uri', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'MINTER_ROLE', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'PAUSER_ROLE', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'balanceOfBatch', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'burn', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'burnBatch', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getRoleAdmin', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getRoleMember', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getRoleMemberCount', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'grantRole', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'hasRole', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'isApprovedForAll', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'mintBatch', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'pause', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'paused', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'safeBatchTransferFrom', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'safeTransferFrom', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setApprovalForAll', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'unpause', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'uri', data: BytesLike): Result
 }
 
 export namespace ApprovalForAllEvent {
-  export type InputTuple = [account: AddressLike, operator: AddressLike, approved: boolean];
-  export type OutputTuple = [account: string, operator: string, approved: boolean];
+  export type InputTuple = [account: AddressLike, operator: AddressLike, approved: boolean]
+  export type OutputTuple = [account: string, operator: string, approved: boolean]
   export interface OutputObject {
-    account: string;
-    operator: string;
-    approved: boolean;
+    account: string
+    operator: string
+    approved: boolean
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace PausedEvent {
-  export type InputTuple = [account: AddressLike];
-  export type OutputTuple = [account: string];
+  export type InputTuple = [account: AddressLike]
+  export type OutputTuple = [account: string]
   export interface OutputObject {
-    account: string;
+    account: string
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace RoleAdminChangedEvent {
-  export type InputTuple = [role: BytesLike, previousAdminRole: BytesLike, newAdminRole: BytesLike];
-  export type OutputTuple = [role: string, previousAdminRole: string, newAdminRole: string];
+  export type InputTuple = [role: BytesLike, previousAdminRole: BytesLike, newAdminRole: BytesLike]
+  export type OutputTuple = [role: string, previousAdminRole: string, newAdminRole: string]
   export interface OutputObject {
-    role: string;
-    previousAdminRole: string;
-    newAdminRole: string;
+    role: string
+    previousAdminRole: string
+    newAdminRole: string
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace RoleGrantedEvent {
-  export type InputTuple = [role: BytesLike, account: AddressLike, sender: AddressLike];
-  export type OutputTuple = [role: string, account: string, sender: string];
+  export type InputTuple = [role: BytesLike, account: AddressLike, sender: AddressLike]
+  export type OutputTuple = [role: string, account: string, sender: string]
   export interface OutputObject {
-    role: string;
-    account: string;
-    sender: string;
+    role: string
+    account: string
+    sender: string
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace RoleRevokedEvent {
-  export type InputTuple = [role: BytesLike, account: AddressLike, sender: AddressLike];
-  export type OutputTuple = [role: string, account: string, sender: string];
+  export type InputTuple = [role: BytesLike, account: AddressLike, sender: AddressLike]
+  export type OutputTuple = [role: string, account: string, sender: string]
   export interface OutputObject {
-    role: string;
-    account: string;
-    sender: string;
+    role: string
+    account: string
+    sender: string
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace TransferBatchEvent {
@@ -203,19 +218,25 @@ export namespace TransferBatchEvent {
     to: AddressLike,
     ids: BigNumberish[],
     values: BigNumberish[],
-  ];
-  export type OutputTuple = [operator: string, from: string, to: string, ids: bigint[], values: bigint[]];
+  ]
+  export type OutputTuple = [
+    operator: string,
+    from: string,
+    to: string,
+    ids: bigint[],
+    values: bigint[],
+  ]
   export interface OutputObject {
-    operator: string;
-    from: string;
-    to: string;
-    ids: bigint[];
-    values: bigint[];
+    operator: string
+    from: string
+    to: string
+    ids: bigint[]
+    values: bigint[]
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace TransferSingleEvent {
@@ -225,339 +246,423 @@ export namespace TransferSingleEvent {
     to: AddressLike,
     id: BigNumberish,
     value: BigNumberish,
-  ];
-  export type OutputTuple = [operator: string, from: string, to: string, id: bigint, value: bigint];
+  ]
+  export type OutputTuple = [operator: string, from: string, to: string, id: bigint, value: bigint]
   export interface OutputObject {
-    operator: string;
-    from: string;
-    to: string;
-    id: bigint;
-    value: bigint;
+    operator: string
+    from: string
+    to: string
+    id: bigint
+    value: bigint
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace URIEvent {
-  export type InputTuple = [value: string, id: BigNumberish];
-  export type OutputTuple = [value: string, id: bigint];
+  export type InputTuple = [value: string, id: BigNumberish]
+  export type OutputTuple = [value: string, id: bigint]
   export interface OutputObject {
-    value: string;
-    id: bigint;
+    value: string
+    id: bigint
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace UnpausedEvent {
-  export type InputTuple = [account: AddressLike];
-  export type OutputTuple = [account: string];
+  export type InputTuple = [account: AddressLike]
+  export type OutputTuple = [account: string]
   export interface OutputObject {
-    account: string;
+    account: string
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export interface ERC1155PresetMinterPauser extends BaseContract {
-  connect(runner?: ContractRunner | null): ERC1155PresetMinterPauser;
-  waitForDeployment(): Promise<this>;
+  connect(runner?: ContractRunner | null): ERC1155PresetMinterPauser
+  waitForDeployment(): Promise<this>
 
-  interface: ERC1155PresetMinterPauserInterface;
+  interface: ERC1155PresetMinterPauserInterface
 
   queryFilter<TCEvent extends TypedContractEvent>(
     event: TCEvent,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
-  ): Promise<Array<TypedEventLog<TCEvent>>>;
+    toBlock?: string | number | undefined
+  ): Promise<Array<TypedEventLog<TCEvent>>>
   queryFilter<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
-  ): Promise<Array<TypedEventLog<TCEvent>>>;
+    toBlock?: string | number | undefined
+  ): Promise<Array<TypedEventLog<TCEvent>>>
 
-  on<TCEvent extends TypedContractEvent>(event: TCEvent, listener: TypedListener<TCEvent>): Promise<this>;
+  on<TCEvent extends TypedContractEvent>(
+    event: TCEvent,
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
   on<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
-    listener: TypedListener<TCEvent>,
-  ): Promise<this>;
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
 
-  once<TCEvent extends TypedContractEvent>(event: TCEvent, listener: TypedListener<TCEvent>): Promise<this>;
+  once<TCEvent extends TypedContractEvent>(
+    event: TCEvent,
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
   once<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
-    listener: TypedListener<TCEvent>,
-  ): Promise<this>;
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
 
-  listeners<TCEvent extends TypedContractEvent>(event: TCEvent): Promise<Array<TypedListener<TCEvent>>>;
-  listeners(eventName?: string): Promise<Array<Listener>>;
-  removeAllListeners<TCEvent extends TypedContractEvent>(event?: TCEvent): Promise<this>;
+  listeners<TCEvent extends TypedContractEvent>(
+    event: TCEvent
+  ): Promise<Array<TypedListener<TCEvent>>>
+  listeners(eventName?: string): Promise<Array<Listener>>
+  removeAllListeners<TCEvent extends TypedContractEvent>(event?: TCEvent): Promise<this>
 
-  DEFAULT_ADMIN_ROLE: TypedContractMethod<[], [string], 'view'>;
+  DEFAULT_ADMIN_ROLE: TypedContractMethod<[], [string], 'view'>
 
-  MINTER_ROLE: TypedContractMethod<[], [string], 'view'>;
+  MINTER_ROLE: TypedContractMethod<[], [string], 'view'>
 
-  PAUSER_ROLE: TypedContractMethod<[], [string], 'view'>;
+  PAUSER_ROLE: TypedContractMethod<[], [string], 'view'>
 
-  balanceOf: TypedContractMethod<[account: AddressLike, id: BigNumberish], [bigint], 'view'>;
+  balanceOf: TypedContractMethod<[account: AddressLike, id: BigNumberish], [bigint], 'view'>
 
-  balanceOfBatch: TypedContractMethod<[accounts: AddressLike[], ids: BigNumberish[]], [bigint[]], 'view'>;
+  balanceOfBatch: TypedContractMethod<
+    [accounts: AddressLike[], ids: BigNumberish[]],
+    [bigint[]],
+    'view'
+  >
 
-  burn: TypedContractMethod<[account: AddressLike, id: BigNumberish, value: BigNumberish], [void], 'nonpayable'>;
+  burn: TypedContractMethod<
+    [account: AddressLike, id: BigNumberish, value: BigNumberish],
+    [void],
+    'nonpayable'
+  >
 
   burnBatch: TypedContractMethod<
     [account: AddressLike, ids: BigNumberish[], values: BigNumberish[]],
     [void],
     'nonpayable'
-  >;
+  >
 
-  getRoleAdmin: TypedContractMethod<[role: BytesLike], [string], 'view'>;
+  getRoleAdmin: TypedContractMethod<[role: BytesLike], [string], 'view'>
 
-  getRoleMember: TypedContractMethod<[role: BytesLike, index: BigNumberish], [string], 'view'>;
+  getRoleMember: TypedContractMethod<[role: BytesLike, index: BigNumberish], [string], 'view'>
 
-  getRoleMemberCount: TypedContractMethod<[role: BytesLike], [bigint], 'view'>;
+  getRoleMemberCount: TypedContractMethod<[role: BytesLike], [bigint], 'view'>
 
-  grantRole: TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>;
+  grantRole: TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>
 
-  hasRole: TypedContractMethod<[role: BytesLike, account: AddressLike], [boolean], 'view'>;
+  hasRole: TypedContractMethod<[role: BytesLike, account: AddressLike], [boolean], 'view'>
 
-  isApprovedForAll: TypedContractMethod<[account: AddressLike, operator: AddressLike], [boolean], 'view'>;
+  isApprovedForAll: TypedContractMethod<
+    [account: AddressLike, operator: AddressLike],
+    [boolean],
+    'view'
+  >
 
   mint: TypedContractMethod<
     [to: AddressLike, id: BigNumberish, amount: BigNumberish, data: BytesLike],
     [void],
     'nonpayable'
-  >;
+  >
 
   mintBatch: TypedContractMethod<
     [to: AddressLike, ids: BigNumberish[], amounts: BigNumberish[], data: BytesLike],
     [void],
     'nonpayable'
-  >;
+  >
 
-  pause: TypedContractMethod<[], [void], 'nonpayable'>;
+  pause: TypedContractMethod<[], [void], 'nonpayable'>
 
-  paused: TypedContractMethod<[], [boolean], 'view'>;
+  paused: TypedContractMethod<[], [boolean], 'view'>
 
-  renounceRole: TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>;
+  renounceRole: TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>
 
-  revokeRole: TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>;
+  revokeRole: TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>
 
   safeBatchTransferFrom: TypedContractMethod<
-    [from: AddressLike, to: AddressLike, ids: BigNumberish[], amounts: BigNumberish[], data: BytesLike],
+    [
+      from: AddressLike,
+      to: AddressLike,
+      ids: BigNumberish[],
+      amounts: BigNumberish[],
+      data: BytesLike,
+    ],
     [void],
     'nonpayable'
-  >;
+  >
 
   safeTransferFrom: TypedContractMethod<
     [from: AddressLike, to: AddressLike, id: BigNumberish, amount: BigNumberish, data: BytesLike],
     [void],
     'nonpayable'
-  >;
+  >
 
-  setApprovalForAll: TypedContractMethod<[operator: AddressLike, approved: boolean], [void], 'nonpayable'>;
+  setApprovalForAll: TypedContractMethod<
+    [operator: AddressLike, approved: boolean],
+    [void],
+    'nonpayable'
+  >
 
-  supportsInterface: TypedContractMethod<[interfaceId: BytesLike], [boolean], 'view'>;
+  supportsInterface: TypedContractMethod<[interfaceId: BytesLike], [boolean], 'view'>
 
-  unpause: TypedContractMethod<[], [void], 'nonpayable'>;
+  unpause: TypedContractMethod<[], [void], 'nonpayable'>
 
-  uri: TypedContractMethod<[arg0: BigNumberish], [string], 'view'>;
+  uri: TypedContractMethod<[arg0: BigNumberish], [string], 'view'>
 
-  getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T;
+  getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T
 
-  getFunction(nameOrSignature: 'DEFAULT_ADMIN_ROLE'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'MINTER_ROLE'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'PAUSER_ROLE'): TypedContractMethod<[], [string], 'view'>;
+  getFunction(nameOrSignature: 'DEFAULT_ADMIN_ROLE'): TypedContractMethod<[], [string], 'view'>
+  getFunction(nameOrSignature: 'MINTER_ROLE'): TypedContractMethod<[], [string], 'view'>
+  getFunction(nameOrSignature: 'PAUSER_ROLE'): TypedContractMethod<[], [string], 'view'>
   getFunction(
-    nameOrSignature: 'balanceOf',
-  ): TypedContractMethod<[account: AddressLike, id: BigNumberish], [bigint], 'view'>;
+    nameOrSignature: 'balanceOf'
+  ): TypedContractMethod<[account: AddressLike, id: BigNumberish], [bigint], 'view'>
   getFunction(
-    nameOrSignature: 'balanceOfBatch',
-  ): TypedContractMethod<[accounts: AddressLike[], ids: BigNumberish[]], [bigint[]], 'view'>;
+    nameOrSignature: 'balanceOfBatch'
+  ): TypedContractMethod<[accounts: AddressLike[], ids: BigNumberish[]], [bigint[]], 'view'>
   getFunction(
-    nameOrSignature: 'burn',
-  ): TypedContractMethod<[account: AddressLike, id: BigNumberish, value: BigNumberish], [void], 'nonpayable'>;
+    nameOrSignature: 'burn'
+  ): TypedContractMethod<
+    [account: AddressLike, id: BigNumberish, value: BigNumberish],
+    [void],
+    'nonpayable'
+  >
   getFunction(
-    nameOrSignature: 'burnBatch',
-  ): TypedContractMethod<[account: AddressLike, ids: BigNumberish[], values: BigNumberish[]], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'getRoleAdmin'): TypedContractMethod<[role: BytesLike], [string], 'view'>;
+    nameOrSignature: 'burnBatch'
+  ): TypedContractMethod<
+    [account: AddressLike, ids: BigNumberish[], values: BigNumberish[]],
+    [void],
+    'nonpayable'
+  >
   getFunction(
-    nameOrSignature: 'getRoleMember',
-  ): TypedContractMethod<[role: BytesLike, index: BigNumberish], [string], 'view'>;
-  getFunction(nameOrSignature: 'getRoleMemberCount'): TypedContractMethod<[role: BytesLike], [bigint], 'view'>;
+    nameOrSignature: 'getRoleAdmin'
+  ): TypedContractMethod<[role: BytesLike], [string], 'view'>
   getFunction(
-    nameOrSignature: 'grantRole',
-  ): TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>;
+    nameOrSignature: 'getRoleMember'
+  ): TypedContractMethod<[role: BytesLike, index: BigNumberish], [string], 'view'>
   getFunction(
-    nameOrSignature: 'hasRole',
-  ): TypedContractMethod<[role: BytesLike, account: AddressLike], [boolean], 'view'>;
+    nameOrSignature: 'getRoleMemberCount'
+  ): TypedContractMethod<[role: BytesLike], [bigint], 'view'>
   getFunction(
-    nameOrSignature: 'isApprovedForAll',
-  ): TypedContractMethod<[account: AddressLike, operator: AddressLike], [boolean], 'view'>;
+    nameOrSignature: 'grantRole'
+  ): TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>
   getFunction(
-    nameOrSignature: 'mint',
+    nameOrSignature: 'hasRole'
+  ): TypedContractMethod<[role: BytesLike, account: AddressLike], [boolean], 'view'>
+  getFunction(
+    nameOrSignature: 'isApprovedForAll'
+  ): TypedContractMethod<[account: AddressLike, operator: AddressLike], [boolean], 'view'>
+  getFunction(
+    nameOrSignature: 'mint'
   ): TypedContractMethod<
     [to: AddressLike, id: BigNumberish, amount: BigNumberish, data: BytesLike],
     [void],
     'nonpayable'
-  >;
+  >
   getFunction(
-    nameOrSignature: 'mintBatch',
+    nameOrSignature: 'mintBatch'
   ): TypedContractMethod<
     [to: AddressLike, ids: BigNumberish[], amounts: BigNumberish[], data: BytesLike],
     [void],
     'nonpayable'
-  >;
-  getFunction(nameOrSignature: 'pause'): TypedContractMethod<[], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'paused'): TypedContractMethod<[], [boolean], 'view'>;
+  >
+  getFunction(nameOrSignature: 'pause'): TypedContractMethod<[], [void], 'nonpayable'>
+  getFunction(nameOrSignature: 'paused'): TypedContractMethod<[], [boolean], 'view'>
   getFunction(
-    nameOrSignature: 'renounceRole',
-  ): TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>;
+    nameOrSignature: 'renounceRole'
+  ): TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>
   getFunction(
-    nameOrSignature: 'revokeRole',
-  ): TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>;
+    nameOrSignature: 'revokeRole'
+  ): TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>
   getFunction(
-    nameOrSignature: 'safeBatchTransferFrom',
+    nameOrSignature: 'safeBatchTransferFrom'
   ): TypedContractMethod<
-    [from: AddressLike, to: AddressLike, ids: BigNumberish[], amounts: BigNumberish[], data: BytesLike],
+    [
+      from: AddressLike,
+      to: AddressLike,
+      ids: BigNumberish[],
+      amounts: BigNumberish[],
+      data: BytesLike,
+    ],
     [void],
     'nonpayable'
-  >;
+  >
   getFunction(
-    nameOrSignature: 'safeTransferFrom',
+    nameOrSignature: 'safeTransferFrom'
   ): TypedContractMethod<
     [from: AddressLike, to: AddressLike, id: BigNumberish, amount: BigNumberish, data: BytesLike],
     [void],
     'nonpayable'
-  >;
+  >
   getFunction(
-    nameOrSignature: 'setApprovalForAll',
-  ): TypedContractMethod<[operator: AddressLike, approved: boolean], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'supportsInterface'): TypedContractMethod<[interfaceId: BytesLike], [boolean], 'view'>;
-  getFunction(nameOrSignature: 'unpause'): TypedContractMethod<[], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'uri'): TypedContractMethod<[arg0: BigNumberish], [string], 'view'>;
+    nameOrSignature: 'setApprovalForAll'
+  ): TypedContractMethod<[operator: AddressLike, approved: boolean], [void], 'nonpayable'>
+  getFunction(
+    nameOrSignature: 'supportsInterface'
+  ): TypedContractMethod<[interfaceId: BytesLike], [boolean], 'view'>
+  getFunction(nameOrSignature: 'unpause'): TypedContractMethod<[], [void], 'nonpayable'>
+  getFunction(nameOrSignature: 'uri'): TypedContractMethod<[arg0: BigNumberish], [string], 'view'>
 
   getEvent(
-    key: 'ApprovalForAll',
+    key: 'ApprovalForAll'
   ): TypedContractEvent<
     ApprovalForAllEvent.InputTuple,
     ApprovalForAllEvent.OutputTuple,
     ApprovalForAllEvent.OutputObject
-  >;
+  >
   getEvent(
-    key: 'Paused',
-  ): TypedContractEvent<PausedEvent.InputTuple, PausedEvent.OutputTuple, PausedEvent.OutputObject>;
+    key: 'Paused'
+  ): TypedContractEvent<PausedEvent.InputTuple, PausedEvent.OutputTuple, PausedEvent.OutputObject>
   getEvent(
-    key: 'RoleAdminChanged',
+    key: 'RoleAdminChanged'
   ): TypedContractEvent<
     RoleAdminChangedEvent.InputTuple,
     RoleAdminChangedEvent.OutputTuple,
     RoleAdminChangedEvent.OutputObject
-  >;
+  >
   getEvent(
-    key: 'RoleGranted',
-  ): TypedContractEvent<RoleGrantedEvent.InputTuple, RoleGrantedEvent.OutputTuple, RoleGrantedEvent.OutputObject>;
+    key: 'RoleGranted'
+  ): TypedContractEvent<
+    RoleGrantedEvent.InputTuple,
+    RoleGrantedEvent.OutputTuple,
+    RoleGrantedEvent.OutputObject
+  >
   getEvent(
-    key: 'RoleRevoked',
-  ): TypedContractEvent<RoleRevokedEvent.InputTuple, RoleRevokedEvent.OutputTuple, RoleRevokedEvent.OutputObject>;
+    key: 'RoleRevoked'
+  ): TypedContractEvent<
+    RoleRevokedEvent.InputTuple,
+    RoleRevokedEvent.OutputTuple,
+    RoleRevokedEvent.OutputObject
+  >
   getEvent(
-    key: 'TransferBatch',
-  ): TypedContractEvent<TransferBatchEvent.InputTuple, TransferBatchEvent.OutputTuple, TransferBatchEvent.OutputObject>;
+    key: 'TransferBatch'
+  ): TypedContractEvent<
+    TransferBatchEvent.InputTuple,
+    TransferBatchEvent.OutputTuple,
+    TransferBatchEvent.OutputObject
+  >
   getEvent(
-    key: 'TransferSingle',
+    key: 'TransferSingle'
   ): TypedContractEvent<
     TransferSingleEvent.InputTuple,
     TransferSingleEvent.OutputTuple,
     TransferSingleEvent.OutputObject
-  >;
-  getEvent(key: 'URI'): TypedContractEvent<URIEvent.InputTuple, URIEvent.OutputTuple, URIEvent.OutputObject>;
+  >
   getEvent(
-    key: 'Unpaused',
-  ): TypedContractEvent<UnpausedEvent.InputTuple, UnpausedEvent.OutputTuple, UnpausedEvent.OutputObject>;
+    key: 'URI'
+  ): TypedContractEvent<URIEvent.InputTuple, URIEvent.OutputTuple, URIEvent.OutputObject>
+  getEvent(
+    key: 'Unpaused'
+  ): TypedContractEvent<
+    UnpausedEvent.InputTuple,
+    UnpausedEvent.OutputTuple,
+    UnpausedEvent.OutputObject
+  >
 
   filters: {
     'ApprovalForAll(address,address,bool)': TypedContractEvent<
       ApprovalForAllEvent.InputTuple,
       ApprovalForAllEvent.OutputTuple,
       ApprovalForAllEvent.OutputObject
-    >;
+    >
     ApprovalForAll: TypedContractEvent<
       ApprovalForAllEvent.InputTuple,
       ApprovalForAllEvent.OutputTuple,
       ApprovalForAllEvent.OutputObject
-    >;
+    >
 
-    'Paused(address)': TypedContractEvent<PausedEvent.InputTuple, PausedEvent.OutputTuple, PausedEvent.OutputObject>;
-    Paused: TypedContractEvent<PausedEvent.InputTuple, PausedEvent.OutputTuple, PausedEvent.OutputObject>;
+    'Paused(address)': TypedContractEvent<
+      PausedEvent.InputTuple,
+      PausedEvent.OutputTuple,
+      PausedEvent.OutputObject
+    >
+    Paused: TypedContractEvent<
+      PausedEvent.InputTuple,
+      PausedEvent.OutputTuple,
+      PausedEvent.OutputObject
+    >
 
     'RoleAdminChanged(bytes32,bytes32,bytes32)': TypedContractEvent<
       RoleAdminChangedEvent.InputTuple,
       RoleAdminChangedEvent.OutputTuple,
       RoleAdminChangedEvent.OutputObject
-    >;
+    >
     RoleAdminChanged: TypedContractEvent<
       RoleAdminChangedEvent.InputTuple,
       RoleAdminChangedEvent.OutputTuple,
       RoleAdminChangedEvent.OutputObject
-    >;
+    >
 
     'RoleGranted(bytes32,address,address)': TypedContractEvent<
       RoleGrantedEvent.InputTuple,
       RoleGrantedEvent.OutputTuple,
       RoleGrantedEvent.OutputObject
-    >;
+    >
     RoleGranted: TypedContractEvent<
       RoleGrantedEvent.InputTuple,
       RoleGrantedEvent.OutputTuple,
       RoleGrantedEvent.OutputObject
-    >;
+    >
 
     'RoleRevoked(bytes32,address,address)': TypedContractEvent<
       RoleRevokedEvent.InputTuple,
       RoleRevokedEvent.OutputTuple,
       RoleRevokedEvent.OutputObject
-    >;
+    >
     RoleRevoked: TypedContractEvent<
       RoleRevokedEvent.InputTuple,
       RoleRevokedEvent.OutputTuple,
       RoleRevokedEvent.OutputObject
-    >;
+    >
 
     'TransferBatch(address,address,address,uint256[],uint256[])': TypedContractEvent<
       TransferBatchEvent.InputTuple,
       TransferBatchEvent.OutputTuple,
       TransferBatchEvent.OutputObject
-    >;
+    >
     TransferBatch: TypedContractEvent<
       TransferBatchEvent.InputTuple,
       TransferBatchEvent.OutputTuple,
       TransferBatchEvent.OutputObject
-    >;
+    >
 
     'TransferSingle(address,address,address,uint256,uint256)': TypedContractEvent<
       TransferSingleEvent.InputTuple,
       TransferSingleEvent.OutputTuple,
       TransferSingleEvent.OutputObject
-    >;
+    >
     TransferSingle: TypedContractEvent<
       TransferSingleEvent.InputTuple,
       TransferSingleEvent.OutputTuple,
       TransferSingleEvent.OutputObject
-    >;
+    >
 
-    'URI(string,uint256)': TypedContractEvent<URIEvent.InputTuple, URIEvent.OutputTuple, URIEvent.OutputObject>;
-    URI: TypedContractEvent<URIEvent.InputTuple, URIEvent.OutputTuple, URIEvent.OutputObject>;
+    'URI(string,uint256)': TypedContractEvent<
+      URIEvent.InputTuple,
+      URIEvent.OutputTuple,
+      URIEvent.OutputObject
+    >
+    URI: TypedContractEvent<URIEvent.InputTuple, URIEvent.OutputTuple, URIEvent.OutputObject>
 
     'Unpaused(address)': TypedContractEvent<
       UnpausedEvent.InputTuple,
       UnpausedEvent.OutputTuple,
       UnpausedEvent.OutputObject
-    >;
-    Unpaused: TypedContractEvent<UnpausedEvent.InputTuple, UnpausedEvent.OutputTuple, UnpausedEvent.OutputObject>;
-  };
+    >
+    Unpaused: TypedContractEvent<
+      UnpausedEvent.InputTuple,
+      UnpausedEvent.OutputTuple,
+      UnpausedEvent.OutputObject
+    >
+  }
 }

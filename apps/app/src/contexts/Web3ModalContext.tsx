@@ -1,22 +1,28 @@
-'use client';
+'use client'
 
-import { createAppKit } from '@reown/appkit/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { mainnet, sepolia, immutableZkEvm, immutableZkEvmTestnet, type Chain } from '@reown/appkit/networks';
-import { cookieToInitialState, WagmiProvider, type Config } from 'wagmi';
+import { createAppKit } from '@reown/appkit/react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import {
+  mainnet,
+  sepolia,
+  immutableZkEvm,
+  immutableZkEvmTestnet,
+  type Chain,
+} from '@reown/appkit/networks'
+import { cookieToInitialState, WagmiProvider, type Config } from 'wagmi'
 
-import type { PropsWithChildren } from 'react';
-import type { CaipNetworkId } from '@reown/appkit';
+import type { PropsWithChildren } from 'react'
+import type { CaipNetworkId } from '@reown/appkit'
 
-import { getContractAddress, NFTL_CONTRACT } from '@/constants/contracts';
-import { metadata, networks, projectId, wagmiAdapter } from './Web3ModalConfig';
+import { getContractAddress, NFTL_CONTRACT } from '@/constants/contracts'
+import { metadata, networks, projectId, wagmiAdapter } from './Web3ModalConfig'
 
 // Setup queryClient
-const queryClient = new QueryClient();
+const queryClient = new QueryClient()
 
-if (!projectId) throw new Error('Project ID is not defined');
+if (!projectId) throw new Error('Project ID is not defined')
 
-const CaipNetworkID = (network: Chain) => `eip155:${network.id}` as CaipNetworkId;
+const CaipNetworkID = (network: Chain) => `eip155:${network.id}` as CaipNetworkId
 
 // Create modal
 createAppKit({
@@ -48,16 +54,19 @@ createAppKit({
   privacyPolicyUrl: 'https://niftyleague.com/privacy-policy',
   themeMode: 'dark',
   enableEIP6963: true,
-});
+})
 
-type Web3ModalProviderProps = { cookies?: string | null };
+type Web3ModalProviderProps = { cookies?: string | null }
 
-export function Web3ModalProvider({ children, cookies }: PropsWithChildren<Web3ModalProviderProps>) {
-  const initialState = cookieToInitialState(wagmiAdapter.wagmiConfig as Config, cookies);
+export function Web3ModalProvider({
+  children,
+  cookies,
+}: PropsWithChildren<Web3ModalProviderProps>) {
+  const initialState = cookieToInitialState(wagmiAdapter.wagmiConfig as Config, cookies)
 
   return (
     <WagmiProvider config={wagmiAdapter.wagmiConfig as Config} initialState={initialState}>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </WagmiProvider>
-  );
+  )
 }

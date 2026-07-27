@@ -1,14 +1,14 @@
 // @ts-nocheck
-'use client';
+'use client'
 
-import dynamic from 'next/dynamic';
-import type { UnityConfig } from 'react-unity-webgl';
-const GameWithAuth = dynamic(() => import('@/components/wrapper/GameWithAuth'), { ssr: false });
+import dynamic from 'next/dynamic'
+import type { UnityConfig } from 'react-unity-webgl'
+const GameWithAuth = dynamic(() => import('@/components/wrapper/GameWithAuth'), { ssr: false })
 
-const smashersBaseUrl = process.env.NEXT_PUBLIC_UNITY_SMASHERS_BASE_URL as string;
-const smashersBuildVersion = process.env.NEXT_PUBLIC_UNITY_SMASHERS_BASE_VERSION as string;
+const smashersBaseUrl = process.env.NEXT_PUBLIC_UNITY_SMASHERS_BASE_URL as string
+const smashersBuildVersion = process.env.NEXT_PUBLIC_UNITY_SMASHERS_BASE_VERSION as string
 
-const useCompressed = process.env.NEXT_PUBLIC_UNITY_USE_COMPRESSED !== 'false';
+const useCompressed = process.env.NEXT_PUBLIC_UNITY_USE_COMPRESSED !== 'false'
 
 const smashersConfig: UnityConfig = {
   loaderUrl: `${smashersBaseUrl}/Build/${smashersBuildVersion}.loader.js`,
@@ -19,15 +19,20 @@ const smashersConfig: UnityConfig = {
   companyName: 'NiftyLeague',
   productName: 'NiftySmashers',
   productVersion: smashersBuildVersion,
-};
+}
 
 const SmashersGame = () => (
   <>
     <div style={{ marginBottom: 20 }}>
       <strong>
-        Note: This is a deprecated version of Nifty Smashers. If you&apos;re looking for our latest mobile game please
-        visit{' '}
-        <a href="https://niftysmashers.com" target="_blank" rel="noreferrer" style={{ color: 'var(--color-blue)' }}>
+        Note: This is a deprecated version of Nifty Smashers. If you&apos;re looking for our latest
+        mobile game please visit{' '}
+        <a
+          href="https://niftysmashers.com"
+          target="_blank"
+          rel="noreferrer"
+          style={{ color: 'var(--color-blue)' }}
+        >
           niftysmashers.com
         </a>
       </strong>
@@ -35,6 +40,6 @@ const SmashersGame = () => (
 
     <GameWithAuth unityConfig={smashersConfig} />
   </>
-);
+)
 
-export default SmashersGame;
+export default SmashersGame

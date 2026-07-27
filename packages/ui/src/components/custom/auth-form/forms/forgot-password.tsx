@@ -1,31 +1,34 @@
-'use client';
+'use client'
 
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 
-import { Button } from '@nl/ui/base/button';
-import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@nl/ui/base/form';
-import { Input } from '@nl/ui/custom/input';
-import { Icon } from '@nl/ui/base/icon';
+import { Button } from '@nl/ui/base/button'
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@nl/ui/base/form'
+import { Input } from '@nl/ui/custom/input'
+import { Icon } from '@nl/ui/base/icon'
 
-import { VIEWS } from '../constants';
+import { VIEWS } from '../constants'
 
-type ViewType = (typeof VIEWS)[keyof typeof VIEWS];
+type ViewType = (typeof VIEWS)[keyof typeof VIEWS]
 
 export interface ForgotPasswordFormProps {
-  setAuthView: React.Dispatch<React.SetStateAction<ViewType>>;
-  handleResetPassword: (values: z.infer<typeof formSchema>) => Promise<void>;
+  setAuthView: React.Dispatch<React.SetStateAction<ViewType>>
+  handleResetPassword: (values: z.infer<typeof formSchema>) => Promise<void>
 }
 
-const formSchema = z.object({ email: z.email() });
+const formSchema = z.object({ email: z.email() })
 
 export function ForgotPasswordForm({ setAuthView, handleResetPassword }: ForgotPasswordFormProps) {
-  const form = useForm<z.infer<typeof formSchema>>({ resolver: zodResolver(formSchema), defaultValues: { email: '' } });
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: { email: '' },
+  })
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    await handleResetPassword(values);
-  };
+    await handleResetPassword(values)
+  }
 
   return (
     <Form {...form}>
@@ -55,13 +58,16 @@ export function ForgotPasswordForm({ setAuthView, handleResetPassword }: ForgotP
         </Button>
         <div className="text-center text-sm">
           {'Go back to '}
-          <a onClick={() => setAuthView(VIEWS.LOGIN)} className="underline underline-offset-4 cursor-pointer">
+          <a
+            onClick={() => setAuthView(VIEWS.LOGIN)}
+            className="underline underline-offset-4 cursor-pointer"
+          >
             Login
           </a>
         </div>
       </form>
     </Form>
-  );
+  )
 }
 
-export default ForgotPasswordForm;
+export default ForgotPasswordForm

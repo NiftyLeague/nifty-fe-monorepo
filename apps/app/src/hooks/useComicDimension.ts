@@ -1,6 +1,6 @@
-'use client';
+'use client'
 
-import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
 /*
   ~ What it does? ~
@@ -13,11 +13,11 @@ import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
 */
 
 export default function useComicDimension() {
-  const isSmallScreen = useMediaQuery('(max-width:1024px)');
+  const isSmallScreen = useMediaQuery('(max-width:1024px)')
 
   if (isSmallScreen) {
-    return { width: 90, height: 90 };
+    return { width: 90, height: 90 }
   }
 
-  return { width: 113, height: 113 };
+  return { width: 113, height: 113 }
 }

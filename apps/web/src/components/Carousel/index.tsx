@@ -1,6 +1,6 @@
-import { memo } from 'react';
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
+import { memo } from 'react'
+import Carousel from 'react-multi-carousel'
+import 'react-multi-carousel/lib/styles.css'
 
 const NiftyCarousel = ({
   children,
@@ -11,13 +11,13 @@ const NiftyCarousel = ({
   superLargeDesktopItems = 5,
   hideGradient = false,
 }: {
-  children: React.ReactNode;
-  isMobileViewOnly?: boolean;
-  mobileItems?: number;
-  tabletItems?: number;
-  desktopItems?: number;
-  superLargeDesktopItems?: number;
-  hideGradient?: boolean;
+  children: React.ReactNode
+  isMobileViewOnly?: boolean
+  mobileItems?: number
+  tabletItems?: number
+  desktopItems?: number
+  superLargeDesktopItems?: number
+  hideGradient?: boolean
 }): React.ReactNode => (
   <>
     <Carousel
@@ -38,7 +38,9 @@ const NiftyCarousel = ({
       keyBoardControl={true}
       transitionDuration={590}
       containerClass="carousel-container"
-      removeArrowOnDeviceType={isMobileViewOnly ? ['desktop', 'tablet'] : ['desktop', 'tablet', 'mobile']}
+      removeArrowOnDeviceType={
+        isMobileViewOnly ? ['desktop', 'tablet'] : ['desktop', 'tablet', 'mobile']
+      }
       dotListClass="custom-dot-list-style"
       itemClass="py-0 px-5"
     >
@@ -46,7 +48,7 @@ const NiftyCarousel = ({
     </Carousel>
     {!hideGradient && <div className="dark-gradient-overlay !top-[13%] !h-[82%]" />}
   </>
-);
+)
 
-const MemoizedNiftyCarousel = memo(NiftyCarousel);
-export default MemoizedNiftyCarousel;
+const MemoizedNiftyCarousel = memo(NiftyCarousel)
+export default MemoizedNiftyCarousel

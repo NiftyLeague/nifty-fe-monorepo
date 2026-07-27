@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
-import { ComponentProps } from 'react';
+import styled from '@emotion/styled'
+import { ComponentProps } from 'react'
 
 const Row: React.FC<ComponentProps<'div'>> = styled.div`
   display: grid;
@@ -14,7 +14,7 @@ const Row: React.FC<ComponentProps<'div'>> = styled.div`
     max-width: 100%;
     margin: 0 1rem;
   }
-`;
+`
 
 export const RowTwo: React.FC<ComponentProps<typeof Row>> = styled(Row)`
   grid-template-columns: repeat(2, 1fr);
@@ -27,7 +27,7 @@ export const RowTwo: React.FC<ComponentProps<typeof Row>> = styled(Row)`
   @media (max-width: 640px) {
     grid-template-columns: 1fr;
   }
-`;
+`
 
 export const RowThree: React.FC<ComponentProps<typeof Row>> = styled(Row)`
   grid-template-columns: repeat(3, 1fr);
@@ -39,6 +39,6 @@ export const RowThree: React.FC<ComponentProps<typeof Row>> = styled(Row)`
   @media (max-width: 640px) {
     grid-template-columns: 1fr;
   }
-`;
+`
 
-export default Row;
+export default Row

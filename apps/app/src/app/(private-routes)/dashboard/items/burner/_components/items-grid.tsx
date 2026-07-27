@@ -1,17 +1,17 @@
-import { styled } from '@nl/theme';
-import Image from 'next/image';
-import { ImageList, ImageListItem, ImageListItemBar, Skeleton } from '@mui/material';
+import { styled } from '@nl/theme'
+import Image from 'next/image'
+import { ImageList, ImageListItem, ImageListItemBar, Skeleton } from '@mui/material'
 
-import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 
-const PREFIX = 'items-grid';
+const PREFIX = 'items-grid'
 
-const classes = { titleWrap: `${PREFIX}-titleWrap`, title: `${PREFIX}-title` };
+const classes = { titleWrap: `${PREFIX}-titleWrap`, title: `${PREFIX}-title` }
 
 const Root = styled('div')({
   [`&.${classes.titleWrap}`]: { padding: 0 },
   [`&.${classes.title}`]: { display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem' },
-});
+})
 
 const ITEMS = [
   { id: 1, name: 'CAPE', image: '/img/items/full/1.gif' },
@@ -20,7 +20,7 @@ const ITEMS = [
   { id: 4, name: 'BREAD', image: '/img/items/full/4.gif' },
   { id: 5, name: 'NL PURPLE', image: '/img/items/full/5.gif' },
   { id: 6, name: 'COMPANION', image: '/img/items/full/6.gif' },
-];
+]
 
 const containerStyles = {
   height: 'auto',
@@ -31,20 +31,26 @@ const containerStyles = {
   right: 0,
   width: 315,
   top: 950,
-} as React.CSSProperties;
+} as React.CSSProperties
 
-const gridStyles = { flexGrow: 1, rowGap: '0 !important', marginBottom: 0 };
+const gridStyles = { flexGrow: 1, rowGap: '0 !important', marginBottom: 0 }
 
 export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
-  const { loadingItems } = useNFTsBalances();
+  const { loadingItems } = useNFTsBalances()
 
   return loadingItems ? (
-    <Skeleton variant="rectangular" animation="wave" width={315} height={403} sx={{ ...containerStyles }} />
+    <Skeleton
+      variant="rectangular"
+      animation="wave"
+      width={315}
+      height={403}
+      sx={{ ...containerStyles }}
+    />
   ) : (
     <Root style={containerStyles}>
       <div>ITEMS I OWN</div>
       <ImageList gap={10} cols={3} sx={{ ...gridStyles }}>
-        {ITEMS.map(item => (
+        {ITEMS.map((item) => (
           <ImageListItem key={item.id}>
             <Image
               src={item.image}
@@ -84,5 +90,5 @@ export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
         </div>
       </div>
     </Root>
-  );
+  )
 }

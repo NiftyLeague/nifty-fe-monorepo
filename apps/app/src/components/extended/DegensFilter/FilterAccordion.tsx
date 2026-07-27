@@ -1,15 +1,20 @@
-import { ReactNode } from 'react';
-import { Accordion, AccordionSummary, AccordionDetails, Stack, Typography } from '@mui/material';
-import { Icon } from '@nl/ui/base/icon';
+import { ReactNode } from 'react'
+import { Accordion, AccordionSummary, AccordionDetails, Stack, Typography } from '@mui/material'
+import { Icon } from '@nl/ui/base/icon'
 
 interface Props {
-  summary: ReactNode;
-  children: ReactNode;
-  expanded?: boolean;
-  length?: number;
+  summary: ReactNode
+  children: ReactNode
+  expanded?: boolean
+  length?: number
 }
 
-const FilterAccordion = ({ summary, children, expanded = true, length = 0 }: Props): React.ReactNode => {
+const FilterAccordion = ({
+  summary,
+  children,
+  expanded = true,
+  length = 0,
+}: Props): React.ReactNode => {
   return (
     <Accordion
       defaultExpanded={expanded}
@@ -29,14 +34,19 @@ const FilterAccordion = ({ summary, children, expanded = true, length = 0 }: Pro
           '& .MuiAccordionSummary-content': { my: 1, '&.Mui-expanded': { my: 1 } },
         }}
       >
-        <Stack direction="row" sx={{ width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Stack
+          direction="row"
+          sx={{ width: '100%', justifyContent: 'space-between', alignItems: 'center' }}
+        >
           {summary}
-          {length > 0 && <Typography sx={{ fontSize: '10px', mr: 1, color: '#D7DCFF' }}>{length}</Typography>}
+          {length > 0 && (
+            <Typography sx={{ fontSize: '10px', mr: 1, color: '#D7DCFF' }}>{length}</Typography>
+          )}
         </Stack>
       </AccordionSummary>
       <AccordionDetails>{children}</AccordionDetails>
     </Accordion>
-  );
-};
+  )
+}
 
-export default FilterAccordion;
+export default FilterAccordion

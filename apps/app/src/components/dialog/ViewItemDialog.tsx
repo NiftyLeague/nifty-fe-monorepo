@@ -1,17 +1,22 @@
-import { Button, Dialog, DialogActions, DialogContent } from '@mui/material';
-import type { Item } from '@/types/marketplace';
-import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
-import ItemDetail from '@/components/cards/ItemDetail';
+import { Button, Dialog, DialogActions, DialogContent } from '@mui/material'
+import type { Item } from '@/types/marketplace'
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
+import ItemDetail from '@/components/cards/ItemDetail'
 
 export interface ViewItemDialogProps {
-  item?: Item | null;
-  subIndex: number;
-  open: boolean;
-  onClose: () => void;
+  item?: Item | null
+  subIndex: number
+  open: boolean
+  onClose: () => void
 }
 
-const ViewItemDialog = ({ item, subIndex, open, onClose }: ViewItemDialogProps): React.ReactNode => {
-  const fullScreen = useMediaQuery('(max-width:640px)');
+const ViewItemDialog = ({
+  item,
+  subIndex,
+  open,
+  onClose,
+}: ViewItemDialogProps): React.ReactNode => {
+  const fullScreen = useMediaQuery('(max-width:640px)')
 
   return (
     <Dialog maxWidth="md" open={open} onClose={onClose} fullScreen={fullScreen}>
@@ -24,7 +29,7 @@ const ViewItemDialog = ({ item, subIndex, open, onClose }: ViewItemDialogProps):
         </Button>
       </DialogActions>
     </Dialog>
-  );
-};
+  )
+}
 
-export default ViewItemDialog;
+export default ViewItemDialog

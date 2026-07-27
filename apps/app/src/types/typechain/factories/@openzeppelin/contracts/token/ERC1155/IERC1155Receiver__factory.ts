@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   IERC1155Receiver,
   IERC1155ReceiverInterface,
-} from '../../../../../@openzeppelin/contracts/token/ERC1155/IERC1155Receiver';
+} from '../../../../../@openzeppelin/contracts/token/ERC1155/IERC1155Receiver'
 
 const _abi = [
   {
@@ -42,14 +42,14 @@ const _abi = [
     stateMutability: 'view',
     type: 'function',
   },
-] as const;
+] as const
 
 export class IERC1155Receiver__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): IERC1155ReceiverInterface {
-    return new Interface(_abi) as IERC1155ReceiverInterface;
+    return new Interface(_abi) as IERC1155ReceiverInterface
   }
   static connect(address: string, runner?: ContractRunner | null): IERC1155Receiver {
-    return new Contract(address, _abi, runner) as unknown as IERC1155Receiver;
+    return new Contract(address, _abi, runner) as unknown as IERC1155Receiver
   }
 }

@@ -1,16 +1,16 @@
-import Image from 'next/image';
-import { Button, Dialog, DialogActions, DialogContent } from '@mui/material';
-import type { Comic } from '@/types/marketplace';
-import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
+import Image from 'next/image'
+import { Button, Dialog, DialogActions, DialogContent } from '@mui/material'
+import type { Comic } from '@/types/marketplace'
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
 export interface ViewComicDialogProps {
-  comic?: Comic | null;
-  open: boolean;
-  onClose: () => void;
+  comic?: Comic | null
+  open: boolean
+  onClose: () => void
 }
 
 const ViewComicDialog = ({ comic, open, onClose }: ViewComicDialogProps): React.ReactNode => {
-  const fullScreen = useMediaQuery('(max-width:640px)');
+  const fullScreen = useMediaQuery('(max-width:640px)')
 
   return (
     <Dialog maxWidth="md" open={open} onClose={onClose} fullScreen={fullScreen}>
@@ -31,7 +31,7 @@ const ViewComicDialog = ({ comic, open, onClose }: ViewComicDialogProps): React.
         </Button>
       </DialogActions>
     </Dialog>
-  );
-};
+  )
+}
 
-export default ViewComicDialog;
+export default ViewComicDialog

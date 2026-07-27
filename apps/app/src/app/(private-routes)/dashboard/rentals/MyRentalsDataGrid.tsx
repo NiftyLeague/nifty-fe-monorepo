@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import { useState, useMemo } from 'react';
-import { Stack, Typography, Button, Dialog, DialogContent, Link, IconButton } from '@mui/material';
+import { useState, useMemo } from 'react'
+import { Stack, Typography, Button, Dialog, DialogContent, Link, IconButton } from '@mui/material'
 import {
   DataGrid,
   type GridColDef,
@@ -9,28 +9,28 @@ import {
   type GridCallbackDetails,
   type GridColumnVisibilityModel,
   type GridSortModel,
-} from '@mui/x-data-grid';
+} from '@mui/x-data-grid'
 
-import { Icon } from '@nl/ui/base/icon';
-import { formatNumberToDisplay } from '@nl/ui/utils';
-import type { Rentals, RentalType } from '@/types/rentals';
-import { transformRentals } from '@/app/(private-routes)/dashboard/_utils/transformRentals';
-import usePlayerProfile from '@/hooks/usePlayerProfile';
-import Countdown from 'react-countdown';
-import useLocalStorage from '@/hooks/useLocalStorage';
+import { Icon } from '@nl/ui/base/icon'
+import { formatNumberToDisplay } from '@nl/ui/utils'
+import type { Rentals, RentalType } from '@/types/rentals'
+import { transformRentals } from '@/app/(private-routes)/dashboard/_utils/transformRentals'
+import usePlayerProfile from '@/hooks/usePlayerProfile'
+import Countdown from 'react-countdown'
+import useLocalStorage from '@/hooks/useLocalStorage'
 
-import DegenDialog from '@/components/dialog/DegenDialog';
-import { RentalDataGrid } from '@/types/rentalDataGrid';
-import ChangeNicknameDialog from './ChangeNicknameDialog';
+import DegenDialog from '@/components/dialog/DegenDialog'
+import { RentalDataGrid } from '@/types/rentalDataGrid'
+import ChangeNicknameDialog from './ChangeNicknameDialog'
 
-const RENTAL_COLUMN_VISIBILITY = 'rental-column-visibility-model';
+const RENTAL_COLUMN_VISIBILITY = 'rental-column-visibility-model'
 
 interface Props {
-  rows: Rentals[];
-  loading: boolean;
-  category: RentalType;
-  onTerminateRental: (rentalId: string) => void;
-  updateRentalName: (name: string, id: string) => void;
+  rows: Rentals[]
+  loading: boolean
+  category: RentalType
+  onTerminateRental: (rentalId: string) => void
+  updateRentalName: (name: string, id: string) => void
 }
 
 const MyRentalsDataGrid = ({
@@ -41,96 +41,99 @@ const MyRentalsDataGrid = ({
   updateRentalName,
 }: Props): React.ReactNode => {
   // const [pageSize, setPageSize] = useState(10);
-  const [selectedRowForEditing, setSelectedRowForEditing] = useState<RentalDataGrid>({} as RentalDataGrid);
-  const [isNicknameModalOpen, setIsNicknameModalOpen] = useState(false);
-  const [isTerminateRentalModalOpen, setIsTerminateRentalModalOpen] = useState(false);
-  const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false);
-  const [selectedDegen, setSelectedDegen] = useState();
-  const [isRentDialog, setIsRentDialog] = useState<boolean>(false);
-  const [sort, setSort] = useState<GridSortModel>([]);
-  const [columnVisibilityModel, setColumnVisibilityModel] = useLocalStorage<GridColumnVisibilityModel>(
-    RENTAL_COLUMN_VISIBILITY,
-    {},
-  );
+  const [selectedRowForEditing, setSelectedRowForEditing] = useState<RentalDataGrid>(
+    {} as RentalDataGrid
+  )
+  const [isNicknameModalOpen, setIsNicknameModalOpen] = useState(false)
+  const [isTerminateRentalModalOpen, setIsTerminateRentalModalOpen] = useState(false)
+  const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false)
+  const [selectedDegen, setSelectedDegen] = useState()
+  const [isRentDialog, setIsRentDialog] = useState<boolean>(false)
+  const [sort, setSort] = useState<GridSortModel>([])
+  const [columnVisibilityModel, setColumnVisibilityModel] =
+    useLocalStorage<GridColumnVisibilityModel>(RENTAL_COLUMN_VISIBILITY, {})
 
-  const { profile } = usePlayerProfile();
-  const rentals = transformRentals(rows, profile?.id || '', category);
+  const { profile } = usePlayerProfile()
+  const rentals = transformRentals(rows, profile?.id || '', category)
 
   const filteredRows = useMemo(() => {
     switch (category) {
       case 'direct-rental':
-        return rentals.filter(rental => rental.category === 'direct-rental');
+        return rentals.filter((rental) => rental.category === 'direct-rental')
       case 'owned-sponsorship':
-        return rentals.filter(rental => rental.category === 'owned-sponsorship');
+        return rentals.filter((rental) => rental.category === 'owned-sponsorship')
       case 'non-owned-sponsorship':
-        return rentals.filter(rental => rental.category === 'non-owned-sponsorship');
+        return rentals.filter((rental) => rental.category === 'non-owned-sponsorship')
       case 'recruited':
-        return rentals.filter(rental => rental.category === 'recruited');
+        return rentals.filter((rental) => rental.category === 'recruited')
       case 'direct-renter':
-        return rentals.filter(rental => rental.category === 'direct-renter');
+        return rentals.filter((rental) => rental.category === 'direct-renter')
       case 'terminated':
-        return rentals.filter(rental => rental.action);
+        return rentals.filter((rental) => rental.action)
       case 'all':
       default:
-        return rentals;
+        return rentals
     }
-  }, [rentals, category]);
+  }, [rentals, category])
 
   const sortedRows = useMemo(() => {
     if (!sort || !sort.length) {
-      return filteredRows;
+      return filteredRows
     }
 
     return filteredRows.sort((a, b) => {
-      const { field, sort: direction } = sort[0] as GridSortModel[number];
-      const aValue = a[field as keyof typeof a] as number;
-      const bValue = b[field as keyof typeof b] as number;
+      const { field, sort: direction } = sort[0] as GridSortModel[number]
+      const aValue = a[field as keyof typeof a] as number
+      const bValue = b[field as keyof typeof b] as number
 
       if (direction === 'asc') {
-        return aValue > bValue ? 1 : -1;
+        return aValue > bValue ? 1 : -1
       }
 
-      return aValue > bValue ? -1 : 1;
-    });
-  }, [filteredRows, sort]);
+      return aValue > bValue ? -1 : 1
+    })
+  }, [filteredRows, sort])
 
   const handleOpenNickname = (params: GridRenderCellParams) => {
-    setSelectedRowForEditing(params.row);
-    setIsNicknameModalOpen(true);
-  };
+    setSelectedRowForEditing(params.row)
+    setIsNicknameModalOpen(true)
+  }
 
   const handleUpdateNickname = (name: string, rentalId: string) => {
-    updateRentalName(name, rentalId);
-    setIsNicknameModalOpen(false);
-  };
+    updateRentalName(name, rentalId)
+    setIsNicknameModalOpen(false)
+  }
 
   const handleOpenTerminateRental = (params: GridRenderCellParams) => {
-    setSelectedRowForEditing(params.row);
-    setIsTerminateRentalModalOpen(true);
-  };
+    setSelectedRowForEditing(params.row)
+    setIsTerminateRentalModalOpen(true)
+  }
 
   const handleConfirmTerminateRental = () => {
     if (selectedRowForEditing) {
-      onTerminateRental(selectedRowForEditing.rentalId);
-      setIsTerminateRentalModalOpen(false);
+      onTerminateRental(selectedRowForEditing.rentalId)
+      setIsTerminateRentalModalOpen(false)
     }
-  };
+  }
 
-  const handleColumnVisibilityChange = (model: GridColumnVisibilityModel, details: GridCallbackDetails) => {
-    setColumnVisibilityModel(model);
-  };
+  const handleColumnVisibilityChange = (
+    model: GridColumnVisibilityModel,
+    details: GridCallbackDetails
+  ) => {
+    setColumnVisibilityModel(model)
+  }
 
   const handleClickDegenId = (params: GridRenderCellParams) => {
-    setSelectedDegen({ ...params?.row, id: params?.row?.degenId });
-    setIsRentDialog(false);
-    setIsDegenModalOpen(true);
-  };
+    setSelectedDegen({ ...params?.row, id: params?.row?.degenId })
+    setIsRentDialog(false)
+    setIsDegenModalOpen(true)
+  }
 
   const handleSortColumn = (model: GridSortModel) => {
-    setSort(model);
-  };
+    setSort(model)
+  }
 
-  const commonColumnProp = { minWidth: 100 };
+  const commonColumnProp = { minWidth: 100 }
 
   const columns: GridColDef[] = useMemo(() => {
     const results = [
@@ -141,7 +144,9 @@ const MyRentalsDataGrid = ({
         ...commonColumnProp,
         renderCell: (params: GridRenderCellParams) => (
           <>
-            {['direct-rental', 'non-owned-sponsorship', 'owned-sponsorship'].includes(params.row.category) && (
+            {['direct-rental', 'non-owned-sponsorship', 'owned-sponsorship'].includes(
+              params.row.category
+            ) && (
               <Button
                 onClick={() => handleOpenTerminateRental(params)}
                 variant="outlined"
@@ -173,12 +178,16 @@ const MyRentalsDataGrid = ({
             <Stack direction="row" sx={{ columnGap: 1, alignItems: 'center' }}>
               <Typography>{params.value}</Typography>
               {params.row.isEditable && (
-                <IconButton aria-label="edit" onClick={() => handleOpenNickname(params)} sx={{ display: 'none' }}>
+                <IconButton
+                  aria-label="edit"
+                  onClick={() => handleOpenNickname(params)}
+                  sx={{ display: 'none' }}
+                >
                   <Icon name="pencil" />
                 </IconButton>
               )}
             </Stack>
-          );
+          )
         },
       },
       { field: 'rentalCategory', headerName: 'Category', width: 150 },
@@ -194,7 +203,10 @@ const MyRentalsDataGrid = ({
           <Link
             component="button"
             variant="body2"
-            sx={{ color: 'var(--color-foreground)', textDecorationColor: 'var(--color-foreground)' }}
+            sx={{
+              color: 'var(--color-foreground)',
+              textDecorationColor: 'var(--color-foreground)',
+            }}
             onClick={() => handleClickDegenId(params)}
           >
             #{params.value}
@@ -209,7 +221,8 @@ const MyRentalsDataGrid = ({
         width: 150,
         renderCell: (params: GridRenderCellParams) => (
           <Typography>
-            {formatNumberToDisplay(params.row.totalEarnings)} / {formatNumberToDisplay(params.value)}
+            {formatNumberToDisplay(params.row.totalEarnings)} /{' '}
+            {formatNumberToDisplay(params.value)}
           </Typography>
         ),
       },
@@ -237,7 +250,9 @@ const MyRentalsDataGrid = ({
         field: 'winRate',
         headerName: 'Win Rate',
         ...commonColumnProp,
-        renderCell: (params: GridRenderCellParams) => <span>{formatNumberToDisplay(params.value)}%</span>,
+        renderCell: (params: GridRenderCellParams) => (
+          <span>{formatNumberToDisplay(params.value)}%</span>
+        ),
       },
       { field: 'weeklyFee', headerName: 'Weekly Fee', ...commonColumnProp },
       {
@@ -297,27 +312,27 @@ const MyRentalsDataGrid = ({
           return (
             <Typography
               sx={{
-                color: theme => {
-                  if (params.value === 0) return 'var(--color-foreground)';
-                  if (params.value > 0) return 'var(--color-success)';
-                  if (params.value < 0) return 'var(--color-error)';
+                color: (theme) => {
+                  if (params.value === 0) return 'var(--color-foreground)'
+                  if (params.value > 0) return 'var(--color-success)'
+                  if (params.value < 0) return 'var(--color-error)'
                 },
               }}
             >
               {formatNumberToDisplay(params.value)}%
             </Typography>
-          );
+          )
         },
       },
-    ];
+    ]
 
     if (category === 'direct-renter') {
-      return results.filter(result => result.field !== 'action');
+      return results.filter((result) => result.field !== 'action')
     } else {
-      return results;
+      return results
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category]);
+  }, [category])
 
   return (
     <>
@@ -336,10 +351,16 @@ const MyRentalsDataGrid = ({
       />
       {/* Nickname Degen Dialog */}
       <Dialog open={isNicknameModalOpen} onClose={() => setIsNicknameModalOpen(false)}>
-        <ChangeNicknameDialog updateNickname={handleUpdateNickname} rental={selectedRowForEditing} />
+        <ChangeNicknameDialog
+          updateNickname={handleUpdateNickname}
+          rental={selectedRowForEditing}
+        />
       </Dialog>
       {/* Terminate Rental Dialog */}
-      <Dialog open={isTerminateRentalModalOpen} onClose={() => setIsTerminateRentalModalOpen(false)}>
+      <Dialog
+        open={isTerminateRentalModalOpen}
+        onClose={() => setIsTerminateRentalModalOpen(false)}
+      >
         <DialogContent>
           <Typography variant="h4" align="center">
             Are you sure you want to terminate this rental?
@@ -363,7 +384,7 @@ const MyRentalsDataGrid = ({
         onClose={() => setIsDegenModalOpen(false)}
       />
     </>
-  );
-};
+  )
+}
 
-export default MyRentalsDataGrid;
+export default MyRentalsDataGrid

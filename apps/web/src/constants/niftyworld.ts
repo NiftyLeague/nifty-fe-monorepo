@@ -53,4 +53,4 @@ export const NIFTYWORLD_PROPERTIES = [
     description: `Endless opportunities await! Join us and unleash your creativity by contributing to building whatever your heart desires.`,
     image: '/img/niftyworld/shipping_yard_01.webp',
   },
-];
+]

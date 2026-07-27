@@ -60,6 +60,6 @@ export const palette = {
   darkLevel1: '#27272a',
   darkLevel2: '#1c1b1a',
   darkLevel3: '#09090b',
-};
+}
 
-export default palette;
+export default palette

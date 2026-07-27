@@ -1,6 +1,6 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
+import { useState } from 'react'
 import {
   DialogTitle,
   DialogContent,
@@ -14,36 +14,36 @@ import {
   // Link,
   Box,
   Button,
-} from '@mui/material';
-import LoadingButton from '@mui/lab/LoadingButton';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import type { RentalDataGrid } from '@/types/rentalDataGrid';
-import DegenImage from '@/components/cards/DegenCard/DegenImage';
-import { RENAME_RENTAL_API_URL } from '@/constants/url';
+} from '@mui/material'
+import LoadingButton from '@mui/lab/LoadingButton'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+import type { RentalDataGrid } from '@/types/rentalDataGrid'
+import DegenImage from '@/components/cards/DegenCard/DegenImage'
+import { RENAME_RENTAL_API_URL } from '@/constants/url'
 // import useFetch from '@/hooks/useFetch';
 // import type { Degen } from '@/types/degens';
-import { useDispatch } from '@/store/hooks';
-import { openSnackbar } from '@/store/slices/snackbar';
-import useAuth from '@/hooks/useAuth';
+import { useDispatch } from '@/store/hooks'
+import { openSnackbar } from '@/store/slices/snackbar'
+import useAuth from '@/hooks/useAuth'
 
 interface IFormInput {
-  name: string;
+  name: string
 }
 
-const validationSchema = yup.object().shape({ name: yup.string().required('Name is required') });
+const validationSchema = yup.object().shape({ name: yup.string().required('Name is required') })
 
 interface Props {
-  rental: RentalDataGrid;
-  updateRentalName: (name: string, id: string) => Promise<void>;
+  rental: RentalDataGrid
+  updateRentalName: (name: string, id: string) => Promise<void>
 }
 
 const RenameRentalDialogContent = ({ rental, updateRentalName }: Props): React.ReactNode => {
-  const { authToken } = useAuth();
-  const dispatch = useDispatch();
-  const [isLoadingRename, setIsLoadingRename] = useState(false);
-  const { degenId, renter } = rental;
+  const { authToken } = useAuth()
+  const dispatch = useDispatch()
+  const [isLoadingRename, setIsLoadingRename] = useState(false)
+  const { degenId, renter } = rental
 
   const {
     handleSubmit,
@@ -51,32 +51,36 @@ const RenameRentalDialogContent = ({ rental, updateRentalName }: Props): React.R
     setError,
     reset,
     formState: { errors },
-  } = useForm<IFormInput>({ resolver: yupResolver(validationSchema), mode: 'onChange', defaultValues: { name: '' } });
+  } = useForm<IFormInput>({
+    resolver: yupResolver(validationSchema),
+    mode: 'onChange',
+    defaultValues: { name: '' },
+  })
 
   const onSubmit = async (data: IFormInput) => {
     if (!rental.id || !degenId || !data.name || !authToken) {
-      return;
+      return
     }
 
     try {
-      setIsLoadingRename(true);
+      setIsLoadingRename(true)
       const result = await fetch(`${RENAME_RENTAL_API_URL}?id=${encodeURIComponent(rental.id)}`, {
         method: 'POST',
         body: JSON.stringify({ name: data.name, degen_id: degenId }),
         headers: { authorizationToken: authToken } as Record<string, string>,
-      });
-      const res = await result.json();
-      setIsLoadingRename(false);
+      })
+      const res = await result.json()
+      setIsLoadingRename(false)
       if (res.statusCode === 400) {
-        setError('name', { type: 'custom', message: res.body });
-        return;
+        setError('name', { type: 'custom', message: res.body })
+        return
       }
-      onRenameRentalSuccess(data.name);
+      onRenameRentalSuccess(data.name)
     } catch (error) {
-      setIsLoadingRename(false);
-      setError('name', { type: 'custom', message: error as unknown as string });
+      setIsLoadingRename(false)
+      setError('name', { type: 'custom', message: error as unknown as string })
     }
-  };
+  }
 
   const onRenameRentalSuccess = (newName: string) => {
     dispatch(
@@ -86,11 +90,11 @@ const RenameRentalDialogContent = ({ rental, updateRentalName }: Props): React.R
         variant: 'alert',
         alert: { color: 'success' },
         close: false,
-      }),
-    );
-    updateRentalName(newName, rental.id);
-    reset();
-  };
+      })
+    )
+    updateRentalName(newName, rental.id)
+    reset()
+  }
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -142,7 +146,7 @@ const RenameRentalDialogContent = ({ rental, updateRentalName }: Props): React.R
         </DialogActions>
       </Stack>
     </Box>
-  );
-};
+  )
+}
 
-export default RenameRentalDialogContent;
+export default RenameRentalDialogContent

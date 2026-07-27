@@ -1,4 +1,4 @@
-import type { Game } from '@/types/games';
+import type { Game } from '@/types/games'
 
 const games: Game[] = [
   {
@@ -73,19 +73,19 @@ const games: Game[] = [
     image: 'https://berrydashboard.io/static/media/profile-back-10.c597e179.png',
     isComingSoon: true,
   },
-];
+]
 
 export const getGameViewedAnalyticsContentId = (pathname: string) => {
   if (pathname.includes('smashers')) {
-    return 'nifty_smashers';
+    return 'nifty_smashers'
   } else if (pathname.includes('wen-game')) {
-    return 'wen_game';
+    return 'wen_game'
   } else if (pathname.includes('mt-gawx')) {
-    return 'mt_gawx';
+    return 'mt_gawx'
   } else if (pathname.includes('crypto-winter')) {
-    return 'crypto_winter';
+    return 'crypto_winter'
   }
-  return null;
-};
+  return null
+}
 
-export default games;
+export default games

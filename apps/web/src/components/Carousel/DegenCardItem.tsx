@@ -1,24 +1,29 @@
-import Image from 'next/image';
-import { memo } from 'react';
+import Image from 'next/image'
+import { memo } from 'react'
 
 export interface Degen {
-  name: string;
-  source: string;
-  createdDate: string;
+  name: string
+  source: string
+  createdDate: string
 }
 
 export const RenderDegen = (degen: Degen) => (
-  <DegenCardItem key={degen.name} name={degen.name} createdDate={degen.createdDate} source={degen.source} />
-);
+  <DegenCardItem
+    key={degen.name}
+    name={degen.name}
+    createdDate={degen.createdDate}
+    source={degen.source}
+  />
+)
 
 const DegenCardItem = ({
   name,
   source,
   createdDate,
 }: {
-  name: string;
-  source: string;
-  createdDate: string;
+  name: string
+  source: string
+  createdDate: string
 }): React.ReactNode => (
   <div className="grid h-full bg-card border-1 rounded-default">
     <div className="p-3 md:p-4">
@@ -36,10 +41,18 @@ const DegenCardItem = ({
       </div>
     </div>
     <div className="rounded-[20px]">
-      <Image src={source} width="258" height="278" alt="degen image" priority sizes="100vw" className="w-full h-auto" />
+      <Image
+        src={source}
+        width="258"
+        height="278"
+        alt="degen image"
+        priority
+        sizes="100vw"
+        className="w-full h-auto"
+      />
     </div>
   </div>
-);
+)
 
-const MemoizedDegenCardItem = memo(DegenCardItem);
-export default MemoizedDegenCardItem;
+const MemoizedDegenCardItem = memo(DegenCardItem)
+export default MemoizedDegenCardItem

@@ -1,26 +1,26 @@
-'use client';
+'use client'
 
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import { useEffect, useState } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
 
-import { Button } from '@nl/ui/base/button';
-import { Card, CardTitle, CardDescription } from '@nl/ui/base/card';
-import { Icon } from '@nl/ui/base/icon';
-import { Preloader } from '@nl/ui/custom/preloader';
-import { Text } from '@nl/ui/custom/typography';
-import { ThemeToggle } from '@nl/ui/custom/theme';
+import { Button } from '@nl/ui/base/button'
+import { Card, CardTitle, CardDescription } from '@nl/ui/base/card'
+import { Icon } from '@nl/ui/base/icon'
+import { Preloader } from '@nl/ui/custom/preloader'
+import { Text } from '@nl/ui/custom/typography'
+import { ThemeToggle } from '@nl/ui/custom/theme'
 
-import styles from '@/styles/page.module.css';
+import styles from '@/styles/page.module.css'
 
 function Gradient({
   conic,
   className,
   small,
 }: {
-  small?: boolean;
-  conic?: boolean;
-  className?: string;
+  small?: boolean
+  conic?: boolean
+  className?: string
 }): React.ReactNode {
   return (
     <span
@@ -33,7 +33,7 @@ function Gradient({
         .filter(Boolean)
         .join(' ')}
     />
-  );
+  )
 }
 
 const LINKS = [
@@ -57,26 +57,26 @@ const LINKS = [
     href: 'https://vercel.com/new',
     description: 'Instantly deploy your Turborepo to a shareable URL with Vercel.',
   },
-];
+]
 
 function TestProgress(): React.ReactNode {
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(0)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setProgress(prevProgress => {
-        const newProgress = prevProgress + 5;
+      setProgress((prevProgress) => {
+        const newProgress = prevProgress + 5
         if (newProgress > 100) {
-          clearInterval(interval);
-          return 100;
+          clearInterval(interval)
+          return 100
         }
-        return newProgress;
-      });
-    }, 75);
-    return () => clearInterval(interval);
-  }, []);
+        return newProgress
+      })
+    }, 75)
+    return () => clearInterval(interval)
+  }, [])
 
-  return <Preloader ready={progress === 100} progress={progress} />;
+  return <Preloader ready={progress === 100} progress={progress} />
 }
 
 export default function Page(): React.ReactNode {
@@ -211,5 +211,5 @@ export default function Page(): React.ReactNode {
 
       <TestProgress />
     </main>
-  );
+  )
 }

@@ -1,1 +1,1 @@
-export { default } from '@nl/ui/custom/loading';
+export { default } from '@nl/ui/custom/loading'

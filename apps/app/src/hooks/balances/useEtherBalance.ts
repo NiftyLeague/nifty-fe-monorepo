@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import { useAccount, useBalance } from 'wagmi';
-import { formatUnits } from 'viem';
+import { useAccount, useBalance } from 'wagmi'
+import { formatUnits } from 'viem'
 
 /*
   ~ What it does? ~
@@ -14,26 +14,30 @@ import { formatUnits } from 'viem';
 */
 
 type RefetchEthBalance = (options: {
-  throwOnError: boolean;
-  cancelRefetch: boolean;
-}) => Promise<{ decimals: number; formatted: string; symbol: string; value: bigint }>;
+  throwOnError: boolean
+  cancelRefetch: boolean
+}) => Promise<{ decimals: number; formatted: string; symbol: string; value: bigint }>
 
 interface EtherBalanceState {
-  balance: number;
-  loading: boolean;
-  refetch: RefetchEthBalance;
+  balance: number
+  loading: boolean
+  refetch: RefetchEthBalance
 }
 
 export default function useEtherBalance(): EtherBalanceState {
-  const { address, isConnected } = useAccount();
+  const { address, isConnected } = useAccount()
   const { data, isLoading, isFetched, refetch } = useBalance({
     address,
-    query: { enabled: isConnected, staleTime: 10_000, select: data => formatUnits(data.value, data.decimals) },
-  });
+    query: {
+      enabled: isConnected,
+      staleTime: 10_000,
+      select: (data) => formatUnits(data.value, data.decimals),
+    },
+  })
 
   return {
     balance: isFetched ? Number(data) : 0,
     loading: isLoading,
     refetch: refetch as unknown as RefetchEthBalance,
-  };
+  }
 }

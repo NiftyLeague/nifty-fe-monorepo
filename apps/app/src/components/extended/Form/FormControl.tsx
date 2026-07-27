@@ -1,19 +1,19 @@
 // material-ui
-import { Divider, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
-import MUIFormControl from '@mui/material/FormControl';
+import { Divider, InputAdornment, InputLabel, OutlinedInput } from '@mui/material'
+import MUIFormControl from '@mui/material/FormControl'
 
-import { Icon, type IconName } from '@nl/ui/base/icon';
+import { Icon, type IconName } from '@nl/ui/base/icon'
 
 // ==============================|| FORM CONTROL ||============================== //
 
 interface FormControlProps {
-  captionLabel?: string;
-  formState?: string;
-  iconPrimary?: IconName;
-  iconSecondary?: IconName;
-  placeholder?: string;
-  textPrimary?: string;
-  textSecondary?: string;
+  captionLabel?: string
+  formState?: string
+  iconPrimary?: IconName
+  iconSecondary?: IconName
+  placeholder?: string
+  textPrimary?: string
+  textSecondary?: string
 }
 
 const FormControl = ({
@@ -25,10 +25,10 @@ const FormControl = ({
   textPrimary,
   textSecondary,
 }: FormControlProps) => {
-  const primaryIcon = iconPrimary ? <Icon name={iconPrimary} size="sm" color="gray" /> : null;
-  const secondaryIcon = iconSecondary ? <Icon name={iconSecondary} size="sm" color="gray" /> : null;
+  const primaryIcon = iconPrimary ? <Icon name={iconPrimary} size="sm" color="gray" /> : null
+  const secondaryIcon = iconSecondary ? <Icon name={iconSecondary} size="sm" color="gray" /> : null
 
-  const errorState = formState === 'error';
+  const errorState = formState === 'error'
 
   return (
     <MUIFormControl fullWidth error={errorState}>
@@ -43,7 +43,10 @@ const FormControl = ({
             {textPrimary && (
               <>
                 <InputAdornment position="start">{textPrimary}</InputAdornment>
-                <Divider sx={{ height: 28, m: 0.5, mr: 1.5, opacity: '0.6' }} orientation="vertical" />
+                <Divider
+                  sx={{ height: 28, m: 0.5, mr: 1.5, opacity: '0.6' }}
+                  orientation="vertical"
+                />
               </>
             )}
           </>
@@ -61,7 +64,7 @@ const FormControl = ({
         }
       />
     </MUIFormControl>
-  );
-};
+  )
+}
 
-export default FormControl;
+export default FormControl

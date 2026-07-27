@@ -2,8 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
-import type { IERC5267, IERC5267Interface } from '../../../../@openzeppelin/contracts/interfaces/IERC5267';
+import { Contract, Interface, type ContractRunner } from 'ethers'
+import type {
+  IERC5267,
+  IERC5267Interface,
+} from '../../../../@openzeppelin/contracts/interfaces/IERC5267'
 
 const _abi = [
   { anonymous: false, inputs: [], name: 'EIP712DomainChanged', type: 'event' },
@@ -22,14 +25,14 @@ const _abi = [
     stateMutability: 'view',
     type: 'function',
   },
-] as const;
+] as const
 
 export class IERC5267__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): IERC5267Interface {
-    return new Interface(_abi) as IERC5267Interface;
+    return new Interface(_abi) as IERC5267Interface
   }
   static connect(address: string, runner?: ContractRunner | null): IERC5267 {
-    return new Contract(address, _abi, runner) as unknown as IERC5267;
+    return new Contract(address, _abi, runner) as unknown as IERC5267
   }
 }

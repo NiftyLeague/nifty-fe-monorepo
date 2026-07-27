@@ -1,10 +1,10 @@
-'use client';
+'use client'
 
-import { useState, useEffect } from 'react';
-import { isMacOs, isAndroid, isIOS, isWindows } from 'react-device-detect';
+import { useState, useEffect } from 'react'
+import { isMacOs, isAndroid, isIOS, isWindows } from 'react-device-detect'
 
-const COMMON_MSG = 'Download Nifty Smashers Beta on mobile or PC!';
-const DESKTOP_MSG = ''; //'Epic Store will be supported soon.';
+const COMMON_MSG = 'Download Nifty Smashers Beta on mobile or PC!'
+const DESKTOP_MSG = '' //'Epic Store will be supported soon.';
 
 enum MSGS {
   Windows = `${COMMON_MSG} ${DESKTOP_MSG}`,
@@ -23,57 +23,60 @@ enum OS {
 }
 
 const useVersion = () => {
-  const [version, setVersion] = useState<string | null>(null);
-  const env = process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' ? 'prod' : 'stage';
-  const isLinux = typeof window !== 'undefined' && window?.navigator?.userAgent?.indexOf('Linux') >= 0;
-  let os = '';
-  let message = '';
+  const [version, setVersion] = useState<string | null>(null)
+  const env = process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' ? 'prod' : 'stage'
+  const isLinux =
+    typeof window !== 'undefined' && window?.navigator?.userAgent?.indexOf('Linux') >= 0
+  let os = ''
+  let message = ''
 
   if (isWindows) {
-    os = OS.Windows;
-    message = MSGS.Windows;
+    os = OS.Windows
+    message = MSGS.Windows
   } else if (isAndroid) {
-    os = OS.Android;
-    message = MSGS.Android;
+    os = OS.Android
+    message = MSGS.Android
   } else if (isIOS) {
-    os = OS.IOS;
-    message = MSGS.IOS;
+    os = OS.IOS
+    message = MSGS.IOS
   } else if (isLinux) {
-    os = OS.LINUX;
-    message = MSGS.LINUX;
+    os = OS.LINUX
+    message = MSGS.LINUX
   } else if (isMacOs) {
-    os = OS.MAC;
-    message = MSGS.MAC;
+    os = OS.MAC
+    message = MSGS.MAC
   }
 
-  const fileName = `NiftyLauncher-setup-${version?.substring(0, version?.indexOf('-'))}.exe`;
+  const fileName = `NiftyLauncher-setup-${version?.substring(0, version?.indexOf('-'))}.exe`
   const downloadURL =
-    os === 'win' ? `https://d7ct17ettlkln.cloudfront.net/launcher/${env}/${os}/${version}/${fileName}` : null;
+    os === 'win'
+      ? `https://d7ct17ettlkln.cloudfront.net/launcher/${env}/${os}/${version}/${fileName}`
+      : null
 
   useEffect(() => {
     const fetchVersion = async () => {
       if (os === 'win') {
         const v: string = await fetch(
-          `https://nifty-league.s3.amazonaws.com/launcher/${env}/${os}/version.bin?t=${Date.now()}`,
+          `https://nifty-league.s3.amazonaws.com/launcher/${env}/${os}/version.bin?t=${Date.now()}`
         )
-          .then(async res => {
+          .then(async (res) => {
             if (res.status >= 400) {
-              console.error(await res.text());
-              return '';
+              console.error(await res.text())
+              return ''
             }
-            return res.text();
+            return res.text()
           })
-          .catch(e => {
-            console.error(e);
-            return '';
-          });
-        setVersion(v);
+          .catch((e) => {
+            console.error(e)
+            return ''
+          })
+        setVersion(v)
       }
-    };
-    fetchVersion();
-  }, [env, os]);
+    }
+    fetchVersion()
+  }, [env, os])
 
-  return { downloadURL, version, isWindows, isLinux, isMacOs, message };
-};
+  return { downloadURL, version, isWindows, isLinux, isMacOs, message }
+}
 
-export default useVersion;
+export default useVersion

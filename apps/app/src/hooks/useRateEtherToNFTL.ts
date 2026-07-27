@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import { useEffect, useState } from 'react';
-import { CONVERT_TOKEN_TO_USD_URL } from '@/constants/url';
+import { useEffect, useState } from 'react'
+import { CONVERT_TOKEN_TO_USD_URL } from '@/constants/url'
 
 /*
   ~ What it does? ~
@@ -14,31 +14,31 @@ import { CONVERT_TOKEN_TO_USD_URL } from '@/constants/url';
 */
 
 interface RateEtherToNFTLState {
-  rate: number;
-  loading: boolean;
-  refetch: () => void;
+  rate: number
+  loading: boolean
+  refetch: () => void
 }
 
 export default function useRateEtherToNFTL(): RateEtherToNFTLState {
-  const [rate, setRate] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [rate, setRate] = useState<number>(0)
+  const [loading, setLoading] = useState<boolean>(true)
 
   const fetchRateEtherToNFTL = async () => {
     try {
-      setLoading(true);
-      const response = await fetch(CONVERT_TOKEN_TO_USD_URL + 'nifty-league', { method: 'GET' });
-      const json = await response.json();
-      setRate(json.crypto.eth);
+      setLoading(true)
+      const response = await fetch(CONVERT_TOKEN_TO_USD_URL + 'nifty-league', { method: 'GET' })
+      const json = await response.json()
+      setRate(json.crypto.eth)
     } catch (err) {
-      console.error('Failed to fetch rate', err);
+      console.error('Failed to fetch rate', err)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   useEffect(() => {
-    fetchRateEtherToNFTL();
-  }, []);
+    fetchRateEtherToNFTL()
+  }, [])
 
-  return { rate, refetch: fetchRateEtherToNFTL, loading };
+  return { rate, refetch: fetchRateEtherToNFTL, loading }
 }

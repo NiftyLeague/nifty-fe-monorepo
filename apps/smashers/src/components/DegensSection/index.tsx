@@ -1,5 +1,5 @@
-import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
-import { DegenSpecialsTable } from '@nl/ui/custom/degen-specials-table';
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
+import { DegenSpecialsTable } from '@nl/ui/custom/degen-specials-table'
 
 const DegensSection = () => {
   return (
@@ -15,8 +15,9 @@ const DegensSection = () => {
         <div className="relative">
           <AnimatedWrapper>
             <p className="text-center transition-vertical-fade transition-vertical-fade-start delay-normal">
-              There are 7 tribes to choose from, each with their own unique special ability. Some characters specialize
-              in melee combat, while others are skilled in ranged attacks or magic.
+              There are 7 tribes to choose from, each with their own unique special ability. Some
+              characters specialize in melee combat, while others are skilled in ranged attacks or
+              magic.
             </p>
           </AnimatedWrapper>
         </div>
@@ -24,7 +25,7 @@ const DegensSection = () => {
 
       <DegenSpecialsTable />
     </>
-  );
-};
+  )
+}
 
-export default DegensSection;
+export default DegensSection

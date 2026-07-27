@@ -1,9 +1,9 @@
 export interface DegenSpecial {
-  name: string;
-  description: string;
-  specialName: string;
-  gif: { link: string; width: number; height: number };
-  image: { link: string; width: number; height: number };
+  name: string
+  description: string
+  specialName: string
+  gif: { link: string; width: number; height: number }
+  image: { link: string; width: number; height: number }
 }
 
 export const NIFTY_DEGENS = [
@@ -56,4 +56,4 @@ export const NIFTY_DEGENS = [
     gif: { link: '/img/degens/specials/hydra.gif', width: 512, height: 512 },
     image: { link: '/icons/tribes/hydra.svg', width: 120, height: 120 },
   },
-] as DegenSpecial[];
+] as DegenSpecial[]

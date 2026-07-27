@@ -1,9 +1,9 @@
-'use client';
+'use client'
 
-import useSWR from 'swr';
-import type { User, UserInfo } from '../types';
-import { USER_INFO_INITIAL_STATE } from '../constants';
-import fetchJson from '../utils/fetchJson';
+import useSWR from 'swr'
+import type { User, UserInfo } from '../types'
+import { USER_INFO_INITIAL_STATE } from '../constants'
+import fetchJson from '../utils/fetchJson'
 
 export function useUserInfo(user: User | undefined) {
   // We do a request to /api/playfab/user/info only if the user is logged in
@@ -12,9 +12,9 @@ export function useUserInfo(user: User | undefined) {
     error,
     isLoading,
     mutate: mutateUserInfo,
-  } = useSWR<UserInfo>(user?.isLoggedIn ? `/api/playfab/user/info` : null, fetchJson);
+  } = useSWR<UserInfo>(user?.isLoggedIn ? `/api/playfab/user/info` : null, fetchJson)
 
-  return { error, isLoading, mutateUserInfo, userInfo: userInfo ?? USER_INFO_INITIAL_STATE };
+  return { error, isLoading, mutateUserInfo, userInfo: userInfo ?? USER_INFO_INITIAL_STATE }
 }
 
-export default useUserInfo;
+export default useUserInfo

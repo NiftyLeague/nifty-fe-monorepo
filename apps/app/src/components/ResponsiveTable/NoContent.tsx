@@ -6,7 +6,7 @@ const NoContent = ({ text }: { text?: string }) => {
     <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
       <span>{text || 'No Content'}</span>
     </div>
-  );
-};
+  )
+}
 
-export default NoContent;
+export default NoContent

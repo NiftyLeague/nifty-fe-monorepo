@@ -1,19 +1,19 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { Button } from '@mui/material';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/dialog';
-import BridgeForm from './BridgeForm';
-import BridgeSuccess from './BridgeSuccess';
+import { useState } from 'react'
+import { Button } from '@mui/material'
+import { Dialog, DialogContent, DialogTrigger } from '@/components/dialog'
+import BridgeForm from './BridgeForm'
+import BridgeSuccess from './BridgeSuccess'
 
-type BridgeButtonDialogProps = { balance: number; loading: boolean };
+type BridgeButtonDialogProps = { balance: number; loading: boolean }
 
 const BridgeButtonDialog = ({ balance, loading }: BridgeButtonDialogProps) => {
-  const [successDialogOpen, setSuccessDialogOpen] = useState(false);
+  const [successDialogOpen, setSuccessDialogOpen] = useState(false)
 
-  const onCloseBridgeDialog = () => {}; // handle actions if needed
+  const onCloseBridgeDialog = () => {} // handle actions if needed
 
-  const onBridgeSuccess = () => setSuccessDialogOpen(true);
+  const onBridgeSuccess = () => setSuccessDialogOpen(true)
 
   return (
     <>
@@ -26,14 +26,20 @@ const BridgeButtonDialog = ({ balance, loading }: BridgeButtonDialogProps) => {
         <DialogContent
           aria-labelledby="bridge-nftl-dialog"
           dialogTitle="Bridge NFTL to Immutable"
-          sx={{ '& h2': { textAlign: 'center' }, '& .MuiDialogContent-root': { textAlign: 'center' } }}
+          sx={{
+            '& h2': { textAlign: 'center' },
+            '& .MuiDialogContent-root': { textAlign: 'center' },
+          }}
         >
           <BridgeForm balance={balance} onBridgeSuccess={onBridgeSuccess} />
         </DialogContent>
       </Dialog>
-      <BridgeSuccess successDialogOpen={successDialogOpen} setSuccessDialogOpen={setSuccessDialogOpen} />
+      <BridgeSuccess
+        successDialogOpen={successDialogOpen}
+        setSuccessDialogOpen={setSuccessDialogOpen}
+      />
     </>
-  );
-};
+  )
+}
 
-export default BridgeButtonDialog;
+export default BridgeButtonDialog

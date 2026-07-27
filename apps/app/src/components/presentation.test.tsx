@@ -1,46 +1,49 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import { afterEach, beforeEach, describe, expect, it } from 'bun:test';
-import { mock } from 'bun:test';
+import { fireEvent, render, screen } from '@testing-library/react'
+import { afterEach, beforeEach, describe, expect, it } from 'bun:test'
+import { mock } from 'bun:test'
 
-const themeState = { mode: 'light' as 'dark' | 'light' };
+const themeState = { mode: 'light' as 'dark' | 'light' }
 
-let GameCard: typeof import('./cards/GameCard').default;
-let MainCard: typeof import('./cards/MainCard').default;
-let SubCard: typeof import('./cards/SubCard').default;
-let AnimateButton: typeof import('./extended/AnimateButton').default;
-let Breadcrumbs: typeof import('./extended/Breadcrumbs').default;
-let Transitions: typeof import('./extended/Transitions').default;
+let GameCard: typeof import('./cards/GameCard').default
+let MainCard: typeof import('./cards/MainCard').default
+let SubCard: typeof import('./cards/SubCard').default
+let AnimateButton: typeof import('./extended/AnimateButton').default
+let Breadcrumbs: typeof import('./extended/Breadcrumbs').default
+let Transitions: typeof import('./extended/Transitions').default
 
 beforeEach(async () => {
   mock.module('@nl/theme', () => ({
     gridSpacing: 3,
-    useTheme: () => ({ palette: { mode: themeState.mode }, spacing: (value: number) => `${value * 8}px` }),
-  }));
+    useTheme: () => ({
+      palette: { mode: themeState.mode },
+      spacing: (value: number) => `${value * 8}px`,
+    }),
+  }))
   mock.module('@nl/ui/base/icon', () => ({
     Icon: ({ name }: { name: string }) => <span data-icon={name}>{name}</span>,
-  }));
-  mock.module('@nl/ui/custom/external-icon', () => ({ ExternalIcon: () => <span>external</span> }));
-  themeState.mode = 'light';
-  window.history.replaceState({}, '', '/');
+  }))
+  mock.module('@nl/ui/custom/external-icon', () => ({ ExternalIcon: () => <span>external</span> }))
+  themeState.mode = 'light'
+  window.history.replaceState({}, '', '/')
 
-  const gameCard = await import('./cards/GameCard');
-  const mainCard = await import('./cards/MainCard');
-  const subCard = await import('./cards/SubCard');
-  const animateButton = await import('./extended/AnimateButton');
-  const breadcrumbs = await import('./extended/Breadcrumbs');
-  const transitions = await import('./extended/Transitions');
+  const gameCard = await import('./cards/GameCard')
+  const mainCard = await import('./cards/MainCard')
+  const subCard = await import('./cards/SubCard')
+  const animateButton = await import('./extended/AnimateButton')
+  const breadcrumbs = await import('./extended/Breadcrumbs')
+  const transitions = await import('./extended/Transitions')
 
-  GameCard = gameCard.default;
-  MainCard = mainCard.default;
-  SubCard = subCard.default;
-  AnimateButton = animateButton.default;
-  Breadcrumbs = breadcrumbs.default;
-  Transitions = transitions.default;
-});
+  GameCard = gameCard.default
+  MainCard = mainCard.default
+  SubCard = subCard.default
+  AnimateButton = animateButton.default
+  Breadcrumbs = breadcrumbs.default
+  Transitions = transitions.default
+})
 
 afterEach(() => {
-  mock.restore();
-});
+  mock.restore()
+})
 
 describe('Breadcrumbs', () => {
   const navigation = {
@@ -57,51 +60,73 @@ describe('Breadcrumbs', () => {
         ],
       },
     ],
-  };
+  }
 
   it('resolves nested routes and renders the full title and icon variants', async () => {
-    const originalLoc = document.location;
-    const loc = { pathname: '/profile' } as Location;
-    Object.defineProperty(document, 'location', { value: loc, writable: true, configurable: true });
+    const originalLoc = document.location
+    const loc = { pathname: '/profile' } as Location
+    Object.defineProperty(document, 'location', { value: loc, writable: true, configurable: true })
     const { rerender } = render(
-      <Breadcrumbs navigation={navigation as never} card={false} icons rightAlign title separator="chevron-right" />,
-    );
+      <Breadcrumbs
+        navigation={navigation as never}
+        card={false}
+        icons
+        rightAlign
+        title
+        separator="chevron-right"
+      />
+    )
 
-    expect(await screen.findAllByText('Profile')).toHaveLength(2);
-    expect(screen.getByText('Settings')).not.toBeNull();
-    expect(screen.getByText('Dashboard')).not.toBeNull();
-    expect(screen.getAllByText('chevron-right')).toHaveLength(2);
+    expect(await screen.findAllByText('Profile')).toHaveLength(2)
+    expect(screen.getByText('Settings')).not.toBeNull()
+    expect(screen.getByText('Dashboard')).not.toBeNull()
+    expect(screen.getAllByText('chevron-right')).toHaveLength(2)
 
     rerender(
-      <Breadcrumbs navigation={navigation as never} card={false} divider={false} icon title titleBottom maxItems={3} />,
-    );
-    expect(screen.getByText('house')).not.toBeNull();
-    expect(screen.getAllByText('Profile')).toHaveLength(2);
+      <Breadcrumbs
+        navigation={navigation as never}
+        card={false}
+        divider={false}
+        icon
+        title
+        titleBottom
+        maxItems={3}
+      />
+    )
+    expect(screen.getByText('house')).not.toBeNull()
+    expect(screen.getAllByText('Profile')).toHaveLength(2)
 
-    Object.defineProperty(document, 'location', { value: originalLoc, writable: true, configurable: true });
-  });
+    Object.defineProperty(document, 'location', {
+      value: originalLoc,
+      writable: true,
+      configurable: true,
+    })
+  })
 
   it('omits the card when an item disables breadcrumbs or no route matches', async () => {
-    window.history.replaceState({}, '', '/hidden');
+    window.history.replaceState({}, '', '/hidden')
     const hiddenNavigation = {
       items: [
         {
           type: 'group',
           children: [
-            { type: 'collapse', children: [{ type: 'item', title: 'Hidden', url: '/hidden', breadcrumbs: false }] },
+            {
+              type: 'collapse',
+              children: [{ type: 'item', title: 'Hidden', url: '/hidden', breadcrumbs: false }],
+            },
           ],
         },
       ],
-    };
-    const { container, rerender } = render(<Breadcrumbs navigation={hiddenNavigation as never} />);
-    await Promise.resolve();
-    expect(container.querySelector('[aria-label="breadcrumb"]')).toBeNull();
+    }
+    const { container, rerender } = render(<Breadcrumbs navigation={hiddenNavigation as never} />)
+    await Promise.resolve()
+    expect(container.querySelector('[aria-label="breadcrumb"]')).toBeNull()
 
-    window.history.replaceState({}, '', '/missing');
-    rerender(<Breadcrumbs navigation={navigation as never} />);
-    expect(container.querySelector('[aria-label="breadcrumb"]')).toBeNull();
-  });
-});
+    window.history.replaceState({}, '', '/missing')
+    rerender(<Breadcrumbs navigation={navigation as never} />)
+    expect(container.querySelector('[aria-label="breadcrumb"]')).toBeNull()
+  })
+})
 
 describe('animated presentation helpers', () => {
   it.each([
@@ -115,10 +140,10 @@ describe('animated presentation helpers', () => {
     render(
       <Transitions type={type} position={position} in direction="down">
         <div>{type}</div>
-      </Transitions>,
-    );
-    expect(screen.getByText(type)).not.toBeNull();
-  });
+      </Transitions>
+    )
+    expect(screen.getByText(type)).not.toBeNull()
+  })
 
   it.each([
     ['rotate', 'right'],
@@ -128,52 +153,56 @@ describe('animated presentation helpers', () => {
     ['scale', 'down'],
   ] as const)('renders %s animation moving %s', (type, direction) => {
     const { container } = render(
-      <AnimateButton type={type} direction={direction} scale={type === 'scale' ? { hover: 0.8, tap: 0.8 } : undefined}>
+      <AnimateButton
+        type={type}
+        direction={direction}
+        scale={type === 'scale' ? { hover: 0.8, tap: 0.8 } : undefined}
+      >
         <button>Animate</button>
-      </AnimateButton>,
-    );
-    const wrapper = container.firstElementChild as HTMLElement;
-    fireEvent.mouseEnter(wrapper);
-    fireEvent.mouseLeave(wrapper);
-    expect(screen.getByRole('button', { name: 'Animate' })).not.toBeNull();
-  });
-});
+      </AnimateButton>
+    )
+    const wrapper = container.firstElementChild as HTMLElement
+    fireEvent.mouseEnter(wrapper)
+    fireEvent.mouseLeave(wrapper)
+    expect(screen.getByRole('button', { name: 'Animate' })).not.toBeNull()
+  })
+})
 
 describe('card presentation', () => {
   it('renders all MainCard and SubCard content modes in light and dark themes', () => {
     const { rerender } = render(
       <MainCard title="Main" secondary="Action" boxShadow shadow="custom-shadow">
         Main body
-      </MainCard>,
-    );
-    expect(screen.getByText('Main body')).not.toBeNull();
+      </MainCard>
+    )
+    expect(screen.getByText('Main body')).not.toBeNull()
 
-    themeState.mode = 'dark';
+    themeState.mode = 'dark'
     rerender(
       <MainCard title="Dark main" darkTitle border={false} boxShadow content={false}>
         Raw body
-      </MainCard>,
-    );
-    expect(screen.getByText('Raw body')).not.toBeNull();
+      </MainCard>
+    )
+    expect(screen.getByText('Raw body')).not.toBeNull()
 
     rerender(
       <SubCard title="Sub" secondary="Action">
         Sub body
-      </SubCard>,
-    );
-    expect(screen.getByText('Sub body')).not.toBeNull();
+      </SubCard>
+    )
+    expect(screen.getByText('Sub body')).not.toBeNull()
 
     rerender(
       <SubCard title="Dark sub" darkTitle content={false}>
         Raw sub body
-      </SubCard>,
-    );
-    expect(screen.getByText('Raw sub body')).not.toBeNull();
-  });
+      </SubCard>
+    )
+    expect(screen.getByText('Raw sub body')).not.toBeNull()
+  })
 
   it('renders game calls to action, expands descriptions, and supports custom content', () => {
-    const desktop = mock();
-    const web = mock();
+    const desktop = mock()
+    const web = mock()
     const { rerender } = render(
       <GameCard
         title="Smashers"
@@ -185,19 +214,28 @@ describe('card presentation', () => {
         showMore
         onPlayOnDesktopClick={desktop}
         onPlayOnWebClick={web}
-      />,
-    );
-    fireEvent.click(screen.getByText('more..'));
-    fireEvent.click(screen.getByRole('button', { name: 'Play on Desktop' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Play on Web' }));
-    expect(desktop).toHaveBeenCalledOnce();
-    expect(web).toHaveBeenCalledOnce();
-    expect(screen.getByRole('link', { name: /Guide/ })?.getAttribute('href')).toBe('/guide');
+      />
+    )
+    fireEvent.click(screen.getByText('more..'))
+    fireEvent.click(screen.getByRole('button', { name: 'Play on Desktop' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Play on Web' }))
+    expect(desktop).toHaveBeenCalledOnce()
+    expect(web).toHaveBeenCalledOnce()
+    expect(screen.getByRole('link', { name: /Guide/ })?.getAttribute('href')).toBe('/guide')
 
-    rerender(<GameCard title="Custom" image="/custom.png" autoHeight contents={<div>Custom content</div>} />);
-    expect(screen.getByText('Custom content')).not.toBeNull();
+    rerender(
+      <GameCard
+        title="Custom"
+        image="/custom.png"
+        autoHeight
+        contents={<div>Custom content</div>}
+      />
+    )
+    expect(screen.getByText('Custom content')).not.toBeNull()
 
-    rerender(<GameCard title="Actions" image="/actions.png" actions={<button>Custom action</button>} />);
-    expect(screen.getByRole('button', { name: 'Custom action' })).not.toBeNull();
-  });
-});
+    rerender(
+      <GameCard title="Actions" image="/actions.png" actions={<button>Custom action</button>} />
+    )
+    expect(screen.getByRole('button', { name: 'Custom action' })).not.toBeNull()
+  })
+})

@@ -31,4 +31,4 @@ export const LEARN_CARDS = [
     subtitle: 'Join our Discord server to get your questions answered live by our community.',
     title: 'Community',
   },
-];
+]

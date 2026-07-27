@@ -1,4 +1,4 @@
-import type { NavItemType } from '@/types';
+import type { NavItemType } from '@/types'
 
 // ==============================|| SAMPLE PAGE & DOCUMENTATION MENU ITEMS ||============================== //
 
@@ -7,7 +7,14 @@ const PublicItems: NavItemType = {
   type: 'group',
   children: [
     { id: '', title: 'Games', type: 'item', url: '/', icon: 'gamepad', breadcrumbs: false },
-    { id: 'degens', title: 'DEGENs', type: 'item', url: '/degens', icon: 'cat', breadcrumbs: false },
+    {
+      id: 'degens',
+      title: 'DEGENs',
+      type: 'item',
+      url: '/degens',
+      icon: 'cat',
+      breadcrumbs: false,
+    },
     {
       id: 'leaderboards',
       title: 'Leaderboards',
@@ -25,6 +32,6 @@ const PublicItems: NavItemType = {
       breadcrumbs: false,
     },
   ],
-};
+}
 
-export default PublicItems;
+export default PublicItems

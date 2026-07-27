@@ -18,4 +18,4 @@ export type Color =
   | 'yellow'
   | 'greenish'
   | 'lightblue'
-  | 'ochretwo';
+  | 'ochretwo'

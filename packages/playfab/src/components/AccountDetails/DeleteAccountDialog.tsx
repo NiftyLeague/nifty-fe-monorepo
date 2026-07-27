@@ -1,20 +1,20 @@
-'use client';
+'use client'
 
-import { useRouter } from 'next/navigation';
-import { useSnackbar } from 'notistack';
+import { useRouter } from 'next/navigation'
+import { useSnackbar } from 'notistack'
 
-import { AlertDialog } from '@nl/ui/custom/alert-dialog';
-import { Button } from '@nl/ui/base/button';
-import { Icon } from '@nl/ui/base/icon';
+import { AlertDialog } from '@nl/ui/custom/alert-dialog'
+import { Button } from '@nl/ui/base/button'
+import { Icon } from '@nl/ui/base/icon'
 
-import { fetchJson } from '../../utils/fetchJson';
-import { errorMsgHandler } from '../../utils/errorHandlers';
-import { useUserSession } from '../../hooks/useUserSession';
+import { fetchJson } from '../../utils/fetchJson'
+import { errorMsgHandler } from '../../utils/errorHandlers'
+import { useUserSession } from '../../hooks/useUserSession'
 
 export default function DeleteAccountDialog({ loading = false }) {
-  const { mutateUser } = useUserSession({ redirectTo: '/login' });
-  const { enqueueSnackbar } = useSnackbar();
-  const router = useRouter();
+  const { mutateUser } = useUserSession({ redirectTo: '/login' })
+  const { enqueueSnackbar } = useSnackbar()
+  const router = useRouter()
 
   const handleDeleteUser = async () => {
     try {
@@ -22,15 +22,15 @@ export default function DeleteAccountDialog({ loading = false }) {
         await fetchJson('/api/playfab/user/delete-account', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-        }),
-      );
-      router.push('/login');
-      enqueueSnackbar('Delete Account Success!', { variant: 'success' });
+        })
+      )
+      router.push('/login')
+      enqueueSnackbar('Delete Account Success!', { variant: 'success' })
     } catch (e) {
-      const msg = errorMsgHandler(e);
-      enqueueSnackbar(msg, { variant: 'error' });
+      const msg = errorMsgHandler(e)
+      enqueueSnackbar(msg, { variant: 'error' })
     }
-  };
+  }
 
   return (
     <AlertDialog
@@ -51,5 +51,5 @@ export default function DeleteAccountDialog({ loading = false }) {
         </Button>
       }
     />
-  );
+  )
 }

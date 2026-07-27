@@ -1,4 +1,4 @@
-const GOOGLE_FORM_APPLY_LINK = 'https://forms.gle/PMPbLPy3doWVhSC8A';
+const GOOGLE_FORM_APPLY_LINK = 'https://forms.gle/PMPbLPy3doWVhSC8A'
 
 export const JOBS = [
   {
@@ -92,4 +92,4 @@ export const JOBS = [
       '401k',
     ],
   },
-];
+]

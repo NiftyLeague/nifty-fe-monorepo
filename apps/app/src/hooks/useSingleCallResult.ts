@@ -1,8 +1,8 @@
-'use client';
+'use client'
 /* eslint-disable no-console */
-import { useState, useEffect } from 'react';
-import type { BaseContract, Contract, ContractMethod } from 'ethers';
-import type { Contracts } from '@/types/web3';
+import { useState, useEffect } from 'react'
+import type { BaseContract, Contract, ContractMethod } from 'ethers'
+import type { Contracts } from '@/types/web3'
 // import { DEBUG } from '@/constants/index';
 
 export default function useSingleCallResult(
@@ -11,14 +11,14 @@ export default function useSingleCallResult(
   functionName: string,
   args: unknown[],
   formatter: ((arg0: unknown) => void) | null,
-  skip: boolean,
+  skip: boolean
 ): unknown {
-  const [value, setValue] = useState<unknown>();
+  const [value, setValue] = useState<unknown>()
 
   useEffect(() => {
     const callContract = async (contract: Contract) => {
       try {
-        let newValue: unknown;
+        let newValue: unknown
         // if (DEBUG)
         //   console.log(
         //     'CALLING ',
@@ -28,7 +28,7 @@ export default function useSingleCallResult(
         //     args,
         //   );
         if (args && args.length > 0) {
-          newValue = await (contract[functionName] as ContractMethod)(...args);
+          newValue = await (contract[functionName] as ContractMethod)(...args)
           // if (DEBUG)
           //   console.log(
           //     'contractName',
@@ -41,19 +41,19 @@ export default function useSingleCallResult(
           //     newValue,
           //   );
         } else {
-          newValue = await (contract[functionName] as ContractMethod)();
+          newValue = await (contract[functionName] as ContractMethod)()
         }
         if (formatter && typeof formatter === 'function') {
-          newValue = formatter(newValue);
+          newValue = formatter(newValue)
         }
-        setValue(newValue);
+        setValue(newValue)
       } catch (e) {
-        console.error(e);
+        console.error(e)
       }
-    };
+    }
     if (contracts && contracts[contractName] && !skip)
-      void callContract(contracts[contractName] as BaseContract as Contract);
-  }, [args, contractName, contracts, formatter, functionName, skip, value]);
+      void callContract(contracts[contractName] as BaseContract as Contract)
+  }, [args, contractName, contracts, formatter, functionName, skip, value])
 
-  return value;
+  return value
 }

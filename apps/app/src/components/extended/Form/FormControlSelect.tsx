@@ -1,21 +1,21 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { Divider, FormControl, InputAdornment, MenuItem, TextField } from '@mui/material';
+import { useState } from 'react'
+import { Divider, FormControl, InputAdornment, MenuItem, TextField } from '@mui/material'
 
-import { Icon, type IconName } from '@nl/ui/base/icon';
+import { Icon, type IconName } from '@nl/ui/base/icon'
 
 // ==============================|| FORM CONTROL SELECT ||============================== //
 
 interface FormControlSelectProps {
-  captionLabel?: string;
-  currencies?: { value: string; label: string }[];
-  formState?: string;
-  iconPrimary?: IconName;
-  iconSecondary?: IconName;
-  selected?: string;
-  textPrimary?: string;
-  textSecondary?: string;
+  captionLabel?: string
+  currencies?: { value: string; label: string }[]
+  formState?: string
+  iconPrimary?: IconName
+  iconSecondary?: IconName
+  selected?: string
+  textPrimary?: string
+  textSecondary?: string
 }
 
 const FormControlSelect = ({
@@ -28,16 +28,18 @@ const FormControlSelect = ({
   textPrimary,
   textSecondary,
 }: FormControlSelectProps) => {
-  const primaryIcon = iconPrimary ? <Icon name={iconPrimary} size="sm" color="gray" /> : null;
-  const secondaryIcon = iconSecondary ? <Icon name={iconSecondary} size="sm" color="gray" /> : null;
+  const primaryIcon = iconPrimary ? <Icon name={iconPrimary} size="sm" color="gray" /> : null
+  const secondaryIcon = iconSecondary ? <Icon name={iconSecondary} size="sm" color="gray" /> : null
 
-  const errorState = formState === 'error';
-  const val = selected || '';
+  const errorState = formState === 'error'
+  const val = selected || ''
 
-  const [currency, setCurrency] = useState(val);
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement> | undefined) => {
-    event?.target.value && setCurrency(event?.target.value);
-  };
+  const [currency, setCurrency] = useState(val)
+  const handleChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement> | undefined
+  ) => {
+    event?.target.value && setCurrency(event?.target.value)
+  }
 
   return (
     <FormControl fullWidth error={errorState}>
@@ -75,14 +77,14 @@ const FormControlSelect = ({
           },
         }}
       >
-        {currencies?.map(option => (
+        {currencies?.map((option) => (
           <MenuItem key={option.value} value={option.value}>
             {option.label}
           </MenuItem>
         ))}
       </TextField>
     </FormControl>
-  );
-};
+  )
+}
 
-export default FormControlSelect;
+export default FormControlSelect

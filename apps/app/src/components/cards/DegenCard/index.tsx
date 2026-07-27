@@ -1,9 +1,9 @@
-'use client';
+'use client'
 
-import { memo, useMemo } from 'react';
-import Image from 'next/image';
-import { useInView } from 'react-intersection-observer';
-import { toast } from 'react-toastify';
+import { memo, useMemo } from 'react'
+import Image from 'next/image'
+import { useInView } from 'react-intersection-observer'
+import { toast } from 'react-toastify'
 import {
   Box,
   Button,
@@ -14,22 +14,22 @@ import {
   SxProps,
   Typography,
   // Dialog,
-} from '@mui/material';
-import { useTheme, Theme } from '@nl/theme';
+} from '@mui/material'
+import { useTheme, Theme } from '@nl/theme'
 
-import { Icon } from '@nl/ui/base/icon';
+import { Icon } from '@nl/ui/base/icon'
 // import Chip from '@/components/extended/Chip';
-import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder';
-import useClaimableNFTL from '@/hooks/balances/useClaimableNFTL';
-import { formatNumberToDisplay } from '@nl/ui/utils';
-import DegenImage from './DegenImage';
-import { downloadDegenAsZip } from '@/utils/file';
-import { errorMsgHandler } from '@/utils/errorHandlers';
+import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
+import useClaimableNFTL from '@/hooks/balances/useClaimableNFTL'
+import { formatNumberToDisplay } from '@nl/ui/utils'
+import DegenImage from './DegenImage'
+import { downloadDegenAsZip } from '@/utils/file'
+import { errorMsgHandler } from '@/utils/errorHandlers'
 // import EnableDisableDegenDialogContent from '@/app/dashboard/degens/dialogs/EnableDegenDialogContent';
-import type { Degen } from '@/types/degens';
+import type { Degen } from '@/types/degens'
 // import { DISABLE_RENT_API_URL } from '@/constants/url';
-import useAuth from '@/hooks/useAuth';
-import { DEGEN_PURCHASE_URL } from '@/constants/url';
+import useAuth from '@/hooks/useAuth'
+import { DEGEN_PURCHASE_URL } from '@/constants/url'
 
 // const chipStyles = (isSmall: boolean) => ({
 //   color: 'var(--color-foreground)',
@@ -46,33 +46,34 @@ import { DEGEN_PURCHASE_URL } from '@/constants/url';
 // });
 
 export interface DegenCardProps {
-  degen: Degen;
-  size?: 'small' | 'normal';
-  isDashboardDegen?: boolean;
-  isSelectableDegen?: boolean;
-  isSelected?: boolean;
-  isSelectionDisabled?: boolean;
-  degenEquipEnabled?: boolean;
-  favs?: string[];
-  onClickClaim?: React.MouseEventHandler<HTMLButtonElement>;
-  onClickDetail?: React.MouseEventHandler<HTMLButtonElement>;
-  onClickEditName?: React.MouseEventHandler<SVGSVGElement>;
-  onClickEquip?: React.MouseEventHandler<HTMLButtonElement>;
-  onClickFavorite?: React.MouseEventHandler<SVGSVGElement>;
-  onClickRent?: React.MouseEventHandler<HTMLButtonElement>;
-  onClickSelect?: React.MouseEventHandler<HTMLButtonElement>;
-  sx?: SxProps<Theme>;
+  degen: Degen
+  size?: 'small' | 'normal'
+  isDashboardDegen?: boolean
+  isSelectableDegen?: boolean
+  isSelected?: boolean
+  isSelectionDisabled?: boolean
+  degenEquipEnabled?: boolean
+  favs?: string[]
+  onClickClaim?: React.MouseEventHandler<HTMLButtonElement>
+  onClickDetail?: React.MouseEventHandler<HTMLButtonElement>
+  onClickEditName?: React.MouseEventHandler<SVGSVGElement>
+  onClickEquip?: React.MouseEventHandler<HTMLButtonElement>
+  onClickFavorite?: React.MouseEventHandler<SVGSVGElement>
+  onClickRent?: React.MouseEventHandler<HTMLButtonElement>
+  onClickSelect?: React.MouseEventHandler<HTMLButtonElement>
+  sx?: SxProps<Theme>
 }
 
-const DegenClaimBal: React.FC<React.PropsWithChildren<React.PropsWithChildren<{ tokenId: string; fontSize: string }>>> =
-  memo(({ tokenId, fontSize }) => {
-    const degenTokenIndices = useMemo(() => [parseInt(tokenId, 10)], [tokenId]);
-    const { balance } = useClaimableNFTL(degenTokenIndices);
-    const amountParsed = formatNumberToDisplay(balance, 0);
-    return <Typography sx={{ textAlign: 'center', fontSize }}>{`${amountParsed} NFTL`}</Typography>;
-  });
+const DegenClaimBal: React.FC<
+  React.PropsWithChildren<React.PropsWithChildren<{ tokenId: string; fontSize: string }>>
+> = memo(({ tokenId, fontSize }) => {
+  const degenTokenIndices = useMemo(() => [parseInt(tokenId, 10)], [tokenId])
+  const { balance } = useClaimableNFTL(degenTokenIndices)
+  const amountParsed = formatNumberToDisplay(balance, 0)
+  return <Typography sx={{ textAlign: 'center', fontSize }}>{`${amountParsed} NFTL`}</Typography>
+})
 
-DegenClaimBal.displayName = 'DegenClaimBal';
+DegenClaimBal.displayName = 'DegenClaimBal'
 
 const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenCardProps>>> = memo(
   ({
@@ -93,14 +94,14 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
     onClickFavorite,
     onClickSelect,
   }) => {
-    const { typography } = useTheme();
+    const { typography } = useTheme()
     const {
       id,
       name,
       // multiplier, price, rental_count, is_active
-    } = degen;
-    const fav = favs.some(f => f === id);
-    const { authToken } = useAuth();
+    } = degen
+    const fav = favs.some((f) => f === id)
+    const { authToken } = useAuth()
     // const [isEnableDisableDegenModalOpen, setIsEnableDisableDegenModalOpen] =
     //   useState<boolean>(false);
     // const [isEnabled, setIsEnabled] = useState(is_active);
@@ -124,15 +125,15 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
     const onClickDownload = async () => {
       if (authToken) {
         try {
-          await downloadDegenAsZip(authToken, id);
+          await downloadDegenAsZip(authToken, id)
         } catch (err) {
-          toast.error(errorMsgHandler(err), { theme: 'dark' });
+          toast.error(errorMsgHandler(err), { theme: 'dark' })
         }
       }
-    };
+    }
 
-    const buttonFontSize = size === 'small' ? '12px' : typography.button.fontSize;
-    const tinyFontSize = size === 'small' ? '8px' : typography.caption.fontSize;
+    const buttonFontSize = size === 'small' ? '12px' : typography.button.fontSize
+    const tinyFontSize = size === 'small' ? '8px' : typography.caption.fontSize
 
     return (
       <Card
@@ -175,14 +176,27 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
         <CardContent sx={{ py: 2, px: 2 }}>
           <Stack
             direction="row"
-            sx={{ gap: 1, justifyContent: 'space-between', '&:hover': { '& svg': { display: 'block' } } }}
+            sx={{
+              gap: 1,
+              justifyContent: 'space-between',
+              '&:hover': { '& svg': { display: 'block' } },
+            }}
           >
             <div className="flex">
-              <Typography gutterBottom variant={size === 'small' ? 'h6' : 'h5'} className="truncate-text-1">
+              <Typography
+                gutterBottom
+                variant={size === 'small' ? 'h6' : 'h5'}
+                className="truncate-text-1"
+              >
                 {name || '[No Name]'}
               </Typography>
               {isDashboardDegen && (
-                <Icon name="pencil" size="sm" onClick={onClickEditName} className="hidden cursor-pointer ml-1" />
+                <Icon
+                  name="pencil"
+                  size="sm"
+                  onClick={onClickEditName}
+                  className="hidden cursor-pointer ml-1"
+                />
               )}
             </div>
             <Link
@@ -195,7 +209,15 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
             </Link>
           </Stack>
         </CardContent>
-        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', px: 2, gap: 1 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            px: 2,
+            gap: 1,
+          }}
+        >
           {/* {false && (
             <Button
               variant="contained"
@@ -261,7 +283,13 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
         {isDashboardDegen && (
           <Stack
             direction="row"
-            sx={{ pt: 2, px: 2, lineHeight: '1.5em', justifyContent: 'space-between', alignItems: 'center' }}
+            sx={{
+              pt: 2,
+              px: 2,
+              lineHeight: '1.5em',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
           >
             {/* {false && (
               <Typography
@@ -314,18 +342,20 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
           </Dialog>
         )} */}
       </Card>
-    );
-  },
-);
+    )
+  }
+)
 
-DegenCard.displayName = 'DegenCard';
+DegenCard.displayName = 'DegenCard'
 
-const DegenCardInView: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenCardProps>>> = props => {
-  const { ref, inView } = useInView();
+const DegenCardInView: React.FC<
+  React.PropsWithChildren<React.PropsWithChildren<DegenCardProps>>
+> = (props) => {
+  const { ref, inView } = useInView()
 
-  return <div ref={ref}>{inView ? <DegenCard {...props} /> : <SkeletonDegenPlaceholder />}</div>;
-};
+  return <div ref={ref}>{inView ? <DegenCard {...props} /> : <SkeletonDegenPlaceholder />}</div>
+}
 
-export { DegenCardInView };
+export { DegenCardInView }
 
-export default DegenCard;
+export default DegenCard

@@ -2,8 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
-import type { ERC2981, ERC2981Interface } from '../../../../../@openzeppelin/contracts/token/common/ERC2981';
+import { Contract, Interface, type ContractRunner } from 'ethers'
+import type {
+  ERC2981,
+  ERC2981Interface,
+} from '../../../../../@openzeppelin/contracts/token/common/ERC2981'
 
 const _abi = [
   {
@@ -26,14 +29,14 @@ const _abi = [
     stateMutability: 'view',
     type: 'function',
   },
-] as const;
+] as const
 
 export class ERC2981__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): ERC2981Interface {
-    return new Interface(_abi) as ERC2981Interface;
+    return new Interface(_abi) as ERC2981Interface
   }
   static connect(address: string, runner?: ContractRunner | null): ERC2981 {
-    return new Contract(address, _abi, runner) as unknown as ERC2981;
+    return new Contract(address, _abi, runner) as unknown as ERC2981
   }
 }

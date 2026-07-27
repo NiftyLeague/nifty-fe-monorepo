@@ -1,13 +1,13 @@
-import type { PropsWithChildren } from 'react';
-import type { Metadata, Viewport } from 'next';
-import Head from 'next/head';
+import type { PropsWithChildren } from 'react'
+import type { Metadata, Viewport } from 'next'
+import Head from 'next/head'
 
-import { GoogleTagManager, WebVitals } from '@nl/ui/gtm';
-import { customFontClassName } from '@nl/ui/fonts';
-import { FeatureFlagProvider } from '@/contexts/FeatureFlagsProvider';
-import { cn } from '@nl/ui/utils';
+import { GoogleTagManager, WebVitals } from '@nl/ui/gtm'
+import { customFontClassName } from '@nl/ui/fonts'
+import { FeatureFlagProvider } from '@/contexts/FeatureFlagsProvider'
+import { cn } from '@nl/ui/utils'
 
-import '@/styles/app.css';
+import '@/styles/app.css'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://niftysmashers.com'),
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
       alt: 'Nifty Smashers Banner',
     },
   },
-};
+}
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -73,7 +73,7 @@ export const viewport: Viewport = {
   maximumScale: 1,
   themeColor: '#18181b',
   colorScheme: 'dark',
-};
+}
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
@@ -89,5 +89,5 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <WebVitals />
       </body>
     </html>
-  );
+  )
 }

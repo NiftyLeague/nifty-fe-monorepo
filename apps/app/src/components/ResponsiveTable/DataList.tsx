@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import { cloneDeep } from 'lodash';
-import { Stack } from '@mui/material';
-import Box from '@mui/material/Box';
-import Checkbox from '@mui/material/Checkbox';
-import Typography from '@mui/material/Typography';
+import { useState } from 'react'
+import { cloneDeep } from 'lodash'
+import { Stack } from '@mui/material'
+import Box from '@mui/material/Box'
+import Checkbox from '@mui/material/Checkbox'
+import Typography from '@mui/material/Typography'
 
-import { CellRenderer, LabelRenderer } from './Renderer';
-import ExpandableListItem from './ExpandableListItem';
-import NoContent from './NoContent';
-import Pagination from './Pagination';
+import { CellRenderer, LabelRenderer } from './Renderer'
+import ExpandableListItem from './ExpandableListItem'
+import NoContent from './NoContent'
+import Pagination from './Pagination'
 
-import type { IconProps } from '@nl/ui/base/icon';
+import type { IconProps } from '@nl/ui/base/icon'
 import type {
   AccordionDetailsProps,
   AccordionProps,
@@ -19,38 +19,38 @@ import type {
   Row,
   TablePaginationProps,
   TypographyProps,
-} from './types';
+} from './types'
 
 interface DataListProps {
-  AccordionDetailsProps?: AccordionDetailsProps;
-  AccordionDetailsTypographyProps?: TypographyProps<'div'>;
-  AccordionMoreIconProps?: IconProps;
-  AccordionProps?: AccordionProps;
-  AccordionSummaryProps?: AccordionSummaryProps;
-  AccordionSummaryTypographyProps?: TypographyProps;
-  checkboxSelection?: boolean;
-  columns: CustomColDef[];
-  count: number;
-  data: Row[];
-  excludePrimaryFromDetails?: boolean;
-  noContentText?: string;
-  onChangePage: (event: React.MouseEvent | null, page: number) => void;
-  onSelectionChange: (params: { rowIds: (string | number)[] }) => void;
-  page: number;
-  rowsClassArray?: string[];
-  rowsPerPage: number;
-  scrollOptions?: ScrollIntoViewOptions;
-  scrollToSelected?: boolean;
-  SelectedAccordionProps?: AccordionProps;
-  showPagination: boolean;
-  TablePaginationProps?: TablePaginationProps;
+  AccordionDetailsProps?: AccordionDetailsProps
+  AccordionDetailsTypographyProps?: TypographyProps<'div'>
+  AccordionMoreIconProps?: IconProps
+  AccordionProps?: AccordionProps
+  AccordionSummaryProps?: AccordionSummaryProps
+  AccordionSummaryTypographyProps?: TypographyProps
+  checkboxSelection?: boolean
+  columns: CustomColDef[]
+  count: number
+  data: Row[]
+  excludePrimaryFromDetails?: boolean
+  noContentText?: string
+  onChangePage: (event: React.MouseEvent | null, page: number) => void
+  onSelectionChange: (params: { rowIds: (string | number)[] }) => void
+  page: number
+  rowsClassArray?: string[]
+  rowsPerPage: number
+  scrollOptions?: ScrollIntoViewOptions
+  scrollToSelected?: boolean
+  SelectedAccordionProps?: AccordionProps
+  showPagination: boolean
+  TablePaginationProps?: TablePaginationProps
 }
 
 /**
  * List with expandable items - mobile table analogue
  */
 
-const DataList: React.FC<DataListProps> = props => {
+const DataList: React.FC<DataListProps> = (props) => {
   const {
     AccordionDetailsProps,
     AccordionDetailsTypographyProps,
@@ -74,43 +74,46 @@ const DataList: React.FC<DataListProps> = props => {
     SelectedAccordionProps,
     showPagination,
     TablePaginationProps,
-  } = props;
+  } = props
 
-  const [selection, setSelection] = useState<(string | number)[]>([]);
+  const [selection, setSelection] = useState<(string | number)[]>([])
 
-  const handleChangePage = (event: React.MouseEvent | null, page: number) => onChangePage(event, page);
+  const handleChangePage = (event: React.MouseEvent | null, page: number) =>
+    onChangePage(event, page)
 
   const handleSelection = (row: Row) => {
-    const newSelection = cloneDeep(selection);
-    const rowId = row.id || (row.user_id as string | number);
+    const newSelection = cloneDeep(selection)
+    const rowId = row.id || (row.user_id as string | number)
     if (newSelection.indexOf(rowId) === -1) {
-      newSelection.push(rowId);
+      newSelection.push(rowId)
     } else {
-      newSelection.splice(newSelection.indexOf(rowId), 1);
+      newSelection.splice(newSelection.indexOf(rowId), 1)
     }
-    setSelection(newSelection);
-    onSelectionChange({ rowIds: newSelection });
-  };
+    setSelection(newSelection)
+    onSelectionChange({ rowIds: newSelection })
+  }
 
   const handleSelectAll = () => {
-    let newSelection = cloneDeep(selection);
+    let newSelection = cloneDeep(selection)
     if (newSelection.length > 0) {
-      newSelection = [];
+      newSelection = []
     } else {
-      newSelection = data.map(row => row.id || (row.user_id as string | number));
+      newSelection = data.map((row) => row.id || (row.user_id as string | number))
     }
-    setSelection(newSelection);
-    onSelectionChange({ rowIds: newSelection });
-  };
+    setSelection(newSelection)
+    onSelectionChange({ rowIds: newSelection })
+  }
 
   const getRowClass = (index: number) => {
-    return rowsClassArray && rowsClassArray[index] ? rowsClassArray[index] : '';
-  };
+    return rowsClassArray && rowsClassArray[index] ? rowsClassArray[index] : ''
+  }
 
   const createListItemTitle = (columns: CustomColDef[], row: Row, data: Row[]) => {
-    const primaryColumns = columns.filter(column => column.field === 'id' || column.field === 'user_id');
-    const firstColumn = columns[0];
-    if (!firstColumn) return null;
+    const primaryColumns = columns.filter(
+      (column) => column.field === 'id' || column.field === 'user_id'
+    )
+    const firstColumn = columns[0]
+    if (!firstColumn) return null
 
     return primaryColumns.length === 0 ? (
       <CellRenderer column={firstColumn} row={row} data={data} />
@@ -120,15 +123,25 @@ const DataList: React.FC<DataListProps> = props => {
           <CellRenderer column={column} row={row} data={data} />
         </Typography>
       ))
-    );
-  };
+    )
+  }
 
-  const createListItemDescription = (columns: CustomColDef[], row: Row, data: Row[], excludePrimary = false) => (
+  const createListItemDescription = (
+    columns: CustomColDef[],
+    row: Row,
+    data: Row[],
+    excludePrimary = false
+  ) => (
     <div>
       {columns
-        .filter(column => !excludePrimary || column.field !== 'id')
+        .filter((column) => !excludePrimary || column.field !== 'id')
         .map((column, index) => (
-          <Stack key={`${column.headerName}-${index}`} direction="row" spacing={2} sx={{ width: '100%' }}>
+          <Stack
+            key={`${column.headerName}-${index}`}
+            direction="row"
+            spacing={2}
+            sx={{ width: '100%' }}
+          >
             <Box sx={{ flex: 1 }}>
               <LabelRenderer column={column} data={data} />
             </Box>
@@ -138,10 +151,15 @@ const DataList: React.FC<DataListProps> = props => {
           </Stack>
         ))}
     </div>
-  );
+  )
 
-  if (!Array.isArray(data) || data.length === 0 || !Array.isArray(columns) || columns.length === 0) {
-    return <NoContent text={noContentText} />;
+  if (
+    !Array.isArray(data) ||
+    data.length === 0 ||
+    !Array.isArray(columns) ||
+    columns.length === 0
+  ) {
+    return <NoContent text={noContentText} />
   }
 
   return (
@@ -189,7 +207,7 @@ const DataList: React.FC<DataListProps> = props => {
         />
       )}
     </div>
-  );
-};
+  )
+}
 
-export default DataList;
+export default DataList

@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/image'
 
 const Loading = () => (
   <div style={{ width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -14,6 +14,6 @@ const Loading = () => (
       src="/img/logos/NL/wordmark.webp"
     />
   </div>
-);
+)
 
-export default Loading;
+export default Loading

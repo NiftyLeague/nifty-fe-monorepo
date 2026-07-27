@@ -1,11 +1,11 @@
-import Image from 'next/image';
-import { SOCIALS } from './constants';
+import Image from 'next/image'
+import { SOCIALS } from './constants'
 
 interface SocialProps {
-  link: string;
-  title: string;
-  subtitle: string;
-  image: string;
+  link: string
+  title: string
+  subtitle: string
+  image: string
 }
 
 const SocialCard = ({ link, title, subtitle, image }: SocialProps) => (
@@ -22,17 +22,23 @@ const SocialCard = ({ link, title, subtitle, image }: SocialProps) => (
         <p className="text-foreground text-sm sm:text-base">{subtitle}</p>
       </div>
       <div className="flex-shrink-0 flex items-center">
-        <Image alt={`${title} icon`} src={image} width={40} height={40} className="object-contain" />
+        <Image
+          alt={`${title} icon`}
+          src={image}
+          width={40}
+          height={40}
+          className="object-contain"
+        />
       </div>
     </div>
   </a>
-);
+)
 
 const SocialCards = () => {
   // Split SOCIALS into pairs for each row
-  const rows = [];
+  const rows = []
   for (let i = 0; i < SOCIALS.length; i += 2) {
-    rows.push(SOCIALS.slice(i, i + 2));
+    rows.push(SOCIALS.slice(i, i + 2))
   }
 
   return (
@@ -49,7 +55,7 @@ const SocialCards = () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SocialCards;
+export default SocialCards

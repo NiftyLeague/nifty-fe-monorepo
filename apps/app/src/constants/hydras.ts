@@ -1445,4 +1445,4 @@ export const HYDRAS = {
   },
   '9999': { rarity: 'Meta', attributes: [] },
   '10000': { rarity: 'Meta', attributes: [] },
-};
+}

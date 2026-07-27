@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   IERC20PresetMinterPauserUpgradeable,
   IERC20PresetMinterPauserUpgradeableInterface,
-} from '../../../../src/contracts/interfaces/IERC20PresetMinterPauserUpgradeable';
+} from '../../../../src/contracts/interfaces/IERC20PresetMinterPauserUpgradeable'
 
 const _abi = [
   {
@@ -91,14 +91,17 @@ const _abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-] as const;
+] as const
 
 export class IERC20PresetMinterPauserUpgradeable__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): IERC20PresetMinterPauserUpgradeableInterface {
-    return new Interface(_abi) as IERC20PresetMinterPauserUpgradeableInterface;
+    return new Interface(_abi) as IERC20PresetMinterPauserUpgradeableInterface
   }
-  static connect(address: string, runner?: ContractRunner | null): IERC20PresetMinterPauserUpgradeable {
-    return new Contract(address, _abi, runner) as unknown as IERC20PresetMinterPauserUpgradeable;
+  static connect(
+    address: string,
+    runner?: ContractRunner | null
+  ): IERC20PresetMinterPauserUpgradeable {
+    return new Contract(address, _abi, runner) as unknown as IERC20PresetMinterPauserUpgradeable
   }
 }

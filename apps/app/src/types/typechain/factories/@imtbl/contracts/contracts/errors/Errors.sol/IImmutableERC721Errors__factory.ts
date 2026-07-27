@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   IImmutableERC721Errors,
   IImmutableERC721ErrorsInterface,
-} from '../../../../../../@imtbl/contracts/contracts/errors/Errors.sol/IImmutableERC721Errors';
+} from '../../../../../../@imtbl/contracts/contracts/errors/Errors.sol/IImmutableERC721Errors'
 
 const _abi = [
   {
@@ -37,14 +37,14 @@ const _abi = [
   { inputs: [], name: 'InvalidSignature', type: 'error' },
   { inputs: [], name: 'PermitExpired', type: 'error' },
   { inputs: [], name: 'SignerCannotBeZerothAddress', type: 'error' },
-] as const;
+] as const
 
 export class IImmutableERC721Errors__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): IImmutableERC721ErrorsInterface {
-    return new Interface(_abi) as IImmutableERC721ErrorsInterface;
+    return new Interface(_abi) as IImmutableERC721ErrorsInterface
   }
   static connect(address: string, runner?: ContractRunner | null): IImmutableERC721Errors {
-    return new Contract(address, _abi, runner) as unknown as IImmutableERC721Errors;
+    return new Contract(address, _abi, runner) as unknown as IImmutableERC721Errors
   }
 }

@@ -1,4 +1,4 @@
-import type { RcFile } from 'syncpack';
+import type { RcFile } from 'syncpack'
 
 const config: RcFile = {
   // pnpm overrides still live under `pnpm.overrides` in package.json (the
@@ -82,6 +82,6 @@ const config: RcFile = {
       pinVersion: '~10.2.0',
     },
   ],
-};
+}
 
-export default config;
+export default config

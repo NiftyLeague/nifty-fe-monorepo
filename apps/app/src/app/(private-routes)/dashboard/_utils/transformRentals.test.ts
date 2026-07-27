@@ -1,19 +1,19 @@
-import { beforeEach, describe, expect, it } from 'bun:test';
-import { mock } from 'bun:test';
+import { beforeEach, describe, expect, it } from 'bun:test'
+import { mock } from 'bun:test'
 
-let transformRentals: typeof import('./transformRentals').transformRentals;
+let transformRentals: typeof import('./transformRentals').transformRentals
 
 beforeEach(async () => {
-  mock.module('uuid', () => ({ v4: mock(() => 'generated-id') }));
+  mock.module('uuid', () => ({ v4: mock(() => 'generated-id') }))
   mock.module('@/hooks/useLocalStorage', () => ({
     default: mock(() => [{ length: 1, '0xplayer': 'Known Player' }, mock()]),
-  }));
+  }))
 
-  const transformModule = await import('./transformRentals');
-  transformRentals = transformModule.transformRentals;
-});
+  const transformModule = await import('./transformRentals')
+  transformRentals = transformModule.transformRentals
+})
 
-const viewer = 'viewer';
+const viewer = 'viewer'
 
 function rental(overrides: Record<string, unknown>) {
   return {
@@ -50,7 +50,7 @@ function rental(overrides: Record<string, unknown>) {
     shares: { owner: 0.4, player: 0.4, renter: 0.2 },
     item_used: undefined,
     ...overrides,
-  };
+  }
 }
 
 describe('transformRentals', () => {
@@ -60,23 +60,33 @@ describe('transformRentals', () => {
         accounts: { owner: { id: 'owner' }, player: { id: viewer, address: '0xplayer' } },
         item_used: 'rental-pass-base',
       }),
-      rental({ accounts: { owner: { id: viewer }, player: { id: 'player', address: '0xplayer' } } }),
-      rental({ accounts: { owner: { id: 'owner' }, player: { id: 'player', address: '0xplayer' } } }),
-      rental({ renter_id: 'other', accounts: { owner: { id: 'owner' }, player: { id: viewer, address: '0xplayer' } } }),
+      rental({
+        accounts: { owner: { id: viewer }, player: { id: 'player', address: '0xplayer' } },
+      }),
+      rental({
+        accounts: { owner: { id: 'owner' }, player: { id: 'player', address: '0xplayer' } },
+      }),
       rental({
         renter_id: 'other',
-        accounts: { owner: { id: viewer }, player: { id: 'player', address: '0xplayer', name: 'Renter' } },
+        accounts: { owner: { id: 'owner' }, player: { id: viewer, address: '0xplayer' } },
       }),
-    ];
+      rental({
+        renter_id: 'other',
+        accounts: {
+          owner: { id: viewer },
+          player: { id: 'player', address: '0xplayer', name: 'Renter' },
+        },
+      }),
+    ]
 
-    const result = transformRentals(rows as never, viewer);
-    expect(result.map(row => row.category)).toEqual([
+    const result = transformRentals(rows as never, viewer)
+    expect(result.map((row) => row.category)).toEqual([
       'direct-rental',
       'owned-sponsorship',
       'non-owned-sponsorship',
       'recruited',
       'direct-renter',
-    ]);
+    ])
     expect(result[0]).toMatchObject({
       id: 'generated-id',
       weeklyFee: 0,
@@ -85,11 +95,11 @@ describe('transformRentals', () => {
       winRate: 50,
       timePlayed: '00:00:00',
       action: false,
-    });
-    expect((result[1] as unknown as { isEditable?: boolean }).isEditable).toBe(true);
-    expect(result[3]?.playerNickname).toBe('Known Player');
-    expect(result[4]).toMatchObject({ renter: 'Renter', rentalRenewsIn: 'N/A', dailyFeesToDate: 0 });
-  });
+    })
+    expect((result[1] as unknown as { isEditable?: boolean }).isEditable).toBe(true)
+    expect(result[3]?.playerNickname).toBe('Known Player')
+    expect(result[4]).toMatchObject({ renter: 'Renter', rentalRenewsIn: 'N/A', dailyFeesToDate: 0 })
+  })
 
   it('uses safe fallbacks for optional rental data and inactive records', () => {
     const row = rental({
@@ -100,7 +110,7 @@ describe('transformRentals', () => {
       stats: { total: { wins: 0, matches: 0, earnings: 0, charges: 0, time_played: 0 } },
       accounts: { owner: { id: 'owner' }, player: { id: 'player', address: '', name: '' } },
       degen: { multiplier: 1, tribe: '', background: '' },
-    });
+    })
 
     expect(transformRentals([row] as never, viewer)[0]).toMatchObject({
       renter: 'No address',
@@ -110,6 +120,6 @@ describe('transformRentals', () => {
       wins: 0,
       winRate: 0,
       action: true,
-    });
-  });
-});
+    })
+  })
+})

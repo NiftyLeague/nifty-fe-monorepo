@@ -1,15 +1,15 @@
-import { Drawer, Stack } from '@mui/material';
-import { useEffect, ReactNode, SetStateAction, useCallback } from 'react';
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
-import { appHeaderHeight, useTheme } from '@nl/theme';
+import { Drawer, Stack } from '@mui/material'
+import { useEffect, ReactNode, SetStateAction, useCallback } from 'react'
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
+import { appHeaderHeight, useTheme } from '@nl/theme'
 
 interface Props {
-  drawerWidth?: number;
-  renderDrawer: () => ReactNode;
-  renderMain: () => ReactNode;
-  isDrawerOpen: boolean;
-  setIsDrawerOpen: React.Dispatch<SetStateAction<boolean>>;
+  drawerWidth?: number
+  renderDrawer: () => ReactNode
+  renderMain: () => ReactNode
+  isDrawerOpen: boolean
+  setIsDrawerOpen: React.Dispatch<SetStateAction<boolean>>
 }
 
 const CollapsibleSidebarLayout = ({
@@ -19,18 +19,18 @@ const CollapsibleSidebarLayout = ({
   isDrawerOpen,
   setIsDrawerOpen,
 }: Props): React.ReactNode => {
-  const theme = useTheme();
-  const matchDownLG = useMediaQuery('(max-width:1024px)');
+  const theme = useTheme()
+  const matchDownLG = useMediaQuery('(max-width:1024px)')
 
   // toggle sidebar
   const handleDrawerOpen = useCallback(() => {
-    setIsDrawerOpen(prevState => !prevState);
-  }, [setIsDrawerOpen]);
+    setIsDrawerOpen((prevState) => !prevState)
+  }, [setIsDrawerOpen])
 
   // close sidebar when widow size below 'md' breakpoint
   useEffect(() => {
-    setIsDrawerOpen(!matchDownLG);
-  }, [matchDownLG, setIsDrawerOpen]);
+    setIsDrawerOpen(!matchDownLG)
+  }, [matchDownLG, setIsDrawerOpen])
 
   return (
     <Stack direction="row" sx={{ position: 'relative', alignItems: 'start' }}>
@@ -63,7 +63,10 @@ const CollapsibleSidebarLayout = ({
         onClose={handleDrawerOpen}
       >
         <PerfectScrollbar
-          style={{ height: matchDownLG ? '100vh' : `calc(100vh - ${appHeaderHeight + 100}px)`, padding: '20px 16px' }}
+          style={{
+            height: matchDownLG ? '100vh' : `calc(100vh - ${appHeaderHeight + 100}px)`,
+            padding: '20px 16px',
+          }}
         >
           {renderDrawer()}
         </PerfectScrollbar>
@@ -101,7 +104,7 @@ const CollapsibleSidebarLayout = ({
         </PerfectScrollbar>
       </Stack>
     </Stack>
-  );
-};
+  )
+}
 
-export default CollapsibleSidebarLayout;
+export default CollapsibleSidebarLayout

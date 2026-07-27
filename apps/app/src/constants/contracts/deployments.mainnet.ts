@@ -32,7 +32,13 @@ export default {
           stateMutability: 'view',
           type: 'function',
         },
-        { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'renounceOwnership',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [
             { internalType: 'uint256', name: 'tribe', type: 'uint256' },
@@ -67,7 +73,9 @@ export default {
         },
         {
           anonymous: false,
-          inputs: [{ indexed: true, internalType: 'address', name: 'implementation', type: 'address' }],
+          inputs: [
+            { indexed: true, internalType: 'address', name: 'implementation', type: 'address' },
+          ],
           name: 'Upgraded',
           type: 'event',
         },
@@ -204,7 +212,13 @@ export default {
           stateMutability: 'view',
           type: 'function',
         },
-        { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'renounceOwnership',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [{ internalType: 'bytes', name: '', type: 'bytes' }],
           name: 'signatures',
@@ -355,7 +369,13 @@ export default {
           stateMutability: 'view',
           type: 'function',
         },
-        { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'renounceOwnership',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [{ internalType: 'bytes', name: '', type: 'bytes' }],
           name: 'signatures',
@@ -424,7 +444,9 @@ export default {
         },
         {
           anonymous: false,
-          inputs: [{ indexed: true, internalType: 'address', name: 'implementation', type: 'address' }],
+          inputs: [
+            { indexed: true, internalType: 'address', name: 'implementation', type: 'address' },
+          ],
           name: 'Upgraded',
           type: 'event',
         },
@@ -489,7 +511,11 @@ export default {
         },
         {
           inputs: [
-            { internalType: 'contract TransparentUpgradeableProxy', name: 'proxy', type: 'address' },
+            {
+              internalType: 'contract TransparentUpgradeableProxy',
+              name: 'proxy',
+              type: 'address',
+            },
             { internalType: 'address', name: 'newAdmin', type: 'address' },
           ],
           name: 'changeProxyAdmin',
@@ -498,14 +524,26 @@ export default {
           type: 'function',
         },
         {
-          inputs: [{ internalType: 'contract TransparentUpgradeableProxy', name: 'proxy', type: 'address' }],
+          inputs: [
+            {
+              internalType: 'contract TransparentUpgradeableProxy',
+              name: 'proxy',
+              type: 'address',
+            },
+          ],
           name: 'getProxyAdmin',
           outputs: [{ internalType: 'address', name: '', type: 'address' }],
           stateMutability: 'view',
           type: 'function',
         },
         {
-          inputs: [{ internalType: 'contract TransparentUpgradeableProxy', name: 'proxy', type: 'address' }],
+          inputs: [
+            {
+              internalType: 'contract TransparentUpgradeableProxy',
+              name: 'proxy',
+              type: 'address',
+            },
+          ],
           name: 'getProxyImplementation',
           outputs: [{ internalType: 'address', name: '', type: 'address' }],
           stateMutability: 'view',
@@ -518,7 +556,13 @@ export default {
           stateMutability: 'view',
           type: 'function',
         },
-        { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'renounceOwnership',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [{ internalType: 'address', name: 'newOwner', type: 'address' }],
           name: 'transferOwnership',
@@ -528,7 +572,11 @@ export default {
         },
         {
           inputs: [
-            { internalType: 'contract TransparentUpgradeableProxy', name: 'proxy', type: 'address' },
+            {
+              internalType: 'contract TransparentUpgradeableProxy',
+              name: 'proxy',
+              type: 'address',
+            },
             { internalType: 'address', name: 'implementation', type: 'address' },
           ],
           name: 'upgrade',
@@ -538,7 +586,11 @@ export default {
         },
         {
           inputs: [
-            { internalType: 'contract TransparentUpgradeableProxy', name: 'proxy', type: 'address' },
+            {
+              internalType: 'contract TransparentUpgradeableProxy',
+              name: 'proxy',
+              type: 'address',
+            },
             { internalType: 'address', name: 'implementation', type: 'address' },
             { internalType: 'bytes', name: 'data', type: 'bytes' },
           ],
@@ -569,7 +621,9 @@ export default {
         },
         {
           anonymous: false,
-          inputs: [{ indexed: true, internalType: 'address', name: 'implementation', type: 'address' }],
+          inputs: [
+            { indexed: true, internalType: 'address', name: 'implementation', type: 'address' },
+          ],
           name: 'Upgraded',
           type: 'event',
         },
@@ -617,7 +671,12 @@ export default {
           anonymous: false,
           inputs: [
             { indexed: true, internalType: 'address', name: 'user', type: 'address' },
-            { indexed: false, internalType: 'uint256[]', name: 'tokenIdsBurned', type: 'uint256[]' },
+            {
+              indexed: false,
+              internalType: 'uint256[]',
+              name: 'tokenIdsBurned',
+              type: 'uint256[]',
+            },
             { indexed: false, internalType: 'uint256', name: 'hydraTokenId', type: 'uint256' },
           ],
           name: 'HydraClaimed',
@@ -637,7 +696,9 @@ export default {
         },
         {
           anonymous: false,
-          inputs: [{ indexed: true, internalType: 'address', name: 'niftyWallet', type: 'address' }],
+          inputs: [
+            { indexed: true, internalType: 'address', name: 'niftyWallet', type: 'address' },
+          ],
           name: 'NiftyWalletSet',
           type: 'event',
         },
@@ -748,7 +809,13 @@ export default {
           stateMutability: 'view',
           type: 'function',
         },
-        { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'renounceOwnership',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [{ internalType: 'address', name: 'newOwner', type: 'address' }],
           name: 'transferOwnership',
@@ -756,7 +823,13 @@ export default {
           stateMutability: 'nonpayable',
           type: 'function',
         },
-        { inputs: [], name: 'unpause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'unpause',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [{ internalType: 'address', name: '_niftyDegen', type: 'address' }],
           name: 'updateNiftyDegen',
@@ -797,7 +870,12 @@ export default {
           anonymous: false,
           inputs: [
             { indexed: true, internalType: 'address', name: 'user', type: 'address' },
-            { indexed: false, internalType: 'uint256[]', name: 'tokenIdsBurned', type: 'uint256[]' },
+            {
+              indexed: false,
+              internalType: 'uint256[]',
+              name: 'tokenIdsBurned',
+              type: 'uint256[]',
+            },
             { indexed: false, internalType: 'uint256', name: 'hydraTokenId', type: 'uint256' },
           ],
           name: 'HydraClaimed',
@@ -817,7 +895,9 @@ export default {
         },
         {
           anonymous: false,
-          inputs: [{ indexed: true, internalType: 'address', name: 'niftyWallet', type: 'address' }],
+          inputs: [
+            { indexed: true, internalType: 'address', name: 'niftyWallet', type: 'address' },
+          ],
           name: 'NiftyWalletSet',
           type: 'event',
         },
@@ -928,7 +1008,13 @@ export default {
           stateMutability: 'view',
           type: 'function',
         },
-        { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'renounceOwnership',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [{ internalType: 'address', name: 'newOwner', type: 'address' }],
           name: 'transferOwnership',
@@ -936,7 +1022,13 @@ export default {
           stateMutability: 'nonpayable',
           type: 'function',
         },
-        { inputs: [], name: 'unpause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'unpause',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [{ internalType: 'address', name: '_niftyDegen', type: 'address' }],
           name: 'updateNiftyDegen',
@@ -989,7 +1081,9 @@ export default {
         },
         {
           anonymous: false,
-          inputs: [{ indexed: true, internalType: 'address', name: 'implementation', type: 'address' }],
+          inputs: [
+            { indexed: true, internalType: 'address', name: 'implementation', type: 'address' },
+          ],
           name: 'Upgraded',
           type: 'event',
         },
@@ -1055,7 +1149,9 @@ export default {
         },
         {
           anonymous: false,
-          inputs: [{ indexed: true, internalType: 'address', name: 'implementation', type: 'address' }],
+          inputs: [
+            { indexed: true, internalType: 'address', name: 'implementation', type: 'address' },
+          ],
           name: 'Upgraded',
           type: 'event',
         },
@@ -1133,7 +1229,12 @@ export default {
           anonymous: false,
           inputs: [
             { indexed: false, internalType: 'uint256', name: 'requestId', type: 'uint256' },
-            { indexed: false, internalType: 'uint256', name: 'randomCountToRequest', type: 'uint256' },
+            {
+              indexed: false,
+              internalType: 'uint256',
+              name: 'randomCountToRequest',
+              type: 'uint256',
+            },
           ],
           name: 'RandomWordsRequested',
           type: 'event',
@@ -1180,9 +1281,27 @@ export default {
           stateMutability: 'view',
           type: 'function',
         },
-        { inputs: [], name: 'allowUserDeposit', outputs: [], stateMutability: 'nonpayable', type: 'function' },
-        { inputs: [], name: 'assignTicketToUsers', outputs: [], stateMutability: 'nonpayable', type: 'function' },
-        { inputs: [], name: 'cancelSubscription', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'allowUserDeposit',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [],
+          name: 'assignTicketToUsers',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [],
+          name: 'cancelSubscription',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [{ internalType: 'uint256', name: '_amount', type: 'uint256' }],
           name: 'chargeLINK',
@@ -1211,7 +1330,13 @@ export default {
           stateMutability: 'nonpayable',
           type: 'function',
         },
-        { inputs: [], name: 'disallowUserDeposit', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'disallowUserDeposit',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [
             { internalType: 'address[]', name: '_holders', type: 'address[]' },
@@ -1318,7 +1443,9 @@ export default {
         {
           inputs: [],
           name: 'nftl',
-          outputs: [{ internalType: 'contract IERC20BurnableUpgradeable', name: '', type: 'address' }],
+          outputs: [
+            { internalType: 'contract IERC20BurnableUpgradeable', name: '', type: 'address' },
+          ],
           stateMutability: 'view',
           type: 'function',
         },
@@ -1394,7 +1521,13 @@ export default {
           stateMutability: 'nonpayable',
           type: 'function',
         },
-        { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'renounceOwnership',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [],
           name: 'requestRandomWordsForWinnerSelection',
@@ -1454,7 +1587,13 @@ export default {
           stateMutability: 'nonpayable',
           type: 'function',
         },
-        { inputs: [], name: 'unpause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'unpause',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [{ internalType: 'uint256', name: '_totalWinnerTicketCount', type: 'uint256' }],
           name: 'updateTotalWinnerTicketCount',
@@ -1543,7 +1682,12 @@ export default {
           anonymous: false,
           inputs: [
             { indexed: false, internalType: 'uint256', name: 'requestId', type: 'uint256' },
-            { indexed: false, internalType: 'uint256', name: 'randomCountToRequest', type: 'uint256' },
+            {
+              indexed: false,
+              internalType: 'uint256',
+              name: 'randomCountToRequest',
+              type: 'uint256',
+            },
           ],
           name: 'RandomWordsRequested',
           type: 'event',
@@ -1590,9 +1734,27 @@ export default {
           stateMutability: 'view',
           type: 'function',
         },
-        { inputs: [], name: 'allowUserDeposit', outputs: [], stateMutability: 'nonpayable', type: 'function' },
-        { inputs: [], name: 'assignTicketToUsers', outputs: [], stateMutability: 'nonpayable', type: 'function' },
-        { inputs: [], name: 'cancelSubscription', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'allowUserDeposit',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [],
+          name: 'assignTicketToUsers',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [],
+          name: 'cancelSubscription',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [{ internalType: 'uint256', name: '_amount', type: 'uint256' }],
           name: 'chargeLINK',
@@ -1621,7 +1783,13 @@ export default {
           stateMutability: 'nonpayable',
           type: 'function',
         },
-        { inputs: [], name: 'disallowUserDeposit', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'disallowUserDeposit',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [
             { internalType: 'address[]', name: '_holders', type: 'address[]' },
@@ -1728,7 +1896,9 @@ export default {
         {
           inputs: [],
           name: 'nftl',
-          outputs: [{ internalType: 'contract IERC20BurnableUpgradeable', name: '', type: 'address' }],
+          outputs: [
+            { internalType: 'contract IERC20BurnableUpgradeable', name: '', type: 'address' },
+          ],
           stateMutability: 'view',
           type: 'function',
         },
@@ -1804,7 +1974,13 @@ export default {
           stateMutability: 'nonpayable',
           type: 'function',
         },
-        { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'renounceOwnership',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [],
           name: 'requestRandomWordsForWinnerSelection',
@@ -1864,7 +2040,13 @@ export default {
           stateMutability: 'nonpayable',
           type: 'function',
         },
-        { inputs: [], name: 'unpause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'unpause',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [{ internalType: 'uint256', name: '_totalWinnerTicketCount', type: 'uint256' }],
           name: 'updateTotalWinnerTicketCount',
@@ -1935,7 +2117,9 @@ export default {
         },
         {
           anonymous: false,
-          inputs: [{ indexed: true, internalType: 'address', name: 'implementation', type: 'address' }],
+          inputs: [
+            { indexed: true, internalType: 'address', name: 'implementation', type: 'address' },
+          ],
           name: 'Upgraded',
           type: 'event',
         },
@@ -2330,7 +2514,13 @@ export default {
           stateMutability: 'nonpayable',
           type: 'function',
         },
-        { inputs: [], name: 'unpause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'unpause',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
       ],
     },
     NiftyBurningComicsL2: {
@@ -2347,7 +2537,9 @@ export default {
         },
         {
           anonymous: false,
-          inputs: [{ indexed: true, internalType: 'address', name: 'implementation', type: 'address' }],
+          inputs: [
+            { indexed: true, internalType: 'address', name: 'implementation', type: 'address' },
+          ],
           name: 'Upgraded',
           type: 'event',
         },
@@ -2494,7 +2686,13 @@ export default {
           stateMutability: 'view',
           type: 'function',
         },
-        { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'renounceOwnership',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [{ internalType: 'address', name: 'newOwner', type: 'address' }],
           name: 'transferOwnership',
@@ -2502,7 +2700,13 @@ export default {
           stateMutability: 'nonpayable',
           type: 'function',
         },
-        { inputs: [], name: 'unpause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'unpause',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [
             { internalType: 'address', name: 'initialLogic', type: 'address' },
@@ -2620,7 +2824,13 @@ export default {
           stateMutability: 'view',
           type: 'function',
         },
-        { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'renounceOwnership',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [{ internalType: 'address', name: 'newOwner', type: 'address' }],
           name: 'transferOwnership',
@@ -2628,7 +2838,13 @@ export default {
           stateMutability: 'nonpayable',
           type: 'function',
         },
-        { inputs: [], name: 'unpause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'unpause',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
       ],
     },
     NiftyBurningComicsL2_Proxy: {
@@ -2654,7 +2870,9 @@ export default {
         },
         {
           anonymous: false,
-          inputs: [{ indexed: true, internalType: 'address', name: 'implementation', type: 'address' }],
+          inputs: [
+            { indexed: true, internalType: 'address', name: 'implementation', type: 'address' },
+          ],
           name: 'Upgraded',
           type: 'event',
         },
@@ -2885,7 +3103,13 @@ export default {
           stateMutability: 'view',
           type: 'function',
         },
-        { inputs: [], name: 'initPoolSizes', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'initPoolSizes',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [
             { internalType: 'address', name: 'owner', type: 'address' },
@@ -2992,7 +3216,13 @@ export default {
           stateMutability: 'view',
           type: 'function',
         },
-        { inputs: [], name: 'pauseMinting', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'pauseMinting',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [],
           name: 'paused',
@@ -3013,7 +3243,13 @@ export default {
           stateMutability: 'payable',
           type: 'function',
         },
-        { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'renounceOwnership',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [
             { internalType: 'address', name: 'from', type: 'address' },
@@ -3100,7 +3336,13 @@ export default {
           stateMutability: 'nonpayable',
           type: 'function',
         },
-        { inputs: [], name: 'unpauseMinting', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'unpauseMinting',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [{ internalType: 'string', name: 'newName', type: 'string' }],
           name: 'validateName',
@@ -3108,7 +3350,13 @@ export default {
           stateMutability: 'pure',
           type: 'function',
         },
-        { inputs: [], name: 'withdraw', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'withdraw',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
       ],
     },
     NiftyItemL2: {
@@ -3125,7 +3373,9 @@ export default {
         },
         {
           anonymous: false,
-          inputs: [{ indexed: true, internalType: 'address', name: 'implementation', type: 'address' }],
+          inputs: [
+            { indexed: true, internalType: 'address', name: 'implementation', type: 'address' },
+          ],
           name: 'Upgraded',
           type: 'event',
         },
@@ -3332,7 +3582,13 @@ export default {
           stateMutability: 'view',
           type: 'function',
         },
-        { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'renounceOwnership',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [
             { internalType: 'address', name: 'from', type: 'address' },
@@ -3436,7 +3692,13 @@ export default {
           stateMutability: 'nonpayable',
           type: 'function',
         },
-        { inputs: [], name: 'unpause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'unpause',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [],
           name: 'uri',
@@ -3621,7 +3883,13 @@ export default {
           stateMutability: 'view',
           type: 'function',
         },
-        { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'renounceOwnership',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [
             { internalType: 'address', name: 'from', type: 'address' },
@@ -3725,7 +3993,13 @@ export default {
           stateMutability: 'nonpayable',
           type: 'function',
         },
-        { inputs: [], name: 'unpause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'unpause',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [],
           name: 'uri',
@@ -3758,7 +4032,9 @@ export default {
         },
         {
           anonymous: false,
-          inputs: [{ indexed: true, internalType: 'address', name: 'implementation', type: 'address' }],
+          inputs: [
+            { indexed: true, internalType: 'address', name: 'implementation', type: 'address' },
+          ],
           name: 'Upgraded',
           type: 'event',
         },
@@ -4028,7 +4304,13 @@ export default {
           stateMutability: 'view',
           type: 'function',
         },
-        { inputs: [], name: 'pauseBurn', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'pauseBurn',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [],
           name: 'paused',
@@ -4113,7 +4395,13 @@ export default {
           stateMutability: 'view',
           type: 'function',
         },
-        { inputs: [], name: 'unpauseBurn', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'unpauseBurn',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
           name: 'uri',
@@ -4124,4 +4412,4 @@ export default {
       ],
     },
   },
-} as const;
+} as const

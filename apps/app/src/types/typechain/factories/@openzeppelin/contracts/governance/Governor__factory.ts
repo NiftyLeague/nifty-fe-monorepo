@@ -2,13 +2,20 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
-import type { Governor, GovernorInterface } from '../../../../@openzeppelin/contracts/governance/Governor';
+import { Contract, Interface, type ContractRunner } from 'ethers'
+import type {
+  Governor,
+  GovernorInterface,
+} from '../../../../@openzeppelin/contracts/governance/Governor'
 
 const _abi = [
   { inputs: [], name: 'Empty', type: 'error' },
   { inputs: [], name: 'InvalidShortString', type: 'error' },
-  { inputs: [{ internalType: 'string', name: 'str', type: 'string' }], name: 'StringTooLong', type: 'error' },
+  {
+    inputs: [{ internalType: 'string', name: 'str', type: 'string' }],
+    name: 'StringTooLong',
+    type: 'error',
+  },
   { anonymous: false, inputs: [], name: 'EIP712DomainChanged', type: 'event' },
   {
     anonymous: false,
@@ -380,14 +387,14 @@ const _abi = [
     type: 'function',
   },
   { stateMutability: 'payable', type: 'receive' },
-] as const;
+] as const
 
 export class Governor__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): GovernorInterface {
-    return new Interface(_abi) as GovernorInterface;
+    return new Interface(_abi) as GovernorInterface
   }
   static connect(address: string, runner?: ContractRunner | null): Governor {
-    return new Contract(address, _abi, runner) as unknown as Governor;
+    return new Contract(address, _abi, runner) as unknown as Governor
   }
 }

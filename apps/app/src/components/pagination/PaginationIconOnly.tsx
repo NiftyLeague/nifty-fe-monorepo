@@ -1,19 +1,16 @@
-import { IconButton, Stack } from '@mui/material';
-import { Icon } from '@nl/ui/base/icon';
+import { IconButton, Stack } from '@mui/material'
+import { Icon } from '@nl/ui/base/icon'
 
 export interface PaginationIconOnlyProps {
-  hasNext?: boolean;
-  hasPrev?: boolean;
-  onClickPrev?: React.MouseEventHandler<HTMLButtonElement>;
-  onClickNext?: React.MouseEventHandler<HTMLButtonElement>;
+  hasNext?: boolean
+  hasPrev?: boolean
+  onClickPrev?: React.MouseEventHandler<HTMLButtonElement>
+  onClickNext?: React.MouseEventHandler<HTMLButtonElement>
 }
 
-const PaginationIconOnly: React.FC<React.PropsWithChildren<React.PropsWithChildren<PaginationIconOnlyProps>>> = ({
-  hasNext,
-  hasPrev,
-  onClickPrev,
-  onClickNext,
-}) => (
+const PaginationIconOnly: React.FC<
+  React.PropsWithChildren<React.PropsWithChildren<PaginationIconOnlyProps>>
+> = ({ hasNext, hasPrev, onClickPrev, onClickNext }) => (
   <Stack direction="row" sx={{ gap: 1 }}>
     <IconButton disabled={hasPrev === false} onClick={onClickPrev}>
       <Icon name="chevron-left" size="sm" />
@@ -22,6 +19,6 @@ const PaginationIconOnly: React.FC<React.PropsWithChildren<React.PropsWithChildr
       <Icon name="chevron-right" size="sm" />
     </IconButton>
   </Stack>
-);
+)
 
-export default PaginationIconOnly;
+export default PaginationIconOnly

@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   IERC20BurnableUpgradeable,
   IERC20BurnableUpgradeableInterface,
-} from '../../../../../src/contracts/deprecated/NFTLRaffle.sol/IERC20BurnableUpgradeable';
+} from '../../../../../src/contracts/deprecated/NFTLRaffle.sol/IERC20BurnableUpgradeable'
 
 const _abi = [
   {
@@ -94,14 +94,14 @@ const _abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-] as const;
+] as const
 
 export class IERC20BurnableUpgradeable__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): IERC20BurnableUpgradeableInterface {
-    return new Interface(_abi) as IERC20BurnableUpgradeableInterface;
+    return new Interface(_abi) as IERC20BurnableUpgradeableInterface
   }
   static connect(address: string, runner?: ContractRunner | null): IERC20BurnableUpgradeable {
-    return new Contract(address, _abi, runner) as unknown as IERC20BurnableUpgradeable;
+    return new Contract(address, _abi, runner) as unknown as IERC20BurnableUpgradeable
   }
 }

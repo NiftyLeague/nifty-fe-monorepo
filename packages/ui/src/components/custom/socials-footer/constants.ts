@@ -47,4 +47,4 @@ export const SOCIAL_LINKS = [
     link: 'https://www.instagram.com/NiftyLeague',
     image: '/icons/socials/instagram.svg',
   },
-];
+]

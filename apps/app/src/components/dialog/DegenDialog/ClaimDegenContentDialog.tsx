@@ -1,48 +1,51 @@
-'use client';
+'use client'
 
-import { Button, Stack, Typography } from '@mui/material';
-import { useCallback, useMemo } from 'react';
-import type { Degen } from '@/types/degens';
-import useNetworkContext from '@/hooks/useNetworkContext';
-import useClaimableNFTL from '@/hooks/balances/useClaimableNFTL';
-import { NFTL_CONTRACT } from '@/constants/contracts';
-import { DEBUG } from '@/constants/index';
-import { formatNumberToDisplay } from '@nl/ui/utils';
+import { Button, Stack, Typography } from '@mui/material'
+import { useCallback, useMemo } from 'react'
+import type { Degen } from '@/types/degens'
+import useNetworkContext from '@/hooks/useNetworkContext'
+import useClaimableNFTL from '@/hooks/balances/useClaimableNFTL'
+import { NFTL_CONTRACT } from '@/constants/contracts'
+import { DEBUG } from '@/constants/index'
+import { formatNumberToDisplay } from '@nl/ui/utils'
 
 export interface ClaimDegenContentDialogProps {
-  degen?: Degen;
-  onClose?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  degen?: Degen
+  onClose?: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 const ClaimDegenContentDialog = ({ degen, onClose }: ClaimDegenContentDialogProps) => {
-  const { tx, writeContracts } = useNetworkContext();
-  const tokenId = degen?.id ?? '';
-  const degenTokenIndices = useMemo(() => [parseInt(tokenId, 10)], [tokenId]);
-  const { balance, refetch } = useClaimableNFTL(degenTokenIndices);
+  const { tx, writeContracts } = useNetworkContext()
+  const tokenId = degen?.id ?? ''
+  const degenTokenIndices = useMemo(() => [parseInt(tokenId, 10)], [tokenId])
+  const { balance, refetch } = useClaimableNFTL(degenTokenIndices)
 
   const handleClaimNFTL = useCallback(
     async (event: React.MouseEvent<HTMLButtonElement>) => {
       // eslint-disable-next-line no-console
-      if (DEBUG) console.log('Claim', degenTokenIndices, balance);
-      await tx(writeContracts[NFTL_CONTRACT].claim(degenTokenIndices));
-      setTimeout(() => refetch(), 5000);
-      onClose?.(event);
+      if (DEBUG) console.log('Claim', degenTokenIndices, balance)
+      await tx(writeContracts[NFTL_CONTRACT].claim(degenTokenIndices))
+      setTimeout(() => refetch(), 5000)
+      onClose?.(event)
     },
-    [onClose, refetch, degenTokenIndices, balance, tx, writeContracts],
-  );
+    [onClose, refetch, degenTokenIndices, balance, tx, writeContracts]
+  )
 
   const handleClose = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
-      onClose?.(event);
+      onClose?.(event)
     },
-    [onClose],
-  );
+    [onClose]
+  )
 
-  const amountParsed = formatNumberToDisplay(balance);
+  const amountParsed = formatNumberToDisplay(balance)
 
   return (
     <Stack sx={{ padding: 3, gap: 2 }}>
-      <Typography align="center" variant="h4">{`${amountParsed} claimable for this DEGEN`}</Typography>
+      <Typography
+        align="center"
+        variant="h4"
+      >{`${amountParsed} claimable for this DEGEN`}</Typography>
       <Stack sx={{ gap: 1 }}>
         <Button
           disabled={!(balance > 0.0 && writeContracts[NFTL_CONTRACT])}
@@ -54,7 +57,7 @@ const ClaimDegenContentDialog = ({ degen, onClose }: ClaimDegenContentDialogProp
         <Button onClick={handleClose}>Cancel</Button>
       </Stack>
     </Stack>
-  );
-};
+  )
+}
 
-export default ClaimDegenContentDialog;
+export default ClaimDegenContentDialog
