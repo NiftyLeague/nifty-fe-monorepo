@@ -103,9 +103,6 @@ jobs:
         uses: actions/checkout@v7
         with:
           fetch-depth: 2
-          # Build source lazily; avoid transferring the monorepo's large
-          # historical/static blobs before the build needs them.
-          filter: blob:none
       - name: Detect
         id: applicability
         run: bash .github/scripts/ci.sh should_run build >> "$GITHUB_OUTPUT"
