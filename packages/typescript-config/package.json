@@ -4,8 +4,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "test": "bun test --project-placeholder typescript-config || true",
-    "test:coverage": "VITEST_SCOPE=packages/typescript-config bun test --project-placeholder typescript-config --coverage",
-    "test:watch": "vitest --config ../../vitest.config.ts --project typescript-config"
+    "test": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --pass-with-no-tests",
+    "test:coverage": "bun test --coverage --pass-with-no-tests",
+    "test:watch": "bun test --watch"
   }
 }

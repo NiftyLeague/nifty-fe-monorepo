@@ -112,9 +112,17 @@ export function MakeRequest<
         return // No need to bother decoding results
       }
 
-      let replyEnvelope: PlayFabResponse<TResponse> | null = null
       try {
-        replyEnvelope = JSON.parse(rawReply)
+        const replyEnvelope = JSON.parse(rawReply) as PlayFabResponse<TResponse>
+
+        if (
+          Object.prototype.hasOwnProperty.call(replyEnvelope, 'error') ||
+          !Object.prototype.hasOwnProperty.call(replyEnvelope, 'data')
+        ) {
+          callback(replyEnvelope as PlayFabError, null)
+        } else {
+          callback(null, replyEnvelope)
+        }
       } catch (e) {
         // Handle when rawReply is not valid json
         const error: PlayFabError = {
@@ -126,15 +134,6 @@ export function MakeRequest<
         }
         callback(error, null)
         return
-      }
-
-      if (
-        Object.prototype.hasOwnProperty.call(replyEnvelope, 'error') ||
-        !Object.prototype.hasOwnProperty.call(replyEnvelope, 'data')
-      ) {
-        callback(replyEnvelope as PlayFabError, null)
-      } else {
-        callback(null, replyEnvelope)
       }
     })
   })

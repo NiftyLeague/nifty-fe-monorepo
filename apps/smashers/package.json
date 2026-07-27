@@ -12,8 +12,8 @@
     "lint:fix": "eslint --fix .",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs",
     "start": "next start",
-    "test": "bun test",
-    "test:coverage": "VITEST_SCOPE=apps/smashers bun test --project-placeholder smashers --coverage",
+    "test": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --pass-with-no-tests",
+    "test:coverage": "bun test --coverage --pass-with-no-tests",
     "test:watch": "bun test --watch",
     "type-check": "tsc --noEmit"
   },

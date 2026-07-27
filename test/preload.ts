@@ -9,10 +9,10 @@
  * registration in 000-setup-dom. Only module mocks belong in preload.
  *
  * 1. Stubs the Docusaurus virtual modules that the docs app imports (mirrors the
- *    previous vitest.config resolve.alias to test/stubs/*.tsx).
+ *    previous test configuration resolve.alias to test/stubs/*.tsx).
  */
 import { mock } from 'bun:test'
-// Mirrors the previous vitest.config alias:
+// Mirrors the previous test alias:
 //   @docusaurus/Link            -> test/stubs/DocusaurusLink.tsx
 //   @docusaurus/useBaseUrl     -> test/stubs/useBaseUrl.ts
 //   @theme/ThemedImage          -> test/stubs/ThemedImage.tsx
@@ -22,7 +22,7 @@ mock.module('@docusaurus/useBaseUrl', () => ({ default: (s: string) => s }))
 
 // --- next/font (bun's resolver cannot load next's generated font modules) ---
 // Return a permissive stub: any named font export becomes a function returning a
-// CSS-font object. Mirrors how vitest+jsdom never actually evaluated the font CSS.
+// CSS-font object. Mirrors how the previous jsdom setup never evaluated the font CSS.
 const nextFontStub = () =>
   new Proxy({}, { get: () => () => ({ className: '', style: {}, variable: '' }) })
 

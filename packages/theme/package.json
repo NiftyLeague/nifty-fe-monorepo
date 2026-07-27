@@ -16,8 +16,8 @@
     "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\" --ignore-path ../../.gitignore",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --max-warnings 0 --fix",
-    "test": "bun test",
-    "test:coverage": "VITEST_SCOPE=packages/theme bun test --project-placeholder theme --coverage",
+    "test": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --pass-with-no-tests",
+    "test:coverage": "bun test --coverage --pass-with-no-tests",
     "test:watch": "bun test --watch",
     "type-check": "tsc --noEmit"
   },
