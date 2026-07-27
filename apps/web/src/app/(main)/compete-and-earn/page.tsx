@@ -1,9 +1,9 @@
-import Image from 'next/image';
-import type { NextPage } from 'next';
-import { cn } from '@nl/ui/utils';
-import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
-import ThemeBtnGroup from '@/components/ThemeBtnGroup';
-import styles from './index.module.css';
+import Image from 'next/image'
+import type { NextPage } from 'next'
+import { cn } from '@nl/ui/utils'
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
+import ThemeBtnGroup from '@/components/ThemeBtnGroup'
+import styles from './index.module.css'
 
 const CompeteAndEarn: NextPage = () => {
   return (
@@ -17,7 +17,12 @@ const CompeteAndEarn: NextPage = () => {
           </div>
           <div className="mb-0">
             <AnimatedWrapper>
-              <p className={cn(styles.heroDesc, 'transition-fade-slow transition-fade-start delay-lite')}>
+              <p
+                className={cn(
+                  styles.heroDesc,
+                  'transition-fade-slow transition-fade-start delay-lite'
+                )}
+              >
                 Adrenaline fueled, fast-paced brawl mode where the winner takes ALL
               </p>
             </AnimatedWrapper>
@@ -47,13 +52,16 @@ const CompeteAndEarn: NextPage = () => {
         <div className={cn(styles.block, 'w-full md:w-1/2 pr-5')}>
           <div className="mb-3">
             <AnimatedWrapper>
-              <h3 className="transition-vertical-fade transition-vertical-fade-start delay-lite">HOW IT WORKS</h3>
+              <h3 className="transition-vertical-fade transition-vertical-fade-start delay-lite">
+                HOW IT WORKS
+              </h3>
             </AnimatedWrapper>
           </div>
           <AnimatedWrapper>
             <p className="transition-vertical-fade transition-vertical-fade-start delay-normal">
-              4 - 16 Players pool NFTL together in a cuththroat battle for the survuval of the fittest. Only the first,
-              second and third positions will take home earnings from the pooled pot!
+              4 - 16 Players pool NFTL together in a cuththroat battle for the survuval of the
+              fittest. Only the first, second and third positions will take home earnings from the
+              pooled pot!
             </p>
           </AnimatedWrapper>
         </div>
@@ -76,13 +84,15 @@ const CompeteAndEarn: NextPage = () => {
 
       <section className="section">
         <AnimatedWrapper>
-          <h3 className="mt-3 mt-md-5 text-center transition-fade transition-fade-start delay-normal">GAME MODES</h3>
+          <h3 className="mt-3 mt-md-5 text-center transition-fade transition-fade-start delay-normal">
+            GAME MODES
+          </h3>
         </AnimatedWrapper>
         <AnimatedWrapper>
           <div
             className={cn(
               styles.features,
-              'flex pt-3 md:pt-5 mx-auto transition-fade transition-fade-start delay-normal relative',
+              'flex pt-3 md:pt-5 mx-auto transition-fade transition-fade-start delay-normal relative'
             )}
           >
             <div className="w-1/3">
@@ -92,7 +102,13 @@ const CompeteAndEarn: NextPage = () => {
               <p className={styles.cell}>Region:</p>
               <p className={styles.cell}>Player Number:</p>
             </div>
-            <hr style={{ height: 'inherit', border: '3px solid var(--color-foreground)', marginRight: 50 }} />
+            <hr
+              style={{
+                height: 'inherit',
+                border: '3px solid var(--color-foreground)',
+                marginRight: 50,
+              }}
+            />
             <div className="w-1/3">
               <h6 className={styles.headerCell}>PUBLIC</h6>
               <p className={styles.cell}>No</p>
@@ -116,7 +132,7 @@ const CompeteAndEarn: NextPage = () => {
         />
       </section>
     </div>
-  );
-};
+  )
+}
 
-export default CompeteAndEarn;
+export default CompeteAndEarn

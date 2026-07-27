@@ -1,112 +1,112 @@
 declare namespace PlayFabCloudScriptModule {
   export interface IPlayFabCloudScript {
-    settings: PlayFabModule.IPlayFabSettings;
+    settings: PlayFabModule.IPlayFabSettings
     // Cloud Script is one of PlayFab's most versatile features. It allows client code to request execution of any kind of
     // custom server-side functionality you can implement, and it can be used in conjunction with virtually anything.
     // https://docs.microsoft.com/rest/api/playfab/cloudscript/server-side-cloud-script/executeentitycloudscript
     ExecuteEntityCloudScript(
       request: PlayFabCloudScriptModels.ExecuteEntityCloudScriptRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.ExecuteCloudScriptResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.ExecuteCloudScriptResult> | null
+    ): void
     // Cloud Script is one of PlayFab's most versatile features. It allows client code to request execution of any kind of
     // custom server-side functionality you can implement, and it can be used in conjunction with virtually anything.
     // https://docs.microsoft.com/rest/api/playfab/cloudscript/server-side-cloud-script/executefunction
     ExecuteFunction(
       request: PlayFabCloudScriptModels.ExecuteFunctionRequest | null,
       EntityToken: PlayFabModule.PlayFabClientModels.EntityTokenResponse.EntityToken | null,
-      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.ExecuteFunctionResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.ExecuteFunctionResult> | null
+    ): void
     // Gets registered Azure Functions for a given title id and function name.
     // https://docs.microsoft.com/rest/api/playfab/cloudscript/server-side-cloud-script/getfunction
     GetFunction(
       request: PlayFabCloudScriptModels.GetFunctionRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.GetFunctionResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.GetFunctionResult> | null
+    ): void
     // Lists all currently registered Azure Functions for a given title.
     // https://docs.microsoft.com/rest/api/playfab/cloudscript/server-side-cloud-script/listfunctions
     ListFunctions(
       request: PlayFabCloudScriptModels.ListFunctionsRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.ListFunctionsResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.ListFunctionsResult> | null
+    ): void
     // Lists all currently registered HTTP triggered Azure Functions for a given title.
     // https://docs.microsoft.com/rest/api/playfab/cloudscript/server-side-cloud-script/listhttpfunctions
     ListHttpFunctions(
       request: PlayFabCloudScriptModels.ListFunctionsRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.ListHttpFunctionsResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.ListHttpFunctionsResult> | null
+    ): void
     // Lists all currently registered Queue triggered Azure Functions for a given title.
     // https://docs.microsoft.com/rest/api/playfab/cloudscript/server-side-cloud-script/listqueuedfunctions
     ListQueuedFunctions(
       request: PlayFabCloudScriptModels.ListFunctionsRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.ListQueuedFunctionsResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.ListQueuedFunctionsResult> | null
+    ): void
     // Generate an entity PlayStream event for the provided function result.
     // https://docs.microsoft.com/rest/api/playfab/cloudscript/server-side-cloud-script/postfunctionresultforentitytriggeredaction
     PostFunctionResultForEntityTriggeredAction(
       request: PlayFabCloudScriptModels.PostFunctionResultForEntityTriggeredActionRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.EmptyResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.EmptyResult> | null
+    ): void
     // Generate an entity PlayStream event for the provided function result.
     // https://docs.microsoft.com/rest/api/playfab/cloudscript/server-side-cloud-script/postfunctionresultforfunctionexecution
     PostFunctionResultForFunctionExecution(
       request: PlayFabCloudScriptModels.PostFunctionResultForFunctionExecutionRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.EmptyResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.EmptyResult> | null
+    ): void
     // Generate a player PlayStream event for the provided function result.
     // https://docs.microsoft.com/rest/api/playfab/cloudscript/server-side-cloud-script/postfunctionresultforplayertriggeredaction
     PostFunctionResultForPlayerTriggeredAction(
       request: PlayFabCloudScriptModels.PostFunctionResultForPlayerTriggeredActionRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.EmptyResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.EmptyResult> | null
+    ): void
     // Generate a PlayStream event for the provided function result.
     // https://docs.microsoft.com/rest/api/playfab/cloudscript/server-side-cloud-script/postfunctionresultforscheduledtask
     PostFunctionResultForScheduledTask(
       request: PlayFabCloudScriptModels.PostFunctionResultForScheduledTaskRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.EmptyResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.EmptyResult> | null
+    ): void
     // Registers an HTTP triggered Azure function with a title.
     // https://docs.microsoft.com/rest/api/playfab/cloudscript/server-side-cloud-script/registerhttpfunction
     RegisterHttpFunction(
       request: PlayFabCloudScriptModels.RegisterHttpFunctionRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.EmptyResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.EmptyResult> | null
+    ): void
     // Registers a queue triggered Azure Function with a title.
     // https://docs.microsoft.com/rest/api/playfab/cloudscript/server-side-cloud-script/registerqueuedfunction
     RegisterQueuedFunction(
       request: PlayFabCloudScriptModels.RegisterQueuedFunctionRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.EmptyResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.EmptyResult> | null
+    ): void
     // Unregisters an Azure Function with a title.
     // https://docs.microsoft.com/rest/api/playfab/cloudscript/server-side-cloud-script/unregisterfunction
     UnregisterFunction(
       request: PlayFabCloudScriptModels.UnregisterFunctionRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.EmptyResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabCloudScriptModels.EmptyResult> | null
+    ): void
   }
 }
 
 declare namespace PlayFabCloudScriptModels {
   export interface AdCampaignAttributionModel {
     // UTC time stamp of attribution
-    AttributedAt: string;
+    AttributedAt: string
     // Attribution campaign identifier
-    CampaignId?: string;
+    CampaignId?: string
     // Attribution network name
-    Platform?: string;
+    Platform?: string
   }
 
-  type CloudScriptRevisionOption = 'Live' | 'Latest' | 'Specific';
+  type CloudScriptRevisionOption = 'Live' | 'Latest' | 'Specific'
 
   export interface ContactEmailInfoModel {
     // The email address
-    EmailAddress?: string;
+    EmailAddress?: string
     // The name of the email info data
-    Name?: string;
+    Name?: string
     // The verification status of the email
-    VerificationStatus?: string;
+    VerificationStatus?: string
   }
 
-  type ContinentCode = 'AF' | 'AN' | 'AS' | 'EU' | 'NA' | 'OC' | 'SA';
+  type ContinentCode = 'AF' | 'AN' | 'AS' | 'EU' | 'NA' | 'OC' | 'SA'
 
   type CountryCode =
     | 'AF'
@@ -357,181 +357,181 @@ declare namespace PlayFabCloudScriptModels {
     | 'EH'
     | 'YE'
     | 'ZM'
-    | 'ZW';
+    | 'ZW'
 
-  type EmailVerificationStatus = 'Unverified' | 'Pending' | 'Confirmed';
+  type EmailVerificationStatus = 'Unverified' | 'Pending' | 'Confirmed'
 
   export interface EmptyResult extends PlayFabModule.IPlayFabResultCommon {}
 
   export interface EntityKey {
     // Unique ID of the entity.
-    Id: string;
+    Id: string
     // Entity type. See https://docs.microsoft.com/gaming/playfab/features/data/entities/available-built-in-entity-types
-    Type?: string;
+    Type?: string
   }
 
   export interface ExecuteCloudScriptResult extends PlayFabModule.IPlayFabResultCommon {
     // Number of PlayFab API requests issued by the CloudScript function
-    APIRequestsIssued: number;
+    APIRequestsIssued: number
     // Information about the error, if any, that occurred during execution
-    Error?: ScriptExecutionError;
-    ExecutionTimeSeconds: number;
+    Error?: ScriptExecutionError
+    ExecutionTimeSeconds: number
     // The name of the function that executed
-    FunctionName?: string;
+    FunctionName?: string
     // The object returned from the CloudScript function, if any
-    FunctionResult?: any;
+    FunctionResult?: any
     // Flag indicating if the FunctionResult was too large and was subsequently dropped from this event. This only occurs if
     // the total event size is larger than 350KB.
-    FunctionResultTooLarge?: boolean;
+    FunctionResultTooLarge?: boolean
     // Number of external HTTP requests issued by the CloudScript function
-    HttpRequestsIssued: number;
+    HttpRequestsIssued: number
     // Entries logged during the function execution. These include both entries logged in the function code using log.info()
     // and log.error() and error entries for API and HTTP request failures.
-    Logs?: LogStatement[];
+    Logs?: LogStatement[]
     // Flag indicating if the logs were too large and were subsequently dropped from this event. This only occurs if the total
     // event size is larger than 350KB after the FunctionResult was removed.
-    LogsTooLarge?: boolean;
-    MemoryConsumedBytes: number;
+    LogsTooLarge?: boolean
+    MemoryConsumedBytes: number
     // Processor time consumed while executing the function. This does not include time spent waiting on API calls or HTTP
     // requests.
-    ProcessorTimeSeconds: number;
+    ProcessorTimeSeconds: number
     // The revision of the CloudScript that executed
-    Revision: number;
+    Revision: number
   }
 
   export interface ExecuteEntityCloudScriptRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // The optional entity to perform this action on. Defaults to the currently logged in entity.
-    Entity?: EntityKey;
+    Entity?: EntityKey
     // The name of the CloudScript function to execute
-    FunctionName: string;
+    FunctionName: string
     // Object that is passed in to the function as the first argument
-    FunctionParameter?: any;
+    FunctionParameter?: any
     // Generate a 'entity_executed_cloudscript' PlayStream event containing the results of the function execution and other
     // contextual information. This event will show up in the PlayStream debugger console for the player in Game Manager.
-    GeneratePlayStreamEvent?: boolean;
+    GeneratePlayStreamEvent?: boolean
     // Option for which revision of the CloudScript to execute. 'Latest' executes the most recently created revision, 'Live'
     // executes the current live, published revision, and 'Specific' executes the specified revision. The default value is
     // 'Specific', if the SpecificRevision parameter is specified, otherwise it is 'Live'.
-    RevisionSelection?: string;
+    RevisionSelection?: string
     // The specific revision to execute, when RevisionSelection is set to 'Specific'
-    SpecificRevision?: number;
+    SpecificRevision?: number
   }
 
   export interface ExecuteFunctionRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // The optional entity to perform this action on. Defaults to the currently logged in entity.
-    Entity?: EntityKey;
+    Entity?: EntityKey
     // The name of the CloudScript function to execute
-    FunctionName: string;
+    FunctionName: string
     // Object that is passed in to the function as the FunctionArgument field of the FunctionExecutionContext data structure
-    FunctionParameter?: any;
+    FunctionParameter?: any
     // Generate a 'entity_executed_cloudscript_function' PlayStream event containing the results of the function execution and
     // other contextual information. This event will show up in the PlayStream debugger console for the player in Game Manager.
-    GeneratePlayStreamEvent?: boolean;
+    GeneratePlayStreamEvent?: boolean
   }
 
   export interface ExecuteFunctionResult extends PlayFabModule.IPlayFabResultCommon {
     // Error from the CloudScript Azure Function.
-    Error?: FunctionExecutionError;
+    Error?: FunctionExecutionError
     // The amount of time the function took to execute
-    ExecutionTimeMilliseconds: number;
+    ExecutionTimeMilliseconds: number
     // The name of the function that executed
-    FunctionName?: string;
+    FunctionName?: string
     // The object returned from the function, if any
-    FunctionResult?: any;
+    FunctionResult?: any
     // Flag indicating if the FunctionResult was too large and was subsequently dropped from this event.
-    FunctionResultTooLarge?: boolean;
+    FunctionResultTooLarge?: boolean
   }
 
   export interface FunctionExecutionError {
     // Error code, such as CloudScriptAzureFunctionsExecutionTimeLimitExceeded, CloudScriptAzureFunctionsArgumentSizeExceeded,
     // CloudScriptAzureFunctionsReturnSizeExceeded or CloudScriptAzureFunctionsHTTPRequestError
-    Error?: string;
+    Error?: string
     // Details about the error
-    Message?: string;
+    Message?: string
     // Point during the execution of the function at which the error occurred, if any
-    StackTrace?: string;
+    StackTrace?: string
   }
 
   export interface FunctionModel {
     // The address of the function.
-    FunctionAddress?: string;
+    FunctionAddress?: string
     // The name the function was registered under.
-    FunctionName?: string;
+    FunctionName?: string
     // The trigger type for the function.
-    TriggerType?: string;
+    TriggerType?: string
   }
 
   export interface GetFunctionRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // The name of the function to register
-    FunctionName: string;
+    FunctionName: string
   }
 
   export interface GetFunctionResult extends PlayFabModule.IPlayFabResultCommon {
     // The connection string for the storage account containing the queue for a queue trigger Azure Function.
-    ConnectionString?: string;
+    ConnectionString?: string
     // The URL to be invoked to execute an HTTP triggered function.
-    FunctionUrl?: string;
+    FunctionUrl?: string
     // The name of the queue for a queue trigger Azure Function.
-    QueueName?: string;
+    QueueName?: string
     // The trigger type for the function.
-    TriggerType?: string;
+    TriggerType?: string
   }
 
   export interface HttpFunctionModel {
     // The name the function was registered under.
-    FunctionName?: string;
+    FunctionName?: string
     // The URL of the function.
-    FunctionUrl?: string;
+    FunctionUrl?: string
   }
 
   export interface LinkedPlatformAccountModel {
     // Linked account email of the user on the platform, if available
-    Email?: string;
+    Email?: string
     // Authentication platform
-    Platform?: string;
+    Platform?: string
     // Unique account identifier of the user on the platform
-    PlatformUserId?: string;
+    PlatformUserId?: string
     // Linked account username of the user on the platform, if available
-    Username?: string;
+    Username?: string
   }
 
   export interface ListFunctionsRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
   }
 
   export interface ListFunctionsResult extends PlayFabModule.IPlayFabResultCommon {
     // The list of functions that are currently registered for the title.
-    Functions?: FunctionModel[];
+    Functions?: FunctionModel[]
   }
 
   export interface ListHttpFunctionsResult extends PlayFabModule.IPlayFabResultCommon {
     // The list of HTTP triggered functions that are currently registered for the title.
-    Functions?: HttpFunctionModel[];
+    Functions?: HttpFunctionModel[]
   }
 
   export interface ListQueuedFunctionsResult extends PlayFabModule.IPlayFabResultCommon {
     // The list of Queue triggered functions that are currently registered for the title.
-    Functions?: QueuedFunctionModel[];
+    Functions?: QueuedFunctionModel[]
   }
 
   export interface LocationModel {
     // City name.
-    City?: string;
+    City?: string
     // The two-character continent code for this location
-    ContinentCode?: string;
+    ContinentCode?: string
     // The two-character ISO 3166-1 country code for the country associated with the location
-    CountryCode?: string;
+    CountryCode?: string
     // Latitude coordinate of the geographic location.
-    Latitude?: number;
+    Latitude?: number
     // Longitude coordinate of the geographic location.
-    Longitude?: number;
+    Longitude?: number
   }
 
   type LoginIdentityProvider =
@@ -556,208 +556,212 @@ declare namespace PlayFabCloudScriptModels {
     | 'OpenIdConnect'
     | 'Apple'
     | 'NintendoSwitchAccount'
-    | 'GooglePlayGames';
+    | 'GooglePlayGames'
 
   export interface LogStatement {
     // Optional object accompanying the message as contextual information
-    Data?: any;
+    Data?: any
     // 'Debug', 'Info', or 'Error'
-    Level?: string;
-    Message?: string;
+    Level?: string
+    Message?: string
   }
 
   export interface MembershipModel {
     // Whether this membership is active. That is, whether the MembershipExpiration time has been reached.
-    IsActive: boolean;
+    IsActive: boolean
     // The time this membership expires
-    MembershipExpiration: string;
+    MembershipExpiration: string
     // The id of the membership
-    MembershipId?: string;
+    MembershipId?: string
     // Membership expirations can be explicitly overridden (via game manager or the admin api). If this membership has been
     // overridden, this will be the new expiration time.
-    OverrideExpiration?: string;
+    OverrideExpiration?: string
     // The list of subscriptions that this player has for this membership
-    Subscriptions?: SubscriptionModel[];
+    Subscriptions?: SubscriptionModel[]
   }
 
   export interface NameIdentifier {
     // Id Identifier, if present
-    Id?: string;
+    Id?: string
     // Name Identifier, if present
-    Name?: string;
+    Name?: string
   }
 
   export interface PlayerProfileModel {
     // List of advertising campaigns the player has been attributed to
-    AdCampaignAttributions?: AdCampaignAttributionModel[];
+    AdCampaignAttributions?: AdCampaignAttributionModel[]
     // URL of the player's avatar image
-    AvatarUrl?: string;
+    AvatarUrl?: string
     // If the player is currently banned, the UTC Date when the ban expires
-    BannedUntil?: string;
+    BannedUntil?: string
     // List of all contact email info associated with the player account
-    ContactEmailAddresses?: ContactEmailInfoModel[];
+    ContactEmailAddresses?: ContactEmailInfoModel[]
     // Player record created
-    Created?: string;
+    Created?: string
     // Player display name
-    DisplayName?: string;
+    DisplayName?: string
     // List of experiment variants for the player. Note that these variants are not guaranteed to be up-to-date when returned
     // during login because the player profile is updated only after login. Instead, use the LoginResult.TreatmentAssignment
     // property during login to get the correct variants and variables.
-    ExperimentVariants?: string[];
+    ExperimentVariants?: string[]
     // UTC time when the player most recently logged in to the title
-    LastLogin?: string;
+    LastLogin?: string
     // List of all authentication systems linked to this player account
-    LinkedAccounts?: LinkedPlatformAccountModel[];
+    LinkedAccounts?: LinkedPlatformAccountModel[]
     // List of geographic locations from which the player has logged in to the title
-    Locations?: LocationModel[];
+    Locations?: LocationModel[]
     // List of memberships for the player, along with whether are expired.
-    Memberships?: MembershipModel[];
+    Memberships?: MembershipModel[]
     // Player account origination
-    Origination?: string;
+    Origination?: string
     // PlayFab player account unique identifier
-    PlayerId?: string;
+    PlayerId?: string
     // Publisher this player belongs to
-    PublisherId?: string;
+    PublisherId?: string
     // List of configured end points registered for sending the player push notifications
-    PushNotificationRegistrations?: PushNotificationRegistrationModel[];
+    PushNotificationRegistrations?: PushNotificationRegistrationModel[]
     // List of leaderboard statistic values for the player
-    Statistics?: StatisticModel[];
+    Statistics?: StatisticModel[]
     // List of player's tags for segmentation
-    Tags?: TagModel[];
+    Tags?: TagModel[]
     // Title ID this player profile applies to
-    TitleId?: string;
+    TitleId?: string
     // Sum of the player's purchases made with real-money currencies, converted to US dollars equivalent and represented as a
     // whole number of cents (1/100 USD). For example, 999 indicates nine dollars and ninety-nine cents.
-    TotalValueToDateInUSD?: number;
+    TotalValueToDateInUSD?: number
     // List of the player's lifetime purchase totals, summed by real-money currency
-    ValuesToDate?: ValueToDateModel[];
+    ValuesToDate?: ValueToDateModel[]
   }
 
   export interface PlayStreamEventEnvelopeModel {
     // The ID of the entity the event is about.
-    EntityId?: string;
+    EntityId?: string
     // The type of the entity the event is about.
-    EntityType?: string;
+    EntityType?: string
     // Data specific to this event.
-    EventData?: string;
+    EventData?: string
     // The name of the event.
-    EventName?: string;
+    EventName?: string
     // The namespace of the event.
-    EventNamespace?: string;
+    EventNamespace?: string
     // Settings for the event.
-    EventSettings?: string;
+    EventSettings?: string
   }
 
-  export interface PostFunctionResultForEntityTriggeredActionRequest extends PlayFabModule.IPlayFabRequestCommon {
+  export interface PostFunctionResultForEntityTriggeredActionRequest
+    extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // The entity to perform this action on.
-    Entity: EntityKey;
+    Entity: EntityKey
     // The result of the function execution.
-    FunctionResult: ExecuteFunctionResult;
+    FunctionResult: ExecuteFunctionResult
   }
 
-  export interface PostFunctionResultForFunctionExecutionRequest extends PlayFabModule.IPlayFabRequestCommon {
+  export interface PostFunctionResultForFunctionExecutionRequest
+    extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // The entity to perform this action on.
-    Entity: EntityKey;
+    Entity: EntityKey
     // The result of the function execution.
-    FunctionResult: ExecuteFunctionResult;
+    FunctionResult: ExecuteFunctionResult
   }
 
-  export interface PostFunctionResultForPlayerTriggeredActionRequest extends PlayFabModule.IPlayFabRequestCommon {
+  export interface PostFunctionResultForPlayerTriggeredActionRequest
+    extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // The result of the function execution.
-    FunctionResult: ExecuteFunctionResult;
+    FunctionResult: ExecuteFunctionResult
     // The player profile the function was invoked with.
-    PlayerProfile: PlayerProfileModel;
+    PlayerProfile: PlayerProfileModel
     // The triggering PlayStream event, if any, that caused the function to be invoked.
-    PlayStreamEventEnvelope?: PlayStreamEventEnvelopeModel;
+    PlayStreamEventEnvelope?: PlayStreamEventEnvelopeModel
   }
 
-  export interface PostFunctionResultForScheduledTaskRequest extends PlayFabModule.IPlayFabRequestCommon {
+  export interface PostFunctionResultForScheduledTaskRequest
+    extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // The result of the function execution
-    FunctionResult: ExecuteFunctionResult;
+    FunctionResult: ExecuteFunctionResult
     // The id of the scheduled task that invoked the function.
-    ScheduledTaskId: NameIdentifier;
+    ScheduledTaskId: NameIdentifier
   }
 
-  type PushNotificationPlatform = 'ApplePushNotificationService' | 'GoogleCloudMessaging';
+  type PushNotificationPlatform = 'ApplePushNotificationService' | 'GoogleCloudMessaging'
 
   export interface PushNotificationRegistrationModel {
     // Notification configured endpoint
-    NotificationEndpointARN?: string;
+    NotificationEndpointARN?: string
     // Push notification platform
-    Platform?: string;
+    Platform?: string
   }
 
   export interface QueuedFunctionModel {
     // The connection string for the Azure Storage Account that hosts the queue.
-    ConnectionString?: string;
+    ConnectionString?: string
     // The name the function was registered under.
-    FunctionName?: string;
+    FunctionName?: string
     // The name of the queue that triggers the Azure Function.
-    QueueName?: string;
+    QueueName?: string
   }
 
   export interface RegisterHttpFunctionRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // The name of the function to register
-    FunctionName: string;
+    FunctionName: string
     // Full URL for Azure Function that implements the function.
-    FunctionUrl: string;
+    FunctionUrl: string
   }
 
   export interface RegisterQueuedFunctionRequest extends PlayFabModule.IPlayFabRequestCommon {
     // A connection string for the storage account that hosts the queue for the Azure Function.
-    ConnectionString: string;
+    ConnectionString: string
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // The name of the function to register
-    FunctionName: string;
+    FunctionName: string
     // The name of the queue for the Azure Function.
-    QueueName: string;
+    QueueName: string
   }
 
   export interface ScriptExecutionError {
     // Error code, such as CloudScriptNotFound, JavascriptException, CloudScriptFunctionArgumentSizeExceeded,
     // CloudScriptAPIRequestCountExceeded, CloudScriptAPIRequestError, or CloudScriptHTTPRequestError
-    Error?: string;
+    Error?: string
     // Details about the error
-    Message?: string;
+    Message?: string
     // Point during the execution of the script at which the error occurred, if any
-    StackTrace?: string;
+    StackTrace?: string
   }
 
   export interface StatisticModel {
     // Statistic name
-    Name?: string;
+    Name?: string
     // Statistic value
-    Value: number;
+    Value: number
     // Statistic version (0 if not a versioned statistic)
-    Version: number;
+    Version: number
   }
 
   export interface SubscriptionModel {
     // When this subscription expires.
-    Expiration: string;
+    Expiration: string
     // The time the subscription was orignially purchased
-    InitialSubscriptionTime: string;
+    InitialSubscriptionTime: string
     // Whether this subscription is currently active. That is, if Expiration > now.
-    IsActive: boolean;
+    IsActive: boolean
     // The status of this subscription, according to the subscription provider.
-    Status?: string;
+    Status?: string
     // The id for this subscription
-    SubscriptionId?: string;
+    SubscriptionId?: string
     // The item id for this subscription from the primary catalog
-    SubscriptionItemId?: string;
+    SubscriptionItemId?: string
     // The provider for this subscription. Apple or Google Play are supported today.
-    SubscriptionProvider?: string;
+    SubscriptionProvider?: string
   }
 
   type SubscriptionProviderStatus =
@@ -768,30 +772,30 @@ declare namespace PlayFabCloudScriptModels {
     | 'ProductUnavailable'
     | 'CustomerDidNotAcceptPriceChange'
     | 'FreeTrial'
-    | 'PaymentPending';
+    | 'PaymentPending'
 
   export interface TagModel {
     // Full value of the tag, including namespace
-    TagValue?: string;
+    TagValue?: string
   }
 
-  type TriggerType = 'HTTP' | 'Queue';
+  type TriggerType = 'HTTP' | 'Queue'
 
   export interface UnregisterFunctionRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // The name of the function to register
-    FunctionName: string;
+    FunctionName: string
   }
 
   export interface ValueToDateModel {
     // ISO 4217 code of the currency used in the purchases
-    Currency?: string;
+    Currency?: string
     // Total value of the purchases in a whole number of 1/100 monetary units. For example, 999 indicates nine dollars and
     // ninety-nine cents when Currency is 'USD')
-    TotalValue: number;
+    TotalValue: number
     // Total value of the purchases in a string representation of decimal monetary units. For example, '9.99' indicates nine
     // dollars and ninety-nine cents when Currency is 'USD'.
-    TotalValueAsDecimal?: string;
+    TotalValueAsDecimal?: string
   }
 }

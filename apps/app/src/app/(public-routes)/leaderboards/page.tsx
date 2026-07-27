@@ -1,5 +1,5 @@
-import { Typography } from '@mui/material';
-import LeaderBoards from '@/components/leaderboards';
+import { Typography } from '@mui/material'
+import LeaderBoards from '@/components/leaderboards'
 
 const LeaderboardPage = () => {
   return (
@@ -9,7 +9,7 @@ const LeaderboardPage = () => {
       </Typography>
       <LeaderBoards />
     </>
-  );
-};
+  )
+}
 
-export default LeaderboardPage;
+export default LeaderboardPage

@@ -1,5 +1,5 @@
 /// <reference path="./sdk/typings/PlayFabClient.d.ts" />
-import type { User, UserContextType, UserInfo } from './types';
+import type { User, UserContextType, UserInfo } from './types'
 
 export const USER_INITIAL_STATE = {
   isLoggedIn: false,
@@ -9,7 +9,7 @@ export const USER_INITIAL_STATE = {
   PlayFabId: undefined,
   SessionTicket: undefined,
   lastLogin: undefined,
-} as User;
+} as User
 
 export const USER_INFO_INITIAL_STATE = {
   AccountInfo: undefined,
@@ -25,7 +25,7 @@ export const USER_INFO_INITIAL_STATE = {
   UserReadOnlyData: undefined,
   UserReadOnlyDataVersion: undefined,
   UserVirtualCurrency: undefined,
-} as UserInfo;
+} as UserInfo
 
 export const USER_CONTEXT_INITIAL_STATE = {
   account: undefined,
@@ -37,7 +37,7 @@ export const USER_CONTEXT_INITIAL_STATE = {
   publisherData: undefined,
   stats: [],
   refetchPlayer: () => new Promise(() => undefined),
-} as UserContextType;
+} as UserContextType
 
 export const ProfileConstraints = {
   ShowAvatarUrl: true,
@@ -57,7 +57,7 @@ export const ProfileConstraints = {
   // ShowTags: true,
   // ShowTotalValueToDateInUsd: true,
   // ShowValuesToDate: true,
-} as PlayFabClientModels.PlayerProfileViewConstraints;
+} as PlayFabClientModels.PlayerProfileViewConstraints
 
 export const InfoRequestParameters = {
   GetUserAccountInfo: true,
@@ -74,4 +74,4 @@ export const InfoRequestParameters = {
   // UserDataKeys: [],
   // GetUserReadOnlyData: true,
   // UserReadOnlyDataKeys: []
-} as PlayFabClientModels.GetPlayerCombinedInfoRequestParams;
+} as PlayFabClientModels.GetPlayerCombinedInfoRequestParams

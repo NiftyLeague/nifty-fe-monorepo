@@ -1,12 +1,12 @@
-import React from 'react';
-import Link from '@docusaurus/Link';
-import Discord from '@site/public/icons/socials/discord.svg';
-import Twitter from '@site/public/icons/socials/twitterX.svg';
-import Github from '@site/public/icons/socials/github.svg';
-import { CenterCard, WideCard } from '../Card';
-import Row, { RowThree } from '../Row';
-import Section from '../Section';
-import StyledIcon from '../StyledIcon';
+import React from 'react'
+import Link from '@docusaurus/Link'
+import Discord from '@site/public/icons/socials/discord.svg'
+import Twitter from '@site/public/icons/socials/twitterX.svg'
+import Github from '@site/public/icons/socials/github.svg'
+import { CenterCard, WideCard } from '../Card'
+import Row, { RowThree } from '../Row'
+import Section from '../Section'
+import StyledIcon from '../StyledIcon'
 
 export default function HomepageSocials() {
   return (
@@ -49,7 +49,12 @@ export default function HomepageSocials() {
       </RowThree>
       <Row>
         <Link
-          style={{ textDecoration: 'none', maxWidth: '960px', margin: '0 auto 4rem auto', width: '100%' }}
+          style={{
+            textDecoration: 'none',
+            maxWidth: '960px',
+            margin: '0 auto 4rem auto',
+            width: '100%',
+          }}
           href={'https://www.twitch.tv/NiftyLeagueOfficial'}
         >
           <WideCard>
@@ -57,14 +62,14 @@ export default function HomepageSocials() {
             <div>
               <h2 style={{ marginBottom: '0.5rem' }}>Nifty League Twitch Streamers</h2>
               <p style={{ margin: '0rem' }}>
-                Checkout our official Twitch channel for latest gameplay footage and live streams. If you are a streamer
-                and want to help manage the Nifty League Official Twitch channel please reach out to our team on
-                Discord!
+                Checkout our official Twitch channel for latest gameplay footage and live streams.
+                If you are a streamer and want to help manage the Nifty League Official Twitch
+                channel please reach out to our team on Discord!
               </p>
             </div>
           </WideCard>
         </Link>
       </Row>
     </Section>
-  );
+  )
 }

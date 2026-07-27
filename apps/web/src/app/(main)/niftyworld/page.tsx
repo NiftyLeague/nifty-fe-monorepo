@@ -1,11 +1,11 @@
-import Image from 'next/image';
-import type { NextPage } from 'next';
+import Image from 'next/image'
+import type { NextPage } from 'next'
 
-import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
-import { ConsoleGame } from '@nl/ui/custom/console-game';
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
+import { ConsoleGame } from '@nl/ui/custom/console-game'
 
-import { NIFTYWORLD_PROPERTIES } from '@/constants/niftyworld';
-import ThemeBtnGroup from '@/components/ThemeBtnGroup';
+import { NIFTYWORLD_PROPERTIES } from '@/constants/niftyworld'
+import ThemeBtnGroup from '@/components/ThemeBtnGroup'
 
 const NiftyWorld: NextPage = () => {
   return (
@@ -29,16 +29,19 @@ const NiftyWorld: NextPage = () => {
           <div className="flex flex-col w-full md:w-1/2 lg:w-7/12 pr-0 md:pr-3 text-center md:text-left">
             <div className="mb-2 mb-md-3">
               <AnimatedWrapper>
-                <h1 className="transition-vertical-fade transition-vertical-fade-start">NIFTYWORLD</h1>
+                <h1 className="transition-vertical-fade transition-vertical-fade-start">
+                  NIFTYWORLD
+                </h1>
               </AnimatedWrapper>
             </div>
             <div className="mb-3 mb-md-0">
               <AnimatedWrapper>
                 <p className="transition-vertical-fade transition-vertical-fade-start delay-lite">
-                  NiftyWorld is a virtual space for gamers to connect, collaborate, and compete with each other. The
-                  initial districts are designed by the Nifty League team, but ultimately the vision is for NiftyWorld
-                  to be a dynamic and interoperable platform for developers to create their own games, ensuring a wide
-                  variety of immersive experiences for players. Do note: all DEGEN holders have been promised free land
+                  NiftyWorld is a virtual space for gamers to connect, collaborate, and compete with
+                  each other. The initial districts are designed by the Nifty League team, but
+                  ultimately the vision is for NiftyWorld to be a dynamic and interoperable platform
+                  for developers to create their own games, ensuring a wide variety of immersive
+                  experiences for players. Do note: all DEGEN holders have been promised free land
                   parcels in NiftyWorld!
                 </p>
               </AnimatedWrapper>
@@ -67,10 +70,15 @@ const NiftyWorld: NextPage = () => {
           </div>
           <div className="flex flex-col items-start md:flex-row w-full justify-between flex-wrap">
             {NIFTYWORLD_PROPERTIES.map(({ name, description, image }) => (
-              <div className="w-full md:w-1/2 flex flex-col lg:flex-row relative py-3 px-2 mb-3 md:mb-5" key={name}>
+              <div
+                className="w-full md:w-1/2 flex flex-col lg:flex-row relative py-3 px-2 mb-3 md:mb-5"
+                key={name}
+              >
                 <div className="w-full lg:w-1/2 lg:pr-2 flex flex-col">
                   <AnimatedWrapper>
-                    <h6 className="my-0 transition-fade-slow transition-fade-start delay-lite">{name}</h6>
+                    <h6 className="my-0 transition-fade-slow transition-fade-start delay-lite">
+                      {name}
+                    </h6>
                   </AnimatedWrapper>
                   <AnimatedWrapper>
                     <p className="mt-2 md:mt-4 mb-4 lg:mb-0 transition-fade-slow transition-fade-start delay-normal">
@@ -94,11 +102,17 @@ const NiftyWorld: NextPage = () => {
               </div>
             ))}
           </div>
-          <ThemeBtnGroup primary={{ href: '/docs/overview/games/niftyworld', title: 'VIEW DOCS', external: true }} />
+          <ThemeBtnGroup
+            primary={{
+              href: '/docs/overview/games/niftyworld',
+              title: 'VIEW DOCS',
+              external: true,
+            }}
+          />
         </section>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default NiftyWorld;
+export default NiftyWorld

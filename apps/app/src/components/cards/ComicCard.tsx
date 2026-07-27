@@ -1,34 +1,42 @@
 // @ts-nocheck — MUI 9 sx prop type mismatch between @mui/system and @mui/material Theme
-import { Box, SxProps, Typography } from '@mui/material';
-import { Theme } from '@nl/theme';
-import type { Comic } from '@/types/marketplace';
-import ImageCard from '@/components/cards/ImageCard';
-import useComicDimension from '@/hooks/useComicDimension';
+import { Box, SxProps, Typography } from '@mui/material'
+import { Theme } from '@nl/theme'
+import type { Comic } from '@/types/marketplace'
+import ImageCard from '@/components/cards/ImageCard'
+import useComicDimension from '@/hooks/useComicDimension'
 
 export interface ComicCardProps {
-  data: Comic;
-  sx?: SxProps<Theme>;
-  isSelected?: boolean;
-  onViewComic?: () => void;
+  data: Comic
+  sx?: SxProps<Theme>
+  isSelected?: boolean
+  onViewComic?: () => void
 }
 
 interface ComicCardPaneProps {
-  data: Comic;
-  sx?: SxProps<Theme>;
-  width: number;
-  height: number;
+  data: Comic
+  sx?: SxProps<Theme>
+  width: number
+  height: number
 }
 
 const ComicCardPane: React.FC<ComicCardPaneProps> = ({ width, height, data, sx }) => {
-  const { image, title, thumbnail } = data;
+  const { image, title, thumbnail } = data
   return (
     <Box sx={sx}>
-      <Box sx={{ width: width, height: height, borderRadius: '5px', position: 'relative', overflow: 'hidden' }}>
+      <Box
+        sx={{
+          width: width,
+          height: height,
+          borderRadius: '5px',
+          position: 'relative',
+          overflow: 'hidden',
+        }}
+      >
         <ImageCard image={image} thumbnail={thumbnail} title={title} ratio={1} />
       </Box>
     </Box>
-  );
-};
+  )
+}
 
 const ComicCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<ComicCardProps>>> = ({
   data,
@@ -36,19 +44,26 @@ const ComicCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<ComicC
   sx,
   isSelected = false,
 }) => {
-  const { balance } = data;
-  const { width: comicCardWidth, height: comicCardHeight } = useComicDimension();
+  const { balance } = data
+  const { width: comicCardWidth, height: comicCardHeight } = useComicDimension()
 
   const handleViewComic = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-    if (!onViewComic) return;
-    onViewComic();
-  };
+    e.stopPropagation()
+    if (!onViewComic) return
+    onViewComic()
+  }
 
   if (!balance)
     return (
-      <Box sx={{ border: '1px solid #363636', borderRadius: '5px', width: comicCardWidth, height: comicCardHeight }} />
-    );
+      <Box
+        sx={{
+          border: '1px solid #363636',
+          borderRadius: '5px',
+          width: comicCardWidth,
+          height: comicCardHeight,
+        }}
+      />
+    )
 
   return (
     <Box
@@ -64,7 +79,7 @@ const ComicCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<ComicC
         <ComicCardPane data={data} width={comicCardWidth} height={comicCardHeight} />
       ) : (
         <Box sx={{ width: comicCardWidth + 24, height: comicCardHeight + 16 }}>
-          {[0, 1, 2].map(item => (
+          {[0, 1, 2].map((item) => (
             <ComicCardPane
               data={data}
               width={comicCardWidth}
@@ -95,7 +110,7 @@ const ComicCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<ComicC
         </Box>
       )}
     </Box>
-  );
-};
+  )
+}
 
-export default ComicCard;
+export default ComicCard

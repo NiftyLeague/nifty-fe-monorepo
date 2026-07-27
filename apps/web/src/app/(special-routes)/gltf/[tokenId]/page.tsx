@@ -1,31 +1,31 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { useParams } from 'next/navigation';
-import dynamic from 'next/dynamic';
-import Image from 'next/image';
+import { useState } from 'react'
+import { useParams } from 'next/navigation'
+import dynamic from 'next/dynamic'
+import Image from 'next/image'
 
-import { cn } from '@nl/ui/utils';
-import { ErrorBoundary } from '@nl/ui/custom/error-boundry';
-import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group';
-import { DEGEN_BASE_SPRITE_URL, LEGGIES } from '@/constants/degens';
-import { SRC, Color } from '@/types/gltf';
+import { cn } from '@nl/ui/utils'
+import { ErrorBoundary } from '@nl/ui/custom/error-boundry'
+import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group'
+import { DEGEN_BASE_SPRITE_URL, LEGGIES } from '@/constants/degens'
+import { SRC, Color } from '@/types/gltf'
 
-import styles from './gltf.module.css';
+import styles from './gltf.module.css'
 
-const TokenMenu = dynamic(() => import('./components/TokenMenu'), { ssr: false });
-const ModelView = dynamic(() => import('./components/ModelView'), { ssr: false });
-const ModelActions = dynamic(() => import('./components/ModelActions'), { ssr: false });
+const TokenMenu = dynamic(() => import('./components/TokenMenu'), { ssr: false })
+const ModelView = dynamic(() => import('./components/ModelView'), { ssr: false })
+const ModelActions = dynamic(() => import('./components/ModelActions'), { ssr: false })
 
 export default function DegenViews() {
-  const params = useParams();
-  const tokenId = params.tokenId as string;
-  const [source, setSource] = useState<SRC>(SRC.IMAGE);
-  const [color, setColor] = useState<Color>('purple');
-  const IMAGE_SRC = `/img/degens/nfts/${tokenId}.${LEGGIES.includes(Number(tokenId)) ? 'gif' : 'webp'}`;
-  const SPRITE_SRC = `${DEGEN_BASE_SPRITE_URL}/${tokenId}.gif`;
+  const params = useParams()
+  const tokenId = params.tokenId as string
+  const [source, setSource] = useState<SRC>(SRC.IMAGE)
+  const [color, setColor] = useState<Color>('purple')
+  const IMAGE_SRC = `/img/degens/nfts/${tokenId}.${LEGGIES.includes(Number(tokenId)) ? 'gif' : 'webp'}`
+  const SPRITE_SRC = `${DEGEN_BASE_SPRITE_URL}/${tokenId}.gif`
 
-  if (!tokenId) return null;
+  if (!tokenId) return null
 
   return (
     <>
@@ -55,7 +55,14 @@ export default function DegenViews() {
         />
       )}
       {source === SRC.SPRITE && (
-        <Image alt="Degen Sprite" className={styles.sprite} fill priority unoptimized src={SPRITE_SRC} />
+        <Image
+          alt="Degen Sprite"
+          className={styles.sprite}
+          fill
+          priority
+          unoptimized
+          src={SPRITE_SRC}
+        />
       )}
       <main
         className={cn(styles.main__wrapper, {
@@ -120,5 +127,5 @@ export default function DegenViews() {
         )}
       </main>
     </>
-  );
+  )
 }

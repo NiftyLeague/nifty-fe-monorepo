@@ -1,17 +1,17 @@
-import type { PropsWithChildren } from 'react';
-import type { Metadata, Viewport } from 'next';
-import Head from 'next/head';
-import Script from 'next/script';
+import type { PropsWithChildren } from 'react'
+import type { Metadata, Viewport } from 'next'
+import Head from 'next/head'
+import Script from 'next/script'
 
-import { ThemeProvider } from '@nl/theme';
-import { GoogleTagManager, WebVitals } from '@nl/ui/gtm';
-import { customFontClassName } from '@nl/ui/fonts';
-import { cn } from '@nl/ui/utils';
+import { ThemeProvider } from '@nl/theme'
+import { GoogleTagManager, WebVitals } from '@nl/ui/gtm'
+import { customFontClassName } from '@nl/ui/fonts'
+import { cn } from '@nl/ui/utils'
 
-import AppContextWrapper from '@/contexts/AppContextWrapper';
-import MainLayout from '@/app/_layout/_MainLayout';
+import AppContextWrapper from '@/contexts/AppContextWrapper'
+import MainLayout from '@/app/_layout/_MainLayout'
 
-import '@/styles/app.css';
+import '@/styles/app.css'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://app.niftyleague.com'),
@@ -46,9 +46,12 @@ export const metadata: Metadata = {
     // siteId: '1467726470533754880',
     creator: '@NiftyLeague',
     // creatorId: '1467726470533754880',
-    images: { url: 'https://niftyleague.com/img/backgrounds/banner-dark.webp', alt: 'Nifty League Banner' },
+    images: {
+      url: 'https://niftyleague.com/img/backgrounds/banner-dark.webp',
+      alt: 'Nifty League Banner',
+    },
   },
-};
+}
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -59,7 +62,7 @@ export const viewport: Viewport = {
     { media: '(prefers-color-scheme: light)', color: '#fafafa' },
   ],
   colorScheme: 'dark light',
-};
+}
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
@@ -85,5 +88,5 @@ export default function RootLayout({ children }: PropsWithChildren) {
         />
       </body>
     </html>
-  );
+  )
 }

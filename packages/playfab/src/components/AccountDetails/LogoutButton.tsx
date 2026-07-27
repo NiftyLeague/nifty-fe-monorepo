@@ -1,26 +1,26 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
-import { Button } from '@nl/ui/base/button';
-import { Icon } from '@nl/ui/base/icon';
-import { fetchJson } from '../../utils/fetchJson';
-import { useUserSession } from '../../hooks/useUserSession';
-import type { User } from '../../types';
+import { Button } from '@nl/ui/base/button'
+import { Icon } from '@nl/ui/base/icon'
+import { fetchJson } from '../../utils/fetchJson'
+import { useUserSession } from '../../hooks/useUserSession'
+import type { User } from '../../types'
 
 export default function LogoutButton({ loading = false }) {
-  const [logout, setLogout] = useState(false);
-  const { mutateUser } = useUserSession({ redirectTo: '/login' });
-  const router = useRouter();
+  const [logout, setLogout] = useState(false)
+  const { mutateUser } = useUserSession({ redirectTo: '/login' })
+  const router = useRouter()
 
   const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    setLogout(true);
-    e.preventDefault();
-    const res = await fetchJson<User>('/api/playfab/logout', { method: 'POST' });
-    mutateUser(res, { revalidate: true });
-    router.push('/login');
-  };
+    setLogout(true)
+    e.preventDefault()
+    const res = await fetchJson<User>('/api/playfab/logout', { method: 'POST' })
+    mutateUser(res, { revalidate: true })
+    router.push('/login')
+  }
 
   return (
     <div>
@@ -35,5 +35,5 @@ export default function LogoutButton({ loading = false }) {
         Sign Out
       </Button>
     </div>
-  );
+  )
 }

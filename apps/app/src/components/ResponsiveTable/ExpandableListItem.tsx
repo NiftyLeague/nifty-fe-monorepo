@@ -1,32 +1,38 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react'
 
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Checkbox from '@mui/material/Checkbox';
-import Typography from '@mui/material/Typography';
+import Accordion from '@mui/material/Accordion'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import Checkbox from '@mui/material/Checkbox'
+import Typography from '@mui/material/Typography'
 
-import { Icon, type IconProps } from '@nl/ui/base/icon';
-import type { AccordionDetailsProps, AccordionProps, AccordionSummaryProps, Row, TypographyProps } from './types';
+import { Icon, type IconProps } from '@nl/ui/base/icon'
+import type {
+  AccordionDetailsProps,
+  AccordionProps,
+  AccordionSummaryProps,
+  Row,
+  TypographyProps,
+} from './types'
 
 type ExpandableListItemProps = {
-  AccordionDetailsProps?: AccordionDetailsProps;
-  AccordionDetailsTypographyProps?: TypographyProps<'div'>;
-  AccordionMoreIconProps?: IconProps;
-  AccordionProps?: AccordionProps;
-  AccordionSummaryProps?: AccordionSummaryProps;
-  AccordionSummaryTypographyProps?: TypographyProps;
-  checkboxSelection?: boolean;
-  details: React.ReactNode;
-  onSelect: (row: Row) => void;
-  panelClass?: string;
-  row: Row;
-  scrollOptions?: ScrollIntoViewOptions;
-  scrollToSelected: boolean;
-  selected: boolean;
-  SelectedAccordionProps?: AccordionProps;
-  summary: React.ReactNode | React.ReactNode[];
-};
+  AccordionDetailsProps?: AccordionDetailsProps
+  AccordionDetailsTypographyProps?: TypographyProps<'div'>
+  AccordionMoreIconProps?: IconProps
+  AccordionProps?: AccordionProps
+  AccordionSummaryProps?: AccordionSummaryProps
+  AccordionSummaryTypographyProps?: TypographyProps
+  checkboxSelection?: boolean
+  details: React.ReactNode
+  onSelect: (row: Row) => void
+  panelClass?: string
+  row: Row
+  scrollOptions?: ScrollIntoViewOptions
+  scrollToSelected: boolean
+  selected: boolean
+  SelectedAccordionProps?: AccordionProps
+  summary: React.ReactNode | React.ReactNode[]
+}
 
 /**
  * Expandable component with header text (summary) and expandable description text (details)
@@ -49,23 +55,28 @@ const ExpandableListItem: React.FC<ExpandableListItemProps> = ({
   SelectedAccordionProps,
   summary,
 }) => {
-  const panelRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (selected && scrollToSelected && panelRef.current) {
-      panelRef.current.scrollIntoView(scrollOptions || { behavior: 'smooth', block: 'center' });
+      panelRef.current.scrollIntoView(scrollOptions || { behavior: 'smooth', block: 'center' })
     }
-  }, [selected, scrollToSelected, scrollOptions]);
+  }, [selected, scrollToSelected, scrollOptions])
 
-  const handleSelect: React.MouseEventHandler<HTMLButtonElement> = event => {
-    onSelect(row);
-    event.stopPropagation();
-  };
+  const handleSelect: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+    onSelect(row)
+    event.stopPropagation()
+  }
 
-  const rootProps = selected ? { ...AccordionProps, ...SelectedAccordionProps } : AccordionProps;
+  const rootProps = selected ? { ...AccordionProps, ...SelectedAccordionProps } : AccordionProps
 
   return (
-    <Accordion sx={{ marginBottom: 0 }} className={panelClass && panelClass} {...rootProps} ref={panelRef}>
+    <Accordion
+      sx={{ marginBottom: 0 }}
+      className={panelClass && panelClass}
+      {...rootProps}
+      ref={panelRef}
+    >
       <AccordionSummary
         expandIcon={<Icon name="chevron-down" size="lg" {...AccordionMoreIconProps} />}
         {...AccordionSummaryProps}
@@ -73,7 +84,11 @@ const ExpandableListItem: React.FC<ExpandableListItemProps> = ({
         {checkboxSelection && (
           <Checkbox style={{ padding: `0 10px 5px 0` }} checked={selected} onClick={handleSelect} />
         )}
-        <Typography style={{ width: '100%', display: 'flex' }} variant="subtitle1" {...AccordionSummaryTypographyProps}>
+        <Typography
+          style={{ width: '100%', display: 'flex' }}
+          variant="subtitle1"
+          {...AccordionSummaryTypographyProps}
+        >
           {summary}
         </Typography>
       </AccordionSummary>
@@ -88,7 +103,7 @@ const ExpandableListItem: React.FC<ExpandableListItemProps> = ({
         </Typography>
       </AccordionDetails>
     </Accordion>
-  );
-};
+  )
+}
 
-export default ExpandableListItem;
+export default ExpandableListItem

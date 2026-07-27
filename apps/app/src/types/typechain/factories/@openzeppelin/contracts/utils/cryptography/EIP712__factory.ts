@@ -2,12 +2,19 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
-import type { EIP712, EIP712Interface } from '../../../../../@openzeppelin/contracts/utils/cryptography/EIP712';
+import { Contract, Interface, type ContractRunner } from 'ethers'
+import type {
+  EIP712,
+  EIP712Interface,
+} from '../../../../../@openzeppelin/contracts/utils/cryptography/EIP712'
 
 const _abi = [
   { inputs: [], name: 'InvalidShortString', type: 'error' },
-  { inputs: [{ internalType: 'string', name: 'str', type: 'string' }], name: 'StringTooLong', type: 'error' },
+  {
+    inputs: [{ internalType: 'string', name: 'str', type: 'string' }],
+    name: 'StringTooLong',
+    type: 'error',
+  },
   { anonymous: false, inputs: [], name: 'EIP712DomainChanged', type: 'event' },
   {
     inputs: [],
@@ -24,14 +31,14 @@ const _abi = [
     stateMutability: 'view',
     type: 'function',
   },
-] as const;
+] as const
 
 export class EIP712__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): EIP712Interface {
-    return new Interface(_abi) as EIP712Interface;
+    return new Interface(_abi) as EIP712Interface
   }
   static connect(address: string, runner?: ContractRunner | null): EIP712 {
-    return new Contract(address, _abi, runner) as unknown as EIP712;
+    return new Contract(address, _abi, runner) as unknown as EIP712
   }
 }

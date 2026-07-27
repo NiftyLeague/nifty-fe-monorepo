@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
-import { ComponentProps } from 'react';
+import styled from '@emotion/styled'
+import { ComponentProps } from 'react'
 
 const StyledIcon: React.FC<ComponentProps<'div'>> = styled.div`
   svg {
@@ -7,6 +7,6 @@ const StyledIcon: React.FC<ComponentProps<'div'>> = styled.div`
   }
   display: flex;
   align-items: center;
-`;
+`
 
-export default StyledIcon;
+export default StyledIcon

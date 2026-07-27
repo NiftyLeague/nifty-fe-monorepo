@@ -1,4 +1,4 @@
-import { DEGEN_COLLECTION_URL } from '@/constants/degens';
+import { DEGEN_COLLECTION_URL } from '@/constants/degens'
 
 export const SOCIALS = [
   {
@@ -37,4 +37,4 @@ export const SOCIALS = [
     subtitle: 'Hold discussions and ask questions to our Reddit community',
     image: '/icons/socials/reddit.svg',
   },
-];
+]

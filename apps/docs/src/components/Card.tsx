@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
-import { ComponentProps } from 'react';
+import styled from '@emotion/styled'
+import { ComponentProps } from 'react'
 
 const Card: React.FC<ComponentProps<'div'>> = styled.div`
   background-color: var(--ifm-color-emphasis-100);
@@ -23,7 +23,7 @@ const Card: React.FC<ComponentProps<'div'>> = styled.div`
   @media (max-width: 960px) {
     width: 100%;
   }
-`;
+`
 
 export const CenterCard: React.FC<ComponentProps<typeof Card>> = styled(Card)`
   min-width: 250px;
@@ -40,7 +40,7 @@ export const CenterCard: React.FC<ComponentProps<typeof Card>> = styled(Card)`
   p {
     margin-bottom: 0px;
   }
-`;
+`
 
 export const ShadowCard: React.FC<ComponentProps<typeof Card>> = styled(Card)`
   background-color: transparent;
@@ -51,7 +51,7 @@ export const ShadowCard: React.FC<ComponentProps<typeof Card>> = styled(Card)`
   &:hover {
     background-color: var(--ifm-color-emphasis-100);
   }
-`;
+`
 
 export const WideCard: React.FC<ComponentProps<typeof ShadowCard>> = styled(ShadowCard)`
   max-height: auto;
@@ -65,6 +65,6 @@ export const WideCard: React.FC<ComponentProps<typeof ShadowCard>> = styled(Shad
     max-height: fit-content;
     width: fit-content;
   }
-`;
+`
 
-export default Card;
+export default Card

@@ -1,24 +1,24 @@
-'use client';
+'use client'
 
-import { Box, Typography } from '@mui/material';
-import { FC, ReactNode, useEffect, useRef, useState } from 'react';
+import { Box, Typography } from '@mui/material'
+import { FC, ReactNode, useEffect, useRef, useState } from 'react'
 
 interface ProgressBarProps {
-  value: number;
-  children: string | ReactNode;
+  value: number
+  children: string | ReactNode
 }
 
 const ProgressBar: FC<ProgressBarProps> = ({ value, children }) => {
-  const centerTextRef = useRef<HTMLParagraphElement>(null);
-  const progressContainerRef = useRef<HTMLDivElement>(null);
-  const [rect, setRect] = useState<{ left: number }>({ left: 0 });
+  const centerTextRef = useRef<HTMLParagraphElement>(null)
+  const progressContainerRef = useRef<HTMLDivElement>(null)
+  const [rect, setRect] = useState<{ left: number }>({ left: 0 })
   useEffect(() => {
     if (centerTextRef.current && progressContainerRef.current) {
-      const textRect = centerTextRef.current.getBoundingClientRect();
-      const containerRect = progressContainerRef.current.getBoundingClientRect();
-      setRect({ left: textRect.left - containerRect.left });
+      const textRect = centerTextRef.current.getBoundingClientRect()
+      const containerRect = progressContainerRef.current.getBoundingClientRect()
+      setRect({ left: textRect.left - containerRect.left })
     }
-  }, [value]);
+  }, [value])
   return (
     <Box sx={{ position: 'relative' }}>
       <Box
@@ -60,12 +60,14 @@ const ProgressBar: FC<ProgressBarProps> = ({ value, children }) => {
           alignItems: 'center',
         }}
       >
-        <Typography sx={{ fontSize: 10, position: 'absolute', left: `${rect.left}px`, whiteSpace: 'nowrap' }}>
+        <Typography
+          sx={{ fontSize: 10, position: 'absolute', left: `${rect.left}px`, whiteSpace: 'nowrap' }}
+        >
           {children}
         </Typography>
       </Box>
     </Box>
-  );
-};
+  )
+}
 
-export default ProgressBar;
+export default ProgressBar

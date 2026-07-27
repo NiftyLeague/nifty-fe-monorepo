@@ -1,17 +1,20 @@
-import { CardMedia, Box } from '@mui/material';
-import useImageOnLoad from '@/hooks/useImageOnLoad';
+import { CardMedia, Box } from '@mui/material'
+import useImageOnLoad from '@/hooks/useImageOnLoad'
 
 interface ImageCardProps {
-  thumbnail?: string;
-  image?: string;
-  title: string;
-  ratio: number;
+  thumbnail?: string
+  image?: string
+  title: string
+  ratio: number
 }
 
-const styleImage = { imageWrapper: { height: 0, width: '100%' }, imageCommon: { position: 'absolute', width: '100%' } };
+const styleImage = {
+  imageWrapper: { height: 0, width: '100%' },
+  imageCommon: { position: 'absolute', width: '100%' },
+}
 
 const ImageCard = ({ image, thumbnail, title, ratio }: ImageCardProps) => {
-  const { handleImageOnLoad, css } = useImageOnLoad();
+  const { handleImageOnLoad, css } = useImageOnLoad()
   return (
     <Box sx={{ ...styleImage.imageWrapper, paddingBottom: `${ratio * 100}%` }}>
       {thumbnail && (
@@ -33,7 +36,7 @@ const ImageCard = ({ image, thumbnail, title, ratio }: ImageCardProps) => {
         />
       )}
     </Box>
-  );
-};
+  )
+}
 
-export default ImageCard;
+export default ImageCard

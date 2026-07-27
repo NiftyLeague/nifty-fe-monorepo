@@ -38,7 +38,7 @@ export default {
       ],
     },
   },
-};
+}
 ```
 
 The docs version dropdown appears in your navbar:

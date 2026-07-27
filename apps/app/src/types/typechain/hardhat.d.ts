@@ -2,2369 +2,2420 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ethers } from 'ethers';
+import { ethers } from 'ethers'
 import {
   DeployContractOptions,
   FactoryOptions,
   HardhatEthersHelpers as HardhatEthersHelpersBase,
-} from '@nomicfoundation/hardhat-ethers/types';
+} from '@nomicfoundation/hardhat-ethers/types'
 
-import * as Contracts from '.';
+import * as Contracts from '.'
 
 declare module 'hardhat/types/runtime' {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
     getContractFactory(
       name: 'ConfirmedOwner',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ConfirmedOwner__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ConfirmedOwner__factory>
     getContractFactory(
       name: 'ConfirmedOwnerWithProposal',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ConfirmedOwnerWithProposal__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ConfirmedOwnerWithProposal__factory>
     getContractFactory(
       name: 'IOwnable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IOwnable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IOwnable__factory>
     getContractFactory(
       name: 'LinkTokenInterface',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.LinkTokenInterface__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.LinkTokenInterface__factory>
     getContractFactory(
       name: 'VRFCoordinatorV2Interface',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.VRFCoordinatorV2Interface__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.VRFCoordinatorV2Interface__factory>
     getContractFactory(
       name: 'VRFCoordinatorV2Mock',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.VRFCoordinatorV2Mock__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.VRFCoordinatorV2Mock__factory>
     getContractFactory(
       name: 'VRFConsumerBaseV2',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.VRFConsumerBaseV2__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.VRFConsumerBaseV2__factory>
     getContractFactory(
       name: 'MintingAccessControl',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.MintingAccessControl__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.MintingAccessControl__factory>
     getContractFactory(
       name: 'IOperatorAllowlist',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IOperatorAllowlist__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IOperatorAllowlist__factory>
     getContractFactory(
       name: 'OperatorAllowlistEnforced',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.OperatorAllowlistEnforced__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.OperatorAllowlistEnforced__factory>
     getContractFactory(
       name: 'IImmutableERC1155Errors',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IImmutableERC1155Errors__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IImmutableERC1155Errors__factory>
     getContractFactory(
       name: 'IImmutableERC721Errors',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IImmutableERC721Errors__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IImmutableERC721Errors__factory>
     getContractFactory(
       name: 'OperatorAllowlistEnforcementErrors',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.OperatorAllowlistEnforcementErrors__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.OperatorAllowlistEnforcementErrors__factory>
     getContractFactory(
       name: 'ERC1155Permit',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ERC1155Permit__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC1155Permit__factory>
     getContractFactory(
       name: 'IERC1155Permit',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC1155Permit__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC1155Permit__factory>
     getContractFactory(
       name: 'ImmutableERC1155Base',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ImmutableERC1155Base__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ImmutableERC1155Base__factory>
     getContractFactory(
       name: 'ImmutableERC1155',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ImmutableERC1155__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ImmutableERC1155__factory>
     getContractFactory(
       name: 'OwnableUpgradeable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.OwnableUpgradeable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.OwnableUpgradeable__factory>
     getContractFactory(
       name: 'Initializable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.Initializable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Initializable__factory>
     getContractFactory(
       name: 'PausableUpgradeable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.PausableUpgradeable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.PausableUpgradeable__factory>
     getContractFactory(
       name: 'ReentrancyGuardUpgradeable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ReentrancyGuardUpgradeable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ReentrancyGuardUpgradeable__factory>
     getContractFactory(
       name: 'IERC1155Upgradeable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC1155Upgradeable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC1155Upgradeable__factory>
     getContractFactory(
       name: 'IERC20PermitUpgradeable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC20PermitUpgradeable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC20PermitUpgradeable__factory>
     getContractFactory(
       name: 'IERC20Upgradeable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC20Upgradeable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC20Upgradeable__factory>
     getContractFactory(
       name: 'ERC721Upgradeable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ERC721Upgradeable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC721Upgradeable__factory>
     getContractFactory(
       name: 'ERC721EnumerableUpgradeable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ERC721EnumerableUpgradeable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC721EnumerableUpgradeable__factory>
     getContractFactory(
       name: 'IERC721EnumerableUpgradeable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC721EnumerableUpgradeable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC721EnumerableUpgradeable__factory>
     getContractFactory(
       name: 'IERC721MetadataUpgradeable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC721MetadataUpgradeable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC721MetadataUpgradeable__factory>
     getContractFactory(
       name: 'IERC721ReceiverUpgradeable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC721ReceiverUpgradeable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC721ReceiverUpgradeable__factory>
     getContractFactory(
       name: 'IERC721Upgradeable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC721Upgradeable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC721Upgradeable__factory>
     getContractFactory(
       name: 'ERC721HolderUpgradeable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ERC721HolderUpgradeable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC721HolderUpgradeable__factory>
     getContractFactory(
       name: 'ContextUpgradeable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ContextUpgradeable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ContextUpgradeable__factory>
     getContractFactory(
       name: 'ERC165Upgradeable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ERC165Upgradeable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC165Upgradeable__factory>
     getContractFactory(
       name: 'IERC165Upgradeable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC165Upgradeable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC165Upgradeable__factory>
     getContractFactory(
       name: 'AccessControl',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.AccessControl__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.AccessControl__factory>
     getContractFactory(
       name: 'AccessControlEnumerable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.AccessControlEnumerable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.AccessControlEnumerable__factory>
     getContractFactory(
       name: 'IAccessControl',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IAccessControl__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IAccessControl__factory>
     getContractFactory(
       name: 'IAccessControlEnumerable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IAccessControlEnumerable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IAccessControlEnumerable__factory>
     getContractFactory(
       name: 'Ownable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.Ownable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Ownable__factory>
     getContractFactory(
       name: 'GovernorCountingSimple',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.GovernorCountingSimple__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.GovernorCountingSimple__factory>
     getContractFactory(
       name: 'GovernorSettings',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.GovernorSettings__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.GovernorSettings__factory>
     getContractFactory(
       name: 'GovernorTimelockControl',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.GovernorTimelockControl__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.GovernorTimelockControl__factory>
     getContractFactory(
       name: 'GovernorVotes',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.GovernorVotes__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.GovernorVotes__factory>
     getContractFactory(
       name: 'GovernorVotesQuorumFraction',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.GovernorVotesQuorumFraction__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.GovernorVotesQuorumFraction__factory>
     getContractFactory(
       name: 'IGovernorTimelock',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IGovernorTimelock__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IGovernorTimelock__factory>
     getContractFactory(
       name: 'Governor',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.Governor__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Governor__factory>
     getContractFactory(
       name: 'IGovernor',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IGovernor__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IGovernor__factory>
     getContractFactory(
       name: 'TimelockController',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.TimelockController__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.TimelockController__factory>
     getContractFactory(
       name: 'IVotes',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IVotes__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IVotes__factory>
     getContractFactory(
       name: 'IERC1271',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC1271__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC1271__factory>
     getContractFactory(
       name: 'IERC2981',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC2981__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC2981__factory>
     getContractFactory(
       name: 'IERC5267',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC5267__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC5267__factory>
     getContractFactory(
       name: 'IERC5805',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC5805__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC5805__factory>
     getContractFactory(
       name: 'IERC6372',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC6372__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC6372__factory>
     getContractFactory(
       name: 'Pausable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.Pausable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Pausable__factory>
     getContractFactory(
       name: 'ERC2981',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ERC2981__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC2981__factory>
     getContractFactory(
       name: 'ERC1155',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ERC1155__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC1155__factory>
     getContractFactory(
       name: 'ERC1155Burnable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ERC1155Burnable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC1155Burnable__factory>
     getContractFactory(
       name: 'ERC1155Pausable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ERC1155Pausable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC1155Pausable__factory>
     getContractFactory(
       name: 'ERC1155Supply',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ERC1155Supply__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC1155Supply__factory>
     getContractFactory(
       name: 'IERC1155MetadataURI',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC1155MetadataURI__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC1155MetadataURI__factory>
     getContractFactory(
       name: 'IERC1155',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC1155__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC1155__factory>
     getContractFactory(
       name: 'IERC1155Receiver',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC1155Receiver__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC1155Receiver__factory>
     getContractFactory(
       name: 'ERC1155PresetMinterPauser',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ERC1155PresetMinterPauser__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC1155PresetMinterPauser__factory>
     getContractFactory(
       name: 'ERC20',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ERC20__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC20__factory>
     getContractFactory(
       name: 'ERC20Burnable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ERC20Burnable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC20Burnable__factory>
     getContractFactory(
       name: 'ERC20Pausable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ERC20Pausable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC20Pausable__factory>
     getContractFactory(
       name: 'ERC20Permit',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ERC20Permit__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC20Permit__factory>
     getContractFactory(
       name: 'ERC20Votes',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ERC20Votes__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC20Votes__factory>
     getContractFactory(
       name: 'IERC20Metadata',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC20Metadata__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC20Metadata__factory>
     getContractFactory(
       name: 'IERC20Permit',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC20Permit__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC20Permit__factory>
     getContractFactory(
       name: 'IERC20',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC20__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC20__factory>
     getContractFactory(
       name: 'ERC20PresetMinterPauser',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ERC20PresetMinterPauser__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC20PresetMinterPauser__factory>
     getContractFactory(
       name: 'TokenTimelock',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.TokenTimelock__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.TokenTimelock__factory>
     getContractFactory(
       name: 'ERC721',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ERC721__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC721__factory>
     getContractFactory(
       name: 'ERC721Burnable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ERC721Burnable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC721Burnable__factory>
     getContractFactory(
       name: 'ERC721Enumerable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ERC721Enumerable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC721Enumerable__factory>
     getContractFactory(
       name: 'ERC721Pausable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ERC721Pausable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC721Pausable__factory>
     getContractFactory(
       name: 'IERC721Enumerable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC721Enumerable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC721Enumerable__factory>
     getContractFactory(
       name: 'IERC721Metadata',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC721Metadata__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC721Metadata__factory>
     getContractFactory(
       name: 'IERC721',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC721__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC721__factory>
     getContractFactory(
       name: 'IERC721Receiver',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC721Receiver__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC721Receiver__factory>
     getContractFactory(
       name: 'ERC721PresetMinterPauserAutoId',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ERC721PresetMinterPauserAutoId__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC721PresetMinterPauserAutoId__factory>
     getContractFactory(
       name: 'EIP712',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.EIP712__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.EIP712__factory>
     getContractFactory(
       name: 'ERC165',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ERC165__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC165__factory>
     getContractFactory(
       name: 'IERC165',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC165__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC165__factory>
     getContractFactory(
       name: 'ShortStrings',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ShortStrings__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ShortStrings__factory>
     getContractFactory(
       name: 'DoubleEndedQueue',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.DoubleEndedQueue__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.DoubleEndedQueue__factory>
     getContractFactory(
       name: 'BalanceManager',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.BalanceManager__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.BalanceManager__factory>
     getContractFactory(
       name: 'HydraDistributor',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.HydraDistributor__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.HydraDistributor__factory>
     getContractFactory(
       name: 'IERC20BurnableUpgradeable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC20BurnableUpgradeable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC20BurnableUpgradeable__factory>
     getContractFactory(
       name: 'NFTLRaffle',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.NFTLRaffle__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.NFTLRaffle__factory>
     getContractFactory(
       name: 'NFTLTimelock',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.NFTLTimelock__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.NFTLTimelock__factory>
     getContractFactory(
       name: 'NiftyBurningComicsL2',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.NiftyBurningComicsL2__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.NiftyBurningComicsL2__factory>
     getContractFactory(
       name: 'NiftyEquipment',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.NiftyEquipment__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.NiftyEquipment__factory>
     getContractFactory(
       name: 'NiftyItemL2',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.NiftyItemL2__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.NiftyItemL2__factory>
     getContractFactory(
       name: 'NiftyItemSale',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.NiftyItemSale__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.NiftyItemSale__factory>
     getContractFactory(
       name: 'NiftyLaunchComics',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.NiftyLaunchComics__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.NiftyLaunchComics__factory>
     getContractFactory(
       name: 'WETH',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.WETH__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.WETH__factory>
     getContractFactory(
       name: 'BalanceManagerDistributor',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.BalanceManagerDistributor__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.BalanceManagerDistributor__factory>
     getContractFactory(
       name: 'ComicsBurner',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ComicsBurner__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ComicsBurner__factory>
     getContractFactory(
       name: 'NFTL',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.NFTL__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.NFTL__factory>
     getContractFactory(
       name: 'NiftyGovernor',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.NiftyGovernor__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.NiftyGovernor__factory>
     getContractFactory(
       name: 'NiftyMarketplace',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.NiftyMarketplace__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.NiftyMarketplace__factory>
     getContractFactory(
       name: 'Store',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.Store__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Store__factory>
     getContractFactory(
       name: 'Timelock',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.Timelock__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Timelock__factory>
     getContractFactory(
       name: 'IChildERC20',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IChildERC20__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IChildERC20__factory>
     getContractFactory(
       name: 'IERC1155SupplyUpgradeable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC1155SupplyUpgradeable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC1155SupplyUpgradeable__factory>
     getContractFactory(
       name: 'IERC20MetaTransactions',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC20MetaTransactions__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC20MetaTransactions__factory>
     getContractFactory(
       name: 'IERC20PresetMinterPauserUpgradeable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IERC20PresetMinterPauserUpgradeable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC20PresetMinterPauserUpgradeable__factory>
     getContractFactory(
       name: 'IGovToken',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IGovToken__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IGovToken__factory>
     getContractFactory(
       name: 'IMerkleDistributor',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IMerkleDistributor__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IMerkleDistributor__factory>
     getContractFactory(
       name: 'IMintable',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.IMintable__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IMintable__factory>
     getContractFactory(
       name: 'INiftyEquipment',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.INiftyEquipment__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.INiftyEquipment__factory>
     getContractFactory(
       name: 'INiftyLaunchComics',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.INiftyLaunchComics__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.INiftyLaunchComics__factory>
     getContractFactory(
       name: 'INiftyMarketplace',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.INiftyMarketplace__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.INiftyMarketplace__factory>
     getContractFactory(
       name: 'AllowedColorsStorage',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.AllowedColorsStorage__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.AllowedColorsStorage__factory>
     getContractFactory(
       name: 'ERC20MetaTransactions',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.ERC20MetaTransactions__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC20MetaTransactions__factory>
     getContractFactory(
       name: 'MerkleDistributor',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.MerkleDistributor__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.MerkleDistributor__factory>
     getContractFactory(
       name: 'MerkleDistributorWithDeadline',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.MerkleDistributorWithDeadline__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.MerkleDistributorWithDeadline__factory>
     getContractFactory(
       name: 'INFTL',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.INFTL__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.INFTL__factory>
     getContractFactory(
       name: 'NameableCharacter',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.NameableCharacter__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.NameableCharacter__factory>
     getContractFactory(
       name: 'NiftyLeagueCharacter',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.NiftyLeagueCharacter__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.NiftyLeagueCharacter__factory>
     getContractFactory(
       name: 'MockERC1155',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.MockERC1155__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.MockERC1155__factory>
     getContractFactory(
       name: 'MockERC20',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.MockERC20__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.MockERC20__factory>
     getContractFactory(
       name: 'MockERC721',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.MockERC721__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.MockERC721__factory>
     getContractFactory(
       name: 'MockStarkExchange',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.MockStarkExchange__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.MockStarkExchange__factory>
     getContractFactory(
       name: 'MockVRFCoordinator',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.MockVRFCoordinator__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.MockVRFCoordinator__factory>
     getContractFactory(
       name: 'NFTLToken',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.NFTLToken__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.NFTLToken__factory>
     getContractFactory(
       name: 'NiftyDegen',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.NiftyDegen__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.NiftyDegen__factory>
     getContractFactory(
       name: 'Bytes',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.Bytes__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Bytes__factory>
     getContractFactory(
       name: 'Minting',
-      signerOrOptions?: ethers.Signer | FactoryOptions,
-    ): Promise<Contracts.Minting__factory>;
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Minting__factory>
 
     getContractAt(
       name: 'ConfirmedOwner',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ConfirmedOwner>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ConfirmedOwner>
     getContractAt(
       name: 'ConfirmedOwnerWithProposal',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ConfirmedOwnerWithProposal>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ConfirmedOwnerWithProposal>
     getContractAt(
       name: 'IOwnable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IOwnable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IOwnable>
     getContractAt(
       name: 'LinkTokenInterface',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.LinkTokenInterface>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.LinkTokenInterface>
     getContractAt(
       name: 'VRFCoordinatorV2Interface',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.VRFCoordinatorV2Interface>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.VRFCoordinatorV2Interface>
     getContractAt(
       name: 'VRFCoordinatorV2Mock',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.VRFCoordinatorV2Mock>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.VRFCoordinatorV2Mock>
     getContractAt(
       name: 'VRFConsumerBaseV2',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.VRFConsumerBaseV2>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.VRFConsumerBaseV2>
     getContractAt(
       name: 'MintingAccessControl',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.MintingAccessControl>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.MintingAccessControl>
     getContractAt(
       name: 'IOperatorAllowlist',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IOperatorAllowlist>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IOperatorAllowlist>
     getContractAt(
       name: 'OperatorAllowlistEnforced',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.OperatorAllowlistEnforced>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.OperatorAllowlistEnforced>
     getContractAt(
       name: 'IImmutableERC1155Errors',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IImmutableERC1155Errors>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IImmutableERC1155Errors>
     getContractAt(
       name: 'IImmutableERC721Errors',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IImmutableERC721Errors>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IImmutableERC721Errors>
     getContractAt(
       name: 'OperatorAllowlistEnforcementErrors',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.OperatorAllowlistEnforcementErrors>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.OperatorAllowlistEnforcementErrors>
     getContractAt(
       name: 'ERC1155Permit',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ERC1155Permit>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC1155Permit>
     getContractAt(
       name: 'IERC1155Permit',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC1155Permit>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC1155Permit>
     getContractAt(
       name: 'ImmutableERC1155Base',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ImmutableERC1155Base>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ImmutableERC1155Base>
     getContractAt(
       name: 'ImmutableERC1155',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ImmutableERC1155>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ImmutableERC1155>
     getContractAt(
       name: 'OwnableUpgradeable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.OwnableUpgradeable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.OwnableUpgradeable>
     getContractAt(
       name: 'Initializable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.Initializable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.Initializable>
     getContractAt(
       name: 'PausableUpgradeable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.PausableUpgradeable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.PausableUpgradeable>
     getContractAt(
       name: 'ReentrancyGuardUpgradeable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ReentrancyGuardUpgradeable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ReentrancyGuardUpgradeable>
     getContractAt(
       name: 'IERC1155Upgradeable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC1155Upgradeable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC1155Upgradeable>
     getContractAt(
       name: 'IERC20PermitUpgradeable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC20PermitUpgradeable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC20PermitUpgradeable>
     getContractAt(
       name: 'IERC20Upgradeable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC20Upgradeable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC20Upgradeable>
     getContractAt(
       name: 'ERC721Upgradeable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ERC721Upgradeable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC721Upgradeable>
     getContractAt(
       name: 'ERC721EnumerableUpgradeable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ERC721EnumerableUpgradeable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC721EnumerableUpgradeable>
     getContractAt(
       name: 'IERC721EnumerableUpgradeable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC721EnumerableUpgradeable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC721EnumerableUpgradeable>
     getContractAt(
       name: 'IERC721MetadataUpgradeable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC721MetadataUpgradeable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC721MetadataUpgradeable>
     getContractAt(
       name: 'IERC721ReceiverUpgradeable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC721ReceiverUpgradeable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC721ReceiverUpgradeable>
     getContractAt(
       name: 'IERC721Upgradeable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC721Upgradeable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC721Upgradeable>
     getContractAt(
       name: 'ERC721HolderUpgradeable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ERC721HolderUpgradeable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC721HolderUpgradeable>
     getContractAt(
       name: 'ContextUpgradeable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ContextUpgradeable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ContextUpgradeable>
     getContractAt(
       name: 'ERC165Upgradeable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ERC165Upgradeable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC165Upgradeable>
     getContractAt(
       name: 'IERC165Upgradeable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC165Upgradeable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC165Upgradeable>
     getContractAt(
       name: 'AccessControl',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.AccessControl>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.AccessControl>
     getContractAt(
       name: 'AccessControlEnumerable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.AccessControlEnumerable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.AccessControlEnumerable>
     getContractAt(
       name: 'IAccessControl',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IAccessControl>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IAccessControl>
     getContractAt(
       name: 'IAccessControlEnumerable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IAccessControlEnumerable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IAccessControlEnumerable>
     getContractAt(
       name: 'Ownable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.Ownable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.Ownable>
     getContractAt(
       name: 'GovernorCountingSimple',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.GovernorCountingSimple>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.GovernorCountingSimple>
     getContractAt(
       name: 'GovernorSettings',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.GovernorSettings>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.GovernorSettings>
     getContractAt(
       name: 'GovernorTimelockControl',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.GovernorTimelockControl>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.GovernorTimelockControl>
     getContractAt(
       name: 'GovernorVotes',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.GovernorVotes>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.GovernorVotes>
     getContractAt(
       name: 'GovernorVotesQuorumFraction',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.GovernorVotesQuorumFraction>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.GovernorVotesQuorumFraction>
     getContractAt(
       name: 'IGovernorTimelock',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IGovernorTimelock>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IGovernorTimelock>
     getContractAt(
       name: 'Governor',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.Governor>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.Governor>
     getContractAt(
       name: 'IGovernor',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IGovernor>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IGovernor>
     getContractAt(
       name: 'TimelockController',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.TimelockController>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.TimelockController>
     getContractAt(
       name: 'IVotes',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IVotes>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IVotes>
     getContractAt(
       name: 'IERC1271',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC1271>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC1271>
     getContractAt(
       name: 'IERC2981',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC2981>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC2981>
     getContractAt(
       name: 'IERC5267',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC5267>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC5267>
     getContractAt(
       name: 'IERC5805',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC5805>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC5805>
     getContractAt(
       name: 'IERC6372',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC6372>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC6372>
     getContractAt(
       name: 'Pausable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.Pausable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.Pausable>
     getContractAt(
       name: 'ERC2981',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ERC2981>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC2981>
     getContractAt(
       name: 'ERC1155',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ERC1155>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC1155>
     getContractAt(
       name: 'ERC1155Burnable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ERC1155Burnable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC1155Burnable>
     getContractAt(
       name: 'ERC1155Pausable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ERC1155Pausable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC1155Pausable>
     getContractAt(
       name: 'ERC1155Supply',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ERC1155Supply>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC1155Supply>
     getContractAt(
       name: 'IERC1155MetadataURI',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC1155MetadataURI>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC1155MetadataURI>
     getContractAt(
       name: 'IERC1155',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC1155>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC1155>
     getContractAt(
       name: 'IERC1155Receiver',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC1155Receiver>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC1155Receiver>
     getContractAt(
       name: 'ERC1155PresetMinterPauser',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ERC1155PresetMinterPauser>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC1155PresetMinterPauser>
     getContractAt(
       name: 'ERC20',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ERC20>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20>
     getContractAt(
       name: 'ERC20Burnable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ERC20Burnable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20Burnable>
     getContractAt(
       name: 'ERC20Pausable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ERC20Pausable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20Pausable>
     getContractAt(
       name: 'ERC20Permit',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ERC20Permit>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20Permit>
     getContractAt(
       name: 'ERC20Votes',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ERC20Votes>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20Votes>
     getContractAt(
       name: 'IERC20Metadata',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC20Metadata>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC20Metadata>
     getContractAt(
       name: 'IERC20Permit',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC20Permit>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC20Permit>
     getContractAt(
       name: 'IERC20',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC20>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC20>
     getContractAt(
       name: 'ERC20PresetMinterPauser',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ERC20PresetMinterPauser>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20PresetMinterPauser>
     getContractAt(
       name: 'TokenTimelock',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.TokenTimelock>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.TokenTimelock>
     getContractAt(
       name: 'ERC721',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ERC721>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC721>
     getContractAt(
       name: 'ERC721Burnable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ERC721Burnable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC721Burnable>
     getContractAt(
       name: 'ERC721Enumerable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ERC721Enumerable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC721Enumerable>
     getContractAt(
       name: 'ERC721Pausable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ERC721Pausable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC721Pausable>
     getContractAt(
       name: 'IERC721Enumerable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC721Enumerable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC721Enumerable>
     getContractAt(
       name: 'IERC721Metadata',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC721Metadata>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC721Metadata>
     getContractAt(
       name: 'IERC721',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC721>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC721>
     getContractAt(
       name: 'IERC721Receiver',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC721Receiver>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC721Receiver>
     getContractAt(
       name: 'ERC721PresetMinterPauserAutoId',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ERC721PresetMinterPauserAutoId>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC721PresetMinterPauserAutoId>
     getContractAt(
       name: 'EIP712',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.EIP712>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.EIP712>
     getContractAt(
       name: 'ERC165',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ERC165>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC165>
     getContractAt(
       name: 'IERC165',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC165>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC165>
     getContractAt(
       name: 'ShortStrings',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ShortStrings>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ShortStrings>
     getContractAt(
       name: 'DoubleEndedQueue',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.DoubleEndedQueue>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.DoubleEndedQueue>
     getContractAt(
       name: 'BalanceManager',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.BalanceManager>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.BalanceManager>
     getContractAt(
       name: 'HydraDistributor',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.HydraDistributor>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.HydraDistributor>
     getContractAt(
       name: 'IERC20BurnableUpgradeable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC20BurnableUpgradeable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC20BurnableUpgradeable>
     getContractAt(
       name: 'NFTLRaffle',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.NFTLRaffle>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.NFTLRaffle>
     getContractAt(
       name: 'NFTLTimelock',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.NFTLTimelock>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.NFTLTimelock>
     getContractAt(
       name: 'NiftyBurningComicsL2',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.NiftyBurningComicsL2>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.NiftyBurningComicsL2>
     getContractAt(
       name: 'NiftyEquipment',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.NiftyEquipment>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.NiftyEquipment>
     getContractAt(
       name: 'NiftyItemL2',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.NiftyItemL2>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.NiftyItemL2>
     getContractAt(
       name: 'NiftyItemSale',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.NiftyItemSale>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.NiftyItemSale>
     getContractAt(
       name: 'NiftyLaunchComics',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.NiftyLaunchComics>;
-    getContractAt(name: 'WETH', address: string | ethers.Addressable, signer?: ethers.Signer): Promise<Contracts.WETH>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.NiftyLaunchComics>
+    getContractAt(
+      name: 'WETH',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.WETH>
     getContractAt(
       name: 'BalanceManagerDistributor',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.BalanceManagerDistributor>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.BalanceManagerDistributor>
     getContractAt(
       name: 'ComicsBurner',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ComicsBurner>;
-    getContractAt(name: 'NFTL', address: string | ethers.Addressable, signer?: ethers.Signer): Promise<Contracts.NFTL>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ComicsBurner>
+    getContractAt(
+      name: 'NFTL',
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.NFTL>
     getContractAt(
       name: 'NiftyGovernor',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.NiftyGovernor>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.NiftyGovernor>
     getContractAt(
       name: 'NiftyMarketplace',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.NiftyMarketplace>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.NiftyMarketplace>
     getContractAt(
       name: 'Store',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.Store>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.Store>
     getContractAt(
       name: 'Timelock',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.Timelock>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.Timelock>
     getContractAt(
       name: 'IChildERC20',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IChildERC20>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IChildERC20>
     getContractAt(
       name: 'IERC1155SupplyUpgradeable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC1155SupplyUpgradeable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC1155SupplyUpgradeable>
     getContractAt(
       name: 'IERC20MetaTransactions',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC20MetaTransactions>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC20MetaTransactions>
     getContractAt(
       name: 'IERC20PresetMinterPauserUpgradeable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IERC20PresetMinterPauserUpgradeable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC20PresetMinterPauserUpgradeable>
     getContractAt(
       name: 'IGovToken',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IGovToken>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IGovToken>
     getContractAt(
       name: 'IMerkleDistributor',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IMerkleDistributor>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IMerkleDistributor>
     getContractAt(
       name: 'IMintable',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.IMintable>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.IMintable>
     getContractAt(
       name: 'INiftyEquipment',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.INiftyEquipment>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.INiftyEquipment>
     getContractAt(
       name: 'INiftyLaunchComics',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.INiftyLaunchComics>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.INiftyLaunchComics>
     getContractAt(
       name: 'INiftyMarketplace',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.INiftyMarketplace>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.INiftyMarketplace>
     getContractAt(
       name: 'AllowedColorsStorage',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.AllowedColorsStorage>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.AllowedColorsStorage>
     getContractAt(
       name: 'ERC20MetaTransactions',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.ERC20MetaTransactions>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20MetaTransactions>
     getContractAt(
       name: 'MerkleDistributor',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.MerkleDistributor>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.MerkleDistributor>
     getContractAt(
       name: 'MerkleDistributorWithDeadline',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.MerkleDistributorWithDeadline>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.MerkleDistributorWithDeadline>
     getContractAt(
       name: 'INFTL',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.INFTL>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.INFTL>
     getContractAt(
       name: 'NameableCharacter',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.NameableCharacter>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.NameableCharacter>
     getContractAt(
       name: 'NiftyLeagueCharacter',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.NiftyLeagueCharacter>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.NiftyLeagueCharacter>
     getContractAt(
       name: 'MockERC1155',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.MockERC1155>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.MockERC1155>
     getContractAt(
       name: 'MockERC20',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.MockERC20>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.MockERC20>
     getContractAt(
       name: 'MockERC721',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.MockERC721>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.MockERC721>
     getContractAt(
       name: 'MockStarkExchange',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.MockStarkExchange>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.MockStarkExchange>
     getContractAt(
       name: 'MockVRFCoordinator',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.MockVRFCoordinator>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.MockVRFCoordinator>
     getContractAt(
       name: 'NFTLToken',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.NFTLToken>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.NFTLToken>
     getContractAt(
       name: 'NiftyDegen',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.NiftyDegen>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.NiftyDegen>
     getContractAt(
       name: 'Bytes',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.Bytes>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.Bytes>
     getContractAt(
       name: 'Minting',
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<Contracts.Minting>;
+      signer?: ethers.Signer
+    ): Promise<Contracts.Minting>
 
     deployContract(
       name: 'ConfirmedOwner',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ConfirmedOwner>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ConfirmedOwner>
     deployContract(
       name: 'ConfirmedOwnerWithProposal',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ConfirmedOwnerWithProposal>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ConfirmedOwnerWithProposal>
     deployContract(
       name: 'IOwnable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IOwnable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IOwnable>
     deployContract(
       name: 'LinkTokenInterface',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.LinkTokenInterface>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.LinkTokenInterface>
     deployContract(
       name: 'VRFCoordinatorV2Interface',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.VRFCoordinatorV2Interface>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.VRFCoordinatorV2Interface>
     deployContract(
       name: 'VRFCoordinatorV2Mock',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.VRFCoordinatorV2Mock>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.VRFCoordinatorV2Mock>
     deployContract(
       name: 'VRFConsumerBaseV2',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.VRFConsumerBaseV2>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.VRFConsumerBaseV2>
     deployContract(
       name: 'MintingAccessControl',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.MintingAccessControl>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MintingAccessControl>
     deployContract(
       name: 'IOperatorAllowlist',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IOperatorAllowlist>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IOperatorAllowlist>
     deployContract(
       name: 'OperatorAllowlistEnforced',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.OperatorAllowlistEnforced>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.OperatorAllowlistEnforced>
     deployContract(
       name: 'IImmutableERC1155Errors',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IImmutableERC1155Errors>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IImmutableERC1155Errors>
     deployContract(
       name: 'IImmutableERC721Errors',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IImmutableERC721Errors>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IImmutableERC721Errors>
     deployContract(
       name: 'OperatorAllowlistEnforcementErrors',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.OperatorAllowlistEnforcementErrors>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.OperatorAllowlistEnforcementErrors>
     deployContract(
       name: 'ERC1155Permit',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC1155Permit>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC1155Permit>
     deployContract(
       name: 'IERC1155Permit',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC1155Permit>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC1155Permit>
     deployContract(
       name: 'ImmutableERC1155Base',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ImmutableERC1155Base>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ImmutableERC1155Base>
     deployContract(
       name: 'ImmutableERC1155',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ImmutableERC1155>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ImmutableERC1155>
     deployContract(
       name: 'OwnableUpgradeable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.OwnableUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.OwnableUpgradeable>
     deployContract(
       name: 'Initializable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.Initializable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.Initializable>
     deployContract(
       name: 'PausableUpgradeable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.PausableUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.PausableUpgradeable>
     deployContract(
       name: 'ReentrancyGuardUpgradeable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ReentrancyGuardUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ReentrancyGuardUpgradeable>
     deployContract(
       name: 'IERC1155Upgradeable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC1155Upgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC1155Upgradeable>
     deployContract(
       name: 'IERC20PermitUpgradeable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC20PermitUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20PermitUpgradeable>
     deployContract(
       name: 'IERC20Upgradeable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC20Upgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20Upgradeable>
     deployContract(
       name: 'ERC721Upgradeable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC721Upgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC721Upgradeable>
     deployContract(
       name: 'ERC721EnumerableUpgradeable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC721EnumerableUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC721EnumerableUpgradeable>
     deployContract(
       name: 'IERC721EnumerableUpgradeable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC721EnumerableUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC721EnumerableUpgradeable>
     deployContract(
       name: 'IERC721MetadataUpgradeable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC721MetadataUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC721MetadataUpgradeable>
     deployContract(
       name: 'IERC721ReceiverUpgradeable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC721ReceiverUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC721ReceiverUpgradeable>
     deployContract(
       name: 'IERC721Upgradeable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC721Upgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC721Upgradeable>
     deployContract(
       name: 'ERC721HolderUpgradeable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC721HolderUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC721HolderUpgradeable>
     deployContract(
       name: 'ContextUpgradeable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ContextUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ContextUpgradeable>
     deployContract(
       name: 'ERC165Upgradeable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC165Upgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC165Upgradeable>
     deployContract(
       name: 'IERC165Upgradeable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC165Upgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC165Upgradeable>
     deployContract(
       name: 'AccessControl',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.AccessControl>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.AccessControl>
     deployContract(
       name: 'AccessControlEnumerable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.AccessControlEnumerable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.AccessControlEnumerable>
     deployContract(
       name: 'IAccessControl',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IAccessControl>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IAccessControl>
     deployContract(
       name: 'IAccessControlEnumerable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IAccessControlEnumerable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IAccessControlEnumerable>
     deployContract(
       name: 'Ownable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.Ownable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.Ownable>
     deployContract(
       name: 'GovernorCountingSimple',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.GovernorCountingSimple>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.GovernorCountingSimple>
     deployContract(
       name: 'GovernorSettings',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.GovernorSettings>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.GovernorSettings>
     deployContract(
       name: 'GovernorTimelockControl',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.GovernorTimelockControl>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.GovernorTimelockControl>
     deployContract(
       name: 'GovernorVotes',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.GovernorVotes>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.GovernorVotes>
     deployContract(
       name: 'GovernorVotesQuorumFraction',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.GovernorVotesQuorumFraction>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.GovernorVotesQuorumFraction>
     deployContract(
       name: 'IGovernorTimelock',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IGovernorTimelock>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IGovernorTimelock>
     deployContract(
       name: 'Governor',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.Governor>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.Governor>
     deployContract(
       name: 'IGovernor',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IGovernor>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IGovernor>
     deployContract(
       name: 'TimelockController',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.TimelockController>;
-    deployContract(name: 'IVotes', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.IVotes>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.TimelockController>
+    deployContract(
+      name: 'IVotes',
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IVotes>
     deployContract(
       name: 'IERC1271',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC1271>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC1271>
     deployContract(
       name: 'IERC2981',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC2981>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC2981>
     deployContract(
       name: 'IERC5267',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC5267>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC5267>
     deployContract(
       name: 'IERC5805',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC5805>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC5805>
     deployContract(
       name: 'IERC6372',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC6372>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC6372>
     deployContract(
       name: 'Pausable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.Pausable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.Pausable>
     deployContract(
       name: 'ERC2981',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC2981>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC2981>
     deployContract(
       name: 'ERC1155',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC1155>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC1155>
     deployContract(
       name: 'ERC1155Burnable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC1155Burnable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC1155Burnable>
     deployContract(
       name: 'ERC1155Pausable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC1155Pausable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC1155Pausable>
     deployContract(
       name: 'ERC1155Supply',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC1155Supply>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC1155Supply>
     deployContract(
       name: 'IERC1155MetadataURI',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC1155MetadataURI>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC1155MetadataURI>
     deployContract(
       name: 'IERC1155',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC1155>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC1155>
     deployContract(
       name: 'IERC1155Receiver',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC1155Receiver>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC1155Receiver>
     deployContract(
       name: 'ERC1155PresetMinterPauser',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC1155PresetMinterPauser>;
-    deployContract(name: 'ERC20', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.ERC20>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC1155PresetMinterPauser>
+    deployContract(
+      name: 'ERC20',
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC20>
     deployContract(
       name: 'ERC20Burnable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC20Burnable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC20Burnable>
     deployContract(
       name: 'ERC20Pausable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC20Pausable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC20Pausable>
     deployContract(
       name: 'ERC20Permit',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC20Permit>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC20Permit>
     deployContract(
       name: 'ERC20Votes',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC20Votes>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC20Votes>
     deployContract(
       name: 'IERC20Metadata',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC20Metadata>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20Metadata>
     deployContract(
       name: 'IERC20Permit',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC20Permit>;
-    deployContract(name: 'IERC20', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.IERC20>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20Permit>
+    deployContract(
+      name: 'IERC20',
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20>
     deployContract(
       name: 'ERC20PresetMinterPauser',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC20PresetMinterPauser>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC20PresetMinterPauser>
     deployContract(
       name: 'TokenTimelock',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.TokenTimelock>;
-    deployContract(name: 'ERC721', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.ERC721>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.TokenTimelock>
+    deployContract(
+      name: 'ERC721',
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC721>
     deployContract(
       name: 'ERC721Burnable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC721Burnable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC721Burnable>
     deployContract(
       name: 'ERC721Enumerable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC721Enumerable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC721Enumerable>
     deployContract(
       name: 'ERC721Pausable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC721Pausable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC721Pausable>
     deployContract(
       name: 'IERC721Enumerable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC721Enumerable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC721Enumerable>
     deployContract(
       name: 'IERC721Metadata',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC721Metadata>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC721Metadata>
     deployContract(
       name: 'IERC721',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC721>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC721>
     deployContract(
       name: 'IERC721Receiver',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC721Receiver>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC721Receiver>
     deployContract(
       name: 'ERC721PresetMinterPauserAutoId',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC721PresetMinterPauserAutoId>;
-    deployContract(name: 'EIP712', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.EIP712>;
-    deployContract(name: 'ERC165', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.ERC165>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC721PresetMinterPauserAutoId>
+    deployContract(
+      name: 'EIP712',
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.EIP712>
+    deployContract(
+      name: 'ERC165',
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC165>
     deployContract(
       name: 'IERC165',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC165>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC165>
     deployContract(
       name: 'ShortStrings',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ShortStrings>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ShortStrings>
     deployContract(
       name: 'DoubleEndedQueue',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.DoubleEndedQueue>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.DoubleEndedQueue>
     deployContract(
       name: 'BalanceManager',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.BalanceManager>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.BalanceManager>
     deployContract(
       name: 'HydraDistributor',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.HydraDistributor>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.HydraDistributor>
     deployContract(
       name: 'IERC20BurnableUpgradeable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC20BurnableUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20BurnableUpgradeable>
     deployContract(
       name: 'NFTLRaffle',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NFTLRaffle>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NFTLRaffle>
     deployContract(
       name: 'NFTLTimelock',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NFTLTimelock>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NFTLTimelock>
     deployContract(
       name: 'NiftyBurningComicsL2',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyBurningComicsL2>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NiftyBurningComicsL2>
     deployContract(
       name: 'NiftyEquipment',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyEquipment>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NiftyEquipment>
     deployContract(
       name: 'NiftyItemL2',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyItemL2>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NiftyItemL2>
     deployContract(
       name: 'NiftyItemSale',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyItemSale>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NiftyItemSale>
     deployContract(
       name: 'NiftyLaunchComics',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyLaunchComics>;
-    deployContract(name: 'WETH', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.WETH>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NiftyLaunchComics>
+    deployContract(
+      name: 'WETH',
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.WETH>
     deployContract(
       name: 'BalanceManagerDistributor',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.BalanceManagerDistributor>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.BalanceManagerDistributor>
     deployContract(
       name: 'ComicsBurner',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ComicsBurner>;
-    deployContract(name: 'NFTL', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.NFTL>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ComicsBurner>
+    deployContract(
+      name: 'NFTL',
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NFTL>
     deployContract(
       name: 'NiftyGovernor',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyGovernor>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NiftyGovernor>
     deployContract(
       name: 'NiftyMarketplace',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyMarketplace>;
-    deployContract(name: 'Store', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.Store>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NiftyMarketplace>
+    deployContract(
+      name: 'Store',
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.Store>
     deployContract(
       name: 'Timelock',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.Timelock>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.Timelock>
     deployContract(
       name: 'IChildERC20',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IChildERC20>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IChildERC20>
     deployContract(
       name: 'IERC1155SupplyUpgradeable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC1155SupplyUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC1155SupplyUpgradeable>
     deployContract(
       name: 'IERC20MetaTransactions',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC20MetaTransactions>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20MetaTransactions>
     deployContract(
       name: 'IERC20PresetMinterPauserUpgradeable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC20PresetMinterPauserUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20PresetMinterPauserUpgradeable>
     deployContract(
       name: 'IGovToken',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IGovToken>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IGovToken>
     deployContract(
       name: 'IMerkleDistributor',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IMerkleDistributor>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IMerkleDistributor>
     deployContract(
       name: 'IMintable',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IMintable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IMintable>
     deployContract(
       name: 'INiftyEquipment',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.INiftyEquipment>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.INiftyEquipment>
     deployContract(
       name: 'INiftyLaunchComics',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.INiftyLaunchComics>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.INiftyLaunchComics>
     deployContract(
       name: 'INiftyMarketplace',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.INiftyMarketplace>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.INiftyMarketplace>
     deployContract(
       name: 'AllowedColorsStorage',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.AllowedColorsStorage>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.AllowedColorsStorage>
     deployContract(
       name: 'ERC20MetaTransactions',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC20MetaTransactions>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC20MetaTransactions>
     deployContract(
       name: 'MerkleDistributor',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.MerkleDistributor>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MerkleDistributor>
     deployContract(
       name: 'MerkleDistributorWithDeadline',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.MerkleDistributorWithDeadline>;
-    deployContract(name: 'INFTL', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.INFTL>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MerkleDistributorWithDeadline>
+    deployContract(
+      name: 'INFTL',
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.INFTL>
     deployContract(
       name: 'NameableCharacter',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NameableCharacter>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NameableCharacter>
     deployContract(
       name: 'NiftyLeagueCharacter',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyLeagueCharacter>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NiftyLeagueCharacter>
     deployContract(
       name: 'MockERC1155',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.MockERC1155>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MockERC1155>
     deployContract(
       name: 'MockERC20',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.MockERC20>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MockERC20>
     deployContract(
       name: 'MockERC721',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.MockERC721>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MockERC721>
     deployContract(
       name: 'MockStarkExchange',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.MockStarkExchange>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MockStarkExchange>
     deployContract(
       name: 'MockVRFCoordinator',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.MockVRFCoordinator>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MockVRFCoordinator>
     deployContract(
       name: 'NFTLToken',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NFTLToken>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NFTLToken>
     deployContract(
       name: 'NiftyDegen',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyDegen>;
-    deployContract(name: 'Bytes', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.Bytes>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NiftyDegen>
+    deployContract(
+      name: 'Bytes',
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.Bytes>
     deployContract(
       name: 'Minting',
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.Minting>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.Minting>
 
     deployContract(
       name: 'ConfirmedOwner',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ConfirmedOwner>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ConfirmedOwner>
     deployContract(
       name: 'ConfirmedOwnerWithProposal',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ConfirmedOwnerWithProposal>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ConfirmedOwnerWithProposal>
     deployContract(
       name: 'IOwnable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IOwnable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IOwnable>
     deployContract(
       name: 'LinkTokenInterface',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.LinkTokenInterface>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.LinkTokenInterface>
     deployContract(
       name: 'VRFCoordinatorV2Interface',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.VRFCoordinatorV2Interface>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.VRFCoordinatorV2Interface>
     deployContract(
       name: 'VRFCoordinatorV2Mock',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.VRFCoordinatorV2Mock>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.VRFCoordinatorV2Mock>
     deployContract(
       name: 'VRFConsumerBaseV2',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.VRFConsumerBaseV2>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.VRFConsumerBaseV2>
     deployContract(
       name: 'MintingAccessControl',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.MintingAccessControl>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MintingAccessControl>
     deployContract(
       name: 'IOperatorAllowlist',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IOperatorAllowlist>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IOperatorAllowlist>
     deployContract(
       name: 'OperatorAllowlistEnforced',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.OperatorAllowlistEnforced>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.OperatorAllowlistEnforced>
     deployContract(
       name: 'IImmutableERC1155Errors',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IImmutableERC1155Errors>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IImmutableERC1155Errors>
     deployContract(
       name: 'IImmutableERC721Errors',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IImmutableERC721Errors>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IImmutableERC721Errors>
     deployContract(
       name: 'OperatorAllowlistEnforcementErrors',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.OperatorAllowlistEnforcementErrors>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.OperatorAllowlistEnforcementErrors>
     deployContract(
       name: 'ERC1155Permit',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC1155Permit>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC1155Permit>
     deployContract(
       name: 'IERC1155Permit',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC1155Permit>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC1155Permit>
     deployContract(
       name: 'ImmutableERC1155Base',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ImmutableERC1155Base>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ImmutableERC1155Base>
     deployContract(
       name: 'ImmutableERC1155',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ImmutableERC1155>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ImmutableERC1155>
     deployContract(
       name: 'OwnableUpgradeable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.OwnableUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.OwnableUpgradeable>
     deployContract(
       name: 'Initializable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.Initializable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.Initializable>
     deployContract(
       name: 'PausableUpgradeable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.PausableUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.PausableUpgradeable>
     deployContract(
       name: 'ReentrancyGuardUpgradeable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ReentrancyGuardUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ReentrancyGuardUpgradeable>
     deployContract(
       name: 'IERC1155Upgradeable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC1155Upgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC1155Upgradeable>
     deployContract(
       name: 'IERC20PermitUpgradeable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC20PermitUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20PermitUpgradeable>
     deployContract(
       name: 'IERC20Upgradeable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC20Upgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20Upgradeable>
     deployContract(
       name: 'ERC721Upgradeable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC721Upgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC721Upgradeable>
     deployContract(
       name: 'ERC721EnumerableUpgradeable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC721EnumerableUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC721EnumerableUpgradeable>
     deployContract(
       name: 'IERC721EnumerableUpgradeable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC721EnumerableUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC721EnumerableUpgradeable>
     deployContract(
       name: 'IERC721MetadataUpgradeable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC721MetadataUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC721MetadataUpgradeable>
     deployContract(
       name: 'IERC721ReceiverUpgradeable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC721ReceiverUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC721ReceiverUpgradeable>
     deployContract(
       name: 'IERC721Upgradeable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC721Upgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC721Upgradeable>
     deployContract(
       name: 'ERC721HolderUpgradeable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC721HolderUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC721HolderUpgradeable>
     deployContract(
       name: 'ContextUpgradeable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ContextUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ContextUpgradeable>
     deployContract(
       name: 'ERC165Upgradeable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC165Upgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC165Upgradeable>
     deployContract(
       name: 'IERC165Upgradeable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC165Upgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC165Upgradeable>
     deployContract(
       name: 'AccessControl',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.AccessControl>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.AccessControl>
     deployContract(
       name: 'AccessControlEnumerable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.AccessControlEnumerable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.AccessControlEnumerable>
     deployContract(
       name: 'IAccessControl',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IAccessControl>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IAccessControl>
     deployContract(
       name: 'IAccessControlEnumerable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IAccessControlEnumerable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IAccessControlEnumerable>
     deployContract(
       name: 'Ownable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.Ownable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.Ownable>
     deployContract(
       name: 'GovernorCountingSimple',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.GovernorCountingSimple>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.GovernorCountingSimple>
     deployContract(
       name: 'GovernorSettings',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.GovernorSettings>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.GovernorSettings>
     deployContract(
       name: 'GovernorTimelockControl',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.GovernorTimelockControl>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.GovernorTimelockControl>
     deployContract(
       name: 'GovernorVotes',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.GovernorVotes>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.GovernorVotes>
     deployContract(
       name: 'GovernorVotesQuorumFraction',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.GovernorVotesQuorumFraction>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.GovernorVotesQuorumFraction>
     deployContract(
       name: 'IGovernorTimelock',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IGovernorTimelock>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IGovernorTimelock>
     deployContract(
       name: 'Governor',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.Governor>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.Governor>
     deployContract(
       name: 'IGovernor',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IGovernor>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IGovernor>
     deployContract(
       name: 'TimelockController',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.TimelockController>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.TimelockController>
     deployContract(
       name: 'IVotes',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IVotes>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IVotes>
     deployContract(
       name: 'IERC1271',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC1271>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC1271>
     deployContract(
       name: 'IERC2981',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC2981>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC2981>
     deployContract(
       name: 'IERC5267',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC5267>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC5267>
     deployContract(
       name: 'IERC5805',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC5805>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC5805>
     deployContract(
       name: 'IERC6372',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC6372>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC6372>
     deployContract(
       name: 'Pausable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.Pausable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.Pausable>
     deployContract(
       name: 'ERC2981',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC2981>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC2981>
     deployContract(
       name: 'ERC1155',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC1155>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC1155>
     deployContract(
       name: 'ERC1155Burnable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC1155Burnable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC1155Burnable>
     deployContract(
       name: 'ERC1155Pausable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC1155Pausable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC1155Pausable>
     deployContract(
       name: 'ERC1155Supply',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC1155Supply>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC1155Supply>
     deployContract(
       name: 'IERC1155MetadataURI',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC1155MetadataURI>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC1155MetadataURI>
     deployContract(
       name: 'IERC1155',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC1155>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC1155>
     deployContract(
       name: 'IERC1155Receiver',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC1155Receiver>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC1155Receiver>
     deployContract(
       name: 'ERC1155PresetMinterPauser',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC1155PresetMinterPauser>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC1155PresetMinterPauser>
     deployContract(
       name: 'ERC20',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC20>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC20>
     deployContract(
       name: 'ERC20Burnable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC20Burnable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC20Burnable>
     deployContract(
       name: 'ERC20Pausable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC20Pausable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC20Pausable>
     deployContract(
       name: 'ERC20Permit',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC20Permit>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC20Permit>
     deployContract(
       name: 'ERC20Votes',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC20Votes>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC20Votes>
     deployContract(
       name: 'IERC20Metadata',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC20Metadata>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20Metadata>
     deployContract(
       name: 'IERC20Permit',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC20Permit>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20Permit>
     deployContract(
       name: 'IERC20',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC20>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20>
     deployContract(
       name: 'ERC20PresetMinterPauser',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC20PresetMinterPauser>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC20PresetMinterPauser>
     deployContract(
       name: 'TokenTimelock',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.TokenTimelock>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.TokenTimelock>
     deployContract(
       name: 'ERC721',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC721>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC721>
     deployContract(
       name: 'ERC721Burnable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC721Burnable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC721Burnable>
     deployContract(
       name: 'ERC721Enumerable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC721Enumerable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC721Enumerable>
     deployContract(
       name: 'ERC721Pausable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC721Pausable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC721Pausable>
     deployContract(
       name: 'IERC721Enumerable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC721Enumerable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC721Enumerable>
     deployContract(
       name: 'IERC721Metadata',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC721Metadata>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC721Metadata>
     deployContract(
       name: 'IERC721',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC721>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC721>
     deployContract(
       name: 'IERC721Receiver',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC721Receiver>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC721Receiver>
     deployContract(
       name: 'ERC721PresetMinterPauserAutoId',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC721PresetMinterPauserAutoId>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC721PresetMinterPauserAutoId>
     deployContract(
       name: 'EIP712',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.EIP712>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.EIP712>
     deployContract(
       name: 'ERC165',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC165>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC165>
     deployContract(
       name: 'IERC165',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC165>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC165>
     deployContract(
       name: 'ShortStrings',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ShortStrings>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ShortStrings>
     deployContract(
       name: 'DoubleEndedQueue',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.DoubleEndedQueue>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.DoubleEndedQueue>
     deployContract(
       name: 'BalanceManager',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.BalanceManager>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.BalanceManager>
     deployContract(
       name: 'HydraDistributor',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.HydraDistributor>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.HydraDistributor>
     deployContract(
       name: 'IERC20BurnableUpgradeable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC20BurnableUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20BurnableUpgradeable>
     deployContract(
       name: 'NFTLRaffle',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NFTLRaffle>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NFTLRaffle>
     deployContract(
       name: 'NFTLTimelock',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NFTLTimelock>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NFTLTimelock>
     deployContract(
       name: 'NiftyBurningComicsL2',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyBurningComicsL2>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NiftyBurningComicsL2>
     deployContract(
       name: 'NiftyEquipment',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyEquipment>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NiftyEquipment>
     deployContract(
       name: 'NiftyItemL2',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyItemL2>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NiftyItemL2>
     deployContract(
       name: 'NiftyItemSale',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyItemSale>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NiftyItemSale>
     deployContract(
       name: 'NiftyLaunchComics',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyLaunchComics>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NiftyLaunchComics>
     deployContract(
       name: 'WETH',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.WETH>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.WETH>
     deployContract(
       name: 'BalanceManagerDistributor',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.BalanceManagerDistributor>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.BalanceManagerDistributor>
     deployContract(
       name: 'ComicsBurner',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ComicsBurner>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ComicsBurner>
     deployContract(
       name: 'NFTL',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NFTL>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NFTL>
     deployContract(
       name: 'NiftyGovernor',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyGovernor>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NiftyGovernor>
     deployContract(
       name: 'NiftyMarketplace',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyMarketplace>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NiftyMarketplace>
     deployContract(
       name: 'Store',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.Store>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.Store>
     deployContract(
       name: 'Timelock',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.Timelock>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.Timelock>
     deployContract(
       name: 'IChildERC20',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IChildERC20>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IChildERC20>
     deployContract(
       name: 'IERC1155SupplyUpgradeable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC1155SupplyUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC1155SupplyUpgradeable>
     deployContract(
       name: 'IERC20MetaTransactions',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC20MetaTransactions>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20MetaTransactions>
     deployContract(
       name: 'IERC20PresetMinterPauserUpgradeable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IERC20PresetMinterPauserUpgradeable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20PresetMinterPauserUpgradeable>
     deployContract(
       name: 'IGovToken',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IGovToken>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IGovToken>
     deployContract(
       name: 'IMerkleDistributor',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IMerkleDistributor>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IMerkleDistributor>
     deployContract(
       name: 'IMintable',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.IMintable>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IMintable>
     deployContract(
       name: 'INiftyEquipment',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.INiftyEquipment>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.INiftyEquipment>
     deployContract(
       name: 'INiftyLaunchComics',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.INiftyLaunchComics>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.INiftyLaunchComics>
     deployContract(
       name: 'INiftyMarketplace',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.INiftyMarketplace>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.INiftyMarketplace>
     deployContract(
       name: 'AllowedColorsStorage',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.AllowedColorsStorage>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.AllowedColorsStorage>
     deployContract(
       name: 'ERC20MetaTransactions',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.ERC20MetaTransactions>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC20MetaTransactions>
     deployContract(
       name: 'MerkleDistributor',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.MerkleDistributor>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MerkleDistributor>
     deployContract(
       name: 'MerkleDistributorWithDeadline',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.MerkleDistributorWithDeadline>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MerkleDistributorWithDeadline>
     deployContract(
       name: 'INFTL',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.INFTL>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.INFTL>
     deployContract(
       name: 'NameableCharacter',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NameableCharacter>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NameableCharacter>
     deployContract(
       name: 'NiftyLeagueCharacter',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyLeagueCharacter>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NiftyLeagueCharacter>
     deployContract(
       name: 'MockERC1155',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.MockERC1155>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MockERC1155>
     deployContract(
       name: 'MockERC20',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.MockERC20>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MockERC20>
     deployContract(
       name: 'MockERC721',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.MockERC721>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MockERC721>
     deployContract(
       name: 'MockStarkExchange',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.MockStarkExchange>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MockStarkExchange>
     deployContract(
       name: 'MockVRFCoordinator',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.MockVRFCoordinator>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MockVRFCoordinator>
     deployContract(
       name: 'NFTLToken',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NFTLToken>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NFTLToken>
     deployContract(
       name: 'NiftyDegen',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.NiftyDegen>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.NiftyDegen>
     deployContract(
       name: 'Bytes',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.Bytes>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.Bytes>
     deployContract(
       name: 'Minting',
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<Contracts.Minting>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.Minting>
 
     // default types
-    getContractFactory(name: string, signerOrOptions?: ethers.Signer | FactoryOptions): Promise<ethers.ContractFactory>;
-    getContractFactory(abi: any[], bytecode: ethers.BytesLike, signer?: ethers.Signer): Promise<ethers.ContractFactory>;
+    getContractFactory(
+      name: string,
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<ethers.ContractFactory>
+    getContractFactory(
+      abi: any[],
+      bytecode: ethers.BytesLike,
+      signer?: ethers.Signer
+    ): Promise<ethers.ContractFactory>
     getContractAt(
       nameOrAbi: string | any[],
       address: string | ethers.Addressable,
-      signer?: ethers.Signer,
-    ): Promise<ethers.Contract>;
-    deployContract(name: string, signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<ethers.Contract>;
+      signer?: ethers.Signer
+    ): Promise<ethers.Contract>
+    deployContract(
+      name: string,
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<ethers.Contract>
     deployContract(
       name: string,
       args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions,
-    ): Promise<ethers.Contract>;
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<ethers.Contract>
   }
 }

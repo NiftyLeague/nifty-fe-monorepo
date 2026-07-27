@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   INiftyLaunchComics,
   INiftyLaunchComicsInterface,
-} from '../../../../src/contracts/interfaces/INiftyLaunchComics';
+} from '../../../../src/contracts/interfaces/INiftyLaunchComics'
 
 const _abi = [
   {
@@ -20,14 +20,14 @@ const _abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-] as const;
+] as const
 
 export class INiftyLaunchComics__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): INiftyLaunchComicsInterface {
-    return new Interface(_abi) as INiftyLaunchComicsInterface;
+    return new Interface(_abi) as INiftyLaunchComicsInterface
   }
   static connect(address: string, runner?: ContractRunner | null): INiftyLaunchComics {
-    return new Contract(address, _abi, runner) as unknown as INiftyLaunchComics;
+    return new Contract(address, _abi, runner) as unknown as INiftyLaunchComics
   }
 }

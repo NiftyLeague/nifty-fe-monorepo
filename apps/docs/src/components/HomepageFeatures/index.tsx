@@ -1,22 +1,22 @@
-import type { ComponentType, ReactNode, SVGProps } from 'react';
-import Link from '@docusaurus/Link';
-import styled from '@emotion/styled';
-import { CodeXmlIcon, ArrowUpRightIcon, type LucideProps } from 'lucide-react';
-import NFTL from '@site/public/img/logos/NFTL/logo.svg';
-import Logo from '@site/public/img/logos/NL/logo.svg';
-import { RowThree } from '../Row';
-import { ShadowCard } from '../Card';
-import Section from '../Section';
-import StyledIcon from '../StyledIcon';
+import type { ComponentType, ReactNode, SVGProps } from 'react'
+import Link from '@docusaurus/Link'
+import styled from '@emotion/styled'
+import { CodeXmlIcon, ArrowUpRightIcon, type LucideProps } from 'lucide-react'
+import NFTL from '@site/public/img/logos/NFTL/logo.svg'
+import Logo from '@site/public/img/logos/NL/logo.svg'
+import { RowThree } from '../Row'
+import { ShadowCard } from '../Card'
+import Section from '../Section'
+import StyledIcon from '../StyledIcon'
 
 type FeatureItem = {
-  title: string;
-  href: string;
-  icon: ComponentType<LucideProps> | ComponentType<SVGProps<SVGSVGElement>>;
-  to: string;
-  text: string;
-  color?: string;
-};
+  title: string
+  href: string
+  icon: ComponentType<LucideProps> | ComponentType<SVGProps<SVGSVGElement>>
+  to: string
+  text: string
+  color?: string
+}
 
 const FEATURE_LIST: FeatureItem[] = [
   {
@@ -40,7 +40,7 @@ const FEATURE_LIST: FeatureItem[] = [
     to: '/docs/overview/nifty-dao/nftl/overview',
     text: `Learn about our gaming ecosystem's native currency and governance token, NFTL. What is NFTL's utility? What does governance mean?`,
   },
-];
+]
 
 const TopSection = styled.div`
   width: 100%;
@@ -49,7 +49,7 @@ const TopSection = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 1rem;
-`;
+`
 
 const IconWrapper = styled.div`
   width: 32px;
@@ -58,7 +58,7 @@ const IconWrapper = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-`;
+`
 
 function Feature(feature: FeatureItem) {
   return (
@@ -67,7 +67,12 @@ function Feature(feature: FeatureItem) {
         <TopSection>
           <IconWrapper>
             <StyledIcon>
-              <feature.icon size={24} strokeWidth={1.5} color={feature.color} style={{ width: '24px' }} />
+              <feature.icon
+                size={24}
+                strokeWidth={1.5}
+                color={feature.color}
+                style={{ width: '24px' }}
+              />
             </StyledIcon>
           </IconWrapper>
 
@@ -77,7 +82,7 @@ function Feature(feature: FeatureItem) {
         <p style={{ marginBottom: '0.5rem' }}>{feature.text}</p>
       </ShadowCard>
     </Link>
-  );
+  )
 }
 
 export default function HomepageFeatures(): ReactNode {
@@ -89,5 +94,5 @@ export default function HomepageFeatures(): ReactNode {
         ))}
       </RowThree>
     </Section>
-  );
+  )
 }

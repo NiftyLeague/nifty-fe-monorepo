@@ -2,14 +2,18 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   NameableCharacter,
   NameableCharacterInterface,
-} from '../../../../../src/contracts/lib/NameableCharacter.sol/NameableCharacter';
+} from '../../../../../src/contracts/lib/NameableCharacter.sol/NameableCharacter'
 
 const _abi = [
-  { inputs: [{ internalType: 'string', name: 'message', type: 'string' }], name: 'NameError', type: 'error' },
+  {
+    inputs: [{ internalType: 'string', name: 'message', type: 'string' }],
+    name: 'NameError',
+    type: 'error',
+  },
   {
     anonymous: false,
     inputs: [
@@ -215,7 +219,13 @@ const _abi = [
     stateMutability: 'view',
     type: 'function',
   },
-  { inputs: [], name: 'pauseMinting', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+  {
+    inputs: [],
+    name: 'pauseMinting',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
   {
     inputs: [],
     name: 'paused',
@@ -223,7 +233,13 @@ const _abi = [
     stateMutability: 'view',
     type: 'function',
   },
-  { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+  {
+    inputs: [],
+    name: 'renounceOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
   {
     inputs: [
       { internalType: 'address', name: 'from', type: 'address' },
@@ -296,7 +312,13 @@ const _abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-  { inputs: [], name: 'unpauseMinting', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+  {
+    inputs: [],
+    name: 'unpauseMinting',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
   {
     inputs: [{ internalType: 'string', name: 'newName', type: 'string' }],
     name: 'validateName',
@@ -305,14 +327,14 @@ const _abi = [
     type: 'function',
   },
   { inputs: [], name: 'withdraw', outputs: [], stateMutability: 'nonpayable', type: 'function' },
-] as const;
+] as const
 
 export class NameableCharacter__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): NameableCharacterInterface {
-    return new Interface(_abi) as NameableCharacterInterface;
+    return new Interface(_abi) as NameableCharacterInterface
   }
   static connect(address: string, runner?: ContractRunner | null): NameableCharacter {
-    return new Contract(address, _abi, runner) as unknown as NameableCharacter;
+    return new Contract(address, _abi, runner) as unknown as NameableCharacter
   }
 }

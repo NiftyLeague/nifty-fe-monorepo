@@ -1,10 +1,10 @@
-import { Button, Card, Typography } from '@mui/material';
+import { Button, Card, Typography } from '@mui/material'
 
 interface EmptyStateProps {
-  message?: string;
-  buttonText?: string;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  noBorder?: boolean;
+  message?: string
+  buttonText?: string
+  onClick?: React.MouseEventHandler<HTMLButtonElement>
+  noBorder?: boolean
 }
 const EmptyState = ({ message, buttonText, onClick, noBorder = false }: EmptyStateProps) => (
   <>
@@ -28,6 +28,6 @@ const EmptyState = ({ message, buttonText, onClick, noBorder = false }: EmptySta
       )}
     </Card>
   </>
-);
+)
 
-export default EmptyState;
+export default EmptyState

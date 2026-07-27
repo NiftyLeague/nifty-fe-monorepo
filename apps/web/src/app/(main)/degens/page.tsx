@@ -1,14 +1,14 @@
-import type { NextPage } from 'next';
-import Image from 'next/image';
+import type { NextPage } from 'next'
+import Image from 'next/image'
 
-import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
-import { ConsoleGame } from '@nl/ui/custom/console-game';
-import { DegenSpecialsTable } from '@nl/ui/custom/degen-specials-table';
-import { cn } from '@nl/ui/utils';
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
+import { ConsoleGame } from '@nl/ui/custom/console-game'
+import { DegenSpecialsTable } from '@nl/ui/custom/degen-specials-table'
+import { cn } from '@nl/ui/utils'
 
-import { NIFTY_DEGENS_ALL } from '@/constants/degens';
-import ThemeBtnGroup from '@/components/ThemeBtnGroup';
-import styles from './index.module.css';
+import { NIFTY_DEGENS_ALL } from '@/constants/degens'
+import ThemeBtnGroup from '@/components/ThemeBtnGroup'
+import styles from './index.module.css'
 
 const Degens: NextPage = () => (
   <>
@@ -37,10 +37,11 @@ const Degens: NextPage = () => (
             <div className="relative">
               <AnimatedWrapper>
                 <p className="text-center transition-vertical-fade transition-vertical-fade-start delay-normal">
-                  The Nifty League DEGENs were specially crafted by the community with members pitching in and deciding
-                  how THEY wanted their DEGENs to look. This involved selecting special features that they wanted
-                  including selection of cothing, tribe, and weapons among a few others. This led to the birth of 10,000
-                  Nifty League NFTs on the Ethereum blockchain. The NFTs are all sold out however they are forever
+                  The Nifty League DEGENs were specially crafted by the community with members
+                  pitching in and deciding how THEY wanted their DEGENs to look. This involved
+                  selecting special features that they wanted including selection of cothing, tribe,
+                  and weapons among a few others. This led to the birth of 10,000 Nifty League NFTs
+                  on the Ethereum blockchain. The NFTs are all sold out however they are forever
                   tradable on secondary markets such as OpenSea.
                 </p>
               </AnimatedWrapper>
@@ -65,13 +66,22 @@ const Degens: NextPage = () => (
 
         <ThemeBtnGroup
           className="mt-6 xl:mt-10"
-          primary={{ href: 'https://app.niftyleague.com/degens', title: 'SEE ALL DEGENS', external: true }}
+          primary={{
+            href: 'https://app.niftyleague.com/degens',
+            title: 'SEE ALL DEGENS',
+            external: true,
+          }}
         />
       </section>
 
       <section className="section relative">
         <div className="purple-bg-orb orb-bottom-right" />
-        <div className={cn(styles.list, 'flex flex-wrap items-center md:flex-row w-full justify-between')}>
+        <div
+          className={cn(
+            styles.list,
+            'flex flex-wrap items-center md:flex-row w-full justify-between'
+          )}
+        >
           {NIFTY_DEGENS_ALL.map(({ name, image }) => (
             <div className="flex flex-col mb-3 px-3 w-1/3" key={name}>
               <AnimatedWrapper>
@@ -107,9 +117,10 @@ const Degens: NextPage = () => (
           <div className="relative">
             <AnimatedWrapper>
               <p className="text-center transition-vertical-fade transition-vertical-fade-start delay-normal">
-                There are 7 genesis DEGEN tribes each with their own special abilities in our games. These NFTs are
-                digital assets that represent special game avatars inside the Nifty League ecosystem. Owners can also
-                use their DEGEN NFTs in several other partner projects such as WORLDWIDE WEBB or CRYPTO FOXES.
+                There are 7 genesis DEGEN tribes each with their own special abilities in our games.
+                These NFTs are digital assets that represent special game avatars inside the Nifty
+                League ecosystem. Owners can also use their DEGEN NFTs in several other partner
+                projects such as WORLDWIDE WEBB or CRYPTO FOXES.
               </p>
             </AnimatedWrapper>
             <div className="purple-bg-orb orb-top-left" />
@@ -125,6 +136,6 @@ const Degens: NextPage = () => (
       </section>
     </div>
   </>
-);
+)
 
-export default Degens;
+export default Degens

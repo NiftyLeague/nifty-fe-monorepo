@@ -1,8 +1,13 @@
-import { MetadataRoute } from 'next';
+import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
-    { url: 'https://app.niftyleague.com', lastModified: new Date(), changeFrequency: 'yearly', priority: 1 },
+    {
+      url: 'https://app.niftyleague.com',
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 1,
+    },
     {
       url: 'https://app.niftyleague.com/dashboard',
       lastModified: new Date(),
@@ -39,8 +44,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 0.5,
     },
-    { url: 'https://app.niftyleague.com/degens', lastModified: new Date(), changeFrequency: 'yearly', priority: 0.8 },
-    { url: 'https://app.niftyleague.com/games', lastModified: new Date(), changeFrequency: 'yearly', priority: 0.8 },
+    {
+      url: 'https://app.niftyleague.com/degens',
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.8,
+    },
+    {
+      url: 'https://app.niftyleague.com/games',
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.8,
+    },
     {
       url: 'https://app.niftyleague.com/games/crypto-winter',
       lastModified: new Date(),
@@ -83,5 +98,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 0.5,
     },
-  ];
+  ]
 }

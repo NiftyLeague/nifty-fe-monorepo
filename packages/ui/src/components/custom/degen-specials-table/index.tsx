@@ -1,6 +1,6 @@
-import Image from 'next/image';
-import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
-import { NIFTY_DEGENS, type DegenSpecial } from './constants';
+import Image from 'next/image'
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
+import { NIFTY_DEGENS, type DegenSpecial } from './constants'
 
 export function DegenSpecialsTable() {
   return (
@@ -9,7 +9,9 @@ export function DegenSpecialsTable() {
         <div className="mb-5">
           <div className="flex flex-wrap -mx-4">
             <div className="w-1/2 sm:w-1/3 px-4">
-              <h3 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">TRIBE</h3>
+              <h3 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">
+                TRIBE
+              </h3>
             </div>
             <div className="w-1/2 sm:w-2/3 px-4">
               <h3 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">
@@ -36,7 +38,9 @@ export function DegenSpecialsTable() {
                       className="mx-auto h-auto w-[30%] sm:w-auto sm:max-w-[90px] lg:max-w-[120px]"
                     />
                   </div>
-                  <h5 className="mt-2 text-center transition-fade-slow transition-fade-start delay-normal">{name}</h5>
+                  <h5 className="mt-2 text-center transition-fade-slow transition-fade-start delay-normal">
+                    {name}
+                  </h5>
                 </div>
               </AnimatedWrapper>
             </div>
@@ -70,7 +74,7 @@ export function DegenSpecialsTable() {
         ))}
       </div>
     </>
-  );
+  )
 }
 
-export default DegenSpecialsTable;
+export default DegenSpecialsTable

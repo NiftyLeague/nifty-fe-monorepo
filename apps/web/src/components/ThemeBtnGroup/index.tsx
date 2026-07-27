@@ -1,16 +1,16 @@
-import Link from 'next/link';
-import type { UrlObject } from 'url';
+import Link from 'next/link'
+import type { UrlObject } from 'url'
 
-import { cn } from '@nl/ui/utils';
-import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
-import { ExternalIcon } from '@nl/ui/custom/external-icon';
+import { cn } from '@nl/ui/utils'
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
+import { ExternalIcon } from '@nl/ui/custom/external-icon'
 
 interface ButtonProps {
-  href?: string | UrlObject;
-  title: string;
-  className?: string;
-  disabled?: boolean;
-  external?: boolean;
+  href?: string | UrlObject
+  title: string
+  className?: string
+  disabled?: boolean
+  external?: boolean
 }
 
 export const ThemeBtn = ({
@@ -30,19 +30,19 @@ export const ThemeBtn = ({
       isPrimary ? 'theme-btn-primary' : 'theme-btn-transparent',
       'transition-fade transition-fade-start delay-long',
       disabled && 'disabled',
-      className,
+      className
     )}
     suppressHydrationWarning
   >
     {title}
     {external && <ExternalIcon />}
   </Link>
-);
+)
 
 interface ThemeBtnGroupProps {
-  className?: string;
-  primary: ButtonProps;
-  secondary?: ButtonProps;
+  className?: string
+  primary: ButtonProps
+  secondary?: ButtonProps
 }
 
 export const ThemeBtnGroup = ({ className, primary, secondary }: ThemeBtnGroupProps) => (
@@ -51,7 +51,7 @@ export const ThemeBtnGroup = ({ className, primary, secondary }: ThemeBtnGroupPr
       'w-full flex flex-row flex-wrap justify-center items-center z-10',
       'gap-2 md:gap-3 xl:gap-4',
       'mt-4 xl:mt-6 -mx-2 sm:mx-0',
-      className,
+      className
     )}
   >
     <AnimatedWrapper>
@@ -63,6 +63,6 @@ export const ThemeBtnGroup = ({ className, primary, secondary }: ThemeBtnGroupPr
       </AnimatedWrapper>
     ) : null}
   </div>
-);
+)
 
-export default ThemeBtnGroup;
+export default ThemeBtnGroup

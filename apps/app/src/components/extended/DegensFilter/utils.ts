@@ -1,8 +1,8 @@
-import { SetStateAction } from 'react';
-import type { Degen } from '@/types/degens';
-import type { DegenFilter } from '@/types/degenFilter';
-import DEFAULT_STATIC_FILTER from './constants';
-import { BURN_ADDYS } from '@/constants/addresses';
+import { SetStateAction } from 'react'
+import type { Degen } from '@/types/degens'
+import type { DegenFilter } from '@/types/degenFilter'
+import DEFAULT_STATIC_FILTER from './constants'
+import { BURN_ADDYS } from '@/constants/addresses'
 
 export const tranformDataByFilter = (
   degens: Degen[],
@@ -17,7 +17,7 @@ export const tranformDataByFilter = (
     tokenId = [],
     tribes = [],
     walletAddress = [],
-  }: DegenFilter,
+  }: DegenFilter
 ): Degen[] => {
   const result = degens.filter(
     ({
@@ -32,7 +32,7 @@ export const tranformDataByFilter = (
       tribe = '',
     }: Degen) => {
       // Filter all burn addys
-      if (BURN_ADDYS.includes(owner)) return false;
+      if (BURN_ADDYS.includes(owner)) return false
 
       if (
         walletAddress?.length &&
@@ -40,11 +40,11 @@ export const tranformDataByFilter = (
         walletAddress[0].length > 26 &&
         !(owner.toLowerCase() === walletAddress[0].toLowerCase())
       ) {
-        return false;
+        return false
       }
 
       if (tokenId?.length && tokenId[0] && tokenId[0].length > 0 && !(id === tokenId[0])) {
-        return false;
+        return false
       }
 
       // if (prices.length === 2 && !(price >= prices[0] && price <= prices[1])) {
@@ -75,21 +75,26 @@ export const tranformDataByFilter = (
           (trb: string) =>
             tribe?.toLocaleLowerCase() === trb.toLocaleLowerCase() ||
             // TODO: remove unnecessary check once fetch data is updated
-            (!tribe && trb.toLocaleLowerCase() === 'hydra'),
+            (!tribe && trb.toLocaleLowerCase() === 'hydra')
         )
       ) {
-        return false;
+        return false
       }
 
       if (
         backgrounds.length > 0 &&
-        !backgrounds.find((bg: string) => background?.toLocaleLowerCase() === bg.toLocaleLowerCase())
+        !backgrounds.find(
+          (bg: string) => background?.toLocaleLowerCase() === bg.toLocaleLowerCase()
+        )
       ) {
-        return false;
+        return false
       }
 
-      if (cosmetics.length > 0 && !cosmetics.some(cosmetic => traits_string.split(',').includes(cosmetic))) {
-        return false;
+      if (
+        cosmetics.length > 0 &&
+        !cosmetics.some((cosmetic) => traits_string.split(',').includes(cosmetic))
+      ) {
+        return false
       }
 
       if (
@@ -99,17 +104,17 @@ export const tranformDataByFilter = (
           id.toLocaleLowerCase().includes((searchTerm[0] as string).toLowerCase())
         )
       ) {
-        return false;
+        return false
       }
 
-      return true;
-    },
-  );
+      return true
+    }
+  )
 
   if (sort === 'idUp') {
-    result.sort((a, b) => Number(a.id) - Number(b.id));
+    result.sort((a, b) => Number(a.id) - Number(b.id))
   } else if (sort === 'idDown') {
-    result.sort((a, b) => Number(b.id) - Number(a.id));
+    result.sort((a, b) => Number(b.id) - Number(a.id))
   }
   // else if (sort === 'priceUp') {
   //   result.sort((a, b) => Number(a.price) - Number(b.price));
@@ -123,54 +128,55 @@ export const tranformDataByFilter = (
   //   result.sort((a, b) => b.last_rented_at - a.last_rented_at);
   // }
 
-  return result;
-};
+  return result
+}
 
 export const updateFilterValue = (
   defaultFilter?: DegenFilter,
   params?: { [key: string]: string },
-  actions?: { [key: string]: React.Dispatch<SetStateAction<any[]>> },
+  actions?: { [key: string]: React.Dispatch<SetStateAction<any[]>> }
 ) => {
-  const newFilter: DegenFilter = { ...defaultFilter } as DegenFilter;
+  const newFilter: DegenFilter = { ...defaultFilter } as DegenFilter
   // eslint-disable-next-line guard-for-in
   for (const key in params) {
-    const value = params[key as keyof DegenFilter];
+    const value = params[key as keyof DegenFilter]
     if (key === 'searchTerm' || key === 'walletAddress' || key === 'tokenId') {
-      newFilter[key] = [value as string];
+      newFilter[key] = [value as string]
     } else {
       if (!value) {
-        return;
+        return
       }
       const newValue = value
         .split('-')
-        .map((type: number | string) => (key === 'prices' ? Number(type) : String(type)));
-      if (actions && actions[key]) actions[key]?.(newValue || DEFAULT_STATIC_FILTER[key as keyof DegenFilter]);
+        .map((type: number | string) => (key === 'prices' ? Number(type) : String(type)))
+      if (actions && actions[key])
+        actions[key]?.(newValue || DEFAULT_STATIC_FILTER[key as keyof DegenFilter])
       // TypeScript limitation: dynamic key assignment to union types
       if (key === 'prices') {
-        (newFilter as any)[key] = newValue as number[];
+        ;(newFilter as any)[key] = newValue as number[]
       } else {
-        (newFilter as any)[key] = newValue as string[];
+        ;(newFilter as any)[key] = newValue as string[]
       }
     }
   }
   // eslint-disable-next-line consistent-return
-  return newFilter as DegenFilter;
-};
+  return newFilter as DegenFilter
+}
 
 export const getDefaultFilterValueFromData = (degens: Degen[] | undefined) => {
   if (!degens?.length) {
-    return DEFAULT_STATIC_FILTER;
+    return DEFAULT_STATIC_FILTER
   }
-  let minPrice = degens[0]?.price ?? 0;
-  let maxPrice = degens[0]?.price ?? 0;
+  let minPrice = degens[0]?.price ?? 0
+  let maxPrice = degens[0]?.price ?? 0
 
-  degens.forEach(degen => {
-    const { price } = degen;
-    minPrice = price < minPrice ? price : minPrice;
-    maxPrice = price > maxPrice ? price : maxPrice;
-  });
+  degens.forEach((degen) => {
+    const { price } = degen
+    minPrice = price < minPrice ? price : minPrice
+    maxPrice = price > maxPrice ? price : maxPrice
+  })
 
-  const newFilterValues = { ...DEFAULT_STATIC_FILTER, prices: [minPrice, maxPrice] };
+  const newFilterValues = { ...DEFAULT_STATIC_FILTER, prices: [minPrice, maxPrice] }
 
-  return newFilterValues;
-};
+  return newFilterValues
+}

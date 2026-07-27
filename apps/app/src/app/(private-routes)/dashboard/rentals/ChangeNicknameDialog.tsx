@@ -1,38 +1,46 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { DialogTitle, DialogContent, Stack, Typography, TextField, DialogActions } from '@mui/material';
-import { toast } from 'react-toastify';
-import LoadingButton from '@mui/lab/LoadingButton';
-import { Controller, SubmitHandler, useForm, Resolver } from 'react-hook-form';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import type { RentalDataGrid } from '@/types/rentalDataGrid';
-import DegenImage from '@/components/cards/DegenCard/DegenImage';
-import useAuth from '@/hooks/useAuth';
-import useLocalStorage from '@/hooks/useLocalStorage';
+import { useState } from 'react'
+import {
+  DialogTitle,
+  DialogContent,
+  Stack,
+  Typography,
+  TextField,
+  DialogActions,
+} from '@mui/material'
+import { toast } from 'react-toastify'
+import LoadingButton from '@mui/lab/LoadingButton'
+import { Controller, SubmitHandler, useForm, Resolver } from 'react-hook-form'
+import * as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
+import type { RentalDataGrid } from '@/types/rentalDataGrid'
+import DegenImage from '@/components/cards/DegenCard/DegenImage'
+import useAuth from '@/hooks/useAuth'
+import useLocalStorage from '@/hooks/useLocalStorage'
 
 interface Props {
-  rental: RentalDataGrid;
-  updateNickname: (name: string, id: string) => void;
+  rental: RentalDataGrid
+  updateNickname: (name: string, id: string) => void
 }
 interface IFormInput {
-  name: string;
-  isCheckedTerm: boolean;
+  name: string
+  isCheckedTerm: boolean
 }
 
-const validationSchema = yup
-  .object()
-  .shape({
-    name: yup.string().required(),
-    isCheckedTerm: yup.boolean().required().oneOf([true]),
-  }) satisfies yup.ObjectSchema<IFormInput>;
+const validationSchema = yup.object().shape({
+  name: yup.string().required(),
+  isCheckedTerm: yup.boolean().required().oneOf([true]),
+}) satisfies yup.ObjectSchema<IFormInput>
 
 const ChangeNicknameDialog = ({ rental, updateNickname }: Props): React.ReactNode => {
-  const { authToken } = useAuth();
-  const [nicknames, setNicknames] = useLocalStorage<{ [address: string]: string }>('player-nicknames', {});
-  const [isLoadingRename, setLoadingRename] = useState(false);
-  const { rentalId, degenId, renter, playerAddress } = rental;
+  const { authToken } = useAuth()
+  const [nicknames, setNicknames] = useLocalStorage<{ [address: string]: string }>(
+    'player-nicknames',
+    {}
+  )
+  const [isLoadingRename, setLoadingRename] = useState(false)
+  const { rentalId, degenId, renter, playerAddress } = rental
 
   const {
     handleSubmit,
@@ -43,23 +51,23 @@ const ChangeNicknameDialog = ({ rental, updateNickname }: Props): React.ReactNod
     resolver: yupResolver(validationSchema) as Resolver<IFormInput>,
     mode: 'onChange',
     defaultValues: { name: '', isCheckedTerm: false },
-  });
+  })
 
-  const onSubmit: SubmitHandler<IFormInput> = async data => {
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     if (!rentalId || !degenId || !data.name || !authToken) {
-      return;
+      return
     }
-    setLoadingRename(true);
-    setNicknames({ ...nicknames, [playerAddress as string]: data.name });
-    setLoadingRename(false);
-    onRenameRentalSuccess(data.name);
-  };
+    setLoadingRename(true)
+    setNicknames({ ...nicknames, [playerAddress as string]: data.name })
+    setLoadingRename(false)
+    onRenameRentalSuccess(data.name)
+  }
 
   const onRenameRentalSuccess = (newName: string) => {
-    toast.success('Rename Rental Successful!', { theme: 'dark' });
-    updateNickname(newName, rentalId);
-    reset();
-  };
+    toast.success('Rename Rental Successful!', { theme: 'dark' })
+    updateNickname(newName, rentalId)
+    reset()
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -107,7 +115,7 @@ const ChangeNicknameDialog = ({ rental, updateNickname }: Props): React.ReactNod
         </LoadingButton>
       </DialogActions>
     </form>
-  );
-};
+  )
+}
 
-export default ChangeNicknameDialog;
+export default ChangeNicknameDialog

@@ -2,15 +2,19 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   ERC20MetaTransactions,
   ERC20MetaTransactionsInterface,
-} from '../../../../src/contracts/lib/ERC20MetaTransactions';
+} from '../../../../src/contracts/lib/ERC20MetaTransactions'
 
 const _abi = [
   { inputs: [], name: 'InvalidShortString', type: 'error' },
-  { inputs: [{ internalType: 'string', name: 'str', type: 'string' }], name: 'StringTooLong', type: 'error' },
+  {
+    inputs: [{ internalType: 'string', name: 'str', type: 'string' }],
+    name: 'StringTooLong',
+    type: 'error',
+  },
   {
     anonymous: false,
     inputs: [
@@ -209,14 +213,14 @@ const _abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-] as const;
+] as const
 
 export class ERC20MetaTransactions__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): ERC20MetaTransactionsInterface {
-    return new Interface(_abi) as ERC20MetaTransactionsInterface;
+    return new Interface(_abi) as ERC20MetaTransactionsInterface
   }
   static connect(address: string, runner?: ContractRunner | null): ERC20MetaTransactions {
-    return new Contract(address, _abi, runner) as unknown as ERC20MetaTransactions;
+    return new Contract(address, _abi, runner) as unknown as ERC20MetaTransactions
   }
 }

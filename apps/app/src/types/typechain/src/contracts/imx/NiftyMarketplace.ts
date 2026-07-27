@@ -13,7 +13,7 @@ import type {
   ContractRunner,
   ContractMethod,
   Listener,
-} from 'ethers';
+} from 'ethers'
 import type {
   TypedContractEvent,
   TypedDeferredTopicFilter,
@@ -21,7 +21,7 @@ import type {
   TypedLogDescription,
   TypedListener,
   TypedContractMethod,
-} from '../../../common';
+} from '../../../common'
 
 export interface NiftyMarketplaceInterface extends Interface {
   getFunction(
@@ -66,8 +66,8 @@ export interface NiftyMarketplaceInterface extends Interface {
       | 'supportsInterface'
       | 'symbol'
       | 'totalSupply'
-      | 'uri',
-  ): FunctionFragment;
+      | 'uri'
+  ): FunctionFragment
 
   getEvent(
     nameOrSignatureOrTopic:
@@ -79,192 +79,207 @@ export interface NiftyMarketplaceInterface extends Interface {
       | 'RoleRevoked'
       | 'TransferBatch'
       | 'TransferSingle'
-      | 'URI',
-  ): EventFragment;
+      | 'URI'
+  ): EventFragment
 
-  encodeFunctionData(functionFragment: 'DEFAULT_ADMIN_ROLE', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'DOMAIN_SEPARATOR', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'MINTER_ROLE', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'balanceOf', values: [AddressLike, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'balanceOfBatch', values: [AddressLike[], BigNumberish[]]): string;
-  encodeFunctionData(functionFragment: 'baseURI', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'burn', values: [AddressLike, BigNumberish, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'burnBatch', values: [AddressLike, BigNumberish[], BigNumberish[]]): string;
-  encodeFunctionData(functionFragment: 'contractURI', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'eip712Domain', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'exists', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'getAdmins', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'getRoleAdmin', values: [BytesLike]): string;
-  encodeFunctionData(functionFragment: 'getRoleMember', values: [BytesLike, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'getRoleMemberCount', values: [BytesLike]): string;
-  encodeFunctionData(functionFragment: 'grantMinterRole', values: [AddressLike]): string;
-  encodeFunctionData(functionFragment: 'grantRole', values: [BytesLike, AddressLike]): string;
-  encodeFunctionData(functionFragment: 'hasRole', values: [BytesLike, AddressLike]): string;
-  encodeFunctionData(functionFragment: 'isApprovedForAll', values: [AddressLike, AddressLike]): string;
-  encodeFunctionData(functionFragment: 'name', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'nonces', values: [AddressLike]): string;
-  encodeFunctionData(functionFragment: 'operatorAllowlist', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'DEFAULT_ADMIN_ROLE', values?: undefined): string
+  encodeFunctionData(functionFragment: 'DOMAIN_SEPARATOR', values?: undefined): string
+  encodeFunctionData(functionFragment: 'MINTER_ROLE', values?: undefined): string
+  encodeFunctionData(functionFragment: 'balanceOf', values: [AddressLike, BigNumberish]): string
+  encodeFunctionData(
+    functionFragment: 'balanceOfBatch',
+    values: [AddressLike[], BigNumberish[]]
+  ): string
+  encodeFunctionData(functionFragment: 'baseURI', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: 'burn',
+    values: [AddressLike, BigNumberish, BigNumberish]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'burnBatch',
+    values: [AddressLike, BigNumberish[], BigNumberish[]]
+  ): string
+  encodeFunctionData(functionFragment: 'contractURI', values?: undefined): string
+  encodeFunctionData(functionFragment: 'eip712Domain', values?: undefined): string
+  encodeFunctionData(functionFragment: 'exists', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'getAdmins', values?: undefined): string
+  encodeFunctionData(functionFragment: 'getRoleAdmin', values: [BytesLike]): string
+  encodeFunctionData(functionFragment: 'getRoleMember', values: [BytesLike, BigNumberish]): string
+  encodeFunctionData(functionFragment: 'getRoleMemberCount', values: [BytesLike]): string
+  encodeFunctionData(functionFragment: 'grantMinterRole', values: [AddressLike]): string
+  encodeFunctionData(functionFragment: 'grantRole', values: [BytesLike, AddressLike]): string
+  encodeFunctionData(functionFragment: 'hasRole', values: [BytesLike, AddressLike]): string
+  encodeFunctionData(
+    functionFragment: 'isApprovedForAll',
+    values: [AddressLike, AddressLike]
+  ): string
+  encodeFunctionData(functionFragment: 'name', values?: undefined): string
+  encodeFunctionData(functionFragment: 'nonces', values: [AddressLike]): string
+  encodeFunctionData(functionFragment: 'operatorAllowlist', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'permit',
-    values: [AddressLike, AddressLike, boolean, BigNumberish, BytesLike],
-  ): string;
-  encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, AddressLike]): string;
-  encodeFunctionData(functionFragment: 'revokeMinterRole', values: [AddressLike]): string;
-  encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, AddressLike]): string;
-  encodeFunctionData(functionFragment: 'royaltyInfo', values: [BigNumberish, BigNumberish]): string;
+    values: [AddressLike, AddressLike, boolean, BigNumberish, BytesLike]
+  ): string
+  encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, AddressLike]): string
+  encodeFunctionData(functionFragment: 'revokeMinterRole', values: [AddressLike]): string
+  encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, AddressLike]): string
+  encodeFunctionData(functionFragment: 'royaltyInfo', values: [BigNumberish, BigNumberish]): string
   encodeFunctionData(
     functionFragment: 'safeBatchTransferFrom',
-    values: [AddressLike, AddressLike, BigNumberish[], BigNumberish[], BytesLike],
-  ): string;
+    values: [AddressLike, AddressLike, BigNumberish[], BigNumberish[], BytesLike]
+  ): string
   encodeFunctionData(
     functionFragment: 'safeMint',
-    values: [AddressLike, BigNumberish, BigNumberish, BytesLike],
-  ): string;
+    values: [AddressLike, BigNumberish, BigNumberish, BytesLike]
+  ): string
   encodeFunctionData(
     functionFragment: 'safeMintBatch',
-    values: [AddressLike, BigNumberish[], BigNumberish[], BytesLike],
-  ): string;
+    values: [AddressLike, BigNumberish[], BigNumberish[], BytesLike]
+  ): string
   encodeFunctionData(
     functionFragment: 'safeTransferFrom',
-    values: [AddressLike, AddressLike, BigNumberish, BigNumberish, BytesLike],
-  ): string;
-  encodeFunctionData(functionFragment: 'setApprovalForAll', values: [AddressLike, boolean]): string;
-  encodeFunctionData(functionFragment: 'setBaseURI', values: [string]): string;
-  encodeFunctionData(functionFragment: 'setContractURI', values: [string]): string;
-  encodeFunctionData(functionFragment: 'setDefaultRoyaltyReceiver', values: [AddressLike, BigNumberish]): string;
+    values: [AddressLike, AddressLike, BigNumberish, BigNumberish, BytesLike]
+  ): string
+  encodeFunctionData(functionFragment: 'setApprovalForAll', values: [AddressLike, boolean]): string
+  encodeFunctionData(functionFragment: 'setBaseURI', values: [string]): string
+  encodeFunctionData(functionFragment: 'setContractURI', values: [string]): string
+  encodeFunctionData(
+    functionFragment: 'setDefaultRoyaltyReceiver',
+    values: [AddressLike, BigNumberish]
+  ): string
   encodeFunctionData(
     functionFragment: 'setNFTRoyaltyReceiver',
-    values: [BigNumberish, AddressLike, BigNumberish],
-  ): string;
+    values: [BigNumberish, AddressLike, BigNumberish]
+  ): string
   encodeFunctionData(
     functionFragment: 'setNFTRoyaltyReceiverBatch',
-    values: [BigNumberish[], AddressLike, BigNumberish],
-  ): string;
-  encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
-  encodeFunctionData(functionFragment: 'symbol', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'totalSupply', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'uri', values: [BigNumberish]): string;
+    values: [BigNumberish[], AddressLike, BigNumberish]
+  ): string
+  encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string
+  encodeFunctionData(functionFragment: 'symbol', values?: undefined): string
+  encodeFunctionData(functionFragment: 'totalSupply', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'uri', values: [BigNumberish]): string
 
-  decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'DOMAIN_SEPARATOR', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'MINTER_ROLE', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'balanceOfBatch', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'baseURI', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'burn', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'burnBatch', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'contractURI', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'eip712Domain', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'exists', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getAdmins', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getRoleAdmin', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getRoleMember', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getRoleMemberCount', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'grantMinterRole', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'grantRole', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'hasRole', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'isApprovedForAll', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'nonces', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'operatorAllowlist', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'permit', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'revokeMinterRole', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'royaltyInfo', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'safeBatchTransferFrom', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'safeMint', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'safeMintBatch', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'safeTransferFrom', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setApprovalForAll', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setBaseURI', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setContractURI', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setDefaultRoyaltyReceiver', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setNFTRoyaltyReceiver', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setNFTRoyaltyReceiverBatch', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'totalSupply', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'uri', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'DOMAIN_SEPARATOR', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'MINTER_ROLE', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'balanceOfBatch', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'baseURI', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'burn', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'burnBatch', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'contractURI', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'eip712Domain', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'exists', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getAdmins', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getRoleAdmin', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getRoleMember', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getRoleMemberCount', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'grantMinterRole', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'grantRole', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'hasRole', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'isApprovedForAll', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'nonces', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'operatorAllowlist', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'permit', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'revokeMinterRole', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'royaltyInfo', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'safeBatchTransferFrom', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'safeMint', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'safeMintBatch', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'safeTransferFrom', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setApprovalForAll', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setBaseURI', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setContractURI', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setDefaultRoyaltyReceiver', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setNFTRoyaltyReceiver', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setNFTRoyaltyReceiverBatch', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'totalSupply', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'uri', data: BytesLike): Result
 }
 
 export namespace ApprovalForAllEvent {
-  export type InputTuple = [account: AddressLike, operator: AddressLike, approved: boolean];
-  export type OutputTuple = [account: string, operator: string, approved: boolean];
+  export type InputTuple = [account: AddressLike, operator: AddressLike, approved: boolean]
+  export type OutputTuple = [account: string, operator: string, approved: boolean]
   export interface OutputObject {
-    account: string;
-    operator: string;
-    approved: boolean;
+    account: string
+    operator: string
+    approved: boolean
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace EIP712DomainChangedEvent {
-  export type InputTuple = [];
-  export type OutputTuple = [];
+  export type InputTuple = []
+  export type OutputTuple = []
   export interface OutputObject {}
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace OperatorAllowlistRegistryUpdatedEvent {
-  export type InputTuple = [oldRegistry: AddressLike, newRegistry: AddressLike];
-  export type OutputTuple = [oldRegistry: string, newRegistry: string];
+  export type InputTuple = [oldRegistry: AddressLike, newRegistry: AddressLike]
+  export type OutputTuple = [oldRegistry: string, newRegistry: string]
   export interface OutputObject {
-    oldRegistry: string;
-    newRegistry: string;
+    oldRegistry: string
+    newRegistry: string
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace RoleAdminChangedEvent {
-  export type InputTuple = [role: BytesLike, previousAdminRole: BytesLike, newAdminRole: BytesLike];
-  export type OutputTuple = [role: string, previousAdminRole: string, newAdminRole: string];
+  export type InputTuple = [role: BytesLike, previousAdminRole: BytesLike, newAdminRole: BytesLike]
+  export type OutputTuple = [role: string, previousAdminRole: string, newAdminRole: string]
   export interface OutputObject {
-    role: string;
-    previousAdminRole: string;
-    newAdminRole: string;
+    role: string
+    previousAdminRole: string
+    newAdminRole: string
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace RoleGrantedEvent {
-  export type InputTuple = [role: BytesLike, account: AddressLike, sender: AddressLike];
-  export type OutputTuple = [role: string, account: string, sender: string];
+  export type InputTuple = [role: BytesLike, account: AddressLike, sender: AddressLike]
+  export type OutputTuple = [role: string, account: string, sender: string]
   export interface OutputObject {
-    role: string;
-    account: string;
-    sender: string;
+    role: string
+    account: string
+    sender: string
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace RoleRevokedEvent {
-  export type InputTuple = [role: BytesLike, account: AddressLike, sender: AddressLike];
-  export type OutputTuple = [role: string, account: string, sender: string];
+  export type InputTuple = [role: BytesLike, account: AddressLike, sender: AddressLike]
+  export type OutputTuple = [role: string, account: string, sender: string]
   export interface OutputObject {
-    role: string;
-    account: string;
-    sender: string;
+    role: string
+    account: string
+    sender: string
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace TransferBatchEvent {
@@ -274,19 +289,25 @@ export namespace TransferBatchEvent {
     to: AddressLike,
     ids: BigNumberish[],
     values: BigNumberish[],
-  ];
-  export type OutputTuple = [operator: string, from: string, to: string, ids: bigint[], values: bigint[]];
+  ]
+  export type OutputTuple = [
+    operator: string,
+    from: string,
+    to: string,
+    ids: bigint[],
+    values: bigint[],
+  ]
   export interface OutputObject {
-    operator: string;
-    from: string;
-    to: string;
-    ids: bigint[];
-    values: bigint[];
+    operator: string
+    from: string
+    to: string
+    ids: bigint[]
+    values: bigint[]
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace TransferSingleEvent {
@@ -296,463 +317,563 @@ export namespace TransferSingleEvent {
     to: AddressLike,
     id: BigNumberish,
     value: BigNumberish,
-  ];
-  export type OutputTuple = [operator: string, from: string, to: string, id: bigint, value: bigint];
+  ]
+  export type OutputTuple = [operator: string, from: string, to: string, id: bigint, value: bigint]
   export interface OutputObject {
-    operator: string;
-    from: string;
-    to: string;
-    id: bigint;
-    value: bigint;
+    operator: string
+    from: string
+    to: string
+    id: bigint
+    value: bigint
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace URIEvent {
-  export type InputTuple = [value: string, id: BigNumberish];
-  export type OutputTuple = [value: string, id: bigint];
+  export type InputTuple = [value: string, id: BigNumberish]
+  export type OutputTuple = [value: string, id: bigint]
   export interface OutputObject {
-    value: string;
-    id: bigint;
+    value: string
+    id: bigint
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export interface NiftyMarketplace extends BaseContract {
-  connect(runner?: ContractRunner | null): NiftyMarketplace;
-  waitForDeployment(): Promise<this>;
+  connect(runner?: ContractRunner | null): NiftyMarketplace
+  waitForDeployment(): Promise<this>
 
-  interface: NiftyMarketplaceInterface;
+  interface: NiftyMarketplaceInterface
 
   queryFilter<TCEvent extends TypedContractEvent>(
     event: TCEvent,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
-  ): Promise<Array<TypedEventLog<TCEvent>>>;
+    toBlock?: string | number | undefined
+  ): Promise<Array<TypedEventLog<TCEvent>>>
   queryFilter<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
-  ): Promise<Array<TypedEventLog<TCEvent>>>;
+    toBlock?: string | number | undefined
+  ): Promise<Array<TypedEventLog<TCEvent>>>
 
-  on<TCEvent extends TypedContractEvent>(event: TCEvent, listener: TypedListener<TCEvent>): Promise<this>;
+  on<TCEvent extends TypedContractEvent>(
+    event: TCEvent,
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
   on<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
-    listener: TypedListener<TCEvent>,
-  ): Promise<this>;
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
 
-  once<TCEvent extends TypedContractEvent>(event: TCEvent, listener: TypedListener<TCEvent>): Promise<this>;
+  once<TCEvent extends TypedContractEvent>(
+    event: TCEvent,
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
   once<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
-    listener: TypedListener<TCEvent>,
-  ): Promise<this>;
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
 
-  listeners<TCEvent extends TypedContractEvent>(event: TCEvent): Promise<Array<TypedListener<TCEvent>>>;
-  listeners(eventName?: string): Promise<Array<Listener>>;
-  removeAllListeners<TCEvent extends TypedContractEvent>(event?: TCEvent): Promise<this>;
+  listeners<TCEvent extends TypedContractEvent>(
+    event: TCEvent
+  ): Promise<Array<TypedListener<TCEvent>>>
+  listeners(eventName?: string): Promise<Array<Listener>>
+  removeAllListeners<TCEvent extends TypedContractEvent>(event?: TCEvent): Promise<this>
 
-  DEFAULT_ADMIN_ROLE: TypedContractMethod<[], [string], 'view'>;
+  DEFAULT_ADMIN_ROLE: TypedContractMethod<[], [string], 'view'>
 
-  DOMAIN_SEPARATOR: TypedContractMethod<[], [string], 'view'>;
+  DOMAIN_SEPARATOR: TypedContractMethod<[], [string], 'view'>
 
-  MINTER_ROLE: TypedContractMethod<[], [string], 'view'>;
+  MINTER_ROLE: TypedContractMethod<[], [string], 'view'>
 
-  balanceOf: TypedContractMethod<[account: AddressLike, id: BigNumberish], [bigint], 'view'>;
+  balanceOf: TypedContractMethod<[account: AddressLike, id: BigNumberish], [bigint], 'view'>
 
-  balanceOfBatch: TypedContractMethod<[accounts: AddressLike[], ids: BigNumberish[]], [bigint[]], 'view'>;
+  balanceOfBatch: TypedContractMethod<
+    [accounts: AddressLike[], ids: BigNumberish[]],
+    [bigint[]],
+    'view'
+  >
 
-  baseURI: TypedContractMethod<[], [string], 'view'>;
+  baseURI: TypedContractMethod<[], [string], 'view'>
 
-  burn: TypedContractMethod<[account: AddressLike, id: BigNumberish, value: BigNumberish], [void], 'nonpayable'>;
+  burn: TypedContractMethod<
+    [account: AddressLike, id: BigNumberish, value: BigNumberish],
+    [void],
+    'nonpayable'
+  >
 
   burnBatch: TypedContractMethod<
     [account: AddressLike, ids: BigNumberish[], values: BigNumberish[]],
     [void],
     'nonpayable'
-  >;
+  >
 
-  contractURI: TypedContractMethod<[], [string], 'view'>;
+  contractURI: TypedContractMethod<[], [string], 'view'>
 
   eip712Domain: TypedContractMethod<
     [],
     [
       [string, string, string, bigint, string, string, bigint[]] & {
-        fields: string;
-        name: string;
-        version: string;
-        chainId: bigint;
-        verifyingContract: string;
-        salt: string;
-        extensions: bigint[];
+        fields: string
+        name: string
+        version: string
+        chainId: bigint
+        verifyingContract: string
+        salt: string
+        extensions: bigint[]
       },
     ],
     'view'
-  >;
+  >
 
-  exists: TypedContractMethod<[id: BigNumberish], [boolean], 'view'>;
+  exists: TypedContractMethod<[id: BigNumberish], [boolean], 'view'>
 
-  getAdmins: TypedContractMethod<[], [string[]], 'view'>;
+  getAdmins: TypedContractMethod<[], [string[]], 'view'>
 
-  getRoleAdmin: TypedContractMethod<[role: BytesLike], [string], 'view'>;
+  getRoleAdmin: TypedContractMethod<[role: BytesLike], [string], 'view'>
 
-  getRoleMember: TypedContractMethod<[role: BytesLike, index: BigNumberish], [string], 'view'>;
+  getRoleMember: TypedContractMethod<[role: BytesLike, index: BigNumberish], [string], 'view'>
 
-  getRoleMemberCount: TypedContractMethod<[role: BytesLike], [bigint], 'view'>;
+  getRoleMemberCount: TypedContractMethod<[role: BytesLike], [bigint], 'view'>
 
-  grantMinterRole: TypedContractMethod<[user: AddressLike], [void], 'nonpayable'>;
+  grantMinterRole: TypedContractMethod<[user: AddressLike], [void], 'nonpayable'>
 
-  grantRole: TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>;
+  grantRole: TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>
 
-  hasRole: TypedContractMethod<[role: BytesLike, account: AddressLike], [boolean], 'view'>;
+  hasRole: TypedContractMethod<[role: BytesLike, account: AddressLike], [boolean], 'view'>
 
-  isApprovedForAll: TypedContractMethod<[account: AddressLike, operator: AddressLike], [boolean], 'view'>;
+  isApprovedForAll: TypedContractMethod<
+    [account: AddressLike, operator: AddressLike],
+    [boolean],
+    'view'
+  >
 
-  name: TypedContractMethod<[], [string], 'view'>;
+  name: TypedContractMethod<[], [string], 'view'>
 
-  nonces: TypedContractMethod<[owner: AddressLike], [bigint], 'view'>;
+  nonces: TypedContractMethod<[owner: AddressLike], [bigint], 'view'>
 
-  operatorAllowlist: TypedContractMethod<[], [string], 'view'>;
+  operatorAllowlist: TypedContractMethod<[], [string], 'view'>
 
   permit: TypedContractMethod<
-    [owner: AddressLike, spender: AddressLike, approved: boolean, deadline: BigNumberish, sig: BytesLike],
+    [
+      owner: AddressLike,
+      spender: AddressLike,
+      approved: boolean,
+      deadline: BigNumberish,
+      sig: BytesLike,
+    ],
     [void],
     'nonpayable'
-  >;
+  >
 
-  renounceRole: TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>;
+  renounceRole: TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>
 
-  revokeMinterRole: TypedContractMethod<[user: AddressLike], [void], 'nonpayable'>;
+  revokeMinterRole: TypedContractMethod<[user: AddressLike], [void], 'nonpayable'>
 
-  revokeRole: TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>;
+  revokeRole: TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>
 
-  royaltyInfo: TypedContractMethod<[tokenId: BigNumberish, salePrice: BigNumberish], [[string, bigint]], 'view'>;
+  royaltyInfo: TypedContractMethod<
+    [tokenId: BigNumberish, salePrice: BigNumberish],
+    [[string, bigint]],
+    'view'
+  >
 
   safeBatchTransferFrom: TypedContractMethod<
-    [from: AddressLike, to: AddressLike, ids: BigNumberish[], amounts: BigNumberish[], data: BytesLike],
+    [
+      from: AddressLike,
+      to: AddressLike,
+      ids: BigNumberish[],
+      amounts: BigNumberish[],
+      data: BytesLike,
+    ],
     [void],
     'nonpayable'
-  >;
+  >
 
   safeMint: TypedContractMethod<
     [to: AddressLike, id: BigNumberish, value: BigNumberish, data: BytesLike],
     [void],
     'nonpayable'
-  >;
+  >
 
   safeMintBatch: TypedContractMethod<
     [to: AddressLike, ids: BigNumberish[], values: BigNumberish[], data: BytesLike],
     [void],
     'nonpayable'
-  >;
+  >
 
   safeTransferFrom: TypedContractMethod<
     [from: AddressLike, to: AddressLike, id: BigNumberish, amount: BigNumberish, data: BytesLike],
     [void],
     'nonpayable'
-  >;
+  >
 
-  setApprovalForAll: TypedContractMethod<[operator: AddressLike, approved: boolean], [void], 'nonpayable'>;
+  setApprovalForAll: TypedContractMethod<
+    [operator: AddressLike, approved: boolean],
+    [void],
+    'nonpayable'
+  >
 
-  setBaseURI: TypedContractMethod<[baseURI_: string], [void], 'nonpayable'>;
+  setBaseURI: TypedContractMethod<[baseURI_: string], [void], 'nonpayable'>
 
-  setContractURI: TypedContractMethod<[contractURI_: string], [void], 'nonpayable'>;
+  setContractURI: TypedContractMethod<[contractURI_: string], [void], 'nonpayable'>
 
   setDefaultRoyaltyReceiver: TypedContractMethod<
     [receiver: AddressLike, feeNumerator: BigNumberish],
     [void],
     'nonpayable'
-  >;
+  >
 
   setNFTRoyaltyReceiver: TypedContractMethod<
     [tokenId: BigNumberish, receiver: AddressLike, feeNumerator: BigNumberish],
     [void],
     'nonpayable'
-  >;
+  >
 
   setNFTRoyaltyReceiverBatch: TypedContractMethod<
     [tokenIds: BigNumberish[], receiver: AddressLike, feeNumerator: BigNumberish],
     [void],
     'nonpayable'
-  >;
+  >
 
-  supportsInterface: TypedContractMethod<[interfaceId: BytesLike], [boolean], 'view'>;
+  supportsInterface: TypedContractMethod<[interfaceId: BytesLike], [boolean], 'view'>
 
-  symbol: TypedContractMethod<[], [string], 'view'>;
+  symbol: TypedContractMethod<[], [string], 'view'>
 
-  totalSupply: TypedContractMethod<[id: BigNumberish], [bigint], 'view'>;
+  totalSupply: TypedContractMethod<[id: BigNumberish], [bigint], 'view'>
 
-  uri: TypedContractMethod<[tokenId: BigNumberish], [string], 'view'>;
+  uri: TypedContractMethod<[tokenId: BigNumberish], [string], 'view'>
 
-  getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T;
+  getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T
 
-  getFunction(nameOrSignature: 'DEFAULT_ADMIN_ROLE'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'DOMAIN_SEPARATOR'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'MINTER_ROLE'): TypedContractMethod<[], [string], 'view'>;
+  getFunction(nameOrSignature: 'DEFAULT_ADMIN_ROLE'): TypedContractMethod<[], [string], 'view'>
+  getFunction(nameOrSignature: 'DOMAIN_SEPARATOR'): TypedContractMethod<[], [string], 'view'>
+  getFunction(nameOrSignature: 'MINTER_ROLE'): TypedContractMethod<[], [string], 'view'>
   getFunction(
-    nameOrSignature: 'balanceOf',
-  ): TypedContractMethod<[account: AddressLike, id: BigNumberish], [bigint], 'view'>;
+    nameOrSignature: 'balanceOf'
+  ): TypedContractMethod<[account: AddressLike, id: BigNumberish], [bigint], 'view'>
   getFunction(
-    nameOrSignature: 'balanceOfBatch',
-  ): TypedContractMethod<[accounts: AddressLike[], ids: BigNumberish[]], [bigint[]], 'view'>;
-  getFunction(nameOrSignature: 'baseURI'): TypedContractMethod<[], [string], 'view'>;
+    nameOrSignature: 'balanceOfBatch'
+  ): TypedContractMethod<[accounts: AddressLike[], ids: BigNumberish[]], [bigint[]], 'view'>
+  getFunction(nameOrSignature: 'baseURI'): TypedContractMethod<[], [string], 'view'>
   getFunction(
-    nameOrSignature: 'burn',
-  ): TypedContractMethod<[account: AddressLike, id: BigNumberish, value: BigNumberish], [void], 'nonpayable'>;
-  getFunction(
-    nameOrSignature: 'burnBatch',
-  ): TypedContractMethod<[account: AddressLike, ids: BigNumberish[], values: BigNumberish[]], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'contractURI'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(
-    nameOrSignature: 'eip712Domain',
+    nameOrSignature: 'burn'
   ): TypedContractMethod<
+    [account: AddressLike, id: BigNumberish, value: BigNumberish],
+    [void],
+    'nonpayable'
+  >
+  getFunction(
+    nameOrSignature: 'burnBatch'
+  ): TypedContractMethod<
+    [account: AddressLike, ids: BigNumberish[], values: BigNumberish[]],
+    [void],
+    'nonpayable'
+  >
+  getFunction(nameOrSignature: 'contractURI'): TypedContractMethod<[], [string], 'view'>
+  getFunction(nameOrSignature: 'eip712Domain'): TypedContractMethod<
     [],
     [
       [string, string, string, bigint, string, string, bigint[]] & {
-        fields: string;
-        name: string;
-        version: string;
-        chainId: bigint;
-        verifyingContract: string;
-        salt: string;
-        extensions: bigint[];
+        fields: string
+        name: string
+        version: string
+        chainId: bigint
+        verifyingContract: string
+        salt: string
+        extensions: bigint[]
       },
     ],
     'view'
-  >;
-  getFunction(nameOrSignature: 'exists'): TypedContractMethod<[id: BigNumberish], [boolean], 'view'>;
-  getFunction(nameOrSignature: 'getAdmins'): TypedContractMethod<[], [string[]], 'view'>;
-  getFunction(nameOrSignature: 'getRoleAdmin'): TypedContractMethod<[role: BytesLike], [string], 'view'>;
+  >
+  getFunction(nameOrSignature: 'exists'): TypedContractMethod<[id: BigNumberish], [boolean], 'view'>
+  getFunction(nameOrSignature: 'getAdmins'): TypedContractMethod<[], [string[]], 'view'>
   getFunction(
-    nameOrSignature: 'getRoleMember',
-  ): TypedContractMethod<[role: BytesLike, index: BigNumberish], [string], 'view'>;
-  getFunction(nameOrSignature: 'getRoleMemberCount'): TypedContractMethod<[role: BytesLike], [bigint], 'view'>;
-  getFunction(nameOrSignature: 'grantMinterRole'): TypedContractMethod<[user: AddressLike], [void], 'nonpayable'>;
+    nameOrSignature: 'getRoleAdmin'
+  ): TypedContractMethod<[role: BytesLike], [string], 'view'>
   getFunction(
-    nameOrSignature: 'grantRole',
-  ): TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>;
+    nameOrSignature: 'getRoleMember'
+  ): TypedContractMethod<[role: BytesLike, index: BigNumberish], [string], 'view'>
   getFunction(
-    nameOrSignature: 'hasRole',
-  ): TypedContractMethod<[role: BytesLike, account: AddressLike], [boolean], 'view'>;
+    nameOrSignature: 'getRoleMemberCount'
+  ): TypedContractMethod<[role: BytesLike], [bigint], 'view'>
   getFunction(
-    nameOrSignature: 'isApprovedForAll',
-  ): TypedContractMethod<[account: AddressLike, operator: AddressLike], [boolean], 'view'>;
-  getFunction(nameOrSignature: 'name'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'nonces'): TypedContractMethod<[owner: AddressLike], [bigint], 'view'>;
-  getFunction(nameOrSignature: 'operatorAllowlist'): TypedContractMethod<[], [string], 'view'>;
+    nameOrSignature: 'grantMinterRole'
+  ): TypedContractMethod<[user: AddressLike], [void], 'nonpayable'>
   getFunction(
-    nameOrSignature: 'permit',
+    nameOrSignature: 'grantRole'
+  ): TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>
+  getFunction(
+    nameOrSignature: 'hasRole'
+  ): TypedContractMethod<[role: BytesLike, account: AddressLike], [boolean], 'view'>
+  getFunction(
+    nameOrSignature: 'isApprovedForAll'
+  ): TypedContractMethod<[account: AddressLike, operator: AddressLike], [boolean], 'view'>
+  getFunction(nameOrSignature: 'name'): TypedContractMethod<[], [string], 'view'>
+  getFunction(
+    nameOrSignature: 'nonces'
+  ): TypedContractMethod<[owner: AddressLike], [bigint], 'view'>
+  getFunction(nameOrSignature: 'operatorAllowlist'): TypedContractMethod<[], [string], 'view'>
+  getFunction(
+    nameOrSignature: 'permit'
   ): TypedContractMethod<
-    [owner: AddressLike, spender: AddressLike, approved: boolean, deadline: BigNumberish, sig: BytesLike],
+    [
+      owner: AddressLike,
+      spender: AddressLike,
+      approved: boolean,
+      deadline: BigNumberish,
+      sig: BytesLike,
+    ],
     [void],
     'nonpayable'
-  >;
+  >
   getFunction(
-    nameOrSignature: 'renounceRole',
-  ): TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'revokeMinterRole'): TypedContractMethod<[user: AddressLike], [void], 'nonpayable'>;
+    nameOrSignature: 'renounceRole'
+  ): TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>
   getFunction(
-    nameOrSignature: 'revokeRole',
-  ): TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>;
+    nameOrSignature: 'revokeMinterRole'
+  ): TypedContractMethod<[user: AddressLike], [void], 'nonpayable'>
   getFunction(
-    nameOrSignature: 'royaltyInfo',
-  ): TypedContractMethod<[tokenId: BigNumberish, salePrice: BigNumberish], [[string, bigint]], 'view'>;
+    nameOrSignature: 'revokeRole'
+  ): TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>
   getFunction(
-    nameOrSignature: 'safeBatchTransferFrom',
+    nameOrSignature: 'royaltyInfo'
   ): TypedContractMethod<
-    [from: AddressLike, to: AddressLike, ids: BigNumberish[], amounts: BigNumberish[], data: BytesLike],
+    [tokenId: BigNumberish, salePrice: BigNumberish],
+    [[string, bigint]],
+    'view'
+  >
+  getFunction(
+    nameOrSignature: 'safeBatchTransferFrom'
+  ): TypedContractMethod<
+    [
+      from: AddressLike,
+      to: AddressLike,
+      ids: BigNumberish[],
+      amounts: BigNumberish[],
+      data: BytesLike,
+    ],
     [void],
     'nonpayable'
-  >;
+  >
   getFunction(
-    nameOrSignature: 'safeMint',
+    nameOrSignature: 'safeMint'
   ): TypedContractMethod<
     [to: AddressLike, id: BigNumberish, value: BigNumberish, data: BytesLike],
     [void],
     'nonpayable'
-  >;
+  >
   getFunction(
-    nameOrSignature: 'safeMintBatch',
+    nameOrSignature: 'safeMintBatch'
   ): TypedContractMethod<
     [to: AddressLike, ids: BigNumberish[], values: BigNumberish[], data: BytesLike],
     [void],
     'nonpayable'
-  >;
+  >
   getFunction(
-    nameOrSignature: 'safeTransferFrom',
+    nameOrSignature: 'safeTransferFrom'
   ): TypedContractMethod<
     [from: AddressLike, to: AddressLike, id: BigNumberish, amount: BigNumberish, data: BytesLike],
     [void],
     'nonpayable'
-  >;
+  >
   getFunction(
-    nameOrSignature: 'setApprovalForAll',
-  ): TypedContractMethod<[operator: AddressLike, approved: boolean], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'setBaseURI'): TypedContractMethod<[baseURI_: string], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'setContractURI'): TypedContractMethod<[contractURI_: string], [void], 'nonpayable'>;
+    nameOrSignature: 'setApprovalForAll'
+  ): TypedContractMethod<[operator: AddressLike, approved: boolean], [void], 'nonpayable'>
   getFunction(
-    nameOrSignature: 'setDefaultRoyaltyReceiver',
-  ): TypedContractMethod<[receiver: AddressLike, feeNumerator: BigNumberish], [void], 'nonpayable'>;
+    nameOrSignature: 'setBaseURI'
+  ): TypedContractMethod<[baseURI_: string], [void], 'nonpayable'>
   getFunction(
-    nameOrSignature: 'setNFTRoyaltyReceiver',
+    nameOrSignature: 'setContractURI'
+  ): TypedContractMethod<[contractURI_: string], [void], 'nonpayable'>
+  getFunction(
+    nameOrSignature: 'setDefaultRoyaltyReceiver'
+  ): TypedContractMethod<[receiver: AddressLike, feeNumerator: BigNumberish], [void], 'nonpayable'>
+  getFunction(
+    nameOrSignature: 'setNFTRoyaltyReceiver'
   ): TypedContractMethod<
     [tokenId: BigNumberish, receiver: AddressLike, feeNumerator: BigNumberish],
     [void],
     'nonpayable'
-  >;
+  >
   getFunction(
-    nameOrSignature: 'setNFTRoyaltyReceiverBatch',
+    nameOrSignature: 'setNFTRoyaltyReceiverBatch'
   ): TypedContractMethod<
     [tokenIds: BigNumberish[], receiver: AddressLike, feeNumerator: BigNumberish],
     [void],
     'nonpayable'
-  >;
-  getFunction(nameOrSignature: 'supportsInterface'): TypedContractMethod<[interfaceId: BytesLike], [boolean], 'view'>;
-  getFunction(nameOrSignature: 'symbol'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'totalSupply'): TypedContractMethod<[id: BigNumberish], [bigint], 'view'>;
-  getFunction(nameOrSignature: 'uri'): TypedContractMethod<[tokenId: BigNumberish], [string], 'view'>;
+  >
+  getFunction(
+    nameOrSignature: 'supportsInterface'
+  ): TypedContractMethod<[interfaceId: BytesLike], [boolean], 'view'>
+  getFunction(nameOrSignature: 'symbol'): TypedContractMethod<[], [string], 'view'>
+  getFunction(
+    nameOrSignature: 'totalSupply'
+  ): TypedContractMethod<[id: BigNumberish], [bigint], 'view'>
+  getFunction(
+    nameOrSignature: 'uri'
+  ): TypedContractMethod<[tokenId: BigNumberish], [string], 'view'>
 
   getEvent(
-    key: 'ApprovalForAll',
+    key: 'ApprovalForAll'
   ): TypedContractEvent<
     ApprovalForAllEvent.InputTuple,
     ApprovalForAllEvent.OutputTuple,
     ApprovalForAllEvent.OutputObject
-  >;
+  >
   getEvent(
-    key: 'EIP712DomainChanged',
+    key: 'EIP712DomainChanged'
   ): TypedContractEvent<
     EIP712DomainChangedEvent.InputTuple,
     EIP712DomainChangedEvent.OutputTuple,
     EIP712DomainChangedEvent.OutputObject
-  >;
+  >
   getEvent(
-    key: 'OperatorAllowlistRegistryUpdated',
+    key: 'OperatorAllowlistRegistryUpdated'
   ): TypedContractEvent<
     OperatorAllowlistRegistryUpdatedEvent.InputTuple,
     OperatorAllowlistRegistryUpdatedEvent.OutputTuple,
     OperatorAllowlistRegistryUpdatedEvent.OutputObject
-  >;
+  >
   getEvent(
-    key: 'RoleAdminChanged',
+    key: 'RoleAdminChanged'
   ): TypedContractEvent<
     RoleAdminChangedEvent.InputTuple,
     RoleAdminChangedEvent.OutputTuple,
     RoleAdminChangedEvent.OutputObject
-  >;
+  >
   getEvent(
-    key: 'RoleGranted',
-  ): TypedContractEvent<RoleGrantedEvent.InputTuple, RoleGrantedEvent.OutputTuple, RoleGrantedEvent.OutputObject>;
+    key: 'RoleGranted'
+  ): TypedContractEvent<
+    RoleGrantedEvent.InputTuple,
+    RoleGrantedEvent.OutputTuple,
+    RoleGrantedEvent.OutputObject
+  >
   getEvent(
-    key: 'RoleRevoked',
-  ): TypedContractEvent<RoleRevokedEvent.InputTuple, RoleRevokedEvent.OutputTuple, RoleRevokedEvent.OutputObject>;
+    key: 'RoleRevoked'
+  ): TypedContractEvent<
+    RoleRevokedEvent.InputTuple,
+    RoleRevokedEvent.OutputTuple,
+    RoleRevokedEvent.OutputObject
+  >
   getEvent(
-    key: 'TransferBatch',
-  ): TypedContractEvent<TransferBatchEvent.InputTuple, TransferBatchEvent.OutputTuple, TransferBatchEvent.OutputObject>;
+    key: 'TransferBatch'
+  ): TypedContractEvent<
+    TransferBatchEvent.InputTuple,
+    TransferBatchEvent.OutputTuple,
+    TransferBatchEvent.OutputObject
+  >
   getEvent(
-    key: 'TransferSingle',
+    key: 'TransferSingle'
   ): TypedContractEvent<
     TransferSingleEvent.InputTuple,
     TransferSingleEvent.OutputTuple,
     TransferSingleEvent.OutputObject
-  >;
-  getEvent(key: 'URI'): TypedContractEvent<URIEvent.InputTuple, URIEvent.OutputTuple, URIEvent.OutputObject>;
+  >
+  getEvent(
+    key: 'URI'
+  ): TypedContractEvent<URIEvent.InputTuple, URIEvent.OutputTuple, URIEvent.OutputObject>
 
   filters: {
     'ApprovalForAll(address,address,bool)': TypedContractEvent<
       ApprovalForAllEvent.InputTuple,
       ApprovalForAllEvent.OutputTuple,
       ApprovalForAllEvent.OutputObject
-    >;
+    >
     ApprovalForAll: TypedContractEvent<
       ApprovalForAllEvent.InputTuple,
       ApprovalForAllEvent.OutputTuple,
       ApprovalForAllEvent.OutputObject
-    >;
+    >
 
     'EIP712DomainChanged()': TypedContractEvent<
       EIP712DomainChangedEvent.InputTuple,
       EIP712DomainChangedEvent.OutputTuple,
       EIP712DomainChangedEvent.OutputObject
-    >;
+    >
     EIP712DomainChanged: TypedContractEvent<
       EIP712DomainChangedEvent.InputTuple,
       EIP712DomainChangedEvent.OutputTuple,
       EIP712DomainChangedEvent.OutputObject
-    >;
+    >
 
     'OperatorAllowlistRegistryUpdated(address,address)': TypedContractEvent<
       OperatorAllowlistRegistryUpdatedEvent.InputTuple,
       OperatorAllowlistRegistryUpdatedEvent.OutputTuple,
       OperatorAllowlistRegistryUpdatedEvent.OutputObject
-    >;
+    >
     OperatorAllowlistRegistryUpdated: TypedContractEvent<
       OperatorAllowlistRegistryUpdatedEvent.InputTuple,
       OperatorAllowlistRegistryUpdatedEvent.OutputTuple,
       OperatorAllowlistRegistryUpdatedEvent.OutputObject
-    >;
+    >
 
     'RoleAdminChanged(bytes32,bytes32,bytes32)': TypedContractEvent<
       RoleAdminChangedEvent.InputTuple,
       RoleAdminChangedEvent.OutputTuple,
       RoleAdminChangedEvent.OutputObject
-    >;
+    >
     RoleAdminChanged: TypedContractEvent<
       RoleAdminChangedEvent.InputTuple,
       RoleAdminChangedEvent.OutputTuple,
       RoleAdminChangedEvent.OutputObject
-    >;
+    >
 
     'RoleGranted(bytes32,address,address)': TypedContractEvent<
       RoleGrantedEvent.InputTuple,
       RoleGrantedEvent.OutputTuple,
       RoleGrantedEvent.OutputObject
-    >;
+    >
     RoleGranted: TypedContractEvent<
       RoleGrantedEvent.InputTuple,
       RoleGrantedEvent.OutputTuple,
       RoleGrantedEvent.OutputObject
-    >;
+    >
 
     'RoleRevoked(bytes32,address,address)': TypedContractEvent<
       RoleRevokedEvent.InputTuple,
       RoleRevokedEvent.OutputTuple,
       RoleRevokedEvent.OutputObject
-    >;
+    >
     RoleRevoked: TypedContractEvent<
       RoleRevokedEvent.InputTuple,
       RoleRevokedEvent.OutputTuple,
       RoleRevokedEvent.OutputObject
-    >;
+    >
 
     'TransferBatch(address,address,address,uint256[],uint256[])': TypedContractEvent<
       TransferBatchEvent.InputTuple,
       TransferBatchEvent.OutputTuple,
       TransferBatchEvent.OutputObject
-    >;
+    >
     TransferBatch: TypedContractEvent<
       TransferBatchEvent.InputTuple,
       TransferBatchEvent.OutputTuple,
       TransferBatchEvent.OutputObject
-    >;
+    >
 
     'TransferSingle(address,address,address,uint256,uint256)': TypedContractEvent<
       TransferSingleEvent.InputTuple,
       TransferSingleEvent.OutputTuple,
       TransferSingleEvent.OutputObject
-    >;
+    >
     TransferSingle: TypedContractEvent<
       TransferSingleEvent.InputTuple,
       TransferSingleEvent.OutputTuple,
       TransferSingleEvent.OutputObject
-    >;
+    >
 
-    'URI(string,uint256)': TypedContractEvent<URIEvent.InputTuple, URIEvent.OutputTuple, URIEvent.OutputObject>;
-    URI: TypedContractEvent<URIEvent.InputTuple, URIEvent.OutputTuple, URIEvent.OutputObject>;
-  };
+    'URI(string,uint256)': TypedContractEvent<
+      URIEvent.InputTuple,
+      URIEvent.OutputTuple,
+      URIEvent.OutputObject
+    >
+    URI: TypedContractEvent<URIEvent.InputTuple, URIEvent.OutputTuple, URIEvent.OutputObject>
+  }
 }

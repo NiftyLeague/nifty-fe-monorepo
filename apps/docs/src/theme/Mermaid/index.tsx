@@ -1,12 +1,12 @@
-import React, { useMemo, useCallback } from 'react';
-import { translate } from '@docusaurus/Translate';
-import BrowserOnly from '@docusaurus/BrowserOnly';
-import { MermaidContainerClassName, useMermaidRenderResult } from '@docusaurus/theme-mermaid/client';
+import React, { useMemo, useCallback } from 'react'
+import { translate } from '@docusaurus/Translate'
+import BrowserOnly from '@docusaurus/BrowserOnly'
+import { MermaidContainerClassName, useMermaidRenderResult } from '@docusaurus/theme-mermaid/client'
 
 // Define MermaidProps interface directly since it's not exported from the module
 interface MermaidProps {
-  value: string;
-  caption?: string;
+  value: string
+  caption?: string
 }
 
 // This component is only rendered in the browser
@@ -14,12 +14,12 @@ function MermaidContent({ value, caption }: MermaidProps): React.JSX.Element {
   // Memoize the getTheme function to prevent re-creation on each render
   const getTheme = useCallback((): 'dark' | 'forest' => {
     if (typeof document !== 'undefined') {
-      return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'forest';
+      return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'forest'
     }
-    return 'forest';
-  }, []);
+    return 'forest'
+  }, [])
 
-  const isDarkTheme = getTheme() === 'dark';
+  const isDarkTheme = getTheme() === 'dark'
 
   // Memoize themeVariables to prevent re-creation on each render
   const themeVariables = useMemo(
@@ -50,28 +50,28 @@ function MermaidContent({ value, caption }: MermaidProps): React.JSX.Element {
       pie7: '#e57373',
       pie8: '#ffe500',
     }),
-    [isDarkTheme],
-  );
+    [isDarkTheme]
+  )
 
   // Memoize the config object
-  const config = useMemo(() => ({ theme: getTheme(), themeVariables }), [getTheme, themeVariables]);
+  const config = useMemo(() => ({ theme: getTheme(), themeVariables }), [getTheme, themeVariables])
 
-  const result = useMermaidRenderResult({ text: value, config });
+  const result = useMermaidRenderResult({ text: value, config })
 
   // Extract svg and check for errors
-  const svg = result?.svg;
-  const error = result instanceof Error ? result : null;
+  const svg = result?.svg
+  const error = result instanceof Error ? result : null
 
   if (error) {
-    console.error(error);
+    console.error(error)
     return (
       <div className="alert alert--warning">
         {translate(
           { id: 'theme.Mermaid.error', message: 'Failed to render Mermaid diagram:' },
-          { error: error.message },
+          { error: error.message }
         )}
       </div>
-    );
+    )
   }
 
   return (
@@ -83,7 +83,7 @@ function MermaidContent({ value, caption }: MermaidProps): React.JSX.Element {
       />
       {caption && <div className="mermaid-caption">{caption}</div>}
     </div>
-  );
+  )
 }
 
 // The main exported component
@@ -98,5 +98,5 @@ export default function Mermaid(props: MermaidProps): React.JSX.Element {
     >
       {() => <MermaidContent {...props} />}
     </BrowserOnly>
-  );
+  )
 }

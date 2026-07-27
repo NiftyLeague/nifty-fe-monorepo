@@ -1,12 +1,12 @@
 // @ts-nocheck
-'use client';
+'use client'
 
-import dynamic from 'next/dynamic';
-import type { UnityConfig } from 'react-unity-webgl';
-const GameWithAuth = dynamic(() => import('@/components/wrapper/GameWithAuth'), { ssr: false });
+import dynamic from 'next/dynamic'
+import type { UnityConfig } from 'react-unity-webgl'
+const GameWithAuth = dynamic(() => import('@/components/wrapper/GameWithAuth'), { ssr: false })
 
-const burnerBaseUrl = process.env.NEXT_PUBLIC_UNITY_BURNER_BASE_URL as string;
-const burnerBuildVersion = process.env.NEXT_PUBLIC_UNITY_BURNER_BASE_VERSION as string;
+const burnerBaseUrl = process.env.NEXT_PUBLIC_UNITY_BURNER_BASE_URL as string
+const burnerBuildVersion = process.env.NEXT_PUBLIC_UNITY_BURNER_BASE_VERSION as string
 
 const burnerConfig: UnityConfig = {
   loaderUrl: `${burnerBaseUrl}/Build/${burnerBuildVersion}.loader.js`,
@@ -17,8 +17,8 @@ const burnerConfig: UnityConfig = {
   companyName: 'NiftyLeague',
   productName: 'Mt.Gawx',
   productVersion: burnerBuildVersion,
-};
+}
 
-const MtGawxGame = () => <GameWithAuth unityConfig={burnerConfig} />;
+const MtGawxGame = () => <GameWithAuth unityConfig={burnerConfig} />
 
-export default MtGawxGame;
+export default MtGawxGame

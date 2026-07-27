@@ -55,7 +55,11 @@
       "dependsOn": ["transit", "lint:fix", "format", "type-check"],
       "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"]
     },
-    "dev": { "cache": false, "persistent": true, "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"] },
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"]
+    },
     "format:check": { "dependsOn": ["^format:check"], "cache": true }
   }
 }

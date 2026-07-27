@@ -1,21 +1,31 @@
 // material-ui
-import { Grid, Skeleton, Stack, Typography } from '@mui/material';
-import type { GenericCardProps } from '@/types';
+import { Grid, Skeleton, Stack, Typography } from '@mui/material'
+import type { GenericCardProps } from '@/types'
 // project imports
-import MainCard from './MainCard';
+import MainCard from './MainCard'
 
 // ============================|| HOVER DATA CARD ||============================ //
 
 interface HoverDataCardProps extends Omit<GenericCardProps, 'title'> {
-  customStyle?: React.CSSProperties;
-  actions?: React.ReactNode;
-  isLoading?: boolean;
-  title?: string | React.ReactNode;
+  customStyle?: React.CSSProperties
+  actions?: React.ReactNode
+  isLoading?: boolean
+  title?: string | React.ReactNode
 }
 
-const HoverDataCard = ({ title, primary, secondary, customStyle, actions, isLoading }: HoverDataCardProps) => (
+const HoverDataCard = ({
+  title,
+  primary,
+  secondary,
+  customStyle,
+  actions,
+  isLoading,
+}: HoverDataCardProps) => (
   <MainCard sx={customStyle ?? {}}>
-    <Grid container sx={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Grid
+      container
+      sx={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}
+    >
       <Grid size={{ xs: 12 }}>
         {isLoading ? (
           <Skeleton variant="text" animation="wave" width={80} />
@@ -52,6 +62,6 @@ const HoverDataCard = ({ title, primary, secondary, customStyle, actions, isLoad
       {actions}
     </Grid>
   </MainCard>
-);
+)
 
-export default HoverDataCard;
+export default HoverDataCard

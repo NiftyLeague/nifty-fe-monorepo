@@ -13,7 +13,7 @@ import type {
   ContractRunner,
   ContractMethod,
   Listener,
-} from 'ethers';
+} from 'ethers'
 import type {
   TypedContractEvent,
   TypedDeferredTopicFilter,
@@ -21,7 +21,7 @@ import type {
   TypedLogDescription,
   TypedListener,
   TypedContractMethod,
-} from '../../../common';
+} from '../../../common'
 
 export interface IGovTokenInterface extends Interface {
   getFunction(
@@ -48,192 +48,236 @@ export interface IGovTokenInterface extends Interface {
       | 'symbol'
       | 'totalSupply'
       | 'transfer'
-      | 'transferFrom',
-  ): FunctionFragment;
+      | 'transferFrom'
+  ): FunctionFragment
 
-  getEvent(nameOrSignatureOrTopic: 'Approval' | 'DelegateChanged' | 'DelegateVotesChanged' | 'Transfer'): EventFragment;
+  getEvent(
+    nameOrSignatureOrTopic: 'Approval' | 'DelegateChanged' | 'DelegateVotesChanged' | 'Transfer'
+  ): EventFragment
 
-  encodeFunctionData(functionFragment: 'CLOCK_MODE', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'DOMAIN_SEPARATOR', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'allowance', values: [AddressLike, AddressLike]): string;
-  encodeFunctionData(functionFragment: 'approve', values: [AddressLike, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'balanceOf', values: [AddressLike]): string;
-  encodeFunctionData(functionFragment: 'burn', values: [AddressLike, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'clock', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'decimals', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'delegate', values: [AddressLike]): string;
+  encodeFunctionData(functionFragment: 'CLOCK_MODE', values?: undefined): string
+  encodeFunctionData(functionFragment: 'DOMAIN_SEPARATOR', values?: undefined): string
+  encodeFunctionData(functionFragment: 'allowance', values: [AddressLike, AddressLike]): string
+  encodeFunctionData(functionFragment: 'approve', values: [AddressLike, BigNumberish]): string
+  encodeFunctionData(functionFragment: 'balanceOf', values: [AddressLike]): string
+  encodeFunctionData(functionFragment: 'burn', values: [AddressLike, BigNumberish]): string
+  encodeFunctionData(functionFragment: 'clock', values?: undefined): string
+  encodeFunctionData(functionFragment: 'decimals', values?: undefined): string
+  encodeFunctionData(functionFragment: 'delegate', values: [AddressLike]): string
   encodeFunctionData(
     functionFragment: 'delegateBySig',
-    values: [AddressLike, BigNumberish, BigNumberish, BigNumberish, BytesLike, BytesLike],
-  ): string;
-  encodeFunctionData(functionFragment: 'delegates', values: [AddressLike]): string;
-  encodeFunctionData(functionFragment: 'getPastTotalSupply', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'getPastVotes', values: [AddressLike, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'getVotes', values: [AddressLike]): string;
-  encodeFunctionData(functionFragment: 'mint', values: [AddressLike, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'name', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'nonces', values: [AddressLike]): string;
+    values: [AddressLike, BigNumberish, BigNumberish, BigNumberish, BytesLike, BytesLike]
+  ): string
+  encodeFunctionData(functionFragment: 'delegates', values: [AddressLike]): string
+  encodeFunctionData(functionFragment: 'getPastTotalSupply', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'getPastVotes', values: [AddressLike, BigNumberish]): string
+  encodeFunctionData(functionFragment: 'getVotes', values: [AddressLike]): string
+  encodeFunctionData(functionFragment: 'mint', values: [AddressLike, BigNumberish]): string
+  encodeFunctionData(functionFragment: 'name', values?: undefined): string
+  encodeFunctionData(functionFragment: 'nonces', values: [AddressLike]): string
   encodeFunctionData(
     functionFragment: 'permit',
-    values: [AddressLike, AddressLike, BigNumberish, BigNumberish, BigNumberish, BytesLike, BytesLike],
-  ): string;
-  encodeFunctionData(functionFragment: 'rootToken', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'symbol', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'totalSupply', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'transfer', values: [AddressLike, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'transferFrom', values: [AddressLike, AddressLike, BigNumberish]): string;
+    values: [
+      AddressLike,
+      AddressLike,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BytesLike,
+      BytesLike,
+    ]
+  ): string
+  encodeFunctionData(functionFragment: 'rootToken', values?: undefined): string
+  encodeFunctionData(functionFragment: 'symbol', values?: undefined): string
+  encodeFunctionData(functionFragment: 'totalSupply', values?: undefined): string
+  encodeFunctionData(functionFragment: 'transfer', values: [AddressLike, BigNumberish]): string
+  encodeFunctionData(
+    functionFragment: 'transferFrom',
+    values: [AddressLike, AddressLike, BigNumberish]
+  ): string
 
-  decodeFunctionResult(functionFragment: 'CLOCK_MODE', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'DOMAIN_SEPARATOR', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'allowance', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'approve', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'burn', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'clock', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'decimals', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'delegate', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'delegateBySig', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'delegates', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getPastTotalSupply', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getPastVotes', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getVotes', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'nonces', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'permit', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'rootToken', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'totalSupply', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'transfer', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'transferFrom', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'CLOCK_MODE', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'DOMAIN_SEPARATOR', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'allowance', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'approve', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'burn', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'clock', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'decimals', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'delegate', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'delegateBySig', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'delegates', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getPastTotalSupply', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getPastVotes', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getVotes', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'nonces', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'permit', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'rootToken', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'totalSupply', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'transfer', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'transferFrom', data: BytesLike): Result
 }
 
 export namespace ApprovalEvent {
-  export type InputTuple = [owner: AddressLike, spender: AddressLike, value: BigNumberish];
-  export type OutputTuple = [owner: string, spender: string, value: bigint];
+  export type InputTuple = [owner: AddressLike, spender: AddressLike, value: BigNumberish]
+  export type OutputTuple = [owner: string, spender: string, value: bigint]
   export interface OutputObject {
-    owner: string;
-    spender: string;
-    value: bigint;
+    owner: string
+    spender: string
+    value: bigint
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace DelegateChangedEvent {
-  export type InputTuple = [delegator: AddressLike, fromDelegate: AddressLike, toDelegate: AddressLike];
-  export type OutputTuple = [delegator: string, fromDelegate: string, toDelegate: string];
+  export type InputTuple = [
+    delegator: AddressLike,
+    fromDelegate: AddressLike,
+    toDelegate: AddressLike,
+  ]
+  export type OutputTuple = [delegator: string, fromDelegate: string, toDelegate: string]
   export interface OutputObject {
-    delegator: string;
-    fromDelegate: string;
-    toDelegate: string;
+    delegator: string
+    fromDelegate: string
+    toDelegate: string
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace DelegateVotesChangedEvent {
-  export type InputTuple = [delegate: AddressLike, previousBalance: BigNumberish, newBalance: BigNumberish];
-  export type OutputTuple = [delegate: string, previousBalance: bigint, newBalance: bigint];
+  export type InputTuple = [
+    delegate: AddressLike,
+    previousBalance: BigNumberish,
+    newBalance: BigNumberish,
+  ]
+  export type OutputTuple = [delegate: string, previousBalance: bigint, newBalance: bigint]
   export interface OutputObject {
-    delegate: string;
-    previousBalance: bigint;
-    newBalance: bigint;
+    delegate: string
+    previousBalance: bigint
+    newBalance: bigint
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace TransferEvent {
-  export type InputTuple = [from: AddressLike, to: AddressLike, value: BigNumberish];
-  export type OutputTuple = [from: string, to: string, value: bigint];
+  export type InputTuple = [from: AddressLike, to: AddressLike, value: BigNumberish]
+  export type OutputTuple = [from: string, to: string, value: bigint]
   export interface OutputObject {
-    from: string;
-    to: string;
-    value: bigint;
+    from: string
+    to: string
+    value: bigint
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export interface IGovToken extends BaseContract {
-  connect(runner?: ContractRunner | null): IGovToken;
-  waitForDeployment(): Promise<this>;
+  connect(runner?: ContractRunner | null): IGovToken
+  waitForDeployment(): Promise<this>
 
-  interface: IGovTokenInterface;
+  interface: IGovTokenInterface
 
   queryFilter<TCEvent extends TypedContractEvent>(
     event: TCEvent,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
-  ): Promise<Array<TypedEventLog<TCEvent>>>;
+    toBlock?: string | number | undefined
+  ): Promise<Array<TypedEventLog<TCEvent>>>
   queryFilter<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
-  ): Promise<Array<TypedEventLog<TCEvent>>>;
+    toBlock?: string | number | undefined
+  ): Promise<Array<TypedEventLog<TCEvent>>>
 
-  on<TCEvent extends TypedContractEvent>(event: TCEvent, listener: TypedListener<TCEvent>): Promise<this>;
+  on<TCEvent extends TypedContractEvent>(
+    event: TCEvent,
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
   on<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
-    listener: TypedListener<TCEvent>,
-  ): Promise<this>;
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
 
-  once<TCEvent extends TypedContractEvent>(event: TCEvent, listener: TypedListener<TCEvent>): Promise<this>;
+  once<TCEvent extends TypedContractEvent>(
+    event: TCEvent,
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
   once<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
-    listener: TypedListener<TCEvent>,
-  ): Promise<this>;
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
 
-  listeners<TCEvent extends TypedContractEvent>(event: TCEvent): Promise<Array<TypedListener<TCEvent>>>;
-  listeners(eventName?: string): Promise<Array<Listener>>;
-  removeAllListeners<TCEvent extends TypedContractEvent>(event?: TCEvent): Promise<this>;
+  listeners<TCEvent extends TypedContractEvent>(
+    event: TCEvent
+  ): Promise<Array<TypedListener<TCEvent>>>
+  listeners(eventName?: string): Promise<Array<Listener>>
+  removeAllListeners<TCEvent extends TypedContractEvent>(event?: TCEvent): Promise<this>
 
-  CLOCK_MODE: TypedContractMethod<[], [string], 'view'>;
+  CLOCK_MODE: TypedContractMethod<[], [string], 'view'>
 
-  DOMAIN_SEPARATOR: TypedContractMethod<[], [string], 'view'>;
+  DOMAIN_SEPARATOR: TypedContractMethod<[], [string], 'view'>
 
-  allowance: TypedContractMethod<[owner: AddressLike, spender: AddressLike], [bigint], 'view'>;
+  allowance: TypedContractMethod<[owner: AddressLike, spender: AddressLike], [bigint], 'view'>
 
-  approve: TypedContractMethod<[spender: AddressLike, amount: BigNumberish], [boolean], 'nonpayable'>;
+  approve: TypedContractMethod<
+    [spender: AddressLike, amount: BigNumberish],
+    [boolean],
+    'nonpayable'
+  >
 
-  balanceOf: TypedContractMethod<[account: AddressLike], [bigint], 'view'>;
+  balanceOf: TypedContractMethod<[account: AddressLike], [bigint], 'view'>
 
-  burn: TypedContractMethod<[from: AddressLike, amount: BigNumberish], [void], 'nonpayable'>;
+  burn: TypedContractMethod<[from: AddressLike, amount: BigNumberish], [void], 'nonpayable'>
 
-  clock: TypedContractMethod<[], [bigint], 'view'>;
+  clock: TypedContractMethod<[], [bigint], 'view'>
 
-  decimals: TypedContractMethod<[], [bigint], 'view'>;
+  decimals: TypedContractMethod<[], [bigint], 'view'>
 
-  delegate: TypedContractMethod<[delegatee: AddressLike], [void], 'nonpayable'>;
+  delegate: TypedContractMethod<[delegatee: AddressLike], [void], 'nonpayable'>
 
   delegateBySig: TypedContractMethod<
-    [delegatee: AddressLike, nonce: BigNumberish, expiry: BigNumberish, v: BigNumberish, r: BytesLike, s: BytesLike],
+    [
+      delegatee: AddressLike,
+      nonce: BigNumberish,
+      expiry: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+    ],
     [void],
     'nonpayable'
-  >;
+  >
 
-  delegates: TypedContractMethod<[account: AddressLike], [string], 'view'>;
+  delegates: TypedContractMethod<[account: AddressLike], [string], 'view'>
 
-  getPastTotalSupply: TypedContractMethod<[timepoint: BigNumberish], [bigint], 'view'>;
+  getPastTotalSupply: TypedContractMethod<[timepoint: BigNumberish], [bigint], 'view'>
 
-  getPastVotes: TypedContractMethod<[account: AddressLike, timepoint: BigNumberish], [bigint], 'view'>;
+  getPastVotes: TypedContractMethod<
+    [account: AddressLike, timepoint: BigNumberish],
+    [bigint],
+    'view'
+  >
 
-  getVotes: TypedContractMethod<[account: AddressLike], [bigint], 'view'>;
+  getVotes: TypedContractMethod<[account: AddressLike], [bigint], 'view'>
 
-  mint: TypedContractMethod<[to: AddressLike, amount: BigNumberish], [void], 'nonpayable'>;
+  mint: TypedContractMethod<[to: AddressLike, amount: BigNumberish], [void], 'nonpayable'>
 
-  name: TypedContractMethod<[], [string], 'view'>;
+  name: TypedContractMethod<[], [string], 'view'>
 
-  nonces: TypedContractMethod<[owner: AddressLike], [bigint], 'view'>;
+  nonces: TypedContractMethod<[owner: AddressLike], [bigint], 'view'>
 
   permit: TypedContractMethod<
     [
@@ -247,59 +291,78 @@ export interface IGovToken extends BaseContract {
     ],
     [void],
     'nonpayable'
-  >;
+  >
 
-  rootToken: TypedContractMethod<[], [string], 'view'>;
+  rootToken: TypedContractMethod<[], [string], 'view'>
 
-  symbol: TypedContractMethod<[], [string], 'view'>;
+  symbol: TypedContractMethod<[], [string], 'view'>
 
-  totalSupply: TypedContractMethod<[], [bigint], 'view'>;
+  totalSupply: TypedContractMethod<[], [bigint], 'view'>
 
-  transfer: TypedContractMethod<[to: AddressLike, amount: BigNumberish], [boolean], 'nonpayable'>;
+  transfer: TypedContractMethod<[to: AddressLike, amount: BigNumberish], [boolean], 'nonpayable'>
 
   transferFrom: TypedContractMethod<
     [from: AddressLike, to: AddressLike, amount: BigNumberish],
     [boolean],
     'nonpayable'
-  >;
+  >
 
-  getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T;
+  getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T
 
-  getFunction(nameOrSignature: 'CLOCK_MODE'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'DOMAIN_SEPARATOR'): TypedContractMethod<[], [string], 'view'>;
+  getFunction(nameOrSignature: 'CLOCK_MODE'): TypedContractMethod<[], [string], 'view'>
+  getFunction(nameOrSignature: 'DOMAIN_SEPARATOR'): TypedContractMethod<[], [string], 'view'>
   getFunction(
-    nameOrSignature: 'allowance',
-  ): TypedContractMethod<[owner: AddressLike, spender: AddressLike], [bigint], 'view'>;
+    nameOrSignature: 'allowance'
+  ): TypedContractMethod<[owner: AddressLike, spender: AddressLike], [bigint], 'view'>
   getFunction(
-    nameOrSignature: 'approve',
-  ): TypedContractMethod<[spender: AddressLike, amount: BigNumberish], [boolean], 'nonpayable'>;
-  getFunction(nameOrSignature: 'balanceOf'): TypedContractMethod<[account: AddressLike], [bigint], 'view'>;
+    nameOrSignature: 'approve'
+  ): TypedContractMethod<[spender: AddressLike, amount: BigNumberish], [boolean], 'nonpayable'>
   getFunction(
-    nameOrSignature: 'burn',
-  ): TypedContractMethod<[from: AddressLike, amount: BigNumberish], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'clock'): TypedContractMethod<[], [bigint], 'view'>;
-  getFunction(nameOrSignature: 'decimals'): TypedContractMethod<[], [bigint], 'view'>;
-  getFunction(nameOrSignature: 'delegate'): TypedContractMethod<[delegatee: AddressLike], [void], 'nonpayable'>;
+    nameOrSignature: 'balanceOf'
+  ): TypedContractMethod<[account: AddressLike], [bigint], 'view'>
   getFunction(
-    nameOrSignature: 'delegateBySig',
+    nameOrSignature: 'burn'
+  ): TypedContractMethod<[from: AddressLike, amount: BigNumberish], [void], 'nonpayable'>
+  getFunction(nameOrSignature: 'clock'): TypedContractMethod<[], [bigint], 'view'>
+  getFunction(nameOrSignature: 'decimals'): TypedContractMethod<[], [bigint], 'view'>
+  getFunction(
+    nameOrSignature: 'delegate'
+  ): TypedContractMethod<[delegatee: AddressLike], [void], 'nonpayable'>
+  getFunction(
+    nameOrSignature: 'delegateBySig'
   ): TypedContractMethod<
-    [delegatee: AddressLike, nonce: BigNumberish, expiry: BigNumberish, v: BigNumberish, r: BytesLike, s: BytesLike],
+    [
+      delegatee: AddressLike,
+      nonce: BigNumberish,
+      expiry: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+    ],
     [void],
     'nonpayable'
-  >;
-  getFunction(nameOrSignature: 'delegates'): TypedContractMethod<[account: AddressLike], [string], 'view'>;
-  getFunction(nameOrSignature: 'getPastTotalSupply'): TypedContractMethod<[timepoint: BigNumberish], [bigint], 'view'>;
+  >
   getFunction(
-    nameOrSignature: 'getPastVotes',
-  ): TypedContractMethod<[account: AddressLike, timepoint: BigNumberish], [bigint], 'view'>;
-  getFunction(nameOrSignature: 'getVotes'): TypedContractMethod<[account: AddressLike], [bigint], 'view'>;
+    nameOrSignature: 'delegates'
+  ): TypedContractMethod<[account: AddressLike], [string], 'view'>
   getFunction(
-    nameOrSignature: 'mint',
-  ): TypedContractMethod<[to: AddressLike, amount: BigNumberish], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'name'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'nonces'): TypedContractMethod<[owner: AddressLike], [bigint], 'view'>;
+    nameOrSignature: 'getPastTotalSupply'
+  ): TypedContractMethod<[timepoint: BigNumberish], [bigint], 'view'>
   getFunction(
-    nameOrSignature: 'permit',
+    nameOrSignature: 'getPastVotes'
+  ): TypedContractMethod<[account: AddressLike, timepoint: BigNumberish], [bigint], 'view'>
+  getFunction(
+    nameOrSignature: 'getVotes'
+  ): TypedContractMethod<[account: AddressLike], [bigint], 'view'>
+  getFunction(
+    nameOrSignature: 'mint'
+  ): TypedContractMethod<[to: AddressLike, amount: BigNumberish], [void], 'nonpayable'>
+  getFunction(nameOrSignature: 'name'): TypedContractMethod<[], [string], 'view'>
+  getFunction(
+    nameOrSignature: 'nonces'
+  ): TypedContractMethod<[owner: AddressLike], [bigint], 'view'>
+  getFunction(
+    nameOrSignature: 'permit'
   ): TypedContractMethod<
     [
       owner: AddressLike,
@@ -312,73 +375,93 @@ export interface IGovToken extends BaseContract {
     ],
     [void],
     'nonpayable'
-  >;
-  getFunction(nameOrSignature: 'rootToken'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'symbol'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'totalSupply'): TypedContractMethod<[], [bigint], 'view'>;
+  >
+  getFunction(nameOrSignature: 'rootToken'): TypedContractMethod<[], [string], 'view'>
+  getFunction(nameOrSignature: 'symbol'): TypedContractMethod<[], [string], 'view'>
+  getFunction(nameOrSignature: 'totalSupply'): TypedContractMethod<[], [bigint], 'view'>
   getFunction(
-    nameOrSignature: 'transfer',
-  ): TypedContractMethod<[to: AddressLike, amount: BigNumberish], [boolean], 'nonpayable'>;
+    nameOrSignature: 'transfer'
+  ): TypedContractMethod<[to: AddressLike, amount: BigNumberish], [boolean], 'nonpayable'>
   getFunction(
-    nameOrSignature: 'transferFrom',
-  ): TypedContractMethod<[from: AddressLike, to: AddressLike, amount: BigNumberish], [boolean], 'nonpayable'>;
+    nameOrSignature: 'transferFrom'
+  ): TypedContractMethod<
+    [from: AddressLike, to: AddressLike, amount: BigNumberish],
+    [boolean],
+    'nonpayable'
+  >
 
   getEvent(
-    key: 'Approval',
-  ): TypedContractEvent<ApprovalEvent.InputTuple, ApprovalEvent.OutputTuple, ApprovalEvent.OutputObject>;
+    key: 'Approval'
+  ): TypedContractEvent<
+    ApprovalEvent.InputTuple,
+    ApprovalEvent.OutputTuple,
+    ApprovalEvent.OutputObject
+  >
   getEvent(
-    key: 'DelegateChanged',
+    key: 'DelegateChanged'
   ): TypedContractEvent<
     DelegateChangedEvent.InputTuple,
     DelegateChangedEvent.OutputTuple,
     DelegateChangedEvent.OutputObject
-  >;
+  >
   getEvent(
-    key: 'DelegateVotesChanged',
+    key: 'DelegateVotesChanged'
   ): TypedContractEvent<
     DelegateVotesChangedEvent.InputTuple,
     DelegateVotesChangedEvent.OutputTuple,
     DelegateVotesChangedEvent.OutputObject
-  >;
+  >
   getEvent(
-    key: 'Transfer',
-  ): TypedContractEvent<TransferEvent.InputTuple, TransferEvent.OutputTuple, TransferEvent.OutputObject>;
+    key: 'Transfer'
+  ): TypedContractEvent<
+    TransferEvent.InputTuple,
+    TransferEvent.OutputTuple,
+    TransferEvent.OutputObject
+  >
 
   filters: {
     'Approval(address,address,uint256)': TypedContractEvent<
       ApprovalEvent.InputTuple,
       ApprovalEvent.OutputTuple,
       ApprovalEvent.OutputObject
-    >;
-    Approval: TypedContractEvent<ApprovalEvent.InputTuple, ApprovalEvent.OutputTuple, ApprovalEvent.OutputObject>;
+    >
+    Approval: TypedContractEvent<
+      ApprovalEvent.InputTuple,
+      ApprovalEvent.OutputTuple,
+      ApprovalEvent.OutputObject
+    >
 
     'DelegateChanged(address,address,address)': TypedContractEvent<
       DelegateChangedEvent.InputTuple,
       DelegateChangedEvent.OutputTuple,
       DelegateChangedEvent.OutputObject
-    >;
+    >
     DelegateChanged: TypedContractEvent<
       DelegateChangedEvent.InputTuple,
       DelegateChangedEvent.OutputTuple,
       DelegateChangedEvent.OutputObject
-    >;
+    >
 
     'DelegateVotesChanged(address,uint256,uint256)': TypedContractEvent<
       DelegateVotesChangedEvent.InputTuple,
       DelegateVotesChangedEvent.OutputTuple,
       DelegateVotesChangedEvent.OutputObject
-    >;
+    >
     DelegateVotesChanged: TypedContractEvent<
       DelegateVotesChangedEvent.InputTuple,
       DelegateVotesChangedEvent.OutputTuple,
       DelegateVotesChangedEvent.OutputObject
-    >;
+    >
 
     'Transfer(address,address,uint256)': TypedContractEvent<
       TransferEvent.InputTuple,
       TransferEvent.OutputTuple,
       TransferEvent.OutputObject
-    >;
-    Transfer: TypedContractEvent<TransferEvent.InputTuple, TransferEvent.OutputTuple, TransferEvent.OutputObject>;
-  };
+    >
+    Transfer: TypedContractEvent<
+      TransferEvent.InputTuple,
+      TransferEvent.OutputTuple,
+      TransferEvent.OutputObject
+    >
+  }
 }

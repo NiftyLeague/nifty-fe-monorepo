@@ -1,35 +1,35 @@
-'use client';
+'use client'
 
 /* eslint-disable no-nested-ternary */
-import { useMemo, useState } from 'react';
-import Link from 'next/link';
-import { Box, Button, Stack } from '@mui/material';
-import { useRouter } from 'next/navigation';
-import ComicCard from '@/components/cards/ComicCard';
-import SectionSlider from '@/components/sections/SectionSlider';
-import type { Comic } from '@/types/marketplace';
-import EmptyState from '@/components/EmptyState';
-import ViewComicDialog from '@/components/dialog/ViewComicDialog';
-import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
-import ComicPlaceholder from '@/components/cards/Skeleton/ComicPlaceholder';
-import { COMICS_PURCHASE_URL } from '@/constants/url';
+import { useMemo, useState } from 'react'
+import Link from 'next/link'
+import { Box, Button, Stack } from '@mui/material'
+import { useRouter } from 'next/navigation'
+import ComicCard from '@/components/cards/ComicCard'
+import SectionSlider from '@/components/sections/SectionSlider'
+import type { Comic } from '@/types/marketplace'
+import EmptyState from '@/components/EmptyState'
+import ViewComicDialog from '@/components/dialog/ViewComicDialog'
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
+import ComicPlaceholder from '@/components/cards/Skeleton/ComicPlaceholder'
+import { COMICS_PURCHASE_URL } from '@/constants/url'
 
 const MyComics = (): React.ReactNode => {
-  const [selectedComic, setSelectedComic] = useState<Comic | null>(null);
-  const router = useRouter();
-  const { comicsBalances, loadingComics } = useNFTsBalances();
+  const [selectedComic, setSelectedComic] = useState<Comic | null>(null)
+  const router = useRouter()
+  const { comicsBalances, loadingComics } = useNFTsBalances()
   const filteredComics = useMemo(
-    () => comicsBalances.filter(comic => comic.balance && comic.balance > 0),
-    [comicsBalances],
-  );
+    () => comicsBalances.filter((comic) => comic.balance && comic.balance > 0),
+    [comicsBalances]
+  )
 
   const handleViewComic = (comic: Comic) => {
-    setSelectedComic(comic);
-  };
+    setSelectedComic(comic)
+  }
 
   const handleCloseDialog = () => {
-    setSelectedComic(null);
-  };
+    setSelectedComic(null)
+  }
 
   const settings = {
     slidesToShow: 5,
@@ -41,7 +41,7 @@ const MyComics = (): React.ReactNode => {
       { breakpoint: 768, settings: { slidesToShow: 5 } },
       { breakpoint: 640, settings: { slidesToShow: 4 } },
     ],
-  };
+  }
 
   return (
     <>
@@ -62,7 +62,7 @@ const MyComics = (): React.ReactNode => {
             <ComicPlaceholder />
           </Box>
         ) : filteredComics.length ? (
-          filteredComics.map(comic => (
+          filteredComics.map((comic) => (
             <Box key={comic.wearableName} sx={{ px: 1 }}>
               <ComicCard data={comic} onViewComic={() => handleViewComic(comic)} />
             </Box>
@@ -78,9 +78,13 @@ const MyComics = (): React.ReactNode => {
           </Stack>
         )}
       </SectionSlider>
-      <ViewComicDialog comic={selectedComic} open={Boolean(selectedComic)} onClose={handleCloseDialog} />
+      <ViewComicDialog
+        comic={selectedComic}
+        open={Boolean(selectedComic)}
+        onClose={handleCloseDialog}
+      />
     </>
-  );
-};
+  )
+}
 
-export default MyComics;
+export default MyComics

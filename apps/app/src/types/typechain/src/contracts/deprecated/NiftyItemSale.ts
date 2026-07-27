@@ -13,7 +13,7 @@ import type {
   ContractRunner,
   ContractMethod,
   Listener,
-} from 'ethers';
+} from 'ethers'
 import type {
   TypedContractEvent,
   TypedDeferredTopicFilter,
@@ -21,7 +21,7 @@ import type {
   TypedLogDescription,
   TypedListener,
   TypedContractMethod,
-} from '../../../common';
+} from '../../../common'
 
 export interface NiftyItemSaleInterface extends Interface {
   getFunction(
@@ -49,8 +49,8 @@ export interface NiftyItemSaleInterface extends Interface {
       | 'treasuryPercentage'
       | 'unpause'
       | 'updateTokenPercentages'
-      | 'withdraw',
-  ): FunctionFragment;
+      | 'withdraw'
+  ): FunctionFragment
 
   getEvent(
     nameOrSignatureOrTopic:
@@ -63,76 +63,93 @@ export interface NiftyItemSaleInterface extends Interface {
       | 'OwnershipTransferred'
       | 'Paused'
       | 'TokenPercentagesUpdated'
-      | 'Unpaused',
-  ): EventFragment;
+      | 'Unpaused'
+  ): EventFragment
 
-  encodeFunctionData(functionFragment: 'burnPercentage', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'dao', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'daoPercentage', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'getRemainingItemCount', values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'burnPercentage', values?: undefined): string
+  encodeFunctionData(functionFragment: 'dao', values?: undefined): string
+  encodeFunctionData(functionFragment: 'daoPercentage', values?: undefined): string
+  encodeFunctionData(functionFragment: 'getRemainingItemCount', values: [BigNumberish]): string
   encodeFunctionData(
     functionFragment: 'initialize',
-    values: [AddressLike, AddressLike, AddressLike, AddressLike, BigNumberish, BigNumberish, BigNumberish],
-  ): string;
-  encodeFunctionData(functionFragment: 'itemLimitPerAdress', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'itemMaxCounts', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'itemPrices', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'items', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'nftl', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'owner', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'pause', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'paused', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'purchaseItems', values: [BigNumberish[], BigNumberish[]]): string;
-  encodeFunctionData(functionFragment: 'renounceOwnership', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'setItemLimit', values: [BigNumberish, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'setItemMaxCounts', values: [BigNumberish[], BigNumberish[]]): string;
-  encodeFunctionData(functionFragment: 'setItemPrices', values: [BigNumberish[], BigNumberish[]]): string;
-  encodeFunctionData(functionFragment: 'transferOwnership', values: [AddressLike]): string;
-  encodeFunctionData(functionFragment: 'treasury', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'treasuryPercentage', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'unpause', values?: undefined): string;
+    values: [
+      AddressLike,
+      AddressLike,
+      AddressLike,
+      AddressLike,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+    ]
+  ): string
+  encodeFunctionData(functionFragment: 'itemLimitPerAdress', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'itemMaxCounts', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'itemPrices', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'items', values?: undefined): string
+  encodeFunctionData(functionFragment: 'nftl', values?: undefined): string
+  encodeFunctionData(functionFragment: 'owner', values?: undefined): string
+  encodeFunctionData(functionFragment: 'pause', values?: undefined): string
+  encodeFunctionData(functionFragment: 'paused', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: 'purchaseItems',
+    values: [BigNumberish[], BigNumberish[]]
+  ): string
+  encodeFunctionData(functionFragment: 'renounceOwnership', values?: undefined): string
+  encodeFunctionData(functionFragment: 'setItemLimit', values: [BigNumberish, BigNumberish]): string
+  encodeFunctionData(
+    functionFragment: 'setItemMaxCounts',
+    values: [BigNumberish[], BigNumberish[]]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'setItemPrices',
+    values: [BigNumberish[], BigNumberish[]]
+  ): string
+  encodeFunctionData(functionFragment: 'transferOwnership', values: [AddressLike]): string
+  encodeFunctionData(functionFragment: 'treasury', values?: undefined): string
+  encodeFunctionData(functionFragment: 'treasuryPercentage', values?: undefined): string
+  encodeFunctionData(functionFragment: 'unpause', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'updateTokenPercentages',
-    values: [BigNumberish, BigNumberish, BigNumberish],
-  ): string;
-  encodeFunctionData(functionFragment: 'withdraw', values?: undefined): string;
+    values: [BigNumberish, BigNumberish, BigNumberish]
+  ): string
+  encodeFunctionData(functionFragment: 'withdraw', values?: undefined): string
 
-  decodeFunctionResult(functionFragment: 'burnPercentage', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'dao', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'daoPercentage', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getRemainingItemCount', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'initialize', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'itemLimitPerAdress', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'itemMaxCounts', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'itemPrices', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'items', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'nftl', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'pause', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'paused', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'purchaseItems', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'renounceOwnership', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setItemLimit', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setItemMaxCounts', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setItemPrices', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'transferOwnership', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'treasury', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'treasuryPercentage', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'unpause', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateTokenPercentages', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'withdraw', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'burnPercentage', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'dao', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'daoPercentage', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getRemainingItemCount', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'initialize', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'itemLimitPerAdress', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'itemMaxCounts', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'itemPrices', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'items', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'nftl', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'pause', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'paused', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'purchaseItems', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'renounceOwnership', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setItemLimit', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setItemMaxCounts', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setItemPrices', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'transferOwnership', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'treasury', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'treasuryPercentage', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'unpause', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'updateTokenPercentages', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'withdraw', data: BytesLike): Result
 }
 
 export namespace InitializedEvent {
-  export type InputTuple = [version: BigNumberish];
-  export type OutputTuple = [version: bigint];
+  export type InputTuple = [version: BigNumberish]
+  export type OutputTuple = [version: bigint]
   export interface OutputObject {
-    version: bigint;
+    version: bigint
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace ItemLimitUpdatedEvent {
@@ -141,18 +158,23 @@ export namespace ItemLimitUpdatedEvent {
     itemId: BigNumberish,
     oldLimitCount: BigNumberish,
     newLimitCount: BigNumberish,
-  ];
-  export type OutputTuple = [by: string, itemId: bigint, oldLimitCount: bigint, newLimitCount: bigint];
+  ]
+  export type OutputTuple = [
+    by: string,
+    itemId: bigint,
+    oldLimitCount: bigint,
+    newLimitCount: bigint,
+  ]
   export interface OutputObject {
-    by: string;
-    itemId: bigint;
-    oldLimitCount: bigint;
-    newLimitCount: bigint;
+    by: string
+    itemId: bigint
+    oldLimitCount: bigint
+    newLimitCount: bigint
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace ItemMaxCountSetEvent {
@@ -161,18 +183,23 @@ export namespace ItemMaxCountSetEvent {
     itemId: BigNumberish,
     oldItemMaxCount: BigNumberish,
     newItemMaxCount: BigNumberish,
-  ];
-  export type OutputTuple = [by: string, itemId: bigint, oldItemMaxCount: bigint, newItemMaxCount: bigint];
+  ]
+  export type OutputTuple = [
+    by: string,
+    itemId: bigint,
+    oldItemMaxCount: bigint,
+    newItemMaxCount: bigint,
+  ]
   export interface OutputObject {
-    by: string;
-    itemId: bigint;
-    oldItemMaxCount: bigint;
-    newItemMaxCount: bigint;
+    by: string
+    itemId: bigint
+    oldItemMaxCount: bigint
+    newItemMaxCount: bigint
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace ItemPriceSetEvent {
@@ -181,32 +208,32 @@ export namespace ItemPriceSetEvent {
     itemId: BigNumberish,
     oldItemPrice: BigNumberish,
     newItemPrice: BigNumberish,
-  ];
-  export type OutputTuple = [by: string, itemId: bigint, oldItemPrice: bigint, newItemPrice: bigint];
+  ]
+  export type OutputTuple = [by: string, itemId: bigint, oldItemPrice: bigint, newItemPrice: bigint]
   export interface OutputObject {
-    by: string;
-    itemId: bigint;
-    oldItemPrice: bigint;
-    newItemPrice: bigint;
+    by: string
+    itemId: bigint
+    oldItemPrice: bigint
+    newItemPrice: bigint
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace ItemPurchasedEvent {
-  export type InputTuple = [by: AddressLike, itemIds: BigNumberish[], amounts: BigNumberish[]];
-  export type OutputTuple = [by: string, itemIds: bigint[], amounts: bigint[]];
+  export type InputTuple = [by: AddressLike, itemIds: BigNumberish[], amounts: BigNumberish[]]
+  export type OutputTuple = [by: string, itemIds: bigint[], amounts: bigint[]]
   export interface OutputObject {
-    by: string;
-    itemIds: bigint[];
-    amounts: bigint[];
+    by: string
+    itemIds: bigint[]
+    amounts: bigint[]
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace NFTLWithdrawEvent {
@@ -215,43 +242,48 @@ export namespace NFTLWithdrawEvent {
     burnAmount: BigNumberish,
     treasuryAmount: BigNumberish,
     daoAmount: BigNumberish,
-  ];
-  export type OutputTuple = [by: string, burnAmount: bigint, treasuryAmount: bigint, daoAmount: bigint];
+  ]
+  export type OutputTuple = [
+    by: string,
+    burnAmount: bigint,
+    treasuryAmount: bigint,
+    daoAmount: bigint,
+  ]
   export interface OutputObject {
-    by: string;
-    burnAmount: bigint;
-    treasuryAmount: bigint;
-    daoAmount: bigint;
+    by: string
+    burnAmount: bigint
+    treasuryAmount: bigint
+    daoAmount: bigint
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace OwnershipTransferredEvent {
-  export type InputTuple = [previousOwner: AddressLike, newOwner: AddressLike];
-  export type OutputTuple = [previousOwner: string, newOwner: string];
+  export type InputTuple = [previousOwner: AddressLike, newOwner: AddressLike]
+  export type OutputTuple = [previousOwner: string, newOwner: string]
   export interface OutputObject {
-    previousOwner: string;
-    newOwner: string;
+    previousOwner: string
+    newOwner: string
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace PausedEvent {
-  export type InputTuple = [account: AddressLike];
-  export type OutputTuple = [account: string];
+  export type InputTuple = [account: AddressLike]
+  export type OutputTuple = [account: string]
   export interface OutputObject {
-    account: string;
+    account: string
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace TokenPercentagesUpdatedEvent {
@@ -263,7 +295,7 @@ export namespace TokenPercentagesUpdatedEvent {
     newBurnPercentage: BigNumberish,
     newTreasuryPercentage: BigNumberish,
     newDAOPercentage: BigNumberish,
-  ];
+  ]
   export type OutputTuple = [
     by: string,
     oldBurnPercentage: bigint,
@@ -272,74 +304,82 @@ export namespace TokenPercentagesUpdatedEvent {
     newBurnPercentage: bigint,
     newTreasuryPercentage: bigint,
     newDAOPercentage: bigint,
-  ];
+  ]
   export interface OutputObject {
-    by: string;
-    oldBurnPercentage: bigint;
-    oldTreasuryPercentage: bigint;
-    oldDAOPercentage: bigint;
-    newBurnPercentage: bigint;
-    newTreasuryPercentage: bigint;
-    newDAOPercentage: bigint;
+    by: string
+    oldBurnPercentage: bigint
+    oldTreasuryPercentage: bigint
+    oldDAOPercentage: bigint
+    newBurnPercentage: bigint
+    newTreasuryPercentage: bigint
+    newDAOPercentage: bigint
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace UnpausedEvent {
-  export type InputTuple = [account: AddressLike];
-  export type OutputTuple = [account: string];
+  export type InputTuple = [account: AddressLike]
+  export type OutputTuple = [account: string]
   export interface OutputObject {
-    account: string;
+    account: string
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export interface NiftyItemSale extends BaseContract {
-  connect(runner?: ContractRunner | null): NiftyItemSale;
-  waitForDeployment(): Promise<this>;
+  connect(runner?: ContractRunner | null): NiftyItemSale
+  waitForDeployment(): Promise<this>
 
-  interface: NiftyItemSaleInterface;
+  interface: NiftyItemSaleInterface
 
   queryFilter<TCEvent extends TypedContractEvent>(
     event: TCEvent,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
-  ): Promise<Array<TypedEventLog<TCEvent>>>;
+    toBlock?: string | number | undefined
+  ): Promise<Array<TypedEventLog<TCEvent>>>
   queryFilter<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
-  ): Promise<Array<TypedEventLog<TCEvent>>>;
+    toBlock?: string | number | undefined
+  ): Promise<Array<TypedEventLog<TCEvent>>>
 
-  on<TCEvent extends TypedContractEvent>(event: TCEvent, listener: TypedListener<TCEvent>): Promise<this>;
+  on<TCEvent extends TypedContractEvent>(
+    event: TCEvent,
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
   on<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
-    listener: TypedListener<TCEvent>,
-  ): Promise<this>;
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
 
-  once<TCEvent extends TypedContractEvent>(event: TCEvent, listener: TypedListener<TCEvent>): Promise<this>;
+  once<TCEvent extends TypedContractEvent>(
+    event: TCEvent,
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
   once<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
-    listener: TypedListener<TCEvent>,
-  ): Promise<this>;
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
 
-  listeners<TCEvent extends TypedContractEvent>(event: TCEvent): Promise<Array<TypedListener<TCEvent>>>;
-  listeners(eventName?: string): Promise<Array<Listener>>;
-  removeAllListeners<TCEvent extends TypedContractEvent>(event?: TCEvent): Promise<this>;
+  listeners<TCEvent extends TypedContractEvent>(
+    event: TCEvent
+  ): Promise<Array<TypedListener<TCEvent>>>
+  listeners(eventName?: string): Promise<Array<Listener>>
+  removeAllListeners<TCEvent extends TypedContractEvent>(event?: TCEvent): Promise<this>
 
-  burnPercentage: TypedContractMethod<[], [bigint], 'view'>;
+  burnPercentage: TypedContractMethod<[], [bigint], 'view'>
 
-  dao: TypedContractMethod<[], [string], 'view'>;
+  dao: TypedContractMethod<[], [string], 'view'>
 
-  daoPercentage: TypedContractMethod<[], [bigint], 'view'>;
+  daoPercentage: TypedContractMethod<[], [bigint], 'view'>
 
-  getRemainingItemCount: TypedContractMethod<[_itemId: BigNumberish], [bigint], 'view'>;
+  getRemainingItemCount: TypedContractMethod<[_itemId: BigNumberish], [bigint], 'view'>
 
   initialize: TypedContractMethod<
     [
@@ -353,58 +393,80 @@ export interface NiftyItemSale extends BaseContract {
     ],
     [void],
     'nonpayable'
-  >;
+  >
 
-  itemLimitPerAdress: TypedContractMethod<[itemId: BigNumberish], [bigint], 'view'>;
+  itemLimitPerAdress: TypedContractMethod<[itemId: BigNumberish], [bigint], 'view'>
 
-  itemMaxCounts: TypedContractMethod<[itemId: BigNumberish], [bigint], 'view'>;
+  itemMaxCounts: TypedContractMethod<[itemId: BigNumberish], [bigint], 'view'>
 
-  itemPrices: TypedContractMethod<[itemId: BigNumberish], [bigint], 'view'>;
+  itemPrices: TypedContractMethod<[itemId: BigNumberish], [bigint], 'view'>
 
-  items: TypedContractMethod<[], [string], 'view'>;
+  items: TypedContractMethod<[], [string], 'view'>
 
-  nftl: TypedContractMethod<[], [string], 'view'>;
+  nftl: TypedContractMethod<[], [string], 'view'>
 
-  owner: TypedContractMethod<[], [string], 'view'>;
+  owner: TypedContractMethod<[], [string], 'view'>
 
-  pause: TypedContractMethod<[], [void], 'nonpayable'>;
+  pause: TypedContractMethod<[], [void], 'nonpayable'>
 
-  paused: TypedContractMethod<[], [boolean], 'view'>;
+  paused: TypedContractMethod<[], [boolean], 'view'>
 
-  purchaseItems: TypedContractMethod<[_itemIds: BigNumberish[], _amounts: BigNumberish[]], [void], 'nonpayable'>;
-
-  renounceOwnership: TypedContractMethod<[], [void], 'nonpayable'>;
-
-  setItemLimit: TypedContractMethod<[_itemId: BigNumberish, _limitCount: BigNumberish], [void], 'nonpayable'>;
-
-  setItemMaxCounts: TypedContractMethod<[_itemIds: BigNumberish[], _maxCounts: BigNumberish[]], [void], 'nonpayable'>;
-
-  setItemPrices: TypedContractMethod<[_itemIds: BigNumberish[], _nftlAmounts: BigNumberish[]], [void], 'nonpayable'>;
-
-  transferOwnership: TypedContractMethod<[newOwner: AddressLike], [void], 'nonpayable'>;
-
-  treasury: TypedContractMethod<[], [string], 'view'>;
-
-  treasuryPercentage: TypedContractMethod<[], [bigint], 'view'>;
-
-  unpause: TypedContractMethod<[], [void], 'nonpayable'>;
-
-  updateTokenPercentages: TypedContractMethod<
-    [_burnPercentage: BigNumberish, _treasuryPercentage: BigNumberish, _daoPercentage: BigNumberish],
+  purchaseItems: TypedContractMethod<
+    [_itemIds: BigNumberish[], _amounts: BigNumberish[]],
     [void],
     'nonpayable'
-  >;
+  >
 
-  withdraw: TypedContractMethod<[], [void], 'nonpayable'>;
+  renounceOwnership: TypedContractMethod<[], [void], 'nonpayable'>
 
-  getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T;
+  setItemLimit: TypedContractMethod<
+    [_itemId: BigNumberish, _limitCount: BigNumberish],
+    [void],
+    'nonpayable'
+  >
 
-  getFunction(nameOrSignature: 'burnPercentage'): TypedContractMethod<[], [bigint], 'view'>;
-  getFunction(nameOrSignature: 'dao'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'daoPercentage'): TypedContractMethod<[], [bigint], 'view'>;
-  getFunction(nameOrSignature: 'getRemainingItemCount'): TypedContractMethod<[_itemId: BigNumberish], [bigint], 'view'>;
+  setItemMaxCounts: TypedContractMethod<
+    [_itemIds: BigNumberish[], _maxCounts: BigNumberish[]],
+    [void],
+    'nonpayable'
+  >
+
+  setItemPrices: TypedContractMethod<
+    [_itemIds: BigNumberish[], _nftlAmounts: BigNumberish[]],
+    [void],
+    'nonpayable'
+  >
+
+  transferOwnership: TypedContractMethod<[newOwner: AddressLike], [void], 'nonpayable'>
+
+  treasury: TypedContractMethod<[], [string], 'view'>
+
+  treasuryPercentage: TypedContractMethod<[], [bigint], 'view'>
+
+  unpause: TypedContractMethod<[], [void], 'nonpayable'>
+
+  updateTokenPercentages: TypedContractMethod<
+    [
+      _burnPercentage: BigNumberish,
+      _treasuryPercentage: BigNumberish,
+      _daoPercentage: BigNumberish,
+    ],
+    [void],
+    'nonpayable'
+  >
+
+  withdraw: TypedContractMethod<[], [void], 'nonpayable'>
+
+  getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T
+
+  getFunction(nameOrSignature: 'burnPercentage'): TypedContractMethod<[], [bigint], 'view'>
+  getFunction(nameOrSignature: 'dao'): TypedContractMethod<[], [string], 'view'>
+  getFunction(nameOrSignature: 'daoPercentage'): TypedContractMethod<[], [bigint], 'view'>
   getFunction(
-    nameOrSignature: 'initialize',
+    nameOrSignature: 'getRemainingItemCount'
+  ): TypedContractMethod<[_itemId: BigNumberish], [bigint], 'view'>
+  getFunction(
+    nameOrSignature: 'initialize'
   ): TypedContractMethod<
     [
       _items: AddressLike,
@@ -417,185 +479,237 @@ export interface NiftyItemSale extends BaseContract {
     ],
     [void],
     'nonpayable'
-  >;
-  getFunction(nameOrSignature: 'itemLimitPerAdress'): TypedContractMethod<[itemId: BigNumberish], [bigint], 'view'>;
-  getFunction(nameOrSignature: 'itemMaxCounts'): TypedContractMethod<[itemId: BigNumberish], [bigint], 'view'>;
-  getFunction(nameOrSignature: 'itemPrices'): TypedContractMethod<[itemId: BigNumberish], [bigint], 'view'>;
-  getFunction(nameOrSignature: 'items'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'nftl'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'owner'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'pause'): TypedContractMethod<[], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'paused'): TypedContractMethod<[], [boolean], 'view'>;
+  >
   getFunction(
-    nameOrSignature: 'purchaseItems',
-  ): TypedContractMethod<[_itemIds: BigNumberish[], _amounts: BigNumberish[]], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'renounceOwnership'): TypedContractMethod<[], [void], 'nonpayable'>;
+    nameOrSignature: 'itemLimitPerAdress'
+  ): TypedContractMethod<[itemId: BigNumberish], [bigint], 'view'>
   getFunction(
-    nameOrSignature: 'setItemLimit',
-  ): TypedContractMethod<[_itemId: BigNumberish, _limitCount: BigNumberish], [void], 'nonpayable'>;
+    nameOrSignature: 'itemMaxCounts'
+  ): TypedContractMethod<[itemId: BigNumberish], [bigint], 'view'>
   getFunction(
-    nameOrSignature: 'setItemMaxCounts',
-  ): TypedContractMethod<[_itemIds: BigNumberish[], _maxCounts: BigNumberish[]], [void], 'nonpayable'>;
+    nameOrSignature: 'itemPrices'
+  ): TypedContractMethod<[itemId: BigNumberish], [bigint], 'view'>
+  getFunction(nameOrSignature: 'items'): TypedContractMethod<[], [string], 'view'>
+  getFunction(nameOrSignature: 'nftl'): TypedContractMethod<[], [string], 'view'>
+  getFunction(nameOrSignature: 'owner'): TypedContractMethod<[], [string], 'view'>
+  getFunction(nameOrSignature: 'pause'): TypedContractMethod<[], [void], 'nonpayable'>
+  getFunction(nameOrSignature: 'paused'): TypedContractMethod<[], [boolean], 'view'>
   getFunction(
-    nameOrSignature: 'setItemPrices',
-  ): TypedContractMethod<[_itemIds: BigNumberish[], _nftlAmounts: BigNumberish[]], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'transferOwnership'): TypedContractMethod<[newOwner: AddressLike], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'treasury'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'treasuryPercentage'): TypedContractMethod<[], [bigint], 'view'>;
-  getFunction(nameOrSignature: 'unpause'): TypedContractMethod<[], [void], 'nonpayable'>;
+    nameOrSignature: 'purchaseItems'
+  ): TypedContractMethod<[_itemIds: BigNumberish[], _amounts: BigNumberish[]], [void], 'nonpayable'>
+  getFunction(nameOrSignature: 'renounceOwnership'): TypedContractMethod<[], [void], 'nonpayable'>
   getFunction(
-    nameOrSignature: 'updateTokenPercentages',
+    nameOrSignature: 'setItemLimit'
+  ): TypedContractMethod<[_itemId: BigNumberish, _limitCount: BigNumberish], [void], 'nonpayable'>
+  getFunction(
+    nameOrSignature: 'setItemMaxCounts'
   ): TypedContractMethod<
-    [_burnPercentage: BigNumberish, _treasuryPercentage: BigNumberish, _daoPercentage: BigNumberish],
+    [_itemIds: BigNumberish[], _maxCounts: BigNumberish[]],
     [void],
     'nonpayable'
-  >;
-  getFunction(nameOrSignature: 'withdraw'): TypedContractMethod<[], [void], 'nonpayable'>;
+  >
+  getFunction(
+    nameOrSignature: 'setItemPrices'
+  ): TypedContractMethod<
+    [_itemIds: BigNumberish[], _nftlAmounts: BigNumberish[]],
+    [void],
+    'nonpayable'
+  >
+  getFunction(
+    nameOrSignature: 'transferOwnership'
+  ): TypedContractMethod<[newOwner: AddressLike], [void], 'nonpayable'>
+  getFunction(nameOrSignature: 'treasury'): TypedContractMethod<[], [string], 'view'>
+  getFunction(nameOrSignature: 'treasuryPercentage'): TypedContractMethod<[], [bigint], 'view'>
+  getFunction(nameOrSignature: 'unpause'): TypedContractMethod<[], [void], 'nonpayable'>
+  getFunction(
+    nameOrSignature: 'updateTokenPercentages'
+  ): TypedContractMethod<
+    [
+      _burnPercentage: BigNumberish,
+      _treasuryPercentage: BigNumberish,
+      _daoPercentage: BigNumberish,
+    ],
+    [void],
+    'nonpayable'
+  >
+  getFunction(nameOrSignature: 'withdraw'): TypedContractMethod<[], [void], 'nonpayable'>
 
   getEvent(
-    key: 'Initialized',
-  ): TypedContractEvent<InitializedEvent.InputTuple, InitializedEvent.OutputTuple, InitializedEvent.OutputObject>;
+    key: 'Initialized'
+  ): TypedContractEvent<
+    InitializedEvent.InputTuple,
+    InitializedEvent.OutputTuple,
+    InitializedEvent.OutputObject
+  >
   getEvent(
-    key: 'ItemLimitUpdated',
+    key: 'ItemLimitUpdated'
   ): TypedContractEvent<
     ItemLimitUpdatedEvent.InputTuple,
     ItemLimitUpdatedEvent.OutputTuple,
     ItemLimitUpdatedEvent.OutputObject
-  >;
+  >
   getEvent(
-    key: 'ItemMaxCountSet',
+    key: 'ItemMaxCountSet'
   ): TypedContractEvent<
     ItemMaxCountSetEvent.InputTuple,
     ItemMaxCountSetEvent.OutputTuple,
     ItemMaxCountSetEvent.OutputObject
-  >;
+  >
   getEvent(
-    key: 'ItemPriceSet',
-  ): TypedContractEvent<ItemPriceSetEvent.InputTuple, ItemPriceSetEvent.OutputTuple, ItemPriceSetEvent.OutputObject>;
+    key: 'ItemPriceSet'
+  ): TypedContractEvent<
+    ItemPriceSetEvent.InputTuple,
+    ItemPriceSetEvent.OutputTuple,
+    ItemPriceSetEvent.OutputObject
+  >
   getEvent(
-    key: 'ItemPurchased',
-  ): TypedContractEvent<ItemPurchasedEvent.InputTuple, ItemPurchasedEvent.OutputTuple, ItemPurchasedEvent.OutputObject>;
+    key: 'ItemPurchased'
+  ): TypedContractEvent<
+    ItemPurchasedEvent.InputTuple,
+    ItemPurchasedEvent.OutputTuple,
+    ItemPurchasedEvent.OutputObject
+  >
   getEvent(
-    key: 'NFTLWithdraw',
-  ): TypedContractEvent<NFTLWithdrawEvent.InputTuple, NFTLWithdrawEvent.OutputTuple, NFTLWithdrawEvent.OutputObject>;
+    key: 'NFTLWithdraw'
+  ): TypedContractEvent<
+    NFTLWithdrawEvent.InputTuple,
+    NFTLWithdrawEvent.OutputTuple,
+    NFTLWithdrawEvent.OutputObject
+  >
   getEvent(
-    key: 'OwnershipTransferred',
+    key: 'OwnershipTransferred'
   ): TypedContractEvent<
     OwnershipTransferredEvent.InputTuple,
     OwnershipTransferredEvent.OutputTuple,
     OwnershipTransferredEvent.OutputObject
-  >;
+  >
   getEvent(
-    key: 'Paused',
-  ): TypedContractEvent<PausedEvent.InputTuple, PausedEvent.OutputTuple, PausedEvent.OutputObject>;
+    key: 'Paused'
+  ): TypedContractEvent<PausedEvent.InputTuple, PausedEvent.OutputTuple, PausedEvent.OutputObject>
   getEvent(
-    key: 'TokenPercentagesUpdated',
+    key: 'TokenPercentagesUpdated'
   ): TypedContractEvent<
     TokenPercentagesUpdatedEvent.InputTuple,
     TokenPercentagesUpdatedEvent.OutputTuple,
     TokenPercentagesUpdatedEvent.OutputObject
-  >;
+  >
   getEvent(
-    key: 'Unpaused',
-  ): TypedContractEvent<UnpausedEvent.InputTuple, UnpausedEvent.OutputTuple, UnpausedEvent.OutputObject>;
+    key: 'Unpaused'
+  ): TypedContractEvent<
+    UnpausedEvent.InputTuple,
+    UnpausedEvent.OutputTuple,
+    UnpausedEvent.OutputObject
+  >
 
   filters: {
     'Initialized(uint8)': TypedContractEvent<
       InitializedEvent.InputTuple,
       InitializedEvent.OutputTuple,
       InitializedEvent.OutputObject
-    >;
+    >
     Initialized: TypedContractEvent<
       InitializedEvent.InputTuple,
       InitializedEvent.OutputTuple,
       InitializedEvent.OutputObject
-    >;
+    >
 
     'ItemLimitUpdated(address,uint256,uint256,uint256)': TypedContractEvent<
       ItemLimitUpdatedEvent.InputTuple,
       ItemLimitUpdatedEvent.OutputTuple,
       ItemLimitUpdatedEvent.OutputObject
-    >;
+    >
     ItemLimitUpdated: TypedContractEvent<
       ItemLimitUpdatedEvent.InputTuple,
       ItemLimitUpdatedEvent.OutputTuple,
       ItemLimitUpdatedEvent.OutputObject
-    >;
+    >
 
     'ItemMaxCountSet(address,uint256,uint256,uint256)': TypedContractEvent<
       ItemMaxCountSetEvent.InputTuple,
       ItemMaxCountSetEvent.OutputTuple,
       ItemMaxCountSetEvent.OutputObject
-    >;
+    >
     ItemMaxCountSet: TypedContractEvent<
       ItemMaxCountSetEvent.InputTuple,
       ItemMaxCountSetEvent.OutputTuple,
       ItemMaxCountSetEvent.OutputObject
-    >;
+    >
 
     'ItemPriceSet(address,uint256,uint256,uint256)': TypedContractEvent<
       ItemPriceSetEvent.InputTuple,
       ItemPriceSetEvent.OutputTuple,
       ItemPriceSetEvent.OutputObject
-    >;
+    >
     ItemPriceSet: TypedContractEvent<
       ItemPriceSetEvent.InputTuple,
       ItemPriceSetEvent.OutputTuple,
       ItemPriceSetEvent.OutputObject
-    >;
+    >
 
     'ItemPurchased(address,uint256[],uint256[])': TypedContractEvent<
       ItemPurchasedEvent.InputTuple,
       ItemPurchasedEvent.OutputTuple,
       ItemPurchasedEvent.OutputObject
-    >;
+    >
     ItemPurchased: TypedContractEvent<
       ItemPurchasedEvent.InputTuple,
       ItemPurchasedEvent.OutputTuple,
       ItemPurchasedEvent.OutputObject
-    >;
+    >
 
     'NFTLWithdraw(address,uint256,uint256,uint256)': TypedContractEvent<
       NFTLWithdrawEvent.InputTuple,
       NFTLWithdrawEvent.OutputTuple,
       NFTLWithdrawEvent.OutputObject
-    >;
+    >
     NFTLWithdraw: TypedContractEvent<
       NFTLWithdrawEvent.InputTuple,
       NFTLWithdrawEvent.OutputTuple,
       NFTLWithdrawEvent.OutputObject
-    >;
+    >
 
     'OwnershipTransferred(address,address)': TypedContractEvent<
       OwnershipTransferredEvent.InputTuple,
       OwnershipTransferredEvent.OutputTuple,
       OwnershipTransferredEvent.OutputObject
-    >;
+    >
     OwnershipTransferred: TypedContractEvent<
       OwnershipTransferredEvent.InputTuple,
       OwnershipTransferredEvent.OutputTuple,
       OwnershipTransferredEvent.OutputObject
-    >;
+    >
 
-    'Paused(address)': TypedContractEvent<PausedEvent.InputTuple, PausedEvent.OutputTuple, PausedEvent.OutputObject>;
-    Paused: TypedContractEvent<PausedEvent.InputTuple, PausedEvent.OutputTuple, PausedEvent.OutputObject>;
+    'Paused(address)': TypedContractEvent<
+      PausedEvent.InputTuple,
+      PausedEvent.OutputTuple,
+      PausedEvent.OutputObject
+    >
+    Paused: TypedContractEvent<
+      PausedEvent.InputTuple,
+      PausedEvent.OutputTuple,
+      PausedEvent.OutputObject
+    >
 
     'TokenPercentagesUpdated(address,uint256,uint256,uint256,uint256,uint256,uint256)': TypedContractEvent<
       TokenPercentagesUpdatedEvent.InputTuple,
       TokenPercentagesUpdatedEvent.OutputTuple,
       TokenPercentagesUpdatedEvent.OutputObject
-    >;
+    >
     TokenPercentagesUpdated: TypedContractEvent<
       TokenPercentagesUpdatedEvent.InputTuple,
       TokenPercentagesUpdatedEvent.OutputTuple,
       TokenPercentagesUpdatedEvent.OutputObject
-    >;
+    >
 
     'Unpaused(address)': TypedContractEvent<
       UnpausedEvent.InputTuple,
       UnpausedEvent.OutputTuple,
       UnpausedEvent.OutputObject
-    >;
-    Unpaused: TypedContractEvent<UnpausedEvent.InputTuple, UnpausedEvent.OutputTuple, UnpausedEvent.OutputObject>;
-  };
+    >
+    Unpaused: TypedContractEvent<
+      UnpausedEvent.InputTuple,
+      UnpausedEvent.OutputTuple,
+      UnpausedEvent.OutputObject
+    >
+  }
 }

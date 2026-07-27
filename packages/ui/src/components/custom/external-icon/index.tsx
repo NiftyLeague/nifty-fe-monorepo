@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import { Icon, type IconProps } from '@nl/ui/base/icon';
-import { cn } from '@nl/ui/utils';
+import { Icon, type IconProps } from '@nl/ui/base/icon'
+import { cn } from '@nl/ui/utils'
 
 export function ExternalIcon({ className = '', size = 'xs', ...props }: Omit<IconProps, 'name'>) {
   return (
@@ -12,7 +12,7 @@ export function ExternalIcon({ className = '', size = 'xs', ...props }: Omit<Ico
       aria-hidden="true"
       {...props}
     />
-  );
+  )
 }
 
-export default ExternalIcon;
+export default ExternalIcon

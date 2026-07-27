@@ -1,10 +1,10 @@
-import { Slider, SliderProps, Stack, Typography } from '@mui/material';
-import { memo } from 'react';
+import { Slider, SliderProps, Stack, Typography } from '@mui/material'
+import { memo } from 'react'
 
 interface Props extends Omit<SliderProps, 'value'> {
-  value: number[];
-  unit?: string;
-  label?: string;
+  value: number[]
+  unit?: string
+  label?: string
 }
 
 const FilterRangeSlider = ({ value, unit, ...props }: Props): React.ReactNode => (
@@ -19,11 +19,17 @@ const FilterRangeSlider = ({ value, unit, ...props }: Props): React.ReactNode =>
         sx={{
           ml: 1,
           width: 'calc(100% - 16px)',
-          '& .MuiSlider-thumb': { background: 'var(--color-purple)', border: 'var(--border-purple)' },
+          '& .MuiSlider-thumb': {
+            background: 'var(--color-purple)',
+            border: 'var(--border-purple)',
+          },
         }}
       />
     </Stack>
   </Stack>
-);
+)
 
-export default memo(FilterRangeSlider, (prevProps, nextProps) => prevProps.value === nextProps.value);
+export default memo(
+  FilterRangeSlider,
+  (prevProps, nextProps) => prevProps.value === nextProps.value
+)

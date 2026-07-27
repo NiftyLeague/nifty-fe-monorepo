@@ -1,4 +1,4 @@
-import { gql } from 'graphql-request';
+import { gql } from 'graphql-request'
 
 const ID_SEARCH_QUERY = gql`
   query CharacterByID($search: String) {
@@ -38,6 +38,6 @@ const ID_SEARCH_QUERY = gql`
       }
     }
   }
-`;
+`
 
-export default ID_SEARCH_QUERY;
+export default ID_SEARCH_QUERY

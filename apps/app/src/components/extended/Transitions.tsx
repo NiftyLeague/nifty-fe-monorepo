@@ -1,47 +1,47 @@
-import { Ref, ExoticComponent, ReactElement, forwardRef } from 'react';
+import { Ref, ExoticComponent, ReactElement, forwardRef } from 'react'
 
 // material-ui
-import { Collapse, Fade, Box, Grow, Slide, Zoom } from '@mui/material';
+import { Collapse, Fade, Box, Grow, Slide, Zoom } from '@mui/material'
 
 // ==============================|| TRANSITIONS ||============================== //
 
 interface TSProps {
-  children?: ReactElement;
-  position?: string;
-  sx?: React.CSSProperties;
-  in?: boolean;
-  type?: string;
-  direction?: 'up' | 'right' | 'left' | 'down';
-  [others: string]: unknown;
+  children?: ReactElement
+  position?: string
+  sx?: React.CSSProperties
+  in?: boolean
+  type?: string
+  direction?: 'up' | 'right' | 'left' | 'down'
+  [others: string]: unknown
 }
 
 const Transitions = forwardRef(
   (
     { children, type = 'grow', position = 'top-left', direction = 'up', ...others }: TSProps,
-    ref: Ref<ExoticComponent>,
+    ref: Ref<ExoticComponent>
   ) => {
-    let positionSX = { transformOrigin: '0 0 0' };
+    let positionSX = { transformOrigin: '0 0 0' }
 
     switch (position) {
       case 'top-right':
-        positionSX = { transformOrigin: 'top right' };
-        break;
+        positionSX = { transformOrigin: 'top right' }
+        break
       case 'top':
-        positionSX = { transformOrigin: 'top' };
-        break;
+        positionSX = { transformOrigin: 'top' }
+        break
       case 'bottom-left':
-        positionSX = { transformOrigin: 'bottom left' };
-        break;
+        positionSX = { transformOrigin: 'bottom left' }
+        break
       case 'bottom-right':
-        positionSX = { transformOrigin: 'bottom right' };
-        break;
+        positionSX = { transformOrigin: 'bottom right' }
+        break
       case 'bottom':
-        positionSX = { transformOrigin: 'bottom' };
-        break;
+        positionSX = { transformOrigin: 'bottom' }
+        break
       case 'top-left':
       default:
-        positionSX = { transformOrigin: '0 0 0' };
-        break;
+        positionSX = { transformOrigin: '0 0 0' }
+        break
     }
 
     return (
@@ -72,9 +72,9 @@ const Transitions = forwardRef(
           </Zoom>
         )}
       </Box>
-    );
-  },
-);
+    )
+  }
+)
 
-Transitions.displayName = 'Transitions';
-export default Transitions;
+Transitions.displayName = 'Transitions'
+export default Transitions

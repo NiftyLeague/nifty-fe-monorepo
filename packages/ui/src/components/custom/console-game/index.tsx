@@ -1,30 +1,30 @@
-'use client';
+'use client'
 
-import Image from 'next/image';
-import { memo, useRef, useState, useCallback } from 'react';
-import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
-import { cn } from '@nl/ui/utils';
+import Image from 'next/image'
+import { memo, useRef, useState, useCallback } from 'react'
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
+import { cn } from '@nl/ui/utils'
 
-import styles from './index.module.css';
+import styles from './index.module.css'
 
 export const ConsoleGame = memo(function ConsoleGame({ src }: { src: string }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [isPlaying, setIsPlaying] = useState(false)
 
   const togglePlay = useCallback(() => {
-    if (!videoRef.current) return;
+    if (!videoRef.current) return
 
     if (videoRef.current.paused) {
-      videoRef.current.play().catch(error => {
-        console.log('Play failed:', error);
-      });
+      videoRef.current.play().catch((error) => {
+        console.log('Play failed:', error)
+      })
     } else {
-      videoRef.current.pause();
+      videoRef.current.pause()
     }
-  }, []);
+  }, [])
 
-  const handlePlay = useCallback(() => setIsPlaying(true), []);
-  const handlePause = useCallback(() => setIsPlaying(false), []);
+  const handlePlay = useCallback(() => setIsPlaying(true), [])
+  const handlePause = useCallback(() => setIsPlaying(false), [])
 
   return (
     <div className="relative overflow-hidden">
@@ -115,7 +115,7 @@ export const ConsoleGame = memo(function ConsoleGame({ src }: { src: string }) {
       </div>
       <div className="dark-gradient-overlay" />
     </div>
-  );
-});
+  )
+})
 
-export default ConsoleGame;
+export default ConsoleGame

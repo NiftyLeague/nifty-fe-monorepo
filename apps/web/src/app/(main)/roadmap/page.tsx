@@ -1,9 +1,9 @@
-import type { NextPage } from 'next';
-import Image from 'next/image';
+import type { NextPage } from 'next'
+import Image from 'next/image'
 
-import RoadmapTimeline from '@/components/RoadmapTimeline';
-import roadmapStyles from '@/components/RoadmapTimeline/index.module.css';
-import satoshiStyles from './satoshi-right.module.css';
+import RoadmapTimeline from '@/components/RoadmapTimeline'
+import roadmapStyles from '@/components/RoadmapTimeline/index.module.css'
+import satoshiStyles from './satoshi-right.module.css'
 
 const Roadmap: NextPage = () => {
   return (
@@ -52,7 +52,7 @@ const Roadmap: NextPage = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Roadmap;
+export default Roadmap

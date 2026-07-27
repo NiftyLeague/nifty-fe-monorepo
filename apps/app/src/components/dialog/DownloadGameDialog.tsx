@@ -1,12 +1,12 @@
-'use client';
+'use client'
 
-import { Container, Button, Typography } from '@mui/material';
-import { Icon } from '@nl/ui/base/icon';
-import { Dialog, DialogTrigger, DialogContent } from '@/components/dialog';
-import useVersion from '@/hooks/useVersion';
+import { Container, Button, Typography } from '@mui/material'
+import { Icon } from '@nl/ui/base/icon'
+import { Dialog, DialogTrigger, DialogContent } from '@/components/dialog'
+import useVersion from '@/hooks/useVersion'
 
 export const Downloader = (): React.ReactNode => {
-  const { isWindows, isMacOs, downloadURL, version, message } = useVersion();
+  const { isWindows, isMacOs, downloadURL, version, message } = useVersion()
 
   return (
     <Container style={{ textAlign: 'left', padding: '40px' }}>
@@ -46,12 +46,13 @@ export const Downloader = (): React.ReactNode => {
       </ol>
       <p>
         <em>
-          * We are in the process of obtaining a Code Signing Certificate to avoid the Windows&apos; SmartScreen warning
+          * We are in the process of obtaining a Code Signing Certificate to avoid the Windows&apos;
+          SmartScreen warning
         </em>
       </p>
     </Container>
-  );
-};
+  )
+}
 
 const DownloadGameDialog = () => {
   return (
@@ -65,7 +66,7 @@ const DownloadGameDialog = () => {
         <Downloader />
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}
 
-export default DownloadGameDialog;
+export default DownloadGameDialog

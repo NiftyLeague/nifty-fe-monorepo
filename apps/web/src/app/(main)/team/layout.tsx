@@ -1,6 +1,6 @@
-import type { Metadata } from 'next';
-import type { PropsWithChildren } from 'react';
-import MainLayout from '@/components/MainLayout';
+import type { Metadata } from 'next'
+import type { PropsWithChildren } from 'react'
+import MainLayout from '@/components/MainLayout'
 
 export const metadata: Metadata = {
   title: 'Team',
@@ -10,8 +10,8 @@ export const metadata: Metadata = {
     description: 'Build a decentralized future with the Nifty DAO',
     images: 'https://niftyleague.com/img/niftyworld/mansion_livingroom_int_03.webp',
   },
-};
+}
 
 export default function Layout({ children }: PropsWithChildren) {
-  return <MainLayout classes={{ root: 'team-pg' }}>{children}</MainLayout>;
+  return <MainLayout classes={{ root: 'team-pg' }}>{children}</MainLayout>
 }

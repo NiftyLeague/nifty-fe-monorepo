@@ -1,8 +1,8 @@
-'use client';
+'use client'
 
-import { FC, useCallback, useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import LoadingButton from '@mui/lab/LoadingButton';
+import { FC, useCallback, useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import LoadingButton from '@mui/lab/LoadingButton'
 import {
   Container,
   Dialog,
@@ -20,65 +20,76 @@ import {
   Snackbar,
   Alert,
   InputAdornment,
-} from '@mui/material';
+} from '@mui/material'
 
-import { Icon } from '@nl/ui/base/icon';
-import type { DialogProps } from '@/types/dialog';
-import { formatNumberToDisplay } from '@nl/ui/utils';
-import { GET_PRODUCT, NFTL_PURCHASE_URL, PURCHASE_ARCADE_TOKEN_BALANCE_API } from '@/constants/url';
-import useGameAccount from '@/hooks/useGameAccount';
-import useAuth from '@/hooks/useAuth';
+import { Icon } from '@nl/ui/base/icon'
+import type { DialogProps } from '@/types/dialog'
+import { formatNumberToDisplay } from '@nl/ui/utils'
+import { GET_PRODUCT, NFTL_PURCHASE_URL, PURCHASE_ARCADE_TOKEN_BALANCE_API } from '@/constants/url'
+import useGameAccount from '@/hooks/useGameAccount'
+import useAuth from '@/hooks/useAuth'
 
-import { gtm, GTM_EVENTS } from '@nl/ui/gtm';
+import { gtm, GTM_EVENTS } from '@nl/ui/gtm'
 
-const PRODUCT_ID = 'arcade-token-four-pack';
+const PRODUCT_ID = 'arcade-token-four-pack'
 
 interface BuyArcadeTokensDialogProps extends DialogProps {
-  open: boolean;
-  onSuccess: () => void;
-  onClose: () => void;
+  open: boolean
+  onSuccess: () => void
+  onClose: () => void
 }
 
-const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess, onClose, ...rest }) => {
-  const [agreement, setAgreement] = useState<boolean>(false);
-  const [showError, setShowError] = useState<boolean>(false);
-  const [tokenCount, setTokenCount] = useState<number>(1);
-  const { authToken } = useAuth();
+const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({
+  open,
+  onSuccess,
+  onClose,
+  ...rest
+}) => {
+  const [agreement, setAgreement] = useState<boolean>(false)
+  const [showError, setShowError] = useState<boolean>(false)
+  const [tokenCount, setTokenCount] = useState<number>(1)
+  const { authToken } = useAuth()
 
-  const { account, refetchAccount, loadingAccount } = useGameAccount();
-  const accountBalance = account?.balance ?? 0;
+  const { account, refetchAccount, loadingAccount } = useGameAccount()
+  const accountBalance = account?.balance ?? 0
 
   const fetchArcadeTokenDetails = useCallback(async () => {
     const response = await fetch(GET_PRODUCT(PRODUCT_ID, 'nftl'), {
       method: 'GET',
       headers: { authorizationToken: authToken || '' },
-    });
-    const body = await response.json();
-    return body;
-  }, [authToken]);
+    })
+    const body = await response.json()
+    return body
+  }, [authToken])
 
   useEffect(() => {
     if (open) {
-      gtm.sendEvent(GTM_EVENTS.ADD_TO_CART, { items: [{ item_id: PRODUCT_ID, item_name: 'Arcade Tokens' }] });
+      gtm.sendEvent(GTM_EVENTS.ADD_TO_CART, {
+        items: [{ item_id: PRODUCT_ID, item_name: 'Arcade Tokens' }],
+      })
     }
-  }, [open]);
+  }, [open])
 
   const {
     data: details,
     isLoading: isDetailsPending,
     error,
-  } = useQuery({ queryKey: ['arcade-token-details'], queryFn: fetchArcadeTokenDetails, enabled: open });
+  } = useQuery({
+    queryKey: ['arcade-token-details'],
+    queryFn: fetchArcadeTokenDetails,
+    enabled: open,
+  })
 
   const updateTokenCount = (v: number | string) => {
-    const value = Number(v);
+    const value = Number(v)
     if (!Number.isNaN(value) && value > 0) {
-      setTokenCount(value);
+      setTokenCount(value)
     }
-  };
+  }
 
   const purchaseArcadeToken = useCallback(async () => {
-    const items = [{ item_id: PRODUCT_ID, item_name: 'Arcade Tokens', quantity: tokenCount }];
-    gtm.sendEvent(GTM_EVENTS.BEGIN_CHECKOUT, { items });
+    const items = [{ item_id: PRODUCT_ID, item_name: 'Arcade Tokens', quantity: tokenCount }]
+    gtm.sendEvent(GTM_EVENTS.BEGIN_CHECKOUT, { items })
     try {
       const response = await fetch(PURCHASE_ARCADE_TOKEN_BALANCE_API, {
         method: 'post',
@@ -89,26 +100,26 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
           price: details.price,
           quantity: tokenCount,
         }),
-      });
+      })
       if (!response.ok) {
-        throw new Error(response.statusText);
+        throw new Error(response.statusText)
       }
-      gtm.sendEvent(GTM_EVENTS.PURCHASE_COMPLETE, { items });
+      gtm.sendEvent(GTM_EVENTS.PURCHASE_COMPLETE, { items })
       gtm.sendEvent(GTM_EVENTS.SPEND_VIRTUAL_CURRENCY, {
         virtual_currency_name: `${details.currency}`.toUpperCase(),
         value: details.price,
         item_name: 'Arcade Tokens',
-      });
-      refetchAccount();
-      onSuccess();
+      })
+      refetchAccount()
+      onSuccess()
     } catch {
-      setShowError(true);
+      setShowError(true)
     }
-  }, [authToken, tokenCount, details, onSuccess, refetchAccount]);
+  }, [authToken, tokenCount, details, onSuccess, refetchAccount])
 
   const handleHideError = () => {
-    setShowError(false);
-  };
+    setShowError(false)
+  }
 
   return (
     <Dialog open={open} onClose={onClose} {...rest} maxWidth="xs">
@@ -128,7 +139,12 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
           {(isDetailsPending || error) && (
             <Stack
               direction="row"
-              sx={{ width: '390px', height: '300px', justifyContent: 'center', alignItems: 'center' }}
+              sx={{
+                width: '390px',
+                height: '300px',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
             >
               <>
                 {isDetailsPending && <CircularProgress />}
@@ -139,11 +155,18 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
           {!error && !isDetailsPending && details && (
             <>
               <Typography className="max-w-[450px] text-center !mt-4 !mx-auto">
-                To play an arcade game, you need at least 1 arcade token. Arcade tokens are sold in packs containing{' '}
-                {details.items['arcade-token']} tokens (i.e 1 pack = {details.items['arcade-token']} tokens)
+                To play an arcade game, you need at least 1 arcade token. Arcade tokens are sold in
+                packs containing {details.items['arcade-token']} tokens (i.e 1 pack ={' '}
+                {details.items['arcade-token']} tokens)
               </Typography>
-              <Typography className="text-center !font-bold text-warning !my-4">{details.price} NFTL Each</Typography>
-              <Stack direction="row" spacing={1} sx={{ mb: 3, justifyContent: 'center', alignItems: 'center' }}>
+              <Typography className="text-center !font-bold text-warning !my-4">
+                {details.price} NFTL Each
+              </Typography>
+              <Stack
+                direction="row"
+                spacing={1}
+                sx={{ mb: 3, justifyContent: 'center', alignItems: 'center' }}
+              >
                 <Icon
                   aria-label="subtract"
                   name="minus"
@@ -157,11 +180,15 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                   variant="outlined"
                   sx={{ width: '100px' }}
                   value={tokenCount}
-                  onChange={e => updateTokenCount(e.target.value)}
+                  onChange={(e) => updateTokenCount(e.target.value)}
                   slotProps={{
                     input: {
                       endAdornment: <InputAdornment position="end">PACK</InputAdornment>,
-                      inputProps: { inputMode: 'numeric', pattern: '[0-9]*', style: { textAlign: 'center' } },
+                      inputProps: {
+                        inputMode: 'numeric',
+                        pattern: '[0-9]*',
+                        style: { textAlign: 'center' },
+                      },
                     },
                   }}
                 />
@@ -180,7 +207,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                   sx={{
                     fontWeight: '500',
 
-                    color: theme =>
+                    color: (theme) =>
                       accountBalance && accountBalance > tokenCount * details.price
                         ? 'var(--color-success)'
                         : 'var(--color-foreground)',
@@ -222,14 +249,21 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                       I understand all the information above about the arcade token purchase
                     </Typography>
                   }
-                  control={<Checkbox value={agreement} onChange={event => setAgreement(event.target.checked)} />}
+                  control={
+                    <Checkbox
+                      value={agreement}
+                      onChange={(event) => setAgreement(event.target.checked)}
+                    />
+                  }
                 />
               </FormControl>
               <LoadingButton
                 variant="contained"
                 fullWidth
                 onClick={purchaseArcadeToken}
-                disabled={!agreement || !accountBalance || accountBalance < tokenCount * details.price}
+                disabled={
+                  !agreement || !accountBalance || accountBalance < tokenCount * details.price
+                }
                 loading={loadingAccount}
                 sx={{ mb: 2 }}
               >
@@ -249,7 +283,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
         </>
       </Container>
     </Dialog>
-  );
-};
+  )
+}
 
-export default BuyArcadeTokensDialog;
+export default BuyArcadeTokensDialog

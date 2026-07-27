@@ -1,11 +1,11 @@
-import { GTM_EVENTS } from '@nl/ui/gtm';
-import type { TableType, LeaderboardGame } from '@/types/leaderboard';
-import { Game, TimeFilter } from '@/types/leaderboard';
+import { GTM_EVENTS } from '@nl/ui/gtm'
+import type { TableType, LeaderboardGame } from '@/types/leaderboard'
+import { Game, TimeFilter } from '@/types/leaderboard'
 
-import { SMASHERS_LEADERBOARDS } from './leaderboard-smashers';
-import { WEN_GAME_LEADERBOARDS } from './leaderboard-wen-game';
-import { CRYPTO_WINTER_LEADERBOARDS } from './leaderboard-crypto-winter';
-import { MT_GAWX_LEADERBOARDS } from './leaderboard-mt-gawx';
+import { SMASHERS_LEADERBOARDS } from './leaderboard-smashers'
+import { WEN_GAME_LEADERBOARDS } from './leaderboard-wen-game'
+import { CRYPTO_WINTER_LEADERBOARDS } from './leaderboard-crypto-winter'
+import { MT_GAWX_LEADERBOARDS } from './leaderboard-mt-gawx'
 
 export const NiftySmashersTables: TableType[] = [
   {
@@ -34,32 +34,44 @@ export const NiftySmashersTables: TableType[] = [
       { key: 'kills', display: 'KILLS', primary: true },
     ],
   },
-];
+]
 
 const WenGameTables: TableType[] = [
-  { key: 'score', display: 'HIGH SCORE', rows: [{ key: 'score', display: 'HIGH SCORE', primary: true }] },
-];
+  {
+    key: 'score',
+    display: 'HIGH SCORE',
+    rows: [{ key: 'score', display: 'HIGH SCORE', primary: true }],
+  },
+]
 
 const MtGawxTables: TableType[] = [
-  { key: 'burnings', display: 'NFTL BURNED', rows: [{ key: 'score', display: 'NFTL BURNED', primary: true }] },
-];
+  {
+    key: 'burnings',
+    display: 'NFTL BURNED',
+    rows: [{ key: 'score', display: 'NFTL BURNED', primary: true }],
+  },
+]
 
 const CryptoWinterTables: TableType[] = [
-  { key: 'score', display: 'HIGH SCORE', rows: [{ key: 'score', display: 'HIGH SCORE', primary: true }] },
-];
+  {
+    key: 'score',
+    display: 'HIGH SCORE',
+    rows: [{ key: 'score', display: 'HIGH SCORE', primary: true }],
+  },
+]
 
 export const LEADERBOARD_GAME_LIST: LeaderboardGame[] = [
   { key: 'nifty_smashers', display: Game.NiftySmashers, tables: NiftySmashersTables },
   { key: 'wen_game', display: Game.WenGame, tables: WenGameTables },
   { key: 'nftl_burner', display: Game.MtGawx, tables: MtGawxTables },
   { key: 'crypto_winter', display: Game.CryptoWinter, tables: CryptoWinterTables },
-];
+]
 
 export const LEADERBOARD_TIME_FILTERS = [
   { key: 'weekly', display: TimeFilter.Weekly },
   { key: 'monthly', display: TimeFilter.Monthly },
   { key: 'all_time', display: TimeFilter.AllTime },
-];
+]
 
 // Leaderboard Data
 
@@ -68,4 +80,4 @@ export const LEADERBOARDS = {
   nftl_burner: MT_GAWX_LEADERBOARDS,
   nifty_smashers: SMASHERS_LEADERBOARDS,
   wen_game: WEN_GAME_LEADERBOARDS,
-};
+}

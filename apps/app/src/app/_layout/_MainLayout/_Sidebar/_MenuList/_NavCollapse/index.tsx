@@ -1,65 +1,77 @@
-'use client';
+'use client'
 
-import { useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
 
 // material-ui
-import { useTheme } from '@nl/theme';
-import { Collapse, List, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
+import { useTheme } from '@nl/theme'
+import {
+  Collapse,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+} from '@mui/material'
 
 // project imports
-import { Icon } from '@nl/ui/base/icon';
-import { NavGroupProps } from '../_NavGroup';
-import NavItem from '../_NavItem';
+import { Icon } from '@nl/ui/base/icon'
+import { NavGroupProps } from '../_NavGroup'
+import NavItem from '../_NavItem'
 
 // ==============================|| SIDEBAR MENU LIST COLLAPSE ITEMS ||============================== //
 
 interface NavCollapseProps {
-  menu: NavGroupProps['item'];
-  level: number;
+  menu: NavGroupProps['item']
+  level: number
 }
 
 const NavCollapse = ({ menu, level }: NavCollapseProps) => {
-  const theme = useTheme();
-  const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState<string | null | undefined>(null);
+  const theme = useTheme()
+  const [open, setOpen] = useState(false)
+  const [selected, setSelected] = useState<string | null | undefined>(null)
 
   const handleClick = () => {
-    setOpen(!open);
-    setSelected(!selected ? menu.id : null);
-  };
+    setOpen(!open)
+    setSelected(!selected ? menu.id : null)
+  }
 
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   useEffect(() => {
-    const children = menu?.children || [];
+    const children = menu?.children || []
     children.forEach((item: NavGroupProps['item']) => {
       if (pathname && pathname.includes('product-details')) {
         if (item.url && item.url.includes('product-details')) {
-          setOpen(true);
+          setOpen(true)
         }
       }
       if (item.url === pathname) {
-        setOpen(true);
+        setOpen(true)
       }
-    });
-  }, [pathname, menu?.children]);
+    })
+  }, [pathname, menu?.children])
 
   // menu collapse & item
-  const menus = (menu?.children || []).map(item => {
+  const menus = (menu?.children || []).map((item) => {
     switch (item.type) {
       case 'collapse':
-        return <NavCollapse key={item.id} menu={item} level={level + 1} />;
+        return <NavCollapse key={item.id} menu={item} level={level + 1} />
       case 'item':
-        return <NavItem key={item.id} item={item} level={level + 1} />;
+        return <NavItem key={item.id} item={item} level={level + 1} />
       default:
         return (
-          <Typography key={item.id} variant="h6" sx={{ color: 'var(--color-error)' }} align="center">
+          <Typography
+            key={item.id}
+            variant="h6"
+            sx={{ color: 'var(--color-error)' }}
+            align="center"
+          >
             Menu Items Error
           </Typography>
-        );
+        )
     }
-  });
+  })
 
   return (
     <>
@@ -82,20 +94,32 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
           primary={
             <Typography
               variant="body1"
-              sx={{ fontWeight: selected === menu.id ? 'bold' : 'normal', color: 'inherit', my: 'auto' }}
+              sx={{
+                fontWeight: selected === menu.id ? 'bold' : 'normal',
+                color: 'inherit',
+                my: 'auto',
+              }}
             >
               {menu.title}
             </Typography>
           }
           secondary={
             menu.caption && (
-              <Typography variant="caption" gutterBottom sx={{ display: 'block', ...theme.typography.subMenuCaption }}>
+              <Typography
+                variant="caption"
+                gutterBottom
+                sx={{ display: 'block', ...theme.typography.subMenuCaption }}
+              >
                 {menu.caption}
               </Typography>
             )
           }
         />
-        <Icon name="chevron-down" size="md" className={`transition-transform ${open ? 'transform rotate-180' : ''}`} />
+        <Icon
+          name="chevron-down"
+          size="md"
+          className={`transition-transform ${open ? 'transform rotate-180' : ''}`}
+        />
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         {open && (
@@ -121,7 +145,7 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
         )}
       </Collapse>
     </>
-  );
-};
+  )
+}
 
-export default NavCollapse;
+export default NavCollapse

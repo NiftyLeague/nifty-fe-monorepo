@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import { Icon } from '@nl/ui/base/icon';
-import styles from '../Navbar/index.module.css';
+import Link from 'next/link'
+import { Icon } from '@nl/ui/base/icon'
+import styles from '../Navbar/index.module.css'
 
 export default function BackButton() {
   return (
@@ -16,5 +16,5 @@ export default function BackButton() {
         />
       </div>
     </Link>
-  );
+  )
 }

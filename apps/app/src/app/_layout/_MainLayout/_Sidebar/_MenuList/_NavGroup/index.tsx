@@ -1,54 +1,63 @@
-import { ReactNode } from 'react';
+import { ReactNode } from 'react'
 
 // material-ui
-import { useTheme } from '@nl/theme';
-import { Divider, List, Typography } from '@mui/material';
+import { useTheme } from '@nl/theme'
+import { Divider, List, Typography } from '@mui/material'
 
 // project imports
-import type { IconName } from '@nl/ui/base/icon';
-import NavItem from '../_NavItem';
-import NavCollapse from '../_NavCollapse';
+import type { IconName } from '@nl/ui/base/icon'
+import NavItem from '../_NavItem'
+import NavCollapse from '../_NavCollapse'
 
 // ==============================|| SIDEBAR MENU LIST GROUP ||============================== //
 
 export interface NavGroupProps {
   item: {
-    id?: string;
-    type?: string;
-    children?: NavGroupProps['item'][];
-    icon?: IconName;
-    title?: ReactNode | string;
-    caption?: ReactNode | string;
-    color?: 'primary' | 'secondary' | 'default' | undefined;
-    url?: string;
-  };
+    id?: string
+    type?: string
+    children?: NavGroupProps['item'][]
+    icon?: IconName
+    title?: ReactNode | string
+    caption?: ReactNode | string
+    color?: 'primary' | 'secondary' | 'default' | undefined
+    url?: string
+  }
 }
 
 const NavGroup = ({ item }: NavGroupProps) => {
-  const theme = useTheme();
+  const theme = useTheme()
 
   // menu list collapse & items
-  const items = (item?.children || []).map(menu => {
+  const items = (item?.children || []).map((menu) => {
     switch (menu.type) {
       case 'collapse':
-        return <NavCollapse key={menu.id} menu={menu} level={1} />;
+        return <NavCollapse key={menu.id} menu={menu} level={1} />
       case 'item':
-        return <NavItem key={menu.id} item={menu} level={1} />;
+        return <NavItem key={menu.id} item={menu} level={1} />
       default:
         return (
-          <Typography key={menu.id} variant="h6" sx={{ color: 'var(--color-error)' }} align="center">
+          <Typography
+            key={menu.id}
+            variant="h6"
+            sx={{ color: 'var(--color-error)' }}
+            align="center"
+          >
             Menu Items Error
           </Typography>
-        );
+        )
     }
-  });
+  })
 
   return (
     <>
       <List
         subheader={
           item.title && (
-            <Typography variant="caption" gutterBottom sx={{ display: 'block', ...theme.typography.menuCaption }}>
+            <Typography
+              variant="caption"
+              gutterBottom
+              sx={{ display: 'block', ...theme.typography.menuCaption }}
+            >
               {item.title}
               {item.caption && (
                 <Typography
@@ -68,7 +77,7 @@ const NavGroup = ({ item }: NavGroupProps) => {
       {/* group divider */}
       <Divider sx={{ mt: 0.25, mb: 1.25, opacity: '0.6' }} />
     </>
-  );
-};
+  )
+}
 
-export default NavGroup;
+export default NavGroup

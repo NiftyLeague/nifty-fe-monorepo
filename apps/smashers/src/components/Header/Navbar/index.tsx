@@ -1,8 +1,8 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { cn } from '@nl/ui/utils';
+import Link from 'next/link'
+import Image from 'next/image'
+import { cn } from '@nl/ui/utils'
 
-import styles from './index.module.css';
+import styles from './index.module.css'
 export default function Navbar() {
   return (
     <>
@@ -39,15 +39,31 @@ export default function Navbar() {
       <div className={cn('hidden sm:block', styles.desktop_nav)}>
         <a href="https://niftyleague.com" target="_blank" rel="noreferrer">
           <div className={styles.logo_container}>
-            <Image src="/img/logos/NL/white.webp" alt="Company Logo" className={styles.logo} width={50} height={48} />
+            <Image
+              src="/img/logos/NL/white.webp"
+              alt="Company Logo"
+              className={styles.logo}
+              width={50}
+              height={48}
+            />
           </div>
         </a>
         <nav className={styles.navbar}>
           <div className={styles.navbar_inner}>
-            <a href="https://discord.gg/niftyleague" target="_blank" rel="noreferrer" className={styles.nav_item}>
+            <a
+              href="https://discord.gg/niftyleague"
+              target="_blank"
+              rel="noreferrer"
+              className={styles.nav_item}
+            >
               <Image src="/icons/socials/discord.svg" alt="Discord Logo" width={22} height={22} />
             </a>
-            <a href="https://twitter.com/NiftyLeague" target="_blank" rel="noreferrer" className={styles.nav_item}>
+            <a
+              href="https://twitter.com/NiftyLeague"
+              target="_blank"
+              rel="noreferrer"
+              className={styles.nav_item}
+            >
               <Image src="/icons/socials/twitter.svg" alt="Twitter Logo" width={22} height={22} />
             </a>
             <a
@@ -77,5 +93,5 @@ export default function Navbar() {
         </nav>
       </div>
     </>
-  );
+  )
 }

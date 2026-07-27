@@ -1,281 +1,281 @@
 declare namespace PlayFabAdminModule {
   export interface IPlayFabAdmin {
-    settings: PlayFabModule.IPlayFabSettings;
+    settings: PlayFabModule.IPlayFabSettings
     // Abort an ongoing task instance.
     // https://docs.microsoft.com/rest/api/playfab/admin/scheduledtask/aborttaskinstance
     AbortTaskInstance(
       request: PlayFabAdminModels.AbortTaskInstanceRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.EmptyResponse> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.EmptyResponse> | null
+    ): void
     // Update news item to include localized version
     // https://docs.microsoft.com/rest/api/playfab/admin/title-wide-data-management/addlocalizednews
     AddLocalizedNews(
       request: PlayFabAdminModels.AddLocalizedNewsRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.AddLocalizedNewsResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.AddLocalizedNewsResult> | null
+    ): void
     // Adds a new news item to the title's news feed
     // https://docs.microsoft.com/rest/api/playfab/admin/title-wide-data-management/addnews
     AddNews(
       request: PlayFabAdminModels.AddNewsRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.AddNewsResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.AddNewsResult> | null
+    ): void
     // Adds a given tag to a player profile. The tag's namespace is automatically generated based on the source of the tag.
     // https://docs.microsoft.com/rest/api/playfab/admin/playstream/addplayertag
     AddPlayerTag(
       request: PlayFabAdminModels.AddPlayerTagRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.AddPlayerTagResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.AddPlayerTagResult> | null
+    ): void
     // Increments the specified virtual currency by the stated amount
     // https://docs.microsoft.com/rest/api/playfab/admin/player-item-management/adduservirtualcurrency
     AddUserVirtualCurrency(
       request: PlayFabAdminModels.AddUserVirtualCurrencyRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.ModifyUserVirtualCurrencyResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.ModifyUserVirtualCurrencyResult> | null
+    ): void
     // Adds one or more virtual currencies to the set defined for the title. Virtual Currencies have a maximum value of
     // 2,147,483,647 when granted to a player. Any value over that will be discarded.
     // https://docs.microsoft.com/rest/api/playfab/admin/title-wide-data-management/addvirtualcurrencytypes
     AddVirtualCurrencyTypes(
       request: PlayFabAdminModels.AddVirtualCurrencyTypesRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.BlankResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.BlankResult> | null
+    ): void
     // Bans users by PlayFab ID with optional IP address, or MAC address for the provided game.
     // https://docs.microsoft.com/rest/api/playfab/admin/account-management/banusers
     BanUsers(
       request: PlayFabAdminModels.BanUsersRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.BanUsersResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.BanUsersResult> | null
+    ): void
     // Checks the global count for the limited edition item.
     // https://docs.microsoft.com/rest/api/playfab/admin/player-item-management/checklimitededitionitemavailability
     CheckLimitedEditionItemAvailability(
       request: PlayFabAdminModels.CheckLimitedEditionItemAvailabilityRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.CheckLimitedEditionItemAvailabilityResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.CheckLimitedEditionItemAvailabilityResult> | null
+    ): void
     // Create an ActionsOnPlayersInSegment task, which iterates through all players in a segment to execute action.
     // https://docs.microsoft.com/rest/api/playfab/admin/scheduledtask/createactionsonplayersinsegmenttask
     CreateActionsOnPlayersInSegmentTask(
       request: PlayFabAdminModels.CreateActionsOnPlayerSegmentTaskRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.CreateTaskResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.CreateTaskResult> | null
+    ): void
     // Create a CloudScript task, which can run a CloudScript on a schedule.
     // https://docs.microsoft.com/rest/api/playfab/admin/scheduledtask/createcloudscripttask
     CreateCloudScriptTask(
       request: PlayFabAdminModels.CreateCloudScriptTaskRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.CreateTaskResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.CreateTaskResult> | null
+    ): void
     // Create a Insights Scheduled Scaling task, which can scale Insights Performance Units on a schedule
     // https://docs.microsoft.com/rest/api/playfab/admin/scheduledtask/createinsightsscheduledscalingtask
     CreateInsightsScheduledScalingTask(
       request: PlayFabAdminModels.CreateInsightsScheduledScalingTaskRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.CreateTaskResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.CreateTaskResult> | null
+    ): void
     // Registers a relationship between a title and an Open ID Connect provider.
     // https://docs.microsoft.com/rest/api/playfab/admin/authentication/createopenidconnection
     CreateOpenIdConnection(
       request: PlayFabAdminModels.CreateOpenIdConnectionRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.EmptyResponse> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.EmptyResponse> | null
+    ): void
     // Creates a new Player Shared Secret Key. It may take up to 5 minutes for this key to become generally available after
     // this API returns.
     // https://docs.microsoft.com/rest/api/playfab/admin/authentication/createplayersharedsecret
     CreatePlayerSharedSecret(
       request: PlayFabAdminModels.CreatePlayerSharedSecretRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.CreatePlayerSharedSecretResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.CreatePlayerSharedSecretResult> | null
+    ): void
     // Adds a new player statistic configuration to the title, optionally allowing the developer to specify a reset interval
     // and an aggregation method.
     // https://docs.microsoft.com/rest/api/playfab/admin/player-data-management/createplayerstatisticdefinition
     CreatePlayerStatisticDefinition(
       request: PlayFabAdminModels.CreatePlayerStatisticDefinitionRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.CreatePlayerStatisticDefinitionResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.CreatePlayerStatisticDefinitionResult> | null
+    ): void
     // Creates a new player segment by defining the conditions on player properties. Also, create actions to target the player
     // segments for a title.
     // https://docs.microsoft.com/rest/api/playfab/admin/segments/createsegment
     CreateSegment(
       request: PlayFabAdminModels.CreateSegmentRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.CreateSegmentResponse> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.CreateSegmentResponse> | null
+    ): void
     // Delete a content file from the title. When deleting a file that does not exist, it returns success.
     // https://docs.microsoft.com/rest/api/playfab/admin/content/deletecontent
     DeleteContent(
       request: PlayFabAdminModels.DeleteContentRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.BlankResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.BlankResult> | null
+    ): void
     // Removes a master player account entirely from all titles and deletes all associated data
     // https://docs.microsoft.com/rest/api/playfab/admin/account-management/deletemasterplayeraccount
     DeleteMasterPlayerAccount(
       request: PlayFabAdminModels.DeleteMasterPlayerAccountRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.DeleteMasterPlayerAccountResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.DeleteMasterPlayerAccountResult> | null
+    ): void
     // Deletes a player's subscription
     // https://docs.microsoft.com/rest/api/playfab/admin/account-management/deletemembershipsubscription
     DeleteMembershipSubscription(
       request: PlayFabAdminModels.DeleteMembershipSubscriptionRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.DeleteMembershipSubscriptionResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.DeleteMembershipSubscriptionResult> | null
+    ): void
     // Removes a relationship between a title and an OpenID Connect provider.
     // https://docs.microsoft.com/rest/api/playfab/admin/authentication/deleteopenidconnection
     DeleteOpenIdConnection(
       request: PlayFabAdminModels.DeleteOpenIdConnectionRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.EmptyResponse> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.EmptyResponse> | null
+    ): void
     // Removes a user's player account from a title and deletes all associated data
     // https://docs.microsoft.com/rest/api/playfab/admin/account-management/deleteplayer
     DeletePlayer(
       request: PlayFabAdminModels.DeletePlayerRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.DeletePlayerResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.DeletePlayerResult> | null
+    ): void
     // Deletes an existing Player Shared Secret Key. It may take up to 5 minutes for this delete to be reflected after this API
     // returns.
     // https://docs.microsoft.com/rest/api/playfab/admin/authentication/deleteplayersharedsecret
     DeletePlayerSharedSecret(
       request: PlayFabAdminModels.DeletePlayerSharedSecretRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.DeletePlayerSharedSecretResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.DeletePlayerSharedSecretResult> | null
+    ): void
     // Deletes an existing player segment and its associated action(s) for a title.
     // https://docs.microsoft.com/rest/api/playfab/admin/segments/deletesegment
     DeleteSegment(
       request: PlayFabAdminModels.DeleteSegmentRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.DeleteSegmentsResponse> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.DeleteSegmentsResponse> | null
+    ): void
     // Deletes an existing virtual item store
     // https://docs.microsoft.com/rest/api/playfab/admin/title-wide-data-management/deletestore
     DeleteStore(
       request: PlayFabAdminModels.DeleteStoreRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.DeleteStoreResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.DeleteStoreResult> | null
+    ): void
     // Delete a task.
     // https://docs.microsoft.com/rest/api/playfab/admin/scheduledtask/deletetask
     DeleteTask(
       request: PlayFabAdminModels.DeleteTaskRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.EmptyResponse> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.EmptyResponse> | null
+    ): void
     // Permanently deletes a title and all associated configuration
     // https://docs.microsoft.com/rest/api/playfab/admin/account-management/deletetitle
     DeleteTitle(
       request: PlayFabAdminModels.DeleteTitleRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.DeleteTitleResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.DeleteTitleResult> | null
+    ): void
     // Deletes a specified set of title data overrides.
     // https://docs.microsoft.com/rest/api/playfab/admin/title-wide-data-management/deletetitledataoverride
     DeleteTitleDataOverride(
       request: PlayFabAdminModels.DeleteTitleDataOverrideRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.DeleteTitleDataOverrideResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.DeleteTitleDataOverrideResult> | null
+    ): void
     // Exports all associated data of a master player account
     // https://docs.microsoft.com/rest/api/playfab/admin/account-management/exportmasterplayerdata
     ExportMasterPlayerData(
       request: PlayFabAdminModels.ExportMasterPlayerDataRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.ExportMasterPlayerDataResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.ExportMasterPlayerDataResult> | null
+    ): void
     // Starts an export for the player profiles in a segment. This API creates a snapshot of all the player profiles which
     // match the segment definition at the time of the API call. Profiles which change while an export is in progress will not
     // be reflected in the results.
     // https://docs.microsoft.com/rest/api/playfab/admin/playstream/exportplayersinsegment
     ExportPlayersInSegment(
       request: PlayFabAdminModels.ExportPlayersInSegmentRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.ExportPlayersInSegmentResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.ExportPlayersInSegmentResult> | null
+    ): void
     // Get information about a ActionsOnPlayersInSegment task instance.
     // https://docs.microsoft.com/rest/api/playfab/admin/scheduledtask/getactionsonplayersinsegmenttaskinstance
     GetActionsOnPlayersInSegmentTaskInstance(
       request: PlayFabAdminModels.GetTaskInstanceRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetActionsOnPlayersInSegmentTaskInstanceResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetActionsOnPlayersInSegmentTaskInstanceResult> | null
+    ): void
     // Retrieves an array of player segment definitions. Results from this can be used in subsequent API calls such as
     // GetPlayersInSegment which requires a Segment ID. While segment names can change the ID for that segment will not change.
     // https://docs.microsoft.com/rest/api/playfab/admin/playstream/getallsegments
     GetAllSegments(
       request: PlayFabAdminModels.GetAllSegmentsRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetAllSegmentsResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetAllSegmentsResult> | null
+    ): void
     // Retrieves the specified version of the title's catalog of virtual goods, including all defined properties
     // https://docs.microsoft.com/rest/api/playfab/admin/title-wide-data-management/getcatalogitems
     GetCatalogItems(
       request: PlayFabAdminModels.GetCatalogItemsRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetCatalogItemsResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetCatalogItemsResult> | null
+    ): void
     // Gets the contents and information of a specific Cloud Script revision.
     // https://docs.microsoft.com/rest/api/playfab/admin/server-side-cloud-script/getcloudscriptrevision
     GetCloudScriptRevision(
       request: PlayFabAdminModels.GetCloudScriptRevisionRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetCloudScriptRevisionResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetCloudScriptRevisionResult> | null
+    ): void
     // Get detail information about a CloudScript task instance.
     // https://docs.microsoft.com/rest/api/playfab/admin/scheduledtask/getcloudscripttaskinstance
     GetCloudScriptTaskInstance(
       request: PlayFabAdminModels.GetTaskInstanceRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetCloudScriptTaskInstanceResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetCloudScriptTaskInstanceResult> | null
+    ): void
     // Lists all the current cloud script versions. For each version, information about the current published and latest
     // revisions is also listed.
     // https://docs.microsoft.com/rest/api/playfab/admin/server-side-cloud-script/getcloudscriptversions
     GetCloudScriptVersions(
       request: PlayFabAdminModels.GetCloudScriptVersionsRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetCloudScriptVersionsResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetCloudScriptVersionsResult> | null
+    ): void
     // List all contents of the title and get statistics such as size
     // https://docs.microsoft.com/rest/api/playfab/admin/content/getcontentlist
     GetContentList(
       request: PlayFabAdminModels.GetContentListRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetContentListResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetContentListResult> | null
+    ): void
     // Retrieves the pre-signed URL for uploading a content file. A subsequent HTTP PUT to the returned URL uploads the
     // content. Also, please be aware that the Content service is specifically PlayFab's CDN offering, for which standard CDN
     // rates apply.
     // https://docs.microsoft.com/rest/api/playfab/admin/content/getcontentuploadurl
     GetContentUploadUrl(
       request: PlayFabAdminModels.GetContentUploadUrlRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetContentUploadUrlResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetContentUploadUrlResult> | null
+    ): void
     // Retrieves a download URL for the requested report
     // https://docs.microsoft.com/rest/api/playfab/admin/player-data-management/getdatareport
     GetDataReport(
       request: PlayFabAdminModels.GetDataReportRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetDataReportResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetDataReportResult> | null
+    ): void
     // Retrieves the details for a specific completed session, including links to standard out and standard error logs
     // https://docs.microsoft.com/rest/api/playfab/admin/matchmaking/getmatchmakergameinfo
     GetMatchmakerGameInfo(
       request: PlayFabAdminModels.GetMatchmakerGameInfoRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetMatchmakerGameInfoResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetMatchmakerGameInfoResult> | null
+    ): void
     // Retrieves the details of defined game modes for the specified game server executable
     // https://docs.microsoft.com/rest/api/playfab/admin/matchmaking/getmatchmakergamemodes
     GetMatchmakerGameModes(
       request: PlayFabAdminModels.GetMatchmakerGameModesRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetMatchmakerGameModesResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetMatchmakerGameModesResult> | null
+    ): void
     // Get the list of titles that the player has played
     // https://docs.microsoft.com/rest/api/playfab/admin/account-management/getplayedtitlelist
     GetPlayedTitleList(
       request: PlayFabAdminModels.GetPlayedTitleListRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetPlayedTitleListResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetPlayedTitleListResult> | null
+    ): void
     // Gets a player's ID from an auth token.
     // https://docs.microsoft.com/rest/api/playfab/admin/account-management/getplayeridfromauthtoken
     GetPlayerIdFromAuthToken(
       request: PlayFabAdminModels.GetPlayerIdFromAuthTokenRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetPlayerIdFromAuthTokenResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetPlayerIdFromAuthTokenResult> | null
+    ): void
     // Retrieves the player's profile
     // https://docs.microsoft.com/rest/api/playfab/admin/account-management/getplayerprofile
     GetPlayerProfile(
       request: PlayFabAdminModels.GetPlayerProfileRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetPlayerProfileResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetPlayerProfileResult> | null
+    ): void
     // List all segments that a player currently belongs to at this moment in time.
     // https://docs.microsoft.com/rest/api/playfab/admin/playstream/getplayersegments
     GetPlayerSegments(
       request: PlayFabAdminModels.GetPlayersSegmentsRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetPlayerSegmentsResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetPlayerSegmentsResult> | null
+    ): void
     // Returns all Player Shared Secret Keys including disabled and expired.
     // https://docs.microsoft.com/rest/api/playfab/admin/authentication/getplayersharedsecrets
     GetPlayerSharedSecrets(
       request: PlayFabAdminModels.GetPlayerSharedSecretsRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetPlayerSharedSecretsResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetPlayerSharedSecretsResult> | null
+    ): void
     // Allows for paging through all players in a given segment. This API creates a snapshot of all player profiles that match
     // the segment definition at the time of its creation and lives through the Total Seconds to Live, refreshing its life span
     // on each subsequent use of the Continuation Token. Profiles that change during the course of paging will not be reflected
@@ -284,45 +284,45 @@ declare namespace PlayFabAdminModule {
     // https://docs.microsoft.com/rest/api/playfab/admin/playstream/getplayersinsegment
     GetPlayersInSegment(
       request: PlayFabAdminModels.GetPlayersInSegmentRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetPlayersInSegmentResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetPlayersInSegmentResult> | null
+    ): void
     // Retrieves the configuration information for all player statistics defined in the title, regardless of whether they have
     // a reset interval.
     // https://docs.microsoft.com/rest/api/playfab/admin/player-data-management/getplayerstatisticdefinitions
     GetPlayerStatisticDefinitions(
       request: PlayFabAdminModels.GetPlayerStatisticDefinitionsRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetPlayerStatisticDefinitionsResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetPlayerStatisticDefinitionsResult> | null
+    ): void
     // Retrieves the information on the available versions of the specified statistic.
     // https://docs.microsoft.com/rest/api/playfab/admin/player-data-management/getplayerstatisticversions
     GetPlayerStatisticVersions(
       request: PlayFabAdminModels.GetPlayerStatisticVersionsRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetPlayerStatisticVersionsResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetPlayerStatisticVersionsResult> | null
+    ): void
     // Get all tags with a given Namespace (optional) from a player profile.
     // https://docs.microsoft.com/rest/api/playfab/admin/playstream/getplayertags
     GetPlayerTags(
       request: PlayFabAdminModels.GetPlayerTagsRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetPlayerTagsResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetPlayerTagsResult> | null
+    ): void
     // Gets the requested policy.
     // https://docs.microsoft.com/rest/api/playfab/admin/authentication/getpolicy
     GetPolicy(
       request: PlayFabAdminModels.GetPolicyRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetPolicyResponse> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetPolicyResponse> | null
+    ): void
     // Retrieves the key-value store of custom publisher settings
     // https://docs.microsoft.com/rest/api/playfab/admin/title-wide-data-management/getpublisherdata
     GetPublisherData(
       request: PlayFabAdminModels.GetPublisherDataRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetPublisherDataResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetPublisherDataResult> | null
+    ): void
     // Retrieves the random drop table configuration for the title
     // https://docs.microsoft.com/rest/api/playfab/admin/title-wide-data-management/getrandomresulttables
     GetRandomResultTables(
       request: PlayFabAdminModels.GetRandomResultTablesRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetRandomResultTablesResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetRandomResultTablesResult> | null
+    ): void
     // Retrieves the result of an export started by ExportPlayersInSegment API. If the ExportPlayersInSegment is successful and
     // complete, this API returns the IndexUrl from which the index file can be downloaded. The index file has a list of urls
     // from which the files containing the player profile data can be downloaded. Otherwise, it returns the current 'State' of
@@ -330,250 +330,250 @@ declare namespace PlayFabAdminModule {
     // https://docs.microsoft.com/rest/api/playfab/admin/playstream/getsegmentexport
     GetSegmentExport(
       request: PlayFabAdminModels.GetPlayersInSegmentExportRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetPlayersInSegmentExportResponse> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetPlayersInSegmentExportResponse> | null
+    ): void
     // Get detail information of a segment and its associated definition(s) and action(s) for a title.
     // https://docs.microsoft.com/rest/api/playfab/admin/segments/getsegments
     GetSegments(
       request: PlayFabAdminModels.GetSegmentsRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetSegmentsResponse> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetSegmentsResponse> | null
+    ): void
     // Retrieves the set of items defined for the specified store, including all prices defined
     // https://docs.microsoft.com/rest/api/playfab/admin/title-wide-data-management/getstoreitems
     GetStoreItems(
       request: PlayFabAdminModels.GetStoreItemsRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetStoreItemsResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetStoreItemsResult> | null
+    ): void
     // Query for task instances by task, status, or time range.
     // https://docs.microsoft.com/rest/api/playfab/admin/scheduledtask/gettaskinstances
     GetTaskInstances(
       request: PlayFabAdminModels.GetTaskInstancesRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetTaskInstancesResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetTaskInstancesResult> | null
+    ): void
     // Get definition information on a specified task or all tasks within a title.
     // https://docs.microsoft.com/rest/api/playfab/admin/scheduledtask/gettasks
     GetTasks(
       request: PlayFabAdminModels.GetTasksRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetTasksResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetTasksResult> | null
+    ): void
     // Retrieves the key-value store of custom title settings which can be read by the client
     // https://docs.microsoft.com/rest/api/playfab/admin/title-wide-data-management/gettitledata
     GetTitleData(
       request: PlayFabAdminModels.GetTitleDataRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetTitleDataResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetTitleDataResult> | null
+    ): void
     // Retrieves the key-value store of custom title settings which cannot be read by the client
     // https://docs.microsoft.com/rest/api/playfab/admin/title-wide-data-management/gettitleinternaldata
     GetTitleInternalData(
       request: PlayFabAdminModels.GetTitleDataRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetTitleDataResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetTitleDataResult> | null
+    ): void
     // Retrieves the relevant details for a specified user, based upon a match against a supplied unique identifier
     // https://docs.microsoft.com/rest/api/playfab/admin/account-management/getuseraccountinfo
     GetUserAccountInfo(
       request: PlayFabAdminModels.LookupUserAccountInfoRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.LookupUserAccountInfoResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.LookupUserAccountInfoResult> | null
+    ): void
     // Gets all bans for a user.
     // https://docs.microsoft.com/rest/api/playfab/admin/account-management/getuserbans
     GetUserBans(
       request: PlayFabAdminModels.GetUserBansRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetUserBansResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetUserBansResult> | null
+    ): void
     // Retrieves the title-specific custom data for the user which is readable and writable by the client
     // https://docs.microsoft.com/rest/api/playfab/admin/player-data-management/getuserdata
     GetUserData(
       request: PlayFabAdminModels.GetUserDataRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetUserDataResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetUserDataResult> | null
+    ): void
     // Retrieves the title-specific custom data for the user which cannot be accessed by the client
     // https://docs.microsoft.com/rest/api/playfab/admin/player-data-management/getuserinternaldata
     GetUserInternalData(
       request: PlayFabAdminModels.GetUserDataRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetUserDataResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetUserDataResult> | null
+    ): void
     // Retrieves the specified user's current inventory of virtual goods
     // https://docs.microsoft.com/rest/api/playfab/admin/player-item-management/getuserinventory
     GetUserInventory(
       request: PlayFabAdminModels.GetUserInventoryRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetUserInventoryResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetUserInventoryResult> | null
+    ): void
     // Retrieves the publisher-specific custom data for the user which is readable and writable by the client
     // https://docs.microsoft.com/rest/api/playfab/admin/player-data-management/getuserpublisherdata
     GetUserPublisherData(
       request: PlayFabAdminModels.GetUserDataRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetUserDataResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetUserDataResult> | null
+    ): void
     // Retrieves the publisher-specific custom data for the user which cannot be accessed by the client
     // https://docs.microsoft.com/rest/api/playfab/admin/player-data-management/getuserpublisherinternaldata
     GetUserPublisherInternalData(
       request: PlayFabAdminModels.GetUserDataRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetUserDataResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetUserDataResult> | null
+    ): void
     // Retrieves the publisher-specific custom data for the user which can only be read by the client
     // https://docs.microsoft.com/rest/api/playfab/admin/player-data-management/getuserpublisherreadonlydata
     GetUserPublisherReadOnlyData(
       request: PlayFabAdminModels.GetUserDataRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetUserDataResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetUserDataResult> | null
+    ): void
     // Retrieves the title-specific custom data for the user which can only be read by the client
     // https://docs.microsoft.com/rest/api/playfab/admin/player-data-management/getuserreadonlydata
     GetUserReadOnlyData(
       request: PlayFabAdminModels.GetUserDataRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetUserDataResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GetUserDataResult> | null
+    ): void
     // Adds the specified items to the specified user inventories
     // https://docs.microsoft.com/rest/api/playfab/admin/player-item-management/grantitemstousers
     GrantItemsToUsers(
       request: PlayFabAdminModels.GrantItemsToUsersRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GrantItemsToUsersResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.GrantItemsToUsersResult> | null
+    ): void
     // Increases the global count for the given scarce resource.
     // https://docs.microsoft.com/rest/api/playfab/admin/player-item-management/incrementlimitededitionitemavailability
     IncrementLimitedEditionItemAvailability(
       request: PlayFabAdminModels.IncrementLimitedEditionItemAvailabilityRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.IncrementLimitedEditionItemAvailabilityResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.IncrementLimitedEditionItemAvailabilityResult> | null
+    ): void
     // Resets the indicated statistic, removing all player entries for it and backing up the old values.
     // https://docs.microsoft.com/rest/api/playfab/admin/player-data-management/incrementplayerstatisticversion
     IncrementPlayerStatisticVersion(
       request: PlayFabAdminModels.IncrementPlayerStatisticVersionRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.IncrementPlayerStatisticVersionResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.IncrementPlayerStatisticVersionResult> | null
+    ): void
     // Retrieves a list of all Open ID Connect providers registered to a title.
     // https://docs.microsoft.com/rest/api/playfab/admin/authentication/listopenidconnection
     ListOpenIdConnection(
       request: PlayFabAdminModels.ListOpenIdConnectionRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.ListOpenIdConnectionResponse> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.ListOpenIdConnectionResponse> | null
+    ): void
     // Retuns the list of all defined virtual currencies for the title
     // https://docs.microsoft.com/rest/api/playfab/admin/title-wide-data-management/listvirtualcurrencytypes
     ListVirtualCurrencyTypes(
       request: PlayFabAdminModels.ListVirtualCurrencyTypesRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.ListVirtualCurrencyTypesResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.ListVirtualCurrencyTypesResult> | null
+    ): void
     // Updates the build details for the specified game server executable
     // https://docs.microsoft.com/rest/api/playfab/admin/custom-server-management/modifyserverbuild
     ModifyServerBuild(
       request: PlayFabAdminModels.ModifyServerBuildRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.ModifyServerBuildResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.ModifyServerBuildResult> | null
+    ): void
     // Attempts to process an order refund through the original real money payment provider.
     // https://docs.microsoft.com/rest/api/playfab/admin/player-data-management/refundpurchase
     RefundPurchase(
       request: PlayFabAdminModels.RefundPurchaseRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.RefundPurchaseResponse> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.RefundPurchaseResponse> | null
+    ): void
     // Remove a given tag from a player profile. The tag's namespace is automatically generated based on the source of the tag.
     // https://docs.microsoft.com/rest/api/playfab/admin/playstream/removeplayertag
     RemovePlayerTag(
       request: PlayFabAdminModels.RemovePlayerTagRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.RemovePlayerTagResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.RemovePlayerTagResult> | null
+    ): void
     // Removes one or more virtual currencies from the set defined for the title.
     // https://docs.microsoft.com/rest/api/playfab/admin/title-wide-data-management/removevirtualcurrencytypes
     RemoveVirtualCurrencyTypes(
       request: PlayFabAdminModels.RemoveVirtualCurrencyTypesRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.BlankResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.BlankResult> | null
+    ): void
     // Completely removes all statistics for the specified character, for the current game
     // https://docs.microsoft.com/rest/api/playfab/admin/characters/resetcharacterstatistics
     ResetCharacterStatistics(
       request: PlayFabAdminModels.ResetCharacterStatisticsRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.ResetCharacterStatisticsResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.ResetCharacterStatisticsResult> | null
+    ): void
     // Reset a player's password for a given title.
     // https://docs.microsoft.com/rest/api/playfab/admin/account-management/resetpassword
     ResetPassword(
       request: PlayFabAdminModels.ResetPasswordRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.ResetPasswordResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.ResetPasswordResult> | null
+    ): void
     // Completely removes all statistics for the specified user, for the current game
     // https://docs.microsoft.com/rest/api/playfab/admin/player-data-management/resetuserstatistics
     ResetUserStatistics(
       request: PlayFabAdminModels.ResetUserStatisticsRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.ResetUserStatisticsResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.ResetUserStatisticsResult> | null
+    ): void
     // Attempts to resolve a dispute with the original order's payment provider.
     // https://docs.microsoft.com/rest/api/playfab/admin/player-data-management/resolvepurchasedispute
     ResolvePurchaseDispute(
       request: PlayFabAdminModels.ResolvePurchaseDisputeRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.ResolvePurchaseDisputeResponse> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.ResolvePurchaseDisputeResponse> | null
+    ): void
     // Revoke all active bans for a user.
     // https://docs.microsoft.com/rest/api/playfab/admin/account-management/revokeallbansforuser
     RevokeAllBansForUser(
       request: PlayFabAdminModels.RevokeAllBansForUserRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.RevokeAllBansForUserResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.RevokeAllBansForUserResult> | null
+    ): void
     // Revoke all active bans specified with BanId.
     // https://docs.microsoft.com/rest/api/playfab/admin/account-management/revokebans
     RevokeBans(
       request: PlayFabAdminModels.RevokeBansRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.RevokeBansResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.RevokeBansResult> | null
+    ): void
     // Revokes access to an item in a user's inventory
     // https://docs.microsoft.com/rest/api/playfab/admin/player-item-management/revokeinventoryitem
     RevokeInventoryItem(
       request: PlayFabAdminModels.RevokeInventoryItemRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.RevokeInventoryResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.RevokeInventoryResult> | null
+    ): void
     // Revokes access for up to 25 items across multiple users and characters.
     // https://docs.microsoft.com/rest/api/playfab/admin/player-item-management/revokeinventoryitems
     RevokeInventoryItems(
       request: PlayFabAdminModels.RevokeInventoryItemsRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.RevokeInventoryItemsResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.RevokeInventoryItemsResult> | null
+    ): void
     // Run a task immediately regardless of its schedule.
     // https://docs.microsoft.com/rest/api/playfab/admin/scheduledtask/runtask
     RunTask(
       request: PlayFabAdminModels.RunTaskRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.RunTaskResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.RunTaskResult> | null
+    ): void
     // Forces an email to be sent to the registered email address for the user's account, with a link allowing the user to
     // change the password.If an account recovery email template ID is provided, an email using the custom email template will
     // be used.
     // https://docs.microsoft.com/rest/api/playfab/admin/account-management/sendaccountrecoveryemail
     SendAccountRecoveryEmail(
       request: PlayFabAdminModels.SendAccountRecoveryEmailRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.SendAccountRecoveryEmailResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.SendAccountRecoveryEmailResult> | null
+    ): void
     // Creates the catalog configuration of all virtual goods for the specified catalog version
     // https://docs.microsoft.com/rest/api/playfab/admin/title-wide-data-management/setcatalogitems
     SetCatalogItems(
       request: PlayFabAdminModels.UpdateCatalogItemsRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateCatalogItemsResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateCatalogItemsResult> | null
+    ): void
     // Sets the override expiration for a membership subscription
     // https://docs.microsoft.com/rest/api/playfab/admin/account-management/setmembershipoverride
     SetMembershipOverride(
       request: PlayFabAdminModels.SetMembershipOverrideRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.SetMembershipOverrideResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.SetMembershipOverrideResult> | null
+    ): void
     // Sets or resets the player's secret. Player secrets are used to sign API requests.
     // https://docs.microsoft.com/rest/api/playfab/admin/authentication/setplayersecret
     SetPlayerSecret(
       request: PlayFabAdminModels.SetPlayerSecretRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.SetPlayerSecretResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.SetPlayerSecretResult> | null
+    ): void
     // Sets the currently published revision of a title Cloud Script
     // https://docs.microsoft.com/rest/api/playfab/admin/server-side-cloud-script/setpublishedrevision
     SetPublishedRevision(
       request: PlayFabAdminModels.SetPublishedRevisionRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.SetPublishedRevisionResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.SetPublishedRevisionResult> | null
+    ): void
     // Updates the key-value store of custom publisher settings
     // https://docs.microsoft.com/rest/api/playfab/admin/shared-group-data/setpublisherdata
     SetPublisherData(
       request: PlayFabAdminModels.SetPublisherDataRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.SetPublisherDataResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.SetPublisherDataResult> | null
+    ): void
     // Sets all the items in one virtual store
     // https://docs.microsoft.com/rest/api/playfab/admin/title-wide-data-management/setstoreitems
     SetStoreItems(
       request: PlayFabAdminModels.UpdateStoreItemsRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateStoreItemsResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateStoreItemsResult> | null
+    ): void
     // Creates and updates the key-value store of custom title settings which can be read by the client. For example, a
     // developer could choose to store values which modify the user experience, such as enemy spawn rates, weapon strengths,
     // movement speeds, etc. This allows a developer to update the title without the need to create, test, and ship a new
@@ -581,255 +581,255 @@ declare namespace PlayFabAdminModule {
     // https://docs.microsoft.com/rest/api/playfab/admin/title-wide-data-management/settitledata
     SetTitleData(
       request: PlayFabAdminModels.SetTitleDataRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.SetTitleDataResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.SetTitleDataResult> | null
+    ): void
     // Set and delete key-value pairs in a title data override instance.
     // https://docs.microsoft.com/rest/api/playfab/admin/title-wide-data-management/settitledataandoverrides
     SetTitleDataAndOverrides(
       request: PlayFabAdminModels.SetTitleDataAndOverridesRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.SetTitleDataAndOverridesResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.SetTitleDataAndOverridesResult> | null
+    ): void
     // Updates the key-value store of custom title settings which cannot be read by the client. These values can be used to
     // tweak settings used by game servers and Cloud Scripts without the need to update and re-deploy.
     // https://docs.microsoft.com/rest/api/playfab/admin/title-wide-data-management/settitleinternaldata
     SetTitleInternalData(
       request: PlayFabAdminModels.SetTitleDataRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.SetTitleDataResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.SetTitleDataResult> | null
+    ): void
     // Sets the Amazon Resource Name (ARN) for iOS and Android push notifications. Documentation on the exact restrictions can
     // be found at: http://docs.aws.amazon.com/sns/latest/api/API_CreatePlatformApplication.html. Currently, Amazon device
     // Messaging is not supported.
     // https://docs.microsoft.com/rest/api/playfab/admin/title-wide-data-management/setuppushnotification
     SetupPushNotification(
       request: PlayFabAdminModels.SetupPushNotificationRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.SetupPushNotificationResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.SetupPushNotificationResult> | null
+    ): void
     // Decrements the specified virtual currency by the stated amount
     // https://docs.microsoft.com/rest/api/playfab/admin/player-item-management/subtractuservirtualcurrency
     SubtractUserVirtualCurrency(
       request: PlayFabAdminModels.SubtractUserVirtualCurrencyRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.ModifyUserVirtualCurrencyResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.ModifyUserVirtualCurrencyResult> | null
+    ): void
     // Updates information of a list of existing bans specified with Ban Ids.
     // https://docs.microsoft.com/rest/api/playfab/admin/account-management/updatebans
     UpdateBans(
       request: PlayFabAdminModels.UpdateBansRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateBansResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateBansResult> | null
+    ): void
     // Updates the catalog configuration for virtual goods in the specified catalog version
     // https://docs.microsoft.com/rest/api/playfab/admin/title-wide-data-management/updatecatalogitems
     UpdateCatalogItems(
       request: PlayFabAdminModels.UpdateCatalogItemsRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateCatalogItemsResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateCatalogItemsResult> | null
+    ): void
     // Creates a new Cloud Script revision and uploads source code to it. Note that at this time, only one file should be
     // submitted in the revision.
     // https://docs.microsoft.com/rest/api/playfab/admin/server-side-cloud-script/updatecloudscript
     UpdateCloudScript(
       request: PlayFabAdminModels.UpdateCloudScriptRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateCloudScriptResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateCloudScriptResult> | null
+    ): void
     // Modifies data and credentials for an existing relationship between a title and an Open ID Connect provider
     // https://docs.microsoft.com/rest/api/playfab/admin/authentication/updateopenidconnection
     UpdateOpenIdConnection(
       request: PlayFabAdminModels.UpdateOpenIdConnectionRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.EmptyResponse> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.EmptyResponse> | null
+    ): void
     // Updates a existing Player Shared Secret Key. It may take up to 5 minutes for this update to become generally available
     // after this API returns.
     // https://docs.microsoft.com/rest/api/playfab/admin/authentication/updateplayersharedsecret
     UpdatePlayerSharedSecret(
       request: PlayFabAdminModels.UpdatePlayerSharedSecretRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdatePlayerSharedSecretResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdatePlayerSharedSecretResult> | null
+    ): void
     // Updates a player statistic configuration for the title, optionally allowing the developer to specify a reset interval.
     // https://docs.microsoft.com/rest/api/playfab/admin/player-data-management/updateplayerstatisticdefinition
     UpdatePlayerStatisticDefinition(
       request: PlayFabAdminModels.UpdatePlayerStatisticDefinitionRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdatePlayerStatisticDefinitionResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdatePlayerStatisticDefinitionResult> | null
+    ): void
     // Changes a policy for a title
     // https://docs.microsoft.com/rest/api/playfab/admin/authentication/updatepolicy
     UpdatePolicy(
       request: PlayFabAdminModels.UpdatePolicyRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdatePolicyResponse> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdatePolicyResponse> | null
+    ): void
     // Updates the random drop table configuration for the title
     // https://docs.microsoft.com/rest/api/playfab/admin/title-wide-data-management/updaterandomresulttables
     UpdateRandomResultTables(
       request: PlayFabAdminModels.UpdateRandomResultTablesRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateRandomResultTablesResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateRandomResultTablesResult> | null
+    ): void
     // Updates an existing player segment and its associated definition(s) and action(s) for a title.
     // https://docs.microsoft.com/rest/api/playfab/admin/segments/updatesegment
     UpdateSegment(
       request: PlayFabAdminModels.UpdateSegmentRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateSegmentResponse> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateSegmentResponse> | null
+    ): void
     // Updates an existing virtual item store with new or modified items
     // https://docs.microsoft.com/rest/api/playfab/admin/title-wide-data-management/updatestoreitems
     UpdateStoreItems(
       request: PlayFabAdminModels.UpdateStoreItemsRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateStoreItemsResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateStoreItemsResult> | null
+    ): void
     // Update an existing task.
     // https://docs.microsoft.com/rest/api/playfab/admin/scheduledtask/updatetask
     UpdateTask(
       request: PlayFabAdminModels.UpdateTaskRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.EmptyResponse> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.EmptyResponse> | null
+    ): void
     // Updates the title-specific custom data for the user which is readable and writable by the client
     // https://docs.microsoft.com/rest/api/playfab/admin/player-data-management/updateuserdata
     UpdateUserData(
       request: PlayFabAdminModels.UpdateUserDataRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateUserDataResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateUserDataResult> | null
+    ): void
     // Updates the title-specific custom data for the user which cannot be accessed by the client
     // https://docs.microsoft.com/rest/api/playfab/admin/player-data-management/updateuserinternaldata
     UpdateUserInternalData(
       request: PlayFabAdminModels.UpdateUserInternalDataRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateUserDataResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateUserDataResult> | null
+    ): void
     // Updates the publisher-specific custom data for the user which is readable and writable by the client
     // https://docs.microsoft.com/rest/api/playfab/admin/player-data-management/updateuserpublisherdata
     UpdateUserPublisherData(
       request: PlayFabAdminModels.UpdateUserDataRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateUserDataResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateUserDataResult> | null
+    ): void
     // Updates the publisher-specific custom data for the user which cannot be accessed by the client
     // https://docs.microsoft.com/rest/api/playfab/admin/player-data-management/updateuserpublisherinternaldata
     UpdateUserPublisherInternalData(
       request: PlayFabAdminModels.UpdateUserInternalDataRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateUserDataResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateUserDataResult> | null
+    ): void
     // Updates the publisher-specific custom data for the user which can only be read by the client
     // https://docs.microsoft.com/rest/api/playfab/admin/player-data-management/updateuserpublisherreadonlydata
     UpdateUserPublisherReadOnlyData(
       request: PlayFabAdminModels.UpdateUserDataRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateUserDataResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateUserDataResult> | null
+    ): void
     // Updates the title-specific custom data for the user which can only be read by the client
     // https://docs.microsoft.com/rest/api/playfab/admin/player-data-management/updateuserreadonlydata
     UpdateUserReadOnlyData(
       request: PlayFabAdminModels.UpdateUserDataRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateUserDataResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateUserDataResult> | null
+    ): void
     // Updates the title specific display name for a user
     // https://docs.microsoft.com/rest/api/playfab/admin/account-management/updateusertitledisplayname
     UpdateUserTitleDisplayName(
       request: PlayFabAdminModels.UpdateUserTitleDisplayNameRequest | null,
-      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateUserTitleDisplayNameResult> | null,
-    ): void;
+      callback: PlayFabModule.ApiCallback<PlayFabAdminModels.UpdateUserTitleDisplayNameResult> | null
+    ): void
   }
 }
 
 declare namespace PlayFabAdminModels {
   export interface AbortTaskInstanceRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // ID of a task instance that is being aborted.
-    TaskInstanceId: string;
+    TaskInstanceId: string
   }
 
   export interface ActionsOnPlayersInSegmentTaskParameter {
     // ID of the action to perform on each player in segment.
-    ActionId: string;
+    ActionId: string
     // ID of the segment to perform actions on.
-    SegmentId: string;
+    SegmentId: string
   }
 
   export interface ActionsOnPlayersInSegmentTaskSummary {
     // UTC timestamp when the task completed.
-    CompletedAt?: string;
+    CompletedAt?: string
     // Error message for last processing attempt, if an error occured.
-    ErrorMessage?: string;
+    ErrorMessage?: string
     // Flag indicating if the error was fatal, if false job will be retried.
-    ErrorWasFatal?: boolean;
+    ErrorWasFatal?: boolean
     // Estimated time remaining in seconds.
-    EstimatedSecondsRemaining?: number;
+    EstimatedSecondsRemaining?: number
     // Progress represented as percentage.
-    PercentComplete?: number;
+    PercentComplete?: number
     // If manually scheduled, ID of user who scheduled the task.
-    ScheduledByUserId?: string;
+    ScheduledByUserId?: string
     // UTC timestamp when the task started.
-    StartedAt: string;
+    StartedAt: string
     // Current status of the task instance.
-    Status?: string;
+    Status?: string
     // Identifier of the task this instance belongs to.
-    TaskIdentifier?: NameIdentifier;
+    TaskIdentifier?: NameIdentifier
     // ID of the task instance.
-    TaskInstanceId?: string;
+    TaskInstanceId?: string
     // Total players in segment when task was started.
-    TotalPlayersInSegment?: number;
+    TotalPlayersInSegment?: number
     // Total number of players that have had the actions applied to.
-    TotalPlayersProcessed?: number;
+    TotalPlayersProcessed?: number
   }
 
   export interface AdCampaignAttribution {
     // UTC time stamp of attribution
-    AttributedAt: string;
+    AttributedAt: string
     // Attribution campaign identifier
-    CampaignId?: string;
+    CampaignId?: string
     // Attribution network name
-    Platform?: string;
+    Platform?: string
   }
 
   export interface AdCampaignAttributionModel {
     // UTC time stamp of attribution
-    AttributedAt: string;
+    AttributedAt: string
     // Attribution campaign identifier
-    CampaignId?: string;
+    CampaignId?: string
     // Attribution network name
-    Platform?: string;
+    Platform?: string
   }
 
   export interface AdCampaignSegmentFilter {
     // Campaign id.
-    CampaignId?: string;
+    CampaignId?: string
     // Campaign source.
-    CampaignSource?: string;
+    CampaignSource?: string
     // Campaign comparison.
-    Comparison?: string;
+    Comparison?: string
   }
 
   export interface AddLocalizedNewsRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Localized body text of the news.
-    Body: string;
+    Body: string
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // Language of the news item.
-    Language: string;
+    Language: string
     // Unique id of the updated news item.
-    NewsId: string;
+    NewsId: string
     // Localized title (headline) of the news item.
-    Title: string;
+    Title: string
   }
 
   export interface AddLocalizedNewsResult extends PlayFabModule.IPlayFabResultCommon {}
 
   export interface AddNewsRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Default body text of the news.
-    Body: string;
+    Body: string
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // Time this news was published. If not set, defaults to now.
-    Timestamp?: string;
+    Timestamp?: string
     // Default title (headline) of the news item.
-    Title: string;
+    Title: string
   }
 
   export interface AddNewsResult extends PlayFabModule.IPlayFabResultCommon {
     // Unique id of the new news item
-    NewsId?: string;
+    NewsId?: string
   }
 
   export interface AddPlayerTagRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
     // Unique tag for player profile.
-    TagName: string;
+    TagName: string
   }
 
   export interface AddPlayerTagResult extends PlayFabModule.IPlayFabResultCommon {}
@@ -837,75 +837,75 @@ declare namespace PlayFabAdminModels {
   export interface AddUserVirtualCurrencyRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Amount to be added to the user balance of the specified virtual currency. Maximum VC balance is Int32 (2,147,483,647).
     // Any increase over this value will be discarded.
-    Amount: number;
+    Amount: number
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // PlayFab unique identifier of the user whose virtual currency balance is to be increased.
-    PlayFabId: string;
+    PlayFabId: string
     // Name of the virtual currency which is to be incremented.
-    VirtualCurrency: string;
+    VirtualCurrency: string
   }
 
   export interface AddVirtualCurrencyTypesRequest extends PlayFabModule.IPlayFabRequestCommon {
     // List of virtual currencies and their initial deposits (the amount a user is granted when signing in for the first time)
     // to the title
-    VirtualCurrencies: VirtualCurrencyData[];
+    VirtualCurrencies: VirtualCurrencyData[]
   }
 
   export interface AllPlayersSegmentFilter {}
 
   export interface ApiCondition {
     // Require that API calls contain an RSA encrypted payload or signed headers.
-    HasSignatureOrEncryption?: string;
+    HasSignatureOrEncryption?: string
   }
 
-  type AuthTokenType = 'Email';
+  type AuthTokenType = 'Email'
 
   export interface BanInfo {
     // The active state of this ban. Expired bans may still have this value set to true but they will have no effect.
-    Active: boolean;
+    Active: boolean
     // The unique Ban Id associated with this ban.
-    BanId?: string;
+    BanId?: string
     // The time when this ban was applied.
-    Created?: string;
+    Created?: string
     // The time when this ban expires. Permanent bans do not have expiration date.
-    Expires?: string;
+    Expires?: string
     // The IP address on which the ban was applied. May affect multiple players.
-    IPAddress?: string;
+    IPAddress?: string
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId?: string;
+    PlayFabId?: string
     // The reason why this ban was applied.
-    Reason?: string;
+    Reason?: string
   }
 
   export interface BanPlayerSegmentAction {
     // Ban hours duration.
-    BanHours?: number;
+    BanHours?: number
     // Reason for ban.
-    ReasonForBan?: string;
+    ReasonForBan?: string
   }
 
   export interface BanRequest {
     // The duration in hours for the ban. Leave this blank for a permanent ban.
-    DurationInHours?: number;
+    DurationInHours?: number
     // IP address to be banned. May affect multiple players.
-    IPAddress?: string;
+    IPAddress?: string
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
     // The reason for this ban. Maximum 140 characters.
-    Reason?: string;
+    Reason?: string
   }
 
   export interface BanUsersRequest extends PlayFabModule.IPlayFabRequestCommon {
     // List of ban requests to be applied. Maximum 100.
-    Bans: BanRequest[];
+    Bans: BanRequest[]
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
   }
 
   export interface BanUsersResult extends PlayFabModule.IPlayFabResultCommon {
     // Information on the bans that were applied
-    BanData?: BanInfo[];
+    BanData?: BanInfo[]
   }
 
   export interface BlankResult extends PlayFabModule.IPlayFabResultCommon {}
@@ -913,181 +913,183 @@ declare namespace PlayFabAdminModels {
   export interface CatalogItem {
     // defines the bundle properties for the item - bundles are items which contain other items, including random drop tables
     // and virtual currencies
-    Bundle?: CatalogItemBundleInfo;
+    Bundle?: CatalogItemBundleInfo
     // if true, then an item instance of this type can be used to grant a character to a user.
-    CanBecomeCharacter: boolean;
+    CanBecomeCharacter: boolean
     // catalog version for this item
-    CatalogVersion?: string;
+    CatalogVersion?: string
     // defines the consumable properties (number of uses, timeout) for the item
-    Consumable?: CatalogItemConsumableInfo;
+    Consumable?: CatalogItemConsumableInfo
     // defines the container properties for the item - what items it contains, including random drop tables and virtual
     // currencies, and what item (if any) is required to open it via the UnlockContainerItem API
-    Container?: CatalogItemContainerInfo;
+    Container?: CatalogItemContainerInfo
     // game specific custom data
-    CustomData?: string;
+    CustomData?: string
     // text description of item, to show in-game
-    Description?: string;
+    Description?: string
     // text name for the item, to show in-game
-    DisplayName?: string;
+    DisplayName?: string
     // If the item has IsLImitedEdition set to true, and this is the first time this ItemId has been defined as a limited
     // edition item, this value determines the total number of instances to allocate for the title. Once this limit has been
     // reached, no more instances of this ItemId can be created, and attempts to purchase or grant it will return a Result of
     // false for that ItemId. If the item has already been defined to have a limited edition count, or if this value is less
     // than zero, it will be ignored.
-    InitialLimitedEditionCount: number;
+    InitialLimitedEditionCount: number
     // BETA: If true, then only a fixed number can ever be granted.
-    IsLimitedEdition: boolean;
+    IsLimitedEdition: boolean
     // if true, then only one item instance of this type will exist and its remaininguses will be incremented instead.
     // RemainingUses will cap out at Int32.Max (2,147,483,647). All subsequent increases will be discarded
-    IsStackable: boolean;
+    IsStackable: boolean
     // if true, then an item instance of this type can be traded between players using the trading APIs
-    IsTradable: boolean;
+    IsTradable: boolean
     // class to which the item belongs
-    ItemClass?: string;
+    ItemClass?: string
     // unique identifier for this item
-    ItemId: string;
+    ItemId: string
     // URL to the item image. For Facebook purchase to display the image on the item purchase page, this must be set to an HTTP
     // URL.
-    ItemImageUrl?: string;
+    ItemImageUrl?: string
     // override prices for this item for specific currencies
-    RealCurrencyPrices?: { [key: string]: number };
+    RealCurrencyPrices?: { [key: string]: number }
     // list of item tags
-    Tags?: string[];
+    Tags?: string[]
     // price of this item in virtual currencies and "RM" (the base Real Money purchase price, in USD pennies)
-    VirtualCurrencyPrices?: { [key: string]: number };
+    VirtualCurrencyPrices?: { [key: string]: number }
   }
 
   export interface CatalogItemBundleInfo {
     // unique ItemId values for all items which will be added to the player inventory when the bundle is added
-    BundledItems?: string[];
+    BundledItems?: string[]
     // unique TableId values for all RandomResultTable objects which are part of the bundle (random tables will be resolved and
     // add the relevant items to the player inventory when the bundle is added)
-    BundledResultTables?: string[];
+    BundledResultTables?: string[]
     // virtual currency types and balances which will be added to the player inventory when the bundle is added
-    BundledVirtualCurrencies?: { [key: string]: number };
+    BundledVirtualCurrencies?: { [key: string]: number }
   }
 
   export interface CatalogItemConsumableInfo {
     // number of times this object can be used, after which it will be removed from the player inventory
-    UsageCount?: number;
+    UsageCount?: number
     // duration in seconds for how long the item will remain in the player inventory - once elapsed, the item will be removed
     // (recommended minimum value is 5 seconds, as lower values can cause the item to expire before operations depending on
     // this item's details have completed)
-    UsagePeriod?: number;
+    UsagePeriod?: number
     // all inventory item instances in the player inventory sharing a non-null UsagePeriodGroup have their UsagePeriod values
     // added together, and share the result - when that period has elapsed, all the items in the group will be removed
-    UsagePeriodGroup?: string;
+    UsagePeriodGroup?: string
   }
 
   export interface CatalogItemContainerInfo {
     // unique ItemId values for all items which will be added to the player inventory, once the container has been unlocked
-    ItemContents?: string[];
+    ItemContents?: string[]
     // ItemId for the catalog item used to unlock the container, if any (if not specified, a call to UnlockContainerItem will
     // open the container, adding the contents to the player inventory and currency balances)
-    KeyItemId?: string;
+    KeyItemId?: string
     // unique TableId values for all RandomResultTable objects which are part of the container (once unlocked, random tables
     // will be resolved and add the relevant items to the player inventory)
-    ResultTableContents?: string[];
+    ResultTableContents?: string[]
     // virtual currency types and balances which will be added to the player inventory when the container is unlocked
-    VirtualCurrencyContents?: { [key: string]: number };
+    VirtualCurrencyContents?: { [key: string]: number }
   }
 
-  export interface CheckLimitedEditionItemAvailabilityRequest extends PlayFabModule.IPlayFabRequestCommon {
+  export interface CheckLimitedEditionItemAvailabilityRequest
+    extends PlayFabModule.IPlayFabRequestCommon {
     // Which catalog is being updated. If null, uses the default catalog.
-    CatalogVersion?: string;
+    CatalogVersion?: string
     // The item to check for.
-    ItemId: string;
+    ItemId: string
   }
 
-  export interface CheckLimitedEditionItemAvailabilityResult extends PlayFabModule.IPlayFabResultCommon {
+  export interface CheckLimitedEditionItemAvailabilityResult
+    extends PlayFabModule.IPlayFabResultCommon {
     // The amount of the specified resource remaining.
-    Amount: number;
+    Amount: number
   }
 
   export interface ChurnPredictionSegmentFilter {
     // Comparison
-    Comparison?: string;
+    Comparison?: string
     // RiskLevel
-    RiskLevel?: string;
+    RiskLevel?: string
   }
 
-  type ChurnRiskLevel = 'NoData' | 'LowRisk' | 'MediumRisk' | 'HighRisk';
+  type ChurnRiskLevel = 'NoData' | 'LowRisk' | 'MediumRisk' | 'HighRisk'
 
   export interface CloudScriptFile {
     // Contents of the Cloud Script javascript. Must be string-escaped javascript.
-    FileContents: string;
+    FileContents: string
     // Name of the javascript file. These names are not used internally by the server, they are only for developer
     // organizational purposes.
-    Filename: string;
+    Filename: string
   }
 
   export interface CloudScriptTaskParameter {
     // Argument to pass to the CloudScript function.
-    Argument?: any;
+    Argument?: any
     // Name of the CloudScript function to execute.
-    FunctionName?: string;
+    FunctionName?: string
   }
 
   export interface CloudScriptTaskSummary {
     // UTC timestamp when the task completed.
-    CompletedAt?: string;
+    CompletedAt?: string
     // Estimated time remaining in seconds.
-    EstimatedSecondsRemaining?: number;
+    EstimatedSecondsRemaining?: number
     // Progress represented as percentage.
-    PercentComplete?: number;
+    PercentComplete?: number
     // Result of CloudScript execution
-    Result?: ExecuteCloudScriptResult;
+    Result?: ExecuteCloudScriptResult
     // If manually scheduled, ID of user who scheduled the task.
-    ScheduledByUserId?: string;
+    ScheduledByUserId?: string
     // UTC timestamp when the task started.
-    StartedAt: string;
+    StartedAt: string
     // Current status of the task instance.
-    Status?: string;
+    Status?: string
     // Identifier of the task this instance belongs to.
-    TaskIdentifier?: NameIdentifier;
+    TaskIdentifier?: NameIdentifier
     // ID of the task instance.
-    TaskInstanceId?: string;
+    TaskInstanceId?: string
   }
 
   export interface CloudScriptVersionStatus {
     // Most recent revision for this Cloud Script version
-    LatestRevision: number;
+    LatestRevision: number
     // Published code revision for this Cloud Script version
-    PublishedRevision: number;
+    PublishedRevision: number
     // Version number
-    Version: number;
+    Version: number
   }
 
-  type Conditionals = 'Any' | 'True' | 'False';
+  type Conditionals = 'Any' | 'True' | 'False'
 
   export interface ContactEmailInfo {
     // The email address
-    EmailAddress?: string;
+    EmailAddress?: string
     // The name of the email info data
-    Name?: string;
+    Name?: string
     // The verification status of the email
-    VerificationStatus?: string;
+    VerificationStatus?: string
   }
 
   export interface ContactEmailInfoModel {
     // The email address
-    EmailAddress?: string;
+    EmailAddress?: string
     // The name of the email info data
-    Name?: string;
+    Name?: string
     // The verification status of the email
-    VerificationStatus?: string;
+    VerificationStatus?: string
   }
 
   export interface ContentInfo {
     // Key of the content
-    Key?: string;
+    Key?: string
     // Last modified time
-    LastModified: string;
+    LastModified: string
     // Size of the content in bytes
-    Size: number;
+    Size: number
   }
 
-  type ContinentCode = 'AF' | 'AN' | 'AS' | 'EU' | 'NA' | 'OC' | 'SA';
+  type ContinentCode = 'AF' | 'AN' | 'AS' | 'EU' | 'NA' | 'OC' | 'SA'
 
   type CountryCode =
     | 'AF'
@@ -1338,112 +1340,116 @@ declare namespace PlayFabAdminModels {
     | 'EH'
     | 'YE'
     | 'ZM'
-    | 'ZW';
+    | 'ZW'
 
-  export interface CreateActionsOnPlayerSegmentTaskRequest extends PlayFabModule.IPlayFabRequestCommon {
+  export interface CreateActionsOnPlayerSegmentTaskRequest
+    extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // Description the task
-    Description?: string;
+    Description?: string
     // Whether the schedule is active. Inactive schedule will not trigger task execution.
-    IsActive: boolean;
+    IsActive: boolean
     // Name of the task. This is a unique identifier for tasks in the title.
-    Name: string;
+    Name: string
     // Task details related to segment and action
-    Parameter: ActionsOnPlayersInSegmentTaskParameter;
+    Parameter: ActionsOnPlayersInSegmentTaskParameter
     // Cron expression for the run schedule of the task. The expression should be in UTC.
-    Schedule?: string;
+    Schedule?: string
   }
 
   export interface CreateCloudScriptTaskRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // Description the task
-    Description?: string;
+    Description?: string
     // Whether the schedule is active. Inactive schedule will not trigger task execution.
-    IsActive: boolean;
+    IsActive: boolean
     // Name of the task. This is a unique identifier for tasks in the title.
-    Name: string;
+    Name: string
     // Task details related to CloudScript
-    Parameter: CloudScriptTaskParameter;
+    Parameter: CloudScriptTaskParameter
     // Cron expression for the run schedule of the task. The expression should be in UTC.
-    Schedule?: string;
+    Schedule?: string
   }
 
-  export interface CreateInsightsScheduledScalingTaskRequest extends PlayFabModule.IPlayFabRequestCommon {
+  export interface CreateInsightsScheduledScalingTaskRequest
+    extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // Description the task
-    Description?: string;
+    Description?: string
     // Whether the schedule is active. Inactive schedule will not trigger task execution.
-    IsActive: boolean;
+    IsActive: boolean
     // Name of the task. This is a unique identifier for tasks in the title.
-    Name: string;
+    Name: string
     // Task details related to Insights Scaling
-    Parameter: InsightsScalingTaskParameter;
+    Parameter: InsightsScalingTaskParameter
     // Cron expression for the run schedule of the task. The expression should be in UTC.
-    Schedule?: string;
+    Schedule?: string
   }
 
   export interface CreateOpenIdConnectionRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The client ID given by the ID provider.
-    ClientId: string;
+    ClientId: string
     // The client secret given by the ID provider.
-    ClientSecret: string;
+    ClientSecret: string
     // A name for the connection that identifies it within the title.
-    ConnectionId: string;
+    ConnectionId: string
     // Ignore 'nonce' claim in identity tokens.
-    IgnoreNonce?: boolean;
+    IgnoreNonce?: boolean
     // The discovery document URL to read issuer information from. This must be the absolute URL to the JSON OpenId
     // Configuration document and must be accessible from the internet. If you don't know it, try your issuer URL followed by
     // "/.well-known/openid-configuration". For example, if the issuer is https://example.com, try
     // https://example.com/.well-known/openid-configuration
-    IssuerDiscoveryUrl?: string;
+    IssuerDiscoveryUrl?: string
     // Manually specified information for an OpenID Connect issuer.
-    IssuerInformation?: OpenIdIssuerInformation;
+    IssuerInformation?: OpenIdIssuerInformation
   }
 
   export interface CreatePlayerSharedSecretRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Friendly name for this key
-    FriendlyName?: string;
+    FriendlyName?: string
   }
 
   export interface CreatePlayerSharedSecretResult extends PlayFabModule.IPlayFabResultCommon {
     // The player shared secret to use when calling Client/GetTitlePublicKey
-    SecretKey?: string;
+    SecretKey?: string
   }
 
-  export interface CreatePlayerStatisticDefinitionRequest extends PlayFabModule.IPlayFabRequestCommon {
+  export interface CreatePlayerStatisticDefinitionRequest
+    extends PlayFabModule.IPlayFabRequestCommon {
     // the aggregation method to use in updating the statistic (defaults to last)
-    AggregationMethod?: string;
+    AggregationMethod?: string
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // unique name of the statistic
-    StatisticName: string;
+    StatisticName: string
     // interval at which the values of the statistic for all players are reset (resets begin at the next interval boundary)
-    VersionChangeInterval?: string;
+    VersionChangeInterval?: string
   }
 
-  export interface CreatePlayerStatisticDefinitionResult extends PlayFabModule.IPlayFabResultCommon {
+  export interface CreatePlayerStatisticDefinitionResult
+    extends PlayFabModule.IPlayFabResultCommon {
     // created statistic definition
-    Statistic?: PlayerStatisticDefinition;
+    Statistic?: PlayerStatisticDefinition
   }
 
   export interface CreateSegmentRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Segment model with all of the segment properties data.
-    SegmentModel: SegmentModel;
+    SegmentModel: SegmentModel
   }
 
   export interface CreateSegmentResponse extends PlayFabModule.IPlayFabResultCommon {
     // Error message.
-    ErrorMessage?: string;
+    ErrorMessage?: string
     // Segment id.
-    SegmentId?: string;
+    SegmentId?: string
   }
 
   export interface CreateTaskResult extends PlayFabModule.IPlayFabResultCommon {
     // ID of the task
-    TaskId?: string;
+    TaskId?: string
   }
 
   type Currency =
@@ -1608,49 +1614,49 @@ declare namespace PlayFabAdminModels {
     | 'YER'
     | 'ZAR'
     | 'ZMW'
-    | 'ZWD';
+    | 'ZWD'
 
   export interface DeleteContentRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Key of the content item to be deleted
-    Key: string;
+    Key: string
   }
 
   export interface DeleteMasterPlayerAccountRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Developer created string to identify a user without PlayFab ID
-    MetaData?: string;
+    MetaData?: string
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
   }
 
   export interface DeleteMasterPlayerAccountResult extends PlayFabModule.IPlayFabResultCommon {
     // A notification email with this job receipt Id will be sent to the title notification email address when deletion is
     // complete.
-    JobReceiptId?: string;
+    JobReceiptId?: string
     // List of titles from which the player's data will be deleted.
-    TitleIds?: string[];
+    TitleIds?: string[]
   }
 
   export interface DeleteMembershipSubscriptionRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // Id of the membership to apply the override expiration date to.
-    MembershipId: string;
+    MembershipId: string
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
     // Id of the subscription that should be deleted from the membership.
-    SubscriptionId: string;
+    SubscriptionId: string
   }
 
   export interface DeleteMembershipSubscriptionResult extends PlayFabModule.IPlayFabResultCommon {}
 
   export interface DeleteOpenIdConnectionRequest extends PlayFabModule.IPlayFabRequestCommon {
     // unique name of the connection
-    ConnectionId: string;
+    ConnectionId: string
   }
 
   export interface DeletePlayerRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
   }
 
   export interface DeletePlayerResult extends PlayFabModule.IPlayFabResultCommon {}
@@ -1659,45 +1665,45 @@ declare namespace PlayFabAdminModels {
 
   export interface DeletePlayerSharedSecretRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The shared secret key to delete
-    SecretKey?: string;
+    SecretKey?: string
   }
 
   export interface DeletePlayerSharedSecretResult extends PlayFabModule.IPlayFabResultCommon {}
 
   export interface DeletePlayerStatisticSegmentAction {
     // Statistic name.
-    StatisticName?: string;
+    StatisticName?: string
   }
 
   export interface DeleteSegmentRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Segment id.
-    SegmentId: string;
+    SegmentId: string
   }
 
   export interface DeleteSegmentsResponse extends PlayFabModule.IPlayFabResultCommon {
     // Error message.
-    ErrorMessage?: string;
+    ErrorMessage?: string
   }
 
   export interface DeleteStoreRequest extends PlayFabModule.IPlayFabRequestCommon {
     // catalog version of the store to delete. If null, uses the default catalog.
-    CatalogVersion?: string;
+    CatalogVersion?: string
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // unqiue identifier for the store which is to be deleted
-    StoreId: string;
+    StoreId: string
   }
 
   export interface DeleteStoreResult extends PlayFabModule.IPlayFabResultCommon {}
 
   export interface DeleteTaskRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Specify either the task ID or the name of task to be deleted.
-    Identifier?: NameIdentifier;
+    Identifier?: NameIdentifier
   }
 
   export interface DeleteTitleDataOverrideRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Name of the override.
-    OverrideLabel: string;
+    OverrideLabel: string
   }
 
   export interface DeleteTitleDataOverrideResult extends PlayFabModule.IPlayFabResultCommon {}
@@ -1706,123 +1712,124 @@ declare namespace PlayFabAdminModels {
 
   export interface DeleteTitleResult extends PlayFabModule.IPlayFabResultCommon {}
 
-  type EffectType = 'Allow' | 'Deny';
+  type EffectType = 'Allow' | 'Deny'
 
   export interface EmailNotificationSegmentAction {
     // Email template id.
-    EmailTemplateId?: string;
+    EmailTemplateId?: string
     // Email template name.
-    EmailTemplateName?: string;
+    EmailTemplateName?: string
   }
 
-  type EmailVerificationStatus = 'Unverified' | 'Pending' | 'Confirmed';
+  type EmailVerificationStatus = 'Unverified' | 'Pending' | 'Confirmed'
 
   export interface EmptyResponse extends PlayFabModule.IPlayFabResultCommon {}
 
   export interface EntityKey {
     // Unique ID of the entity.
-    Id: string;
+    Id: string
     // Entity type. See https://docs.microsoft.com/gaming/playfab/features/data/entities/available-built-in-entity-types
-    Type?: string;
+    Type?: string
   }
 
   export interface ExecuteAzureFunctionSegmentAction {
     // Azure function.
-    AzureFunction?: string;
+    AzureFunction?: string
     // Azure function parameter.
-    FunctionParameter?: any;
+    FunctionParameter?: any
     // Generate play stream event.
-    GenerateFunctionExecutedEvents: boolean;
+    GenerateFunctionExecutedEvents: boolean
   }
 
   export interface ExecuteCloudScriptResult {
     // Number of PlayFab API requests issued by the CloudScript function
-    APIRequestsIssued: number;
+    APIRequestsIssued: number
     // Information about the error, if any, that occurred during execution
-    Error?: ScriptExecutionError;
-    ExecutionTimeSeconds: number;
+    Error?: ScriptExecutionError
+    ExecutionTimeSeconds: number
     // The name of the function that executed
-    FunctionName?: string;
+    FunctionName?: string
     // The object returned from the CloudScript function, if any
-    FunctionResult?: any;
+    FunctionResult?: any
     // Flag indicating if the FunctionResult was too large and was subsequently dropped from this event. This only occurs if
     // the total event size is larger than 350KB.
-    FunctionResultTooLarge?: boolean;
+    FunctionResultTooLarge?: boolean
     // Number of external HTTP requests issued by the CloudScript function
-    HttpRequestsIssued: number;
+    HttpRequestsIssued: number
     // Entries logged during the function execution. These include both entries logged in the function code using log.info()
     // and log.error() and error entries for API and HTTP request failures.
-    Logs?: LogStatement[];
+    Logs?: LogStatement[]
     // Flag indicating if the logs were too large and were subsequently dropped from this event. This only occurs if the total
     // event size is larger than 350KB after the FunctionResult was removed.
-    LogsTooLarge?: boolean;
-    MemoryConsumedBytes: number;
+    LogsTooLarge?: boolean
+    MemoryConsumedBytes: number
     // Processor time consumed while executing the function. This does not include time spent waiting on API calls or HTTP
     // requests.
-    ProcessorTimeSeconds: number;
+    ProcessorTimeSeconds: number
     // The revision of the CloudScript that executed
-    Revision: number;
+    Revision: number
   }
 
   export interface ExecuteCloudScriptSegmentAction {
     // Cloud script function.
-    CloudScriptFunction?: string;
+    CloudScriptFunction?: string
     // Generate play stream event.
-    CloudScriptPublishResultsToPlayStream: boolean;
+    CloudScriptPublishResultsToPlayStream: boolean
     // Cloud script function parameter.
-    FunctionParameter?: any;
+    FunctionParameter?: any
     // Cloud script function parameter json text.
-    FunctionParameterJson?: string;
+    FunctionParameterJson?: string
   }
 
   export interface ExportMasterPlayerDataRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
   }
 
   export interface ExportMasterPlayerDataResult extends PlayFabModule.IPlayFabResultCommon {
     // An email with this job receipt Id containing the export download link will be sent to the title notification email
     // address when the export is complete.
-    JobReceiptId?: string;
+    JobReceiptId?: string
   }
 
   export interface ExportPlayersInSegmentRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Unique identifier of the requested segment.
-    SegmentId: string;
+    SegmentId: string
   }
 
   export interface ExportPlayersInSegmentResult extends PlayFabModule.IPlayFabResultCommon {
     // Unique identifier of the export for the requested Segment.
-    ExportId?: string;
+    ExportId?: string
     // Unique identifier of the requested Segment.
-    SegmentId?: string;
+    SegmentId?: string
   }
 
   export interface FirstLoginDateSegmentFilter {
     // First player login date comparison.
-    Comparison?: string;
+    Comparison?: string
     // First player login date.
-    LogInDate: string;
+    LogInDate: string
   }
 
   export interface FirstLoginTimespanSegmentFilter {
     // First player login duration comparison.
-    Comparison?: string;
+    Comparison?: string
     // First player login duration.
-    DurationInMinutes: number;
+    DurationInMinutes: number
   }
 
-  type GameBuildStatus = 'Available' | 'Validating' | 'InvalidBuildPackage' | 'Processing' | 'FailedToProcess';
+  type GameBuildStatus =
+    'Available' | 'Validating' | 'InvalidBuildPackage' | 'Processing' | 'FailedToProcess'
 
   export interface GameModeInfo {
     // specific game mode type
-    Gamemode: string;
+    Gamemode: string
     // maximum user count a specific Game Server Instance can support
-    MaxPlayerCount: number;
+    MaxPlayerCount: number
     // minimum user count required for this Game Server Instance to continue (usually 1)
-    MinPlayerCount: number;
+    MinPlayerCount: number
     // whether to start as an open session, meaning that players can matchmake into it (defaults to true)
-    StartOpen?: boolean;
+    StartOpen?: boolean
   }
 
   type GenericErrorCodes =
@@ -2552,684 +2559,690 @@ declare namespace PlayFabAdminModels {
     | 'PlayerCustomPropertiesVersionMismatch'
     | 'PlayerCustomPropertiesPropertyCountTooHigh'
     | 'PlayerCustomPropertiesDuplicatePropertyName'
-    | 'PlayerCustomPropertiesPropertyDoesNotExist';
+    | 'PlayerCustomPropertiesPropertyDoesNotExist'
 
-  export interface GetActionsOnPlayersInSegmentTaskInstanceResult extends PlayFabModule.IPlayFabResultCommon {
+  export interface GetActionsOnPlayersInSegmentTaskInstanceResult
+    extends PlayFabModule.IPlayFabResultCommon {
     // Parameter of this task instance
-    Parameter?: ActionsOnPlayersInSegmentTaskParameter;
+    Parameter?: ActionsOnPlayersInSegmentTaskParameter
     // Status summary of the actions-on-players-in-segment task instance
-    Summary?: ActionsOnPlayersInSegmentTaskSummary;
+    Summary?: ActionsOnPlayersInSegmentTaskSummary
   }
 
   export interface GetAllSegmentsRequest extends PlayFabModule.IPlayFabRequestCommon {}
 
   export interface GetAllSegmentsResult extends PlayFabModule.IPlayFabResultCommon {
     // Array of segments for this title.
-    Segments?: GetSegmentResult[];
+    Segments?: GetSegmentResult[]
   }
 
   export interface GetCatalogItemsRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Which catalog is being requested. If null, uses the default catalog.
-    CatalogVersion?: string;
+    CatalogVersion?: string
   }
 
   export interface GetCatalogItemsResult extends PlayFabModule.IPlayFabResultCommon {
     // Array of items which can be purchased.
-    Catalog?: CatalogItem[];
+    Catalog?: CatalogItem[]
   }
 
   export interface GetCloudScriptRevisionRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Revision number. If left null, defaults to the latest revision
-    Revision?: number;
+    Revision?: number
     // Version number. If left null, defaults to the latest version
-    Version?: number;
+    Version?: number
   }
 
   export interface GetCloudScriptRevisionResult extends PlayFabModule.IPlayFabResultCommon {
     // Time this revision was created
-    CreatedAt: string;
+    CreatedAt: string
     // List of Cloud Script files in this revision.
-    Files?: CloudScriptFile[];
+    Files?: CloudScriptFile[]
     // True if this is the currently published revision
-    IsPublished: boolean;
+    IsPublished: boolean
     // Revision number.
-    Revision: number;
+    Revision: number
     // Version number.
-    Version: number;
+    Version: number
   }
 
   export interface GetCloudScriptTaskInstanceResult extends PlayFabModule.IPlayFabResultCommon {
     // Parameter of this task instance
-    Parameter?: CloudScriptTaskParameter;
+    Parameter?: CloudScriptTaskParameter
     // Status summary of the CloudScript task instance
-    Summary?: CloudScriptTaskSummary;
+    Summary?: CloudScriptTaskSummary
   }
 
   export interface GetCloudScriptVersionsRequest extends PlayFabModule.IPlayFabRequestCommon {}
 
   export interface GetCloudScriptVersionsResult extends PlayFabModule.IPlayFabResultCommon {
     // List of versions
-    Versions?: CloudScriptVersionStatus[];
+    Versions?: CloudScriptVersionStatus[]
   }
 
   export interface GetContentListRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Limits the response to keys that begin with the specified prefix. You can use prefixes to list contents under a folder,
     // or for a specified version, etc.
-    Prefix?: string;
+    Prefix?: string
   }
 
   export interface GetContentListResult extends PlayFabModule.IPlayFabResultCommon {
     // List of content items.
-    Contents?: ContentInfo[];
+    Contents?: ContentInfo[]
     // Number of content items returned. We currently have a maximum of 1000 items limit.
-    ItemCount: number;
+    ItemCount: number
     // The total size of listed contents in bytes.
-    TotalSize: number;
+    TotalSize: number
   }
 
   export interface GetContentUploadUrlRequest extends PlayFabModule.IPlayFabRequestCommon {
     // A standard MIME type describing the format of the contents. The same MIME type has to be set in the header when
     // uploading the content. If not specified, the MIME type is 'binary/octet-stream' by default.
-    ContentType?: string;
+    ContentType?: string
     // Key of the content item to upload, usually formatted as a path, e.g. images/a.png
-    Key: string;
+    Key: string
   }
 
   export interface GetContentUploadUrlResult extends PlayFabModule.IPlayFabResultCommon {
     // URL for uploading content via HTTP PUT method. The URL requires the 'x-ms-blob-type' header to have the value
     // 'BlockBlob'. The URL will expire in approximately one hour.
-    URL?: string;
+    URL?: string
   }
 
   export interface GetDataReportRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Reporting year (UTC)
-    Day: number;
+    Day: number
     // Reporting month (UTC)
-    Month: number;
+    Month: number
     // Report name
-    ReportName: string;
+    ReportName: string
     // Reporting year (UTC)
-    Year: number;
+    Year: number
   }
 
   export interface GetDataReportResult extends PlayFabModule.IPlayFabResultCommon {
     // The URL where the requested report can be downloaded. This can be any PlayFab generated reports. The full list of
     // reports can be found at: https://docs.microsoft.com/en-us/gaming/playfab/features/analytics/reports/quickstart.
-    DownloadUrl?: string;
+    DownloadUrl?: string
   }
 
   export interface GetMatchmakerGameInfoRequest extends PlayFabModule.IPlayFabRequestCommon {
     // unique identifier of the lobby for which info is being requested
-    LobbyId: string;
+    LobbyId: string
   }
 
   export interface GetMatchmakerGameInfoResult extends PlayFabModule.IPlayFabResultCommon {
     // version identifier of the game server executable binary being run
-    BuildVersion?: string;
+    BuildVersion?: string
     // time when Game Server Instance is currently scheduled to end
-    EndTime?: string;
+    EndTime?: string
     // unique identifier of the lobby
-    LobbyId?: string;
+    LobbyId?: string
     // game mode for this Game Server Instance
-    Mode?: string;
+    Mode?: string
     // array of unique PlayFab identifiers for users currently connected to this Game Server Instance
-    Players?: string[];
+    Players?: string[]
     // region in which the Game Server Instance is running
-    Region?: string;
+    Region?: string
     // IPV4 address of the server
-    ServerIPV4Address?: string;
+    ServerIPV4Address?: string
     // IPV6 address of the server
-    ServerIPV6Address?: string;
+    ServerIPV6Address?: string
     // communication port for this Game Server Instance
-    ServerPort: number;
+    ServerPort: number
     // Public DNS name (if any) of the server
-    ServerPublicDNSName?: string;
+    ServerPublicDNSName?: string
     // time when the Game Server Instance was created
-    StartTime: string;
+    StartTime: string
     // unique identifier of the Game Server Instance for this lobby
-    TitleId?: string;
+    TitleId?: string
   }
 
   export interface GetMatchmakerGameModesRequest extends PlayFabModule.IPlayFabRequestCommon {
     // previously uploaded build version for which game modes are being requested
-    BuildVersion: string;
+    BuildVersion: string
   }
 
   export interface GetMatchmakerGameModesResult extends PlayFabModule.IPlayFabResultCommon {
     // array of game modes available for the specified build
-    GameModes?: GameModeInfo[];
+    GameModes?: GameModeInfo[]
   }
 
   export interface GetPlayedTitleListRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
   }
 
   export interface GetPlayedTitleListResult extends PlayFabModule.IPlayFabResultCommon {
     // List of titles the player has played
-    TitleIds?: string[];
+    TitleIds?: string[]
   }
 
   export interface GetPlayerIdFromAuthTokenRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The auth token of the player requesting the password reset.
-    Token: string;
+    Token: string
     // The type of auth token of the player requesting the password reset.
-    TokenType: string;
+    TokenType: string
   }
 
   export interface GetPlayerIdFromAuthTokenResult extends PlayFabModule.IPlayFabResultCommon {
     // The player ID from the token passed in
-    PlayFabId?: string;
+    PlayFabId?: string
   }
 
   export interface GetPlayerProfileRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
     // If non-null, this determines which properties of the resulting player profiles to return. For API calls from the client,
     // only the allowed client profile properties for the title may be requested. These allowed properties are configured in
     // the Game Manager "Client Profile Options" tab in the "Settings" section.
-    ProfileConstraints?: PlayerProfileViewConstraints;
+    ProfileConstraints?: PlayerProfileViewConstraints
   }
 
   export interface GetPlayerProfileResult extends PlayFabModule.IPlayFabResultCommon {
     // The profile of the player. This profile is not guaranteed to be up-to-date. For a new player, this profile will not
     // exist.
-    PlayerProfile?: PlayerProfileModel;
+    PlayerProfile?: PlayerProfileModel
   }
 
   export interface GetPlayerSegmentsResult extends PlayFabModule.IPlayFabResultCommon {
     // Array of segments the requested player currently belongs to.
-    Segments?: GetSegmentResult[];
+    Segments?: GetSegmentResult[]
   }
 
   export interface GetPlayerSharedSecretsRequest extends PlayFabModule.IPlayFabRequestCommon {}
 
   export interface GetPlayerSharedSecretsResult extends PlayFabModule.IPlayFabResultCommon {
     // The player shared secret to use when calling Client/GetTitlePublicKey
-    SharedSecrets?: SharedSecret[];
+    SharedSecrets?: SharedSecret[]
   }
 
   export interface GetPlayersInSegmentExportRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Unique identifier of the export for the requested Segment.
-    ExportId: string;
+    ExportId: string
   }
 
   export interface GetPlayersInSegmentExportResponse extends PlayFabModule.IPlayFabResultCommon {
     // Url from which the index file can be downloaded.
-    IndexUrl?: string;
+    IndexUrl?: string
     // Shows the current status of the export
-    State?: string;
+    State?: string
   }
 
   export interface GetPlayersInSegmentRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Continuation token if retrieving subsequent pages of results.
-    ContinuationToken?: string;
+    ContinuationToken?: string
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // If set to true, the profiles are loaded asynchronously and the response will include a continuation token and
     // approximate profile count until the first batch of profiles is loaded. Use this parameter to help avoid network
     // timeouts.
-    GetProfilesAsync?: boolean;
+    GetProfilesAsync?: boolean
     // Maximum is 10,000. The value 0 will prevent loading any profiles and return only the count of profiles matching this
     // segment.
-    MaxBatchSize?: number;
+    MaxBatchSize?: number
     // Number of seconds to keep the continuation token active. After token expiration it is not possible to continue paging
     // results. Default is 300 (5 minutes). Maximum is 5,400 (90 minutes).
-    SecondsToLive?: number;
+    SecondsToLive?: number
     // Unique identifier for this segment.
-    SegmentId: string;
+    SegmentId: string
   }
 
   export interface GetPlayersInSegmentResult extends PlayFabModule.IPlayFabResultCommon {
     // Continuation token to use to retrieve subsequent pages of results. If token returns null there are no more results.
-    ContinuationToken?: string;
+    ContinuationToken?: string
     // Array of player profiles in this segment.
-    PlayerProfiles?: PlayerProfile[];
+    PlayerProfiles?: PlayerProfile[]
     // Count of profiles matching this segment.
-    ProfilesInSegment: number;
+    ProfilesInSegment: number
   }
 
   export interface GetPlayersSegmentsRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
   }
 
-  export interface GetPlayerStatisticDefinitionsRequest extends PlayFabModule.IPlayFabRequestCommon {}
+  export interface GetPlayerStatisticDefinitionsRequest
+    extends PlayFabModule.IPlayFabRequestCommon {}
 
   export interface GetPlayerStatisticDefinitionsResult extends PlayFabModule.IPlayFabResultCommon {
     // the player statistic definitions for the title
-    Statistics?: PlayerStatisticDefinition[];
+    Statistics?: PlayerStatisticDefinition[]
   }
 
   export interface GetPlayerStatisticVersionsRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // unique name of the statistic
-    StatisticName?: string;
+    StatisticName?: string
   }
 
   export interface GetPlayerStatisticVersionsResult extends PlayFabModule.IPlayFabResultCommon {
     // version change history of the statistic
-    StatisticVersions?: PlayerStatisticVersion[];
+    StatisticVersions?: PlayerStatisticVersion[]
   }
 
   export interface GetPlayerTagsRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // Optional namespace to filter results by
-    Namespace?: string;
+    Namespace?: string
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
   }
 
   export interface GetPlayerTagsResult extends PlayFabModule.IPlayFabResultCommon {
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
     // Canonical tags (including namespace and tag's name) for the requested user
-    Tags: string[];
+    Tags: string[]
   }
 
   export interface GetPolicyRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The name of the policy to read. Only supported name is 'ApiPolicy'.
-    PolicyName?: string;
+    PolicyName?: string
   }
 
   export interface GetPolicyResponse extends PlayFabModule.IPlayFabResultCommon {
     // The name of the policy read.
-    PolicyName?: string;
+    PolicyName?: string
     // Policy version.
-    PolicyVersion: number;
+    PolicyVersion: number
     // The statements in the requested policy.
-    Statements?: PermissionStatement[];
+    Statements?: PermissionStatement[]
   }
 
   export interface GetPublisherDataRequest extends PlayFabModule.IPlayFabRequestCommon {
     // array of keys to get back data from the Publisher data blob, set by the admin tools
-    Keys: string[];
+    Keys: string[]
   }
 
   export interface GetPublisherDataResult extends PlayFabModule.IPlayFabResultCommon {
     // a dictionary object of key / value pairs
-    Data?: { [key: string]: string | null };
+    Data?: { [key: string]: string | null }
   }
 
   export interface GetRandomResultTablesRequest extends PlayFabModule.IPlayFabRequestCommon {
     // catalog version to fetch tables from. Use default catalog version if null
-    CatalogVersion?: string;
+    CatalogVersion?: string
   }
 
   export interface GetRandomResultTablesResult extends PlayFabModule.IPlayFabResultCommon {
     // array of random result tables currently available
-    Tables?: { [key: string]: RandomResultTableListing };
+    Tables?: { [key: string]: RandomResultTableListing }
   }
 
   export interface GetSegmentResult {
     // Identifier of the segments AB Test, if it is attached to one.
-    ABTestParent?: string;
+    ABTestParent?: string
     // Unique identifier for this segment.
-    Id: string;
+    Id: string
     // Segment name.
-    Name?: string;
+    Name?: string
   }
 
   export interface GetSegmentsRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Segment ids to filter title segments.
-    SegmentIds: string[];
+    SegmentIds: string[]
   }
 
   export interface GetSegmentsResponse extends PlayFabModule.IPlayFabResultCommon {
     // Error message.
-    ErrorMessage?: string;
+    ErrorMessage?: string
     // List of title segments.
-    Segments?: SegmentModel[];
+    Segments?: SegmentModel[]
   }
 
   export interface GetStoreItemsRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Catalog version to store items from. Use default catalog version if null
-    CatalogVersion?: string;
+    CatalogVersion?: string
     // Unqiue identifier for the store which is being requested.
-    StoreId: string;
+    StoreId: string
   }
 
   export interface GetStoreItemsResult extends PlayFabModule.IPlayFabResultCommon {
     // The base catalog that this store is a part of.
-    CatalogVersion?: string;
+    CatalogVersion?: string
     // Additional data about the store.
-    MarketingData?: StoreMarketingModel;
+    MarketingData?: StoreMarketingModel
     // How the store was last updated (Admin or a third party).
-    Source?: string;
+    Source?: string
     // Array of items which can be purchased from this store.
-    Store?: StoreItem[];
+    Store?: StoreItem[]
     // The ID of this store.
-    StoreId?: string;
+    StoreId?: string
   }
 
   export interface GetTaskInstanceRequest extends PlayFabModule.IPlayFabRequestCommon {
     // ID of the requested task instance.
-    TaskInstanceId: string;
+    TaskInstanceId: string
   }
 
   export interface GetTaskInstancesRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Optional range-from filter for task instances' StartedAt timestamp.
-    StartedAtRangeFrom?: string;
+    StartedAtRangeFrom?: string
     // Optional range-to filter for task instances' StartedAt timestamp.
-    StartedAtRangeTo?: string;
+    StartedAtRangeTo?: string
     // Optional filter for task instances that are of a specific status.
-    StatusFilter?: string;
+    StatusFilter?: string
     // Name or ID of the task whose instances are being queried. If not specified, return all task instances that satisfy
     // conditions set by other filters.
-    TaskIdentifier?: NameIdentifier;
+    TaskIdentifier?: NameIdentifier
   }
 
   export interface GetTaskInstancesResult extends PlayFabModule.IPlayFabResultCommon {
     // Basic status summaries of the queried task instances. Empty If no task instances meets the filter criteria. To get
     // detailed status summary, use Get*TaskInstance API according to task type (e.g.
     // GetActionsOnPlayersInSegmentTaskInstance).
-    Summaries?: TaskInstanceBasicSummary[];
+    Summaries?: TaskInstanceBasicSummary[]
   }
 
   export interface GetTasksRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Provide either the task ID or the task name to get a specific task. If not specified, return all defined tasks.
-    Identifier?: NameIdentifier;
+    Identifier?: NameIdentifier
   }
 
   export interface GetTasksResult extends PlayFabModule.IPlayFabResultCommon {
     // Result tasks. Empty if there is no task found.
-    Tasks?: ScheduledTask[];
+    Tasks?: ScheduledTask[]
   }
 
   export interface GetTitleDataRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Specific keys to search for in the title data (leave null to get all keys)
-    Keys?: string[];
+    Keys?: string[]
     // Optional field that specifies the name of an override. This value is ignored when used by the game client; otherwise,
     // the overrides are applied automatically to the title data.
-    OverrideLabel?: string;
+    OverrideLabel?: string
   }
 
   export interface GetTitleDataResult extends PlayFabModule.IPlayFabResultCommon {
     // a dictionary object of key / value pairs
-    Data?: { [key: string]: string | null };
+    Data?: { [key: string]: string | null }
   }
 
   export interface GetUserBansRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
   }
 
   export interface GetUserBansResult extends PlayFabModule.IPlayFabResultCommon {
     // Information about the bans
-    BanData?: BanInfo[];
+    BanData?: BanInfo[]
   }
 
   export interface GetUserDataRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The version that currently exists according to the caller. The call will return the data for all of the keys if the
     // version in the system is greater than this.
-    IfChangedFromDataVersion?: number;
+    IfChangedFromDataVersion?: number
     // Specific keys to search for in the custom user data.
-    Keys?: string[];
+    Keys?: string[]
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
   }
 
   export interface GetUserDataResult extends PlayFabModule.IPlayFabResultCommon {
     // User specific data for this title.
-    Data?: { [key: string]: UserDataRecord };
+    Data?: { [key: string]: UserDataRecord }
     // Indicates the current version of the data that has been set. This is incremented with every set call for that type of
     // data (read-only, internal, etc). This version can be provided in Get calls to find updated data.
-    DataVersion: number;
+    DataVersion: number
     // PlayFab unique identifier of the user whose custom data is being returned.
-    PlayFabId?: string;
+    PlayFabId?: string
   }
 
   export interface GetUserInventoryRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
   }
 
   export interface GetUserInventoryResult extends PlayFabModule.IPlayFabResultCommon {
     // Array of inventory items belonging to the user.
-    Inventory?: ItemInstance[];
+    Inventory?: ItemInstance[]
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId?: string;
+    PlayFabId?: string
     // Array of virtual currency balance(s) belonging to the user.
-    VirtualCurrency?: { [key: string]: number };
+    VirtualCurrency?: { [key: string]: number }
     // Array of remaining times and timestamps for virtual currencies.
-    VirtualCurrencyRechargeTimes?: { [key: string]: VirtualCurrencyRechargeTime };
+    VirtualCurrencyRechargeTimes?: { [key: string]: VirtualCurrencyRechargeTime }
   }
 
   export interface GrantedItemInstance {
     // Game specific comment associated with this instance when it was added to the user inventory.
-    Annotation?: string;
+    Annotation?: string
     // Array of unique items that were awarded when this catalog item was purchased.
-    BundleContents?: string[];
+    BundleContents?: string[]
     // Unique identifier for the parent inventory item, as defined in the catalog, for object which were added from a bundle or
     // container.
-    BundleParent?: string;
+    BundleParent?: string
     // Catalog version for the inventory item, when this instance was created.
-    CatalogVersion?: string;
+    CatalogVersion?: string
     // Unique PlayFab assigned ID for a specific character owned by a user
-    CharacterId?: string;
+    CharacterId?: string
     // A set of custom key-value pairs on the instance of the inventory item, which is not to be confused with the catalog
     // item's custom data.
-    CustomData?: { [key: string]: string | null };
+    CustomData?: { [key: string]: string | null }
     // CatalogItem.DisplayName at the time this item was purchased.
-    DisplayName?: string;
+    DisplayName?: string
     // Timestamp for when this instance will expire.
-    Expiration?: string;
+    Expiration?: string
     // Class name for the inventory item, as defined in the catalog.
-    ItemClass?: string;
+    ItemClass?: string
     // Unique identifier for the inventory item, as defined in the catalog.
-    ItemId?: string;
+    ItemId?: string
     // Unique item identifier for this specific instance of the item.
-    ItemInstanceId?: string;
+    ItemInstanceId?: string
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId?: string;
+    PlayFabId?: string
     // Timestamp for when this instance was purchased.
-    PurchaseDate?: string;
+    PurchaseDate?: string
     // Total number of remaining uses, if this is a consumable item.
-    RemainingUses?: number;
+    RemainingUses?: number
     // Result of this operation.
-    Result: boolean;
+    Result: boolean
     // Currency type for the cost of the catalog item. Not available when granting items.
-    UnitCurrency?: string;
+    UnitCurrency?: string
     // Cost of the catalog item in the given currency. Not available when granting items.
-    UnitPrice: number;
+    UnitPrice: number
     // The number of uses that were added or removed to this item in this call.
-    UsesIncrementedBy?: number;
+    UsesIncrementedBy?: number
   }
 
   export interface GrantItemSegmentAction {
     // Item catalog id.
-    CatelogId?: string;
+    CatelogId?: string
     // Item id.
-    ItemId?: string;
+    ItemId?: string
     // Item quantity.
-    Quantity: number;
+    Quantity: number
   }
 
   export interface GrantItemsToUsersRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Catalog version from which items are to be granted.
-    CatalogVersion?: string;
+    CatalogVersion?: string
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // Array of items to grant and the users to whom the items are to be granted.
-    ItemGrants: ItemGrant[];
+    ItemGrants: ItemGrant[]
   }
 
   export interface GrantItemsToUsersResult extends PlayFabModule.IPlayFabResultCommon {
     // Array of items granted to users.
-    ItemGrantResults?: GrantedItemInstance[];
+    ItemGrantResults?: GrantedItemInstance[]
   }
 
   export interface GrantVirtualCurrencySegmentAction {
     // Virtual currency amount.
-    Amount: number;
+    Amount: number
     // Virtual currency code.
-    CurrencyCode?: string;
+    CurrencyCode?: string
   }
 
-  export interface IncrementLimitedEditionItemAvailabilityRequest extends PlayFabModule.IPlayFabRequestCommon {
+  export interface IncrementLimitedEditionItemAvailabilityRequest
+    extends PlayFabModule.IPlayFabRequestCommon {
     // Amount to increase availability by.
-    Amount: number;
+    Amount: number
     // Which catalog is being updated. If null, uses the default catalog.
-    CatalogVersion?: string;
+    CatalogVersion?: string
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // The item which needs more availability.
-    ItemId: string;
+    ItemId: string
   }
 
-  export interface IncrementLimitedEditionItemAvailabilityResult extends PlayFabModule.IPlayFabResultCommon {}
+  export interface IncrementLimitedEditionItemAvailabilityResult
+    extends PlayFabModule.IPlayFabResultCommon {}
 
   export interface IncrementPlayerStatisticSegmentAction {
     // Increment value.
-    IncrementValue: number;
+    IncrementValue: number
     // Statistic name.
-    StatisticName?: string;
+    StatisticName?: string
   }
 
-  export interface IncrementPlayerStatisticVersionRequest extends PlayFabModule.IPlayFabRequestCommon {
+  export interface IncrementPlayerStatisticVersionRequest
+    extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // unique name of the statistic
-    StatisticName?: string;
+    StatisticName?: string
   }
 
-  export interface IncrementPlayerStatisticVersionResult extends PlayFabModule.IPlayFabResultCommon {
+  export interface IncrementPlayerStatisticVersionResult
+    extends PlayFabModule.IPlayFabResultCommon {
     // version change history of the statistic
-    StatisticVersion?: PlayerStatisticVersion;
+    StatisticVersion?: PlayerStatisticVersion
   }
 
   export interface InsightsScalingTaskParameter {
     // Insights Performance Level to scale to.
-    Level: number;
+    Level: number
   }
 
   export interface ItemGrant {
     // String detailing any additional information concerning this operation.
-    Annotation?: string;
+    Annotation?: string
     // Unique PlayFab assigned ID for a specific character owned by a user
-    CharacterId?: string;
+    CharacterId?: string
     // Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may
     // not begin with a '!' character or be null.
-    Data?: { [key: string]: string | null };
+    Data?: { [key: string]: string | null }
     // Unique identifier of the catalog item to be granted to the user.
-    ItemId: string;
+    ItemId: string
     // Optional list of Data-keys to remove from UserData. Some SDKs cannot insert null-values into Data due to language
     // constraints. Use this to delete the keys directly.
-    KeysToRemove?: string[];
+    KeysToRemove?: string[]
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
   }
 
   export interface ItemInstance {
     // Game specific comment associated with this instance when it was added to the user inventory.
-    Annotation?: string;
+    Annotation?: string
     // Array of unique items that were awarded when this catalog item was purchased.
-    BundleContents?: string[];
+    BundleContents?: string[]
     // Unique identifier for the parent inventory item, as defined in the catalog, for object which were added from a bundle or
     // container.
-    BundleParent?: string;
+    BundleParent?: string
     // Catalog version for the inventory item, when this instance was created.
-    CatalogVersion?: string;
+    CatalogVersion?: string
     // A set of custom key-value pairs on the instance of the inventory item, which is not to be confused with the catalog
     // item's custom data.
-    CustomData?: { [key: string]: string | null };
+    CustomData?: { [key: string]: string | null }
     // CatalogItem.DisplayName at the time this item was purchased.
-    DisplayName?: string;
+    DisplayName?: string
     // Timestamp for when this instance will expire.
-    Expiration?: string;
+    Expiration?: string
     // Class name for the inventory item, as defined in the catalog.
-    ItemClass?: string;
+    ItemClass?: string
     // Unique identifier for the inventory item, as defined in the catalog.
-    ItemId?: string;
+    ItemId?: string
     // Unique item identifier for this specific instance of the item.
-    ItemInstanceId?: string;
+    ItemInstanceId?: string
     // Timestamp for when this instance was purchased.
-    PurchaseDate?: string;
+    PurchaseDate?: string
     // Total number of remaining uses, if this is a consumable item.
-    RemainingUses?: number;
+    RemainingUses?: number
     // Currency type for the cost of the catalog item. Not available when granting items.
-    UnitCurrency?: string;
+    UnitCurrency?: string
     // Cost of the catalog item in the given currency. Not available when granting items.
-    UnitPrice: number;
+    UnitPrice: number
     // The number of uses that were added or removed to this item in this call.
-    UsesIncrementedBy?: number;
+    UsesIncrementedBy?: number
   }
 
   export interface LastLoginDateSegmentFilter {
     // Last player login date comparison.
-    Comparison?: string;
+    Comparison?: string
     // Last player login date.
-    LogInDate: string;
+    LogInDate: string
   }
 
   export interface LastLoginTimespanSegmentFilter {
     // Last player login duration comparison.
-    Comparison?: string;
+    Comparison?: string
     // Last player login duration.
-    DurationInMinutes: number;
+    DurationInMinutes: number
   }
 
   export interface LinkedPlatformAccountModel {
     // Linked account email of the user on the platform, if available
-    Email?: string;
+    Email?: string
     // Authentication platform
-    Platform?: string;
+    Platform?: string
     // Unique account identifier of the user on the platform
-    PlatformUserId?: string;
+    PlatformUserId?: string
     // Linked account username of the user on the platform, if available
-    Username?: string;
+    Username?: string
   }
 
   export interface LinkedUserAccountHasEmailSegmentFilter {
     // Login provider comparison.
-    Comparison?: string;
+    Comparison?: string
     // Login provider.
-    LoginProvider?: string;
+    LoginProvider?: string
   }
 
   export interface LinkedUserAccountSegmentFilter {
     // Login provider.
-    LoginProvider?: string;
+    LoginProvider?: string
   }
 
   export interface ListOpenIdConnectionRequest extends PlayFabModule.IPlayFabRequestCommon {}
 
   export interface ListOpenIdConnectionResponse extends PlayFabModule.IPlayFabResultCommon {
     // The list of Open ID Connections
-    Connections?: OpenIdConnection[];
+    Connections?: OpenIdConnection[]
   }
 
   export interface ListVirtualCurrencyTypesRequest extends PlayFabModule.IPlayFabRequestCommon {}
 
   export interface ListVirtualCurrencyTypesResult extends PlayFabModule.IPlayFabResultCommon {
     // List of virtual currency names defined for this title
-    VirtualCurrencies?: VirtualCurrencyData[];
+    VirtualCurrencies?: VirtualCurrencyData[]
   }
 
   export interface LocationModel {
     // City name.
-    City?: string;
+    City?: string
     // The two-character continent code for this location
-    ContinentCode?: string;
+    ContinentCode?: string
     // The two-character ISO 3166-1 country code for the country associated with the location
-    CountryCode?: string;
+    CountryCode?: string
     // Latitude coordinate of the geographic location.
-    Latitude?: number;
+    Latitude?: number
     // Longitude coordinate of the geographic location.
-    Longitude?: number;
+    Longitude?: number
   }
 
   export interface LocationSegmentFilter {
     // Segment country code.
-    CountryCode?: string;
+    CountryCode?: string
   }
 
   type LoginIdentityProvider =
@@ -3254,655 +3267,658 @@ declare namespace PlayFabAdminModels {
     | 'OpenIdConnect'
     | 'Apple'
     | 'NintendoSwitchAccount'
-    | 'GooglePlayGames';
+    | 'GooglePlayGames'
 
   export interface LogStatement {
     // Optional object accompanying the message as contextual information
-    Data?: any;
+    Data?: any
     // 'Debug', 'Info', or 'Error'
-    Level?: string;
-    Message?: string;
+    Level?: string
+    Message?: string
   }
 
   export interface LookupUserAccountInfoRequest extends PlayFabModule.IPlayFabRequestCommon {
     // User email address attached to their account
-    Email?: string;
+    Email?: string
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId?: string;
+    PlayFabId?: string
     // Title specific username to match against existing user accounts
-    TitleDisplayName?: string;
+    TitleDisplayName?: string
     // PlayFab username for the account (3-20 characters)
-    Username?: string;
+    Username?: string
   }
 
   export interface LookupUserAccountInfoResult extends PlayFabModule.IPlayFabResultCommon {
     // User info for the user matching the request
-    UserInfo?: UserAccountInfo;
+    UserInfo?: UserAccountInfo
   }
 
   export interface MembershipModel {
     // Whether this membership is active. That is, whether the MembershipExpiration time has been reached.
-    IsActive: boolean;
+    IsActive: boolean
     // The time this membership expires
-    MembershipExpiration: string;
+    MembershipExpiration: string
     // The id of the membership
-    MembershipId?: string;
+    MembershipId?: string
     // Membership expirations can be explicitly overridden (via game manager or the admin api). If this membership has been
     // overridden, this will be the new expiration time.
-    OverrideExpiration?: string;
+    OverrideExpiration?: string
     // The list of subscriptions that this player has for this membership
-    Subscriptions?: SubscriptionModel[];
+    Subscriptions?: SubscriptionModel[]
   }
 
   export interface ModifyServerBuildRequest extends PlayFabModule.IPlayFabRequestCommon {
     // array of regions where this build can used, when it is active
-    ActiveRegions?: string[];
+    ActiveRegions?: string[]
     // unique identifier of the previously uploaded build executable to be updated
-    BuildId: string;
+    BuildId: string
     // appended to the end of the command line when starting game servers
-    CommandLineTemplate?: string;
+    CommandLineTemplate?: string
     // developer comment(s) for this build
-    Comment?: string;
+    Comment?: string
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // path to the game server executable. Defaults to gameserver.exe
-    ExecutablePath?: string;
+    ExecutablePath?: string
     // maximum number of game server instances that can run on a single host machine
-    MaxGamesPerHost: number;
+    MaxGamesPerHost: number
     // minimum capacity of additional game server instances that can be started before the autoscaling service starts new host
     // machines (given the number of current running host machines and game server instances)
-    MinFreeGameSlots: number;
+    MinFreeGameSlots: number
     // new timestamp
-    Timestamp?: string;
+    Timestamp?: string
   }
 
   export interface ModifyServerBuildResult extends PlayFabModule.IPlayFabResultCommon {
     // array of regions where this build can used, when it is active
-    ActiveRegions?: string[];
+    ActiveRegions?: string[]
     // unique identifier for this build executable
-    BuildId?: string;
+    BuildId?: string
     // appended to the end of the command line when starting game servers
-    CommandLineTemplate?: string;
+    CommandLineTemplate?: string
     // developer comment(s) for this build
-    Comment?: string;
+    Comment?: string
     // path to the game server executable. Defaults to gameserver.exe
-    ExecutablePath?: string;
+    ExecutablePath?: string
     // maximum number of game server instances that can run on a single host machine
-    MaxGamesPerHost: number;
+    MaxGamesPerHost: number
     // minimum capacity of additional game server instances that can be started before the autoscaling service starts new host
     // machines (given the number of current running host machines and game server instances)
-    MinFreeGameSlots: number;
+    MinFreeGameSlots: number
     // the current status of the build validation and processing steps
-    Status?: string;
+    Status?: string
     // time this build was last modified (or uploaded, if this build has never been modified)
-    Timestamp: string;
+    Timestamp: string
     // Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a
     // title has been selected.
-    TitleId?: string;
+    TitleId?: string
   }
 
   export interface ModifyUserVirtualCurrencyResult extends PlayFabModule.IPlayFabResultCommon {
     // Balance of the virtual currency after modification.
-    Balance: number;
+    Balance: number
     // Amount added or subtracted from the user's virtual currency. Maximum VC balance is Int32 (2,147,483,647). Any increase
     // over this value will be discarded.
-    BalanceChange: number;
+    BalanceChange: number
     // User currency was subtracted from.
-    PlayFabId?: string;
+    PlayFabId?: string
     // Name of the virtual currency which was modified.
-    VirtualCurrency?: string;
+    VirtualCurrency?: string
   }
 
   export interface NameIdentifier {
     // Id Identifier, if present
-    Id?: string;
+    Id?: string
     // Name Identifier, if present
-    Name?: string;
+    Name?: string
   }
 
   export interface OpenIdConnection {
     // The client ID given by the ID provider.
-    ClientId?: string;
+    ClientId?: string
     // The client secret given by the ID provider.
-    ClientSecret?: string;
+    ClientSecret?: string
     // A name for the connection to identify it within the title.
-    ConnectionId?: string;
+    ConnectionId?: string
     // Shows if data about the connection will be loaded from the issuer's discovery document
-    DiscoverConfiguration: boolean;
+    DiscoverConfiguration: boolean
     // Information for an OpenID Connect provider.
-    IssuerInformation?: OpenIdIssuerInformation;
+    IssuerInformation?: OpenIdIssuerInformation
   }
 
   export interface OpenIdIssuerInformation {
     // Authorization endpoint URL to direct users to for signin.
-    AuthorizationUrl: string;
+    AuthorizationUrl: string
     // The URL of the issuer of the tokens. This must match the exact URL of the issuer field in tokens.
-    Issuer: string;
+    Issuer: string
     // JSON Web Key Set for validating the signature of tokens.
-    JsonWebKeySet: any;
+    JsonWebKeySet: any
     // Token endpoint URL for code verification.
-    TokenUrl: string;
+    TokenUrl: string
   }
 
   export interface PermissionStatement {
     // The action this statement effects. The only supported action is 'Execute'.
-    Action: string;
+    Action: string
     // Additional conditions to be applied for API Resources.
-    ApiConditions?: ApiCondition;
+    ApiConditions?: ApiCondition
     // A comment about the statement. Intended solely for bookkeeping and debugging.
-    Comment?: string;
+    Comment?: string
     // The effect this statement will have. It could be either Allow or Deny
-    Effect: string;
+    Effect: string
     // The principal this statement will effect. The only supported principal is '*'.
-    Principal: string;
+    Principal: string
     // The resource this statements effects. The only supported resources look like 'pfrn:api--*' for all apis, or
     // 'pfrn:api--/Client/ConfirmPurchase' for specific apis.
-    Resource: string;
+    Resource: string
   }
 
   export interface PlayerChurnPredictionSegmentFilter {
     // Comparison
-    Comparison?: string;
+    Comparison?: string
     // RiskLevel
-    RiskLevel?: string;
+    RiskLevel?: string
   }
 
   export interface PlayerChurnPredictionTimeSegmentFilter {
     // Comparison
-    Comparison?: string;
+    Comparison?: string
     // DurationInDays
-    DurationInDays: number;
+    DurationInDays: number
   }
 
   export interface PlayerChurnPreviousPredictionSegmentFilter {
     // Comparison
-    Comparison?: string;
+    Comparison?: string
     // RiskLevel
-    RiskLevel?: string;
+    RiskLevel?: string
   }
 
   export interface PlayerLinkedAccount {
     // Linked account's email
-    Email?: string;
+    Email?: string
     // Authentication platform
-    Platform?: string;
+    Platform?: string
     // Platform user identifier
-    PlatformUserId?: string;
+    PlatformUserId?: string
     // Linked account's username
-    Username?: string;
+    Username?: string
   }
 
   export interface PlayerLocation {
     // City of the player's geographic location.
-    City?: string;
+    City?: string
     // The two-character continent code for this location
-    ContinentCode: string;
+    ContinentCode: string
     // The two-character ISO 3166-1 country code for the country associated with the location
-    CountryCode: string;
+    CountryCode: string
     // Latitude coordinate of the player's geographic location.
-    Latitude?: number;
+    Latitude?: number
     // Longitude coordinate of the player's geographic location.
-    Longitude?: number;
+    Longitude?: number
   }
 
   export interface PlayerProfile {
     // Array of ad campaigns player has been attributed to
-    AdCampaignAttributions?: AdCampaignAttribution[];
+    AdCampaignAttributions?: AdCampaignAttribution[]
     // Image URL of the player's avatar.
-    AvatarUrl?: string;
+    AvatarUrl?: string
     // Banned until UTC Date. If permanent ban this is set for 20 years after the original ban date.
-    BannedUntil?: string;
+    BannedUntil?: string
     // The prediction of the player to churn within the next seven days.
-    ChurnPrediction?: string;
+    ChurnPrediction?: string
     // Array of contact email addresses associated with the player
-    ContactEmailAddresses?: ContactEmailInfo[];
+    ContactEmailAddresses?: ContactEmailInfo[]
     // Player record created
-    Created?: string;
+    Created?: string
     // Player Display Name
-    DisplayName?: string;
+    DisplayName?: string
     // Last login
-    LastLogin?: string;
+    LastLogin?: string
     // Array of third party accounts linked to this player
-    LinkedAccounts?: PlayerLinkedAccount[];
+    LinkedAccounts?: PlayerLinkedAccount[]
     // Dictionary of player's locations by type.
-    Locations?: { [key: string]: PlayerLocation };
+    Locations?: { [key: string]: PlayerLocation }
     // Player account origination
-    Origination?: string;
+    Origination?: string
     // List of player variants for experimentation
-    PlayerExperimentVariants?: string[];
+    PlayerExperimentVariants?: string[]
     // PlayFab Player ID
-    PlayerId?: string;
+    PlayerId?: string
     // Array of player statistics
-    PlayerStatistics?: PlayerStatistic[];
+    PlayerStatistics?: PlayerStatistic[]
     // Publisher this player belongs to
-    PublisherId?: string;
+    PublisherId?: string
     // Array of configured push notification end points
-    PushNotificationRegistrations?: PushNotificationRegistration[];
+    PushNotificationRegistrations?: PushNotificationRegistration[]
     // Dictionary of player's statistics using only the latest version's value
-    Statistics?: { [key: string]: number };
+    Statistics?: { [key: string]: number }
     // List of player's tags for segmentation.
-    Tags?: string[];
+    Tags?: string[]
     // Title ID this profile applies to
-    TitleId?: string;
+    TitleId?: string
     // A sum of player's total purchases in USD across all currencies.
-    TotalValueToDateInUSD?: number;
+    TotalValueToDateInUSD?: number
     // Dictionary of player's total purchases by currency.
-    ValuesToDate?: { [key: string]: number };
+    ValuesToDate?: { [key: string]: number }
     // Dictionary of player's virtual currency balances
-    VirtualCurrencyBalances?: { [key: string]: number };
+    VirtualCurrencyBalances?: { [key: string]: number }
   }
 
   export interface PlayerProfileModel {
     // List of advertising campaigns the player has been attributed to
-    AdCampaignAttributions?: AdCampaignAttributionModel[];
+    AdCampaignAttributions?: AdCampaignAttributionModel[]
     // URL of the player's avatar image
-    AvatarUrl?: string;
+    AvatarUrl?: string
     // If the player is currently banned, the UTC Date when the ban expires
-    BannedUntil?: string;
+    BannedUntil?: string
     // List of all contact email info associated with the player account
-    ContactEmailAddresses?: ContactEmailInfoModel[];
+    ContactEmailAddresses?: ContactEmailInfoModel[]
     // Player record created
-    Created?: string;
+    Created?: string
     // Player display name
-    DisplayName?: string;
+    DisplayName?: string
     // List of experiment variants for the player. Note that these variants are not guaranteed to be up-to-date when returned
     // during login because the player profile is updated only after login. Instead, use the LoginResult.TreatmentAssignment
     // property during login to get the correct variants and variables.
-    ExperimentVariants?: string[];
+    ExperimentVariants?: string[]
     // UTC time when the player most recently logged in to the title
-    LastLogin?: string;
+    LastLogin?: string
     // List of all authentication systems linked to this player account
-    LinkedAccounts?: LinkedPlatformAccountModel[];
+    LinkedAccounts?: LinkedPlatformAccountModel[]
     // List of geographic locations from which the player has logged in to the title
-    Locations?: LocationModel[];
+    Locations?: LocationModel[]
     // List of memberships for the player, along with whether are expired.
-    Memberships?: MembershipModel[];
+    Memberships?: MembershipModel[]
     // Player account origination
-    Origination?: string;
+    Origination?: string
     // PlayFab player account unique identifier
-    PlayerId?: string;
+    PlayerId?: string
     // Publisher this player belongs to
-    PublisherId?: string;
+    PublisherId?: string
     // List of configured end points registered for sending the player push notifications
-    PushNotificationRegistrations?: PushNotificationRegistrationModel[];
+    PushNotificationRegistrations?: PushNotificationRegistrationModel[]
     // List of leaderboard statistic values for the player
-    Statistics?: StatisticModel[];
+    Statistics?: StatisticModel[]
     // List of player's tags for segmentation
-    Tags?: TagModel[];
+    Tags?: TagModel[]
     // Title ID this player profile applies to
-    TitleId?: string;
+    TitleId?: string
     // Sum of the player's purchases made with real-money currencies, converted to US dollars equivalent and represented as a
     // whole number of cents (1/100 USD). For example, 999 indicates nine dollars and ninety-nine cents.
-    TotalValueToDateInUSD?: number;
+    TotalValueToDateInUSD?: number
     // List of the player's lifetime purchase totals, summed by real-money currency
-    ValuesToDate?: ValueToDateModel[];
+    ValuesToDate?: ValueToDateModel[]
   }
 
   export interface PlayerProfileViewConstraints {
     // Whether to show player's avatar URL. Defaults to false
-    ShowAvatarUrl: boolean;
+    ShowAvatarUrl: boolean
     // Whether to show the banned until time. Defaults to false
-    ShowBannedUntil: boolean;
+    ShowBannedUntil: boolean
     // Whether to show campaign attributions. Defaults to false
-    ShowCampaignAttributions: boolean;
+    ShowCampaignAttributions: boolean
     // Whether to show contact email addresses. Defaults to false
-    ShowContactEmailAddresses: boolean;
+    ShowContactEmailAddresses: boolean
     // Whether to show the created date. Defaults to false
-    ShowCreated: boolean;
+    ShowCreated: boolean
     // Whether to show the display name. Defaults to false
-    ShowDisplayName: boolean;
+    ShowDisplayName: boolean
     // Whether to show player's experiment variants. Defaults to false
-    ShowExperimentVariants: boolean;
+    ShowExperimentVariants: boolean
     // Whether to show the last login time. Defaults to false
-    ShowLastLogin: boolean;
+    ShowLastLogin: boolean
     // Whether to show the linked accounts. Defaults to false
-    ShowLinkedAccounts: boolean;
+    ShowLinkedAccounts: boolean
     // Whether to show player's locations. Defaults to false
-    ShowLocations: boolean;
+    ShowLocations: boolean
     // Whether to show player's membership information. Defaults to false
-    ShowMemberships: boolean;
+    ShowMemberships: boolean
     // Whether to show origination. Defaults to false
-    ShowOrigination: boolean;
+    ShowOrigination: boolean
     // Whether to show push notification registrations. Defaults to false
-    ShowPushNotificationRegistrations: boolean;
+    ShowPushNotificationRegistrations: boolean
     // Reserved for future development
-    ShowStatistics: boolean;
+    ShowStatistics: boolean
     // Whether to show tags. Defaults to false
-    ShowTags: boolean;
+    ShowTags: boolean
     // Whether to show the total value to date in usd. Defaults to false
-    ShowTotalValueToDateInUsd: boolean;
+    ShowTotalValueToDateInUsd: boolean
     // Whether to show the values to date. Defaults to false
-    ShowValuesToDate: boolean;
+    ShowValuesToDate: boolean
   }
 
   export interface PlayerStatistic {
     // Statistic ID
-    Id?: string;
+    Id?: string
     // Statistic name
-    Name?: string;
+    Name?: string
     // Current statistic value
-    StatisticValue: number;
+    StatisticValue: number
     // Statistic version (0 if not a versioned statistic)
-    StatisticVersion: number;
+    StatisticVersion: number
   }
 
   export interface PlayerStatisticDefinition {
     // the aggregation method to use in updating the statistic (defaults to last)
-    AggregationMethod?: string;
+    AggregationMethod?: string
     // current active version of the statistic, incremented each time the statistic resets
-    CurrentVersion: number;
+    CurrentVersion: number
     // unique name of the statistic
-    StatisticName?: string;
+    StatisticName?: string
     // interval at which the values of the statistic for all players are reset automatically
-    VersionChangeInterval?: string;
+    VersionChangeInterval?: string
   }
 
   export interface PlayerStatisticVersion {
     // time when the statistic version became active
-    ActivationTime: string;
+    ActivationTime: string
     // URL for the downloadable archive of player statistic values, if available
-    ArchiveDownloadUrl?: string;
+    ArchiveDownloadUrl?: string
     // time when the statistic version became inactive due to statistic version incrementing
-    DeactivationTime?: string;
+    DeactivationTime?: string
     // time at which the statistic version was scheduled to become active, based on the configured ResetInterval
-    ScheduledActivationTime?: string;
+    ScheduledActivationTime?: string
     // time at which the statistic version was scheduled to become inactive, based on the configured ResetInterval
-    ScheduledDeactivationTime?: string;
+    ScheduledDeactivationTime?: string
     // name of the statistic when the version became active
-    StatisticName?: string;
+    StatisticName?: string
     // status of the statistic version
-    Status?: string;
+    Status?: string
     // version of the statistic
-    Version: number;
+    Version: number
   }
 
-  type PushNotificationPlatform = 'ApplePushNotificationService' | 'GoogleCloudMessaging';
+  type PushNotificationPlatform = 'ApplePushNotificationService' | 'GoogleCloudMessaging'
 
   export interface PushNotificationRegistration {
     // Notification configured endpoint
-    NotificationEndpointARN?: string;
+    NotificationEndpointARN?: string
     // Push notification platform
-    Platform?: string;
+    Platform?: string
   }
 
   export interface PushNotificationRegistrationModel {
     // Notification configured endpoint
-    NotificationEndpointARN?: string;
+    NotificationEndpointARN?: string
     // Push notification platform
-    Platform?: string;
+    Platform?: string
   }
 
   export interface PushNotificationSegmentAction {
     // Push notification template id.
-    PushNotificationTemplateId?: string;
+    PushNotificationTemplateId?: string
   }
 
   export interface PushNotificationSegmentFilter {
     // Push notification device platform.
-    PushNotificationDevicePlatform?: string;
+    PushNotificationDevicePlatform?: string
   }
 
-  type PushSetupPlatform = 'GCM' | 'APNS' | 'APNS_SANDBOX';
+  type PushSetupPlatform = 'GCM' | 'APNS' | 'APNS_SANDBOX'
 
   export interface RandomResultTable {
     // Child nodes that indicate what kind of drop table item this actually is.
-    Nodes: ResultTableNode[];
+    Nodes: ResultTableNode[]
     // Unique name for this drop table
-    TableId: string;
+    TableId: string
   }
 
   export interface RandomResultTableListing {
     // Catalog version this table is associated with
-    CatalogVersion?: string;
+    CatalogVersion?: string
     // Child nodes that indicate what kind of drop table item this actually is.
-    Nodes: ResultTableNode[];
+    Nodes: ResultTableNode[]
     // Unique name for this drop table
-    TableId: string;
+    TableId: string
   }
 
   export interface RefundPurchaseRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Unique order ID for the purchase in question.
-    OrderId: string;
+    OrderId: string
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
     // The Reason parameter should correspond with the payment providers reason field, if they require one such as Facebook. In
     // the case of Facebook this must match one of their refund or dispute resolution enums (See:
     // https://developers.facebook.com/docs/payments/implementation-guide/handling-disputes-refunds)
-    Reason?: string;
+    Reason?: string
   }
 
   export interface RefundPurchaseResponse extends PlayFabModule.IPlayFabResultCommon {
     // The order's updated purchase status.
-    PurchaseStatus?: string;
+    PurchaseStatus?: string
   }
 
-  type Region = 'USCentral' | 'USEast' | 'EUWest' | 'Singapore' | 'Japan' | 'Brazil' | 'Australia';
+  type Region = 'USCentral' | 'USEast' | 'EUWest' | 'Singapore' | 'Japan' | 'Brazil' | 'Australia'
 
   export interface RemovePlayerTagRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
     // Unique tag for player profile.
-    TagName: string;
+    TagName: string
   }
 
   export interface RemovePlayerTagResult extends PlayFabModule.IPlayFabResultCommon {}
 
   export interface RemoveVirtualCurrencyTypesRequest extends PlayFabModule.IPlayFabRequestCommon {
     // List of virtual currencies to delete
-    VirtualCurrencies: VirtualCurrencyData[];
+    VirtualCurrencies: VirtualCurrencyData[]
   }
 
   export interface ResetCharacterStatisticsRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Unique PlayFab assigned ID for a specific character owned by a user
-    CharacterId: string;
+    CharacterId: string
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
   }
 
   export interface ResetCharacterStatisticsResult extends PlayFabModule.IPlayFabResultCommon {}
 
   export interface ResetPasswordRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // The new password for the player.
-    Password: string;
+    Password: string
     // The token of the player requesting the password reset.
-    Token: string;
+    Token: string
   }
 
   export interface ResetPasswordResult extends PlayFabModule.IPlayFabResultCommon {}
 
   export interface ResetUserStatisticsRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
   }
 
   export interface ResetUserStatisticsResult extends PlayFabModule.IPlayFabResultCommon {}
 
-  type ResolutionOutcome = 'Revoke' | 'Reinstate' | 'Manual';
+  type ResolutionOutcome = 'Revoke' | 'Reinstate' | 'Manual'
 
   export interface ResolvePurchaseDisputeRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Unique order ID for the purchase in question.
-    OrderId: string;
+    OrderId: string
     // Enum for the desired purchase result state after notifying the payment provider. Valid values are Revoke, Reinstate and
     // Manual. Manual will cause no change to the order state.
-    Outcome: string;
+    Outcome: string
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
     // The Reason parameter should correspond with the payment providers reason field, if they require one such as Facebook. In
     // the case of Facebook this must match one of their refund or dispute resolution enums (See:
     // https://developers.facebook.com/docs/payments/implementation-guide/handling-disputes-refunds)
-    Reason?: string;
+    Reason?: string
   }
 
   export interface ResolvePurchaseDisputeResponse extends PlayFabModule.IPlayFabResultCommon {
     // The order's updated purchase status.
-    PurchaseStatus?: string;
+    PurchaseStatus?: string
   }
 
   export interface ResultTableNode {
     // Either an ItemId, or the TableId of another random result table
-    ResultItem: string;
+    ResultItem: string
     // Whether this entry in the table is an item or a link to another table
-    ResultItemType: string;
+    ResultItemType: string
     // How likely this is to be rolled - larger numbers add more weight
-    Weight: number;
+    Weight: number
   }
 
-  type ResultTableNodeType = 'ItemId' | 'TableId';
+  type ResultTableNodeType = 'ItemId' | 'TableId'
 
   export interface RevokeAllBansForUserRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
   }
 
   export interface RevokeAllBansForUserResult extends PlayFabModule.IPlayFabResultCommon {
     // Information on the bans that were revoked.
-    BanData?: BanInfo[];
+    BanData?: BanInfo[]
   }
 
   export interface RevokeBansRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Ids of the bans to be revoked. Maximum 100.
-    BanIds: string[];
+    BanIds: string[]
   }
 
   export interface RevokeBansResult extends PlayFabModule.IPlayFabResultCommon {
     // Information on the bans that were revoked
-    BanData?: BanInfo[];
+    BanData?: BanInfo[]
   }
 
   export interface RevokeInventoryItem {
     // Unique PlayFab assigned ID for a specific character owned by a user
-    CharacterId?: string;
+    CharacterId?: string
     // Unique PlayFab assigned instance identifier of the item
-    ItemInstanceId: string;
+    ItemInstanceId: string
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
   }
 
   export interface RevokeInventoryItemRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Unique PlayFab assigned ID for a specific character owned by a user
-    CharacterId?: string;
+    CharacterId?: string
     // Unique PlayFab assigned instance identifier of the item
-    ItemInstanceId: string;
+    ItemInstanceId: string
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
   }
 
   export interface RevokeInventoryItemsRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Array of player items to revoke, between 1 and 25 items.
-    Items: RevokeInventoryItem[];
+    Items: RevokeInventoryItem[]
   }
 
   export interface RevokeInventoryItemsResult extends PlayFabModule.IPlayFabResultCommon {
     // Collection of any errors that occurred during processing.
-    Errors?: RevokeItemError[];
+    Errors?: RevokeItemError[]
   }
 
   export interface RevokeInventoryResult extends PlayFabModule.IPlayFabResultCommon {}
 
   export interface RevokeItemError {
     // Specific error that was encountered.
-    Error?: string;
+    Error?: string
     // Item information that failed to be revoked.
-    Item?: RevokeInventoryItem;
+    Item?: RevokeInventoryItem
   }
 
   export interface RunTaskRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // Provide either the task ID or the task name to run a task.
-    Identifier?: NameIdentifier;
+    Identifier?: NameIdentifier
   }
 
   export interface RunTaskResult extends PlayFabModule.IPlayFabResultCommon {
     // ID of the task instance that is started. This can be used in Get*TaskInstance (e.g. GetCloudScriptTaskInstance) API call
     // to retrieve status for the task instance.
-    TaskInstanceId?: string;
+    TaskInstanceId?: string
   }
 
   export interface ScheduledTask {
     // Description the task
-    Description?: string;
+    Description?: string
     // Whether the schedule is active. Inactive schedule will not trigger task execution.
-    IsActive: boolean;
+    IsActive: boolean
     // UTC time of last run
-    LastRunTime?: string;
+    LastRunTime?: string
     // Name of the task. This is a unique identifier for tasks in the title.
-    Name: string;
+    Name: string
     // UTC time of next run
-    NextRunTime?: string;
+    NextRunTime?: string
     // Task parameter. Different types of task have different parameter structure. See each task type's create API
     // documentation for the details.
-    Parameter?: any;
+    Parameter?: any
     // Cron expression for the run schedule of the task. The expression should be in UTC.
-    Schedule?: string;
+    Schedule?: string
     // ID of the task
-    TaskId?: string;
+    TaskId?: string
     // Task type.
-    Type?: string;
+    Type?: string
   }
 
   type ScheduledTaskType =
-    'CloudScript' | 'ActionsOnPlayerSegment' | 'CloudScriptAzureFunctions' | 'InsightsScheduledScaling';
+    | 'CloudScript'
+    | 'ActionsOnPlayerSegment'
+    | 'CloudScriptAzureFunctions'
+    | 'InsightsScheduledScaling'
 
   export interface ScriptExecutionError {
     // Error code, such as CloudScriptNotFound, JavascriptException, CloudScriptFunctionArgumentSizeExceeded,
     // CloudScriptAPIRequestCountExceeded, CloudScriptAPIRequestError, or CloudScriptHTTPRequestError
-    Error?: string;
+    Error?: string
     // Details about the error
-    Message?: string;
+    Message?: string
     // Point during the execution of the script at which the error occurred, if any
-    StackTrace?: string;
+    StackTrace?: string
   }
 
   export interface SegmentAndDefinition {
     // Filter property for ad campaign filter.
-    AdCampaignFilter?: AdCampaignSegmentFilter;
+    AdCampaignFilter?: AdCampaignSegmentFilter
     // property for all player filter.
-    AllPlayersFilter?: AllPlayersSegmentFilter;
+    AllPlayersFilter?: AllPlayersSegmentFilter
     // Filter property for player churn risk level.
-    ChurnPredictionFilter?: ChurnPredictionSegmentFilter;
+    ChurnPredictionFilter?: ChurnPredictionSegmentFilter
     // Filter property for first login date.
-    FirstLoginDateFilter?: FirstLoginDateSegmentFilter;
+    FirstLoginDateFilter?: FirstLoginDateSegmentFilter
     // Filter property for first login timespan.
-    FirstLoginFilter?: FirstLoginTimespanSegmentFilter;
+    FirstLoginFilter?: FirstLoginTimespanSegmentFilter
     // Filter property for last login date.
-    LastLoginDateFilter?: LastLoginDateSegmentFilter;
+    LastLoginDateFilter?: LastLoginDateSegmentFilter
     // Filter property for last login timespan.
-    LastLoginFilter?: LastLoginTimespanSegmentFilter;
+    LastLoginFilter?: LastLoginTimespanSegmentFilter
     // Filter property for linked in user account.
-    LinkedUserAccountFilter?: LinkedUserAccountSegmentFilter;
+    LinkedUserAccountFilter?: LinkedUserAccountSegmentFilter
     // Filter property for linked in user account has email.
-    LinkedUserAccountHasEmailFilter?: LinkedUserAccountHasEmailSegmentFilter;
+    LinkedUserAccountHasEmailFilter?: LinkedUserAccountHasEmailSegmentFilter
     // Filter property for location.
-    LocationFilter?: LocationSegmentFilter;
+    LocationFilter?: LocationSegmentFilter
     // Filter property for current player churn value.
-    PlayerChurnPredictionFilter?: PlayerChurnPredictionSegmentFilter;
+    PlayerChurnPredictionFilter?: PlayerChurnPredictionSegmentFilter
     // Filter property for player churn timespan.
-    PlayerChurnPredictionTimeFilter?: PlayerChurnPredictionTimeSegmentFilter;
+    PlayerChurnPredictionTimeFilter?: PlayerChurnPredictionTimeSegmentFilter
     // Filter property for previous player churn value.
-    PlayerChurnPreviousPredictionFilter?: PlayerChurnPreviousPredictionSegmentFilter;
+    PlayerChurnPreviousPredictionFilter?: PlayerChurnPreviousPredictionSegmentFilter
     // Filter property for push notification.
-    PushNotificationFilter?: PushNotificationSegmentFilter;
+    PushNotificationFilter?: PushNotificationSegmentFilter
     // Filter property for statistics.
-    StatisticFilter?: StatisticSegmentFilter;
+    StatisticFilter?: StatisticSegmentFilter
     // Filter property for tags.
-    TagFilter?: TagSegmentFilter;
+    TagFilter?: TagSegmentFilter
     // Filter property for total value to date in USD.
-    TotalValueToDateInUSDFilter?: TotalValueToDateInUSDSegmentFilter;
+    TotalValueToDateInUSDFilter?: TotalValueToDateInUSDSegmentFilter
     // Filter property for user origination.
-    UserOriginationFilter?: UserOriginationSegmentFilter;
+    UserOriginationFilter?: UserOriginationSegmentFilter
     // Filter property for value to date.
-    ValueToDateFilter?: ValueToDateSegmentFilter;
+    ValueToDateFilter?: ValueToDateSegmentFilter
     // Filter property for virtual currency.
-    VirtualCurrencyBalanceFilter?: VirtualCurrencyBalanceSegmentFilter;
+    VirtualCurrencyBalanceFilter?: VirtualCurrencyBalanceSegmentFilter
   }
 
   type SegmentCountryCode =
@@ -4154,7 +4170,7 @@ declare namespace PlayFabAdminModels {
     | 'EH'
     | 'YE'
     | 'ZM'
-    | 'ZW';
+    | 'ZW'
 
   type SegmentCurrency =
     | 'AED'
@@ -4318,7 +4334,7 @@ declare namespace PlayFabAdminModels {
     | 'YER'
     | 'ZAR'
     | 'ZMW'
-    | 'ZWD';
+    | 'ZWD'
 
   type SegmentFilterComparison =
     | 'GreaterThan'
@@ -4329,7 +4345,7 @@ declare namespace PlayFabAdminModels {
     | 'LessThanOrEqual'
     | 'Exists'
     | 'Contains'
-    | 'NotContains';
+    | 'NotContains'
 
   type SegmentLoginIdentityProvider =
     | 'Unknown'
@@ -4352,95 +4368,96 @@ declare namespace PlayFabAdminModels {
     | 'FacebookInstantGames'
     | 'OpenIdConnect'
     | 'Apple'
-    | 'NintendoSwitchAccount';
+    | 'NintendoSwitchAccount'
 
   export interface SegmentModel {
     // Segment description.
-    Description?: string;
+    Description?: string
     // Segment actions for current entered segment players.
-    EnteredSegmentActions?: SegmentTrigger[];
+    EnteredSegmentActions?: SegmentTrigger[]
     // Segment last updated date time.
-    LastUpdateTime: string;
+    LastUpdateTime: string
     // Segment actions for current left segment players.
-    LeftSegmentActions?: SegmentTrigger[];
+    LeftSegmentActions?: SegmentTrigger[]
     // Segment name.
-    Name?: string;
+    Name?: string
     // Segment id in hex.
-    SegmentId?: string;
+    SegmentId?: string
     // Segment or definitions. This includes segment and definitions and filters.
-    SegmentOrDefinitions?: SegmentOrDefinition[];
+    SegmentOrDefinitions?: SegmentOrDefinition[]
   }
 
   export interface SegmentOrDefinition {
     // List of segment and definitions.
-    SegmentAndDefinitions?: SegmentAndDefinition[];
+    SegmentAndDefinitions?: SegmentAndDefinition[]
   }
 
-  type SegmentPushNotificationDevicePlatform = 'ApplePushNotificationService' | 'GoogleCloudMessaging';
+  type SegmentPushNotificationDevicePlatform =
+    'ApplePushNotificationService' | 'GoogleCloudMessaging'
 
   export interface SegmentTrigger {
     // Ban player segment trigger action.
-    BanPlayerAction?: BanPlayerSegmentAction;
+    BanPlayerAction?: BanPlayerSegmentAction
     // Delete player segment trigger action.
-    DeletePlayerAction?: DeletePlayerSegmentAction;
+    DeletePlayerAction?: DeletePlayerSegmentAction
     // Delete player statistic segment trigger action.
-    DeletePlayerStatisticAction?: DeletePlayerStatisticSegmentAction;
+    DeletePlayerStatisticAction?: DeletePlayerStatisticSegmentAction
     // Email notification segment trigger action.
-    EmailNotificationAction?: EmailNotificationSegmentAction;
+    EmailNotificationAction?: EmailNotificationSegmentAction
     // Execute azure function segment trigger action.
-    ExecuteAzureFunctionAction?: ExecuteAzureFunctionSegmentAction;
+    ExecuteAzureFunctionAction?: ExecuteAzureFunctionSegmentAction
     // Execute cloud script segment trigger action.
-    ExecuteCloudScriptAction?: ExecuteCloudScriptSegmentAction;
+    ExecuteCloudScriptAction?: ExecuteCloudScriptSegmentAction
     // Grant item segment trigger action.
-    GrantItemAction?: GrantItemSegmentAction;
+    GrantItemAction?: GrantItemSegmentAction
     // Grant virtual currency segment trigger action.
-    GrantVirtualCurrencyAction?: GrantVirtualCurrencySegmentAction;
+    GrantVirtualCurrencyAction?: GrantVirtualCurrencySegmentAction
     // Increment player statistic segment trigger action.
-    IncrementPlayerStatisticAction?: IncrementPlayerStatisticSegmentAction;
+    IncrementPlayerStatisticAction?: IncrementPlayerStatisticSegmentAction
     // Push notification segment trigger action.
-    PushNotificationAction?: PushNotificationSegmentAction;
+    PushNotificationAction?: PushNotificationSegmentAction
   }
 
   export interface SendAccountRecoveryEmailRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // User email address attached to their account
-    Email: string;
+    Email: string
     // The email template id of the account recovery email template to send.
-    EmailTemplateId?: string;
+    EmailTemplateId?: string
   }
 
   export interface SendAccountRecoveryEmailResult extends PlayFabModule.IPlayFabResultCommon {}
 
   export interface SetMembershipOverrideRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // Expiration time for the membership in DateTime format, will override any subscription expirations.
-    ExpirationTime: string;
+    ExpirationTime: string
     // Id of the membership to apply the override expiration date to.
-    MembershipId: string;
+    MembershipId: string
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
   }
 
   export interface SetMembershipOverrideResult extends PlayFabModule.IPlayFabResultCommon {}
 
   export interface SetPlayerSecretRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Player secret that is used to verify API request signatures (Enterprise Only).
-    PlayerSecret?: string;
+    PlayerSecret?: string
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
   }
 
   export interface SetPlayerSecretResult extends PlayFabModule.IPlayFabResultCommon {}
 
   export interface SetPublishedRevisionRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // Revision to make the current published revision
-    Revision: number;
+    Revision: number
     // Version number
-    Version: number;
+    Version: number
   }
 
   export interface SetPublishedRevisionResult extends PlayFabModule.IPlayFabResultCommon {}
@@ -4448,9 +4465,9 @@ declare namespace PlayFabAdminModels {
   export interface SetPublisherDataRequest extends PlayFabModule.IPlayFabRequestCommon {
     // key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same
     // name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
-    Key: string;
+    Key: string
     // new value to set. Set to null to remove a value
-    Value?: string;
+    Value?: string
   }
 
   export interface SetPublisherDataResult extends PlayFabModule.IPlayFabResultCommon {}
@@ -4458,9 +4475,9 @@ declare namespace PlayFabAdminModels {
   export interface SetTitleDataAndOverridesRequest extends PlayFabModule.IPlayFabRequestCommon {
     // List of titleData key-value pairs to set/delete. Use an empty value to delete an existing key; use a non-empty value to
     // create/update a key.
-    KeyValues: TitleDataKeyValue[];
+    KeyValues: TitleDataKeyValue[]
     // Name of the override.
-    OverrideLabel?: string;
+    OverrideLabel?: string
   }
 
   export interface SetTitleDataAndOverridesResult extends PlayFabModule.IPlayFabResultCommon {}
@@ -4468,112 +4485,114 @@ declare namespace PlayFabAdminModels {
   export interface SetTitleDataRequest extends PlayFabModule.IPlayFabRequestCommon {
     // key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same
     // name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
-    Key: string;
+    Key: string
     // new value to set. Set to null to remove a value
-    Value?: string;
+    Value?: string
   }
 
   export interface SetTitleDataResult extends PlayFabModule.IPlayFabResultCommon {}
 
   export interface SetupPushNotificationRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Credential is the Private Key for APNS/APNS_SANDBOX, and the API Key for GCM
-    Credential: string;
+    Credential: string
     // for APNS, this is the PlatformPrincipal (SSL Certificate)
-    Key?: string;
+    Key?: string
     // This field is deprecated and any usage of this will cause the API to fail.
-    Name?: string;
+    Name?: string
     // replace any existing ARN with the newly generated one. If this is set to false, an error will be returned if
     // notifications have already setup for this platform.
-    OverwriteOldARN: boolean;
+    OverwriteOldARN: boolean
     // supported notification platforms are Apple Push Notification Service (APNS and APNS_SANDBOX) for iOS and Google Cloud
     // Messaging (GCM) for Android
-    Platform: string;
+    Platform: string
   }
 
   export interface SetupPushNotificationResult extends PlayFabModule.IPlayFabResultCommon {
     // Amazon Resource Name for the created notification topic.
-    ARN?: string;
+    ARN?: string
   }
 
   export interface SharedSecret {
     // Flag to indicate if this key is disabled
-    Disabled: boolean;
+    Disabled: boolean
     // Friendly name for this key
-    FriendlyName?: string;
+    FriendlyName?: string
     // The player shared secret to use when calling Client/GetTitlePublicKey
-    SecretKey?: string;
+    SecretKey?: string
   }
 
-  type SourceType = 'Admin' | 'BackEnd' | 'GameClient' | 'GameServer' | 'Partner' | 'Custom' | 'API';
+  type SourceType = 'Admin' | 'BackEnd' | 'GameClient' | 'GameServer' | 'Partner' | 'Custom' | 'API'
 
-  type StatisticAggregationMethod = 'Last' | 'Min' | 'Max' | 'Sum';
+  type StatisticAggregationMethod = 'Last' | 'Min' | 'Max' | 'Sum'
 
   export interface StatisticModel {
     // Statistic name
-    Name?: string;
+    Name?: string
     // Statistic value
-    Value: number;
+    Value: number
     // Statistic version (0 if not a versioned statistic)
-    Version: number;
+    Version: number
   }
 
-  type StatisticResetIntervalOption = 'Never' | 'Hour' | 'Day' | 'Week' | 'Month';
+  type StatisticResetIntervalOption = 'Never' | 'Hour' | 'Day' | 'Week' | 'Month'
 
   export interface StatisticSegmentFilter {
     // Statistic filter comparison.
-    Comparison?: string;
+    Comparison?: string
     // Statistic filter value.
-    FilterValue?: string;
+    FilterValue?: string
     // Statistic name.
-    Name?: string;
+    Name?: string
     // Use current version of statistic?
-    UseCurrentVersion?: boolean;
+    UseCurrentVersion?: boolean
     // Statistic version.
-    Version?: number;
+    Version?: number
   }
 
-  type StatisticVersionArchivalStatus = 'NotScheduled' | 'Scheduled' | 'Queued' | 'InProgress' | 'Complete';
+  type StatisticVersionArchivalStatus =
+    'NotScheduled' | 'Scheduled' | 'Queued' | 'InProgress' | 'Complete'
 
-  type StatisticVersionStatus = 'Active' | 'SnapshotPending' | 'Snapshot' | 'ArchivalPending' | 'Archived';
+  type StatisticVersionStatus =
+    'Active' | 'SnapshotPending' | 'Snapshot' | 'ArchivalPending' | 'Archived'
 
   export interface StoreItem {
     // Store specific custom data. The data only exists as part of this store; it is not transferred to item instances
-    CustomData?: any;
+    CustomData?: any
     // Intended display position for this item. Note that 0 is the first position
-    DisplayPosition?: number;
+    DisplayPosition?: number
     // Unique identifier of the item as it exists in the catalog - note that this must exactly match the ItemId from the
     // catalog
-    ItemId: string;
+    ItemId: string
     // Override prices for this item for specific currencies
-    RealCurrencyPrices?: { [key: string]: number };
+    RealCurrencyPrices?: { [key: string]: number }
     // Override prices for this item in virtual currencies and "RM" (the base Real Money purchase price, in USD pennies)
-    VirtualCurrencyPrices?: { [key: string]: number };
+    VirtualCurrencyPrices?: { [key: string]: number }
   }
 
   export interface StoreMarketingModel {
     // Tagline for a store.
-    Description?: string;
+    Description?: string
     // Display name of a store as it will appear to users.
-    DisplayName?: string;
+    DisplayName?: string
     // Custom data about a store.
-    Metadata?: any;
+    Metadata?: any
   }
 
   export interface SubscriptionModel {
     // When this subscription expires.
-    Expiration: string;
+    Expiration: string
     // The time the subscription was orignially purchased
-    InitialSubscriptionTime: string;
+    InitialSubscriptionTime: string
     // Whether this subscription is currently active. That is, if Expiration > now.
-    IsActive: boolean;
+    IsActive: boolean
     // The status of this subscription, according to the subscription provider.
-    Status?: string;
+    Status?: string
     // The id for this subscription
-    SubscriptionId?: string;
+    SubscriptionId?: string
     // The item id for this subscription from the primary catalog
-    SubscriptionItemId?: string;
+    SubscriptionItemId?: string
     // The provider for this subscription. Apple or Google Play are supported today.
-    SubscriptionProvider?: string;
+    SubscriptionProvider?: string
   }
 
   type SubscriptionProviderStatus =
@@ -4584,436 +4603,440 @@ declare namespace PlayFabAdminModels {
     | 'ProductUnavailable'
     | 'CustomerDidNotAcceptPriceChange'
     | 'FreeTrial'
-    | 'PaymentPending';
+    | 'PaymentPending'
 
   export interface SubtractUserVirtualCurrencyRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Amount to be subtracted from the user balance of the specified virtual currency.
-    Amount: number;
+    Amount: number
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // PlayFab unique identifier of the user whose virtual currency balance is to be decreased.
-    PlayFabId: string;
+    PlayFabId: string
     // Name of the virtual currency which is to be decremented.
-    VirtualCurrency: string;
+    VirtualCurrency: string
   }
 
   export interface TagModel {
     // Full value of the tag, including namespace
-    TagValue?: string;
+    TagValue?: string
   }
 
   export interface TagSegmentFilter {
     // Tag comparison.
-    Comparison?: string;
+    Comparison?: string
     // Tag value.
-    TagValue?: string;
+    TagValue?: string
   }
 
   export interface TaskInstanceBasicSummary {
     // UTC timestamp when the task completed.
-    CompletedAt?: string;
+    CompletedAt?: string
     // Error message for last processing attempt, if an error occured.
-    ErrorMessage?: string;
+    ErrorMessage?: string
     // Estimated time remaining in seconds.
-    EstimatedSecondsRemaining?: number;
+    EstimatedSecondsRemaining?: number
     // Progress represented as percentage.
-    PercentComplete?: number;
+    PercentComplete?: number
     // If manually scheduled, ID of user who scheduled the task.
-    ScheduledByUserId?: string;
+    ScheduledByUserId?: string
     // UTC timestamp when the task started.
-    StartedAt: string;
+    StartedAt: string
     // Current status of the task instance.
-    Status?: string;
+    Status?: string
     // Identifier of the task this instance belongs to.
-    TaskIdentifier?: NameIdentifier;
+    TaskIdentifier?: NameIdentifier
     // ID of the task instance.
-    TaskInstanceId?: string;
+    TaskInstanceId?: string
     // Type of the task.
-    Type?: string;
+    Type?: string
   }
 
-  type TaskInstanceStatus = 'Succeeded' | 'Starting' | 'InProgress' | 'Failed' | 'Aborted' | 'Stalled';
+  type TaskInstanceStatus =
+    'Succeeded' | 'Starting' | 'InProgress' | 'Failed' | 'Aborted' | 'Stalled'
 
-  type TitleActivationStatus = 'None' | 'ActivatedTitleKey' | 'PendingSteam' | 'ActivatedSteam' | 'RevokedSteam';
+  type TitleActivationStatus =
+    'None' | 'ActivatedTitleKey' | 'PendingSteam' | 'ActivatedSteam' | 'RevokedSteam'
 
   export interface TitleDataKeyValue {
     // Key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same
     // name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
-    Key?: string;
+    Key?: string
     // New value to set. Set to null to remove a value
-    Value?: string;
+    Value?: string
   }
 
   export interface TotalValueToDateInUSDSegmentFilter {
     // Total value to date USD amount.
-    Amount?: string;
+    Amount?: string
     // Total value to date USD comparison.
-    Comparison?: string;
+    Comparison?: string
   }
 
   export interface UpdateBanRequest {
     // The updated active state for the ban. Null for no change.
-    Active?: boolean;
+    Active?: boolean
     // The id of the ban to be updated.
-    BanId: string;
+    BanId: string
     // The updated expiration date for the ban. Null for no change.
-    Expires?: string;
+    Expires?: string
     // The updated IP address for the ban. Null for no change.
-    IPAddress?: string;
+    IPAddress?: string
     // Whether to make this ban permanent. Set to true to make this ban permanent. This will not modify Active state.
-    Permanent?: boolean;
+    Permanent?: boolean
     // The updated reason for the ban to be updated. Maximum 140 characters. Null for no change.
-    Reason?: string;
+    Reason?: string
   }
 
   export interface UpdateBansRequest extends PlayFabModule.IPlayFabRequestCommon {
     // List of bans to be updated. Maximum 100.
-    Bans: UpdateBanRequest[];
+    Bans: UpdateBanRequest[]
   }
 
   export interface UpdateBansResult extends PlayFabModule.IPlayFabResultCommon {
     // Information on the bans that were updated
-    BanData?: BanInfo[];
+    BanData?: BanInfo[]
   }
 
   export interface UpdateCatalogItemsRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Array of catalog items to be submitted. Note that while CatalogItem has a parameter for CatalogVersion, it is not
     // required and ignored in this call.
-    Catalog?: CatalogItem[];
+    Catalog?: CatalogItem[]
     // Which catalog is being updated. If null, uses the default catalog.
-    CatalogVersion?: string;
+    CatalogVersion?: string
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // Should this catalog be set as the default catalog. Defaults to true. If there is currently no default catalog, this will
     // always set it.
-    SetAsDefaultCatalog?: boolean;
+    SetAsDefaultCatalog?: boolean
   }
 
   export interface UpdateCatalogItemsResult extends PlayFabModule.IPlayFabResultCommon {}
 
   export interface UpdateCloudScriptRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // PlayFab user ID of the developer initiating the request.
-    DeveloperPlayFabId?: string;
+    DeveloperPlayFabId?: string
     // List of Cloud Script files to upload to create the new revision. Must have at least one file.
-    Files: CloudScriptFile[];
+    Files: CloudScriptFile[]
     // Immediately publish the new revision
-    Publish: boolean;
+    Publish: boolean
   }
 
   export interface UpdateCloudScriptResult extends PlayFabModule.IPlayFabResultCommon {
     // New revision number created
-    Revision: number;
+    Revision: number
     // Cloud Script version updated
-    Version: number;
+    Version: number
   }
 
   export interface UpdateOpenIdConnectionRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The client ID given by the ID provider.
-    ClientId?: string;
+    ClientId?: string
     // The client secret given by the ID provider.
-    ClientSecret?: string;
+    ClientSecret?: string
     // A name for the connection that identifies it within the title.
-    ConnectionId: string;
+    ConnectionId: string
     // The issuer URL or discovery document URL to read issuer information from
-    IssuerDiscoveryUrl?: string;
+    IssuerDiscoveryUrl?: string
     // Manually specified information for an OpenID Connect issuer.
-    IssuerInformation?: OpenIdIssuerInformation;
+    IssuerInformation?: OpenIdIssuerInformation
   }
 
   export interface UpdatePlayerSharedSecretRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Disable or Enable this key
-    Disabled: boolean;
+    Disabled: boolean
     // Friendly name for this key
-    FriendlyName?: string;
+    FriendlyName?: string
     // The shared secret key to update
-    SecretKey?: string;
+    SecretKey?: string
   }
 
   export interface UpdatePlayerSharedSecretResult extends PlayFabModule.IPlayFabResultCommon {}
 
-  export interface UpdatePlayerStatisticDefinitionRequest extends PlayFabModule.IPlayFabRequestCommon {
+  export interface UpdatePlayerStatisticDefinitionRequest
+    extends PlayFabModule.IPlayFabRequestCommon {
     // the aggregation method to use in updating the statistic (defaults to last)
-    AggregationMethod?: string;
+    AggregationMethod?: string
     // unique name of the statistic
-    StatisticName: string;
+    StatisticName: string
     // interval at which the values of the statistic for all players are reset (changes are effective at the next occurance of
     // the new interval boundary)
-    VersionChangeInterval?: string;
+    VersionChangeInterval?: string
   }
 
-  export interface UpdatePlayerStatisticDefinitionResult extends PlayFabModule.IPlayFabResultCommon {
+  export interface UpdatePlayerStatisticDefinitionResult
+    extends PlayFabModule.IPlayFabResultCommon {
     // updated statistic definition
-    Statistic?: PlayerStatisticDefinition;
+    Statistic?: PlayerStatisticDefinition
   }
 
   export interface UpdatePolicyRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Whether to overwrite or append to the existing policy.
-    OverwritePolicy: boolean;
+    OverwritePolicy: boolean
     // The name of the policy being updated. Only supported name is 'ApiPolicy'
-    PolicyName: string;
+    PolicyName: string
     // Version of the policy to update. Must be the latest (as returned by GetPolicy).
-    PolicyVersion: number;
+    PolicyVersion: number
     // The new statements to include in the policy.
-    Statements: PermissionStatement[];
+    Statements: PermissionStatement[]
   }
 
   export interface UpdatePolicyResponse extends PlayFabModule.IPlayFabResultCommon {
     // The name of the policy that was updated.
-    PolicyName?: string;
+    PolicyName?: string
     // The statements included in the new version of the policy.
-    Statements?: PermissionStatement[];
+    Statements?: PermissionStatement[]
   }
 
   export interface UpdateRandomResultTablesRequest extends PlayFabModule.IPlayFabRequestCommon {
     // which catalog is being updated. If null, update the current default catalog version
-    CatalogVersion?: string;
+    CatalogVersion?: string
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // array of random result tables to make available (Note: specifying an existing TableId will result in overwriting that
     // table, while any others will be added to the available set)
-    Tables?: RandomResultTable[];
+    Tables?: RandomResultTable[]
   }
 
   export interface UpdateRandomResultTablesResult extends PlayFabModule.IPlayFabResultCommon {}
 
   export interface UpdateSegmentRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Segment model with all of the segment properties data.
-    SegmentModel: SegmentModel;
+    SegmentModel: SegmentModel
   }
 
   export interface UpdateSegmentResponse extends PlayFabModule.IPlayFabResultCommon {
     // Error message.
-    ErrorMessage?: string;
+    ErrorMessage?: string
     // Segment id.
-    SegmentId?: string;
+    SegmentId?: string
   }
 
   export interface UpdateStoreItemsRequest extends PlayFabModule.IPlayFabRequestCommon {
     // Catalog version of the store to update. If null, uses the default catalog.
-    CatalogVersion?: string;
+    CatalogVersion?: string
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // Additional data about the store
-    MarketingData?: StoreMarketingModel;
+    MarketingData?: StoreMarketingModel
     // Array of store items - references to catalog items, with specific pricing - to be added
-    Store?: StoreItem[];
+    Store?: StoreItem[]
     // Unique identifier for the store which is to be updated
-    StoreId: string;
+    StoreId: string
   }
 
   export interface UpdateStoreItemsResult extends PlayFabModule.IPlayFabResultCommon {}
 
   export interface UpdateTaskRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // Description the task
-    Description?: string;
+    Description?: string
     // Specify either the task ID or the name of the task to be updated.
-    Identifier?: NameIdentifier;
+    Identifier?: NameIdentifier
     // Whether the schedule is active. Inactive schedule will not trigger task execution.
-    IsActive: boolean;
+    IsActive: boolean
     // Name of the task. This is a unique identifier for tasks in the title.
-    Name: string;
+    Name: string
     // Parameter object specific to the task type. See each task type's create API documentation for details.
-    Parameter?: any;
+    Parameter?: any
     // Cron expression for the run schedule of the task. The expression should be in UTC.
-    Schedule?: string;
+    Schedule?: string
     // Task type.
-    Type: string;
+    Type: string
   }
 
   export interface UpdateUserDataRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may
     // not begin with a '!' character or be null.
-    Data?: { [key: string]: string | null };
+    Data?: { [key: string]: string | null }
     // Optional list of Data-keys to remove from UserData. Some SDKs cannot insert null-values into Data due to language
     // constraints. Use this to delete the keys directly.
-    KeysToRemove?: string[];
+    KeysToRemove?: string[]
     // Permission to be applied to all user data keys written in this request. Defaults to "private" if not set.
-    Permission?: string;
+    Permission?: string
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
   }
 
   export interface UpdateUserDataResult extends PlayFabModule.IPlayFabResultCommon {
     // Indicates the current version of the data that has been set. This is incremented with every set call for that type of
     // data (read-only, internal, etc). This version can be provided in Get calls to find updated data.
-    DataVersion: number;
+    DataVersion: number
   }
 
   export interface UpdateUserInternalDataRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may
     // not begin with a '!' character or be null.
-    Data?: { [key: string]: string | null };
+    Data?: { [key: string]: string | null }
     // Optional list of Data-keys to remove from UserData. Some SDKs cannot insert null-values into Data due to language
     // constraints. Use this to delete the keys directly.
-    KeysToRemove?: string[];
+    KeysToRemove?: string[]
     // Unique PlayFab assigned ID of the user on whom the operation will be performed.
-    PlayFabId: string;
+    PlayFabId: string
   }
 
   export interface UpdateUserTitleDisplayNameRequest extends PlayFabModule.IPlayFabRequestCommon {
     // The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-    CustomTags?: { [key: string]: string | null };
+    CustomTags?: { [key: string]: string | null }
     // New title display name for the user - must be between 3 and 25 characters
-    DisplayName: string;
+    DisplayName: string
     // PlayFab unique identifier of the user whose title specific display name is to be changed
-    PlayFabId: string;
+    PlayFabId: string
   }
 
   export interface UpdateUserTitleDisplayNameResult extends PlayFabModule.IPlayFabResultCommon {
     // current title display name for the user (this will be the original display name if the rename attempt failed)
-    DisplayName?: string;
+    DisplayName?: string
   }
 
   export interface UserAccountInfo {
     // User Android device information, if an Android device has been linked
-    AndroidDeviceInfo?: UserAndroidDeviceInfo;
+    AndroidDeviceInfo?: UserAndroidDeviceInfo
     // Sign in with Apple account information, if an Apple account has been linked
-    AppleAccountInfo?: UserAppleIdInfo;
+    AppleAccountInfo?: UserAppleIdInfo
     // Timestamp indicating when the user account was created
-    Created: string;
+    Created: string
     // Custom ID information, if a custom ID has been assigned
-    CustomIdInfo?: UserCustomIdInfo;
+    CustomIdInfo?: UserCustomIdInfo
     // User Facebook information, if a Facebook account has been linked
-    FacebookInfo?: UserFacebookInfo;
+    FacebookInfo?: UserFacebookInfo
     // Facebook Instant Games account information, if a Facebook Instant Games account has been linked
-    FacebookInstantGamesIdInfo?: UserFacebookInstantGamesIdInfo;
+    FacebookInstantGamesIdInfo?: UserFacebookInstantGamesIdInfo
     // User Gamecenter information, if a Gamecenter account has been linked
-    GameCenterInfo?: UserGameCenterInfo;
+    GameCenterInfo?: UserGameCenterInfo
     // User Google account information, if a Google account has been linked
-    GoogleInfo?: UserGoogleInfo;
+    GoogleInfo?: UserGoogleInfo
     // User Google Play Games account information, if a Google Play Games account has been linked
-    GooglePlayGamesInfo?: UserGooglePlayGamesInfo;
+    GooglePlayGamesInfo?: UserGooglePlayGamesInfo
     // User iOS device information, if an iOS device has been linked
-    IosDeviceInfo?: UserIosDeviceInfo;
+    IosDeviceInfo?: UserIosDeviceInfo
     // User Kongregate account information, if a Kongregate account has been linked
-    KongregateInfo?: UserKongregateInfo;
+    KongregateInfo?: UserKongregateInfo
     // Nintendo Switch account information, if a Nintendo Switch account has been linked
-    NintendoSwitchAccountInfo?: UserNintendoSwitchAccountIdInfo;
+    NintendoSwitchAccountInfo?: UserNintendoSwitchAccountIdInfo
     // Nintendo Switch device information, if a Nintendo Switch device has been linked
-    NintendoSwitchDeviceIdInfo?: UserNintendoSwitchDeviceIdInfo;
+    NintendoSwitchDeviceIdInfo?: UserNintendoSwitchDeviceIdInfo
     // OpenID Connect information, if any OpenID Connect accounts have been linked
-    OpenIdInfo?: UserOpenIdInfo[];
+    OpenIdInfo?: UserOpenIdInfo[]
     // Unique identifier for the user account
-    PlayFabId?: string;
+    PlayFabId?: string
     // Personal information for the user which is considered more sensitive
-    PrivateInfo?: UserPrivateAccountInfo;
+    PrivateInfo?: UserPrivateAccountInfo
     // User PlayStation :tm: Network account information, if a PlayStation :tm: Network account has been linked
-    PsnInfo?: UserPsnInfo;
+    PsnInfo?: UserPsnInfo
     // User Steam information, if a Steam account has been linked
-    SteamInfo?: UserSteamInfo;
+    SteamInfo?: UserSteamInfo
     // Title-specific information for the user account
-    TitleInfo?: UserTitleInfo;
+    TitleInfo?: UserTitleInfo
     // User Twitch account information, if a Twitch account has been linked
-    TwitchInfo?: UserTwitchInfo;
+    TwitchInfo?: UserTwitchInfo
     // User account name in the PlayFab service
-    Username?: string;
+    Username?: string
     // User XBox account information, if a XBox account has been linked
-    XboxInfo?: UserXboxInfo;
+    XboxInfo?: UserXboxInfo
   }
 
   export interface UserAndroidDeviceInfo {
     // Android device ID
-    AndroidDeviceId?: string;
+    AndroidDeviceId?: string
   }
 
   export interface UserAppleIdInfo {
     // Apple subject ID
-    AppleSubjectId?: string;
+    AppleSubjectId?: string
   }
 
   export interface UserCustomIdInfo {
     // Custom ID
-    CustomId?: string;
+    CustomId?: string
   }
 
-  type UserDataPermission = 'Private' | 'Public';
+  type UserDataPermission = 'Private' | 'Public'
 
   export interface UserDataRecord {
     // Timestamp for when this data was last updated.
-    LastUpdated: string;
+    LastUpdated: string
     // Indicates whether this data can be read by all users (public) or only the user (private). This is used for GetUserData
     // requests being made by one player about another player.
-    Permission?: string;
+    Permission?: string
     // Data stored for the specified user data key.
-    Value?: string;
+    Value?: string
   }
 
   export interface UserFacebookInfo {
     // Facebook identifier
-    FacebookId?: string;
+    FacebookId?: string
     // Facebook full name
-    FullName?: string;
+    FullName?: string
   }
 
   export interface UserFacebookInstantGamesIdInfo {
     // Facebook Instant Games ID
-    FacebookInstantGamesId?: string;
+    FacebookInstantGamesId?: string
   }
 
   export interface UserGameCenterInfo {
     // Gamecenter identifier
-    GameCenterId?: string;
+    GameCenterId?: string
   }
 
   export interface UserGoogleInfo {
     // Email address of the Google account
-    GoogleEmail?: string;
+    GoogleEmail?: string
     // Gender information of the Google account
-    GoogleGender?: string;
+    GoogleGender?: string
     // Google ID
-    GoogleId?: string;
+    GoogleId?: string
     // Locale of the Google account
-    GoogleLocale?: string;
+    GoogleLocale?: string
     // Name of the Google account user
-    GoogleName?: string;
+    GoogleName?: string
   }
 
   export interface UserGooglePlayGamesInfo {
     // Avatar image url of the Google Play Games player
-    GooglePlayGamesPlayerAvatarImageUrl?: string;
+    GooglePlayGamesPlayerAvatarImageUrl?: string
     // Display name of the Google Play Games player
-    GooglePlayGamesPlayerDisplayName?: string;
+    GooglePlayGamesPlayerDisplayName?: string
     // Google Play Games player ID
-    GooglePlayGamesPlayerId?: string;
+    GooglePlayGamesPlayerId?: string
   }
 
   export interface UserIosDeviceInfo {
     // iOS device ID
-    IosDeviceId?: string;
+    IosDeviceId?: string
   }
 
   export interface UserKongregateInfo {
     // Kongregate ID
-    KongregateId?: string;
+    KongregateId?: string
     // Kongregate Username
-    KongregateName?: string;
+    KongregateName?: string
   }
 
   export interface UserNintendoSwitchAccountIdInfo {
     // Nintendo Switch account subject ID
-    NintendoSwitchAccountSubjectId?: string;
+    NintendoSwitchAccountSubjectId?: string
   }
 
   export interface UserNintendoSwitchDeviceIdInfo {
     // Nintendo Switch Device ID
-    NintendoSwitchDeviceId?: string;
+    NintendoSwitchDeviceId?: string
   }
 
   export interface UserOpenIdInfo {
     // OpenID Connection ID
-    ConnectionId?: string;
+    ConnectionId?: string
     // OpenID Issuer
-    Issuer?: string;
+    Issuer?: string
     // OpenID Subject
-    Subject?: string;
+    Subject?: string
   }
 
   type UserOrigination =
@@ -5040,123 +5063,123 @@ declare namespace PlayFabAdminModels {
     | 'OpenIdConnect'
     | 'Apple'
     | 'NintendoSwitchAccount'
-    | 'GooglePlayGames';
+    | 'GooglePlayGames'
 
   export interface UserOriginationSegmentFilter {
     // User login provider.
-    LoginProvider?: string;
+    LoginProvider?: string
   }
 
   export interface UserPrivateAccountInfo {
     // user email address
-    Email?: string;
+    Email?: string
   }
 
   export interface UserPsnInfo {
     // PlayStation :tm: Network account ID
-    PsnAccountId?: string;
+    PsnAccountId?: string
     // PlayStation :tm: Network online ID
-    PsnOnlineId?: string;
+    PsnOnlineId?: string
   }
 
   export interface UserSteamInfo {
     // what stage of game ownership the user is listed as being in, from Steam
-    SteamActivationStatus?: string;
+    SteamActivationStatus?: string
     // the country in which the player resides, from Steam data
-    SteamCountry?: string;
+    SteamCountry?: string
     // currency type set in the user Steam account
-    SteamCurrency?: string;
+    SteamCurrency?: string
     // Steam identifier
-    SteamId?: string;
+    SteamId?: string
     // Steam display name
-    SteamName?: string;
+    SteamName?: string
   }
 
   export interface UserTitleInfo {
     // URL to the player's avatar.
-    AvatarUrl?: string;
+    AvatarUrl?: string
     // timestamp indicating when the user was first associated with this game (this can differ significantly from when the user
     // first registered with PlayFab)
-    Created: string;
+    Created: string
     // name of the user, as it is displayed in-game
-    DisplayName?: string;
+    DisplayName?: string
     // timestamp indicating when the user first signed into this game (this can differ from the Created timestamp, as other
     // events, such as issuing a beta key to the user, can associate the title to the user)
-    FirstLogin?: string;
+    FirstLogin?: string
     // boolean indicating whether or not the user is currently banned for a title
-    isBanned?: boolean;
+    isBanned?: boolean
     // timestamp for the last user login for this title
-    LastLogin?: string;
+    LastLogin?: string
     // source by which the user first joined the game, if known
-    Origination?: string;
+    Origination?: string
     // Title player account entity for this user
-    TitlePlayerAccount?: EntityKey;
+    TitlePlayerAccount?: EntityKey
   }
 
   export interface UserTwitchInfo {
     // Twitch ID
-    TwitchId?: string;
+    TwitchId?: string
     // Twitch Username
-    TwitchUserName?: string;
+    TwitchUserName?: string
   }
 
   export interface UserXboxInfo {
     // XBox user ID
-    XboxUserId?: string;
+    XboxUserId?: string
     // XBox user sandbox
-    XboxUserSandbox?: string;
+    XboxUserSandbox?: string
   }
 
   export interface ValueToDateModel {
     // ISO 4217 code of the currency used in the purchases
-    Currency?: string;
+    Currency?: string
     // Total value of the purchases in a whole number of 1/100 monetary units. For example, 999 indicates nine dollars and
     // ninety-nine cents when Currency is 'USD')
-    TotalValue: number;
+    TotalValue: number
     // Total value of the purchases in a string representation of decimal monetary units. For example, '9.99' indicates nine
     // dollars and ninety-nine cents when Currency is 'USD'.
-    TotalValueAsDecimal?: string;
+    TotalValueAsDecimal?: string
   }
 
   export interface ValueToDateSegmentFilter {
     // Value to date amount.
-    Amount?: string;
+    Amount?: string
     // Value to date comparison.
-    Comparison?: string;
+    Comparison?: string
     // Currency using for filter.
-    Currency?: string;
+    Currency?: string
   }
 
   export interface VirtualCurrencyBalanceSegmentFilter {
     // Total amount.
-    Amount: number;
+    Amount: number
     // Amount comparison.
-    Comparison?: string;
+    Comparison?: string
     // Currency code.
-    CurrencyCode?: string;
+    CurrencyCode?: string
   }
 
   export interface VirtualCurrencyData {
     // unique two-character identifier for this currency type (e.g.: "CC")
-    CurrencyCode: string;
+    CurrencyCode: string
     // friendly name to show in the developer portal, reports, etc.
-    DisplayName?: string;
+    DisplayName?: string
     // amount to automatically grant users upon first login to the title
-    InitialDeposit?: number;
+    InitialDeposit?: number
     // maximum amount to which the currency will recharge (cannot exceed MaxAmount, but can be less)
-    RechargeMax?: number;
+    RechargeMax?: number
     // rate at which the currency automatically be added to over time, in units per day (24 hours)
-    RechargeRate?: number;
+    RechargeRate?: number
   }
 
   export interface VirtualCurrencyRechargeTime {
     // Maximum value to which the regenerating currency will automatically increment. Note that it can exceed this value
     // through use of the AddUserVirtualCurrency API call. However, it will not regenerate automatically until it has fallen
     // below this value.
-    RechargeMax: number;
+    RechargeMax: number
     // Server timestamp in UTC indicating the next time the virtual currency will be incremented.
-    RechargeTime: string;
+    RechargeTime: string
     // Time remaining (in seconds) before the next recharge increment of the virtual currency.
-    SecondsToRecharge: number;
+    SecondsToRecharge: number
   }
 }

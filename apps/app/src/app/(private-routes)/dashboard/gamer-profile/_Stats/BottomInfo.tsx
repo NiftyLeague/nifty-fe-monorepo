@@ -1,21 +1,25 @@
-import Link from 'next/link';
-import { Stack, Typography, Grid, Skeleton, Button } from '@mui/material';
-import ProgressGamer from './ProgressGamer';
-import GameCard from '@/components/cards/GameCard';
-import LeftInfo from './LeftInfo';
-import MiniGameContent from './MiniGameContent';
-import { useGamerProfileContext } from '@/hooks/useGamerProfile';
+import Link from 'next/link'
+import { Stack, Typography, Grid, Skeleton, Button } from '@mui/material'
+import ProgressGamer from './ProgressGamer'
+import GameCard from '@/components/cards/GameCard'
+import LeftInfo from './LeftInfo'
+import MiniGameContent from './MiniGameContent'
+import { useGamerProfileContext } from '@/hooks/useGamerProfile'
 
-import type { ProfileNiftySmsher, ProfileMiniGame } from '@/types/account';
+import type { ProfileNiftySmsher, ProfileMiniGame } from '@/types/account'
 
 interface BottomInfoProps {
-  nifty_smashers: ProfileNiftySmsher | undefined;
-  wen_game: ProfileMiniGame | undefined;
-  crypto_winter: ProfileMiniGame | undefined;
+  nifty_smashers: ProfileNiftySmsher | undefined
+  wen_game: ProfileMiniGame | undefined
+  crypto_winter: ProfileMiniGame | undefined
 }
 
-const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps): React.ReactNode => {
-  const { isLoadingProfile } = useGamerProfileContext();
+const BottomInfo = ({
+  nifty_smashers,
+  wen_game,
+  crypto_winter,
+}: BottomInfoProps): React.ReactNode => {
+  const { isLoadingProfile } = useGamerProfileContext()
 
   return (
     <Grid container spacing={2} sx={{ flexDirection: 'row', flexWrap: 'wrap' }}>
@@ -31,7 +35,12 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
                 </Typography>
                 <Typography variant="h4" component="div">
                   {isLoadingProfile ? (
-                    <Skeleton variant="rectangular" sx={{ display: 'inline-block' }} width="15%" height="19.76px" />
+                    <Skeleton
+                      variant="rectangular"
+                      sx={{ display: 'inline-block' }}
+                      width="15%"
+                      height="19.76px"
+                    />
                   ) : (
                     `${Math.round(nifty_smashers?.xp || 0)}/${nifty_smashers?.rank_xp_next || 0}`
                   )}
@@ -64,7 +73,12 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
                 </Typography>
                 <Typography variant="h4" component="div">
                   {isLoadingProfile ? (
-                    <Skeleton variant="rectangular" sx={{ display: 'inline-block' }} width="15%" height="19.76px" />
+                    <Skeleton
+                      variant="rectangular"
+                      sx={{ display: 'inline-block' }}
+                      width="15%"
+                      height="19.76px"
+                    />
                   ) : (
                     `${Math.round(wen_game?.xp || 0)}/${wen_game?.rank_xp_next || 0}`
                   )}
@@ -97,7 +111,12 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
                 </Typography>
                 <Typography variant="h4" component="div">
                   {isLoadingProfile ? (
-                    <Skeleton variant="rectangular" sx={{ display: 'inline-block' }} width="15%" height="19.76px" />
+                    <Skeleton
+                      variant="rectangular"
+                      sx={{ display: 'inline-block' }}
+                      width="15%"
+                      height="19.76px"
+                    />
                   ) : (
                     `${Math.round(crypto_winter?.xp || 0)}/${crypto_winter?.rank_xp_next || 0}`
                   )}
@@ -119,7 +138,7 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
         />
       </Grid>
     </Grid>
-  );
-};
+  )
+}
 
-export default BottomInfo;
+export default BottomInfo

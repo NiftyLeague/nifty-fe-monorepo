@@ -1,4 +1,4 @@
-import { gql } from 'graphql-request';
+import { gql } from 'graphql-request'
 
 const DEFAULT_QUERY = gql`
   query defaultCharactersSearch($size: Int!, $lastID: Int) {
@@ -41,6 +41,6 @@ const DEFAULT_QUERY = gql`
       }
     }
   }
-`;
+`
 
-export default DEFAULT_QUERY;
+export default DEFAULT_QUERY

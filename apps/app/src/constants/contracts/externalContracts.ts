@@ -1,12 +1,12 @@
-import { mainnet, sepolia } from 'viem/chains';
-import WETH_ABI from './abis/weth.json';
-import { INTERCHAIN_TOKEN_SERVICE_ADDRESS, WETH_ADDRESS } from '@/constants/contracts';
-import INTERCHAIN_TOKEN_SERVICE_ABI from '@/constants/contracts/abis/@axelar-network/interchain-token-service/contracts/interchainTokenServiceABI.json';
-import { LOCAL_CHAIN_ID } from '@/constants/networks';
-import type { InterfaceAbi } from 'ethers';
+import { mainnet, sepolia } from 'viem/chains'
+import WETH_ABI from './abis/weth.json'
+import { INTERCHAIN_TOKEN_SERVICE_ADDRESS, WETH_ADDRESS } from '@/constants/contracts'
+import INTERCHAIN_TOKEN_SERVICE_ABI from '@/constants/contracts/abis/@axelar-network/interchain-token-service/contracts/interchainTokenServiceABI.json'
+import { LOCAL_CHAIN_ID } from '@/constants/networks'
+import type { InterfaceAbi } from 'ethers'
 
 const EXTERNAL_CONTRACTS: {
-  [chainId: number]: { [contractName: string]: { address: `0x${string}`; abi: InterfaceAbi } };
+  [chainId: number]: { [contractName: string]: { address: `0x${string}`; abi: InterfaceAbi } }
 } = {
   [LOCAL_CHAIN_ID]: {},
   [sepolia.id]: {
@@ -23,6 +23,6 @@ const EXTERNAL_CONTRACTS: {
       abi: INTERCHAIN_TOKEN_SERVICE_ABI,
     },
   },
-};
+}
 
-export default EXTERNAL_CONTRACTS;
+export default EXTERNAL_CONTRACTS

@@ -1,13 +1,13 @@
-'use client';
+'use client'
 
-import { Grid, Button } from '@mui/material';
-import SectionSlider from '@/components/sections/SectionSlider';
-import useVersion from '@/hooks/useVersion';
-import GameList from './_GameList';
-import Web3GameList from './_Web3GameList';
+import { Grid, Button } from '@mui/material'
+import SectionSlider from '@/components/sections/SectionSlider'
+import useVersion from '@/hooks/useVersion'
+import GameList from './_GameList'
+import Web3GameList from './_Web3GameList'
 
 const GamesPage = () => {
-  const { isWindows, isMacOs, downloadURL, version, message } = useVersion();
+  const { isWindows, isMacOs, downloadURL, version, message } = useVersion()
   return (
     <>
       <SectionSlider firstSection title="Free-2-Play Games" isSlider={false}>
@@ -38,7 +38,7 @@ const GamesPage = () => {
         </Grid>
       </SectionSlider>
     </>
-  );
-};
+  )
+}
 
-export default GamesPage;
+export default GamesPage

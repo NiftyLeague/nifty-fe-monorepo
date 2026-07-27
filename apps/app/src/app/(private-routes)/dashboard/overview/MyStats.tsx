@@ -1,13 +1,13 @@
-'use client';
+'use client'
 
-import Link from 'next/link';
-import { Button, Grid, Stack } from '@mui/material';
-import SectionTitle from '@/components/sections/SectionTitle';
-import { sectionSpacing } from '@nl/theme';
-import { useGamerProfile } from '@/hooks/useGamerProfile';
-import GamerProfileContext from '@/contexts/GamerProfileContext';
-import LeftInfo from '../gamer-profile/_Stats/LeftInfo';
-import type { Profile } from '@/types/account';
+import Link from 'next/link'
+import { Button, Grid, Stack } from '@mui/material'
+import SectionTitle from '@/components/sections/SectionTitle'
+import { sectionSpacing } from '@nl/theme'
+import { useGamerProfile } from '@/hooks/useGamerProfile'
+import GamerProfileContext from '@/contexts/GamerProfileContext'
+import LeftInfo from '../gamer-profile/_Stats/LeftInfo'
+import type { Profile } from '@/types/account'
 
 const MyStats = ({ profile }: { profile?: Profile }): React.ReactNode => {
   return (
@@ -33,11 +33,11 @@ const MyStats = ({ profile }: { profile?: Profile }): React.ReactNode => {
         </Stack>
       </Grid>
     </Grid>
-  );
-};
+  )
+}
 
 const MyStatsContext = () => {
-  const { profile, error, loadingProfile } = useGamerProfile();
+  const { profile, error, loadingProfile } = useGamerProfile()
   return !error && (profile || loadingProfile) ? (
     <GamerProfileContext.Provider
       value={{
@@ -49,7 +49,7 @@ const MyStatsContext = () => {
     >
       <MyStats profile={profile} />
     </GamerProfileContext.Provider>
-  ) : null;
-};
+  ) : null
+}
 
-export default MyStatsContext;
+export default MyStatsContext

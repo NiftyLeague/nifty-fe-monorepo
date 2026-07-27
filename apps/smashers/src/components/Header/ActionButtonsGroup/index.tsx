@@ -1,12 +1,21 @@
-import dynamic from 'next/dynamic';
-import styles from './index.module.css';
+import dynamic from 'next/dynamic'
+import styles from './index.module.css'
 
 // Lazy load dialogs
-const CreditsDialog = dynamic(() => import('@/components/CreditsDialog'), { ssr: false, loading: () => null });
-const PlayDialog = dynamic(() => import('@/components/PlayDialog'), { ssr: false, loading: () => null });
-const TrailerDialog = dynamic(() => import('@/components/TrailerDialog'), { ssr: false, loading: () => null });
+const CreditsDialog = dynamic(() => import('@/components/CreditsDialog'), {
+  ssr: false,
+  loading: () => null,
+})
+const PlayDialog = dynamic(() => import('@/components/PlayDialog'), {
+  ssr: false,
+  loading: () => null,
+})
+const TrailerDialog = dynamic(() => import('@/components/TrailerDialog'), {
+  ssr: false,
+  loading: () => null,
+})
 
-type ActiveModal = 'credits' | 'play' | 'trailer' | 'unity' | null;
+type ActiveModal = 'credits' | 'play' | 'trailer' | 'unity' | null
 
 const ActionButtonsGroup = ({ activeModal }: { activeModal: ActiveModal }) => (
   <div className={styles.heroBtnGroup}>
@@ -14,6 +23,6 @@ const ActionButtonsGroup = ({ activeModal }: { activeModal: ActiveModal }) => (
     <PlayDialog open={activeModal === 'play'} />
     <CreditsDialog open={activeModal === 'credits'} />
   </div>
-);
+)
 
-export default ActionButtonsGroup;
+export default ActionButtonsGroup

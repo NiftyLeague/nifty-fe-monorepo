@@ -1,13 +1,13 @@
-import { useMemo } from 'react';
-import { Stack } from '@mui/material';
+import { useMemo } from 'react'
+import { Stack } from '@mui/material'
 
-import { useGamerProfileContext } from '@/hooks/useGamerProfile';
-import type { ProfileMiniGame } from '@/types/account';
-import { secondsToHours } from '@/utils/dateTime';
-import Item from './Item';
+import { useGamerProfileContext } from '@/hooks/useGamerProfile'
+import type { ProfileMiniGame } from '@/types/account'
+import { secondsToHours } from '@/utils/dateTime'
+import Item from './Item'
 
 interface MiniGameContentProps {
-  data: ProfileMiniGame | undefined;
+  data: ProfileMiniGame | undefined
 }
 
 const MiniGameContent = ({ data }: MiniGameContentProps): React.ReactNode => {
@@ -18,17 +18,17 @@ const MiniGameContent = ({ data }: MiniGameContentProps): React.ReactNode => {
       { label: 'High Score', value: data?.score || 0 },
       { label: 'Games', value: data?.matches || 0 },
       { label: 'Time Played', value: `${secondsToHours(data?.time_played ?? 0)} Hours` },
-    ];
-  }, [data]);
+    ]
+  }, [data])
 
-  const { isLoadingProfile } = useGamerProfileContext();
+  const { isLoadingProfile } = useGamerProfileContext()
   return (
     <Stack spacing={1} sx={{ flex: 1 }}>
-      {leftDataMapper.map(child => (
+      {leftDataMapper.map((child) => (
         <Item key={child.label} {...child} isLoading={isLoadingProfile} />
       ))}
     </Stack>
-  );
-};
+  )
+}
 
-export default MiniGameContent;
+export default MiniGameContent

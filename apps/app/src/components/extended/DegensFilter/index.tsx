@@ -1,11 +1,19 @@
-'use client';
-import { ChangeEvent, SetStateAction, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { styled, useTheme } from '@nl/theme';
-import Image from 'next/image';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+'use client'
+import {
+  ChangeEvent,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
+import { styled, useTheme } from '@nl/theme'
+import Image from 'next/image'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 // import useFlags from '@/hooks/useFlags';
-import isEmpty from 'lodash/isEmpty';
-import { Button, Checkbox, FormControlLabel, FormGroup, Stack, Typography } from '@mui/material';
+import isEmpty from 'lodash/isEmpty'
+import { Button, Checkbox, FormControlLabel, FormGroup, Stack, Typography } from '@mui/material'
 import {
   FilterSource,
   backgrounds,
@@ -13,17 +21,20 @@ import {
   // rentals,
   tribes,
   // wearables,
-} from '@/constants/filters';
-import * as CosmeticsFilter from '@/constants/cosmeticsFilters';
-import type { DegenFilter } from '@/types/degenFilter';
-import { updateFilterValue } from './utils';
-import FilterAccordion from './FilterAccordion';
+} from '@/constants/filters'
+import * as CosmeticsFilter from '@/constants/cosmeticsFilters'
+import type { DegenFilter } from '@/types/degenFilter'
+import { updateFilterValue } from './utils'
+import FilterAccordion from './FilterAccordion'
 // import FilterRangeSlider from './FilterRangeSlider';
-import FilterAllTraitCheckboxes from '../FilterAllTraitCheckboxes';
+import FilterAllTraitCheckboxes from '../FilterAllTraitCheckboxes'
 
-const PREFIX = 'DegensFilter';
+const PREFIX = 'DegensFilter'
 
-const classes = { inputCheck: `${PREFIX}-inputCheck`, inputCheckFormControl: `${PREFIX}-inputCheckFormControl` };
+const classes = {
+  inputCheck: `${PREFIX}-inputCheck`,
+  inputCheckFormControl: `${PREFIX}-inputCheckFormControl`,
+}
 
 const StyledStack = styled(Stack)(() => ({
   [`&.${classes.inputCheck}`]: {
@@ -39,13 +50,13 @@ const StyledStack = styled(Stack)(() => ({
     marginRight: 0,
     '& .MuiFormControlLabel-label': { fontSize: '0.75rem', lineHeight: '0.75rem' },
   },
-}));
+}))
 
 interface DegensFilterProps {
-  onFilter: (filter: DegenFilter) => void;
-  defaultFilterValues: DegenFilter;
-  isDegenOwner?: boolean;
-  searchTerm?: string;
+  onFilter: (filter: DegenFilter) => void
+  defaultFilterValues: DegenFilter
+  isDegenOwner?: boolean
+  searchTerm?: string
 }
 
 const DegensFilter = ({
@@ -54,30 +65,32 @@ const DegensFilter = ({
   isDegenOwner,
   searchTerm,
 }: DegensFilterProps): React.ReactNode => {
-  const theme = useTheme();
-  const mountedRef = useRef(false);
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const theme = useTheme()
+  const mountedRef = useRef(false)
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
   const params = useMemo(
     () => Object.fromEntries(searchParams.entries()) as { [key in FilterSource]?: string },
-    [searchParams],
-  );
-  const isParamsEmpty = isEmpty(params);
+    [searchParams]
+  )
+  const isParamsEmpty = isEmpty(params)
   // const { displayMyItems } = useFlags();
 
   // Filter states
-  const [showMore, setShowMore] = useState(false);
-  const [pricesRangeValue, setPricesRangeValue] = useState<number[]>(defaultFilterValues.prices);
+  const [showMore, setShowMore] = useState(false)
+  const [pricesRangeValue, setPricesRangeValue] = useState<number[]>(defaultFilterValues.prices)
   // const [multipliersValue, setMultipliersValue] = useState<string[]>(
   //   defaultFilterValues.multipliers,
   // );
   // const [rentalsValue, setRentalsValue] = useState<string[]>(
   //   defaultFilterValues.rentals,
   // );
-  const [tribesValue, setTribesValue] = useState<string[]>(defaultFilterValues.tribes);
-  const [backgroundsValue, setBackgroundsValue] = useState<string[]>(defaultFilterValues.backgrounds);
-  const [cosmeticsValue, setCosmeticsValue] = useState<string[]>(defaultFilterValues.cosmetics);
+  const [tribesValue, setTribesValue] = useState<string[]>(defaultFilterValues.tribes)
+  const [backgroundsValue, setBackgroundsValue] = useState<string[]>(
+    defaultFilterValues.backgrounds
+  )
+  const [cosmeticsValue, setCosmeticsValue] = useState<string[]>(defaultFilterValues.cosmetics)
   // const [wearablesValue, setWearablesValue] = useState<string[]>(
   //   defaultFilterValues.wearables,
   // );
@@ -88,55 +101,55 @@ const DegensFilter = ({
   // Previously tried useEffect but it was unreliable since tribe and backgrounds will overwrite each other
   const handleChangeCommitted = useCallback(
     (source: FilterSource, value: string | null = null) => {
-      const current = new URLSearchParams(Array.from(searchParams.entries()));
+      const current = new URLSearchParams(Array.from(searchParams.entries()))
 
       switch (source) {
         case 'prices':
-          if (!value) current.delete('prices');
-          else current.set('prices', pricesRangeValue.join('-'));
-          break;
+          if (!value) current.delete('prices')
+          else current.set('prices', pricesRangeValue.join('-'))
+          break
         case 'multipliers':
-          if (!value) current.delete('multipliers');
-          else current.set('multipliers', value);
-          break;
+          if (!value) current.delete('multipliers')
+          else current.set('multipliers', value)
+          break
         case 'rentals':
-          if (!value) current.delete('rentals');
-          else current.set('rentals', value);
-          break;
+          if (!value) current.delete('rentals')
+          else current.set('rentals', value)
+          break
         case 'tribes':
-          if (!value) current.delete('tribes');
-          else current.set('tribes', value);
-          break;
+          if (!value) current.delete('tribes')
+          else current.set('tribes', value)
+          break
         case 'backgrounds':
-          if (!value) current.delete('backgrounds');
-          else current.set('backgrounds', value);
-          break;
+          if (!value) current.delete('backgrounds')
+          else current.set('backgrounds', value)
+          break
         case 'cosmetics':
-          if (!value) current.delete('cosmetics');
-          else current.set('cosmetics', value);
-          break;
+          if (!value) current.delete('cosmetics')
+          else current.set('cosmetics', value)
+          break
         case 'wearables':
-          if (!value) current.delete('wearables');
-          else current.set('wearables', value);
-          break;
+          if (!value) current.delete('wearables')
+          else current.set('wearables', value)
+          break
         case 'searchTerm':
-          if (!value) current.delete('searchTerm');
+          if (!value) current.delete('searchTerm')
           // else current.set('searchTerm', [value]);
-          else current.set('searchTerm', value);
-          break;
+          else current.set('searchTerm', value)
+          break
         case 'walletAddress':
-          if (!value) current.delete('walletAddress');
+          if (!value) current.delete('walletAddress')
           // else current.set('searchTerm', [value]);
-          else current.set('walletAddress', value);
-          break;
+          else current.set('walletAddress', value)
+          break
       }
 
-      const search = current.toString();
-      const query = search ? `?${search}` : '';
-      router.push(`${pathname}${query}`);
+      const search = current.toString()
+      const query = search ? `?${search}` : ''
+      router.push(`${pathname}${query}`)
     },
-    [pricesRangeValue, pathname, router, searchParams],
-  );
+    [pricesRangeValue, pathname, router, searchParams]
+  )
 
   // For checkbox filter
   const handleCheckboxChange = useCallback(
@@ -144,47 +157,47 @@ const DegensFilter = ({
       e: ChangeEvent<HTMLInputElement>,
       source: FilterSource,
       state: string[],
-      setState: React.Dispatch<SetStateAction<string[]>>,
+      setState: React.Dispatch<SetStateAction<string[]>>
     ) => {
-      const { checked, value } = e.target;
-      let newState: string[] = [];
+      const { checked, value } = e.target
+      let newState: string[] = []
       if (checked) {
-        newState = [...state, value];
+        newState = [...state, value]
       } else {
-        newState = state.filter(item => item !== value);
+        newState = state.filter((item) => item !== value)
       }
-      setState(newState);
-      handleChangeCommitted(source, newState.length > 0 ? newState.join('-') : '');
+      setState(newState)
+      handleChangeCommitted(source, newState.length > 0 ? newState.join('-') : '')
     },
-    [handleChangeCommitted],
-  );
+    [handleChangeCommitted]
+  )
 
   const setAllFilterValues = useCallback(() => {
-    setPricesRangeValue(defaultFilterValues.prices);
+    setPricesRangeValue(defaultFilterValues.prices)
     // setMultipliersValue(defaultFilterValues.multipliers);
     // setRentalsValue(defaultFilterValues.rentals);
-    setTribesValue(defaultFilterValues.tribes);
-    setBackgroundsValue(defaultFilterValues.backgrounds);
-    setCosmeticsValue(defaultFilterValues.cosmetics);
+    setTribesValue(defaultFilterValues.tribes)
+    setBackgroundsValue(defaultFilterValues.backgrounds)
+    setCosmeticsValue(defaultFilterValues.cosmetics)
     // setWearablesValue(defaultFilterValues.wearables);
-  }, [defaultFilterValues]);
+  }, [defaultFilterValues])
 
   const handleReset = () => {
-    if (isParamsEmpty) return;
-    setAllFilterValues();
-    router.push(pathname);
-  };
+    if (isParamsEmpty) return
+    setAllFilterValues()
+    router.push(pathname)
+  }
 
   useEffect(() => {
-    if (searchTerm === undefined) return;
-    handleChangeCommitted('searchTerm', searchTerm);
-  }, [handleChangeCommitted, searchTerm]);
+    if (searchTerm === undefined) return
+    handleChangeCommitted('searchTerm', searchTerm)
+  }, [handleChangeCommitted, searchTerm])
 
   // Updates local filter state on defaultFilterValues change
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setAllFilterValues();
-  }, [setAllFilterValues]);
+    setAllFilterValues()
+  }, [setAllFilterValues])
 
   // Update local state on mount & on filter params update
   useEffect(() => {
@@ -202,9 +215,9 @@ const DegensFilter = ({
         backgrounds: setBackgroundsValue,
         cosmetics: setCosmeticsValue,
         // wearables: setWearablesValue,
-      },
-    );
-    mountedRef.current = true;
+      }
+    )
+    mountedRef.current = true
     if (newFilters)
       onFilter({
         prices: newFilters.prices,
@@ -217,11 +230,13 @@ const DegensFilter = ({
         wearables: newFilters.wearables,
         searchTerm: newFilters.searchTerm,
         walletAddress: newFilters.walletAddress,
-      });
-  }, [defaultFilterValues, isDegenOwner, onFilter, params]);
+      })
+  }, [defaultFilterValues, isDegenOwner, onFilter, params])
 
   return (
-    <StyledStack sx={{ gap: 1.5, overflowX: 'hidden', [theme.breakpoints.down('sm')]: { paddingY: 2 } }}>
+    <StyledStack
+      sx={{ gap: 1.5, overflowX: 'hidden', [theme.breakpoints.down('sm')]: { paddingY: 2 } }}
+    >
       <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
         <Typography variant="h3">Filter Degens</Typography>
         <Stack direction="row" sx={{ gap: 2 }}>
@@ -236,9 +251,13 @@ const DegensFilter = ({
         </Stack>
       </Stack>
       <Stack className="bg-muted rounded-md" sx={{ py: 1.5 }}>
-        <FilterAccordion summary={<Typography variant="h4">Tribe</Typography>} expanded={true} length={tribes.length}>
+        <FilterAccordion
+          summary={<Typography variant="h4">Tribe</Typography>}
+          expanded={true}
+          length={tribes.length}
+        >
           <FormGroup sx={{ flexDirection: 'row' }}>
-            {tribes.map(tribe => (
+            {tribes.map((tribe) => (
               <FormControlLabel
                 key={tribe.name}
                 control={
@@ -247,7 +266,7 @@ const DegensFilter = ({
                     value={tribe.name}
                     checked={tribesValue.includes(tribe.name)}
                     className={classes.inputCheck}
-                    onChange={e => handleCheckboxChange(e, 'tribes', tribesValue, setTribesValue)}
+                    onChange={(e) => handleCheckboxChange(e, 'tribes', tribesValue, setTribesValue)}
                   />
                 }
                 label={
@@ -383,7 +402,7 @@ const DegensFilter = ({
           expanded={true}
         >
           <FormGroup sx={{ flexDirection: 'row' }}>
-            {backgrounds.map(background => (
+            {backgrounds.map((background) => (
               <FormControlLabel
                 key={background}
                 control={
@@ -392,7 +411,9 @@ const DegensFilter = ({
                     value={background}
                     checked={backgroundsValue.includes(background)}
                     className={classes.inputCheck}
-                    onChange={e => handleCheckboxChange(e, 'backgrounds', backgroundsValue, setBackgroundsValue)}
+                    onChange={(e) =>
+                      handleCheckboxChange(e, 'backgrounds', backgroundsValue, setBackgroundsValue)
+                    }
                   />
                 }
                 label={<Typography variant="body1">{background}</Typography>}
@@ -405,7 +426,12 @@ const DegensFilter = ({
         {!showMore ? (
           <Typography
             variant="body1"
-            sx={{ textDecoration: 'underline', cursor: 'pointer', margin: '0 14px', lineHeight: '36px' }}
+            sx={{
+              textDecoration: 'underline',
+              cursor: 'pointer',
+              margin: '0 14px',
+              lineHeight: '36px',
+            }}
             onClick={() => setShowMore(true)}
           >
             More
@@ -414,12 +440,16 @@ const DegensFilter = ({
           <>
             {Object.keys(CosmeticsFilter.TRAIT_VALUE_MAP)
               .sort()
-              .map(categoryKey => {
+              .map((categoryKey) => {
                 const traitGroup = Object.entries(
-                  CosmeticsFilter.TRAIT_VALUE_MAP[categoryKey as keyof typeof CosmeticsFilter.TRAIT_VALUE_MAP],
+                  CosmeticsFilter.TRAIT_VALUE_MAP[
+                    categoryKey as keyof typeof CosmeticsFilter.TRAIT_VALUE_MAP
+                  ]
                 )
-                  .sort((a: [string, unknown], b: [string, unknown]) => (a[1] as string).localeCompare(b[1] as string))
-                  .map(item => item[0]);
+                  .sort((a: [string, unknown], b: [string, unknown]) =>
+                    (a[1] as string).localeCompare(b[1] as string)
+                  )
+                  .map((item) => item[0])
                 return (
                   <FormGroup key={categoryKey} sx={{ flexDirection: 'row' }}>
                     <FilterAccordion
@@ -438,13 +468,13 @@ const DegensFilter = ({
                       />
                     </FilterAccordion>
                   </FormGroup>
-                );
+                )
               })}
           </>
         )}
       </Stack>
     </StyledStack>
-  );
-};
+  )
+}
 
-export default DegensFilter;
+export default DegensFilter

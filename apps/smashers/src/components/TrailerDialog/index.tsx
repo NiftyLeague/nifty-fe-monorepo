@@ -1,46 +1,46 @@
-'use client';
+'use client'
 
-import Image from 'next/image';
-import { useEffect, useState, useRef } from 'react';
-import { Dialog } from '@nl/ui/custom/dialog';
+import Image from 'next/image'
+import { useEffect, useState, useRef } from 'react'
+import { Dialog } from '@nl/ui/custom/dialog'
 
 const TrailerContent = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const modalIframe = useRef<HTMLIFrameElement>(null);
+  const [isLoaded, setIsLoaded] = useState(false)
+  const modalIframe = useRef<HTMLIFrameElement>(null)
   const messageCache = useRef({
     play: '{"event":"command","func":"playVideo","args":""}',
     pause: '{"event":"command","func":"pauseVideo","args":""}',
-  });
+  })
 
   // Handle YouTube API messages
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      if (event.origin !== 'https://www.youtube.com') return;
+      if (event.origin !== 'https://www.youtube.com') return
       try {
-        const data = JSON.parse(event.data);
+        const data = JSON.parse(event.data)
         if (data.event === 'onReady') {
-          setIsLoaded(true);
+          setIsLoaded(true)
         }
       } catch (e) {
         // Ignore parsing errors from other messages
       }
-    };
+    }
 
-    window.addEventListener('message', handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
-  }, []);
+    window.addEventListener('message', handleMessage)
+    return () => window.removeEventListener('message', handleMessage)
+  }, [])
 
   // Handle video playback
   useEffect(() => {
-    if (!modalIframe.current?.contentWindow) return;
+    if (!modalIframe.current?.contentWindow) return
 
     try {
-      const message = isLoaded ? messageCache.current.play : messageCache.current.pause;
-      modalIframe.current.contentWindow.postMessage(message, 'https://www.youtube.com');
+      const message = isLoaded ? messageCache.current.play : messageCache.current.pause
+      modalIframe.current.contentWindow.postMessage(message, 'https://www.youtube.com')
     } catch (e) {
-      console.error('Failed to control video:', e);
+      console.error('Failed to control video:', e)
     }
-  }, [isLoaded]);
+  }, [isLoaded])
 
   return (
     <iframe
@@ -54,8 +54,8 @@ const TrailerContent = () => {
       loading="lazy"
       frameBorder="0"
     />
-  );
-};
+  )
+}
 
 const TrailerDialog = ({ open }: { open: boolean }) => (
   <Dialog
@@ -79,6 +79,6 @@ const TrailerDialog = ({ open }: { open: boolean }) => (
   >
     <TrailerContent />
   </Dialog>
-);
+)
 
-export default TrailerDialog;
+export default TrailerDialog

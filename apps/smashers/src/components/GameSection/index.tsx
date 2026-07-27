@@ -1,10 +1,10 @@
-import Image from 'next/image';
-import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
+import Image from 'next/image'
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
 
 const GameSection = () => {
   function playVid() {
-    const vid = document.getElementById('level-video') as HTMLVideoElement;
-    vid?.play();
+    const vid = document.getElementById('level-video') as HTMLVideoElement
+    vid?.play()
   }
   return (
     <div className="flex flex-col-reverse lg:flex-col">
@@ -22,13 +22,15 @@ const GameSection = () => {
           <div className="text-center lg:text-left">
             <AnimatedWrapper>
               <p className="leading-relaxed transition-vertical-fade transition-vertical-fade-start delay-normal">
-                Nifty Smashers is an <strong className="font-semibold">online multiplayer</strong> that blends elements
-                of a <strong className="font-semibold">casual party survival</strong> experience with the fast-paced
-                action of a <strong className="font-semibold">platform fighter</strong>!
+                Nifty Smashers is an <strong className="font-semibold">online multiplayer</strong>{' '}
+                that blends elements of a{' '}
+                <strong className="font-semibold">casual party survival</strong> experience with the
+                fast-paced action of a <strong className="font-semibold">platform fighter</strong>!
                 <br />
                 <br />
-                Play on iOS, Android, and Steam with <strong className="font-semibold">full cross-play support</strong>!
-                Jump in and brawl anytime, anywhere!
+                Play on iOS, Android, and Steam with{' '}
+                <strong className="font-semibold">full cross-play support</strong>! Jump in and
+                brawl anytime, anywhere!
               </p>
             </AnimatedWrapper>
           </div>
@@ -37,7 +39,15 @@ const GameSection = () => {
           <div onClick={playVid}>
             <AnimatedWrapper>
               <div className="transition-quick-pop transition-quick-pop-start delay-lite rounded-[40px] overflow-hidden">
-                <video id="level-video" className="w-full h-auto" muted autoPlay loop playsInline data-keepplaying>
+                <video
+                  id="level-video"
+                  className="w-full h-auto"
+                  muted
+                  autoPlay
+                  loop
+                  playsInline
+                  data-keepplaying
+                >
                   <source src="/video/rocket.mp4" type="video/mp4" />
                 </video>
               </div>
@@ -58,7 +68,7 @@ const GameSection = () => {
         </div>
       </AnimatedWrapper>
     </div>
-  );
-};
+  )
+}
 
-export default GameSection;
+export default GameSection

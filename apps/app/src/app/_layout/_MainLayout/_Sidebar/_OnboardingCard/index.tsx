@@ -1,7 +1,7 @@
-import { memo } from 'react';
+import { memo } from 'react'
 
 // material-ui
-import { useTheme, styled } from '@nl/theme';
+import { useTheme, styled } from '@nl/theme'
 import {
   Avatar,
   Card,
@@ -14,9 +14,9 @@ import {
   ListItemText,
   Typography,
   linearProgressClasses,
-} from '@mui/material';
+} from '@mui/material'
 
-import { Icon } from '@nl/ui/base/icon';
+import { Icon } from '@nl/ui/base/icon'
 
 // styles
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
@@ -31,7 +31,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     backgroundColor: 'var(--color-purple)',
     ...theme.applyStyles('dark', { backgroundColor: 'var(--color-purple)' }),
   },
-}));
+}))
 
 const CardStyle = styled(Card)(({ theme }) => ({
   background: 'var(--color-muted)',
@@ -50,10 +50,10 @@ const CardStyle = styled(Card)(({ theme }) => ({
     right: '-96px',
     ...theme.applyStyles('dark', { background: 'var(--color-background)' }),
   },
-}));
+}))
 
 interface LinearProgressWithLabelProps {
-  value: number;
+  value: number
 }
 
 // ==============================|| PROGRESS BAR WITH LABEL ||============================== //
@@ -76,12 +76,12 @@ const LinearProgressWithLabel = ({ value, ...others }: LinearProgressWithLabelPr
       <BorderLinearProgress variant="determinate" value={value} {...others} />
     </Grid>
   </Grid>
-);
+)
 
 // ==============================|| SIDEBAR - ONBOARDING CARD ||============================== //
 
 const OnboardingCard = () => {
-  const theme = useTheme();
+  const theme = useTheme()
 
   return (
     <CardStyle>
@@ -117,7 +117,7 @@ const OnboardingCard = () => {
         <LinearProgressWithLabel value={80} />
       </CardContent>
     </CardStyle>
-  );
-};
+  )
+}
 
-export default memo(OnboardingCard);
+export default memo(OnboardingCard)

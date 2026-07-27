@@ -1,19 +1,19 @@
-'use client';
+'use client'
 
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react'
 
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
-import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
-import { CssBaseline } from '@mui/material';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
+import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles'
+import { CssBaseline } from '@mui/material'
 
-import useCreateTheme from '../hooks/useCreateTheme';
-import useThemeConfig from '../hooks/useThemeConfig';
-import { ThemeConfigProvider } from './ThemeConfig';
-import LocalesProvider from './LocalesProvider';
+import useCreateTheme from '../hooks/useCreateTheme'
+import useThemeConfig from '../hooks/useThemeConfig'
+import { ThemeConfigProvider } from './ThemeConfig'
+import LocalesProvider from './LocalesProvider'
 
 const ThemeProvider = ({ children }: PropsWithChildren) => {
-  const { fontFamily } = useThemeConfig();
-  const theme = useCreateTheme();
+  const { fontFamily } = useThemeConfig()
+  const theme = useCreateTheme()
   return (
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
@@ -25,8 +25,8 @@ const ThemeProvider = ({ children }: PropsWithChildren) => {
         </div>
       </LocalesProvider>
     </MuiThemeProvider>
-  );
-};
+  )
+}
 
 const ThemeProviderWrapper = ({ children }: PropsWithChildren) => {
   return (
@@ -35,7 +35,7 @@ const ThemeProviderWrapper = ({ children }: PropsWithChildren) => {
         <ThemeProvider>{children}</ThemeProvider>
       </ThemeConfigProvider>
     </AppRouterCacheProvider>
-  );
-};
+  )
+}
 
-export default ThemeProviderWrapper;
+export default ThemeProviderWrapper

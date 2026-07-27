@@ -2,17 +2,21 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   ERC1155Permit,
   ERC1155PermitInterface,
-} from '../../../../../../../@imtbl/contracts/contracts/token/erc1155/abstract/ERC1155Permit';
+} from '../../../../../../../@imtbl/contracts/contracts/token/erc1155/abstract/ERC1155Permit'
 
 const _abi = [
   { inputs: [], name: 'InvalidShortString', type: 'error' },
   { inputs: [], name: 'InvalidSignature', type: 'error' },
   { inputs: [], name: 'PermitExpired', type: 'error' },
-  { inputs: [{ internalType: 'string', name: 'str', type: 'string' }], name: 'StringTooLong', type: 'error' },
+  {
+    inputs: [{ internalType: 'string', name: 'str', type: 'string' }],
+    name: 'StringTooLong',
+    type: 'error',
+  },
   {
     anonymous: false,
     inputs: [
@@ -201,14 +205,14 @@ const _abi = [
     stateMutability: 'view',
     type: 'function',
   },
-] as const;
+] as const
 
 export class ERC1155Permit__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): ERC1155PermitInterface {
-    return new Interface(_abi) as ERC1155PermitInterface;
+    return new Interface(_abi) as ERC1155PermitInterface
   }
   static connect(address: string, runner?: ContractRunner | null): ERC1155Permit {
-    return new Contract(address, _abi, runner) as unknown as ERC1155Permit;
+    return new Contract(address, _abi, runner) as unknown as ERC1155Permit
   }
 }

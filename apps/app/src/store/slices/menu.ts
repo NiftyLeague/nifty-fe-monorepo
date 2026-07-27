@@ -1,8 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
-import type { MenuProps } from '@/types/menu';
+import { createSlice } from '@reduxjs/toolkit'
+import type { MenuProps } from '@/types/menu'
 
 // initial state
-const initialState: MenuProps = { openItem: ['dashboard'], drawerOpen: false };
+const initialState: MenuProps = { openItem: ['dashboard'], drawerOpen: false }
 
 // ==============================|| SLICE - MENU ||============================== //
 
@@ -11,15 +11,15 @@ const menu = createSlice({
   initialState,
   reducers: {
     activeItem(state, action) {
-      state.openItem = action.payload;
+      state.openItem = action.payload
     },
 
     openDrawer(state, action) {
-      state.drawerOpen = action.payload;
+      state.drawerOpen = action.payload
     },
   },
-});
+})
 
-export default menu.reducer;
+export default menu.reducer
 
-export const { activeItem, openDrawer } = menu.actions;
+export const { activeItem, openDrawer } = menu.actions

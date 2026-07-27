@@ -1,83 +1,89 @@
-'use client';
+'use client'
 
-import { useCallback } from 'react';
-import { useAccount, useSignMessage } from 'wagmi';
+import { useCallback } from 'react'
+import { useAccount, useSignMessage } from 'wagmi'
 // reducer - state management
-import { useDispatch } from '@/store/hooks';
-import { login, logout } from '@/store/slices/account';
+import { useDispatch } from '@/store/hooks'
+import { login, logout } from '@/store/slices/account'
 
-import { gtm } from '@nl/ui/gtm';
-import type { AUTH_Token, UUID_Token, Nonce } from '@/types/auth';
-import { WALLET_VERIFICATION } from '@/constants/url';
-import useLocalStorageContext from '@/hooks/useLocalStorageContext';
+import { gtm } from '@nl/ui/gtm'
+import type { AUTH_Token, UUID_Token, Nonce } from '@/types/auth'
+import { WALLET_VERIFICATION } from '@/constants/url'
+import useLocalStorageContext from '@/hooks/useLocalStorageContext'
 
-type Params = { auth?: AUTH_Token; token?: UUID_Token; nonce?: Nonce };
+type Params = { auth?: AUTH_Token; token?: UUID_Token; nonce?: Nonce }
 
 const useSignAuthMsg = (params: Params = {}) => {
-  const dispatch = useDispatch();
-  const { address } = useAccount();
-  const addressToLower = address?.toLowerCase();
-  const signAddress = `${addressToLower?.slice(0, 6)}...${addressToLower?.slice(-4)}`;
+  const dispatch = useDispatch()
+  const { address } = useAccount()
+  const addressToLower = address?.toLowerCase()
+  const signAddress = `${addressToLower?.slice(0, 6)}...${addressToLower?.slice(-4)}`
 
-  const { setAuthToken, uuidToken, setUUIDToken, nonce: storageNonce, setNonce } = useLocalStorageContext();
+  const {
+    setAuthToken,
+    uuidToken,
+    setUUIDToken,
+    nonce: storageNonce,
+    setNonce,
+  } = useLocalStorageContext()
 
-  const token = params.token || uuidToken;
-  const nonce = params.nonce || storageNonce;
+  const token = params.token || uuidToken
+  const nonce = params.nonce || storageNonce
 
   const verifyWallet = async (verification: string) => {
     try {
-      if (!addressToLower) return;
+      if (!addressToLower) return
       const result = await fetch(WALLET_VERIFICATION, {
         method: 'POST',
         body: JSON.stringify({ token, nonce, verification, address: addressToLower }),
       })
-        .then(res => {
+        .then((res) => {
           if (res.status === 404) {
-            throw Error('Failed to verify signature!');
+            throw Error('Failed to verify signature!')
           }
-          return res.text();
+          return res.text()
         })
         .catch(() => {
-          throw Error('Failed to verify signature!');
-        });
+          throw Error('Failed to verify signature!')
+        })
 
       if (result?.length) {
-        const auth = result.slice(1, -1);
-        setAuthToken(auth);
-        setUUIDToken(token);
-        setNonce(nonce);
+        const auth = result.slice(1, -1)
+        setAuthToken(auth)
+        setUUIDToken(token)
+        setNonce(nonce)
 
-        await dispatch(login());
-        gtm.sendUserId(addressToLower);
+        await dispatch(login())
+        gtm.sendUserId(addressToLower)
       } else {
-        throw Error('Failed to verify signature!');
+        throw Error('Failed to verify signature!')
       }
     } catch (err) {
-      console.error('verifyWallet', err);
-      dispatch(logout());
-      gtm.removeUserId();
+      console.error('verifyWallet', err)
+      dispatch(logout())
+      gtm.removeUserId()
     }
-  };
+  }
 
   const { signMessageAsync, isError, isSuccess } = useSignMessage({
     mutation: {
       onSuccess(data) {
-        verifyWallet(data);
+        verifyWallet(data)
       },
       onError(error) {
-        console.error('useSignMessage', error);
-        dispatch(logout());
+        console.error('useSignMessage', error)
+        dispatch(logout())
       },
     },
-  });
+  })
 
   const signMessage = useCallback(async () => {
     return await signMessageAsync({
       message: `Please sign this message to verify that ${signAddress} belongs to you. ${nonce}`,
-    });
-  }, [signAddress, nonce, signMessageAsync]);
+    })
+  }, [signAddress, nonce, signMessageAsync])
 
-  return { signMessage, isError, isSuccess };
-};
+  return { signMessage, isError, isSuccess }
+}
 
-export default useSignAuthMsg;
+export default useSignAuthMsg

@@ -48,7 +48,9 @@
   },
   {
     "anonymous": false,
-    "inputs": [{ "indexed": false, "internalType": "address", "name": "account", "type": "address" }],
+    "inputs": [
+      { "indexed": false, "internalType": "address", "name": "account", "type": "address" }
+    ],
     "name": "Paused",
     "type": "event"
   },
@@ -64,7 +66,9 @@
   },
   {
     "anonymous": false,
-    "inputs": [{ "indexed": false, "internalType": "address", "name": "account", "type": "address" }],
+    "inputs": [
+      { "indexed": false, "internalType": "address", "name": "account", "type": "address" }
+    ],
     "name": "Unpaused",
     "type": "event"
   },
@@ -181,7 +185,13 @@
     "stateMutability": "view",
     "type": "function"
   },
-  { "inputs": [], "name": "initPoolSizes", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+  {
+    "inputs": [],
+    "name": "initPoolSizes",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
   {
     "inputs": [
       { "internalType": "address", "name": "owner", "type": "address" },
@@ -251,7 +261,13 @@
     "stateMutability": "view",
     "type": "function"
   },
-  { "inputs": [], "name": "pauseMinting", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+  {
+    "inputs": [],
+    "name": "pauseMinting",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
   {
     "inputs": [],
     "name": "paused",
@@ -272,7 +288,13 @@
     "stateMutability": "payable",
     "type": "function"
   },
-  { "inputs": [], "name": "renounceOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
   {
     "inputs": [
       { "internalType": "address", "name": "from", "type": "address" },
@@ -359,7 +381,13 @@
     "stateMutability": "nonpayable",
     "type": "function"
   },
-  { "inputs": [], "name": "unpauseMinting", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+  {
+    "inputs": [],
+    "name": "unpauseMinting",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
   {
     "inputs": [{ "internalType": "string", "name": "newName", "type": "string" }],
     "name": "validateName",
@@ -367,5 +395,11 @@
     "stateMutability": "pure",
     "type": "function"
   },
-  { "inputs": [], "name": "withdraw", "outputs": [], "stateMutability": "nonpayable", "type": "function" }
+  {
+    "inputs": [],
+    "name": "withdraw",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
 ]

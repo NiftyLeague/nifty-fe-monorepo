@@ -1,9 +1,9 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { cn } from '@nl/ui/utils';
-import { useProviders, type Provider } from '@nl/ui/hooks/useProviders';
-import { SocialIconButton } from '@nl/ui/custom/social-icon-button';
+import { useState } from 'react'
+import { cn } from '@nl/ui/utils'
+import { useProviders, type Provider } from '@nl/ui/hooks/useProviders'
+import { SocialIconButton } from '@nl/ui/custom/social-icon-button'
 
 const gridCols: Record<number, string> = {
   1: 'grid-cols-1',
@@ -12,12 +12,12 @@ const gridCols: Record<number, string> = {
   4: 'grid-cols-4',
   5: 'grid-cols-5',
   6: 'grid-cols-6',
-};
+}
 
 export interface SocialAuthProps {
-  disabled?: boolean;
-  enableSocialColors?: boolean;
-  handleProviderLogin: (provider: Provider) => Promise<void>;
+  disabled?: boolean
+  enableSocialColors?: boolean
+  handleProviderLogin: (provider: Provider) => Promise<void>
 }
 
 export function SocialAuth({
@@ -25,14 +25,14 @@ export function SocialAuth({
   enableSocialColors = false,
   handleProviderLogin,
 }: SocialAuthProps): React.ReactNode {
-  const providers = useProviders();
-  const [loading, setLoading] = useState<Provider>();
+  const providers = useProviders()
+  const [loading, setLoading] = useState<Provider>()
 
   const handleClick = async (provider: Provider) => {
-    setLoading(provider);
-    await handleProviderLogin(provider);
-    setLoading(undefined);
-  };
+    setLoading(provider)
+    await handleProviderLogin(provider)
+    setLoading(undefined)
+  }
 
   return (
     <>
@@ -40,7 +40,7 @@ export function SocialAuth({
         <span className="bg-card text-muted-foreground relative z-10 px-2">Or continue with</span>
       </div>
       <div className={cn('grid gap-4', gridCols[providers.length])}>
-        {providers.map(provider => (
+        {providers.map((provider) => (
           <SocialIconButton
             key={provider}
             disabled={disabled || loading !== undefined}
@@ -52,7 +52,7 @@ export function SocialAuth({
         ))}
       </div>
     </>
-  );
+  )
 }
 
-export default SocialAuth;
+export default SocialAuth

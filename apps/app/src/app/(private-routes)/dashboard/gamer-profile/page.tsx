@@ -1,62 +1,68 @@
-'use client';
+'use client'
 
-import { useMemo } from 'react';
-import { Grid, Stack, Typography } from '@mui/material';
-import { useAccount } from 'wagmi';
-import merge from 'lodash/merge';
+import { useMemo } from 'react'
+import { Grid, Stack, Typography } from '@mui/material'
+import { useAccount } from 'wagmi'
+import merge from 'lodash/merge'
 
-import { useGamerProfile, useProfileAvatarFee } from '@/hooks/useGamerProfile';
-import useFetch from '@/hooks/useFetch';
-import useIMXContext from '@/hooks/useIMXContext';
+import { useGamerProfile, useProfileAvatarFee } from '@/hooks/useGamerProfile'
+import useFetch from '@/hooks/useFetch'
+import useIMXContext from '@/hooks/useIMXContext'
 
-import SectionSlider from '@/components/sections/SectionSlider';
-import ImageProfile from './_ImageProfile';
-import RightInfo from './_Stats/RightInfo';
-import LeftInfo from './_Stats/LeftInfo';
-import TopInfo from './_Stats/TopInfo';
-import EmptyState from '@/components/EmptyState';
-import BottomInfo from './_Stats/BottomInfo';
+import SectionSlider from '@/components/sections/SectionSlider'
+import ImageProfile from './_ImageProfile'
+import RightInfo from './_Stats/RightInfo'
+import LeftInfo from './_Stats/LeftInfo'
+import TopInfo from './_Stats/TopInfo'
+import EmptyState from '@/components/EmptyState'
+import BottomInfo from './_Stats/BottomInfo'
 
-import { DEGEN_BASE_API_URL } from '@/constants/url';
-import type { Degen } from '@/types/degens';
-import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
-import { GamerProfileProvider } from '@/contexts/GamerProfileContext';
+import { DEGEN_BASE_API_URL } from '@/constants/url'
+import type { Degen } from '@/types/degens'
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
+import { GamerProfileProvider } from '@/contexts/GamerProfileContext'
 
 const defaultValue: {
-  isLoadingProfile: boolean | undefined;
-  isLoadingDegens: boolean | undefined;
-  isLoadingComics: boolean | undefined;
-} = { isLoadingProfile: true, isLoadingDegens: true, isLoadingComics: true };
+  isLoadingProfile: boolean | undefined
+  isLoadingDegens: boolean | undefined
+  isLoadingComics: boolean | undefined
+} = { isLoadingProfile: true, isLoadingDegens: true, isLoadingComics: true }
 
 const GamerProfile = (): React.ReactNode => {
-  const { profile, error, loadingProfile } = useGamerProfile();
-  const { address } = useAccount();
-  const { avatarsAndFee } = useProfileAvatarFee();
-  const { data } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`);
+  const { profile, error, loadingProfile } = useGamerProfile()
+  const { address } = useAccount()
+  const { avatarsAndFee } = useProfileAvatarFee()
+  const { data } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`)
 
-  const { comicsBalances, degenCount, degensBalances, itemsBalances } = useNFTsBalances();
+  const { comicsBalances, degenCount, degensBalances, itemsBalances } = useNFTsBalances()
 
   const filteredDegens: Degen[] = useMemo(() => {
     if (degensBalances?.length && data) {
-      const mapDegens = degensBalances.map(degen => data[Number(degen.id)]) as Degen[];
-      return mapDegens;
+      const mapDegens = degensBalances.map((degen) => data[Number(degen.id)]) as Degen[]
+      return mapDegens
     }
-    return [];
-  }, [degensBalances, data]);
+    return []
+  }, [degensBalances, data])
 
   const filteredComics = useMemo(
-    () => comicsBalances.filter(comic => comic.balance && comic.balance > 0),
-    [comicsBalances],
-  );
+    () => comicsBalances.filter((comic) => comic.balance && comic.balance > 0),
+    [comicsBalances]
+  )
 
   const filteredItems = useMemo(
-    () => itemsBalances.filter(item => !item.title.includes('Key') && item.balance && item.balance > 0),
-    [itemsBalances],
-  );
+    () =>
+      itemsBalances.filter(
+        (item) => !item.title.includes('Key') && item.balance && item.balance > 0
+      ),
+    [itemsBalances]
+  )
   const filteredKeys = useMemo(
-    () => itemsBalances.filter(item => item.title.includes('Key') && item.balance && item.balance > 0),
-    [itemsBalances],
-  );
+    () =>
+      itemsBalances.filter(
+        (item) => item.title.includes('Key') && item.balance && item.balance > 0
+      ),
+    [itemsBalances]
+  )
 
   const renderEmptyProfile = () => {
     return (
@@ -67,8 +73,8 @@ const GamerProfile = (): React.ReactNode => {
       >
         <EmptyState message="You don't own any Gamer Profile yet." />
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderTopProfile = () => {
     return (
@@ -77,7 +83,11 @@ const GamerProfile = (): React.ReactNode => {
           <ImageProfile
             avatar={profile?.avatar}
             avatarFee={avatarsAndFee?.price}
-            degens={filteredDegens && avatarsAndFee?.avatars && merge(filteredDegens, avatarsAndFee?.avatars)}
+            degens={
+              filteredDegens &&
+              avatarsAndFee?.avatars &&
+              merge(filteredDegens, avatarsAndFee?.avatars)
+            }
           />
         </Grid>
         <Grid size={{ xs: 12, lg: 8.5 }}>
@@ -102,8 +112,8 @@ const GamerProfile = (): React.ReactNode => {
           </Stack>
         </Grid>
       </Grid>
-    );
-  };
+    )
+  }
 
   const renderBottomProfile = () => {
     const sliderSettingsOverride = {
@@ -115,7 +125,7 @@ const GamerProfile = (): React.ReactNode => {
         { breakpoint: 768, settings: { slidesToShow: 1 } },
         { breakpoint: 640, settings: { slidesToShow: 1 } },
       ],
-    };
+    }
     return (
       <SectionSlider
         firstSection
@@ -131,8 +141,8 @@ const GamerProfile = (): React.ReactNode => {
           crypto_winter={profile?.stats?.crypto_winter}
         />
       </SectionSlider>
-    );
-  };
+    )
+  }
 
   const renderGamerProfile = () => {
     return (
@@ -140,14 +150,14 @@ const GamerProfile = (): React.ReactNode => {
         {renderTopProfile()}
         {renderBottomProfile()}
       </GamerProfileProvider>
-    );
-  };
+    )
+  }
   return (
     <Grid container sx={{ gap: 4, mb: '24px' }}>
       {error && !profile && !loadingProfile && renderEmptyProfile()}
       {(profile || loadingProfile) && renderGamerProfile()}
     </Grid>
-  );
-};
+  )
+}
 
-export default GamerProfile;
+export default GamerProfile

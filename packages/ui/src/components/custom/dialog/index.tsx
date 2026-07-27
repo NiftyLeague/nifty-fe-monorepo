@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import { type VariantProps } from 'class-variance-authority';
-import { Button, buttonVariants } from '@nl/ui/base/button';
+import { type VariantProps } from 'class-variance-authority'
+import { Button, buttonVariants } from '@nl/ui/base/button'
 import {
   Dialog as DialogBase,
   DialogClose,
@@ -11,25 +11,25 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@nl/ui/base/dialog';
-import React from 'react';
+} from '@nl/ui/base/dialog'
+import React from 'react'
 
 interface DialogProps {
-  cancelText?: string;
-  cancelVariant?: VariantProps<typeof buttonVariants>['variant'];
-  confirmText?: string;
-  confirmVariant?: VariantProps<typeof buttonVariants>['variant'];
-  defaultOpen?: boolean;
-  description: string | React.ReactNode;
-  hideDescription?: boolean;
-  hideTitle?: boolean;
-  onCancel?: React.MouseEventHandler<HTMLButtonElement>;
-  onConfirm?: React.MouseEventHandler<HTMLButtonElement>;
-  onOpenChange?: (open: boolean) => void;
-  open?: boolean;
-  showCloseButton?: boolean;
-  title: string | React.ReactNode;
-  triggerElement?: React.ReactNode;
+  cancelText?: string
+  cancelVariant?: VariantProps<typeof buttonVariants>['variant']
+  confirmText?: string
+  confirmVariant?: VariantProps<typeof buttonVariants>['variant']
+  defaultOpen?: boolean
+  description: string | React.ReactNode
+  hideDescription?: boolean
+  hideTitle?: boolean
+  onCancel?: React.MouseEventHandler<HTMLButtonElement>
+  onConfirm?: React.MouseEventHandler<HTMLButtonElement>
+  onOpenChange?: (open: boolean) => void
+  open?: boolean
+  showCloseButton?: boolean
+  title: string | React.ReactNode
+  triggerElement?: React.ReactNode
 }
 
 export function Dialog({
@@ -65,7 +65,9 @@ export function Dialog({
             <img src="/img/logos/NL/white.webp" alt="Company Logo" width={45} height={42} />
             {title}
           </DialogTitle>
-          <DialogDescription className={hideDescription ? 'hidden' : ''}>{description}</DialogDescription>
+          <DialogDescription className={hideDescription ? 'hidden' : ''}>
+            {description}
+          </DialogDescription>
         </DialogHeader>
 
         <div className="max-h-[75vh] overflow-y-auto overflow-x-hidden -m-6 p-6 mt-0 pt-0">
@@ -79,14 +81,19 @@ export function Dialog({
                 {cancelText}
               </Button>
             </DialogClose>
-            <Button type="submit" variant={confirmVariant} onClick={onConfirm} className="cursor-pointer">
+            <Button
+              type="submit"
+              variant={confirmVariant}
+              onClick={onConfirm}
+              className="cursor-pointer"
+            >
               {confirmText}
             </Button>
           </DialogFooter>
         )}
       </DialogContent>
     </DialogBase>
-  );
+  )
 }
 
-export default Dialog;
+export default Dialog

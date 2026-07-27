@@ -1,22 +1,36 @@
-import Link from 'next/link';
-import type { Dispatch, SetStateAction } from 'react';
-import { Alert, Dialog, DialogContent, DialogContentText, DialogTitle, IconButton, Typography } from '@mui/material';
+import Link from 'next/link'
+import type { Dispatch, SetStateAction } from 'react'
+import {
+  Alert,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  IconButton,
+  Typography,
+} from '@mui/material'
 
-import { Icon } from '@nl/ui/base/icon';
-import useTokensBalances from '@/hooks/balances/useTokensBalances';
-import useNetworkContext from '@/hooks/useNetworkContext';
-import { AXELAR_TRANSACTIONS_URL } from '@/constants/url';
+import { Icon } from '@nl/ui/base/icon'
+import useTokensBalances from '@/hooks/balances/useTokensBalances'
+import useNetworkContext from '@/hooks/useNetworkContext'
+import { AXELAR_TRANSACTIONS_URL } from '@/constants/url'
 
-type BridgeSuccessProps = { successDialogOpen: boolean; setSuccessDialogOpen: Dispatch<SetStateAction<boolean>> };
+type BridgeSuccessProps = {
+  successDialogOpen: boolean
+  setSuccessDialogOpen: Dispatch<SetStateAction<boolean>>
+}
 
-const BridgeSuccess = ({ successDialogOpen, setSuccessDialogOpen }: BridgeSuccessProps): React.ReactNode => {
-  const { address } = useNetworkContext();
-  const { refreshNFTLBalance } = useTokensBalances();
+const BridgeSuccess = ({
+  successDialogOpen,
+  setSuccessDialogOpen,
+}: BridgeSuccessProps): React.ReactNode => {
+  const { address } = useNetworkContext()
+  const { refreshNFTLBalance } = useTokensBalances()
 
   const handleClose = () => {
-    refreshNFTLBalance();
-    setSuccessDialogOpen(false);
-  };
+    refreshNFTLBalance()
+    setSuccessDialogOpen(false)
+  }
 
   return (
     <Dialog
@@ -27,7 +41,11 @@ const BridgeSuccess = ({ successDialogOpen, setSuccessDialogOpen }: BridgeSucces
     >
       <DialogTitle id="alert-dialog-title" sx={{ textAlign: 'center' }}>
         Success!
-        <IconButton aria-label="close" onClick={handleClose} sx={{ position: 'absolute', right: 0, top: 0 }}>
+        <IconButton
+          aria-label="close"
+          onClick={handleClose}
+          sx={{ position: 'absolute', right: 0, top: 0 }}
+        >
           <Icon name="x" size="lg" color="dim" />
         </IconButton>
       </DialogTitle>
@@ -55,7 +73,7 @@ const BridgeSuccess = ({ successDialogOpen, setSuccessDialogOpen }: BridgeSucces
         </DialogContentText>
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}
 
-export default BridgeSuccess;
+export default BridgeSuccess

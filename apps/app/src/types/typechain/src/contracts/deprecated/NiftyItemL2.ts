@@ -13,7 +13,7 @@ import type {
   ContractRunner,
   ContractMethod,
   Listener,
-} from 'ethers';
+} from 'ethers'
 import type {
   TypedContractEvent,
   TypedDeferredTopicFilter,
@@ -21,7 +21,7 @@ import type {
   TypedLogDescription,
   TypedListener,
   TypedContractMethod,
-} from '../../../common';
+} from '../../../common'
 
 export interface NiftyItemL2Interface extends Interface {
   getFunction(
@@ -54,8 +54,8 @@ export interface NiftyItemL2Interface extends Interface {
       | 'transferFrom'
       | 'transferOwnership'
       | 'unpause'
-      | 'uri',
-  ): FunctionFragment;
+      | 'uri'
+  ): FunctionFragment
 
   getEvent(
     nameOrSignatureOrTopic:
@@ -66,436 +66,550 @@ export interface NiftyItemL2Interface extends Interface {
       | 'OwnershipTransferred'
       | 'Paused'
       | 'Transfer'
-      | 'Unpaused',
-  ): EventFragment;
+      | 'Unpaused'
+  ): EventFragment
 
-  encodeFunctionData(functionFragment: 'approve', values: [AddressLike, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'balanceOf', values: [AddressLike]): string;
-  encodeFunctionData(functionFragment: 'burn', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'getApproved', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'imx', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'initialize', values: [AddressLike]): string;
-  encodeFunctionData(functionFragment: 'isApprovedForAll', values: [AddressLike, AddressLike]): string;
-  encodeFunctionData(functionFragment: 'itemIdByTokenId', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'mintFor', values: [AddressLike, BigNumberish, BytesLike]): string;
-  encodeFunctionData(functionFragment: 'name', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'owner', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'ownerOf', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'pause', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'paused', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'renounceOwnership', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'approve', values: [AddressLike, BigNumberish]): string
+  encodeFunctionData(functionFragment: 'balanceOf', values: [AddressLike]): string
+  encodeFunctionData(functionFragment: 'burn', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'getApproved', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'imx', values?: undefined): string
+  encodeFunctionData(functionFragment: 'initialize', values: [AddressLike]): string
+  encodeFunctionData(
+    functionFragment: 'isApprovedForAll',
+    values: [AddressLike, AddressLike]
+  ): string
+  encodeFunctionData(functionFragment: 'itemIdByTokenId', values: [BigNumberish]): string
+  encodeFunctionData(
+    functionFragment: 'mintFor',
+    values: [AddressLike, BigNumberish, BytesLike]
+  ): string
+  encodeFunctionData(functionFragment: 'name', values?: undefined): string
+  encodeFunctionData(functionFragment: 'owner', values?: undefined): string
+  encodeFunctionData(functionFragment: 'ownerOf', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'pause', values?: undefined): string
+  encodeFunctionData(functionFragment: 'paused', values?: undefined): string
+  encodeFunctionData(functionFragment: 'renounceOwnership', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'safeTransferFrom(address,address,uint256)',
-    values: [AddressLike, AddressLike, BigNumberish],
-  ): string;
+    values: [AddressLike, AddressLike, BigNumberish]
+  ): string
   encodeFunctionData(
     functionFragment: 'safeTransferFrom(address,address,uint256,bytes)',
-    values: [AddressLike, AddressLike, BigNumberish, BytesLike],
-  ): string;
-  encodeFunctionData(functionFragment: 'setApprovalForAll', values: [AddressLike, boolean]): string;
-  encodeFunctionData(functionFragment: 'setURI', values: [string]): string;
-  encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
-  encodeFunctionData(functionFragment: 'symbol', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'tokenByIndex', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'tokenOfOwnerByIndex', values: [AddressLike, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'tokenURI', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'totalSupply', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'transferFrom', values: [AddressLike, AddressLike, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'transferOwnership', values: [AddressLike]): string;
-  encodeFunctionData(functionFragment: 'unpause', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'uri', values?: undefined): string;
+    values: [AddressLike, AddressLike, BigNumberish, BytesLike]
+  ): string
+  encodeFunctionData(functionFragment: 'setApprovalForAll', values: [AddressLike, boolean]): string
+  encodeFunctionData(functionFragment: 'setURI', values: [string]): string
+  encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string
+  encodeFunctionData(functionFragment: 'symbol', values?: undefined): string
+  encodeFunctionData(functionFragment: 'tokenByIndex', values: [BigNumberish]): string
+  encodeFunctionData(
+    functionFragment: 'tokenOfOwnerByIndex',
+    values: [AddressLike, BigNumberish]
+  ): string
+  encodeFunctionData(functionFragment: 'tokenURI', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'totalSupply', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: 'transferFrom',
+    values: [AddressLike, AddressLike, BigNumberish]
+  ): string
+  encodeFunctionData(functionFragment: 'transferOwnership', values: [AddressLike]): string
+  encodeFunctionData(functionFragment: 'unpause', values?: undefined): string
+  encodeFunctionData(functionFragment: 'uri', values?: undefined): string
 
-  decodeFunctionResult(functionFragment: 'approve', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'burn', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getApproved', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'imx', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'initialize', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'isApprovedForAll', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'itemIdByTokenId', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'mintFor', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'ownerOf', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'pause', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'paused', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'renounceOwnership', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'safeTransferFrom(address,address,uint256)', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'safeTransferFrom(address,address,uint256,bytes)', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setApprovalForAll', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setURI', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'tokenByIndex', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'tokenOfOwnerByIndex', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'tokenURI', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'totalSupply', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'transferFrom', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'transferOwnership', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'unpause', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'uri', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'approve', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'burn', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getApproved', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'imx', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'initialize', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'isApprovedForAll', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'itemIdByTokenId', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'mintFor', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'ownerOf', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'pause', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'paused', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'renounceOwnership', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'safeTransferFrom(address,address,uint256)',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'safeTransferFrom(address,address,uint256,bytes)',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(functionFragment: 'setApprovalForAll', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setURI', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'tokenByIndex', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'tokenOfOwnerByIndex', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'tokenURI', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'totalSupply', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'transferFrom', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'transferOwnership', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'unpause', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'uri', data: BytesLike): Result
 }
 
 export namespace ApprovalEvent {
-  export type InputTuple = [owner: AddressLike, approved: AddressLike, tokenId: BigNumberish];
-  export type OutputTuple = [owner: string, approved: string, tokenId: bigint];
+  export type InputTuple = [owner: AddressLike, approved: AddressLike, tokenId: BigNumberish]
+  export type OutputTuple = [owner: string, approved: string, tokenId: bigint]
   export interface OutputObject {
-    owner: string;
-    approved: string;
-    tokenId: bigint;
+    owner: string
+    approved: string
+    tokenId: bigint
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace ApprovalForAllEvent {
-  export type InputTuple = [owner: AddressLike, operator: AddressLike, approved: boolean];
-  export type OutputTuple = [owner: string, operator: string, approved: boolean];
+  export type InputTuple = [owner: AddressLike, operator: AddressLike, approved: boolean]
+  export type OutputTuple = [owner: string, operator: string, approved: boolean]
   export interface OutputObject {
-    owner: string;
-    operator: string;
-    approved: boolean;
+    owner: string
+    operator: string
+    approved: boolean
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace AssetMintedEvent {
-  export type InputTuple = [to: AddressLike, id: BigNumberish, blueprint: BytesLike];
-  export type OutputTuple = [to: string, id: bigint, blueprint: string];
+  export type InputTuple = [to: AddressLike, id: BigNumberish, blueprint: BytesLike]
+  export type OutputTuple = [to: string, id: bigint, blueprint: string]
   export interface OutputObject {
-    to: string;
-    id: bigint;
-    blueprint: string;
+    to: string
+    id: bigint
+    blueprint: string
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace InitializedEvent {
-  export type InputTuple = [version: BigNumberish];
-  export type OutputTuple = [version: bigint];
+  export type InputTuple = [version: BigNumberish]
+  export type OutputTuple = [version: bigint]
   export interface OutputObject {
-    version: bigint;
+    version: bigint
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace OwnershipTransferredEvent {
-  export type InputTuple = [previousOwner: AddressLike, newOwner: AddressLike];
-  export type OutputTuple = [previousOwner: string, newOwner: string];
+  export type InputTuple = [previousOwner: AddressLike, newOwner: AddressLike]
+  export type OutputTuple = [previousOwner: string, newOwner: string]
   export interface OutputObject {
-    previousOwner: string;
-    newOwner: string;
+    previousOwner: string
+    newOwner: string
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace PausedEvent {
-  export type InputTuple = [account: AddressLike];
-  export type OutputTuple = [account: string];
+  export type InputTuple = [account: AddressLike]
+  export type OutputTuple = [account: string]
   export interface OutputObject {
-    account: string;
+    account: string
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace TransferEvent {
-  export type InputTuple = [from: AddressLike, to: AddressLike, tokenId: BigNumberish];
-  export type OutputTuple = [from: string, to: string, tokenId: bigint];
+  export type InputTuple = [from: AddressLike, to: AddressLike, tokenId: BigNumberish]
+  export type OutputTuple = [from: string, to: string, tokenId: bigint]
   export interface OutputObject {
-    from: string;
-    to: string;
-    tokenId: bigint;
+    from: string
+    to: string
+    tokenId: bigint
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace UnpausedEvent {
-  export type InputTuple = [account: AddressLike];
-  export type OutputTuple = [account: string];
+  export type InputTuple = [account: AddressLike]
+  export type OutputTuple = [account: string]
   export interface OutputObject {
-    account: string;
+    account: string
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export interface NiftyItemL2 extends BaseContract {
-  connect(runner?: ContractRunner | null): NiftyItemL2;
-  waitForDeployment(): Promise<this>;
+  connect(runner?: ContractRunner | null): NiftyItemL2
+  waitForDeployment(): Promise<this>
 
-  interface: NiftyItemL2Interface;
+  interface: NiftyItemL2Interface
 
   queryFilter<TCEvent extends TypedContractEvent>(
     event: TCEvent,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
-  ): Promise<Array<TypedEventLog<TCEvent>>>;
+    toBlock?: string | number | undefined
+  ): Promise<Array<TypedEventLog<TCEvent>>>
   queryFilter<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
-  ): Promise<Array<TypedEventLog<TCEvent>>>;
+    toBlock?: string | number | undefined
+  ): Promise<Array<TypedEventLog<TCEvent>>>
 
-  on<TCEvent extends TypedContractEvent>(event: TCEvent, listener: TypedListener<TCEvent>): Promise<this>;
+  on<TCEvent extends TypedContractEvent>(
+    event: TCEvent,
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
   on<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
-    listener: TypedListener<TCEvent>,
-  ): Promise<this>;
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
 
-  once<TCEvent extends TypedContractEvent>(event: TCEvent, listener: TypedListener<TCEvent>): Promise<this>;
+  once<TCEvent extends TypedContractEvent>(
+    event: TCEvent,
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
   once<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
-    listener: TypedListener<TCEvent>,
-  ): Promise<this>;
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
 
-  listeners<TCEvent extends TypedContractEvent>(event: TCEvent): Promise<Array<TypedListener<TCEvent>>>;
-  listeners(eventName?: string): Promise<Array<Listener>>;
-  removeAllListeners<TCEvent extends TypedContractEvent>(event?: TCEvent): Promise<this>;
+  listeners<TCEvent extends TypedContractEvent>(
+    event: TCEvent
+  ): Promise<Array<TypedListener<TCEvent>>>
+  listeners(eventName?: string): Promise<Array<Listener>>
+  removeAllListeners<TCEvent extends TypedContractEvent>(event?: TCEvent): Promise<this>
 
-  approve: TypedContractMethod<[to: AddressLike, tokenId: BigNumberish], [void], 'nonpayable'>;
+  approve: TypedContractMethod<[to: AddressLike, tokenId: BigNumberish], [void], 'nonpayable'>
 
-  balanceOf: TypedContractMethod<[owner: AddressLike], [bigint], 'view'>;
+  balanceOf: TypedContractMethod<[owner: AddressLike], [bigint], 'view'>
 
-  burn: TypedContractMethod<[_tokenId: BigNumberish], [void], 'nonpayable'>;
+  burn: TypedContractMethod<[_tokenId: BigNumberish], [void], 'nonpayable'>
 
-  getApproved: TypedContractMethod<[tokenId: BigNumberish], [string], 'view'>;
+  getApproved: TypedContractMethod<[tokenId: BigNumberish], [string], 'view'>
 
-  imx: TypedContractMethod<[], [string], 'view'>;
+  imx: TypedContractMethod<[], [string], 'view'>
 
-  initialize: TypedContractMethod<[_imx: AddressLike], [void], 'nonpayable'>;
+  initialize: TypedContractMethod<[_imx: AddressLike], [void], 'nonpayable'>
 
-  isApprovedForAll: TypedContractMethod<[owner: AddressLike, operator: AddressLike], [boolean], 'view'>;
+  isApprovedForAll: TypedContractMethod<
+    [owner: AddressLike, operator: AddressLike],
+    [boolean],
+    'view'
+  >
 
-  itemIdByTokenId: TypedContractMethod<[tokenId: BigNumberish], [bigint], 'view'>;
+  itemIdByTokenId: TypedContractMethod<[tokenId: BigNumberish], [bigint], 'view'>
 
   mintFor: TypedContractMethod<
     [_to: AddressLike, _quantity: BigNumberish, _mintingBlob: BytesLike],
     [void],
     'nonpayable'
-  >;
+  >
 
-  name: TypedContractMethod<[], [string], 'view'>;
+  name: TypedContractMethod<[], [string], 'view'>
 
-  owner: TypedContractMethod<[], [string], 'view'>;
+  owner: TypedContractMethod<[], [string], 'view'>
 
-  ownerOf: TypedContractMethod<[tokenId: BigNumberish], [string], 'view'>;
+  ownerOf: TypedContractMethod<[tokenId: BigNumberish], [string], 'view'>
 
-  pause: TypedContractMethod<[], [void], 'nonpayable'>;
+  pause: TypedContractMethod<[], [void], 'nonpayable'>
 
-  paused: TypedContractMethod<[], [boolean], 'view'>;
+  paused: TypedContractMethod<[], [boolean], 'view'>
 
-  renounceOwnership: TypedContractMethod<[], [void], 'nonpayable'>;
+  renounceOwnership: TypedContractMethod<[], [void], 'nonpayable'>
 
   'safeTransferFrom(address,address,uint256)': TypedContractMethod<
     [from: AddressLike, to: AddressLike, tokenId: BigNumberish],
     [void],
     'nonpayable'
-  >;
+  >
 
   'safeTransferFrom(address,address,uint256,bytes)': TypedContractMethod<
     [from: AddressLike, to: AddressLike, tokenId: BigNumberish, data: BytesLike],
     [void],
     'nonpayable'
-  >;
+  >
 
-  setApprovalForAll: TypedContractMethod<[operator: AddressLike, approved: boolean], [void], 'nonpayable'>;
+  setApprovalForAll: TypedContractMethod<
+    [operator: AddressLike, approved: boolean],
+    [void],
+    'nonpayable'
+  >
 
-  setURI: TypedContractMethod<[_uri: string], [void], 'nonpayable'>;
+  setURI: TypedContractMethod<[_uri: string], [void], 'nonpayable'>
 
-  supportsInterface: TypedContractMethod<[interfaceId: BytesLike], [boolean], 'view'>;
+  supportsInterface: TypedContractMethod<[interfaceId: BytesLike], [boolean], 'view'>
 
-  symbol: TypedContractMethod<[], [string], 'view'>;
+  symbol: TypedContractMethod<[], [string], 'view'>
 
-  tokenByIndex: TypedContractMethod<[index: BigNumberish], [bigint], 'view'>;
+  tokenByIndex: TypedContractMethod<[index: BigNumberish], [bigint], 'view'>
 
-  tokenOfOwnerByIndex: TypedContractMethod<[owner: AddressLike, index: BigNumberish], [bigint], 'view'>;
+  tokenOfOwnerByIndex: TypedContractMethod<
+    [owner: AddressLike, index: BigNumberish],
+    [bigint],
+    'view'
+  >
 
-  tokenURI: TypedContractMethod<[tokenId: BigNumberish], [string], 'view'>;
+  tokenURI: TypedContractMethod<[tokenId: BigNumberish], [string], 'view'>
 
-  totalSupply: TypedContractMethod<[], [bigint], 'view'>;
+  totalSupply: TypedContractMethod<[], [bigint], 'view'>
 
-  transferFrom: TypedContractMethod<[from: AddressLike, to: AddressLike, tokenId: BigNumberish], [void], 'nonpayable'>;
+  transferFrom: TypedContractMethod<
+    [from: AddressLike, to: AddressLike, tokenId: BigNumberish],
+    [void],
+    'nonpayable'
+  >
 
-  transferOwnership: TypedContractMethod<[newOwner: AddressLike], [void], 'nonpayable'>;
+  transferOwnership: TypedContractMethod<[newOwner: AddressLike], [void], 'nonpayable'>
 
-  unpause: TypedContractMethod<[], [void], 'nonpayable'>;
+  unpause: TypedContractMethod<[], [void], 'nonpayable'>
 
-  uri: TypedContractMethod<[], [string], 'view'>;
+  uri: TypedContractMethod<[], [string], 'view'>
 
-  getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T;
+  getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T
 
   getFunction(
-    nameOrSignature: 'approve',
-  ): TypedContractMethod<[to: AddressLike, tokenId: BigNumberish], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'balanceOf'): TypedContractMethod<[owner: AddressLike], [bigint], 'view'>;
-  getFunction(nameOrSignature: 'burn'): TypedContractMethod<[_tokenId: BigNumberish], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'getApproved'): TypedContractMethod<[tokenId: BigNumberish], [string], 'view'>;
-  getFunction(nameOrSignature: 'imx'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'initialize'): TypedContractMethod<[_imx: AddressLike], [void], 'nonpayable'>;
+    nameOrSignature: 'approve'
+  ): TypedContractMethod<[to: AddressLike, tokenId: BigNumberish], [void], 'nonpayable'>
   getFunction(
-    nameOrSignature: 'isApprovedForAll',
-  ): TypedContractMethod<[owner: AddressLike, operator: AddressLike], [boolean], 'view'>;
-  getFunction(nameOrSignature: 'itemIdByTokenId'): TypedContractMethod<[tokenId: BigNumberish], [bigint], 'view'>;
+    nameOrSignature: 'balanceOf'
+  ): TypedContractMethod<[owner: AddressLike], [bigint], 'view'>
   getFunction(
-    nameOrSignature: 'mintFor',
-  ): TypedContractMethod<[_to: AddressLike, _quantity: BigNumberish, _mintingBlob: BytesLike], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'name'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'owner'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'ownerOf'): TypedContractMethod<[tokenId: BigNumberish], [string], 'view'>;
-  getFunction(nameOrSignature: 'pause'): TypedContractMethod<[], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'paused'): TypedContractMethod<[], [boolean], 'view'>;
-  getFunction(nameOrSignature: 'renounceOwnership'): TypedContractMethod<[], [void], 'nonpayable'>;
+    nameOrSignature: 'burn'
+  ): TypedContractMethod<[_tokenId: BigNumberish], [void], 'nonpayable'>
   getFunction(
-    nameOrSignature: 'safeTransferFrom(address,address,uint256)',
-  ): TypedContractMethod<[from: AddressLike, to: AddressLike, tokenId: BigNumberish], [void], 'nonpayable'>;
+    nameOrSignature: 'getApproved'
+  ): TypedContractMethod<[tokenId: BigNumberish], [string], 'view'>
+  getFunction(nameOrSignature: 'imx'): TypedContractMethod<[], [string], 'view'>
   getFunction(
-    nameOrSignature: 'safeTransferFrom(address,address,uint256,bytes)',
+    nameOrSignature: 'initialize'
+  ): TypedContractMethod<[_imx: AddressLike], [void], 'nonpayable'>
+  getFunction(
+    nameOrSignature: 'isApprovedForAll'
+  ): TypedContractMethod<[owner: AddressLike, operator: AddressLike], [boolean], 'view'>
+  getFunction(
+    nameOrSignature: 'itemIdByTokenId'
+  ): TypedContractMethod<[tokenId: BigNumberish], [bigint], 'view'>
+  getFunction(
+    nameOrSignature: 'mintFor'
+  ): TypedContractMethod<
+    [_to: AddressLike, _quantity: BigNumberish, _mintingBlob: BytesLike],
+    [void],
+    'nonpayable'
+  >
+  getFunction(nameOrSignature: 'name'): TypedContractMethod<[], [string], 'view'>
+  getFunction(nameOrSignature: 'owner'): TypedContractMethod<[], [string], 'view'>
+  getFunction(
+    nameOrSignature: 'ownerOf'
+  ): TypedContractMethod<[tokenId: BigNumberish], [string], 'view'>
+  getFunction(nameOrSignature: 'pause'): TypedContractMethod<[], [void], 'nonpayable'>
+  getFunction(nameOrSignature: 'paused'): TypedContractMethod<[], [boolean], 'view'>
+  getFunction(nameOrSignature: 'renounceOwnership'): TypedContractMethod<[], [void], 'nonpayable'>
+  getFunction(
+    nameOrSignature: 'safeTransferFrom(address,address,uint256)'
+  ): TypedContractMethod<
+    [from: AddressLike, to: AddressLike, tokenId: BigNumberish],
+    [void],
+    'nonpayable'
+  >
+  getFunction(
+    nameOrSignature: 'safeTransferFrom(address,address,uint256,bytes)'
   ): TypedContractMethod<
     [from: AddressLike, to: AddressLike, tokenId: BigNumberish, data: BytesLike],
     [void],
     'nonpayable'
-  >;
+  >
   getFunction(
-    nameOrSignature: 'setApprovalForAll',
-  ): TypedContractMethod<[operator: AddressLike, approved: boolean], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'setURI'): TypedContractMethod<[_uri: string], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'supportsInterface'): TypedContractMethod<[interfaceId: BytesLike], [boolean], 'view'>;
-  getFunction(nameOrSignature: 'symbol'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'tokenByIndex'): TypedContractMethod<[index: BigNumberish], [bigint], 'view'>;
+    nameOrSignature: 'setApprovalForAll'
+  ): TypedContractMethod<[operator: AddressLike, approved: boolean], [void], 'nonpayable'>
+  getFunction(nameOrSignature: 'setURI'): TypedContractMethod<[_uri: string], [void], 'nonpayable'>
   getFunction(
-    nameOrSignature: 'tokenOfOwnerByIndex',
-  ): TypedContractMethod<[owner: AddressLike, index: BigNumberish], [bigint], 'view'>;
-  getFunction(nameOrSignature: 'tokenURI'): TypedContractMethod<[tokenId: BigNumberish], [string], 'view'>;
-  getFunction(nameOrSignature: 'totalSupply'): TypedContractMethod<[], [bigint], 'view'>;
+    nameOrSignature: 'supportsInterface'
+  ): TypedContractMethod<[interfaceId: BytesLike], [boolean], 'view'>
+  getFunction(nameOrSignature: 'symbol'): TypedContractMethod<[], [string], 'view'>
   getFunction(
-    nameOrSignature: 'transferFrom',
-  ): TypedContractMethod<[from: AddressLike, to: AddressLike, tokenId: BigNumberish], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'transferOwnership'): TypedContractMethod<[newOwner: AddressLike], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'unpause'): TypedContractMethod<[], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'uri'): TypedContractMethod<[], [string], 'view'>;
+    nameOrSignature: 'tokenByIndex'
+  ): TypedContractMethod<[index: BigNumberish], [bigint], 'view'>
+  getFunction(
+    nameOrSignature: 'tokenOfOwnerByIndex'
+  ): TypedContractMethod<[owner: AddressLike, index: BigNumberish], [bigint], 'view'>
+  getFunction(
+    nameOrSignature: 'tokenURI'
+  ): TypedContractMethod<[tokenId: BigNumberish], [string], 'view'>
+  getFunction(nameOrSignature: 'totalSupply'): TypedContractMethod<[], [bigint], 'view'>
+  getFunction(
+    nameOrSignature: 'transferFrom'
+  ): TypedContractMethod<
+    [from: AddressLike, to: AddressLike, tokenId: BigNumberish],
+    [void],
+    'nonpayable'
+  >
+  getFunction(
+    nameOrSignature: 'transferOwnership'
+  ): TypedContractMethod<[newOwner: AddressLike], [void], 'nonpayable'>
+  getFunction(nameOrSignature: 'unpause'): TypedContractMethod<[], [void], 'nonpayable'>
+  getFunction(nameOrSignature: 'uri'): TypedContractMethod<[], [string], 'view'>
 
   getEvent(
-    key: 'Approval',
-  ): TypedContractEvent<ApprovalEvent.InputTuple, ApprovalEvent.OutputTuple, ApprovalEvent.OutputObject>;
+    key: 'Approval'
+  ): TypedContractEvent<
+    ApprovalEvent.InputTuple,
+    ApprovalEvent.OutputTuple,
+    ApprovalEvent.OutputObject
+  >
   getEvent(
-    key: 'ApprovalForAll',
+    key: 'ApprovalForAll'
   ): TypedContractEvent<
     ApprovalForAllEvent.InputTuple,
     ApprovalForAllEvent.OutputTuple,
     ApprovalForAllEvent.OutputObject
-  >;
+  >
   getEvent(
-    key: 'AssetMinted',
-  ): TypedContractEvent<AssetMintedEvent.InputTuple, AssetMintedEvent.OutputTuple, AssetMintedEvent.OutputObject>;
+    key: 'AssetMinted'
+  ): TypedContractEvent<
+    AssetMintedEvent.InputTuple,
+    AssetMintedEvent.OutputTuple,
+    AssetMintedEvent.OutputObject
+  >
   getEvent(
-    key: 'Initialized',
-  ): TypedContractEvent<InitializedEvent.InputTuple, InitializedEvent.OutputTuple, InitializedEvent.OutputObject>;
+    key: 'Initialized'
+  ): TypedContractEvent<
+    InitializedEvent.InputTuple,
+    InitializedEvent.OutputTuple,
+    InitializedEvent.OutputObject
+  >
   getEvent(
-    key: 'OwnershipTransferred',
+    key: 'OwnershipTransferred'
   ): TypedContractEvent<
     OwnershipTransferredEvent.InputTuple,
     OwnershipTransferredEvent.OutputTuple,
     OwnershipTransferredEvent.OutputObject
-  >;
+  >
   getEvent(
-    key: 'Paused',
-  ): TypedContractEvent<PausedEvent.InputTuple, PausedEvent.OutputTuple, PausedEvent.OutputObject>;
+    key: 'Paused'
+  ): TypedContractEvent<PausedEvent.InputTuple, PausedEvent.OutputTuple, PausedEvent.OutputObject>
   getEvent(
-    key: 'Transfer',
-  ): TypedContractEvent<TransferEvent.InputTuple, TransferEvent.OutputTuple, TransferEvent.OutputObject>;
+    key: 'Transfer'
+  ): TypedContractEvent<
+    TransferEvent.InputTuple,
+    TransferEvent.OutputTuple,
+    TransferEvent.OutputObject
+  >
   getEvent(
-    key: 'Unpaused',
-  ): TypedContractEvent<UnpausedEvent.InputTuple, UnpausedEvent.OutputTuple, UnpausedEvent.OutputObject>;
+    key: 'Unpaused'
+  ): TypedContractEvent<
+    UnpausedEvent.InputTuple,
+    UnpausedEvent.OutputTuple,
+    UnpausedEvent.OutputObject
+  >
 
   filters: {
     'Approval(address,address,uint256)': TypedContractEvent<
       ApprovalEvent.InputTuple,
       ApprovalEvent.OutputTuple,
       ApprovalEvent.OutputObject
-    >;
-    Approval: TypedContractEvent<ApprovalEvent.InputTuple, ApprovalEvent.OutputTuple, ApprovalEvent.OutputObject>;
+    >
+    Approval: TypedContractEvent<
+      ApprovalEvent.InputTuple,
+      ApprovalEvent.OutputTuple,
+      ApprovalEvent.OutputObject
+    >
 
     'ApprovalForAll(address,address,bool)': TypedContractEvent<
       ApprovalForAllEvent.InputTuple,
       ApprovalForAllEvent.OutputTuple,
       ApprovalForAllEvent.OutputObject
-    >;
+    >
     ApprovalForAll: TypedContractEvent<
       ApprovalForAllEvent.InputTuple,
       ApprovalForAllEvent.OutputTuple,
       ApprovalForAllEvent.OutputObject
-    >;
+    >
 
     'AssetMinted(address,uint256,bytes)': TypedContractEvent<
       AssetMintedEvent.InputTuple,
       AssetMintedEvent.OutputTuple,
       AssetMintedEvent.OutputObject
-    >;
+    >
     AssetMinted: TypedContractEvent<
       AssetMintedEvent.InputTuple,
       AssetMintedEvent.OutputTuple,
       AssetMintedEvent.OutputObject
-    >;
+    >
 
     'Initialized(uint8)': TypedContractEvent<
       InitializedEvent.InputTuple,
       InitializedEvent.OutputTuple,
       InitializedEvent.OutputObject
-    >;
+    >
     Initialized: TypedContractEvent<
       InitializedEvent.InputTuple,
       InitializedEvent.OutputTuple,
       InitializedEvent.OutputObject
-    >;
+    >
 
     'OwnershipTransferred(address,address)': TypedContractEvent<
       OwnershipTransferredEvent.InputTuple,
       OwnershipTransferredEvent.OutputTuple,
       OwnershipTransferredEvent.OutputObject
-    >;
+    >
     OwnershipTransferred: TypedContractEvent<
       OwnershipTransferredEvent.InputTuple,
       OwnershipTransferredEvent.OutputTuple,
       OwnershipTransferredEvent.OutputObject
-    >;
+    >
 
-    'Paused(address)': TypedContractEvent<PausedEvent.InputTuple, PausedEvent.OutputTuple, PausedEvent.OutputObject>;
-    Paused: TypedContractEvent<PausedEvent.InputTuple, PausedEvent.OutputTuple, PausedEvent.OutputObject>;
+    'Paused(address)': TypedContractEvent<
+      PausedEvent.InputTuple,
+      PausedEvent.OutputTuple,
+      PausedEvent.OutputObject
+    >
+    Paused: TypedContractEvent<
+      PausedEvent.InputTuple,
+      PausedEvent.OutputTuple,
+      PausedEvent.OutputObject
+    >
 
     'Transfer(address,address,uint256)': TypedContractEvent<
       TransferEvent.InputTuple,
       TransferEvent.OutputTuple,
       TransferEvent.OutputObject
-    >;
-    Transfer: TypedContractEvent<TransferEvent.InputTuple, TransferEvent.OutputTuple, TransferEvent.OutputObject>;
+    >
+    Transfer: TypedContractEvent<
+      TransferEvent.InputTuple,
+      TransferEvent.OutputTuple,
+      TransferEvent.OutputObject
+    >
 
     'Unpaused(address)': TypedContractEvent<
       UnpausedEvent.InputTuple,
       UnpausedEvent.OutputTuple,
       UnpausedEvent.OutputObject
-    >;
-    Unpaused: TypedContractEvent<UnpausedEvent.InputTuple, UnpausedEvent.OutputTuple, UnpausedEvent.OutputObject>;
-  };
+    >
+    Unpaused: TypedContractEvent<
+      UnpausedEvent.InputTuple,
+      UnpausedEvent.OutputTuple,
+      UnpausedEvent.OutputObject
+    >
+  }
 }

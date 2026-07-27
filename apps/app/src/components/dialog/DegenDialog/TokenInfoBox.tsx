@@ -1,13 +1,13 @@
-'use client';
-import { useEffect, useMemo, useRef } from 'react';
-import { styled } from '@nl/theme';
-import { Box, InputBase, Stack, Typography } from '@mui/material';
-import debounce from 'lodash/debounce';
-import { formatNumberToDisplay } from '@nl/ui/utils';
-import useTokenUSDPrice from '@/hooks/useTokenUSDPrice';
-import { OrderKind } from '@cowprotocol/cow-sdk';
+'use client'
+import { useEffect, useMemo, useRef } from 'react'
+import { styled } from '@nl/theme'
+import { Box, InputBase, Stack, Typography } from '@mui/material'
+import debounce from 'lodash/debounce'
+import { formatNumberToDisplay } from '@nl/ui/utils'
+import useTokenUSDPrice from '@/hooks/useTokenUSDPrice'
+import { OrderKind } from '@cowprotocol/cow-sdk'
 
-const PREFIX = 'TokenInfoBox';
+const PREFIX = 'TokenInfoBox'
 
 const classes = {
   swapBox: `${PREFIX}-swapBox`,
@@ -15,7 +15,7 @@ const classes = {
   infoUSD: `${PREFIX}-infoUSD`,
   transactionBox: `${PREFIX}-transactionBox`,
   transactionValue: `${PREFIX}-transactionValue`,
-};
+}
 
 const StyledStack = styled(Stack)(() => ({
   [`&.${classes.swapBox}`]: {
@@ -30,21 +30,25 @@ const StyledStack = styled(Stack)(() => ({
 
   [`&.${classes.infoUSD}`]: { color: '#4D4D4F', position: 'absolute' },
 
-  [`&.${classes.transactionBox}`]: { borderRadius: '0px 0px 10px 10px', border: '1px solid #282B3F', padding: 12 },
+  [`&.${classes.transactionBox}`]: {
+    borderRadius: '0px 0px 10px 10px',
+    border: '1px solid #282B3F',
+    padding: 12,
+  },
 
   [`&.${classes.transactionValue}`]: { fontSize: '20px !important' },
-}));
+}))
 
 export interface TokenInfoBoxProps {
-  balance: number;
-  icon: React.ReactNode;
-  name: string;
-  slug: string;
-  value: string;
-  transactionValue: string;
-  kind: string;
-  setValue: (value: string) => void;
-  getMarketPrice: (kind: OrderKind, amount: string) => void;
+  balance: number
+  icon: React.ReactNode
+  name: string
+  slug: string
+  value: string
+  transactionValue: string
+  kind: string
+  setValue: (value: string) => void
+  getMarketPrice: (kind: OrderKind, amount: string) => void
 }
 
 const TokenAmountInput = styled(InputBase)(() => ({
@@ -60,7 +64,7 @@ const TokenAmountInput = styled(InputBase)(() => ({
     overflow: 'hidden',
     '::placeholder': { fontSize: 36, color: '#4D4D4F' },
   },
-}));
+}))
 
 const TokenInfoBox = ({
   balance,
@@ -73,58 +77,58 @@ const TokenInfoBox = ({
   setValue,
   getMarketPrice,
 }: TokenInfoBoxProps) => {
-  const { price, refetch } = useTokenUSDPrice({ slug });
+  const { price, refetch } = useTokenUSDPrice({ slug })
 
   useEffect(() => {
     const timer = setInterval(() => {
-      refetch();
-    }, 10000);
-    return () => clearInterval(timer);
-  }, [refetch]);
+      refetch()
+    }, 10000)
+    return () => clearInterval(timer)
+  }, [refetch])
 
   const debouncedGetMarketplace = useMemo(
     () =>
       debounce(async (amount: string) => {
-        if (!amount || Number(amount) === 0) return;
-        getMarketPrice(kind === 'From' ? OrderKind.SELL : OrderKind.BUY, amount);
+        if (!amount || Number(amount) === 0) return
+        getMarketPrice(kind === 'From' ? OrderKind.SELL : OrderKind.BUY, amount)
       }, 300),
-    [getMarketPrice, kind],
-  );
+    [getMarketPrice, kind]
+  )
 
   useEffect(() => {
     return () => {
-      debouncedGetMarketplace.cancel();
-    };
-  }, [debouncedGetMarketplace]);
+      debouncedGetMarketplace.cancel()
+    }
+  }, [debouncedGetMarketplace])
 
   const handleChangeValue = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    const newValue = e.target.value;
+    const newValue = e.target.value
     if (!isNaN(Number(newValue))) {
-      setValue(newValue);
-      debouncedGetMarketplace(newValue);
+      setValue(newValue)
+      debouncedGetMarketplace(newValue)
     } else {
-      e.preventDefault();
+      e.preventDefault()
     }
-  };
+  }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     if (['.', ','].includes(e.key)) {
       if (!value) {
-        setValue('0.');
+        setValue('0.')
       } else if (e.key === ',' && !value.includes('.')) {
-        setValue(value + '.');
+        setValue(value + '.')
       }
     }
-  };
+  }
 
   const priceInfo = useMemo(() => {
-    if (!price) return '';
+    if (!price) return ''
     if (Number(value) === 0) {
-      return formatNumberToDisplay(price, price < 1 ? 4 : 2);
+      return formatNumberToDisplay(price, price < 1 ? 4 : 2)
     }
-    const total = Number(value) * price;
-    return formatNumberToDisplay(total, total < 1 ? 4 : 2);
-  }, [price, value]);
+    const total = Number(value) * price
+    return formatNumberToDisplay(total, total < 1 ? 4 : 2)
+  }, [price, value])
 
   return (
     <StyledStack direction="column">
@@ -137,7 +141,12 @@ const TokenInfoBox = ({
           borderRadius: transactionValue ? '10px 10px 0px 0px' : '10px',
         }}
       >
-        <Stack direction="row" className={classes.tokenBox} spacing={0.5} sx={{ px: 1, py: 0.5, alignItems: 'center' }}>
+        <Stack
+          direction="row"
+          className={classes.tokenBox}
+          spacing={0.5}
+          sx={{ px: 1, py: 0.5, alignItems: 'center' }}
+        >
           {icon}
           <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
             {name}
@@ -196,7 +205,7 @@ const TokenInfoBox = ({
         </Stack>
       )}
     </StyledStack>
-  );
-};
+  )
+}
 
-export default TokenInfoBox;
+export default TokenInfoBox

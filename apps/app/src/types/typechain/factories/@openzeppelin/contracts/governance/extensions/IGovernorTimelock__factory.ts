@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   IGovernorTimelock,
   IGovernorTimelockInterface,
-} from '../../../../../@openzeppelin/contracts/governance/extensions/IGovernorTimelock';
+} from '../../../../../@openzeppelin/contracts/governance/extensions/IGovernorTimelock'
 
 const _abi = [
   {
@@ -328,14 +328,14 @@ const _abi = [
     stateMutability: 'view',
     type: 'function',
   },
-] as const;
+] as const
 
 export class IGovernorTimelock__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): IGovernorTimelockInterface {
-    return new Interface(_abi) as IGovernorTimelockInterface;
+    return new Interface(_abi) as IGovernorTimelockInterface
   }
   static connect(address: string, runner?: ContractRunner | null): IGovernorTimelock {
-    return new Contract(address, _abi, runner) as unknown as IGovernorTimelock;
+    return new Contract(address, _abi, runner) as unknown as IGovernorTimelock
   }
 }

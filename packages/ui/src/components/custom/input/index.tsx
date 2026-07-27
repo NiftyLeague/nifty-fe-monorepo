@@ -1,39 +1,50 @@
-'use client';
+'use client'
 
-import { cloneElement, forwardRef, useCallback, useLayoutEffect, useRef, useId, useState } from 'react';
+import {
+  cloneElement,
+  forwardRef,
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useId,
+  useState,
+} from 'react'
 
-import { cn } from '@nl/ui/utils';
-import { Button } from '@nl/ui/base/button';
-import { Icon, type IconProps } from '@nl/ui/base/icon';
-import { Input as BaseInput } from '@nl/ui/base/input';
-import { Label } from '@nl/ui/base/label';
+import { cn } from '@nl/ui/utils'
+import { Button } from '@nl/ui/base/button'
+import { Icon, type IconProps } from '@nl/ui/base/icon'
+import { Input as BaseInput } from '@nl/ui/base/input'
+import { Label } from '@nl/ui/base/label'
 
 interface InputProps extends React.ComponentProps<'input'> {
-  actions?: React.ReactNode;
-  copy?: boolean;
-  error?: boolean;
-  hiddenLabel?: boolean /* adds hidden label for accessibility */;
-  label?: string;
-  endIcon?: React.ReactElement<IconProps>;
-  startIcon?: React.ReactElement<IconProps>;
+  actions?: React.ReactNode
+  copy?: boolean
+  error?: boolean
+  hiddenLabel?: boolean /* adds hidden label for accessibility */
+  label?: string
+  endIcon?: React.ReactElement<IconProps>
+  startIcon?: React.ReactElement<IconProps>
 }
 
 function LabelContainer({ children: input, error, id, hiddenLabel, label }: InputProps) {
-  if (!(label || hiddenLabel)) return input;
+  if (!(label || hiddenLabel)) return input
 
   return (
     <div className="grid gap-2">
       <Label
         data-slot="form-label"
         data-error={error}
-        className={cn('data-[error=true]:text-destructive inline-block truncate', hiddenLabel && 'hidden')}
+        className={cn(
+          'data-[error=true]:text-destructive inline-block truncate',
+          hiddenLabel && 'hidden'
+        )}
         htmlFor={id}
       >
         {label ?? ''}
       </Label>
       {input}
     </div>
-  );
+  )
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
@@ -52,47 +63,47 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     type,
     ...props
   },
-  ref,
+  ref
 ) {
-  const [inputType, setInputType] = useState<InputProps['type']>(type ?? 'text');
-  const reveal = type === 'password' && props.value;
-  const hidden = inputType === 'password';
+  const [inputType, setInputType] = useState<InputProps['type']>(type ?? 'text')
+  const reveal = type === 'password' && props.value
+  const hidden = inputType === 'password'
 
-  const generatedId = useId();
-  const inputId = id ?? `${generatedId}-${type}-input`;
+  const generatedId = useId()
+  const inputId = id ?? `${generatedId}-${type}-input`
 
-  const [rightPadding, setRightPadding] = useState(0);
-  const rightElementsRef = useRef<HTMLDivElement>(null);
+  const [rightPadding, setRightPadding] = useState(0)
+  const rightElementsRef = useRef<HTMLDivElement>(null)
 
-  const [copyLabel, setCopyLabel] = useState('Copy');
+  const [copyLabel, setCopyLabel] = useState('Copy')
 
   const onCopy = useCallback((value: InputProps['value']) => {
     navigator.clipboard.writeText(value?.toString() ?? '').then(
       () => {
-        setCopyLabel('Copied');
+        setCopyLabel('Copied')
         setTimeout(() => {
-          setCopyLabel('Copy');
-        }, 3000);
+          setCopyLabel('Copy')
+        }, 3000)
       },
       () => {
-        setCopyLabel('Failed to copy');
-      },
-    );
-  }, []);
+        setCopyLabel('Failed to copy')
+      }
+    )
+  }, [])
 
-  const invalid = Boolean(ariaInvalid || error);
-  if (invalid) endIcon = <Icon name="alert-circle" color="error" />;
+  const invalid = Boolean(ariaInvalid || error)
+  if (invalid) endIcon = <Icon name="alert-circle" color="error" />
 
   // Calculate dynamic right padding
   useLayoutEffect(() => {
     if (rightElementsRef.current) {
-      const containerWidth = rightElementsRef.current.offsetWidth;
+      const containerWidth = rightElementsRef.current.offsetWidth
       // Add default BaseInput padding pr-3 (12px)
-      setRightPadding(containerWidth + 12);
+      setRightPadding(containerWidth + 12)
     } else {
-      setRightPadding(0);
+      setRightPadding(0)
     }
-  }, [reveal, copy, actions, endIcon, copyLabel]);
+  }, [reveal, copy, actions, endIcon, copyLabel])
 
   return (
     <LabelContainer error={invalid} id={inputId} hiddenLabel={hiddenLabel} label={label}>
@@ -116,7 +127,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           {...props}
         />
         {(reveal || copy || actions || endIcon) && (
-          <div ref={rightElementsRef} className="absolute inset-y-0 right-0 flex items-center gap-1 pr-0.5">
+          <div
+            ref={rightElementsRef}
+            className="absolute inset-y-0 right-0 flex items-center gap-1 pr-0.5"
+          >
             {reveal && (
               <Button
                 type="button"
@@ -155,7 +169,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         )}
       </div>
     </LabelContainer>
-  );
-});
+  )
+})
 
-export default Input;
+export default Input
