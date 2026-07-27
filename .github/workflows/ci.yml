@@ -73,7 +73,7 @@ jobs:
 
   type-check:
     name: Type-Check
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - name: Checkout
