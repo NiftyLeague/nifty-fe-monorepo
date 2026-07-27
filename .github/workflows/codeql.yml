@@ -26,18 +26,6 @@ jobs:
     outputs:
       languages: ${{ steps.languages.outputs.languages }}
       code_security: ${{ steps.security.outputs.status }}
-      actions_available: ${{ steps.languages.outputs.actions_available }}
-      actions_changed: ${{ steps.languages.outputs.actions_changed }}
-      actions_build_mode: ${{ steps.languages.outputs.actions_build_mode }}
-      javascript_available: ${{ steps.languages.outputs.javascript_available }}
-      javascript_changed: ${{ steps.languages.outputs.javascript_changed }}
-      javascript_build_mode: ${{ steps.languages.outputs.javascript_build_mode }}
-      python_available: ${{ steps.languages.outputs.python_available }}
-      python_changed: ${{ steps.languages.outputs.python_changed }}
-      python_build_mode: ${{ steps.languages.outputs.python_build_mode }}
-      rust_available: ${{ steps.languages.outputs.rust_available }}
-      rust_changed: ${{ steps.languages.outputs.rust_changed }}
-      rust_build_mode: ${{ steps.languages.outputs.rust_build_mode }}
     steps:
       - name: Detect Code Security
         id: security
@@ -64,11 +52,23 @@ jobs:
         env:
           CODEQL_BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
         run: bash .github/scripts/codeql-languages.sh
+      - name: Detect Code Security
+        id: security
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          status="disabled"
+          if [ "${{ github.event.repository.private }}" != "true" ]; then
+            status="enabled"
+          else
+            status="$(gh api "repos/${GITHUB_REPOSITORY}" --jq '.security_and_analysis.code_security.status // "disabled"' 2>/dev/null || printf 'disabled')"
+          fi
+          printf 'status=%s\n' "$status" >> "$GITHUB_OUTPUT"
 
   analyze-actions:
     name: Analyze (Actions)
     needs: detect
-    if: ${{ !github.event.repository.private }}
+    if: ${{ !github.event.repository.private || needs.detect.outputs.code_security == 'enabled' }}
     # Unchanged matrix entries only complete skipped steps; reserve a full
     # runner for analyzers that actually initialize and scan source.
     runs-on: ${{ matrix.changed && 'ubuntu-latest' || 'ubuntu-slim' }}
