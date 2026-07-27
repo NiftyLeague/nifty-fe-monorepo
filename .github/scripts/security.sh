@@ -10,13 +10,12 @@ has_javascript_dependencies() {
 }
 
 has_python_manifest() {
-  [ -f requirements.txt ] || [ -f requirements-dev.txt ] || [ -f pyproject.toml ] ||
+  [ -f pyproject.toml ] || [ -f uv.lock ] ||
     git ls-files | grep -Eq '(^|/)requirements[^/]*\.txt$'
 }
 
 has_dependency_manifest() {
-  has_javascript_dependencies || [ -f Cargo.toml ] || [ -f requirements.txt ] ||
-    [ -f requirements-dev.txt ] || [ -f pyproject.toml ]
+  has_javascript_dependencies || [ -f Cargo.toml ] || has_python_manifest
 }
 
 should_run() {
@@ -31,7 +30,7 @@ should_run() {
   case "${1:-all}" in
     javascript) has_javascript_dependencies || return 1 ;;
     rust) [ -f Cargo.toml ] || return 1 ;;
-    python) [ -f requirements.txt ] || [ -f requirements-dev.txt ] || [ -f pyproject.toml ] || return 1 ;;
+    python) has_python_manifest || return 1 ;;
     all) has_dependency_manifest || return 1 ;;
     *) echo "unknown ecosystem: ${1:-}" >&2; return 2 ;;
   esac
@@ -53,7 +52,7 @@ if [ "${1:-}" = profile ]; then
   if has_python_manifest && ! repo_foundry_governance_only && ! repo_foundry_pr_dependencies_unchanged python; then
     python_requirements="$(
       git ls-files -z '*requirements*.txt' |
-        node -e 'let data=""; process.stdin.on("data", (chunk) => { data += chunk; }).on("end", () => process.stdout.write(JSON.stringify(data.split("\\0").filter(Boolean))));'
+        node -e 'let data=""; process.stdin.on("data", (chunk) => { data += chunk; }).on("end", () => process.stdout.write(JSON.stringify(data.split("\0").filter(Boolean))));'
     )"
     [ "$python_requirements" = "[]" ] && python_requirements='["project"]'
   fi
@@ -171,14 +170,16 @@ audit_python() {
       python -m pip install --disable-pip-version-check --quiet pip-audit
       pip_audit() { python -m pip_audit "$@"; }
     fi
-    pids=()
-    for requirement_file in "${requirement_files[@]}"; do
-      pip_audit -r "$requirement_file" & pids+=("$!")
-    done
-    if [ "${#requirement_files[@]}" -eq 0 ] && [ -f pyproject.toml ]; then
-      pip_audit & pids+=("$!")
+    if [ "${#requirement_files[@]}" -gt 0 ]; then
+      pids=()
+      for requirement_file in "${requirement_files[@]}"; do
+        pip_audit -r "$requirement_file" &
+        pids+=( "$!" )
+      done
+      wait_for_parallel "${pids[@]}"
+    else
+      pip_audit
     fi
-    wait_for_parallel "${pids[@]}"
   else
     echo "Skipping Python audit (Python dependency manifest not found)"
   fi
