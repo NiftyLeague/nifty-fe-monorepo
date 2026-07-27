@@ -11,9 +11,9 @@
   },
   "scripts": {
     "clean": "rm -rf node_modules",
-    "test": "bun test --project-placeholder eslint-config || true",
-    "test:coverage": "VITEST_SCOPE=packages/eslint-config bun test --project-placeholder eslint-config --coverage",
-    "test:watch": "vitest --config ../../vitest.config.ts --project eslint-config"
+    "test": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --pass-with-no-tests",
+    "test:coverage": "bun test --coverage --pass-with-no-tests",
+    "test:watch": "bun test --watch"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
