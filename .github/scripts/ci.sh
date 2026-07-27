@@ -89,10 +89,6 @@ NODE
   return 1
 }
 
-has_graph_project() {
-  [ -f package.json ] && node -e 'const p=require("./package.json"); process.exit(p.devDependencies?.["@graphprotocol/graph-cli"] ? 0 : 1)'
-}
-
 package_manager() {
   local configured=""
   if [ -f .github/template.yml ]; then
@@ -128,10 +124,10 @@ run_script() {
   if ! has_script "$1"; then echo "Skipping $1 (script not defined)"; return; fi
   if [ "${REPO_FOUNDRY_TURBO_REMOTE_ONLY:-false}" = true ] && has_turbo_script "$1"; then
     case "$(package_manager)" in
-      bun) bun run "$1" -- --cache=remote:rw ;;
-      pnpm) corepack pnpm run "$1" -- --cache=remote:rw ;;
-      yarn) corepack yarn run "$1" -- --cache=remote:rw ;;
-      npm) npm run "$1" -- --cache=remote:rw ;;
+      bun) bun run "$1" -- --remote-only ;;
+      pnpm) corepack pnpm run "$1" -- --remote-only ;;
+      yarn) corepack yarn run "$1" -- --remote-only ;;
+      npm) npm run "$1" -- --remote-only ;;
     esac
     return
   fi
@@ -396,7 +392,11 @@ lint_python() {
   if has_python && command -v ruff >/dev/null 2>&1; then ruff check .; fi
 }
 
-type_check() {
+lint() {
+  run_parallel lint_javascript lint_rust lint_python
+}
+
+typecheck_javascript() {
   if has_graph_project; then
     echo "Skipping TypeScript type-check (Graph AssemblyScript project uses graph build/codegen)"
   elif has_script type-check; then run_script type-check
