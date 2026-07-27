@@ -22,10 +22,7 @@ concurrency:
 jobs:
   unit:
     name: Unit
-    # Keep ordinary suites on the lean image. Set the repository variable
-    # REPO_FOUNDRY_UNIT_RUNNER=ubuntu-latest for native/system-dependent tests.
-    runs-on: ${{ vars.REPO_FOUNDRY_UNIT_RUNNER || 'ubuntu-slim' }}
-    timeout-minutes: 30
+    runs-on: ubuntu-slim
     steps:
       - name: Checkout
         uses: actions/checkout@v7
