@@ -26,7 +26,7 @@
     "@mui/lab": "^7.0.1-beta.20",
     "@mui/material": "^9.2.0",
     "@mui/system": "^9.2.0",
-    "@mui/x-data-grid": "^8.29.2",
+    "@mui/x-data-grid": "^9.10.1",
     "@nl/imx-passport": "workspace:*",
     "@nl/theme": "workspace:*",
     "@nl/ui": "workspace:*",
