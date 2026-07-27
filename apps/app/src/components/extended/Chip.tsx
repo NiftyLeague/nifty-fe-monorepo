@@ -1,22 +1,22 @@
 // material-ui
-import { useTheme } from '@nl/theme';
-import MuiChip, { type ChipProps as MuiChipProps } from '@mui/material/Chip';
+import { useTheme } from '@nl/theme'
+import MuiChip, { type ChipProps as MuiChipProps } from '@mui/material/Chip'
 
 // ==============================|| CHIP ||============================== //
 
 interface ChipProps extends MuiChipProps {
-  colorType?: MuiChipProps['color'] | 'orange';
-  sx?: object;
-  disabled?: boolean;
-  label?: React.ReactNode;
-  avatar?: React.ReactElement | undefined;
-  onDelete?: () => void;
-  onClick?: () => void;
+  colorType?: MuiChipProps['color'] | 'orange'
+  sx?: object
+  disabled?: boolean
+  label?: React.ReactNode
+  avatar?: React.ReactElement | undefined
+  onDelete?: () => void
+  onClick?: () => void
 }
 
 const Chip = ({ colorType, disabled, sx = {}, variant, ...others }: ChipProps) => {
-  const theme = useTheme();
-  const { mode } = theme.palette;
+  const theme = useTheme()
+  const { mode } = theme.palette
 
   let defaultSX = {
     color: mode === 'dark' ? 'var(--color-purple-200)' : 'var(--color-purple-600)',
@@ -25,7 +25,7 @@ const Chip = ({ colorType, disabled, sx = {}, variant, ...others }: ChipProps) =
       color: 'var(--color-purple-200)',
       bgcolor: mode === 'dark' ? 'var(--color-purple-600)' : 'var(--color-purple-600)',
     },
-  };
+  }
 
   let outlineSX = {
     color: 'var(--color-purple-400)',
@@ -36,7 +36,7 @@ const Chip = ({ colorType, disabled, sx = {}, variant, ...others }: ChipProps) =
       color: mode === 'dark' ? 'var(--color-purple-200)' : 'var(--color-purple-200)',
       bgcolor: mode === 'dark' ? 'var(--color-purple-600)' : 'var(--color-purple-600)',
     },
-  };
+  }
 
   switch (colorType) {
     case 'info':
@@ -59,8 +59,8 @@ const Chip = ({ colorType, disabled, sx = {}, variant, ...others }: ChipProps) =
               color: 'var(--color-info-light)',
               bgcolor: mode === 'dark' ? 'var(--color-info-dark)' + 90 : 'var(--color-info-dark)',
             },
-          });
-      break;
+          })
+      break
     case 'success':
       variant === 'outlined'
         ? (outlineSX = {
@@ -78,10 +78,11 @@ const Chip = ({ colorType, disabled, sx = {}, variant, ...others }: ChipProps) =
             bgcolor: mode === 'dark' ? 'var(--color-success-dark)' : 'var(--color-success-light)',
             ':hover': {
               color: 'var(--color-success-light)',
-              bgcolor: mode === 'dark' ? 'var(--color-success-dark)' + 90 : 'var(--color-success-dark)',
+              bgcolor:
+                mode === 'dark' ? 'var(--color-success-dark)' + 90 : 'var(--color-success-dark)',
             },
-          });
-      break;
+          })
+      break
     case 'error':
       variant === 'outlined'
         ? (outlineSX = {
@@ -101,8 +102,8 @@ const Chip = ({ colorType, disabled, sx = {}, variant, ...others }: ChipProps) =
               color: 'var(--color-error-light)',
               bgcolor: mode === 'dark' ? 'var(--color-error-dark)' + 90 : 'var(--color-error-dark)',
             },
-          });
-      break;
+          })
+      break
     case 'orange':
       variant === 'outlined'
         ? (outlineSX = {
@@ -122,8 +123,8 @@ const Chip = ({ colorType, disabled, sx = {}, variant, ...others }: ChipProps) =
               color: 'var(--color-orange-200)',
               bgcolor: mode === 'dark' ? 'var(--color-orange-600)' + 90 : 'var(--color-orange-600)',
             },
-          });
-      break;
+          })
+      break
     case 'warning':
       variant === 'outlined'
         ? (outlineSX = {
@@ -143,8 +144,8 @@ const Chip = ({ colorType, disabled, sx = {}, variant, ...others }: ChipProps) =
               color: 'var(--color-warning-light)',
               bgcolor: mode === 'dark' ? 'var(--color-warning-dark)' : 'var(--color-warning-dark)',
             },
-          });
-      break;
+          })
+      break
     default:
   }
 
@@ -161,15 +162,15 @@ const Chip = ({ colorType, disabled, sx = {}, variant, ...others }: ChipProps) =
           color: 'var(--color-base-500)',
           bgcolor: 'var(--color-base-50)',
           ':hover': { color: 'var(--color-base-500)', bgcolor: 'var(--color-base-50)' },
-        });
+        })
   }
 
-  let SX = defaultSX;
+  let SX = defaultSX
   if (variant === 'outlined') {
-    SX = outlineSX;
+    SX = outlineSX
   }
-  SX = { ...SX, ...sx };
-  return <MuiChip {...others} sx={SX} />;
-};
+  SX = { ...SX, ...sx }
+  return <MuiChip {...others} sx={SX} />
+}
 
-export default Chip;
+export default Chip

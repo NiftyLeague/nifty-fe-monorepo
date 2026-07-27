@@ -2,8 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
-import type { INFTL, INFTLInterface } from '../../../../../src/contracts/lib/NameableCharacter.sol/INFTL';
+import { Contract, Interface, type ContractRunner } from 'ethers'
+import type {
+  INFTL,
+  INFTLInterface,
+} from '../../../../../src/contracts/lib/NameableCharacter.sol/INFTL'
 
 const _abi = [
   {
@@ -91,14 +94,14 @@ const _abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-] as const;
+] as const
 
 export class INFTL__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): INFTLInterface {
-    return new Interface(_abi) as INFTLInterface;
+    return new Interface(_abi) as INFTLInterface
   }
   static connect(address: string, runner?: ContractRunner | null): INFTL {
-    return new Contract(address, _abi, runner) as unknown as INFTL;
+    return new Contract(address, _abi, runner) as unknown as INFTL
   }
 }

@@ -1,19 +1,20 @@
-'use client';
+'use client'
 
 // import dynamic from 'next/dynamic';
-import Link from 'next/link';
-import Image from 'next/image';
-import { Dialog } from '@nl/ui/custom/dialog';
-import { Text } from '@nl/ui/custom/typography';
-import useVersion from '@/hooks/useVersion';
+import Link from 'next/link'
+import Image from 'next/image'
+import { Dialog } from '@nl/ui/custom/dialog'
+import { Text } from '@nl/ui/custom/typography'
+import useVersion from '@/hooks/useVersion'
 
 // const UnityDialog = dynamic(() => import('@/components/UnityDialog'), { ssr: false, loading: () => null });
 
 const PlayContent = () => (
   <>
     <Text>
-      This party platform fighter will have you on the edge of your seat as you and three other players grab your bats,
-      unleash unique abilities, and smash each other out of the arena in a winner-takes-all battle!
+      This party platform fighter will have you on the edge of your seat as you and three other
+      players grab your bats, unleash unique abilities, and smash each other out of the arena in a
+      winner-takes-all battle!
     </Text>
     <div className="grid grid-cols-3 gap-2 items-center">
       <Link
@@ -64,10 +65,10 @@ const PlayContent = () => (
       {/* <UnityDialog /> */}
     </div>
   </>
-);
+)
 
 const PlayDialog = ({ open }: { open: boolean }) => {
-  const { message } = useVersion();
+  const { message } = useVersion()
   return (
     <Dialog
       defaultOpen={open}
@@ -88,7 +89,7 @@ const PlayDialog = ({ open }: { open: boolean }) => {
     >
       <PlayContent />
     </Dialog>
-  );
-};
+  )
+}
 
-export default PlayDialog;
+export default PlayDialog

@@ -1,8 +1,8 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { useTheme, styled, Theme } from '@nl/theme';
-import { Box, Modal } from '@mui/material';
+import { useState } from 'react'
+import { useTheme, styled, Theme } from '@nl/theme'
+import { Box, Modal } from '@mui/material'
 
 const StyledModal = styled(Modal)`
   position: fixed;
@@ -14,7 +14,7 @@ const StyledModal = styled(Modal)`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
+`
 
 const Backdrop = styled('div')`
   z-index: -1;
@@ -25,7 +25,7 @@ const Backdrop = styled('div')`
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
   -webkit-tap-highlight-color: transparent;
-`;
+`
 
 const style = (theme: Theme) => ({
   width: '67.5vh',
@@ -47,18 +47,18 @@ const style = (theme: Theme) => ({
     '& .box-table': { marginTop: '18px' },
     '& p.MuiTypography-body2': { width: '100%', marginTop: '4px' },
   },
-});
+})
 interface ModalProps {
-  ModalIcon: React.ReactNode;
-  child: React.ReactNode;
-  flag?: string;
+  ModalIcon: React.ReactNode
+  child: React.ReactNode
+  flag?: string
 }
 const CustomModal = (props: ModalProps): React.ReactNode | null => {
-  const { ModalIcon, child, flag } = props;
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const theme = useTheme();
+  const { ModalIcon, child, flag } = props
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
+  const theme = useTheme()
   return (
     <>
       <div onClick={handleOpen}>{ModalIcon}</div>
@@ -87,6 +87,6 @@ const CustomModal = (props: ModalProps): React.ReactNode | null => {
         </>
       </StyledModal>
     </>
-  );
-};
-export default CustomModal;
+  )
+}
+export default CustomModal

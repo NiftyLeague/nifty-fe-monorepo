@@ -1,60 +1,67 @@
-import { act, render, screen } from '@testing-library/react';
-import { afterEach, beforeEach, describe, expect, it, jest } from 'bun:test';
-import { mock } from 'bun:test';
+import { act, render, screen } from '@testing-library/react'
+import { afterEach, beforeEach, describe, expect, it, jest } from 'bun:test'
+import { mock } from 'bun:test'
 
-const unity = { handlers: new Map<string, (...args: any[]) => void>(), removeAll: mock(), send: mock() };
+const unity = {
+  handlers: new Map<string, (...args: any[]) => void>(),
+  removeAll: mock(),
+  send: mock(),
+}
 
-let CharacterCreatorContainer: typeof import('./index').default;
+let CharacterCreatorContainer: typeof import('./index').default
 
 beforeEach(async () => {
-  const networks = await import('@/constants/networks');
-  mock.module('@/constants/networks', () => ({ ...networks, TARGET_NETWORK: networks.NETWORKS.mainnet }));
+  const networks = await import('@/constants/networks')
+  mock.module('@/constants/networks', () => ({
+    ...networks,
+    TARGET_NETWORK: networks.NETWORKS.mainnet,
+  }))
   mock.module('react-device-detect', () => ({
     isMobileOnly: false,
     withOrientationChange: (Component: React.ComponentType<any>) => Component,
-  }));
+  }))
   mock.module('react-unity-webgl', () => {
     const Unity = ({ className, style }: { className: string; style: React.CSSProperties }) => (
       <canvas aria-label="character creator" className={className} style={style} />
-    );
+    )
     return {
       default: Unity,
       Unity,
       UnityContext: class UnityContext {
-        send = unity.send;
-        SendMessage = unity.send;
+        send = unity.send
+        SendMessage = unity.send
         on(name: string, handler: (...args: any[]) => void) {
-          unity.handlers.set(name, handler);
+          unity.handlers.set(name, handler)
         }
         addEventListener(name: string, handler: (...args: any[]) => void) {
-          unity.handlers.set(name, handler);
+          unity.handlers.set(name, handler)
         }
         removeAllEventListeners() {
-          unity.removeAll();
-          unity.handlers.clear();
+          unity.removeAll()
+          unity.handlers.clear()
         }
       },
       useUnityContext: (options: any) => {
         return {
           sendMessage: unity.send,
           addEventListener: (name: string, handler: (...args: any[]) => void) => {
-            unity.handlers.set(name, handler);
+            unity.handlers.set(name, handler)
           },
           removeEventListener: (name: string) => {
-            unity.handlers.delete(name);
+            unity.handlers.delete(name)
           },
           removeAllEventListeners: () => {
-            unity.removeAll();
-            unity.handlers.clear();
+            unity.removeAll()
+            unity.handlers.clear()
           },
           unityProvider: {},
           isLoaded: true,
           progression: 1,
-        };
+        }
       },
-    };
-  });
-  mock.module('@/hooks/useRemovedTraits', () => ({ default: () => [3, 7] }));
+    }
+  })
+  mock.module('@/hooks/useRemovedTraits', () => ({ default: () => [3, 7] }))
   mock.module('@/hooks/useNetworkContext', () => ({
     default: () => ({
       address: '0xabc',
@@ -62,16 +69,17 @@ beforeEach(async () => {
       tx: mock(),
       writeContracts: { Degen: { getNFTPrice: mock().mockResolvedValue(1n) } },
     }),
-  }));
-  mock.module('@/utils/bnc-notify', () => ({ submitTxWithGasEstimate: mock() }));
+  }))
+  mock.module('@/utils/bnc-notify', () => ({ submitTxWithGasEstimate: mock() }))
   mock.module('@/lib/use-unity-context', () => ({
     default: (_config: unknown) => ({
       sendMessage: unity.send,
-      addEventListener: (name: string, handler: (...args: unknown[]) => void) => unity.handlers.set(name, handler),
+      addEventListener: (name: string, handler: (...args: unknown[]) => void) =>
+        unity.handlers.set(name, handler),
       removeEventListener: (name: string) => unity.handlers.delete(name),
       removeAllEventListeners: () => {
-        unity.removeAll();
-        unity.handlers.clear();
+        unity.removeAll()
+        unity.handlers.clear()
       },
       unityProvider: {},
       isLoaded: true,
@@ -79,77 +87,98 @@ beforeEach(async () => {
     }),
     useUnityContext: (_config: unknown) => ({
       sendMessage: unity.send,
-      addEventListener: (name: string, handler: (...args: unknown[]) => void) => unity.handlers.set(name, handler),
+      addEventListener: (name: string, handler: (...args: unknown[]) => void) =>
+        unity.handlers.set(name, handler),
       removeEventListener: (name: string) => unity.handlers.delete(name),
       removeAllEventListeners: () => {
-        unity.removeAll();
-        unity.handlers.clear();
+        unity.removeAll()
+        unity.handlers.clear()
       },
       unityProvider: {},
       isLoaded: true,
       progression: 1,
     }),
-  }));
+  }))
 
-  const indexModule = await import('./index');
-  CharacterCreatorContainer = indexModule.default;
+  const indexModule = await import('./index')
+  CharacterCreatorContainer = indexModule.default
 
-  jest.useFakeTimers();
-  unity.handlers.clear();
-  unity.removeAll.mockClear();
-  unity.send.mockClear();
-  Reflect.deleteProperty(window, 'unityInstance');
-});
+  jest.useFakeTimers()
+  unity.handlers.clear()
+  unity.removeAll.mockClear()
+  unity.send.mockClear()
+  Reflect.deleteProperty(window, 'unityInstance')
+})
 
-afterEach(() => jest.useRealTimers());
+afterEach(() => jest.useRealTimers())
 
 describe('CharacterCreatorContainer', () => {
   it('bridges Unity lifecycle and browser events while the sold-out mint is locked', async () => {
-    const setLoaded = mock();
-    const setProgress = mock();
+    const setLoaded = mock()
+    const setProgress = mock()
     const { rerender, unmount } = render(
-      <CharacterCreatorContainer isLoaded={false} isPortrait={false} setLoaded={setLoaded} setProgress={setProgress} />,
-    );
+      <CharacterCreatorContainer
+        isLoaded={false}
+        isPortrait={false}
+        setLoaded={setLoaded}
+        setProgress={setProgress}
+      />
+    )
 
     rerender(
-      <CharacterCreatorContainer isLoaded={true} isPortrait={false} setLoaded={setLoaded} setProgress={setProgress} />,
-    );
-    expect(screen.getByLabelText('character creator')).toBeTruthy();
+      <CharacterCreatorContainer
+        isLoaded={true}
+        isPortrait={false}
+        setLoaded={setLoaded}
+        setProgress={setProgress}
+      />
+    )
+    expect(screen.getByLabelText('character creator')).toBeTruthy()
 
-    act(() => unity.handlers.get('loaded')?.());
-    act(() => unity.handlers.get('progress')?.(0.42));
-    expect(setLoaded).toHaveBeenCalledWith(true);
-    expect(setProgress).toHaveBeenCalledWith(42);
+    act(() => unity.handlers.get('loaded')?.())
+    act(() => unity.handlers.get('progress')?.(0.42))
+    expect(setLoaded).toHaveBeenCalledWith(true)
+    expect(setProgress).toHaveBeenCalledWith(42)
 
-    act(() => unity.handlers.get('canvas')?.());
-    act(() => jest.advanceTimersByTime(2_000));
+    act(() => unity.handlers.get('canvas')?.())
+    act(() => jest.advanceTimersByTime(2_000))
 
-    const configuration = mock();
-    act(() => window.dispatchEvent(new CustomEvent('GetConfiguration', { detail: { callback: configuration } })));
-    act(() => jest.advanceTimersByTime(1_000));
-    expect(configuration).toHaveBeenCalledWith(expect.stringContaining(','));
-
-    const removedTraits = mock();
-    act(() => window.dispatchEvent(new CustomEvent('GetRemovedTraits', { detail: { callback: removedTraits } })));
-    expect(removedTraits).toHaveBeenCalledWith('[3,7]');
-
-    act(() => window.dispatchEvent(new CustomEvent('OnMintEffectToggle', { detail: true })));
-    const mintCallback = mock();
+    const configuration = mock()
     act(() =>
-      window.dispatchEvent(new CustomEvent('SubmitTraits', { detail: { callback: mintCallback, traits: [] } })),
-    );
-    act(() => jest.advanceTimersByTime(1_000));
-    expect(mintCallback).toHaveBeenCalledWith('false');
+      window.dispatchEvent(
+        new CustomEvent('GetConfiguration', { detail: { callback: configuration } })
+      )
+    )
+    act(() => jest.advanceTimersByTime(1_000))
+    expect(configuration).toHaveBeenCalledWith(expect.stringContaining(','))
 
-    const canvas = screen.getByLabelText('character creator');
-    act(() => document.dispatchEvent(new WheelEvent('wheel')));
-    expect(canvas?.style.pointerEvents === 'none').toBe(true);
-    act(() => document.dispatchEvent(new MouseEvent('mousemove')));
-    expect(canvas?.style.pointerEvents === 'auto' && canvas?.style.cursor === 'pointer').toBe(true);
-    act(() => window.dispatchEvent(new Event('resize')));
+    const removedTraits = mock()
+    act(() =>
+      window.dispatchEvent(
+        new CustomEvent('GetRemovedTraits', { detail: { callback: removedTraits } })
+      )
+    )
+    expect(removedTraits).toHaveBeenCalledWith('[3,7]')
 
-    unmount();
+    act(() => window.dispatchEvent(new CustomEvent('OnMintEffectToggle', { detail: true })))
+    const mintCallback = mock()
+    act(() =>
+      window.dispatchEvent(
+        new CustomEvent('SubmitTraits', { detail: { callback: mintCallback, traits: [] } })
+      )
+    )
+    act(() => jest.advanceTimersByTime(1_000))
+    expect(mintCallback).toHaveBeenCalledWith('false')
+
+    const canvas = screen.getByLabelText('character creator')
+    act(() => document.dispatchEvent(new WheelEvent('wheel')))
+    expect(canvas?.style.pointerEvents === 'none').toBe(true)
+    act(() => document.dispatchEvent(new MouseEvent('mousemove')))
+    expect(canvas?.style.pointerEvents === 'auto' && canvas?.style.cursor === 'pointer').toBe(true)
+    act(() => window.dispatchEvent(new Event('resize')))
+
+    unmount()
     // Cleanup effect calls removeEventListener for each handler (not removeAllEventListeners)
-    expect(unity.handlers.size).toBe(0);
-  });
-});
+    expect(unity.handlers.size).toBe(0)
+  })
+})

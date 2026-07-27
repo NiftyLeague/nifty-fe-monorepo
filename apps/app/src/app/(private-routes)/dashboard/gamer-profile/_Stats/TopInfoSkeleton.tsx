@@ -1,4 +1,4 @@
-import { Stack, Typography, Box, Skeleton } from '@mui/material';
+import { Stack, Typography, Box, Skeleton } from '@mui/material'
 
 const TopInfoSkeleton = () => {
   return (
@@ -16,11 +16,16 @@ const TopInfoSkeleton = () => {
           <Skeleton sx={{ my: '5px ' }} variant="rectangular" width="30%" height="26px" />
         </Typography>
         <Typography variant="h4" component="div" sx={{ width: '50%' }}>
-          <Skeleton variant="rectangular" sx={{ display: 'inline-block' }} width="15%" height="19.76px" />
+          <Skeleton
+            variant="rectangular"
+            sx={{ display: 'inline-block' }}
+            width="15%"
+            height="19.76px"
+          />
         </Typography>
       </Stack>
     </Stack>
-  );
-};
+  )
+}
 
-export default TopInfoSkeleton;
+export default TopInfoSkeleton

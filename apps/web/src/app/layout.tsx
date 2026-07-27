@@ -1,11 +1,11 @@
-import type { PropsWithChildren } from 'react';
-import type { Metadata, Viewport } from 'next';
-import Head from 'next/head';
+import type { PropsWithChildren } from 'react'
+import type { Metadata, Viewport } from 'next'
+import Head from 'next/head'
 
-import { customFontClassName } from '@nl/ui/fonts';
-import { cn } from '@nl/ui/utils';
+import { customFontClassName } from '@nl/ui/fonts'
+import { cn } from '@nl/ui/utils'
 
-import '@/styles/app.css';
+import '@/styles/app.css'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://niftyleague.com'),
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
       alt: 'Nifty League Banner',
     },
   },
-};
+}
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -55,7 +55,7 @@ export const viewport: Viewport = {
   maximumScale: 1,
   themeColor: '#18181b',
   colorScheme: 'dark',
-};
+}
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
@@ -65,5 +65,5 @@ export default function RootLayout({ children }: PropsWithChildren) {
       </Head>
       <body suppressHydrationWarning>{children}</body>
     </html>
-  );
+  )
 }

@@ -11,76 +11,84 @@ import type {
   ContractRunner,
   ContractMethod,
   Listener,
-} from 'ethers';
+} from 'ethers'
 import type {
   TypedContractEvent,
   TypedDeferredTopicFilter,
   TypedEventLog,
   TypedListener,
   TypedContractMethod,
-} from '../../../common';
+} from '../../../common'
 
 export interface MockStarkExchangeInterface extends Interface {
-  getFunction(nameOrSignature: 'deposit' | 'withdraw'): FunctionFragment;
+  getFunction(nameOrSignature: 'deposit' | 'withdraw'): FunctionFragment
 
-  encodeFunctionData(functionFragment: 'deposit', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'withdraw', values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'deposit', values?: undefined): string
+  encodeFunctionData(functionFragment: 'withdraw', values: [BigNumberish]): string
 
-  decodeFunctionResult(functionFragment: 'deposit', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'withdraw', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'deposit', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'withdraw', data: BytesLike): Result
 }
 
 export interface MockStarkExchange extends BaseContract {
-  connect(runner?: ContractRunner | null): MockStarkExchange;
-  waitForDeployment(): Promise<this>;
+  connect(runner?: ContractRunner | null): MockStarkExchange
+  waitForDeployment(): Promise<this>
 
-  interface: MockStarkExchangeInterface;
+  interface: MockStarkExchangeInterface
 
   queryFilter<TCEvent extends TypedContractEvent>(
     event: TCEvent,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
-  ): Promise<Array<TypedEventLog<TCEvent>>>;
+    toBlock?: string | number | undefined
+  ): Promise<Array<TypedEventLog<TCEvent>>>
   queryFilter<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
-  ): Promise<Array<TypedEventLog<TCEvent>>>;
+    toBlock?: string | number | undefined
+  ): Promise<Array<TypedEventLog<TCEvent>>>
 
-  on<TCEvent extends TypedContractEvent>(event: TCEvent, listener: TypedListener<TCEvent>): Promise<this>;
+  on<TCEvent extends TypedContractEvent>(
+    event: TCEvent,
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
   on<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
-    listener: TypedListener<TCEvent>,
-  ): Promise<this>;
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
 
-  once<TCEvent extends TypedContractEvent>(event: TCEvent, listener: TypedListener<TCEvent>): Promise<this>;
+  once<TCEvent extends TypedContractEvent>(
+    event: TCEvent,
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
   once<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
-    listener: TypedListener<TCEvent>,
-  ): Promise<this>;
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
 
-  listeners<TCEvent extends TypedContractEvent>(event: TCEvent): Promise<Array<TypedListener<TCEvent>>>;
-  listeners(eventName?: string): Promise<Array<Listener>>;
-  removeAllListeners<TCEvent extends TypedContractEvent>(event?: TCEvent): Promise<this>;
+  listeners<TCEvent extends TypedContractEvent>(
+    event: TCEvent
+  ): Promise<Array<TypedListener<TCEvent>>>
+  listeners(eventName?: string): Promise<Array<Listener>>
+  removeAllListeners<TCEvent extends TypedContractEvent>(event?: TCEvent): Promise<this>
 
-  deposit: TypedContractMethod<[], [void], 'payable'>;
+  deposit: TypedContractMethod<[], [void], 'payable'>
 
   withdraw: TypedContractMethod<
     [amount: BigNumberish],
     [[boolean, string] & { success: boolean; data: string }],
     'nonpayable'
-  >;
+  >
 
-  getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T;
+  getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T
 
-  getFunction(nameOrSignature: 'deposit'): TypedContractMethod<[], [void], 'payable'>;
+  getFunction(nameOrSignature: 'deposit'): TypedContractMethod<[], [void], 'payable'>
   getFunction(
-    nameOrSignature: 'withdraw',
+    nameOrSignature: 'withdraw'
   ): TypedContractMethod<
     [amount: BigNumberish],
     [[boolean, string] & { success: boolean; data: string }],
     'nonpayable'
-  >;
+  >
 
-  filters: {};
+  filters: {}
 }

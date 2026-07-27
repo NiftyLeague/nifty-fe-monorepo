@@ -1,11 +1,11 @@
-'use client';
+'use client'
 
-import { createContext, type PropsWithChildren } from 'react';
-import type { PaletteMode } from '@mui/material';
+import { createContext, type PropsWithChildren } from 'react'
+import type { PaletteMode } from '@mui/material'
 
-import type { ThemeConfigProps, ThemeCustomizationProps } from '../types';
-import useSetLocalStorage from '../hooks/useSetLocalStorage';
-import defaultConfig from '../config';
+import type { ThemeConfigProps, ThemeCustomizationProps } from '../types'
+import useSetLocalStorage from '../hooks/useSetLocalStorage'
+import defaultConfig from '../config'
 
 // initial state
 const initialState: ThemeCustomizationProps = {
@@ -19,11 +19,11 @@ const initialState: ThemeCustomizationProps = {
   onChangeOutlinedField: () => {},
   onChangePresetColor: () => {},
   onChangeRTL: () => {},
-};
+}
 
 // ==============================|| CONFIG CONTEXT & PROVIDER ||============================== //
 
-export const ThemeConfigContext = createContext<ThemeCustomizationProps>(initialState);
+export const ThemeConfigContext = createContext<ThemeCustomizationProps>(initialState)
 
 export function ThemeConfigProvider({ children }: PropsWithChildren) {
   const [config, setConfig] = useSetLocalStorage<ThemeConfigProps>('theme-config', {
@@ -36,43 +36,43 @@ export function ThemeConfigProvider({ children }: PropsWithChildren) {
     paletteMode: initialState.paletteMode,
     presetColor: initialState.presetColor,
     rtlLayout: initialState.rtlLayout,
-  });
+  })
 
   const onChangeMenuType = (paletteMode: PaletteMode) => {
-    setConfig({ ...(config as ThemeConfigProps), paletteMode });
-  };
+    setConfig({ ...(config as ThemeConfigProps), paletteMode })
+  }
 
   const onChangePresetColor = (presetColor: string) => {
-    setConfig({ ...(config as ThemeConfigProps), presetColor });
-  };
+    setConfig({ ...(config as ThemeConfigProps), presetColor })
+  }
 
   const onChangeLocale = (locale: string) => {
-    setConfig({ ...(config as ThemeConfigProps), locale });
-  };
+    setConfig({ ...(config as ThemeConfigProps), locale })
+  }
 
   const onChangeRTL = (rtlLayout: boolean) => {
-    setConfig({ ...(config as ThemeConfigProps), rtlLayout });
-  };
+    setConfig({ ...(config as ThemeConfigProps), rtlLayout })
+  }
 
   const onChangeContainer = () => {
-    setConfig({ ...(config as ThemeConfigProps), container: !config?.container });
-  };
+    setConfig({ ...(config as ThemeConfigProps), container: !config?.container })
+  }
 
   const onChangeFontFamily = (fontFamily: ThemeConfigProps['fontFamily']) => {
-    setConfig({ ...(config as ThemeConfigProps), fontFamily });
-  };
+    setConfig({ ...(config as ThemeConfigProps), fontFamily })
+  }
 
   const onChangeBorderRadius = (event: Event, newValue: number | number[]) => {
-    setConfig({ ...(config as ThemeConfigProps), borderRadius: newValue as number });
-  };
+    setConfig({ ...(config as ThemeConfigProps), borderRadius: newValue as number })
+  }
 
   const onChangeOutlinedField = (outlinedFilled: boolean) => {
-    setConfig({ ...(config as ThemeConfigProps), outlinedFilled });
-  };
+    setConfig({ ...(config as ThemeConfigProps), outlinedFilled })
+  }
 
   const onChangeBreakpoints = (breakpoints: ThemeConfigProps['breakpoints']) => {
-    setConfig({ ...(config as ThemeConfigProps), breakpoints });
-  };
+    setConfig({ ...(config as ThemeConfigProps), breakpoints })
+  }
 
   return (
     <ThemeConfigContext.Provider
@@ -91,7 +91,7 @@ export function ThemeConfigProvider({ children }: PropsWithChildren) {
     >
       {children}
     </ThemeConfigContext.Provider>
-  );
+  )
 }
 
-export default ThemeConfigProvider;
+export default ThemeConfigProvider

@@ -2,14 +2,20 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   IOwnable,
   IOwnableInterface,
-} from '../../../../../../../@chainlink/contracts/src/v0.8/shared/interfaces/IOwnable';
+} from '../../../../../../../@chainlink/contracts/src/v0.8/shared/interfaces/IOwnable'
 
 const _abi = [
-  { inputs: [], name: 'acceptOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+  {
+    inputs: [],
+    name: 'acceptOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
   {
     inputs: [],
     name: 'owner',
@@ -24,14 +30,14 @@ const _abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-] as const;
+] as const
 
 export class IOwnable__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): IOwnableInterface {
-    return new Interface(_abi) as IOwnableInterface;
+    return new Interface(_abi) as IOwnableInterface
   }
   static connect(address: string, runner?: ContractRunner | null): IOwnable {
-    return new Contract(address, _abi, runner) as unknown as IOwnable;
+    return new Contract(address, _abi, runner) as unknown as IOwnable
   }
 }

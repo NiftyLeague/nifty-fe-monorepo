@@ -1,16 +1,16 @@
-'use client';
+'use client'
 
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 
-import { Button } from '@nl/ui/base/button';
-import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@nl/ui/base/form';
-import { Input } from '@nl/ui/custom/input';
-import { Icon } from '@nl/ui/base/icon';
+import { Button } from '@nl/ui/base/button'
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@nl/ui/base/form'
+import { Input } from '@nl/ui/custom/input'
+import { Icon } from '@nl/ui/base/icon'
 
 export interface UpdatePasswordFormProps {
-  handleUpdatePassword: (values: z.infer<typeof formSchema>) => Promise<void>;
+  handleUpdatePassword: (values: z.infer<typeof formSchema>) => Promise<void>
 }
 
 const formSchema = z.object({
@@ -23,17 +23,17 @@ const formSchema = z.object({
     .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
     .regex(/\d/, 'Password must contain at least one number')
     .regex(/[!@#$%^&*(),.?":{}|<>]/, 'Password must contain at least one special character'),
-});
+})
 
 export function UpdatePasswordForm({ handleUpdatePassword }: UpdatePasswordFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: { old_password: '', new_password: '' },
-  });
+  })
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    await handleUpdatePassword(values);
-  };
+    await handleUpdatePassword(values)
+  }
 
   return (
     <Form {...form}>
@@ -63,7 +63,12 @@ export function UpdatePasswordForm({ handleUpdatePassword }: UpdatePasswordFormP
             <FormItem>
               <FormLabel>New Password</FormLabel>
               <FormControl>
-                <Input {...field} type="password" autoComplete="new-password" startIcon={<Icon name="key-round" />} />
+                <Input
+                  {...field}
+                  type="password"
+                  autoComplete="new-password"
+                  startIcon={<Icon name="key-round" />}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -81,7 +86,7 @@ export function UpdatePasswordForm({ handleUpdatePassword }: UpdatePasswordFormP
         </Button>
       </form>
     </Form>
-  );
+  )
 }
 
-export default UpdatePasswordForm;
+export default UpdatePasswordForm

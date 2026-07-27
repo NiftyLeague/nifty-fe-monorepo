@@ -1,17 +1,17 @@
-'use client';
+'use client'
 
-import { Menu, MenuItem, Stack } from '@mui/material';
-import { Children, cloneElement, ReactElement, useCallback, useEffect, useState } from 'react';
-import type { MenuItemBaseProps } from '@/types';
-import callAll, { type FunctionType } from '@/utils/callAll';
-import DegenSortOptions from '@/constants/sort';
+import { Menu, MenuItem, Stack } from '@mui/material'
+import { Children, cloneElement, ReactElement, useCallback, useEffect, useState } from 'react'
+import type { MenuItemBaseProps } from '@/types'
+import callAll, { type FunctionType } from '@/utils/callAll'
+import DegenSortOptions from '@/constants/sort'
 
-const sortOptions: MenuItemBaseProps[] = DegenSortOptions;
+const sortOptions: MenuItemBaseProps[] = DegenSortOptions
 interface Props {
-  children: ReactElement;
-  defaultSelectedItemValue?: string | null;
-  label?: string;
-  handleSort: (sortOptions: string) => void;
+  children: ReactElement
+  defaultSelectedItemValue?: string | null
+  label?: string
+  handleSort: (sortOptions: string) => void
 }
 
 const SortButton = ({
@@ -20,46 +20,48 @@ const SortButton = ({
   // label = 'Sort by: ',
   handleSort,
 }: Props): React.ReactNode => {
-  if (!Children.only(children)) console.error('SortButton only accepts one child');
+  if (!Children.only(children)) console.error('SortButton only accepts one child')
 
-  const [selectedSort, setSelectedSort] = useState(defaultSelectedItemValue || sortOptions[0]?.value);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [buttonNode, setButtonNode] = useState<HTMLElement | null>(null);
+  const [selectedSort, setSelectedSort] = useState(
+    defaultSelectedItemValue || sortOptions[0]?.value
+  )
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const [buttonNode, setButtonNode] = useState<HTMLElement | null>(null)
   const buttonRef = useCallback((node: HTMLElement | null) => {
     if (node !== null) {
-      setButtonNode(node);
+      setButtonNode(node)
     }
-  }, []);
-  const isSortOpen = Boolean(anchorEl);
-  const sortLabel = sortOptions.filter(items => items.value === selectedSort);
-  const [buttonWidth, setButtonWidth] = useState<number | undefined>(undefined);
+  }, [])
+  const isSortOpen = Boolean(anchorEl)
+  const sortLabel = sortOptions.filter((items) => items.value === selectedSort)
+  const [buttonWidth, setButtonWidth] = useState<number | undefined>(undefined)
 
   useEffect(() => {
     if (buttonNode) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setButtonWidth(buttonNode.clientWidth);
+      setButtonWidth(buttonNode.clientWidth)
     }
-  }, [buttonNode, isSortOpen]);
+  }, [buttonNode, isSortOpen])
 
   const handleOpenSortMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+    setAnchorEl(event.currentTarget)
+  }
 
   const handleCloseSortMenu = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
 
   const handleMenuItemClick = (event: React.MouseEvent<HTMLElement>, value: string) => {
-    setSelectedSort(value);
-    handleSort(value);
-    handleCloseSortMenu();
-  };
+    setSelectedSort(value)
+    handleSort(value)
+    handleCloseSortMenu()
+  }
 
   if (!children || typeof children !== 'object' || !('props' in children)) {
-    throw new Error('SortButton expects a valid ReactElement as children');
+    throw new Error('SortButton expects a valid ReactElement as children')
   }
-  const child = children as ReactElement<any, any>;
-  const childOnClick = typeof child.props.onClick === 'function' ? child.props.onClick : undefined;
+  const child = children as ReactElement<any, any>
+  const childOnClick = typeof child.props.onClick === 'function' ? child.props.onClick : undefined
   // TypeScript limitation: ref typing for generic child
   const Button = cloneElement<unknown>(
     child,
@@ -68,8 +70,8 @@ const SortButton = ({
       ref: buttonRef,
       onClick: callAll(handleOpenSortMenu as FunctionType, childOnClick as FunctionType),
     },
-    sortLabel.length > 0 && sortLabel[0]?.label,
-  );
+    sortLabel.length > 0 && sortLabel[0]?.label
+  )
 
   return (
     <Stack direction="row" sx={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -90,19 +92,19 @@ const SortButton = ({
           '& .MuiMenuItem-root': { width: buttonWidth, color: 'var(--color-foreground)' },
         }}
       >
-        {sortOptions.map(option => (
+        {sortOptions.map((option) => (
           <MenuItem
             sx={{ p: 1.5 }}
             key={option.value}
             selected={option.value === selectedSort}
-            onClick={event => handleMenuItemClick(event, option.value)}
+            onClick={(event) => handleMenuItemClick(event, option.value)}
           >
             {option.label}
           </MenuItem>
         ))}
       </Menu>
     </Stack>
-  );
-};
+  )
+}
 
-export default SortButton;
+export default SortButton

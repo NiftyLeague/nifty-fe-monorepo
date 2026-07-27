@@ -1,32 +1,32 @@
-import { SyntheticEvent } from 'react';
+import { SyntheticEvent } from 'react'
 
 // material-ui
-import { Alert, Button, Fade, Grow, IconButton, Slide, SlideProps } from '@mui/material';
-import MuiSnackbar from '@mui/material/Snackbar';
+import { Alert, Button, Fade, Grow, IconButton, Slide, SlideProps } from '@mui/material'
+import MuiSnackbar from '@mui/material/Snackbar'
 
-import { Icon } from '@nl/ui/base/icon';
-import { useDispatch, useSelector } from '@/store/hooks';
-import { closeSnackbar } from '@/store/slices/snackbar';
+import { Icon } from '@nl/ui/base/icon'
+import { useDispatch, useSelector } from '@/store/hooks'
+import { closeSnackbar } from '@/store/slices/snackbar'
 
 // animation function
 function TransitionSlideLeft(props: SlideProps) {
-  return <Slide {...props} direction="left" />;
+  return <Slide {...props} direction="left" />
 }
 
 function TransitionSlideUp(props: SlideProps) {
-  return <Slide {...props} direction="up" />;
+  return <Slide {...props} direction="up" />
 }
 
 function TransitionSlideRight(props: SlideProps) {
-  return <Slide {...props} direction="right" />;
+  return <Slide {...props} direction="right" />
 }
 
 function TransitionSlideDown(props: SlideProps) {
-  return <Slide {...props} direction="down" />;
+  return <Slide {...props} direction="down" />
 }
 
 function GrowTransition(props: SlideProps) {
-  return <Grow {...props} />;
+  return <Grow {...props} />
 }
 
 // animation options
@@ -37,21 +37,21 @@ const animation = {
   SlideDown: TransitionSlideDown,
   Grow: GrowTransition,
   Fade,
-};
+}
 
 // ==============================|| SNACKBAR ||============================== //
 
 const Snackbar = () => {
-  const dispatch = useDispatch();
-  const snackbar = useSelector(state => state.snackbar);
-  const { actionButton, anchorOrigin, alert, close, message, open, transition, variant } = snackbar;
+  const dispatch = useDispatch()
+  const snackbar = useSelector((state) => state.snackbar)
+  const { actionButton, anchorOrigin, alert, close, message, open, transition, variant } = snackbar
 
   const handleClose = (event: SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
-      return;
+      return
     }
-    dispatch(closeSnackbar());
-  };
+    dispatch(closeSnackbar())
+  }
 
   return (
     <>
@@ -69,7 +69,13 @@ const Snackbar = () => {
               <Button color="secondary" size="small" onClick={handleClose}>
                 UNDO
               </Button>
-              <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose} sx={{ mt: 0.25 }}>
+              <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={handleClose}
+                sx={{ mt: 0.25 }}
+              >
                 <Icon name="x" size="sm" />
               </IconButton>
             </>
@@ -97,7 +103,12 @@ const Snackbar = () => {
                   </Button>
                 )}
                 {close !== false && (
-                  <IconButton sx={{ color: 'background.paper' }} size="small" aria-label="close" onClick={handleClose}>
+                  <IconButton
+                    sx={{ color: 'background.paper' }}
+                    size="small"
+                    aria-label="close"
+                    onClick={handleClose}
+                  >
                     <Icon name="x" size="sm" />
                   </IconButton>
                 )}
@@ -110,7 +121,7 @@ const Snackbar = () => {
         </MuiSnackbar>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Snackbar;
+export default Snackbar

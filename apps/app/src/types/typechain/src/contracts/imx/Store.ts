@@ -13,7 +13,7 @@ import type {
   ContractRunner,
   ContractMethod,
   Listener,
-} from 'ethers';
+} from 'ethers'
 import type {
   TypedContractEvent,
   TypedDeferredTopicFilter,
@@ -21,12 +21,16 @@ import type {
   TypedLogDescription,
   TypedListener,
   TypedContractMethod,
-} from '../../../common';
+} from '../../../common'
 
 export declare namespace Store {
-  export type SignatureStruct = { v: BigNumberish; r: BytesLike; s: BytesLike };
+  export type SignatureStruct = { v: BigNumberish; r: BytesLike; s: BytesLike }
 
-  export type SignatureStructOutput = [v: bigint, r: string, s: string] & { v: bigint; r: string; s: string };
+  export type SignatureStructOutput = [v: bigint, r: string, s: string] & {
+    v: bigint
+    r: string
+    s: string
+  }
 }
 
 export interface StoreInterface extends Interface {
@@ -53,208 +57,242 @@ export interface StoreInterface extends Interface {
       | 'transferOwnership'
       | 'treasury'
       | 'unpause'
-      | 'updateTreasury',
-  ): FunctionFragment;
+      | 'updateTreasury'
+  ): FunctionFragment
 
   getEvent(
     nameOrSignatureOrTopic:
-      'Initialized' | 'ItemsMinted' | 'NftlSpent' | 'OwnershipTransferred' | 'Paused' | 'Unpaused',
-  ): EventFragment;
+      'Initialized' | 'ItemsMinted' | 'NftlSpent' | 'OwnershipTransferred' | 'Paused' | 'Unpaused'
+  ): EventFragment
 
-  encodeFunctionData(functionFragment: 'initialize', values: [AddressLike, AddressLike, AddressLike]): string;
-  encodeFunctionData(functionFragment: 'isAvailable', values: [BigNumberish]): string;
+  encodeFunctionData(
+    functionFragment: 'initialize',
+    values: [AddressLike, AddressLike, AddressLike]
+  ): string
+  encodeFunctionData(functionFragment: 'isAvailable', values: [BigNumberish]): string
   encodeFunctionData(
     functionFragment: 'listNewItems',
-    values: [BigNumberish[], BigNumberish[], BigNumberish[]],
-  ): string;
-  encodeFunctionData(functionFragment: 'listingPrice', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'marketplace', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'maxSupply', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'nftl', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'owner', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'pause', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'paused', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'purchaseItems', values: [BigNumberish[], BigNumberish[]]): string;
+    values: [BigNumberish[], BigNumberish[], BigNumberish[]]
+  ): string
+  encodeFunctionData(functionFragment: 'listingPrice', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'marketplace', values?: undefined): string
+  encodeFunctionData(functionFragment: 'maxSupply', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'nftl', values?: undefined): string
+  encodeFunctionData(functionFragment: 'owner', values?: undefined): string
+  encodeFunctionData(functionFragment: 'pause', values?: undefined): string
+  encodeFunctionData(functionFragment: 'paused', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: 'purchaseItems',
+    values: [BigNumberish[], BigNumberish[]]
+  ): string
   encodeFunctionData(
     functionFragment: 'purchaseItemsForWithPermit',
-    values: [AddressLike, BigNumberish[], BigNumberish[], BigNumberish, BigNumberish, Store.SignatureStruct],
-  ): string;
+    values: [
+      AddressLike,
+      BigNumberish[],
+      BigNumberish[],
+      BigNumberish,
+      BigNumberish,
+      Store.SignatureStruct,
+    ]
+  ): string
   encodeFunctionData(
     functionFragment: 'purchaseItemsWithPermit',
-    values: [BigNumberish[], BigNumberish[], BigNumberish, BigNumberish, Store.SignatureStruct],
-  ): string;
-  encodeFunctionData(functionFragment: 'renounceOwnership', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'setItemsAvailability', values: [BigNumberish[], boolean[]]): string;
-  encodeFunctionData(functionFragment: 'setItemsMaxSupply', values: [BigNumberish[], BigNumberish[]]): string;
-  encodeFunctionData(functionFragment: 'setItemsPrice', values: [BigNumberish[], BigNumberish[]]): string;
-  encodeFunctionData(functionFragment: 'splitSignature', values: [BytesLike]): string;
-  encodeFunctionData(functionFragment: 'transferOwnership', values: [AddressLike]): string;
-  encodeFunctionData(functionFragment: 'treasury', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'unpause', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'updateTreasury', values: [AddressLike]): string;
+    values: [BigNumberish[], BigNumberish[], BigNumberish, BigNumberish, Store.SignatureStruct]
+  ): string
+  encodeFunctionData(functionFragment: 'renounceOwnership', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: 'setItemsAvailability',
+    values: [BigNumberish[], boolean[]]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'setItemsMaxSupply',
+    values: [BigNumberish[], BigNumberish[]]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'setItemsPrice',
+    values: [BigNumberish[], BigNumberish[]]
+  ): string
+  encodeFunctionData(functionFragment: 'splitSignature', values: [BytesLike]): string
+  encodeFunctionData(functionFragment: 'transferOwnership', values: [AddressLike]): string
+  encodeFunctionData(functionFragment: 'treasury', values?: undefined): string
+  encodeFunctionData(functionFragment: 'unpause', values?: undefined): string
+  encodeFunctionData(functionFragment: 'updateTreasury', values: [AddressLike]): string
 
-  decodeFunctionResult(functionFragment: 'initialize', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'isAvailable', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'listNewItems', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'listingPrice', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'marketplace', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'maxSupply', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'nftl', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'pause', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'paused', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'purchaseItems', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'purchaseItemsForWithPermit', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'purchaseItemsWithPermit', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'renounceOwnership', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setItemsAvailability', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setItemsMaxSupply', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setItemsPrice', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'splitSignature', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'transferOwnership', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'treasury', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'unpause', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateTreasury', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'initialize', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'isAvailable', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'listNewItems', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'listingPrice', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'marketplace', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'maxSupply', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'nftl', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'pause', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'paused', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'purchaseItems', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'purchaseItemsForWithPermit', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'purchaseItemsWithPermit', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'renounceOwnership', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setItemsAvailability', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setItemsMaxSupply', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setItemsPrice', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'splitSignature', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'transferOwnership', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'treasury', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'unpause', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'updateTreasury', data: BytesLike): Result
 }
 
 export namespace InitializedEvent {
-  export type InputTuple = [version: BigNumberish];
-  export type OutputTuple = [version: bigint];
+  export type InputTuple = [version: BigNumberish]
+  export type OutputTuple = [version: bigint]
   export interface OutputObject {
-    version: bigint;
+    version: bigint
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace ItemsMintedEvent {
-  export type InputTuple = [by: AddressLike, tokenIds: BigNumberish[], values: BigNumberish[]];
-  export type OutputTuple = [by: string, tokenIds: bigint[], values: bigint[]];
+  export type InputTuple = [by: AddressLike, tokenIds: BigNumberish[], values: BigNumberish[]]
+  export type OutputTuple = [by: string, tokenIds: bigint[], values: bigint[]]
   export interface OutputObject {
-    by: string;
-    tokenIds: bigint[];
-    values: bigint[];
+    by: string
+    tokenIds: bigint[]
+    values: bigint[]
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace NftlSpentEvent {
-  export type InputTuple = [by: AddressLike, amount: BigNumberish];
-  export type OutputTuple = [by: string, amount: bigint];
+  export type InputTuple = [by: AddressLike, amount: BigNumberish]
+  export type OutputTuple = [by: string, amount: bigint]
   export interface OutputObject {
-    by: string;
-    amount: bigint;
+    by: string
+    amount: bigint
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace OwnershipTransferredEvent {
-  export type InputTuple = [previousOwner: AddressLike, newOwner: AddressLike];
-  export type OutputTuple = [previousOwner: string, newOwner: string];
+  export type InputTuple = [previousOwner: AddressLike, newOwner: AddressLike]
+  export type OutputTuple = [previousOwner: string, newOwner: string]
   export interface OutputObject {
-    previousOwner: string;
-    newOwner: string;
+    previousOwner: string
+    newOwner: string
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace PausedEvent {
-  export type InputTuple = [account: AddressLike];
-  export type OutputTuple = [account: string];
+  export type InputTuple = [account: AddressLike]
+  export type OutputTuple = [account: string]
   export interface OutputObject {
-    account: string;
+    account: string
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export namespace UnpausedEvent {
-  export type InputTuple = [account: AddressLike];
-  export type OutputTuple = [account: string];
+  export type InputTuple = [account: AddressLike]
+  export type OutputTuple = [account: string]
   export interface OutputObject {
-    account: string;
+    account: string
   }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>
+  export type Filter = TypedDeferredTopicFilter<Event>
+  export type Log = TypedEventLog<Event>
+  export type LogDescription = TypedLogDescription<Event>
 }
 
 export interface Store extends BaseContract {
-  connect(runner?: ContractRunner | null): Store;
-  waitForDeployment(): Promise<this>;
+  connect(runner?: ContractRunner | null): Store
+  waitForDeployment(): Promise<this>
 
-  interface: StoreInterface;
+  interface: StoreInterface
 
   queryFilter<TCEvent extends TypedContractEvent>(
     event: TCEvent,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
-  ): Promise<Array<TypedEventLog<TCEvent>>>;
+    toBlock?: string | number | undefined
+  ): Promise<Array<TypedEventLog<TCEvent>>>
   queryFilter<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
-  ): Promise<Array<TypedEventLog<TCEvent>>>;
+    toBlock?: string | number | undefined
+  ): Promise<Array<TypedEventLog<TCEvent>>>
 
-  on<TCEvent extends TypedContractEvent>(event: TCEvent, listener: TypedListener<TCEvent>): Promise<this>;
+  on<TCEvent extends TypedContractEvent>(
+    event: TCEvent,
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
   on<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
-    listener: TypedListener<TCEvent>,
-  ): Promise<this>;
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
 
-  once<TCEvent extends TypedContractEvent>(event: TCEvent, listener: TypedListener<TCEvent>): Promise<this>;
+  once<TCEvent extends TypedContractEvent>(
+    event: TCEvent,
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
   once<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
-    listener: TypedListener<TCEvent>,
-  ): Promise<this>;
+    listener: TypedListener<TCEvent>
+  ): Promise<this>
 
-  listeners<TCEvent extends TypedContractEvent>(event: TCEvent): Promise<Array<TypedListener<TCEvent>>>;
-  listeners(eventName?: string): Promise<Array<Listener>>;
-  removeAllListeners<TCEvent extends TypedContractEvent>(event?: TCEvent): Promise<this>;
+  listeners<TCEvent extends TypedContractEvent>(
+    event: TCEvent
+  ): Promise<Array<TypedListener<TCEvent>>>
+  listeners(eventName?: string): Promise<Array<Listener>>
+  removeAllListeners<TCEvent extends TypedContractEvent>(event?: TCEvent): Promise<this>
 
   initialize: TypedContractMethod<
     [marketplace_: AddressLike, nftl_: AddressLike, treasury_: AddressLike],
     [void],
     'nonpayable'
-  >;
+  >
 
-  isAvailable: TypedContractMethod<[itemId: BigNumberish], [boolean], 'view'>;
+  isAvailable: TypedContractMethod<[itemId: BigNumberish], [boolean], 'view'>
 
   listNewItems: TypedContractMethod<
     [itemIds: BigNumberish[], prices: BigNumberish[], supply: BigNumberish[]],
     [void],
     'nonpayable'
-  >;
+  >
 
-  listingPrice: TypedContractMethod<[itemId: BigNumberish], [bigint], 'view'>;
+  listingPrice: TypedContractMethod<[itemId: BigNumberish], [bigint], 'view'>
 
-  marketplace: TypedContractMethod<[], [string], 'view'>;
+  marketplace: TypedContractMethod<[], [string], 'view'>
 
-  maxSupply: TypedContractMethod<[itemId: BigNumberish], [bigint], 'view'>;
+  maxSupply: TypedContractMethod<[itemId: BigNumberish], [bigint], 'view'>
 
-  nftl: TypedContractMethod<[], [string], 'view'>;
+  nftl: TypedContractMethod<[], [string], 'view'>
 
-  owner: TypedContractMethod<[], [string], 'view'>;
+  owner: TypedContractMethod<[], [string], 'view'>
 
-  pause: TypedContractMethod<[], [void], 'nonpayable'>;
+  pause: TypedContractMethod<[], [void], 'nonpayable'>
 
-  paused: TypedContractMethod<[], [boolean], 'view'>;
+  paused: TypedContractMethod<[], [boolean], 'view'>
 
-  purchaseItems: TypedContractMethod<[itemIds: BigNumberish[], itemValues: BigNumberish[]], [void], 'nonpayable'>;
+  purchaseItems: TypedContractMethod<
+    [itemIds: BigNumberish[], itemValues: BigNumberish[]],
+    [void],
+    'nonpayable'
+  >
 
   purchaseItemsForWithPermit: TypedContractMethod<
     [
@@ -267,7 +305,7 @@ export interface Store extends BaseContract {
     ],
     [void],
     'nonpayable'
-  >;
+  >
 
   purchaseItemsWithPermit: TypedContractMethod<
     [
@@ -279,51 +317,77 @@ export interface Store extends BaseContract {
     ],
     [void],
     'nonpayable'
-  >;
+  >
 
-  renounceOwnership: TypedContractMethod<[], [void], 'nonpayable'>;
+  renounceOwnership: TypedContractMethod<[], [void], 'nonpayable'>
 
-  setItemsAvailability: TypedContractMethod<[itemIds: BigNumberish[], availability: boolean[]], [void], 'nonpayable'>;
+  setItemsAvailability: TypedContractMethod<
+    [itemIds: BigNumberish[], availability: boolean[]],
+    [void],
+    'nonpayable'
+  >
 
-  setItemsMaxSupply: TypedContractMethod<[itemIds: BigNumberish[], supply: BigNumberish[]], [void], 'nonpayable'>;
+  setItemsMaxSupply: TypedContractMethod<
+    [itemIds: BigNumberish[], supply: BigNumberish[]],
+    [void],
+    'nonpayable'
+  >
 
-  setItemsPrice: TypedContractMethod<[itemIds: BigNumberish[], prices: BigNumberish[]], [void], 'nonpayable'>;
+  setItemsPrice: TypedContractMethod<
+    [itemIds: BigNumberish[], prices: BigNumberish[]],
+    [void],
+    'nonpayable'
+  >
 
-  splitSignature: TypedContractMethod<[sig: BytesLike], [Store.SignatureStructOutput], 'view'>;
+  splitSignature: TypedContractMethod<[sig: BytesLike], [Store.SignatureStructOutput], 'view'>
 
-  transferOwnership: TypedContractMethod<[newOwner: AddressLike], [void], 'nonpayable'>;
+  transferOwnership: TypedContractMethod<[newOwner: AddressLike], [void], 'nonpayable'>
 
-  treasury: TypedContractMethod<[], [string], 'view'>;
+  treasury: TypedContractMethod<[], [string], 'view'>
 
-  unpause: TypedContractMethod<[], [void], 'nonpayable'>;
+  unpause: TypedContractMethod<[], [void], 'nonpayable'>
 
-  updateTreasury: TypedContractMethod<[treasury_: AddressLike], [void], 'nonpayable'>;
+  updateTreasury: TypedContractMethod<[treasury_: AddressLike], [void], 'nonpayable'>
 
-  getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T;
+  getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T
 
   getFunction(
-    nameOrSignature: 'initialize',
-  ): TypedContractMethod<[marketplace_: AddressLike, nftl_: AddressLike, treasury_: AddressLike], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'isAvailable'): TypedContractMethod<[itemId: BigNumberish], [boolean], 'view'>;
+    nameOrSignature: 'initialize'
+  ): TypedContractMethod<
+    [marketplace_: AddressLike, nftl_: AddressLike, treasury_: AddressLike],
+    [void],
+    'nonpayable'
+  >
   getFunction(
-    nameOrSignature: 'listNewItems',
+    nameOrSignature: 'isAvailable'
+  ): TypedContractMethod<[itemId: BigNumberish], [boolean], 'view'>
+  getFunction(
+    nameOrSignature: 'listNewItems'
   ): TypedContractMethod<
     [itemIds: BigNumberish[], prices: BigNumberish[], supply: BigNumberish[]],
     [void],
     'nonpayable'
-  >;
-  getFunction(nameOrSignature: 'listingPrice'): TypedContractMethod<[itemId: BigNumberish], [bigint], 'view'>;
-  getFunction(nameOrSignature: 'marketplace'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'maxSupply'): TypedContractMethod<[itemId: BigNumberish], [bigint], 'view'>;
-  getFunction(nameOrSignature: 'nftl'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'owner'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'pause'): TypedContractMethod<[], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'paused'): TypedContractMethod<[], [boolean], 'view'>;
+  >
   getFunction(
-    nameOrSignature: 'purchaseItems',
-  ): TypedContractMethod<[itemIds: BigNumberish[], itemValues: BigNumberish[]], [void], 'nonpayable'>;
+    nameOrSignature: 'listingPrice'
+  ): TypedContractMethod<[itemId: BigNumberish], [bigint], 'view'>
+  getFunction(nameOrSignature: 'marketplace'): TypedContractMethod<[], [string], 'view'>
   getFunction(
-    nameOrSignature: 'purchaseItemsForWithPermit',
+    nameOrSignature: 'maxSupply'
+  ): TypedContractMethod<[itemId: BigNumberish], [bigint], 'view'>
+  getFunction(nameOrSignature: 'nftl'): TypedContractMethod<[], [string], 'view'>
+  getFunction(nameOrSignature: 'owner'): TypedContractMethod<[], [string], 'view'>
+  getFunction(nameOrSignature: 'pause'): TypedContractMethod<[], [void], 'nonpayable'>
+  getFunction(nameOrSignature: 'paused'): TypedContractMethod<[], [boolean], 'view'>
+  getFunction(
+    nameOrSignature: 'purchaseItems'
+  ): TypedContractMethod<
+    [itemIds: BigNumberish[], itemValues: BigNumberish[]],
+    [void],
+    'nonpayable'
+  >
+  getFunction(
+    nameOrSignature: 'purchaseItemsForWithPermit'
   ): TypedContractMethod<
     [
       holder: AddressLike,
@@ -335,9 +399,9 @@ export interface Store extends BaseContract {
     ],
     [void],
     'nonpayable'
-  >;
+  >
   getFunction(
-    nameOrSignature: 'purchaseItemsWithPermit',
+    nameOrSignature: 'purchaseItemsWithPermit'
   ): TypedContractMethod<
     [
       itemIds: BigNumberish[],
@@ -348,97 +412,133 @@ export interface Store extends BaseContract {
     ],
     [void],
     'nonpayable'
-  >;
-  getFunction(nameOrSignature: 'renounceOwnership'): TypedContractMethod<[], [void], 'nonpayable'>;
+  >
+  getFunction(nameOrSignature: 'renounceOwnership'): TypedContractMethod<[], [void], 'nonpayable'>
   getFunction(
-    nameOrSignature: 'setItemsAvailability',
-  ): TypedContractMethod<[itemIds: BigNumberish[], availability: boolean[]], [void], 'nonpayable'>;
+    nameOrSignature: 'setItemsAvailability'
+  ): TypedContractMethod<[itemIds: BigNumberish[], availability: boolean[]], [void], 'nonpayable'>
   getFunction(
-    nameOrSignature: 'setItemsMaxSupply',
-  ): TypedContractMethod<[itemIds: BigNumberish[], supply: BigNumberish[]], [void], 'nonpayable'>;
+    nameOrSignature: 'setItemsMaxSupply'
+  ): TypedContractMethod<[itemIds: BigNumberish[], supply: BigNumberish[]], [void], 'nonpayable'>
   getFunction(
-    nameOrSignature: 'setItemsPrice',
-  ): TypedContractMethod<[itemIds: BigNumberish[], prices: BigNumberish[]], [void], 'nonpayable'>;
+    nameOrSignature: 'setItemsPrice'
+  ): TypedContractMethod<[itemIds: BigNumberish[], prices: BigNumberish[]], [void], 'nonpayable'>
   getFunction(
-    nameOrSignature: 'splitSignature',
-  ): TypedContractMethod<[sig: BytesLike], [Store.SignatureStructOutput], 'view'>;
-  getFunction(nameOrSignature: 'transferOwnership'): TypedContractMethod<[newOwner: AddressLike], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'treasury'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'unpause'): TypedContractMethod<[], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'updateTreasury'): TypedContractMethod<[treasury_: AddressLike], [void], 'nonpayable'>;
+    nameOrSignature: 'splitSignature'
+  ): TypedContractMethod<[sig: BytesLike], [Store.SignatureStructOutput], 'view'>
+  getFunction(
+    nameOrSignature: 'transferOwnership'
+  ): TypedContractMethod<[newOwner: AddressLike], [void], 'nonpayable'>
+  getFunction(nameOrSignature: 'treasury'): TypedContractMethod<[], [string], 'view'>
+  getFunction(nameOrSignature: 'unpause'): TypedContractMethod<[], [void], 'nonpayable'>
+  getFunction(
+    nameOrSignature: 'updateTreasury'
+  ): TypedContractMethod<[treasury_: AddressLike], [void], 'nonpayable'>
 
   getEvent(
-    key: 'Initialized',
-  ): TypedContractEvent<InitializedEvent.InputTuple, InitializedEvent.OutputTuple, InitializedEvent.OutputObject>;
+    key: 'Initialized'
+  ): TypedContractEvent<
+    InitializedEvent.InputTuple,
+    InitializedEvent.OutputTuple,
+    InitializedEvent.OutputObject
+  >
   getEvent(
-    key: 'ItemsMinted',
-  ): TypedContractEvent<ItemsMintedEvent.InputTuple, ItemsMintedEvent.OutputTuple, ItemsMintedEvent.OutputObject>;
+    key: 'ItemsMinted'
+  ): TypedContractEvent<
+    ItemsMintedEvent.InputTuple,
+    ItemsMintedEvent.OutputTuple,
+    ItemsMintedEvent.OutputObject
+  >
   getEvent(
-    key: 'NftlSpent',
-  ): TypedContractEvent<NftlSpentEvent.InputTuple, NftlSpentEvent.OutputTuple, NftlSpentEvent.OutputObject>;
+    key: 'NftlSpent'
+  ): TypedContractEvent<
+    NftlSpentEvent.InputTuple,
+    NftlSpentEvent.OutputTuple,
+    NftlSpentEvent.OutputObject
+  >
   getEvent(
-    key: 'OwnershipTransferred',
+    key: 'OwnershipTransferred'
   ): TypedContractEvent<
     OwnershipTransferredEvent.InputTuple,
     OwnershipTransferredEvent.OutputTuple,
     OwnershipTransferredEvent.OutputObject
-  >;
+  >
   getEvent(
-    key: 'Paused',
-  ): TypedContractEvent<PausedEvent.InputTuple, PausedEvent.OutputTuple, PausedEvent.OutputObject>;
+    key: 'Paused'
+  ): TypedContractEvent<PausedEvent.InputTuple, PausedEvent.OutputTuple, PausedEvent.OutputObject>
   getEvent(
-    key: 'Unpaused',
-  ): TypedContractEvent<UnpausedEvent.InputTuple, UnpausedEvent.OutputTuple, UnpausedEvent.OutputObject>;
+    key: 'Unpaused'
+  ): TypedContractEvent<
+    UnpausedEvent.InputTuple,
+    UnpausedEvent.OutputTuple,
+    UnpausedEvent.OutputObject
+  >
 
   filters: {
     'Initialized(uint8)': TypedContractEvent<
       InitializedEvent.InputTuple,
       InitializedEvent.OutputTuple,
       InitializedEvent.OutputObject
-    >;
+    >
     Initialized: TypedContractEvent<
       InitializedEvent.InputTuple,
       InitializedEvent.OutputTuple,
       InitializedEvent.OutputObject
-    >;
+    >
 
     'ItemsMinted(address,uint256[],uint256[])': TypedContractEvent<
       ItemsMintedEvent.InputTuple,
       ItemsMintedEvent.OutputTuple,
       ItemsMintedEvent.OutputObject
-    >;
+    >
     ItemsMinted: TypedContractEvent<
       ItemsMintedEvent.InputTuple,
       ItemsMintedEvent.OutputTuple,
       ItemsMintedEvent.OutputObject
-    >;
+    >
 
     'NftlSpent(address,uint256)': TypedContractEvent<
       NftlSpentEvent.InputTuple,
       NftlSpentEvent.OutputTuple,
       NftlSpentEvent.OutputObject
-    >;
-    NftlSpent: TypedContractEvent<NftlSpentEvent.InputTuple, NftlSpentEvent.OutputTuple, NftlSpentEvent.OutputObject>;
+    >
+    NftlSpent: TypedContractEvent<
+      NftlSpentEvent.InputTuple,
+      NftlSpentEvent.OutputTuple,
+      NftlSpentEvent.OutputObject
+    >
 
     'OwnershipTransferred(address,address)': TypedContractEvent<
       OwnershipTransferredEvent.InputTuple,
       OwnershipTransferredEvent.OutputTuple,
       OwnershipTransferredEvent.OutputObject
-    >;
+    >
     OwnershipTransferred: TypedContractEvent<
       OwnershipTransferredEvent.InputTuple,
       OwnershipTransferredEvent.OutputTuple,
       OwnershipTransferredEvent.OutputObject
-    >;
+    >
 
-    'Paused(address)': TypedContractEvent<PausedEvent.InputTuple, PausedEvent.OutputTuple, PausedEvent.OutputObject>;
-    Paused: TypedContractEvent<PausedEvent.InputTuple, PausedEvent.OutputTuple, PausedEvent.OutputObject>;
+    'Paused(address)': TypedContractEvent<
+      PausedEvent.InputTuple,
+      PausedEvent.OutputTuple,
+      PausedEvent.OutputObject
+    >
+    Paused: TypedContractEvent<
+      PausedEvent.InputTuple,
+      PausedEvent.OutputTuple,
+      PausedEvent.OutputObject
+    >
 
     'Unpaused(address)': TypedContractEvent<
       UnpausedEvent.InputTuple,
       UnpausedEvent.OutputTuple,
       UnpausedEvent.OutputObject
-    >;
-    Unpaused: TypedContractEvent<UnpausedEvent.InputTuple, UnpausedEvent.OutputTuple, UnpausedEvent.OutputObject>;
-  };
+    >
+    Unpaused: TypedContractEvent<
+      UnpausedEvent.InputTuple,
+      UnpausedEvent.OutputTuple,
+      UnpausedEvent.OutputObject
+    >
+  }
 }

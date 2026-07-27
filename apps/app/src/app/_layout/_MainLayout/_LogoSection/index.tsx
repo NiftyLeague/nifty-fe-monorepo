@@ -1,7 +1,7 @@
-import Logo from '@/components/Logo';
+import Logo from '@/components/Logo'
 
 // ==============================|| MAIN LOGO ||============================== //
 
-const LogoSection = () => <Logo />;
+const LogoSection = () => <Logo />
 
-export default LogoSection;
+export default LogoSection

@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import { type VariantProps } from 'class-variance-authority';
-import { buttonVariants } from '@nl/ui/base/button';
+import { type VariantProps } from 'class-variance-authority'
+import { buttonVariants } from '@nl/ui/base/button'
 import {
   AlertDialog as AlertDialogPrimitive,
   AlertDialogAction,
@@ -12,18 +12,18 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@nl/ui/base/alert-dialog';
+} from '@nl/ui/base/alert-dialog'
 
 interface AlertDialogProps {
-  cancelText?: string;
-  cancelVariant?: VariantProps<typeof buttonVariants>['variant'];
-  confirmText?: string;
-  confirmVariant?: VariantProps<typeof buttonVariants>['variant'];
-  description?: string;
-  onCancel?: () => void;
-  onConfirm?: React.MouseEventHandler<HTMLButtonElement>;
-  title?: string;
-  triggerElement?: React.ReactNode;
+  cancelText?: string
+  cancelVariant?: VariantProps<typeof buttonVariants>['variant']
+  confirmText?: string
+  confirmVariant?: VariantProps<typeof buttonVariants>['variant']
+  description?: string
+  onCancel?: () => void
+  onConfirm?: React.MouseEventHandler<HTMLButtonElement>
+  title?: string
+  triggerElement?: React.ReactNode
 }
 
 export function AlertDialog({
@@ -49,13 +49,17 @@ export function AlertDialog({
           <AlertDialogCancel variant={cancelVariant} onClick={onCancel} className="cursor-pointer">
             {cancelText}
           </AlertDialogCancel>
-          <AlertDialogAction variant={confirmVariant} onClick={onConfirm} className="cursor-pointer">
+          <AlertDialogAction
+            variant={confirmVariant}
+            onClick={onConfirm}
+            className="cursor-pointer"
+          >
             {confirmText}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialogPrimitive>
-  );
+  )
 }
 
-export default AlertDialog;
+export default AlertDialog

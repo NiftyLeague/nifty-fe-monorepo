@@ -1,8 +1,8 @@
-import type { EquipItemSlot } from '@/types/equip';
-import Image from 'next/image';
-import { GTM_EVENTS } from '@nl/ui/gtm';
+import type { EquipItemSlot } from '@/types/equip'
+import Image from 'next/image'
+import { GTM_EVENTS } from '@nl/ui/gtm'
 
-import styles from './index.module.css';
+import styles from './index.module.css'
 
 export const SLOTS: EquipItemSlot[] = [
   {
@@ -17,30 +17,85 @@ export const SLOTS: EquipItemSlot[] = [
   },
   {
     name: 'Pet',
-    empty: <Image src="/img/items/equips/companion-slot.svg" alt="Companion Slot" width={40} height={40} />,
+    empty: (
+      <Image
+        src="/img/items/equips/companion-slot.svg"
+        alt="Companion Slot"
+        width={40}
+        height={40}
+      />
+    ),
     filled: <Image src="/img/items/equips/companion.webp" width={40} height={40} alt="Pet" />,
   },
   {
     name: 'Weapon',
     empty: <Image src="/img/items/equips/bat-slot.svg" alt="Bat Slot" width={40} height={40} />,
     filledArr: [
-      <Image src="/img/items/equips/diamond-bat.webp" width={40} height={40} alt="Diamond Bat" key="diamond" />,
-      <Image src="/img/items/equips/purple-bat.webp" width={40} height={40} alt="Purple Bat" key="purple" />,
-      <Image src="/img/items/equips/bread-bat.webp" width={40} height={40} alt="Bread Bat" key="bread" />,
+      <Image
+        src="/img/items/equips/diamond-bat.webp"
+        width={40}
+        height={40}
+        alt="Diamond Bat"
+        key="diamond"
+      />,
+      <Image
+        src="/img/items/equips/purple-bat.webp"
+        width={40}
+        height={40}
+        alt="Purple Bat"
+        key="purple"
+      />,
+      <Image
+        src="/img/items/equips/bread-bat.webp"
+        width={40}
+        height={40}
+        alt="Bread Bat"
+        key="bread"
+      />,
     ],
   },
-];
+]
 
 export const INVENTORIES: EquipItemSlot[] = [
   {
     name: 'Cape',
-    empty: <Image src="/img/items/equips/cape-inventory-empty.svg" alt="Cape Inventory Empty" width={30} height={30} />,
-    filled: <Image src="/img/items/equips/cape.webp" alt="Cape" className={styles.inventory} width={30} height={30} />,
+    empty: (
+      <Image
+        src="/img/items/equips/cape-inventory-empty.svg"
+        alt="Cape Inventory Empty"
+        width={30}
+        height={30}
+      />
+    ),
+    filled: (
+      <Image
+        src="/img/items/equips/cape.webp"
+        alt="Cape"
+        className={styles.inventory}
+        width={30}
+        height={30}
+      />
+    ),
   },
   {
     name: 'Halo',
-    empty: <Image src="/img/items/equips/halo-inventory-empty.svg" alt="Halo Inventory Empty" width={30} height={30} />,
-    filled: <Image src="/img/items/equips/halo.webp" alt="Halo" className={styles.inventory} width={30} height={30} />,
+    empty: (
+      <Image
+        src="/img/items/equips/halo-inventory-empty.svg"
+        alt="Halo Inventory Empty"
+        width={30}
+        height={30}
+      />
+    ),
+    filled: (
+      <Image
+        src="/img/items/equips/halo.webp"
+        alt="Halo"
+        className={styles.inventory}
+        width={30}
+        height={30}
+      />
+    ),
   },
   {
     name: 'Companion',
@@ -64,7 +119,14 @@ export const INVENTORIES: EquipItemSlot[] = [
   },
   {
     name: 'Diamond Bat',
-    empty: <Image src="/img/items/equips/bat-inventory-empty.svg" alt="Bat Inventory Empty" width={30} height={30} />,
+    empty: (
+      <Image
+        src="/img/items/equips/bat-inventory-empty.svg"
+        alt="Bat Inventory Empty"
+        width={30}
+        height={30}
+      />
+    ),
     filled: (
       <Image
         src="/img/items/equips/diamond-bat.webp"
@@ -77,7 +139,14 @@ export const INVENTORIES: EquipItemSlot[] = [
   },
   {
     name: 'Purple Bat',
-    empty: <Image src="/img/items/equips/bat-inventory-empty.svg" alt="Bat Inventory Empty" width={30} height={30} />,
+    empty: (
+      <Image
+        src="/img/items/equips/bat-inventory-empty.svg"
+        alt="Bat Inventory Empty"
+        width={30}
+        height={30}
+      />
+    ),
     filled: (
       <Image
         src="/img/items/equips/purple-bat.webp"
@@ -90,7 +159,14 @@ export const INVENTORIES: EquipItemSlot[] = [
   },
   {
     name: 'Bread Bat',
-    empty: <Image src="/img/items/equips/bat-inventory-empty.svg" alt="Bat Inventory Empty" width={30} height={30} />,
+    empty: (
+      <Image
+        src="/img/items/equips/bat-inventory-empty.svg"
+        alt="Bat Inventory Empty"
+        width={30}
+        height={30}
+      />
+    ),
     filled: (
       <Image
         src="/img/items/equips/bread-bat.webp"
@@ -101,52 +177,52 @@ export const INVENTORIES: EquipItemSlot[] = [
       />
     ),
   },
-];
+]
 
 export const getInventoryAnalyticsEventName = (inventory: string) => {
-  let eventName = '';
+  let eventName = ''
   switch (inventory) {
     case 'Cape':
-      eventName = GTM_EVENTS.DEGEN_INVENTORY_CAPE_EQUIPPED;
-      break;
+      eventName = GTM_EVENTS.DEGEN_INVENTORY_CAPE_EQUIPPED
+      break
     case 'Halo':
-      eventName = GTM_EVENTS.DEGEN_INVENTORY_HALO_EQUIPPED;
-      break;
+      eventName = GTM_EVENTS.DEGEN_INVENTORY_HALO_EQUIPPED
+      break
     case 'Companion':
-      eventName = GTM_EVENTS.DEGEN_INVENTORY_COMPANION_EQUIPPED;
-      break;
+      eventName = GTM_EVENTS.DEGEN_INVENTORY_COMPANION_EQUIPPED
+      break
     case 'Diamond Bat':
-      eventName = GTM_EVENTS.DEGEN_INVENTORY_DIAMOND_BAT_EQUIPPED;
-      break;
+      eventName = GTM_EVENTS.DEGEN_INVENTORY_DIAMOND_BAT_EQUIPPED
+      break
     case 'Purple Bat':
-      eventName = GTM_EVENTS.DEGEN_INVENTORY_PURPLE_BAT_EQUIPPED;
-      break;
+      eventName = GTM_EVENTS.DEGEN_INVENTORY_PURPLE_BAT_EQUIPPED
+      break
     case 'Bread Bat':
-      eventName = GTM_EVENTS.DEGEN_INVENTORY_BREAD_BAT_EQUIPPED;
-      break;
+      eventName = GTM_EVENTS.DEGEN_INVENTORY_BREAD_BAT_EQUIPPED
+      break
     default:
-      break;
+      break
   }
-  return eventName;
-};
+  return eventName
+}
 
 export const getSlotAnalyticsEventName = (slot: string) => {
-  let eventName = '';
+  let eventName = ''
   switch (slot) {
     case 'Back':
-      eventName = GTM_EVENTS.DEGEN_SLOT_BACK_UNEQUIPPED;
-      break;
+      eventName = GTM_EVENTS.DEGEN_SLOT_BACK_UNEQUIPPED
+      break
     case 'Head':
-      eventName = GTM_EVENTS.DEGEN_SLOT_HEAD_UNEQUIPPED;
-      break;
+      eventName = GTM_EVENTS.DEGEN_SLOT_HEAD_UNEQUIPPED
+      break
     case 'Pet':
-      eventName = GTM_EVENTS.DEGEN_SLOT_PET_UNEQUIPPED;
-      break;
+      eventName = GTM_EVENTS.DEGEN_SLOT_PET_UNEQUIPPED
+      break
     case 'Weapon':
-      eventName = GTM_EVENTS.DEGEN_SLOT_WEAPON_UNEQUIPPED;
-      break;
+      eventName = GTM_EVENTS.DEGEN_SLOT_WEAPON_UNEQUIPPED
+      break
     default:
-      break;
+      break
   }
-  return eventName;
-};
+  return eventName
+}

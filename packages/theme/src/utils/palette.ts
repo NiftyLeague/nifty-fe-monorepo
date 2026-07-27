@@ -1,11 +1,11 @@
-'use client';
+'use client'
 
 // material-ui
-import { createTheme, type PaletteMode } from '@mui/material/styles';
-import type { ColorProps, Theme, ThemeOptions } from '../types';
+import { createTheme, type PaletteMode } from '@mui/material/styles'
+import type { ColorProps, Theme, ThemeOptions } from '../types'
 
 // assets
-import defaultColors from '../constants/palette';
+import defaultColors from '../constants/palette'
 
 // ==============================|| DEFAULT THEME - PALETTE  ||============================== //
 
@@ -52,10 +52,10 @@ const createPalette = (paletteMode: PaletteMode, colors: ColorProps): ThemeOptio
     paletteMode === 'dark'
       ? { paper: colors.darkPaper, default: colors.darkBackground }
       : { paper: colors.paper, default: colors.defaultBackground },
-});
+})
 
 const customPalette = (paletteMode: PaletteMode, presetColor: string): Theme => {
-  let colors: ColorProps;
+  let colors: ColorProps
 
   switch (presetColor) {
     // case 'theme1':
@@ -77,10 +77,10 @@ const customPalette = (paletteMode: PaletteMode, presetColor: string): Theme => 
     //   colors = theme6 as unknown as ColorProps;
     //   break;
     default:
-      colors = defaultColors as unknown as ColorProps;
+      colors = defaultColors as unknown as ColorProps
   }
 
-  return createTheme({ palette: createPalette(paletteMode, colors) });
-};
+  return createTheme({ palette: createPalette(paletteMode, colors) })
+}
 
-export default customPalette;
+export default customPalette

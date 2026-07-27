@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   IERC1155Permit,
   IERC1155PermitInterface,
-} from '../../../../../../../@imtbl/contracts/contracts/token/erc1155/abstract/IERC1155Permit';
+} from '../../../../../../../@imtbl/contracts/contracts/token/erc1155/abstract/IERC1155Permit'
 
 const _abi = [
   {
@@ -36,14 +36,14 @@ const _abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-] as const;
+] as const
 
 export class IERC1155Permit__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): IERC1155PermitInterface {
-    return new Interface(_abi) as IERC1155PermitInterface;
+    return new Interface(_abi) as IERC1155PermitInterface
   }
   static connect(address: string, runner?: ContractRunner | null): IERC1155Permit {
-    return new Contract(address, _abi, runner) as unknown as IERC1155Permit;
+    return new Contract(address, _abi, runner) as unknown as IERC1155Permit
   }
 }

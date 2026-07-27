@@ -1,5 +1,5 @@
-export const GOOGLE_TAG_MANAGER_ID = 'GTM-MHCXVXJZ';
-export const IS_DEV = process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production';
+export const GOOGLE_TAG_MANAGER_ID = 'GTM-MHCXVXJZ'
+export const IS_DEV = process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production'
 
 export const CATEGORIES = {
   AUTH: 'Authentication',
@@ -7,9 +7,9 @@ export const CATEGORIES = {
   ENGAGEMENT: 'Engagement',
   REFERRAL: 'Product Referral',
   WEB_VITALS: 'Web Vitals',
-} as const;
+} as const
 
-export type CustomEventCategories = (typeof CATEGORIES)[keyof typeof CATEGORIES];
+export type CustomEventCategories = (typeof CATEGORIES)[keyof typeof CATEGORIES]
 
 export const EVENTS = {
   // Authentication
@@ -48,9 +48,9 @@ export const EVENTS = {
   RENTAL_PASS_CLICKED: 'rental_pass_clicked',
   RENTAL_RECRUIT_CLICKED: 'rental_recruit_clicked',
   RENTAL_REFRESH_BALANCE_CLICKED: 'rental_refresh_balance_clicked',
-} as const;
+} as const
 
-export type CustomEventNames = (typeof EVENTS)[keyof typeof EVENTS];
+export type CustomEventNames = (typeof EVENTS)[keyof typeof EVENTS]
 
 export const EVENT_CATEGORIES = {
   // Authentication
@@ -87,4 +87,4 @@ export const EVENT_CATEGORIES = {
   [EVENTS.RENTAL_PASS_CLICKED]: CATEGORIES.ECOMMERCE,
   [EVENTS.RENTAL_RECRUIT_CLICKED]: CATEGORIES.ECOMMERCE,
   [EVENTS.RENTAL_REFRESH_BALANCE_CLICKED]: CATEGORIES.ECOMMERCE,
-} as Record<CustomEventNames | (string & {}), CustomEventCategories>;
+} as Record<CustomEventNames | (string & {}), CustomEventCategories>

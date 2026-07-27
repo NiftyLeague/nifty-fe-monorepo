@@ -1,96 +1,96 @@
-'use client';
+'use client'
 
-import type { NextWebVitalsMetric } from 'next/app';
-import { sendGTMEvent } from '@next/third-parties/google';
-import { EVENTS, EVENT_CATEGORIES } from './constants';
-import type { CustomEventNames } from './constants';
+import type { NextWebVitalsMetric } from 'next/app'
+import { sendGTMEvent } from '@next/third-parties/google'
+import { EVENTS, EVENT_CATEGORIES } from './constants'
+import type { CustomEventNames } from './constants'
 
 const getUserID = () => {
-  if (typeof window === 'undefined') return null;
-  const userId = window.localStorage.getItem('user_id');
-  return userId ?? null;
-};
+  if (typeof window === 'undefined') return null
+  const userId = window.localStorage.getItem('user_id')
+  return userId ?? null
+}
 
-const getEventCategory = (name: EventName) => EVENT_CATEGORIES[name];
+const getEventCategory = (name: EventName) => EVENT_CATEGORIES[name]
 
-type EventName = CustomEventNames | (string & {});
+type EventName = CustomEventNames | (string & {})
 interface Item {
-  item_id: string;
-  item_name: string;
-  affiliation?: string;
-  coupon?: string;
-  discount?: number;
-  index?: number;
-  item_brand?: string;
-  item_category?: string;
-  item_list_id?: string;
-  item_list_name?: string;
-  item_variant?: string;
-  price?: number;
-  quantity?: number;
+  item_id: string
+  item_name: string
+  affiliation?: string
+  coupon?: string
+  discount?: number
+  index?: number
+  item_brand?: string
+  item_category?: string
+  item_list_id?: string
+  item_list_name?: string
+  item_variant?: string
+  price?: number
+  quantity?: number
 }
 interface EventParams {
-  content_id?: string;
-  content_type?: string;
-  description?: string;
-  event_category?: string;
-  event_label?: string;
-  item_name?: string;
-  items?: Array<Item>;
-  method?: string;
-  user_id?: string | null;
-  value?: number;
-  virtual_currency_name?: string;
+  content_id?: string
+  content_type?: string
+  description?: string
+  event_category?: string
+  event_label?: string
+  item_name?: string
+  items?: Array<Item>
+  method?: string
+  user_id?: string | null
+  value?: number
+  virtual_currency_name?: string
 }
 
 // Send custom events to Google Tag Manager
 // https://developers.google.com/tag-platform/tag-manager/datalayer
 export const sendEvent = (event: EventName, params?: EventParams) => {
-  const { event_category: category, user_id: userId, ...otherParams } = params ?? {};
-  const event_category = category ?? getEventCategory(event);
-  const user_id = userId ?? getUserID();
-  sendGTMEvent({ event, event_category, user_id, ...otherParams });
-};
+  const { event_category: category, user_id: userId, ...otherParams } = params ?? {}
+  const event_category = category ?? getEventCategory(event)
+  const user_id = userId ?? getUserID()
+  sendGTMEvent({ event, event_category, user_id, ...otherParams })
+}
 
 /* =================================|| USER AUTH ||================================= */
 
 // Adds `user_id` to local storage to use with all event calls
 // https://www.analyticsmania.com/post/google-analytics-4-user-id/
 export const sendUserId = (userId: string) => {
-  if (!userId || typeof window === 'undefined') return;
-  window.localStorage.setItem('user_id', userId);
-  sendEvent(EVENTS.LOGIN);
-};
+  if (!userId || typeof window === 'undefined') return
+  window.localStorage.setItem('user_id', userId)
+  sendEvent(EVENTS.LOGIN)
+}
 
 export const removeUserId = () => {
-  window.localStorage.removeItem('user_id');
-  sendEvent(EVENTS.LOGOUT);
-};
+  window.localStorage.removeItem('user_id')
+  sendEvent(EVENTS.LOGOUT)
+}
 
 /* =================================|| REFERRALS ||================================= */
 
 interface GameReferralParams extends EventParams {
   // Custom Dimensions
-  game_name: string;
-  invite_method: string;
-  invitee_agent: string;
-  redirect_route: string;
-  referrer_id: string;
+  game_name: string
+  invite_method: string
+  invitee_agent: string
+  redirect_route: string
+  referrer_id: string
 }
 
 export const sendGameReferral = (params: GameReferralParams) => {
-  sendEvent(EVENTS.GAME_REFERRAL, params);
-};
+  sendEvent(EVENTS.GAME_REFERRAL, params)
+}
 
 /* =================================|| WEBVITALS ||================================= */
 
 interface WebVitalsParams extends EventParams {
   // Required Dimensions
-  event_category: string;
-  metric_name: string;
-  metric_label: string;
-  metric_value: number;
-  non_interaction: boolean;
+  event_category: string
+  metric_name: string
+  metric_label: string
+  metric_value: number
+  non_interaction: boolean
 }
 
 // Send Web Vitals or custom Next.js events to Google Tag Manager
@@ -101,5 +101,5 @@ export const sendWebVitals = (metric: NextWebVitalsMetric) => {
     metric_label: metric.id, // id unique to current page load
     metric_value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value), // values must be integers
     non_interaction: true, // avoids affecting bounce rate.
-  } as WebVitalsParams);
-};
+  } as WebVitalsParams)
+}

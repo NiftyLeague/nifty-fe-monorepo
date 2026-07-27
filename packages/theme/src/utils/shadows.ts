@@ -1,10 +1,10 @@
-import { alpha } from '@mui/material/styles';
+import { alpha } from '@mui/material/styles'
 
-import type { PaletteMode } from '@mui/material';
-import type { CustomShadowProps, Theme } from '../types';
+import type { PaletteMode } from '@mui/material'
+import type { CustomShadowProps, Theme } from '../types'
 
 const createCustomShadow = (theme: Theme, color: string): CustomShadowProps => {
-  const transparent = alpha(color, 0.24);
+  const transparent = alpha(color, 0.24)
   return {
     z1: `0 1px 2px 0 ${transparent}`,
     z8: `0 8px 16px 0 ${transparent}`,
@@ -19,11 +19,11 @@ const createCustomShadow = (theme: Theme, color: string): CustomShadowProps => {
     success: `0px 12px 14px 0px ${alpha(theme.palette.success.main, 0.3)}`,
     warning: `0px 12px 14px 0px ${alpha(theme.palette.warning.main, 0.3)}`,
     error: `0px 12px 14px 0px ${alpha(theme.palette.error.main, 0.3)}`,
-  };
-};
+  }
+}
 
 export default function customShadows(theme: Theme, paletteMode: PaletteMode) {
   return paletteMode === 'dark'
     ? createCustomShadow(theme, theme.palette.dark.main)
-    : createCustomShadow(theme, theme.palette.grey[500]);
+    : createCustomShadow(theme, theme.palette.grey[500])
 }

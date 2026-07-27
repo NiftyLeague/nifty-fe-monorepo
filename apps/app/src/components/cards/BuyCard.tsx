@@ -1,19 +1,22 @@
-import { Box, Typography } from '@mui/material';
-import { Icon } from '@nl/ui/base/icon';
-import useComicDimension from '@/hooks/useComicDimension';
+import { Box, Typography } from '@mui/material'
+import { Icon } from '@nl/ui/base/icon'
+import useComicDimension from '@/hooks/useComicDimension'
 
 export interface BuyCardProps {
-  isNew: boolean;
-  onBuy: () => void;
+  isNew: boolean
+  onBuy: () => void
 }
 
-const BuyCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<BuyCardProps>>> = ({ isNew, onBuy }) => {
-  const { width: cardWidth, height: cardHeight } = useComicDimension();
+const BuyCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<BuyCardProps>>> = ({
+  isNew,
+  onBuy,
+}) => {
+  const { width: cardWidth, height: cardHeight } = useComicDimension()
 
   const handleBuyComic = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-    onBuy();
-  };
+    e.stopPropagation()
+    onBuy()
+  }
 
   return (
     <Box
@@ -35,7 +38,7 @@ const BuyCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<BuyCardP
         {isNew ? 'Buy' : 'Buy More'}
       </Typography>
     </Box>
-  );
-};
+  )
+}
 
-export default BuyCard;
+export default BuyCard

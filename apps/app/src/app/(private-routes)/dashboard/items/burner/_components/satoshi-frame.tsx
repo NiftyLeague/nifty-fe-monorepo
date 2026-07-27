@@ -1,9 +1,9 @@
-import Image from 'next/image';
+import Image from 'next/image'
 
-type SatoshiFrameProps = { frames: string[]; interval?: number };
+type SatoshiFrameProps = { frames: string[]; interval?: number }
 
 const SatoshiFrame = ({ frames, interval = 0 }: SatoshiFrameProps) => {
-  const frame = frames[(interval + 1) % frames.length];
+  const frame = frames[(interval + 1) % frames.length]
   return frame ? (
     <Image
       src={frame}
@@ -22,7 +22,7 @@ const SatoshiFrame = ({ frames, interval = 0 }: SatoshiFrameProps) => {
         height: 'auto',
       }}
     />
-  ) : null;
-};
+  ) : null
+}
 
-export default SatoshiFrame;
+export default SatoshiFrame

@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   ERC721Pausable,
   ERC721PausableInterface,
-} from '../../../../../../@openzeppelin/contracts/token/ERC721/extensions/ERC721Pausable';
+} from '../../../../../../@openzeppelin/contracts/token/ERC721/extensions/ERC721Pausable'
 
 const _abi = [
   {
@@ -171,14 +171,14 @@ const _abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-] as const;
+] as const
 
 export class ERC721Pausable__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): ERC721PausableInterface {
-    return new Interface(_abi) as ERC721PausableInterface;
+    return new Interface(_abi) as ERC721PausableInterface
   }
   static connect(address: string, runner?: ContractRunner | null): ERC721Pausable {
-    return new Contract(address, _abi, runner) as unknown as ERC721Pausable;
+    return new Contract(address, _abi, runner) as unknown as ERC721Pausable
   }
 }

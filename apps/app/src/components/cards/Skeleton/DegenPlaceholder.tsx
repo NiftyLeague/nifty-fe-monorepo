@@ -1,8 +1,8 @@
-import { CardContent, CardActions, Skeleton, Stack } from '@mui/material';
-import MainCard from '../MainCard';
+import { CardContent, CardActions, Skeleton, Stack } from '@mui/material'
+import MainCard from '../MainCard'
 
 interface DegenPlaceholderProps {
-  size?: 'normal' | 'small';
+  size?: 'normal' | 'small'
 }
 
 const DegenPlaceholder = ({ size = 'normal' }: DegenPlaceholderProps) => (
@@ -27,6 +27,6 @@ const DegenPlaceholder = ({ size = 'normal' }: DegenPlaceholderProps) => (
       <Skeleton variant="rectangular" width="100%" height={36.5} />
     </CardActions>
   </MainCard>
-);
+)
 
-export default DegenPlaceholder;
+export default DegenPlaceholder

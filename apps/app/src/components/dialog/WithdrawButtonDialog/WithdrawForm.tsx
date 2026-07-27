@@ -1,69 +1,74 @@
-'use client';
+'use client'
 
-import { useCallback, useContext, useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { Alert, Stack, Typography } from '@mui/material';
-import LoadingButton from '@mui/lab/LoadingButton';
-import type { TransactionResponse } from 'ethers';
-import { useSwitchChain } from 'wagmi';
+import { useCallback, useContext, useState } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { Alert, Stack, Typography } from '@mui/material'
+import LoadingButton from '@mui/lab/LoadingButton'
+import type { TransactionResponse } from 'ethers'
+import { useSwitchChain } from 'wagmi'
 
-import { formatDateTime } from '@/utils/dateTime';
-import { formatNumberToDisplay } from '@nl/ui/utils';
-import { useConnectedToIMXCheck } from '@/hooks/useImxProvider';
-import useClaimCallback from '@/hooks/merkleDistributor/useClaimCallback';
-import useIMXContext from '@/hooks/useIMXContext';
+import { formatDateTime } from '@/utils/dateTime'
+import { formatNumberToDisplay } from '@nl/ui/utils'
+import { useConnectedToIMXCheck } from '@/hooks/useImxProvider'
+import useClaimCallback from '@/hooks/merkleDistributor/useClaimCallback'
+import useIMXContext from '@/hooks/useIMXContext'
 
-import { DialogContext } from '@/components/dialog';
+import { DialogContext } from '@/components/dialog'
 
-type WithdrawFormProps = { balance: number; onWithdrawSuccess: () => void };
-type IFormInput = { withdrawal: string };
+type WithdrawFormProps = { balance: number; onWithdrawSuccess: () => void }
+type IFormInput = { withdrawal: string }
 
 const WithdrawForm = ({ balance, onWithdrawSuccess }: WithdrawFormProps): React.ReactNode => {
-  const { imxChainId } = useIMXContext();
-  const isConnectedToIMX = useConnectedToIMXCheck();
-  const { switchChain } = useSwitchChain();
-  const { claimCallback } = useClaimCallback();
+  const { imxChainId } = useIMXContext()
+  const isConnectedToIMX = useConnectedToIMXCheck()
+  const { switchChain } = useSwitchChain()
+  const { claimCallback } = useClaimCallback()
 
-  const [, setIsOpen] = useContext(DialogContext);
-  const [loading, setLoading] = useState(false);
+  const [, setIsOpen] = useContext(DialogContext)
+  const [loading, setLoading] = useState(false)
 
   const {
     handleSubmit,
     setError,
     reset,
     formState: { errors },
-  } = useForm<IFormInput>();
+  } = useForm<IFormInput>()
 
   const resetForm = () => {
-    setLoading(false);
-    reset();
-    setIsOpen(false);
-  };
+    setLoading(false)
+    reset()
+    setIsOpen(false)
+  }
 
-  const handleWithdrawNFTL = useCallback(async (): Promise<{ txRes: TransactionResponse | null }> => {
-    const txRes = await claimCallback();
-    return { txRes };
-  }, [claimCallback]);
+  const handleWithdrawNFTL = useCallback(async (): Promise<{
+    txRes: TransactionResponse | null
+  }> => {
+    const txRes = await claimCallback()
+    return { txRes }
+  }, [claimCallback])
 
   const onSubmit: SubmitHandler<IFormInput> = async () => {
     if (!isConnectedToIMX) {
-      switchChain?.({ chainId: imxChainId });
-      return;
+      switchChain?.({ chainId: imxChainId })
+      return
     }
     if (balance === 0) {
-      setError('withdrawal', { type: 'custom', message: 'No NFTL available to withdraw.' });
-      return;
+      setError('withdrawal', { type: 'custom', message: 'No NFTL available to withdraw.' })
+      return
     }
-    setLoading(true);
-    const { txRes } = await handleWithdrawNFTL();
+    setLoading(true)
+    const { txRes } = await handleWithdrawNFTL()
     if (txRes === null) {
-      setError('withdrawal', { type: 'custom', message: 'Failed to withdraw NFTL. Please try again.' });
-      setLoading(false);
-      return;
+      setError('withdrawal', {
+        type: 'custom',
+        message: 'Failed to withdraw NFTL. Please try again.',
+      })
+      setLoading(false)
+      return
     }
-    onWithdrawSuccess();
-    resetForm();
-  };
+    onWithdrawSuccess()
+    resetForm()
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -75,7 +80,8 @@ const WithdrawForm = ({ balance, onWithdrawSuccess }: WithdrawFormProps): React.
         </Typography>
 
         <Typography variant="body1">
-          You have until <span style={{ fontWeight: 600, opacity: 0.7 }}>{formatDateTime(1767240000)}</span> to
+          You have until{' '}
+          <span style={{ fontWeight: 600, opacity: 0.7 }}>{formatDateTime(1767240000)}</span> to
           withdraw.
         </Typography>
 
@@ -95,6 +101,6 @@ const WithdrawForm = ({ balance, onWithdrawSuccess }: WithdrawFormProps): React.
         </LoadingButton>
       </Stack>
     </form>
-  );
-};
-export default WithdrawForm;
+  )
+}
+export default WithdrawForm

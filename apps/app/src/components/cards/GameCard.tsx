@@ -1,21 +1,31 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { Button, Card, CardActions, CardContent, CardMedia, Stack, SxProps, Theme, Typography } from '@mui/material';
-import { ExternalIcon } from '@nl/ui/custom/external-icon';
+import { useState } from 'react'
+import Link from 'next/link'
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Stack,
+  SxProps,
+  Theme,
+  Typography,
+} from '@mui/material'
+import { ExternalIcon } from '@nl/ui/custom/external-icon'
 
 type CardGameContentProps = {
-  actions?: React.ReactNode;
-  description?: string;
-  externalLink?: { title: string; src: string };
-  isComingSoon?: boolean;
-  onPlayOnDesktopClick?: React.MouseEventHandler<HTMLButtonElement>;
-  onPlayOnWebClick?: React.MouseEventHandler<HTMLButtonElement>;
-  required?: string;
-  showMore?: boolean;
-  title?: string;
-};
+  actions?: React.ReactNode
+  description?: string
+  externalLink?: { title: string; src: string }
+  isComingSoon?: boolean
+  onPlayOnDesktopClick?: React.MouseEventHandler<HTMLButtonElement>
+  onPlayOnWebClick?: React.MouseEventHandler<HTMLButtonElement>
+  required?: string
+  showMore?: boolean
+  title?: string
+}
 
 const CardGameContent = ({
   actions,
@@ -28,13 +38,15 @@ const CardGameContent = ({
   showMore,
   title,
 }: CardGameContentProps) => {
-  const [moreStatus, setMoreStatus] = useState(false);
+  const [moreStatus, setMoreStatus] = useState(false)
   const handleMoreStatus = () => {
-    setMoreStatus(!moreStatus);
-  };
+    setMoreStatus(!moreStatus)
+  }
 
   return (
-    <Stack sx={{ flexGrow: 1, justifyContent: 'space-between', backgroundColor: 'var(--color-card)' }}>
+    <Stack
+      sx={{ flexGrow: 1, justifyContent: 'space-between', backgroundColor: 'var(--color-card)' }}
+    >
       <CardContent sx={{ padding: '24px 24px 0' }}>
         <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
           <Typography gutterBottom variant="h4" component="div">
@@ -83,7 +95,12 @@ const CardGameContent = ({
         <Stack direction="row" sx={{ flexWrap: 'wrap', columnGap: 1, rowGap: 2, width: '100%' }}>
           {actions || (
             <>
-              <Button variant="contained" fullWidth sx={{ minWidth: 80, flex: 1 }} onClick={onPlayOnDesktopClick}>
+              <Button
+                variant="contained"
+                fullWidth
+                sx={{ minWidth: 80, flex: 1 }}
+                onClick={onPlayOnDesktopClick}
+              >
                 Play on Desktop
               </Button>
               <Button
@@ -100,24 +117,24 @@ const CardGameContent = ({
         </Stack>
       </CardActions>
     </Stack>
-  );
-};
+  )
+}
 
 export interface GameCardProps {
-  actions?: React.ReactNode;
-  autoHeight?: boolean;
-  contents?: React.ReactNode;
-  description?: string;
-  externalLink?: { title: string; src: string };
-  image?: string;
-  isComingSoon?: boolean;
-  onlineCounter?: number;
-  onPlayOnDesktopClick?: React.MouseEventHandler<HTMLButtonElement>;
-  onPlayOnWebClick?: React.MouseEventHandler<HTMLButtonElement>;
-  required?: string;
-  showMore?: boolean;
-  sx?: SxProps<Theme>;
-  title?: string;
+  actions?: React.ReactNode
+  autoHeight?: boolean
+  contents?: React.ReactNode
+  description?: string
+  externalLink?: { title: string; src: string }
+  image?: string
+  isComingSoon?: boolean
+  onlineCounter?: number
+  onPlayOnDesktopClick?: React.MouseEventHandler<HTMLButtonElement>
+  onPlayOnWebClick?: React.MouseEventHandler<HTMLButtonElement>
+  required?: string
+  showMore?: boolean
+  sx?: SxProps<Theme>
+  title?: string
 }
 
 const GameCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<GameCardProps>>> = ({
@@ -148,12 +165,25 @@ const GameCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<GameCar
         ...sx,
       }}
     >
-      <div style={{ position: 'relative', width: '100%', paddingTop: '56.25%' /* 16:9 Aspect Ratio */ }}>
+      <div
+        style={{
+          position: 'relative',
+          width: '100%',
+          paddingTop: '56.25%' /* 16:9 Aspect Ratio */,
+        }}
+      >
         <CardMedia
           component="img"
           image={image}
           alt={title}
-          sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+          }}
         />
       </div>
       {contents || (
@@ -170,7 +200,7 @@ const GameCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<GameCar
         />
       )}
     </Card>
-  );
-};
+  )
+}
 
-export default GameCard;
+export default GameCard

@@ -1,6 +1,6 @@
-import type { Metadata } from 'next';
-import type { PropsWithChildren } from 'react';
-import MainLayout from '@/components/MainLayout';
+import type { Metadata } from 'next'
+import type { PropsWithChildren } from 'react'
+import MainLayout from '@/components/MainLayout'
 
 export const metadata: Metadata = {
   title: 'Compete & Earn',
@@ -10,8 +10,8 @@ export const metadata: Metadata = {
     description: 'Adrenaline fueled, fast-paced brawl mode where the winner takes ALL',
     images: 'https://niftyleague.com/img/compete-and-earn/splash.webp',
   },
-};
+}
 
 export default function Layout({ children }: PropsWithChildren) {
-  return <MainLayout classes={{ root: 'compete-pg' }}>{children}</MainLayout>;
+  return <MainLayout classes={{ root: 'compete-pg' }}>{children}</MainLayout>
 }

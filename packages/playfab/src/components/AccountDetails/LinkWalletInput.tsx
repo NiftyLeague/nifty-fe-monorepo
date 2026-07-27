@@ -1,76 +1,76 @@
-import { useState } from 'react';
-import { useSnackbar } from 'notistack';
+import { useState } from 'react'
+import { useSnackbar } from 'notistack'
 
-import { Button } from '@nl/ui/base/button';
-import { Input } from '@nl/ui/custom/input';
-import { Icon } from '@nl/ui/base/icon';
+import { Button } from '@nl/ui/base/button'
+import { Input } from '@nl/ui/custom/input'
+import { Icon } from '@nl/ui/base/icon'
 
-import { errorMsgHandler } from '../../utils/errorHandlers';
-import { fetchJson } from '../../utils/fetchJson';
-import { signMessage } from '../../utils/wallet';
-import { useUserContext } from '../../hooks/useUserContext';
+import { errorMsgHandler } from '../../utils/errorHandlers'
+import { fetchJson } from '../../utils/fetchJson'
+import { signMessage } from '../../utils/wallet'
+import { useUserContext } from '../../hooks/useUserContext'
 
 export default function LinkWalletInput({
   index,
   address,
   loading,
 }: {
-  index: number;
-  address?: string;
-  loading?: boolean;
+  index: number
+  address?: string
+  loading?: boolean
 }) {
-  const [error, setError] = useState<string | undefined>();
-  const [deleteLoading, setDeleteLoading] = useState(false);
-  const { enqueueSnackbar } = useSnackbar();
-  const { refetchPlayer } = useUserContext();
+  const [error, setError] = useState<string | undefined>()
+  const [deleteLoading, setDeleteLoading] = useState(false)
+  const { enqueueSnackbar } = useSnackbar()
+  const { refetchPlayer } = useUserContext()
 
   const handleLinkWallet = async () => {
-    setError(undefined);
+    setError(undefined)
     try {
-      const result = await signMessage();
+      const result = await signMessage()
       if (result) {
-        const { address, nonce, signature } = result;
+        const { address, nonce, signature } = result
         await fetchJson('/api/playfab/user/link-wallet', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ address, signature, nonce }),
-        });
-        await refetchPlayer();
-        enqueueSnackbar('Wallet link success!', { variant: 'success' });
+        })
+        await refetchPlayer()
+        enqueueSnackbar('Wallet link success!', { variant: 'success' })
       }
     } catch (e) {
-      const msg = errorMsgHandler(e);
-      setError(msg);
+      const msg = errorMsgHandler(e)
+      setError(msg)
     }
-  };
+  }
 
   const handleUnLinkWallet = async () => {
-    setError(undefined);
-    setDeleteLoading(true);
+    setError(undefined)
+    setDeleteLoading(true)
     if (address) {
       try {
-        const [chain, wallet] = address.split(':');
+        const [chain, wallet] = address.split(':')
         await fetchJson('/api/playfab/user/unlink-wallet', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ address: wallet, chain }),
-        });
-        await refetchPlayer();
-        enqueueSnackbar('Unlink wallet link success!', { variant: 'success' });
+        })
+        await refetchPlayer()
+        enqueueSnackbar('Unlink wallet link success!', { variant: 'success' })
       } catch (e) {
-        const msg = errorMsgHandler(e);
+        const msg = errorMsgHandler(e)
         if (e instanceof Error) {
-          setError(msg);
+          setError(msg)
         } else {
-          enqueueSnackbar(msg, { variant: 'error' });
+          enqueueSnackbar(msg, { variant: 'error' })
         }
       }
     }
-    setDeleteLoading(false);
-  };
+    setDeleteLoading(false)
+  }
 
-  const linked = Boolean(address && address.length > 1);
-  const addressParsed = address?.split(':')[1] || '';
+  const linked = Boolean(address && address.length > 1)
+  const addressParsed = address?.split(':')[1] || ''
 
   return (
     <>
@@ -115,5 +115,5 @@ export default function LinkWalletInput({
       />
       {error && error.length > 0 && <p className="text-error text-xs font-bold !mt-2">{error}</p>}
     </>
-  );
+  )
 }

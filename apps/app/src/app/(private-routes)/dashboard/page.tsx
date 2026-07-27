@@ -1,5 +1,5 @@
-import Overview from './overview/page';
+import Overview from './overview/page'
 
-const DashboardOverviewPage = (): React.ReactNode => <Overview />;
+const DashboardOverviewPage = (): React.ReactNode => <Overview />
 
-export default DashboardOverviewPage;
+export default DashboardOverviewPage

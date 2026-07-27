@@ -1,46 +1,52 @@
-'use client';
+'use client'
 
-import { useMemo } from 'react';
+import { useMemo } from 'react'
 import {
   createTheme as muiCreateTheme,
   type Theme as MuiTheme,
   type ThemeOptions as MuiThemeOptions,
-} from '@mui/material/styles';
+} from '@mui/material/styles'
 
 // project imports
-import type { CustomShadowProps, Theme, ThemeOptions } from '../types';
-import { customComponents, customMixins, customPalette, customShadows, customTypography } from '../utils';
-import useThemeConfig from './useThemeConfig';
+import type { CustomShadowProps, Theme, ThemeOptions } from '../types'
+import {
+  customComponents,
+  customMixins,
+  customPalette,
+  customShadows,
+  customTypography,
+} from '../utils'
+import useThemeConfig from './useThemeConfig'
 
 const useCreateTheme = (): Theme => {
-  const themeConfig = useThemeConfig();
-  let paletteMode = themeConfig.paletteMode;
+  const themeConfig = useThemeConfig()
+  let paletteMode = themeConfig.paletteMode
   if (typeof window !== 'undefined') {
-    paletteMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    paletteMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
   }
-  const config = { ...themeConfig, paletteMode };
+  const config = { ...themeConfig, paletteMode }
 
   const colorTheme = useMemo<Theme>(
     () => customPalette(config.paletteMode, config.presetColor),
-    [config.paletteMode, config.presetColor],
-  );
+    [config.paletteMode, config.presetColor]
+  )
 
   const typography = useMemo<ThemeOptions['typography']>(
     () => customTypography(colorTheme, config.borderRadius, config.fontFamily),
-    [colorTheme, config.borderRadius, config.fontFamily],
-  );
+    [colorTheme, config.borderRadius, config.fontFamily]
+  )
 
   const shadows = useMemo<CustomShadowProps>(
     () => customShadows(colorTheme, config.paletteMode),
-    [colorTheme, config.paletteMode],
-  );
+    [colorTheme, config.paletteMode]
+  )
 
   const components = useMemo<ThemeOptions['components']>(
     () => customComponents(colorTheme, config.borderRadius, config.outlinedFilled),
-    [colorTheme, config.borderRadius, config.outlinedFilled],
-  );
+    [colorTheme, config.borderRadius, config.outlinedFilled]
+  )
 
-  const mixins = useMemo<ThemeOptions['mixins']>(() => customMixins(), []);
+  const mixins = useMemo<ThemeOptions['mixins']>(() => customMixins(), [])
 
   const baseThemeOptions: MuiThemeOptions = useMemo(
     () => ({
@@ -51,11 +57,11 @@ const useCreateTheme = (): Theme => {
       components,
       cssVarPrefix: 'mui',
     }),
-    [config.breakpoints, colorTheme, components, mixins, config.rtlLayout],
-  );
+    [config.breakpoints, colorTheme, components, mixins, config.rtlLayout]
+  )
 
   // Create base theme first
-  const baseTheme = muiCreateTheme(baseThemeOptions);
+  const baseTheme = muiCreateTheme(baseThemeOptions)
 
   // Then extend it with our custom properties
   return {
@@ -63,7 +69,7 @@ const useCreateTheme = (): Theme => {
     ...baseTheme,
     customShadows: shadows,
     typography: { ...baseTheme.typography, ...typography },
-  } as Theme;
-};
+  } as Theme
+}
 
-export default useCreateTheme;
+export default useCreateTheme

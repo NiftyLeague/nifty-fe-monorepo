@@ -1,16 +1,16 @@
-'use client';
+'use client'
 
-import Link from 'next/link';
-import type { UrlObject } from 'url';
-import { cn } from '@nl/ui/utils';
-import { SocialsFooter, animateClass, linkClass } from '@nl/ui/custom/socials-footer';
-import { ExternalIcon } from '@nl/ui/custom/external-icon';
+import Link from 'next/link'
+import type { UrlObject } from 'url'
+import { cn } from '@nl/ui/utils'
+import { SocialsFooter, animateClass, linkClass } from '@nl/ui/custom/socials-footer'
+import { ExternalIcon } from '@nl/ui/custom/external-icon'
 
 interface FooterLinkProps {
-  external?: boolean;
-  first?: boolean;
-  href: string | UrlObject;
-  name: string;
+  external?: boolean
+  first?: boolean
+  href: string | UrlObject
+  name: string
 }
 
 const FooterLink = ({ href, name, external = false, first = false }: FooterLinkProps) => (
@@ -20,7 +20,7 @@ const FooterLink = ({ href, name, external = false, first = false }: FooterLinkP
       'inline-flex items-center justify-center sm:justify-start',
       linkClass,
       animateClass,
-      !first && 'mt-2',
+      !first && 'mt-2'
     )}
     target={external ? '_blank' : undefined}
     rel={external ? 'noreferrer' : undefined}
@@ -28,7 +28,7 @@ const FooterLink = ({ href, name, external = false, first = false }: FooterLinkP
     <span className="whitespace-nowrap">{name}</span>
     {external && <ExternalIcon />}
   </Link>
-);
+)
 
 export default function Footer() {
   return (
@@ -57,5 +57,5 @@ export default function Footer() {
         </div>
       </div>
     </SocialsFooter>
-  );
+  )
 }

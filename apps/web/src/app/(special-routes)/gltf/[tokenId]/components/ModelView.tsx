@@ -1,41 +1,41 @@
-'use client';
+'use client'
 
-import '@google/model-viewer';
-import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { CircularProgress } from '@nl/ui/custom/circular-progress';
+import '@google/model-viewer'
+import { useParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { CircularProgress } from '@nl/ui/custom/circular-progress'
 
-import { DEGEN_3D_MODEL_URL } from '@/constants/degens';
-import { SRC } from '@/types/gltf';
-import styles from '../gltf.module.css';
+import { DEGEN_3D_MODEL_URL } from '@/constants/degens'
+import { SRC } from '@/types/gltf'
+import styles from '../gltf.module.css'
 
 type ModelViewerProps = {
-  'animation-name'?: string;
-  'ar-modes'?: string;
-  'ar-status'?: string;
-  'auto-rotate-delay': string;
-  'auto-rotate': string;
-  'camera-controls': string;
-  'disable-tap': string;
-  'interaction-bounds'?: string;
-  'interaction-prompt-threshold': string;
-  'interaction-prompt': string;
-  'max-camera-orbit'?: string;
-  'min-camera-orbit'?: string;
-  'shadow-intensity': string;
-  'shadow-softness': string;
-  'touch-action': string;
-  alt: string;
-  ar?: string;
-  exposure: string;
-  id: string;
-  loading: string;
-  orientation?: string;
-  poster?: string;
-  scale?: string;
-  src: string;
-  style: React.CSSProperties;
-};
+  'animation-name'?: string
+  'ar-modes'?: string
+  'ar-status'?: string
+  'auto-rotate-delay': string
+  'auto-rotate': string
+  'camera-controls': string
+  'disable-tap': string
+  'interaction-bounds'?: string
+  'interaction-prompt-threshold': string
+  'interaction-prompt': string
+  'max-camera-orbit'?: string
+  'min-camera-orbit'?: string
+  'shadow-intensity': string
+  'shadow-softness': string
+  'touch-action': string
+  alt: string
+  ar?: string
+  exposure: string
+  id: string
+  loading: string
+  orientation?: string
+  poster?: string
+  scale?: string
+  src: string
+  style: React.CSSProperties
+}
 
 // declare global {
 //   export namespace JSX {
@@ -45,37 +45,45 @@ type ModelViewerProps = {
 //   }
 // }
 
-const ModelViewer: React.FC<ModelViewerProps> = props => {
+const ModelViewer: React.FC<ModelViewerProps> = (props) => {
   // @ts-expect-error - model-viewer known attribute
-  return <model-viewer {...props} />;
-};
+  return <model-viewer {...props} />
+}
 
 export default function ModelView({ source }: { source: SRC }) {
-  const params = useParams();
-  const tokenId = params.tokenId as string;
-  const [loading, setLoading] = useState(true);
-  const MODEL_SRC = `${DEGEN_3D_MODEL_URL}/${tokenId}/${tokenId}.gltf`;
+  const params = useParams()
+  const tokenId = params.tokenId as string
+  const [loading, setLoading] = useState(true)
+  const MODEL_SRC = `${DEGEN_3D_MODEL_URL}/${tokenId}/${tokenId}.gltf`
   // const POSTER_SRC = `${DEGEN_3D_MODEL_URL}/${tokenId}/${tokenId}.webp`;
   // const TEXTURE_SRC = `${DEGEN_3D_MODEL_URL}/${tokenId}/${tokenId}.webp`;
 
-  const handleProgress: EventListenerOrEventListenerObject = event => {
+  const handleProgress: EventListenerOrEventListenerObject = (event) => {
     // @ts-expect-error - model-viewer known attribute
-    const progress = event?.detail?.totalProgress || 0;
-    if (progress === 1) setLoading(false);
-  };
+    const progress = event?.detail?.totalProgress || 0
+    if (progress === 1) setLoading(false)
+  }
 
   useEffect(() => {
-    const model = document?.querySelector('#model-viewer');
-    if (model) model.addEventListener('progress', handleProgress, { passive: true });
+    const model = document?.querySelector('#model-viewer')
+    if (model) model.addEventListener('progress', handleProgress, { passive: true })
     return function cleanup() {
-      if (model) model.removeEventListener('progress', handleProgress);
-    };
-  }, []);
+      if (model) model.removeEventListener('progress', handleProgress)
+    }
+  }, [])
 
   return (
     <div className={styles.model__wrapper}>
       {source === SRC.MODEL && loading ? (
-        <div style={{ minHeight: '100vh', width: '100%', position: 'absolute', display: 'flex', zIndex: 2 }}>
+        <div
+          style={{
+            minHeight: '100vh',
+            width: '100%',
+            position: 'absolute',
+            display: 'flex',
+            zIndex: 2,
+          }}
+        >
           <CircularProgress size={75} color="light" className="m-auto" />
         </div>
       ) : null}
@@ -108,5 +116,5 @@ export default function ModelView({ source }: { source: SRC }) {
         // orientation="0 0 200deg"
       />
     </div>
-  );
+  )
 }

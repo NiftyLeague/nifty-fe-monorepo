@@ -1,13 +1,13 @@
-'use client';
+'use client'
 
-import { Grid } from '@mui/material';
-import { sectionSpacing } from '@nl/theme';
+import { Grid } from '@mui/material'
+import { sectionSpacing } from '@nl/theme'
 
-import ArcadeBalance from './ArcadeBalance';
-import DegenBalance from './DegenBalance';
-import GameBalance from './GameBalance';
-import TitleSection from './TitleSection';
-import WalletBalances from './WalletBalances';
+import ArcadeBalance from './ArcadeBalance'
+import DegenBalance from './DegenBalance'
+import GameBalance from './GameBalance'
+import TitleSection from './TitleSection'
+import WalletBalances from './WalletBalances'
 
 const MyNFTL = (): React.ReactNode => (
   <Grid container spacing={sectionSpacing}>
@@ -29,6 +29,6 @@ const MyNFTL = (): React.ReactNode => (
       <ArcadeBalance />
     </Grid>
   </Grid>
-);
+)
 
-export default MyNFTL;
+export default MyNFTL

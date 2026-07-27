@@ -1,11 +1,11 @@
-'use client';
+'use client'
 
-import { useMemo } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useMemo } from 'react'
+import { useSearchParams } from 'next/navigation'
 
 const useQueryParams = () => {
-  const searchParams = useSearchParams();
-  return useMemo(() => new URLSearchParams(searchParams), [searchParams]);
-};
+  const searchParams = useSearchParams()
+  return useMemo(() => new URLSearchParams(searchParams), [searchParams])
+}
 
-export default useQueryParams;
+export default useQueryParams

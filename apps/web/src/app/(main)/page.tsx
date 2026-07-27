@@ -1,24 +1,24 @@
-'use client';
+'use client'
 
-import { useRef } from 'react';
-import type { NextPage } from 'next';
-import Image from 'next/image';
+import { useRef } from 'react'
+import type { NextPage } from 'next'
+import Image from 'next/image'
 
-import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
-import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
-import { ConsoleGame } from '@nl/ui/custom/console-game';
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
+import { ConsoleGame } from '@nl/ui/custom/console-game'
 
-import BouncingNFTL from '@/components/BouncingNFTL';
-import Carousel from '@/components/Carousel';
-import MainLayout from '@/components/MainLayout';
-import MintOMatic from '@/components/MintOMatic';
-import Sponsors from '@/components/Sponsors';
-import ThemeBtnGroup from '@/components/ThemeBtnGroup';
-import { RenderDegen } from '@/components/Carousel/DegenCardItem';
-import { COMMUNITY_DEGEN_LIST, DEGEN_COLLECTION_URL } from '@/constants/degens';
-import { SPONSORS } from '@/constants/sponsors';
+import BouncingNFTL from '@/components/BouncingNFTL'
+import Carousel from '@/components/Carousel'
+import MainLayout from '@/components/MainLayout'
+import MintOMatic from '@/components/MintOMatic'
+import Sponsors from '@/components/Sponsors'
+import ThemeBtnGroup from '@/components/ThemeBtnGroup'
+import { RenderDegen } from '@/components/Carousel/DegenCardItem'
+import { COMMUNITY_DEGEN_LIST, DEGEN_COLLECTION_URL } from '@/constants/degens'
+import { SPONSORS } from '@/constants/sponsors'
 
-import '@/styles/home.css';
+import '@/styles/home.css'
 
 const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => void }) => {
   return (
@@ -134,8 +134,8 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
         </AnimatedWrapper>
       </div>
     </section>
-  );
-};
+  )
+}
 
 const MobileIntro = () => {
   return (
@@ -151,10 +151,20 @@ const MobileIntro = () => {
           primary={{ href: 'https://app.niftyleague.com', title: 'PLAY NOW', external: true }}
         />
         <div className="flex items-center mt-3 mb-5">
-          <a className="pr-4" href="https://discord.gg/niftyleague" target="_blank" rel="noreferrer">
+          <a
+            className="pr-4"
+            href="https://discord.gg/niftyleague"
+            target="_blank"
+            rel="noreferrer"
+          >
             <Image src="/icons/socials/discord.svg" alt="Discord Logo" width={26} height={22} />
           </a>
-          <a className="pr-4" href="https://twitter.com/NiftyLeague" target="_blank" rel="noreferrer">
+          <a
+            className="pr-4"
+            href="https://twitter.com/NiftyLeague"
+            target="_blank"
+            rel="noreferrer"
+          >
             <Image src="/icons/socials/twitter.svg" alt="Twitter Logo" width={26} height={22} />
           </a>
           <a className="pr-4" href={DEGEN_COLLECTION_URL} target="_blank" rel="noreferrer">
@@ -166,17 +176,17 @@ const MobileIntro = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
 const Home: NextPage = () => {
-  const isMobile = useMediaQuery('(max-width:768px)');
-  const gamingSectionRef = useRef<HTMLDivElement>(null);
+  const isMobile = useMediaQuery('(max-width:768px)')
+  const gamingSectionRef = useRef<HTMLDivElement>(null)
 
   const scrollToGamingSection = () => {
-    if (!gamingSectionRef.current) return;
-    (gamingSectionRef.current as HTMLDivElement).scrollIntoView();
-  };
+    if (!gamingSectionRef.current) return
+    ;(gamingSectionRef.current as HTMLDivElement).scrollIntoView()
+  }
 
   return (
     <MainLayout classes={{ root: 'home-pg' }}>
@@ -368,7 +378,8 @@ const Home: NextPage = () => {
           </AnimatedWrapper>
           <AnimatedWrapper>
             <p className="my-0 py-1 py-lg-3 section-description transition-vertical-fade transition-vertical-fade-start delay-normal">
-              ACCESS WEB3-ENABLED PLAYER DASHBOARDS TO SEE YOUR GAME STATS, WINNINGS, AND NIFTY LEAGUE ASSETS.
+              ACCESS WEB3-ENABLED PLAYER DASHBOARDS TO SEE YOUR GAME STATS, WINNINGS, AND NIFTY
+              LEAGUE ASSETS.
             </p>
           </AnimatedWrapper>
           <ThemeBtnGroup
@@ -394,8 +405,8 @@ const Home: NextPage = () => {
           </AnimatedWrapper>
           <AnimatedWrapper>
             <p className="py-1 lg:py-3 transition-vertical-fade transition-vertical-fade-start delay-normal">
-              NFTL IS OUR GOVERNANCE &amp; UTILITY TOKEN. GOVERN THE FUTURE OF NIFTY LEAGUE &amp; ACCESS EXCLUSIVE GAME
-              ASSETS.
+              NFTL IS OUR GOVERNANCE &amp; UTILITY TOKEN. GOVERN THE FUTURE OF NIFTY LEAGUE &amp;
+              ACCESS EXCLUSIVE GAME ASSETS.
             </p>
           </AnimatedWrapper>
           <ThemeBtnGroup
@@ -405,7 +416,11 @@ const Home: NextPage = () => {
               title: 'TRADE NFTL',
               external: true,
             }}
-            secondary={{ href: '/docs/overview/nifty-dao/nftl/overview', title: 'LEARN MORE', external: true }}
+            secondary={{
+              href: '/docs/overview/nifty-dao/nftl/overview',
+              title: 'LEARN MORE',
+              external: true,
+            }}
           />
         </div>
         <div className="relative w-full md:w-1/2">
@@ -457,8 +472,8 @@ const Home: NextPage = () => {
             </div>
             <AnimatedWrapper>
               <p className="py-1 transition-vertical-fade transition-vertical-fade-start delay-normal">
-                WE HATE TO BRAG, BUT OUR COMMUNITY IS TRULY TOP-NOTCH! JOIN OUR DISCORD TO CONNECT WITH OTHERS DEGENS
-                &amp; HELP SHAPE NIFTY LEAGUE&apos;S FUTURE.
+                WE HATE TO BRAG, BUT OUR COMMUNITY IS TRULY TOP-NOTCH! JOIN OUR DISCORD TO CONNECT
+                WITH OTHERS DEGENS &amp; HELP SHAPE NIFTY LEAGUE&apos;S FUTURE.
               </p>
             </AnimatedWrapper>
             <ThemeBtnGroup
@@ -484,11 +499,15 @@ const Home: NextPage = () => {
         <Sponsors sponsors={SPONSORS} />
         <ThemeBtnGroup
           primary={{ href: '/careers', title: 'JOIN THE TEAM' }}
-          secondary={{ href: '/blog', title: isMobile ? 'READ BLOG' : 'READ OUR BLOG', external: true }}
+          secondary={{
+            href: '/blog',
+            title: isMobile ? 'READ BLOG' : 'READ OUR BLOG',
+            external: true,
+          }}
         />
       </section>
     </MainLayout>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

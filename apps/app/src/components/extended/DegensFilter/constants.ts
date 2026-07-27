@@ -1,4 +1,4 @@
-import type { DegenFilter } from '@/types/degenFilter';
+import type { DegenFilter } from '@/types/degenFilter'
 
 const DEFAULT_STATIC_FILTER: DegenFilter = {
   prices: [100, 3500],
@@ -12,6 +12,6 @@ const DEFAULT_STATIC_FILTER: DegenFilter = {
   wearables: [],
   searchTerm: [''],
   walletAddress: undefined,
-};
+}
 
-export default DEFAULT_STATIC_FILTER;
+export default DEFAULT_STATIC_FILTER

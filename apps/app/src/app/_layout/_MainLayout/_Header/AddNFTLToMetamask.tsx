@@ -1,11 +1,11 @@
-import Image from 'next/image';
-import Button from '@mui/material/Button';
-import useNetworkContext from '@/hooks/useNetworkContext';
-import useImportNFTLToWallet from '@/hooks/useImportNFTLToWallet';
+import Image from 'next/image'
+import Button from '@mui/material/Button'
+import useNetworkContext from '@/hooks/useNetworkContext'
+import useImportNFTLToWallet from '@/hooks/useImportNFTLToWallet'
 
 const AddNFTLToMetamask = (): React.ReactNode | null => {
-  const { isConnected } = useNetworkContext();
-  const { handleImportNFTLToWallet } = useImportNFTLToWallet();
+  const { isConnected } = useNetworkContext()
+  const { handleImportNFTLToWallet } = useImportNFTLToWallet()
 
   return isConnected ? (
     <Button
@@ -19,7 +19,7 @@ const AddNFTLToMetamask = (): React.ReactNode | null => {
     >
       Add NFTL to MetaMask
     </Button>
-  ) : null;
-};
+  ) : null
+}
 
-export default AddNFTLToMetamask;
+export default AddNFTLToMetamask

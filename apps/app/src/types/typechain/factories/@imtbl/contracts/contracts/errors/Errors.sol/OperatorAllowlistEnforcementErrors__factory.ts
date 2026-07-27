@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   OperatorAllowlistEnforcementErrors,
   OperatorAllowlistEnforcementErrorsInterface,
-} from '../../../../../../@imtbl/contracts/contracts/errors/Errors.sol/OperatorAllowlistEnforcementErrors';
+} from '../../../../../../@imtbl/contracts/contracts/errors/Errors.sol/OperatorAllowlistEnforcementErrors'
 
 const _abi = [
   { inputs: [], name: 'AllowlistDoesNotImplementIOperatorAllowlist', type: 'error' },
@@ -35,14 +35,17 @@ const _abi = [
     name: 'TransferToNotInAllowlist',
     type: 'error',
   },
-] as const;
+] as const
 
 export class OperatorAllowlistEnforcementErrors__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): OperatorAllowlistEnforcementErrorsInterface {
-    return new Interface(_abi) as OperatorAllowlistEnforcementErrorsInterface;
+    return new Interface(_abi) as OperatorAllowlistEnforcementErrorsInterface
   }
-  static connect(address: string, runner?: ContractRunner | null): OperatorAllowlistEnforcementErrors {
-    return new Contract(address, _abi, runner) as unknown as OperatorAllowlistEnforcementErrors;
+  static connect(
+    address: string,
+    runner?: ContractRunner | null
+  ): OperatorAllowlistEnforcementErrors {
+    return new Contract(address, _abi, runner) as unknown as OperatorAllowlistEnforcementErrors
   }
 }

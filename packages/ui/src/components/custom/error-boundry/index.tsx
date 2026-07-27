@@ -1,16 +1,16 @@
-import { Component, type ErrorInfo, type ReactNode } from 'react';
-import { Button } from '@nl/ui/base/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@nl/ui/base/card';
-import { AlertCircle } from 'lucide-react';
+import { Component, type ErrorInfo, type ReactNode } from 'react'
+import { Button } from '@nl/ui/base/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@nl/ui/base/card'
+import { AlertCircle } from 'lucide-react'
 
 interface ErrorBoundaryProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 interface ErrorBoundaryState {
-  hasError: boolean;
-  error: Error | null;
-  errorInfo: ErrorInfo | null;
+  hasError: boolean
+  error: Error | null
+  errorInfo: ErrorInfo | null
 }
 
 /**
@@ -23,7 +23,7 @@ interface ErrorBoundaryState {
  */
 export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   // State to manage whether an error has occurred
-  state: ErrorBoundaryState = { hasError: false, error: null, errorInfo: null };
+  state: ErrorBoundaryState = { hasError: false, error: null, errorInfo: null }
 
   /**
    * getDerivedStateFromError is a static method that is called after an error has been
@@ -35,7 +35,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
    */
   static getDerivedStateFromError(error: Error) {
     // Update state so the next render will show the fallback UI.
-    return { hasError: true, error: error };
+    return { hasError: true, error: error }
   }
 
   /**
@@ -47,8 +47,8 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
    * @param {ErrorInfo} errorInfo An object containing the component stack trace.
    */
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
-    this.setState({ errorInfo });
+    console.error('ErrorBoundary caught an error:', error, errorInfo)
+    this.setState({ errorInfo })
   }
 
   render() {
@@ -81,12 +81,12 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             </CardContent>
           </Card>
         </div>
-      );
+      )
     }
 
     // If no error, render the children as normal.
-    return this.props.children;
+    return this.props.children
   }
 }
 
-export default ErrorBoundary;
+export default ErrorBoundary

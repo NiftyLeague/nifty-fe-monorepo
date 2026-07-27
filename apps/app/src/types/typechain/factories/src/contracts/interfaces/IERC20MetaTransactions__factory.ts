@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   IERC20MetaTransactions,
   IERC20MetaTransactionsInterface,
-} from '../../../../src/contracts/interfaces/IERC20MetaTransactions';
+} from '../../../../src/contracts/interfaces/IERC20MetaTransactions'
 
 const _abi = [
   {
@@ -46,14 +46,14 @@ const _abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-] as const;
+] as const
 
 export class IERC20MetaTransactions__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): IERC20MetaTransactionsInterface {
-    return new Interface(_abi) as IERC20MetaTransactionsInterface;
+    return new Interface(_abi) as IERC20MetaTransactionsInterface
   }
   static connect(address: string, runner?: ContractRunner | null): IERC20MetaTransactions {
-    return new Contract(address, _abi, runner) as unknown as IERC20MetaTransactions;
+    return new Contract(address, _abi, runner) as unknown as IERC20MetaTransactions
   }
 }

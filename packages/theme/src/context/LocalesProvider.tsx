@@ -1,42 +1,46 @@
-'use client';
+'use client'
 
-import { useState, useEffect, type PropsWithChildren } from 'react';
-import { IntlProvider as OriginalIntlProvider, type MessageFormatElement } from 'react-intl';
-import type { IntlConfig } from 'react-intl';
+import { useState, useEffect, type PropsWithChildren } from 'react'
+import { IntlProvider as OriginalIntlProvider, type MessageFormatElement } from 'react-intl'
+import type { IntlConfig } from 'react-intl'
 
-const IntlProvider = OriginalIntlProvider as unknown as React.FC<IntlConfig & { children: React.ReactNode }>;
+const IntlProvider = OriginalIntlProvider as unknown as React.FC<
+  IntlConfig & { children: React.ReactNode }
+>
 
-import useThemeConfig from '../hooks/useThemeConfig';
+import useThemeConfig from '../hooks/useThemeConfig'
 
 // load locales files
 const loadLocaleData = (locale: string) => {
   switch (locale) {
     case 'fr':
-      return import('../locales/fr.json');
+      return import('../locales/fr.json')
     case 'ro':
-      return import('../locales/ro.json');
+      return import('../locales/ro.json')
     case 'zh':
-      return import('../locales/zh.json');
+      return import('../locales/zh.json')
     default:
-      return import('../locales/en.json');
+      return import('../locales/en.json')
   }
-};
+}
 
 // ==============================|| LOCALIZATION ||============================== //
 
 export const LocalesProvider = ({ children }: PropsWithChildren) => {
-  const { locale } = useThemeConfig();
+  const { locale } = useThemeConfig()
   const [messages, setMessages] = useState<
     Record<string, string> | Record<string, MessageFormatElement[]> | undefined
-  >();
+  >()
 
   useEffect(() => {
     loadLocaleData(locale).then(
-      (d: { default: Record<string, string> | Record<string, MessageFormatElement[]> | undefined }) => {
-        setMessages(d.default);
-      },
-    );
-  }, [locale]);
+      (d: {
+        default: Record<string, string> | Record<string, MessageFormatElement[]> | undefined
+      }) => {
+        setMessages(d.default)
+      }
+    )
+  }, [locale])
 
   return (
     <>
@@ -46,7 +50,7 @@ export const LocalesProvider = ({ children }: PropsWithChildren) => {
         </IntlProvider>
       )}
     </>
-  );
-};
+  )
+}
 
-export default LocalesProvider;
+export default LocalesProvider

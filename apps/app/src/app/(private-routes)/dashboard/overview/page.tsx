@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 // import { useEffect, useState } from 'react';
 // import ActiveRentalDialog from '@/components/dialog/ActiveRentalDialog';
@@ -8,12 +8,12 @@
 // import EarningCap from './EarningCap';
 // import MyRentals from './MyRentals';
 // import useAuth from '@/hooks/useAuth';
-import { Grid } from '@mui/material';
-import MyComics from './MyComics';
-import MyDegens from './MyDegens';
-import MyItems from './MyItems';
-import MyNFTL from './_MyNFTL';
-import MyStats from './MyStats';
+import { Grid } from '@mui/material'
+import MyComics from './MyComics'
+import MyDegens from './MyDegens'
+import MyItems from './MyItems'
+import MyNFTL from './_MyNFTL'
+import MyStats from './MyStats'
 
 const DashboardOverview = (): React.ReactNode => {
   // const { authToken } = useAuth();
@@ -67,7 +67,7 @@ const DashboardOverview = (): React.ReactNode => {
         <ActiveRentalDialog degenId={rentals[0].degen_id} rental={rental} />
       )} */}
     </Grid>
-  );
-};
+  )
+}
 
-export default DashboardOverview;
+export default DashboardOverview

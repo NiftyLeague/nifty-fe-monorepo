@@ -1,19 +1,22 @@
-import { useMemo } from 'react';
-import { Box, Button, Stack } from '@mui/material';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { useMemo } from 'react'
+import { Box, Button, Stack } from '@mui/material'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
-import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
-import WearableItemCard from '@/components/cards/WearableItemCard';
-import SectionSlider from '@/components/sections/SectionSlider';
-import EmptyState from '@/components/EmptyState';
-import ComicPlaceholder from '@/components/cards/Skeleton/ComicPlaceholder';
-import { ITEM_PURCHASE_URL } from '@/constants/url';
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
+import WearableItemCard from '@/components/cards/WearableItemCard'
+import SectionSlider from '@/components/sections/SectionSlider'
+import EmptyState from '@/components/EmptyState'
+import ComicPlaceholder from '@/components/cards/Skeleton/ComicPlaceholder'
+import { ITEM_PURCHASE_URL } from '@/constants/url'
 
 const MyItems = (): React.ReactNode => {
-  const router = useRouter();
-  const { itemsBalances, loadingItems } = useNFTsBalances();
-  const filteredItems = useMemo(() => itemsBalances.filter(item => item.balance && item.balance > 0), [itemsBalances]);
+  const router = useRouter()
+  const { itemsBalances, loadingItems } = useNFTsBalances()
+  const filteredItems = useMemo(
+    () => itemsBalances.filter((item) => item.balance && item.balance > 0),
+    [itemsBalances]
+  )
 
   const settings = {
     slidesToShow: 5,
@@ -25,7 +28,7 @@ const MyItems = (): React.ReactNode => {
       { breakpoint: 768, settings: { slidesToShow: 4 } },
       { breakpoint: 640, settings: { slidesToShow: 3 } },
     ],
-  };
+  }
 
   return (
     <>
@@ -46,7 +49,7 @@ const MyItems = (): React.ReactNode => {
             <ComicPlaceholder />
           </Box>
         ) : filteredItems.length ? (
-          filteredItems.map(item => (
+          filteredItems.map((item) => (
             <Box key={item.wearableName} sx={{ px: 1 }}>
               <WearableItemCard data={item} />
             </Box>
@@ -63,7 +66,7 @@ const MyItems = (): React.ReactNode => {
         )}
       </SectionSlider>
     </>
-  );
-};
+  )
+}
 
-export default MyItems;
+export default MyItems

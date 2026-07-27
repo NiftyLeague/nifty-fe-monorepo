@@ -1,25 +1,25 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { Badge, Button } from '@mui/material';
-import { useSwitchChain } from 'wagmi';
+import { useState } from 'react'
+import { Badge, Button } from '@mui/material'
+import { useSwitchChain } from 'wagmi'
 
-import { TARGET_NETWORK } from '@/constants/networks';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/dialog';
-import WithdrawForm from './WithdrawForm';
-import WithdrawSuccess from './WithdrawSuccess';
+import { TARGET_NETWORK } from '@/constants/networks'
+import { Dialog, DialogContent, DialogTrigger } from '@/components/dialog'
+import WithdrawForm from './WithdrawForm'
+import WithdrawSuccess from './WithdrawSuccess'
 
-type WithdrawButtonDialogProps = { balance: number; loading: boolean };
+type WithdrawButtonDialogProps = { balance: number; loading: boolean }
 
 const WithdrawButtonDialog = ({ balance, loading }: WithdrawButtonDialogProps) => {
-  const { switchChain } = useSwitchChain();
-  const [successDialogOpen, setSuccessDialogOpen] = useState(false);
+  const { switchChain } = useSwitchChain()
+  const [successDialogOpen, setSuccessDialogOpen] = useState(false)
 
   const onCloseWithdrawDialog = () => {
-    switchChain?.({ chainId: TARGET_NETWORK.chainId });
-  };
+    switchChain?.({ chainId: TARGET_NETWORK.chainId })
+  }
 
-  const onWithdrawSuccess = () => setSuccessDialogOpen(true);
+  const onWithdrawSuccess = () => setSuccessDialogOpen(true)
 
   return (
     <>
@@ -40,14 +40,20 @@ const WithdrawButtonDialog = ({ balance, loading }: WithdrawButtonDialogProps) =
         <DialogContent
           aria-labelledby="withdraw-earnings-dialog"
           dialogTitle="Withdraw Earnings"
-          sx={{ '& h2': { textAlign: 'center' }, '& .MuiDialogContent-root': { textAlign: 'center' } }}
+          sx={{
+            '& h2': { textAlign: 'center' },
+            '& .MuiDialogContent-root': { textAlign: 'center' },
+          }}
         >
           <WithdrawForm balance={balance} onWithdrawSuccess={onWithdrawSuccess} />
         </DialogContent>
       </Dialog>
-      <WithdrawSuccess successDialogOpen={successDialogOpen} setSuccessDialogOpen={setSuccessDialogOpen} />
+      <WithdrawSuccess
+        successDialogOpen={successDialogOpen}
+        setSuccessDialogOpen={setSuccessDialogOpen}
+      />
     </>
-  );
-};
+  )
+}
 
-export default WithdrawButtonDialog;
+export default WithdrawButtonDialog

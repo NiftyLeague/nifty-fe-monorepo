@@ -1,6 +1,6 @@
-'use client';
+'use client'
 
-export { CATEGORIES as GTM_CATEGORIES, EVENTS as GTM_EVENTS } from './constants';
-export * as gtm from './events';
-export { default as GoogleTagManager } from './GoogleTagManager';
-export { default as WebVitals } from './WebVitals';
+export { CATEGORIES as GTM_CATEGORIES, EVENTS as GTM_EVENTS } from './constants'
+export * as gtm from './events'
+export { default as GoogleTagManager } from './GoogleTagManager'
+export { default as WebVitals } from './WebVitals'

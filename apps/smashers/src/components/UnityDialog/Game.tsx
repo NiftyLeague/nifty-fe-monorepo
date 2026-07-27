@@ -1,20 +1,20 @@
-import { Unity } from 'react-unity-webgl';
+import { Unity } from 'react-unity-webgl'
 
-import { Button } from '@nl/ui/base/button';
-import { Icon } from '@nl/ui/base/icon';
-import { Preloader } from '@nl/ui/custom/preloader';
+import { Button } from '@nl/ui/base/button'
+import { Icon } from '@nl/ui/base/icon'
+import { Preloader } from '@nl/ui/custom/preloader'
 // import { useUserContext } from '@nl/playfab/hooks/useUserContext';
 
-import useUnityPreConfig from '@/hooks/useUnityPreConfig';
-import useUnityEventHandlers from '@/hooks/useUnityEventHandlers';
-import useUnitySafeClose from '@/hooks/useUnitySafeClose';
+import useUnityPreConfig from '@/hooks/useUnityPreConfig'
+import useUnityEventHandlers from '@/hooks/useUnityEventHandlers'
+import useUnitySafeClose from '@/hooks/useUnitySafeClose'
 
-import styles from '@/components/Modal/index.module.css';
+import styles from '@/components/Modal/index.module.css'
 
 const Game = ({ closeGame }: { closeGame: () => void }) => {
   //   const { account, publisherData } = useUserContext();
-  const address = '0x0';
-  const authToken = '';
+  const address = '0x0'
+  const authToken = ''
 
   const {
     addEventListener,
@@ -24,11 +24,11 @@ const Game = ({ closeGame }: { closeGame: () => void }) => {
     requestFullscreen,
     unityProvider,
     unload,
-  } = useUnityPreConfig();
+  } = useUnityPreConfig()
 
-  useUnityEventHandlers({ address, authToken, addEventListener, removeEventListener });
+  useUnityEventHandlers({ address, authToken, addEventListener, removeEventListener })
 
-  useUnitySafeClose({ closeGame, unload });
+  useUnitySafeClose({ closeGame, unload })
 
   return (
     <>
@@ -48,7 +48,7 @@ const Game = ({ closeGame }: { closeGame: () => void }) => {
         <Icon name="maximize-2" />
       </Button>
     </>
-  );
-};
+  )
+}
 
-export default Game;
+export default Game

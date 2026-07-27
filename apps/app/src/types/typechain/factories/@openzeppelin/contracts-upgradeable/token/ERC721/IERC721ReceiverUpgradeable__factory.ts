@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   IERC721ReceiverUpgradeable,
   IERC721ReceiverUpgradeableInterface,
-} from '../../../../../@openzeppelin/contracts-upgradeable/token/ERC721/IERC721ReceiverUpgradeable';
+} from '../../../../../@openzeppelin/contracts-upgradeable/token/ERC721/IERC721ReceiverUpgradeable'
 
 const _abi = [
   {
@@ -21,14 +21,14 @@ const _abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-] as const;
+] as const
 
 export class IERC721ReceiverUpgradeable__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): IERC721ReceiverUpgradeableInterface {
-    return new Interface(_abi) as IERC721ReceiverUpgradeableInterface;
+    return new Interface(_abi) as IERC721ReceiverUpgradeableInterface
   }
   static connect(address: string, runner?: ContractRunner | null): IERC721ReceiverUpgradeable {
-    return new Contract(address, _abi, runner) as unknown as IERC721ReceiverUpgradeable;
+    return new Contract(address, _abi, runner) as unknown as IERC721ReceiverUpgradeable
   }
 }

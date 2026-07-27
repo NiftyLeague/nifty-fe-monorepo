@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import { useCallback, useState } from 'react';
-import { parseEther } from 'ethers';
+import { useCallback, useState } from 'react'
+import { parseEther } from 'ethers'
 import {
   Button,
   CardMedia,
@@ -11,80 +11,88 @@ import {
   Stack,
   TextField,
   Typography,
-} from '@mui/material';
+} from '@mui/material'
 
-import { gtm, GTM_EVENTS } from '@nl/ui/gtm';
-import useNetworkContext from '@/hooks/useNetworkContext';
-import useNFTLAllowance from '@/hooks/useNFTLAllowance';
-import useTokensBalances from '@/hooks/balances/useTokensBalances';
-import { getErrorForName } from '@/utils/name';
-import { submitTxWithGasEstimate } from '@/utils/bnc-notify';
-import { getDeployedContract, NFTL_CONTRACT, DEGEN_CONTRACT } from '@/constants/contracts';
-import { TARGET_NETWORK } from '@/constants/networks';
-import { DEBUG } from '@/constants/index';
-import type { Degen } from '@/types/degens';
-import RenameStepper from './RenameStepper';
+import { gtm, GTM_EVENTS } from '@nl/ui/gtm'
+import useNetworkContext from '@/hooks/useNetworkContext'
+import useNFTLAllowance from '@/hooks/useNFTLAllowance'
+import useTokensBalances from '@/hooks/balances/useTokensBalances'
+import { getErrorForName } from '@/utils/name'
+import { submitTxWithGasEstimate } from '@/utils/bnc-notify'
+import { getDeployedContract, NFTL_CONTRACT, DEGEN_CONTRACT } from '@/constants/contracts'
+import { TARGET_NETWORK } from '@/constants/networks'
+import { DEBUG } from '@/constants/index'
+import type { Degen } from '@/types/degens'
+import RenameStepper from './RenameStepper'
 
-const { address: DEGEN_CONTRACT_ADDRESS } = getDeployedContract(TARGET_NETWORK.chainId, DEGEN_CONTRACT) as {
-  address: `0x${string}`;
-};
+const { address: DEGEN_CONTRACT_ADDRESS } = getDeployedContract(
+  TARGET_NETWORK.chainId,
+  DEGEN_CONTRACT
+) as {
+  address: `0x${string}`
+}
 
 interface Props {
-  degen?: Degen;
-  onSuccess?: () => void;
+  degen?: Degen
+  onSuccess?: () => void
 }
 
 const RenameDegenDialogContent = ({ degen, onSuccess }: Props): React.ReactNode => {
-  const { tx, writeContracts } = useNetworkContext();
-  const { tokensBalances } = useTokensBalances();
-  const [input, setInput] = useState('');
-  const [error, setError] = useState('');
-  const { allowance, refetch: refetchAllowance } = useNFTLAllowance(DEGEN_CONTRACT_ADDRESS);
-  const [isLoadingRename, setLoadingRename] = useState(false);
-  const [renameSuccess, setRenameSuccess] = useState(false);
-  const insufficientAllowance = allowance < 1000;
-  const insufficientBalance = tokensBalances.NFTL.eth < 1000;
+  const { tx, writeContracts } = useNetworkContext()
+  const { tokensBalances } = useTokensBalances()
+  const [input, setInput] = useState('')
+  const [error, setError] = useState('')
+  const { allowance, refetch: refetchAllowance } = useNFTLAllowance(DEGEN_CONTRACT_ADDRESS)
+  const [isLoadingRename, setLoadingRename] = useState(false)
+  const [renameSuccess, setRenameSuccess] = useState(false)
+  const insufficientAllowance = allowance < 1000
+  const insufficientBalance = tokensBalances.NFTL.eth < 1000
 
   const validateName = (value: string) => {
-    setInput(value);
-    const errorMsg = getErrorForName(value);
-    setError(errorMsg);
-  };
+    setInput(value)
+    const errorMsg = getErrorForName(value)
+    setError(errorMsg)
+  }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    validateName(value);
-  };
+    const { value } = event.target
+    validateName(value)
+  }
 
   const handleRename = useCallback(async () => {
-    setLoadingRename(true);
+    setLoadingRename(true)
     if (insufficientBalance) {
-      setError('Failed to charge the rental rename fee');
-    } else if (!error && writeContracts && writeContracts[DEGEN_CONTRACT] && writeContracts[NFTL_CONTRACT]) {
+      setError('Failed to charge the rental rename fee')
+    } else if (
+      !error &&
+      writeContracts &&
+      writeContracts[DEGEN_CONTRACT] &&
+      writeContracts[NFTL_CONTRACT]
+    ) {
       // eslint-disable-next-line no-console
-      if (DEBUG) console.log('Rename NFT to:', input);
-      const degenContract = writeContracts[DEGEN_CONTRACT];
-      const nftl = writeContracts[NFTL_CONTRACT];
+      if (DEBUG) console.log('Rename NFT to:', input)
+      const degenContract = writeContracts[DEGEN_CONTRACT]
+      const nftl = writeContracts[NFTL_CONTRACT]
       if (insufficientAllowance) {
         // eslint-disable-next-line no-console
-        if (DEBUG) console.log('Current allowance too low');
-        const DEGENAddress = await degenContract.getAddress();
-        await tx(nftl.increaseAllowance(DEGENAddress, parseEther('100000')));
-        refetchAllowance();
+        if (DEBUG) console.log('Current allowance too low')
+        const DEGENAddress = await degenContract.getAddress()
+        await tx(nftl.increaseAllowance(DEGENAddress, parseEther('100000')))
+        refetchAllowance()
       }
-      const args = [parseInt(degen?.id || '', 10), input];
-      const result = await submitTxWithGasEstimate(tx, degenContract, 'changeName', args);
+      const args = [parseInt(degen?.id || '', 10), input]
+      const result = await submitTxWithGasEstimate(tx, degenContract, 'changeName', args)
       if (result) {
-        setRenameSuccess(true);
+        setRenameSuccess(true)
         gtm.sendEvent(GTM_EVENTS.SPEND_VIRTUAL_CURRENCY, {
           virtual_currency_name: 'NFTL',
           value: 1000,
           item_name: 'DEGEN Rename Fee',
-        });
-        onSuccess?.();
+        })
+        onSuccess?.()
       }
     }
-    setLoadingRename(false);
+    setLoadingRename(false)
   }, [
     degen,
     error,
@@ -95,7 +103,7 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): React.ReactNode 
     refetchAllowance,
     tx,
     writeContracts,
-  ]);
+  ])
 
   return (
     <>
@@ -155,7 +163,7 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): React.ReactNode 
         </Button>
       </DialogActions>
     </>
-  );
-};
+  )
+}
 
-export default RenameDegenDialogContent;
+export default RenameDegenDialogContent

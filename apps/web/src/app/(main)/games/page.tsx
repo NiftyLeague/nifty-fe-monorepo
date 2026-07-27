@@ -1,12 +1,12 @@
-import type { NextPage } from 'next';
-import Image from 'next/image';
+import type { NextPage } from 'next'
+import Image from 'next/image'
 
-import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
-import { cn } from '@nl/ui/utils';
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
+import { cn } from '@nl/ui/utils'
 
-import ThemeBtnGroup from '@/components/ThemeBtnGroup';
-import { NIFTY_GAMES } from '@/constants/games';
-import styles from './index.module.css';
+import ThemeBtnGroup from '@/components/ThemeBtnGroup'
+import { NIFTY_GAMES } from '@/constants/games'
+import styles from './index.module.css'
 
 const Games: NextPage = () => (
   <div className="container relative pt-20">
@@ -53,7 +53,8 @@ const Games: NextPage = () => (
         <div className="mb-5">
           <AnimatedWrapper>
             <p className="text-center transition-fade-slow transition-fade-start delay-normal">
-              Join thousands of players around the world competing for the top spot in Nifty League!{' '}
+              Join thousands of players around the world competing for the top spot in Nifty
+              League!{' '}
             </p>
           </AnimatedWrapper>
         </div>
@@ -66,22 +67,35 @@ const Games: NextPage = () => (
           <div className={cn(styles.block, 'w-full md:w-7/12 pr-0 md:pr-5')}>
             <div className="flex flex-row items-center justify-between mb-3">
               <AnimatedWrapper>
-                <h4 className="m-0 transition-vertical-fade transition-vertical-fade-start delay-lite">{name}</h4>
+                <h4 className="m-0 transition-vertical-fade transition-vertical-fade-start delay-lite">
+                  {name}
+                </h4>
               </AnimatedWrapper>
               <AnimatedWrapper>
-                <p className={cn(styles.tagGame, 'm-0 transition-fade-slow transition-fade-start delay-normal')}>
+                <p
+                  className={cn(
+                    styles.tagGame,
+                    'm-0 transition-fade-slow transition-fade-start delay-normal'
+                  )}
+                >
                   {tag}
                 </p>
               </AnimatedWrapper>
             </div>
             <AnimatedWrapper>
-              <p className="transition-vertical-fade transition-vertical-fade-start delay-normal">{description}</p>
+              <p className="transition-vertical-fade transition-vertical-fade-start delay-normal">
+                {description}
+              </p>
             </AnimatedWrapper>
             <div className="flex justify-center md:justify-start mt-4">
               {action.isComingSoon ? (
                 <ThemeBtnGroup
                   className="justify-start mt-3 xl:mt-3"
-                  primary={{ title: 'COMING SOON', disabled: true, className: 'theme-btn-rounded max-w-fit' }}
+                  primary={{
+                    title: 'COMING SOON',
+                    disabled: true,
+                    className: 'theme-btn-rounded max-w-fit',
+                  }}
                 />
               ) : null}
 
@@ -140,8 +154,12 @@ const Games: NextPage = () => (
           </div>
           <div
             className={cn(
-              index === 0 ? 'orb-bottom-left' : index === 1 ? 'orb-top-right' : styles.gradient_custom,
-              'purple-bg-orb',
+              index === 0
+                ? 'orb-bottom-left'
+                : index === 1
+                  ? 'orb-top-right'
+                  : styles.gradient_custom,
+              'purple-bg-orb'
             )}
           />
         </article>
@@ -149,10 +167,14 @@ const Games: NextPage = () => (
 
       <ThemeBtnGroup
         className="mt-6 xl:mt-8"
-        primary={{ href: '/docs/guides/nifty-smashers/general-info', title: 'VIEW DOCS', external: true }}
+        primary={{
+          href: '/docs/guides/nifty-smashers/general-info',
+          title: 'VIEW DOCS',
+          external: true,
+        }}
       />
     </section>
   </div>
-);
+)
 
-export default Games;
+export default Games

@@ -1,296 +1,360 @@
 /// <reference path="./typings/PlayFabClient.d.ts" />
 
-import type { User, PlayFabError, PlayFabResponse } from '../types';
-import * as PlayFab from './PlayFab';
-export { settings } from './PlayFab';
+import type { User, PlayFabError, PlayFabResponse } from '../types'
+import * as PlayFab from './PlayFab'
+export { settings } from './PlayFab'
 
 export const IsClientLoggedIn = (user?: User): boolean => {
-  if (!user || !user.SessionTicket || !user.EntityToken?.TokenExpiration) return false;
-  const expiration = new Date(user.EntityToken.TokenExpiration);
-  const expired = expiration < new Date();
-  return !expired && user.SessionTicket.length > 0 ? true : false;
-};
+  if (!user || !user.SessionTicket || !user.EntityToken?.TokenExpiration) return false
+  const expiration = new Date(user.EntityToken.TokenExpiration)
+  const expired = expiration < new Date()
+  return !expired && user.SessionTicket.length > 0 ? true : false
+}
 
-export const AddGenericID: PlayFabClientModule.IPlayFabClient['AddGenericID'] = (request, callback, SessionTicket) => {
+export const AddGenericID: PlayFabClientModule.IPlayFabClient['AddGenericID'] = (
+  request,
+  callback,
+  SessionTicket
+) => {
   PlayFab.MakeRequest(
     PlayFab.GetServerUrl() + '/Client/AddGenericID',
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.AddGenericIDResult>) {
-      if (callback) callback(error, result);
-    },
-  );
-};
+    function (
+      error: PlayFabError,
+      result: PlayFabResponse<PlayFabClientModels.AddGenericIDResult>
+    ) {
+      if (callback) callback(error, result)
+    }
+  )
+}
 
-export const AddOrUpdateContactEmail: PlayFabClientModule.IPlayFabClient['AddOrUpdateContactEmail'] = (
-  request,
-  callback,
-  SessionTicket,
-) => {
-  PlayFab.MakeRequest(
-    PlayFab.GetServerUrl() + '/Client/AddOrUpdateContactEmail',
-    request,
-    'X-Authorization',
-    SessionTicket,
-    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.AddOrUpdateContactEmailResult>) {
-      if (callback) callback(error, result);
-    },
-  );
-};
+export const AddOrUpdateContactEmail: PlayFabClientModule.IPlayFabClient['AddOrUpdateContactEmail'] =
+  (request, callback, SessionTicket) => {
+    PlayFab.MakeRequest(
+      PlayFab.GetServerUrl() + '/Client/AddOrUpdateContactEmail',
+      request,
+      'X-Authorization',
+      SessionTicket,
+      function (
+        error: PlayFabError,
+        result: PlayFabResponse<PlayFabClientModels.AddOrUpdateContactEmailResult>
+      ) {
+        if (callback) callback(error, result)
+      }
+    )
+  }
 
 export const GetAccountInfo: PlayFabClientModule.IPlayFabClient['GetAccountInfo'] = (
   request,
   callback,
-  SessionTicket,
+  SessionTicket
 ) => {
   PlayFab.MakeRequest(
     PlayFab.GetServerUrl() + '/Client/GetAccountInfo',
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.GetAccountInfoResult>) {
-      if (callback) callback(error, result);
-    },
-  );
-};
+    function (
+      error: PlayFabError,
+      result: PlayFabResponse<PlayFabClientModels.GetAccountInfoResult>
+    ) {
+      if (callback) callback(error, result)
+    }
+  )
+}
 
 export const GetPlayerCombinedInfo: PlayFabClientModule.IPlayFabClient['GetPlayerCombinedInfo'] = (
   request,
   callback,
-  SessionTicket,
+  SessionTicket
 ) => {
   PlayFab.MakeRequest(
     PlayFab.GetServerUrl() + '/Client/GetPlayerCombinedInfo',
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.GetPlayerCombinedInfoResult>) {
-      if (callback) callback(error, result);
-    },
-  );
-};
+    function (
+      error: PlayFabError,
+      result: PlayFabResponse<PlayFabClientModels.GetPlayerCombinedInfoResult>
+    ) {
+      if (callback) callback(error, result)
+    }
+  )
+}
 
-export const GetUserPublisherReadOnlyData: PlayFabClientModule.IPlayFabClient['GetUserPublisherReadOnlyData'] = (
+export const GetUserPublisherReadOnlyData: PlayFabClientModule.IPlayFabClient['GetUserPublisherReadOnlyData'] =
+  (request, callback, SessionTicket) => {
+    PlayFab.MakeRequest(
+      PlayFab.GetServerUrl() + '/Client/GetUserPublisherReadOnlyData',
+      request,
+      'X-Authorization',
+      SessionTicket,
+      function (
+        error: PlayFabError,
+        result: PlayFabResponse<PlayFabClientModels.GetUserDataResult>
+      ) {
+        if (callback) callback(error, result)
+      }
+    )
+  }
+
+export const LinkApple: PlayFabClientModule.IPlayFabClient['LinkApple'] = (
   request,
   callback,
-  SessionTicket,
+  SessionTicket
 ) => {
-  PlayFab.MakeRequest(
-    PlayFab.GetServerUrl() + '/Client/GetUserPublisherReadOnlyData',
-    request,
-    'X-Authorization',
-    SessionTicket,
-    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.GetUserDataResult>) {
-      if (callback) callback(error, result);
-    },
-  );
-};
-
-export const LinkApple: PlayFabClientModule.IPlayFabClient['LinkApple'] = (request, callback, SessionTicket) => {
   PlayFab.MakeRequest(
     PlayFab.GetServerUrl() + '/Client/LinkApple',
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LinkAppleAccountResult>) {
+    function (
+      error: PlayFabError,
+      result: PlayFabResponse<PlayFabClientModels.LinkAppleAccountResult>
+    ) {
       if (callback != null) {
-        callback(error, result);
+        callback(error, result)
       }
-    },
-  );
-};
+    }
+  )
+}
 
-export const LinkCustomID: PlayFabClientModule.IPlayFabClient['LinkCustomID'] = (request, callback, SessionTicket) => {
+export const LinkCustomID: PlayFabClientModule.IPlayFabClient['LinkCustomID'] = (
+  request,
+  callback,
+  SessionTicket
+) => {
   PlayFab.MakeRequest(
     PlayFab.GetServerUrl() + '/Client/LinkCustomID',
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LinkCustomIDResult>) {
-      if (callback) callback(error, result);
-    },
-  );
-};
+    function (
+      error: PlayFabError,
+      result: PlayFabResponse<PlayFabClientModels.LinkCustomIDResult>
+    ) {
+      if (callback) callback(error, result)
+    }
+  )
+}
 
 export const LinkFacebookAccount: PlayFabClientModule.IPlayFabClient['LinkFacebookAccount'] = (
   request,
   callback,
-  SessionTicket,
+  SessionTicket
 ) => {
   PlayFab.MakeRequest(
     PlayFab.GetServerUrl() + '/Client/LinkFacebookAccount',
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LinkFacebookAccountResult>) {
-      if (callback) callback(error, result);
-    },
-  );
-};
+    function (
+      error: PlayFabError,
+      result: PlayFabResponse<PlayFabClientModels.LinkFacebookAccountResult>
+    ) {
+      if (callback) callback(error, result)
+    }
+  )
+}
 
 export const LinkGoogleAccount: PlayFabClientModule.IPlayFabClient['LinkGoogleAccount'] = (
   request,
   callback,
-  SessionTicket,
+  SessionTicket
 ) => {
   PlayFab.MakeRequest(
     PlayFab.GetServerUrl() + '/Client/LinkGoogleAccount',
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LinkGoogleAccountResult>) {
-      if (callback) callback(error, result);
-    },
-  );
-};
+    function (
+      error: PlayFabError,
+      result: PlayFabResponse<PlayFabClientModels.LinkGoogleAccountResult>
+    ) {
+      if (callback) callback(error, result)
+    }
+  )
+}
 
-export const LinkTwitch: PlayFabClientModule.IPlayFabClient['LinkTwitch'] = (request, callback, SessionTicket) => {
+export const LinkTwitch: PlayFabClientModule.IPlayFabClient['LinkTwitch'] = (
+  request,
+  callback,
+  SessionTicket
+) => {
   PlayFab.MakeRequest(
     PlayFab.GetServerUrl() + '/Client/LinkTwitch',
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LinkTwitchAccountResult>) {
-      if (callback) callback(error, result);
-    },
-  );
-};
+    function (
+      error: PlayFabError,
+      result: PlayFabResponse<PlayFabClientModels.LinkTwitchAccountResult>
+    ) {
+      if (callback) callback(error, result)
+    }
+  )
+}
 
-export const LoginWithApple: PlayFabClientModule.IPlayFabClient['LoginWithApple'] = (request, callback) => {
-  const req = { ...request };
-  req.TitleId = PlayFab.settings.titleId;
+export const LoginWithApple: PlayFabClientModule.IPlayFabClient['LoginWithApple'] = (
+  request,
+  callback
+) => {
+  const req = { ...request }
+  req.TitleId = PlayFab.settings.titleId
   PlayFab.MakeRequest(
     PlayFab.GetServerUrl() + '/Client/LoginWithApple',
     req,
     null,
     null,
     function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LoginResult>) {
-      if (callback) callback(error, result);
-    },
-  );
-};
+      if (callback) callback(error, result)
+    }
+  )
+}
 
-export const LoginWithCustomID: PlayFabClientModule.IPlayFabClient['LoginWithCustomID'] = (request, callback) => {
-  const req = { ...request };
-  req.TitleId = PlayFab.settings.titleId;
+export const LoginWithCustomID: PlayFabClientModule.IPlayFabClient['LoginWithCustomID'] = (
+  request,
+  callback
+) => {
+  const req = { ...request }
+  req.TitleId = PlayFab.settings.titleId
   PlayFab.MakeRequest(
     PlayFab.GetServerUrl() + '/Client/LoginWithCustomID',
     req,
     null,
     null,
     function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LoginResult>) {
-      if (callback) callback(error, result);
-    },
-  );
-};
+      if (callback) callback(error, result)
+    }
+  )
+}
 
 export const LoginWithEmailAddress: PlayFabClientModule.IPlayFabClient['LoginWithEmailAddress'] = (
   request,
-  callback,
+  callback
 ) => {
-  const req = { ...request };
-  req.TitleId = PlayFab.settings.titleId;
+  const req = { ...request }
+  req.TitleId = PlayFab.settings.titleId
   PlayFab.MakeRequest(
     PlayFab.GetServerUrl() + '/Client/LoginWithEmailAddress',
     req,
     null,
     null,
     function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LoginResult>) {
-      if (callback) callback(error, result);
-    },
-  );
-};
+      if (callback) callback(error, result)
+    }
+  )
+}
 
-export const LoginWithFacebook: PlayFabClientModule.IPlayFabClient['LoginWithFacebook'] = (request, callback) => {
-  const req = { ...request };
-  req.TitleId = PlayFab.settings.titleId;
+export const LoginWithFacebook: PlayFabClientModule.IPlayFabClient['LoginWithFacebook'] = (
+  request,
+  callback
+) => {
+  const req = { ...request }
+  req.TitleId = PlayFab.settings.titleId
   PlayFab.MakeRequest(
     PlayFab.GetServerUrl() + '/Client/LoginWithFacebook',
     req,
     null,
     null,
     function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LoginResult>) {
-      if (callback) callback(error, result);
-    },
-  );
-};
+      if (callback) callback(error, result)
+    }
+  )
+}
 
-export const LoginWithGoogleAccount: PlayFabClientModule.IPlayFabClient['LoginWithGoogleAccount'] = (
+export const LoginWithGoogleAccount: PlayFabClientModule.IPlayFabClient['LoginWithGoogleAccount'] =
+  (request, callback) => {
+    const req = { ...request }
+    req.TitleId = PlayFab.settings.titleId
+    PlayFab.MakeRequest(
+      PlayFab.GetServerUrl() + '/Client/LoginWithGoogleAccount',
+      req,
+      null,
+      null,
+      function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LoginResult>) {
+        if (callback) callback(error, result)
+      }
+    )
+  }
+
+export const LoginWithPlayFab: PlayFabClientModule.IPlayFabClient['LoginWithPlayFab'] = (
   request,
-  callback,
+  callback
 ) => {
-  const req = { ...request };
-  req.TitleId = PlayFab.settings.titleId;
-  PlayFab.MakeRequest(
-    PlayFab.GetServerUrl() + '/Client/LoginWithGoogleAccount',
-    req,
-    null,
-    null,
-    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LoginResult>) {
-      if (callback) callback(error, result);
-    },
-  );
-};
-
-export const LoginWithPlayFab: PlayFabClientModule.IPlayFabClient['LoginWithPlayFab'] = (request, callback) => {
-  const req = { ...request };
-  req.TitleId = PlayFab.settings.titleId;
+  const req = { ...request }
+  req.TitleId = PlayFab.settings.titleId
   PlayFab.MakeRequest(
     PlayFab.GetServerUrl() + '/Client/LoginWithPlayFab',
     req,
     null,
     null,
     function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LoginResult>) {
-      if (callback) callback(error, result);
-    },
-  );
-};
+      if (callback) callback(error, result)
+    }
+  )
+}
 
-export const LoginWithTwitch: PlayFabClientModule.IPlayFabClient['LoginWithTwitch'] = (request, callback) => {
-  const req = { ...request };
-  req.TitleId = PlayFab.settings.titleId;
+export const LoginWithTwitch: PlayFabClientModule.IPlayFabClient['LoginWithTwitch'] = (
+  request,
+  callback
+) => {
+  const req = { ...request }
+  req.TitleId = PlayFab.settings.titleId
   PlayFab.MakeRequest(
     PlayFab.GetServerUrl() + '/Client/LoginWithTwitch',
     req,
     null,
     null,
     function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.LoginResult>) {
-      if (callback) callback(error, result);
-    },
-  );
-};
+      if (callback) callback(error, result)
+    }
+  )
+}
 
-export const RegisterPlayFabUser: PlayFabClientModule.IPlayFabClient['RegisterPlayFabUser'] = (request, callback) => {
-  const req = { ...request };
-  req.TitleId = PlayFab.settings.titleId;
+export const RegisterPlayFabUser: PlayFabClientModule.IPlayFabClient['RegisterPlayFabUser'] = (
+  request,
+  callback
+) => {
+  const req = { ...request }
+  req.TitleId = PlayFab.settings.titleId
   PlayFab.MakeRequest(
     PlayFab.GetServerUrl() + '/Client/RegisterPlayFabUser',
     req,
     null,
     null,
-    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.RegisterPlayFabUserResult>) {
-      if (callback) callback(error, result);
-    },
-  );
-};
+    function (
+      error: PlayFabError,
+      result: PlayFabResponse<PlayFabClientModels.RegisterPlayFabUserResult>
+    ) {
+      if (callback) callback(error, result)
+    }
+  )
+}
 
-export const SendAccountRecoveryEmail: PlayFabClientModule.IPlayFabClient['SendAccountRecoveryEmail'] = (
+export const SendAccountRecoveryEmail: PlayFabClientModule.IPlayFabClient['SendAccountRecoveryEmail'] =
+  (request, callback) => {
+    PlayFab.MakeRequest(
+      PlayFab.GetServerUrl() + '/Client/SendAccountRecoveryEmail',
+      request,
+      null,
+      null,
+      function (
+        error: PlayFabError,
+        result: PlayFabResponse<PlayFabClientModels.SendAccountRecoveryEmailResult>
+      ) {
+        if (callback) callback(error, result)
+      }
+    )
+  }
+
+export const UnlinkApple: PlayFabClientModule.IPlayFabClient['UnlinkApple'] = (
   request,
   callback,
+  SessionTicket
 ) => {
-  PlayFab.MakeRequest(
-    PlayFab.GetServerUrl() + '/Client/SendAccountRecoveryEmail',
-    request,
-    null,
-    null,
-    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.SendAccountRecoveryEmailResult>) {
-      if (callback) callback(error, result);
-    },
-  );
-};
-
-export const UnlinkApple: PlayFabClientModule.IPlayFabClient['UnlinkApple'] = (request, callback, SessionTicket) => {
   PlayFab.MakeRequest(
     PlayFab.GetServerUrl() + '/Client/UnlinkApple',
     request,
@@ -298,100 +362,119 @@ export const UnlinkApple: PlayFabClientModule.IPlayFabClient['UnlinkApple'] = (r
     SessionTicket,
     function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.UnlinkAppleResult>) {
       if (callback != null) {
-        callback(error, result);
+        callback(error, result)
       }
-    },
-  );
-};
+    }
+  )
+}
 
 export const UnlinkCustomID: PlayFabClientModule.IPlayFabClient['UnlinkCustomID'] = (
   request,
   callback,
-  SessionTicket,
+  SessionTicket
 ) => {
   PlayFab.MakeRequest(
     PlayFab.GetServerUrl() + '/Client/UnlinkCustomID',
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.UnlinkCustomIDResult>) {
-      if (callback) callback(error, result);
-    },
-  );
-};
+    function (
+      error: PlayFabError,
+      result: PlayFabResponse<PlayFabClientModels.UnlinkCustomIDResult>
+    ) {
+      if (callback) callback(error, result)
+    }
+  )
+}
 
 export const UnlinkFacebookAccount: PlayFabClientModule.IPlayFabClient['UnlinkFacebookAccount'] = (
   request,
   callback,
-  SessionTicket,
+  SessionTicket
 ) => {
   PlayFab.MakeRequest(
     PlayFab.GetServerUrl() + '/Client/UnlinkFacebookAccount',
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.UnlinkFacebookAccountResult>) {
-      if (callback) callback(error, result);
-    },
-  );
-};
+    function (
+      error: PlayFabError,
+      result: PlayFabResponse<PlayFabClientModels.UnlinkFacebookAccountResult>
+    ) {
+      if (callback) callback(error, result)
+    }
+  )
+}
 
 export const UnlinkGoogleAccount: PlayFabClientModule.IPlayFabClient['UnlinkGoogleAccount'] = (
   request,
   callback,
-  SessionTicket,
+  SessionTicket
 ) => {
   PlayFab.MakeRequest(
     PlayFab.GetServerUrl() + '/Client/UnlinkGoogleAccount',
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.UnlinkGoogleAccountResult>) {
-      if (callback) callback(error, result);
-    },
-  );
-};
+    function (
+      error: PlayFabError,
+      result: PlayFabResponse<PlayFabClientModels.UnlinkGoogleAccountResult>
+    ) {
+      if (callback) callback(error, result)
+    }
+  )
+}
 
-export const UnlinkTwitch: PlayFabClientModule.IPlayFabClient['UnlinkTwitch'] = (request, callback, SessionTicket) => {
+export const UnlinkTwitch: PlayFabClientModule.IPlayFabClient['UnlinkTwitch'] = (
+  request,
+  callback,
+  SessionTicket
+) => {
   PlayFab.MakeRequest(
     PlayFab.GetServerUrl() + '/Client/UnlinkTwitch',
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.UnlinkTwitchAccountResult>) {
-      if (callback) callback(error, result);
-    },
-  );
-};
+    function (
+      error: PlayFabError,
+      result: PlayFabResponse<PlayFabClientModels.UnlinkTwitchAccountResult>
+    ) {
+      if (callback) callback(error, result)
+    }
+  )
+}
 
 export const UpdateAvatarUrl: PlayFabClientModule.IPlayFabClient['UpdateAvatarUrl'] = (
   request,
   callback,
-  SessionTicket,
+  SessionTicket
 ) => {
   PlayFab.MakeRequest(
     PlayFab.GetServerUrl() + '/Client/UpdateAvatarUrl',
     request,
     'X-Authorization',
     SessionTicket,
-    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.UpdateAvatarUrlResult>) {
-      if (callback) callback(error, result);
-    },
-  );
-};
+    function (
+      error: PlayFabError,
+      result: PlayFabResponse<PlayFabClientModels.UpdateAvatarUrlResult>
+    ) {
+      if (callback) callback(error, result)
+    }
+  )
+}
 
-export const UpdateUserPublisherData: PlayFabClientModule.IPlayFabClient['UpdateUserPublisherData'] = (
-  request,
-  callback,
-  SessionTicket,
-) => {
-  PlayFab.MakeRequest(
-    PlayFab.GetServerUrl() + '/Client/UpdateUserPublisherData',
-    request,
-    'X-Authorization',
-    SessionTicket,
-    function (error: PlayFabError, result: PlayFabResponse<PlayFabClientModels.UpdateUserDataResult>) {
-      if (callback) callback(error, result);
-    },
-  );
-};
+export const UpdateUserPublisherData: PlayFabClientModule.IPlayFabClient['UpdateUserPublisherData'] =
+  (request, callback, SessionTicket) => {
+    PlayFab.MakeRequest(
+      PlayFab.GetServerUrl() + '/Client/UpdateUserPublisherData',
+      request,
+      'X-Authorization',
+      SessionTicket,
+      function (
+        error: PlayFabError,
+        result: PlayFabResponse<PlayFabClientModels.UpdateUserDataResult>
+      ) {
+        if (callback) callback(error, result)
+      }
+    )
+  }

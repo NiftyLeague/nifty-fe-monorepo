@@ -1,14 +1,14 @@
-'use client';
+'use client'
 
-import { useContext } from 'react';
-import NFTsBalanceContext from '@/contexts/NFTsBalanceContext';
+import { useContext } from 'react'
+import NFTsBalanceContext from '@/contexts/NFTsBalanceContext'
 
 const useNFTsBalances = () => {
-  const context = useContext(NFTsBalanceContext);
+  const context = useContext(NFTsBalanceContext)
 
-  if (!context) throw new Error('context must be use inside provider');
+  if (!context) throw new Error('context must be use inside provider')
 
-  return context;
-};
+  return context
+}
 
-export default useNFTsBalances;
+export default useNFTsBalances

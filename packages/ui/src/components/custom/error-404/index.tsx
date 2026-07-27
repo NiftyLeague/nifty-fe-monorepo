@@ -1,12 +1,15 @@
-import Image from 'next/image';
-import { cn } from '@nl/ui/utils';
+import Image from 'next/image'
+import { cn } from '@nl/ui/utils'
 
 interface Error404Props extends React.ComponentProps<'div'> {}
 
 export function Error404({ className }: Error404Props) {
   return (
     <div
-      className={cn(`flex min-h-[95vh] mt-[5vh] items-center justify-center bg-transparent text-foreground`, className)}
+      className={cn(
+        `flex min-h-[95vh] mt-[5vh] items-center justify-center bg-transparent text-foreground`,
+        className
+      )}
     >
       <div className="flex w-full flex-col items-center justify-center space-y-4">
         <div className="relative mx-auto w-full max-w-[720px] aspect-[720/360]">
@@ -44,7 +47,7 @@ export function Error404({ className }: Error404Props) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Error404;
+export default Error404

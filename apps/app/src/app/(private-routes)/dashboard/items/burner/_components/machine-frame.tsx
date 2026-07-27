@@ -1,9 +1,9 @@
-import Image from 'next/image';
+import Image from 'next/image'
 
-type MachineFrameProps = { frames: string[]; interval?: number };
+type MachineFrameProps = { frames: string[]; interval?: number }
 
 const MachineFrame = ({ frames, interval = 0 }: MachineFrameProps) => {
-  const frame = frames[(interval + 1) % frames.length];
+  const frame = frames[(interval + 1) % frames.length]
   return frame ? (
     <Image
       src={frame}
@@ -23,7 +23,7 @@ const MachineFrame = ({ frames, interval = 0 }: MachineFrameProps) => {
         height: 'auto',
       }}
     />
-  ) : null;
-};
+  ) : null
+}
 
-export default MachineFrame;
+export default MachineFrame

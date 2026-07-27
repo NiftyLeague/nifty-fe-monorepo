@@ -78,7 +78,13 @@ export default {
           stateMutability: 'view',
           type: 'function',
         },
-        { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'renounceOwnership',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
         {
           inputs: [],
           name: 'token',
@@ -93,7 +99,13 @@ export default {
           stateMutability: 'nonpayable',
           type: 'function',
         },
-        { inputs: [], name: 'withdraw', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+        {
+          inputs: [],
+          name: 'withdraw',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
       ],
     },
     NFTL: {
@@ -115,7 +127,11 @@ export default {
           type: 'error',
         },
         { inputs: [], name: 'InvalidShortString', type: 'error' },
-        { inputs: [{ internalType: 'string', name: 'str', type: 'string' }], name: 'StringTooLong', type: 'error' },
+        {
+          inputs: [{ internalType: 'string', name: 'str', type: 'string' }],
+          name: 'StringTooLong',
+          type: 'error',
+        },
         {
           anonymous: false,
           inputs: [
@@ -551,11 +567,17 @@ export default {
         },
         { inputs: [], name: 'Empty', type: 'error' },
         { inputs: [], name: 'InvalidShortString', type: 'error' },
-        { inputs: [{ internalType: 'string', name: 'str', type: 'string' }], name: 'StringTooLong', type: 'error' },
+        {
+          inputs: [{ internalType: 'string', name: 'str', type: 'string' }],
+          name: 'StringTooLong',
+          type: 'error',
+        },
         { anonymous: false, inputs: [], name: 'EIP712DomainChanged', type: 'event' },
         {
           anonymous: false,
-          inputs: [{ indexed: false, internalType: 'uint256', name: 'proposalId', type: 'uint256' }],
+          inputs: [
+            { indexed: false, internalType: 'uint256', name: 'proposalId', type: 'uint256' },
+          ],
           name: 'ProposalCanceled',
           type: 'event',
         },
@@ -577,7 +599,9 @@ export default {
         },
         {
           anonymous: false,
-          inputs: [{ indexed: false, internalType: 'uint256', name: 'proposalId', type: 'uint256' }],
+          inputs: [
+            { indexed: false, internalType: 'uint256', name: 'proposalId', type: 'uint256' },
+          ],
           name: 'ProposalExecuted',
           type: 'event',
         },
@@ -593,8 +617,18 @@ export default {
         {
           anonymous: false,
           inputs: [
-            { indexed: false, internalType: 'uint256', name: 'oldProposalThreshold', type: 'uint256' },
-            { indexed: false, internalType: 'uint256', name: 'newProposalThreshold', type: 'uint256' },
+            {
+              indexed: false,
+              internalType: 'uint256',
+              name: 'oldProposalThreshold',
+              type: 'uint256',
+            },
+            {
+              indexed: false,
+              internalType: 'uint256',
+              name: 'newProposalThreshold',
+              type: 'uint256',
+            },
           ],
           name: 'ProposalThresholdSet',
           type: 'event',
@@ -602,8 +636,18 @@ export default {
         {
           anonymous: false,
           inputs: [
-            { indexed: false, internalType: 'uint256', name: 'oldQuorumNumerator', type: 'uint256' },
-            { indexed: false, internalType: 'uint256', name: 'newQuorumNumerator', type: 'uint256' },
+            {
+              indexed: false,
+              internalType: 'uint256',
+              name: 'oldQuorumNumerator',
+              type: 'uint256',
+            },
+            {
+              indexed: false,
+              internalType: 'uint256',
+              name: 'newQuorumNumerator',
+              type: 'uint256',
+            },
           ],
           name: 'QuorumNumeratorUpdated',
           type: 'event',
@@ -1049,7 +1093,9 @@ export default {
           type: 'function',
         },
         {
-          inputs: [{ internalType: 'contract TimelockController', name: 'newTimelock', type: 'address' }],
+          inputs: [
+            { internalType: 'contract TimelockController', name: 'newTimelock', type: 'address' },
+          ],
           name: 'updateTimelock',
           outputs: [],
           stateMutability: 'nonpayable',
@@ -1115,7 +1161,11 @@ export default {
         { inputs: [], name: 'InvalidShortString', type: 'error' },
         { inputs: [], name: 'InvalidSignature', type: 'error' },
         { inputs: [], name: 'PermitExpired', type: 'error' },
-        { inputs: [{ internalType: 'string', name: 'str', type: 'string' }], name: 'StringTooLong', type: 'error' },
+        {
+          inputs: [{ internalType: 'string', name: 'str', type: 'string' }],
+          name: 'StringTooLong',
+          type: 'error',
+        },
         {
           inputs: [{ internalType: 'address', name: 'from', type: 'address' }],
           name: 'TransferFromNotInAllowlist',
@@ -1963,4 +2013,4 @@ export default {
       ],
     },
   },
-} as const;
+} as const

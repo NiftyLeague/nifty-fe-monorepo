@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   PausableUpgradeable,
   PausableUpgradeableInterface,
-} from '../../../../@openzeppelin/contracts-upgradeable/security/PausableUpgradeable';
+} from '../../../../@openzeppelin/contracts-upgradeable/security/PausableUpgradeable'
 
 const _abi = [
   {
@@ -34,14 +34,14 @@ const _abi = [
     stateMutability: 'view',
     type: 'function',
   },
-] as const;
+] as const
 
 export class PausableUpgradeable__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): PausableUpgradeableInterface {
-    return new Interface(_abi) as PausableUpgradeableInterface;
+    return new Interface(_abi) as PausableUpgradeableInterface
   }
   static connect(address: string, runner?: ContractRunner | null): PausableUpgradeable {
-    return new Contract(address, _abi, runner) as unknown as PausableUpgradeable;
+    return new Contract(address, _abi, runner) as unknown as PausableUpgradeable
   }
 }

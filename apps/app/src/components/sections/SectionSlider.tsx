@@ -1,24 +1,24 @@
-'use client';
+'use client'
 
-import { Box, Stack } from '@mui/material';
-import PaginationIconOnly from '@/components/pagination/PaginationIconOnly';
-import { PropsWithChildren, ReactNode, useRef } from 'react';
-import type { SxProps, Theme } from '@mui/system';
-import Slider, { Settings } from 'react-slick';
-import { sectionSpacing } from '@nl/theme';
-import SectionTitle from './SectionTitle';
+import { Box, Stack } from '@mui/material'
+import PaginationIconOnly from '@/components/pagination/PaginationIconOnly'
+import { PropsWithChildren, ReactNode, useRef } from 'react'
+import type { SxProps, Theme } from '@mui/system'
+import Slider, { Settings } from 'react-slick'
+import { sectionSpacing } from '@nl/theme'
+import SectionTitle from './SectionTitle'
 
-import '@/styles/slick.css';
+import '@/styles/slick.css'
 
 interface Props {
-  title: string | React.ReactNode;
-  firstSection?: boolean;
-  actions?: ReactNode;
-  sliderSettingsOverride?: Settings;
-  isSlider?: boolean;
-  children?: React.ReactNode;
-  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-  styles?: { root?: SxProps<Theme>; headerRow?: SxProps<Theme>; mainRow?: SxProps<Theme> };
+  title: string | React.ReactNode
+  firstSection?: boolean
+  actions?: ReactNode
+  sliderSettingsOverride?: Settings
+  isSlider?: boolean
+  children?: React.ReactNode
+  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  styles?: { root?: SxProps<Theme>; headerRow?: SxProps<Theme>; mainRow?: SxProps<Theme> }
 }
 
 const SectionSlider = ({
@@ -31,7 +31,7 @@ const SectionSlider = ({
   variant = 'h2',
   styles,
 }: PropsWithChildren<Props>): React.ReactNode => {
-  const refSlider = useRef<Slider>(null);
+  const refSlider = useRef<Slider>(null)
   const settings = {
     dots: false,
     swipeToSlide: false,
@@ -52,15 +52,15 @@ const SectionSlider = ({
       { breakpoint: 640, settings: { slidesToShow: 1 } },
     ],
     ...sliderSettingsOverride,
-  } as Settings;
+  } as Settings
 
   const onClickNext = () => {
-    refSlider?.current?.slickNext();
-  };
+    refSlider?.current?.slickNext()
+  }
 
   const onClickPrev = () => {
-    refSlider?.current?.slickPrev();
-  };
+    refSlider?.current?.slickPrev()
+  }
 
   return (
     <Stack direction="column" spacing={sectionSpacing} sx={{ ...styles?.root }}>
@@ -71,7 +71,9 @@ const SectionSlider = ({
           actions={
             <Stack direction="row" sx={{ gap: 2 }}>
               {actions}
-              {isSlider && <PaginationIconOnly onClickNext={onClickNext} onClickPrev={onClickPrev} />}
+              {isSlider && (
+                <PaginationIconOnly onClickNext={onClickNext} onClickPrev={onClickPrev} />
+              )}
             </Stack>
           }
         >
@@ -88,7 +90,7 @@ const SectionSlider = ({
         )}
       </Box>
     </Stack>
-  );
-};
+  )
+}
 
-export default SectionSlider;
+export default SectionSlider

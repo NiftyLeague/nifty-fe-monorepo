@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   OwnableUpgradeable,
   OwnableUpgradeableInterface,
-} from '../../../../@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable';
+} from '../../../../@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable'
 
 const _abi = [
   {
@@ -31,7 +31,13 @@ const _abi = [
     stateMutability: 'view',
     type: 'function',
   },
-  { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+  {
+    inputs: [],
+    name: 'renounceOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
   {
     inputs: [{ internalType: 'address', name: 'newOwner', type: 'address' }],
     name: 'transferOwnership',
@@ -39,14 +45,14 @@ const _abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-] as const;
+] as const
 
 export class OwnableUpgradeable__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): OwnableUpgradeableInterface {
-    return new Interface(_abi) as OwnableUpgradeableInterface;
+    return new Interface(_abi) as OwnableUpgradeableInterface
   }
   static connect(address: string, runner?: ContractRunner | null): OwnableUpgradeable {
-    return new Contract(address, _abi, runner) as unknown as OwnableUpgradeable;
+    return new Contract(address, _abi, runner) as unknown as OwnableUpgradeable
   }
 }

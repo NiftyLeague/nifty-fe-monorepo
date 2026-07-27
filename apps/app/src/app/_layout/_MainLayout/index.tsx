@@ -1,98 +1,106 @@
-'use client';
+'use client'
 
 // third party
-import { type PropsWithChildren, useEffect, useMemo } from 'react';
-import { usePathname } from 'next/navigation';
-import { useAccount, useSwitchChain } from 'wagmi';
-import PerfectScrollbar from 'react-perfect-scrollbar';
+import { type PropsWithChildren, useEffect, useMemo } from 'react'
+import { usePathname } from 'next/navigation'
+import { useAccount, useSwitchChain } from 'wagmi'
+import PerfectScrollbar from 'react-perfect-scrollbar'
 
 // Redux
-import { openDrawer } from '@/store/slices/menu';
-import { useDispatch, useSelector } from '@/store/hooks';
+import { openDrawer } from '@/store/slices/menu'
+import { useDispatch, useSelector } from '@/store/hooks'
 
 // material-ui
-import { styled, appDrawerWidth, appHeaderHeight, container } from '@nl/theme';
-import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
+import { styled, appDrawerWidth, appHeaderHeight, container } from '@nl/theme'
+import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material'
 
 // React Toastify
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify'
 
 // project imports
-import { cn } from '@nl/ui/utils';
-import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
-import navigation from '@/constants/menu-items';
-import { useConnectedToIMXCheck } from '@/hooks/useImxProvider';
-import { TARGET_NETWORK } from '@/constants/networks';
+import { cn } from '@nl/ui/utils'
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
+import navigation from '@/constants/menu-items'
+import { useConnectedToIMXCheck } from '@/hooks/useImxProvider'
+import { TARGET_NETWORK } from '@/constants/networks'
 
 // components
-import { Icon } from '@nl/ui/base/icon';
-import Breadcrumbs from '@/components/extended/Breadcrumbs';
-import Snackbar from '@/components/extended/Snackbar';
-import Header from './_Header';
-import Sidebar from './_Sidebar';
+import { Icon } from '@nl/ui/base/icon'
+import Breadcrumbs from '@/components/extended/Breadcrumbs'
+import Snackbar from '@/components/extended/Snackbar'
+import Header from './_Header'
+import Sidebar from './_Sidebar'
 
 // styles
-const Main = styled('main', { shouldForwardProp: prop => prop !== 'open' })<{ open: boolean }>(({ theme }) => ({
-  ...theme.typography.mainContent,
+const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{ open: boolean }>(
+  ({ theme }) => ({
+    ...theme.typography.mainContent,
 
-  variants: [
-    {
-      props: ({ open }: { open: boolean }) => !open,
+    variants: [
+      {
+        props: ({ open }: { open: boolean }) => !open,
 
-      style: {
-        borderBottomLeftRadius: 0,
-        borderBottomRightRadius: 0,
-        transition: theme.transitions.create('margin', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.shorter,
-        }),
-        marginTop: appHeaderHeight,
-        height: `calc(100vh - ${appHeaderHeight}px)`,
-        [theme.breakpoints.up('lg')]: { marginLeft: -appDrawerWidth, width: `calc(100% - ${appDrawerWidth}px)` },
-        [theme.breakpoints.down('lg')]: { marginLeft: '20px', width: `calc(100% - ${appDrawerWidth}px)` },
-        [theme.breakpoints.down('md')]: {
-          marginTop: '60px',
-          marginLeft: '10px',
-          width: `calc(100% - ${appDrawerWidth}px)`,
+        style: {
+          borderBottomLeftRadius: 0,
+          borderBottomRightRadius: 0,
+          transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.shorter,
+          }),
+          marginTop: appHeaderHeight,
+          height: `calc(100vh - ${appHeaderHeight}px)`,
+          [theme.breakpoints.up('lg')]: {
+            marginLeft: -appDrawerWidth,
+            width: `calc(100% - ${appDrawerWidth}px)`,
+          },
+          [theme.breakpoints.down('lg')]: {
+            marginLeft: '20px',
+            width: `calc(100% - ${appDrawerWidth}px)`,
+          },
+          [theme.breakpoints.down('md')]: {
+            marginTop: '60px',
+            marginLeft: '10px',
+            width: `calc(100% - ${appDrawerWidth}px)`,
+          },
         },
       },
-    },
-    {
-      props: ({ open }: { open: boolean }) => open,
+      {
+        props: ({ open }: { open: boolean }) => open,
 
-      style: {
-        transition: theme.transitions.create('margin', {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.shorter,
-        }),
-        marginLeft: 0,
-        borderBottomLeftRadius: 0,
-        borderBottomRightRadius: 0,
-        marginTop: appHeaderHeight,
-        height: `calc(100vh - ${appHeaderHeight}px)`,
-        width: `calc(100% - ${appDrawerWidth}px)`,
-        [theme.breakpoints.down('lg')]: { marginLeft: '20px' },
-        [theme.breakpoints.down('md')]: { marginTop: '60px', marginLeft: '10px' },
+        style: {
+          transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.shorter,
+          }),
+          marginLeft: 0,
+          borderBottomLeftRadius: 0,
+          borderBottomRightRadius: 0,
+          marginTop: appHeaderHeight,
+          height: `calc(100vh - ${appHeaderHeight}px)`,
+          width: `calc(100% - ${appDrawerWidth}px)`,
+          [theme.breakpoints.down('lg')]: { marginLeft: '20px' },
+          [theme.breakpoints.down('md')]: { marginTop: '60px', marginLeft: '10px' },
+        },
       },
-    },
-  ],
-}));
+    ],
+  })
+)
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
 const MainLayout = ({ children }: PropsWithChildren) => {
-  const pathname = usePathname();
-  const dispatch = useDispatch();
-  const { address, chain } = useAccount();
-  const { switchChain } = useSwitchChain();
-  const isConnectedToIMX = useConnectedToIMXCheck();
+  const pathname = usePathname()
+  const dispatch = useDispatch()
+  const { address, chain } = useAccount()
+  const { switchChain } = useSwitchChain()
+  const isConnectedToIMX = useConnectedToIMXCheck()
 
-  const matchDownXL = useMediaQuery('(max-width:1280px)');
-  const { drawerOpen } = useSelector(state => state.menu);
+  const matchDownXL = useMediaQuery('(max-width:1280px)')
+  const { drawerOpen } = useSelector((state) => state.menu)
 
   useEffect(() => {
-    dispatch(openDrawer(!matchDownXL));
-  }, [matchDownXL, dispatch]);
+    dispatch(openDrawer(!matchDownXL))
+  }, [matchDownXL, dispatch])
 
   const header = useMemo(
     () => (
@@ -100,9 +108,9 @@ const MainLayout = ({ children }: PropsWithChildren) => {
         <Header />
       </Toolbar>
     ),
-    [],
-  );
-  const isNoFilterPage = pathname && /(degens|dashboard\/degens)/.test(pathname);
+    []
+  )
+  const isNoFilterPage = pathname && /(degens|dashboard\/degens)/.test(pathname)
 
   const getContent = () => {
     if (container && !isNoFilterPage) {
@@ -111,15 +119,15 @@ const MainLayout = ({ children }: PropsWithChildren) => {
           <Breadcrumbs separator="chevron-right" navigation={navigation} icon title rightAlign />
           {children}
         </div>
-      );
+      )
     }
     return (
       <>
         <Breadcrumbs separator="chevron-right" navigation={navigation} icon title rightAlign />
         {children}
       </>
-    );
-  };
+    )
+  }
 
   return (
     <>
@@ -132,7 +140,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
           elevation={0}
           sx={{
             bgcolor: 'var(--color-sidebar)',
-            transition: theme => (drawerOpen ? theme.transitions.create('width') : 'none'),
+            transition: (theme) => (drawerOpen ? theme.transitions.create('width') : 'none'),
           }}
         >
           {address && TARGET_NETWORK.chainId !== chain?.id && (
@@ -148,7 +156,11 @@ const MainLayout = ({ children }: PropsWithChildren) => {
                 justifyContent: 'center',
               }}
             >
-              <Icon name={isConnectedToIMX ? 'info' : 'triangle-alert'} size="lg" strokeWidth={2.5} />
+              <Icon
+                name={isConnectedToIMX ? 'info' : 'triangle-alert'}
+                size="lg"
+                strokeWidth={2.5}
+              />
 
               <Typography sx={{ px: 2, fontSize: 20, fontWeight: 600 }}>
                 {isConnectedToIMX
@@ -184,7 +196,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
       <Snackbar />
       <ToastContainer closeOnClick draggable />
     </>
-  );
-};
+  )
+}
 
-export default MainLayout;
+export default MainLayout

@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   LinkTokenInterface,
   LinkTokenInterfaceInterface,
-} from '../../../../../../../@chainlink/contracts/src/v0.8/shared/interfaces/LinkTokenInterface';
+} from '../../../../../../../@chainlink/contracts/src/v0.8/shared/interfaces/LinkTokenInterface'
 
 const _abi = [
   {
@@ -116,14 +116,14 @@ const _abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-] as const;
+] as const
 
 export class LinkTokenInterface__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): LinkTokenInterfaceInterface {
-    return new Interface(_abi) as LinkTokenInterfaceInterface;
+    return new Interface(_abi) as LinkTokenInterfaceInterface
   }
   static connect(address: string, runner?: ContractRunner | null): LinkTokenInterface {
-    return new Contract(address, _abi, runner) as unknown as LinkTokenInterface;
+    return new Contract(address, _abi, runner) as unknown as LinkTokenInterface
   }
 }

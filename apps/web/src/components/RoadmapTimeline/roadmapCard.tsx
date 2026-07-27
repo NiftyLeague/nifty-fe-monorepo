@@ -1,16 +1,16 @@
-import Image from 'next/image';
-import { Icon } from '@nl/ui/base/icon';
-import { cn } from '@nl/ui/utils';
-import styles from './index.module.css';
+import Image from 'next/image'
+import { Icon } from '@nl/ui/base/icon'
+import { cn } from '@nl/ui/utils'
+import styles from './index.module.css'
 
 interface RoadmapCardProps {
-  body: React.ReactNode;
-  current?: boolean;
-  completed?: boolean;
-  completionDate?: string;
-  divider?: boolean;
-  image?: { src: string; width: number; height: number; style: { top: string; right?: string } };
-  title: string | React.ReactNode;
+  body: React.ReactNode
+  current?: boolean
+  completed?: boolean
+  completionDate?: string
+  divider?: boolean
+  image?: { src: string; width: number; height: number; style: { top: string; right?: string } }
+  title: string | React.ReactNode
 }
 
 const RoadmapCard = ({
@@ -26,7 +26,9 @@ const RoadmapCard = ({
     {divider ? (
       <h4 className={styles.cd_timeline_divider}>Options below are TBD!</h4>
     ) : (
-      <div className={cn(styles.cd_timeline_checkpoint, { [styles.completed as string]: completed })}>
+      <div
+        className={cn(styles.cd_timeline_checkpoint, { [styles.completed as string]: completed })}
+      >
         {completed && <Icon name="check" strokeWidth={2.5} className="m-auto" />}
       </div>
     )}
@@ -69,6 +71,6 @@ const RoadmapCard = ({
       </div>
     ) : null}
   </div>
-);
+)
 
-export default RoadmapCard;
+export default RoadmapCard

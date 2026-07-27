@@ -716,6 +716,6 @@ const MT_GAWX_BURNINGS = {
     },
   ],
   count: 119,
-};
+}
 
-export const MT_GAWX_LEADERBOARDS = { burnings: MT_GAWX_BURNINGS.data };
+export const MT_GAWX_LEADERBOARDS = { burnings: MT_GAWX_BURNINGS.data }

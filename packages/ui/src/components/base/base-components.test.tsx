@@ -1,7 +1,7 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import { beforeEach, describe, expect, it, jest, mock } from 'bun:test';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@nl/ui/base/accordion';
-import { Alert, AlertDescription, AlertTitle } from '@nl/ui/base/alert';
+import { fireEvent, render, screen } from '@testing-library/react'
+import { beforeEach, describe, expect, it, jest, mock } from 'bun:test'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@nl/ui/base/accordion'
+import { Alert, AlertDescription, AlertTitle } from '@nl/ui/base/alert'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,12 +12,20 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@nl/ui/base/alert-dialog';
-import { Avatar, AvatarFallback, AvatarImage } from '@nl/ui/base/avatar';
-import { Badge } from '@nl/ui/base/badge';
-import { Button } from '@nl/ui/base/button';
-import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@nl/ui/base/card';
-import { Checkbox } from '@nl/ui/base/checkbox';
+} from '@nl/ui/base/alert-dialog'
+import { Avatar, AvatarFallback, AvatarImage } from '@nl/ui/base/avatar'
+import { Badge } from '@nl/ui/base/badge'
+import { Button } from '@nl/ui/base/button'
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@nl/ui/base/card'
+import { Checkbox } from '@nl/ui/base/checkbox'
 import {
   Dialog,
   DialogClose,
@@ -27,10 +35,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@nl/ui/base/dialog';
-import { Icon } from '@nl/ui/base/icon';
-import { Input } from '@nl/ui/base/input';
-import { Label } from '@nl/ui/base/label';
+} from '@nl/ui/base/dialog'
+import { Icon } from '@nl/ui/base/icon'
+import { Input } from '@nl/ui/base/input'
+import { Label } from '@nl/ui/base/label'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -40,7 +48,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   NavigationMenuViewport,
-} from '@nl/ui/base/navigation-menu';
+} from '@nl/ui/base/navigation-menu'
 import {
   Pagination,
   PaginationContent,
@@ -49,10 +57,10 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from '@nl/ui/base/pagination';
-import { Progress } from '@nl/ui/base/progress';
-import { RadioGroup, RadioGroupItem } from '@nl/ui/base/radio-group';
-import { Separator } from '@nl/ui/base/separator';
+} from '@nl/ui/base/pagination'
+import { Progress } from '@nl/ui/base/progress'
+import { RadioGroup, RadioGroupItem } from '@nl/ui/base/radio-group'
+import { Separator } from '@nl/ui/base/separator'
 import {
   Sheet,
   SheetClose,
@@ -62,28 +70,33 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@nl/ui/base/sheet';
-import { Skeleton } from '@nl/ui/base/skeleton';
-import { Slider } from '@nl/ui/base/slider';
-import { Switch } from '@nl/ui/base/switch';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@nl/ui/base/tabs';
-import { Toggle } from '@nl/ui/base/toggle';
-import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@nl/ui/base/tooltip';
+} from '@nl/ui/base/sheet'
+import { Skeleton } from '@nl/ui/base/skeleton'
+import { Slider } from '@nl/ui/base/slider'
+import { Switch } from '@nl/ui/base/switch'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@nl/ui/base/tabs'
+import { Toggle } from '@nl/ui/base/toggle'
+import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@nl/ui/base/tooltip'
 
 beforeEach(() => {
   mock.module('lucide-react/dynamic', () => ({
-    DynamicIcon: ({ name, fallback: Fallback }: { name: string; fallback: () => React.ReactNode }) =>
-      name === 'circle' ? <svg aria-label={name} /> : <Fallback />,
-  }));
-});
+    DynamicIcon: ({
+      name,
+      fallback: Fallback,
+    }: {
+      name: string
+      fallback: () => React.ReactNode
+    }) => (name === 'circle' ? <svg aria-label={name} /> : <Fallback />),
+  }))
+})
 
-let Icon: typeof import('./icon').Icon;
+let Icon: typeof import('./icon').Icon
 
 beforeEach(async () => {
-  const iconModule = await import('./icon');
-  Icon = iconModule.Icon;
-});
+  const iconModule = await import('./icon')
+  Icon = iconModule.Icon
+})
 
 describe('base visual primitives', () => {
   it('renders semantic content and style variants', () => {
@@ -124,15 +137,15 @@ describe('base visual primitives', () => {
         <Progress value={0} aria-label="empty progress" />
         <Separator />
         <Skeleton>Loading</Skeleton>
-      </>,
-    );
+      </>
+    )
 
-    expect(screen.getByRole('alert')?.textContent).toContain('Danger');
-    expect(screen.getByRole('button', { name: 'Save' })).not.toBeNull();
-    expect((screen.getByLabelText('Name') as HTMLInputElement)?.value).toBe('Degen');
-    expect(screen.getByLabelText('circle')).not.toBeNull();
-    expect(screen.getByRole('progressbar', { name: 'progress' })).not.toBeNull();
-  });
+    expect(screen.getByRole('alert')?.textContent).toContain('Danger')
+    expect(screen.getByRole('button', { name: 'Save' })).not.toBeNull()
+    expect((screen.getByLabelText('Name') as HTMLInputElement)?.value).toBe('Degen')
+    expect(screen.getByLabelText('circle')).not.toBeNull()
+    expect(screen.getByRole('progressbar', { name: 'progress' })).not.toBeNull()
+  })
 
   it('renders pagination navigation and active states', () => {
     render(
@@ -156,14 +169,14 @@ describe('base visual primitives', () => {
             <PaginationNext href="/2" />
           </PaginationItem>
         </PaginationContent>
-      </Pagination>,
-    );
+      </Pagination>
+    )
 
-    expect(screen.getByRole('navigation', { name: 'pagination' })).not.toBeNull();
-    expect(screen.getByRole('link', { name: '1' })?.getAttribute('aria-current')).toBe('page');
-    expect(screen.getByLabelText('Go to next page')?.getAttribute('href')).toBe('/2');
-  });
-});
+    expect(screen.getByRole('navigation', { name: 'pagination' })).not.toBeNull()
+    expect(screen.getByRole('link', { name: '1' })?.getAttribute('aria-current')).toBe('page')
+    expect(screen.getByLabelText('Go to next page')?.getAttribute('href')).toBe('/2')
+  })
+})
 
 describe('base controlled primitives', () => {
   it('renders disclosure, selection, range, tab, and toggle controls', () => {
@@ -200,19 +213,21 @@ describe('base controlled primitives', () => {
             Right
           </ToggleGroupItem>
         </ToggleGroup>
-      </>,
-    );
+      </>
+    )
 
-    expect(screen.getByText('Expanded details')).toBeTruthy();
-    expect(screen.getByRole('checkbox', { name: 'Accept' })?.getAttribute('data-state')).toBe('checked');
-    expect(screen.getByRole('tab', { name: 'First' })?.getAttribute('data-state')).toBe('active');
-    expect(screen.getByText('First panel')).toBeTruthy();
-  });
-});
+    expect(screen.getByText('Expanded details')).toBeTruthy()
+    expect(screen.getByRole('checkbox', { name: 'Accept' })?.getAttribute('data-state')).toBe(
+      'checked'
+    )
+    expect(screen.getByRole('tab', { name: 'First' })?.getAttribute('data-state')).toBe('active')
+    expect(screen.getByText('First panel')).toBeTruthy()
+  })
+})
 
 describe('base overlay and navigation primitives', () => {
   it('opens and closes dialogs while forwarding state callbacks', () => {
-    const onOpenChange = mock();
+    const onOpenChange = mock()
     render(
       <Dialog onOpenChange={onOpenChange}>
         <DialogTrigger>Open dialog</DialogTrigger>
@@ -225,15 +240,15 @@ describe('base overlay and navigation primitives', () => {
             <DialogClose>Done</DialogClose>
           </DialogFooter>
         </DialogContent>
-      </Dialog>,
-    );
+      </Dialog>
+    )
 
-    fireEvent.click(screen.getByRole('button', { name: 'Open dialog' }));
-    expect(screen.getByRole('dialog')?.textContent).toContain('Dialog title');
-    expect(document.documentElement.style.overflow).toBe('hidden');
-    fireEvent.click(screen.getByRole('button', { name: 'Done' }));
-    expect(onOpenChange).toHaveBeenLastCalledWith(false);
-  });
+    fireEvent.click(screen.getByRole('button', { name: 'Open dialog' }))
+    expect(screen.getByRole('dialog')?.textContent).toContain('Dialog title')
+    expect(document.documentElement.style.overflow).toBe('hidden')
+    fireEvent.click(screen.getByRole('button', { name: 'Done' }))
+    expect(onOpenChange).toHaveBeenLastCalledWith(false)
+  })
 
   it('renders alert-dialog, sheet sides, tooltip, and navigation composition', () => {
     const { rerender } = render(
@@ -249,9 +264,9 @@ describe('base overlay and navigation primitives', () => {
             <AlertDialogAction variant="destructive">Continue</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
-      </AlertDialog>,
-    );
-    expect(screen.getByRole('alertdialog')?.textContent).toContain('Confirm');
+      </AlertDialog>
+    )
+    expect(screen.getByRole('alertdialog')?.textContent).toContain('Confirm')
 
     rerender(
       <Sheet open>
@@ -265,9 +280,9 @@ describe('base overlay and navigation primitives', () => {
             <SheetClose>Finish</SheetClose>
           </SheetFooter>
         </SheetContent>
-      </Sheet>,
-    );
-    expect(screen.getByRole('dialog')?.textContent).toContain('Sheet title');
+      </Sheet>
+    )
+    expect(screen.getByRole('dialog')?.textContent).toContain('Sheet title')
 
     rerender(
       <>
@@ -289,9 +304,9 @@ describe('base overlay and navigation primitives', () => {
           <NavigationMenuIndicator />
           <NavigationMenuViewport />
         </NavigationMenu>
-      </>,
-    );
-    expect(screen.getByRole('tooltip')?.textContent).toContain('Helpful text');
-    expect(screen.getByRole('button', { name: 'Products' })).not.toBeNull();
-  });
-});
+      </>
+    )
+    expect(screen.getByRole('tooltip')?.textContent).toContain('Helpful text')
+    expect(screen.getByRole('button', { name: 'Products' })).not.toBeNull()
+  })
+})

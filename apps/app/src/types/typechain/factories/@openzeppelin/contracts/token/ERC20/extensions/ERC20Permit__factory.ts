@@ -2,15 +2,19 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   ERC20Permit,
   ERC20PermitInterface,
-} from '../../../../../../@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit';
+} from '../../../../../../@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit'
 
 const _abi = [
   { inputs: [], name: 'InvalidShortString', type: 'error' },
-  { inputs: [{ internalType: 'string', name: 'str', type: 'string' }], name: 'StringTooLong', type: 'error' },
+  {
+    inputs: [{ internalType: 'string', name: 'str', type: 'string' }],
+    name: 'StringTooLong',
+    type: 'error',
+  },
   {
     anonymous: false,
     inputs: [
@@ -172,14 +176,14 @@ const _abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-] as const;
+] as const
 
 export class ERC20Permit__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): ERC20PermitInterface {
-    return new Interface(_abi) as ERC20PermitInterface;
+    return new Interface(_abi) as ERC20PermitInterface
   }
   static connect(address: string, runner?: ContractRunner | null): ERC20Permit {
-    return new Contract(address, _abi, runner) as unknown as ERC20Permit;
+    return new Contract(address, _abi, runner) as unknown as ERC20Permit
   }
 }

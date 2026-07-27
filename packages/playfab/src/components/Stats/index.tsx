@@ -1,6 +1,6 @@
-import { formatNumberToDisplay } from '@nl/ui/utils';
-import { useUserContext } from '../../hooks/useUserContext';
-import { Input } from '@nl/ui/custom/input';
+import { formatNumberToDisplay } from '@nl/ui/utils'
+import { useUserContext } from '../../hooks/useUserContext'
+import { Input } from '@nl/ui/custom/input'
 
 const STAT_MAP = {
   NiftyPlayersWin: { displayName: 'Total Wins', icon: '🏆' },
@@ -15,10 +15,10 @@ const STAT_MAP = {
   PlayerExpV2: { displayName: 'Experience V2', icon: '🚀' },
   nifty_wen_leaderboard: { displayName: 'WEN Leaderboard', icon: '📈' },
   NiftyTrophyStatistic: { displayName: 'Trophies', icon: '🏆' },
-};
+}
 
 export default function Stats() {
-  const { stats, isLoggedIn } = useUserContext();
+  const { stats, isLoggedIn } = useUserContext()
 
   return isLoggedIn ? (
     <div className="grid gap-4">
@@ -28,13 +28,13 @@ export default function Stats() {
             <h3 className="text-lg">Player STATs</h3>
           </legend>
           <div className="grid grid-cols-2 gap-2">
-            {stats?.map(stat => {
-              const { StatisticName, Value } = stat;
-              if (!StatisticName) return null;
+            {stats?.map((stat) => {
+              const { StatisticName, Value } = stat
+              if (!StatisticName) return null
               const statInfo = STAT_MAP[StatisticName as keyof typeof STAT_MAP] ?? {
                 displayName: StatisticName,
                 icon: '⭐',
-              };
+              }
               return (
                 <Input
                   key={StatisticName}
@@ -45,11 +45,11 @@ export default function Stats() {
                   label={statInfo.displayName}
                   disabled
                 />
-              );
+              )
             })}
           </div>
         </div>
       </fieldset>
     </div>
-  ) : null;
+  ) : null
 }

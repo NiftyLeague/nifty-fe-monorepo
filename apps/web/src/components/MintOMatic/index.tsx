@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper';
+import Image from 'next/image'
+import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
 
 const MintOMatic = () => {
   return (
@@ -57,7 +57,7 @@ const MintOMatic = () => {
         </div>
       </AnimatedWrapper>
     </>
-  );
-};
+  )
+}
 
-export default MintOMatic;
+export default MintOMatic

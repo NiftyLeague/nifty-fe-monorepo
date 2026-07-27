@@ -2,11 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   IMerkleDistributor,
   IMerkleDistributorInterface,
-} from '../../../../src/contracts/interfaces/IMerkleDistributor';
+} from '../../../../src/contracts/interfaces/IMerkleDistributor'
 
 const _abi = [
   {
@@ -52,14 +52,14 @@ const _abi = [
     stateMutability: 'view',
     type: 'function',
   },
-] as const;
+] as const
 
 export class IMerkleDistributor__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): IMerkleDistributorInterface {
-    return new Interface(_abi) as IMerkleDistributorInterface;
+    return new Interface(_abi) as IMerkleDistributorInterface
   }
   static connect(address: string, runner?: ContractRunner | null): IMerkleDistributor {
-    return new Contract(address, _abi, runner) as unknown as IMerkleDistributor;
+    return new Contract(address, _abi, runner) as unknown as IMerkleDistributor
   }
 }

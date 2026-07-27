@@ -1,61 +1,61 @@
-import { act, renderHook } from '@testing-library/react';
-import { describe, expect, it, mock } from 'bun:test';
-import { useScrollDetection } from './useScrollDetection';
+import { act, renderHook } from '@testing-library/react'
+import { describe, expect, it, mock } from 'bun:test'
+import { useScrollDetection } from './useScrollDetection'
 
-type ObserverCb = (entries: { isIntersecting: boolean }[]) => void;
+type ObserverCb = (entries: { isIntersecting: boolean }[]) => void
 
 function installObserver() {
-  const observe = mock();
-  const unobserve = mock();
-  const disconnect = mock();
-  let capturedCb: ObserverCb | undefined;
+  const observe = mock()
+  const unobserve = mock()
+  const disconnect = mock()
+  let capturedCb: ObserverCb | undefined
 
   class MockObserver {
     constructor(cb: ObserverCb) {
-      capturedCb = cb;
+      capturedCb = cb
     }
-    observe = observe;
-    unobserve = unobserve;
-    disconnect = disconnect;
+    observe = observe
+    unobserve = unobserve
+    disconnect = disconnect
   }
-  Object.defineProperty(window, 'IntersectionObserver', { configurable: true, value: MockObserver });
-  return { observe, unobserve, trigger: (v: boolean) => capturedCb?.([{ isIntersecting: v }]) };
+  Object.defineProperty(window, 'IntersectionObserver', { configurable: true, value: MockObserver })
+  return { observe, unobserve, trigger: (v: boolean) => capturedCb?.([{ isIntersecting: v }]) }
 }
 
 describe('useScrollDetection', () => {
   it('returns a ref and defaults isIntersecting to false', () => {
-    installObserver();
-    const { result } = renderHook(() => useScrollDetection());
-    expect(result.current.ref).toBeTruthy();
-    expect(result.current.isIntersecting).toBe(false);
-  });
+    installObserver()
+    const { result } = renderHook(() => useScrollDetection())
+    expect(result.current.ref).toBeTruthy()
+    expect(result.current.isIntersecting).toBe(false)
+  })
 
   it('observes the element and updates isIntersecting when it enters view', () => {
-    const { observe, unobserve, trigger } = installObserver();
-    const el = document.createElement('div');
+    const { observe, unobserve, trigger } = installObserver()
+    const el = document.createElement('div')
 
-    const { result, rerender, unmount } = renderHook(() => useScrollDetection());
+    const { result, rerender, unmount } = renderHook(() => useScrollDetection())
     // attach ref then re-run the effect
     act(() => {
-      result.current.ref.current = el;
-    });
-    rerender();
+      result.current.ref.current = el
+    })
+    rerender()
 
-    expect(observe).toHaveBeenCalled();
+    expect(observe).toHaveBeenCalled()
 
-    act(() => trigger(true));
-    expect(result.current.isIntersecting).toBe(true);
+    act(() => trigger(true))
+    expect(result.current.isIntersecting).toBe(true)
 
-    act(() => trigger(false));
-    expect(result.current.isIntersecting).toBe(false);
+    act(() => trigger(false))
+    expect(result.current.isIntersecting).toBe(false)
 
-    unmount();
-    expect(unobserve).toHaveBeenCalled();
-  });
+    unmount()
+    expect(unobserve).toHaveBeenCalled()
+  })
 
   it('does nothing when no element is attached', () => {
-    const { observe } = installObserver();
-    renderHook(() => useScrollDetection());
-    expect(observe).not.toHaveBeenCalled();
-  });
-});
+    const { observe } = installObserver()
+    renderHook(() => useScrollDetection())
+    expect(observe).not.toHaveBeenCalled()
+  })
+})

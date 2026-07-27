@@ -2,8 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
-import type { INiftyEquipment, INiftyEquipmentInterface } from '../../../../src/contracts/interfaces/INiftyEquipment';
+import { Contract, Interface, type ContractRunner } from 'ethers'
+import type {
+  INiftyEquipment,
+  INiftyEquipmentInterface,
+} from '../../../../src/contracts/interfaces/INiftyEquipment'
 
 const _abi = [
   {
@@ -30,14 +33,14 @@ const _abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-] as const;
+] as const
 
 export class INiftyEquipment__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): INiftyEquipmentInterface {
-    return new Interface(_abi) as INiftyEquipmentInterface;
+    return new Interface(_abi) as INiftyEquipmentInterface
   }
   static connect(address: string, runner?: ContractRunner | null): INiftyEquipment {
-    return new Contract(address, _abi, runner) as unknown as INiftyEquipment;
+    return new Contract(address, _abi, runner) as unknown as INiftyEquipment
   }
 }

@@ -2,10 +2,10 @@
 // https://nextjs.org/docs/api-reference/next.config.js/introduction
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
-import type { NextConfig } from 'next';
-import { withSentryConfig } from '@sentry/nextjs';
+import type { NextConfig } from 'next'
+import { withSentryConfig } from '@sentry/nextjs'
 
-const ENV = (process.env.VERCEL_ENV as 'production' | 'preview' | undefined) ?? 'development';
+const ENV = (process.env.VERCEL_ENV as 'production' | 'preview' | undefined) ?? 'development'
 
 const nextConfig: NextConfig = {
   typescript: { ignoreBuildErrors: true },
@@ -15,12 +15,12 @@ const nextConfig: NextConfig = {
   // serverExternalPackages: ['pino-pretty', 'lokijs', 'encoding', 'sodium-native', 'require-addon'],
   webpack: (config, { isServer }) => {
     // Map @wagmi/core connectors package to wagmi/connectors to avoid ESM issues
-    config.resolve.alias = { ...config.resolve.alias, '@wagmi/connectors': 'wagmi/connectors' };
+    config.resolve.alias = { ...config.resolve.alias, '@wagmi/connectors': 'wagmi/connectors' }
     // Externalize native modules: https://github.com/vercel/next.js/issues/86099
-    config.externals.push('pino-pretty', 'lokijs', 'encoding', 'sodium-native', 'require-addon');
-    return config;
+    config.externals.push('pino-pretty', 'lokijs', 'encoding', 'sodium-native', 'require-addon')
+    return config
   },
-};
+}
 
 // Injected content via Sentry wizard below
 
@@ -50,4 +50,4 @@ export default withSentryConfig(nextConfig, {
 
   // Capture React component names to see which component a user clicked on.
   webpack: { reactComponentAnnotation: { enabled: true }, treeshake: { removeDebugLogging: true } },
-});
+})

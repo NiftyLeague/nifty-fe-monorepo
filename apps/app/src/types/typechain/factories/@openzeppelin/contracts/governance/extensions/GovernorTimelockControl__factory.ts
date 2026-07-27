@@ -2,16 +2,20 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Interface, type ContractRunner } from 'ethers';
+import { Contract, Interface, type ContractRunner } from 'ethers'
 import type {
   GovernorTimelockControl,
   GovernorTimelockControlInterface,
-} from '../../../../../@openzeppelin/contracts/governance/extensions/GovernorTimelockControl';
+} from '../../../../../@openzeppelin/contracts/governance/extensions/GovernorTimelockControl'
 
 const _abi = [
   { inputs: [], name: 'Empty', type: 'error' },
   { inputs: [], name: 'InvalidShortString', type: 'error' },
-  { inputs: [{ internalType: 'string', name: 'str', type: 'string' }], name: 'StringTooLong', type: 'error' },
+  {
+    inputs: [{ internalType: 'string', name: 'str', type: 'string' }],
+    name: 'StringTooLong',
+    type: 'error',
+  },
   { anonymous: false, inputs: [], name: 'EIP712DomainChanged', type: 'event' },
   {
     anonymous: false,
@@ -434,14 +438,14 @@ const _abi = [
     type: 'function',
   },
   { stateMutability: 'payable', type: 'receive' },
-] as const;
+] as const
 
 export class GovernorTimelockControl__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): GovernorTimelockControlInterface {
-    return new Interface(_abi) as GovernorTimelockControlInterface;
+    return new Interface(_abi) as GovernorTimelockControlInterface
   }
   static connect(address: string, runner?: ContractRunner | null): GovernorTimelockControl {
-    return new Contract(address, _abi, runner) as unknown as GovernorTimelockControl;
+    return new Contract(address, _abi, runner) as unknown as GovernorTimelockControl
   }
 }

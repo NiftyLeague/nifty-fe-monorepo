@@ -1,18 +1,18 @@
-'use client';
+'use client'
 
-import { useContext } from 'react';
+import { useContext } from 'react'
 
 // auth provider
-import AuthContext from '@/contexts/AuthTokenContext';
+import AuthContext from '@/contexts/AuthTokenContext'
 
 // ==============================|| AUTH HOOKS ||============================== //
 
 const useAuth = () => {
-  const context = useContext(AuthContext);
+  const context = useContext(AuthContext)
 
-  if (!context) throw new Error('context must be use inside provider');
+  if (!context) throw new Error('context must be use inside provider')
 
-  return context;
-};
+  return context
+}
 
-export default useAuth;
+export default useAuth

@@ -3,16 +3,20 @@
 // `useUnityContext(config)` hook returning a rich context object. v8+ removed
 // it in favor of `useUnityLoader` + `useUnityInstance`. This provides the shape
 // the app consumers expect so the Next.js build resolves the named import.
-import { useMemo } from 'react';
+import { useMemo } from 'react'
 
 export interface UnityContextLike {
-  unityProvider: unknown;
-  isLoaded: boolean;
-  loadingProgression: number;
-  sendMessage: (gameObjectName: string, methodName: string, parameter?: string | number | boolean) => void;
-  requestFullscreen: () => void;
-  addEventListener: (eventName: string, callback: (...args: unknown[]) => void) => void;
-  removeEventListener: (eventName: string, callback: (...args: unknown[]) => void) => void;
+  unityProvider: unknown
+  isLoaded: boolean
+  loadingProgression: number
+  sendMessage: (
+    gameObjectName: string,
+    methodName: string,
+    parameter?: string | number | boolean
+  ) => void
+  requestFullscreen: () => void
+  addEventListener: (eventName: string, callback: (...args: unknown[]) => void) => void
+  removeEventListener: (eventName: string, callback: (...args: unknown[]) => void) => void
 }
 
 export function useUnityContext(_config: unknown): UnityContextLike {
@@ -26,8 +30,8 @@ export function useUnityContext(_config: unknown): UnityContextLike {
       addEventListener: () => undefined,
       removeEventListener: () => undefined,
     }),
-    [],
-  );
+    []
+  )
 }
 
-export default useUnityContext;
+export default useUnityContext

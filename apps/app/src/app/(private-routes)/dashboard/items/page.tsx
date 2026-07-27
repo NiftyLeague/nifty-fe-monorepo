@@ -1,70 +1,70 @@
-'use client';
+'use client'
 
-import { useMemo, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { v4 as uuidv4 } from 'uuid';
-import { Divider, Grid, Stack } from '@mui/material';
-import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery';
+import { useMemo, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { v4 as uuidv4 } from 'uuid'
+import { Divider, Grid, Stack } from '@mui/material'
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
-import ComicCard from '@/components/cards/ComicCard';
-import ViewComicDialog from '@/components/dialog/ViewComicDialog';
-import SectionSlider from '@/components/sections/SectionSlider';
+import ComicCard from '@/components/cards/ComicCard'
+import ViewComicDialog from '@/components/dialog/ViewComicDialog'
+import SectionSlider from '@/components/sections/SectionSlider'
 
-import useNFTsBalances from '@/hooks/balances/useNFTsBalances';
-import type { Comic, Item } from '@/types/marketplace';
-import { COMICS_PURCHASE_URL, ITEM_PURCHASE_URL } from '@/constants/url';
-import ComicDetail from '@/components/cards/ComicDetail';
-import ComicPlaceholder from '@/components/cards/Skeleton/ComicPlaceholder';
-import BuyCard from '@/components/cards/BuyCard';
-import WearableItemCard from '@/components/cards/WearableItemCard';
-import WearableSubItemCard from '@/components/cards/WearableSubItemCard';
-import ItemDetail from '@/components/cards/ItemDetail';
-import ViewItemDialog from '@/components/dialog/ViewItemDialog';
+import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
+import type { Comic, Item } from '@/types/marketplace'
+import { COMICS_PURCHASE_URL, ITEM_PURCHASE_URL } from '@/constants/url'
+import ComicDetail from '@/components/cards/ComicDetail'
+import ComicPlaceholder from '@/components/cards/Skeleton/ComicPlaceholder'
+import BuyCard from '@/components/cards/BuyCard'
+import WearableItemCard from '@/components/cards/WearableItemCard'
+import WearableSubItemCard from '@/components/cards/WearableSubItemCard'
+import ItemDetail from '@/components/cards/ItemDetail'
+import ViewItemDialog from '@/components/dialog/ViewItemDialog'
 
 const DashboardComicsPage = (): React.ReactNode => {
-  const [selectedComic, setSelectedComic] = useState<Comic | null>(null);
-  const [selectedItem, setSelectedItem] = useState<Item | null>(null);
-  const [selectedSubIndex, setSelectedSubIndex] = useState<number>(-1);
-  const { comicsBalances, loadingComics, itemsBalances, loadingItems } = useNFTsBalances();
-  const isSmallScreen = useMediaQuery('(max-width:1280px)');
-  const router = useRouter();
+  const [selectedComic, setSelectedComic] = useState<Comic | null>(null)
+  const [selectedItem, setSelectedItem] = useState<Item | null>(null)
+  const [selectedSubIndex, setSelectedSubIndex] = useState<number>(-1)
+  const { comicsBalances, loadingComics, itemsBalances, loadingItems } = useNFTsBalances()
+  const isSmallScreen = useMediaQuery('(max-width:1280px)')
+  const router = useRouter()
 
   const handleViewComic = (comic: Comic) => {
-    setSelectedComic(comic);
-  };
+    setSelectedComic(comic)
+  }
 
   const handleViewItem = (item: Item) => {
-    removeSubItemSelection();
-    setSelectedItem(item);
-  };
+    removeSubItemSelection()
+    setSelectedItem(item)
+  }
 
   const handleViewSubItem = (index: number) => {
-    setSelectedSubIndex(index);
-  };
+    setSelectedSubIndex(index)
+  }
 
   const removeComicSelection = () => {
-    setSelectedComic(null);
-  };
+    setSelectedComic(null)
+  }
 
   const removeItemSelection = () => {
-    setSelectedItem(null);
-    removeSubItemSelection();
-  };
+    setSelectedItem(null)
+    removeSubItemSelection()
+  }
 
   const removeSubItemSelection = () => {
-    setSelectedSubIndex(-1);
-  };
+    setSelectedSubIndex(-1)
+  }
 
   const handleCloseComicDialog = () => {
-    removeComicSelection();
-  };
+    removeComicSelection()
+  }
 
   const handleCloseItemDialog = () => {
-    removeItemSelection();
-  };
+    removeItemSelection()
+  }
 
-  const handleLaunchBurner = () => router.push('items/burner');
+  const handleLaunchBurner = () => router.push('items/burner')
 
   const renderComics = useMemo(() => {
     if (comicsBalances.length === 0 && loadingComics) {
@@ -72,9 +72,9 @@ const DashboardComicsPage = (): React.ReactNode => {
         <Grid key={uuidv4()}>
           <ComicPlaceholder />
         </Grid>
-      ));
+      ))
     } else if (comicsBalances.length > 0) {
-      return comicsBalances.map(comic => (
+      return comicsBalances.map((comic) => (
         <Grid key={comic.id}>
           <ComicCard
             data={comic}
@@ -82,10 +82,10 @@ const DashboardComicsPage = (): React.ReactNode => {
             isSelected={comic.id === selectedComic?.id}
           />
         </Grid>
-      ));
+      ))
     }
-    return null;
-  }, [comicsBalances, loadingComics, selectedComic]);
+    return null
+  }, [comicsBalances, loadingComics, selectedComic])
 
   const renderItems = useMemo(() => {
     if (itemsBalances.length === 0 && loadingItems) {
@@ -93,11 +93,14 @@ const DashboardComicsPage = (): React.ReactNode => {
         <Grid key={uuidv4()}>
           <ComicPlaceholder />
         </Grid>
-      ));
+      ))
     } else if (itemsBalances.length > 0) {
       return itemsBalances
-        .filter(item => !selectedItem?.balance || selectedItem?.balance <= 1 || item.id !== selectedItem?.id)
-        .map(item => (
+        .filter(
+          (item) =>
+            !selectedItem?.balance || selectedItem?.balance <= 1 || item.id !== selectedItem?.id
+        )
+        .map((item) => (
           <Grid key={item.id}>
             <WearableItemCard
               data={item}
@@ -105,15 +108,15 @@ const DashboardComicsPage = (): React.ReactNode => {
               isSelected={item.id === selectedItem?.id}
             />
           </Grid>
-        ));
+        ))
     }
-    return null;
+    return null
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [itemsBalances, loadingItems, selectedItem]);
+  }, [itemsBalances, loadingItems, selectedItem])
 
   const renderSubItems = useMemo(() => {
-    if (!selectedItem?.balance || selectedItem?.balance <= 1) return null;
-    return Array.from(Array(selectedItem?.balance).keys()).map(itemIndex => (
+    if (!selectedItem?.balance || selectedItem?.balance <= 1) return null
+    return Array.from(Array(selectedItem?.balance).keys()).map((itemIndex) => (
       <Grid key={`WearableSubItem-${itemIndex}`}>
         <WearableSubItemCard
           data={selectedItem}
@@ -123,9 +126,9 @@ const DashboardComicsPage = (): React.ReactNode => {
           sx={{ height: '100%', justifyContent: 'center' }}
         />
       </Grid>
-    ));
+    ))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedItem, selectedSubIndex]);
+  }, [selectedItem, selectedSubIndex])
 
   return (
     <>
@@ -166,7 +169,7 @@ const DashboardComicsPage = (): React.ReactNode => {
                     <Link href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
                       <BuyCard
                         onBuy={() => {}}
-                        isNew={!comicsBalances.some(comic => comic.balance && comic.balance > 0)}
+                        isNew={!comicsBalances.some((comic) => comic.balance && comic.balance > 0)}
                       />
                     </Link>
                   </Grid>
@@ -210,13 +213,20 @@ const DashboardComicsPage = (): React.ReactNode => {
                 )}
                 <Grid
                   container
-                  sx={{ flexWrap: 'wrap', gap: 2, justifyContent: { xs: 'space-between', sm: 'inherit' } }}
+                  sx={{
+                    flexWrap: 'wrap',
+                    gap: 2,
+                    justifyContent: { xs: 'space-between', sm: 'inherit' },
+                  }}
                 >
                   {renderItems}
                   {itemsBalances.length > 0 && (
                     <Grid>
                       <Link href={ITEM_PURCHASE_URL} target="_blank" rel="noreferrer">
-                        <BuyCard onBuy={() => {}} isNew={!itemsBalances.some(it => it.balance && it.balance > 0)} />
+                        <BuyCard
+                          onBuy={() => {}}
+                          isNew={!itemsBalances.some((it) => it.balance && it.balance > 0)}
+                        />
                       </Link>
                     </Grid>
                   )}
@@ -232,20 +242,26 @@ const DashboardComicsPage = (): React.ReactNode => {
         </Stack>
       </Stack>
       {isSmallScreen && (
-        <ViewComicDialog comic={selectedComic} open={Boolean(selectedComic)} onClose={handleCloseComicDialog} />
+        <ViewComicDialog
+          comic={selectedComic}
+          open={Boolean(selectedComic)}
+          onClose={handleCloseComicDialog}
+        />
       )}
       {isSmallScreen && (
         <ViewItemDialog
           item={selectedItem}
           subIndex={selectedSubIndex}
           open={
-            Boolean(selectedItem) && !!selectedItem?.balance && (selectedItem?.balance === 1 || selectedSubIndex >= 0)
+            Boolean(selectedItem) &&
+            !!selectedItem?.balance &&
+            (selectedItem?.balance === 1 || selectedSubIndex >= 0)
           }
           onClose={handleCloseItemDialog}
         />
       )}
     </>
-  );
-};
+  )
+}
 
-export default DashboardComicsPage;
+export default DashboardComicsPage

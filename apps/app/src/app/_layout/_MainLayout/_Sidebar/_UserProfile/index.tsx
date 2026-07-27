@@ -1,21 +1,21 @@
-'use client';
+'use client'
 
-import { useMemo } from 'react';
-import { useEnsAvatar, useEnsName } from 'wagmi';
-import { normalize } from 'viem/ens';
-import { Avatar, Box, Button, Skeleton, Stack, Typography } from '@mui/material';
+import { useMemo } from 'react'
+import { useEnsAvatar, useEnsName } from 'wagmi'
+import { normalize } from 'viem/ens'
+import { Avatar, Box, Button, Skeleton, Stack, Typography } from '@mui/material'
 
-import { formatNumberToDisplay } from '@nl/ui/utils';
-import { useGamerProfile } from '@/hooks/useGamerProfile';
-import type { ProfileAvatar } from '@/types/account';
-import ConnectWrapper from '@/components/wrapper/ConnectWrapper';
-import useNetworkContext from '@/hooks/useNetworkContext';
-import useClaimNFTL from '@/hooks/writeContracts/useClaimNFTL';
-import useAuth from '@/hooks/useAuth';
+import { formatNumberToDisplay } from '@nl/ui/utils'
+import { useGamerProfile } from '@/hooks/useGamerProfile'
+import type { ProfileAvatar } from '@/types/account'
+import ConnectWrapper from '@/components/wrapper/ConnectWrapper'
+import useNetworkContext from '@/hooks/useNetworkContext'
+import useClaimNFTL from '@/hooks/writeContracts/useClaimNFTL'
+import useAuth from '@/hooks/useAuth'
 
 const ClaimNFTLView = () => {
-  const { isConnected } = useNetworkContext();
-  const { balance, claimCallback, loading } = useClaimNFTL();
+  const { isConnected } = useNetworkContext()
+  const { balance, claimCallback, loading } = useClaimNFTL()
 
   return (
     <>
@@ -23,38 +23,45 @@ const ClaimNFTLView = () => {
         {loading ? (
           <Skeleton variant="text" animation="wave" width={80} />
         ) : (
-          <Typography sx={{ fontWeight: 'bold' }}>{balance ? formatNumberToDisplay(balance) : '0.00'} NFTL</Typography>
+          <Typography sx={{ fontWeight: 'bold' }}>
+            {balance ? formatNumberToDisplay(balance) : '0.00'} NFTL
+          </Typography>
         )}
         <Typography>Available to Claim</Typography>
       </Stack>
-      <Button variant="contained" fullWidth disabled={!(balance > 0.0 && isConnected)} onClick={claimCallback}>
+      <Button
+        variant="contained"
+        fullWidth
+        disabled={!(balance > 0.0 && isConnected)}
+        onClick={claimCallback}
+      >
         Claim NFTL
       </Button>
     </>
-  );
-};
+  )
+}
 
 const UserProfile = () => {
-  const { isLoggedIn, isConnected } = useAuth();
-  const { address } = useNetworkContext();
-  const ensName = useEnsName({ address, chainId: 1, query: { enabled: isConnected && !!address } });
+  const { isLoggedIn, isConnected } = useAuth()
+  const { address } = useNetworkContext()
+  const ensName = useEnsName({ address, chainId: 1, query: { enabled: isConnected && !!address } })
   const ensAvatar = useEnsAvatar({
     name: normalize(ensName.data as string),
     chainId: 1,
     query: { enabled: isConnected && !!ensName.data },
-  });
-  const { profile } = useGamerProfile();
+  })
+  const { profile } = useGamerProfile()
 
-  const username = isLoggedIn && profile ? profile.name_cased : undefined;
-  const avatar = isLoggedIn && profile ? profile.avatar : undefined;
+  const username = isLoggedIn && profile ? profile.name_cased : undefined
+  const avatar = isLoggedIn && profile ? profile.avatar : undefined
 
   const displayName = useMemo(() => {
-    if (!address) return 'Login to view dashboards';
-    const addressSubstring = `${address?.slice(0, 5)}..${address?.slice(-4)}`.toLowerCase();
-    if (username?.length && username !== addressSubstring) return username;
-    if (ensName.isError || ensName.isLoading) return addressSubstring;
-    return ensName.data || addressSubstring;
-  }, [address, ensName, username]);
+    if (!address) return 'Login to view dashboards'
+    const addressSubstring = `${address?.slice(0, 5)}..${address?.slice(-4)}`.toLowerCase()
+    if (username?.length && username !== addressSubstring) return username
+    if (ensName.isError || ensName.isLoading) return addressSubstring
+    return ensName.data || addressSubstring
+  }, [address, ensName, username])
 
   return (
     <Box
@@ -76,7 +83,7 @@ const UserProfile = () => {
         <ClaimNFTLView />
       </ConnectWrapper>
     </Box>
-  );
-};
+  )
+}
 
-export default UserProfile;
+export default UserProfile

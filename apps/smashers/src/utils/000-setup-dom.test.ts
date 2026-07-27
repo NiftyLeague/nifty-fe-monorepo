@@ -1,9 +1,9 @@
-import { GlobalRegistrator } from '@happy-dom/global-registrator';
-import { describe, expect, it, mock } from 'bun:test';
+import { GlobalRegistrator } from '@happy-dom/global-registrator'
+import { describe, expect, it, mock } from 'bun:test'
 
 if (typeof (globalThis as any).document === 'undefined') {
   try {
-    GlobalRegistrator.register();
+    GlobalRegistrator.register()
   } catch {
     /* already registered */
   }
@@ -22,22 +22,22 @@ if (typeof window !== 'undefined' && !(window as any).matchMedia) {
       removeListener: mock(),
       dispatchEvent: mock(),
     })),
-  });
+  })
 }
 if (typeof window !== 'undefined' && !(window as any).IntersectionObserver) {
   class NoopObserver {
-    disconnect = mock();
-    observe = mock();
-    takeRecords = mock(() => []);
-    unobserve = mock();
+    disconnect = mock()
+    observe = mock()
+    takeRecords = mock(() => [])
+    unobserve = mock()
   }
-  Object.defineProperty(window, 'IntersectionObserver', { configurable: true, value: NoopObserver });
-  Object.defineProperty(window, 'ResizeObserver', { configurable: true, value: NoopObserver });
+  Object.defineProperty(window, 'IntersectionObserver', { configurable: true, value: NoopObserver })
+  Object.defineProperty(window, 'ResizeObserver', { configurable: true, value: NoopObserver })
 }
 
 describe('dom environment', () => {
   it('registers happy-dom globals', () => {
-    expect(typeof document).toBe('object');
-    expect(typeof window).toBe('object');
-  });
-});
+    expect(typeof document).toBe('object')
+    expect(typeof window).toBe('object')
+  })
+})

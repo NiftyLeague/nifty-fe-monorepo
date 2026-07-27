@@ -1,17 +1,17 @@
-'use client';
+'use client'
 
-import { useEffect, useState, useCallback } from 'react';
-import Link from 'next/link';
+import { useEffect, useState, useCallback } from 'react'
+import Link from 'next/link'
 
 // material-ui
-import { useTheme, gridSpacing } from '@nl/theme';
-import { Box, Card, Divider, Grid, Typography } from '@mui/material';
-import MuiBreadcrumbs from '@mui/material/Breadcrumbs';
+import { useTheme, gridSpacing } from '@nl/theme'
+import { Box, Card, Divider, Grid, Typography } from '@mui/material'
+import MuiBreadcrumbs from '@mui/material/Breadcrumbs'
 
 // project imports
-import { BASE_PATH } from '@/config';
-import { Icon, type IconName } from '@nl/ui/base/icon';
-import type { NavItemType, NavItemTypeObject } from '@/types';
+import { BASE_PATH } from '@/config'
+import { Icon, type IconName } from '@nl/ui/base/icon'
+import type { NavItemType, NavItemTypeObject } from '@/types'
 
 const linkSX = {
   display: 'flex',
@@ -19,25 +19,25 @@ const linkSX = {
   textDecoration: 'none',
   alignContent: 'center',
   alignItems: 'center',
-};
+}
 
 interface BreadCrumbSxProps extends React.CSSProperties {
-  mb?: string;
-  bgcolor?: string;
+  mb?: string
+  bgcolor?: string
 }
 
 interface BreadCrumbsProps {
-  card?: boolean;
-  divider?: boolean;
-  icon?: boolean;
-  icons?: boolean;
-  maxItems?: number;
-  navigation?: NavItemTypeObject;
-  rightAlign?: boolean;
-  separator?: IconName;
-  title?: boolean;
-  titleBottom?: boolean;
-  sx?: BreadCrumbSxProps;
+  card?: boolean
+  divider?: boolean
+  icon?: boolean
+  icons?: boolean
+  maxItems?: number
+  navigation?: NavItemTypeObject
+  rightAlign?: boolean
+  separator?: IconName
+  title?: boolean
+  titleBottom?: boolean
+  sx?: BreadCrumbSxProps
 }
 
 // ==============================|| BREADCRUMBS ||============================== //
@@ -55,53 +55,53 @@ const Breadcrumbs = ({
   titleBottom,
   ...others
 }: BreadCrumbsProps) => {
-  const theme = useTheme();
+  const theme = useTheme()
 
   const iconStyle = {
     marginRight: theme.spacing(0.75),
     marginTop: `-${theme.spacing(0.25)}`,
     width: '16px',
     height: '16px',
-  };
+  }
 
-  const [main, setMain] = useState<NavItemType | undefined>();
-  const [item, setItem] = useState<NavItemType>();
+  const [main, setMain] = useState<NavItemType | undefined>()
+  const [item, setItem] = useState<NavItemType>()
 
   const getCollapse = useCallback(
     (menu: NavItemType) => {
       const recurse = (m: NavItemType, parentMenu: NavItemType) => {
         if (m.children) {
-          m.children.forEach(collapse => {
+          m.children.forEach((collapse) => {
             if (collapse.type === 'collapse') {
-              recurse(collapse, collapse);
+              recurse(collapse, collapse)
             } else if (collapse.type === 'item') {
               if (document.location.pathname === BASE_PATH + collapse.url) {
-                setMain(parentMenu);
-                setItem(collapse);
+                setMain(parentMenu)
+                setItem(collapse)
               }
             }
-          });
+          })
         }
-      };
-      recurse(menu, menu);
+      }
+      recurse(menu, menu)
     },
-    [setMain, setItem],
-  );
+    [setMain, setItem]
+  )
 
   useEffect(() => {
     navigation?.items?.forEach((menu: NavItemType) => {
       if (menu.type && menu.type === 'group') {
-        getCollapse(menu as { children: NavItemType[]; type?: string });
+        getCollapse(menu as { children: NavItemType[]; type?: string })
       }
-    });
-  }, [navigation, getCollapse]);
+    })
+  }, [navigation, getCollapse])
 
   // item separator
-  const separatorIcon = <Icon name={separator || 'tally-1'} size="sm" />;
+  const separatorIcon = <Icon name={separator || 'tally-1'} size="sm" />
 
-  let mainContent;
-  let itemContent;
-  let breadcrumbContent: React.ReactElement = <Typography />;
+  let mainContent
+  let itemContent
+  let breadcrumbContent: React.ReactElement = <Typography />
 
   // collapse item
   if (main && main.type === 'collapse') {
@@ -110,7 +110,7 @@ const Breadcrumbs = ({
         {icons && <Icon name={main.icon ?? 'list-tree'} style={iconStyle} />}
         {main.title}
       </Typography>
-    );
+    )
   }
 
   // items
@@ -129,7 +129,7 @@ const Breadcrumbs = ({
         {icons && <Icon name={item.icon ?? 'list-tree'} style={iconStyle} />}
         {item.title}
       </Typography>
-    );
+    )
 
     // main
     if (item.breadcrumbs !== false) {
@@ -166,9 +166,16 @@ const Breadcrumbs = ({
                   maxItems={maxItems || 8}
                   separator={separatorIcon}
                 >
-                  <Typography component={Link} href="/" sx={{ ...linkSX, color: 'inherit' }} variant="subtitle1">
+                  <Typography
+                    component={Link}
+                    href="/"
+                    sx={{ ...linkSX, color: 'inherit' }}
+                    variant="subtitle1"
+                  >
                     {icons && <Icon name="house" color="blue" fill="dim" style={iconStyle} />}
-                    {icon && <Icon name="house" color="blue" style={{ ...iconStyle, marginRight: 0 }} />}
+                    {icon && (
+                      <Icon name="house" color="blue" style={{ ...iconStyle, marginRight: 0 }} />
+                    )}
                     {!icon && 'Dashboard'}
                   </Typography>
                   {mainContent}
@@ -188,11 +195,11 @@ const Breadcrumbs = ({
             <Divider sx={{ borderColor: 'var(--color-purple)', mb: gridSpacing, opacity: '0.6' }} />
           )}
         </Card>
-      );
+      )
     }
   }
 
-  return breadcrumbContent;
-};
+  return breadcrumbContent
+}
 
-export default Breadcrumbs;
+export default Breadcrumbs

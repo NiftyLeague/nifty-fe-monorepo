@@ -1,12 +1,14 @@
-import { IconButton } from '@mui/material';
-import { Icon } from '@nl/ui/base/icon';
-import { Dialog, DialogTrigger, DialogContent } from '@/components/dialog';
-import ChangeProfileNameForm from './ChangeProfileNameForm';
+import { IconButton } from '@mui/material'
+import { Icon } from '@nl/ui/base/icon'
+import { Dialog, DialogTrigger, DialogContent } from '@/components/dialog'
+import ChangeProfileNameForm from './ChangeProfileNameForm'
 
 interface ChangeProfileNameDialogProps {
-  handleUpdateNewName: (newName: string) => void;
+  handleUpdateNewName: (newName: string) => void
 }
-const ChangeProfileNameDialog = ({ handleUpdateNewName }: ChangeProfileNameDialogProps): React.ReactNode => (
+const ChangeProfileNameDialog = ({
+  handleUpdateNewName,
+}: ChangeProfileNameDialogProps): React.ReactNode => (
   <Dialog>
     <DialogTrigger>
       <IconButton sx={{ cursor: 'pointer' }} aria-label="edit">
@@ -21,6 +23,6 @@ const ChangeProfileNameDialog = ({ handleUpdateNewName }: ChangeProfileNameDialo
       <ChangeProfileNameForm updateNewName={handleUpdateNewName} />
     </DialogContent>
   </Dialog>
-);
+)
 
-export default ChangeProfileNameDialog;
+export default ChangeProfileNameDialog

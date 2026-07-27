@@ -1,12 +1,12 @@
-import Link from 'next/link';
-import { Button, Grid, Stack } from '@mui/material';
-import SectionTitle from '@/components/sections/SectionTitle';
-import RentalsTableSimple from './RentalsTableSimple';
-import { sectionSpacing } from '@nl/theme';
-import usePlayerProfile from '@/hooks/usePlayerProfile';
-import type { FC } from 'react';
-import type { Rentals } from '@/types/rentals';
-import { transformRentals } from '@/app/(private-routes)/dashboard/_utils/transformRentals';
+import Link from 'next/link'
+import { Button, Grid, Stack } from '@mui/material'
+import SectionTitle from '@/components/sections/SectionTitle'
+import RentalsTableSimple from './RentalsTableSimple'
+import { sectionSpacing } from '@nl/theme'
+import usePlayerProfile from '@/hooks/usePlayerProfile'
+import type { FC } from 'react'
+import type { Rentals } from '@/types/rentals'
+import { transformRentals } from '@/app/(private-routes)/dashboard/_utils/transformRentals'
 
 export interface ColumnType {
   id:
@@ -19,10 +19,10 @@ export interface ColumnType {
     | 'roi'
     | 'earningCap'
     | 'earningCapProgress'
-    | 'rentalRenewsIn';
-  label: string;
-  minWidth?: number;
-  align?: 'center';
+    | 'rentalRenewsIn'
+  label: string
+  minWidth?: number
+  align?: 'center'
 }
 
 const columns: ColumnType[] = [
@@ -35,14 +35,14 @@ const columns: ColumnType[] = [
   { id: 'profits', label: 'Gross Gameplay Earnings', minWidth: 200, align: 'center' },
   { id: 'netEarning', label: 'Your NET Earnings', minWidth: 150, align: 'center' },
   { id: 'roi', label: 'ROI %', minWidth: 80, align: 'center' },
-];
+]
 interface MyRentalsProps {
-  rentals: Rentals[];
+  rentals: Rentals[]
 }
 const MyRentals: FC<MyRentalsProps> = ({ rentals }): React.ReactNode => {
-  const { profile } = usePlayerProfile();
+  const { profile } = usePlayerProfile()
 
-  const rows = transformRentals(rentals, profile?.id || '');
+  const rows = transformRentals(rentals, profile?.id || '')
 
   return (
     <Grid container spacing={sectionSpacing} sx={{ height: '100%' }}>
@@ -64,7 +64,7 @@ const MyRentals: FC<MyRentalsProps> = ({ rentals }): React.ReactNode => {
         <RentalsTableSimple rentals={rows} columns={columns} />
       </Grid>
     </Grid>
-  );
-};
+  )
+}
 
-export default MyRentals;
+export default MyRentals

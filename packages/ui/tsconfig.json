@@ -2,5 +2,12 @@
   "extends": "@nl/typescript-config/react-library.json",
   "compilerOptions": { "baseUrl": ".", "paths": { "@nl/ui/*": ["./src/*"] } },
   "include": ["."],
-  "exclude": ["node_modules", "dist", "src/**/*.test.ts", "src/**/*.test.tsx", "**/*.test.ts", "**/*.test.tsx"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ]
 }
