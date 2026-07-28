@@ -31,6 +31,7 @@
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "docs#build": {
+      "cache": false,
       "dependsOn": ["^build"],
       "env": ["ALGOLIA_API_KEY", "ALGOLIA_APP_ID"],
       "outputs": ["build/**", ".docusaurus/**"]

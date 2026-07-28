@@ -2,6 +2,10 @@ name: Algolia Search
 permissions:
   contents: read
 
+concurrency:
+  group: algolia-search-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   # Allow to run manually
   workflow_dispatch:

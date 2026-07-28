@@ -10,7 +10,7 @@ They complement `CONTRIBUTING.md`. More specific instructions in nested `AGENTS.
 - Prefer the versions pinned in `.mise.toml`.
 - Do not commit secrets, generated credentials, local environment files, or machine-specific paths.
 - Add tests for behavior changes and keep coverage thresholds explicit in the project configuration.
-  Make the smallest complete, well-tested change that solves the requested problem without disturbing unrelated work.
+- Make the smallest complete, well-tested change that solves the requested problem without disturbing unrelated work.
 
 This repository may contain TypeScript, Rust, Python, or any combination of them. Detect the active stack from the files present; do not assume every check applies.
 
@@ -125,6 +125,7 @@ If a check cannot run, state the exact reason. A skipped check is not a passing 
 - Use `push` for `main, staging` and `pull_request` for `staging` unless a workflow has a documented event-specific reason.
 - Give workflows clear names and jobs concise names; avoid repeating the workflow name in the job name.
 - Use per-workflow concurrency groups that cancel superseded runs while allowing independent workflows to run in parallel.
+- Keep setup language-aware and cache dependency downloads by lockfile; do not cache secrets, `node_modules`, virtual environments, or broad build output without a measured reason.
 - Use least-privilege permissions and pin action versions consistently with the template.
 - Keep CI, Test, Security, CodeQL, Draft PR, Release PR, and Release concerns separated.
 - Security and CodeQL may skip when repository visibility or GitHub plan support does not permit them. Do not make an unavailable check required.
