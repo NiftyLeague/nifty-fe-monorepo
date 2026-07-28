@@ -66,6 +66,7 @@
   "dependencies": {
     "@axelar-network/axelarjs-sdk": "^0.21.0",
     "@cowprotocol/cow-sdk": "^9.2.4",
+    "@google/model-viewer": "^4.3.1",
     "@imtbl/sdk": "^2.23.0",
     "@types/three": "^0.185.1",
     "@x402/core": "^2.19.0",
