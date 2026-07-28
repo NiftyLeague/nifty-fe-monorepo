@@ -194,7 +194,7 @@ install_javascript() {
   if [ "${REPO_FOUNDRY_INSTALL_JAVASCRIPT:-true}" = true ] && [ -f package.json ] && has_javascript_dependencies &&
     { [ "${REPO_FOUNDRY_JAVASCRIPT_CACHE_HIT:-false}" != true ] || [ ! -d node_modules ]; }; then
     case "$(package_manager)" in
-      bun) bun install --frozen-lockfile --backend=hardlink ;;
+      bun) bun install --frozen-lockfile ;;
       pnpm) corepack pnpm install --frozen-lockfile --prefer-offline ;;
       yarn) corepack yarn install --immutable ;;
       npm) npm ci --prefer-offline --no-audit --fund=false ;;
