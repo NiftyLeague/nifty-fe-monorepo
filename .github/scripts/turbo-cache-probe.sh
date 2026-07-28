@@ -47,27 +47,37 @@ trap cleanup EXIT
 
 if ! bunx --package "turbo@${turbo_version}" turbo run "$task" \
   --dry=json --cache=remote:r --output-logs=none >"$probe_file" 2>&1; then
+  echo "Turbo Probe: CLI unavailable; using full install"
   exit 0
 fi
 
-if ! node - "$probe_file" <<'NODE'
+probe_result="$(node - "$probe_file" <<'NODE'
 const fs = require('node:fs');
 const file = process.argv[2];
 const text = fs.readFileSync(file, 'utf8');
 const start = text.indexOf('{');
-if (start < 0) process.exit(1);
+if (start < 0) {
+  console.log('invalid-json');
+  process.exit(0);
+}
 let report;
 try {
   report = JSON.parse(text.slice(start));
 } catch {
-  process.exit(1);
+  console.log('invalid-json');
+  process.exit(0);
 }
 const runnable = (report.tasks || []).filter((entry) =>
   entry.command !== '<NONEXISTENT>' && entry.resolvedTaskDefinition?.cache !== false,
 );
-process.exit(runnable.length > 0 && runnable.every((entry) => entry.cache?.status === 'HIT') ? 0 : 1);
+const hits = runnable.filter((entry) => entry.cache?.status === 'HIT').length;
+const hit = runnable.length > 0 && hits === runnable.length;
+console.log(`tasks=${report.tasks?.length || 0} runnable=${runnable.length} hits=${hits} hit=${hit}`);
 NODE
-then
+)
+echo "Turbo Probe: $probe_result"
+if ! grep -q 'hit=true' <<<"$probe_result"; then
+  echo "Turbo Probe: remote cache incomplete; using full install"
   exit 0
 fi
 
