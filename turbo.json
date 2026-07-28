@@ -28,7 +28,7 @@
     "app#build": {
       "dependsOn": ["^build"],
       "env": ["NEXT_RUNTIME", "NEXT_PUBLIC_*"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**"]
     },
     "docs#build": {
       "cache": false,
@@ -39,12 +39,12 @@
     "smashers#build": {
       "dependsOn": ["^build"],
       "env": ["NEXT_RUNTIME", "NEXT_PUBLIC_*", "NEXTAUTH_SECRET"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**"]
     },
     "web#build": {
       "dependsOn": ["^build"],
       "env": ["NEXT_RUNTIME", "NEXT_PUBLIC_*", "EDGE_CONFIG"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**"]
     },
     "clean": { "cache": false },
     "transit": { "dependsOn": ["^transit"] },
