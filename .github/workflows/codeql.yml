@@ -70,6 +70,16 @@ jobs:
             pnpm-lock.yaml
             yarn.lock
             package-lock.json
+          sparse-checkout: |
+            .github
+            .mise.toml
+            mise.lock
+            package.json
+            bun.lock
+            bun.lockb
+            pnpm-lock.yaml
+            yarn.lock
+            package-lock.json
       - id: languages
         name: Detect languages
         env:
