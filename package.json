@@ -47,7 +47,6 @@
     "lint:fix": "turbo lint:fix",
     "migrate-ui": "bun --filter ui migrate",
     "install:ci": "bun install --frozen-lockfile",
-    "install": "bun install --frozen-lockfile --ignore-scripts && bun run prepare",
     "prepare": "bun symlinks",
     "symlinks": "bun exec .sh/symlinks.sh",
     "sync-node-versions": "bun exec .sh/sync-node-versions.sh",
