@@ -16,7 +16,7 @@ const usePagination = <T>(data: T[], itemsPerPage: number) => {
   const jump = useCallback(
     (page: number) => {
       const pageNumber = Math.max(1, page)
-      setCurrentPage(() => Math.min(pageNumber, maxPage))
+      setCurrentPage(() => (maxPage > 0 ? Math.min(pageNumber, maxPage) : 1))
     },
     [maxPage]
   )
