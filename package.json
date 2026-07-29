@@ -1,38 +1,6 @@
 {
   "name": "nifty-fe-monorepo",
   "version": "1.0.0",
-  "devDependencies": {
-    "@happy-dom/global-registrator": "^20.11.1",
-    "@nl/eslint-config": "workspace:*",
-    "@nl/prettier-config": "workspace:*",
-    "@nl/typescript-config": "workspace:*",
-    "@tailwindcss/postcss": "^4.3.3",
-    "@testing-library/react": "^16.3.2",
-    "@testing-library/user-event": "^14.6.1",
-    "@types/node": "^26.1.1",
-    "eslint": "9.39.5",
-    "lint-staged": "^17.2.0",
-    "prettier": "^3.9.6",
-    "semver": "^7.8.5",
-    "syncpack": "^15.3.2",
-    "turbo": "^2.10.7",
-    "typescript": "6.0.3"
-  },
-  "browserslist": {
-    "production": [
-      ">0.5%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 3 chrome version",
-      "last 3 firefox version",
-      "last 5 safari version"
-    ]
-  },
-  "engines": {
-    "node": "24.18.0"
-  },
   "license": "AGPL-3.0-or-later",
   "private": true,
   "scripts": {
@@ -43,11 +11,12 @@
     "dev": "turbo dev",
     "format": "turbo format",
     "format:check": "prettier --check \"**/*.{js,ts,tsx,md,mdx,json,yml,yaml}\" --ignore-path .prettierignore",
+    "install:ci": "bun install --frozen-lockfile",
     "lint": "turbo lint",
     "lint:fix": "turbo lint:fix",
     "migrate-ui": "bun --filter ui migrate",
-    "install:ci": "bun install --frozen-lockfile",
     "prepare": "bun symlinks",
+    "start": "turbo run dev",
     "symlinks": "bun exec .sh/symlinks.sh",
     "sync-node-versions": "bun exec .sh/sync-node-versions.sh",
     "test": "turbo test",
@@ -55,13 +24,8 @@
     "test:coverage:workspaces": "turbo test:coverage",
     "test:watch": "bun test --watch",
     "type-check": "turbo type-check",
-    "type:check": "turbo type-check",
-    "start": "turbo run dev"
+    "type:check": "turbo type-check"
   },
-  "workspaces": [
-    "packages/*",
-    "apps/*"
-  ],
   "dependencies": {
     "@axelar-network/axelarjs-sdk": "^0.21.0",
     "@cowprotocol/cow-sdk": "^9.2.4",
@@ -80,6 +44,38 @@
     "three": "^0.185.1",
     "wagmi": "^3.7.4"
   },
+  "devDependencies": {
+    "@happy-dom/global-registrator": "^20.11.1",
+    "@nl/eslint-config": "workspace:*",
+    "@nl/prettier-config": "workspace:*",
+    "@nl/typescript-config": "workspace:*",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^26.1.1",
+    "eslint": "^9.39.5",
+    "lint-staged": "^17.2.0",
+    "prettier": "^3.9.6",
+    "semver": "^7.8.5",
+    "syncpack": "^15.3.2",
+    "turbo": "^2.10.7",
+    "typescript": "~6.0.3"
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 3 chrome version",
+      "last 3 firefox version",
+      "last 5 safari version"
+    ]
+  },
+  "engines": {
+    "node": "24.18.0"
+  },
   "devEngines": {
     "packageManager": {
       "name": "bun",
@@ -96,5 +92,9 @@
     "brace-expansion": "2.0.2",
     "crypto-es": "2.1.0",
     "protobufjs": "7.5.0"
-  }
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ]
 }
