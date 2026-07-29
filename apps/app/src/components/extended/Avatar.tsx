@@ -33,7 +33,7 @@ const Avatar = ({ className, color, outline, size, sx, ...others }: avatarProps)
     border: '2px solid',
     borderColor: color ? `${color}.main` : 'var(--color-purple)',
   }
-  let sizeSX = {}
+  let sizeSX: Record<string, unknown>
   switch (size) {
     case 'badge':
       sizeSX = { width: theme.spacing(3.5), height: theme.spacing(3.5) }
