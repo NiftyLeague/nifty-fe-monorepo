@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@axelar-network/axelarjs-sdk": "^0.21.0",
-    "@cowprotocol/cow-sdk": "^9.2.2",
+    "@cowprotocol/cow-sdk": "^9.2.4",
     "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
@@ -36,6 +36,10 @@
     "@reown/appkit-adapter-wagmi": "^1.8.22",
     "@sentry/nextjs": "^10.65.0",
     "@tanstack/react-query": "^5.101.2",
+    "@x402/core": "^2.19.0",
+    "@x402/evm": "^2.19.0",
+    "@x402/extensions": "^2.19.0",
+    "@x402/svm": "^2.19.0",
     "axios": "^1.18.1",
     "bnc-notify": "^1.9.8",
     "bnc-sdk": "^4.6.9",
@@ -52,7 +56,7 @@
     "react-device-detect": "^2.2.3",
     "react-dom": "19.2.8",
     "react-draggable": "^4.7.0",
-    "react-hook-form": "^7.82.0",
+    "react-hook-form": "^7.83.0",
     "react-intersection-observer": "^10.1.0",
     "react-number-format": "^5.4.5",
     "react-perfect-scrollbar": "^1.5.8",
@@ -68,12 +72,8 @@
     "slick-carousel": "~1.8.1",
     "uuid": "^14.0.1",
     "viem": "^2.55.2",
-    "wagmi": "^3.7.3",
-    "yup": "^1.7.1",
-    "@x402/core": "^2.19.0",
-    "@x402/evm": "^2.19.0",
-    "@x402/extensions": "^2.19.0",
-    "@x402/svm": "^2.19.0"
+    "wagmi": "^3.7.4",
+    "yup": "^1.7.1"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.24",

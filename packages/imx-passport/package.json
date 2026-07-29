@@ -20,7 +20,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@imtbl/sdk": "^2.21.0"
+    "@imtbl/sdk": "^2.23.0"
   },
   "peerDependencies": {
     "react": "^19.0.0"

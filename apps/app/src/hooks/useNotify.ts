@@ -17,7 +17,7 @@ const ETHERSCAN_TX_URL = `${TARGET_NETWORK.blockExplorer}/tx/`
 const callbacks: { [hash: string]: NotifyCallback } = {}
 
 const initializeNotify = (darkMode: boolean): API | null => {
-  let options: InitOptions = {}
+  let options: InitOptions
   let notify: API | null = null
   if (navigator.onLine) {
     options = {

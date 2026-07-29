@@ -20,7 +20,7 @@ const Transitions = forwardRef(
     { children, type = 'grow', position = 'top-left', direction = 'up', ...others }: TSProps,
     ref: Ref<ExoticComponent>
   ) => {
-    let positionSX = { transformOrigin: '0 0 0' }
+    let positionSX: Record<string, string>
 
     switch (position) {
       case 'top-right':
