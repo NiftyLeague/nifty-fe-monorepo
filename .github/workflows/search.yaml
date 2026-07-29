@@ -15,6 +15,10 @@ on:
       - 'apps/docs/**'
     branches:
       - main
+      - staging
+  pull_request:
+    branches:
+      - staging
 
 jobs:
   search:
