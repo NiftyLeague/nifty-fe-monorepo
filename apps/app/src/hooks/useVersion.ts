@@ -9,17 +9,14 @@ const useVersion = () => {
   const [version, setVersion] = useState('')
   const env = TARGET_NETWORK.chainId === 1 ? 'prod' : 'stage'
   const isLinux = window?.navigator?.userAgent?.indexOf('Linux') >= 0
-  let os = isWindows && 'win'
-  let message = isWindows && 'Download for Windows'
-
-  if (isLinux) {
-    message = 'Linux support is not available at this time'
-    os = 'linux'
-  }
-  if (isMacOs) {
-    message = 'Download for Mac OS not available'
-    os = 'osx'
-  }
+  const os = isWindows ? 'win' : isMacOs ? 'osx' : isLinux ? 'linux' : 'unknown'
+  const message = isWindows
+    ? 'Download for Windows'
+    : isMacOs
+      ? 'Download for Mac OS not available'
+      : isLinux
+        ? 'Linux support is not available at this time'
+        : 'Your platform is not supported'
 
   const fileName = `NiftyLauncher-setup-${version.substring(0, version.indexOf('-'))}.exe`
   const downloadURL = `https://d7ct17ettlkln.cloudfront.net/launcher/${env}/${os}/${version}/${fileName}`
