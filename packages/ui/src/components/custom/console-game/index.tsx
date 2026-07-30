@@ -16,7 +16,7 @@ export const ConsoleGame = memo(function ConsoleGame({ src }: { src: string }) {
 
     if (videoRef.current.paused) {
       videoRef.current.play().catch((error) => {
-        console.log('Play failed:', error)
+        console.error('Play failed:', error)
       })
     } else {
       videoRef.current.pause()
