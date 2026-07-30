@@ -17,7 +17,6 @@ interface Props {
 const SortButton = ({
   children,
   defaultSelectedItemValue = null,
-  // label = 'Sort by: ',
   handleSort,
 }: Props): React.ReactNode => {
   if (!Children.only(children)) console.error('SortButton only accepts one child')
