@@ -62,7 +62,6 @@ const AllDegensPage = (): React.ReactNode => {
     if (!data || !Object.values(data).length) return []
 
     // TODO: remove temp fix for 7th tribes
-    // return Object.values(data);
     return Object.values(data).map((degen) =>
       Number(degen.id) <= 9900
         ? degen
@@ -157,12 +156,6 @@ const AllDegensPage = (): React.ReactNode => {
     setIsDegenModalOpen(true)
   }, [])
 
-  // const handleRentDegen = useCallback((degen: Degen): void => {
-  //   setSelectedDegen(degen);
-  //   setIsRentDialog(true);
-  //   setIsDegenModalOpen(true);
-  // }, []);
-
   const isGridView = layoutMode === 'gridView'
 
   const renderSkeletonItem = useCallback(
@@ -213,17 +206,10 @@ const AllDegensPage = (): React.ReactNode => {
           size={isGridView ? 'normal' : 'small'}
           onClickEditName={() => handleClickEditName(degen)}
           onClickDetail={() => handleViewTraits(degen)}
-          // onClickRent={() => handleRentDegen(degen)}
         />
       </Grid>
     ),
-    [
-      handleClickEditName,
-      // handleRentDegen,
-      handleViewTraits,
-      isDrawerOpen,
-      isGridView,
-    ]
+    [handleClickEditName, handleViewTraits, isDrawerOpen, isGridView]
   )
 
   const renderMain = useCallback(

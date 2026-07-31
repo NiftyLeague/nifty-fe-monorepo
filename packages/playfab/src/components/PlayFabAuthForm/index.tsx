@@ -35,7 +35,6 @@ function PlayFabAuthForm({ redirectTo, ...props }: PlayFabAuthFormProps): React.
   const handleProviderLogin = async (provider: Provider) => {
     clearState()
     // TODO: handle provider login
-    console.log(`Provider sign-in: ${provider}`)
     return new Promise<void>((resolve) => setTimeout(resolve, 2000))
   }
 
