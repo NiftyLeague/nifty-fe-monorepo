@@ -11,7 +11,6 @@ export const POST = withUserRoute(async (request, session) => {
   if (SessionTicket) {
     try {
       const data = await LinkProvider(provider, accessToken, SessionTicket)
-      console.log('===== LinkProvider response =====', data)
       return NextResponse.json(data)
     } catch (error) {
       const { status, message } = errorResHandler(error)

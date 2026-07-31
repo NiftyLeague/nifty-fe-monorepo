@@ -111,18 +111,6 @@ export const handleLocalNotify = async (
   // on most networks BlockNative will update a transaction handler,
   // but locally we will set an interval to listen...
   if (callback) {
-    // const txResult = await tx;
-    // res = result || txResult?
-    // const listeningInterval = setIntervalAsync(async () => {
-    //   console.log('CHECK IN ON THE TX', result, provider);
-    //   const currentTransactionReceipt = await (provider as Provider).getTransactionReceipt(result.hash);
-    //   if (currentTransactionReceipt && currentTransactionReceipt.confirmations) {
-    //     callback({ ...result, ...currentTransactionReceipt });
-    //     void (async () => {
-    //       await clearIntervalAsync(listeningInterval);
-    //     })();
-    //   }
-    // }, 1000);
     const currentTransactionReceipt = await signer.provider.getTransactionReceipt(result.hash)
     callback(currentTransactionReceipt)
   }

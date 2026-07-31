@@ -35,11 +35,7 @@ export default function useImportNFTLToWallet(): ImportNFTLToWalletState {
           image: 'https://raw.githubusercontent.com/NiftyLeague/Nifty-League-Images/main/NFTL.webp',
         },
       })
-      if (success) {
-        console.log('Successfully added NFTL to MetaMask')
-      } else {
-        throw new Error('Something went wrong.')
-      }
+      if (!success) throw new Error('Something went wrong.')
     } catch (err) {
       console.error(err)
     }
