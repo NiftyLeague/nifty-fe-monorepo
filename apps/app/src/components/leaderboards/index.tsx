@@ -23,7 +23,6 @@ import {
   NiftySmashersTables,
 } from '@/constants/leaderboards'
 import EnhancedTable from '@/components/leaderboards/EnhancedTable/EnhancedTable'
-// const TopModal = dynamic(() => import('../TopModal'), { ssr: false });
 import './modal-table.css'
 
 const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({

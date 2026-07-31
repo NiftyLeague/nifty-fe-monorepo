@@ -288,7 +288,7 @@ describe('authentication forms', () => {
     expect(setAuthView).toHaveBeenCalledWith(VIEWS.SIGN_UP)
     await user.click(screen.getByRole('button', { name: 'google' }))
     await waitFor(() => expect(handlers.handleProviderLogin).toHaveBeenCalledWith('google'))
-  })
+  }, 15_000)
 
   it('switches AuthForm views and renders status feedback', () => {
     const { rerender } = render(

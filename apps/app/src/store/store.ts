@@ -38,23 +38,3 @@ export const makeStore = () => {
 export type AppStore = ReturnType<typeof makeStore> extends { store: infer S } ? S : never
 export type RootState = ReturnType<AppStore['getState']>
 export type AppDispatch = AppStore['dispatch']
-
-// const persistedReducer = persistReducer(persistConfig, rootReducer);
-
-// const store = configureStore({
-//   reducer: persistedReducer,
-//   middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false, immutableCheck: false }),
-// });
-
-// const persister = persistStore(store);
-
-// export type RootState = ReturnType<typeof persistedReducer>;
-
-// export type AppDispatch = typeof store.dispatch;
-
-// const { dispatch } = store;
-
-// const useDispatch = () => useAppDispatch<AppDispatch>();
-// const useSelector: TypedUseSelectorHook<RootState> = useAppSelector;
-
-// export { store, persister, dispatch, useSelector, useDispatch };
