@@ -47,28 +47,6 @@ export const tranformDataByFilter = (
         return false
       }
 
-      // if (prices.length === 2 && !(price >= prices[0] && price <= prices[1])) {
-      //   return false;
-      // }
-
-      // if (
-      //   multipliers.length > 0 &&
-      //   !multipliers.find((value: string) =>
-      //     value === '3+' ? multiplier >= 3 : multiplier === Number(value),
-      //   )
-      // ) {
-      //   return false;
-      // }
-
-      // if (
-      //   rentals.length > 0 &&
-      //   !rentals.find((value: string) =>
-      //     value === '3+' ? rental_count >= 3 : rental_count === Number(value),
-      //   )
-      // ) {
-      //   return false;
-      // }
-
       if (
         tribes.length > 0 &&
         !tribes.find(

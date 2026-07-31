@@ -3,7 +3,6 @@ import { Unity } from 'react-unity-webgl'
 import { Button } from '@nl/ui/base/button'
 import { Icon } from '@nl/ui/base/icon'
 import { Preloader } from '@nl/ui/custom/preloader'
-// import { useUserContext } from '@nl/playfab/hooks/useUserContext';
 
 import useUnityPreConfig from '@/hooks/useUnityPreConfig'
 import useUnityEventHandlers from '@/hooks/useUnityEventHandlers'
@@ -12,7 +11,6 @@ import useUnitySafeClose from '@/hooks/useUnitySafeClose'
 import styles from '@/components/Modal/index.module.css'
 
 const Game = ({ closeGame }: { closeGame: () => void }) => {
-  //   const { account, publisherData } = useUserContext();
   const address = '0x0'
   const authToken = ''
 

@@ -22,12 +22,6 @@ export const fetchScores = async (
   count: number,
   offset: number
 ): Promise<ReturnDataType> => {
-  // const res = await fetch(
-  //   `${
-  //     LEADERBOARD_SCORE_API_URL as string
-  //   }?game=${gameType}&score_type=${scoreType}&time_window=${timeFilter}&count=${count}&offset=${offset}`,
-  // );
-  // const json = await res.json();
   // @ts-expect-error ignore implicit any
   const leaderboard = LEADERBOARDS[gameType][scoreType]
   const json = { data: leaderboard.slice(offset, offset + count), count: leaderboard.length }
