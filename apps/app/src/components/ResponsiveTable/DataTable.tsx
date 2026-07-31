@@ -36,11 +36,6 @@ const convertToGridColDef = (col: CustomColDef): CustomColDef => {
  * Material-ui DataGrid component
  */
 export default function DataTable(props: DataTableProps) {
-  // const getRowClass = (index: number) => {
-  //   const { rowsClassArray } = props;
-  //   return rowsClassArray && rowsClassArray[index] ? rowsClassArray[index] : '';
-  // };
-
   const { columns, data, paginationModel, onPaginationModelChange, DataGridProps } = props
 
   return (

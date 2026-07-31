@@ -11,22 +11,13 @@ import {
 import { styled, useTheme } from '@nl/theme'
 import Image from 'next/image'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-// import useFlags from '@/hooks/useFlags';
 import isEmpty from 'lodash/isEmpty'
 import { Button, Checkbox, FormControlLabel, FormGroup, Stack, Typography } from '@mui/material'
-import {
-  FilterSource,
-  backgrounds,
-  // multipliers,
-  // rentals,
-  tribes,
-  // wearables,
-} from '@/constants/filters'
+import { FilterSource, backgrounds, tribes } from '@/constants/filters'
 import * as CosmeticsFilter from '@/constants/cosmeticsFilters'
 import type { DegenFilter } from '@/types/degenFilter'
 import { updateFilterValue } from './utils'
 import FilterAccordion from './FilterAccordion'
-// import FilterRangeSlider from './FilterRangeSlider';
 import FilterAllTraitCheckboxes from '../FilterAllTraitCheckboxes'
 
 const PREFIX = 'DegensFilter'
@@ -75,25 +66,15 @@ const DegensFilter = ({
     [searchParams]
   )
   const isParamsEmpty = isEmpty(params)
-  // const { displayMyItems } = useFlags();
 
   // Filter states
   const [showMore, setShowMore] = useState(false)
   const [pricesRangeValue, setPricesRangeValue] = useState<number[]>(defaultFilterValues.prices)
-  // const [multipliersValue, setMultipliersValue] = useState<string[]>(
-  //   defaultFilterValues.multipliers,
-  // );
-  // const [rentalsValue, setRentalsValue] = useState<string[]>(
-  //   defaultFilterValues.rentals,
-  // );
   const [tribesValue, setTribesValue] = useState<string[]>(defaultFilterValues.tribes)
   const [backgroundsValue, setBackgroundsValue] = useState<string[]>(
     defaultFilterValues.backgrounds
   )
   const [cosmeticsValue, setCosmeticsValue] = useState<string[]>(defaultFilterValues.cosmetics)
-  // const [wearablesValue, setWearablesValue] = useState<string[]>(
-  //   defaultFilterValues.wearables,
-  // );
 
   // Set search params from filter values
   // Use value to manually set the source's value
