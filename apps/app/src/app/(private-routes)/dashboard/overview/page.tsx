@@ -1,13 +1,5 @@
 'use client'
 
-// import { useEffect, useState } from 'react';
-// import ActiveRentalDialog from '@/components/dialog/ActiveRentalDialog';
-// import { ALL_RENTAL_API_URL } from '@/constants/url';
-// import useFetch from '@/hooks/useFetch';
-// import type { Rentals } from '@/types/rentals';
-// import EarningCap from './EarningCap';
-// import MyRentals from './MyRentals';
-// import useAuth from '@/hooks/useAuth';
 import { Grid } from '@mui/material'
 import MyComics from './MyComics'
 import MyDegens from './MyDegens'
@@ -16,26 +8,6 @@ import MyNFTL from './_MyNFTL'
 import MyStats from './MyStats'
 
 const DashboardOverview = (): React.ReactNode => {
-  // const { authToken } = useAuth();
-  // const headers = { authorizationToken: authToken || '' };
-  // const { data } = useFetch<Rentals[]>(ALL_RENTAL_API_URL, {
-  //   headers,
-  //   enabled: !!authToken,
-  // });
-
-  // const [rental, setRental] = useState<Rentals>();
-  // const [rentals, setRentals] = useState<Rentals[]>([] as Rentals[]);
-
-  // useEffect(() => {
-  //   if (data) {
-  //     setRentals(data);
-
-  //     if (data.length > 0) {
-  //       setRental(data[0]);
-  //     }
-  //   }
-  // }, [data]);
-
   return (
     <Grid container direction="row" spacing={4} sx={{ height: 'inherit' }}>
       <Grid container sx={{ flexDirection: 'column' }} size={{ xs: 12, lg: 5.5 }} spacing={4}>
@@ -45,12 +17,6 @@ const DashboardOverview = (): React.ReactNode => {
         <Grid size={{ xs: 12 }}>
           <MyStats />
         </Grid>
-        {/* <Grid size={{ xs: 12 }}>
-          <EarningCap rentals={rentals} />
-        </Grid>
-        <Grid size={{ xs: 12 }}>
-          <MyRentals rentals={rentals} />
-        </Grid> */}
       </Grid>
       <Grid container sx={{ flexDirection: 'column' }} size={{ xs: 12, lg: 6.5 }} spacing={4}>
         <Grid size={{ xs: 12 }}>
@@ -63,9 +29,6 @@ const DashboardOverview = (): React.ReactNode => {
           <MyItems />
         </Grid>
       </Grid>
-      {/* {rental && (
-        <ActiveRentalDialog degenId={rentals[0].degen_id} rental={rental} />
-      )} */}
     </Grid>
   )
 }

@@ -40,7 +40,6 @@ const MyRentalsDataGrid = ({
   onTerminateRental,
   updateRentalName,
 }: Props): React.ReactNode => {
-  // const [pageSize, setPageSize] = useState(10);
   const [selectedRowForEditing, setSelectedRowForEditing] = useState<RentalDataGrid>(
     {} as RentalDataGrid
   )

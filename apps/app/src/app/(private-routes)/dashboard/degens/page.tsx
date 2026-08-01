@@ -83,7 +83,6 @@ const DashboardDegensPage = (): React.ReactNode => {
   const populatedDegens: Degen[] = useMemo(() => {
     if (!degensBalances?.length || !data) return []
     // TODO: remove temp fix for 7th tribes
-    // return degens.map((degen) => data[degen.id]);
     return degensBalances.map((degen) =>
       Number(degen.id) <= 9900
         ? (data[Number(degen.id)] as Degen)
