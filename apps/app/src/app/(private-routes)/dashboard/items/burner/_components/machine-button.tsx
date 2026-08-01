@@ -32,7 +32,6 @@ const MachineButton = ({
         top,
         width,
       }}
-      // variant="contained"
     />
   )
 }

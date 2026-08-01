@@ -108,9 +108,6 @@ const TableModal = ({
   selectedTimeFilter,
   myRank,
 }: TableModalProps): React.ReactNode | null => {
-  // let d = new Date(),
-  //   t = d.toDateString().split(' ');
-
   const [data, setData] = useState<DataType[]>()
 
   // get the top ten items
