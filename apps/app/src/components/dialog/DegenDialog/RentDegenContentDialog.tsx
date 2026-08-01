@@ -38,7 +38,6 @@ import useLocalStorageContext from '@/hooks/useLocalStorageContext'
 
 import TermsOfServiceDialog from '../TermsOfServiceDialog'
 import RentStepper from './RentStepper'
-// import CowSwapWidget from './CowSwapWidget';
 
 const PREFIX = 'RentDegenContentDialog'
 

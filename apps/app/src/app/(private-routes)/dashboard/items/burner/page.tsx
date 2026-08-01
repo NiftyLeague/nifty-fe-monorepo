@@ -32,7 +32,6 @@ const ComicsBurner = () => {
   const [refreshKey, setRefreshKey] = useState(0)
   const burnDisabled = burning || selectedComics.length < 1 || burnCount.every((c) => !c)
 
-  // const [itemCounts, setItemsCounts] = useState([0, 0, 0, 0, 0, 0, 0]);
   const itemCounts = useMemo(() => {
     if (itemsBalances.length) {
       return itemsBalances.map((it) => it.balance || 0)
@@ -80,16 +79,6 @@ const ComicsBurner = () => {
     setBurning(false)
     if (res) {
       setSelectedComics([])
-      // const keyCount = burnCount.some(v => v === 0) ? 0 : Math.min(...burnCount);
-      // setItemsCounts([
-      //   (itemCounts[0] ?? 0) + (burnCount[0] ?? 0) - keyCount,
-      //   (itemCounts[1] ?? 0) + (burnCount[1] ?? 0) - keyCount,
-      //   (itemCounts[2] ?? 0) + (burnCount[2] ?? 0) - keyCount,
-      //   (itemCounts[3] ?? 0) + (burnCount[3] ?? 0) - keyCount,
-      //   (itemCounts[4] ?? 0) + (burnCount[4] ?? 0) - keyCount,
-      //   (itemCounts[5] ?? 0) + (burnCount[5] ?? 0) - keyCount,
-      //   (itemCounts[6] ?? 0) + keyCount,
-      // ]);
       refreshItemsBalances()
       setBurnCount([0, 0, 0, 0, 0, 0])
       setTimeout(() => setRefreshKey(Math.random() + 1), 5000)
@@ -104,15 +93,6 @@ const ComicsBurner = () => {
         ← Back to Comics &amp; Items
       </Button>
       <Machine burnDisabled={burnDisabled} selectedComics={selectedComics} />
-      {/* <MachineButton
-        disabled={imx.registeredUser}
-        height={25}
-        name="Connect Wallet"
-        onClick={imx.linkSetup}
-        width={135}
-        top={45}
-        left={-200}
-      /> */}
       <HelpDialog open={helpDialogOpen} setOpen={setHelpDialogOpen} />
       <MachineButton
         height={20}

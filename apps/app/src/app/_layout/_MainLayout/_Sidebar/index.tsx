@@ -10,7 +10,6 @@ import PerfectScrollbar from 'react-perfect-scrollbar'
 
 // project imports
 import MenuList from './_MenuList'
-// import OnboardingCard from './_OnboardingCard';
 import LogoSection from '../_LogoSection'
 import { openDrawer } from '@/store/slices/menu'
 import { useDispatch, useSelector } from '@/store/hooks'
