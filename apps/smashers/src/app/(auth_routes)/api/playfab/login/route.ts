@@ -32,12 +32,6 @@ export const POST = withSessionRoute(async (request, session) => {
     session.user = user
     await session.save()
 
-    console.log('Successful login', {
-      userId: loginData.PlayFabId,
-      method: CustomId ? 'customId' : 'email',
-      timestamp,
-    })
-
     return NextResponse.json(user)
   } catch (error) {
     const { status, message } = errorResHandler(error)

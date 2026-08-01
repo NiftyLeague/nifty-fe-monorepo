@@ -9,7 +9,6 @@ import type {
   TransactionResponse,
 } from 'ethers'
 import { serializeError } from 'eth-rpc-errors'
-// import { setIntervalAsync, clearIntervalAsync } from 'set-interval-async/dynamic';
 
 import { Contracts } from '@/types/web3'
 import type { NotifyCallback, NotifyError, Tx, EthersTransaction } from '@/types/notify'

@@ -7,11 +7,7 @@ import {
   Stack,
   Typography,
   TextField,
-  // FormControl,
-  // FormControlLabel,
-  // Checkbox,
   DialogActions,
-  // Link,
   Box,
   Button,
 } from '@mui/material'
@@ -22,8 +18,6 @@ import * as yup from 'yup'
 import type { RentalDataGrid } from '@/types/rentalDataGrid'
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
 import { RENAME_RENTAL_API_URL } from '@/constants/url'
-// import useFetch from '@/hooks/useFetch';
-// import type { Degen } from '@/types/degens';
 import { useDispatch } from '@/store/hooks'
 import { openSnackbar } from '@/store/slices/snackbar'
 import useAuth from '@/hooks/useAuth'

@@ -37,14 +37,6 @@ type ModelViewerProps = {
   style: React.CSSProperties
 }
 
-// declare global {
-//   export namespace JSX {
-//     interface IntrinsicElements {
-//       'model-viewer': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & ModelViewerProps;
-//     }
-//   }
-// }
-
 const ModelViewer: React.FC<ModelViewerProps> = (props) => {
   // @ts-expect-error - model-viewer known attribute
   return <model-viewer {...props} />
