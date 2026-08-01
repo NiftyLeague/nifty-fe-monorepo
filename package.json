@@ -28,21 +28,21 @@
   },
   "dependencies": {
     "@axelar-network/axelarjs-sdk": "^0.21.0",
-    "@cowprotocol/cow-sdk": "^9.2.4",
+    "@cowprotocol/cow-sdk": "^9.2.6",
     "@google/model-viewer": "^4.3.1",
-    "@imtbl/sdk": "^2.23.0",
-    "@types/three": "^0.185.1",
-    "@x402/core": "^2.19.0",
-    "@x402/evm": "^2.19.0",
-    "@x402/extensions": "^2.19.0",
-    "@x402/svm": "^2.19.0",
-    "lucide-react": "^1.27.0",
-    "react-hook-form": "^7.83.0",
-    "react-intl": "^10.1.18",
+    "@imtbl/sdk": "^2.24.4",
+    "@types/three": "^0.185.3",
+    "@x402/core": "^2.20.0",
+    "@x402/evm": "^2.20.0",
+    "@x402/extensions": "^2.20.0",
+    "@x402/svm": "^2.20.0",
+    "lucide-react": "^1.28.0",
+    "react-hook-form": "^7.84.0",
+    "react-intl": "^10.1.19",
     "react-unity-webgl": "~10.2.0",
     "sharp": "^0.35.3",
     "three": "^0.185.1",
-    "wagmi": "^3.7.4"
+    "wagmi": "^3.7.5"
   },
   "devDependencies": {
     "@happy-dom/global-registrator": "^20.11.1",
@@ -52,13 +52,13 @@
     "@tailwindcss/postcss": "^4.3.3",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
-    "@types/node": "^26.1.1",
+    "@types/node": "^26.1.2",
     "eslint": "^9.39.5",
-    "lint-staged": "^17.2.0",
+    "lint-staged": "^17.3.0",
     "prettier": "^3.9.6",
     "semver": "^7.8.5",
     "syncpack": "^15.3.2",
-    "turbo": "^2.10.7",
+    "turbo": "^2.10.8",
     "typescript": "~6.0.3"
   },
   "browserslist": {
@@ -91,6 +91,8 @@
     "tmp": "0.2.3",
     "brace-expansion": "2.0.2",
     "crypto-es": "2.1.0",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
     "protobufjs": "7.5.0"
   },
   "workspaces": [
