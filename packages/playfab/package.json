@@ -34,14 +34,14 @@
     "url": "^0.11.4"
   },
   "devDependencies": {
-    "@types/lodash": "^4.17.24",
-    "@types/node": "^26.1.1",
-    "@types/react": "19.2.17",
-    "@types/react-dom": "19.2.3"
+    "@types/lodash": "^4.17.25",
+    "@types/node": "^26.1.2",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4"
   },
   "peerDependencies": {
-    "next": "16.2.10",
-    "next-auth": "^4.24.14",
+    "next": "16.2.12",
+    "next-auth": "^4.24.15",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   }

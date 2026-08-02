@@ -1,6 +1,9 @@
 {
-  "extends": ["@nl/typescript-config/react-library.json", "@docusaurus/tsconfig"],
-  "compilerOptions": { "baseUrl": "." },
+  "extends": "@nl/typescript-config/react-library.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "paths": { "@site/*": ["./*"] }
+  },
   "include": ["src", "docusaurus.config.ts", "sidebars.ts"],
   "exclude": ["node_modules", "build", ".docusaurus", "src/**/*.test.ts", "src/**/*.test.tsx"]
 }
