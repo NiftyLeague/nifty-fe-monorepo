@@ -3,6 +3,7 @@ const stubEnv = (k, v) => {
 }
 import { afterEach, beforeEach, describe, expect, it } from 'bun:test'
 import { mock } from 'bun:test'
+import { NextResponse } from 'next/server'
 
 const mocks = { getIronSession: mock(), cookies: mock().mockResolvedValue({}) }
 
@@ -78,5 +79,20 @@ describe('route wrappers', () => {
     )
     await expect(response.text()).resolves.toBe('private')
     expect(handler).toHaveBeenCalled()
+  })
+
+  it('appends saved cookies directly to a NextResponse', async () => {
+    stubEnv('NEXTAUTH_SECRET', 'a-secure-test-secret-that-is-at-least-32-characters')
+    const sessionModule = await import('./session')
+    const session = { user: { isLoggedIn: true }, save: mock().mockResolvedValue(['session=next']) }
+    mocks.getIronSession.mockResolvedValue(session)
+    const handler = mock().mockReturnValue(NextResponse.json({ ok: true }))
+
+    const response = await sessionModule.withSessionRoute(handler)(
+      new Request('https://example.com/private')
+    )
+
+    expect(response).toBeInstanceOf(NextResponse)
+    expect(response.headers.get('set-cookie')).toContain('session=next')
   })
 })
