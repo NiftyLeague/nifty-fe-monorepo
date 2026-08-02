@@ -60,7 +60,7 @@
     "semver": "^7.8.5",
     "syncpack": "^15.3.2",
     "turbo": "^2.10.8",
-    "typescript": "~6.0.3"
+    "typescript": "~7.0.2"
   },
   "browserslist": {
     "production": [
