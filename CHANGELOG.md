@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.1](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.1.0...nifty-fe-monorepo-v1.1.1) (2026-08-03)
+
+
+### Bug Fixes
+
+* **ci:** use Code Foundry v0.34.12 ([#350](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/350)) ([7c8d113](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/7c8d113aaa6163b65c520f975e4656b53cb34a61))
+
+
+### Maintenance
+
+* **ci:** promote Code Foundry v0.34.9 to main ([3595f3e](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/3595f3e4c0e3a352508844f00a95b4181bce46d5))
+* **ci:** use Code Foundry v0.34.11 on main ([#346](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/346)) ([d401a9c](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/d401a9c728894de060bcfa3977024ed3c14e3ffb))
+* **staging:** align branch with main ([2dedc85](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/2dedc858a05921fb3969f3cd300083f085e61d1b))
+
 ## [1.1.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.0.0...nifty-fe-monorepo-v1.1.0) (2026-08-02)
 
 
