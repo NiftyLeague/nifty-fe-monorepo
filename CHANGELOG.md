@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.1.1...nifty-fe-monorepo-v1.1.2) (2026-08-03)
+
+
+### Maintenance
+
+* **ci:** align Code Foundry release policy ([#354](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/354)) ([a60201e](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/a60201e8ee7796a0a2bc75faf9889394331a9f53))
+
 ## [1.1.1](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.1.0...nifty-fe-monorepo-v1.1.1) (2026-08-03)
 
 
