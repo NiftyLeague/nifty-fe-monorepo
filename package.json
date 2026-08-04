@@ -1,7 +1,7 @@
 {
   "name": "nifty-fe-monorepo",
   "version": "1.1.2",
-  "license": "AGPL-3.0-or-later",
+  "license": "Apache-2.0",
   "private": true,
   "scripts": {
     "act-ci": "act --container-architecture linux/amd64 -P ubuntu-latest=-self-hosted -s GITHUB_TOKEN --var-file .env.act --secret-file .env.act -W '.github/workflows/ci.yml'",
