@@ -147,4 +147,29 @@ describe('admin and cloud-script wrappers', () => {
       expect.any(Function)
     )
   })
+
+  it('invokes the ExecuteFunction callback with error and result', () => {
+    const callback = mock()
+    ExecuteFunction({ FunctionName: 'Test' }, 'entity-token', callback)
+    const call = PlayFab.MakeRequest.mock.calls.at(-1)
+    const cb = call?.[4] as ((error: unknown, result: unknown) => void) | undefined
+    cb?.('cloud-error', { data: 'cloud-result' })
+    expect(callback).toHaveBeenCalledWith('cloud-error', { data: 'cloud-result' })
+  })
+
+  it('invokes the DeletePlayer callback with error and result', () => {
+    const callback = mock()
+    DeletePlayer({ PlayFabId: 'player' }, callback)
+    const call = PlayFab.MakeRequest.mock.calls.at(-1)
+    const cb = call?.[4] as ((error: unknown, result: unknown) => void) | undefined
+    cb?.(null, { data: 'deleted' })
+    expect(callback).toHaveBeenCalledWith(null, { data: 'deleted' })
+  })
+
+  it('throws when DeletePlayer is called without a developer secret key', () => {
+    PlayFab.settings.developerSecretKey = null as any
+    expect(() => DeletePlayer({ PlayFabId: 'player' }, mock())).toThrow(
+      'Must have PlayFab.settings.DeveloperSecretKey set to call this method'
+    )
+  })
 })
