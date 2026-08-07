@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.1.3](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.1.2...nifty-fe-monorepo-v1.1.3) (2026-08-07)
+
+
+### Bug Fixes
+
+* **deps:** bump js-yaml to 4.3.1 to clear CVE-2026-59870 ([7cde950](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/7cde9501a51741c4554bb52f0df145f5505ca81d))
+* **deps:** refresh audited transitive packages ([12b321f](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/12b321f6fc4933b9d654f6088e517bd18890f787))
+
+
+### CI
+
+* **release:** stop forwarding broken automation token ([23e265f](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/23e265ff014d372665d71043496b294afd910ff6))
+
+
+### Maintenance
+
+* drop-mui-support ([#360](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/360)) ([cf09198](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/cf0919857ea50424d4dc70f721238aa209abd46b))
+* migrate repository license to Apache 2.0 ([afb14ee](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/afb14ee6581e9d4ae2aabb2c25c771e1b2a2695b))
+
 ## [1.1.2](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.1.1...nifty-fe-monorepo-v1.1.2) (2026-08-03)
 
 
