@@ -95,7 +95,8 @@
     "crypto-es": "2.1.0",
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.4",
-    "protobufjs": "7.5.0"
+    "protobufjs": "7.5.0",
+    "js-yaml": "4.3.1"
   },
   "workspaces": [
     "packages/*",
