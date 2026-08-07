@@ -1,4 +1,3 @@
-import { CardMedia, Box } from '@mui/material'
 import useImageOnLoad from '@/hooks/useImageOnLoad'
 
 interface ImageCardProps {
@@ -8,7 +7,7 @@ interface ImageCardProps {
   ratio: number
 }
 
-const styleImage = {
+const styleImage: { imageWrapper: React.CSSProperties; imageCommon: React.CSSProperties } = {
   imageWrapper: { height: 0, width: '100%' },
   imageCommon: { position: 'absolute', width: '100%' },
 }
@@ -16,26 +15,24 @@ const styleImage = {
 const ImageCard = ({ image, thumbnail, title, ratio }: ImageCardProps) => {
   const { handleImageOnLoad, css } = useImageOnLoad()
   return (
-    <Box sx={{ ...styleImage.imageWrapper, paddingBottom: `${ratio * 100}%` }}>
+    <div style={{ ...styleImage.imageWrapper, paddingBottom: `${ratio * 100}%` }}>
       {thumbnail && (
-        <CardMedia
+        <img
           onLoad={handleImageOnLoad}
-          component="img"
-          image={thumbnail}
+          src={thumbnail}
           alt={`thumbnail-${title}`}
-          sx={{ ...styleImage.imageCommon, ...css.thumbnail }}
+          style={{ ...styleImage.imageCommon, ...css.thumbnail }}
         />
       )}
       {image && (
-        <CardMedia
+        <img
           onLoad={handleImageOnLoad}
-          component="img"
-          image={image}
+          src={image}
           alt={title}
-          sx={{ height: '100%', ...styleImage.imageCommon, ...css.fullSize }}
+          style={{ height: '100%', ...styleImage.imageCommon, ...css.fullSize }}
         />
       )}
-    </Box>
+    </div>
   )
 }
 

@@ -1,26 +1,19 @@
 'use client'
 
 import Image from 'next/image'
-import { useContext, useState } from 'react'
+import Link from 'next/link'
+import { forwardRef, useContext, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { NumericFormat } from 'react-number-format'
 import { parseEther } from 'ethers'
 
-import {
-  Alert,
-  Box,
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  Link,
-  Stack,
-  TextField,
-  ToggleButton,
-  ToggleButtonGroup,
-  Typography,
-} from '@mui/material'
-import type { Theme } from '@mui/material/styles'
-import LoadingButton from '@mui/lab/LoadingButton'
+import { Alert } from '@nl/ui/base/alert'
+import { Button } from '@nl/ui/base/button'
+import { Checkbox } from '@nl/ui/base/checkbox'
+import { Label } from '@nl/ui/base/label'
+import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group'
+import { CircularProgress } from '@nl/ui/custom/circular-progress'
+import { Title } from '@nl/ui/custom/typography'
 
 import { bridgeNFTL, increaseBridgeAllowance } from '@/utils/interchainTokenService'
 import { formatNumberToDisplay } from '@nl/ui/utils'
@@ -38,6 +31,15 @@ type BridgeFormProps = { balance: number; onBridgeSuccess: () => void }
 type IFormInput = { amountSelected: number; amountInput: string; isCheckedTerm: boolean }
 
 const AMOUNT_SELECTS: number[] = [25, 50, 75, 100]
+
+const AmountInput = forwardRef<HTMLInputElement, React.ComponentProps<'input'>>((props, ref) => (
+  <input
+    ref={ref}
+    {...props}
+    className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm text-foreground shadow-xs outline-none transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+  />
+))
+AmountInput.displayName = 'AmountInput'
 
 export const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): React.ReactNode => {
   const { agreementAccepted, setAgreementAccepted } = useLocalStorageContext()
@@ -131,7 +133,7 @@ export const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): React
     resetForm()
   }
 
-  const openTOSDialog: React.MouseEventHandler<HTMLAnchorElement> = (event) => {
+  const openTOSDialog: React.MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault()
     setOpenTOS(true)
   }
@@ -149,12 +151,12 @@ export const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): React
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack sx={{ alignItems: 'center', gap: 2 }}>
-        <Typography variant="h4" sx={{ opacity: 0.7 }}>
+      <div className="flex flex-col items-center gap-4">
+        <Title level={4} className="opacity-70">
           Powered by:{'  '}
           <Image src="/icons/axelar.svg" alt="Axelar" width={126} height={30} />
-        </Typography>
-        <Alert severity="info">
+        </Title>
+        <Alert variant="default" className="border-blue/40 bg-blue/10 text-blue">
           <strong>Note:</strong> The Axelar bridge minimizes fees but takes 20 minutes to process.{' '}
           <br />
           If you need your funds immediately use the{' '}
@@ -162,154 +164,150 @@ export const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): React
             href={IMX_SQUID_BRIDGE_URL}
             target="_blank"
             rel="noreferrer"
-            color="secondary"
             style={{ fontWeight: 800 }}
           >
             Squid Bridge
           </Link>{' '}
           instead.
         </Alert>
-        <Typography variant="h2" sx={{ opacity: 0.7 }}>
+        <Title level={2} className="opacity-70">
           {formatNumberToDisplay(balance)} NFTL
-          <Typography variant="body1">Balance on Ethereum available to bridge</Typography>
-        </Typography>
-        <Typography variant="h4">How much would you like to bridge?</Typography>
+          <span className="block text-base">Balance on Ethereum available to bridge</span>
+        </Title>
+        <Title level={4}>How much would you like to bridge?</Title>
         <Controller
           name="amountSelected"
           control={control}
           render={({ field }) => (
-            <ToggleButtonGroup
-              {...field}
-              size="large"
-              exclusive
-              color="success"
-              onChange={(e, value) => {
+            <ToggleGroup
+              type="single"
+              size="lg"
+              value={String(field.value)}
+              className="bg-[var(--color-blue)]"
+              onValueChange={(value) => {
+                if (value == null) return
+                const num = Number(value)
                 clearErrors()
-                field.onChange(value)
-                const calculatedAmount = value * (balance / 100)
+                field.onChange(num)
+                const calculatedAmount = num * (balance / 100)
                 setValue('amountInput', calculatedAmount.toString())
                 setBridgeAmount(calculatedAmount)
               }}
-              sx={{ bgcolor: 'var(--color-blue)' }}
             >
               {AMOUNT_SELECTS.map((amount) => (
-                <ToggleButton
-                  key={amount}
-                  value={amount}
-                  sx={(theme: Theme) => ({ [theme.breakpoints.up('sm')]: { px: 4, py: 1 } })}
-                >
+                <ToggleGroupItem key={amount} value={String(amount)} className="sm:px-4 sm:py-1">
                   {amount !== 100 ? `${amount}%` : 'ALL'}
-                </ToggleButton>
+                </ToggleGroupItem>
               ))}
-            </ToggleButtonGroup>
+            </ToggleGroup>
           )}
         />
 
-        <Typography variant="h4">OR - Enter Amount Manually</Typography>
+        <Title level={4}>OR - Enter Amount Manually</Title>
 
-        <Box sx={{ width: '100%', '&>div': { width: '80%' } }}>
-          <Controller
-            name="amountInput"
-            control={control}
-            render={({ field }) => (
-              <NumericFormat
-                disabled={field.disabled}
-                name={field.name}
-                onBlur={field.onBlur}
-                value={field.value}
-                inputRef={field.ref}
-                allowNegative={false}
-                isAllowed={({ value }) => Number(value) <= Number(balance)}
-                label="Amount of NFTL"
-                thousandSeparator
-                customInput={TextField}
-                onValueChange={(e) => {
-                  clearErrors()
-                  const numberValue = Number(e.value)
-                  if (getValues('amountSelected') !== 0) {
-                    if (getValues('amountSelected') === 25 && numberValue / balance != 0.25)
-                      resetField('amountSelected')
-                    if (getValues('amountSelected') === 50 && numberValue / balance != 0.5)
-                      resetField('amountSelected')
-                    if (getValues('amountSelected') === 75 && numberValue / balance != 0.75)
-                      resetField('amountSelected')
-                    if (getValues('amountSelected') === 100 && numberValue !== balance)
-                      resetField('amountSelected')
-                  }
-                  field.onChange(e.value)
-                  setBridgeAmount(numberValue)
-                }}
-              />
-            )}
-          />
-        </Box>
+        <div className="w-full">
+          <div className="mx-auto w-4/5">
+            <Controller
+              name="amountInput"
+              control={control}
+              render={({ field }) => (
+                <>
+                  <Label>Amount of NFTL</Label>
+                  <NumericFormat
+                    disabled={field.disabled}
+                    name={field.name}
+                    onBlur={field.onBlur}
+                    value={field.value}
+                    allowNegative={false}
+                    isAllowed={({ value }) => Number(value) <= Number(balance)}
+                    thousandSeparator
+                    customInput={
+                      AmountInput as React.ComponentType<
+                        React.InputHTMLAttributes<HTMLInputElement>
+                      >
+                    }
+                    onValueChange={(e) => {
+                      clearErrors()
+                      const numberValue = Number(e.value)
+                      if (getValues('amountSelected') !== 0) {
+                        if (getValues('amountSelected') === 25 && numberValue / balance != 0.25)
+                          resetField('amountSelected')
+                        if (getValues('amountSelected') === 50 && numberValue / balance != 0.5)
+                          resetField('amountSelected')
+                        if (getValues('amountSelected') === 75 && numberValue / balance != 0.75)
+                          resetField('amountSelected')
+                        if (getValues('amountSelected') === 100 && numberValue !== balance)
+                          resetField('amountSelected')
+                      }
+                      field.onChange(e.value)
+                      setBridgeAmount(numberValue)
+                    }}
+                  />
+                </>
+              )}
+            />
+          </div>
+        </div>
         <Controller
           name="isCheckedTerm"
           control={control}
           render={({ field }) => (
-            <FormGroup sx={{ width: '100%' }}>
-              <FormControlLabel
-                sx={{ m: 0, justifyContent: 'center' }}
-                control={
-                  <Checkbox
-                    {...field}
-                    checked={field.value}
-                    sx={{ paddingLeft: 0 }}
-                    onChange={(e) => {
-                      field.onChange(e)
-                      setAgreementAccepted(e.target.checked ? 'ACCEPTED' : 'FALSE')
-                    }}
-                  />
-                }
-                label={
-                  <Typography variant="body1" align="left" sx={{ opacity: 0.7, width: '100%' }}>
-                    I have read the
-                    <Link
-                      sx={{ mx: '4px', fontWeight: 800 }}
-                      color="textPrimary"
-                      onClick={openTOSDialog}
-                    >
-                      terms &amp; conditions
-                    </Link>
-                    regarding bridge transactions.
-                  </Typography>
-                }
-              />
-            </FormGroup>
+            <div className="flex w-full flex-col items-center">
+              <label className="flex items-center justify-center">
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={(checked) => {
+                    field.onChange(checked === true)
+                    setAgreementAccepted(checked === true ? 'ACCEPTED' : 'FALSE')
+                  }}
+                />
+                <span className="w-full text-left text-base opacity-70">
+                  I have read the
+                  <button
+                    type="button"
+                    className="mx-1 cursor-pointer font-bold text-foreground underline"
+                    onClick={openTOSDialog}
+                  >
+                    terms &amp; conditions
+                  </button>
+                  regarding bridge transactions.
+                </span>
+              </label>
+            </div>
           )}
         />
         <TermsOfServiceDialog open={openTOS} onClose={handleTOSDialogClose} />
-        {errors.amountInput && <Alert severity="error">{errors.amountInput.message}</Alert>}
-        <Typography variant="h4" align="center" sx={{ width: '100%' }}>
+        {errors.amountInput && <Alert variant="destructive">{errors.amountInput.message}</Alert>}
+        <Title level={4} className="w-full text-center">
           Step 1:
-        </Typography>
-        <LoadingButton
-          size="large"
+        </Title>
+        <Button
+          size="lg"
           type="submit"
-          variant="contained"
-          fullWidth
-          loading={loadingAllowance || allowPending}
+          variant="default"
+          className="w-full"
           disabled={!getValues('isCheckedTerm') || bridgeAmount === 0 || allowance >= bridgeAmount}
-          sx={{ textTransform: 'none' }}
+          style={{ textTransform: 'none' }}
         >
           Increase allowance to allow the bridge to transfer your NFTL
-        </LoadingButton>
-        <Typography variant="h4" align="center" sx={{ width: '100%' }}>
+          {(loadingAllowance || allowPending) && <CircularProgress size="sm" />}
+        </Button>
+        <Title level={4} className="w-full text-center">
           Step 2:
-        </Typography>
-        <LoadingButton
-          size="large"
+        </Title>
+        <Button
+          size="lg"
           type="submit"
-          variant="contained"
-          fullWidth
-          loading={bridgePending}
+          variant="default"
+          className="w-full"
           disabled={!getValues('isCheckedTerm') || bridgeAmount === 0 || allowance < bridgeAmount}
-          sx={{ textTransform: 'none' }}
+          style={{ textTransform: 'none' }}
         >
           Bridge {bridgeAmount !== 0 ? formatNumberToDisplay(Number(bridgeAmount)) : ''} NFTL to
           Immutable zkEVM
-        </LoadingButton>
-      </Stack>
+          {bridgePending && <CircularProgress size="sm" />}
+        </Button>
+      </div>
     </form>
   )
 }

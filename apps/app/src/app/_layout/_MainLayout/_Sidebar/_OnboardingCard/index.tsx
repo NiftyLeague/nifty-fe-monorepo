@@ -1,20 +1,8 @@
 import { memo } from 'react'
 
-// material-ui
-import { useTheme } from '@nl/theme'
-import {
-  Avatar,
-  Card,
-  CardContent,
-  Grid,
-  LinearProgress,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Typography,
-} from '@mui/material'
-
+import { Avatar, AvatarFallback } from '@nl/ui/base/avatar'
+import { Card, CardContent } from '@nl/ui/base/card'
+import { Progress } from '@nl/ui/base/progress'
 import { Icon } from '@nl/ui/base/icon'
 
 // styles
@@ -27,66 +15,43 @@ interface LinearProgressWithLabelProps {
 // ==============================|| PROGRESS BAR WITH LABEL ||============================== //
 
 const LinearProgressWithLabel = ({ value, ...others }: LinearProgressWithLabelProps) => (
-  <Grid container sx={{ flexDirection: 'column', mt: 1.5 }} spacing={1}>
-    <Grid>
-      <Grid container sx={{ justifyContent: 'space-between' }}>
-        <Grid>
-          <Typography variant="h6" sx={{ color: 'var(--color-foreground)' }}>
-            Progress
-          </Typography>
-        </Grid>
-        <Grid>
-          <Typography variant="h6" sx={{ color: 'inherit' }}>{`${Math.round(value)}%`}</Typography>
-        </Grid>
-      </Grid>
-    </Grid>
-    <Grid>
-      <LinearProgress
-        className={styles.borderLinearProgress}
-        variant="determinate"
-        value={value}
-        {...others}
-      />
-    </Grid>
-  </Grid>
+  <div className="mt-1.5 flex flex-col gap-1">
+    <div className="flex justify-between">
+      <h6 className="text-foreground">Progress</h6>
+      <h6 style={{ color: 'inherit' }}>{`${Math.round(value)}%`}</h6>
+    </div>
+    <Progress className={styles.borderLinearProgress} value={value} {...others} />
+  </div>
 )
 
 // ==============================|| SIDEBAR - ONBOARDING CARD ||============================== //
 
 const OnboardingCard = () => {
-  const theme = useTheme()
-
   return (
     <Card className={styles.cardStyle}>
-      <CardContent sx={{ p: 2 }}>
-        <List sx={{ p: 0, m: 0 }}>
-          <ListItem alignItems="flex-start" disableGutters sx={{ p: 0 }}>
-            <ListItemAvatar sx={{ mt: 0 }}>
+      <CardContent className="p-2">
+        <ul className="m-0 list-none p-0">
+          <li className="flex items-start p-0">
+            <div className="mt-0">
               <Avatar
-                variant="rounded"
-                sx={{
-                  ...theme.typography.commonAvatar,
-                  ...theme.typography.largeAvatar,
+                className="mr-3 size-11 cursor-pointer rounded-md"
+                style={{
                   color: 'var(--color-purple)',
                   border: 'var(--border-purple)',
                   background: 'var(--color-background)',
-                  marginRight: '12px',
                 }}
               >
-                <Icon name="book-open-check" />
+                <AvatarFallback>
+                  <Icon name="book-open-check" />
+                </AvatarFallback>
               </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              sx={{ mt: 0 }}
-              primary={
-                <Typography variant="subtitle1" sx={{ color: 'var(--color-foreground)' }}>
-                  Onboarding
-                </Typography>
-              }
-              secondary={<Typography variant="caption"> 28/23 Tasks</Typography>}
-            />
-          </ListItem>
-        </List>
+            </div>
+            <div className="mt-0">
+              <div className="text-sm font-medium text-foreground">Onboarding</div>
+              <span className="text-xs text-muted-foreground"> 28/23 Tasks</span>
+            </div>
+          </li>
+        </ul>
         <LinearProgressWithLabel value={80} />
       </CardContent>
     </Card>

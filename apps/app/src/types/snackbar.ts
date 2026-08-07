@@ -1,7 +1,16 @@
-// material-ui
-import { AlertProps, SnackbarOrigin } from '@mui/material'
-
 // ==============================|| SNACKBAR TYPES  ||============================== //
+
+export type SnackbarOrigin = {
+  vertical: 'top' | 'bottom'
+  horizontal: 'left' | 'center' | 'right'
+}
+
+export type AlertColor = 'success' | 'info' | 'warning' | 'error' | 'primary' | 'secondary'
+
+export interface AlertProps {
+  color?: AlertColor
+  variant?: 'standard' | 'filled' | 'outlined'
+}
 
 export interface SnackbarProps {
   action: boolean

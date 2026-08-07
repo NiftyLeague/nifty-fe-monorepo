@@ -1,6 +1,10 @@
-import TableCell from '@mui/material/TableCell'
-import TablePagination from '@mui/material/TablePagination'
-import { TablePaginationProps } from './types'
+'use client'
+
+import { Button } from '@nl/ui/base/button'
+import { Icon } from '@nl/ui/base/icon'
+import { cn } from '@nl/ui/utils'
+
+import type { TablePaginationProps } from './types'
 
 interface PaginationProps {
   component?: React.ElementType
@@ -19,23 +23,49 @@ const Pagination: React.FC<PaginationProps> = ({
   rowsPerPage,
   TablePaginationProps,
 }) => {
-  const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
-    page: number
-  ) => {
-    onChangePage(event, page)
+  const totalPages = Math.max(1, Math.ceil(count / rowsPerPage))
+
+  const handleChangePage = (event: React.MouseEvent | null, newPage: number) => {
+    onChangePage(event, newPage)
   }
 
+  // The legacy `component` prop controlled the wrapping element used by MUI's
+  // TablePagination; we render a semantic footer in its place and honor any
+  // caller-supplied className/style via the merged TablePaginationProps.
+  const Wrapper: React.ElementType = component || 'div'
+
   return (
-    <TablePagination
-      {...TablePaginationProps}
-      component={component || TableCell}
-      count={count}
-      rowsPerPage={rowsPerPage}
-      rowsPerPageOptions={[rowsPerPage]}
-      page={page}
-      onPageChange={handleChangePage}
-    />
+    <Wrapper
+      className={cn(
+        'flex items-center justify-end gap-2 px-4 py-2',
+        typeof TablePaginationProps?.className === 'string' ? TablePaginationProps.className : ''
+      )}
+      style={TablePaginationProps?.style}
+    >
+      <Button
+        variant="ghost"
+        size="icon"
+        className="cursor-pointer"
+        disabled={page === 0}
+        onClick={() => handleChangePage(null, Math.max(0, page - 1))}
+        aria-label="Previous page"
+      >
+        <Icon name="chevron-left" />
+      </Button>
+      <span className="text-sm text-muted-foreground">
+        Page {page + 1} of {totalPages}
+      </span>
+      <Button
+        variant="ghost"
+        size="icon"
+        className="cursor-pointer"
+        disabled={page + 1 >= totalPages}
+        onClick={() => handleChangePage(null, page + 1)}
+        aria-label="Next page"
+      >
+        <Icon name="chevron-right" />
+      </Button>
+    </Wrapper>
   )
 }
 

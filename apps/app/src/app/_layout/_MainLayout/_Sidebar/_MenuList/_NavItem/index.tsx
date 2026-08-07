@@ -1,17 +1,13 @@
-import { ForwardRefExoticComponent, RefAttributes, forwardRef, useEffect } from 'react'
+import { useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-// material-ui
-import { useTheme } from '@nl/theme'
-import { Avatar, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material'
-import Chip from '@/components/extended/Chip'
-
-// project imports
+import { cn } from '@nl/ui/utils'
 import { Icon } from '@nl/ui/base/icon'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { useDispatch } from '@/store/hooks'
 import { activeItem, openDrawer } from '@/store/slices/menu'
+import Chip from '@/components/extended/Chip'
 
 // types
 import type { LinkTarget, NavItemType } from '@/types'
@@ -25,7 +21,6 @@ interface NavItemProps {
 
 const NavItem = ({ item, level }: NavItemProps) => {
   const pathname = usePathname()
-  const theme = useTheme()
   const matchesSM = useMediaQuery('(max-width:1024px)')
   const dispatch = useDispatch()
   const isSelected = pathname === item.url
@@ -33,20 +28,6 @@ const NavItem = ({ item, level }: NavItemProps) => {
   let itemTarget: LinkTarget = '_self'
   if (item.target) {
     itemTarget = '_blank'
-  }
-
-  let listItemProps: {
-    component: ForwardRefExoticComponent<RefAttributes<HTMLAnchorElement>> | string
-    href?: string
-    target?: LinkTarget
-  } = {
-    // eslint-disable-next-line react/display-name
-    component: forwardRef((props, ref) => (
-      <Link ref={ref} {...props} href={item.url!} target={itemTarget} />
-    )),
-  }
-  if (item?.external) {
-    listItemProps = { component: 'a', href: item.url, target: itemTarget }
   }
 
   const itemHandler = (id: string) => {
@@ -61,58 +42,71 @@ const NavItem = ({ item, level }: NavItemProps) => {
     }
   }, [item.id, pathname, dispatch])
 
-  return (
-    <ListItemButton
-      {...listItemProps}
-      disabled={item.disabled}
-      sx={{
-        borderRadius: 'var(--radius-default)',
-        border: '1px solid transparent',
-        mb: 0.5,
-        alignItems: 'flex-start',
-        backgroundColor: 'transparent',
-        zIndex: 1,
-        py: level > 1 ? 1 : 1.25,
-        pl: `${level * 24}px`,
-        '&:hover': { border: 'var(--border-purple)', backgroundColor: 'var(--color-muted)' },
-      }}
-      selected={isSelected}
-      onClick={() => itemHandler(item.id!)}
-    >
-      <ListItemIcon sx={{ my: 'auto', minWidth: !item?.icon ? 18 : 36 }}>
+  const inner = (
+    <>
+      <span className="my-auto" style={{ minWidth: !item?.icon ? 18 : 36 }}>
         <Icon name={item?.icon ?? 'dot'} size="lg" />
-      </ListItemIcon>
-      <ListItemText
-        primary={
-          <Typography
-            variant="body1"
-            sx={{ fontWeight: isSelected ? 'bold' : 'normal', color: 'inherit' }}
-          >
-            {item.title}
-          </Typography>
-        }
-        secondary={
-          item.caption && (
-            <Typography
-              variant="caption"
-              gutterBottom
-              sx={{ display: 'block', ...theme.typography.subMenuCaption }}
-            >
-              {item.caption}
-            </Typography>
-          )
-        }
-      />
+      </span>
+      <span className="flex-1">
+        <span
+          className={cn('text-base', isSelected ? 'font-bold' : 'font-normal')}
+          style={{ color: 'inherit' }}
+        >
+          {item.title}
+        </span>
+        {item.caption && (
+          <span className="block text-xs font-medium uppercase text-muted-foreground">
+            {item.caption}
+          </span>
+        )}
+      </span>
       {item.chip && (
         <Chip
           colorType={item.chip.color}
           variant={item.chip.variant}
           size={item.chip.size}
           label={item.chip.label}
-          avatar={item.chip.avatar && <Avatar>{item.chip.avatar}</Avatar>}
+          avatar={item.chip.avatar}
         />
       )}
-    </ListItemButton>
+    </>
+  )
+
+  const linkClass = cn(
+    'mb-0.5 flex items-start gap-2 rounded-md border border-transparent bg-transparent px-2 py-2 text-left transition-colors hover:border-purple hover:bg-muted',
+    isSelected && 'border-purple bg-muted'
+  )
+  const style = {
+    paddingLeft: `${level * 24}px`,
+    paddingTop: level > 1 ? 8 : 10,
+    paddingBottom: level > 1 ? 8 : 10,
+  }
+
+  if (item?.external) {
+    return (
+      <a
+        href={item.url}
+        target={itemTarget}
+        rel="noopener noreferrer"
+        className={linkClass}
+        style={style}
+        onClick={() => itemHandler(item.id!)}
+      >
+        {inner}
+      </a>
+    )
+  }
+
+  return (
+    <Link
+      href={item.url!}
+      target={itemTarget}
+      className={linkClass}
+      style={style}
+      onClick={() => itemHandler(item.id!)}
+    >
+      {inner}
+    </Link>
   )
 }
 

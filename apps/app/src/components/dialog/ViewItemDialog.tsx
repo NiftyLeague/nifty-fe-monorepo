@@ -1,4 +1,6 @@
-import { Button, Dialog, DialogActions, DialogContent } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
+import { Dialog, DialogContent } from '@nl/ui/base/dialog'
+import { cn } from '@nl/ui/utils'
 import type { Item } from '@/types/marketplace'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import ItemDetail from '@/components/cards/ItemDetail'
@@ -19,15 +21,25 @@ const ViewItemDialog = ({
   const fullScreen = useMediaQuery('(max-width:640px)')
 
   return (
-    <Dialog maxWidth="md" open={open} onClose={onClose} fullScreen={fullScreen}>
-      <DialogContent className="flex justify-center">
-        {item && <ItemDetail data={item} subIndex={subIndex} />}
+    <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
+      <DialogContent
+        showCloseButton={false}
+        className={cn(
+          'p-0',
+          fullScreen
+            ? 'top-0 left-0 h-screen w-screen max-h-screen max-w-none translate-x-0 translate-y-0 rounded-none'
+            : 'max-w-[900px] md:max-w-[900px] lg:max-w-[900px]'
+        )}
+      >
+        <div className="flex justify-center p-6">
+          {item && <ItemDetail data={item} subIndex={subIndex} />}
+        </div>
+        <div className="flex items-center gap-2 px-6 pb-6">
+          <Button variant="ghost" className="w-full" onClick={onClose}>
+            Close
+          </Button>
+        </div>
       </DialogContent>
-      <DialogActions>
-        <Button fullWidth onClick={onClose}>
-          Close
-        </Button>
-      </DialogActions>
     </Dialog>
   )
 }

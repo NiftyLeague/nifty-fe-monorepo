@@ -1,52 +1,42 @@
 import Image from 'next/image'
-import TableCell from '@mui/material/TableCell'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
 import type { EnhancedTableProps } from '@/types/leaderboard'
-import { Typography } from '@mui/material'
+import { Title } from '@nl/ui/custom/typography'
 
 export default function EnhancedTableHead(props: EnhancedTableProps): React.ReactNode | null {
   const { rows, handleCheckYourRank } = props
   return (
-    <TableHead>
-      <TableRow>
-        <TableCell align="left" padding="normal">
+    <thead>
+      <tr>
+        <th align="left" className="px-4 py-3 text-sm">
           RANK
-        </TableCell>
-        <TableCell align="left" padding="normal">
+        </th>
+        <th align="left" className="px-4 py-3 text-sm">
           USERNAME
-        </TableCell>
+        </th>
         {rows.map((headCell) => (
-          <TableCell key={headCell.key} align="left" padding="normal">
+          <th key={headCell.key} align="left" className="px-4 py-3 text-sm" scope="col">
             {headCell.display}
-          </TableCell>
+          </th>
         ))}
-        <TableCell sx={{ pr: '0px' }} align="right" padding="normal">
-          <Typography
-            variant="h4"
-            sx={{
-              color: 'var(--color-purple)',
-              textDecoration: 'underline',
-              cursor: 'pointer',
-              display: 'flex',
-              lineHeight: '24px',
-              justifyContent: 'flex-end',
-              fontWeight: 700,
-              svg: { mr: '3px' },
-            }}
+        <th align="right" className="px-4 py-3 text-sm" scope="col">
+          <span
             onClick={handleCheckYourRank}
+            className="cursor-pointer font-bold text-[var(--color-purple)] underline"
+            style={{ lineHeight: '24px' }}
           >
-            <Image
-              src="/icons/rank_icon.svg"
-              alt="Rank Icon"
-              width={25}
-              height={20}
-              style={{ marginRight: 4 }}
-            />
-            RANK
-          </Typography>
-        </TableCell>
-      </TableRow>
-    </TableHead>
+            <Title level={4} className="flex items-center justify-end" style={{ marginBottom: 0 }}>
+              <Image
+                src="/icons/rank_icon.svg"
+                alt="Rank Icon"
+                width={25}
+                height={20}
+                style={{ marginRight: 4 }}
+              />
+              RANK
+            </Title>
+          </span>
+        </th>
+      </tr>
+    </thead>
   )
 }

@@ -1,9 +1,5 @@
 import { ReactNode } from 'react'
 
-// material-ui
-import { useTheme } from '@nl/theme'
-import { Divider, List, Typography } from '@mui/material'
-
 // project imports
 import type { IconName } from '@nl/ui/base/icon'
 import NavItem from '../_NavItem'
@@ -25,8 +21,6 @@ export interface NavGroupProps {
 }
 
 const NavGroup = ({ item }: NavGroupProps) => {
-  const theme = useTheme()
-
   // menu list collapse & items
   const items = (item?.children || []).map((menu) => {
     switch (menu.type) {
@@ -36,46 +30,30 @@ const NavGroup = ({ item }: NavGroupProps) => {
         return <NavItem key={menu.id} item={menu} level={1} />
       default:
         return (
-          <Typography
-            key={menu.id}
-            variant="h6"
-            sx={{ color: 'var(--color-error)' }}
-            align="center"
-          >
+          <h6 key={menu.id} className="text-center text-error">
             Menu Items Error
-          </Typography>
+          </h6>
         )
     }
   })
 
   return (
     <>
-      <List
-        subheader={
-          item.title && (
-            <Typography
-              variant="caption"
-              gutterBottom
-              sx={{ display: 'block', ...theme.typography.menuCaption }}
-            >
-              {item.title}
-              {item.caption && (
-                <Typography
-                  variant="caption"
-                  gutterBottom
-                  sx={{ display: 'block', ...theme.typography.subMenuCaption }}
-                >
-                  {item.caption}
-                </Typography>
-              )}
-            </Typography>
-          )
-        }
-      >
+      <div>
+        {item.title && (
+          <div className="mt-2.5 p-1.5 text-sm font-medium capitalize text-muted-foreground">
+            {item.title}
+            {item.caption && (
+              <span className="block text-xs font-medium capitalize text-muted-foreground">
+                {item.caption}
+              </span>
+            )}
+          </div>
+        )}
         {items}
-      </List>
+      </div>
       {/* group divider */}
-      <Divider sx={{ mt: 0.25, mb: 1.25, opacity: '0.6' }} />
+      <hr className="mt-1 mb-5 opacity-60" />
     </>
   )
 }

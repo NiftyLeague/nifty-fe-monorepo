@@ -10,15 +10,12 @@ import PerfectScrollbar from 'react-perfect-scrollbar'
 import { openDrawer } from '@/store/slices/menu'
 import { useDispatch, useSelector } from '@/store/hooks'
 
-// material-ui
-import { appHeaderHeight, container } from '@nl/theme'
-import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material'
-
 // React Toastify
 import { ToastContainer } from 'react-toastify'
 
 // project imports
 import { cn } from '@nl/ui/utils'
+import { Button } from '@nl/ui/base/button'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import navigation from '@/constants/menu-items'
 import { useConnectedToIMXCheck } from '@/hooks/useImxProvider'
@@ -31,6 +28,9 @@ import Snackbar from '@/components/extended/Snackbar'
 import Header from './_Header'
 import Sidebar from './_Sidebar'
 import styles from './MainLayout.module.css'
+
+const appHeaderHeight = 60
+const container = true
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
@@ -50,9 +50,9 @@ const MainLayout = ({ children }: PropsWithChildren) => {
 
   const header = useMemo(
     () => (
-      <Toolbar sx={{ py: { xs: 1, lg: 0 } }}>
+      <div className="py-1 lg:py-0">
         <Header />
-      </Toolbar>
+      </div>
     ),
     []
   )
@@ -77,30 +77,22 @@ const MainLayout = ({ children }: PropsWithChildren) => {
 
   return (
     <>
-      <Box sx={{ display: 'flex' }}>
+      <div className="flex">
         {/* header */}
-        <AppBar
-          enableColorOnDark
-          position="fixed"
-          color="inherit"
-          elevation={0}
-          sx={{
-            bgcolor: 'var(--color-sidebar)',
-            transition: (theme) => (drawerOpen ? theme.transitions.create('width') : 'none'),
+        <header
+          className="fixed top-0 right-0 left-0 z-50 border-0 bg-sidebar transition-[width]"
+          style={{
+            transition: drawerOpen ? 'width 200ms cubic-bezier(0.4, 0, 0.6, 1) 0ms' : 'none',
           }}
         >
           {address && TARGET_NETWORK.chainId !== chain?.id && (
-            <Box
-              className={isConnectedToIMX ? 'bg-success-dark/[80%]' : 'bg-error/[80%]'}
-              sx={{
-                height: appHeaderHeight,
-                zIndex: 1,
-                display: 'flex',
-                width: '100%',
-                position: 'absolute',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
+            <div
+              className={
+                isConnectedToIMX
+                  ? 'bg-success-dark/[80%] flex h-[60px] w-full items-center justify-center'
+                  : 'bg-error/[80%] flex h-[60px] w-full items-center justify-center'
+              }
+              style={{ zIndex: 1, position: 'absolute' }}
             >
               <Icon
                 name={isConnectedToIMX ? 'info' : 'triangle-alert'}
@@ -108,22 +100,22 @@ const MainLayout = ({ children }: PropsWithChildren) => {
                 strokeWidth={2.5}
               />
 
-              <Typography sx={{ px: 2, fontSize: 20, fontWeight: 600 }}>
+              <span className="px-2 text-xl font-semibold">
                 {isConnectedToIMX
                   ? `You're connected to Immutable zkEVM! Switch back to ${TARGET_NETWORK.label}`
                   : `Please switch to ${TARGET_NETWORK.label}`}
-              </Typography>
+              </span>
               <Button
-                sx={{ padding: '2px 16px' }}
-                variant="contained"
+                className="px-4 py-0.5"
+                variant="default"
                 onClick={() => switchChain?.({ chainId: TARGET_NETWORK.chainId })}
               >
                 Switch
               </Button>
-            </Box>
+            </div>
           )}
           {header}
-        </AppBar>
+        </header>
 
         {/* drawer */}
         <Sidebar />
@@ -138,7 +130,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
             getContent()
           )}
         </main>
-      </Box>
+      </div>
       <Snackbar />
       <ToastContainer closeOnClick draggable />
     </>

@@ -3,9 +3,10 @@
 import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
-import { Box, CircularProgress, Typography } from '@mui/material'
 import { toast } from 'react-toastify'
 
+import { CircularProgress } from '@nl/ui/custom/circular-progress'
+import { Title } from '@nl/ui/custom/typography'
 import { gtm, GTM_EVENTS } from '@nl/ui/gtm'
 import useAuth from '@/hooks/useAuth'
 import usePlayerProfile from '@/hooks/usePlayerProfile'
@@ -148,66 +149,45 @@ export default function EnhancedTable({
   }
 
   return (
-    <Box sx={{ mb: { xs: 10, sm: 0 } }}>
+    <div className="mb-20 sm:mb-0">
       {!rows ? (
-        <Box
-          sx={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '100%',
-            position: 'absolute',
-            display: 'flex',
-            height: '70%',
-          }}
-        >
-          <CircularProgress />
-        </Box>
+        <div className="absolute flex h-[70%] w-full items-center justify-center">
+          <CircularProgress size="lg" />
+        </div>
       ) : (
-        <Box sx={{ position: 'relative' }}>
+        <div className="relative">
           {isLoggedIn && (
             <>
               <TopModal
                 selectedGame={selectedGame}
                 selectedTimeFilter={selectedTimeFilter}
                 flag={selectedTable.key}
-                ModalIcon={
-                  <Box className="wen-game-modal" sx={{ display: 'none' }}>
-                    N/A
-                  </Box>
-                }
+                ModalIcon={<div className="wen-game-modal hidden">N/A</div>}
                 myRank={myRank}
               />
             </>
           )}
           {isLoggedIn && selectedGame !== 'crypto_winter' && (
-            <Typography
-              variant="h6"
-              sx={{
-                color: 'var(--color-purple)',
-                position: { lg: 'absolute' },
-                textDecoration: 'underline',
-                right: { lg: '0px' },
-                cursor: 'pointer',
-                display: 'flex',
-                lineHeight: '24px',
-                justifyContent: 'flex-end',
-                fontWeight: 700,
-                svg: { mr: '3px' },
-                transform: { lg: 'translate(0px, 50%)' },
-                mb: { xs: '16px', lg: '0px' },
-                zIndex: 1000,
-              }}
+            <div
               onClick={handleCheckYourRank}
+              className="flex cursor-pointer justify-end lg:absolute lg:right-0 lg:translate-y-1/2 mb-4 lg:mb-0"
+              style={{ zIndex: 1000 }}
             >
-              <Image
-                src="/icons/rank_icon.svg"
-                alt="Rank Icon"
-                width={25}
-                height={20}
-                style={{ marginRight: 4 }}
-              />
-              RANK
-            </Typography>
+              <Title
+                level={6}
+                className="flex items-center justify-end font-bold text-[var(--color-purple)] underline"
+                style={{ lineHeight: '24px', marginBottom: 0 }}
+              >
+                <Image
+                  src="/icons/rank_icon.svg"
+                  alt="Rank Icon"
+                  width={25}
+                  height={20}
+                  style={{ marginRight: 4 }}
+                />
+                RANK
+              </Title>
+            </div>
           )}
           <ResponsiveTable
             paginationModel={paginationModel}
@@ -217,8 +197,8 @@ export default function EnhancedTable({
             data={rows}
             count={count}
           />
-        </Box>
+        </div>
       )}
-    </Box>
+    </div>
   )
 }

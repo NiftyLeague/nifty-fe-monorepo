@@ -1,6 +1,5 @@
 'use client'
 
-import { Menu, MenuItem, Stack } from '@mui/material'
 import { Children, cloneElement, ReactElement, useCallback, useEffect, useState } from 'react'
 import type { MenuItemBaseProps } from '@/types'
 import callAll, { type FunctionType } from '@/utils/callAll'
@@ -69,40 +68,35 @@ const SortButton = ({
       ref: buttonRef,
       onClick: callAll(handleOpenSortMenu as FunctionType, childOnClick as FunctionType),
     },
-    sortLabel.length > 0 && sortLabel[0]?.label
+    <>
+      {sortLabel.length > 0 && sortLabel[0]?.label}
+      {child.props.children}
+    </>
   )
 
   return (
-    <Stack direction="row" sx={{ justifyContent: 'center', alignItems: 'center' }}>
+    <div className="relative flex items-center justify-center">
       {Button}
-      <Menu
-        id="demo-positioned-menu"
-        aria-labelledby="demo-positioned-button"
-        anchorEl={anchorEl}
-        open={isSortOpen}
-        onClose={handleCloseSortMenu}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        sx={{
-          '& .MuiPaper-root': {
-            background: 'var(--color-background)',
-            borderRadius: '0px 0px var(--radius-default) var(--radius-default)',
-          },
-          '& .MuiMenuItem-root': { width: buttonWidth, color: 'var(--color-foreground)' },
-        }}
-      >
-        {sortOptions.map((option) => (
-          <MenuItem
-            sx={{ p: 1.5 }}
-            key={option.value}
-            selected={option.value === selectedSort}
-            onClick={(event) => handleMenuItemClick(event, option.value)}
-          >
-            {option.label}
-          </MenuItem>
-        ))}
-      </Menu>
-    </Stack>
+      {isSortOpen && (
+        <div
+          className="absolute top-full right-0 z-50 rounded-b-md border border-border bg-background shadow-md"
+          style={{ width: buttonWidth }}
+        >
+          {sortOptions.map((option) => (
+            <button
+              type="button"
+              key={option.value}
+              onClick={(event) => handleMenuItemClick(event, option.value)}
+              className={`w-full px-3 py-1.5 text-left text-sm text-foreground hover:bg-accent ${
+                option.value === selectedSort ? 'font-medium text-blue' : ''
+              }`}
+            >
+              {option.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
   )
 }
 

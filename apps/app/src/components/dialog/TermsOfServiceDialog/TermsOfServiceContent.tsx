@@ -1,9 +1,8 @@
-import { Container } from '@mui/material'
 import Definitions from '@/components/Definitions'
 
 const TermsOfServiceContent = () => {
   return (
-    <Container>
+    <div className="container">
       <p>
         Last updated: <strong>March 15th, 2022</strong>
       </p>
@@ -547,7 +546,7 @@ const TermsOfServiceContent = () => {
         </a>
         .
       </p>
-    </Container>
+    </div>
   )
 }
 

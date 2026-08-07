@@ -2,13 +2,16 @@
 
 import { useCallback, useContext, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { Alert, Stack, Typography } from '@mui/material'
-import LoadingButton from '@mui/lab/LoadingButton'
 import type { TransactionResponse } from 'ethers'
 import { useSwitchChain } from 'wagmi'
 
-import { formatDateTime } from '@/utils/dateTime'
+import { Alert } from '@nl/ui/base/alert'
+import { Button } from '@nl/ui/base/button'
+import { CircularProgress } from '@nl/ui/custom/circular-progress'
+import { Title } from '@nl/ui/custom/typography'
 import { formatNumberToDisplay } from '@nl/ui/utils'
+
+import { formatDateTime } from '@/utils/dateTime'
 import { useConnectedToIMXCheck } from '@/hooks/useImxProvider'
 import useClaimCallback from '@/hooks/merkleDistributor/useClaimCallback'
 import useIMXContext from '@/hooks/useIMXContext'
@@ -72,34 +75,36 @@ const WithdrawForm = ({ balance, onWithdrawSuccess }: WithdrawFormProps): React.
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack sx={{ gap: 2, alignItems: 'center' }}>
-        <Typography variant="h4">Game &amp; Rental Balance</Typography>
-        <Typography variant="h2" sx={{ opacity: 0.7 }}>
+      <div className="flex flex-col items-center gap-4">
+        <Title level={4}>Game &amp; Rental Balance</Title>
+        <Title level={2} className="opacity-70">
           {formatNumberToDisplay(balance)} NFTL
-          <Typography variant="body1">Available to Withdraw</Typography>
-        </Typography>
+          <span className="block text-base">Available to Withdraw</span>
+        </Title>
 
-        <Typography variant="body1">
+        <p className="text-base">
           You have until{' '}
           <span style={{ fontWeight: 600, opacity: 0.7 }}>{formatDateTime(1767240000)}</span> to
           withdraw.
-        </Typography>
+        </p>
 
-        <Alert severity="info">NFTL will be sent to your Immutable zkEVM wallet!</Alert>
+        <Alert className="border-blue/40 bg-blue/10 text-blue">
+          NFTL will be sent to your Immutable zkEVM wallet!
+        </Alert>
 
-        {errors.withdrawal && <Alert severity="error">{errors.withdrawal.message}</Alert>}
+        {errors.withdrawal && <Alert variant="destructive">{errors.withdrawal.message}</Alert>}
 
-        <LoadingButton
-          size="large"
+        <Button
+          size="lg"
           type="submit"
-          variant="contained"
-          fullWidth
-          loading={loading}
-          disabled={isConnectedToIMX && balance === 0}
+          variant="default"
+          className="w-full"
+          disabled={loading || (isConnectedToIMX && balance === 0)}
         >
+          {loading && <CircularProgress size="sm" />}
           {!isConnectedToIMX ? 'Switch Network to IMX' : 'Withdraw NFTL'}
-        </LoadingButton>
-      </Stack>
+        </Button>
+      </div>
     </form>
   )
 }

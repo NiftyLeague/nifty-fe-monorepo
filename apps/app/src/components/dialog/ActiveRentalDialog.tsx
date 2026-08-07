@@ -1,8 +1,9 @@
 'use client'
 
-import { Box, Button, Dialog, DialogContent, Grid, Link, Typography } from '@mui/material'
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
 import ProgressBar from '@/components/wrapper/ProgressBar'
+import { Button } from '@nl/ui/base/button'
+import { Dialog, DialogContent } from '@nl/ui/base/dialog'
 import { useState } from 'react'
 import Countdown from 'react-countdown'
 import { useRouter } from 'next/navigation'
@@ -29,59 +30,43 @@ const ActiveRentalDialog = ({ degenId, rental }: ActiveRentalDialogProps) => {
   }
 
   return (
-    <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
-      <DialogContent sx={{ marginY: '50px', marginX: '16px' }}>
-        <Grid container spacing={2}>
-          <Grid size={{ xs: 12, lg: 6 }}>
-            <Typography sx={{ fontWeight: 600, fontSize: '32px', lineHeight: '38px' }}>
-              Welcome back DEGEN!
-            </Typography>
-            <Typography
-              sx={{
-                fontWeight: 700,
-                fontSize: '16px',
-                lineHeight: '20px',
-                marginTop: '24px',
-                marginBottom: '30px',
-              }}
-            >
+    <Dialog open={isOpen} onOpenChange={(open) => !open && setIsOpen(false)}>
+      <DialogContent className="my-[50px] mx-4">
+        <div className="grid grid-cols-12 gap-4">
+          <div className="col-span-12 lg:col-span-6">
+            <span className="text-[32px] leading-[38px] font-semibold">Welcome back DEGEN!</span>
+            <span className="mt-6 mb-[30px] block text-base leading-5 font-bold">
               Your active{' '}
-              <Link sx={{ cursor: 'pointer' }} onClick={handleClickRental}>
+              <button
+                type="button"
+                onClick={handleClickRental}
+                className="cursor-pointer text-blue hover:underline"
+              >
                 rental
-              </Link>{' '}
+              </button>{' '}
               is at {progressValue.toFixed(2)}% of it’s earning cap. Earn more NFTL when you play
               NOW.
-            </Typography>
-            <Button variant="contained" onClick={handleClickPlay}>
+            </span>
+            <Button variant="default" onClick={handleClickPlay}>
               Play Nifty Smashers Now
             </Button>
-          </Grid>
-          <Grid size={{ xs: 12, lg: 6 }}>
-            <Box sx={{ width: '70%', display: 'inline-block', float: 'right' }}>
+          </div>
+          <div className="col-span-12 lg:col-span-6">
+            <div className="float-right inline-block w-[70%]">
               <ProgressBar value={progressValue}>
                 {rental.earning_cap !== rental.earning_cap_daily ? (
                   `${rental.earning_cap_daily} / ${rental.earning_cap}`
                 ) : (
-                  <Typography sx={{ fontSize: 10 }}>
+                  <span className="text-[10px]">
                     LIMIT REACHED. RENEWS IN{' '}
-                    <Typography
-                      variant="caption"
-                      sx={{ fontSize: 10, color: 'var(--color-warning)' }}
-                    >
+                    <span className="text-[10px] text-warning">
                       <Countdown date={new Date(rental.next_charge_at * 1000)} />
-                    </Typography>
-                  </Typography>
+                    </span>
+                  </span>
                 )}
               </ProgressBar>
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-end',
-                marginTop: '14px',
-              }}
-            >
+            </div>
+            <div className="mt-3.5 flex flex-col items-end">
               <DegenImage
                 sx={{
                   width: '174px',
@@ -91,9 +76,9 @@ const ActiveRentalDialog = ({ degenId, rental }: ActiveRentalDialogProps) => {
                 }}
                 tokenId={degenId}
               />
-            </Box>
-          </Grid>
-        </Grid>
+            </div>
+          </div>
+        </div>
       </DialogContent>
     </Dialog>
   )
