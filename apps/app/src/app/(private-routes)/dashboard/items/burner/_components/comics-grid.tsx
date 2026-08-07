@@ -1,5 +1,4 @@
 import { useMemo } from 'react'
-import { styled } from '@nl/theme'
 import Image from 'next/image'
 import xor from 'lodash/xor'
 import sum from 'lodash/sum'
@@ -16,37 +15,7 @@ import { Icon } from '@nl/ui/base/icon'
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import type { Comic } from '@/types/marketplace'
 
-const PREFIX = 'comics-grid'
-
-const classes = {
-  titleWrap: `${PREFIX}-titleWrap`,
-  title: `${PREFIX}-title`,
-  sums: `${PREFIX}-sums`,
-  keySum: `${PREFIX}-keySum`,
-  itemSum: `${PREFIX}-itemSum`,
-}
-
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')({
-  [`&.${classes.titleWrap}`]: { padding: 0 },
-  [`&.${classes.title}`]: { display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem' },
-  [`&.${classes.sums}`]: {
-    top: 432,
-    left: 0,
-    right: 0,
-    position: 'absolute',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    fontSize: 20,
-    width: 290,
-    display: 'flex',
-    justifyContent: 'space-between',
-    color: 'navy',
-    fontWeight: 'bold',
-  },
-  [`&.${classes.keySum}`]: {},
-  [`&.${classes.itemSum}`]: {},
-})
+import styles from './comics-grid.module.css'
 
 const COMPRESSED_COMIC_IMAGES = [
   '/img/comics/thumbnail/1.webp',
@@ -124,7 +93,7 @@ export default function ComicsGrid({
       sx={{ ...gridStyles }}
     />
   ) : (
-    <Root>
+    <div>
       <ImageList gap={10} cols={3} sx={{ ...gridStyles }}>
         {comicsBalances.map((comic) => (
           <ImageListItem key={comic.image}>
@@ -146,7 +115,7 @@ export default function ComicsGrid({
               }}
             />
             <ImageListItemBar
-              classes={{ titleWrap: classes.titleWrap, title: classes.title }}
+              classes={{ titleWrap: styles.titleWrap, title: styles.title }}
               title={
                 selectedComics.includes(comic) ? (
                   <TextField
@@ -187,10 +156,10 @@ export default function ComicsGrid({
           </ImageListItem>
         ))}
       </ImageList>
-      <div className={classes.sums}>
-        <span className={classes.keySum}>{keyCount} Keys</span>
-        <span className={classes.itemSum}>{itemCount} Items</span>
+      <div className={styles.sums}>
+        <span className={styles.keySum}>{keyCount} Keys</span>
+        <span className={styles.itemSum}>{itemCount} Items</span>
       </div>
-    </Root>
+    </div>
   )
 }

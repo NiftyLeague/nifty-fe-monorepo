@@ -1,43 +1,12 @@
 'use client'
 import { useEffect, useMemo, useRef } from 'react'
-import { styled } from '@nl/theme'
 import { Box, InputBase, Stack, Typography } from '@mui/material'
 import debounce from 'lodash/debounce'
 import { formatNumberToDisplay } from '@nl/ui/utils'
 import useTokenUSDPrice from '@/hooks/useTokenUSDPrice'
 import { OrderKind } from '@cowprotocol/cow-sdk'
 
-const PREFIX = 'TokenInfoBox'
-
-const classes = {
-  swapBox: `${PREFIX}-swapBox`,
-  tokenBox: `${PREFIX}-tokenBox`,
-  infoUSD: `${PREFIX}-infoUSD`,
-  transactionBox: `${PREFIX}-transactionBox`,
-  transactionValue: `${PREFIX}-transactionValue`,
-}
-
-const StyledStack = styled(Stack)(() => ({
-  [`&.${classes.swapBox}`]: {
-    background: '#161622',
-    border: '1px solid #282B3F',
-    padding: '12px 12px 4px 12px',
-    height: 93,
-    width: '100%',
-  },
-
-  [`&.${classes.tokenBox}`]: { background: '#202230', borderRadius: '10px', width: 72 },
-
-  [`&.${classes.infoUSD}`]: { color: '#4D4D4F', position: 'absolute' },
-
-  [`&.${classes.transactionBox}`]: {
-    borderRadius: '0px 0px 10px 10px',
-    border: '1px solid #282B3F',
-    padding: 12,
-  },
-
-  [`&.${classes.transactionValue}`]: { fontSize: '20px !important' },
-}))
+import styles from './TokenInfoBox.module.css'
 
 export interface TokenInfoBoxProps {
   balance: number
@@ -50,21 +19,6 @@ export interface TokenInfoBoxProps {
   setValue: (value: string) => void
   getMarketPrice: (kind: OrderKind, amount: string) => void
 }
-
-const TokenAmountInput = styled(InputBase)(() => ({
-  '& .MuiInputBase-input': {
-    position: 'relative',
-    backgroundColor: 'transparent',
-    border: 'none',
-    padding: 0,
-    height: 36,
-    fontSize: 36,
-    fontWeight: 700,
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    '::placeholder': { fontSize: 36, color: '#4D4D4F' },
-  },
-}))
 
 const TokenInfoBox = ({
   balance,
@@ -131,9 +85,9 @@ const TokenInfoBox = ({
   }, [price, value])
 
   return (
-    <StyledStack direction="column">
+    <Stack direction="column">
       <Box
-        className={classes.swapBox}
+        className={styles.swapBox}
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -143,7 +97,7 @@ const TokenInfoBox = ({
       >
         <Stack
           direction="row"
-          className={classes.tokenBox}
+          className={styles.tokenBox}
           spacing={0.5}
           sx={{ px: 1, py: 0.5, alignItems: 'center' }}
         >
@@ -162,7 +116,8 @@ const TokenInfoBox = ({
             spacing={1}
             sx={{ flex: 1, position: 'relative', overflow: 'hidden', alignItems: 'center' }}
           >
-            <TokenAmountInput
+            <InputBase
+              className={styles.tokenAmountInput}
               inputProps={{
                 autoComplete: 'off',
                 autoCorrect: 'off',
@@ -180,7 +135,7 @@ const TokenInfoBox = ({
             {value !== '0' && priceInfo && (
               <Typography
                 variant="body1"
-                className={classes.infoUSD}
+                className={styles.infoUSD}
                 sx={{ fontWeight: 'bold', left: value.length > 0 ? value.length * 19 + 10 : 86 }}
               >
                 {`~$${priceInfo}`}
@@ -196,15 +151,15 @@ const TokenInfoBox = ({
         <Stack
           direction="row"
           sx={{ justifyContent: 'space-between', alignItems: 'center' }}
-          className={classes.transactionBox}
+          className={styles.transactionBox}
         >
           <Typography>{`${kind} (incl. fee)`}</Typography>
-          <Typography className={classes.transactionValue}>
+          <Typography className={styles.transactionValue}>
             {`${formatNumberToDisplay(Number(transactionValue), 4)}`}
           </Typography>
         </Stack>
       )}
-    </StyledStack>
+    </Stack>
   )
 }
 

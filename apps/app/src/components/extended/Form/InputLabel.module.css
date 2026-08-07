@@ -1,0 +1,9 @@
+.bInputLabel {
+  color: var(--color-foreground);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.bInputLabelHorizontal {
+  margin-bottom: 0;
+}

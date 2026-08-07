@@ -1,0 +1,21 @@
+.inputCheck {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-right: 8px;
+  color: #4d4d4d;
+}
+
+.inputCheck :global(.MuiSvgIcon-root) {
+  width: 0.75em;
+  height: 0.75em;
+}
+
+.inputCheckFormControl {
+  margin-left: -8px;
+  margin-right: 0;
+}
+
+.inputCheckFormControl :global(.MuiFormControlLabel-label) {
+  font-size: 0.75rem;
+  line-height: 0.75rem;
+}

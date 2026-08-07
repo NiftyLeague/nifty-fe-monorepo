@@ -11,7 +11,7 @@ import { openDrawer } from '@/store/slices/menu'
 import { useDispatch, useSelector } from '@/store/hooks'
 
 // material-ui
-import { styled, appDrawerWidth, appHeaderHeight, container } from '@nl/theme'
+import { appHeaderHeight, container } from '@nl/theme'
 import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material'
 
 // React Toastify
@@ -30,61 +30,7 @@ import Breadcrumbs from '@/components/extended/Breadcrumbs'
 import Snackbar from '@/components/extended/Snackbar'
 import Header from './_Header'
 import Sidebar from './_Sidebar'
-
-// styles
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{ open: boolean }>(
-  ({ theme }) => ({
-    ...theme.typography.mainContent,
-
-    variants: [
-      {
-        props: ({ open }: { open: boolean }) => !open,
-
-        style: {
-          borderBottomLeftRadius: 0,
-          borderBottomRightRadius: 0,
-          transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.shorter,
-          }),
-          marginTop: appHeaderHeight,
-          height: `calc(100vh - ${appHeaderHeight}px)`,
-          [theme.breakpoints.up('lg')]: {
-            marginLeft: -appDrawerWidth,
-            width: `calc(100% - ${appDrawerWidth}px)`,
-          },
-          [theme.breakpoints.down('lg')]: {
-            marginLeft: '20px',
-            width: `calc(100% - ${appDrawerWidth}px)`,
-          },
-          [theme.breakpoints.down('md')]: {
-            marginTop: '60px',
-            marginLeft: '10px',
-            width: `calc(100% - ${appDrawerWidth}px)`,
-          },
-        },
-      },
-      {
-        props: ({ open }: { open: boolean }) => open,
-
-        style: {
-          transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.shorter,
-          }),
-          marginLeft: 0,
-          borderBottomLeftRadius: 0,
-          borderBottomRightRadius: 0,
-          marginTop: appHeaderHeight,
-          height: `calc(100vh - ${appHeaderHeight}px)`,
-          width: `calc(100% - ${appDrawerWidth}px)`,
-          [theme.breakpoints.down('lg')]: { marginLeft: '20px' },
-          [theme.breakpoints.down('md')]: { marginTop: '60px', marginLeft: '10px' },
-        },
-      },
-    ],
-  })
-)
+import styles from './MainLayout.module.css'
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
@@ -183,7 +129,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
         <Sidebar />
 
         {/* main content */}
-        <Main open={drawerOpen}>
+        <main className={cn(styles.main, drawerOpen ? styles.mainOpen : styles.mainClosed)}>
           {!isNoFilterPage ? (
             <PerfectScrollbar className={cn('py-5 md:py-10', !container && 'px-5 md:px-20')}>
               {getContent()}
@@ -191,7 +137,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
           ) : (
             getContent()
           )}
-        </Main>
+        </main>
       </Box>
       <Snackbar />
       <ToastContainer closeOnClick draggable />

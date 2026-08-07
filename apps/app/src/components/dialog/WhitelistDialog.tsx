@@ -1,52 +1,9 @@
 'use client'
 import { useState } from 'react'
-import { styled } from '@nl/theme'
 import { Button, Container, Link, Typography } from '@mui/material'
 import { Dialog, DialogTrigger, DialogContent } from '@/components/dialog'
 
-const PREFIX = 'WhitelistDialog'
-
-const classes = {
-  form: `${PREFIX}-form`,
-  inputEmail: `${PREFIX}-inputEmail`,
-  submitButton: `${PREFIX}-submitButton`,
-}
-
-const StyledDialog = styled(Dialog)(() => ({
-  [`&.${classes.form}`]: {
-    display: 'flex',
-    width: '100%',
-    '@media (max-width: 768px)': { flexDirection: 'column' },
-  },
-
-  [`&.${classes.inputEmail}`]: {
-    flex: 1,
-    background: '#5D5F74',
-    borderRadius: '2px',
-    border: 'none',
-    padding: '13px 16px',
-    letterSpacing: '-0.02em',
-    color: 'var(--color-foreground)',
-    outline: 'none',
-    fontSize: '16px',
-    '&::placeholder': { color: '#B4B5C3' },
-    '@media (max-width: 768px)': { borderRadius: 'var(--radius-default)' },
-  },
-
-  [`&.${classes.submitButton}`]: {
-    background: 'var(--color-purple)',
-    borderRadius: '0px var(--radius-default) var(--radius-default) 0px',
-    border: 'none',
-    cursor: 'pointer',
-    padding: '8px 36px',
-    fontSize: '14px',
-    lineHeight: '28px',
-    letterSpacing: '-0.02em',
-    color: 'var(--color-foreground)',
-    fontWeight: 700,
-    '@media (max-width: 768px)': { marginTop: 8, borderRadius: 'var(--radius-default)' },
-  },
-}))
+import styles from './WhitelistDialog.module.css'
 
 export const WhitelistModal = (): React.ReactNode => {
   const [email, setEmail] = useState('')
@@ -62,7 +19,7 @@ export const WhitelistModal = (): React.ReactNode => {
 
   return (
     <Container sx={{ textAlign: 'center', pt: { xs: 1, lg: 4 }, px: 0 }}>
-      <form onSubmit={handleSubmit} className={classes.form}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <input
           name="email"
           type="email"
@@ -71,9 +28,9 @@ export const WhitelistModal = (): React.ReactNode => {
           required
           aria-required="true"
           onChange={handleChangeEmail}
-          className={classes.inputEmail}
+          className={styles.inputEmail}
         />
-        <button type="submit" className={classes.submitButton}>
+        <button type="submit" className={styles.submitButton}>
           Get Access
         </button>
       </form>
@@ -104,7 +61,7 @@ export const WhitelistModal = (): React.ReactNode => {
 const WhitelistDialog = () => {
   const whitelistEnabled = false
   return (
-    <StyledDialog>
+    <Dialog>
       <DialogTrigger>
         <Button variant="outlined" fullWidth disabled>
           {whitelistEnabled ? 'Get Notified' : 'Play in Browser'}
@@ -127,7 +84,7 @@ const WhitelistDialog = () => {
       >
         <WhitelistModal />
       </DialogContent>
-    </StyledDialog>
+    </Dialog>
   )
 }
 

@@ -13,87 +13,13 @@ import {
 } from '@mui/material'
 import { Box } from '@mui/system'
 
-import { styled } from '@nl/theme'
 import { fetchScores } from '@/utils/leaderboard'
 import type { DataType, ReturnDataType } from '@/types/leaderboard'
 import { LEADERBOARD_GAME_LIST } from '@/constants/leaderboards'
 import CustomModal from './CustomModal'
 import './modal-table.css'
 
-const TableRoot = styled('div')({
-  width: '76%',
-  height: '57%',
-  margin: '56.6% auto 0',
-  position: 'relative',
-  overflow: 'hidden',
-  '& thead': { position: 'initial !important', display: 'contents !important' },
-  '& table': { width: '100%' },
-  '& .cell': { height: '40px !important', overflow: 'initial !important', position: 'relative' },
-  '& th': { color: '#9ba5bf !important', maxWidth: '60px !important' },
-  '& tbody': {
-    position: 'initial !important',
-    '& tr': { '&:first-child': { borderTop: 'solid 2px #8c9cb4' } },
-  },
-  '& tr': {
-    '& th': { '&:last-child': { borderRight: 'none !important', color: '#9ba5bf !important' } },
-    '& td': {
-      color: 'var(--color-background)',
-      fontWeight: 'bold',
-      fontSize: 16,
-      '&:last-child': { borderRight: 'none !important' },
-    },
-  },
-})
-
-const RankBody = styled('span')({
-  padding: '10px',
-  borderRadius: '50px',
-  paddingTop: '5px',
-  paddingBottom: '5px',
-})
-
-const LineTopBox = styled('div')({
-  position: 'absolute',
-  top: '-9px',
-  right: '-2px',
-  height: 15,
-  borderRight: 'solid 2px #8c9cb4',
-})
-
-const LineBottomBox = styled('div')({
-  position: 'absolute',
-  bottom: '-9px',
-  right: '-2px',
-  height: 15,
-  borderRight: 'solid 2px #8c9cb4',
-})
-
-const LoadingBox = styled('div')({
-  width: '100%',
-  height: '80%',
-  alignItems: 'center',
-  justifyContent: 'center',
-  position: 'absolute',
-  display: 'flex',
-})
-
-const TwitterTypography = styled(Typography)({
-  width: '100%',
-  background: 'var(--color-foreground)',
-  color: 'var(--color-blue)',
-  fontWeight: 600,
-  display: 'flex',
-  fontSize: '14px',
-  lineHeight: '20px',
-  alignItems: 'center',
-  justifyContent: 'center',
-  position: 'absolute',
-  bottom: '0px',
-  marginTop: '10px',
-  gap: '10px',
-  textDecoration: 'underline',
-  cursor: 'pointer',
-})
+import styles from './TopModal.module.css'
 
 interface TableModalProps {
   selectedGame: string
@@ -151,7 +77,7 @@ const TableModal = ({
   }
 
   return (
-    <TableRoot>
+    <div className={styles.tableRoot}>
       <Table className="modal-table">
         <TableHead className="header">
           <TableRow className="row">
@@ -216,30 +142,34 @@ const TableModal = ({
             data.map((i) => (
               <TableRow className="row first" key={`${i}`}>
                 <TableCell className="cell index" style={{ color: '#9ba5bf' }}>
-                  <RankBody style={getTextStyleForRank(i.rank)}>{i.rank}</RankBody>
-                  {i.rank === 1 && <LineTopBox />}
-                  {i.rank === 10 && <LineBottomBox />}
+                  <span className={styles.rankBody} style={getTextStyleForRank(i.rank)}>
+                    {i.rank}
+                  </span>
+                  {i.rank === 1 && <div className={styles.lineTopBox} />}
+                  {i.rank === 10 && <div className={styles.lineBottomBox} />}
                 </TableCell>
                 <TableCell
                   style={{ ...getTextStyleForRank(i.rank), fontSize: 14, background: '' }}
                   className="cell ellipsis"
                 >
                   {i.user_id}
-                  {i.rank === 1 && <LineTopBox />}
-                  {i.rank === 10 && <LineBottomBox />}
+                  {i.rank === 1 && <div className={styles.lineTopBox} />}
+                  {i.rank === 10 && <div className={styles.lineBottomBox} />}
                 </TableCell>
                 {flag === 'win_rate' && (
                   <TableCell className="cell ellipsis">
                     {i.stats.win_rate}
-                    {i.rank === 1 && <LineTopBox />}
-                    {i.rank === 10 && <LineBottomBox />}
+                    {i.rank === 1 && <div className={styles.lineTopBox} />}
+                    {i.rank === 10 && <div className={styles.lineBottomBox} />}
                   </TableCell>
                 )}
                 {flag === 'earnings' && (
                   <TableCell className="cell ellipsis end">
                     {i.stats.earnings}
-                    {i.rank === 1 && flag === 'earnings' && <LineTopBox />}
-                    {i.rank === 10 && flag === 'earnings' && <LineBottomBox />}
+                    {i.rank === 1 && flag === 'earnings' && <div className={styles.lineTopBox} />}
+                    {i.rank === 10 && flag === 'earnings' && (
+                      <div className={styles.lineBottomBox} />
+                    )}
                   </TableCell>
                 )}
                 {selectedGame === 'nifty_smashers' && (
@@ -248,15 +178,17 @@ const TableModal = ({
                     className="cell ellipsis end"
                   >
                     {i.stats.matches}
-                    {i.rank === 1 && flag === 'earnings' && <LineTopBox />}
-                    {i.rank === 10 && flag === 'earnings' && <LineBottomBox />}
+                    {i.rank === 1 && flag === 'earnings' && <div className={styles.lineTopBox} />}
+                    {i.rank === 10 && flag === 'earnings' && (
+                      <div className={styles.lineBottomBox} />
+                    )}
                   </TableCell>
                 )}
                 {flag === 'earnings' && (
                   <TableCell className="cell ellipsis end">
                     {i.stats['avg_NFTL/match']}
-                    {i.rank === 1 && <LineTopBox />}
-                    {i.rank === 10 && <LineBottomBox />}
+                    {i.rank === 1 && <div className={styles.lineTopBox} />}
+                    {i.rank === 10 && <div className={styles.lineBottomBox} />}
                   </TableCell>
                 )}
                 {flag !== 'win_rate' && selectedGame === 'nifty_smashers' && (
@@ -273,19 +205,23 @@ const TableModal = ({
               </TableRow>
             ))
           ) : (
-            <LoadingBox>
+            <div className={styles.loadingBox}>
               <CircularProgress />
-            </LoadingBox>
+            </div>
           )}
           {data && (
-            <TwitterTypography variant="body2" onClick={handleShareOnTwitter}>
+            <Typography
+              className={styles.twitterTypography}
+              variant="body2"
+              onClick={handleShareOnTwitter}
+            >
               Share on twitter{' '}
               <Image src="/icons/socials/twitter.svg" alt="Twitter Icon" width={22} height={20} />
-            </TwitterTypography>
+            </Typography>
           )}
         </TableBody>
       </Table>
-    </TableRoot>
+    </div>
   )
 }
 

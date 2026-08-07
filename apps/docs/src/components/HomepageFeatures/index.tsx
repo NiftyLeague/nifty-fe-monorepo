@@ -1,13 +1,14 @@
 import type { ComponentType, ReactNode, SVGProps } from 'react'
 import Link from '@docusaurus/Link'
-import styled from '@emotion/styled'
 import { CodeXmlIcon, ArrowUpRightIcon, type LucideProps } from 'lucide-react'
 import NFTL from '@site/public/img/logos/NFTL/logo.svg'
 import Logo from '@site/public/img/logos/NL/logo.svg'
+
 import { RowThree } from '../Row'
 import { ShadowCard } from '../Card'
 import Section from '../Section'
 import StyledIcon from '../StyledIcon'
+import styles from './index.module.css'
 
 type FeatureItem = {
   title: string
@@ -42,30 +43,12 @@ const FEATURE_LIST: FeatureItem[] = [
   },
 ]
 
-const TopSection = styled.div`
-  width: 100%;
-  align-items: center;
-  justify-content: space-between;
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 1rem;
-`
-
-const IconWrapper = styled.div`
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-`
-
 function Feature(feature: FeatureItem) {
   return (
     <Link style={{ textDecoration: 'none' }} to={feature.to}>
       <ShadowCard key={feature.title}>
-        <TopSection>
-          <IconWrapper>
+        <div className={styles.topSection}>
+          <div className={styles.iconWrapper}>
             <StyledIcon>
               <feature.icon
                 size={24}
@@ -74,10 +57,10 @@ function Feature(feature: FeatureItem) {
                 style={{ width: '24px' }}
               />
             </StyledIcon>
-          </IconWrapper>
+          </div>
 
           <ArrowUpRightIcon color="#494749" size={32} strokeWidth={1.5} />
-        </TopSection>
+        </div>
         <h4 style={{ marginBottom: '.75rem', color: feature.color }}>{feature.title}</h4>
         <p style={{ marginBottom: '0.5rem' }}>{feature.text}</p>
       </ShadowCard>

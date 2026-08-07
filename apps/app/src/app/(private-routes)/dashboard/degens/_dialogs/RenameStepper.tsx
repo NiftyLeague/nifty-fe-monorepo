@@ -4,7 +4,6 @@ import { cloneElement, useMemo, type ReactElement } from 'react'
 import Image from 'next/image'
 import { cn } from '@nl/ui/utils'
 
-import { styled } from '@nl/theme'
 import { StepIconProps } from '@mui/material/StepIcon'
 import Step from '@mui/material/Step'
 import StepConnector from '@mui/material/StepConnector'
@@ -14,39 +13,7 @@ import Typography from '@mui/material/Typography'
 
 import { Icon, type IconProps } from '@nl/ui/base/icon'
 
-const PREFIX = 'RenameStepper'
-
-const classes = {
-  alternativeLabel: `${PREFIX}-alternativeLabel`,
-  active: `${PREFIX}-active`,
-  completed: `${PREFIX}-completed`,
-  line: `${PREFIX}-line`,
-  root: `${PREFIX}-root`,
-}
-
-const StyledIcon = styled('div')({
-  [`&.${classes.root}`]: {
-    backgroundColor: '#ccc',
-    zIndex: 1,
-    color: 'var(--color-foreground)',
-    width: 50,
-    height: 50,
-    display: 'flex',
-    borderRadius: '50%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  [`&.${classes.active}`]: {
-    backgroundImage: 'var(--gradient-brand)',
-    boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
-  },
-  [`&.${classes.completed}`]: { backgroundImage: 'var(--gradient-brand)' },
-})
-
-const StyledTypography = styled(Typography)(({ theme }) => ({
-  marginTop: theme.spacing(1),
-  marginBottom: theme.spacing(1),
-}))
+import styles from './RenameStepper.module.css'
 
 const icons: { [index: string]: React.ReactElement } = {
   1: <Image src="/img/logos/NFTL/logo.webp" alt="NFTL" width={30} height={30} />,
@@ -55,25 +22,16 @@ const icons: { [index: string]: React.ReactElement } = {
   4: <Icon name="check-check" size="xl" strokeWidth={2.5} />,
 }
 
-const ColorlibConnector = styled(StepConnector)({
-  alternativeLabel: { top: 22 },
-  active: { '& $line': { backgroundImage: 'var(--gradient-brand)' } },
-  completed: { '& $line': { backgroundImage: 'var(--gradient-brand)' } },
-  line: { height: 3, border: 0, backgroundColor: 'var(--color-foreground)', borderRadius: 1 },
-})
-
 function ColorlibStepIcon({ active, completed, icon }: StepIconProps) {
   return (
-    <StyledIcon
-      className={cn(classes.root, { [classes.active]: active, [classes.completed]: completed })}
-    >
+    <div className={cn(styles.root, active && styles.active, completed && styles.completed)}>
       {(() => {
         const iconElement = icons[String(icon)] as unknown as ReactElement<IconProps>
         return iconElement
           ? cloneElement(iconElement, { color: active ? 'light' : 'purple' })
           : null
       })()}
-    </StyledIcon>
+    </div>
   )
 }
 
@@ -117,18 +75,18 @@ function RenameStepper({
   }, [insufficientAllowance, insufficientBalance, renameSuccess])
 
   return (
-    <div className={classes.root}>
+    <div>
       <Stepper
         alternativeLabel
         activeStep={activeStep}
         style={{ backgroundColor: 'transparent', marginBottom: 10 }}
         connector={
-          <ColorlibConnector
+          <StepConnector
             classes={{
-              alternativeLabel: classes.alternativeLabel,
-              active: classes.active,
-              completed: classes.completed,
-              line: classes.line,
+              alternativeLabel: styles.alternativeLabel,
+              active: styles.active,
+              completed: styles.completed,
+              line: styles.line,
             }}
           />
         }
@@ -146,13 +104,14 @@ function RenameStepper({
       </Stepper>
       <em style={{ textAlign: 'center' }}>
         {activeStep !== steps.length ? (
-          <StyledTypography
-            className={
+          <Typography
+            className={cn(
+              styles.styledTypography,
               activeStep === 0 ? 'text-error' : activeStep === 1 ? 'text-warning' : 'text-success'
-            }
+            )}
           >
             {getStepContent(activeStep)}
-          </StyledTypography>
+          </Typography>
         ) : null}
       </em>
     </div>

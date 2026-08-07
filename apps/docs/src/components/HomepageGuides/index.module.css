@@ -1,0 +1,11 @@
+.linkRow {
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+}
+
+.linkRow a h4 {
+  color: black !important;
+}

@@ -3,23 +3,16 @@ import { Suspense, LazyExoticComponent } from 'react'
 // material-ui
 import { LinearProgressProps } from '@mui/material/LinearProgress'
 import LinearProgress from '@mui/material/LinearProgress'
-import { styled } from '@nl/theme'
 
 // styles
-const LoaderWrapper = styled('div')({
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  zIndex: 1301,
-  width: '100%',
-})
+import styles from './Loadable.module.css'
 
 // ==============================|| LOADER ||============================== //
 
 const Loader = () => (
-  <LoaderWrapper>
+  <div className={styles.loaderWrapper}>
     <LinearProgress color="primary" />
-  </LoaderWrapper>
+  </div>
 )
 
 // ==============================|| LOADABLE - LAZY LOADING ||============================== //

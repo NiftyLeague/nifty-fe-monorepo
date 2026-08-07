@@ -1,0 +1,7 @@
+.styledListItemButton {
+  padding: 2px 12px;
+}
+
+.styledListItemButton:global(.Mui-selected) {
+  background-color: transparent !important;
+}

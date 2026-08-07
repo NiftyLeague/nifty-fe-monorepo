@@ -1,0 +1,19 @@
+.customDialog :global(.MuiPaper-root) {
+  overflow-x: hidden;
+  min-width: inherit;
+}
+
+@media (max-width: 767.95px) {
+  .customDialogRent :global(.MuiPaper-root),
+  .customDialogEquip :global(.MuiPaper-root) {
+    margin: 16px;
+    max-width: calc(100% - 32px) !important;
+    width: calc(100% - 32px) !important;
+    height: auto;
+    border-radius: 10px;
+  }
+}
+
+.customDialogRent :global(.MuiPaper-root) {
+  min-width: 550px;
+}

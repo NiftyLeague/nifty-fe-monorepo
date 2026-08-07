@@ -1,6 +1,5 @@
 'use client'
 import { useCallback, useEffect, useState } from 'react'
-import { styled } from '@nl/theme'
 import Image from 'next/image'
 import { formatEther } from 'ethers'
 import { OrderKind } from '@cowprotocol/cow-sdk'
@@ -22,28 +21,7 @@ import useRateEtherToNFTL from '@/hooks/useRateEtherToNFTL'
 import useTokenUSDPrice from '@/hooks/useTokenUSDPrice'
 import TokenInfoBox from './TokenInfoBox'
 
-const PREFIX = 'CowSwapWidget'
-
-const classes = { purchaseNFTLBtn: `${PREFIX}-purchaseNFTLBtn`, arrowDown: `${PREFIX}-arrowDown` }
-
-const StyledStack = styled(Stack)(() => ({
-  [`&.${classes.purchaseNFTLBtn}`]: {
-    background: '#4291E5',
-    borderRadius: '10px !important',
-    height: '30px !important',
-    '&:hover': { background: '#4291E5', opacity: 0.8 },
-  },
-
-  [`&.${classes.arrowDown}`]: {
-    position: 'absolute',
-    width: 32,
-    height: 32,
-    borderRadius: '50%',
-    background: '#202230',
-    border: '1px solid #282B3F',
-    left: 'calc(50% - 16px)',
-  },
-}))
+import styles from './CowSwapWidget.module.css'
 
 type CowSwapWidgetProps = { refreshBalance: () => void }
 
@@ -221,7 +199,7 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
   }
 
   return (
-    <StyledStack direction="column">
+    <Stack direction="column">
       <Typography variant="caption" sx={{ ml: 'auto', mb: 1 }}>
         This transaction is taking place live on{' '}
         <Link href={COW_PROTOCOL_URL} target="_blank" rel="noreferrer">
@@ -260,7 +238,7 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
               getMarketPrice={getMarketPrice}
             />
             <Box
-              className={classes.arrowDown}
+              className={styles.arrowDown}
               sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -301,7 +279,7 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
               fullWidth
               loading={loading || purchasing}
               loadingPosition={purchasing ? 'end' : 'center'}
-              className={classes.purchaseNFTLBtn}
+              className={styles.purchaseNFTLBtn}
               onClick={handleBuyNFTL}
               disabled={!ethAmount || !Number(ethAmount) || !sufficientBalance || feeExceedAmount}
             >
@@ -371,7 +349,7 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
           </Stack>
         )}
       </Box>
-    </StyledStack>
+    </Stack>
   )
 }
 

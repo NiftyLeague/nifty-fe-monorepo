@@ -8,10 +8,11 @@ import {
   useRef,
   useState,
 } from 'react'
-import { styled, useTheme } from '@nl/theme'
+import { useTheme } from '@nl/theme'
 import Image from 'next/image'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import isEmpty from 'lodash/isEmpty'
+import { cn } from '@nl/ui/utils'
 import { Button, Checkbox, FormControlLabel, FormGroup, Stack, Typography } from '@mui/material'
 import { FilterSource, backgrounds, tribes } from '@/constants/filters'
 import * as CosmeticsFilter from '@/constants/cosmeticsFilters'
@@ -20,28 +21,7 @@ import { updateFilterValue } from './utils'
 import FilterAccordion from './FilterAccordion'
 import FilterAllTraitCheckboxes from '../FilterAllTraitCheckboxes'
 
-const PREFIX = 'DegensFilter'
-
-const classes = {
-  inputCheck: `${PREFIX}-inputCheck`,
-  inputCheckFormControl: `${PREFIX}-inputCheckFormControl`,
-}
-
-const StyledStack = styled(Stack)(() => ({
-  [`&.${classes.inputCheck}`]: {
-    paddingTop: 4,
-    paddingBottom: 4,
-    paddingRight: 8,
-    color: '#4D4D4D',
-    '& .MuiSvgIcon-root': { width: '0.75em', height: '0.75em' },
-  },
-
-  [`&.${classes.inputCheckFormControl}`]: {
-    marginLeft: -8,
-    marginRight: 0,
-    '& .MuiFormControlLabel-label': { fontSize: '0.75rem', lineHeight: '0.75rem' },
-  },
-}))
+import styles from './index.module.css'
 
 interface DegensFilterProps {
   onFilter: (filter: DegenFilter) => void
@@ -215,9 +195,7 @@ const DegensFilter = ({
   }, [defaultFilterValues, isDegenOwner, onFilter, params])
 
   return (
-    <StyledStack
-      sx={{ gap: 1.5, overflowX: 'hidden', [theme.breakpoints.down('sm')]: { paddingY: 2 } }}
-    >
+    <Stack sx={{ gap: 1.5, overflowX: 'hidden', [theme.breakpoints.down('sm')]: { paddingY: 2 } }}>
       <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
         <Typography variant="h3">Filter Degens</Typography>
         <Stack direction="row" sx={{ gap: 2 }}>
@@ -246,7 +224,7 @@ const DegensFilter = ({
                     name={tribe.name}
                     value={tribe.name}
                     checked={tribesValue.includes(tribe.name)}
-                    className={classes.inputCheck}
+                    className={styles.inputCheck}
                     onChange={(e) => handleCheckboxChange(e, 'tribes', tribesValue, setTribesValue)}
                   />
                 }
@@ -295,7 +273,7 @@ const DegensFilter = ({
                     name={`Queue${item}`}
                     value={item}
                     checked={rentalsValue.includes(item)}
-                    className={classes.inputCheck}
+                    className={styles.inputCheck}
                     onChange={(e) =>
                       handleCheckboxChange(
                         e,
@@ -307,7 +285,7 @@ const DegensFilter = ({
                   />
                 }
                 label={<Typography variant="body1">{item}</Typography>}
-                className={classes.inputCheckFormControl}
+                className={styles.inputCheckFormControl}
               />
             ))}
           </FormGroup>
@@ -326,7 +304,7 @@ const DegensFilter = ({
                     name={`Multiplier${item}`}
                     value={item}
                     checked={multipliersValue.includes(item)}
-                    className={classes.inputCheck}
+                    className={styles.inputCheck}
                     onChange={(e) =>
                       handleCheckboxChange(
                         e,
@@ -338,7 +316,7 @@ const DegensFilter = ({
                   />
                 }
                 label={<Typography variant="body1">{item}</Typography>}
-                className={classes.inputCheckFormControl}
+                className={styles.inputCheckFormControl}
               />
             ))}
           </FormGroup>
@@ -358,7 +336,7 @@ const DegensFilter = ({
                       name={wearable}
                       value={wearable}
                       checked={wearablesValue.includes(wearable)}
-                      className={classes.inputCheck}
+                      className={styles.inputCheck}
                       onChange={(e) =>
                         handleCheckboxChange(
                           e,
@@ -370,7 +348,7 @@ const DegensFilter = ({
                     />
                   }
                   label={<Typography variant="body1">{wearable}</Typography>}
-                  className={classes.inputCheckFormControl}
+                  className={styles.inputCheckFormControl}
                   sx={{ flex: '0 0 50%' }}
                 />
               ))}
@@ -391,14 +369,14 @@ const DegensFilter = ({
                     name={background}
                     value={background}
                     checked={backgroundsValue.includes(background)}
-                    className={classes.inputCheck}
+                    className={styles.inputCheck}
                     onChange={(e) =>
                       handleCheckboxChange(e, 'backgrounds', backgroundsValue, setBackgroundsValue)
                     }
                   />
                 }
                 label={<Typography variant="body1">{background}</Typography>}
-                className={classes.inputCheckFormControl}
+                className={styles.inputCheckFormControl}
                 sx={{ flex: '0 0 50%' }}
               />
             ))}
@@ -444,8 +422,8 @@ const DegensFilter = ({
                         cosmeticsValue={cosmeticsValue}
                         onCheckboxChange={handleCheckboxChange}
                         setCosmeticsValue={setCosmeticsValue}
-                        inputCheckBoxStyle={classes.inputCheck}
-                        inputCheckFormControlStyle={classes.inputCheckFormControl}
+                        inputCheckBoxStyle={cn(styles.inputCheck)}
+                        inputCheckFormControlStyle={cn(styles.inputCheckFormControl)}
                       />
                     </FilterAccordion>
                   </FormGroup>
@@ -454,7 +432,7 @@ const DegensFilter = ({
           </>
         )}
       </Stack>
-    </StyledStack>
+    </Stack>
   )
 }
 

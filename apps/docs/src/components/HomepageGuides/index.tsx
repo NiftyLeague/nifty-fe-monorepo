@@ -1,7 +1,6 @@
 import React from 'react'
 import Link from '@docusaurus/Link'
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import styled from '@emotion/styled'
 import { ArrowUpRightIcon } from 'lucide-react'
 
 import Github from '@site/public/icons/socials/github.svg'
@@ -10,6 +9,7 @@ import Card from '../Card'
 import Section from '../Section'
 import StyledIcon from '../StyledIcon'
 import StyledImage from '../StyledImage'
+import styles from './index.module.css'
 
 type GuideLink = { title: string; text?: string; to: string }
 
@@ -53,27 +53,16 @@ export const QUICK_LINKS: GuideLink[] = [
 
 const LinkArrow = () => <ArrowUpRightIcon color="#494749" size={32} strokeWidth={1.5} />
 
-const LinkRow = styled.div`
-  width: 100%;
-  align-items: center;
-  justify-content: space-between;
-  display: flex;
-  flex-direction: row;
-  a h4 {
-    color: black !important;
-  }
-`
-
 function Guide({ title, text, to }: GuideLink) {
   return (
     <Link style={{ textDecoration: 'none' }} key={title} to={to}>
       <Card key={title} style={{ marginBottom: '1rem' }}>
-        <LinkRow>
+        <div className={styles.linkRow}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <h4 style={{ marginBottom: 0 }}>{title}</h4>
           </div>
           <LinkArrow />
-        </LinkRow>
+        </div>
         <p style={{ marginBottom: 0 }}>{text}</p>
       </Card>
     </Link>
@@ -84,13 +73,13 @@ function GithubLink({ title, to }: GuideLink) {
   return (
     <Link style={{ textDecoration: 'none' }} key={title} to={to}>
       <Card key={title} style={{ marginBottom: '0.94rem' }}>
-        <LinkRow>
+        <div className={styles.linkRow}>
           <StyledIcon>
             <Github />
             <h4 style={{ marginBottom: 0, marginLeft: 16 }}>{title}</h4>
           </StyledIcon>
           <LinkArrow />
-        </LinkRow>
+        </div>
       </Card>
     </Link>
   )

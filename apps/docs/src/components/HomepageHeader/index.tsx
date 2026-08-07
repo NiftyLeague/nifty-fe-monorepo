@@ -5,70 +5,33 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 
 import Heading from '@theme/Heading'
 import SearchBar from '@theme-original/SearchBar'
-import styled from '@emotion/styled'
-import StyledImage from '../StyledImage'
+import ThemedImage from '@theme/ThemedImage'
 
-const DocsHeader = styled.header`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  width: 100%;
-`
-
-const HeaderBanner = styled.div`
-  display: flex;
-  padding: 4rem 0 2rem 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  flex-direction: column;
-  align-items: center;
-
-  @media screen and (max-width: 966px) {
-    padding: 2rem;
-  }
-`
-
-const HideMedium = styled.div`
-  @media (max-width: 960px) {
-    display: none;
-  }
-`
-
-const StyledTitleImage = styled(StyledImage)`
-  width: 100%;
-  height: 110%;
-  object-fit: cover;
-  z-index: -1;
-  position: absolute;
-  opacity: 0.2;
-  mask-image: linear-gradient(rgba(0, 0, 0, 1), transparent);
-`
+import styles from './index.module.css'
 
 export default function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext()
   return (
-    <DocsHeader>
-      <HeaderBanner>
+    <header className={styles.header}>
+      <div className={styles.banner}>
         <Heading as="h1">{siteConfig.title}</Heading>
         <p style={{ maxWidth: '550px', marginTop: '1rem', fontWeight: 500 }}>
           The pages that follow contain comprehensive documentation of the Nifty League ecosystem.
           If you are new to Nifty League, you might want to check out our{' '}
           <Link to="/docs/faq/general">FAQ</Link> first.
         </p>
-        <HideMedium>
+        <div className={styles.hideMedium}>
           <SearchBar />
-        </HideMedium>
-      </HeaderBanner>
-      <StyledTitleImage
+        </div>
+      </div>
+      <ThemedImage
         alt="Header Background Image"
+        className={styles.titleImage}
         sources={{
           light: useBaseUrl('/img/games/smashers/2D-levels/mars.webp'),
           dark: useBaseUrl('/img/games/smashers/3D-levels/sushi_cropped.webp'),
         }}
       />
-    </DocsHeader>
+    </header>
   )
 }
