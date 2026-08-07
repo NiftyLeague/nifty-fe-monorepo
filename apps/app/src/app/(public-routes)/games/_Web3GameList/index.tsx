@@ -1,7 +1,6 @@
 'use client'
 
 import { useCallback, useState } from 'react'
-import { styled } from '@nl/theme'
 import { useRouter } from 'next/navigation'
 import { Grid, Button } from '@mui/material'
 import BuyArcadeTokensDialog from '@/components/dialog/BuyArcadeTokensDialog'
@@ -10,12 +9,7 @@ import GameCard from '@/components/cards/GameCard'
 import DownloadGameDialog from '@/components/dialog/DownloadGameDialog'
 import useTokensBalances from '@/hooks/balances/useTokensBalances'
 
-const GridItem = styled(Grid)(({ theme }) => ({
-  paddingRight: 16,
-  paddingBottom: 32,
-  border: 'none',
-  [theme.breakpoints.down('sm')]: { paddingBottom: 0 },
-}))
+import styles from './grid-item.module.css'
 
 const Web3GameList = () => {
   const router = useRouter()
@@ -48,7 +42,7 @@ const Web3GameList = () => {
 
   return (
     <>
-      <GridItem size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
+      <Grid className={styles.gridItem} size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
         <GameCard
           title="2D Smashers"
           externalLink={{ title: 'Smashers Mobile', src: 'https://niftysmashers.com/' }}
@@ -74,8 +68,8 @@ const Web3GameList = () => {
             </>
           }
         />
-      </GridItem>
-      <GridItem size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
+      </Grid>
+      <Grid className={styles.gridItem} size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
         <GameCard
           title="WEN Game"
           required="Arcade Tokens Required"
@@ -96,8 +90,8 @@ const Web3GameList = () => {
             </ConnectWrapper>
           }
         />
-      </GridItem>
-      <GridItem size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
+      </Grid>
+      <Grid className={styles.gridItem} size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
         <GameCard
           title="Crypto Winter"
           required="Arcade Tokens Required"
@@ -118,8 +112,8 @@ const Web3GameList = () => {
             </ConnectWrapper>
           }
         />
-      </GridItem>
-      <GridItem size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
+      </Grid>
+      <Grid className={styles.gridItem} size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
         <GameCard
           title="Mt. Gawx"
           required="NFTL required"
@@ -142,8 +136,8 @@ const Web3GameList = () => {
             </ConnectWrapper>
           }
         />
-      </GridItem>
-      <GridItem size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
+      </Grid>
+      <Grid className={styles.gridItem} size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
         <GameCard
           title="Nifty Tennis"
           required="Unreleased"
@@ -168,7 +162,7 @@ const Web3GameList = () => {
             </>
           }
         />
-      </GridItem>
+      </Grid>
       <BuyArcadeTokensDialog
         open={openBuyAT}
         onSuccess={() => {

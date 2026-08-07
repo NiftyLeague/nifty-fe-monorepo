@@ -1,34 +1,8 @@
 import { Button, Stack, TextField, ToggleButton, ToggleButtonGroup } from '@mui/material'
-import { styled } from '@nl/theme'
 import { Icon } from '@nl/ui/base/icon'
 import SortButton from '@/components/extended/SortButton'
 
-const SearchTextField = styled(TextField)({
-  flex: 1,
-  height: 32,
-  '& .MuiInputLabel-root': { color: 'var(--color-muted-foreground)', top: -12 },
-  '& .MuiOutlinedInput-root': {
-    height: 32,
-    '& input': { backgroundColor: 'var(--color-muted)', paddingTop: '6px', paddingBottom: '6px' },
-    '& fieldset': { border: 'none' },
-  },
-})
-
-const LayoutModeButtonsGroup = styled(ToggleButtonGroup)({
-  border: 'var(--border-default)',
-  borderRadius: 'var(--radius-default)',
-})
-
-const LayoutModeButton = styled(ToggleButton)({
-  border: 'none',
-  borderRadius: 'var(--radius-default)',
-  padding: '5px 16px',
-  '&.Mui-selected': {
-    background: 'rgba(88, 32, 214, 0.2)',
-    '&:hover': { background: 'rgba(88, 32, 214, 0.2)' },
-  },
-  '& svg': { width: 20, height: 20 },
-})
+import styles from './index.module.css'
 
 interface DegensTopNavProps {
   searchTerm: string
@@ -46,7 +20,8 @@ const DegensTopNav = ({
   handleChangeLayoutMode,
 }: DegensTopNavProps) => (
   <Stack direction={{ xs: 'column', sm: 'row' }} sx={{ gap: 1 }}>
-    <SearchTextField
+    <TextField
+      className={styles.searchTextField}
       label="Search degens by token # or name"
       name="search-degen-by-token-id-name"
       variant="outlined"
@@ -69,20 +44,31 @@ const DegensTopNav = ({
           }}
         />
       </SortButton>
-      <LayoutModeButtonsGroup
+      <ToggleButtonGroup
+        className={styles.layoutModeButtonsGroup}
         size="small"
         value={layoutMode}
         exclusive
         aria-label="Layout mode"
         onChange={handleChangeLayoutMode}
       >
-        <LayoutModeButton size="small" value="gridView" aria-label="GridView">
+        <ToggleButton
+          className={styles.layoutModeButton}
+          size="small"
+          value="gridView"
+          aria-label="GridView"
+        >
           <Icon name="layout-grid" size="lg" />
-        </LayoutModeButton>
-        <LayoutModeButton size="small" value="gridOn" aria-label="GridOn">
+        </ToggleButton>
+        <ToggleButton
+          className={styles.layoutModeButton}
+          size="small"
+          value="gridOn"
+          aria-label="GridOn"
+        >
           <Icon name="grid-3x3" size="lg" />
-        </LayoutModeButton>
-      </LayoutModeButtonsGroup>
+        </ToggleButton>
+      </ToggleButtonGroup>
     </Stack>
   </Stack>
 )

@@ -1,12 +1,9 @@
-import styled from '@emotion/styled'
 import { ComponentProps } from 'react'
 
-const StyledIcon: React.FC<ComponentProps<'div'>> = styled.div`
-  svg {
-    fill: var(--ifm-font-color-base);
-  }
-  display: flex;
-  align-items: center;
-`
+import styles from './StyledIcon.module.css'
+
+const StyledIcon: React.FC<ComponentProps<'div'>> = ({ className, ...props }) => (
+  <div className={[styles.icon, className].filter(Boolean).join(' ')} {...props} />
+)
 
 export default StyledIcon

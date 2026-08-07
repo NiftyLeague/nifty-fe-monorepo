@@ -1,31 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { useTheme, styled, Theme } from '@nl/theme'
+import { useTheme, Theme } from '@nl/theme'
 import { Box, Modal } from '@mui/material'
 
-const StyledModal = styled(Modal)`
-  position: fixed;
-  z-index: 1300;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
-
-const Backdrop = styled('div')`
-  z-index: -1;
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  -webkit-tap-highlight-color: transparent;
-`
+import styles from './CustomModal.module.css'
 
 const style = (theme: Theme) => ({
   width: '67.5vh',
@@ -62,14 +41,15 @@ const CustomModal = (props: ModalProps): React.ReactNode | null => {
   return (
     <>
       <div onClick={handleOpen}>{ModalIcon}</div>
-      <StyledModal
+      <Modal
+        className={styles.styledModal}
         aria-labelledby="unstyled-modal-title"
         aria-describedby="unstyled-modal-description"
         open={open}
         onClose={handleClose}
       >
         <>
-          <Backdrop />
+          <div className={styles.backdrop} />
           <Box
             sx={{
               ...style(theme),
@@ -85,7 +65,7 @@ const CustomModal = (props: ModalProps): React.ReactNode | null => {
             {child}
           </Box>
         </>
-      </StyledModal>
+      </Modal>
     </>
   )
 }
