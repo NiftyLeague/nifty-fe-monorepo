@@ -1,0 +1,100 @@
+.tableRoot {
+  width: 76%;
+  height: 57%;
+  margin: 56.6% auto 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.tableRoot thead {
+  position: initial !important;
+  display: contents !important;
+}
+
+.tableRoot table {
+  width: 100%;
+}
+
+.tableRoot :global(.cell) {
+  height: 40px !important;
+  overflow: initial !important;
+  position: relative;
+}
+
+.tableRoot th {
+  color: #9ba5bf !important;
+  max-width: 60px !important;
+}
+
+.tableRoot tbody {
+  position: initial !important;
+}
+
+.tableRoot tbody tr:first-child {
+  border-top: solid 2px #8c9cb4;
+}
+
+.tableRoot tr th:last-child {
+  border-right: none !important;
+  color: #9ba5bf !important;
+}
+
+.tableRoot tr td {
+  color: var(--color-background);
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.tableRoot tr td:last-child {
+  border-right: none !important;
+}
+
+.rankBody {
+  padding: 10px;
+  border-radius: 50px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.lineTopBox {
+  position: absolute;
+  top: -9px;
+  right: -2px;
+  height: 15px;
+  border-right: solid 2px #8c9cb4;
+}
+
+.lineBottomBox {
+  position: absolute;
+  bottom: -9px;
+  right: -2px;
+  height: 15px;
+  border-right: solid 2px #8c9cb4;
+}
+
+.loadingBox {
+  width: 100%;
+  height: 80%;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  display: flex;
+}
+
+.twitterTypography {
+  width: 100%;
+  background: var(--color-foreground);
+  color: var(--color-blue);
+  font-weight: 600;
+  display: flex;
+  font-size: 14px;
+  line-height: 20px;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  margin-top: 10px;
+  gap: 10px;
+  text-decoration: underline;
+  cursor: pointer;
+}

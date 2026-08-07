@@ -1,7 +1,6 @@
 'use client'
 /* eslint-disable no-nested-ternary */
 import { useState, useEffect } from 'react'
-import { styled } from '@nl/theme'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import {
   Box,
@@ -25,10 +24,7 @@ import {
 import EnhancedTable from '@/components/leaderboards/EnhancedTable/EnhancedTable'
 import './modal-table.css'
 
-const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
-  padding: `${theme.spacing(0.25)} ${theme.spacing(1.5)}`,
-  '&.Mui-selected': { backgroundColor: 'transparent !important' },
-}))
+import styles from './index.module.css'
 
 export default function LeaderBoards(): React.ReactNode {
   const router = useRouter()
@@ -125,8 +121,9 @@ export default function LeaderBoards(): React.ReactNode {
         )}
         <List sx={{ display: 'flex' }}>
           {timeFilters.map((item) => (
-            <StyledListItemButton
+            <ListItemButton
               key={item.key}
+              className={styles.styledListItemButton}
               selected={item.key === selectedTimeFilter}
               onClick={() => handleChangeTimeFilter(item.key)}
             >
@@ -138,7 +135,7 @@ export default function LeaderBoards(): React.ReactNode {
                   {item.display}
                 </Typography>
               </ListItemText>
-            </StyledListItemButton>
+            </ListItemButton>
           ))}
         </List>
       </Stack>

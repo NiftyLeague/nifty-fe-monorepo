@@ -1,0 +1,6 @@
+.closeIconButton {
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: var(--color-muted-foreground);
+}

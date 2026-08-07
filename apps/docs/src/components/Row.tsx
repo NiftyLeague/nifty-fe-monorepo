@@ -1,44 +1,22 @@
-import styled from '@emotion/styled'
 import { ComponentProps } from 'react'
 
-const Row: React.FC<ComponentProps<'div'>> = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  justify-content: center;
-  margin: 0 auto;
-  padding: 1rem 0;
-  max-width: 900px;
+import styles from './Row.module.css'
 
-  @media (max-width: 960px) {
-    padding: 1rem;
-    max-width: 100%;
-    margin: 0 1rem;
-  }
-`
+const cx = (...classNames: Array<string | undefined | null | false>) =>
+  classNames.filter(Boolean).join(' ')
 
-export const RowTwo: React.FC<ComponentProps<typeof Row>> = styled(Row)`
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 48px;
-  gap: 56px;
+type RowProps = ComponentProps<'div'>
 
-  @media (max-width: 960px) {
-    grid-template-columns: 1fr;
-  }
-  @media (max-width: 640px) {
-    grid-template-columns: 1fr;
-  }
-`
+const Row: React.FC<RowProps> = ({ className, ...props }) => (
+  <div className={cx(styles.row, className)} {...props} />
+)
 
-export const RowThree: React.FC<ComponentProps<typeof Row>> = styled(Row)`
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 16px;
+export const RowTwo: React.FC<RowProps> = ({ className, ...props }) => (
+  <div className={cx(styles.row, styles.rowTwo, className)} {...props} />
+)
 
-  @media (max-width: 960px) {
-    grid-template-columns: 1fr;
-  }
-  @media (max-width: 640px) {
-    grid-template-columns: 1fr;
-  }
-`
+export const RowThree: React.FC<RowProps> = ({ className, ...props }) => (
+  <div className={cx(styles.row, styles.rowThree, className)} {...props} />
+)
 
 export default Row

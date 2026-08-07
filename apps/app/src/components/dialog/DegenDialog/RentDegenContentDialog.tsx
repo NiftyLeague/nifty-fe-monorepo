@@ -1,6 +1,5 @@
 'use client'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { styled } from '@nl/theme'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 import { isAddress } from 'ethers'
@@ -38,40 +37,7 @@ import useLocalStorageContext from '@/hooks/useLocalStorageContext'
 
 import TermsOfServiceDialog from '../TermsOfServiceDialog'
 import RentStepper from './RentStepper'
-
-const PREFIX = 'RentDegenContentDialog'
-
-const classes = {
-  root: `${PREFIX}-root`,
-  greyText: `${PREFIX}-greyText`,
-  input: `${PREFIX}-input`,
-  formHelper: `${PREFIX}-formHelper`,
-  inputCheck: `${PREFIX}-inputCheck`,
-  inputCheckFormControl: `${PREFIX}-inputCheckFormControl`,
-  successInfo: `${PREFIX}-successInfo`,
-}
-
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')(({ theme }) => ({
-  [`&.${classes.root}`]: {
-    '& button': { height: 28, borderRadius: '2px' },
-    '& h5': { fontSize: '16px', fontWeight: 700, textTransform: 'uppercase' },
-    '& p,span': { fontSize: '14px', lineHeight: 1.2 },
-  },
-  [`&.${classes.greyText}`]: { color: 'var(--color-muted-foreground)' },
-  [`&.${classes.input}`]: {
-    padding: '8px 8px 4px 8px',
-    fontSize: '12px',
-    '&::placeholder': { fontSize: '12px' },
-  },
-  [`&.${classes.formHelper}`]: { marginLeft: 0 },
-  [`&.${classes.inputCheck}`]: {
-    padding: 4,
-    '& .MuiSvgIcon-root': { width: '0.75em', height: '0.75em' },
-  },
-  [`&.${classes.inputCheckFormControl}`]: { marginLeft: -4, marginRight: 0 },
-  [`&.${classes.successInfo}`]: { fontSize: '16px', fontWeight: 700, lineHeight: 1.25 },
-}))
+import styles from './RentDegenContentDialog.module.css'
 
 export interface RentDegenContentDialogProps {
   degen?: Degen
@@ -227,9 +193,9 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
   }
 
   return (
-    <Root>
+    <div>
       <Stack
-        className={classes.root}
+        className={styles.root}
         sx={{ maxWidth: 430, rowGap: { xs: 6, lg: 4 }, mx: { xs: 1, sm: 'auto' } }}
       >
         <IconButton
@@ -297,10 +263,10 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                   alignItems: 'center',
                 }}
               >
-                <Typography variant="h6" className={classes.successInfo} sx={{ mt: 2 }}>
+                <Typography variant="h6" className={styles.successInfo} sx={{ mt: 2 }}>
                   Congratulations!
                 </Typography>
-                <Typography variant="h6" className={classes.successInfo}>
+                <Typography variant="h6" className={styles.successInfo}>
                   Your rental is active.
                 </Typography>
                 <Button variant="contained" fullWidth onClick={handleClickPlay}>
@@ -352,9 +318,9 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                           helperText={addressError}
                           onChange={(event) => validateAddress(event.target.value)}
                           slotProps={{
-                            htmlInput: { className: classes.input },
+                            htmlInput: { className: styles.input },
 
-                            formHelperText: { className: classes.formHelper },
+                            formHelperText: { className: styles.formHelper },
                           }}
                         />
                       </FormControl>
@@ -409,10 +375,10 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                               size="small"
                               checked={isUseRentalPass}
                               onChange={handleChangeUseRentalPass}
-                              className={classes.inputCheck}
+                              className={styles.inputCheck}
                             />
                           }
-                          className={classes.inputCheckFormControl}
+                          className={styles.inputCheckFormControl}
                         />
                       </FormControl>
                       {isUseRentalPass && (
@@ -467,10 +433,10 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                                 size="small"
                                 checked={agreement}
                                 onChange={handleAgreementChange}
-                                className={classes.inputCheck}
+                                className={styles.inputCheck}
                               />
                             }
-                            className={classes.inputCheckFormControl}
+                            className={styles.inputCheckFormControl}
                           />
                         </FormControl>
                         <TermsOfServiceDialog open={openTOS} onClose={handleTOSDialogClose} />
@@ -496,11 +462,11 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
               <Stack sx={{ gap: 1 }}>
                 <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
                   <Typography>Multipliers</Typography>
-                  <Typography className={classes.greyText}>{degen?.multiplier}x</Typography>
+                  <Typography className={styles.greyText}>{degen?.multiplier}x</Typography>
                 </Stack>
                 <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
                   <Typography>Queue</Typography>
-                  <Typography className={classes.greyText}>{degen?.rental_count}</Typography>
+                  <Typography className={styles.greyText}>{degen?.rental_count}</Typography>
                 </Stack>
               </Stack>
             </Grid>
@@ -508,18 +474,18 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
               <Stack sx={{ gap: 1 }}>
                 <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
                   <Typography>Rental period</Typography>
-                  <Typography className={classes.greyText}>1 week</Typography>
+                  <Typography className={styles.greyText}>1 week</Typography>
                 </Stack>
                 <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
                   <Typography>Renewal Cost</Typography>
-                  <Typography className={classes.greyText}>{degen?.price_daily}/Day</Typography>
+                  <Typography className={styles.greyText}>{degen?.price_daily}/Day</Typography>
                 </Stack>
               </Stack>
             </Grid>
           </Grid>
         </Stack>
       </Stack>
-    </Root>
+    </div>
   )
 }
 

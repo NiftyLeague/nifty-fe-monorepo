@@ -1,17 +1,9 @@
-import { styled } from '@nl/theme'
 import Image from 'next/image'
 import { ImageList, ImageListItem, ImageListItemBar, Skeleton } from '@mui/material'
 
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 
-const PREFIX = 'items-grid'
-
-const classes = { titleWrap: `${PREFIX}-titleWrap`, title: `${PREFIX}-title` }
-
-const Root = styled('div')({
-  [`&.${classes.titleWrap}`]: { padding: 0 },
-  [`&.${classes.title}`]: { display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem' },
-})
+import styles from './items-grid.module.css'
 
 const ITEMS = [
   { id: 1, name: 'CAPE', image: '/img/items/full/1.gif' },
@@ -47,7 +39,7 @@ export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
       sx={{ ...containerStyles }}
     />
   ) : (
-    <Root style={containerStyles}>
+    <div style={containerStyles}>
       <div>ITEMS I OWN</div>
       <ImageList gap={10} cols={3} sx={{ ...gridStyles }}>
         {ITEMS.map((item) => (
@@ -62,7 +54,7 @@ export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
               unoptimized
             />
             <ImageListItemBar
-              classes={{ titleWrap: classes.titleWrap, title: classes.title }}
+              classes={{ titleWrap: styles.titleWrap, title: styles.title }}
               title={
                 <>
                   <span>{item.name}</span>
@@ -84,11 +76,11 @@ export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
           height={98}
           style={{ width: '31%', height: 'auto' }}
         />
-        <div className={classes.title} style={{ width: '35%', margin: 'auto' }}>
+        <div className={styles.title} style={{ width: '35%', margin: 'auto' }}>
           <span>CITADEL KEY</span>
           <span>x{itemCounts[6]}</span>
         </div>
       </div>
-    </Root>
+    </div>
   )
 }

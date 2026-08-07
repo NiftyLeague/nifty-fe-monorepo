@@ -1,0 +1,37 @@
+.borderLinearProgress {
+  height: 10px;
+  border-radius: 30px;
+  background-color: var(--color-foreground);
+}
+
+:global(.dark) .borderLinearProgress {
+  background-color: var(--color-muted-foreground);
+}
+
+.borderLinearProgress :global(.MuiLinearProgress-bar) {
+  border-radius: var(--radius-default);
+  background-color: var(--color-purple);
+}
+
+.cardStyle {
+  background: var(--color-muted);
+  border: var(--border-default);
+  margin-bottom: 22px;
+  overflow: hidden;
+  position: relative;
+}
+
+.cardStyle::after {
+  content: '';
+  position: absolute;
+  width: 157px;
+  height: 157px;
+  background: var(--color-purple-200);
+  border-radius: 50%;
+  top: -105px;
+  right: -96px;
+}
+
+:global(.dark) .cardStyle::after {
+  background: var(--color-background);
+}

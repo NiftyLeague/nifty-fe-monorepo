@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Dialog, DialogProps } from '@mui/material'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
-import { styled } from '@nl/theme'
+import { cn } from '@nl/ui/utils'
 import { toast } from 'react-toastify'
 
 import { DEGEN_CONTRACT } from '@/constants/contracts'
@@ -18,6 +18,7 @@ import ClaimDegenContentDialog from './ClaimDegenContentDialog'
 import EquipDegenContentDialog from './EquipDegenContentDialog'
 import RentDegenContentDialog from './RentDegenContentDialog'
 import ViewTraitsContentDialog from './ViewTraitsContentDialog'
+import styles from './index.module.css'
 
 export interface DegenDialogProps extends DialogProps {
   degen?: Degen
@@ -29,27 +30,6 @@ export interface DegenDialogProps extends DialogProps {
   setIsEquip?: React.Dispatch<React.SetStateAction<boolean>>
   onRent?: (degen: Degen) => void
 }
-
-const CustomDialog = styled(Dialog, {
-  shouldForwardProp: (prop) => prop !== 'isRent' && prop !== 'isEquip',
-})<{
-  isRent?: boolean
-  isEquip?: boolean
-}>(({ theme, isRent, isEquip }) => ({
-  '& .MuiPaper-root': {
-    overflowX: 'hidden',
-    minWidth: 'inherit',
-    [theme.breakpoints.down('md')]: {
-      minWidth: 'inherit',
-      margin: isRent || isEquip ? 16 : 'inherit',
-      maxWidth: isRent || isEquip ? 'calc(100% - 32px) !important' : 'inherit',
-      width: isRent || isEquip ? 'calc(100% - 32px) !important' : 'inherit',
-      height: isRent || isEquip ? 'auto' : 'inherit',
-      borderRadius: isRent || isEquip ? '10px' : 'inherit',
-    },
-  },
-  ...(isRent && { '& .MuiPaper-root': { minWidth: 550 } }),
-}))
 
 const DegenDialog = ({
   open,
@@ -163,15 +143,18 @@ const DegenDialog = ({
   }
 
   return (
-    <CustomDialog
+    <Dialog
       maxWidth={isRent ? 'xs' : 'sm'}
       fullWidth={isClaim ? false : true}
       scroll="body"
       fullScreen={isEquip ? false : fullScreen}
       onClose={handleClose}
       open={open}
-      isRent={isRent}
-      isEquip={isEquip}
+      className={cn(
+        styles.customDialog,
+        isRent && styles.customDialogRent,
+        isEquip && styles.customDialogEquip
+      )}
       {...rest}
     >
       {isClaim && <ClaimDegenContentDialog degen={degen} onClose={handleClose} />}
@@ -197,7 +180,7 @@ const DegenDialog = ({
           onClose={handleClose}
         />
       )}
-    </CustomDialog>
+    </Dialog>
   )
 }
 
