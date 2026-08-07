@@ -23,7 +23,7 @@
     "migrate": "bun dlx shadcn@latest migrate radix -y",
     "postadd-component": "bun migrate && bun format",
     "test": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --pass-with-no-tests",
-    "test:coverage": "bun test --coverage --pass-with-no-tests",
+    "test:coverage": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --coverage --pass-with-no-tests",
     "test:watch": "bun test --watch",
     "type-check": "tsc --noEmit"
   },
