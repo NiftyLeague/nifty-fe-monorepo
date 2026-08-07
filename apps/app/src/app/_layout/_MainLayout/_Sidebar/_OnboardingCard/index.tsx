@@ -1,7 +1,7 @@
 import { memo } from 'react'
 
 // material-ui
-import { useTheme, styled } from '@nl/theme'
+import { useTheme } from '@nl/theme'
 import {
   Avatar,
   Card,
@@ -13,44 +13,12 @@ import {
   ListItemAvatar,
   ListItemText,
   Typography,
-  linearProgressClasses,
 } from '@mui/material'
 
 import { Icon } from '@nl/ui/base/icon'
 
 // styles
-const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
-  height: 10,
-  borderRadius: 30,
-  [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor: 'var(--color-foreground)',
-    ...theme.applyStyles('dark', { backgroundColor: 'var(--color-muted-foreground)' }),
-  },
-  [`&.${linearProgressClasses.bar}`]: {
-    borderRadius: 'var(--radius-default)',
-    backgroundColor: 'var(--color-purple)',
-    ...theme.applyStyles('dark', { backgroundColor: 'var(--color-purple)' }),
-  },
-}))
-
-const CardStyle = styled(Card)(({ theme }) => ({
-  background: 'var(--color-muted)',
-  border: 'var(--border-default)',
-  marginBottom: '22px',
-  overflow: 'hidden',
-  position: 'relative',
-  '&:after': {
-    content: '""',
-    position: 'absolute',
-    width: '157px',
-    height: '157px',
-    background: 'var(--color-purple-200)',
-    borderRadius: '50%',
-    top: '-105px',
-    right: '-96px',
-    ...theme.applyStyles('dark', { background: 'var(--color-background)' }),
-  },
-}))
+import styles from './OnboardingCard.module.css'
 
 interface LinearProgressWithLabelProps {
   value: number
@@ -73,7 +41,12 @@ const LinearProgressWithLabel = ({ value, ...others }: LinearProgressWithLabelPr
       </Grid>
     </Grid>
     <Grid>
-      <BorderLinearProgress variant="determinate" value={value} {...others} />
+      <LinearProgress
+        className={styles.borderLinearProgress}
+        variant="determinate"
+        value={value}
+        {...others}
+      />
     </Grid>
   </Grid>
 )
@@ -84,7 +57,7 @@ const OnboardingCard = () => {
   const theme = useTheme()
 
   return (
-    <CardStyle>
+    <Card className={styles.cardStyle}>
       <CardContent sx={{ p: 2 }}>
         <List sx={{ p: 0, m: 0 }}>
           <ListItem alignItems="flex-start" disableGutters sx={{ p: 0 }}>
@@ -116,7 +89,7 @@ const OnboardingCard = () => {
         </List>
         <LinearProgressWithLabel value={80} />
       </CardContent>
-    </CardStyle>
+    </Card>
   )
 }
 

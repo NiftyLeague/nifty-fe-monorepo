@@ -2,55 +2,16 @@
 import { useMemo } from 'react'
 
 import { cn } from '@nl/ui/utils'
-import { styled } from '@nl/theme'
 import { StepIconProps } from '@mui/material/StepIcon'
 import Step from '@mui/material/Step'
 import StepConnector from '@mui/material/StepConnector'
 import StepLabel from '@mui/material/StepLabel'
 import Stepper from '@mui/material/Stepper'
 
-const PREFIX = 'RentStepper'
-
-const classes = {
-  alternativeLabel: `${PREFIX}-alternativeLabel`,
-  active: `${PREFIX}-active`,
-  completed: `${PREFIX}-completed`,
-  line: `${PREFIX}-line`,
-  root: `${PREFIX}-root`,
-}
-
-const StyledIcon = styled('div')({
-  [`&.${classes.root}`]: {
-    backgroundColor: '#ccc',
-    zIndex: 1,
-    color: 'var(--color-foreground)',
-    width: 50,
-    height: 50,
-    display: 'flex',
-    borderRadius: '50%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  [`&.${classes.active}`]: {
-    backgroundImage: 'var(--gradient-brand)',
-    boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
-  },
-  [`&.${classes.completed}`]: { backgroundImage: 'var(--gradient-brand)' },
-})
-
-const ColorlibConnector = styled(StepConnector)({
-  alternativeLabel: { top: 22 },
-  active: { '& $line': { backgroundImage: 'var(--gradient-brand)' } },
-  completed: { '& $line': { backgroundImage: 'var(--gradient-brand)' } },
-  line: { height: 3, border: 0, backgroundColor: '#eaeaf0', borderRadius: 1 },
-})
+import styles from './RentStepper.module.css'
 
 function ColorlibStepIcon({ active, completed }: StepIconProps) {
-  return (
-    <StyledIcon
-      className={cn(classes.root, { [classes.active]: active, [classes.completed]: completed })}
-    />
-  )
+  return <div className={cn(styles.root, active && styles.active, completed && styles.completed)} />
 }
 
 const steps = ['Connect Wallet', 'Check Balance', 'Success']
@@ -69,18 +30,18 @@ export default function RentStepper({
   }, [checkBalance, rentSuccess])
 
   return (
-    <div className={classes.root}>
+    <div>
       <Stepper
         alternativeLabel
         activeStep={activeStep}
         style={{ backgroundColor: 'transparent', marginBottom: 10 }}
         connector={
-          <ColorlibConnector
+          <StepConnector
             classes={{
-              alternativeLabel: classes.alternativeLabel,
-              active: classes.active,
-              completed: classes.completed,
-              line: classes.line,
+              alternativeLabel: styles.alternativeLabel,
+              active: styles.active,
+              completed: styles.completed,
+              line: styles.line,
             }}
           />
         }

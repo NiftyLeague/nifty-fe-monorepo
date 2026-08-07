@@ -1,16 +1,11 @@
 import { useContext, cloneElement } from 'react'
-import { IconButton, styled } from '@mui/material'
+import { IconButton } from '@mui/material'
 import { Icon } from '@nl/ui/base/icon'
 import { DialogContext } from '.'
 import type { DialogAction } from '@/types/dialog'
 import callAll from '@/utils/callAll'
 
-const IconButtonStyle = styled(IconButton)(({ theme }) => ({
-  position: 'absolute',
-  right: 0,
-  top: 0,
-  color: 'var(--color-muted-foreground)',
-}))
+import styles from './DialogActions.module.css'
 
 const DialogActionComp = ({ children, isOpen }: DialogAction) => {
   const [, setIsOpen] = useContext(DialogContext)
@@ -31,9 +26,9 @@ const DialogDismissButton = ({ children }: DialogAction) =>
 const CloseIconButton = () => {
   return (
     <DialogDismissButton>
-      <IconButtonStyle aria-label="close">
+      <IconButton aria-label="close" className={styles.closeIconButton}>
         <Icon name="x" size="lg" />
-      </IconButtonStyle>
+      </IconButton>
     </DialogDismissButton>
   )
 }

@@ -1,0 +1,53 @@
+.root button {
+  height: 28px;
+  border-radius: 2px;
+}
+
+.root h5 {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.root p,
+.root span {
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.greyText {
+  color: var(--color-muted-foreground);
+}
+
+.input {
+  padding: 8px 8px 4px 8px;
+  font-size: 12px;
+}
+
+.input::placeholder {
+  font-size: 12px;
+}
+
+.formHelper {
+  margin-left: 0;
+}
+
+.inputCheck {
+  padding: 4px;
+}
+
+.inputCheck :global(.MuiSvgIcon-root) {
+  width: 0.75em;
+  height: 0.75em;
+}
+
+.inputCheckFormControl {
+  margin-left: -4px;
+  margin-right: 0;
+}
+
+.successInfo {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+}

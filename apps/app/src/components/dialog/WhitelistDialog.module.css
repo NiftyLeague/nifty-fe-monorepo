@@ -1,0 +1,52 @@
+.form {
+  display: flex;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .form {
+    flex-direction: column;
+  }
+}
+
+.inputEmail {
+  flex: 1;
+  background: #5d5f74;
+  border-radius: 2px;
+  border: none;
+  padding: 13px 16px;
+  letter-spacing: -0.02em;
+  color: var(--color-foreground);
+  outline: none;
+  font-size: 16px;
+}
+
+.inputEmail::placeholder {
+  color: #b4b5c3;
+}
+
+@media (max-width: 768px) {
+  .inputEmail {
+    border-radius: var(--radius-default);
+  }
+}
+
+.submitButton {
+  background: var(--color-purple);
+  border-radius: 0 var(--radius-default) var(--radius-default) 0;
+  border: none;
+  cursor: pointer;
+  padding: 8px 36px;
+  font-size: 14px;
+  line-height: 28px;
+  letter-spacing: -0.02em;
+  color: var(--color-foreground);
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .submitButton {
+    margin-top: 8px;
+    border-radius: var(--radius-default);
+  }
+}

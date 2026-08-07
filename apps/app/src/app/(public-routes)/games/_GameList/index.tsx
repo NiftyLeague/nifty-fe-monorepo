@@ -2,16 +2,10 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { styled } from '@nl/theme'
 import Grid from '@mui/material/Grid'
 import GameCard from '@/components/cards/GameCard'
 
-const GridItem = styled(Grid)(({ theme }) => ({
-  paddingRight: 16,
-  paddingBottom: 32,
-  border: 'none',
-  [theme.breakpoints.down('sm')]: { paddingBottom: 0 },
-}))
+import styles from './grid-item.module.css'
 
 const AppleBadge = ({ disabled = false }) => (
   <Image
@@ -89,7 +83,7 @@ const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
 
 const F2PGameList = () => (
   <>
-    <GridItem size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
+    <Grid className={styles.gridItem} size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
       <GameCard
         title="Nifty Smashers (Beta)"
         required="Party Platform Fighter"
@@ -105,8 +99,8 @@ const F2PGameList = () => (
           />
         }
       />
-    </GridItem>
-    <GridItem size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
+    </Grid>
+    <Grid className={styles.gridItem} size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
       <GameCard
         title="Party Royale (Early-Alpha)"
         required="Party Battle Royale"
@@ -116,7 +110,7 @@ const F2PGameList = () => (
         autoHeight={false}
         actions={<StoreButtons ios="https://testflight.apple.com/join/VXxbaZrw" />}
       />
-    </GridItem>
+    </Grid>
   </>
 )
 
