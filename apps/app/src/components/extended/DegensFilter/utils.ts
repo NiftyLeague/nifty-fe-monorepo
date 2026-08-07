@@ -186,11 +186,6 @@ export const applySeventhTribesFix = (degen: Degen): Degen => {
   return {
     ...degen,
     background: HYDRAS[degen.id as keyof typeof HYDRAS]?.rarity || 'Common',
-    tribe:
-      Number(degen.id) >= 9999
-        ? Number(degen.id) === 9999
-          ? 'rugman'
-          : 'satoshi'
-        : 'hydra',
+    tribe: Number(degen.id) >= 9999 ? (Number(degen.id) === 9999 ? 'rugman' : 'satoshi') : 'hydra',
   }
 }

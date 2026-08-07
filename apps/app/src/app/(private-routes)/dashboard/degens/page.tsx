@@ -82,7 +82,9 @@ const DashboardDegensPage = (): React.ReactNode => {
 
   const populatedDegens: Degen[] = useMemo(() => {
     if (!degensBalances?.length || !data) return []
-    return degensBalances.map((degen) => applySeventhTribesFix(data[Number(degen.id)] as Degen || degen))
+    return degensBalances.map((degen) =>
+      applySeventhTribesFix((data[Number(degen.id)] as Degen) || degen)
+    )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [degensBalances?.length, !!data])
 
