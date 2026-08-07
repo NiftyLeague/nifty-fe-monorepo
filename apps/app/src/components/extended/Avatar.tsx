@@ -1,63 +1,67 @@
 import { ReactNode } from 'react'
 
-// material-ui
-import { useTheme } from '@nl/theme'
-import MuiAvatar, { AvatarProps } from '@mui/material/Avatar'
-import { OverridableComponent, OverridableTypeMap } from '@mui/material/OverridableComponent'
+import { Avatar as MuiAvatar, AvatarImage, AvatarFallback } from '@nl/ui/base/avatar'
 import type { LinkTarget } from '@/types'
 
 // ==============================|| AVATAR ||============================== //
 
-interface avatarProps extends AvatarProps {
+interface avatarProps {
   alt?: string
   src?: string
   className?: string
   color?: string
-  component?: OverridableComponent<OverridableTypeMap>
   target?: LinkTarget
   href?: string
-  sx?: AvatarProps['sx']
+  style?: React.CSSProperties
   children?: ReactNode
   outline?: boolean
   size?: 'badge' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }
 
-const Avatar = ({ className, color, outline, size, sx, ...others }: avatarProps) => {
-  const theme = useTheme()
+const sizeClass: Record<string, string> = {
+  badge: 'size-7', // 28px = spacing(3.5)
+  xs: 'size-[34px]', // 34px = spacing(4.25)
+  sm: 'size-10', // 40px = spacing(5)
+  md: 'size-[60px]', // 60px = spacing(7.5)
+  lg: 'size-[72px]', // 72px = spacing(9)
+  xl: 'size-[82px]', // 82px = spacing(10.25)
+}
 
-  const colorSX = color &&
-    !outline && { color: `var(--color-${color}-foreground)`, bgcolor: `var(--color-${color})` }
-  const outlineSX = outline && {
-    color: color ? `${color}.main` : 'var(--color-purple)',
-    bgcolor: 'var(--color-muted)',
-    border: '2px solid',
-    borderColor: color ? `${color}.main` : 'var(--color-purple)',
-  }
-  let sizeSX: Record<string, unknown>
-  switch (size) {
-    case 'badge':
-      sizeSX = { width: theme.spacing(3.5), height: theme.spacing(3.5) }
-      break
-    case 'xs':
-      sizeSX = { width: theme.spacing(4.25), height: theme.spacing(4.25) }
-      break
-    case 'sm':
-      sizeSX = { width: theme.spacing(5), height: theme.spacing(5) }
-      break
-    case 'lg':
-      sizeSX = { width: theme.spacing(9), height: theme.spacing(9) }
-      break
-    case 'xl':
-      sizeSX = { width: theme.spacing(10.25), height: theme.spacing(10.25) }
-      break
-    case 'md':
-      sizeSX = { width: theme.spacing(7.5), height: theme.spacing(7.5) }
-      break
-    default:
-      sizeSX = {}
-  }
+const Avatar = ({ className, color, outline, size, style, ...others }: avatarProps) => {
+  const colorStyle: React.CSSProperties | undefined =
+    color && !outline
+      ? { color: `var(--color-${color}-foreground)`, backgroundColor: `var(--color-${color})` }
+      : undefined
+  const outlineStyle: React.CSSProperties | undefined =
+    outline && color
+      ? {
+          color: `var(--color-${color})`,
+          backgroundColor: 'var(--color-muted)',
+          border: '2px solid',
+          borderColor: `var(--color-${color})`,
+        }
+      : outline
+        ? {
+            color: 'var(--color-purple)',
+            backgroundColor: 'var(--color-muted)',
+            border: '2px solid',
+            borderColor: 'var(--color-purple)',
+          }
+        : undefined
 
-  return <MuiAvatar sx={{ ...colorSX, ...outlineSX, ...sizeSX, ...sx }} {...others} />
+  return (
+    <MuiAvatar
+      className={`${size ? sizeClass[size] : ''} ${className || ''}`}
+      style={{ ...colorStyle, ...outlineStyle, ...style }}
+      {...others}
+    >
+      {others.src ? (
+        <AvatarImage src={others.src} alt={others.alt || ''} />
+      ) : (
+        <AvatarFallback>{others.children}</AvatarFallback>
+      )}
+    </MuiAvatar>
+  )
 }
 
 export default Avatar

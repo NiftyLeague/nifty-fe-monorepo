@@ -1,9 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { Button, Grid, Typography } from '@mui/material'
-import { gridSpacing } from '@nl/theme'
+import { Button } from '@nl/ui/base/button'
+import { Title } from '@nl/ui/custom/typography'
 import BuyArcadeTokensDialog from '@/components/dialog/BuyArcadeTokensDialog'
+
+const gridSpacing = 3 // 24px
 
 interface ArcadeTokensRequiredProps {
   refetchArcadeBal: () => void
@@ -19,22 +21,22 @@ const ArcadeTokensRequired: React.FC<ArcadeTokensRequiredProps> = ({ refetchArca
 
   return (
     <>
-      <Grid container spacing={gridSpacing} sx={{ height: '100%', alignItems: 'center' }}>
-        <Grid size={{ xs: 12 }}>
-          <Grid container spacing={gridSpacing}>
-            <Grid size={{ xs: 12 }}>
-              <Typography variant="h1" component="div" sx={{ textAlign: 'center' }}>
+      <div className="grid h-full grid-cols-12 items-center" style={{ gap: gridSpacing * 8 }}>
+        <div className="col-span-12">
+          <div className="grid grid-cols-12" style={{ gap: gridSpacing * 8 }}>
+            <div className="col-span-12">
+              <Title level={1} className="text-center">
                 Arcade Tokens Required
-              </Typography>
-            </Grid>
-            <Grid size={{ xs: 12 }} sx={{ textAlign: 'center' }}>
-              <Button variant="outlined" color="primary" onClick={handleBuyArcadeTokens}>
+              </Title>
+            </div>
+            <div className="col-span-12 text-center">
+              <Button variant="outline" onClick={handleBuyArcadeTokens}>
                 Buy Arcade Tokens
               </Button>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
+            </div>
+          </div>
+        </div>
+      </div>
       <BuyArcadeTokensDialog
         open={openBuyAT}
         onSuccess={() => {

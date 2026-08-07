@@ -1,5 +1,7 @@
-import { Button, Stack, TextField, ToggleButton, ToggleButtonGroup } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
+import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group'
 import { Icon } from '@nl/ui/base/icon'
+import { Input } from '@nl/ui/custom/input'
 import SortButton from '@/components/extended/SortButton'
 
 import styles from './index.module.css'
@@ -19,58 +21,58 @@ const DegensTopNav = ({
   layoutMode,
   handleChangeLayoutMode,
 }: DegensTopNavProps) => (
-  <Stack direction={{ xs: 'column', sm: 'row' }} sx={{ gap: 1 }}>
-    <TextField
-      className={styles.searchTextField}
+  <div className="flex flex-col gap-2 sm:flex-row">
+    <Input
+      className={`${styles.searchTextField} h-8 flex-1 border-0 bg-muted`}
       label="Search degens by token # or name"
       name="search-degen-by-token-id-name"
-      variant="outlined"
-      size="small"
       value={searchTerm}
       onChange={handleChangeSearchTerm}
     />
-    <Stack direction="row" sx={{ gap: 1, justifyContent: 'space-between' }}>
+    <div className="flex flex-row items-center justify-between gap-2">
       <SortButton handleSort={handleSort}>
         <Button
           id="sort-button"
           aria-controls="sort-menu"
           aria-haspopup="true"
-          endIcon={<Icon name="chevron-down" />}
-          sx={{
+          style={{
             fontWeight: 400,
             border: 'var(--border-purple)',
             padding: '3px 16px',
             color: 'var(--color-foreground)',
           }}
-        />
+        >
+          <Icon name="chevron-down" />
+        </Button>
       </SortButton>
-      <ToggleButtonGroup
+      <ToggleGroup
+        type="single"
+        size="sm"
         className={styles.layoutModeButtonsGroup}
-        size="small"
         value={layoutMode}
-        exclusive
         aria-label="Layout mode"
-        onChange={handleChangeLayoutMode}
+        onValueChange={(value) =>
+          value &&
+          handleChangeLayoutMode(undefined as unknown as React.MouseEvent<HTMLElement>, value)
+        }
       >
-        <ToggleButton
-          className={styles.layoutModeButton}
-          size="small"
+        <ToggleGroupItem
+          className={`${styles.layoutModeButton} data-[state=on]:bg-[rgba(88,32,214,0.2)]`}
           value="gridView"
           aria-label="GridView"
         >
           <Icon name="layout-grid" size="lg" />
-        </ToggleButton>
-        <ToggleButton
-          className={styles.layoutModeButton}
-          size="small"
+        </ToggleGroupItem>
+        <ToggleGroupItem
+          className={`${styles.layoutModeButton} data-[state=on]:bg-[rgba(88,32,214,0.2)]`}
           value="gridOn"
           aria-label="GridOn"
         >
           <Icon name="grid-3x3" size="lg" />
-        </ToggleButton>
-      </ToggleButtonGroup>
-    </Stack>
-  </Stack>
+        </ToggleGroupItem>
+      </ToggleGroup>
+    </div>
+  </div>
 )
 
 export default DegensTopNav

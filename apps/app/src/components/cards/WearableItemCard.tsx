@@ -1,6 +1,5 @@
 import Image from 'next/image'
-import { Box, Stack, SxProps, Typography } from '@mui/material'
-import { Theme } from '@nl/theme'
+import type { SxProps, Theme } from '@/types'
 import type { Item } from '@/types/marketplace'
 import ImageCard from '@/components/cards/ImageCard'
 
@@ -21,16 +20,14 @@ interface WearableItemCardPaneProps {
 const WearableItemCardPane: React.FC<WearableItemCardPaneProps> = ({ width, height, data, sx }) => {
   const { image, title, thumbnail } = data
   return (
-    <Box
-      sx={[
-        { width: width, height: height, borderRadius: '10px', overflow: 'hidden' },
-        ...(Array.isArray(sx) ? sx : [sx]),
-      ]}
+    <div
+      className="relative overflow-hidden rounded-[10px]"
+      style={{ width, height, ...(sx as React.CSSProperties | undefined) }}
     >
-      <Box sx={{ position: 'relative' }}>
+      <div className="relative">
         <ImageCard image={image} thumbnail={thumbnail} title={title} ratio={1} />
-      </Box>
-    </Box>
+      </div>
+    </div>
   )
 }
 
@@ -50,25 +47,13 @@ const WearableItemCard: React.FC<
 
   if (!balance)
     return (
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: CARD_WIDTH + 24,
-          height: CARD_HEIGHT + 24,
-        }}
+      <div
+        className="flex items-center justify-center"
+        style={{ width: CARD_WIDTH + 24, height: CARD_HEIGHT + 24 }}
       >
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            border: '1px solid #363636',
-            borderRadius: '10px',
-            width: CARD_WIDTH,
-            height: CARD_HEIGHT,
-          }}
+        <div
+          className="flex items-center justify-center rounded-[10px] border border-[#363636]"
+          style={{ width: CARD_WIDTH, height: CARD_HEIGHT }}
         >
           <Image
             src={empty as string}
@@ -77,37 +62,21 @@ const WearableItemCard: React.FC<
             height={CARD_HEIGHT}
             unoptimized
           />
-        </Box>
-      </Box>
+        </div>
+      </div>
     )
 
   return (
-    <Stack sx={{ position: 'relative' }}>
+    <div className="relative">
       {isNew && (
-        <Typography
-          sx={{
-            textAlign: 'center',
-            position: 'absolute',
-            width: '100%',
-            color: '#E3B210',
-            top: -16,
-          }}
-        >
+        <span className="absolute w-full text-center" style={{ color: '#E3B210', top: -16 }}>
           New!
-        </Typography>
+        </span>
       )}
-      <Box
+      <div
         onClick={handleViewItem}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'relative',
-          width: CARD_WIDTH + 24,
-          height: CARD_HEIGHT + 24,
-          borderRadius: '10px',
-          cursor: 'pointer',
-        }}
+        className="relative flex cursor-pointer items-center justify-center rounded-[10px]"
+        style={{ width: CARD_WIDTH + 24, height: CARD_HEIGHT + 24 }}
       >
         {balance === 1 ? (
           <WearableItemCardPane
@@ -133,29 +102,21 @@ const WearableItemCard: React.FC<
                 }}
               />
             ))}
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                position: 'absolute',
+            <div
+              className="absolute bottom-0 left-0 flex items-center justify-center rounded-[10px]"
+              style={{
                 width: 38,
                 height: 35,
                 background: '#8F4BF4',
-                borderRadius: '10px',
-                bottom: 0,
-                left: 0,
                 zIndex: 3,
               }}
             >
-              <Typography sx={{ fontSize: 20, color: 'var(--color-foreground)', fontWeight: 700 }}>
-                {balance}
-              </Typography>
-            </Box>
+              <span className="text-[20px] font-bold text-foreground">{balance}</span>
+            </div>
           </>
         )}
-      </Box>
-    </Stack>
+      </div>
+    </div>
   )
 }
 

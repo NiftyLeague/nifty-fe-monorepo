@@ -1,8 +1,7 @@
-import { SxProps } from '@mui/material'
-
 export interface DialogProps {
   dialogTitle?: React.ReactNode | string
-  sx?: SxProps<object>
+  dividers?: boolean
+  sx?: React.CSSProperties
   children?: React.ReactNode
   onClose?: () => void
 }

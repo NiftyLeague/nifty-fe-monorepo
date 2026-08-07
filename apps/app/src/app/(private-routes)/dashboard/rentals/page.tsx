@@ -1,10 +1,10 @@
 'use client'
 
 import { useEffect, useState, useMemo } from 'react'
-import { Stack, Typography, FormControl, MenuItem } from '@mui/material'
-import { Box } from '@mui/system'
+import { useQuery } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import MyRentalsDataGrid from './MyRentalsDataGrid'
+
 import {
   ALL_RENTAL_API_URL,
   ALL_RENTAL_API_URL_INACTIVE,
@@ -14,9 +14,9 @@ import {
 } from '@/constants/url'
 import type { Rentals, RentalType } from '@/types/rentals'
 import SearchRental from './SearchRental'
-import InputLabel from '@/components/extended/Form/InputLabel'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
-import { useQuery } from '@tanstack/react-query'
+
+import { Label } from '@nl/ui/base/label'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@nl/ui/base/select'
 import { getUniqueListBy } from '@/utils/array'
 import useTeminateRental from '@/hooks/useTeminateRental'
 import useAuth from '@/hooks/useAuth'
@@ -41,14 +41,11 @@ const DashboardRentalPage = (): React.ReactNode => {
       case 'owned-sponsorship':
       case 'non-owned-sponsorship':
         return [ALL_RENTAL_API_URL, ALL_RENTAL_API_URL_INACTIVE]
-
       case 'direct-rental':
       case 'recruited':
         return [MY_RENTAL_API_URL, MY_RENTAL_API_URL_INACTIVE]
-
       case 'direct-renter':
         return [RENTED_FROM_ME_API_URL]
-
       default:
         return [ALL_RENTAL_API_URL, ALL_RENTAL_API_URL_INACTIVE]
     }
@@ -57,9 +54,7 @@ const DashboardRentalPage = (): React.ReactNode => {
   const fetchRentals = async (): Promise<Rentals[]> => {
     const urls = getFetchUrl()
     const responses = await Promise.all(urls.map((url) => fetch(url, { method: 'GET', headers })))
-
     const rentalArrays = await Promise.all(responses.map((response) => response.json()))
-
     const totalRentals = rentalArrays.reduce((flattened, arr) => [...flattened, ...arr])
     return getUniqueListBy<Rentals>(totalRentals, 'id')
   }
@@ -110,8 +105,8 @@ const DashboardRentalPage = (): React.ReactNode => {
     setSearchTerm(currentValue)
   }
 
-  const handleChangeCategory = (event: SelectChangeEvent) => {
-    const newCategory = event.target.value as RentalType
+  const handleChangeCategory = (value: string) => {
+    const newCategory = value as RentalType
     if (newCategory !== category) {
       setCategory(newCategory)
     } else {
@@ -128,48 +123,36 @@ const DashboardRentalPage = (): React.ReactNode => {
   }, [authToken, category, refetch])
 
   return (
-    <Stack spacing={3}>
+    <div className="flex flex-col gap-6">
       {/* Header */}
-      <Stack
-        direction="row"
-        sx={{
-          flexWrap: 'wrap',
-          columnGap: 3,
-          rowGap: 1,
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        <Typography variant="h2">My Rentals</Typography>
-
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <span className="text-2xl font-bold">My Rentals</span>
         {/* Header form */}
-        <Stack
-          direction="row"
-          sx={{ rowGap: 1, columnGap: 2, flexWrap: 'wrap', alignItems: 'center' }}
-        >
-          <FormControl sx={{ minWidth: '200px' }}>
-            <InputLabel id="category-label">Category</InputLabel>
-            <Select
-              labelId="category-label"
-              id="category"
-              value={category}
-              label="Category"
-              onChange={handleChangeCategory}
-            >
-              <MenuItem value="all">All</MenuItem>
-              <MenuItem value="direct-rental">Direct Rental</MenuItem>
-              <MenuItem value="recruited">Recruited</MenuItem>
-              <MenuItem value="owned-sponsorship">Owned Sponsorship</MenuItem>
-              <MenuItem value="non-owned-sponsorship">Non-Owned Sponsorship</MenuItem>
-              <MenuItem value="direct-renter">Direct Renter</MenuItem>
-              <MenuItem value="terminated">Terminated</MenuItem>
-              <MenuItem value="full-history">Full History</MenuItem>
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="min-w-[200px]">
+            <Label htmlFor="category" className="mb-1 block text-xs text-muted-foreground">
+              Category
+            </Label>
+            <Select value={category} onValueChange={handleChangeCategory}>
+              <SelectTrigger id="category">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All</SelectItem>
+                <SelectItem value="direct-rental">Direct Rental</SelectItem>
+                <SelectItem value="recruited">Recruited</SelectItem>
+                <SelectItem value="owned-sponsorship">Owned Sponsorship</SelectItem>
+                <SelectItem value="non-owned-sponsorship">Non-Owned Sponsorship</SelectItem>
+                <SelectItem value="direct-renter">Direct Renter</SelectItem>
+                <SelectItem value="terminated">Terminated</SelectItem>
+                <SelectItem value="full-history">Full History</SelectItem>
+              </SelectContent>
             </Select>
-          </FormControl>
+          </div>
           <SearchRental handleSearch={handleSearch} />
-        </Stack>
-      </Stack>
-      <Box sx={{ height: 'calc(100vh - 208px)' }}>
+        </div>
+      </div>
+      <div className="h-[calc(100vh-208px)]">
         <MyRentalsDataGrid
           loading={isLoading || isFetching}
           rows={rentals}
@@ -177,8 +160,8 @@ const DashboardRentalPage = (): React.ReactNode => {
           onTerminateRental={terminateRentalById}
           updateRentalName={updateRentalName}
         />
-      </Box>
-    </Stack>
+      </div>
+    </div>
   )
 }
 

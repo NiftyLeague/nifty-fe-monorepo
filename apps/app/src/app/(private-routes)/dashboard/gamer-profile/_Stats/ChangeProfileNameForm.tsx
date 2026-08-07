@@ -1,12 +1,16 @@
 'use client'
 
 import { useState, useContext } from 'react'
-import { Stack, Typography, TextField, Skeleton } from '@mui/material'
 import { toast } from 'react-toastify'
-import LoadingButton from '@mui/lab/LoadingButton'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+
+import { Button } from '@nl/ui/base/button'
+import { Skeleton } from '@nl/ui/base/skeleton'
+import { CircularProgress } from '@nl/ui/custom/circular-progress'
+import { Input } from '@nl/ui/custom/input'
+import { Title } from '@nl/ui/custom/typography'
 
 import { PROFILE_RENAME_API } from '@/constants/url'
 import { DialogContext } from '@/components/dialog'
@@ -76,13 +80,11 @@ const ChangeProfileNameForm = ({ updateNewName }: ChangeProfileNameFormProps): R
 
   const renderFee = () => {
     if (loadingFee) {
-      return <Skeleton variant="rectangular" width="100%" height="18.67px" />
+      return <Skeleton className="h-[18.67px] w-full rounded" />
     }
     if (!loadingFee && fee) {
       return (
-        <Typography variant="h5" component="p">
-          There is a {fee} NFTL fee for changing your gamer profile username
-        </Typography>
+        <Title level={5}>There is a {fee} NFTL fee for changing your gamer profile username</Title>
       )
     }
     return null
@@ -90,34 +92,28 @@ const ChangeProfileNameForm = ({ updateNewName }: ChangeProfileNameFormProps): R
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack sx={{ rowGap: 2 }}>
+      <div className="flex flex-col gap-4">
         {renderFee()}
         <Controller
           name="name"
           control={control}
           render={({ field }) => (
-            <TextField
-              {...field}
-              label="Enter the new name"
-              variant="outlined"
-              size="small"
-              fullWidth
-              error={!!errors.name}
-              helperText={errors.name && errors.name.message}
-              disabled={isLoadingRename}
-            />
+            <div className="flex flex-col gap-1">
+              <Input
+                {...field}
+                label="Enter the new name"
+                error={!!errors.name}
+                disabled={isLoadingRename}
+              />
+              {errors.name && <span className="text-xs text-error">{errors.name.message}</span>}
+            </div>
           )}
         />
-        <LoadingButton
-          loading={isLoadingRename}
-          disabled={isLoadingRename}
-          type="submit"
-          variant="contained"
-          fullWidth
-        >
+        <Button type="submit" className="w-full" disabled={isLoadingRename}>
+          {isLoadingRename && <CircularProgress size="sm" />}
           Update
-        </LoadingButton>
-      </Stack>
+        </Button>
+      </div>
     </form>
   )
 }

@@ -1,13 +1,46 @@
 import type { IconName } from '@nl/ui/base/icon'
 
-// material-ui
-import { Theme } from '@nl/theme'
-import { ChipProps, TableCellProps } from '@mui/material'
-
 // project imports
 import { InitialLoginContextProps } from './auth'
 import { SnackbarProps } from './snackbar'
 import { MenuProps } from './menu'
+
+// Local MUI-compatible minimal types (MUI support dropped)
+export type Theme = {
+  palette?: { mode?: 'light' | 'dark' }
+  breakpoints?: {
+    up: (key: string) => string
+    down: (key: string) => string
+    values?: Record<string, number>
+  }
+  spacing?: (...args: number[]) => string
+}
+
+export type ChipProps = {
+  label?: React.ReactNode
+  color?: 'primary' | 'secondary' | 'default' | 'success' | 'error' | 'warning' | 'info'
+  size?: 'small' | 'medium'
+  variant?: 'filled' | 'outlined'
+  avatar?: React.ReactNode
+  icon?: React.ReactNode
+  clickable?: boolean
+  onClick?: React.MouseEventHandler
+  onDelete?: React.MouseEventHandler
+  deleteIcon?: React.ReactNode
+  sx?: React.CSSProperties
+  className?: string
+}
+
+export type TableCellProps = React.TdHTMLAttributes<HTMLTableCellElement> & {
+  align?: 'left' | 'right' | 'inherit' | 'center' | 'justify'
+  padding?: 'none' | 'normal' | 'checkbox'
+  size?: 'small' | 'medium'
+  sortDirection?: 'asc' | 'desc' | false
+  variant?: 'head' | 'body' | 'footer'
+  sx?: React.CSSProperties
+}
+
+export type SxProps<T = unknown> = React.CSSProperties | Record<string, unknown> | undefined
 
 export type ArrangementOrder = 'asc' | 'desc' | undefined
 

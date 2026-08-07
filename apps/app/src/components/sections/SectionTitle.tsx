@@ -1,4 +1,4 @@
-import { Stack, Typography } from '@mui/material'
+import { Title } from '@nl/ui/custom/typography'
 
 export interface SectionTitleProps {
   actions?: React.ReactNode
@@ -6,27 +6,23 @@ export interface SectionTitleProps {
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }
 
+const variantToLevel = { h1: 1, h2: 2, h3: 3, h4: 4, h5: 5, h6: 6 } as const
+
 const SectionTitle: React.FC<
   React.PropsWithChildren<React.PropsWithChildren<SectionTitleProps>>
 > = ({ children, firstSection, actions, variant = 'h2' }) => (
-  <Stack
-    direction="row"
-    sx={{
-      gap: 2,
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      mb: 2,
-      mt: firstSection ? 0 : 4,
-      flexWrap: 'wrap',
-    }}
+  <div
+    className={`mb-2 flex flex-row flex-wrap items-center justify-between gap-4 ${
+      firstSection ? 'mt-0' : 'mt-4'
+    }`}
   >
     {typeof children === 'string' ? (
-      <Typography variant={variant}>{children}</Typography>
+      <Title level={variantToLevel[variant]}>{children}</Title>
     ) : (
       children
     )}
     {actions}
-  </Stack>
+  </div>
 )
 
 export default SectionTitle

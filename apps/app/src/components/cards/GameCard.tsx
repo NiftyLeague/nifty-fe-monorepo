@@ -2,18 +2,12 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Stack,
-  SxProps,
-  Theme,
-  Typography,
-} from '@mui/material'
+import { Button } from '@nl/ui/base/button'
+import { Card, CardContent } from '@nl/ui/base/card'
+import { Title } from '@nl/ui/custom/typography'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
+import { cn } from '@nl/ui/utils'
+import type { SxProps, Theme } from '@/types'
 
 type CardGameContentProps = {
   actions?: React.ReactNode
@@ -44,79 +38,63 @@ const CardGameContent = ({
   }
 
   return (
-    <Stack
-      sx={{ flexGrow: 1, justifyContent: 'space-between', backgroundColor: 'var(--color-card)' }}
-    >
-      <CardContent sx={{ padding: '24px 24px 0' }}>
-        <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
-          <Typography gutterBottom variant="h4" component="div">
-            {title}
-          </Typography>
+    <div className="flex grow flex-col justify-between bg-card">
+      <CardContent className="p-6 pb-0">
+        <div className="flex flex-row justify-between">
+          <Title level={4}>{title}</Title>
           {externalLink ? (
             <Link href={externalLink.src} target="_blank" rel="noreferrer">
-              <Button variant="contained" color="primary" fullWidth className="!-mt-2">
+              <Button variant="default" className="-mt-2 w-full">
                 {externalLink.title} <ExternalIcon />
               </Button>
             </Link>
           ) : null}
-        </Stack>
-        {isComingSoon && (
-          <Typography variant="body2" gutterBottom sx={{ color: 'var(--color-warning)' }}>
-            Coming 2023
-          </Typography>
-        )}
-        {required && (
-          <Typography variant="body2" gutterBottom sx={{ color: 'var(--color-warning)' }}>
-            {required}
-          </Typography>
-        )}
-        <Typography
-          variant="body2"
-          sx={{
+        </div>
+        {isComingSoon && <p className="text-sm text-warning">Coming 2023</p>}
+        {required && <p className="text-sm text-warning">{required}</p>}
+        <p
+          className="text-sm text-muted-foreground"
+          style={{
             whiteSpace: 'pre-wrap',
             maxHeight: moreStatus ? 'inherit' : 42,
-            color: 'var(--color-muted-foreground)',
             overflowY: 'hidden',
           }}
         >
           {description}
-        </Typography>
+        </p>
         {showMore && !moreStatus && (
-          <Typography
-            variant="body2"
+          <p
+            className="cursor-pointer text-sm text-purple"
             onClick={handleMoreStatus}
-            sx={{ whiteSpace: 'pre-wrap', color: 'var(--color-purple)', cursor: 'pointer' }}
+            style={{ whiteSpace: 'pre-wrap' }}
           >
             more..
-          </Typography>
+          </p>
         )}
       </CardContent>
-      <CardActions>
-        <Stack direction="row" sx={{ flexWrap: 'wrap', columnGap: 1, rowGap: 2, width: '100%' }}>
+      <div className="flex items-center gap-2 px-6 pb-6">
+        <div className="flex w-full flex-row flex-wrap gap-x-2 gap-y-4">
           {actions || (
             <>
               <Button
-                variant="contained"
-                fullWidth
-                sx={{ minWidth: 80, flex: 1 }}
+                variant="default"
+                className="min-w-20 w-full flex-1"
                 onClick={onPlayOnDesktopClick}
               >
                 Play on Desktop
               </Button>
               <Button
-                variant="outlined"
-                color="primary"
-                fullWidth
-                sx={{ minWidth: 80, flex: 1 }}
+                variant="outline"
+                className="min-w-20 w-full flex-1"
                 onClick={onPlayOnWebClick}
               >
                 Play on Web
               </Button>
             </>
           )}
-        </Stack>
-      </CardActions>
-    </Stack>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -155,15 +133,11 @@ const GameCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<GameCar
 }) => {
   return (
     <Card
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        width: '100%',
-        height: autoHeight ? 'auto' : '100%',
-        border: 'var(--border-default)',
-        overflow: 'hidden',
-        ...sx,
-      }}
+      className={cn(
+        'flex w-full flex-col gap-0 overflow-hidden border py-0',
+        autoHeight ? 'h-auto' : 'h-full'
+      )}
+      style={sx as React.CSSProperties | undefined}
     >
       <div
         style={{
@@ -172,19 +146,8 @@ const GameCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<GameCar
           paddingTop: '56.25%' /* 16:9 Aspect Ratio */,
         }}
       >
-        <CardMedia
-          component="img"
-          image={image}
-          alt={title}
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-          }}
-        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={image} alt={title} className="absolute top-0 left-0 h-full w-full object-cover" />
       </div>
       {contents || (
         <CardGameContent

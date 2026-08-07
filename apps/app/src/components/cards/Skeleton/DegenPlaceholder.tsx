@@ -1,4 +1,5 @@
-import { CardContent, CardActions, Skeleton, Stack } from '@mui/material'
+import { CardContent } from '@nl/ui/base/card'
+import { Skeleton } from '@nl/ui/base/skeleton'
 import MainCard from '../MainCard'
 
 interface DegenPlaceholderProps {
@@ -7,25 +8,25 @@ interface DegenPlaceholderProps {
 
 const DegenPlaceholder = ({ size = 'normal' }: DegenPlaceholderProps) => (
   <MainCard content={false} boxShadow={false} border={false}>
-    <Skeleton variant="rectangular" height={size === 'small' ? 200 : 320} />
-    <CardContent sx={{ pb: 0, pt: 1 }}>
-      <Stack direction="row" sx={{ gap: 1, mb: 1, justifyContent: 'space-between' }}>
-        <Skeleton variant="rectangular" width={100} height={32} />
-        <Skeleton variant="rectangular" width={100} height={32} />
-        <Skeleton variant="rectangular" width={100} height={32} />
-      </Stack>
-      <Stack direction="row" sx={{ mb: '10px' }}>
-        <Skeleton variant="rectangular" width="100%" height={20} />
-      </Stack>
-      <Stack direction="row" sx={{ gap: 1, justifyContent: 'space-between' }}>
-        <Skeleton variant="rectangular" width="100%" height={21} />
-        <Skeleton variant="rectangular" width="100%" height={21} />
-      </Stack>
+    <Skeleton style={{ height: size === 'small' ? 200 : 320 }} />
+    <CardContent className="px-4 pt-1 pb-0">
+      <div className="mb-1 flex flex-row justify-between gap-2">
+        <Skeleton className="h-8 w-25" />
+        <Skeleton className="h-8 w-25" />
+        <Skeleton className="h-8 w-25" />
+      </div>
+      <div className="mb-2.5 flex flex-row">
+        <Skeleton className="h-5 w-full" />
+      </div>
+      <div className="flex flex-row justify-between gap-2">
+        <Skeleton className="h-[21px] w-full" />
+        <Skeleton className="h-[21px] w-full" />
+      </div>
     </CardContent>
-    <CardActions>
-      <Skeleton variant="rectangular" width="100%" height={36.5} />
-      <Skeleton variant="rectangular" width="100%" height={36.5} />
-    </CardActions>
+    <div className="flex items-center gap-2 px-4 py-2">
+      <Skeleton className="h-[36.5px] w-full" />
+      <Skeleton className="h-[36.5px] w-full" />
+    </div>
   </MainCard>
 )
 

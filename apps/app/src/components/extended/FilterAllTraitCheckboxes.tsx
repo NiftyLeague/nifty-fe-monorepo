@@ -1,4 +1,4 @@
-import { FormGroup, FormControlLabel, Checkbox, Typography } from '@mui/material'
+import { Checkbox } from '@nl/ui/base/checkbox'
 import { TRAIT_VALUE_MAP } from '@/constants/cosmeticsFilters'
 import { FilterSource } from '@/constants/filters'
 import { ChangeEvent, Dispatch, FC, SetStateAction, memo } from 'react'
@@ -27,30 +27,38 @@ const FilterAllTraitCheckboxes: FC<FilterAllTraitCheckboxesProps> = ({
   inputCheckBoxStyle,
   inputCheckFormControlStyle,
 }: FilterAllTraitCheckboxesProps) => (
-  <FormGroup sx={{ flexDirection: 'row', rowGap: 0.5 }}>
+  <div className="flex flex-row flex-wrap" style={{ rowGap: 4 }}>
     {traitGroup.map((traitKey) => {
       const traitValue = TRAIT_VALUE_MAP[categoryKey as keyof typeof TRAIT_VALUE_MAP][
         traitKey as keyof (typeof TRAIT_VALUE_MAP)[keyof typeof TRAIT_VALUE_MAP]
       ] as string
       return (
-        <FormControlLabel
+        <label
           key={traitKey}
-          control={
-            <Checkbox
-              name={traitValue}
-              value={traitKey}
-              checked={cosmeticsValue.includes(traitKey)}
-              className={inputCheckBoxStyle}
-              onChange={(e) => onCheckboxChange(e, 'cosmetics', cosmeticsValue, setCosmeticsValue)}
-            />
-          }
-          label={<Typography variant="body1">{traitValue}</Typography>}
-          className={inputCheckFormControlStyle}
-          sx={{ flex: '0 0 100%' }}
-        />
+          className={`${inputCheckFormControlStyle} flex items-center`}
+          style={{ flex: '0 0 100%' }}
+        >
+          <Checkbox
+            name={traitValue}
+            value={traitKey}
+            checked={cosmeticsValue.includes(traitKey)}
+            className={inputCheckBoxStyle}
+            onCheckedChange={(checked) =>
+              onCheckboxChange(
+                {
+                  target: { checked: checked === true, value: traitKey },
+                } as ChangeEvent<HTMLInputElement>,
+                'cosmetics',
+                cosmeticsValue,
+                setCosmeticsValue
+              )
+            }
+          />
+          <span className="text-base">{traitValue}</span>
+        </label>
       )
     })}
-  </FormGroup>
+  </div>
 )
 
 // Making sure that the component is only re-rendered if the cosmesticsValue prop changes

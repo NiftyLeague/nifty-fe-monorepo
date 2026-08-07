@@ -1,5 +1,5 @@
 import { useAccount, useDisconnect } from 'wagmi'
-import { Button } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
 import useAuth from '@/hooks/useAuth'
 
 export interface LogoutButtonProps {
@@ -14,7 +14,7 @@ const LogoutButton: React.FC<
   const { disconnect } = useDisconnect()
   if (isConnected) {
     return (
-      <Button sx={sx} variant="outlined" onClick={() => disconnect()}>
+      <Button style={sx} variant="outline" onClick={() => disconnect()} className="cursor-pointer">
         {isLoggedIn ? 'Log Out' : 'Disconnect Wallet'}
       </Button>
     )

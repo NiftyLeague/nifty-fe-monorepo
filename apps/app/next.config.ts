@@ -9,7 +9,7 @@ const ENV = (process.env.VERCEL_ENV as 'production' | 'preview' | undefined) ?? 
 
 const nextConfig: NextConfig = {
   typescript: { ignoreBuildErrors: true },
-  transpilePackages: ['@nl/theme', '@nl/ui'],
+  transpilePackages: ['@nl/ui'],
   // TODO: Switch to turbopack once build issues are resolved
   // turbopack: { resolveAlias: { '@wagmi/connectors': 'wagmi/connectors' } },
   // serverExternalPackages: ['pino-pretty', 'lokijs', 'encoding', 'sodium-native', 'require-addon'],

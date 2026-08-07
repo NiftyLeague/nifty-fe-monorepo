@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Badge, Button } from '@mui/material'
+import { Badge } from '@nl/ui/base/badge'
+import { Button } from '@nl/ui/base/button'
 import { useSwitchChain } from 'wagmi'
 
 import { TARGET_NETWORK } from '@/constants/networks'
@@ -25,27 +26,26 @@ const WithdrawButtonDialog = ({ balance, loading }: WithdrawButtonDialogProps) =
     <>
       <Dialog onClose={onCloseWithdrawDialog}>
         <DialogTrigger>
-          <Badge
-            color="error"
-            variant="standard"
-            badgeContent=" "
-            invisible={loading || balance === 0}
-            sx={{ width: '100%' }}
-          >
-            <Button fullWidth variant="contained" disabled={loading || balance === 0}>
+          <div className="relative w-full">
+            <Button variant="default" className="w-full" disabled={loading || balance === 0}>
               Withdraw
             </Button>
-          </Badge>
+            {!loading && balance !== 0 && (
+              <Badge
+                variant="destructive"
+                aria-hidden="true"
+                className="absolute top-0 right-0 size-2.5 translate-x-1/2 -translate-y-1/2 rounded-full border-0 p-0"
+              />
+            )}
+          </div>
         </DialogTrigger>
         <DialogContent
           aria-labelledby="withdraw-earnings-dialog"
-          dialogTitle="Withdraw Earnings"
-          sx={{
-            '& h2': { textAlign: 'center' },
-            '& .MuiDialogContent-root': { textAlign: 'center' },
-          }}
+          dialogTitle={<span className="block w-full text-center">Withdraw Earnings</span>}
         >
-          <WithdrawForm balance={balance} onWithdrawSuccess={onWithdrawSuccess} />
+          <div className="text-center">
+            <WithdrawForm balance={balance} onWithdrawSuccess={onWithdrawSuccess} />
+          </div>
         </DialogContent>
       </Dialog>
       <WithdrawSuccess

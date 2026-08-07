@@ -1,4 +1,5 @@
-import { Stack, Typography, Skeleton } from '@mui/material'
+import { Skeleton } from '@nl/ui/base/skeleton'
+import { cn } from '@nl/ui/utils'
 
 interface ItemProps {
   label?: string
@@ -13,27 +14,20 @@ const Item = ({
   isDisable = false,
   isLoading = true,
 }: ItemProps): React.ReactNode => (
-  <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
-    <Typography
-      sx={{
-        color: (theme) => (isDisable ? 'var(--color-muted-foreground)' : 'var(--color-foreground)'),
-      }}
-    >
+  <div className="flex flex-row justify-between">
+    <span className={cn('text-base', isDisable ? 'text-muted-foreground' : 'text-foreground')}>
       {label}:
-    </Typography>
+    </span>
     {isLoading ? (
-      <Skeleton variant="rectangular" width="15%" height="18.67px" />
+      <Skeleton className="h-[18.67px] w-[15%] rounded" />
     ) : (
-      <Typography
-        sx={{
-          fontWeight: 'bold',
-          color: isDisable ? 'var(--color-muted-foreground)' : 'var(--color-warning)',
-        }}
+      <span
+        className={cn('text-base font-bold', isDisable ? 'text-muted-foreground' : 'text-warning')}
       >
         {value}
-      </Typography>
+      </span>
     )}
-  </Stack>
+  </div>
 )
 
 export default Item

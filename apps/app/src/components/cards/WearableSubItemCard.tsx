@@ -1,4 +1,4 @@
-import { Box, Theme, Stack, SxProps, Typography } from '@mui/material'
+import type { SxProps, Theme } from '@/types'
 import type { Item } from '@/types/marketplace'
 import ImageCard from '@/components/cards/ImageCard'
 
@@ -24,31 +24,29 @@ const WearableSubItemCard: React.FC<
   }
 
   return (
-    <Stack
-      spacing={2.5}
-      sx={{ cursor: 'pointer', alignItems: 'center', ...sx }}
+    <div
+      className="flex cursor-pointer flex-col items-center gap-5"
+      style={sx as React.CSSProperties | undefined}
       onClick={handleViewItem}
     >
-      <Box
-        sx={{
+      <div
+        className="relative overflow-hidden rounded-[10px]"
+        style={{
           width: CARD_WIDTH,
           height: CARD_HEIGHT,
-          position: 'relative',
-          overflow: 'hidden',
-          borderRadius: '10px',
           outline: isSelected ? '3px solid var(--color-purple)' : 'none',
         }}
       >
         <ImageCard image={image} thumbnail={thumbnail} title={title} ratio={1} />
-      </Box>
-      <Typography
-        sx={{
+      </div>
+      <span
+        className="text-center"
+        style={{
           maxWidth: CARD_WIDTH,
-          textAlign: 'center',
           color: isSelected ? 'var(--color-blue)' : 'var(--color-foreground)',
         }}
-      >{`${title} #${itemIndex + 1}`}</Typography>
-    </Stack>
+      >{`${title} #${itemIndex + 1}`}</span>
+    </div>
   )
 }
 

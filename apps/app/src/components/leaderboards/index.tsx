@@ -2,18 +2,8 @@
 /* eslint-disable no-nested-ternary */
 import { useState, useEffect } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import {
-  Box,
-  FormControl,
-  List,
-  ListItemButton,
-  ListItemText,
-  MenuItem,
-  Stack,
-  Typography,
-} from '@mui/material'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
 
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@nl/ui/base/select'
 import { gtm, GTM_EVENTS } from '@nl/ui/gtm'
 import type { LeaderboardGame, TableType } from '@/types/leaderboard'
 import {
@@ -52,8 +42,7 @@ export default function LeaderBoards(): React.ReactNode {
     }
   }, [selectedGame, router, pathname, searchParams])
 
-  const handleChangeGame = (event: SelectChangeEvent) => {
-    const gameKey = event.target.value
+  const handleChangeGame = (gameKey: string) => {
     setGame(gameKey)
 
     const currentGame = LEADERBOARD_GAME_LIST.filter((game) => game.key === gameKey)?.[0]
@@ -69,8 +58,8 @@ export default function LeaderBoards(): React.ReactNode {
     setType((tables[0] as TableType).key)
   }
 
-  const handleChangeType = (event: SelectChangeEvent) => {
-    const table = NiftySmashersTables.find((t: TableType) => t.key === event.target.value)
+  const handleChangeType = (tableKey: string) => {
+    const table = NiftySmashersTables.find((t: TableType) => t.key === tableKey)
     if (table) {
       setTable(table)
       setType(table.key)
@@ -85,65 +74,56 @@ export default function LeaderBoards(): React.ReactNode {
   const timeFilters = LEADERBOARD_TIME_FILTERS.filter((item) => item.key === 'all_time')
 
   return (
-    <Box sx={{ margin: 'auto' }}>
-      <Stack
-        direction={{ sm: 'row', xs: 'column' }}
-        spacing={1.5}
-        sx={{ alignItems: { sm: 'center', xs: 'inherit' }, mb: 2 }}
-      >
-        <FormControl sx={{ minWidth: '164px' }}>
-          <Select
-            value={selectedGame}
-            onChange={handleChangeGame}
-            inputProps={{ sx: { paddingY: 0.75 } }}
-          >
-            {LEADERBOARD_GAME_LIST.map((item) => (
-              <MenuItem value={item.key} key={item.key}>
-                {item.display}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        {selectedGame === 'nifty_smashers' && (
-          <FormControl sx={{ minWidth: '120px' }}>
-            <Select
-              value={selectedType}
-              onChange={handleChangeType}
-              inputProps={{ sx: { paddingY: 0.75 } }}
-            >
-              {NiftySmashersTables.map((item) => (
-                <MenuItem value={item.key} key={item.key}>
+    <div className="mx-auto">
+      <div className="flex flex-col gap-3 mb-4 sm:flex-row sm:items-center">
+        <div className="min-w-[164px]">
+          <Select value={selectedGame} onValueChange={handleChangeGame}>
+            <SelectTrigger className="py-1.5">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {LEADERBOARD_GAME_LIST.map((item) => (
+                <SelectItem value={item.key} key={item.key}>
                   {item.display}
-                </MenuItem>
+                </SelectItem>
               ))}
+            </SelectContent>
+          </Select>
+        </div>
+        {selectedGame === 'nifty_smashers' && (
+          <div className="min-w-[120px]">
+            <Select value={selectedType} onValueChange={handleChangeType}>
+              <SelectTrigger className="py-1.5">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {NiftySmashersTables.map((item) => (
+                  <SelectItem value={item.key} key={item.key}>
+                    {item.display}
+                  </SelectItem>
+                ))}
+              </SelectContent>
             </Select>
-          </FormControl>
+          </div>
         )}
-        <List sx={{ display: 'flex' }}>
+        <div className="flex">
           {timeFilters.map((item) => (
-            <ListItemButton
+            <button
+              type="button"
               key={item.key}
               className={styles.styledListItemButton}
-              selected={item.key === selectedTimeFilter}
               onClick={() => handleChangeTimeFilter(item.key)}
             >
-              <ListItemText>
-                <Typography
-                  variant="body1"
-                  sx={{ fontWeight: 700, textTransform: 'uppercase', color: 'inherit' }}
-                >
-                  {item.display}
-                </Typography>
-              </ListItemText>
-            </ListItemButton>
+              <span className="font-bold uppercase text-base text-inherit">{item.display}</span>
+            </button>
           ))}
-        </List>
-      </Stack>
+        </div>
+      </div>
       <EnhancedTable
         selectedGame={selectedGame}
         selectedTable={selectedTable}
         selectedTimeFilter={selectedTimeFilter}
       />
-    </Box>
+    </div>
   )
 }

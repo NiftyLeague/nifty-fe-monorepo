@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Button, Grid, IconButton, Stack } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
 
 import { formatNumberToDisplay } from '@nl/ui/utils'
 import useTokensBalances from '@/hooks/balances/useTokensBalances'
@@ -15,7 +15,7 @@ const WalletBalances = (): React.ReactNode => {
 
   return (
     <>
-      <Grid size={{ xs: 12, sm: 6 }}>
+      <div className="col-span-12 sm:col-span-6">
         <HoverDataCard
           title="IMX Wallet"
           primary={`${formatNumberToDisplay(tokensBalances.NFTL.imx)} NFTL`}
@@ -28,22 +28,22 @@ const WalletBalances = (): React.ReactNode => {
           secondary="Available to Use"
           actions={
             <>
-              <IconButton
+              <Button
+                variant="ghost"
+                size="icon"
                 disabled
-                color="primary"
-                component="span"
-                sx={{ position: 'absolute', top: -2, right: -2 }}
+                className="absolute -top-4 -right-4 cursor-pointer"
               >
                 <Image src="/img/logos/passport/32px.svg" alt="Immutable" width={22} height={22} />
-              </IconButton>
-              <Stack direction="row" spacing={1} sx={{ alignItems: 'center', width: '100%' }}>
+              </Button>
+              <div className="flex w-full flex-row items-center gap-2">
                 <Link
                   href={SNAPSHOT_PORTAL_URL}
                   target="_blank"
                   rel="noreferrer"
                   style={{ width: '48%' }}
                 >
-                  <Button fullWidth variant="outlined">
+                  <Button className="w-full" variant="outline">
                     Snapshot
                   </Button>
                 </Link>
@@ -53,16 +53,16 @@ const WalletBalances = (): React.ReactNode => {
                   rel="noreferrer"
                   style={{ width: '48%' }}
                 >
-                  <Button fullWidth variant="contained">
+                  <Button className="w-full" variant="default">
                     Tally
                   </Button>
                 </Link>
-              </Stack>
+              </div>
             </>
           }
         />
-      </Grid>
-      <Grid size={{ xs: 12, sm: 6 }}>
+      </div>
+      <div className="col-span-12 sm:col-span-6">
         <HoverDataCard
           title="ETH Wallet"
           primary={`${formatNumberToDisplay(tokensBalances.NFTL.eth)} NFTL`}
@@ -75,19 +75,19 @@ const WalletBalances = (): React.ReactNode => {
           isLoading={loadingNFTLBal}
           actions={
             <>
-              <IconButton
+              <Button
+                variant="ghost"
+                size="icon"
                 disabled
-                color="primary"
-                component="span"
-                sx={{ position: 'absolute', top: -2, right: -2 }}
+                className="absolute -top-4 -right-4 cursor-pointer"
               >
                 <Image src="/icons/eth.svg" alt="Ethereum" width={22} height={22} />
-              </IconButton>
+              </Button>
               <BridgeButtonDialog balance={tokensBalances.NFTL.eth} loading={loadingNFTLBal} />
             </>
           }
         />
-      </Grid>
+      </div>
     </>
   )
 }

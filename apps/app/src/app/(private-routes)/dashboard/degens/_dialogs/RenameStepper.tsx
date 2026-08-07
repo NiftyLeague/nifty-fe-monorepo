@@ -4,13 +4,6 @@ import { cloneElement, useMemo, type ReactElement } from 'react'
 import Image from 'next/image'
 import { cn } from '@nl/ui/utils'
 
-import { StepIconProps } from '@mui/material/StepIcon'
-import Step from '@mui/material/Step'
-import StepConnector from '@mui/material/StepConnector'
-import StepLabel from '@mui/material/StepLabel'
-import Stepper from '@mui/material/Stepper'
-import Typography from '@mui/material/Typography'
-
 import { Icon, type IconProps } from '@nl/ui/base/icon'
 
 import styles from './RenameStepper.module.css'
@@ -22,7 +15,15 @@ const icons: { [index: string]: React.ReactElement } = {
   4: <Icon name="check-check" size="xl" strokeWidth={2.5} />,
 }
 
-function ColorlibStepIcon({ active, completed, icon }: StepIconProps) {
+function ColorlibStepIcon({
+  active,
+  completed,
+  icon,
+}: {
+  active: boolean
+  completed: boolean
+  icon: number
+}) {
   return (
     <div className={cn(styles.root, active && styles.active, completed && styles.completed)}>
       {(() => {
@@ -76,42 +77,29 @@ function RenameStepper({
 
   return (
     <div>
-      <Stepper
-        alternativeLabel
-        activeStep={activeStep}
-        style={{ backgroundColor: 'transparent', marginBottom: 10 }}
-        connector={
-          <StepConnector
-            classes={{
-              alternativeLabel: styles.alternativeLabel,
-              active: styles.active,
-              completed: styles.completed,
-              line: styles.line,
-            }}
-          />
-        }
-      >
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel
-              sx={{ color: 'var(--color-foreground) !important' }}
-              slots={{ stepIcon: ColorlibStepIcon }}
-            >
-              {label}
-            </StepLabel>
-          </Step>
+      <div className="flex items-start justify-between">
+        {steps.map((label, index) => (
+          <div key={label} className="relative flex flex-1 flex-col items-center gap-2">
+            {index > 0 && <div className={cn(styles.line, styles.alternativeLabel)} />}
+            <ColorlibStepIcon
+              active={activeStep === index}
+              completed={activeStep > index}
+              icon={index + 1}
+            />
+            <div className="text-center text-sm text-foreground">{label}</div>
+          </div>
         ))}
-      </Stepper>
-      <em style={{ textAlign: 'center' }}>
+      </div>
+      <em className="block text-center">
         {activeStep !== steps.length ? (
-          <Typography
+          <span
             className={cn(
               styles.styledTypography,
               activeStep === 0 ? 'text-error' : activeStep === 1 ? 'text-warning' : 'text-success'
             )}
           >
             {getStepContent(activeStep)}
-          </Typography>
+          </span>
         ) : null}
       </em>
     </div>

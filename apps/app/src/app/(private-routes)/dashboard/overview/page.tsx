@@ -1,6 +1,5 @@
 'use client'
 
-import { Grid } from '@mui/material'
 import MyComics from './MyComics'
 import MyDegens from './MyDegens'
 import MyItems from './MyItems'
@@ -9,27 +8,27 @@ import MyStats from './MyStats'
 
 const DashboardOverview = (): React.ReactNode => {
   return (
-    <Grid container direction="row" spacing={4} sx={{ height: 'inherit' }}>
-      <Grid container sx={{ flexDirection: 'column' }} size={{ xs: 12, lg: 5.5 }} spacing={4}>
-        <Grid size={{ xs: 12 }}>
+    <div className="flex h-inherit flex-col gap-8 lg:flex-row">
+      <div className="flex w-full flex-col gap-8 lg:w-[45.8333%]">
+        <div className="w-full">
           <MyNFTL />
-        </Grid>
-        <Grid size={{ xs: 12 }}>
+        </div>
+        <div className="w-full">
           <MyStats />
-        </Grid>
-      </Grid>
-      <Grid container sx={{ flexDirection: 'column' }} size={{ xs: 12, lg: 6.5 }} spacing={4}>
-        <Grid size={{ xs: 12 }}>
+        </div>
+      </div>
+      <div className="flex w-full flex-col gap-8 lg:w-[54.1667%]">
+        <div className="w-full">
           <MyDegens />
-        </Grid>
-        <Grid size={{ xs: 12 }}>
+        </div>
+        <div className="w-full">
           <MyComics />
-        </Grid>
-        <Grid size={{ xs: 12 }}>
+        </div>
+        <div className="w-full">
           <MyItems />
-        </Grid>
-      </Grid>
-    </Grid>
+        </div>
+      </div>
+    </div>
   )
 }
 

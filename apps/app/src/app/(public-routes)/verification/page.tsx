@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import Container from '@mui/material/Container'
 import useSignAuthMsg from '@/hooks/useSignAuthMsg'
 import useAuth from '@/hooks/useAuth'
 import type { UUID_Token, Nonce } from '@/types/auth'
@@ -28,7 +27,7 @@ const GameVerification = (): React.ReactNode => {
   }, [handleConnectWallet, isConnected, msgSent, nonce, signMessage, token])
 
   return (
-    <Container style={{ textAlign: 'center', padding: '40px' }}>
+    <div className="container" style={{ textAlign: 'center', padding: '40px' }}>
       {isError || isSuccess ? (
         <>
           {isError && 'Error signing message'}
@@ -42,7 +41,7 @@ const GameVerification = (): React.ReactNode => {
             : 'Please connect your wallet'}
         </>
       )}
-    </Container>
+    </div>
   )
 }
 

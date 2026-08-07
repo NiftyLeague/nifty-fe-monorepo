@@ -1,6 +1,5 @@
 import RouterLink from 'next/link'
 import Image from 'next/image'
-import { Link } from '@mui/material'
 
 import { useDispatch } from '@/store/hooks'
 import { activeItem } from '@/store/slices/menu'
@@ -15,9 +14,9 @@ const Logo = () => {
   }
 
   return (
-    <Link component={RouterLink} href="/" onClick={handleClickActive}>
+    <RouterLink href="/" onClick={handleClickActive}>
       <Image src="/img/logos/NL/purple-filled.webp" alt="NiftyLogo" width="32" height="31" />
-    </Link>
+    </RouterLink>
   )
 }
 

@@ -2,15 +2,17 @@
 
 import { memo, useMemo } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useInView } from 'react-intersection-observer'
 import { toast } from 'react-toastify'
-import { Box, Button, Card, CardContent, Link, Stack, SxProps, Typography } from '@mui/material'
-import { useTheme, Theme } from '@nl/theme'
-
+import { Button } from '@nl/ui/base/button'
+import { Card, CardContent } from '@nl/ui/base/card'
 import { Icon } from '@nl/ui/base/icon'
+import { Title } from '@nl/ui/custom/typography'
+import { formatNumberToDisplay } from '@nl/ui/utils'
+import type { SxProps, Theme } from '@/types'
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
 import useClaimableNFTL from '@/hooks/balances/useClaimableNFTL'
-import { formatNumberToDisplay } from '@nl/ui/utils'
 import DegenImage from './DegenImage'
 import { downloadDegenAsZip } from '@/utils/file'
 import { errorMsgHandler } from '@/utils/errorHandlers'
@@ -43,7 +45,7 @@ const DegenClaimBal: React.FC<
   const degenTokenIndices = useMemo(() => [parseInt(tokenId, 10)], [tokenId])
   const { balance } = useClaimableNFTL(degenTokenIndices)
   const amountParsed = formatNumberToDisplay(balance, 0)
-  return <Typography sx={{ textAlign: 'center', fontSize }}>{`${amountParsed} NFTL`}</Typography>
+  return <span className="text-center" style={{ fontSize }}>{`${amountParsed} NFTL`}</span>
 })
 
 DegenClaimBal.displayName = 'DegenClaimBal'
@@ -64,7 +66,6 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
     onClickFavorite,
     onClickSelect,
   }) => {
-    const { typography } = useTheme()
     const { id, name } = degen
     const fav = favs.some((f) => f === id)
     const { authToken } = useAuth()
@@ -79,70 +80,27 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
       }
     }
 
-    const buttonFontSize = size === 'small' ? '12px' : typography.button.fontSize
-    const tinyFontSize = size === 'small' ? '8px' : typography.caption.fontSize
+    const buttonFontSize = size === 'small' ? '12px' : 'var(--text-sm)'
+    const tinyFontSize = size === 'small' ? '8px' : 'var(--text-xs)'
 
     return (
       <Card
-        sx={{
-          width: '100%',
-          height: '100%',
-          background: 'var(--color-card)',
-          border: 'var(--border-default)',
-          pb: 2,
-          ...(sx as SxProps<Theme>),
-        }}
+        className="h-full w-full gap-0 border py-0 pb-2"
+        style={sx as React.CSSProperties | undefined}
       >
         {id && <DegenImage tokenId={id} />}
-        {/* <Stack
-          direction="row"
-          sx={{ m: size === 'small' ? 0.5 : 1, width: 'auto', justifyContent: 'space-evenly' }}
-        >
-          <Chip
-            chipcolor="rgb(75, 7, 175)"
-            label={`${price} NFTL`}
-            sx={chipStyles(size === 'small')}
-            variant="outlined"
-            size="small"
-          />
-          <Chip
-            chipcolor="rgb(75, 7, 175)"
-            label={`${rental_count} Rentals`}
-            sx={chipStyles(size === 'small')}
-            variant="outlined"
-            size="small"
-          />
-          <Chip
-            chipcolor="rgb(75, 7, 175)"
-            label={`${multiplier}x`}
-            sx={chipStyles(size === 'small')}
-            variant="outlined"
-            size="small"
-          />
-        </Stack> */}
-        <CardContent sx={{ py: 2, px: 2 }}>
-          <Stack
-            direction="row"
-            sx={{
-              gap: 1,
-              justifyContent: 'space-between',
-              '&:hover': { '& svg': { display: 'block' } },
-            }}
-          >
+        <CardContent className="px-2 py-2">
+          <div className="flex flex-row justify-between gap-2 hover:[&_svg]:block">
             <div className="flex">
-              <Typography
-                gutterBottom
-                variant={size === 'small' ? 'h6' : 'h5'}
-                className="truncate-text-1"
-              >
+              <Title level={size === 'small' ? 6 : 5} className="truncate-text-1">
                 {name || '[No Name]'}
-              </Typography>
+              </Title>
               {isDashboardDegen && (
                 <Icon
                   name="pencil"
                   size="sm"
                   onClick={onClickEditName}
-                  className="hidden cursor-pointer ml-1"
+                  className="ml-1 hidden cursor-pointer"
                 />
               )}
             </div>
@@ -150,27 +108,19 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
               href={id ? DEGEN_PURCHASE_URL(id) : '#'}
               target="_blank"
               rel="nofollow"
-              sx={{ fontSize: buttonFontSize, color: 'var(--color-muted-foreground)' }}
+              className="text-muted-foreground"
+              style={{ fontSize: buttonFontSize }}
             >
               {`#${id}`}
             </Link>
-          </Stack>
+          </div>
         </CardContent>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            px: 2,
-            gap: 1,
-          }}
-        >
+        <div className="flex flex-row justify-between gap-2 px-2">
           {isSelectableDegen ? (
             <Button
-              variant={isSelected ? 'contained' : 'outlined'}
-              color="primary"
-              fullWidth
-              sx={{ minWidth: '32%', fontSize: buttonFontSize }}
+              variant={isSelected ? 'default' : 'outline'}
+              className="min-w-[32%] w-full"
+              style={{ fontSize: buttonFontSize }}
               onClick={onClickSelect}
               disabled={isSelectionDisabled && !isSelected}
             >
@@ -178,10 +128,9 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
             </Button>
           ) : (
             <Button
-              variant="outlined"
-              color="primary"
-              fullWidth
-              sx={{ minWidth: '32%', fontSize: buttonFontSize }}
+              variant="outline"
+              className="min-w-[32%] w-full"
+              style={{ fontSize: buttonFontSize }}
               onClick={onClickDetail}
             >
               Details
@@ -190,24 +139,18 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
           {isDashboardDegen && (
             <Button
               onClick={onClickClaim}
-              variant="contained"
-              fullWidth
-              sx={{ minWidth: '32%', fontSize: buttonFontSize }}
+              variant="default"
+              className="min-w-[32%] w-full"
+              style={{ fontSize: buttonFontSize }}
             >
               Claim
             </Button>
           )}
-        </Box>
+        </div>
         {isDashboardDegen && (
-          <Stack
-            direction="row"
-            sx={{
-              pt: 2,
-              px: 2,
-              lineHeight: '1.5em',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
+          <div
+            className="flex flex-row items-center justify-between px-2 pt-2"
+            style={{ lineHeight: '1.5em' }}
           >
             <div className="flex flex-row items-center">
               <Icon
@@ -216,10 +159,10 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
                 fill={fav ? 'foreground' : undefined}
                 size={size === 'small' ? 12 : 16}
                 onClick={onClickFavorite}
-                className="cursor-pointer mr-3"
+                className="mr-3 cursor-pointer"
               />
-              <div className="flex items-center cursor-pointer" onClick={onClickDownload}>
-                <Typography sx={{ fontSize: tinyFontSize, pr: '4px' }}>IP</Typography>
+              <div className="flex cursor-pointer items-center" onClick={onClickDownload}>
+                <span style={{ fontSize: tinyFontSize, paddingRight: '4px' }}>IP</span>
                 <Image
                   src="/icons/download-solid.svg"
                   alt="Download Icon"
@@ -228,8 +171,8 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
                 />
               </div>
             </div>
-            <DegenClaimBal tokenId={id} fontSize={tinyFontSize as string} />
-          </Stack>
+            <DegenClaimBal tokenId={id} fontSize={tinyFontSize} />
+          </div>
         )}
       </Card>
     )

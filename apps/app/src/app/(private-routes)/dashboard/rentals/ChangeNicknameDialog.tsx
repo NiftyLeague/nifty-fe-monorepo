@@ -1,16 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import {
-  DialogTitle,
-  DialogContent,
-  Stack,
-  Typography,
-  TextField,
-  DialogActions,
-} from '@mui/material'
 import { toast } from 'react-toastify'
-import LoadingButton from '@mui/lab/LoadingButton'
 import { Controller, SubmitHandler, useForm, Resolver } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -18,6 +9,11 @@ import type { RentalDataGrid } from '@/types/rentalDataGrid'
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
 import useAuth from '@/hooks/useAuth'
 import useLocalStorage from '@/hooks/useLocalStorage'
+
+import { Button } from '@nl/ui/base/button'
+import { DialogFooter, DialogHeader, DialogTitle } from '@nl/ui/base/dialog'
+import { CircularProgress } from '@nl/ui/custom/circular-progress'
+import { Input } from '@nl/ui/custom/input'
 
 interface Props {
   rental: RentalDataGrid
@@ -70,50 +66,37 @@ const ChangeNicknameDialog = ({ rental, updateNickname }: Props): React.ReactNod
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <DialogTitle sx={{ textAlign: 'center' }}>Assign a Nickname</DialogTitle>
-      <DialogContent dividers sx={{ maxWidth: '380px' }}>
-        <Stack sx={{ rowGap: 2 }}>
-          <Stack sx={{ rowGap: 1 }}>
-            {degenId && <DegenImage tokenId={degenId} />}
-            <Typography variant="caption" component="p" sx={{ textAlign: 'center' }}>
-              Recruit
-            </Typography>
-            <Typography variant="caption" component="p" sx={{ textAlign: 'center' }}>
-              {renter}
-            </Typography>
-          </Stack>
-
-          <Controller
-            name="name"
-            control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="Enter nickname for recruit wallet"
-                variant="outlined"
-                size="small"
-                fullWidth
-                error={!!errors.name}
-                helperText={errors.name && errors.name.message}
-                disabled={isLoadingRename}
-              />
-            )}
-          />
-        </Stack>
-      </DialogContent>
-      <DialogActions>
-        <LoadingButton
-          loading={isLoadingRename}
-          disabled={isLoadingRename}
-          type="submit"
-          variant="contained"
-          fullWidth
-          onClick={() => handleSubmit(onSubmit)}
-        >
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+      <DialogHeader>
+        <DialogTitle className="text-center">Assign a Nickname</DialogTitle>
+      </DialogHeader>
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
+          {degenId && <DegenImage tokenId={degenId} />}
+          <p className="text-center text-xs text-muted-foreground">Recruit</p>
+          <p className="text-center text-xs text-muted-foreground">{renter}</p>
+        </div>
+        <Controller
+          name="name"
+          control={control}
+          render={({ field }) => (
+            <Input
+              {...field}
+              label="Enter nickname for recruit wallet"
+              error={!!errors.name}
+              aria-invalid={!!errors.name}
+              disabled={isLoadingRename}
+            />
+          )}
+        />
+        {errors.name && <p className="text-sm text-destructive">{errors.name.message}</p>}
+      </div>
+      <DialogFooter>
+        <Button type="submit" variant="default" className="w-full" disabled={isLoadingRename}>
+          {isLoadingRename && <CircularProgress size="sm" />}
           Add Nickname
-        </LoadingButton>
-      </DialogActions>
+        </Button>
+      </DialogFooter>
     </form>
   )
 }

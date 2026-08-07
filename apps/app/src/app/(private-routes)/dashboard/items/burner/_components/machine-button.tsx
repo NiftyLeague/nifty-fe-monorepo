@@ -1,4 +1,4 @@
-import { Button } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
 
 const MachineButton = ({
   disabled = false,
@@ -22,7 +22,8 @@ const MachineButton = ({
       disabled={disabled}
       name={name}
       onClick={onClick}
-      sx={{
+      variant="ghost"
+      style={{
         height,
         left,
         marginLeft: 'auto',

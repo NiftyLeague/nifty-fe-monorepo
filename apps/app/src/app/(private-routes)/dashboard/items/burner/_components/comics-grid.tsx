@@ -2,15 +2,9 @@ import { useMemo } from 'react'
 import Image from 'next/image'
 import xor from 'lodash/xor'
 import sum from 'lodash/sum'
-import {
-  ImageList,
-  ImageListItem,
-  ImageListItemBar,
-  Skeleton,
-  TextField,
-  InputAdornment,
-} from '@mui/material'
+import { Skeleton } from '@nl/ui/base/skeleton'
 import { Icon } from '@nl/ui/base/icon'
+import { Input } from '@nl/ui/custom/input'
 
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import type { Comic } from '@/types/marketplace'
@@ -25,19 +19,6 @@ const COMPRESSED_COMIC_IMAGES = [
   '/img/comics/thumbnail/5.webp',
   '/img/comics/thumbnail/6.webp',
 ]
-
-const gridStyles = {
-  flexGrow: 1,
-  height: 'auto',
-  left: 0,
-  marginLeft: 'auto',
-  marginRight: 'auto',
-  position: 'absolute',
-  right: 0,
-  width: 315,
-  top: 130,
-  rowGap: '0 !important',
-}
 
 export default function ComicsGrid({
   burnCount,
@@ -85,80 +66,62 @@ export default function ComicsGrid({
   }
 
   return loadingComics ? (
-    <Skeleton
-      variant="rectangular"
-      animation="wave"
-      width={315}
-      height={265}
-      sx={{ ...gridStyles }}
-    />
+    <Skeleton className="absolute left-0 right-0 top-[130px] mx-auto h-[265px] w-[315px] rounded-none" />
   ) : (
     <div>
-      <ImageList gap={10} cols={3} sx={{ ...gridStyles }}>
-        {comicsBalances.map((comic) => (
-          <ImageListItem key={comic.image}>
-            <Image
-              src={COMPRESSED_COMIC_IMAGES[comic.id - 1] as string}
-              // srcSet={`${comic.image}?w=248&fit=crop&auto=format&dpr=2 2x`}
-              alt={comic.title}
-              onClick={() => handleSelectComic(comic)}
-              width={98}
-              height={98}
-              style={{
-                cursor: 'pointer',
-                width: '100%',
-                height: 'auto',
-                ...(selectedComics.includes(comic) && {
-                  boxShadow: '0 0 8px rgba(81, 203, 238, 1)',
-                  border: '3px solid rgba(81, 203, 238, 1)',
-                }),
-              }}
-            />
-            <ImageListItemBar
-              classes={{ titleWrap: styles.titleWrap, title: styles.title }}
-              title={
-                selectedComics.includes(comic) ? (
-                  <TextField
-                    value={burnCount[comic.id - 1]}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                      handleManualSetBurnCount(comic, event.target.value)
-                    }}
-                    size="small"
-                    sx={{ m: 0, width: 98 }}
-                    type="number"
-                    slotProps={{
-                      input: {
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <Icon name="flame" size="xs" />
-                          </InputAdornment>
-                        ),
-                      },
-
-                      htmlInput: {
-                        inputMode: 'numeric',
-                        pattern: '[0-9]*',
-                        min: 0,
-                        max: comicsBalances.find((c) => c.id === comic.id)?.balance || 0,
-                        style: { textAlign: 'center', padding: 2.5 },
-                      },
-                    }}
-                  />
-                ) : (
-                  <>
-                    <span>#{comic.id}</span>
-                    <span>x{comic.balance}</span>
-                  </>
-                )
-              }
-              position="below"
-            />
-          </ImageListItem>
-        ))}
-      </ImageList>
-      <div className={styles.sums}>
-        <span className={styles.keySum}>{keyCount} Keys</span>
-        <span className={styles.itemSum}>{itemCount} Items</span>
+      <div className="absolute left-0 right-0 top-[130px] mx-auto w-[315px]">
+        <div className="grid grid-cols-3 gap-x-2.5">
+          {comicsBalances.map((comic) => (
+            <div key={comic.image}>
+              <Image
+                src={COMPRESSED_COMIC_IMAGES[comic.id - 1] as string}
+                // srcSet={`${comic.image}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                alt={comic.title}
+                onClick={() => handleSelectComic(comic)}
+                width={98}
+                height={98}
+                style={{
+                  cursor: 'pointer',
+                  width: '100%',
+                  height: 'auto',
+                  ...(selectedComics.includes(comic) && {
+                    boxShadow: '0 0 8px rgba(81, 203, 238, 1)',
+                    border: '3px solid rgba(81, 203, 238, 1)',
+                  }),
+                }}
+              />
+              <div className={styles.titleWrap}>
+                <div className={styles.title}>
+                  {selectedComics.includes(comic) ? (
+                    <Input
+                      value={burnCount[comic.id - 1]}
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        handleManualSetBurnCount(comic, event.target.value)
+                      }}
+                      type="number"
+                      startIcon={<Icon name="flame" size="xs" />}
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      min={0}
+                      max={comicsBalances.find((c) => c.id === comic.id)?.balance || 0}
+                      style={{ textAlign: 'center', padding: 2.5 }}
+                      className="h-8 w-[98px]"
+                    />
+                  ) : (
+                    <>
+                      <span>#{comic.id}</span>
+                      <span>x{comic.balance}</span>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className={styles.sums}>
+          <span className={styles.keySum}>{keyCount} Keys</span>
+          <span className={styles.itemSum}>{itemCount} Items</span>
+        </div>
       </div>
     </div>
   )

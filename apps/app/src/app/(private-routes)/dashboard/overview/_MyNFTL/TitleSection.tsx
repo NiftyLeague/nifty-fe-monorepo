@@ -1,6 +1,6 @@
 'use client'
 
-import { Skeleton, Stack, Typography } from '@mui/material'
+import { Skeleton } from '@nl/ui/base/skeleton'
 
 import { formatNumberToDisplay } from '@nl/ui/utils'
 import useTokensBalances from '@/hooks/balances/useTokensBalances'
@@ -13,16 +13,16 @@ const TitleSection = (): React.ReactNode => {
       firstSection
       variant="h3"
       actions={
-        <Stack direction="row" sx={{ gap: 2 }}>
+        <div className="flex flex-row gap-4">
           {loadingNFTLBal ? (
-            <Skeleton variant="rectangular" animation="wave" width={120} height={40} />
+            <Skeleton className="h-10 w-[120px] rounded" />
           ) : (
-            <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+            <span className="text-base font-bold">
               NFTL in Wallet:{' '}
               {formatNumberToDisplay(tokensBalances.NFTL.eth + tokensBalances.NFTL.imx)}
-            </Typography>
+            </span>
           )}
-        </Stack>
+        </div>
       }
     >
       My Tokens

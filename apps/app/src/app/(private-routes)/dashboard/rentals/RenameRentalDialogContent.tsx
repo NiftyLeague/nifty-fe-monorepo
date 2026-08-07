@@ -1,17 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import {
-  DialogTitle,
-  DialogContent,
-  Stack,
-  Typography,
-  TextField,
-  DialogActions,
-  Box,
-  Button,
-} from '@mui/material'
-import LoadingButton from '@mui/lab/LoadingButton'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -21,6 +10,11 @@ import { RENAME_RENTAL_API_URL } from '@/constants/url'
 import { useDispatch } from '@/store/hooks'
 import { openSnackbar } from '@/store/slices/snackbar'
 import useAuth from '@/hooks/useAuth'
+
+import { Button } from '@nl/ui/base/button'
+import { DialogFooter, DialogHeader, DialogTitle } from '@nl/ui/base/dialog'
+import { CircularProgress } from '@nl/ui/custom/circular-progress'
+import { Input } from '@nl/ui/custom/input'
 
 interface IFormInput {
   name: string
@@ -91,55 +85,46 @@ const RenameRentalDialogContent = ({ rental, updateRentalName }: Props): React.R
   }
 
   return (
-    <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
-      <Stack spacing={2}>
-        <DialogTitle sx={{ textAlign: 'center' }}>Assign a Nickname</DialogTitle>
-        <DialogContent dividers sx={{ maxWidth: '380px' }}>
-          <Stack sx={{ rowGap: 2 }}>
-            <Stack sx={{ rowGap: 1 }}>
-              {degenId && <DegenImage tokenId={degenId} />}
-              <Typography variant="caption" component="p" sx={{ textAlign: 'center' }}>
-                Recruit
-              </Typography>
-              <Typography variant="caption" component="p" sx={{ textAlign: 'center' }}>
-                {renter}
-              </Typography>
-            </Stack>
-
-            <Controller
-              name="name"
-              control={control}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Enter nickname for recruit wallet"
-                  variant="outlined"
-                  size="small"
-                  fullWidth
-                  error={!!errors.name}
-                  helperText={errors.name?.message}
-                  disabled={isLoadingRename}
-                />
-              )}
+    <form onSubmit={handleSubmit(onSubmit)} noValidate className="w-full">
+      <DialogHeader>
+        <DialogTitle className="text-center">Assign a Nickname</DialogTitle>
+      </DialogHeader>
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
+          {degenId && <DegenImage tokenId={degenId} />}
+          <p className="text-center text-xs text-muted-foreground">Recruit</p>
+          <p className="text-center text-xs text-muted-foreground">{renter}</p>
+        </div>
+        <Controller
+          name="name"
+          control={control}
+          render={({ field }) => (
+            <Input
+              {...field}
+              label="Enter nickname for recruit wallet"
+              error={!!errors.name}
+              aria-invalid={!!errors.name}
+              disabled={isLoadingRename}
             />
-          </Stack>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => reset()} disabled={isLoadingRename}>
-            Cancel
-          </Button>
-          <LoadingButton
-            loading={isLoadingRename}
-            disabled={isLoadingRename}
-            type="submit"
-            variant="contained"
-            fullWidth
-          >
-            Add Nickname
-          </LoadingButton>
-        </DialogActions>
-      </Stack>
-    </Box>
+          )}
+        />
+        {errors.name && <p className="text-sm text-destructive">{errors.name.message}</p>}
+      </div>
+      <DialogFooter>
+        <Button
+          onClick={() => reset()}
+          disabled={isLoadingRename}
+          className="w-full"
+          variant="outline"
+        >
+          Cancel
+        </Button>
+        <Button type="submit" variant="default" className="w-full" disabled={isLoadingRename}>
+          {isLoadingRename && <CircularProgress size="sm" />}
+          Add Nickname
+        </Button>
+      </DialogFooter>
+    </form>
   )
 }
 

@@ -1,23 +1,18 @@
-import { memo, ElementType } from 'react'
-import CardMedia, { type CardMediaProps } from '@mui/material/CardMedia'
+import { memo } from 'react'
 import { LEGGIES } from '@/constants/degens'
 const IMAGE_HEIGHT = 320
 
 const DegenImage = memo(
-  ({ tokenId, sx }: { tokenId: string | number; sx?: CardMediaProps['sx'] }) => {
+  ({ tokenId, sx }: { tokenId: string | number; sx?: React.CSSProperties }) => {
     const imageURL = `/img/degens/nfts/${tokenId}`
 
     const sxHeight =
       sx && typeof sx === 'object' && 'height' in sx ? (sx.height as string | number) : undefined
     const imageHeight = sxHeight ?? IMAGE_HEIGHT
-    const setting: { height: string | number; component: ElementType; image: string } = {
-      height: imageHeight,
-      component: 'img',
-      image: `${imageURL}.webp`,
-    }
+    let image = `${imageURL}.webp`
 
     if (LEGGIES.includes(Number(tokenId))) {
-      setting.image = `${imageURL}.gif`
+      image = `${imageURL}.gif`
     }
 
     const handleImageError = (
@@ -29,10 +24,11 @@ const DegenImage = memo(
     }
 
     return (
-      <CardMedia
+      <img
         className="pixelated"
-        sx={{ objectFit: 'cover', ...sx }}
-        {...setting}
+        src={image}
+        alt=""
+        style={{ objectFit: 'cover', height: imageHeight, ...sx }}
         onError={handleImageError}
       />
     )

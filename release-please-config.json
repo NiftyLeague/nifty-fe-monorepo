@@ -84,10 +84,6 @@
       "release-type": "node",
       "package-name": "@nl/prettier-config"
     },
-    "packages/theme": {
-      "release-type": "node",
-      "package-name": "@nl/theme"
-    },
     "packages/typescript-config": {
       "release-type": "node",
       "package-name": "@nl/typescript-config"

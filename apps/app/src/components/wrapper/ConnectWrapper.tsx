@@ -1,4 +1,4 @@
-import { Button } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
 import useAuth from '@/hooks/useAuth'
 
 export interface ConnectWrapperProps {
@@ -10,13 +10,18 @@ export interface ConnectWrapperProps {
 }
 
 const ConnectWrapper = (props: ConnectWrapperProps) => {
-  const { children, buttonText, ...otherProps } = props
+  const { children, buttonText, variant = 'contained', color, fullWidth, ...otherProps } = props
   const { isConnected, isLoggedIn, handleConnectWallet } = useAuth()
 
   return isLoggedIn ? (
     children
   ) : (
-    <Button variant="contained" {...otherProps} onClick={handleConnectWallet}>
+    <Button
+      variant={variant === 'outlined' ? 'outline' : 'default'}
+      className={fullWidth ? 'w-full' : undefined}
+      onClick={handleConnectWallet}
+      {...otherProps}
+    >
       {isConnected
         ? buttonText?.replace('Connect Wallet', 'Sign In') || 'Sign In'
         : buttonText || 'Connect Wallet'}

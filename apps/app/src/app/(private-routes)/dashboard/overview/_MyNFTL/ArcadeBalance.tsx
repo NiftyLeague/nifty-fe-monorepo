@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { Button, Stack } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
 
 import { gtm, GTM_EVENTS } from '@nl/ui/gtm'
 import useTokensBalances from '@/hooks/balances/useTokensBalances'
@@ -38,14 +38,14 @@ const ArcadeBalance = (): React.ReactNode => {
         isLoading={loadingArcadeBal}
         actions={
           <>
-            <Stack direction="row" className="w-full items-center" spacing={1}>
-              <Button fullWidth variant="outlined" onClick={handleBuyArcadeTokens}>
+            <div className="flex w-full flex-row items-center gap-2">
+              <Button className="w-full" variant="outline" onClick={handleBuyArcadeTokens}>
                 Buy Tokens
               </Button>
-              <Button fullWidth variant="contained" onClick={handlePlayArcade}>
+              <Button className="w-full" variant="default" onClick={handlePlayArcade}>
                 Play Games
               </Button>
-            </Stack>
+            </div>
           </>
         }
       />

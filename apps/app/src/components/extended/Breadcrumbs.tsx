@@ -3,15 +3,14 @@
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 
-// material-ui
-import { useTheme, gridSpacing } from '@nl/theme'
-import { Box, Card, Divider, Grid, Typography } from '@mui/material'
-import MuiBreadcrumbs from '@mui/material/Breadcrumbs'
+import { Icon, type IconName } from '@nl/ui/base/icon'
+import { cn } from '@nl/ui/utils'
 
 // project imports
 import { BASE_PATH } from '@/config'
-import { Icon, type IconName } from '@nl/ui/base/icon'
 import type { NavItemType, NavItemTypeObject } from '@/types'
+
+const gridSpacing = 3 // 24px
 
 const linkSX = {
   display: 'flex',
@@ -55,11 +54,9 @@ const Breadcrumbs = ({
   titleBottom,
   ...others
 }: BreadCrumbsProps) => {
-  const theme = useTheme()
-
   const iconStyle = {
-    marginRight: theme.spacing(0.75),
-    marginTop: `-${theme.spacing(0.25)}`,
+    marginRight: '6px',
+    marginTop: '-2px',
     width: '16px',
     height: '16px',
   }
@@ -101,100 +98,97 @@ const Breadcrumbs = ({
 
   let mainContent
   let itemContent
-  let breadcrumbContent: React.ReactElement = <Typography />
+  let breadcrumbContent: React.ReactElement = <span />
 
   // collapse item
   if (main && main.type === 'collapse') {
     mainContent = (
-      <Typography component={Link} href="#" variant="subtitle1" sx={linkSX}>
+      <Link href="#" className="flex items-center text-sm font-medium text-foreground no-underline">
         {icons && <Icon name={main.icon ?? 'list-tree'} style={iconStyle} />}
         {main.title}
-      </Typography>
+      </Link>
     )
   }
 
   // items
   if (item && item.type === 'item') {
     itemContent = (
-      <Typography
-        variant="subtitle1"
-        sx={{
-          display: 'flex',
-          textDecoration: 'none',
-          alignContent: 'center',
-          alignItems: 'center',
-          color: 'var(--color-muted-foreground)',
-        }}
+      <span
+        className="flex items-center text-sm font-medium text-muted-foreground"
+        style={{ textDecoration: 'none' }}
       >
         {icons && <Icon name={item.icon ?? 'list-tree'} style={iconStyle} />}
         {item.title}
-      </Typography>
+      </span>
     )
 
     // main
     if (item.breadcrumbs !== false) {
       breadcrumbContent = (
-        <Card
-          sx={{
-            marginBottom: card === false ? 0 : theme.spacing(gridSpacing),
-            border: card === false ? 'none' : 'var(--border-default)',
-            background: card === false ? 'transparent' : 'var(--color-background)',
-          }}
+        <div
+          className={cn(
+            'mb-6',
+            card === false ? 'border-none bg-transparent' : 'border bg-background'
+          )}
+          style={{ marginBottom: card === false ? 0 : gridSpacing * 8 }}
           {...others}
         >
-          <Box sx={{ p: 2, pl: card === false ? 0 : 2 }}>
-            <Grid
-              container
-              spacing={1}
-              sx={{
-                flexDirection: rightAlign ? 'row' : 'column',
-                justifyContent: rightAlign ? 'space-between' : 'flex-start',
-                alignItems: rightAlign ? 'center' : 'flex-start',
-              }}
+          <div className={cn('p-2', card === false ? 'pl-0' : 'pl-2')}>
+            <div
+              className={cn(
+                rightAlign
+                  ? 'flex flex-row items-center justify-between'
+                  : 'flex flex-col items-start justify-start'
+              )}
             >
               {title && !titleBottom && (
-                <Grid>
-                  <Typography variant="h3" sx={{ fontWeight: 500 }}>
-                    {item.title}
-                  </Typography>
-                </Grid>
+                <h3 className="font-medium text-foreground" style={{ fontWeight: 500 }}>
+                  {item.title}
+                </h3>
               )}
-              <Grid>
-                <MuiBreadcrumbs
-                  sx={{ '& .MuiBreadcrumbs-separator': { width: 16, ml: 1.25, mr: 1.25 } }}
-                  aria-label="breadcrumb"
-                  maxItems={maxItems || 8}
-                  separator={separatorIcon}
-                >
-                  <Typography
-                    component={Link}
+              <nav aria-label="breadcrumb" className="flex items-center">
+                {[
+                  <Link
+                    key="home"
                     href="/"
-                    sx={{ ...linkSX, color: 'inherit' }}
-                    variant="subtitle1"
+                    className="flex items-center text-sm font-medium no-underline"
+                    style={{ color: 'inherit' }}
                   >
                     {icons && <Icon name="house" color="blue" fill="dim" style={iconStyle} />}
                     {icon && (
                       <Icon name="house" color="blue" style={{ ...iconStyle, marginRight: 0 }} />
                     )}
                     {!icon && 'Dashboard'}
-                  </Typography>
-                  {mainContent}
-                  {itemContent}
-                </MuiBreadcrumbs>
-              </Grid>
+                  </Link>,
+                  mainContent,
+                  itemContent,
+                ]
+                  .filter(Boolean)
+                  .flatMap((crumb, index, all) =>
+                    index === all.length - 1
+                      ? [crumb]
+                      : [
+                          crumb,
+                          <span key={`sep-${index}`} className="mx-1.25 flex w-4 items-center">
+                            {separatorIcon}
+                          </span>,
+                        ]
+                  )}
+              </nav>
               {title && titleBottom && (
-                <Grid>
-                  <Typography variant="h3" sx={{ fontWeight: 500 }}>
-                    {item.title}
-                  </Typography>
-                </Grid>
+                <h3 className="font-medium text-foreground" style={{ fontWeight: 500 }}>
+                  {item.title}
+                </h3>
               )}
-            </Grid>
-          </Box>
+            </div>
+          </div>
           {card === false && divider !== false && (
-            <Divider sx={{ borderColor: 'var(--color-purple)', mb: gridSpacing, opacity: '0.6' }} />
+            <hr
+              className="mb-6 opacity-60"
+              style={{ borderColor: 'var(--color-purple)', marginBottom: gridSpacing * 8 }}
+            />
           )}
-        </Card>
+        </div>
       )
     }
   }

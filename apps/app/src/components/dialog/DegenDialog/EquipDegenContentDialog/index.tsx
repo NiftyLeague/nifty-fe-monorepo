@@ -2,10 +2,13 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
-import { Box, Button, CircularProgress, Grid, Stack, Typography } from '@mui/material'
 import isEqual from 'lodash/isEqual'
 
 import { gtm, GTM_EVENTS } from '@nl/ui/gtm'
+import { Button } from '@nl/ui/base/button'
+import { CircularProgress } from '@nl/ui/custom/circular-progress'
+import { Title } from '@nl/ui/custom/typography'
+import { cn } from '@nl/ui/utils'
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import { useDispatch } from '@/store/hooks'
 import { openSnackbar } from '@/store/slices/snackbar'
@@ -175,135 +178,120 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
   if (filteredComics.length === 0) {
     if (loadingComics) {
       return (
-        <Stack
-          direction="row"
-          sx={{ justifyContent: 'center', alignItems: 'center', height: 200, mx: 'auto' }}
-        >
-          <CircularProgress />
-        </Stack>
+        <div className="flex flex-row items-center justify-center h-[200px] mx-auto">
+          <CircularProgress size="xl" />
+        </div>
       )
     }
     return (
-      <Grid
-        container
-        sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex', height: 200 }}
-      >
+      <div className="flex flex-wrap items-center justify-center h-[200px]">
         <Link href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
           <EmptyState message="You don't own any Comics yet." buttonText="Buy a Comic" noBorder />
         </Link>
-      </Grid>
+      </div>
     )
   }
 
   return (
-    <Stack sx={{ py: 1, maxWidth: 330, mx: 'auto' }}>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          p: 1.25,
-          mx: 1.25,
-          backgroundColor: '#262930',
-        }}
+    <div className="flex flex-col py-2 max-w-[330px] mx-auto gap-2">
+      <div
+        className="flex flex-row items-center justify-center p-2.5 mx-2.5"
+        style={{ backgroundColor: '#262930' }}
       >
-        <Typography variant="h5" className={title}>
+        <Title level={5} className={title}>
           {name || `DEGEN #${degen?.id}`}
-        </Typography>
-      </Box>
-      <Stack direction="row" sx={{ mt: 2.25 }}>
-        <Stack sx={{ alignItems: 'center' }}>
-          <Typography variant="body1" className={label} sx={{ mb: 2 }}>
-            SLOTS
-          </Typography>
-          <Stack sx={{ rowGap: 3 }}>
+        </Title>
+      </div>
+      <div className="flex flex-row mt-[18px]">
+        <div className="flex flex-col items-center">
+          <span className={cn(label, 'text-base mb-4')}>SLOTS</span>
+          <div className="flex flex-col gap-6">
             {SLOTS.map((slot, index) => (
-              <Box key={slot.name} sx={{ width: 40, height: 40, position: 'relative' }}>
+              <div key={slot.name} className="relative" style={{ width: 40, height: 40 }}>
                 {getSlotImage(index)}
                 {isEquippedSlot(index) && (
-                  <Box
-                    className={tag}
+                  <div
+                    className={cn(tag, 'flex items-center justify-center cursor-pointer')}
                     onClick={() => handleUnequip(index)}
-                    sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                   >
                     <Icon name="x" size={12} className="cursor-pointer" />
-                  </Box>
+                  </div>
                 )}
-              </Box>
+              </div>
             ))}
-          </Stack>
-        </Stack>
-        <Stack sx={{ mt: 2.75, ml: 3.75, mr: 1.5 }}>
+          </div>
+        </div>
+        <div className="flex flex-col mt-[22px] ml-[30px] mr-[12px]">
           {degen?.id && (
             <DegenImage
               sx={{ objectFit: 'cover', width: 183, height: 244, borderRadius: '10px' }}
               tokenId={degen.id}
             />
           )}
-          <Stack direction="row" sx={{ mt: 1.25, gap: 1.5 }}>
+          <div className="flex flex-row mt-[10px] gap-[12px]">
             <Button
-              variant="contained"
-              fullWidth
-              className={animationType === 'pose' ? animTypeActiveButton : animTypeButton}
+              variant="default"
+              className={cn(
+                'w-full',
+                animationType === 'pose' ? animTypeActiveButton : animTypeButton
+              )}
               onClick={handleSetPose}
             >
               POSE
             </Button>
             <Button
-              variant="contained"
-              fullWidth
-              className={animationType === 'rotate' ? animTypeActiveButton : animTypeButton}
+              variant="default"
+              className={cn(
+                'w-full',
+                animationType === 'rotate' ? animTypeActiveButton : animTypeButton
+              )}
               onClick={handleSetRotate}
             >
               ROTATE
             </Button>
-          </Stack>
-          <Typography
-            variant="body1"
-            className={label}
-            sx={{ my: 2.25, mx: 'auto', fontWeight: 700 }}
+          </div>
+          <span
+            className={cn(label, 'text-base mx-auto font-bold')}
+            style={{ marginTop: 18, marginBottom: 18 }}
           >
             {totalMultiplierApplied}
-          </Typography>
+          </span>
           <Button
-            variant="contained"
+            variant="default"
             disabled={!stateChanged}
-            sx={{ width: 116, mx: 'auto' }}
+            className="mx-auto w-[116px]"
             onClick={handleSave}
           >
             SAVE
           </Button>
-        </Stack>
-        <Stack sx={{ alignItems: 'center' }}>
-          <Typography variant="body1" className={label} sx={{ mb: 2, textAlign: 'center' }}>
-            INVENTORY
-          </Typography>
-          <Stack sx={{ rowGap: 1.25 }}>
+        </div>
+        <div className="flex flex-col items-center">
+          <span className={cn(label, 'text-base mb-4 text-center')}>INVENTORY</span>
+          <div className="flex flex-col gap-[10px]">
             {INVENTORIES.map((inventory, index) => (
-              <Box
+              <div
                 key={inventory.name}
                 onClick={() => handleEquip(index)}
-                sx={{
+                className="relative"
+                style={{
                   width: 30,
                   height: 30,
-                  position: 'relative',
                   cursor: pendingEquipped[index] ? 'inherit' : 'pointer',
                 }}
               >
                 {pendingEquipped[index] ? inventory.empty : inventory.filled}
                 {!pendingEquipped[index] && (multipliers[index] ?? 0) >= 2 && (
-                  <Box
-                    className={tag}
-                    sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                  >{`${multipliers[index]}x`}</Box>
+                  <div
+                    className={cn(tag, 'flex items-center justify-center')}
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                  >{`${multipliers[index]}x`}</div>
                 )}
-              </Box>
+              </div>
             ))}
-          </Stack>
-        </Stack>
-      </Stack>
-    </Stack>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 

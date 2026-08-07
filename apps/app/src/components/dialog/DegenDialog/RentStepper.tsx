@@ -1,18 +1,8 @@
 'use client'
 import { useMemo } from 'react'
-
 import { cn } from '@nl/ui/utils'
-import { StepIconProps } from '@mui/material/StepIcon'
-import Step from '@mui/material/Step'
-import StepConnector from '@mui/material/StepConnector'
-import StepLabel from '@mui/material/StepLabel'
-import Stepper from '@mui/material/Stepper'
 
 import styles from './RentStepper.module.css'
-
-function ColorlibStepIcon({ active, completed }: StepIconProps) {
-  return <div className={cn(styles.root, active && styles.active, completed && styles.completed)} />
-}
 
 const steps = ['Connect Wallet', 'Check Balance', 'Success']
 
@@ -31,32 +21,41 @@ export default function RentStepper({
 
   return (
     <div>
-      <Stepper
-        alternativeLabel
-        activeStep={activeStep}
+      <div
+        className="flex items-start"
         style={{ backgroundColor: 'transparent', marginBottom: 10 }}
-        connector={
-          <StepConnector
-            classes={{
-              alternativeLabel: styles.alternativeLabel,
-              active: styles.active,
-              completed: styles.completed,
-              line: styles.line,
-            }}
-          />
-        }
       >
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel
-              sx={{ color: 'var(--color-foreground) !important' }}
-              slots={{ stepIcon: ColorlibStepIcon }}
-            >
-              {label}
-            </StepLabel>
-          </Step>
-        ))}
-      </Stepper>
+        {steps.map((label, index) => {
+          const isActive = index === activeStep
+          const isCompleted = index < activeStep
+          const connectorDone = isCompleted || isActive
+          return (
+            <div key={label} className="flex items-center">
+              <div className="flex flex-col items-center">
+                <div
+                  className={cn(
+                    styles.root,
+                    isActive && styles.active,
+                    isCompleted && styles.completed
+                  )}
+                />
+                <span className="mt-2.5 text-xs text-foreground">{label}</span>
+              </div>
+              {index < steps.length - 1 && (
+                <div
+                  className={cn(
+                    styles.alternativeLabel,
+                    connectorDone && (isCompleted ? styles.completed : styles.active)
+                  )}
+                  style={{ flex: '1 1 0%' }}
+                >
+                  <div className={styles.line} />
+                </div>
+              )}
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }

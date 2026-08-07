@@ -1,6 +1,7 @@
 'use client'
 
-import { Button, Stack, Typography } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
+import { Title } from '@nl/ui/custom/typography'
 import { useCallback, useMemo } from 'react'
 import type { Degen } from '@/types/degens'
 import useNetworkContext from '@/hooks/useNetworkContext'
@@ -41,22 +42,24 @@ const ClaimDegenContentDialog = ({ degen, onClose }: ClaimDegenContentDialogProp
   const amountParsed = formatNumberToDisplay(balance)
 
   return (
-    <Stack sx={{ padding: 3, gap: 2 }}>
-      <Typography
-        align="center"
-        variant="h4"
-      >{`${amountParsed} claimable for this DEGEN`}</Typography>
-      <Stack sx={{ gap: 1 }}>
+    <div className="flex flex-col gap-4 p-6">
+      <Title level={4} className="text-center">
+        {`${amountParsed} claimable for this DEGEN`}
+      </Title>
+      <div className="flex flex-col gap-2">
         <Button
+          className="w-full"
           disabled={!(balance > 0.0 && writeContracts[NFTL_CONTRACT])}
-          variant="contained"
+          variant="default"
           onClick={handleClaimNFTL}
         >
           Claim
         </Button>
-        <Button onClick={handleClose}>Cancel</Button>
-      </Stack>
-    </Stack>
+        <Button variant="ghost" className="w-full" onClick={handleClose}>
+          Cancel
+        </Button>
+      </div>
+    </div>
   )
 }
 

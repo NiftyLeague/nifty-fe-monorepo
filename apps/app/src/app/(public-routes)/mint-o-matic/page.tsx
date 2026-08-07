@@ -4,7 +4,8 @@ import { useState } from 'react'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { useSearchParams } from 'next/navigation'
-import { Button, Stack, Typography } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
+import { Title } from '@nl/ui/custom/typography'
 
 import { ErrorBoundary } from '@nl/ui/custom/error-boundry'
 import { Preloader } from '@nl/ui/custom/preloader'
@@ -26,33 +27,29 @@ const MintPage = () => {
   if (!isForNiftyArtists) {
     if (!isLoggedIn) {
       return (
-        <Stack
-          sx={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}
-        >
-          <Typography variant="h3" component="div" sx={{ textAlign: 'center' }}>
+        <div className="flex h-full w-full flex-col items-center justify-center">
+          <Title level={3} className="text-center">
             Please connect your wallet
-          </Typography>
-          <Button variant="contained" color="primary" onClick={handleConnectWallet} sx={{ mt: 4 }}>
+          </Title>
+          <Button className="mt-4" onClick={handleConnectWallet}>
             {isConnected ? 'Log In' : 'Connect Wallet'}
           </Button>
-        </Stack>
+        </div>
       )
     }
 
     if (!isDegenOwner) {
       return (
-        <Stack
-          sx={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}
-        >
-          <Typography variant="h3" component="div" sx={{ textAlign: 'center' }}>
+        <div className="flex h-full w-full flex-col items-center justify-center">
+          <Title level={3} className="text-center">
             This page is accessible to DEGEN owners only.
-          </Typography>
-          <Link href={DEGEN_COLLECTION_URL} target="_blank" rel="noreferrer">
-            <Button variant="contained" color="primary" sx={{ mt: 4 }}>
+          </Title>
+          <Button asChild className="mt-4">
+            <Link href={DEGEN_COLLECTION_URL} target="_blank" rel="noreferrer">
               Buy A DEGEN
-            </Button>
-          </Link>
-        </Stack>
+            </Link>
+          </Button>
+        </div>
       )
     }
   }

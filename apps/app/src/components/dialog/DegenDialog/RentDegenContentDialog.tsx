@@ -4,24 +4,14 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 import { isAddress } from 'ethers'
 
-import {
-  Box,
-  Button,
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  Grid,
-  IconButton,
-  Link,
-  Radio,
-  RadioGroup,
-  Stack,
-  TextField,
-  Tooltip,
-  Typography,
-} from '@mui/material'
-import LoadingButton from '@mui/lab/LoadingButton'
-
+import { Button } from '@nl/ui/base/button'
+import { Checkbox } from '@nl/ui/base/checkbox'
+import { RadioGroup, RadioGroupItem } from '@nl/ui/base/radio-group'
+import { Tooltip, TooltipTrigger, TooltipContent } from '@nl/ui/base/tooltip'
+import { CircularProgress } from '@nl/ui/custom/circular-progress'
+import { Input } from '@nl/ui/custom/input'
+import { Title } from '@nl/ui/custom/typography'
+import { cn } from '@nl/ui/utils'
 import { Icon } from '@nl/ui/base/icon'
 import type { Degen } from '@/types/degens'
 import { errorMsgHandler } from '@/utils/errorHandlers'
@@ -110,7 +100,6 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
   const handleRent = useCallback(async () => {
     const items = [{ item_id: `${degen?.id}`, item_name: 'DEGEN Rental' }]
     gtm.sendEvent(GTM_EVENTS.BEGIN_CHECKOUT, { items })
-
     setLoading(true)
     try {
       await rent()
@@ -137,7 +126,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
     })
   }, [degen?.id])
 
-  const openTOSDialog: React.MouseEventHandler<HTMLAnchorElement> = (event) => {
+  const openTOSDialog: React.MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault()
     setOpenTOS(true)
   }
@@ -194,44 +183,30 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
 
   return (
     <div>
-      <Stack
-        className={styles.root}
-        sx={{ maxWidth: 430, rowGap: { xs: 6, lg: 4 }, mx: { xs: 1, sm: 'auto' } }}
+      <div
+        className={cn(styles.root, 'flex flex-col max-w-[430px] mx-1 sm:mx-auto gap-12 sm:gap-10')}
       >
-        <IconButton
-          aria-label="close"
+        <Button
+          variant="ghost"
+          size="icon"
+          className="cursor-pointer absolute right-[12px] top-[6px] z-1 w-[20px] h-[20px] rounded-full border"
+          style={{ border: 'var(--border-purple)' }}
           onClick={onClose}
-          sx={{
-            position: 'absolute',
-            right: 12,
-            top: 6,
-            border: 'var(--border-purple)',
-            borderRadius: '50% !important',
-            width: '20px',
-            height: '20px !important',
-            zIndex: 1,
-          }}
+          aria-label="close"
         >
           <Icon name="x" size="sm" color="purple" />
-        </IconButton>
+        </Button>
 
         <RentStepper rentSuccess={rentSuccess} checkBalance={checkBalance} />
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '100%',
-            p: 1,
-            backgroundColor: '#262930',
-          }}
+        <div
+          className="flex flex-row items-center justify-center w-full p-2"
+          style={{ backgroundColor: '#262930' }}
         >
-          <Typography variant="h5">Rental Overview</Typography>
-        </Box>
-        <Stack direction="row" spacing={{ xs: 1.5, sm: 3.5 }} sx={{ mt: 0.5 }}>
-          <Stack direction="column">
-            <Stack direction="row" sx={{ justifyContent: 'center' }}>
+          <Title level={5}>Rental Overview</Title>
+        </div>
+        <div className="flex flex-row mt-1 gap-3 sm:gap-7">
+          <div className="flex flex-col">
+            <div className="flex justify-center">
               {degen?.id && (
                 <DegenImage
                   sx={{
@@ -244,247 +219,231 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                   tokenId={degen.id}
                 />
               )}
-            </Stack>
-            <Stack direction="column" sx={{ alignItems: 'center', mt: 0.5 }}>
-              <Typography sx={{ fontSize: '10px', lineHeight: 2, color: '#535659' }}>
-                Owned by {degen?.owner?.substring(0, 5)}
-              </Typography>
-            </Stack>
-          </Stack>
-          <Stack direction="column" sx={{ width: '100%' }}>
+            </div>
+            <div className="flex flex-col items-center mt-1">
+              <span
+                className="text-xs"
+                style={{ lineHeight: 2, color: '#535659' }}
+              >{`Owned by ${degen?.owner?.substring(0, 5)}`}</span>
+            </div>
+          </div>
+          <div className="flex flex-col w-full">
             {rentSuccess ? (
-              <Stack
-                direction="column"
-                spacing={1}
-                sx={{
-                  width: '100%',
-                  height: '146px',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}
+              <div
+                className="flex flex-col w-full items-center justify-between"
+                style={{ height: 146 }}
               >
-                <Typography variant="h6" className={styles.successInfo} sx={{ mt: 2 }}>
+                <Title level={6} className={cn(styles.successInfo, 'mt-4')}>
                   Congratulations!
-                </Typography>
-                <Typography variant="h6" className={styles.successInfo}>
+                </Title>
+                <Title level={6} className={styles.successInfo}>
                   Your rental is active.
-                </Typography>
-                <Button variant="contained" fullWidth onClick={handleClickPlay}>
+                </Title>
+                <Button variant="default" className="w-full" onClick={handleClickPlay}>
                   Play Nifty Smashers Now
                 </Button>
-              </Stack>
+              </div>
             ) : (
-              <Stack
-                direction="column"
-                spacing={1.25}
-                sx={{ width: '100%', height: '146px', justifyContent: 'space-between' }}
-              >
-                <Stack direction="column" sx={{ display: checkBalance ? 'none' : 'flex' }}>
-                  <Typography sx={{ fontSize: '10px', lineHeight: 2 }}>
+              <div className="flex flex-col w-full justify-between" style={{ height: 146 }}>
+                <div className="flex flex-col" style={{ display: checkBalance ? 'none' : 'flex' }}>
+                  <span className="text-xs" style={{ lineHeight: 2 }}>
                     Who are you renting for?
-                  </Typography>
-                  <RadioGroup row onChange={handleChangeRentingFor} value={rentFor}>
-                    <FormControlLabel
-                      value="myself"
-                      control={<Radio size="small" />}
-                      label="Myself"
-                    />
-                    <FormControlLabel
-                      value="recruit"
-                      control={<Radio size="small" />}
-                      label={
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                          <Typography>Recruit</Typography>
-                          {disabledRentFor && (
-                            <Tooltip title="DEGEN ownership is required to sponsor Recruits on this DEGEN.">
+                  </span>
+                  <RadioGroup
+                    className="flex flex-row gap-4 items-center"
+                    value={rentFor}
+                    onValueChange={(value) =>
+                      handleChangeRentingFor({} as React.ChangeEvent<HTMLInputElement>, value)
+                    }
+                  >
+                    <div className="flex items-center gap-1">
+                      <RadioGroupItem value="myself" id="rent-myself" />
+                      <span>Myself</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <RadioGroupItem
+                        value="recruit"
+                        id="rent-recruit"
+                        disabled={disabledRentFor}
+                      />
+                      <div className="flex items-center">
+                        <span>Recruit</span>
+                        {disabledRentFor && (
+                          <Tooltip>
+                            <TooltipTrigger>
                               <Icon name="info" size="sm" className="-mt-1" />
-                            </Tooltip>
-                          )}
-                        </Box>
-                      }
-                      disabled={disabledRentFor}
-                    />
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              DEGEN ownership is required to sponsor Recruits on this DEGEN.
+                            </TooltipContent>
+                          </Tooltip>
+                        )}
+                      </div>
+                    </div>
                   </RadioGroup>
                   {rentFor === 'recruit' && (
-                    <Stack direction="column" sx={{ alignItems: 'center', my: 1 }}>
-                      <FormControl fullWidth>
-                        <TextField
+                    <div className="flex flex-col items-center my-1">
+                      <div className="flex flex-col gap-1">
+                        <Input
                           placeholder="Paste your recruit's eth address"
                           name="address"
-                          variant="outlined"
-                          fullWidth
+                          className={styles.input}
                           value={ethAddress}
                           error={addressError !== ''}
-                          helperText={addressError}
                           onChange={(event) => validateAddress(event.target.value)}
-                          slotProps={{
-                            htmlInput: { className: styles.input },
-
-                            formHelperText: { className: styles.formHelper },
-                          }}
                         />
-                      </FormControl>
-                    </Stack>
+                        {addressError && (
+                          <span className={cn(styles.formHelper, 'text-xs text-error')}>
+                            {addressError}
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   )}
-                </Stack>
-                <Stack direction="column" spacing={1.25}>
-                  <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
-                    <Typography>Rental Cost:</Typography>
-                    <Typography
-                      sx={{ textDecoration: isUseRentalPass ? 'line-through' : 'none' }}
-                    >{`${formatNumberToDisplay(degen?.price || 0)} NFTL`}</Typography>
-                  </Stack>
+                </div>
+                <div className="flex flex-col">
+                  <div className="flex justify-between">
+                    <span className="text-base">Rental Cost:</span>
+                    <span
+                      className="text-base"
+                      style={{
+                        textDecoration: isUseRentalPass ? 'line-through' : 'none',
+                      }}
+                    >{`${formatNumberToDisplay(degen?.price || 0)} NFTL`}</span>
+                  </div>
                   {checkBalance && (
-                    <Stack direction="column">
-                      <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
-                        <Typography>Balance:</Typography>
-                        <Typography sx={{ color: sufficientBalance ? '#007B60' : '#B51424' }}>{`${
-                          accountBalance ? formatNumberToDisplay(accountBalance) : '0.00'
-                        } NFTL`}</Typography>
-                      </Stack>
+                    <div className="flex flex-col">
+                      <div className="flex justify-between">
+                        <span className="text-base">Balance:</span>
+                        <span
+                          className="text-base"
+                          style={{
+                            color: sufficientBalance ? '#007B60' : '#B51424',
+                          }}
+                        >{`${accountBalance ? formatNumberToDisplay(accountBalance) : '0.00'} NFTL`}</span>
+                      </div>
                       {!sufficientBalance && (
-                        <Typography variant="caption" sx={{ mt: 1, ml: 'auto' }}>
+                        <span className="mt-1 ml-auto text-xs text-warning">
                           Balance low.{' '}
-                          <Typography
-                            variant="caption"
+                          <button
+                            type="button"
+                            className="font-bold text-purple underline cursor-pointer"
+                            style={{ color: 'var(--color-purple)' }}
                             onClick={handleBuyNFTL}
-                            sx={{
-                              color: 'var(--color-purple)',
-                              textDecoration: 'underline',
-                              cursor: 'pointer',
-                            }}
                           >
                             Buy NFTL now
-                          </Typography>
-                        </Typography>
+                          </button>
+                        </span>
                       )}
-                    </Stack>
+                    </div>
                   )}
-                </Stack>
-                <Stack direction="column" spacing={1.25}>
+                </div>
+                <div className="flex flex-col">
                   {checkBalance && isShowRentalPassOption() && (
-                    <Stack
-                      direction="row"
-                      sx={{ justifyContent: 'space-between', alignItems: 'center' }}
-                    >
-                      <FormControl>
-                        <FormControlLabel
-                          label={<Typography variant="caption">Rental Pass</Typography>}
-                          control={
-                            <Checkbox
-                              size="small"
-                              checked={isUseRentalPass}
-                              onChange={handleChangeUseRentalPass}
-                              className={styles.inputCheck}
-                            />
-                          }
-                          className={styles.inputCheckFormControl}
-                        />
-                      </FormControl>
+                    <div className="flex justify-between items-center">
+                      <div className={styles.inputCheckFormControl}>
+                        <div className="flex items-center gap-1">
+                          <Checkbox
+                            checked={isUseRentalPass}
+                            onCheckedChange={(checked) =>
+                              handleChangeUseRentalPass({
+                                target: { checked: !!checked },
+                              } as React.ChangeEvent<HTMLInputElement>)
+                            }
+                            className={styles.inputCheck}
+                          />
+                          <span className="text-xs text-muted-foreground">Rental Pass</span>
+                        </div>
+                      </div>
                       {isUseRentalPass && (
-                        <Stack
-                          direction="row"
-                          sx={{
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            width: '100px',
-                          }}
-                        >
-                          <Typography>Balance:</Typography>
-                          <Typography sx={{ color: 'var(--color-purple)' }}>
+                        <div className="flex justify-between items-center w-[100px]">
+                          <span className="text-base">Balance:</span>
+                          <span className="text-base" style={{ color: 'var(--color-purple)' }}>
                             {rentalPassCount}
-                          </Typography>
-                        </Stack>
+                          </span>
+                        </div>
                       )}
-                    </Stack>
+                    </div>
                   )}
                   <ConnectWrapper fullWidth>
                     {!checkBalance ? (
-                      <Button variant="contained" fullWidth onClick={handleGoCheckBalance}>
+                      <Button variant="default" className="w-full" onClick={handleGoCheckBalance}>
                         Next
                       </Button>
                     ) : sufficientBalance || isUseRentalPass ? (
-                      <Stack direction="column" spacing={1}>
-                        <LoadingButton
-                          variant="contained"
-                          fullWidth
+                      <div className="flex flex-col gap-2">
+                        <Button
+                          variant="default"
+                          className="w-full"
                           onClick={handleRent}
-                          loading={loading}
-                          disabled={!agreement}
+                          disabled={!agreement || loading}
                         >
+                          {loading && <CircularProgress size="sm" />}
                           Rent
-                        </LoadingButton>
-                        <FormControl fullWidth>
-                          <FormControlLabel
-                            label={
-                              <Typography variant="caption">
-                                I have read the{' '}
-                                <Link
-                                  className="mx-1 no-underline font-bold"
-                                  onClick={openTOSDialog}
-                                >
-                                  terms &amp; conditions
-                                </Link>{' '}
-                                regarding rentals
-                              </Typography>
-                            }
-                            control={
-                              <Checkbox
-                                size="small"
-                                checked={agreement}
-                                onChange={handleAgreementChange}
-                                className={styles.inputCheck}
-                              />
-                            }
-                            className={styles.inputCheckFormControl}
+                        </Button>
+                        <div className="flex items-center gap-1 justify-center">
+                          <Checkbox
+                            checked={agreement}
+                            onChange={() => setAgreementAccepted(!agreement ? 'ACCEPTED' : 'FALSE')}
+                            className={styles.inputCheck}
                           />
-                        </FormControl>
+                          <span className="text-xs text-muted-foreground">
+                            I have read the{' '}
+                            <span
+                              className="mx-1 no-underline font-bold text-purple cursor-pointer hover:underline"
+                              onClick={openTOSDialog}
+                            >
+                              terms &amp; conditions
+                            </span>{' '}
+                            regarding rentals
+                          </span>
+                        </div>
                         <TermsOfServiceDialog open={openTOS} onClose={handleTOSDialogClose} />
-                      </Stack>
+                      </div>
                     ) : (
-                      <Button variant="contained" fullWidth onClick={handleRefreshBalance}>
+                      <Button variant="default" className="w-full" onClick={handleRefreshBalance}>
                         Refresh Balance
                       </Button>
                     )}
                   </ConnectWrapper>
-                </Stack>
-              </Stack>
+                </div>
+              </div>
             )}
-          </Stack>
-        </Stack>
-        <Stack direction="column" sx={{ mb: 6 }}>
+          </div>
+        </div>
+        <div className="flex flex-col mb-6">
           {/* {purchasingNFTL && <CowSwapWidget refreshBalance={refetchAccount} />} */}
-          <Typography variant="h5" sx={{ mt: 4, mb: 1.5 }}>
+          <Title level={5} className="mt-4 mb-[6px]">
             Stats
-          </Typography>
-          <Grid container spacing={6}>
-            <Grid size={{ xs: 12, lg: 6 }}>
-              <Stack sx={{ gap: 1 }}>
-                <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
-                  <Typography>Multipliers</Typography>
-                  <Typography className={styles.greyText}>{degen?.multiplier}x</Typography>
-                </Stack>
-                <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
-                  <Typography>Queue</Typography>
-                  <Typography className={styles.greyText}>{degen?.rental_count}</Typography>
-                </Stack>
-              </Stack>
-            </Grid>
-            <Grid size={{ xs: 12, lg: 6 }}>
-              <Stack sx={{ gap: 1 }}>
-                <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
-                  <Typography>Rental period</Typography>
-                  <Typography className={styles.greyText}>1 week</Typography>
-                </Stack>
-                <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
-                  <Typography>Renewal Cost</Typography>
-                  <Typography className={styles.greyText}>{degen?.price_daily}/Day</Typography>
-                </Stack>
-              </Stack>
-            </Grid>
-          </Grid>
-        </Stack>
-      </Stack>
+          </Title>
+          <div className="grid grid-cols-12 gap-12">
+            <div className="col-span-12 lg:col-span-6">
+              <div className="flex flex-col gap-2">
+                <div className="flex justify-between">
+                  <span className="text-base">Multipliers</span>
+                  <span className={styles.greyText}>{degen?.multiplier}x</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-base">Queue</span>
+                  <span className={styles.greyText}>{degen?.rental_count}</span>
+                </div>
+              </div>
+            </div>
+            <div className="col-span-12 lg:col-span-6">
+              <div className="flex flex-col gap-2">
+                <div className="flex justify-between">
+                  <span className="text-base">Rental period</span>
+                  <span className={styles.greyText}>1 week</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-base">Renewal Cost</span>
+                  <span className={styles.greyText}>{degen?.price_daily}/Day</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

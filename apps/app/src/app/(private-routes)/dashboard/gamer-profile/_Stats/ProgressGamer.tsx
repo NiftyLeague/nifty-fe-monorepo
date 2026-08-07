@@ -1,5 +1,5 @@
-import { Box, LinearProgress } from '@mui/material'
-import { linearProgressClasses } from '@mui/material/LinearProgress'
+import { Progress } from '@nl/ui/base/progress'
+import { cn } from '@nl/ui/utils'
 
 import type { ProfileTotal, ProfileNiftySmsher, ProfileMiniGame } from '@/types/account'
 
@@ -8,42 +8,30 @@ interface ProgressGamerProps {
   size?: 'sm' | 'md'
 }
 
-const ProgressGamer = ({ data, size = 'md' }: ProgressGamerProps): React.ReactNode => (
-  <Box
-    sx={{
-      position: 'relative',
-      '&:before': {
-        position: 'absolute',
-        width: size === 'md' ? '54px' : '34px',
-        height: size === 'md' ? '54px' : '34px',
-        borderRadius: '50%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        top: 0,
-        right: '-6px',
-        bottom: 0,
-        margin: 'auto',
-        background: 'var(--color-purple)',
-        content: `'${(data && data?.xp > data?.rank_xp_previous ? data?.rank + 1 : data?.rank) || 0}'`,
-        zIndex: 1,
-        fontWeight: 'bold',
-        fontSize: size === 'md' ? '18px' : '14px',
-      },
-    }}
-  >
-    <LinearProgress
-      variant="determinate"
-      color="primary"
-      value={data ? (data?.xp / data?.rank_xp_next) * 100 : 0}
-      sx={{
-        height: size === 'md' ? '25px' : '14px',
-        [`&.${linearProgressClasses.colorPrimary}`]: {
+const ProgressGamer = ({ data, size = 'md' }: ProgressGamerProps): React.ReactNode => {
+  const isMd = size === 'md'
+  const badgeSize = isMd ? '54px' : '34px'
+  const badgeFontSize = isMd ? '18px' : '14px'
+  const rank = (data && data?.xp > data?.rank_xp_previous ? data?.rank + 1 : data?.rank) || 0
+
+  return (
+    <div className="relative">
+      <Progress
+        value={data ? (data?.xp / data?.rank_xp_next) * 100 : 0}
+        className={cn('w-full', isMd ? 'h-[25px]' : 'h-[14px]')}
+        style={{
+          transform: 'translateZ(0)',
           backgroundColor: 'var(--color-muted-foreground)',
-        },
-      }}
-    />
-  </Box>
-)
+        }}
+      />
+      <span
+        className="absolute -right-1.5 top-0 bottom-0 z-[1] m-auto flex items-center justify-center rounded-full bg-[var(--color-purple)] font-bold"
+        style={{ width: badgeSize, height: badgeSize, fontSize: badgeFontSize }}
+      >
+        {rank}
+      </span>
+    </div>
+  )
+}
 
 export default ProgressGamer

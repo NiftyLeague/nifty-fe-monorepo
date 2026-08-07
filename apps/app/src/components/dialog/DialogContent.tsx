@@ -1,23 +1,43 @@
 import { useContext } from 'react'
-import { Dialog as DialogMUI, DialogContent as DialogContentMUI, DialogTitle } from '@mui/material'
+
+import {
+  Dialog as DialogBase,
+  DialogContent as DialogContentBaseMui,
+  DialogHeader,
+  DialogTitle,
+} from '@nl/ui/base/dialog'
+
 import { DialogContext } from '.'
 import type { DialogProps } from '@/types/dialog'
 import { CloseIconButton } from './DialogActions'
 
-const DialogContentBase = (props: DialogProps) => {
+const DialogContentBase = ({ children, ...props }: DialogProps) => {
   const [isOpen, setIsOpen] = useContext(DialogContext)
 
   if (!isOpen) return null
-  return <DialogMUI {...props} onClose={() => setIsOpen(false)} open={isOpen} />
+  return (
+    <DialogBase open={isOpen} onOpenChange={(open) => !open && setIsOpen(false)}>
+      <DialogContentBaseMui showCloseButton={false} style={props.sx}>
+        {children}
+      </DialogContentBaseMui>
+    </DialogBase>
+  )
 }
 
-const DialogContent = ({ dialogTitle, children, ...props }: DialogProps): React.ReactNode => (
+const DialogContent = ({
+  dialogTitle,
+  children,
+  dividers,
+  ...props
+}: DialogProps): React.ReactNode => (
   <DialogContentBase {...props}>
-    <DialogTitle>
-      {dialogTitle}
-      <CloseIconButton />
-    </DialogTitle>
-    <DialogContentMUI dividers>{children}</DialogContentMUI>
+    <DialogHeader className={dividers ? 'border-b pb-4' : ''}>
+      <DialogTitle>
+        {dialogTitle}
+        <CloseIconButton />
+      </DialogTitle>
+    </DialogHeader>
+    {children}
   </DialogContentBase>
 )
 

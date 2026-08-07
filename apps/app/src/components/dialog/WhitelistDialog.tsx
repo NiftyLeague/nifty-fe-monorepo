@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { Button, Container, Link, Typography } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
 import { Dialog, DialogTrigger, DialogContent } from '@/components/dialog'
 
 import styles from './WhitelistDialog.module.css'
@@ -18,7 +18,7 @@ export const WhitelistModal = (): React.ReactNode => {
   }
 
   return (
-    <Container sx={{ textAlign: 'center', pt: { xs: 1, lg: 4 }, px: 0 }}>
+    <div className="container px-0 pt-1 text-center lg:pt-4">
       <form onSubmit={handleSubmit} className={styles.form}>
         <input
           name="email"
@@ -34,27 +34,27 @@ export const WhitelistModal = (): React.ReactNode => {
           Get Access
         </button>
       </form>
-      <Typography variant="body1" sx={{ mt: 3.5 }}>
+      <span className="mt-7 block text-base">
         Not into email? Follow on{' '}
-        <Link
+        <a
           href="https://twitter.com/NiftyLeague"
           target="_blank"
           rel="noreferrer"
-          sx={{ cursor: 'pointer', textDecoration: 'none' }}
+          className="cursor-pointer text-blue no-underline hover:underline"
         >
           Twitter
-        </Link>{' '}
+        </a>{' '}
         or{' '}
-        <Link
+        <a
           href="https://niftyleague.medium.com"
           target="_blank"
           rel="noreferrer"
-          sx={{ cursor: 'pointer', textDecoration: 'none' }}
+          className="cursor-pointer text-blue no-underline hover:underline"
         >
           Medium
-        </Link>
-      </Typography>
-    </Container>
+        </a>
+      </span>
+    </div>
   )
 }
 
@@ -63,24 +63,17 @@ const WhitelistDialog = () => {
   return (
     <Dialog>
       <DialogTrigger>
-        <Button variant="outlined" fullWidth disabled>
+        <Button variant="outline" className="w-full" disabled>
           {whitelistEnabled ? 'Get Notified' : 'Play in Browser'}
         </Button>
       </DialogTrigger>
       <DialogContent
         aria-labelledby="exclusive-access-to-nifty-tennis"
-        dialogTitle={`Get Notified When\nNifty Tennis Is Out!`}
-        sx={{
-          '& .MuiPaper-root': { maxWidth: 473 },
-          '& h2': {
-            fontSize: { xs: '22px', lg: '28px' },
-            lineHeight: { xs: '28px', lg: '36px' },
-            textAlign: 'center',
-            paddingTop: '36px',
-            whiteSpace: 'pre-line',
-          },
-          '& .MuiDialogContent-root': { border: 'none', paddingBottom: '36px' },
-        }}
+        dialogTitle={
+          <span className="block pt-9 text-center text-[22px] leading-[28px] whitespace-pre-line lg:text-[28px] lg:leading-[36px]">
+            {`Get Notified When\nNifty Tennis Is Out!`}
+          </span>
+        }
       >
         <WhitelistModal />
       </DialogContent>

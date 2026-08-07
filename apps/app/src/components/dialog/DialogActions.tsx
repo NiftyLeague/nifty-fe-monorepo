@@ -1,6 +1,8 @@
 import { useContext, cloneElement } from 'react'
-import { IconButton } from '@mui/material'
+
+import { Button } from '@nl/ui/base/button'
 import { Icon } from '@nl/ui/base/icon'
+
 import { DialogContext } from '.'
 import type { DialogAction } from '@/types/dialog'
 import callAll from '@/utils/callAll'
@@ -26,9 +28,15 @@ const DialogDismissButton = ({ children }: DialogAction) =>
 const CloseIconButton = () => {
   return (
     <DialogDismissButton>
-      <IconButton aria-label="close" className={styles.closeIconButton}>
+      <Button
+        type="button"
+        variant="ghost"
+        size="icon"
+        aria-label="close"
+        className={styles.closeIconButton}
+      >
         <Icon name="x" size="lg" />
-      </IconButton>
+      </Button>
     </DialogDismissButton>
   )
 }

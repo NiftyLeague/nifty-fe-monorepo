@@ -1,18 +1,18 @@
-import { Button, Typography, Container } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
 import useAuth from '@/hooks/useAuth'
 
 const ProfileVerification = (): React.ReactNode => {
   const { isConnected, handleConnectWallet } = useAuth()
 
   return (
-    <Container style={{ textAlign: 'center', padding: '40px' }}>
-      <Typography sx={{ mb: 2 }}>
+    <div className="container" style={{ textAlign: 'center', padding: '40px' }}>
+      <p className="mb-2">
         {isConnected ? 'Please sign message to log in' : 'Please connect your wallet'}
-      </Typography>
-      <Button variant="contained" onClick={handleConnectWallet}>
+      </p>
+      <Button variant="default" onClick={handleConnectWallet}>
         {isConnected ? 'Log In' : 'Connect Wallet'}
       </Button>
-    </Container>
+    </div>
   )
 }
 

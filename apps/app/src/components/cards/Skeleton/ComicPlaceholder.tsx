@@ -1,16 +1,9 @@
-import { Skeleton } from '@mui/material'
+import { Skeleton } from '@nl/ui/base/skeleton'
 import useComicDimension from '@/hooks/useComicDimension'
 
 const ComicPlaceholder = () => {
   const { width, height } = useComicDimension()
-  return (
-    <Skeleton
-      variant="rectangular"
-      width={width}
-      height={height}
-      sx={{ borderRadius: 'var(--radius-default)' }}
-    />
-  )
+  return <Skeleton className="rounded-[var(--radius-default)]" style={{ width, height }} />
 }
 
 export default ComicPlaceholder

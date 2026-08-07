@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import Grid from '@mui/material/Grid'
 import GameCard from '@/components/cards/GameCard'
 
 import styles from './grid-item.module.css'
@@ -50,8 +49,8 @@ const SteamBadge = ({ disabled = false }) => (
 type StoreButtonsProps = { android?: string; ios?: string; steam?: string }
 
 const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
-  <Grid container spacing={2} style={{ width: '100%' }}>
-    <Grid size={4}>
+  <div className="grid grid-cols-12 gap-4" style={{ width: '100%' }}>
+    <div className="col-span-4">
       {android ? (
         <Link href={android} target="_blank" rel="noreferrer">
           <GoogleBadge />
@@ -59,8 +58,8 @@ const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
       ) : (
         <GoogleBadge disabled />
       )}
-    </Grid>
-    <Grid size={4}>
+    </div>
+    <div className="col-span-4">
       {ios ? (
         <Link href={ios} target="_blank" rel="noreferrer">
           <AppleBadge />
@@ -68,8 +67,8 @@ const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
       ) : (
         <AppleBadge disabled />
       )}
-    </Grid>
-    <Grid size={4}>
+    </div>
+    <div className="col-span-4">
       {steam ? (
         <Link href={steam} target="_blank" rel="noreferrer">
           <SteamBadge />
@@ -77,13 +76,13 @@ const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
       ) : (
         <SteamBadge disabled />
       )}
-    </Grid>
-  </Grid>
+    </div>
+  </div>
 )
 
 const F2PGameList = () => (
   <>
-    <Grid className={styles.gridItem} size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
+    <div className={`${styles.gridItem} col-span-12 md:col-span-6 xl:col-span-4`}>
       <GameCard
         title="Nifty Smashers (Beta)"
         required="Party Platform Fighter"
@@ -99,8 +98,8 @@ const F2PGameList = () => (
           />
         }
       />
-    </Grid>
-    <Grid className={styles.gridItem} size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
+    </div>
+    <div className={`${styles.gridItem} col-span-12 md:col-span-6 xl:col-span-4`}>
       <GameCard
         title="Party Royale (Early-Alpha)"
         required="Party Battle Royale"
@@ -110,7 +109,7 @@ const F2PGameList = () => (
         autoHeight={false}
         actions={<StoreButtons ios="https://testflight.apple.com/join/VXxbaZrw" />}
       />
-    </Grid>
+    </div>
   </>
 )
 

@@ -1,9 +1,8 @@
+'use client'
+
 import { useState } from 'react'
 import { cloneDeep } from 'lodash'
-import { Stack } from '@mui/material'
-import Box from '@mui/material/Box'
-import Checkbox from '@mui/material/Checkbox'
-import Typography from '@mui/material/Typography'
+import { Checkbox } from '@nl/ui/base/checkbox'
 
 import { CellRenderer, LabelRenderer } from './Renderer'
 import ExpandableListItem from './ExpandableListItem'
@@ -49,7 +48,6 @@ interface DataListProps {
 /**
  * List with expandable items - mobile table analogue
  */
-
 const DataList: React.FC<DataListProps> = (props) => {
   const {
     AccordionDetailsProps,
@@ -119,9 +117,9 @@ const DataList: React.FC<DataListProps> = (props) => {
       <CellRenderer column={firstColumn} row={row} data={data} />
     ) : (
       primaryColumns.map((column, index) => (
-        <Typography sx={{ flex: index === 0 ? 0.5 : 1 }} key={column.field}>
+        <span key={column.field} className={index === 0 ? 'flex-[0.5]' : 'flex-[1]'}>
           <CellRenderer column={column} row={row} data={data} />
-        </Typography>
+        </span>
       ))
     )
   }
@@ -136,19 +134,14 @@ const DataList: React.FC<DataListProps> = (props) => {
       {columns
         .filter((column) => !excludePrimary || column.field !== 'id')
         .map((column, index) => (
-          <Stack
-            key={`${column.headerName}-${index}`}
-            direction="row"
-            spacing={2}
-            sx={{ width: '100%' }}
-          >
-            <Box sx={{ flex: 1 }}>
+          <div key={`${column.headerName}-${index}`} className="flex w-full flex-row gap-4">
+            <div className="flex-1">
               <LabelRenderer column={column} data={data} />
-            </Box>
-            <Box sx={{ flex: 1 }}>
+            </div>
+            <div className="flex-1">
               <CellRenderer column={column} row={row} data={data} />
-            </Box>
-          </Stack>
+            </div>
+          </div>
         ))}
     </div>
   )
@@ -165,15 +158,20 @@ const DataList: React.FC<DataListProps> = (props) => {
   return (
     <div>
       {checkboxSelection && (
-        <Box style={{ padding: `12px 16px` }}>
+        <div style={{ padding: `12px 16px` }}>
           <Checkbox
             style={{ padding: `0 10px 5px 0` }}
-            checked={selection.length > 0}
-            indeterminate={selection.length > 0}
-            onClick={handleSelectAll}
+            checked={
+              selection.length === data.length
+                ? true
+                : selection.length > 0
+                  ? 'indeterminate'
+                  : false
+            }
+            onCheckedChange={() => handleSelectAll()}
           />
-          <Typography component={`span`}>Select All</Typography>
-        </Box>
+          <span className="text-sm">Select All</span>
+        </div>
       )}
       {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
         <ExpandableListItem

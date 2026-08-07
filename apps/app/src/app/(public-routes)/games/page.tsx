@@ -1,6 +1,7 @@
 'use client'
 
-import { Grid, Button } from '@mui/material'
+import Link from 'next/link'
+import { Button } from '@nl/ui/base/button'
 import SectionSlider from '@/components/sections/SectionSlider'
 import useVersion from '@/hooks/useVersion'
 import GameList from './_GameList'
@@ -8,34 +9,33 @@ import Web3GameList from './_Web3GameList'
 
 const GamesPage = () => {
   const { isWindows, isMacOs, downloadURL, version, message } = useVersion()
+  const installerDisabled = isMacOs || !version
   return (
     <>
       <SectionSlider firstSection title="Free-2-Play Games" isSlider={false}>
-        <Grid
-          container
-          rowSpacing={{ xs: 4, sm: 0 }}
-          sx={{ flexDirection: 'row', flexWrap: 'wrap', paddingBottom: { xs: 8, sm: 4, md: 0 } }}
-        >
+        <div className="grid grid-cols-12 gap-y-8 pb-8 sm:gap-y-0 sm:pb-4 md:pb-0">
           <GameList />
-        </Grid>
+        </div>
       </SectionSlider>
       <SectionSlider
         firstSection
         title="Web3 Games"
         isSlider={false}
         actions={
-          <Button href={downloadURL} disabled={isMacOs || !version} variant="outlined">
-            {!version && isWindows ? 'Fetching installer version...' : message}
-          </Button>
+          installerDisabled ? (
+            <Button variant="outline" disabled>
+              {!version && isWindows ? 'Fetching installer version...' : message}
+            </Button>
+          ) : (
+            <Button asChild variant="outline">
+              <Link href={downloadURL}>{message}</Link>
+            </Button>
+          )
         }
       >
-        <Grid
-          container
-          rowSpacing={{ xs: 4, sm: 0 }}
-          sx={{ flexDirection: 'row', flexWrap: 'wrap', paddingBottom: { xs: 8, sm: 4, md: 0 } }}
-        >
+        <div className="grid grid-cols-12 gap-y-8 pb-8 sm:gap-y-0 sm:pb-4 md:pb-0">
           <Web3GameList />
-        </Grid>
+        </div>
       </SectionSlider>
     </>
   )

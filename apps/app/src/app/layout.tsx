@@ -3,7 +3,6 @@ import type { Metadata, Viewport } from 'next'
 import Head from 'next/head'
 import Script from 'next/script'
 
-import { ThemeProvider } from '@nl/theme'
 import { GoogleTagManager, WebVitals } from '@nl/ui/gtm'
 import { customFontClassName } from '@nl/ui/fonts'
 import { cn } from '@nl/ui/utils'
@@ -74,11 +73,9 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <GoogleTagManager />
 
       <body suppressHydrationWarning>
-        <ThemeProvider>
-          <AppContextWrapper>
-            <MainLayout>{children}</MainLayout>
-          </AppContextWrapper>
-        </ThemeProvider>
+        <AppContextWrapper>
+          <MainLayout>{children}</MainLayout>
+        </AppContextWrapper>
 
         <WebVitals />
         <Script

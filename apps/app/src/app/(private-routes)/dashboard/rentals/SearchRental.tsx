@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { TextField, FormControl } from '@mui/material'
+import { Input } from '@nl/ui/custom/input'
 
 interface Props {
   handleSearch: (currentValue: string) => void
@@ -50,23 +50,17 @@ const SearchRental = ({ handleSearch, placeholder }: Props): React.ReactNode => 
   }
 
   return (
-    <FormControl>
-      <TextField
+    <div>
+      <Input
         placeholder={placeholder || 'Search renter by name'}
         name="search"
-        variant="outlined"
-        fullWidth
-        sx={{ minWidth: '480px' }}
-        slotProps={{
-          htmlInput: {
-            ref: inputEl,
-            onKeyDown: handleKeyDown,
-            onKeyUp: handleKeyUp,
-            onKeyPress: handleKeyPress,
-          },
-        }}
+        className="min-w-[480px]"
+        ref={inputEl}
+        onKeyDown={handleKeyDown}
+        onKeyUp={handleKeyUp}
+        onKeyPress={handleKeyPress}
       />
-    </FormControl>
+    </div>
   )
 }
 

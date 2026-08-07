@@ -1,4 +1,3 @@
-import { Box, Typography } from '@mui/material'
 import { Icon } from '@nl/ui/base/icon'
 import useComicDimension from '@/hooks/useComicDimension'
 
@@ -19,25 +18,14 @@ const BuyCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<BuyCardP
   }
 
   return (
-    <Box
+    <div
       onClick={handleBuyComic}
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        border: '1px solid #363636',
-        borderRadius: '5px',
-        width: cardWidth,
-        height: cardHeight,
-        cursor: 'pointer',
-      }}
+      className="flex cursor-pointer flex-col items-center justify-center rounded-[5px] border border-[#363636]"
+      style={{ width: cardWidth, height: cardHeight }}
     >
       <Icon name="shopping-cart" color="purple" size={cardWidth - 50} strokeWidth={3} />
-      <Typography sx={{ mt: 0.5, textDecoration: 'underline', color: 'var(--color-purple)' }}>
-        {isNew ? 'Buy' : 'Buy More'}
-      </Typography>
-    </Box>
+      <span className="mt-0.5 text-purple underline">{isNew ? 'Buy' : 'Buy More'}</span>
+    </div>
   )
 }
 

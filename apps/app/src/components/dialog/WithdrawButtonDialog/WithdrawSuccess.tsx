@@ -1,6 +1,9 @@
 import type { Dispatch, SetStateAction } from 'react'
-import { Dialog, DialogContent, DialogContentText, DialogTitle, IconButton } from '@mui/material'
+
+import { Button } from '@nl/ui/base/button'
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@nl/ui/base/dialog'
 import { Icon } from '@nl/ui/base/icon'
+
 import useTokensBalances from '@/hooks/balances/useTokensBalances'
 
 type WithdrawSuccessProps = {
@@ -20,26 +23,23 @@ const WithdrawSuccess = ({
   }
 
   return (
-    <Dialog
-      open={successDialogOpen}
-      onClose={handleClose}
-      aria-labelledby="alert-dialog-withdraw-success"
-      aria-describedby="alert-dialog-withdraw-success"
-    >
-      <DialogTitle id="alert-dialog-title" sx={{ textAlign: 'center' }}>
-        Success!
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{ position: 'absolute', right: 0, top: 0 }}
-        >
-          <Icon name="x" size="lg" color="dim" />
-        </IconButton>
-      </DialogTitle>
-      <DialogContent>
-        <DialogContentText id="alert-dialog-description">
+    <Dialog open={successDialogOpen} onOpenChange={(open) => !open && handleClose()}>
+      <DialogContent showCloseButton={false}>
+        <DialogTitle className="relative text-center text-xl">
+          Success!
+          <Button
+            aria-label="close"
+            variant="ghost"
+            size="icon"
+            onClick={handleClose}
+            className="absolute top-0 right-0 cursor-pointer"
+          >
+            <Icon name="x" size="lg" color="dim" />
+          </Button>
+        </DialogTitle>
+        <DialogDescription>
           NFTL has been sent to your <strong>Immutable zkEVM</strong> wallet!
-        </DialogContentText>
+        </DialogDescription>
       </DialogContent>
     </Dialog>
   )

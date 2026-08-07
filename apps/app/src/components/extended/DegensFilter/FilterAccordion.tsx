@@ -1,6 +1,5 @@
 import { ReactNode } from 'react'
-import { Accordion, AccordionSummary, AccordionDetails, Stack, Typography } from '@mui/material'
-import { Icon } from '@nl/ui/base/icon'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@nl/ui/base/accordion'
 
 interface Props {
   summary: ReactNode
@@ -16,35 +15,16 @@ const FilterAccordion = ({
   length = 0,
 }: Props): React.ReactNode => {
   return (
-    <Accordion
-      defaultExpanded={expanded}
-      sx={{
-        background: 'transparent',
-        '&.Mui-expanded': { margin: 0 },
-        '&:before': { display: 'none' },
-        width: '100%',
-      }}
-    >
-      <AccordionSummary
-        expandIcon={<Icon name="chevron-down" />}
-        sx={{
-          minHeight: 36,
-          padding: '0px 14px',
-          '&.Mui-expanded': { minHeight: 36 },
-          '& .MuiAccordionSummary-content': { my: 1, '&.Mui-expanded': { my: 1 } },
-        }}
-      >
-        <Stack
-          direction="row"
-          sx={{ width: '100%', justifyContent: 'space-between', alignItems: 'center' }}
-        >
-          {summary}
-          {length > 0 && (
-            <Typography sx={{ fontSize: '10px', mr: 1, color: '#D7DCFF' }}>{length}</Typography>
-          )}
-        </Stack>
-      </AccordionSummary>
-      <AccordionDetails>{children}</AccordionDetails>
+    <Accordion type="single" collapsible defaultValue={expanded ? 'item' : undefined}>
+      <AccordionItem value="item" className="w-full border-0 bg-transparent">
+        <AccordionTrigger className="min-h-9 px-3.5 py-0 hover:no-underline">
+          <div className="flex w-full items-center justify-between">
+            {summary}
+            {length > 0 && <span className="mr-1 text-[10px] text-[#D7DCFF]">{length}</span>}
+          </div>
+        </AccordionTrigger>
+        <AccordionContent>{children}</AccordionContent>
+      </AccordionItem>
     </Accordion>
   )
 }

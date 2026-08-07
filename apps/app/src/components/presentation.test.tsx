@@ -2,8 +2,6 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it } from 'bun:test'
 import { mock } from 'bun:test'
 
-const themeState = { mode: 'light' as 'dark' | 'light' }
-
 let GameCard: typeof import('./cards/GameCard').default
 let MainCard: typeof import('./cards/MainCard').default
 let SubCard: typeof import('./cards/SubCard').default
@@ -12,18 +10,10 @@ let Breadcrumbs: typeof import('./extended/Breadcrumbs').default
 let Transitions: typeof import('./extended/Transitions').default
 
 beforeEach(async () => {
-  mock.module('@nl/theme', () => ({
-    gridSpacing: 3,
-    useTheme: () => ({
-      palette: { mode: themeState.mode },
-      spacing: (value: number) => `${value * 8}px`,
-    }),
-  }))
   mock.module('@nl/ui/base/icon', () => ({
     Icon: ({ name }: { name: string }) => <span data-icon={name}>{name}</span>,
   }))
   mock.module('@nl/ui/custom/external-icon', () => ({ ExternalIcon: () => <span>external</span> }))
-  themeState.mode = 'light'
   window.history.replaceState({}, '', '/')
 
   const gameCard = await import('./cards/GameCard')
@@ -177,7 +167,6 @@ describe('card presentation', () => {
     )
     expect(screen.getByText('Main body')).not.toBeNull()
 
-    themeState.mode = 'dark'
     rerender(
       <MainCard title="Dark main" darkTitle border={false} boxShadow content={false}>
         Raw body

@@ -1,9 +1,7 @@
 import { memo, useMemo } from 'react'
 
-// material-ui
-import { useTheme, appDrawerWidth, appHeaderHeight } from '@nl/theme'
-import { Drawer, Stack, Box } from '@mui/material'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
+import { cn } from '@nl/ui/utils'
 
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar'
@@ -16,10 +14,12 @@ import { useDispatch, useSelector } from '@/store/hooks'
 import UserProfile from './_UserProfile'
 import LogoutButton from './_LogoutButton'
 
+const appDrawerWidth = 260
+const appHeaderHeight = 60
+
 // ==============================|| SIDEBAR DRAWER ||============================== //
 
 const Sidebar = () => {
-  const theme = useTheme()
   const isSmallScreen = useMediaQuery('(max-width:1024px)')
 
   const dispatch = useDispatch()
@@ -27,11 +27,11 @@ const Sidebar = () => {
 
   const logo = useMemo(
     () => (
-      <Box sx={{ display: { xs: 'block', lg: 'none' } }}>
-        <Box sx={{ display: 'flex', p: 2, mx: 'auto' }}>
+      <div className="block lg:hidden">
+        <div className="mx-auto flex p-2">
           <LogoSection />
-        </Box>
-      </Box>
+        </div>
+      </div>
     ),
     []
   )
@@ -46,16 +46,16 @@ const Sidebar = () => {
           paddingRight: '16px',
         }}
       >
-        <Stack sx={{ justifyContent: 'space-between', height: '100%' }}>
-          <Box>
+        <div className="flex h-full flex-col justify-between">
+          <div>
             <UserProfile />
             <MenuList />
             {/* <OnboardingCard /> */}
-          </Box>
-          <Stack sx={{ alignItems: 'center' }}>
-            <LogoutButton sx={{ marginBottom: 3, width: '85%' }} />
-          </Stack>
-        </Stack>
+          </div>
+          <div className="flex flex-col items-center">
+            <LogoutButton sx={{ marginBottom: 12, width: '85%' }} />
+          </div>
+        </div>
       </PerfectScrollbar>
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,32 +63,47 @@ const Sidebar = () => {
   )
 
   return (
-    <Box
-      component="nav"
-      sx={{ flexShrink: { lg: 0 }, width: isSmallScreen ? 'auto' : appDrawerWidth }}
+    <nav
       aria-label="mailbox folders"
+      className={cn('shrink-0', isSmallScreen ? 'w-auto' : 'w-[260px]')}
+      style={{ flexShrink: isSmallScreen ? undefined : 0 }}
     >
-      <Drawer
-        variant={isSmallScreen ? 'temporary' : 'persistent'}
-        anchor="left"
-        open={drawerOpen}
-        onClose={() => dispatch(openDrawer(!drawerOpen))}
-        sx={{
-          '& .MuiDrawer-paper': {
-            width: appDrawerWidth,
-            background: 'var(--color-sidebar)',
-            color: 'var(--color-sidebar-foreground)',
-            borderRight: 'none',
-            [theme.breakpoints.up('lg')]: { top: appHeaderHeight },
-          },
-        }}
-        ModalProps={{ keepMounted: true }}
-        color="inherit"
-      >
-        {drawerOpen && logo}
-        {drawerOpen && drawer}
-      </Drawer>
-    </Box>
+      {/* temporary drawer (mobile) */}
+      {isSmallScreen && (
+        <div
+          className={cn(
+            'fixed inset-0 z-50 transition-opacity',
+            drawerOpen
+              ? 'pointer-events-auto bg-black/50 opacity-100'
+              : 'pointer-events-none opacity-0'
+          )}
+          onClick={() => dispatch(openDrawer(!drawerOpen))}
+        >
+          <div
+            className="bg-sidebar text-sidebar-foreground absolute inset-y-0 left-0 border-r-0"
+            style={{ width: appDrawerWidth }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {drawerOpen && logo}
+            {drawerOpen && drawer}
+          </div>
+        </div>
+      )}
+
+      {/* persistent drawer (desktop) */}
+      {!isSmallScreen && (
+        <aside
+          className={cn(
+            'bg-sidebar text-sidebar-foreground fixed bottom-0 left-0 z-40 border-r-0 transition-transform duration-200',
+            !drawerOpen && '-translate-x-full'
+          )}
+          style={{ width: appDrawerWidth, top: appHeaderHeight }}
+        >
+          {drawerOpen && logo}
+          {drawerOpen && drawer}
+        </aside>
+      )}
+    </nav>
   )
 }
 
