@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/eslint-config-v1.0.0...eslint-config-v1.0.1) (2026-08-07)
+
+
+### Bug Fixes
+
+* sync-local-commits-to-staging ([#371](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/371)) ([37d95fb](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/37d95fba2daf7c0972eec715fea7ee32e1ea0c0e))
+
 ## 1.0.0 (2026-08-02)
 
 

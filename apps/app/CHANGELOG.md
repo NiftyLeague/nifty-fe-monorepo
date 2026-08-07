@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.1.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.0.2...app-v1.1.0) (2026-08-07)
+
+
+### Features
+
+* drop MUI and @nl/theme from apps/app ([939c0c8](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/939c0c84c825b1fc976b98aff3377aadc13e7e7c))
+
+
+### Bug Fixes
+
+* sync-local-commits-to-staging ([#371](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/371)) ([37d95fb](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/37d95fba2daf7c0972eec715fea7ee32e1ea0c0e))
+
+
+### Maintenance
+
+* extract shared degens page logic and remove dead console output ([#379](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/379)) ([92ec323](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/92ec323cef0b9054015f9e2214407beabb91ebb1))
+* trigger CI refresh for format cache ([2c16e9e](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/2c16e9e8229e313c298a9f8ef27e15f53379b9da))
+
 ## [1.0.2](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.0.1...app-v1.0.2) (2026-08-07)
 
 
