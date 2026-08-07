@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState, useMemo } from 'react'
 import { type AddressLike } from 'ethers'
 import { useRouter } from 'next/navigation'
-import { Button } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
 
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import useNetworkContext from '@/hooks/useNetworkContext'
@@ -89,7 +89,7 @@ const ComicsBurner = () => {
 
   return (
     <>
-      <Button variant="contained" sx={{ height: 28 }} onClick={handleReturnPage}>
+      <Button variant="default" className="h-7" onClick={handleReturnPage}>
         ← Back to Comics &amp; Items
       </Button>
       <Machine burnDisabled={burnDisabled} selectedComics={selectedComics} />

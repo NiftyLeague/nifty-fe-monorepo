@@ -1,8 +1,5 @@
 import { memo } from 'react'
 
-// material-ui
-import { Typography } from '@mui/material'
-
 // project imports
 import NavGroup from './_NavGroup'
 import { PublicItems, PrivateItems } from '@/constants/menu-items'
@@ -40,14 +37,9 @@ const MenuList = () => {
         return <NavGroup key={item.id} item={item} />
       default:
         return (
-          <Typography
-            key={item.id}
-            variant="h6"
-            sx={{ color: 'var(--color-error)' }}
-            align="center"
-          >
+          <h6 key={item.id} className="text-center text-error">
             Menu Items Error
-          </Typography>
+          </h6>
         )
     }
   })

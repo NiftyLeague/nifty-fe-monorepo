@@ -1,4 +1,5 @@
-import { Button, Card, Typography } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
+import { Card } from '@nl/ui/base/card'
 
 interface EmptyStateProps {
   message?: string
@@ -9,20 +10,13 @@ interface EmptyStateProps {
 const EmptyState = ({ message, buttonText, onClick, noBorder = false }: EmptyStateProps) => (
   <>
     <Card
-      sx={{
-        mx: 'auto',
-        mt: 5,
-        width: { xs: 'calc(100% - 24px)', sm: 400 },
-        bgcolor: 'transparent',
-        border: noBorder ? 'none' : 'var(--border-purple)',
-        boxShadow: 'none',
-        p: 4,
-        textAlign: 'center',
-      }}
+      className={`mx-auto mt-5 w-[calc(100%_-_24px)] bg-transparent p-8 text-center shadow-none sm:w-[400px] ${
+        noBorder ? 'border-none' : 'border-[var(--border-purple)]'
+      }`}
     >
-      <Typography sx={{ mt: 2, color: 'var(--color-foreground)' }}>{message}</Typography>
+      <p className="mt-2 text-foreground">{message}</p>
       {buttonText && (
-        <Button variant="contained" sx={{ mt: 2 }} onClick={onClick}>
+        <Button variant="default" className="mt-2" onClick={onClick}>
           {buttonText}
         </Button>
       )}

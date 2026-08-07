@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { memo } from 'react'
-import IconButton from '@mui/material/IconButton'
+import { Button } from '@nl/ui/base/button'
 
 import { formatNumberToDisplay } from '@nl/ui/utils'
 import useUserUnclaimedAmount from '@/hooks/merkleDistributor/useUserUnclaimedAmount'
@@ -25,14 +25,14 @@ const GameBalance: React.FC = memo(() => {
       secondary="Available to Withdraw"
       actions={
         <>
-          <IconButton
+          <Button
+            variant="ghost"
+            size="icon"
             disabled
-            color="primary"
-            component="span"
-            sx={{ position: 'absolute', top: -2, right: -2 }}
+            className="absolute -top-4 -right-4 cursor-pointer"
           >
             <Image src="/img/logos/passport/32px.svg" alt="Immutable" width={22} height={22} />
-          </IconButton>
+          </Button>
           <WithdrawButtonDialog balance={nftlUnclaimed} loading={loading} />
         </>
       }

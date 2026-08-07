@@ -1,9 +1,7 @@
-import { Grid } from '@mui/material'
 import SectionTitle from '@/components/sections/SectionTitle'
 import usePlayerProfile from '@/hooks/usePlayerProfile'
 import { transformRentals } from '@/app/(private-routes)/dashboard/_utils/transformRentals'
 import { FC } from 'react'
-import { sectionSpacing } from '@nl/theme'
 import type { Rentals } from '@/types/rentals'
 import { ColumnType } from '../_MyRentals'
 import RentalsTableSimple from '../_MyRentals/RentalsTableSimple'
@@ -20,16 +18,16 @@ const EarningCap: FC<EarningCapProps> = ({ rentals, hideTitle }) => {
     { id: 'earningCapProgress', label: 'Earnings Cap' },
   ]
   return (
-    <Grid container spacing={sectionSpacing} sx={{ height: '100%' }}>
+    <div className="grid h-full grid-cols-12 gap-4">
       {!hideTitle && (
-        <Grid size={{ xs: 12 }}>
+        <div className="col-span-12">
           <SectionTitle firstSection>Earnings Cap</SectionTitle>
-        </Grid>
+        </div>
       )}
-      <Grid size={{ xs: 12 }} sx={{ height: '100%' }}>
+      <div className="col-span-12 h-full">
         <RentalsTableSimple rentals={rows} columns={columns} />
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   )
 }
 

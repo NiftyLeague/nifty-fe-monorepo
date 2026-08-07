@@ -1,8 +1,7 @@
 import Link from 'next/link'
-import { Button, Grid, Stack } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
 import SectionTitle from '@/components/sections/SectionTitle'
 import RentalsTableSimple from './RentalsTableSimple'
-import { sectionSpacing } from '@nl/theme'
 import usePlayerProfile from '@/hooks/usePlayerProfile'
 import type { FC } from 'react'
 import type { Rentals } from '@/types/rentals'
@@ -45,25 +44,25 @@ const MyRentals: FC<MyRentalsProps> = ({ rentals }): React.ReactNode => {
   const rows = transformRentals(rentals, profile?.id || '')
 
   return (
-    <Grid container spacing={sectionSpacing} sx={{ height: '100%' }}>
-      <Grid size={{ xs: 12 }}>
+    <div className="grid h-full grid-cols-12 gap-4">
+      <div className="col-span-12">
         <SectionTitle
           firstSection
           actions={
-            <Stack direction="row" sx={{ gap: 2 }}>
-              <Button variant="outlined" component={Link} href="/dashboard/rentals">
-                View All Rentals
+            <div className="flex flex-row gap-4">
+              <Button asChild variant="outline">
+                <Link href="/dashboard/rentals">View All Rentals</Link>
               </Button>
-            </Stack>
+            </div>
           }
         >
           My Rentals
         </SectionTitle>
-      </Grid>
-      <Grid size={{ xs: 12 }} sx={{ height: '100%' }}>
+      </div>
+      <div className="col-span-12 h-full">
         <RentalsTableSimple rentals={rows} columns={columns} />
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   )
 }
 

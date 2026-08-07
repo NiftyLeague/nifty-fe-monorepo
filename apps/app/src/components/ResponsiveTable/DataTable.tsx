@@ -1,7 +1,7 @@
-import type { Dispatch, SetStateAction } from 'react'
-import { DataGrid } from '@mui/x-data-grid'
-import Box from '@mui/material/Box'
-import { CustomColDef, DataGridProps, GridRenderCellParams, Row } from './types'
+'use client'
+
+import type { Dispatch, SetStateAction, ReactNode } from 'react'
+import { CustomColDef, DataGridProps, Row } from './types'
 
 interface DataTableProps {
   columns: CustomColDef[]
@@ -15,59 +15,67 @@ interface DataTableProps {
   showPagination?: boolean
 }
 
-// Convert our custom column definition to MUI's GridColDef
-const convertToGridColDef = (col: CustomColDef): CustomColDef => {
-  const { renderCell, ...rest } = col
-  return {
-    ...rest,
-    renderCell: renderCell
-      ? (params) =>
-          renderCell({
-            value: params.value,
-            row: params.row as Row,
-            field: params.field as string,
-            id: params.id,
-          } as GridRenderCellParams)
-      : undefined,
-  }
-}
+const getRowId = (row: Row) =>
+  typeof row.id === 'string' || typeof row.id === 'number' ? row.id : row.rank
 
 /**
- * Material-ui DataGrid component
+ * Read-only data grid rendered as a semantic HTML table (replaces the legacy DataGrid).
  */
 export default function DataTable(props: DataTableProps) {
-  const { columns, data, paginationModel, onPaginationModelChange, DataGridProps } = props
+  const { columns, data, paginationModel, noContentText } = props
 
   return (
-    <Box
-      sx={{
-        height: 52 * (paginationModel.pageSize + 1) + 86,
-        width: '100%',
-        '.MuiDataGrid-cell:focus, .MuiDataGrid-columnHeader:focus, .MuiDataGrid-columnHeader:focus-within ':
-          {
-            outline: 'none !important',
-          },
-        '.MuiDataGrid-root, .MuiDataGrid-footerContainer ': { border: 'none' },
-        '.MuiDataGrid-columnHeaders, .MuiDataGrid-cell': {
-          borderBottom: '1px solid #d5d9e915 !important',
-          zIndex: 1,
-        },
-        '.MuiDataGrid-iconSeparator': { display: 'none' },
-      }}
+    <div
+      style={{ height: 52 * (paginationModel.pageSize + 1) + 86, width: '100%' }}
+      className="h-full w-full overflow-hidden"
     >
-      <DataGrid
-        columns={columns.map(convertToGridColDef)}
-        disableColumnMenu
-        disableRowSelectionOnClick
-        getRowId={(row) =>
-          typeof row.id === 'string' || typeof row.id === 'number' ? row.id : row.rank
-        }
-        onPaginationModelChange={onPaginationModelChange}
-        pageSizeOptions={[10, 25, 50]}
-        paginationModel={paginationModel}
-        rows={data}
-        {...DataGridProps}
-      />
-    </Box>
+      <div className="h-full max-h-[750px] overflow-auto rounded-lg border bg-background">
+        <table className="w-full border-collapse text-sm" aria-label="data table">
+          <thead className="sticky top-0 z-10 bg-background">
+            <tr>
+              {columns.map((column) => (
+                <th
+                  key={column.field}
+                  align={column.align || 'left'}
+                  style={{ minWidth: column.width }}
+                  className="px-4 py-3 font-medium text-muted-foreground"
+                >
+                  {column.headerName || column.field}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {data.length === 0 ? (
+              <tr>
+                <td colSpan={columns.length} className="px-4 py-3">
+                  <span className="text-muted-foreground">{noContentText ?? 'No Content'}</span>
+                </td>
+              </tr>
+            ) : (
+              data.map((row) => {
+                const rowId = getRowId(row)
+                return (
+                  <tr key={String(rowId)} className="hover:bg-accent/50">
+                    {columns.map((column) => (
+                      <td key={column.field} align={column.align || 'left'} className="px-4 py-3">
+                        {column.renderCell
+                          ? (column.renderCell({
+                              value: row[column.field],
+                              row,
+                              field: column.field,
+                              id: row.id,
+                            }) as ReactNode)
+                          : String(row[column.field] ?? '')}
+                      </td>
+                    ))}
+                  </tr>
+                )
+              })
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
   )
 }

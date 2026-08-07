@@ -1,8 +1,5 @@
 'use client'
 
-import { Grid } from '@mui/material'
-import { sectionSpacing } from '@nl/theme'
-
 import ArcadeBalance from './ArcadeBalance'
 import DegenBalance from './DegenBalance'
 import GameBalance from './GameBalance'
@@ -10,25 +7,25 @@ import TitleSection from './TitleSection'
 import WalletBalances from './WalletBalances'
 
 const MyNFTL = (): React.ReactNode => (
-  <Grid container spacing={sectionSpacing}>
-    <Grid size={{ xs: 12 }} sx={{ mt: '8px', mb: '4px' }}>
+  <div className="grid grid-cols-12 gap-4">
+    <div className="col-span-12 mt-2 mb-1">
       <TitleSection />
-    </Grid>
-    <Grid container size={{ xs: 12 }} spacing={sectionSpacing}>
+    </div>
+    <div className="col-span-12 grid grid-cols-12 gap-4">
       <WalletBalances />
-    </Grid>
-    <Grid container size={{ xs: 12 }} spacing={sectionSpacing}>
-      <Grid size={{ xs: 12, sm: 6 }}>
+    </div>
+    <div className="col-span-12 grid grid-cols-12 gap-4">
+      <div className="col-span-12 sm:col-span-6">
         <GameBalance />
-      </Grid>
-      <Grid size={{ xs: 12, sm: 6 }}>
+      </div>
+      <div className="col-span-12 sm:col-span-6">
         <DegenBalance />
-      </Grid>
-    </Grid>
-    <Grid size={{ xs: 12 }}>
+      </div>
+    </div>
+    <div className="col-span-12">
       <ArcadeBalance />
-    </Grid>
-  </Grid>
+    </div>
+  </div>
 )
 
 export default MyNFTL

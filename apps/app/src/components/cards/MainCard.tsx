@@ -1,20 +1,9 @@
 import { Ref, forwardRef } from 'react'
 
-// material-ui
-import { useTheme } from '@nl/theme'
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  Typography,
-  CardProps,
-  CardHeaderProps,
-  CardContentProps,
-} from '@mui/material'
-
-// constant
-const headerSX = { '& .MuiCardHeader-action': { mr: 0 } }
+import { Card, CardContent, CardHeader } from '@nl/ui/base/card'
+import { Separator } from '@nl/ui/base/separator'
+import { Title } from '@nl/ui/custom/typography'
+import { cn } from '@nl/ui/utils'
 
 // ==============================|| CUSTOM MAIN CARD ||============================== //
 
@@ -22,20 +11,18 @@ export interface MainCardProps {
   border?: boolean
   boxShadow?: boolean
   children: React.ReactNode | string
-  style?: React.CSSProperties
   content?: boolean
-  className?: string
   contentClass?: string
-  contentSX?: CardContentProps['sx']
   darkTitle?: boolean
-  sx?: CardProps['sx']
-  secondary?: CardHeaderProps['action']
-  shadow?: string
-  elevation?: number
+  sx?: React.CSSProperties
   title?: React.ReactNode | string
+  secondary?: React.ReactNode
+  shadow?: string
+  className?: string
+  style?: React.CSSProperties
 }
 
-const MainCard = forwardRef(
+const MainCard = forwardRef<HTMLDivElement, MainCardProps>(
   (
     {
       border = true,
@@ -43,54 +30,44 @@ const MainCard = forwardRef(
       children,
       content = true,
       contentClass = '',
-      contentSX = {},
       darkTitle,
       secondary,
       shadow,
-      sx = {},
+      sx,
       title,
+      className,
       ...others
-    }: MainCardProps,
-    ref: Ref<HTMLDivElement>
+    },
+    ref
   ) => {
-    const theme = useTheme()
-
     return (
       <Card
         ref={ref}
-        {...others}
-        sx={{
-          height: '100%',
-          border: border ? 'var(--border-default)' : 'none',
-          ':hover': {
-            boxShadow: boxShadow
-              ? shadow ||
-                (theme.palette.mode === 'dark'
-                  ? '0 2px 14px 0 rgb(33 150 243 / 10%)'
-                  : '0 2px 14px 0 rgb(32 40 45 / 8%)')
-              : 'inherit',
-          },
-          ...sx,
-        }}
+        style={sx}
+        className={cn(
+          'h-full',
+          border && 'border',
+          boxShadow &&
+            (shadow ||
+              'shadow-[0_2px_14px_0_rgb(33_150_243/0.1)] dark:shadow-[0_2px_14px_0_rgb(32_40_45/0.08)]'),
+          className
+        )}
+        {...(others as React.ComponentProps<'div'>)}
       >
         {/* card header and action */}
-        {!darkTitle && title && <CardHeader sx={headerSX} title={title} action={secondary} />}
-        {darkTitle && title && (
-          <CardHeader
-            sx={headerSX}
-            title={<Typography variant="h3">{title}</Typography>}
-            action={secondary}
-          />
+        {title && (
+          <>
+            <CardHeader className="flex flex-row items-center justify-between gap-2">
+              <Title level={darkTitle ? 3 : 5}>{title}</Title>
+              {secondary}
+            </CardHeader>
+            <Separator className="opacity-60" />
+          </>
         )}
-
-        {/* content & header divider */}
-        {title && <Divider sx={{ opacity: '0.6' }} />}
 
         {/* card content */}
         {content && (
-          <CardContent sx={contentSX} className={contentClass}>
-            {children}
-          </CardContent>
+          <CardContent className={cn('px-6', contentClass || '')}>{children}</CardContent>
         )}
         {!content && children}
       </Card>

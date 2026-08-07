@@ -1,18 +1,16 @@
-import { InputLabel as MuiInputLabel, InputLabelProps } from '@mui/material'
+import { Label } from '@nl/ui/base/label'
+import { cn } from '@nl/ui/utils'
 
 import styles from './InputLabel.module.css'
 
-interface MUIInputLabelProps extends InputLabelProps {
+interface MUIInputLabelProps extends React.ComponentProps<typeof Label> {
   horizontal?: boolean
 }
 
 const InputLabel = ({ children, horizontal = false, ...others }: MUIInputLabelProps) => (
-  <MuiInputLabel
-    className={horizontal ? styles.bInputLabelHorizontal : styles.bInputLabel}
-    {...others}
-  >
+  <Label className={cn(horizontal ? styles.bInputLabelHorizontal : styles.bInputLabel)} {...others}>
     {children}
-  </MuiInputLabel>
+  </Label>
 )
 
 export default InputLabel

@@ -2,16 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import {
-  TableBody,
-  TableHead,
-  TableRow,
-  Table,
-  TableCell,
-  CircularProgress,
-  Typography,
-} from '@mui/material'
-import { Box } from '@mui/system'
+
+import { CircularProgress } from '@nl/ui/custom/circular-progress'
 
 import { fetchScores } from '@/utils/leaderboard'
 import type { DataType, ReturnDataType } from '@/types/leaderboard'
@@ -78,102 +70,96 @@ const TableModal = ({
 
   return (
     <div className={styles.tableRoot}>
-      <Table className="modal-table">
-        <TableHead className="header">
-          <TableRow className="row">
-            <TableCell component="th" className="cell index">
+      <table className="modal-table">
+        <thead className="header">
+          <tr className="row">
+            <th className="cell index" scope="col">
               <code>RANK</code>
-            </TableCell>
-            <TableCell component="th" className="cell ellipsis">
+            </th>
+            <th className="cell ellipsis" scope="col">
               <code>USERNAME</code>
-            </TableCell>
+            </th>
             {flag === 'win_rate' && (
-              <TableCell component="th" className="cell ellipsis">
+              <th className="cell ellipsis" scope="col">
                 <code>WIN RATE</code>
-              </TableCell>
+              </th>
             )}
             {flag === 'earnings' && (
-              <TableCell
-                component="th"
+              <th
                 className="cell ellipsis"
+                scope="col"
                 style={{ fontSize: 10, textAlign: 'center' }}
               >
                 <code>TOTAL NFTL EARNED</code>
-              </TableCell>
+              </th>
             )}
             {selectedGame === 'nifty_smashers' && (
-              <TableCell
-                component="th"
+              <th
                 className="cell ellipsis"
+                scope="col"
                 style={{ fontSize: 10, textAlign: 'center' }}
               >
                 <code>MATCHES PLAYED</code>
-              </TableCell>
+              </th>
             )}
             {flag === 'earnings' && (
-              <TableCell
-                component="th"
+              <th
                 className="cell ellipsis"
+                scope="col"
                 style={{ fontSize: 10, textAlign: 'center' }}
               >
                 <code>AVG,NFTL / MATCH</code>
-              </TableCell>
+              </th>
             )}
             {flag !== 'win_rate' && selectedGame === 'nifty_smashers' && (
-              <TableCell component="th" className="cell ellipsis">
+              <th className="cell ellipsis" scope="col">
                 <code>KILLS</code>
-              </TableCell>
+              </th>
             )}
             {flag === 'score' && (
-              <TableCell component="th" className="cell ellipsis">
+              <th className="cell ellipsis" scope="col">
                 <code>HIGH SCORE</code>
-              </TableCell>
+              </th>
             )}
             {flag === 'burnings' && (
-              <TableCell component="th" className="cell ellipsis">
+              <th className="cell ellipsis" scope="col">
                 <code>NFTL BURNED</code>
-              </TableCell>
+              </th>
             )}
-          </TableRow>
-        </TableHead>
-        <Box className="box-table" sx={{ marginTop: '20px' }} />
-        <TableBody className="body">
+          </tr>
+        </thead>
+        <div className="box-table" style={{ marginTop: '20px' }} />
+        <tbody className="body">
           {data ? (
             data.map((i) => (
-              <TableRow className="row first" key={`${i}`}>
-                <TableCell className="cell index" style={{ color: '#9ba5bf' }}>
+              <tr className="row first" key={`${i}`}>
+                <td className="cell index" style={{ color: '#9ba5bf' }}>
                   <span className={styles.rankBody} style={getTextStyleForRank(i.rank)}>
                     {i.rank}
                   </span>
                   {i.rank === 1 && <div className={styles.lineTopBox} />}
                   {i.rank === 10 && <div className={styles.lineBottomBox} />}
-                </TableCell>
-                <TableCell
+                </td>
+                <td
                   style={{ ...getTextStyleForRank(i.rank), fontSize: 14, background: '' }}
                   className="cell ellipsis"
                 >
                   {i.user_id}
                   {i.rank === 1 && <div className={styles.lineTopBox} />}
                   {i.rank === 10 && <div className={styles.lineBottomBox} />}
-                </TableCell>
-                {flag === 'win_rate' && (
-                  <TableCell className="cell ellipsis">
-                    {i.stats.win_rate}
-                    {i.rank === 1 && <div className={styles.lineTopBox} />}
-                    {i.rank === 10 && <div className={styles.lineBottomBox} />}
-                  </TableCell>
-                )}
+                </td>
+                {flag === 'win_rate' && <td className="cell ellipsis">{i.stats.win_rate}</td>}
                 {flag === 'earnings' && (
-                  <TableCell className="cell ellipsis end">
+                  <td className="cell ellipsis end">
                     {i.stats.earnings}
                     {i.rank === 1 && flag === 'earnings' && <div className={styles.lineTopBox} />}
                     {i.rank === 10 && flag === 'earnings' && (
                       <div className={styles.lineBottomBox} />
                     )}
-                  </TableCell>
+                  </td>
                 )}
                 {selectedGame === 'nifty_smashers' && (
-                  <TableCell
+                  <td
                     style={{ ...getTextStyleForRank(i.rank), fontSize: 14, background: '' }}
                     className="cell ellipsis end"
                   >
@@ -182,27 +168,27 @@ const TableModal = ({
                     {i.rank === 10 && flag === 'earnings' && (
                       <div className={styles.lineBottomBox} />
                     )}
-                  </TableCell>
+                  </td>
                 )}
                 {flag === 'earnings' && (
-                  <TableCell className="cell ellipsis end">
+                  <td className="cell ellipsis end">
                     {i.stats['avg_NFTL/match']}
                     {i.rank === 1 && <div className={styles.lineTopBox} />}
                     {i.rank === 10 && <div className={styles.lineBottomBox} />}
-                  </TableCell>
+                  </td>
                 )}
                 {flag !== 'win_rate' && selectedGame === 'nifty_smashers' && (
-                  <TableCell className="cell ellipsis end">{i.stats.kills}</TableCell>
+                  <td className="cell ellipsis end">{i.stats.kills}</td>
                 )}
                 {selectedGame !== 'nifty_smashers' && (
-                  <TableCell
+                  <td
                     style={{ ...getTextStyleForRank(i.rank), fontSize: 14 }}
                     className="cell ellipsis end"
                   >
                     {i.score}
-                  </TableCell>
+                  </td>
                 )}
-              </TableRow>
+              </tr>
             ))
           ) : (
             <div className={styles.loadingBox}>
@@ -210,17 +196,13 @@ const TableModal = ({
             </div>
           )}
           {data && (
-            <Typography
-              className={styles.twitterTypography}
-              variant="body2"
-              onClick={handleShareOnTwitter}
-            >
+            <span className={styles.twitterTypography} onClick={handleShareOnTwitter}>
               Share on twitter{' '}
               <Image src="/icons/socials/twitter.svg" alt="Twitter Icon" width={22} height={20} />
-            </Typography>
+            </span>
           )}
-        </TableBody>
-      </Table>
+        </tbody>
+      </table>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import { IconButton, Stack } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
 import { Icon } from '@nl/ui/base/icon'
 
 export interface PaginationIconOnlyProps {
@@ -11,14 +11,26 @@ export interface PaginationIconOnlyProps {
 const PaginationIconOnly: React.FC<
   React.PropsWithChildren<React.PropsWithChildren<PaginationIconOnlyProps>>
 > = ({ hasNext, hasPrev, onClickPrev, onClickNext }) => (
-  <Stack direction="row" sx={{ gap: 1 }}>
-    <IconButton disabled={hasPrev === false} onClick={onClickPrev}>
+  <div className="flex flex-row gap-2">
+    <Button
+      variant="ghost"
+      size="icon"
+      className="cursor-pointer"
+      disabled={hasPrev === false}
+      onClick={onClickPrev}
+    >
       <Icon name="chevron-left" size="sm" />
-    </IconButton>
-    <IconButton disabled={hasNext === false} onClick={onClickNext}>
+    </Button>
+    <Button
+      variant="ghost"
+      size="icon"
+      className="cursor-pointer"
+      disabled={hasNext === false}
+      onClick={onClickNext}
+    >
       <Icon name="chevron-right" size="sm" />
-    </IconButton>
-  </Stack>
+    </Button>
+  </div>
 )
 
 export default PaginationIconOnly

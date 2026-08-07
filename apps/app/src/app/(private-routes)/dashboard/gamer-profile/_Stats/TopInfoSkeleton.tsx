@@ -1,30 +1,26 @@
-import { Stack, Typography, Box, Skeleton } from '@mui/material'
+import { Skeleton } from '@nl/ui/base/skeleton'
+import { Title } from '@nl/ui/custom/typography'
 
 const TopInfoSkeleton = () => {
   return (
-    <Stack>
-      <Stack direction="row" spacing={5} sx={{ alignItems: 'center' }}>
-        <Box sx={{ width: '50%' }}>
-          <Skeleton sx={{ my: '5px ' }} variant="rectangular" width="50%" height="26px" />
-        </Box>
-        <Box sx={{ width: '50%' }}>
-          <Skeleton variant="rectangular" width="100%" height="25px" />
-        </Box>
-      </Stack>
-      <Stack direction="row" spacing={5} sx={{ alignItems: 'center' }}>
-        <Typography variant="h4" component="div" sx={{ width: '50%' }}>
-          <Skeleton sx={{ my: '5px ' }} variant="rectangular" width="30%" height="26px" />
-        </Typography>
-        <Typography variant="h4" component="div" sx={{ width: '50%' }}>
-          <Skeleton
-            variant="rectangular"
-            sx={{ display: 'inline-block' }}
-            width="15%"
-            height="19.76px"
-          />
-        </Typography>
-      </Stack>
-    </Stack>
+    <div className="flex flex-col">
+      <div className="flex flex-row items-center gap-10">
+        <div className="w-1/2">
+          <Skeleton className="my-[5px] h-[26px] w-1/2 rounded" />
+        </div>
+        <div className="w-1/2">
+          <Skeleton className="h-[25px] w-full rounded" />
+        </div>
+      </div>
+      <div className="flex flex-row items-center gap-10">
+        <Title level={4} className="w-1/2">
+          <Skeleton className="my-[5px] h-[26px] w-[30%] rounded" />
+        </Title>
+        <Title level={4} className="w-1/2">
+          <Skeleton className="inline-block h-[19.76px] w-[15%] rounded" />
+        </Title>
+      </div>
+    </div>
   )
 }
 

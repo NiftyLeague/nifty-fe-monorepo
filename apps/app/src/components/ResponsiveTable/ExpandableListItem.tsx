@@ -1,12 +1,10 @@
-import React, { useEffect, useRef } from 'react'
+'use client'
 
-import Accordion from '@mui/material/Accordion'
-import AccordionSummary from '@mui/material/AccordionSummary'
-import AccordionDetails from '@mui/material/AccordionDetails'
-import Checkbox from '@mui/material/Checkbox'
-import Typography from '@mui/material/Typography'
-
+import React, { useEffect, useRef, useState } from 'react'
 import { Icon, type IconProps } from '@nl/ui/base/icon'
+import { Checkbox } from '@nl/ui/base/checkbox'
+import { cn } from '@nl/ui/utils'
+
 import type {
   AccordionDetailsProps,
   AccordionProps,
@@ -15,7 +13,7 @@ import type {
   TypographyProps,
 } from './types'
 
-type ExpandableListItemProps = {
+interface ExpandableListItemProps {
   AccordionDetailsProps?: AccordionDetailsProps
   AccordionDetailsTypographyProps?: TypographyProps<'div'>
   AccordionMoreIconProps?: IconProps
@@ -56,6 +54,7 @@ const ExpandableListItem: React.FC<ExpandableListItemProps> = ({
   summary,
 }) => {
   const panelRef = useRef<HTMLDivElement>(null)
+  const [expanded, setExpanded] = useState(false)
 
   useEffect(() => {
     if (selected && scrollToSelected && panelRef.current) {
@@ -64,45 +63,82 @@ const ExpandableListItem: React.FC<ExpandableListItemProps> = ({
   }, [selected, scrollToSelected, scrollOptions])
 
   const handleSelect: React.MouseEventHandler<HTMLButtonElement> = (event) => {
-    onSelect(row)
     event.stopPropagation()
+    onSelect(row)
   }
 
   const rootProps = selected ? { ...AccordionProps, ...SelectedAccordionProps } : AccordionProps
+  const {
+    className: rootClassName,
+    style: rootStyle,
+    children: _rootChildren,
+    ...rootRest
+  } = rootProps ?? {}
+
+  const {
+    expandIcon: _expandIcon,
+    className: summaryClassName,
+    style: summaryStyle,
+    children: _summaryChildren,
+    ...summaryRest
+  } = AccordionSummaryProps ?? {}
+
+  // TypographyProps has no index signature (only MUI-typo keys); keep className/style and drop the rest so no unknown attrs leak to the DOM.
+  const { className: summaryTypoClassName, style: summaryTypoStyle } =
+    AccordionSummaryTypographyProps ?? {}
+
+  const {
+    className: detailsClassName,
+    style: detailsStyle,
+    children: _detailsChildren,
+    ...detailsRest
+  } = AccordionDetailsProps ?? {}
+
+  const { className: detailsTypoClassName, style: detailsTypoStyle } =
+    AccordionDetailsTypographyProps ?? {}
 
   return (
-    <Accordion
-      sx={{ marginBottom: 0 }}
-      className={panelClass && panelClass}
-      {...rootProps}
-      ref={panelRef}
-    >
-      <AccordionSummary
-        expandIcon={<Icon name="chevron-down" size="lg" {...AccordionMoreIconProps} />}
-        {...AccordionSummaryProps}
-      >
-        {checkboxSelection && (
-          <Checkbox style={{ padding: `0 10px 5px 0` }} checked={selected} onClick={handleSelect} />
+    <div ref={panelRef} className={cn(panelClass, rootClassName)} style={rootStyle} {...rootRest}>
+      <div
+        className={cn(
+          'flex cursor-pointer items-center justify-between',
+          summaryClassName as string | undefined
         )}
-        <Typography
-          style={{ width: '100%', display: 'flex' }}
-          variant="subtitle1"
-          {...AccordionSummaryTypographyProps}
-        >
-          {summary}
-        </Typography>
-      </AccordionSummary>
-      <AccordionDetails {...AccordionDetailsProps}>
-        <Typography
-          style={{ opacity: 0.5, width: '100%' }}
-          gutterBottom
-          component="div"
-          {...AccordionDetailsTypographyProps}
+        style={summaryStyle}
+        {...summaryRest}
+        onClick={() => setExpanded((prev) => !prev)}
+      >
+        <div className="flex items-center gap-2">
+          {checkboxSelection && (
+            <Checkbox
+              style={{ padding: `0 10px 5px 0` }}
+              checked={selected}
+              onClick={handleSelect}
+            />
+          )}
+          <span
+            className={cn('text-sm font-medium text-foreground', summaryTypoClassName)}
+            style={{ width: '100%', display: 'flex', ...summaryTypoStyle }}
+          >
+            {summary}
+          </span>
+        </div>
+        <Icon
+          name="chevron-down"
+          size="lg"
+          className={cn('transition-transform', expanded && 'rotate-180')}
+          {...AccordionMoreIconProps}
+        />
+      </div>
+      <div className={cn('overflow-hidden transition-all', !expanded && 'hidden')} {...detailsRest}>
+        <span
+          className={cn('text-sm text-muted-foreground', detailsTypoClassName)}
+          style={{ opacity: 0.5, width: '100%', ...detailsTypoStyle }}
         >
           {details}
-        </Typography>
-      </AccordionDetails>
-    </Accordion>
+        </span>
+      </div>
+    </div>
   )
 }
 

@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { Button, IconButton } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
 
 import { formatNumberToDisplay } from '@nl/ui/utils'
 import HoverDataCard from '@/components/cards/HoverDataCard'
@@ -25,17 +25,17 @@ const DegenBalance = (): React.ReactNode => {
       isLoading={loading}
       actions={
         <>
-          <IconButton
+          <Button
+            variant="ghost"
+            size="icon"
             disabled
-            color="primary"
-            component="span"
-            sx={{ position: 'absolute', top: -2, right: -2 }}
+            className="absolute -top-4 -right-4 cursor-pointer"
           >
             <Image src="/icons/eth.svg" alt="Ethereum" width={22} height={22} />
-          </IconButton>
+          </Button>
           <Button
-            fullWidth
-            variant="contained"
+            className="w-full"
+            variant="default"
             disabled={!(balance > 0.0 && isConnected)}
             onClick={claimCallback}
           >

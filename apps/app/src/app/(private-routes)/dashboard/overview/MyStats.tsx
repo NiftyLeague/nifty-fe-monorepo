@@ -1,9 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { Button, Grid, Stack } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
 import SectionTitle from '@/components/sections/SectionTitle'
-import { sectionSpacing } from '@nl/theme'
 import { useGamerProfile } from '@/hooks/useGamerProfile'
 import GamerProfileContext from '@/contexts/GamerProfileContext'
 import LeftInfo from '../gamer-profile/_Stats/LeftInfo'
@@ -11,28 +10,28 @@ import type { Profile } from '@/types/account'
 
 const MyStats = ({ profile }: { profile?: Profile }): React.ReactNode => {
   return (
-    <Grid container spacing={sectionSpacing} sx={{ height: '100%' }}>
-      <Grid size={{ xs: 12 }}>
+    <div className="grid h-full grid-cols-12 gap-4">
+      <div className="col-span-12">
         <SectionTitle
           firstSection
           variant="h3"
           actions={
-            <Stack direction="row" sx={{ gap: 2 }}>
-              <Button variant="outlined" component={Link} href="/dashboard/gamer-profile">
-                View All Stats
+            <div className="flex flex-row gap-4">
+              <Button asChild variant="outline">
+                <Link href="/dashboard/gamer-profile">View All Stats</Link>
               </Button>
-            </Stack>
+            </div>
           }
         >
           My Stats
         </SectionTitle>
-      </Grid>
-      <Grid size={{ xs: 12 }} sx={{ height: '100%' }}>
-        <Stack direction="row" spacing={5}>
+      </div>
+      <div className="col-span-12 h-full">
+        <div className="flex flex-row gap-10">
           <LeftInfo data={profile?.stats?.total} />
-        </Stack>
-      </Grid>
-    </Grid>
+        </div>
+      </div>
+    </div>
   )
 }
 

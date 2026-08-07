@@ -1,8 +1,9 @@
 'use client'
 
 import { useMemo } from 'react'
-import { Stack, Typography, Box, IconButton } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
 import { Icon } from '@nl/ui/base/icon'
+import { Title } from '@nl/ui/custom/typography'
 
 import { useCopyToClipboard } from '@nl/ui/hooks/useCopyToClipboard'
 import { useGamerProfileContext } from '@/hooks/useGamerProfile'
@@ -29,45 +30,37 @@ const TopInfo = ({ profile, walletAddress }: TopInfoProps): React.ReactNode => {
 
   const renderTopInfo = () => {
     return (
-      <Stack>
-        <Stack direction="row" spacing={5} sx={{ alignItems: 'center' }}>
-          <Box sx={{ width: '50%' }}>
-            <Typography variant="h2" component="div">
+      <div className="flex flex-col">
+        <div className="flex flex-row items-center gap-10">
+          <div className="w-1/2">
+            <Title level={2}>
               {profileName} <ChangeProfileNameDialog handleUpdateNewName={handleUpdateNewName} />
-            </Typography>
-          </Box>
-          <Box sx={{ width: '50%' }}>{total && <ProgressGamer data={total} />}</Box>
-        </Stack>
-        <Stack direction="row" spacing={5} sx={{ alignItems: 'center' }}>
-          <Typography
-            variant="h4"
-            component="div"
-            sx={{ width: '50%', color: 'var(--color-muted-foreground)' }}
-          >
+            </Title>
+          </div>
+          <div className="w-1/2">{total && <ProgressGamer data={total} />}</div>
+        </div>
+        <div className="flex flex-row items-center gap-10">
+          <Title level={4} className="w-1/2 text-muted-foreground">
             {`${walletAddress.slice(0, 5)}...${walletAddress.slice(
               walletAddress.length - 5,
               walletAddress.length - 1
             )}`}{' '}
-            <IconButton
-              sx={{ cursor: 'pointer' }}
+            <Button
+              variant="ghost"
+              size="icon"
               aria-label="copy"
+              className="cursor-pointer"
               onClick={() => walletAddress && copy(walletAddress)}
             >
               <Icon name="copy" size="sm" color="var(--color-muted-foreground)" />
-            </IconButton>
-          </Typography>
-          <Typography variant="h4" component="div" sx={{ width: '50%' }}>
+            </Button>
+          </Title>
+          <Title level={4} className="w-1/2">
             {Math.round(total?.xp || 0)}/{total?.rank_xp_next}
-            <Typography
-              variant="h4"
-              component="div"
-              sx={{ display: 'inline', ml: '4px', color: 'var(--color-muted-foreground)' }}
-            >
-              XP
-            </Typography>
-          </Typography>
-        </Stack>
-      </Stack>
+            <span className="ml-1 text-muted-foreground">XP</span>
+          </Title>
+        </div>
+      </div>
     )
   }
 

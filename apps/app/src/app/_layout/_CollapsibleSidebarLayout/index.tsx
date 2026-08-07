@@ -1,8 +1,8 @@
-import { Drawer, Stack } from '@mui/material'
 import { useEffect, ReactNode, SetStateAction, useCallback } from 'react'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
-import { appHeaderHeight, useTheme } from '@nl/theme'
+
+const appHeaderHeight = 60
 
 interface Props {
   drawerWidth?: number
@@ -19,7 +19,6 @@ const CollapsibleSidebarLayout = ({
   isDrawerOpen,
   setIsDrawerOpen,
 }: Props): React.ReactNode => {
-  const theme = useTheme()
   const matchDownLG = useMediaQuery('(max-width:1024px)')
 
   // toggle sidebar
@@ -33,34 +32,21 @@ const CollapsibleSidebarLayout = ({
   }, [matchDownLG, setIsDrawerOpen])
 
   return (
-    <Stack direction="row" sx={{ position: 'relative', alignItems: 'start' }}>
+    <div className="relative flex flex-row items-start">
       {/* Filter drawer */}
-      <Drawer
-        sx={{
+      <div
+        className="shrink-0 rounded-md border-none"
+        style={{
           width: drawerWidth,
+          backgroundColor: 'var(--color-sidebar)',
+          position: matchDownLG ? 'fixed' : 'fixed',
+          height: matchDownLG ? '100%' : 'auto',
           marginLeft: '16px',
-          flexShrink: 0,
           zIndex: isDrawerOpen ? 1100 : -1,
-          ...(!matchDownLG && {
-            position: 'fixed',
-            // Follows how mainLayout sets the marginTop value
-            // top: theme.typography.mainContent.marginTop || 108,
-          }),
-          '& .MuiDrawer-paper': {
-            height: matchDownLG ? '100%' : 'auto',
-            backgroundColor: 'var(--color-sidebar)',
-            width: drawerWidth,
-            boxSizing: 'border-box',
-            position: 'relative',
-            border: 'none',
-            borderRadius: 'var(--radius-default)',
-          },
+          visibility: isDrawerOpen ? 'visible' : 'hidden',
+          borderRadius: 'var(--radius-default)',
+          boxSizing: 'border-box',
         }}
-        variant={matchDownLG ? 'temporary' : 'persistent'}
-        anchor="left"
-        open={isDrawerOpen}
-        ModalProps={{ keepMounted: true }}
-        onClose={handleDrawerOpen}
       >
         <PerfectScrollbar
           style={{
@@ -70,25 +56,14 @@ const CollapsibleSidebarLayout = ({
         >
           {renderDrawer()}
         </PerfectScrollbar>
-      </Drawer>
+      </div>
       {/* Main grid */}
-      <Stack
-        component="div"
-        sx={{
-          flexGrow: 1,
-          paddingLeft: isDrawerOpen ? theme.spacing(3) : 0,
-          transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.shorter,
-          }),
-          ...(isDrawerOpen && {
-            transition: theme.transitions.create('margin', {
-              easing: theme.transitions.easing.easeOut,
-              duration: theme.transitions.duration.shorter,
-            }),
-            marginLeft: `${matchDownLG ? 0 : drawerWidth}px`,
-          }),
-          [theme.breakpoints.down('lg')]: { paddingLeft: 0, marginLeft: 0 },
+      <div
+        className="flex-grow"
+        style={{
+          paddingLeft: isDrawerOpen && !matchDownLG ? 24 : 0,
+          marginLeft: isDrawerOpen && !matchDownLG ? `${drawerWidth}px` : 0,
+          transition: `margin 200ms cubic-bezier(${isDrawerOpen ? '0, 0, 0.2, 1' : '0.4, 0, 0.6, 1'}) 0ms`,
         }}
       >
         <PerfectScrollbar
@@ -102,8 +77,8 @@ const CollapsibleSidebarLayout = ({
         >
           {renderMain()}
         </PerfectScrollbar>
-      </Stack>
-    </Stack>
+      </div>
+    </div>
   )
 }
 
