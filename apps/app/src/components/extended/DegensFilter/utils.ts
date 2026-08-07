@@ -3,6 +3,7 @@ import type { Degen } from '@/types/degens'
 import type { DegenFilter } from '@/types/degenFilter'
 import DEFAULT_STATIC_FILTER from './constants'
 import { BURN_ADDYS } from '@/constants/addresses'
+import { HYDRAS } from '@/constants/hydras'
 
 export const tranformDataByFilter = (
   degens: Degen[],
@@ -157,4 +158,39 @@ export const getDefaultFilterValueFromData = (degens: Degen[] | undefined) => {
   const newFilterValues = { ...DEFAULT_STATIC_FILTER, prices: [minPrice, maxPrice] }
 
   return newFilterValues
+}
+
+// Needs to be divisible by 2, 3, or 4
+export const DEGENS_PER_PAGE = 12
+
+// MUI Grid size map (24-column grid so fractional 1.5/12 spans are integers):
+//   gridView: xs=12 -> 24, sm=6 -> 12, md=4 -> 8, lg/xl=4|3 -> 8|6
+//   list:     xs=6 -> 12, sm=4 -> 8, md=3 -> 6, lg/xl=3|2 -> 6|4
+export const getGridSizeClass = (isGridView: boolean, isDrawerOpen: boolean) => {
+  if (isGridView) {
+    return isDrawerOpen
+      ? 'col-span-24 sm:col-span-12 md:col-span-8 lg:col-span-8 xl:col-span-8'
+      : 'col-span-24 sm:col-span-12 md:col-span-8 lg:col-span-6 xl:col-span-6'
+  }
+  return isDrawerOpen
+    ? 'col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-6 xl:col-span-6'
+    : 'col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4 xl:col-span-4'
+}
+
+// TODO: remove temp fix for 7th tribes once fetch data is updated
+export const applySeventhTribesFix = (degen: Degen): Degen => {
+  if (Number(degen.id) <= 9900) {
+    return degen
+  }
+
+  return {
+    ...degen,
+    background: HYDRAS[degen.id as keyof typeof HYDRAS]?.rarity || 'Common',
+    tribe:
+      Number(degen.id) >= 9999
+        ? Number(degen.id) === 9999
+          ? 'rugman'
+          : 'satoshi'
+        : 'hydra',
+  }
 }

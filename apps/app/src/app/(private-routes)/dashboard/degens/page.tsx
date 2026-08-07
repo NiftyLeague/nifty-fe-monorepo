@@ -20,11 +20,13 @@ import {
   tranformDataByFilter,
   updateFilterValue,
   getDefaultFilterValueFromData,
+  DEGENS_PER_PAGE,
+  getGridSizeClass,
+  applySeventhTribesFix,
 } from '@/components/extended/DegensFilter/utils'
 import RenameDegenDialogContent from '@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent'
 import SectionTitle from '@/components/sections/SectionTitle'
 import { DEGEN_BASE_API_URL, DEGEN_COLLECTION_URL, PROFILE_FAV_DEGENS_API } from '@/constants/url'
-import { HYDRAS } from '@/constants/hydras'
 import { useProfileFavDegens } from '@/hooks/useGamerProfile'
 import useAuth from '@/hooks/useAuth'
 import useFetch from '@/hooks/useFetch'
@@ -43,23 +45,6 @@ const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_Collapsibl
   ssr: false,
 })
 const DegenCard = dynamic(() => import('@/components/cards/DegenCard'), { ssr: false })
-
-// Needs to be divisible by 2, 3, or 4
-const DEGENS_PER_PAGE = 12
-
-// MUI Grid size map (24-column grid so fractional 1.5/12 spans are integers):
-//   gridView: xs=12 -> 24, sm=6 -> 12, md=4 -> 8, lg/xl=4|3 -> 8|6
-//   list:     xs=6 -> 12, sm=4 -> 8, md=3 -> 6, lg/xl=3|2 -> 6|4
-const getGridSizeClass = (isGridView: boolean, isDrawerOpen: boolean) => {
-  if (isGridView) {
-    return isDrawerOpen
-      ? 'col-span-24 sm:col-span-12 md:col-span-8 lg:col-span-8 xl:col-span-8'
-      : 'col-span-24 sm:col-span-12 md:col-span-8 lg:col-span-6 xl:col-span-6'
-  }
-  return isDrawerOpen
-    ? 'col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-6 xl:col-span-6'
-    : 'col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4 xl:col-span-4'
-}
 
 const DashboardDegensPage = (): React.ReactNode => {
   const { authToken } = useAuth()
@@ -97,36 +82,7 @@ const DashboardDegensPage = (): React.ReactNode => {
 
   const populatedDegens: Degen[] = useMemo(() => {
     if (!degensBalances?.length || !data) return []
-    // TODO: remove temp fix for 7th tribes
-    return degensBalances.map((degen) =>
-      Number(degen.id) <= 9900
-        ? (data[Number(degen.id)] as Degen)
-        : ({
-            id: degen.id,
-            name: degen.name,
-            traits_string: Object.values(degen.traits).toString(),
-            background: HYDRAS[degen.id as keyof typeof HYDRAS].rarity,
-            earning_cap: 0,
-            earning_cap_daily: 0,
-            is_active: false,
-            last_rented_at: 0,
-            multiplier: 0,
-            multipliers: { background: 0 },
-            owner: '',
-            owner_share: 0.1,
-            stats: {},
-            price: 0,
-            price_daily: 0,
-            rental_count: 0,
-            total_rented: 0,
-            tribe:
-              Number(degen.id) >= 9999
-                ? Number(degen.id) === 9999
-                  ? 'rugman'
-                  : 'satoshi'
-                : 'hydra',
-          } as Degen)
-    )
+    return degensBalances.map((degen) => applySeventhTribesFix(data[Number(degen.id)] as Degen || degen))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [degensBalances?.length, !!data])
 
