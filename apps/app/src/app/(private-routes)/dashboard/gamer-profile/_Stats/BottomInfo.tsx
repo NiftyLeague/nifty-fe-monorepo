@@ -1,5 +1,7 @@
 import Link from 'next/link'
-import { Stack, Typography, Grid, Skeleton, Button } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
+import { Skeleton } from '@nl/ui/base/skeleton'
+import { Title } from '@nl/ui/custom/typography'
 import ProgressGamer from './ProgressGamer'
 import GameCard from '@/components/cards/GameCard'
 import LeftInfo from './LeftInfo'
@@ -22,122 +24,83 @@ const BottomInfo = ({
   const { isLoadingProfile } = useGamerProfileContext()
 
   return (
-    <Grid container spacing={2} sx={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-      <Grid size={{ xs: 12, lg: 6, xl: 4 }}>
+    <div className="grid grid-cols-12 gap-4">
+      <div className="col-span-12 lg:col-span-6 xl:col-span-4">
         <GameCard
           image="/img/games/smashers/nifty-smashers.gif"
           contents={
-            <Stack sx={{ padding: '16px', gap: 2 }}>
+            <div className="flex flex-col gap-4 p-4">
               {nifty_smashers && <ProgressGamer size="sm" data={nifty_smashers} />}
-              <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-                <Typography variant="h3" component="div">
-                  2D Smashers
-                </Typography>
-                <Typography variant="h4" component="div">
+              <div className="flex flex-row items-center justify-between">
+                <Title level={3}>2D Smashers</Title>
+                <Title level={4}>
                   {isLoadingProfile ? (
-                    <Skeleton
-                      variant="rectangular"
-                      sx={{ display: 'inline-block' }}
-                      width="15%"
-                      height="19.76px"
-                    />
+                    <Skeleton className="inline-block h-[19.76px] w-[15%] rounded" />
                   ) : (
                     `${Math.round(nifty_smashers?.xp || 0)}/${nifty_smashers?.rank_xp_next || 0}`
                   )}
-                  <Typography
-                    variant="h4"
-                    component="div"
-                    sx={{ display: 'inline', ml: '4px', color: 'var(--color-muted-foreground)' }}
-                  >
-                    XP
-                  </Typography>
-                </Typography>
-              </Stack>
+                  <span className="ml-1 text-muted-foreground">XP</span>
+                </Title>
+              </div>
               <LeftInfo data={nifty_smashers} />
-              <Button color="secondary" component={Link} href="/leaderboards?game=nifty_smashers">
-                View Leaderboards
+              <Button variant="secondary" asChild>
+                <Link href="/leaderboards?game=nifty_smashers">View Leaderboards</Link>
               </Button>
-            </Stack>
+            </div>
           }
         />
-      </Grid>
-      <Grid size={{ xs: 12, lg: 6, xl: 4 }}>
+      </div>
+      <div className="col-span-12 lg:col-span-6 xl:col-span-4">
         <GameCard
           image="/img/games/wen.gif"
           contents={
-            <Stack sx={{ padding: '16px', gap: 2, flex: 1, justifyContent: 'space-between' }}>
+            <div className="flex flex-1 flex-col justify-between gap-4 p-4">
               {wen_game && <ProgressGamer size="sm" data={wen_game} />}
-              <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-                <Typography variant="h3" component="div">
-                  WEN Game
-                </Typography>
-                <Typography variant="h4" component="div">
+              <div className="flex flex-row items-center justify-between">
+                <Title level={3}>WEN Game</Title>
+                <Title level={4}>
                   {isLoadingProfile ? (
-                    <Skeleton
-                      variant="rectangular"
-                      sx={{ display: 'inline-block' }}
-                      width="15%"
-                      height="19.76px"
-                    />
+                    <Skeleton className="inline-block h-[19.76px] w-[15%] rounded" />
                   ) : (
                     `${Math.round(wen_game?.xp || 0)}/${wen_game?.rank_xp_next || 0}`
                   )}
-                  <Typography
-                    variant="h4"
-                    component="div"
-                    sx={{ display: 'inline', ml: '4px', color: 'var(--color-muted-foreground)' }}
-                  >
-                    XP
-                  </Typography>
-                </Typography>
-              </Stack>
+                  <span className="ml-1 text-muted-foreground">XP</span>
+                </Title>
+              </div>
               <MiniGameContent data={wen_game} />
-              <Button color="secondary" component={Link} href="/leaderboards?game=wen_game">
-                View Leaderboards
+              <Button variant="secondary" asChild>
+                <Link href="/leaderboards?game=wen_game">View Leaderboards</Link>
               </Button>
-            </Stack>
+            </div>
           }
         />
-      </Grid>
-      <Grid size={{ xs: 12, lg: 6, xl: 4 }}>
+      </div>
+      <div className="col-span-12 lg:col-span-6 xl:col-span-4">
         <GameCard
           image="/img/games/crypto-winter.webp"
           contents={
-            <Stack sx={{ padding: '16px', gap: 2, flex: 1, justifyContent: 'space-between' }}>
+            <div className="flex flex-1 flex-col justify-between gap-4 p-4">
               <ProgressGamer size="sm" data={crypto_winter} />
-              <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-                <Typography variant="h3" component="div">
-                  CRYPTO WINTER
-                </Typography>
-                <Typography variant="h4" component="div">
+              <div className="flex flex-row items-center justify-between">
+                <Title level={3}>CRYPTO WINTER</Title>
+                <Title level={4}>
                   {isLoadingProfile ? (
-                    <Skeleton
-                      variant="rectangular"
-                      sx={{ display: 'inline-block' }}
-                      width="15%"
-                      height="19.76px"
-                    />
+                    <Skeleton className="inline-block h-[19.76px] w-[15%] rounded" />
                   ) : (
                     `${Math.round(crypto_winter?.xp || 0)}/${crypto_winter?.rank_xp_next || 0}`
                   )}
-                  <Typography
-                    variant="h4"
-                    component="div"
-                    sx={{ display: 'inline', ml: '4px', color: 'var(--color-muted-foreground)' }}
-                  >
-                    XP
-                  </Typography>
-                </Typography>
-              </Stack>
+                  <span className="ml-1 text-muted-foreground">XP</span>
+                </Title>
+              </div>
               <MiniGameContent data={crypto_winter} />
-              <Button color="secondary" component={Link} href="/leaderboards?game=crypto_winter">
-                View Leaderboards
+              <Button variant="secondary" asChild>
+                <Link href="/leaderboards?game=crypto_winter">View Leaderboards</Link>
               </Button>
-            </Stack>
+            </div>
           }
         />
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   )
 }
 

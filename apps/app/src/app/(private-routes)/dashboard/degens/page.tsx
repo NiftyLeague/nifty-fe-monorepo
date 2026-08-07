@@ -7,9 +7,10 @@ import dynamic from 'next/dynamic'
 import { useAccount } from 'wagmi'
 import isEmpty from 'lodash/isEmpty'
 import xor from 'lodash/xor'
-import { Grid, IconButton, Pagination, Stack, Dialog } from '@mui/material'
 
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
+import { Button } from '@nl/ui/base/button'
+import { Dialog } from '@nl/ui/base/dialog'
 import { Icon } from '@nl/ui/base/icon'
 
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
@@ -45,6 +46,20 @@ const DegenCard = dynamic(() => import('@/components/cards/DegenCard'), { ssr: f
 
 // Needs to be divisible by 2, 3, or 4
 const DEGENS_PER_PAGE = 12
+
+// MUI Grid size map (24-column grid so fractional 1.5/12 spans are integers):
+//   gridView: xs=12 -> 24, sm=6 -> 12, md=4 -> 8, lg/xl=4|3 -> 8|6
+//   list:     xs=6 -> 12, sm=4 -> 8, md=3 -> 6, lg/xl=3|2 -> 6|4
+const getGridSizeClass = (isGridView: boolean, isDrawerOpen: boolean) => {
+  if (isGridView) {
+    return isDrawerOpen
+      ? 'col-span-24 sm:col-span-12 md:col-span-8 lg:col-span-8 xl:col-span-8'
+      : 'col-span-24 sm:col-span-12 md:col-span-8 lg:col-span-6 xl:col-span-6'
+  }
+  return isDrawerOpen
+    ? 'col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-6 xl:col-span-6'
+    : 'col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4 xl:col-span-4'
+}
 
 const DashboardDegensPage = (): React.ReactNode => {
   const { authToken } = useAuth()
@@ -235,18 +250,9 @@ const DashboardDegensPage = (): React.ReactNode => {
 
   const renderSkeletonItem = useCallback(
     () => (
-      <Grid
-        key={uuidv4()}
-        size={{
-          xs: isGridView ? 12 : 6,
-          sm: isGridView ? 6 : 4,
-          md: isGridView ? 4 : 3,
-          lg: isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2,
-          xl: isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2,
-        }}
-      >
+      <div key={uuidv4()} className={getGridSizeClass(isGridView, isDrawerOpen)}>
         <SkeletonDegenPlaceholder size={isGridView ? 'normal' : 'small'} />
-      </Grid>
+      </div>
     ),
     [isDrawerOpen, isGridView]
   )
@@ -265,16 +271,7 @@ const DashboardDegensPage = (): React.ReactNode => {
 
   const renderDegen = useCallback(
     (degen: Degen) => (
-      <Grid
-        key={degen.id}
-        size={{
-          xs: isGridView ? 12 : 6,
-          sm: isGridView ? 6 : 4,
-          md: isGridView ? 4 : 3,
-          lg: isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2,
-          xl: isGridView ? (isDrawerOpen ? 4 : 3) : isDrawerOpen ? 3 : 2,
-        }}
-      >
+      <div key={degen.id} className={getGridSizeClass(isGridView, isDrawerOpen)}>
         <DegenCard
           degen={degen}
           degenEquipEnabled={enableEquip}
@@ -288,7 +285,7 @@ const DashboardDegensPage = (): React.ReactNode => {
           onClickRent={() => handleRentDegen(degen)}
           size={isGridView ? 'normal' : 'small'}
         />
-      </Grid>
+      </div>
     ),
     [
       enableEquip,
@@ -306,47 +303,81 @@ const DashboardDegensPage = (): React.ReactNode => {
 
   const renderMain = useCallback(
     () => (
-      <Stack className="h-full" sx={{ gap: 1.5 }}>
+      <div className="flex h-full flex-col gap-3">
         {/* Main Grid title */}
         <SectionTitle firstSection>
-          <Stack direction="row" sx={{ gap: 1, alignItems: 'center', mb: 2 }}>
-            <IconButton onClick={() => setIsDrawerOpen(!isDrawerOpen)} size="small">
+          <div className="mb-4 flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="cursor-pointer"
+              onClick={() => setIsDrawerOpen(!isDrawerOpen)}
+            >
               <Icon name={isDrawerOpen ? 'chevron-left' : 'chevron-right'} size="xl" />
-            </IconButton>
+            </Button>
             {filteredData.length} Degens
-          </Stack>
+          </div>
         </SectionTitle>
         {/* Main grid content */}
-        <Grid
-          container
-          spacing={2}
-          className={!degensBalances?.length ? 'h-full justify-center items-center' : ''}
-          sx={{ mt: -4.5 }}
+        <div
+          className={`grid grid-cols-24 gap-4 -mt-9 ${
+            !degensBalances?.length ? 'h-full justify-center items-center' : ''
+          }`}
         >
           {loading || !isConnected ? (
             [...Array(8)].map(renderSkeletonItem)
           ) : dataForCurrentPage.length ? (
             dataForCurrentPage.map(renderDegen)
           ) : !degensBalances?.length ? (
-            <Link href={DEGEN_COLLECTION_URL} target="_blank" rel="noreferrer">
+            <Link
+              href={DEGEN_COLLECTION_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="col-span-24 flex justify-center"
+            >
               <EmptyState
                 message="No DEGENs found. Please check your address or go purchase a DEGEN if you have not done so already!"
                 buttonText="Buy a DEGEN"
               />
             </Link>
           ) : null}
-        </Grid>
+        </div>
         {dataForCurrentPage.length > 0 && (
-          <Pagination
-            count={maxPage}
-            page={currentPage}
-            color="primary"
-            sx={{ margin: '0 auto', paddingBottom: '16px' }}
-            size={isMobile ? 'small' : 'medium'}
-            onChange={(e: React.ChangeEvent<unknown>, p: number) => jump(p)}
-          />
+          <div className="mx-auto flex items-center gap-1" style={{ paddingBottom: '16px' }}>
+            <Button
+              variant="ghost"
+              size={isMobile ? 'sm' : 'icon'}
+              className="cursor-pointer"
+              disabled={currentPage === 1}
+              onClick={() => jump(currentPage - 1)}
+              aria-label="Previous page"
+            >
+              <Icon name="chevron-left" />
+            </Button>
+            {Array.from({ length: maxPage }, (_, i) => i + 1).map((p) => (
+              <Button
+                key={p}
+                variant={p === currentPage ? 'default' : 'ghost'}
+                size={isMobile ? 'sm' : 'icon'}
+                className="cursor-pointer"
+                onClick={() => jump(p)}
+              >
+                {p}
+              </Button>
+            ))}
+            <Button
+              variant="ghost"
+              size={isMobile ? 'sm' : 'icon'}
+              className="cursor-pointer"
+              disabled={currentPage === maxPage}
+              onClick={() => jump(currentPage + 1)}
+              aria-label="Next page"
+            >
+              <Icon name="chevron-right" />
+            </Button>
+          </div>
         )}
-      </Stack>
+      </div>
     ),
     [
       currentPage,
@@ -366,8 +397,8 @@ const DashboardDegensPage = (): React.ReactNode => {
 
   return (
     <>
-      <Stack spacing={2} className="h-full justify-center align-top pl-2">
-        <Stack sx={{ pl: 2, pr: 3 }}>
+      <div className="flex h-full flex-col justify-center align-top gap-4 pl-2">
+        <div className="pl-4 pr-6">
           <DegensTopNav
             searchTerm={searchTerm || ''}
             handleChangeSearchTerm={handleChangeSearchTerm}
@@ -375,7 +406,7 @@ const DashboardDegensPage = (): React.ReactNode => {
             layoutMode={layoutMode}
             handleChangeLayoutMode={handleChangeLayoutMode}
           />
-        </Stack>
+        </div>
         <CollapsibleSidebarLayout
           drawerWidth={320}
           isDrawerOpen={isDrawerOpen}
@@ -383,7 +414,7 @@ const DashboardDegensPage = (): React.ReactNode => {
           renderDrawer={renderDrawer}
           renderMain={renderMain}
         />
-      </Stack>
+      </div>
       <DegenDialog
         open={isDegenModalOpen}
         degen={selectedDegen}
@@ -393,7 +424,10 @@ const DashboardDegensPage = (): React.ReactNode => {
         setIsRent={setIsRentDialog}
         onClose={() => setIsDegenModalOpen(false)}
       />
-      <Dialog open={isRenameDegenModalOpen} onClose={() => setIsRenameDegenModalOpen(false)}>
+      <Dialog
+        open={isRenameDegenModalOpen}
+        onOpenChange={(open) => !open && setIsRenameDegenModalOpen(false)}
+      >
         <RenameDegenDialogContent
           degen={selectedDegen}
           onSuccess={() => setIsRenameDegenModalOpen(false)}

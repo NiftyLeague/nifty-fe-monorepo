@@ -7,7 +7,8 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import xor from 'lodash/xor'
 import { v4 as uuidv4 } from 'uuid'
-import { Box, Button, Grid, Dialog, Stack } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
+import { Dialog, DialogContent } from '@nl/ui/base/dialog'
 
 import SectionSlider from '@/components/sections/SectionSlider'
 import { DEGEN_BASE_API_URL, DEGEN_COLLECTION_URL, PROFILE_FAV_DEGENS_API } from '@/constants/url'
@@ -122,7 +123,7 @@ const MyDegens = (): React.ReactNode => {
         variant="h3"
         sliderSettingsOverride={settings}
         actions={
-          <Button variant="outlined" onClick={() => router.push('/dashboard/degens')}>
+          <Button variant="outline" onClick={() => router.push('/dashboard/degens')}>
             View All DEGENs
           </Button>
         }
@@ -130,21 +131,13 @@ const MyDegens = (): React.ReactNode => {
       >
         {loadingDegens ? (
           [...Array(8)].map(() => (
-            <Grid size={{ xs: 12, sm: 11 }} key={uuidv4()}>
+            <div className="w-full sm:w-[91.6667%]" key={uuidv4()}>
               <SkeletonDegenPlaceholder />
-            </Grid>
+            </div>
           ))
         ) : filteredDegens.length && degensBalances.length ? (
           filteredDegens.map((degen) => (
-            <Box
-              sx={{
-                px: 1,
-                '& .MuiCardContent-root': { p: '12px' },
-                '& .MuiTypography-h3': { fontSize: '16px' },
-                '& .MuiCardActions-root': { p: '12px' },
-              }}
-              key={degen.id}
-            >
+            <div className="px-1" key={degen.id}>
               <DegenCard
                 degen={degen}
                 favs={favDegens}
@@ -156,17 +149,17 @@ const MyDegens = (): React.ReactNode => {
                 onClickRent={() => handleRentDegen(degen)}
                 size="small"
               />
-            </Box>
+            </div>
           ))
         ) : (
-          <Stack sx={{ justifyContent: 'center', alignItems: 'center' }}>
+          <div className="flex items-center justify-center">
             <Link href={DEGEN_COLLECTION_URL} target="_blank" rel="noreferrer">
               <EmptyState
                 message="No DEGENs found. Please check your address or go purchase a DEGEN if you have not done so already!"
                 buttonText="Buy a DEGEN"
               />
             </Link>
-          </Stack>
+          </div>
         )}
       </SectionSlider>
       <DegenDialog
@@ -177,11 +170,16 @@ const MyDegens = (): React.ReactNode => {
         setIsRent={setIsRentDialog}
         onClose={() => setIsDegenModalOpen(false)}
       />
-      <Dialog open={isRenameDegenModalOpen} onClose={() => setIsRenameDegenModalOpen(false)}>
-        <RenameDegenDialogContent
-          degen={selectedDegen}
-          onSuccess={() => setIsRenameDegenModalOpen(false)}
-        />
+      <Dialog
+        open={isRenameDegenModalOpen}
+        onOpenChange={(open) => !open && setIsRenameDegenModalOpen(false)}
+      >
+        <DialogContent showCloseButton={false}>
+          <RenameDegenDialogContent
+            degen={selectedDegen}
+            onSuccess={() => setIsRenameDegenModalOpen(false)}
+          />
+        </DialogContent>
       </Dialog>
     </>
   )

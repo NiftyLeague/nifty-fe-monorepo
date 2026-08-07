@@ -1,5 +1,4 @@
 import { useMemo } from 'react'
-import { Stack } from '@mui/material'
 
 import { useGamerProfileContext } from '@/hooks/useGamerProfile'
 import Item from './Item'
@@ -60,11 +59,11 @@ const RightInfo = ({
   ])
 
   return (
-    <Stack spacing={1} sx={{ flex: 1 }}>
+    <div className="flex flex-1 flex-col gap-2">
       {rightDataMapper.map((child) => (
         <Item key={child.label} {...child} />
       ))}
-    </Stack>
+    </div>
   )
 }
 

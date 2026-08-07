@@ -1,7 +1,8 @@
-import { Ref, ExoticComponent, ReactElement, forwardRef } from 'react'
+'use client'
 
-// material-ui
-import { Collapse, Fade, Box, Grow, Slide, Zoom } from '@mui/material'
+import { Ref, ReactElement, forwardRef } from 'react'
+// third-party
+import { motion, type Variants } from 'framer-motion'
 
 // ==============================|| TRANSITIONS ||============================== //
 
@@ -12,66 +13,63 @@ interface TSProps {
   in?: boolean
   type?: string
   direction?: 'up' | 'right' | 'left' | 'down'
-  [others: string]: unknown
 }
 
 const Transitions = forwardRef(
   (
-    { children, type = 'grow', position = 'top-left', direction = 'up', ...others }: TSProps,
-    ref: Ref<ExoticComponent>
+    { children, type = 'grow', position = 'top-left', direction = 'up', sx }: TSProps,
+    ref: Ref<HTMLDivElement>
   ) => {
-    let positionSX: Record<string, string>
+    let transformOrigin: string
 
     switch (position) {
       case 'top-right':
-        positionSX = { transformOrigin: 'top right' }
+        transformOrigin = 'top right'
         break
       case 'top':
-        positionSX = { transformOrigin: 'top' }
+        transformOrigin = 'top'
         break
       case 'bottom-left':
-        positionSX = { transformOrigin: 'bottom left' }
+        transformOrigin = 'bottom left'
         break
       case 'bottom-right':
-        positionSX = { transformOrigin: 'bottom right' }
+        transformOrigin = 'bottom right'
         break
       case 'bottom':
-        positionSX = { transformOrigin: 'bottom' }
+        transformOrigin = 'bottom'
         break
       case 'top-left':
       default:
-        positionSX = { transformOrigin: '0 0 0' }
+        transformOrigin = '0 0 0'
         break
     }
 
+    const variants: Record<string, Variants> = {
+      grow: { initial: { scale: 0.9, opacity: 0 }, animate: { scale: 1, opacity: 1 } },
+      collapse: { initial: { height: 0, opacity: 0 }, animate: { height: 'auto', opacity: 1 } },
+      fade: { initial: { opacity: 0 }, animate: { opacity: 1 } },
+      slide: {
+        initial: {
+          x: direction === 'right' ? 20 : direction === 'left' ? -20 : 0,
+          y: direction === 'down' ? 20 : direction === 'up' ? -20 : 0,
+        },
+        animate: { x: 0, y: 0 },
+      },
+      zoom: { initial: { scale: 0.5 }, animate: { scale: 1 } },
+    }
+
+    const selected = variants[type] || variants.grow
+
     return (
-      <Box ref={ref}>
-        {type === 'grow' && (
-          <Grow {...others}>
-            <Box sx={positionSX}>{children}</Box>
-          </Grow>
-        )}
-        {type === 'collapse' && (
-          <Collapse {...others} sx={positionSX}>
-            {children}
-          </Collapse>
-        )}
-        {type === 'fade' && (
-          <Fade {...others} timeout={{ appear: 500, enter: 600, exit: 400 }}>
-            <Box sx={positionSX}>{children}</Box>
-          </Fade>
-        )}
-        {type === 'slide' && (
-          <Slide {...others} timeout={{ appear: 0, enter: 400, exit: 200 }} direction={direction}>
-            <Box sx={positionSX}>{children}</Box>
-          </Slide>
-        )}
-        {type === 'zoom' && (
-          <Zoom {...others}>
-            <Box sx={positionSX}>{children}</Box>
-          </Zoom>
-        )}
-      </Box>
+      <motion.div
+        ref={ref}
+        style={{ transformOrigin, ...sx }}
+        initial="initial"
+        animate="animate"
+        variants={selected}
+      >
+        {children}
+      </motion.div>
     )
   }
 )

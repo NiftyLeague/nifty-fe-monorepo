@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo } from 'react'
-import { Box, Skeleton, CardMedia } from '@mui/material'
+import { Skeleton } from '@nl/ui/base/skeleton'
 
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
 import { useGamerProfileContext } from '@/hooks/useGamerProfile'
@@ -26,16 +26,14 @@ const ImageProfile = ({ degens, avatar, avatarFee }: ImageProfileProps): React.R
 
   const renderImage = () => {
     if (isLoadingDegens) {
-      return <Skeleton variant="rectangular" width="100%" height="320px" />
+      return <Skeleton className="h-[320px] w-full rounded" />
     } else {
       if (!degenSelected) {
         return (
-          <CardMedia
-            component="img"
-            height="auto"
-            image="/img/degens/unavailable-image.webp"
+          <img
+            src="/img/degens/unavailable-image.webp"
             alt="no avatar"
-            sx={{ objectFit: 'cover', maxWidth: '500px', margin: 'auto' }}
+            className="mx-auto max-w-[500px] object-cover"
           />
         )
       }
@@ -45,7 +43,7 @@ const ImageProfile = ({ degens, avatar, avatarFee }: ImageProfileProps): React.R
 
   return (
     <>
-      <Box sx={{ position: 'relative', '& img': { borderRadius: 'var(--radius-default)' } }}>
+      <div className="relative [&_img]:rounded-[var(--radius-default)]">
         {renderImage()}
         {degens && degens.length > 0 && (
           <ProfileImageDialog
@@ -54,7 +52,7 @@ const ImageProfile = ({ degens, avatar, avatarFee }: ImageProfileProps): React.R
             avatarFee={avatarFee}
           />
         )}
-      </Box>
+      </div>
     </>
   )
 }

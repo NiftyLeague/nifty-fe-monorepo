@@ -1,19 +1,5 @@
-import Button from '@mui/material/Button'
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
-import Paper, { PaperProps } from '@mui/material/Paper'
-import Draggable from 'react-draggable'
-
-function PaperComponent(props: PaperProps) {
-  return (
-    <Draggable handle="#draggable-dialog-title" cancel={'[class*="MuiDialogContent-root"]'}>
-      <Paper {...props} />
-    </Draggable>
-  )
-}
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@nl/ui/base/dialog'
+import { Button } from '@nl/ui/base/button'
 
 type DraggableDialogProps = { open: boolean; setOpen: (open: boolean) => void }
 
@@ -21,17 +7,12 @@ export default function DraggableDialog({ open, setOpen }: DraggableDialogProps)
   const handleClose = () => setOpen(false)
 
   return (
-    <Dialog
-      open={open}
-      onClose={handleClose}
-      PaperComponent={PaperComponent}
-      aria-labelledby="draggable-dialog-title"
-    >
-      <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
-        HELP
-      </DialogTitle>
-      <DialogContent>
-        <DialogContentText>
+    <Dialog open={open} onOpenChange={(nextOpen) => !nextOpen && handleClose()}>
+      <DialogContent showCloseButton={false}>
+        <DialogHeader>
+          <DialogTitle className="cursor-move">HELP</DialogTitle>
+        </DialogHeader>
+        <div className="text-sm text-muted-foreground">
           Welcome to SATOSHI&apos;S COMICS BURNING MACHINE where you can burn your COMICS for
           in-game WEARABLE ITEMS!
           <ul style={{ lineHeight: 2 }}>
@@ -71,16 +52,16 @@ export default function DraggableDialog({ open, setOpen }: DraggableDialogProps)
             </li>
             <li>
               Congratulations! Your freshly-minted ITEMS are now in your IMX WALLET and will show up
-              in CONSOLE 5, as well as on the COMICS & ITEMS page in your DASHBOARD.
+              in CONSOLE 5, as well as on the COMICS &amp; ITEMS page in your DASHBOARD.
             </li>
           </ul>
-        </DialogContentText>
+        </div>
+        <DialogFooter>
+          <Button autoFocus onClick={handleClose}>
+            Close
+          </Button>
+        </DialogFooter>
       </DialogContent>
-      <DialogActions>
-        <Button autoFocus onClick={handleClose}>
-          Close
-        </Button>
-      </DialogActions>
     </Dialog>
   )
 }

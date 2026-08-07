@@ -1,6 +1,6 @@
 'use client'
 
-import { Container, Button, Typography } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
 import { Icon } from '@nl/ui/base/icon'
 import { Dialog, DialogTrigger, DialogContent } from '@/components/dialog'
 import useVersion from '@/hooks/useVersion'
@@ -9,27 +9,30 @@ export const Downloader = (): React.ReactNode => {
   const { isWindows, isMacOs, downloadURL, version, message } = useVersion()
 
   return (
-    <Container style={{ textAlign: 'left', padding: '40px' }}>
-      <Typography>
+    <div className="container p-10 text-left">
+      <span className="text-base">
         Nifty League Desktop{' '}
         <span role="img" aria-label="joystick emoji">
           🕹️
         </span>
-      </Typography>
+      </span>
       <p>The Nifty League Desktop is recommended for best performance and latest game updates.</p>
-      <Typography>Setup Steps:</Typography>
+      <span className="text-base">Setup Steps:</span>
       <ol style={{ lineHeight: '2.5rem' }}>
         <li>Download the installer below</li>
-        <Button
-          color="primary"
-          disabled={isMacOs || !version}
-          href={downloadURL}
-          size="large"
-          startIcon={<Icon name="download" />}
-          variant="contained"
-        >
-          {!version && isWindows ? 'Fetching installer version...' : message}
-        </Button>
+        {isMacOs || !version ? (
+          <Button size="lg" disabled>
+            <Icon name="download" />
+            {!version && isWindows ? 'Fetching installer version...' : message}
+          </Button>
+        ) : (
+          <Button asChild size="lg">
+            <a href={downloadURL}>
+              <Icon name="download" />
+              {message}
+            </a>
+          </Button>
+        )}
         <li>
           Run the installer to install <strong>Nifty Launcher</strong> and an optional shortcut
         </li>
@@ -50,7 +53,7 @@ export const Downloader = (): React.ReactNode => {
           SmartScreen warning
         </em>
       </p>
-    </Container>
+    </div>
   )
 }
 
@@ -58,7 +61,7 @@ const DownloadGameDialog = () => {
   return (
     <Dialog>
       {/* <DialogTrigger>
-        <Button variant="outlined" color="primary" fullWidth sx={{ minWidth: 80, flex: 1 }}>
+        <Button variant="outline" className="w-full min-w-[80px] flex-1">
           Desktop App (Deprecated)
         </Button>
       </DialogTrigger> */}

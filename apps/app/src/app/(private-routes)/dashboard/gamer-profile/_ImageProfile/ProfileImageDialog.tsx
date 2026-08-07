@@ -1,10 +1,11 @@
 'use client'
 
 import { useContext, useState, useMemo } from 'react'
-import { IconButton, Box, Typography, Stack } from '@mui/material'
 import { toast } from 'react-toastify'
 
+import { Button } from '@nl/ui/base/button'
 import { Icon } from '@nl/ui/base/icon'
+import { Title } from '@nl/ui/custom/typography'
 import { Dialog, DialogTrigger, DialogContent, DialogContext } from '@/components/dialog'
 import SectionSlider from '@/components/sections/SectionSlider'
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
@@ -68,25 +69,19 @@ const ProfileImageContent = ({
   const renderDegens = () => {
     if (degensInternal.length > 0) {
       return degensInternal.map((degen) => (
-        <Box
+        <div
           key={degen?.id}
-          sx={{
-            overflow: 'hidden',
-            cursor: 'pointer',
-            display: 'block !important',
-            '&:hover img': { transform: 'scale(1.3)' },
-            '& img': { transition: 'transform .5s ease' },
-          }}
+          className="block cursor-pointer overflow-hidden [&_img]:transition-transform [&_img]:duration-500 hover:[&_img]:scale-[1.3]"
           onClick={() => handleSelectedDegen(degen)}
         >
           {renderDegenImage(degen)}
-        </Box>
+        </div>
       ))
     }
     return (
-      <Stack sx={{ justifyContent: 'center', alignItems: 'center' }}>
+      <div className="flex flex-col items-center justify-center">
         <EmptyState message="No DEGENs found." />
-      </Stack>
+      </div>
     )
   }
 
@@ -96,12 +91,12 @@ const ProfileImageContent = ({
       sliderSettingsOverride={settings}
       firstSection
       title={
-        <Stack sx={{ flex: 1, gap: 1 }}>
-          <Typography variant="h2">Choose a new profile degen</Typography>
-          <Typography variant="h5" component="p">
+        <div className="flex flex-1 flex-col gap-2">
+          <Title level={2}>Choose a new profile degen</Title>
+          <Title level={5}>
             There is a {avatarFee} NFTL fee for changing your gamer profile avatar
-          </Typography>
-        </Stack>
+          </Title>
+        </div>
       }
       actions={
         <SearchRental placeholder="Search degen by token # or name" handleSearch={onSearch} />
@@ -144,21 +139,16 @@ const ProfileImageDialog = ({
   return (
     <Dialog>
       <DialogTrigger>
-        <IconButton
-          sx={{ cursor: 'pointer', position: 'absolute', top: 1, left: 1 }}
+        <Button
+          variant="ghost"
+          size="icon"
           aria-label="edit"
-          onClick={() => null}
+          className="absolute left-2 top-2 cursor-pointer"
         >
           <Icon name="edit" size="xl" strokeWidth={2.5} />
-        </IconButton>
+        </Button>
       </DialogTrigger>
-      <DialogContent
-        aria-labelledby="profile-image-dialog"
-        sx={{
-          '& .MuiPaper-root': { maxWidth: '1000px' },
-          '& .MuiDialogContent-root': { border: 'none' },
-        }}
-      >
+      <DialogContent sx={{ maxWidth: '1000px' }}>
         <ProfileImageContent
           onSearch={handleSearch}
           onChangeAvatar={onChangeAvatar}

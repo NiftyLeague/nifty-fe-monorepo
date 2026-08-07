@@ -24,7 +24,6 @@ This Turborepo includes the following apps/packages:
 - `@nl/imx-passport`: an [Immutable Passport](https://www.immutable.com/products/passport) instance to connect apps to the Immutable zkEVM blockchain
 - `@nl/playfab`: a [PlayFab](https://playfab.com/) client API for our game services. Includes auth UI components for PlayFab login
 - `@nl/prettier-config`: global [Prettier](https://prettier.io/) config overrides for code formatting
-- `@nl/theme`: a common theme wrapper for [Next.js](https://nextjs.org/) apps using [Material-UI](https://mui.com/material-ui/)
 - `@nl/typescript-config`: global [TypeScript](https://www.typescriptlang.org/) configs `tsconfig.json`
 - `@nl/ui`: a stub [React](https://react.dev/) component library using [Shadcn/ui](https://ui.shadcn.com/). Includes global [Tailwind CSS](https://tailwindcss.com/) styles
 
@@ -188,7 +187,6 @@ bun --filter <app/package_selector> <command>
 - `imx-passport`
 - `playfab`
 - `prettier-config`
-- `theme`
 - `typescript-config`
 - `ui`
 

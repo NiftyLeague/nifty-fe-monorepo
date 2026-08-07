@@ -1,7 +1,7 @@
 'use client'
-import { useEffect, useMemo, useRef } from 'react'
-import { Box, InputBase, Stack, Typography } from '@mui/material'
+import { useEffect, useMemo } from 'react'
 import debounce from 'lodash/debounce'
+import { cn } from '@nl/ui/utils'
 import { formatNumberToDisplay } from '@nl/ui/utils'
 import useTokenUSDPrice from '@/hooks/useTokenUSDPrice'
 import { OrderKind } from '@cowprotocol/cow-sdk'
@@ -55,7 +55,7 @@ const TokenInfoBox = ({
     }
   }, [debouncedGetMarketplace])
 
-  const handleChangeValue = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+  const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value
     if (!isNaN(Number(newValue))) {
       setValue(newValue)
@@ -65,7 +65,7 @@ const TokenInfoBox = ({
     }
   }
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (['.', ','].includes(e.key)) {
       if (!value) {
         setValue('0.')
@@ -85,81 +85,65 @@ const TokenInfoBox = ({
   }, [price, value])
 
   return (
-    <Stack direction="column">
-      <Box
-        className={styles.swapBox}
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          borderRadius: transactionValue ? '10px 10px 0px 0px' : '10px',
-        }}
-      >
-        <Stack
-          direction="row"
-          className={styles.tokenBox}
-          spacing={0.5}
-          sx={{ px: 1, py: 0.5, alignItems: 'center' }}
-        >
+    <div
+      className={styles.swapBox}
+      style={{
+        borderRadius: transactionValue ? '10px 10px 0 0' : '10px',
+      }}
+    >
+      <div className="flex flex-col justify-between">
+        <div className={cn(styles.tokenBox, 'flex items-center gap-1')}>
           {icon}
-          <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-            {name}
-          </Typography>
-        </Stack>
-        <Stack
-          direction="row"
-          spacing={1}
-          sx={{ width: '100%', justifyContent: 'space-between', alignItems: 'center' }}
-        >
-          <Stack
-            direction="row"
-            spacing={1}
-            sx={{ flex: 1, position: 'relative', overflow: 'hidden', alignItems: 'center' }}
-          >
-            <InputBase
+          <span className="font-bold">{name}</span>
+        </div>
+        <div className="flex flex-row justify-between items-center w-full">
+          <div className="flex flex-row items-center flex-1 relative overflow-hidden">
+            <input
               className={styles.tokenAmountInput}
-              inputProps={{
-                autoComplete: 'off',
-                autoCorrect: 'off',
-                inputMode: 'decimal',
-                minLength: 1,
-                maxLength: 79,
-                pattern: '^[0-9]*[.,]?[0-9]*$',
-                title: 'Token Amount',
-              }}
+              autoComplete="off"
+              autoCorrect="off"
+              inputMode="decimal"
+              minLength={1}
+              maxLength={79}
+              pattern="^[0-9]*[.,]?[0-9]*$"
+              title="Token Amount"
               placeholder="0.00"
               value={value}
               onChange={handleChangeValue}
               onKeyDown={handleKeyDown}
+              style={{
+                position: 'relative',
+                backgroundColor: 'transparent',
+                border: 'none',
+                padding: 0,
+                height: 36,
+                fontSize: 36,
+                fontWeight: 700,
+              }}
             />
             {value !== '0' && priceInfo && (
-              <Typography
-                variant="body1"
-                className={styles.infoUSD}
-                sx={{ fontWeight: 'bold', left: value.length > 0 ? value.length * 19 + 10 : 86 }}
-              >
-                {`~$${priceInfo}`}
-              </Typography>
+              <span
+                className={cn(styles.infoUSD, 'text-base font-bold')}
+                style={{
+                  left: value.length > 0 ? value.length * 19 + 10 : 86,
+                }}
+              >{`~$${priceInfo}`}</span>
             )}
-          </Stack>
-          <Typography variant="body1" sx={{ fontWeight: 'bold', color: '#4D4D4F' }}>
+          </div>
+          <span className="text-base font-bold" style={{ color: '#4D4D4F' }}>
             {`Balance: ${balance ? formatNumberToDisplay(balance, 4) : '0.00'}`}
-          </Typography>
-        </Stack>
-      </Box>
+          </span>
+        </div>
+      </div>
       {transactionValue && (
-        <Stack
-          direction="row"
-          sx={{ justifyContent: 'space-between', alignItems: 'center' }}
-          className={styles.transactionBox}
-        >
-          <Typography>{`${kind} (incl. fee)`}</Typography>
-          <Typography className={styles.transactionValue}>
+        <div className={cn(styles.transactionBox, 'flex justify-between items-center')}>
+          <span className="text-base">{`${kind} (incl. fee)`}</span>
+          <span className={styles.transactionValue}>
             {`${formatNumberToDisplay(Number(transactionValue), 4)}`}
-          </Typography>
-        </Stack>
+          </span>
+        </div>
       )}
-    </Stack>
+    </div>
   )
 }
 

@@ -3,18 +3,8 @@
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 
-// material-ui
-import { useTheme } from '@nl/theme'
-import {
-  Collapse,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-} from '@mui/material'
-
 // project imports
+import { cn } from '@nl/ui/utils'
 import { Icon } from '@nl/ui/base/icon'
 import { NavGroupProps } from '../_NavGroup'
 import NavItem from '../_NavItem'
@@ -27,7 +17,6 @@ interface NavCollapseProps {
 }
 
 const NavCollapse = ({ menu, level }: NavCollapseProps) => {
-  const theme = useTheme()
   const [open, setOpen] = useState(false)
   const [selected, setSelected] = useState<string | null | undefined>(null)
 
@@ -61,89 +50,53 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
         return <NavItem key={item.id} item={item} level={level + 1} />
       default:
         return (
-          <Typography
-            key={item.id}
-            variant="h6"
-            sx={{ color: 'var(--color-error)' }}
-            align="center"
-          >
+          <h6 key={item.id} className="text-center text-error">
             Menu Items Error
-          </Typography>
+          </h6>
         )
     }
   })
 
   return (
     <>
-      <ListItemButton
-        sx={{
-          borderRadius: 'var(--radius-default)',
-          mb: 0.5,
-          alignItems: 'center',
-          backgroundColor: level > 1 ? 'transparent !important' : 'inherit',
-          py: level > 1 ? 1 : 1.25,
-          pl: `${level * 24}px`,
-        }}
-        selected={selected === menu.id}
+      <button
+        type="button"
+        className={cn(
+          'mb-0.5 flex w-full items-center rounded-md px-2 text-left',
+          level > 1 ? 'py-2' : 'py-2.5',
+          selected === menu.id ? 'bg-muted font-bold' : 'font-normal',
+          level > 1 ? 'bg-transparent' : 'bg-inherit'
+        )}
+        style={{ paddingLeft: `${level * 24}px`, alignItems: 'center' }}
         onClick={handleClick}
       >
-        <ListItemIcon sx={{ my: 'auto', minWidth: !menu.icon ? 18 : 36 }}>
+        <span className="my-auto" style={{ minWidth: !menu.icon ? 18 : 36 }}>
           <Icon name={menu?.icon ?? 'dot'} size="lg" className="ml-1" />
-        </ListItemIcon>
-        <ListItemText
-          primary={
-            <Typography
-              variant="body1"
-              sx={{
-                fontWeight: selected === menu.id ? 'bold' : 'normal',
-                color: 'inherit',
-                my: 'auto',
-              }}
-            >
-              {menu.title}
-            </Typography>
-          }
-          secondary={
-            menu.caption && (
-              <Typography
-                variant="caption"
-                gutterBottom
-                sx={{ display: 'block', ...theme.typography.subMenuCaption }}
-              >
-                {menu.caption}
-              </Typography>
-            )
-          }
-        />
+        </span>
+        <span className="flex flex-1 flex-col">
+          <span style={{ color: 'inherit' }}>{menu.title}</span>
+          {menu.caption && (
+            <span className="block text-xs font-medium uppercase text-muted-foreground">
+              {menu.caption}
+            </span>
+          )}
+        </span>
         <Icon
           name="chevron-down"
           size="md"
-          className={`transition-transform ${open ? 'transform rotate-180' : ''}`}
+          className={cn('transition-transform', open && 'rotate-180 transform')}
         />
-      </ListItemButton>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        {open && (
-          <List
-            component="div"
-            disablePadding
-            sx={{
-              position: 'relative',
-              '&:after': {
-                content: "''",
-                position: 'absolute',
-                left: '27px',
-                top: 0,
-                height: '100%',
-                width: '1px',
-                opacity: 1,
-                background: 'var(--color-separator)',
-              },
-            }}
-          >
-            {menus}
-          </List>
-        )}
-      </Collapse>
+      </button>
+      {open && (
+        <div className="relative">
+          <span
+            aria-hidden
+            className="absolute top-0 left-[27px] h-full w-px opacity-100"
+            style={{ background: 'var(--color-separator)' }}
+          />
+          <div>{menus}</div>
+        </div>
+      )}
     </>
   )
 }

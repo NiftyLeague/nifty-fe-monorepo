@@ -1,6 +1,4 @@
 import type { Dispatch, SetStateAction } from 'react'
-import Box from '@mui/material/Box'
-
 import DataList from './DataList'
 import DataTable from './DataTable'
 
@@ -75,7 +73,7 @@ const ResponsiveTable: React.FC<ResponsiveTableProps> = ({
   return (
     <div>
       {/* DESKTOP BIG TABLE */}
-      <Box sx={{ display: { xs: 'none', md: 'none', lg: 'block' } }}>
+      <div className="hidden lg:block">
         <DataTable
           columns={columns}
           count={count}
@@ -87,10 +85,10 @@ const ResponsiveTable: React.FC<ResponsiveTableProps> = ({
           rowsClassArray={rowsClassArray}
           showPagination={showPagination}
         />
-      </Box>
+      </div>
 
       {/* MOBILE EXPANDABLE LIST OF CARDS */}
-      <Box sx={{ display: { xs: 'block', md: 'block', lg: 'none' } }}>
+      <div className="lg:hidden">
         <DataList
           AccordionDetailsProps={AccordionDetailsProps}
           AccordionDetailsTypographyProps={AccordionDetailsTypographyProps}
@@ -112,7 +110,7 @@ const ResponsiveTable: React.FC<ResponsiveTableProps> = ({
           showPagination={showPagination}
           TablePaginationProps={TablePaginationProps}
         />
-      </Box>
+      </div>
     </div>
   )
 }

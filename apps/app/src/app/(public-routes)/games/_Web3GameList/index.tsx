@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Grid, Button } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
 import BuyArcadeTokensDialog from '@/components/dialog/BuyArcadeTokensDialog'
 import ConnectWrapper from '@/components/wrapper/ConnectWrapper'
 import GameCard from '@/components/cards/GameCard'
@@ -42,7 +42,7 @@ const Web3GameList = () => {
 
   return (
     <>
-      <Grid className={styles.gridItem} size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
+      <div className={`${styles.gridItem} col-span-12 md:col-span-6 xl:col-span-4`}>
         <GameCard
           title="2D Smashers"
           externalLink={{ title: 'Smashers Mobile', src: 'https://niftysmashers.com/' }}
@@ -56,10 +56,8 @@ const Web3GameList = () => {
               <DownloadGameDialog />
               <ConnectWrapper color="primary" fullWidth buttonText="Connect Wallet to play">
                 <Button
-                  variant="outlined"
-                  color="primary"
-                  fullWidth
-                  sx={{ minWidth: 80, flex: 1 }}
+                  variant="outline"
+                  className="w-full min-w-20 flex-1"
                   onClick={goToPlayOnGame}
                 >
                   Play in Browser
@@ -68,8 +66,8 @@ const Web3GameList = () => {
             </>
           }
         />
-      </Grid>
-      <Grid className={styles.gridItem} size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
+      </div>
+      <div className={`${styles.gridItem} col-span-12 md:col-span-6 xl:col-span-4`}>
         <GameCard
           title="WEN Game"
           required="Arcade Tokens Required"
@@ -79,10 +77,8 @@ const Web3GameList = () => {
           actions={
             <ConnectWrapper color="primary" fullWidth buttonText="Connect Wallet to play">
               <Button
-                variant="outlined"
-                color="primary"
-                fullWidth
-                sx={{ minWidth: 80, flex: 1 }}
+                variant="outline"
+                className="w-full min-w-20 flex-1"
                 onClick={goToPlayWENGame}
               >
                 {Number(tokensBalances.AT) > 0 ? 'Play in Browser' : 'Buy Arcade Tokens'}
@@ -90,8 +86,8 @@ const Web3GameList = () => {
             </ConnectWrapper>
           }
         />
-      </Grid>
-      <Grid className={styles.gridItem} size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
+      </div>
+      <div className={`${styles.gridItem} col-span-12 md:col-span-6 xl:col-span-4`}>
         <GameCard
           title="Crypto Winter"
           required="Arcade Tokens Required"
@@ -101,10 +97,8 @@ const Web3GameList = () => {
           actions={
             <ConnectWrapper color="primary" fullWidth buttonText="Connect Wallet to play">
               <Button
-                variant="outlined"
-                color="primary"
-                fullWidth
-                sx={{ minWidth: 80, flex: 1 }}
+                variant="outline"
+                className="w-full min-w-20 flex-1"
                 onClick={goToPlayCryptoWinter}
               >
                 {Number(tokensBalances.AT) > 0 ? 'Play in Browser' : 'Buy Arcade Tokens'}
@@ -112,8 +106,8 @@ const Web3GameList = () => {
             </ConnectWrapper>
           }
         />
-      </Grid>
-      <Grid className={styles.gridItem} size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
+      </div>
+      <div className={`${styles.gridItem} col-span-12 md:col-span-6 xl:col-span-4`}>
         <GameCard
           title="Mt. Gawx"
           required="NFTL required"
@@ -125,10 +119,8 @@ const Web3GameList = () => {
             <ConnectWrapper color="primary" fullWidth buttonText="Connect Wallet to play">
               <Button
                 disabled
-                variant="outlined"
-                color="primary"
-                fullWidth
-                sx={{ minWidth: 80, flex: 1 }}
+                variant="outline"
+                className="w-full min-w-20 flex-1"
                 onClick={goToPlayMtGawx}
               >
                 Mountain Closed
@@ -136,8 +128,8 @@ const Web3GameList = () => {
             </ConnectWrapper>
           }
         />
-      </Grid>
-      <Grid className={styles.gridItem} size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
+      </div>
+      <div className={`${styles.gridItem} col-span-12 md:col-span-6 xl:col-span-4`}>
         <GameCard
           title="Nifty Tennis"
           required="Unreleased"
@@ -151,10 +143,8 @@ const Web3GameList = () => {
             <>
               <Button
                 disabled
-                variant="outlined"
-                color="primary"
-                fullWidth
-                sx={{ minWidth: 80, flex: 1 }}
+                variant="outline"
+                className="w-full min-w-20 flex-1"
                 onClick={goToPlayMtGawx}
               >
                 Not Available
@@ -162,7 +152,7 @@ const Web3GameList = () => {
             </>
           }
         />
-      </Grid>
+      </div>
       <BuyArcadeTokensDialog
         open={openBuyAT}
         onSuccess={() => {

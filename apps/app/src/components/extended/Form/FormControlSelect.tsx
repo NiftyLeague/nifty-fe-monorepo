@@ -1,9 +1,18 @@
 'use client'
 
 import { useState } from 'react'
-import { Divider, FormControl, InputAdornment, MenuItem, TextField } from '@mui/material'
 
+import { Label } from '@nl/ui/base/label'
+import {
+  Select as SelectBase,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@nl/ui/base/select'
+import { Separator } from '@nl/ui/base/separator'
 import { Icon, type IconName } from '@nl/ui/base/icon'
+import { cn } from '@nl/ui/utils'
 
 // ==============================|| FORM CONTROL SELECT ||============================== //
 
@@ -35,55 +44,49 @@ const FormControlSelect = ({
   const val = selected || ''
 
   const [currency, setCurrency] = useState(val)
-  const handleChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement> | undefined
-  ) => {
-    event?.target.value && setCurrency(event?.target.value)
-  }
 
   return (
-    <FormControl fullWidth error={errorState}>
-      <TextField
-        id="outlined-select-currency"
-        select
-        fullWidth
-        label={captionLabel}
-        value={currency}
-        onChange={handleChange}
-        slotProps={{
-          input: {
-            startAdornment: (
-              <>
-                {primaryIcon && <InputAdornment position="start">{primaryIcon}</InputAdornment>}
-                {textPrimary && (
-                  <>
-                    <InputAdornment position="start">{textPrimary}</InputAdornment>
-                    <Divider sx={{ height: 28, m: 0.5, opacity: '0.6' }} orientation="vertical" />
-                  </>
-                )}
-              </>
-            ),
-            endAdornment: (
-              <>
-                {secondaryIcon && <InputAdornment position="end">{secondaryIcon}</InputAdornment>}
-                {textSecondary && (
-                  <>
-                    <Divider sx={{ height: 28, m: 0.5, opacity: '0.6' }} orientation="vertical" />
-                    <InputAdornment position="end">{textSecondary}</InputAdornment>
-                  </>
-                )}
-              </>
-            ),
-          },
-        }}
+    <div className="grid w-full gap-2">
+      {captionLabel && (
+        <Label className={cn(errorState && 'text-destructive')}>{captionLabel}</Label>
+      )}
+      <div
+        className={cn(
+          'flex w-full items-center rounded-md border bg-transparent',
+          errorState && 'border-destructive'
+        )}
       >
-        {currencies?.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-    </FormControl>
+        {primaryIcon && <span className="pl-3 text-muted-foreground">{primaryIcon}</span>}
+        {textPrimary && (
+          <span className="flex items-center gap-1 pl-3">
+            <span className="text-sm text-muted-foreground">{textPrimary}</span>
+            <Separator orientation="vertical" className="h-7 opacity-60" />
+          </span>
+        )}
+        <SelectBase value={currency} onValueChange={(v) => setCurrency(v)}>
+          <SelectTrigger
+            aria-invalid={errorState}
+            className={cn('w-full border-0 shadow-none', (primaryIcon || textPrimary) && 'pl-2')}
+          >
+            <SelectValue placeholder={captionLabel} />
+          </SelectTrigger>
+          <SelectContent>
+            {currencies?.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </SelectBase>
+        {secondaryIcon && <span className="pr-3 text-muted-foreground">{secondaryIcon}</span>}
+        {textSecondary && (
+          <span className="flex items-center gap-1 pr-3">
+            <Separator orientation="vertical" className="h-7 opacity-60" />
+            <span className="text-sm text-muted-foreground">{textSecondary}</span>
+          </span>
+        )}
+      </div>
+    </div>
   )
 }
 

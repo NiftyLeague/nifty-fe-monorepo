@@ -1,4 +1,4 @@
-import { IconButton } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
 import { Icon } from '@nl/ui/base/icon'
 import { Dialog, DialogTrigger, DialogContent } from '@/components/dialog'
 import ChangeProfileNameForm from './ChangeProfileNameForm'
@@ -11,15 +11,11 @@ const ChangeProfileNameDialog = ({
 }: ChangeProfileNameDialogProps): React.ReactNode => (
   <Dialog>
     <DialogTrigger>
-      <IconButton sx={{ cursor: 'pointer' }} aria-label="edit">
+      <Button variant="ghost" size="icon" aria-label="edit" className="cursor-pointer">
         <Icon name="pencil" />
-      </IconButton>
+      </Button>
     </DialogTrigger>
-    <DialogContent
-      aria-labelledby="customized-dialog-title"
-      dialogTitle="Update your username"
-      sx={{ '& h2': { textAlign: 'center' }, '& .MuiDialogContent-root': { width: '300px' } }}
-    >
+    <DialogContent dialogTitle="Update your username" sx={{ width: '300px' }}>
       <ChangeProfileNameForm updateNewName={handleUpdateNewName} />
     </DialogContent>
   </Dialog>

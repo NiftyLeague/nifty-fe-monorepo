@@ -1,5 +1,5 @@
 import { useRouter } from 'next/navigation'
-import { Box, Button, Stack, Typography } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
 import useFlags from '@/hooks/useFlags'
 import type { Item } from '@/types/marketplace'
 import ImageCard from '@/components/cards/ImageCard'
@@ -18,7 +18,10 @@ const ItemDetail: React.FC<React.PropsWithChildren<React.PropsWithChildren<ItemD
 
   if (!data || (data?.balance && data?.balance > 1 && subIndex < 0)) {
     return (
-      <Box sx={{ border: '1px solid #363636', borderRadius: '5px', minWidth: 345, height: 375 }} />
+      <div
+        className="min-w-[345px] rounded-[5px] border border-[#363636]"
+        style={{ height: 375 }}
+      />
     )
   }
 
@@ -29,96 +32,64 @@ const ItemDetail: React.FC<React.PropsWithChildren<React.PropsWithChildren<ItemD
   }
 
   return (
-    <Stack
-      sx={{
-        border: { xs: 'none', lg: '1px solid #363636' },
-        borderRadius: '5px',
-        minWidth: { xs: '100%', lg: 345 },
-        width: 345,
-        height: 375,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
+    <div
+      className="flex min-w-full flex-col items-center justify-center rounded-[5px] border-0 lg:min-w-[345px] lg:border lg:border-[#363636]"
+      style={{ width: 345, height: 375 }}
     >
-      <Box sx={{ position: 'relative', width: 225, height: 226 }}>
-        <Box sx={{ position: 'relative', overflow: 'hidden', borderRadius: '10px 10px 0px 0px' }}>
+      <div className="relative" style={{ width: 225, height: 226 }}>
+        <div className="relative overflow-hidden" style={{ borderRadius: '10px 10px 0 0' }}>
           <ImageCard image={image} thumbnail={thumbnail} title={title} ratio={1} />
-        </Box>
+        </div>
         {multiplier && multiplier >= 2 && (
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+          <div
+            className="absolute flex items-center justify-center rounded-full"
+            style={{
               width: 50,
               height: 50,
-              position: 'absolute',
-              borderRadius: '50%',
               background: 'var(--color-purple)',
               top: -12,
               right: -28,
             }}
           >
-            <Typography
-              sx={{ fontSize: '20px', fontWeight: 'bold', color: 'var(--color-foreground)' }}
-            >{`${multiplier}x`}</Typography>
-          </Box>
+            <span className="text-[20px] font-bold text-foreground">{`${multiplier}x`}</span>
+          </div>
         )}
-      </Box>
+      </div>
       {enableEquip ? (
-        <Stack
-          spacing={1.5}
-          sx={{
-            width: 225,
-            border: '1px solid #5D5F74',
-            borderTop: 'none',
-            p: 1,
-            pb: 3,
-            borderRadius: '0px 0px var(--radius-default) var(--radius-default)',
-          }}
-        >
+        <div className="flex w-[225px] flex-col gap-3 rounded-b-[var(--radius-default)] border border-[#5D5F74] border-t-0 p-1 pb-3">
           <Button
-            variant="contained"
-            fullWidth
-            sx={{ height: 28, textTransform: 'none', fontWeight: 700 }}
+            variant="default"
+            className="w-full font-bold"
+            style={{ height: 28 }}
             onClick={handleEquip}
           >
             {equipped ? 'Unequip' : 'Equip on a DEGEN'}
           </Button>
-          <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-            <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#363636' }}>
+          <div className="flex flex-row items-center justify-between">
+            <span className="text-xs font-semibold" style={{ color: '#363636' }}>
               Equipped:
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: '12px',
-                fontWeight: 500,
-                color: 'var(--color-purple)',
-                textDecorationLine: equipped ? 'underline' : 'none',
-              }}
+            </span>
+            <span
+              className="text-xs font-medium text-purple"
+              style={{ textDecorationLine: equipped ? 'underline' : 'none' }}
             >
               {equipped ? 'DEGEN #1152' : '-'}
-            </Typography>
-          </Stack>
-          <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-            <Typography sx={{ fontSize: '12px', fontWeight: 600, color: '#363636' }}>
+            </span>
+          </div>
+          <div className="flex flex-row items-center justify-between">
+            <span className="text-xs font-semibold" style={{ color: '#363636' }}>
               Rental:
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: '12px',
-                fontWeight: 500,
-                color: 'var(--color-purple)',
-                textDecorationLine: equipped ? 'underline' : 'none',
-              }}
+            </span>
+            <span
+              className="text-xs font-medium text-purple"
+              style={{ textDecorationLine: equipped ? 'underline' : 'none' }}
             >
               {equipped ? '28 days left' : '-'}
-            </Typography>
-          </Stack>
-        </Stack>
+            </span>
+          </div>
+        </div>
       ) : null}
-    </Stack>
+    </div>
   )
 }
 

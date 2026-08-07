@@ -1,27 +1,25 @@
 import { memo } from 'react'
-import { CardMedia } from '@mui/material'
 import type { Degen } from '@/types/degens'
 
-type CardMediaWithComponent = Partial<React.ComponentProps<typeof CardMedia>> & {
-  component?: React.ElementType
+type DegenMediaProps = {
   alt?: string
   src?: string
   autoPlay?: boolean
   loop?: boolean
   muted?: boolean
+  style?: React.CSSProperties
 }
 
 const DegenInternalImage = memo(({ degen }: { degen: Degen }) => {
-  let setting: CardMediaWithComponent = {
-    sx: { height: 320 },
-    component: 'img',
-    image: degen?.url,
+  const setting: DegenMediaProps = {
+    style: { height: 320, objectFit: 'cover', display: 'block' },
+    src: degen?.url,
     alt: degen?.name,
   }
   if (degen?.background === 'legendary') {
-    setting = { ...setting, component: 'video', autoPlay: true, loop: true, muted: true }
+    return <video {...setting} autoPlay loop muted />
   }
-  return <CardMedia {...setting} />
+  return <img {...setting} />
 })
 
 DegenInternalImage.displayName = 'DegenInternalImage'

@@ -1,17 +1,10 @@
 'use client'
 
-import {
-  DialogTitle,
-  DialogContent,
-  Stack,
-  Typography,
-  FormControl,
-  FormControlLabel,
-  Checkbox,
-  DialogActions,
-  Button,
-} from '@mui/material'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
+import { Button } from '@nl/ui/base/button'
+import { Checkbox } from '@nl/ui/base/checkbox'
+import { DialogContent } from '@nl/ui/base/dialog'
+import { Label } from '@nl/ui/base/label'
 import type { Degen } from '@/types/degens'
 import { DISABLE_RENT_API_URL } from '@/constants/url'
 import { toast } from 'react-toastify'
@@ -33,7 +26,7 @@ const EnableDisableDegenDialogContent = ({
 }: Props): React.ReactNode => {
   const { authToken } = useAuth()
   const [agreement, setAgreement] = useState(false)
-  const handleButtonClick = async () => {
+  const handleButtonClick = useCallback(async () => {
     if (!authToken || !degen) {
       return
     }
@@ -54,53 +47,44 @@ const EnableDisableDegenDialogContent = ({
       onSuccess?.()
       onClose()
     }
-  }
+  }, [authToken, degen, isEnabled, onSuccess, onClose])
 
   return (
-    <>
-      <DialogTitle sx={{ textAlign: 'center' }}>
-        {isEnabled ? 'Disable' : 'Enable'} Degen #{degen?.id} Rentals
-      </DialogTitle>
-      <DialogContent dividers sx={{ maxWidth: '320px' }}>
-        <Stack sx={{ rowGap: 2 }}>
-          <Stack sx={{ rowGap: 1 }}>
-            {degen?.id && <DegenImage tokenId={degen.id} />}
-            <Typography variant="caption" component="p" sx={{ textAlign: 'center' }}>
-              Owned by {degen?.owner}
-            </Typography>
-          </Stack>
-          <Stack direction="row" sx={{ mb: 1, justifyContent: 'center' }}>
-            {isEnabled ? (
-              <Typography align="center">
-                Disabling your rental makes your rental queue private. Note that your queue will
-                clear as existing rentals reach the already paid-for expiration. Re-enabling fee is
-                1000 NFTL.
-              </Typography>
-            ) : (
-              <Typography align="center">Enable Rental Fee 1000 NFTL</Typography>
-            )}
-          </Stack>
-          <FormControl>
-            <FormControlLabel
-              label={
-                <Typography variant="caption">I understand and agree the terms above.</Typography>
-              }
-              control={
-                <Checkbox
-                  value={agreement}
-                  onChange={(event) => setAgreement(event.target.checked)}
-                />
-              }
-            />
-          </FormControl>
-        </Stack>
-      </DialogContent>
-      <DialogActions>
-        <Button variant="contained" fullWidth disabled={!agreement} onClick={handleButtonClick}>
+    <DialogContent showCloseButton={false} className="sm:max-w-[320px]">
+      <div className="flex flex-col items-center gap-2">
+        <h2 className="text-center text-lg font-semibold">
           {isEnabled ? 'Disable' : 'Enable'} Degen #{degen?.id} Rentals
-        </Button>
-      </DialogActions>
-    </>
+        </h2>
+        {degen?.id && <DegenImage tokenId={degen.id} />}
+        <p className="text-center text-xs text-muted-foreground">Owned by {degen?.owner}</p>
+        {isEnabled ? (
+          <p className="text-center text-sm text-foreground">
+            Disabling your rental makes your rental queue private. Note that your queue will clear
+            as existing rentals reach the already paid-for expiration. Re-enabling fee is 1000 NFTL.
+          </p>
+        ) : (
+          <p className="text-center text-sm text-foreground">Enable Rental Fee 1000 NFTL</p>
+        )}
+      </div>
+      <div className="flex items-center gap-2 pt-2">
+        <Checkbox
+          id="agreement-checkbox"
+          checked={agreement}
+          onCheckedChange={(checked) => setAgreement(!!checked)}
+        />
+        <Label htmlFor="agreement-checkbox" className="text-xs">
+          I understand and agree the terms above.
+        </Label>
+      </div>
+      <Button
+        variant="default"
+        className="mt-2 w-full"
+        disabled={!agreement}
+        onClick={handleButtonClick}
+      >
+        {isEnabled ? 'Disable' : 'Enable'} Degen #{degen?.id} Rentals
+      </Button>
+    </DialogContent>
   )
 }
 

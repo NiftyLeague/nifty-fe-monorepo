@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
-import { Box, Button, Stack } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { Button } from '@nl/ui/base/button'
 
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import WearableItemCard from '@/components/cards/WearableItemCard'
@@ -39,30 +39,30 @@ const MyItems = (): React.ReactNode => {
         variant="h3"
         sliderSettingsOverride={settings}
         actions={
-          <Button variant="outlined" onClick={() => router.push('/dashboard/items')}>
+          <Button variant="outline" onClick={() => router.push('/dashboard/items')}>
             View All Items
           </Button>
         }
       >
         {loadingItems ? (
-          <Box sx={{ px: 1 }}>
+          <div className="px-1">
             <ComicPlaceholder />
-          </Box>
+          </div>
         ) : filteredItems.length ? (
           filteredItems.map((item) => (
-            <Box key={item.wearableName} sx={{ px: 1 }}>
+            <div key={item.wearableName} className="px-1">
               <WearableItemCard data={item} />
-            </Box>
+            </div>
           ))
         ) : (
-          <Stack sx={{ justifyContent: 'center', alignItems: 'center' }}>
+          <div className="flex items-center justify-center">
             <Link href={ITEM_PURCHASE_URL} target="_blank" rel="noreferrer">
               <EmptyState
                 message="No Items found. Please check your address or go purchase some if you have not done so already!"
                 buttonText="Buy Items"
               />
             </Link>
-          </Stack>
+          </div>
         )}
       </SectionSlider>
     </>

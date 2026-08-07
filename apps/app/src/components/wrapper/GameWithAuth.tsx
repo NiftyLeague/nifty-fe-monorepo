@@ -7,7 +7,7 @@ import { isOpera, browserName } from 'react-device-detect'
 import Unity from 'react-unity-webgl'
 import type { UnityConfig } from 'react-unity-webgl'
 import { useUnityContext } from '@/lib/use-unity-context'
-import { Box, Button, Stack } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
 import { useAccount } from 'wagmi'
 
 import { gtm, GTM_EVENTS } from '@nl/ui/gtm'
@@ -157,8 +157,8 @@ const Game = ({ unityConfig, arcadeTokenRequired = false }: GameProps) => {
   return (
     <>
       <Preloader ready={isLoaded} progress={loadingProgression * 100} />
-      <Stack direction="row" sx={{ alignItems: 'flex-start' }}>
-        <Stack sx={{ alignItems: 'flex-start' }}>
+      <div className="flex flex-row items-start">
+        <div className="flex flex-col items-start">
           <Unity
             key={authToken}
             className="game-canvas"
@@ -170,24 +170,22 @@ const Game = ({ unityConfig, arcadeTokenRequired = false }: GameProps) => {
             }}
           />
           <Button
-            variant="contained"
-            size="large"
+            variant="default"
+            size="lg"
             onClick={handleOnClickFullscreen}
-            sx={{ marginTop: '6px' }}
+            className="mt-[6px]"
           >
             Fullscreen
           </Button>
-        </Stack>
-      </Stack>
+        </div>
+      </div>
     </>
   )
 }
 
 const GameWithAuth = withVerification((props: GameProps) =>
   isOpera ? (
-    <Box component="h2" sx={{ textAlign: 'center', mt: 8 }}>
-      {browserName} Browser Not Supported
-    </Box>
+    <h2 className="mt-8 text-center">{browserName} Browser Not Supported</h2>
   ) : (
     <ErrorBoundary>
       <Game {...props} />

@@ -1,5 +1,5 @@
-// material-ui
-import { Grid, Skeleton, Stack, Typography } from '@mui/material'
+import { Skeleton } from '@nl/ui/base/skeleton'
+import { Title } from '@nl/ui/custom/typography'
 import type { GenericCardProps } from '@/types'
 // project imports
 import MainCard from './MainCard'
@@ -22,45 +22,38 @@ const HoverDataCard = ({
   isLoading,
 }: HoverDataCardProps) => (
   <MainCard sx={customStyle ?? {}}>
-    <Grid
-      container
-      sx={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}
-    >
-      <Grid size={{ xs: 12 }}>
+    <div className="flex flex-col items-center justify-between">
+      <div className="w-full">
         {isLoading ? (
-          <Skeleton variant="text" animation="wave" width={80} />
+          <Skeleton className="h-5 w-20" />
         ) : (
-          <Typography variant="h4" sx={{ textAlign: 'center', color: 'inherit' }}>
+          <Title level={4} className="text-center">
             {title}
-          </Typography>
+          </Title>
         )}
-      </Grid>
-      <Grid size={{ xs: 12 }}>
-        <Stack direction="row" spacing={0.5} sx={{ mt: 1.75, mb: 0.5, justifyContent: 'center' }}>
+      </div>
+      <div className="w-full">
+        <div className="mt-1.75 mb-0.5 flex flex-row justify-center gap-1">
           {isLoading ? (
-            <Skeleton variant="text" animation="wave" width={80} />
+            <Skeleton className="h-5 w-20" />
           ) : (
-            <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-              {primary}
-            </Typography>
+            <span className="text-base font-bold">{primary}</span>
           )}
-        </Stack>
-      </Grid>
+        </div>
+      </div>
       {secondary && (
-        <Grid size={{ xs: 12 }} sx={{ mb: 1.75 }}>
-          <Stack direction="row" spacing={0.5} sx={{ justifyContent: 'center' }}>
+        <div className="mb-1.75 w-full">
+          <div className="flex flex-row justify-center gap-1">
             {isLoading ? (
-              <Skeleton variant="text" animation="wave" width={120} />
+              <Skeleton className="h-5 w-30" />
             ) : (
-              <Typography variant="body2" sx={{ color: 'var(--color-muted-foreground)' }}>
-                {secondary}
-              </Typography>
+              <span className="text-sm text-muted-foreground">{secondary}</span>
             )}
-          </Stack>
-        </Grid>
+          </div>
+        </div>
       )}
       {actions}
-    </Grid>
+    </div>
   </MainCard>
 )
 

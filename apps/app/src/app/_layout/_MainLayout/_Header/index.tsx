@@ -1,6 +1,4 @@
-// material-ui
-import { useTheme, appHeaderHeight } from '@nl/theme'
-import { Avatar, Box, Stack, Link } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
 
 import { useDispatch, useSelector } from '@/store/hooks'
 import { openDrawer } from '@/store/slices/menu'
@@ -11,6 +9,8 @@ import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import AddNFTL from './AddNFTLToMetamask'
 import LogoSection from '../_LogoSection'
 
+const appHeaderHeight = 60
+
 // ==============================|| MAIN NAVBAR / HEADER ||============================== //
 
 const pages = [
@@ -20,71 +20,47 @@ const pages = [
 ] as { name: string; link: string }[]
 
 const Header = () => {
-  const theme = useTheme()
-
   const dispatch = useDispatch()
   const { drawerOpen } = useSelector((state) => state.menu)
 
   return (
-    <Stack
-      direction="row"
-      sx={{
-        justifyContent: 'space-between',
-        [theme.breakpoints.up('lg')]: { height: appHeaderHeight },
-        width: '100%',
-      }}
-    >
+    <div className="flex w-full flex-row items-center justify-between">
       {/* logo & toggler button */}
-      <Box
-        sx={{
-          alignItems: 'center',
+      <div
+        className="flex items-center"
+        style={{
           width: drawerOpen ? 228 : 80,
-          display: 'flex',
-          [theme.breakpoints.down('lg')]: { width: 'auto' },
         }}
       >
-        <Box component="span" sx={{ display: { xs: 'none', lg: 'block' }, flexGrow: 1 }}>
+        <div className="hidden flex-grow lg:block">
           <LogoSection />
-        </Box>
-        <Avatar
-          variant="rounded"
-          sx={{
-            ...theme.typography.commonAvatar,
-            ...theme.typography.mediumAvatar,
-            overflow: 'hidden',
-            transition: 'all .2s ease-in-out',
-            background: 'var(--color-muted)',
-            color: 'var(--color-blue)',
-            '&:hover': { background: 'var(--color-purple)', color: 'var(--color-foreground)' },
-          }}
+        </div>
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          className="h-[34px] w-[34px] cursor-pointer overflow-hidden rounded-md bg-muted text-blue transition-all duration-200 hover:bg-purple hover:text-foreground"
           onClick={() => dispatch(openDrawer(!drawerOpen))}
-          color="inherit"
+          aria-label="toggle sidebar"
         >
           <Icon name="menu" />
-        </Avatar>
-      </Box>
-      <Box
-        sx={{
-          display: { xs: 'none', lg: 'flex' },
-          justifyContent: 'space-between',
-          gap: 4,
-          alignItems: 'center',
-        }}
-      >
+        </Button>
+      </div>
+      <div className="hidden items-center justify-between gap-4 lg:flex">
         <AddNFTL />
         {pages.map((page) => (
-          <Link
+          <a
             key={page.name}
             href={page.link}
             target="_blank"
-            underline="hover"
-            sx={{ color: 'var(--color-foreground)' }}
+            rel="noopener noreferrer"
+            className="cursor-pointer text-foreground underline-offset-4 hover:underline"
           >
             {page.name} <ExternalIcon />
-          </Link>
+          </a>
         ))}
-      </Box>
-    </Stack>
+      </div>
+    </div>
   )
 }
 
