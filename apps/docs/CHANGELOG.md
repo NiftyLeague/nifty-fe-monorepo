@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/docs-v1.0.1...docs-v1.0.2) (2026-08-07)
+
+
+### Maintenance
+
+* drop-mui-support ([#360](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/360)) ([cf09198](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/cf0919857ea50424d4dc70f721238aa209abd46b))
+
 ## [1.0.1](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/docs-v1.0.0...docs-v1.0.1) (2026-08-02)
 
 
