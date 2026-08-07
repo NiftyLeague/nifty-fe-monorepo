@@ -4,20 +4,8 @@
  * and scoped locally.
  */
 
-.buttons {
+.container {
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.features {
-  display: flex;
-  align-items: center;
-  padding: 2rem 0;
-  width: 100%;
-}
-
-.featureImage {
-  height: 200px;
-  width: 200px;
+  flex-direction: column;
+  margin: 0 auto;
 }
