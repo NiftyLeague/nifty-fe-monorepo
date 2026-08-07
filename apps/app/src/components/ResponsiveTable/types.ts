@@ -1,24 +1,69 @@
-import { ReactNode } from 'react'
-import type { DataGridProps, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
-
-import type { AccordionDetailsProps } from '@mui/material/AccordionDetails'
-import type { AccordionProps } from '@mui/material/Accordion'
-import type { AccordionSummaryProps } from '@mui/material/AccordionSummary'
-import type { TypographyProps } from '@mui/material/Typography'
-import type { TablePaginationProps } from '@mui/material/TablePagination'
+import React, { ReactNode } from 'react'
 
 export type Row = { id?: string | number; user_id?: string; [key: string]: unknown }
+
+export interface GridRenderCellParams {
+  value?: unknown
+  row: Row
+  field?: string
+  id?: string | number
+}
+
+export interface GridColDef {
+  field: string
+  headerName?: string
+  width?: number
+  minWidth?: number
+  flex?: number
+  align?: 'left' | 'center' | 'right'
+  type?: string
+  sortable?: boolean
+  renderCell?: (params: GridRenderCellParams) => ReactNode
+}
 
 export interface CustomColDef extends Omit<GridColDef, 'renderCell'> {
   renderCell?: (params: GridRenderCellParams) => ReactNode
 }
 
-export type {
-  AccordionDetailsProps,
-  AccordionProps,
-  AccordionSummaryProps,
-  DataGridProps,
-  GridRenderCellParams,
-  TablePaginationProps,
-  TypographyProps,
+export interface TypographyProps<T = unknown> {
+  sx?: React.CSSProperties
+  style?: React.CSSProperties
+  component?: T
+  gutterBottom?: boolean
+  variant?: string
+  className?: string
+  children?: React.ReactNode
+}
+
+export interface AccordionProps {
+  className?: string
+  sx?: React.CSSProperties
+  style?: React.CSSProperties
+  children?: React.ReactNode
+  [key: string]: unknown
+}
+
+export interface AccordionSummaryProps {
+  expandIcon?: React.ReactNode
+  sx?: React.CSSProperties
+  style?: React.CSSProperties
+  children?: React.ReactNode
+  [key: string]: unknown
+}
+
+export interface AccordionDetailsProps {
+  sx?: React.CSSProperties
+  style?: React.CSSProperties
+  children?: React.ReactNode
+  [key: string]: unknown
+}
+
+export interface TablePaginationProps {
+  sx?: React.CSSProperties
+  className?: string
+  style?: React.CSSProperties
+}
+
+export interface DataGridProps {
+  [key: string]: unknown
 }

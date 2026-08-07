@@ -1,14 +1,12 @@
-'use client'
-
-import { Box, Stack } from '@mui/material'
 import PaginationIconOnly from '@/components/pagination/PaginationIconOnly'
 import { PropsWithChildren, ReactNode, useRef } from 'react'
-import type { SxProps, Theme } from '@mui/system'
+import type { SxProps, Theme } from '@/types'
 import Slider, { Settings } from 'react-slick'
-import { sectionSpacing } from '@nl/theme'
 import SectionTitle from './SectionTitle'
 
 import '@/styles/slick.css'
+
+const sectionSpacing = 2 // 16px
 
 interface Props {
   title: string | React.ReactNode
@@ -63,24 +61,27 @@ const SectionSlider = ({
   }
 
   return (
-    <Stack direction="column" spacing={sectionSpacing} sx={{ ...styles?.root }}>
-      <Box sx={{ ...styles?.headerRow }}>
+    <div
+      className="flex flex-col"
+      style={{ gap: sectionSpacing * 8, ...(styles?.root as React.CSSProperties) }}
+    >
+      <div style={styles?.headerRow as React.CSSProperties}>
         <SectionTitle
           firstSection={firstSection}
           variant={variant}
           actions={
-            <Stack direction="row" sx={{ gap: 2 }}>
+            <div className="flex flex-row gap-4">
               {actions}
               {isSlider && (
                 <PaginationIconOnly onClickNext={onClickNext} onClickPrev={onClickPrev} />
               )}
-            </Stack>
+            </div>
           }
         >
           {title}
         </SectionTitle>
-      </Box>
-      <Box sx={{ ...styles?.mainRow }}>
+      </div>
+      <div style={styles?.mainRow as React.CSSProperties}>
         {isSlider ? (
           <Slider {...settings} ref={refSlider}>
             {children}
@@ -88,8 +89,8 @@ const SectionSlider = ({
         ) : (
           children
         )}
-      </Box>
-    </Stack>
+      </div>
+    </div>
   )
 }
 

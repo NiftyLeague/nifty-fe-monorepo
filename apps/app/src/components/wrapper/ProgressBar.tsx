@@ -1,6 +1,5 @@
 'use client'
 
-import { Box, Typography } from '@mui/material'
 import { FC, ReactNode, useEffect, useRef, useState } from 'react'
 
 interface ProgressBarProps {
@@ -20,53 +19,34 @@ const ProgressBar: FC<ProgressBarProps> = ({ value, children }) => {
     }
   }, [value])
   return (
-    <Box sx={{ position: 'relative' }}>
-      <Box
-        sx={{
-          borderRadius: 3,
-          height: 16,
-          display: 'flex',
-          backgroundColor: 'var(--color-muted-foreground)',
-          width: '100%',
-          position: 'absolute',
-          alignItems: 'center',
-        }}
+    <div className="relative">
+      <div
+        className="absolute flex h-4 w-full items-center rounded-3xl"
+        style={{ backgroundColor: 'var(--color-muted-foreground)' }}
       >
-        <Typography
+        <p
           ref={centerTextRef}
-          sx={{
+          className="absolute whitespace-nowrap"
+          style={{
             fontSize: 10,
-            position: 'absolute',
             left: `50%`,
             transform: `translateX(-50%)`,
             color: 'var(--color-purple)',
-            whiteSpace: 'nowrap',
           }}
         >
           {children}
-        </Typography>
-      </Box>
-      <Box
+        </p>
+      </div>
+      <div
         ref={progressContainerRef}
-        sx={{
-          borderRadius: 3,
-          height: 16,
-          width: `${value}%`,
-          backgroundColor: 'var(--color-purple)',
-          overflow: 'hidden',
-          zIndex: 1,
-          position: 'absolute',
-          display: 'flex',
-          alignItems: 'center',
-        }}
+        className="absolute z-[1] flex h-4 items-center overflow-hidden rounded-3xl"
+        style={{ width: `${value}%`, backgroundColor: 'var(--color-purple)' }}
       >
-        <Typography
-          sx={{ fontSize: 10, position: 'absolute', left: `${rect.left}px`, whiteSpace: 'nowrap' }}
-        >
+        <p className="absolute whitespace-nowrap" style={{ fontSize: 10, left: `${rect.left}px` }}>
           {children}
-        </Typography>
-      </Box>
-    </Box>
+        </p>
+      </div>
+    </div>
   )
 }
 

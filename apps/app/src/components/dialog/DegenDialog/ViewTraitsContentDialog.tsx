@@ -1,12 +1,15 @@
 import Image from 'next/image'
 import { v4 as uuidv4 } from 'uuid'
 import isEmpty from 'lodash/isEmpty'
-import { Box, Button, Grid, Skeleton, Stack, Typography, SxProps } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
+import { Skeleton } from '@nl/ui/base/skeleton'
+import { Title } from '@nl/ui/custom/typography'
 
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
 import { TRAIT_KEY_VALUE_MAP, TRAIT_NAME_MAP } from '@/constants/cosmeticsFilters'
 import type { Degen, GetDegenResponse } from '@/types/degens'
 import { DEGEN_PURCHASE_URL } from '@/constants/url'
+import type { SxProps } from '@/types'
 
 export interface ViewTraitsContentDialogProps {
   degen?: Degen
@@ -29,24 +32,20 @@ const ViewTraitsContentDialog = ({
   onClose,
   degenImageSx,
 }: ViewTraitsContentDialogProps) => (
-  <Grid container>
-    <Grid size={{ xs: 12, md: 6 }} sx={{ py: 1, px: 2 }}>
-      <Stack direction="row" sx={{ justifyContent: 'center' }}>
+  <div className="grid grid-cols-12">
+    <div className="col-span-12 py-2 px-4 md:col-span-6">
+      <div className="flex justify-center">
         {degen?.id && <DegenImage sx={{ maxWidth: '500px', ...degenImageSx }} tokenId={degen.id} />}
-      </Stack>
-      <Stack direction="column" sx={{ alignItems: 'center', my: 2 }}>
-        <Typography gutterBottom variant="h4">
-          {displayName}
-        </Typography>
+      </div>
+      <div className="my-4 flex flex-col items-center">
+        <Title level={4}>{displayName}</Title>
         <a
           href={DEGEN_PURCHASE_URL(degen?.id as string)}
           target="_blank"
           rel="noreferrer"
           className="flex flex-row flex-nowrap items-center"
         >
-          <Typography sx={{ color: 'var(--color-muted-foreground)', textDecoration: 'none' }}>
-            DEGEN ID #{degen?.id}{' '}
-          </Typography>
+          <span className="text-muted-foreground no-underline">DEGEN ID #{degen?.id} </span>
           <Image
             src="/img/logos/other/OpenSea.webp"
             alt="OpenSea Logo"
@@ -55,84 +54,77 @@ const ViewTraitsContentDialog = ({
             className="ml-1 w-[18px] h-[18px]"
           />
         </a>
-      </Stack>
-      {/* <Stack direction="column"  sx={{ alignItems: 'center' }} sx={{ my: 2 }}>
-          <Typography sx={{ color: 'rgb(75, 7, 175)' }}>
+      </div>
+      {/* <div className="my-4 flex flex-col items-center">
+          <span className="text-[rgb(75,7,175)]">
             {degenDetail?.multiplier}x Multiplier
-          </Typography>
-          <Typography sx={{ color: 'rgb(75, 7, 175)' }}>
+          </span>
+          <span className="text-[rgb(75,7,175)]">
             {degenDetail?.rental_count} Active Rentals
-          </Typography>
-          <Typography sx={{ color: 'rgb(75, 7, 175)' }}>
+          </span>
+          <span className="text-[rgb(75,7,175)]">
             {degenDetail?.price} NFTL/ 1 Week
-          </Typography>
-        </Stack> */}
+          </span>
+        </div> */}
       {degen?.owner && (
-        <Stack direction="column" sx={{ gap: 1, alignItems: 'center' }}>
-          <Typography sx={{ color: 'var(--color-muted-foreground)' }}>
+        <div className="flex flex-col items-center gap-2">
+          <span className="text-muted-foreground">
             Owned by{' '}
             {`${degen?.owner?.slice(0, 5)}...${degen?.owner?.slice(
               degen?.owner?.length - 5,
               degen?.owner?.length - 1
             )}`}
-          </Typography>
-        </Stack>
+          </span>
+        </div>
       )}
-    </Grid>
-    <Grid size={{ xs: 12, md: 6 }} sx={{ py: 1, px: 2, position: 'relative' }}>
-      <Stack sx={{ gap: 3, justifyContent: 'space-between', height: '100%' }}>
-        <Stack>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <Typography variant="h3">Degen Traits</Typography>
-          </Box>
-          <Grid container sx={{ rowGap: 3, columnGap: 2, marginTop: 3, justifyContent: 'center' }}>
+    </div>
+    <div className="col-span-12 relative py-2 px-4 md:col-span-6">
+      <div className="flex h-full flex-col justify-between gap-6">
+        <div>
+          <div className="flex flex-row items-center justify-center">
+            <Title level={3}>Degen Traits</Title>
+          </div>
+          <div className="mt-6 grid grid-cols-12 justify-center gap-x-4 gap-y-6">
             {isEmpty(traits)
               ? [...Array(9)].map(() => (
-                  <Grid size={{ xs: 3 }} key={uuidv4()}>
-                    <Stack direction="column" sx={{ alignItems: 'center' }}>
-                      <Skeleton animation="wave" width={60} />
-                      <Skeleton animation="wave" width={40} />
-                    </Stack>
-                  </Grid>
+                  <div className="col-span-3" key={uuidv4()}>
+                    <div className="flex flex-col items-center">
+                      <Skeleton className="h-4 w-[60px]" />
+                      <Skeleton className="h-4 w-10" />
+                    </div>
+                  </div>
                 ))
               : Object.entries(traits)
                   .filter(([, value]) => parseInt(value as unknown as string, 10) > 0)
                   .map(([key, value]) => (
-                    <Grid size={{ xs: 3 }} key={key}>
-                      <Stack direction="column" sx={{ alignItems: 'center' }}>
-                        <Typography sx={{ fontWeight: 700, textAlign: 'center' }}>
+                    <div className="col-span-3" key={key}>
+                      <div className="flex flex-col items-center">
+                        <span className="text-center font-bold">
                           {TRAIT_NAME_MAP[key as keyof typeof TRAIT_NAME_MAP]}
-                        </Typography>
-                        <Typography sx={{ textAlign: 'center' }}>
+                        </span>
+                        <span className="text-center">
                           {TRAIT_KEY_VALUE_MAP[value as keyof typeof TRAIT_KEY_VALUE_MAP] ?? value}
-                        </Typography>
-                      </Stack>
-                    </Grid>
+                        </span>
+                      </div>
+                    </div>
                   ))}
-          </Grid>
-        </Stack>
-        <Stack direction="column" sx={{ gap: 1, width: '100%' }}>
+          </div>
+        </div>
+        <div className="flex w-full flex-col gap-2">
           {/* {false && (
-              <Button variant="contained" fullWidth onClick={onRent || onClaim}>
+              <Button variant="default" className="w-full" onClick={onRent || onClaim}>
                 {onRent ? 'Rent Degen' : 'Claim Degen'}
               </Button>
             )} */}
           {onClose && (
-            <Button variant="contained" fullWidth onClick={onClose}>
+            <Button variant="default" className="w-full" onClick={onClose}>
               Close
             </Button>
           )}
-        </Stack>
-      </Stack>
-    </Grid>
-  </Grid>
+        </div>
+      </div>
+    </div>
+  </div>
 )
 
 export default ViewTraitsContentDialog

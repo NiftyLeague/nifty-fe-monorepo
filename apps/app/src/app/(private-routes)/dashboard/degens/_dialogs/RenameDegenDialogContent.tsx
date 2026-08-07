@@ -2,18 +2,12 @@
 
 import { useCallback, useState } from 'react'
 import { parseEther } from 'ethers'
-import {
-  Button,
-  CardMedia,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material'
-
+import { Button } from '@nl/ui/base/button'
+import { DialogContent } from '@nl/ui/base/dialog'
+import { Input } from '@nl/ui/custom/input'
+import { Title } from '@nl/ui/custom/typography'
 import { gtm, GTM_EVENTS } from '@nl/ui/gtm'
+import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import useNetworkContext from '@/hooks/useNetworkContext'
 import useNFTLAllowance from '@/hooks/useNFTLAllowance'
 import useTokensBalances from '@/hooks/balances/useTokensBalances'
@@ -106,52 +100,51 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): React.ReactNode 
   ])
 
   return (
-    <>
-      <DialogTitle sx={{ textAlign: 'center' }} variant="h4">
-        Rename DEGEN
-      </DialogTitle>
-      <DialogContent dividers>
-        <Stack sx={{ rowGap: 2 }}>
-          <Stack sx={{ rowGap: 1 }}>
-            <CardMedia
-              component="img"
-              image={`/img/degens/nfts/${degen?.id}.${degen?.background === 'Legendary' ? 'gif' : 'webp'}`}
-              alt="degen"
-              sx={{ aspectRatio: '1/1', width: '240px', margin: '0 auto' }}
-            />
-            <Typography variant="caption" component="p" sx={{ textAlign: 'center' }}>
-              Owned by {degen?.owner}
-            </Typography>
-          </Stack>
-          <TextField
-            label="Enter new degen name"
-            name="new-degen-name"
-            variant="outlined"
-            size="small"
-            fullWidth
-            value={input}
-            error={!!error}
-            helperText={error}
-            disabled={isLoadingRename}
-            onChange={handleChange}
+    <DialogContent
+      showCloseButton={false}
+      className="max-w-[500px] md:max-w-[500px] lg:max-w-[500px]"
+    >
+      <div className="flex flex-col gap-4">
+        <Title level={4} className="text-center">
+          Rename DEGEN
+        </Title>
+        <div className="flex flex-col items-center gap-1">
+          <img
+            src={`/img/degens/nfts/${degen?.id}.${degen?.background === 'Legendary' ? 'gif' : 'webp'}`}
+            alt="degen"
+            style={{
+              aspectRatio: '1/1',
+              width: '240px',
+              margin: '0 auto',
+              objectFit: 'cover',
+              display: 'block',
+            }}
           />
-          <RenameStepper
-            insufficientAllowance={insufficientAllowance}
-            renameSuccess={renameSuccess}
-            insufficientBalance={insufficientBalance}
-          />
-          <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
-            <Typography variant="h4">Renaming Fee</Typography>
-            <Typography>1,000 NFTL</Typography>
-          </Stack>
-        </Stack>
-      </DialogContent>
-      <DialogActions>
+          <p className="text-center text-xs text-muted-foreground">Owned by {degen?.owner}</p>
+        </div>
+        <Input
+          label="Enter new degen name"
+          name="new-degen-name"
+          value={input}
+          error={!!error}
+          disabled={isLoadingRename}
+          onChange={handleChange}
+        />
+        {error && <span className="text-xs text-error">{error}</span>}
+        <RenameStepper
+          insufficientAllowance={insufficientAllowance}
+          renameSuccess={renameSuccess}
+          insufficientBalance={insufficientBalance}
+        />
+        <div className="flex justify-between">
+          <Title level={4}>Renaming Fee</Title>
+          <span>1,000 NFTL</span>
+        </div>
         <Button
-          variant="contained"
-          fullWidth
+          variant="default"
+          className="w-full"
+          disabled={!input || Boolean(error) || insufficientBalance || isLoadingRename}
           onClick={handleRename}
-          disabled={!input || Boolean(error) || insufficientBalance}
         >
           {!input
             ? 'Please enter a name above!'
@@ -160,9 +153,10 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): React.ReactNode 
               : insufficientAllowance
                 ? 'Approve contract to spend NFTL'
                 : 'Rename'}
+          {isLoadingRename && <CircularProgress size="sm" />}
         </Button>
-      </DialogActions>
-    </>
+      </div>
+    </DialogContent>
   )
 }
 

@@ -3,9 +3,12 @@
 import { useMemo } from 'react'
 import { useEnsAvatar, useEnsName } from 'wagmi'
 import { normalize } from 'viem/ens'
-import { Avatar, Box, Button, Skeleton, Stack, Typography } from '@mui/material'
 
+import { Avatar, AvatarImage, AvatarFallback } from '@nl/ui/base/avatar'
+import { Button } from '@nl/ui/base/button'
+import { Skeleton } from '@nl/ui/base/skeleton'
 import { formatNumberToDisplay } from '@nl/ui/utils'
+
 import { useGamerProfile } from '@/hooks/useGamerProfile'
 import type { ProfileAvatar } from '@/types/account'
 import ConnectWrapper from '@/components/wrapper/ConnectWrapper'
@@ -19,19 +22,19 @@ const ClaimNFTLView = () => {
 
   return (
     <>
-      <Stack direction="column" sx={{ marginY: 2, alignItems: 'center' }}>
+      <div className="my-2 flex flex-col items-center">
         {loading ? (
-          <Skeleton variant="text" animation="wave" width={80} />
+          <Skeleton className="h-4 w-20" />
         ) : (
-          <Typography sx={{ fontWeight: 'bold' }}>
+          <span className="font-bold">
             {balance ? formatNumberToDisplay(balance) : '0.00'} NFTL
-          </Typography>
+          </span>
         )}
-        <Typography>Available to Claim</Typography>
-      </Stack>
+        <span>Available to Claim</span>
+      </div>
       <Button
-        variant="contained"
-        fullWidth
+        variant="default"
+        className="w-full cursor-pointer"
         disabled={!(balance > 0.0 && isConnected)}
         onClick={claimCallback}
       >
@@ -64,25 +67,21 @@ const UserProfile = () => {
   }, [address, ensName, username])
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        borderRadius: 2,
-        p: 4,
-        background: 'var(--color-muted)',
-        border: 'var(--border-default)',
-      }}
+    <div
+      className="flex flex-col items-center rounded-lg p-4"
+      style={{ background: 'var(--color-muted)', border: 'var(--border-default)' }}
     >
-      <Avatar alt="avatar" src={ensAvatar.data || avatar?.url} sx={{ height: 80, width: 80 }} />
-      <Stack direction="column" sx={{ marginY: 2, alignItems: 'center' }}>
-        <Typography sx={{ whiteSpace: 'nowrap' }}>{displayName}</Typography>
-      </Stack>
+      <Avatar className="size-20">
+        <AvatarImage alt="avatar" src={ensAvatar.data || avatar?.url} />
+        <AvatarFallback />
+      </Avatar>
+      <div className="my-2 flex flex-col items-center">
+        <span style={{ whiteSpace: 'nowrap' }}>{displayName}</span>
+      </div>
       <ConnectWrapper fullWidth>
         <ClaimNFTLView />
       </ConnectWrapper>
-    </Box>
+    </div>
   )
 }
 

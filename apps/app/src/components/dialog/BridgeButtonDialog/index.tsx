@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/dialog'
 import BridgeForm from './BridgeForm'
 import BridgeSuccess from './BridgeSuccess'
@@ -19,19 +19,17 @@ const BridgeButtonDialog = ({ balance, loading }: BridgeButtonDialogProps) => {
     <>
       <Dialog onClose={onCloseBridgeDialog}>
         <DialogTrigger>
-          <Button fullWidth variant="contained" disabled={loading || balance < 0.5}>
+          <Button variant="default" className="w-full" disabled={loading || balance < 0.5}>
             Bridge
           </Button>
         </DialogTrigger>
         <DialogContent
           aria-labelledby="bridge-nftl-dialog"
-          dialogTitle="Bridge NFTL to Immutable"
-          sx={{
-            '& h2': { textAlign: 'center' },
-            '& .MuiDialogContent-root': { textAlign: 'center' },
-          }}
+          dialogTitle={<span className="block w-full text-center">Bridge NFTL to Immutable</span>}
         >
-          <BridgeForm balance={balance} onBridgeSuccess={onBridgeSuccess} />
+          <div className="text-center">
+            <BridgeForm balance={balance} onBridgeSuccess={onBridgeSuccess} />
+          </div>
         </DialogContent>
       </Dialog>
       <BridgeSuccess

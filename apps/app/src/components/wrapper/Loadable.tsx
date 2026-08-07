@@ -1,23 +1,20 @@
 import { Suspense, LazyExoticComponent } from 'react'
 
-// material-ui
-import { LinearProgressProps } from '@mui/material/LinearProgress'
-import LinearProgress from '@mui/material/LinearProgress'
-
 // styles
 import styles from './Loadable.module.css'
+import { Progress } from '@nl/ui/base/progress'
 
 // ==============================|| LOADER ||============================== //
 
 const Loader = () => (
   <div className={styles.loaderWrapper}>
-    <LinearProgress color="primary" />
+    <Progress value={100} className="animate-pulse" />
   </div>
 )
 
 // ==============================|| LOADABLE - LAZY LOADING ||============================== //
 
-interface LoaderProps extends LinearProgressProps {}
+interface LoaderProps extends React.ComponentProps<'div'> {}
 
 const Loadable = (Component: LazyExoticComponent<() => React.ReactNode>) => {
   const LoadableComponent = (props: LoaderProps) => (

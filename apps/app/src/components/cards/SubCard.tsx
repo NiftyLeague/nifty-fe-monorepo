@@ -1,8 +1,9 @@
 import { ReactNode, forwardRef, Ref } from 'react'
 
-// material-ui
-import { useTheme } from '@nl/theme'
-import { Card, CardContent, CardHeader, Divider, Typography } from '@mui/material'
+import { Card, CardContent, CardHeader } from '@nl/ui/base/card'
+import { Separator } from '@nl/ui/base/separator'
+import { Title } from '@nl/ui/custom/typography'
+import { cn } from '@nl/ui/utils'
 
 interface SubCardProps {
   children: ReactNode | string | null
@@ -14,11 +15,12 @@ interface SubCardProps {
   sx?: {}
   contentSX?: {}
   title?: ReactNode | string
+  style?: React.CSSProperties
 }
 
 // ==============================|| CUSTOM SUB CARD ||============================== //
 
-const SubCard = forwardRef(
+const SubCard = forwardRef<HTMLDivElement, SubCardProps>(
   (
     {
       children,
@@ -31,48 +33,36 @@ const SubCard = forwardRef(
       contentSX = {},
       title,
       ...others
-    }: SubCardProps,
-    ref: Ref<HTMLDivElement>
+    },
+    ref
   ) => {
-    const theme = useTheme()
-
     return (
       <Card
         ref={ref}
-        sx={{
-          border: 'var(--border-default)',
-          ':hover': {
-            boxShadow:
-              theme.palette.mode === 'dark'
-                ? '0 2px 14px 0 rgb(33 150 243 / 10%)'
-                : '0 2px 14px 0 rgb(32 40 45 / 8%)',
-          },
-          ...sx,
-        }}
-        {...others}
+        style={sx as React.CSSProperties}
+        className={cn('border', className)}
+        {...(others as React.ComponentProps<'div'>)}
       >
         {/* card header and action */}
-        {!darkTitle && title && (
-          <CardHeader
-            sx={{ p: 2.5 }}
-            title={<Typography variant="h5">{title}</Typography>}
-            action={secondary}
-          />
+        {title && (
+          <>
+            <CardHeader className="flex flex-row items-center justify-between gap-2 p-2.5">
+              <Title level={darkTitle ? 4 : 5}>{title}</Title>
+              {secondary}
+            </CardHeader>
+            <Separator
+              className="opacity-100"
+              style={{ backgroundColor: 'var(--color-separator)' }}
+            />
+          </>
         )}
-        {darkTitle && title && (
-          <CardHeader
-            sx={{ p: 2.5 }}
-            title={<Typography variant="h4">{title}</Typography>}
-            action={secondary}
-          />
-        )}
-
-        {/* content & header divider */}
-        {title && <Divider sx={{ opacity: 1, borderColor: 'var(--color-separator)' }} />}
 
         {/* card content */}
         {content && (
-          <CardContent sx={{ p: 2.5, ...contentSX }} className={contentClass || ''}>
+          <CardContent
+            style={contentSX as React.CSSProperties}
+            className={cn('p-2.5', contentClass || '')}
+          >
             {children}
           </CardContent>
         )}

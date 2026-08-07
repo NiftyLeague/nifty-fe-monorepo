@@ -1,4 +1,3 @@
-import { Box } from '@mui/material'
 import type { Comic } from '@/types/marketplace'
 import ImageCard from '@/components/cards/ImageCard'
 
@@ -11,24 +10,21 @@ const ComicDetail: React.FC<React.PropsWithChildren<React.PropsWithChildren<Comi
 }) => {
   if (!data)
     return (
-      <Box sx={{ border: '1px solid #363636', borderRadius: '5px', minWidth: 345, height: 375 }} />
+      <div
+        className="min-w-[345px] rounded-[5px] border border-[#363636]"
+        style={{ height: 375 }}
+      />
     )
 
   const { image, title, thumbnail } = data
 
   return (
-    <Box
-      sx={{
-        borderRadius: '5px',
-        position: 'relative',
-        overflow: 'hidden',
-        minWidth: 345,
-        height: 350,
-        margin: 'auto',
-      }}
+    <div
+      className="relative mx-auto min-w-[345px] overflow-hidden rounded-[5px]"
+      style={{ height: 350 }}
     >
       <ImageCard image={image} thumbnail={thumbnail} title={title} ratio={1} />
-    </Box>
+    </div>
   )
 }
 

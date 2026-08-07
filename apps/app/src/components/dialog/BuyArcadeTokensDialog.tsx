@@ -2,25 +2,16 @@
 
 import { FC, useCallback, useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import LoadingButton from '@mui/lab/LoadingButton'
-import {
-  Container,
-  Dialog,
-  Stack,
-  DialogTitle,
-  Typography,
-  Divider,
-  TextField,
-  Box,
-  FormControl,
-  FormControlLabel,
-  Checkbox,
-  Link,
-  CircularProgress,
-  Snackbar,
-  Alert,
-  InputAdornment,
-} from '@mui/material'
+import { toast } from 'react-toastify'
+import Link from 'next/link'
+
+import { Dialog, DialogContent, DialogTitle } from '@nl/ui/base/dialog'
+import { Separator } from '@nl/ui/base/separator'
+import { Button } from '@nl/ui/base/button'
+import { Checkbox } from '@nl/ui/base/checkbox'
+import { CircularProgress } from '@nl/ui/custom/circular-progress'
+import { Input } from '@nl/ui/custom/input'
+import { Title } from '@nl/ui/custom/typography'
 
 import { Icon } from '@nl/ui/base/icon'
 import type { DialogProps } from '@/types/dialog'
@@ -39,14 +30,8 @@ interface BuyArcadeTokensDialogProps extends DialogProps {
   onClose: () => void
 }
 
-const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({
-  open,
-  onSuccess,
-  onClose,
-  ...rest
-}) => {
+const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess, onClose }) => {
   const [agreement, setAgreement] = useState<boolean>(false)
-  const [showError, setShowError] = useState<boolean>(false)
   const [tokenCount, setTokenCount] = useState<number>(1)
   const { authToken } = useAuth()
 
@@ -113,175 +98,148 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({
       refetchAccount()
       onSuccess()
     } catch {
-      setShowError(true)
+      toast.error('Something went wrong!')
     }
   }, [authToken, tokenCount, details, onSuccess, refetchAccount])
 
-  const handleHideError = () => {
-    setShowError(false)
-  }
-
   return (
-    <Dialog open={open} onClose={onClose} {...rest} maxWidth="xs">
-      <Container>
-        <>
-          <div className="relative text-center">
-            <DialogTitle>Buy Arcade Token</DialogTitle>
-            <Icon
-              aria-label="close"
-              name="x"
-              size="xl"
-              className="absolute right-0 top-1/4 cursor-pointer"
-              onClick={onClose}
-            />
-          </div>
-          <Divider sx={{ opacity: '0.6' }} />
-          {(isDetailsPending || error) && (
-            <Stack
-              direction="row"
-              sx={{
-                width: '390px',
-                height: '300px',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
+    <Dialog open={open} onOpenChange={(openState) => !openState && onClose()}>
+      <DialogContent
+        showCloseButton={false}
+        className="max-w-[444px] md:max-w-[444px] lg:max-w-[444px]"
+      >
+        <div className="container">
+          <>
+            <div className="relative text-center">
+              <DialogTitle className="text-center">Buy Arcade Token</DialogTitle>
+              <Icon
+                aria-label="close"
+                name="x"
+                size="xl"
+                className="absolute top-1/4 right-0 cursor-pointer"
+                onClick={onClose}
+              />
+            </div>
+            <Separator className="opacity-60" />
+            {(isDetailsPending || error) && (
+              <div className="flex h-[300px] w-[390px] flex-row items-center justify-center">
+                <>
+                  {isDetailsPending && <CircularProgress />}
+                  {error && <Title level={4}>Something went wrong!</Title>}
+                </>
+              </div>
+            )}
+            {!error && !isDetailsPending && details && (
               <>
-                {isDetailsPending && <CircularProgress />}
-                {error && <Typography variant="h4">Something went wrong!</Typography>}
-              </>
-            </Stack>
-          )}
-          {!error && !isDetailsPending && details && (
-            <>
-              <Typography className="max-w-[450px] text-center !mt-4 !mx-auto">
-                To play an arcade game, you need at least 1 arcade token. Arcade tokens are sold in
-                packs containing {details.items['arcade-token']} tokens (i.e 1 pack ={' '}
-                {details.items['arcade-token']} tokens)
-              </Typography>
-              <Typography className="text-center !font-bold text-warning !my-4">
-                {details.price} NFTL Each
-              </Typography>
-              <Stack
-                direction="row"
-                spacing={1}
-                sx={{ mb: 3, justifyContent: 'center', alignItems: 'center' }}
-              >
-                <Icon
-                  aria-label="subtract"
-                  name="minus"
-                  size={50}
-                  color="dim"
-                  strokeWidth={2.5}
-                  className="cursor-pointer"
-                  onClick={() => updateTokenCount(tokenCount - 1)}
-                />
-                <TextField
-                  variant="outlined"
-                  sx={{ width: '100px' }}
-                  value={tokenCount}
-                  onChange={(e) => updateTokenCount(e.target.value)}
-                  slotProps={{
-                    input: {
-                      endAdornment: <InputAdornment position="end">PACK</InputAdornment>,
-                      inputProps: {
-                        inputMode: 'numeric',
-                        pattern: '[0-9]*',
-                        style: { textAlign: 'center' },
-                      },
-                    },
-                  }}
-                />
-                <Icon
-                  aria-label="add"
-                  name="plus"
-                  size={50}
-                  color="dim"
-                  strokeWidth={2.5}
-                  className="cursor-pointer"
-                  onClick={() => updateTokenCount(tokenCount + 1)}
-                />
-              </Stack>
-              <Box sx={{ display: 'grid', gridTemplateColumns: '1fr auto' }}>
-                <Typography
-                  sx={{
-                    fontWeight: '500',
-
-                    color: (theme) =>
-                      accountBalance && accountBalance > tokenCount * details.price
-                        ? 'var(--color-success)'
-                        : 'var(--color-foreground)',
-                  }}
-                >
-                  Bal: {accountBalance ? formatNumberToDisplay(accountBalance) : '0.00'} NFTL
-                </Typography>
-                <Typography sx={{ fontWeight: '500', display: 'flex' }}>
-                  Total:{' '}
-                  <Box
-                    component="img"
-                    src="/icons/currencies/arcade-token.svg"
-                    alt="Arcade Token"
-                    sx={{ width: '16px', mx: 0.5 }}
-                  />{' '}
-                  {tokenCount * details.items['arcade-token']} Arcade Tokens
-                </Typography>
-                {accountBalance > 0 && accountBalance < tokenCount * details.price && (
-                  <Typography variant="caption" sx={{ my: 1, color: 'var(--color-warning)' }}>
-                    Balance is too low.{' '}
-                    <Link href={NFTL_PURCHASE_URL} target="_blank" rel="noreferrer">
-                      Buy NFTL
-                    </Link>
-                  </Typography>
-                )}
-                {!accountBalance && (
-                  <Typography variant="caption" sx={{ my: 1, color: 'var(--color-error)' }}>
-                    You have zero balance.{' '}
-                    <Link href={NFTL_PURCHASE_URL} target="_blank" rel="noreferrer">
-                      Buy NFTL
-                    </Link>
-                  </Typography>
-                )}
-              </Box>
-              <FormControl sx={{ my: 2 }}>
-                <FormControlLabel
-                  label={
-                    <Typography variant="caption">
-                      I understand all the information above about the arcade token purchase
-                    </Typography>
-                  }
-                  control={
-                    <Checkbox
-                      value={agreement}
-                      onChange={(event) => setAgreement(event.target.checked)}
+                <span className="mx-auto mt-4 block max-w-[450px] text-center text-base">
+                  To play an arcade game, you need at least 1 arcade token. Arcade tokens are sold
+                  in packs containing {details.items['arcade-token']} tokens (i.e 1 pack ={' '}
+                  {details.items['arcade-token']} tokens)
+                </span>
+                <span className="my-4 block text-center text-base font-bold text-warning">
+                  {details.price} NFTL Each
+                </span>
+                <div className="mb-6 flex flex-row items-center justify-center gap-2">
+                  <Icon
+                    aria-label="subtract"
+                    name="minus"
+                    size={50}
+                    color="dim"
+                    strokeWidth={2.5}
+                    className="cursor-pointer"
+                    onClick={() => updateTokenCount(tokenCount - 1)}
+                  />
+                  <div className="relative">
+                    <Input
+                      className="w-[100px] pr-12 text-center"
+                      value={tokenCount}
+                      onChange={(e) => updateTokenCount(e.target.value)}
+                      inputMode="numeric"
+                      pattern="[0-9]*"
                     />
+                    <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-xs text-muted-foreground">
+                      PACK
+                    </span>
+                  </div>
+                  <Icon
+                    aria-label="add"
+                    name="plus"
+                    size={50}
+                    color="dim"
+                    strokeWidth={2.5}
+                    className="cursor-pointer"
+                    onClick={() => updateTokenCount(tokenCount + 1)}
+                  />
+                </div>
+                <div className="grid" style={{ gridTemplateColumns: '1fr auto' }}>
+                  <span
+                    className="text-base"
+                    style={{
+                      fontWeight: 500,
+                      color:
+                        accountBalance && accountBalance > tokenCount * details.price
+                          ? 'var(--color-success)'
+                          : 'var(--color-foreground)',
+                    }}
+                  >
+                    Bal: {accountBalance ? formatNumberToDisplay(accountBalance) : '0.00'} NFTL
+                  </span>
+                  <span className="flex text-base" style={{ fontWeight: 500 }}>
+                    Total:{' '}
+                    <img
+                      src="/icons/currencies/arcade-token.svg"
+                      alt="Arcade Token"
+                      width={16}
+                      style={{ margin: '0 4px' }}
+                    />{' '}
+                    {tokenCount * details.items['arcade-token']} Arcade Tokens
+                  </span>
+                  {accountBalance > 0 && accountBalance < tokenCount * details.price && (
+                    <span className="my-1 text-xs text-warning">
+                      Balance is too low.{' '}
+                      <Link href={NFTL_PURCHASE_URL} target="_blank" rel="noreferrer">
+                        Buy NFTL
+                      </Link>
+                    </span>
+                  )}
+                  {!accountBalance && (
+                    <span className="my-1 text-xs text-error">
+                      You have zero balance.{' '}
+                      <Link href={NFTL_PURCHASE_URL} target="_blank" rel="noreferrer">
+                        Buy NFTL
+                      </Link>
+                    </span>
+                  )}
+                </div>
+                <label className="my-2 flex items-center gap-2">
+                  <Checkbox
+                    checked={agreement}
+                    onCheckedChange={(checked) => setAgreement(checked === true)}
+                  />
+                  <span className="text-xs">
+                    I understand all the information above about the arcade token purchase
+                  </span>
+                </label>
+                <Button
+                  variant="default"
+                  className="mb-2 w-full"
+                  onClick={purchaseArcadeToken}
+                  disabled={
+                    !agreement || !accountBalance || accountBalance < tokenCount * details.price
                   }
-                />
-              </FormControl>
-              <LoadingButton
-                variant="contained"
-                fullWidth
-                onClick={purchaseArcadeToken}
-                disabled={
-                  !agreement || !accountBalance || accountBalance < tokenCount * details.price
-                }
-                loading={loadingAccount}
-                sx={{ mb: 2 }}
-              >
-                {!agreement
-                  ? 'Accept Terms to Continue'
-                  : accountBalance < tokenCount * details.price
-                    ? 'Insufficient Balance'
-                    : 'Buy'}
-              </LoadingButton>
-            </>
-          )}
-          <Snackbar open={showError} autoHideDuration={6000} onClose={handleHideError}>
-            <Alert onClose={handleHideError} severity="error" sx={{ width: '100%' }}>
-              Something went wrong!
-            </Alert>
-          </Snackbar>
-        </>
-      </Container>
+                >
+                  {!agreement
+                    ? 'Accept Terms to Continue'
+                    : accountBalance < tokenCount * details.price
+                      ? 'Insufficient Balance'
+                      : 'Buy'}
+                  {loadingAccount && <CircularProgress size="sm" />}
+                </Button>
+              </>
+            )}
+          </>
+        </div>
+      </DialogContent>
     </Dialog>
   )
 }

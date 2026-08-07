@@ -1,9 +1,10 @@
 'use client'
 
 import { useMemo } from 'react'
-import { Grid, Stack, Typography } from '@mui/material'
 import { useAccount } from 'wagmi'
 import merge from 'lodash/merge'
+
+import { Title } from '@nl/ui/custom/typography'
 
 import { useGamerProfile, useProfileAvatarFee } from '@/hooks/useGamerProfile'
 import useFetch from '@/hooks/useFetch'
@@ -66,20 +67,16 @@ const GamerProfile = (): React.ReactNode => {
 
   const renderEmptyProfile = () => {
     return (
-      <Grid
-        container
-        size={12}
-        sx={{ display: 'flex', height: '100%', justifyContent: 'center', alignItems: 'center' }}
-      >
+      <div className="flex h-full items-center justify-center">
         <EmptyState message="You don't own any Gamer Profile yet." />
-      </Grid>
+      </div>
     )
   }
 
   const renderTopProfile = () => {
     return (
-      <Grid container size={12} spacing={3} className="bg-muted p-8 rounded-md">
-        <Grid size={{ xs: 12, lg: 3.5 }}>
+      <div className="flex flex-wrap gap-6 rounded-md bg-muted p-8">
+        <div className="w-full shrink-0 lg:w-[calc(29.1667%_-_12px)]">
           <ImageProfile
             avatar={profile?.avatar}
             avatarFee={avatarsAndFee?.price}
@@ -89,17 +86,15 @@ const GamerProfile = (): React.ReactNode => {
               merge(filteredDegens, avatarsAndFee?.avatars)
             }
           />
-        </Grid>
-        <Grid size={{ xs: 12, lg: 8.5 }}>
+        </div>
+        <div className="w-full min-w-0 lg:flex-1">
           {address && <TopInfo profile={profile} walletAddress={address} />}
           <hr className="mb-4" />
-          <Stack spacing={2}>
-            <Stack>
-              <Typography variant="h3" component="div">
-                Nifty League Player Stats
-              </Typography>
-            </Stack>
-            <Stack direction="row" spacing={5}>
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col">
+              <Title level={3}>Nifty League Player Stats</Title>
+            </div>
+            <div className="flex flex-row gap-10">
               <LeftInfo data={profile?.stats?.total} />
               <RightInfo
                 comicCount={filteredComics?.reduce((prev, cur) => prev + Number(cur?.balance), 0)}
@@ -108,10 +103,10 @@ const GamerProfile = (): React.ReactNode => {
                 keyCount={filteredKeys?.reduce((prev, cur) => prev + Number(cur?.balance), 0)}
                 rentalCount={filteredDegens.length - degenCount}
               />
-            </Stack>
-          </Stack>
-        </Grid>
-      </Grid>
+            </div>
+          </div>
+        </div>
+      </div>
     )
   }
 
@@ -153,10 +148,10 @@ const GamerProfile = (): React.ReactNode => {
     )
   }
   return (
-    <Grid container sx={{ gap: 4, mb: '24px' }}>
+    <div className="mb-6 flex flex-col gap-8">
       {error && !profile && !loadingProfile && renderEmptyProfile()}
       {(profile || loadingProfile) && renderGamerProfile()}
-    </Grid>
+    </div>
   )
 }
 

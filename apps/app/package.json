@@ -1,6 +1,6 @@
 {
   "name": "app",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "private": true,
   "scripts": {
@@ -19,16 +19,8 @@
   "dependencies": {
     "@axelar-network/axelarjs-sdk": "^0.21.0",
     "@cowprotocol/cow-sdk": "^9.2.6",
-    "@emotion/cache": "^11.14.0",
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
     "@hookform/resolvers": "^5.6.0",
-    "@mui/lab": "^9.0.0-beta.6",
-    "@mui/material": "^9.2.0",
-    "@mui/system": "^9.2.0",
-    "@mui/x-data-grid": "^9.10.1",
     "@nl/imx-passport": "workspace:*",
-    "@nl/theme": "workspace:*",
     "@nl/ui": "workspace:*",
     "@openzeppelin/contracts": "^5.6.1",
     "@reduxjs/toolkit": "^2.12.0",

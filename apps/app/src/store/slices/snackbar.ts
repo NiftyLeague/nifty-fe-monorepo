@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { type AlertColor } from '@mui/material'
 // types
-import type { SnackbarProps } from '@/types/snackbar'
+import type { AlertColor, SnackbarProps } from '@/types/snackbar'
 
 const initialState: SnackbarProps = {
   action: false,

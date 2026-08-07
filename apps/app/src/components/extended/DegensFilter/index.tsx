@@ -8,12 +8,13 @@ import {
   useRef,
   useState,
 } from 'react'
-import { useTheme } from '@nl/theme'
 import Image from 'next/image'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import isEmpty from 'lodash/isEmpty'
 import { cn } from '@nl/ui/utils'
-import { Button, Checkbox, FormControlLabel, FormGroup, Stack, Typography } from '@mui/material'
+import { Button } from '@nl/ui/base/button'
+import { Checkbox } from '@nl/ui/base/checkbox'
+import { Title } from '@nl/ui/custom/typography'
 import { FilterSource, backgrounds, tribes } from '@/constants/filters'
 import * as CosmeticsFilter from '@/constants/cosmeticsFilters'
 import type { DegenFilter } from '@/types/degenFilter'
@@ -36,7 +37,6 @@ const DegensFilter = ({
   isDegenOwner,
   searchTerm,
 }: DegensFilterProps): React.ReactNode => {
-  const theme = useTheme()
   const mountedRef = useRef(false)
   const router = useRouter()
   const pathname = usePathname()
@@ -195,59 +195,64 @@ const DegensFilter = ({
   }, [defaultFilterValues, isDegenOwner, onFilter, params])
 
   return (
-    <Stack sx={{ gap: 1.5, overflowX: 'hidden', [theme.breakpoints.down('sm')]: { paddingY: 2 } }}>
-      <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
-        <Typography variant="h3">Filter Degens</Typography>
-        <Stack direction="row" sx={{ gap: 2 }}>
+    <div className="flex flex-col gap-3 overflow-x-hidden max-sm:py-4">
+      <div className="flex flex-row items-center justify-between">
+        <Title level={3}>Filter Degens</Title>
+        <div className="flex flex-row gap-4">
           <Button
-            variant="outlined"
+            variant="outline"
             disabled={isParamsEmpty}
             onClick={handleReset}
-            sx={{ height: 28, color: 'var(--color-error)', borderColor: 'var(--color-error)' }}
+            className="h-7 text-error"
+            style={{ borderColor: 'var(--color-error)' }}
           >
             Reset
           </Button>
-        </Stack>
-      </Stack>
-      <Stack className="bg-muted rounded-md" sx={{ py: 1.5 }}>
+        </div>
+      </div>
+      <div className="flex flex-col gap-3 rounded-md bg-muted py-3">
         <FilterAccordion
-          summary={<Typography variant="h4">Tribe</Typography>}
+          summary={<Title level={4}>Tribe</Title>}
           expanded={true}
           length={tribes.length}
         >
-          <FormGroup sx={{ flexDirection: 'row' }}>
+          <div className="flex flex-row flex-wrap">
             {tribes.map((tribe) => (
-              <FormControlLabel
+              <label
                 key={tribe.name}
-                control={
-                  <Checkbox
-                    name={tribe.name}
-                    value={tribe.name}
-                    checked={tribesValue.includes(tribe.name)}
-                    className={styles.inputCheck}
-                    onChange={(e) => handleCheckboxChange(e, 'tribes', tribesValue, setTribesValue)}
-                  />
-                }
-                label={
-                  <div className="flex flex-row items-center -ml-1">
-                    <Image src={tribe.icon} alt="Tribe Icon" width={18} height={18} />
-                    <Typography variant="body1" className="!ml-2">
-                      {tribe.name}
-                    </Typography>
-                  </div>
-                }
-                className="min-w-[122px]"
-                sx={{ flex: '0 0 33.333333%' }}
-              />
+                className="flex min-w-[122px] items-center"
+                style={{ flex: '0 0 33.333333%' }}
+              >
+                <Checkbox
+                  name={tribe.name}
+                  value={tribe.name}
+                  checked={tribesValue.includes(tribe.name)}
+                  className={styles.inputCheck}
+                  onCheckedChange={(checked) =>
+                    handleCheckboxChange(
+                      {
+                        target: { checked: checked === true, value: tribe.name },
+                      } as ChangeEvent<HTMLInputElement>,
+                      'tribes',
+                      tribesValue,
+                      setTribesValue
+                    )
+                  }
+                />
+                <div className="-ml-1 flex flex-row items-center">
+                  <Image src={tribe.icon} alt="Tribe Icon" width={18} height={18} />
+                  <span className="ml-2 text-base">{tribe.name}</span>
+                </div>
+              </label>
             ))}
-          </FormGroup>
+          </div>
         </FilterAccordion>
         {/* 
         <FilterAccordion
-          summary={<Typography variant="h4">Price</Typography>}
+          summary={<Title level={4}>Price</Title>}
           expanded={false}
         >
-          <Stack gap={4}>
+          <div className="flex flex-col gap-8">
             <FilterRangeSlider
               value={pricesRangeValue}
               min={defaultFilterValues.prices[0]}
@@ -257,144 +262,142 @@ const DegensFilter = ({
               onChange={(_, value) => setPricesRangeValue(value as number[])}
               onChangeCommitted={() => handleChangeCommitted('prices')}
             />
-          </Stack>
+          </div>
         </FilterAccordion> */}
         {/* <FilterAccordion
-          summary={<Typography variant="h4">Queue</Typography>}
+          summary={<Title level={4}>Queue</Title>}
           expanded={false}
           length={rentals.length}
         >
-          <FormGroup sx={{ flexDirection: 'column' }}>
+          <div className="flex flex-col">
             {rentals.map((item) => (
-              <FormControlLabel
+              <label
                 key={`Queue${item}`}
-                control={
-                  <Checkbox
-                    name={`Queue${item}`}
-                    value={item}
-                    checked={rentalsValue.includes(item)}
-                    className={styles.inputCheck}
-                    onChange={(e) =>
-                      handleCheckboxChange(
-                        e,
-                        'rentals',
-                        rentalsValue,
-                        setRentalsValue,
-                      )
-                    }
-                  />
-                }
-                label={<Typography variant="body1">{item}</Typography>}
-                className={styles.inputCheckFormControl}
-              />
+                className={`${styles.inputCheckFormControl} flex items-center`}
+              >
+                <Checkbox
+                  name={`Queue${item}`}
+                  value={item}
+                  checked={rentalsValue.includes(item)}
+                  className={styles.inputCheck}
+                  onCheckedChange={(checked) =>
+                    handleCheckboxChange(
+                      { target: { checked: checked === true, value: item } } as ChangeEvent<HTMLInputElement>,
+                      'rentals',
+                      rentalsValue,
+                      setRentalsValue,
+                    )
+                  }
+                />
+                <span className="text-base">{item}</span>
+              </label>
             ))}
-          </FormGroup>
+          </div>
         </FilterAccordion> */}
         {/* <FilterAccordion
-          summary={<Typography variant="h4">Multiplier</Typography>}
+          summary={<Title level={4}>Multiplier</Title>}
           expanded={false}
           length={multipliers.length}
         >
-          <FormGroup sx={{ flexDirection: 'column' }}>
+          <div className="flex flex-col">
             {multipliers.map((item) => (
-              <FormControlLabel
+              <label
                 key={`Multiplier${item}`}
-                control={
-                  <Checkbox
-                    name={`Multiplier${item}`}
-                    value={item}
-                    checked={multipliersValue.includes(item)}
-                    className={styles.inputCheck}
-                    onChange={(e) =>
-                      handleCheckboxChange(
-                        e,
-                        'multipliers',
-                        multipliersValue,
-                        setMultipliersValue,
-                      )
-                    }
-                  />
-                }
-                label={<Typography variant="body1">{item}</Typography>}
-                className={styles.inputCheckFormControl}
-              />
+                className={`${styles.inputCheckFormControl} flex items-center`}
+              >
+                <Checkbox
+                  name={`Multiplier${item}`}
+                  value={item}
+                  checked={multipliersValue.includes(item)}
+                  className={styles.inputCheck}
+                  onCheckedChange={(checked) =>
+                    handleCheckboxChange(
+                      { target: { checked: checked === true, value: item } } as ChangeEvent<HTMLInputElement>,
+                      'multipliers',
+                      multipliersValue,
+                      setMultipliersValue,
+                    )
+                  }
+                />
+                <span className="text-base">{item}</span>
+              </label>
             ))}
-          </FormGroup>
+          </div>
         </FilterAccordion> */}
         {/* {displayMyItems && (
           <FilterAccordion
-            summary={<Typography variant="h4">Wearable</Typography>}
+            summary={<Title level={4}>Wearable</Title>}
             expanded={false}
             length={wearables.length}
           >
-            <FormGroup sx={{ flexDirection: 'row' }}>
+            <div className="flex flex-row flex-wrap">
               {wearables.map((wearable) => (
-                <FormControlLabel
+                <label
                   key={wearable}
-                  control={
-                    <Checkbox
-                      name={wearable}
-                      value={wearable}
-                      checked={wearablesValue.includes(wearable)}
-                      className={styles.inputCheck}
-                      onChange={(e) =>
-                        handleCheckboxChange(
-                          e,
-                          'wearables',
-                          wearablesValue,
-                          setWearablesValue,
-                        )
-                      }
-                    />
-                  }
-                  label={<Typography variant="body1">{wearable}</Typography>}
-                  className={styles.inputCheckFormControl}
-                  sx={{ flex: '0 0 50%' }}
-                />
+                  className={`${styles.inputCheckFormControl} flex items-center`}
+                  style={{ flex: '0 0 50%' }}
+                >
+                  <Checkbox
+                    name={wearable}
+                    value={wearable}
+                    checked={wearablesValue.includes(wearable)}
+                    className={styles.inputCheck}
+                    onCheckedChange={(checked) =>
+                      handleCheckboxChange(
+                        { target: { checked: checked === true, value: wearable } } as ChangeEvent<HTMLInputElement>,
+                        'wearables',
+                        wearablesValue,
+                        setWearablesValue,
+                      )
+                    }
+                  />
+                  <span className="text-base">{wearable}</span>
+                </label>
               ))}
-            </FormGroup>
+            </div>
           </FilterAccordion>
         )} */}
         <FilterAccordion
-          summary={<Typography variant="h4">Background</Typography>}
+          summary={<Title level={4}>Background</Title>}
           length={backgrounds.length}
           expanded={true}
         >
-          <FormGroup sx={{ flexDirection: 'row' }}>
+          <div className="flex flex-row flex-wrap">
             {backgrounds.map((background) => (
-              <FormControlLabel
+              <label
                 key={background}
-                control={
-                  <Checkbox
-                    name={background}
-                    value={background}
-                    checked={backgroundsValue.includes(background)}
-                    className={styles.inputCheck}
-                    onChange={(e) =>
-                      handleCheckboxChange(e, 'backgrounds', backgroundsValue, setBackgroundsValue)
-                    }
-                  />
-                }
-                label={<Typography variant="body1">{background}</Typography>}
-                className={styles.inputCheckFormControl}
-                sx={{ flex: '0 0 50%' }}
-              />
+                className={`${styles.inputCheckFormControl} flex items-center`}
+                style={{ flex: '0 0 50%' }}
+              >
+                <Checkbox
+                  name={background}
+                  value={background}
+                  checked={backgroundsValue.includes(background)}
+                  className={styles.inputCheck}
+                  onCheckedChange={(checked) =>
+                    handleCheckboxChange(
+                      {
+                        target: { checked: checked === true, value: background },
+                      } as ChangeEvent<HTMLInputElement>,
+                      'backgrounds',
+                      backgroundsValue,
+                      setBackgroundsValue
+                    )
+                  }
+                />
+                <span className="text-base">{background}</span>
+              </label>
             ))}
-          </FormGroup>
+          </div>
         </FilterAccordion>
         {!showMore ? (
-          <Typography
-            variant="body1"
-            sx={{
-              textDecoration: 'underline',
-              cursor: 'pointer',
-              margin: '0 14px',
-              lineHeight: '36px',
-            }}
+          <span
+            className="mx-3.5 cursor-pointer text-base underline"
+            style={{ lineHeight: '36px' }}
             onClick={() => setShowMore(true)}
           >
             More
-          </Typography>
+          </span>
         ) : (
           <>
             {Object.keys(CosmeticsFilter.TRAIT_VALUE_MAP)
@@ -410,9 +413,9 @@ const DegensFilter = ({
                   )
                   .map((item) => item[0])
                 return (
-                  <FormGroup key={categoryKey} sx={{ flexDirection: 'row' }}>
+                  <div key={categoryKey} className="flex flex-row flex-wrap">
                     <FilterAccordion
-                      summary={<Typography variant="h4">{categoryKey}</Typography>}
+                      summary={<Title level={4}>{categoryKey}</Title>}
                       length={traitGroup.length}
                       expanded={false}
                     >
@@ -426,13 +429,13 @@ const DegensFilter = ({
                         inputCheckFormControlStyle={cn(styles.inputCheckFormControl)}
                       />
                     </FilterAccordion>
-                  </FormGroup>
+                  </div>
                 )
               })}
           </>
         )}
-      </Stack>
-    </Stack>
+      </div>
+    </div>
   )
 }
 

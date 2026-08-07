@@ -1,13 +1,16 @@
 'use client'
 import { useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { formatEther } from 'ethers'
 import { OrderKind } from '@cowprotocol/cow-sdk'
 import { createOrderSwapEtherToNFTL, getCowMarketPrice, getOrderDetail } from '@/utils/cowswap'
 
-import { Box, Button, LinearProgress, Link, Stack, Typography } from '@mui/material'
-import LoadingButton from '@mui/lab/LoadingButton'
-
+import { Button } from '@nl/ui/base/button'
+import { CircularProgress } from '@nl/ui/custom/circular-progress'
+import { Progress } from '@nl/ui/base/progress'
+import { Title } from '@nl/ui/custom/typography'
+import { cn } from '@nl/ui/utils'
 import { Icon } from '@nl/ui/base/icon'
 import { COW_PROTOCOL_URL } from '@/constants/url'
 import { formatNumberToDisplay } from '@nl/ui/utils'
@@ -199,26 +202,26 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
   }
 
   return (
-    <Stack direction="column">
-      <Typography variant="caption" sx={{ ml: 'auto', mb: 1 }}>
+    <div className="flex flex-col">
+      <span className="ml-auto mb-2 text-xs text-muted-foreground flex items-center">
         This transaction is taking place live on{' '}
-        <Link href={COW_PROTOCOL_URL} target="_blank" rel="noreferrer">
+        <Link href={COW_PROTOCOL_URL} target="_blank" rel="noreferrer" className="underline">
           cow.fi
         </Link>
         <Icon name="circle" color="purple" size={3} className="ml-1 mb-1" />
-      </Typography>
-      <Box
-        sx={{
+      </span>
+      <div
+        className="flex flex-col"
+        style={{
           border: '1px solid #1c1b1a',
           boxShadow: '0px 0px 9px var(--color-purple)',
           borderRadius: '10px',
-          px: 1,
-          py: 1.25,
+          padding: '4px 8px',
           background: '#202230',
         }}
       >
         {!orderId ? (
-          <Stack direction="column" spacing={0.75} sx={{ position: 'relative' }}>
+          <div className="flex flex-col gap-1.5 relative" style={{ position: 'relative' }}>
             <TokenInfoBox
               balance={etherBalance}
               icon={
@@ -237,17 +240,18 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
               setValue={handleEthAmount}
               getMarketPrice={getMarketPrice}
             />
-            <Box
+            <div
               className={styles.arrowDown}
-              sx={{
+              style={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 top: fromEthAmount ? 126 : 76,
+                position: 'absolute',
               }}
             >
               <Icon name="arrow-down" color="foreground" />
-            </Box>
+            </div>
             <TokenInfoBox
               balance={accountBalance}
               icon={
@@ -261,28 +265,26 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
               setValue={handleNftlAmount}
               getMarketPrice={getMarketPrice}
             />
-            <Stack direction="column">
+            <div className="flex flex-col">
               {feeAmount && (
-                <Stack direction="row" sx={{ justifyContent: 'space-between', my: 1 }}>
-                  <Typography sx={{ ml: 1 }}>Fees</Typography>
-                  <Typography sx={{ mr: 1 }}>
+                <div className="flex justify-between my-2">
+                  <span className="ml-1 text-base">Fees</span>
+                  <span className="mr-1 text-base">
                     {`${formatNumberToDisplay(Number(feeAmount), 4)} ETH (~$${formatNumberToDisplay(
                       etherPrice * Number(feeAmount),
                       2
                     )})`}
-                  </Typography>
-                </Stack>
+                  </span>
+                </div>
               )}
-            </Stack>
-            <LoadingButton
-              variant="contained"
-              fullWidth
-              loading={loading || purchasing}
-              loadingPosition={purchasing ? 'end' : 'center'}
-              className={styles.purchaseNFTLBtn}
-              onClick={handleBuyNFTL}
+            </div>
+            <Button
+              variant="default"
+              className={cn(styles.purchaseNFTLBtn, 'w-full')}
               disabled={!ethAmount || !Number(ethAmount) || !sufficientBalance || feeExceedAmount}
+              onClick={handleBuyNFTL}
             >
+              {(loading || purchasing) && <CircularProgress size="sm" />}
               {!ethAmount || !Number(ethAmount)
                 ? 'Enter an amount'
                 : !sufficientBalance
@@ -290,66 +292,65 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
                   : !feeExceedAmount
                     ? txnState
                     : 'Fees exceed from amount'}
-            </LoadingButton>
-          </Stack>
+            </Button>
+          </div>
         ) : (
-          <Stack
-            direction="column"
-            sx={{
-              height: 228,
-              gap: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-              position: 'relative',
-            }}
+          <div
+            className="flex flex-col gap-2 items-center justify-center relative"
+            style={{ height: 228 }}
           >
-            <Typography variant="h4">
-              {!orderFulfilled ? 'Order In Progress' : 'Order Confirmed'}
-            </Typography>
+            <Title level={4}>{!orderFulfilled ? 'Order In Progress' : 'Order Confirmed'}</Title>
             {!orderFulfilled && (
-              <Box sx={{ width: '100px' }}>
-                <LinearProgress />
-              </Box>
+              <div style={{ width: 100 }}>
+                <Progress
+                  value={0}
+                  style={{
+                    backgroundColor: 'var(--color-muted-foreground)',
+                    transform: 'translateZ(0)',
+                  }}
+                />
+              </div>
             )}
             <Link
               href={`https://explorer.cow.fi/mainnet/orders/${orderId}`}
               target="_blank"
               rel="noreferrer"
+              className="underline"
             >
               View on explorer
             </Link>
             {orderFulfilled && !deposited && (
-              <Stack sx={{ mt: 1 }}>
-                <Typography sx={{ px: 4, textAlign: 'center' }}>
+              <div className="mt-2">
+                <span className="px-4 text-center text-base block" style={{ textAlign: 'center' }}>
                   Congrats! Your transaction has been confirmed successfully! 🚀 Click below Deposit
                   button to purchase in-game NFTL balance from your wallet.
-                </Typography>
-              </Stack>
+                </span>
+              </div>
             )}
-            <Stack direction="row" sx={{ gap: 1, alignItems: 'center', mt: 2 }}>
+            <div className="flex flex-row gap-2 items-center mt-4">
               <Button
-                variant="outlined"
+                variant="outline"
                 onClick={handleImportNFTLToWallet}
-                fullWidth
-                sx={{ height: '44px !important', lineHeight: '18px' }}
+                className="w-full"
+                style={{ height: 44, lineHeight: '18px' }}
               >
                 Add NFTL to Metamask
               </Button>
               {orderFulfilled && deposited && (
                 <Button
-                  variant="contained"
+                  variant="default"
                   onClick={initialize}
-                  fullWidth
-                  sx={{ height: '44px !important', lineHeight: '18px' }}
+                  className="w-full"
+                  style={{ height: 44, lineHeight: '18px' }}
                 >
                   Buy More NFTL
                 </Button>
               )}
-            </Stack>
-          </Stack>
+            </div>
+          </div>
         )}
-      </Box>
-    </Stack>
+      </div>
+    </div>
   )
 }
 

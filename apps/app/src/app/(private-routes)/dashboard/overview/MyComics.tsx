@@ -3,8 +3,8 @@
 /* eslint-disable no-nested-ternary */
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
-import { Box, Button, Stack } from '@mui/material'
 import { useRouter } from 'next/navigation'
+import { Button } from '@nl/ui/base/button'
 import ComicCard from '@/components/cards/ComicCard'
 import SectionSlider from '@/components/sections/SectionSlider'
 import type { Comic } from '@/types/marketplace'
@@ -52,30 +52,30 @@ const MyComics = (): React.ReactNode => {
         variant="h3"
         sliderSettingsOverride={settings}
         actions={
-          <Button variant="outlined" onClick={() => router.push('/dashboard/items')}>
+          <Button variant="outline" onClick={() => router.push('/dashboard/items')}>
             View All Comics
           </Button>
         }
       >
         {loadingComics ? (
-          <Box sx={{ px: 1 }}>
+          <div className="px-1">
             <ComicPlaceholder />
-          </Box>
+          </div>
         ) : filteredComics.length ? (
           filteredComics.map((comic) => (
-            <Box key={comic.wearableName} sx={{ px: 1 }}>
+            <div key={comic.wearableName} className="px-1">
               <ComicCard data={comic} onViewComic={() => handleViewComic(comic)} />
-            </Box>
+            </div>
           ))
         ) : (
-          <Stack sx={{ justifyContent: 'center', alignItems: 'center' }}>
+          <div className="flex items-center justify-center">
             <Link href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
               <EmptyState
                 message="No Comics found. Please check your address or go purchase some if you have not done so already!"
                 buttonText="Buy Comics"
               />
             </Link>
-          </Stack>
+          </div>
         )}
       </SectionSlider>
       <ViewComicDialog
