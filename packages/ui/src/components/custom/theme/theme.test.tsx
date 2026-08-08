@@ -13,9 +13,6 @@ beforeEach(() => {
     ),
     useTheme: () => ({ setTheme, resolvedTheme: themeState.resolvedTheme }),
   }))
-  mock.module('lucide-react/dynamic', () => ({
-    DynamicIcon: ({ name }: { name: string }) => <svg aria-label={name} />,
-  }))
   setTheme.mockClear()
 })
 
@@ -44,7 +41,7 @@ describe('ThemeToggle', () => {
     themeState.resolvedTheme = 'light'
     setTheme.mockClear()
     const { container } = render(<ThemeToggle />)
-    expect(container.querySelector('svg[aria-label="sun"]')).toBeTruthy()
+    expect(container.querySelector('svg.lucide-sun')).toBeTruthy()
     fireEvent.click(container.querySelector('button')!)
     expect(setTheme).toHaveBeenCalledWith('dark')
   })
@@ -53,7 +50,7 @@ describe('ThemeToggle', () => {
     themeState.resolvedTheme = 'dark'
     setTheme.mockClear()
     const { container } = render(<ThemeToggle />)
-    expect(container.querySelector('svg[aria-label="moon"]')).toBeTruthy()
+    expect(container.querySelector('svg.lucide-moon')).toBeTruthy()
     fireEvent.click(container.querySelector('button')!)
     expect(setTheme).toHaveBeenCalledWith('light')
   })

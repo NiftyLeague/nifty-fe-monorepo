@@ -8,7 +8,6 @@ import type {
   ContractTransactionReceipt,
   ContractTransactionResponse,
 } from 'ethers'
-import { AxelarQueryAPI, Environment, EvmChain, GasToken } from '@axelar-network/axelarjs-sdk'
 
 import {
   INTERCHAIN_SERVICE_CONTRACT,
@@ -23,6 +22,9 @@ import type { Contracts } from '@/types/web3'
 
 // Estimate the actual cost of deploying a Canonical Interchain Token on the remote chain:
 const gasEstimator = async (chainId: number) => {
+  // Lazy-load the heavy Axelar SDK only when bridging (it pulls in non-EVM chain tooling).
+  const { AxelarQueryAPI, Environment, EvmChain, GasToken } =
+    await import('@axelar-network/axelarjs-sdk')
   if (chainId === SEPOLIA_ID || chainId === IMX_TESTNET_ID) {
     const api = new AxelarQueryAPI({ environment: Environment.TESTNET })
     return await api.estimateGasFee(
@@ -57,10 +59,10 @@ const getInterchainTokenServiceContract = (writeContracts: Contracts): Contract 
 
 const getDestinationChain = (destinationChainId: number) => {
   return destinationChainId === SEPOLIA_ID
-    ? EvmChain.SEPOLIA
+    ? 'ethereum-sepolia'
     : destinationChainId === MAINNET_ID
-      ? EvmChain.ETHEREUM
-      : EvmChain.IMMUTABLE
+      ? 'ethereum'
+      : 'immutable'
 }
 
 // Increase the allowance of the InterchainTokenManager to spend NFTL tokens on behalf of the user:
@@ -72,7 +74,7 @@ export const increaseBridgeAllowance = async (
 ): Promise<ContractTransactionReceipt | null> => {
   const destinationChain = getDestinationChain(destinationChainId)
 
-  if (destinationChain === EvmChain.IMMUTABLE) {
+  if (destinationChain === 'immutable') {
     try {
       const NFTL = writeContracts[NFTL_CONTRACT] as NFTLToken
       const allowance = await NFTL.allowance(address, INTERCHAIN_TOKEN_SERVICE_ADDRESS)

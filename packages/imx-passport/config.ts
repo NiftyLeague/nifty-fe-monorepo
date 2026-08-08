@@ -1,6 +1,7 @@
 'use client'
 
-import { config, passport } from '@imtbl/sdk'
+import * as config from '@imtbl/sdk/config'
+import * as passport from '@imtbl/sdk/passport'
 
 // passport.PassportModuleConfiguration
 interface PassportModuleConfiguration {

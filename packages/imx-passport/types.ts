@@ -1,5 +1,5 @@
-import { passport } from '@imtbl/sdk'
+import * as passport from '@imtbl/sdk/passport'
 
 export type Passport = passport.Passport
 
-export { config } from '@imtbl/sdk'
+export * as config from '@imtbl/sdk/config'

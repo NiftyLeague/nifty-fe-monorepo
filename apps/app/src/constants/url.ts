@@ -30,8 +30,6 @@ export const RENTED_FROM_ME_API_URL = `${BASE_API_URL}/rentals/rented-from-me`
 export const TERMINATE_RENTAL_API_URL = `${BASE_API_URL}/rentals/rental/terminate`
 export const RENAME_RENTAL_API_URL = `${BASE_API_URL}/rentals/rental/rename`
 export const RENTAL_PASS_INVENTORY_URL = `${BASE_API_URL}/accounts/account/inventory?id=rental-pass-base`
-export const RENTAL_RENAME_URL = (rentalId: string): string =>
-  `${BASE_API_URL}/rentals/rental/rename?id=${encodeURIComponent(rentalId)}`
 export const RENT_URL = `${BASE_API_URL}/rentals/rent`
 export const GET_DEGEN_DETAIL_URL = (degenId: string): string =>
   `${BASE_API_URL}/rentals/rentables?degen_id=${encodeURIComponent(degenId)}`
