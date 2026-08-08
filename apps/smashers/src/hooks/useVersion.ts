@@ -75,7 +75,14 @@ const useVersion = () => {
     fetchVersion()
   }, [env, os])
 
-  return { downloadURL, version, isWindows: isWindows(), isLinux: isLinux(), isMacOs: isMacOs(), message }
+  return {
+    downloadURL,
+    version,
+    isWindows: isWindows(),
+    isLinux: isLinux(),
+    isMacOs: isMacOs(),
+    message,
+  }
 }
 
 export default useVersion

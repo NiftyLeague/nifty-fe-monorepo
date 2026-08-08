@@ -39,6 +39,7 @@ const getUserAgent = (userAgent: string) => {
   const isOpera = () => Boolean(userAgent.match(/Opera|OPR\//i))
   const isWindows = () => Boolean(userAgent.match(/Windows/i))
   const isMacOs = () => Boolean(userAgent.match(/Macintosh|Mac OS X/i) && !isIos())
+  const isLinux = () => Boolean(userAgent.match(/Linux/i) && !isAndroid())
   const isSSR = () => Boolean(userAgent.match(/SSR/i))
   const isMobile = () => type !== 'desktop'
   const isMobileOnly = () => type === 'mobile'
@@ -55,6 +56,7 @@ const getUserAgent = (userAgent: string) => {
     isOpera,
     isWindows,
     isMacOs,
+    isLinux,
     isSSR,
     browserName: getBrowserName(userAgent),
   }
