@@ -1,7 +1,7 @@
 import type { RentalDataGrid } from '@/types/rentalDataGrid'
 import type { ColumnType } from '.'
 import { v4 as uuidv4 } from 'uuid'
-import Countdown from 'react-countdown'
+import { Countdown } from '@nl/ui/base/countdown'
 import { formatNumberToDisplay } from '@nl/ui/utils'
 import ProgressBar from '@/components/wrapper/ProgressBar'
 

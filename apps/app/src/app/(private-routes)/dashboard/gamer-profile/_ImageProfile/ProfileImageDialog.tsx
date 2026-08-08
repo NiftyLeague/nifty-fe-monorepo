@@ -1,7 +1,7 @@
 'use client'
 
 import { useContext, useState, useMemo } from 'react'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 
 import { Button } from '@nl/ui/base/button'
 import { Icon } from '@nl/ui/base/icon'
@@ -48,14 +48,14 @@ const ProfileImageContent = ({
       })
       if (!response.ok) {
         const errMsg = await response.text()
-        toast.error(`Can not update the profile avatar: ${errMsg}`, { theme: 'dark' })
+        toast.error(`Can not update the profile avatar: ${errMsg}`)
         return
       }
-      toast.success('Update Profile Avatar Successful!', { theme: 'dark' })
+      toast.success('Update Profile Avatar Successful!')
       onChangeAvatar(degen?.id)
       setIsOpen(false)
     } catch (error) {
-      toast.error(`Can not update the profile avatar: ${error}`, { theme: 'dark' })
+      toast.error(`Can not update the profile avatar: ${error}`)
     }
   }
 
