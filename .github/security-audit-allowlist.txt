@@ -28,3 +28,8 @@ GHSA-wcpc-wj8m-hjx6
 GHSA-xcpc-8h2w-3j85
 GHSA-xmf8-cvqr-rfgj
 GHSA-xq3m-2v4x-88gg
+
+# nanoid 3.x advisory (GHSA-2v37-7h3g-55p8): transitive through postcss 8.x
+# required by Tailwind; fixed nanoid requires postcss 8.5.26+. Revisit on the
+# next postcss bump.
+GHSA-2v37-7h3g-55p8
