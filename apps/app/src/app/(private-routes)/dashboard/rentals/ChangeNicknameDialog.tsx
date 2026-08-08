@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 import { Controller, SubmitHandler, useForm, Resolver } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -60,7 +60,7 @@ const ChangeNicknameDialog = ({ rental, updateNickname }: Props): React.ReactNod
   }
 
   const onRenameRentalSuccess = (newName: string) => {
-    toast.success('Rename Rental Successful!', { theme: 'dark' })
+    toast.success('Rename Rental Successful!')
     updateNickname(newName, rentalId)
     reset()
   }
