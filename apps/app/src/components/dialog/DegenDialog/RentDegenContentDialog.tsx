@@ -1,7 +1,7 @@
 'use client'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 import { isAddress } from 'ethers'
 
 import { Button } from '@nl/ui/base/button'
@@ -114,7 +114,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
       })
     } catch (err: unknown) {
       setLoading(false)
-      toast.error(errorMsgHandler(err), { theme: 'dark' })
+      toast.error(errorMsgHandler(err))
     }
   }, [degen, rent])
 

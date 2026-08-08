@@ -2,7 +2,7 @@
 
 import { FC, useCallback, useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 import Link from 'next/link'
 
 import { Dialog, DialogContent, DialogTitle } from '@nl/ui/base/dialog'

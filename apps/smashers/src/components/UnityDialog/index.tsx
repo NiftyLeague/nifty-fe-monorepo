@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import { isOpera, browserName } from 'react-device-detect'
+import { useUserAgent } from '@nl/ui/hooks/useUserAgent'
 import { Dialog } from '@nl/ui/custom/dialog'
 import { Title } from '@nl/ui/custom/typography'
 import UnityButton from './UnityButton'
@@ -7,9 +7,10 @@ import UnityButton from './UnityButton'
 const Game = dynamic(() => import('./Game'), { ssr: false })
 
 const UnityContent = ({ onClose }: { onClose: () => void }) => {
+  const { isOpera, browserName } = useUserAgent()
   return (
     <div>
-      {isOpera ? (
+      {isOpera() ? (
         <Title level={2} style={{ textAlign: 'center', marginTop: 8, padding: '10rem 3rem' }}>
           {browserName} Browser Not Supported
         </Title>
