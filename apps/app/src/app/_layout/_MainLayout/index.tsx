@@ -10,12 +10,10 @@ import PerfectScrollbar from 'react-perfect-scrollbar'
 import { openDrawer } from '@/store/slices/menu'
 import { useDispatch, useSelector } from '@/store/hooks'
 
-// React Toastify
-import { ToastContainer } from 'react-toastify'
-
 // project imports
 import { cn } from '@nl/ui/utils'
 import { Button } from '@nl/ui/base/button'
+import { Toaster } from '@nl/ui/base/sonner'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import navigation from '@/constants/menu-items'
 import { useConnectedToIMXCheck } from '@/hooks/useImxProvider'
@@ -132,7 +130,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
         </main>
       </div>
       <Snackbar />
-      <ToastContainer closeOnClick draggable />
+      <Toaster position="top-right" closeButton richColors />
     </>
   )
 }

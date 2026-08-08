@@ -48,6 +48,8 @@ const nextConfig: NextConfig = {
   typescript: { ignoreBuildErrors: true },
   transpilePackages: ['@nl/playfab', '@nl/ui'],
   images: {
+    formats: ['image/avif', 'image/webp'],
+    qualities: [75, 85],
     remotePatterns: [
       {
         protocol: 'https',

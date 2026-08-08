@@ -1,18 +1,19 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { isWindows, isMacOs } from 'react-device-detect'
+import { useUserAgent } from '@nl/ui/hooks/useUserAgent'
 import { DEGEN_BASE_API_URL } from '@/constants/url'
 import { TARGET_NETWORK } from '@/constants/networks'
 
 const useVersion = () => {
   const [version, setVersion] = useState('')
   const env = TARGET_NETWORK.chainId === 1 ? 'prod' : 'stage'
+  const { isWindows, isMacOs } = useUserAgent()
   const isLinux = window?.navigator?.userAgent?.indexOf('Linux') >= 0
-  const os = isWindows ? 'win' : isMacOs ? 'osx' : isLinux ? 'linux' : 'unknown'
-  const message = isWindows
+  const os = isWindows() ? 'win' : isMacOs() ? 'osx' : isLinux ? 'linux' : 'unknown'
+  const message = isWindows()
     ? 'Download for Windows'
-    : isMacOs
+    : isMacOs()
       ? 'Download for Mac OS not available'
       : isLinux
         ? 'Linux support is not available at this time'
@@ -42,7 +43,7 @@ const useVersion = () => {
     fetchVersion()
   }, [env, os])
 
-  return { downloadURL, version, isWindows, isLinux, isMacOs, message }
+  return { downloadURL, version, isWindows: isWindows(), isLinux, isMacOs: isMacOs(), message }
 }
 
 export default useVersion
