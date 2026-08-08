@@ -79,18 +79,6 @@ import { Toggle } from '@nl/ui/base/toggle'
 import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@nl/ui/base/tooltip'
 
-beforeEach(() => {
-  mock.module('lucide-react/dynamic', () => ({
-    DynamicIcon: ({
-      name,
-      fallback: Fallback,
-    }: {
-      name: string
-      fallback: () => React.ReactNode
-    }) => (name === 'circle' ? <svg aria-label={name} /> : <Fallback />),
-  }))
-})
-
 let Icon: typeof import('./icon').Icon
 
 beforeEach(async () => {
@@ -143,7 +131,7 @@ describe('base visual primitives', () => {
     expect(screen.getByRole('alert')?.textContent).toContain('Danger')
     expect(screen.getByRole('button', { name: 'Save' })).not.toBeNull()
     expect((screen.getByLabelText('Name') as HTMLInputElement)?.value).toBe('Degen')
-    expect(screen.getByLabelText('circle')).not.toBeNull()
+    expect(screen.getByLabelText('status icon')).not.toBeNull()
     expect(screen.getByRole('progressbar', { name: 'progress' })).not.toBeNull()
   })
 

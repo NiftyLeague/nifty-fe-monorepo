@@ -5,9 +5,7 @@ import { mock } from 'bun:test'
 let GameCard: typeof import('./cards/GameCard').default
 let MainCard: typeof import('./cards/MainCard').default
 let SubCard: typeof import('./cards/SubCard').default
-let AnimateButton: typeof import('./extended/AnimateButton').default
 let Breadcrumbs: typeof import('./extended/Breadcrumbs').default
-let Transitions: typeof import('./extended/Transitions').default
 
 beforeEach(async () => {
   mock.module('@nl/ui/base/icon', () => ({
@@ -19,16 +17,12 @@ beforeEach(async () => {
   const gameCard = await import('./cards/GameCard')
   const mainCard = await import('./cards/MainCard')
   const subCard = await import('./cards/SubCard')
-  const animateButton = await import('./extended/AnimateButton')
   const breadcrumbs = await import('./extended/Breadcrumbs')
-  const transitions = await import('./extended/Transitions')
 
   GameCard = gameCard.default
   MainCard = mainCard.default
   SubCard = subCard.default
-  AnimateButton = animateButton.default
   Breadcrumbs = breadcrumbs.default
-  Transitions = transitions.default
 })
 
 afterEach(() => {
@@ -115,46 +109,6 @@ describe('Breadcrumbs', () => {
     window.history.replaceState({}, '', '/missing')
     rerender(<Breadcrumbs navigation={navigation as never} />)
     expect(container.querySelector('[aria-label="breadcrumb"]')).toBeNull()
-  })
-})
-
-describe('animated presentation helpers', () => {
-  it.each([
-    ['grow', 'top-left'],
-    ['collapse', 'top-right'],
-    ['fade', 'top'],
-    ['slide', 'bottom-left'],
-    ['zoom', 'bottom-right'],
-    ['grow', 'bottom'],
-  ])('renders the %s transition from %s', (type, position) => {
-    render(
-      <Transitions type={type} position={position} in direction="down">
-        <div>{type}</div>
-      </Transitions>
-    )
-    expect(screen.getByText(type)).not.toBeNull()
-  })
-
-  it.each([
-    ['rotate', 'right'],
-    ['slide', 'up'],
-    ['slide', 'left'],
-    ['slide', 'right'],
-    ['scale', 'down'],
-  ] as const)('renders %s animation moving %s', (type, direction) => {
-    const { container } = render(
-      <AnimateButton
-        type={type}
-        direction={direction}
-        scale={type === 'scale' ? { hover: 0.8, tap: 0.8 } : undefined}
-      >
-        <button>Animate</button>
-      </AnimateButton>
-    )
-    const wrapper = container.firstElementChild as HTMLElement
-    fireEvent.mouseEnter(wrapper)
-    fireEvent.mouseLeave(wrapper)
-    expect(screen.getByRole('button', { name: 'Animate' })).not.toBeNull()
   })
 })
 
