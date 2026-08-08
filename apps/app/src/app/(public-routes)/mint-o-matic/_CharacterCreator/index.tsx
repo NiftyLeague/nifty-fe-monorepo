@@ -381,7 +381,9 @@ const CharacterCreatorContainer = memo(
 CharacterCreator.displayName = 'CharacterCreator'
 CharacterCreatorContainer.displayName = 'CharacterCreatorContainer'
 
-const CharacterCreatorWithOrientation = (props: Omit<CharacterCreatorContainerProps, 'isLoaded'>) => {
+const CharacterCreatorWithOrientation = (
+  props: Omit<CharacterCreatorContainerProps, 'isLoaded'>
+) => {
   const { isPortrait } = useOrientation()
   return <CharacterCreatorContainer {...props} isPortrait={isPortrait} />
 }
