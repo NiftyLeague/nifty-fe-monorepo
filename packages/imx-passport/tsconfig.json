@@ -1,6 +1,9 @@
 {
   "extends": "@nl/typescript-config/react-library.json",
-  "compilerOptions": { "outDir": "dist" },
+  "compilerOptions": {
+    "outDir": "dist",
+    "types": ["node"]
+  },
   "include": ["config.ts"],
   "exclude": ["node_modules", "dist"]
 }
