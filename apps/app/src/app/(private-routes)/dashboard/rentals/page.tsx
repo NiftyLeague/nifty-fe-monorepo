@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 import MyRentalsDataGrid from './MyRentalsDataGrid'
 
 import {
@@ -84,16 +84,16 @@ const DashboardRentalPage = (): React.ReactNode => {
       const result = await terminalRental(rentalId)
       if (result && !result.ok) {
         const errMsg = await result.text()
-        toast.error(`Can not terminate the rental: ${errMsg}`, { theme: 'dark' })
+        toast.error(`Can not terminate the rental: ${errMsg}`)
         return
       }
       const res = await result?.json()
       if (res) {
-        toast.success('Terminate rental successfully!', { theme: 'dark' })
+        toast.success('Terminate rental successfully!')
         refetch()
       }
     } catch (error) {
-      toast.error(`Can not terminate the rental: ${error}`, { theme: 'dark' })
+      toast.error(`Can not terminate the rental: ${error}`)
     }
   }
 

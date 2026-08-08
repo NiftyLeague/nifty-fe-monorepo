@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 
 import { useDispatch, useSelector } from '@/store/hooks'
 import { closeSnackbar } from '@/store/slices/snackbar'
@@ -15,12 +15,23 @@ const Snackbar = () => {
   useEffect(() => {
     if (!open) return
 
-    const color = alert.color === 'primary' || alert.color === 'secondary' ? 'info' : alert.color
-    toast(message, {
-      type: variant === 'alert' ? color : 'default',
-      autoClose: 6000,
-      closeButton: close !== false,
-    })
+    const type =
+      variant === 'alert'
+        ? alert.color === 'primary' || alert.color === 'secondary'
+          ? 'info'
+          : alert.color
+        : 'default'
+    const options = { duration: 6000, closeButton: close !== false }
+    switch (type) {
+      case 'success':
+      case 'error':
+      case 'warning':
+      case 'info':
+        toast[type](message, options)
+        break
+      default:
+        toast(message, options)
+    }
 
     dispatch(closeSnackbar())
   }, [alert.color, close, dispatch, message, open, variant])

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useContext } from 'react'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -59,20 +59,20 @@ const ChangeProfileNameForm = ({ updateNewName }: ChangeProfileNameFormProps): R
       if (!response.ok) {
         const errMsg = await response.text()
         setLoadingRename(false)
-        toast.error(`Can not update the new name: ${errMsg}`, { theme: 'dark' })
+        toast.error(`Can not update the new name: ${errMsg}`)
         return
       }
       const res = await response.json()
       onRenameRentalSuccess(res?.name_cased)
     } catch (error) {
       setLoadingRename(false)
-      toast.error(`Can not update the new name: ${error}`, { theme: 'dark' })
+      toast.error(`Can not update the new name: ${error}`)
     }
   }
 
   const onRenameRentalSuccess = (newName: string) => {
     setLoadingRename(false)
-    toast.success('Rename Profile Successful!', { theme: 'dark' })
+    toast.success('Rename Profile Successful!')
     updateNewName(newName)
     setIsOpen(false)
     reset()

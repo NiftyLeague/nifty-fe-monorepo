@@ -14,7 +14,7 @@ let sendTransaction: typeof import('./bnc-notify').sendTransaction
 let submitTxWithGasEstimate: typeof import('./bnc-notify').submitTxWithGasEstimate
 
 beforeEach(() => {
-  mock.module('react-toastify', () => ({
+  mock.module('sonner', () => ({
     toast: { error: toastError, info: toastInfo, success: toastSuccess },
   }))
   mock.module('eth-rpc-errors', () => ({
@@ -47,8 +47,8 @@ describe('handleError', () => {
     handleError({ code: -1 } as never)
 
     expect(toastError).toHaveBeenCalledTimes(2)
-    expect(toastError.mock.calls[0]?.[1]).toMatchObject({ data: 'rejected', theme: 'dark' })
-    expect(toastError.mock.calls[1]?.[1].data).toContain('serialized:')
+    expect(toastError.mock.calls[0]?.[0]).toBe('Transaction Error: rejected')
+    expect(toastError.mock.calls[1]?.[0]).toContain('serialized:')
   })
 
   it.each<string>(['There was a WebSocket error', 'Configuration with scope local failed'])(
@@ -92,7 +92,7 @@ describe('submitTxWithGasEstimate', () => {
     await expect(
       submitTxWithGasEstimate(mock(), { mint: contractFn } as never, 'mint', [])
     ).resolves.toBeUndefined()
-    expect(toastError.mock.calls[0]?.[1]).toMatchObject({ data: 'estimate failed' })
+    expect(toastError.mock.calls[0]?.[0]).toContain('estimate failed')
     expect(() => submitTxWithGasEstimate(mock(), {} as never, 'missing', [])).toThrow(
       'Function missing is not available'
     )

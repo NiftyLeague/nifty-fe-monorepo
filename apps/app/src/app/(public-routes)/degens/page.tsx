@@ -69,7 +69,7 @@ const AllDegensPage = (): React.ReactNode => {
 
   const isMobile = useMediaQuery('(max-width:640px)')
   const isSmallScreen = useMediaQuery('(max-width:1280px)')
-  const { jump, dataForCurrentPage, maxPage, currentPage } = usePagination<Degen>(
+  const { jump, dataForCurrentPage, maxPage, currentPage, pageItems } = usePagination<Degen>(
     filteredData,
     !isSmallScreen && layoutMode !== 'gridView' && !isDrawerOpen ? 18 : DEGENS_PER_PAGE
   )
@@ -198,12 +198,15 @@ const AllDegensPage = (): React.ReactNode => {
           </div>
         </SectionTitle>
         {/* Main grid content */}
-        <div className="grid grid-cols-24 gap-4 -mt-9">
+        <div className="grid grid-cols-12 gap-4 -mt-9">
           {!degens?.length
             ? [...Array(8)].map(renderSkeletonItem)
             : dataForCurrentPage.map(renderDegen)}
         </div>
-        <div className="mx-auto flex items-center gap-1" style={{ paddingBottom: '16px' }}>
+        <div
+          className="mx-auto flex flex-wrap items-center justify-center gap-1"
+          style={{ paddingBottom: '16px' }}
+        >
           <Button
             variant="ghost"
             size={isMobile ? 'sm' : 'icon'}
@@ -214,17 +217,23 @@ const AllDegensPage = (): React.ReactNode => {
           >
             <Icon name="chevron-left" />
           </Button>
-          {Array.from({ length: maxPage }, (_, i) => i + 1).map((p) => (
-            <Button
-              key={p}
-              variant={p === currentPage ? 'default' : 'ghost'}
-              size={isMobile ? 'sm' : 'icon'}
-              className="cursor-pointer"
-              onClick={() => jump(p)}
-            >
-              {p}
-            </Button>
-          ))}
+          {pageItems.map((p) =>
+            p === 'ellipsis-start' || p === 'ellipsis-end' ? (
+              <span key={p} className="px-1 text-muted-foreground">
+                …
+              </span>
+            ) : (
+              <Button
+                key={p}
+                variant={p === currentPage ? 'default' : 'ghost'}
+                size={isMobile ? 'sm' : 'icon'}
+                className="cursor-pointer"
+                onClick={() => jump(p)}
+              >
+                {p}
+              </Button>
+            )
+          )}
           <Button
             variant="ghost"
             size={isMobile ? 'sm' : 'icon'}
@@ -247,6 +256,7 @@ const AllDegensPage = (): React.ReactNode => {
       isMobile,
       jump,
       maxPage,
+      pageItems,
       renderDegen,
       renderSkeletonItem,
     ]

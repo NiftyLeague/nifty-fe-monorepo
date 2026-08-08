@@ -5,7 +5,8 @@
 import type { NextConfig } from 'next'
 import { withSentryConfig } from '@sentry/nextjs'
 
-// Fail-fast environment variable validation
+// Fail-fast environment variable validation (production builds only, not local dev)
+const isProductionBuild = process.env.NEXT_PHASE === 'phase-production-build'
 const requiredEnvs = [
   'NEXT_PUBLIC_APPLE_STORE_ID',
   'NEXT_PUBLIC_APPLE_STORE_LINK',
@@ -14,7 +15,7 @@ const requiredEnvs = [
   'NEXT_PUBLIC_STEAM_LINK',
 ]
 
-if (process.env.GITHUB_ACTIONS !== 'true') {
+if (isProductionBuild && process.env.GITHUB_ACTIONS !== 'true') {
   for (const env of requiredEnvs) {
     if (!process.env[env]) {
       throw new Error(`Build failed: Missing required environment variable "${env}"`)
@@ -45,9 +46,10 @@ const generateAppleCountryRedirects = (countryCode: string) => [
 ]
 
 const nextConfig: NextConfig = {
-  typescript: { ignoreBuildErrors: true },
   transpilePackages: ['@nl/playfab', '@nl/ui'],
   images: {
+    formats: ['image/avif', 'image/webp'],
+    qualities: [75, 85],
     remotePatterns: [
       {
         protocol: 'https',

@@ -8,8 +8,10 @@ import { withSentryConfig } from '@sentry/nextjs'
 const ENV = (process.env.VERCEL_ENV as 'production' | 'preview' | undefined) ?? 'development'
 
 const nextConfig: NextConfig = {
-  typescript: { ignoreBuildErrors: true },
-  transpilePackages: ['@nl/ui'],
+  transpilePackages: ['@nl/imx-passport', '@nl/ui'],
+  images: {
+    formats: ['image/avif', 'image/webp'],
+  },
   // TODO: Switch to turbopack once build issues are resolved
   // turbopack: { resolveAlias: { '@wagmi/connectors': 'wagmi/connectors' } },
   // serverExternalPackages: ['pino-pretty', 'lokijs', 'encoding', 'sodium-native', 'require-addon'],

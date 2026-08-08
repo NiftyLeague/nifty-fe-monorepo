@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { Dialog, DialogContent } from '@nl/ui/base/dialog'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { cn } from '@nl/ui/utils'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 
 import { DEGEN_CONTRACT } from '@/constants/contracts'
 import { TRAIT_INDEXES } from '@/constants/cosmeticsFilters'
@@ -128,7 +128,7 @@ const DegenDialog = ({
         }
       } catch (err) {
         if (!signal.aborted) {
-          toast.error(errorMsgHandler(err), { theme: 'dark' })
+          toast.error(errorMsgHandler(err))
         }
       }
     }

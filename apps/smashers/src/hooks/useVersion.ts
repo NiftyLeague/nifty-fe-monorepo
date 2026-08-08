@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { isMacOs, isAndroid, isIOS, isWindows } from 'react-device-detect'
+import { useUserAgent } from '@nl/ui/hooks/useUserAgent'
 
 const COMMON_MSG = 'Download Nifty Smashers Beta on mobile or PC!'
 const DESKTOP_MSG = '' //'Epic Store will be supported soon.';
@@ -25,24 +25,23 @@ enum OS {
 const useVersion = () => {
   const [version, setVersion] = useState<string | null>(null)
   const env = process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' ? 'prod' : 'stage'
-  const isLinux =
-    typeof window !== 'undefined' && window?.navigator?.userAgent?.indexOf('Linux') >= 0
+  const { isWindows, isMacOs, isAndroid, isIos, isLinux } = useUserAgent()
   let os = ''
   let message = ''
 
-  if (isWindows) {
+  if (isWindows()) {
     os = OS.Windows
     message = MSGS.Windows
-  } else if (isAndroid) {
+  } else if (isAndroid()) {
     os = OS.Android
     message = MSGS.Android
-  } else if (isIOS) {
+  } else if (isIos()) {
     os = OS.IOS
     message = MSGS.IOS
-  } else if (isLinux) {
+  } else if (isLinux()) {
     os = OS.LINUX
     message = MSGS.LINUX
-  } else if (isMacOs) {
+  } else if (isMacOs()) {
     os = OS.MAC
     message = MSGS.MAC
   }
@@ -76,7 +75,14 @@ const useVersion = () => {
     fetchVersion()
   }, [env, os])
 
-  return { downloadURL, version, isWindows, isLinux, isMacOs, message }
+  return {
+    downloadURL,
+    version,
+    isWindows: isWindows(),
+    isLinux: isLinux(),
+    isMacOs: isMacOs(),
+    message,
+  }
 }
 
 export default useVersion

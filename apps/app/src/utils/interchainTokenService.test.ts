@@ -76,7 +76,7 @@ describe('interchain token service', () => {
     expect(sdk.estimateGasFee).toHaveBeenCalledWith('sepolia', 'immutable', 700_000, 1.1, 'sepolia')
     expect(interchainTransfer).toHaveBeenCalledWith(
       expect.stringMatching(/^0x/),
-      'sepolia',
+      'ethereum-sepolia',
       '0xwallet',
       amount,
       '0x',

@@ -80,7 +80,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <WebVitals />
         <Script
           id="device-stats"
-          strategy="beforeInteractive"
+          strategy="afterInteractive"
           src="https://d7ct17ettlkln.cloudfront.net/public/stats.js"
         />
       </body>

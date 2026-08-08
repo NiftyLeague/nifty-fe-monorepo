@@ -1,0 +1,71 @@
+name: Re-align Staging
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # Every 30 minutes, catch any drift pushed to main outside the promotion flow
+    # (security advisories, code-foundry sync commits, dependabot, etc).
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  re-align:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect staging behind main
+        id: drift
+        run: |
+          git fetch origin main staging --no-tags
+          if git merge-base --is-ancestor origin/main origin/staging; then
+            echo "Staging already contains main (no drift)."
+            echo "drifted=false" >> "$GITHUB_OUTPUT"
+          else
+            BEHIND=$(git rev-list --count origin/staging..origin/main)
+            echo "Staging is $BEHIND commits behind main."
+            echo "drifted=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create re-align PR if drifted
+        if: steps.drift.outputs.drifted == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          BRANCH="chore/re-align-staging-$(date +%Y%m%d-%H%M)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH" origin/staging
+
+          # Merge main into staging. Conflicts keep staging's version (-X ours):
+          # staging carries intentional forward fixes (e.g. the 12-col grid), while
+          # main's non-conflicting changes still flow in. If that still fails
+          # (e.g. rename/delete vs modify), abort and open the PR unmerged so a
+          # human can resolve.
+          if git merge origin/main --no-edit --no-ff -X ours \
+            -m "chore: merge main into staging to re-align branches"; then
+            git push -u origin "$BRANCH"
+          else
+            git merge --abort 2>/dev/null || true
+            git push -u origin "$BRANCH" || true
+          fi
+
+          # Reuse an open re-align PR for this branch if one exists, else create it.
+          EXISTING=$(gh pr list --base staging --state open --head "$BRANCH" --json number --jq '.[0].number' 2>/dev/null || echo '')
+          TITLE="chore: re-align staging with main"
+          BODY="Automatically opened because staging fell behind main. Merging main into staging keeps the branches in sync so the promotion PR stays conflict-free."
+          if [ -n "$EXISTING" ]; then
+            gh pr edit "$EXISTING" --title "$TITLE" --body "$BODY" >/dev/null
+          else
+            gh pr create --base staging --head "$BRANCH" --title "$TITLE" --body "$BODY" || true
+          fi

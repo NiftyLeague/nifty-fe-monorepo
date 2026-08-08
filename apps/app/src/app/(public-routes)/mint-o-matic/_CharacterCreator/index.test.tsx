@@ -16,9 +16,8 @@ beforeEach(async () => {
     ...networks,
     TARGET_NETWORK: networks.NETWORKS.mainnet,
   }))
-  mock.module('react-device-detect', () => ({
-    isMobileOnly: false,
-    withOrientationChange: (Component: React.ComponentType<any>) => Component,
+  mock.module('@nl/ui/hooks/useOrientation', () => ({
+    useOrientation: () => ({ orientation: 'landscape', isPortrait: false, isLandscape: true }),
   }))
   mock.module('react-unity-webgl', () => {
     const Unity = ({ className, style }: { className: string; style: React.CSSProperties }) => (

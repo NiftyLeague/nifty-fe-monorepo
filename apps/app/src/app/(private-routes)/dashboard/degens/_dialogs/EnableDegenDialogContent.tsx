@@ -7,7 +7,7 @@ import { DialogContent } from '@nl/ui/base/dialog'
 import { Label } from '@nl/ui/base/label'
 import type { Degen } from '@/types/degens'
 import { DISABLE_RENT_API_URL } from '@/constants/url'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
 import useAuth from '@/hooks/useAuth'
 
@@ -41,9 +41,9 @@ const EnableDisableDegenDialogContent = ({
     )
     const json = await res.json()
     if (json.statusCode) {
-      toast.error(json.body, { theme: 'dark' })
+      toast.error(json.body)
     } else {
-      toast.success(`${isEnabled ? 'Disable' : 'Enable'} successfully!`, { theme: 'dark' })
+      toast.success(`${isEnabled ? 'Disable' : 'Enable'} successfully!`)
       onSuccess?.()
       onClose()
     }

@@ -1,12 +1,6 @@
 import { fireEvent, render } from '@testing-library/react'
 import { beforeEach, describe, expect, it, jest, mock } from 'bun:test'
 
-beforeEach(() => {
-  mock.module('lucide-react/dynamic', () => ({
-    DynamicIcon: ({ name }: { name: string }) => <svg aria-label={name} />,
-  }))
-})
-
 let SocialIconButton: typeof import('./index').SocialIconButton
 
 beforeEach(async () => {
@@ -41,6 +35,6 @@ describe('SocialIconButton', () => {
 
   it('shows the loader icon while loading and applies color styles', () => {
     const { container } = render(<SocialIconButton provider="twitch" loading withColor />)
-    expect(container.querySelector('svg[aria-label="loader"]')).toBeTruthy()
+    expect(container.querySelector('svg.lucide-loader')).toBeTruthy()
   })
 })

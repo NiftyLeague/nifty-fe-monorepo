@@ -1,8 +1,80 @@
 'use client'
 
 import { forwardRef } from 'react'
-import type { LucideProps } from 'lucide-react'
-import { DynamicIcon, type IconName } from 'lucide-react/dynamic'
+import {
+  AlertCircle,
+  ArrowDown,
+  Atom,
+  Axe,
+  Badge,
+  BookHeart,
+  BookOpenCheck,
+  Cat,
+  Check,
+  CheckCheck,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  ChevronUp,
+  Circle,
+  CircleAlert,
+  CircleArrowLeft,
+  CircleX,
+  Copy,
+  Database,
+  Dot,
+  Download,
+  Edit,
+  ExternalLink,
+  FlaskRound,
+  Flame,
+  Gamepad,
+  Ghost,
+  Grid3x3,
+  Heart,
+  House,
+  Inbox,
+  Info,
+  Key,
+  KeyRound,
+  Laugh,
+  LayoutGrid,
+  Link,
+  Link2,
+  ListOrdered,
+  ListTree,
+  Loader,
+  LoaderCircle,
+  Lock,
+  LogOut,
+  Mail,
+  Maximize2,
+  Medal,
+  Menu,
+  Minus,
+  Moon,
+  Panda,
+  Pencil,
+  PiggyBank,
+  Plus,
+  Receipt,
+  Save,
+  Settings,
+  ShieldCheck,
+  ShoppingCart,
+  Sparkles,
+  Sun,
+  SunDim,
+  Tally1,
+  Trash,
+  TriangleAlert,
+  Upload,
+  User,
+  UserPen,
+  UserRoundCheck,
+  X,
+} from 'lucide-react'
+import type { LucideIcon, LucideProps } from 'lucide-react'
 
 type IconSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
@@ -25,6 +97,82 @@ const DEFAULT_COLORS: Record<string, string> = {
 }
 
 type IconColor = keyof typeof DEFAULT_COLORS
+
+const iconMap = {
+  'alert-circle': AlertCircle,
+  'arrow-down': ArrowDown,
+  atom: Atom,
+  axe: Axe,
+  badge: Badge,
+  'book-heart': BookHeart,
+  'book-open-check': BookOpenCheck,
+  cat: Cat,
+  check: Check,
+  'check-check': CheckCheck,
+  'chevron-down': ChevronDown,
+  'chevron-left': ChevronLeft,
+  'chevron-right': ChevronRight,
+  'chevron-up': ChevronUp,
+  circle: Circle,
+  'circle-alert': CircleAlert,
+  'circle-arrow-left': CircleArrowLeft,
+  'circle-x': CircleX,
+  copy: Copy,
+  database: Database,
+  dot: Dot,
+  download: Download,
+  edit: Edit,
+  'external-link': ExternalLink,
+  flame: Flame,
+  'flask-round': FlaskRound,
+  gamepad: Gamepad,
+  ghost: Ghost,
+  'grid-3x3': Grid3x3,
+  heart: Heart,
+  house: House,
+  inbox: Inbox,
+  info: Info,
+  key: Key,
+  'key-round': KeyRound,
+  laugh: Laugh,
+  'layout-grid': LayoutGrid,
+  link: Link,
+  'link-2': Link2,
+  'list-ordered': ListOrdered,
+  'list-tree': ListTree,
+  loader: Loader,
+  'loader-circle': LoaderCircle,
+  lock: Lock,
+  'log-out': LogOut,
+  mail: Mail,
+  'maximize-2': Maximize2,
+  medal: Medal,
+  menu: Menu,
+  minus: Minus,
+  moon: Moon,
+  panda: Panda,
+  pencil: Pencil,
+  'piggy-bank': PiggyBank,
+  plus: Plus,
+  receipt: Receipt,
+  save: Save,
+  settings: Settings,
+  'shield-check': ShieldCheck,
+  'shopping-cart': ShoppingCart,
+  sparkles: Sparkles,
+  sun: Sun,
+  'sun-dim': SunDim,
+  'tally-1': Tally1,
+  trash: Trash,
+  'triangle-alert': TriangleAlert,
+  upload: Upload,
+  user: User,
+  'user-pen': UserPen,
+  'user-round-check': UserRoundCheck,
+  x: X,
+} as const satisfies Record<string, LucideIcon>
+
+type IconName = keyof typeof iconMap
 
 interface IconProps extends Omit<LucideProps, 'size'> {
   name: IconName
@@ -49,16 +197,18 @@ const Icon = forwardRef<SVGSVGElement, IconProps>(
     const iconColor = DEFAULT_COLORS[color] || color
     const iconFill = DEFAULT_COLORS[fill] || fill
     const iconSize = typeof size === 'number' ? size : DEFAULT_SIZES[size]
-    const fallback = () => <div style={{ width: iconSize, height: iconSize }} />
+    const IconComponent = iconMap[name]
+
+    if (!IconComponent) {
+      return <div style={{ width: iconSize, height: iconSize }} />
+    }
 
     return (
-      <DynamicIcon
+      <IconComponent
         ref={ref}
         absoluteStrokeWidth={absoluteStrokeWidth}
         color={iconColor}
-        fallback={fallback}
         fill={iconFill}
-        name={name}
         size={iconSize}
         strokeWidth={strokeWidth}
         {...props}

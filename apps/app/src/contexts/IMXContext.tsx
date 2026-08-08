@@ -1,12 +1,10 @@
 'use client'
 
-import { type PropsWithChildren, createContext, useEffect } from 'react'
+import { type PropsWithChildren, createContext } from 'react'
 import { immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains'
-import isEmpty from 'lodash/isEmpty'
 
 import type { BrowserProvider } from 'ethers'
 import type { Contracts } from '@/types/web3'
-import { DEBUG } from '@/constants/index'
 
 import useContractLoader from '@/hooks/useContractLoader'
 import useImxProvider, { getNetwork, useImxSigner } from '@/hooks/useImxProvider'
@@ -45,31 +43,6 @@ export const IMXProvider = ({ children }: PropsWithChildren): React.ReactNode =>
 
   // Load Immutable zkEVM contracts with Read access
   const imxContracts = useContractLoader(passportProvider, { chainId: imxChainId })
-
-  useEffect(() => {
-    if (
-      DEBUG &&
-      passportProvider &&
-      passportNetwork &&
-      imxSigner &&
-      address &&
-      !isEmpty(imxContracts)
-    ) {
-      console.group('_________________ ✅ Nifty League: IMX _________________')
-      console.log('🛫 passportProvider', passportProvider)
-      console.log('📡 passportNetwork', passportNetwork)
-      console.log('📝 imxSigner', imxSigner)
-      console.log('👤 address:', address)
-      console.log('✖️ imxContracts', imxContracts)
-      console.groupEnd()
-    } else if (DEBUG && passportProvider && passportNetwork && !isEmpty(imxContracts)) {
-      console.group('_________________ 🚫 Offline User: IMX _________________')
-      console.log('🛫 passportProvider', passportProvider)
-      console.log('📡 passportNetwork', passportNetwork)
-      console.log('✖️ imxContracts', imxContracts)
-      console.groupEnd()
-    }
-  }, [address, imxContracts, imxSigner, passportNetwork, passportProvider])
 
   return (
     <IMXContext.Provider value={{ address, imxChainId, imxContracts, imxSigner, passportProvider }}>

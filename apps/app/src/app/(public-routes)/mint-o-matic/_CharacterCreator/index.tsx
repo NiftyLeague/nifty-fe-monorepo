@@ -5,7 +5,7 @@ import { memo, useCallback, useEffect, useState } from 'react'
 import Unity, { UnityContext } from 'react-unity-webgl'
 import type { IUnityConfig } from 'react-unity-webgl'
 import { useUnityContext } from '@/lib/use-unity-context'
-import { isMobileOnly, withOrientationChange } from 'react-device-detect'
+import { useOrientation } from '@nl/ui/hooks/useOrientation'
 
 import useRemovedTraits from '@/hooks/useRemovedTraits'
 import { submitTxWithGasEstimate } from '@/utils/bnc-notify'
@@ -15,6 +15,11 @@ import { DEGEN_CONTRACT } from '@/constants/contracts'
 import { NETWORK_NAME, TARGET_NETWORK } from '@/constants/networks'
 import { DEBUG } from '@/constants/index'
 import { getMintableTraits, TraitArray } from './helpers'
+
+const isMobileOnly =
+  typeof navigator !== 'undefined' &&
+  /Android|iPhone|iPod/i.test(navigator.userAgent) &&
+  !/iPad/i.test(navigator.userAgent)
 
 const baseUrl = isMobileOnly
   ? (process.env.NEXT_PUBLIC_UNITY_MOBILE_CREATOR_BASE_URL as string)
@@ -375,4 +380,12 @@ const CharacterCreatorContainer = memo(
 
 CharacterCreator.displayName = 'CharacterCreator'
 CharacterCreatorContainer.displayName = 'CharacterCreatorContainer'
-export default withOrientationChange(CharacterCreatorContainer)
+
+const CharacterCreatorWithOrientation = (
+  props: Omit<CharacterCreatorContainerProps, 'isLoaded'>
+) => {
+  const { isPortrait } = useOrientation()
+  return <CharacterCreatorContainer {...props} isPortrait={isPortrait} />
+}
+
+export default CharacterCreatorWithOrientation

@@ -11,7 +11,7 @@ import type { Rentals, RentalType } from '@/types/rentals'
 import type { Degen } from '@/types/degens'
 import { transformRentals } from '@/app/(private-routes)/dashboard/_utils/transformRentals'
 import usePlayerProfile from '@/hooks/usePlayerProfile'
-import Countdown from 'react-countdown'
+import { Countdown } from '@nl/ui/base/countdown'
 import useLocalStorage from '@/hooks/useLocalStorage'
 
 import DegenDialog from '@/components/dialog/DegenDialog'

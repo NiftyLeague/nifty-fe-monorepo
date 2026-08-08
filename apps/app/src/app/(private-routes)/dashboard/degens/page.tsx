@@ -90,7 +90,7 @@ const DashboardDegensPage = (): React.ReactNode => {
 
   const isMobile = useMediaQuery('(max-width:640px)')
   const isSmallScreen = useMediaQuery('(max-width:1280px)')
-  const { jump, dataForCurrentPage, maxPage, currentPage } = usePagination<Degen>(
+  const { jump, dataForCurrentPage, maxPage, currentPage, pageItems } = usePagination<Degen>(
     filteredData,
     !isSmallScreen && layoutMode !== 'gridView' && !isDrawerOpen ? 18 : DEGENS_PER_PAGE
   )
@@ -278,7 +278,7 @@ const DashboardDegensPage = (): React.ReactNode => {
         </SectionTitle>
         {/* Main grid content */}
         <div
-          className={`grid grid-cols-24 gap-4 -mt-9 ${
+          className={`grid grid-cols-12 gap-4 -mt-9 ${
             !degensBalances?.length ? 'h-full justify-center items-center' : ''
           }`}
         >
@@ -291,7 +291,7 @@ const DashboardDegensPage = (): React.ReactNode => {
               href={DEGEN_COLLECTION_URL}
               target="_blank"
               rel="noreferrer"
-              className="col-span-24 flex justify-center"
+              className="col-span-12 flex justify-center"
             >
               <EmptyState
                 message="No DEGENs found. Please check your address or go purchase a DEGEN if you have not done so already!"
@@ -301,7 +301,10 @@ const DashboardDegensPage = (): React.ReactNode => {
           ) : null}
         </div>
         {dataForCurrentPage.length > 0 && (
-          <div className="mx-auto flex items-center gap-1" style={{ paddingBottom: '16px' }}>
+          <div
+            className="mx-auto flex flex-wrap items-center justify-center gap-1"
+            style={{ paddingBottom: '16px' }}
+          >
             <Button
               variant="ghost"
               size={isMobile ? 'sm' : 'icon'}
@@ -312,17 +315,23 @@ const DashboardDegensPage = (): React.ReactNode => {
             >
               <Icon name="chevron-left" />
             </Button>
-            {Array.from({ length: maxPage }, (_, i) => i + 1).map((p) => (
-              <Button
-                key={p}
-                variant={p === currentPage ? 'default' : 'ghost'}
-                size={isMobile ? 'sm' : 'icon'}
-                className="cursor-pointer"
-                onClick={() => jump(p)}
-              >
-                {p}
-              </Button>
-            ))}
+            {pageItems.map((p) =>
+              p === 'ellipsis-start' || p === 'ellipsis-end' ? (
+                <span key={p} className="px-1 text-muted-foreground">
+                  …
+                </span>
+              ) : (
+                <Button
+                  key={p}
+                  variant={p === currentPage ? 'default' : 'ghost'}
+                  size={isMobile ? 'sm' : 'icon'}
+                  className="cursor-pointer"
+                  onClick={() => jump(p)}
+                >
+                  {p}
+                </Button>
+              )
+            )}
             <Button
               variant="ghost"
               size={isMobile ? 'sm' : 'icon'}
@@ -348,6 +357,7 @@ const DashboardDegensPage = (): React.ReactNode => {
       jump,
       loading,
       maxPage,
+      pageItems,
       renderDegen,
       renderSkeletonItem,
     ]

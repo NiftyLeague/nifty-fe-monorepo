@@ -3,7 +3,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { isOpera, browserName } from 'react-device-detect'
+import { useUserAgent } from '@nl/ui/hooks/useUserAgent'
 import Unity from 'react-unity-webgl'
 import type { UnityConfig } from 'react-unity-webgl'
 import { useUnityContext } from '@/lib/use-unity-context'
@@ -183,14 +183,15 @@ const Game = ({ unityConfig, arcadeTokenRequired = false }: GameProps) => {
   )
 }
 
-const GameWithAuth = withVerification((props: GameProps) =>
-  isOpera ? (
+const GameWithAuth = withVerification((props: GameProps) => {
+  const { isOpera, browserName } = useUserAgent()
+  return isOpera() ? (
     <h2 className="mt-8 text-center">{browserName} Browser Not Supported</h2>
   ) : (
     <ErrorBoundary>
       <Game {...props} />
     </ErrorBoundary>
   )
-)
+})
 
 export default GameWithAuth

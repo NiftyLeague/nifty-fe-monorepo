@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import { Title } from '@nl/ui/custom/typography'
@@ -100,7 +100,7 @@ export default function EnhancedTable({
       'You have not played the game yet! Play the game to see your rank on the leaderboard.'
 
     if (!profile?.id) {
-      toast.error(errorMes, { theme: 'dark' })
+      toast.error(errorMes)
       return
     }
     try {
@@ -115,18 +115,18 @@ export default function EnhancedTable({
           result && typeof result === 'object' && 'text' in result
             ? await (result as Response).text()
             : 'Unknown error'
-        toast.error(errMsg, { theme: 'dark' })
+        toast.error(errMsg)
         return
       }
       const res = await (result as Response).json()
       if (res < 1) {
-        toast.error(errorMes, { theme: 'dark' })
+        toast.error(errorMes)
         return
       }
       setMyRank(res)
       document?.querySelector('.wen-game-modal')?.parentElement?.click()
     } catch (error) {
-      toast.error(errorMsgHandler(error), { theme: 'dark' })
+      toast.error(errorMsgHandler(error))
       return
     }
   }

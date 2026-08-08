@@ -13,7 +13,7 @@ if (process.env.VERCEL_ENV === 'production') {
     sendDefaultPii: true,
 
     // Define how likely traces are sampled. Adjust this value in production, or use tracesSampler for greater control.
-    tracesSampleRate: 1.0, // Set tracesSampleRate to 1.0 to capture 100%
+    tracesSampleRate: 0.1, // 10% trace sampling to limit client overhead
 
     // Setting this option to true will print useful information to the console while you're setting up Sentry.
     debug: false,

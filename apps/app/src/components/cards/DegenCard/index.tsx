@@ -1,10 +1,10 @@
 'use client'
 
-import { memo, useMemo } from 'react'
+import { memo, useMemo, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useInView } from 'react-intersection-observer'
-import { toast } from 'react-toastify'
+import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
+import { toast } from 'sonner'
 import { Button } from '@nl/ui/base/button'
 import { Card, CardContent } from '@nl/ui/base/card'
 import { Icon } from '@nl/ui/base/icon'
@@ -75,7 +75,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
         try {
           await downloadDegenAsZip(authToken, id)
         } catch (err) {
-          toast.error(errorMsgHandler(err), { theme: 'dark' })
+          toast.error(errorMsgHandler(err))
         }
       }
     }
@@ -184,7 +184,8 @@ DegenCard.displayName = 'DegenCard'
 const DegenCardInView: React.FC<
   React.PropsWithChildren<React.PropsWithChildren<DegenCardProps>>
 > = (props) => {
-  const { ref, inView } = useInView()
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useOnScreen(ref)
 
   return <div ref={ref}>{inView ? <DegenCard {...props} /> : <SkeletonDegenPlaceholder />}</div>
 }

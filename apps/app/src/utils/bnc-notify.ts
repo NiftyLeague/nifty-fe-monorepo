@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 import { toBeHex } from 'ethers'
 import type {
   BaseContract,
@@ -35,7 +35,7 @@ export const handleError = (e: NotifyError): void => {
     return
   }
 
-  toast.error(({ data }) => `Transaction Error: ${data}`, { data: message, theme: 'dark' })
+  toast.error(`Transaction Error: ${message}`)
 }
 
 export const submitTxWithGasEstimate = (
@@ -96,16 +96,10 @@ export const handleLocalNotify = async (
   callback?: NotifyCallback
 ) => {
   const networkName = TARGET_NETWORK.label
-  toast.info(({ data }) => `${networkName} Transaction Sent: ${data}`, {
-    data: result.hash,
-    position: 'bottom-right',
-    theme: 'dark',
-  })
+  toast.info(`${networkName} Transaction Sent: ${result.hash}`, { position: 'bottom-right' })
   await result.wait()
-  toast.success(({ data }) => `${networkName} Transaction Successful: ${data}`, {
-    data: result.hash,
+  toast.success(`${networkName} Transaction Successful: ${result.hash}`, {
     position: 'bottom-right',
-    theme: 'dark',
   })
   // on most networks BlockNative will update a transaction handler,
   // but locally we will set an interval to listen...

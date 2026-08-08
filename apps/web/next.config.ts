@@ -8,9 +8,9 @@ import { withSentryConfig } from '@sentry/nextjs'
 const ENV = (process.env.VERCEL_ENV as 'production' | 'preview' | undefined) ?? 'development'
 
 const nextConfig: NextConfig = {
-  typescript: { ignoreBuildErrors: true },
   transpilePackages: ['@nl/ui'],
   images: {
+    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: 'https',
