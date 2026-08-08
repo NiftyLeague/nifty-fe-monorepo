@@ -33,3 +33,9 @@ GHSA-xq3m-2v4x-88gg
 # required by Tailwind; fixed nanoid requires postcss 8.5.26+. Revisit on the
 # next postcss bump.
 GHSA-2v37-7h3g-55p8
+
+# image-size 1.x advisories (GHSA-w3rx-r6r6-pgpr, GHSA-5p2g-fcmc-qvqq): ICNS/JXL/HEIF
+# parser DoS loops, transitive through Next.js image optimization. Fix requires
+# image-size 2.x. Revisit on the next Next.js bump.
+GHSA-w3rx-r6r6-pgpr
+GHSA-5p2g-fcmc-qvqq
