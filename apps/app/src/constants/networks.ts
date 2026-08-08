@@ -10,14 +10,6 @@ export const LOCAL_CHAIN_ID = hardhat.id
 export const IMX_ID = immutableZkEvm.id
 export const IMX_TESTNET_ID = immutableZkEvmTestnet.id
 
-export const NETWORK_ICON = {
-  [MAINNET_ID]: '/img/logos/networks/mainnet-network.webp',
-  [SEPOLIA_ID]: '/img/logos/networks/sepolia-network.webp',
-  [LOCAL_CHAIN_ID]: '/img/logos/networks/sepolia-network.webp',
-  [IMX_ID]: '/img/logos/networks/imx_zkEVM.webp',
-  [IMX_TESTNET_ID]: '/img/logos/networks/imx_zkEVM.webp',
-}
-
 export const NETWORK_LABEL = {
   [MAINNET_ID]: mainnet.name,
   [SEPOLIA_ID]: sepolia.name,
@@ -80,24 +72,8 @@ export const NETWORKS: Record<NetworkName, Network> = {
   },
 }
 
-export const NETWORK = (chainId: number): Network =>
-  Object.values(NETWORKS).find((n) => n.chainId === chainId) || {
-    blockExplorer: '',
-    chainId: 1,
-    label: '',
-    rpcUrl: '',
-  }
-
 export const TARGET_NETWORK: Network = NETWORKS[
   process.env.NEXT_PUBLIC_NETWORK as NetworkName
 ] as Network
-
-export const SUPPORTED_CHAIN_IDS: number[] = [
-  MAINNET_ID,
-  SEPOLIA_ID,
-  LOCAL_CHAIN_ID,
-  IMX_ID,
-  IMX_TESTNET_ID,
-]
 
 export const VALID_NOTIFY_NETWORKS: number[] = [MAINNET_ID, SEPOLIA_ID]
