@@ -40,6 +40,7 @@ import DegenDialog from '@/components/dialog/DegenDialog'
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import DegensTopNav from '@/components/extended/DegensTopNav'
 import useLocalStorageContext from '@/hooks/useLocalStorageContext'
+import { isAuditFixtureEnabled } from '@/audit/fixture'
 
 const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'), {
   ssr: false,
@@ -47,9 +48,12 @@ const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_Collapsibl
 const DegenCard = dynamic(() => import('@/components/cards/DegenCard'), { ssr: false })
 
 const DashboardDegensPage = (): React.ReactNode => {
-  const { authToken } = useAuth()
+  const { authToken, isLoggedIn } = useAuth()
   const { isConnected } = useAccount()
-  const [isDrawerOpen, setIsDrawerOpen] = useState(true)
+  const hasConnectedAccount = isConnected || (isAuditFixtureEnabled && isLoggedIn)
+  // Start closed so mobile does not push the first card below the fold before the
+  // responsive drawer effect runs. The layout opens it after mount on desktop.
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [filters, setFilters] = useState<DegenFilter>(DEFAULT_STATIC_FILTER)
   const [defaultValues, setDefaultValues] = useState<DegenFilter | undefined>(DEFAULT_STATIC_FILTER)
   const [filteredData, setFilteredData] = useState<Degen[]>([])
@@ -269,6 +273,7 @@ const DashboardDegensPage = (): React.ReactNode => {
               variant="ghost"
               size="icon"
               className="cursor-pointer"
+              aria-label={isDrawerOpen ? 'Hide filters' : 'Show filters'}
               onClick={() => setIsDrawerOpen(!isDrawerOpen)}
             >
               <Icon name={isDrawerOpen ? 'chevron-left' : 'chevron-right'} size="xl" />
@@ -282,7 +287,7 @@ const DashboardDegensPage = (): React.ReactNode => {
             !degensBalances?.length ? 'h-full justify-center items-center' : ''
           }`}
         >
-          {loading || !isConnected ? (
+          {loading || !hasConnectedAccount ? (
             [...Array(8)].map(renderSkeletonItem)
           ) : dataForCurrentPage.length ? (
             dataForCurrentPage.map(renderDegen)
@@ -351,7 +356,7 @@ const DashboardDegensPage = (): React.ReactNode => {
       dataForCurrentPage,
       degensBalances?.length,
       filteredData.length,
-      isConnected,
+      hasConnectedAccount,
       isDrawerOpen,
       isMobile,
       jump,
@@ -365,7 +370,7 @@ const DashboardDegensPage = (): React.ReactNode => {
 
   return (
     <>
-      <div className="flex h-full flex-col justify-center align-top gap-4 pl-2">
+      <div className="flex h-full flex-col justify-start align-top gap-4 pl-2">
         <div className="pl-4 pr-6">
           <DegensTopNav
             searchTerm={searchTerm || ''}
@@ -389,6 +394,7 @@ const DashboardDegensPage = (): React.ReactNode => {
         isClaim={isClaimDialog}
         isRent={isRentDialog}
         isEquip={isEquipDialog}
+        setIsClaim={setIsClaimDialog}
         setIsRent={setIsRentDialog}
         onClose={() => setIsDegenModalOpen(false)}
       />

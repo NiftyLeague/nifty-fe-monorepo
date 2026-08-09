@@ -3,25 +3,6 @@
   height: 32px;
 }
 
-.searchTextField :global(.MuiInputLabel-root) {
-  color: var(--color-muted-foreground);
-  top: -12px;
-}
-
-.searchTextField :global(.MuiOutlinedInput-root) {
-  height: 32px;
-}
-
-.searchTextField :global(.MuiOutlinedInput-root) input {
-  background-color: var(--color-muted);
-  padding-top: 6px;
-  padding-bottom: 6px;
-}
-
-.searchTextField :global(.MuiOutlinedInput-root) fieldset {
-  border: none;
-}
-
 .layoutModeButtonsGroup {
   border: var(--border-default);
   border-radius: var(--radius-default);
@@ -31,14 +12,6 @@
   border: none;
   border-radius: var(--radius-default);
   padding: 5px 16px;
-}
-
-.layoutModeButton:global(.Mui-selected) {
-  background: rgba(88, 32, 214, 0.2);
-}
-
-.layoutModeButton:global(.Mui-selected):hover {
-  background: rgba(88, 32, 214, 0.2);
 }
 
 .layoutModeButton svg {

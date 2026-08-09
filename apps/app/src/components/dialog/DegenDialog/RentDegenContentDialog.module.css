@@ -36,11 +36,6 @@
   padding: 4px;
 }
 
-.inputCheck :global(.MuiSvgIcon-root) {
-  width: 0.75em;
-  height: 0.75em;
-}
-
 .inputCheckFormControl {
   margin-left: -4px;
   margin-right: 0;

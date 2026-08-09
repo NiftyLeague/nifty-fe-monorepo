@@ -167,6 +167,7 @@ const MyDegens = (): React.ReactNode => {
         degen={selectedDegen}
         isClaim={isClaimDialog}
         isRent={isRentDialog}
+        setIsClaim={setIsClaimDialog}
         setIsRent={setIsRentDialog}
         onClose={() => setIsDegenModalOpen(false)}
       />
