@@ -1,0 +1,10 @@
+# The HTTP API proxies S3/IPFS content; local generation assets do not belong
+# in the serverless function bundle.
+assets/
+../../assets/
+.data/
+dist/
+api/.app/
+api/config/
+coverage/
+*.log

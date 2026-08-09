@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@nl/typescript-config/base.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "noImplicitAny": false,
+    "noEmit": true,
+    "noUncheckedIndexedAccess": false,
+    "paths": { "@/*": ["./src/*"] },
+    "types": ["bun", "node"]
+  },
+  "include": ["src/**/*.ts", "commander.ts", "config/**/*.d.ts", "config/**/*.json"],
+  "exclude": ["node_modules", "dist", "api/.app", "**/*.test.ts", "**/*.test.tsx"],
+  "tsc-alias": {
+    "verbose": false,
+    "resolveFullPaths": true,
+    "fileExtensions": {
+      "inputGlob": "{js,jsx,mjs}",
+      "outputCheck": ["js", "json", "jsx", "mjs"]
+    }
+  }
+}

@@ -15,6 +15,9 @@ CHANGELOG.md
 **/coverage
 **/next-env.d.ts
 **/node_modules
+**/dist
+**/.app
+apps/api/api/config
 .code-foundry
 **/public
 pnpm-lock.yaml
