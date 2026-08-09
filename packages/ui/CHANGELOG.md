@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.1](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v1.0.0...ui-v1.0.1) (2026-08-09)
+
+
+### Bug Fixes
+
+* sync-local-commits-to-staging ([#371](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/371)) ([37d95fb](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/37d95fba2daf7c0972eec715fea7ee32e1ea0c0e))
+
+
+### Maintenance
+
+* extract shared degens page logic and remove dead console output ([#379](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/379)) ([92ec323](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/92ec323cef0b9054015f9e2214407beabb91ebb1))
+* **release:** promote validated staging tree ([a8b1e7e](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/a8b1e7e1e2db7e0b12d1d8b8807e2f7c7d8a6c74))
+
 ## 1.0.0 (2026-08-02)
 
 
