@@ -1,0 +1,10 @@
+# The HTTP API proxies S3/IPFS content; local generation assets do not belong
+# in the serverless function bundle.
+assets/
+../../assets/
+.data/
+dist/
+# api/.app/ and api/config/ are the compiled runtime and node-config-ts
+# placeholders required by api/index.js; keep them in the function bundle.
+coverage/
+*.log

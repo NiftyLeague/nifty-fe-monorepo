@@ -46,6 +46,8 @@ typechain/
 coverage.json
 tests/.bin/
 **/.app/
+apps/api/.data/
+apps/api/api/config/
 
 # Logs and temporary files
 *.log

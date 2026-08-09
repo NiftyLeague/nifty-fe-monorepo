@@ -1,10 +1,5 @@
 import type { IconName } from '@nl/ui/base/icon'
 
-// project imports
-import { InitialLoginContextProps } from './auth'
-import { SnackbarProps } from './snackbar'
-import { MenuProps } from './menu'
-
 // Local MUI-compatible minimal types (MUI support dropped)
 export type Theme = {
   palette?: { mode?: 'light' | 'dark' }
@@ -31,33 +26,7 @@ export type ChipProps = {
   className?: string
 }
 
-export type TableCellProps = React.TdHTMLAttributes<HTMLTableCellElement> & {
-  align?: 'left' | 'right' | 'inherit' | 'center' | 'justify'
-  padding?: 'none' | 'normal' | 'checkbox'
-  size?: 'small' | 'medium'
-  sortDirection?: 'asc' | 'desc' | false
-  variant?: 'head' | 'body' | 'footer'
-  sx?: React.CSSProperties
-}
-
 export type SxProps<T = unknown> = React.CSSProperties | Record<string, unknown> | undefined
-
-export type ArrangementOrder = 'asc' | 'desc' | undefined
-
-export type DateRange = { start: number | Date; end: number | Date }
-
-export type GetComparator = (
-  o: ArrangementOrder,
-  o1: string
-) => (a: KeyedObject, b: KeyedObject) => number
-
-export type Direction = 'up' | 'down' | 'right' | 'left'
-
-export interface TabsProps {
-  children?: React.ReactElement | React.ReactNode | string
-  value: string | number
-  index: number
-}
 
 export interface GenericCardProps {
   title?: string
@@ -68,27 +37,6 @@ export interface GenericCardProps {
   dateTime?: string
   color?: string
   size?: string
-}
-
-export interface EnhancedTableHeadProps extends TableCellProps {
-  onSelectAllClick: (e: React.ChangeEvent<HTMLInputElement>) => void
-  order: ArrangementOrder
-  orderBy?: string
-  numSelected: number
-  rowCount: number
-  onRequestSort: (e: React.SyntheticEvent, p: string) => void
-}
-
-export interface EnhancedTableToolbarProps {
-  numSelected: number
-}
-
-export type HeadCell = {
-  id: string
-  numeric: boolean
-  label: string
-  disablePadding?: string | boolean | undefined
-  align?: 'left' | 'right' | 'inherit' | 'center' | 'justify' | undefined
 }
 
 export type LinkTarget = '_blank' | '_self' | '_parent' | '_top'
@@ -111,13 +59,6 @@ export type NavItemType = {
   children?: NavItemType[]
 }
 
-export type AuthSliderProps = { title: string; description: string }
-
-export interface DefaultRootStateProps {
-  acount: InitialLoginContextProps
-  menu: MenuProps
-  snackbar: SnackbarProps
-}
 export type GuardProps = { children: React.ReactNode }
 
 export interface StringColorProps {
@@ -128,26 +69,11 @@ export interface StringColorProps {
   secondary?: string
 }
 
-export interface FormInputProps {
-  bug: KeyedObject
-  fullWidth?: boolean
-  size?: 'small' | 'medium' | undefined
-  label: string
-  name: string
-  required?: boolean
-  InputProps?: { label: string; startAdornment?: React.ReactNode }
-}
-
 /** ---- Common Functions types ---- */
 
 export type StringBoolFunc = (s: string) => boolean
 export type StringNumFunc = (s: string) => number
 export type NumbColorFunc = (n: number, theme: Theme) => StringColorProps | undefined
-export type ChangeEventFunc = (e: React.ChangeEvent<HTMLInputElement>) => void
-
-// amit
-
-export type KeyedObject = { [key: string]: string | number | KeyedObject }
 
 export interface MenuItemBaseProps {
   value: string

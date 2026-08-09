@@ -5,19 +5,12 @@ const NEXT_PUBLIC_NETWORK = process.env.NEXT_PUBLIC_NETWORK as string
 
 export const BASE_API_URL = 'https://odgwhiwhzb.execute-api.us-east-1.amazonaws.com/prod'
 
-export const CONTRACTS_API_BASE_URL = 'https://api.niftyleague.com'
-
-export const SUBGRAPH_CACHE_URL = `${BASE_API_URL}/info?network=${NEXT_PUBLIC_NETWORK}&version=${
-  process.env.NEXT_PUBLIC_SUBGRAPH_VERSION as string
-}&characters=false`
-
 // Authentication
 export const WALLET_VERIFICATION = `${BASE_API_URL}/verification`
 export const ADDRESS_VERIFICATION = `${BASE_API_URL}/verification/address`
 
 // Degen API url
 export const DEGEN_BASE_API_URL = 'https://nifty-league.s3.amazonaws.com'
-export const DEGEN_BASE_IMAGE_URL = `${DEGEN_BASE_API_URL}/degens`
 
 // Rentals API url
 export const DISABLE_RENT_API_URL = `${BASE_API_URL}/rentals/rentable/`
@@ -79,7 +72,6 @@ export const ITEM_PURCHASE_URL = 'https://tokentrove.com/collection/NiftyLeague'
 export const CONVERT_TOKEN_TO_USD_URL = 'https://price-api.crypto.com/price/v1/exchange/'
 export const COW_PROTOCOL_URL = 'https://cow.fi/'
 export const IMX_SQUID_BRIDGE_URL = 'https://toolkit.immutable.com/squid-bridge/'
-export const IMX_AXELAR_BRIDGE_URL = 'https://toolkit.immutable.com/ethereum-bridge/'
 export const AXELAR_TRANSACTIONS_URL = (address: `0x${string}`) =>
   `https://${NEXT_PUBLIC_NETWORK === 'sepolia' ? 'testnet.' : ''}axelarscan.io/address/${address}?transfersType=gmp`
 export const SNAPSHOT_PORTAL_URL = 'https://snapshot.niftyleague.com'
