@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { beforeEach, describe, expect, it, jest, mock } from 'bun:test'
+import { useState } from 'react'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@nl/ui/base/accordion'
 import { Alert, AlertDescription, AlertTitle } from '@nl/ui/base/alert'
 import {
@@ -236,6 +237,35 @@ describe('base overlay and navigation primitives', () => {
     expect(document.documentElement.style.overflow).toBe('hidden')
     fireEvent.click(screen.getByRole('button', { name: 'Done' }))
     expect(onOpenChange).toHaveBeenLastCalledWith(false)
+  })
+
+  it('keeps document scrolling locked until every open dialog closes', () => {
+    const ConcurrentDialogs = () => {
+      const [outerOpen, setOuterOpen] = useState(true)
+      const [innerOpen, setInnerOpen] = useState(true)
+
+      return (
+        <>
+          <Dialog open={outerOpen} onOpenChange={setOuterOpen} />
+          <Dialog open={innerOpen} onOpenChange={setInnerOpen} />
+          <button type="button" onClick={() => setInnerOpen(false)}>
+            Close inner
+          </button>
+          <button type="button" onClick={() => setOuterOpen(false)}>
+            Close outer
+          </button>
+        </>
+      )
+    }
+
+    render(<ConcurrentDialogs />)
+    expect(document.documentElement.style.overflow).toBe('hidden')
+
+    fireEvent.click(screen.getByRole('button', { name: 'Close inner' }))
+    expect(document.documentElement.style.overflow).toBe('hidden')
+
+    fireEvent.click(screen.getByRole('button', { name: 'Close outer' }))
+    expect(document.documentElement.style.overflow).toBe('')
   })
 
   it('renders alert-dialog, sheet sides, tooltip, and navigation composition', () => {

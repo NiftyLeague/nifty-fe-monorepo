@@ -27,7 +27,7 @@
   font-size: 20px !important;
 }
 
-.tokenAmountInput :global(.MuiInputBase-input) {
+.tokenAmountInput {
   position: relative;
   background-color: transparent;
   border: none;
@@ -39,7 +39,7 @@
   overflow: hidden;
 }
 
-.tokenAmountInput :global(.MuiInputBase-input)::placeholder {
+.tokenAmountInput::placeholder {
   font-size: 36px;
   color: #4d4d4f;
 }

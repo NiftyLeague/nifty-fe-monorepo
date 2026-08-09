@@ -141,7 +141,7 @@ const DegenDialog = ({
     }
   }, [tokenId, readContracts, open, authToken])
 
-  const displayName = name || 'No Name DEGEN'
+  const displayName = name || degen?.name || 'No Name DEGEN'
   const traits: { [traitType: string]: number } = traitList.reduce(
     (acc, trait, i) => ({ ...acc, [TRAIT_INDEXES[i] as string]: trait }),
     {}
@@ -149,6 +149,8 @@ const DegenDialog = ({
 
   const handleClose = (event?: React.MouseEvent<HTMLButtonElement>) => {
     onClose?.(event as React.MouseEvent<HTMLButtonElement>, 'backdropClick')
+    setIsClaim?.(false)
+    setIsRent?.(false)
     resetDialog()
   }
 
@@ -169,7 +171,7 @@ const DegenDialog = ({
             ? 'max-w-fit md:max-w-fit lg:max-w-fit'
             : isRent
               ? 'max-w-[444px] md:max-w-[444px] lg:max-w-[444px]'
-              : 'max-w-[600px] md:max-w-[600px] lg:max-w-[600px]',
+              : 'max-w-[900px] md:max-w-[900px] lg:max-w-[900px]',
           fullScreen &&
             'top-0 left-0 h-screen w-screen max-h-screen max-w-none translate-x-0 translate-y-0 rounded-none'
         )}
@@ -177,23 +179,14 @@ const DegenDialog = ({
         {isClaim && <ClaimDegenContentDialog degen={degen} onClose={handleClose} />}
         {isEquip && <EquipDegenContentDialog degen={degen} name={name} />}
         {isRent && <RentDegenContentDialog degen={degen} onClose={handleClose} />}
-        {!isRent && !isClaim && !isEquip && setIsRent && (
+        {!isRent && !isClaim && !isEquip && (setIsRent || setIsClaim) && (
           <ViewTraitsContentDialog
             degen={degen}
             degenDetail={degenDetail}
             traits={traits}
             displayName={displayName}
-            onRent={() => setIsRent(true)}
-            onClose={handleClose}
-          />
-        )}
-        {!isRent && !isClaim && !isEquip && setIsClaim && (
-          <ViewTraitsContentDialog
-            degen={degen}
-            degenDetail={degenDetail}
-            traits={traits}
-            displayName={displayName}
-            onClaim={() => setIsClaim(true)}
+            onRent={setIsRent ? () => setIsRent(true) : undefined}
+            onClaim={setIsClaim ? () => setIsClaim(true) : undefined}
             onClose={handleClose}
           />
         )}
