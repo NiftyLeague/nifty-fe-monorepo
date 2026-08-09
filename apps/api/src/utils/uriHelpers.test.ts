@@ -1,5 +1,17 @@
 import { CID } from 'multiformats/cid'
-import { describe, expect, it } from 'bun:test'
+import { describe, expect, it, mock } from 'bun:test'
+
+// --- mocks must be set before source imports ---
+
+mock.module('node-config-ts', () => ({
+  config: {
+    ipfs: {
+      gatewayURL: 'https://ipfs.io/ipfs',
+    },
+  },
+}))
+
+// --- now safe to import source ---
 
 import { stripIpfsUriPrefix, ensureIpfsUriPrefix, makeGatewayURL, extractCID } from './uriHelpers'
 

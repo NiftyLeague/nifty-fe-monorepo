@@ -29,6 +29,17 @@ mock.module('fs', () => ({
   statSync: () => ({}),
 }))
 
+// degen -> minty -> uploadToS3 reads config.aws.s3 at module scope. Mock it so
+// this file runs from the monorepo root (CI: bun test --isolate), where
+// node-config-ts cannot resolve config/ relative to the root cwd.
+mock.module('node-config-ts', () => ({
+  config: {
+    aws: {
+      s3: { bucket: 'assets-bucket', clientConfig: { region: 'us-east-1' } },
+    },
+  },
+}))
+
 mock.module('@/utils/assets', () => ({
   getAssetPath: mockGetAssetPath,
 }))

@@ -1,6 +1,19 @@
 import { beforeEach, describe, expect, it, mock, spyOn } from 'bun:test'
 
-import { Degen } from './degen'
+// ── Module-level mocks (MUST run before the dynamic import of ./degen) ──
+// degen -> minty -> uploadToS3 reads config.aws.s3 at module scope. When the
+// whole monorepo suite runs from the repo root (CI: bun test --isolate),
+// node-config-ts cannot resolve config/ relative to the root cwd, so mock it
+// exactly like uploadToS3.test.ts does.
+mock.module('node-config-ts', () => ({
+  config: {
+    aws: {
+      s3: { bucket: 'assets-bucket', clientConfig: { region: 'us-east-1' } },
+    },
+  },
+}))
+
+const { Degen } = await import('./degen')
 
 function makeDegen() {
   return new Degen('mainnet', 'NiftyDegen')

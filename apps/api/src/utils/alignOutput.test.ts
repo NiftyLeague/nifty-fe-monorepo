@@ -1,8 +1,15 @@
-import { afterEach, describe, expect, it, mock, spyOn } from 'bun:test'
+import { afterEach, beforeEach, describe, expect, it, spyOn } from 'bun:test'
 import alignOutput from './alignOutput'
 
 // alignOutput only communicates via console.log — spy on it to assert real behavior.
-const logSpy = spyOn(console, 'log').mockImplementation(() => undefined)
+// Spy per-test (not module-scope): the root test/setup.ts preload runs
+// `mock.restore()` after every test, which would strip a module-level spy and
+// break every test after the first.
+let logSpy: ReturnType<typeof spyOn>
+
+beforeEach(() => {
+  logSpy = spyOn(console, 'log').mockImplementation(() => undefined)
+})
 
 afterEach(() => {
   logSpy.mockClear()
