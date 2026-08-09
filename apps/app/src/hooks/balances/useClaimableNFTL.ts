@@ -7,6 +7,7 @@ import type { Abi } from 'viem'
 import { TARGET_NETWORK } from '@/constants/networks'
 import { getDeployedContract, NFTL_CONTRACT as NFTL_CONTRACT_NAME } from '@/constants/contracts'
 import useAuth from '@/hooks/useAuth'
+import { isAuditFixtureEnabled } from '@/audit/fixture'
 
 /*
   ~ What it does? ~
@@ -37,12 +38,12 @@ export default function useClaimableNFTL(degenTokenIndices: number[]): NFTLClaim
     args: [degenTokenIndices],
     query: {
       staleTime: 10_000,
-      enabled: degenTokenIndices?.length > 0 && isLoggedIn,
+      enabled: degenTokenIndices?.length > 0 && isLoggedIn && !isAuditFixtureEnabled,
       select: (data) => parseFloat(formatEther(data as bigint)),
     },
   })
 
-  const balance = useMemo(() => data ?? 0, [data])
+  const balance = useMemo(() => (isAuditFixtureEnabled ? 12 : (data ?? 0)), [data])
 
   return { balance, error, loading: isLoading, refetch }
 }

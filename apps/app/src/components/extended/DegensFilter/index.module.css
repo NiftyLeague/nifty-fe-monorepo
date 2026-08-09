@@ -5,17 +5,21 @@
   color: #4d4d4d;
 }
 
-.inputCheck :global(.MuiSvgIcon-root) {
-  width: 0.75em;
-  height: 0.75em;
-}
-
 .inputCheckFormControl {
-  margin-left: -8px;
+  margin-left: 0;
   margin-right: 0;
+  min-width: 0;
 }
 
-.inputCheckFormControl :global(.MuiFormControlLabel-label) {
-  font-size: 0.75rem;
-  line-height: 0.75rem;
+.filterOption {
+  min-width: 0;
+}
+
+.filterOption > div,
+.filterOption > span {
+  min-width: 0;
+}
+
+.filterOption span {
+  white-space: nowrap;
 }

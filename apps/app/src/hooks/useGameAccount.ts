@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { GAMER_ACCOUNT_API } from '@/constants/url'
 import type { Account } from '@/types/account'
 import { AUTH_Token } from '@/types/auth'
+import { AUDIT_FIXTURE_ACCOUNT, isAuditFixtureEnabled } from '@/audit/fixture'
 import useAuth from './useAuth'
 
 interface GameAccountState {
@@ -27,10 +28,15 @@ const useGameAccount = (): GameAccountState => {
   const { data, isLoading, error, refetch } = useQuery<Account>({
     queryKey: ['game-account'],
     queryFn: () => fetchGameAccount(authToken),
-    enabled: !!authToken && isLoggedIn,
+    enabled: !isAuditFixtureEnabled && !!authToken && isLoggedIn,
   })
 
-  return { account: data, accountError: error, loadingAccount: isLoading, refetchAccount: refetch }
+  return {
+    account: isAuditFixtureEnabled && isLoggedIn ? AUDIT_FIXTURE_ACCOUNT : data,
+    accountError: isAuditFixtureEnabled ? null : error,
+    loadingAccount: isAuditFixtureEnabled ? false : isLoading,
+    refetchAccount: isAuditFixtureEnabled ? () => {} : refetch,
+  }
 }
 
 export default useGameAccount

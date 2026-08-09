@@ -119,7 +119,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
           {isSelectableDegen ? (
             <Button
               variant={isSelected ? 'default' : 'outline'}
-              className="min-w-[32%] w-full"
+              className="min-w-0 flex-1"
               style={{ fontSize: buttonFontSize }}
               onClick={onClickSelect}
               disabled={isSelectionDisabled && !isSelected}
@@ -129,7 +129,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
           ) : (
             <Button
               variant="outline"
-              className="min-w-[32%] w-full"
+              className="min-w-0 flex-1"
               style={{ fontSize: buttonFontSize }}
               onClick={onClickDetail}
             >
@@ -140,7 +140,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
             <Button
               onClick={onClickClaim}
               variant="default"
-              className="min-w-[32%] w-full"
+              className="min-w-0 flex-1"
               style={{ fontSize: buttonFontSize }}
             >
               Claim

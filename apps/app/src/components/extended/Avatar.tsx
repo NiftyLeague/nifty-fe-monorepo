@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import { Avatar as MuiAvatar, AvatarImage, AvatarFallback } from '@nl/ui/base/avatar'
+import { Avatar as BaseAvatar, AvatarImage, AvatarFallback } from '@nl/ui/base/avatar'
 import type { LinkTarget } from '@/types'
 
 // ==============================|| AVATAR ||============================== //
@@ -50,7 +50,7 @@ const Avatar = ({ className, color, outline, size, style, ...others }: avatarPro
         : undefined
 
   return (
-    <MuiAvatar
+    <BaseAvatar
       className={`${size ? sizeClass[size] : ''} ${className || ''}`}
       style={{ ...colorStyle, ...outlineStyle, ...style }}
       {...others}
@@ -60,7 +60,7 @@ const Avatar = ({ className, color, outline, size, style, ...others }: avatarPro
       ) : (
         <AvatarFallback>{others.children}</AvatarFallback>
       )}
-    </MuiAvatar>
+    </BaseAvatar>
   )
 }
 

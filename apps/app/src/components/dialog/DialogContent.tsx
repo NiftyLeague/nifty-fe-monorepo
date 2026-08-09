@@ -2,7 +2,7 @@ import { useContext } from 'react'
 
 import {
   Dialog as DialogBase,
-  DialogContent as DialogContentBaseMui,
+  DialogContent as DialogContentPrimitive,
   DialogHeader,
   DialogTitle,
 } from '@nl/ui/base/dialog'
@@ -11,15 +11,22 @@ import { DialogContext } from '.'
 import type { DialogProps } from '@/types/dialog'
 import { CloseIconButton } from './DialogActions'
 
-const DialogContentBase = ({ children, ...props }: DialogProps) => {
+const DialogContentBase = ({
+  children,
+  sx,
+  dialogTitle,
+  dividers,
+  onClose,
+  ...props
+}: DialogProps) => {
   const [isOpen, setIsOpen] = useContext(DialogContext)
 
   if (!isOpen) return null
   return (
     <DialogBase open={isOpen} onOpenChange={(open) => !open && setIsOpen(false)}>
-      <DialogContentBaseMui showCloseButton={false} style={props.sx}>
+      <DialogContentPrimitive {...props} showCloseButton={false} style={{ ...props.style, ...sx }}>
         {children}
-      </DialogContentBaseMui>
+      </DialogContentPrimitive>
     </DialogBase>
   )
 }

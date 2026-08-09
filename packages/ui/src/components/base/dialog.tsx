@@ -6,10 +6,47 @@ import { XIcon } from 'lucide-react'
 
 import { cn } from '@nl/ui/utils'
 
+const openDialogLocks = new Set<symbol>()
+let previousHtmlOverflow = ''
+
+function lockDialogScroll(lockId: symbol) {
+  if (openDialogLocks.has(lockId)) return
+
+  if (openDialogLocks.size === 0) {
+    const htmlElement = document.documentElement
+    previousHtmlOverflow = htmlElement.style.overflow
+    htmlElement.style.overflow = 'hidden'
+  }
+
+  openDialogLocks.add(lockId)
+}
+
+function unlockDialogScroll(lockId: symbol) {
+  if (!openDialogLocks.delete(lockId) || openDialogLocks.size > 0) return
+
+  document.documentElement.style.overflow = previousHtmlOverflow
+  previousHtmlOverflow = ''
+}
+
 function Dialog({ onOpenChange, ...props }: React.ComponentProps<typeof DialogPrimitive.Root>) {
+  const lockId = React.useRef(Symbol())
+
+  React.useEffect(() => {
+    const currentLockId = lockId.current
+
+    if (props.open !== undefined) {
+      if (props.open) lockDialogScroll(currentLockId)
+      else unlockDialogScroll(currentLockId)
+    } else if (props.defaultOpen) {
+      lockDialogScroll(currentLockId)
+    }
+
+    return () => unlockDialogScroll(currentLockId)
+  }, [props.defaultOpen, props.open])
+
   const handleOpenState = (open: boolean) => {
-    const htmlElement = document.querySelector('html') as HTMLElement
-    htmlElement.style.overflow = open ? 'hidden' : ''
+    if (open) lockDialogScroll(lockId.current)
+    else unlockDialogScroll(lockId.current)
     onOpenChange?.(open)
   }
 
@@ -36,7 +73,7 @@ function DialogOverlay({
     <DialogPrimitive.Overlay
       data-slot="dialog-overlay"
       className={cn(
-        'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50 z-100',
+        'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-[1200] bg-black/50',
         className
       )}
       {...props}
@@ -56,7 +93,7 @@ function DialogContent({
       <DialogPrimitive.Content
         data-slot="dialog-content"
         className={cn(
-          'bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-full translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border p-6 shadow-lg duration-200 sm:max-w-[calc(100%-2rem)] md:max-w-xl lg:max-w-2xl z-100',
+          'bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-[1201] grid max-h-[calc(100vh-2rem)] min-w-0 w-full max-w-full translate-x-[-50%] translate-y-[-50%] gap-4 overflow-y-auto rounded-lg border p-6 shadow-lg duration-200 sm:max-w-[calc(100%-2rem)] md:max-w-xl lg:max-w-2xl',
           className
         )}
         {...props}

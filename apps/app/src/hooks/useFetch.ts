@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useEffect, useReducer, useRef } from 'react'
+import { getAuditFixtureData, isAuditFixtureEnabled } from '@/audit/fixture'
 
 interface State<T> {
   data?: T
@@ -72,6 +73,11 @@ function useFetch<T = unknown>(url?: string, options?: Options, textOnly = false
 
     const fetchData = async () => {
       dispatch({ type: 'loading' })
+
+      if (isAuditFixtureEnabled) {
+        dispatch({ type: 'fetched', payload: getAuditFixtureData(url) as T })
+        return
+      }
 
       // If a cache exists for this url, return it
       if (cache.current[url]) {

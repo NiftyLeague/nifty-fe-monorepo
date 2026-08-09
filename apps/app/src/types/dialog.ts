@@ -1,4 +1,8 @@
-export interface DialogProps {
+import type { ComponentProps } from 'react'
+
+import type { DialogContent } from '@nl/ui/base/dialog'
+
+export interface DialogProps extends Omit<ComponentProps<typeof DialogContent>, 'children'> {
   dialogTitle?: React.ReactNode | string
   dividers?: boolean
   sx?: React.CSSProperties

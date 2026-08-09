@@ -42,7 +42,9 @@ const DegenCard = dynamic(() => import('@/components/cards/DegenCard'), { ssr: f
 const AllDegensPage = (): React.ReactNode => {
   const { address } = useNetworkContext()
   const [degens, setDegens] = useState<Degen[]>([])
-  const [isDrawerOpen, setIsDrawerOpen] = useState(true)
+  // Start closed so mobile does not push the first card below the fold before the
+  // responsive drawer effect runs. The layout opens it after mount on desktop.
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [filters, setFilters] = useState<DegenFilter>(DEFAULT_STATIC_FILTER)
   const [defaultValues, setDefaultValues] = useState<DegenFilter | undefined>()
   const [filteredData, setFilteredData] = useState<Degen[]>([])
@@ -190,6 +192,7 @@ const AllDegensPage = (): React.ReactNode => {
               variant="ghost"
               size="icon"
               className="cursor-pointer"
+              aria-label={isDrawerOpen ? 'Hide filters' : 'Show filters'}
               onClick={() => setIsDrawerOpen(!isDrawerOpen)}
             >
               <Icon name={isDrawerOpen ? 'chevron-left' : 'chevron-right'} size="xl" />
@@ -264,7 +267,7 @@ const AllDegensPage = (): React.ReactNode => {
 
   return (
     <>
-      <div className="flex h-full flex-col justify-center align-top gap-4 pl-2">
+      <div className="flex h-full flex-col justify-start align-top gap-4 pl-2">
         <div className="pl-4 pr-6">
           <DegensTopNav
             searchTerm={searchTerm || ''}

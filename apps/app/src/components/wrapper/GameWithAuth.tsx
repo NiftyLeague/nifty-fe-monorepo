@@ -4,7 +4,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { useUserAgent } from '@nl/ui/hooks/useUserAgent'
-import Unity from 'react-unity-webgl'
+import { Unity } from 'react-unity-webgl'
 import type { UnityConfig } from 'react-unity-webgl'
 import { useUnityContext } from '@/lib/use-unity-context'
 import { Button } from '@nl/ui/base/button'

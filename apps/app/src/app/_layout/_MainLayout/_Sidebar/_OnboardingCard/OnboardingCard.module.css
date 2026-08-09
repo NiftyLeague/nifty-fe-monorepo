@@ -8,7 +8,7 @@
   background-color: var(--color-muted-foreground);
 }
 
-.borderLinearProgress :global(.MuiLinearProgress-bar) {
+.borderLinearProgress :global([data-slot='progress-indicator']) {
   border-radius: var(--radius-default);
   background-color: var(--color-purple);
 }
