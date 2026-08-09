@@ -3,7 +3,27 @@ import https from 'https'
 import type { Request, Response } from 'express'
 import type { Metadata } from '@/types'
 
+import { S3_BASE_URL } from '../constants/aws'
+
 const REQUEST_TIMEOUT_MS = 10000
+const ALLOWED_UPSTREAM_ORIGIN = new URL(S3_BASE_URL).origin
+
+const toAllowedUpstreamUrl = (value: string): URL | null => {
+  try {
+    const upstreamUrl = new URL(value)
+    if (
+      upstreamUrl.protocol !== 'https:' ||
+      upstreamUrl.origin !== ALLOWED_UPSTREAM_ORIGIN ||
+      upstreamUrl.username ||
+      upstreamUrl.password
+    ) {
+      return null
+    }
+    return upstreamUrl
+  } catch {
+    return null
+  }
+}
 
 // node-fetch v3 accepts an AbortSignal timeout option. Keeps slow/dead
 // upstreams from hanging the function up to maxDuration, matching the
@@ -35,7 +55,13 @@ export async function resolveDegenMetadata(req: Request): Promise<Metadata | nul
 // handling that returns the app's standard { errors: [...] } 502 shape, and
 // guaranteed response termination on both success and failure.
 export const pipeRequest = (url: string, res: Response) => {
-  const req = https.get(url, (getRes: any) => {
+  const upstreamUrl = toAllowedUpstreamUrl(url)
+  if (!upstreamUrl) {
+    res.status(400).json({ errors: [{ message: 'Unsupported upstream URL' }] })
+    return
+  }
+
+  const req = https.get(upstreamUrl, (getRes: any) => {
     if (getRes.statusCode && getRes.statusCode >= 400) {
       getRes.resume()
       res

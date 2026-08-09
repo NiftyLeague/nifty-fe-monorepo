@@ -94,7 +94,7 @@ describe('api.pipeRequest', () => {
       return { setTimeout: mock(), on: mock(), destroy: mock() }
     })
 
-    pipeRequest('https://example.com/x', res)
+    pipeRequest('https://nifty-league.s3.amazonaws.com/x', res)
     await new Promise((r) => setTimeout(r, 5))
 
     expect((res as any).setHeader).toHaveBeenCalledWith('content-type', 'application/json')
@@ -130,7 +130,7 @@ describe('api.pipeRequest', () => {
       return { setTimeout: mock(), on: mock(), destroy: mock() }
     })
 
-    pipeRequest('https://example.com/missing', res)
+    pipeRequest('https://nifty-league.s3.amazonaws.com/missing', res)
     await new Promise((r) => setTimeout(r, 5))
 
     expect((res as any).status).toHaveBeenCalledWith(404)
@@ -160,7 +160,7 @@ describe('api.pipeRequest', () => {
     }
     mockHttpsGet.mockReturnValue(fakeReq as never)
 
-    pipeRequest('https://example.com/x', res)
+    pipeRequest('https://nifty-league.s3.amazonaws.com/x', res)
     await new Promise((r) => setTimeout(r, 5))
 
     expect((res as any).status).toHaveBeenCalledWith(502)
@@ -200,7 +200,7 @@ describe('api.pipeRequest', () => {
       return req
     })
 
-    pipeRequest('https://example.com/x', res)
+    pipeRequest('https://nifty-league.s3.amazonaws.com/x', res)
     await new Promise((r) => setTimeout(r, 20))
 
     expect((res as any).status).toHaveBeenCalledWith(502)
@@ -230,11 +230,28 @@ describe('api.pipeRequest', () => {
     }
     mockHttpsGet.mockReturnValue(fakeReq as never)
 
-    pipeRequest('https://example.com/x', res)
+    pipeRequest('https://nifty-league.s3.amazonaws.com/x', res)
     await new Promise((r) => setTimeout(r, 5))
 
     expect((res as any).end).toHaveBeenCalled()
     expect((res as any).status).not.toHaveBeenCalled()
     expect((res as any).json).not.toHaveBeenCalled()
+  })
+
+  it('rejects upstream URLs outside the S3 allowlist', () => {
+    const res = {
+      status: mock(function (this: any) {
+        return this
+      }),
+      json: mock(),
+    } as unknown as Response
+
+    pipeRequest('https://example.com/internal', res)
+
+    expect((res as any).status).toHaveBeenCalledWith(400)
+    expect((res as any).json).toHaveBeenCalledWith({
+      errors: [{ message: 'Unsupported upstream URL' }],
+    })
+    expect(mockHttpsGet).not.toHaveBeenCalled()
   })
 })
