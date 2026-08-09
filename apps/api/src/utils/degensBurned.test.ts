@@ -46,7 +46,7 @@ describe('fetchBurnedDegens', () => {
 
     await expect(fetchBurnedDegens()).resolves.toEqual([1, 2, 5, 9])
     expect(fetchMock).toHaveBeenCalledTimes(3)
-    const urls = fetchMock.mock.calls.map((c) => c[0] as string)
+    const urls = fetchMock.mock.calls.map((c) => String(c[0]))
     // Both burn wallets are queried (concurrently) and pagination is followed.
     expect(urls.filter((u) => u.includes('&pageKey=next'))).toHaveLength(1)
     expect(
