@@ -220,8 +220,8 @@ const DegensFilter = ({
             {tribes.map((tribe) => (
               <label
                 key={tribe.name}
-                className="flex min-w-[122px] items-center"
-                style={{ flex: '0 0 33.333333%' }}
+                className={cn('flex min-w-0 items-center', styles.filterOption)}
+                style={{ flex: '0 0 50%' }}
               >
                 <Checkbox
                   name={tribe.name}
@@ -366,7 +366,7 @@ const DegensFilter = ({
             {backgrounds.map((background) => (
               <label
                 key={background}
-                className={`${styles.inputCheckFormControl} flex items-center`}
+                className={`${styles.inputCheckFormControl} ${styles.filterOption} flex items-center`}
                 style={{ flex: '0 0 50%' }}
               >
                 <Checkbox

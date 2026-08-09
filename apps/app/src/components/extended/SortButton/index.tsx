@@ -1,6 +1,7 @@
 'use client'
 
-import { Children, cloneElement, ReactElement, useCallback, useEffect, useState } from 'react'
+import { Children, cloneElement, useCallback, useEffect, useId, useRef, useState } from 'react'
+import type { ReactElement } from 'react'
 import type { MenuItemBaseProps } from '@/types'
 import callAll, { type FunctionType } from '@/utils/callAll'
 import DegenSortOptions from '@/constants/sort'
@@ -16,6 +17,7 @@ interface Props {
 const SortButton = ({
   children,
   defaultSelectedItemValue = null,
+  label = 'Sort options',
   handleSort,
 }: Props): React.ReactNode => {
   if (!Children.only(children)) console.error('SortButton only accepts one child')
@@ -25,10 +27,10 @@ const SortButton = ({
   )
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [buttonNode, setButtonNode] = useState<HTMLElement | null>(null)
+  const menuContainerRef = useRef<HTMLDivElement>(null)
+  const menuId = useId()
   const buttonRef = useCallback((node: HTMLElement | null) => {
-    if (node !== null) {
-      setButtonNode(node)
-    }
+    setButtonNode(node)
   }, [])
   const isSortOpen = Boolean(anchorEl)
   const sortLabel = sortOptions.filter((items) => items.value === selectedSort)
@@ -45,9 +47,31 @@ const SortButton = ({
     setAnchorEl(event.currentTarget)
   }
 
-  const handleCloseSortMenu = () => {
+  const handleCloseSortMenu = useCallback(() => {
     setAnchorEl(null)
-  }
+  }, [])
+
+  useEffect(() => {
+    if (!isSortOpen) return
+
+    const handlePointerDown = (event: PointerEvent) => {
+      if (!menuContainerRef.current?.contains(event.target as Node)) handleCloseSortMenu()
+    }
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        handleCloseSortMenu()
+        buttonNode?.focus()
+      }
+    }
+
+    document.addEventListener('pointerdown', handlePointerDown)
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown)
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [buttonNode, handleCloseSortMenu, isSortOpen])
 
   const handleMenuItemClick = (event: React.MouseEvent<HTMLElement>, value: string) => {
     setSelectedSort(value)
@@ -66,6 +90,9 @@ const SortButton = ({
     {
       ...(child.props || {}),
       ref: buttonRef,
+      'aria-controls': isSortOpen ? menuId : undefined,
+      'aria-expanded': isSortOpen,
+      'aria-haspopup': 'menu',
       onClick: callAll(handleOpenSortMenu as FunctionType, childOnClick as FunctionType),
     },
     <>
@@ -75,10 +102,13 @@ const SortButton = ({
   )
 
   return (
-    <div className="relative flex items-center justify-center">
+    <div ref={menuContainerRef} className="relative flex items-center justify-center">
       {Button}
       {isSortOpen && (
         <div
+          id={menuId}
+          role="menu"
+          aria-label={label}
           className="absolute top-full right-0 z-50 rounded-b-md border border-border bg-background shadow-md"
           style={{ width: buttonWidth }}
         >
@@ -86,6 +116,8 @@ const SortButton = ({
             <button
               type="button"
               key={option.value}
+              role="menuitemradio"
+              aria-checked={option.value === selectedSort}
               onClick={(event) => handleMenuItemClick(event, option.value)}
               className={`w-full px-3 py-1.5 text-left text-sm text-foreground hover:bg-accent ${
                 option.value === selectedSort ? 'font-medium text-blue' : ''
