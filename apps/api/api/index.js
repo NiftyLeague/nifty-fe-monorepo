@@ -9,10 +9,7 @@
 // and therefore produces extensionless/aliased imports that crash at runtime
 // with ERR_MODULE_NOT_FOUND).
 //
-import { fileURLToPath } from 'node:url'
-
-globalThis.process.env.NODE_CONFIG_TS_DIR ??= fileURLToPath(new URL('./config/', import.meta.url))
-
-const { default: app } = await import('./.app/index.js')
+// Keep this static so Vercel's function tracer includes the generated runtime.
+import app from './.app/index.js'
 
 export default app
