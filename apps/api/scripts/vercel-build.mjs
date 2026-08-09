@@ -20,19 +20,23 @@ import { fileURLToPath } from 'node:url'
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const scope = process.env.VERCEL_SCOPE || 'niftyleague'
 const isProd = process.argv.includes('--prod')
+const redactSecrets = (value) =>
+  String(value).replace(/(--token\s+)(?:"[^"]*"|'[^']*'|\S+)/gi, '$1[REDACTED]')
 
 // Fail loudly with the exact cause so a broken server-side Vercel build
 // surfaces the underlying error instead of a generic "build may have failed".
 const run = (cmd, label) => {
-  console.log(`[vercel-build] ${cmd}`)
+  const safeCmd = redactSecrets(cmd)
+  console.log(`[vercel-build] ${safeCmd}`)
   try {
     execSync(cmd, { stdio: 'inherit', cwd: root })
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err)
+    const safeMessage = redactSecrets(message)
     console.error(`\n[vercel-build] ✗ FAILED: ${label}`)
-    console.error(`[vercel-build]   command : ${cmd}`)
-    console.error(`[vercel-build]   cause   : ${message}`)
-    fail(message)
+    console.error(`[vercel-build]   command : ${safeCmd}`)
+    console.error(`[vercel-build]   cause   : ${safeMessage}`)
+    fail(safeMessage)
   }
 }
 
@@ -44,9 +48,10 @@ const recordStep = (name, ok, detail) => {
 }
 
 function fail(reason) {
+  const safeReason = redactSecrets(reason)
   const summary = {
     ok: false,
-    reason,
+    reason: safeReason,
     steps: manifest.steps,
   }
   try {
@@ -55,7 +60,7 @@ function fail(reason) {
   } catch {
     /* best-effort */
   }
-  console.error(`\n[vercel-build] ✗ build aborted: ${reason}`)
+  console.error(`\n[vercel-build] ✗ build aborted: ${safeReason}`)
   process.exit(1)
 }
 
