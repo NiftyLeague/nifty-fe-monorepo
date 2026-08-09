@@ -27,18 +27,23 @@ describe('api.fetchMetadata', () => {
       json: async () => ({ name: 'Degen', id: 1 }),
     })
 
-    const meta = await fetchMetadata('https://example.com/1.json')
+    const meta = await fetchMetadata('https://nifty-league.s3.amazonaws.com/1.json')
     expect(meta).toEqual({ name: 'Degen', id: 1 })
   })
 
   it('returns null when the response status is >= 400', async () => {
     mockFetch.mockResolvedValue({ status: 500, json: async () => ({}) })
-    expect(await fetchMetadata('https://example.com/1.json')).toBeNull()
+    expect(await fetchMetadata('https://nifty-league.s3.amazonaws.com/1.json')).toBeNull()
   })
 
   it('returns null when the fetch throws', async () => {
     mockFetch.mockRejectedValue(new Error('network down'))
-    expect(await fetchMetadata('https://example.com/1.json')).toBeNull()
+    expect(await fetchMetadata('https://nifty-league.s3.amazonaws.com/1.json')).toBeNull()
+  })
+
+  it('fails closed for an unsupported upstream host', async () => {
+    expect(await fetchMetadata('https://example.com/internal')).toBeNull()
+    expect(mockFetch).not.toHaveBeenCalled()
   })
 })
 
@@ -50,8 +55,11 @@ describe('api.resolveDegenMetadata', () => {
     const meta = await resolveDegenMetadata(req)
     expect(meta).toEqual({ token_id: 7 })
     expect(mockFetch).toHaveBeenCalledWith(
-      'https://nifty-league.s3.amazonaws.com/degens/mainnet/metadata/7.json',
+      expect.any(URL),
       expect.objectContaining({ signal: expect.any(AbortSignal) })
+    )
+    expect((mockFetch.mock.calls[0] as [URL])[0].href).toBe(
+      'https://nifty-league.s3.amazonaws.com/degens/mainnet/metadata/7.json'
     )
   })
 

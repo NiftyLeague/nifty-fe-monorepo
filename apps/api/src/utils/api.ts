@@ -7,13 +7,19 @@ import { S3_BASE_URL } from '../constants/aws'
 
 const REQUEST_TIMEOUT_MS = 10000
 const ALLOWED_UPSTREAM_ORIGIN = new URL(S3_BASE_URL).origin
+const ALLOWED_S3_HOSTNAME = new URL(S3_BASE_URL).hostname
 
-const toAllowedUpstreamUrl = (value: string): URL | null => {
+const isAllowedFetchHostname = (hostname: string) =>
+  hostname === ALLOWED_S3_HOSTNAME ||
+  hostname === 'eth-mainnet.g.alchemy.com' ||
+  hostname === 'eth-sepolia.g.alchemy.com'
+
+const toAllowedFetchUrl = (value: string): URL | null => {
   try {
     const upstreamUrl = new URL(value)
     if (
       upstreamUrl.protocol !== 'https:' ||
-      upstreamUrl.origin !== ALLOWED_UPSTREAM_ORIGIN ||
+      !isAllowedFetchHostname(upstreamUrl.hostname) ||
       upstreamUrl.username ||
       upstreamUrl.password
     ) {
@@ -25,11 +31,19 @@ const toAllowedUpstreamUrl = (value: string): URL | null => {
   }
 }
 
+const toAllowedUpstreamUrl = (value: string): URL | null => {
+  const upstreamUrl = toAllowedFetchUrl(value)
+  return upstreamUrl?.origin === ALLOWED_UPSTREAM_ORIGIN ? upstreamUrl : null
+}
+
 // node-fetch v3 accepts an AbortSignal timeout option. Keeps slow/dead
 // upstreams from hanging the function up to maxDuration, matching the
 // timeout behaviour used in pipeRequest and degensBurned.
-export const fetchWithTimeout = (url: string, options: any = {}) =>
-  fetch(url, { ...options, signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) })
+export const fetchWithTimeout = async (url: string, options: any = {}) => {
+  const upstreamUrl = toAllowedFetchUrl(url)
+  if (!upstreamUrl) throw new Error('Unsupported upstream URL')
+  return fetch(upstreamUrl, { ...options, signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) })
+}
 
 export async function fetchMetadata(URI: string): Promise<Metadata | null> {
   try {
