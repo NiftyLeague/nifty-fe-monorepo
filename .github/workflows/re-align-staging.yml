@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   schedule:
-    # Every 30 minutes, catch any drift pushed to main outside the promotion flow
+    # Every 30 minutes, catch drift pushed to main outside the promotion flow
     # (security advisories, code-foundry sync commits, dependabot, etc).
     - cron: '*/30 * * * *'
   workflow_dispatch:
@@ -12,6 +12,13 @@ on:
 permissions:
   contents: write
   pull-requests: write
+
+# Only one reconciliation may inspect/push/create a PR at a time. Without this,
+# two scheduled or push-triggered runs can both pass the duplicate check before
+# either one creates its PR.
+concurrency:
+  group: re-align-staging
+  cancel-in-progress: false
 
 jobs:
   re-align:
@@ -23,17 +30,40 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Detect staging behind main
+      - name: Detect staging tree drift
         id: drift
         run: |
+          set -euo pipefail
           git fetch origin main staging --no-tags
-          if git merge-base --is-ancestor origin/main origin/staging; then
-            echo "Staging already contains main (no drift)."
+
+          MAIN_TREE=$(git rev-parse 'origin/main^{tree}')
+          STAGING_TREE=$(git rev-parse 'origin/staging^{tree}')
+          if [ "$MAIN_TREE" = "$STAGING_TREE" ]; then
+            echo "Main and staging have identical Git trees (no drift)."
             echo "drifted=false" >> "$GITHUB_OUTPUT"
           else
-            BEHIND=$(git rev-list --count origin/staging..origin/main)
-            echo "Staging is $BEHIND commits behind main."
-            echo "drifted=true" >> "$GITHUB_OUTPUT"
+            # A divergent tree is not necessarily drift: staging may contain
+            # legitimate forward work. Preview the exact merge policy used by
+            # the PR and compare its resulting tree with staging instead.
+            git checkout --detach origin/staging
+            if git merge origin/main --no-commit --no-ff -X ours \
+              -m "chore: preview main into staging"; then
+              MERGED_TREE=$(git write-tree)
+              git merge --abort
+              if [ "$MERGED_TREE" = "$STAGING_TREE" ]; then
+                echo "Main is already represented in staging under the"
+                echo "re-alignment merge policy."
+                echo "drifted=false" >> "$GITHUB_OUTPUT"
+              else
+                echo "Merging main would change staging's Git tree."
+                echo "drifted=true" >> "$GITHUB_OUTPUT"
+              fi
+            else
+              git merge --abort 2>/dev/null || true
+              echo "The re-alignment merge preview has conflicts;"
+              echo "failing closed for review."
+              echo "drifted=true" >> "$GITHUB_OUTPUT"
+            fi
           fi
 
       - name: Create re-align PR if drifted
@@ -42,30 +72,62 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
+          TITLE="chore: re-align staging with main"
+          BODY="Automatically opened because main and staging have"
+          BODY+=" different Git trees. Merging main into staging keeps the"
+          BODY+=" branches in sync so the promotion PR stays conflict-free."
+
+          find_existing_pr() {
+            gh pr list \
+              --base staging \
+              --state open \
+              --limit 1000 \
+              --json number,title,headRefName \
+              --jq '
+                map(select(
+                  .title == "chore: re-align staging with main" or
+                  (.headRefName | startswith("chore/re-align-staging-"))
+                ))
+                | first
+                | .number // empty
+              '
+          }
+
+          EXISTING=$(find_existing_pr)
+          if [ -n "$EXISTING" ]; then
+            echo "Open re-align PR #$EXISTING already targets staging;"
+            echo "skipping duplicate creation."
+            exit 0
+          fi
+
           BRANCH="chore/re-align-staging-$(date +%Y%m%d-%H%M)"
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          BOT_EMAIL="41898282+github-actions[bot]"
+          BOT_EMAIL+="@users.noreply.github.com"
+          git config user.email "$BOT_EMAIL"
           git checkout -b "$BRANCH" origin/staging
 
-          # Merge main into staging. Conflicts keep staging's version (-X ours):
-          # staging carries intentional forward fixes (e.g. the 12-col grid), while
-          # main's non-conflicting changes still flow in. If that still fails
-          # (e.g. rename/delete vs modify), abort and open the PR unmerged so a
-          # human can resolve.
-          if git merge origin/main --no-edit --no-ff -X ours \
+          # Merge main into staging. Conflicts keep staging's version (-X ours),
+          # while main's non-conflicting changes still flow in. A conflict that
+          # cannot be resolved automatically fails closed without opening a PR.
+          if ! git merge origin/main --no-edit --no-ff -X ours \
             -m "chore: merge main into staging to re-align branches"; then
-            git push -u origin "$BRANCH"
-          else
-            git merge --abort 2>/dev/null || true
-            git push -u origin "$BRANCH" || true
+            git merge --abort
+            exit 1
+          fi
+          git push -u origin "$BRANCH"
+
+          # Check again after pushing to close the race with an already-open PR.
+          EXISTING=$(find_existing_pr)
+          if [ -n "$EXISTING" ]; then
+            echo "Open re-align PR #$EXISTING already targets staging;"
+            echo "skipping duplicate creation."
+            git push origin --delete "$BRANCH"
+            exit 0
           fi
 
-          # Reuse an open re-align PR for this branch if one exists, else create it.
-          EXISTING=$(gh pr list --base staging --state open --head "$BRANCH" --json number --jq '.[0].number' 2>/dev/null || echo '')
-          TITLE="chore: re-align staging with main"
-          BODY="Automatically opened because staging fell behind main. Merging main into staging keeps the branches in sync so the promotion PR stays conflict-free."
-          if [ -n "$EXISTING" ]; then
-            gh pr edit "$EXISTING" --title "$TITLE" --body "$BODY" >/dev/null
-          else
-            gh pr create --base staging --head "$BRANCH" --title "$TITLE" --body "$BODY" || true
-          fi
+          gh pr create \
+            --base staging \
+            --head "$BRANCH" \
+            --title "$TITLE" \
+            --body "$BODY"
