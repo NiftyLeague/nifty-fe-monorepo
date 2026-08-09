@@ -4,7 +4,7 @@ assets/
 ../../assets/
 .data/
 dist/
-api/.app/
-api/config/
+# api/.app/ and api/config/ are the compiled runtime and node-config-ts
+# placeholders required by api/index.js; keep them in the function bundle.
 coverage/
 *.log
