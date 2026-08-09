@@ -12,12 +12,6 @@ const tribes = [
 
 const backgrounds = ['Common', 'Rare', 'Meta', 'Legendary']
 
-const rentals = ['1', '2', '3+']
-
-const multipliers = ['1', '2', '3+']
-
-const wearables = ['Hand', 'Back', 'Head', 'Pet']
-
 export type FilterSource =
   | 'prices'
   | 'multipliers'
@@ -29,4 +23,4 @@ export type FilterSource =
   | 'searchTerm'
   | 'walletAddress'
 
-export { tribes, backgrounds, rentals, multipliers, wearables }
+export { tribes, backgrounds }
