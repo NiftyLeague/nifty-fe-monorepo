@@ -1,0 +1,116 @@
+{
+  "host": {
+    "mainnet": "https://api.niftyleague.com",
+    "sepolia": "https://staging.api.niftyleague.com"
+  },
+  "port": "@@PORT",
+  "aws": {
+    "apiSecret": "@@BE_API_SECRET",
+    "s3": {
+      "bucket": "nifty-league",
+      "clientConfig": {
+        "region": "us-east-1",
+        "credentials": {
+          "accessKeyId": "@@S3_ACCESS_ID",
+          "secretAccessKey": "@@S3_SECRET"
+        }
+      }
+    }
+  },
+  "blocknative": {
+    "apiKey": {
+      "comics": "@@BLOCKNATIVE_API_KEY_COMICS",
+      "degens": "@@BLOCKNATIVE_API_KEY_DEGENS",
+      "p2e": "@@BLOCKNATIVE_API_KEY_P2E"
+    },
+    "webhookSecret": "@@WEBHOOK_SECRET"
+  },
+  "eth": {
+    "account": {
+      "pk": "@@ETH_ACCOUNT_PRIVATE_KEY"
+    },
+    "network": "@@ETH_NETWORK",
+    "infura": "@@INFURA_PROJECT_ID",
+    "etherscan": "@@ETHERSCAN_API_KEY",
+    "alchemy": {
+      "mainnet": "@@MAINNET_ALCHEMY_API_KEY",
+      "sepolia": "@@TESTNET_ALCHEMY_API_KEY"
+    },
+    "opensea": "@@OPENSEA_API_KEY"
+  },
+  "imageGenerator": {
+    "baseURL": "@@UNITY_IMAGE_GENERATOR_BASE_URL",
+    "secret": "@@UNITY_IMAGE_GENERATOR_SECRET",
+    "version": "@@UNITY_IMAGE_GENERATOR_VERSION"
+  },
+  "ipfs": {
+    "authorization": "@@NFT_STORAGE_KEY",
+    "protocol": "https",
+    "host": "api.nft.storage",
+    "port": 5001,
+    "path": "",
+    "gatewayURL": "https://ipfs.io/ipfs",
+    "pinata": {
+      "pinataApiKey": "@@PINATA_API_KEY",
+      "pinataSecretApiKey": "@@PINATA_API_SECRET"
+    }
+  },
+  "imx": {
+    "mainnet": {
+      "apiKey": "@@MAINNET_IMX_API_KEY",
+      "client": {
+        "publicApiUrl": "https://api.x.immutable.com/v1",
+        "starkContractAddress": "0x5FDCCA53617f4d2b9134B29090C87D01058e27e9",
+        "registrationContractAddress": "0x72a06bf2a1CE5e39cBA06c0CAb824960B587d64c",
+        "gasLimit": "7000000",
+        "gasPrice": "40000000000",
+        "enableDebug": false
+      },
+      "company": {
+        "name": "Nifty League",
+        "contact": "info@niftyleague.com",
+        "organizationId": "@@ORGANIZATION_ID"
+      },
+      "project": {
+        "name": "Nifty League Marketplace",
+        "legacyId": "@@MAINNET_LEGACY_PROJECT_ID"
+      },
+      "collection": {
+        "contractAddress": "@@MAINNET_COLLECTION_CONTRACT_ADDRESS",
+        "name": "Nifty Marketplace",
+        "description": "A collection of unique and rare items used in Nifty League games!",
+        "iconUrl": "https://niftyleague.com/img/logo/purple-filled.png",
+        "imageUrl": "https://niftyleague.com/img/logo/full-bg.png",
+        "metadataApiUrl": "https://api.niftyleague.com/imx/items/metadata"
+      }
+    },
+    "sepolia": {
+      "apiKey": "@@TESTNET_IMX_API_KEY",
+      "client": {
+        "publicApiUrl": "https://api.sandbox.x.immutable.com/v1",
+        "starkContractAddress": "0x2d5C349fD8464DA06a3f90b4B0E9195F3d1b7F98",
+        "registrationContractAddress": "0xDbA6129C02E69405622fAdc3d5A7f8d23eac3b97",
+        "gasLimit": "7000000",
+        "gasPrice": "40000000000",
+        "enableDebug": true
+      },
+      "company": {
+        "name": "Nifty League",
+        "contact": "info@niftyleague.com",
+        "organizationId": "@@ORGANIZATION_ID"
+      },
+      "project": {
+        "name": "Nifty League Marketplace",
+        "legacyId": "@@TESTNET_LEGACY_PROJECT_ID"
+      },
+      "collection": {
+        "contractAddress": "@@TESTNET_COLLECTION_CONTRACT_ADDRESS",
+        "name": "Nifty Marketplace",
+        "description": "A collection of unique and rare items used in Nifty League games.",
+        "iconUrl": "https://niftyleague.com/img/logo/purple-filled.png",
+        "imageUrl": "https://niftyleague.com/img/logo/full-bg.png",
+        "metadataApiUrl": "https://staging.api.niftyleague.com/imx/items/metadata"
+      }
+    }
+  }
+}

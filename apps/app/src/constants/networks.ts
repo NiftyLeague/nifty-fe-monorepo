@@ -1,8 +1,6 @@
 import { mainnet, sepolia, hardhat, immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains'
 import type { Network, NetworkName } from '@/types/web3'
 
-export const NetworkContextName = 'NETWORK'
-
 export const MAINNET_ID = mainnet.id
 export const SEPOLIA_ID = sepolia.id
 export const LOCAL_CHAIN_ID = hardhat.id
