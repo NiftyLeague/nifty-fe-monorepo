@@ -1,3 +1,4 @@
+import './runtimeConfig.js'
 import { config } from 'node-config-ts'
 import './config.js' // side-effect: make the runtime config visible to the bundler
 import { timingSafeEqual } from 'node:crypto'
