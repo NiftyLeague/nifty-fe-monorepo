@@ -10,6 +10,7 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json && node scripts/copy-config.mjs && node scripts/copy-api-app.mjs",
+    "vercel-build": "bun run build",
     "clean": "rm -rf dist api/.app api/config .turbo coverage",
     "dev": "NODE_CONFIG_TS_DIR=config tsx watch src/index.ts",
     "start": "node api/index.js",
