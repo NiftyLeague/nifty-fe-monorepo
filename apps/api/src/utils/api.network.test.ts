@@ -97,7 +97,7 @@ describe('api.pipeRequest', () => {
         return this
       }),
     }
-    mockHttpsGet.mockImplementation((_url: string, cb: (s: any) => void) => {
+    mockHttpsGet.mockImplementation((_options: any, cb: (s: any) => void) => {
       cb(fakeStream)
       return { setTimeout: mock(), on: mock(), destroy: mock() }
     })
@@ -105,6 +105,14 @@ describe('api.pipeRequest', () => {
     pipeRequest('https://nifty-league.s3.amazonaws.com/x', res)
     await new Promise((r) => setTimeout(r, 5))
 
+    expect((mockHttpsGet.mock.calls[0] as [any])[0]).toEqual(
+      expect.objectContaining({
+        hostname: 'nifty-league.s3.amazonaws.com',
+        path: '/x',
+        port: 443,
+        protocol: 'https:',
+      })
+    )
     expect((res as any).setHeader).toHaveBeenCalledWith('content-type', 'application/json')
     expect((res as any).setHeader).toHaveBeenCalledWith(
       'cache-control',
@@ -133,7 +141,7 @@ describe('api.pipeRequest', () => {
         return this
       }),
     }
-    mockHttpsGet.mockImplementation((_url: string, cb: (s: any) => void) => {
+    mockHttpsGet.mockImplementation((_options: any, cb: (s: any) => void) => {
       cb(fakeStream)
       return { setTimeout: mock(), on: mock(), destroy: mock() }
     })
@@ -186,7 +194,7 @@ describe('api.pipeRequest', () => {
       end: mock(),
     } as unknown as Response
 
-    mockHttpsGet.mockImplementation((_url: string, cb: (s: any) => void) => {
+    mockHttpsGet.mockImplementation((_options: any, cb: (s: any) => void) => {
       const req = {
         setTimeout: mock(function (this: any, _ms: number, timeoutCb: () => void) {
           setImmediate(timeoutCb)

@@ -31,9 +31,10 @@ const toAllowedFetchUrl = (value: string): URL | null => {
   }
 }
 
-const toAllowedUpstreamUrl = (value: string): URL | null => {
+const toAllowedUpstreamPath = (value: string): string | null => {
   const upstreamUrl = toAllowedFetchUrl(value)
-  return upstreamUrl?.origin === ALLOWED_UPSTREAM_ORIGIN ? upstreamUrl : null
+  if (upstreamUrl?.origin !== ALLOWED_UPSTREAM_ORIGIN) return null
+  return `${upstreamUrl.pathname}${upstreamUrl.search}`
 }
 
 // node-fetch v3 accepts an AbortSignal timeout option. Keeps slow/dead
@@ -69,26 +70,34 @@ export async function resolveDegenMetadata(req: Request): Promise<Metadata | nul
 // handling that returns the app's standard { errors: [...] } 502 shape, and
 // guaranteed response termination on both success and failure.
 export const pipeRequest = (url: string, res: Response) => {
-  const upstreamUrl = toAllowedUpstreamUrl(url)
-  if (!upstreamUrl) {
+  const upstreamPath = toAllowedUpstreamPath(url)
+  if (!upstreamPath) {
     res.status(400).json({ errors: [{ message: 'Unsupported upstream URL' }] })
     return
   }
 
-  const req = https.get(upstreamUrl, (getRes: any) => {
-    if (getRes.statusCode && getRes.statusCode >= 400) {
-      getRes.resume()
-      res
-        .status(getRes.statusCode)
-        .json({ errors: [{ message: `Upstream error: ${getRes.statusCode}` }] })
-      return
+  const req = https.get(
+    {
+      protocol: 'https:',
+      hostname: ALLOWED_S3_HOSTNAME,
+      port: 443,
+      path: upstreamPath,
+    },
+    (getRes: any) => {
+      if (getRes.statusCode && getRes.statusCode >= 400) {
+        getRes.resume()
+        res
+          .status(getRes.statusCode)
+          .json({ errors: [{ message: `Upstream error: ${getRes.statusCode}` }] })
+        return
+      }
+      const contentType = getRes.headers['content-type']
+      if (contentType) res.setHeader('content-type', contentType)
+      // S3 metadata / images are immutable — let the edge cache them.
+      res.setHeader('cache-control', 'public, max-age=86400, immutable')
+      getRes.pipe(res)
     }
-    const contentType = getRes.headers['content-type']
-    if (contentType) res.setHeader('content-type', contentType)
-    // S3 metadata / images are immutable — let the edge cache them.
-    res.setHeader('cache-control', 'public, max-age=86400, immutable')
-    getRes.pipe(res)
-  })
+  )
 
   req.setTimeout(REQUEST_TIMEOUT_MS, () => {
     req.destroy(new Error('Upstream request timed out'))
