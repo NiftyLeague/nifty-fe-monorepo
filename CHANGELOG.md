@@ -1,5 +1,33 @@
 # Changelog
 
+## [1.2.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.1.3...nifty-fe-monorepo-v1.2.0) (2026-08-09)
+
+
+### Features
+
+* drop MUI and @nl/theme from apps/app ([939c0c8](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/939c0c84c825b1fc976b98aff3377aadc13e7e7c))
+* drop-mui-main ([#366](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/366)) ([eb501c2](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/eb501c2e626e731df8f6df417d3b121dcac6f6e9))
+
+
+### Bug Fixes
+
+* adopt 12-column degens grid on main to match staging ([#410](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/410)) ([0ba46dc](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/0ba46dcac9da7622e6e22b154d4df70a25597144))
+* allowlist image-size DoS advisories transitive via Next.js ([85a3ea9](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/85a3ea918cebb3215dc353833a120dcb71399549))
+* allowlist nanoid GHSA-2v37-7h3g-55p8 transitive via postcss/Tailwind ([5849eff](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/5849eff577f271dbdb37cb2dbeffcc40de66edc6))
+* sync-local-commits-to-staging ([#371](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/371)) ([37d95fb](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/37d95fba2daf7c0972eec715fea7ee32e1ea0c0e))
+
+
+### Maintenance
+
+* **code-foundry:** pin runtime v0.36.0 ([8da2f8d](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/8da2f8da85382ed1baa7589ade017951b97af455))
+* **code-foundry:** pin runtime v0.36.1 ([2d03c58](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/2d03c589002ad2a299ad055fb9ab4d1e78b2e325))
+* **code-foundry:** pin runtime v0.37.0 ([b2231b8](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/b2231b81fa93bed216ff79269f65cfa3dd5e7b05))
+* **code-foundry:** sync protected docs to v0.37.1 ([5e38430](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/5e38430613a753d6f3b04230b810e0ede72b392b))
+* extract shared degens page logic and remove dead console output ([#379](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/379)) ([92ec323](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/92ec323cef0b9054015f9e2214407beabb91ebb1))
+* **release:** promote validated staging tree ([a8b1e7e](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/a8b1e7e1e2db7e0b12d1d8b8807e2f7c7d8a6c74))
+* remove SnarfyMcSlappy from CODEOWNERS ([3d8a20d](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/3d8a20d0c28afe035e83cf13cc5eadade5e9996a))
+* trigger CI refresh for format cache ([2c16e9e](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/2c16e9e8229e313c298a9f8ef27e15f53379b9da))
+
 ## [1.1.3](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.1.2...nifty-fe-monorepo-v1.1.3) (2026-08-07)
 
 
