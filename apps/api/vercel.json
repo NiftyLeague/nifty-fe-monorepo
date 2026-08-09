@@ -5,6 +5,7 @@
       "**": true
     }
   },
+  "buildCommand": "bun --filter api build",
   "functions": {
     "api/index.js": {
       "excludeFiles": "assets/**",
