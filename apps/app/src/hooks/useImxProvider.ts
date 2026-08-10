@@ -6,10 +6,18 @@ import { type Chain, immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains'
 import { useAccount } from 'wagmi'
 
 import useEthersSigner, { type Signer } from '@/hooks/useEthersSigner'
-import passport, { passportEnv } from '@nl/imx-passport'
-import { config } from '@nl/imx-passport/types'
+
+type PassportModule = typeof import('@nl/imx-passport')
+
+let passportModulePromise: Promise<PassportModule> | undefined
+
+const loadPassport = () => {
+  passportModulePromise ??= import('@nl/imx-passport')
+  return passportModulePromise
+}
 
 async function clientToProvider(): Promise<BrowserProvider> {
+  const { default: passport } = await loadPassport()
   const passportProvider = await passport.connectEvm()
   return new BrowserProvider(passportProvider)
 }
@@ -21,7 +29,9 @@ async function getPassportSigner(): Promise<JsonRpcSigner> {
 }
 
 export function getNetwork(): Chain {
-  return passportEnv === config.Environment.PRODUCTION ? immutableZkEvm : immutableZkEvmTestnet
+  return process.env.NEXT_PUBLIC_VERCEL_ENV === 'production'
+    ? immutableZkEvm
+    : immutableZkEvmTestnet
 }
 
 export function useConnectedToIMXCheck(): boolean {
@@ -32,10 +42,25 @@ export function useConnectedToIMXCheck(): boolean {
 /** Memoized action to convert an IMX Passport instance to an ethers.js Provider. */
 export function useImxProvider(): BrowserProvider | undefined {
   const [provider, setProvider] = useState<BrowserProvider>()
+  const { isConnected } = useAccount()
 
   useEffect(() => {
-    clientToProvider().then(setProvider).catch(console.error)
-  }, [])
+    if (!isConnected) {
+      setProvider(undefined)
+      return
+    }
+
+    let mounted = true
+    clientToProvider()
+      .then((nextProvider) => {
+        if (mounted) setProvider(nextProvider)
+      })
+      .catch(console.error)
+
+    return () => {
+      mounted = false
+    }
+  }, [isConnected])
 
   return provider
 }
