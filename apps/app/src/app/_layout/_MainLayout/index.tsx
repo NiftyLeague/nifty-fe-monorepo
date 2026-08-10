@@ -4,7 +4,6 @@
 import { type PropsWithChildren, useEffect, useMemo } from 'react'
 import { usePathname } from 'next/navigation'
 import { useAccount, useSwitchChain } from 'wagmi'
-import PerfectScrollbar from 'react-perfect-scrollbar'
 
 // Redux
 import { openDrawer } from '@/store/slices/menu'
@@ -13,6 +12,7 @@ import { useDispatch, useSelector } from '@/store/hooks'
 // project imports
 import { cn } from '@nl/ui/utils'
 import { Button } from '@nl/ui/base/button'
+import { ScrollArea } from '@nl/ui/base/scroll-area'
 import { Toaster } from '@nl/ui/base/sonner'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import navigation from '@/constants/menu-items'
@@ -121,9 +121,12 @@ const MainLayout = ({ children }: PropsWithChildren) => {
         {/* main content */}
         <main className={cn(styles.main, drawerOpen ? styles.mainOpen : styles.mainClosed)}>
           {!isNoFilterPage ? (
-            <PerfectScrollbar className={cn('py-5 md:py-10', !container && 'px-5 md:px-20')}>
+            <ScrollArea
+              className="h-full"
+              viewportClassName={cn('py-5 md:py-10', !container && 'px-5 md:px-20')}
+            >
               {getContent()}
-            </PerfectScrollbar>
+            </ScrollArea>
           ) : (
             getContent()
           )}

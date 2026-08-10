@@ -42,6 +42,7 @@ const Game = ({ closeGame }: { closeGame: () => void }) => {
         size="icon"
         onClick={() => requestFullscreen(true)}
         className="absolute top-5 right-5 cursor-pointer"
+        aria-label="Fullscreen"
       >
         <Icon name="maximize-2" />
       </Button>

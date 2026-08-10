@@ -1,16 +1,19 @@
 'use client'
 
 import Image from 'next/image'
-import { memo, useRef, useState, useCallback } from 'react'
+import { memo, useRef, useState, useCallback, useEffect } from 'react'
 import { Button } from '@nl/ui/base/button'
 import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
+import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 import { cn } from '@nl/ui/utils'
 
 import styles from './index.module.css'
 
 export const ConsoleGame = memo(function ConsoleGame({ src }: { src: string }) {
+  const rootRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
+  const isNearViewport = useOnScreen(rootRef, '200px')
 
   const togglePlay = useCallback(() => {
     if (!videoRef.current) return
@@ -27,8 +30,19 @@ export const ConsoleGame = memo(function ConsoleGame({ src }: { src: string }) {
   const handlePlay = useCallback(() => setIsPlaying(true), [])
   const handlePause = useCallback(() => setIsPlaying(false), [])
 
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+
+    if (isNearViewport) {
+      void video.play().catch(() => undefined)
+    } else {
+      video.pause()
+    }
+  }, [isNearViewport])
+
   return (
-    <div className="relative overflow-hidden">
+    <div ref={rootRef} className="relative overflow-hidden">
       <AnimatedWrapper>
         <div
           style={{ position: 'relative', display: 'flex', flexGrow: 1 }}
@@ -52,10 +66,10 @@ export const ConsoleGame = memo(function ConsoleGame({ src }: { src: string }) {
             width="100%"
             height="100%"
             muted
-            autoPlay
+            autoPlay={isNearViewport}
             loop
             playsInline
-            preload="metadata"
+            preload={isNearViewport ? 'metadata' : 'none'}
             className={styles.game_video}
             onPlay={handlePlay}
             onPause={handlePause}

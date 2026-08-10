@@ -45,9 +45,8 @@ const DegenCardItem = ({
         src={source}
         width="258"
         height="278"
-        alt="degen image"
-        priority
-        sizes="100vw"
+        alt={name}
+        sizes="(max-width: 614px) 50vw, (max-width: 1023px) 33vw, (max-width: 1499px) 25vw, 20vw"
         className="w-full h-auto"
       />
     </div>
