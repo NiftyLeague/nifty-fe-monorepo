@@ -45,15 +45,11 @@ jobs:
             # A divergent tree is not necessarily drift: staging may contain
             # legitimate forward work. Preview the exact merge policy used by
             # the PR and compare its resulting tree with staging instead.
-            git checkout --detach origin/staging
-            if git merge origin/main --no-commit --no-ff -X ours \
-              -m "chore: preview main into staging"; then
-              MERGED_TREE=$(git write-tree)
-              # A successful preview can be a no-op ("Already up to date.")
-              # when main is an ancestor of staging, in which case no
-              # MERGE_HEAD is created and abort would fail. Mirror the
-              # conflict branch's guard so drift detection never crashes.
-              git merge --abort 2>/dev/null || true
+            # merge-tree computes the result without creating a commit, so
+            # detection is independent of runner Git identity configuration
+            # and handles already-up-to-date refs as a no-op.
+            if MERGED_TREE=$(git merge-tree --write-tree -X ours \
+              origin/staging origin/main); then
               if [ "$MERGED_TREE" = "$STAGING_TREE" ]; then
                 echo "Main is already represented in staging under the"
                 echo "re-alignment merge policy."
@@ -63,10 +59,9 @@ jobs:
                 echo "drifted=true" >> "$GITHUB_OUTPUT"
               fi
             else
-              git merge --abort 2>/dev/null || true
-              echo "The re-alignment merge preview has conflicts;"
+              echo "The re-alignment merge preview failed (likely a conflict);"
               echo "failing closed for review."
-              echo "drifted=true" >> "$GITHUB_OUTPUT"
+              exit 1
             fi
           fi
 
