@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.1](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.0...app-v1.1.1) (2026-08-10)
+
+
+### Performance
+
+* lazy-load axelar SDK, drop dead deps, add external-surface contract guards ([#407](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/407)) ([70103e1](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/70103e1e4b6ee86b21dcfa0097933a8e393b0c86))
+
+
+### Maintenance
+
+* promote tested staging tree to main ([5b82877](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/5b8287785a21b2892241a67420ab13ca283dfb87))
+* sync local changes to staging ([#402](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/402)) ([9ecab74](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/9ecab74c7c120c69b9e448315ac4cd666a113c5b))
+
 ## [1.1.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.0.2...app-v1.1.0) (2026-08-09)
 
 
