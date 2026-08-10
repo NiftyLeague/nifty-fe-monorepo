@@ -1,10 +1,14 @@
+'use client'
+
+import dynamic from 'next/dynamic'
 import PaginationIconOnly from '@/components/pagination/PaginationIconOnly'
 import { PropsWithChildren, ReactNode, useRef } from 'react'
 import type { SxProps, Theme } from '@/types'
-import Slider, { Settings } from 'react-slick'
+import type { Settings } from 'react-slick'
 import SectionTitle from './SectionTitle'
+import type { SlickSliderRef } from './SlickSlider'
 
-import '@/styles/slick.css'
+const SlickSlider = dynamic(() => import('./SlickSlider'))
 
 const sectionSpacing = 2 // 16px
 
@@ -29,7 +33,7 @@ const SectionSlider = ({
   variant = 'h2',
   styles,
 }: PropsWithChildren<Props>): React.ReactNode => {
-  const refSlider = useRef<Slider>(null)
+  const refSlider = useRef<SlickSliderRef>(null)
   const settings = {
     dots: false,
     swipeToSlide: false,
@@ -83,9 +87,9 @@ const SectionSlider = ({
       </div>
       <div style={styles?.mainRow as React.CSSProperties}>
         {isSlider ? (
-          <Slider {...settings} ref={refSlider}>
+          <SlickSlider settings={settings} ref={refSlider}>
             {children}
-          </Slider>
+          </SlickSlider>
         ) : (
           children
         )}

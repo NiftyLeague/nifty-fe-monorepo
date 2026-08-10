@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { memo, useRef, useState, useCallback } from 'react'
+import { Button } from '@nl/ui/base/button'
 import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
 import { cn } from '@nl/ui/utils'
 
@@ -62,11 +63,16 @@ export const ConsoleGame = memo(function ConsoleGame({ src }: { src: string }) {
           >
             <source src={src} type="video/mp4" />
           </video>
-          <div
+          <Button
+            type="button"
             onClick={togglePlay}
-            style={{ cursor: 'pointer' }}
+            variant="ghost"
+            size="icon"
             aria-label={isPlaying ? 'Pause video' : 'Play video'}
-            className={cn(styles.bonk_note, 'transition-fade-start transition-fade delay-normal')}
+            className={cn(
+              styles.bonk_note,
+              'h-auto w-auto rounded-none p-0 transition-fade-start transition-fade delay-normal hover:bg-transparent'
+            )}
           >
             <Image
               alt="Bonk Sticker"
@@ -78,7 +84,7 @@ export const ConsoleGame = memo(function ConsoleGame({ src }: { src: string }) {
               sizes="(max-width: 1920px) 100vw, 1920px"
               style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
             />
-          </div>
+          </Button>
         </div>
       </AnimatedWrapper>
       <div className={styles.gaming_controller}>
