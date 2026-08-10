@@ -1,11 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "git": {
-    "deploymentEnabled": {
-      "main": true,
-      "staging": true,
-      "codex/*": true,
-      "chore/re-align-staging-*": true
-    }
+    "deploymentEnabled": true
   }
 }
