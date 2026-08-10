@@ -1,19 +1,5 @@
-import type { DataType, ReturnDataType, Order } from '@/types/leaderboard'
-import {
-  GET_RANK_BY_USER_ID_API,
-  LEADERBOARD_SCORE_API_URL,
-  LEADERBOARD_USERNAMES_API_URL,
-} from '@/constants/url'
-import { LEADERBOARDS } from '@/constants/leaderboards'
-
-export const fetchUserNames = async (items: string[]): Promise<DataType[]> => {
-  try {
-    const res = await fetch(`${LEADERBOARD_USERNAMES_API_URL}?ids=${items}&include_stats=false`)
-    return await res.json()
-  } catch (e) {
-    return []
-  }
-}
+import type { DataType, Order, ReturnDataType } from '@/types/leaderboard'
+import { GET_RANK_BY_USER_ID_API } from '@/constants/url'
 
 export const fetchScores = async (
   gameType: string,
@@ -22,58 +8,18 @@ export const fetchScores = async (
   count: number,
   offset: number
 ): Promise<ReturnDataType> => {
-  // @ts-expect-error ignore implicit any
-  const leaderboard = LEADERBOARDS[gameType][scoreType]
-  const json = { data: leaderboard.slice(offset, offset + count), count: leaderboard.length }
-
-  const addAvg = json.data.map((data: DataType) => {
-    const { earnings, matches } = data?.stats || {}
-    const avg =
-      earnings && matches ? Math.round((parseFloat(earnings) * 100) / parseFloat(matches)) / 100 : 0
-    let rate = 0
-    let earningsParsed = Math.round(parseFloat(earnings || '0') * 10) / 10
-    let kills = Number(data.stats?.kills ?? '0')
-    switch (scoreType) {
-      case 'win_rate':
-        rate = parseFloat(data.score) * 100
-        break
-      case 'earnings':
-        earningsParsed = Number(data.score)
-        break
-      case 'kills':
-        kills = Number(data.score)
-        break
-      default:
-        break
-    }
-    return {
-      ...data,
-      stats: {
-        ...data.stats,
-        score: Number(data.score ?? '0').toLocaleString(),
-        'avg_NFTL/match': avg,
-        win_rate: `${rate}%`,
-        earnings: earningsParsed.toLocaleString(),
-        kills: kills.toLocaleString(),
-      },
-    }
-  })
-  // get names
-  const items: string[] = []
-  for (let i = 0; i < json.data.length; i++) {
-    items.push(json.data[i].user_id)
-  }
-  const dd: DataType[] = await fetchUserNames(items)
-  const a = Object.entries(dd)
-  for (let i = 0; i < addAvg.length; i++) {
-    for (let j = 0; j < a.length; j++) {
-      if (addAvg[i].user_id === a?.[j]?.[0]) {
-        addAvg[i].user_id = a?.[j]?.[1]?.name || ''
-      }
-    }
-  }
-
-  return { data: addAvg, count: json.count }
+  const response = await fetch(
+    `/api/leaderboards?${new URLSearchParams({
+      game: gameType,
+      score: scoreType,
+      time: timeFilter,
+      count: String(count),
+      offset: String(offset),
+    })}`,
+    { cache: 'no-store' }
+  )
+  if (!response.ok) throw new Error('Unable to load leaderboard')
+  return response.json()
 }
 
 function descendingComparator(a: DataType, b: DataType, orderBy: keyof DataType['stats']) {
@@ -99,8 +45,6 @@ export const getComparator = <Key extends keyof unknown>(
     : (a, b) => -descendingComparator(a, b, orderBy)
 }
 
-// This method is created for cross-browser compatibility, if you don't
-// need to support IE11, you can use Array.prototype.sort() directly
 export const stableSort = <T>(array: readonly T[], comparator: (a: T, b: T) => number): T[] => {
   const stabilizedThis = array.map((el, index) => [el, index] as [T, number])
   stabilizedThis.sort((a, b) => {

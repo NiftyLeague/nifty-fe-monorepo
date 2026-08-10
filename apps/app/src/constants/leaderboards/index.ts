@@ -2,11 +2,6 @@ import { GTM_EVENTS } from '@nl/ui/gtm'
 import type { TableType, LeaderboardGame } from '@/types/leaderboard'
 import { Game, TimeFilter } from '@/types/leaderboard'
 
-import { SMASHERS_LEADERBOARDS } from './leaderboard-smashers'
-import { WEN_GAME_LEADERBOARDS } from './leaderboard-wen-game'
-import { CRYPTO_WINTER_LEADERBOARDS } from './leaderboard-crypto-winter'
-import { MT_GAWX_LEADERBOARDS } from './leaderboard-mt-gawx'
-
 export const NiftySmashersTables: TableType[] = [
   {
     key: 'win_rate',
@@ -72,12 +67,3 @@ export const LEADERBOARD_TIME_FILTERS = [
   { key: 'monthly', display: TimeFilter.Monthly },
   { key: 'all_time', display: TimeFilter.AllTime },
 ]
-
-// Leaderboard Data
-
-export const LEADERBOARDS = {
-  crypto_winter: CRYPTO_WINTER_LEADERBOARDS,
-  nftl_burner: MT_GAWX_LEADERBOARDS,
-  nifty_smashers: SMASHERS_LEADERBOARDS,
-  wen_game: WEN_GAME_LEADERBOARDS,
-}

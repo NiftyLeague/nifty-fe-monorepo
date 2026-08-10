@@ -1,17 +1,19 @@
 const stubGlobal = (name, value) => {
   Object.defineProperty(globalThis, name, { value, configurable: true, writable: true })
 }
+
 import { afterEach, beforeEach, describe, expect, it } from 'bun:test'
 import { mock } from 'bun:test'
 
 let fetchRankByUserId: typeof import('./leaderboard').fetchRankByUserId
-let fetchScores: typeof import('./leaderboard').fetchScores
-let fetchUserNames: typeof import('./leaderboard').fetchUserNames
+let fetchClientScores: typeof import('./leaderboard').fetchScores
+let fetchScores: typeof import('./leaderboard-server').fetchScores
+let fetchUserNames: typeof import('./leaderboard-server').fetchUserNames
 let getComparator: typeof import('./leaderboard').getComparator
 let stableSort: typeof import('./leaderboard').stableSort
 
 beforeEach(async () => {
-  mock.module('@/constants/leaderboards', () => {
+  mock.module('@/constants/leaderboards/data', () => {
     const row = (score: string, userId: string, stats: Record<string, string> = {}) => ({
       rank: 1,
       score,
@@ -30,10 +32,14 @@ beforeEach(async () => {
     }
   })
 
-  const leaderboard = await import('./leaderboard')
+  const [leaderboard, leaderboardServer] = await Promise.all([
+    import('./leaderboard'),
+    import('./leaderboard-server'),
+  ])
   fetchRankByUserId = leaderboard.fetchRankByUserId
-  fetchScores = leaderboard.fetchScores
-  fetchUserNames = leaderboard.fetchUserNames
+  fetchClientScores = leaderboard.fetchScores
+  fetchScores = leaderboardServer.fetchScores
+  fetchUserNames = leaderboardServer.fetchUserNames
   getComparator = leaderboard.getComparator
   stableSort = leaderboard.stableSort
 })
@@ -50,6 +56,20 @@ describe('leaderboard data loaders', () => {
 
     stubGlobal('fetch', mock().mockRejectedValue(new Error('offline')))
     await expect(fetchUserNames(['user-1'])).resolves.toEqual([])
+  })
+
+  it('requests only the selected leaderboard page from the app route', async () => {
+    const fetchMock = mock().mockResolvedValue({
+      ok: true,
+      json: mock().mockResolvedValue({ data: [], count: 0 }),
+    })
+    stubGlobal('fetch', fetchMock)
+
+    await fetchClientScores('smashers', 'kills', 'all_time', 50, 100)
+
+    expect(fetchMock.mock.calls[0]?.[0]).toBe(
+      '/api/leaderboards?game=smashers&score=kills&time=all_time&count=50&offset=100'
+    )
   })
 
   it.each<[string, string, string, string]>([
