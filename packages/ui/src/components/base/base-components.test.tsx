@@ -61,6 +61,7 @@ import {
 } from '@nl/ui/base/pagination'
 import { Progress } from '@nl/ui/base/progress'
 import { RadioGroup, RadioGroupItem } from '@nl/ui/base/radio-group'
+import { ScrollArea } from '@nl/ui/base/scroll-area'
 import { Separator } from '@nl/ui/base/separator'
 import {
   Sheet,
@@ -124,6 +125,9 @@ describe('base visual primitives', () => {
         <Icon name={'missing' as never} size={31} aria-label="fallback icon" />
         <Progress value={35} aria-label="progress" />
         <Progress value={0} aria-label="empty progress" />
+        <ScrollArea type="always" className="h-24" viewportClassName="p-2">
+          <p>Scrollable content</p>
+        </ScrollArea>
         <Separator />
         <Skeleton>Loading</Skeleton>
       </>
@@ -134,6 +138,9 @@ describe('base visual primitives', () => {
     expect((screen.getByLabelText('Name') as HTMLInputElement)?.value).toBe('Degen')
     expect(screen.getByLabelText('status icon')).not.toBeNull()
     expect(screen.getByRole('progressbar', { name: 'progress' })).not.toBeNull()
+    expect(screen.getByText('Scrollable content')).not.toBeNull()
+    expect(document.querySelector('[data-slot="scroll-area-viewport"]')).not.toBeNull()
+    expect(document.querySelector('[data-slot="scroll-area-scrollbar"]')).not.toBeNull()
   })
 
   it('renders pagination navigation and active states', () => {

@@ -18,6 +18,7 @@ const PaginationIconOnly: React.FC<
       className="cursor-pointer"
       disabled={hasPrev === false}
       onClick={onClickPrev}
+      aria-label="Previous page"
     >
       <Icon name="chevron-left" size="sm" />
     </Button>
@@ -27,6 +28,7 @@ const PaginationIconOnly: React.FC<
       className="cursor-pointer"
       disabled={hasNext === false}
       onClick={onClickNext}
+      aria-label="Next page"
     >
       <Icon name="chevron-right" size="sm" />
     </Button>
