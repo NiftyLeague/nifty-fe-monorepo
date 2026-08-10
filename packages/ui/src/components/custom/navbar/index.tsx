@@ -1,21 +1,14 @@
-'use client'
-
-import Link from 'next/link'
 import Image from 'next/image'
+import Link from 'next/link'
 import { Fragment } from 'react'
-import { usePathname } from 'next/navigation'
-import { useScrollDetection } from '@nl/ui/hooks/useScrollDetection'
-import { cn } from '@nl/ui/utils'
 
 import { Button } from '@nl/ui/base/button'
-import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import { Icon } from '@nl/ui/base/icon'
 import { Separator } from '@nl/ui/base/separator'
 import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
@@ -29,6 +22,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@nl/ui/base/sheet'
+import { ActiveNavLink } from './ActiveNavLink'
+import NavbarScrollFrame from './NavbarScrollFrame'
 
 interface Page {
   title: string
@@ -54,36 +49,6 @@ interface NavbarProps {
   navItems: NavItemData[]
 }
 
-function NavLink({
-  description,
-  external,
-  href,
-  title,
-  ...props
-}: React.ComponentProps<typeof NavigationMenuLink> & Page) {
-  const pathname = usePathname()
-  const isActive = href === pathname
-  return (
-    <NavigationMenuLink asChild data-active={isActive} {...props}>
-      <Link
-        href={href}
-        target={external ? '_blank' : undefined}
-        rel={external ? 'noreferrer' : undefined}
-      >
-        <div className="w-full leading-none">
-          {title}
-          {external && <ExternalIcon />}
-        </div>
-        {description && (
-          <p className="w-full text-xs text-muted-foreground line-clamp-2 leading-snug">
-            {description}
-          </p>
-        )}
-      </Link>
-    </NavigationMenuLink>
-  )
-}
-
 /* ==============================|| DESKTOP NAV ||============================== */
 
 function ListItem({
@@ -95,7 +60,7 @@ function ListItem({
 }: React.ComponentPropsWithoutRef<'li'> & Page) {
   return (
     <li {...props}>
-      <NavLink
+      <ActiveNavLink
         className="text-base font-medium"
         description={description}
         external={external}
@@ -124,7 +89,7 @@ function DropdownMenuItem({ group, pages }: GroupedMenuItemData) {
 function SingleMenuItem({ type, ...page }: SingleMenuItemData) {
   return (
     <NavigationMenuItem value={page.title.toLowerCase()}>
-      <NavLink className={navigationMenuTriggerStyle()} {...page} />
+      <ActiveNavLink className={navigationMenuTriggerStyle()} {...page} />
     </NavigationMenuItem>
   )
 }
@@ -166,7 +131,7 @@ function MobileMenuGroup({ group, pages }: GroupedMenuItemData) {
         {pages.map((page) => (
           <li key={page.title}>
             <SheetClose asChild>
-              <NavLink className="text-base font-medium" {...page} />
+              <ActiveNavLink className="text-base font-medium" {...page} />
             </SheetClose>
           </li>
         ))}
@@ -179,7 +144,7 @@ function MobileMenuItem({ type, ...page }: SingleMenuItemData) {
   return (
     <NavigationMenuItem value={page.title.toLowerCase()} className="w-full">
       <SheetClose asChild>
-        <NavLink className="text-base font-medium" {...page} />
+        <ActiveNavLink className="text-base font-medium" {...page} />
       </SheetClose>
     </NavigationMenuItem>
   )
@@ -241,48 +206,30 @@ export function Navbar({
   navItems,
   ...props
 }: React.ComponentProps<typeof NavigationMenu> & NavbarProps) {
-  const { ref: scrollSentinelRef, isIntersecting } = useScrollDetection()
   return (
-    <>
-      {/*
-        This sentinel element is what the IntersectionObserver watches.
-        It sits at the very top of the page, so when it scrolls out of view,
-        we know the user has scrolled down.
-      */}
-      <div ref={scrollSentinelRef} className="absolute top-0 inset-x-0 h-px" />
-
-      <NavigationMenu
-        viewport={false}
-        // value="products"
-        className={cn(
-          'fixed top-0 inset-x-0 h-20 z-50 transition-all duration-500',
-          isIntersecting ? 'bg-transparent backdrop-blur-xs' : 'bg-background/90 backdrop-blur-sm'
-        )}
-        {...props}
-      >
-        <div className="w-screen h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          <Link href="/" className="flex-shrink-0">
-            <Image
-              src="/img/logos/NL/white.webp"
-              height={50}
-              width={52}
-              alt="Home"
-              className="h-12 w-auto transition-transform hover:scale-105"
-              loading="lazy"
-            />
-          </Link>
-
-          <DesktopNavMenu
-            actionButton={actionButton}
-            navItems={navItems.filter(
-              (item) => item.type === 'group' || (item.type === 'single' && item?.title !== 'Home')
-            )}
+    <NavbarScrollFrame {...props}>
+      <div className="flex h-full w-screen items-center justify-between px-4 sm:px-6 lg:px-8">
+        <Link href="/" className="flex-shrink-0">
+          <Image
+            src="/img/logos/NL/white.webp"
+            height={50}
+            width={52}
+            alt="Home"
+            className="h-12 w-auto transition-transform hover:scale-105"
+            loading="lazy"
           />
+        </Link>
 
-          <MobileNavMenu actionButton={actionButton} navItems={navItems} />
-        </div>
-      </NavigationMenu>
-    </>
+        <DesktopNavMenu
+          actionButton={actionButton}
+          navItems={navItems.filter(
+            (item) => item.type === 'group' || (item.type === 'single' && item?.title !== 'Home')
+          )}
+        />
+
+        <MobileNavMenu actionButton={actionButton} navItems={navItems} />
+      </div>
+    </NavbarScrollFrame>
   )
 }
 

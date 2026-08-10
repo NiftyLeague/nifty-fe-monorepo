@@ -12,7 +12,6 @@ const AppleBadge = ({ disabled = false }) => (
     alt="Apple Store Badge"
     width={120}
     height={40}
-    loading="eager"
     style={{
       width: '91%',
       maxWidth: '100%',
@@ -30,7 +29,6 @@ const GoogleBadge = ({ disabled = false }) => (
     alt="Get it on Google Play"
     width={564}
     height={169}
-    loading="eager"
     style={{ width: '100%', maxWidth: '100%', height: 'auto', opacity: disabled ? 0.25 : 1 }}
   />
 )
@@ -41,7 +39,6 @@ const SteamBadge = ({ disabled = false }) => (
     alt="Steam Store Badge"
     width={564}
     height={168}
-    loading="eager"
     style={{ width: '100%', maxWidth: '100%', height: 'auto', opacity: disabled ? 0.25 : 1 }}
   />
 )

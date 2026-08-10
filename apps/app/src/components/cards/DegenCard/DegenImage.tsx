@@ -27,7 +27,9 @@ const DegenImage = memo(
       <img
         className="pixelated"
         src={image}
-        alt=""
+        alt={`Degen #${tokenId}`}
+        loading="lazy"
+        decoding="async"
         style={{ objectFit: 'cover', height: imageHeight, ...sx }}
         onError={handleImageError}
       />

@@ -21,6 +21,8 @@ const ImageCard = ({ image, thumbnail, title, ratio }: ImageCardProps) => {
           onLoad={handleImageOnLoad}
           src={thumbnail}
           alt={`thumbnail-${title}`}
+          loading="lazy"
+          decoding="async"
           style={{ ...styleImage.imageCommon, ...css.thumbnail }}
         />
       )}
@@ -29,6 +31,8 @@ const ImageCard = ({ image, thumbnail, title, ratio }: ImageCardProps) => {
           onLoad={handleImageOnLoad}
           src={image}
           alt={title}
+          loading="lazy"
+          decoding="async"
           style={{ height: '100%', ...styleImage.imageCommon, ...css.fullSize }}
         />
       )}

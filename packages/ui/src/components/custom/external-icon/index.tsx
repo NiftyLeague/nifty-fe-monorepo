@@ -1,5 +1,3 @@
-'use client'
-
 import { Icon, type IconProps } from '@nl/ui/base/icon'
 import { cn } from '@nl/ui/utils'
 
