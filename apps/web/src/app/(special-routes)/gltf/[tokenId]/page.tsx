@@ -84,7 +84,7 @@ export default function DegenViews() {
           }),
         })}
       >
-        <ModelView source={source} />
+        {source === SRC.MODEL && <ModelView source={source} />}
         {Number(tokenId) < 9999 ? (
           <div className={styles.menu__overlay}>
             <ToggleGroup
