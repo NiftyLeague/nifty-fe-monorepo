@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 import type { UrlObject } from 'url'
 import { cn } from '@nl/ui/utils'

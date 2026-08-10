@@ -3,6 +3,7 @@ import type { NextPage } from 'next'
 
 import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
 import { ConsoleGame } from '@nl/ui/custom/console-game'
+import { ViewportVideo } from '@nl/ui/custom/viewport-video'
 
 import { NIFTYWORLD_PROPERTIES } from '@/constants/niftyworld'
 import ThemeBtnGroup from '@/components/ThemeBtnGroup'
@@ -50,9 +51,15 @@ const NiftyWorld: NextPage = () => {
           <div className="w-full md:w-1/2 lg:w-5/12">
             <AnimatedWrapper>
               <div className="relative text-right transition-fade-slow transition-fade-start delay-normal ps-0 lg:ps-5 mb-3">
-                <video width="100%" height="100%" muted autoPlay loop playsInline data-keepplaying>
-                  <source src="/video/arcade-token.mp4" type="video/mp4" />
-                </video>
+                <ViewportVideo
+                  width="100%"
+                  height="100%"
+                  muted
+                  loop
+                  playsInline
+                  data-keepplaying
+                  src="/video/arcade-token.mp4"
+                />
               </div>
             </AnimatedWrapper>
           </div>

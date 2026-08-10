@@ -422,9 +422,6 @@
 /* ==============================|| SATOSHI ||============================== */
 
 .satoshiStationary {
-  --breakpoint-md: 850px;
-  --breakpoint-lg: 1000px;
-  --breakpoint-xl: 1170px;
 }
 
 .satoshiStationary {
@@ -446,17 +443,17 @@
   animation-fill-mode: forwards;
 }
 
-@media only screen and (min-width: var(--breakpoint-md)) {
+@media only screen and (min-width: 850px) {
   .satoshiStationary {
     width: 175px;
   }
 }
-@media only screen and (min-width: var(--breakpoint-lg)) {
+@media only screen and (min-width: 1000px) {
   .satoshiStationary {
     width: 200px;
   }
 }
-@media only screen and (min-width: var(--breakpoint-xl)) {
+@media only screen and (min-width: 1170px) {
   .satoshiStationary {
     left: 50%;
     width: 250px;

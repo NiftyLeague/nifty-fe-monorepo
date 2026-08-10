@@ -73,7 +73,7 @@ export const NIFTY_GAMES: NiftyGame[] = [
   {
     name: 'CRYPTO WINTER',
     description: `The crypto market is currently going through an extended winter season, and only few will survive until the next cycle. Dodge snowballs, bombs and icicles and utilise pickups to defeat Pengweevil to achieve a seat at the ranking table. Weak hands need not apply, diamond hands only!`,
-    video: 'video/crypto-winter.mp4',
+    video: '/video/crypto-winter.mp4',
     tag: 'MINI-GAME',
     action: {
       title: 'START PLAYING!',
@@ -85,7 +85,7 @@ export const NIFTY_GAMES: NiftyGame[] = [
     name: 'MT. GAWX',
     description:
       "No DEGEN story is ever complete without a kickass lore behind it. DEGENs come here while the volcano is active to sink NFTL and watch the volcano roar, belching molten lava in response. It would be cute if it wasn't so scary.",
-    video: 'video/rugmans-peak.mp4',
+    video: '/video/rugmans-peak.mp4',
     tag: 'MINI-GAME',
     action: {
       title: 'MOUNTAIN CLOSED',
