@@ -51,7 +51,6 @@ export const GET_PRODUCT = (productId: string, currency: string) =>
 // Leaderboards
 export const GET_RANK_BY_USER_ID_API = `${BASE_API_URL}/GetRank`
 export const LEADERBOARD_USERNAMES_API_URL = `${BASE_API_URL}/profiles/public/profiles`
-export const LEADERBOARD_SCORE_API_URL = `${BASE_API_URL}/scores`
 
 // QUICKSWAP URL FOR NFTL PURCHASE
 export const NFTL_PURCHASE_URL = `https://quickswap.exchange/#/analytics/v3/token/${getContractAddress(
