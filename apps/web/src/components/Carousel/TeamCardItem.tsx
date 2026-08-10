@@ -16,7 +16,7 @@ const TeamCardItem = ({ name, source, link }: TeamCardProps): React.ReactNode =>
             width="258"
             height="278"
             alt="Team Degen image"
-            sizes="100vw"
+            sizes="(max-width: 614px) 50vw, 33vw"
             style={{ width: '100%', height: 'auto' }}
           />
         </div>
