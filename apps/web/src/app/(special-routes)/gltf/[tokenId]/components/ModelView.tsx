@@ -84,7 +84,7 @@ export default function ModelView({ source }: { source: SRC }) {
         style={source === SRC.MODEL ? { minHeight: '100vh', width: '100%' } : { display: 'none' }}
         src={MODEL_SRC}
         // poster={POSTER_SRC}
-        loading="eager"
+        loading="lazy"
         exposure="0.72"
         shadow-intensity="1"
         shadow-softness="0.8"
