@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.2.1](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.0...nifty-fe-monorepo-v1.2.1) (2026-08-10)
+
+
+### Bug Fixes
+
+* **api:** allowlist timed upstream fetches ([69ca254](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/69ca25462dc407f7995a0b573774550f02a27120))
+* **api:** pass only fixed upstream host to proxy ([c4babdf](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/c4babdf4e94cb30d27a108bf7f9dc5dcc1dce38c))
+* **api:** restrict proxied upstream URLs ([e4179e9](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/e4179e9d5298d14816c3d7f44a6b82e11694f3a7))
+* **ci:** guard re-align drift abort and stop forwarding broken release token ([7c6bde6](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/7c6bde671c481d5d3859b3241b8e0c9a4f0555ad))
+* **ci:** remove invalid cargo ecosystem entry from dependabot config ([751c773](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/751c773eeb30a2edb5245d027872cc50a4aa7a4f))
+
+
+### Performance
+
+* lazy-load axelar SDK, drop dead deps, add external-surface contract guards ([#407](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/407)) ([70103e1](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/70103e1e4b6ee86b21dcfa0097933a8e393b0c86))
+
+
+### Maintenance
+
+* **deps:** bump actions/checkout in the github-actions group ([#436](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/436)) ([5be4de4](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/5be4de46c9f4ff3356913b074f91fef0ef51246d))
+* **deps:** weekly update ([f4bda39](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/f4bda397ab387ebfcf78178ceb86f712b2e814bc))
+* promote tested staging tree to main ([5b82877](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/5b8287785a21b2892241a67420ab13ca283dfb87))
+* reconcile staging with main ([e2eda6d](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/e2eda6d10da22a3e3c6232f72746e192de44e03d))
+* **release:** promote staging workflow fix ([92d8cf3](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/92d8cf3fa0f2a175c53569eb331f67a50311df81))
+* sync local changes to staging ([#402](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/402)) ([9ecab74](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/9ecab74c7c120c69b9e448315ac4cd666a113c5b))
+
 ## [1.2.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.1.3...nifty-fe-monorepo-v1.2.0) (2026-08-09)
 
 
