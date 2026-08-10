@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import Image from 'next/image'
 
 import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
+import { ViewportVideo } from '@nl/ui/custom/viewport-video'
 import { cn } from '@nl/ui/utils'
 
 import ThemeBtnGroup from '@/components/ThemeBtnGroup'
@@ -15,19 +16,17 @@ const Games: NextPage = () => (
       <div className="w-1/3 md:w-1/2 md:px-2 lg:px-3">
         <AnimatedWrapper>
           <div className="animate-zoom-out transition-fade-start transition-fade delay-long">
-            <video
+            <ViewportVideo
               id="lobby"
               width="100%"
               height="100%"
               muted
-              autoPlay
               loop
               playsInline
               data-keepplaying
               className="hidden md:block"
-            >
-              <source src="/video/lobby.mp4" type="video/mp4" />
-            </video>
+              src="/video/lobby.mp4"
+            />
             <div className="block md:hidden">
               <Image
                 alt="Arcade"
@@ -135,19 +134,17 @@ const Games: NextPage = () => (
                     className={styles.video}
                   />
                 ) : (
-                  <video
+                  <ViewportVideo
                     id="console-video"
                     width="100%"
                     height="100%"
                     muted
-                    autoPlay
                     loop
                     playsInline
                     data-keepplaying
                     className={styles.video}
-                  >
-                    <source src={video} type="video/mp4" />
-                  </video>
+                    src={video}
+                  />
                 )}
               </div>
             </AnimatedWrapper>

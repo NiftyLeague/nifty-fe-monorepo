@@ -1,9 +1,4 @@
 .satoshiMove {
-  --breakpoint-sm: 615px;
-  --breakpoint-md: 850px;
-  --breakpoint-lg: 1000px;
-  --breakpoint-xl: 1170px;
-
   --mobile-position: 6000px;
   --medium-position: 9000px;
   --desktop-position: 12000px;
@@ -24,27 +19,27 @@
   animation-fill-mode: forwards;
 }
 
-@media only screen and (min-width: var(--breakpoint-sm)) {
+@media only screen and (min-width: 615px) {
   .satoshiMove {
     -webkit-animation-name: moveRightXs, moveDownMd, spin, hide;
     animation-name: moveRightXs, moveDownMd, spin, hide;
   }
 }
-@media only screen and (min-width: var(--breakpoint-md)) {
+@media only screen and (min-width: 850px) {
   .satoshiMove {
     width: 175px;
     -webkit-animation-name: moveRightSm, moveDownMd, spin, hide;
     animation-name: moveRightSm, moveDownMd, spin, hide;
   }
 }
-@media only screen and (min-width: var(--breakpoint-lg)) {
+@media only screen and (min-width: 1000px) {
   .satoshiMove {
     width: 200px;
     -webkit-animation-name: moveRightMd, moveDownMd, spin, hide;
     animation-name: moveRightMd, moveDownMd, spin, hide;
   }
 }
-@media only screen and (min-width: var(--breakpoint-xl)) {
+@media only screen and (min-width: 1170px) {
   .satoshiMove {
     width: 250px;
     -webkit-animation-name: moveRightLg, moveDownLg, spin, hide;
