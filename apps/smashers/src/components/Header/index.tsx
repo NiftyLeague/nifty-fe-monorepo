@@ -1,10 +1,12 @@
+'use client'
+
 import Image from 'next/image'
 import ActionButtonsGroup from './ActionButtonsGroup'
 import Navbar from './Navbar'
 
 import styles from './index.module.css'
 
-type ActiveModal = 'credits' | 'play' | 'trailer' | 'unity' | null
+export type ActiveModal = 'credits' | 'play' | 'trailer' | 'unity' | null
 
 const Header = ({ activeModal }: { activeModal: ActiveModal }) => (
   <div className={styles.hero}>
