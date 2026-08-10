@@ -7,9 +7,6 @@ import { GoogleTagManager, WebVitals } from '@nl/ui/gtm'
 import { customFontClassName } from '@nl/ui/fonts'
 import { cn } from '@nl/ui/utils'
 
-import AppContextWrapper from '@/contexts/AppContextWrapper'
-import MainLayout from '@/app/_layout/_MainLayout'
-
 import '@/styles/app.css'
 
 export const metadata: Metadata = {
@@ -73,9 +70,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <GoogleTagManager />
 
       <body suppressHydrationWarning>
-        <AppContextWrapper>
-          <MainLayout>{children}</MainLayout>
-        </AppContextWrapper>
+        {children}
 
         <WebVitals />
         <Script
