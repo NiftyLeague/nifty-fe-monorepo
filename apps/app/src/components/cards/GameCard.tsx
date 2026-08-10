@@ -147,7 +147,13 @@ const GameCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<GameCar
         }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={image} alt={title} className="absolute top-0 left-0 h-full w-full object-cover" />
+        <img
+          src={image}
+          alt={title || 'Game artwork'}
+          loading="lazy"
+          decoding="async"
+          className="absolute top-0 left-0 h-full w-full object-cover"
+        />
       </div>
       {contents || (
         <CardGameContent
