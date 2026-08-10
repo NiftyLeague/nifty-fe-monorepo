@@ -3,6 +3,7 @@
 
 import dynamic from 'next/dynamic'
 import type { UnityConfig } from 'react-unity-webgl'
+import WalletRouteProvider from '@/components/providers/WalletRouteProvider'
 const GameWithAuth = dynamic(() => import('@/components/wrapper/GameWithAuth'), { ssr: false })
 
 const burnerBaseUrl = process.env.NEXT_PUBLIC_UNITY_BURNER_BASE_URL as string
@@ -19,6 +20,10 @@ const burnerConfig: UnityConfig = {
   productVersion: burnerBuildVersion,
 }
 
-const MtGawxGame = () => <GameWithAuth unityConfig={burnerConfig} />
+const MtGawxGame = () => (
+  <WalletRouteProvider>
+    <GameWithAuth unityConfig={burnerConfig} />
+  </WalletRouteProvider>
+)
 
 export default MtGawxGame

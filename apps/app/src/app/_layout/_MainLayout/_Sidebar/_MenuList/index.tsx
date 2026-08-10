@@ -3,7 +3,6 @@ import { memo } from 'react'
 // project imports
 import NavGroup from './_NavGroup'
 import { PublicItems, PrivateItems } from '@/constants/menu-items'
-import useAuth from '@/hooks/useAuth'
 
 // ==============================|| SIDEBAR MENU LIST ||============================== //
 
@@ -15,21 +14,8 @@ const getMenuItemsByLoginStatus = (loginStatus: boolean) => {
   return { items: [...PublicItems.items] }
 }
 
-const MenuList = () => {
-  const { isLoggedIn } = useAuth()
+const MenuList = ({ isLoggedIn = false }: { isLoggedIn?: boolean }) => {
   const lastItems = getMenuItemsByLoginStatus(isLoggedIn).items
-  const lastItem = lastItems.length > 1 ? lastItems[1] : undefined
-  if (lastItem) {
-    const childs = lastItem.children && lastItem.children[0] && lastItem.children[0].children
-    if (childs && !childs.find((t) => t.id === 'gamer-profile')) {
-      childs.splice(1, 0, {
-        id: 'gamer-profile',
-        title: 'Gamer Profile',
-        type: 'item',
-        url: '/dashboard/gamer-profile',
-      })
-    }
-  }
 
   const navItems = lastItems.map((item) => {
     switch (item.type) {

@@ -2,6 +2,7 @@
 /* eslint-disable no-nested-ternary */
 import { useState, useEffect } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import dynamic from 'next/dynamic'
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@nl/ui/base/select'
 import { gtm, GTM_EVENTS } from '@nl/ui/gtm'
@@ -11,10 +12,14 @@ import {
   LEADERBOARD_TIME_FILTERS,
   NiftySmashersTables,
 } from '@/constants/leaderboards'
-import EnhancedTable from '@/components/leaderboards/EnhancedTable/EnhancedTable'
 import './modal-table.css'
 
 import styles from './index.module.css'
+
+const EnhancedTable = dynamic(() => import('./EnhancedTable/EnhancedTableWithWallet'), {
+  ssr: false,
+  loading: () => <div className="flex min-h-96 items-center justify-center" aria-busy="true" />,
+})
 
 export default function LeaderBoards(): React.ReactNode {
   const router = useRouter()

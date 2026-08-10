@@ -3,6 +3,7 @@
 
 import dynamic from 'next/dynamic'
 import type { UnityConfig } from 'react-unity-webgl'
+import WalletRouteProvider from '@/components/providers/WalletRouteProvider'
 const GameWithAuth = dynamic(() => import('@/components/wrapper/GameWithAuth'), { ssr: false })
 
 const wenBaseUrl = process.env.NEXT_PUBLIC_UNITY_WEN_BASE_URL as string
@@ -19,6 +20,10 @@ const wenConfig: UnityConfig = {
   productVersion: wenBuildVersion,
 }
 
-const WenGame = () => <GameWithAuth unityConfig={wenConfig} arcadeTokenRequired />
+const WenGame = () => (
+  <WalletRouteProvider>
+    <GameWithAuth unityConfig={wenConfig} arcadeTokenRequired />
+  </WalletRouteProvider>
+)
 
 export default WenGame

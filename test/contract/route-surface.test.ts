@@ -57,7 +57,9 @@ const appRouteContracts: Record<string, string[]> = {
   ],
   app: [
     // dApp: auth-critical, SEO, and externally deep-linked routes.
-    'src/app/page.tsx',
+    // The public route group preserves the external `/` URL while keeping its
+    // wallet-free layout boundary explicit in the source tree.
+    'src/app/(public-routes)/page.tsx',
     'src/app/robots.ts',
     'src/app/sitemap.ts',
     'src/app/(public-routes)/degens/page.tsx',

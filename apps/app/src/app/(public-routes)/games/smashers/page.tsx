@@ -3,6 +3,7 @@
 
 import dynamic from 'next/dynamic'
 import type { UnityConfig } from 'react-unity-webgl'
+import WalletRouteProvider from '@/components/providers/WalletRouteProvider'
 const GameWithAuth = dynamic(() => import('@/components/wrapper/GameWithAuth'), { ssr: false })
 
 const smashersBaseUrl = process.env.NEXT_PUBLIC_UNITY_SMASHERS_BASE_URL as string
@@ -22,24 +23,26 @@ const smashersConfig: UnityConfig = {
 }
 
 const SmashersGame = () => (
-  <>
-    <div style={{ marginBottom: 20 }}>
-      <strong>
-        Note: This is a deprecated version of Nifty Smashers. If you&apos;re looking for our latest
-        mobile game please visit{' '}
-        <a
-          href="https://niftysmashers.com"
-          target="_blank"
-          rel="noreferrer"
-          style={{ color: 'var(--color-blue)' }}
-        >
-          niftysmashers.com
-        </a>
-      </strong>
-    </div>
+  <WalletRouteProvider>
+    <>
+      <div style={{ marginBottom: 20 }}>
+        <strong>
+          Note: This is a deprecated version of Nifty Smashers. If you&apos;re looking for our
+          latest mobile game please visit{' '}
+          <a
+            href="https://niftysmashers.com"
+            target="_blank"
+            rel="noreferrer"
+            style={{ color: 'var(--color-blue)' }}
+          >
+            niftysmashers.com
+          </a>
+        </strong>
+      </div>
 
-    <GameWithAuth unityConfig={smashersConfig} />
-  </>
+      <GameWithAuth unityConfig={smashersConfig} />
+    </>
+  </WalletRouteProvider>
 )
 
 export default SmashersGame
