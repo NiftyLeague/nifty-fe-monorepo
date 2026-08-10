@@ -49,7 +49,11 @@ jobs:
             if git merge origin/main --no-commit --no-ff -X ours \
               -m "chore: preview main into staging"; then
               MERGED_TREE=$(git write-tree)
-              git merge --abort
+              # A successful preview can be a no-op ("Already up to date.")
+              # when main is an ancestor of staging, in which case no
+              # MERGE_HEAD is created and abort would fail. Mirror the
+              # conflict branch's guard so drift detection never crashes.
+              git merge --abort 2>/dev/null || true
               if [ "$MERGED_TREE" = "$STAGING_TREE" ]; then
                 echo "Main is already represented in staging under the"
                 echo "re-alignment merge policy."

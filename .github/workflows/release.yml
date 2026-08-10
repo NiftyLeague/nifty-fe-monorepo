@@ -21,7 +21,15 @@ jobs:
       runtime-repository: 0xPlayerOne/code-foundry
       runtime-ref: v0.37.1
     secrets:
-      CODE_FOUNDRY_TOKEN: ${{ secrets.CODE_FOUNDRY_TOKEN }}
-      RELEASE_PLEASE_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+      # NOTE: CODE_FOUNDRY_TOKEN / RELEASE_PLEASE_TOKEN are intentionally NOT
+      # forwarded. The org-level automation token passes the runtime's
+      # read-only credential check but fails release-please's git tree write
+      # ("Resource not accessible by personal access token"), breaking release
+      # runs on main pushes. Without a forwarded token the runtime falls back
+      # to the short-lived workflow token (github.token), which has repo write
+      # access and is the path that produced the last successful release
+      # (PR #356). Release PRs are created in draft and merged manually. If a
+      # properly scoped automation token is configured later (classic PAT with
+      # repo scope), forward it here to re-enable guarded auto-merge.
       STAGING_DEPLOY_KEY: ${{ secrets.STAGING_DEPLOY_KEY }}
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
