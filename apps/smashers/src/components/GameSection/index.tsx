@@ -1,11 +1,8 @@
 import Image from 'next/image'
 import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
+import { ViewportVideo } from '@nl/ui/custom/viewport-video'
 
 const GameSection = () => {
-  function playVid() {
-    const vid = document.getElementById('level-video') as HTMLVideoElement
-    vid?.play()
-  }
   return (
     <div className="flex flex-col-reverse lg:flex-col">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
@@ -36,23 +33,19 @@ const GameSection = () => {
           </div>
         </div>
         <div className="md:col-span-12 lg:col-span-6">
-          <div onClick={playVid}>
-            <AnimatedWrapper>
-              <div className="transition-quick-pop transition-quick-pop-start delay-lite rounded-[40px] overflow-hidden">
-                <video
-                  id="level-video"
-                  className="w-full h-auto"
-                  muted
-                  autoPlay
-                  loop
-                  playsInline
-                  data-keepplaying
-                >
-                  <source src="/video/rocket.mp4" type="video/mp4" />
-                </video>
-              </div>
-            </AnimatedWrapper>
-          </div>
+          <AnimatedWrapper>
+            <div className="transition-quick-pop transition-quick-pop-start delay-lite overflow-hidden rounded-[40px]">
+              <ViewportVideo
+                id="level-video"
+                className="h-auto w-full"
+                muted
+                loop
+                playsInline
+                data-keepplaying
+                src="/video/rocket.mp4"
+              />
+            </div>
+          </AnimatedWrapper>
         </div>
       </div>
       <AnimatedWrapper>
@@ -64,6 +57,8 @@ const GameSection = () => {
             height={556}
             className="w-full h-auto rounded-[40px]"
             unoptimized
+            loading="lazy"
+            sizes="(max-width: 768px) 100vw, 1350px"
           />
         </div>
       </AnimatedWrapper>

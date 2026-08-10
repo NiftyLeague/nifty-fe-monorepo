@@ -54,11 +54,9 @@ export const ConsoleGame = memo(function ConsoleGame({ src }: { src: string }) {
             width={1920}
             height={1080}
             src="/img/console-game/classic-gaming-reinvented-notv.webp"
-            priority
-            fetchPriority="high"
             sizes="(max-width: 1920px) 100vw, 1920px"
             style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
-            loading="eager"
+            loading="lazy"
           />
           <video
             ref={videoRef}
