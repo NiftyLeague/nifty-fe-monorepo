@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.1...nifty-fe-monorepo-v1.2.2) (2026-08-10)
+
+
+### Maintenance
+
+* promote staging tree to main ([4860b22](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/4860b2210eecc5af2b5c31fffc08546bcf0175c1))
+
 ## [1.2.1](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.0...nifty-fe-monorepo-v1.2.1) (2026-08-10)
 
 
