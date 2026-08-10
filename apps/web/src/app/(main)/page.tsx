@@ -1,10 +1,5 @@
-'use client'
-
-import { useRef } from 'react'
-import type { NextPage } from 'next'
 import Image from 'next/image'
 
-import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
 import { ConsoleGame } from '@nl/ui/custom/console-game'
 
@@ -20,7 +15,14 @@ import { SPONSORS } from '@/constants/sponsors'
 
 import '@/styles/home.css'
 
-const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => void }) => {
+const ResponsiveLabel = ({ mobile, desktop }: { mobile: string; desktop: string }) => (
+  <>
+    <span className="responsive-label-mobile">{mobile}</span>
+    <span className="responsive-label-desktop">{desktop}</span>
+  </>
+)
+
+const DesktopIntro = () => {
   return (
     <section className="desktop relative w-screen max-h-screen overflow-hidden">
       <div>
@@ -117,9 +119,10 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
           </AnimatedWrapper>
         </div>
         <AnimatedWrapper>
-          <div
+          <a
+            href="#gaming-section"
+            aria-label="Learn more about Nifty League"
             className="inline-block relative flex-grow satoshi-learn-more transition-fade-slow transition-fade-start delay-long"
-            onClick={scrollToGamingSection}
           >
             <Image
               src="/img/hero/speech-bubble.webp"
@@ -130,7 +133,7 @@ const DesktopIntro = ({ scrollToGamingSection }: { scrollToGamingSection: () => 
               className="w-full h-auto"
             />
             <p className="m-0 p-0 speech-bubble-text">Learn More!</p>
-          </div>
+          </a>
         </AnimatedWrapper>
       </div>
     </section>
@@ -179,22 +182,14 @@ const MobileIntro = () => {
   )
 }
 
-const Home: NextPage = () => {
-  const isMobile = useMediaQuery('(max-width:768px)')
-  const gamingSectionRef = useRef<HTMLDivElement>(null)
-
-  const scrollToGamingSection = () => {
-    if (!gamingSectionRef.current) return
-    ;(gamingSectionRef.current as HTMLDivElement).scrollIntoView()
-  }
-
+const Home = () => {
   return (
     <MainLayout classes={{ root: 'home-pg' }}>
       <MobileIntro />
-      <DesktopIntro scrollToGamingSection={scrollToGamingSection} />
+      <DesktopIntro />
 
       {/* SMASHERS */}
-      <section className="w-screen relative text-center" ref={gamingSectionRef}>
+      <section id="gaming-section" className="w-screen relative text-center">
         <AnimatedWrapper>
           <h2 className="absolute w-full z-10 -mt-4 sm:mt-8 md:mt-16 lg:mt-22 transition-vertical-fade transition-vertical-fade-start">
             CLASSIC GAMING REINVENTED
@@ -213,11 +208,8 @@ const Home: NextPage = () => {
       {/* DEGENS */}
       <section className="section w-screen relative flex flex-col text-center sliding-nfts">
         <AnimatedWrapper>
-          <h2
-            className="my-3 lg:my-5 px-5 sm:px-8 transition-vertical-fade transition-vertical-fade-start"
-            suppressHydrationWarning
-          >
-            {isMobile ? 'OWN YOUR AVATAR' : 'COMMUNITY-GENERATED AVATARS'}
+          <h2 className="my-3 lg:my-5 px-5 sm:px-8 transition-vertical-fade transition-vertical-fade-start">
+            <ResponsiveLabel mobile="OWN YOUR AVATAR" desktop="COMMUNITY-GENERATED AVATARS" />
           </h2>
         </AnimatedWrapper>
 
@@ -276,7 +268,8 @@ const Home: NextPage = () => {
               className="md:justify-start"
               primary={{
                 href: 'https://niftysmashers.com',
-                title: isMobile ? 'BRAWL!' : "LET'S BRAWL!",
+                title: "LET'S BRAWL!",
+                responsiveTitle: { mobile: 'BRAWL!', desktop: "LET'S BRAWL!" },
                 external: true,
               }}
               secondary={{ href: '/compete-and-earn', title: 'LEARN MORE' }}
@@ -480,7 +473,8 @@ const Home: NextPage = () => {
               className="md:justify-start"
               primary={{
                 href: 'https://discord.gg/niftyleague',
-                title: isMobile ? 'DISCORD' : 'JOIN DISCORD',
+                title: 'JOIN DISCORD',
+                responsiveTitle: { mobile: 'DISCORD', desktop: 'JOIN DISCORD' },
                 external: true,
               }}
               secondary={{ href: '/community', title: 'VIEW MORE' }}
@@ -501,7 +495,8 @@ const Home: NextPage = () => {
           primary={{ href: '/careers', title: 'JOIN THE TEAM' }}
           secondary={{
             href: '/blog',
-            title: isMobile ? 'READ BLOG' : 'READ OUR BLOG',
+            title: 'READ OUR BLOG',
+            responsiveTitle: { mobile: 'READ BLOG', desktop: 'READ OUR BLOG' },
             external: true,
           }}
         />

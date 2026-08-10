@@ -12,9 +12,25 @@
   --subheader-letter-spacing: var(--special-letter-spacing);
 }
 
+.responsive-label-mobile {
+  display: inline;
+}
+
+.responsive-label-desktop {
+  display: none;
+}
+
 /* ==============================|| MEDIA QUERIES ||============================== */
 
 @media (min-width: 769px) {
+  .responsive-label-mobile {
+    display: none;
+  }
+
+  .responsive-label-desktop {
+    display: inline;
+  }
+
   .desktop {
     display: flex !important;
   }

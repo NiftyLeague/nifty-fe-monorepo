@@ -1,0 +1,66 @@
+import type { ComponentProps, PropsWithChildren } from 'react'
+import { render, screen } from '@testing-library/react'
+import { beforeEach, describe, expect, it, mock } from 'bun:test'
+
+/* eslint-disable @next/next/no-img-element */
+
+describe('home page', () => {
+  let Home: typeof import('./page').default
+
+  beforeEach(async () => {
+    mock.module('@/components/MainLayout', () => ({
+      default: ({ children }: PropsWithChildren) => <>{children}</>,
+    }))
+    mock.module('@nl/ui/custom/animated-wrapper', () => ({
+      AnimatedWrapper: ({ children }: PropsWithChildren) => <>{children}</>,
+    }))
+    mock.module('@/components/BouncingNFTL', () => ({ default: () => null }))
+    mock.module('@/components/MintOMatic', () => ({ default: () => null }))
+    mock.module('@/components/Sponsors', () => ({ default: () => null }))
+    mock.module('@/components/ThemeBtnGroup', () => ({ default: () => null }))
+    mock.module('@nl/ui/custom/console-game', () => ({ ConsoleGame: () => null }))
+    // The home page renders the interactive DEGEN carousel through a shared
+    // wrapper; stub the heavy carousel library out for these markup-level
+    // assertions (it is unchanged by this tranche).
+    mock.module('@/components/Carousel', () => ({
+      default: ({ children }: PropsWithChildren) => <div data-testid="carousel">{children}</div>,
+    }))
+    mock.module('next/link', () => ({
+      default: ({ children, href, ...props }: PropsWithChildren<{ href: string }>) => (
+        <a href={href} {...props}>
+          {children}
+        </a>
+      ),
+    }))
+    mock.module('next/navigation', () => ({
+      usePathname: () => '/',
+    }))
+    mock.module('next/image', () => ({
+      default: ({
+        alt,
+        priority: _priority,
+        ...props
+      }: ComponentProps<'img'> & { priority?: boolean }) => <img alt={alt} {...props} />,
+    }))
+
+    const pageModule = await import('./page')
+    Home = pageModule.default
+  })
+
+  it('links the hero call-to-action to the gaming section anchor', () => {
+    render(<Home />)
+
+    const learnMore = screen.getByRole('link', { name: 'Learn more about Nifty League' })
+    expect(learnMore.getAttribute('href')).toBe('#gaming-section')
+    expect(document.getElementById('gaming-section')).not.toBeNull()
+  })
+
+  it('renders CSS-driven responsive labels for both breakpoints', () => {
+    render(<Home />)
+
+    const mobileLabel = screen.getByText('OWN YOUR AVATAR')
+    const desktopLabel = screen.getByText('COMMUNITY-GENERATED AVATARS')
+    expect(mobileLabel.className).toContain('responsive-label-mobile')
+    expect(desktopLabel.className).toContain('responsive-label-desktop')
+  })
+})
