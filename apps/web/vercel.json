@@ -3,7 +3,9 @@
   "git": {
     "deploymentEnabled": {
       "main": true,
-      "staging": true
+      "staging": true,
+      "codex/*": true,
+      "chore/re-align-staging-*": true
     }
   }
 }
