@@ -8,6 +8,7 @@ import { ExternalIcon } from '@nl/ui/custom/external-icon'
 interface ButtonProps {
   href?: string | UrlObject
   title: string
+  responsiveTitle?: { mobile: string; desktop: string }
   className?: string
   disabled?: boolean
   external?: boolean
@@ -16,6 +17,7 @@ interface ButtonProps {
 export const ThemeBtn = ({
   href,
   title,
+  responsiveTitle,
   className = '',
   disabled = false,
   external = false,
@@ -34,7 +36,14 @@ export const ThemeBtn = ({
     )}
     suppressHydrationWarning
   >
-    {title}
+    {responsiveTitle ? (
+      <>
+        <span className="responsive-label-mobile">{responsiveTitle.mobile}</span>
+        <span className="responsive-label-desktop">{responsiveTitle.desktop}</span>
+      </>
+    ) : (
+      title
+    )}
     {external && <ExternalIcon />}
   </Link>
 )

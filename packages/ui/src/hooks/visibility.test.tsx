@@ -34,7 +34,10 @@ describe('useOnScreen', () => {
 
     expect(observe).toHaveBeenCalledWith(element)
     act(() =>
-      intersectionCallback([{ isIntersecting: true } as IntersectionObserverEntry], {} as never)
+      intersectionCallback(
+        [{ target: element, isIntersecting: true } as IntersectionObserverEntry],
+        {} as never
+      )
     )
     expect(result.current).toBe(true)
     unmount()
@@ -44,6 +47,94 @@ describe('useOnScreen', () => {
   it('stays false when no element is mounted', () => {
     expect(renderHook(() => useOnScreen({ current: null })).result.current).toBe(false)
     expect(observe).not.toHaveBeenCalled()
+  })
+
+  it('shares one observer across consumers that use the same rootMargin', () => {
+    const constructorCalls = mock()
+    stubGlobal(
+      'IntersectionObserver',
+      class {
+        constructor() {
+          constructorCalls()
+        }
+        observe = observe
+        unobserve = unobserve
+      }
+    )
+
+    const firstElement = document.createElement('div')
+    const secondElement = document.createElement('div')
+    renderHook(() => useOnScreen({ current: firstElement }, '10px'))
+    renderHook(() => useOnScreen({ current: secondElement }, '10px'))
+
+    expect(constructorCalls).toHaveBeenCalledTimes(1)
+    expect(observe).toHaveBeenCalledWith(firstElement)
+    expect(observe).toHaveBeenCalledWith(secondElement)
+  })
+
+  it('creates a separate observer for a distinct rootMargin', () => {
+    const constructorCalls = mock()
+    stubGlobal(
+      'IntersectionObserver',
+      class {
+        constructor() {
+          constructorCalls()
+        }
+        observe = observe
+        unobserve = unobserve
+      }
+    )
+
+    renderHook(() => useOnScreen({ current: document.createElement('div') }, '40px'))
+    renderHook(() => useOnScreen({ current: document.createElement('div') }, '50px'))
+
+    expect(constructorCalls).toHaveBeenCalledTimes(2)
+  })
+
+  it('keeps notifying remaining consumers after a sibling unmounts', () => {
+    stubGlobal(
+      'IntersectionObserver',
+      class {
+        constructor(callback: IntersectionObserverCallback) {
+          intersectionCallback = callback
+        }
+        observe = observe
+        unobserve = unobserve
+      }
+    )
+
+    const firstElement = document.createElement('div')
+    const secondElement = document.createElement('div')
+    const first = renderHook(() => useOnScreen({ current: firstElement }, '70px'))
+    const second = renderHook(() => useOnScreen({ current: secondElement }, '70px'))
+
+    first.unmount()
+    expect(unobserve).toHaveBeenCalledWith(firstElement)
+
+    act(() =>
+      intersectionCallback(
+        [{ target: secondElement, isIntersecting: true } as IntersectionObserverEntry],
+        {} as never
+      )
+    )
+    expect(second.result.current).toBe(true)
+  })
+
+  it('disconnects a shared observer after its last consumer unmounts', () => {
+    const disconnect = mock()
+    stubGlobal(
+      'IntersectionObserver',
+      class {
+        observe = observe
+        unobserve = unobserve
+        disconnect = disconnect
+      }
+    )
+
+    const hook = renderHook(() => useOnScreen({ current: document.createElement('div') }, '80px'))
+    hook.unmount()
+
+    expect(disconnect).toHaveBeenCalledTimes(1)
   })
 })
 
