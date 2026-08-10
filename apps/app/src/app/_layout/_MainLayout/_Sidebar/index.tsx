@@ -4,9 +4,8 @@ import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { cn } from '@nl/ui/utils'
 
 // third-party
-import PerfectScrollbar from 'react-perfect-scrollbar'
-
 // project imports
+import { ScrollArea } from '@nl/ui/base/scroll-area'
 import MenuList from './_MenuList'
 import LogoSection from '../_LogoSection'
 import { openDrawer } from '@/store/slices/menu'
@@ -38,13 +37,11 @@ const Sidebar = () => {
 
   const drawer = useMemo(
     () => (
-      <PerfectScrollbar
-        component="div"
+      <ScrollArea
         style={{
           height: isSmallScreen ? 'calc(100vh - 56px)' : 'calc(100vh - 100px)',
-          paddingLeft: '16px',
-          paddingRight: '16px',
         }}
+        viewportClassName="px-4"
       >
         <div className="flex h-full flex-col justify-between">
           <div>
@@ -56,7 +53,7 @@ const Sidebar = () => {
             <LogoutButton sx={{ marginBottom: 12, width: '85%' }} />
           </div>
         </div>
-      </PerfectScrollbar>
+      </ScrollArea>
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [isSmallScreen]

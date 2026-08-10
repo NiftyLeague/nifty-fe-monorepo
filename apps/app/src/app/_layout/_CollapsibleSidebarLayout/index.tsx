@@ -1,7 +1,7 @@
 import { useEffect, ReactNode, SetStateAction, useCallback } from 'react'
-import PerfectScrollbar from 'react-perfect-scrollbar'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { Icon } from '@nl/ui/base/icon'
+import { ScrollArea } from '@nl/ui/base/scroll-area'
 
 const appHeaderHeight = 60
 
@@ -73,16 +73,16 @@ const CollapsibleSidebarLayout = ({
             <Icon name="x" size="md" />
           </button>
         )}
-        <PerfectScrollbar
+        <ScrollArea
           style={{
             height: matchDownLG
               ? `calc(100vh - ${appHeaderHeight}px)`
               : `calc(100vh - ${appHeaderHeight + 100}px)`,
-            padding: matchDownLG ? '44px 16px 20px' : '20px 16px',
           }}
+          viewportClassName={matchDownLG ? 'px-4 pt-11 pb-5' : 'px-4 py-5'}
         >
           {renderDrawer()}
-        </PerfectScrollbar>
+        </ScrollArea>
       </div>
 
       {/* Main grid */}
@@ -94,17 +94,17 @@ const CollapsibleSidebarLayout = ({
           transition: `margin 200ms cubic-bezier(${isDrawerOpen ? '0, 0, 0.2, 1' : '0.4, 0, 0.6, 1'}) 0ms`,
         }}
       >
-        <PerfectScrollbar
+        <ScrollArea
           style={{
-            padding: matchDownLG ? '10px 16px' : '16px 24px',
             height: `calc(100vh - ${appHeaderHeight + 100}px)`,
             borderRadius: '10px',
             backgroundColor: 'var(--color-sidebar)',
             marginRight: '24px',
           }}
+          viewportClassName={matchDownLG ? 'px-4 py-2.5' : 'px-6 py-4'}
         >
           {renderMain()}
-        </PerfectScrollbar>
+        </ScrollArea>
       </div>
     </div>
   )
