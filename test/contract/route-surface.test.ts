@@ -104,6 +104,7 @@ const networkProvider = 'apps/app/src/contexts/NetworkProvider.tsx'
 const graphQL = 'apps/app/src/hooks/useGraphQL.ts'
 const publicCarousel = 'apps/web/src/components/Carousel/index.tsx'
 const interactivePublicCarousel = 'apps/web/src/components/Carousel/InteractiveCarousel.tsx'
+const smashersLoginClient = 'apps/smashers/src/app/(auth_routes)/login/LoginClient.tsx'
 const privateShellLayout = 'apps/app/src/app/(private-routes)/layout.tsx'
 const sidebarProfile = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/_UserProfile/index.tsx'
 
@@ -368,6 +369,17 @@ describe('deferred Sentry client contract', () => {
 })
 
 describe('public route dependency contract', () => {
+  it('defers the Smashers PlayFab auth form behind an accessible loading boundary', () => {
+    const source = readFileSync(join(process.cwd(), smashersLoginClient), 'utf8')
+
+    expect(source).toContain("dynamic(() => import('@nl/playfab/components/PlayFabAuthForm')")
+    expect(source).toContain('ssr: false')
+    expect(source).toContain("from '@nl/ui/base/skeleton'")
+    expect(source).toContain('role="status"')
+    expect(source).toContain('aria-live="polite"')
+    expect(source).not.toContain("from '@nl/playfab/components/PlayFabAuthForm'")
+  })
+
   it('defers the public carousel library until its cards approach the viewport', () => {
     const shell = readFileSync(join(process.cwd(), publicCarousel), 'utf8')
     const interactive = readFileSync(join(process.cwd(), interactivePublicCarousel), 'utf8')
