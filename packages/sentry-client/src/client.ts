@@ -15,7 +15,7 @@ const reportSentryLoadError = (error: unknown): void => {
   console.error('Failed to load Sentry client SDK', error)
 }
 
-function initializeSentry(options: SentryInitOptions): Promise<SentryModule> {
+export function initializeSentry(options: SentryInitOptions): Promise<SentryModule> {
   const initOptions = (sentryInitOptions ??= options)
   sentryInitPromise ??= loadSentry().then((sentry) => {
     sentry.init(initOptions)
@@ -26,20 +26,6 @@ function initializeSentry(options: SentryInitOptions): Promise<SentryModule> {
 
 function getSentryForCapture(): Promise<SentryModule> {
   return sentryInitOptions ? initializeSentry(sentryInitOptions) : loadSentry()
-}
-
-export function scheduleSentryInit(enabled: boolean, options: SentryInitOptions): void {
-  if (!enabled || typeof window === 'undefined') return
-
-  const initialize = () => {
-    void initializeSentry(options).catch(reportSentryLoadError)
-  }
-
-  if ('requestIdleCallback' in window) {
-    window.requestIdleCallback(initialize, { timeout: 2000 })
-  } else {
-    globalThis.setTimeout(initialize, 0)
-  }
 }
 
 export function captureException(error: unknown): void {
