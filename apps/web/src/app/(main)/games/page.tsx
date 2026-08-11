@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import Image from 'next/image'
 
 import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
+import { LazyYouTubeEmbed } from '@nl/ui/custom/lazy-youtube-embed'
 import { ViewportVideo } from '@nl/ui/custom/viewport-video'
 import { cn } from '@nl/ui/utils'
 
@@ -125,14 +126,7 @@ const Games: NextPage = () => (
             <AnimatedWrapper>
               <div className="relative text-right transition-fade-slow transition-fade-start delay-normal mb-4">
                 {video.includes('youtube') ? (
-                  <iframe
-                    src={video}
-                    frameBorder="0"
-                    allow="autoplay; encrypted-media"
-                    allowFullScreen
-                    title={name}
-                    className={styles.video}
-                  />
+                  <LazyYouTubeEmbed src={video} title={name} className={styles.video} />
                 ) : (
                   <ViewportVideo
                     id="console-video"
