@@ -4,7 +4,6 @@ import Head from 'next/head'
 
 import { DeferredAnalytics } from '@nl/ui/gtm'
 import { customFontClassName } from '@nl/ui/fonts'
-import { FeatureFlagProvider } from '@/contexts/FeatureFlagsProvider'
 import { cn } from '@nl/ui/utils'
 
 import '@/styles/app.css'
@@ -84,9 +83,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
 
       <DeferredAnalytics />
 
-      <body suppressHydrationWarning>
-        <FeatureFlagProvider>{children}</FeatureFlagProvider>
-      </body>
+      <body suppressHydrationWarning>{children}</body>
     </html>
   )
 }
