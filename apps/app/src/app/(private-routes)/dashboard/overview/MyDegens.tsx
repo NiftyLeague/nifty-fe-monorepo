@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import xor from 'lodash/xor'
-import { v4 as uuidv4 } from 'uuid'
 import { Button } from '@nl/ui/base/button'
 import { Dialog, DialogContent } from '@nl/ui/base/dialog'
 
@@ -133,8 +132,8 @@ const MyDegens = (): React.ReactNode => {
         styles={{ mainRow: { minHeight: 300, maxHeight: 330, overflow: 'hidden' } }}
       >
         {loadingDegens ? (
-          [...Array(8)].map(() => (
-            <div className="w-full sm:w-[91.6667%]" key={uuidv4()}>
+          [...Array(8)].map((_, index) => (
+            <div className="w-full sm:w-[91.6667%]" key={`my-degen-skeleton-${index}`}>
               <SkeletonDegenPlaceholder />
             </div>
           ))
