@@ -1,6 +1,5 @@
 import type { PropsWithChildren } from 'react'
 import type { Metadata, Viewport } from 'next'
-import Head from 'next/head'
 
 import { customFontClassName } from '@nl/ui/fonts'
 import { cn } from '@nl/ui/utils'
@@ -60,9 +59,6 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" suppressHydrationWarning className={cn(customFontClassName, 'dark')}>
-      <Head>
-        <link rel="icon" href="/favicon/nl_purple/favicon.ico" />
-      </Head>
       <body suppressHydrationWarning>{children}</body>
     </html>
   )
