@@ -1,7 +1,6 @@
 import type { Rentals, RentalType } from '@/types/rentals'
 import { areEqualArrays } from '@/utils/array'
 import { capitalize } from '@/utils/string'
-import { v4 as uuidv4 } from 'uuid'
 import useLocalStorage from '@/hooks/useLocalStorage'
 import { RentalDataGrid } from '@/types/rentalDataGrid'
 import { formatTime } from '@/utils/dateTime'
@@ -110,7 +109,8 @@ export const transformRentals = (
       const roi = amIRenter ? (netEarning / costs) * 100 : 0
 
       return {
-        id: uuidv4(), // Change the id to uuid because it is not unique
+        // Keep a deterministic row key without generating a new UUID on every transform.
+        id: `${id}-${degen_id}-${renter_id}-${user_id}`,
         rentalId: id,
         renter: accounts?.player?.name || 'No address',
         playerAddress: accounts?.player?.address,

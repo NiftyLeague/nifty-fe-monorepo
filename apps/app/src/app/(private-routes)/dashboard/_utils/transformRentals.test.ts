@@ -4,7 +4,6 @@ import { mock } from 'bun:test'
 let transformRentals: typeof import('./transformRentals').transformRentals
 
 beforeEach(async () => {
-  mock.module('uuid', () => ({ v4: mock(() => 'generated-id') }))
   mock.module('@/hooks/useLocalStorage', () => ({
     default: mock(() => [{ length: 1, '0xplayer': 'Known Player' }, mock()]),
   }))
@@ -88,7 +87,7 @@ describe('transformRentals', () => {
       'direct-renter',
     ])
     expect(result[0]).toMatchObject({
-      id: 'generated-id',
+      id: 'rental-1-42-viewer-viewer',
       weeklyFee: 0,
       dailyFee: 3,
       costs: 30,
