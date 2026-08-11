@@ -1,6 +1,5 @@
 import type { PropsWithChildren } from 'react'
 import type { Metadata, Viewport } from 'next'
-import Head from 'next/head'
 
 import { DeferredAnalytics } from '@nl/ui/gtm'
 import { customFontClassName } from '@nl/ui/fonts'
@@ -77,10 +76,6 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" suppressHydrationWarning className={cn(customFontClassName, 'dark')}>
-      <Head>
-        <link rel="icon" href="/favicon/smashers/favicon.ico" />
-      </Head>
-
       <DeferredAnalytics />
 
       <body suppressHydrationWarning>{children}</body>

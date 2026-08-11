@@ -95,7 +95,8 @@ const deferredNicknameDialogConsumer =
 
 const authOnlyRouteLayouts = ['apps/app/src/app/(public-routes)/verification/layout.tsx']
 const nftOnlyRouteLayouts = ['apps/app/src/app/(public-routes)/mint-o-matic/layout.tsx']
-const publicProviderBoundary = 'apps/app/src/contexts/PublicAppContextWrapper.tsx'
+const publicRoutesLayout = 'apps/app/src/app/(public-routes)/layout.tsx'
+const stalePublicProviderBoundary = 'apps/app/src/contexts/PublicAppContextWrapper.tsx'
 const walletStorageBoundaries = [
   'apps/app/src/contexts/WalletAuthContextWrapper.tsx',
   'apps/app/src/contexts/WalletFeatureProviders.tsx',
@@ -152,11 +153,11 @@ const sidebarProfile = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/_UserProfi
 const staleWalletContextWrapper = 'apps/app/src/contexts/WalletContextWrapper.tsx'
 const deferredAnalyticsSource = 'packages/ui/src/lib/gtm/DeferredAnalytics.tsx'
 const analyticsLayouts = [
+  'apps/app/src/app/layout.tsx',
   'apps/web/src/app/(main)/layout.tsx',
   'apps/web/src/app/(special-routes)/invite/[game]/[refcode]/layout.tsx',
   'apps/web/src/app/(special-routes)/party/[game]/[refcode]/[partyID]/layout.tsx',
   'apps/smashers/src/app/layout.tsx',
-  'apps/app/src/app/layout.tsx',
 ]
 const deferredConsoleGameRoutes = [
   'apps/web/src/app/(main)/page.tsx',
@@ -179,6 +180,10 @@ const privateRoutesShell = 'apps/app/src/components/providers/PrivateRoutesShell
 const deferredNotifications = 'apps/app/src/components/providers/DeferredNotifications.tsx'
 const leaderboardsPage = 'apps/app/src/app/(public-routes)/leaderboards/page.tsx'
 const deferredLeaderboards = 'apps/app/src/components/providers/DeferredLeaderboards.tsx'
+const publicMainLayout = 'apps/app/src/app/_layout/_PublicMainLayout/index.tsx'
+const publicNavigation = 'apps/app/src/components/providers/PublicNavigation.tsx'
+const publicMobileNavigation = 'apps/app/src/components/providers/PublicMobileNavigation.tsx'
+const publicNavLinks = 'apps/app/src/components/providers/PublicNavLinks.tsx'
 
 describe('external route surface contract', () => {
   for (const [app, files] of Object.entries(appRouteContracts)) {
@@ -399,9 +404,12 @@ describe('mint route provider loading contract', () => {
 
 describe('public storage provider contract', () => {
   it('keeps wallet storage out of the shared public shell', () => {
-    const source = readFileSync(join(process.cwd(), publicProviderBoundary), 'utf8')
+    const source = readFileSync(join(process.cwd(), publicRoutesLayout), 'utf8')
 
     expect(source).not.toContain("from '@/contexts/LocalStorageContext'")
+    expect(source).not.toContain("from '@/contexts/FeatureFlagsContext'")
+    expect(source).not.toContain('PublicAppContextWrapper')
+    expect(existsSync(join(process.cwd(), stalePublicProviderBoundary))).toBe(false)
   })
 
   for (const file of walletStorageBoundaries) {
@@ -411,6 +419,34 @@ describe('public storage provider contract', () => {
       expect(source).toContain("from '@/contexts/LocalStorageContext'")
     })
   }
+})
+
+describe('public app shell contract', () => {
+  it('keeps the public route layout server-rendered', () => {
+    const layoutSource = readFileSync(join(process.cwd(), publicMainLayout), 'utf8')
+    const routeSource = readFileSync(join(process.cwd(), publicRoutesLayout), 'utf8')
+
+    expect(layoutSource).not.toContain("'use client'")
+    expect(layoutSource).toContain("from '@/components/providers/PublicNavigation'")
+    expect(routeSource).toContain("from '@/app/_layout/_PublicMainLayout'")
+  })
+
+  it('defers the mobile drawer and avoids heavy shell primitives in the eager graph', () => {
+    const navigationSource = readFileSync(join(process.cwd(), publicNavigation), 'utf8')
+    const mobileSource = readFileSync(join(process.cwd(), publicMobileNavigation), 'utf8')
+    const linksSource = readFileSync(join(process.cwd(), publicNavLinks), 'utf8')
+
+    expect(navigationSource).toContain("import('./PublicMobileNavigation')")
+    expect(navigationSource).not.toContain("from '@nl/ui/base/sheet'")
+    expect(navigationSource).not.toContain("from '@nl/ui/base/scroll-area'")
+    expect(navigationSource).not.toContain("from '@/components/extended/Breadcrumbs'")
+    expect(navigationSource).toContain('aria-controls="public-desktop-navigation"')
+    expect(mobileSource).toContain("from '@nl/ui/base/sheet'")
+    expect(mobileSource).toContain('<SheetTitle')
+    expect(mobileSource).toContain('<SheetDescription')
+    expect(mobileSource).toContain('id="public-mobile-navigation"')
+    expect(linksSource).toContain("aria-current={isSelected ? 'page' : undefined}")
+  })
 })
 
 describe('private provider loading contract', () => {
@@ -691,6 +727,21 @@ describe('shared analytics loading contract', () => {
       expect(source).toContain('DeferredAnalytics')
       expect(source).not.toContain('import { GoogleTagManager')
       expect(source).not.toContain('import { WebVitals')
+    })
+  }
+})
+
+describe('app-router metadata contract', () => {
+  for (const file of [
+    'apps/app/src/app/layout.tsx',
+    'apps/web/src/app/layout.tsx',
+    'apps/smashers/src/app/layout.tsx',
+  ]) {
+    it(`keeps ${file} on the Metadata API`, () => {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+
+      expect(source).not.toContain("from 'next/head'")
+      expect(source).not.toContain('<Head>')
     })
   }
 })
