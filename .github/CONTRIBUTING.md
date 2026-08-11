@@ -153,17 +153,20 @@ Keep pull requests focused and reviewable. Include screenshots or recordings for
 
 ## Workflow and check behavior
 
-| Event                                              | Expected automation                                                                   |
-| -------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| Pull request targeting `staging`                   | Fast validation: CI plus unit tests, ending in `Validation / Gate`                    |
-| Ordinary pull request targeting `main`             | Audit validation: CI, full tests, Security, and CodeQL, ending in `Validation / Gate` |
-| Exact Release Please pull request targeting `main` | Release-policy validation only, ending in `Validation / Gate`                         |
-| Scheduled or manual validation                     | Full audit tier                                                                       |
-| Push to a working branch                           | Draft PR workflow                                                                     |
-| Push to `staging`                                  | Promotion PR workflow; canonical validation waits for the PR event                    |
-| Push to `main`                                     | Release workflow; canonical validation already ran on the merged PR                   |
+| Event                                              | Expected automation                                                                    |
+| -------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| Draft pull request targeting `staging`             | No hosted validation; run local checks, then mark ready when the milestone is complete |
+| Ready pull request targeting `staging`             | Fast validation: CI plus unit tests, ending in `Validation / Gate`                     |
+| Ordinary pull request targeting `main`             | Audit validation: CI, full tests, Security, and CodeQL, ending in `Validation / Gate`  |
+| Exact Release Please pull request targeting `main` | Release-policy validation only, ending in `Validation / Gate`                          |
+| Scheduled or manual validation                     | Full audit tier                                                                        |
+| Push to a working branch                           | Draft PR workflow; Vercel deployments are disabled                                     |
+| Push to `staging`                                  | Promotion PR workflow; canonical validation waits for the PR event                     |
+| Push to `main`                                     | Release workflow; canonical validation already ran on the merged PR                    |
 
 The single validation caller keys concurrency by event and pull-request head. A newer update to the same pull request cancels its superseded validation run; scheduled and manual audits remain independent. The mode-aware orchestrator fans out only the jobs required by that event and always concludes with the stable aggregate gate.
+
+Draft feature work is intentionally cost-aware: local validation is the feedback loop while a pull request is draft. Marking the pull request ready for review starts hosted validation. Vercel projects disable Git-triggered deployments on feature branches through the versioned `git.deploymentEnabled` policy in `apps/*/vercel.json` and continue on `staging` and `main`; manual deployments remain available.
 
 Required checks are enforced by branch protection rulesets/branch protection. Do not duplicate their checklists in the pull request description; document validation commands and results instead.
 
