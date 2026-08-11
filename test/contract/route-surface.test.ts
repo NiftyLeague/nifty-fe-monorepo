@@ -70,6 +70,7 @@ const appRouteContracts: Record<string, string[]> = {
     'src/app/(private-routes)/dashboard/page.tsx',
     'src/app/(private-routes)/dashboard/items/page.tsx',
     'src/app/(private-routes)/dashboard/items/burner/page.tsx',
+    'src/app/(private-routes)/dashboard/gamer-profile/page.tsx',
     'src/app/(private-routes)/dashboard/rentals/page.tsx',
     'src/app/(private-routes)/dashboard/degens/page.tsx',
     'src/app/(private-routes)/dashboard/overview/page.tsx',
@@ -110,6 +111,9 @@ const dashboardItemsContent =
 const dashboardBurner = 'apps/app/src/app/(private-routes)/dashboard/items/burner/page.tsx'
 const dashboardBurnerContent =
   'apps/app/src/app/(private-routes)/dashboard/items/burner/ComicsBurnerContent.tsx'
+const gamerProfile = 'apps/app/src/app/(private-routes)/dashboard/gamer-profile/page.tsx'
+const gamerProfileContent =
+  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/GamerProfileContent.tsx'
 const privateShellBoundary = 'apps/app/src/components/providers/PrivateRoutesBoundary.tsx'
 const privateShell = 'apps/app/src/components/providers/PrivateRoutesShell.tsx'
 const dashboardDataProviderBoundary = 'apps/app/src/contexts/DashboardDataProviders.tsx'
@@ -597,6 +601,25 @@ describe('dashboard burner loading contract', () => {
     expect(contentSource).toContain("from './_components/machine'")
     expect(contentSource).toContain("from '@/hooks/useNetworkContext'")
     expect(contentSource).toContain('setRefreshKey((key) => key + 1)')
+  })
+})
+
+describe('gamer profile loading contract', () => {
+  it('keeps profile, wallet, and inventory graphs behind the route loading boundary', () => {
+    const pageSource = readFileSync(join(process.cwd(), gamerProfile), 'utf8')
+    const contentSource = readFileSync(join(process.cwd(), gamerProfileContent), 'utf8')
+
+    expect(pageSource).toContain("dynamic(() => import('./GamerProfileContent')")
+    expect(pageSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(pageSource).toContain('role="status"')
+    expect(pageSource).toContain('aria-live="polite"')
+    expect(pageSource).toContain('aria-busy="true"')
+    expect(pageSource).not.toContain("from 'wagmi'")
+    expect(pageSource).not.toContain("from '@/hooks/balances/useNFTsBalances'")
+    expect(contentSource).toContain("from 'wagmi'")
+    expect(contentSource).toContain("from '@/hooks/balances/useNFTsBalances'")
+    expect(contentSource).not.toContain('defaultValue')
+    expect(contentSource).toContain('GamerProfileProvider')
   })
 })
 
