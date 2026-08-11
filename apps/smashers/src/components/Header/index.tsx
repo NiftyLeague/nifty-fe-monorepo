@@ -10,6 +10,18 @@ export type ActiveModal = 'credits' | 'play' | 'trailer' | 'unity' | null
 
 const Header = ({ activeModal }: { activeModal: ActiveModal }) => (
   <div className={styles.hero}>
+    <picture className={styles.heroBackground}>
+      <source type="image/webp" srcSet="/img/games/smashers/background.webp" />
+      <Image
+        src="/img/games/smashers/background.gif"
+        alt=""
+        fill
+        unoptimized
+        loading="eager"
+        sizes="100vw"
+        className={styles.heroBackgroundImage}
+      />
+    </picture>
     <div className="dark-gradient-overlay !h-screen" />
     <div className={styles.heroContainer}>
       <Navbar />

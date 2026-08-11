@@ -49,7 +49,8 @@ const GameSection = () => {
         </div>
       </div>
       <AnimatedWrapper>
-        <div className="my-10 text-center transition-fade-slow transition-fade-start delay-lite">
+        <picture className="my-10 block text-center transition-fade-slow transition-fade-start delay-lite">
+          <source type="image/webp" srcSet="/img/games/smashers/party_modes.webp" />
           <Image
             src="/img/games/smashers/party_modes.gif"
             alt="Smashers Party Modes"
@@ -60,7 +61,7 @@ const GameSection = () => {
             loading="lazy"
             sizes="(max-width: 768px) 100vw, 1350px"
           />
-        </div>
+        </picture>
       </AnimatedWrapper>
     </div>
   )
