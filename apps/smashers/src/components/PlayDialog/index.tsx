@@ -59,7 +59,6 @@ const PlayContent = () => (
           style={{ width: '100%', maxWidth: '100%', height: 'auto' }}
         />
       </Link>
-      {/* <UnityDialog /> */}
     </div>
   </>
 )

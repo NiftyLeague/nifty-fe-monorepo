@@ -144,6 +144,9 @@ const graphQL = 'apps/app/src/hooks/useGraphQL.ts'
 const publicCarousel = 'apps/web/src/components/Carousel/index.tsx'
 const interactivePublicCarousel = 'apps/web/src/components/Carousel/InteractiveCarousel.tsx'
 const smashersLoginClient = 'apps/smashers/src/app/(auth_routes)/login/LoginClient.tsx'
+const smashersRootLayout = 'apps/smashers/src/app/layout.tsx'
+const smashersAuthLayout = 'apps/smashers/src/app/(auth_routes)/layout.tsx'
+const staleSmashersUnityDialog = 'apps/smashers/src/components/UnityDialog/index.tsx'
 const privateShellLayout = 'apps/app/src/app/(private-routes)/layout.tsx'
 const sidebarProfile = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/_UserProfile/index.tsx'
 const staleWalletContextWrapper = 'apps/app/src/contexts/WalletContextWrapper.tsx'
@@ -217,6 +220,17 @@ describe('shared notification loading contract', () => {
     expect(deferredSource).toContain("import('@/components/extended/Snackbar')")
     expect(deferredSource).toContain("import('@nl/ui/base/sonner')")
     expect(deferredSource).toContain('Promise.all')
+  })
+})
+
+describe('Smashers public shell contract', () => {
+  it('keeps feature flags scoped to authenticated routes', () => {
+    const rootLayoutSource = readFileSync(join(process.cwd(), smashersRootLayout), 'utf8')
+    const authLayoutSource = readFileSync(join(process.cwd(), smashersAuthLayout), 'utf8')
+
+    expect(rootLayoutSource).not.toContain('FeatureFlagProvider')
+    expect(authLayoutSource).toContain('FeatureFlagProvider')
+    expect(existsSync(join(process.cwd(), staleSmashersUnityDialog))).toBe(false)
   })
 })
 
