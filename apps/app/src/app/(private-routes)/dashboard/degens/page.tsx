@@ -25,7 +25,6 @@ import {
   getGridSizeClass,
   applySeventhTribesFix,
 } from '@/components/extended/DegensFilter/utils'
-import RenameDegenDialogContent from '@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent'
 import SectionTitle from '@/components/sections/SectionTitle'
 import { DEGEN_BASE_API_URL, DEGEN_COLLECTION_URL, PROFILE_FAV_DEGENS_API } from '@/constants/url'
 import { useProfileFavDegens } from '@/hooks/useGamerProfile'
@@ -38,6 +37,7 @@ import type { Degen } from '@/types/degens'
 import { v4 as uuidv4 } from 'uuid'
 import EmptyState from '@/components/EmptyState'
 import DeferredDegenDialog from '@/components/providers/DeferredDegenDialog'
+import DeferredRenameDegenDialog from '@/components/providers/DeferredRenameDegenDialog'
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import DegensTopNav from '@/components/extended/DegensTopNav'
 import useLocalStorageContext from '@/hooks/useLocalStorageContext'
@@ -406,7 +406,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
         open={isRenameDegenModalOpen}
         onOpenChange={(open) => !open && setIsRenameDegenModalOpen(false)}
       >
-        <RenameDegenDialogContent
+        <DeferredRenameDegenDialog
           degen={selectedDegen}
           onSuccess={() => setIsRenameDegenModalOpen(false)}
         />
