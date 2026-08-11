@@ -3,7 +3,7 @@ import type { Metadata, Viewport } from 'next'
 import Head from 'next/head'
 import Script from 'next/script'
 
-import { GoogleTagManager, WebVitals } from '@nl/ui/gtm'
+import { DeferredAnalytics } from '@nl/ui/gtm'
 import { customFontClassName } from '@nl/ui/fonts'
 import { cn } from '@nl/ui/utils'
 
@@ -67,12 +67,11 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <link rel="icon" href="/favicon/nl_purple/favicon.ico" />
       </Head>
 
-      <GoogleTagManager />
+      <DeferredAnalytics />
 
       <body suppressHydrationWarning>
         {children}
 
-        <WebVitals />
         <Script
           id="device-stats"
           strategy="afterInteractive"

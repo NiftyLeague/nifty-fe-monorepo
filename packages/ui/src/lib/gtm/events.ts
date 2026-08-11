@@ -1,8 +1,8 @@
 'use client'
 
 import type { NextWebVitalsMetric } from 'next/app'
-import { sendGTMEvent } from '@next/third-parties/google'
 import { EVENTS, EVENT_CATEGORIES } from './constants'
+import { pushToDataLayer } from './dataLayer'
 import type { CustomEventNames } from './constants'
 
 const getUserID = () => {
@@ -49,7 +49,7 @@ export const sendEvent = (event: EventName, params?: EventParams) => {
   const { event_category: category, user_id: userId, ...otherParams } = params ?? {}
   const event_category = category ?? getEventCategory(event)
   const user_id = userId ?? getUserID()
-  sendGTMEvent({ event, event_category, user_id, ...otherParams })
+  pushToDataLayer({ event, event_category, user_id, ...otherParams })
 }
 
 /* =================================|| USER AUTH ||================================= */
