@@ -146,6 +146,8 @@ const graphQL = 'apps/app/src/hooks/useGraphQL.ts'
 const publicCarousel = 'apps/web/src/components/Carousel/index.tsx'
 const interactivePublicCarousel = 'apps/web/src/components/Carousel/InteractiveCarousel.tsx'
 const smashersLoginClient = 'apps/smashers/src/app/(auth_routes)/login/LoginClient.tsx'
+const smashersProfilePage = 'apps/smashers/src/app/(auth_routes)/profile/page.tsx'
+const smashersProfileRoute = 'apps/smashers/src/app/(auth_routes)/profile/ProfileRoute.tsx'
 const smashersRootLayout = 'apps/smashers/src/app/layout.tsx'
 const smashersAuthLayout = 'apps/smashers/src/app/(auth_routes)/layout.tsx'
 const staleSmashersUnityDialog = 'apps/smashers/src/components/UnityDialog/index.tsx'
@@ -267,6 +269,24 @@ describe('Smashers public shell contract', () => {
     expect(rootLayoutSource).not.toContain('FeatureFlagProvider')
     expect(authLayoutSource).toContain('FeatureFlagProvider')
     expect(existsSync(join(process.cwd(), staleSmashersUnityDialog))).toBe(false)
+  })
+})
+
+describe('Smashers profile loading contract', () => {
+  it('keeps the interactive profile graph behind an accessible route boundary', () => {
+    const pageSource = readFileSync(join(process.cwd(), smashersProfilePage), 'utf8')
+    const routeSource = readFileSync(join(process.cwd(), smashersProfileRoute), 'utf8')
+
+    expect(pageSource).not.toContain("'use client'")
+    expect(pageSource).toContain("from './ProfileRoute'")
+    expect(pageSource).toContain('getSession')
+    expect(pageSource).toContain("redirect('/login')")
+    expect(routeSource).toContain("dynamic(() => import('./ProfileClient')")
+    expect(routeSource).toContain('ssr: false')
+    expect(routeSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(routeSource).toContain('role="status"')
+    expect(routeSource).toContain('aria-live="polite"')
+    expect(routeSource).toContain('aria-busy="true"')
   })
 })
 

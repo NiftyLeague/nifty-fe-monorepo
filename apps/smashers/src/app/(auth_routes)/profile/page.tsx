@@ -1,8 +1,6 @@
-import { Suspense } from 'react'
 import { redirect } from 'next/navigation'
 import { getSession } from '@/utils/session'
-import { Loading } from '@nl/ui/custom/loading'
-import ProfileClient from './ProfileClient'
+import ProfileRoute from './ProfileRoute'
 
 export default async function ProfilePage() {
   const session = await getSession()
@@ -18,9 +16,5 @@ export default async function ProfilePage() {
     // Add any other necessary session data here, but avoid methods
   }
 
-  return (
-    <Suspense fallback={<Loading />}>
-      <ProfileClient sessionData={sessionData} />
-    </Suspense>
-  )
+  return <ProfileRoute sessionData={sessionData} />
 }
