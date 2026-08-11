@@ -4,6 +4,7 @@ import type { PropsWithChildren } from 'react'
 import { headers } from 'next/headers'
 
 import { AuthTokenProvider } from '@/contexts/AuthTokenContext'
+import { LocalStorageProvider } from '@/contexts/LocalStorageContext'
 import { Web3ModalProvider } from '@/contexts/Web3ModalContext'
 
 /**
@@ -16,8 +17,10 @@ export default async function WalletAuthContextWrapper({ children }: PropsWithCh
   const cookies = (await headers()).get('cookie')
 
   return (
-    <Web3ModalProvider cookies={cookies}>
-      <AuthTokenProvider>{children}</AuthTokenProvider>
-    </Web3ModalProvider>
+    <LocalStorageProvider>
+      <Web3ModalProvider cookies={cookies}>
+        <AuthTokenProvider>{children}</AuthTokenProvider>
+      </Web3ModalProvider>
+    </LocalStorageProvider>
   )
 }
