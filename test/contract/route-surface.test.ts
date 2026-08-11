@@ -168,6 +168,9 @@ const sharedDeferredSection = 'packages/ui/src/components/custom/deferred-sectio
 const webHomePage = 'apps/web/src/app/(main)/page.tsx'
 const webNavbar = 'apps/web/src/components/Navbar/index.tsx'
 const sharedWebNavbar = 'packages/ui/src/components/custom/navbar/index.tsx'
+const webCommunityPage = 'apps/web/src/app/(main)/community/page.tsx'
+const webTeamPage = 'apps/web/src/app/(main)/team/page.tsx'
+const webCarousel = 'apps/web/src/components/Carousel/index.tsx'
 const smashersHomePage = 'apps/smashers/src/app/page.tsx'
 const webDeferredHomeSections = 'apps/web/src/components/DeferredHomeSections.tsx'
 const smashersDeferredHomeSections = 'apps/smashers/src/components/DeferredHomeSections.tsx'
@@ -754,6 +757,21 @@ describe('web public navigation contract', () => {
     expect(sharedNavbarSource).toContain("import { ActiveNavLink } from './ActiveNavLink'")
     expect(sharedNavbarSource).toContain('NavigationMenu')
     expect(sharedNavbarSource).toContain('Sheet')
+  })
+})
+
+describe('web marketing page boundary contract', () => {
+  it('keeps static marketing pages server-rendered while deferring interaction', () => {
+    const communitySource = readFileSync(join(process.cwd(), webCommunityPage), 'utf8')
+    const teamSource = readFileSync(join(process.cwd(), webTeamPage), 'utf8')
+    const carouselSource = readFileSync(join(process.cwd(), webCarousel), 'utf8')
+
+    expect(communitySource).not.toContain("'use client'")
+    expect(communitySource).not.toContain('useMediaQuery')
+    expect(communitySource).toContain('sliding-background-wrapper')
+    expect(teamSource).not.toContain("'use client'")
+    expect(teamSource).toContain("import Carousel from '@/components/Carousel'")
+    expect(carouselSource).toContain("'use client'")
   })
 })
 
