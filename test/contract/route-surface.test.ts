@@ -96,6 +96,14 @@ const authUrls = 'apps/app/src/constants/auth-urls.ts'
 const walletModal = 'apps/app/src/contexts/WalletModal.ts'
 const web3ModalContext = 'apps/app/src/contexts/Web3ModalContext.tsx'
 const authTokenContext = 'apps/app/src/contexts/AuthTokenContext.tsx'
+const mintNetworkBoundary = 'apps/app/src/components/providers/MintNetworkBoundary.tsx'
+const mintPage = 'apps/app/src/app/(public-routes)/mint-o-matic/page.tsx'
+const mintWalletBoundary = 'apps/app/src/contexts/WalletMintContextWrapper.tsx'
+const networkContext = 'apps/app/src/contexts/NetworkContext.tsx'
+const networkProvider = 'apps/app/src/contexts/NetworkProvider.tsx'
+const graphQL = 'apps/app/src/hooks/useGraphQL.ts'
+const publicCarousel = 'apps/web/src/components/Carousel/index.tsx'
+const interactivePublicCarousel = 'apps/web/src/components/Carousel/InteractiveCarousel.tsx'
 const privateShellLayout = 'apps/app/src/app/(private-routes)/layout.tsx'
 const sidebarProfile = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/_UserProfile/index.tsx'
 
@@ -177,6 +185,39 @@ describe('NFT-only route provider contract', () => {
   }
 })
 
+describe('mint route provider loading contract', () => {
+  it('keeps the heavy network provider out of the mint eligibility boundary', () => {
+    const source = readFileSync(join(process.cwd(), mintWalletBoundary), 'utf8')
+
+    expect(source).not.toContain('NetworkProvider')
+    expect(source).toContain('DegenOwnershipProvider')
+  })
+
+  it('loads the network provider only for the mint canvas with an accessible state', () => {
+    const pageSource = readFileSync(join(process.cwd(), mintPage), 'utf8')
+    const boundarySource = readFileSync(join(process.cwd(), mintNetworkBoundary), 'utf8')
+
+    expect(pageSource).toContain('MintNetworkBoundary')
+    expect(boundarySource).toContain("import('@/contexts/NetworkProvider')")
+    expect(boundarySource).toContain('NEXT_PUBLIC_AUDIT_FIXTURE')
+    expect(boundarySource).toContain('role="status"')
+    expect(boundarySource).toContain('<Skeleton')
+  })
+
+  it('keeps the network context definition lightweight', () => {
+    const contextSource = readFileSync(join(process.cwd(), networkContext), 'utf8')
+    const providerSource = readFileSync(join(process.cwd(), networkProvider), 'utf8')
+    const graphQLSource = readFileSync(join(process.cwd(), graphQL), 'utf8')
+
+    for (const heavyImport of ["from '@/hooks/useContractLoader'", "from '@/hooks/useNotify'"]) {
+      expect(contextSource).not.toContain(heavyImport)
+      expect(providerSource).toContain(heavyImport)
+    }
+    expect(graphQLSource).toContain('useAccount')
+    expect(graphQLSource).not.toContain("from '@/hooks/useNetworkContext'")
+  })
+})
+
 describe('public storage provider contract', () => {
   it('keeps wallet storage out of the shared public shell', () => {
     const source = readFileSync(join(process.cwd(), publicProviderBoundary), 'utf8')
@@ -207,7 +248,7 @@ describe('private provider loading contract', () => {
   it('keeps the data provider boundary explicit and dashboard-scoped', () => {
     const source = readFileSync(join(process.cwd(), dashboardDataProviderBoundary), 'utf8')
 
-    expect(source).toContain("from '@/contexts/NetworkContext'")
+    expect(source).toContain("from '@/contexts/NetworkProvider'")
     expect(source).toContain("from '@/contexts/IMXContext'")
     expect(source).toContain("from '@/contexts/NFTsBalanceContext'")
     expect(source).toContain("from '@/contexts/TokensBalanceContext'")
@@ -327,6 +368,20 @@ describe('deferred Sentry client contract', () => {
 })
 
 describe('public route dependency contract', () => {
+  it('defers the public carousel library until its cards approach the viewport', () => {
+    const shell = readFileSync(join(process.cwd(), publicCarousel), 'utf8')
+    const interactive = readFileSync(join(process.cwd(), interactivePublicCarousel), 'utf8')
+
+    expect(shell).toContain("import('./InteractiveCarousel')")
+    expect(shell).toContain('IntersectionObserver')
+    expect(shell).not.toContain("from 'react-multi-carousel'")
+    expect(shell).not.toContain('react-multi-carousel/lib/styles.css')
+    expect(interactive).toContain("from 'react-multi-carousel'")
+    expect(interactive).toContain('react-multi-carousel/lib/styles.css')
+    expect(interactive).toContain('ssr={true}')
+    expect(interactive).toContain('autoPlay={true}')
+  })
+
   it('keeps API-only constants separate from the contract registry', () => {
     const source = readFileSync(join(process.cwd(), 'apps/app/src/constants/api.ts'), 'utf8')
 

@@ -2,9 +2,9 @@
 
 import { useQuery, type UseQueryResult } from '@tanstack/react-query'
 import { request } from 'graphql-request'
+import { useAccount } from 'wagmi'
 
 import type { CharactersQueryData, OwnerQueryData } from '@/types/graph'
-import useNetworkContext from '@/hooks/useNetworkContext'
 import ID_SEARCH_QUERY from '@/queries/ID_SEARCH_QUERY'
 import OWNER_QUERY from '@/queries/OWNER_QUERY'
 import { SUBGRAPH_URI, SUBGRAPH_DEV_URI } from '@/constants'
@@ -37,7 +37,7 @@ export function useOwnerSearch(
   overrideAddress?: `0x${string}`
 ): UseQueryResult<OwnerQueryData['owner']> {
   const { isLoggedIn } = useAuth()
-  const { address } = useNetworkContext()
+  const { address } = useAccount()
   const key = (overrideAddress ?? address)?.toLowerCase() ?? ''
   const variables = { address: key }
   return useQuery({
