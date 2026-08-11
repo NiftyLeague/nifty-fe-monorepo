@@ -155,6 +155,9 @@ const smashersAuthLayout = 'apps/smashers/src/app/(auth_routes)/layout.tsx'
 const staleSmashersUnityDialog = 'apps/smashers/src/components/UnityDialog/index.tsx'
 const privateShellLayout = 'apps/app/src/app/(private-routes)/layout.tsx'
 const sidebarProfile = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/_UserProfile/index.tsx'
+const localStorageHook = 'apps/app/src/hooks/useLocalStorage.ts'
+const contractReaderHook = 'apps/app/src/hooks/useContractReader.ts'
+const valueEqualityUtility = 'apps/app/src/utils/value-equality.ts'
 const staleWalletContextWrapper = 'apps/app/src/contexts/WalletContextWrapper.tsx'
 const deferredAnalyticsSource = 'packages/ui/src/lib/gtm/DeferredAnalytics.tsx'
 const analyticsLayouts = [
@@ -668,6 +671,19 @@ describe('private provider loading contract', () => {
     expect(profileSource).not.toContain('SidebarWalletActions')
     expect(profileSource).not.toContain("from '@/hooks/useNetworkContext'")
     expect(profileSource).not.toContain("from '@/hooks/writeContracts/useClaimNFTL'")
+  })
+})
+
+describe('shared value equality contract', () => {
+  it('keeps lodash equality out of eager app utilities', () => {
+    const utilitySource = readFileSync(join(process.cwd(), valueEqualityUtility), 'utf8')
+
+    expect(utilitySource).not.toContain('lodash')
+    for (const file of [localStorageHook, contractReaderHook]) {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+      expect(source).toContain("from '@/utils/value-equality'")
+      expect(source).not.toContain("from 'lodash/isEqual'")
+    }
   })
 })
 
