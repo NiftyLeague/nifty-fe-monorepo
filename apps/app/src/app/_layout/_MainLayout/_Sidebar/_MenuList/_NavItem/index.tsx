@@ -1,13 +1,11 @@
-import { useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import { cn } from '@nl/ui/utils'
 import { Icon } from '@nl/ui/base/icon'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
-import { useDispatch } from '@/store/hooks'
-import { activeItem, openDrawer } from '@/store/slices/menu'
 import Chip from '@/components/extended/Chip'
+import { useNavigation } from '@/contexts/NavigationContext'
 
 // types
 import type { LinkTarget, NavItemType } from '@/types'
@@ -22,7 +20,7 @@ interface NavItemProps {
 const NavItem = ({ item, level }: NavItemProps) => {
   const pathname = usePathname()
   const matchesSM = useMediaQuery('(max-width:1024px)')
-  const dispatch = useDispatch()
+  const { setDrawerOpen } = useNavigation()
   const isSelected = pathname === item.url
 
   let itemTarget: LinkTarget = '_self'
@@ -30,17 +28,9 @@ const NavItem = ({ item, level }: NavItemProps) => {
     itemTarget = '_blank'
   }
 
-  const itemHandler = (id: string) => {
-    dispatch(activeItem([id]))
-    matchesSM && dispatch(openDrawer(false))
+  const itemHandler = () => {
+    if (matchesSM) setDrawerOpen(false)
   }
-
-  // active menu item when page load and route is changed
-  useEffect(() => {
-    if (pathname.toString().split('/').includes(item.id!)) {
-      dispatch(activeItem([item.id!]))
-    }
-  }, [item.id, pathname, dispatch])
 
   const inner = (
     <>
@@ -90,7 +80,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
         rel="noopener noreferrer"
         className={linkClass}
         style={style}
-        onClick={() => itemHandler(item.id!)}
+        onClick={itemHandler}
       >
         {inner}
       </a>
@@ -103,7 +93,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
       target={itemTarget}
       className={linkClass}
       style={style}
-      onClick={() => itemHandler(item.id!)}
+      onClick={itemHandler}
     >
       {inner}
     </Link>

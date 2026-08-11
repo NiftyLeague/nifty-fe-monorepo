@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'bun:test'
 import accountReducer, { initialState as accountInitialState, login, logout } from './account'
-import menuReducer, { activeItem, openDrawer } from './menu'
 import snackbarReducer, { closeSnackbar, openSnackbar } from './snackbar'
 
 describe('account reducer', () => {
@@ -9,14 +8,6 @@ describe('account reducer', () => {
     expect(loggedIn.isLoggedIn).toBe(true)
     expect(accountInitialState.isLoggedIn).toBe(false)
     expect(accountReducer(loggedIn, logout()).isLoggedIn).toBe(false)
-  })
-})
-
-describe('menu reducer', () => {
-  it('updates active items and drawer visibility', () => {
-    const selected = menuReducer(undefined, activeItem(['games']))
-    expect(selected.openItem).toEqual(['games'])
-    expect(menuReducer(selected, openDrawer(true)).drawerOpen).toBe(true)
   })
 })
 

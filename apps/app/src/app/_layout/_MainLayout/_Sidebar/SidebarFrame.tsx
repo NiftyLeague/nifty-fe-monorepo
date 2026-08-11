@@ -7,8 +7,7 @@ import { ScrollArea } from '@nl/ui/base/scroll-area'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { cn } from '@nl/ui/utils'
 
-import { openDrawer } from '@/store/slices/menu'
-import { useDispatch, useSelector } from '@/store/hooks'
+import { useNavigation } from '@/contexts/NavigationContext'
 import LogoSection from '../_LogoSection'
 
 const appDrawerWidth = 260
@@ -20,8 +19,7 @@ interface SidebarFrameProps extends PropsWithChildren {
 
 function SidebarFrame({ children, footer }: SidebarFrameProps) {
   const isSmallScreen = useMediaQuery('(max-width:1024px)')
-  const dispatch = useDispatch()
-  const { drawerOpen } = useSelector((state) => state.menu)
+  const { drawerOpen, toggleDrawer } = useNavigation()
 
   const logo = useMemo(
     () => (
@@ -64,7 +62,7 @@ function SidebarFrame({ children, footer }: SidebarFrameProps) {
               ? 'pointer-events-auto bg-black/50 opacity-100'
               : 'pointer-events-none opacity-0'
           )}
-          onClick={() => dispatch(openDrawer(!drawerOpen))}
+          onClick={toggleDrawer}
         >
           <div
             className="bg-sidebar text-sidebar-foreground absolute inset-y-0 left-0 border-r-0"
