@@ -6,6 +6,7 @@ import { headers } from 'next/headers'
 import AuditFixtureMintContextWrapper from '@/contexts/AuditFixtureMintContextWrapper'
 import { AuthTokenProvider } from '@/contexts/AuthTokenContext'
 import { DegenOwnershipProvider } from '@/contexts/DegenOwnershipContext'
+import { LocalStorageProvider } from '@/contexts/LocalStorageContext'
 import { NetworkProvider } from '@/contexts/NetworkContext'
 import { Web3ModalProvider } from '@/contexts/Web3ModalContext'
 
@@ -30,5 +31,9 @@ export default async function WalletMintContextWrapper({ children }: PropsWithCh
     </NetworkProvider>
   )
 
-  return <Web3ModalProvider cookies={cookies}>{walletContexts}</Web3ModalProvider>
+  return (
+    <LocalStorageProvider>
+      <Web3ModalProvider cookies={cookies}>{walletContexts}</Web3ModalProvider>
+    </LocalStorageProvider>
+  )
 }

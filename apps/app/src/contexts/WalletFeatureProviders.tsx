@@ -5,6 +5,7 @@ import type { PropsWithChildren } from 'react'
 import AuditFixtureContextWrapper from '@/contexts/AuditFixtureContextWrapper'
 import { AuthTokenProvider } from '@/contexts/AuthTokenContext'
 import { IMXProvider } from '@/contexts/IMXContext'
+import { LocalStorageProvider } from '@/contexts/LocalStorageContext'
 import { NetworkProvider } from '@/contexts/NetworkContext'
 import { NFTsBalanceProvider } from '@/contexts/NFTsBalanceContext'
 import { TokensBalanceProvider } from '@/contexts/TokensBalanceContext'
@@ -28,5 +29,9 @@ export default function WalletFeatureProviders({ children }: PropsWithChildren) 
     </NetworkProvider>
   )
 
-  return <Web3ModalProvider cookies={cookies}>{walletContexts}</Web3ModalProvider>
+  return (
+    <LocalStorageProvider>
+      <Web3ModalProvider cookies={cookies}>{walletContexts}</Web3ModalProvider>
+    </LocalStorageProvider>
+  )
 }
