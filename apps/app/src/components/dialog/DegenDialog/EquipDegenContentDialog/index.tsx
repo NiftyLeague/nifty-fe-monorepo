@@ -10,8 +10,7 @@ import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import { Title } from '@nl/ui/custom/typography'
 import { cn } from '@nl/ui/utils'
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
-import { useDispatch } from '@/store/hooks'
-import { openSnackbar } from '@/store/slices/snackbar'
+import { useNotification } from '@/contexts/NotificationContext'
 import { COMICS_PURCHASE_URL } from '@/constants/url'
 import type { Degen } from '@/types/degens'
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
@@ -42,7 +41,7 @@ const multipliers: number[] = [2, 3, 2, 3, 4, 2]
 const initEquipped: boolean[] = new Array(6).fill(false)
 
 const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) => {
-  const dispatch = useDispatch()
+  const { openSnackbar } = useNotification()
   const { comicsBalances, loadingComics } = useNFTsBalances()
   const filteredComics = useMemo(
     () => comicsBalances.filter((comic) => comic.balance && comic.balance > 0),
@@ -110,17 +109,15 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
     gtm.sendEvent(GTM_EVENTS.DEGEN_EQUIP_STARTED)
     // Should call proper api here
     setEquipped(pendingEquipped)
-    dispatch(
-      openSnackbar({
-        open: true,
-        message: 'Settings saved successfuly...',
-        variant: 'alert',
-        alert: { color: 'success' },
-        close: false,
-      })
-    )
+    openSnackbar({
+      open: true,
+      message: 'Settings saved successfuly...',
+      variant: 'alert',
+      alert: { color: 'success' },
+      close: false,
+    })
     gtm.sendEvent(GTM_EVENTS.DEGEN_EQUIP_SUCCESS)
-  }, [dispatch, pendingEquipped])
+  }, [openSnackbar, pendingEquipped])
 
   const getSlotImage = useCallback(
     (index: number) => {
