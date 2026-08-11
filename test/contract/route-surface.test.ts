@@ -562,11 +562,34 @@ describe('public route dependency contract', () => {
       'utf8'
     )
 
-    expect(page).toContain('PublicDegenDialog')
+    const deferredDialog = readFileSync(
+      join(process.cwd(), 'apps/app/src/components/providers/DeferredPublicDegenDialog.tsx'),
+      'utf8'
+    )
+
+    expect(page).toContain('DeferredPublicDegenDialog')
     expect(page).not.toContain('WalletDegenDialog')
     expect(dialog).toContain("from '@nl/ui/base/dialog'")
     expect(dialog).not.toContain('WalletFeatureProviders')
     expect(dialog).not.toContain('useNetworkContext')
+    expect(deferredDialog).toContain("import('@/components/dialog/PublicDegenDialog')")
+    expect(deferredDialog).toContain('DeferredDialogLoading')
+  })
+
+  it('defers the public degen filter behind an accessible loading boundary', () => {
+    const page = readFileSync(
+      join(process.cwd(), 'apps/app/src/app/(public-routes)/degens/page.tsx'),
+      'utf8'
+    )
+    const deferredFilter = readFileSync(
+      join(process.cwd(), 'apps/app/src/components/providers/DeferredDegensFilter.tsx'),
+      'utf8'
+    )
+
+    expect(page).toContain('DeferredDegensFilter')
+    expect(page).not.toContain("from '@/components/extended/DegensFilter'")
+    expect(deferredFilter).toContain("import('@/components/extended/DegensFilter')")
+    expect(deferredFilter).toContain('DeferredDialogLoading')
   })
 
   it('keeps wallet-backed game providers out of public game cards', () => {
