@@ -96,7 +96,7 @@ const publicProviderBoundary = 'apps/app/src/contexts/PublicAppContextWrapper.ts
 const walletStorageBoundaries = [
   'apps/app/src/contexts/WalletAuthContextWrapper.tsx',
   'apps/app/src/contexts/WalletFeatureProviders.tsx',
-  'apps/app/src/contexts/WalletMintContextWrapper.tsx',
+  'apps/app/src/components/providers/MintProviders.tsx',
 ]
 const dashboardOverview = 'apps/app/src/app/(private-routes)/dashboard/overview/page.tsx'
 const privateShellBoundary = 'apps/app/src/components/providers/PrivateRoutesBoundary.tsx'
@@ -115,7 +115,11 @@ const web3ModalContext = 'apps/app/src/contexts/Web3ModalContext.tsx'
 const authTokenContext = 'apps/app/src/contexts/AuthTokenContext.tsx'
 const mintNetworkBoundary = 'apps/app/src/components/providers/MintNetworkBoundary.tsx'
 const mintPage = 'apps/app/src/app/(public-routes)/mint-o-matic/page.tsx'
-const mintWalletBoundary = 'apps/app/src/contexts/WalletMintContextWrapper.tsx'
+const mintPageContent = 'apps/app/src/components/providers/MintPageContent.tsx'
+const deferredMintPage = 'apps/app/src/components/providers/DeferredMintPage.tsx'
+const mintWalletBoundary = 'apps/app/src/components/providers/MintProviders.tsx'
+const deferredMintWalletBoundary = 'apps/app/src/components/providers/DeferredMintProviders.tsx'
+const walletProviderFallbacks = 'apps/app/src/components/providers/WalletProviderFallbacks.tsx'
 const networkContext = 'apps/app/src/contexts/NetworkContext.tsx'
 const networkProvider = 'apps/app/src/contexts/NetworkProvider.tsx'
 const graphQL = 'apps/app/src/hooks/useGraphQL.ts'
@@ -259,7 +263,7 @@ describe('NFT-only route provider contract', () => {
     it(`keeps dashboard token balances out of ${file}`, () => {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
 
-      expect(source).toContain('WalletMintContextWrapper')
+      expect(source).toContain('DeferredMintProviders')
       expect(source).not.toContain("from '@/contexts/WalletContextWrapper'")
       expect(source).not.toContain("from '@/contexts/AuditFixtureContextWrapper'")
     })
@@ -275,14 +279,28 @@ describe('mint route provider loading contract', () => {
   })
 
   it('loads the network provider only for the mint canvas with an accessible state', () => {
-    const pageSource = readFileSync(join(process.cwd(), mintPage), 'utf8')
+    const pageSource = readFileSync(join(process.cwd(), mintPageContent), 'utf8')
     const boundarySource = readFileSync(join(process.cwd(), mintNetworkBoundary), 'utf8')
 
-    expect(pageSource).toContain('MintNetworkBoundary')
+    expect(pageSource).toContain('DeferredCharacterCreator')
     expect(boundarySource).toContain("import('@/contexts/NetworkProvider')")
     expect(boundarySource).toContain('NEXT_PUBLIC_AUDIT_FIXTURE')
     expect(boundarySource).toContain('role="status"')
     expect(boundarySource).toContain('<Skeleton')
+  })
+
+  it('keeps wallet and mint content out of the initial route client segment', () => {
+    const pageSource = readFileSync(join(process.cwd(), mintPage), 'utf8')
+    const deferredPageSource = readFileSync(join(process.cwd(), deferredMintPage), 'utf8')
+    const deferredProvidersSource = readFileSync(
+      join(process.cwd(), deferredMintWalletBoundary),
+      'utf8'
+    )
+
+    expect(pageSource).toContain('DeferredMintPage')
+    expect(pageSource).not.toContain("from '@/contexts/")
+    expect(deferredPageSource).toContain("import('./MintPageContent')")
+    expect(deferredProvidersSource).toContain("import('./MintProviders')")
   })
 
   it('keeps the network context definition lightweight', () => {
@@ -376,6 +394,7 @@ describe('private provider loading contract', () => {
 
   it('keeps AppKit UI initialization out of the eager auth shell', () => {
     const providerSource = readFileSync(join(process.cwd(), web3ModalContext), 'utf8')
+    const fallbackSource = readFileSync(join(process.cwd(), walletProviderFallbacks), 'utf8')
     const authSource = readFileSync(join(process.cwd(), authTokenContext), 'utf8')
     const modalSource = readFileSync(join(process.cwd(), walletModal), 'utf8')
 
@@ -384,9 +403,9 @@ describe('private provider loading contract', () => {
     expect(providerSource).not.toContain('createAppKit')
     expect(providerSource).not.toContain('@reown/appkit/react')
     expect(providerSource).not.toContain('@/constants/contracts')
-    expect(providerSource).toContain('<Skeleton')
-    expect(providerSource).toContain('role="status"')
-    expect(providerSource).toContain('role="alert"')
+    expect(fallbackSource).toContain('<Skeleton')
+    expect(fallbackSource).toContain('role="status"')
+    expect(fallbackSource).toContain('role="alert"')
     expect(providerSource).toContain('Retry')
     expect(authSource).not.toContain('useAppKit')
     expect(authSource).not.toContain('useAppKitEvents')
