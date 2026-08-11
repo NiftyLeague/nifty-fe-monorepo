@@ -2,6 +2,7 @@ import Image from 'next/image'
 import type { NextPage } from 'next'
 import { cn } from '@nl/ui/utils'
 import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
+import { LazyYouTubeEmbed } from '@nl/ui/custom/lazy-youtube-embed'
 import ThemeBtnGroup from '@/components/ThemeBtnGroup'
 import styles from './index.module.css'
 
@@ -68,11 +69,8 @@ const CompeteAndEarn: NextPage = () => {
         <div className="w-full md:w-1/2">
           <AnimatedWrapper>
             <div className="relative text-right transition-fade-slow transition-fade-start delay-normal mb-4 md:mb-0 ps-0 lg:ps-5">
-              <iframe
+              <LazyYouTubeEmbed
                 src="https://www.youtube.com/embed/wv_fI1PPBi0"
-                frameBorder="0"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
                 title="Nifty League Compete & Earn"
                 className={styles.video}
               />
