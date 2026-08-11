@@ -208,6 +208,11 @@ const degensClientPage = 'apps/app/src/app/(public-routes)/degens/AllDegensPage.
 const publicMainLayout = 'apps/app/src/app/_layout/_PublicMainLayout/index.tsx'
 const publicNavigation = 'apps/app/src/components/providers/PublicNavigation.tsx'
 const publicMobileNavigation = 'apps/app/src/components/providers/PublicMobileNavigation.tsx'
+const publicDesktopSidebarToggle =
+  'apps/app/src/components/providers/PublicDesktopSidebarToggle.tsx'
+const publicMobileNavigationTrigger =
+  'apps/app/src/components/providers/PublicMobileNavigationTrigger.tsx'
+const publicMainContent = 'apps/app/src/components/providers/PublicMainContent.tsx'
 const publicNavLinks = 'apps/app/src/components/providers/PublicNavLinks.tsx'
 const verificationPage = 'apps/app/src/app/verification/page.tsx'
 const verificationLayout = 'apps/app/src/app/verification/layout.tsx'
@@ -554,15 +559,31 @@ describe('public app shell contract', () => {
   it('defers the mobile drawer and avoids heavy shell primitives in the eager graph', () => {
     const navigationSource = readFileSync(join(process.cwd(), publicNavigation), 'utf8')
     const mobileSource = readFileSync(join(process.cwd(), publicMobileNavigation), 'utf8')
+    const desktopToggleSource = readFileSync(
+      join(process.cwd(), publicDesktopSidebarToggle),
+      'utf8'
+    )
+    const mobileTriggerSource = readFileSync(
+      join(process.cwd(), publicMobileNavigationTrigger),
+      'utf8'
+    )
+    const mainContentSource = readFileSync(join(process.cwd(), publicMainContent), 'utf8')
     const linksSource = readFileSync(join(process.cwd(), publicNavLinks), 'utf8')
 
-    expect(navigationSource).toContain("import('./PublicMobileNavigation')")
+    expect(navigationSource).not.toContain("'use client'")
+    expect(navigationSource).toContain("from './PublicDesktopSidebarToggle'")
+    expect(navigationSource).toContain("from './PublicMobileNavigationTrigger'")
+    expect(navigationSource).toContain("from './PublicMainContent'")
     expect(navigationSource).not.toContain("from '@nl/ui/base/sheet'")
     expect(navigationSource).not.toContain("from '@nl/ui/base/scroll-area'")
     expect(navigationSource).not.toContain("from '@nl/ui/base/icon'")
-    expect(navigationSource).toContain("from 'lucide-react'")
     expect(navigationSource).not.toContain("from '@/components/extended/Breadcrumbs'")
-    expect(navigationSource).toContain('aria-controls="public-desktop-navigation"')
+    expect(desktopToggleSource).toContain("from '@nl/ui/base/button'")
+    expect(desktopToggleSource).toContain('data-sidebar-open')
+    expect(desktopToggleSource).toContain('aria-controls="public-desktop-navigation"')
+    expect(mobileTriggerSource).toContain("import('./PublicMobileNavigation')")
+    expect(mobileTriggerSource).toContain("from '@nl/ui/base/button'")
+    expect(mainContentSource).toContain('usePathname')
     expect(mobileSource).toContain("from '@nl/ui/base/sheet'")
     expect(mobileSource).toContain('<SheetTitle')
     expect(mobileSource).toContain('<SheetDescription')
