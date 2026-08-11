@@ -12,7 +12,7 @@ import {
   GET_GAMER_PROFILE_API,
   MY_PROFILE_API_URL,
   PROFILE_FAV_DEGENS_API,
-} from '@/constants/url'
+} from '@/constants/api'
 
 export const isAuditFixtureEnabled = process.env.NEXT_PUBLIC_AUDIT_FIXTURE === 'true'
 

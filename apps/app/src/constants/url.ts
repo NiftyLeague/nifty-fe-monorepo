@@ -1,17 +1,28 @@
-import { mainnet, immutableZkEvm } from 'viem/chains'
-import { getContractAddress, DEGEN_CONTRACT, NFTL_IMX_CONTRACT } from './contracts'
+import { immutableZkEvm } from 'viem/chains'
+import { getContractAddress, NFTL_IMX_CONTRACT } from './contracts'
+import {
+  BASE_API_URL,
+  DEGEN_BASE_API_URL,
+  GET_GAMER_PROFILE_API,
+  MY_PROFILE_API_URL,
+  PROFILE_FAV_DEGENS_API,
+} from './api'
+export {
+  BASE_API_URL,
+  DEGEN_BASE_API_URL,
+  GET_GAMER_PROFILE_API,
+  MY_PROFILE_API_URL,
+  PROFILE_FAV_DEGENS_API,
+} from './api'
+export { DEGEN_PURCHASE_URL } from './public-urls'
 
 const NEXT_PUBLIC_NETWORK = process.env.NEXT_PUBLIC_NETWORK as string
-
-export const BASE_API_URL = 'https://odgwhiwhzb.execute-api.us-east-1.amazonaws.com/prod'
 
 // Authentication
 export const WALLET_VERIFICATION = `${BASE_API_URL}/verification`
 export const ADDRESS_VERIFICATION = `${BASE_API_URL}/verification/address`
 
 // Degen API url
-export const DEGEN_BASE_API_URL = 'https://nifty-league.s3.amazonaws.com'
-
 // Rentals API url
 export const DISABLE_RENT_API_URL = `${BASE_API_URL}/rentals/rentable/`
 export const DEGEN_ASSETS_DOWNLOAD_URL = `${BASE_API_URL}/assets/degen`
@@ -31,11 +42,7 @@ export const GET_DEGEN_DETAIL_URL = (degenId: string): string =>
 export const GAMER_ACCOUNT_API = `${BASE_API_URL}/accounts/account`
 
 // Gamer Profile API
-export const MY_PROFILE_API_URL = `${BASE_API_URL}/stats/profile`
-export const PROFILE_FAV_DEGENS_API = `${BASE_API_URL}/profiles/favorites`
-
 const GAMER_PROFILE_BASE = 'profiles/profile'
-export const GET_GAMER_PROFILE_API = `${BASE_API_URL}/${GAMER_PROFILE_BASE}?include_stats=true`
 export const PROFILE_RENAME_API = `${BASE_API_URL}/${GAMER_PROFILE_BASE}/rename`
 export const GET_PROFILE_AVATARS_AND_COST_API = `${BASE_API_URL}/${GAMER_PROFILE_BASE}/avatars`
 export const UPDATE_PROFILE_AVATAR_API = `${BASE_API_URL}/${GAMER_PROFILE_BASE}/avatar`
@@ -60,9 +67,6 @@ export const NFTL_PURCHASE_URL = `https://quickswap.exchange/#/analytics/v3/toke
 
 // DEGEN URLs
 export const DEGEN_COLLECTION_URL = 'https://opensea.io/collection/niftydegen'
-export const DEGEN_PURCHASE_URL = (id: string | number) =>
-  `https://opensea.io/item/ethereum/${getContractAddress(mainnet.id, DEGEN_CONTRACT)}/${id}`
-
 // Marketplace URLs
 export const COMICS_PURCHASE_URL = 'https://tokentrove.com/collection/NiftyLeague'
 export const ITEM_PURCHASE_URL = 'https://tokentrove.com/collection/NiftyLeague'

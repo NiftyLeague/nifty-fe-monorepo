@@ -23,7 +23,10 @@ import type { Degen } from '@/types/degens'
 import useLocalStorageContext from '@/hooks/useLocalStorageContext'
 
 const DegenCard = dynamic(
-  () => import('@/components/cards/DegenCard').then((module) => module.DegenCardInView),
+  () =>
+    import('@/components/cards/DegenCard/DashboardDegenCard').then(
+      (module) => module.DashboardDegenCardInView
+    ),
   {
     ssr: false,
   }

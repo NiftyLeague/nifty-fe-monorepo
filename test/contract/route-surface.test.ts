@@ -224,6 +224,65 @@ describe('deferred Sentry client contract', () => {
   })
 })
 
+describe('public route dependency contract', () => {
+  it('keeps API-only constants separate from the contract registry', () => {
+    const source = readFileSync(join(process.cwd(), 'apps/app/src/constants/api.ts'), 'utf8')
+
+    expect(source).not.toContain('constants/contracts')
+    expect(source).not.toContain('deployments')
+  })
+
+  it('keeps the public degen dialog wallet-free', () => {
+    const page = readFileSync(
+      join(process.cwd(), 'apps/app/src/app/(public-routes)/degens/page.tsx'),
+      'utf8'
+    )
+    const dialog = readFileSync(
+      join(process.cwd(), 'apps/app/src/components/dialog/PublicDegenDialog.tsx'),
+      'utf8'
+    )
+
+    expect(page).toContain('PublicDegenDialog')
+    expect(page).not.toContain('WalletDegenDialog')
+    expect(dialog).toContain("from '@nl/ui/base/dialog'")
+    expect(dialog).not.toContain('WalletFeatureProviders')
+    expect(dialog).not.toContain('useNetworkContext')
+  })
+
+  it('keeps wallet-backed game providers out of public game cards', () => {
+    const loader = readFileSync(
+      join(process.cwd(), 'apps/app/src/app/(public-routes)/games/DeferredWeb3GameList.tsx'),
+      'utf8'
+    )
+    const list = readFileSync(
+      join(process.cwd(), 'apps/app/src/app/(public-routes)/games/_Web3GameList/index.tsx'),
+      'utf8'
+    )
+
+    expect(loader).toContain('useOnScreen')
+    expect(loader).toContain("import('./_Web3GameList/DeferredWeb3GameList')")
+    expect(list).toContain('asChild')
+    expect(list).not.toContain('WalletFeatureProviders')
+    expect(list).not.toContain('ConnectWrapper')
+    expect(list).not.toContain('useTokensBalances')
+  })
+
+  it('keeps dashboard-only card actions in a private wrapper', () => {
+    const card = readFileSync(
+      join(process.cwd(), 'apps/app/src/components/cards/DegenCard/index.tsx'),
+      'utf8'
+    )
+    const dashboardCard = readFileSync(
+      join(process.cwd(), 'apps/app/src/components/cards/DegenCard/DashboardDegenCard.tsx'),
+      'utf8'
+    )
+
+    expect(card).not.toContain("from './DegenDashboardActions'")
+    expect(card).toContain('dashboardActions?: React.ReactNode')
+    expect(dashboardCard).toContain("import('./DegenDashboardActions')")
+  })
+})
+
 function countRouteFiles(dir: string): number {
   let count = 0
   for (const entry of readdirSync(dir)) {

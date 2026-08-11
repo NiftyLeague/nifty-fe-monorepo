@@ -1,45 +1,13 @@
 'use client'
 
-import { useCallback, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { Button } from '@nl/ui/base/button'
-import BuyArcadeTokensDialog from '@/components/dialog/BuyArcadeTokensDialog'
-import ConnectWrapper from '@/components/wrapper/ConnectWrapper'
 import GameCard from '@/components/cards/GameCard'
 import DownloadGameDialog from '@/components/dialog/DownloadGameDialog'
-import useTokensBalances from '@/hooks/balances/useTokensBalances'
 
 import styles from './grid-item.module.css'
 
 const Web3GameList = () => {
-  const router = useRouter()
-  const { tokensBalances, refetchArcadeBal } = useTokensBalances()
-  const [openBuyAT, setOpenBuyAT] = useState(false)
-
-  const goToPlayOnGame = useCallback(() => {
-    router.push('/games/smashers')
-  }, [router])
-
-  const goToPlayWENGame = useCallback(() => {
-    if (Number(tokensBalances.AT) > 0) {
-      router.push('/games/wen-game')
-    } else {
-      setOpenBuyAT(true)
-    }
-  }, [tokensBalances.AT, router])
-
-  const goToPlayMtGawx = useCallback(() => {
-    router.push('/games/mt-gawx')
-  }, [router])
-
-  const goToPlayCryptoWinter = useCallback(() => {
-    if (Number(tokensBalances.AT) > 0) {
-      router.push('/games/crypto-winter')
-    } else {
-      setOpenBuyAT(true)
-    }
-  }, [tokensBalances.AT, router])
-
   return (
     <>
       <div className={`${styles.gridItem} col-span-12 md:col-span-6 xl:col-span-4`}>
@@ -54,15 +22,9 @@ const Web3GameList = () => {
           actions={
             <>
               <DownloadGameDialog />
-              <ConnectWrapper color="primary" fullWidth buttonText="Connect Wallet to play">
-                <Button
-                  variant="outline"
-                  className="w-full min-w-20 flex-1"
-                  onClick={goToPlayOnGame}
-                >
-                  Play in Browser
-                </Button>
-              </ConnectWrapper>
+              <Button asChild variant="outline" className="w-full min-w-20 flex-1">
+                <Link href="/games/smashers">Play in Browser</Link>
+              </Button>
             </>
           }
         />
@@ -75,15 +37,9 @@ const Web3GameList = () => {
           image="/img/games/wen.gif"
           autoHeight={false}
           actions={
-            <ConnectWrapper color="primary" fullWidth buttonText="Connect Wallet to play">
-              <Button
-                variant="outline"
-                className="w-full min-w-20 flex-1"
-                onClick={goToPlayWENGame}
-              >
-                {Number(tokensBalances.AT) > 0 ? 'Play in Browser' : 'Buy Arcade Tokens'}
-              </Button>
-            </ConnectWrapper>
+            <Button asChild variant="outline" className="w-full min-w-20 flex-1">
+              <Link href="/games/wen-game">Play in Browser</Link>
+            </Button>
           }
         />
       </div>
@@ -95,15 +51,9 @@ const Web3GameList = () => {
           image="/img/games/crypto-winter.gif"
           autoHeight={false}
           actions={
-            <ConnectWrapper color="primary" fullWidth buttonText="Connect Wallet to play">
-              <Button
-                variant="outline"
-                className="w-full min-w-20 flex-1"
-                onClick={goToPlayCryptoWinter}
-              >
-                {Number(tokensBalances.AT) > 0 ? 'Play in Browser' : 'Buy Arcade Tokens'}
-              </Button>
-            </ConnectWrapper>
+            <Button asChild variant="outline" className="w-full min-w-20 flex-1">
+              <Link href="/games/crypto-winter">Play in Browser</Link>
+            </Button>
           }
         />
       </div>
@@ -111,21 +61,14 @@ const Web3GameList = () => {
         <GameCard
           title="Mt. Gawx"
           required="NFTL required"
-          description={`Hearing the DEGENs' desperate pleas to spend their hard-earned NFTL and with bigger sinks still under his development, Satoshi suggests the DEGENs climb to the top of the Mt. Gawx volcano to offer their NFTL sacrifices to the fiery depths to see who might burn the most, and to discover whether the rumors of Rugman offering interesting rewards to burners are true.\n\nStrange thing is, every time they lob in NFTL, it's almost as if the volcano's… responding.\n\nCould the fabled 7th tribe be waking up from their centuries-long slumber, deep in the caves where Rugman resides?`}
+          description={`Hearing the DEGENs' desperate pleas to spend their hard-earned NFTL and with bigger sinks still under his development, Satoshi suggests the DEGENs climb to the top of the Mt. Gawx volcano to offer their NFTL sacrifices to the fiery depths to see who might burn the most, and to discover whether the rumors of Rugman offering interesting rewards for burners are true.\n\nStrange thing is, every time they lob in NFTL, it's almost as if the volcano's… responding.\n\nCould the fabled 7th tribe be waking up from their centuries-long slumber, deep in the caves where Rugman resides?`}
           showMore={true}
           image="/img/games/mt-gawx.gif"
           autoHeight={true}
           actions={
-            <ConnectWrapper color="primary" fullWidth buttonText="Connect Wallet to play">
-              <Button
-                disabled
-                variant="outline"
-                className="w-full min-w-20 flex-1"
-                onClick={goToPlayMtGawx}
-              >
-                Mountain Closed
-              </Button>
-            </ConnectWrapper>
+            <Button disabled variant="outline" className="w-full min-w-20 flex-1">
+              Mountain Closed
+            </Button>
           }
         />
       </div>
@@ -140,27 +83,12 @@ const Web3GameList = () => {
           image="/img/games/nifty-tennis.webp"
           autoHeight={true}
           actions={
-            <>
-              <Button
-                disabled
-                variant="outline"
-                className="w-full min-w-20 flex-1"
-                onClick={goToPlayMtGawx}
-              >
-                Not Available
-              </Button>
-            </>
+            <Button disabled variant="outline" className="w-full min-w-20 flex-1">
+              Not Available
+            </Button>
           }
         />
       </div>
-      <BuyArcadeTokensDialog
-        open={openBuyAT}
-        onSuccess={() => {
-          setOpenBuyAT(false)
-          refetchArcadeBal()
-        }}
-        onClose={() => setOpenBuyAT(false)}
-      />
     </>
   )
 }

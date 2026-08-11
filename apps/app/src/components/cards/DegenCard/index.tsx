@@ -1,7 +1,6 @@
 'use client'
 
 import { memo, useRef } from 'react'
-import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 import { Button } from '@nl/ui/base/button'
@@ -12,9 +11,7 @@ import type { SxProps, Theme } from '@/types'
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
 import DegenImage from './DegenImage'
 import type { Degen } from '@/types/degens'
-import { DEGEN_PURCHASE_URL } from '@/constants/url'
-
-const DegenDashboardActions = dynamic(() => import('./DegenDashboardActions'), { ssr: false })
+import { DEGEN_PURCHASE_URL } from '@/constants/public-urls'
 
 export interface DegenCardProps {
   degen: Degen
@@ -33,12 +30,12 @@ export interface DegenCardProps {
   onClickRent?: React.MouseEventHandler<HTMLButtonElement>
   onClickSelect?: React.MouseEventHandler<HTMLButtonElement>
   sx?: SxProps<Theme>
+  dashboardActions?: React.ReactNode
 }
 
 const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenCardProps>>> = memo(
   ({
     degen,
-    favs = [],
     isDashboardDegen = false,
     isSelectableDegen = false,
     isSelected = false,
@@ -48,11 +45,10 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
     onClickClaim,
     onClickDetail,
     onClickEditName,
-    onClickFavorite,
     onClickSelect,
+    dashboardActions,
   }) => {
     const { id, name } = degen
-    const fav = favs.some((f) => f === id)
 
     const buttonFontSize = size === 'small' ? '12px' : 'var(--text-sm)'
 
@@ -124,14 +120,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
             </Button>
           )}
         </div>
-        {isDashboardDegen && (
-          <DegenDashboardActions
-            tokenId={id}
-            fav={fav}
-            size={size}
-            onClickFavorite={onClickFavorite}
-          />
-        )}
+        {dashboardActions}
       </Card>
     )
   }

@@ -1,0 +1,81 @@
+'use client'
+
+import { useMemo } from 'react'
+import { Button } from '@nl/ui/base/button'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@nl/ui/base/dialog'
+import DegenImage from '@/components/cards/DegenCard/DegenImage'
+import { DEGEN_PURCHASE_URL } from '@/constants/public-urls'
+import type { Degen } from '@/types/degens'
+
+interface PublicDegenDialogProps {
+  open: boolean
+  degen?: Degen
+  onClose: () => void
+}
+
+export default function PublicDegenDialog({ open, degen, onClose }: PublicDegenDialogProps) {
+  const traits = useMemo(
+    () =>
+      degen?.traits_string
+        ?.split(',')
+        .map((trait) => trait.trim())
+        .filter(Boolean) ?? [],
+    [degen?.traits_string]
+  )
+
+  return (
+    <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
+      <DialogContent className="max-w-[900px]">
+        <div className="grid grid-cols-12 gap-6">
+          <div className="col-span-12 flex flex-col items-center gap-4 md:col-span-6">
+            {degen?.id && <DegenImage tokenId={degen.id} sx={{ maxWidth: '500px' }} />}
+            <DialogHeader className="items-center">
+              <DialogTitle>{degen?.name || 'No Name DEGEN'}</DialogTitle>
+              <DialogDescription>Degen #{degen?.id}</DialogDescription>
+              {degen?.id && (
+                <a
+                  href={DEGEN_PURCHASE_URL(degen.id)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-sm text-muted-foreground underline underline-offset-4"
+                >
+                  View on OpenSea
+                </a>
+              )}
+              {degen?.owner && (
+                <p className="text-sm text-muted-foreground">
+                  Owned by {`${degen.owner.slice(0, 5)}...${degen.owner.slice(-4)}`}
+                </p>
+              )}
+            </DialogHeader>
+          </div>
+          <div className="col-span-12 flex flex-col gap-6 md:col-span-6">
+            <div>
+              <h2 className="text-xl font-semibold">Degen Traits</h2>
+              {traits.length ? (
+                <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
+                  {traits.map((trait) => (
+                    <li key={trait} className="rounded-md border px-3 py-2 text-center text-sm">
+                      {trait}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-6 text-sm text-muted-foreground">Trait data unavailable.</p>
+              )}
+            </div>
+            <Button className="w-full" onClick={onClose} autoFocus aria-label="Close degen details">
+              Close
+            </Button>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  )
+}

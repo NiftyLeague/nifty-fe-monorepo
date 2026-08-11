@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useUserAgent } from '@nl/ui/hooks/useUserAgent'
-import { DEGEN_BASE_API_URL } from '@/constants/url'
+import { DEGEN_BASE_API_URL } from '@/constants/api'
 import { TARGET_NETWORK } from '@/constants/networks'
 
 const useVersion = () => {

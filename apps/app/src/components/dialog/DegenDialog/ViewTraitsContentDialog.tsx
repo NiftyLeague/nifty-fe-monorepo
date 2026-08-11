@@ -8,7 +8,7 @@ import { Title } from '@nl/ui/custom/typography'
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
 import { TRAIT_KEY_VALUE_MAP, TRAIT_NAME_MAP } from '@/constants/cosmeticsFilters'
 import type { Degen, GetDegenResponse } from '@/types/degens'
-import { DEGEN_PURCHASE_URL } from '@/constants/url'
+import { DEGEN_PURCHASE_URL } from '@/constants/public-urls'
 import type { SxProps } from '@/types'
 
 export interface ViewTraitsContentDialogProps {
