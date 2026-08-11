@@ -11,7 +11,6 @@ import { Icon } from '@nl/ui/base/icon'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
-import DegensFilter from '@/components/extended/DegensFilter'
 import DEFAULT_STATIC_FILTER from '@/components/extended/DegensFilter/constants'
 import {
   tranformDataByFilter,
@@ -28,12 +27,13 @@ import usePagination from '@/hooks/usePagination'
 import type { DegenFilter } from '@/types/degenFilter'
 import type { Degen } from '@/types/degens'
 import DegensTopNav from '@/components/extended/DegensTopNav'
-import PublicDegenDialog from '@/components/dialog/PublicDegenDialog'
+import DeferredDegenCard from '@/components/providers/DeferredDegenCard'
+import DeferredDegensFilter from '@/components/providers/DeferredDegensFilter'
+import DeferredPublicDegenDialog from '@/components/providers/DeferredPublicDegenDialog'
 
 const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'), {
   ssr: false,
 })
-const DegenCard = dynamic(() => import('@/components/cards/DegenCard'), { ssr: false })
 
 const AllDegensPage = (): React.ReactNode => {
   const [degens, setDegens] = useState<Degen[]>([])
@@ -143,7 +143,7 @@ const AllDegensPage = (): React.ReactNode => {
   const renderDrawer = useCallback(
     () =>
       !isEmpty(defaultValues) && (
-        <DegensFilter
+        <DeferredDegensFilter
           onFilter={handleFilter}
           defaultFilterValues={defaultValues as DegenFilter}
           searchTerm={searchTerm}
@@ -155,7 +155,7 @@ const AllDegensPage = (): React.ReactNode => {
   const renderDegen = useCallback(
     (degen: Degen) => (
       <div key={degen.id} className={getGridSizeClass(isGridView, isDrawerOpen)}>
-        <DegenCard
+        <DeferredDegenCard
           degen={degen}
           size={isGridView ? 'normal' : 'small'}
           onClickDetail={() => handleViewTraits(degen)}
@@ -270,7 +270,11 @@ const AllDegensPage = (): React.ReactNode => {
         />
       </div>
       {isDegenModalOpen && (
-        <PublicDegenDialog open degen={selectedDegen} onClose={() => setIsDegenModalOpen(false)} />
+        <DeferredPublicDegenDialog
+          open
+          degen={selectedDegen}
+          onClose={() => setIsDegenModalOpen(false)}
+        />
       )}
     </>
   )
