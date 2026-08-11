@@ -60,6 +60,7 @@ const appRouteContracts: Record<string, string[]> = {
     // The public route group preserves the external `/` URL while keeping its
     // wallet-free layout boundary explicit in the source tree.
     'src/app/(public-routes)/page.tsx',
+    'src/app/verification/page.tsx',
     'src/app/robots.ts',
     'src/app/sitemap.ts',
     'src/app/(public-routes)/degens/page.tsx',
@@ -93,7 +94,7 @@ const deferredProfileDialogConsumers = [
 const deferredNicknameDialogConsumer =
   'apps/app/src/app/(private-routes)/dashboard/rentals/MyRentalsDataGrid.tsx'
 
-const authOnlyRouteLayouts = ['apps/app/src/app/(public-routes)/verification/layout.tsx']
+const authOnlyRouteLayouts = ['apps/app/src/app/verification/layout.tsx']
 const nftOnlyRouteLayouts = ['apps/app/src/app/(public-routes)/mint-o-matic/layout.tsx']
 const publicRoutesLayout = 'apps/app/src/app/(public-routes)/layout.tsx'
 const stalePublicProviderBoundary = 'apps/app/src/contexts/PublicAppContextWrapper.tsx'
@@ -186,6 +187,8 @@ const publicMainLayout = 'apps/app/src/app/_layout/_PublicMainLayout/index.tsx'
 const publicNavigation = 'apps/app/src/components/providers/PublicNavigation.tsx'
 const publicMobileNavigation = 'apps/app/src/components/providers/PublicMobileNavigation.tsx'
 const publicNavLinks = 'apps/app/src/components/providers/PublicNavLinks.tsx'
+const verificationPage = 'apps/app/src/app/verification/page.tsx'
+const verificationLayout = 'apps/app/src/app/verification/layout.tsx'
 
 describe('external route surface contract', () => {
   for (const [app, files] of Object.entries(appRouteContracts)) {
@@ -448,6 +451,20 @@ describe('public app shell contract', () => {
     expect(mobileSource).toContain('<SheetDescription')
     expect(mobileSource).toContain('id="public-mobile-navigation"')
     expect(linksSource).toContain("aria-current={isSelected ? 'page' : undefined}")
+  })
+})
+
+describe('verification route shell contract', () => {
+  it('keeps wallet verification outside the public navigation shell', () => {
+    const pageSource = readFileSync(join(process.cwd(), verificationPage), 'utf8')
+    const layoutSource = readFileSync(join(process.cwd(), verificationLayout), 'utf8')
+
+    expect(pageSource).not.toContain('PublicNavigation')
+    expect(pageSource).not.toContain('_PublicMainLayout')
+    expect(layoutSource).toContain('WalletAuthContextWrapper')
+    expect(
+      existsSync(join(process.cwd(), 'apps/app/src/app/(public-routes)/verification/page.tsx'))
+    ).toBe(false)
   })
 })
 
