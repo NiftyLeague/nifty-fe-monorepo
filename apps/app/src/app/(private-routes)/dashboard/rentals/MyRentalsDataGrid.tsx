@@ -15,8 +15,8 @@ import { Countdown } from '@nl/ui/base/countdown'
 import useLocalStorage from '@/hooks/useLocalStorage'
 
 import DeferredDegenDialog from '@/components/providers/DeferredDegenDialog'
+import DeferredChangeNicknameDialog from '@/components/providers/DeferredChangeNicknameDialog'
 import { RentalDataGrid } from '@/types/rentalDataGrid'
-import ChangeNicknameDialog from './ChangeNicknameDialog'
 
 const RENTAL_COLUMN_VISIBILITY = 'rental-column-visibility-model'
 const PAGE_SIZE_OPTIONS = [10, 25, 100]
@@ -492,7 +492,7 @@ const MyRentalsDataGrid = ({
           showCloseButton={false}
           className="max-w-[380px] md:max-w-[380px] lg:max-w-[380px]"
         >
-          <ChangeNicknameDialog
+          <DeferredChangeNicknameDialog
             updateNickname={handleUpdateNickname}
             rental={selectedRowForEditing}
           />
