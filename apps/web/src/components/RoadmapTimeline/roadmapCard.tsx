@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { Icon } from '@nl/ui/base/icon'
+import { AnimatedImage } from '@nl/ui/custom/animated-image'
 import { cn } from '@nl/ui/utils'
 import styles from './index.module.css'
 
@@ -9,7 +10,13 @@ interface RoadmapCardProps {
   completed?: boolean
   completionDate?: string
   divider?: boolean
-  image?: { src: string; width: number; height: number; style: { top: string; right?: string } }
+  image?: {
+    src: string
+    webpSrc?: string
+    width: number
+    height: number
+    style: { top: string; right?: string }
+  }
   title: string | React.ReactNode
 }
 
@@ -36,8 +43,9 @@ const RoadmapCard = ({
     <div className={styles.cd_timeline_content}>
       {image && (
         <div className={styles.timeline_content_img} style={image.style}>
-          <Image
+          <AnimatedImage
             src={image.src}
+            webpSrc={image.webpSrc}
             unoptimized={image.src.includes('gif')}
             alt={`${title?.toString()}`}
             width={image.width}
