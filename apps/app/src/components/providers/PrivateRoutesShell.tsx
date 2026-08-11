@@ -1,29 +1,30 @@
-'use server'
+'use client'
 
-// third party
 import type { PropsWithChildren } from 'react'
-import { headers } from 'next/headers'
 
+import MainLayout from '@/app/_layout/_MainLayout'
 import { AuthTokenProvider } from '@/contexts/AuthTokenContext'
 import { FeatureFlagProvider } from '@/contexts/FeatureFlagsContext'
 import { LocalStorageProvider } from '@/contexts/LocalStorageContext'
 import { Web3ModalProvider } from '@/contexts/Web3ModalContext'
 import ReduxProvider from '@/store/ReduxProvider'
 
-const AppContextWrapper = async ({ children }: PropsWithChildren) => {
-  const cookies = (await headers()).get('cookie')
+interface PrivateRoutesShellProps extends PropsWithChildren {
+  cookies?: string | null
+}
 
+export default function PrivateRoutesShell({ children, cookies }: PrivateRoutesShellProps) {
   return (
     <LocalStorageProvider>
       <Web3ModalProvider cookies={cookies}>
         <ReduxProvider>
           <AuthTokenProvider>
-            <FeatureFlagProvider>{children}</FeatureFlagProvider>
+            <FeatureFlagProvider>
+              <MainLayout>{children}</MainLayout>
+            </FeatureFlagProvider>
           </AuthTokenProvider>
         </ReduxProvider>
       </Web3ModalProvider>
     </LocalStorageProvider>
   )
 }
-
-export default AppContextWrapper

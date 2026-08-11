@@ -89,7 +89,8 @@ const walletStorageBoundaries = [
   'apps/app/src/contexts/WalletMintContextWrapper.tsx',
 ]
 const dashboardOverview = 'apps/app/src/app/(private-routes)/dashboard/overview/page.tsx'
-const privateShellProviderBoundary = 'apps/app/src/contexts/AppContextWrapper.tsx'
+const privateShellBoundary = 'apps/app/src/components/providers/PrivateRoutesBoundary.tsx'
+const privateShell = 'apps/app/src/components/providers/PrivateRoutesShell.tsx'
 const dashboardDataProviderBoundary = 'apps/app/src/contexts/DashboardDataProviders.tsx'
 const dashboardDataBoundary = 'apps/app/src/components/providers/DashboardDataBoundary.tsx'
 const authUrls = 'apps/app/src/constants/auth-urls.ts'
@@ -242,7 +243,7 @@ describe('private provider loading contract', () => {
   })
 
   it('keeps dashboard data providers out of the shared private shell', () => {
-    const source = readFileSync(join(process.cwd(), privateShellProviderBoundary), 'utf8')
+    const source = readFileSync(join(process.cwd(), privateShell), 'utf8')
 
     expect(source).not.toContain("from '@/contexts/WalletContextWrapper'")
     expect(source).not.toContain("from '@/contexts/NetworkContext'")
@@ -327,10 +328,19 @@ describe('private provider loading contract', () => {
 
   it('preserves the private shell layout while keeping the sidebar lightweight', () => {
     const layoutSource = readFileSync(join(process.cwd(), privateShellLayout), 'utf8')
+    const boundarySource = readFileSync(join(process.cwd(), privateShellBoundary), 'utf8')
+    const shellSource = readFileSync(join(process.cwd(), privateShell), 'utf8')
     const profileSource = readFileSync(join(process.cwd(), sidebarProfile), 'utf8')
 
-    expect(layoutSource).toContain('AppContextWrapper')
-    expect(layoutSource).toContain('MainLayout')
+    expect(layoutSource).toContain('PrivateRoutesBoundary')
+    expect(layoutSource).toContain('headers()')
+    expect(boundarySource).toContain("import('./PrivateRoutesShell')")
+    expect(boundarySource).toContain('ssr: false')
+    expect(boundarySource).toContain('<Skeleton')
+    expect(boundarySource).toContain('role="status"')
+    expect(shellSource).toContain('MainLayout')
+    expect(shellSource).toContain('Web3ModalProvider')
+    expect(shellSource).toContain('AuthTokenProvider')
     expect(profileSource).toContain('Open dashboard')
     expect(profileSource).toContain('<Button asChild className="w-full">')
     expect(profileSource).not.toContain('SidebarWalletActions')
