@@ -68,6 +68,8 @@ const appRouteContracts: Record<string, string[]> = {
     'src/app/(public-routes)/leaderboards/page.tsx',
     'src/app/(public-routes)/mint-o-matic/page.tsx',
     'src/app/(private-routes)/dashboard/page.tsx',
+    'src/app/(private-routes)/dashboard/items/page.tsx',
+    'src/app/(private-routes)/dashboard/items/burner/page.tsx',
     'src/app/(private-routes)/dashboard/rentals/page.tsx',
     'src/app/(private-routes)/dashboard/degens/page.tsx',
     'src/app/(private-routes)/dashboard/overview/page.tsx',
@@ -105,6 +107,9 @@ const dashboardDegensContent =
 const dashboardItems = 'apps/app/src/app/(private-routes)/dashboard/items/page.tsx'
 const dashboardItemsContent =
   'apps/app/src/app/(private-routes)/dashboard/items/DashboardItemsContent.tsx'
+const dashboardBurner = 'apps/app/src/app/(private-routes)/dashboard/items/burner/page.tsx'
+const dashboardBurnerContent =
+  'apps/app/src/app/(private-routes)/dashboard/items/burner/ComicsBurnerContent.tsx'
 const privateShellBoundary = 'apps/app/src/components/providers/PrivateRoutesBoundary.tsx'
 const privateShell = 'apps/app/src/components/providers/PrivateRoutesShell.tsx'
 const dashboardDataProviderBoundary = 'apps/app/src/contexts/DashboardDataProviders.tsx'
@@ -572,6 +577,26 @@ describe('dashboard items loading contract', () => {
     expect(contentSource).toContain("from '@/components/cards/ComicCard'")
     expect(contentSource).toContain("from '@/hooks/balances/useNFTsBalances'")
     expect(contentSource).toContain('DashboardComicsPageContent')
+  })
+})
+
+describe('dashboard burner loading contract', () => {
+  it('keeps the burner machine and wallet graph behind the route loading boundary', () => {
+    const pageSource = readFileSync(join(process.cwd(), dashboardBurner), 'utf8')
+    const contentSource = readFileSync(join(process.cwd(), dashboardBurnerContent), 'utf8')
+
+    expect(pageSource).toContain("dynamic(() => import('./ComicsBurnerContent')")
+    expect(pageSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(pageSource).toContain('role="status"')
+    expect(pageSource).toContain('aria-live="polite"')
+    expect(pageSource).toContain('aria-busy="true"')
+    expect(pageSource).not.toContain("from 'ethers'")
+    expect(pageSource).not.toContain("from './_components/machine'")
+    expect(pageSource).not.toContain("from '@/hooks/useNetworkContext'")
+    expect(contentSource).toContain("from 'ethers'")
+    expect(contentSource).toContain("from './_components/machine'")
+    expect(contentSource).toContain("from '@/hooks/useNetworkContext'")
+    expect(contentSource).toContain('setRefreshKey((key) => key + 1)')
   })
 })
 
