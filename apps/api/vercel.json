@@ -2,7 +2,9 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "git": {
     "deploymentEnabled": {
-      "**": true
+      "**": false,
+      "main": true,
+      "staging": true
     }
   },
   "buildCommand": "bun --filter api build",
