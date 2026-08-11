@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Image from 'next/image'
 
 import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
-import { ConsoleGame } from '@nl/ui/custom/console-game'
+import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { DegenSpecialsTable } from '@nl/ui/custom/degen-specials-table'
 import { cn } from '@nl/ui/utils'
 
@@ -13,7 +13,7 @@ import styles from './index.module.css'
 const Degens: NextPage = () => (
   <>
     <section className="relative xl:-top-20 2xl:-top-35">
-      <ConsoleGame src="/video/unboxing.mp4" />
+      <DeferredConsoleGame src="/video/unboxing.mp4" />
     </section>
 
     <div className="container">
