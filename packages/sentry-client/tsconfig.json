@@ -2,7 +2,7 @@
   "extends": "@nl/typescript-config/react-library.json",
   "compilerOptions": {
     "outDir": "dist",
-    "types": ["node"]
+    "types": ["node", "react"]
   },
   "include": ["."]
 }
