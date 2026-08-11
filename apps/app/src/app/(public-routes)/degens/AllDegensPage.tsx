@@ -1,7 +1,6 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import isEmpty from 'lodash/isEmpty'
 import { useSearchParams } from 'next/navigation'
 import dynamic from 'next/dynamic'
 
@@ -23,6 +22,7 @@ import SectionTitle from '@/components/sections/SectionTitle'
 import { DEGEN_BASE_API_URL } from '@/constants/api'
 import useFetch from '@/hooks/useFetch'
 import usePagination from '@/hooks/usePagination'
+import { hasEntries } from '@/utils/collections'
 import type { DegenFilter } from '@/types/degenFilter'
 import type { Degen } from '@/types/degens'
 import DegensTopNav from '@/components/extended/DegensTopNav'
@@ -73,7 +73,7 @@ const AllDegensPage = (): React.ReactNode => {
     setDegens(originalDegens)
     const params = Object.fromEntries(searchParams.entries())
     let newDegens = originalDegens
-    if (!isEmpty(params)) {
+    if (hasEntries(params)) {
       if (params.searchTerm) setSearchTerm(params.searchTerm)
       const newFilterOptions = updateFilterValue(defaultValues, params)
       if (newFilterOptions) {
@@ -141,7 +141,7 @@ const AllDegensPage = (): React.ReactNode => {
 
   const renderDrawer = useCallback(
     () =>
-      !isEmpty(defaultValues) && (
+      hasEntries(defaultValues) && (
         <DeferredDegensFilter
           onFilter={handleFilter}
           defaultFilterValues={defaultValues as DegenFilter}

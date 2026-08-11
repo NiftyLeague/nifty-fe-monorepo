@@ -10,7 +10,6 @@ import {
 } from 'react'
 import Image from 'next/image'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import isEmpty from 'lodash/isEmpty'
 import { cn } from '@nl/ui/utils'
 import { Button } from '@nl/ui/base/button'
 import { Checkbox } from '@nl/ui/base/checkbox'
@@ -21,6 +20,7 @@ import type { DegenFilter } from '@/types/degenFilter'
 import { updateFilterValue } from './utils'
 import FilterAccordion from './FilterAccordion'
 import FilterAllTraitCheckboxes from '../FilterAllTraitCheckboxes'
+import { hasEntries } from '@/utils/collections'
 
 import styles from './index.module.css'
 
@@ -43,7 +43,7 @@ const DegensFilter = ({
     () => Object.fromEntries(searchParams.entries()) as { [key in FilterSource]?: string },
     [searchParams]
   )
-  const isParamsEmpty = isEmpty(params)
+  const isParamsEmpty = !hasEntries(params)
 
   // Filter states
   const [showMore, setShowMore] = useState(false)
