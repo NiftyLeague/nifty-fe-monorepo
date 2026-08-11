@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
 
-import { Accordion } from '@nl/ui/custom/accordion'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@nl/ui/base/accordion'
 import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
 import ThemeBtnGroup from '@/components/ThemeBtnGroup'
 import LearnCards from '@/components/LearnCards'
@@ -39,7 +39,20 @@ const Overview: NextPage = () => (
           <div className="purple-bg-orb" style={{ left: 'calc(50% - 200px)', top: '100px' }} />
         </div>
 
-        <Accordion items={FAQS} defaultValue="item-1" />
+        <AnimatedWrapper>
+          <div className="transition-fade-quick transition-fade-start delay-normal bg-card border-1 rounded-md">
+            <Accordion type="single" collapsible defaultValue="item-1">
+              {FAQS.map(({ question, answer }, index) => (
+                <AccordionItem value={`item-${index + 1}`} key={question}>
+                  <AccordionTrigger className="px-4 md:px-6">{question}</AccordionTrigger>
+                  <AccordionContent className="px-4 md:px-6 text-muted-foreground">
+                    {answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </AnimatedWrapper>
 
         <ThemeBtnGroup
           className="mt-6 xl:mt-8"
