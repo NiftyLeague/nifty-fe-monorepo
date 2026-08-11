@@ -1,6 +1,7 @@
 import { type PropsWithChildren, Suspense } from 'react'
 import { type Metadata } from 'next'
 import { AuthProvider } from '@/contexts/AuthProvider'
+import { FeatureFlagProvider } from '@/contexts/FeatureFlagsProvider'
 import { getServerSession } from '@nl/playfab/utils/auth'
 
 export const metadata: Metadata = {
@@ -13,11 +14,13 @@ export default async function AuthLayout({ children }: PropsWithChildren) {
 
   return (
     <Suspense fallback={null}>
-      <AuthProvider session={session}>
-        <main id="auth-layout" className="min-h-screen">
-          {children}
-        </main>
-      </AuthProvider>
+      <FeatureFlagProvider>
+        <AuthProvider session={session}>
+          <main id="auth-layout" className="min-h-screen">
+            {children}
+          </main>
+        </AuthProvider>
+      </FeatureFlagProvider>
     </Suspense>
   )
 }
