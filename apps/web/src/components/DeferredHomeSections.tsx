@@ -1,0 +1,25 @@
+'use client'
+
+import { DeferredSection } from '@nl/ui/custom/deferred-section'
+
+import { SPONSORS } from '@/constants/sponsors'
+
+const loadMintOMatic = () => import('@/components/MintOMatic')
+const loadSponsors = () =>
+  import('@/components/Sponsors').then(({ default: Sponsors }) => ({
+    default: () => <Sponsors sponsors={SPONSORS} />,
+  }))
+
+export function DeferredMintOMatic() {
+  return (
+    <DeferredSection
+      label="NFTL mint animation"
+      load={loadMintOMatic}
+      minHeightClassName="min-h-[28rem]"
+    />
+  )
+}
+
+export function DeferredSponsors() {
+  return <DeferredSection label="sponsors" load={loadSponsors} minHeightClassName="min-h-[22rem]" />
+}
