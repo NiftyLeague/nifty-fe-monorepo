@@ -1,6 +1,3 @@
-'use client'
-
-import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@nl/ui/base/button'
@@ -8,6 +5,7 @@ import { Card, CardContent } from '@nl/ui/base/card'
 import { Title } from '@nl/ui/custom/typography'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import { cn } from '@nl/ui/utils'
+import ExpandableGameDescription from './ExpandableGameDescription'
 import type { SxProps, Theme } from '@/types'
 
 type CardGameContentProps = {
@@ -33,11 +31,6 @@ const CardGameContent = ({
   showMore,
   title,
 }: CardGameContentProps) => {
-  const [moreStatus, setMoreStatus] = useState(false)
-  const handleMoreStatus = () => {
-    setMoreStatus(!moreStatus)
-  }
-
   return (
     <div className="flex grow flex-col justify-between bg-card">
       <CardContent className="p-6 pb-0">
@@ -53,23 +46,18 @@ const CardGameContent = ({
         </div>
         {isComingSoon && <p className="text-sm text-warning">Coming 2023</p>}
         {required && <p className="text-sm text-warning">{required}</p>}
-        <p
-          className="text-sm text-muted-foreground"
-          style={{
-            whiteSpace: 'pre-wrap',
-            maxHeight: moreStatus ? 'inherit' : 42,
-            overflowY: 'hidden',
-          }}
-        >
-          {description}
-        </p>
-        {showMore && !moreStatus && (
+        {showMore ? (
+          <ExpandableGameDescription description={description} />
+        ) : (
           <p
-            className="cursor-pointer text-sm text-purple"
-            onClick={handleMoreStatus}
-            style={{ whiteSpace: 'pre-wrap' }}
+            className="text-sm text-muted-foreground"
+            style={{
+              whiteSpace: 'pre-wrap',
+              maxHeight: 42,
+              overflowY: 'hidden',
+            }}
           >
-            more..
+            {description}
           </p>
         )}
       </CardContent>
