@@ -27,7 +27,7 @@ const BottomInfo = ({
     <div className="grid grid-cols-12 gap-4">
       <div className="col-span-12 lg:col-span-6 xl:col-span-4">
         <GameCard
-          image="/img/games/smashers/nifty-smashers.gif"
+          image="/img/games/smashers/nifty-smashers-poster.webp"
           contents={
             <div className="flex flex-col gap-4 p-4">
               {nifty_smashers && <ProgressGamer size="sm" data={nifty_smashers} />}
@@ -52,7 +52,7 @@ const BottomInfo = ({
       </div>
       <div className="col-span-12 lg:col-span-6 xl:col-span-4">
         <GameCard
-          image="/img/games/wen.gif"
+          image="/img/games/wen-poster.webp"
           contents={
             <div className="flex flex-1 flex-col justify-between gap-4 p-4">
               {wen_game && <ProgressGamer size="sm" data={wen_game} />}

@@ -16,7 +16,7 @@ const Web3GameList = () => {
           externalLink={{ title: 'Smashers Mobile', src: 'https://niftysmashers.com/' }}
           required="DEPRECATED - Please download our mobile app!"
           description="The first NFT brawler on the Ethereum blockchain. Now available free-to-play on all mobile platforms!"
-          image="/img/games/smashers/nifty-smashers.gif"
+          image="/img/games/smashers/nifty-smashers-poster.webp"
           onlineCounter={200}
           autoHeight={false}
           actions={
@@ -34,7 +34,7 @@ const Web3GameList = () => {
           title="WEN Game"
           required="Arcade Tokens Required"
           description="Nifty League's first arcade mini-game! This single-player baseball game is sure to test your reflexes."
-          image="/img/games/wen.gif"
+          image="/img/games/wen-poster.webp"
           autoHeight={false}
           actions={
             <Button asChild variant="outline" className="w-full min-w-20 flex-1">
@@ -48,7 +48,7 @@ const Web3GameList = () => {
           title="Crypto Winter"
           required="Arcade Tokens Required"
           description="Winter is here... Play this single-player dodgeball-inspired arcade game and rank as high as you can!"
-          image="/img/games/crypto-winter.gif"
+          image="/img/games/crypto-winter.webp"
           autoHeight={false}
           actions={
             <Button asChild variant="outline" className="w-full min-w-20 flex-1">
@@ -63,7 +63,7 @@ const Web3GameList = () => {
           required="NFTL required"
           description={`Hearing the DEGENs' desperate pleas to spend their hard-earned NFTL and with bigger sinks still under his development, Satoshi suggests the DEGENs climb to the top of the Mt. Gawx volcano to offer their NFTL sacrifices to the fiery depths to see who might burn the most, and to discover whether the rumors of Rugman offering interesting rewards for burners are true.\n\nStrange thing is, every time they lob in NFTL, it's almost as if the volcano's… responding.\n\nCould the fabled 7th tribe be waking up from their centuries-long slumber, deep in the caves where Rugman resides?`}
           showMore={true}
-          image="/img/games/mt-gawx.gif"
+          image="/img/games/mt-gawx-poster.webp"
           autoHeight={true}
           actions={
             <Button disabled variant="outline" className="w-full min-w-20 flex-1">
