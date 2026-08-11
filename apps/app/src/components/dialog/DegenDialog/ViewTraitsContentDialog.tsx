@@ -117,7 +117,7 @@ const ViewTraitsContentDialog = ({
               </Button>
             )} */}
           {onClose && (
-            <Button variant="default" className="w-full" onClick={onClose}>
+            <Button variant="default" className="w-full" onClick={onClose} autoFocus>
               Close
             </Button>
           )}
