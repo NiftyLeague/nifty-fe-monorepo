@@ -6,13 +6,12 @@ import { usePathname } from 'next/navigation'
 
 import { cn } from '@nl/ui/utils'
 import { ScrollArea } from '@nl/ui/base/scroll-area'
-import { Toaster } from '@nl/ui/base/sonner'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
 import { openDrawer } from '@/store/slices/menu'
 import { useDispatch, useSelector } from '@/store/hooks'
 import Breadcrumbs from '@/components/extended/Breadcrumbs'
-import Snackbar from '@/components/extended/Snackbar'
+import DeferredNotifications from '@/components/providers/DeferredNotifications'
 import navigation from '@/constants/menu-items'
 import styles from './_MainLayout/MainLayout.module.css'
 
@@ -68,8 +67,7 @@ export default function AppShell({ children, header, sidebar, networkWarning }: 
           )}
         </main>
       </div>
-      <Snackbar />
-      <Toaster position="top-right" closeButton richColors />
+      <DeferredNotifications />
     </>
   )
 }
