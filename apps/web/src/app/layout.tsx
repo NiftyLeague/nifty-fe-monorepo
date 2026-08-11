@@ -2,7 +2,9 @@ import type { PropsWithChildren } from 'react'
 import type { Metadata, Viewport } from 'next'
 
 import DeferredSentry from '@nl/sentry-client/react'
-import { customFontClassName } from '@nl/ui/fonts'
+import { defaultFont } from '@nl/ui/fonts/default'
+import { headerFont } from '@nl/ui/fonts/header'
+import { specialFont } from '@nl/ui/fonts/special'
 import { cn } from '@nl/ui/utils'
 
 import '@/styles/app.css'
@@ -59,7 +61,11 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en" suppressHydrationWarning className={cn(customFontClassName, 'dark')}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={cn(defaultFont.variable, headerFont.variable, specialFont.variable, 'dark')}
+    >
       <DeferredSentry
         enabled={process.env.VERCEL_ENV === 'production'}
         options={{
