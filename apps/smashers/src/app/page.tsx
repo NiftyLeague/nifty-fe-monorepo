@@ -1,4 +1,4 @@
-import { ConsoleGame } from '@nl/ui/custom/console-game'
+import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { SocialsFooter } from '@nl/ui/custom/socials-footer'
 
 import HomeInteractive from '@/components/HomeInteractive'
@@ -12,7 +12,7 @@ export default async function Home({ searchParams }: { searchParams: NextSearchP
   return (
     <HomeInteractive hasReferral={Boolean(referral)}>
       <section id="console-game">
-        <ConsoleGame src="/video/smashers-960p.mp4" />
+        <DeferredConsoleGame src="/video/smashers-960p.mp4" />
       </section>
       <section id="game-section" className="container section relative">
         <div className="purple-bg-orb orb-top-left" />
