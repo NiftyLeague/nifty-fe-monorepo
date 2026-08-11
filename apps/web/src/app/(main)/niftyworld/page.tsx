@@ -2,7 +2,7 @@ import Image from 'next/image'
 import type { NextPage } from 'next'
 
 import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
-import { ConsoleGame } from '@nl/ui/custom/console-game'
+import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { ViewportVideo } from '@nl/ui/custom/viewport-video'
 
 import { NIFTYWORLD_PROPERTIES } from '@/constants/niftyworld'
@@ -12,7 +12,7 @@ const NiftyWorld: NextPage = () => {
   return (
     <>
       <section className="relative xl:-top-20 2xl:-top-35">
-        <ConsoleGame src="/video/mansion_showcase.mp4" />
+        <DeferredConsoleGame src="/video/mansion_showcase.mp4" />
 
         <ThemeBtnGroup
           className="absolute bottom-0 sm:bottom-4"
