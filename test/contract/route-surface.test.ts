@@ -79,6 +79,10 @@ const deferredDashboardDialogConsumers = [
   'apps/app/src/app/(private-routes)/dashboard/overview/MyDegens.tsx',
   'apps/app/src/app/(private-routes)/dashboard/rentals/MyRentalsDataGrid.tsx',
 ]
+const deferredRenameDegenConsumers = [
+  'apps/app/src/app/(private-routes)/dashboard/degens/page.tsx',
+  'apps/app/src/app/(private-routes)/dashboard/overview/MyDegens.tsx',
+]
 
 const authOnlyRouteLayouts = ['apps/app/src/app/(public-routes)/verification/layout.tsx']
 const nftOnlyRouteLayouts = ['apps/app/src/app/(public-routes)/mint-o-matic/layout.tsx']
@@ -93,6 +97,7 @@ const privateShellBoundary = 'apps/app/src/components/providers/PrivateRoutesBou
 const privateShell = 'apps/app/src/components/providers/PrivateRoutesShell.tsx'
 const dashboardDataProviderBoundary = 'apps/app/src/contexts/DashboardDataProviders.tsx'
 const dashboardDataBoundary = 'apps/app/src/components/providers/DashboardDataBoundary.tsx'
+const deferredRenameDegenDialog = 'apps/app/src/components/providers/DeferredRenameDegenDialog.tsx'
 const authUrls = 'apps/app/src/constants/auth-urls.ts'
 const walletModal = 'apps/app/src/contexts/WalletModal.ts'
 const web3ModalContext = 'apps/app/src/contexts/Web3ModalContext.tsx'
@@ -151,18 +156,27 @@ describe('dashboard dialog loading contract', () => {
   }
 
   it('defers the dashboard rename form until the dialog opens', () => {
-    const source = readFileSync(
-      join(process.cwd(), 'apps/app/src/app/(private-routes)/dashboard/overview/MyDegens.tsx'),
-      'utf8'
-    )
+    const source = readFileSync(join(process.cwd(), deferredRenameDegenDialog), 'utf8')
 
     expect(source).toContain(
       "import('@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent')"
     )
-    expect(source).not.toContain(
-      "from '@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent'"
-    )
+    expect(source).toContain("from '@nl/ui/base/skeleton'")
+    expect(source).toContain('role="status"')
+    expect(source).toContain('aria-live="polite"')
+    expect(source).toContain('aria-busy="true"')
   })
+
+  for (const file of deferredRenameDegenConsumers) {
+    it(`keeps the rename form deferred in ${file}`, () => {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+
+      expect(source).toContain('DeferredRenameDegenDialog')
+      expect(source).not.toContain(
+        "from '@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent'"
+      )
+    })
+  }
 })
 
 describe('auth-only route provider contract', () => {
