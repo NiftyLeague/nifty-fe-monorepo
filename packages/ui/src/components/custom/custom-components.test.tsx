@@ -167,18 +167,16 @@ describe('Navbar', () => {
     expect(screen.getAllByRole('link', { name: /About/ })[0]?.getAttribute('data-active')).toBe(
       'true'
     )
-    fireEvent.click(screen.getByRole('button', { name: 'Products' }))
+    fireEvent.click(screen.getByText('Products'))
     expect(screen.getAllByRole('link', { name: /Docs/ })[0]?.getAttribute('target')).toBe('_blank')
     expect(screen.getByRole('link', { name: 'Game' })?.getAttribute('rel')).toBe('noreferrer')
-    expect(screen.getByRole('button', { name: /Open Nav Menu/ })).not.toBeNull()
+    expect(screen.getByRole('button', { name: 'Open navigation' })).not.toBeNull()
   })
 
   it('switches the navbar backdrop after the scroll sentinel leaves view', () => {
     state.intersecting = false
     const { container } = render(<Navbar navItems={navItems} />)
-    expect(container.querySelector('[data-slot="navigation-menu"]')?.className).toContain(
-      'bg-background/90'
-    )
+    expect(container.querySelector('header')?.className).toContain('bg-background/90')
   })
 })
 

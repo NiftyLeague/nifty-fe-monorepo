@@ -169,6 +169,8 @@ const sharedDeferredSection = 'packages/ui/src/components/custom/deferred-sectio
 const webHomePage = 'apps/web/src/app/(main)/page.tsx'
 const webNavbar = 'apps/web/src/components/Navbar/index.tsx'
 const sharedWebNavbar = 'packages/ui/src/components/custom/navbar/index.tsx'
+const sharedWebMobileNavbar = 'packages/ui/src/components/custom/navbar/MobileNavMenu.tsx'
+const sharedWebMobileTrigger = 'packages/ui/src/components/custom/navbar/MobileNavTrigger.tsx'
 const webCommunityPage = 'apps/web/src/app/(main)/community/page.tsx'
 const webTeamPage = 'apps/web/src/app/(main)/team/page.tsx'
 const webCarousel = 'apps/web/src/components/Carousel/index.tsx'
@@ -801,13 +803,23 @@ describe('web public navigation contract', () => {
   it('keeps static navigation configuration out of the client graph', () => {
     const navbarSource = readFileSync(join(process.cwd(), webNavbar), 'utf8')
     const sharedNavbarSource = readFileSync(join(process.cwd(), sharedWebNavbar), 'utf8')
+    const mobileTriggerSource = readFileSync(join(process.cwd(), sharedWebMobileTrigger), 'utf8')
+    const mobileNavbarSource = readFileSync(join(process.cwd(), sharedWebMobileNavbar), 'utf8')
 
     expect(navbarSource).not.toContain("'use client'")
     expect(navbarSource).toContain("from '@nl/ui/custom/navbar'")
     expect(sharedNavbarSource).toContain("import NavbarScrollFrame from './NavbarScrollFrame'")
-    expect(sharedNavbarSource).toContain("import { ActiveNavLink } from './ActiveNavLink'")
-    expect(sharedNavbarSource).toContain('NavigationMenu')
-    expect(sharedNavbarSource).toContain('Sheet')
+    expect(sharedNavbarSource).toContain("import ActiveNavLink from './ActiveNavLink'")
+    expect(sharedNavbarSource).toContain('<details')
+    expect(sharedNavbarSource).not.toContain("from '@nl/ui/base/navigation-menu'")
+    expect(sharedNavbarSource).not.toContain("from '@nl/ui/base/sheet'")
+    expect(mobileTriggerSource).toContain("import('./MobileNavMenu')")
+    expect(mobileTriggerSource).toContain('ssr: false')
+    expect(mobileTriggerSource).toContain('aria-controls="nifty-mobile-navigation"')
+    expect(mobileNavbarSource).toContain("from '@nl/ui/base/sheet'")
+    expect(mobileNavbarSource).toContain('<SheetTitle')
+    expect(mobileNavbarSource).toContain('<SheetDescription')
+    expect(mobileNavbarSource).toContain('id="nifty-mobile-navigation"')
   })
 })
 
