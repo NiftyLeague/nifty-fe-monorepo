@@ -146,6 +146,8 @@ const graphQL = 'apps/app/src/hooks/useGraphQL.ts'
 const publicCarousel = 'apps/web/src/components/Carousel/index.tsx'
 const interactivePublicCarousel = 'apps/web/src/components/Carousel/InteractiveCarousel.tsx'
 const smashersLoginClient = 'apps/smashers/src/app/(auth_routes)/login/LoginClient.tsx'
+const smashersLoginPage = 'apps/smashers/src/app/(auth_routes)/login/page.tsx'
+const smashersLoginRoute = 'apps/smashers/src/app/(auth_routes)/login/LoginRoute.tsx'
 const smashersProfilePage = 'apps/smashers/src/app/(auth_routes)/profile/page.tsx'
 const smashersProfileRoute = 'apps/smashers/src/app/(auth_routes)/profile/ProfileRoute.tsx'
 const smashersRootLayout = 'apps/smashers/src/app/layout.tsx'
@@ -282,6 +284,25 @@ describe('Smashers profile loading contract', () => {
     expect(pageSource).toContain('getSession')
     expect(pageSource).toContain("redirect('/login')")
     expect(routeSource).toContain("dynamic(() => import('./ProfileClient')")
+    expect(routeSource).toContain('ssr: false')
+    expect(routeSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(routeSource).toContain('role="status"')
+    expect(routeSource).toContain('aria-live="polite"')
+    expect(routeSource).toContain('aria-busy="true"')
+  })
+})
+
+describe('Smashers login loading contract', () => {
+  it('keeps the interactive login graph behind an accessible route boundary', () => {
+    const pageSource = readFileSync(join(process.cwd(), smashersLoginPage), 'utf8')
+    const routeSource = readFileSync(join(process.cwd(), smashersLoginRoute), 'utf8')
+
+    expect(pageSource).not.toContain("from '@nl/ui/custom/loading'")
+    expect(pageSource).not.toContain("from './LoginClient'")
+    expect(pageSource).toContain("from './LoginRoute'")
+    expect(pageSource).toContain('getSession')
+    expect(pageSource).toContain("redirect('/profile')")
+    expect(routeSource).toContain("dynamic(() => import('./LoginClient')")
     expect(routeSource).toContain('ssr: false')
     expect(routeSource).toContain("from '@nl/ui/base/skeleton'")
     expect(routeSource).toContain('role="status"')

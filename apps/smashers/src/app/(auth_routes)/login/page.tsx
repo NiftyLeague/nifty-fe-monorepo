@@ -1,8 +1,6 @@
-import { Suspense } from 'react'
 import { redirect } from 'next/navigation'
 import { getSession } from '@/utils/session'
-import { Loading } from '@nl/ui/custom/loading'
-import LoginClient from './LoginClient'
+import LoginRoute from './LoginRoute'
 
 export default async function LoginPage() {
   const session = await getSession()
@@ -18,9 +16,5 @@ export default async function LoginPage() {
     // Add any other necessary session data here, but avoid methods
   }
 
-  return (
-    <Suspense fallback={<Loading />}>
-      <LoginClient sessionData={sessionData} />
-    </Suspense>
-  )
+  return <LoginRoute sessionData={sessionData} />
 }
