@@ -87,6 +87,8 @@ const deferredProfileDialogConsumers = [
   'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_Stats/TopInfo.tsx',
   'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_ImageProfile/index.tsx',
 ]
+const deferredNicknameDialogConsumer =
+  'apps/app/src/app/(private-routes)/dashboard/rentals/MyRentalsDataGrid.tsx'
 
 const authOnlyRouteLayouts = ['apps/app/src/app/(public-routes)/verification/layout.tsx']
 const nftOnlyRouteLayouts = ['apps/app/src/app/(public-routes)/mint-o-matic/layout.tsx']
@@ -106,6 +108,7 @@ const deferredDialogLoading = 'apps/app/src/components/providers/DeferredDialogL
 const deferredProfileNameDialog = 'apps/app/src/components/providers/DeferredProfileNameDialog.tsx'
 const deferredProfileImageDialog =
   'apps/app/src/components/providers/DeferredProfileImageDialog.tsx'
+const deferredNicknameDialog = 'apps/app/src/components/providers/DeferredChangeNicknameDialog.tsx'
 const authUrls = 'apps/app/src/constants/auth-urls.ts'
 const walletModal = 'apps/app/src/contexts/WalletModal.ts'
 const web3ModalContext = 'apps/app/src/contexts/Web3ModalContext.tsx'
@@ -192,20 +195,28 @@ describe('dashboard dialog loading contract', () => {
     expect(source).toContain('aria-busy="true"')
   })
 
-  const deferredProfileDialogs = [
-    [deferredProfileNameDialog, 'ChangeProfileNameDialog'],
-    [deferredProfileImageDialog, 'ProfileImageDialog'],
+  const deferredDialogWrappers = [
+    [deferredProfileNameDialog, 'ChangeProfileNameDialog', 'dashboard/gamer-profile/'],
+    [deferredProfileImageDialog, 'ProfileImageDialog', 'dashboard/gamer-profile/'],
+    [deferredNicknameDialog, 'ChangeNicknameDialog', 'dashboard/rentals/'],
   ] as const
 
-  for (const [file, component] of deferredProfileDialogs) {
+  for (const [file, component, route] of deferredDialogWrappers) {
     it(`defers ${component} behind a shared loading boundary`, () => {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
 
-      expect(source).toContain(`import('@/app/(private-routes)/dashboard/gamer-profile/`)
+      expect(source).toContain(`import('@/app/(private-routes)/${route}`)
       expect(source).toContain(`DeferredDialogLoading`)
       expect(source).toContain('ssr: false')
     })
   }
+
+  it('keeps the rental nickname form deferred until its dialog opens', () => {
+    const source = readFileSync(join(process.cwd(), deferredNicknameDialogConsumer), 'utf8')
+
+    expect(source).toContain('DeferredChangeNicknameDialog')
+    expect(source).not.toContain("from './ChangeNicknameDialog'")
+  })
 
   for (const file of deferredProfileDialogConsumers) {
     it(`keeps profile dialogs deferred in ${file}`, () => {
