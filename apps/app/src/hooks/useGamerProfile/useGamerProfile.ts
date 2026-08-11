@@ -1,6 +1,6 @@
 'use client'
 
-import { GET_GAMER_PROFILE_API } from '@/constants/url'
+import { GET_GAMER_PROFILE_API } from '@/constants/api'
 import useAuth from '@/hooks/useAuth'
 import useFetch from '@/hooks/useFetch'
 import type { Profile } from '@/types/account'
