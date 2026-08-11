@@ -80,6 +80,8 @@ const deferredDashboardDialogConsumers = [
   'apps/app/src/app/(private-routes)/dashboard/rentals/MyRentalsDataGrid.tsx',
 ]
 
+const authOnlyRouteLayouts = ['apps/app/src/app/(public-routes)/verification/layout.tsx']
+
 describe('external route surface contract', () => {
   for (const [app, files] of Object.entries(appRouteContracts)) {
     describe(app, () => {
@@ -117,6 +119,17 @@ describe('dashboard dialog loading contract', () => {
 
       expect(source).toContain('DeferredDegenDialog')
       expect(source).not.toContain("from '@/components/dialog/DegenDialog'")
+    })
+  }
+})
+
+describe('auth-only route provider contract', () => {
+  for (const file of authOnlyRouteLayouts) {
+    it(`keeps heavy wallet features out of ${file}`, () => {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+
+      expect(source).toContain('WalletAuthContextWrapper')
+      expect(source).not.toContain("from '@/contexts/WalletContextWrapper'")
     })
   }
 })
