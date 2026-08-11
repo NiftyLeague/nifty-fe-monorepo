@@ -1,10 +1,12 @@
 'use client'
 
-import MyComics from './MyComics'
+import DeferredDashboardSection from '@/components/providers/DeferredDashboardSection'
 import MyDegens from './MyDegens'
-import MyItems from './MyItems'
 import MyNFTL from './_MyNFTL'
 import MyStats from './MyStats'
+
+const loadMyComics = () => import('./MyComics')
+const loadMyItems = () => import('./MyItems')
 
 const DashboardOverview = (): React.ReactNode => {
   return (
@@ -22,10 +24,10 @@ const DashboardOverview = (): React.ReactNode => {
           <MyDegens />
         </div>
         <div className="w-full">
-          <MyComics />
+          <DeferredDashboardSection label="My Comics" load={loadMyComics} />
         </div>
         <div className="w-full">
-          <MyItems />
+          <DeferredDashboardSection label="My Items" load={loadMyItems} />
         </div>
       </div>
     </div>

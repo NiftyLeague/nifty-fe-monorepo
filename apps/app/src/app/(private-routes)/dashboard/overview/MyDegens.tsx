@@ -15,7 +15,6 @@ import { DEGEN_BASE_API_URL, DEGEN_COLLECTION_URL, PROFILE_FAV_DEGENS_API } from
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
 import EmptyState from '@/components/EmptyState'
 import DeferredDegenDialog from '@/components/providers/DeferredDegenDialog'
-import RenameDegenDialogContent from '@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent'
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import useFetch from '@/hooks/useFetch'
 import { useProfileFavDegens } from '@/hooks/useGamerProfile'
@@ -27,6 +26,18 @@ const DegenCard = dynamic(
   () => import('@/components/cards/DegenCard').then((module) => module.DegenCardInView),
   {
     ssr: false,
+  }
+)
+
+const RenameDegenDialogContent = dynamic(
+  () => import('@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent'),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="sr-only" role="status" aria-live="polite" aria-busy="true">
+        Loading rename form
+      </div>
+    ),
   }
 )
 
