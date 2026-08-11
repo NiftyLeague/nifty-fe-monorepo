@@ -1,20 +1,11 @@
 import RouterLink from 'next/link'
 import Image from 'next/image'
 
-import { useDispatch } from '@/store/hooks'
-import { activeItem } from '@/store/slices/menu'
-
 // ==============================|| LOGO PNG/SVG ||============================== //
 
 const Logo = () => {
-  const dispatch = useDispatch()
-
-  const handleClickActive = () => {
-    dispatch(activeItem(['']))
-  }
-
   return (
-    <RouterLink href="/" onClick={handleClickActive}>
+    <RouterLink href="/">
       <Image src="/img/logos/NL/purple-filled.webp" alt="NiftyLogo" width="32" height="31" />
     </RouterLink>
   )

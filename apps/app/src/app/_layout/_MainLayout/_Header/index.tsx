@@ -1,7 +1,6 @@
 import { Button } from '@nl/ui/base/button'
 
-import { useDispatch, useSelector } from '@/store/hooks'
-import { openDrawer } from '@/store/slices/menu'
+import { useNavigation } from '@/contexts/NavigationContext'
 
 // assets
 import { Icon } from '@nl/ui/base/icon'
@@ -19,8 +18,7 @@ const pages = [
 ] as { name: string; link: string }[]
 
 const Header = () => {
-  const dispatch = useDispatch()
-  const { drawerOpen } = useSelector((state) => state.menu)
+  const { drawerOpen, toggleDrawer } = useNavigation()
 
   return (
     <div className="flex w-full flex-row items-center justify-between">
@@ -39,7 +37,7 @@ const Header = () => {
           variant="ghost"
           size="icon"
           className="h-[34px] w-[34px] cursor-pointer overflow-hidden rounded-md bg-muted text-blue transition-all duration-200 hover:bg-purple hover:text-foreground"
-          onClick={() => dispatch(openDrawer(!drawerOpen))}
+          onClick={toggleDrawer}
           aria-label="toggle sidebar"
         >
           <Icon name="menu" />
