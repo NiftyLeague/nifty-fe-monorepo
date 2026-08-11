@@ -143,6 +143,8 @@ const deferredConsoleGameRoutes = [
   'apps/web/src/app/(main)/niftyworld/page.tsx',
   'apps/smashers/src/app/page.tsx',
 ]
+const leaderboardsPage = 'apps/app/src/app/(public-routes)/leaderboards/page.tsx'
+const deferredLeaderboards = 'apps/app/src/components/providers/DeferredLeaderboards.tsx'
 
 describe('external route surface contract', () => {
   for (const [app, files] of Object.entries(appRouteContracts)) {
@@ -157,6 +159,23 @@ describe('external route surface contract', () => {
       }
     })
   }
+})
+
+describe('public leaderboard loading contract', () => {
+  it('keeps the archived leaderboard client graph out of the initial route entry', () => {
+    const pageSource = readFileSync(join(process.cwd(), leaderboardsPage), 'utf8')
+    const deferredSource = readFileSync(join(process.cwd(), deferredLeaderboards), 'utf8')
+
+    expect(pageSource).toContain('DeferredLeaderboards')
+    expect(pageSource).not.toContain("from '@/components/leaderboards'")
+    expect(deferredSource).toContain("import('@/components/leaderboards')")
+    expect(deferredSource).toContain('LeaderboardsLoading')
+    expect(deferredSource).toContain('role="status"')
+    expect(deferredSource).toContain('role="alert"')
+    expect(deferredSource).toContain('aria-busy="true"')
+    expect(deferredSource).toContain('Retry')
+    expect(deferredSource).toContain("from '@nl/ui/base/skeleton'")
+  })
 })
 
 /**
