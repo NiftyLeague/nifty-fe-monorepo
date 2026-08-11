@@ -27,7 +27,7 @@ const GameVerification = (): React.ReactNode => {
   }, [handleConnectWallet, isConnected, msgSent, nonce, signMessage, token])
 
   return (
-    <div className="container" style={{ textAlign: 'center', padding: '40px' }}>
+    <main className="container p-10 text-center" role="status" aria-live="polite">
       {isError || isSuccess ? (
         <>
           {isError && 'Error signing message'}
@@ -41,7 +41,7 @@ const GameVerification = (): React.ReactNode => {
             : 'Please connect your wallet'}
         </>
       )}
-    </div>
+    </main>
   )
 }
 

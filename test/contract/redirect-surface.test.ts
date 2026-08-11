@@ -83,7 +83,7 @@ const surfaces: Record<string, SurfaceEntry[]> = {
     },
     {
       type: 'file',
-      path: 'src/app/(public-routes)/verification/page.tsx',
+      path: 'src/app/verification/page.tsx',
       reason: 'Auth verification route',
     },
   ],
