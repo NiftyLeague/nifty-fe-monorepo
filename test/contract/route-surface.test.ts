@@ -82,6 +82,12 @@ const deferredDashboardDialogConsumers = [
 
 const authOnlyRouteLayouts = ['apps/app/src/app/(public-routes)/verification/layout.tsx']
 const nftOnlyRouteLayouts = ['apps/app/src/app/(public-routes)/mint-o-matic/layout.tsx']
+const publicProviderBoundary = 'apps/app/src/contexts/PublicAppContextWrapper.tsx'
+const walletStorageBoundaries = [
+  'apps/app/src/contexts/WalletAuthContextWrapper.tsx',
+  'apps/app/src/contexts/WalletFeatureProviders.tsx',
+  'apps/app/src/contexts/WalletMintContextWrapper.tsx',
+]
 
 describe('external route surface contract', () => {
   for (const [app, files] of Object.entries(appRouteContracts)) {
@@ -143,6 +149,22 @@ describe('NFT-only route provider contract', () => {
       expect(source).toContain('WalletMintContextWrapper')
       expect(source).not.toContain("from '@/contexts/WalletContextWrapper'")
       expect(source).not.toContain("from '@/contexts/AuditFixtureContextWrapper'")
+    })
+  }
+})
+
+describe('public storage provider contract', () => {
+  it('keeps wallet storage out of the shared public shell', () => {
+    const source = readFileSync(join(process.cwd(), publicProviderBoundary), 'utf8')
+
+    expect(source).not.toContain("from '@/contexts/LocalStorageContext'")
+  })
+
+  for (const file of walletStorageBoundaries) {
+    it(`keeps wallet storage available in ${file}`, () => {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+
+      expect(source).toContain("from '@/contexts/LocalStorageContext'")
     })
   }
 })
