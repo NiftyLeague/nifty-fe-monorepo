@@ -183,6 +183,9 @@ const privateRoutesShell = 'apps/app/src/components/providers/PrivateRoutesShell
 const deferredNotifications = 'apps/app/src/components/providers/DeferredNotifications.tsx'
 const leaderboardsPage = 'apps/app/src/app/(public-routes)/leaderboards/page.tsx'
 const deferredLeaderboards = 'apps/app/src/components/providers/DeferredLeaderboards.tsx'
+const degensPage = 'apps/app/src/app/(public-routes)/degens/page.tsx'
+const degensRouteBoundary = 'apps/app/src/app/(public-routes)/degens/DegenRoute.tsx'
+const degensClientPage = 'apps/app/src/app/(public-routes)/degens/AllDegensPage.tsx'
 const publicMainLayout = 'apps/app/src/app/_layout/_PublicMainLayout/index.tsx'
 const publicNavigation = 'apps/app/src/components/providers/PublicNavigation.tsx'
 const publicMobileNavigation = 'apps/app/src/components/providers/PublicMobileNavigation.tsx'
@@ -219,6 +222,24 @@ describe('public leaderboard loading contract', () => {
     expect(deferredSource).toContain('aria-busy="true"')
     expect(deferredSource).toContain('Retry')
     expect(deferredSource).toContain("from '@nl/ui/base/skeleton'")
+  })
+})
+
+describe('public degen loading contract', () => {
+  it('keeps the interactive degen browser out of the route entry chunk', () => {
+    const pageSource = readFileSync(join(process.cwd(), degensPage), 'utf8')
+    const routeBoundarySource = readFileSync(join(process.cwd(), degensRouteBoundary), 'utf8')
+    const clientPageSource = readFileSync(join(process.cwd(), degensClientPage), 'utf8')
+
+    expect(pageSource).not.toContain("'use client'")
+    expect(pageSource).toContain("from './DegenRoute'")
+    expect(routeBoundarySource).toContain("dynamic(() => import('./AllDegensPage')")
+    expect(routeBoundarySource).toContain('ssr: false')
+    expect(routeBoundarySource).toContain('role="status"')
+    expect(routeBoundarySource).toContain('aria-live="polite"')
+    expect(routeBoundarySource).toContain('aria-busy="true"')
+    expect(routeBoundarySource).toContain("from '@nl/ui/base/skeleton'")
+    expect(clientPageSource).toContain("'use client'")
   })
 })
 
@@ -915,10 +936,7 @@ describe('public route dependency contract', () => {
   })
 
   it('keeps the public degen dialog wallet-free', () => {
-    const page = readFileSync(
-      join(process.cwd(), 'apps/app/src/app/(public-routes)/degens/page.tsx'),
-      'utf8'
-    )
+    const page = readFileSync(join(process.cwd(), degensClientPage), 'utf8')
     const dialog = readFileSync(
       join(process.cwd(), 'apps/app/src/components/dialog/PublicDegenDialog.tsx'),
       'utf8'
@@ -939,10 +957,7 @@ describe('public route dependency contract', () => {
   })
 
   it('defers the public degen filter behind an accessible loading boundary', () => {
-    const page = readFileSync(
-      join(process.cwd(), 'apps/app/src/app/(public-routes)/degens/page.tsx'),
-      'utf8'
-    )
+    const page = readFileSync(join(process.cwd(), degensClientPage), 'utf8')
     const deferredFilter = readFileSync(
       join(process.cwd(), 'apps/app/src/components/providers/DeferredDegensFilter.tsx'),
       'utf8'
