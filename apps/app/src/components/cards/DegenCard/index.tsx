@@ -1,24 +1,20 @@
 'use client'
 
-import { memo, useMemo, useRef } from 'react'
-import Image from 'next/image'
+import { memo, useRef } from 'react'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
-import { toast } from 'sonner'
 import { Button } from '@nl/ui/base/button'
 import { Card, CardContent } from '@nl/ui/base/card'
 import { Icon } from '@nl/ui/base/icon'
 import { Title } from '@nl/ui/custom/typography'
-import { formatNumberToDisplay } from '@nl/ui/utils'
 import type { SxProps, Theme } from '@/types'
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
-import useClaimableNFTL from '@/hooks/balances/useClaimableNFTL'
 import DegenImage from './DegenImage'
-import { downloadDegenAsZip } from '@/utils/file'
-import { errorMsgHandler } from '@/utils/errorHandlers'
 import type { Degen } from '@/types/degens'
-import useAuth from '@/hooks/useAuth'
 import { DEGEN_PURCHASE_URL } from '@/constants/url'
+
+const DegenDashboardActions = dynamic(() => import('./DegenDashboardActions'), { ssr: false })
 
 export interface DegenCardProps {
   degen: Degen
@@ -31,24 +27,13 @@ export interface DegenCardProps {
   favs?: string[]
   onClickClaim?: React.MouseEventHandler<HTMLButtonElement>
   onClickDetail?: React.MouseEventHandler<HTMLButtonElement>
-  onClickEditName?: React.MouseEventHandler<SVGSVGElement>
+  onClickEditName?: React.MouseEventHandler<HTMLButtonElement>
   onClickEquip?: React.MouseEventHandler<HTMLButtonElement>
-  onClickFavorite?: React.MouseEventHandler<SVGSVGElement>
+  onClickFavorite?: React.MouseEventHandler<HTMLButtonElement>
   onClickRent?: React.MouseEventHandler<HTMLButtonElement>
   onClickSelect?: React.MouseEventHandler<HTMLButtonElement>
   sx?: SxProps<Theme>
 }
-
-const DegenClaimBal: React.FC<
-  React.PropsWithChildren<React.PropsWithChildren<{ tokenId: string; fontSize: string }>>
-> = memo(({ tokenId, fontSize }) => {
-  const degenTokenIndices = useMemo(() => [parseInt(tokenId, 10)], [tokenId])
-  const { balance } = useClaimableNFTL(degenTokenIndices)
-  const amountParsed = formatNumberToDisplay(balance, 0)
-  return <span className="text-center" style={{ fontSize }}>{`${amountParsed} NFTL`}</span>
-})
-
-DegenClaimBal.displayName = 'DegenClaimBal'
 
 const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenCardProps>>> = memo(
   ({
@@ -68,20 +53,8 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
   }) => {
     const { id, name } = degen
     const fav = favs.some((f) => f === id)
-    const { authToken } = useAuth()
-
-    const onClickDownload = async () => {
-      if (authToken) {
-        try {
-          await downloadDegenAsZip(authToken, id)
-        } catch (err) {
-          toast.error(errorMsgHandler(err))
-        }
-      }
-    }
 
     const buttonFontSize = size === 'small' ? '12px' : 'var(--text-sm)'
-    const tinyFontSize = size === 'small' ? '8px' : 'var(--text-xs)'
 
     return (
       <Card
@@ -90,18 +63,22 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
       >
         {id && <DegenImage tokenId={id} />}
         <CardContent className="px-2 py-2">
-          <div className="flex flex-row justify-between gap-2 hover:[&_svg]:block">
+          <div className="group flex flex-row justify-between gap-2">
             <div className="flex">
               <Title level={size === 'small' ? 6 : 5} className="truncate-text-1">
                 {name || '[No Name]'}
               </Title>
               {isDashboardDegen && (
-                <Icon
-                  name="pencil"
-                  size="sm"
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  aria-label="Edit degen name"
                   onClick={onClickEditName}
-                  className="ml-1 hidden cursor-pointer"
-                />
+                  className="ml-1 hidden size-6 cursor-pointer p-0 group-hover:inline-flex"
+                >
+                  <Icon name="pencil" size="sm" aria-hidden="true" />
+                </Button>
               )}
             </div>
             <Link
@@ -148,31 +125,12 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
           )}
         </div>
         {isDashboardDegen && (
-          <div
-            className="flex flex-row items-center justify-between px-2 pt-2"
-            style={{ lineHeight: '1.5em' }}
-          >
-            <div className="flex flex-row items-center">
-              <Icon
-                name="heart"
-                strokeWidth={fav ? 0 : 1.5}
-                fill={fav ? 'foreground' : undefined}
-                size={size === 'small' ? 12 : 16}
-                onClick={onClickFavorite}
-                className="mr-3 cursor-pointer"
-              />
-              <div className="flex cursor-pointer items-center" onClick={onClickDownload}>
-                <span style={{ fontSize: tinyFontSize, paddingRight: '4px' }}>IP</span>
-                <Image
-                  src="/icons/download-solid.svg"
-                  alt="Download Icon"
-                  width={size === 'small' ? 12 : 16}
-                  height={size === 'small' ? 12 : 16}
-                />
-              </div>
-            </div>
-            <DegenClaimBal tokenId={id} fontSize={tinyFontSize} />
-          </div>
+          <DegenDashboardActions
+            tokenId={id}
+            fav={fav}
+            size={size}
+            onClickFavorite={onClickFavorite}
+          />
         )}
       </Card>
     )
