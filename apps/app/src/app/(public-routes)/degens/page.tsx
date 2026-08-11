@@ -22,25 +22,18 @@ import {
   applySeventhTribesFix,
 } from '@/components/extended/DegensFilter/utils'
 import SectionTitle from '@/components/sections/SectionTitle'
-import { DEGEN_BASE_API_URL } from '@/constants/url'
+import { DEGEN_BASE_API_URL } from '@/constants/api'
 import useFetch from '@/hooks/useFetch'
 import usePagination from '@/hooks/usePagination'
 import type { DegenFilter } from '@/types/degenFilter'
 import type { Degen } from '@/types/degens'
 import DegensTopNav from '@/components/extended/DegensTopNav'
+import PublicDegenDialog from '@/components/dialog/PublicDegenDialog'
 
 const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'), {
   ssr: false,
 })
 const DegenCard = dynamic(() => import('@/components/cards/DegenCard'), { ssr: false })
-const WalletDegenDialog = dynamic(() => import('@/components/providers/WalletDegenDialog'), {
-  ssr: false,
-  loading: () => (
-    <div className="sr-only" role="status" aria-live="polite" aria-busy="true">
-      Loading degen details
-    </div>
-  ),
-})
 
 const AllDegensPage = (): React.ReactNode => {
   const [degens, setDegens] = useState<Degen[]>([])
@@ -52,7 +45,6 @@ const AllDegensPage = (): React.ReactNode => {
   const [filteredData, setFilteredData] = useState<Degen[]>([])
   const [selectedDegen, setSelectedDegen] = useState<Degen>()
   const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false)
-  const [isRentDialog, setIsRentDialog] = useState<boolean>(false)
   const searchParams = useSearchParams()
   const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined)
   const [layoutMode, setLayoutMode] = useState<string>('gridView')
@@ -134,7 +126,6 @@ const AllDegensPage = (): React.ReactNode => {
 
   const handleViewTraits = useCallback((degen: Degen): void => {
     setSelectedDegen(degen)
-    setIsRentDialog(false)
     setIsDegenModalOpen(true)
   }, [])
 
@@ -279,13 +270,7 @@ const AllDegensPage = (): React.ReactNode => {
         />
       </div>
       {isDegenModalOpen && (
-        <WalletDegenDialog
-          open
-          degen={selectedDegen}
-          isRent={isRentDialog}
-          setIsRent={setIsRentDialog}
-          onClose={() => setIsDegenModalOpen(false)}
-        />
+        <PublicDegenDialog open degen={selectedDegen} onClose={() => setIsDegenModalOpen(false)} />
       )}
     </>
   )
