@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from 'react'
 
-import WalletContextWrapper from '@/contexts/WalletContextWrapper'
+import WalletAuthContextWrapper from '@/contexts/WalletAuthContextWrapper'
 
 export default function VerificationLayout({ children }: PropsWithChildren) {
-  return <WalletContextWrapper>{children}</WalletContextWrapper>
+  return <WalletAuthContextWrapper>{children}</WalletAuthContextWrapper>
 }
