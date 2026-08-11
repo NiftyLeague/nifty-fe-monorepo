@@ -83,6 +83,10 @@ const deferredRenameDegenConsumers = [
   'apps/app/src/app/(private-routes)/dashboard/degens/page.tsx',
   'apps/app/src/app/(private-routes)/dashboard/overview/MyDegens.tsx',
 ]
+const deferredProfileDialogConsumers = [
+  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_Stats/TopInfo.tsx',
+  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_ImageProfile/index.tsx',
+]
 
 const authOnlyRouteLayouts = ['apps/app/src/app/(public-routes)/verification/layout.tsx']
 const nftOnlyRouteLayouts = ['apps/app/src/app/(public-routes)/mint-o-matic/layout.tsx']
@@ -98,6 +102,10 @@ const privateShell = 'apps/app/src/components/providers/PrivateRoutesShell.tsx'
 const dashboardDataProviderBoundary = 'apps/app/src/contexts/DashboardDataProviders.tsx'
 const dashboardDataBoundary = 'apps/app/src/components/providers/DashboardDataBoundary.tsx'
 const deferredRenameDegenDialog = 'apps/app/src/components/providers/DeferredRenameDegenDialog.tsx'
+const deferredDialogLoading = 'apps/app/src/components/providers/DeferredDialogLoading.tsx'
+const deferredProfileNameDialog = 'apps/app/src/components/providers/DeferredProfileNameDialog.tsx'
+const deferredProfileImageDialog =
+  'apps/app/src/components/providers/DeferredProfileImageDialog.tsx'
 const authUrls = 'apps/app/src/constants/auth-urls.ts'
 const walletModal = 'apps/app/src/contexts/WalletModal.ts'
 const web3ModalContext = 'apps/app/src/contexts/Web3ModalContext.tsx'
@@ -161,10 +169,7 @@ describe('dashboard dialog loading contract', () => {
     expect(source).toContain(
       "import('@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent')"
     )
-    expect(source).toContain("from '@nl/ui/base/skeleton'")
-    expect(source).toContain('role="status"')
-    expect(source).toContain('aria-live="polite"')
-    expect(source).toContain('aria-busy="true"')
+    expect(source).toContain('DeferredDialogLoading')
   })
 
   for (const file of deferredRenameDegenConsumers) {
@@ -175,6 +180,40 @@ describe('dashboard dialog loading contract', () => {
       expect(source).not.toContain(
         "from '@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent'"
       )
+    })
+  }
+
+  it('shares an accessible loading boundary across deferred dialog wrappers', () => {
+    const source = readFileSync(join(process.cwd(), deferredDialogLoading), 'utf8')
+
+    expect(source).toContain("from '@nl/ui/base/skeleton'")
+    expect(source).toContain('role="status"')
+    expect(source).toContain('aria-live="polite"')
+    expect(source).toContain('aria-busy="true"')
+  })
+
+  const deferredProfileDialogs = [
+    [deferredProfileNameDialog, 'ChangeProfileNameDialog'],
+    [deferredProfileImageDialog, 'ProfileImageDialog'],
+  ] as const
+
+  for (const [file, component] of deferredProfileDialogs) {
+    it(`defers ${component} behind a shared loading boundary`, () => {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+
+      expect(source).toContain(`import('@/app/(private-routes)/dashboard/gamer-profile/`)
+      expect(source).toContain(`DeferredDialogLoading`)
+      expect(source).toContain('ssr: false')
+    })
+  }
+
+  for (const file of deferredProfileDialogConsumers) {
+    it(`keeps profile dialogs deferred in ${file}`, () => {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+
+      expect(source).toContain('DeferredProfile')
+      expect(source).not.toContain("from './ChangeProfileNameDialog'")
+      expect(source).not.toContain("from './ProfileImageDialog'")
     })
   }
 })

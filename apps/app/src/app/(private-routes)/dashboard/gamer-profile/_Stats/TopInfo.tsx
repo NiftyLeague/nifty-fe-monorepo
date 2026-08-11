@@ -10,7 +10,7 @@ import { useGamerProfileContext } from '@/hooks/useGamerProfile'
 import type { Profile } from '@/types/account'
 
 import ProgressGamer from './ProgressGamer'
-import ChangeProfileNameDialog from './ChangeProfileNameDialog'
+import DeferredProfileNameDialog from '@/components/providers/DeferredProfileNameDialog'
 import TopInfoSkeleton from './TopInfoSkeleton'
 
 interface TopInfoProps {
@@ -34,7 +34,7 @@ const TopInfo = ({ profile, walletAddress }: TopInfoProps): React.ReactNode => {
         <div className="flex flex-row items-center gap-10">
           <div className="w-1/2">
             <Title level={2}>
-              {profileName} <ChangeProfileNameDialog handleUpdateNewName={handleUpdateNewName} />
+              {profileName} <DeferredProfileNameDialog handleUpdateNewName={handleUpdateNewName} />
             </Title>
           </div>
           <div className="w-1/2">{total && <ProgressGamer data={total} />}</div>

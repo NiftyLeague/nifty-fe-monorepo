@@ -4,8 +4,8 @@ import { useMemo } from 'react'
 import { Skeleton } from '@nl/ui/base/skeleton'
 
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
+import DeferredProfileImageDialog from '@/components/providers/DeferredProfileImageDialog'
 import { useGamerProfileContext } from '@/hooks/useGamerProfile'
-import ProfileImageDialog from './ProfileImageDialog'
 
 import type { Degen } from '@/types/degens'
 import type { ProfileAvatar } from '@/types/account'
@@ -46,7 +46,7 @@ const ImageProfile = ({ degens, avatar, avatarFee }: ImageProfileProps): React.R
       <div className="relative [&_img]:rounded-[var(--radius-default)]">
         {renderImage()}
         {degens && degens.length > 0 && (
-          <ProfileImageDialog
+          <DeferredProfileImageDialog
             onChangeAvatar={handleChangeAvatar}
             degens={degens}
             avatarFee={avatarFee}
