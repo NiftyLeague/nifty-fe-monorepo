@@ -1,10 +1,12 @@
 'use client'
 
-import ArcadeBalance from './ArcadeBalance'
+import DeferredDashboardSection from '@/components/providers/DeferredDashboardSection'
 import DegenBalance from './DegenBalance'
 import GameBalance from './GameBalance'
 import TitleSection from './TitleSection'
 import WalletBalances from './WalletBalances'
+
+const loadArcadeBalance = () => import('./ArcadeBalance')
 
 const MyNFTL = (): React.ReactNode => (
   <div className="grid grid-cols-12 gap-4">
@@ -23,7 +25,7 @@ const MyNFTL = (): React.ReactNode => (
       </div>
     </div>
     <div className="col-span-12">
-      <ArcadeBalance />
+      <DeferredDashboardSection label="Arcade balance" load={loadArcadeBalance} />
     </div>
   </div>
 )
