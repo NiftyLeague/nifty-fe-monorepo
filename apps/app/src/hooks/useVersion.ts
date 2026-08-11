@@ -5,15 +5,39 @@ import { useUserAgent } from '@nl/ui/hooks/useUserAgent'
 import { DEGEN_BASE_API_URL } from '@/constants/api'
 import { TARGET_NETWORK } from '@/constants/networks'
 
+type LauncherPlatform = {
+  os: 'unknown' | 'win' | 'osx' | 'linux'
+  isWindows: boolean
+  isMacOs: boolean
+  isLinux: boolean
+}
+
+const initialPlatform: LauncherPlatform = {
+  os: 'unknown',
+  isWindows: false,
+  isMacOs: false,
+  isLinux: false,
+}
+
 const useVersion = () => {
   const [version, setVersion] = useState('')
   const env = TARGET_NETWORK?.chainId === 1 ? 'prod' : 'stage'
-  const { isWindows, isMacOs } = useUserAgent()
-  const isLinux = typeof window !== 'undefined' && window.navigator.userAgent.indexOf('Linux') >= 0
-  const os = isWindows() ? 'win' : isMacOs() ? 'osx' : isLinux ? 'linux' : 'unknown'
-  const message = isWindows()
+  const userAgent = useUserAgent()
+  const [platform, setPlatform] = useState<LauncherPlatform>(initialPlatform)
+
+  useEffect(() => {
+    const isWindows = userAgent.isWindows()
+    const isMacOs = userAgent.isMacOs()
+    const isLinux = userAgent.isLinux()
+    const os = isWindows ? 'win' : isMacOs ? 'osx' : isLinux ? 'linux' : 'unknown'
+
+    setPlatform({ os, isWindows, isMacOs, isLinux })
+  }, [userAgent])
+
+  const { os, isWindows, isMacOs, isLinux } = platform
+  const message = isWindows
     ? 'Download for Windows'
-    : isMacOs()
+    : isMacOs
       ? 'Download for Mac OS not available'
       : isLinux
         ? 'Linux support is not available at this time'
@@ -23,27 +47,31 @@ const useVersion = () => {
   const downloadURL = `https://d7ct17ettlkln.cloudfront.net/launcher/${env}/${os}/${version}/${fileName}`
 
   useEffect(() => {
+    if (os === 'unknown') return
+
+    let canceled = false
+
     const fetchVersion = async () => {
-      const v: string = await fetch(
-        `${DEGEN_BASE_API_URL}/launcher/${env}/${os}/version.bin?t=${Date.now()}`
-      )
-        .then(async (res) => {
-          if (res.status >= 400) {
-            console.error(await res.text())
-            return ''
-          }
-          return res.text()
-        })
-        .catch((e) => {
-          console.error(e)
-          return ''
-        })
-      setVersion(v)
+      try {
+        const response = await fetch(
+          `${DEGEN_BASE_API_URL}/launcher/${env}/${os}/version.bin?t=${Date.now()}`
+        )
+        const nextVersion = response.ok ? await response.text() : ''
+
+        if (!canceled) setVersion(nextVersion)
+      } catch {
+        if (!canceled) setVersion('')
+      }
     }
+
     fetchVersion()
+
+    return () => {
+      canceled = true
+    }
   }, [env, os])
 
-  return { downloadURL, version, isWindows: isWindows(), isLinux, isMacOs: isMacOs(), message }
+  return { downloadURL, version, isWindows, isLinux, isMacOs, message }
 }
 
 export default useVersion
