@@ -27,14 +27,12 @@ import styles from './index.module.css'
 interface DegensFilterProps {
   onFilter: (filter: DegenFilter) => void
   defaultFilterValues: DegenFilter
-  isDegenOwner?: boolean
   searchTerm?: string
 }
 
 const DegensFilter = ({
   onFilter,
   defaultFilterValues,
-  isDegenOwner,
   searchTerm,
 }: DegensFilterProps): React.ReactNode => {
   const mountedRef = useRef(false)
@@ -192,7 +190,7 @@ const DegensFilter = ({
         searchTerm: newFilters.searchTerm,
         walletAddress: newFilters.walletAddress,
       })
-  }, [defaultFilterValues, isDegenOwner, onFilter, params])
+  }, [defaultFilterValues, onFilter, params])
 
   return (
     <div className="flex flex-col gap-3 overflow-x-hidden max-sm:py-4">

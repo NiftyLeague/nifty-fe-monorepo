@@ -7,7 +7,6 @@ import dynamic from 'next/dynamic'
 import { v4 as uuidv4 } from 'uuid'
 
 import { Button } from '@nl/ui/base/button'
-import { Dialog } from '@nl/ui/base/dialog'
 import { Icon } from '@nl/ui/base/icon'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
@@ -22,25 +21,28 @@ import {
   getGridSizeClass,
   applySeventhTribesFix,
 } from '@/components/extended/DegensFilter/utils'
-import RenameDegenDialogContent from '@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent'
 import SectionTitle from '@/components/sections/SectionTitle'
 import { DEGEN_BASE_API_URL } from '@/constants/url'
 import useFetch from '@/hooks/useFetch'
 import usePagination from '@/hooks/usePagination'
 import type { DegenFilter } from '@/types/degenFilter'
 import type { Degen } from '@/types/degens'
-import useNetworkContext from '@/hooks/useNetworkContext'
-import DegenDialog from '@/components/dialog/DegenDialog'
-import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import DegensTopNav from '@/components/extended/DegensTopNav'
 
 const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'), {
   ssr: false,
 })
 const DegenCard = dynamic(() => import('@/components/cards/DegenCard'), { ssr: false })
+const WalletDegenDialog = dynamic(() => import('@/components/providers/WalletDegenDialog'), {
+  ssr: false,
+  loading: () => (
+    <div className="sr-only" role="status" aria-live="polite" aria-busy="true">
+      Loading degen details
+    </div>
+  ),
+})
 
 const AllDegensPage = (): React.ReactNode => {
-  const { address } = useNetworkContext()
   const [degens, setDegens] = useState<Degen[]>([])
   // Start closed so mobile does not push the first card below the fold before the
   // responsive drawer effect runs. The layout opens it after mount on desktop.
@@ -49,7 +51,6 @@ const AllDegensPage = (): React.ReactNode => {
   const [defaultValues, setDefaultValues] = useState<DegenFilter | undefined>()
   const [filteredData, setFilteredData] = useState<Degen[]>([])
   const [selectedDegen, setSelectedDegen] = useState<Degen>()
-  const [isRenameDegenModalOpen, setIsRenameDegenModalOpen] = useState<boolean>(false)
   const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false)
   const [isRentDialog, setIsRentDialog] = useState<boolean>(false)
   const searchParams = useSearchParams()
@@ -66,8 +67,6 @@ const AllDegensPage = (): React.ReactNode => {
     return Object.values(data).map(applySeventhTribesFix)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [!!data])
-
-  const { isDegenOwner } = useNFTsBalances()
 
   const isMobile = useMediaQuery('(max-width:640px)')
   const isSmallScreen = useMediaQuery('(max-width:1280px)')
@@ -98,7 +97,7 @@ const AllDegensPage = (): React.ReactNode => {
       setDegens([])
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [originalDegens, address])
+  }, [originalDegens])
 
   const handleChangeSearchTerm: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (
     e
@@ -133,11 +132,6 @@ const AllDegensPage = (): React.ReactNode => {
     [degens?.length, filters]
   )
 
-  const handleClickEditName = useCallback((degen: Degen): void => {
-    setSelectedDegen(degen)
-    setIsRenameDegenModalOpen(true)
-  }, [])
-
   const handleViewTraits = useCallback((degen: Degen): void => {
     setSelectedDegen(degen)
     setIsRentDialog(false)
@@ -161,11 +155,10 @@ const AllDegensPage = (): React.ReactNode => {
         <DegensFilter
           onFilter={handleFilter}
           defaultFilterValues={defaultValues as DegenFilter}
-          isDegenOwner={isDegenOwner}
           searchTerm={searchTerm}
         />
       ),
-    [defaultValues, isDegenOwner, handleFilter, searchTerm]
+    [defaultValues, handleFilter, searchTerm]
   )
 
   const renderDegen = useCallback(
@@ -174,12 +167,11 @@ const AllDegensPage = (): React.ReactNode => {
         <DegenCard
           degen={degen}
           size={isGridView ? 'normal' : 'small'}
-          onClickEditName={() => handleClickEditName(degen)}
           onClickDetail={() => handleViewTraits(degen)}
         />
       </div>
     ),
-    [handleClickEditName, handleViewTraits, isDrawerOpen, isGridView]
+    [handleViewTraits, isDrawerOpen, isGridView]
   )
 
   const renderMain = useCallback(
@@ -286,22 +278,15 @@ const AllDegensPage = (): React.ReactNode => {
           renderMain={renderMain}
         />
       </div>
-      <DegenDialog
-        open={isDegenModalOpen}
-        degen={selectedDegen}
-        isRent={isRentDialog}
-        setIsRent={setIsRentDialog}
-        onClose={() => setIsDegenModalOpen(false)}
-      />
-      <Dialog
-        open={isRenameDegenModalOpen}
-        onOpenChange={(open) => !open && setIsRenameDegenModalOpen(false)}
-      >
-        <RenameDegenDialogContent
+      {isDegenModalOpen && (
+        <WalletDegenDialog
+          open
           degen={selectedDegen}
-          onSuccess={() => setIsRenameDegenModalOpen(false)}
+          isRent={isRentDialog}
+          setIsRent={setIsRentDialog}
+          onClose={() => setIsDegenModalOpen(false)}
         />
-      </Dialog>
+      )}
     </>
   )
 }
