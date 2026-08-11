@@ -13,8 +13,12 @@ beforeEach(async () => {
     default: ({
       fill: _fill,
       sizes: _sizes,
+      alt,
       ...props
-    }: ComponentProps<'img'> & { fill?: boolean }) => <img {...props} />,
+    }: ComponentProps<'img'> & { fill?: boolean }) => (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img alt={alt ?? ''} {...props} />
+    ),
   }))
   mock.module('@nl/ui/base/icon', () => ({
     Icon: ({ name }: { name: string }) => <span data-icon={name}>{name}</span>,
