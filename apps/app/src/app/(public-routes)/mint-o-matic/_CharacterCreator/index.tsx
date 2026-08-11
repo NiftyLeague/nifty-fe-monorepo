@@ -2,9 +2,8 @@
 'use client'
 
 import { memo, useCallback, useEffect, useState } from 'react'
-import { Unity } from 'react-unity-webgl'
+import { Unity, useUnityContext } from 'react-unity-webgl'
 import type { IUnityConfig } from 'react-unity-webgl'
-import { useUnityContext } from '@/lib/use-unity-context'
 import { useOrientation } from '@nl/ui/hooks/useOrientation'
 
 import useRemovedTraits from '@/hooks/useRemovedTraits'
