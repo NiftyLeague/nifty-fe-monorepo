@@ -8,10 +8,9 @@ import { cn } from '@nl/ui/utils'
 import { ScrollArea } from '@nl/ui/base/scroll-area'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
-import { openDrawer } from '@/store/slices/menu'
-import { useDispatch, useSelector } from '@/store/hooks'
 import Breadcrumbs from '@/components/extended/Breadcrumbs'
 import DeferredNotifications from '@/components/providers/DeferredNotifications'
+import { NavigationProvider, useNavigation } from '@/contexts/NavigationContext'
 import navigation from '@/constants/menu-items'
 import styles from './_MainLayout/MainLayout.module.css'
 
@@ -24,14 +23,23 @@ interface AppShellProps extends PropsWithChildren {
 }
 
 export default function AppShell({ children, header, sidebar, networkWarning }: AppShellProps) {
+  return (
+    <NavigationProvider>
+      <AppShellContent header={header} sidebar={sidebar} networkWarning={networkWarning}>
+        {children}
+      </AppShellContent>
+    </NavigationProvider>
+  )
+}
+
+function AppShellContent({ children, header, sidebar, networkWarning }: AppShellProps) {
   const pathname = usePathname()
-  const dispatch = useDispatch()
   const matchDownXL = useMediaQuery('(max-width:1280px)')
-  const { drawerOpen } = useSelector((state) => state.menu)
+  const { drawerOpen, setDrawerOpen } = useNavigation()
 
   useEffect(() => {
-    dispatch(openDrawer(!matchDownXL))
-  }, [matchDownXL, dispatch])
+    setDrawerOpen(!matchDownXL)
+  }, [matchDownXL, setDrawerOpen])
 
   const isNoFilterPage = pathname && /(degens|dashboard\/degens)/.test(pathname)
 
