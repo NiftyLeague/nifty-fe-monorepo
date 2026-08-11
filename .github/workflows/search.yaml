@@ -16,9 +16,6 @@ on:
     branches:
       - main
       - staging
-  pull_request:
-    branches:
-      - staging
 
 jobs:
   search:
@@ -34,7 +31,7 @@ jobs:
         working-directory: apps/docs
         run: |
           docker run \
-            --env ALGOLIA_APP_ID=${ALGOLIA_APP_ID} \
-            --env ALGOLIA_API_KEY=${ALGOLIA_API_KEY} \
+            --env "ALGOLIA_APP_ID=${ALGOLIA_APP_ID}" \
+            --env "ALGOLIA_API_KEY=${ALGOLIA_API_KEY}" \
             --env "CONFIG=$(cat algolia-config.json | jq -r tostring)" \
             algolia/docsearch-scraper

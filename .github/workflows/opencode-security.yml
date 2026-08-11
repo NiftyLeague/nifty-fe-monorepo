@@ -13,7 +13,10 @@ jobs:
     name: OpenCode Security / Detect
     if: >-
       github.event_name == 'workflow_dispatch' ||
-      startsWith(github.event.pull_request.head.ref, 'release-please--branches--main')
+      (
+        github.event.pull_request.draft != true &&
+        startsWith(github.event.pull_request.head.ref, 'release-please--branches--main')
+      )
     runs-on: ubuntu-slim
     outputs:
       enabled: ${{ steps.detect.outputs.enabled }}
