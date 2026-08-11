@@ -51,5 +51,7 @@ export default withSentryConfig(nextConfig, {
   tunnelRoute: true, // Generates a random route for each build (recommended)
 
   // Capture React component names to see which component a user clicked on.
+  // Route grouping is not worth shipping Sentry's manifest on every initial route.
+  routeManifestInjection: false,
   webpack: { reactComponentAnnotation: { enabled: true }, treeshake: { removeDebugLogging: true } },
 })
