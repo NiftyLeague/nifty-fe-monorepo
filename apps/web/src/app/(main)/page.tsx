@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
 import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
-import { ConsoleGame } from '@nl/ui/custom/console-game'
+import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 
 import BouncingNFTL from '@/components/BouncingNFTL'
 import Carousel from '@/components/Carousel'
@@ -196,7 +196,7 @@ const Home = () => {
           </h2>
         </AnimatedWrapper>
 
-        <ConsoleGame src="/video/smashers.mp4" />
+        <DeferredConsoleGame src="/video/smashers.mp4" />
 
         <ThemeBtnGroup
           className="absolute bottom-0 sm:bottom-4"

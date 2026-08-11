@@ -133,6 +133,12 @@ const analyticsLayouts = [
   'apps/smashers/src/app/layout.tsx',
   'apps/app/src/app/layout.tsx',
 ]
+const deferredConsoleGameRoutes = [
+  'apps/web/src/app/(main)/page.tsx',
+  'apps/web/src/app/(main)/degens/page.tsx',
+  'apps/web/src/app/(main)/niftyworld/page.tsx',
+  'apps/smashers/src/app/page.tsx',
+]
 
 describe('external route surface contract', () => {
   for (const [app, files] of Object.entries(appRouteContracts)) {
@@ -453,6 +459,17 @@ describe('shared analytics loading contract', () => {
       expect(source).toContain('DeferredAnalytics')
       expect(source).not.toContain('import { GoogleTagManager')
       expect(source).not.toContain('import { WebVitals')
+    })
+  }
+})
+
+describe('shared console game loading contract', () => {
+  for (const file of deferredConsoleGameRoutes) {
+    it(`defers the console game client boundary in ${file}`, () => {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+
+      expect(source).toContain('DeferredConsoleGame')
+      expect(source).not.toContain("from '@nl/ui/custom/console-game'")
     })
   }
 })
