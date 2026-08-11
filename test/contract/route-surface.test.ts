@@ -107,6 +107,7 @@ const interactivePublicCarousel = 'apps/web/src/components/Carousel/InteractiveC
 const smashersLoginClient = 'apps/smashers/src/app/(auth_routes)/login/LoginClient.tsx'
 const privateShellLayout = 'apps/app/src/app/(private-routes)/layout.tsx'
 const sidebarProfile = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/_UserProfile/index.tsx'
+const staleWalletContextWrapper = 'apps/app/src/contexts/WalletContextWrapper.tsx'
 
 describe('external route surface contract', () => {
   for (const [app, files] of Object.entries(appRouteContracts)) {
@@ -236,6 +237,10 @@ describe('public storage provider contract', () => {
 })
 
 describe('private provider loading contract', () => {
+  it('keeps the superseded all-in-one wallet provider removed', () => {
+    expect(existsSync(join(process.cwd(), staleWalletContextWrapper))).toBe(false)
+  })
+
   it('keeps dashboard data providers out of the shared private shell', () => {
     const source = readFileSync(join(process.cwd(), privateShellProviderBoundary), 'utf8')
 
@@ -295,9 +300,15 @@ describe('private provider loading contract', () => {
     const authSource = readFileSync(join(process.cwd(), authTokenContext), 'utf8')
     const modalSource = readFileSync(join(process.cwd(), walletModal), 'utf8')
 
+    expect(providerSource).toContain("import('./Web3ModalConfig')")
+    expect(providerSource).not.toContain("from './Web3ModalConfig'")
     expect(providerSource).not.toContain('createAppKit')
     expect(providerSource).not.toContain('@reown/appkit/react')
     expect(providerSource).not.toContain('@/constants/contracts')
+    expect(providerSource).toContain('<Skeleton')
+    expect(providerSource).toContain('role="status"')
+    expect(providerSource).toContain('role="alert"')
+    expect(providerSource).toContain('Retry')
     expect(authSource).not.toContain('useAppKit')
     expect(authSource).not.toContain('useAppKitEvents')
     expect(authSource).toContain('openWalletModal')
