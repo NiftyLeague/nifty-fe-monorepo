@@ -1,5 +1,5 @@
 import { Title } from '@nl/ui/custom/typography'
-import LeaderBoards from '@/components/leaderboards'
+import DeferredLeaderboards from '@/components/providers/DeferredLeaderboards'
 
 const LeaderboardPage = () => {
   return (
@@ -7,7 +7,7 @@ const LeaderboardPage = () => {
       <Title level={2} className="mb-4">
         Leaderboards (Archived)
       </Title>
-      <LeaderBoards />
+      <DeferredLeaderboards />
     </>
   )
 }
