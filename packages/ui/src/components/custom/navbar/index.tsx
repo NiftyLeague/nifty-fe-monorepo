@@ -2,70 +2,51 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Fragment } from 'react'
 
-import { Button } from '@nl/ui/base/button'
-import { Icon } from '@nl/ui/base/icon'
-import { Separator } from '@nl/ui/base/separator'
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from '@nl/ui/base/navigation-menu'
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@nl/ui/base/sheet'
-import { ActiveNavLink } from './ActiveNavLink'
+import { ExternalIcon } from '@nl/ui/custom/external-icon'
+import { cn } from '@nl/ui/utils'
+
+import ActiveNavLink from './ActiveNavLink'
+import MobileNavTrigger from './MobileNavTrigger'
 import NavbarScrollFrame from './NavbarScrollFrame'
 
-interface Page {
+export interface NavPage {
   title: string
   href: string
   description?: string
   external?: boolean
 }
 
-interface SingleMenuItemData extends Page {
+interface SingleMenuItemData extends NavPage {
   type: 'single'
 }
 
 interface GroupedMenuItemData {
   type: 'group'
-  group: string // The main title for the group (e.g., "Products")
-  pages: Page[] // The sub-pages within this group
+  group: string
+  pages: NavPage[]
 }
 
 export type NavItemData = SingleMenuItemData | GroupedMenuItemData
+export type NavbarActionButton = Omit<NavPage, 'description'>
 
-interface NavbarProps {
-  actionButton?: Omit<Page, 'description'>
+export interface NavbarProps {
+  actionButton?: NavbarActionButton
   navItems: NavItemData[]
+  className?: string
 }
 
-/* ==============================|| DESKTOP NAV ||============================== */
+const DESKTOP_LINK_CLASS =
+  'inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-3 py-2 text-lg font-bold uppercase outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none'
 
-function ListItem({
-  description,
-  external,
-  href,
-  title,
-  ...props
-}: React.ComponentPropsWithoutRef<'li'> & Page) {
+function ListItem({ page }: { page: NavPage }) {
   return (
-    <li {...props}>
+    <li>
       <ActiveNavLink
         className="text-base font-medium"
-        description={description}
-        external={external}
-        href={href}
-        title={title}
+        description={page.description}
+        external={page.external}
+        href={page.href}
+        title={page.title}
       />
     </li>
   )
@@ -73,141 +54,75 @@ function ListItem({
 
 function DropdownMenuItem({ group, pages }: GroupedMenuItemData) {
   return (
-    <NavigationMenuItem value={group.toLowerCase()}>
-      <NavigationMenuTrigger>{group}</NavigationMenuTrigger>
-      <NavigationMenuContent>
-        <ul className="flex flex-col w-[300px] max-w-max">
-          {pages.map((page) => (
-            <ListItem key={page.title} {...page} />
-          ))}
-        </ul>
-      </NavigationMenuContent>
-    </NavigationMenuItem>
-  )
-}
-
-function SingleMenuItem({ type, ...page }: SingleMenuItemData) {
-  return (
-    <NavigationMenuItem value={page.title.toLowerCase()}>
-      <ActiveNavLink className={navigationMenuTriggerStyle()} {...page} />
-    </NavigationMenuItem>
-  )
-}
-
-function DesktopNavMenu({
-  actionButton,
-  navItems,
-  ...props
-}: React.ComponentProps<typeof NavigationMenuList> & NavbarProps) {
-  return (
-    <NavigationMenuList className="hidden md:flex" {...props}>
-      {navItems.map((item) => (
-        <Fragment key={item.type === 'single' ? item.title : item.group}>
-          {item.type === 'single' && <SingleMenuItem {...item} />}
-          {item.type === 'group' && <DropdownMenuItem {...item} />}
-        </Fragment>
-      ))}
-      {actionButton && (
-        <a
-          href={actionButton.href}
-          target={actionButton.external ? '_blank' : undefined}
-          rel={actionButton.external ? 'noreferrer' : undefined}
-          className="theme-btn-primary theme-btn-rounded max-w-fit ml-3"
+    <li>
+      <details className="group relative">
+        <summary
+          className={cn(
+            DESKTOP_LINK_CLASS,
+            'cursor-pointer list-none [&::-webkit-details-marker]:hidden'
+          )}
         >
-          {actionButton.title}
-        </a>
-      )}
-    </NavigationMenuList>
+          {group}
+          <span
+            aria-hidden="true"
+            className="ml-1 inline-block text-sm transition-transform group-open:rotate-180"
+          >
+            ▾
+          </span>
+        </summary>
+        <div className="absolute top-full left-1/2 z-50 mt-1.5 -translate-x-1/2 overflow-hidden rounded-md border bg-popover text-popover-foreground shadow">
+          <ul className="flex w-[300px] max-w-max flex-col p-2">
+            {pages.map((page) => (
+              <ListItem key={page.title} page={page} />
+            ))}
+          </ul>
+        </div>
+      </details>
+    </li>
   )
 }
 
-/* ==============================|| MOBILE NAV ||=============================== */
-
-function MobileMenuGroup({ group, pages }: GroupedMenuItemData) {
+function SingleMenuItem({ type: _type, ...page }: SingleMenuItemData) {
   return (
-    <NavigationMenuItem value={group.toLowerCase()} className="w-full">
-      <h3 className="text-base text-muted-foreground uppercase tracking-wider">{group}</h3>
-      <ul className="flex flex-col w-full">
-        {pages.map((page) => (
-          <li key={page.title}>
-            <SheetClose asChild>
-              <ActiveNavLink className="text-base font-medium" {...page} />
-            </SheetClose>
-          </li>
+    <li>
+      <ActiveNavLink className={DESKTOP_LINK_CLASS} {...page} />
+    </li>
+  )
+}
+
+function DesktopNavMenu({ actionButton, navItems }: NavbarProps) {
+  return (
+    <nav aria-label="Primary navigation" className="hidden md:block">
+      <ul className="flex list-none items-center justify-center gap-1">
+        {navItems.map((item) => (
+          <Fragment key={item.type === 'single' ? item.title : item.group}>
+            {item.type === 'single' ? <SingleMenuItem {...item} /> : <DropdownMenuItem {...item} />}
+          </Fragment>
         ))}
+        {actionButton && (
+          <li>
+            <Link
+              href={actionButton.href}
+              target={actionButton.external ? '_blank' : undefined}
+              rel={actionButton.external ? 'noreferrer' : undefined}
+              className="theme-btn-primary theme-btn-rounded ml-3 max-w-fit"
+            >
+              {actionButton.title}
+            </Link>
+          </li>
+        )}
       </ul>
-    </NavigationMenuItem>
+    </nav>
   )
 }
 
-function MobileMenuItem({ type, ...page }: SingleMenuItemData) {
-  return (
-    <NavigationMenuItem value={page.title.toLowerCase()} className="w-full">
-      <SheetClose asChild>
-        <ActiveNavLink className="text-base font-medium" {...page} />
-      </SheetClose>
-    </NavigationMenuItem>
+export function Navbar({ actionButton, navItems, className }: NavbarProps) {
+  const desktopNavItems = navItems.filter(
+    (item) => item.type === 'group' || (item.type === 'single' && item.title !== 'Home')
   )
-}
 
-function MobileNavMenu({
-  actionButton,
-  navItems,
-  ...props
-}: React.ComponentProps<typeof Sheet> & NavbarProps) {
   return (
-    <div className="flex md:hidden">
-      <Sheet {...props}>
-        <SheetTrigger asChild>
-          <Button variant="ghost" size="icon" className="size-10 cursor-pointer">
-            <span className="sr-only">Open Nav Menu</span>
-            <Icon name="menu" aria-hidden="true" className="text-foreground size-7" />
-          </Button>
-        </SheetTrigger>
-        <SheetContent className="bg-popover">
-          <SheetHeader>
-            <SheetTitle className="hidden">Navigation</SheetTitle>
-            <SheetDescription className="hidden">Mobile Website Navigation Menu</SheetDescription>
-          </SheetHeader>
-          <div className="flex flex-col gap-6 px-8 pb-4 overflow-y-auto">
-            <NavigationMenuList className="flex flex-col gap-4" data-orientation="vertical">
-              {navItems.map((item) => (
-                <Fragment key={item.type === 'single' ? item.title : item.group}>
-                  {item.type === 'single' && <MobileMenuItem {...item} />}
-                  {item.type === 'group' && <MobileMenuGroup {...item} />}
-                </Fragment>
-              ))}
-            </NavigationMenuList>
-            {actionButton && (
-              <>
-                <Separator orientation="horizontal" className="px-8" />
-                <Link
-                  href={actionButton.href}
-                  target={actionButton.external ? '_blank' : undefined}
-                  rel={actionButton.external ? 'noreferrer' : undefined}
-                >
-                  <Button variant="outline" className="w-full text-foreground cursor-pointer">
-                    Launch {actionButton.title}
-                  </Button>
-                </Link>
-              </>
-            )}
-          </div>
-        </SheetContent>
-      </Sheet>
-    </div>
-  )
-}
-
-/* ================================|| NAVBAR ||================================= */
-
-export function Navbar({
-  actionButton,
-  navItems,
-  ...props
-}: React.ComponentProps<typeof NavigationMenu> & NavbarProps) {
-  return (
-    <NavbarScrollFrame {...props}>
+    <NavbarScrollFrame className={className}>
       <div className="flex h-full w-screen items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex-shrink-0">
           <Image
@@ -220,14 +135,8 @@ export function Navbar({
           />
         </Link>
 
-        <DesktopNavMenu
-          actionButton={actionButton}
-          navItems={navItems.filter(
-            (item) => item.type === 'group' || (item.type === 'single' && item?.title !== 'Home')
-          )}
-        />
-
-        <MobileNavMenu actionButton={actionButton} navItems={navItems} />
+        <DesktopNavMenu actionButton={actionButton} navItems={desktopNavItems} />
+        <MobileNavTrigger actionButton={actionButton} navItems={navItems} />
       </div>
     </NavbarScrollFrame>
   )
