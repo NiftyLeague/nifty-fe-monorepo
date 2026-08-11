@@ -224,7 +224,6 @@ const DashboardDegensPage = (): React.ReactNode => {
       <DegensFilter
         onFilter={handleFilter}
         defaultFilterValues={defaultValues as DegenFilter}
-        isDegenOwner={true}
         searchTerm={searchTerm}
       />
     ),
