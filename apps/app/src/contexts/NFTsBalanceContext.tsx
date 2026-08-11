@@ -1,14 +1,14 @@
 'use client'
 
-import { createContext, useEffect, useRef, useMemo } from 'react'
+import { createContext, useEffect, useMemo, useRef } from 'react'
 import type { PropsWithChildren } from 'react'
 import type { Character } from '@/types/graph'
 import type { Comic, Item } from '@/types/marketplace'
 
-import { useOwnerSearch } from '@/hooks/useGraphQL'
-import useAuth from '@/hooks/useAuth'
 import useComicsBalances from '@/hooks/balances/useComicsBalances'
+import useDegenOwnership from '@/hooks/balances/useDegenOwnership'
 import useItemsBalances from '@/hooks/balances/useItemsBalances'
+import useAuth from '@/hooks/useAuth'
 
 interface NFTsBalanceContext {
   comicsBalances: Comic[]
@@ -45,22 +45,14 @@ const NFTsBalanceContext = createContext<NFTsBalanceContext>(CONTEXT_INITIAL_STA
 export const NFTsBalanceProvider = ({ children }: PropsWithChildren): React.ReactNode => {
   const firstRenderRef = useRef(true)
   const { isLoggedIn } = useAuth()
-
-  // Load user DEGEN balances from Subgraph
-  const { isFetching, data: owner, refetch: refreshDegenBalances } = useOwnerSearch()
-  const { characterCount: degenCount = 0 } = owner || {}
-  const isDegenOwner = degenCount > 0
-
-  const degensBalances = useMemo(() => {
-    return owner?.characters
-      ? owner.characters.map((degen) => ({ ...degen, id: degen.tokenId.toString() }))
-      : []
-  }, [owner])
-
-  const degenTokenIndices = useMemo(
-    () => degensBalances.map((d) => parseInt(d.id, 10)),
-    [degensBalances]
-  )
+  const {
+    degenCount,
+    degensBalances,
+    degenTokenIndices,
+    isDegenOwner,
+    loadingDegens,
+    refreshDegenBalances,
+  } = useDegenOwnership()
 
   // Load user Immutable zkEVM NFT balances
   const {
@@ -74,7 +66,8 @@ export const NFTsBalanceProvider = ({ children }: PropsWithChildren): React.Reac
     refetch: refreshItemsBalances,
   } = useItemsBalances()
 
-  // Refetch on login state change, avoiding initial render
+  // Refetch marketplace balances on login state change. DEGEN ownership has
+  // the same lifecycle in its smaller, reusable ownership hook.
   useEffect(() => {
     if (firstRenderRef.current) {
       firstRenderRef.current = false
@@ -82,7 +75,6 @@ export const NFTsBalanceProvider = ({ children }: PropsWithChildren): React.Reac
     }
     if (!isLoggedIn) return
     refreshComicsBalances()
-    refreshDegenBalances()
     refreshItemsBalances()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn])
@@ -97,7 +89,7 @@ export const NFTsBalanceProvider = ({ children }: PropsWithChildren): React.Reac
         isDegenOwner,
         itemsBalances,
         loadingComics,
-        loadingDegens: isFetching,
+        loadingDegens,
         loadingItems,
         refreshComicsBalances,
         refreshDegenBalances,
