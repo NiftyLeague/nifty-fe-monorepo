@@ -34,9 +34,9 @@ const DegenCardItem = ({
         </div>
       </div>
       <div className="hidden md:flex items-center pt-3">
-        <button className="text-muted-foreground text-[9px] border-2 rounded-sm uppercase py-0.5 px-1 mr-2">
+        <span className="text-muted-foreground text-[9px] border-2 rounded-sm uppercase py-0.5 px-1 mr-2">
           Created
-        </button>
+        </span>
         <span className="text-muted-foreground text-xs">{createdDate}</span>
       </div>
     </div>
