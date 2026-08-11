@@ -14,13 +14,15 @@ export {
   MY_PROFILE_API_URL,
   PROFILE_FAV_DEGENS_API,
 } from './api'
+export {
+  ADDRESS_VERIFICATION,
+  GET_PROFILE_AVATARS_AND_COST_API,
+  PROFILE_RENAME_API,
+  WALLET_VERIFICATION,
+} from './auth-urls'
 export { DEGEN_PURCHASE_URL } from './public-urls'
 
 const NEXT_PUBLIC_NETWORK = process.env.NEXT_PUBLIC_NETWORK as string
-
-// Authentication
-export const WALLET_VERIFICATION = `${BASE_API_URL}/verification`
-export const ADDRESS_VERIFICATION = `${BASE_API_URL}/verification/address`
 
 // Degen API url
 // Rentals API url
@@ -43,8 +45,6 @@ export const GAMER_ACCOUNT_API = `${BASE_API_URL}/accounts/account`
 
 // Gamer Profile API
 const GAMER_PROFILE_BASE = 'profiles/profile'
-export const PROFILE_RENAME_API = `${BASE_API_URL}/${GAMER_PROFILE_BASE}/rename`
-export const GET_PROFILE_AVATARS_AND_COST_API = `${BASE_API_URL}/${GAMER_PROFILE_BASE}/avatars`
 export const UPDATE_PROFILE_AVATAR_API = `${BASE_API_URL}/${GAMER_PROFILE_BASE}/avatar`
 
 // Arcade API

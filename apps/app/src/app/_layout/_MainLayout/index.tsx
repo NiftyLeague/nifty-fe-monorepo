@@ -3,10 +3,10 @@
 // third party
 import { type PropsWithChildren } from 'react'
 import { useAccount, useSwitchChain } from 'wagmi'
+import { immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains'
 
 // project imports
 import { Button } from '@nl/ui/base/button'
-import { useConnectedToIMXCheck } from '@/hooks/useImxProvider'
 import { TARGET_NETWORK } from '@/constants/networks'
 
 // components
@@ -20,7 +20,7 @@ import Sidebar from './_Sidebar'
 const MainLayout = ({ children }: PropsWithChildren) => {
   const { address, chain } = useAccount()
   const { switchChain } = useSwitchChain()
-  const isConnectedToIMX = useConnectedToIMXCheck()
+  const isConnectedToIMX = chain?.id === immutableZkEvm.id || chain?.id === immutableZkEvmTestnet.id
 
   const networkWarning =
     address && TARGET_NETWORK.chainId !== chain?.id ? (
@@ -49,11 +49,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
     ) : null
 
   return (
-    <AppShell
-      header={<Header showWalletActions />}
-      sidebar={<Sidebar />}
-      networkWarning={networkWarning}
-    >
+    <AppShell header={<Header />} sidebar={<Sidebar />} networkWarning={networkWarning}>
       {children}
     </AppShell>
   )

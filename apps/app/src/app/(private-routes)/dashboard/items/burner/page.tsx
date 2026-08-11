@@ -5,6 +5,7 @@ import { type AddressLike } from 'ethers'
 import { useRouter } from 'next/navigation'
 import { Button } from '@nl/ui/base/button'
 
+import DashboardDataBoundary from '@/components/providers/DashboardDataBoundary'
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import useNetworkContext from '@/hooks/useNetworkContext'
 import { COMICS_BURNER_CONTRACT, MARKETPLACE_CONTRACT } from '@/constants/contracts'
@@ -20,7 +21,7 @@ import ItemsGrid from './_components/items-grid'
 
 // TODO: Config Signer for MARKETPLACE_CONTRACT or add to writeContracts
 
-const ComicsBurner = () => {
+const ComicsBurnerContent = () => {
   const router = useRouter()
   const { itemsBalances, refreshItemsBalances } = useNFTsBalances()
   const { address, tx, writeContracts } = useNetworkContext()
@@ -123,5 +124,11 @@ const ComicsBurner = () => {
     </>
   )
 }
+
+const ComicsBurner = () => (
+  <DashboardDataBoundary>
+    <ComicsBurnerContent />
+  </DashboardDataBoundary>
+)
 
 export default ComicsBurner

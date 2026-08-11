@@ -7,7 +7,7 @@ import { useAccount } from 'wagmi'
 import { useDispatch, useSelector } from '@/store/hooks'
 import { login, logout } from '@/store/slices/account'
 
-import { ADDRESS_VERIFICATION } from '@/constants/url'
+import { ADDRESS_VERIFICATION } from '@/constants/auth-urls'
 import useLocalStorageContext from '@/hooks/useLocalStorageContext'
 
 const useCheckAuth = () => {

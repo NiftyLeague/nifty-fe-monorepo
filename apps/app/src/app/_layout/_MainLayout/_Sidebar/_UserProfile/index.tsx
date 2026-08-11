@@ -1,52 +1,20 @@
 'use client'
 
+import Link from 'next/link'
 import { useMemo } from 'react'
-import { useEnsAvatar, useEnsName } from 'wagmi'
+import { useAccount, useEnsAvatar, useEnsName } from 'wagmi'
 import { normalize } from 'viem/ens'
 
 import { Avatar, AvatarImage, AvatarFallback } from '@nl/ui/base/avatar'
 import { Button } from '@nl/ui/base/button'
-import { Skeleton } from '@nl/ui/base/skeleton'
-import { formatNumberToDisplay } from '@nl/ui/utils'
 
 import { useGamerProfile } from '@/hooks/useGamerProfile'
-import type { ProfileAvatar } from '@/types/account'
 import ConnectWrapper from '@/components/wrapper/ConnectWrapper'
-import useNetworkContext from '@/hooks/useNetworkContext'
-import useClaimNFTL from '@/hooks/writeContracts/useClaimNFTL'
 import useAuth from '@/hooks/useAuth'
-
-const ClaimNFTLView = () => {
-  const { isConnected } = useNetworkContext()
-  const { balance, claimCallback, loading } = useClaimNFTL()
-
-  return (
-    <>
-      <div className="my-2 flex flex-col items-center">
-        {loading ? (
-          <Skeleton className="h-4 w-20" />
-        ) : (
-          <span className="font-bold">
-            {balance ? formatNumberToDisplay(balance) : '0.00'} NFTL
-          </span>
-        )}
-        <span>Available to Claim</span>
-      </div>
-      <Button
-        variant="default"
-        className="w-full cursor-pointer"
-        disabled={!(balance > 0.0 && isConnected)}
-        onClick={claimCallback}
-      >
-        Claim NFTL
-      </Button>
-    </>
-  )
-}
 
 const UserProfile = () => {
   const { isLoggedIn, isConnected } = useAuth()
-  const { address } = useNetworkContext()
+  const { address } = useAccount()
   const ensName = useEnsName({ address, chainId: 1, query: { enabled: isConnected && !!address } })
   const ensAvatar = useEnsAvatar({
     name: normalize(ensName.data as string),
@@ -79,7 +47,9 @@ const UserProfile = () => {
         <span style={{ whiteSpace: 'nowrap' }}>{displayName}</span>
       </div>
       <ConnectWrapper fullWidth>
-        <ClaimNFTLView />
+        <Button asChild className="w-full">
+          <Link href="/dashboard">Open dashboard</Link>
+        </Button>
       </ConnectWrapper>
     </div>
   )

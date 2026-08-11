@@ -1,5 +1,6 @@
 'use client'
 
+import DashboardDataBoundary from '@/components/providers/DashboardDataBoundary'
 import DeferredDashboardSection from '@/components/providers/DeferredDashboardSection'
 import MyDegens from './MyDegens'
 import MyNFTL from './_MyNFTL'
@@ -8,7 +9,7 @@ import MyStats from './MyStats'
 const loadMyComics = () => import('./MyComics')
 const loadMyItems = () => import('./MyItems')
 
-const DashboardOverview = (): React.ReactNode => {
+const DashboardOverviewContent = (): React.ReactNode => {
   return (
     <div className="flex h-inherit flex-col gap-8 lg:flex-row">
       <div className="flex w-full flex-col gap-8 lg:w-[45.8333%]">
@@ -33,5 +34,11 @@ const DashboardOverview = (): React.ReactNode => {
     </div>
   )
 }
+
+const DashboardOverview = (): React.ReactNode => (
+  <DashboardDataBoundary>
+    <DashboardOverviewContent />
+  </DashboardDataBoundary>
+)
 
 export default DashboardOverview

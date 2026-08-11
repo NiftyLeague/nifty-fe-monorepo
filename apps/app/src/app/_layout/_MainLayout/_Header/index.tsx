@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic'
 import { Button } from '@nl/ui/base/button'
 
 import { useDispatch, useSelector } from '@/store/hooks'
@@ -8,8 +7,6 @@ import { openDrawer } from '@/store/slices/menu'
 import { Icon } from '@nl/ui/base/icon'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import LogoSection from '../_LogoSection'
-
-const AddNFTL = dynamic(() => import('./AddNFTLToMetamask'), { ssr: false })
 
 const appHeaderHeight = 60
 
@@ -21,7 +18,7 @@ const pages = [
   { name: 'Docs', link: 'https://niftyleague.com/docs' },
 ] as { name: string; link: string }[]
 
-const Header = ({ showWalletActions = false }: { showWalletActions?: boolean }) => {
+const Header = () => {
   const dispatch = useDispatch()
   const { drawerOpen } = useSelector((state) => state.menu)
 
@@ -49,7 +46,6 @@ const Header = ({ showWalletActions = false }: { showWalletActions?: boolean }) 
         </Button>
       </div>
       <div className="hidden items-center justify-between gap-4 lg:flex">
-        {showWalletActions && <AddNFTL />}
         {pages.map((page) => (
           <a
             key={page.name}

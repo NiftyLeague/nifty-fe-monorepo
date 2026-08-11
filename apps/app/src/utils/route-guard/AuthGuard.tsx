@@ -14,10 +14,11 @@ import useAuth from '@/hooks/useAuth'
 const AuthGuard = ({ children }: GuardProps) => {
   const router = useRouter()
   const { isLoggedIn } = useAuth()
+  const auditFixtureEnabled = process.env.NEXT_PUBLIC_AUDIT_FIXTURE === 'true'
 
   useEffect(() => {
-    if (!isLoggedIn) router.replace('/')
-  }, [isLoggedIn, router])
+    if (!auditFixtureEnabled && !isLoggedIn) router.replace('/')
+  }, [auditFixtureEnabled, isLoggedIn, router])
 
   return children
 }

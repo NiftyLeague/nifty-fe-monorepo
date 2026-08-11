@@ -6,6 +6,7 @@ import merge from 'lodash/merge'
 
 import { Title } from '@nl/ui/custom/typography'
 
+import DashboardDataBoundary from '@/components/providers/DashboardDataBoundary'
 import { useGamerProfile, useProfileAvatarFee } from '@/hooks/useGamerProfile'
 import useFetch from '@/hooks/useFetch'
 import useIMXContext from '@/hooks/useIMXContext'
@@ -29,7 +30,7 @@ const defaultValue: {
   isLoadingComics: boolean | undefined
 } = { isLoadingProfile: true, isLoadingDegens: true, isLoadingComics: true }
 
-const GamerProfile = (): React.ReactNode => {
+const GamerProfileContent = (): React.ReactNode => {
   const { profile, error, loadingProfile } = useGamerProfile()
   const { address } = useAccount()
   const { avatarsAndFee } = useProfileAvatarFee()
@@ -154,5 +155,11 @@ const GamerProfile = (): React.ReactNode => {
     </div>
   )
 }
+
+const GamerProfile = (): React.ReactNode => (
+  <DashboardDataBoundary>
+    <GamerProfileContent />
+  </DashboardDataBoundary>
+)
 
 export default GamerProfile

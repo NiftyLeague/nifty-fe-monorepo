@@ -13,6 +13,7 @@ import { Button } from '@nl/ui/base/button'
 import { Dialog } from '@nl/ui/base/dialog'
 import { Icon } from '@nl/ui/base/icon'
 
+import DashboardDataBoundary from '@/components/providers/DashboardDataBoundary'
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
 import DegensFilter from '@/components/extended/DegensFilter'
 import DEFAULT_STATIC_FILTER from '@/components/extended/DegensFilter/constants'
@@ -49,7 +50,7 @@ const DegenCard = dynamic(() => import('@/components/cards/DegenCard/DashboardDe
   ssr: false,
 })
 
-const DashboardDegensPage = (): React.ReactNode => {
+const DashboardDegensPageContent = (): React.ReactNode => {
   const { authToken, isLoggedIn } = useAuth()
   const { isConnected } = useAccount()
   const hasConnectedAccount = isConnected || (isAuditFixtureEnabled && isLoggedIn)
@@ -413,5 +414,11 @@ const DashboardDegensPage = (): React.ReactNode => {
     </>
   )
 }
+
+const DashboardDegensPage = (): React.ReactNode => (
+  <DashboardDataBoundary>
+    <DashboardDegensPageContent />
+  </DashboardDataBoundary>
+)
 
 export default DashboardDegensPage

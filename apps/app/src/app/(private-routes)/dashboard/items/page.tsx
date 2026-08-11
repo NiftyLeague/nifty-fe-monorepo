@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { Separator } from '@nl/ui/base/separator'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
+import DashboardDataBoundary from '@/components/providers/DashboardDataBoundary'
 import ComicCard from '@/components/cards/ComicCard'
 import ViewComicDialog from '@/components/dialog/ViewComicDialog'
 import SectionSlider from '@/components/sections/SectionSlider'
@@ -22,7 +23,7 @@ import WearableSubItemCard from '@/components/cards/WearableSubItemCard'
 import ItemDetail from '@/components/cards/ItemDetail'
 import ViewItemDialog from '@/components/dialog/ViewItemDialog'
 
-const DashboardComicsPage = (): React.ReactNode => {
+const DashboardComicsPageContent = (): React.ReactNode => {
   const [selectedComic, setSelectedComic] = useState<Comic | null>(null)
   const [selectedItem, setSelectedItem] = useState<Item | null>(null)
   const [selectedSubIndex, setSelectedSubIndex] = useState<number>(-1)
@@ -232,5 +233,11 @@ const DashboardComicsPage = (): React.ReactNode => {
     </>
   )
 }
+
+const DashboardComicsPage = (): React.ReactNode => (
+  <DashboardDataBoundary>
+    <DashboardComicsPageContent />
+  </DashboardDataBoundary>
+)
 
 export default DashboardComicsPage
