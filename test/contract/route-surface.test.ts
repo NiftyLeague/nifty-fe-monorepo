@@ -114,6 +114,9 @@ const dashboardBurnerContent =
 const gamerProfile = 'apps/app/src/app/(private-routes)/dashboard/gamer-profile/page.tsx'
 const gamerProfileContent =
   'apps/app/src/app/(private-routes)/dashboard/gamer-profile/GamerProfileContent.tsx'
+const dashboardRentals = 'apps/app/src/app/(private-routes)/dashboard/rentals/page.tsx'
+const dashboardRentalsContent =
+  'apps/app/src/app/(private-routes)/dashboard/rentals/DashboardRentalsContent.tsx'
 const privateShellBoundary = 'apps/app/src/components/providers/PrivateRoutesBoundary.tsx'
 const privateShell = 'apps/app/src/components/providers/PrivateRoutesShell.tsx'
 const dashboardDataProviderBoundary = 'apps/app/src/contexts/DashboardDataProviders.tsx'
@@ -620,6 +623,24 @@ describe('gamer profile loading contract', () => {
     expect(contentSource).toContain("from '@/hooks/balances/useNFTsBalances'")
     expect(contentSource).not.toContain('defaultValue')
     expect(contentSource).toContain('GamerProfileProvider')
+  })
+})
+
+describe('dashboard rentals loading contract', () => {
+  it('keeps the rental grid and auth query graph behind the route loading boundary', () => {
+    const pageSource = readFileSync(join(process.cwd(), dashboardRentals), 'utf8')
+    const contentSource = readFileSync(join(process.cwd(), dashboardRentalsContent), 'utf8')
+
+    expect(pageSource).toContain("dynamic(() => import('./DashboardRentalsContent')")
+    expect(pageSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(pageSource).toContain('role="status"')
+    expect(pageSource).toContain('aria-live="polite"')
+    expect(pageSource).toContain('aria-busy="true"')
+    expect(pageSource).not.toContain("from './MyRentalsDataGrid'")
+    expect(pageSource).not.toContain("from '@tanstack/react-query'")
+    expect(contentSource).toContain("from './MyRentalsDataGrid'")
+    expect(contentSource).toContain("from '@tanstack/react-query'")
+    expect(contentSource).toContain('My Rentals')
   })
 })
 
