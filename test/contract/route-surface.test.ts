@@ -211,6 +211,7 @@ const animationFreeMarketingPages = [
   'apps/web/src/app/(main)/careers/page.tsx',
   'apps/web/src/app/(main)/team/page.tsx',
   'apps/web/src/app/(main)/community/page.tsx',
+  'apps/web/src/app/(main)/lore/page.tsx',
 ]
 const animationFreeMarketingComponents = [
   'apps/web/src/components/ThemeBtnGroup/index.tsx',
