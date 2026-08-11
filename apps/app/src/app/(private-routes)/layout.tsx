@@ -1,12 +1,10 @@
 import type { PropsWithChildren } from 'react'
+import { headers } from 'next/headers'
 
-import AppContextWrapper from '@/contexts/AppContextWrapper'
-import MainLayout from '@/app/_layout/_MainLayout'
+import PrivateRoutesBoundary from '@/components/providers/PrivateRoutesBoundary'
 
-export default function PrivateRoutesLayout({ children }: PropsWithChildren) {
-  return (
-    <AppContextWrapper>
-      <MainLayout>{children}</MainLayout>
-    </AppContextWrapper>
-  )
+export default async function PrivateRoutesLayout({ children }: PropsWithChildren) {
+  const cookies = (await headers()).get('cookie')
+
+  return <PrivateRoutesBoundary cookies={cookies}>{children}</PrivateRoutesBoundary>
 }
