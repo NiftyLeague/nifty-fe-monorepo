@@ -3,6 +3,12 @@ name: Code Foundry
 on:
   pull_request:
     branches: [main, staging]
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+      - converted_to_draft
   workflow_dispatch:
 
 permissions:
