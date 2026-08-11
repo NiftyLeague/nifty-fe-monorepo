@@ -1,5 +1,3 @@
-'use client'
-
 import { Navbar as NiftyNavbar, type NavItemData } from '@nl/ui/custom/navbar'
 
 const ACTION_BUTTON = { title: 'Web3 App', href: '/app', external: true }

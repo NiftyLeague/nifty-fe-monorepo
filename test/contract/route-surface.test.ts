@@ -166,6 +166,8 @@ const deferredConsoleGameRoutes = [
 ]
 const sharedDeferredSection = 'packages/ui/src/components/custom/deferred-section/index.tsx'
 const webHomePage = 'apps/web/src/app/(main)/page.tsx'
+const webNavbar = 'apps/web/src/components/Navbar/index.tsx'
+const sharedWebNavbar = 'packages/ui/src/components/custom/navbar/index.tsx'
 const smashersHomePage = 'apps/smashers/src/app/page.tsx'
 const webDeferredHomeSections = 'apps/web/src/components/DeferredHomeSections.tsx'
 const smashersDeferredHomeSections = 'apps/smashers/src/components/DeferredHomeSections.tsx'
@@ -738,6 +740,20 @@ describe('shared below-fold loading contract', () => {
     expect(deferredSource).toContain("import('@/components/GameSection')")
     expect(deferredSource).toContain("import('@/components/DegensSection')")
     expect(deferredSource).toContain("from '@nl/ui/custom/deferred-section'")
+  })
+})
+
+describe('web public navigation contract', () => {
+  it('keeps static navigation configuration out of the client graph', () => {
+    const navbarSource = readFileSync(join(process.cwd(), webNavbar), 'utf8')
+    const sharedNavbarSource = readFileSync(join(process.cwd(), sharedWebNavbar), 'utf8')
+
+    expect(navbarSource).not.toContain("'use client'")
+    expect(navbarSource).toContain("from '@nl/ui/custom/navbar'")
+    expect(sharedNavbarSource).toContain("import NavbarScrollFrame from './NavbarScrollFrame'")
+    expect(sharedNavbarSource).toContain("import { ActiveNavLink } from './ActiveNavLink'")
+    expect(sharedNavbarSource).toContain('NavigationMenu')
+    expect(sharedNavbarSource).toContain('Sheet')
   })
 })
 
