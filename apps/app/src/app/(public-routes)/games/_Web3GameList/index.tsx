@@ -17,7 +17,6 @@ const Web3GameList = () => {
           required="DEPRECATED - Please download our mobile app!"
           description="The first NFT brawler on the Ethereum blockchain. Now available free-to-play on all mobile platforms!"
           image="/img/games/smashers/nifty-smashers-poster.webp"
-          onlineCounter={200}
           autoHeight={false}
           actions={
             <>
