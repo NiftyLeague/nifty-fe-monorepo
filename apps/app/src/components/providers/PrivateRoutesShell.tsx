@@ -8,6 +8,7 @@ import { FeatureFlagProvider } from '@/contexts/FeatureFlagsContext'
 import { LocalStorageProvider } from '@/contexts/LocalStorageContext'
 import { Web3ModalProvider } from '@/contexts/Web3ModalContext'
 import ReduxProvider from '@/store/ReduxProvider'
+import DeferredNotifications from './DeferredNotifications'
 
 interface PrivateRoutesShellProps extends PropsWithChildren {
   cookies?: string | null
@@ -21,6 +22,7 @@ export default function PrivateRoutesShell({ children, cookies }: PrivateRoutesS
           <AuthTokenProvider>
             <FeatureFlagProvider>
               <MainLayout>{children}</MainLayout>
+              <DeferredNotifications />
             </FeatureFlagProvider>
           </AuthTokenProvider>
         </ReduxProvider>
