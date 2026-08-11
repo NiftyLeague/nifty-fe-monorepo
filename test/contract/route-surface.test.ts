@@ -482,16 +482,50 @@ describe('private provider loading contract', () => {
 })
 
 describe('dashboard overview loading contract', () => {
-  it('defers below-the-fold comic and item sections', () => {
+  it('defers dashboard sections behind the shared loading boundary', () => {
     const source = readFileSync(join(process.cwd(), dashboardOverview), 'utf8')
+    const nftlSource = readFileSync(
+      join(process.cwd(), 'apps/app/src/app/(private-routes)/dashboard/overview/_MyNFTL/index.tsx'),
+      'utf8'
+    )
 
     expect(source).toContain('import DeferredDashboardSection')
     expect(source).toContain("const loadMyComics = () => import('./MyComics')")
     expect(source).toContain("const loadMyItems = () => import('./MyItems')")
+    expect(source).toContain("const loadMyDegens = () => import('./MyDegens')")
+    expect(source).toContain("const loadMyNFTL = () => import('./_MyNFTL')")
+    expect(source).toContain("const loadMyStats = () => import('./MyStats')")
     expect(source).toContain("import('./MyComics')")
     expect(source).toContain("import('./MyItems')")
+    expect(source).toContain("import('./MyDegens')")
+    expect(source).toContain("import('./_MyNFTL')")
+    expect(source).toContain("import('./MyStats')")
+    expect(source).toContain('<DeferredDashboardSection label="My Tokens" load={loadMyNFTL} />')
+    expect(source).toContain('<DeferredDashboardSection label="My DEGENs" load={loadMyDegens} />')
     expect(source).toContain('<DeferredDashboardSection label="My Comics" load={loadMyComics} />')
     expect(source).toContain('<DeferredDashboardSection label="My Items" load={loadMyItems} />')
+    expect(source).toContain('<DeferredDashboardSection label="My Stats" load={loadMyStats} />')
+    expect(nftlSource).toContain('DeferredDashboardSection')
+    expect(nftlSource).toContain("const loadArcadeBalance = () => import('./ArcadeBalance')")
+    expect(nftlSource).toContain("import('./ArcadeBalance')")
+    expect(nftlSource).toContain(
+      '<DeferredDashboardSection label="Arcade balance" load={loadArcadeBalance} />'
+    )
+  })
+
+  it('uses themed shadcn skeletons while dashboard sections load', () => {
+    const source = readFileSync(
+      join(process.cwd(), 'apps/app/src/components/providers/DeferredDashboardSection.tsx'),
+      'utf8'
+    )
+
+    expect(source).toContain("from '@nl/ui/base/skeleton'")
+    expect(source).toContain('role="status"')
+    expect(source).toContain('aria-live="polite"')
+    expect(source).toContain('aria-busy="true"')
+    expect(source).toContain('<Skeleton')
+    expect(source).toContain('role="alert"')
+    expect(source).toContain('Retry')
   })
 })
 
