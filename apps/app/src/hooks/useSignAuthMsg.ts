@@ -8,7 +8,7 @@ import { login, logout } from '@/store/slices/account'
 
 import { gtm } from '@nl/ui/gtm'
 import type { AUTH_Token, UUID_Token, Nonce } from '@/types/auth'
-import { WALLET_VERIFICATION } from '@/constants/url'
+import { WALLET_VERIFICATION } from '@/constants/auth-urls'
 import useLocalStorageContext from '@/hooks/useLocalStorageContext'
 
 type Params = { auth?: AUTH_Token; token?: UUID_Token; nonce?: Nonce }
