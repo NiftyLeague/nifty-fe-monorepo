@@ -4,6 +4,7 @@ import { FC, useCallback, useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import Link from 'next/link'
+import Image from 'next/image'
 
 import { Dialog, DialogContent, DialogTitle } from '@nl/ui/base/dialog'
 import { Separator } from '@nl/ui/base/separator'
@@ -186,10 +187,11 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                   </span>
                   <span className="flex text-base" style={{ fontWeight: 500 }}>
                     Total:{' '}
-                    <img
+                    <Image
                       src="/icons/currencies/arcade-token.svg"
                       alt="Arcade Token"
                       width={16}
+                      height={16}
                       style={{ margin: '0 4px' }}
                     />{' '}
                     {tokenCount * details.items['arcade-token']} Arcade Tokens
