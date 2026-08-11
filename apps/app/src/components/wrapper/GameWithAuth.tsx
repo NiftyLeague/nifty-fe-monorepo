@@ -1,12 +1,10 @@
-// @ts-nocheck
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { useUserAgent } from '@nl/ui/hooks/useUserAgent'
-import { Unity } from 'react-unity-webgl'
+import { Unity, useUnityContext } from 'react-unity-webgl'
 import type { UnityConfig } from 'react-unity-webgl'
-import { useUnityContext } from '@/lib/use-unity-context'
 import { Button } from '@nl/ui/base/button'
 import { useAccount } from 'wagmi'
 
@@ -95,13 +93,14 @@ const Game = ({ unityConfig, arcadeTokenRequired = false }: GameProps) => {
     if (DEBUG) console.log('Unity loaded')
   }, [])
 
-  const handleError = useCallback((error: string) => {
-    setUnityError(new Error(error || 'Unity loading error'))
+  const handleError = useCallback((error: unknown) => {
+    const message = typeof error === 'string' ? error : 'Unity loading error'
+    setUnityError(new Error(message))
   }, [])
 
-  const handleProgress = useCallback((progress: number) => {
+  const handleProgress = useCallback((progress: unknown) => {
     // v10: loadingProgression is already 0-1, progress param is also 0-1
-    if (DEBUG) console.log(`Unity progress: ${progress * 100}%`)
+    if (DEBUG && typeof progress === 'number') console.log(`Unity progress: ${progress * 100}%`)
   }, [])
 
   useEffect(() => {
