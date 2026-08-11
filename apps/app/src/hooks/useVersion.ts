@@ -7,7 +7,7 @@ import { TARGET_NETWORK } from '@/constants/networks'
 
 const useVersion = () => {
   const [version, setVersion] = useState('')
-  const env = TARGET_NETWORK.chainId === 1 ? 'prod' : 'stage'
+  const env = TARGET_NETWORK?.chainId === 1 ? 'prod' : 'stage'
   const { isWindows, isMacOs } = useUserAgent()
   const isLinux = typeof window !== 'undefined' && window.navigator.userAgent.indexOf('Linux') >= 0
   const os = isWindows() ? 'win' : isMacOs() ? 'osx' : isLinux ? 'linux' : 'unknown'
