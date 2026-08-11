@@ -45,7 +45,9 @@ import { isAuditFixtureEnabled } from '@/audit/fixture'
 const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'), {
   ssr: false,
 })
-const DegenCard = dynamic(() => import('@/components/cards/DegenCard'), { ssr: false })
+const DegenCard = dynamic(() => import('@/components/cards/DegenCard/DashboardDegenCard'), {
+  ssr: false,
+})
 
 const DashboardDegensPage = (): React.ReactNode => {
   const { authToken, isLoggedIn } = useAuth()
