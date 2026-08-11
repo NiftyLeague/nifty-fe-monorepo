@@ -125,6 +125,14 @@ const smashersLoginClient = 'apps/smashers/src/app/(auth_routes)/login/LoginClie
 const privateShellLayout = 'apps/app/src/app/(private-routes)/layout.tsx'
 const sidebarProfile = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/_UserProfile/index.tsx'
 const staleWalletContextWrapper = 'apps/app/src/contexts/WalletContextWrapper.tsx'
+const deferredAnalyticsSource = 'packages/ui/src/lib/gtm/DeferredAnalytics.tsx'
+const analyticsLayouts = [
+  'apps/web/src/app/(main)/layout.tsx',
+  'apps/web/src/app/(special-routes)/invite/[game]/[refcode]/layout.tsx',
+  'apps/web/src/app/(special-routes)/party/[game]/[refcode]/[partyID]/layout.tsx',
+  'apps/smashers/src/app/layout.tsx',
+  'apps/app/src/app/layout.tsx',
+]
 
 describe('external route surface contract', () => {
   for (const [app, files] of Object.entries(appRouteContracts)) {
@@ -425,6 +433,28 @@ describe('dashboard overview loading contract', () => {
     expect(source).toContain('<DeferredDashboardSection label="My Comics" load={loadMyComics} />')
     expect(source).toContain('<DeferredDashboardSection label="My Items" load={loadMyItems} />')
   })
+})
+
+describe('shared analytics loading contract', () => {
+  it('defers GTM and Web Vitals until the browser is idle', () => {
+    const source = readFileSync(join(process.cwd(), deferredAnalyticsSource), 'utf8')
+
+    expect(source).toContain("import('./GoogleTagManager')")
+    expect(source).toContain("import('./WebVitals')")
+    expect(source).toContain('requestIdleCallback')
+    expect(source).toContain('setTimeout')
+    expect(source).not.toContain("from 'next/dynamic'")
+  })
+
+  for (const file of analyticsLayouts) {
+    it(`uses deferred analytics in ${file}`, () => {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+
+      expect(source).toContain('DeferredAnalytics')
+      expect(source).not.toContain('import { GoogleTagManager')
+      expect(source).not.toContain('import { WebVitals')
+    })
+  }
 })
 
 const sentryClientBoundaries = [
