@@ -18,14 +18,20 @@ interface WearableItemCardPaneProps {
 }
 
 const WearableItemCardPane: React.FC<WearableItemCardPaneProps> = ({ width, height, data, sx }) => {
-  const { image, title, thumbnail } = data
+  const { image, imageWebp, title, thumbnail } = data
   return (
     <div
       className="relative overflow-hidden rounded-[10px]"
       style={{ width, height, ...(sx as React.CSSProperties | undefined) }}
     >
       <div className="relative">
-        <ImageCard image={image} thumbnail={thumbnail} title={title} ratio={1} />
+        <ImageCard
+          image={image}
+          imageWebp={imageWebp}
+          thumbnail={thumbnail}
+          title={title}
+          ratio={1}
+        />
       </div>
     </div>
   )
