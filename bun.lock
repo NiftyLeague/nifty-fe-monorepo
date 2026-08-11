@@ -285,6 +285,9 @@
       "devDependencies": {
         "@types/react": "19.2.18",
       },
+      "peerDependencies": {
+        "react": "19.2.8",
+      },
     },
     "packages/typescript-config": {
       "name": "@nl/typescript-config",
