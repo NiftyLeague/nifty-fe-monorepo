@@ -4,7 +4,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import isEmpty from 'lodash/isEmpty'
 import { useSearchParams } from 'next/navigation'
 import dynamic from 'next/dynamic'
-import { v4 as uuidv4 } from 'uuid'
 
 import { Button } from '@nl/ui/base/button'
 import { Icon } from '@nl/ui/base/icon'
@@ -132,8 +131,8 @@ const AllDegensPage = (): React.ReactNode => {
   const isGridView = layoutMode === 'gridView'
 
   const renderSkeletonItem = useCallback(
-    () => (
-      <div key={uuidv4()} className={getGridSizeClass(isGridView, isDrawerOpen)}>
+    (_: undefined, index: number) => (
+      <div key={`degen-skeleton-${index}`} className={getGridSizeClass(isGridView, isDrawerOpen)}>
         <SkeletonDegenPlaceholder size={isGridView ? 'normal' : 'small'} />
       </div>
     ),

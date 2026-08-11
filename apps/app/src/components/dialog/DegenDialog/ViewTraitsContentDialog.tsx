@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { v4 as uuidv4 } from 'uuid'
 import isEmpty from 'lodash/isEmpty'
 import { Button } from '@nl/ui/base/button'
 import { Skeleton } from '@nl/ui/base/skeleton'
@@ -86,8 +85,8 @@ const ViewTraitsContentDialog = ({
           </div>
           <div className="mt-6 grid grid-cols-12 justify-center gap-x-4 gap-y-6">
             {isEmpty(traits)
-              ? [...Array(9)].map(() => (
-                  <div className="col-span-3" key={uuidv4()}>
+              ? [...Array(9)].map((_, index) => (
+                  <div className="col-span-3" key={`trait-skeleton-${index}`}>
                     <div className="flex flex-col items-center">
                       <Skeleton className="h-4 w-[60px]" />
                       <Skeleton className="h-4 w-10" />

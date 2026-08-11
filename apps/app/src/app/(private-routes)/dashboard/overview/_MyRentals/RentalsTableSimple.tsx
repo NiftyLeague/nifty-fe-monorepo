@@ -1,6 +1,5 @@
 import type { RentalDataGrid } from '@/types/rentalDataGrid'
 import type { ColumnType } from '.'
-import { v4 as uuidv4 } from 'uuid'
 import { Countdown } from '@nl/ui/base/countdown'
 import { formatNumberToDisplay } from '@nl/ui/utils'
 import ProgressBar from '@/components/wrapper/ProgressBar'
@@ -31,7 +30,7 @@ const RentalsTableSimple = ({ rentals, columns }: RentalsTableSimpleProps): Reac
         <tbody>
           {rentals?.length > 0 ? (
             rentals.map((rental: RentalDataGrid) => (
-              <tr key={uuidv4()} className="hover:bg-accent/50">
+              <tr key={rental.rentalId || rental.id} className="hover:bg-accent/50">
                 {columns.map((column: ColumnType) => {
                   const value = rental[column.id as keyof RentalDataGrid]
                   if (column.id === 'earningCap') {

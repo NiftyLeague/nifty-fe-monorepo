@@ -33,7 +33,6 @@ import useFlags from '@/hooks/useFlags'
 import usePagination from '@/hooks/usePagination'
 import type { DegenFilter } from '@/types/degenFilter'
 import type { Degen } from '@/types/degens'
-import { v4 as uuidv4 } from 'uuid'
 import EmptyState from '@/components/EmptyState'
 import DeferredDegenDialog from '@/components/providers/DeferredDegenDialog'
 import DeferredRenameDegenDialog from '@/components/providers/DeferredRenameDegenDialog'
@@ -213,8 +212,11 @@ const DashboardDegensPageContent = (): React.ReactNode => {
   )
 
   const renderSkeletonItem = useCallback(
-    () => (
-      <div key={uuidv4()} className={getGridSizeClass(isGridView, isDrawerOpen)}>
+    (_: undefined, index: number) => (
+      <div
+        key={`dashboard-degen-skeleton-${index}`}
+        className={getGridSizeClass(isGridView, isDrawerOpen)}
+      >
         <SkeletonDegenPlaceholder size={isGridView ? 'normal' : 'small'} />
       </div>
     ),

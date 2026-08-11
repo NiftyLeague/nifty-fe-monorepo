@@ -32,7 +32,6 @@
     "axios": "^1.19.0",
     "bnc-notify": "^1.9.8",
     "bnc-sdk": "^4.6.9",
-    "crypto-browserify": "^3.12.1",
     "eth-rpc-errors": "^4.0.3",
     "ethers": "^6.17.0",
     "graphql": "^17.0.2",
@@ -53,7 +52,6 @@
     "sharp": "^0.35.3",
     "slick-carousel": "~1.8.1",
     "sonner": "^2.0.7",
-    "uuid": "^14.0.1",
     "viem": "^2.55.10",
     "wagmi": "^3.7.5",
     "yup": "^1.7.1"
