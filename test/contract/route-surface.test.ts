@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test'
-import { existsSync, readdirSync, statSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 
 /**
@@ -74,6 +74,12 @@ const appRouteContracts: Record<string, string[]> = {
   ],
 }
 
+const deferredDashboardDialogConsumers = [
+  'apps/app/src/app/(private-routes)/dashboard/degens/page.tsx',
+  'apps/app/src/app/(private-routes)/dashboard/overview/MyDegens.tsx',
+  'apps/app/src/app/(private-routes)/dashboard/rentals/MyRentalsDataGrid.tsx',
+]
+
 describe('external route surface contract', () => {
   for (const [app, files] of Object.entries(appRouteContracts)) {
     describe(app, () => {
@@ -100,6 +106,17 @@ describe('app route trees exist', () => {
       expect(existsSync(root), `Missing route tree root: apps/${app}/src/app`).toBe(true)
       const count = countRouteFiles(root)
       expect(count, `No route files found under apps/${app}/src/app`).toBeGreaterThan(0)
+    })
+  }
+})
+
+describe('dashboard dialog loading contract', () => {
+  for (const file of deferredDashboardDialogConsumers) {
+    it(`defers the Degen dialog in ${file}`, () => {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+
+      expect(source).toContain('DeferredDegenDialog')
+      expect(source).not.toContain("from '@/components/dialog/DegenDialog'")
     })
   }
 })

@@ -14,7 +14,7 @@ import SectionSlider from '@/components/sections/SectionSlider'
 import { DEGEN_BASE_API_URL, DEGEN_COLLECTION_URL, PROFILE_FAV_DEGENS_API } from '@/constants/url'
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
 import EmptyState from '@/components/EmptyState'
-import DegenDialog from '@/components/dialog/DegenDialog'
+import DeferredDegenDialog from '@/components/providers/DeferredDegenDialog'
 import RenameDegenDialogContent from '@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent'
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import useFetch from '@/hooks/useFetch'
@@ -162,15 +162,17 @@ const MyDegens = (): React.ReactNode => {
           </div>
         )}
       </SectionSlider>
-      <DegenDialog
-        open={isDegenModalOpen}
-        degen={selectedDegen}
-        isClaim={isClaimDialog}
-        isRent={isRentDialog}
-        setIsClaim={setIsClaimDialog}
-        setIsRent={setIsRentDialog}
-        onClose={() => setIsDegenModalOpen(false)}
-      />
+      {isDegenModalOpen && (
+        <DeferredDegenDialog
+          open
+          degen={selectedDegen}
+          isClaim={isClaimDialog}
+          isRent={isRentDialog}
+          setIsClaim={setIsClaimDialog}
+          setIsRent={setIsRentDialog}
+          onClose={() => setIsDegenModalOpen(false)}
+        />
+      )}
       <Dialog
         open={isRenameDegenModalOpen}
         onOpenChange={(open) => !open && setIsRenameDegenModalOpen(false)}
