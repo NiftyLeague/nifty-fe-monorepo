@@ -9,7 +9,6 @@ import { ScrollArea } from '@nl/ui/base/scroll-area'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
 import Breadcrumbs from '@/components/extended/Breadcrumbs'
-import DeferredNotifications from '@/components/providers/DeferredNotifications'
 import { NavigationProvider, useNavigation } from '@/contexts/NavigationContext'
 import navigation from '@/constants/menu-items'
 import styles from './_MainLayout/MainLayout.module.css'
@@ -75,7 +74,6 @@ function AppShellContent({ children, header, sidebar, networkWarning }: AppShell
           )}
         </main>
       </div>
-      <DeferredNotifications />
     </>
   )
 }

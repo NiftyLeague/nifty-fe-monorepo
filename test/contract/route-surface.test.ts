@@ -167,6 +167,7 @@ const smashersHomePage = 'apps/smashers/src/app/page.tsx'
 const webDeferredHomeSections = 'apps/web/src/components/DeferredHomeSections.tsx'
 const smashersDeferredHomeSections = 'apps/smashers/src/components/DeferredHomeSections.tsx'
 const appShell = 'apps/app/src/app/_layout/AppShell.tsx'
+const privateRoutesShell = 'apps/app/src/components/providers/PrivateRoutesShell.tsx'
 const deferredNotifications = 'apps/app/src/components/providers/DeferredNotifications.tsx'
 const leaderboardsPage = 'apps/app/src/app/(public-routes)/leaderboards/page.tsx'
 const deferredLeaderboards = 'apps/app/src/components/providers/DeferredLeaderboards.tsx'
@@ -206,11 +207,13 @@ describe('public leaderboard loading contract', () => {
 describe('shared notification loading contract', () => {
   it('keeps toast implementations out of the eager app shell graph', () => {
     const appShellSource = readFileSync(join(process.cwd(), appShell), 'utf8')
+    const privateShellSource = readFileSync(join(process.cwd(), privateRoutesShell), 'utf8')
     const deferredSource = readFileSync(join(process.cwd(), deferredNotifications), 'utf8')
 
-    expect(appShellSource).toContain('DeferredNotifications')
+    expect(appShellSource).not.toContain('DeferredNotifications')
     expect(appShellSource).not.toContain("from '@nl/ui/base/sonner'")
     expect(appShellSource).not.toContain("from '@/components/extended/Snackbar'")
+    expect(privateShellSource).toContain('DeferredNotifications')
     expect(deferredSource).toContain("import('@/components/extended/Snackbar')")
     expect(deferredSource).toContain("import('@nl/ui/base/sonner')")
     expect(deferredSource).toContain('Promise.all')
