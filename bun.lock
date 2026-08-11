@@ -8,29 +8,29 @@
         "@axelar-network/axelarjs-sdk": "^0.21.0",
         "@cowprotocol/cow-sdk": "^9.2.6",
         "@google/model-viewer": "^4.3.1",
-        "@imtbl/sdk": "^2.24.4",
-        "@types/three": "^0.185.3",
-        "lucide-react": "^1.28.0",
-        "react-hook-form": "^7.84.0",
+        "@imtbl/sdk": "^2.24.6",
+        "@types/three": "^0.185.4",
+        "lucide-react": "^1.31.0",
+        "react-hook-form": "^7.85.0",
         "react-unity-webgl": "~10.2.0",
         "sharp": "^0.35.3",
         "three": "^0.185.1",
-        "wagmi": "^3.7.5",
+        "wagmi": "^3.7.6",
       },
       "devDependencies": {
-        "@happy-dom/global-registrator": "^20.11.1",
+        "@happy-dom/global-registrator": "^20.11.2",
         "@nl/eslint-config": "workspace:*",
         "@nl/prettier-config": "workspace:*",
         "@nl/typescript-config": "workspace:*",
         "@tailwindcss/postcss": "^4.3.3",
         "@testing-library/react": "^16.3.2",
-        "@testing-library/user-event": "^14.6.1",
-        "@types/node": "^26.1.2",
-        "eslint": "^10.8.0",
+        "@testing-library/user-event": "^14.6.3",
+        "@types/node": "^26.2.0",
+        "eslint": "^10.8.1",
         "lint-staged": "^17.3.0",
         "prettier": "^3.9.6",
         "semver": "^7.8.5",
-        "syncpack": "^15.3.2",
+        "syncpack": "^15.3.3",
         "turbo": "^2.10.9",
         "typescript": "~6.0.3",
       },
@@ -80,7 +80,7 @@
     },
     "apps/app": {
       "name": "app",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "dependencies": {
         "@axelar-network/axelarjs-sdk": "^0.21.0",
         "@cowprotocol/cow-sdk": "^9.2.6",
@@ -156,7 +156,7 @@
     },
     "apps/smashers": {
       "name": "smashers",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "dependencies": {
         "@nl/playfab": "workspace:*",
         "@nl/sentry-client": "workspace:*",
@@ -181,7 +181,7 @@
     },
     "apps/template": {
       "name": "template",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "dependencies": {
         "@nl/ui": "workspace:*",
         "next": "16.3.0",
@@ -196,7 +196,7 @@
     },
     "apps/web": {
       "name": "web",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "dependencies": {
         "@google/model-viewer": "^4.3.1",
         "@nl/sentry-client": "workspace:*",
@@ -281,6 +281,9 @@
       "version": "1.0.0",
       "dependencies": {
         "@sentry/nextjs": "^10.69.0",
+      },
+      "devDependencies": {
+        "@types/react": "19.2.18",
       },
     },
     "packages/typescript-config": {

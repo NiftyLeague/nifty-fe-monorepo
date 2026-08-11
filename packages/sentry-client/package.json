@@ -6,13 +6,19 @@
   "private": true,
   "main": "./src/client.ts",
   "exports": {
-    "./client": "./src/client.ts"
+    "./bootstrap": "./src/bootstrap.ts",
+    "./client": "./src/client.ts",
+    "./react": "./src/react.tsx",
+    "./router-bridge": "./src/router-bridge.ts"
   },
   "scripts": {
     "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\" --ignore-path ../../.gitignore",
     "lint": "eslint . --max-warnings 0",
     "test": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --pass-with-no-tests",
     "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.18"
   },
   "dependencies": {
     "@sentry/nextjs": "^10.69.0"
