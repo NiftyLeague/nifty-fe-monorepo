@@ -70,35 +70,6 @@ beforeEach(async () => {
     }),
   }))
   mock.module('@/utils/bnc-notify', () => ({ submitTxWithGasEstimate: mock() }))
-  mock.module('@/lib/use-unity-context', () => ({
-    default: (_config: unknown) => ({
-      sendMessage: unity.send,
-      addEventListener: (name: string, handler: (...args: unknown[]) => void) =>
-        unity.handlers.set(name, handler),
-      removeEventListener: (name: string) => unity.handlers.delete(name),
-      removeAllEventListeners: () => {
-        unity.removeAll()
-        unity.handlers.clear()
-      },
-      unityProvider: {},
-      isLoaded: true,
-      progression: 1,
-    }),
-    useUnityContext: (_config: unknown) => ({
-      sendMessage: unity.send,
-      addEventListener: (name: string, handler: (...args: unknown[]) => void) =>
-        unity.handlers.set(name, handler),
-      removeEventListener: (name: string) => unity.handlers.delete(name),
-      removeAllEventListeners: () => {
-        unity.removeAll()
-        unity.handlers.clear()
-      },
-      unityProvider: {},
-      isLoaded: true,
-      progression: 1,
-    }),
-  }))
-
   const indexModule = await import('./index')
   CharacterCreatorContainer = indexModule.default
 
