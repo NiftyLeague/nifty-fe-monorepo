@@ -4,9 +4,9 @@ import dynamic from 'next/dynamic'
 import type { PropsWithChildren } from 'react'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
+import { Menu } from 'lucide-react'
 
 import { Button } from '@nl/ui/base/button'
-import { Icon } from '@nl/ui/base/icon'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import { cn } from '@nl/ui/utils'
 
@@ -49,7 +49,7 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
                 aria-expanded={desktopSidebarOpen}
                 aria-controls="public-desktop-navigation"
               >
-                <Icon name="menu" />
+                <Menu aria-hidden="true" absoluteStrokeWidth size={24} />
               </Button>
               <Button
                 type="button"
@@ -61,7 +61,7 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
                 aria-expanded={mobileNavigationOpen}
                 aria-controls="public-mobile-navigation"
               >
-                <Icon name="menu" />
+                <Menu aria-hidden="true" absoluteStrokeWidth size={24} />
               </Button>
             </div>
             <div className="hidden items-center justify-between gap-4 lg:flex">
