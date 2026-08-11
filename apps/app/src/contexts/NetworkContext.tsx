@@ -1,18 +1,13 @@
 'use client'
 
-import { type PropsWithChildren, createContext } from 'react'
-import { useAccount } from 'wagmi'
+import { createContext } from 'react'
 
-import useContractLoader from '@/hooks/useContractLoader'
-import useEthersProvider, { type Provider } from '@/hooks/useEthersProvider'
-import useEthersSigner, { type Signer } from '@/hooks/useEthersSigner'
-import useNotify from '@/hooks/useNotify'
-
+import type { Provider } from '@/hooks/useEthersProvider'
+import type { Signer } from '@/hooks/useEthersSigner'
 import type { Tx } from '@/types/notify'
 import type { Contracts } from '@/types/web3'
-import { TARGET_NETWORK } from '@/constants/networks'
 
-interface NetworkContext {
+export interface NetworkContextValue {
   address?: `0x${string}`
   isConnected: boolean
   publicProvider?: Provider
@@ -22,7 +17,7 @@ interface NetworkContext {
   writeContracts: Contracts
 }
 
-const CONTEXT_INITIAL_STATE: NetworkContext = {
+const CONTEXT_INITIAL_STATE: NetworkContextValue = {
   address: undefined,
   isConnected: false,
   publicProvider: undefined,
@@ -32,35 +27,6 @@ const CONTEXT_INITIAL_STATE: NetworkContext = {
   writeContracts: {} as Contracts,
 }
 
-const NetworkContext = createContext<NetworkContext>(CONTEXT_INITIAL_STATE)
-
-export const NetworkProvider = ({ children }: PropsWithChildren): React.ReactNode => {
-  const chainId = TARGET_NETWORK?.chainId || 1 // mainnet | sepolia | hardhat
-  const { address, isConnected } = useAccount()
-
-  const publicProvider = useEthersProvider({ chainId })
-  const signer = useEthersSigner({ chainId })
-
-  // The Notifier wraps transactions and provides notificiations
-  const tx = useNotify(signer)
-
-  // Load in your local 📝 Ethereum contracts and read a value from it:
-  const readContracts = useContractLoader(publicProvider, { chainId })
-
-  // If you want to make 🔐 write transactions to your Ethereum contracts, use the signer:
-  const writeContracts = useContractLoader(signer, { chainId })
-
-  const context = {
-    address,
-    isConnected,
-    publicProvider,
-    readContracts,
-    signer,
-    tx,
-    writeContracts,
-  }
-
-  return <NetworkContext.Provider value={context}>{children}</NetworkContext.Provider>
-}
+const NetworkContext = createContext<NetworkContextValue>(CONTEXT_INITIAL_STATE)
 
 export default NetworkContext

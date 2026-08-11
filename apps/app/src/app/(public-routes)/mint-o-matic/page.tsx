@@ -9,6 +9,7 @@ import { Title } from '@nl/ui/custom/typography'
 
 import { ErrorBoundary } from '@nl/ui/custom/error-boundry'
 import { Preloader } from '@nl/ui/custom/preloader'
+import MintNetworkBoundary from '@/components/providers/MintNetworkBoundary'
 import useAuth from '@/hooks/useAuth'
 import { DEGEN_COLLECTION_URL } from '@/constants/url'
 import { useDegenOwnershipContext } from '@/contexts/DegenOwnershipContext'
@@ -58,7 +59,9 @@ const MintPage = () => {
     <div style={{ textAlign: 'center', overflowX: 'hidden' }}>
       <ErrorBoundary>
         <Preloader ready={isLoaded} progress={progress} />
-        <CharacterCreator setLoaded={setLoaded} setProgress={setProgress} />
+        <MintNetworkBoundary>
+          <CharacterCreator setLoaded={setLoaded} setProgress={setProgress} />
+        </MintNetworkBoundary>
       </ErrorBoundary>
     </div>
   )

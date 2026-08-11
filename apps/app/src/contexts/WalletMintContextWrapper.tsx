@@ -7,15 +7,14 @@ import AuditFixtureMintContextWrapper from '@/contexts/AuditFixtureMintContextWr
 import { AuthTokenProvider } from '@/contexts/AuthTokenContext'
 import { DegenOwnershipProvider } from '@/contexts/DegenOwnershipContext'
 import { LocalStorageProvider } from '@/contexts/LocalStorageContext'
-import { NetworkProvider } from '@/contexts/NetworkContext'
 import { Web3ModalProvider } from '@/contexts/Web3ModalContext'
 
 /**
  * Wallet boundary for Mint-o-Matic.
  *
- * The mint route needs wallet authentication, network access, and DEGEN
- * ownership. Keeping marketplace, Immutable, and token-balance providers out
- * of this boundary avoids loading dashboard clients on the public mint surface.
+ * The mint route needs wallet authentication and DEGEN ownership before the
+ * canvas is available. The network and contract provider is loaded by the
+ * canvas boundary only after this gate succeeds.
  */
 export default async function WalletMintContextWrapper({ children }: PropsWithChildren) {
   const cookies = (await headers()).get('cookie')
@@ -24,11 +23,9 @@ export default async function WalletMintContextWrapper({ children }: PropsWithCh
   const walletContexts = auditFixtureEnabled ? (
     <AuditFixtureMintContextWrapper>{children}</AuditFixtureMintContextWrapper>
   ) : (
-    <NetworkProvider>
-      <AuthTokenProvider>
-        <DegenOwnershipProvider>{children}</DegenOwnershipProvider>
-      </AuthTokenProvider>
-    </NetworkProvider>
+    <AuthTokenProvider>
+      <DegenOwnershipProvider>{children}</DegenOwnershipProvider>
+    </AuthTokenProvider>
   )
 
   return (
