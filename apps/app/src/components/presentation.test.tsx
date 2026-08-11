@@ -10,9 +10,11 @@ let Breadcrumbs: typeof import('./extended/Breadcrumbs').default
 
 beforeEach(async () => {
   mock.module('next/image', () => ({
-    default: ({ fill: _fill, sizes: _sizes, ...props }: ComponentProps<'img'> & { fill?: boolean }) => (
-      <img {...props} />
-    ),
+    default: ({
+      fill: _fill,
+      sizes: _sizes,
+      ...props
+    }: ComponentProps<'img'> & { fill?: boolean }) => <img {...props} />,
   }))
   mock.module('@nl/ui/base/icon', () => ({
     Icon: ({ name }: { name: string }) => <span data-icon={name}>{name}</span>,
