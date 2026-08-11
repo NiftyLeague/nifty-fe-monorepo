@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@nl/ui/base/button'
 import { Card, CardContent } from '@nl/ui/base/card'
 import { Title } from '@nl/ui/custom/typography'
@@ -146,14 +147,16 @@ const GameCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<GameCar
           paddingTop: '56.25%' /* 16:9 Aspect Ratio */,
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={image}
-          alt={title || 'Game artwork'}
-          loading="lazy"
-          decoding="async"
-          className="absolute top-0 left-0 h-full w-full object-cover"
-        />
+        {image && (
+          <Image
+            src={image}
+            alt={title || 'Game artwork'}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+            loading="lazy"
+            className="object-cover"
+          />
+        )}
       </div>
       {contents || (
         <CardGameContent
