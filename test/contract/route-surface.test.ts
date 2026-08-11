@@ -171,6 +171,12 @@ const deferredConsoleGameRoutes = [
   'apps/smashers/src/app/page.tsx',
 ]
 const sharedDeferredSection = 'packages/ui/src/components/custom/deferred-section/index.tsx'
+const sharedRouteLoading = 'packages/ui/src/components/custom/route-loading/index.tsx'
+const routeLoadingFiles = [
+  'apps/app/src/app/loading.tsx',
+  'apps/web/src/app/(main)/loading.tsx',
+  'apps/smashers/src/app/loading.tsx',
+]
 const webHomePage = 'apps/web/src/app/(main)/page.tsx'
 const webNavbar = 'apps/web/src/components/Navbar/index.tsx'
 const sharedWebNavbar = 'packages/ui/src/components/custom/navbar/index.tsx'
@@ -260,6 +266,28 @@ describe('shared notification loading contract', () => {
     expect(deferredSource).toContain("import('@/components/extended/Snackbar')")
     expect(deferredSource).toContain("import('@nl/ui/base/sonner')")
     expect(deferredSource).toContain('Promise.all')
+  })
+})
+
+describe('shared route loading contract', () => {
+  it('uses the themed shadcn skeleton boundary for every Next app', () => {
+    const sharedSource = readFileSync(join(process.cwd(), sharedRouteLoading), 'utf8')
+
+    expect(sharedSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(sharedSource).toContain('role="status"')
+    expect(sharedSource).toContain('aria-live="polite"')
+    expect(sharedSource).toContain('aria-busy="true"')
+    expect(sharedSource).toContain('bg-background')
+
+    for (const file of routeLoadingFiles) {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+      expect(source).toContain("from '@nl/ui/custom/route-loading'")
+      expect(source).not.toContain("from '@nl/ui/custom/loading'")
+    }
+
+    expect(
+      existsSync(join(process.cwd(), 'packages/ui/src/components/custom/loading/index.tsx'))
+    ).toBe(false)
   })
 })
 
@@ -932,14 +960,30 @@ describe('deferred Sentry client contract', () => {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
 
       expect(source).not.toContain("from '@sentry/nextjs'")
-      expect(source).toContain('@nl/sentry-client/client')
+      if (file.endsWith('instrumentation-client.ts')) {
+        expect(source).toContain('@nl/sentry-client/router-bridge')
+        expect(source).not.toContain('@nl/sentry-client/bootstrap')
+      } else {
+        expect(source).toContain("import('@nl/sentry-client/bootstrap')")
+      }
     })
   }
 
   it('keeps the shared Sentry loader dynamic', () => {
     const source = readFileSync(join(process.cwd(), 'packages/sentry-client/src/client.ts'), 'utf8')
+    const bootstrap = readFileSync(
+      join(process.cwd(), 'packages/sentry-client/src/bootstrap.ts'),
+      'utf8'
+    )
+    const routerBridge = readFileSync(
+      join(process.cwd(), 'packages/sentry-client/src/router-bridge.ts'),
+      'utf8'
+    )
 
     expect(source).toContain("import('@sentry/nextjs')")
+    expect(bootstrap).toContain("import('./client')")
+    expect(bootstrap).not.toContain("from '@sentry/nextjs'")
+    expect(routerBridge).not.toContain("from '@sentry/nextjs'")
   })
 })
 

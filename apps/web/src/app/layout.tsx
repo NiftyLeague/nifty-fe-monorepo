@@ -1,6 +1,7 @@
 import type { PropsWithChildren } from 'react'
 import type { Metadata, Viewport } from 'next'
 
+import DeferredSentry from '@nl/sentry-client/react'
 import { customFontClassName } from '@nl/ui/fonts'
 import { cn } from '@nl/ui/utils'
 
@@ -59,6 +60,15 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" suppressHydrationWarning className={cn(customFontClassName, 'dark')}>
+      <DeferredSentry
+        enabled={process.env.VERCEL_ENV === 'production'}
+        options={{
+          dsn: 'https://97a944f1560b45018f013090ced577b3@o1377979.ingest.us.sentry.io/4504089815351296',
+          sendDefaultPii: true,
+          tracesSampleRate: 0.1,
+          debug: false,
+        }}
+      />
       <body suppressHydrationWarning>{children}</body>
     </html>
   )
