@@ -83,7 +83,6 @@ const F2PGameList = () => (
         required="Party Platform Fighter"
         description="Our flagship game - free-to-play, online multiplayer, PARTY platform fighter. Play on iOS, Android, and Steam with full cross-play support!"
         image="/img/games/smashers/smashers-poster.jpg"
-        onlineCounter={200}
         autoHeight={false}
         actions={
           <StoreButtons
@@ -100,7 +99,6 @@ const F2PGameList = () => (
         required="Party Battle Royale"
         description="Step into NiftyWorld - our next hit game is ready to playtest! This game is still in early development so bugs are expected!"
         image="/img/games/nifty-royale/nifty-royale-poster.jpg"
-        onlineCounter={200}
         autoHeight={false}
         actions={<StoreButtons ios="https://testflight.apple.com/join/VXxbaZrw" />}
       />
