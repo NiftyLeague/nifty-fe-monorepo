@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { DegenSpecialsTable } from '@nl/ui/custom/degen-specials-table'
+import { LazyYouTubeEmbed } from '@nl/ui/custom/lazy-youtube-embed'
 import { cn } from '@nl/ui/utils'
 
 import { NIFTY_DEGENS_ALL } from '@/constants/degens'
@@ -51,13 +52,10 @@ const Degens: NextPage = () => (
           <div className="w-full md:w-1/2">
             <AnimatedWrapper>
               <div className="relative text-right transition-fade-slow transition-fade-start delay-normal mb-4 md:mb-0 ps-0 lg:pl-5">
-                <iframe
-                  width="100%"
-                  height="315"
+                <LazyYouTubeEmbed
                   src="https://www.youtube.com/embed/WWLqE1tnf6U"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
+                  title="Nifty League DEGENs"
+                  className="h-[315px] w-full"
                 />
               </div>
             </AnimatedWrapper>
