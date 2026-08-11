@@ -12,6 +12,7 @@ import { Web3ModalProvider } from '@/contexts/Web3ModalContext'
 
 export default function WalletFeatureProviders({ children }: PropsWithChildren) {
   const auditFixtureEnabled = process.env.NEXT_PUBLIC_AUDIT_FIXTURE === 'true'
+  const cookies = typeof document === 'undefined' ? null : document.cookie
 
   const walletContexts = auditFixtureEnabled ? (
     <AuditFixtureContextWrapper>{children}</AuditFixtureContextWrapper>
@@ -27,5 +28,5 @@ export default function WalletFeatureProviders({ children }: PropsWithChildren) 
     </NetworkProvider>
   )
 
-  return <Web3ModalProvider>{walletContexts}</Web3ModalProvider>
+  return <Web3ModalProvider cookies={cookies}>{walletContexts}</Web3ModalProvider>
 }
