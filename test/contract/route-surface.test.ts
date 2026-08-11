@@ -88,6 +88,7 @@ const walletStorageBoundaries = [
   'apps/app/src/contexts/WalletFeatureProviders.tsx',
   'apps/app/src/contexts/WalletMintContextWrapper.tsx',
 ]
+const dashboardOverview = 'apps/app/src/app/(private-routes)/dashboard/overview/page.tsx'
 
 describe('external route surface contract', () => {
   for (const [app, files] of Object.entries(appRouteContracts)) {
@@ -128,6 +129,20 @@ describe('dashboard dialog loading contract', () => {
       expect(source).not.toContain("from '@/components/dialog/DegenDialog'")
     })
   }
+
+  it('defers the dashboard rename form until the dialog opens', () => {
+    const source = readFileSync(
+      join(process.cwd(), 'apps/app/src/app/(private-routes)/dashboard/overview/MyDegens.tsx'),
+      'utf8'
+    )
+
+    expect(source).toContain(
+      "import('@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent')"
+    )
+    expect(source).not.toContain(
+      "from '@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent'"
+    )
+  })
 })
 
 describe('auth-only route provider contract', () => {
@@ -167,6 +182,20 @@ describe('public storage provider contract', () => {
       expect(source).toContain("from '@/contexts/LocalStorageContext'")
     })
   }
+})
+
+describe('dashboard overview loading contract', () => {
+  it('defers below-the-fold comic and item sections', () => {
+    const source = readFileSync(join(process.cwd(), dashboardOverview), 'utf8')
+
+    expect(source).toContain('import DeferredDashboardSection')
+    expect(source).toContain("const loadMyComics = () => import('./MyComics')")
+    expect(source).toContain("const loadMyItems = () => import('./MyItems')")
+    expect(source).toContain("import('./MyComics')")
+    expect(source).toContain("import('./MyItems')")
+    expect(source).toContain('<DeferredDashboardSection label="My Comics" load={loadMyComics} />')
+    expect(source).toContain('<DeferredDashboardSection label="My Items" load={loadMyItems} />')
+  })
 })
 
 function countRouteFiles(dir: string): number {

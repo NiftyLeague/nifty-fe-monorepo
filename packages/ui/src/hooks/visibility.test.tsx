@@ -49,6 +49,25 @@ describe('useOnScreen', () => {
     expect(observe).not.toHaveBeenCalled()
   })
 
+  it('treats the element as visible when IntersectionObserver is unavailable', () => {
+    const originalObserver = globalThis.IntersectionObserver
+    Object.defineProperty(globalThis, 'IntersectionObserver', {
+      configurable: true,
+      value: undefined,
+    })
+
+    try {
+      const { result } = renderHook(() => useOnScreen({ current: document.createElement('div') }))
+
+      expect(result.current).toBe(true)
+    } finally {
+      Object.defineProperty(globalThis, 'IntersectionObserver', {
+        configurable: true,
+        value: originalObserver,
+      })
+    }
+  })
+
   it('shares one observer across consumers that use the same rootMargin', () => {
     const constructorCalls = mock()
     stubGlobal(
