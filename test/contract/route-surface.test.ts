@@ -81,6 +81,7 @@ const deferredDashboardDialogConsumers = [
 ]
 
 const authOnlyRouteLayouts = ['apps/app/src/app/(public-routes)/verification/layout.tsx']
+const nftOnlyRouteLayouts = ['apps/app/src/app/(public-routes)/mint-o-matic/layout.tsx']
 
 describe('external route surface contract', () => {
   for (const [app, files] of Object.entries(appRouteContracts)) {
@@ -130,6 +131,18 @@ describe('auth-only route provider contract', () => {
 
       expect(source).toContain('WalletAuthContextWrapper')
       expect(source).not.toContain("from '@/contexts/WalletContextWrapper'")
+    })
+  }
+})
+
+describe('NFT-only route provider contract', () => {
+  for (const file of nftOnlyRouteLayouts) {
+    it(`keeps dashboard token balances out of ${file}`, () => {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+
+      expect(source).toContain('WalletMintContextWrapper')
+      expect(source).not.toContain("from '@/contexts/WalletContextWrapper'")
+      expect(source).not.toContain("from '@/contexts/AuditFixtureContextWrapper'")
     })
   }
 })

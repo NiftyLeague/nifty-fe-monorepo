@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 import type { PropsWithChildren } from 'react'
 
-import WalletContextWrapper from '@/contexts/WalletContextWrapper'
+import WalletMintContextWrapper from '@/contexts/WalletMintContextWrapper'
 
 export const metadata: Metadata = { title: 'Mint-o-Matic' }
 
 export default function Layout({ children }: PropsWithChildren) {
-  return <WalletContextWrapper>{children}</WalletContextWrapper>
+  return <WalletMintContextWrapper>{children}</WalletMintContextWrapper>
 }
