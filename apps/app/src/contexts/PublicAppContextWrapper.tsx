@@ -3,12 +3,7 @@
 import type { PropsWithChildren } from 'react'
 
 import { FeatureFlagProvider } from '@/contexts/FeatureFlagsContext'
-import ReduxProvider from '@/store/ReduxProvider'
 
 export default async function PublicAppContextWrapper({ children }: PropsWithChildren) {
-  return (
-    <ReduxProvider>
-      <FeatureFlagProvider>{children}</FeatureFlagProvider>
-    </ReduxProvider>
-  )
+  return <FeatureFlagProvider>{children}</FeatureFlagProvider>
 }
