@@ -5,13 +5,11 @@ import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 
 import BouncingNFTL from '@/components/BouncingNFTL'
 import Carousel from '@/components/Carousel'
+import { DeferredMintOMatic, DeferredSponsors } from '@/components/DeferredHomeSections'
 import MainLayout from '@/components/MainLayout'
-import MintOMatic from '@/components/MintOMatic'
-import Sponsors from '@/components/Sponsors'
 import ThemeBtnGroup from '@/components/ThemeBtnGroup'
 import { RenderDegen } from '@/components/Carousel/DegenCardItem'
 import { COMMUNITY_DEGEN_LIST, DEGEN_COLLECTION_URL } from '@/constants/degens'
-import { SPONSORS } from '@/constants/sponsors'
 
 import '@/styles/home.css'
 
@@ -417,7 +415,7 @@ const Home = () => {
           />
         </div>
         <div className="relative w-full md:w-1/2">
-          <MintOMatic />
+          <DeferredMintOMatic />
         </div>
       </section>
 
@@ -490,7 +488,7 @@ const Home = () => {
             PROUDLY BACKED BY
           </h2>
         </AnimatedWrapper>
-        <Sponsors sponsors={SPONSORS} />
+        <DeferredSponsors />
         <ThemeBtnGroup
           primary={{ href: '/careers', title: 'JOIN THE TEAM' }}
           secondary={{

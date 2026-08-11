@@ -1,9 +1,8 @@
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { SocialsFooter } from '@nl/ui/custom/socials-footer'
 
+import { DeferredDegensSection, DeferredGameSection } from '@/components/DeferredHomeSections'
 import HomeInteractive from '@/components/HomeInteractive'
-import DegensSection from '@/components/DegensSection'
-import GameSection from '@/components/GameSection'
 
 type NextSearchParams = Promise<{ [key: string]: string | string[] | undefined }>
 
@@ -16,12 +15,12 @@ export default async function Home({ searchParams }: { searchParams: NextSearchP
       </section>
       <section id="game-section" className="container section relative">
         <div className="purple-bg-orb orb-top-left" />
-        <GameSection />
+        <DeferredGameSection />
       </section>
       <section id="degens-section" className="container section relative">
         <div className="purple-bg-orb orb-top-right" />
         <div className="purple-bg-orb orb-bottom-left" />
-        <DegensSection />
+        <DeferredDegensSection />
       </section>
       <SocialsFooter />
     </HomeInteractive>

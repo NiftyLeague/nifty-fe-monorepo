@@ -143,6 +143,11 @@ const deferredConsoleGameRoutes = [
   'apps/web/src/app/(main)/niftyworld/page.tsx',
   'apps/smashers/src/app/page.tsx',
 ]
+const sharedDeferredSection = 'packages/ui/src/components/custom/deferred-section/index.tsx'
+const webHomePage = 'apps/web/src/app/(main)/page.tsx'
+const smashersHomePage = 'apps/smashers/src/app/page.tsx'
+const webDeferredHomeSections = 'apps/web/src/components/DeferredHomeSections.tsx'
+const smashersDeferredHomeSections = 'apps/smashers/src/components/DeferredHomeSections.tsx'
 const appShell = 'apps/app/src/app/_layout/AppShell.tsx'
 const deferredNotifications = 'apps/app/src/components/providers/DeferredNotifications.tsx'
 const leaderboardsPage = 'apps/app/src/app/(public-routes)/leaderboards/page.tsx'
@@ -560,6 +565,46 @@ describe('shared console game loading contract', () => {
       expect(source).not.toContain("from '@nl/ui/custom/console-game'")
     })
   }
+})
+
+describe('shared below-fold loading contract', () => {
+  it('provides an accessible themed loading state with retry behavior', () => {
+    const source = readFileSync(join(process.cwd(), sharedDeferredSection), 'utf8')
+
+    expect(source).toContain("from '@nl/ui/base/skeleton'")
+    expect(source).toContain("from '@nl/ui/base/button'")
+    expect(source).toContain("from '@nl/ui/hooks/useOnScreen'")
+    expect(source).toContain('role="status"')
+    expect(source).toContain('role="alert"')
+    expect(source).toContain('aria-live="polite"')
+    expect(source).toContain('Retry')
+  })
+
+  it('defers below-fold marketing sections in web', () => {
+    const pageSource = readFileSync(join(process.cwd(), webHomePage), 'utf8')
+    const deferredSource = readFileSync(join(process.cwd(), webDeferredHomeSections), 'utf8')
+
+    expect(pageSource).toContain('DeferredMintOMatic')
+    expect(pageSource).toContain('DeferredSponsors')
+    expect(pageSource).not.toContain("import('@/components/MintOMatic')")
+    expect(pageSource).not.toContain("import('@/components/Sponsors')")
+    expect(deferredSource).toContain("import('@/components/MintOMatic')")
+    expect(deferredSource).toContain("import('@/components/Sponsors')")
+    expect(deferredSource).toContain("from '@nl/ui/custom/deferred-section'")
+  })
+
+  it('defers below-fold marketing sections in Smashers', () => {
+    const pageSource = readFileSync(join(process.cwd(), smashersHomePage), 'utf8')
+    const deferredSource = readFileSync(join(process.cwd(), smashersDeferredHomeSections), 'utf8')
+
+    expect(pageSource).toContain('DeferredGameSection')
+    expect(pageSource).toContain('DeferredDegensSection')
+    expect(pageSource).not.toContain("import('@/components/GameSection')")
+    expect(pageSource).not.toContain("import('@/components/DegensSection')")
+    expect(deferredSource).toContain("import('@/components/GameSection')")
+    expect(deferredSource).toContain("import('@/components/DegensSection')")
+    expect(deferredSource).toContain("from '@nl/ui/custom/deferred-section'")
+  })
 })
 
 const sentryClientBoundaries = [
