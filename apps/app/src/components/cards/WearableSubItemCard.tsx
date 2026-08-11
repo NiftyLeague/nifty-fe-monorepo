@@ -16,7 +16,7 @@ const CARD_HEIGHT = 82
 const WearableSubItemCard: React.FC<
   React.PropsWithChildren<React.PropsWithChildren<WearableSubItemCardProps>>
 > = ({ data, itemIndex, onViewItem, sx, isSelected = false }) => {
-  const { image, thumbnail, title } = data
+  const { image, imageWebp, thumbnail, title } = data
 
   const handleViewItem = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation()
@@ -37,7 +37,13 @@ const WearableSubItemCard: React.FC<
           outline: isSelected ? '3px solid var(--color-purple)' : 'none',
         }}
       >
-        <ImageCard image={image} thumbnail={thumbnail} title={title} ratio={1} />
+        <ImageCard
+          image={image}
+          imageWebp={imageWebp}
+          thumbnail={thumbnail}
+          title={title}
+          ratio={1}
+        />
       </div>
       <span
         className="text-center"

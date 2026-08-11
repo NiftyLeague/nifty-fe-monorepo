@@ -25,7 +25,7 @@ const ItemDetail: React.FC<React.PropsWithChildren<React.PropsWithChildren<ItemD
     )
   }
 
-  const { equipped, image, multiplier, title, thumbnail } = data
+  const { equipped, image, imageWebp, multiplier, title, thumbnail } = data
 
   const handleEquip = () => {
     router.push('/dashboard/degens')
@@ -38,7 +38,13 @@ const ItemDetail: React.FC<React.PropsWithChildren<React.PropsWithChildren<ItemD
     >
       <div className="relative" style={{ width: 225, height: 226 }}>
         <div className="relative overflow-hidden" style={{ borderRadius: '10px 10px 0 0' }}>
-          <ImageCard image={image} thumbnail={thumbnail} title={title} ratio={1} />
+          <ImageCard
+            image={image}
+            imageWebp={imageWebp}
+            thumbnail={thumbnail}
+            title={title}
+            ratio={1}
+          />
         </div>
         {multiplier && multiplier >= 2 && (
           <div

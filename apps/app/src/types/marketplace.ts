@@ -16,6 +16,7 @@ export interface Item {
   wearableName?: string
   balance?: number
   image: string
+  imageWebp?: string
   thumbnail?: string
   empty?: string
   isNew?: boolean
