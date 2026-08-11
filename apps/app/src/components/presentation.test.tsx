@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it } from 'bun:test'
 import { mock } from 'bun:test'
+import type { ComponentProps } from 'react'
 
 let GameCard: typeof import('./cards/GameCard').default
 let MainCard: typeof import('./cards/MainCard').default
@@ -8,6 +9,11 @@ let SubCard: typeof import('./cards/SubCard').default
 let Breadcrumbs: typeof import('./extended/Breadcrumbs').default
 
 beforeEach(async () => {
+  mock.module('next/image', () => ({
+    default: ({ fill: _fill, sizes: _sizes, ...props }: ComponentProps<'img'> & { fill?: boolean }) => (
+      <img {...props} />
+    ),
+  }))
   mock.module('@nl/ui/base/icon', () => ({
     Icon: ({ name }: { name: string }) => <span data-icon={name}>{name}</span>,
   }))

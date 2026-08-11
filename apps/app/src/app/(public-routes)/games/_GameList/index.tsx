@@ -82,7 +82,7 @@ const F2PGameList = () => (
         title="Nifty Smashers (Beta)"
         required="Party Platform Fighter"
         description="Our flagship game - free-to-play, online multiplayer, PARTY platform fighter. Play on iOS, Android, and Steam with full cross-play support!"
-        image="/img/games/smashers/smashers.gif"
+        image="/img/games/smashers/smashers-poster.jpg"
         onlineCounter={200}
         autoHeight={false}
         actions={
@@ -99,7 +99,7 @@ const F2PGameList = () => (
         title="Party Royale (Early-Alpha)"
         required="Party Battle Royale"
         description="Step into NiftyWorld - our next hit game is ready to playtest! This game is still in early development so bugs are expected!"
-        image="/img/games/nifty-royale/nifty-royale.gif"
+        image="/img/games/nifty-royale/nifty-royale-poster.jpg"
         onlineCounter={200}
         autoHeight={false}
         actions={<StoreButtons ios="https://testflight.apple.com/join/VXxbaZrw" />}
