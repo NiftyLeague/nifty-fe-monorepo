@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
 import { Dialog, DialogContent } from '@nl/ui/base/dialog'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { cn } from '@nl/ui/utils'
@@ -14,11 +15,30 @@ import type { CharacterType, Degen, GetDegenResponse } from '@/types/degens'
 import { errorMsgHandler } from '@/utils/errorHandlers'
 import useAuth from '@/hooks/useAuth'
 
-import ClaimDegenContentDialog from './ClaimDegenContentDialog'
-import EquipDegenContentDialog from './EquipDegenContentDialog'
-import RentDegenContentDialog from './RentDegenContentDialog'
-import ViewTraitsContentDialog from './ViewTraitsContentDialog'
 import styles from './index.module.css'
+
+const DialogContentLoading = () => (
+  <div className="sr-only" role="status" aria-live="polite" aria-busy="true">
+    Loading degen dialog content
+  </div>
+)
+
+const ClaimDegenContentDialog = dynamic(() => import('./ClaimDegenContentDialog'), {
+  ssr: false,
+  loading: DialogContentLoading,
+})
+const EquipDegenContentDialog = dynamic(() => import('./EquipDegenContentDialog'), {
+  ssr: false,
+  loading: DialogContentLoading,
+})
+const RentDegenContentDialog = dynamic(() => import('./RentDegenContentDialog'), {
+  ssr: false,
+  loading: DialogContentLoading,
+})
+const ViewTraitsContentDialog = dynamic(() => import('./ViewTraitsContentDialog'), {
+  ssr: false,
+  loading: DialogContentLoading,
+})
 
 export interface DegenDialogProps {
   degen?: Degen
