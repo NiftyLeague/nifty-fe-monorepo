@@ -1,32 +1,35 @@
-import type { NextFontWithVariable } from 'next/dist/compiled/@next/font'
-import { IBM_Plex_Sans, Lilita_One, Press_Start_2P } from 'next/font/google'
 import localFont from 'next/font/local'
 
-export const imbPlexSans = IBM_Plex_Sans({
-  weight: ['400', '500', '700'],
-  style: ['normal', 'italic'],
-  subsets: ['latin'],
+export const imbPlexSans = localFont({
+  src: [
+    {
+      path: './assets/ibm-plex-sans-400.woff2',
+      weight: '400 700',
+      style: 'normal',
+    },
+    {
+      path: './assets/ibm-plex-sans-italic-400.woff2',
+      weight: '400 700',
+      style: 'italic',
+    },
+  ],
   variable: '--font-ibm-plex-sans',
   display: 'swap',
 })
 
-export const lilitaOne: NextFontWithVariable = Lilita_One({
-  weight: '400',
-  style: 'normal',
-  subsets: ['latin'],
+export const lilitaOne = localFont({
+  src: './assets/lilita-one-400.woff2',
   variable: '--font-lilita-one',
   display: 'swap',
 })
 
-export const pressStart: NextFontWithVariable = Press_Start_2P({
-  weight: '400',
-  style: 'normal',
-  subsets: ['latin'],
+export const pressStart = localFont({
+  src: './assets/press-start-2p-400.woff2',
   variable: '--font-press-start',
   display: 'swap',
 })
 
-export const nexaRustSansBlack: NextFontWithVariable = localFont({
+export const nexaRustSansBlack = localFont({
   src: './NexaRustSans_Black/NexaRustSans-Black.woff2',
   weight: '700',
   style: 'normal',

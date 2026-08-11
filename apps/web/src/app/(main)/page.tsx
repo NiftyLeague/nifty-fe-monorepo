@@ -42,7 +42,6 @@ const DesktopIntro = () => {
               alt="Nifty Hero Characters"
               width={1920}
               height={1042}
-              priority
               sizes="100vw"
               className="w-full h-auto"
             />
@@ -90,7 +89,6 @@ const DesktopIntro = () => {
             <Image
               alt="Satoshi"
               src="/img/hero/satoshi.webp"
-              priority
               width={180}
               height={190}
               sizes="100vw"
