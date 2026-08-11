@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 
-type Web3GameListComponent = typeof import('./_Web3GameList/DeferredWeb3GameList').default
+type Web3GameListComponent = typeof import('./_Web3GameList').default
 
 const LoadingWeb3GameList = ({ error = false }: { error?: boolean }) => (
   <div className="col-span-12 min-h-24" role="status" aria-busy={!error} aria-live="polite">
@@ -24,7 +24,7 @@ export default function Web3GameList() {
 
     let active = true
 
-    void import('./_Web3GameList/DeferredWeb3GameList')
+    void import('./_Web3GameList')
       .then(({ default: LoadedGameList }) => {
         if (active) setGameList(() => LoadedGameList)
       })

@@ -834,7 +834,7 @@ describe('public route dependency contract', () => {
     )
 
     expect(loader).toContain('useOnScreen')
-    expect(loader).toContain("import('./_Web3GameList/DeferredWeb3GameList')")
+    expect(loader).toContain("import('./_Web3GameList')")
     expect(list).toContain('asChild')
     expect(list).not.toContain('WalletFeatureProviders')
     expect(list).not.toContain('ConnectWrapper')
