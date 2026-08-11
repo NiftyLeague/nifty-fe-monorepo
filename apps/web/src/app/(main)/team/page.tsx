@@ -1,5 +1,3 @@
-'use client'
-
 import type { NextPage } from 'next'
 
 import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
