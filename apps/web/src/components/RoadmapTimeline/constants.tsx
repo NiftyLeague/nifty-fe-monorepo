@@ -234,6 +234,7 @@ export const ROADMAP_CARDS = [
     image: {
       height: 1080,
       src: '/img/games/crypto-winter.gif',
+      webpSrc: '/img/games/crypto-winter-roadmap.webp',
       style: { top: '-120px' },
       width: 1440,
     },
@@ -392,6 +393,7 @@ export const ROADMAP_CARDS = [
     image: {
       height: 400,
       src: '/img/games/smashers/nifty-smashers.gif',
+      webpSrc: '/img/games/smashers/nifty-smashers-roadmap.webp',
       style: { top: '-135px' },
       width: 544,
     },
