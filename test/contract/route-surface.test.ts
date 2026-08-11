@@ -160,6 +160,8 @@ const sidebarProfile = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/_UserProfi
 const localStorageHook = 'apps/app/src/hooks/useLocalStorage.ts'
 const contractReaderHook = 'apps/app/src/hooks/useContractReader.ts'
 const valueEqualityUtility = 'apps/app/src/utils/value-equality.ts'
+const mainLayout = 'apps/app/src/app/_layout/_MainLayout/index.tsx'
+const networkWarning = 'apps/app/src/app/_layout/_MainLayout/_Header/NetworkWarning.tsx'
 const staleWalletContextWrapper = 'apps/app/src/contexts/WalletContextWrapper.tsx'
 const deferredAnalyticsSource = 'packages/ui/src/lib/gtm/DeferredAnalytics.tsx'
 const analyticsLayouts = [
@@ -580,6 +582,19 @@ describe('verification route shell contract', () => {
 })
 
 describe('private provider loading contract', () => {
+  it('defers chain-specific warning UI out of the private shell', () => {
+    const layoutSource = readFileSync(join(process.cwd(), mainLayout), 'utf8')
+    const warningSource = readFileSync(join(process.cwd(), networkWarning), 'utf8')
+
+    expect(layoutSource).toContain("dynamic(() => import('./_Header/NetworkWarning')")
+    expect(layoutSource).toContain('ssr: false')
+    expect(layoutSource).not.toContain("from 'viem/chains'")
+    expect(layoutSource).not.toContain('useSwitchChain')
+    expect(warningSource).toContain('useSwitchChain')
+    expect(warningSource).toContain('TARGET_NETWORK')
+    expect(warningSource).toContain('<Button')
+  })
+
   it('keeps the superseded all-in-one wallet provider removed', () => {
     expect(existsSync(join(process.cwd(), staleWalletContextWrapper))).toBe(false)
   })
