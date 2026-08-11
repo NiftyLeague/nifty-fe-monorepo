@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo } from 'react'
+import Image from 'next/image'
 import { Skeleton } from '@nl/ui/base/skeleton'
 
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
@@ -30,10 +31,13 @@ const ImageProfile = ({ degens, avatar, avatarFee }: ImageProfileProps): React.R
     } else {
       if (!degenSelected) {
         return (
-          <img
+          <Image
             src="/img/degens/unavailable-image.webp"
             alt="no avatar"
+            width={730}
+            height={800}
             className="mx-auto max-w-[500px] object-cover"
+            style={{ width: '100%', height: 'auto' }}
           />
         )
       }
