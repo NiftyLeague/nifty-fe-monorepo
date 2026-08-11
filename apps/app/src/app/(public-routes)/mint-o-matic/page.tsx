@@ -10,15 +10,15 @@ import { Title } from '@nl/ui/custom/typography'
 import { ErrorBoundary } from '@nl/ui/custom/error-boundry'
 import { Preloader } from '@nl/ui/custom/preloader'
 import useAuth from '@/hooks/useAuth'
-import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import { DEGEN_COLLECTION_URL } from '@/constants/url'
+import { useDegenOwnershipContext } from '@/contexts/DegenOwnershipContext'
 
 const CharacterCreator = dynamic(() => import('./_CharacterCreator'), { ssr: false })
 
 const MintPage = () => {
   const [isLoaded, setLoaded] = useState(false)
   const [progress, setProgress] = useState(0)
-  const { isDegenOwner } = useNFTsBalances()
+  const { isDegenOwner } = useDegenOwnershipContext()
   const { isConnected, isLoggedIn, handleConnectWallet } = useAuth()
 
   const searchParams = useSearchParams()
