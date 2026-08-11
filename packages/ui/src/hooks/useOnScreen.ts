@@ -50,6 +50,11 @@ export function useOnScreen<T extends Element = HTMLDivElement>(
     const element = ref.current
     if (!element) return
 
+    if (typeof IntersectionObserver === 'undefined') {
+      setIntersecting(true)
+      return
+    }
+
     const sharedObserver = getSharedObserver(rootMargin)
     const callbacks = callbacksByElement.get(element) ?? new Set<VisibilityCallback>()
     callbacks.add(setIntersecting)
