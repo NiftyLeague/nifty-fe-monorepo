@@ -4,7 +4,7 @@ import type { PropsWithChildren } from 'react'
 
 import AuditFixtureContextWrapper from '@/contexts/AuditFixtureContextWrapper'
 import { IMXProvider } from '@/contexts/IMXContext'
-import { NetworkProvider } from '@/contexts/NetworkContext'
+import { NetworkProvider } from '@/contexts/NetworkProvider'
 import { NFTsBalanceProvider } from '@/contexts/NFTsBalanceContext'
 import { TokensBalanceProvider } from '@/contexts/TokensBalanceContext'
 
