@@ -102,6 +102,9 @@ const dashboardOverview = 'apps/app/src/app/(private-routes)/dashboard/overview/
 const dashboardDegens = 'apps/app/src/app/(private-routes)/dashboard/degens/page.tsx'
 const dashboardDegensContent =
   'apps/app/src/app/(private-routes)/dashboard/degens/DashboardDegensContent.tsx'
+const dashboardItems = 'apps/app/src/app/(private-routes)/dashboard/items/page.tsx'
+const dashboardItemsContent =
+  'apps/app/src/app/(private-routes)/dashboard/items/DashboardItemsContent.tsx'
 const privateShellBoundary = 'apps/app/src/components/providers/PrivateRoutesBoundary.tsx'
 const privateShell = 'apps/app/src/components/providers/PrivateRoutesShell.tsx'
 const dashboardDataProviderBoundary = 'apps/app/src/contexts/DashboardDataProviders.tsx'
@@ -551,6 +554,24 @@ describe('dashboard DEGEN loading contract', () => {
     expect(contentSource).toContain("import('@/components/cards/DegenCard/DashboardDegenCard')")
     expect(contentSource).toContain("from '@/components/extended/DegensFilter'")
     expect(contentSource).toContain('DashboardDegensPageContent')
+  })
+})
+
+describe('dashboard items loading contract', () => {
+  it('keeps the comic and item graph behind the route loading boundary', () => {
+    const pageSource = readFileSync(join(process.cwd(), dashboardItems), 'utf8')
+    const contentSource = readFileSync(join(process.cwd(), dashboardItemsContent), 'utf8')
+
+    expect(pageSource).toContain("dynamic(() => import('./DashboardItemsContent')")
+    expect(pageSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(pageSource).toContain('role="status"')
+    expect(pageSource).toContain('aria-live="polite"')
+    expect(pageSource).toContain('aria-busy="true"')
+    expect(pageSource).not.toContain("from '@/components/cards/ComicCard'")
+    expect(pageSource).not.toContain("from '@/hooks/balances/useNFTsBalances'")
+    expect(contentSource).toContain("from '@/components/cards/ComicCard'")
+    expect(contentSource).toContain("from '@/hooks/balances/useNFTsBalances'")
+    expect(contentSource).toContain('DashboardComicsPageContent')
   })
 })
 
