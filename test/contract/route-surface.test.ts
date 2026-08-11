@@ -89,6 +89,15 @@ const walletStorageBoundaries = [
   'apps/app/src/contexts/WalletMintContextWrapper.tsx',
 ]
 const dashboardOverview = 'apps/app/src/app/(private-routes)/dashboard/overview/page.tsx'
+const privateShellProviderBoundary = 'apps/app/src/contexts/AppContextWrapper.tsx'
+const dashboardDataProviderBoundary = 'apps/app/src/contexts/DashboardDataProviders.tsx'
+const dashboardDataBoundary = 'apps/app/src/components/providers/DashboardDataBoundary.tsx'
+const authUrls = 'apps/app/src/constants/auth-urls.ts'
+const walletModal = 'apps/app/src/contexts/WalletModal.ts'
+const web3ModalContext = 'apps/app/src/contexts/Web3ModalContext.tsx'
+const authTokenContext = 'apps/app/src/contexts/AuthTokenContext.tsx'
+const privateShellLayout = 'apps/app/src/app/(private-routes)/layout.tsx'
+const sidebarProfile = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/_UserProfile/index.tsx'
 
 describe('external route surface contract', () => {
   for (const [app, files] of Object.entries(appRouteContracts)) {
@@ -182,6 +191,99 @@ describe('public storage provider contract', () => {
       expect(source).toContain("from '@/contexts/LocalStorageContext'")
     })
   }
+})
+
+describe('private provider loading contract', () => {
+  it('keeps dashboard data providers out of the shared private shell', () => {
+    const source = readFileSync(join(process.cwd(), privateShellProviderBoundary), 'utf8')
+
+    expect(source).not.toContain("from '@/contexts/WalletContextWrapper'")
+    expect(source).not.toContain("from '@/contexts/NetworkContext'")
+    expect(source).not.toContain("from '@/contexts/IMXContext'")
+    expect(source).not.toContain("from '@/contexts/NFTsBalanceContext'")
+    expect(source).not.toContain("from '@/contexts/TokensBalanceContext'")
+  })
+
+  it('keeps the data provider boundary explicit and dashboard-scoped', () => {
+    const source = readFileSync(join(process.cwd(), dashboardDataProviderBoundary), 'utf8')
+
+    expect(source).toContain("from '@/contexts/NetworkContext'")
+    expect(source).toContain("from '@/contexts/IMXContext'")
+    expect(source).toContain("from '@/contexts/NFTsBalanceContext'")
+    expect(source).toContain("from '@/contexts/TokensBalanceContext'")
+
+    for (const file of [
+      'apps/app/src/app/(private-routes)/dashboard/overview/page.tsx',
+      'apps/app/src/app/(private-routes)/dashboard/degens/page.tsx',
+      'apps/app/src/app/(private-routes)/dashboard/gamer-profile/page.tsx',
+      'apps/app/src/app/(private-routes)/dashboard/items/page.tsx',
+      'apps/app/src/app/(private-routes)/dashboard/items/burner/page.tsx',
+    ]) {
+      expect(readFileSync(join(process.cwd(), file), 'utf8')).toContain('DashboardDataBoundary')
+    }
+
+    expect(
+      readFileSync(
+        join(process.cwd(), 'apps/app/src/app/(private-routes)/dashboard/rentals/page.tsx'),
+        'utf8'
+      )
+    ).not.toContain('DashboardDataProviders')
+  })
+
+  it('keeps auth and profile URLs independent from the contract registry', () => {
+    const source = readFileSync(join(process.cwd(), authUrls), 'utf8')
+
+    expect(source).toContain("from './api'")
+    expect(source).not.toContain("from './contracts'")
+    for (const file of [
+      'apps/app/src/hooks/useCheckAuth.ts',
+      'apps/app/src/hooks/useSignAuthMsg.ts',
+      'apps/app/src/hooks/useGamerProfile/useGamerProfile.ts',
+      'apps/app/src/hooks/useGamerProfile/useProfileAvatarFee.ts',
+      'apps/app/src/hooks/useGamerProfile/useProfileFavDegens.ts',
+    ]) {
+      expect(readFileSync(join(process.cwd(), file), 'utf8')).not.toContain(
+        "from '@/constants/url'"
+      )
+    }
+  })
+
+  it('keeps AppKit UI initialization out of the eager auth shell', () => {
+    const providerSource = readFileSync(join(process.cwd(), web3ModalContext), 'utf8')
+    const authSource = readFileSync(join(process.cwd(), authTokenContext), 'utf8')
+    const modalSource = readFileSync(join(process.cwd(), walletModal), 'utf8')
+
+    expect(providerSource).not.toContain('createAppKit')
+    expect(providerSource).not.toContain('@reown/appkit/react')
+    expect(providerSource).not.toContain('@/constants/contracts')
+    expect(authSource).not.toContain('useAppKit')
+    expect(authSource).not.toContain('useAppKitEvents')
+    expect(authSource).toContain('openWalletModal')
+    expect(modalSource).toContain("import('@reown/appkit/react')")
+    expect(modalSource).toContain("import('@/constants/contracts')")
+  })
+
+  it('loads dashboard data after the shell has painted with accessible recovery states', () => {
+    const source = readFileSync(join(process.cwd(), dashboardDataBoundary), 'utf8')
+
+    expect(source).toContain("import('@/contexts/DashboardDataProviders')")
+    expect(source).toContain('role="status"')
+    expect(source).toContain('role="alert"')
+    expect(source).toContain('Retry')
+  })
+
+  it('preserves the private shell layout while keeping the sidebar lightweight', () => {
+    const layoutSource = readFileSync(join(process.cwd(), privateShellLayout), 'utf8')
+    const profileSource = readFileSync(join(process.cwd(), sidebarProfile), 'utf8')
+
+    expect(layoutSource).toContain('AppContextWrapper')
+    expect(layoutSource).toContain('MainLayout')
+    expect(profileSource).toContain('Open dashboard')
+    expect(profileSource).toContain('<Button asChild className="w-full">')
+    expect(profileSource).not.toContain('SidebarWalletActions')
+    expect(profileSource).not.toContain("from '@/hooks/useNetworkContext'")
+    expect(profileSource).not.toContain("from '@/hooks/writeContracts/useClaimNFTL'")
+  })
 })
 
 describe('dashboard overview loading contract', () => {

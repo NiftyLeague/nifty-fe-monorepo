@@ -1,7 +1,6 @@
 'use client'
 
 import { createContext, useCallback, useRef, useEffect, type PropsWithChildren } from 'react'
-import { useAppKit, useAppKitEvents } from '@reown/appkit/react'
 import { useAccount } from 'wagmi'
 
 import type { AuthTokenContextType } from '@/types/auth'
@@ -16,14 +15,13 @@ import { DEBUG } from '@/constants/index'
 const AuthTokenContext = createContext<AuthTokenContextType | null>(null)
 
 export const AuthTokenProvider = ({ children }: PropsWithChildren) => {
-  const modal = useAppKit()
   const { isConnected } = useAccount()
   const { checkAddress } = useCheckAuth()
   const { signMessage } = useSignAuthMsg()
   const { isLoggedIn } = useSelector((state) => state.account)
   const { authToken } = useLocalStorageContext()
-  const events = useAppKitEvents()
   const msgSent = useRef(false)
+  const connectedRef = useRef(isConnected)
 
   const signMsg = useCallback(async () => {
     const initialized = await checkAddress()
@@ -33,22 +31,23 @@ export const AuthTokenProvider = ({ children }: PropsWithChildren) => {
 
   const handleConnectWallet = useCallback(async () => {
     if (!isConnected) {
-      modal.open()
+      const { openWalletModal } = await import('@/contexts/WalletModal')
+      await openWalletModal()
       return
     }
     await signMsg()
-  }, [isConnected, signMsg, modal])
+  }, [isConnected, signMsg])
 
   useEffect(() => {
-    if (events?.data?.event === 'CONNECT_SUCCESS') {
+    const connected = connectedRef.current
+    connectedRef.current = isConnected
+
+    if (!connected && isConnected && !isLoggedIn && msgSent.current === false) {
       if (DEBUG) console.log('CONNECT_SUCCESS')
-      if (!isLoggedIn && msgSent.current === false) {
-        msgSent.current = true
-        handleConnectWallet()
-      }
+      msgSent.current = true
+      void signMsg()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [events, isLoggedIn])
+  }, [isConnected, isLoggedIn, signMsg])
 
   return (
     <AuthTokenContext.Provider value={{ authToken, handleConnectWallet, isConnected, isLoggedIn }}>
