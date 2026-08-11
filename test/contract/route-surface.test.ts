@@ -75,12 +75,12 @@ const appRouteContracts: Record<string, string[]> = {
 }
 
 const deferredDashboardDialogConsumers = [
-  'apps/app/src/app/(private-routes)/dashboard/degens/page.tsx',
+  'apps/app/src/app/(private-routes)/dashboard/degens/DashboardDegensContent.tsx',
   'apps/app/src/app/(private-routes)/dashboard/overview/MyDegens.tsx',
   'apps/app/src/app/(private-routes)/dashboard/rentals/MyRentalsDataGrid.tsx',
 ]
 const deferredRenameDegenConsumers = [
-  'apps/app/src/app/(private-routes)/dashboard/degens/page.tsx',
+  'apps/app/src/app/(private-routes)/dashboard/degens/DashboardDegensContent.tsx',
   'apps/app/src/app/(private-routes)/dashboard/overview/MyDegens.tsx',
 ]
 const deferredProfileDialogConsumers = [
@@ -99,6 +99,9 @@ const walletStorageBoundaries = [
   'apps/app/src/components/providers/MintProviders.tsx',
 ]
 const dashboardOverview = 'apps/app/src/app/(private-routes)/dashboard/overview/page.tsx'
+const dashboardDegens = 'apps/app/src/app/(private-routes)/dashboard/degens/page.tsx'
+const dashboardDegensContent =
+  'apps/app/src/app/(private-routes)/dashboard/degens/DashboardDegensContent.tsx'
 const privateShellBoundary = 'apps/app/src/components/providers/PrivateRoutesBoundary.tsx'
 const privateShell = 'apps/app/src/components/providers/PrivateRoutesShell.tsx'
 const dashboardDataProviderBoundary = 'apps/app/src/contexts/DashboardDataProviders.tsx'
@@ -531,6 +534,23 @@ describe('dashboard overview loading contract', () => {
     expect(source).toContain('<Skeleton')
     expect(source).toContain('role="alert"')
     expect(source).toContain('Retry')
+  })
+})
+
+describe('dashboard DEGEN loading contract', () => {
+  it('keeps the card and filter graph behind the route loading boundary', () => {
+    const pageSource = readFileSync(join(process.cwd(), dashboardDegens), 'utf8')
+    const contentSource = readFileSync(join(process.cwd(), dashboardDegensContent), 'utf8')
+
+    expect(pageSource).toContain("dynamic(() => import('./DashboardDegensContent')")
+    expect(pageSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(pageSource).toContain('role="status"')
+    expect(pageSource).toContain('aria-busy="true"')
+    expect(pageSource).not.toContain("from '@/components/cards/DegenCard/DashboardDegenCard'")
+    expect(pageSource).not.toContain("from '@/components/extended/DegensFilter'")
+    expect(contentSource).toContain("import('@/components/cards/DegenCard/DashboardDegenCard')")
+    expect(contentSource).toContain("from '@/components/extended/DegensFilter'")
+    expect(contentSource).toContain('DashboardDegensPageContent')
   })
 })
 
