@@ -14,7 +14,7 @@ import usePlayerProfile from '@/hooks/usePlayerProfile'
 import { Countdown } from '@nl/ui/base/countdown'
 import useLocalStorage from '@/hooks/useLocalStorage'
 
-import DegenDialog from '@/components/dialog/DegenDialog'
+import DeferredDegenDialog from '@/components/providers/DeferredDegenDialog'
 import { RentalDataGrid } from '@/types/rentalDataGrid'
 import ChangeNicknameDialog from './ChangeNicknameDialog'
 
@@ -522,13 +522,15 @@ const MyRentalsDataGrid = ({
       </Dialog>
 
       {/* Degen Traits Dialog */}
-      <DegenDialog
-        open={isDegenModalOpen}
-        degen={selectedDegen}
-        isRent={isRentDialog}
-        setIsRent={setIsRentDialog}
-        onClose={() => setIsDegenModalOpen(false)}
-      />
+      {isDegenModalOpen && (
+        <DeferredDegenDialog
+          open
+          degen={selectedDegen}
+          isRent={isRentDialog}
+          setIsRent={setIsRentDialog}
+          onClose={() => setIsDegenModalOpen(false)}
+        />
+      )}
     </>
   )
 }

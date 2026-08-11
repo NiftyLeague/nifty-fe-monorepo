@@ -36,7 +36,7 @@ import type { DegenFilter } from '@/types/degenFilter'
 import type { Degen } from '@/types/degens'
 import { v4 as uuidv4 } from 'uuid'
 import EmptyState from '@/components/EmptyState'
-import DegenDialog from '@/components/dialog/DegenDialog'
+import DeferredDegenDialog from '@/components/providers/DeferredDegenDialog'
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import DegensTopNav from '@/components/extended/DegensTopNav'
 import useLocalStorageContext from '@/hooks/useLocalStorageContext'
@@ -387,16 +387,18 @@ const DashboardDegensPage = (): React.ReactNode => {
           renderMain={renderMain}
         />
       </div>
-      <DegenDialog
-        open={isDegenModalOpen}
-        degen={selectedDegen}
-        isClaim={isClaimDialog}
-        isRent={isRentDialog}
-        isEquip={isEquipDialog}
-        setIsClaim={setIsClaimDialog}
-        setIsRent={setIsRentDialog}
-        onClose={() => setIsDegenModalOpen(false)}
-      />
+      {isDegenModalOpen && (
+        <DeferredDegenDialog
+          open
+          degen={selectedDegen}
+          isClaim={isClaimDialog}
+          isRent={isRentDialog}
+          isEquip={isEquipDialog}
+          setIsClaim={setIsClaimDialog}
+          setIsRent={setIsRentDialog}
+          onClose={() => setIsDegenModalOpen(false)}
+        />
+      )}
       <Dialog
         open={isRenameDegenModalOpen}
         onOpenChange={(open) => !open && setIsRenameDegenModalOpen(false)}
