@@ -17,6 +17,9 @@ const ImageCard = ({ image, thumbnail, title, ratio }: ImageCardProps) => {
   return (
     <div style={{ ...styleImage.imageWrapper, paddingBottom: `${ratio * 100}%` }}>
       {thumbnail && (
+        // Marketplace media can be API-provided from arbitrary hosts, so it cannot use
+        // next/image until those hosts are explicitly configured.
+        // eslint-disable-next-line @next/next/no-img-element
         <img
           onLoad={handleImageOnLoad}
           src={thumbnail}
@@ -27,6 +30,9 @@ const ImageCard = ({ image, thumbnail, title, ratio }: ImageCardProps) => {
         />
       )}
       {image && (
+        // Marketplace media can be API-provided from arbitrary hosts, so it cannot use
+        // next/image until those hosts are explicitly configured.
+        // eslint-disable-next-line @next/next/no-img-element
         <img
           onLoad={handleImageOnLoad}
           src={image}
