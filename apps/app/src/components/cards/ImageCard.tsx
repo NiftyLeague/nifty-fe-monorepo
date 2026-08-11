@@ -1,8 +1,10 @@
 import useImageOnLoad from '@/hooks/useImageOnLoad'
+import { AnimatedImage } from '@nl/ui/custom/animated-image'
 
 interface ImageCardProps {
   thumbnail?: string
   image?: string
+  imageWebp?: string
   title: string
   ratio: number
 }
@@ -12,7 +14,7 @@ const styleImage: { imageWrapper: React.CSSProperties; imageCommon: React.CSSPro
   imageCommon: { position: 'absolute', width: '100%' },
 }
 
-const ImageCard = ({ image, thumbnail, title, ratio }: ImageCardProps) => {
+const ImageCard = ({ image, imageWebp, thumbnail, title, ratio }: ImageCardProps) => {
   const { handleImageOnLoad, css } = useImageOnLoad()
   return (
     <div style={{ ...styleImage.imageWrapper, paddingBottom: `${ratio * 100}%` }}>
@@ -29,19 +31,30 @@ const ImageCard = ({ image, thumbnail, title, ratio }: ImageCardProps) => {
           style={{ ...styleImage.imageCommon, ...css.thumbnail }}
         />
       )}
-      {image && (
-        // Marketplace media can be API-provided from arbitrary hosts, so it cannot use
-        // next/image until those hosts are explicitly configured.
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          onLoad={handleImageOnLoad}
-          src={image}
-          alt={title}
-          loading="lazy"
-          decoding="async"
-          style={{ height: '100%', ...styleImage.imageCommon, ...css.fullSize }}
-        />
-      )}
+      {image &&
+        (imageWebp ? (
+          <AnimatedImage
+            onLoad={handleImageOnLoad}
+            src={image}
+            webpSrc={imageWebp}
+            alt={title}
+            loading="lazy"
+            decoding="async"
+            style={{ height: '100%', ...styleImage.imageCommon, ...css.fullSize }}
+          />
+        ) : (
+          // Marketplace media can be API-provided from arbitrary hosts, so it cannot use
+          // next/image until those hosts are explicitly configured.
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            onLoad={handleImageOnLoad}
+            src={image}
+            alt={title}
+            loading="lazy"
+            decoding="async"
+            style={{ height: '100%', ...styleImage.imageCommon, ...css.fullSize }}
+          />
+        ))}
     </div>
   )
 }

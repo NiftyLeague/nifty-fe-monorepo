@@ -1,17 +1,32 @@
-import Image from 'next/image'
 import { Skeleton } from '@nl/ui/base/skeleton'
+import { AnimatedImage } from '@nl/ui/custom/animated-image'
 
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 
 import styles from './items-grid.module.css'
 
 const ITEMS = [
-  { id: 1, name: 'CAPE', image: '/img/items/full/1.gif' },
-  { id: 2, name: 'HALO', image: '/img/items/full/2.gif' },
-  { id: 3, name: 'DIAMOND', image: '/img/items/full/3.gif' },
-  { id: 4, name: 'BREAD', image: '/img/items/full/4.gif' },
-  { id: 5, name: 'NL PURPLE', image: '/img/items/full/5.gif' },
-  { id: 6, name: 'COMPANION', image: '/img/items/full/6.gif' },
+  { id: 1, name: 'CAPE', image: '/img/items/full/1.gif', imageWebp: '/img/items/full/1.webp' },
+  { id: 2, name: 'HALO', image: '/img/items/full/2.gif', imageWebp: '/img/items/full/2.webp' },
+  {
+    id: 3,
+    name: 'DIAMOND',
+    image: '/img/items/full/3.gif',
+    imageWebp: '/img/items/full/3.webp',
+  },
+  { id: 4, name: 'BREAD', image: '/img/items/full/4.gif', imageWebp: '/img/items/full/4.webp' },
+  {
+    id: 5,
+    name: 'NL PURPLE',
+    image: '/img/items/full/5.gif',
+    imageWebp: '/img/items/full/5.webp',
+  },
+  {
+    id: 6,
+    name: 'COMPANION',
+    image: '/img/items/full/6.gif',
+    imageWebp: '/img/items/full/6.webp',
+  },
 ]
 
 export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
@@ -25,8 +40,9 @@ export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
       <div className="grid grid-cols-3 gap-x-2.5">
         {ITEMS.map((item) => (
           <div key={item.id}>
-            <Image
+            <AnimatedImage
               src={item.image}
+              webpSrc={item.imageWebp}
               alt={item.name}
               loading="lazy"
               width={98}
@@ -44,8 +60,9 @@ export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
         ))}
       </div>
       <div style={{ textAlign: 'center' }}>
-        <Image
+        <AnimatedImage
           src="/img/items/full/7.gif"
+          webpSrc="/img/items/full/7.webp"
           unoptimized
           alt="CITADEL KEY"
           loading="lazy"
