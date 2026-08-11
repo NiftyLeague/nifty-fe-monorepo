@@ -198,6 +198,32 @@ describe('dashboard overview loading contract', () => {
   })
 })
 
+const sentryClientBoundaries = [
+  'apps/app/src/instrumentation-client.ts',
+  'apps/app/src/app/global-error.tsx',
+  'apps/web/src/instrumentation-client.ts',
+  'apps/web/src/app/global-error.tsx',
+  'apps/smashers/src/instrumentation-client.ts',
+  'apps/smashers/src/app/global-error.tsx',
+]
+
+describe('deferred Sentry client contract', () => {
+  for (const file of sentryClientBoundaries) {
+    it(`keeps the Sentry SDK out of the static client boundary in ${file}`, () => {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+
+      expect(source).not.toContain("from '@sentry/nextjs'")
+      expect(source).toContain('@nl/sentry-client/client')
+    })
+  }
+
+  it('keeps the shared Sentry loader dynamic', () => {
+    const source = readFileSync(join(process.cwd(), 'packages/sentry-client/src/client.ts'), 'utf8')
+
+    expect(source).toContain("import('@sentry/nextjs')")
+  })
+})
+
 function countRouteFiles(dir: string): number {
   let count = 0
   for (const entry of readdirSync(dir)) {

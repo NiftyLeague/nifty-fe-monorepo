@@ -1,0 +1,20 @@
+{
+  "name": "@nl/sentry-client",
+  "version": "1.0.0",
+  "license": "GPL-3.0-only",
+  "type": "module",
+  "private": true,
+  "main": "./src/client.ts",
+  "exports": {
+    "./client": "./src/client.ts"
+  },
+  "scripts": {
+    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\" --ignore-path ../../.gitignore",
+    "lint": "eslint . --max-warnings 0",
+    "test": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --pass-with-no-tests",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@sentry/nextjs": "^10.69.0"
+  }
+}
