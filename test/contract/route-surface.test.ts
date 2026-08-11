@@ -537,18 +537,25 @@ describe('dashboard overview loading contract', () => {
   })
 
   it('uses themed shadcn skeletons while dashboard sections load', () => {
-    const source = readFileSync(
+    const adapterSource = readFileSync(
       join(process.cwd(), 'apps/app/src/components/providers/DeferredDashboardSection.tsx'),
       'utf8'
     )
+    const sharedSource = readFileSync(
+      join(process.cwd(), 'packages/ui/src/components/custom/deferred-section/index.tsx'),
+      'utf8'
+    )
 
-    expect(source).toContain("from '@nl/ui/base/skeleton'")
-    expect(source).toContain('role="status"')
-    expect(source).toContain('aria-live="polite"')
-    expect(source).toContain('aria-busy="true"')
-    expect(source).toContain('<Skeleton')
-    expect(source).toContain('role="alert"')
-    expect(source).toContain('Retry')
+    expect(adapterSource).toContain("from '@nl/ui/custom/deferred-section'")
+    expect(adapterSource).toContain('export const DashboardSectionLoading = DeferredSectionLoading')
+    expect(adapterSource).toContain('export default DeferredSection')
+    expect(sharedSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(sharedSource).toContain('role="status"')
+    expect(sharedSource).toContain('aria-live="polite"')
+    expect(sharedSource).toContain('aria-busy="true"')
+    expect(sharedSource).toContain('<Skeleton')
+    expect(sharedSource).toContain('role="alert"')
+    expect(sharedSource).toContain('Retry')
   })
 })
 

@@ -1,4 +1,5 @@
 import { memo } from 'react'
+import Image from 'next/image'
 import { LEGGIES } from '@/constants/degens'
 const IMAGE_HEIGHT = 320
 
@@ -24,12 +25,15 @@ const DegenImage = memo(
     }
 
     return (
-      <img
+      <Image
         className="pixelated"
         src={image}
         alt={`Degen #${tokenId}`}
+        width={584}
+        height={640}
         loading="lazy"
         decoding="async"
+        unoptimized={image.endsWith('.gif')}
         style={{ objectFit: 'cover', height: imageHeight, ...sx }}
         onError={handleImageError}
       />
