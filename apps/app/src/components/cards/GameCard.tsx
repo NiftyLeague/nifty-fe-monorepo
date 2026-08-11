@@ -95,7 +95,6 @@ export interface GameCardProps {
   externalLink?: { title: string; src: string }
   image?: string
   isComingSoon?: boolean
-  onlineCounter?: number
   onPlayOnDesktopClick?: React.MouseEventHandler<HTMLButtonElement>
   onPlayOnWebClick?: React.MouseEventHandler<HTMLButtonElement>
   required?: string
@@ -112,7 +111,6 @@ const GameCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<GameCar
   externalLink,
   image,
   isComingSoon,
-  onlineCounter,
   onPlayOnDesktopClick,
   onPlayOnWebClick,
   required,
