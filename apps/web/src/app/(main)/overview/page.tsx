@@ -1,10 +1,9 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
 
-import { Accordion } from '@nl/ui/custom/accordion'
 import ThemeBtnGroup from '@/components/ThemeBtnGroup'
+import { DeferredOverviewFAQ } from '@/components/DeferredOverviewSections'
 import LearnCards from '@/components/LearnCards'
-import { FAQS } from '@/constants/faq'
 
 const Overview: NextPage = () => (
   <>
@@ -26,7 +25,7 @@ const Overview: NextPage = () => (
           <div className="purple-bg-orb" style={{ left: 'calc(50% - 200px)', top: '100px' }} />
         </div>
 
-        <Accordion items={FAQS} defaultValue="item-1" />
+        <DeferredOverviewFAQ />
 
         <ThemeBtnGroup
           className="mt-6 xl:mt-8"

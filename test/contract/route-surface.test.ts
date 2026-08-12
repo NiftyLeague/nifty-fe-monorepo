@@ -194,6 +194,7 @@ const routeLoadingFiles = [
   'apps/smashers/src/app/loading.tsx',
 ]
 const webHomePage = 'apps/web/src/app/(main)/page.tsx'
+const webOverviewPage = 'apps/web/src/app/(main)/overview/page.tsx'
 const gltfPage = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/page.tsx'
 const gltfClient = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViews.tsx'
 const webNavbar = 'apps/web/src/components/Navbar/index.tsx'
@@ -233,6 +234,8 @@ const staticLegalPages = [
 const webDefinitions = 'apps/web/src/components/Definitions.tsx'
 const smashersHomePage = 'apps/smashers/src/app/page.tsx'
 const webDeferredHomeSections = 'apps/web/src/components/DeferredHomeSections.tsx'
+const webDeferredOverviewSections = 'apps/web/src/components/DeferredOverviewSections.tsx'
+const webOverviewFAQ = 'apps/web/src/components/OverviewFAQ.tsx'
 const smashersDeferredHomeSections = 'apps/smashers/src/components/DeferredHomeSections.tsx'
 const appShell = 'apps/app/src/app/_layout/AppShell.tsx'
 const privateRoutesShell = 'apps/app/src/components/providers/PrivateRoutesShell.tsx'
@@ -1076,6 +1079,19 @@ describe('shared below-fold loading contract', () => {
     expect(deferredSource).toContain("import('@/components/MintOMatic')")
     expect(deferredSource).toContain("import('@/components/Sponsors')")
     expect(deferredSource).toContain("from '@nl/ui/custom/deferred-section'")
+  })
+
+  it('defers the below-fold Overview FAQ interaction bundle', () => {
+    const pageSource = readFileSync(join(process.cwd(), webOverviewPage), 'utf8')
+    const deferredSource = readFileSync(join(process.cwd(), webDeferredOverviewSections), 'utf8')
+    const faqSource = readFileSync(join(process.cwd(), webOverviewFAQ), 'utf8')
+
+    expect(pageSource).toContain('DeferredOverviewFAQ')
+    expect(pageSource).not.toContain("from '@nl/ui/custom/accordion'")
+    expect(deferredSource).toContain("import('@/components/OverviewFAQ')")
+    expect(deferredSource).toContain("from '@nl/ui/custom/deferred-section'")
+    expect(faqSource).toContain("from '@nl/ui/custom/accordion'")
+    expect(faqSource).toContain('defaultValue="item-1"')
   })
 
   it('defers below-fold marketing sections in Smashers', () => {
