@@ -9,12 +9,14 @@ import {
   useId,
   useState,
 } from 'react'
+import { AlertCircle, Copy, type LucideProps } from 'lucide-react'
 
 import { cn } from '@nl/ui/utils'
 import { Button } from '@nl/ui/base/button'
-import { Icon, type IconProps } from '@nl/ui/base/icon'
 import { Input as BaseInput } from '@nl/ui/base/input'
 import { Label } from '@nl/ui/base/label'
+
+type InputIconProps = Omit<LucideProps, 'size'> & { size?: number | string }
 
 interface InputProps extends React.ComponentProps<'input'> {
   actions?: React.ReactNode
@@ -22,8 +24,8 @@ interface InputProps extends React.ComponentProps<'input'> {
   error?: boolean
   hiddenLabel?: boolean /* adds hidden label for accessibility */
   label?: string
-  endIcon?: React.ReactElement<IconProps>
-  startIcon?: React.ReactElement<IconProps>
+  endIcon?: React.ReactElement<InputIconProps>
+  startIcon?: React.ReactElement<InputIconProps>
 }
 
 function LabelContainer({ children: input, error, id, hiddenLabel, label }: InputProps) {
@@ -92,7 +94,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   }, [])
 
   const invalid = Boolean(ariaInvalid || error)
-  if (invalid) endIcon = <Icon name="alert-circle" color="error" />
+  if (invalid)
+    endIcon = (
+      <AlertCircle absoluteStrokeWidth color="var(--color-error)" size={20} strokeWidth={1.5} />
+    )
 
   // Calculate dynamic right padding
   useLayoutEffect(() => {
@@ -111,7 +116,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         {startIcon && (
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
             {cloneElement(startIcon, {
-              size: 'sm',
+              size: 18,
               className: cn('text-muted-foreground', startIcon.props?.className),
             })}
           </div>
@@ -152,7 +157,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
                 className="px-2 cursor-copy"
                 aria-live="polite"
               >
-                <Icon name="copy" size="sm" />
+                <Copy absoluteStrokeWidth size={18} strokeWidth={1.5} />
                 {copyLabel}
               </Button>
             )}
@@ -160,7 +165,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
             {endIcon && (
               <div className="pointer-events-none pl-1 pr-2.5">
                 {cloneElement(endIcon, {
-                  size: 'sm',
+                  size: 18,
                   className: cn('text-muted-foreground', endIcon.props?.className),
                 })}
               </div>

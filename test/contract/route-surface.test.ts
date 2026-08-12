@@ -158,6 +158,14 @@ const staleDownloadGameDialog = 'apps/app/src/components/dialog/DownloadGameDial
 const smashersLoginClient = 'apps/smashers/src/app/(auth_routes)/login/LoginClient.tsx'
 const smashersLoginPage = 'apps/smashers/src/app/(auth_routes)/login/page.tsx'
 const smashersLoginRoute = 'apps/smashers/src/app/(auth_routes)/login/LoginRoute.tsx'
+const sharedAuthIconSources = [
+  'packages/ui/src/components/custom/input/index.tsx',
+  'packages/ui/src/components/custom/auth-form/forms/login.tsx',
+  'packages/ui/src/components/custom/auth-form/forms/forgot-password.tsx',
+  'packages/ui/src/components/custom/auth-form/forms/update-password.tsx',
+  'packages/ui/src/components/custom/social-icon-button/index.tsx',
+  'packages/ui/src/components/custom/theme/index.tsx',
+]
 const smashersProfilePage = 'apps/smashers/src/app/(auth_routes)/profile/page.tsx'
 const smashersProfileRoute = 'apps/smashers/src/app/(auth_routes)/profile/ProfileRoute.tsx'
 const smashersActionButtons = 'apps/smashers/src/components/Header/ActionButtonsGroup/index.tsx'
@@ -424,6 +432,17 @@ describe('Smashers login loading contract', () => {
     expect(routeSource).toContain('role="status"')
     expect(routeSource).toContain('aria-live="polite"')
     expect(routeSource).toContain('aria-busy="true"')
+  })
+})
+
+describe('shared auth icon loading contract', () => {
+  it('keeps small auth controls out of the full icon registry graph', () => {
+    for (const file of sharedAuthIconSources) {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+
+      expect(source).toContain("from 'lucide-react'")
+      expect(source).not.toContain("from '@nl/ui/base/icon'")
+    }
   })
 })
 

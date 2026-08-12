@@ -3,13 +3,13 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import { KeyRound, Loader, Lock, Mail } from 'lucide-react'
 
 import { cn } from '@nl/ui/utils'
 import { Button } from '@nl/ui/base/button'
 import { Checkbox } from '@nl/ui/base/checkbox'
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@nl/ui/base/form'
 import { Input } from '@nl/ui/custom/input'
-import { Icon } from '@nl/ui/base/icon'
 
 import { SocialAuth, type SocialAuthProps } from '../social-auth'
 import { VIEWS } from '../constants'
@@ -75,7 +75,7 @@ export function LoginForm({
                   type="email"
                   autoComplete={view === VIEWS.LOGIN ? 'on' : 'off'}
                   disabled={disabled}
-                  startIcon={<Icon name="mail" />}
+                  startIcon={<Mail absoluteStrokeWidth size={20} strokeWidth={1.5} />}
                 />
               </FormControl>
               <FormMessage />
@@ -94,7 +94,7 @@ export function LoginForm({
                   type="password"
                   autoComplete={view === VIEWS.LOGIN ? 'current-password' : 'new-password'}
                   disabled={disabled}
-                  startIcon={<Icon name="key-round" />}
+                  startIcon={<KeyRound absoluteStrokeWidth size={20} strokeWidth={1.5} />}
                 />
               </FormControl>
               <FormMessage />
@@ -132,10 +132,10 @@ export function LoginForm({
         />
         <Button type="submit" className="w-full" disabled={disabled}>
           {disabled ? (
-            <Icon name="loader" className="animate-spin" />
+            <Loader absoluteStrokeWidth className="animate-spin" size={20} strokeWidth={1.5} />
           ) : (
             <>
-              <Icon name="lock" />
+              <Lock absoluteStrokeWidth size={20} strokeWidth={1.5} />
               {view === VIEWS.LOGIN ? 'Login' : 'Sign Up'}
             </>
           )}
