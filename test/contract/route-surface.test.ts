@@ -236,6 +236,9 @@ const smashersHomePage = 'apps/smashers/src/app/page.tsx'
 const webDeferredHomeSections = 'apps/web/src/components/DeferredHomeSections.tsx'
 const webDeferredOverviewSections = 'apps/web/src/components/DeferredOverviewSections.tsx'
 const webOverviewFAQ = 'apps/web/src/components/OverviewFAQ.tsx'
+const webCareersPage = 'apps/web/src/app/(main)/careers/page.tsx'
+const webDeferredCareersSections = 'apps/web/src/components/DeferredCareersSections.tsx'
+const webCareersJobs = 'apps/web/src/components/CareersJobs.tsx'
 const smashersDeferredHomeSections = 'apps/smashers/src/components/DeferredHomeSections.tsx'
 const appShell = 'apps/app/src/app/_layout/AppShell.tsx'
 const privateRoutesShell = 'apps/app/src/components/providers/PrivateRoutesShell.tsx'
@@ -1092,6 +1095,20 @@ describe('shared below-fold loading contract', () => {
     expect(deferredSource).toContain("from '@nl/ui/custom/deferred-section'")
     expect(faqSource).toContain("from '@nl/ui/custom/accordion'")
     expect(faqSource).toContain('defaultValue="item-1"')
+  })
+
+  it('defers the below-fold Careers job accordion bundle', () => {
+    const pageSource = readFileSync(join(process.cwd(), webCareersPage), 'utf8')
+    const deferredSource = readFileSync(join(process.cwd(), webDeferredCareersSections), 'utf8')
+    const jobsSource = readFileSync(join(process.cwd(), webCareersJobs), 'utf8')
+
+    expect(pageSource).toContain('DeferredCareersJobs')
+    expect(pageSource).not.toContain("from '@/components/Careers/JobCard'")
+    expect(pageSource).not.toContain("from '@/constants/careers'")
+    expect(deferredSource).toContain("import('@/components/CareersJobs')")
+    expect(deferredSource).toContain("from '@nl/ui/custom/deferred-section'")
+    expect(jobsSource).toContain("from '@/components/Careers/JobCard'")
+    expect(jobsSource).toContain("from '@/constants/careers'")
   })
 
   it('defers below-fold marketing sections in Smashers', () => {

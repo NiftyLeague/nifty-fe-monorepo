@@ -1,8 +1,7 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
 
-import JobCard from '@/components/Careers/JobCard'
-import { JOBS } from '@/constants/careers'
+import { DeferredCareersJobs } from '@/components/DeferredCareersSections'
 
 const Careers: NextPage = () => (
   <div className="container pt-20">
@@ -39,9 +38,7 @@ const Careers: NextPage = () => (
     </section>
 
     <section className="section">
-      {JOBS.map((details) => (
-        <JobCard key={details.id} details={details} />
-      ))}
+      <DeferredCareersJobs />
     </section>
   </div>
 )
