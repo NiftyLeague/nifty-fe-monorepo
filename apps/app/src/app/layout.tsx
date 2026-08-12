@@ -85,7 +85,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
 
         <Script
           id="device-stats"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           src="https://d7ct17ettlkln.cloudfront.net/public/stats.js"
         />
       </body>
