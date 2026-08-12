@@ -6,7 +6,6 @@ import { cn } from '@nl/ui/utils'
 import LogoSection from '@/app/_layout/_MainLayout/_LogoSection'
 import styles from '@/app/_layout/_MainLayout/MainLayout.module.css'
 import PublicDesktopSidebarToggle from './PublicDesktopSidebarToggle'
-import PublicMainContent from './PublicMainContent'
 import PublicMobileNavigationTrigger from './PublicMobileNavigationTrigger'
 import PublicNavLinks from './PublicNavLinks'
 
@@ -70,9 +69,7 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
         </aside>
       </nav>
 
-      <main className={styles.publicMain}>
-        <PublicMainContent>{children}</PublicMainContent>
-      </main>
+      <main className={styles.publicMain}>{children}</main>
     </div>
   )
 }
