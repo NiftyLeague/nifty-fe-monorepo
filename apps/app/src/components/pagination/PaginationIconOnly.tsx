@@ -1,5 +1,5 @@
 import { Button } from '@nl/ui/base/button'
-import { Icon } from '@nl/ui/base/icon'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 export interface PaginationIconOnlyProps {
   hasNext?: boolean
@@ -20,7 +20,7 @@ const PaginationIconOnly: React.FC<
       onClick={onClickPrev}
       aria-label="Previous page"
     >
-      <Icon name="chevron-left" size="sm" />
+      <ChevronLeft aria-hidden="true" absoluteStrokeWidth size={18} strokeWidth={1.5} />
     </Button>
     <Button
       variant="ghost"
@@ -30,7 +30,7 @@ const PaginationIconOnly: React.FC<
       onClick={onClickNext}
       aria-label="Next page"
     >
-      <Icon name="chevron-right" size="sm" />
+      <ChevronRight aria-hidden="true" absoluteStrokeWidth size={18} strokeWidth={1.5} />
     </Button>
   </div>
 )

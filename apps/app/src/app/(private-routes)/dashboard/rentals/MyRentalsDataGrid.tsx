@@ -1,9 +1,9 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Pencil } from 'lucide-react'
 import { Button } from '@nl/ui/base/button'
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@nl/ui/base/dialog'
-import { Icon } from '@nl/ui/base/icon'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@nl/ui/base/select'
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import { formatNumberToDisplay } from '@nl/ui/utils'
@@ -220,7 +220,7 @@ const MyRentalsDataGrid = ({
                   onClick={() => handleOpenNickname(params)}
                   className="hidden cursor-pointer group-hover:block"
                 >
-                  <Icon name="pencil" />
+                  <Pencil aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />
                 </Button>
               )}
             </div>
@@ -390,12 +390,22 @@ const MyRentalsDataGrid = ({
                       className="flex items-center gap-1 text-left font-medium text-muted-foreground"
                     >
                       {column.headerName || column.field}
-                      {sort?.field === column.field && (
-                        <Icon
-                          name={sort.direction === 'asc' ? 'chevron-up' : 'chevron-down'}
-                          size="sm"
-                        />
-                      )}
+                      {sort?.field === column.field &&
+                        (sort.direction === 'asc' ? (
+                          <ChevronUp
+                            aria-hidden="true"
+                            absoluteStrokeWidth
+                            size={18}
+                            strokeWidth={1.5}
+                          />
+                        ) : (
+                          <ChevronDown
+                            aria-hidden="true"
+                            absoluteStrokeWidth
+                            size={18}
+                            strokeWidth={1.5}
+                          />
+                        ))}
                     </button>
                   </th>
                 ))}
@@ -458,7 +468,7 @@ const MyRentalsDataGrid = ({
               disabled={page === 0}
               className="h-8 w-8 cursor-pointer p-0"
             >
-              <Icon name="chevron-left" size="sm" />
+              <ChevronLeft aria-hidden="true" absoluteStrokeWidth size={18} strokeWidth={1.5} />
             </Button>
             <span className="text-sm">
               Page {page + 1} of {pageCount}
@@ -471,7 +481,7 @@ const MyRentalsDataGrid = ({
               disabled={page === pageCount - 1 || sortedRows.length === 0}
               className="h-8 w-8 cursor-pointer p-0"
             >
-              <Icon name="chevron-right" size="sm" />
+              <ChevronRight aria-hidden="true" absoluteStrokeWidth size={18} strokeWidth={1.5} />
             </Button>
           </div>
         </div>

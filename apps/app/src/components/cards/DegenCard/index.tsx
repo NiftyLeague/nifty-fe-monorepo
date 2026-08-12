@@ -2,10 +2,10 @@
 
 import { memo, useRef } from 'react'
 import Link from 'next/link'
+import { Pencil } from 'lucide-react'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 import { Button } from '@nl/ui/base/button'
 import { Card, CardContent } from '@nl/ui/base/card'
-import { Icon } from '@nl/ui/base/icon'
 import { Title } from '@nl/ui/custom/typography'
 import type { SxProps, Theme } from '@/types'
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
@@ -73,7 +73,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
                   onClick={onClickEditName}
                   className="ml-1 hidden size-6 cursor-pointer p-0 group-hover:inline-flex"
                 >
-                  <Icon name="pencil" size="sm" aria-hidden="true" />
+                  <Pencil aria-hidden="true" absoluteStrokeWidth size={18} strokeWidth={1.5} />
                 </Button>
               )}
             </div>
