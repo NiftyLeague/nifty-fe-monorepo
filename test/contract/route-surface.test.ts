@@ -293,6 +293,8 @@ const deferredLeaderboards = 'apps/app/src/components/providers/DeferredLeaderbo
 const degensPage = 'apps/app/src/app/(public-routes)/degens/page.tsx'
 const degensRouteBoundary = 'apps/app/src/app/(public-routes)/degens/DegenRoute.tsx'
 const degensClientPage = 'apps/app/src/app/(public-routes)/degens/AllDegensPage.tsx'
+const degensSearchParamsBoundary =
+  'apps/app/src/app/(public-routes)/degens/DegenSearchParamsBoundary.tsx'
 const degensTopNav = 'apps/app/src/components/extended/DegensTopNav/index.tsx'
 const publicMainLayout = 'apps/app/src/app/_layout/_PublicMainLayout/index.tsx'
 const publicNavigation = 'apps/app/src/components/providers/PublicNavigation.tsx'
@@ -348,7 +350,7 @@ describe('public leaderboard loading contract', () => {
 })
 
 describe('public degen loading contract', () => {
-  it('keeps the interactive degen browser out of the route entry chunk', () => {
+  it('keeps the interactive degen browser split while server-rendering its shell', () => {
     const pageSource = readFileSync(join(process.cwd(), degensPage), 'utf8')
     const routeBoundarySource = readFileSync(join(process.cwd(), degensRouteBoundary), 'utf8')
     const clientPageSource = readFileSync(join(process.cwd(), degensClientPage), 'utf8')
@@ -357,13 +359,21 @@ describe('public degen loading contract', () => {
     expect(pageSource).not.toContain("'use client'")
     expect(pageSource).toContain("from './DegenRoute'")
     expect(routeBoundarySource).toContain("dynamic(() => import('./AllDegensPage')")
-    expect(routeBoundarySource).toContain('ssr: false')
-    expect(routeBoundarySource).toContain('role="status"')
-    expect(routeBoundarySource).toContain('aria-live="polite"')
-    expect(routeBoundarySource).toContain('aria-busy="true"')
+    expect(routeBoundarySource).not.toContain('ssr: false')
     expect(routeBoundarySource).toContain("from '@nl/ui/base/skeleton'")
     expect(clientPageSource).toContain("'use client'")
     expect(clientPageSource).toContain("from 'lucide-react'")
+    expect(clientPageSource).toContain('<Suspense fallback={null}>')
+    expect(clientPageSource).not.toContain('ssr: false')
+    expect(routeBoundarySource).toContain('role="status"')
+    expect(routeBoundarySource).toContain('aria-live="polite"')
+    expect(routeBoundarySource).toContain('aria-busy="true"')
+    const searchParamsBoundarySource = readFileSync(
+      join(process.cwd(), degensSearchParamsBoundary),
+      'utf8'
+    )
+    expect(searchParamsBoundarySource).toContain('useSearchParams')
+    expect(searchParamsBoundarySource).toContain('Object.fromEntries')
     expect(clientPageSource).not.toContain("from '@nl/ui/base/icon'")
     expect(topNavSource).toContain("from 'lucide-react'")
     expect(topNavSource).not.toContain("from '@nl/ui/base/icon'")
