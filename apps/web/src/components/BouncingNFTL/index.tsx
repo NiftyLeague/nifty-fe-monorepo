@@ -23,7 +23,7 @@ const BouncingNFTL = ({ classes }: ComponentProps): React.ReactNode => (
             width={226}
             height={223}
             className="w-full h-auto"
-            sizes="100vw"
+            sizes="226px"
           />
         </div>
       </ParallaxWrapper>
@@ -42,7 +42,7 @@ const BouncingNFTL = ({ classes }: ComponentProps): React.ReactNode => (
             width={226}
             height={221}
             className="w-full h-auto"
-            sizes="100vw"
+            sizes="226px"
           />
         </div>
       </ParallaxWrapper>
@@ -58,7 +58,7 @@ const BouncingNFTL = ({ classes }: ComponentProps): React.ReactNode => (
             width={246}
             height={96}
             className="w-full h-auto"
-            sizes="100vw"
+            sizes="246px"
           />
         </div>
       </ParallaxWrapper>
