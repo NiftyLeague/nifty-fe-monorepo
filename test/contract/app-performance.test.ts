@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs'
 const responsiveTableList = 'apps/app/src/components/ResponsiveTable/DataList.tsx'
 const appManifest = 'apps/app/package.json'
 const appRootLayout = 'apps/app/src/app/layout.tsx'
+const bridgeDialog = 'apps/app/src/components/dialog/BridgeButtonDialog/index.tsx'
 const privateShellIconSources = [
   'apps/app/src/app/_layout/_CollapsibleSidebarLayout/index.tsx',
   'apps/app/src/app/_layout/_MainLayout/_Header/index.tsx',
@@ -47,6 +48,14 @@ describe('app performance contracts', () => {
 
     expect(source).toContain('id="device-stats"')
     expect(source).toContain('strategy="lazyOnload"')
+  })
+
+  it('loads the bridge form only after its dialog opens', () => {
+    const source = readFileSync(bridgeDialog, 'utf8')
+
+    expect(source).not.toContain("import BridgeForm from './BridgeForm'")
+    expect(source).toContain("dynamic(() => import('./BridgeForm')")
+    expect(source).toContain('Loading bridge options')
   })
 
   it('uses native shallow copies for primitive responsive-table selection state', () => {

@@ -1,12 +1,23 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { Button } from '@nl/ui/base/button'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/dialog'
-import BridgeForm from './BridgeForm'
 import BridgeSuccess from './BridgeSuccess'
 
 type BridgeButtonDialogProps = { balance: number; loading: boolean }
+
+const BridgeFormLoading = () => (
+  <div className="py-8 text-center" role="status" aria-live="polite" aria-busy="true">
+    Loading bridge options
+  </div>
+)
+
+const BridgeForm = dynamic(() => import('./BridgeForm'), {
+  ssr: false,
+  loading: BridgeFormLoading,
+})
 
 const BridgeButtonDialog = ({ balance, loading }: BridgeButtonDialogProps) => {
   const [successDialogOpen, setSuccessDialogOpen] = useState(false)
