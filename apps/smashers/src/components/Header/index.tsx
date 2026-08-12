@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import ActionButtonsGroup from './ActionButtonsGroup'
 import Navbar from './Navbar'
