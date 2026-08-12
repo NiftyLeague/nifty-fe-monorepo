@@ -8,18 +8,27 @@ interface LearnCardProps {
   external?: boolean
   image: string
   link: string
+  priority?: boolean
   subtitle: string
   title: string
 }
 
-const LearnCard = ({ btnText, external, image, link, subtitle, title }: LearnCardProps) => {
+const LearnCard = ({
+  btnText,
+  external,
+  image,
+  link,
+  priority = false,
+  subtitle,
+  title,
+}: LearnCardProps) => {
   return (
     <div className="relative flex items-center w-full h-full rounded-2xl overflow-hidden">
       <div className="absolute inset-0">
         <div>
           <Image
             alt={`${title} card background`}
-            priority
+            priority={priority}
             src={image}
             width={552}
             height={310}
@@ -52,13 +61,14 @@ const LearnCard = ({ btnText, external, image, link, subtitle, title }: LearnCar
 const LearnCards = () => {
   return (
     <div className="flex flex-wrap -mx-1 sm:-mx-2 pt-3 lg:pt-5 lg:mt-3">
-      {LEARN_CARDS.map(({ btnText, external, image, link, subtitle, title }) => (
+      {LEARN_CARDS.map(({ btnText, external, image, link, subtitle, title }, index) => (
         <div key={title} className="w-full sm:w-1/2 p-2">
           <LearnCard
             btnText={btnText}
             external={external}
             image={image}
             link={link}
+            priority={index === 0}
             subtitle={subtitle}
             title={title}
           />
