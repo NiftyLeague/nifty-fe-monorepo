@@ -305,6 +305,7 @@ const publicIconButton = 'packages/ui/src/components/base/icon-button.tsx'
 const publicContentContainer = 'apps/app/src/components/wrapper/PublicContentContainer.tsx'
 const publicNavLinks = 'apps/app/src/components/providers/PublicNavLinks.tsx'
 const publicActiveNavLink = 'apps/app/src/components/providers/PublicActiveNavLink.tsx'
+const collapsibleSidebarLayout = 'apps/app/src/app/_layout/_CollapsibleSidebarLayout/index.tsx'
 const smashersBackButton = 'apps/smashers/src/components/Header/BackButton/index.tsx'
 const verificationPage = 'apps/app/src/app/verification/page.tsx'
 const verificationLayout = 'apps/app/src/app/verification/layout.tsx'
@@ -811,6 +812,14 @@ describe('public app shell contract', () => {
     expect(iconButtonSource).toContain("from './button-variants'")
     expect(iconButtonSource).not.toContain("from 'radix-ui'")
     expect(iconButtonSource).toContain("type = 'button'")
+  })
+})
+
+describe('deferred sidebar content contract', () => {
+  it('does not mount hidden drawer content before the drawer opens', () => {
+    const source = readFileSync(join(process.cwd(), collapsibleSidebarLayout), 'utf8')
+
+    expect(source).toContain('{isDrawerOpen ? renderDrawer() : null}')
   })
 })
 

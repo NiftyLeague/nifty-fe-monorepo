@@ -81,7 +81,7 @@ const CollapsibleSidebarLayout = ({
           }}
           viewportClassName={matchDownLG ? 'px-4 pt-11 pb-5' : 'px-4 py-5'}
         >
-          {renderDrawer()}
+          {isDrawerOpen ? renderDrawer() : null}
         </ScrollArea>
       </div>
 
