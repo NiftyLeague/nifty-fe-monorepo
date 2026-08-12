@@ -29,7 +29,7 @@ const CompeteAndEarn: NextPage = () => {
                 width={3343}
                 height={2615}
                 priority
-                sizes="100vw"
+                sizes="(min-width: 768px) 50vw, 100vw"
                 style={{ width: '100%', height: 'auto' }}
               />
             </div>

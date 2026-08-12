@@ -1148,6 +1148,33 @@ describe('web marketing image sizing contract', () => {
     expect(bouncingNftlSource).toContain('sizes="226px"')
     expect(bouncingNftlSource).toContain('sizes="246px"')
   })
+
+  it('uses rendered-width hints for secondary marketing artwork', () => {
+    const expectedHints: Array<[string, string]> = [
+      [
+        'apps/web/src/components/TeamDesktop/index.tsx',
+        'sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"',
+      ],
+      ['apps/web/src/components/Sponsors.tsx', 'sizes="(min-width: 768px) 160px, 80px"'],
+      ['apps/web/src/components/LearnCards/index.tsx', 'sizes="(min-width: 640px) 50vw, 100vw"'],
+      [
+        'apps/web/src/app/(main)/compete-and-earn/page.tsx',
+        'sizes="(min-width: 768px) 50vw, 100vw"',
+      ],
+      ['apps/web/src/app/(main)/careers/page.tsx', 'sizes="(min-width: 768px) 50vw, 100vw"'],
+      ['apps/web/src/app/(main)/games/page.tsx', 'sizes="33vw"'],
+      [
+        'apps/web/src/app/(main)/niftyworld/page.tsx',
+        'sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"',
+      ],
+      ['apps/web/src/app/(main)/roadmap/page.tsx', 'sizes="(min-width: 920px) 800px, 600px"'],
+      ['apps/web/src/components/RoadmapTimeline/roadmapCard.tsx', 'sizes="200px"'],
+    ]
+
+    for (const [file, hint] of expectedHints) {
+      expect(readFileSync(join(process.cwd(), file), 'utf8')).toContain(hint)
+    }
+  })
 })
 
 describe('web marketing animation boundary contract', () => {

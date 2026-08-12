@@ -14,7 +14,7 @@ const SponsorItem = ({ image, url, width, height }: Sponsor): React.ReactNode =>
         src={image}
         width={width}
         height={height}
-        sizes="100vw"
+        sizes="(min-width: 768px) 160px, 80px"
         className="w-full h-auto"
       />
     </div>

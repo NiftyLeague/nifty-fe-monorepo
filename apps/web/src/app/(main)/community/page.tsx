@@ -23,7 +23,7 @@ const Community: NextPage = () => {
                 width={445}
                 height={437}
                 priority
-                sizes="100vw"
+                sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 67vw"
                 className="w-full h-auto"
               />
             </div>
@@ -60,7 +60,7 @@ const Community: NextPage = () => {
             alt="Purple eclipse"
             width={704}
             height={704}
-            sizes="100vw"
+            sizes="(min-width: 769px) 80vw, 100vw"
             className="w-full h-auto"
           />
         </span>
