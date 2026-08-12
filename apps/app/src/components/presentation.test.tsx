@@ -20,8 +20,8 @@ beforeEach(async () => {
       <img alt={alt ?? ''} {...props} />
     ),
   }))
-  mock.module('@nl/ui/base/icon', () => ({
-    Icon: ({ name }: { name: string }) => <span data-icon={name}>{name}</span>,
+  mock.module('@/components/AppNavIcon', () => ({
+    AppNavIcon: ({ name }: { name: string }) => <span data-icon={name}>{name}</span>,
   }))
   mock.module('@nl/ui/custom/external-icon', () => ({ ExternalIcon: () => <span>external</span> }))
   window.history.replaceState({}, '', '/')
