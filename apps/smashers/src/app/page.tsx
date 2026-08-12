@@ -2,14 +2,19 @@ import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { SocialsFooter } from '@nl/ui/custom/socials-footer'
 
 import { DeferredDegensSection, DeferredGameSection } from '@/components/DeferredHomeSections'
-import HomeInteractive from '@/components/HomeInteractive'
+import Header, { type ActiveModal } from '@/components/Header'
 
 type NextSearchParams = Promise<{ [key: string]: string | string[] | undefined }>
 
 export default async function Home({ searchParams }: { searchParams: NextSearchParams }) {
   const { referral } = await searchParams
+  const activeModal: ActiveModal = referral ? 'play' : null
+
   return (
-    <HomeInteractive hasReferral={Boolean(referral)}>
+    <main>
+      <section id="header">
+        <Header activeModal={activeModal} />
+      </section>
       <section id="console-game">
         <DeferredConsoleGame src="/video/smashers-960p.mp4" />
       </section>
@@ -23,6 +28,6 @@ export default async function Home({ searchParams }: { searchParams: NextSearchP
         <DeferredDegensSection />
       </section>
       <SocialsFooter />
-    </HomeInteractive>
+    </main>
   )
 }

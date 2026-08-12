@@ -150,6 +150,8 @@ const smashersLoginPage = 'apps/smashers/src/app/(auth_routes)/login/page.tsx'
 const smashersLoginRoute = 'apps/smashers/src/app/(auth_routes)/login/LoginRoute.tsx'
 const smashersProfilePage = 'apps/smashers/src/app/(auth_routes)/profile/page.tsx'
 const smashersProfileRoute = 'apps/smashers/src/app/(auth_routes)/profile/ProfileRoute.tsx'
+const smashersHomeInteractive = 'apps/smashers/src/components/HomeInteractive/index.tsx'
+const smashersActionButtons = 'apps/smashers/src/components/Header/ActionButtonsGroup/index.tsx'
 const smashersRootLayout = 'apps/smashers/src/app/layout.tsx'
 const smashersAuthLayout = 'apps/smashers/src/app/(auth_routes)/layout.tsx'
 const staleSmashersUnityDialog = 'apps/smashers/src/components/UnityDialog/index.tsx'
@@ -292,6 +294,22 @@ describe('shared route loading contract', () => {
 })
 
 describe('Smashers public shell contract', () => {
+  it('keeps the homepage server-rendered except for the modal island', () => {
+    const pageSource = readFileSync(join(process.cwd(), smashersHomePage), 'utf8')
+    const actionButtonsSource = readFileSync(join(process.cwd(), smashersActionButtons), 'utf8')
+
+    expect(existsSync(join(process.cwd(), smashersHomeInteractive))).toBe(false)
+    expect(pageSource).not.toContain('HomeInteractive')
+    expect(pageSource).toContain("import Header, { type ActiveModal } from '@/components/Header'")
+    expect(pageSource).toContain('<main>')
+    expect(actionButtonsSource).toContain("'use client'")
+    expect(actionButtonsSource).not.toContain("from 'next/dynamic'")
+    expect(actionButtonsSource).toContain("import('@/components/PlayDialog')")
+    expect(actionButtonsSource).toContain("import('@/components/TrailerDialog')")
+    expect(actionButtonsSource).toContain("import('@/components/CreditsDialog')")
+    expect(actionButtonsSource).toContain('aria-busy={isLoading}')
+  })
+
   it('keeps feature flags scoped to authenticated routes', () => {
     const rootLayoutSource = readFileSync(join(process.cwd(), smashersRootLayout), 'utf8')
     const authLayoutSource = readFileSync(join(process.cwd(), smashersAuthLayout), 'utf8')

@@ -57,7 +57,7 @@ const TrailerContent = () => {
   )
 }
 
-const TrailerDialog = ({ open }: { open: boolean }) => (
+const TrailerDialog = ({ open }: { open?: boolean }) => (
   <Dialog
     defaultOpen={open}
     title="Nifty Smashers - Trailer"

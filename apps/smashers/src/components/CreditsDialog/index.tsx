@@ -147,7 +147,7 @@ const CreditsContent = () => {
   )
 }
 
-const CreditsDialog = ({ open }: { open: boolean }) => (
+const CreditsDialog = ({ open }: { open?: boolean }) => (
   <Dialog
     defaultOpen={open}
     title={<div className="text-center">Credits</div>}
