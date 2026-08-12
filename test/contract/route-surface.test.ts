@@ -255,6 +255,7 @@ const deferredLeaderboards = 'apps/app/src/components/providers/DeferredLeaderbo
 const degensPage = 'apps/app/src/app/(public-routes)/degens/page.tsx'
 const degensRouteBoundary = 'apps/app/src/app/(public-routes)/degens/DegenRoute.tsx'
 const degensClientPage = 'apps/app/src/app/(public-routes)/degens/AllDegensPage.tsx'
+const degensTopNav = 'apps/app/src/components/extended/DegensTopNav/index.tsx'
 const publicMainLayout = 'apps/app/src/app/_layout/_PublicMainLayout/index.tsx'
 const publicNavigation = 'apps/app/src/components/providers/PublicNavigation.tsx'
 const publicMobileNavigation = 'apps/app/src/components/providers/PublicMobileNavigation.tsx'
@@ -305,6 +306,7 @@ describe('public degen loading contract', () => {
     const pageSource = readFileSync(join(process.cwd(), degensPage), 'utf8')
     const routeBoundarySource = readFileSync(join(process.cwd(), degensRouteBoundary), 'utf8')
     const clientPageSource = readFileSync(join(process.cwd(), degensClientPage), 'utf8')
+    const topNavSource = readFileSync(join(process.cwd(), degensTopNav), 'utf8')
 
     expect(pageSource).not.toContain("'use client'")
     expect(pageSource).toContain("from './DegenRoute'")
@@ -317,6 +319,8 @@ describe('public degen loading contract', () => {
     expect(clientPageSource).toContain("'use client'")
     expect(clientPageSource).toContain("from 'lucide-react'")
     expect(clientPageSource).not.toContain("from '@nl/ui/base/icon'")
+    expect(topNavSource).toContain("from 'lucide-react'")
+    expect(topNavSource).not.toContain("from '@nl/ui/base/icon'")
   })
 })
 
