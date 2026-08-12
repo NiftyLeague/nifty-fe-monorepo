@@ -1,5 +1,5 @@
 import { LEADERBOARD_USERNAMES_API_URL } from '@/constants/url'
-import { LEADERBOARDS, type LeaderboardRow } from '@/constants/leaderboards/data'
+import { loadLeaderboard, type LeaderboardRow } from '@/constants/leaderboards/data'
 
 type UserName = { name?: string }
 type UserNames = Record<string, UserName> | UserName[]
@@ -26,7 +26,7 @@ export const fetchScores = async (
   count: number,
   offset: number
 ): Promise<LeaderboardResponse> => {
-  const leaderboard = LEADERBOARDS[gameType]?.[scoreType]
+  const leaderboard = (await loadLeaderboard(gameType))?.[scoreType]
 
   if (!leaderboard || !Array.isArray(leaderboard)) {
     throw new Error('Unknown leaderboard')
