@@ -12,11 +12,10 @@ type SharedObserver = {
 /**
  * Shared IntersectionObserver instances keyed by rootMargin.
  *
- * Consumers (e.g. every `AnimatedWrapper` on the landing page and every
- * `DegenCardInView` in the app) previously created one native observer per
- * mounted component. Keeping a single observer per distinct rootMargin avoids
- * instantiating dozens of observers on pages that render many animated
- * wrappers while preserving identical visibility semantics.
+ * Consumers (e.g. `DegenCardInView` in the app and deferred media sections)
+ * previously created one native observer per mounted component. Keeping a
+ * single observer per distinct rootMargin avoids instantiating redundant
+ * observers while preserving identical visibility semantics.
  */
 const observersByRootMargin = new Map<string, SharedObserver>()
 const callbacksByElement = new Map<Element, Set<VisibilityCallback>>()
