@@ -5,7 +5,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import xor from 'lodash/xor'
 import { Button } from '@nl/ui/base/button'
 import { Dialog, DialogContent } from '@nl/ui/base/dialog'
 
@@ -21,6 +20,7 @@ import { useProfileFavDegens } from '@/hooks/useGamerProfile'
 import useAuth from '@/hooks/useAuth'
 import type { Degen } from '@/types/degens'
 import useLocalStorageContext from '@/hooks/useLocalStorageContext'
+import { toggleValue } from '@/utils/collections'
 
 const DegenCard = dynamic(
   () =>
@@ -102,10 +102,7 @@ const MyDegens = (): React.ReactNode => {
 
   const handleClickFavorite = useCallback(
     async (degen: Degen) => {
-      const newFavs = xor(
-        favDegens?.filter((f) => f),
-        [degen.id]
-      )
+      const newFavs = toggleValue(favDegens?.filter((f) => f) ?? [], degen.id)
       await fetch(`${PROFILE_FAV_DEGENS_API}`, {
         method: 'POST',
         body: JSON.stringify({ favorites: newFavs.toString() }),

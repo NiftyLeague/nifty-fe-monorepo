@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import isEmpty from 'lodash/isEmpty'
 import { useSnackbar } from 'notistack'
 
 import { fetchJson } from '../../utils/fetchJson'
@@ -44,7 +43,7 @@ export default function AccountDetails({
   const providers = useProviders()
 
   useEffect(() => {
-    if (account && !isEmpty(account)) {
+    if (account && Object.keys(account).length > 0) {
       setEmail(account.PrivateInfo?.Email)
       setAvatarUrl(profile?.AvatarUrl)
       setDisplayName(publisherData?.DisplayName?.Value)

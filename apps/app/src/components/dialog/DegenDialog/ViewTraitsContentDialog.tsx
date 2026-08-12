@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import isEmpty from 'lodash/isEmpty'
 import { Button } from '@nl/ui/base/button'
 import { Skeleton } from '@nl/ui/base/skeleton'
 import { Title } from '@nl/ui/custom/typography'
@@ -9,6 +8,7 @@ import { TRAIT_KEY_VALUE_MAP, TRAIT_NAME_MAP } from '@/constants/cosmeticsFilter
 import type { Degen, GetDegenResponse } from '@/types/degens'
 import { DEGEN_PURCHASE_URL } from '@/constants/public-urls'
 import type { SxProps } from '@/types'
+import { hasEntries } from '@/utils/collections'
 
 export interface ViewTraitsContentDialogProps {
   degen?: Degen
@@ -84,7 +84,7 @@ const ViewTraitsContentDialog = ({
             <Title level={3}>Degen Traits</Title>
           </div>
           <div className="mt-6 grid grid-cols-12 justify-center gap-x-4 gap-y-6">
-            {isEmpty(traits)
+            {!hasEntries(traits)
               ? [...Array(9)].map((_, index) => (
                   <div className="col-span-3" key={`trait-skeleton-${index}`}>
                     <div className="flex flex-col items-center">
