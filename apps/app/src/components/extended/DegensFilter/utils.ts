@@ -3,7 +3,7 @@ import type { Degen } from '@/types/degens'
 import type { DegenFilter } from '@/types/degenFilter'
 import DEFAULT_STATIC_FILTER from './constants'
 import { BURN_ADDYS } from '@/constants/addresses'
-import { HYDRAS } from '@/constants/hydras'
+import { HYDRA_RARITIES } from '@/constants/hydra-rarities'
 
 export const tranformDataByFilter = (
   degens: Degen[],
@@ -164,7 +164,7 @@ export const applySeventhTribesFix = (degen: Degen): Degen => {
 
   return {
     ...degen,
-    background: HYDRAS[degen.id as keyof typeof HYDRAS]?.rarity || 'Common',
+    background: HYDRA_RARITIES[degen.id] || 'Common',
     tribe: Number(degen.id) >= 9999 ? (Number(degen.id) === 9999 ? 'rugman' : 'satoshi') : 'hydra',
   }
 }
