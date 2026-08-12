@@ -221,6 +221,12 @@ const animationFreeMarketingComponents = [
   'packages/ui/src/components/custom/accordion/index.tsx',
   'packages/ui/src/components/custom/degen-specials-table/index.tsx',
 ]
+const staticLegalPages = [
+  'apps/web/src/app/(main)/terms-of-service/page.tsx',
+  'apps/web/src/app/(main)/privacy-policy/page.tsx',
+  'apps/web/src/app/(main)/disclaimer/page.tsx',
+]
+const webDefinitions = 'apps/web/src/components/Definitions.tsx'
 const smashersHomePage = 'apps/smashers/src/app/page.tsx'
 const webDeferredHomeSections = 'apps/web/src/components/DeferredHomeSections.tsx'
 const smashersDeferredHomeSections = 'apps/smashers/src/components/DeferredHomeSections.tsx'
@@ -1113,6 +1119,27 @@ describe('web marketing animation boundary contract', () => {
       expect(source).not.toContain('delay-long')
     })
   }
+})
+
+describe('static legal route performance contract', () => {
+  for (const file of staticLegalPages) {
+    it(`keeps ${file} server-only and immediately visible`, () => {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+
+      expect(source).not.toContain("'use client'")
+      expect(source).not.toContain('AnimatedWrapper')
+      expect(source).not.toContain('@nl/ui/custom/animated-wrapper')
+      expect(source).not.toContain('transition-fade-start')
+    })
+  }
+
+  it('keeps the shared legal definitions fragment free of client-only animation code', () => {
+    const source = readFileSync(join(process.cwd(), webDefinitions), 'utf8')
+
+    expect(source).not.toContain("from 'react'")
+    expect(source).not.toContain('AnimatedWrapper')
+    expect(source).not.toContain('transition-fade-start')
+  })
 })
 
 const sentryClientBoundaries = [
