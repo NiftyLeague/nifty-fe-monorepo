@@ -3,6 +3,8 @@
 import Image from 'next/image'
 import { useCallback, useEffect, useState, type ComponentType } from 'react'
 
+import { Button } from '@nl/ui/base/button'
+
 import styles from './index.module.css'
 
 type ActiveModal = 'credits' | 'play' | 'trailer' | 'unity' | null
@@ -83,7 +85,7 @@ const ActionButtonsGroup = ({ activeModal }: { activeModal: ActiveModal }) => {
         const label = failedModal === type ? `Retry ${action.label}` : action.label
 
         return (
-          <button
+          <Button
             key={type}
             type="button"
             aria-busy={isLoading}
@@ -92,7 +94,7 @@ const ActionButtonsGroup = ({ activeModal }: { activeModal: ActiveModal }) => {
           >
             <Image src={action.image} alt={action.alt} width={22} height={22} />
             {action.label}
-          </button>
+          </Button>
         )
       })}
     </div>
