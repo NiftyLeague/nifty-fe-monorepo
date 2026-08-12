@@ -93,13 +93,17 @@ jobs:
             # Restore every path changed by staging since the merge base so a
             # clean main-side edit cannot overwrite staging's forward work.
             merge_base=$(git -C "$preview_dir" merge-base "$staging_head" origin/main)
+            changed_paths_file=$(mktemp)
+            git -C "$preview_dir" diff --no-renames --name-only -z \
+              "$merge_base" "$staging_head" > "$changed_paths_file"
             while IFS= read -r -d '' changed_path; do
               if git -C "$preview_dir" cat-file -e "$staging_head:$changed_path" 2>/dev/null; then
                 git -C "$preview_dir" restore --source="$staging_head" --staged --worktree -- "$changed_path"
               else
                 git -C "$preview_dir" rm --ignore-unmatch -- "$changed_path"
               fi
-            done < <(git -C "$preview_dir" diff --no-renames --name-only -z "$merge_base" "$staging_head")
+            done < "$changed_paths_file"
+            rm -f "$changed_paths_file"
 
             if [ -n "$(git -C "$preview_dir" diff --name-only --diff-filter=U)" ]; then
               echo "Unable to preserve the staging-first merge policy safely;"
@@ -199,13 +203,17 @@ jobs:
           # merge base, not only paths Git classified as conflicts. Main-only
           # changes still flow into the reconciliation commit.
           merge_base=$(git merge-base "$staging_head" origin/main)
+          changed_paths_file=$(mktemp)
+          git diff --no-renames --name-only -z \
+            "$merge_base" "$staging_head" > "$changed_paths_file"
           while IFS= read -r -d '' changed_path; do
             if git cat-file -e "$staging_head:$changed_path" 2>/dev/null; then
               git restore --source="$staging_head" --staged --worktree -- "$changed_path"
             else
               git rm --ignore-unmatch -- "$changed_path"
             fi
-          done < <(git diff --no-renames --name-only -z "$merge_base" "$staging_head")
+          done < "$changed_paths_file"
+          rm -f "$changed_paths_file"
 
           if [ -n "$(git diff --name-only --diff-filter=U)" ]; then
             echo "Unable to preserve the staging-first merge policy safely;"
