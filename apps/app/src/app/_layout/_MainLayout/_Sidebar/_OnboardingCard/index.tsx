@@ -1,9 +1,9 @@
 import { memo } from 'react'
+import { BookOpenCheck } from 'lucide-react'
 
 import { Avatar, AvatarFallback } from '@nl/ui/base/avatar'
 import { Card, CardContent } from '@nl/ui/base/card'
 import { Progress } from '@nl/ui/base/progress'
-import { Icon } from '@nl/ui/base/icon'
 
 // styles
 import styles from './OnboardingCard.module.css'
@@ -42,7 +42,12 @@ const OnboardingCard = () => {
                 }}
               >
                 <AvatarFallback>
-                  <Icon name="book-open-check" />
+                  <BookOpenCheck
+                    aria-hidden="true"
+                    absoluteStrokeWidth
+                    size={20}
+                    strokeWidth={1.5}
+                  />
                 </AvatarFallback>
               </Avatar>
             </div>
