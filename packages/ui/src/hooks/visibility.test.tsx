@@ -196,6 +196,73 @@ describe('useParallax', () => {
     expect(element.style.transform).toBe(`translateX(${(-50 * 100 * 0.5) / window.innerHeight}px)`)
   })
 
+  it('shares one scroll listener and coalesces updates into one animation frame', () => {
+    const addEventListener = spyOn(window, 'addEventListener')
+    const removeEventListener = spyOn(window, 'removeEventListener')
+    const originalRequestAnimationFrame = window.requestAnimationFrame
+    const originalCancelAnimationFrame = window.cancelAnimationFrame
+    let animationFrameCallback: FrameRequestCallback | undefined
+
+    Object.defineProperty(window, 'requestAnimationFrame', {
+      configurable: true,
+      value: (callback: FrameRequestCallback) => {
+        animationFrameCallback = callback
+        return 1
+      },
+    })
+    Object.defineProperty(window, 'cancelAnimationFrame', {
+      configurable: true,
+      value: () => undefined,
+    })
+
+    try {
+      const firstElement = elementWithTop(100)
+      const secondElement = elementWithTop(200)
+      const first = renderHook(() =>
+        useParallax(
+          { current: firstElement },
+          { enabled: true, direction: 'down', intensity: 'normal' }
+        )
+      )
+      const second = renderHook(() =>
+        useParallax(
+          { current: secondElement },
+          { enabled: true, direction: 'up', intensity: 'normal' }
+        )
+      )
+
+      expect(addEventListener).toHaveBeenCalledTimes(1)
+      window.dispatchEvent(new Event('scroll'))
+      window.dispatchEvent(new Event('scroll'))
+      expect(animationFrameCallback).toBeDefined()
+
+      firstElement.getBoundingClientRect = () => ({ top: 150 }) as DOMRect
+      secondElement.getBoundingClientRect = () => ({ top: 250 }) as DOMRect
+      act(() => animationFrameCallback?.(1))
+
+      expect((firstElement.firstElementChild as HTMLElement).style.transform).toBe(
+        `translateY(${(-150 * 100) / window.innerHeight}px)`
+      )
+      expect((secondElement.firstElementChild as HTMLElement).style.transform).toBe(
+        `translateY(${(250 * 100) / window.innerHeight}px)`
+      )
+
+      first.unmount()
+      expect(removeEventListener).not.toHaveBeenCalledWith('scroll', expect.any(Function))
+      second.unmount()
+      expect(removeEventListener).toHaveBeenCalledWith('scroll', expect.any(Function))
+    } finally {
+      Object.defineProperty(window, 'requestAnimationFrame', {
+        configurable: true,
+        value: originalRequestAnimationFrame,
+      })
+      Object.defineProperty(window, 'cancelAnimationFrame', {
+        configurable: true,
+        value: originalCancelAnimationFrame,
+      })
+    }
+  })
+
   it('does nothing while disabled or before the ref is mounted', () => {
     const addEventListener = spyOn(window, 'addEventListener')
     renderHook(() =>
