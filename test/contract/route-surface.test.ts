@@ -109,18 +109,38 @@ const dashboardOverviewBoundary =
 const dashboardOverviewClient =
   'apps/app/src/app/(private-routes)/dashboard/overview/DashboardOverviewClient.tsx'
 const dashboardDegens = 'apps/app/src/app/(private-routes)/dashboard/degens/page.tsx'
+const dashboardDegensBoundary =
+  'apps/app/src/app/(private-routes)/dashboard/degens/DashboardDegensRouteBoundary.tsx'
+const dashboardDegensClient =
+  'apps/app/src/app/(private-routes)/dashboard/degens/DashboardDegensClient.tsx'
 const dashboardDegensContent =
   'apps/app/src/app/(private-routes)/dashboard/degens/DashboardDegensContent.tsx'
 const dashboardItems = 'apps/app/src/app/(private-routes)/dashboard/items/page.tsx'
+const dashboardItemsBoundary =
+  'apps/app/src/app/(private-routes)/dashboard/items/DashboardItemsRouteBoundary.tsx'
+const dashboardItemsClient =
+  'apps/app/src/app/(private-routes)/dashboard/items/DashboardItemsClient.tsx'
 const dashboardItemsContent =
   'apps/app/src/app/(private-routes)/dashboard/items/DashboardItemsContent.tsx'
 const dashboardBurner = 'apps/app/src/app/(private-routes)/dashboard/items/burner/page.tsx'
+const dashboardBurnerBoundary =
+  'apps/app/src/app/(private-routes)/dashboard/items/burner/ComicsBurnerRouteBoundary.tsx'
+const dashboardBurnerClient =
+  'apps/app/src/app/(private-routes)/dashboard/items/burner/ComicsBurnerClient.tsx'
 const dashboardBurnerContent =
   'apps/app/src/app/(private-routes)/dashboard/items/burner/ComicsBurnerContent.tsx'
 const gamerProfile = 'apps/app/src/app/(private-routes)/dashboard/gamer-profile/page.tsx'
+const gamerProfileBoundary =
+  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/GamerProfileRouteBoundary.tsx'
+const gamerProfileClient =
+  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/GamerProfileClient.tsx'
 const gamerProfileContent =
   'apps/app/src/app/(private-routes)/dashboard/gamer-profile/GamerProfileContent.tsx'
 const dashboardRentals = 'apps/app/src/app/(private-routes)/dashboard/rentals/page.tsx'
+const dashboardRentalsBoundary =
+  'apps/app/src/app/(private-routes)/dashboard/rentals/DashboardRentalsRouteBoundary.tsx'
+const dashboardRentalsClient =
+  'apps/app/src/app/(private-routes)/dashboard/rentals/DashboardRentalsClient.tsx'
 const dashboardRentalsContent =
   'apps/app/src/app/(private-routes)/dashboard/rentals/DashboardRentalsContent.tsx'
 const privateShellBoundary = 'apps/app/src/components/providers/PrivateRoutesBoundary.tsx'
@@ -858,14 +878,17 @@ describe('private provider loading contract', () => {
     expect(source).toContain("from '@/contexts/TokensBalanceContext'")
 
     for (const file of [
-      'apps/app/src/app/(private-routes)/dashboard/degens/page.tsx',
-      'apps/app/src/app/(private-routes)/dashboard/gamer-profile/page.tsx',
-      'apps/app/src/app/(private-routes)/dashboard/items/page.tsx',
-      'apps/app/src/app/(private-routes)/dashboard/items/burner/page.tsx',
+      gamerProfileClient,
+      dashboardItemsClient,
+      dashboardBurnerClient,
+      dashboardRentalsClient,
     ]) {
       expect(readFileSync(join(process.cwd(), file), 'utf8')).toContain('DashboardDataBoundary')
     }
     expect(readFileSync(join(process.cwd(), dashboardOverviewClient), 'utf8')).toContain(
+      'DashboardDataBoundary'
+    )
+    expect(readFileSync(join(process.cwd(), dashboardDegensClient), 'utf8')).toContain(
       'DashboardDataBoundary'
     )
 
@@ -1027,14 +1050,21 @@ describe('dashboard overview loading contract', () => {
 describe('dashboard DEGEN loading contract', () => {
   it('keeps the card and filter graph behind the route loading boundary', () => {
     const pageSource = readFileSync(join(process.cwd(), dashboardDegens), 'utf8')
+    const boundarySource = readFileSync(join(process.cwd(), dashboardDegensBoundary), 'utf8')
+    const clientSource = readFileSync(join(process.cwd(), dashboardDegensClient), 'utf8')
     const contentSource = readFileSync(join(process.cwd(), dashboardDegensContent), 'utf8')
 
-    expect(pageSource).toContain("dynamic(() => import('./DashboardDegensContent')")
-    expect(pageSource).toContain("from '@nl/ui/base/skeleton'")
-    expect(pageSource).toContain('role="status"')
-    expect(pageSource).toContain('aria-busy="true"')
-    expect(pageSource).not.toContain("from '@/components/cards/DegenCard/DashboardDegenCard'")
-    expect(pageSource).not.toContain("from '@/components/extended/DegensFilter'")
+    expect(pageSource).not.toContain("'use client'")
+    expect(pageSource).toContain("from './DashboardDegensRouteBoundary'")
+    expect(boundarySource).toContain("dynamic(() => import('./DashboardDegensClient')")
+    expect(boundarySource).toContain('ssr: false')
+    expect(boundarySource).toContain('<RouteLoading label="Loading dashboard DEGENs" />')
+    expect(clientSource).toContain("dynamic(() => import('./DashboardDegensContent')")
+    expect(clientSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(clientSource).toContain('role="status"')
+    expect(clientSource).toContain('aria-busy="true"')
+    expect(clientSource).not.toContain("from '@/components/cards/DegenCard/DashboardDegenCard'")
+    expect(clientSource).not.toContain("from '@/components/extended/DegensFilter'")
     expect(contentSource).toContain("import('@/components/cards/DegenCard/DashboardDegenCard')")
     expect(contentSource).toContain(
       "import DeferredDegensFilter from '@/components/providers/DeferredDegensFilter'"
@@ -1049,15 +1079,22 @@ describe('dashboard DEGEN loading contract', () => {
 describe('dashboard items loading contract', () => {
   it('keeps the comic and item graph behind the route loading boundary', () => {
     const pageSource = readFileSync(join(process.cwd(), dashboardItems), 'utf8')
+    const boundarySource = readFileSync(join(process.cwd(), dashboardItemsBoundary), 'utf8')
+    const clientSource = readFileSync(join(process.cwd(), dashboardItemsClient), 'utf8')
     const contentSource = readFileSync(join(process.cwd(), dashboardItemsContent), 'utf8')
 
-    expect(pageSource).toContain("dynamic(() => import('./DashboardItemsContent')")
-    expect(pageSource).toContain("from '@nl/ui/base/skeleton'")
-    expect(pageSource).toContain('role="status"')
-    expect(pageSource).toContain('aria-live="polite"')
-    expect(pageSource).toContain('aria-busy="true"')
-    expect(pageSource).not.toContain("from '@/components/cards/ComicCard'")
-    expect(pageSource).not.toContain("from '@/hooks/balances/useNFTsBalances'")
+    expect(pageSource).not.toContain("'use client'")
+    expect(pageSource).toContain("from './DashboardItemsRouteBoundary'")
+    expect(boundarySource).toContain("dynamic(() => import('./DashboardItemsClient')")
+    expect(boundarySource).toContain('ssr: false')
+    expect(boundarySource).toContain('<RouteLoading label="Loading dashboard comics and items" />')
+    expect(clientSource).toContain("dynamic(() => import('./DashboardItemsContent')")
+    expect(clientSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(clientSource).toContain('role="status"')
+    expect(clientSource).toContain('aria-live="polite"')
+    expect(clientSource).toContain('aria-busy="true"')
+    expect(clientSource).not.toContain("from '@/components/cards/ComicCard'")
+    expect(clientSource).not.toContain("from '@/hooks/balances/useNFTsBalances'")
     expect(contentSource).toContain("from '@/components/cards/ComicCard'")
     expect(contentSource).toContain("from '@/hooks/balances/useNFTsBalances'")
     expect(contentSource).toContain('DashboardComicsPageContent')
@@ -1067,16 +1104,23 @@ describe('dashboard items loading contract', () => {
 describe('dashboard burner loading contract', () => {
   it('keeps the burner machine and wallet graph behind the route loading boundary', () => {
     const pageSource = readFileSync(join(process.cwd(), dashboardBurner), 'utf8')
+    const boundarySource = readFileSync(join(process.cwd(), dashboardBurnerBoundary), 'utf8')
+    const clientSource = readFileSync(join(process.cwd(), dashboardBurnerClient), 'utf8')
     const contentSource = readFileSync(join(process.cwd(), dashboardBurnerContent), 'utf8')
 
-    expect(pageSource).toContain("dynamic(() => import('./ComicsBurnerContent')")
-    expect(pageSource).toContain("from '@nl/ui/base/skeleton'")
-    expect(pageSource).toContain('role="status"')
-    expect(pageSource).toContain('aria-live="polite"')
-    expect(pageSource).toContain('aria-busy="true"')
-    expect(pageSource).not.toContain("from 'ethers'")
-    expect(pageSource).not.toContain("from './_components/machine'")
-    expect(pageSource).not.toContain("from '@/hooks/useNetworkContext'")
+    expect(pageSource).not.toContain("'use client'")
+    expect(pageSource).toContain("from './ComicsBurnerRouteBoundary'")
+    expect(boundarySource).toContain("dynamic(() => import('./ComicsBurnerClient')")
+    expect(boundarySource).toContain('ssr: false')
+    expect(boundarySource).toContain('<RouteLoading label="Loading comics burner" />')
+    expect(clientSource).toContain("dynamic(() => import('./ComicsBurnerContent')")
+    expect(clientSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(clientSource).toContain('role="status"')
+    expect(clientSource).toContain('aria-live="polite"')
+    expect(clientSource).toContain('aria-busy="true"')
+    expect(clientSource).not.toContain("from 'ethers'")
+    expect(clientSource).not.toContain("from './_components/machine'")
+    expect(clientSource).not.toContain("from '@/hooks/useNetworkContext'")
     expect(contentSource).toContain("from 'ethers'")
     expect(contentSource).toContain("from './_components/machine'")
     expect(contentSource).toContain("from '@/hooks/useNetworkContext'")
@@ -1087,15 +1131,22 @@ describe('dashboard burner loading contract', () => {
 describe('gamer profile loading contract', () => {
   it('keeps profile, wallet, and inventory graphs behind the route loading boundary', () => {
     const pageSource = readFileSync(join(process.cwd(), gamerProfile), 'utf8')
+    const boundarySource = readFileSync(join(process.cwd(), gamerProfileBoundary), 'utf8')
+    const clientSource = readFileSync(join(process.cwd(), gamerProfileClient), 'utf8')
     const contentSource = readFileSync(join(process.cwd(), gamerProfileContent), 'utf8')
 
-    expect(pageSource).toContain("dynamic(() => import('./GamerProfileContent')")
-    expect(pageSource).toContain("from '@nl/ui/base/skeleton'")
-    expect(pageSource).toContain('role="status"')
-    expect(pageSource).toContain('aria-live="polite"')
-    expect(pageSource).toContain('aria-busy="true"')
-    expect(pageSource).not.toContain("from 'wagmi'")
-    expect(pageSource).not.toContain("from '@/hooks/balances/useNFTsBalances'")
+    expect(pageSource).not.toContain("'use client'")
+    expect(pageSource).toContain("from './GamerProfileRouteBoundary'")
+    expect(boundarySource).toContain("dynamic(() => import('./GamerProfileClient')")
+    expect(boundarySource).toContain('ssr: false')
+    expect(boundarySource).toContain('<RouteLoading label="Loading gamer profile" />')
+    expect(clientSource).toContain("dynamic(() => import('./GamerProfileContent')")
+    expect(clientSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(clientSource).toContain('role="status"')
+    expect(clientSource).toContain('aria-live="polite"')
+    expect(clientSource).toContain('aria-busy="true"')
+    expect(clientSource).not.toContain("from 'wagmi'")
+    expect(clientSource).not.toContain("from '@/hooks/balances/useNFTsBalances'")
     expect(contentSource).toContain("from 'wagmi'")
     expect(contentSource).toContain("from '@/hooks/balances/useNFTsBalances'")
     expect(contentSource).not.toContain('defaultValue')
@@ -1106,15 +1157,22 @@ describe('gamer profile loading contract', () => {
 describe('dashboard rentals loading contract', () => {
   it('keeps the rental grid and auth query graph behind the route loading boundary', () => {
     const pageSource = readFileSync(join(process.cwd(), dashboardRentals), 'utf8')
+    const boundarySource = readFileSync(join(process.cwd(), dashboardRentalsBoundary), 'utf8')
+    const clientSource = readFileSync(join(process.cwd(), dashboardRentalsClient), 'utf8')
     const contentSource = readFileSync(join(process.cwd(), dashboardRentalsContent), 'utf8')
 
-    expect(pageSource).toContain("dynamic(() => import('./DashboardRentalsContent')")
-    expect(pageSource).toContain("from '@nl/ui/base/skeleton'")
-    expect(pageSource).toContain('role="status"')
-    expect(pageSource).toContain('aria-live="polite"')
-    expect(pageSource).toContain('aria-busy="true"')
-    expect(pageSource).not.toContain("from './MyRentalsDataGrid'")
-    expect(pageSource).not.toContain("from '@tanstack/react-query'")
+    expect(pageSource).not.toContain("'use client'")
+    expect(pageSource).toContain("from './DashboardRentalsRouteBoundary'")
+    expect(boundarySource).toContain("dynamic(() => import('./DashboardRentalsClient')")
+    expect(boundarySource).toContain('ssr: false')
+    expect(boundarySource).toContain('<RouteLoading label="Loading rentals" />')
+    expect(clientSource).toContain("dynamic(() => import('./DashboardRentalsContent')")
+    expect(clientSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(clientSource).toContain('role="status"')
+    expect(clientSource).toContain('aria-live="polite"')
+    expect(clientSource).toContain('aria-busy="true"')
+    expect(clientSource).not.toContain("from './MyRentalsDataGrid'")
+    expect(clientSource).not.toContain("from '@tanstack/react-query'")
     expect(contentSource).toContain("from './MyRentalsDataGrid'")
     expect(contentSource).toContain("from '@tanstack/react-query'")
     expect(contentSource).toContain('My Rentals')
