@@ -3,7 +3,7 @@
 import { Menu } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
-import { Button } from '@nl/ui/base/button'
+import { IconButton } from '@nl/ui/base/icon-button'
 
 const PUBLIC_NAVIGATION_SELECTOR = '[data-public-navigation]'
 
@@ -17,7 +17,7 @@ export default function PublicDesktopSidebarToggle() {
   }, [open])
 
   return (
-    <Button
+    <IconButton
       type="button"
       variant="ghost"
       size="icon"
@@ -28,6 +28,6 @@ export default function PublicDesktopSidebarToggle() {
       aria-controls="public-desktop-navigation"
     >
       <Menu aria-hidden="true" absoluteStrokeWidth size={24} />
-    </Button>
+    </IconButton>
   )
 }

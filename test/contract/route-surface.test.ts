@@ -255,6 +255,7 @@ const publicDesktopSidebarToggle =
   'apps/app/src/components/providers/PublicDesktopSidebarToggle.tsx'
 const publicMobileNavigationTrigger =
   'apps/app/src/components/providers/PublicMobileNavigationTrigger.tsx'
+const publicIconButton = 'packages/ui/src/components/base/icon-button.tsx'
 const publicMainContent = 'apps/app/src/components/providers/PublicMainContent.tsx'
 const publicNavLinks = 'apps/app/src/components/providers/PublicNavLinks.tsx'
 const verificationPage = 'apps/app/src/app/verification/page.tsx'
@@ -657,6 +658,7 @@ describe('public app shell contract', () => {
     )
     const mainContentSource = readFileSync(join(process.cwd(), publicMainContent), 'utf8')
     const linksSource = readFileSync(join(process.cwd(), publicNavLinks), 'utf8')
+    const iconButtonSource = readFileSync(join(process.cwd(), publicIconButton), 'utf8')
 
     expect(navigationSource).not.toContain("'use client'")
     expect(navigationSource).toContain("from './PublicDesktopSidebarToggle'")
@@ -666,11 +668,13 @@ describe('public app shell contract', () => {
     expect(navigationSource).not.toContain("from '@nl/ui/base/scroll-area'")
     expect(navigationSource).not.toContain("from '@nl/ui/base/icon'")
     expect(navigationSource).not.toContain("from '@/components/extended/Breadcrumbs'")
-    expect(desktopToggleSource).toContain("from '@nl/ui/base/button'")
+    expect(desktopToggleSource).toContain("from '@nl/ui/base/icon-button'")
+    expect(desktopToggleSource).not.toContain("from '@nl/ui/base/button'")
     expect(desktopToggleSource).toContain('data-sidebar-open')
     expect(desktopToggleSource).toContain('aria-controls="public-desktop-navigation"')
     expect(mobileTriggerSource).toContain("import('./PublicMobileNavigation')")
-    expect(mobileTriggerSource).toContain("from '@nl/ui/base/button'")
+    expect(mobileTriggerSource).toContain("from '@nl/ui/base/icon-button'")
+    expect(mobileTriggerSource).not.toContain("from '@nl/ui/base/button'")
     expect(mainContentSource).toContain('usePathname')
     expect(mobileSource).toContain("from '@nl/ui/base/sheet'")
     expect(mobileSource).toContain('<SheetTitle')
@@ -679,6 +683,9 @@ describe('public app shell contract', () => {
     expect(linksSource).not.toContain("from '@nl/ui/base/icon'")
     expect(linksSource).toContain("from 'lucide-react'")
     expect(linksSource).toContain("aria-current={isSelected ? 'page' : undefined}")
+    expect(iconButtonSource).toContain("from './button-variants'")
+    expect(iconButtonSource).not.toContain("from 'radix-ui'")
+    expect(iconButtonSource).toContain("type = 'button'")
   })
 })
 
@@ -1063,7 +1070,10 @@ describe('shared below-fold loading contract', () => {
     const source = readFileSync(join(process.cwd(), sharedDeferredSection), 'utf8')
 
     expect(source).toContain("from '@nl/ui/base/skeleton'")
-    expect(source).toContain("from '@nl/ui/base/button'")
+    expect(source).toContain("from '../../base/button-variants'")
+    expect(source).not.toContain("from '@nl/ui/base/button'")
+    expect(source).toContain('<button')
+    expect(source).toContain('type="button"')
     expect(source).toContain("from '@nl/ui/hooks/useOnScreen'")
     expect(source).toContain('role="status"')
     expect(source).toContain('role="alert"')
