@@ -1175,6 +1175,17 @@ describe('web marketing image sizing contract', () => {
       expect(readFileSync(join(process.cwd(), file), 'utf8')).toContain(hint)
     }
   })
+
+  it('preloads only the first Overview learn card', () => {
+    const learnCardsSource = readFileSync(
+      join(process.cwd(), 'apps/web/src/components/LearnCards/index.tsx'),
+      'utf8'
+    )
+
+    expect(learnCardsSource).toContain('priority={priority}')
+    expect(learnCardsSource).toContain('priority={index === 0}')
+    expect(learnCardsSource).not.toContain('            priority\n')
+  })
 })
 
 describe('web marketing animation boundary contract', () => {
