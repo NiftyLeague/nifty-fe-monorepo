@@ -4,7 +4,6 @@ import { usePathname } from 'next/navigation'
 import { cn } from '@nl/ui/utils'
 import { Icon } from '@nl/ui/base/icon'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
-import Chip from '@/components/extended/Chip'
 import { useNavigation } from '@/contexts/NavigationContext'
 
 // types
@@ -50,15 +49,6 @@ const NavItem = ({ item, level }: NavItemProps) => {
           </span>
         )}
       </span>
-      {item.chip && (
-        <Chip
-          colorType={item.chip.color}
-          variant={item.chip.variant}
-          size={item.chip.size}
-          label={item.chip.label}
-          avatar={item.chip.avatar}
-        />
-      )}
     </>
   )
 
