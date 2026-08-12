@@ -2,7 +2,6 @@ import type { NextPage } from 'next'
 import Image from 'next/image'
 
 import { Accordion } from '@nl/ui/custom/accordion'
-import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
 import ThemeBtnGroup from '@/components/ThemeBtnGroup'
 import LearnCards from '@/components/LearnCards'
 import { FAQS } from '@/constants/faq'
@@ -12,17 +11,9 @@ const Overview: NextPage = () => (
     <div className="container relative pt-20">
       <div className="purple-bg-orb orb-top-right" />
       <section className="section relative">
-        <AnimatedWrapper>
-          <h1 className="text-center transition-vertical-fade transition-vertical-fade-start delay-lite">
-            OVERVIEW
-          </h1>
-        </AnimatedWrapper>
+        <h1 className="text-center">OVERVIEW</h1>
         <div className="mt-3">
-          <AnimatedWrapper>
-            <p className="text-center transition-vertical-fade transition-vertical-fade-start delay-normal">
-              Learn how to navigate the Nifty League Platform
-            </p>
-          </AnimatedWrapper>
+          <p className="text-center">Learn how to navigate the Nifty League Platform</p>
         </div>
         <LearnCards />
         <div className="purple-bg-orb orb-bottom-left" />
@@ -31,11 +22,7 @@ const Overview: NextPage = () => (
 
       <section className="section">
         <div className="text-center mb-5 relative">
-          <AnimatedWrapper>
-            <h2 className="transition-vertical-fade transition-vertical-fade-start delay-lite">
-              Frequently Asked Questions
-            </h2>
-          </AnimatedWrapper>
+          <h2>Frequently Asked Questions</h2>
           <div className="purple-bg-orb" style={{ left: 'calc(50% - 200px)', top: '100px' }} />
         </div>
 

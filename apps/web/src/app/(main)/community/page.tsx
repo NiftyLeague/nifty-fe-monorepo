@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
 
-import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
 import SocialCards from '@/components/SocialCards'
 
 import styles from './index.module.css'
@@ -12,30 +11,22 @@ const Community: NextPage = () => {
       <section className="relative min-h-screen">
         <div className="container pt-40 relative flex flex-col md:flex-row z-[2]">
           <div className="w-full md:w-1/2 px-0 text-center md:text-left">
-            <AnimatedWrapper>
-              <h4 className="transition-vertical-fade transition-vertical-fade-start whitespace-nowrap">
-                Nifty League
-              </h4>
-              <h2 className="transition-vertical-fade transition-vertical-fade-start">Community</h2>
-              <p className="mt-3 transition-vertical-fade transition-vertical-fade-start delay-lite">
-                Meet our global community of gamers
-              </p>
-            </AnimatedWrapper>
+            <h4 className="whitespace-nowrap">Nifty League</h4>
+            <h2>Community</h2>
+            <p className="mt-3">Meet our global community of gamers</p>
           </div>
           <div className="w-full sm:w-2/3 md:w-1/2 xl:w-1/3 relative mx-auto text-center">
-            <AnimatedWrapper>
-              <div className="relative transition-fade-start transition-fade delay-normal">
-                <Image
-                  src="/img/space/moon-satoshi.webp"
-                  alt="Satoshi moon"
-                  width={445}
-                  height={437}
-                  priority
-                  sizes="100vw"
-                  className="w-full h-auto"
-                />
-              </div>
-            </AnimatedWrapper>
+            <div className="relative">
+              <Image
+                src="/img/space/moon-satoshi.webp"
+                alt="Satoshi moon"
+                width={445}
+                height={437}
+                priority
+                sizes="100vw"
+                className="w-full h-auto"
+              />
+            </div>
             <div className={styles.moon_grad}>
               <Image
                 src="/img/gradient/purple-light-grad.svg"
@@ -50,19 +41,17 @@ const Community: NextPage = () => {
         </div>
 
         <div className="w-full h-auto absolute -bottom-10 md:-bottom-20">
-          <AnimatedWrapper>
-            <div className="relative transition-fade-start transition-fade delay-normal">
-              <Image
-                src="/img/space/earth-darkened.webp"
-                width={1684}
-                height={525}
-                alt="Earth"
-                priority
-                sizes="100vw"
-                className="w-full h-auto"
-              />
-            </div>
-          </AnimatedWrapper>
+          <div className="relative">
+            <Image
+              src="/img/space/earth-darkened.webp"
+              width={1684}
+              height={525}
+              alt="Earth"
+              priority
+              sizes="100vw"
+              className="w-full h-auto"
+            />
+          </div>
           <div className="dark-gradient-overlay" />
         </div>
         <span className={styles.earth_grad}>
@@ -79,17 +68,11 @@ const Community: NextPage = () => {
 
       <section className="container section">
         <div className="relative text-center mb-8">
-          <AnimatedWrapper>
-            <h3 className="transition-vertical-fade transition-vertical-fade-start delay-lite">
-              Join the conversation
-            </h3>
-          </AnimatedWrapper>
-          <AnimatedWrapper>
-            <p className="text-center my-3 mx-auto max-w-2xl transition-vertical-fade transition-vertical-fade-start delay-normal">
-              Nifty League&apos;s community is unlike any other. Get your questions answered and
-              connect with fellow DEGENs!
-            </p>
-          </AnimatedWrapper>
+          <h3>Join the conversation</h3>
+          <p className="text-center my-3 mx-auto max-w-2xl">
+            Nifty League&apos;s community is unlike any other. Get your questions answered and
+            connect with fellow DEGENs!
+          </p>
         </div>
 
         <SocialCards />
