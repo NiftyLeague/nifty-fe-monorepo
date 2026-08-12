@@ -50,7 +50,7 @@ const RoadmapCard = ({
             alt={`${title?.toString()}`}
             width={image.width}
             height={image.height}
-            sizes="100vw"
+            sizes="200px"
             style={{ width: '100%', height: 'auto' }}
           />
         </div>
@@ -73,7 +73,7 @@ const RoadmapCard = ({
           alt="satoshi stationary"
           width={200}
           height={200}
-          sizes="100vw"
+          sizes="(min-width: 1170px) 250px, (min-width: 1000px) 200px, (min-width: 850px) 175px, 125px"
           style={{ width: '100%', height: 'auto' }}
         />
       </div>

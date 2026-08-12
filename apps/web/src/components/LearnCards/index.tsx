@@ -23,7 +23,7 @@ const LearnCard = ({ btnText, external, image, link, subtitle, title }: LearnCar
             src={image}
             width={552}
             height={310}
-            sizes="100vw"
+            sizes="(min-width: 640px) 50vw, 100vw"
             style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
           />
         </div>

@@ -18,7 +18,7 @@ const Roadmap: NextPage = () => {
               width={200}
               height={200}
               priority
-              sizes="100vw"
+              sizes="(min-width: 1170px) 250px, (min-width: 1000px) 200px, (min-width: 850px) 175px, 120px"
               style={{ width: '100%', height: 'auto' }}
             />
           </div>
@@ -44,7 +44,7 @@ const Roadmap: NextPage = () => {
                 width={800}
                 height={800}
                 priority
-                sizes="100vw"
+                sizes="(min-width: 920px) 800px, 600px"
                 style={{ width: '100%', height: 'auto' }}
               />
             </div>

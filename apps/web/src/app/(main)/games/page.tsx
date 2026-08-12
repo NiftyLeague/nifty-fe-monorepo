@@ -32,7 +32,7 @@ const Games: NextPage = () => (
               width={339}
               height={661}
               src="/img/games/smashers/arcade.webp"
-              sizes="100vw"
+              sizes="33vw"
               style={{ width: '100%', height: 'auto', marginBottom: '6rem' }}
             />
           </div>
