@@ -63,7 +63,7 @@ const PlayContent = () => (
   </>
 )
 
-const PlayDialog = ({ open }: { open: boolean }) => {
+const PlayDialog = ({ open }: { open?: boolean }) => {
   const { message } = useVersion()
   return (
     <Dialog
