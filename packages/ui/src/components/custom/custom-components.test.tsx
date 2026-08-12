@@ -235,6 +235,30 @@ describe('AnimatedWrapper and Preloader', () => {
   })
 })
 
+describe('ParallaxWrapper', () => {
+  let ParallaxWrapper: typeof import('./parallax-wrapper').ParallaxWrapper
+
+  beforeEach(async () => {
+    ParallaxWrapper = (await import('./parallax-wrapper')).ParallaxWrapper
+    state.parallax.mockClear()
+  })
+
+  it('keeps parallax behavior in a focused semantic wrapper', () => {
+    render(
+      <ParallaxWrapper component="section" parallaxDirection="up" parallaxIntensity="strong">
+        <p>Parallax content</p>
+      </ParallaxWrapper>
+    )
+
+    expect(screen.getByText('Parallax content').parentElement?.tagName).toBe('SECTION')
+    expect(state.parallax).toHaveBeenCalledWith(expect.anything(), {
+      enabled: true,
+      direction: 'up',
+      intensity: 'strong',
+    })
+  })
+})
+
 describe('authentication forms', () => {
   let LoginForm: typeof import('./auth-form/forms/login').default
   let AuthForm: typeof import('./auth-form').AuthForm

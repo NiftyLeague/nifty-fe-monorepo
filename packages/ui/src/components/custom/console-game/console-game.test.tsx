@@ -4,8 +4,8 @@ import { beforeEach, describe, expect, it, mock } from 'bun:test'
 mock.module('next/image', () => ({
   default: (props: React.ComponentProps<'img'>) => <img {...props} />,
 }))
-mock.module('@nl/ui/custom/animated-wrapper', () => ({
-  AnimatedWrapper: ({ children }: React.PropsWithChildren) => <>{children}</>,
+mock.module('@nl/ui/custom/parallax-wrapper', () => ({
+  ParallaxWrapper: ({ children }: React.PropsWithChildren) => <>{children}</>,
 }))
 mock.module('@nl/ui/hooks/useOnScreen', () => ({
   useOnScreen: () => true,
