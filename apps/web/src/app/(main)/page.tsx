@@ -4,12 +4,14 @@ import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { ParallaxWrapper } from '@nl/ui/custom/parallax-wrapper'
 
 import BouncingNFTL from '@/components/BouncingNFTL'
-import Carousel from '@/components/Carousel'
-import { DeferredMintOMatic, DeferredSponsors } from '@/components/DeferredHomeSections'
+import {
+  DeferredCommunityDegenCarousel,
+  DeferredMintOMatic,
+  DeferredSponsors,
+} from '@/components/DeferredHomeSections'
 import MainLayout from '@/components/MainLayout'
 import ThemeBtnGroup from '@/components/ThemeBtnGroup'
-import { RenderDegen } from '@/components/Carousel/DegenCardItem'
-import { COMMUNITY_DEGEN_LIST, DEGEN_COLLECTION_URL } from '@/constants/degens'
+import { DEGEN_COLLECTION_URL } from '@/constants/degens'
 
 import '@/styles/home.css'
 
@@ -202,7 +204,7 @@ const Home = () => {
               sizes="(max-width: 576px) 90vw, (max-width: 992px) 80%, 700px"
             />
           </div>
-          <Carousel mobileItems={2}>{COMMUNITY_DEGEN_LIST.map(RenderDegen)}</Carousel>
+          <DeferredCommunityDegenCarousel />
         </div>
       </section>
 
