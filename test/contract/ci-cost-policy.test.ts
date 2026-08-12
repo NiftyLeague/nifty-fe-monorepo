@@ -38,5 +38,9 @@ describe('hosted validation cost policy', () => {
     expect(source).not.toContain(
       'done < <(git diff --no-renames --name-only -z "$merge_base" "$staging_head")'
     )
+    expect(source).not.toContain(
+      'done < <(git -C "$preview_dir" diff --name-only --diff-filter=U -z)'
+    )
+    expect(source).not.toContain('done < <(git diff --name-only --diff-filter=U -z)')
   })
 })
