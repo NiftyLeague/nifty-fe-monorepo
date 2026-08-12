@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs'
 
 const responsiveTableList = 'apps/app/src/components/ResponsiveTable/DataList.tsx'
 const appManifest = 'apps/app/package.json'
+const appRootLayout = 'apps/app/src/app/layout.tsx'
 const privateShellIconSources = [
   'apps/app/src/app/_layout/_CollapsibleSidebarLayout/index.tsx',
   'apps/app/src/app/_layout/_MainLayout/_Header/index.tsx',
@@ -41,6 +42,13 @@ const appIconRegistrySources = [
 ]
 
 describe('app performance contracts', () => {
+  it('defers third-party device telemetry until the page has loaded', () => {
+    const source = readFileSync(appRootLayout, 'utf8')
+
+    expect(source).toContain('id="device-stats"')
+    expect(source).toContain('strategy="lazyOnload"')
+  })
+
   it('uses native shallow copies for primitive responsive-table selection state', () => {
     const source = readFileSync(responsiveTableList, 'utf8')
 
