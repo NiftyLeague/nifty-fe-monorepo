@@ -5,6 +5,12 @@ import { useEffect } from 'react'
 export type ParallaxDirection = 'up' | 'down' | 'left' | 'right'
 export type ParallaxIntensity = 'lite' | 'normal' | 'strong' | 'extreme'
 
+type ParallaxUpdate = () => void
+
+const parallaxUpdates = new Set<ParallaxUpdate>()
+let scheduledFrame: number | null = null
+let cancelScheduledFrame: ((frame: number) => void) | null = null
+
 // Function to apply the transform to the element or its child
 const applyTransform = <T extends HTMLElement>(
   element: T,
@@ -46,6 +52,50 @@ const calculateTransform = <T extends HTMLElement>(
   return `translateX(${translationX * directionValue * multiplier}px)`
 }
 
+const flushParallaxUpdates = (): void => {
+  scheduledFrame = null
+  cancelScheduledFrame = null
+  parallaxUpdates.forEach((update) => update())
+}
+
+const scheduleParallaxUpdates = (): void => {
+  if (scheduledFrame !== null) return
+
+  if (typeof window.requestAnimationFrame === 'function') {
+    scheduledFrame = window.requestAnimationFrame(flushParallaxUpdates)
+    cancelScheduledFrame = window.cancelAnimationFrame
+    return
+  }
+
+  scheduledFrame = window.setTimeout(flushParallaxUpdates, 0)
+  cancelScheduledFrame = window.clearTimeout
+}
+
+const handleParallaxScroll = (): void => {
+  scheduleParallaxUpdates()
+}
+
+const subscribeToParallaxUpdates = (update: ParallaxUpdate): (() => void) => {
+  if (parallaxUpdates.size === 0) {
+    window.addEventListener('scroll', handleParallaxScroll, { passive: true })
+  }
+
+  parallaxUpdates.add(update)
+
+  return () => {
+    parallaxUpdates.delete(update)
+
+    if (parallaxUpdates.size > 0) return
+
+    window.removeEventListener('scroll', handleParallaxScroll)
+    if (scheduledFrame !== null) {
+      cancelScheduledFrame?.(scheduledFrame)
+      scheduledFrame = null
+      cancelScheduledFrame = null
+    }
+  }
+}
+
 interface UseParallaxOptions {
   enabled: boolean
   direction: ParallaxDirection
@@ -68,10 +118,7 @@ export function useParallax<T extends HTMLElement = HTMLDivElement>(
     }
 
     handleParallax()
-    window.addEventListener('scroll', handleParallax, { passive: true })
-    return () => {
-      window.removeEventListener('scroll', handleParallax)
-    }
+    return subscribeToParallaxUpdates(handleParallax)
   }, [elementRef, options.enabled, options.direction, options.intensity])
 }
 
