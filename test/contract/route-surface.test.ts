@@ -223,7 +223,6 @@ const animationFreeMarketingComponents = [
   'apps/web/src/components/LearnCards/index.tsx',
   'apps/web/src/components/Careers/JobCard.tsx',
   'apps/web/src/components/Sponsors.tsx',
-  'packages/ui/src/components/custom/accordion/index.tsx',
   'packages/ui/src/components/custom/degen-specials-table/index.tsx',
 ]
 const staticLegalPages = [
@@ -1103,7 +1102,11 @@ describe('shared below-fold loading contract', () => {
     expect(pageSource).not.toContain("from '@nl/ui/custom/accordion'")
     expect(deferredSource).toContain("import('@/components/OverviewFAQ')")
     expect(deferredSource).toContain("from '@nl/ui/custom/deferred-section'")
-    expect(faqSource).toContain("from '@nl/ui/custom/accordion'")
+    expect(faqSource).toContain("from '@nl/ui/base/accordion'")
+    expect(faqSource).not.toContain("from '@nl/ui/custom/accordion'")
+    expect(faqSource).toContain('<AccordionItem')
+    expect(faqSource).toContain('<AccordionTrigger')
+    expect(faqSource).toContain('<AccordionContent')
     expect(faqSource).toContain('defaultValue="item-1"')
   })
 
@@ -1151,6 +1154,8 @@ describe('web public navigation contract', () => {
     expect(sharedNavbarSource).not.toContain("from '@nl/ui/base/sheet'")
     expect(mobileTriggerSource).toContain("import('./MobileNavMenu')")
     expect(mobileTriggerSource).toContain('ssr: false')
+    expect(mobileTriggerSource).toContain("from '@nl/ui/base/icon-button'")
+    expect(mobileTriggerSource).not.toContain('<button')
     expect(mobileTriggerSource).toContain('aria-controls="nifty-mobile-navigation"')
     expect(mobileNavbarSource).toContain("from '@nl/ui/base/sheet'")
     expect(mobileNavbarSource).toContain('<SheetTitle')
