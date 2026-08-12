@@ -31,23 +31,32 @@
   margin-top: 60px;
   height: calc(100vh - 60px);
   overflow-y: auto;
-}
-
-.publicMainOpen,
-.publicMainClosed {
   transition:
     margin 200ms cubic-bezier(0.4, 0, 0.6, 1) 0ms,
     width 200ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
 }
 
-.publicMainOpen {
+.publicNavigationShell[data-sidebar-open='true'] .publicMain {
   margin-left: 0;
   width: calc(100% - 260px);
 }
 
-.publicMainClosed {
+.publicNavigationShell[data-sidebar-open='false'] .publicMain {
   margin-left: -260px;
   width: calc(100% - 260px);
+}
+
+.publicHeaderControls {
+  width: 228px;
+  transition: width 200ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
+}
+
+.publicNavigationShell[data-sidebar-open='false'] .publicHeaderControls {
+  width: 80px;
+}
+
+.publicNavigationShell[data-sidebar-open='false'] .publicDesktopSidebar {
+  transform: translateX(-100%);
 }
 
 @media (min-width: 1024px) {
@@ -77,8 +86,8 @@
 }
 
 @media (max-width: 1023.95px) {
-  .publicMainOpen,
-  .publicMainClosed {
+  .publicNavigationShell[data-sidebar-open='true'] .publicMain,
+  .publicNavigationShell[data-sidebar-open='false'] .publicMain {
     margin-left: 0;
     width: 100%;
   }
