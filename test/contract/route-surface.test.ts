@@ -1186,6 +1186,24 @@ describe('web marketing image sizing contract', () => {
     expect(learnCardsSource).toContain('priority={index === 0}')
     expect(learnCardsSource).not.toContain('            priority\n')
   })
+
+  it('does not eagerly preload below-fold decorative artwork', () => {
+    const overviewSource = readFileSync(
+      join(process.cwd(), 'apps/web/src/app/(main)/overview/page.tsx'),
+      'utf8'
+    )
+    const roadmapSource = readFileSync(
+      join(process.cwd(), 'apps/web/src/app/(main)/roadmap/page.tsx'),
+      'utf8'
+    )
+
+    expect(overviewSource).not.toContain('priority')
+    expect(roadmapSource).toContain('src="/img/space/satoshi_move.gif"')
+    expect(roadmapSource).toContain('src="/img/space/moon.webp"')
+    expect(roadmapSource).not.toContain(
+      'src="/img/space/moon.webp"\n                alt="moon"\n                width={800}\n                height={800}\n                priority'
+    )
+  })
 })
 
 describe('web marketing animation boundary contract', () => {
