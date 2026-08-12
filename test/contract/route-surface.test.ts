@@ -1351,8 +1351,9 @@ describe('web public navigation contract', () => {
 
     expect(navbarSource).not.toContain("'use client'")
     expect(navbarSource).toContain("from '@nl/ui/custom/navbar'")
-    expect(sharedNavbarSource).toContain("import NavbarScrollFrame from './NavbarScrollFrame'")
     expect(sharedNavbarSource).toContain("import ActiveNavLink from './ActiveNavLink'")
+    expect(sharedNavbarSource).toContain('navbar-scroll-frame')
+    expect(sharedNavbarSource).not.toContain('useScrollDetection')
     expect(sharedNavbarSource).toContain('<details')
     expect(sharedNavbarSource).not.toContain("from '@nl/ui/base/navigation-menu'")
     expect(sharedNavbarSource).not.toContain("from '@nl/ui/base/sheet'")
