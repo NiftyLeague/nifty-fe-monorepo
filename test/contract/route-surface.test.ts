@@ -209,6 +209,8 @@ const webHomePage = 'apps/web/src/app/(main)/page.tsx'
 const webOverviewPage = 'apps/web/src/app/(main)/overview/page.tsx'
 const gltfPage = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/page.tsx'
 const gltfClient = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViews.tsx'
+const gltfRouteBoundary =
+  'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViewsRouteBoundary.tsx'
 const webNavbar = 'apps/web/src/components/Navbar/index.tsx'
 const sharedWebNavbar = 'packages/ui/src/components/custom/navbar/index.tsx'
 const sharedWebMobileNavbar = 'packages/ui/src/components/custom/navbar/MobileNavMenu.tsx'
@@ -338,11 +340,15 @@ describe('GLTF viewer loading contract', () => {
   it('keeps the initial NFT shell server-rendered and browser controls isolated', () => {
     const pageSource = readFileSync(join(process.cwd(), gltfPage), 'utf8')
     const clientSource = readFileSync(join(process.cwd(), gltfClient), 'utf8')
+    const routeBoundarySource = readFileSync(join(process.cwd(), gltfRouteBoundary), 'utf8')
 
     expect(pageSource).not.toContain("'use client'")
     expect(pageSource).toContain('await params')
     expect(pageSource).toContain("from 'next/image'")
-    expect(pageSource).toContain("from './components/DegenViews'")
+    expect(pageSource).toContain("from './components/DegenViewsRouteBoundary'")
+    expect(routeBoundarySource).toContain("dynamic(() => import('./DegenViews')")
+    expect(routeBoundarySource).not.toContain('ssr: false')
+    expect(routeBoundarySource).toContain('<RouteLoading label="Loading DEGEN viewer" />')
     expect(clientSource).toContain("'use client'")
     expect(clientSource).not.toContain("from 'next/image'")
     expect(clientSource).toContain("dynamic(() => import('./ModelView')")

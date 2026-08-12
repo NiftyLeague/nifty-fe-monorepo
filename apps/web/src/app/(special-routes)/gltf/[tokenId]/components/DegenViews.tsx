@@ -15,7 +15,7 @@ const TokenMenu = dynamic(() => import('./TokenMenu'), { ssr: false })
 const ModelView = dynamic(() => import('./ModelView'), { ssr: false })
 const ModelActions = dynamic(() => import('./ModelActions'), { ssr: false })
 
-interface DegenViewsProps {
+export interface DegenViewsProps {
   tokenId: string
   initialImage: ReactNode
   spriteImage: ReactNode

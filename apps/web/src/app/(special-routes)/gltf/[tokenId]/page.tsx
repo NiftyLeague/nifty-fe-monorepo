@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 import { DEGEN_BASE_SPRITE_URL, LEGGIES } from '@/constants/degens'
 
-import DegenViews from './components/DegenViews'
+import DegenViewsRouteBoundary from './components/DegenViewsRouteBoundary'
 import styles from './gltf.module.css'
 
 interface DegenViewsPageProps {
@@ -15,7 +15,7 @@ export default async function DegenViewsPage({ params }: DegenViewsPageProps) {
   const spriteSrc = `${DEGEN_BASE_SPRITE_URL}/${tokenId}.gif`
 
   return (
-    <DegenViews
+    <DegenViewsRouteBoundary
       tokenId={tokenId}
       initialImage={
         <Image
