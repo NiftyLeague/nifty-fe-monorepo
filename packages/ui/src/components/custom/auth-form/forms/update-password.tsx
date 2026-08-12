@@ -3,11 +3,11 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import { KeyRound, Loader, Save } from 'lucide-react'
 
 import { Button } from '@nl/ui/base/button'
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@nl/ui/base/form'
 import { Input } from '@nl/ui/custom/input'
-import { Icon } from '@nl/ui/base/icon'
 
 export interface UpdatePasswordFormProps {
   handleUpdatePassword: (values: z.infer<typeof formSchema>) => Promise<void>
@@ -49,7 +49,7 @@ export function UpdatePasswordForm({ handleUpdatePassword }: UpdatePasswordFormP
                   {...field}
                   type="password"
                   autoComplete="current-password"
-                  startIcon={<Icon name="key-round" />}
+                  startIcon={<KeyRound absoluteStrokeWidth size={20} strokeWidth={1.5} />}
                 />
               </FormControl>
               <FormMessage />
@@ -67,7 +67,7 @@ export function UpdatePasswordForm({ handleUpdatePassword }: UpdatePasswordFormP
                   {...field}
                   type="password"
                   autoComplete="new-password"
-                  startIcon={<Icon name="key-round" />}
+                  startIcon={<KeyRound absoluteStrokeWidth size={20} strokeWidth={1.5} />}
                 />
               </FormControl>
               <FormMessage />
@@ -76,10 +76,10 @@ export function UpdatePasswordForm({ handleUpdatePassword }: UpdatePasswordFormP
         />
         <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
           {form.formState.isSubmitting ? (
-            <Icon name="loader" className="animate-spin" />
+            <Loader absoluteStrokeWidth className="animate-spin" size={20} strokeWidth={1.5} />
           ) : (
             <>
-              <Icon name="save" />
+              <Save absoluteStrokeWidth size={20} strokeWidth={1.5} />
               Update Password
             </>
           )}
