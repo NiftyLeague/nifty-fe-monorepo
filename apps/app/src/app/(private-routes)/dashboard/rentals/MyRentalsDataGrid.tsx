@@ -76,7 +76,10 @@ const MyRentalsDataGrid = ({
   )
 
   const { profile } = usePlayerProfile()
-  const rentals = transformRentals(rows, profile?.id || '', category)
+  const rentals = useMemo(
+    () => transformRentals(rows, profile?.id || '', category),
+    [rows, profile?.id, category]
+  )
 
   const filteredRows = useMemo(() => {
     switch (category) {
@@ -213,7 +216,7 @@ const MyRentalsDataGrid = ({
                 <Button
                   variant="ghost"
                   size="icon"
-                  aria-label="edit"
+                  aria-label="Edit player nickname"
                   onClick={() => handleOpenNickname(params)}
                   className="hidden cursor-pointer group-hover:block"
                 >
@@ -225,11 +228,6 @@ const MyRentalsDataGrid = ({
         },
       },
       { field: 'rentalCategory', headerName: 'Category', width: 150 },
-      // {
-      //   field: 'player',
-      //   headerName: "Who's playing?",
-      //   width: 130,
-      // },
       {
         field: 'degenId',
         headerName: 'Degen ID',
@@ -268,12 +266,6 @@ const MyRentalsDataGrid = ({
         ),
       },
       { field: 'multiplier', headerName: 'Multiplier', width: 150, ...commonColumnProp },
-      // {
-      //   field: 'timePlayed',
-      //   headerName: 'Time Played',
-      //   ...commonColumnProp,
-      //   width: 120,
-      // },
       { field: 'matches', headerName: 'Matches' },
       { field: 'wins', headerName: 'Wins' },
       {
@@ -444,7 +436,7 @@ const MyRentalsDataGrid = ({
         <div className="flex items-center justify-between border-t px-4 py-3">
           <div className="flex items-center gap-2">
             <Select value={String(pageSize)} onValueChange={handlePageSizeChange}>
-              <SelectTrigger className="w-[70px]">
+              <SelectTrigger aria-label="Rows per page" className="w-[70px]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -461,6 +453,7 @@ const MyRentalsDataGrid = ({
             <Button
               variant="ghost"
               size="sm"
+              aria-label="Previous page"
               onClick={handlePrevPage}
               disabled={page === 0}
               className="h-8 w-8 cursor-pointer p-0"
@@ -473,6 +466,7 @@ const MyRentalsDataGrid = ({
             <Button
               variant="ghost"
               size="sm"
+              aria-label="Next page"
               onClick={handleNextPage}
               disabled={page === pageCount - 1 || sortedRows.length === 0}
               className="h-8 w-8 cursor-pointer p-0"
