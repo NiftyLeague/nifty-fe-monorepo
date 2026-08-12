@@ -3,10 +3,7 @@
 import type { PropsWithChildren } from 'react'
 import { headers } from 'next/headers'
 
-import { AuthStatusProvider } from '@/contexts/AuthStatusContext'
-import { AuthTokenProvider } from '@/contexts/AuthTokenContext'
-import { LocalStorageProvider } from '@/contexts/LocalStorageContext'
-import { Web3ModalProvider } from '@/contexts/Web3ModalContext'
+import WalletAuthProvidersBoundary from '@/contexts/WalletAuthProvidersBoundary'
 
 /**
  * The smallest wallet boundary for routes that only authenticate a wallet.
@@ -17,13 +14,5 @@ import { Web3ModalProvider } from '@/contexts/Web3ModalContext'
 export default async function WalletAuthContextWrapper({ children }: PropsWithChildren) {
   const cookies = (await headers()).get('cookie')
 
-  return (
-    <LocalStorageProvider>
-      <Web3ModalProvider cookies={cookies}>
-        <AuthStatusProvider>
-          <AuthTokenProvider>{children}</AuthTokenProvider>
-        </AuthStatusProvider>
-      </Web3ModalProvider>
-    </LocalStorageProvider>
-  )
+  return <WalletAuthProvidersBoundary cookies={cookies}>{children}</WalletAuthProvidersBoundary>
 }
