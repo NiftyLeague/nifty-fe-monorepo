@@ -1,6 +1,6 @@
 import { useEffect, ReactNode, SetStateAction, useCallback } from 'react'
+import { X } from 'lucide-react'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
-import { Icon } from '@nl/ui/base/icon'
 import { ScrollArea } from '@nl/ui/base/scroll-area'
 
 const appHeaderHeight = 60
@@ -70,7 +70,7 @@ const CollapsibleSidebarLayout = ({
             className="absolute right-3 top-3 z-[1101] cursor-pointer rounded-md p-1 text-muted-foreground hover:bg-foreground/10"
             onClick={handleDrawerOpen}
           >
-            <Icon name="x" size="md" />
+            <X aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />
           </button>
         )}
         <ScrollArea

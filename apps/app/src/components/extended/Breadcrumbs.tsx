@@ -3,7 +3,8 @@
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 
-import { Icon, type IconName } from '@nl/ui/base/icon'
+import { AppNavIcon } from '@/components/AppNavIcon'
+import type { AppNavIconName } from '@/components/AppNavIcon'
 import { cn } from '@nl/ui/utils'
 
 // project imports
@@ -33,7 +34,7 @@ interface BreadCrumbsProps {
   maxItems?: number
   navigation?: NavItemTypeObject
   rightAlign?: boolean
-  separator?: IconName
+  separator?: AppNavIconName
   title?: boolean
   titleBottom?: boolean
   sx?: BreadCrumbSxProps
@@ -94,7 +95,7 @@ const Breadcrumbs = ({
   }, [navigation, getCollapse])
 
   // item separator
-  const separatorIcon = <Icon name={separator || 'tally-1'} size="sm" />
+  const separatorIcon = <AppNavIcon name={separator || 'tally-1'} size="sm" />
 
   let mainContent
   let itemContent
@@ -103,8 +104,12 @@ const Breadcrumbs = ({
   // collapse item
   if (main && main.type === 'collapse') {
     mainContent = (
-      <Link href="#" className="flex items-center text-sm font-medium text-foreground no-underline">
-        {icons && <Icon name={main.icon ?? 'list-tree'} style={iconStyle} />}
+      <Link
+        key="main"
+        href="#"
+        className="flex items-center text-sm font-medium text-foreground no-underline"
+      >
+        {icons && <AppNavIcon name={main.icon ?? 'list-tree'} style={iconStyle} />}
         {main.title}
       </Link>
     )
@@ -114,10 +119,11 @@ const Breadcrumbs = ({
   if (item && item.type === 'item') {
     itemContent = (
       <span
+        key="item"
         className="flex items-center text-sm font-medium text-muted-foreground"
         style={{ textDecoration: 'none' }}
       >
-        {icons && <Icon name={item.icon ?? 'list-tree'} style={iconStyle} />}
+        {icons && <AppNavIcon name={item.icon ?? 'list-tree'} style={iconStyle} />}
         {item.title}
       </span>
     )
@@ -154,9 +160,13 @@ const Breadcrumbs = ({
                     className="flex items-center text-sm font-medium no-underline"
                     style={{ color: 'inherit' }}
                   >
-                    {icons && <Icon name="house" color="blue" fill="dim" style={iconStyle} />}
+                    {icons && <AppNavIcon name="house" color="blue" fill="dim" style={iconStyle} />}
                     {icon && (
-                      <Icon name="house" color="blue" style={{ ...iconStyle, marginRight: 0 }} />
+                      <AppNavIcon
+                        name="house"
+                        color="blue"
+                        style={{ ...iconStyle, marginRight: 0 }}
+                      />
                     )}
                     {!icon && 'Dashboard'}
                   </Link>,

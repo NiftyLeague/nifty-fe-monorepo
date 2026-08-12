@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { AppNavIcon } from '@/components/AppNavIcon'
 
 // project imports
 import { cn } from '@nl/ui/utils'
-import { Icon } from '@nl/ui/base/icon'
 import { NavGroupProps } from '../_NavGroup'
 import NavItem from '../_NavItem'
 
@@ -71,7 +71,7 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
         onClick={handleClick}
       >
         <span className="my-auto" style={{ minWidth: !menu.icon ? 18 : 36 }}>
-          <Icon name={menu?.icon ?? 'dot'} size="lg" className="ml-1" />
+          <AppNavIcon name={menu?.icon ?? 'dot'} size="lg" className="ml-1" />
         </span>
         <span className="flex flex-1 flex-col">
           <span style={{ color: 'inherit' }}>{menu.title}</span>
@@ -81,7 +81,7 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
             </span>
           )}
         </span>
-        <Icon
+        <AppNavIcon
           name="chevron-down"
           size="md"
           className={cn('transition-transform', open && 'rotate-180 transform')}

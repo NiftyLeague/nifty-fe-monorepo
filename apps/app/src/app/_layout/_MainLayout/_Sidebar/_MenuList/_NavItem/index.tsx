@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { AppNavIcon } from '@/components/AppNavIcon'
 
 import { cn } from '@nl/ui/utils'
-import { Icon } from '@nl/ui/base/icon'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { useNavigation } from '@/contexts/NavigationContext'
 
@@ -34,7 +34,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
   const inner = (
     <>
       <span className="my-auto" style={{ minWidth: !item?.icon ? 18 : 36 }}>
-        <Icon name={item?.icon ?? 'dot'} size="lg" />
+        <AppNavIcon name={item?.icon ?? 'dot'} size="lg" />
       </span>
       <span className="flex-1">
         <span

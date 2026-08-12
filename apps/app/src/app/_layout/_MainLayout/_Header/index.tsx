@@ -1,9 +1,8 @@
 import { Button } from '@nl/ui/base/button'
+import { Menu } from 'lucide-react'
 
 import { useNavigation } from '@/contexts/NavigationContext'
 
-// assets
-import { Icon } from '@nl/ui/base/icon'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import LogoSection from '../_LogoSection'
 
@@ -40,7 +39,7 @@ const Header = () => {
           onClick={toggleDrawer}
           aria-label="toggle sidebar"
         >
-          <Icon name="menu" />
+          <Menu aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />
         </Button>
       </div>
       <div className="hidden items-center justify-between gap-4 lg:flex">

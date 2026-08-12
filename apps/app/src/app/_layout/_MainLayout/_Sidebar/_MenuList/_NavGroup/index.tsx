@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 
 // project imports
-import type { IconName } from '@nl/ui/base/icon'
+import type { AppNavIconName } from '@/components/AppNavIcon'
 import NavItem from '../_NavItem'
 import NavCollapse from '../_NavCollapse'
 
@@ -12,7 +12,7 @@ export interface NavGroupProps {
     id?: string
     type?: string
     children?: NavGroupProps['item'][]
-    icon?: IconName
+    icon?: AppNavIconName
     title?: ReactNode | string
     caption?: ReactNode | string
     color?: 'primary' | 'secondary' | 'default' | undefined
