@@ -12,7 +12,6 @@ import { Dialog } from '@nl/ui/base/dialog'
 import { Icon } from '@nl/ui/base/icon'
 
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
-import DegensFilter from '@/components/extended/DegensFilter'
 import DEFAULT_STATIC_FILTER from '@/components/extended/DegensFilter/constants'
 import {
   tranformDataByFilter,
@@ -32,6 +31,7 @@ import usePagination from '@/hooks/usePagination'
 import type { DegenFilter } from '@/types/degenFilter'
 import type { Degen } from '@/types/degens'
 import EmptyState from '@/components/EmptyState'
+import DeferredDegensFilter from '@/components/providers/DeferredDegensFilter'
 import DeferredDegenDialog from '@/components/providers/DeferredDegenDialog'
 import DeferredRenameDegenDialog from '@/components/providers/DeferredRenameDegenDialog'
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
@@ -221,7 +221,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
 
   const renderDrawer = useCallback(
     () => (
-      <DegensFilter
+      <DeferredDegensFilter
         onFilter={handleFilter}
         defaultFilterValues={defaultValues as DegenFilter}
         searchTerm={searchTerm}

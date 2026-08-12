@@ -8,9 +8,6 @@ import { HYDRAS } from '@/constants/hydras'
 export const tranformDataByFilter = (
   degens: Degen[],
   {
-    // prices = [],
-    // multipliers = [],
-    // rentals = [],
     backgrounds = [],
     cosmetics = [],
     searchTerm = [],
@@ -22,9 +19,6 @@ export const tranformDataByFilter = (
 ): Degen[] => {
   const result = degens.filter(
     ({
-      // price,
-      // multiplier,
-      // rental_count,
       background = '',
       id = '',
       name = '',
@@ -95,18 +89,6 @@ export const tranformDataByFilter = (
   } else if (sort === 'idDown') {
     result.sort((a, b) => Number(b.id) - Number(a.id))
   }
-  // else if (sort === 'priceUp') {
-  //   result.sort((a, b) => Number(a.price) - Number(b.price));
-  // } else if (sort === 'priceDown') {
-  //   result.sort((a, b) => Number(b.price) - Number(a.price));
-  // } else if (sort === 'mostRented') {
-  //   result.sort((a, b) => Number(b.total_rented) - Number(a.total_rented));
-  // } else if (sort === 'leastRented') {
-  //   result.sort((a, b) => Number(a.total_rented) - Number(b.total_rented));
-  // } else if (sort === 'recentRented') {
-  //   result.sort((a, b) => b.last_rented_at - a.last_rented_at);
-  // }
-
   return result
 }
 
@@ -163,9 +145,6 @@ export const getDefaultFilterValueFromData = (degens: Degen[] | undefined) => {
 // Needs to be divisible by 2, 3, or 4
 export const DEGENS_PER_PAGE = 12
 
-// MUI Grid size map (24-column grid so fractional 1.5/12 spans are integers):
-//   gridView: xs=12 -> 24, sm=6 -> 12, md=4 -> 8, lg/xl=4|3 -> 8|6
-//   list:     xs=6 -> 12, sm=4 -> 8, md=3 -> 6, lg/xl=3|2 -> 6|4
 export const getGridSizeClass = (isGridView: boolean, isDrawerOpen: boolean) => {
   if (isGridView) {
     return isDrawerOpen
