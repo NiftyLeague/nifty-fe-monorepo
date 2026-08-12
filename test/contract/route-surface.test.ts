@@ -1038,6 +1038,18 @@ describe('shared console game loading contract', () => {
       expect(source).not.toContain("from '@nl/ui/custom/console-game'")
     })
   }
+
+  it('shares the Smashers video asset across marketing apps', () => {
+    const smashersSource = readFileSync(
+      join(process.cwd(), 'apps/smashers/src/app/page.tsx'),
+      'utf8'
+    )
+    const webSource = readFileSync(join(process.cwd(), 'apps/web/src/app/(main)/page.tsx'), 'utf8')
+
+    expect(smashersSource).toContain('src="/video/smashers.mp4"')
+    expect(webSource).toContain('src="/video/smashers.mp4"')
+    expect(smashersSource).not.toContain('smashers-960p.mp4')
+  })
 })
 
 describe('shared below-fold loading contract', () => {
