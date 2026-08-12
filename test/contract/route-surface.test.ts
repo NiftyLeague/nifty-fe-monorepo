@@ -1573,6 +1573,7 @@ describe('deferred Sentry client contract', () => {
         expect(source).not.toContain('@nl/sentry-client/bootstrap')
       } else {
         expect(source).toContain("import('@nl/sentry-client/bootstrap')")
+        expect(source).toContain('sentryOptions')
       }
     })
   }
