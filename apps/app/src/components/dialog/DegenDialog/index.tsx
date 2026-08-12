@@ -8,7 +8,7 @@ import { cn } from '@nl/ui/utils'
 import { toast } from 'sonner'
 
 import { DEGEN_CONTRACT } from '@/constants/contracts'
-import { TRAIT_INDEXES } from '@/constants/cosmeticsFilters'
+import { TRAIT_INDEXES } from '@/constants/traitIndexes'
 import useNetworkContext from '@/hooks/useNetworkContext'
 import { GET_DEGEN_DETAIL_URL } from '@/constants/url'
 import type { CharacterType, Degen, GetDegenResponse } from '@/types/degens'

@@ -125,6 +125,7 @@ const dashboardDataProviderBoundary = 'apps/app/src/contexts/DashboardDataProvid
 const dashboardDataBoundary = 'apps/app/src/components/providers/DashboardDataBoundary.tsx'
 const deferredRenameDegenDialog = 'apps/app/src/components/providers/DeferredRenameDegenDialog.tsx'
 const deferredDialogLoading = 'apps/app/src/components/providers/DeferredDialogLoading.tsx'
+const degenDialog = 'apps/app/src/components/dialog/DegenDialog/index.tsx'
 const deferredProfileNameDialog = 'apps/app/src/components/providers/DeferredProfileNameDialog.tsx'
 const deferredProfileImageDialog =
   'apps/app/src/components/providers/DeferredProfileImageDialog.tsx'
@@ -436,6 +437,13 @@ describe('app route trees exist', () => {
 })
 
 describe('dashboard dialog loading contract', () => {
+  it('keeps the small trait index map out of the cosmetics registry graph', () => {
+    const source = readFileSync(join(process.cwd(), degenDialog), 'utf8')
+
+    expect(source).toContain("from '@/constants/traitIndexes'")
+    expect(source).not.toContain("from '@/constants/cosmeticsFilters'")
+  })
+
   for (const file of deferredDashboardDialogConsumers) {
     it(`defers the Degen dialog in ${file}`, () => {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
