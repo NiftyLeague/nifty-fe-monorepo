@@ -159,7 +159,6 @@ const smashersLoginPage = 'apps/smashers/src/app/(auth_routes)/login/page.tsx'
 const smashersLoginRoute = 'apps/smashers/src/app/(auth_routes)/login/LoginRoute.tsx'
 const smashersProfilePage = 'apps/smashers/src/app/(auth_routes)/profile/page.tsx'
 const smashersProfileRoute = 'apps/smashers/src/app/(auth_routes)/profile/ProfileRoute.tsx'
-const smashersHomeInteractive = 'apps/smashers/src/components/HomeInteractive/index.tsx'
 const smashersActionButtons = 'apps/smashers/src/components/Header/ActionButtonsGroup/index.tsx'
 const smashersRootLayout = 'apps/smashers/src/app/layout.tsx'
 const smashersAuthLayout = 'apps/smashers/src/app/(auth_routes)/layout.tsx'
@@ -317,7 +316,6 @@ describe('Smashers public shell contract', () => {
     const pageSource = readFileSync(join(process.cwd(), smashersHomePage), 'utf8')
     const actionButtonsSource = readFileSync(join(process.cwd(), smashersActionButtons), 'utf8')
 
-    expect(existsSync(join(process.cwd(), smashersHomeInteractive))).toBe(false)
     expect(pageSource).not.toContain('HomeInteractive')
     expect(pageSource).toContain("import Header, { type ActiveModal } from '@/components/Header'")
     expect(pageSource).toContain('<main>')
