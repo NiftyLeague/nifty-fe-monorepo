@@ -5,6 +5,7 @@ const responsiveTableList = 'apps/app/src/components/ResponsiveTable/DataList.ts
 const appManifest = 'apps/app/package.json'
 const appRootLayout = 'apps/app/src/app/layout.tsx'
 const bridgeDialog = 'apps/app/src/components/dialog/BridgeButtonDialog/index.tsx'
+const degenFilterUtils = 'apps/app/src/components/extended/DegensFilter/utils.ts'
 const privateShellIconSources = [
   'apps/app/src/app/_layout/_CollapsibleSidebarLayout/index.tsx',
   'apps/app/src/app/_layout/_MainLayout/_Header/index.tsx',
@@ -98,5 +99,12 @@ describe('app performance contracts', () => {
         /import \{[^}]*\bIcon\b[^}]*\} from ['"]@nl\/ui\/base\/icon/
       )
     }
+  })
+
+  it('keeps the seventh-tribe filter off the full Hydra metadata payload', () => {
+    const source = readFileSync(degenFilterUtils, 'utf8')
+
+    expect(source).toContain("from '@/constants/hydra-rarities'")
+    expect(source).not.toContain("from '@/constants/hydras'")
   })
 })
