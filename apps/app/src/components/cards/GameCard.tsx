@@ -5,8 +5,26 @@ import { Card, CardContent } from '@nl/ui/base/card'
 import { Title } from '@nl/ui/custom/typography'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import { cn } from '@nl/ui/utils'
-import ExpandableGameDescription from './ExpandableGameDescription'
 import type { SxProps, Theme } from '@/types'
+
+interface GameDescriptionDisclosureProps {
+  description?: string
+}
+
+const GameDescriptionDisclosure = ({ description }: GameDescriptionDisclosureProps) => (
+  <details className="group flex flex-col">
+    <summary className="order-2 cursor-pointer list-none text-left text-sm text-purple">
+      <span className="group-open:hidden">more..</span>
+      <span className="hidden group-open:inline">less</span>
+    </summary>
+    <p
+      className="order-1 max-h-[42px] overflow-y-hidden text-sm text-muted-foreground group-open:max-h-none"
+      style={{ whiteSpace: 'pre-wrap' }}
+    >
+      {description}
+    </p>
+  </details>
+)
 
 type CardGameContentProps = {
   actions?: React.ReactNode
@@ -47,7 +65,7 @@ const CardGameContent = ({
         {isComingSoon && <p className="text-sm text-warning">Coming 2023</p>}
         {required && <p className="text-sm text-warning">{required}</p>}
         {showMore ? (
-          <ExpandableGameDescription description={description} />
+          <GameDescriptionDisclosure description={description} />
         ) : (
           <p
             className="text-sm text-muted-foreground"

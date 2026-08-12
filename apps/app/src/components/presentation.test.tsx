@@ -171,7 +171,13 @@ describe('card presentation', () => {
         onPlayOnWebClick={web}
       />
     )
-    fireEvent.click(screen.getByText('more..'))
+    const disclosureLabel = screen.getByText('more..')
+    const disclosure = disclosureLabel.closest('summary')
+    const details = disclosure?.closest('details')
+    expect(disclosure).not.toBeNull()
+    expect(details?.hasAttribute('open')).toBe(false)
+    fireEvent.click(disclosureLabel)
+    expect(details?.hasAttribute('open')).toBe(true)
     fireEvent.click(screen.getByRole('button', { name: 'Play on Desktop' }))
     fireEvent.click(screen.getByRole('button', { name: 'Play on Web' }))
     expect(desktop).toHaveBeenCalledOnce()
