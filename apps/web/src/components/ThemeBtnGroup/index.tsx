@@ -2,7 +2,6 @@ import Link from 'next/link'
 import type { UrlObject } from 'url'
 
 import { cn } from '@nl/ui/utils'
-import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
 
 interface ButtonProps {
@@ -30,7 +29,6 @@ export const ThemeBtn = ({
     aria-disabled={disabled}
     className={cn(
       isPrimary ? 'theme-btn-primary' : 'theme-btn-transparent',
-      'transition-fade transition-fade-start delay-long',
       disabled && 'disabled',
       className
     )}
@@ -63,14 +61,8 @@ export const ThemeBtnGroup = ({ className, primary, secondary }: ThemeBtnGroupPr
       className
     )}
   >
-    <AnimatedWrapper>
-      <ThemeBtn {...primary} isPrimary />
-    </AnimatedWrapper>
-    {secondary ? (
-      <AnimatedWrapper>
-        <ThemeBtn {...secondary} />
-      </AnimatedWrapper>
-    ) : null}
+    <ThemeBtn {...primary} isPrimary />
+    {secondary ? <ThemeBtn {...secondary} /> : null}
   </div>
 )
 

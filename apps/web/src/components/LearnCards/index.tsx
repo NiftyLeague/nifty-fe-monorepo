@@ -1,6 +1,5 @@
 import Image from 'next/image'
 
-import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
 import ThemeBtnGroup from '@/components/ThemeBtnGroup'
 import { LEARN_CARDS } from './constants'
 
@@ -17,35 +16,25 @@ const LearnCard = ({ btnText, external, image, link, subtitle, title }: LearnCar
   return (
     <div className="relative flex items-center w-full h-full rounded-2xl overflow-hidden">
       <div className="absolute inset-0">
-        <AnimatedWrapper>
-          <div className="transition-fade-quick transition-fade-start delay-lite">
-            <Image
-              alt={`${title} card background`}
-              priority
-              src={image}
-              width={552}
-              height={310}
-              sizes="100vw"
-              style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
-            />
-          </div>
-        </AnimatedWrapper>
+        <div>
+          <Image
+            alt={`${title} card background`}
+            priority
+            src={image}
+            width={552}
+            height={310}
+            sizes="100vw"
+            style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
+          />
+        </div>
       </div>
 
       <div className="relative w-full h-full flex flex-col items-center justify-center p-3 md:p-4 lg:p-5 text-center z-10">
         <div className="mb-4 md:mb-6">
-          <AnimatedWrapper>
-            <h5 className="text-center uppercase transition-vertical-fade transition-vertical-fade-start delay-lite text-xl font-bold">
-              {title}
-            </h5>
-          </AnimatedWrapper>
+          <h5 className="text-center uppercase text-xl font-bold">{title}</h5>
         </div>
         <div className="mb-0">
-          <AnimatedWrapper>
-            <p className="text-center transition-vertical-fade transition-vertical-fade-start delay-normal">
-              {subtitle}
-            </p>
-          </AnimatedWrapper>
+          <p className="text-center">{subtitle}</p>
         </div>
         <ThemeBtnGroup
           primary={{
