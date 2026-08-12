@@ -54,7 +54,7 @@ const DesktopIntro = () => {
                 width={175}
                 height={175}
                 className="pixelated w-full h-auto"
-                sizes="100vw"
+                sizes="12vw"
               />
               <div className="absolute home-hero-companion-swing animate-propeller" />
             </div>
@@ -68,7 +68,7 @@ const DesktopIntro = () => {
                 alt="Home Hero Halo"
                 width={133}
                 height={50}
-                sizes="100vw"
+                sizes="9vw"
                 className="w-full h-auto"
               />
             </div>
@@ -84,7 +84,7 @@ const DesktopIntro = () => {
             src="/img/hero/satoshi.webp"
             width={180}
             height={190}
-            sizes="100vw"
+            sizes="226px"
             className="object-cover w-full h-auto"
           />
         </div>
@@ -112,7 +112,7 @@ const DesktopIntro = () => {
             alt="Learn More"
             width={348}
             height={108}
-            sizes="100vw"
+            sizes="407px"
             className="w-full h-auto"
           />
           <p className="m-0 p-0 speech-bubble-text">Learn More!</p>
@@ -256,7 +256,7 @@ const Home = () => {
               alt="Compete and Earn"
               width={668}
               height={535}
-              sizes="100vw"
+              sizes="(min-width: 768px) 50vw, 100vw"
               className="w-full h-auto"
             />
           </div>
@@ -269,7 +269,7 @@ const Home = () => {
                   width={200}
                   height={195}
                   src="/img/compete-and-earn/animated/token-4.webp"
-                  sizes="100vw"
+                  sizes="246px"
                 />
               </div>
             </ParallaxWrapper>
@@ -286,7 +286,7 @@ const Home = () => {
               alt="Land in NiftyWorld"
               width={612}
               height={482}
-              sizes="100vw"
+              sizes="(min-width: 768px) 50vw, 100vw"
               className="w-full h-auto"
             />
           </div>
@@ -381,7 +381,7 @@ const Home = () => {
               width={382}
               height={411}
               className="w-85 h-auto"
-              sizes="100vw"
+              sizes="(min-width: 768px) 382px, 85vw"
             />
           </div>
         </div>
@@ -394,7 +394,7 @@ const Home = () => {
                 alt="Community DEGENs"
                 width={596}
                 height={194}
-                sizes="100vw"
+                sizes="(min-width: 768px) 50vw, 100vw"
                 className="w-full h-auto pixelated"
               />
             </div>

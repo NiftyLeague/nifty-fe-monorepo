@@ -1131,6 +1131,25 @@ describe('web marketing page boundary contract', () => {
   })
 })
 
+describe('web marketing image sizing contract', () => {
+  it('uses rendered-width image hints for the home page artwork', () => {
+    const homeSource = readFileSync(join(process.cwd(), webHomePage), 'utf8')
+    const bouncingNftlSource = readFileSync(
+      join(process.cwd(), 'apps/web/src/components/BouncingNFTL/index.tsx'),
+      'utf8'
+    )
+
+    expect(homeSource).toContain('src="/img/hero/companion-base.webp"')
+    expect(homeSource).toContain('sizes="12vw"')
+    expect(homeSource).toContain('src="/img/hero/halo.webp"')
+    expect(homeSource).toContain('sizes="9vw"')
+    expect(homeSource).toContain('sizes="(min-width: 768px) 50vw, 100vw"')
+    expect(homeSource).toContain('sizes="246px"')
+    expect(bouncingNftlSource).toContain('sizes="226px"')
+    expect(bouncingNftlSource).toContain('sizes="246px"')
+  })
+})
+
 describe('web marketing animation boundary contract', () => {
   for (const file of [...animationFreeMarketingPages, ...animationFreeMarketingComponents]) {
     it(`keeps default marketing content out of the animated client boundary in ${file}`, () => {
