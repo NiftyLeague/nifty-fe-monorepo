@@ -3,7 +3,6 @@
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
 import type { NextConfig } from 'next'
-import { withSentryConfig } from '@sentry/nextjs'
 
 const ENV = (process.env.VERCEL_ENV as 'production' | 'preview' | undefined) ?? 'development'
 
@@ -93,9 +92,7 @@ const nextConfig: NextConfig = {
   },
 }
 
-// Injected content via Sentry wizard below
-
-export default withSentryConfig(nextConfig, {
+const sentryOptions = {
   // For all available options, see:
   // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
 
@@ -121,6 +118,16 @@ export default withSentryConfig(nextConfig, {
 
   // Capture React component names to see which component a user clicked on.
   // Route grouping is not worth shipping Sentry's manifest on every initial route.
-  routeManifestInjection: false,
+  routeManifestInjection: false as const,
   webpack: { reactComponentAnnotation: { enabled: true }, treeshake: { removeDebugLogging: true } },
-})
+}
+
+// Sentry's config wrapper pulls its webpack plugin and OpenTelemetry graph into
+// every build. Production is the only environment that uploads source maps,
+// uses the tunnel rewrite, or needs component annotations, so keep preview and
+// development builds on the plain Next config path.
+export default process.env.VERCEL_ENV === 'production'
+  ? import('@sentry/nextjs').then(({ withSentryConfig }) =>
+      withSentryConfig(nextConfig, sentryOptions)
+    )
+  : nextConfig
