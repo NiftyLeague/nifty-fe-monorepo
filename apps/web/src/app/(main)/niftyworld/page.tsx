@@ -79,6 +79,7 @@ const NiftyWorld: NextPage = () => {
                       alt="NiftyWorld District Highlight"
                       width={500}
                       height={283}
+                      sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
                       style={{ width: '100%', height: 'auto', maxWidth: '100%' }}
                     />
                   </div>
