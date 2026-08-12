@@ -19,6 +19,10 @@ export function areValuesEqual(
   if (Array.isArray(left) || Array.isArray(right)) {
     if (!Array.isArray(left) || !Array.isArray(right) || left.length !== right.length) return false
 
+    const previous = seen.get(left)
+    if (previous) return previous === right
+    seen.set(left, right)
+
     return left.every((value, index) => areValuesEqual(value, right[index], seen))
   }
 

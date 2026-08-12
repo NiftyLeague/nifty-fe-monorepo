@@ -10,7 +10,7 @@ describe('areValuesEqual', () => {
     expect(areValuesEqual({ first: 1, second: 2 }, { second: 2, first: 1 })).toBe(true)
   })
 
-  it('handles dates and cyclic objects without depending on lodash', () => {
+  it('handles dates and cyclic values without depending on lodash', () => {
     expect(areValuesEqual(new Date('2026-01-01'), new Date('2026-01-01'))).toBe(true)
     expect(areValuesEqual(new Date('2026-01-01'), new Date('2026-01-02'))).toBe(false)
 
@@ -19,6 +19,12 @@ describe('areValuesEqual', () => {
     first.self = first
     second.self = second
     expect(areValuesEqual(first, second)).toBe(true)
+
+    const firstArray: unknown[] = []
+    const secondArray: unknown[] = []
+    firstArray.push(firstArray)
+    secondArray.push(secondArray)
+    expect(areValuesEqual(firstArray, secondArray)).toBe(true)
   })
 
   it('does not treat different prototypes as equal', () => {
