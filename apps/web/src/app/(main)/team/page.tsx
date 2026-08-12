@@ -1,10 +1,8 @@
 import type { NextPage } from 'next'
 
-import Carousel from '@/components/Carousel'
-import TeamCardItem from '@/components/Carousel/TeamCardItem'
+import { DeferredTeamCarousel } from '@/components/DeferredTeamSections'
 import ThemeBtnGroup from '@/components/ThemeBtnGroup'
 import TeamDesktop from '@/components/TeamDesktop'
-import { CORE_TEAM, DEGEN_DELEGATES } from '@/constants/team'
 
 const Team: NextPage = () => {
   return (
@@ -45,11 +43,7 @@ const Team: NextPage = () => {
             className="teams-slider slider px-0 block md:hidden"
             style={{ alignItems: 'center', maxWidth: '100%', textAlign: 'center', minHeight: 300 }}
           >
-            <Carousel isMobileViewOnly hideGradient tabletItems={2}>
-              {[...CORE_TEAM, ...DEGEN_DELEGATES].map((item) => (
-                <TeamCardItem key={item.name} {...item} />
-              ))}
-            </Carousel>
+            <DeferredTeamCarousel />
           </div>
           <div className="purple-bg-orb orb-top-left" />
         </section>
