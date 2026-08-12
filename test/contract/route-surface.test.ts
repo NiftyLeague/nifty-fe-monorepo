@@ -241,6 +241,9 @@ const webNavbar = 'apps/web/src/components/Navbar/index.tsx'
 const sharedWebNavbar = 'packages/ui/src/components/custom/navbar/index.tsx'
 const sharedWebMobileNavbar = 'packages/ui/src/components/custom/navbar/MobileNavMenu.tsx'
 const sharedWebMobileTrigger = 'packages/ui/src/components/custom/navbar/MobileNavTrigger.tsx'
+const sharedConsoleGame = 'packages/ui/src/components/custom/console-game/index.tsx'
+const sharedDeferredConsoleGame =
+  'packages/ui/src/components/custom/deferred-console-game/index.tsx'
 const webCommunityPage = 'apps/web/src/app/(main)/community/page.tsx'
 const webTeamPage = 'apps/web/src/app/(main)/team/page.tsx'
 const webCarousel = 'apps/web/src/components/Carousel/index.tsx'
@@ -1258,6 +1261,15 @@ describe('shared console game loading contract', () => {
     expect(smashersSource).toContain('src="/video/smashers.mp4"')
     expect(webSource).toContain('src="/video/smashers.mp4"')
     expect(smashersSource).not.toContain('smashers-960p.mp4')
+  })
+
+  it('shares one viewport observer between the deferred wrapper and loaded player', () => {
+    const consoleGameSource = readFileSync(join(process.cwd(), sharedConsoleGame), 'utf8')
+    const deferredSource = readFileSync(join(process.cwd(), sharedDeferredConsoleGame), 'utf8')
+
+    expect(consoleGameSource).not.toContain("from '@nl/ui/hooks/useOnScreen'")
+    expect(consoleGameSource).toContain('isNearViewport?: boolean')
+    expect(deferredSource).toContain('isNearViewport={isNearViewport}')
   })
 })
 
