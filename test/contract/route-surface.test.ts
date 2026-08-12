@@ -145,6 +145,8 @@ const networkProvider = 'apps/app/src/contexts/NetworkProvider.tsx'
 const graphQL = 'apps/app/src/hooks/useGraphQL.ts'
 const publicCarousel = 'apps/web/src/components/Carousel/index.tsx'
 const interactivePublicCarousel = 'apps/web/src/components/Carousel/InteractiveCarousel.tsx'
+const deferredWeb3GameList = 'apps/app/src/app/(public-routes)/games/DeferredWeb3GameList.tsx'
+const staleDownloadGameDialog = 'apps/app/src/components/dialog/DownloadGameDialog.tsx'
 const smashersLoginClient = 'apps/smashers/src/app/(auth_routes)/login/LoginClient.tsx'
 const smashersLoginPage = 'apps/smashers/src/app/(auth_routes)/login/page.tsx'
 const smashersLoginRoute = 'apps/smashers/src/app/(auth_routes)/login/LoginRoute.tsx'
@@ -1038,6 +1040,16 @@ describe('deferred Sentry client contract', () => {
 })
 
 describe('public route dependency contract', () => {
+  it('uses the shared accessible deferred section for Web3 game cards', () => {
+    const source = readFileSync(join(process.cwd(), deferredWeb3GameList), 'utf8')
+
+    expect(source).toContain("from '@nl/ui/custom/deferred-section'")
+    expect(source).toContain("import('./_Web3GameList')")
+    expect(source).toContain('rootMargin="200px"')
+    expect(source).not.toContain('useOnScreen')
+    expect(source).not.toContain('useState')
+  })
+
   it('defers the Smashers PlayFab auth form behind an accessible loading boundary', () => {
     const source = readFileSync(join(process.cwd(), smashersLoginClient), 'utf8')
 
@@ -1114,12 +1126,22 @@ describe('public route dependency contract', () => {
       'utf8'
     )
 
-    expect(loader).toContain('useOnScreen')
+    expect(loader).toContain("from '@nl/ui/custom/deferred-section'")
     expect(loader).toContain("import('./_Web3GameList')")
     expect(list).toContain('asChild')
     expect(list).not.toContain('WalletFeatureProviders')
     expect(list).not.toContain('ConnectWrapper')
     expect(list).not.toContain('useTokensBalances')
+  })
+
+  it('keeps the removed desktop download dialog from returning as dead UI', () => {
+    const list = readFileSync(
+      join(process.cwd(), 'apps/app/src/app/(public-routes)/games/_Web3GameList/index.tsx'),
+      'utf8'
+    )
+
+    expect(existsSync(join(process.cwd(), staleDownloadGameDialog))).toBe(false)
+    expect(list).not.toContain('DownloadGameDialog')
   })
 
   it('keeps dashboard-only card actions in a private wrapper', () => {
