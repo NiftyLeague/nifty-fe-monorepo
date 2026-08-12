@@ -45,6 +45,9 @@ jobs:
             # A divergent tree is not necessarily drift: staging may contain
             # legitimate forward work. Preview the exact merge policy used by
             # the PR and compare its resulting tree with staging instead.
+            # When both branches changed a path after their merge base,
+            # staging is authoritative so reconciliation cannot regress a
+            # validated forward change through a clean, non-conflicting merge.
             # Use an isolated worktree so the preview applies the exact same
             # conflict policy as PR creation, including modify/delete paths.
             preview_dir=$(mktemp -d)
@@ -54,6 +57,7 @@ jobs:
             }
             trap cleanup_preview EXIT
             git worktree add --detach "$preview_dir" origin/staging >/dev/null
+            staging_head=$(git -C "$preview_dir" rev-parse HEAD)
             git -C "$preview_dir" config user.name "re-align-preview"
             git -C "$preview_dir" config user.email "re-align-preview@users.noreply.github.com"
 
@@ -83,6 +87,23 @@ jobs:
                 echo "failing closed for review."
                 exit 1
               fi
+            fi
+
+            # The recursive merge strategy only applies -X ours to conflicts.
+            # Restore every path changed by staging since the merge base so a
+            # clean main-side edit cannot overwrite staging's forward work.
+            merge_base=$(git -C "$preview_dir" merge-base "$staging_head" origin/main)
+            while IFS= read -r -d '' changed_path; do
+              if git -C "$preview_dir" cat-file -e "$staging_head:$changed_path" 2>/dev/null; then
+                git -C "$preview_dir" restore --source="$staging_head" --staged --worktree -- "$changed_path"
+              else
+                git -C "$preview_dir" rm --ignore-unmatch -- "$changed_path"
+              fi
+            done < <(git -C "$preview_dir" diff --no-renames --name-only -z "$merge_base" "$staging_head")
+
+            if [ -n "$(git -C "$preview_dir" diff --name-only --diff-filter=U)" ]; then
+              echo "Unable to preserve the staging-first merge policy safely;"
+              exit 1
             fi
 
             MERGED_TREE=$(git -C "$preview_dir" write-tree)
@@ -136,6 +157,7 @@ jobs:
           BOT_EMAIL+="@users.noreply.github.com"
           git config user.email "$BOT_EMAIL"
           git checkout -b "$BRANCH" origin/staging
+          staging_head=$(git rev-parse HEAD)
 
           resolve_ours_conflicts() {
             local conflicted_path
@@ -171,6 +193,28 @@ jobs:
               exit 1
             fi
             git commit --no-edit
+          fi
+
+          # Keep staging authoritative for every path it changed after the
+          # merge base, not only paths Git classified as conflicts. Main-only
+          # changes still flow into the reconciliation commit.
+          merge_base=$(git merge-base "$staging_head" origin/main)
+          while IFS= read -r -d '' changed_path; do
+            if git cat-file -e "$staging_head:$changed_path" 2>/dev/null; then
+              git restore --source="$staging_head" --staged --worktree -- "$changed_path"
+            else
+              git rm --ignore-unmatch -- "$changed_path"
+            fi
+          done < <(git diff --no-renames --name-only -z "$merge_base" "$staging_head")
+
+          if [ -n "$(git diff --name-only --diff-filter=U)" ]; then
+            echo "Unable to preserve the staging-first merge policy safely;"
+            git merge --abort 2>/dev/null || true
+            exit 1
+          fi
+
+          if ! git diff --cached --quiet; then
+            git commit --amend --no-edit
           fi
           git push -u origin "$BRANCH"
 
