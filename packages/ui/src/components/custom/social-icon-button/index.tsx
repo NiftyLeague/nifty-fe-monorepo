@@ -1,8 +1,9 @@
 'use client'
 
+import { Loader } from 'lucide-react'
+
 import { cn } from '@nl/ui/utils'
 import { Button } from '@nl/ui/base/button'
-import { Icon } from '@nl/ui/base/icon'
 
 import * as SocialIcons from './social-icons'
 import buttonStyles from './socials.module.css'
@@ -38,7 +39,11 @@ export function SocialIconButton({
       disabled={disabled}
       onClick={onClick}
     >
-      {loading ? <Icon name="loader" className="animate-spin" /> : <AuthIcon />}
+      {loading ? (
+        <Loader absoluteStrokeWidth className="animate-spin" size={20} strokeWidth={1.5} />
+      ) : (
+        <AuthIcon />
+      )}
       {label && label}
       <span className="sr-only">{provider}</span>
     </Button>
