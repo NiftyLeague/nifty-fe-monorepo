@@ -184,6 +184,7 @@ const viewportVideoEnhancer =
   'packages/ui/src/components/custom/viewport-video/ViewportVideoEnhancer.tsx'
 const deferredWeb3GameList = 'apps/app/src/app/(public-routes)/games/DeferredWeb3GameList.tsx'
 const staleDownloadGameDialog = 'apps/app/src/components/dialog/DownloadGameDialog.tsx'
+const gameCard = 'apps/app/src/components/cards/GameCard.tsx'
 const smashersLoginClient = 'apps/smashers/src/app/(auth_routes)/login/LoginClient.tsx'
 const smashersLoginPage = 'apps/smashers/src/app/(auth_routes)/login/page.tsx'
 const smashersLoginRoute = 'apps/smashers/src/app/(auth_routes)/login/LoginRoute.tsx'
@@ -1533,6 +1534,19 @@ describe('deferred Sentry client contract', () => {
 })
 
 describe('public route dependency contract', () => {
+  it('keeps game description disclosure server-rendered and keyboard accessible', () => {
+    const source = readFileSync(join(process.cwd(), gameCard), 'utf8')
+
+    expect(source).not.toContain("'use client'")
+    expect(source).not.toContain('useState')
+    expect(source).toContain('<details')
+    expect(source).toContain('<summary')
+    expect(source).toContain('group-open:max-h-none')
+    expect(
+      existsSync(join(process.cwd(), 'apps/app/src/components/cards/ExpandableGameDescription.tsx'))
+    ).toBe(false)
+  })
+
   it('uses the shared accessible deferred section for Web3 game cards', () => {
     const source = readFileSync(join(process.cwd(), deferredWeb3GameList), 'utf8')
 
