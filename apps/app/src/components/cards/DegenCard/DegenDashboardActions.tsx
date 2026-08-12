@@ -3,8 +3,8 @@
 import { memo, useMemo } from 'react'
 import Image from 'next/image'
 import { toast } from 'sonner'
+import { Heart } from 'lucide-react'
 import { Button } from '@nl/ui/base/button'
-import { Icon } from '@nl/ui/base/icon'
 import { formatNumberToDisplay } from '@nl/ui/utils'
 import useClaimableNFTL from '@/hooks/balances/useClaimableNFTL'
 import useAuth from '@/hooks/useAuth'
@@ -59,10 +59,11 @@ const DegenDashboardActions = ({
           onClick={onClickFavorite}
           aria-label={fav ? 'Remove degen from favorites' : 'Add degen to favorites'}
         >
-          <Icon
-            name="heart"
+          <Heart
+            absoluteStrokeWidth
+            color="currentColor"
             strokeWidth={fav ? 0 : 1.5}
-            fill={fav ? 'foreground' : undefined}
+            fill={fav ? 'var(--color-foreground)' : 'none'}
             size={size === 'small' ? 12 : 16}
             aria-hidden="true"
           />

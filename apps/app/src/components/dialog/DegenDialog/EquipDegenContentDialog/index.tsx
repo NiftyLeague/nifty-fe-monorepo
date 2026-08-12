@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
+import { X } from 'lucide-react'
 
 import { gtm, GTM_EVENTS } from '@nl/ui/gtm'
 import { Button } from '@nl/ui/base/button'
@@ -14,7 +15,6 @@ import { COMICS_PURCHASE_URL } from '@/constants/url'
 import type { Degen } from '@/types/degens'
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
 import EmptyState from '@/components/EmptyState'
-import { Icon } from '@nl/ui/base/icon'
 import { areValuesEqual } from '@/utils/value-equality'
 
 import {
@@ -207,12 +207,25 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
               <div key={slot.name} className="relative" style={{ width: 40, height: 40 }}>
                 {getSlotImage(index)}
                 {isEquippedSlot(index) && (
-                  <div
-                    className={cn(tag, 'flex items-center justify-center cursor-pointer')}
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    aria-label={`Unequip ${slot.name}`}
+                    className={cn(
+                      tag,
+                      'flex h-3 w-3 items-center justify-center border-0 p-0 cursor-pointer'
+                    )}
                     onClick={() => handleUnequip(index)}
                   >
-                    <Icon name="x" size={12} className="cursor-pointer" />
-                  </div>
+                    <X
+                      aria-hidden="true"
+                      absoluteStrokeWidth
+                      size={12}
+                      strokeWidth={1.5}
+                      className="cursor-pointer"
+                    />
+                  </Button>
                 )}
               </div>
             ))}

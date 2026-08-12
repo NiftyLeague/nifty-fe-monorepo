@@ -2,9 +2,9 @@
 
 import { useContext, useState, useMemo } from 'react'
 import { toast } from 'sonner'
+import { Edit } from 'lucide-react'
 
 import { Button } from '@nl/ui/base/button'
-import { Icon } from '@nl/ui/base/icon'
 import { Title } from '@nl/ui/custom/typography'
 import { Dialog, DialogTrigger, DialogContent, DialogContext } from '@/components/dialog'
 import SectionSlider from '@/components/sections/SectionSlider'
@@ -145,7 +145,7 @@ const ProfileImageDialog = ({
           aria-label="edit"
           className="absolute left-2 top-2 cursor-pointer"
         >
-          <Icon name="edit" size="xl" strokeWidth={2.5} />
+          <Edit aria-hidden="true" absoluteStrokeWidth size={28} strokeWidth={2.5} />
         </Button>
       </DialogTrigger>
       <DialogContent sx={{ maxWidth: '1000px' }}>

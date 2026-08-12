@@ -1,4 +1,4 @@
-import { Icon } from '@nl/ui/base/icon'
+import { ShoppingCart } from 'lucide-react'
 import useComicDimension from '@/hooks/useComicDimension'
 
 export interface BuyCardProps {
@@ -23,7 +23,13 @@ const BuyCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<BuyCardP
       className="flex cursor-pointer flex-col items-center justify-center rounded-[5px] border border-[#363636]"
       style={{ width: cardWidth, height: cardHeight }}
     >
-      <Icon name="shopping-cart" color="purple" size={cardWidth - 50} strokeWidth={3} />
+      <ShoppingCart
+        aria-hidden="true"
+        absoluteStrokeWidth
+        color="var(--color-purple)"
+        size={cardWidth - 50}
+        strokeWidth={3}
+      />
       <span className="mt-0.5 text-purple underline">{isNew ? 'Buy' : 'Buy More'}</span>
     </div>
   )
