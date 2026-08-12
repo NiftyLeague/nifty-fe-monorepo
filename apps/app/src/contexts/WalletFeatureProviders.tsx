@@ -3,6 +3,7 @@
 import type { PropsWithChildren } from 'react'
 
 import AuditFixtureContextWrapper from '@/contexts/AuditFixtureContextWrapper'
+import { AuthStatusProvider } from '@/contexts/AuthStatusContext'
 import { AuthTokenProvider } from '@/contexts/AuthTokenContext'
 import { IMXProvider } from '@/contexts/IMXContext'
 import { LocalStorageProvider } from '@/contexts/LocalStorageContext'
@@ -20,11 +21,13 @@ export default function WalletFeatureProviders({ children }: PropsWithChildren) 
   ) : (
     <NetworkProvider>
       <IMXProvider>
-        <AuthTokenProvider>
-          <NFTsBalanceProvider>
-            <TokensBalanceProvider>{children}</TokensBalanceProvider>
-          </NFTsBalanceProvider>
-        </AuthTokenProvider>
+        <AuthStatusProvider>
+          <AuthTokenProvider>
+            <NFTsBalanceProvider>
+              <TokensBalanceProvider>{children}</TokensBalanceProvider>
+            </NFTsBalanceProvider>
+          </AuthTokenProvider>
+        </AuthStatusProvider>
       </IMXProvider>
     </NetworkProvider>
   )
