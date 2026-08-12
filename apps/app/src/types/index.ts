@@ -1,4 +1,4 @@
-import type { IconName } from '@nl/ui/base/icon'
+import type { AppNavIconName } from '@/components/AppNavIcon'
 
 // Local MUI-compatible minimal types (MUI support dropped)
 export type Theme = {
@@ -30,7 +30,7 @@ export type NavItemTypeObject = { items: NavItemType[] }
 
 export type NavItemType = {
   id?: string
-  icon?: IconName
+  icon?: AppNavIconName
   target?: boolean
   external?: string
   url?: string | undefined
