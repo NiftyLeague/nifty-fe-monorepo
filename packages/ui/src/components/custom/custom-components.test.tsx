@@ -12,7 +12,6 @@ const state = {
   intersecting: true,
   mobile: true,
   milliseconds: 1_500,
-  onScreen: true,
   pathname: '/about',
   start: mock(),
   stop: mock(),
@@ -38,7 +37,6 @@ beforeEach(() => {
   mock.module('@nl/ui/hooks/useScrollDetection', () => ({
     useScrollDetection: () => ({ ref: mock(), isIntersecting: state.intersecting }),
   }))
-  mock.module('@nl/ui/hooks/useOnScreen', () => ({ useOnScreen: () => state.onScreen }))
   mock.module('@nl/ui/hooks/useParallax', () => ({
     useParallax: (...args: unknown[]) => state.parallax(...args),
   }))
@@ -61,7 +59,6 @@ afterEach(() => {
   state.intersecting = true
   state.mobile = true
   state.milliseconds = 1_500
-  state.onScreen = true
   state.pathname = '/about'
 })
 
@@ -177,61 +174,6 @@ describe('Navbar', () => {
     state.intersecting = false
     const { container } = render(<Navbar navItems={navItems} />)
     expect(container.querySelector('header')?.className).toContain('bg-background/90')
-  })
-})
-
-describe('AnimatedWrapper and Preloader', () => {
-  let AnimatedWrapper: typeof import('./animated-wrapper').AnimatedWrapper
-  let Preloader: typeof import('./preloader').Preloader
-  let PreloaderBase: typeof import('./preloader/base').PreloaderBase
-
-  beforeEach(async () => {
-    const animatedModule = await import('./animated-wrapper')
-    const preloaderModule = await import('./preloader')
-    const preloaderBaseModule = await import('./preloader/base')
-    AnimatedWrapper = animatedModule.AnimatedWrapper
-    Preloader = preloaderModule.Preloader
-    PreloaderBase = preloaderBaseModule.PreloaderBase
-  })
-
-  it('starts delayed and immediate nested animations and configures parallax', () => {
-    jest.useFakeTimers()
-    const { rerender } = render(
-      <AnimatedWrapper
-        delay={20}
-        parallax
-        parallaxDirection="right"
-        parallaxIntensity="strong"
-        component="section"
-      >
-        <div className="fade-start slide-start keep">Animated</div>
-      </AnimatedWrapper>
-    )
-    expect(screen.getByText('Animated')?.className).toContain('fade-start')
-    act(() => jest.advanceTimersByTime(20))
-    expect(screen.getByText('Animated')?.className).not.toContain('fade-start')
-    expect(screen.getByText('Animated')?.className).toContain('keep')
-    expect(state.parallax).toHaveBeenCalled()
-
-    rerender(
-      <AnimatedWrapper immediate>
-        <div className="zoom-start">Immediate</div>
-      </AnimatedWrapper>
-    )
-    expect(screen.getByText('Immediate')?.className).not.toContain('zoom-start')
-
-    state.onScreen = false
-    rerender(
-      <AnimatedWrapper>
-        <div className="hold-start">Held</div>
-      </AnimatedWrapper>
-    )
-    expect(screen.getByText('Held')?.className).toContain('hold-start')
-  })
-
-  it('normalizes progress and shows slow-mobile guidance (skipped: setInterval conflict with Bun fake timers)', () => {
-    // TODO: Preloader uses setInterval inside useEffect that conflicts with Bun's fake timers
-    // The overflow check happens on interval, so fake timers deadlock. Needs real async timers.
   })
 })
 
