@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { Button } from '@nl/ui/base/button'
 import GameCard from '@/components/cards/GameCard'
-import DownloadGameDialog from '@/components/dialog/DownloadGameDialog'
 
 import styles from './grid-item.module.css'
 
@@ -20,7 +19,6 @@ const Web3GameList = () => {
           autoHeight={false}
           actions={
             <>
-              <DownloadGameDialog />
               <Button asChild variant="outline" className="w-full min-w-20 flex-1">
                 <Link href="/games/smashers">Play in Browser</Link>
               </Button>
