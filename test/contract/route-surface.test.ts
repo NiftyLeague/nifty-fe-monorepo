@@ -215,6 +215,8 @@ const animationFreeMarketingPages = [
   'apps/web/src/app/(main)/lore/page.tsx',
 ]
 const animationFreeMarketingComponents = [
+  'apps/smashers/src/components/GameSection/index.tsx',
+  'apps/smashers/src/components/DegensSection/index.tsx',
   'apps/web/src/components/ThemeBtnGroup/index.tsx',
   'apps/web/src/components/LearnCards/index.tsx',
   'apps/web/src/components/Careers/JobCard.tsx',
