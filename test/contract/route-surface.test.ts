@@ -177,6 +177,11 @@ const networkProvider = 'apps/app/src/contexts/NetworkProvider.tsx'
 const graphQL = 'apps/app/src/hooks/useGraphQL.ts'
 const publicCarousel = 'apps/web/src/components/Carousel/index.tsx'
 const interactivePublicCarousel = 'apps/web/src/components/Carousel/InteractiveCarousel.tsx'
+const viewportVideo = 'packages/ui/src/components/custom/viewport-video/index.tsx'
+const viewportVideoBoundary =
+  'packages/ui/src/components/custom/viewport-video/ViewportVideoBoundary.tsx'
+const viewportVideoEnhancer =
+  'packages/ui/src/components/custom/viewport-video/ViewportVideoEnhancer.tsx'
 const deferredWeb3GameList = 'apps/app/src/app/(public-routes)/games/DeferredWeb3GameList.tsx'
 const staleDownloadGameDialog = 'apps/app/src/components/dialog/DownloadGameDialog.tsx'
 const smashersLoginClient = 'apps/smashers/src/app/(auth_routes)/login/LoginClient.tsx'
@@ -1544,6 +1549,20 @@ describe('public route dependency contract', () => {
     expect(interactive).toContain('react-multi-carousel/lib/styles.css')
     expect(interactive).toContain('ssr={true}')
     expect(interactive).toContain('autoPlay={true}')
+  })
+
+  it('keeps public videos server-rendered while deferring playback observers', () => {
+    const shell = readFileSync(join(process.cwd(), viewportVideo), 'utf8')
+    const boundary = readFileSync(join(process.cwd(), viewportVideoBoundary), 'utf8')
+    const enhancer = readFileSync(join(process.cwd(), viewportVideoEnhancer), 'utf8')
+
+    expect(shell).not.toContain("'use client'")
+    expect(shell).toContain("from './ViewportVideoBoundary'")
+    expect(boundary).toContain("dynamic(() => import('./ViewportVideoEnhancer')")
+    expect(boundary).toContain('preload="none"')
+    expect(enhancer).toContain("from '@nl/ui/hooks/useOnScreen'")
+    expect(enhancer).toContain("from '@nl/ui/hooks/useMediaQuery'")
+    expect(enhancer).toContain("video.preload = shouldPlay ? 'metadata' : 'none'")
   })
 
   it('keeps API-only constants separate from the contract registry', () => {
