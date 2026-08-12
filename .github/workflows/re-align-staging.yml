@@ -45,23 +45,54 @@ jobs:
             # A divergent tree is not necessarily drift: staging may contain
             # legitimate forward work. Preview the exact merge policy used by
             # the PR and compare its resulting tree with staging instead.
-            # merge-tree computes the result without creating a commit, so
-            # detection is independent of runner Git identity configuration
-            # and handles already-up-to-date refs as a no-op.
-            if MERGED_TREE=$(git merge-tree --write-tree -X ours \
-              origin/staging origin/main); then
-              if [ "$MERGED_TREE" = "$STAGING_TREE" ]; then
-                echo "Main is already represented in staging under the"
-                echo "re-alignment merge policy."
-                echo "drifted=false" >> "$GITHUB_OUTPUT"
-              else
-                echo "Merging main would change staging's Git tree."
-                echo "drifted=true" >> "$GITHUB_OUTPUT"
+            # Use an isolated worktree so the preview applies the exact same
+            # conflict policy as PR creation, including modify/delete paths.
+            preview_dir=$(mktemp -d)
+            cleanup_preview() {
+              git worktree remove --force "$preview_dir" >/dev/null 2>&1 || true
+              rmdir "$preview_dir" >/dev/null 2>&1 || true
+            }
+            trap cleanup_preview EXIT
+            git worktree add --detach "$preview_dir" origin/staging >/dev/null
+            git -C "$preview_dir" config user.name "re-align-preview"
+            git -C "$preview_dir" config user.email "re-align-preview@users.noreply.github.com"
+
+            resolve_ours_conflicts() {
+              local conflicted_path
+              while IFS= read -r -d '' conflicted_path; do
+                if git -C "$preview_dir" cat-file -e "HEAD:$conflicted_path" 2>/dev/null; then
+                  git -C "$preview_dir" checkout --ours -- "$conflicted_path"
+                  git -C "$preview_dir" add -- "$conflicted_path"
+                else
+                  git -C "$preview_dir" rm -- "$conflicted_path"
+                fi
+              done < <(git -C "$preview_dir" diff --name-only --diff-filter=U -z)
+            }
+
+            if ! git -C "$preview_dir" merge --no-commit --no-ff -X ours \
+              origin/main -m "chore: merge main into staging to re-align branches"; then
+              CONFLICTS=$(git -C "$preview_dir" diff --name-only --diff-filter=U)
+              if [ -z "$CONFLICTS" ]; then
+                echo "The re-alignment merge preview failed without"
+                echo "merge conflicts; failing closed for review."
+                exit 1
               fi
+              resolve_ours_conflicts
+              if [ -n "$(git -C "$preview_dir" diff --name-only --diff-filter=U)" ]; then
+                echo "Unable to resolve every re-alignment conflict safely;"
+                echo "failing closed for review."
+                exit 1
+              fi
+            fi
+
+            MERGED_TREE=$(git -C "$preview_dir" write-tree)
+            if [ "$MERGED_TREE" = "$STAGING_TREE" ]; then
+              echo "Main is already represented in staging under the"
+              echo "re-alignment merge policy."
+              echo "drifted=false" >> "$GITHUB_OUTPUT"
             else
-              echo "The re-alignment merge preview failed (likely a conflict);"
-              echo "failing closed for review."
-              exit 1
+              echo "Merging main would change staging's Git tree."
+              echo "drifted=true" >> "$GITHUB_OUTPUT"
             fi
           fi
 
@@ -106,13 +137,40 @@ jobs:
           git config user.email "$BOT_EMAIL"
           git checkout -b "$BRANCH" origin/staging
 
+          resolve_ours_conflicts() {
+            local conflicted_path
+            while IFS= read -r -d '' conflicted_path; do
+              if git cat-file -e "HEAD:$conflicted_path" 2>/dev/null; then
+                git checkout --ours -- "$conflicted_path"
+                git add -- "$conflicted_path"
+              else
+                # For modify/delete conflicts, staging's deletion is the
+                # authoritative result and must be recorded explicitly.
+                git rm -- "$conflicted_path"
+              fi
+            done < <(git diff --name-only --diff-filter=U -z)
+          }
+
           # Merge main into staging. Conflicts keep staging's version (-X ours),
-          # while main's non-conflicting changes still flow in. A conflict that
-          # cannot be resolved automatically fails closed without opening a PR.
+          # while main's non-conflicting changes still flow in. Git's recursive
+          # strategy leaves modify/delete conflicts unresolved, so resolve those
+          # paths explicitly with the same staging-first policy.
           if ! git merge origin/main --no-edit --no-ff -X ours \
             -m "chore: merge main into staging to re-align branches"; then
-            git merge --abort
-            exit 1
+            CONFLICTS=$(git diff --name-only --diff-filter=U)
+            if [ -z "$CONFLICTS" ]; then
+              echo "The re-alignment merge failed without merge conflicts;"
+              echo "aborting without opening a PR."
+              git merge --abort
+              exit 1
+            fi
+            resolve_ours_conflicts
+            if [ -n "$(git diff --name-only --diff-filter=U)" ]; then
+              echo "Unable to resolve every re-alignment conflict safely;"
+              git merge --abort
+              exit 1
+            fi
+            git commit --no-edit
           fi
           git push -u origin "$BRANCH"
 
