@@ -240,6 +240,7 @@ const gltfRouteBoundary =
 const webNavbar = 'apps/web/src/components/Navbar/index.tsx'
 const sharedWebNavbar = 'packages/ui/src/components/custom/navbar/index.tsx'
 const sharedWebMobileNavbar = 'packages/ui/src/components/custom/navbar/MobileNavMenu.tsx'
+const sharedWebNavLinkContent = 'packages/ui/src/components/custom/navbar/NavLinkContent.tsx'
 const sharedWebMobileTrigger = 'packages/ui/src/components/custom/navbar/MobileNavTrigger.tsx'
 const sharedConsoleGame = 'packages/ui/src/components/custom/console-game/index.tsx'
 const sharedDeferredConsoleGame =
@@ -1382,15 +1383,25 @@ describe('web public navigation contract', () => {
     const sharedNavbarSource = readFileSync(join(process.cwd(), sharedWebNavbar), 'utf8')
     const mobileTriggerSource = readFileSync(join(process.cwd(), sharedWebMobileTrigger), 'utf8')
     const mobileNavbarSource = readFileSync(join(process.cwd(), sharedWebMobileNavbar), 'utf8')
+    const sharedNavLinkContentSource = readFileSync(
+      join(process.cwd(), sharedWebNavLinkContent),
+      'utf8'
+    )
 
     expect(navbarSource).not.toContain("'use client'")
     expect(navbarSource).toContain("from '@nl/ui/custom/navbar'")
-    expect(sharedNavbarSource).toContain("import ActiveNavLink from './ActiveNavLink'")
+    expect(sharedNavbarSource).not.toContain("import ActiveNavLink from './ActiveNavLink'")
+    expect(sharedNavbarSource).toContain('function DesktopNavLink')
     expect(sharedNavbarSource).toContain('navbar-scroll-frame')
     expect(sharedNavbarSource).not.toContain('useScrollDetection')
     expect(sharedNavbarSource).toContain('<details')
     expect(sharedNavbarSource).not.toContain("from '@nl/ui/base/navigation-menu'")
     expect(sharedNavbarSource).not.toContain("from '@nl/ui/base/sheet'")
+    expect(sharedNavbarSource).not.toContain("from './ActiveNavLink'")
+    expect(mobileNavbarSource).toContain("from './ActiveNavLink'")
+    expect(sharedNavbarSource).toContain("from './NavLinkContent'")
+    expect(sharedNavLinkContentSource).toContain('export function NavLinkContent')
+    expect(sharedNavLinkContentSource).toContain('NAV_LINK_CONTENT_CLASS')
     expect(mobileTriggerSource).toContain("import('./MobileNavMenu')")
     expect(mobileTriggerSource).toContain('ssr: false')
     expect(mobileTriggerSource).toContain("from '@nl/ui/base/icon-button'")
