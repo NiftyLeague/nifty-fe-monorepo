@@ -1,5 +1,6 @@
 import Image from 'next/image'
-import { Icon } from '@nl/ui/base/icon'
+import { Check } from 'lucide-react'
+
 import { AnimatedImage } from '@nl/ui/custom/animated-image'
 import { cn } from '@nl/ui/utils'
 import styles from './index.module.css'
@@ -36,7 +37,15 @@ const RoadmapCard = ({
       <div
         className={cn(styles.cd_timeline_checkpoint, { [styles.completed as string]: completed })}
       >
-        {completed && <Icon name="check" strokeWidth={2.5} className="m-auto" />}
+        {completed && (
+          <Check
+            absoluteStrokeWidth
+            aria-hidden="true"
+            className="m-auto"
+            size={20}
+            strokeWidth={2.5}
+          />
+        )}
       </div>
     )}
 
