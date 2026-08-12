@@ -34,6 +34,9 @@ beforeEach(async () => {
     return {
       loadLeaderboard: async (gameType: string) => leaderboards[gameType],
     }
+    return {
+      loadLeaderboard: async (gameType: string) => leaderboards[gameType],
+    }
   })
 
   const [leaderboard, leaderboardServer] = await Promise.all([
