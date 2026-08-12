@@ -104,6 +104,10 @@ const walletStorageBoundaries = [
   'apps/app/src/components/providers/MintProviders.tsx',
 ]
 const dashboardOverview = 'apps/app/src/app/(private-routes)/dashboard/overview/page.tsx'
+const dashboardOverviewBoundary =
+  'apps/app/src/app/(private-routes)/dashboard/overview/DashboardOverviewRouteBoundary.tsx'
+const dashboardOverviewClient =
+  'apps/app/src/app/(private-routes)/dashboard/overview/DashboardOverviewClient.tsx'
 const dashboardDegens = 'apps/app/src/app/(private-routes)/dashboard/degens/page.tsx'
 const dashboardDegensContent =
   'apps/app/src/app/(private-routes)/dashboard/degens/DashboardDegensContent.tsx'
@@ -848,7 +852,6 @@ describe('private provider loading contract', () => {
     expect(source).toContain("from '@/contexts/TokensBalanceContext'")
 
     for (const file of [
-      'apps/app/src/app/(private-routes)/dashboard/overview/page.tsx',
       'apps/app/src/app/(private-routes)/dashboard/degens/page.tsx',
       'apps/app/src/app/(private-routes)/dashboard/gamer-profile/page.tsx',
       'apps/app/src/app/(private-routes)/dashboard/items/page.tsx',
@@ -856,6 +859,9 @@ describe('private provider loading contract', () => {
     ]) {
       expect(readFileSync(join(process.cwd(), file), 'utf8')).toContain('DashboardDataBoundary')
     }
+    expect(readFileSync(join(process.cwd(), dashboardOverviewClient), 'utf8')).toContain(
+      'DashboardDataBoundary'
+    )
 
     expect(
       readFileSync(
@@ -951,13 +957,20 @@ describe('shared value equality contract', () => {
 })
 
 describe('dashboard overview loading contract', () => {
-  it('defers dashboard sections behind the shared loading boundary', () => {
-    const source = readFileSync(join(process.cwd(), dashboardOverview), 'utf8')
+  it('defers the overview client graph behind the shared route loading boundary', () => {
+    const pageSource = readFileSync(join(process.cwd(), dashboardOverview), 'utf8')
+    const boundarySource = readFileSync(join(process.cwd(), dashboardOverviewBoundary), 'utf8')
+    const source = readFileSync(join(process.cwd(), dashboardOverviewClient), 'utf8')
     const nftlSource = readFileSync(
       join(process.cwd(), 'apps/app/src/app/(private-routes)/dashboard/overview/_MyNFTL/index.tsx'),
       'utf8'
     )
 
+    expect(pageSource).not.toContain("'use client'")
+    expect(pageSource).toContain("from './DashboardOverviewRouteBoundary'")
+    expect(boundarySource).toContain("dynamic(() => import('./DashboardOverviewClient')")
+    expect(boundarySource).toContain('ssr: false')
+    expect(boundarySource).toContain('<RouteLoading label="Loading dashboard overview" />')
     expect(source).toContain('import DeferredDashboardSection')
     expect(source).toContain("const loadMyComics = () => import('./MyComics')")
     expect(source).toContain("const loadMyItems = () => import('./MyItems')")
