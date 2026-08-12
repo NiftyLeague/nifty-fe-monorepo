@@ -1627,6 +1627,21 @@ describe('production-only Sentry server contract', () => {
 })
 
 describe('public route dependency contract', () => {
+  it('keeps public purchase URLs independent from the contract registry', () => {
+    const source = readFileSync(join(process.cwd(), 'apps/app/src/constants/url.ts'), 'utf8')
+    const publicUrls = readFileSync(
+      join(process.cwd(), 'apps/app/src/constants/public-urls.ts'),
+      'utf8'
+    )
+
+    expect(source).not.toContain("from './contracts'")
+    expect(source).toContain(
+      "export { DEGEN_PURCHASE_URL, NFTL_PURCHASE_URL } from './public-urls'"
+    )
+    expect(publicUrls).toContain('0xB0d7e9Ff5fb8E739c4990f7920d8047AcfAe4884')
+    expect(publicUrls).toContain('NFTL_PURCHASE_URL')
+  })
+
   it('keeps game description disclosure server-rendered and keyboard accessible', () => {
     const source = readFileSync(join(process.cwd(), gameCard), 'utf8')
 
