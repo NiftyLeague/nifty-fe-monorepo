@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { cloneDeep } from 'lodash'
 import { Checkbox } from '@nl/ui/base/checkbox'
 
 import { CellRenderer, LabelRenderer } from './Renderer'
@@ -80,7 +79,7 @@ const DataList: React.FC<DataListProps> = (props) => {
     onChangePage(event, page)
 
   const handleSelection = (row: Row) => {
-    const newSelection = cloneDeep(selection)
+    const newSelection = [...selection]
     const rowId = row.id || (row.user_id as string | number)
     if (newSelection.indexOf(rowId) === -1) {
       newSelection.push(rowId)
@@ -92,7 +91,7 @@ const DataList: React.FC<DataListProps> = (props) => {
   }
 
   const handleSelectAll = () => {
-    let newSelection = cloneDeep(selection)
+    let newSelection = [...selection]
     if (newSelection.length > 0) {
       newSelection = []
     } else {
