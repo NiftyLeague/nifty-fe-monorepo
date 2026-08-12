@@ -1,7 +1,7 @@
 import { useContext, cloneElement } from 'react'
+import { X } from 'lucide-react'
 
 import { Button } from '@nl/ui/base/button'
-import { Icon } from '@nl/ui/base/icon'
 
 import { DialogContext } from '.'
 import type { DialogAction } from '@/types/dialog'
@@ -35,7 +35,7 @@ const CloseIconButton = () => {
         aria-label="close"
         className={styles.closeIconButton}
       >
-        <Icon name="x" size="lg" />
+        <X aria-hidden="true" absoluteStrokeWidth size={24} strokeWidth={1.5} />
       </Button>
     </DialogDismissButton>
   )

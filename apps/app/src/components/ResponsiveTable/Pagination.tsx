@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@nl/ui/base/button'
-import { Icon } from '@nl/ui/base/icon'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { cn } from '@nl/ui/utils'
 
 import type { TablePaginationProps } from './types'
@@ -50,7 +50,7 @@ const Pagination: React.FC<PaginationProps> = ({
         onClick={() => handleChangePage(null, Math.max(0, page - 1))}
         aria-label="Previous page"
       >
-        <Icon name="chevron-left" />
+        <ChevronLeft aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />
       </Button>
       <span className="text-sm text-muted-foreground">
         Page {page + 1} of {totalPages}
@@ -63,7 +63,7 @@ const Pagination: React.FC<PaginationProps> = ({
         onClick={() => handleChangePage(null, page + 1)}
         aria-label="Next page"
       >
-        <Icon name="chevron-right" />
+        <ChevronRight aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />
       </Button>
     </Wrapper>
   )
