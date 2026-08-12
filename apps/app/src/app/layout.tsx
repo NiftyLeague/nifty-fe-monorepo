@@ -4,7 +4,9 @@ import Script from 'next/script'
 
 import DeferredSentry from '@nl/sentry-client/react'
 import { DeferredAnalytics } from '@nl/ui/gtm'
-import { customFontClassName } from '@nl/ui/fonts'
+import { defaultFont } from '@nl/ui/fonts/default'
+import { headerFont } from '@nl/ui/fonts/header'
+import { subheaderFont } from '@nl/ui/fonts/subheader'
 import { cn } from '@nl/ui/utils'
 
 import '@/styles/app.css'
@@ -62,7 +64,11 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en" suppressHydrationWarning className={cn(customFontClassName, 'dark')}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={cn(defaultFont.variable, headerFont.variable, subheaderFont.variable, 'dark')}
+    >
       <DeferredAnalytics />
       <DeferredSentry
         enabled={process.env.VERCEL_ENV === 'production'}
