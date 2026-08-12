@@ -43,6 +43,27 @@
     background: radial-gradient(500% 50% at center, transparent 50%, var(--color-background) 98%);
   }
 
+  .navbar-scroll-frame {
+    @media (prefers-reduced-motion: no-preference) {
+      @supports (animation-timeline: scroll()) {
+        animation: navbar-scroll-frame-background linear both;
+        animation-duration: 1ms;
+        animation-range: 0 80px;
+        animation-timeline: scroll(root block);
+      }
+    }
+  }
+
+  @keyframes navbar-scroll-frame-background {
+    from {
+      background-color: transparent;
+    }
+
+    to {
+      background-color: color-mix(in oklab, var(--color-background) 90%, transparent);
+    }
+  }
+
   .purple-bg-orb {
     @apply absolute w-[400px] h-[400px] opacity-[0.15] blur-[50px] rounded-[398px] pointer-events-none;
     background: var(--gradient-brand-pink);
