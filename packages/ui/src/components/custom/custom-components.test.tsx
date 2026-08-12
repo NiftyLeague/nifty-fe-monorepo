@@ -2,6 +2,7 @@ const stubGlobal = (name, value) => {
   Object.defineProperty(globalThis, name, { value, configurable: true, writable: true })
 }
 import type { PropsWithChildren } from 'react'
+import { Mail } from 'lucide-react'
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, jest, mock } from 'bun:test'
@@ -123,6 +124,14 @@ describe('custom Input', () => {
 
     rerender(<Input id="plain" />)
     expect(screen.getByRole('textbox')?.getAttribute('id')).toBe('plain')
+  })
+
+  it('accepts direct Lucide icons and normalizes their rendered size', () => {
+    const { container } = render(<Input id="direct-icon" startIcon={<Mail />} />)
+    const icon = container.querySelector('svg.lucide-mail')
+
+    expect(icon?.getAttribute('width')).toBe('18')
+    expect(icon?.getAttribute('height')).toBe('18')
   })
 })
 

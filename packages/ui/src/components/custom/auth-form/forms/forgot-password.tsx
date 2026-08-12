@@ -3,11 +3,11 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import { Inbox, Loader, Mail } from 'lucide-react'
 
 import { Button } from '@nl/ui/base/button'
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@nl/ui/base/form'
 import { Input } from '@nl/ui/custom/input'
-import { Icon } from '@nl/ui/base/icon'
 
 import { VIEWS } from '../constants'
 
@@ -40,7 +40,12 @@ export function ForgotPasswordForm({ setAuthView, handleResetPassword }: ForgotP
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input {...field} type="email" autoComplete="on" startIcon={<Icon name="mail" />} />
+                <Input
+                  {...field}
+                  type="email"
+                  autoComplete="on"
+                  startIcon={<Mail absoluteStrokeWidth size={20} strokeWidth={1.5} />}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -48,10 +53,10 @@ export function ForgotPasswordForm({ setAuthView, handleResetPassword }: ForgotP
         />
         <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
           {form.formState.isSubmitting ? (
-            <Icon name="loader" className="animate-spin" />
+            <Loader absoluteStrokeWidth className="animate-spin" size={20} strokeWidth={1.5} />
           ) : (
             <>
-              <Icon name="inbox" />
+              <Inbox absoluteStrokeWidth size={20} strokeWidth={1.5} />
               Email Me
             </>
           )}
