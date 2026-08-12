@@ -299,7 +299,7 @@ const publicDesktopSidebarToggle =
 const publicMobileNavigationTrigger =
   'apps/app/src/components/providers/PublicMobileNavigationTrigger.tsx'
 const publicIconButton = 'packages/ui/src/components/base/icon-button.tsx'
-const publicMainContent = 'apps/app/src/components/providers/PublicMainContent.tsx'
+const publicContentContainer = 'apps/app/src/components/wrapper/PublicContentContainer.tsx'
 const publicNavLinks = 'apps/app/src/components/providers/PublicNavLinks.tsx'
 const publicActiveNavLink = 'apps/app/src/components/providers/PublicActiveNavLink.tsx'
 const smashersBackButton = 'apps/smashers/src/components/Header/BackButton/index.tsx'
@@ -766,7 +766,7 @@ describe('public app shell contract', () => {
       join(process.cwd(), publicMobileNavigationTrigger),
       'utf8'
     )
-    const mainContentSource = readFileSync(join(process.cwd(), publicMainContent), 'utf8')
+    const contentContainerSource = readFileSync(join(process.cwd(), publicContentContainer), 'utf8')
     const linksSource = readFileSync(join(process.cwd(), publicNavLinks), 'utf8')
     const activeLinkSource = readFileSync(join(process.cwd(), publicActiveNavLink), 'utf8')
     const iconButtonSource = readFileSync(join(process.cwd(), publicIconButton), 'utf8')
@@ -774,11 +774,15 @@ describe('public app shell contract', () => {
     expect(navigationSource).not.toContain("'use client'")
     expect(navigationSource).toContain("from './PublicDesktopSidebarToggle'")
     expect(navigationSource).toContain("from './PublicMobileNavigationTrigger'")
-    expect(navigationSource).toContain("from './PublicMainContent'")
     expect(navigationSource).not.toContain("from '@nl/ui/base/sheet'")
     expect(navigationSource).not.toContain("from '@nl/ui/base/scroll-area'")
     expect(navigationSource).not.toContain("from '@nl/ui/base/icon'")
     expect(navigationSource).not.toContain("from '@/components/extended/Breadcrumbs'")
+    expect(navigationSource).toContain('{children}')
+    expect(navigationSource).not.toContain('PublicMainContent')
+    expect(
+      existsSync(join(process.cwd(), 'apps/app/src/components/providers/PublicMainContent.tsx'))
+    ).toBe(false)
     expect(desktopToggleSource).toContain("from '@nl/ui/base/icon-button'")
     expect(desktopToggleSource).not.toContain("from '@nl/ui/base/button'")
     expect(desktopToggleSource).toContain('data-sidebar-open')
@@ -786,7 +790,8 @@ describe('public app shell contract', () => {
     expect(mobileTriggerSource).toContain("import('./PublicMobileNavigation')")
     expect(mobileTriggerSource).toContain("from '@nl/ui/base/icon-button'")
     expect(mobileTriggerSource).not.toContain("from '@nl/ui/base/button'")
-    expect(mainContentSource).toContain('usePathname')
+    expect(contentContainerSource).not.toContain("'use client'")
+    expect(contentContainerSource).toContain('container py-5 md:py-10')
     expect(mobileSource).toContain("from '@nl/ui/base/sheet'")
     expect(mobileSource).toContain('<SheetTitle')
     expect(mobileSource).toContain('<SheetDescription')
