@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { memo, useRef, useState, useCallback, useEffect } from 'react'
 import { Button } from '@nl/ui/base/button'
-import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
+import { ParallaxWrapper } from '@nl/ui/custom/parallax-wrapper'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 import { cn } from '@nl/ui/utils'
 
@@ -95,8 +95,8 @@ export const ConsoleGame = memo(function ConsoleGame({ src }: { src: string }) {
         </Button>
       </div>
       <div className={styles.gaming_controller}>
-        <AnimatedWrapper parallax parallaxDirection="down" parallaxIntensity="normal">
-          <div className="animate-hover transition-fade-start transition-fade delay-long">
+        <ParallaxWrapper parallaxDirection="down" parallaxIntensity="normal">
+          <div className="animate-hover transition-fade">
             <Image
               alt="Controller Left"
               className="pixelated"
@@ -108,11 +108,11 @@ export const ConsoleGame = memo(function ConsoleGame({ src }: { src: string }) {
               style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
             />
           </div>
-        </AnimatedWrapper>
+        </ParallaxWrapper>
       </div>
       <div className={styles.gaming_controller}>
-        <AnimatedWrapper parallax parallaxDirection="down" parallaxIntensity="normal">
-          <div className="animate-hover transition-fade-start transition-fade delay-long-offset">
+        <ParallaxWrapper parallaxDirection="down" parallaxIntensity="normal">
+          <div className="animate-hover transition-fade">
             <Image
               alt="Controller Right"
               className="pixelated"
@@ -124,7 +124,7 @@ export const ConsoleGame = memo(function ConsoleGame({ src }: { src: string }) {
               style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
             />
           </div>
-        </AnimatedWrapper>
+        </ParallaxWrapper>
       </div>
       <div className="dark-gradient-overlay" />
     </div>

@@ -203,6 +203,7 @@ const webCommunityPage = 'apps/web/src/app/(main)/community/page.tsx'
 const webTeamPage = 'apps/web/src/app/(main)/team/page.tsx'
 const webCarousel = 'apps/web/src/components/Carousel/index.tsx'
 const animationFreeMarketingPages = [
+  'apps/web/src/app/(main)/page.tsx',
   'apps/web/src/app/(main)/games/page.tsx',
   'apps/web/src/app/(main)/niftyworld/page.tsx',
   'apps/web/src/app/(main)/overview/page.tsx',

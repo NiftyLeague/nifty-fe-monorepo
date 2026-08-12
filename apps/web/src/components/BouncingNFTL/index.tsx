@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
 import { cn } from '@nl/ui/utils'
-import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
+import { ParallaxWrapper } from '@nl/ui/custom/parallax-wrapper'
 
 interface ComponentProps {
   classes?: { token1?: string; token2?: string; token3?: string }
@@ -15,8 +15,8 @@ const BouncingNFTL = ({ classes }: ComponentProps): React.ReactNode => (
         classes?.token1
       )}
     >
-      <AnimatedWrapper parallax parallaxDirection="right">
-        <div className="animate-bounce-coin1 transition-fade transition-fade-start delay-normal">
+      <ParallaxWrapper parallaxDirection="right">
+        <div className="animate-bounce-coin1 transition-fade">
           <Image
             src="/img/compete-and-earn/animated/token-1.webp"
             alt="Bouncing NFTL Left"
@@ -26,7 +26,7 @@ const BouncingNFTL = ({ classes }: ComponentProps): React.ReactNode => (
             sizes="100vw"
           />
         </div>
-      </AnimatedWrapper>
+      </ParallaxWrapper>
     </div>
     <div
       className={cn(
@@ -34,8 +34,8 @@ const BouncingNFTL = ({ classes }: ComponentProps): React.ReactNode => (
         classes?.token2
       )}
     >
-      <AnimatedWrapper parallax parallaxDirection="left">
-        <div className="animate-bounce-coin2 transition-fade transition-fade-start delay-long">
+      <ParallaxWrapper parallaxDirection="left">
+        <div className="animate-bounce-coin2 transition-fade">
           <Image
             src="/img/compete-and-earn/animated/token-2.webp"
             alt="Bouncing NFTL Right"
@@ -45,13 +45,13 @@ const BouncingNFTL = ({ classes }: ComponentProps): React.ReactNode => (
             sizes="100vw"
           />
         </div>
-      </AnimatedWrapper>
+      </ParallaxWrapper>
     </div>
     <div
       className={cn('absolute bottom-[-500px] left-[calc(50%-100px)] w-[246px]', classes?.token3)}
     >
-      <AnimatedWrapper parallax parallaxDirection="down">
-        <div className="animate-bounce-coin3 transition-fade transition-fade-start delay-long-offset">
+      <ParallaxWrapper parallaxDirection="down">
+        <div className="animate-bounce-coin3 transition-fade">
           <Image
             src="/img/compete-and-earn/animated/token-3.webp"
             alt="Bouncing NFTL Bottom"
@@ -61,7 +61,7 @@ const BouncingNFTL = ({ classes }: ComponentProps): React.ReactNode => (
             sizes="100vw"
           />
         </div>
-      </AnimatedWrapper>
+      </ParallaxWrapper>
     </div>
   </>
 )
