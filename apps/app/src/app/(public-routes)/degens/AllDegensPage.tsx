@@ -255,6 +255,7 @@ const AllDegensPage = (): React.ReactNode => {
             searchTerm={searchTerm || ''}
             handleChangeSearchTerm={handleChangeSearchTerm}
             handleSort={handleSort}
+            sortValue={filters.sort ?? 'idUp'}
             layoutMode={layoutMode}
             handleChangeLayoutMode={handleChangeLayoutMode}
           />
