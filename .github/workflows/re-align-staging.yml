@@ -54,8 +54,6 @@ jobs:
             }
             trap cleanup_preview EXIT
             git worktree add --detach "$preview_dir" origin/staging >/dev/null
-            git -C "$preview_dir" config user.name "re-align-preview"
-            git -C "$preview_dir" config user.email "re-align-preview@users.noreply.github.com"
 
             resolve_ours_conflicts() {
               local conflicted_path
