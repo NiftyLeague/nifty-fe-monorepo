@@ -1,8 +1,8 @@
 'use client'
 
 import { useMemo } from 'react'
+import { Copy } from 'lucide-react'
 import { Button } from '@nl/ui/base/button'
-import { Icon } from '@nl/ui/base/icon'
 import { Title } from '@nl/ui/custom/typography'
 
 import { useCopyToClipboard } from '@nl/ui/hooks/useCopyToClipboard'
@@ -52,7 +52,13 @@ const TopInfo = ({ profile, walletAddress }: TopInfoProps): React.ReactNode => {
               className="cursor-pointer"
               onClick={() => walletAddress && copy(walletAddress)}
             >
-              <Icon name="copy" size="sm" color="var(--color-muted-foreground)" />
+              <Copy
+                aria-hidden="true"
+                absoluteStrokeWidth
+                size={18}
+                strokeWidth={1.5}
+                color="var(--color-muted-foreground)"
+              />
             </Button>
           </Title>
           <Title level={4} className="w-1/2">

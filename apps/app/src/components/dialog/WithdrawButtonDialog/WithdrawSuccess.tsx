@@ -1,8 +1,8 @@
 import type { Dispatch, SetStateAction } from 'react'
+import { X } from 'lucide-react'
 
 import { Button } from '@nl/ui/base/button'
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@nl/ui/base/dialog'
-import { Icon } from '@nl/ui/base/icon'
 
 import useTokensBalances from '@/hooks/balances/useTokensBalances'
 
@@ -34,7 +34,13 @@ const WithdrawSuccess = ({
             onClick={handleClose}
             className="absolute top-0 right-0 cursor-pointer"
           >
-            <Icon name="x" size="lg" color="dim" />
+            <X
+              aria-hidden="true"
+              absoluteStrokeWidth
+              color="var(--color-muted-foreground)"
+              size={24}
+              strokeWidth={1.5}
+            />
           </Button>
         </DialogTitle>
         <DialogDescription>

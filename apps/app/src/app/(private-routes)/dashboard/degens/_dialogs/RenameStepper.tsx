@@ -1,18 +1,35 @@
 'use client'
 
-import { cloneElement, useMemo, type ReactElement } from 'react'
+import { useMemo } from 'react'
 import Image from 'next/image'
+import { CheckCheck, ShieldCheck, UserRoundCheck } from 'lucide-react'
 import { cn } from '@nl/ui/utils'
-
-import { Icon, type IconProps } from '@nl/ui/base/icon'
 
 import styles from './RenameStepper.module.css'
 
-const icons: { [index: string]: React.ReactElement } = {
-  1: <Image src="/img/logos/NFTL/logo.webp" alt="NFTL" width={30} height={30} />,
-  2: <Icon name="shield-check" size="xl" strokeWidth={2.5} />,
-  3: <Icon name="user-round-check" size="xl" strokeWidth={2.5} />,
-  4: <Icon name="check-check" size="xl" strokeWidth={2.5} />,
+const StepIcon = ({ icon, color }: { icon: number; color: string }) => {
+  if (icon === 1) {
+    return <Image src="/img/logos/NFTL/logo.webp" alt="NFTL" width={30} height={30} />
+  }
+
+  const props = {
+    'aria-hidden': true,
+    absoluteStrokeWidth: true,
+    color,
+    size: 28,
+    strokeWidth: 2.5,
+  } as const
+
+  switch (icon) {
+    case 2:
+      return <ShieldCheck {...props} />
+    case 3:
+      return <UserRoundCheck {...props} />
+    case 4:
+      return <CheckCheck {...props} />
+    default:
+      return null
+  }
 }
 
 function ColorlibStepIcon({
@@ -26,12 +43,7 @@ function ColorlibStepIcon({
 }) {
   return (
     <div className={cn(styles.root, active && styles.active, completed && styles.completed)}>
-      {(() => {
-        const iconElement = icons[String(icon)] as unknown as ReactElement<IconProps>
-        return iconElement
-          ? cloneElement(iconElement, { color: active ? 'light' : 'purple' })
-          : null
-      })()}
+      <StepIcon icon={icon} color={active ? 'var(--color-light)' : 'var(--color-purple)'} />
     </div>
   )
 }

@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import Link from 'next/link'
 import Image from 'next/image'
+import { Minus, Plus, X } from 'lucide-react'
 
 import { Dialog, DialogContent, DialogTitle } from '@nl/ui/base/dialog'
 import { Separator } from '@nl/ui/base/separator'
@@ -14,7 +15,6 @@ import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import { Input } from '@nl/ui/custom/input'
 import { Title } from '@nl/ui/custom/typography'
 
-import { Icon } from '@nl/ui/base/icon'
 import type { DialogProps } from '@/types/dialog'
 import { formatNumberToDisplay } from '@nl/ui/utils'
 import { GET_PRODUCT, NFTL_PURCHASE_URL, PURCHASE_ARCADE_TOKEN_BALANCE_API } from '@/constants/url'
@@ -113,13 +113,16 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
           <>
             <div className="relative text-center">
               <DialogTitle className="text-center">Buy Arcade Token</DialogTitle>
-              <Icon
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
                 aria-label="close"
-                name="x"
-                size="xl"
-                className="absolute top-1/4 right-0 cursor-pointer"
+                className="absolute top-1/4 right-0 h-7 w-7 cursor-pointer p-0"
                 onClick={onClose}
-              />
+              >
+                <X aria-hidden="true" absoluteStrokeWidth size={28} strokeWidth={1.5} />
+              </Button>
             </div>
             <Separator className="opacity-60" />
             {(isDetailsPending || error) && (
@@ -141,15 +144,22 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                   {details.price} NFTL Each
                 </span>
                 <div className="mb-6 flex flex-row items-center justify-center gap-2">
-                  <Icon
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
                     aria-label="subtract"
-                    name="minus"
-                    size={50}
-                    color="dim"
-                    strokeWidth={2.5}
-                    className="cursor-pointer"
+                    className="h-[50px] w-[50px] cursor-pointer p-0"
                     onClick={() => updateTokenCount(tokenCount - 1)}
-                  />
+                  >
+                    <Minus
+                      aria-hidden="true"
+                      absoluteStrokeWidth
+                      size={50}
+                      color="var(--color-muted-foreground)"
+                      strokeWidth={2.5}
+                    />
+                  </Button>
                   <div className="relative">
                     <Input
                       className="w-[100px] pr-12 text-center"
@@ -162,15 +172,22 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                       PACK
                     </span>
                   </div>
-                  <Icon
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
                     aria-label="add"
-                    name="plus"
-                    size={50}
-                    color="dim"
-                    strokeWidth={2.5}
-                    className="cursor-pointer"
+                    className="h-[50px] w-[50px] cursor-pointer p-0"
                     onClick={() => updateTokenCount(tokenCount + 1)}
-                  />
+                  >
+                    <Plus
+                      aria-hidden="true"
+                      absoluteStrokeWidth
+                      size={50}
+                      color="var(--color-muted-foreground)"
+                      strokeWidth={2.5}
+                    />
+                  </Button>
                 </div>
                 <div className="grid" style={{ gridTemplateColumns: '1fr auto' }}>
                   <span

@@ -3,10 +3,10 @@
 import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
+import { BookHeart, Database, User as UserIcon } from 'lucide-react'
 
 import { cn } from '@nl/ui/utils'
 import { Card, CardContent, CardHeader, CardDescription } from '@nl/ui/base/card'
-import { Icon } from '@nl/ui/base/icon'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@nl/ui/base/tabs'
 
 import BackButton from '@/components/Header/BackButton'
@@ -64,14 +64,16 @@ export default function ProfileClient({ sessionData }: { sessionData: SessionDat
                       : '!bg-card border-0 border-b-1 rounded-none outline-none justify-start'
                   )}
                 >
-                  <Icon name="user" /> Account
+                  <UserIcon aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />{' '}
+                  Account
                 </TabsTrigger>
                 {flags.enableInventory && (
                   <TabsTrigger
                     value="inventory"
                     className="cursor-pointer data-[state=active]:cursor-not-allowed"
                   >
-                    <Icon name="database" /> Inventory
+                    <Database aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />{' '}
+                    Inventory
                   </TabsTrigger>
                 )}
                 {flags.enableStats && (
@@ -79,7 +81,8 @@ export default function ProfileClient({ sessionData }: { sessionData: SessionDat
                     value="stats"
                     className="cursor-pointer data-[state=active]:cursor-not-allowed"
                   >
-                    <Icon name="book-heart" /> Stats
+                    <BookHeart aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />{' '}
+                    Stats
                   </TabsTrigger>
                 )}
               </TabsList>

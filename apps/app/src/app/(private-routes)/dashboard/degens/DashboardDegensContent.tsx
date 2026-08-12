@@ -5,11 +5,11 @@ import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { useAccount } from 'wagmi'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { Button } from '@nl/ui/base/button'
 import { Dialog } from '@nl/ui/base/dialog'
-import { Icon } from '@nl/ui/base/icon'
 
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
 import DEFAULT_STATIC_FILTER from '@/components/extended/DegensFilter/constants'
@@ -275,7 +275,11 @@ const DashboardDegensPageContent = (): React.ReactNode => {
               aria-label={isDrawerOpen ? 'Hide filters' : 'Show filters'}
               onClick={() => setIsDrawerOpen(!isDrawerOpen)}
             >
-              <Icon name={isDrawerOpen ? 'chevron-left' : 'chevron-right'} size="xl" />
+              {isDrawerOpen ? (
+                <ChevronLeft aria-hidden="true" absoluteStrokeWidth size={28} strokeWidth={1.5} />
+              ) : (
+                <ChevronRight aria-hidden="true" absoluteStrokeWidth size={28} strokeWidth={1.5} />
+              )}
             </Button>
             {filteredData.length} Degens
           </div>
@@ -317,7 +321,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
               onClick={() => jump(currentPage - 1)}
               aria-label="Previous page"
             >
-              <Icon name="chevron-left" />
+              <ChevronLeft aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />
             </Button>
             {pageItems.map((p) =>
               p === 'ellipsis-start' || p === 'ellipsis-end' ? (
@@ -344,7 +348,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
               onClick={() => jump(currentPage + 1)}
               aria-label="Next page"
             >
-              <Icon name="chevron-right" />
+              <ChevronRight aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />
             </Button>
           </div>
         )}

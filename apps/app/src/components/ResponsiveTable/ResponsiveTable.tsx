@@ -2,7 +2,6 @@ import type { Dispatch, SetStateAction } from 'react'
 import DataList from './DataList'
 import DataTable from './DataTable'
 
-import type { IconProps } from '@nl/ui/base/icon'
 import type {
   AccordionDetailsProps,
   AccordionProps,
@@ -10,6 +9,7 @@ import type {
   CustomColDef,
   DataGridProps,
   Row,
+  ResponsiveIconProps,
   TablePaginationProps,
   TypographyProps,
 } from './types'
@@ -17,7 +17,7 @@ import type {
 type ResponsiveTableProps = {
   AccordionDetailsProps?: AccordionDetailsProps
   AccordionDetailsTypographyProps?: TypographyProps<'div'>
-  AccordionMoreIconProps?: IconProps
+  AccordionMoreIconProps?: ResponsiveIconProps
   AccordionProps?: AccordionProps
   AccordionSummaryProps?: AccordionSummaryProps
   AccordionSummaryTypographyProps?: TypographyProps

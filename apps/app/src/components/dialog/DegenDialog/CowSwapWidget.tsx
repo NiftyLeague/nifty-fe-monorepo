@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { ArrowDown, Circle } from 'lucide-react'
 import { formatEther } from 'ethers'
 import { OrderKind } from '@cowprotocol/cow-sdk'
 import { createOrderSwapEtherToNFTL, getCowMarketPrice, getOrderDetail } from '@/utils/cowswap'
@@ -11,7 +12,6 @@ import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import { Progress } from '@nl/ui/base/progress'
 import { Title } from '@nl/ui/custom/typography'
 import { cn } from '@nl/ui/utils'
-import { Icon } from '@nl/ui/base/icon'
 import { COW_PROTOCOL_URL } from '@/constants/url'
 import { formatNumberToDisplay } from '@nl/ui/utils'
 import { TARGET_NETWORK } from '@/constants/networks'
@@ -208,7 +208,14 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
         <Link href={COW_PROTOCOL_URL} target="_blank" rel="noreferrer" className="underline">
           cow.fi
         </Link>
-        <Icon name="circle" color="purple" size={3} className="ml-1 mb-1" />
+        <Circle
+          aria-hidden="true"
+          absoluteStrokeWidth
+          color="var(--color-purple)"
+          size={3}
+          strokeWidth={1.5}
+          className="ml-1 mb-1"
+        />
       </span>
       <div
         className="flex flex-col"
@@ -250,7 +257,13 @@ const CowSwapWidget = ({ refreshBalance }: CowSwapWidgetProps) => {
                 position: 'absolute',
               }}
             >
-              <Icon name="arrow-down" color="foreground" />
+              <ArrowDown
+                aria-hidden="true"
+                absoluteStrokeWidth
+                color="var(--color-foreground)"
+                size={20}
+                strokeWidth={1.5}
+              />
             </div>
             <TokenInfoBox
               balance={accountBalance}

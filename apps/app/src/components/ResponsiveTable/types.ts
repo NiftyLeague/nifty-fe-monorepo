@@ -1,6 +1,11 @@
 import React, { ReactNode } from 'react'
+import type { LucideProps } from 'lucide-react'
 
 export type Row = { id?: string | number; user_id?: string; [key: string]: unknown }
+
+export type ResponsiveIconProps = Omit<LucideProps, 'size'> & {
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | number
+}
 
 export interface GridRenderCellParams {
   value?: unknown

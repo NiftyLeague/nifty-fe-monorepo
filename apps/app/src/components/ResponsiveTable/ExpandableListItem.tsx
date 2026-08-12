@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import { Icon, type IconProps } from '@nl/ui/base/icon'
+import { ChevronDown } from 'lucide-react'
 import { Checkbox } from '@nl/ui/base/checkbox'
 import { cn } from '@nl/ui/utils'
 
@@ -10,13 +10,14 @@ import type {
   AccordionProps,
   AccordionSummaryProps,
   Row,
+  ResponsiveIconProps,
   TypographyProps,
 } from './types'
 
 interface ExpandableListItemProps {
   AccordionDetailsProps?: AccordionDetailsProps
   AccordionDetailsTypographyProps?: TypographyProps<'div'>
-  AccordionMoreIconProps?: IconProps
+  AccordionMoreIconProps?: ResponsiveIconProps
   AccordionProps?: AccordionProps
   AccordionSummaryProps?: AccordionSummaryProps
   AccordionSummaryTypographyProps?: TypographyProps
@@ -30,6 +31,20 @@ interface ExpandableListItemProps {
   selected: boolean
   SelectedAccordionProps?: AccordionProps
   summary: React.ReactNode | React.ReactNode[]
+}
+
+const ICON_COLOR_ALIASES: Record<string, string> = {
+  foreground: 'var(--color-foreground)',
+  dim: 'var(--color-muted-foreground)',
+  dark: 'var(--color-dark)',
+  light: 'var(--color-light)',
+  error: 'var(--color-error)',
+  warning: 'var(--color-warning)',
+  success: 'var(--color-success)',
+  info: 'var(--color-info)',
+  blue: 'var(--color-blue)',
+  purple: 'var(--color-purple)',
+  gray: 'var(--color-base-500)',
 }
 
 /**
@@ -97,6 +112,17 @@ const ExpandableListItem: React.FC<ExpandableListItemProps> = ({
   const { className: detailsTypoClassName, style: detailsTypoStyle } =
     AccordionDetailsTypographyProps ?? {}
 
+  const {
+    color = 'currentColor',
+    fill = 'none',
+    size: iconSize = 'lg',
+    ...moreIconProps
+  } = AccordionMoreIconProps ?? {}
+  const iconColor = ICON_COLOR_ALIASES[color] ?? color
+  const iconFill = ICON_COLOR_ALIASES[fill] ?? fill
+  const resolvedIconSize =
+    typeof iconSize === 'number' ? iconSize : { xs: 14, sm: 18, md: 20, lg: 24, xl: 28 }[iconSize]
+
   return (
     <div ref={panelRef} className={cn(panelClass, rootClassName)} style={rootStyle} {...rootRest}>
       <div
@@ -123,11 +149,15 @@ const ExpandableListItem: React.FC<ExpandableListItemProps> = ({
             {summary}
           </span>
         </div>
-        <Icon
-          name="chevron-down"
-          size="lg"
+        <ChevronDown
+          aria-hidden="true"
+          absoluteStrokeWidth
+          color={iconColor}
+          fill={iconFill}
+          size={resolvedIconSize}
+          strokeWidth={1.5}
           className={cn('transition-transform', expanded && 'rotate-180')}
-          {...AccordionMoreIconProps}
+          {...moreIconProps}
         />
       </div>
       <div className={cn('overflow-hidden transition-all', !expanded && 'hidden')} {...detailsRest}>

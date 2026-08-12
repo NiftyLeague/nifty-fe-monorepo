@@ -1,5 +1,5 @@
 import { Button } from '@nl/ui/base/button'
-import { Icon } from '@nl/ui/base/icon'
+import { Pencil } from 'lucide-react'
 import { Dialog, DialogTrigger, DialogContent } from '@/components/dialog'
 import ChangeProfileNameForm from './ChangeProfileNameForm'
 
@@ -12,7 +12,7 @@ const ChangeProfileNameDialog = ({
   <Dialog>
     <DialogTrigger>
       <Button variant="ghost" size="icon" aria-label="edit" className="cursor-pointer">
-        <Icon name="pencil" />
+        <Pencil aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />
       </Button>
     </DialogTrigger>
     <DialogContent dialogTitle="Update your username" sx={{ width: '300px' }}>
