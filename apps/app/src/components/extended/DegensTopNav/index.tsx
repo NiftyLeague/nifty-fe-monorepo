@@ -1,6 +1,7 @@
+import { Grid3X3, LayoutGrid } from 'lucide-react'
+
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@nl/ui/base/select'
 import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group'
-import { Icon } from '@nl/ui/base/icon'
 import { Input } from '@nl/ui/custom/input'
 import DegenSortOptions from '@/constants/sort'
 
@@ -63,14 +64,14 @@ const DegensTopNav = ({
           value="gridView"
           aria-label="GridView"
         >
-          <Icon name="layout-grid" size="lg" />
+          <LayoutGrid absoluteStrokeWidth aria-hidden="true" size={24} strokeWidth={1.5} />
         </ToggleGroupItem>
         <ToggleGroupItem
           className={`${styles.layoutModeButton} data-[state=on]:bg-[rgba(88,32,214,0.2)]`}
           value="gridOn"
           aria-label="GridOn"
         >
-          <Icon name="grid-3x3" size="lg" />
+          <Grid3X3 absoluteStrokeWidth aria-hidden="true" size={24} strokeWidth={1.5} />
         </ToggleGroupItem>
       </ToggleGroup>
     </div>
