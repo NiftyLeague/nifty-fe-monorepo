@@ -19,12 +19,6 @@ describe('home page', () => {
     mock.module('@/components/Sponsors', () => ({ default: () => null }))
     mock.module('@/components/ThemeBtnGroup', () => ({ default: () => null }))
     mock.module('@nl/ui/custom/deferred-console-game', () => ({ DeferredConsoleGame: () => null }))
-    // The home page renders the interactive DEGEN carousel through a shared
-    // wrapper; stub the heavy carousel library out for these markup-level
-    // assertions (it is unchanged by this tranche).
-    mock.module('@/components/Carousel', () => ({
-      default: ({ children }: PropsWithChildren) => <div data-testid="carousel">{children}</div>,
-    }))
     mock.module('next/link', () => ({
       default: ({ children, href, ...props }: PropsWithChildren<{ href: string }>) => (
         <a href={href} {...props}>
