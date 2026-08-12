@@ -43,7 +43,6 @@ const Roadmap: NextPage = () => {
                 alt="moon"
                 width={800}
                 height={800}
-                priority
                 sizes="(min-width: 920px) 800px, 600px"
                 style={{ width: '100%', height: 'auto' }}
               />
