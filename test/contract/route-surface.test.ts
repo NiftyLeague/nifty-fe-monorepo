@@ -382,11 +382,17 @@ describe('shared route loading contract', () => {
 describe('Smashers public shell contract', () => {
   it('keeps the homepage server-rendered except for the modal island', () => {
     const pageSource = readFileSync(join(process.cwd(), smashersHomePage), 'utf8')
+    const headerSource = readFileSync(
+      join(process.cwd(), 'apps/smashers/src/components/Header/index.tsx'),
+      'utf8'
+    )
     const actionButtonsSource = readFileSync(join(process.cwd(), smashersActionButtons), 'utf8')
 
     expect(pageSource).not.toContain('HomeInteractive')
     expect(pageSource).toContain("import Header, { type ActiveModal } from '@/components/Header'")
     expect(pageSource).toContain('<main>')
+    expect(headerSource).not.toContain("'use client'")
+    expect(headerSource).toContain("import ActionButtonsGroup from './ActionButtonsGroup'")
     expect(actionButtonsSource).toContain("'use client'")
     expect(actionButtonsSource).not.toContain("from 'next/dynamic'")
     expect(actionButtonsSource).toContain("import('@/components/PlayDialog')")
@@ -395,12 +401,39 @@ describe('Smashers public shell contract', () => {
     expect(actionButtonsSource).toContain('aria-busy={isLoading}')
   })
 
+  it('defers Smashers auth providers behind the auth loading boundary', () => {
+    const layoutSource = readFileSync(join(process.cwd(), smashersAuthLayout), 'utf8')
+    const boundarySource = readFileSync(
+      join(process.cwd(), 'apps/smashers/src/contexts/AuthProvidersBoundary.tsx'),
+      'utf8'
+    )
+    const providersSource = readFileSync(
+      join(process.cwd(), 'apps/smashers/src/contexts/AuthProviders.tsx'),
+      'utf8'
+    )
+
+    expect(layoutSource).toContain("from '@/contexts/AuthProvidersBoundary'")
+    expect(layoutSource).not.toContain("from '@/contexts/AuthProvider'")
+    expect(layoutSource).not.toContain("from '@/contexts/FeatureFlagsProvider'")
+    expect(boundarySource).toContain("dynamic(() => import('./AuthProviders')")
+    expect(boundarySource).toContain('ssr: false')
+    expect(boundarySource).toContain("from '@nl/ui/base/skeleton'")
+    expect(boundarySource).toContain('role="status"')
+    expect(boundarySource).toContain('aria-live="polite"')
+    expect(boundarySource).toContain('aria-busy="true"')
+    expect(providersSource).toContain("from './AuthProvider'")
+    expect(providersSource).toContain("from './FeatureFlagsProvider'")
+  })
+
   it('keeps feature flags scoped to authenticated routes', () => {
     const rootLayoutSource = readFileSync(join(process.cwd(), smashersRootLayout), 'utf8')
-    const authLayoutSource = readFileSync(join(process.cwd(), smashersAuthLayout), 'utf8')
+    const authProvidersSource = readFileSync(
+      join(process.cwd(), 'apps/smashers/src/contexts/AuthProviders.tsx'),
+      'utf8'
+    )
 
     expect(rootLayoutSource).not.toContain('FeatureFlagProvider')
-    expect(authLayoutSource).toContain('FeatureFlagProvider')
+    expect(authProvidersSource).toContain('FeatureFlagProvider')
     expect(existsSync(join(process.cwd(), staleSmashersUnityDialog))).toBe(false)
   })
 
