@@ -10,7 +10,6 @@ import { afterEach, beforeEach, describe, expect, it, jest, mock } from 'bun:tes
 type ComponentProps<T extends keyof JSX.IntrinsicElements> = JSX.IntrinsicElements[T]
 
 const state = {
-  intersecting: true,
   mobile: true,
   milliseconds: 1_500,
   pathname: '/about',
@@ -35,9 +34,6 @@ beforeEach(() => {
     }: ComponentProps<'img'> & { priority?: boolean }) => <img alt={alt} {...props} />,
   }))
   mock.module('next/navigation', () => ({ usePathname: () => state.pathname }))
-  mock.module('@nl/ui/hooks/useScrollDetection', () => ({
-    useScrollDetection: () => ({ ref: mock(), isIntersecting: state.intersecting }),
-  }))
   mock.module('@nl/ui/hooks/useParallax', () => ({
     useParallax: (...args: unknown[]) => state.parallax(...args),
   }))
@@ -57,7 +53,6 @@ beforeEach(() => {
 afterEach(() => {
   jest.useRealTimers()
   undefined
-  state.intersecting = true
   state.mobile = true
   state.milliseconds = 1_500
   state.pathname = '/about'
@@ -179,10 +174,12 @@ describe('Navbar', () => {
     expect(screen.getByRole('button', { name: 'Open navigation' })).not.toBeNull()
   })
 
-  it('switches the navbar backdrop after the scroll sentinel leaves view', () => {
-    state.intersecting = false
+  it('renders a fixed, theme-aware semantic header without scroll state', () => {
     const { container } = render(<Navbar navItems={navItems} />)
-    expect(container.querySelector('header')?.className).toContain('bg-background/90')
+    const header = container.querySelector('header')
+    expect(header?.className).toContain('navbar-scroll-frame')
+    expect(header?.className).toContain('bg-background/90')
+    expect(header?.previousElementSibling).toBeNull()
   })
 })
 
