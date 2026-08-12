@@ -4,16 +4,21 @@ import Image from 'next/image'
 import { memo, useRef, useState, useCallback, useEffect } from 'react'
 import { Button } from '@nl/ui/base/button'
 import { ParallaxWrapper } from '@nl/ui/custom/parallax-wrapper'
-import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 import { cn } from '@nl/ui/utils'
 
 import styles from './index.module.css'
 
-export const ConsoleGame = memo(function ConsoleGame({ src }: { src: string }) {
-  const rootRef = useRef<HTMLDivElement>(null)
+export interface ConsoleGameProps {
+  isNearViewport?: boolean
+  src: string
+}
+
+export const ConsoleGame = memo(function ConsoleGame({
+  isNearViewport = true,
+  src,
+}: ConsoleGameProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
-  const isNearViewport = useOnScreen(rootRef, '200px')
 
   const togglePlay = useCallback(() => {
     if (!videoRef.current) return
@@ -42,7 +47,7 @@ export const ConsoleGame = memo(function ConsoleGame({ src }: { src: string }) {
   }, [isNearViewport])
 
   return (
-    <div ref={rootRef} className="relative overflow-hidden">
+    <div className="relative overflow-hidden">
       <div
         style={{ position: 'relative', display: 'flex', flexGrow: 1 }}
         className="md:animation-hidden"

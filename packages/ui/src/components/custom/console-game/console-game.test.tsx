@@ -7,10 +7,6 @@ mock.module('next/image', () => ({
 mock.module('@nl/ui/custom/parallax-wrapper', () => ({
   ParallaxWrapper: ({ children }: React.PropsWithChildren) => <>{children}</>,
 }))
-mock.module('@nl/ui/hooks/useOnScreen', () => ({
-  useOnScreen: () => true,
-}))
-
 describe('ConsoleGame', () => {
   let ConsoleGame: typeof import('./index').ConsoleGame
 
@@ -25,5 +21,19 @@ describe('ConsoleGame', () => {
 
     expect(image?.getAttribute('loading')).toBe('lazy')
     expect(video?.getAttribute('preload')).toBe('metadata')
+  })
+
+  it('uses the parent visibility state to pause outside the viewport', () => {
+    const { container, rerender } = render(
+      <ConsoleGame isNearViewport={false} src="/video/example.mp4" />
+    )
+    const video = container.querySelector('video')
+
+    expect(video?.getAttribute('preload')).toBe('none')
+    expect(video?.hasAttribute('autoplay')).toBe(false)
+
+    rerender(<ConsoleGame isNearViewport src="/video/example.mp4" />)
+    expect(video?.getAttribute('preload')).toBe('metadata')
+    expect(video?.hasAttribute('autoplay')).toBe(true)
   })
 })

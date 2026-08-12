@@ -5,11 +5,13 @@ import type { ComponentType } from 'react'
 import { Skeleton } from '@nl/ui/base/skeleton'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 
+import type { ConsoleGameProps } from '../console-game'
+
 interface DeferredConsoleGameProps {
   src: string
 }
 
-type ConsoleGameComponent = ComponentType<DeferredConsoleGameProps>
+type ConsoleGameComponent = ComponentType<ConsoleGameProps>
 
 const DeferredConsoleGame = ({ src }: DeferredConsoleGameProps) => {
   const rootRef = useRef<HTMLDivElement>(null)
@@ -32,7 +34,7 @@ const DeferredConsoleGame = ({ src }: DeferredConsoleGameProps) => {
   return (
     <div ref={rootRef} className="relative aspect-video overflow-hidden">
       {ConsoleGame ? (
-        <ConsoleGame src={src} />
+        <ConsoleGame isNearViewport={isNearViewport} src={src} />
       ) : (
         <Skeleton
           role="img"
