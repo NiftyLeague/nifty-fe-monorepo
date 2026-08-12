@@ -1,8 +1,8 @@
 'use client'
 import { useEffect, useMemo } from 'react'
-import debounce from 'lodash/debounce'
 import { cn } from '@nl/ui/utils'
 import { formatNumberToDisplay } from '@nl/ui/utils'
+import { useDebouncedCallback } from '@nl/ui/hooks/useDebouncedCallback'
 import useTokenUSDPrice from '@/hooks/useTokenUSDPrice'
 import { OrderKind } from '@cowprotocol/cow-sdk'
 
@@ -40,20 +40,10 @@ const TokenInfoBox = ({
     return () => clearInterval(timer)
   }, [refetch])
 
-  const debouncedGetMarketplace = useMemo(
-    () =>
-      debounce(async (amount: string) => {
-        if (!amount || Number(amount) === 0) return
-        getMarketPrice(kind === 'From' ? OrderKind.SELL : OrderKind.BUY, amount)
-      }, 300),
-    [getMarketPrice, kind]
-  )
-
-  useEffect(() => {
-    return () => {
-      debouncedGetMarketplace.cancel()
-    }
-  }, [debouncedGetMarketplace])
+  const debouncedGetMarketplace = useDebouncedCallback((amount: string) => {
+    if (!amount || Number(amount) === 0) return
+    getMarketPrice(kind === 'From' ? OrderKind.SELL : OrderKind.BUY, amount)
+  }, 300)
 
   const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value

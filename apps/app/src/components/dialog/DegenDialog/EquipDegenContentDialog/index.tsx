@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
-import isEqual from 'lodash/isEqual'
 
 import { gtm, GTM_EVENTS } from '@nl/ui/gtm'
 import { Button } from '@nl/ui/base/button'
@@ -16,6 +15,7 @@ import type { Degen } from '@/types/degens'
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
 import EmptyState from '@/components/EmptyState'
 import { Icon } from '@nl/ui/base/icon'
+import { areValuesEqual } from '@/utils/value-equality'
 
 import {
   getInventoryAnalyticsEventName,
@@ -101,7 +101,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
   )
 
   const stateChanged = useMemo(
-    () => !isEqual(equipped, pendingEquipped),
+    () => !areValuesEqual(equipped, pendingEquipped),
     [equipped, pendingEquipped]
   )
 

@@ -2,7 +2,6 @@
 
 import { useMemo } from 'react'
 import { useAccount } from 'wagmi'
-import merge from 'lodash/merge'
 
 import { Title } from '@nl/ui/custom/typography'
 
@@ -26,6 +25,7 @@ const GamerProfileContent = (): React.ReactNode => {
   const { profile, error, loadingProfile } = useGamerProfile()
   const { address } = useAccount()
   const { avatarsAndFee } = useProfileAvatarFee()
+  const profileAvatars = avatarsAndFee?.avatars
   const { data } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`)
 
   const { comicsBalances, degenCount, degensBalances, itemsBalances } = useNFTsBalances()
@@ -58,6 +58,15 @@ const GamerProfileContent = (): React.ReactNode => {
     [itemsBalances]
   )
 
+  const profileDegens = useMemo(() => {
+    if (!profileAvatars) return filteredDegens
+
+    return filteredDegens.map((degen, index) => ({
+      ...degen,
+      ...(profileAvatars[index] ?? {}),
+    }))
+  }, [filteredDegens, profileAvatars])
+
   const renderEmptyProfile = () => {
     return (
       <div className="flex h-full items-center justify-center">
@@ -73,11 +82,7 @@ const GamerProfileContent = (): React.ReactNode => {
           <ImageProfile
             avatar={profile?.avatar}
             avatarFee={avatarsAndFee?.price}
-            degens={
-              filteredDegens &&
-              avatarsAndFee?.avatars &&
-              merge(filteredDegens, avatarsAndFee?.avatars)
-            }
+            degens={profileDegens}
           />
         </div>
         <div className="w-full min-w-0 lg:flex-1">
