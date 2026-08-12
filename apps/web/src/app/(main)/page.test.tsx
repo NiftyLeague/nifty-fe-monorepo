@@ -11,9 +11,6 @@ describe('home page', () => {
     mock.module('@/components/MainLayout', () => ({
       default: ({ children }: PropsWithChildren) => <>{children}</>,
     }))
-    mock.module('@nl/ui/custom/parallax-wrapper', () => ({
-      ParallaxWrapper: ({ children }: PropsWithChildren) => <>{children}</>,
-    }))
     mock.module('@/components/BouncingNFTL', () => ({ default: () => null }))
     mock.module('@/components/MintOMatic', () => ({ default: () => null }))
     mock.module('@/components/Sponsors', () => ({ default: () => null }))

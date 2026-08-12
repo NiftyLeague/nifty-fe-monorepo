@@ -1378,6 +1378,20 @@ describe('web marketing page boundary contract', () => {
 })
 
 describe('web marketing image sizing contract', () => {
+  it('keeps decorative homepage coins out of the client scroll graph', () => {
+    const homeSource = readFileSync(join(process.cwd(), webHomePage), 'utf8')
+    const bouncingNftlSource = readFileSync(
+      join(process.cwd(), 'apps/web/src/components/BouncingNFTL/index.tsx'),
+      'utf8'
+    )
+
+    expect(homeSource).not.toContain("from '@nl/ui/custom/parallax-wrapper'")
+    expect(bouncingNftlSource).not.toContain("from '@nl/ui/custom/parallax-wrapper'")
+    expect(bouncingNftlSource).toContain('animate-bounce-coin1')
+    expect(bouncingNftlSource).toContain('animate-bounce-coin2')
+    expect(bouncingNftlSource).toContain('animate-bounce-coin3')
+  })
+
   it('uses rendered-width image hints for the home page artwork', () => {
     const homeSource = readFileSync(join(process.cwd(), webHomePage), 'utf8')
     const bouncingNftlSource = readFileSync(
