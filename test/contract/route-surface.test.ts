@@ -99,7 +99,7 @@ const nftOnlyRouteLayouts = ['apps/app/src/app/(public-routes)/mint-o-matic/layo
 const publicRoutesLayout = 'apps/app/src/app/(public-routes)/layout.tsx'
 const stalePublicProviderBoundary = 'apps/app/src/contexts/PublicAppContextWrapper.tsx'
 const walletStorageBoundaries = [
-  'apps/app/src/contexts/WalletAuthContextWrapper.tsx',
+  'apps/app/src/contexts/WalletAuthProviders.tsx',
   'apps/app/src/contexts/WalletFeatureProviders.tsx',
   'apps/app/src/components/providers/MintProviders.tsx',
 ]
@@ -269,6 +269,11 @@ const publicNavLinks = 'apps/app/src/components/providers/PublicNavLinks.tsx'
 const smashersBackButton = 'apps/smashers/src/components/Header/BackButton/index.tsx'
 const verificationPage = 'apps/app/src/app/verification/page.tsx'
 const verificationLayout = 'apps/app/src/app/verification/layout.tsx'
+const verificationClient = 'apps/app/src/app/verification/VerificationClient.tsx'
+const verificationRouteBoundary = 'apps/app/src/app/verification/VerificationRouteBoundary.tsx'
+const walletAuthContextWrapper = 'apps/app/src/contexts/WalletAuthContextWrapper.tsx'
+const walletAuthProviders = 'apps/app/src/contexts/WalletAuthProviders.tsx'
+const walletAuthProvidersBoundary = 'apps/app/src/contexts/WalletAuthProvidersBoundary.tsx'
 
 describe('external route surface contract', () => {
   for (const [app, files] of Object.entries(appRouteContracts)) {
@@ -765,6 +770,33 @@ describe('verification route shell contract', () => {
     expect(
       existsSync(join(process.cwd(), 'apps/app/src/app/(public-routes)/verification/page.tsx'))
     ).toBe(false)
+  })
+
+  it('defers wallet providers and verification interactions until after the initial shell', () => {
+    const pageSource = readFileSync(join(process.cwd(), verificationPage), 'utf8')
+    const routeBoundarySource = readFileSync(join(process.cwd(), verificationRouteBoundary), 'utf8')
+    const clientSource = readFileSync(join(process.cwd(), verificationClient), 'utf8')
+    const wrapperSource = readFileSync(join(process.cwd(), walletAuthContextWrapper), 'utf8')
+    const providersSource = readFileSync(join(process.cwd(), walletAuthProviders), 'utf8')
+    const providersBoundarySource = readFileSync(
+      join(process.cwd(), walletAuthProvidersBoundary),
+      'utf8'
+    )
+
+    expect(pageSource).not.toContain("'use client'")
+    expect(pageSource).toContain("from './VerificationRouteBoundary'")
+    expect(routeBoundarySource).toContain("import('./VerificationClient')")
+    expect(routeBoundarySource).toContain('ssr: false')
+    expect(routeBoundarySource).toContain("from '@nl/ui/custom/route-loading'")
+    expect(clientSource).toContain('useSearchParams')
+    expect(clientSource).toContain('useSignAuthMsg')
+    expect(wrapperSource).toContain("from '@/contexts/WalletAuthProvidersBoundary'")
+    expect(wrapperSource).not.toContain("from '@/contexts/Web3ModalContext'")
+    expect(providersBoundarySource).toContain("import('./WalletAuthProviders')")
+    expect(providersBoundarySource).toContain('ssr: false')
+    expect(providersBoundarySource).toContain("from '@nl/ui/custom/route-loading'")
+    expect(providersSource).toContain("from '@/contexts/Web3ModalContext'")
+    expect(providersSource).toContain("from '@/contexts/AuthTokenContext'")
   })
 })
 
