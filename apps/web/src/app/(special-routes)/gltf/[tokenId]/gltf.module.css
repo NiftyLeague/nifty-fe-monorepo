@@ -3,6 +3,17 @@
   --default-font-size: var(--text-sm); /* 0.875rem */
 }
 
+:global(html),
+:global(body),
+:global(main) {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--color-light);
+}
+
 /* ==============================|| FILES ||============================== */
 
 .pixelated {

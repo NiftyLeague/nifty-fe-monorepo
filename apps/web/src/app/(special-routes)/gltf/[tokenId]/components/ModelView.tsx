@@ -1,7 +1,6 @@
 'use client'
 
 import '@google/model-viewer'
-import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
 
@@ -42,9 +41,7 @@ const ModelViewer: React.FC<ModelViewerProps> = (props) => {
   return <model-viewer {...props} />
 }
 
-export default function ModelView({ source }: { source: SRC }) {
-  const params = useParams()
-  const tokenId = params.tokenId as string
+export default function ModelView({ source, tokenId }: { source: SRC; tokenId: string }) {
   const [loading, setLoading] = useState(true)
   const MODEL_SRC = `${DEGEN_3D_MODEL_URL}/${tokenId}/${tokenId}.gltf`
 
