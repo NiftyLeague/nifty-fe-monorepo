@@ -1,7 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { Suspense, useCallback, useEffect, useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
@@ -29,10 +28,9 @@ import DegensTopNav from '@/components/extended/DegensTopNav'
 import DeferredDegenCard from '@/components/providers/DeferredDegenCard'
 import DeferredDegensFilter from '@/components/providers/DeferredDegensFilter'
 import DeferredPublicDegenDialog from '@/components/providers/DeferredPublicDegenDialog'
+import DegenSearchParamsBoundary from './DegenSearchParamsBoundary'
 
-const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'), {
-  ssr: false,
-})
+const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'))
 
 const AllDegensPage = (): React.ReactNode => {
   const [degens, setDegens] = useState<Degen[]>([])
@@ -44,8 +42,8 @@ const AllDegensPage = (): React.ReactNode => {
   const [filteredData, setFilteredData] = useState<Degen[]>([])
   const [selectedDegen, setSelectedDegen] = useState<Degen>()
   const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false)
-  const searchParams = useSearchParams()
   const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined)
+  const [searchParams, setSearchParams] = useState<Record<string, string>>({})
   const [layoutMode, setLayoutMode] = useState<string>('gridView')
 
   const { data } = useFetch<{ [id: number]: Degen }>(
@@ -71,7 +69,7 @@ const AllDegensPage = (): React.ReactNode => {
     setDefaultValues(getDefaultFilterValueFromData(originalDegens))
     // Filter out rent disabled degens in Feed
     setDegens(originalDegens)
-    const params = Object.fromEntries(searchParams.entries())
+    const params = searchParams
     let newDegens = originalDegens
     if (hasEntries(params)) {
       if (params.searchTerm) setSearchTerm(params.searchTerm)
@@ -88,7 +86,11 @@ const AllDegensPage = (): React.ReactNode => {
       setDegens([])
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [originalDegens])
+  }, [originalDegens, searchParams])
+
+  const handleSearchParamsChange = useCallback((nextSearchParams: Record<string, string>) => {
+    setSearchParams(nextSearchParams)
+  }, [])
 
   const handleChangeSearchTerm: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (
     e
@@ -253,6 +255,9 @@ const AllDegensPage = (): React.ReactNode => {
 
   return (
     <>
+      <Suspense fallback={null}>
+        <DegenSearchParamsBoundary onChange={handleSearchParamsChange} />
+      </Suspense>
       <div className="flex h-full flex-col justify-start align-top gap-4 pl-2">
         <div className="pl-4 pr-6">
           <DegensTopNav
