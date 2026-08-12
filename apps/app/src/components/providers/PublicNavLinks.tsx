@@ -2,8 +2,9 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import type { LucideIcon } from 'lucide-react'
+import { Cat, Dot, Gamepad, ListOrdered, Sparkles } from 'lucide-react'
 
-import { Icon } from '@nl/ui/base/icon'
 import { cn } from '@nl/ui/utils'
 
 import { PublicItems } from '@/constants/menu-items'
@@ -15,6 +16,21 @@ interface PublicNavLinksProps {
 const publicLinks = PublicItems.items.flatMap((item) =>
   item.type === 'group' ? (item.children ?? []) : []
 )
+
+const publicIconMap = {
+  cat: Cat,
+  gamepad: Gamepad,
+  'list-ordered': ListOrdered,
+  sparkles: Sparkles,
+} satisfies Record<string, LucideIcon>
+
+function PublicNavIcon({ name }: { name?: string }) {
+  const Icon =
+    name && name in publicIconMap ? publicIconMap[name as keyof typeof publicIconMap] : undefined
+  const IconComponent = Icon ?? Dot
+
+  return <IconComponent aria-hidden="true" absoluteStrokeWidth size={24} strokeWidth={1.5} />
+}
 
 export default function PublicNavLinks({ onNavigate }: PublicNavLinksProps) {
   const pathname = usePathname()
@@ -40,7 +56,7 @@ export default function PublicNavLinks({ onNavigate }: PublicNavLinksProps) {
                 onClick={onNavigate}
               >
                 <span className="my-auto min-w-9">
-                  <Icon name={item.icon ?? 'dot'} size="lg" />
+                  <PublicNavIcon name={item.icon} />
                 </span>
                 <span className={cn('flex-1 text-base', isSelected ? 'font-bold' : 'font-normal')}>
                   {item.title}
