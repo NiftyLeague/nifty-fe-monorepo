@@ -1,7 +1,6 @@
 import Image from 'next/image'
 
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
-import { ParallaxWrapper } from '@nl/ui/custom/parallax-wrapper'
 
 import BouncingNFTL from '@/components/BouncingNFTL'
 import {
@@ -263,7 +262,7 @@ const Home = () => {
             />
           </div>
           <div className="absolute scrolling-nftl-token">
-            <ParallaxWrapper parallaxDirection="up" parallaxIntensity="extreme">
+            <div>
               <div className="transition-fade">
                 <Image
                   alt="Scrolling NFTL Token"
@@ -274,7 +273,7 @@ const Home = () => {
                   sizes="246px"
                 />
               </div>
-            </ParallaxWrapper>
+            </div>
           </div>
         </div>
       </section>
