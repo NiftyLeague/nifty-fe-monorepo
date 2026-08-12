@@ -1,13 +1,12 @@
 import { useMemo } from 'react'
 import Image from 'next/image'
-import xor from 'lodash/xor'
-import sum from 'lodash/sum'
 import { Skeleton } from '@nl/ui/base/skeleton'
 import { Icon } from '@nl/ui/base/icon'
 import { Input } from '@nl/ui/custom/input'
 
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import type { Comic } from '@/types/marketplace'
+import { toggleValue } from '@/utils/collections'
 
 import styles from './comics-grid.module.css'
 
@@ -38,7 +37,10 @@ export default function ComicsGrid({
     () => (burnCount.some((v) => v === 0) ? 0 : Math.min(...burnCount)),
     [burnCount]
   )
-  const itemCount = useMemo(() => sum(burnCount) - keyCount * 6, [burnCount, keyCount])
+  const itemCount = useMemo(
+    () => burnCount.reduce((total, count) => total + count, 0) - keyCount * 6,
+    [burnCount, keyCount]
+  )
 
   const handleManualSetBurnCount = (comic: Comic, value: string) => {
     const newBurnCount = [...burnCount]
@@ -59,8 +61,7 @@ export default function ComicsGrid({
   }
 
   const handleSelectComic = (comic: Comic) => {
-    // xor creates an array of unique values that is the symmetric difference of the given arrays
-    const newSelectedComics = xor(selectedComics, [comic])
+    const newSelectedComics = toggleValue(selectedComics, comic)
     setSelectedComics(newSelectedComics)
     handleUpdateBurnCount(comic, newSelectedComics)
   }
