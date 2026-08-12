@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { isAddress } from 'ethers'
+import { Info, X } from 'lucide-react'
 
 import { Button } from '@nl/ui/base/button'
 import { Checkbox } from '@nl/ui/base/checkbox'
@@ -12,7 +13,6 @@ import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import { Input } from '@nl/ui/custom/input'
 import { Title } from '@nl/ui/custom/typography'
 import { cn } from '@nl/ui/utils'
-import { Icon } from '@nl/ui/base/icon'
 import type { Degen } from '@/types/degens'
 import { errorMsgHandler } from '@/utils/errorHandlers'
 import { formatNumberToDisplay } from '@nl/ui/utils'
@@ -194,7 +194,13 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
           onClick={onClose}
           aria-label="close"
         >
-          <Icon name="x" size="sm" color="purple" />
+          <X
+            aria-hidden="true"
+            absoluteStrokeWidth
+            color="var(--color-purple)"
+            size={18}
+            strokeWidth={1.5}
+          />
         </Button>
 
         <RentStepper rentSuccess={rentSuccess} checkBalance={checkBalance} />
@@ -271,7 +277,13 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                         {disabledRentFor && (
                           <Tooltip>
                             <TooltipTrigger>
-                              <Icon name="info" size="sm" className="-mt-1" />
+                              <Info
+                                aria-hidden="true"
+                                absoluteStrokeWidth
+                                size={18}
+                                strokeWidth={1.5}
+                                className="-mt-1"
+                              />
                             </TooltipTrigger>
                             <TooltipContent>
                               DEGEN ownership is required to sponsor Recruits on this DEGEN.

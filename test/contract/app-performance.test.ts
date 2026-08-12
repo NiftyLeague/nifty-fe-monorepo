@@ -13,6 +13,32 @@ const privateShellIconSources = [
   'apps/app/src/app/_layout/_MainLayout/_Sidebar/_OnboardingCard/index.tsx',
   'apps/app/src/components/extended/Breadcrumbs.tsx',
 ]
+const appIconRegistrySources = [
+  'apps/app/src/app/(private-routes)/dashboard/degens/DashboardDegensContent.tsx',
+  'apps/app/src/app/(private-routes)/dashboard/degens/_dialogs/RenameStepper.tsx',
+  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_ImageProfile/ProfileImageDialog.tsx',
+  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_Stats/ChangeProfileNameDialog.tsx',
+  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_Stats/TopInfo.tsx',
+  'apps/app/src/app/(private-routes)/dashboard/items/burner/_components/comics-grid.tsx',
+  'apps/app/src/app/(private-routes)/dashboard/rentals/MyRentalsDataGrid.tsx',
+  'apps/app/src/components/ResponsiveTable/ExpandableListItem.tsx',
+  'apps/app/src/components/ResponsiveTable/DataList.tsx',
+  'apps/app/src/components/ResponsiveTable/Pagination.tsx',
+  'apps/app/src/components/ResponsiveTable/ResponsiveTable.tsx',
+  'apps/app/src/components/ResponsiveTable/types.ts',
+  'apps/app/src/components/cards/BuyCard.tsx',
+  'apps/app/src/components/cards/DegenCard/DegenDashboardActions.tsx',
+  'apps/app/src/components/cards/DegenCard/index.tsx',
+  'apps/app/src/components/dialog/BridgeButtonDialog/BridgeSuccess.tsx',
+  'apps/app/src/components/dialog/BuyArcadeTokensDialog.tsx',
+  'apps/app/src/components/dialog/DegenDialog/CowSwapWidget.tsx',
+  'apps/app/src/components/dialog/DegenDialog/EquipDegenContentDialog/index.tsx',
+  'apps/app/src/components/dialog/DegenDialog/RentDegenContentDialog.tsx',
+  'apps/app/src/components/dialog/DialogActions.tsx',
+  'apps/app/src/components/dialog/WithdrawButtonDialog/WithdrawSuccess.tsx',
+  'apps/app/src/components/pagination/PaginationIconOnly.tsx',
+  'apps/smashers/src/app/(auth_routes)/profile/ProfileClient.tsx',
+]
 
 describe('app performance contracts', () => {
   it('uses native shallow copies for primitive responsive-table selection state', () => {
@@ -47,5 +73,13 @@ describe('app performance contracts', () => {
     expect(appNavIconSource).toContain("from 'lucide-react'")
     expect(appNavIconSource).toContain("'layout-grid': LayoutGrid")
     expect(appNavIconSource).toContain("'list-ordered': ListOrdered")
+  })
+
+  it('keeps private application components on direct icon imports', () => {
+    for (const file of appIconRegistrySources) {
+      expect(readFileSync(file, 'utf8')).not.toMatch(
+        /import \{[^}]*\bIcon\b[^}]*\} from ['"]@nl\/ui\/base\/icon/
+      )
+    }
   })
 })

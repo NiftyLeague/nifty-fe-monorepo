@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import Image from 'next/image'
+import { Flame } from 'lucide-react'
 import { Skeleton } from '@nl/ui/base/skeleton'
-import { Icon } from '@nl/ui/base/icon'
 import { Input } from '@nl/ui/custom/input'
 
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
@@ -100,7 +100,9 @@ export default function ComicsGrid({
                         handleManualSetBurnCount(comic, event.target.value)
                       }}
                       type="number"
-                      startIcon={<Icon name="flame" size="xs" />}
+                      startIcon={
+                        <Flame aria-hidden="true" absoluteStrokeWidth size={14} strokeWidth={1.5} />
+                      }
                       inputMode="numeric"
                       pattern="[0-9]*"
                       min={0}
