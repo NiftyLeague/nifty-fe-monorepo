@@ -3,8 +3,18 @@
 import { useRouter } from 'next/navigation'
 import { useSnackbar } from 'notistack'
 
-import { AlertDialog } from '@nl/ui/custom/alert-dialog'
 import { Button } from '@nl/ui/base/button'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@nl/ui/base/alert-dialog'
 import { Icon } from '@nl/ui/base/icon'
 
 import { fetchJson } from '../../utils/fetchJson'
@@ -33,13 +43,8 @@ export default function DeleteAccountDialog({ loading = false }) {
   }
 
   return (
-    <AlertDialog
-      title="Delete Account"
-      description="Are you sure? This action cannot be undone. This will permanently delete your account and remove your data from our servers."
-      confirmText="Delete Account"
-      confirmVariant="destructive"
-      onConfirm={handleDeleteUser}
-      triggerElement={
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
         <Button
           variant="destructive"
           size="lg"
@@ -49,7 +54,28 @@ export default function DeleteAccountDialog({ loading = false }) {
           <Icon name="trash" />
           Delete Account
         </Button>
-      }
-    />
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Delete Account</AlertDialogTitle>
+          <AlertDialogDescription>
+            Are you sure? This action cannot be undone. This will permanently delete your account
+            and remove your data from our servers.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel variant="outline" className="cursor-pointer">
+            Cancel
+          </AlertDialogCancel>
+          <AlertDialogAction
+            variant="destructive"
+            onClick={handleDeleteUser}
+            className="cursor-pointer"
+          >
+            Delete Account
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   )
 }
