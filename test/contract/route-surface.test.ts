@@ -193,6 +193,8 @@ const routeLoadingFiles = [
   'apps/smashers/src/app/loading.tsx',
 ]
 const webHomePage = 'apps/web/src/app/(main)/page.tsx'
+const gltfPage = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/page.tsx'
+const gltfClient = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViews.tsx'
 const webNavbar = 'apps/web/src/components/Navbar/index.tsx'
 const sharedWebNavbar = 'packages/ui/src/components/custom/navbar/index.tsx'
 const sharedWebMobileNavbar = 'packages/ui/src/components/custom/navbar/MobileNavMenu.tsx'
@@ -270,6 +272,22 @@ describe('public degen loading contract', () => {
     expect(routeBoundarySource).toContain('aria-busy="true"')
     expect(routeBoundarySource).toContain("from '@nl/ui/base/skeleton'")
     expect(clientPageSource).toContain("'use client'")
+  })
+})
+
+describe('GLTF viewer loading contract', () => {
+  it('keeps the initial NFT shell server-rendered and browser controls isolated', () => {
+    const pageSource = readFileSync(join(process.cwd(), gltfPage), 'utf8')
+    const clientSource = readFileSync(join(process.cwd(), gltfClient), 'utf8')
+
+    expect(pageSource).not.toContain("'use client'")
+    expect(pageSource).toContain('await params')
+    expect(pageSource).toContain("from 'next/image'")
+    expect(pageSource).toContain("from './components/DegenViews'")
+    expect(clientSource).toContain("'use client'")
+    expect(clientSource).not.toContain("from 'next/image'")
+    expect(clientSource).toContain("dynamic(() => import('./ModelView')")
+    expect(clientSource).toContain('ssr: false')
   })
 })
 
