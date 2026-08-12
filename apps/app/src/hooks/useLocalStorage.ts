@@ -1,8 +1,8 @@
 'use client'
 
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react'
-import isEqual from 'lodash/isEqual'
 import { safeJSONParse } from '@/utils/json'
+import { areValuesEqual } from '@/utils/value-equality'
 
 // ==============================|| Local Storage Hook ||============================== //
 
@@ -34,7 +34,7 @@ export default function useLocalStorage<T>(
         return
       }
       const currentValueInStorage = safeJSONParse(window.localStorage.getItem(key)) as T
-      if (!isEqual(currentValueInStorage, storedValue)) {
+      if (!areValuesEqual(currentValueInStorage, storedValue)) {
         window.localStorage.setItem(key, JSON.stringify(storedValue))
       }
     }

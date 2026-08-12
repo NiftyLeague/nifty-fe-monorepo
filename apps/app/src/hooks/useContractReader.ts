@@ -2,9 +2,9 @@
 
 /* eslint-disable no-console */
 import { useCallback, useState, useMemo } from 'react'
-import isEqual from 'lodash/isEqual'
 import type { Contracts } from '@/types/web3'
 import type { BaseContract, Contract, ContractMethod } from 'ethers'
+import { areValuesEqual } from '@/utils/value-equality'
 import useAsyncInterval from './useAsyncInterval'
 
 /*
@@ -52,7 +52,7 @@ export default function useContractReader(
           }
         }
         if (formatter && typeof formatter === 'function') newValue = formatter(newValue)
-        if (!isEqual(newValue, value)) setValue(newValue)
+        if (!areValuesEqual(newValue, value)) setValue(newValue)
         return
       } catch (e) {
         console.error('Read Contract Error:', contractName, e)
