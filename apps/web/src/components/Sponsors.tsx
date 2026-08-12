@@ -1,7 +1,4 @@
 import Image from 'next/image'
-import { memo } from 'react'
-
-import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
 
 type Sponsor = { image: string; url: string; width: number; height: number }
 
@@ -34,22 +31,19 @@ const Sponsors = ({ sponsors }: { sponsors: Sponsor[] }) => (
       </div>
     </div>
     <div className="hidden md:block">
-      <AnimatedWrapper>
-        <div className="w-full relative flex-grow transition-fade transition-fade-start delay-normal">
-          <Image
-            alt="Proudly Backed By"
-            className="w-full h-auto"
-            width={1920}
-            height={925}
-            src="/img/sponsors/sponsors.webp"
-            sizes="100vw"
-          />
-          <div className="dark-gradient-overlay" />
-        </div>
-      </AnimatedWrapper>
+      <div className="w-full relative flex-grow">
+        <Image
+          alt="Proudly Backed By"
+          className="w-full h-auto"
+          width={1920}
+          height={925}
+          src="/img/sponsors/sponsors.webp"
+          sizes="100vw"
+        />
+        <div className="dark-gradient-overlay" />
+      </div>
     </div>
   </>
 )
 
-const MemoizedSponsors = memo(Sponsors)
-export default MemoizedSponsors
+export default Sponsors

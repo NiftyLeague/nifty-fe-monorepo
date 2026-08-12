@@ -202,6 +202,25 @@ const sharedWebMobileTrigger = 'packages/ui/src/components/custom/navbar/MobileN
 const webCommunityPage = 'apps/web/src/app/(main)/community/page.tsx'
 const webTeamPage = 'apps/web/src/app/(main)/team/page.tsx'
 const webCarousel = 'apps/web/src/components/Carousel/index.tsx'
+const animationFreeMarketingPages = [
+  'apps/web/src/app/(main)/games/page.tsx',
+  'apps/web/src/app/(main)/niftyworld/page.tsx',
+  'apps/web/src/app/(main)/overview/page.tsx',
+  'apps/web/src/app/(main)/degens/page.tsx',
+  'apps/web/src/app/(main)/compete-and-earn/page.tsx',
+  'apps/web/src/app/(main)/careers/page.tsx',
+  'apps/web/src/app/(main)/team/page.tsx',
+  'apps/web/src/app/(main)/community/page.tsx',
+  'apps/web/src/app/(main)/lore/page.tsx',
+]
+const animationFreeMarketingComponents = [
+  'apps/web/src/components/ThemeBtnGroup/index.tsx',
+  'apps/web/src/components/LearnCards/index.tsx',
+  'apps/web/src/components/Careers/JobCard.tsx',
+  'apps/web/src/components/Sponsors.tsx',
+  'packages/ui/src/components/custom/accordion/index.tsx',
+  'packages/ui/src/components/custom/degen-specials-table/index.tsx',
+]
 const smashersHomePage = 'apps/smashers/src/app/page.tsx'
 const webDeferredHomeSections = 'apps/web/src/components/DeferredHomeSections.tsx'
 const smashersDeferredHomeSections = 'apps/smashers/src/components/DeferredHomeSections.tsx'
@@ -1076,6 +1095,24 @@ describe('web marketing page boundary contract', () => {
     expect(teamSource).toContain("import Carousel from '@/components/Carousel'")
     expect(carouselSource).toContain("'use client'")
   })
+})
+
+describe('web marketing animation boundary contract', () => {
+  for (const file of [...animationFreeMarketingPages, ...animationFreeMarketingComponents]) {
+    it(`keeps default marketing content out of the animated client boundary in ${file}`, () => {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+
+      expect(source).not.toContain('AnimatedWrapper')
+      expect(source).not.toContain('@nl/ui/custom/animated-wrapper')
+      expect(source).not.toContain('transition-fade-start')
+      expect(source).not.toContain('transition-vertical-fade-start')
+      expect(source).not.toContain('transition-quick-pop-start')
+      expect(source).not.toContain('transition-quick-pop-left-start')
+      expect(source).not.toContain('delay-lite')
+      expect(source).not.toContain('delay-normal')
+      expect(source).not.toContain('delay-long')
+    })
+  }
 })
 
 const sentryClientBoundaries = [

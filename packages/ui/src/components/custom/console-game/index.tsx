@@ -43,62 +43,57 @@ export const ConsoleGame = memo(function ConsoleGame({ src }: { src: string }) {
 
   return (
     <div ref={rootRef} className="relative overflow-hidden">
-      <AnimatedWrapper>
-        <div
-          style={{ position: 'relative', display: 'flex', flexGrow: 1 }}
-          className="transition-fade-slow transition-fade-start delay-lite md:animation-hidden"
+      <div
+        style={{ position: 'relative', display: 'flex', flexGrow: 1 }}
+        className="md:animation-hidden"
+      >
+        <Image
+          alt="Game Console Backdrop"
+          className="pixelated"
+          width={1920}
+          height={1080}
+          src="/img/console-game/classic-gaming-reinvented-notv.webp"
+          sizes="(max-width: 1920px) 100vw, 1920px"
+          style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
+          loading="lazy"
+        />
+        <video
+          ref={videoRef}
+          id="console-video"
+          width="100%"
+          height="100%"
+          muted
+          autoPlay={isNearViewport}
+          loop
+          playsInline
+          preload={isNearViewport ? 'metadata' : 'none'}
+          className={styles.game_video}
+          onPlay={handlePlay}
+          onPause={handlePause}
+          onEnded={handlePause}
+        >
+          <source src={src} type="video/mp4" />
+        </video>
+        <Button
+          type="button"
+          onClick={togglePlay}
+          variant="ghost"
+          size="icon"
+          aria-label={isPlaying ? 'Pause video' : 'Play video'}
+          className={cn(styles.bonk_note, 'h-auto w-auto rounded-none p-0 hover:bg-transparent')}
         >
           <Image
-            alt="Game Console Backdrop"
+            alt="Bonk Sticker"
             className="pixelated"
             width={1920}
             height={1080}
-            src="/img/console-game/classic-gaming-reinvented-notv.webp"
+            src="/img/console-game/bonk.webp"
+            loading="lazy"
             sizes="(max-width: 1920px) 100vw, 1920px"
             style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
-            loading="lazy"
           />
-          <video
-            ref={videoRef}
-            id="console-video"
-            width="100%"
-            height="100%"
-            muted
-            autoPlay={isNearViewport}
-            loop
-            playsInline
-            preload={isNearViewport ? 'metadata' : 'none'}
-            className={styles.game_video}
-            onPlay={handlePlay}
-            onPause={handlePause}
-            onEnded={handlePause}
-          >
-            <source src={src} type="video/mp4" />
-          </video>
-          <Button
-            type="button"
-            onClick={togglePlay}
-            variant="ghost"
-            size="icon"
-            aria-label={isPlaying ? 'Pause video' : 'Play video'}
-            className={cn(
-              styles.bonk_note,
-              'h-auto w-auto rounded-none p-0 transition-fade-start transition-fade delay-normal hover:bg-transparent'
-            )}
-          >
-            <Image
-              alt="Bonk Sticker"
-              className="pixelated"
-              width={1920}
-              height={1080}
-              src="/img/console-game/bonk.webp"
-              loading="lazy"
-              sizes="(max-width: 1920px) 100vw, 1920px"
-              style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
-            />
-          </Button>
-        </div>
-      </AnimatedWrapper>
+        </Button>
+      </div>
       <div className={styles.gaming_controller}>
         <AnimatedWrapper parallax parallaxDirection="down" parallaxIntensity="normal">
           <div className="animate-hover transition-fade-start transition-fade delay-long">

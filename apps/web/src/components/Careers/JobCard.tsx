@@ -1,5 +1,4 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@nl/ui/base/accordion'
-import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
 import ThemeBtnGroup from '@/components/ThemeBtnGroup'
 
 interface JobCardProps {
@@ -21,12 +20,8 @@ const JobCard = ({ details }: JobCardProps): React.ReactNode => {
     <Accordion type="single" collapsible className="bg-card border-1 rounded-md mb-5">
       <AccordionItem value={`panel-${title}-header`}>
         <AccordionTrigger className="px-4 md:px-6 py-8 items-center">
-          <AnimatedWrapper>
-            <h5 className="transition-fade transition-fade-start delay-lite">{title}</h5>
-            <p className="text-muted-foreground transition-fade transition-fade-start delay-normal m-0">
-              {location}
-            </p>
-          </AnimatedWrapper>
+          <h5>{title}</h5>
+          <p className="text-muted-foreground m-0">{location}</p>
           <div className="flex-1" />
           <ThemeBtnGroup
             className="max-w-40 mt-0 xl:mt-0"
@@ -40,59 +35,41 @@ const JobCard = ({ details }: JobCardProps): React.ReactNode => {
         </AccordionTrigger>
 
         <AccordionContent className="px-4 md:px-6 text-left">
-          <AnimatedWrapper>
-            <h6 className="text-purple transition-fade-start transition-fade delay-lite">
-              About the Role
-            </h6>
-            <p className="text-inherit transition-fade-start transition-fade delay-normal">
-              {aboutTheRole}
-            </p>
+          <h6 className="text-purple">About the Role</h6>
+          <p className="text-inherit">{aboutTheRole}</p>
 
-            {responsibilities && (
-              <div>
-                <h6 className="text-purple pt-5 transition-fade-start transition-fade delay-lite">
-                  Responsibilities:
-                </h6>
-                <ul>
-                  {responsibilities.map((resp, index) => (
-                    <li className="transition-fade-start transition-fade delay-normal" key={index}>
-                      {resp}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+          {responsibilities && (
+            <div>
+              <h6 className="text-purple pt-5">Responsibilities:</h6>
+              <ul>
+                {responsibilities.map((resp, index) => (
+                  <li key={index}>{resp}</li>
+                ))}
+              </ul>
+            </div>
+          )}
 
-            <h6 className="text-purple pt-5 transition-fade-start transition-fade delay-lite">
-              Requirements:
-            </h6>
-            <ul>
-              {requirements.map((req, index) => (
-                <li className="transition-fade-start transition-fade delay-normal" key={index}>
-                  {req}
-                </li>
-              ))}
-            </ul>
+          <h6 className="text-purple pt-5">Requirements:</h6>
+          <ul>
+            {requirements.map((req, index) => (
+              <li key={index}>{req}</li>
+            ))}
+          </ul>
 
-            <h6 className="text-purple pt-5 transition-fade-start transition-fade delay-lite">
-              What we offer:
-            </h6>
-            <ul>
-              {benefits.map((ben, index) => (
-                <li className="transition-fade-start transition-fade delay-normal" key={index}>
-                  {ben}
-                </li>
-              ))}
-            </ul>
-            <ThemeBtnGroup
-              primary={{
-                href: link,
-                title: 'APPLY',
-                external: true,
-                className: 'theme-btn-purple',
-              }}
-            />
-          </AnimatedWrapper>
+          <h6 className="text-purple pt-5">What we offer:</h6>
+          <ul>
+            {benefits.map((ben, index) => (
+              <li key={index}>{ben}</li>
+            ))}
+          </ul>
+          <ThemeBtnGroup
+            primary={{
+              href: link,
+              title: 'APPLY',
+              external: true,
+              className: 'theme-btn-purple',
+            }}
+          />
         </AccordionContent>
       </AccordionItem>
     </Accordion>

@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
 
-import { AnimatedWrapper } from '@nl/ui/custom/animated-wrapper'
 import { LazyYouTubeEmbed } from '@nl/ui/custom/lazy-youtube-embed'
 import { ViewportVideo } from '@nl/ui/custom/viewport-video'
 import { cn } from '@nl/ui/utils'
@@ -15,48 +14,40 @@ const Games: NextPage = () => (
     <div className="purple-bg-orb orb-top-right" />
     <section className="section flex items-center justify-center flex-wrap">
       <div className="w-1/3 md:w-1/2 md:px-2 lg:px-3">
-        <AnimatedWrapper>
-          <div className="animate-zoom-out transition-fade-start transition-fade delay-long">
-            <ViewportVideo
-              id="lobby"
-              width="100%"
-              height="100%"
-              muted
-              loop
-              playsInline
-              data-keepplaying
-              className="hidden md:block"
-              src="/video/lobby.mp4"
+        <div className="animate-zoom-out">
+          <ViewportVideo
+            id="lobby"
+            width="100%"
+            height="100%"
+            muted
+            loop
+            playsInline
+            data-keepplaying
+            className="hidden md:block"
+            src="/video/lobby.mp4"
+          />
+          <div className="block md:hidden">
+            <Image
+              alt="Arcade"
+              width={339}
+              height={661}
+              src="/img/games/smashers/arcade.webp"
+              sizes="100vw"
+              style={{ width: '100%', height: 'auto', marginBottom: '6rem' }}
             />
-            <div className="block md:hidden">
-              <Image
-                alt="Arcade"
-                width={339}
-                height={661}
-                src="/img/games/smashers/arcade.webp"
-                sizes="100vw"
-                style={{ width: '100%', height: 'auto', marginBottom: '6rem' }}
-              />
-            </div>
           </div>
-        </AnimatedWrapper>
+        </div>
       </div>
 
       <div className="w-full md:w-1/2 px-2 lg:px-3">
         <div className="mb-4">
-          <AnimatedWrapper>
-            <h1 className="text-center transition-fade-slow transition-fade-start delay-lite whitespace-nowrap">
-              GAMES
-            </h1>
-          </AnimatedWrapper>
+          <h1 className="text-center whitespace-nowrap">GAMES</h1>
         </div>
         <div className="mb-5">
-          <AnimatedWrapper>
-            <p className="text-center transition-fade-slow transition-fade-start delay-normal">
-              Join thousands of players around the world competing for the top spot in Nifty
-              League!{' '}
-            </p>
-          </AnimatedWrapper>
+          <p className="text-center">
+            Join thousands of players around the world competing for the top spot in Nifty
+            League!{' '}
+          </p>
         </div>
       </div>
     </section>
@@ -66,27 +57,10 @@ const Games: NextPage = () => (
         <article className="flex flex-col-reverse md:flex-row relative mb-8" key={name}>
           <div className={cn(styles.block, 'w-full md:w-7/12 pr-0 md:pr-5')}>
             <div className="flex flex-row items-center justify-between mb-3">
-              <AnimatedWrapper>
-                <h4 className="m-0 transition-vertical-fade transition-vertical-fade-start delay-lite">
-                  {name}
-                </h4>
-              </AnimatedWrapper>
-              <AnimatedWrapper>
-                <p
-                  className={cn(
-                    styles.tagGame,
-                    'm-0 transition-fade-slow transition-fade-start delay-normal'
-                  )}
-                >
-                  {tag}
-                </p>
-              </AnimatedWrapper>
+              <h4 className="m-0">{name}</h4>
+              <p className={cn(styles.tagGame, 'm-0')}>{tag}</p>
             </div>
-            <AnimatedWrapper>
-              <p className="transition-vertical-fade transition-vertical-fade-start delay-normal">
-                {description}
-              </p>
-            </AnimatedWrapper>
+            <p>{description}</p>
             <div className="flex justify-center md:justify-start mt-4">
               {action.isComingSoon ? (
                 <ThemeBtnGroup
@@ -123,25 +97,23 @@ const Games: NextPage = () => (
             </div>
           </div>
           <div className="w-full md:w-5/12">
-            <AnimatedWrapper>
-              <div className="relative text-right transition-fade-slow transition-fade-start delay-normal mb-4">
-                {video.includes('youtube') ? (
-                  <LazyYouTubeEmbed src={video} title={name} className={styles.video} />
-                ) : (
-                  <ViewportVideo
-                    id="console-video"
-                    width="100%"
-                    height="100%"
-                    muted
-                    loop
-                    playsInline
-                    data-keepplaying
-                    className={styles.video}
-                    src={video}
-                  />
-                )}
-              </div>
-            </AnimatedWrapper>
+            <div className="relative text-right mb-4">
+              {video.includes('youtube') ? (
+                <LazyYouTubeEmbed src={video} title={name} className={styles.video} />
+              ) : (
+                <ViewportVideo
+                  id="console-video"
+                  width="100%"
+                  height="100%"
+                  muted
+                  loop
+                  playsInline
+                  data-keepplaying
+                  className={styles.video}
+                  src={video}
+                />
+              )}
+            </div>
           </div>
           <div
             className={cn(
