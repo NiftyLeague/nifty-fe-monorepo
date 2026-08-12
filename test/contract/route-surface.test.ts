@@ -266,6 +266,7 @@ const publicMobileNavigationTrigger =
 const publicIconButton = 'packages/ui/src/components/base/icon-button.tsx'
 const publicMainContent = 'apps/app/src/components/providers/PublicMainContent.tsx'
 const publicNavLinks = 'apps/app/src/components/providers/PublicNavLinks.tsx'
+const smashersBackButton = 'apps/smashers/src/components/Header/BackButton/index.tsx'
 const verificationPage = 'apps/app/src/app/verification/page.tsx'
 const verificationLayout = 'apps/app/src/app/verification/layout.tsx'
 
@@ -401,6 +402,13 @@ describe('Smashers public shell contract', () => {
     expect(rootLayoutSource).not.toContain('FeatureFlagProvider')
     expect(authLayoutSource).toContain('FeatureFlagProvider')
     expect(existsSync(join(process.cwd(), staleSmashersUnityDialog))).toBe(false)
+  })
+
+  it('keeps the shared back control out of the full icon registry graph', () => {
+    const source = readFileSync(join(process.cwd(), smashersBackButton), 'utf8')
+
+    expect(source).toContain("from 'lucide-react'")
+    expect(source).not.toContain("from '@nl/ui/base/icon'")
   })
 })
 
