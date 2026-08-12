@@ -31,7 +31,9 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
                 <LogoSection />
               </div>
               <PublicDesktopSidebarToggle />
-              <PublicMobileNavigationTrigger />
+              <PublicMobileNavigationTrigger>
+                <PublicNavLinks />
+              </PublicMobileNavigationTrigger>
             </div>
             <div className="hidden items-center justify-between gap-4 lg:flex">
               {pages.map((page) => (

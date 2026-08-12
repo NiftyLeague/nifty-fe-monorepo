@@ -1,16 +1,18 @@
 'use client'
 
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@nl/ui/base/sheet'
+import type { ReactNode } from 'react'
 
 import LogoSection from '@/app/_layout/_MainLayout/_LogoSection'
-import PublicNavLinks from './PublicNavLinks'
 
 interface PublicMobileNavigationProps {
+  children: ReactNode
   open: boolean
   onOpenChange: (open: boolean) => void
 }
 
 export default function PublicMobileNavigation({
+  children,
   open,
   onOpenChange,
 }: PublicMobileNavigationProps) {
@@ -28,8 +30,14 @@ export default function PublicMobileNavigation({
           </SheetTitle>
           <SheetDescription className="sr-only">Navigate through the public app</SheetDescription>
         </SheetHeader>
-        <nav aria-label="Primary navigation" className="overflow-y-auto px-4">
-          <PublicNavLinks onNavigate={() => onOpenChange(false)} />
+        <nav
+          aria-label="Primary navigation"
+          className="overflow-y-auto px-4"
+          onClick={(event) => {
+            if ((event.target as HTMLElement).closest('a')) onOpenChange(false)
+          }}
+        >
+          {children}
         </nav>
       </SheetContent>
     </Sheet>
