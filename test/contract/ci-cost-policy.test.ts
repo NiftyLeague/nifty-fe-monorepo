@@ -25,4 +25,18 @@ describe('hosted validation cost policy', () => {
     expect(source).toContain('github.event.pull_request.draft != true')
     expect(source).toContain('startsWith(github.event.pull_request.head.ref')
   })
+
+  it('materializes re-alignment paths before mutating the worktree index', () => {
+    const source = readWorkflow('re-align-staging.yml')
+
+    expect(source).toContain('changed_paths_file=$(mktemp)')
+    expect(source).toContain('> "$changed_paths_file"')
+    expect(source).toContain('done < "$changed_paths_file"')
+    expect(source).not.toContain(
+      'done < <(git -C "$preview_dir" diff --no-renames --name-only -z "$merge_base" "$staging_head")'
+    )
+    expect(source).not.toContain(
+      'done < <(git diff --no-renames --name-only -z "$merge_base" "$staging_head")'
+    )
+  })
 })
