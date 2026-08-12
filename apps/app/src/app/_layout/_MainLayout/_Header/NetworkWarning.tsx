@@ -24,7 +24,7 @@ export default function NetworkWarning() {
       style={{ zIndex: 1, position: 'absolute' }}
     >
       <Icon name={isConnectedToIMX ? 'info' : 'triangle-alert'} size="lg" strokeWidth={2.5} />
-      <span className="px-2 text-xl font-semibold">
+      <span aria-live="polite" className="px-2 text-xl font-semibold">
         {isConnectedToIMX
           ? `You're connected to Immutable zkEVM! Switch back to ${TARGET_NETWORK.label}`
           : `Please switch to ${TARGET_NETWORK.label}`}

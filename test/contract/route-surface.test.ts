@@ -592,6 +592,7 @@ describe('private provider loading contract', () => {
     expect(layoutSource).not.toContain('useSwitchChain')
     expect(warningSource).toContain('useSwitchChain')
     expect(warningSource).toContain('TARGET_NETWORK')
+    expect(warningSource).toContain('aria-live="polite"')
     expect(warningSource).toContain('<Button')
   })
 
