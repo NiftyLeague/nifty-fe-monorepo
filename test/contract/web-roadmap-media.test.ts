@@ -15,7 +15,11 @@ describe('web roadmap animated media policy', () => {
   })
 
   it('routes roadmap cards through the shared animated image primitive', () => {
-    expect(readFileSync(roadmapCard, 'utf8')).toContain('@nl/ui/custom/animated-image')
+    const source = readFileSync(roadmapCard, 'utf8')
+
+    expect(source).toContain('@nl/ui/custom/animated-image')
+    expect(source).toContain("from 'lucide-react'")
+    expect(source).not.toContain("from '@nl/ui/base/icon'")
     expect(readFileSync(roadmapConstants, 'utf8')).toContain('crypto-winter-roadmap.webp')
     expect(readFileSync(roadmapConstants, 'utf8')).toContain('nifty-smashers-roadmap.webp')
   })
