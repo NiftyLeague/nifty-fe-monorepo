@@ -5,8 +5,6 @@ import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { useAccount } from 'wagmi'
-import isEmpty from 'lodash/isEmpty'
-import xor from 'lodash/xor'
 
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { Button } from '@nl/ui/base/button'
@@ -40,6 +38,7 @@ import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import DegensTopNav from '@/components/extended/DegensTopNav'
 import useLocalStorageContext from '@/hooks/useLocalStorageContext'
 import { isAuditFixtureEnabled } from '@/audit/fixture'
+import { hasEntries, toggleValue } from '@/utils/collections'
 
 const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'), {
   ssr: false,
@@ -108,7 +107,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
     setDefaultValues(getDefaultFilterValueFromData(populatedDegens))
     const params = Object.fromEntries(searchParams.entries())
     let newDegens = populatedDegens
-    if (!isEmpty(params)) {
+    if (hasEntries(params)) {
       if (params.searchTerm) setSearchTerm(params.searchTerm)
       const newFilterOptions = updateFilterValue(defaultValues, params)
       if (newFilterOptions) {
@@ -197,10 +196,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
 
   const handleClickFavorite = useCallback(
     async (degen: Degen) => {
-      const newFavs = xor(
-        favDegens?.filter((f) => f),
-        [degen.id]
-      )
+      const newFavs = toggleValue(favDegens?.filter((f) => f) ?? [], degen.id)
       await fetch(`${PROFILE_FAV_DEGENS_API}`, {
         method: 'POST',
         body: JSON.stringify({ favorites: newFavs.toString() }),
