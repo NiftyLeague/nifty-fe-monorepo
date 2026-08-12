@@ -3,9 +3,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import dynamic from 'next/dynamic'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 import { Button } from '@nl/ui/base/button'
-import { Icon } from '@nl/ui/base/icon'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
@@ -177,7 +177,11 @@ const AllDegensPage = (): React.ReactNode => {
               aria-label={isDrawerOpen ? 'Hide filters' : 'Show filters'}
               onClick={() => setIsDrawerOpen(!isDrawerOpen)}
             >
-              <Icon name={isDrawerOpen ? 'chevron-left' : 'chevron-right'} size="xl" />
+              {isDrawerOpen ? (
+                <ChevronLeft absoluteStrokeWidth aria-hidden="true" size={28} strokeWidth={1.5} />
+              ) : (
+                <ChevronRight absoluteStrokeWidth aria-hidden="true" size={28} strokeWidth={1.5} />
+              )}
             </Button>
             {filteredData.length} Degens
           </div>
@@ -200,7 +204,7 @@ const AllDegensPage = (): React.ReactNode => {
             onClick={() => jump(currentPage - 1)}
             aria-label="Previous page"
           >
-            <Icon name="chevron-left" />
+            <ChevronLeft absoluteStrokeWidth aria-hidden="true" size={20} strokeWidth={1.5} />
           </Button>
           {pageItems.map((p) =>
             p === 'ellipsis-start' || p === 'ellipsis-end' ? (
@@ -227,7 +231,7 @@ const AllDegensPage = (): React.ReactNode => {
             onClick={() => jump(currentPage + 1)}
             aria-label="Next page"
           >
-            <Icon name="chevron-right" />
+            <ChevronRight absoluteStrokeWidth aria-hidden="true" size={20} strokeWidth={1.5} />
           </Button>
         </div>
       </div>

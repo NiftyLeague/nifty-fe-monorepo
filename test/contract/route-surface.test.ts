@@ -315,6 +315,8 @@ describe('public degen loading contract', () => {
     expect(routeBoundarySource).toContain('aria-busy="true"')
     expect(routeBoundarySource).toContain("from '@nl/ui/base/skeleton'")
     expect(clientPageSource).toContain("'use client'")
+    expect(clientPageSource).toContain("from 'lucide-react'")
+    expect(clientPageSource).not.toContain("from '@nl/ui/base/icon'")
   })
 })
 
