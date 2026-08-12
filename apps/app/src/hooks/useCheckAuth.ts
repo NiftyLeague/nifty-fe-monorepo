@@ -3,18 +3,14 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { useAccount } from 'wagmi'
 
-// reducer - state management
-import { useDispatch, useSelector } from '@/store/hooks'
-import { login, logout } from '@/store/slices/account'
-
 import { ADDRESS_VERIFICATION } from '@/constants/auth-urls'
+import { useAuthStatus } from '@/contexts/AuthStatusContext'
 import useLocalStorageContext from '@/hooks/useLocalStorageContext'
 
 const useCheckAuth = () => {
-  const dispatch = useDispatch()
   const { address } = useAccount()
+  const { isLoggedIn, setIsLoggedIn } = useAuthStatus()
   const { authToken, clearAllAuth } = useLocalStorageContext()
-  const { isLoggedIn } = useSelector((state) => state.account)
   const cache = useRef({ address, authToken, verified: false })
   const firstRenderRef = useRef(true)
 
@@ -50,12 +46,12 @@ const useCheckAuth = () => {
   const verify = useCallback(async () => {
     const addressVerified = await checkAddress()
     if (addressVerified) {
-      dispatch(login())
+      setIsLoggedIn(true)
     } else {
-      dispatch(logout())
+      setIsLoggedIn(false)
       clearAllAuth()
     }
-  }, [checkAddress, clearAllAuth, dispatch])
+  }, [checkAddress, clearAllAuth, setIsLoggedIn])
 
   useEffect(() => {
     if (firstRenderRef.current) {
@@ -63,9 +59,9 @@ const useCheckAuth = () => {
       return
     }
 
-    if (isLoggedIn && (!authToken || !address)) dispatch(logout())
+    if (isLoggedIn && (!authToken || !address)) setIsLoggedIn(false)
     else if (authToken && address) void verify()
-  }, [address, authToken, dispatch, isLoggedIn, verify])
+  }, [address, authToken, isLoggedIn, setIsLoggedIn, verify])
 
   return { checkAddress, verify }
 }

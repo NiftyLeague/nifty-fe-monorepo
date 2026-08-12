@@ -4,7 +4,7 @@ import { createContext, useCallback, useRef, useEffect, type PropsWithChildren }
 import { useAccount } from 'wagmi'
 
 import type { AuthTokenContextType } from '@/types/auth'
-import { useSelector } from '@/store/hooks'
+import { useAuthStatus } from '@/contexts/AuthStatusContext'
 import useCheckAuth from '@/hooks/useCheckAuth'
 import useLocalStorageContext from '@/hooks/useLocalStorageContext'
 import useSignAuthMsg from '@/hooks/useSignAuthMsg'
@@ -16,9 +16,9 @@ const AuthTokenContext = createContext<AuthTokenContextType | null>(null)
 
 export const AuthTokenProvider = ({ children }: PropsWithChildren) => {
   const { isConnected } = useAccount()
+  const { isLoggedIn } = useAuthStatus()
   const { checkAddress } = useCheckAuth()
   const { signMessage } = useSignAuthMsg()
-  const { isLoggedIn } = useSelector((state) => state.account)
   const { authToken } = useLocalStorageContext()
   const msgSent = useRef(false)
   const connectedRef = useRef(isConnected)
