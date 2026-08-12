@@ -3,6 +3,7 @@
 import type { PropsWithChildren } from 'react'
 import { headers } from 'next/headers'
 
+import { AuthStatusProvider } from '@/contexts/AuthStatusContext'
 import { AuthTokenProvider } from '@/contexts/AuthTokenContext'
 import { LocalStorageProvider } from '@/contexts/LocalStorageContext'
 import { Web3ModalProvider } from '@/contexts/Web3ModalContext'
@@ -19,7 +20,9 @@ export default async function WalletAuthContextWrapper({ children }: PropsWithCh
   return (
     <LocalStorageProvider>
       <Web3ModalProvider cookies={cookies}>
-        <AuthTokenProvider>{children}</AuthTokenProvider>
+        <AuthStatusProvider>
+          <AuthTokenProvider>{children}</AuthTokenProvider>
+        </AuthStatusProvider>
       </Web3ModalProvider>
     </LocalStorageProvider>
   )

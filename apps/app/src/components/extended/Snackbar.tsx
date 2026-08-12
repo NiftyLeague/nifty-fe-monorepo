@@ -3,8 +3,7 @@ import { useEffect } from 'react'
 import { toast } from 'sonner'
 import type { ExternalToast } from 'sonner'
 
-import { useDispatch, useSelector } from '@/store/hooks'
-import { closeSnackbar } from '@/store/slices/snackbar'
+import { useNotification } from '@/contexts/NotificationContext'
 import type { SnackbarOrigin } from '@/types/snackbar'
 
 // ==============================|| SNACKBAR ||============================== //
@@ -30,8 +29,7 @@ export const getSnackbarTransitionClass = (transition: string) =>
   snackbarTransitions[transition as keyof typeof snackbarTransitions] ?? snackbarTransitions.Fade
 
 const Snackbar = () => {
-  const dispatch = useDispatch()
-  const snackbar = useSelector((state) => state.snackbar)
+  const { snackbar, closeSnackbar } = useNotification()
   const { actionButton, alert, anchorOrigin, close, message, open, transition, variant } = snackbar
 
   useEffect(() => {
@@ -45,9 +43,7 @@ const Snackbar = () => {
         : 'default'
     const options: ExternalToast = {
       action:
-        actionButton || variant !== 'alert'
-          ? { label: 'UNDO', onClick: () => dispatch(closeSnackbar()) }
-          : undefined,
+        actionButton || variant !== 'alert' ? { label: 'UNDO', onClick: closeSnackbar } : undefined,
       className: getSnackbarTransitionClass(transition),
       closeButton: close !== false,
       duration: 6000,
@@ -68,14 +64,14 @@ const Snackbar = () => {
         toast(message, options)
     }
 
-    dispatch(closeSnackbar())
+    closeSnackbar()
   }, [
     actionButton,
     alert.color,
     alert.variant,
     anchorOrigin,
     close,
-    dispatch,
+    closeSnackbar,
     message,
     open,
     transition,

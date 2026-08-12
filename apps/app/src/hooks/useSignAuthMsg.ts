@@ -2,19 +2,17 @@
 
 import { useCallback } from 'react'
 import { useAccount, useSignMessage } from 'wagmi'
-// reducer - state management
-import { useDispatch } from '@/store/hooks'
-import { login, logout } from '@/store/slices/account'
 
 import { gtm } from '@nl/ui/gtm'
 import type { AUTH_Token, UUID_Token, Nonce } from '@/types/auth'
 import { WALLET_VERIFICATION } from '@/constants/auth-urls'
+import { useAuthStatus } from '@/contexts/AuthStatusContext'
 import useLocalStorageContext from '@/hooks/useLocalStorageContext'
 
 type Params = { auth?: AUTH_Token; token?: UUID_Token; nonce?: Nonce }
 
 const useSignAuthMsg = (params: Params = {}) => {
-  const dispatch = useDispatch()
+  const { setIsLoggedIn } = useAuthStatus()
   const { address } = useAccount()
   const addressToLower = address?.toLowerCase()
   const signAddress = `${addressToLower?.slice(0, 6)}...${addressToLower?.slice(-4)}`
@@ -53,14 +51,14 @@ const useSignAuthMsg = (params: Params = {}) => {
         setUUIDToken(token)
         setNonce(nonce)
 
-        await dispatch(login())
+        setIsLoggedIn(true)
         gtm.sendUserId(addressToLower)
       } else {
         throw Error('Failed to verify signature!')
       }
     } catch (err) {
       console.error('verifyWallet', err)
-      dispatch(logout())
+      setIsLoggedIn(false)
       gtm.removeUserId()
     }
   }
@@ -72,7 +70,7 @@ const useSignAuthMsg = (params: Params = {}) => {
       },
       onError(error) {
         console.error('useSignMessage', error)
-        dispatch(logout())
+        setIsLoggedIn(false)
       },
     },
   })

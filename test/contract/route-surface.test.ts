@@ -669,6 +669,16 @@ describe('private provider loading contract', () => {
     expect(warningSource).toContain('<Button')
   })
 
+  it('replaces the tiny Redux store with scoped shared contexts', () => {
+    const source = readFileSync(join(process.cwd(), privateShell), 'utf8')
+
+    expect(source).toContain('AuthStatusProvider')
+    expect(source).toContain('NotificationProvider')
+    expect(source).not.toContain('ReduxProvider')
+    expect(existsSync(join(process.cwd(), 'apps/app/src/store/ReduxProvider.tsx'))).toBe(false)
+    expect(existsSync(join(process.cwd(), 'apps/app/src/store/store.ts'))).toBe(false)
+  })
+
   it('keeps the superseded all-in-one wallet provider removed', () => {
     expect(existsSync(join(process.cwd(), staleWalletContextWrapper))).toBe(false)
   })
