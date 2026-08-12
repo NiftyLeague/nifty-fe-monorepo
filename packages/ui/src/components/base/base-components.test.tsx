@@ -38,6 +38,7 @@ import {
   DialogTrigger,
 } from '@nl/ui/base/dialog'
 import { Icon } from '@nl/ui/base/icon'
+import { IconButton } from '@nl/ui/base/icon-button'
 import { Input } from '@nl/ui/base/input'
 import { Label } from '@nl/ui/base/label'
 import {
@@ -110,6 +111,9 @@ describe('base visual primitives', () => {
         <Button asChild variant="link">
           <a href="/button">Button link</a>
         </Button>
+        <IconButton aria-label="Open menu">
+          <span aria-hidden="true">+</span>
+        </IconButton>
         <Card>
           <CardHeader>
             <CardTitle>Title</CardTitle>
@@ -135,6 +139,7 @@ describe('base visual primitives', () => {
 
     expect(screen.getByRole('alert')?.textContent).toContain('Danger')
     expect(screen.getByRole('button', { name: 'Save' })).not.toBeNull()
+    expect(screen.getByRole('button', { name: 'Open menu' })?.getAttribute('type')).toBe('button')
     expect((screen.getByLabelText('Name') as HTMLInputElement)?.value).toBe('Degen')
     expect(screen.getByLabelText('status icon')).not.toBeNull()
     expect(screen.getByRole('progressbar', { name: 'progress' })).not.toBeNull()
