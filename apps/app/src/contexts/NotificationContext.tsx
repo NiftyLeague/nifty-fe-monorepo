@@ -1,6 +1,13 @@
 'use client'
 
-import { createContext, useContext, useMemo, useState, type PropsWithChildren } from 'react'
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+  type PropsWithChildren,
+} from 'react'
 
 import type { AlertProps, SnackbarOrigin, SnackbarProps } from '@/types/snackbar'
 
@@ -38,7 +45,7 @@ const NotificationContext = createContext<NotificationContextValue | null>(null)
 export function NotificationProvider({ children }: PropsWithChildren) {
   const [snackbar, setSnackbar] = useState(initialSnackbar)
 
-  const openSnackbar = (input: SnackbarInput) => {
+  const openSnackbar = useCallback((input: SnackbarInput) => {
     setSnackbar((current) => ({
       action: !current.action,
       open: input.open || initialSnackbar.open,
@@ -53,13 +60,16 @@ export function NotificationProvider({ children }: PropsWithChildren) {
       close: input.close === false ? false : initialSnackbar.close,
       actionButton: input.actionButton || initialSnackbar.actionButton,
     }))
-  }
+  }, [])
 
-  const closeSnackbar = () => {
+  const closeSnackbar = useCallback(() => {
     setSnackbar((current) => ({ ...current, open: false }))
-  }
+  }, [])
 
-  const value = useMemo(() => ({ snackbar, openSnackbar, closeSnackbar }), [snackbar])
+  const value = useMemo(
+    () => ({ snackbar, openSnackbar, closeSnackbar }),
+    [snackbar, openSnackbar, closeSnackbar]
+  )
 
   return <NotificationContext.Provider value={value}>{children}</NotificationContext.Provider>
 }
