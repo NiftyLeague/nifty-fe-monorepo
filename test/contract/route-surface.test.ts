@@ -301,6 +301,7 @@ const publicMobileNavigationTrigger =
 const publicIconButton = 'packages/ui/src/components/base/icon-button.tsx'
 const publicMainContent = 'apps/app/src/components/providers/PublicMainContent.tsx'
 const publicNavLinks = 'apps/app/src/components/providers/PublicNavLinks.tsx'
+const publicActiveNavLink = 'apps/app/src/components/providers/PublicActiveNavLink.tsx'
 const smashersBackButton = 'apps/smashers/src/components/Header/BackButton/index.tsx'
 const verificationPage = 'apps/app/src/app/verification/page.tsx'
 const verificationLayout = 'apps/app/src/app/verification/layout.tsx'
@@ -767,6 +768,7 @@ describe('public app shell contract', () => {
     )
     const mainContentSource = readFileSync(join(process.cwd(), publicMainContent), 'utf8')
     const linksSource = readFileSync(join(process.cwd(), publicNavLinks), 'utf8')
+    const activeLinkSource = readFileSync(join(process.cwd(), publicActiveNavLink), 'utf8')
     const iconButtonSource = readFileSync(join(process.cwd(), publicIconButton), 'utf8')
 
     expect(navigationSource).not.toContain("'use client'")
@@ -789,9 +791,15 @@ describe('public app shell contract', () => {
     expect(mobileSource).toContain('<SheetTitle')
     expect(mobileSource).toContain('<SheetDescription')
     expect(mobileSource).toContain('id="public-mobile-navigation"')
+    expect(mobileSource).toContain('children')
+    expect(mobileSource).toContain("closest('a')")
+    expect(linksSource).not.toContain("'use client'")
     expect(linksSource).not.toContain("from '@nl/ui/base/icon'")
     expect(linksSource).toContain("from 'lucide-react'")
-    expect(linksSource).toContain("aria-current={isSelected ? 'page' : undefined}")
+    expect(linksSource).toContain("from './PublicActiveNavLink'")
+    expect(activeLinkSource).toContain("'use client'")
+    expect(activeLinkSource).toContain('usePathname')
+    expect(activeLinkSource).toContain("aria-current={isSelected ? 'page' : undefined}")
     expect(iconButtonSource).toContain("from './button-variants'")
     expect(iconButtonSource).not.toContain("from 'radix-ui'")
     expect(iconButtonSource).toContain("type = 'button'")
