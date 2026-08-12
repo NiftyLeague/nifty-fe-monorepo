@@ -48,7 +48,6 @@ const Overview: NextPage = () => (
         src="/img/backgrounds/dgen-network.webp"
         width={1440}
         height={813}
-        priority
         sizes="100vw"
         style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
       />
@@ -59,7 +58,6 @@ const Overview: NextPage = () => (
         src="/img/backgrounds/dgen-network-mobile.webp"
         width={375}
         height={500}
-        priority
         sizes="100vw"
         style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
       />
