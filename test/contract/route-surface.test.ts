@@ -899,7 +899,12 @@ describe('dashboard DEGEN loading contract', () => {
     expect(pageSource).not.toContain("from '@/components/cards/DegenCard/DashboardDegenCard'")
     expect(pageSource).not.toContain("from '@/components/extended/DegensFilter'")
     expect(contentSource).toContain("import('@/components/cards/DegenCard/DashboardDegenCard')")
-    expect(contentSource).toContain("from '@/components/extended/DegensFilter'")
+    expect(contentSource).toContain(
+      "import DeferredDegensFilter from '@/components/providers/DeferredDegensFilter'"
+    )
+    expect(contentSource).not.toContain(
+      "import DegensFilter from '@/components/extended/DegensFilter'"
+    )
     expect(contentSource).toContain('DashboardDegensPageContent')
   })
 })
