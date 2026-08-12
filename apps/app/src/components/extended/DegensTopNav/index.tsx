@@ -1,8 +1,8 @@
-import { Button } from '@nl/ui/base/button'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@nl/ui/base/select'
 import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group'
 import { Icon } from '@nl/ui/base/icon'
 import { Input } from '@nl/ui/custom/input'
-import SortButton from '@/components/extended/SortButton'
+import DegenSortOptions from '@/constants/sort'
 
 import styles from './index.module.css'
 
@@ -10,6 +10,7 @@ interface DegensTopNavProps {
   searchTerm: string
   handleChangeSearchTerm: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
   handleSort: (sortOptions: string) => void
+  sortValue: string
   layoutMode: string
   handleChangeLayoutMode: (_: React.MouseEvent<HTMLElement>, newMode: string) => void
 }
@@ -18,6 +19,7 @@ const DegensTopNav = ({
   searchTerm,
   handleChangeSearchTerm,
   handleSort,
+  sortValue,
   layoutMode,
   handleChangeLayoutMode,
 }: DegensTopNavProps) => (
@@ -30,21 +32,21 @@ const DegensTopNav = ({
       onChange={handleChangeSearchTerm}
     />
     <div className="flex flex-row items-center justify-between gap-2">
-      <SortButton handleSort={handleSort}>
-        <Button
-          id="sort-button"
-          aria-controls="sort-menu"
-          aria-haspopup="true"
-          style={{
-            fontWeight: 400,
-            border: 'var(--border-purple)',
-            padding: '3px 16px',
-            color: 'var(--color-foreground)',
-          }}
+      <Select value={sortValue} onValueChange={handleSort}>
+        <SelectTrigger
+          aria-label="Sort degens"
+          className="h-8 min-w-[150px] border-purple px-3 py-1 text-foreground"
         >
-          <Icon name="chevron-down" />
-        </Button>
-      </SortButton>
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {DegenSortOptions.map((option) => (
+            <SelectItem value={option.value} key={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
       <ToggleGroup
         type="single"
         size="sm"
