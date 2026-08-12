@@ -272,6 +272,7 @@ const staticLegalPages = [
 const webDefinitions = 'apps/web/src/components/Definitions.tsx'
 const smashersHomePage = 'apps/smashers/src/app/page.tsx'
 const webDeferredHomeSections = 'apps/web/src/components/DeferredHomeSections.tsx'
+const webCommunityDegenCarousel = 'apps/web/src/components/CommunityDegenCarousel.tsx'
 const webDeferredOverviewSections = 'apps/web/src/components/DeferredOverviewSections.tsx'
 const webOverviewFAQ = 'apps/web/src/components/OverviewFAQ.tsx'
 const webCareersPage = 'apps/web/src/app/(main)/careers/page.tsx'
@@ -1263,14 +1264,21 @@ describe('shared below-fold loading contract', () => {
   it('defers below-fold marketing sections in web', () => {
     const pageSource = readFileSync(join(process.cwd(), webHomePage), 'utf8')
     const deferredSource = readFileSync(join(process.cwd(), webDeferredHomeSections), 'utf8')
+    const carouselSource = readFileSync(join(process.cwd(), webCommunityDegenCarousel), 'utf8')
 
     expect(pageSource).toContain('DeferredMintOMatic')
     expect(pageSource).toContain('DeferredSponsors')
+    expect(pageSource).toContain('DeferredCommunityDegenCarousel')
     expect(pageSource).not.toContain("import('@/components/MintOMatic')")
     expect(pageSource).not.toContain("import('@/components/Sponsors')")
+    expect(pageSource).not.toContain("from '@/components/Carousel'")
+    expect(pageSource).not.toContain("from '@/components/Carousel/DegenCardItem'")
     expect(deferredSource).toContain("import('@/components/MintOMatic')")
     expect(deferredSource).toContain("import('@/components/Sponsors')")
+    expect(deferredSource).toContain("import('@/components/CommunityDegenCarousel')")
     expect(deferredSource).toContain("from '@nl/ui/custom/deferred-section'")
+    expect(carouselSource).toContain("from '@/components/Carousel'")
+    expect(carouselSource).toContain("from '@/constants/degens'")
   })
 
   it('defers the below-fold Overview FAQ interaction bundle', () => {

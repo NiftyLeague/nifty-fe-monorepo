@@ -9,6 +9,7 @@ const loadSponsors = () =>
   import('@/components/Sponsors').then(({ default: Sponsors }) => ({
     default: () => <Sponsors sponsors={SPONSORS} />,
   }))
+const loadCommunityDegenCarousel = () => import('@/components/CommunityDegenCarousel')
 
 export function DeferredMintOMatic() {
   return (
@@ -22,4 +23,14 @@ export function DeferredMintOMatic() {
 
 export function DeferredSponsors() {
   return <DeferredSection label="sponsors" load={loadSponsors} minHeightClassName="min-h-[22rem]" />
+}
+
+export function DeferredCommunityDegenCarousel() {
+  return (
+    <DeferredSection
+      label="community DEGEN carousel"
+      load={loadCommunityDegenCarousel}
+      minHeightClassName="min-h-[22rem]"
+    />
+  )
 }
