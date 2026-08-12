@@ -1,9 +1,6 @@
-'use client'
-
-import dynamic from 'next/dynamic'
 import type { UnityConfig } from 'react-unity-webgl'
-import WalletRouteProvider from '@/components/providers/WalletRouteProvider'
-const GameWithAuth = dynamic(() => import('@/components/wrapper/GameWithAuth'), { ssr: false })
+
+import GameRoute from '@/components/wrapper/GameRoute'
 
 const baseUrl = process.env.NEXT_PUBLIC_UNITY_CRYPTO_WINTER_BASE_URL as string
 const buildVersion = process.env.NEXT_PUBLIC_UNITY_CRYPTO_WINTER_BASE_VERSION as string
@@ -19,10 +16,6 @@ const cryptoWinterConfig: UnityConfig = {
   productVersion: buildVersion,
 }
 
-const CryptoWinterGame = () => (
-  <WalletRouteProvider>
-    <GameWithAuth unityConfig={cryptoWinterConfig} arcadeTokenRequired />
-  </WalletRouteProvider>
-)
+const CryptoWinterGame = () => <GameRoute unityConfig={cryptoWinterConfig} arcadeTokenRequired />
 
 export default CryptoWinterGame

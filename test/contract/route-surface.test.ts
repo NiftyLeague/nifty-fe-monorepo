@@ -140,6 +140,13 @@ const deferredMintPage = 'apps/app/src/components/providers/DeferredMintPage.tsx
 const mintWalletBoundary = 'apps/app/src/components/providers/MintProviders.tsx'
 const deferredMintWalletBoundary = 'apps/app/src/components/providers/DeferredMintProviders.tsx'
 const walletProviderFallbacks = 'apps/app/src/components/providers/WalletProviderFallbacks.tsx'
+const gameRoute = 'apps/app/src/components/wrapper/GameRoute.tsx'
+const unityGamePages = [
+  'apps/app/src/app/(public-routes)/games/crypto-winter/page.tsx',
+  'apps/app/src/app/(public-routes)/games/mt-gawx/page.tsx',
+  'apps/app/src/app/(public-routes)/games/smashers/page.tsx',
+  'apps/app/src/app/(public-routes)/games/wen-game/page.tsx',
+]
 const networkContext = 'apps/app/src/contexts/NetworkContext.tsx'
 const networkProvider = 'apps/app/src/contexts/NetworkProvider.tsx'
 const graphQL = 'apps/app/src/hooks/useGraphQL.ts'
@@ -152,7 +159,6 @@ const smashersLoginPage = 'apps/smashers/src/app/(auth_routes)/login/page.tsx'
 const smashersLoginRoute = 'apps/smashers/src/app/(auth_routes)/login/LoginRoute.tsx'
 const smashersProfilePage = 'apps/smashers/src/app/(auth_routes)/profile/page.tsx'
 const smashersProfileRoute = 'apps/smashers/src/app/(auth_routes)/profile/ProfileRoute.tsx'
-const smashersHomeInteractive = 'apps/smashers/src/components/HomeInteractive/index.tsx'
 const smashersActionButtons = 'apps/smashers/src/components/Header/ActionButtonsGroup/index.tsx'
 const smashersRootLayout = 'apps/smashers/src/app/layout.tsx'
 const smashersAuthLayout = 'apps/smashers/src/app/(auth_routes)/layout.tsx'
@@ -310,7 +316,6 @@ describe('Smashers public shell contract', () => {
     const pageSource = readFileSync(join(process.cwd(), smashersHomePage), 'utf8')
     const actionButtonsSource = readFileSync(join(process.cwd(), smashersActionButtons), 'utf8')
 
-    expect(existsSync(join(process.cwd(), smashersHomeInteractive))).toBe(false)
     expect(pageSource).not.toContain('HomeInteractive')
     expect(pageSource).toContain("import Header, { type ActiveModal } from '@/components/Header'")
     expect(pageSource).toContain('<main>')
@@ -525,6 +530,29 @@ describe('mint route provider loading contract', () => {
     expect(graphQLSource).toContain('useAccount')
     expect(graphQLSource).not.toContain("from '@/hooks/useNetworkContext'")
   })
+})
+
+describe('public Unity game loading contract', () => {
+  it('shares one deferred, accessible game boundary', () => {
+    const source = readFileSync(join(process.cwd(), gameRoute), 'utf8')
+
+    expect(source).toContain("dynamic(() => import('./GameWithAuth')")
+    expect(source).toContain('ssr: false')
+    expect(source).toContain("from '@nl/ui/custom/route-loading'")
+    expect(source).toContain('Loading game')
+    expect(source).toContain('WalletRouteProvider')
+  })
+
+  for (const file of unityGamePages) {
+    it(`keeps ${file} server-rendered and configuration-only`, () => {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+
+      expect(source).not.toContain("'use client'")
+      expect(source).not.toContain("from 'next/dynamic'")
+      expect(source).not.toContain('GameWithAuth')
+      expect(source).toContain("from '@/components/wrapper/GameRoute'")
+    })
+  }
 })
 
 describe('public storage provider contract', () => {
