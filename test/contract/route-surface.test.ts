@@ -273,6 +273,8 @@ const webDefinitions = 'apps/web/src/components/Definitions.tsx'
 const smashersHomePage = 'apps/smashers/src/app/page.tsx'
 const webDeferredHomeSections = 'apps/web/src/components/DeferredHomeSections.tsx'
 const webCommunityDegenCarousel = 'apps/web/src/components/CommunityDegenCarousel.tsx'
+const webDeferredTeamSections = 'apps/web/src/components/DeferredTeamSections.tsx'
+const webTeamCarousel = 'apps/web/src/components/TeamCarousel.tsx'
 const webDeferredOverviewSections = 'apps/web/src/components/DeferredOverviewSections.tsx'
 const webOverviewFAQ = 'apps/web/src/components/OverviewFAQ.tsx'
 const webCareersPage = 'apps/web/src/app/(main)/careers/page.tsx'
@@ -1357,13 +1359,20 @@ describe('web marketing page boundary contract', () => {
     const communitySource = readFileSync(join(process.cwd(), webCommunityPage), 'utf8')
     const teamSource = readFileSync(join(process.cwd(), webTeamPage), 'utf8')
     const carouselSource = readFileSync(join(process.cwd(), webCarousel), 'utf8')
+    const deferredTeamSource = readFileSync(join(process.cwd(), webDeferredTeamSections), 'utf8')
+    const teamCarouselSource = readFileSync(join(process.cwd(), webTeamCarousel), 'utf8')
 
     expect(communitySource).not.toContain("'use client'")
     expect(communitySource).not.toContain('useMediaQuery')
     expect(communitySource).toContain('sliding-background-wrapper')
     expect(teamSource).not.toContain("'use client'")
-    expect(teamSource).toContain("import Carousel from '@/components/Carousel'")
+    expect(teamSource).toContain('DeferredTeamCarousel')
+    expect(teamSource).not.toContain("from '@/components/Carousel'")
     expect(carouselSource).toContain("'use client'")
+    expect(deferredTeamSource).toContain("import('@/components/TeamCarousel')")
+    expect(deferredTeamSource).toContain("from '@nl/ui/custom/deferred-section'")
+    expect(teamCarouselSource).toContain("from '@/components/Carousel'")
+    expect(teamCarouselSource).toContain("from '@/constants/team'")
   })
 })
 
