@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.0.2](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v1.0.1...ui-v1.0.2) (2026-08-12)
+
+
+### Performance
+
+* **app:** defer dashboard overview sections ([bd3f238](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/bd3f2387a3f5922ec8e0fecbda105b222f10d8c1))
+* **app:** lazy-load slider implementation ([d8b2c72](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/d8b2c721fd68d257dd1a6ed87b1b40be9d819471))
+* defer console game client boundary ([#485](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/485)) ([9754bba](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/9754bba581b67a8398c9a3acb1af2b6ee5dd2fbc))
+* defer marketing sections below the fold ([#491](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/491)) ([bcc90a8](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/bcc90a87b0b41c3918423e7a0c43e2d7908b5bf9))
+* defer shared analytics loading ([#484](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/484)) ([15f84af](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/15f84afa2aa243d243374887631e21f6f77044db))
+* defer shared media and client boundaries ([#463](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/463)) ([89a5922](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/89a5922d80ef719f91dbaf851866581052e0c98f))
+* keep marketing pages server-rendered ([#510](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/510)) ([49e1ae9](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/49e1ae927afa67e333b3679069c1153d987c6564))
+* reduce homepage hero preload contention ([#500](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/500)) ([70fda3f](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/70fda3f5940b4934ee8a580a80cc9e402cdf36ee))
+* reduce shared app and website runtime cost ([#462](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/462)) ([f311471](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/f311471139733ba4ca20b1e95aa6d999cd800884))
+* **smashers:** server-render static sections and defer media ([#464](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/464)) ([294c08e](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/294c08e7750d1005e417f495ec90c797d6f4011e))
+* **web:** defer shared navbar interactions ([#514](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/514)) ([a57045c](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/a57045c3140e53840b36bd7ddd69fc3e1c7de63a))
+
+
+### Maintenance
+
+* promote staging tree to main ([4860b22](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/4860b2210eecc5af2b5c31fffc08546bcf0175c1))
+
 ## [1.0.1](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v1.0.0...ui-v1.0.1) (2026-08-09)
 
 

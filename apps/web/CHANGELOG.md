@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.0.5](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.4...web-v1.0.5) (2026-08-12)
+
+
+### Performance
+
+* **app:** slim public route shell ([#513](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/513)) ([12eced5](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/12eced5750ac202ac0d080dd21f653c80b56539e))
+* defer console game client boundary ([#485](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/485)) ([9754bba](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/9754bba581b67a8398c9a3acb1af2b6ee5dd2fbc))
+* defer marketing sections below the fold ([#491](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/491)) ([bcc90a8](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/bcc90a87b0b41c3918423e7a0c43e2d7908b5bf9))
+* defer shared analytics loading ([#484](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/484)) ([15f84af](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/15f84afa2aa243d243374887631e21f6f77044db))
+* defer shared media and client boundaries ([#463](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/463)) ([89a5922](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/89a5922d80ef719f91dbaf851866581052e0c98f))
+* defer shared Sentry client SDK ([#474](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/474)) ([974021c](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/974021cfe5ea63396ca24ac4a22b9bb32aa148c8))
+* defer wallet network and public carousel code ([#477](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/477)) ([9373219](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/93732194ede6a6ed1200308df9fb5d93dd673693))
+* keep marketing pages server-rendered ([#510](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/510)) ([49e1ae9](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/49e1ae927afa67e333b3679069c1153d987c6564))
+* keep web navbar config server-rendered ([#509](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/509)) ([2222ec0](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/2222ec00263a7a19f67584dd6f3537ec4ad0b7b7))
+* reduce homepage hero preload contention ([#500](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/500)) ([70fda3f](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/70fda3f5940b4934ee8a580a80cc9e402cdf36ee))
+* reduce shared app and website runtime cost ([#462](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/462)) ([f311471](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/f311471139733ba4ca20b1e95aa6d999cd800884))
+* **web:** defer GLTF viewer until selected ([4bfa927](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/4bfa9270f08ad10c345ff1a0d456d58626b5a93c))
+
+
+### Maintenance
+
+* **ci:** defer hosted builds until ready ([#511](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/511)) ([c745938](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/c745938146c7f7ca57d3df11da904e5d9cc81105))
+* promote staging tree to main ([4860b22](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/4860b2210eecc5af2b5c31fffc08546bcf0175c1))
+
 ## [1.0.4](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.3...web-v1.0.4) (2026-08-10)
 
 

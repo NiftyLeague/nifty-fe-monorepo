@@ -1,5 +1,60 @@
 # Changelog
 
+## [1.1.2](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.1...app-v1.1.2) (2026-08-12)
+
+
+### Performance
+
+* **app:** code split degen browser route ([#516](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/516)) ([b0b3be4](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/b0b3be4568330a3f2e598c0aa6936095cb35708d))
+* **app:** defer dashboard degen dialogs ([#469](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/469)) ([32dbe8c](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/32dbe8ca066b68f030e9f267a7dade5244f83981))
+* **app:** defer dashboard overview sections ([bd3f238](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/bd3f2387a3f5922ec8e0fecbda105b222f10d8c1))
+* **app:** defer gamer profile dialogs ([#482](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/482)) ([2a8348a](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/2a8348a7947dbeca81f78e487b0cd62bb18fdf4d))
+* **app:** defer passport and server-render static game sections ([#465](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/465)) ([bbc1ab3](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/bbc1ab31f2fb38c27d2201078d0d185e77c23979))
+* **app:** defer private route shell ([#480](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/480)) ([c71aad9](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/c71aad9d4b0da26ad4a5f56a68b301c740274fc1))
+* **app:** defer private wallet and dashboard providers ([#476](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/476)) ([4fa1936](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/4fa1936498440c35952b7edf4f0c6fcf246f0934))
+* **app:** defer public degen wallet features ([#468](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/468)) ([df046d1](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/df046d15c685d1552f51e03a34cb93e02ffe0e37))
+* **app:** defer public wallet storage ([a9714ea](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/a9714eace182ccbffbc29e07ed905ca7b7044162))
+* **app:** defer rental nickname dialog ([#483](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/483)) ([d34ff8f](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/d34ff8f9761a5e12b558b6bf97eef8beab3bfdb5))
+* **app:** defer shared rename dialog ([#481](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/481)) ([43ffa87](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/43ffa874f90e8975334537bd8de8559b4756b5bf))
+* **app:** isolate wallet verification route ([#515](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/515)) ([3b89e27](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/3b89e27d90f10cc021dabc1447d6be01fd30a313))
+* **app:** keep archived leaderboard data server-side ([354b8fc](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/354b8fc8b2d9eafe831a268561a876691440c855))
+* **app:** lazy-load slider implementation ([d8b2c72](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/d8b2c721fd68d257dd1a6ed87b1b40be9d819471))
+* **app:** lazy-load wallet adapter config ([05c7891](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/05c7891234834a78238e49b77255476ecedd3a79))
+* **app:** narrow Mint-o-Matic wallet boundary ([6b4a9d4](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/6b4a9d4fb3e7c1b3c88bd8638b9b3276614b0421))
+* **app:** remove wallet code from public routes ([#475](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/475)) ([3d66627](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/3d66627b6f7d59a6031ff3a82ab8a8eeb56e1c02))
+* **app:** scope wallet providers to feature routes ([#467](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/467)) ([247296a](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/247296a8a67141a53a5b321e13f15be629c91677))
+* **app:** slim public route shell ([#513](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/513)) ([12eced5](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/12eced5750ac202ac0d080dd21f653c80b56539e))
+* **app:** slim verification wallet boundary ([ea37f6f](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/ea37f6fb240fdf11aa3320028bf8e01eea5b99bd))
+* defer app notifications from shell ([#489](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/489)) ([03c7ecc](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/03c7ecc827230d0f8fca5888f5495358b1062917))
+* defer archived leaderboards client graph ([#488](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/488)) ([c1feb0b](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/c1feb0bb3119ead550ae8f12fd8ffd44a2fac694))
+* defer comics burner graph ([e7040af](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/e7040afa150935367a4f62e78a110bdf4c039d03))
+* defer dashboard degen graph ([#492](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/492)) ([41bea39](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/41bea393444d8c9f260689a0f7fb0bc906a07b35))
+* defer dashboard items graph ([ca8bb6e](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/ca8bb6ef705f634a4f7c5577257594ca61246c6a))
+* defer dashboard overview sections ([#490](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/490)) ([1058a87](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/1058a87269179c4d342f43d7e416973189001264))
+* defer dashboard rentals graph ([69f28d6](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/69f28d6ec2fd9c962b46b6b7b4c10d982a3be810))
+* defer gamer profile graph ([9f0f7b0](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/9f0f7b0eda403432577b02605fb6bbb884d5e25a))
+* defer mint route wallet graph ([#486](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/486)) ([0bfc4b6](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/0bfc4b617f206d91c0f3d23022e92d442a561c39))
+* defer public degen modules ([#487](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/487)) ([8be9ded](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/8be9ded51ca34960fc48e1de5f4a9576d3768cab))
+* defer shared analytics loading ([#484](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/484)) ([15f84af](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/15f84afa2aa243d243374887631e21f6f77044db))
+* defer shared media and client boundaries ([#463](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/463)) ([89a5922](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/89a5922d80ef719f91dbaf851866581052e0c98f))
+* defer shared Sentry client SDK ([#474](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/474)) ([974021c](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/974021cfe5ea63396ca24ac4a22b9bb32aa148c8))
+* defer wallet network and public carousel code ([#477](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/477)) ([9373219](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/93732194ede6a6ed1200308df9fb5d93dd673693))
+* keep notifications out of public shell ([4cb4ff0](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/4cb4ff02019e75ff6e5f046b12481ea2e16b8c75))
+* keep static game cards server-rendered ([#503](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/503)) ([bee7f67](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/bee7f67b7ec1aa7e1b8027e8acd83f4cc62ec8fa))
+* reduce shared app and website runtime cost ([#462](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/462)) ([f311471](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/f311471139733ba4ca20b1e95aa6d999cd800884))
+* remove redux from public navigation shell ([#501](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/501)) ([927994e](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/927994edd1632a13110293133824af14406b83e9))
+* remove runtime UUID and crypto polyfills ([#498](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/498)) ([52ef5f6](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/52ef5f61fe811b7477281da5bc5dd7af6307614f))
+* remove stale Unity compatibility shim ([#499](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/499)) ([3486ca8](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/3486ca8ba430190f3efcd57ec42eff004192d93f))
+* replace game card GIFs with shared posters ([#504](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/504)) ([ada5ed2](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/ada5ed21720bb6d2ed5054fb79cbf5239b433c7f))
+* serve lightweight game card posters ([#502](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/502)) ([282bc92](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/282bc92dbc85d76799e41aeb51e973622b068425))
+* share deferred dashboard loading and optimize media ([#497](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/497)) ([dfde479](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/dfde479716c4fabb32e784ef18850d8cf7dc17b0))
+* simplify deferred game loading ([ab398d3](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/ab398d32745bab49202ea7453642f61b635c5981))
+
+
+### Maintenance
+
+* remove stale game catalog data ([#505](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/505)) ([f2c86fb](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/f2c86fb648be49d8a12c8ee67a86e0444c93964b))
+
 ## [1.1.1](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.0...app-v1.1.1) (2026-08-10)
 
 

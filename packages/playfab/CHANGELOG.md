@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/playfab-v1.0.1...playfab-v1.0.2) (2026-08-12)
+
+
+### Tests
+
+* **playfab:** cover auth callbacks (jwt, session, signIn) ([4875df3](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/4875df352b251364c23c7353ccf71490580a978b))
+
 ## [1.0.1](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/playfab-v1.0.0...playfab-v1.0.1) (2026-08-09)
 
 

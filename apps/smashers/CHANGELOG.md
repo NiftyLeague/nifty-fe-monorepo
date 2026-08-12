@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.0.5](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/smashers-v1.0.4...smashers-v1.0.5) (2026-08-12)
+
+
+### Performance
+
+* **app:** slim public route shell ([#513](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/513)) ([12eced5](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/12eced5750ac202ac0d080dd21f653c80b56539e))
+* defer console game client boundary ([#485](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/485)) ([9754bba](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/9754bba581b67a8398c9a3acb1af2b6ee5dd2fbc))
+* defer marketing sections below the fold ([#491](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/491)) ([bcc90a8](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/bcc90a87b0b41c3918423e7a0c43e2d7908b5bf9))
+* defer shared analytics loading ([#484](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/484)) ([15f84af](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/15f84afa2aa243d243374887631e21f6f77044db))
+* defer shared Sentry client SDK ([#474](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/474)) ([974021c](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/974021cfe5ea63396ca24ac4a22b9bb32aa148c8))
+* reduce shared app and website runtime cost ([#462](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/462)) ([f311471](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/f311471139733ba4ca20b1e95aa6d999cd800884))
+* slim Smashers public shell ([cc7c07c](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/cc7c07c928d365dce2cafa3d4249021057e6bf45))
+* **smashers:** code split login route ([#518](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/518)) ([2fb4060](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/2fb40605f056568e81181e5b4356ecca9688ca66))
+* **smashers:** code split profile route ([#517](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/517)) ([05a5a61](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/05a5a6141ee4ba8618047a1a7756032b71414043))
+* **smashers:** defer PlayFab auth form ([37523b6](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/37523b67eaa8f32839c3d06238a8f76c719175cb))
+* **smashers:** server-render static sections and defer media ([#464](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/464)) ([294c08e](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/294c08e7750d1005e417f495ec90c797d6f4011e))
+
 ## [1.0.4](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/smashers-v1.0.3...smashers-v1.0.4) (2026-08-10)
 
 
