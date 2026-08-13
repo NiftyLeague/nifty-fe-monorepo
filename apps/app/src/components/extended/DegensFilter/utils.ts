@@ -1,12 +1,12 @@
 import { SetStateAction } from 'react'
-import type { Degen } from '@/types/degens'
+import type { PublicDegen } from '@/types/degens'
 import type { DegenFilter } from '@/types/degenFilter'
 import DEFAULT_STATIC_FILTER from './constants'
 import { BURN_ADDYS } from '@/constants/addresses'
 import { HYDRA_RARITIES } from '@/constants/hydra-rarities'
 
-export const tranformDataByFilter = (
-  degens: Degen[],
+export const tranformDataByFilter = <T extends PublicDegen>(
+  degens: T[],
   {
     backgrounds = [],
     cosmetics = [],
@@ -16,7 +16,7 @@ export const tranformDataByFilter = (
     tribes = [],
     walletAddress = [],
   }: DegenFilter
-): Degen[] => {
+): T[] => {
   const result = degens.filter(
     ({
       background = '',
@@ -25,7 +25,7 @@ export const tranformDataByFilter = (
       owner = '',
       traits_string = '',
       tribe = '',
-    }: Degen) => {
+    }: PublicDegen) => {
       // Filter all burn addys
       if (BURN_ADDYS.includes(owner)) return false
 
@@ -124,7 +124,7 @@ export const updateFilterValue = (
   return newFilter as DegenFilter
 }
 
-export const getDefaultFilterValueFromData = (degens: Degen[] | undefined) => {
+export const getDefaultFilterValueFromData = (degens: PublicDegen[] | undefined) => {
   if (!degens?.length) {
     return DEFAULT_STATIC_FILTER
   }
@@ -157,7 +157,7 @@ export const getGridSizeClass = (isGridView: boolean, isDrawerOpen: boolean) => 
 }
 
 // TODO: remove temp fix for 7th tribes once fetch data is updated
-export const applySeventhTribesFix = (degen: Degen): Degen => {
+export const applySeventhTribesFix = <T extends PublicDegen>(degen: T): T => {
   if (Number(degen.id) <= 9900) {
     return degen
   }
@@ -166,5 +166,5 @@ export const applySeventhTribesFix = (degen: Degen): Degen => {
     ...degen,
     background: HYDRA_RARITIES[degen.id] || 'Common',
     tribe: Number(degen.id) >= 9999 ? (Number(degen.id) === 9999 ? 'rugman' : 'satoshi') : 'hydra',
-  }
+  } as T
 }

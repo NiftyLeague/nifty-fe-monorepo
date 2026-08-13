@@ -10,11 +10,11 @@ import { Title } from '@nl/ui/custom/typography'
 import type { SxProps, Theme } from '@/types'
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
 import DegenImage from './DegenImage'
-import type { Degen } from '@/types/degens'
+import type { PublicDegen } from '@/types/degens'
 import { DEGEN_PURCHASE_URL } from '@/constants/public-urls'
 
 export interface DegenCardProps {
-  degen: Degen
+  degen: Pick<PublicDegen, 'id' | 'name'>
   size?: 'small' | 'normal'
   isDashboardDegen?: boolean
   isSelectableDegen?: boolean
