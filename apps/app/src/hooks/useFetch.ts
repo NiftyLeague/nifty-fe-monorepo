@@ -1,6 +1,7 @@
 'use client'
 
-import { useMemo, useEffect, useReducer, useRef } from 'react'
+import { useEffect, useMemo, useReducer, useRef } from 'react'
+
 import { getAuditFixtureData, isAuditFixtureEnabled } from '@/audit/fixture'
 
 interface State<T> {
@@ -10,9 +11,17 @@ interface State<T> {
   reset?: boolean
 }
 
-type Cache<T> = { [url: string]: T }
+type Cache<T> = Record<string, T>
 
-// discriminated union type
+type SharedCacheEntry = {
+  value: unknown
+  expiresAt: number
+}
+
+const SHARED_CACHE_TTL_MS = 5 * 60 * 1000
+const sharedCache = new Map<string, SharedCacheEntry>()
+const pendingRequests = new Map<string, Promise<unknown>>()
+
 type Action<T> =
   | { type: 'loading' }
   | { type: 'reset' }
@@ -26,7 +35,6 @@ const initialState: State<unknown> = {
   reset: undefined,
 }
 
-// Keep state logic separated
 function fetchReducer<T>(state: State<T>, action: Action<T>): State<T> {
   switch (action.type) {
     case 'loading':
@@ -42,24 +50,70 @@ function fetchReducer<T>(state: State<T>, action: Action<T>): State<T> {
   }
 }
 
-type Options = RequestInit & { enabled?: boolean; stale?: boolean }
+type Options = RequestInit & { enabled?: boolean; sharedCache?: boolean }
+
+const getRequestKey = (url: string, requestInit: RequestInit, textOnly: boolean): string => {
+  const normalizedHeaders = new Headers(requestInit.headers)
+  const headers = Array.from(normalizedHeaders.entries()).sort(([left], [right]) =>
+    left.localeCompare(right)
+  )
+
+  return JSON.stringify({
+    url,
+    method: requestInit.method ?? 'GET',
+    headers,
+    body: typeof requestInit.body === 'string' ? requestInit.body : undefined,
+    cache: requestInit.cache,
+    credentials: requestInit.credentials,
+    mode: requestInit.mode,
+    redirect: requestInit.redirect,
+    textOnly,
+  })
+}
+
+async function fetchOnce<T>(
+  url: string,
+  requestInit: RequestInit,
+  textOnly: boolean,
+  requestKey: string,
+  shareRequest: boolean
+): Promise<T> {
+  if (shareRequest) {
+    const pending = pendingRequests.get(requestKey)
+    if (pending) return pending as Promise<T>
+  }
+
+  const request = fetch(url, { ...requestInit, headers: requestInit.headers })
+    .then(async (response) => {
+      if (!response.ok) throw new Error(response.statusText)
+      return (textOnly ? await response.text() : await response.json()) as T
+    })
+    .finally(() => shareRequest && pendingRequests.delete(requestKey))
+
+  if (shareRequest) pendingRequests.set(requestKey, request)
+  return request
+}
 
 function useFetch<T = unknown>(url?: string, options?: Options, textOnly = false): State<T> {
   const cache = useRef<Cache<T>>({})
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const headers = useMemo(() => options?.headers, [JSON.stringify(options?.headers)])
   const enabled = useMemo(() => options?.enabled ?? true, [options?.enabled])
-
-  // Used to prevent state update if the component is unmounted
-  const cancelRequest = useRef<boolean>(false)
-
-  // Used to mark that state has been reset to prevent re-dispatching
+  const shouldShareCache = useMemo(() => options?.sharedCache ?? false, [options?.sharedCache])
+  const optionsKey = JSON.stringify(options)
+  // The serialized key keeps inline request option objects from restarting the
+  // request when a consuming component re-renders.
+  const requestInit = useMemo(() => {
+    const { enabled: _enabled, sharedCache: _sharedCache, ...init } = options ?? {}
+    return init
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [optionsKey])
+  const requestKey = useMemo(
+    () => (url ? getRequestKey(url, requestInit, textOnly) : undefined),
+    [requestInit, textOnly, url]
+  )
   const hasReset = useRef(false)
-
   const [state, dispatch] = useReducer(fetchReducer, initialState)
 
   useEffect(() => {
-    // Do nothing if the url is not given
     if (!url) return
     if (enabled === false) {
       if (!hasReset.current) {
@@ -70,47 +124,52 @@ function useFetch<T = unknown>(url?: string, options?: Options, textOnly = false
     }
 
     hasReset.current = false
+    let active = true
+    dispatch({ type: 'loading' })
 
     const fetchData = async () => {
-      dispatch({ type: 'loading' })
-
       if (isAuditFixtureEnabled) {
-        dispatch({ type: 'fetched', payload: getAuditFixtureData(url) as T })
+        if (active) dispatch({ type: 'fetched', payload: getAuditFixtureData(url) as T })
         return
       }
 
-      // If a cache exists for this url, return it
-      if (cache.current[url]) {
-        dispatch({ type: 'fetched', payload: cache.current[url] })
+      const cacheKey = requestKey ?? url
+      if (Object.prototype.hasOwnProperty.call(cache.current, cacheKey)) {
+        if (active) dispatch({ type: 'fetched', payload: cache.current[cacheKey] })
         return
+      }
+
+      if (shouldShareCache && requestKey) {
+        const cached = sharedCache.get(requestKey)
+        if (cached?.expiresAt && cached.expiresAt > Date.now()) {
+          cache.current[cacheKey] = cached.value as T
+          if (active) dispatch({ type: 'fetched', payload: cached.value as T })
+          return
+        }
+        if (cached) sharedCache.delete(requestKey)
       }
 
       try {
-        const response = await fetch(url, { headers })
-        if (!response.ok) {
-          throw new Error(response.statusText)
+        const data = await fetchOnce<T>(url, requestInit, textOnly, cacheKey, shouldShareCache)
+        cache.current[cacheKey] = data
+        if (shouldShareCache && requestKey) {
+          sharedCache.set(requestKey, {
+            value: data,
+            expiresAt: Date.now() + SHARED_CACHE_TTL_MS,
+          })
         }
-
-        const data = (textOnly ? await response.text() : await response.json()) as T
-        cache.current[url] = data
-
-        dispatch({ type: 'fetched', payload: data })
+        if (active) dispatch({ type: 'fetched', payload: data })
       } catch (error) {
-        if (cancelRequest.current) return
-
-        dispatch({ type: 'error', payload: error as Error })
+        if (active) dispatch({ type: 'error', payload: error as Error })
       }
     }
 
-    fetchData()
+    void fetchData()
 
-    // Use the cleanup function for avoiding a possibly...
-    // ...state update after the component was unmounted
-    // eslint-disable-next-line consistent-return
     return () => {
-      cancelRequest.current = true
+      active = false
     }
-  }, [enabled, headers, textOnly, url])
+  }, [enabled, requestInit, requestKey, shouldShareCache, textOnly, url])
 
   return state as State<T>
 }

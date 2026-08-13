@@ -71,6 +71,46 @@ describe('useFetch', () => {
     )
   })
 
+  it('shares in-flight and completed public catalog requests across hook instances', async () => {
+    let resolveRequest: (response: Response) => void = () => undefined
+    const fetchMock = spyOn(globalThis, 'fetch').mockReturnValue(
+      new Promise((resolve) => {
+        resolveRequest = resolve
+      })
+    )
+    const options = { sharedCache: true }
+    const first = renderHook(() => useFetch<{ id: number }>('/shared-catalog', options))
+    const second = renderHook(() => useFetch<{ id: number }>('/shared-catalog', options))
+
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+
+    resolveRequest(new Response(JSON.stringify({ id: 7 }), { status: 200 }))
+    await waitFor(() => expect(first.result.current.data).toEqual({ id: 7 }))
+    await waitFor(() => expect(second.result.current.data).toEqual({ id: 7 }))
+
+    first.unmount()
+    second.unmount()
+    const cached = renderHook(() => useFetch<{ id: number }>('/shared-catalog', options))
+    await waitFor(() => expect(cached.result.current.data).toEqual({ id: 7 }))
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not update an unmounted hook when its request resolves', async () => {
+    let resolveRequest: (response: Response) => void = () => undefined
+    spyOn(globalThis, 'fetch').mockReturnValue(
+      new Promise((resolve) => {
+        resolveRequest = resolve
+      })
+    )
+    const { result, unmount } = renderHook(() => useFetch<{ id: number }>('/cancelled'))
+
+    unmount()
+    resolveRequest(new Response(JSON.stringify({ id: 8 }), { status: 200 }))
+    await Promise.resolve()
+
+    expect(result.current.data).toBeUndefined()
+  })
+
   it('skips requests without a URL or when disabled', () => {
     const fetchMock = spyOn(globalThis, 'fetch')
     const { result } = renderHook(() => useFetch('/skip', { enabled: false }))
