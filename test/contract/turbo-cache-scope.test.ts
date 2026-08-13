@@ -3,10 +3,11 @@ import { readFileSync } from 'node:fs'
 
 const turbo = JSON.parse(readFileSync('turbo.json', 'utf8')) as {
   globalEnv?: string[]
-  tasks: Record<string, { env?: string[] }>
+  tasks: Record<string, { env?: string[]; dependsOn?: string[] }>
 }
 
 const envFor = (task: string) => new Set(turbo.tasks[task]?.env ?? [])
+const dependenciesFor = (task: string) => turbo.tasks[task]?.dependsOn ?? []
 
 describe('Turbo cache environment scope', () => {
   it('does not invalidate every workspace for app-specific credentials', () => {
@@ -48,5 +49,14 @@ describe('Turbo cache environment scope', () => {
         'VERCEL_ENV',
       ])
     )
+  })
+
+  it('keeps test execution independent from write-mode quality tasks', () => {
+    expect(dependenciesFor('test')).not.toContain('format')
+    expect(dependenciesFor('test')).not.toContain('lint:fix')
+    expect(dependenciesFor('test')).not.toContain('type-check')
+    expect(dependenciesFor('api#test')).not.toContain('format')
+    expect(dependenciesFor('api#test')).not.toContain('lint:fix')
+    expect(dependenciesFor('api#test')).not.toContain('type-check')
   })
 })

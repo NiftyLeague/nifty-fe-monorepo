@@ -112,11 +112,9 @@
       "env": ["NODE_CONFIG_TS_DIR", "PORT", "VERCEL", "ETH_NETWORK", "WEBHOOK_SECRET"]
     },
     "test": {
-      "dependsOn": ["transit", "lint:fix", "format", "type-check"],
       "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"]
     },
     "api#test": {
-      "dependsOn": ["transit", "lint:fix", "format", "type-check"],
       "env": ["NODE_CONFIG_TS_DIR", "PORT", "VERCEL", "ETH_NETWORK", "WEBHOOK_SECRET"],
       "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"]
     },
