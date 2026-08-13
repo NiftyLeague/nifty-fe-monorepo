@@ -1497,6 +1497,7 @@ describe('web public navigation contract', () => {
     expect(sharedNavbarSource).toContain('navbar-scroll-frame')
     expect(sharedNavbarSource).toContain('bg-transparent')
     expect(sharedNavbarSource).toContain('backdrop-blur-xs')
+    expect(sharedNavbarSource).not.toContain('transition-all')
     expect(sharedNavbarSource).not.toContain('useScrollDetection')
     expect(sharedNavbarSource).toContain('<details')
     expect(sharedNavbarSource).not.toContain("from '@nl/ui/base/navigation-menu'")
