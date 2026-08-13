@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test'
-import { readFileSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 
 const responsiveTableList = 'apps/app/src/components/ResponsiveTable/DataList.tsx'
 const appManifest = 'apps/app/package.json'
@@ -11,6 +11,9 @@ const appSectionSlider = 'apps/app/src/components/sections/SectionSlider.tsx'
 const allDegensPage = 'apps/app/src/app/(public-routes)/degens/AllDegensPage.tsx'
 const gamesPage = 'apps/app/src/app/(public-routes)/games/page.tsx'
 const deferredInstallerAction = 'apps/app/src/app/(public-routes)/games/DeferredInstallerAction.tsx'
+const leaderboards = 'apps/app/src/components/leaderboards/index.tsx'
+const leaderboardsStyles = 'apps/app/src/components/leaderboards/index.module.css'
+const collapsibleSidebarLayout = 'apps/app/src/app/_layout/_CollapsibleSidebarLayout/index.tsx'
 const appCarouselSettingsSources = [
   'apps/app/src/app/(private-routes)/dashboard/overview/MyDegens.tsx',
   'apps/app/src/app/(private-routes)/dashboard/overview/MyComics.tsx',
@@ -130,6 +133,25 @@ describe('app performance contracts', () => {
     expect(deferredSource).toContain("import('./InstallerAction')")
     expect(deferredSource).toContain('aria-label="Loading installer action"')
     expect(deferredSource).toContain('Retry installer')
+  })
+
+  it('uses the shared themed Button for leaderboard filters', () => {
+    const source = readFileSync(leaderboards, 'utf8')
+
+    expect(source).toContain("from '@nl/ui/base/button'")
+    expect(source).toContain('<Button')
+    expect(source).not.toContain('<button')
+    expect(source).not.toContain("from './index.module.css'")
+    expect(existsSync(leaderboardsStyles)).toBe(false)
+  })
+
+  it('uses the shared accessible IconButton for the mobile filter close control', () => {
+    const source = readFileSync(collapsibleSidebarLayout, 'utf8')
+
+    expect(source).toContain("from '@nl/ui/base/icon-button'")
+    expect(source).toContain('<IconButton')
+    expect(source).not.toContain('<button')
+    expect(source).toContain('aria-label="Close filters"')
   })
 
   it('uses native shallow copies for primitive responsive-table selection state', () => {

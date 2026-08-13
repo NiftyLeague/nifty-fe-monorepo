@@ -2,6 +2,7 @@ import { useEffect, ReactNode, SetStateAction, useCallback } from 'react'
 import { X } from 'lucide-react'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { ScrollArea } from '@nl/ui/base/scroll-area'
+import { IconButton } from '@nl/ui/base/icon-button'
 
 const appHeaderHeight = 60
 
@@ -64,14 +65,16 @@ const CollapsibleSidebarLayout = ({
       >
         {/* Close button for mobile */}
         {matchDownLG && isDrawerOpen && (
-          <button
+          <IconButton
             type="button"
             aria-label="Close filters"
-            className="absolute right-3 top-3 z-[1101] cursor-pointer rounded-md p-1 text-muted-foreground hover:bg-foreground/10"
+            variant="ghost"
+            size="icon"
+            className="absolute right-3 top-3 z-[1101] size-8 cursor-pointer rounded-md p-1 text-muted-foreground hover:bg-foreground/10"
             onClick={handleDrawerOpen}
           >
             <X aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />
-          </button>
+          </IconButton>
         )}
         <ScrollArea
           style={{
