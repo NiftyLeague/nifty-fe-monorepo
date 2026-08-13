@@ -29,4 +29,34 @@ describe('useVersion', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(result.current.downloadURL).toContain('/win/1.2.3-release/')
   })
+
+  it('does not fetch an installer version for unsupported macOS downloads', async () => {
+    Object.defineProperty(window.navigator, 'userAgent', {
+      configurable: true,
+      get: () => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)',
+    })
+    const fetchMock = spyOn(globalThis, 'fetch')
+
+    const { result } = renderHook(() => useVersion())
+
+    await waitFor(() => expect(result.current.message).toBe('Download for Mac OS not available'))
+    expect(fetchMock).not.toHaveBeenCalled()
+    expect(result.current.version).toBe('')
+  })
+
+  it('does not fetch an installer version for unsupported Linux downloads', async () => {
+    Object.defineProperty(window.navigator, 'userAgent', {
+      configurable: true,
+      get: () => 'Mozilla/5.0 (X11; Linux x86_64)',
+    })
+    const fetchMock = spyOn(globalThis, 'fetch')
+
+    const { result } = renderHook(() => useVersion())
+
+    await waitFor(() =>
+      expect(result.current.message).toBe('Linux support is not available at this time')
+    )
+    expect(fetchMock).not.toHaveBeenCalled()
+    expect(result.current.version).toBe('')
+  })
 })

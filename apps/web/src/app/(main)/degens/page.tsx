@@ -7,7 +7,7 @@ import { LazyYouTubeEmbed } from '@nl/ui/custom/lazy-youtube-embed'
 import { cn } from '@nl/ui/utils'
 
 import { NIFTY_DEGENS_ALL } from '@/constants/degens'
-import ThemeBtnGroup from '@/components/ThemeBtnGroup'
+import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 import styles from './index.module.css'
 
 const Degens: NextPage = () => (

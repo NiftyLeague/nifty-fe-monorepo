@@ -6,6 +6,7 @@ import { shouldBuild } from '../../scripts/vercel-ignore-build.mjs'
 const projectRoots = ['apps/web', 'apps/app', 'apps/smashers', 'apps/api', 'apps/docs']
 const deploymentEnabled = { 'codex/*': false, '**': false, main: true, staging: true }
 const ignoreCommand = 'node ../../scripts/vercel-ignore-build.mjs'
+const consolidatedStatusPolicy = 'consolidated Git commit status disabled'
 
 describe('Vercel build cost policy', () => {
   for (const projectRoot of projectRoots) {
@@ -31,5 +32,11 @@ describe('Vercel build cost policy', () => {
     expect(shouldBuild('codex/perf-route')).toBe(false)
     expect(shouldBuild('feat/large-change')).toBe(false)
     expect(shouldBuild(undefined)).toBe(true)
+  })
+
+  it('documents the live aggregate-status cost control', () => {
+    const contributionGuide = readFileSync(join(process.cwd(), '.github/CONTRIBUTING.md'), 'utf8')
+
+    expect(contributionGuide).toContain(consolidatedStatusPolicy)
   })
 })

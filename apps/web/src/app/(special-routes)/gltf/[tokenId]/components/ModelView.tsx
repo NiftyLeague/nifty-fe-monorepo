@@ -4,7 +4,7 @@ import '@google/model-viewer'
 import { useEffect, useState } from 'react'
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
 
-import { DEGEN_3D_MODEL_URL } from '@/constants/degens'
+import { DEGEN_3D_MODEL_URL } from '@/constants/degen-assets'
 import { SRC } from '@/types/gltf'
 import styles from '../gltf.module.css'
 

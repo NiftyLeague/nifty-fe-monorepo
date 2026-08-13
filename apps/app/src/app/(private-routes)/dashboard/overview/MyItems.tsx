@@ -20,7 +20,6 @@ const MyItems = (): React.ReactNode => {
 
   const settings = {
     slidesToShow: 5,
-    adaptiveHeight: true,
     responsive: [
       { breakpoint: 1536, settings: { slidesToShow: 4 } },
       { breakpoint: 1280, settings: { slidesToShow: 4 } },

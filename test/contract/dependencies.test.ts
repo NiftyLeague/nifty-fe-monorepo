@@ -221,7 +221,6 @@ const ALLOWED_UNUSED: Record<string, Record<string, string>> = {
     sharp: 'Next.js image optimization runtime dep',
     graphql: 'peer dep of graphql-request',
     '@openzeppelin/contracts': 'typechain generated contracts/types import it',
-    'slick-carousel': 'CSS import (slick-carousel/slick/slick.css) for carousel styles',
   },
   'apps/smashers': {
     sharp: 'Next.js image optimization runtime dep',

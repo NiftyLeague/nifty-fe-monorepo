@@ -1,5 +1,3 @@
-import * as Sentry from '@sentry/nextjs'
-
 export async function register() {
   if (process.env.VERCEL_ENV !== 'production') {
     return
@@ -12,4 +10,11 @@ export async function register() {
   }
 }
 
-export const onRequestError = Sentry.captureRequestError
+export async function onRequestError(
+  ...args: Parameters<(typeof import('@sentry/nextjs'))['captureRequestError']>
+) {
+  if (process.env.VERCEL_ENV !== 'production') return
+
+  const { captureRequestError } = await import('@sentry/nextjs')
+  return captureRequestError(...args)
+}

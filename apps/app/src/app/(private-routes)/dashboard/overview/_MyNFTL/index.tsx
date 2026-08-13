@@ -1,6 +1,6 @@
 'use client'
 
-import DeferredDashboardSection from '@/components/providers/DeferredDashboardSection'
+import DeferredSection from '@nl/ui/custom/deferred-section'
 import DegenBalance from './DegenBalance'
 import GameBalance from './GameBalance'
 import TitleSection from './TitleSection'
@@ -25,7 +25,7 @@ const MyNFTL = (): React.ReactNode => (
       </div>
     </div>
     <div className="col-span-12">
-      <DeferredDashboardSection label="Arcade balance" load={loadArcadeBalance} />
+      <DeferredSection label="Arcade balance" load={loadArcadeBalance} />
     </div>
   </div>
 )

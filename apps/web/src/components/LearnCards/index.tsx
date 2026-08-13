@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import ThemeBtnGroup from '@/components/ThemeBtnGroup'
+import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 import { LEARN_CARDS } from './constants'
 
 interface LearnCardProps {

@@ -1,8 +1,15 @@
+import dynamic from 'next/dynamic'
+
 import useAuth from '@/hooks/useAuth'
 import MenuList from './_MenuList'
-import UserProfile from './_UserProfile'
-import LogoutButton from './_LogoutButton'
 import SidebarFrame from './SidebarFrame'
+
+const UserProfile = dynamic(() => import('./_UserProfile'), {
+  ssr: false,
+  loading: () => <div className="mb-4 h-44 animate-pulse rounded-lg bg-muted" aria-hidden="true" />,
+})
+
+const LogoutButton = dynamic(() => import('./_LogoutButton'), { ssr: false })
 
 // ==============================|| SIDEBAR DRAWER ||============================== //
 

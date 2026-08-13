@@ -27,4 +27,22 @@ describe('Tailwind source scope', () => {
     const smashersStyles = readFileSync('apps/smashers/src/styles/app.css', 'utf8')
     expect(smashersStyles).toContain('@source "../../../../packages/playfab/src/**/*.{ts,tsx}";')
   })
+
+  it('does not ship animation utilities removed with the legacy client wrapper', () => {
+    for (const utility of [
+      'delay-lite',
+      'delay-normal',
+      'delay-long',
+      'delay-long-offset',
+      'delay-extreme',
+      'delay-extreme-offset',
+      'transition-fade-quick',
+      'transition-fade-start',
+      'transition-vertical-fade-start',
+      'transition-quick-pop-start',
+      'transition-quick-pop-left-start',
+    ]) {
+      expect(sharedStyles).not.toContain(utility)
+    }
+  })
 })

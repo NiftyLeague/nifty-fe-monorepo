@@ -1,67 +1,84 @@
 import Image from 'next/image'
 
-import { cn } from '@nl/ui/utils'
+type TokenName = 'token1' | 'token2' | 'token3'
 
 interface ComponentProps {
-  classes?: { token1?: string; token2?: string; token3?: string }
+  visibleTokens?: readonly TokenName[]
 }
 
-const BouncingNFTL = ({ classes }: ComponentProps): React.ReactNode => (
+const TOKEN_CONFIG = {
+  token1: {
+    wrapperClassName:
+      'absolute left-[-100px] top-[calc(50%-160px)] w-[165px] h-[160px] 2xl:left-[-226px] 2xl:w-[226px] 2xl:h-[223px]',
+    animationClassName: 'animate-bounce-coin1',
+    src: '/img/compete-and-earn/animated/token-1.webp',
+    alt: 'Bouncing NFTL Left',
+    width: 226,
+    height: 223,
+    sizes: '226px',
+  },
+  token2: {
+    wrapperClassName:
+      'absolute right-[-80px] top-0 w-[180px] h-[185px] 2xl:w-[226px] 2xl:h-[221px]',
+    animationClassName: 'animate-bounce-coin2',
+    src: '/img/compete-and-earn/animated/token-2.webp',
+    alt: 'Bouncing NFTL Right',
+    width: 226,
+    height: 221,
+    sizes: '226px',
+  },
+  token3: {
+    wrapperClassName: 'absolute bottom-[-500px] left-[calc(50%-100px)] w-[246px]',
+    animationClassName: 'animate-bounce-coin3',
+    src: '/img/compete-and-earn/animated/token-3.webp',
+    alt: 'Bouncing NFTL Bottom',
+    width: 246,
+    height: 96,
+    sizes: '246px',
+  },
+} satisfies Record<
+  TokenName,
+  {
+    wrapperClassName: string
+    animationClassName: string
+    src: string
+    alt: string
+    width: number
+    height: number
+    sizes: string
+  }
+>
+
+const DEFAULT_VISIBLE_TOKENS: readonly TokenName[] = ['token1', 'token2', 'token3']
+
+function BouncingToken({ token }: { token: TokenName }) {
+  const config = TOKEN_CONFIG[token]
+
+  return (
+    <div className={config.wrapperClassName}>
+      <div>
+        <div className={`${config.animationClassName} transition-fade`}>
+          <Image
+            src={config.src}
+            alt={config.alt}
+            width={config.width}
+            height={config.height}
+            className="w-full h-auto"
+            sizes={config.sizes}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const BouncingNFTL = ({
+  visibleTokens = DEFAULT_VISIBLE_TOKENS,
+}: ComponentProps): React.ReactNode => (
   <>
-    <div
-      className={cn(
-        'absolute left-[-100px] top-[calc(50%-160px)] w-[165px] h-[160px] 2xl:left-[-226px] 2xl:w-[226px] 2xl:h-[223px]',
-        classes?.token1
-      )}
-    >
-      <div>
-        <div className="animate-bounce-coin1 transition-fade">
-          <Image
-            src="/img/compete-and-earn/animated/token-1.webp"
-            alt="Bouncing NFTL Left"
-            width={226}
-            height={223}
-            className="w-full h-auto"
-            sizes="226px"
-          />
-        </div>
-      </div>
-    </div>
-    <div
-      className={cn(
-        'absolute right-[-80px] top-0 w-[180px] h-[185px] 2xl:w-[226px] 2xl:h-[221px]',
-        classes?.token2
-      )}
-    >
-      <div>
-        <div className="animate-bounce-coin2 transition-fade">
-          <Image
-            src="/img/compete-and-earn/animated/token-2.webp"
-            alt="Bouncing NFTL Right"
-            width={226}
-            height={221}
-            className="w-full h-auto"
-            sizes="226px"
-          />
-        </div>
-      </div>
-    </div>
-    <div
-      className={cn('absolute bottom-[-500px] left-[calc(50%-100px)] w-[246px]', classes?.token3)}
-    >
-      <div>
-        <div className="animate-bounce-coin3 transition-fade">
-          <Image
-            src="/img/compete-and-earn/animated/token-3.webp"
-            alt="Bouncing NFTL Bottom"
-            width={246}
-            height={96}
-            className="w-full h-auto"
-            sizes="246px"
-          />
-        </div>
-      </div>
-    </div>
+    {visibleTokens.map((token) => (
+      <BouncingToken key={token} token={token} />
+    ))}
   </>
 )
 

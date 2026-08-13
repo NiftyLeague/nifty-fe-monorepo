@@ -1,14 +1,14 @@
 'use client'
 
-import dynamic from 'next/dynamic'
-import PaginationIconOnly from '@/components/pagination/PaginationIconOnly'
-import { PropsWithChildren, ReactNode, useRef } from 'react'
+import { PaginationControls } from '@/components/pagination/PaginationControls'
+import { PropsWithChildren, ReactNode, useMemo, useRef } from 'react'
 import type { SxProps, Theme } from '@/types'
-import type { Settings } from 'react-slick'
+import ResponsiveCarousel from '@nl/ui/custom/responsive-carousel'
+import type {
+  ResponsiveCarouselRef,
+  ResponsiveCarouselSettings,
+} from '@nl/ui/custom/responsive-carousel'
 import SectionTitle from './SectionTitle'
-import type { SlickSliderRef } from './SlickSlider'
-
-const SlickSlider = dynamic(() => import('./SlickSlider'))
 
 const sectionSpacing = 2 // 16px
 
@@ -16,7 +16,7 @@ interface Props {
   title: string | React.ReactNode
   firstSection?: boolean
   actions?: ReactNode
-  sliderSettingsOverride?: Settings
+  sliderSettingsOverride?: ResponsiveCarouselSettings
   isSlider?: boolean
   children?: React.ReactNode
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
@@ -33,28 +33,24 @@ const SectionSlider = ({
   variant = 'h2',
   styles,
 }: PropsWithChildren<Props>): React.ReactNode => {
-  const refSlider = useRef<SlickSliderRef>(null)
-  const settings = {
-    dots: false,
-    swipeToSlide: false,
-    focusOnSelect: false,
-    swipe: false,
-    arrows: false,
-    centerPadding: '0',
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    infinite: true,
-    rows: 1,
-    lazyLoad: true,
-    responsive: [
-      { breakpoint: 1536, settings: { slidesToShow: 4 } },
-      { breakpoint: 1280, settings: { slidesToShow: 3 } },
-      { breakpoint: 1024, settings: { slidesToShow: 2 } },
-      { breakpoint: 768, settings: { slidesToShow: 1 } },
-      { breakpoint: 640, settings: { slidesToShow: 1 } },
-    ],
-    ...sliderSettingsOverride,
-  } as Settings
+  const refSlider = useRef<ResponsiveCarouselRef>(null)
+  const settings = useMemo<ResponsiveCarouselSettings>(
+    () => ({
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      infinite: true,
+      rows: 1,
+      responsive: [
+        { breakpoint: 1536, settings: { slidesToShow: 4 } },
+        { breakpoint: 1280, settings: { slidesToShow: 3 } },
+        { breakpoint: 1024, settings: { slidesToShow: 2 } },
+        { breakpoint: 768, settings: { slidesToShow: 1 } },
+        { breakpoint: 640, settings: { slidesToShow: 1 } },
+      ],
+      ...sliderSettingsOverride,
+    }),
+    [sliderSettingsOverride]
+  )
 
   const onClickNext = () => {
     refSlider?.current?.slickNext()
@@ -77,7 +73,14 @@ const SectionSlider = ({
             <div className="flex flex-row gap-4">
               {actions}
               {isSlider && (
-                <PaginationIconOnly onClickNext={onClickNext} onClickPrev={onClickPrev} />
+                <PaginationControls
+                  hasNext
+                  hasPrev
+                  nextLabel="Next slide"
+                  previousLabel="Previous slide"
+                  onClickNext={onClickNext}
+                  onClickPrev={onClickPrev}
+                />
               )}
             </div>
           }
@@ -87,9 +90,15 @@ const SectionSlider = ({
       </div>
       <div style={styles?.mainRow as React.CSSProperties}>
         {isSlider ? (
-          <SlickSlider settings={settings} ref={refSlider}>
+          <ResponsiveCarousel
+            {...settings}
+            ariaLabel={typeof title === 'string' ? title : 'Featured content'}
+            ref={refSlider}
+            slidePadding="0"
+            showControls={false}
+          >
             {children}
-          </SlickSlider>
+          </ResponsiveCarousel>
         ) : (
           children
         )}

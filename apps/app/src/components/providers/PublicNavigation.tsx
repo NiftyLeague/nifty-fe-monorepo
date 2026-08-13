@@ -1,12 +1,11 @@
 import type { PropsWithChildren } from 'react'
 
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
+import MobileNavigationDisclosure from '@nl/ui/custom/mobile-navigation'
 import { cn } from '@nl/ui/utils'
 
 import LogoSection from '@/app/_layout/_MainLayout/_LogoSection'
 import styles from '@/app/_layout/_MainLayout/MainLayout.module.css'
-import PublicDesktopSidebarToggle from './PublicDesktopSidebarToggle'
-import PublicMobileNavigationTrigger from './PublicMobileNavigationTrigger'
 import PublicNavLinks from './PublicNavLinks'
 
 const pages = [
@@ -17,11 +16,7 @@ const pages = [
 
 export default function PublicNavigation({ children }: PropsWithChildren) {
   return (
-    <div
-      className={cn('flex', styles.publicNavigationShell)}
-      data-public-navigation
-      data-sidebar-open="true"
-    >
+    <div className={cn('flex', styles.publicNavigationShell)} data-public-navigation>
       <header className="fixed top-0 right-0 left-0 z-50 border-0 bg-sidebar">
         <div className="py-1 lg:py-0">
           <div className="flex w-full flex-row items-center justify-between">
@@ -29,10 +24,37 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
               <div className="hidden flex-grow lg:block">
                 <LogoSection />
               </div>
-              <PublicDesktopSidebarToggle />
-              <PublicMobileNavigationTrigger>
-                <PublicNavLinks />
-              </PublicMobileNavigationTrigger>
+              <details id="public-desktop-navigation-toggle" open className="hidden lg:block">
+                <summary
+                  aria-controls="public-desktop-navigation"
+                  aria-label="Toggle sidebar"
+                  className="flex h-[34px] w-[34px] cursor-pointer list-none items-center justify-center overflow-hidden rounded-md bg-muted text-blue outline-none transition-colors duration-200 hover:bg-purple hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 [&::-webkit-details-marker]:hidden"
+                >
+                  <span aria-hidden="true" className="flex size-6 flex-col justify-center gap-1.5">
+                    <span className="h-0.5 w-full rounded-full bg-current" />
+                    <span className="h-0.5 w-full rounded-full bg-current" />
+                    <span className="h-0.5 w-full rounded-full bg-current" />
+                  </span>
+                  <span className="sr-only">Toggle sidebar</span>
+                </summary>
+              </details>
+              <MobileNavigationDisclosure
+                id="public-mobile-navigation"
+                label="Toggle navigation"
+                className="lg:hidden"
+                summaryClassName="h-[34px] w-[34px] overflow-hidden rounded-md bg-muted text-blue transition-all duration-200 hover:bg-purple hover:text-foreground"
+                panelClassName="fixed top-[60px] bottom-0 left-0 z-40 w-full max-w-xs overflow-y-auto bg-sidebar text-sidebar-foreground shadow-lg"
+              >
+                <div className="border-b border-sidebar-border px-4 py-3">
+                  <div className="flex items-center gap-3 text-sidebar-foreground">
+                    <LogoSection />
+                    <span>Primary navigation</span>
+                  </div>
+                </div>
+                <nav aria-label="Primary navigation" className="px-4">
+                  <PublicNavLinks />
+                </nav>
+              </MobileNavigationDisclosure>
             </div>
             <div className="hidden items-center justify-between gap-4 lg:flex">
               {pages.map((page) => (

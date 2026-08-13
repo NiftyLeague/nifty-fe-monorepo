@@ -24,7 +24,7 @@ type ProfileImageContentProps = {
   avatarFee?: number
 }
 
-const settings = { className: 'center', slidesToShow: 4, rows: 2, slidesPerRow: 1, swipe: false }
+const settings = { slidesToShow: 4, rows: 2, slidesPerRow: 1 }
 
 const ProfileImageContent = ({
   onSearch,

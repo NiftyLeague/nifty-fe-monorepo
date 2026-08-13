@@ -1,6 +1,6 @@
 import GameList from './_GameList'
+import DeferredInstallerAction from './DeferredInstallerAction'
 import DeferredWeb3GameList from './DeferredWeb3GameList'
-import InstallerAction from './InstallerAction'
 import StaticSection from '@/components/sections/StaticSection'
 
 const GamesPage = () => {
@@ -11,7 +11,7 @@ const GamesPage = () => {
           <GameList />
         </div>
       </StaticSection>
-      <StaticSection firstSection title="Web3 Games" actions={<InstallerAction />}>
+      <StaticSection firstSection title="Web3 Games" actions={<DeferredInstallerAction />}>
         <div className="grid grid-cols-12 gap-y-8 pb-8 sm:gap-y-0 sm:pb-4 md:pb-0">
           <DeferredWeb3GameList />
         </div>

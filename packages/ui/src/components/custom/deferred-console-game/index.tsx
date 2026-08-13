@@ -1,8 +1,8 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import type { ComponentType } from 'react'
+import { useRef } from 'react'
 import { Skeleton } from '@nl/ui/base/skeleton'
+import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 
 import type { ConsoleGameProps } from '../console-game'
@@ -11,25 +11,16 @@ interface DeferredConsoleGameProps {
   src: string
 }
 
-type ConsoleGameComponent = ComponentType<ConsoleGameProps>
+const loadConsoleGame = () =>
+  import('../console-game').then(({ ConsoleGame }) => ({ default: ConsoleGame }))
 
 const DeferredConsoleGame = ({ src }: DeferredConsoleGameProps) => {
   const rootRef = useRef<HTMLDivElement>(null)
   const isNearViewport = useOnScreen(rootRef, '200px')
-  const [ConsoleGame, setConsoleGame] = useState<ConsoleGameComponent | null>(null)
-
-  useEffect(() => {
-    if (!isNearViewport) return
-
-    let cancelled = false
-    void import('../console-game').then(({ ConsoleGame: LoadedConsoleGame }) => {
-      if (!cancelled) setConsoleGame(() => LoadedConsoleGame)
-    })
-
-    return () => {
-      cancelled = true
-    }
-  }, [isNearViewport])
+  const { Component: ConsoleGame } = useDeferredComponent<ConsoleGameProps>(
+    loadConsoleGame,
+    isNearViewport
+  )
 
   return (
     <div ref={rootRef} className="relative aspect-video overflow-hidden">

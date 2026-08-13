@@ -3,7 +3,7 @@ import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 
 import DeferredSentry from '@nl/sentry-client/react'
-import { DeferredAnalytics } from '@nl/ui/gtm'
+import DeferredAnalytics from '@nl/ui/gtm/deferred'
 import { defaultFont } from '@nl/ui/fonts/default'
 import { headerFont } from '@nl/ui/fonts/header'
 import { subheaderFont } from '@nl/ui/fonts/subheader'

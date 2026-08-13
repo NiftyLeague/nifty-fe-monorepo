@@ -2,13 +2,8 @@
 
 import { DeferredSection } from '@nl/ui/custom/deferred-section'
 
-import { SPONSORS } from '@/constants/sponsors'
-
 const loadMintOMatic = () => import('@/components/MintOMatic')
-const loadSponsors = () =>
-  import('@/components/Sponsors').then(({ default: Sponsors }) => ({
-    default: () => <Sponsors sponsors={SPONSORS} />,
-  }))
+const loadSponsors = () => import('@/components/Sponsors')
 const loadCommunityDegenCarousel = () => import('@/components/CommunityDegenCarousel')
 
 export function DeferredMintOMatic() {

@@ -164,6 +164,8 @@ describe('card presentation', () => {
         image="/smashers.png"
         description="A long description"
         externalLink={{ title: 'Guide', src: '/guide' }}
+        imageFetchPriority="high"
+        imageLoading="eager"
         isComingSoon
         required="Wallet required"
         showMore
@@ -182,7 +184,11 @@ describe('card presentation', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Play on Web' }))
     expect(desktop).toHaveBeenCalledOnce()
     expect(web).toHaveBeenCalledOnce()
-    expect(screen.getByRole('link', { name: /Guide/ })?.getAttribute('href')).toBe('/guide')
+    const guideLink = screen.getByRole('link', { name: /Guide/ })
+    expect(guideLink.getAttribute('href')).toBe('/guide')
+    expect(guideLink.querySelector('button')).toBeNull()
+    expect(screen.getByAltText('Smashers').getAttribute('loading')).toBe('eager')
+    expect(screen.getByAltText('Smashers').getAttribute('fetchpriority')).toBe('high')
 
     rerender(
       <GameCard

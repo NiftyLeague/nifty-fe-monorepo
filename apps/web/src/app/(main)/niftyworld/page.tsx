@@ -5,7 +5,7 @@ import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { ViewportVideo } from '@nl/ui/custom/viewport-video'
 
 import { NIFTYWORLD_PROPERTIES } from '@/constants/niftyworld'
-import ThemeBtnGroup from '@/components/ThemeBtnGroup'
+import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 
 const NiftyWorld: NextPage = () => {
   return (

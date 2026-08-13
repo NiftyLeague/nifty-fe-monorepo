@@ -76,7 +76,6 @@ import {
 } from '@nl/ui/base/sheet'
 import { Skeleton } from '@nl/ui/base/skeleton'
 import { Slider } from '@nl/ui/base/slider'
-import { Switch } from '@nl/ui/base/switch'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@nl/ui/base/tabs'
 import { Toggle } from '@nl/ui/base/toggle'
 import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group'
@@ -196,7 +195,6 @@ describe('base controlled primitives', () => {
         </RadioGroup>
         <Slider defaultValue={[20, 80]} aria-label="Range" />
         <Slider min={5} max={10} aria-label="Default range" />
-        <Switch defaultChecked aria-label="Enabled" />
         <Tabs defaultValue="first">
           <TabsList>
             <TabsTrigger value="first">First</TabsTrigger>

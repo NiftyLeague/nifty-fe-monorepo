@@ -1,10 +1,28 @@
 import { describe, expect, it } from 'bun:test'
-import { readFileSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 
 const responsiveTableList = 'apps/app/src/components/ResponsiveTable/DataList.tsx'
 const appManifest = 'apps/app/package.json'
+const webManifest = 'apps/web/package.json'
+const webNextConfig = 'apps/web/next.config.ts'
 const appRootLayout = 'apps/app/src/app/layout.tsx'
 const bridgeDialog = 'apps/app/src/components/dialog/BridgeButtonDialog/index.tsx'
+const appSectionSlider = 'apps/app/src/components/sections/SectionSlider.tsx'
+const allDegensPage = 'apps/app/src/app/(public-routes)/degens/AllDegensPage.tsx'
+const gamesPage = 'apps/app/src/app/(public-routes)/games/page.tsx'
+const deferredInstallerAction = 'apps/app/src/app/(public-routes)/games/DeferredInstallerAction.tsx'
+const leaderboards = 'apps/app/src/components/leaderboards/index.tsx'
+const leaderboardsStyles = 'apps/app/src/components/leaderboards/index.module.css'
+const collapsibleSidebarLayout = 'apps/app/src/app/_layout/_CollapsibleSidebarLayout/index.tsx'
+const appCarouselSettingsSources = [
+  'apps/app/src/app/(private-routes)/dashboard/overview/MyDegens.tsx',
+  'apps/app/src/app/(private-routes)/dashboard/overview/MyComics.tsx',
+  'apps/app/src/app/(private-routes)/dashboard/overview/MyItems.tsx',
+  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_ImageProfile/ProfileImageDialog.tsx',
+]
+const sharedResponsiveCarousel = 'packages/ui/src/components/custom/responsive-carousel/index.tsx'
+const sharedResponsiveCarouselStyles =
+  'packages/ui/src/components/custom/responsive-carousel/responsive-carousel.module.css'
 const degenFilterUtils = 'apps/app/src/components/extended/DegensFilter/utils.ts'
 const privateShellIconSources = [
   'apps/app/src/app/_layout/_CollapsibleSidebarLayout/index.tsx',
@@ -39,11 +57,26 @@ const appIconRegistrySources = [
   'apps/app/src/components/dialog/DegenDialog/RentDegenContentDialog.tsx',
   'apps/app/src/components/dialog/DialogActions.tsx',
   'apps/app/src/components/dialog/WithdrawButtonDialog/WithdrawSuccess.tsx',
-  'apps/app/src/components/pagination/PaginationIconOnly.tsx',
   'apps/smashers/src/app/(auth_routes)/profile/ProfileClient.tsx',
 ]
 
 describe('app performance contracts', () => {
+  it('shares the accessible native carousel and keeps the app free of slider runtimes', () => {
+    const sectionSlider = readFileSync(appSectionSlider, 'utf8')
+    const sharedCarousel = readFileSync(sharedResponsiveCarousel, 'utf8')
+    const sharedCarouselStyles = readFileSync(sharedResponsiveCarouselStyles, 'utf8')
+    const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
+
+    expect(sectionSlider).toContain("from '@nl/ui/custom/responsive-carousel'")
+    expect(sectionSlider).not.toContain('react-slick')
+    expect(sectionSlider).not.toContain('slick-carousel')
+    expect(sharedCarousel).toContain('aria-roledescription="carousel"')
+    expect(sharedCarouselStyles).toContain('scroll-snap-type: x mandatory')
+    expect(manifest.dependencies?.['react-slick']).toBeUndefined()
+    expect(manifest.dependencies?.['slick-carousel']).toBeUndefined()
+    expect(manifest.devDependencies?.['@types/react-slick']).toBeUndefined()
+  })
+
   it('defers third-party device telemetry until the page has loaded', () => {
     const source = readFileSync(appRootLayout, 'utf8')
 
@@ -58,12 +91,67 @@ describe('app performance contracts', () => {
     expect(manifest.scripts.dev).not.toContain('--webpack')
   })
 
+  it('uses Turbopack for local marketing development', () => {
+    const manifest = JSON.parse(readFileSync(webManifest, 'utf8'))
+    const nextConfig = readFileSync(webNextConfig, 'utf8')
+
+    expect(manifest.scripts.dev).toBe('next dev --turbopack --port 3000')
+    expect(manifest.scripts.dev).not.toContain('--webpack')
+    expect(nextConfig).toContain('  turbopack: {},')
+  })
+
   it('loads the bridge form only after its dialog opens', () => {
     const source = readFileSync(bridgeDialog, 'utf8')
 
     expect(source).not.toContain("import BridgeForm from './BridgeForm'")
     expect(source).toContain("dynamic(() => import('./BridgeForm')")
     expect(source).toContain('Loading bridge options')
+  })
+
+  it('shares accessible pagination controls and removes retired slider settings', () => {
+    const pageSource = readFileSync(allDegensPage, 'utf8')
+
+    expect(pageSource).toContain("from '@/components/pagination/PaginationControls'")
+    expect(pageSource).toContain("from '@nl/ui/base/pagination'")
+    expect(pageSource).toContain("aria-current={p === currentPage ? 'page' : undefined}")
+
+    for (const file of appCarouselSettingsSources) {
+      const source = readFileSync(file, 'utf8')
+      expect(source).not.toContain('adaptiveHeight')
+      expect(source).not.toContain('swipe: false')
+    }
+  })
+
+  it('defers the public installer action out of the initial games route graph', () => {
+    const pageSource = readFileSync(gamesPage, 'utf8')
+    const deferredSource = readFileSync(deferredInstallerAction, 'utf8')
+
+    expect(pageSource).toContain("import DeferredInstallerAction from './DeferredInstallerAction'")
+    expect(pageSource).not.toContain("import InstallerAction from './InstallerAction'")
+    expect(pageSource).toContain('actions={<DeferredInstallerAction />}')
+    expect(deferredSource).toContain("from '@nl/ui/custom/deferred-component'")
+    expect(deferredSource).toContain("import('./InstallerAction')")
+    expect(deferredSource).toContain('aria-label="Loading installer action"')
+    expect(deferredSource).toContain('Retry installer')
+  })
+
+  it('uses the shared themed Button for leaderboard filters', () => {
+    const source = readFileSync(leaderboards, 'utf8')
+
+    expect(source).toContain("from '@nl/ui/base/button'")
+    expect(source).toContain('<Button')
+    expect(source).not.toContain('<button')
+    expect(source).not.toContain("from './index.module.css'")
+    expect(existsSync(leaderboardsStyles)).toBe(false)
+  })
+
+  it('uses the shared accessible IconButton for the mobile filter close control', () => {
+    const source = readFileSync(collapsibleSidebarLayout, 'utf8')
+
+    expect(source).toContain("from '@nl/ui/base/icon-button'")
+    expect(source).toContain('<IconButton')
+    expect(source).not.toContain('<button')
+    expect(source).toContain('aria-label="Close filters"')
   })
 
   it('uses native shallow copies for primitive responsive-table selection state', () => {
