@@ -83,6 +83,8 @@ const F2PGameList = () => (
         required="Party Platform Fighter"
         description="Our flagship game - free-to-play, online multiplayer, PARTY platform fighter. Play on iOS, Android, and Steam with full cross-play support!"
         image="/img/games/smashers/smashers-poster.jpg"
+        imageFetchPriority="high"
+        imageLoading="eager"
         autoHeight={false}
         actions={
           <StoreButtons
