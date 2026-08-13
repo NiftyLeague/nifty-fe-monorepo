@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test'
-import { readFileSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const fontLayoutContracts = [
@@ -37,4 +37,19 @@ describe('shared font loading contract', () => {
       }
     })
   }
+
+  it('keeps only the browser-ready Nexa Rust font asset', () => {
+    const fontDirectory = join(process.cwd(), 'packages/ui/src/lib/fonts/NexaRustSans_Black')
+
+    expect(existsSync(join(fontDirectory, 'NexaRustSans-Black.woff2'))).toBe(true)
+    for (const legacyAsset of [
+      'NexaRustSans-Black.eot',
+      'NexaRustSans-Black.otf',
+      'NexaRustSans-Black.ttf',
+      'NexaRustSans-Black.woff',
+      'style.css',
+    ]) {
+      expect(existsSync(join(fontDirectory, legacyAsset))).toBe(false)
+    }
+  })
 })
