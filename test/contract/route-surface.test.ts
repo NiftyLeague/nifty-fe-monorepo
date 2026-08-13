@@ -1386,6 +1386,7 @@ describe('shared below-fold loading contract', () => {
     expect(pageSource).not.toContain("from '@/components/Carousel/DegenCardItem'")
     expect(deferredSource).toContain("import('@/components/MintOMatic')")
     expect(deferredSource).toContain("import('@/components/Sponsors')")
+    expect(deferredSource).not.toContain("from '@/constants/sponsors'")
     expect(deferredSource).toContain("import('@/components/CommunityDegenCarousel')")
     expect(deferredSource).toContain("from '@nl/ui/custom/deferred-section'")
     expect(carouselSource).toContain("from '@/components/Carousel'")
