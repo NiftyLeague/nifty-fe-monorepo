@@ -1371,6 +1371,7 @@ describe('shared below-fold loading contract', () => {
     expect(source).toContain("buttonVariants({ variant: 'outline' })")
     expect(source).toContain('type="button"')
     expect(source).toContain("from '@nl/ui/hooks/useOnScreen'")
+    expect(source).toContain("from '@nl/ui/hooks/useDeferredComponent'")
     expect(source).toContain('role="status"')
     expect(source).toContain('role="alert"')
     expect(source).toContain('aria-live="polite"')

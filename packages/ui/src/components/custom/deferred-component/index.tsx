@@ -1,9 +1,9 @@
 'use client'
 
 import type { ComponentType, ReactNode } from 'react'
-import { useEffect, useState } from 'react'
 
 import { Button } from '@nl/ui/base/button'
+import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import { Skeleton } from '@nl/ui/base/skeleton'
 
 export interface DeferredComponentProps<T extends object> {
@@ -48,37 +48,16 @@ export function DeferredComponent<T extends object>({
   loadingFallback,
   props,
 }: DeferredComponentProps<T>): ReactNode {
-  const [LoadedComponent, setLoadedComponent] = useState<ComponentType<T> | null>(null)
-  const [loadError, setLoadError] = useState(false)
-  const [retryCount, setRetryCount] = useState(0)
-
-  useEffect(() => {
-    if (!enabled || LoadedComponent) return
-
-    let active = true
-    setLoadError(false)
-
-    load()
-      .then(({ default: nextComponent }) => {
-        if (active) setLoadedComponent(() => nextComponent)
-      })
-      .catch(() => {
-        if (active) setLoadError(true)
-      })
-
-    return () => {
-      active = false
-    }
-  }, [enabled, load, LoadedComponent, retryCount])
+  const {
+    Component: LoadedComponent,
+    hasError: loadError,
+    retry,
+  } = useDeferredComponent(load, enabled)
 
   if (!enabled) return null
 
   if (loadError) {
-    return errorFallback ? (
-      errorFallback(() => setRetryCount((count) => count + 1))
-    ) : (
-      <DefaultError label={label} onRetry={() => setRetryCount((count) => count + 1)} />
-    )
+    return errorFallback ? errorFallback(retry) : <DefaultError label={label} onRetry={retry} />
   }
 
   if (!LoadedComponent) return loadingFallback ?? <DefaultLoading label={label} />
