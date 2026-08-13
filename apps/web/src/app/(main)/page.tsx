@@ -13,6 +13,7 @@ import ThemeBtnGroup from '@/components/ThemeBtnGroup'
 import { DEGEN_COLLECTION_URL } from '@/constants/degens'
 
 import '@/styles/home.css'
+import '@/styles/marketing.css'
 
 const ResponsiveLabel = ({ mobile, desktop }: { mobile: string; desktop: string }) => (
   <>

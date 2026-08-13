@@ -3,6 +3,8 @@ import Image from 'next/image'
 
 import SocialCards from '@/components/SocialCards'
 
+import '@/styles/marketing.css'
+
 import styles from './index.module.css'
 
 const Community: NextPage = () => {

@@ -1855,9 +1855,13 @@ describe('public route dependency contract', () => {
       join(process.cwd(), 'packages/ui/src/styles/05_tailwind.animate.css'),
       'utf8'
     )
-    const webAppStyles = readFileSync(join(process.cwd(), 'apps/web/src/styles/app.css'), 'utf8')
     const webMarketingStyles = readFileSync(
       join(process.cwd(), 'apps/web/src/styles/marketing.css'),
+      'utf8'
+    )
+    const homePage = readFileSync(join(process.cwd(), 'apps/web/src/app/(main)/page.tsx'), 'utf8')
+    const communityPage = readFileSync(
+      join(process.cwd(), 'apps/web/src/app/(main)/community/page.tsx'),
       'utf8'
     )
     const webStyles = readFileSync(join(process.cwd(), 'apps/web/src/styles/home.css'), 'utf8')
@@ -1866,7 +1870,8 @@ describe('public route dependency contract', () => {
     expect(sharedAnimations).not.toContain('.sliding-nfts')
     expect(sharedAnimations).not.toContain('slideBg')
     expect(webStyles).toContain('.animate-propeller')
-    expect(webAppStyles).toContain("@import './marketing.css'")
+    expect(homePage).toContain("import '@/styles/marketing.css'")
+    expect(communityPage).toContain("import '@/styles/marketing.css'")
     expect(webMarketingStyles).toContain('.sliding-nfts')
     expect(webMarketingStyles).toContain('slideBg')
   })
