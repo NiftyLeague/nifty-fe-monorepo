@@ -5,9 +5,9 @@ import { beforeEach, describe, expect, it, mock } from 'bun:test'
 describe('free-to-play game list', () => {
   beforeEach(() => {
     mock.module('next/image', () => ({
-      default: ({ fill: _fill, sizes: _sizes, ...props }: ComponentProps<'img'>) => (
+      default: ({ fill: _fill, sizes: _sizes, alt = '', ...props }: ComponentProps<'img'>) => (
         // eslint-disable-next-line @next/next/no-img-element
-        <img {...props} />
+        <img alt={alt} {...props} />
       ),
     }))
   })

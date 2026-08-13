@@ -55,11 +55,11 @@ const CardGameContent = ({
         <div className="flex flex-row justify-between">
           <Title level={4}>{title}</Title>
           {externalLink ? (
-            <Link href={externalLink.src} target="_blank" rel="noreferrer">
-              <Button variant="default" className="-mt-2 w-full">
+            <Button asChild variant="default" className="-mt-2 w-full">
+              <Link href={externalLink.src} target="_blank" rel="noreferrer">
                 {externalLink.title} <ExternalIcon />
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           ) : null}
         </div>
         {isComingSoon && <p className="text-sm text-warning">Coming 2023</p>}
