@@ -1171,11 +1171,11 @@ describe('dashboard overview loading contract', () => {
       'utf8'
     )
 
-    expect(sharedSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(sharedSource).toContain("from '@nl/ui/custom/deferred-skeleton'")
     expect(sharedSource).toContain('role="status"')
     expect(sharedSource).toContain('aria-live="polite"')
     expect(sharedSource).toContain('aria-busy="true"')
-    expect(sharedSource).toContain('<Skeleton')
+    expect(sharedSource).toContain('<DeferredSkeleton')
     expect(sharedSource).toContain('role="alert"')
     expect(sharedSource).toContain('Retry')
   })
@@ -1387,7 +1387,7 @@ describe('shared below-fold loading contract', () => {
   it('provides an accessible themed loading state with retry behavior', () => {
     const source = readFileSync(join(process.cwd(), sharedDeferredSection), 'utf8')
 
-    expect(source).toContain("from '@nl/ui/base/skeleton'")
+    expect(source).toContain("from '@nl/ui/custom/deferred-skeleton'")
     expect(source).toContain("from '@nl/ui/base/button-variants'")
     expect(source).toContain("buttonVariants({ variant: 'outline' })")
     expect(source).toContain('<button')
