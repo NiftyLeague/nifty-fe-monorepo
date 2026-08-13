@@ -15,7 +15,6 @@ const ArcadeTokensRequired: React.FC<ArcadeTokensRequiredProps> = ({ refetchArca
   const [openBuyAT, setOpenBuyAT] = useState(false)
 
   const handleBuyArcadeTokens = () => {
-    // TODO: Integrate Buy Arcade Tokens here
     setOpenBuyAT(true)
   }
 
