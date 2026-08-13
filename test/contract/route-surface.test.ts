@@ -1301,9 +1301,10 @@ describe('shared below-fold loading contract', () => {
     const source = readFileSync(join(process.cwd(), sharedDeferredSection), 'utf8')
 
     expect(source).toContain("from '@nl/ui/base/skeleton'")
-    expect(source).toContain("from '@nl/ui/base/button'")
-    expect(source).not.toContain("from '../../base/button-variants'")
-    expect(source).toContain('<Button')
+    expect(source).not.toContain("from '@nl/ui/base/button'")
+    expect(source).toContain("from '../../base/button-variants'")
+    expect(source).toContain('<button')
+    expect(source).toContain("buttonVariants({ variant: 'outline' })")
     expect(source).toContain('type="button"')
     expect(source).toContain("from '@nl/ui/hooks/useOnScreen'")
     expect(source).toContain('role="status"')
