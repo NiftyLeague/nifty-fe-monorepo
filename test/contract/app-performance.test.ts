@@ -6,6 +6,13 @@ const appManifest = 'apps/app/package.json'
 const appRootLayout = 'apps/app/src/app/layout.tsx'
 const bridgeDialog = 'apps/app/src/components/dialog/BridgeButtonDialog/index.tsx'
 const appSectionSlider = 'apps/app/src/components/sections/SectionSlider.tsx'
+const allDegensPage = 'apps/app/src/app/(public-routes)/degens/AllDegensPage.tsx'
+const appCarouselSettingsSources = [
+  'apps/app/src/app/(private-routes)/dashboard/overview/MyDegens.tsx',
+  'apps/app/src/app/(private-routes)/dashboard/overview/MyComics.tsx',
+  'apps/app/src/app/(private-routes)/dashboard/overview/MyItems.tsx',
+  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_ImageProfile/ProfileImageDialog.tsx',
+]
 const sharedResponsiveCarousel = 'packages/ui/src/components/custom/responsive-carousel/index.tsx'
 const sharedResponsiveCarouselStyles =
   'packages/ui/src/components/custom/responsive-carousel/responsive-carousel.module.css'
@@ -83,6 +90,20 @@ describe('app performance contracts', () => {
     expect(source).not.toContain("import BridgeForm from './BridgeForm'")
     expect(source).toContain("dynamic(() => import('./BridgeForm')")
     expect(source).toContain('Loading bridge options')
+  })
+
+  it('shares accessible pagination controls and removes retired slider settings', () => {
+    const pageSource = readFileSync(allDegensPage, 'utf8')
+
+    expect(pageSource).toContain("from '@/components/pagination/PaginationControls'")
+    expect(pageSource).toContain("from '@nl/ui/base/pagination'")
+    expect(pageSource).toContain("aria-current={p === currentPage ? 'page' : undefined}")
+
+    for (const file of appCarouselSettingsSources) {
+      const source = readFileSync(file, 'utf8')
+      expect(source).not.toContain('adaptiveHeight')
+      expect(source).not.toContain('swipe: false')
+    }
   })
 
   it('uses native shallow copies for primitive responsive-table selection state', () => {
