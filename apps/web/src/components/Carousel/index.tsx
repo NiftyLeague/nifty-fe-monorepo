@@ -18,6 +18,7 @@ export interface NiftyCarouselProps {
   desktopItems?: number
   superLargeDesktopItems?: number
   hideGradient?: boolean
+  ariaLabel?: string
 }
 
 const NiftyCarousel = ({
@@ -28,6 +29,7 @@ const NiftyCarousel = ({
   desktopItems = 4,
   superLargeDesktopItems = 5,
   hideGradient = false,
+  ariaLabel = 'Featured content',
 }: NiftyCarouselProps): React.ReactNode => {
   const containerRef = useRef<HTMLDivElement>(null)
   const loadRequestedRef = useRef(false)
@@ -85,6 +87,7 @@ const NiftyCarousel = ({
           desktopItems={desktopItems}
           superLargeDesktopItems={superLargeDesktopItems}
           hideGradient={hideGradient}
+          ariaLabel={ariaLabel}
         >
           {children}
         </InteractiveCarousel>

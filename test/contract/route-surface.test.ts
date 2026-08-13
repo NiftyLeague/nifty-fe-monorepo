@@ -253,6 +253,7 @@ const sharedDeferredConsoleGame =
 const webCommunityPage = 'apps/web/src/app/(main)/community/page.tsx'
 const webTeamPage = 'apps/web/src/app/(main)/team/page.tsx'
 const webCarousel = 'apps/web/src/components/Carousel/index.tsx'
+const webCarouselStyles = 'apps/web/src/components/Carousel/carousel.module.css'
 const webThemeButton = 'apps/web/src/components/ThemeBtnGroup/index.tsx'
 const animationFreeMarketingPages = [
   'apps/web/src/app/(main)/page.tsx',
@@ -1738,18 +1739,22 @@ describe('public route dependency contract', () => {
     expect(source).not.toContain("from '@nl/playfab/components/PlayFabAuthForm'")
   })
 
-  it('defers the public carousel library until its cards approach the viewport', () => {
+  it('defers public carousel behavior without shipping a third-party slider runtime', () => {
     const shell = readFileSync(join(process.cwd(), publicCarousel), 'utf8')
     const interactive = readFileSync(join(process.cwd(), interactivePublicCarousel), 'utf8')
+    const styles = readFileSync(join(process.cwd(), webCarouselStyles), 'utf8')
+    const manifest = JSON.parse(readFileSync(join(process.cwd(), 'apps/web/package.json'), 'utf8'))
 
     expect(shell).toContain("import('./InteractiveCarousel')")
     expect(shell).toContain('IntersectionObserver')
     expect(shell).not.toContain("from 'react-multi-carousel'")
     expect(shell).not.toContain('react-multi-carousel/lib/styles.css')
-    expect(interactive).toContain("from 'react-multi-carousel'")
-    expect(interactive).toContain('react-multi-carousel/lib/styles.css')
-    expect(interactive).toContain('ssr={true}')
-    expect(interactive).toContain('autoPlay={true}')
+    expect(interactive).toContain("from '@nl/ui/base/button'")
+    expect(interactive).toContain('aria-roledescription="carousel"')
+    expect(interactive).toContain('prefers-reduced-motion')
+    expect(styles).toContain('scroll-snap-type: x mandatory')
+    expect(styles).toContain('touch-action: pan-x')
+    expect(manifest.dependencies?.['react-multi-carousel']).toBeUndefined()
   })
 
   it('keeps public videos server-rendered while deferring playback observers', () => {
