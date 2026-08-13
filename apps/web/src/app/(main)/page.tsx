@@ -268,7 +268,7 @@ const Home = () => {
           </div>
 
           <div className="hidden md:block relative">
-            <BouncingNFTL classes={{ token3: 'hidden' }} />
+            <BouncingNFTL visibleTokens={['token1', 'token2']} />
           </div>
 
           <div className="relative flex flex-col items-center md:items-start">
@@ -388,7 +388,7 @@ const Home = () => {
         <div className="relative w-full md:w-1/2 flex flex-col text-center md:text-left">
           <div className="purple-bg-orb orb-top-left" />
           <div className="hidden md:block relative">
-            <BouncingNFTL classes={{ token2: 'hidden' }} />
+            <BouncingNFTL visibleTokens={['token1', 'token3']} />
           </div>
 
           <h2 className="mb-3 section-heading transition-vertical-fade">NFTL TOKEN</h2>

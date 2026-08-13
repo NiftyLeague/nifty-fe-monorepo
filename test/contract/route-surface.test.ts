@@ -1396,7 +1396,7 @@ describe('shared below-fold loading contract', () => {
     expect(source).toContain("from '@nl/ui/base/button'")
     expect(source).not.toContain("from '../../base/button-variants'")
     expect(source).toContain('<Button')
-    expect(source).not.toContain('buttonVariants({ variant: \'outline\' })')
+    expect(source).not.toContain("buttonVariants({ variant: 'outline' })")
     expect(source).toContain('type="button"')
     expect(source).toContain("from '@nl/ui/hooks/useOnScreen'")
     expect(source).toContain("from '@nl/ui/hooks/useDeferredComponent'")
@@ -1557,6 +1557,9 @@ describe('web marketing image sizing contract', () => {
 
     expect(homeSource).not.toContain("from '@nl/ui/custom/parallax-wrapper'")
     expect(bouncingNftlSource).not.toContain("from '@nl/ui/custom/parallax-wrapper'")
+    expect(homeSource).toContain("visibleTokens={['token1', 'token2']}")
+    expect(homeSource).toContain("visibleTokens={['token1', 'token3']}")
+    expect(bouncingNftlSource).not.toContain('classes?.')
     expect(bouncingNftlSource).toContain('animate-bounce-coin1')
     expect(bouncingNftlSource).toContain('animate-bounce-coin2')
     expect(bouncingNftlSource).toContain('animate-bounce-coin3')
@@ -1575,8 +1578,8 @@ describe('web marketing image sizing contract', () => {
     expect(homeSource).toContain('sizes="9vw"')
     expect(homeSource).toContain('sizes="(min-width: 768px) 50vw, 100vw"')
     expect(homeSource).toContain('sizes="246px"')
-    expect(bouncingNftlSource).toContain('sizes="226px"')
-    expect(bouncingNftlSource).toContain('sizes="246px"')
+    expect(bouncingNftlSource).toContain("sizes: '226px'")
+    expect(bouncingNftlSource).toContain("sizes: '246px'")
   })
 
   it('uses rendered-width hints for secondary marketing artwork', () => {
