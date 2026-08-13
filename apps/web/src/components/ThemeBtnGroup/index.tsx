@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { UrlObject } from 'url'
 
+import { Button } from '@nl/ui/base/button'
 import { cn } from '@nl/ui/utils'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
 
@@ -21,30 +22,41 @@ export const ThemeBtn = ({
   disabled = false,
   external = false,
   isPrimary = false,
-}: ButtonProps & { isPrimary?: boolean }) => (
-  <Link
-    href={href || ''}
-    target={external ? '_blank' : undefined}
-    rel={external ? 'noreferrer' : undefined}
-    aria-disabled={disabled}
-    className={cn(
-      isPrimary ? 'theme-btn-primary' : 'theme-btn-transparent',
-      disabled && 'disabled',
-      className
-    )}
-    suppressHydrationWarning
-  >
-    {responsiveTitle ? (
-      <>
-        <span className="responsive-label-mobile">{responsiveTitle.mobile}</span>
-        <span className="responsive-label-desktop">{responsiveTitle.desktop}</span>
-      </>
-    ) : (
-      title
-    )}
-    {external && <ExternalIcon />}
-  </Link>
-)
+}: ButtonProps & { isPrimary?: boolean }) => {
+  const buttonClassName = cn(isPrimary ? 'theme-btn-primary' : 'theme-btn-transparent', className)
+  const content = responsiveTitle ? (
+    <>
+      <span className="responsive-label-mobile">{responsiveTitle.mobile}</span>
+      <span className="responsive-label-desktop">{responsiveTitle.desktop}</span>
+    </>
+  ) : (
+    title
+  )
+
+  if (disabled) {
+    return (
+      <Button type="button" disabled className={cn(buttonClassName, 'disabled')}>
+        {content}
+        {external && <ExternalIcon />}
+      </Button>
+    )
+  }
+
+  if (!href) return null
+
+  return (
+    <Button asChild variant="ghost" className={buttonClassName}>
+      <Link
+        href={href}
+        target={external ? '_blank' : undefined}
+        rel={external ? 'noreferrer' : undefined}
+      >
+        {content}
+        {external && <ExternalIcon />}
+      </Link>
+    </Button>
+  )
+}
 
 interface ThemeBtnGroupProps {
   className?: string

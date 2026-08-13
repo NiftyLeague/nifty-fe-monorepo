@@ -253,6 +253,7 @@ const sharedDeferredConsoleGame =
 const webCommunityPage = 'apps/web/src/app/(main)/community/page.tsx'
 const webTeamPage = 'apps/web/src/app/(main)/team/page.tsx'
 const webCarousel = 'apps/web/src/components/Carousel/index.tsx'
+const webThemeButton = 'apps/web/src/components/ThemeBtnGroup/index.tsx'
 const animationFreeMarketingPages = [
   'apps/web/src/app/(main)/page.tsx',
   'apps/web/src/app/(main)/games/page.tsx',
@@ -1869,6 +1870,18 @@ describe('public route dependency contract', () => {
         )
       )
     ).toBe(false)
+  })
+
+  it('uses the shared shadcn button primitive for themed marketing CTAs', () => {
+    const source = readFileSync(join(process.cwd(), webThemeButton), 'utf8')
+
+    expect(source).toContain("import { Button } from '@nl/ui/base/button'")
+    expect(source).toContain('<Button asChild variant="ghost"')
+    expect(source).toContain('<Button type="button" disabled')
+    expect(source).not.toContain('aria-disabled={disabled}')
+    expect(source).not.toContain("href={href || ''}")
+    expect(source).toContain('if (!href) return null')
+    expect(source).not.toContain("href={href ?? '#'}")
   })
 
   it('keeps Web-only animation rules out of the shared UI stylesheet', () => {
