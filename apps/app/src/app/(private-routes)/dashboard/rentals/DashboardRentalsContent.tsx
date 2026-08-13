@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import MyRentalsDataGrid from './MyRentalsDataGrid'
@@ -60,10 +60,9 @@ const DashboardRentalPage = (): React.ReactNode => {
   }
 
   const { data, isLoading, isFetching, refetch } = useQuery<Rentals[]>({
-    queryKey: ['rentals'],
+    queryKey: ['rentals', category],
     queryFn: fetchRentals,
-    // TODO: enable if query needed
-    enabled: false,
+    enabled: !!authToken,
   })
 
   const rentals = useMemo(() => {
@@ -106,21 +105,8 @@ const DashboardRentalPage = (): React.ReactNode => {
   }
 
   const handleChangeCategory = (value: string) => {
-    const newCategory = value as RentalType
-    if (newCategory !== category) {
-      setCategory(newCategory)
-    } else {
-      refetch()
-    }
+    setCategory(value as RentalType)
   }
-
-  useEffect(() => {
-    if (!authToken) {
-      return
-    }
-
-    refetch()
-  }, [authToken, category, refetch])
 
   return (
     <div className="flex flex-col gap-6">
