@@ -295,6 +295,8 @@ const smashersDeferredHomeSections = 'apps/smashers/src/components/DeferredHomeS
 const appShell = 'apps/app/src/app/_layout/AppShell.tsx'
 const privateRoutesShell = 'apps/app/src/components/providers/PrivateRoutesShell.tsx'
 const deferredNotifications = 'apps/app/src/components/providers/DeferredNotifications.tsx'
+const deferredDegenCard = 'apps/app/src/components/providers/DeferredDegenCard.tsx'
+const deferredCharacterCreator = 'apps/app/src/components/providers/DeferredCharacterCreator.tsx'
 const leaderboardsPage = 'apps/app/src/app/(public-routes)/leaderboards/page.tsx'
 const deferredLeaderboards = 'apps/app/src/components/providers/DeferredLeaderboards.tsx'
 const deferredComponent = 'packages/ui/src/components/custom/deferred-component/index.tsx'
@@ -462,6 +464,32 @@ describe('shared notification loading contract', () => {
     expect(deferredSource).toContain("import('@/components/extended/Snackbar')")
     expect(deferredSource).toContain("import('@nl/ui/base/sonner')")
     expect(deferredSource).toContain('Promise.all')
+  })
+})
+
+describe('shared deferred loader contract', () => {
+  it('uses the shared cancellable loader for app-only boundaries', () => {
+    for (const file of [
+      deferredDegenCard,
+      deferredCharacterCreator,
+      deferredMintWalletBoundary,
+      mintNetworkBoundary,
+      deferredNotifications,
+    ]) {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+
+      expect(source).toContain("from '@nl/ui/hooks/useDeferredComponent'")
+      expect(source).toContain('useDeferredComponent')
+    }
+  })
+
+  it('shares viewport visibility state with the interactive web carousel', () => {
+    const source = readFileSync(join(process.cwd(), publicCarousel), 'utf8')
+
+    expect(source).toContain("from '@nl/ui/hooks/useDeferredComponent'")
+    expect(source).toContain("from '@nl/ui/hooks/useOnScreen'")
+    expect(source).toContain("import('./InteractiveCarousel')")
+    expect(source).toContain("'300px 0px'")
   })
 })
 
@@ -1776,7 +1804,8 @@ describe('public route dependency contract', () => {
     const manifest = JSON.parse(readFileSync(join(process.cwd(), 'apps/web/package.json'), 'utf8'))
 
     expect(shell).toContain("import('./InteractiveCarousel')")
-    expect(shell).toContain('IntersectionObserver')
+    expect(shell).toContain("from '@nl/ui/hooks/useOnScreen'")
+    expect(shell).toContain("from '@nl/ui/hooks/useDeferredComponent'")
     expect(shell).not.toContain("from 'react-multi-carousel'")
     expect(shell).not.toContain('react-multi-carousel/lib/styles.css')
     expect(interactive).toContain("from '@nl/ui/custom/responsive-carousel'")

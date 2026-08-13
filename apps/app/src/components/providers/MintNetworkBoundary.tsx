@@ -1,40 +1,21 @@
 'use client'
 
-import { useEffect, useState, type ComponentType, type PropsWithChildren } from 'react'
+import type { PropsWithChildren } from 'react'
 
 import { Button } from '@nl/ui/base/button'
 import { Skeleton } from '@nl/ui/base/skeleton'
-
-type MintNetworkProvider = ComponentType<PropsWithChildren>
+import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 
 const loadMintNetworkProvider = () =>
-  import('@/contexts/NetworkProvider').then(({ NetworkProvider }) => NetworkProvider)
+  import('@/contexts/NetworkProvider').then(({ NetworkProvider }) => ({ default: NetworkProvider }))
 
 export default function MintNetworkBoundary({ children }: PropsWithChildren) {
-  const [Provider, setProvider] = useState<MintNetworkProvider | null>(null)
-  const [loadError, setLoadError] = useState(false)
-  const [retryCount, setRetryCount] = useState(0)
   const shouldLoadProvider = process.env.NEXT_PUBLIC_AUDIT_FIXTURE !== 'true'
-
-  useEffect(() => {
-    if (!shouldLoadProvider) return
-
-    let active = true
-    setProvider(null)
-    setLoadError(false)
-
-    loadMintNetworkProvider()
-      .then((nextProvider) => {
-        if (active) setProvider(() => nextProvider)
-      })
-      .catch(() => {
-        if (active) setLoadError(true)
-      })
-
-    return () => {
-      active = false
-    }
-  }, [retryCount, shouldLoadProvider])
+  const {
+    Component: Provider,
+    hasError: loadError,
+    retry,
+  } = useDeferredComponent<PropsWithChildren>(loadMintNetworkProvider, shouldLoadProvider)
 
   if (!shouldLoadProvider) return children
 
@@ -46,7 +27,7 @@ export default function MintNetworkBoundary({ children }: PropsWithChildren) {
           type="button"
           variant="link"
           className="text-primary underline underline-offset-4"
-          onClick={() => setRetryCount((count) => count + 1)}
+          onClick={retry}
         >
           Retry
         </Button>
