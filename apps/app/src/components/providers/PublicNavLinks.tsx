@@ -1,8 +1,8 @@
 import type { LucideIcon } from 'lucide-react'
 import { Cat, Dot, Gamepad, ListOrdered, Sparkles } from 'lucide-react'
+import Link from 'next/link'
 
 import { PublicItems } from '@/constants/menu-items'
-import PublicActiveNavLink from './PublicActiveNavLink'
 
 const publicLinks = PublicItems.items.flatMap((item) =>
   item.type === 'group' ? (item.children ?? []) : []
@@ -32,12 +32,15 @@ export default function PublicNavLinks() {
 
           return (
             <li key={item.id || item.url}>
-              <PublicActiveNavLink href={item.url}>
+              <Link
+                href={item.url}
+                className="mb-0.5 flex items-start gap-2 rounded-md border border-transparent bg-transparent px-2 py-2 text-left text-sidebar-foreground transition-colors hover:border-purple hover:bg-muted"
+              >
                 <span className="my-auto min-w-9">
                   <PublicNavIcon name={item.icon} />
                 </span>
                 <span className="flex-1 text-base">{item.title}</span>
-              </PublicActiveNavLink>
+              </Link>
             </li>
           )
         })}

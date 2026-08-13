@@ -1,6 +1,5 @@
 'use client'
 
-import { Menu } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 import { IconButton } from '@nl/ui/base/icon-button'
@@ -27,7 +26,11 @@ export default function PublicDesktopSidebarToggle() {
       aria-expanded={open}
       aria-controls="public-desktop-navigation"
     >
-      <Menu aria-hidden="true" absoluteStrokeWidth size={24} />
+      <span aria-hidden="true" className="flex size-6 flex-col justify-center gap-1.5">
+        <span className="h-0.5 w-full rounded-full bg-current" />
+        <span className="h-0.5 w-full rounded-full bg-current" />
+        <span className="h-0.5 w-full rounded-full bg-current" />
+      </span>
     </IconButton>
   )
 }

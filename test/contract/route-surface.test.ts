@@ -308,15 +308,12 @@ const degensSearchParamsBoundary =
 const degensTopNav = 'apps/app/src/components/extended/DegensTopNav/index.tsx'
 const publicMainLayout = 'apps/app/src/app/_layout/_PublicMainLayout/index.tsx'
 const publicNavigation = 'apps/app/src/components/providers/PublicNavigation.tsx'
-const publicMobileNavigation = 'apps/app/src/components/providers/PublicMobileNavigation.tsx'
 const publicDesktopSidebarToggle =
   'apps/app/src/components/providers/PublicDesktopSidebarToggle.tsx'
-const publicMobileNavigationTrigger =
-  'apps/app/src/components/providers/PublicMobileNavigationTrigger.tsx'
 const publicIconButton = 'packages/ui/src/components/base/icon-button.tsx'
 const publicContentContainer = 'apps/app/src/components/wrapper/PublicContentContainer.tsx'
 const publicNavLinks = 'apps/app/src/components/providers/PublicNavLinks.tsx'
-const publicActiveNavLink = 'apps/app/src/components/providers/PublicActiveNavLink.tsx'
+const sharedMobileNavigation = 'packages/ui/src/components/custom/mobile-navigation/index.tsx'
 const collapsibleSidebarLayout = 'apps/app/src/app/_layout/_CollapsibleSidebarLayout/index.tsx'
 const smashersBackButton = 'apps/smashers/src/components/Header/BackButton/index.tsx'
 const verificationPage = 'apps/app/src/app/verification/page.tsx'
@@ -849,25 +846,20 @@ describe('public app shell contract', () => {
     expect(routeSource).toContain("from '@/app/_layout/_PublicMainLayout'")
   })
 
-  it('defers the mobile drawer and avoids heavy shell primitives in the eager graph', () => {
+  it('keeps mobile navigation server-rendered and avoids heavy shell primitives', () => {
     const navigationSource = readFileSync(join(process.cwd(), publicNavigation), 'utf8')
-    const mobileSource = readFileSync(join(process.cwd(), publicMobileNavigation), 'utf8')
     const desktopToggleSource = readFileSync(
       join(process.cwd(), publicDesktopSidebarToggle),
       'utf8'
     )
-    const mobileTriggerSource = readFileSync(
-      join(process.cwd(), publicMobileNavigationTrigger),
-      'utf8'
-    )
     const contentContainerSource = readFileSync(join(process.cwd(), publicContentContainer), 'utf8')
     const linksSource = readFileSync(join(process.cwd(), publicNavLinks), 'utf8')
-    const activeLinkSource = readFileSync(join(process.cwd(), publicActiveNavLink), 'utf8')
+    const sharedMobileSource = readFileSync(join(process.cwd(), sharedMobileNavigation), 'utf8')
     const iconButtonSource = readFileSync(join(process.cwd(), publicIconButton), 'utf8')
 
     expect(navigationSource).not.toContain("'use client'")
     expect(navigationSource).toContain("from './PublicDesktopSidebarToggle'")
-    expect(navigationSource).toContain("from './PublicMobileNavigationTrigger'")
+    expect(navigationSource).toContain("from '@nl/ui/custom/mobile-navigation'")
     expect(navigationSource).not.toContain("from '@nl/ui/base/sheet'")
     expect(navigationSource).not.toContain("from '@nl/ui/base/scroll-area'")
     expect(navigationSource).not.toContain("from '@nl/ui/base/icon'")
@@ -881,24 +873,33 @@ describe('public app shell contract', () => {
     expect(desktopToggleSource).not.toContain("from '@nl/ui/base/button'")
     expect(desktopToggleSource).toContain('data-sidebar-open')
     expect(desktopToggleSource).toContain('aria-controls="public-desktop-navigation"')
-    expect(mobileTriggerSource).toContain("import('./PublicMobileNavigation')")
-    expect(mobileTriggerSource).toContain("from '@nl/ui/base/icon-button'")
-    expect(mobileTriggerSource).not.toContain("from '@nl/ui/base/button'")
+    expect(desktopToggleSource).not.toContain("from 'lucide-react'")
+    expect(desktopToggleSource).toContain('bg-current')
     expect(contentContainerSource).not.toContain("'use client'")
     expect(contentContainerSource).toContain('container py-5 md:py-10')
-    expect(mobileSource).toContain("from '@nl/ui/base/sheet'")
-    expect(mobileSource).toContain('<SheetTitle')
-    expect(mobileSource).toContain('<SheetDescription')
-    expect(mobileSource).toContain('id="public-mobile-navigation"')
-    expect(mobileSource).toContain('children')
-    expect(mobileSource).toContain("closest('a')")
     expect(linksSource).not.toContain("'use client'")
     expect(linksSource).not.toContain("from '@nl/ui/base/icon'")
     expect(linksSource).toContain("from 'lucide-react'")
-    expect(linksSource).toContain("from './PublicActiveNavLink'")
-    expect(activeLinkSource).toContain("'use client'")
-    expect(activeLinkSource).toContain('usePathname')
-    expect(activeLinkSource).toContain("aria-current={isSelected ? 'page' : undefined}")
+    expect(linksSource).toContain("from 'next/link'")
+    expect(linksSource).not.toContain("from './PublicActiveNavLink'")
+    expect(
+      existsSync(join(process.cwd(), 'apps/app/src/components/providers/PublicActiveNavLink.tsx'))
+    ).toBe(false)
+    expect(
+      existsSync(
+        join(process.cwd(), 'apps/app/src/components/providers/PublicMobileNavigation.tsx')
+      )
+    ).toBe(false)
+    expect(
+      existsSync(
+        join(process.cwd(), 'apps/app/src/components/providers/PublicMobileNavigationTrigger.tsx')
+      )
+    ).toBe(false)
+    expect(sharedMobileSource).not.toContain("'use client'")
+    expect(sharedMobileSource).toContain('<details')
+    expect(sharedMobileSource).toContain('<summary')
+    expect(sharedMobileSource).toContain('aria-controls={id}')
+    expect(sharedMobileSource).toContain('group-open:rotate-45')
     expect(iconButtonSource).toContain("from './button-variants'")
     expect(iconButtonSource).not.toContain("from 'radix-ui'")
     expect(iconButtonSource).toContain("type = 'button'")
@@ -1505,13 +1506,16 @@ describe('web public navigation contract', () => {
     expect(mobileNavbarSource).not.toContain("from '@nl/ui/base/navigation-menu'")
     expect(mobileNavbarSource).not.toContain("from '@nl/ui/base/sheet'")
     expect(mobileNavbarSource).not.toContain("from './ActiveNavLink'")
-    expect(mobileNavbarSource).toContain('<details')
-    expect(mobileNavbarSource).toContain('<summary')
-    expect(mobileNavbarSource).toContain('aria-label="Toggle navigation"')
+    expect(mobileNavbarSource).toContain("from '@nl/ui/custom/mobile-navigation'")
     expect(mobileNavbarSource).toContain('<nav aria-label="Primary navigation">')
     expect(mobileNavbarSource).toContain("from '@nl/ui/base/button'")
     expect(mobileNavbarSource).toContain("from '@nl/ui/base/separator'")
     expect(mobileNavbarSource).toContain('id="nifty-mobile-navigation"')
+    const sharedMobileSource = readFileSync(join(process.cwd(), sharedMobileNavigation), 'utf8')
+    expect(sharedMobileSource).not.toContain("'use client'")
+    expect(sharedMobileSource).toContain('<details')
+    expect(sharedMobileSource).toContain('<summary')
+    expect(sharedMobileSource).toContain('aria-label={label}')
   })
 })
 

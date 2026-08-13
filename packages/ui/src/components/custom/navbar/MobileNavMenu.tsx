@@ -3,6 +3,7 @@ import { Fragment } from 'react'
 
 import { Button } from '@nl/ui/base/button'
 import { Separator } from '@nl/ui/base/separator'
+import MobileNavigationDisclosure from '@nl/ui/custom/mobile-navigation'
 
 import { NavLinkContent, NAV_LINK_CONTENT_CLASS } from './NavLinkContent'
 import type { NavItemData, NavbarActionButton } from './index'
@@ -59,23 +60,13 @@ function MobileMenuItem({ type: _type, ...page }: Extract<NavItemData, { type: '
 
 export default function MobileNavMenu({ actionButton, navItems }: MobileNavMenuProps) {
   return (
-    <details className="group relative md:hidden">
-      <summary
-        aria-controls="nifty-mobile-navigation"
-        aria-label="Toggle navigation"
-        className="flex size-10 cursor-pointer list-none items-center justify-center rounded-md text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring/50 [&::-webkit-details-marker]:hidden"
-      >
-        <span aria-hidden="true" className="flex size-6 flex-col justify-center gap-1.5">
-          <span className="h-0.5 w-full rounded-full bg-current transition-transform group-open:translate-y-2 group-open:rotate-45" />
-          <span className="h-0.5 w-full rounded-full bg-current transition-opacity group-open:opacity-0" />
-          <span className="h-0.5 w-full rounded-full bg-current transition-transform group-open:-translate-y-2 group-open:-rotate-45" />
-        </span>
-        <span className="sr-only">Toggle navigation</span>
-      </summary>
-      <div
-        id="nifty-mobile-navigation"
-        className="fixed inset-x-0 top-20 bottom-0 z-40 overflow-y-auto bg-popover px-8 pb-4 text-popover-foreground shadow-lg"
-      >
+    <MobileNavigationDisclosure
+      id="nifty-mobile-navigation"
+      label="Toggle navigation"
+      className="md:hidden"
+      panelClassName="fixed inset-x-0 top-20 bottom-0 z-40 overflow-y-auto bg-popover px-8 pb-4 text-popover-foreground shadow-lg"
+    >
+      <>
         <nav aria-label="Primary navigation">
           <ul className="flex w-full flex-col gap-4 py-4">
             {navItems.map((item) => (
@@ -103,7 +94,7 @@ export default function MobileNavMenu({ actionButton, navItems }: MobileNavMenuP
             </Button>
           </>
         )}
-      </div>
-    </details>
+      </>
+    </MobileNavigationDisclosure>
   )
 }

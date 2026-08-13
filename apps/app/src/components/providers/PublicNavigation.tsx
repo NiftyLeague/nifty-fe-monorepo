@@ -1,12 +1,12 @@
 import type { PropsWithChildren } from 'react'
 
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
+import MobileNavigationDisclosure from '@nl/ui/custom/mobile-navigation'
 import { cn } from '@nl/ui/utils'
 
 import LogoSection from '@/app/_layout/_MainLayout/_LogoSection'
 import styles from '@/app/_layout/_MainLayout/MainLayout.module.css'
 import PublicDesktopSidebarToggle from './PublicDesktopSidebarToggle'
-import PublicMobileNavigationTrigger from './PublicMobileNavigationTrigger'
 import PublicNavLinks from './PublicNavLinks'
 
 const pages = [
@@ -30,9 +30,23 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
                 <LogoSection />
               </div>
               <PublicDesktopSidebarToggle />
-              <PublicMobileNavigationTrigger>
-                <PublicNavLinks />
-              </PublicMobileNavigationTrigger>
+              <MobileNavigationDisclosure
+                id="public-mobile-navigation"
+                label="Toggle navigation"
+                className="lg:hidden"
+                summaryClassName="h-[34px] w-[34px] overflow-hidden rounded-md bg-muted text-blue transition-all duration-200 hover:bg-purple hover:text-foreground"
+                panelClassName="fixed top-[60px] bottom-0 left-0 z-40 w-full max-w-xs overflow-y-auto bg-sidebar text-sidebar-foreground shadow-lg"
+              >
+                <div className="border-b border-sidebar-border px-4 py-3">
+                  <div className="flex items-center gap-3 text-sidebar-foreground">
+                    <LogoSection />
+                    <span>Primary navigation</span>
+                  </div>
+                </div>
+                <nav aria-label="Primary navigation" className="px-4">
+                  <PublicNavLinks />
+                </nav>
+              </MobileNavigationDisclosure>
             </div>
             <div className="hidden items-center justify-between gap-4 lg:flex">
               {pages.map((page) => (
