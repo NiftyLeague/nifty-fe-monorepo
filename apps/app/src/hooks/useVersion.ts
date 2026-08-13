@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import { useUserAgent } from '@nl/ui/hooks/useUserAgent'
 import { DEGEN_BASE_API_URL } from '@/constants/api'
-import { TARGET_NETWORK } from '@/constants/networks'
 
 type LauncherPlatform = {
   os: 'unknown' | 'win' | 'osx' | 'linux'
@@ -21,7 +20,7 @@ const initialPlatform: LauncherPlatform = {
 
 const useVersion = () => {
   const [version, setVersion] = useState('')
-  const env = TARGET_NETWORK?.chainId === 1 ? 'prod' : 'stage'
+  const env = process.env.NEXT_PUBLIC_NETWORK === 'mainnet' ? 'prod' : 'stage'
   const userAgent = useUserAgent()
   const [platform, setPlatform] = useState<LauncherPlatform>(initialPlatform)
 
