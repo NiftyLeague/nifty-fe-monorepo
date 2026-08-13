@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 
 import { DeferredTeamCarousel } from '@/components/DeferredTeamSections'
-import ThemeBtnGroup from '@/components/ThemeBtnGroup'
+import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 import TeamDesktop from '@/components/TeamDesktop'
 
 const Team: NextPage = () => {

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "next build",
     "clean": "rm -rf node_modules && rm -rf .turbo && rm -rf .next",
-    "dev": "next dev --port 3000",
+    "dev": "next dev --turbopack --port 3000",
     "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\" --ignore-path ../../.gitignore",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
@@ -26,7 +26,6 @@
     "next": "16.3.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "react-multi-carousel": "^2.8.6",
     "sharp": "^0.35.3",
     "three": "^0.185.1",
     "viem": "^2.55.10"

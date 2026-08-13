@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Image from 'next/image'
 
 import { cn } from '@nl/ui/utils'
-import ThemeBtnGroup from '@/components/ThemeBtnGroup'
+import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 
 import styles from './index.module.css'
 

@@ -1,8 +1,7 @@
 'use client'
 
-import { useEffect, useState, type ComponentType } from 'react'
-
 import { Button } from '@nl/ui/base/button'
+import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 
 import MintNetworkBoundary from './MintNetworkBoundary'
 
@@ -10,8 +9,6 @@ type CharacterCreatorProps = {
   setLoaded: (loaded: boolean) => void
   setProgress: (progress: number) => void
 }
-
-type CharacterCreatorComponent = ComponentType<CharacterCreatorProps>
 
 const loadCharacterCreator = () => import('@/app/(public-routes)/mint-o-matic/_CharacterCreator')
 
@@ -24,28 +21,11 @@ export default function DeferredCharacterCreator({
   setLoaded,
   setProgress,
 }: DeferredCharacterCreatorProps) {
-  const [CharacterCreator, setCharacterCreator] = useState<CharacterCreatorComponent | null>(null)
-  const [loadError, setLoadError] = useState(false)
-  const [retryCount, setRetryCount] = useState(0)
-
-  useEffect(() => {
-    if (!enabled || CharacterCreator) return
-
-    let active = true
-    setLoadError(false)
-
-    loadCharacterCreator()
-      .then(({ default: nextCharacterCreator }) => {
-        if (active) setCharacterCreator(() => nextCharacterCreator)
-      })
-      .catch(() => {
-        if (active) setLoadError(true)
-      })
-
-    return () => {
-      active = false
-    }
-  }, [enabled, CharacterCreator, retryCount])
+  const {
+    Component: CharacterCreator,
+    hasError: loadError,
+    retry,
+  } = useDeferredComponent<CharacterCreatorProps>(loadCharacterCreator, enabled)
 
   if (!enabled) return null
 
@@ -57,10 +37,7 @@ export default function DeferredCharacterCreator({
           type="button"
           variant="link"
           className="text-primary underline underline-offset-4"
-          onClick={() => {
-            setLoadError(false)
-            setRetryCount((count) => count + 1)
-          }}
+          onClick={retry}
         >
           Retry
         </Button>

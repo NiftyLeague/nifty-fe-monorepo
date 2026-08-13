@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 import { Button } from '@nl/ui/base/button'
+import { PaginationEllipsis } from '@nl/ui/base/pagination'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
@@ -27,6 +28,7 @@ import DegensTopNav from '@/components/extended/DegensTopNav'
 import DeferredDegenCard from '@/components/providers/DeferredDegenCard'
 import DeferredDegensFilter from '@/components/providers/DeferredDegensFilter'
 import DeferredPublicDegenDialog from '@/components/providers/DeferredPublicDegenDialog'
+import { PaginationControls } from '@/components/pagination/PaginationControls'
 import DegenSearchParamsBoundary from './DegenSearchParamsBoundary'
 
 const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'))
@@ -174,48 +176,34 @@ const AllDegensPage = (): React.ReactNode => {
             ? [...Array(8)].map(renderSkeletonItem)
             : dataForCurrentPage.map(renderDegen)}
         </div>
-        <div
-          className="mx-auto flex flex-wrap items-center justify-center gap-1"
-          style={{ paddingBottom: '16px' }}
-        >
-          <Button
-            variant="ghost"
-            size={isMobile ? 'sm' : 'icon'}
-            className="cursor-pointer"
-            disabled={currentPage === 1}
-            onClick={() => jump(currentPage - 1)}
-            aria-label="Previous page"
-          >
-            <ChevronLeft absoluteStrokeWidth aria-hidden="true" size={20} strokeWidth={1.5} />
-          </Button>
-          {pageItems.map((p) =>
+        <PaginationControls
+          className="mx-auto flex-wrap justify-center gap-1 pb-4"
+          buttonClassName={isMobile ? 'size-8' : undefined}
+          hasNext={currentPage < maxPage}
+          hasPrev={currentPage > 1}
+          nextLabel="Next page"
+          onClickNext={() => jump(currentPage + 1)}
+          onClickPrev={() => jump(currentPage - 1)}
+          pageLabel={pageItems.map((p) =>
             p === 'ellipsis-start' || p === 'ellipsis-end' ? (
-              <span key={p} className="px-1 text-muted-foreground">
-                …
-              </span>
+              <PaginationEllipsis key={p} />
             ) : (
               <Button
                 key={p}
+                type="button"
                 variant={p === currentPage ? 'default' : 'ghost'}
                 size={isMobile ? 'sm' : 'icon'}
                 className="cursor-pointer"
                 onClick={() => jump(p)}
+                aria-current={p === currentPage ? 'page' : undefined}
+                aria-label={`Go to page ${p}`}
               >
                 {p}
               </Button>
             )
           )}
-          <Button
-            variant="ghost"
-            size={isMobile ? 'sm' : 'icon'}
-            className="cursor-pointer"
-            disabled={currentPage === maxPage}
-            onClick={() => jump(currentPage + 1)}
-            aria-label="Next page"
-          >
-            <ChevronRight absoluteStrokeWidth aria-hidden="true" size={20} strokeWidth={1.5} />
-          </Button>
-        </div>
+          previousLabel="Previous page"
+        />
       </div>
     ),
     [

@@ -1,13 +1,12 @@
 'use client'
 
 import type { ComponentType } from 'react'
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 
 import { Skeleton } from '@nl/ui/base/skeleton'
+import { Button } from '@nl/ui/base/button'
+import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
-import { cn } from '@nl/ui/utils'
-
-import { buttonVariants } from '../../base/button-variants'
 
 interface DeferredSectionProps {
   label: string
@@ -46,28 +45,11 @@ export function DeferredSection({
 }: DeferredSectionProps): React.ReactNode {
   const sectionRef = useRef<HTMLDivElement>(null)
   const isNearViewport = useOnScreen(sectionRef, rootMargin)
-  const [LoadedSection, setLoadedSection] = useState<ComponentType | null>(null)
-  const [loadError, setLoadError] = useState(false)
-  const [retryCount, setRetryCount] = useState(0)
-
-  useEffect(() => {
-    if (!isNearViewport || LoadedSection) return
-
-    let cancelled = false
-    setLoadError(false)
-
-    load()
-      .then(({ default: Section }) => {
-        if (!cancelled) setLoadedSection(() => Section)
-      })
-      .catch(() => {
-        if (!cancelled) setLoadError(true)
-      })
-
-    return () => {
-      cancelled = true
-    }
-  }, [isNearViewport, load, LoadedSection, retryCount])
+  const {
+    Component: LoadedSection,
+    hasError: loadError,
+    retry,
+  } = useDeferredComponent(load, isNearViewport)
 
   return (
     <div ref={sectionRef} aria-busy={!LoadedSection && !loadError}>
@@ -77,13 +59,9 @@ export function DeferredSection({
           role="alert"
         >
           <p>{label} could not be loaded.</p>
-          <button
-            type="button"
-            className={cn(buttonVariants({ variant: 'outline' }))}
-            onClick={() => setRetryCount((count) => count + 1)}
-          >
+          <Button type="button" variant="outline" onClick={retry}>
             Retry
-          </button>
+          </Button>
         </div>
       ) : LoadedSection ? (
         <LoadedSection />

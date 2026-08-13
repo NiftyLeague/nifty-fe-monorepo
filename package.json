@@ -6,7 +6,7 @@
   "scripts": {
     "act-ci": "act --container-architecture linux/amd64 -P ubuntu-latest=-self-hosted -s GITHUB_TOKEN --var-file .env.act --secret-file .env.act -W '.github/workflows/ci.yml'",
     "add-ui": "bun --filter ui add-component $@",
-    "build": "turbo build",
+    "build": "turbo run api#build app#build docs#build smashers#build web#build",
     "clean": "turbo clean",
     "dev": "turbo dev",
     "format": "turbo format",

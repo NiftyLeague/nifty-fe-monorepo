@@ -1,5 +1,7 @@
 import Image from 'next/image'
 
+import { SPONSORS } from '@/constants/sponsors'
+
 type Sponsor = { image: string; url: string; width: number; height: number }
 
 const RenderSponsor = ({ image, url, width, height }: Sponsor) => (
@@ -21,12 +23,12 @@ const SponsorItem = ({ image, url, width, height }: Sponsor): React.ReactNode =>
   </a>
 )
 
-const Sponsors = ({ sponsors }: { sponsors: Sponsor[] }) => (
+const Sponsors = () => (
   <>
     <div className="container mx-auto px-0 md:hidden">
       <div className="m-0 p-0 relative py-0 sm:py-5 flex items-center justify-center text-center">
         <section className="flex flex-wrap items-center justify-center max-w-[1600px] mx-auto">
-          {sponsors.map(RenderSponsor)}
+          {SPONSORS.map(RenderSponsor)}
         </section>
       </div>
     </div>

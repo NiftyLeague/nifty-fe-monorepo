@@ -1,0 +1,93 @@
+.root {
+  position: relative;
+}
+
+.viewport {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  touch-action: pan-x;
+}
+
+.viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.viewport:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 4px;
+}
+
+.track {
+  display: flex;
+  align-items: stretch;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.page {
+  display: grid;
+  grid-template-columns: repeat(var(--carousel-columns), minmax(0, 1fr));
+  grid-template-rows: repeat(var(--carousel-rows), minmax(0, auto));
+  min-width: 100%;
+  flex: 0 0 100%;
+  align-content: start;
+  scroll-snap-align: start;
+}
+
+.slide {
+  min-width: 0;
+  padding: 0 var(--carousel-slide-padding, 0.25rem);
+}
+
+.controls {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: 0.5rem;
+  left: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.controls > button {
+  pointer-events: auto;
+}
+
+.dots {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+}
+
+.dot,
+.activeDot {
+  width: 0.5rem;
+  height: 0.5rem;
+  min-width: 0;
+  border-radius: 9999px;
+  padding: 0;
+}
+
+.dot {
+  background: var(--color-muted-foreground);
+  opacity: 0.55;
+}
+
+.activeDot {
+  background: var(--color-foreground);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .viewport {
+    scroll-behavior: auto;
+  }
+}

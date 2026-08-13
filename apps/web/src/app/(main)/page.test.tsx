@@ -14,7 +14,7 @@ describe('home page', () => {
     mock.module('@/components/BouncingNFTL', () => ({ default: () => null }))
     mock.module('@/components/MintOMatic', () => ({ default: () => null }))
     mock.module('@/components/Sponsors', () => ({ default: () => null }))
-    mock.module('@/components/ThemeBtnGroup', () => ({ default: () => null }))
+    mock.module('@nl/ui/custom/theme-button-group', () => ({ default: () => null }))
     mock.module('@nl/ui/custom/deferred-console-game', () => ({ DeferredConsoleGame: () => null }))
     mock.module('next/link', () => ({
       default: ({ children, href, ...props }: PropsWithChildren<{ href: string }>) => (
@@ -27,8 +27,14 @@ describe('home page', () => {
       usePathname: () => '/',
     }))
     mock.module('next/image', () => ({
-      default: ({ alt, priority, ...props }: ComponentProps<'img'> & { priority?: boolean }) => (
-        <img alt={alt} data-priority={priority ? 'true' : undefined} {...props} />
+      default: ({ alt, loading, fetchPriority, ...props }: ComponentProps<'img'>) => (
+        <img
+          alt={alt}
+          loading={loading}
+          data-loading={loading}
+          data-fetch-priority={fetchPriority}
+          {...props}
+        />
       ),
       getImageProps: ({
         src,
@@ -79,6 +85,22 @@ describe('home page', () => {
     expect(heroImage?.getAttribute('loading')).toBe('eager')
   })
 
+  it('keeps the desktop hero artwork wrapper full width', () => {
+    render(<Home />)
+
+    expect(
+      document.querySelector('.home-hero-characters-image')?.parentElement?.className
+    ).toContain('w-full')
+  })
+
+  it('does not compete with the hero background for high-priority loading', () => {
+    render(<Home />)
+
+    const callToActionImage = screen.getByAltText('Learn More')
+    expect(callToActionImage.getAttribute('data-loading')).not.toBe('eager')
+    expect(callToActionImage.getAttribute('data-fetch-priority')).not.toBe('high')
+  })
+
   it('uses an art-directed mobile source for the shared intro background', () => {
     render(<Home />)
 
@@ -87,5 +109,12 @@ describe('home page', () => {
     expect(document.querySelector('.home-intro-background img')?.getAttribute('src')).toContain(
       '/img/hero/bg.webp'
     )
+  })
+
+  it('contains below-the-fold sections until they approach the viewport', () => {
+    render(<Home />)
+
+    expect(document.getElementById('gaming-section')?.className).toContain('home-below-fold')
+    expect(document.querySelectorAll('.home-below-fold')).toHaveLength(8)
   })
 })

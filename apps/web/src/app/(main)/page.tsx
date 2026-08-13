@@ -1,4 +1,5 @@
 import Image, { getImageProps } from 'next/image'
+import { preload } from 'react-dom'
 
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 
@@ -9,10 +10,11 @@ import {
   DeferredSponsors,
 } from '@/components/DeferredHomeSections'
 import MainLayout from '@/components/MainLayout'
-import ThemeBtnGroup from '@/components/ThemeBtnGroup'
-import { DEGEN_COLLECTION_URL } from '@/constants/degens'
+import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
+import { DEGEN_COLLECTION_URL } from '@/constants/degen-assets'
 
 import '@/styles/home.css'
+import '@/styles/marketing.css'
 
 const ResponsiveLabel = ({ mobile, desktop }: { mobile: string; desktop: string }) => (
   <>
@@ -41,6 +43,21 @@ const ResponsiveIntroBackground = () => {
     height: 1000,
   })
 
+  preload(desktopBackground.src, {
+    as: 'image',
+    fetchPriority: 'high',
+    imageSizes: commonProps.sizes,
+    imageSrcSet: desktopBackground.srcSet,
+    media: '(min-width: 769px)',
+  })
+  preload(mobileBackground.src, {
+    as: 'image',
+    fetchPriority: 'high',
+    imageSizes: commonProps.sizes,
+    imageSrcSet: mobileBackground.srcSet,
+    media: '(max-width: 768px)',
+  })
+
   return (
     <picture className="home-intro-background">
       <source media="(max-width: 768px)" srcSet={mobileBackground.srcSet} />
@@ -58,7 +75,7 @@ const ResponsiveIntroBackground = () => {
 const DesktopIntro = () => {
   return (
     <section className="desktop relative w-screen max-h-screen overflow-hidden home-desktop-intro">
-      <div className="relative h-full">
+      <div className="relative h-full w-full">
         <div className="absolute home-hero-characters-image flex-grow animate-zoom-out-large">
           <Image
             src="/img/hero/characters.webp"
@@ -198,7 +215,7 @@ const Home = () => {
       </div>
 
       {/* SMASHERS */}
-      <section id="gaming-section" className="w-screen relative text-center">
+      <section id="gaming-section" className="home-below-fold w-screen relative text-center">
         <h2 className="absolute w-full z-10 -mt-4 sm:mt-8 md:mt-16 lg:mt-22 transition-vertical-fade">
           CLASSIC GAMING REINVENTED
         </h2>
@@ -213,7 +230,7 @@ const Home = () => {
       </section>
 
       {/* DEGENS */}
-      <section className="section w-screen relative flex flex-col text-center sliding-nfts">
+      <section className="home-below-fold section w-screen relative flex flex-col text-center sliding-nfts">
         <h2 className="my-3 lg:my-5 px-5 sm:px-8 transition-vertical-fade">
           <ResponsiveLabel mobile="OWN YOUR AVATAR" desktop="COMMUNITY-GENERATED AVATARS" />
         </h2>
@@ -223,8 +240,8 @@ const Home = () => {
             <Image
               className="pixelated w-full h-auto max-w-[90vw] md:max-w-[80%] lg:max-w-[700px] xl:max-w-[800px]"
               src="/img/degens/nifty-ape.webp"
-              width={800}
-              height={788}
+              width={856}
+              height={842}
               alt="ape degen overlay"
               sizes="(max-width: 576px) 90vw, (max-width: 992px) 80%, 700px"
             />
@@ -234,7 +251,7 @@ const Home = () => {
       </section>
 
       {/* COMPETE & EARN */}
-      <section className="container section relative flex items-center">
+      <section className="home-below-fold container section relative flex items-center">
         <div className="w-full md:w-1/2 flex flex-col relative">
           <div className="purple-bg-orb orb-top-left" />
           <div className="block md:hidden relative w-full">
@@ -251,7 +268,7 @@ const Home = () => {
           </div>
 
           <div className="hidden md:block relative">
-            <BouncingNFTL classes={{ token3: 'hidden' }} />
+            <BouncingNFTL visibleTokens={['token1', 'token2']} />
           </div>
 
           <div className="relative flex flex-col items-center md:items-start">
@@ -305,7 +322,7 @@ const Home = () => {
       </section>
 
       {/* NIFTYWORLD */}
-      <section className="container section relative flex flex-row flex-wrap items-center">
+      <section className="home-below-fold container section relative flex flex-row flex-wrap items-center">
         <div className="w-full md:w-1/2">
           <div className="transition-fade">
             <Image
@@ -339,7 +356,7 @@ const Home = () => {
       </section>
 
       {/* DASHBOARDS */}
-      <section className="section w-screen relative">
+      <section className="home-below-fold section w-screen relative">
         <div className="relative flex-grow transition-fade">
           <Image
             src="/img/misc/dashboard.webp"
@@ -367,11 +384,11 @@ const Home = () => {
       </section>
 
       {/* NFTL TOKEN */}
-      <section className="section container relative flex flex-row flex-wrap-reverse items-center">
+      <section className="home-below-fold section container relative flex flex-row flex-wrap-reverse items-center">
         <div className="relative w-full md:w-1/2 flex flex-col text-center md:text-left">
           <div className="purple-bg-orb orb-top-left" />
           <div className="hidden md:block relative">
-            <BouncingNFTL classes={{ token2: 'hidden' }} />
+            <BouncingNFTL visibleTokens={['token1', 'token3']} />
           </div>
 
           <h2 className="mb-3 section-heading transition-vertical-fade">NFTL TOKEN</h2>
@@ -399,7 +416,7 @@ const Home = () => {
       </section>
 
       {/* COMMUNITY */}
-      <section className="section container relative flex flex-row flex-wrap items-center">
+      <section className="home-below-fold section container relative flex flex-row flex-wrap items-center">
         <div className="w-full md:w-1/2 flex justify-center md:justify-start">
           <div className="relative flex-grow transition-quick-pop home-community-image">
             <Image
@@ -453,7 +470,7 @@ const Home = () => {
       </section>
 
       {/* SPONSORS */}
-      <section className="section w-screen relative text-center">
+      <section className="home-below-fold section w-screen relative text-center">
         <h2 className="my-3 lg:my-5 section-heading transition-vertical-fade">PROUDLY BACKED BY</h2>
         <DeferredSponsors />
         <ThemeBtnGroup
