@@ -24,20 +24,12 @@ export default async function DegenViewsPage({ params }: DegenViewsPageProps) {
           width={584}
           height={640}
           priority
-          quality={100}
           src={imageSrc}
           unoptimized={imageSrc.includes('.gif')}
         />
       }
       spriteImage={
-        <Image
-          alt="Degen Sprite"
-          className={styles.sprite}
-          fill
-          priority
-          unoptimized
-          src={spriteSrc}
-        />
+        <Image alt="Degen Sprite" className={styles.sprite} fill unoptimized src={spriteSrc} />
       }
       logo={
         <Image
@@ -45,7 +37,6 @@ export default async function DegenViewsPage({ params }: DegenViewsPageProps) {
           width={200}
           height={70}
           style={{ maxWidth: '24vw', height: 'auto' }}
-          quality={100}
           src="/img/logos/NL/wordmark.webp"
         />
       }

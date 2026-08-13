@@ -1,5 +1,5 @@
 type SentryModule = typeof import('@sentry/nextjs')
-type SentryInitOptions = Parameters<SentryModule['init']>[0]
+export type SentryInitOptions = Parameters<SentryModule['init']>[0]
 type RouterTransitionArgs = Parameters<SentryModule['captureRouterTransitionStart']>
 
 let sentryModulePromise: Promise<SentryModule> | undefined
@@ -28,10 +28,9 @@ function getSentryForCapture(): Promise<SentryModule> {
   return sentryInitOptions ? initializeSentry(sentryInitOptions) : loadSentry()
 }
 
-export function captureException(error: unknown): void {
-  void getSentryForCapture()
-    .then(({ captureException: capture }) => capture(error))
-    .catch(reportSentryLoadError)
+export function captureException(error: unknown, options?: SentryInitOptions): void {
+  const sentry = options ? initializeSentry(options) : getSentryForCapture()
+  void sentry.then(({ captureException: capture }) => capture(error)).catch(reportSentryLoadError)
 }
 
 export function captureRouterTransitionStart(...args: RouterTransitionArgs): void {

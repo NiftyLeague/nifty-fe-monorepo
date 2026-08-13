@@ -1,6 +1,4 @@
-type SentryModule = typeof import('@sentry/nextjs')
-
-export type RouterTransitionArgs = Parameters<SentryModule['captureRouterTransitionStart']>
+export type RouterTransitionArgs = [href: string, navigationType: string]
 type RouterTransitionCapture = (...args: RouterTransitionArgs) => void
 
 interface RouterTransitionBridge {

@@ -12,8 +12,8 @@ const nextConfig: NextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
   },
-  // TODO: Switch to turbopack once build issues are resolved
-  // turbopack: { resolveAlias: { '@wagmi/connectors': 'wagmi/connectors' } },
+  // Keep the Webpack compatibility path for explicit `next build --webpack`
+  // fallback runs; local development uses Turbopack for faster iteration.
   // serverExternalPackages: ['pino-pretty', 'lokijs', 'encoding', 'sodium-native', 'require-addon'],
   webpack: (config, { isServer }) => {
     // Map @wagmi/core connectors package to wagmi/connectors to avoid ESM issues

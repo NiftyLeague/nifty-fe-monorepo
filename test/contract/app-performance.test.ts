@@ -5,6 +5,7 @@ const responsiveTableList = 'apps/app/src/components/ResponsiveTable/DataList.ts
 const appManifest = 'apps/app/package.json'
 const appRootLayout = 'apps/app/src/app/layout.tsx'
 const bridgeDialog = 'apps/app/src/components/dialog/BridgeButtonDialog/index.tsx'
+const degenFilterUtils = 'apps/app/src/components/extended/DegensFilter/utils.ts'
 const privateShellIconSources = [
   'apps/app/src/app/_layout/_CollapsibleSidebarLayout/index.tsx',
   'apps/app/src/app/_layout/_MainLayout/_Header/index.tsx',
@@ -48,6 +49,13 @@ describe('app performance contracts', () => {
 
     expect(source).toContain('id="device-stats"')
     expect(source).toContain('strategy="lazyOnload"')
+  })
+
+  it('uses Turbopack for local app development', () => {
+    const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
+
+    expect(manifest.scripts.dev).toBe('next dev --turbopack --port 3001')
+    expect(manifest.scripts.dev).not.toContain('--webpack')
   })
 
   it('loads the bridge form only after its dialog opens', () => {
@@ -98,5 +106,12 @@ describe('app performance contracts', () => {
         /import \{[^}]*\bIcon\b[^}]*\} from ['"]@nl\/ui\/base\/icon/
       )
     }
+  })
+
+  it('keeps the seventh-tribe filter off the full Hydra metadata payload', () => {
+    const source = readFileSync(degenFilterUtils, 'utf8')
+
+    expect(source).toContain("from '@/constants/hydra-rarities'")
+    expect(source).not.toContain("from '@/constants/hydras'")
   })
 })
