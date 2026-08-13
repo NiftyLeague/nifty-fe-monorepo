@@ -93,12 +93,12 @@ describe('home page', () => {
     ).toContain('w-full')
   })
 
-  it('eagerly loads the above-the-fold hero call-to-action image', () => {
+  it('does not compete with the hero background for high-priority loading', () => {
     render(<Home />)
 
     const callToActionImage = screen.getByAltText('Learn More')
-    expect(callToActionImage.getAttribute('data-loading')).toBe('eager')
-    expect(callToActionImage.getAttribute('data-fetch-priority')).toBe('high')
+    expect(callToActionImage.getAttribute('data-loading')).not.toBe('eager')
+    expect(callToActionImage.getAttribute('data-fetch-priority')).not.toBe('high')
   })
 
   it('uses an art-directed mobile source for the shared intro background', () => {

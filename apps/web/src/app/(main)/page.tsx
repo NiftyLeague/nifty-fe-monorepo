@@ -1,4 +1,5 @@
 import Image, { getImageProps } from 'next/image'
+import { preload } from 'react-dom'
 
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 
@@ -40,6 +41,21 @@ const ResponsiveIntroBackground = () => {
     src: '/img/backgrounds/banner-dark.webp',
     width: 2000,
     height: 1000,
+  })
+
+  preload(desktopBackground.src, {
+    as: 'image',
+    fetchPriority: 'high',
+    imageSizes: commonProps.sizes,
+    imageSrcSet: desktopBackground.srcSet,
+    media: '(min-width: 769px)',
+  })
+  preload(mobileBackground.src, {
+    as: 'image',
+    fetchPriority: 'high',
+    imageSizes: commonProps.sizes,
+    imageSrcSet: mobileBackground.srcSet,
+    media: '(max-width: 768px)',
   })
 
   return (
@@ -138,8 +154,6 @@ const DesktopIntro = () => {
             width={348}
             height={108}
             sizes="407px"
-            loading="eager"
-            fetchPriority="high"
             className="w-full h-auto"
           />
           <p className="m-0 p-0 speech-bubble-text">Learn More!</p>
