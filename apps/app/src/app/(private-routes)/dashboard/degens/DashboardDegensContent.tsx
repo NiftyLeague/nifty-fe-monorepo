@@ -77,7 +77,8 @@ const DashboardDegensPageContent = (): React.ReactNode => {
   }, [favsData, setFavDegens])
 
   const { loading: loadingAllRentals, data } = useFetch<Degen[]>(
-    `${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`
+    `${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`,
+    { sharedCache: true }
   )
 
   const { degensBalances, loadingDegens } = useNFTsBalances()

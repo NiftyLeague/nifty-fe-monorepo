@@ -52,7 +52,8 @@ const MyDegens = (): React.ReactNode => {
   const { loadingDegens, degensBalances } = useNFTsBalances()
 
   const { data: degensData } = useFetch<Degen[]>(
-    `${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`
+    `${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`,
+    { sharedCache: true }
   )
 
   const filteredDegens = useMemo(() => {

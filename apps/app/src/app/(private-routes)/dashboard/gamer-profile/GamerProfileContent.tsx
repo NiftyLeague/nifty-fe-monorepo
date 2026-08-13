@@ -26,7 +26,9 @@ const GamerProfileContent = (): React.ReactNode => {
   const { address } = useAccount()
   const { avatarsAndFee } = useProfileAvatarFee()
   const profileAvatars = avatarsAndFee?.avatars
-  const { data } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`)
+  const { data } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`, {
+    sharedCache: true,
+  })
 
   const { comicsBalances, degenCount, degensBalances, itemsBalances } = useNFTsBalances()
 
