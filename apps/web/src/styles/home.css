@@ -42,6 +42,13 @@
   object-fit: cover;
 }
 
+/* Keep the long homepage visually stable while allowing the browser to skip
+ * layout, paint, and animation work for sections outside the viewport. */
+.home-below-fold {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
+}
+
 .home-intro > .desktop,
 .home-intro > .mobile {
   position: relative;

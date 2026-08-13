@@ -88,9 +88,9 @@ describe('home page', () => {
   it('keeps the desktop hero artwork wrapper full width', () => {
     render(<Home />)
 
-    expect(document.querySelector('.home-hero-characters-image')?.parentElement?.className).toContain(
-      'w-full'
-    )
+    expect(
+      document.querySelector('.home-hero-characters-image')?.parentElement?.className
+    ).toContain('w-full')
   })
 
   it('eagerly loads the above-the-fold hero call-to-action image', () => {
@@ -109,5 +109,12 @@ describe('home page', () => {
     expect(document.querySelector('.home-intro-background img')?.getAttribute('src')).toContain(
       '/img/hero/bg.webp'
     )
+  })
+
+  it('contains below-the-fold sections until they approach the viewport', () => {
+    render(<Home />)
+
+    expect(document.getElementById('gaming-section')?.className).toContain('home-below-fold')
+    expect(document.querySelectorAll('.home-below-fold')).toHaveLength(8)
   })
 })

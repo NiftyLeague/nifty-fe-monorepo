@@ -1410,6 +1410,7 @@ describe('shared below-fold loading contract', () => {
     const pageSource = readFileSync(join(process.cwd(), webHomePage), 'utf8')
     const deferredSource = readFileSync(join(process.cwd(), webDeferredHomeSections), 'utf8')
     const carouselSource = readFileSync(join(process.cwd(), webCommunityDegenCarousel), 'utf8')
+    const homeStyles = readFileSync(join(process.cwd(), 'apps/web/src/styles/home.css'), 'utf8')
 
     expect(pageSource).toContain('DeferredMintOMatic')
     expect(pageSource).toContain('DeferredSponsors')
@@ -1425,6 +1426,10 @@ describe('shared below-fold loading contract', () => {
     expect(deferredSource).toContain("from '@nl/ui/custom/deferred-section'")
     expect(carouselSource).toContain("from '@/components/Carousel'")
     expect(carouselSource).toContain("from '@/constants/degens'")
+    expect(pageSource.match(/className="home-below-fold/g)).toHaveLength(8)
+    expect(homeStyles).toContain('.home-below-fold')
+    expect(homeStyles).toContain('content-visibility: auto')
+    expect(homeStyles).toContain('contain-intrinsic-size: auto 800px')
   })
 
   it('defers the below-fold Overview FAQ interaction bundle', () => {

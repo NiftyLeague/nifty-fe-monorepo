@@ -201,7 +201,7 @@ const Home = () => {
       </div>
 
       {/* SMASHERS */}
-      <section id="gaming-section" className="w-screen relative text-center">
+      <section id="gaming-section" className="home-below-fold w-screen relative text-center">
         <h2 className="absolute w-full z-10 -mt-4 sm:mt-8 md:mt-16 lg:mt-22 transition-vertical-fade">
           CLASSIC GAMING REINVENTED
         </h2>
@@ -216,7 +216,7 @@ const Home = () => {
       </section>
 
       {/* DEGENS */}
-      <section className="section w-screen relative flex flex-col text-center sliding-nfts">
+      <section className="home-below-fold section w-screen relative flex flex-col text-center sliding-nfts">
         <h2 className="my-3 lg:my-5 px-5 sm:px-8 transition-vertical-fade">
           <ResponsiveLabel mobile="OWN YOUR AVATAR" desktop="COMMUNITY-GENERATED AVATARS" />
         </h2>
@@ -237,7 +237,7 @@ const Home = () => {
       </section>
 
       {/* COMPETE & EARN */}
-      <section className="container section relative flex items-center">
+      <section className="home-below-fold container section relative flex items-center">
         <div className="w-full md:w-1/2 flex flex-col relative">
           <div className="purple-bg-orb orb-top-left" />
           <div className="block md:hidden relative w-full">
@@ -308,7 +308,7 @@ const Home = () => {
       </section>
 
       {/* NIFTYWORLD */}
-      <section className="container section relative flex flex-row flex-wrap items-center">
+      <section className="home-below-fold container section relative flex flex-row flex-wrap items-center">
         <div className="w-full md:w-1/2">
           <div className="transition-fade">
             <Image
@@ -342,7 +342,7 @@ const Home = () => {
       </section>
 
       {/* DASHBOARDS */}
-      <section className="section w-screen relative">
+      <section className="home-below-fold section w-screen relative">
         <div className="relative flex-grow transition-fade">
           <Image
             src="/img/misc/dashboard.webp"
@@ -370,7 +370,7 @@ const Home = () => {
       </section>
 
       {/* NFTL TOKEN */}
-      <section className="section container relative flex flex-row flex-wrap-reverse items-center">
+      <section className="home-below-fold section container relative flex flex-row flex-wrap-reverse items-center">
         <div className="relative w-full md:w-1/2 flex flex-col text-center md:text-left">
           <div className="purple-bg-orb orb-top-left" />
           <div className="hidden md:block relative">
@@ -402,7 +402,7 @@ const Home = () => {
       </section>
 
       {/* COMMUNITY */}
-      <section className="section container relative flex flex-row flex-wrap items-center">
+      <section className="home-below-fold section container relative flex flex-row flex-wrap items-center">
         <div className="w-full md:w-1/2 flex justify-center md:justify-start">
           <div className="relative flex-grow transition-quick-pop home-community-image">
             <Image
@@ -456,7 +456,7 @@ const Home = () => {
       </section>
 
       {/* SPONSORS */}
-      <section className="section w-screen relative text-center">
+      <section className="home-below-fold section w-screen relative text-center">
         <h2 className="my-3 lg:my-5 section-heading transition-vertical-fade">PROUDLY BACKED BY</h2>
         <DeferredSponsors />
         <ThemeBtnGroup
