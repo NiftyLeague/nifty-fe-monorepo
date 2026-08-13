@@ -2,7 +2,7 @@ import type { PropsWithChildren } from 'react'
 import type { Metadata, Viewport } from 'next'
 
 import DeferredSentry from '@nl/sentry-client/react'
-import { DeferredAnalytics } from '@nl/ui/gtm'
+import DeferredAnalytics from '@nl/ui/gtm/deferred'
 import { defaultFont } from '@nl/ui/fonts/default'
 import { headerFont } from '@nl/ui/fonts/header'
 import { specialFont } from '@nl/ui/fonts/special'

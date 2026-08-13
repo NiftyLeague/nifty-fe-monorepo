@@ -4,7 +4,7 @@ import { Fragment } from 'react'
 
 import { cn } from '@nl/ui/utils'
 
-import MobileNavTrigger from './MobileNavTrigger'
+import MobileNavMenu from './MobileNavMenu'
 import { NAV_LINK_CONTENT_CLASS, NavLinkContent } from './NavLinkContent'
 
 export interface NavPage {
@@ -141,7 +141,7 @@ export function Navbar({ actionButton, navItems, className }: NavbarProps) {
   return (
     <header
       className={cn(
-        'navbar-scroll-frame fixed inset-x-0 top-0 z-50 h-20 bg-background/90 backdrop-blur-sm motion-safe:transition-all motion-safe:duration-500',
+        'navbar-scroll-frame fixed inset-x-0 top-0 z-50 h-20 bg-transparent backdrop-blur-xs',
         className
       )}
     >
@@ -158,7 +158,7 @@ export function Navbar({ actionButton, navItems, className }: NavbarProps) {
         </Link>
 
         <DesktopNavMenu actionButton={actionButton} navItems={desktopNavItems} />
-        <MobileNavTrigger actionButton={actionButton} navItems={navItems} />
+        <MobileNavMenu actionButton={actionButton} navItems={navItems} />
       </div>
     </header>
   )

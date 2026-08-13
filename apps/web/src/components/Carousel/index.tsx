@@ -1,14 +1,9 @@
 'use client'
 
-import {
-  Children,
-  memo,
-  useEffect,
-  useRef,
-  useState,
-  type ComponentType,
-  type ReactNode,
-} from 'react'
+import { Children, memo, useRef, type ReactNode } from 'react'
+
+import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
+import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 
 export interface NiftyCarouselProps {
   children: ReactNode
@@ -18,7 +13,10 @@ export interface NiftyCarouselProps {
   desktopItems?: number
   superLargeDesktopItems?: number
   hideGradient?: boolean
+  ariaLabel?: string
 }
+
+const loadInteractiveCarousel = () => import('./InteractiveCarousel')
 
 const NiftyCarousel = ({
   children,
@@ -28,52 +26,14 @@ const NiftyCarousel = ({
   desktopItems = 4,
   superLargeDesktopItems = 5,
   hideGradient = false,
+  ariaLabel = 'Featured content',
 }: NiftyCarouselProps): React.ReactNode => {
   const containerRef = useRef<HTMLDivElement>(null)
-  const loadRequestedRef = useRef(false)
-  const mountedRef = useRef(true)
-  const [InteractiveCarousel, setInteractiveCarousel] =
-    useState<ComponentType<NiftyCarouselProps>>()
-
-  useEffect(() => {
-    mountedRef.current = true
-
-    return () => {
-      mountedRef.current = false
-    }
-  }, [])
-
-  useEffect(() => {
-    const container = containerRef.current
-    if (!container) return
-
-    const loadInteractiveCarousel = () => {
-      if (loadRequestedRef.current) return
-      loadRequestedRef.current = true
-
-      void import('./InteractiveCarousel').then(({ default: LoadedCarousel }) => {
-        if (mountedRef.current) setInteractiveCarousel(() => LoadedCarousel)
-      })
-    }
-
-    if (!('IntersectionObserver' in window)) {
-      loadInteractiveCarousel()
-      return
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          observer.disconnect()
-          loadInteractiveCarousel()
-        }
-      },
-      { rootMargin: '300px 0px' }
-    )
-
-    observer.observe(container)
-    return () => observer.disconnect()
-  }, [])
+  const isNearViewport = useOnScreen(containerRef, '300px 0px')
+  const { Component: InteractiveCarousel } = useDeferredComponent<NiftyCarouselProps>(
+    loadInteractiveCarousel,
+    isNearViewport
+  )
 
   return (
     <div ref={containerRef} className="relative">
@@ -85,6 +45,7 @@ const NiftyCarousel = ({
           desktopItems={desktopItems}
           superLargeDesktopItems={superLargeDesktopItems}
           hideGradient={hideGradient}
+          ariaLabel={ariaLabel}
         >
           {children}
         </InteractiveCarousel>

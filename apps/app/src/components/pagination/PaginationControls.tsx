@@ -13,6 +13,8 @@ interface PaginationControlsProps {
   className?: string
   buttonClassName?: string
   iconSize?: number
+  previousLabel?: string
+  nextLabel?: string
 }
 
 export function PaginationControls({
@@ -24,11 +26,13 @@ export function PaginationControls({
   className,
   buttonClassName,
   iconSize = 18,
+  previousLabel = 'Previous page',
+  nextLabel = 'Next page',
 }: PaginationControlsProps) {
   return (
     <div className={cn('flex items-center gap-2', className)}>
       <IconButton
-        aria-label="Previous page"
+        aria-label={previousLabel}
         className={cn('cursor-pointer', buttonClassName)}
         disabled={!hasPrev}
         onClick={onClickPrev}
@@ -37,7 +41,7 @@ export function PaginationControls({
       </IconButton>
       {pageLabel}
       <IconButton
-        aria-label="Next page"
+        aria-label={nextLabel}
         className={cn('cursor-pointer', buttonClassName)}
         disabled={!hasNext}
         onClick={onClickNext}

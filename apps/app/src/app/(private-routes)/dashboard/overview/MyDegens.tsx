@@ -64,7 +64,6 @@ const MyDegens = (): React.ReactNode => {
 
   const settings = {
     slidesToShow: 4,
-    adaptiveHeight: true, // disable if buggy behavior with degen cards
     responsive: [
       { breakpoint: 1536, settings: { slidesToShow: 3 } },
       { breakpoint: 1280, settings: { slidesToShow: 3 } },

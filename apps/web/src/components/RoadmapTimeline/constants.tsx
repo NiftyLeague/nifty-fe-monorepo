@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import styles from './index.module.css'
-import { DEGEN_COLLECTION_URL } from '@/constants/degens'
+import { DEGEN_COLLECTION_URL } from '@/constants/degen-assets'
 
 export const ROADMAP_CARDS = [
   {

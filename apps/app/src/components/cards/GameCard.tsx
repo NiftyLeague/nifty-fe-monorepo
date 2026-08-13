@@ -55,11 +55,11 @@ const CardGameContent = ({
         <div className="flex flex-row justify-between">
           <Title level={4}>{title}</Title>
           {externalLink ? (
-            <Link href={externalLink.src} target="_blank" rel="noreferrer">
-              <Button variant="default" className="-mt-2 w-full">
+            <Button asChild variant="default" className="-mt-2 w-full">
+              <Link href={externalLink.src} target="_blank" rel="noreferrer">
                 {externalLink.title} <ExternalIcon />
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           ) : null}
         </div>
         {isComingSoon && <p className="text-sm text-warning">Coming 2023</p>}
@@ -112,6 +112,8 @@ export interface GameCardProps {
   description?: string
   externalLink?: { title: string; src: string }
   image?: string
+  imageFetchPriority?: 'auto' | 'high' | 'low'
+  imageLoading?: 'eager' | 'lazy'
   isComingSoon?: boolean
   onPlayOnDesktopClick?: React.MouseEventHandler<HTMLButtonElement>
   onPlayOnWebClick?: React.MouseEventHandler<HTMLButtonElement>
@@ -128,6 +130,8 @@ const GameCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<GameCar
   description,
   externalLink,
   image,
+  imageFetchPriority = 'auto',
+  imageLoading = 'lazy',
   isComingSoon,
   onPlayOnDesktopClick,
   onPlayOnWebClick,
@@ -157,7 +161,8 @@ const GameCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<GameCar
             alt={title || 'Game artwork'}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-            loading="lazy"
+            loading={imageLoading}
+            fetchPriority={imageFetchPriority}
             className="object-cover"
           />
         )}
