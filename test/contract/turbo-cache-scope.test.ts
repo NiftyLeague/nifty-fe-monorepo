@@ -3,7 +3,10 @@ import { readFileSync } from 'node:fs'
 
 const turbo = JSON.parse(readFileSync('turbo.json', 'utf8')) as {
   globalEnv?: string[]
-  tasks: Record<string, { cache?: boolean; env?: string[]; dependsOn?: string[]; outputs?: string[] }>
+  tasks: Record<
+    string,
+    { cache?: boolean; env?: string[]; dependsOn?: string[]; outputs?: string[] }
+  >
 }
 const rootPackage = JSON.parse(readFileSync('package.json', 'utf8')) as {
   scripts?: Record<string, string>
