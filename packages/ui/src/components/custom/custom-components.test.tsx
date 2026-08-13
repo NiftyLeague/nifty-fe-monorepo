@@ -166,10 +166,13 @@ describe('Navbar', () => {
 
     expect(screen.getByRole('img', { name: 'Home' })).not.toBeNull()
     expect(screen.getAllByRole('link', { name: /About/ })[0]?.getAttribute('href')).toBe('/about')
-    fireEvent.click(screen.getByText('Products'))
+    fireEvent.click(screen.getByText('Products', { selector: 'summary' }))
     expect(screen.getAllByRole('link', { name: /Docs/ })[0]?.getAttribute('target')).toBe('_blank')
     expect(screen.getByRole('link', { name: 'Game' })?.getAttribute('rel')).toBe('noreferrer')
-    expect(screen.getByRole('button', { name: 'Open navigation' })).not.toBeNull()
+    const navigationToggle = screen.getByText('Toggle navigation')
+    expect(navigationToggle.closest('summary')).not.toBeNull()
+    fireEvent.click(navigationToggle)
+    expect(navigationToggle.closest('details')?.hasAttribute('open')).toBe(true)
   })
 
   it('renders a fixed, theme-aware semantic header without scroll state', () => {
