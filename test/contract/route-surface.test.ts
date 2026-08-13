@@ -240,6 +240,8 @@ const gltfRouteBoundary =
   'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViewsRouteBoundary.tsx'
 const webViemClient = 'apps/web/src/lib/viemClient.ts'
 const webClaimableNFTL = 'apps/web/src/hooks/useClaimableNFTL.ts'
+const webDegenAssets = 'apps/web/src/constants/degen-assets.ts'
+const webDegenCatalog = 'apps/web/src/constants/degens.ts'
 const webNavbar = 'apps/web/src/components/Navbar/index.tsx'
 const sharedWebNavbar = 'packages/ui/src/components/custom/navbar/index.tsx'
 const sharedWebMobileNavbar = 'packages/ui/src/components/custom/navbar/MobileNavMenu.tsx'
@@ -421,6 +423,25 @@ describe('GLTF viewer loading contract', () => {
     expect(clientSource).toContain('fallback(rpcTransports)')
     expect(hookSource).toContain('args: [BigInt(tokenNumber)]')
     expect(hookSource).toContain('if (!cancelled)')
+  })
+
+  it('keeps route-only DEGEN constants out of the full catalog module', () => {
+    const pageSource = readFileSync(join(process.cwd(), gltfPage), 'utf8')
+    const modelSource = readFileSync(
+      join(
+        process.cwd(),
+        'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/ModelView.tsx'
+      ),
+      'utf8'
+    )
+    const assetSource = readFileSync(join(process.cwd(), webDegenAssets), 'utf8')
+    const catalogSource = readFileSync(join(process.cwd(), webDegenCatalog), 'utf8')
+
+    expect(pageSource).toContain("from '@/constants/degen-assets'")
+    expect(modelSource).toContain("from '@/constants/degen-assets'")
+    expect(assetSource).toContain('export const LEGGIES')
+    expect(catalogSource).toContain("} from './degen-assets'")
+    expect(pageSource).not.toContain("from '@/constants/degens'")
   })
 })
 

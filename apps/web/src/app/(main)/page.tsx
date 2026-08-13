@@ -10,7 +10,7 @@ import {
 } from '@/components/DeferredHomeSections'
 import MainLayout from '@/components/MainLayout'
 import ThemeBtnGroup from '@/components/ThemeBtnGroup'
-import { DEGEN_COLLECTION_URL } from '@/constants/degens'
+import { DEGEN_COLLECTION_URL } from '@/constants/degen-assets'
 
 import '@/styles/home.css'
 import '@/styles/marketing.css'
