@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import { DEGEN_BASE_SPRITE_URL, LEGGIES } from '@/constants/degens'
+import { DEGEN_BASE_SPRITE_URL, LEGGIES } from '@/constants/degen-assets'
 
 import DegenViewsRouteBoundary from './components/DegenViewsRouteBoundary'
 import styles from './gltf.module.css'
