@@ -1301,6 +1301,7 @@ describe('shared analytics loading contract', () => {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
 
       expect(source).toContain('DeferredAnalytics')
+      expect(source).toContain("from '@nl/ui/gtm/deferred'")
       expect(source).not.toContain('import { GoogleTagManager')
       expect(source).not.toContain('import { WebVitals')
     })
