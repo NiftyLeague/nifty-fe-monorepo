@@ -1,4 +1,5 @@
 @import '@nl/ui/styles.css';
+@import './marketing.css';
 @source "../**/*.{ts,tsx}";
 
 /* ==============================|| OVERRIDES ||============================== */

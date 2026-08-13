@@ -46,7 +46,7 @@ const useVersion = () => {
   const downloadURL = `https://d7ct17ettlkln.cloudfront.net/launcher/${env}/${os}/${version}/${fileName}`
 
   useEffect(() => {
-    if (os === 'unknown') return
+    if (os !== 'win') return
 
     let canceled = false
 
