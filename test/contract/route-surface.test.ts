@@ -1612,6 +1612,9 @@ describe('web marketing image sizing contract', () => {
     )
 
     expect(overviewSource).not.toContain('priority')
+    expect(overviewSource).toContain("import Image, { getImageProps } from 'next/image'")
+    expect(overviewSource).toContain('<picture>')
+    expect(overviewSource).toContain('media="(max-width: 767px)"')
     expect(roadmapSource).toContain('src="/img/space/satoshi_move.gif"')
     expect(roadmapSource).toContain('src="/img/space/moon.webp"')
     expect(roadmapSource).not.toContain(
