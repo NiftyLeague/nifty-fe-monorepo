@@ -175,11 +175,12 @@ describe('Navbar', () => {
     expect(navigationToggle.closest('details')?.hasAttribute('open')).toBe(true)
   })
 
-  it('renders a fixed, theme-aware semantic header without scroll state', () => {
+  it('renders a fixed, transparent semantic header with scroll-driven state', () => {
     const { container } = render(<Navbar navItems={navItems} />)
     const header = container.querySelector('header')
     expect(header?.className).toContain('navbar-scroll-frame')
-    expect(header?.className).toContain('bg-background/90')
+    expect(header?.className).toContain('bg-transparent')
+    expect(header?.className).toContain('backdrop-blur-xs')
     expect(header?.previousElementSibling).toBeNull()
   })
 })

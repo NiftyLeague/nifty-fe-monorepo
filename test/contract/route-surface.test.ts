@@ -183,7 +183,10 @@ const viewportVideoBoundary =
 const viewportVideoEnhancer =
   'packages/ui/src/components/custom/viewport-video/ViewportVideoEnhancer.tsx'
 const deferredWeb3GameList = 'apps/app/src/app/(public-routes)/games/DeferredWeb3GameList.tsx'
-const publicGamesGridStyles = 'apps/app/src/app/(public-routes)/games/grid-item.module.css'
+const publicGamesGridStyles = [
+  'apps/app/src/app/(public-routes)/games/_GameList/grid-item.module.css',
+  'apps/app/src/app/(public-routes)/games/_Web3GameList/grid-item.module.css',
+]
 const staleDownloadGameDialog = 'apps/app/src/components/dialog/DownloadGameDialog.tsx'
 const gameCard = 'apps/app/src/components/cards/GameCard.tsx'
 const smashersLoginClient = 'apps/smashers/src/app/(auth_routes)/login/LoginClient.tsx'
@@ -856,7 +859,6 @@ describe('public app shell contract', () => {
     const linksSource = readFileSync(join(process.cwd(), publicNavLinks), 'utf8')
     const sharedMobileSource = readFileSync(join(process.cwd(), sharedMobileNavigation), 'utf8')
     const iconButtonSource = readFileSync(join(process.cwd(), publicIconButton), 'utf8')
-
     expect(navigationSource).not.toContain("'use client'")
     expect(navigationSource).toContain("from './PublicDesktopSidebarToggle'")
     expect(navigationSource).toContain("from '@nl/ui/custom/mobile-navigation'")
@@ -1493,6 +1495,8 @@ describe('web public navigation contract', () => {
     expect(sharedNavbarSource).not.toContain("import ActiveNavLink from './ActiveNavLink'")
     expect(sharedNavbarSource).toContain('function DesktopNavLink')
     expect(sharedNavbarSource).toContain('navbar-scroll-frame')
+    expect(sharedNavbarSource).toContain('bg-transparent')
+    expect(sharedNavbarSource).toContain('backdrop-blur-xs')
     expect(sharedNavbarSource).not.toContain('useScrollDetection')
     expect(sharedNavbarSource).toContain('<details')
     expect(sharedNavbarSource).not.toContain("from '@nl/ui/base/navigation-menu'")
@@ -1516,6 +1520,12 @@ describe('web public navigation contract', () => {
     expect(sharedMobileSource).toContain('<details')
     expect(sharedMobileSource).toContain('<summary')
     expect(sharedMobileSource).toContain('aria-label={label}')
+    const sharedUtilityStyles = readFileSync(
+      join(process.cwd(), 'packages/ui/src/styles/04_tailwind.utilities.css'),
+      'utf8'
+    )
+    expect(sharedUtilityStyles).toContain('prefers-reduced-motion: no-preference')
+    expect(sharedUtilityStyles).toContain('animation-timeline: scroll(root block)')
   })
 })
 
@@ -1938,8 +1948,10 @@ describe('public route dependency contract', () => {
     expect(list).not.toContain('DownloadGameDialog')
   })
 
-  it('shares one responsive grid style across the public game lists', () => {
-    const gridStyles = readFileSync(join(process.cwd(), publicGamesGridStyles), 'utf8')
+  it('preserves the responsive grid style for both public game lists', () => {
+    const gridStyles = publicGamesGridStyles.map((file) =>
+      readFileSync(join(process.cwd(), file), 'utf8')
+    )
     const freeToPlayList = readFileSync(
       join(process.cwd(), 'apps/app/src/app/(public-routes)/games/_GameList/index.tsx'),
       'utf8'
@@ -1949,22 +1961,11 @@ describe('public route dependency contract', () => {
       'utf8'
     )
 
-    expect(freeToPlayList).toContain("from '../grid-item.module.css'")
-    expect(web3List).toContain("from '../grid-item.module.css'")
-    expect(gridStyles).toContain('@media (max-width: 639.95px)')
-    expect(
-      existsSync(
-        join(process.cwd(), 'apps/app/src/app/(public-routes)/games/_GameList/grid-item.module.css')
-      )
-    ).toBe(false)
-    expect(
-      existsSync(
-        join(
-          process.cwd(),
-          'apps/app/src/app/(public-routes)/games/_Web3GameList/grid-item.module.css'
-        )
-      )
-    ).toBe(false)
+    expect(freeToPlayList).toContain("from './grid-item.module.css'")
+    expect(web3List).toContain("from './grid-item.module.css'")
+    expect(gridStyles).toHaveLength(2)
+    expect(gridStyles[0]).toContain('@media (max-width: 639.95px)')
+    expect(gridStyles[1]).toBe(gridStyles[0])
   })
 
   it('uses the shared shadcn button primitive for themed marketing CTAs', () => {

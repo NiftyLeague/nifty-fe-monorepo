@@ -141,7 +141,7 @@ export function Navbar({ actionButton, navItems, className }: NavbarProps) {
   return (
     <header
       className={cn(
-        'navbar-scroll-frame fixed inset-x-0 top-0 z-50 h-20 bg-background/90 backdrop-blur-sm motion-safe:transition-all motion-safe:duration-500',
+        'navbar-scroll-frame fixed inset-x-0 top-0 z-50 h-20 bg-transparent backdrop-blur-xs motion-safe:transition-all motion-safe:duration-500',
         className
       )}
     >

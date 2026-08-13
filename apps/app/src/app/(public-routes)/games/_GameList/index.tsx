@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import GameCard from '@/components/cards/GameCard'
 
-import styles from '../grid-item.module.css'
+import styles from './grid-item.module.css'
 
 const AppleBadge = ({ disabled = false }) => (
   <Image
