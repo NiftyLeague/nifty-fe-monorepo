@@ -44,7 +44,6 @@
       "outputs": ["dist/**", "api/.app/**", "api/config/**"]
     },
     "docs#build": {
-      "cache": false,
       "env": ["ALGOLIA_API_KEY", "ALGOLIA_APP_ID"],
       "outputs": ["build/**", ".docusaurus/**"]
     },

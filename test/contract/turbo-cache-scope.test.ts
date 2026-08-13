@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs'
 
 const turbo = JSON.parse(readFileSync('turbo.json', 'utf8')) as {
   globalEnv?: string[]
-  tasks: Record<string, { env?: string[]; dependsOn?: string[] }>
+  tasks: Record<string, { cache?: boolean; env?: string[]; dependsOn?: string[]; outputs?: string[] }>
 }
 const rootPackage = JSON.parse(readFileSync('package.json', 'utf8')) as {
   scripts?: Record<string, string>
@@ -62,6 +62,12 @@ describe('Turbo cache environment scope', () => {
         'VERCEL_ENV',
       ])
     )
+  })
+
+  it('caches the deterministic Docusaurus build output', () => {
+    expect(turbo.tasks['docs#build']?.cache).not.toBe(false)
+    expect(turbo.tasks['docs#build']?.outputs).toEqual(['build/**', '.docusaurus/**'])
+    expect(envFor('docs#build')).toEqual(new Set(['ALGOLIA_API_KEY', 'ALGOLIA_APP_ID']))
   })
 
   it('keeps test execution independent from write-mode quality tasks', () => {
