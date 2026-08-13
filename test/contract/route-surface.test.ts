@@ -1790,6 +1790,14 @@ describe('public route dependency contract', () => {
     expect(list).not.toContain('useTokensBalances')
   })
 
+  it('keeps the public launcher action independent from the network registry', () => {
+    const source = readFileSync(join(process.cwd(), 'apps/app/src/hooks/useVersion.ts'), 'utf8')
+
+    expect(source).toContain("process.env.NEXT_PUBLIC_NETWORK === 'mainnet'")
+    expect(source).not.toContain("from '@/constants/networks'")
+    expect(source).not.toContain('TARGET_NETWORK')
+  })
+
   it('keeps the removed desktop download dialog from returning as dead UI', () => {
     const list = readFileSync(
       join(process.cwd(), 'apps/app/src/app/(public-routes)/games/_Web3GameList/index.tsx'),
