@@ -9,6 +9,8 @@ const appRootLayout = 'apps/app/src/app/layout.tsx'
 const bridgeDialog = 'apps/app/src/components/dialog/BridgeButtonDialog/index.tsx'
 const appSectionSlider = 'apps/app/src/components/sections/SectionSlider.tsx'
 const allDegensPage = 'apps/app/src/app/(public-routes)/degens/AllDegensPage.tsx'
+const gamesPage = 'apps/app/src/app/(public-routes)/games/page.tsx'
+const deferredInstallerAction = 'apps/app/src/app/(public-routes)/games/DeferredInstallerAction.tsx'
 const appCarouselSettingsSources = [
   'apps/app/src/app/(private-routes)/dashboard/overview/MyDegens.tsx',
   'apps/app/src/app/(private-routes)/dashboard/overview/MyComics.tsx',
@@ -115,6 +117,19 @@ describe('app performance contracts', () => {
       expect(source).not.toContain('adaptiveHeight')
       expect(source).not.toContain('swipe: false')
     }
+  })
+
+  it('defers the public installer action out of the initial games route graph', () => {
+    const pageSource = readFileSync(gamesPage, 'utf8')
+    const deferredSource = readFileSync(deferredInstallerAction, 'utf8')
+
+    expect(pageSource).toContain("import DeferredInstallerAction from './DeferredInstallerAction'")
+    expect(pageSource).not.toContain("import InstallerAction from './InstallerAction'")
+    expect(pageSource).toContain('actions={<DeferredInstallerAction />}')
+    expect(deferredSource).toContain("from '@nl/ui/custom/deferred-component'")
+    expect(deferredSource).toContain("import('./InstallerAction')")
+    expect(deferredSource).toContain('aria-label="Loading installer action"')
+    expect(deferredSource).toContain('Retry installer')
   })
 
   it('uses native shallow copies for primitive responsive-table selection state', () => {
