@@ -311,9 +311,6 @@ const degensSearchParamsBoundary =
 const degensTopNav = 'apps/app/src/components/extended/DegensTopNav/index.tsx'
 const publicMainLayout = 'apps/app/src/app/_layout/_PublicMainLayout/index.tsx'
 const publicNavigation = 'apps/app/src/components/providers/PublicNavigation.tsx'
-const publicDesktopSidebarToggle =
-  'apps/app/src/components/providers/PublicDesktopSidebarToggle.tsx'
-const publicIconButton = 'packages/ui/src/components/base/icon-button.tsx'
 const publicContentContainer = 'apps/app/src/components/wrapper/PublicContentContainer.tsx'
 const publicNavLinks = 'apps/app/src/components/providers/PublicNavLinks.tsx'
 const sharedMobileNavigation = 'packages/ui/src/components/custom/mobile-navigation/index.tsx'
@@ -851,32 +848,30 @@ describe('public app shell contract', () => {
 
   it('keeps mobile navigation server-rendered and avoids heavy shell primitives', () => {
     const navigationSource = readFileSync(join(process.cwd(), publicNavigation), 'utf8')
-    const desktopToggleSource = readFileSync(
-      join(process.cwd(), publicDesktopSidebarToggle),
+    const navigationStyles = readFileSync(
+      join(process.cwd(), 'apps/app/src/app/_layout/_MainLayout/MainLayout.module.css'),
       'utf8'
     )
     const contentContainerSource = readFileSync(join(process.cwd(), publicContentContainer), 'utf8')
     const linksSource = readFileSync(join(process.cwd(), publicNavLinks), 'utf8')
     const sharedMobileSource = readFileSync(join(process.cwd(), sharedMobileNavigation), 'utf8')
-    const iconButtonSource = readFileSync(join(process.cwd(), publicIconButton), 'utf8')
     expect(navigationSource).not.toContain("'use client'")
-    expect(navigationSource).toContain("from './PublicDesktopSidebarToggle'")
     expect(navigationSource).toContain("from '@nl/ui/custom/mobile-navigation'")
     expect(navigationSource).not.toContain("from '@nl/ui/base/sheet'")
     expect(navigationSource).not.toContain("from '@nl/ui/base/scroll-area'")
     expect(navigationSource).not.toContain("from '@nl/ui/base/icon'")
     expect(navigationSource).not.toContain("from '@/components/extended/Breadcrumbs'")
+    expect(navigationSource).toContain('<details id="public-desktop-navigation-toggle"')
+    expect(navigationSource).toContain('aria-controls="public-desktop-navigation"')
+    expect(navigationSource).not.toContain('PublicDesktopSidebarToggle')
     expect(navigationSource).toContain('{children}')
     expect(navigationSource).not.toContain('PublicMainContent')
     expect(
       existsSync(join(process.cwd(), 'apps/app/src/components/providers/PublicMainContent.tsx'))
     ).toBe(false)
-    expect(desktopToggleSource).toContain("from '@nl/ui/base/icon-button'")
-    expect(desktopToggleSource).not.toContain("from '@nl/ui/base/button'")
-    expect(desktopToggleSource).toContain('data-sidebar-open')
-    expect(desktopToggleSource).toContain('aria-controls="public-desktop-navigation"')
-    expect(desktopToggleSource).not.toContain("from 'lucide-react'")
-    expect(desktopToggleSource).toContain('bg-current')
+    expect(navigationStyles).toContain(':has(#public-desktop-navigation-toggle[open])')
+    expect(navigationStyles).toContain(':not(:has(#public-desktop-navigation-toggle[open]))')
+    expect(navigationStyles).not.toContain('data-sidebar-open')
     expect(contentContainerSource).not.toContain("'use client'")
     expect(contentContainerSource).toContain('container py-5 md:py-10')
     expect(linksSource).not.toContain("'use client'")
@@ -902,9 +897,6 @@ describe('public app shell contract', () => {
     expect(sharedMobileSource).toContain('<summary')
     expect(sharedMobileSource).toContain('aria-controls={id}')
     expect(sharedMobileSource).toContain('group-open:rotate-45')
-    expect(iconButtonSource).toContain("from './button-variants'")
-    expect(iconButtonSource).not.toContain("from 'radix-ui'")
-    expect(iconButtonSource).toContain("type = 'button'")
   })
 })
 
