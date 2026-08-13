@@ -1,7 +1,6 @@
 'use client'
 
 import DeferredComponent from '@nl/ui/custom/deferred-component'
-
 import type { PublicDegen } from '@/types/degens'
 import DeferredDialogLoading from './DeferredDialogLoading'
 
