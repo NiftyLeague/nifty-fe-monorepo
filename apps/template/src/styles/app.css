@@ -1,4 +1,5 @@
 @import '@nl/ui/styles.css';
+@source "../**/*.{ts,tsx}";
 
 /* ==============================|| OVERRIDES ||============================== */
 
@@ -9,5 +10,10 @@
   --callout-rgb: 20, 20, 20;
   --callout-border-rgb: 108, 108, 108;
 
-  --glow-conic: conic-gradient(from 180deg at 50% 50%, #2a8af6 0deg, #a853ba 180deg, #e92a67 360deg);
+  --glow-conic: conic-gradient(
+    from 180deg at 50% 50%,
+    #2a8af6 0deg,
+    #a853ba 180deg,
+    #e92a67 360deg
+  );
 }

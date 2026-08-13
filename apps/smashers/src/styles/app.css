@@ -1,4 +1,6 @@
 @import '@nl/ui/styles.css';
+@source "../**/*.{ts,tsx}";
+@source "../../../../packages/playfab/src/**/*.{ts,tsx}";
 
 /* ==============================|| OVERRIDES ||============================== */
 

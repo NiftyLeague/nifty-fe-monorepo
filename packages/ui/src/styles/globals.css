@@ -1,8 +1,6 @@
 /* ==============================|| TAILWIND CSS ||============================== */
 
-@import 'tailwindcss';
-@source "../../../../apps/**/*.{ts,tsx}";
-@source "../../../playfab/**/*.{ts,tsx}";
+@import 'tailwindcss' source(none);
 @source "../**/*.{ts,tsx}";
 
 @import 'tw-animate-css';
