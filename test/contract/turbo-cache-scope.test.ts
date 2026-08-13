@@ -3,9 +3,16 @@ import { readFileSync } from 'node:fs'
 
 const turbo = JSON.parse(readFileSync('turbo.json', 'utf8')) as {
   globalEnv?: string[]
+  globalDependencies?: string[]
   tasks: Record<
     string,
-    { cache?: boolean; env?: string[]; dependsOn?: string[]; outputs?: string[] }
+    {
+      cache?: boolean
+      env?: string[]
+      dependsOn?: string[]
+      inputs?: string[]
+      outputs?: string[]
+    }
   >
 }
 const rootPackage = JSON.parse(readFileSync('package.json', 'utf8')) as {
@@ -14,6 +21,7 @@ const rootPackage = JSON.parse(readFileSync('package.json', 'utf8')) as {
 
 const envFor = (task: string) => new Set(turbo.tasks[task]?.env ?? [])
 const dependenciesFor = (task: string) => turbo.tasks[task]?.dependsOn ?? []
+const inputsFor = (task: string) => turbo.tasks[task]?.inputs ?? []
 const packageJson = (path: string) =>
   JSON.parse(readFileSync(path, 'utf8')) as {
     scripts?: Record<string, string>
@@ -28,6 +36,14 @@ describe('Turbo cache environment scope', () => {
 
   it('does not invalidate every workspace for app-specific credentials', () => {
     expect(turbo.globalEnv ?? []).toEqual(['CI', 'VERCEL_ENV'])
+  })
+
+  it('keeps local environment files scoped to the builds that consume them', () => {
+    expect(turbo.globalDependencies ?? []).toEqual(['.env'])
+
+    for (const task of ['api#build', 'app#build', 'docs#build', 'smashers#build', 'web#build']) {
+      expect(inputsFor(task)).toEqual(['$TURBO_DEFAULT$', '.env*', '!.env.example'])
+    }
   })
 
   it('keeps environment inputs on the builds that read them', () => {
