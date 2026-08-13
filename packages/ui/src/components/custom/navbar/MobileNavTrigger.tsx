@@ -1,7 +1,6 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { Menu } from 'lucide-react'
 import { useState } from 'react'
 
 import { IconButton } from '@nl/ui/base/icon-button'
@@ -30,7 +29,11 @@ export default function MobileNavTrigger({ actionButton, navItems }: MobileNavTr
         className="size-10 cursor-pointer text-foreground"
         onClick={() => setOpen(true)}
       >
-        <Menu aria-hidden="true" className="size-7" />
+        <span aria-hidden="true" className="flex size-6 flex-col justify-center gap-1.5">
+          <span className="h-0.5 w-full rounded-full bg-current" />
+          <span className="h-0.5 w-full rounded-full bg-current" />
+          <span className="h-0.5 w-full rounded-full bg-current" />
+        </span>
       </IconButton>
       {open ? (
         <MobileNavMenu

@@ -1505,6 +1505,8 @@ describe('web public navigation contract', () => {
     expect(mobileTriggerSource).toContain("import('./MobileNavMenu')")
     expect(mobileTriggerSource).toContain('ssr: false')
     expect(mobileTriggerSource).toContain("from '@nl/ui/base/icon-button'")
+    expect(mobileTriggerSource).not.toContain("from 'lucide-react'")
+    expect(mobileTriggerSource).toContain('bg-current')
     expect(mobileTriggerSource).not.toContain('<button')
     expect(mobileTriggerSource).toContain('aria-controls="nifty-mobile-navigation"')
     expect(mobileNavbarSource).toContain("from '@nl/ui/base/sheet'")
