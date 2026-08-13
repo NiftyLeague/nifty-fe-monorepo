@@ -177,7 +177,7 @@ const AllDegensPage = (): React.ReactNode => {
             : dataForCurrentPage.map(renderDegen)}
         </div>
         <PaginationControls
-          className="mx-auto flex-wrap justify-center gap-1"
+          className="mx-auto flex-wrap justify-center gap-1 pb-4"
           buttonClassName={isMobile ? 'size-8' : undefined}
           hasNext={currentPage < maxPage}
           hasPrev={currentPage > 1}
