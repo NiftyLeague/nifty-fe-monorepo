@@ -5,6 +5,9 @@ const turbo = JSON.parse(readFileSync('turbo.json', 'utf8')) as {
   globalEnv?: string[]
   tasks: Record<string, { env?: string[]; dependsOn?: string[] }>
 }
+const rootPackage = JSON.parse(readFileSync('package.json', 'utf8')) as {
+  scripts?: Record<string, string>
+}
 
 const envFor = (task: string) => new Set(turbo.tasks[task]?.env ?? [])
 const dependenciesFor = (task: string) => turbo.tasks[task]?.dependsOn ?? []
@@ -14,6 +17,12 @@ const packageJson = (path: string) =>
   }
 
 describe('Turbo cache environment scope', () => {
+  it('builds only workspaces with a real build script', () => {
+    expect(rootPackage.scripts?.build).toBe(
+      'turbo run api#build app#build docs#build smashers#build web#build'
+    )
+  })
+
   it('does not invalidate every workspace for app-specific credentials', () => {
     expect(turbo.globalEnv ?? []).toEqual(['CI', 'VERCEL_ENV'])
   })
