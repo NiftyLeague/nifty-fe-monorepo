@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { Skeleton } from '@nl/ui/base/skeleton'
+import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 
@@ -27,7 +27,7 @@ const DeferredConsoleGame = ({ src }: DeferredConsoleGameProps) => {
       {ConsoleGame ? (
         <ConsoleGame isNearViewport={isNearViewport} src={src} />
       ) : (
-        <Skeleton
+        <DeferredSkeleton
           role="img"
           aria-label="Loading game preview"
           className="absolute inset-0 h-full w-full rounded-none"
