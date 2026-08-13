@@ -1631,22 +1631,26 @@ describe('deferred Sentry client contract', () => {
 })
 
 describe('production-only Sentry server contract', () => {
-  it('keeps the web build wrapper lazy outside production', () => {
-    const source = readFileSync(join(process.cwd(), 'apps/web/next.config.ts'), 'utf8')
+  const sentryApps = ['app', 'smashers', 'web']
 
-    expect(source).not.toContain("import { withSentryConfig } from '@sentry/nextjs'")
-    expect(source).toContain("import('@sentry/nextjs')")
-    expect(source).toContain("process.env.VERCEL_ENV === 'production'")
-  })
+  for (const app of sentryApps) {
+    it(`keeps the ${app} build wrapper lazy outside production`, () => {
+      const source = readFileSync(join(process.cwd(), `apps/${app}/next.config.ts`), 'utf8')
 
-  it('keeps request-error capture lazy and production-gated', () => {
-    const source = readFileSync(join(process.cwd(), 'apps/web/src/instrumentation.ts'), 'utf8')
+      expect(source).not.toContain("import { withSentryConfig } from '@sentry/nextjs'")
+      expect(source).toContain("import('@sentry/nextjs')")
+      expect(source).toContain("process.env.VERCEL_ENV === 'production'")
+    })
 
-    expect(source).not.toContain("import * as Sentry from '@sentry/nextjs'")
-    expect(source).toContain("import('@sentry/nextjs')")
-    expect(source).toContain("process.env.VERCEL_ENV !== 'production'")
-    expect(source).toContain('captureRequestError(...args)')
-  })
+    it(`keeps ${app} request-error capture lazy and production-gated`, () => {
+      const source = readFileSync(join(process.cwd(), `apps/${app}/src/instrumentation.ts`), 'utf8')
+
+      expect(source).not.toContain("import * as Sentry from '@sentry/nextjs'")
+      expect(source).toContain("import('@sentry/nextjs')")
+      expect(source).toContain("process.env.VERCEL_ENV !== 'production'")
+      expect(source).toContain('captureRequestError(...args)')
+    })
+  }
 })
 
 describe('public route dependency contract', () => {
