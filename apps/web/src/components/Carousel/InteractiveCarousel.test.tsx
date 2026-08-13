@@ -57,9 +57,8 @@ describe('InteractiveCarousel', () => {
     const nextButton = await screen.findByRole('button', { name: 'Go to next slide' })
     expect(nextButton.getAttribute('aria-controls')).toBeTruthy()
 
-    const viewport = screen.getByRole('group', { name: '1 of 3' }).parentElement
-    expect(viewport).toBeTruthy()
-    fireEvent.keyDown(viewport!, { key: 'ArrowRight' })
+    const viewport = screen.getByLabelText('Featured DEGENs slides')
+    fireEvent.keyDown(viewport, { key: 'ArrowRight' })
 
     expect(scrollTo).toHaveBeenCalledWith({ left: 100, behavior: 'smooth' })
   })

@@ -3,7 +3,6 @@
 }
 
 .viewport {
-  --items: var(--mobile-items);
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scrollbar-width: none;
@@ -29,11 +28,19 @@
   padding: 0;
 }
 
+.page {
+  display: grid;
+  grid-template-columns: repeat(var(--carousel-columns), minmax(0, 1fr));
+  grid-template-rows: repeat(var(--carousel-rows), minmax(0, auto));
+  min-width: 100%;
+  flex: 0 0 100%;
+  align-content: start;
+  scroll-snap-align: start;
+}
+
 .slide {
   min-width: 0;
-  flex: 0 0 calc(100% / var(--items));
-  padding: 0 1.25rem;
-  scroll-snap-align: start;
+  padding: 0 var(--carousel-slide-padding, 0.25rem);
 }
 
 .controls {
@@ -77,24 +84,6 @@
 
 .activeDot {
   background: var(--color-foreground);
-}
-
-@media (min-width: 615px) {
-  .viewport {
-    --items: var(--tablet-items);
-  }
-}
-
-@media (min-width: 1024px) {
-  .viewport {
-    --items: var(--desktop-items);
-  }
-}
-
-@media (min-width: 1500px) {
-  .viewport {
-    --items: var(--super-large-desktop-items);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

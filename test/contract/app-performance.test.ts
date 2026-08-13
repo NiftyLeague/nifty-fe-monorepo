@@ -5,6 +5,10 @@ const responsiveTableList = 'apps/app/src/components/ResponsiveTable/DataList.ts
 const appManifest = 'apps/app/package.json'
 const appRootLayout = 'apps/app/src/app/layout.tsx'
 const bridgeDialog = 'apps/app/src/components/dialog/BridgeButtonDialog/index.tsx'
+const appSectionSlider = 'apps/app/src/components/sections/SectionSlider.tsx'
+const sharedResponsiveCarousel = 'packages/ui/src/components/custom/responsive-carousel/index.tsx'
+const sharedResponsiveCarouselStyles =
+  'packages/ui/src/components/custom/responsive-carousel/responsive-carousel.module.css'
 const degenFilterUtils = 'apps/app/src/components/extended/DegensFilter/utils.ts'
 const privateShellIconSources = [
   'apps/app/src/app/_layout/_CollapsibleSidebarLayout/index.tsx',
@@ -39,11 +43,26 @@ const appIconRegistrySources = [
   'apps/app/src/components/dialog/DegenDialog/RentDegenContentDialog.tsx',
   'apps/app/src/components/dialog/DialogActions.tsx',
   'apps/app/src/components/dialog/WithdrawButtonDialog/WithdrawSuccess.tsx',
-  'apps/app/src/components/pagination/PaginationIconOnly.tsx',
   'apps/smashers/src/app/(auth_routes)/profile/ProfileClient.tsx',
 ]
 
 describe('app performance contracts', () => {
+  it('shares the accessible native carousel and keeps the app free of slider runtimes', () => {
+    const sectionSlider = readFileSync(appSectionSlider, 'utf8')
+    const sharedCarousel = readFileSync(sharedResponsiveCarousel, 'utf8')
+    const sharedCarouselStyles = readFileSync(sharedResponsiveCarouselStyles, 'utf8')
+    const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
+
+    expect(sectionSlider).toContain("from '@nl/ui/custom/responsive-carousel'")
+    expect(sectionSlider).not.toContain('react-slick')
+    expect(sectionSlider).not.toContain('slick-carousel')
+    expect(sharedCarousel).toContain('aria-roledescription="carousel"')
+    expect(sharedCarouselStyles).toContain('scroll-snap-type: x mandatory')
+    expect(manifest.dependencies?.['react-slick']).toBeUndefined()
+    expect(manifest.dependencies?.['slick-carousel']).toBeUndefined()
+    expect(manifest.devDependencies?.['@types/react-slick']).toBeUndefined()
+  })
+
   it('defers third-party device telemetry until the page has loaded', () => {
     const source = readFileSync(appRootLayout, 'utf8')
 
