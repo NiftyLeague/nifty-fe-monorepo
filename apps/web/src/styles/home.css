@@ -1,5 +1,27 @@
 /* ==============================|| HOME PG ||============================== */
 
+/* Web-only animation rules stay out of the shared UI stylesheet so the app and
+ * Smashers bundles do not carry marketing-only keyframes or asset references. */
+.animate-propeller {
+  animation: propeller 0.5s ease infinite;
+}
+
+@keyframes propeller {
+  0%,
+  100% {
+    background-image: url('/img/hero/companion-anim1.webp');
+  }
+  25% {
+    background-image: url('/img/hero/companion-anim2.webp');
+  }
+  50% {
+    background-image: url('/img/hero/companion-anim3.webp');
+  }
+  75% {
+    background-image: url('/img/hero/companion-anim4.webp');
+  }
+}
+
 .home-intro {
   position: relative;
 }

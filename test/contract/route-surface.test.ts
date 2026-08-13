@@ -183,6 +183,7 @@ const viewportVideoBoundary =
 const viewportVideoEnhancer =
   'packages/ui/src/components/custom/viewport-video/ViewportVideoEnhancer.tsx'
 const deferredWeb3GameList = 'apps/app/src/app/(public-routes)/games/DeferredWeb3GameList.tsx'
+const publicGamesGridStyles = 'apps/app/src/app/(public-routes)/games/grid-item.module.css'
 const staleDownloadGameDialog = 'apps/app/src/components/dialog/DownloadGameDialog.tsx'
 const gameCard = 'apps/app/src/components/cards/GameCard.tsx'
 const smashersLoginClient = 'apps/smashers/src/app/(auth_routes)/login/LoginClient.tsx'
@@ -1818,6 +1819,56 @@ describe('public route dependency contract', () => {
 
     expect(existsSync(join(process.cwd(), staleDownloadGameDialog))).toBe(false)
     expect(list).not.toContain('DownloadGameDialog')
+  })
+
+  it('shares one responsive grid style across the public game lists', () => {
+    const gridStyles = readFileSync(join(process.cwd(), publicGamesGridStyles), 'utf8')
+    const freeToPlayList = readFileSync(
+      join(process.cwd(), 'apps/app/src/app/(public-routes)/games/_GameList/index.tsx'),
+      'utf8'
+    )
+    const web3List = readFileSync(
+      join(process.cwd(), 'apps/app/src/app/(public-routes)/games/_Web3GameList/index.tsx'),
+      'utf8'
+    )
+
+    expect(freeToPlayList).toContain("from '../grid-item.module.css'")
+    expect(web3List).toContain("from '../grid-item.module.css'")
+    expect(gridStyles).toContain('@media (max-width: 639.95px)')
+    expect(
+      existsSync(
+        join(process.cwd(), 'apps/app/src/app/(public-routes)/games/_GameList/grid-item.module.css')
+      )
+    ).toBe(false)
+    expect(
+      existsSync(
+        join(
+          process.cwd(),
+          'apps/app/src/app/(public-routes)/games/_Web3GameList/grid-item.module.css'
+        )
+      )
+    ).toBe(false)
+  })
+
+  it('keeps Web-only animation rules out of the shared UI stylesheet', () => {
+    const sharedAnimations = readFileSync(
+      join(process.cwd(), 'packages/ui/src/styles/05_tailwind.animate.css'),
+      'utf8'
+    )
+    const webAppStyles = readFileSync(join(process.cwd(), 'apps/web/src/styles/app.css'), 'utf8')
+    const webMarketingStyles = readFileSync(
+      join(process.cwd(), 'apps/web/src/styles/marketing.css'),
+      'utf8'
+    )
+    const webStyles = readFileSync(join(process.cwd(), 'apps/web/src/styles/home.css'), 'utf8')
+
+    expect(sharedAnimations).not.toContain('animate-propeller')
+    expect(sharedAnimations).not.toContain('.sliding-nfts')
+    expect(sharedAnimations).not.toContain('slideBg')
+    expect(webStyles).toContain('.animate-propeller')
+    expect(webAppStyles).toContain("@import './marketing.css'")
+    expect(webMarketingStyles).toContain('.sliding-nfts')
+    expect(webMarketingStyles).toContain('slideBg')
   })
 
   it('keeps dashboard-only card actions in a private wrapper', () => {
