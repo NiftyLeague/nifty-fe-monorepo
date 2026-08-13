@@ -1,8 +1,15 @@
 import { describe, expect, it } from 'bun:test'
 import { mock } from 'bun:test'
 import { BURN_ADDYS } from '@/constants/addresses'
+import { HYDRA_RARITIES } from '@/constants/hydra-rarities'
+import { HYDRAS } from '@/constants/hydras'
 import DEFAULT_STATIC_FILTER from './constants'
-import { getDefaultFilterValueFromData, tranformDataByFilter, updateFilterValue } from './utils'
+import {
+  applySeventhTribesFix,
+  getDefaultFilterValueFromData,
+  tranformDataByFilter,
+  updateFilterValue,
+} from './utils'
 
 const degen = {
   id: '42',
@@ -119,6 +126,36 @@ describe('filter state helpers', () => {
       getDefaultFilterValueFromData([{ price: 8 }, { price: 2 }, { price: 14 }] as never)
     ).toMatchObject({
       prices: [2, 14],
+    })
+  })
+})
+
+describe('seventh tribe compatibility', () => {
+  it('keeps the client-safe rarity map aligned with full Hydra metadata', () => {
+    expect(HYDRA_RARITIES).toEqual(
+      Object.fromEntries(Object.entries(HYDRAS).map(([id, hydra]) => [id, hydra.rarity]))
+    )
+  })
+
+  it('preserves existing tokens and maps Hydra rarity edge cases', () => {
+    const original = { id: '9900', background: 'Original', tribe: 'ape' } as Degen
+
+    expect(applySeventhTribesFix(original)).toBe(original)
+    expect(applySeventhTribesFix({ id: '9901' } as Degen)).toMatchObject({
+      background: 'Meta',
+      tribe: 'hydra',
+    })
+    expect(applySeventhTribesFix({ id: '9924' } as Degen)).toMatchObject({
+      background: 'Legendary',
+      tribe: 'hydra',
+    })
+    expect(applySeventhTribesFix({ id: '9999' } as Degen)).toMatchObject({
+      background: 'Meta',
+      tribe: 'rugman',
+    })
+    expect(applySeventhTribesFix({ id: '10000' } as Degen)).toMatchObject({
+      background: 'Meta',
+      tribe: 'satoshi',
     })
   })
 })

@@ -7,8 +7,10 @@ import type {
   ProfileTotal,
 } from '@/types/account'
 import type { Degen } from '@/types/degens'
+import { toPublicDegen } from '@/utils/public-degens'
 import {
   DEGEN_BASE_API_URL,
+  PUBLIC_DEGENS_API_URL,
   GET_GAMER_PROFILE_API,
   MY_PROFILE_API_URL,
   PROFILE_FAV_DEGENS_API,
@@ -178,6 +180,7 @@ export const AUDIT_FIXTURE_PROFILE: Profile = {
 
 export function getAuditFixtureData(url: string): unknown {
   if (!isAuditFixtureEnabled) return undefined
+  if (url === PUBLIC_DEGENS_API_URL) return auditDegenList.map((degen) => toPublicDegen(degen))
   if (url === `${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`) return AUDIT_FIXTURE_DEGENS
   if (url === PROFILE_FAV_DEGENS_API) return { favorites: '' }
   if (url === GET_GAMER_PROFILE_API || url === MY_PROFILE_API_URL) return AUDIT_FIXTURE_PROFILE

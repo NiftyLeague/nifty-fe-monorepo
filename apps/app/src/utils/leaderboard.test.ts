@@ -20,15 +20,16 @@ beforeEach(async () => {
       user_id: userId,
       stats: { earnings: '12.5', matches: '5', kills: '3', ...stats },
     })
-    return {
-      LEADERBOARDS: {
-        smashers: {
-          win_rate: [row('0.75', 'user-1')],
-          earnings: [row('99.1', 'user-2')],
-          kills: [row('11', 'user-3')],
-          score: [row('4', 'user-4', { earnings: '', matches: '' })],
-        },
+    const leaderboards: Record<string, Record<string, ReturnType<typeof row>[]>> = {
+      smashers: {
+        win_rate: [row('0.75', 'user-1')],
+        earnings: [row('99.1', 'user-2')],
+        kills: [row('11', 'user-3')],
+        score: [row('4', 'user-4', { earnings: '', matches: '' })],
       },
+    }
+    return {
+      loadLeaderboard: async (gameType: string) => leaderboards[gameType],
     }
   })
 

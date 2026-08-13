@@ -42,11 +42,11 @@ docs/*  test/*  refactor/*         │              │
                                    └── integration branch
 ```
 
-| Branch                                                         | Purpose                  | Contribution rule                                                         |
-| -------------------------------------------------------------- | ------------------------ | ------------------------------------------------------------------------- |
-| `main`                                                         | Protected release branch | Merge through the `staging` → `main` release PR. No direct pushes.        |
-| `staging`                                                      | Integration branch       | Target normal pull requests here. Required checks must pass before merge. |
-| `feat/*`, `fix/*`, `chore/*`, `refactor/*`, `docs/*`, `test/*` | Focused work             | Branch from `staging`; keep changes small and reviewable.                 |
+| Branch                                                                    | Purpose                  | Contribution rule                                                         |
+| ------------------------------------------------------------------------- | ------------------------ | ------------------------------------------------------------------------- |
+| `main`                                                                    | Protected release branch | Merge through the `staging` → `main` release PR. No direct pushes.        |
+| `staging`                                                                 | Integration branch       | Target normal pull requests here. Required checks must pass before merge. |
+| `feat/*`, `fix/*`, `chore/*`, `refactor/*`, `docs/*`, `test/*`, `codex/*` | Focused work             | Branch from `staging`; keep changes small and reviewable.                 |
 
 The Git workflow is `staging-release`: topic branches **squash** into `staging`, a promotion PR **rebases** validated changes into `main` (`merge_strategy: rebase`), and the Release Please version PR **rebases** into `main` (`release_merge_strategy: rebase`). Release automation never defaults to a merge method and never merges with `--admin`; `code-foundry doctor` and `code-foundry sync` fail closed on any other merge strategy. Re-align `staging` with `main` after a release when needed.
 
@@ -164,7 +164,7 @@ Keep pull requests focused and reviewable. Include screenshots or recordings for
 | Push to `staging`                                  | Promotion PR workflow; canonical validation waits for the PR event                     |
 | Push to `main`                                     | Release workflow; canonical validation already ran on the merged PR                    |
 
-The single validation caller keys concurrency by event and pull-request head. A newer update to the same pull request cancels its superseded validation run; scheduled and manual audits remain independent. The mode-aware orchestrator fans out only the jobs required by that event and always concludes with the stable aggregate gate.
+The single validation caller keys concurrency by pull request. A newer update to the same pull request—including conversion back to draft—cancels its superseded validation run; scheduled and manual audits remain independent. The mode-aware orchestrator fans out only the jobs required by that event and always concludes with the stable aggregate gate.
 
 Draft feature work is intentionally cost-aware: local validation is the feedback loop while a pull request is draft. Marking the pull request ready for review starts hosted validation. Vercel projects disable Git-triggered deployments and ignore builds for every feature branch through the versioned `git.deploymentEnabled` and `ignoreCommand` policies in `apps/*/vercel.json`; Vercel builds run on `staging` and `main`, while manual deployments remain available.
 If a ready pull request is returned to draft, its in-flight hosted validation is cancelled and no replacement validation starts until it is ready again.

@@ -1,5 +1,3 @@
-import { immutableZkEvm } from 'viem/chains'
-import { getContractAddress, NFTL_IMX_CONTRACT } from './contracts'
 import {
   BASE_API_URL,
   DEGEN_BASE_API_URL,
@@ -20,7 +18,7 @@ export {
   PROFILE_RENAME_API,
   WALLET_VERIFICATION,
 } from './auth-urls'
-export { DEGEN_PURCHASE_URL } from './public-urls'
+export { DEGEN_PURCHASE_URL, NFTL_PURCHASE_URL } from './public-urls'
 
 const NEXT_PUBLIC_NETWORK = process.env.NEXT_PUBLIC_NETWORK as string
 
@@ -58,12 +56,6 @@ export const GET_PRODUCT = (productId: string, currency: string) =>
 // Leaderboards
 export const GET_RANK_BY_USER_ID_API = `${BASE_API_URL}/GetRank`
 export const LEADERBOARD_USERNAMES_API_URL = `${BASE_API_URL}/profiles/public/profiles`
-
-// QUICKSWAP URL FOR NFTL PURCHASE
-export const NFTL_PURCHASE_URL = `https://quickswap.exchange/#/analytics/v3/token/${getContractAddress(
-  immutableZkEvm.id,
-  NFTL_IMX_CONTRACT
-)}`
 
 // DEGEN URLs
 export const DEGEN_COLLECTION_URL = 'https://opensea.io/collection/niftydegen'

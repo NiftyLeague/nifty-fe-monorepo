@@ -4,12 +4,12 @@ import { useEffect, useState, type ComponentType } from 'react'
 
 import { Button } from '@nl/ui/base/button'
 
-import type { Degen } from '@/types/degens'
+import type { PublicDegen } from '@/types/degens'
 import DeferredDialogLoading from './DeferredDialogLoading'
 
 interface PublicDegenDialogProps {
   open: boolean
-  degen?: Degen
+  degen?: Pick<PublicDegen, 'id' | 'name' | 'owner' | 'traits_string'>
   onClose: () => void
 }
 

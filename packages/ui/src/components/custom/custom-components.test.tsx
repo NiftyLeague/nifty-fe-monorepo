@@ -156,7 +156,7 @@ describe('Navbar', () => {
     },
   ]
 
-  it('renders active desktop, grouped, external, action, and mobile links', () => {
+  it('renders desktop, grouped, external, action, and mobile links', () => {
     render(
       <Navbar
         navItems={navItems}
@@ -165,9 +165,7 @@ describe('Navbar', () => {
     )
 
     expect(screen.getByRole('img', { name: 'Home' })).not.toBeNull()
-    expect(screen.getAllByRole('link', { name: /About/ })[0]?.getAttribute('data-active')).toBe(
-      'true'
-    )
+    expect(screen.getAllByRole('link', { name: /About/ })[0]?.getAttribute('href')).toBe('/about')
     fireEvent.click(screen.getByText('Products'))
     expect(screen.getAllByRole('link', { name: /Docs/ })[0]?.getAttribute('target')).toBe('_blank')
     expect(screen.getByRole('link', { name: 'Game' })?.getAttribute('rel')).toBe('noreferrer')

@@ -11,11 +11,11 @@ import {
 } from '@nl/ui/base/dialog'
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
 import { DEGEN_PURCHASE_URL } from '@/constants/public-urls'
-import type { Degen } from '@/types/degens'
+import type { PublicDegen } from '@/types/degens'
 
 interface PublicDegenDialogProps {
   open: boolean
-  degen?: Degen
+  degen?: Pick<PublicDegen, 'id' | 'name' | 'owner' | 'traits_string'>
   onClose: () => void
 }
 

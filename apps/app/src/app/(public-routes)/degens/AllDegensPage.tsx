@@ -18,12 +18,11 @@ import {
   applySeventhTribesFix,
 } from '@/components/extended/DegensFilter/utils'
 import SectionTitle from '@/components/sections/SectionTitle'
-import { DEGEN_BASE_API_URL } from '@/constants/api'
+import { PUBLIC_DEGENS_API_URL } from '@/constants/api'
 import useFetch from '@/hooks/useFetch'
 import usePagination from '@/hooks/usePagination'
-import { hasEntries } from '@/utils/collections'
 import type { DegenFilter } from '@/types/degenFilter'
-import type { Degen } from '@/types/degens'
+import type { PublicDegen } from '@/types/degens'
 import DegensTopNav from '@/components/extended/DegensTopNav'
 import DeferredDegenCard from '@/components/providers/DeferredDegenCard'
 import DeferredDegensFilter from '@/components/providers/DeferredDegensFilter'
@@ -33,60 +32,46 @@ import DegenSearchParamsBoundary from './DegenSearchParamsBoundary'
 const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'))
 
 const AllDegensPage = (): React.ReactNode => {
-  const [degens, setDegens] = useState<Degen[]>([])
   // Start closed so mobile does not push the first card below the fold before the
   // responsive drawer effect runs. The layout opens it after mount on desktop.
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [filters, setFilters] = useState<DegenFilter>(DEFAULT_STATIC_FILTER)
-  const [defaultValues, setDefaultValues] = useState<DegenFilter | undefined>()
-  const [filteredData, setFilteredData] = useState<Degen[]>([])
-  const [selectedDegen, setSelectedDegen] = useState<Degen>()
+  const [selectedDegen, setSelectedDegen] = useState<PublicDegen>()
   const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false)
   const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined)
   const [searchParams, setSearchParams] = useState<Record<string, string>>({})
   const [layoutMode, setLayoutMode] = useState<string>('gridView')
 
-  const { data } = useFetch<{ [id: number]: Degen }>(
-    `${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`
+  const { data } = useFetch<PublicDegen[]>(PUBLIC_DEGENS_API_URL)
+
+  const originalDegens = useMemo(() => {
+    if (!data?.length) return []
+
+    return data.map(applySeventhTribesFix)
+  }, [data])
+
+  const defaultValues = useMemo(
+    () => (originalDegens.length ? getDefaultFilterValueFromData(originalDegens) : undefined),
+    [originalDegens]
   )
-
-  const originalDegens: Degen[] = useMemo(() => {
-    if (!data || !Object.values(data).length) return []
-
-    return Object.values(data).map(applySeventhTribesFix)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [!!data])
 
   const isMobile = useMediaQuery('(max-width:640px)')
   const isSmallScreen = useMediaQuery('(max-width:1280px)')
-  const { jump, dataForCurrentPage, maxPage, currentPage, pageItems } = usePagination<Degen>(
+  const filteredData = useMemo(
+    () => tranformDataByFilter(originalDegens, filters),
+    [filters, originalDegens]
+  )
+  const { jump, dataForCurrentPage, maxPage, currentPage, pageItems } = usePagination<PublicDegen>(
     filteredData,
     !isSmallScreen && layoutMode !== 'gridView' && !isDrawerOpen ? 18 : DEGENS_PER_PAGE
   )
 
   useEffect(() => {
-    if (!originalDegens?.length) return
-    setDefaultValues(getDefaultFilterValueFromData(originalDegens))
-    // Filter out rent disabled degens in Feed
-    setDegens(originalDegens)
-    const params = searchParams
-    let newDegens = originalDegens
-    if (hasEntries(params)) {
-      if (params.searchTerm) setSearchTerm(params.searchTerm)
-      const newFilterOptions = updateFilterValue(defaultValues, params)
-      if (newFilterOptions) {
-        setFilters(newFilterOptions)
-        newDegens = tranformDataByFilter(originalDegens, newFilterOptions)
-      }
-    }
-
-    setFilteredData(newDegens)
-
-    return () => {
-      setDegens([])
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [originalDegens, searchParams])
+    if (!originalDegens.length || !defaultValues) return
+    if (searchParams.searchTerm) setSearchTerm(searchParams.searchTerm)
+    const newFilterOptions = updateFilterValue(defaultValues, searchParams)
+    if (newFilterOptions) setFilters(newFilterOptions)
+  }, [defaultValues, originalDegens.length, searchParams])
 
   const handleSearchParamsChange = useCallback((nextSearchParams: Record<string, string>) => {
     setSearchParams(nextSearchParams)
@@ -107,25 +92,20 @@ const AllDegensPage = (): React.ReactNode => {
       // TODO: Remove temp filter overrides if we want to enable filter functionailty
       // by prices, rentals, or wearables. Temp hardcoded to empty to avoid rentals filtering
       const newFilters = { ...filter, prices: [], rentals: [], wearable: [], sort: filters.sort }
-      const result = tranformDataByFilter(degens, newFilters)
       setFilters(newFilters)
-      setFilteredData(result)
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [degens?.length, filters.sort]
+    [filters.sort]
   )
 
   const handleSort = useCallback(
     (sort: string) => {
       const newSort = { ...filters, sort }
       setFilters(newSort)
-      setFilteredData(tranformDataByFilter(degens, newSort))
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [degens?.length, filters]
+    [filters]
   )
 
-  const handleViewTraits = useCallback((degen: Degen): void => {
+  const handleViewTraits = useCallback((degen: PublicDegen): void => {
     setSelectedDegen(degen)
     setIsDegenModalOpen(true)
   }, [])
@@ -143,10 +123,10 @@ const AllDegensPage = (): React.ReactNode => {
 
   const renderDrawer = useCallback(
     () =>
-      hasEntries(defaultValues) && (
+      defaultValues && (
         <DeferredDegensFilter
           onFilter={handleFilter}
-          defaultFilterValues={defaultValues as DegenFilter}
+          defaultFilterValues={defaultValues}
           searchTerm={searchTerm}
         />
       ),
@@ -154,7 +134,7 @@ const AllDegensPage = (): React.ReactNode => {
   )
 
   const renderDegen = useCallback(
-    (degen: Degen) => (
+    (degen: PublicDegen) => (
       <div key={degen.id} className={getGridSizeClass(isGridView, isDrawerOpen)}>
         <DeferredDegenCard
           degen={degen}
@@ -190,7 +170,7 @@ const AllDegensPage = (): React.ReactNode => {
         </SectionTitle>
         {/* Main grid content */}
         <div className="grid grid-cols-12 gap-4 -mt-9">
-          {!degens?.length
+          {!originalDegens.length
             ? [...Array(8)].map(renderSkeletonItem)
             : dataForCurrentPage.map(renderDegen)}
         </div>
@@ -241,7 +221,7 @@ const AllDegensPage = (): React.ReactNode => {
     [
       currentPage,
       dataForCurrentPage,
-      degens?.length,
+      originalDegens.length,
       filteredData.length,
       isDrawerOpen,
       isMobile,

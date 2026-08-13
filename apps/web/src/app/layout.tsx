@@ -7,6 +7,7 @@ import { headerFont } from '@nl/ui/fonts/header'
 import { specialFont } from '@nl/ui/fonts/special'
 import { cn } from '@nl/ui/utils'
 
+import { sentryOptions } from '@/constants/sentry'
 import '@/styles/app.css'
 
 export const metadata: Metadata = {
@@ -66,15 +67,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       suppressHydrationWarning
       className={cn(defaultFont.variable, headerFont.variable, specialFont.variable, 'dark')}
     >
-      <DeferredSentry
-        enabled={process.env.VERCEL_ENV === 'production'}
-        options={{
-          dsn: 'https://97a944f1560b45018f013090ced577b3@o1377979.ingest.us.sentry.io/4504089815351296',
-          sendDefaultPii: true,
-          tracesSampleRate: 0.1,
-          debug: false,
-        }}
-      />
+      <DeferredSentry enabled={process.env.VERCEL_ENV === 'production'} options={sentryOptions} />
       <body suppressHydrationWarning>{children}</body>
     </html>
   )

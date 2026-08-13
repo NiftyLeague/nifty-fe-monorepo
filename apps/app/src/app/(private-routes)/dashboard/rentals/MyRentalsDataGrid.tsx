@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Pencil } from 'lucide-react'
+import { ChevronDown, ChevronUp, Pencil } from 'lucide-react'
 import { Button } from '@nl/ui/base/button'
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@nl/ui/base/dialog'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@nl/ui/base/select'
@@ -16,6 +16,7 @@ import useLocalStorage from '@/hooks/useLocalStorage'
 
 import DeferredDegenDialog from '@/components/providers/DeferredDegenDialog'
 import DeferredChangeNicknameDialog from '@/components/providers/DeferredChangeNicknameDialog'
+import { PaginationControls } from '@/components/pagination/PaginationControls'
 import { RentalDataGrid } from '@/types/rentalDataGrid'
 
 const RENTAL_COLUMN_VISIBILITY = 'rental-column-visibility-model'
@@ -459,31 +460,18 @@ const MyRentalsDataGrid = ({
             </Select>
             <span className="text-sm text-muted-foreground">Rows per page</span>
           </div>
-          <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              aria-label="Previous page"
-              onClick={handlePrevPage}
-              disabled={page === 0}
-              className="h-8 w-8 cursor-pointer p-0"
-            >
-              <ChevronLeft aria-hidden="true" absoluteStrokeWidth size={18} strokeWidth={1.5} />
-            </Button>
-            <span className="text-sm">
-              Page {page + 1} of {pageCount}
-            </span>
-            <Button
-              variant="ghost"
-              size="sm"
-              aria-label="Next page"
-              onClick={handleNextPage}
-              disabled={page === pageCount - 1 || sortedRows.length === 0}
-              className="h-8 w-8 cursor-pointer p-0"
-            >
-              <ChevronRight aria-hidden="true" absoluteStrokeWidth size={18} strokeWidth={1.5} />
-            </Button>
-          </div>
+          <PaginationControls
+            hasNext={page < pageCount - 1 && sortedRows.length > 0}
+            hasPrev={page > 0}
+            onClickNext={handleNextPage}
+            onClickPrev={handlePrevPage}
+            pageLabel={
+              <span className="text-sm">
+                Page {page + 1} of {pageCount}
+              </span>
+            }
+            buttonClassName="h-8 w-8 p-0"
+          />
         </div>
       </div>
 

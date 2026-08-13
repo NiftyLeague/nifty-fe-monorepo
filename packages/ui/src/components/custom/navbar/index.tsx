@@ -2,11 +2,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Fragment } from 'react'
 
-import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import { cn } from '@nl/ui/utils'
 
-import ActiveNavLink from './ActiveNavLink'
 import MobileNavTrigger from './MobileNavTrigger'
+import { NAV_LINK_CONTENT_CLASS, NavLinkContent } from './NavLinkContent'
 
 export interface NavPage {
   title: string
@@ -37,10 +36,29 @@ export interface NavbarProps {
 const DESKTOP_LINK_CLASS =
   'inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-3 py-2 text-lg font-bold uppercase outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none'
 
+function DesktopNavLink({
+  className,
+  description,
+  external,
+  href,
+  title,
+}: NavPage & { className?: string }) {
+  return (
+    <Link
+      href={href}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noreferrer' : undefined}
+      className={cn(NAV_LINK_CONTENT_CLASS, className)}
+    >
+      <NavLinkContent description={description} external={external} title={title} />
+    </Link>
+  )
+}
+
 function ListItem({ page }: { page: NavPage }) {
   return (
     <li>
-      <ActiveNavLink
+      <DesktopNavLink
         className="text-base font-medium"
         description={page.description}
         external={page.external}
@@ -84,7 +102,7 @@ function DropdownMenuItem({ group, pages }: GroupedMenuItemData) {
 function SingleMenuItem({ type: _type, ...page }: SingleMenuItemData) {
   return (
     <li>
-      <ActiveNavLink className={DESKTOP_LINK_CLASS} {...page} />
+      <DesktopNavLink className={DESKTOP_LINK_CLASS} {...page} />
     </li>
   )
 }

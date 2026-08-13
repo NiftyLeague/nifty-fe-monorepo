@@ -30,6 +30,24 @@ describe('home page', () => {
       default: ({ alt, priority, ...props }: ComponentProps<'img'> & { priority?: boolean }) => (
         <img alt={alt} data-priority={priority ? 'true' : undefined} {...props} />
       ),
+      getImageProps: ({
+        src,
+        alt,
+        width,
+        height,
+        sizes,
+        fetchPriority,
+      }: ComponentProps<'img'>) => ({
+        props: {
+          src,
+          alt,
+          width,
+          height,
+          sizes,
+          srcSet: `${src} 1x`,
+          fetchPriority,
+        },
+      }),
     }))
 
     const pageModule = await import('./page')
@@ -53,12 +71,21 @@ describe('home page', () => {
     expect(desktopLabel.className).toContain('responsive-label-desktop')
   })
 
-  it('preloads only the primary hero background image', () => {
+  it('keeps the selected hero background fetch high priority', () => {
     render(<Home />)
 
-    expect(document.querySelectorAll('[data-priority="true"]')).toHaveLength(1)
-    expect(document.querySelector('[data-priority="true"]')?.getAttribute('alt')).toBe(
-      'Nifty Home Banner'
+    const heroImage = document.querySelector('.home-intro-background img')
+    expect(heroImage?.getAttribute('fetchpriority')).toBe('high')
+    expect(heroImage?.getAttribute('loading')).toBe('eager')
+  })
+
+  it('uses an art-directed mobile source for the shared intro background', () => {
+    render(<Home />)
+
+    const mobileSource = document.querySelector('source[media="(max-width: 768px)"]')
+    expect(mobileSource?.getAttribute('srcset')).toContain('/img/backgrounds/banner-dark.webp')
+    expect(document.querySelector('.home-intro-background img')?.getAttribute('src')).toContain(
+      '/img/hero/bg.webp'
     )
   })
 })

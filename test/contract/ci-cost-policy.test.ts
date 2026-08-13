@@ -14,7 +14,19 @@ describe('hosted validation cost policy', () => {
     expect(source).toContain(
       "if: github.event_name != 'pull_request' || github.event.pull_request.draft != true"
     )
+    expect(source).toContain('github.event.pull_request.number')
+    expect(source).toContain('github.run_id')
+    expect(source).not.toContain(
+      'code-foundry-validation-${{ github.event_name }}-${{ github.event.pull_request.head.repo.full_name'
+    )
     expect(source).toContain('cancel-in-progress: true')
+  })
+
+  it('creates draft PRs for the repository codex branch convention', () => {
+    const source = readWorkflow('draft-pr.yml')
+
+    expect(source).toContain("      - 'codex/*'")
+    expect(source).toContain('base: staging')
   })
 
   it('keeps optional security scans off for drafts while supporting ready release PRs', () => {

@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 
-type SentryInitOptions = Parameters<(typeof import('@sentry/nextjs'))['init']>[0]
+import type { SentryInitOptions } from './client'
 
 interface DeferredSentryProps {
   enabled: boolean

@@ -1,8 +1,8 @@
 'use client'
 
-import { Button } from '@nl/ui/base/button'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { cn } from '@nl/ui/utils'
+
+import { PaginationControls } from '@/components/pagination/PaginationControls'
 
 import type { TablePaginationProps } from './types'
 
@@ -42,29 +42,18 @@ const Pagination: React.FC<PaginationProps> = ({
       )}
       style={TablePaginationProps?.style}
     >
-      <Button
-        variant="ghost"
-        size="icon"
-        className="cursor-pointer"
-        disabled={page === 0}
-        onClick={() => handleChangePage(null, Math.max(0, page - 1))}
-        aria-label="Previous page"
-      >
-        <ChevronLeft aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />
-      </Button>
-      <span className="text-sm text-muted-foreground">
-        Page {page + 1} of {totalPages}
-      </span>
-      <Button
-        variant="ghost"
-        size="icon"
-        className="cursor-pointer"
-        disabled={page + 1 >= totalPages}
-        onClick={() => handleChangePage(null, page + 1)}
-        aria-label="Next page"
-      >
-        <ChevronRight aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />
-      </Button>
+      <PaginationControls
+        hasNext={page + 1 < totalPages}
+        hasPrev={page > 0}
+        onClickNext={() => handleChangePage(null, page + 1)}
+        onClickPrev={() => handleChangePage(null, Math.max(0, page - 1))}
+        pageLabel={
+          <span className="text-sm text-muted-foreground">
+            Page {page + 1} of {totalPages}
+          </span>
+        }
+        iconSize={20}
+      />
     </Wrapper>
   )
 }

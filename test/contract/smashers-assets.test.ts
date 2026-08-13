@@ -2,6 +2,7 @@ import { describe, expect, it } from 'bun:test'
 import { readFileSync, statSync } from 'node:fs'
 
 const headerSource = 'apps/smashers/src/components/Header/index.tsx'
+const deferredBackgroundSource = 'apps/smashers/src/components/Header/DeferredHeroBackground.tsx'
 const gameSectionSource = 'apps/smashers/src/components/GameSection/index.tsx'
 
 const assets = [
@@ -18,10 +19,14 @@ describe('Smashers asset delivery contracts', () => {
 
   it('keeps WebP sources paired with GIF fallbacks in the consuming components', () => {
     const header = readFileSync(headerSource, 'utf8')
+    const deferredBackground = readFileSync(deferredBackgroundSource, 'utf8')
     const gameSection = readFileSync(gameSectionSource, 'utf8')
 
-    expect(header).toContain('background.webp')
-    expect(header).toContain('background.gif')
+    expect(header).toContain('DeferredHeroBackground')
+    expect(deferredBackground).toContain('background.webp')
+    expect(deferredBackground).toContain('background.gif')
+    expect(deferredBackground).toContain('smashers-poster.jpg')
+    expect(deferredBackground).toContain('requestIdleCallback')
     expect(gameSection).toContain('party_modes.webp')
     expect(gameSection).toContain('party_modes.gif')
   })

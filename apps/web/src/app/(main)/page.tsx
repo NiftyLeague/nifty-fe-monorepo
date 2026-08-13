@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image, { getImageProps } from 'next/image'
 
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 
@@ -21,21 +21,44 @@ const ResponsiveLabel = ({ mobile, desktop }: { mobile: string; desktop: string 
   </>
 )
 
+const ResponsiveIntroBackground = () => {
+  const commonProps = {
+    alt: '',
+    fetchPriority: 'high' as const,
+    sizes: '100vw',
+    quality: 75,
+  }
+  const { props: desktopBackground } = getImageProps({
+    ...commonProps,
+    src: '/img/hero/bg.webp',
+    width: 1920,
+    height: 1042,
+  })
+  const { props: mobileBackground } = getImageProps({
+    ...commonProps,
+    src: '/img/backgrounds/banner-dark.webp',
+    width: 2000,
+    height: 1000,
+  })
+
+  return (
+    <picture className="home-intro-background">
+      <source media="(max-width: 768px)" srcSet={mobileBackground.srcSet} />
+      <img
+        {...desktopBackground}
+        alt=""
+        loading="eager"
+        fetchPriority="high"
+        className="object-cover animate-zoom-out"
+      />
+    </picture>
+  )
+}
+
 const DesktopIntro = () => {
   return (
-    <section className="desktop relative w-screen max-h-screen overflow-hidden">
-      <div>
-        <div className="relative flex-grow home-banner animate-zoom-out">
-          <Image
-            src="/img/hero/bg.webp"
-            alt="Nifty Home Banner"
-            width={1920}
-            height={1042}
-            priority
-            sizes="100vw"
-            className="w-full h-auto"
-          />
-        </div>
+    <section className="desktop relative w-screen max-h-screen overflow-hidden home-desktop-intro">
+      <div className="relative h-full">
         <div className="absolute home-hero-characters-image flex-grow animate-zoom-out-large">
           <Image
             src="/img/hero/characters.webp"
@@ -168,8 +191,11 @@ const MobileIntro = () => {
 const Home = () => {
   return (
     <MainLayout classes={{ root: 'home-pg' }}>
-      <MobileIntro />
-      <DesktopIntro />
+      <div className="home-intro">
+        <ResponsiveIntroBackground />
+        <MobileIntro />
+        <DesktopIntro />
+      </div>
 
       {/* SMASHERS */}
       <section id="gaming-section" className="w-screen relative text-center">

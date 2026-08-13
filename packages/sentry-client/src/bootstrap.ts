@@ -1,5 +1,5 @@
 type ClientModule = typeof import('./client')
-type SentryInitOptions = Parameters<(typeof import('@sentry/nextjs'))['init']>[0]
+import type { SentryInitOptions } from './client'
 
 import { registerRouterTransitionCapture, type RouterTransitionArgs } from './router-bridge'
 
@@ -22,7 +22,9 @@ export function scheduleSentryInit(enabled: boolean, options: SentryInitOptions)
     routerCaptureRegistered = true
     registerRouterTransitionCapture((...args: RouterTransitionArgs) => {
       void loadClient()
-        .then(({ captureRouterTransitionStart }) => captureRouterTransitionStart(...args))
+        .then(({ captureRouterTransitionStart, initializeSentry }) =>
+          initializeSentry(options).then(() => captureRouterTransitionStart(...args))
+        )
         .catch(reportClientLoadError)
     })
   }
@@ -40,9 +42,9 @@ export function scheduleSentryInit(enabled: boolean, options: SentryInitOptions)
   }
 }
 
-export function captureException(error: unknown): void {
+export function captureException(error: unknown, options?: SentryInitOptions): void {
   void loadClient()
-    .then(({ captureException: capture }) => capture(error))
+    .then(({ captureException: capture }) => capture(error, options))
     .catch(reportClientLoadError)
 }
 
