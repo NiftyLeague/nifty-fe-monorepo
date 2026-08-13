@@ -1093,7 +1093,7 @@ describe('dashboard overview loading contract', () => {
     expect(boundarySource).toContain("dynamic(() => import('./DashboardOverviewClient')")
     expect(boundarySource).toContain('ssr: false')
     expect(boundarySource).toContain('<RouteLoading label="Loading dashboard overview" />')
-    expect(source).toContain('import DeferredDashboardSection')
+    expect(source).toContain("from '@nl/ui/custom/deferred-section'")
     expect(source).toContain("const loadMyComics = () => import('./MyComics')")
     expect(source).toContain("const loadMyItems = () => import('./MyItems')")
     expect(source).toContain("const loadMyDegens = () => import('./MyDegens')")
@@ -1104,32 +1104,25 @@ describe('dashboard overview loading contract', () => {
     expect(source).toContain("import('./MyDegens')")
     expect(source).toContain("import('./_MyNFTL')")
     expect(source).toContain("import('./MyStats')")
-    expect(source).toContain('<DeferredDashboardSection label="My Tokens" load={loadMyNFTL} />')
-    expect(source).toContain('<DeferredDashboardSection label="My DEGENs" load={loadMyDegens} />')
-    expect(source).toContain('<DeferredDashboardSection label="My Comics" load={loadMyComics} />')
-    expect(source).toContain('<DeferredDashboardSection label="My Items" load={loadMyItems} />')
-    expect(source).toContain('<DeferredDashboardSection label="My Stats" load={loadMyStats} />')
-    expect(nftlSource).toContain('DeferredDashboardSection')
+    expect(source).toContain('<DeferredSection label="My Tokens" load={loadMyNFTL} />')
+    expect(source).toContain('<DeferredSection label="My DEGENs" load={loadMyDegens} />')
+    expect(source).toContain('<DeferredSection label="My Comics" load={loadMyComics} />')
+    expect(source).toContain('<DeferredSection label="My Items" load={loadMyItems} />')
+    expect(source).toContain('<DeferredSection label="My Stats" load={loadMyStats} />')
+    expect(nftlSource).toContain("from '@nl/ui/custom/deferred-section'")
     expect(nftlSource).toContain("const loadArcadeBalance = () => import('./ArcadeBalance')")
     expect(nftlSource).toContain("import('./ArcadeBalance')")
     expect(nftlSource).toContain(
-      '<DeferredDashboardSection label="Arcade balance" load={loadArcadeBalance} />'
+      '<DeferredSection label="Arcade balance" load={loadArcadeBalance} />'
     )
   })
 
   it('uses themed shadcn skeletons while dashboard sections load', () => {
-    const adapterSource = readFileSync(
-      join(process.cwd(), 'apps/app/src/components/providers/DeferredDashboardSection.tsx'),
-      'utf8'
-    )
     const sharedSource = readFileSync(
       join(process.cwd(), 'packages/ui/src/components/custom/deferred-section/index.tsx'),
       'utf8'
     )
 
-    expect(adapterSource).toContain("from '@nl/ui/custom/deferred-section'")
-    expect(adapterSource).toContain('export const DashboardSectionLoading = DeferredSectionLoading')
-    expect(adapterSource).toContain('export default DeferredSection')
     expect(sharedSource).toContain("from '@nl/ui/base/skeleton'")
     expect(sharedSource).toContain('role="status"')
     expect(sharedSource).toContain('aria-live="polite"')

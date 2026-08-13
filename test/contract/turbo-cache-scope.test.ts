@@ -8,6 +8,10 @@ const turbo = JSON.parse(readFileSync('turbo.json', 'utf8')) as {
 
 const envFor = (task: string) => new Set(turbo.tasks[task]?.env ?? [])
 const dependenciesFor = (task: string) => turbo.tasks[task]?.dependsOn ?? []
+const packageJson = (path: string) =>
+  JSON.parse(readFileSync(path, 'utf8')) as {
+    scripts?: Record<string, string>
+  }
 
 describe('Turbo cache environment scope', () => {
   it('does not invalidate every workspace for app-specific credentials', () => {
@@ -64,6 +68,28 @@ describe('Turbo cache environment scope', () => {
     expect(turbo.tasks.transit).toBeUndefined()
     for (const task of ['lint', 'lint:fix', 'format', 'type-check', 'api#lint', 'api#type-check']) {
       expect(dependenciesFor(task)).not.toContain('transit')
+    }
+  })
+
+  it('does not wait on nonexistent source-package build tasks', () => {
+    for (const task of [
+      'build',
+      'api#build',
+      'app#build',
+      'docs#build',
+      'smashers#build',
+      'web#build',
+    ]) {
+      expect(dependenciesFor(task)).not.toContain('^build')
+    }
+
+    for (const packagePath of [
+      'packages/imx-passport/package.json',
+      'packages/playfab/package.json',
+      'packages/sentry-client/package.json',
+      'packages/ui/package.json',
+    ]) {
+      expect(packageJson(packagePath).scripts?.build).toBeUndefined()
     }
   })
 })

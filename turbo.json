@@ -5,17 +5,14 @@
   "globalEnv": ["CI", "VERCEL_ENV"],
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
       "outputs": ["dist/**"]
     },
     "app#build": {
-      "dependsOn": ["^build"],
       "env": ["CI", "NEXT_RUNTIME", "NEXT_PUBLIC_*", "SENTRY_AUTH_TOKEN", "VERCEL_ENV"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "api#build": {
-      "dependsOn": ["^build"],
       "env": [
         "NODE_CONFIG_TS_DIR",
         "PORT",
@@ -48,12 +45,10 @@
     },
     "docs#build": {
       "cache": false,
-      "dependsOn": ["^build"],
       "env": ["ALGOLIA_API_KEY", "ALGOLIA_APP_ID"],
       "outputs": ["build/**", ".docusaurus/**"]
     },
     "smashers#build": {
-      "dependsOn": ["^build"],
       "env": [
         "APPLE_CLIENT_ID",
         "APPLE_CLIENT_SECRET",
@@ -76,7 +71,6 @@
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "web#build": {
-      "dependsOn": ["^build"],
       "env": [
         "CI",
         "EDGE_CONFIG",
