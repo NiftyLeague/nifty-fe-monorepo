@@ -112,6 +112,8 @@ export interface GameCardProps {
   description?: string
   externalLink?: { title: string; src: string }
   image?: string
+  imageFetchPriority?: 'auto' | 'high' | 'low'
+  imageLoading?: 'eager' | 'lazy'
   isComingSoon?: boolean
   onPlayOnDesktopClick?: React.MouseEventHandler<HTMLButtonElement>
   onPlayOnWebClick?: React.MouseEventHandler<HTMLButtonElement>
@@ -128,6 +130,8 @@ const GameCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<GameCar
   description,
   externalLink,
   image,
+  imageFetchPriority = 'auto',
+  imageLoading = 'lazy',
   isComingSoon,
   onPlayOnDesktopClick,
   onPlayOnWebClick,
@@ -157,7 +161,8 @@ const GameCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<GameCar
             alt={title || 'Game artwork'}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-            loading="lazy"
+            loading={imageLoading}
+            fetchPriority={imageFetchPriority}
             className="object-cover"
           />
         )}
