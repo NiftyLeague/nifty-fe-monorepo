@@ -44,7 +44,7 @@ const AllDegensPage = (): React.ReactNode => {
   const [searchParams, setSearchParams] = useState<Record<string, string>>({})
   const [layoutMode, setLayoutMode] = useState<string>('gridView')
 
-  const { data } = useFetch<PublicDegen[]>(PUBLIC_DEGENS_API_URL)
+  const { data } = useFetch<PublicDegen[]>(PUBLIC_DEGENS_API_URL, { sharedCache: true })
 
   const originalDegens = useMemo(() => {
     if (!data?.length) return []

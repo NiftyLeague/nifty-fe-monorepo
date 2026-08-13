@@ -24,6 +24,13 @@ const sharedResponsiveCarousel = 'packages/ui/src/components/custom/responsive-c
 const sharedResponsiveCarouselStyles =
   'packages/ui/src/components/custom/responsive-carousel/responsive-carousel.module.css'
 const degenFilterUtils = 'apps/app/src/components/extended/DegensFilter/utils.ts'
+const useFetch = 'apps/app/src/hooks/useFetch.ts'
+const sharedCatalogConsumers = [
+  'apps/app/src/app/(public-routes)/degens/AllDegensPage.tsx',
+  'apps/app/src/app/(private-routes)/dashboard/degens/DashboardDegensContent.tsx',
+  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/GamerProfileContent.tsx',
+  'apps/app/src/app/(private-routes)/dashboard/overview/MyDegens.tsx',
+]
 const privateShellIconSources = [
   'apps/app/src/app/_layout/_CollapsibleSidebarLayout/index.tsx',
   'apps/app/src/app/_layout/_MainLayout/_Header/index.tsx',
@@ -201,5 +208,17 @@ describe('app performance contracts', () => {
 
     expect(source).toContain("from '@/constants/hydra-rarities'")
     expect(source).not.toContain("from '@/constants/hydras'")
+  })
+
+  it('deduplicates the repeated degen catalog request across app surfaces', () => {
+    const fetchSource = readFileSync(useFetch, 'utf8')
+
+    expect(fetchSource).toContain('sharedCache?: boolean')
+    expect(fetchSource).toContain('pendingRequests')
+    expect(fetchSource).toContain('SHARED_CACHE_TTL_MS')
+
+    for (const file of sharedCatalogConsumers) {
+      expect(readFileSync(file, 'utf8')).toContain('sharedCache: true')
+    }
   })
 })
