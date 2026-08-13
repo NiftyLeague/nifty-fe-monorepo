@@ -51,6 +51,13 @@ describe('app performance contracts', () => {
     expect(source).toContain('strategy="lazyOnload"')
   })
 
+  it('uses Turbopack for local app development', () => {
+    const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
+
+    expect(manifest.scripts.dev).toBe('next dev --turbopack --port 3001')
+    expect(manifest.scripts.dev).not.toContain('--webpack')
+  })
+
   it('loads the bridge form only after its dialog opens', () => {
     const source = readFileSync(bridgeDialog, 'utf8')
 
