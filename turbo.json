@@ -1,7 +1,7 @@
 {
   "$schema": "https://v2-10-9.turborepo.dev/schema.json",
   "ui": "tui",
-  "globalDependencies": ["apps/**/.env.*local", ".env"],
+  "globalDependencies": [".env"],
   "globalEnv": ["CI", "VERCEL_ENV"],
   "tasks": {
     "build": {
@@ -9,10 +9,12 @@
       "outputs": ["dist/**"]
     },
     "app#build": {
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
       "env": ["CI", "NEXT_RUNTIME", "NEXT_PUBLIC_*", "SENTRY_AUTH_TOKEN", "VERCEL_ENV"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "api#build": {
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
       "env": [
         "NODE_CONFIG_TS_DIR",
         "PORT",
@@ -44,10 +46,12 @@
       "outputs": ["dist/**", "api/.app/**", "api/config/**"]
     },
     "docs#build": {
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
       "env": ["ALGOLIA_API_KEY", "ALGOLIA_APP_ID"],
       "outputs": ["build/**", ".docusaurus/**"]
     },
     "smashers#build": {
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
       "env": [
         "APPLE_CLIENT_ID",
         "APPLE_CLIENT_SECRET",
@@ -70,6 +74,7 @@
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "web#build": {
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
       "env": [
         "CI",
         "EDGE_CONFIG",
