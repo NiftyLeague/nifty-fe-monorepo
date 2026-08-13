@@ -3,6 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, spyOn, jest } from 'bun:te
 import { mock } from 'bun:test'
 import { useCopyToClipboard } from './useCopyToClipboard'
 import { useMediaQuery } from './useMediaQuery'
+import { useOrientation } from './useOrientation'
 import { STATUS, useStopwatch } from './useStopwatch'
 import { useUserAgent } from './useUserAgent'
 
@@ -134,6 +135,41 @@ describe('useStopwatch', () => {
     expect(
       [onStart, onPause, onRestart, onStop].every((callback) => callback.mock.calls.length === 1)
     ).toBe(true)
+  })
+})
+
+describe('useOrientation', () => {
+  it('maps portrait media changes to the shared media-query state', () => {
+    let listener: (() => void) | undefined
+    const media = {
+      matches: false,
+      addEventListener: mock((_event: string, callback: () => void) => {
+        listener = callback
+      }),
+      removeEventListener: mock(),
+    }
+    const matchMedia = spyOn(window, 'matchMedia').mockReturnValue(media as never)
+    matchMedia.mockClear()
+    const hook = renderHook(() => useOrientation())
+
+    expect(hook.result.current).toEqual({
+      orientation: 'landscape',
+      isPortrait: false,
+      isLandscape: true,
+    })
+    expect(matchMedia).toHaveBeenCalledWith('(orientation: portrait)')
+
+    media.matches = true
+    act(() => listener?.())
+
+    expect(hook.result.current).toEqual({
+      orientation: 'portrait',
+      isPortrait: true,
+      isLandscape: false,
+    })
+
+    hook.unmount()
+    expect(media.removeEventListener).toHaveBeenCalledWith('change', expect.any(Function))
   })
 })
 
