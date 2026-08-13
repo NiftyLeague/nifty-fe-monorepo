@@ -4,11 +4,9 @@ import type { ComponentType } from 'react'
 import { useRef } from 'react'
 
 import { Skeleton } from '@nl/ui/base/skeleton'
+import { Button } from '@nl/ui/base/button'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
-
-import { buttonVariants } from '../../base/button-variants'
-import { cn } from '@nl/ui/utils'
 
 interface DeferredSectionProps {
   label: string
@@ -61,13 +59,9 @@ export function DeferredSection({
           role="alert"
         >
           <p>{label} could not be loaded.</p>
-          <button
-            type="button"
-            className={cn(buttonVariants({ variant: 'outline' }))}
-            onClick={retry}
-          >
+          <Button type="button" variant="outline" onClick={retry}>
             Retry
-          </button>
+          </Button>
         </div>
       ) : LoadedSection ? (
         <LoadedSection />
