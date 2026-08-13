@@ -4,7 +4,7 @@ import { join } from 'node:path'
 import { shouldBuild } from '../../scripts/vercel-ignore-build.mjs'
 
 const projectRoots = ['apps/web', 'apps/app', 'apps/smashers', 'apps/api', 'apps/docs']
-const deploymentEnabled = { '**': false, main: true, staging: true }
+const deploymentEnabled = { 'codex/*': false, '**': false, main: true, staging: true }
 const ignoreCommand = 'node ../../scripts/vercel-ignore-build.mjs'
 
 describe('Vercel build cost policy', () => {

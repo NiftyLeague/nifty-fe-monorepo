@@ -18,11 +18,11 @@ on:
 permissions: {}
 
 # Superseded PR updates cancel the previous run; converting a PR back to draft
-# also cancels any hosted validation that was already in progress. Schedule
-# and dispatch runs are keyed by event so periodic audits and manual runs stay
-# independent.
+# also cancels any hosted validation that was already in progress. All events
+# for the same pull request share one group, while scheduled and manual runs
+# stay independent.
 concurrency:
-  group: code-foundry-validation-${{ github.event_name }}-${{ github.event.pull_request.head.repo.full_name || github.repository }}-${{ github.event.pull_request.head.ref || github.ref_name }}
+  group: code-foundry-validation-${{ github.event.pull_request.number || format('{0}-{1}', github.event_name, github.run_id) }}
   cancel-in-progress: true
 
 jobs:

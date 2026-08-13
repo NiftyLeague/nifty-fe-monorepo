@@ -237,9 +237,12 @@ const gltfPage = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/page.tsx'
 const gltfClient = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViews.tsx'
 const gltfRouteBoundary =
   'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViewsRouteBoundary.tsx'
+const webViemClient = 'apps/web/src/lib/viemClient.ts'
+const webClaimableNFTL = 'apps/web/src/hooks/useClaimableNFTL.ts'
 const webNavbar = 'apps/web/src/components/Navbar/index.tsx'
 const sharedWebNavbar = 'packages/ui/src/components/custom/navbar/index.tsx'
 const sharedWebMobileNavbar = 'packages/ui/src/components/custom/navbar/MobileNavMenu.tsx'
+const sharedWebNavLinkContent = 'packages/ui/src/components/custom/navbar/NavLinkContent.tsx'
 const sharedWebMobileTrigger = 'packages/ui/src/components/custom/navbar/MobileNavTrigger.tsx'
 const sharedConsoleGame = 'packages/ui/src/components/custom/console-game/index.tsx'
 const sharedDeferredConsoleGame =
@@ -397,6 +400,26 @@ describe('GLTF viewer loading contract', () => {
     expect(clientSource).not.toContain("from 'next/image'")
     expect(clientSource).toContain("dynamic(() => import('./ModelView')")
     expect(clientSource).toContain('ssr: false')
+  })
+
+  it('preloads only the visible NFT artwork', () => {
+    const source = readFileSync(join(process.cwd(), gltfPage), 'utf8')
+
+    expect(source).toContain('priority\n          src={imageSrc}')
+    expect(source).not.toContain('className={styles.sprite}\n          fill\n          priority')
+    expect(source).not.toContain('quality={100}')
+  })
+
+  it('keeps accumulated NFTL reads available when the optional Infura variable is unavailable', () => {
+    const clientSource = readFileSync(join(process.cwd(), webViemClient), 'utf8')
+    const hookSource = readFileSync(join(process.cwd(), webClaimableNFTL), 'utf8')
+
+    expect(clientSource).toContain('NEXT_PUBLIC_INFURA_ID')
+    expect(clientSource).toContain('NEXT_PUBLIC_INFURA_PROJECT_ID')
+    expect(clientSource).toContain('ethereum-rpc.publicnode.com')
+    expect(clientSource).toContain('fallback(rpcTransports)')
+    expect(hookSource).toContain('args: [BigInt(tokenNumber)]')
+    expect(hookSource).toContain('if (!cancelled)')
   })
 })
 
@@ -1300,9 +1323,10 @@ describe('shared below-fold loading contract', () => {
     const source = readFileSync(join(process.cwd(), sharedDeferredSection), 'utf8')
 
     expect(source).toContain("from '@nl/ui/base/skeleton'")
-    expect(source).toContain("from '@nl/ui/base/button'")
-    expect(source).not.toContain("from '../../base/button-variants'")
-    expect(source).toContain('<Button')
+    expect(source).not.toContain("from '@nl/ui/base/button'")
+    expect(source).toContain("from '../../base/button-variants'")
+    expect(source).toContain('<button')
+    expect(source).toContain("buttonVariants({ variant: 'outline' })")
     expect(source).toContain('type="button"')
     expect(source).toContain("from '@nl/ui/hooks/useOnScreen'")
     expect(source).toContain('role="status"')
@@ -1382,15 +1406,25 @@ describe('web public navigation contract', () => {
     const sharedNavbarSource = readFileSync(join(process.cwd(), sharedWebNavbar), 'utf8')
     const mobileTriggerSource = readFileSync(join(process.cwd(), sharedWebMobileTrigger), 'utf8')
     const mobileNavbarSource = readFileSync(join(process.cwd(), sharedWebMobileNavbar), 'utf8')
+    const sharedNavLinkContentSource = readFileSync(
+      join(process.cwd(), sharedWebNavLinkContent),
+      'utf8'
+    )
 
     expect(navbarSource).not.toContain("'use client'")
     expect(navbarSource).toContain("from '@nl/ui/custom/navbar'")
-    expect(sharedNavbarSource).toContain("import ActiveNavLink from './ActiveNavLink'")
+    expect(sharedNavbarSource).not.toContain("import ActiveNavLink from './ActiveNavLink'")
+    expect(sharedNavbarSource).toContain('function DesktopNavLink')
     expect(sharedNavbarSource).toContain('navbar-scroll-frame')
     expect(sharedNavbarSource).not.toContain('useScrollDetection')
     expect(sharedNavbarSource).toContain('<details')
     expect(sharedNavbarSource).not.toContain("from '@nl/ui/base/navigation-menu'")
     expect(sharedNavbarSource).not.toContain("from '@nl/ui/base/sheet'")
+    expect(sharedNavbarSource).not.toContain("from './ActiveNavLink'")
+    expect(mobileNavbarSource).toContain("from './ActiveNavLink'")
+    expect(sharedNavbarSource).toContain("from './NavLinkContent'")
+    expect(sharedNavLinkContentSource).toContain('export function NavLinkContent')
+    expect(sharedNavLinkContentSource).toContain('NAV_LINK_CONTENT_CLASS')
     expect(mobileTriggerSource).toContain("import('./MobileNavMenu')")
     expect(mobileTriggerSource).toContain('ssr: false')
     expect(mobileTriggerSource).toContain("from '@nl/ui/base/icon-button'")
@@ -1573,6 +1607,7 @@ describe('deferred Sentry client contract', () => {
         expect(source).not.toContain('@nl/sentry-client/bootstrap')
       } else {
         expect(source).toContain("import('@nl/sentry-client/bootstrap')")
+        expect(source).toContain('sentryOptions')
       }
     })
   }
@@ -1595,7 +1630,41 @@ describe('deferred Sentry client contract', () => {
   })
 })
 
+describe('production-only Sentry server contract', () => {
+  it('keeps the web build wrapper lazy outside production', () => {
+    const source = readFileSync(join(process.cwd(), 'apps/web/next.config.ts'), 'utf8')
+
+    expect(source).not.toContain("import { withSentryConfig } from '@sentry/nextjs'")
+    expect(source).toContain("import('@sentry/nextjs')")
+    expect(source).toContain("process.env.VERCEL_ENV === 'production'")
+  })
+
+  it('keeps request-error capture lazy and production-gated', () => {
+    const source = readFileSync(join(process.cwd(), 'apps/web/src/instrumentation.ts'), 'utf8')
+
+    expect(source).not.toContain("import * as Sentry from '@sentry/nextjs'")
+    expect(source).toContain("import('@sentry/nextjs')")
+    expect(source).toContain("process.env.VERCEL_ENV !== 'production'")
+    expect(source).toContain('captureRequestError(...args)')
+  })
+})
+
 describe('public route dependency contract', () => {
+  it('keeps public purchase URLs independent from the contract registry', () => {
+    const source = readFileSync(join(process.cwd(), 'apps/app/src/constants/url.ts'), 'utf8')
+    const publicUrls = readFileSync(
+      join(process.cwd(), 'apps/app/src/constants/public-urls.ts'),
+      'utf8'
+    )
+
+    expect(source).not.toContain("from './contracts'")
+    expect(source).toContain(
+      "export { DEGEN_PURCHASE_URL, NFTL_PURCHASE_URL } from './public-urls'"
+    )
+    expect(publicUrls).toContain('0xB0d7e9Ff5fb8E739c4990f7920d8047AcfAe4884')
+    expect(publicUrls).toContain('NFTL_PURCHASE_URL')
+  })
+
   it('keeps game description disclosure server-rendered and keyboard accessible', () => {
     const source = readFileSync(join(process.cwd(), gameCard), 'utf8')
 

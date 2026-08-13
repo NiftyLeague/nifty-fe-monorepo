@@ -6,7 +6,7 @@
   "scripts": {
     "build": "NEXT_TYPESCRIPT_NO_AUTO_INSTALL=1 next build",
     "clean": "rm -rf node_modules && rm -rf .turbo && rm -rf .next",
-    "dev": "next dev --webpack --port 3001",
+    "dev": "next dev --turbopack --port 3001",
     "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\" --ignore-path ../../.gitignore",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
@@ -35,6 +35,7 @@
     "ethers": "^6.17.0",
     "graphql": "^17.0.2",
     "graphql-request": "^7.4.0",
+    "lucide-react": "^1.31.0",
     "next": "16.3.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
