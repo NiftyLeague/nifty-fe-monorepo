@@ -59,7 +59,7 @@ const ResponsiveIntroBackground = () => {
 const DesktopIntro = () => {
   return (
     <section className="desktop relative w-screen max-h-screen overflow-hidden home-desktop-intro">
-      <div className="relative h-full">
+      <div className="relative h-full w-full">
         <div className="absolute home-hero-characters-image flex-grow animate-zoom-out-large">
           <Image
             src="/img/hero/characters.webp"

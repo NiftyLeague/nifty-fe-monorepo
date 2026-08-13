@@ -85,6 +85,14 @@ describe('home page', () => {
     expect(heroImage?.getAttribute('loading')).toBe('eager')
   })
 
+  it('keeps the desktop hero artwork wrapper full width', () => {
+    render(<Home />)
+
+    expect(document.querySelector('.home-hero-characters-image')?.parentElement?.className).toContain(
+      'w-full'
+    )
+  })
+
   it('eagerly loads the above-the-fold hero call-to-action image', () => {
     render(<Home />)
 
