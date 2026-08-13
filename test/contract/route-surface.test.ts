@@ -1546,6 +1546,18 @@ describe('web marketing image sizing contract', () => {
       'src="/img/space/moon.webp"\n                alt="moon"\n                width={800}\n                height={800}\n                priority'
     )
   })
+
+  it('keeps the Community hero preload focused on its primary artwork', () => {
+    const communitySource = readFileSync(join(process.cwd(), webCommunityPage), 'utf8')
+
+    expect(communitySource).toContain('src="/img/space/moon-satoshi.webp"')
+    expect(communitySource).toContain(
+      'src="/img/space/moon-satoshi.webp"\n                alt="Satoshi moon"\n                width={445}\n                height={437}\n                priority'
+    )
+    expect(communitySource).not.toContain(
+      'src="/img/gradient/purple-light-grad.svg"\n                priority'
+    )
+  })
 })
 
 describe('web marketing animation boundary contract', () => {

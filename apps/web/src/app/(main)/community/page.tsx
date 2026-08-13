@@ -30,7 +30,6 @@ const Community: NextPage = () => {
             <div className={styles.moon_grad}>
               <Image
                 src="/img/gradient/purple-light-grad.svg"
-                priority
                 alt="gradient background"
                 width={685}
                 height={685}
