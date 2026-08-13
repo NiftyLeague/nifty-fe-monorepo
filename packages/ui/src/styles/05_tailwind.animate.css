@@ -81,33 +81,6 @@
     }
   }
 
-  /* ===== Bounce Animations ===== */
-  .animate-bounce-coin1 {
-    animation: coin-bounce 3s ease infinite;
-  }
-  .animate-bounce-coin2 {
-    animation: coin-bounce 3s ease infinite 0.5s;
-  }
-  .animate-bounce-coin3 {
-    animation: coin-bounce 3s ease infinite 1s;
-  }
-
-  @keyframes coin-bounce {
-    0%,
-    20%,
-    50%,
-    80%,
-    100% {
-      transform: translateY(0);
-    }
-    40% {
-      transform: translateY(-60px);
-    }
-    60% {
-      transform: translateY(-30px);
-    }
-  }
-
   /* ===== Hover Animation ===== */
   .animate-hover {
     animation: hover 4s ease infinite;

@@ -1988,9 +1988,13 @@ describe('public route dependency contract', () => {
     const webStyles = readFileSync(join(process.cwd(), 'apps/web/src/styles/home.css'), 'utf8')
 
     expect(sharedAnimations).not.toContain('animate-propeller')
+    expect(sharedAnimations).not.toContain('animate-bounce-coin')
     expect(sharedAnimations).not.toContain('.sliding-nfts')
     expect(sharedAnimations).not.toContain('slideBg')
     expect(webStyles).toContain('.animate-propeller')
+    expect(webStyles).toContain('.animate-bounce-coin1')
+    expect(webStyles).toContain('.animate-bounce-coin2')
+    expect(webStyles).toContain('.animate-bounce-coin3')
     expect(homePage).toContain("import '@/styles/marketing.css'")
     expect(communityPage).toContain("import '@/styles/marketing.css'")
     expect(webMarketingStyles).toContain('.sliding-nfts')
