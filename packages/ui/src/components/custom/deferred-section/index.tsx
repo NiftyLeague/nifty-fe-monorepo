@@ -3,8 +3,8 @@
 import type { ComponentType } from 'react'
 import { useRef } from 'react'
 
+import { buttonVariants } from '@nl/ui/base/button-variants'
 import { Skeleton } from '@nl/ui/base/skeleton'
-import { Button } from '@nl/ui/base/button'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 
@@ -59,9 +59,9 @@ export function DeferredSection({
           role="alert"
         >
           <p>{label} could not be loaded.</p>
-          <Button type="button" variant="outline" onClick={retry}>
+          <button type="button" className={buttonVariants({ variant: 'outline' })} onClick={retry}>
             Retry
-          </Button>
+          </button>
         </div>
       ) : LoadedSection ? (
         <LoadedSection />
