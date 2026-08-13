@@ -1013,12 +1013,23 @@ describe('private provider loading contract', () => {
 
   it('keeps AppKit UI initialization out of the eager auth shell', () => {
     const providerSource = readFileSync(join(process.cwd(), web3ModalContext), 'utf8')
+    const runtimeSource = readFileSync(
+      join(process.cwd(), 'apps/app/src/contexts/Web3ModalRuntime.tsx'),
+      'utf8'
+    )
     const fallbackSource = readFileSync(join(process.cwd(), walletProviderFallbacks), 'utf8')
     const authSource = readFileSync(join(process.cwd(), authTokenContext), 'utf8')
+    const authRuntimeSource = readFileSync(
+      join(process.cwd(), 'apps/app/src/contexts/AuthTokenProviderRuntime.tsx'),
+      'utf8'
+    )
     const modalSource = readFileSync(join(process.cwd(), walletModal), 'utf8')
 
-    expect(providerSource).toContain("import('./Web3ModalConfig')")
-    expect(providerSource).not.toContain("from './Web3ModalConfig'")
+    expect(providerSource).toContain("import('./Web3ModalRuntime')")
+    expect(providerSource).not.toContain("from 'wagmi'")
+    expect(providerSource).not.toContain("from '@tanstack/react-query'")
+    expect(runtimeSource).toContain("import('./Web3ModalConfig')")
+    expect(runtimeSource).toContain('WagmiProvider')
     expect(providerSource).not.toContain('createAppKit')
     expect(providerSource).not.toContain('@reown/appkit/react')
     expect(providerSource).not.toContain('@/constants/contracts')
@@ -1028,7 +1039,10 @@ describe('private provider loading contract', () => {
     expect(providerSource).toContain('Retry')
     expect(authSource).not.toContain('useAppKit')
     expect(authSource).not.toContain('useAppKitEvents')
-    expect(authSource).toContain('openWalletModal')
+    expect(authSource).not.toContain("from 'wagmi'")
+    expect(authSource).toContain("import('./AuthTokenProviderRuntime')")
+    expect(authRuntimeSource).toContain("from 'wagmi'")
+    expect(authRuntimeSource).toContain('openWalletModal')
     expect(modalSource).toContain("import('@reown/appkit/react')")
     expect(modalSource).toContain("import('@/constants/contracts')")
   })
@@ -1046,6 +1060,10 @@ describe('private provider loading contract', () => {
     const layoutSource = readFileSync(join(process.cwd(), privateShellLayout), 'utf8')
     const boundarySource = readFileSync(join(process.cwd(), privateShellBoundary), 'utf8')
     const shellSource = readFileSync(join(process.cwd(), privateShell), 'utf8')
+    const sidebarSource = readFileSync(
+      join(process.cwd(), 'apps/app/src/app/_layout/_MainLayout/_Sidebar/index.tsx'),
+      'utf8'
+    )
     const profileSource = readFileSync(join(process.cwd(), sidebarProfile), 'utf8')
 
     expect(layoutSource).toContain('PrivateRoutesBoundary')
@@ -1057,6 +1075,8 @@ describe('private provider loading contract', () => {
     expect(shellSource).toContain('MainLayout')
     expect(shellSource).toContain('Web3ModalProvider')
     expect(shellSource).toContain('AuthTokenProvider')
+    expect(sidebarSource).toContain("dynamic(() => import('./_UserProfile')")
+    expect(sidebarSource).toContain("dynamic(() => import('./_LogoutButton')")
     expect(profileSource).toContain('Open dashboard')
     expect(profileSource).toContain('<Button asChild className="w-full">')
     expect(profileSource).not.toContain('SidebarWalletActions')
