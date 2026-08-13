@@ -1,59 +1,63 @@
 'use client'
 
-import { createContext, useCallback, useRef, useEffect, type PropsWithChildren } from 'react'
-import { useAccount } from 'wagmi'
+import {
+  createContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ComponentType,
+  type PropsWithChildren,
+} from 'react'
 
 import type { AuthTokenContextType } from '@/types/auth'
 import { useAuthStatus } from '@/contexts/AuthStatusContext'
-import useCheckAuth from '@/hooks/useCheckAuth'
 import useLocalStorageContext from '@/hooks/useLocalStorageContext'
-import useSignAuthMsg from '@/hooks/useSignAuthMsg'
-import { DEBUG } from '@/constants/index'
 
 // ==============================|| JWT CONTEXT & PROVIDER ||============================== //
 
 const AuthTokenContext = createContext<AuthTokenContextType | null>(null)
 
+type AuthTokenRuntimeComponent = ComponentType<PropsWithChildren>
+
+const loadAuthTokenRuntime = () => import('./AuthTokenProviderRuntime')
+
+const openWalletModal = async () => {
+  const { openWalletModal: open } = await import('@/contexts/WalletModal')
+  await open()
+}
+
 export const AuthTokenProvider = ({ children }: PropsWithChildren) => {
-  const { isConnected } = useAccount()
   const { isLoggedIn } = useAuthStatus()
-  const { checkAddress } = useCheckAuth()
-  const { signMessage } = useSignAuthMsg()
   const { authToken } = useLocalStorageContext()
-  const msgSent = useRef(false)
-  const connectedRef = useRef(isConnected)
-
-  const signMsg = useCallback(async () => {
-    const initialized = await checkAddress()
-    if (!initialized) await signMessage()
-    msgSent.current = true
-  }, [checkAddress, signMessage])
-
-  const handleConnectWallet = useCallback(async () => {
-    if (!isConnected) {
-      const { openWalletModal } = await import('@/contexts/WalletModal')
-      await openWalletModal()
-      return
-    }
-    await signMsg()
-  }, [isConnected, signMsg])
+  const [Runtime, setRuntime] = useState<AuthTokenRuntimeComponent | null>(null)
 
   useEffect(() => {
-    const connected = connectedRef.current
-    connectedRef.current = isConnected
+    let active = true
 
-    if (!connected && isConnected && !isLoggedIn && msgSent.current === false) {
-      if (DEBUG) console.log('CONNECT_SUCCESS')
-      msgSent.current = true
-      void signMsg()
+    loadAuthTokenRuntime()
+      .then(({ default: nextRuntime }) => {
+        if (active) setRuntime(() => nextRuntime)
+      })
+      .catch(() => undefined)
+
+    return () => {
+      active = false
     }
-  }, [isConnected, isLoggedIn, signMsg])
+  }, [])
 
-  return (
-    <AuthTokenContext.Provider value={{ authToken, handleConnectWallet, isConnected, isLoggedIn }}>
-      {children}
-    </AuthTokenContext.Provider>
+  const fallbackValue = useMemo(
+    () => ({
+      authToken,
+      handleConnectWallet: openWalletModal,
+      isConnected: false,
+      isLoggedIn,
+    }),
+    [authToken, isLoggedIn]
   )
+
+  if (Runtime) return <Runtime>{children}</Runtime>
+
+  return <AuthTokenContext.Provider value={fallbackValue}>{children}</AuthTokenContext.Provider>
 }
 
 export default AuthTokenContext

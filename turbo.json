@@ -2,36 +2,17 @@
   "$schema": "https://v2-10-9.turborepo.dev/schema.json",
   "ui": "tui",
   "globalDependencies": ["apps/**/.env.*local", ".env"],
-  "globalEnv": [
-    "APPLE_CLIENT_ID",
-    "APPLE_CLIENT_SECRET",
-    "CI",
-    "FACEBOOK_CLIENT_ID",
-    "FACEBOOK_CLIENT_SECRET",
-    "GITHUB_ACTIONS",
-    "GOOGLE_CLIENT_ID",
-    "GOOGLE_CLIENT_SECRET",
-    "PLAYFAB_API_KEY",
-    "SENTRY_AUTH_TOKEN",
-    "SENTRY_ORG",
-    "SENTRY_PROJECT",
-    "TWITCH_CLIENT_ID",
-    "TWITCH_CLIENT_SECRET",
-    "VERCEL_ENV"
-  ],
+  "globalEnv": ["CI", "VERCEL_ENV"],
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
       "outputs": ["dist/**"]
     },
     "app#build": {
-      "dependsOn": ["^build"],
-      "env": ["NEXT_RUNTIME", "NEXT_PUBLIC_*"],
+      "env": ["CI", "NEXT_RUNTIME", "NEXT_PUBLIC_*", "SENTRY_AUTH_TOKEN", "VERCEL_ENV"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "api#build": {
-      "dependsOn": ["^build"],
       "env": [
         "NODE_CONFIG_TS_DIR",
         "PORT",
@@ -63,27 +44,46 @@
       "outputs": ["dist/**", "api/.app/**", "api/config/**"]
     },
     "docs#build": {
-      "cache": false,
-      "dependsOn": ["^build"],
       "env": ["ALGOLIA_API_KEY", "ALGOLIA_APP_ID"],
       "outputs": ["build/**", ".docusaurus/**"]
     },
     "smashers#build": {
-      "dependsOn": ["^build"],
-      "env": ["NEXT_RUNTIME", "NEXT_PUBLIC_*", "NEXTAUTH_SECRET"],
+      "env": [
+        "APPLE_CLIENT_ID",
+        "APPLE_CLIENT_SECRET",
+        "CI",
+        "FACEBOOK_CLIENT_ID",
+        "FACEBOOK_CLIENT_SECRET",
+        "GITHUB_ACTIONS",
+        "GOOGLE_CLIENT_ID",
+        "GOOGLE_CLIENT_SECRET",
+        "NEXT_PHASE",
+        "NEXT_RUNTIME",
+        "NEXT_PUBLIC_*",
+        "NEXTAUTH_SECRET",
+        "PLAYFAB_API_KEY",
+        "SENTRY_AUTH_TOKEN",
+        "TWITCH_CLIENT_ID",
+        "TWITCH_CLIENT_SECRET",
+        "VERCEL_ENV"
+      ],
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "web#build": {
-      "dependsOn": ["^build"],
-      "env": ["NEXT_RUNTIME", "NEXT_PUBLIC_*", "EDGE_CONFIG"],
+      "env": [
+        "CI",
+        "EDGE_CONFIG",
+        "NEXT_RUNTIME",
+        "NEXT_PUBLIC_*",
+        "SENTRY_AUTH_TOKEN",
+        "VERCEL_ENV"
+      ],
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "clean": { "cache": false },
-    "transit": { "dependsOn": ["^transit"] },
-    "lint": { "dependsOn": ["transit"], "env": ["NEXT_PUBLIC_VERCEL_ENV"] },
-    "lint:fix": { "dependsOn": ["transit"], "env": ["NEXT_PUBLIC_VERCEL_ENV"] },
+    "lint": { "env": ["NEXT_PUBLIC_VERCEL_ENV"] },
+    "lint:fix": { "env": ["NEXT_PUBLIC_VERCEL_ENV"] },
     "api#lint": {
-      "dependsOn": ["transit"],
       "env": [
         "NODE_CONFIG_TS_DIR",
         "PORT",
@@ -96,18 +96,15 @@
         "VERCEL_TOKEN"
       ]
     },
-    "format": { "dependsOn": ["transit"] },
-    "type-check": { "dependsOn": ["transit"] },
+    "format": {},
+    "type-check": {},
     "api#type-check": {
-      "dependsOn": ["transit"],
       "env": ["NODE_CONFIG_TS_DIR", "PORT", "VERCEL", "ETH_NETWORK", "WEBHOOK_SECRET"]
     },
     "test": {
-      "dependsOn": ["transit", "lint:fix", "format", "type-check"],
       "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"]
     },
     "api#test": {
-      "dependsOn": ["transit", "lint:fix", "format", "type-check"],
       "env": ["NODE_CONFIG_TS_DIR", "PORT", "VERCEL", "ETH_NETWORK", "WEBHOOK_SECRET"],
       "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"]
     },

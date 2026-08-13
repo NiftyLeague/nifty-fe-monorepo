@@ -1,7 +1,6 @@
 'use client'
 
-import Carousel from 'react-multi-carousel'
-import 'react-multi-carousel/lib/styles.css'
+import ResponsiveCarousel from '@nl/ui/custom/responsive-carousel'
 
 import type { NiftyCarouselProps } from './index'
 
@@ -13,34 +12,32 @@ const InteractiveCarousel = ({
   desktopItems = 4,
   superLargeDesktopItems = 5,
   hideGradient = false,
+  ariaLabel = 'Featured content',
 }: NiftyCarouselProps): React.ReactNode => (
   <>
-    <Carousel
-      arrows={isMobileViewOnly}
-      swipeable={isMobileViewOnly}
-      draggable={isMobileViewOnly}
-      showDots={isMobileViewOnly}
-      responsive={{
-        superLargeDesktop: { breakpoint: { max: 4000, min: 1500 }, items: superLargeDesktopItems },
-        desktop: { breakpoint: { max: 1500, min: 1024 }, items: desktopItems },
-        tablet: { breakpoint: { max: 1024, min: 615 }, items: tabletItems },
-        mobile: { breakpoint: { max: 615, min: 0 }, items: mobileItems },
-      }}
-      ssr={true}
-      infinite={true}
-      autoPlay={true}
+    <ResponsiveCarousel
+      ariaLabel={ariaLabel}
+      autoPlay
       autoPlaySpeed={isMobileViewOnly ? 4000 : 2000}
-      keyBoardControl={true}
-      transitionDuration={590}
-      containerClass="carousel-container"
-      removeArrowOnDeviceType={
-        isMobileViewOnly ? ['desktop', 'tablet'] : ['desktop', 'tablet', 'mobile']
-      }
-      dotListClass="custom-dot-list-style"
-      itemClass="py-0 px-5"
+      controlsOnMobileOnly={isMobileViewOnly}
+      infinite
+      mobileBreakpoint={615}
+      slidesToShow={mobileItems}
+      responsive={[
+        {
+          breakpoint: { max: 4000, min: 1500 },
+          settings: { slidesToShow: superLargeDesktopItems },
+        },
+        { breakpoint: { max: 1500, min: 1024 }, settings: { slidesToShow: desktopItems } },
+        { breakpoint: { max: 1024, min: 615 }, settings: { slidesToShow: tabletItems } },
+        { breakpoint: { max: 615, min: 0 }, settings: { slidesToShow: mobileItems } },
+      ]}
+      showControls={isMobileViewOnly}
+      showDots={isMobileViewOnly}
+      slidePadding="1.25rem"
     >
       {children}
-    </Carousel>
+    </ResponsiveCarousel>
     {!hideGradient && <div className="dark-gradient-overlay !top-[13%] !h-[82%]" />}
   </>
 )

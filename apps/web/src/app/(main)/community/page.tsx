@@ -3,6 +3,8 @@ import Image from 'next/image'
 
 import SocialCards from '@/components/SocialCards'
 
+import '@/styles/marketing.css'
+
 import styles from './index.module.css'
 
 const Community: NextPage = () => {
@@ -30,7 +32,6 @@ const Community: NextPage = () => {
             <div className={styles.moon_grad}>
               <Image
                 src="/img/gradient/purple-light-grad.svg"
-                priority
                 alt="gradient background"
                 width={685}
                 height={685}
@@ -47,7 +48,6 @@ const Community: NextPage = () => {
               width={1684}
               height={525}
               alt="Earth"
-              priority
               sizes="100vw"
               className="w-full h-auto"
             />

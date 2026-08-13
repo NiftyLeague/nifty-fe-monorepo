@@ -5,6 +5,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import dynamic from 'next/dynamic'
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@nl/ui/base/select'
+import { Button } from '@nl/ui/base/button'
 import { gtm, GTM_EVENTS } from '@nl/ui/gtm'
 import type { LeaderboardGame, TableType } from '@/types/leaderboard'
 import {
@@ -13,8 +14,6 @@ import {
   NiftySmashersTables,
 } from '@/constants/leaderboards'
 import './modal-table.css'
-
-import styles from './index.module.css'
 
 const EnhancedTable = dynamic(() => import('./EnhancedTable/EnhancedTableWithWallet'), {
   ssr: false,
@@ -113,14 +112,16 @@ export default function LeaderBoards(): React.ReactNode {
         )}
         <div className="flex">
           {timeFilters.map((item) => (
-            <button
+            <Button
               type="button"
               key={item.key}
-              className={styles.styledListItemButton}
+              variant="ghost"
+              size="sm"
+              className="h-auto rounded-none px-3 py-0.5"
               onClick={() => handleChangeTimeFilter(item.key)}
             >
               <span className="font-bold uppercase text-base text-inherit">{item.display}</span>
-            </button>
+            </Button>
           ))}
         </div>
       </div>

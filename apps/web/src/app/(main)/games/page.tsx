@@ -5,7 +5,7 @@ import { LazyYouTubeEmbed } from '@nl/ui/custom/lazy-youtube-embed'
 import { ViewportVideo } from '@nl/ui/custom/viewport-video'
 import { cn } from '@nl/ui/utils'
 
-import ThemeBtnGroup from '@/components/ThemeBtnGroup'
+import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 import { NIFTY_GAMES } from '@/constants/games'
 import styles from './index.module.css'
 
