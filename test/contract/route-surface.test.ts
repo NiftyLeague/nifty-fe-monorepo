@@ -237,6 +237,8 @@ const gltfPage = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/page.tsx'
 const gltfClient = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViews.tsx'
 const gltfRouteBoundary =
   'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViewsRouteBoundary.tsx'
+const webViemClient = 'apps/web/src/lib/viemClient.ts'
+const webClaimableNFTL = 'apps/web/src/hooks/useClaimableNFTL.ts'
 const webNavbar = 'apps/web/src/components/Navbar/index.tsx'
 const sharedWebNavbar = 'packages/ui/src/components/custom/navbar/index.tsx'
 const sharedWebMobileNavbar = 'packages/ui/src/components/custom/navbar/MobileNavMenu.tsx'
@@ -406,6 +408,18 @@ describe('GLTF viewer loading contract', () => {
     expect(source).toContain('priority\n          src={imageSrc}')
     expect(source).not.toContain('className={styles.sprite}\n          fill\n          priority')
     expect(source).not.toContain('quality={100}')
+  })
+
+  it('keeps accumulated NFTL reads available when the optional Infura variable is unavailable', () => {
+    const clientSource = readFileSync(join(process.cwd(), webViemClient), 'utf8')
+    const hookSource = readFileSync(join(process.cwd(), webClaimableNFTL), 'utf8')
+
+    expect(clientSource).toContain('NEXT_PUBLIC_INFURA_ID')
+    expect(clientSource).toContain('NEXT_PUBLIC_INFURA_PROJECT_ID')
+    expect(clientSource).toContain('ethereum-rpc.publicnode.com')
+    expect(clientSource).toContain('fallback(rpcTransports)')
+    expect(hookSource).toContain('args: [BigInt(tokenNumber)]')
+    expect(hookSource).toContain('if (!cancelled)')
   })
 })
 
