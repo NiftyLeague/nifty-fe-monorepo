@@ -48,7 +48,6 @@ const Community: NextPage = () => {
               width={1684}
               height={525}
               alt="Earth"
-              priority
               sizes="100vw"
               className="w-full h-auto"
             />

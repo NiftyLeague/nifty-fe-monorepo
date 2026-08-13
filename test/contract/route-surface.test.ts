@@ -1627,6 +1627,9 @@ describe('web marketing image sizing contract', () => {
       'src="/img/space/moon-satoshi.webp"\n                alt="Satoshi moon"\n                width={445}\n                height={437}\n                priority'
     )
     expect(communitySource).not.toContain(
+      'src="/img/space/earth-darkened.webp"\n              width={1684}\n              height={525}\n              alt="Earth"\n              priority'
+    )
+    expect(communitySource).not.toContain(
       'src="/img/gradient/purple-light-grad.svg"\n                priority'
     )
   })
