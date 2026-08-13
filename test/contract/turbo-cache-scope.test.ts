@@ -37,6 +37,7 @@ describe('Turbo cache environment scope', () => {
         'GITHUB_ACTIONS',
         'GOOGLE_CLIENT_ID',
         'GOOGLE_CLIENT_SECRET',
+        'NEXT_PHASE',
         'NEXT_RUNTIME',
         'NEXT_PUBLIC_*',
         'NEXTAUTH_SECRET',
