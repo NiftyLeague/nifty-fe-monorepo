@@ -17,6 +17,16 @@ export const tranformDataByFilter = <T extends PublicDegen>(
     walletAddress = [],
   }: DegenFilter
 ): T[] => {
+  const normalizedWalletAddress = walletAddress[0]?.toLowerCase()
+  const normalizedTokenId = tokenId[0]
+  const normalizedSearchTerm = searchTerm.length === 1 ? searchTerm[0]?.toLowerCase() : undefined
+  const normalizedTribes = new Set(tribes.map((tribe) => tribe.toLocaleLowerCase()))
+  const normalizedBackgrounds = new Set(
+    backgrounds.map((background) => background.toLocaleLowerCase())
+  )
+  const normalizedCosmetics = new Set(cosmetics)
+  const hasCosmeticsFilter = cosmetics.length > 0
+
   const result = degens.filter(
     ({
       background = '',
@@ -30,51 +40,43 @@ export const tranformDataByFilter = <T extends PublicDegen>(
       if (BURN_ADDYS.includes(owner)) return false
 
       if (
-        walletAddress?.length &&
-        walletAddress[0] &&
-        walletAddress[0].length > 26 &&
-        !(owner.toLowerCase() === walletAddress[0].toLowerCase())
+        normalizedWalletAddress &&
+        normalizedWalletAddress.length > 26 &&
+        owner.toLowerCase() !== normalizedWalletAddress
       ) {
         return false
       }
 
-      if (tokenId?.length && tokenId[0] && tokenId[0].length > 0 && !(id === tokenId[0])) {
+      if (normalizedTokenId && normalizedTokenId.length > 0 && id !== normalizedTokenId) {
         return false
       }
 
       if (
-        tribes.length > 0 &&
-        !tribes.find(
-          (trb: string) =>
-            tribe?.toLocaleLowerCase() === trb.toLocaleLowerCase() ||
-            // TODO: remove unnecessary check once fetch data is updated
-            (!tribe && trb.toLocaleLowerCase() === 'hydra')
-        )
+        normalizedTribes.size > 0 &&
+        !normalizedTribes.has(tribe?.toLocaleLowerCase() || (!tribe ? 'hydra' : ''))
       ) {
         return false
       }
 
       if (
-        backgrounds.length > 0 &&
-        !backgrounds.find(
-          (bg: string) => background?.toLocaleLowerCase() === bg.toLocaleLowerCase()
-        )
+        normalizedBackgrounds.size > 0 &&
+        !normalizedBackgrounds.has(background?.toLocaleLowerCase())
       ) {
         return false
       }
 
       if (
-        cosmetics.length > 0 &&
-        !cosmetics.some((cosmetic) => traits_string.split(',').includes(cosmetic))
+        hasCosmeticsFilter &&
+        !traits_string.split(',').some((trait) => normalizedCosmetics.has(trait))
       ) {
         return false
       }
 
       if (
-        searchTerm.length === 1 &&
+        normalizedSearchTerm &&
         !(
-          name?.toLowerCase().includes((searchTerm[0] as string).toLowerCase()) ||
-          id.toLocaleLowerCase().includes((searchTerm[0] as string).toLowerCase())
+          name?.toLowerCase().includes(normalizedSearchTerm) ||
+          id.toLocaleLowerCase().includes(normalizedSearchTerm)
         )
       ) {
         return false
