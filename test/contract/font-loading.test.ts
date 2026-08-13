@@ -52,4 +52,20 @@ describe('shared font loading contract', () => {
       expect(existsSync(join(fontDirectory, legacyAsset))).toBe(false)
     }
   })
+
+  it('does not ship an unused dedicated italic body font', () => {
+    const defaultFontSource = readFileSync(
+      join(process.cwd(), 'packages/ui/src/lib/fonts/default.ts'),
+      'utf8'
+    )
+
+    expect(defaultFontSource).toContain("src: './assets/ibm-plex-sans-400.woff2'")
+    expect(defaultFontSource).not.toContain('ibm-plex-sans-italic-400.woff2')
+    expect(defaultFontSource).not.toContain("style: 'italic'")
+    expect(
+      existsSync(
+        join(process.cwd(), 'packages/ui/src/lib/fonts/assets/ibm-plex-sans-italic-400.woff2')
+      )
+    ).toBe(false)
+  })
 })
