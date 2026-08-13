@@ -16,11 +16,7 @@ function DeferredSkeleton({ className, ...props }: ComponentProps<'div'>) {
   }
 
   return (
-    <div
-      data-slot="skeleton"
-      className={[...baseClasses, ...customClasses].join(' ')}
-      {...props}
-    />
+    <div data-slot="skeleton" className={[...baseClasses, ...customClasses].join(' ')} {...props} />
   )
 }
 
