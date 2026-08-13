@@ -4,26 +4,6 @@
   @apply !animate-none !transform-none !transition-none;
 }
 
-/* ===== Transition Delays ===== */
-@utility delay-lite {
-  @apply !delay-50 md:!delay-100;
-}
-@utility delay-normal {
-  @apply !delay-100 md:!delay-250;
-}
-@utility delay-long {
-  @apply !delay-250 md:!delay-500;
-}
-@utility delay-long-offset {
-  @apply !delay-350 md:!delay-600;
-}
-@utility delay-extreme {
-  @apply !delay-1000 md:!delay-2000;
-}
-@utility delay-extreme-offset {
-  @apply !delay-1200 md:!delay-2200;
-}
-
 @layer animations {
   /* ==============================|| TRANSITIONS ||============================== */
 
@@ -31,14 +11,8 @@
   .transition-fade {
     transition: opacity 1s ease-in-out;
   }
-  .transition-fade-quick {
-    transition: opacity 0.75s ease-in-out;
-  }
   .transition-fade-slow {
     transition: opacity 2s ease-in-out;
-  }
-  .transition-fade-start {
-    opacity: 0;
   }
 
   /* ===== Fade + Slide Down  ===== */
@@ -48,11 +22,6 @@
       opacity 2s ease-in-out,
       top 1s ease-in-out;
   }
-  .transition-vertical-fade-start {
-    top: -100px;
-    opacity: 0;
-  }
-
   /* ===== Pop Transitions ===== */
   .transition-quick-pop {
     transition:
@@ -60,11 +29,6 @@
       transform 1s;
     transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
-  .transition-quick-pop-start {
-    opacity: 0;
-    transform: scale(0);
-  }
-
   /* ===== Pop + Slide Right ===== */
   .transition-quick-pop-left {
     left: 0;
@@ -74,12 +38,6 @@
       left 0.3s;
     transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
-  .transition-quick-pop-left-start {
-    left: -100px;
-    opacity: 0;
-    transform: scale(0);
-  }
-
   /* ==============================|| ANIMATIONS ||============================== */
 
   /* ===== Blinking Animations ===== */
