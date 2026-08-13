@@ -137,6 +137,8 @@ const DesktopIntro = () => {
             width={348}
             height={108}
             sizes="407px"
+            loading="eager"
+            fetchPriority="high"
             className="w-full h-auto"
           />
           <p className="m-0 p-0 speech-bubble-text">Learn More!</p>
@@ -223,8 +225,8 @@ const Home = () => {
             <Image
               className="pixelated w-full h-auto max-w-[90vw] md:max-w-[80%] lg:max-w-[700px] xl:max-w-[800px]"
               src="/img/degens/nifty-ape.webp"
-              width={800}
-              height={788}
+              width={856}
+              height={842}
               alt="ape degen overlay"
               sizes="(max-width: 576px) 90vw, (max-width: 992px) 80%, 700px"
             />

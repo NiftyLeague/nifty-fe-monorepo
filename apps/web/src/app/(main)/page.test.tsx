@@ -27,8 +27,14 @@ describe('home page', () => {
       usePathname: () => '/',
     }))
     mock.module('next/image', () => ({
-      default: ({ alt, priority, ...props }: ComponentProps<'img'> & { priority?: boolean }) => (
-        <img alt={alt} data-priority={priority ? 'true' : undefined} {...props} />
+      default: ({ alt, loading, fetchPriority, ...props }: ComponentProps<'img'>) => (
+        <img
+          alt={alt}
+          loading={loading}
+          data-loading={loading}
+          data-fetch-priority={fetchPriority}
+          {...props}
+        />
       ),
       getImageProps: ({
         src,
@@ -77,6 +83,14 @@ describe('home page', () => {
     const heroImage = document.querySelector('.home-intro-background img')
     expect(heroImage?.getAttribute('fetchpriority')).toBe('high')
     expect(heroImage?.getAttribute('loading')).toBe('eager')
+  })
+
+  it('eagerly loads the above-the-fold hero call-to-action image', () => {
+    render(<Home />)
+
+    const callToActionImage = screen.getByAltText('Learn More')
+    expect(callToActionImage.getAttribute('data-loading')).toBe('eager')
+    expect(callToActionImage.getAttribute('data-fetch-priority')).toBe('high')
   })
 
   it('uses an art-directed mobile source for the shared intro background', () => {
