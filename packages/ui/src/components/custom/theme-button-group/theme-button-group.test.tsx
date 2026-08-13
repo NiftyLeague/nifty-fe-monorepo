@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { render, screen } from '@testing-library/react'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
-let ThemeBtnGroup: typeof import('./index').default
+let ThemeButtonGroup: typeof import('./index').default
 
 beforeEach(() => {
   mock.module('next/link', () => ({
@@ -12,14 +12,14 @@ beforeEach(() => {
   }))
 
   return import('./index').then((module) => {
-    ThemeBtnGroup = module.default
+    ThemeButtonGroup = module.default
   })
 })
 
-describe('ThemeBtnGroup', () => {
+describe('ThemeButtonGroup', () => {
   it('renders linked CTAs through the shared button primitive', () => {
     render(
-      <ThemeBtnGroup
+      <ThemeButtonGroup
         primary={{ href: '/games', title: 'Play now' }}
         secondary={{ href: 'https://niftysmashers.com', title: 'Smashers', external: true }}
       />
@@ -31,7 +31,7 @@ describe('ThemeBtnGroup', () => {
   })
 
   it('renders unavailable CTAs as disabled buttons instead of empty links', () => {
-    render(<ThemeBtnGroup primary={{ title: 'Coming soon', disabled: true }} />)
+    render(<ThemeButtonGroup primary={{ title: 'Coming soon', disabled: true }} />)
 
     const button = screen.getByRole('button', { name: 'Coming soon' })
     expect(button.hasAttribute('disabled')).toBe(true)

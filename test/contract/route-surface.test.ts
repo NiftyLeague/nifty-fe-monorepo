@@ -253,7 +253,7 @@ const sharedDeferredConsoleGame =
 const webCommunityPage = 'apps/web/src/app/(main)/community/page.tsx'
 const webTeamPage = 'apps/web/src/app/(main)/team/page.tsx'
 const webCarousel = 'apps/web/src/components/Carousel/index.tsx'
-const webThemeButton = 'apps/web/src/components/ThemeBtnGroup/index.tsx'
+const sharedThemeButton = 'packages/ui/src/components/custom/theme-button-group/index.tsx'
 const animationFreeMarketingPages = [
   'apps/web/src/app/(main)/page.tsx',
   'apps/web/src/app/(main)/games/page.tsx',
@@ -269,7 +269,7 @@ const animationFreeMarketingPages = [
 const animationFreeMarketingComponents = [
   'apps/smashers/src/components/GameSection/index.tsx',
   'apps/smashers/src/components/DegensSection/index.tsx',
-  'apps/web/src/components/ThemeBtnGroup/index.tsx',
+  'packages/ui/src/components/custom/theme-button-group/index.tsx',
   'apps/web/src/components/LearnCards/index.tsx',
   'apps/web/src/components/Careers/JobCard.tsx',
   'apps/web/src/components/Sponsors.tsx',
@@ -1888,7 +1888,7 @@ describe('public route dependency contract', () => {
   })
 
   it('uses the shared shadcn button primitive for themed marketing CTAs', () => {
-    const source = readFileSync(join(process.cwd(), webThemeButton), 'utf8')
+    const source = readFileSync(join(process.cwd(), sharedThemeButton), 'utf8')
 
     expect(source).toContain("import { Button } from '@nl/ui/base/button'")
     expect(source).toContain('<Button asChild variant="ghost"')

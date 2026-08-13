@@ -3,6 +3,8 @@ import { readFileSync } from 'node:fs'
 
 const responsiveTableList = 'apps/app/src/components/ResponsiveTable/DataList.tsx'
 const appManifest = 'apps/app/package.json'
+const webManifest = 'apps/web/package.json'
+const webNextConfig = 'apps/web/next.config.ts'
 const appRootLayout = 'apps/app/src/app/layout.tsx'
 const bridgeDialog = 'apps/app/src/components/dialog/BridgeButtonDialog/index.tsx'
 const appSectionSlider = 'apps/app/src/components/sections/SectionSlider.tsx'
@@ -82,6 +84,15 @@ describe('app performance contracts', () => {
 
     expect(manifest.scripts.dev).toBe('next dev --turbopack --port 3001')
     expect(manifest.scripts.dev).not.toContain('--webpack')
+  })
+
+  it('uses Turbopack for local marketing development', () => {
+    const manifest = JSON.parse(readFileSync(webManifest, 'utf8'))
+    const nextConfig = readFileSync(webNextConfig, 'utf8')
+
+    expect(manifest.scripts.dev).toBe('next dev --turbopack --port 3000')
+    expect(manifest.scripts.dev).not.toContain('--webpack')
+    expect(nextConfig).toContain('  turbopack: {},')
   })
 
   it('loads the bridge form only after its dialog opens', () => {

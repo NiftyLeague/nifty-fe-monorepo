@@ -9,7 +9,7 @@ import {
   DeferredSponsors,
 } from '@/components/DeferredHomeSections'
 import MainLayout from '@/components/MainLayout'
-import ThemeBtnGroup from '@/components/ThemeBtnGroup'
+import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 import { DEGEN_COLLECTION_URL } from '@/constants/degen-assets'
 
 import '@/styles/home.css'

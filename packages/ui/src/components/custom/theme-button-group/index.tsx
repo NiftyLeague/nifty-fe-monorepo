@@ -2,10 +2,10 @@ import Link from 'next/link'
 import type { UrlObject } from 'url'
 
 import { Button } from '@nl/ui/base/button'
-import { cn } from '@nl/ui/utils'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
+import { cn } from '@nl/ui/utils'
 
-interface ButtonProps {
+export interface ThemeButtonProps {
   href?: string | UrlObject
   title: string
   responsiveTitle?: { mobile: string; desktop: string }
@@ -14,7 +14,7 @@ interface ButtonProps {
   external?: boolean
 }
 
-export const ThemeBtn = ({
+export function ThemeButton({
   href,
   title,
   responsiveTitle,
@@ -22,7 +22,7 @@ export const ThemeBtn = ({
   disabled = false,
   external = false,
   isPrimary = false,
-}: ButtonProps & { isPrimary?: boolean }) => {
+}: ThemeButtonProps & { isPrimary?: boolean }) {
   const buttonClassName = cn(isPrimary ? 'theme-btn-primary' : 'theme-btn-transparent', className)
   const content = responsiveTitle ? (
     <>
@@ -58,24 +58,26 @@ export const ThemeBtn = ({
   )
 }
 
-interface ThemeBtnGroupProps {
+interface ThemeButtonGroupProps {
   className?: string
-  primary: ButtonProps
-  secondary?: ButtonProps
+  primary: ThemeButtonProps
+  secondary?: ThemeButtonProps
 }
 
-export const ThemeBtnGroup = ({ className, primary, secondary }: ThemeBtnGroupProps) => (
-  <div
-    className={cn(
-      'w-full flex flex-row flex-wrap justify-center items-center z-10',
-      'gap-2 md:gap-3 xl:gap-4',
-      'mt-4 xl:mt-6 -mx-2 sm:mx-0',
-      className
-    )}
-  >
-    <ThemeBtn {...primary} isPrimary />
-    {secondary ? <ThemeBtn {...secondary} /> : null}
-  </div>
-)
+export function ThemeButtonGroup({ className, primary, secondary }: ThemeButtonGroupProps) {
+  return (
+    <div
+      className={cn(
+        'w-full flex flex-row flex-wrap justify-center items-center z-10',
+        'gap-2 md:gap-3 xl:gap-4',
+        'mt-4 xl:mt-6 -mx-2 sm:mx-0',
+        className
+      )}
+    >
+      <ThemeButton {...primary} isPrimary />
+      {secondary ? <ThemeButton {...secondary} /> : null}
+    </div>
+  )
+}
 
-export default ThemeBtnGroup
+export default ThemeButtonGroup

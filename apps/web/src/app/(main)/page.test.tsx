@@ -14,7 +14,7 @@ describe('home page', () => {
     mock.module('@/components/BouncingNFTL', () => ({ default: () => null }))
     mock.module('@/components/MintOMatic', () => ({ default: () => null }))
     mock.module('@/components/Sponsors', () => ({ default: () => null }))
-    mock.module('@/components/ThemeBtnGroup', () => ({ default: () => null }))
+    mock.module('@nl/ui/custom/theme-button-group', () => ({ default: () => null }))
     mock.module('@nl/ui/custom/deferred-console-game', () => ({ DeferredConsoleGame: () => null }))
     mock.module('next/link', () => ({
       default: ({ children, href, ...props }: PropsWithChildren<{ href: string }>) => (
