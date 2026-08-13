@@ -498,6 +498,14 @@ describe('website build performance contract', () => {
 
     expect(source).toContain('useTypeScriptCli: true')
   })
+
+  it('preloads only the visible NFT artwork', () => {
+    const source = readFileSync(join(process.cwd(), gltfPage), 'utf8')
+
+    expect(source).toContain('priority\n          src={imageSrc}')
+    expect(source).not.toContain('className={styles.sprite}\n          fill\n          priority')
+    expect(source).not.toContain('quality={100}')
+  })
 })
 
 describe('shared notification loading contract', () => {
