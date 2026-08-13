@@ -7,6 +7,9 @@ import { buttonVariants } from '@nl/ui/base/button-variants'
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
+import { cn } from '@nl/ui/utils'
+
+import { buttonVariants } from '../../base/button-variants'
 
 interface DeferredSectionProps {
   label: string
