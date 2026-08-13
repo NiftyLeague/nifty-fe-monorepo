@@ -88,11 +88,9 @@
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "clean": { "cache": false },
-    "transit": { "dependsOn": ["^transit"] },
-    "lint": { "dependsOn": ["transit"], "env": ["NEXT_PUBLIC_VERCEL_ENV"] },
-    "lint:fix": { "dependsOn": ["transit"], "env": ["NEXT_PUBLIC_VERCEL_ENV"] },
+    "lint": { "env": ["NEXT_PUBLIC_VERCEL_ENV"] },
+    "lint:fix": { "env": ["NEXT_PUBLIC_VERCEL_ENV"] },
     "api#lint": {
-      "dependsOn": ["transit"],
       "env": [
         "NODE_CONFIG_TS_DIR",
         "PORT",
@@ -105,10 +103,9 @@
         "VERCEL_TOKEN"
       ]
     },
-    "format": { "dependsOn": ["transit"] },
-    "type-check": { "dependsOn": ["transit"] },
+    "format": {},
+    "type-check": {},
     "api#type-check": {
-      "dependsOn": ["transit"],
       "env": ["NODE_CONFIG_TS_DIR", "PORT", "VERCEL", "ETH_NETWORK", "WEBHOOK_SECRET"]
     },
     "test": {

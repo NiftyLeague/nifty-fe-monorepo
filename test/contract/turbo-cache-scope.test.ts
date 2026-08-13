@@ -59,4 +59,11 @@ describe('Turbo cache environment scope', () => {
     expect(dependenciesFor('api#test')).not.toContain('lint:fix')
     expect(dependenciesFor('api#test')).not.toContain('type-check')
   })
+
+  it('does not schedule the removed no-op transit task', () => {
+    expect(turbo.tasks.transit).toBeUndefined()
+    for (const task of ['lint', 'lint:fix', 'format', 'type-check', 'api#lint', 'api#type-check']) {
+      expect(dependenciesFor(task)).not.toContain('transit')
+    }
+  })
 })
