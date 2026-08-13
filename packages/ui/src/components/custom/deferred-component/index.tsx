@@ -2,8 +2,8 @@
 
 import type { ComponentType, ReactNode } from 'react'
 
-import { Skeleton } from '@nl/ui/base/skeleton'
 import { buttonVariants } from '@nl/ui/base/button-variants'
+import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 
 export interface DeferredComponentProps<T extends object> {
@@ -18,7 +18,7 @@ export interface DeferredComponentProps<T extends object> {
 function DefaultLoading({ label }: Pick<DeferredComponentProps<object>, 'label'>) {
   return (
     <div className="flex min-h-48 items-center justify-center" role="status" aria-live="polite">
-      <Skeleton aria-hidden="true" className="h-8 w-32" />
+      <DeferredSkeleton aria-hidden="true" className="h-8 w-32" />
       <span className="sr-only">Loading {label}</span>
     </div>
   )

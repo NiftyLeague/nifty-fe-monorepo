@@ -4,7 +4,7 @@ import type { ComponentType } from 'react'
 import { useRef } from 'react'
 
 import { buttonVariants } from '@nl/ui/base/button-variants'
-import { Skeleton } from '@nl/ui/base/skeleton'
+import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 
@@ -27,10 +27,10 @@ export function DeferredSectionLoading({
       aria-busy="true"
       aria-label={`Loading ${label}`}
     >
-      <Skeleton className="h-6 w-40 rounded" />
+      <DeferredSkeleton className="h-6 w-40 rounded" />
       <div className="grid gap-4 sm:grid-cols-2">
-        <Skeleton className="h-20 w-full rounded" />
-        <Skeleton className="h-20 w-full rounded" />
+        <DeferredSkeleton className="h-20 w-full rounded" />
+        <DeferredSkeleton className="h-20 w-full rounded" />
       </div>
       <span className="sr-only">Loading {label}</span>
     </div>
