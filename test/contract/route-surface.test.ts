@@ -297,6 +297,7 @@ const privateRoutesShell = 'apps/app/src/components/providers/PrivateRoutesShell
 const deferredNotifications = 'apps/app/src/components/providers/DeferredNotifications.tsx'
 const leaderboardsPage = 'apps/app/src/app/(public-routes)/leaderboards/page.tsx'
 const deferredLeaderboards = 'apps/app/src/components/providers/DeferredLeaderboards.tsx'
+const deferredComponent = 'packages/ui/src/components/custom/deferred-component/index.tsx'
 const degensPage = 'apps/app/src/app/(public-routes)/degens/page.tsx'
 const degensRouteBoundary = 'apps/app/src/app/(public-routes)/degens/DegenRoute.tsx'
 const degensClientPage = 'apps/app/src/app/(public-routes)/degens/AllDegensPage.tsx'
@@ -343,16 +344,18 @@ describe('public leaderboard loading contract', () => {
   it('keeps the archived leaderboard client graph out of the initial route entry', () => {
     const pageSource = readFileSync(join(process.cwd(), leaderboardsPage), 'utf8')
     const deferredSource = readFileSync(join(process.cwd(), deferredLeaderboards), 'utf8')
+    const sharedSource = readFileSync(join(process.cwd(), deferredComponent), 'utf8')
 
     expect(pageSource).toContain('DeferredLeaderboards')
     expect(pageSource).not.toContain("from '@/components/leaderboards'")
     expect(deferredSource).toContain("import('@/components/leaderboards')")
+    expect(deferredSource).toContain("from '@nl/ui/custom/deferred-component'")
     expect(deferredSource).toContain('LeaderboardsLoading')
     expect(deferredSource).toContain('role="status"')
-    expect(deferredSource).toContain('role="alert"')
     expect(deferredSource).toContain('aria-busy="true"')
-    expect(deferredSource).toContain('Retry')
     expect(deferredSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(sharedSource).toContain('role="alert"')
+    expect(sharedSource).toContain('Retry')
   })
 })
 
@@ -1049,11 +1052,13 @@ describe('private provider loading contract', () => {
 
   it('loads dashboard data after the shell has painted with accessible recovery states', () => {
     const source = readFileSync(join(process.cwd(), dashboardDataBoundary), 'utf8')
+    const sharedSource = readFileSync(join(process.cwd(), deferredComponent), 'utf8')
 
     expect(source).toContain("import('@/contexts/DashboardDataProviders')")
-    expect(source).toContain('role="status"')
-    expect(source).toContain('role="alert"')
-    expect(source).toContain('Retry')
+    expect(source).toContain("from '@nl/ui/custom/deferred-component'")
+    expect(sharedSource).toContain('role="status"')
+    expect(sharedSource).toContain('role="alert"')
+    expect(sharedSource).toContain('Retry')
   })
 
   it('preserves the private shell layout while keeping the sidebar lightweight', () => {
