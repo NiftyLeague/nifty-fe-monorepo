@@ -4,6 +4,7 @@ import { existsSync } from 'node:fs'
 const removedAssets = [
   'assets/img/comics/burner/burning-animations/burnanim_001.webp',
   'assets/img/niftyworld/niftyworld-snarfy.gif',
+  'assets/img/games/smashers/smashers.gif',
   'assets/video/naked-beach.mp4',
   'assets/video/smashers-og.mp4',
   'assets/video/wen-frog.mp4',
