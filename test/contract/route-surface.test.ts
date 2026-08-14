@@ -245,6 +245,7 @@ const webDegenCatalog = 'apps/web/src/constants/degens.ts'
 const webNavbar = 'apps/web/src/components/Navbar/index.tsx'
 const sharedWebNavbar = 'packages/ui/src/components/custom/navbar/index.tsx'
 const sharedWebNavbarScrollFrame = 'packages/ui/src/components/custom/navbar/NavbarScrollFrame.tsx'
+const sharedWebNavbarScrollState = 'packages/ui/src/components/custom/navbar/NavbarScrollState.tsx'
 const sharedWebMobileNavbar = 'packages/ui/src/components/custom/navbar/MobileNavMenu.tsx'
 const sharedWebNavLinkContent = 'packages/ui/src/components/custom/navbar/NavLinkContent.tsx'
 const sharedWebMobileTrigger = 'packages/ui/src/components/custom/navbar/MobileNavTrigger.tsx'
@@ -1529,6 +1530,10 @@ describe('web public navigation contract', () => {
       join(process.cwd(), sharedWebNavbarScrollFrame),
       'utf8'
     )
+    const sharedNavbarScrollStateSource = readFileSync(
+      join(process.cwd(), sharedWebNavbarScrollState),
+      'utf8'
+    )
     const mobileNavbarSource = readFileSync(join(process.cwd(), sharedWebMobileNavbar), 'utf8')
     const sharedNavLinkContentSource = readFileSync(
       join(process.cwd(), sharedWebNavLinkContent),
@@ -1538,8 +1543,10 @@ describe('web public navigation contract', () => {
     expect(navbarSource).not.toContain("'use client'")
     expect(navbarSource).toContain("from '@nl/ui/custom/navbar'")
     expect(sharedNavbarSource).not.toContain("'use client'")
-    expect(sharedNavbarScrollFrameSource).toContain("'use client'")
-    expect(sharedNavbarScrollFrameSource).toContain('requestAnimationFrame')
+    expect(sharedNavbarScrollFrameSource).not.toContain("'use client'")
+    expect(sharedNavbarScrollFrameSource).toContain('NavbarScrollState')
+    expect(sharedNavbarScrollStateSource).toContain("'use client'")
+    expect(sharedNavbarScrollStateSource).toContain('requestAnimationFrame')
     expect(sharedNavbarSource).not.toContain("import ActiveNavLink from './ActiveNavLink'")
     expect(sharedNavbarSource).toContain('function DesktopNavLink')
     expect(sharedNavbarScrollFrameSource).toContain('navbar-scroll-frame')
