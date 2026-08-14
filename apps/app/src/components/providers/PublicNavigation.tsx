@@ -26,6 +26,7 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
               </div>
               <details id="public-desktop-navigation-toggle" open className="hidden lg:block">
                 <summary
+                  role="button"
                   aria-controls="public-desktop-navigation"
                   aria-label="Toggle sidebar"
                   className="flex h-[34px] w-[34px] cursor-pointer list-none items-center justify-center overflow-hidden rounded-md bg-muted text-blue outline-none transition-colors duration-200 hover:bg-purple hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 [&::-webkit-details-marker]:hidden"
