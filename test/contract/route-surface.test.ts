@@ -244,6 +244,7 @@ const webDegenAssets = 'apps/web/src/constants/degen-assets.ts'
 const webDegenCatalog = 'apps/web/src/constants/degens.ts'
 const webNavbar = 'apps/web/src/components/Navbar/index.tsx'
 const sharedWebNavbar = 'packages/ui/src/components/custom/navbar/index.tsx'
+const sharedWebNavbarScrollFrame = 'packages/ui/src/components/custom/navbar/NavbarScrollFrame.tsx'
 const sharedWebMobileNavbar = 'packages/ui/src/components/custom/navbar/MobileNavMenu.tsx'
 const sharedWebNavLinkContent = 'packages/ui/src/components/custom/navbar/NavLinkContent.tsx'
 const sharedWebMobileTrigger = 'packages/ui/src/components/custom/navbar/MobileNavTrigger.tsx'
@@ -845,6 +846,14 @@ describe('public app shell contract', () => {
     expect(routeSource).toContain("from '@/app/_layout/_PublicMainLayout'")
   })
 
+  it('keeps the public app bar padded and vertically centered', () => {
+    const navigationSource = readFileSync(join(process.cwd(), publicNavigation), 'utf8')
+
+    expect(navigationSource).toContain(
+      'flex min-h-14 items-center px-4 py-2 lg:h-[60px] lg:min-h-0 lg:px-6 lg:py-0'
+    )
+  })
+
   it('keeps mobile navigation server-rendered and avoids heavy shell primitives', () => {
     const navigationSource = readFileSync(join(process.cwd(), publicNavigation), 'utf8')
     const navigationStyles = readFileSync(
@@ -868,8 +877,10 @@ describe('public app shell contract', () => {
     expect(
       existsSync(join(process.cwd(), 'apps/app/src/components/providers/PublicMainContent.tsx'))
     ).toBe(false)
-    expect(navigationStyles).toContain(':has(#public-desktop-navigation-toggle[open])')
-    expect(navigationStyles).toContain(':not(:has(#public-desktop-navigation-toggle[open]))')
+    expect(navigationStyles).toContain(':has(:global(#public-desktop-navigation-toggle[open]))')
+    expect(navigationStyles).toContain(
+      ':not(:has(:global(#public-desktop-navigation-toggle[open])))'
+    )
     expect(navigationStyles).not.toContain('data-sidebar-open')
     expect(contentContainerSource).not.toContain("'use client'")
     expect(contentContainerSource).toContain('container py-5 md:py-10')
@@ -1262,6 +1273,16 @@ describe('dashboard burner loading contract', () => {
   })
 })
 
+describe('private app bar contract', () => {
+  it('keeps the shared app bar padded and vertically centered', () => {
+    const source = readFileSync(join(process.cwd(), appShell), 'utf8')
+
+    expect(source).toContain(
+      'flex min-h-14 items-center px-4 py-2 lg:h-[60px] lg:min-h-0 lg:px-6 lg:py-0'
+    )
+  })
+})
+
 describe('gamer profile loading contract', () => {
   it('keeps profile, wallet, and inventory graphs behind the route loading boundary', () => {
     const pageSource = readFileSync(join(process.cwd(), gamerProfile), 'utf8')
@@ -1476,6 +1497,10 @@ describe('web public navigation contract', () => {
   it('keeps static navigation configuration out of the client graph', () => {
     const navbarSource = readFileSync(join(process.cwd(), webNavbar), 'utf8')
     const sharedNavbarSource = readFileSync(join(process.cwd(), sharedWebNavbar), 'utf8')
+    const sharedNavbarScrollFrameSource = readFileSync(
+      join(process.cwd(), sharedWebNavbarScrollFrame),
+      'utf8'
+    )
     const mobileNavbarSource = readFileSync(join(process.cwd(), sharedWebMobileNavbar), 'utf8')
     const sharedNavLinkContentSource = readFileSync(
       join(process.cwd(), sharedWebNavLinkContent),
@@ -1484,11 +1509,14 @@ describe('web public navigation contract', () => {
 
     expect(navbarSource).not.toContain("'use client'")
     expect(navbarSource).toContain("from '@nl/ui/custom/navbar'")
+    expect(sharedNavbarSource).not.toContain("'use client'")
+    expect(sharedNavbarScrollFrameSource).toContain("'use client'")
+    expect(sharedNavbarScrollFrameSource).toContain('requestAnimationFrame')
     expect(sharedNavbarSource).not.toContain("import ActiveNavLink from './ActiveNavLink'")
     expect(sharedNavbarSource).toContain('function DesktopNavLink')
-    expect(sharedNavbarSource).toContain('navbar-scroll-frame')
-    expect(sharedNavbarSource).toContain('bg-transparent')
-    expect(sharedNavbarSource).toContain('backdrop-blur-xs')
+    expect(sharedNavbarScrollFrameSource).toContain('navbar-scroll-frame')
+    expect(sharedNavbarScrollFrameSource).toContain('bg-transparent')
+    expect(sharedNavbarScrollFrameSource).toContain('backdrop-blur-xs')
     expect(sharedNavbarSource).not.toContain('transition-all')
     expect(sharedNavbarSource).not.toContain('useScrollDetection')
     expect(sharedNavbarSource).toContain('<details')
