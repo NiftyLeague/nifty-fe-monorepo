@@ -43,7 +43,7 @@ export function NavbarScrollFrame({ children, className }: NavbarScrollFrameProp
   return (
     <header
       className={cn(
-        'navbar-scroll-frame fixed inset-x-0 top-0 z-50 h-20 bg-transparent backdrop-blur-xs',
+        'navbar-scroll-frame fixed inset-x-0 top-0 z-50 h-20 bg-transparent data-[scrolled=true]:backdrop-blur-xs',
         className
       )}
       data-scrolled={isScrolled}
