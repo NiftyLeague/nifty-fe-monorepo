@@ -12,7 +12,6 @@
       "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
       "env": [
         "CI",
-        "ENABLE_EXPERIMENTAL_COREPACK",
         "NEXT_RUNTIME",
         "NEXT_PUBLIC_*",
         "SENTRY_AUTH_TOKEN",
@@ -65,7 +64,6 @@
         "APPLE_CLIENT_ID",
         "APPLE_CLIENT_SECRET",
         "CI",
-        "ENABLE_EXPERIMENTAL_COREPACK",
         "FACEBOOK_CLIENT_ID",
         "FACEBOOK_CLIENT_SECRET",
         "GITHUB_ACTIONS",
@@ -89,7 +87,6 @@
       "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
       "env": [
         "CI",
-        "ENABLE_EXPERIMENTAL_COREPACK",
         "EDGE_CONFIG",
         "NEXT_RUNTIME",
         "NEXT_PUBLIC_*",

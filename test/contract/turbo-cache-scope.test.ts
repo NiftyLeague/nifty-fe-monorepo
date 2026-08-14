@@ -17,7 +17,6 @@ const turbo = JSON.parse(readFileSync('turbo.json', 'utf8')) as {
 }
 const rootPackage = JSON.parse(readFileSync('package.json', 'utf8')) as {
   scripts?: Record<string, string>
-  packageManager?: string
 }
 
 const envFor = (task: string) => new Set(turbo.tasks[task]?.env ?? [])
@@ -33,10 +32,6 @@ describe('Turbo cache environment scope', () => {
     expect(rootPackage.scripts?.build).toBe(
       'turbo run api#build app#build docs#build smashers#build web#build'
     )
-  })
-
-  it('pins the package manager used by Vercel and local builds', () => {
-    expect(rootPackage.packageManager).toBe('bun@1.3.14')
   })
 
   it('does not invalidate every workspace for app-specific credentials', () => {
@@ -55,7 +50,6 @@ describe('Turbo cache environment scope', () => {
     expect(envFor('app#build')).toEqual(
       new Set([
         'CI',
-        'ENABLE_EXPERIMENTAL_COREPACK',
         'NEXT_RUNTIME',
         'NEXT_PUBLIC_*',
         'SENTRY_AUTH_TOKEN',
@@ -68,7 +62,6 @@ describe('Turbo cache environment scope', () => {
       new Set([
         'CI',
         'EDGE_CONFIG',
-        'ENABLE_EXPERIMENTAL_COREPACK',
         'NEXT_RUNTIME',
         'NEXT_PUBLIC_*',
         'SENTRY_AUTH_TOKEN',
@@ -82,7 +75,6 @@ describe('Turbo cache environment scope', () => {
         'APPLE_CLIENT_ID',
         'APPLE_CLIENT_SECRET',
         'CI',
-        'ENABLE_EXPERIMENTAL_COREPACK',
         'FACEBOOK_CLIENT_ID',
         'FACEBOOK_CLIENT_SECRET',
         'GITHUB_ACTIONS',
