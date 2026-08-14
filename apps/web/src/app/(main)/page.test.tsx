@@ -97,8 +97,8 @@ describe('home page', () => {
     render(<Home />)
 
     const heroArtwork = screen.getByAltText('Nifty Hero Characters')
-    expect(heroArtwork.getAttribute('data-loading')).toBe('eager')
-    expect(heroArtwork.getAttribute('data-fetch-priority')).toBe('high')
+    expect(heroArtwork.getAttribute('data-loading')).toBeNull()
+    expect(heroArtwork.getAttribute('data-fetch-priority')).toBeNull()
   })
 
   it('does not compete with the hero background for high-priority loading', () => {
