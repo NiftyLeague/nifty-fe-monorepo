@@ -38,19 +38,14 @@ function SidebarFrame({ children, footer }: SidebarFrameProps) {
 
   const drawer = useMemo(
     () => (
-      <ScrollArea
-        style={{
-          height: isCompactScreen ? 'calc(100vh - 56px)' : 'calc(100vh - 60px)',
-        }}
-        viewportClassName="px-4"
-      >
+      <ScrollArea style={{ height: `calc(100vh - ${appHeaderHeight}px)` }} viewportClassName="px-4">
         <div className="flex h-full flex-col justify-between">
           <div>{children}</div>
           {footer && <div className="flex flex-col items-center">{footer}</div>}
         </div>
       </ScrollArea>
     ),
-    [children, footer, isCompactScreen]
+    [children, footer]
   )
 
   return (
