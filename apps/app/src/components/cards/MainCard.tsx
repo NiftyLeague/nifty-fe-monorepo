@@ -45,7 +45,7 @@ const MainCard = forwardRef<HTMLDivElement, MainCardProps>(
         ref={ref}
         style={sx}
         className={cn(
-          'h-full',
+          'h-full gap-0 py-0',
           border && 'border',
           boxShadow &&
             (shadow ||
@@ -57,7 +57,7 @@ const MainCard = forwardRef<HTMLDivElement, MainCardProps>(
         {/* card header and action */}
         {title && (
           <>
-            <CardHeader className="flex flex-row items-center justify-between gap-2">
+            <CardHeader className="flex flex-row items-center justify-between gap-2 p-4">
               <Title level={darkTitle ? 3 : 5}>{title}</Title>
               {secondary}
             </CardHeader>
@@ -66,9 +66,7 @@ const MainCard = forwardRef<HTMLDivElement, MainCardProps>(
         )}
 
         {/* card content */}
-        {content && (
-          <CardContent className={cn('px-6', contentClass || '')}>{children}</CardContent>
-        )}
+        {content && <CardContent className={cn('p-4', contentClass || '')}>{children}</CardContent>}
         {!content && children}
       </Card>
     )

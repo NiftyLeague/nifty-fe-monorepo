@@ -6,8 +6,6 @@ import { useNavigation } from '@/contexts/NavigationContext'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import LogoSection from '../_LogoSection'
 
-const appHeaderHeight = 60
-
 // ==============================|| MAIN NAVBAR / HEADER ||============================== //
 
 const pages = [

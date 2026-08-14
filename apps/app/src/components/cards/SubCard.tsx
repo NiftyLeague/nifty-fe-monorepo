@@ -40,7 +40,7 @@ const SubCard = forwardRef<HTMLDivElement, SubCardProps>(
       <Card
         ref={ref}
         style={sx as React.CSSProperties}
-        className={cn('border', className)}
+        className={cn('border gap-0 py-0', className)}
         {...(others as React.ComponentProps<'div'>)}
       >
         {/* card header and action */}
