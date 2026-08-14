@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Button } from '@nl/ui/base/button'
 import GameCard from '@/components/cards/GameCard'
 
-import styles from './grid-item.module.css'
+import styles from '../grid-item.module.css'
 
 const Web3GameList = () => {
   return (
