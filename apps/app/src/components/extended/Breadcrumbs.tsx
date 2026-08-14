@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 
 import { AppNavIcon } from '@/components/AppNavIcon'
@@ -13,31 +12,42 @@ import type { NavItemType, NavItemTypeObject } from '@/types'
 
 const gridSpacing = 3 // 24px
 
-const linkSX = {
-  display: 'flex',
-  color: 'var(--color-background)',
-  textDecoration: 'none',
-  alignContent: 'center',
-  alignItems: 'center',
-}
-
-interface BreadCrumbSxProps extends React.CSSProperties {
-  mb?: string
-  bgcolor?: string
-}
-
 interface BreadCrumbsProps {
   card?: boolean
   divider?: boolean
   icon?: boolean
   icons?: boolean
-  maxItems?: number
   navigation?: NavItemTypeObject
+  pathname?: string
   rightAlign?: boolean
   separator?: AppNavIconName
   title?: boolean
   titleBottom?: boolean
-  sx?: BreadCrumbSxProps
+}
+
+const findBreadcrumb = (navigation: NavItemTypeObject | undefined, pathname: string) => {
+  let main: NavItemType | undefined
+  let item: NavItemType | undefined
+
+  const visit = (menu: NavItemType, parentMenu: NavItemType): boolean => {
+    for (const child of menu.children ?? []) {
+      if (child.type === 'collapse' && visit(child, child)) return true
+
+      if (child.type === 'item' && pathname === BASE_PATH + child.url) {
+        main = parentMenu
+        item = child
+        return true
+      }
+    }
+
+    return false
+  }
+
+  for (const menu of navigation?.items ?? []) {
+    if (menu.type === 'group' && visit(menu, menu)) break
+  }
+
+  return { main, item }
 }
 
 // ==============================|| BREADCRUMBS ||============================== //
@@ -47,8 +57,8 @@ const Breadcrumbs = ({
   divider,
   icon,
   icons,
-  maxItems,
   navigation,
+  pathname = '',
   rightAlign,
   separator,
   title,
@@ -62,37 +72,7 @@ const Breadcrumbs = ({
     height: '16px',
   }
 
-  const [main, setMain] = useState<NavItemType | undefined>()
-  const [item, setItem] = useState<NavItemType>()
-
-  const getCollapse = useCallback(
-    (menu: NavItemType) => {
-      const recurse = (m: NavItemType, parentMenu: NavItemType) => {
-        if (m.children) {
-          m.children.forEach((collapse) => {
-            if (collapse.type === 'collapse') {
-              recurse(collapse, collapse)
-            } else if (collapse.type === 'item') {
-              if (document.location.pathname === BASE_PATH + collapse.url) {
-                setMain(parentMenu)
-                setItem(collapse)
-              }
-            }
-          })
-        }
-      }
-      recurse(menu, menu)
-    },
-    [setMain, setItem]
-  )
-
-  useEffect(() => {
-    navigation?.items?.forEach((menu: NavItemType) => {
-      if (menu.type && menu.type === 'group') {
-        getCollapse(menu as { children: NavItemType[]; type?: string })
-      }
-    })
-  }, [navigation, getCollapse])
+  const { main, item } = findBreadcrumb(navigation, pathname)
 
   // item separator
   const separatorIcon = <AppNavIcon name={separator || 'tally-1'} size="sm" />

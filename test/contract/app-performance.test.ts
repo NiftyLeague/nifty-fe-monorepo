@@ -8,6 +8,7 @@ const webNextConfig = 'apps/web/next.config.ts'
 const appRootLayout = 'apps/app/src/app/layout.tsx'
 const appShell = 'apps/app/src/app/_layout/AppShell.tsx'
 const sharedAppBar = 'packages/ui/src/components/custom/app-bar/index.tsx'
+const appBreadcrumbs = 'apps/app/src/components/extended/Breadcrumbs.tsx'
 const appSidebarFrame = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/SidebarFrame.tsx'
 const appNavigationContext = 'apps/app/src/contexts/NavigationContext.tsx'
 const appNavigationBreakpoints = 'apps/app/src/app/_layout/navigation-breakpoints.ts'
@@ -96,6 +97,16 @@ describe('app performance contracts', () => {
     expect(appBarSource).toContain('px-4 py-2')
     expect(appBarSource).toContain('lg:h-[60px]')
     expect(appBarSource).toContain('lg:px-6 lg:py-0')
+  })
+
+  it('resolves breadcrumbs from the current pathname without a post-mount scan', () => {
+    const source = readFileSync(appBreadcrumbs, 'utf8')
+
+    expect(source).toContain('pathname?: string')
+    expect(source).toContain('findBreadcrumb')
+    expect(source).not.toContain('useEffect')
+    expect(source).not.toContain('document.location')
+    expect(source).not.toContain('maxItems')
   })
 
   it('shares the accessible native carousel and keeps the app free of slider runtimes', () => {
