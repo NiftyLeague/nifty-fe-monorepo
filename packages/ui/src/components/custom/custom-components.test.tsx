@@ -173,6 +173,7 @@ describe('Navbar', () => {
     expect(navigationToggle.closest('summary')).not.toBeNull()
     fireEvent.click(navigationToggle)
     expect(navigationToggle.closest('details')?.hasAttribute('open')).toBe(true)
+    expect(document.querySelector('hr[aria-hidden="true"]')).not.toBeNull()
   })
 
   it('renders a fixed, transparent semantic header with scroll-driven state', () => {
