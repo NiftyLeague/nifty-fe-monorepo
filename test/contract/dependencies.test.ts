@@ -214,7 +214,6 @@ describe('dependency contract', () => {
 const ALLOWED_UNUSED: Record<string, Record<string, string>> = {
   'apps/web': {
     three: 'peer dep of @google/model-viewer (bundles its own three)',
-    '@types/three': 'types for three',
     sharp: 'Next.js image optimization runtime dep',
   },
   'apps/app': {
