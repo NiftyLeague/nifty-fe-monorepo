@@ -3,9 +3,9 @@
   --default-font-size: var(--text-sm); /* 0.875rem */
 }
 
-:global(html),
-:global(body),
-:global(main) {
+:global(html):has(.main__wrapper),
+:global(body):has(.main__wrapper),
+:global(main).main__wrapper {
   margin: 0;
   padding: 0;
   height: 100%;
