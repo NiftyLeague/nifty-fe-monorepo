@@ -43,7 +43,14 @@ function AppShellContent({ children, header, sidebar, networkWarning }: AppShell
 
   const content = (
     <>
-      <Breadcrumbs separator="chevron-right" navigation={navigation} icon title rightAlign />
+      <Breadcrumbs
+        pathname={pathname ?? ''}
+        separator="chevron-right"
+        navigation={navigation}
+        icon
+        title
+        rightAlign
+      />
       {children}
     </>
   )
