@@ -1,5 +1,4 @@
-export const DEGEN_BASE_API_URL = 'https://nifty-league.s3.amazonaws.com'
-export const DEGEN_BASE_IMAGE_URL = `${DEGEN_BASE_API_URL}/degens/mainnet/images`
+const DEGEN_BASE_API_URL = 'https://nifty-league.s3.amazonaws.com'
 export const DEGEN_BASE_SPRITE_URL = `${DEGEN_BASE_API_URL}/assets/raw/gifs-retro`
 export const DEGEN_3D_MODEL_URL = `${DEGEN_BASE_API_URL}/assets/gltfs/v2`
 export const DEGEN_COLLECTION_URL = 'https://opensea.io/collection/niftydegen'
