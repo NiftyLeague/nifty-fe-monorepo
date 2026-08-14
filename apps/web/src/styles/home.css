@@ -261,12 +261,6 @@
   .section-title {
     max-width: 460px;
   }
-  .compete-to-earn-section-token-1 {
-    display: none;
-  }
-  .compete-to-earn-section-token-2 {
-    display: none;
-  }
 }
 
 @media (max-width: 920px) {
