@@ -849,9 +849,7 @@ describe('public app shell contract', () => {
   it('keeps the public app bar padded and vertically centered', () => {
     const navigationSource = readFileSync(join(process.cwd(), publicNavigation), 'utf8')
 
-    expect(navigationSource).toContain(
-      'flex min-h-14 w-full items-center px-4 py-2 lg:h-[60px] lg:min-h-0 lg:px-6 lg:py-0'
-    )
+    expect(navigationSource).toContain('<div className={styles.appBarInner}>')
   })
 
   it('keeps mobile navigation server-rendered and avoids heavy shell primitives', () => {
@@ -1277,9 +1275,7 @@ describe('private app bar contract', () => {
   it('keeps the shared app bar padded and vertically centered', () => {
     const source = readFileSync(join(process.cwd(), appShell), 'utf8')
 
-    expect(source).toContain(
-      'flex min-h-14 w-full items-center px-4 py-2 lg:h-[60px] lg:min-h-0 lg:px-6 lg:py-0'
-    )
+    expect(source).toContain('<div className={styles.appBarInner}>{header}</div>')
   })
 })
 

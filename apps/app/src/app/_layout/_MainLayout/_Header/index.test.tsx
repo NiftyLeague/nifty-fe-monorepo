@@ -3,13 +3,13 @@ import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
 
 const navigationState = {
   drawerOpen: true,
+  isDesktopNavigation: false,
   toggleDrawer: mock(),
 }
 
 let Header: typeof import('./index').default
 
 beforeEach(async () => {
-  mock.module('@nl/ui/hooks/useMediaQuery', () => ({ useMediaQuery: () => false }))
   mock.module('@/contexts/NavigationContext', () => ({ useNavigation: () => navigationState }))
   mock.module('@/app/_layout/_MainLayout/_LogoSection', () => ({
     default: () => <span>Logo</span>,

@@ -6,11 +6,9 @@ import { X } from 'lucide-react'
 
 import { Button } from '@nl/ui/base/button'
 import { ScrollArea } from '@nl/ui/base/scroll-area'
-import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { cn } from '@nl/ui/utils'
 
 import { useNavigation } from '@/contexts/NavigationContext'
-import { desktopNavigationMediaQuery } from '@/app/_layout/navigation-breakpoints'
 import LogoSection from '../_LogoSection'
 
 const appDrawerWidth = 260
@@ -21,9 +19,8 @@ interface SidebarFrameProps extends PropsWithChildren {
 }
 
 function SidebarFrame({ children, footer }: SidebarFrameProps) {
-  const isDesktopNavigation = useMediaQuery(desktopNavigationMediaQuery)
+  const { drawerOpen, isDesktopNavigation, toggleDrawer } = useNavigation()
   const isCompactScreen = !isDesktopNavigation
-  const { drawerOpen, toggleDrawer } = useNavigation()
 
   const logo = useMemo(
     () => (

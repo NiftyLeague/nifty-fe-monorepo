@@ -13,6 +13,7 @@ describe('NavigationContext', () => {
     const { result } = renderHook(() => useNavigation(), { wrapper })
 
     expect(result.current.drawerOpen).toBe(false)
+    expect(result.current.isDesktopNavigation).toBe(false)
     act(() => result.current.toggleDrawer())
     expect(result.current.drawerOpen).toBe(true)
     act(() => result.current.setDrawerOpen(false))
