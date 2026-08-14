@@ -84,8 +84,6 @@ const DesktopIntro = () => {
             height={1042}
             sizes="100vw"
             className="w-full h-auto"
-            loading="eager"
-            fetchPriority="high"
           />
         </div>
         <div className="home-hero-companion">
