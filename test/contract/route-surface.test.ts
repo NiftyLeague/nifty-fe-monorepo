@@ -309,8 +309,6 @@ const degensSearchParamsBoundary =
 const degensTopNav = 'apps/app/src/components/extended/DegensTopNav/index.tsx'
 const publicMainLayout = 'apps/app/src/app/_layout/_PublicMainLayout/index.tsx'
 const publicNavigation = 'apps/app/src/components/providers/PublicNavigation.tsx'
-const publicDesktopNavigationToggle =
-  'apps/app/src/components/providers/PublicDesktopNavigationToggle.tsx'
 const sharedAppBar = 'packages/ui/src/components/custom/app-bar/index.tsx'
 const publicContentContainer = 'apps/app/src/components/wrapper/PublicContentContainer.tsx'
 const publicNavLinks = 'apps/app/src/components/providers/PublicNavLinks.tsx'
@@ -863,7 +861,6 @@ describe('public app shell contract', () => {
 
   it('keeps mobile navigation server-rendered and avoids heavy shell primitives', () => {
     const navigationSource = readFileSync(join(process.cwd(), publicNavigation), 'utf8')
-    const toggleSource = readFileSync(join(process.cwd(), publicDesktopNavigationToggle), 'utf8')
     const navigationStyles = readFileSync(
       join(process.cwd(), 'apps/app/src/app/_layout/_MainLayout/MainLayout.module.css'),
       'utf8'
@@ -877,20 +874,14 @@ describe('public app shell contract', () => {
     expect(navigationSource).not.toContain("from '@nl/ui/base/scroll-area'")
     expect(navigationSource).not.toContain("from '@nl/ui/base/icon'")
     expect(navigationSource).not.toContain("from '@/components/extended/Breadcrumbs'")
-    expect(navigationSource).toContain("from './PublicDesktopNavigationToggle'")
-    expect(toggleSource).toContain("'use client'")
-    expect(toggleSource).toContain('<details')
-    expect(toggleSource).toContain('onToggle=')
-    expect(toggleSource).toContain('aria-controls="public-desktop-navigation"')
-    expect(toggleSource).not.toContain("from '@nl/ui/base/sheet'")
-    expect(toggleSource).not.toContain("from 'lucide-react'")
+    expect(navigationSource).toContain('<details id="public-desktop-navigation-toggle"')
+    expect(navigationSource).toContain('aria-controls="public-desktop-navigation"')
+    expect(navigationSource).not.toContain('PublicDesktopNavigationToggle')
     expect(navigationSource).toContain('{children}')
     expect(navigationSource).not.toContain('PublicMainContent')
     expect(
       existsSync(join(process.cwd(), 'apps/app/src/components/providers/PublicMainContent.tsx'))
     ).toBe(false)
-    expect(navigationStyles).toContain("data-public-sidebar-state='open'")
-    expect(navigationStyles).toContain("data-public-sidebar-state='closed'")
     expect(navigationStyles).toContain(':has(:global(#public-desktop-navigation-toggle[open]))')
     expect(navigationStyles).toContain(
       ':not(:has(:global(#public-desktop-navigation-toggle[open])))'
