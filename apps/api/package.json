@@ -32,6 +32,7 @@
     "admin:update-metadata-schema": "tsx src/imx/admin/update-metadata-schema.ts"
   },
   "dependencies": {
+    "@nl/contracts": "workspace:*",
     "@aws-sdk/client-s3": "^3.1105.0",
     "axios": "^1.19.0",
     "bn.js": "^5.2.5",

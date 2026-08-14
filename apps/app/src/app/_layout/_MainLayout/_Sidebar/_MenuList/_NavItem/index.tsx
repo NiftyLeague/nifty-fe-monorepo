@@ -5,6 +5,7 @@ import { AppNavIcon } from '@/components/AppNavIcon'
 import { cn } from '@nl/ui/utils'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { useNavigation } from '@/contexts/NavigationContext'
+import { desktopNavigationMediaQuery } from '@/app/_layout/navigation-breakpoints'
 
 // types
 import type { LinkTarget, NavItemType } from '@/types'
@@ -18,7 +19,7 @@ interface NavItemProps {
 
 const NavItem = ({ item, level }: NavItemProps) => {
   const pathname = usePathname()
-  const matchesSM = useMediaQuery('(max-width:1024px)')
+  const isCompactScreen = !useMediaQuery(desktopNavigationMediaQuery)
   const { setDrawerOpen } = useNavigation()
   const isSelected = pathname === item.url
 
@@ -28,7 +29,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
   }
 
   const itemHandler = () => {
-    if (matchesSM) setDrawerOpen(false)
+    if (isCompactScreen) setDrawerOpen(false)
   }
 
   const inner = (

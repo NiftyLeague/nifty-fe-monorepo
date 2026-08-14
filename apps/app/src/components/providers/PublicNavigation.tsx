@@ -18,7 +18,7 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
   return (
     <div className={cn('flex', styles.publicNavigationShell)} data-public-navigation>
       <header className="fixed top-0 right-0 left-0 z-50 border-0 bg-sidebar">
-        <div className="flex min-h-14 items-center px-4 py-2 lg:h-[60px] lg:min-h-0 lg:px-6 lg:py-0 box-border w-full">
+        <div className={styles.appBarInner}>
           <div className="flex w-full flex-row items-center justify-between">
             <div className={cn('flex items-center', styles.publicHeaderControls)}>
               <div className="hidden flex-grow lg:block">
@@ -43,7 +43,7 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
                 label="Toggle navigation"
                 className="lg:hidden"
                 summaryClassName="h-[34px] w-[34px] overflow-hidden rounded-md bg-muted text-blue transition-all duration-200 hover:bg-purple hover:text-foreground"
-                panelClassName="fixed top-[60px] bottom-0 left-0 z-40 w-full max-w-xs overflow-y-auto bg-sidebar text-sidebar-foreground shadow-lg"
+                panelClassName="fixed top-14 bottom-0 left-0 z-40 w-full max-w-xs overflow-y-auto bg-sidebar text-sidebar-foreground shadow-lg"
               >
                 <div className="border-b border-sidebar-border px-4 py-3">
                   <div className="flex items-center gap-3 text-sidebar-foreground">

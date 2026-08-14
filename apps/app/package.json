@@ -20,6 +20,7 @@
     "@axelar-network/axelarjs-sdk": "^0.21.0",
     "@cowprotocol/cow-sdk": "^9.2.6",
     "@hookform/resolvers": "^5.6.0",
+    "@nl/contracts": "workspace:*",
     "@nl/imx-passport": "workspace:*",
     "@nl/sentry-client": "workspace:*",
     "@nl/ui": "workspace:*",
