@@ -30,5 +30,8 @@ describe('PublicNavigation', () => {
     expect(disclosure?.open).toBe(true)
     expect(toggle.getAttribute('aria-controls')).toBe('public-desktop-navigation')
     expect(document.getElementById('public-desktop-navigation')).toBeTruthy()
+
+    const mobilePanel = document.getElementById('public-mobile-navigation')
+    expect(mobilePanel?.className).toContain('top-[60px]')
   })
 })

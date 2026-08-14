@@ -1,8 +1,9 @@
 import { Button } from '@nl/ui/base/button'
-import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { Menu } from 'lucide-react'
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
 import { useNavigation } from '@/contexts/NavigationContext'
+import { desktopNavigationMediaQuery } from '@/app/_layout/navigation-breakpoints'
 
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import LogoSection from '../_LogoSection'
@@ -17,7 +18,8 @@ const pages = [
 
 const Header = () => {
   const { drawerOpen, toggleDrawer } = useNavigation()
-  const isCompactScreen = useMediaQuery('(max-width:1023.95px)')
+  const isDesktopNavigation = useMediaQuery(desktopNavigationMediaQuery)
+  const isCompactScreen = !isDesktopNavigation
 
   return (
     <div className="flex w-full flex-row items-center justify-between">

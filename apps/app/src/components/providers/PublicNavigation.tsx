@@ -43,7 +43,7 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
                 label="Toggle navigation"
                 className="lg:hidden"
                 summaryClassName="h-[34px] w-[34px] overflow-hidden rounded-md bg-muted text-blue transition-all duration-200 hover:bg-purple hover:text-foreground"
-                panelClassName="fixed top-14 bottom-0 left-0 z-40 w-full max-w-xs overflow-y-auto bg-sidebar text-sidebar-foreground shadow-lg"
+                panelClassName="fixed top-[60px] bottom-0 left-0 z-40 w-full max-w-xs overflow-y-auto bg-sidebar text-sidebar-foreground shadow-lg"
               >
                 <div className="border-b border-sidebar-border px-4 py-3">
                   <div className="flex items-center gap-3 text-sidebar-foreground">
