@@ -3,9 +3,7 @@ import { usePathname } from 'next/navigation'
 import { AppNavIcon } from '@/components/AppNavIcon'
 
 import { cn } from '@nl/ui/utils'
-import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { useNavigation } from '@/contexts/NavigationContext'
-import { desktopNavigationMediaQuery } from '@/app/_layout/navigation-breakpoints'
 
 // types
 import type { LinkTarget, NavItemType } from '@/types'
@@ -19,8 +17,7 @@ interface NavItemProps {
 
 const NavItem = ({ item, level }: NavItemProps) => {
   const pathname = usePathname()
-  const isCompactScreen = !useMediaQuery(desktopNavigationMediaQuery)
-  const { setDrawerOpen } = useNavigation()
+  const { isDesktopNavigation, setDrawerOpen } = useNavigation()
   const isSelected = pathname === item.url
 
   let itemTarget: LinkTarget = '_self'
@@ -29,7 +26,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
   }
 
   const itemHandler = () => {
-    if (isCompactScreen) setDrawerOpen(false)
+    if (!isDesktopNavigation) setDrawerOpen(false)
   }
 
   const inner = (
