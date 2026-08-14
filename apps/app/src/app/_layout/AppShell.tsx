@@ -13,8 +13,6 @@ import { NavigationProvider, useNavigation } from '@/contexts/NavigationContext'
 import navigation from '@/constants/menu-items'
 import styles from './_MainLayout/MainLayout.module.css'
 
-const container = true
-
 interface AppShellProps extends PropsWithChildren {
   header: ReactNode
   sidebar: ReactNode
@@ -68,7 +66,7 @@ function AppShellContent({ children, header, sidebar, networkWarning }: AppShell
         <main className={cn(styles.main, drawerOpen ? styles.mainOpen : styles.mainClosed)}>
           {!isNoFilterPage ? (
             <ScrollArea className="h-full" viewportClassName="py-5 md:py-10">
-              {container ? <div className="container">{content}</div> : content}
+              <div className="container">{content}</div>
             </ScrollArea>
           ) : (
             content
