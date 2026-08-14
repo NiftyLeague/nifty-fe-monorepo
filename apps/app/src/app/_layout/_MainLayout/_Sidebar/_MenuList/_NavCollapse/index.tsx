@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { AppNavIcon } from '@/components/AppNavIcon'
 
 // project imports
-import { cn } from '@nl/ui/utils'
+import { cx } from '@nl/ui/class-names'
 import { NavGroupProps } from '../_NavGroup'
 import NavItem from '../_NavItem'
 
@@ -61,7 +61,7 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
     <>
       <button
         type="button"
-        className={cn(
+        className={cx(
           'mb-0.5 flex w-full items-center rounded-md px-2 text-left',
           level > 1 ? 'py-2' : 'py-2.5',
           selected === menu.id ? 'bg-muted font-bold' : 'font-normal',
@@ -84,7 +84,7 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
         <AppNavIcon
           name="chevron-down"
           size="md"
-          className={cn('transition-transform', open && 'rotate-180 transform')}
+          className={cx('transition-transform', open && 'rotate-180 transform')}
         />
       </button>
       {open && (

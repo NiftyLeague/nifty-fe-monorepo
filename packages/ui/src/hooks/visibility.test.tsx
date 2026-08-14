@@ -158,6 +158,22 @@ describe('useOnScreen', () => {
 })
 
 describe('useParallax', () => {
+  let intersectionCallback: IntersectionObserverCallback
+
+  beforeEach(() => {
+    stubGlobal(
+      'IntersectionObserver',
+      class {
+        constructor(callback: IntersectionObserverCallback) {
+          intersectionCallback = callback
+        }
+        observe = mock()
+        unobserve = mock()
+        disconnect = mock()
+      }
+    )
+  })
+
   function elementWithTop(top: number, withChild = true) {
     const element = document.createElement('div')
     if (withChild) {
@@ -169,6 +185,15 @@ describe('useParallax', () => {
     return element
   }
 
+  function markIntersecting(element: Element, isIntersecting = true) {
+    act(() =>
+      intersectionCallback(
+        [{ target: element, isIntersecting } as IntersectionObserverEntry],
+        {} as never
+      )
+    )
+  }
+
   it('applies vertical movement to the child and removes its scroll listener', () => {
     spyOn(window, 'addEventListener')
     spyOn(window, 'removeEventListener')
@@ -176,6 +201,7 @@ describe('useParallax', () => {
     const { unmount } = renderHook(() =>
       useParallax({ current: element }, { enabled: true, direction: 'down', intensity: 'strong' })
     )
+    markIntersecting(element)
 
     expect((element.firstElementChild as HTMLElement).style.transform).toBe(
       `translateY(${(-100 * 100 * 2) / window.innerHeight}px)`
@@ -192,6 +218,7 @@ describe('useParallax', () => {
     renderHook(() =>
       useParallax({ current: element }, { enabled: true, direction: 'right', intensity: 'lite' })
     )
+    markIntersecting(element)
 
     expect(element.style.transform).toBe(`translateX(${(-50 * 100 * 0.5) / window.innerHeight}px)`)
   })
@@ -230,6 +257,8 @@ describe('useParallax', () => {
           { enabled: true, direction: 'up', intensity: 'normal' }
         )
       )
+      markIntersecting(firstElement)
+      markIntersecting(secondElement)
 
       expect(addEventListener).toHaveBeenCalledTimes(1)
       window.dispatchEvent(new Event('scroll'))
@@ -261,6 +290,27 @@ describe('useParallax', () => {
         value: originalCancelAnimationFrame,
       })
     }
+  })
+
+  it('stops the shared scroll subscription when the element leaves the near-viewport margin', () => {
+    const addEventListener = spyOn(window, 'addEventListener')
+    const removeEventListener = spyOn(window, 'removeEventListener')
+    const element = elementWithTop(100)
+    renderHook(() =>
+      useParallax({ current: element }, { enabled: true, direction: 'down', intensity: 'normal' })
+    )
+
+    expect(addEventListener).not.toHaveBeenCalledWith('scroll', expect.any(Function), {
+      passive: true,
+    })
+
+    markIntersecting(element)
+    expect(addEventListener).toHaveBeenCalledWith('scroll', expect.any(Function), {
+      passive: true,
+    })
+
+    markIntersecting(element, false)
+    expect(removeEventListener).toHaveBeenCalledWith('scroll', expect.any(Function))
   })
 
   it('does nothing while disabled or before the ref is mounted', () => {
