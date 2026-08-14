@@ -12,7 +12,8 @@ import { useNavigation } from '@/contexts/NavigationContext'
 import LogoSection from '../_LogoSection'
 
 const appDrawerWidth = 260
-const appHeaderHeight = 60
+const desktopAppHeaderHeight = 60
+const compactAppHeaderHeight = 56
 
 interface SidebarFrameProps extends PropsWithChildren {
   footer?: ReactNode
@@ -21,6 +22,7 @@ interface SidebarFrameProps extends PropsWithChildren {
 function SidebarFrame({ children, footer }: SidebarFrameProps) {
   const { drawerOpen, isDesktopNavigation, toggleDrawer } = useNavigation()
   const isCompactScreen = !isDesktopNavigation
+  const appHeaderHeight = isCompactScreen ? compactAppHeaderHeight : desktopAppHeaderHeight
 
   const logo = useMemo(
     () => (
@@ -35,14 +37,17 @@ function SidebarFrame({ children, footer }: SidebarFrameProps) {
 
   const drawer = useMemo(
     () => (
-      <ScrollArea style={{ height: `calc(100vh - ${appHeaderHeight}px)` }} viewportClassName="px-4">
+      <ScrollArea
+        style={{ height: `calc(100dvh - ${appHeaderHeight}px)` }}
+        viewportClassName="px-4"
+      >
         <div className="flex h-full flex-col justify-between">
           <div>{children}</div>
           {footer && <div className="flex flex-col items-center">{footer}</div>}
         </div>
       </ScrollArea>
     ),
-    [children, footer]
+    [appHeaderHeight, children, footer]
   )
 
   return (
