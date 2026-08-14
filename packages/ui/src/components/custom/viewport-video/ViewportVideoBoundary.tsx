@@ -8,7 +8,7 @@ import type { ViewportVideoProps } from './index'
 const ViewportVideoEnhancer = dynamic(() => import('./ViewportVideoEnhancer'), { ssr: false })
 
 export default function ViewportVideoBoundary({
-  rootMargin = '300px',
+  rootMargin = '0px',
   src,
   ...props
 }: ViewportVideoProps): React.ReactNode {
