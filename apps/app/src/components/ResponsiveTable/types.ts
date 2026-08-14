@@ -1,11 +1,6 @@
-import React, { ReactNode } from 'react'
-import type { LucideProps } from 'lucide-react'
+import type { ReactNode } from 'react'
 
 export type Row = { id?: string | number; user_id?: string; [key: string]: unknown }
-
-export type ResponsiveIconProps = Omit<LucideProps, 'size'> & {
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | number
-}
 
 export interface GridRenderCellParams {
   value?: unknown
@@ -14,7 +9,7 @@ export interface GridRenderCellParams {
   id?: string | number
 }
 
-export interface GridColDef {
+export interface CustomColDef {
   field: string
   headerName?: string
   width?: number
@@ -26,49 +21,9 @@ export interface GridColDef {
   renderCell?: (params: GridRenderCellParams) => ReactNode
 }
 
-export interface CustomColDef extends Omit<GridColDef, 'renderCell'> {
-  renderCell?: (params: GridRenderCellParams) => ReactNode
-}
-
-export interface TypographyProps<T = unknown> {
-  sx?: React.CSSProperties
-  style?: React.CSSProperties
-  component?: T
-  gutterBottom?: boolean
-  variant?: string
-  className?: string
-  children?: React.ReactNode
-}
-
-export interface AccordionProps {
-  className?: string
-  sx?: React.CSSProperties
-  style?: React.CSSProperties
-  children?: React.ReactNode
-  [key: string]: unknown
-}
-
-export interface AccordionSummaryProps {
-  expandIcon?: React.ReactNode
-  sx?: React.CSSProperties
-  style?: React.CSSProperties
-  children?: React.ReactNode
-  [key: string]: unknown
-}
-
-export interface AccordionDetailsProps {
-  sx?: React.CSSProperties
-  style?: React.CSSProperties
-  children?: React.ReactNode
-  [key: string]: unknown
-}
-
-export interface TablePaginationProps {
-  sx?: React.CSSProperties
-  className?: string
-  style?: React.CSSProperties
-}
-
-export interface DataGridProps {
-  [key: string]: unknown
+export const getRowId = (row: Row): string | number => {
+  if (typeof row.id === 'string' || typeof row.id === 'number') return row.id
+  if (typeof row.user_id === 'string') return row.user_id
+  if (typeof row.rank === 'string' || typeof row.rank === 'number') return row.rank
+  return ''
 }
