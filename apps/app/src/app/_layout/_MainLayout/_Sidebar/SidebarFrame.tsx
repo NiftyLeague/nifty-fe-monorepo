@@ -2,7 +2,9 @@
 
 import type { PropsWithChildren, ReactNode } from 'react'
 import { memo, useMemo } from 'react'
+import { X } from 'lucide-react'
 
+import { Button } from '@nl/ui/base/button'
 import { ScrollArea } from '@nl/ui/base/scroll-area'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { cn } from '@nl/ui/utils'
@@ -61,7 +63,7 @@ function SidebarFrame({ children, footer }: SidebarFrameProps) {
       {isCompactScreen && (
         <div
           className={cn(
-            'fixed inset-0 z-50 transition-opacity',
+            'fixed top-14 right-0 bottom-0 left-0 z-40 transition-opacity',
             drawerOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
           )}
           aria-hidden={!drawerOpen}
@@ -69,7 +71,7 @@ function SidebarFrame({ children, footer }: SidebarFrameProps) {
           {drawerOpen && (
             <button
               type="button"
-              aria-label="Close sidebar"
+              aria-label="Close sidebar by clicking outside"
               className="absolute inset-0 h-full w-full cursor-default border-0 bg-black/50 p-0"
               onClick={toggleDrawer}
             />
@@ -78,6 +80,18 @@ function SidebarFrame({ children, footer }: SidebarFrameProps) {
             className="bg-sidebar text-sidebar-foreground absolute inset-y-0 left-0 z-10 border-r-0"
             style={{ width: appDrawerWidth }}
           >
+            {drawerOpen && (
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                aria-label="Close sidebar"
+                className="absolute top-2 right-2 z-20 h-8 w-8"
+                onClick={toggleDrawer}
+              >
+                <X aria-hidden="true" size={18} strokeWidth={1.5} />
+              </Button>
+            )}
             {drawerOpen && logo}
             {drawerOpen && drawer}
           </div>
@@ -88,7 +102,9 @@ function SidebarFrame({ children, footer }: SidebarFrameProps) {
         <aside
           className={cn(
             'bg-sidebar text-sidebar-foreground fixed bottom-0 left-0 z-40 border-r-0 transition-transform duration-200',
-            !drawerOpen && '-translate-x-full'
+            drawerOpen
+              ? 'pointer-events-auto translate-x-0'
+              : 'pointer-events-none -translate-x-full'
           )}
           aria-hidden={!drawerOpen}
           style={{ width: appDrawerWidth, top: appHeaderHeight }}
