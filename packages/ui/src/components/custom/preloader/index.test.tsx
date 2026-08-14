@@ -71,7 +71,7 @@ describe('Preloader', () => {
   it('keeps overlay visible when ready is false', () => {
     const { container } = render(<Preloader ready={false} progress={0.5} />)
     const root = container.firstChild as HTMLElement
-    expect(root.style.transform).toContain('translateY(0)')
+    expect(root.style.transform).toBe('')
   })
 
   it('calls start() when not ready', () => {

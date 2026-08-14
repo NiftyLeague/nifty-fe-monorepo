@@ -39,7 +39,7 @@ export function PreloaderBase({ ready, percent, showWarning }: PreloaderProps) {
       style={
         ready
           ? { transform: 'translateY(100%)', display: 'none' }
-          : { transform: 'transform: translateY(0)' }
+          : undefined
       }
     >
       <div id="js-preloader" className={styles.preloader}>
