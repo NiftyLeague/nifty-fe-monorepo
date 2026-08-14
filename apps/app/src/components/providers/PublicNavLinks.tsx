@@ -1,6 +1,6 @@
-import type { LucideIcon } from 'lucide-react'
-import { Cat, Dot, Gamepad, ListOrdered, Sparkles } from 'lucide-react'
 import Link from 'next/link'
+
+import { NavIcon } from '@nl/ui/custom/nav-icon'
 
 import { PublicItems } from '@/constants/menu-items'
 
@@ -8,19 +8,13 @@ const publicLinks = PublicItems.items.flatMap((item) =>
   item.type === 'group' ? (item.children ?? []) : []
 )
 
-const publicIconMap = {
-  cat: Cat,
-  gamepad: Gamepad,
-  'list-ordered': ListOrdered,
-  sparkles: Sparkles,
-} satisfies Record<string, LucideIcon>
-
 function PublicNavIcon({ name }: { name?: string }) {
-  const Icon =
-    name && name in publicIconMap ? publicIconMap[name as keyof typeof publicIconMap] : undefined
-  const IconComponent = Icon ?? Dot
+  const iconName =
+    name === 'cat' || name === 'gamepad' || name === 'list-ordered' || name === 'sparkles'
+      ? name
+      : 'dot'
 
-  return <IconComponent aria-hidden="true" absoluteStrokeWidth size={24} strokeWidth={1.5} />
+  return <NavIcon name={iconName} />
 }
 
 export default function PublicNavLinks() {
