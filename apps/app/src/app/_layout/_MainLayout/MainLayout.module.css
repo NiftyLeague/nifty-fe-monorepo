@@ -14,7 +14,7 @@
   box-sizing: border-box;
   display: flex;
   width: 100%;
-  min-height: 56px;
+  min-height: 60px;
   align-items: center;
   padding: 8px 16px;
 }
@@ -90,14 +90,6 @@
   .mainOpen {
     margin-left: 0;
     width: 100%;
-  }
-}
-
-@media (max-width: 767.95px) {
-  .mainClosed,
-  .mainOpen {
-    margin-top: 60px;
-    margin-left: 10px;
   }
 }
 
