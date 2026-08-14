@@ -1402,7 +1402,7 @@ describe('shared below-fold loading contract', () => {
     expect(source).toContain('Retry')
   })
 
-  it('defers below-fold marketing sections in web', () => {
+  it('defers below-fold marketing interaction without clipping visual effects', () => {
     const pageSource = readFileSync(join(process.cwd(), webHomePage), 'utf8')
     const deferredSource = readFileSync(join(process.cwd(), webDeferredHomeSections), 'utf8')
     const carouselSource = readFileSync(join(process.cwd(), webCommunityDegenCarousel), 'utf8')
@@ -1422,10 +1422,9 @@ describe('shared below-fold loading contract', () => {
     expect(deferredSource).toContain("from '@nl/ui/custom/deferred-section'")
     expect(carouselSource).toContain("from '@/components/Carousel'")
     expect(carouselSource).toContain("from '@/constants/degens'")
-    expect(pageSource.match(/className="home-below-fold/g)).toHaveLength(8)
-    expect(homeStyles).toContain('.home-below-fold')
-    expect(homeStyles).toContain('content-visibility: auto')
-    expect(homeStyles).toContain('contain-intrinsic-size: auto 800px')
+    expect(pageSource).not.toContain('home-below-fold')
+    expect(homeStyles).not.toContain('.home-below-fold')
+    expect(homeStyles).not.toContain('content-visibility: auto')
   })
 
   it('defers the below-fold Overview FAQ interaction bundle', () => {

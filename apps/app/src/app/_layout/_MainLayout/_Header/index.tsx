@@ -1,4 +1,5 @@
 import { Button } from '@nl/ui/base/button'
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { Menu } from 'lucide-react'
 
 import { useNavigation } from '@/contexts/NavigationContext'
@@ -16,6 +17,7 @@ const pages = [
 
 const Header = () => {
   const { drawerOpen, toggleDrawer } = useNavigation()
+  const isCompactScreen = useMediaQuery('(max-width:1023.95px)')
 
   return (
     <div className="flex w-full flex-row items-center justify-between">
@@ -23,7 +25,7 @@ const Header = () => {
       <div
         className="flex items-center"
         style={{
-          width: drawerOpen ? 228 : 80,
+          width: isCompactScreen ? 'auto' : drawerOpen ? 228 : 80,
         }}
       >
         <div className="hidden flex-grow lg:block">

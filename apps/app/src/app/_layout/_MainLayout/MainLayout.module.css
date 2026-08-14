@@ -67,13 +67,10 @@
 }
 
 @media (max-width: 1023.95px) {
-  .mainClosed {
-    margin-left: 20px;
-    width: calc(100% - 260px);
-  }
-
+  .mainClosed,
   .mainOpen {
-    margin-left: 20px;
+    margin-left: 0;
+    width: 100%;
   }
 }
 
