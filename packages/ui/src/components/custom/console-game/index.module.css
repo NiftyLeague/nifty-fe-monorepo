@@ -17,6 +17,15 @@
   z-index: 1;
 }
 
+.bonk_note,
+.bonk_note:hover,
+.bonk_note:focus-visible,
+.bonk_note:active {
+  background-color: transparent !important;
+  color: inherit;
+  opacity: 1;
+}
+
 .gaming_controller {
   position: absolute;
   left: 0px;

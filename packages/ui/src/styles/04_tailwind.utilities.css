@@ -54,6 +54,10 @@
     }
   }
 
+  .navbar-scroll-frame[data-scrolled='true'] {
+    background-color: color-mix(in oklab, var(--color-background) 90%, transparent);
+  }
+
   @keyframes navbar-scroll-frame-background {
     from {
       background-color: transparent;
@@ -68,7 +72,7 @@
     @apply absolute w-[400px] h-[400px] opacity-[0.15] blur-[50px] rounded-[398px] pointer-events-none;
     background: var(--gradient-brand-pink);
     transform: translateZ(0); /* Creates a new stacking context */
-    contain: strict; /* Prevents the blur from affecting layout */
+    contain: layout style; /* Isolate layout without clipping the blurred edge */
   }
   /* Position modifier classes (combine with purple-bg-orb) */
   .orb-top-left {
