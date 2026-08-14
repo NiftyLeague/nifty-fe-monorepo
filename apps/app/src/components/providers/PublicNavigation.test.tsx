@@ -36,6 +36,15 @@ describe('PublicNavigation', () => {
     fireEvent.click(toggle)
     expect(disclosure?.open).toBe(true)
 
+    const mobileToggle = screen.getByRole('button', { name: 'Toggle navigation' })
+    const mobileDisclosure = mobileToggle.closest('details')
+
+    expect(mobileToggle.getAttribute('aria-controls')).toBe('public-mobile-navigation')
+    expect(mobileDisclosure?.open).toBe(false)
+
+    fireEvent.click(mobileToggle)
+    expect(mobileDisclosure?.open).toBe(true)
+
     const mobilePanel = document.getElementById('public-mobile-navigation')
     expect(mobilePanel?.className).toContain('top-[60px]')
   })
