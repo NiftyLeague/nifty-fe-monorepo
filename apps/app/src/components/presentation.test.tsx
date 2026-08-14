@@ -203,6 +203,8 @@ describe('card presentation', () => {
     const guideLink = screen.getByRole('link', { name: /Guide/ })
     expect(guideLink.getAttribute('href')).toBe('/guide')
     expect(guideLink.querySelector('button')).toBeNull()
+    expect(guideLink.className).not.toContain('w-full')
+    expect(guideLink.className).toContain('h-8')
     expect(screen.getByAltText('Smashers').getAttribute('loading')).toBe('eager')
     expect(screen.getByAltText('Smashers').getAttribute('fetchpriority')).toBe('high')
 

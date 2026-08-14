@@ -1,25 +1,54 @@
 import dynamic from 'next/dynamic'
 
+import { Skeleton } from '@nl/ui/base/skeleton'
 import useAuth from '@/hooks/useAuth'
 import MenuList from './_MenuList'
 import SidebarFrame from './SidebarFrame'
 
+function UserProfileLoading() {
+  return (
+    <div
+      className="mb-4 flex flex-col items-center rounded-lg bg-muted p-4"
+      style={{ border: 'var(--border-default)' }}
+      role="status"
+      aria-live="polite"
+      aria-busy="true"
+      aria-label="Loading profile and login controls"
+    >
+      <Skeleton className="size-20 rounded-full" />
+      <Skeleton className="my-2 h-5 w-32" />
+      <Skeleton className="h-9 w-full rounded-md" />
+    </div>
+  )
+}
+
 const UserProfile = dynamic(() => import('./_UserProfile'), {
   ssr: false,
-  loading: () => <div className="mb-4 h-44 animate-pulse rounded-lg bg-muted" aria-hidden="true" />,
+  loading: () => <UserProfileLoading />,
 })
 
 const LogoutButton = dynamic(() => import('./_LogoutButton'), { ssr: false })
 
-// ==============================|| SIDEBAR DRAWER ||============================== //
-
-const Sidebar = () => {
+function SidebarReadyContent() {
   const { isLoggedIn } = useAuth()
 
   return (
-    <SidebarFrame footer={<LogoutButton sx={{ marginBottom: 12, width: '85%' }} />}>
+    <>
       <UserProfile />
       <MenuList isLoggedIn={isLoggedIn} />
+    </>
+  )
+}
+
+// ==============================|| SIDEBAR DRAWER ||============================== //
+
+const Sidebar = ({ walletReady = true }: { walletReady?: boolean }) => {
+  return (
+    <SidebarFrame
+      footer={walletReady ? <LogoutButton sx={{ marginBottom: 12, width: '85%' }} /> : undefined}
+    >
+      {walletReady ? <SidebarReadyContent /> : <UserProfileLoading />}
+      {!walletReady && <MenuList />}
     </SidebarFrame>
   )
 }
