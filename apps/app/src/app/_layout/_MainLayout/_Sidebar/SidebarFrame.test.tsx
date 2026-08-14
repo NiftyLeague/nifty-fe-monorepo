@@ -55,6 +55,18 @@ describe('private sidebar frame', () => {
     expect(navigationState.toggleDrawer).toHaveBeenCalledOnce()
   })
 
+  it('closes when the compact drawer backdrop is clicked', () => {
+    navigationState.drawerOpen = true
+    render(<SidebarFrame>Navigation</SidebarFrame>)
+
+    const navigation = screen.getByRole('navigation', { name: 'Primary navigation' })
+    const backdrop = navigation.querySelector('[aria-hidden="false"]')
+
+    fireEvent.click(backdrop as HTMLElement)
+
+    expect(navigationState.toggleDrawer).toHaveBeenCalledOnce()
+  })
+
   it('keeps the compact drawer below the app bar', () => {
     navigationState.drawerOpen = true
     render(<SidebarFrame>Navigation</SidebarFrame>)

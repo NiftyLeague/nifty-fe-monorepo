@@ -93,6 +93,14 @@ describe('home page', () => {
     ).toContain('w-full')
   })
 
+  it('loads the desktop hero artwork at high priority for LCP', () => {
+    render(<Home />)
+
+    const heroArtwork = screen.getByAltText('Nifty Hero Characters')
+    expect(heroArtwork.getAttribute('data-loading')).toBeNull()
+    expect(heroArtwork.getAttribute('data-fetch-priority')).toBeNull()
+  })
+
   it('does not compete with the hero background for high-priority loading', () => {
     render(<Home />)
 

@@ -10,23 +10,6 @@
   height: calc(100vh - 60px);
 }
 
-.appBarInner {
-  box-sizing: border-box;
-  display: flex;
-  width: 100%;
-  min-height: 60px;
-  align-items: center;
-  padding: 8px 16px;
-}
-
-@media (min-width: 1024px) {
-  .appBarInner {
-    height: 60px;
-    min-height: 0;
-    padding: 0 24px;
-  }
-}
-
 .mainClosed {
   transition: margin 200ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
 }
