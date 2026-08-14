@@ -6,10 +6,15 @@ const navigationState = {
   toggleDrawer: mock(),
 }
 
+let isDesktopNavigation = false
+
 let SidebarFrame: typeof import('./SidebarFrame').default
 
 beforeEach(async () => {
-  mock.module('@nl/ui/hooks/useMediaQuery', () => ({ useMediaQuery: () => false }))
+  isDesktopNavigation = false
+  mock.module('@nl/ui/hooks/useMediaQuery', () => ({
+    useMediaQuery: () => isDesktopNavigation,
+  }))
   mock.module('@/contexts/NavigationContext', () => ({ useNavigation: () => navigationState }))
   mock.module('@nl/ui/base/scroll-area', () => ({
     ScrollArea: ({
@@ -48,5 +53,20 @@ describe('private sidebar frame', () => {
     expect(navigation.getAttribute('data-state')).toBe('open')
     fireEvent.click(screen.getByRole('button', { name: 'Close sidebar' }))
     expect(navigationState.toggleDrawer).toHaveBeenCalledOnce()
+  })
+
+  it('keeps the desktop drawer interactive only while open', () => {
+    isDesktopNavigation = true
+    navigationState.drawerOpen = true
+    const { rerender } = render(<SidebarFrame>Navigation</SidebarFrame>)
+
+    const drawer = screen.getByRole('complementary')
+    expect(drawer.className).toContain('pointer-events-auto')
+    expect(drawer.className).toContain('translate-x-0')
+
+    navigationState.drawerOpen = false
+    rerender(<SidebarFrame>Navigation updated</SidebarFrame>)
+    expect(drawer.className).toContain('pointer-events-none')
+    expect(drawer.className).toContain('-translate-x-full')
   })
 })

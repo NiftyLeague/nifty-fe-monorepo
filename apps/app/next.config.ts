@@ -7,7 +7,7 @@ import type { NextConfig } from 'next'
 const ENV = (process.env.VERCEL_ENV as 'production' | 'preview' | undefined) ?? 'development'
 
 const nextConfig: NextConfig = {
-  transpilePackages: ['@nl/imx-passport', '@nl/ui'],
+  transpilePackages: ['@nl/contracts', '@nl/imx-passport', '@nl/ui'],
   turbopack: {},
   images: {
     formats: ['image/avif', 'image/webp'],

@@ -1,7 +1,7 @@
 import { Contract } from 'ethers'
 import type { TargetNetwork, ContractName } from '@/types'
-import MAINNET_DEPLOYMENTS from './deployments.mainnet'
-import TESTNET_DEPLOYMENTS from './deployments.sepolia'
+import MAINNET_DEPLOYMENTS from '@nl/contracts/deployments/mainnet'
+import TESTNET_DEPLOYMENTS from '@nl/contracts/deployments/sepolia'
 import { getWallet } from '@/utils/wallet'
 
 export const getDeployedContract = (targetNetwork: TargetNetwork, contractName: ContractName) => {

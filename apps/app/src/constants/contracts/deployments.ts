@@ -1,8 +1,8 @@
 import type { InterfaceAbi } from 'ethers'
 import { mainnet, sepolia, hardhat, immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains'
 
-import MAINNET_DEPLOYMENTS from './deployments.mainnet'
-import TESTNET_DEPLOYMENTS from './deployments.sepolia'
+import MAINNET_DEPLOYMENTS from '@nl/contracts/deployments/mainnet'
+import TESTNET_DEPLOYMENTS from '@nl/contracts/deployments/sepolia'
 import IMX_TESTNET_DEPLOYMENTS from './deployments.imxTestnet'
 import IMX_MAINNET_DEPLOYMENTS from './deployments.imxMainnet'
 

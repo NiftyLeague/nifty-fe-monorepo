@@ -22,6 +22,7 @@ This Turborepo includes the following apps/packages:
 
 - `@nl/eslint-config`: global [eslint](https://eslint.org/) configurations (includes `eslint-plugin-next` and `eslint-config-prettier`) for code analysis/linting
 - `@nl/imx-passport`: an [Immutable Passport](https://www.immutable.com/products/passport) instance to connect apps to the Immutable zkEVM blockchain
+- `@nl/contracts`: shared deployed contract addresses and ABIs used by the app and API
 - `@nl/playfab`: a [PlayFab](https://playfab.com/) client API for our game services. Includes auth UI components for PlayFab login
 - `@nl/prettier-config`: global [Prettier](https://prettier.io/) config overrides for code formatting
 - `@nl/typescript-config`: global [TypeScript](https://www.typescriptlang.org/) configs `tsconfig.json`
