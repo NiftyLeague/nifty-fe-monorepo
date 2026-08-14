@@ -58,23 +58,17 @@ function SidebarFrame({ children, footer }: SidebarFrameProps) {
       {isCompactScreen && (
         <div
           className={cn(
-            'fixed right-0 bottom-0 left-0 z-40 transition-opacity',
+            'fixed right-0 bottom-0 left-0 z-40 bg-black/50 transition-opacity',
             drawerOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
           )}
           aria-hidden={!drawerOpen}
+          onClick={toggleDrawer}
           style={{ top: appHeaderHeight }}
         >
-          {drawerOpen && (
-            <button
-              type="button"
-              aria-label="Close sidebar by clicking outside"
-              className="absolute inset-0 h-full w-full cursor-default border-0 bg-black/50 p-0"
-              onClick={toggleDrawer}
-            />
-          )}
           <div
             className="bg-sidebar text-sidebar-foreground absolute inset-y-0 left-0 z-10 border-r-0"
             style={{ width: appDrawerWidth }}
+            onClick={(event) => event.stopPropagation()}
           >
             {drawerOpen && (
               <Button
