@@ -11,7 +11,7 @@ export type ViewportVideoProps = Omit<
 }
 
 export const ViewportVideo = memo(function ViewportVideo({
-  rootMargin = '300px',
+  rootMargin = '0px',
   src,
   ...props
 }: ViewportVideoProps) {
