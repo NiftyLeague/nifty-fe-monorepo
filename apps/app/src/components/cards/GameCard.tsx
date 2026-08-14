@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Button } from '@nl/ui/base/button'
+import { buttonVariants } from '@nl/ui/base/button-variants'
 import { Card, CardContent } from '@nl/ui/base/card'
 import { Title } from '@nl/ui/custom/typography'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
@@ -55,11 +55,14 @@ const CardGameContent = ({
         <div className="flex flex-row justify-between">
           <Title level={4}>{title}</Title>
           {externalLink ? (
-            <Button asChild variant="default" className="-mt-2 w-full">
-              <Link href={externalLink.src} target="_blank" rel="noreferrer">
-                {externalLink.title} <ExternalIcon />
-              </Link>
-            </Button>
+            <Link
+              href={externalLink.src}
+              target="_blank"
+              rel="noreferrer"
+              className={buttonVariants({ className: '-mt-2 w-full' })}
+            >
+              {externalLink.title} <ExternalIcon />
+            </Link>
           ) : null}
         </div>
         {isComingSoon && <p className="text-sm text-warning">Coming 2023</p>}
@@ -83,20 +86,26 @@ const CardGameContent = ({
         <div className="flex w-full flex-row flex-wrap gap-x-2 gap-y-4">
           {actions || (
             <>
-              <Button
-                variant="default"
-                className="min-w-20 w-full flex-1"
+              <button
+                type="button"
+                className={buttonVariants({
+                  variant: 'default',
+                  className: 'min-w-20 w-full flex-1',
+                })}
                 onClick={onPlayOnDesktopClick}
               >
                 Play on Desktop
-              </Button>
-              <Button
-                variant="outline"
-                className="min-w-20 w-full flex-1"
+              </button>
+              <button
+                type="button"
+                className={buttonVariants({
+                  variant: 'outline',
+                  className: 'min-w-20 w-full flex-1',
+                })}
                 onClick={onPlayOnWebClick}
               >
                 Play on Web
-              </Button>
+              </button>
             </>
           )}
         </div>

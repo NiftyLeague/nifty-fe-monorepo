@@ -1,10 +1,10 @@
-'use client'
-
 import Link from 'next/link'
-import { Button } from '@nl/ui/base/button'
+import { buttonVariants } from '@nl/ui/base/button-variants'
 import GameCard from '@/components/cards/GameCard'
 
 import styles from '../grid-item.module.css'
+
+const gameActionClassName = 'w-full min-w-20 flex-1'
 
 const Web3GameList = () => {
   return (
@@ -18,11 +18,12 @@ const Web3GameList = () => {
           image="/img/games/smashers/nifty-smashers-poster.webp"
           autoHeight={false}
           actions={
-            <>
-              <Button asChild variant="outline" className="w-full min-w-20 flex-1">
-                <Link href="/games/smashers">Play in Browser</Link>
-              </Button>
-            </>
+            <Link
+              href="/games/smashers"
+              className={buttonVariants({ variant: 'outline', className: gameActionClassName })}
+            >
+              Play in Browser
+            </Link>
           }
         />
       </div>
@@ -34,9 +35,12 @@ const Web3GameList = () => {
           image="/img/games/wen-poster.webp"
           autoHeight={false}
           actions={
-            <Button asChild variant="outline" className="w-full min-w-20 flex-1">
-              <Link href="/games/wen-game">Play in Browser</Link>
-            </Button>
+            <Link
+              href="/games/wen-game"
+              className={buttonVariants({ variant: 'outline', className: gameActionClassName })}
+            >
+              Play in Browser
+            </Link>
           }
         />
       </div>
@@ -48,9 +52,12 @@ const Web3GameList = () => {
           image="/img/games/crypto-winter.webp"
           autoHeight={false}
           actions={
-            <Button asChild variant="outline" className="w-full min-w-20 flex-1">
-              <Link href="/games/crypto-winter">Play in Browser</Link>
-            </Button>
+            <Link
+              href="/games/crypto-winter"
+              className={buttonVariants({ variant: 'outline', className: gameActionClassName })}
+            >
+              Play in Browser
+            </Link>
           }
         />
       </div>
@@ -63,9 +70,13 @@ const Web3GameList = () => {
           image="/img/games/mt-gawx-poster.webp"
           autoHeight={true}
           actions={
-            <Button disabled variant="outline" className="w-full min-w-20 flex-1">
+            <button
+              type="button"
+              disabled
+              className={buttonVariants({ variant: 'outline', className: gameActionClassName })}
+            >
               Mountain Closed
-            </Button>
+            </button>
           }
         />
       </div>
@@ -80,9 +91,13 @@ const Web3GameList = () => {
           image="/img/games/nifty-tennis.webp"
           autoHeight={true}
           actions={
-            <Button disabled variant="outline" className="w-full min-w-20 flex-1">
+            <button
+              type="button"
+              disabled
+              className={buttonVariants({ variant: 'outline', className: gameActionClassName })}
+            >
               Not Available
-            </Button>
+            </button>
           }
         />
       </div>
