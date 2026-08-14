@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react'
 import { ChevronDown, ChevronUp, Pencil } from 'lucide-react'
 import { Button } from '@nl/ui/base/button'
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@nl/ui/base/dialog'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@nl/ui/base/dialog'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@nl/ui/base/select'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@nl/ui/base/table'
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
