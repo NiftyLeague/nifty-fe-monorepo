@@ -8,6 +8,7 @@ import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { cn } from '@nl/ui/utils'
 
 import { useNavigation } from '@/contexts/NavigationContext'
+import { desktopNavigationMediaQuery } from '@/app/_layout/navigation-breakpoints'
 import LogoSection from '../_LogoSection'
 
 const appDrawerWidth = 260
@@ -18,8 +19,8 @@ interface SidebarFrameProps extends PropsWithChildren {
 }
 
 function SidebarFrame({ children, footer }: SidebarFrameProps) {
-  const isSmallScreen = useMediaQuery('(max-width:1280px)')
-  const isCompactScreen = useMediaQuery('(max-width:1023.95px)')
+  const isDesktopNavigation = useMediaQuery(desktopNavigationMediaQuery)
+  const isCompactScreen = !isDesktopNavigation
   const { drawerOpen, toggleDrawer } = useNavigation()
 
   const logo = useMemo(
@@ -53,9 +54,9 @@ function SidebarFrame({ children, footer }: SidebarFrameProps) {
   return (
     <nav
       aria-label="Primary navigation"
-      className={cn('shrink-0', isSmallScreen && isCompactScreen ? 'w-0' : 'w-[260px]')}
+      className={cn('shrink-0', isCompactScreen ? 'w-0' : 'w-[260px]')}
     >
-      {isSmallScreen && (
+      {isCompactScreen && (
         <div
           className={cn(
             'fixed inset-0 z-50 transition-opacity',
@@ -76,7 +77,7 @@ function SidebarFrame({ children, footer }: SidebarFrameProps) {
         </div>
       )}
 
-      {!isSmallScreen && (
+      {isDesktopNavigation && (
         <aside
           className={cn(
             'bg-sidebar text-sidebar-foreground fixed bottom-0 left-0 z-40 border-r-0 transition-transform duration-200',
