@@ -469,7 +469,6 @@ describe('shared notification loading contract', () => {
 describe('shared deferred loader contract', () => {
   it('uses the shared cancellable loader for app-only boundaries', () => {
     for (const file of [
-      deferredDegenCard,
       deferredCharacterCreator,
       deferredMintWalletBoundary,
       mintNetworkBoundary,
@@ -480,6 +479,12 @@ describe('shared deferred loader contract', () => {
       expect(source).toContain("from '@nl/ui/hooks/useDeferredComponent'")
       expect(source).toContain('useDeferredComponent')
     }
+
+    const degenSource = readFileSync(join(process.cwd(), deferredDegenCard), 'utf8')
+    expect(degenSource).toContain("from '@nl/ui/custom/deferred-component'")
+    expect(degenSource).toContain("from '@nl/ui/hooks/useOnScreen'")
+    expect(degenSource).toContain('disabledFallback')
+    expect(degenSource).toContain('loadingFallback')
   })
 
   it('shares viewport visibility state with the interactive web carousel', () => {
