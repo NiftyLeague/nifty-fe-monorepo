@@ -11,8 +11,13 @@ import {
   type SetStateAction,
 } from 'react'
 
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
+
+import { desktopNavigationMediaQuery } from '@/app/_layout/navigation-breakpoints'
+
 interface NavigationContextValue {
   drawerOpen: boolean
+  isDesktopNavigation: boolean
   setDrawerOpen: Dispatch<SetStateAction<boolean>>
   toggleDrawer: () => void
 }
@@ -21,10 +26,11 @@ const NavigationContext = createContext<NavigationContextValue | null>(null)
 
 export function NavigationProvider({ children }: PropsWithChildren) {
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const isDesktopNavigation = useMediaQuery(desktopNavigationMediaQuery)
   const toggleDrawer = useCallback(() => setDrawerOpen((open) => !open), [])
   const value = useMemo(
-    () => ({ drawerOpen, setDrawerOpen, toggleDrawer }),
-    [drawerOpen, toggleDrawer]
+    () => ({ drawerOpen, isDesktopNavigation, setDrawerOpen, toggleDrawer }),
+    [drawerOpen, isDesktopNavigation, toggleDrawer]
   )
 
   return <NavigationContext.Provider value={value}>{children}</NavigationContext.Provider>

@@ -6,12 +6,10 @@ import { usePathname } from 'next/navigation'
 
 import { cn } from '@nl/ui/utils'
 import { ScrollArea } from '@nl/ui/base/scroll-area'
-import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
 import Breadcrumbs from '@/components/extended/Breadcrumbs'
 import { NavigationProvider, useNavigation } from '@/contexts/NavigationContext'
 import navigation from '@/constants/menu-items'
-import { desktopNavigationMediaQuery } from './navigation-breakpoints'
 import styles from './_MainLayout/MainLayout.module.css'
 
 const container = true
@@ -34,8 +32,7 @@ export default function AppShell({ children, header, sidebar, networkWarning }: 
 
 function AppShellContent({ children, header, sidebar, networkWarning }: AppShellProps) {
   const pathname = usePathname()
-  const isDesktopNavigation = useMediaQuery(desktopNavigationMediaQuery)
-  const { drawerOpen, setDrawerOpen } = useNavigation()
+  const { drawerOpen, isDesktopNavigation, setDrawerOpen } = useNavigation()
 
   useEffect(() => {
     setDrawerOpen(isDesktopNavigation)

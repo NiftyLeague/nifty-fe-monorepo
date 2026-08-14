@@ -1,9 +1,7 @@
 import { Button } from '@nl/ui/base/button'
 import { Menu } from 'lucide-react'
-import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
 import { useNavigation } from '@/contexts/NavigationContext'
-import { desktopNavigationMediaQuery } from '@/app/_layout/navigation-breakpoints'
 
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import LogoSection from '../_LogoSection'
@@ -17,8 +15,7 @@ const pages = [
 ] as { name: string; link: string }[]
 
 const Header = () => {
-  const { drawerOpen, toggleDrawer } = useNavigation()
-  const isDesktopNavigation = useMediaQuery(desktopNavigationMediaQuery)
+  const { drawerOpen, isDesktopNavigation, toggleDrawer } = useNavigation()
   const isCompactScreen = !isDesktopNavigation
 
   return (
