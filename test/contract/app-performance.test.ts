@@ -9,6 +9,7 @@ const appRootLayout = 'apps/app/src/app/layout.tsx'
 const appShell = 'apps/app/src/app/_layout/AppShell.tsx'
 const appShellStyles = 'apps/app/src/app/_layout/_MainLayout/MainLayout.module.css'
 const appSidebarFrame = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/SidebarFrame.tsx'
+const appNavigationContext = 'apps/app/src/contexts/NavigationContext.tsx'
 const appNavigationBreakpoints = 'apps/app/src/app/_layout/navigation-breakpoints.ts'
 const bridgeDialog = 'apps/app/src/components/dialog/BridgeButtonDialog/index.tsx'
 const appSectionSlider = 'apps/app/src/components/sections/SectionSlider.tsx'
@@ -75,11 +76,13 @@ describe('app performance contracts', () => {
   it('keeps the private shell and sidebar on the same desktop breakpoint', () => {
     const shellSource = readFileSync(appShell, 'utf8')
     const sidebarSource = readFileSync(appSidebarFrame, 'utf8')
+    const contextSource = readFileSync(appNavigationContext, 'utf8')
     const breakpointSource = readFileSync(appNavigationBreakpoints, 'utf8')
 
     expect(breakpointSource).toContain("desktopNavigationMediaQuery = '(min-width: 1024px)'")
-    expect(shellSource).toContain('useMediaQuery(desktopNavigationMediaQuery)')
-    expect(sidebarSource).toContain('useMediaQuery(desktopNavigationMediaQuery)')
+    expect(contextSource).toContain('useMediaQuery(desktopNavigationMediaQuery)')
+    expect(shellSource).toContain('isDesktopNavigation')
+    expect(sidebarSource).not.toContain('useMediaQuery')
     expect(sidebarSource).toContain('const isCompactScreen = !isDesktopNavigation')
   })
 
@@ -87,10 +90,10 @@ describe('app performance contracts', () => {
     const shellSource = readFileSync(appShell, 'utf8')
     const shellStyles = readFileSync(appShellStyles, 'utf8')
 
-    expect(shellSource).toContain(
-      'flex min-h-14 w-full items-center px-4 py-2 lg:h-[60px] lg:min-h-0 lg:px-6 lg:py-0'
-    )
-    expect(shellStyles).not.toContain('.appBarInner')
+    expect(shellSource).toContain('<div className={styles.appBarInner}>{header}</div>')
+    expect(shellStyles).toContain('.appBarInner')
+    expect(shellStyles).toContain('padding: 8px 16px;')
+    expect(shellStyles).toContain('padding: 0 24px;')
   })
 
   it('shares the accessible native carousel and keeps the app free of slider runtimes', () => {
