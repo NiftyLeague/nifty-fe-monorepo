@@ -82,7 +82,8 @@ describe('app performance contracts', () => {
     const breakpointSource = readFileSync(appNavigationBreakpoints, 'utf8')
 
     expect(breakpointSource).toContain("desktopNavigationMediaQuery = '(min-width: 1024px)'")
-    expect(contextSource).toContain('useMediaQuery(desktopNavigationMediaQuery)')
+    expect(contextSource).toContain('useMediaQuery(desktopNavigationMediaQuery, {')
+    expect(contextSource).toContain('initializeWithValue: false')
     expect(shellSource).toContain('isDesktopNavigation')
     expect(sidebarSource).not.toContain('useMediaQuery')
     expect(sidebarSource).toContain('const isCompactScreen = !isDesktopNavigation')
