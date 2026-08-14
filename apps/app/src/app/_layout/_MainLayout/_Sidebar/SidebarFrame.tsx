@@ -2,10 +2,9 @@
 
 import type { PropsWithChildren, ReactNode } from 'react'
 import { memo, useMemo } from 'react'
-import { X } from 'lucide-react'
 
-import { Button } from '@nl/ui/base/button'
 import { ScrollArea } from '@nl/ui/base/scroll-area'
+import { Sheet, SheetContent, SheetDescription, SheetTitle } from '@nl/ui/base/sheet'
 import { cn } from '@nl/ui/utils'
 
 import { useNavigation } from '@/contexts/NavigationContext'
@@ -20,7 +19,7 @@ interface SidebarFrameProps extends PropsWithChildren {
 }
 
 function SidebarFrame({ children, footer }: SidebarFrameProps) {
-  const { drawerOpen, isDesktopNavigation, toggleDrawer } = useNavigation()
+  const { drawerOpen, isDesktopNavigation, setDrawerOpen } = useNavigation()
   const isCompactScreen = !isDesktopNavigation
   const appHeaderHeight = isCompactScreen ? compactAppHeaderHeight : desktopAppHeaderHeight
 
@@ -52,52 +51,36 @@ function SidebarFrame({ children, footer }: SidebarFrameProps) {
 
   return (
     <nav
-      id="app-primary-navigation"
       aria-label="Primary navigation"
       data-state={drawerOpen ? 'open' : 'closed'}
       className={cn('shrink-0', isCompactScreen ? 'w-0' : 'w-[260px]')}
     >
       {isCompactScreen && (
-        <div
-          className={cn(
-            'fixed right-0 bottom-0 left-0 z-40 bg-black/50 transition-opacity',
-            drawerOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
-          )}
-          aria-hidden={!drawerOpen}
-          style={{ top: appHeaderHeight }}
-        >
-          {drawerOpen && (
-            <button
-              type="button"
-              aria-label="Close sidebar by clicking outside"
-              className="absolute inset-0 h-full w-full cursor-default border-0 bg-transparent p-0"
-              onClick={toggleDrawer}
-            />
-          )}
-          <div
-            className="bg-sidebar text-sidebar-foreground absolute inset-y-0 left-0 z-10 border-r-0"
-            style={{ width: appDrawerWidth }}
+        <Sheet open={drawerOpen} onOpenChange={setDrawerOpen}>
+          <SheetContent
+            id="app-primary-navigation"
+            side="left"
+            aria-label="Primary navigation"
+            closeLabel="Close sidebar"
+            closeClassName="top-2 right-2 z-20 h-8 w-8 opacity-100 hover:opacity-100"
+            overlayClassName="bg-black/50"
+            overlayStyle={{ top: appHeaderHeight }}
+            className="w-[260px] max-w-[260px] gap-0 border-r-0 bg-sidebar p-0 text-sidebar-foreground"
+            style={{ top: appHeaderHeight, bottom: 0, height: 'auto' }}
           >
-            {drawerOpen && (
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon"
-                aria-label="Close sidebar"
-                className="absolute top-2 right-2 z-20 h-8 w-8"
-                onClick={toggleDrawer}
-              >
-                <X aria-hidden="true" size={18} strokeWidth={1.5} />
-              </Button>
-            )}
-            {drawerOpen && logo}
-            {drawerOpen && drawer}
-          </div>
-        </div>
+            <SheetTitle className="sr-only">Primary navigation</SheetTitle>
+            <SheetDescription className="sr-only">
+              Navigate through the private app
+            </SheetDescription>
+            {logo}
+            {drawer}
+          </SheetContent>
+        </Sheet>
       )}
 
       {isDesktopNavigation && (
         <aside
+          id="app-primary-navigation"
           className={cn(
             'bg-sidebar text-sidebar-foreground fixed bottom-0 left-0 z-40 border-r-0 transition-transform duration-200',
             drawerOpen
