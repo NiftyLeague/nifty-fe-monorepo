@@ -52,14 +52,16 @@ const CardGameContent = ({
   return (
     <div className="flex grow flex-col justify-between bg-card">
       <CardContent className="p-6 pb-0">
-        <div className="flex flex-row justify-between">
-          <Title level={4}>{title}</Title>
+        <div className="flex flex-row flex-wrap items-center justify-between gap-x-2 gap-y-2">
+          <Title level={4} className="min-w-0">
+            {title}
+          </Title>
           {externalLink ? (
             <Link
               href={externalLink.src}
               target="_blank"
               rel="noreferrer"
-              className={buttonVariants({ className: '-mt-2 w-full' })}
+              className={buttonVariants({ size: 'sm', className: 'shrink-0 px-3' })}
             >
               {externalLink.title} <ExternalIcon />
             </Link>

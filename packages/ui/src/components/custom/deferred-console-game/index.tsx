@@ -23,7 +23,13 @@ const DeferredConsoleGame = ({ src }: DeferredConsoleGameProps) => {
   )
 
   return (
-    <div ref={rootRef} className="relative aspect-video overflow-hidden">
+    <div
+      ref={rootRef}
+      className="relative overflow-hidden"
+      // The shared backdrop is 4842x3371, not 16:9. Keeping its native ratio
+      // reserves the full art-directed frame before the deferred client chunk loads.
+      style={{ aspectRatio: '4842 / 3371' }}
+    >
       {ConsoleGame ? (
         <ConsoleGame isNearViewport={isNearViewport} src={src} />
       ) : (

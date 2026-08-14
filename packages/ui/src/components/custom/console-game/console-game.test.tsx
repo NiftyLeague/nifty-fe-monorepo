@@ -21,6 +21,7 @@ describe('ConsoleGame', () => {
 
     expect(image?.getAttribute('loading')).toBe('lazy')
     expect(video?.getAttribute('preload')).toBe('metadata')
+    expect(container.querySelector('.dark-gradient-overlay')).toBeTruthy()
   })
 
   it('uses the parent visibility state to pause outside the viewport', () => {
