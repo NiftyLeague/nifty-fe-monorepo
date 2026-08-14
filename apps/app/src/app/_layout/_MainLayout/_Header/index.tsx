@@ -38,6 +38,8 @@ const Header = () => {
           className="h-[34px] w-[34px] cursor-pointer overflow-hidden rounded-md bg-muted text-blue transition-all duration-200 hover:bg-purple hover:text-foreground"
           onClick={toggleDrawer}
           aria-label="toggle sidebar"
+          aria-controls="app-primary-navigation"
+          aria-expanded={drawerOpen}
         >
           <Menu aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />
         </Button>

@@ -53,23 +53,30 @@ function SidebarFrame({ children, footer }: SidebarFrameProps) {
 
   return (
     <nav
+      id="app-primary-navigation"
       aria-label="Primary navigation"
+      data-state={drawerOpen ? 'open' : 'closed'}
       className={cn('shrink-0', isCompactScreen ? 'w-0' : 'w-[260px]')}
     >
       {isCompactScreen && (
         <div
           className={cn(
             'fixed inset-0 z-50 transition-opacity',
-            drawerOpen
-              ? 'pointer-events-auto bg-black/50 opacity-100'
-              : 'pointer-events-none opacity-0'
+            drawerOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
           )}
-          onClick={toggleDrawer}
+          aria-hidden={!drawerOpen}
         >
+          {drawerOpen && (
+            <button
+              type="button"
+              aria-label="Close sidebar"
+              className="absolute inset-0 h-full w-full cursor-default border-0 bg-black/50 p-0"
+              onClick={toggleDrawer}
+            />
+          )}
           <div
-            className="bg-sidebar text-sidebar-foreground absolute inset-y-0 left-0 border-r-0"
+            className="bg-sidebar text-sidebar-foreground absolute inset-y-0 left-0 z-10 border-r-0"
             style={{ width: appDrawerWidth }}
-            onClick={(event) => event.stopPropagation()}
           >
             {drawerOpen && logo}
             {drawerOpen && drawer}
@@ -83,6 +90,7 @@ function SidebarFrame({ children, footer }: SidebarFrameProps) {
             'bg-sidebar text-sidebar-foreground fixed bottom-0 left-0 z-40 border-r-0 transition-transform duration-200',
             !drawerOpen && '-translate-x-full'
           )}
+          aria-hidden={!drawerOpen}
           style={{ width: appDrawerWidth, top: appHeaderHeight }}
         >
           {drawerOpen && logo}
