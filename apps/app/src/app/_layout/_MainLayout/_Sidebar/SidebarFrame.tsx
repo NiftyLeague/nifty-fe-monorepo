@@ -63,10 +63,11 @@ function SidebarFrame({ children, footer }: SidebarFrameProps) {
       {isCompactScreen && (
         <div
           className={cn(
-            'fixed top-14 right-0 bottom-0 left-0 z-40 transition-opacity',
+            'fixed right-0 bottom-0 left-0 z-40 transition-opacity',
             drawerOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
           )}
           aria-hidden={!drawerOpen}
+          style={{ top: appHeaderHeight }}
         >
           {drawerOpen && (
             <button
