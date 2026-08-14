@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 import PublicNavigation from './PublicNavigation'
@@ -17,19 +17,24 @@ beforeEach(() => {
 })
 
 describe('PublicNavigation', () => {
-  it('keeps the desktop sidebar open by default with a native disclosure control', () => {
+  it('keeps the desktop sidebar open with an accessible native disclosure control', () => {
     render(
       <PublicNavigation>
         <p>Public content</p>
       </PublicNavigation>
     )
 
-    const toggle = screen.getByLabelText('Toggle sidebar')
+    const toggle = screen.getByRole('button', { name: 'Toggle sidebar' })
     const disclosure = toggle.closest('details')
 
     expect(disclosure?.open).toBe(true)
     expect(toggle.getAttribute('aria-controls')).toBe('public-desktop-navigation')
-    expect(document.getElementById('public-desktop-navigation')).toBeTruthy()
+
+    fireEvent.click(toggle)
+    expect(disclosure?.open).toBe(false)
+
+    fireEvent.click(toggle)
+    expect(disclosure?.open).toBe(true)
 
     const mobilePanel = document.getElementById('public-mobile-navigation')
     expect(mobilePanel?.className).toContain('top-[60px]')
