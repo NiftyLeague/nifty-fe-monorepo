@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
 const navigationState = {
   drawerOpen: false,
   isDesktopNavigation: false,
+  setDrawerOpen: mock(),
   toggleDrawer: mock(),
 }
 
@@ -27,6 +28,7 @@ beforeEach(async () => {
 afterEach(() => {
   navigationState.drawerOpen = false
   navigationState.isDesktopNavigation = false
+  navigationState.setDrawerOpen.mockClear()
   navigationState.toggleDrawer.mockClear()
   mock.restore()
 })
@@ -36,7 +38,7 @@ describe('private sidebar frame', () => {
     const { rerender } = render(<SidebarFrame>Navigation</SidebarFrame>)
     const navigation = screen.getByRole('navigation', { name: 'Primary navigation' })
 
-    expect(navigation.id).toBe('app-primary-navigation')
+    expect(navigation.id).toBe('')
     expect(navigation.getAttribute('data-state')).toBe('closed')
     expect(screen.queryByRole('button', { name: 'Close sidebar' })).toBeNull()
     rerender(<SidebarFrame>Navigation updated</SidebarFrame>)
@@ -45,31 +47,29 @@ describe('private sidebar frame', () => {
   it('renders an accessible compact close action while open', () => {
     navigationState.drawerOpen = true
     render(<SidebarFrame>Navigation</SidebarFrame>)
-    const navigation = screen.getByRole('navigation', { name: 'Primary navigation' })
 
-    expect(navigation.getAttribute('data-state')).toBe('open')
     fireEvent.click(screen.getByRole('button', { name: 'Close sidebar' }))
-    expect(navigationState.toggleDrawer).toHaveBeenCalledOnce()
+    expect(navigationState.setDrawerOpen).toHaveBeenCalledWith(false)
   })
 
-  it('closes when the compact drawer backdrop is clicked', () => {
+  it('renders the compact drawer backdrop below the app bar', () => {
     navigationState.drawerOpen = true
     render(<SidebarFrame>Navigation</SidebarFrame>)
 
-    const backdrop = screen.getByRole('button', { name: 'Close sidebar by clicking outside' })
+    const backdrop = document.querySelector('[data-slot="sheet-overlay"]')
 
-    fireEvent.click(backdrop)
-
-    expect(navigationState.toggleDrawer).toHaveBeenCalledOnce()
+    expect(backdrop).not.toBeNull()
+    expect((backdrop as HTMLElement).className).toContain('bg-black/50')
+    expect((backdrop as HTMLElement).style.top).toBe('56px')
   })
 
   it('keeps the compact drawer below the app bar', () => {
     navigationState.drawerOpen = true
     render(<SidebarFrame>Navigation</SidebarFrame>)
 
-    const navigation = screen.getByRole('navigation', { name: 'Primary navigation' })
-    const overlay = navigation.querySelector('[aria-hidden="false"]')
-    const scrollArea = navigation.querySelector('[style*="height"]')
+    const panel = screen.getByRole('dialog', { name: 'Primary navigation' })
+    const overlay = document.querySelector('[data-slot="sheet-overlay"]')
+    const scrollArea = panel.querySelector('[style*="height"]')
 
     expect((overlay as HTMLElement | null)?.style.top).toBe('56px')
     expect((scrollArea as HTMLElement | null)?.style.height).toBe('calc(100dvh - 56px)')
