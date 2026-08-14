@@ -415,6 +415,14 @@ describe('GLTF viewer loading contract', () => {
     expect(modelViewSource).not.toContain("import '@google/model-viewer'")
   })
 
+  it('keeps embedded viewer controls loadable in sandboxed frames', () => {
+    const nextConfigSource = readFileSync(join(process.cwd(), 'apps/web/next.config.ts'), 'utf8')
+
+    expect(nextConfigSource).toContain("source: '/_next/static/:path*'")
+    expect(nextConfigSource).toContain("key: 'Access-Control-Allow-Origin'")
+    expect(nextConfigSource).toContain("value: '*'")
+  })
+
   it('preloads only the visible NFT artwork', () => {
     const source = readFileSync(join(process.cwd(), gltfPage), 'utf8')
 
