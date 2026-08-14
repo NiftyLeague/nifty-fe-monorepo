@@ -17,7 +17,10 @@ const styleImage: { imageWrapper: React.CSSProperties; imageCommon: React.CSSPro
 const ImageCard = ({ image, imageWebp, thumbnail, title, ratio }: ImageCardProps) => {
   const { handleImageOnLoad, css } = useImageOnLoad()
   return (
-    <div style={{ ...styleImage.imageWrapper, paddingBottom: `${ratio * 100}%` }}>
+    <div
+      className="relative"
+      style={{ ...styleImage.imageWrapper, paddingBottom: `${ratio * 100}%` }}
+    >
       {thumbnail && (
         // Marketplace media can be API-provided from arbitrary hosts, so it cannot use
         // next/image until those hosts are explicitly configured.
@@ -38,9 +41,11 @@ const ImageCard = ({ image, imageWebp, thumbnail, title, ratio }: ImageCardProps
             src={image}
             webpSrc={imageWebp}
             alt={title}
+            fill
+            sizes="(max-width: 1023px) 100vw, 345px"
             loading="lazy"
             decoding="async"
-            style={{ height: '100%', ...styleImage.imageCommon, ...css.fullSize }}
+            style={{ ...styleImage.imageCommon, ...css.fullSize }}
           />
         ) : (
           // Marketplace media can be API-provided from arbitrary hosts, so it cannot use
