@@ -1079,6 +1079,9 @@ describe('private provider loading contract', () => {
     const modalSource = readFileSync(join(process.cwd(), walletModal), 'utf8')
 
     expect(providerSource).toContain("import('./Web3ModalRuntime')")
+    expect(providerSource).toContain("from '@nl/ui/hooks/useDeferredComponent'")
+    expect(providerSource).not.toContain('useEffect')
+    expect(providerSource).not.toContain('useState')
     expect(providerSource).not.toContain("from 'wagmi'")
     expect(providerSource).not.toContain("from '@tanstack/react-query'")
     expect(runtimeSource).toContain("import('./Web3ModalConfig')")
@@ -1090,6 +1093,7 @@ describe('private provider loading contract', () => {
     expect(fallbackSource).toContain('role="status"')
     expect(fallbackSource).toContain('role="alert"')
     expect(providerSource).toContain('Retry')
+    expect(providerSource).toContain('onRetry={retry}')
     expect(authSource).not.toContain('useAppKit')
     expect(authSource).not.toContain('useAppKitEvents')
     expect(authSource).not.toContain("from 'wagmi'")
