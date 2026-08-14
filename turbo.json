@@ -10,7 +10,16 @@
     },
     "app#build": {
       "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
-      "env": ["CI", "NEXT_RUNTIME", "NEXT_PUBLIC_*", "SENTRY_AUTH_TOKEN", "VERCEL_ENV"],
+      "env": [
+        "CI",
+        "ENABLE_EXPERIMENTAL_COREPACK",
+        "NEXT_RUNTIME",
+        "NEXT_PUBLIC_*",
+        "SENTRY_AUTH_TOKEN",
+        "SENTRY_ORG",
+        "SENTRY_PROJECT",
+        "VERCEL_ENV"
+      ],
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "api#build": {
@@ -56,6 +65,7 @@
         "APPLE_CLIENT_ID",
         "APPLE_CLIENT_SECRET",
         "CI",
+        "ENABLE_EXPERIMENTAL_COREPACK",
         "FACEBOOK_CLIENT_ID",
         "FACEBOOK_CLIENT_SECRET",
         "GITHUB_ACTIONS",
@@ -67,6 +77,8 @@
         "NEXTAUTH_SECRET",
         "PLAYFAB_API_KEY",
         "SENTRY_AUTH_TOKEN",
+        "SENTRY_ORG",
+        "SENTRY_PROJECT",
         "TWITCH_CLIENT_ID",
         "TWITCH_CLIENT_SECRET",
         "VERCEL_ENV"
@@ -77,10 +89,13 @@
       "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
       "env": [
         "CI",
+        "ENABLE_EXPERIMENTAL_COREPACK",
         "EDGE_CONFIG",
         "NEXT_RUNTIME",
         "NEXT_PUBLIC_*",
         "SENTRY_AUTH_TOKEN",
+        "SENTRY_ORG",
+        "SENTRY_PROJECT",
         "VERCEL_ENV"
       ],
       "outputs": [".next/**", "!.next/cache/**"]
