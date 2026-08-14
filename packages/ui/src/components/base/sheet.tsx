@@ -48,13 +48,21 @@ function SheetContent({
   className,
   children,
   side = 'right',
+  closeClassName,
+  closeLabel = 'Close',
+  overlayClassName,
+  overlayStyle,
   ...props
 }: React.ComponentProps<typeof SheetPrimitive.Content> & {
+  closeClassName?: string
+  closeLabel?: string
+  overlayClassName?: string
+  overlayStyle?: React.CSSProperties
   side?: 'top' | 'right' | 'bottom' | 'left'
 }) {
   return (
     <SheetPortal>
-      <SheetOverlay />
+      <SheetOverlay className={overlayClassName} style={overlayStyle} />
       <SheetPrimitive.Content
         data-slot="sheet-content"
         className={cn(
@@ -72,12 +80,18 @@ function SheetContent({
         {...props}
       >
         {children}
-        <SheetPrimitive.Close className="ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden cursor-pointer disabled:pointer-events-none">
+        <SheetPrimitive.Close
+          aria-label={closeLabel}
+          className={cn(
+            'ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 cursor-pointer rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none',
+            closeClassName
+          )}
+        >
           <span aria-hidden="true" className="relative block size-4">
             <span className="bg-current absolute top-1/2 left-0 block h-0.5 w-4 rotate-45" />
             <span className="bg-current absolute top-1/2 left-0 block h-0.5 w-4 -rotate-45" />
           </span>
-          <span className="sr-only">Close</span>
+          <span className="sr-only">{closeLabel}</span>
         </SheetPrimitive.Close>
       </SheetPrimitive.Content>
     </SheetPortal>
