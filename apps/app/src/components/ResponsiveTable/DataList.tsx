@@ -8,24 +8,10 @@ import ExpandableListItem from './ExpandableListItem'
 import NoContent from './NoContent'
 import Pagination from './Pagination'
 
-import type {
-  AccordionDetailsProps,
-  AccordionProps,
-  AccordionSummaryProps,
-  CustomColDef,
-  Row,
-  ResponsiveIconProps,
-  TablePaginationProps,
-  TypographyProps,
-} from './types'
+import { getRowId } from './types'
+import type { CustomColDef, Row } from './types'
 
 interface DataListProps {
-  AccordionDetailsProps?: AccordionDetailsProps
-  AccordionDetailsTypographyProps?: TypographyProps<'div'>
-  AccordionMoreIconProps?: ResponsiveIconProps
-  AccordionProps?: AccordionProps
-  AccordionSummaryProps?: AccordionSummaryProps
-  AccordionSummaryTypographyProps?: TypographyProps
   checkboxSelection?: boolean
   columns: CustomColDef[]
   count: number
@@ -39,9 +25,7 @@ interface DataListProps {
   rowsPerPage: number
   scrollOptions?: ScrollIntoViewOptions
   scrollToSelected?: boolean
-  SelectedAccordionProps?: AccordionProps
   showPagination: boolean
-  TablePaginationProps?: TablePaginationProps
 }
 
 /**
@@ -49,12 +33,6 @@ interface DataListProps {
  */
 const DataList: React.FC<DataListProps> = (props) => {
   const {
-    AccordionDetailsProps,
-    AccordionDetailsTypographyProps,
-    AccordionMoreIconProps,
-    AccordionProps,
-    AccordionSummaryProps,
-    AccordionSummaryTypographyProps,
     checkboxSelection,
     columns,
     count,
@@ -68,9 +46,7 @@ const DataList: React.FC<DataListProps> = (props) => {
     rowsPerPage,
     scrollOptions,
     scrollToSelected = false,
-    SelectedAccordionProps,
     showPagination,
-    TablePaginationProps,
   } = props
 
   const [selection, setSelection] = useState<(string | number)[]>([])
@@ -80,7 +56,7 @@ const DataList: React.FC<DataListProps> = (props) => {
 
   const handleSelection = (row: Row) => {
     const newSelection = [...selection]
-    const rowId = row.id || (row.user_id as string | number)
+    const rowId = getRowId(row)
     if (newSelection.indexOf(rowId) === -1) {
       newSelection.push(rowId)
     } else {
@@ -95,7 +71,7 @@ const DataList: React.FC<DataListProps> = (props) => {
     if (newSelection.length > 0) {
       newSelection = []
     } else {
-      newSelection = data.map((row) => row.id || (row.user_id as string | number))
+      newSelection = data.map(getRowId)
     }
     setSelection(newSelection)
     onSelectionChange({ rowIds: newSelection })
@@ -174,29 +150,20 @@ const DataList: React.FC<DataListProps> = (props) => {
       )}
       {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
         <ExpandableListItem
-          AccordionDetailsProps={AccordionDetailsProps}
-          AccordionDetailsTypographyProps={AccordionDetailsTypographyProps}
-          AccordionMoreIconProps={AccordionMoreIconProps}
-          AccordionProps={AccordionProps}
-          AccordionSummaryProps={AccordionSummaryProps}
-          AccordionSummaryTypographyProps={AccordionSummaryTypographyProps}
           checkboxSelection={checkboxSelection}
           details={createListItemDescription(columns, row, data, excludePrimaryFromDetails)}
-          key={index}
+          key={String(getRowId(row)) || index}
           onSelect={handleSelection}
           panelClass={getRowClass(index)}
           row={row}
           scrollOptions={scrollOptions}
           scrollToSelected={scrollToSelected}
-          selected={selection.indexOf(row.id as string | number) !== -1}
-          SelectedAccordionProps={SelectedAccordionProps}
+          selected={selection.indexOf(getRowId(row)) !== -1}
           summary={createListItemTitle(columns, row, data)}
         />
       ))}
       {showPagination && (
         <Pagination
-          component="div"
-          {...(TablePaginationProps as TablePaginationProps)}
           count={count}
           rowsPerPage={rowsPerPage}
           page={page}
