@@ -1,12 +1,11 @@
-'use client'
-
 import Image from 'next/image'
 import Link from 'next/link'
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { Fragment } from 'react'
 
 import { cn } from '@nl/ui/utils'
 
 import MobileNavMenu from './MobileNavMenu'
+import NavbarScrollFrame from './NavbarScrollFrame'
 import { NAV_LINK_CONTENT_CLASS, NavLinkContent } from './NavLinkContent'
 
 export interface NavPage {
@@ -136,46 +135,12 @@ function DesktopNavMenu({ actionButton, navItems }: NavbarProps) {
 }
 
 export function Navbar({ actionButton, navItems, className }: NavbarProps) {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const frameRef = useRef<number | null>(null)
   const desktopNavItems = navItems.filter(
     (item) => item.type === 'group' || (item.type === 'single' && item.title !== 'Home')
   )
 
-  useEffect(() => {
-    const supportsScrollTimeline =
-      typeof CSS !== 'undefined' && CSS.supports?.('animation-timeline: scroll()')
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (supportsScrollTimeline && !prefersReducedMotion) return
-
-    const updateScrollState = () => {
-      frameRef.current = null
-      const nextIsScrolled = window.scrollY > 80
-      setIsScrolled((current) => (current === nextIsScrolled ? current : nextIsScrolled))
-    }
-
-    const handleScroll = () => {
-      if (frameRef.current !== null) return
-      frameRef.current = window.requestAnimationFrame(updateScrollState)
-    }
-
-    updateScrollState()
-    window.addEventListener('scroll', handleScroll, { passive: true })
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-      if (frameRef.current !== null) window.cancelAnimationFrame(frameRef.current)
-    }
-  }, [])
-
   return (
-    <header
-      className={cn(
-        'navbar-scroll-frame fixed inset-x-0 top-0 z-50 h-20 bg-transparent backdrop-blur-xs',
-        className
-      )}
-      data-scrolled={isScrolled}
-    >
+    <NavbarScrollFrame className={className}>
       <div className="flex h-full w-screen items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex-shrink-0">
           <Image
@@ -191,7 +156,7 @@ export function Navbar({ actionButton, navItems, className }: NavbarProps) {
         <DesktopNavMenu actionButton={actionButton} navItems={desktopNavItems} />
         <MobileNavMenu actionButton={actionButton} navItems={navItems} />
       </div>
-    </header>
+    </NavbarScrollFrame>
   )
 }
 
