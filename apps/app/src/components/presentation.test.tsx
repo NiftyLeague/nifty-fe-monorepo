@@ -125,6 +125,30 @@ describe('Breadcrumbs', () => {
 })
 
 describe('card presentation', () => {
+  it('restores the app card spacing contract over shadcn defaults', () => {
+    const { container, rerender } = render(
+      <MainCard title="Main" secondary="Action">
+        Main body
+      </MainCard>
+    )
+
+    const mainCard = container.querySelector('[data-slot="card"]')
+    expect(mainCard?.className).toContain('gap-0')
+    expect(mainCard?.className).toContain('py-0')
+    expect(mainCard?.querySelector('[data-slot="card-header"]')?.className).toContain('p-4')
+    expect(mainCard?.querySelector('[data-slot="card-content"]')?.className).toContain('p-4')
+
+    rerender(
+      <SubCard title="Sub" secondary="Action">
+        Sub body
+      </SubCard>
+    )
+
+    const subCard = container.querySelector('[data-slot="card"]')
+    expect(subCard?.className).toContain('gap-0')
+    expect(subCard?.className).toContain('py-0')
+  })
+
   it('renders all MainCard and SubCard content modes in light and dark themes', () => {
     const { rerender } = render(
       <MainCard title="Main" secondary="Action" boxShadow shadow="custom-shadow">
