@@ -1918,6 +1918,16 @@ describe('public route dependency contract', () => {
     expect(enhancer).toContain("video.preload = shouldPlay ? 'metadata' : 'none'")
   })
 
+  it('keeps marketing game video identifiers unique', () => {
+    const source = readFileSync(
+      join(process.cwd(), 'apps/web/src/app/(main)/games/page.tsx'),
+      'utf8'
+    )
+
+    expect(source).toContain('id={`game-video-${index}`}')
+    expect(source).not.toContain('id="console-video"')
+  })
+
   it('keeps API-only constants separate from the contract registry', () => {
     const source = readFileSync(join(process.cwd(), 'apps/app/src/constants/api.ts'), 'utf8')
 
