@@ -87,10 +87,10 @@ describe('app performance contracts', () => {
     const shellSource = readFileSync(appShell, 'utf8')
     const shellStyles = readFileSync(appShellStyles, 'utf8')
 
-    expect(shellSource).toContain('<div className={styles.appBarInner}>{header}</div>')
-    expect(shellStyles).toContain('.appBarInner')
-    expect(shellStyles).toContain('padding: 8px 16px;')
-    expect(shellStyles).toContain('padding: 0 24px;')
+    expect(shellSource).toContain(
+      'flex min-h-14 w-full items-center px-4 py-2 lg:h-[60px] lg:min-h-0 lg:px-6 lg:py-0'
+    )
+    expect(shellStyles).not.toContain('.appBarInner')
   })
 
   it('shares the accessible native carousel and keeps the app free of slider runtimes', () => {
