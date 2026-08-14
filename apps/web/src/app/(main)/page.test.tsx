@@ -111,10 +111,10 @@ describe('home page', () => {
     )
   })
 
-  it('contains below-the-fold sections until they approach the viewport', () => {
+  it('keeps below-the-fold visual effects free from paint containment', () => {
     render(<Home />)
 
-    expect(document.getElementById('gaming-section')?.className).toContain('home-below-fold')
-    expect(document.querySelectorAll('.home-below-fold')).toHaveLength(8)
+    expect(document.getElementById('gaming-section')?.className).not.toContain('home-below-fold')
+    expect(document.querySelectorAll('.home-below-fold')).toHaveLength(0)
   })
 })
