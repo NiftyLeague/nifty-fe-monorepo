@@ -18,7 +18,8 @@ interface SidebarFrameProps extends PropsWithChildren {
 }
 
 function SidebarFrame({ children, footer }: SidebarFrameProps) {
-  const isSmallScreen = useMediaQuery('(max-width:1024px)')
+  const isSmallScreen = useMediaQuery('(max-width:1280px)')
+  const isCompactScreen = useMediaQuery('(max-width:1023.95px)')
   const { drawerOpen, toggleDrawer } = useNavigation()
 
   const logo = useMemo(
@@ -36,7 +37,7 @@ function SidebarFrame({ children, footer }: SidebarFrameProps) {
     () => (
       <ScrollArea
         style={{
-          height: isSmallScreen ? 'calc(100vh - 56px)' : 'calc(100vh - 100px)',
+          height: isCompactScreen ? 'calc(100vh - 56px)' : 'calc(100vh - 60px)',
         }}
         viewportClassName="px-4"
       >
@@ -46,13 +47,13 @@ function SidebarFrame({ children, footer }: SidebarFrameProps) {
         </div>
       </ScrollArea>
     ),
-    [children, footer, isSmallScreen]
+    [children, footer, isCompactScreen]
   )
 
   return (
     <nav
       aria-label="Primary navigation"
-      className={cn('shrink-0', isSmallScreen ? 'w-auto' : 'w-[260px]')}
+      className={cn('shrink-0', isSmallScreen && isCompactScreen ? 'w-0' : 'w-[260px]')}
     >
       {isSmallScreen && (
         <div
