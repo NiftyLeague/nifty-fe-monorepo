@@ -28,7 +28,6 @@ function PrivateRoutesLoading(): React.ReactNode {
 }
 
 const PrivateRoutesShell = dynamic(() => import('./PrivateRoutesShell'), {
-  ssr: false,
   loading: PrivateRoutesLoading,
 })
 
