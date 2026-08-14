@@ -182,7 +182,7 @@ const viewportVideoBoundary =
   'packages/ui/src/components/custom/viewport-video/ViewportVideoBoundary.tsx'
 const viewportVideoEnhancer =
   'packages/ui/src/components/custom/viewport-video/ViewportVideoEnhancer.tsx'
-const deferredWeb3GameList = 'apps/app/src/app/(public-routes)/games/DeferredWeb3GameList.tsx'
+const web3GameList = 'apps/app/src/app/(public-routes)/games/_Web3GameList/index.tsx'
 const publicGamesGridStyles = 'apps/app/src/app/(public-routes)/games/grid-item.module.css'
 const staleDownloadGameDialog = 'apps/app/src/components/dialog/DownloadGameDialog.tsx'
 const gameCard = 'apps/app/src/components/cards/GameCard.tsx'
@@ -1798,14 +1798,16 @@ describe('public route dependency contract', () => {
     ).toBe(false)
   })
 
-  it('uses the shared accessible deferred section for Web3 game cards', () => {
-    const source = readFileSync(join(process.cwd(), deferredWeb3GameList), 'utf8')
+  it('keeps static Web3 game cards server-rendered and shadcn-styled', () => {
+    const source = readFileSync(join(process.cwd(), web3GameList), 'utf8')
 
-    expect(source).toContain("from '@nl/ui/custom/deferred-section'")
-    expect(source).toContain("import('./_Web3GameList')")
-    expect(source).toContain('rootMargin="200px"')
-    expect(source).not.toContain('useOnScreen')
-    expect(source).not.toContain('useState')
+    expect(source).not.toContain("'use client'")
+    expect(source).toContain("from '@nl/ui/base/button-variants'")
+    expect(source).not.toContain("from '@nl/ui/base/button'")
+    expect(source).not.toContain('asChild')
+    expect(source).not.toContain('WalletFeatureProviders')
+    expect(source).not.toContain('ConnectWrapper')
+    expect(source).not.toContain('useTokensBalances')
   })
 
   it('defers the Smashers PlayFab auth form behind an accessible loading boundary', () => {
@@ -1905,18 +1907,18 @@ describe('public route dependency contract', () => {
   })
 
   it('keeps wallet-backed game providers out of public game cards', () => {
-    const loader = readFileSync(
-      join(process.cwd(), 'apps/app/src/app/(public-routes)/games/DeferredWeb3GameList.tsx'),
-      'utf8'
-    )
     const list = readFileSync(
       join(process.cwd(), 'apps/app/src/app/(public-routes)/games/_Web3GameList/index.tsx'),
       'utf8'
     )
 
-    expect(loader).toContain("from '@nl/ui/custom/deferred-section'")
-    expect(loader).toContain("import('./_Web3GameList')")
-    expect(list).toContain('asChild')
+    expect(existsSync(join(process.cwd(), web3GameList))).toBe(true)
+    expect(
+      existsSync(
+        join(process.cwd(), 'apps/app/src/app/(public-routes)/games/DeferredWeb3GameList.tsx')
+      )
+    ).toBe(false)
+    expect(list).toContain("from '@nl/ui/base/button-variants'")
     expect(list).not.toContain('WalletFeatureProviders')
     expect(list).not.toContain('ConnectWrapper')
     expect(list).not.toContain('useTokensBalances')
@@ -1969,12 +1971,14 @@ describe('public route dependency contract', () => {
     ).toBe(false)
   })
 
-  it('uses the shared shadcn button primitive for themed marketing CTAs', () => {
+  it('uses the shared shadcn button recipe for themed marketing CTAs', () => {
     const source = readFileSync(join(process.cwd(), sharedThemeButton), 'utf8')
 
-    expect(source).toContain("import { Button } from '@nl/ui/base/button'")
-    expect(source).toContain('<Button asChild variant="ghost"')
-    expect(source).toContain('<Button type="button" disabled')
+    expect(source).toContain("import { buttonVariants } from '@nl/ui/base/button-variants'")
+    expect(source).toContain("buttonVariants({ variant: 'ghost'")
+    expect(source).toContain("buttonVariants({ className: cn(buttonClassName, 'disabled') })")
+    expect(source).toContain('<button')
+    expect(source).not.toContain("from '@nl/ui/base/button'")
     expect(source).not.toContain('aria-disabled={disabled}')
     expect(source).not.toContain("href={href || ''}")
     expect(source).toContain('if (!href) return null')

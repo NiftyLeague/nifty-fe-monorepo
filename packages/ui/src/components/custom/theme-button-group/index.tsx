@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import type { UrlObject } from 'url'
 
-import { Button } from '@nl/ui/base/button'
+import { buttonVariants } from '@nl/ui/base/button-variants'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import { cn } from '@nl/ui/utils'
 
@@ -35,26 +35,29 @@ export function ThemeButton({
 
   if (disabled) {
     return (
-      <Button type="button" disabled className={cn(buttonClassName, 'disabled')}>
+      <button
+        type="button"
+        disabled
+        className={buttonVariants({ className: cn(buttonClassName, 'disabled') })}
+      >
         {content}
         {external && <ExternalIcon />}
-      </Button>
+      </button>
     )
   }
 
   if (!href) return null
 
   return (
-    <Button asChild variant="ghost" className={buttonClassName}>
-      <Link
-        href={href}
-        target={external ? '_blank' : undefined}
-        rel={external ? 'noreferrer' : undefined}
-      >
-        {content}
-        {external && <ExternalIcon />}
-      </Link>
-    </Button>
+    <Link
+      href={href}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noreferrer' : undefined}
+      className={buttonVariants({ variant: 'ghost', className: buttonClassName })}
+    >
+      {content}
+      {external && <ExternalIcon />}
+    </Link>
   )
 }
 
