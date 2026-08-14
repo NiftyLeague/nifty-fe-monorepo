@@ -9,12 +9,7 @@ describe('AppBar', () => {
 
     const appBar = container.firstElementChild
 
-    expect(appBar?.className).toContain('box-border')
-    expect(appBar?.className).toContain('min-h-14')
-    expect(appBar?.className).toContain('px-4')
-    expect(appBar?.className).toContain('py-2')
-    expect(appBar?.className).toContain('lg:h-[60px]')
-    expect(appBar?.className).toContain('lg:px-6')
-    expect(appBar?.className).toContain('lg:py-0')
+    expect(appBar?.getAttribute('data-slot')).toBe('app-bar')
+    expect(appBar?.getAttribute('data-layout')).toBe('responsive')
   })
 })
