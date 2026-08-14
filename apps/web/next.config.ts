@@ -48,6 +48,16 @@ const nextConfig: NextConfig = {
         : []),
     ]
   },
+  async headers() {
+    // OpenSea embeds /gltf/* in sandboxed frames with an opaque origin. The
+    // client chunks and local fonts still need to opt into that CORS request.
+    return [
+      {
+        source: '/_next/static/:path*',
+        headers: [{ key: 'Access-Control-Allow-Origin', value: '*' }],
+      },
+    ]
+  },
   async redirects() {
     return [
       ...(ENV === 'development'

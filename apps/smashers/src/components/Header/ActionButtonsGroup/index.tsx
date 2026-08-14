@@ -1,9 +1,10 @@
 'use client'
 
 import Image from 'next/image'
-import { useCallback, useEffect, useState, type ComponentType } from 'react'
+import { useEffect, useState, type ComponentType } from 'react'
 
 import { Button } from '@nl/ui/base/button'
+import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 
 import styles from './index.module.css'
 
@@ -39,62 +40,58 @@ const modalActions: Record<ModalType, ModalAction> = {
   },
 }
 
+function DeferredModalAction({
+  action,
+  open,
+  onRequest,
+}: {
+  action: ModalAction
+  open: boolean
+  onRequest: () => void
+}) {
+  const { Component: Modal, hasError, retry } = useDeferredComponent(action.load, open)
+
+  if (Modal) return <Modal open={open} />
+
+  const isLoading = open && !hasError
+  const label = hasError ? `Retry ${action.label}` : action.label
+
+  return (
+    <Button
+      type="button"
+      aria-busy={isLoading}
+      aria-label={label}
+      onClick={() => {
+        onRequest()
+        if (hasError) retry()
+      }}
+    >
+      <Image src={action.image} alt={action.alt} width={22} height={22} />
+      {action.label}
+    </Button>
+  )
+}
+
 const ActionButtonsGroup = ({ activeModal }: { activeModal: ActiveModal }) => {
   const [requestedModal, setRequestedModal] = useState<ModalType | null>(
     activeModal && activeModal !== 'unity' ? activeModal : null
   )
-  const [loadedModals, setLoadedModals] = useState<Partial<Record<ModalType, ModalComponent>>>({})
-  const [loadingModal, setLoadingModal] = useState<ModalType | null>(null)
-  const [failedModal, setFailedModal] = useState<ModalType | null>(null)
-
-  const loadModal = useCallback(
-    (type: ModalType) => {
-      setRequestedModal(type)
-      setFailedModal(null)
-
-      if (loadedModals[type] || loadingModal === type) return
-
-      setLoadingModal(type)
-      void modalActions[type]
-        .load()
-        .then(({ default: LoadedModal }) => {
-          setLoadedModals((previous) => ({ ...previous, [type]: LoadedModal }))
-          setLoadingModal((current) => (current === type ? null : current))
-        })
-        .catch(() => {
-          setFailedModal(type)
-          setLoadingModal((current) => (current === type ? null : current))
-        })
-    },
-    [loadedModals, loadingModal]
-  )
 
   useEffect(() => {
-    if (activeModal && activeModal !== 'unity') loadModal(activeModal)
-  }, [activeModal, loadModal])
+    if (activeModal && activeModal !== 'unity') setRequestedModal(activeModal)
+  }, [activeModal])
 
   return (
     <div className={styles.heroBtnGroup}>
       {(Object.keys(modalActions) as ModalType[]).map((type) => {
         const action = modalActions[type]
-        const Modal = loadedModals[type]
-
-        if (Modal) return <Modal key={type} open={requestedModal === type} />
-
-        const isLoading = loadingModal === type
-        const label = failedModal === type ? `Retry ${action.label}` : action.label
-
         return (
-          <Button
+          <DeferredModalAction
             key={type}
-            type="button"
-            aria-busy={isLoading}
-            aria-label={label}
-            onClick={() => loadModal(type)}
-          >
-            <Image src={action.image} alt={action.alt} width={22} height={22} />
-            {action.label}
-          </Button>
+            action={action}
+            open={requestedModal === type}
+            onRequest={() => setRequestedModal(type)}
+          />
         )
       })}
     </div>

@@ -7,6 +7,7 @@ import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 
 export interface DeferredComponentProps<T extends object> {
+  disabledFallback?: ReactNode
   enabled?: boolean
   errorFallback?: (onRetry: () => void) => ReactNode
   label: string
@@ -41,6 +42,7 @@ function DefaultError({ label, onRetry }: { label: string; onRetry: () => void }
  * from carrying its own copy of the same loading state machine.
  */
 export function DeferredComponent<T extends object>({
+  disabledFallback,
   enabled = true,
   errorFallback,
   label,
@@ -54,7 +56,7 @@ export function DeferredComponent<T extends object>({
     retry,
   } = useDeferredComponent(load, enabled)
 
-  if (!enabled) return null
+  if (!enabled) return disabledFallback ?? null
 
   if (loadError) {
     return errorFallback ? errorFallback(retry) : <DefaultError label={label} onRetry={retry} />
