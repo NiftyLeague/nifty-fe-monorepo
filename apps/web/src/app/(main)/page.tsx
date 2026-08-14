@@ -23,6 +23,36 @@ const ResponsiveLabel = ({ mobile, desktop }: { mobile: string; desktop: string 
   </>
 )
 
+const DESKTOP_ONLY_PLACEHOLDER = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
+
+interface DesktopOnlyImageProps {
+  alt: string
+  className?: string
+  height: number
+  sizes: string
+  src: string
+  width: number
+}
+
+const DesktopOnlyImage = ({ alt, className, height, sizes, src, width }: DesktopOnlyImageProps) => {
+  const { props } = getImageProps({ alt, height, sizes, src, width })
+  const { src: _src, srcSet: _srcSet, sizes: _sizes, ...fallbackProps } = props
+
+  return (
+    <picture className="block">
+      <source media="(min-width: 769px)" sizes={sizes} srcSet={props.srcSet} />
+      <img
+        {...fallbackProps}
+        alt={alt}
+        className={className}
+        height={height}
+        src={DESKTOP_ONLY_PLACEHOLDER}
+        width={width}
+      />
+    </picture>
+  )
+}
+
 const ResponsiveIntroBackground = () => {
   const commonProps = {
     alt: '',
@@ -77,7 +107,7 @@ const DesktopIntro = () => {
     <section className="desktop relative w-screen max-h-screen overflow-hidden home-desktop-intro">
       <div className="relative h-full w-full">
         <div className="absolute home-hero-characters-image flex-grow animate-zoom-out-large">
-          <Image
+          <DesktopOnlyImage
             src="/img/hero/characters.webp"
             alt="Nifty Hero Characters"
             width={1920}
@@ -89,7 +119,7 @@ const DesktopIntro = () => {
         <div className="home-hero-companion">
           <div className="relative flex-grow">
             <div className="animate-hover transition-fade">
-              <Image
+              <DesktopOnlyImage
                 src="/img/hero/companion-base.webp"
                 alt="Home Hero Companion Base"
                 width={175}
@@ -104,7 +134,7 @@ const DesktopIntro = () => {
         <div className="home-hero-halo">
           <div className="flex-grow">
             <div className="animate-hover transition-fade">
-              <Image
+              <DesktopOnlyImage
                 src="/img/hero/halo.webp"
                 alt="Home Hero Halo"
                 width={133}
@@ -120,7 +150,7 @@ const DesktopIntro = () => {
 
       <div className="home-satoshi-container">
         <div className="relative flex-grow home-satoshi transition-quick-pop-left">
-          <Image
+          <DesktopOnlyImage
             alt="Satoshi"
             src="/img/hero/satoshi.webp"
             width={180}
@@ -148,7 +178,7 @@ const DesktopIntro = () => {
           aria-label="Learn more about Nifty League"
           className="inline-block relative flex-grow satoshi-learn-more transition-fade-slow"
         >
-          <Image
+          <DesktopOnlyImage
             src="/img/hero/speech-bubble.webp"
             alt="Learn More"
             width={348}

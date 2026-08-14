@@ -9,8 +9,10 @@ const appRootLayout = 'apps/app/src/app/layout.tsx'
 const appShell = 'apps/app/src/app/_layout/AppShell.tsx'
 const sharedAppBar = 'packages/ui/src/components/custom/app-bar/index.tsx'
 const sharedAppBarStyles = 'packages/ui/src/components/custom/app-bar/app-bar.module.css'
+const lightweightClassNames = 'packages/ui/src/lib/class-names.ts'
 const appBreadcrumbs = 'apps/app/src/components/extended/Breadcrumbs.tsx'
 const appSidebarFrame = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/SidebarFrame.tsx'
+const mobileSidebarSheet = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/MobileSidebarSheet.tsx'
 const appNavigationContext = 'apps/app/src/contexts/NavigationContext.tsx'
 const appNavigationBreakpoints = 'apps/app/src/app/_layout/navigation-breakpoints.ts'
 const bridgeDialog = 'apps/app/src/components/dialog/BridgeButtonDialog/index.tsx'
@@ -75,6 +77,37 @@ const appIconRegistrySources = [
 ]
 
 describe('app performance contracts', () => {
+  it('keeps the eager private shell on lightweight class joining', () => {
+    const helperSource = readFileSync(lightweightClassNames, 'utf8')
+    expect(helperSource).toContain("from 'clsx'")
+    expect(helperSource).not.toContain('tailwind-merge')
+
+    for (const file of [
+      'apps/app/src/app/_layout/AppShell.tsx',
+      'apps/app/src/app/_layout/_MainLayout/_Sidebar/SidebarFrame.tsx',
+      'apps/app/src/app/_layout/_MainLayout/_Sidebar/_MenuList/_NavCollapse/index.tsx',
+      'apps/app/src/app/_layout/_MainLayout/_Sidebar/_MenuList/_NavItem/index.tsx',
+    ]) {
+      const source = readFileSync(file, 'utf8')
+      expect(source).toContain("from '@nl/ui/class-names'")
+      expect(source).not.toContain("from '@nl/ui/utils'")
+    }
+  })
+
+  it('loads the accessible mobile sidebar sheet only when opened', () => {
+    const sidebarSource = readFileSync(appSidebarFrame, 'utf8')
+    const mobileSheetSource = readFileSync(mobileSidebarSheet, 'utf8')
+
+    expect(sidebarSource).toContain("lazy(() => import('./MobileSidebarSheet'))")
+    expect(sidebarSource).toContain('isCompactScreen && drawerOpen')
+    expect(sidebarSource).toContain('<Suspense fallback={null}>')
+    expect(sidebarSource).not.toContain("from '@nl/ui/base/sheet'")
+    expect(mobileSheetSource).toContain("from '@nl/ui/base/sheet'")
+    expect(mobileSheetSource).toContain('SheetTitle')
+    expect(mobileSheetSource).toContain('SheetDescription')
+    expect(mobileSheetSource).toContain('closeLabel="Close sidebar"')
+  })
+
   it('keeps the private shell and sidebar on the same desktop breakpoint', () => {
     const shellSource = readFileSync(appShell, 'utf8')
     const sidebarSource = readFileSync(appSidebarFrame, 'utf8')
@@ -82,8 +115,7 @@ describe('app performance contracts', () => {
     const breakpointSource = readFileSync(appNavigationBreakpoints, 'utf8')
 
     expect(breakpointSource).toContain("desktopNavigationMediaQuery = '(min-width: 1024px)'")
-    expect(contextSource).toContain('useMediaQuery(desktopNavigationMediaQuery, {')
-    expect(contextSource).toContain('initializeWithValue: false')
+    expect(contextSource).toContain('useMediaQuery(desktopNavigationMediaQuery)')
     expect(shellSource).toContain('isDesktopNavigation')
     expect(sidebarSource).not.toContain('useMediaQuery')
     expect(sidebarSource).toContain('const isCompactScreen = !isDesktopNavigation')
@@ -182,6 +214,10 @@ describe('app performance contracts', () => {
     expect(pageSource).not.toContain("import InstallerAction from './InstallerAction'")
     expect(pageSource).toContain('actions={<DeferredInstallerAction />}')
     expect(deferredSource).toContain("from '@nl/ui/custom/deferred-component'")
+    expect(deferredSource).toContain("from '@nl/ui/base/button-variants'")
+    expect(deferredSource).not.toContain("from '@nl/ui/base/button'")
+    expect(deferredSource).toContain("className={buttonVariants({ variant: 'outline' })}")
+    expect(deferredSource).toContain('<button')
     expect(deferredSource).toContain("import('./InstallerAction')")
     expect(deferredSource).toContain('aria-label="Loading installer action"')
     expect(deferredSource).toContain('Retry installer')

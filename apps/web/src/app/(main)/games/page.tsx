@@ -102,7 +102,7 @@ const Games: NextPage = () => (
                 <LazyYouTubeEmbed src={video} title={name} className={styles.video} />
               ) : (
                 <ViewportVideo
-                  id="console-video"
+                  id={`game-video-${index}`}
                   width="100%"
                   height="100%"
                   muted

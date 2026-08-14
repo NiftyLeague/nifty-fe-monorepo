@@ -28,6 +28,21 @@ describe('useDeferredComponent', () => {
     expect(load).not.toHaveBeenCalled()
   })
 
+  it('shares an in-flight load between enabled consumers', async () => {
+    const load = mock(async () => ({ default: Preview }))
+    const first = renderHook(() => useDeferredComponent<PreviewProps>(load))
+    const second = renderHook(() => useDeferredComponent<PreviewProps>(load))
+
+    await waitFor(() => {
+      expect(first.result.current.Component).toBe(Preview)
+      expect(second.result.current.Component).toBe(Preview)
+    })
+    expect(load).toHaveBeenCalledTimes(1)
+
+    first.unmount()
+    second.unmount()
+  })
+
   it('reports failures and retries through the shared callback', async () => {
     const load = mock()
     load

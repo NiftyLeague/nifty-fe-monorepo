@@ -8,6 +8,7 @@
     "./base/*": "./src/components/base/*.tsx",
     "./custom/*": "./src/components/custom/*/index.tsx",
     "./hooks/*": "./src/hooks/*.ts",
+    "./class-names": "./src/lib/class-names.ts",
     "./fonts": "./src/lib/fonts/index.ts",
     "./fonts/*": "./src/lib/fonts/*.ts",
     "./gtm": "./src/lib/gtm/index.tsx",

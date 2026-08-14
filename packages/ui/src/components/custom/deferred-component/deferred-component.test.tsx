@@ -45,4 +45,20 @@ describe('DeferredComponent', () => {
     expect(load).not.toHaveBeenCalled()
     expect(screen.queryByRole('status')).toBeNull()
   })
+
+  it('keeps a caller-provided placeholder while disabled', () => {
+    const load = mock()
+    render(
+      <DeferredComponent
+        disabledFallback={<div role="status">Waiting for visibility</div>}
+        enabled={false}
+        label="disabled"
+        load={load}
+        props={{}}
+      />
+    )
+
+    expect(screen.getByRole('status').textContent).toContain('Waiting for visibility')
+    expect(load).not.toHaveBeenCalled()
+  })
 })

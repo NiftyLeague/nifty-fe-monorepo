@@ -2,6 +2,8 @@
 
 import { useEffect } from 'react'
 
+import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
+
 export type ParallaxDirection = 'up' | 'down' | 'left' | 'right'
 export type ParallaxIntensity = 'lite' | 'normal' | 'strong' | 'extreme'
 
@@ -102,12 +104,16 @@ interface UseParallaxOptions {
   intensity: ParallaxIntensity
 }
 
+const PARALLAX_ROOT_MARGIN = '200px'
+
 export function useParallax<T extends HTMLElement = HTMLDivElement>(
   elementRef: React.RefObject<T | null>,
   options: UseParallaxOptions
 ) {
+  const isNearViewport = useOnScreen(elementRef, PARALLAX_ROOT_MARGIN)
+
   useEffect(() => {
-    if (!elementRef.current || !options.enabled) return
+    if (!elementRef.current || !options.enabled || !isNearViewport) return
 
     const handleParallax = () => {
       const element = elementRef.current
@@ -119,7 +125,7 @@ export function useParallax<T extends HTMLElement = HTMLDivElement>(
 
     handleParallax()
     return subscribeToParallaxUpdates(handleParallax)
-  }, [elementRef, options.enabled, options.direction, options.intensity])
+  }, [elementRef, options.enabled, options.direction, options.intensity, isNearViewport])
 }
 
 export default useParallax

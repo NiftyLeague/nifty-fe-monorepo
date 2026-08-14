@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { AppNavIcon } from '@/components/AppNavIcon'
 
-import { cn } from '@nl/ui/utils'
+import { cx } from '@nl/ui/class-names'
 import { useNavigation } from '@/contexts/NavigationContext'
 
 // types
@@ -36,7 +36,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
       </span>
       <span className="flex-1">
         <span
-          className={cn('text-base', isSelected ? 'font-bold' : 'font-normal')}
+          className={cx('text-base', isSelected ? 'font-bold' : 'font-normal')}
           style={{ color: 'inherit' }}
         >
           {item.title}
@@ -50,7 +50,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
     </>
   )
 
-  const linkClass = cn(
+  const linkClass = cx(
     'mb-0.5 flex items-start gap-2 rounded-md border border-transparent bg-transparent px-2 py-2 text-left transition-colors hover:border-purple hover:bg-muted',
     isSelected && 'border-purple bg-muted'
   )

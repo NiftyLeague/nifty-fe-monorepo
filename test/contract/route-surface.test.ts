@@ -238,6 +238,7 @@ const gltfPage = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/page.tsx'
 const gltfClient = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViews.tsx'
 const gltfRouteBoundary =
   'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViewsRouteBoundary.tsx'
+const gltfModelView = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/ModelView.tsx'
 const webViemClient = 'apps/web/src/lib/viemClient.ts'
 const webClaimableNFTL = 'apps/web/src/hooks/useClaimableNFTL.ts'
 const webDegenAssets = 'apps/web/src/constants/degen-assets.ts'
@@ -245,6 +246,7 @@ const webDegenCatalog = 'apps/web/src/constants/degens.ts'
 const webNavbar = 'apps/web/src/components/Navbar/index.tsx'
 const sharedWebNavbar = 'packages/ui/src/components/custom/navbar/index.tsx'
 const sharedWebNavbarScrollFrame = 'packages/ui/src/components/custom/navbar/NavbarScrollFrame.tsx'
+const sharedWebNavbarScrollState = 'packages/ui/src/components/custom/navbar/NavbarScrollState.tsx'
 const sharedWebMobileNavbar = 'packages/ui/src/components/custom/navbar/MobileNavMenu.tsx'
 const sharedWebNavLinkContent = 'packages/ui/src/components/custom/navbar/NavLinkContent.tsx'
 const sharedWebMobileTrigger = 'packages/ui/src/components/custom/navbar/MobileNavTrigger.tsx'
@@ -394,6 +396,7 @@ describe('GLTF viewer loading contract', () => {
     const pageSource = readFileSync(join(process.cwd(), gltfPage), 'utf8')
     const clientSource = readFileSync(join(process.cwd(), gltfClient), 'utf8')
     const routeBoundarySource = readFileSync(join(process.cwd(), gltfRouteBoundary), 'utf8')
+    const modelViewSource = readFileSync(join(process.cwd(), gltfModelView), 'utf8')
 
     expect(pageSource).not.toContain("'use client'")
     expect(pageSource).toContain('await params')
@@ -406,6 +409,18 @@ describe('GLTF viewer loading contract', () => {
     expect(clientSource).not.toContain("from 'next/image'")
     expect(clientSource).toContain("dynamic(() => import('./ModelView')")
     expect(clientSource).toContain('ssr: false')
+    expect(modelViewSource).toContain(
+      "import '@google/model-viewer/dist/model-viewer-module.min.js'"
+    )
+    expect(modelViewSource).not.toContain("import '@google/model-viewer'")
+  })
+
+  it('keeps embedded viewer controls loadable in sandboxed frames', () => {
+    const nextConfigSource = readFileSync(join(process.cwd(), 'apps/web/next.config.ts'), 'utf8')
+
+    expect(nextConfigSource).toContain("source: '/_next/static/:path*'")
+    expect(nextConfigSource).toContain("key: 'Access-Control-Allow-Origin'")
+    expect(nextConfigSource).toContain("value: '*'")
   })
 
   it('preloads only the visible NFT artwork', () => {
@@ -469,7 +484,6 @@ describe('shared notification loading contract', () => {
 describe('shared deferred loader contract', () => {
   it('uses the shared cancellable loader for app-only boundaries', () => {
     for (const file of [
-      deferredDegenCard,
       deferredCharacterCreator,
       deferredMintWalletBoundary,
       mintNetworkBoundary,
@@ -480,6 +494,12 @@ describe('shared deferred loader contract', () => {
       expect(source).toContain("from '@nl/ui/hooks/useDeferredComponent'")
       expect(source).toContain('useDeferredComponent')
     }
+
+    const degenSource = readFileSync(join(process.cwd(), deferredDegenCard), 'utf8')
+    expect(degenSource).toContain("from '@nl/ui/custom/deferred-component'")
+    expect(degenSource).toContain("from '@nl/ui/hooks/useOnScreen'")
+    expect(degenSource).toContain('disabledFallback')
+    expect(degenSource).toContain('loadingFallback')
   })
 
   it('shares viewport visibility state with the interactive web carousel', () => {
@@ -531,11 +551,14 @@ describe('Smashers public shell contract', () => {
     expect(actionButtonsSource).toContain("'use client'")
     expect(actionButtonsSource).not.toContain("from 'next/dynamic'")
     expect(actionButtonsSource).toContain("from '@nl/ui/base/button'")
+    expect(actionButtonsSource).toContain("from '@nl/ui/hooks/useDeferredComponent'")
     expect(actionButtonsSource).toContain('<Button')
     expect(actionButtonsSource).not.toContain('<button')
     expect(actionButtonsSource).toContain("import('@/components/PlayDialog')")
     expect(actionButtonsSource).toContain("import('@/components/TrailerDialog')")
     expect(actionButtonsSource).toContain("import('@/components/CreditsDialog')")
+    expect(actionButtonsSource).toContain('useDeferredComponent(action.load, open)')
+    expect(actionButtonsSource).not.toContain('loadedModals')
     expect(actionButtonsSource).toContain('aria-busy={isLoading}')
   })
 
@@ -1071,6 +1094,9 @@ describe('private provider loading contract', () => {
     const modalSource = readFileSync(join(process.cwd(), walletModal), 'utf8')
 
     expect(providerSource).toContain("import('./Web3ModalRuntime')")
+    expect(providerSource).toContain("from '@nl/ui/hooks/useDeferredComponent'")
+    expect(providerSource).not.toContain('useEffect')
+    expect(providerSource).not.toContain('useState')
     expect(providerSource).not.toContain("from 'wagmi'")
     expect(providerSource).not.toContain("from '@tanstack/react-query'")
     expect(runtimeSource).toContain("import('./Web3ModalConfig')")
@@ -1082,6 +1108,7 @@ describe('private provider loading contract', () => {
     expect(fallbackSource).toContain('role="status"')
     expect(fallbackSource).toContain('role="alert"')
     expect(providerSource).toContain('Retry')
+    expect(providerSource).toContain('onRetry={retry}')
     expect(authSource).not.toContain('useAppKit')
     expect(authSource).not.toContain('useAppKitEvents')
     expect(authSource).not.toContain("from 'wagmi'")
@@ -1517,6 +1544,10 @@ describe('web public navigation contract', () => {
       join(process.cwd(), sharedWebNavbarScrollFrame),
       'utf8'
     )
+    const sharedNavbarScrollStateSource = readFileSync(
+      join(process.cwd(), sharedWebNavbarScrollState),
+      'utf8'
+    )
     const mobileNavbarSource = readFileSync(join(process.cwd(), sharedWebMobileNavbar), 'utf8')
     const sharedNavLinkContentSource = readFileSync(
       join(process.cwd(), sharedWebNavLinkContent),
@@ -1526,8 +1557,10 @@ describe('web public navigation contract', () => {
     expect(navbarSource).not.toContain("'use client'")
     expect(navbarSource).toContain("from '@nl/ui/custom/navbar'")
     expect(sharedNavbarSource).not.toContain("'use client'")
-    expect(sharedNavbarScrollFrameSource).toContain("'use client'")
-    expect(sharedNavbarScrollFrameSource).toContain('requestAnimationFrame')
+    expect(sharedNavbarScrollFrameSource).not.toContain("'use client'")
+    expect(sharedNavbarScrollFrameSource).toContain('NavbarScrollState')
+    expect(sharedNavbarScrollStateSource).toContain("'use client'")
+    expect(sharedNavbarScrollStateSource).toContain('requestAnimationFrame')
     expect(sharedNavbarSource).not.toContain("import ActiveNavLink from './ActiveNavLink'")
     expect(sharedNavbarSource).toContain('function DesktopNavLink')
     expect(sharedNavbarScrollFrameSource).toContain('navbar-scroll-frame')
@@ -1911,6 +1944,16 @@ describe('public route dependency contract', () => {
     expect(enhancer).toContain("from '@nl/ui/hooks/useOnScreen'")
     expect(enhancer).toContain("from '@nl/ui/hooks/useMediaQuery'")
     expect(enhancer).toContain("video.preload = shouldPlay ? 'metadata' : 'none'")
+  })
+
+  it('keeps marketing game video identifiers unique', () => {
+    const source = readFileSync(
+      join(process.cwd(), 'apps/web/src/app/(main)/games/page.tsx'),
+      'utf8'
+    )
+
+    expect(source).toContain('id={`game-video-${index}`}')
+    expect(source).not.toContain('id="console-video"')
   })
 
   it('keeps API-only constants separate from the contract registry', () => {

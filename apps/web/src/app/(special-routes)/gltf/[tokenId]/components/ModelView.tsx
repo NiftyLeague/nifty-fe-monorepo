@@ -1,6 +1,8 @@
 'use client'
 
-import '@google/model-viewer'
+// Prefer the ESM build so Next can analyze the optional 3D graph instead of
+// treating the prebundled UMD entry as opaque.
+import '@google/model-viewer/dist/model-viewer-module.min.js'
 import { useEffect, useState } from 'react'
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
 

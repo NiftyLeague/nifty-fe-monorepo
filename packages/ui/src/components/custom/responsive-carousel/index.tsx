@@ -208,7 +208,10 @@ const ResponsiveCarousel = forwardRef<ResponsiveCarouselRef, ResponsiveCarouselP
       updateViewport()
       const resizeObserver = 'ResizeObserver' in window ? new ResizeObserver(updateViewport) : null
       if (resizeObserver && viewportRef.current) resizeObserver.observe(viewportRef.current)
-      window.addEventListener('resize', updateViewport, { passive: true })
+      // ResizeObserver already tracks the element's effective width. Keep the
+      // window listener only as the compatibility path for older browsers so
+      // every carousel does not process the same resize twice.
+      if (!resizeObserver) window.addEventListener('resize', updateViewport, { passive: true })
 
       const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
       const updateMotionPreference = () => setPrefersReducedMotion(motionQuery.matches)
@@ -221,7 +224,7 @@ const ResponsiveCarousel = forwardRef<ResponsiveCarouselRef, ResponsiveCarouselP
           scrollFrameRef.current = null
         }
         resizeObserver?.disconnect()
-        window.removeEventListener('resize', updateViewport)
+        if (!resizeObserver) window.removeEventListener('resize', updateViewport)
         motionQuery.removeEventListener?.('change', updateMotionPreference)
       }
     }, [])

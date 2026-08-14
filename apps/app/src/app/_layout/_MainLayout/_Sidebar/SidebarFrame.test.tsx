@@ -44,18 +44,19 @@ describe('private sidebar frame', () => {
     rerender(<SidebarFrame>Navigation updated</SidebarFrame>)
   })
 
-  it('renders an accessible compact close action while open', () => {
+  it('renders an accessible compact close action while open', async () => {
     navigationState.drawerOpen = true
     render(<SidebarFrame>Navigation</SidebarFrame>)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Close sidebar' }))
+    fireEvent.click(await screen.findByRole('button', { name: 'Close sidebar' }))
     expect(navigationState.setDrawerOpen).toHaveBeenCalledWith(false)
   })
 
-  it('renders the compact drawer backdrop below the app bar', () => {
+  it('renders the compact drawer backdrop below the app bar', async () => {
     navigationState.drawerOpen = true
     render(<SidebarFrame>Navigation</SidebarFrame>)
 
+    await screen.findByRole('button', { name: 'Close sidebar' })
     const backdrop = document.querySelector('[data-slot="sheet-overlay"]')
 
     expect(backdrop).not.toBeNull()
@@ -63,11 +64,11 @@ describe('private sidebar frame', () => {
     expect((backdrop as HTMLElement).style.top).toBe('56px')
   })
 
-  it('keeps the compact drawer below the app bar', () => {
+  it('keeps the compact drawer below the app bar', async () => {
     navigationState.drawerOpen = true
     render(<SidebarFrame>Navigation</SidebarFrame>)
 
-    const panel = screen.getByRole('dialog', { name: 'Primary navigation' })
+    const panel = await screen.findByRole('dialog', { name: 'Primary navigation' })
     const overlay = document.querySelector('[data-slot="sheet-overlay"]')
     const scrollArea = panel.querySelector('[style*="height"]')
 

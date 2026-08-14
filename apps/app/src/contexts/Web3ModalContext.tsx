@@ -1,12 +1,8 @@
 'use client'
 
-import {
-  useEffect,
-  useState,
-  type ComponentType,
-  type PropsWithChildren,
-  type ReactNode,
-} from 'react'
+import type { PropsWithChildren, ReactNode } from 'react'
+
+import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 
 import {
   WalletProviderError,
@@ -17,7 +13,7 @@ type Web3ModalProviderProps = {
   cookies?: string | null
   loadingFallback?: ReactNode
 }
-type Web3ModalRuntimeComponent = ComponentType<PropsWithChildren<Web3ModalProviderProps>>
+type Web3ModalRuntimeProps = PropsWithChildren<{ cookies?: string | null }>
 
 const loadWeb3ModalRuntime = () => import('./Web3ModalRuntime')
 
@@ -26,30 +22,14 @@ export function Web3ModalProvider({
   cookies,
   loadingFallback,
 }: PropsWithChildren<Web3ModalProviderProps>) {
-  const [Runtime, setRuntime] = useState<Web3ModalRuntimeComponent | null>(null)
-  const [loadError, setLoadError] = useState(false)
-  const [retryCount, setRetryCount] = useState(0)
-
-  useEffect(() => {
-    let active = true
-    setRuntime(null)
-    setLoadError(false)
-
-    loadWeb3ModalRuntime()
-      .then(({ default: nextRuntime }) => {
-        if (active) setRuntime(() => nextRuntime)
-      })
-      .catch(() => {
-        if (active) setLoadError(true)
-      })
-
-    return () => {
-      active = false
-    }
-  }, [retryCount])
+  const {
+    Component: Runtime,
+    hasError: loadError,
+    retry,
+  } = useDeferredComponent<Web3ModalRuntimeProps>(loadWeb3ModalRuntime)
 
   if (loadError) {
-    return <WalletProviderError onRetry={() => setRetryCount((count) => count + 1)} />
+    return <WalletProviderError onRetry={retry} />
   }
 
   if (!Runtime) {

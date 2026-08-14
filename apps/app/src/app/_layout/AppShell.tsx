@@ -4,7 +4,7 @@ import type { PropsWithChildren, ReactNode } from 'react'
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 
-import { cn } from '@nl/ui/utils'
+import { cx } from '@nl/ui/class-names'
 import { ScrollArea } from '@nl/ui/base/scroll-area'
 import AppBar from '@nl/ui/custom/app-bar'
 
@@ -12,8 +12,6 @@ import Breadcrumbs from '@/components/extended/Breadcrumbs'
 import { NavigationProvider, useNavigation } from '@/contexts/NavigationContext'
 import navigation from '@/constants/menu-items'
 import styles from './_MainLayout/MainLayout.module.css'
-
-const container = true
 
 interface AppShellProps extends PropsWithChildren {
   header: ReactNode
@@ -65,10 +63,10 @@ function AppShellContent({ children, header, sidebar, networkWarning }: AppShell
 
         {sidebar}
 
-        <main className={cn(styles.main, drawerOpen ? styles.mainOpen : styles.mainClosed)}>
+        <main className={cx(styles.main, drawerOpen ? styles.mainOpen : styles.mainClosed)}>
           {!isNoFilterPage ? (
             <ScrollArea className="h-full" viewportClassName="py-5 md:py-10">
-              {container ? <div className="container">{content}</div> : content}
+              <div className="container">{content}</div>
             </ScrollArea>
           ) : (
             content
