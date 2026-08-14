@@ -13,13 +13,12 @@ describe('MobileNavigationDisclosure', () => {
       </MobileNavigationDisclosure>
     )
 
-    const label = screen.getByText('Toggle navigation')
-    const summary = label.closest('summary')
+    const summary = screen.getByRole('button', { name: 'Toggle navigation' })
 
     expect(summary?.getAttribute('aria-controls')).toBe('public-mobile-navigation')
     expect(screen.getByRole('navigation', { name: 'Primary navigation' })).not.toBeNull()
 
-    fireEvent.click(label)
+    fireEvent.click(summary)
 
     expect(summary?.closest('details')?.hasAttribute('open')).toBe(true)
   })
