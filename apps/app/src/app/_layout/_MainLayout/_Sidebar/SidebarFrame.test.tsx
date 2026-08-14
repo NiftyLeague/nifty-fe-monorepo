@@ -72,8 +72,8 @@ describe('private sidebar frame', () => {
     const overlay = navigation.querySelector('[aria-hidden="false"]')
     const scrollArea = navigation.querySelector('[style*="height"]')
 
-    expect((overlay as HTMLElement | null)?.style.top).toBe('60px')
-    expect((scrollArea as HTMLElement | null)?.style.height).toBe('calc(100vh - 60px)')
+    expect((overlay as HTMLElement | null)?.style.top).toBe('56px')
+    expect((scrollArea as HTMLElement | null)?.style.height).toBe('calc(100dvh - 56px)')
   })
 
   it('keeps the desktop drawer interactive only while open', () => {
