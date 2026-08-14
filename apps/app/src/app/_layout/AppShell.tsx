@@ -11,6 +11,7 @@ import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import Breadcrumbs from '@/components/extended/Breadcrumbs'
 import { NavigationProvider, useNavigation } from '@/contexts/NavigationContext'
 import navigation from '@/constants/menu-items'
+import { desktopNavigationMediaQuery } from './navigation-breakpoints'
 import styles from './_MainLayout/MainLayout.module.css'
 
 const container = true
@@ -33,12 +34,12 @@ export default function AppShell({ children, header, sidebar, networkWarning }: 
 
 function AppShellContent({ children, header, sidebar, networkWarning }: AppShellProps) {
   const pathname = usePathname()
-  const matchDownXL = useMediaQuery('(max-width:1280px)')
+  const isDesktopNavigation = useMediaQuery(desktopNavigationMediaQuery)
   const { drawerOpen, setDrawerOpen } = useNavigation()
 
   useEffect(() => {
-    setDrawerOpen(!matchDownXL)
-  }, [matchDownXL, setDrawerOpen])
+    setDrawerOpen(isDesktopNavigation)
+  }, [isDesktopNavigation, setDrawerOpen])
 
   const isNoFilterPage = pathname && /(degens|dashboard\/degens)/.test(pathname)
 

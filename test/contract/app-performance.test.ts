@@ -6,6 +6,9 @@ const appManifest = 'apps/app/package.json'
 const webManifest = 'apps/web/package.json'
 const webNextConfig = 'apps/web/next.config.ts'
 const appRootLayout = 'apps/app/src/app/layout.tsx'
+const appShell = 'apps/app/src/app/_layout/AppShell.tsx'
+const appSidebarFrame = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/SidebarFrame.tsx'
+const appNavigationBreakpoints = 'apps/app/src/app/_layout/navigation-breakpoints.ts'
 const bridgeDialog = 'apps/app/src/components/dialog/BridgeButtonDialog/index.tsx'
 const appSectionSlider = 'apps/app/src/components/sections/SectionSlider.tsx'
 const allDegensPage = 'apps/app/src/app/(public-routes)/degens/AllDegensPage.tsx'
@@ -68,6 +71,25 @@ const appIconRegistrySources = [
 ]
 
 describe('app performance contracts', () => {
+  it('keeps the private shell and sidebar on the same desktop breakpoint', () => {
+    const shellSource = readFileSync(appShell, 'utf8')
+    const sidebarSource = readFileSync(appSidebarFrame, 'utf8')
+    const breakpointSource = readFileSync(appNavigationBreakpoints, 'utf8')
+
+    expect(breakpointSource).toContain("desktopNavigationMediaQuery = '(min-width: 1024px)'")
+    expect(shellSource).toContain('useMediaQuery(desktopNavigationMediaQuery)')
+    expect(sidebarSource).toContain('useMediaQuery(desktopNavigationMediaQuery)')
+    expect(sidebarSource).toContain('const isCompactScreen = !isDesktopNavigation')
+  })
+
+  it('keeps the private app bar padded and vertically centered', () => {
+    const shellSource = readFileSync(appShell, 'utf8')
+
+    expect(shellSource).toContain(
+      'flex min-h-14 items-center px-4 py-2 lg:h-[60px] lg:min-h-0 lg:px-6 lg:py-0'
+    )
+  })
+
   it('shares the accessible native carousel and keeps the app free of slider runtimes', () => {
     const sectionSlider = readFileSync(appSectionSlider, 'utf8')
     const sharedCarousel = readFileSync(sharedResponsiveCarousel, 'utf8')
