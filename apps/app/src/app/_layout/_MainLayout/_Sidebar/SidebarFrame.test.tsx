@@ -3,18 +3,14 @@ import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
 
 const navigationState = {
   drawerOpen: false,
+  isDesktopNavigation: false,
   toggleDrawer: mock(),
 }
-
-let isDesktopNavigation = false
 
 let SidebarFrame: typeof import('./SidebarFrame').default
 
 beforeEach(async () => {
-  isDesktopNavigation = false
-  mock.module('@nl/ui/hooks/useMediaQuery', () => ({
-    useMediaQuery: () => isDesktopNavigation,
-  }))
+  navigationState.isDesktopNavigation = false
   mock.module('@/contexts/NavigationContext', () => ({ useNavigation: () => navigationState }))
   mock.module('@nl/ui/base/scroll-area', () => ({
     ScrollArea: ({
@@ -30,6 +26,7 @@ beforeEach(async () => {
 
 afterEach(() => {
   navigationState.drawerOpen = false
+  navigationState.isDesktopNavigation = false
   navigationState.toggleDrawer.mockClear()
   mock.restore()
 })
@@ -80,7 +77,7 @@ describe('private sidebar frame', () => {
   })
 
   it('keeps the desktop drawer interactive only while open', () => {
-    isDesktopNavigation = true
+    navigationState.isDesktopNavigation = true
     navigationState.drawerOpen = true
     const { rerender } = render(<SidebarFrame>Navigation</SidebarFrame>)
 
