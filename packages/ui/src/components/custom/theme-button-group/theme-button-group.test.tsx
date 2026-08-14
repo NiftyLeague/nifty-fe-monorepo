@@ -17,7 +17,7 @@ beforeEach(() => {
 })
 
 describe('ThemeButtonGroup', () => {
-  it('renders linked CTAs through the shared button primitive', () => {
+  it('renders linked CTAs through the shared shadcn button recipe', () => {
     render(
       <ThemeButtonGroup
         primary={{ href: '/games', title: 'Play now' }}
