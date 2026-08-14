@@ -64,6 +64,7 @@ import { Progress } from '@nl/ui/base/progress'
 import { RadioGroup, RadioGroupItem } from '@nl/ui/base/radio-group'
 import { ScrollArea } from '@nl/ui/base/scroll-area'
 import { Separator } from '@nl/ui/base/separator'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@nl/ui/base/table'
 import {
   Sheet,
   SheetClose,
@@ -133,6 +134,18 @@ describe('base visual primitives', () => {
         </ScrollArea>
         <Separator />
         <Skeleton>Loading</Skeleton>
+        <Table aria-label="sample table">
+          <TableHeader>
+            <TableRow>
+              <TableHead>Name</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow>
+              <TableCell>Degen</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
       </>
     )
 
@@ -145,6 +158,7 @@ describe('base visual primitives', () => {
     expect(screen.getByText('Scrollable content')).not.toBeNull()
     expect(document.querySelector('[data-slot="scroll-area-viewport"]')).not.toBeNull()
     expect(document.querySelector('[data-slot="scroll-area-scrollbar"]')).not.toBeNull()
+    expect(screen.getByRole('table', { name: 'sample table' })).not.toBeNull()
   })
 
   it('renders pagination navigation and active states', () => {

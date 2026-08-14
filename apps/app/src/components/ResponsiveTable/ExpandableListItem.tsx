@@ -1,26 +1,13 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import { ChevronDown } from 'lucide-react'
 import { Checkbox } from '@nl/ui/base/checkbox'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@nl/ui/base/accordion'
 import { cn } from '@nl/ui/utils'
 
-import type {
-  AccordionDetailsProps,
-  AccordionProps,
-  AccordionSummaryProps,
-  Row,
-  ResponsiveIconProps,
-  TypographyProps,
-} from './types'
+import type { Row } from './types'
 
 interface ExpandableListItemProps {
-  AccordionDetailsProps?: AccordionDetailsProps
-  AccordionDetailsTypographyProps?: TypographyProps<'div'>
-  AccordionMoreIconProps?: ResponsiveIconProps
-  AccordionProps?: AccordionProps
-  AccordionSummaryProps?: AccordionSummaryProps
-  AccordionSummaryTypographyProps?: TypographyProps
   checkboxSelection?: boolean
   details: React.ReactNode
   onSelect: (row: Row) => void
@@ -29,34 +16,13 @@ interface ExpandableListItemProps {
   scrollOptions?: ScrollIntoViewOptions
   scrollToSelected: boolean
   selected: boolean
-  SelectedAccordionProps?: AccordionProps
   summary: React.ReactNode | React.ReactNode[]
-}
-
-const ICON_COLOR_ALIASES: Record<string, string> = {
-  foreground: 'var(--color-foreground)',
-  dim: 'var(--color-muted-foreground)',
-  dark: 'var(--color-dark)',
-  light: 'var(--color-light)',
-  error: 'var(--color-error)',
-  warning: 'var(--color-warning)',
-  success: 'var(--color-success)',
-  info: 'var(--color-info)',
-  blue: 'var(--color-blue)',
-  purple: 'var(--color-purple)',
-  gray: 'var(--color-base-500)',
 }
 
 /**
  * Expandable component with header text (summary) and expandable description text (details)
  */
 const ExpandableListItem: React.FC<ExpandableListItemProps> = ({
-  AccordionDetailsProps,
-  AccordionDetailsTypographyProps,
-  AccordionMoreIconProps,
-  AccordionProps,
-  AccordionSummaryProps,
-  AccordionSummaryTypographyProps,
   checkboxSelection,
   details,
   onSelect,
@@ -65,7 +31,6 @@ const ExpandableListItem: React.FC<ExpandableListItemProps> = ({
   scrollOptions,
   scrollToSelected,
   selected,
-  SelectedAccordionProps,
   summary,
 }) => {
   const panelRef = useRef<HTMLDivElement>(null)
@@ -77,97 +42,37 @@ const ExpandableListItem: React.FC<ExpandableListItemProps> = ({
     }
   }, [selected, scrollToSelected, scrollOptions])
 
-  const handleSelect: React.MouseEventHandler<HTMLButtonElement> = (event) => {
-    event.stopPropagation()
-    onSelect(row)
-  }
-
-  const rootProps = selected ? { ...AccordionProps, ...SelectedAccordionProps } : AccordionProps
-  const {
-    className: rootClassName,
-    style: rootStyle,
-    children: _rootChildren,
-    ...rootRest
-  } = rootProps ?? {}
-
-  const {
-    expandIcon: _expandIcon,
-    className: summaryClassName,
-    style: summaryStyle,
-    children: _summaryChildren,
-    ...summaryRest
-  } = AccordionSummaryProps ?? {}
-
-  // TypographyProps has no index signature (only MUI-typo keys); keep className/style and drop the rest so no unknown attrs leak to the DOM.
-  const { className: summaryTypoClassName, style: summaryTypoStyle } =
-    AccordionSummaryTypographyProps ?? {}
-
-  const {
-    className: detailsClassName,
-    style: detailsStyle,
-    children: _detailsChildren,
-    ...detailsRest
-  } = AccordionDetailsProps ?? {}
-
-  const { className: detailsTypoClassName, style: detailsTypoStyle } =
-    AccordionDetailsTypographyProps ?? {}
-
-  const {
-    color = 'currentColor',
-    fill = 'none',
-    size: iconSize = 'lg',
-    ...moreIconProps
-  } = AccordionMoreIconProps ?? {}
-  const iconColor = ICON_COLOR_ALIASES[color] ?? color
-  const iconFill = ICON_COLOR_ALIASES[fill] ?? fill
-  const resolvedIconSize =
-    typeof iconSize === 'number' ? iconSize : { xs: 14, sm: 18, md: 20, lg: 24, xl: 28 }[iconSize]
-
   return (
-    <div ref={panelRef} className={cn(panelClass, rootClassName)} style={rootStyle} {...rootRest}>
-      <div
-        className={cn(
-          'flex cursor-pointer items-center justify-between',
-          summaryClassName as string | undefined
-        )}
-        style={summaryStyle}
-        {...summaryRest}
-        onClick={() => setExpanded((prev) => !prev)}
+    <div ref={panelRef} className={cn(panelClass)}>
+      <Accordion
+        type="single"
+        collapsible
+        value={expanded ? 'row' : undefined}
+        onValueChange={(value) => setExpanded(value === 'row')}
       >
-        <div className="flex items-center gap-2">
-          {checkboxSelection && (
-            <Checkbox
-              style={{ padding: `0 10px 5px 0` }}
-              checked={selected}
-              onClick={handleSelect}
-            />
-          )}
-          <span
-            className={cn('text-sm font-medium text-foreground', summaryTypoClassName)}
-            style={{ width: '100%', display: 'flex', ...summaryTypoStyle }}
-          >
-            {summary}
-          </span>
-        </div>
-        <ChevronDown
-          aria-hidden="true"
-          absoluteStrokeWidth
-          color={iconColor}
-          fill={iconFill}
-          size={resolvedIconSize}
-          strokeWidth={1.5}
-          className={cn('transition-transform', expanded && 'rotate-180')}
-          {...moreIconProps}
-        />
-      </div>
-      <div className={cn('overflow-hidden transition-all', !expanded && 'hidden')} {...detailsRest}>
-        <span
-          className={cn('text-sm text-muted-foreground', detailsTypoClassName)}
-          style={{ opacity: 0.5, width: '100%', ...detailsTypoStyle }}
-        >
-          {details}
-        </span>
-      </div>
+        <AccordionItem value="row" className="border-0">
+          <div className="flex items-center gap-2">
+            {checkboxSelection && (
+              <Checkbox
+                aria-label={`Select ${String(row.id ?? row.user_id ?? 'row')}`}
+                checked={selected}
+                onCheckedChange={() => onSelect(row)}
+              />
+            )}
+            <AccordionTrigger
+              className={cn(
+                'min-w-0 p-0 text-sm font-medium text-foreground hover:no-underline',
+                '[&>svg]:size-6 [&>svg]:text-foreground [&>svg]:stroke-[1.5]'
+              )}
+            >
+              <span className="flex w-full items-center">{summary}</span>
+            </AccordionTrigger>
+          </div>
+          <AccordionContent className="p-0">
+            <span className="block w-full text-sm text-muted-foreground opacity-50">{details}</span>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </div>
   )
 }

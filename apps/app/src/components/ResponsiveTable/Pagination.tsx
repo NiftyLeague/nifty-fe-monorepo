@@ -4,24 +4,22 @@ import { cn } from '@nl/ui/utils'
 
 import { PaginationControls } from '@/components/pagination/PaginationControls'
 
-import type { TablePaginationProps } from './types'
-
 interface PaginationProps {
-  component?: React.ElementType
   count: number
+  className?: string
   onChangePage: (event: React.MouseEvent | null, page: number) => void
   page: number
   rowsPerPage: number
-  TablePaginationProps?: TablePaginationProps
+  style?: React.CSSProperties
 }
 
 const Pagination: React.FC<PaginationProps> = ({
-  component,
   count,
+  className,
   onChangePage,
   page,
   rowsPerPage,
-  TablePaginationProps,
+  style,
 }) => {
   const totalPages = Math.max(1, Math.ceil(count / rowsPerPage))
 
@@ -29,18 +27,10 @@ const Pagination: React.FC<PaginationProps> = ({
     onChangePage(event, newPage)
   }
 
-  // The legacy `component` prop controlled the wrapping element used by MUI's
-  // TablePagination; we render a semantic footer in its place and honor any
-  // caller-supplied className/style via the merged TablePaginationProps.
-  const Wrapper: React.ElementType = component || 'div'
-
   return (
-    <Wrapper
-      className={cn(
-        'flex items-center justify-end gap-2 px-4 py-2',
-        typeof TablePaginationProps?.className === 'string' ? TablePaginationProps.className : ''
-      )}
-      style={TablePaginationProps?.style}
+    <footer
+      className={cn('flex items-center justify-end gap-2 px-4 py-2', className)}
+      style={style}
     >
       <PaginationControls
         hasNext={page + 1 < totalPages}
@@ -54,7 +44,7 @@ const Pagination: React.FC<PaginationProps> = ({
         }
         iconSize={20}
       />
-    </Wrapper>
+    </footer>
   )
 }
 

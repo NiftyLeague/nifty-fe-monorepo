@@ -1,25 +1,19 @@
 'use client'
 
-import type { Dispatch, SetStateAction, ReactNode } from 'react'
-import { CustomColDef, DataGridProps, Row } from './types'
+import type { ReactNode } from 'react'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@nl/ui/base/table'
+
+import { CustomColDef, getRowId, Row } from './types'
 
 interface DataTableProps {
   columns: CustomColDef[]
-  count: number
   data: Row[]
-  DataGridProps?: DataGridProps
   noContentText?: string
-  onPaginationModelChange: Dispatch<SetStateAction<{ pageSize: number; page: number }>>
   paginationModel: { pageSize: number; page: number }
-  rowsClassArray?: string[]
-  showPagination?: boolean
 }
 
-const getRowId = (row: Row) =>
-  typeof row.id === 'string' || typeof row.id === 'number' ? row.id : row.rank
-
 /**
- * Read-only data grid rendered as a semantic HTML table (replaces the legacy DataGrid).
+ * Read-only leaderboard table built from the shared shadcn table primitives.
  */
 export default function DataTable(props: DataTableProps) {
   const { columns, data, paginationModel, noContentText } = props
@@ -30,35 +24,39 @@ export default function DataTable(props: DataTableProps) {
       className="h-full w-full overflow-hidden"
     >
       <div className="h-full max-h-[750px] overflow-auto rounded-lg border bg-background">
-        <table className="w-full border-collapse text-sm" aria-label="data table">
-          <thead className="sticky top-0 z-10 bg-background">
-            <tr>
+        <Table aria-label="data table" className="border-collapse">
+          <TableHeader className="sticky top-0 z-10 bg-background">
+            <TableRow className="border-0 hover:bg-transparent">
               {columns.map((column) => (
-                <th
+                <TableHead
                   key={column.field}
                   align={column.align || 'left'}
                   style={{ minWidth: column.width }}
                   className="px-4 py-3 font-medium text-muted-foreground"
                 >
                   {column.headerName || column.field}
-                </th>
+                </TableHead>
               ))}
-            </tr>
-          </thead>
-          <tbody>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {data.length === 0 ? (
-              <tr>
-                <td colSpan={columns.length} className="px-4 py-3">
+              <TableRow>
+                <TableCell colSpan={columns.length} className="px-4 py-3">
                   <span className="text-muted-foreground">{noContentText ?? 'No Content'}</span>
-                </td>
-              </tr>
+                </TableCell>
+              </TableRow>
             ) : (
               data.map((row) => {
                 const rowId = getRowId(row)
                 return (
-                  <tr key={String(rowId)} className="hover:bg-accent/50">
+                  <TableRow key={String(rowId)} className="hover:bg-accent/50">
                     {columns.map((column) => (
-                      <td key={column.field} align={column.align || 'left'} className="px-4 py-3">
+                      <TableCell
+                        key={column.field}
+                        align={column.align || 'left'}
+                        className="px-4 py-3"
+                      >
                         {column.renderCell
                           ? (column.renderCell({
                               value: row[column.field],
@@ -67,14 +65,14 @@ export default function DataTable(props: DataTableProps) {
                               id: row.id,
                             }) as ReactNode)
                           : String(row[column.field] ?? '')}
-                      </td>
+                      </TableCell>
                     ))}
-                  </tr>
+                  </TableRow>
                 )
               })
             )}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
     </div>
   )
