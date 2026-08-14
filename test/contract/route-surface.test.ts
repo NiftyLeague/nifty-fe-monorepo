@@ -873,7 +873,8 @@ describe('public app shell contract', () => {
     expect(contentContainerSource).toContain('container py-5 md:py-10')
     expect(linksSource).not.toContain("'use client'")
     expect(linksSource).not.toContain("from '@nl/ui/base/icon'")
-    expect(linksSource).toContain("from 'lucide-react'")
+    expect(linksSource).toContain("from '@nl/ui/custom/nav-icon'")
+    expect(linksSource).not.toContain("from 'lucide-react'")
     expect(linksSource).toContain("from 'next/link'")
     expect(linksSource).not.toContain("from './PublicActiveNavLink'")
     expect(
