@@ -18,7 +18,7 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
   return (
     <div className={cn('flex', styles.publicNavigationShell)} data-public-navigation>
       <header className="fixed top-0 right-0 left-0 z-50 border-0 bg-sidebar">
-        <div className="min-h-14 px-6 py-2 lg:h-[60px] lg:min-h-0 lg:py-0">
+        <div className="flex min-h-14 items-center px-4 py-2 lg:h-[60px] lg:min-h-0 lg:px-6 lg:py-0">
           <div className="flex w-full flex-row items-center justify-between">
             <div className={cn('flex items-center', styles.publicHeaderControls)}>
               <div className="hidden flex-grow lg:block">
