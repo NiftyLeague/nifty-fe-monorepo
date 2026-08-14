@@ -238,6 +238,7 @@ const gltfPage = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/page.tsx'
 const gltfClient = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViews.tsx'
 const gltfRouteBoundary =
   'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViewsRouteBoundary.tsx'
+const gltfModelView = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/ModelView.tsx'
 const webViemClient = 'apps/web/src/lib/viemClient.ts'
 const webClaimableNFTL = 'apps/web/src/hooks/useClaimableNFTL.ts'
 const webDegenAssets = 'apps/web/src/constants/degen-assets.ts'
@@ -395,6 +396,7 @@ describe('GLTF viewer loading contract', () => {
     const pageSource = readFileSync(join(process.cwd(), gltfPage), 'utf8')
     const clientSource = readFileSync(join(process.cwd(), gltfClient), 'utf8')
     const routeBoundarySource = readFileSync(join(process.cwd(), gltfRouteBoundary), 'utf8')
+    const modelViewSource = readFileSync(join(process.cwd(), gltfModelView), 'utf8')
 
     expect(pageSource).not.toContain("'use client'")
     expect(pageSource).toContain('await params')
@@ -407,6 +409,10 @@ describe('GLTF viewer loading contract', () => {
     expect(clientSource).not.toContain("from 'next/image'")
     expect(clientSource).toContain("dynamic(() => import('./ModelView')")
     expect(clientSource).toContain('ssr: false')
+    expect(modelViewSource).toContain(
+      "import '@google/model-viewer/dist/model-viewer-module.min.js'"
+    )
+    expect(modelViewSource).not.toContain("import '@google/model-viewer'")
   })
 
   it('preloads only the visible NFT artwork', () => {
