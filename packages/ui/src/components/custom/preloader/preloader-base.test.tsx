@@ -47,10 +47,10 @@ describe('PreloaderBase', () => {
     expect(root.style.display).toBe('none')
   })
 
-  it('uses translateY(0) transform when not ready', () => {
+  it('uses default CSS transform when not ready', () => {
     const { container } = render(<PreloaderBase />)
     const root = container.firstChild as HTMLElement
-    expect(root.style.transform).toContain('translateY(0)')
+    expect(root.style.transform).toBe('')
   })
 
   it('renders the preloader inner with SVG via role="img"', () => {
