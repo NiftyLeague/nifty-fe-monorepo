@@ -1,4 +1,5 @@
 import Image, { type ImageProps } from 'next/image'
+import type { CSSProperties } from 'react'
 
 type AnimatedImageProps = ImageProps & { webpSrc?: string }
 
@@ -8,8 +9,12 @@ type AnimatedImageProps = ImageProps & { webpSrc?: string }
  * sizing and loading behavior.
  */
 export function AnimatedImage({ webpSrc, ...props }: AnimatedImageProps) {
+  const pictureStyle: CSSProperties | undefined = props.fill
+    ? { position: 'absolute', inset: 0, display: 'block' }
+    : undefined
+
   return (
-    <picture>
+    <picture style={pictureStyle}>
       {webpSrc ? <source type="image/webp" srcSet={webpSrc} /> : null}
       <Image {...props} />
     </picture>
