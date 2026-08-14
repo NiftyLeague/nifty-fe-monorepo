@@ -7,7 +7,6 @@ import { cn } from '@nl/ui/utils'
 
 import LogoSection from '@/app/_layout/_MainLayout/_LogoSection'
 import styles from '@/app/_layout/_MainLayout/MainLayout.module.css'
-import PublicDesktopNavigationToggle from './PublicDesktopNavigationToggle'
 import PublicNavLinks from './PublicNavLinks'
 
 const pages = [
@@ -18,11 +17,7 @@ const pages = [
 
 export default function PublicNavigation({ children }: PropsWithChildren) {
   return (
-    <div
-      className={cn('flex', styles.publicNavigationShell)}
-      data-public-navigation
-      data-public-sidebar-state="open"
-    >
+    <div className={cn('flex', styles.publicNavigationShell)} data-public-navigation>
       <header className="fixed top-0 right-0 left-0 z-50 border-0 bg-sidebar">
         <AppBar>
           <div className="flex w-full flex-row items-center justify-between">
@@ -30,7 +25,21 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
               <div className="hidden flex-grow lg:block">
                 <LogoSection />
               </div>
-              <PublicDesktopNavigationToggle />
+              <details id="public-desktop-navigation-toggle" open className="hidden lg:block">
+                <summary
+                  role="button"
+                  aria-controls="public-desktop-navigation"
+                  aria-label="Toggle sidebar"
+                  className="flex h-[34px] w-[34px] cursor-pointer list-none items-center justify-center overflow-hidden rounded-md bg-muted text-blue outline-none transition-colors duration-200 hover:bg-purple hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 [&::-webkit-details-marker]:hidden"
+                >
+                  <span aria-hidden="true" className="flex size-6 flex-col justify-center gap-1.5">
+                    <span className="h-0.5 w-full rounded-full bg-current" />
+                    <span className="h-0.5 w-full rounded-full bg-current" />
+                    <span className="h-0.5 w-full rounded-full bg-current" />
+                  </span>
+                  <span className="sr-only">Toggle sidebar</span>
+                </summary>
+              </details>
               <MobileNavigationDisclosure
                 id="public-mobile-navigation"
                 label="Toggle navigation"
