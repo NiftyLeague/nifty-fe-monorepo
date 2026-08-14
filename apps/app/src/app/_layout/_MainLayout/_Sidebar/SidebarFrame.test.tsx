@@ -56,10 +56,9 @@ describe('private sidebar frame', () => {
     navigationState.drawerOpen = true
     render(<SidebarFrame>Navigation</SidebarFrame>)
 
-    const navigation = screen.getByRole('navigation', { name: 'Primary navigation' })
-    const backdrop = navigation.querySelector('[aria-hidden="false"]')
+    const backdrop = screen.getByRole('button', { name: 'Close sidebar by clicking outside' })
 
-    fireEvent.click(backdrop as HTMLElement)
+    fireEvent.click(backdrop)
 
     expect(navigationState.toggleDrawer).toHaveBeenCalledOnce()
   })

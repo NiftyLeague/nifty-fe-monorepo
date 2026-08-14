@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@nl/ui/base/table'
 
 import { fetchScores } from '@/utils/leaderboard'
 import type { DataType, ReturnDataType } from '@/types/leaderboard'
@@ -70,139 +71,138 @@ const TableModal = ({
 
   return (
     <div className={styles.tableRoot}>
-      <table className="modal-table">
-        <thead className="header">
-          <tr className="row">
-            <th className="cell index" scope="col">
+      {!data && (
+        <div className={styles.loadingBox} role="status" aria-label="Loading leaderboard">
+          <CircularProgress />
+        </div>
+      )}
+      <Table className="modal-table">
+        <TableHeader className="header [&_tr]:border-0">
+          <TableRow className="row border-0 hover:bg-transparent">
+            <TableHead className="cell index" scope="col">
               <code>RANK</code>
-            </th>
-            <th className="cell ellipsis" scope="col">
+            </TableHead>
+            <TableHead className="cell ellipsis" scope="col">
               <code>USERNAME</code>
-            </th>
+            </TableHead>
             {flag === 'win_rate' && (
-              <th className="cell ellipsis" scope="col">
+              <TableHead className="cell ellipsis" scope="col">
                 <code>WIN RATE</code>
-              </th>
+              </TableHead>
             )}
             {flag === 'earnings' && (
-              <th
+              <TableHead
                 className="cell ellipsis"
                 scope="col"
                 style={{ fontSize: 10, textAlign: 'center' }}
               >
                 <code>TOTAL NFTL EARNED</code>
-              </th>
+              </TableHead>
             )}
             {selectedGame === 'nifty_smashers' && (
-              <th
+              <TableHead
                 className="cell ellipsis"
                 scope="col"
                 style={{ fontSize: 10, textAlign: 'center' }}
               >
                 <code>MATCHES PLAYED</code>
-              </th>
+              </TableHead>
             )}
             {flag === 'earnings' && (
-              <th
+              <TableHead
                 className="cell ellipsis"
                 scope="col"
                 style={{ fontSize: 10, textAlign: 'center' }}
               >
                 <code>AVG,NFTL / MATCH</code>
-              </th>
+              </TableHead>
             )}
             {flag !== 'win_rate' && selectedGame === 'nifty_smashers' && (
-              <th className="cell ellipsis" scope="col">
+              <TableHead className="cell ellipsis" scope="col">
                 <code>KILLS</code>
-              </th>
+              </TableHead>
             )}
             {flag === 'score' && (
-              <th className="cell ellipsis" scope="col">
+              <TableHead className="cell ellipsis" scope="col">
                 <code>HIGH SCORE</code>
-              </th>
+              </TableHead>
             )}
             {flag === 'burnings' && (
-              <th className="cell ellipsis" scope="col">
+              <TableHead className="cell ellipsis" scope="col">
                 <code>NFTL BURNED</code>
-              </th>
+              </TableHead>
             )}
-          </tr>
-        </thead>
-        <div className="box-table" style={{ marginTop: '20px' }} />
-        <tbody className="body">
-          {data ? (
-            data.map((i) => (
-              <tr className="row first" key={`${i}`}>
-                <td className="cell index" style={{ color: '#9ba5bf' }}>
-                  <span className={styles.rankBody} style={getTextStyleForRank(i.rank)}>
-                    {i.rank}
-                  </span>
-                  {i.rank === 1 && <div className={styles.lineTopBox} />}
-                  {i.rank === 10 && <div className={styles.lineBottomBox} />}
-                </td>
-                <td
+          </TableRow>
+        </TableHeader>
+        <TableBody className="body">
+          {data?.map((i) => (
+            <TableRow
+              className="row first border-0 hover:bg-transparent"
+              key={`${i.rank}-${i.user_id}`}
+            >
+              <TableCell className="cell index" style={{ color: '#9ba5bf' }}>
+                <span className={styles.rankBody} style={getTextStyleForRank(i.rank)}>
+                  {i.rank}
+                </span>
+                {i.rank === 1 && <div className={styles.lineTopBox} />}
+                {i.rank === 10 && <div className={styles.lineBottomBox} />}
+              </TableCell>
+              <TableCell
+                style={{ ...getTextStyleForRank(i.rank), fontSize: 14, background: '' }}
+                className="cell ellipsis"
+              >
+                {i.user_id}
+                {i.rank === 1 && <div className={styles.lineTopBox} />}
+                {i.rank === 10 && <div className={styles.lineBottomBox} />}
+              </TableCell>
+              {flag === 'win_rate' && (
+                <TableCell className="cell ellipsis">{i.stats.win_rate}</TableCell>
+              )}
+              {flag === 'earnings' && (
+                <TableCell className="cell ellipsis end">
+                  {i.stats.earnings}
+                  {i.rank === 1 && flag === 'earnings' && <div className={styles.lineTopBox} />}
+                  {i.rank === 10 && flag === 'earnings' && <div className={styles.lineBottomBox} />}
+                </TableCell>
+              )}
+              {selectedGame === 'nifty_smashers' && (
+                <TableCell
                   style={{ ...getTextStyleForRank(i.rank), fontSize: 14, background: '' }}
-                  className="cell ellipsis"
+                  className="cell ellipsis end"
                 >
-                  {i.user_id}
+                  {i.stats.matches}
+                  {i.rank === 1 && flag === 'earnings' && <div className={styles.lineTopBox} />}
+                  {i.rank === 10 && flag === 'earnings' && <div className={styles.lineBottomBox} />}
+                </TableCell>
+              )}
+              {flag === 'earnings' && (
+                <TableCell className="cell ellipsis end">
+                  {i.stats['avg_NFTL/match']}
                   {i.rank === 1 && <div className={styles.lineTopBox} />}
                   {i.rank === 10 && <div className={styles.lineBottomBox} />}
-                </td>
-                {flag === 'win_rate' && <td className="cell ellipsis">{i.stats.win_rate}</td>}
-                {flag === 'earnings' && (
-                  <td className="cell ellipsis end">
-                    {i.stats.earnings}
-                    {i.rank === 1 && flag === 'earnings' && <div className={styles.lineTopBox} />}
-                    {i.rank === 10 && flag === 'earnings' && (
-                      <div className={styles.lineBottomBox} />
-                    )}
-                  </td>
-                )}
-                {selectedGame === 'nifty_smashers' && (
-                  <td
-                    style={{ ...getTextStyleForRank(i.rank), fontSize: 14, background: '' }}
-                    className="cell ellipsis end"
-                  >
-                    {i.stats.matches}
-                    {i.rank === 1 && flag === 'earnings' && <div className={styles.lineTopBox} />}
-                    {i.rank === 10 && flag === 'earnings' && (
-                      <div className={styles.lineBottomBox} />
-                    )}
-                  </td>
-                )}
-                {flag === 'earnings' && (
-                  <td className="cell ellipsis end">
-                    {i.stats['avg_NFTL/match']}
-                    {i.rank === 1 && <div className={styles.lineTopBox} />}
-                    {i.rank === 10 && <div className={styles.lineBottomBox} />}
-                  </td>
-                )}
-                {flag !== 'win_rate' && selectedGame === 'nifty_smashers' && (
-                  <td className="cell ellipsis end">{i.stats.kills}</td>
-                )}
-                {selectedGame !== 'nifty_smashers' && (
-                  <td
-                    style={{ ...getTextStyleForRank(i.rank), fontSize: 14 }}
-                    className="cell ellipsis end"
-                  >
-                    {i.score}
-                  </td>
-                )}
-              </tr>
-            ))
-          ) : (
-            <div className={styles.loadingBox}>
-              <CircularProgress />
-            </div>
-          )}
-          {data && (
-            <span className={styles.twitterTypography} onClick={handleShareOnTwitter}>
-              Share on twitter{' '}
-              <Image src="/icons/socials/twitter.svg" alt="Twitter Icon" width={22} height={20} />
-            </span>
-          )}
-        </tbody>
-      </table>
+                </TableCell>
+              )}
+              {flag !== 'win_rate' && selectedGame === 'nifty_smashers' && (
+                <TableCell className="cell ellipsis end">{i.stats.kills}</TableCell>
+              )}
+              {selectedGame !== 'nifty_smashers' && (
+                <TableCell
+                  style={{ ...getTextStyleForRank(i.rank), fontSize: 14 }}
+                  className="cell ellipsis end"
+                >
+                  {i.score}
+                </TableCell>
+              )}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+      {data && (
+        <button type="button" className={styles.twitterTypography} onClick={handleShareOnTwitter}>
+          Share on twitter{' '}
+          <Image src="/icons/socials/twitter.svg" alt="Twitter Icon" width={22} height={20} />
+        </button>
+      )}
     </div>
   )
 }
