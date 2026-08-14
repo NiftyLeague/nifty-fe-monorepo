@@ -7,7 +7,7 @@ const webManifest = 'apps/web/package.json'
 const webNextConfig = 'apps/web/next.config.ts'
 const appRootLayout = 'apps/app/src/app/layout.tsx'
 const appShell = 'apps/app/src/app/_layout/AppShell.tsx'
-const appShellStyles = 'apps/app/src/app/_layout/_MainLayout/MainLayout.module.css'
+const sharedAppBar = 'packages/ui/src/components/custom/app-bar/index.tsx'
 const appSidebarFrame = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/SidebarFrame.tsx'
 const appNavigationContext = 'apps/app/src/contexts/NavigationContext.tsx'
 const appNavigationBreakpoints = 'apps/app/src/app/_layout/navigation-breakpoints.ts'
@@ -88,12 +88,14 @@ describe('app performance contracts', () => {
 
   it('keeps the private app bar padded and vertically centered', () => {
     const shellSource = readFileSync(appShell, 'utf8')
-    const shellStyles = readFileSync(appShellStyles, 'utf8')
+    const appBarSource = readFileSync(sharedAppBar, 'utf8')
 
-    expect(shellSource).toContain('<div className={styles.appBarInner}>{header}</div>')
-    expect(shellStyles).toContain('.appBarInner')
-    expect(shellStyles).toContain('padding: 8px 16px;')
-    expect(shellStyles).toContain('padding: 0 24px;')
+    expect(shellSource).toContain("from '@nl/ui/custom/app-bar'")
+    expect(shellSource).toContain('<AppBar>{header}</AppBar>')
+    expect(appBarSource).toContain('min-h-14')
+    expect(appBarSource).toContain('px-4 py-2')
+    expect(appBarSource).toContain('lg:h-[60px]')
+    expect(appBarSource).toContain('lg:px-6 lg:py-0')
   })
 
   it('shares the accessible native carousel and keeps the app free of slider runtimes', () => {

@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 
 import { cn } from '@nl/ui/utils'
 import { ScrollArea } from '@nl/ui/base/scroll-area'
+import AppBar from '@nl/ui/custom/app-bar'
 
 import Breadcrumbs from '@/components/extended/Breadcrumbs'
 import { NavigationProvider, useNavigation } from '@/contexts/NavigationContext'
@@ -52,7 +53,7 @@ function AppShellContent({ children, header, sidebar, networkWarning }: AppShell
       <div className="flex" data-sidebar-open={drawerOpen}>
         <header className="fixed top-0 right-0 left-0 z-50 border-0 bg-sidebar">
           {networkWarning}
-          <div className={styles.appBarInner}>{header}</div>
+          <AppBar>{header}</AppBar>
         </header>
 
         {sidebar}
