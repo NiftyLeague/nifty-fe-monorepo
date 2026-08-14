@@ -219,7 +219,6 @@ const ALLOWED_UNUSED: Record<string, Record<string, string>> = {
   'apps/app': {
     sharp: 'Next.js image optimization runtime dep',
     graphql: 'peer dep of graphql-request',
-    '@openzeppelin/contracts': 'typechain generated contracts/types import it',
   },
   'apps/smashers': {
     sharp: 'Next.js image optimization runtime dep',
