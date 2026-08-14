@@ -22,6 +22,7 @@ export function MobileNavigationDisclosure({
   return (
     <details className={cn('group relative', className)}>
       <summary
+        role="button"
         aria-controls={id}
         aria-label={label}
         className={cn(
