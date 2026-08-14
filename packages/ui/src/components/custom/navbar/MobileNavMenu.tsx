@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import { Fragment } from 'react'
 
-import { Button } from '@nl/ui/base/button'
-import { Separator } from '@nl/ui/base/separator'
+import { buttonVariants } from '@nl/ui/base/button-variants'
 import MobileNavigationDisclosure from '@nl/ui/custom/mobile-navigation'
 
 import { NavLinkContent, NAV_LINK_CONTENT_CLASS } from './NavLinkContent'
@@ -82,16 +81,18 @@ export default function MobileNavMenu({ actionButton, navItems }: MobileNavMenuP
         </nav>
         {actionButton && (
           <>
-            <Separator orientation="horizontal" className="my-6" />
-            <Button asChild variant="outline" className="w-full cursor-pointer text-foreground">
-              <Link
-                href={actionButton.href}
-                target={actionButton.external ? '_blank' : undefined}
-                rel={actionButton.external ? 'noreferrer' : undefined}
-              >
-                Launch {actionButton.title}
-              </Link>
-            </Button>
+            <hr aria-hidden="true" className="bg-separator my-6 h-px w-full shrink-0 border-0" />
+            <Link
+              href={actionButton.href}
+              target={actionButton.external ? '_blank' : undefined}
+              rel={actionButton.external ? 'noreferrer' : undefined}
+              className={buttonVariants({
+                variant: 'outline',
+                className: 'w-full cursor-pointer text-foreground',
+              })}
+            >
+              Launch {actionButton.title}
+            </Link>
           </>
         )}
       </>
