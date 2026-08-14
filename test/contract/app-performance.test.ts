@@ -8,6 +8,7 @@ const webNextConfig = 'apps/web/next.config.ts'
 const appRootLayout = 'apps/app/src/app/layout.tsx'
 const appShell = 'apps/app/src/app/_layout/AppShell.tsx'
 const sharedAppBar = 'packages/ui/src/components/custom/app-bar/index.tsx'
+const sharedAppBarStyles = 'packages/ui/src/components/custom/app-bar/app-bar.module.css'
 const appBreadcrumbs = 'apps/app/src/components/extended/Breadcrumbs.tsx'
 const appSidebarFrame = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/SidebarFrame.tsx'
 const appNavigationContext = 'apps/app/src/contexts/NavigationContext.tsx'
@@ -90,13 +91,15 @@ describe('app performance contracts', () => {
   it('keeps the private app bar padded and vertically centered', () => {
     const shellSource = readFileSync(appShell, 'utf8')
     const appBarSource = readFileSync(sharedAppBar, 'utf8')
+    const appBarStyles = readFileSync(sharedAppBarStyles, 'utf8')
 
     expect(shellSource).toContain("from '@nl/ui/custom/app-bar'")
     expect(shellSource).toContain('<AppBar>{header}</AppBar>')
-    expect(appBarSource).toContain('min-h-14')
-    expect(appBarSource).toContain('px-4 py-2')
-    expect(appBarSource).toContain('lg:h-[60px]')
-    expect(appBarSource).toContain('lg:px-6 lg:py-0')
+    expect(appBarSource).toContain("import styles from './app-bar.module.css'")
+    expect(appBarStyles).toContain('min-height: 56px')
+    expect(appBarStyles).toContain('padding: 8px 16px')
+    expect(appBarStyles).toContain('height: 60px')
+    expect(appBarStyles).toContain('padding: 0 24px')
   })
 
   it('resolves breadcrumbs from the current pathname without a post-mount scan', () => {
