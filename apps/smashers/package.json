@@ -29,7 +29,6 @@
     "next-auth": "^4.24.15",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "react-unity-webgl": "~10.2.0",
     "sharp": "^0.35.3"
   },
   "devDependencies": {
