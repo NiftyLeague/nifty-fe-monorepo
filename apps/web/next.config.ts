@@ -121,8 +121,10 @@ const sentryOptions = {
   // Only upload source maps in production
   sourcemaps: { disable: ENV !== 'production' },
 
-  // Upload a larger set of source maps for prettier stack traces (increases build time)
-  widenClientFileUpload: ENV === 'production',
+  // Keep production source maps enabled without uploading every client chunk.
+  // The widened upload increases build time and deployment bandwidth without
+  // changing the browser error signal we collect.
+  widenClientFileUpload: false,
 
   // Only enable internal plugin errors and performance data on production
   telemetry: ENV === 'production',
