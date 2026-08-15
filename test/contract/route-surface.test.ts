@@ -100,6 +100,7 @@ const publicRoutesLayout = 'apps/app/src/app/(public-routes)/layout.tsx'
 const stalePublicProviderBoundary = 'apps/app/src/contexts/PublicAppContextWrapper.tsx'
 const walletStorageBoundaries = [
   'apps/app/src/contexts/WalletAuthProviders.tsx',
+  'apps/app/src/contexts/WalletStorageProviders.tsx',
   'apps/app/src/components/providers/MintProviders.tsx',
 ]
 const leaderboardProviders = 'apps/app/src/contexts/LeaderboardProviders.tsx'
@@ -326,6 +327,7 @@ const verificationClient = 'apps/app/src/app/verification/VerificationClient.tsx
 const verificationRouteBoundary = 'apps/app/src/app/verification/VerificationRouteBoundary.tsx'
 const walletAuthContextWrapper = 'apps/app/src/contexts/WalletAuthContextWrapper.tsx'
 const walletAuthProviders = 'apps/app/src/contexts/WalletAuthProviders.tsx'
+const walletStorageProviders = 'apps/app/src/contexts/WalletStorageProviders.tsx'
 const walletAuthProvidersBoundary = 'apps/app/src/contexts/WalletAuthProvidersBoundary.tsx'
 
 describe('external route surface contract', () => {
@@ -368,8 +370,7 @@ describe('public leaderboard loading contract', () => {
     expect(boundary).toContain("from '@/contexts/LeaderboardProviders'")
     expect(boundary).not.toContain('WalletFeatureProviders')
     expect(providers).toContain("from '@/contexts/WalletAuthProviders'")
-    expect(providers).toContain("from '@/contexts/LocalStorageContext'")
-    expect(providers).toContain("from '@/contexts/Web3ModalContext'")
+    expect(providers).toContain("from '@/contexts/WalletStorageProviders'")
     expect(providers).toContain("import('@/contexts/AuditFixtureContextWrapper')")
     expect(providers).not.toContain("from '@/contexts/AuditFixtureContextWrapper'")
 
@@ -890,7 +891,11 @@ describe('public storage provider contract', () => {
     it(`keeps wallet storage available in ${file}`, () => {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
 
-      expect(source).toContain("from '@/contexts/LocalStorageContext'")
+      if (file === walletStorageProviders) {
+        expect(source).toContain("from '@/contexts/LocalStorageContext'")
+      } else {
+        expect(source).toContain("from '@/contexts/WalletStorageProviders'")
+      }
     })
   }
 
@@ -1033,7 +1038,7 @@ describe('verification route shell contract', () => {
     expect(providersBoundarySource).toContain("import('./WalletAuthProviders')")
     expect(providersBoundarySource).toContain('ssr: false')
     expect(providersBoundarySource).toContain("from '@nl/ui/custom/route-loading'")
-    expect(providersSource).toContain("from '@/contexts/Web3ModalContext'")
+    expect(providersSource).toContain("from '@/contexts/WalletStorageProviders'")
     expect(providersSource).toContain("from '@/contexts/AuthTokenContext'")
   })
 })
@@ -1194,7 +1199,7 @@ describe('private provider loading contract', () => {
     expect(boundarySource).toContain('<Skeleton')
     expect(boundarySource).toContain('role="status"')
     expect(shellSource).toContain('MainLayout')
-    expect(shellSource).toContain('Web3ModalProvider')
+    expect(shellSource).toContain('WalletStorageProviders')
     expect(shellSource).toContain('loadingFallback')
     expect(shellSource).toContain('walletReady={false}')
     expect(shellSource).toContain('AuthTokenProvider')
