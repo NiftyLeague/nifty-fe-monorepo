@@ -57,20 +57,20 @@ const InviteRedirect = () => {
           : 'Web Store',
       referrer_id: refcode,
     })
-  }, [game, partyID, refcode, userAgent])
 
-  switch (game) {
-    case 'smashers':
-      if (refcode.length > 7 && (isAndroid(userAgent) || isIOS(userAgent))) {
-        redirectToNativeApp(userAgent, refcode, partyID)
-      } else {
-        redirectToAppStore(userAgent, refcode)
-      }
-      break
-    case 'royale':
-    default:
-      router.push('/')
-  }
+    switch (game) {
+      case 'smashers':
+        if (refcode.length > 7 && (isAndroid(userAgent) || isIOS(userAgent))) {
+          redirectToNativeApp(userAgent, refcode, partyID)
+        } else {
+          redirectToAppStore(userAgent, refcode)
+        }
+        break
+      case 'royale':
+      default:
+        router.push('/')
+    }
+  }, [game, partyID, refcode, router, userAgent])
 
   return <Loading />
 }
