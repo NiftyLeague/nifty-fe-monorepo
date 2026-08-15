@@ -103,6 +103,9 @@ const walletStorageBoundaries = [
   'apps/app/src/contexts/WalletFeatureProviders.tsx',
   'apps/app/src/components/providers/MintProviders.tsx',
 ]
+const leaderboardProviders = 'apps/app/src/contexts/LeaderboardProviders.tsx'
+const leaderboardWalletBoundary =
+  'apps/app/src/components/leaderboards/EnhancedTable/EnhancedTableWithWallet.tsx'
 const dashboardOverview = 'apps/app/src/app/(private-routes)/dashboard/overview/page.tsx'
 const dashboardOverviewBoundary =
   'apps/app/src/app/(private-routes)/dashboard/overview/DashboardOverviewRouteBoundary.tsx'
@@ -357,6 +360,28 @@ describe('public leaderboard loading contract', () => {
     expect(deferredSource).toContain("from '@nl/ui/base/skeleton'")
     expect(sharedSource).toContain('role="alert"')
     expect(sharedSource).toContain('Retry')
+  })
+
+  it('keeps archived leaderboards on the auth-only wallet boundary', () => {
+    const providers = readFileSync(join(process.cwd(), leaderboardProviders), 'utf8')
+    const boundary = readFileSync(join(process.cwd(), leaderboardWalletBoundary), 'utf8')
+
+    expect(boundary).toContain("from '@/contexts/LeaderboardProviders'")
+    expect(boundary).not.toContain('WalletFeatureProviders')
+    expect(providers).toContain("from '@/contexts/WalletAuthProviders'")
+    expect(providers).toContain("from '@/contexts/LocalStorageContext'")
+    expect(providers).toContain("from '@/contexts/Web3ModalContext'")
+    expect(providers).toContain("import('@/contexts/AuditFixtureContextWrapper')")
+    expect(providers).not.toContain("from '@/contexts/AuditFixtureContextWrapper'")
+
+    for (const provider of [
+      'IMXProvider',
+      'NetworkProvider',
+      'NFTsBalanceProvider',
+      'TokensBalanceProvider',
+    ]) {
+      expect(providers).not.toContain(`import { ${provider} }`)
+    }
   })
 })
 
