@@ -7,7 +7,7 @@ import DeferredAnalytics from '@nl/ui/gtm/deferred'
 import { defaultFont } from '@nl/ui/fonts/default'
 import { headerFont } from '@nl/ui/fonts/header'
 import { subheaderFont } from '@nl/ui/fonts/subheader'
-import { cn } from '@nl/ui/utils'
+import { cx } from '@nl/ui/class-names'
 
 import { sentryOptions } from '@/constants/sentry'
 import '@/styles/app.css'
@@ -68,7 +68,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn(defaultFont.variable, headerFont.variable, subheaderFont.variable, 'dark')}
+      className={cx(defaultFont.variable, headerFont.variable, subheaderFont.variable, 'dark')}
     >
       <DeferredAnalytics />
       <DeferredSentry enabled={process.env.VERCEL_ENV === 'production'} options={sentryOptions} />
