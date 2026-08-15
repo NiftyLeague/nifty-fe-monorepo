@@ -6,7 +6,6 @@ const state = {
   nearViewport: true,
   reducedMotion: false,
   observedRootMargin: undefined as string | undefined,
-  boundaryRootMargin: undefined as string | undefined,
 }
 
 mock.module('@nl/ui/hooks/useOnScreen', () => ({
@@ -18,13 +17,6 @@ mock.module('@nl/ui/hooks/useOnScreen', () => ({
 mock.module('@nl/ui/hooks/useMediaQuery', () => ({
   default: () => state.reducedMotion,
 }))
-mock.module('next/dynamic', () => ({
-  default: () => (props: { rootMargin?: string }) => {
-    state.boundaryRootMargin = props.rootMargin
-    return null
-  },
-}))
-
 describe('ViewportVideo', () => {
   let ViewportVideo: typeof import('./index').ViewportVideo
   let ViewportVideoEnhancer: typeof import('./ViewportVideoEnhancer').default
@@ -33,7 +25,6 @@ describe('ViewportVideo', () => {
     state.nearViewport = true
     state.reducedMotion = false
     state.observedRootMargin = undefined
-    state.boundaryRootMargin = undefined
   })
 
   beforeEach(async () => {
@@ -41,8 +32,8 @@ describe('ViewportVideo', () => {
     ViewportVideoEnhancer = (await import('./ViewportVideoEnhancer')).default
   })
 
-  it('keeps the video markup server-rendered before playback enhancement', () => {
-    const { container } = render(
+  it('keeps the video markup server-rendered before playback enhancement', async () => {
+    const { container, unmount } = render(
       <ViewportVideo data-testid="video" src="/video/example.mp4" muted loop playsInline />
     )
     const video = container.querySelector('[data-testid="video"]') as HTMLVideoElement
@@ -50,16 +41,19 @@ describe('ViewportVideo', () => {
     expect(video.autoplay).toBe(false)
     expect(video.preload).toBe('none')
     expect(video.querySelector('source')?.getAttribute('src')).toBe('/video/example.mp4')
+
+    await waitFor(() => expect(state.observedRootMargin).toBe('0px'))
+    unmount()
   })
 
-  it('waits for the viewport by default while preserving explicit prefetch windows', () => {
+  it('waits for the viewport by default while preserving explicit prefetch windows', async () => {
     const { rerender } = render(<ViewportVideo data-testid="video" src="/video/example.mp4" />)
 
-    expect(state.boundaryRootMargin).toBe('0px')
+    await waitFor(() => expect(state.observedRootMargin).toBe('0px'))
 
     rerender(<ViewportVideo data-testid="video" rootMargin="300px" src="/video/example.mp4" />)
 
-    expect(state.boundaryRootMargin).toBe('300px')
+    await waitFor(() => expect(state.observedRootMargin).toBe('300px'))
   })
 
   it('only enables playback and metadata loading near the viewport', async () => {
@@ -69,7 +63,7 @@ describe('ViewportVideo', () => {
       return (
         <>
           <video data-testid="video" ref={videoRef} />
-          <ViewportVideoEnhancer rootMargin="300px" videoRef={videoRef} />
+          <ViewportVideoEnhancer playOnViewport rootMargin="300px" videoRef={videoRef} />
         </>
       )
     }
@@ -96,6 +90,27 @@ describe('ViewportVideo', () => {
     })
   })
 
+  it('keeps controls-only videos paused while still allowing explicit playback', async () => {
+    function PlaybackHarness() {
+      const videoRef = useRef<HTMLVideoElement>(null)
+
+      return (
+        <>
+          <video data-testid="video" ref={videoRef} />
+          <ViewportVideoEnhancer playOnViewport={false} rootMargin="300px" videoRef={videoRef} />
+        </>
+      )
+    }
+
+    const { container } = render(<PlaybackHarness />)
+    const video = container.querySelector('[data-testid="video"]') as HTMLVideoElement
+
+    await waitFor(() => {
+      expect(video.autoplay).toBe(false)
+      expect(video.preload).toBe('metadata')
+    })
+  })
+
   it('honors reduced-motion preferences even when visible', async () => {
     state.reducedMotion = true
     function PlaybackHarness() {
@@ -104,7 +119,7 @@ describe('ViewportVideo', () => {
       return (
         <>
           <video ref={videoRef} />
-          <ViewportVideoEnhancer rootMargin="300px" videoRef={videoRef} />
+          <ViewportVideoEnhancer playOnViewport rootMargin="300px" videoRef={videoRef} />
         </>
       )
     }
@@ -114,7 +129,7 @@ describe('ViewportVideo', () => {
 
     await waitFor(() => {
       expect(video.autoplay).toBe(false)
-      expect(video.preload).toBe('none')
+      expect(video.preload).toBe('metadata')
     })
   })
 })
