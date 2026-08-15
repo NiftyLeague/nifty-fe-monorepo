@@ -12,7 +12,7 @@ import { NFTL_CONTRACT } from '@/constants/contracts'
 
   ~ How can I use? ~
 
-  const {handleImportNFTLToWallet} = useTokenUSDPrice();
+  const {handleImportNFTLToWallet} = useImportNFTLToWallet();
 */
 
 interface ImportNFTLToWalletState {
