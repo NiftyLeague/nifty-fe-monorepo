@@ -27,7 +27,7 @@ export default function ViewportVideoBoundary({
   return (
     <>
       <video {...props} ref={videoRef} preload={isNearViewport ? 'metadata' : 'none'}>
-        <source src={src} type="video/mp4" />
+        {hasEnteredViewport || isNearViewport ? <source src={src} type="video/mp4" /> : null}
       </video>
       {hasEnteredViewport || isNearViewport ? (
         <Suspense fallback={null}>

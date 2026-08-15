@@ -35,6 +35,7 @@ const Community: NextPage = () => {
                 alt="gradient background"
                 width={685}
                 height={685}
+                sizes="685px"
               />
             </div>
             <div className="purple-bg-orb orb-top-right" />

@@ -106,6 +106,7 @@ const Lore: NextPage = () => {
               src="/img/hero/satoshi.webp"
               width={556}
               height={589}
+              sizes="100px"
               style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
             />
           </div>
@@ -117,6 +118,7 @@ const Lore: NextPage = () => {
               src="/img/degens/community-characters.webp"
               width={1910}
               height={620}
+              sizes="300px"
               style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
             />
           </div>

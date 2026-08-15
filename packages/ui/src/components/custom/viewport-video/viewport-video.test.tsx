@@ -32,19 +32,31 @@ describe('ViewportVideo', () => {
     ViewportVideoEnhancer = (await import('./ViewportVideoEnhancer')).default
   })
 
-  it('keeps the video markup server-rendered before playback enhancement', async () => {
+  it('keeps the video shell server-rendered and adds media only near the viewport', async () => {
     state.nearViewport = false
-    const { container, unmount } = render(
+    const deferred = render(
       <ViewportVideo data-testid="video" src="/video/example.mp4" muted loop playsInline />
     )
-    const video = container.querySelector('[data-testid="video"]') as HTMLVideoElement
+    const video = deferred.container.querySelector('[data-testid="video"]') as HTMLVideoElement
 
     expect(video.autoplay).toBe(false)
     expect(video.preload).toBe('none')
-    expect(video.querySelector('source')?.getAttribute('src')).toBe('/video/example.mp4')
+    expect(video.querySelector('source')).toBeNull()
 
     await waitFor(() => expect(state.observedRootMargin).toBe('0px'))
-    unmount()
+
+    deferred.unmount()
+    state.nearViewport = true
+    const nearViewport = render(
+      <ViewportVideo data-testid="video" src="/video/example.mp4" muted loop playsInline />
+    )
+
+    await waitFor(() =>
+      expect(
+        nearViewport.container.querySelector('[data-testid="video"] source')?.getAttribute('src')
+      ).toBe('/video/example.mp4')
+    )
+    nearViewport.unmount()
   })
 
   it('waits for the viewport by default while preserving explicit prefetch windows', async () => {
