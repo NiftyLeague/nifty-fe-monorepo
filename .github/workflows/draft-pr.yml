@@ -11,6 +11,10 @@ on:
       - 'style/*'
       - 'test/*'
       - 'codex/*'
+      # Promotion branches already have an explicit PR targeting main.
+      - '!codex/promote-*'
+      # Re-alignment creates and owns its own PR after its merge preview.
+      - '!chore/re-align-staging-*'
 
 permissions:
   contents: read
