@@ -11,7 +11,7 @@ import VideoURL from '/video/arcade-token.mp4';
 
 ---
 
-Arcade Tokens were initially intoduced back in 2022 as a way to play for rewards in our first on-chain mini-games, [WEN Game](./wen-game) & [Crypto Winter](./crypto-winter). This system is since **deprecated**, however, Mini Games & Arcade Tokens are being brought back to life in all our mobile game titles, including [NiftyWorld](/docs/overview/games/niftyworld).
+Arcade Tokens were initially intoduced back in 2022 as a way to play for rewards in our first on-chain mini-games, [WEN Game](./wen-game) & [Crypto Winter](./crypto-winter). This system is since **deprecated**, however, Mini Games & Arcade Tokens are being brought back to life in all our mobile game titles, including [NiftyWorld](/overview/games/niftyworld).
 
 :::tip[Note]
 
@@ -27,7 +27,7 @@ After each mini-game your score is tallied to determine how many tickets you ear
 
 If you wish to test out our old system, Arcade Tokens can still be used in our ecosystem to play [WEN Game](./wen-game).
 
-You do not need to own a [DEGEN NFT](/docs/overview/nfts/degens/about) to play WEN Game, all you need is an Arcade Token (1 Arcade Token = 1 play).
+You do not need to own a [DEGEN NFT](/overview/nfts/degens/about) to play WEN Game, all you need is an Arcade Token (1 Arcade Token = 1 play).
 
 **Earning Arcade Tokens is based on 2D Nifty Smashers gameplay:**  
 DEGEN Owners earn 4 Arcade Tokens every 24 hours with the completion of at least 1 game of 2D Nifty Smashers.

@@ -9,7 +9,7 @@ So, you're new here and you want to buy NFTL? We've walked you through all the s
 ### Step 1: Adding the NFTL Token to your MetaMask Wallet
 
 - https://www.youtube.com/watch?v=XMm0Cpur1kE
-- If you don't have a crypto wallet, read more and learn how to set one up [here](/docs/guides/set-up).
+- If you don't have a crypto wallet, read more and learn how to set one up [here](/guides/set-up).
 
 ### Step 2: Buying Ethereum (ETH) and Transferring to Metamask
 

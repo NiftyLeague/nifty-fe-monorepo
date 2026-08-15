@@ -18,7 +18,7 @@ export default function HomepageHeader() {
         <p style={{ maxWidth: '550px', marginTop: '1rem', fontWeight: 500 }}>
           The pages that follow contain comprehensive documentation of the Nifty League ecosystem.
           If you are new to Nifty League, you might want to check out our{' '}
-          <Link to="/docs/faq/general">FAQ</Link> first.
+          <Link to="/faq/general">FAQ</Link> first.
         </p>
         <div className={styles.hideMedium}>
           <SearchBar />

@@ -14,7 +14,7 @@ import VideoURL2 from '/video/citadel_key.mp4';
 
 The initial 6 in-game items are earned via burning [comic pages](./comics). These 6 items are the most exclusive in-game items in Nifty League games.
 
-Other rare items can be found in lootboxes or won in events in our games like [Nifty Smashers](/docs/overview/games/mobile-games/nifty-smashers).
+Other rare items can be found in lootboxes or won in events in our games like [Nifty Smashers](/overview/games/mobile-games/nifty-smashers).
 
 ### Wearables
 
@@ -22,7 +22,7 @@ Cosmetic items available for use in all Nifty League gaming experiences
 
 ### Weapons
 
-Powerful bats or other weapons used in various Nifty League games such as [Nifty Smashers](/docs/overview/games/mobile-games/nifty-smashers).
+Powerful bats or other weapons used in various Nifty League games such as [Nifty Smashers](/overview/games/mobile-games/nifty-smashers).
 
 ### Companion
 
