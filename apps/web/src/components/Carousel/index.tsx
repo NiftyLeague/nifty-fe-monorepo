@@ -29,7 +29,7 @@ const NiftyCarousel = ({
   ariaLabel = 'Featured content',
 }: NiftyCarouselProps): React.ReactNode => {
   const containerRef = useRef<HTMLDivElement>(null)
-  const isNearViewport = useOnScreen(containerRef, '300px 0px')
+  const isNearViewport = useOnScreen(containerRef, '300px 0px', { once: true })
   const { Component: InteractiveCarousel } = useDeferredComponent<NiftyCarouselProps>(
     loadInteractiveCarousel,
     isNearViewport

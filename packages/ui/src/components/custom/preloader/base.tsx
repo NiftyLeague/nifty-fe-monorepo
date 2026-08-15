@@ -36,11 +36,7 @@ export function PreloaderBase({ ready, percent, showWarning }: PreloaderProps) {
   return (
     <div
       className={styles.preloader_overlay}
-      style={
-        ready
-          ? { transform: 'translateY(100%)', display: 'none' }
-          : undefined
-      }
+      style={ready ? { transform: 'translateY(100%)', display: 'none' } : undefined}
     >
       <div id="js-preloader" className={styles.preloader}>
         <div className={cn(styles.preloader_inner, styles.fadeInUp)}>

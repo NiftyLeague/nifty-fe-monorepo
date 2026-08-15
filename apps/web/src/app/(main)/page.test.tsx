@@ -93,6 +93,24 @@ describe('home page', () => {
     ).toContain('w-full')
   })
 
+  it('loads the desktop hero artwork at high priority for LCP', () => {
+    render(<Home />)
+
+    const heroArtwork = screen.getByAltText('Nifty Hero Characters')
+    expect(heroArtwork.getAttribute('data-loading')).toBeNull()
+    expect(heroArtwork.getAttribute('data-fetch-priority')).toBeNull()
+  })
+
+  it('keeps desktop-only hero artwork out of the mobile image request path', () => {
+    render(<Home />)
+
+    const heroArtwork = screen.getByAltText('Nifty Hero Characters')
+    const desktopSource = heroArtwork.closest('picture')?.querySelector('source')
+
+    expect(desktopSource?.getAttribute('media')).toBe('(min-width: 769px)')
+    expect(heroArtwork.getAttribute('src')).toContain('data:image/gif;base64,')
+  })
+
   it('does not compete with the hero background for high-priority loading', () => {
     render(<Home />)
 

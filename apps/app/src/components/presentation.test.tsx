@@ -58,13 +58,11 @@ describe('Breadcrumbs', () => {
     ],
   }
 
-  it('resolves nested routes and renders the full title and icon variants', async () => {
-    const originalLoc = document.location
-    const loc = { pathname: '/profile' } as Location
-    Object.defineProperty(document, 'location', { value: loc, writable: true, configurable: true })
+  it('resolves nested routes and renders the full title and icon variants', () => {
     const { rerender } = render(
       <Breadcrumbs
         navigation={navigation as never}
+        pathname="/profile"
         card={false}
         icons
         rightAlign
@@ -73,7 +71,7 @@ describe('Breadcrumbs', () => {
       />
     )
 
-    expect(await screen.findAllByText('Profile')).toHaveLength(2)
+    expect(screen.getAllByText('Profile')).toHaveLength(2)
     expect(screen.getByText('Settings')).not.toBeNull()
     expect(screen.getByText('Dashboard')).not.toBeNull()
     expect(screen.getAllByText('chevron-right')).toHaveLength(2)
@@ -81,22 +79,16 @@ describe('Breadcrumbs', () => {
     rerender(
       <Breadcrumbs
         navigation={navigation as never}
+        pathname="/profile"
         card={false}
         divider={false}
         icon
         title
         titleBottom
-        maxItems={3}
       />
     )
     expect(screen.getByText('house')).not.toBeNull()
     expect(screen.getAllByText('Profile')).toHaveLength(2)
-
-    Object.defineProperty(document, 'location', {
-      value: originalLoc,
-      writable: true,
-      configurable: true,
-    })
   })
 
   it('omits the card when an item disables breadcrumbs or no route matches', async () => {
@@ -114,12 +106,12 @@ describe('Breadcrumbs', () => {
         },
       ],
     }
-    const { container, rerender } = render(<Breadcrumbs navigation={hiddenNavigation as never} />)
-    await Promise.resolve()
+    const { container, rerender } = render(
+      <Breadcrumbs navigation={hiddenNavigation as never} pathname="/hidden" />
+    )
     expect(container.querySelector('[aria-label="breadcrumb"]')).toBeNull()
 
-    window.history.replaceState({}, '', '/missing')
-    rerender(<Breadcrumbs navigation={navigation as never} />)
+    rerender(<Breadcrumbs navigation={navigation as never} pathname="/missing" />)
     expect(container.querySelector('[aria-label="breadcrumb"]')).toBeNull()
   })
 })
@@ -211,6 +203,8 @@ describe('card presentation', () => {
     const guideLink = screen.getByRole('link', { name: /Guide/ })
     expect(guideLink.getAttribute('href')).toBe('/guide')
     expect(guideLink.querySelector('button')).toBeNull()
+    expect(guideLink.className).not.toContain('w-full')
+    expect(guideLink.className).toContain('h-8')
     expect(screen.getByAltText('Smashers').getAttribute('loading')).toBe('eager')
     expect(screen.getByAltText('Smashers').getAttribute('fetchpriority')).toBe('high')
 

@@ -1,7 +1,9 @@
 'use client'
 
-import '@google/model-viewer'
-import { useEffect, useState } from 'react'
+// Prefer the ESM build so Next can analyze the optional 3D graph instead of
+// treating the prebundled UMD entry as opaque.
+import '@google/model-viewer/dist/model-viewer-module.min.js'
+import { useEffect, useRef, useState } from 'react'
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
 
 import { DEGEN_3D_MODEL_URL } from '@/constants/degen-assets'
@@ -9,6 +11,7 @@ import { SRC } from '@/types/gltf'
 import styles from '../gltf.module.css'
 
 type ModelViewerProps = {
+  ref?: React.Ref<HTMLElement>
   'animation-name'?: string
   'ar-modes'?: string
   'ar-status'?: string
@@ -43,6 +46,7 @@ const ModelViewer: React.FC<ModelViewerProps> = (props) => {
 
 export default function ModelView({ source, tokenId }: { source: SRC; tokenId: string }) {
   const [loading, setLoading] = useState(true)
+  const modelViewerRef = useRef<HTMLElement | null>(null)
   const MODEL_SRC = `${DEGEN_3D_MODEL_URL}/${tokenId}/${tokenId}.gltf`
 
   const handleProgress: EventListenerOrEventListenerObject = (event) => {
@@ -52,12 +56,18 @@ export default function ModelView({ source, tokenId }: { source: SRC; tokenId: s
   }
 
   useEffect(() => {
-    const model = document?.querySelector('#model-viewer')
-    if (model) model.addEventListener('progress', handleProgress, { passive: true })
+    const model = modelViewerRef.current
+    if (!model) return
+
+    // React does not reliably reflect custom-element properties to attributes
+    // before model-viewer upgrades. Set the source after the element is mounted
+    // so the viewer starts loading the selected model in every browser.
+    model.setAttribute('src', MODEL_SRC)
+    model.addEventListener('progress', handleProgress, { passive: true })
     return function cleanup() {
-      if (model) model.removeEventListener('progress', handleProgress)
+      model.removeEventListener('progress', handleProgress)
     }
-  }, [])
+  }, [MODEL_SRC])
 
   return (
     <div className={styles.model__wrapper}>
@@ -75,6 +85,7 @@ export default function ModelView({ source, tokenId }: { source: SRC; tokenId: s
         </div>
       ) : null}
       <ModelViewer
+        ref={modelViewerRef}
         // https://modelviewer.dev/docs/index.html#loading-attributes
         id="model-viewer"
         alt="Nifty League DEGEN 3D model"

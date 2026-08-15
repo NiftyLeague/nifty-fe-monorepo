@@ -17,6 +17,9 @@ describe('DeferredConsoleGame', () => {
     const loadingState = screen.getByRole('img', { name: 'Loading game preview' })
 
     expect(loadingState).toBeTruthy()
-    expect(container.firstElementChild?.className).toContain('aspect-video')
+    expect(container.firstElementChild?.className).toContain('overflow-hidden')
+    expect(container.firstElementChild?.getAttribute('style')).toContain(
+      'aspect-ratio: 4842 / 3371'
+    )
   })
 })

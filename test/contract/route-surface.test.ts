@@ -100,9 +100,12 @@ const publicRoutesLayout = 'apps/app/src/app/(public-routes)/layout.tsx'
 const stalePublicProviderBoundary = 'apps/app/src/contexts/PublicAppContextWrapper.tsx'
 const walletStorageBoundaries = [
   'apps/app/src/contexts/WalletAuthProviders.tsx',
-  'apps/app/src/contexts/WalletFeatureProviders.tsx',
+  'apps/app/src/contexts/WalletStorageProviders.tsx',
   'apps/app/src/components/providers/MintProviders.tsx',
 ]
+const leaderboardProviders = 'apps/app/src/contexts/LeaderboardProviders.tsx'
+const leaderboardWalletBoundary =
+  'apps/app/src/components/leaderboards/EnhancedTable/EnhancedTableWithWallet.tsx'
 const dashboardOverview = 'apps/app/src/app/(private-routes)/dashboard/overview/page.tsx'
 const dashboardOverviewBoundary =
   'apps/app/src/app/(private-routes)/dashboard/overview/DashboardOverviewRouteBoundary.tsx'
@@ -238,6 +241,7 @@ const gltfPage = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/page.tsx'
 const gltfClient = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViews.tsx'
 const gltfRouteBoundary =
   'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViewsRouteBoundary.tsx'
+const gltfModelView = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/ModelView.tsx'
 const webViemClient = 'apps/web/src/lib/viemClient.ts'
 const webClaimableNFTL = 'apps/web/src/hooks/useClaimableNFTL.ts'
 const webDegenAssets = 'apps/web/src/constants/degen-assets.ts'
@@ -245,6 +249,7 @@ const webDegenCatalog = 'apps/web/src/constants/degens.ts'
 const webNavbar = 'apps/web/src/components/Navbar/index.tsx'
 const sharedWebNavbar = 'packages/ui/src/components/custom/navbar/index.tsx'
 const sharedWebNavbarScrollFrame = 'packages/ui/src/components/custom/navbar/NavbarScrollFrame.tsx'
+const sharedWebNavbarScrollState = 'packages/ui/src/components/custom/navbar/NavbarScrollState.tsx'
 const sharedWebMobileNavbar = 'packages/ui/src/components/custom/navbar/MobileNavMenu.tsx'
 const sharedWebNavLinkContent = 'packages/ui/src/components/custom/navbar/NavLinkContent.tsx'
 const sharedWebMobileTrigger = 'packages/ui/src/components/custom/navbar/MobileNavTrigger.tsx'
@@ -309,6 +314,8 @@ const degensSearchParamsBoundary =
 const degensTopNav = 'apps/app/src/components/extended/DegensTopNav/index.tsx'
 const publicMainLayout = 'apps/app/src/app/_layout/_PublicMainLayout/index.tsx'
 const publicNavigation = 'apps/app/src/components/providers/PublicNavigation.tsx'
+const sharedAppBar = 'packages/ui/src/components/custom/app-bar/index.tsx'
+const sharedAppBarStyles = 'packages/ui/src/components/custom/app-bar/app-bar.module.css'
 const publicContentContainer = 'apps/app/src/components/wrapper/PublicContentContainer.tsx'
 const publicNavLinks = 'apps/app/src/components/providers/PublicNavLinks.tsx'
 const sharedMobileNavigation = 'packages/ui/src/components/custom/mobile-navigation/index.tsx'
@@ -320,6 +327,7 @@ const verificationClient = 'apps/app/src/app/verification/VerificationClient.tsx
 const verificationRouteBoundary = 'apps/app/src/app/verification/VerificationRouteBoundary.tsx'
 const walletAuthContextWrapper = 'apps/app/src/contexts/WalletAuthContextWrapper.tsx'
 const walletAuthProviders = 'apps/app/src/contexts/WalletAuthProviders.tsx'
+const walletStorageProviders = 'apps/app/src/contexts/WalletStorageProviders.tsx'
 const walletAuthProvidersBoundary = 'apps/app/src/contexts/WalletAuthProvidersBoundary.tsx'
 
 describe('external route surface contract', () => {
@@ -353,6 +361,27 @@ describe('public leaderboard loading contract', () => {
     expect(deferredSource).toContain("from '@nl/ui/base/skeleton'")
     expect(sharedSource).toContain('role="alert"')
     expect(sharedSource).toContain('Retry')
+  })
+
+  it('keeps archived leaderboards on the auth-only wallet boundary', () => {
+    const providers = readFileSync(join(process.cwd(), leaderboardProviders), 'utf8')
+    const boundary = readFileSync(join(process.cwd(), leaderboardWalletBoundary), 'utf8')
+
+    expect(boundary).toContain("from '@/contexts/LeaderboardProviders'")
+    expect(boundary).not.toContain('WalletFeatureProviders')
+    expect(providers).toContain("from '@/contexts/WalletAuthProviders'")
+    expect(providers).toContain("from '@/contexts/WalletStorageProviders'")
+    expect(providers).toContain("import('@/contexts/AuditFixtureContextWrapper')")
+    expect(providers).not.toContain("from '@/contexts/AuditFixtureContextWrapper'")
+
+    for (const provider of [
+      'IMXProvider',
+      'NetworkProvider',
+      'NFTsBalanceProvider',
+      'TokensBalanceProvider',
+    ]) {
+      expect(providers).not.toContain(`import { ${provider} }`)
+    }
   })
 })
 
@@ -392,6 +421,7 @@ describe('GLTF viewer loading contract', () => {
     const pageSource = readFileSync(join(process.cwd(), gltfPage), 'utf8')
     const clientSource = readFileSync(join(process.cwd(), gltfClient), 'utf8')
     const routeBoundarySource = readFileSync(join(process.cwd(), gltfRouteBoundary), 'utf8')
+    const modelViewSource = readFileSync(join(process.cwd(), gltfModelView), 'utf8')
 
     expect(pageSource).not.toContain("'use client'")
     expect(pageSource).toContain('await params')
@@ -404,6 +434,20 @@ describe('GLTF viewer loading contract', () => {
     expect(clientSource).not.toContain("from 'next/image'")
     expect(clientSource).toContain("dynamic(() => import('./ModelView')")
     expect(clientSource).toContain('ssr: false')
+    expect(modelViewSource).toContain(
+      "import '@google/model-viewer/dist/model-viewer-module.min.js'"
+    )
+    expect(modelViewSource).not.toContain("import '@google/model-viewer'")
+    expect(modelViewSource).toContain('modelViewerRef')
+    expect(modelViewSource).toContain("model.setAttribute('src', MODEL_SRC)")
+  })
+
+  it('keeps embedded viewer controls loadable in sandboxed frames', () => {
+    const nextConfigSource = readFileSync(join(process.cwd(), 'apps/web/next.config.ts'), 'utf8')
+
+    expect(nextConfigSource).toContain("source: '/_next/static/:path*'")
+    expect(nextConfigSource).toContain("key: 'Access-Control-Allow-Origin'")
+    expect(nextConfigSource).toContain("value: '*'")
   })
 
   it('preloads only the visible NFT artwork', () => {
@@ -448,6 +492,14 @@ describe('GLTF viewer loading contract', () => {
   })
 })
 
+describe('website build performance contract', () => {
+  it('uses the project TypeScript CLI during Next builds', () => {
+    const source = readFileSync(join(process.cwd(), 'apps/web/next.config.ts'), 'utf8')
+
+    expect(source).toContain('useTypeScriptCli: true')
+  })
+})
+
 describe('shared notification loading contract', () => {
   it('keeps toast implementations out of the eager app shell graph', () => {
     const appShellSource = readFileSync(join(process.cwd(), appShell), 'utf8')
@@ -467,7 +519,6 @@ describe('shared notification loading contract', () => {
 describe('shared deferred loader contract', () => {
   it('uses the shared cancellable loader for app-only boundaries', () => {
     for (const file of [
-      deferredDegenCard,
       deferredCharacterCreator,
       deferredMintWalletBoundary,
       mintNetworkBoundary,
@@ -478,6 +529,12 @@ describe('shared deferred loader contract', () => {
       expect(source).toContain("from '@nl/ui/hooks/useDeferredComponent'")
       expect(source).toContain('useDeferredComponent')
     }
+
+    const degenSource = readFileSync(join(process.cwd(), deferredDegenCard), 'utf8')
+    expect(degenSource).toContain("from '@nl/ui/custom/deferred-component'")
+    expect(degenSource).toContain("from '@nl/ui/hooks/useOnScreen'")
+    expect(degenSource).toContain('disabledFallback')
+    expect(degenSource).toContain('loadingFallback')
   })
 
   it('shares viewport visibility state with the interactive web carousel', () => {
@@ -529,11 +586,14 @@ describe('Smashers public shell contract', () => {
     expect(actionButtonsSource).toContain("'use client'")
     expect(actionButtonsSource).not.toContain("from 'next/dynamic'")
     expect(actionButtonsSource).toContain("from '@nl/ui/base/button'")
+    expect(actionButtonsSource).toContain("from '@nl/ui/hooks/useDeferredComponent'")
     expect(actionButtonsSource).toContain('<Button')
     expect(actionButtonsSource).not.toContain('<button')
     expect(actionButtonsSource).toContain("import('@/components/PlayDialog')")
     expect(actionButtonsSource).toContain("import('@/components/TrailerDialog')")
     expect(actionButtonsSource).toContain("import('@/components/CreditsDialog')")
+    expect(actionButtonsSource).toContain('useDeferredComponent(action.load, open)')
+    expect(actionButtonsSource).not.toContain('loadedModals')
     expect(actionButtonsSource).toContain('aria-busy={isLoading}')
   })
 
@@ -831,9 +891,26 @@ describe('public storage provider contract', () => {
     it(`keeps wallet storage available in ${file}`, () => {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
 
-      expect(source).toContain("from '@/contexts/LocalStorageContext'")
+      if (file === walletStorageProviders) {
+        expect(source).toContain("from '@/contexts/LocalStorageContext'")
+      } else {
+        expect(source).toContain("from '@/contexts/WalletStorageProviders'")
+      }
     })
   }
+
+  it('reuses the shared wallet auth provider composition for game routes', () => {
+    const source = readFileSync(
+      join(process.cwd(), 'apps/app/src/contexts/GameWalletProviders.tsx'),
+      'utf8'
+    )
+
+    expect(source).toContain("from '@/contexts/WalletAuthProviders'")
+    expect(source).not.toContain("from '@/contexts/LocalStorageContext'")
+    expect(source).not.toContain("from '@/contexts/Web3ModalContext'")
+    expect(source).not.toContain("from '@/contexts/AuthStatusContext'")
+    expect(source).not.toContain("from '@/contexts/AuthTokenContext'")
+  })
 })
 
 describe('public app shell contract', () => {
@@ -848,10 +925,16 @@ describe('public app shell contract', () => {
 
   it('keeps the public app bar padded and vertically centered', () => {
     const navigationSource = readFileSync(join(process.cwd(), publicNavigation), 'utf8')
+    const appBarSource = readFileSync(join(process.cwd(), sharedAppBar), 'utf8')
+    const appBarStyles = readFileSync(join(process.cwd(), sharedAppBarStyles), 'utf8')
 
-    expect(navigationSource).toContain(
-      'flex min-h-14 items-center px-4 py-2 lg:h-[60px] lg:min-h-0 lg:px-6 lg:py-0'
-    )
+    expect(navigationSource).toContain("from '@nl/ui/custom/app-bar'")
+    expect(navigationSource).toContain('<AppBar>')
+    expect(appBarSource).toContain("import styles from './app-bar.module.css'")
+    expect(appBarStyles).toContain('min-height: 56px')
+    expect(appBarStyles).toContain('padding: 8px 16px')
+    expect(appBarStyles).toContain('height: 60px')
+    expect(appBarStyles).toContain('padding: 0 24px')
   })
 
   it('keeps mobile navigation server-rendered and avoids heavy shell primitives', () => {
@@ -871,7 +954,7 @@ describe('public app shell contract', () => {
     expect(navigationSource).not.toContain("from '@/components/extended/Breadcrumbs'")
     expect(navigationSource).toContain('<details id="public-desktop-navigation-toggle"')
     expect(navigationSource).toContain('aria-controls="public-desktop-navigation"')
-    expect(navigationSource).not.toContain('PublicDesktopSidebarToggle')
+    expect(navigationSource).not.toContain('PublicDesktopNavigationToggle')
     expect(navigationSource).toContain('{children}')
     expect(navigationSource).not.toContain('PublicMainContent')
     expect(
@@ -955,7 +1038,7 @@ describe('verification route shell contract', () => {
     expect(providersBoundarySource).toContain("import('./WalletAuthProviders')")
     expect(providersBoundarySource).toContain('ssr: false')
     expect(providersBoundarySource).toContain("from '@nl/ui/custom/route-loading'")
-    expect(providersSource).toContain("from '@/contexts/Web3ModalContext'")
+    expect(providersSource).toContain("from '@/contexts/WalletStorageProviders'")
     expect(providersSource).toContain("from '@/contexts/AuthTokenContext'")
   })
 })
@@ -1063,6 +1146,9 @@ describe('private provider loading contract', () => {
     const modalSource = readFileSync(join(process.cwd(), walletModal), 'utf8')
 
     expect(providerSource).toContain("import('./Web3ModalRuntime')")
+    expect(providerSource).toContain("from '@nl/ui/hooks/useDeferredComponent'")
+    expect(providerSource).not.toContain('useEffect')
+    expect(providerSource).not.toContain('useState')
     expect(providerSource).not.toContain("from 'wagmi'")
     expect(providerSource).not.toContain("from '@tanstack/react-query'")
     expect(runtimeSource).toContain("import('./Web3ModalConfig')")
@@ -1074,6 +1160,7 @@ describe('private provider loading contract', () => {
     expect(fallbackSource).toContain('role="status"')
     expect(fallbackSource).toContain('role="alert"')
     expect(providerSource).toContain('Retry')
+    expect(providerSource).toContain('onRetry={retry}')
     expect(authSource).not.toContain('useAppKit')
     expect(authSource).not.toContain('useAppKitEvents')
     expect(authSource).not.toContain("from 'wagmi'")
@@ -1108,11 +1195,13 @@ describe('private provider loading contract', () => {
     expect(layoutSource).toContain('PrivateRoutesBoundary')
     expect(layoutSource).toContain('headers()')
     expect(boundarySource).toContain("import('./PrivateRoutesShell')")
-    expect(boundarySource).toContain('ssr: false')
+    expect(boundarySource).not.toContain('ssr: false')
     expect(boundarySource).toContain('<Skeleton')
     expect(boundarySource).toContain('role="status"')
     expect(shellSource).toContain('MainLayout')
-    expect(shellSource).toContain('Web3ModalProvider')
+    expect(shellSource).toContain('WalletStorageProviders')
+    expect(shellSource).toContain('loadingFallback')
+    expect(shellSource).toContain('walletReady={false}')
     expect(shellSource).toContain('AuthTokenProvider')
     expect(sidebarSource).toContain("dynamic(() => import('./_UserProfile')")
     expect(sidebarSource).toContain("dynamic(() => import('./_LogoutButton')")
@@ -1276,10 +1365,16 @@ describe('dashboard burner loading contract', () => {
 describe('private app bar contract', () => {
   it('keeps the shared app bar padded and vertically centered', () => {
     const source = readFileSync(join(process.cwd(), appShell), 'utf8')
+    const appBarSource = readFileSync(join(process.cwd(), sharedAppBar), 'utf8')
+    const appBarStyles = readFileSync(join(process.cwd(), sharedAppBarStyles), 'utf8')
 
-    expect(source).toContain(
-      'flex min-h-14 items-center px-4 py-2 lg:h-[60px] lg:min-h-0 lg:px-6 lg:py-0'
-    )
+    expect(source).toContain("from '@nl/ui/custom/app-bar'")
+    expect(source).toContain('<AppBar>{header}</AppBar>')
+    expect(appBarSource).toContain("import styles from './app-bar.module.css'")
+    expect(appBarStyles).toContain('min-height: 56px')
+    expect(appBarStyles).toContain('padding: 8px 16px')
+    expect(appBarStyles).toContain('height: 60px')
+    expect(appBarStyles).toContain('padding: 0 24px')
   })
 })
 
@@ -1501,6 +1596,10 @@ describe('web public navigation contract', () => {
       join(process.cwd(), sharedWebNavbarScrollFrame),
       'utf8'
     )
+    const sharedNavbarScrollStateSource = readFileSync(
+      join(process.cwd(), sharedWebNavbarScrollState),
+      'utf8'
+    )
     const mobileNavbarSource = readFileSync(join(process.cwd(), sharedWebMobileNavbar), 'utf8')
     const sharedNavLinkContentSource = readFileSync(
       join(process.cwd(), sharedWebNavLinkContent),
@@ -1510,8 +1609,10 @@ describe('web public navigation contract', () => {
     expect(navbarSource).not.toContain("'use client'")
     expect(navbarSource).toContain("from '@nl/ui/custom/navbar'")
     expect(sharedNavbarSource).not.toContain("'use client'")
-    expect(sharedNavbarScrollFrameSource).toContain("'use client'")
-    expect(sharedNavbarScrollFrameSource).toContain('requestAnimationFrame')
+    expect(sharedNavbarScrollFrameSource).not.toContain("'use client'")
+    expect(sharedNavbarScrollFrameSource).toContain('NavbarScrollState')
+    expect(sharedNavbarScrollStateSource).toContain("'use client'")
+    expect(sharedNavbarScrollStateSource).toContain('requestAnimationFrame')
     expect(sharedNavbarSource).not.toContain("import ActiveNavLink from './ActiveNavLink'")
     expect(sharedNavbarSource).toContain('function DesktopNavLink')
     expect(sharedNavbarScrollFrameSource).toContain('navbar-scroll-frame')
@@ -1668,7 +1769,7 @@ describe('web marketing image sizing contract', () => {
     )
 
     expect(overviewSource).not.toContain('priority')
-    expect(overviewSource).toContain("import Image, { getImageProps } from 'next/image'")
+    expect(overviewSource).toContain("import { getImageProps } from 'next/image'")
     expect(overviewSource).toContain('<picture>')
     expect(overviewSource).toContain('media="(max-width: 767px)"')
     expect(roadmapSource).toContain('src="/img/space/satoshi_move.gif"')
@@ -1888,11 +1989,25 @@ describe('public route dependency contract', () => {
 
     expect(shell).not.toContain("'use client'")
     expect(shell).toContain("from './ViewportVideoBoundary'")
-    expect(boundary).toContain("dynamic(() => import('./ViewportVideoEnhancer')")
-    expect(boundary).toContain('preload="none"')
-    expect(enhancer).toContain("from '@nl/ui/hooks/useOnScreen'")
+    expect(shell).toContain("rootMargin = '0px'")
+    expect(boundary).toContain('lazy<ComponentType<ViewportVideoEnhancerProps>>(')
+    expect(boundary).toContain("rootMargin = '0px'")
+    expect(boundary).toContain("preload={isNearViewport ? 'metadata' : 'none'}")
+    expect(boundary).toContain('hasEnteredViewport || isNearViewport')
+    expect(enhancer).not.toContain("from '@nl/ui/hooks/useOnScreen'")
+    expect(enhancer).toContain('isNearViewport: boolean')
     expect(enhancer).toContain("from '@nl/ui/hooks/useMediaQuery'")
-    expect(enhancer).toContain("video.preload = shouldPlay ? 'metadata' : 'none'")
+    expect(enhancer).toContain("video.preload = shouldLoad ? 'metadata' : 'none'")
+  })
+
+  it('keeps marketing game video identifiers unique', () => {
+    const source = readFileSync(
+      join(process.cwd(), 'apps/web/src/app/(main)/games/page.tsx'),
+      'utf8'
+    )
+
+    expect(source).toContain('id={`game-video-${index}`}')
+    expect(source).not.toContain('id="console-video"')
   })
 
   it('keeps API-only constants separate from the contract registry', () => {

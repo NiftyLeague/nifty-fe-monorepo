@@ -3,8 +3,9 @@
 import { useState, useMemo } from 'react'
 import { ChevronDown, ChevronUp, Pencil } from 'lucide-react'
 import { Button } from '@nl/ui/base/button'
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@nl/ui/base/dialog'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@nl/ui/base/dialog'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@nl/ui/base/select'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@nl/ui/base/table'
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import { formatNumberToDisplay } from '@nl/ui/utils'
 import type { Rentals, RentalType } from '@/types/rentals'
@@ -375,13 +376,19 @@ const MyRentalsDataGrid = ({
     <>
       <div className="flex h-full flex-col">
         <div className="flex-1 overflow-auto rounded-lg border bg-background">
-          <table className="w-full border-collapse text-sm" aria-label="rentals data table">
-            <thead className="sticky top-0 z-10 bg-background">
-              <tr>
+          <Table aria-label="rentals data table" className="border-collapse">
+            <TableHeader className="sticky top-0 z-10 bg-background">
+              <TableRow className="border-0 hover:bg-transparent">
                 {visibleColumns.map((column) => (
-                  <th
+                  <TableHead
                     key={column.field}
-                    data-sortable={column.sortable !== false}
+                    aria-sort={
+                      sort?.field === column.field
+                        ? sort.direction === 'asc'
+                          ? 'ascending'
+                          : 'descending'
+                        : 'none'
+                    }
                     style={{ minWidth: column.width }}
                     className="px-4 py-3 text-left font-medium text-muted-foreground"
                   >
@@ -408,22 +415,22 @@ const MyRentalsDataGrid = ({
                           />
                         ))}
                     </button>
-                  </th>
+                  </TableHead>
                 ))}
-              </tr>
-            </thead>
-            <tbody>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {sortedRows.length === 0 ? (
-                <tr>
-                  <td colSpan={visibleColumns.length} className="px-4 py-3">
+                <TableRow>
+                  <TableCell colSpan={visibleColumns.length} className="px-4 py-3">
                     <span className="text-muted-foreground">No rentals found</span>
-                  </td>
-                </tr>
+                  </TableCell>
+                </TableRow>
               ) : (
                 paginatedRows.map((row) => (
-                  <tr key={row.id || ''} className="group hover:bg-accent/50">
+                  <TableRow key={row.id || ''} className="group hover:bg-accent/50">
                     {visibleColumns.map((column) => (
-                      <td
+                      <TableCell
                         key={column.field}
                         style={{ minWidth: column.width }}
                         className="px-4 py-3 align-top"
@@ -436,13 +443,13 @@ const MyRentalsDataGrid = ({
                               id: row.id,
                             })
                           : String(row[column.field as keyof RentalDataGrid] ?? '')}
-                      </td>
+                      </TableCell>
                     ))}
-                  </tr>
+                  </TableRow>
                 ))
               )}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
         <div className="flex items-center justify-between border-t px-4 py-3">
           <div className="flex items-center gap-2">

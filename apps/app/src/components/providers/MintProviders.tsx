@@ -6,8 +6,7 @@ import AuditFixtureMintContextWrapper from '@/contexts/AuditFixtureMintContextWr
 import { AuthStatusProvider } from '@/contexts/AuthStatusContext'
 import { AuthTokenProvider } from '@/contexts/AuthTokenContext'
 import { DegenOwnershipProvider } from '@/contexts/DegenOwnershipContext'
-import { LocalStorageProvider } from '@/contexts/LocalStorageContext'
-import { Web3ModalProvider } from '@/contexts/Web3ModalContext'
+import WalletStorageProviders from '@/contexts/WalletStorageProviders'
 
 type MintProvidersProps = PropsWithChildren<{ cookies?: string | null }>
 
@@ -24,9 +23,5 @@ export default function MintProviders({ children, cookies }: MintProvidersProps)
     </AuthStatusProvider>
   )
 
-  return (
-    <LocalStorageProvider>
-      <Web3ModalProvider cookies={cookies}>{walletContexts}</Web3ModalProvider>
-    </LocalStorageProvider>
-  )
+  return <WalletStorageProviders cookies={cookies}>{walletContexts}</WalletStorageProviders>
 }

@@ -10,7 +10,15 @@
     },
     "app#build": {
       "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
-      "env": ["CI", "NEXT_RUNTIME", "NEXT_PUBLIC_*", "SENTRY_AUTH_TOKEN", "VERCEL_ENV"],
+      "env": [
+        "CI",
+        "NEXT_RUNTIME",
+        "NEXT_PUBLIC_*",
+        "SENTRY_AUTH_TOKEN",
+        "SENTRY_ORG",
+        "SENTRY_PROJECT",
+        "VERCEL_ENV"
+      ],
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "api#build": {
@@ -67,6 +75,8 @@
         "NEXTAUTH_SECRET",
         "PLAYFAB_API_KEY",
         "SENTRY_AUTH_TOKEN",
+        "SENTRY_ORG",
+        "SENTRY_PROJECT",
         "TWITCH_CLIENT_ID",
         "TWITCH_CLIENT_SECRET",
         "VERCEL_ENV"
@@ -81,6 +91,8 @@
         "NEXT_RUNTIME",
         "NEXT_PUBLIC_*",
         "SENTRY_AUTH_TOKEN",
+        "SENTRY_ORG",
+        "SENTRY_PROJECT",
         "VERCEL_ENV"
       ],
       "outputs": [".next/**", "!.next/cache/**"]

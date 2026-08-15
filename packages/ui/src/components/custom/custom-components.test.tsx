@@ -164,7 +164,7 @@ describe('Navbar', () => {
       />
     )
 
-    expect(screen.getByRole('img', { name: 'Home' })).not.toBeNull()
+    expect(screen.getByRole('img', { name: 'Home' }).getAttribute('loading')).toBe('eager')
     expect(screen.getAllByRole('link', { name: /About/ })[0]?.getAttribute('href')).toBe('/about')
     fireEvent.click(screen.getByText('Products', { selector: 'summary' }))
     expect(screen.getAllByRole('link', { name: /Docs/ })[0]?.getAttribute('target')).toBe('_blank')
@@ -181,7 +181,9 @@ describe('Navbar', () => {
     const header = container.querySelector('header')
     expect(header?.className).toContain('navbar-scroll-frame')
     expect(header?.className).toContain('bg-transparent')
-    expect(header?.className).toContain('backdrop-blur-xs')
+    expect(header?.className.split(/\s+/)).toContain('data-[scrolled=true]:backdrop-blur-xs')
+    expect(header?.className.split(/\s+/)).not.toContain('backdrop-blur-xs')
+    expect(header?.dataset.scrolled).toBe('false')
     expect(header?.previousElementSibling).toBeNull()
   })
 })

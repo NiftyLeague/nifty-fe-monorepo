@@ -1,13 +1,13 @@
 .main {
   background-color: var(--color-background);
   width: 100%;
-  min-height: calc(100vh - 100px);
+  min-height: calc(100dvh - 96px);
   flex-grow: 1;
   border-radius: var(--radius-default);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  margin-top: 60px;
-  height: calc(100vh - 60px);
+  margin-top: 56px;
+  height: calc(100dvh - 56px);
 }
 
 .mainClosed {
@@ -23,13 +23,13 @@
 .publicMain {
   background-color: var(--color-background);
   width: 100%;
-  min-height: calc(100vh - 100px);
+  min-height: calc(100dvh - 96px);
   flex-grow: 1;
   border-radius: var(--radius-default);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  margin-top: 60px;
-  height: calc(100vh - 60px);
+  margin-top: 56px;
+  height: calc(100dvh - 56px);
   overflow-y: auto;
   transition:
     margin 200ms cubic-bezier(0.4, 0, 0.6, 1) 0ms,
@@ -62,9 +62,16 @@
 }
 
 @media (min-width: 1024px) {
+  .main,
+  .publicMain {
+    min-height: calc(100dvh - 100px);
+    margin-top: 60px;
+    height: calc(100dvh - 60px);
+  }
+
   .mainClosed {
     margin-left: -260px;
-    width: calc(100% - 260px);
+    width: 100%;
   }
 }
 
@@ -73,14 +80,6 @@
   .mainOpen {
     margin-left: 0;
     width: 100%;
-  }
-}
-
-@media (max-width: 767.95px) {
-  .mainClosed,
-  .mainOpen {
-    margin-top: 60px;
-    margin-left: 10px;
   }
 }
 

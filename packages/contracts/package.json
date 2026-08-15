@@ -1,0 +1,19 @@
+{
+  "name": "@nl/contracts",
+  "version": "1.0.0",
+  "license": "GPL-3.0-only",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./deployments/*": "./src/deployments/*.ts"
+  },
+  "scripts": {
+    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\" --ignore-path ../../.gitignore",
+    "lint": "eslint . --max-warnings 0",
+    "test": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --pass-with-no-tests",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0"
+  }
+}

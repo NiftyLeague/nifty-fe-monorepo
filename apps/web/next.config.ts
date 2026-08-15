@@ -8,6 +8,9 @@ const ENV = (process.env.VERCEL_ENV as 'production' | 'preview' | undefined) ?? 
 
 const nextConfig: NextConfig = {
   transpilePackages: ['@nl/ui'],
+  experimental: {
+    useTypeScriptCli: true,
+  },
   turbopack: {},
   images: {
     formats: ['image/avif', 'image/webp'],
@@ -46,6 +49,16 @@ const nextConfig: NextConfig = {
             },
           ]
         : []),
+    ]
+  },
+  async headers() {
+    // OpenSea embeds /gltf/* in sandboxed frames with an opaque origin. The
+    // client chunks and local fonts still need to opt into that CORS request.
+    return [
+      {
+        source: '/_next/static/:path*',
+        headers: [{ key: 'Access-Control-Allow-Origin', value: '*' }],
+      },
     ]
   },
   async redirects() {

@@ -48,7 +48,15 @@ describe('Turbo cache environment scope', () => {
 
   it('keeps environment inputs on the builds that read them', () => {
     expect(envFor('app#build')).toEqual(
-      new Set(['CI', 'NEXT_RUNTIME', 'NEXT_PUBLIC_*', 'SENTRY_AUTH_TOKEN', 'VERCEL_ENV'])
+      new Set([
+        'CI',
+        'NEXT_RUNTIME',
+        'NEXT_PUBLIC_*',
+        'SENTRY_AUTH_TOKEN',
+        'SENTRY_ORG',
+        'SENTRY_PROJECT',
+        'VERCEL_ENV',
+      ])
     )
     expect(envFor('web#build')).toEqual(
       new Set([
@@ -57,6 +65,8 @@ describe('Turbo cache environment scope', () => {
         'NEXT_RUNTIME',
         'NEXT_PUBLIC_*',
         'SENTRY_AUTH_TOKEN',
+        'SENTRY_ORG',
+        'SENTRY_PROJECT',
         'VERCEL_ENV',
       ])
     )
@@ -76,6 +86,8 @@ describe('Turbo cache environment scope', () => {
         'NEXTAUTH_SECRET',
         'PLAYFAB_API_KEY',
         'SENTRY_AUTH_TOKEN',
+        'SENTRY_ORG',
+        'SENTRY_PROJECT',
         'TWITCH_CLIENT_ID',
         'TWITCH_CLIENT_SECRET',
         'VERCEL_ENV',

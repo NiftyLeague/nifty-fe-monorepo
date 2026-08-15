@@ -6,16 +6,26 @@ export type ViewportVideoProps = Omit<
   VideoHTMLAttributes<HTMLVideoElement>,
   'autoPlay' | 'preload'
 > & {
+  /** Automatically play while the video is near the viewport. */
+  playOnViewport?: boolean
   rootMargin?: string
   src: string
 }
 
 export const ViewportVideo = memo(function ViewportVideo({
-  rootMargin = '300px',
+  playOnViewport = true,
+  rootMargin = '0px',
   src,
   ...props
 }: ViewportVideoProps) {
-  return <ViewportVideoBoundary rootMargin={rootMargin} src={src} {...props} />
+  return (
+    <ViewportVideoBoundary
+      playOnViewport={playOnViewport}
+      rootMargin={rootMargin}
+      src={src}
+      {...props}
+    />
+  )
 })
 
 export default ViewportVideo

@@ -214,13 +214,10 @@ describe('dependency contract', () => {
 const ALLOWED_UNUSED: Record<string, Record<string, string>> = {
   'apps/web': {
     three: 'peer dep of @google/model-viewer (bundles its own three)',
-    '@types/three': 'types for three',
     sharp: 'Next.js image optimization runtime dep',
   },
   'apps/app': {
     sharp: 'Next.js image optimization runtime dep',
-    graphql: 'peer dep of graphql-request',
-    '@openzeppelin/contracts': 'typechain generated contracts/types import it',
   },
   'apps/smashers': {
     sharp: 'Next.js image optimization runtime dep',
@@ -233,8 +230,8 @@ const ALLOWED_UNUSED: Record<string, Record<string, string>> = {
     '@docusaurus/theme-mermaid': 'docusaurus theme configured in docusaurus.config.ts',
     '@mdx-js/react': 'MDX provider used by docusaurus themes',
     algoliasearch: 'docusaurus Algolia DocSearch integration',
+    '@nl/ui': 'shared media primitives imported in docs/*.md and *.mdx markdown',
     'prism-react-renderer': 'docusaurus theme code highlighting',
-    'react-player': 'imported in docs/*.md markdown, not src/',
   },
   'packages/playfab': {
     url: 'node polyfill for next-auth/next runtime',
