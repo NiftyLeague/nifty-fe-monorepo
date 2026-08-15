@@ -1,7 +1,11 @@
 import { describe, expect, it } from 'bun:test'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { shouldBuild } from '../../scripts/vercel-ignore-build.mjs'
+import {
+  canonicalProjectName,
+  isProjectAffected,
+  shouldBuild,
+} from '../../scripts/vercel-ignore-build.mjs'
 
 const projectRoots = ['apps/web', 'apps/app', 'apps/smashers', 'apps/api', 'apps/docs']
 const deploymentEnabled = { 'codex/*': false, '**': false, main: true, staging: true }
@@ -32,6 +36,26 @@ describe('Vercel build cost policy', () => {
     expect(shouldBuild('codex/perf-route')).toBe(false)
     expect(shouldBuild('feat/large-change')).toBe(false)
     expect(shouldBuild(undefined)).toBe(true)
+  })
+
+  it('maps Vercel project aliases to their monorepo app', () => {
+    expect(canonicalProjectName('smashers-web')).toBe('smashers')
+    expect(canonicalProjectName('apps/web')).toBeNull()
+  })
+
+  it('builds only projects affected by app or shared paths', () => {
+    expect(isProjectAffected('web', ['apps/web/src/app/page.tsx'])).toBe(true)
+    expect(isProjectAffected('web', ['apps/app/src/app/page.tsx'])).toBe(false)
+    expect(isProjectAffected('smashers-web', ['apps/smashers/src/app/page.tsx'])).toBe(true)
+    expect(isProjectAffected('docs', ['packages/ui/src/base/button.tsx'])).toBe(true)
+    expect(isProjectAffected('api', ['apps/web/src/app/page.tsx'])).toBe(false)
+    expect(isProjectAffected('new-project', ['README.md'])).toBe(true)
+  })
+
+  it('keeps release builds fail-open when Git history is unavailable', () => {
+    expect(shouldBuild('main', 'web', undefined)).toBe(true)
+    expect(shouldBuild('staging', 'web', ['apps/app/src/app/page.tsx'])).toBe(false)
+    expect(shouldBuild('main', 'web', ['packages/ui/src/index.ts'])).toBe(true)
   })
 
   it('documents the live aggregate-status cost control', () => {
