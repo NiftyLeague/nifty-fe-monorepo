@@ -1,5 +1,5 @@
-import MAINNET_DEPLOYMENTS from '@nl/contracts/deployments/mainnet'
-import TESTNET_DEPLOYMENTS from '@nl/contracts/deployments/sepolia'
+import MAINNET_DEPLOYMENTS from '@/contracts/deployments/mainnet'
+import TESTNET_DEPLOYMENTS from '@/contracts/deployments/sepolia'
 
 export const CONTRACT_METHODS = {
   RENAME: '0xc39cbef1',
