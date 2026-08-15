@@ -32,6 +32,7 @@ const sharedAppBarStyles = 'packages/ui/src/components/custom/app-bar/app-bar.mo
 const lightweightClassNames = 'packages/ui/src/lib/class-names.ts'
 const deferredConsoleGame = 'packages/ui/src/components/custom/deferred-console-game/index.tsx'
 const gltfViews = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViews.tsx'
+const gltfPage = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/page.tsx'
 const marketingShellClassNameSources = [
   'apps/web/src/app/layout.tsx',
   'apps/web/src/components/Footer/index.tsx',
@@ -41,6 +42,18 @@ const marketingShellClassNameSources = [
   'packages/ui/src/components/custom/navbar/NavbarScrollFrame.tsx',
   'packages/ui/src/components/custom/socials-footer/index.tsx',
   'packages/ui/src/components/custom/theme-button-group/index.tsx',
+]
+const nonConflictingClassNameSources = [
+  'apps/app/src/app/layout.tsx',
+  'apps/app/src/components/providers/PublicNavigation.tsx',
+  'apps/smashers/src/app/layout.tsx',
+  'apps/smashers/src/components/Header/Navbar/index.tsx',
+  'apps/web/src/app/(main)/compete-and-earn/page.tsx',
+  'apps/web/src/app/(main)/degens/page.tsx',
+  'apps/web/src/app/(main)/games/page.tsx',
+  'apps/web/src/app/(main)/lore/page.tsx',
+  'apps/web/src/components/RoadmapTimeline/roadmapCard.tsx',
+  'packages/ui/src/components/custom/app-bar/index.tsx',
 ]
 const appBreadcrumbs = 'apps/app/src/components/extended/Breadcrumbs.tsx'
 const appSidebarFrame = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/SidebarFrame.tsx'
@@ -143,6 +156,24 @@ describe('app performance contracts', () => {
     const source = readFileSync(gltfViews, 'utf8')
     expect(source).toContain("from '@nl/ui/class-names'")
     expect(source).not.toContain("from '@nl/ui/utils'")
+  })
+
+  it('keeps non-conflicting public class composition off the conflict-merging utility', () => {
+    for (const file of nonConflictingClassNameSources) {
+      const source = readFileSync(file, 'utf8')
+      expect(source).toContain("from '@nl/ui/class-names'")
+      expect(source).not.toContain("from '@nl/ui/utils'")
+    }
+  })
+
+  it('does not prioritize the GLTF logo that is hidden in the initial 2D view', () => {
+    const source = readFileSync(gltfPage, 'utf8')
+    const logoStart = source.indexOf('alt="Nifty League Logo"')
+    const logoEnd = source.indexOf('src="/img/logos/NL/wordmark.webp"')
+
+    expect(logoStart).toBeGreaterThanOrEqual(0)
+    expect(logoEnd).toBeGreaterThan(logoStart)
+    expect(source.slice(logoStart, logoEnd)).not.toContain('priority')
   })
 
   it('loads the accessible mobile sidebar sheet only when opened', () => {

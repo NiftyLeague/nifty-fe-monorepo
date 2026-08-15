@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import { Check } from 'lucide-react'
 
+import { cx } from '@nl/ui/class-names'
 import { AnimatedImage } from '@nl/ui/custom/animated-image'
-import { cn } from '@nl/ui/utils'
 import styles from './index.module.css'
 
 interface RoadmapCardProps {
@@ -30,12 +30,12 @@ const RoadmapCard = ({
   image,
   title,
 }: RoadmapCardProps): React.ReactNode => (
-  <div className={cn(styles.cd_timeline_block, styles.fade_in)}>
+  <div className={cx(styles.cd_timeline_block, styles.fade_in)}>
     {divider ? (
       <h4 className={styles.cd_timeline_divider}>Options below are TBD!</h4>
     ) : (
       <div
-        className={cn(styles.cd_timeline_checkpoint, { [styles.completed as string]: completed })}
+        className={cx(styles.cd_timeline_checkpoint, { [styles.completed as string]: completed })}
       >
         {completed && (
           <Check
