@@ -4,6 +4,7 @@ import { join } from 'node:path'
 
 const docsRoot = join(process.cwd(), 'apps/docs')
 const docsConfig = readFileSync(join(docsRoot, 'docusaurus.config.ts'), 'utf8')
+const webConfig = readFileSync(join(process.cwd(), 'apps/web/next.config.ts'), 'utf8')
 
 describe('documentation routing contract', () => {
   it('serves Docusaurus at the root of the docs custom domain', () => {
@@ -24,5 +25,10 @@ describe('documentation routing contract', () => {
       const source = readFileSync(join(docsRoot, file), 'utf8')
       expect(source).not.toMatch(/(?:to|href|src):?\s*["']\/docs\//)
     }
+  })
+
+  it('keeps the local web redirect aligned with the docs root', () => {
+    expect(webConfig).toContain('destination: `http://localhost:3002/:path*`')
+    expect(webConfig).not.toContain('destination: `http://localhost:3002/docs/:path*`')
   })
 })
