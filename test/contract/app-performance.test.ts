@@ -52,7 +52,6 @@ const privateShellIconSources = [
   'apps/app/src/app/_layout/_MainLayout/_Sidebar/_MenuList/_NavCollapse/index.tsx',
   'apps/app/src/app/_layout/_MainLayout/_Sidebar/_MenuList/_NavGroup/index.tsx',
   'apps/app/src/app/_layout/_MainLayout/_Sidebar/_MenuList/_NavItem/index.tsx',
-  'apps/app/src/app/_layout/_MainLayout/_Sidebar/_OnboardingCard/index.tsx',
   'apps/app/src/components/extended/Breadcrumbs.tsx',
 ]
 const appIconRegistrySources = [
@@ -73,7 +72,6 @@ const appIconRegistrySources = [
   'apps/app/src/components/cards/DegenCard/index.tsx',
   'apps/app/src/components/dialog/BridgeButtonDialog/BridgeSuccess.tsx',
   'apps/app/src/components/dialog/BuyArcadeTokensDialog.tsx',
-  'apps/app/src/components/dialog/DegenDialog/CowSwapWidget.tsx',
   'apps/app/src/components/dialog/DegenDialog/EquipDegenContentDialog/index.tsx',
   'apps/app/src/components/dialog/DegenDialog/RentDegenContentDialog.tsx',
   'apps/app/src/components/dialog/DialogActions.tsx',
@@ -206,6 +204,29 @@ describe('app performance contracts', () => {
     expect(graphqlSource).toContain("'Content-Type': 'application/json'")
   })
 
+  it('removes the retired inline NFTL swap graph', () => {
+    const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
+    const rentDialogSource = readFileSync(
+      'apps/app/src/components/dialog/DegenDialog/RentDegenContentDialog.tsx',
+      'utf8'
+    )
+
+    expect(manifest.dependencies?.['@cowprotocol/cow-sdk']).toBeUndefined()
+    expect(rentDialogSource).toContain('href={COW_PROTOCOL_URL}')
+    expect(rentDialogSource).not.toContain('purchasingNFTL')
+
+    for (const file of [
+      'apps/app/src/components/dialog/DegenDialog/CowSwapWidget.tsx',
+      'apps/app/src/components/dialog/DegenDialog/TokenInfoBox.tsx',
+      'apps/app/src/hooks/balances/useEtherBalance.ts',
+      'apps/app/src/hooks/useRateEtherToNFTL.ts',
+      'apps/app/src/hooks/useTokenUSDPrice.ts',
+      'apps/app/src/utils/cowswap.ts',
+    ]) {
+      expect(existsSync(file)).toBe(false)
+    }
+  })
+
   it('uses Turbopack for local marketing development', () => {
     const manifest = JSON.parse(readFileSync(webManifest, 'utf8'))
     const nextConfig = readFileSync(webNextConfig, 'utf8')
@@ -282,7 +303,6 @@ describe('app performance contracts', () => {
 
   it('keeps the app free of lodash route imports', () => {
     const sources = [
-      'apps/app/src/components/dialog/DegenDialog/TokenInfoBox.tsx',
       'apps/app/src/components/dialog/DegenDialog/EquipDegenContentDialog/index.tsx',
       'apps/app/src/app/(private-routes)/dashboard/gamer-profile/GamerProfileContent.tsx',
     ]
