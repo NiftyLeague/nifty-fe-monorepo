@@ -40,4 +40,4 @@ const CloseIconButton = () => {
     </DialogDismissButton>
   )
 }
-export { DialogTrigger, DialogDismissButton, CloseIconButton }
+export { DialogTrigger, CloseIconButton }
