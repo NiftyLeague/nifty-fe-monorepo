@@ -4,7 +4,7 @@ import type { ReactNode } from 'react'
 import { useState } from 'react'
 import dynamic from 'next/dynamic'
 
-import { cn } from '@nl/ui/utils'
+import { cx } from '@nl/ui/class-names'
 import { ErrorBoundary } from '@nl/ui/custom/error-boundry'
 import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group'
 import { SRC, Color } from '@/types/gltf'
@@ -30,7 +30,7 @@ export default function DegenViews({ tokenId, initialImage, spriteImage, logo }:
   return (
     <>
       <main
-        className={cn(styles.main__wrapper, {
+        className={cx(styles.main__wrapper, {
           ...(source === SRC.MODEL && {
             [styles.gradient_salmon as string]: color === 'salmon',
             [styles.gradient_purple as string]: color === 'purple',

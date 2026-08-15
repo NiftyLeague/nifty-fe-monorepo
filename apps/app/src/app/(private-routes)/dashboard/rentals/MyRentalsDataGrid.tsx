@@ -7,7 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@nl/ui/base/di
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@nl/ui/base/select'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@nl/ui/base/table'
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
-import { formatNumberToDisplay } from '@nl/ui/utils'
+import { formatNumberToDisplay } from '@nl/ui/number-format'
 import type { Rentals, RentalType } from '@/types/rentals'
 import type { Degen } from '@/types/degens'
 import { transformRentals } from '@/app/(private-routes)/dashboard/_utils/transformRentals'

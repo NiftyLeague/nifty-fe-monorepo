@@ -1,6 +1,7 @@
 {
   "extends": "@nl/typescript-config/base.json",
   "compilerOptions": {
+    "incremental": true,
     "types": ["node"]
   },
   "include": ["src/**/*.ts"],
