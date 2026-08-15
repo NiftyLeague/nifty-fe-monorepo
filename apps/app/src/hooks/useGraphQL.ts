@@ -3,8 +3,7 @@
 import { useQuery, type UseQueryResult } from '@tanstack/react-query'
 import { useAccount } from 'wagmi'
 
-import type { CharactersQueryData, OwnerQueryData } from '@/types/graph'
-import ID_SEARCH_QUERY from '@/queries/ID_SEARCH_QUERY'
+import type { OwnerQueryData } from '@/types/graph'
 import OWNER_QUERY from '@/queries/OWNER_QUERY'
 import { SUBGRAPH_URI, SUBGRAPH_DEV_URI } from '@/constants'
 import { TARGET_NETWORK } from '@/constants/networks'
@@ -13,25 +12,6 @@ import { requestGraphQL } from '@/utils/graphql'
 
 const endpoint = TARGET_NETWORK.name === 'mainnet' ? SUBGRAPH_URI : SUBGRAPH_DEV_URI
 const headers = { Authorization: `Bearer ${process.env.NEXT_PUBLIC_GRAPH_API_KEY}` }
-
-export function useCharacterSearch(
-  tokenId?: string
-): UseQueryResult<CharactersQueryData['characters']> {
-  const variables = { search: tokenId }
-  return useQuery({
-    queryKey: ['characters', tokenId],
-    queryFn: async () => {
-      const { characters } = await requestGraphQL<CharactersQueryData>({
-        endpoint,
-        query: ID_SEARCH_QUERY,
-        variables,
-        headers,
-      })
-      return characters
-    },
-    enabled: !!tokenId,
-  })
-}
 
 export function useOwnerSearch(
   overrideAddress?: `0x${string}`

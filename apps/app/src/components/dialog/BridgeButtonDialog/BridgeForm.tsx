@@ -41,7 +41,7 @@ const AmountInput = forwardRef<HTMLInputElement, React.ComponentProps<'input'>>(
 ))
 AmountInput.displayName = 'AmountInput'
 
-export const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): React.ReactNode => {
+const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): React.ReactNode => {
   const { agreementAccepted, setAgreementAccepted } = useLocalStorageContext()
   const { address, writeContracts } = useNetworkContext()
   const { imxChainId } = useIMXContext()

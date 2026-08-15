@@ -38,7 +38,7 @@ interface NFTLBalanceState {
 }
 
 /** Fetch users NFTL balance on Ethereum */
-export function useEthereumNFTLBalance(): NFTLBalanceState {
+function useEthereumNFTLBalance(): NFTLBalanceState {
   const { isLoggedIn } = useAuth()
   const { address, isConnected } = useAccount()
   const tokenAddress = getContractAddress(TARGET_NETWORK.chainId, NFTL_CONTRACT)
@@ -68,7 +68,7 @@ export function useEthereumNFTLBalance(): NFTLBalanceState {
 }
 
 /** Fetch users NFTL balance on Immutable zkEVM */
-export function useImmutableNFTLBalance(): NFTLBalanceState {
+function useImmutableNFTLBalance(): NFTLBalanceState {
   const { isLoggedIn } = useAuth()
   const { address, isConnected } = useAccount()
   const { imxChainId } = useIMXContext()
