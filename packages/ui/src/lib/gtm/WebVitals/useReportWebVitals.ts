@@ -15,5 +15,3 @@ export const useReportWebVitals = () => {
     sendWebVitals(metric)
   })
 }
-
-export default useReportWebVitals

@@ -1,5 +1,4 @@
 export const GOOGLE_TAG_MANAGER_ID = 'GTM-MHCXVXJZ'
-export const IS_DEV = process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production'
 
 export const CATEGORIES = {
   AUTH: 'Authentication',
