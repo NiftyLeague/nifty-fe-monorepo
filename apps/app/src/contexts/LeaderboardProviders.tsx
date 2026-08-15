@@ -3,9 +3,8 @@
 import type { PropsWithChildren } from 'react'
 import dynamic from 'next/dynamic'
 
-import { LocalStorageProvider } from '@/contexts/LocalStorageContext'
-import { Web3ModalProvider } from '@/contexts/Web3ModalContext'
 import WalletAuthProviders from '@/contexts/WalletAuthProviders'
+import WalletStorageProviders from '@/contexts/WalletStorageProviders'
 
 const DeferredAuditFixtureContextWrapper = dynamic(
   () => import('@/contexts/AuditFixtureContextWrapper'),
@@ -25,10 +24,8 @@ export default function LeaderboardProviders({ children }: PropsWithChildren) {
   }
 
   return (
-    <LocalStorageProvider>
-      <Web3ModalProvider cookies={cookies}>
-        <DeferredAuditFixtureContextWrapper>{children}</DeferredAuditFixtureContextWrapper>
-      </Web3ModalProvider>
-    </LocalStorageProvider>
+    <WalletStorageProviders cookies={cookies}>
+      <DeferredAuditFixtureContextWrapper>{children}</DeferredAuditFixtureContextWrapper>
+    </WalletStorageProviders>
   )
 }
