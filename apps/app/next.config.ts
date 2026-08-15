@@ -5,27 +5,30 @@
 import type { NextConfig } from 'next'
 
 const ENV = (process.env.VERCEL_ENV as 'production' | 'preview' | undefined) ?? 'development'
+const isExplicitWebpackBuild = process.argv.includes('--webpack')
+
+const webpackFallback: NonNullable<NextConfig['webpack']> = (config) => {
+  // Map @wagmi/core connectors package to wagmi/connectors to avoid ESM issues
+  config.resolve.alias = { ...config.resolve.alias, '@wagmi/connectors': 'wagmi/connectors' }
+
+  // Externalize native modules: https://github.com/vercel/next.js/issues/86099
+  config.externals.push('pino-pretty', 'lokijs', 'encoding', 'sodium-native', 'require-addon')
+
+  return config
+}
 
 const nextConfig: NextConfig = {
   transpilePackages: ['@nl/contracts', '@nl/imx-passport', '@nl/ui'],
+  serverExternalPackages: ['pino-pretty', 'lokijs', 'encoding', 'sodium-native', 'require-addon'],
   experimental: {
     optimizePackageImports: ['lucide-react'],
     useTypeScriptCli: true,
   },
-  turbopack: {},
-  images: {
-    formats: ['image/avif', 'image/webp'],
-  },
+  turbopack: { resolveAlias: { '@wagmi/connectors': 'wagmi/connectors' } },
+  images: { formats: ['image/avif', 'image/webp'] },
   // Keep the Webpack compatibility path for explicit `next build --webpack`
-  // fallback runs; local development uses Turbopack for faster iteration.
-  // serverExternalPackages: ['pino-pretty', 'lokijs', 'encoding', 'sodium-native', 'require-addon'],
-  webpack: (config, { isServer }) => {
-    // Map @wagmi/core connectors package to wagmi/connectors to avoid ESM issues
-    config.resolve.alias = { ...config.resolve.alias, '@wagmi/connectors': 'wagmi/connectors' }
-    // Externalize native modules: https://github.com/vercel/next.js/issues/86099
-    config.externals.push('pino-pretty', 'lokijs', 'encoding', 'sodium-native', 'require-addon')
-    return config
-  },
+  // fallback runs; the normal build and dev paths stay on the Turbopack worker.
+  ...(isExplicitWebpackBuild ? { webpack: webpackFallback } : {}),
 }
 
 const sentryOptions = {
