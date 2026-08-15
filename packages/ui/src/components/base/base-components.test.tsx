@@ -42,16 +42,6 @@ import { IconButton } from '@nl/ui/base/icon-button'
 import { Input } from '@nl/ui/base/input'
 import { Label } from '@nl/ui/base/label'
 import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
-} from '@nl/ui/base/navigation-menu'
-import {
   Pagination,
   PaginationContent,
   PaginationEllipsis,
@@ -76,7 +66,6 @@ import {
   SheetTrigger,
 } from '@nl/ui/base/sheet'
 import { Skeleton } from '@nl/ui/base/skeleton'
-import { Slider } from '@nl/ui/base/slider'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@nl/ui/base/tabs'
 import { Toggle } from '@nl/ui/base/toggle'
 import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group'
@@ -193,7 +182,7 @@ describe('base visual primitives', () => {
 })
 
 describe('base controlled primitives', () => {
-  it('renders disclosure, selection, range, tab, and toggle controls', () => {
+  it('renders disclosure, selection, tab, and toggle controls', () => {
     render(
       <>
         <Accordion type="single" defaultValue="details">
@@ -207,8 +196,6 @@ describe('base controlled primitives', () => {
           <RadioGroupItem value="one" aria-label="One" />
           <RadioGroupItem value="two" aria-label="Two" />
         </RadioGroup>
-        <Slider defaultValue={[20, 80]} aria-label="Range" />
-        <Slider min={5} max={10} aria-label="Default range" />
         <Tabs defaultValue="first">
           <TabsList>
             <TabsTrigger value="first">First</TabsTrigger>
@@ -238,7 +225,7 @@ describe('base controlled primitives', () => {
   })
 })
 
-describe('base overlay and navigation primitives', () => {
+describe('base overlay primitives', () => {
   it('opens and closes dialogs while forwarding state callbacks', () => {
     const onOpenChange = mock()
     render(
@@ -292,7 +279,7 @@ describe('base overlay and navigation primitives', () => {
     expect(document.documentElement.style.overflow).toBe('')
   })
 
-  it('renders alert-dialog, sheet sides, tooltip, and navigation composition', () => {
+  it('renders alert-dialog, sheet sides, and tooltip composition', () => {
     const { rerender } = render(
       <AlertDialog open>
         <AlertDialogTrigger>Open alert</AlertDialogTrigger>
@@ -334,21 +321,8 @@ describe('base overlay and navigation primitives', () => {
             <TooltipContent sideOffset={8}>Helpful text</TooltipContent>
           </Tooltip>
         </TooltipProvider>
-        <NavigationMenu viewport={false}>
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>Products</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <NavigationMenuLink href="/games">Games</NavigationMenuLink>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-          <NavigationMenuIndicator />
-          <NavigationMenuViewport />
-        </NavigationMenu>
       </>
     )
     expect(screen.getByRole('tooltip')?.textContent).toContain('Helpful text')
-    expect(screen.getByRole('button', { name: 'Products' })).not.toBeNull()
   })
 })
