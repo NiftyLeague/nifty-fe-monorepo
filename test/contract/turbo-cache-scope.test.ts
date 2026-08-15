@@ -22,6 +22,34 @@ const rootPackage = JSON.parse(readFileSync('package.json', 'utf8')) as {
 const envFor = (task: string) => new Set(turbo.tasks[task]?.env ?? [])
 const dependenciesFor = (task: string) => turbo.tasks[task]?.dependsOn ?? []
 const inputsFor = (task: string) => turbo.tasks[task]?.inputs ?? []
+const sharedBuildInputs: Record<string, string[]> = {
+  'api#build': ['../../packages/contracts/src/**', '../../packages/contracts/package.json'],
+  'app#build': [
+    '../../packages/contracts/src/**',
+    '../../packages/contracts/package.json',
+    '../../packages/imx-passport/src/**',
+    '../../packages/imx-passport/package.json',
+    '../../packages/sentry-client/src/**',
+    '../../packages/sentry-client/package.json',
+    '../../packages/ui/src/**',
+    '../../packages/ui/package.json',
+  ],
+  'docs#build': ['../../packages/ui/src/**', '../../packages/ui/package.json'],
+  'smashers#build': [
+    '../../packages/playfab/src/**',
+    '../../packages/playfab/package.json',
+    '../../packages/sentry-client/src/**',
+    '../../packages/sentry-client/package.json',
+    '../../packages/ui/src/**',
+    '../../packages/ui/package.json',
+  ],
+  'web#build': [
+    '../../packages/sentry-client/src/**',
+    '../../packages/sentry-client/package.json',
+    '../../packages/ui/src/**',
+    '../../packages/ui/package.json',
+  ],
+}
 const packageJson = (path: string) =>
   JSON.parse(readFileSync(path, 'utf8')) as {
     scripts?: Record<string, string>
@@ -42,7 +70,18 @@ describe('Turbo cache environment scope', () => {
     expect(turbo.globalDependencies ?? []).toEqual(['.env'])
 
     for (const task of ['api#build', 'app#build', 'docs#build', 'smashers#build', 'web#build']) {
-      expect(inputsFor(task)).toEqual(['$TURBO_DEFAULT$', '.env*', '!.env.example'])
+      expect(inputsFor(task)).toEqual([
+        '$TURBO_DEFAULT$',
+        ...(sharedBuildInputs[task] ?? []),
+        '.env*',
+        '!.env.example',
+      ])
+    }
+  })
+
+  it('invalidates app builds when their shared workspace sources change', () => {
+    for (const [task, inputs] of Object.entries(sharedBuildInputs)) {
+      expect(inputsFor(task)).toEqual(['$TURBO_DEFAULT$', ...inputs, '.env*', '!.env.example'])
     }
   })
 

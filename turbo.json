@@ -9,7 +9,19 @@
       "outputs": ["dist/**"]
     },
     "app#build": {
-      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "../../packages/contracts/src/**",
+        "../../packages/contracts/package.json",
+        "../../packages/imx-passport/src/**",
+        "../../packages/imx-passport/package.json",
+        "../../packages/sentry-client/src/**",
+        "../../packages/sentry-client/package.json",
+        "../../packages/ui/src/**",
+        "../../packages/ui/package.json",
+        ".env*",
+        "!.env.example"
+      ],
       "env": [
         "CI",
         "NEXT_RUNTIME",
@@ -22,7 +34,13 @@
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "api#build": {
-      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "../../packages/contracts/src/**",
+        "../../packages/contracts/package.json",
+        ".env*",
+        "!.env.example"
+      ],
       "env": [
         "NODE_CONFIG_TS_DIR",
         "PORT",
@@ -54,12 +72,28 @@
       "outputs": ["dist/**", "api/.app/**", "api/config/**"]
     },
     "docs#build": {
-      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "../../packages/ui/src/**",
+        "../../packages/ui/package.json",
+        ".env*",
+        "!.env.example"
+      ],
       "env": ["ALGOLIA_API_KEY", "ALGOLIA_APP_ID"],
       "outputs": ["build/**", ".docusaurus/**"]
     },
     "smashers#build": {
-      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "../../packages/playfab/src/**",
+        "../../packages/playfab/package.json",
+        "../../packages/sentry-client/src/**",
+        "../../packages/sentry-client/package.json",
+        "../../packages/ui/src/**",
+        "../../packages/ui/package.json",
+        ".env*",
+        "!.env.example"
+      ],
       "env": [
         "APPLE_CLIENT_ID",
         "APPLE_CLIENT_SECRET",
@@ -84,7 +118,15 @@
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "web#build": {
-      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "../../packages/sentry-client/src/**",
+        "../../packages/sentry-client/package.json",
+        "../../packages/ui/src/**",
+        "../../packages/ui/package.json",
+        ".env*",
+        "!.env.example"
+      ],
       "env": [
         "CI",
         "EDGE_CONFIG",
