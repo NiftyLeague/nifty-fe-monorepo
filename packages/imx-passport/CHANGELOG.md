@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/imx-passport-v1.0.1...imx-passport-v1.0.2) (2026-08-15)
+
+
+### Maintenance
+
+* promote staging to main for GLTF NFTL hotfix ([b66c5f9](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/b66c5f9af80715e267f7925b3fd5793721bccbc1))
+
 ## [1.0.1](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/imx-passport-v1.0.0...imx-passport-v1.0.1) (2026-08-09)
 
 

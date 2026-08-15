@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.0.5](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/template-v1.0.4...template-v1.0.5) (2026-08-15)
+
+
+### Maintenance
+
+* promote staging to main ([cc77798](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/cc77798c50da9641287aae69f5c73564e0be07cd))
+* promote staging to main ([99c3dc1](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/99c3dc1853c41ca147a1ba198e761172b5516260))
+* promote staging to main for GLTF NFTL hotfix ([b66c5f9](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/b66c5f9af80715e267f7925b3fd5793721bccbc1))
+* promote staging to main for release ([887a71b](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/887a71b0383d763925a9065cf6af548bb7e11211))
+
 ## [1.0.4](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/template-v1.0.3...template-v1.0.4) (2026-08-10)
 
 
