@@ -1,13 +1,13 @@
 'use client'
 
 import type { TableProps } from '@/types/leaderboard'
-import WalletFeatureProviders from '@/contexts/WalletFeatureProviders'
+import LeaderboardProviders from '@/contexts/LeaderboardProviders'
 import EnhancedTable from './EnhancedTable'
 
 export default function EnhancedTableWithWallet(props: TableProps) {
   return (
-    <WalletFeatureProviders>
+    <LeaderboardProviders>
       <EnhancedTable {...props} />
-    </WalletFeatureProviders>
+    </LeaderboardProviders>
   )
 }
