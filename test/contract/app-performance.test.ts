@@ -8,6 +8,7 @@ const retiredAxiosUtility = 'apps/app/src/utils/axios.ts'
 const appGraphQLUtility = 'apps/app/src/utils/graphql.ts'
 const appNextConfig = 'apps/app/next.config.ts'
 const smashersNextConfig = 'apps/smashers/next.config.ts'
+const templateNextConfig = 'apps/template/next.config.ts'
 const webManifest = 'apps/web/package.json'
 const webNextConfig = 'apps/web/next.config.ts'
 const deferredSentryClient = 'packages/sentry-client/src/client.ts'
@@ -195,6 +196,12 @@ describe('app performance contracts', () => {
   it('uses the project TypeScript CLI for Next app builds', () => {
     for (const file of [appNextConfig, smashersNextConfig]) {
       expect(readFileSync(file, 'utf8')).toContain('useTypeScriptCli: true')
+    }
+  })
+
+  it('modularizes shared Lucide imports before the app graph is bundled', () => {
+    for (const file of [appNextConfig, smashersNextConfig, webNextConfig, templateNextConfig]) {
+      expect(readFileSync(file, 'utf8')).toContain("optimizePackageImports: ['lucide-react']")
     }
   })
 
