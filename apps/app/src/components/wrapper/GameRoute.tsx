@@ -20,7 +20,7 @@ interface GameRouteProps extends PropsWithChildren {
 
 export default function GameRoute({ arcadeTokenRequired, children, unityConfig }: GameRouteProps) {
   return (
-    <WalletRouteProvider>
+    <WalletRouteProvider loadWalletFeatures={arcadeTokenRequired}>
       {children}
       <GameWithAuth unityConfig={unityConfig} arcadeTokenRequired={arcadeTokenRequired} />
     </WalletRouteProvider>
