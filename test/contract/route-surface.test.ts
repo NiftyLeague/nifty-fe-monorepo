@@ -253,6 +253,7 @@ const sharedWebNavbarScrollState = 'packages/ui/src/components/custom/navbar/Nav
 const sharedWebMobileNavbar = 'packages/ui/src/components/custom/navbar/MobileNavMenu.tsx'
 const sharedWebNavLinkContent = 'packages/ui/src/components/custom/navbar/NavLinkContent.tsx'
 const sharedWebMobileTrigger = 'packages/ui/src/components/custom/navbar/MobileNavTrigger.tsx'
+const webInviteRedirect = 'apps/web/src/components/Invite/InviteRedirect.tsx'
 const sharedConsoleGame = 'packages/ui/src/components/custom/console-game/index.tsx'
 const sharedDeferredConsoleGame =
   'packages/ui/src/components/custom/deferred-console-game/index.tsx'
@@ -343,6 +344,17 @@ describe('external route surface contract', () => {
       }
     })
   }
+})
+
+describe('web invite redirect contract', () => {
+  it('keeps navigation and deep-link side effects out of render', () => {
+    const source = readFileSync(join(process.cwd(), webInviteRedirect), 'utf8')
+
+    expect(source).toMatch(
+      /useEffect\(\(\) => \{[\s\S]*switch \(game\)[\s\S]*router\.push\('\/'\)[\s\S]*\}, \[game, partyID, refcode, router, userAgent\]\)/
+    )
+    expect(source).not.toMatch(/\n\s*switch \(game\) \{[\s\S]*\n\s*\}\n\n\s*return <Loading \/>/)
+  })
 })
 
 describe('public leaderboard loading contract', () => {

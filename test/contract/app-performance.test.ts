@@ -10,6 +10,8 @@ const appNextConfig = 'apps/app/next.config.ts'
 const smashersNextConfig = 'apps/smashers/next.config.ts'
 const webManifest = 'apps/web/package.json'
 const webNextConfig = 'apps/web/next.config.ts'
+const deferredSentryClient = 'packages/sentry-client/src/client.ts'
+const deferredSentryModule = 'packages/sentry-client/src/nextjs-client.ts'
 const appRootLayout = 'apps/app/src/app/layout.tsx'
 const appShell = 'apps/app/src/app/_layout/AppShell.tsx'
 const sharedAppBar = 'packages/ui/src/components/custom/app-bar/index.tsx'
@@ -169,6 +171,18 @@ describe('app performance contracts', () => {
 
     expect(source).toContain('id="device-stats"')
     expect(source).toContain('strategy="lazyOnload"')
+  })
+
+  it('keeps deferred Sentry on a named async module graph', () => {
+    const clientSource = readFileSync(deferredSentryClient, 'utf8')
+    const moduleSource = readFileSync(deferredSentryModule, 'utf8')
+
+    expect(clientSource).toContain("import('./nextjs-client')")
+    expect(clientSource).not.toContain("sentryModulePromise ??= import('@sentry/nextjs')")
+    expect(moduleSource).toContain("from '@sentry/nextjs'")
+    expect(moduleSource).toContain('captureException')
+    expect(moduleSource).toContain('captureRouterTransitionStart')
+    expect(moduleSource).toContain('init')
   })
 
   it('uses Turbopack for local app development', () => {
