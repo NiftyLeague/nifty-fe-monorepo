@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import type { UrlObject } from 'url'
-import { cn } from '@nl/ui/utils'
+import { cx } from '@nl/ui/class-names'
 import { SocialsFooter, animateClass, linkClass } from '@nl/ui/custom/socials-footer'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
 
@@ -14,7 +14,7 @@ interface FooterLinkProps {
 const FooterLink = ({ href, name, external = false, first = false }: FooterLinkProps) => (
   <Link
     href={href}
-    className={cn(
+    className={cx(
       'inline-flex items-center justify-center sm:justify-start',
       linkClass,
       animateClass,

@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Fragment } from 'react'
 
-import { cn } from '@nl/ui/utils'
+import { cx } from '@nl/ui/class-names'
 
 import MobileNavMenu from './MobileNavMenu'
 import NavbarScrollFrame from './NavbarScrollFrame'
@@ -49,7 +49,7 @@ function DesktopNavLink({
       href={href}
       target={external ? '_blank' : undefined}
       rel={external ? 'noreferrer' : undefined}
-      className={cn(NAV_LINK_CONTENT_CLASS, className)}
+      className={cx(NAV_LINK_CONTENT_CLASS, className)}
     >
       <NavLinkContent description={description} external={external} title={title} />
     </Link>
@@ -75,7 +75,7 @@ function DropdownMenuItem({ group, pages }: GroupedMenuItemData) {
     <li>
       <details className="group relative">
         <summary
-          className={cn(
+          className={cx(
             DESKTOP_LINK_CLASS,
             'cursor-pointer list-none [&::-webkit-details-marker]:hidden'
           )}

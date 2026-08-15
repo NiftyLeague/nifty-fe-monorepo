@@ -18,6 +18,17 @@ const appShell = 'apps/app/src/app/_layout/AppShell.tsx'
 const sharedAppBar = 'packages/ui/src/components/custom/app-bar/index.tsx'
 const sharedAppBarStyles = 'packages/ui/src/components/custom/app-bar/app-bar.module.css'
 const lightweightClassNames = 'packages/ui/src/lib/class-names.ts'
+const deferredConsoleGame = 'packages/ui/src/components/custom/deferred-console-game/index.tsx'
+const marketingShellClassNameSources = [
+  'apps/web/src/app/layout.tsx',
+  'apps/web/src/components/Footer/index.tsx',
+  'packages/ui/src/components/custom/external-icon/index.tsx',
+  'packages/ui/src/components/custom/mobile-navigation/index.tsx',
+  'packages/ui/src/components/custom/navbar/index.tsx',
+  'packages/ui/src/components/custom/navbar/NavbarScrollFrame.tsx',
+  'packages/ui/src/components/custom/socials-footer/index.tsx',
+  'packages/ui/src/components/custom/theme-button-group/index.tsx',
+]
 const appBreadcrumbs = 'apps/app/src/components/extended/Breadcrumbs.tsx'
 const appSidebarFrame = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/SidebarFrame.tsx'
 const mobileSidebarSheet = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/MobileSidebarSheet.tsx'
@@ -98,6 +109,21 @@ describe('app performance contracts', () => {
       expect(source).toContain("from '@nl/ui/class-names'")
       expect(source).not.toContain("from '@nl/ui/utils'")
     }
+  })
+
+  it('keeps the eager marketing shell off the conflict-merging utility', () => {
+    for (const file of marketingShellClassNameSources) {
+      const source = readFileSync(file, 'utf8')
+      expect(source).toContain("from '@nl/ui/class-names'")
+      expect(source).not.toContain("from '@nl/ui/utils'")
+    }
+  })
+
+  it('keeps the marketing console preview deferred until it is close to view', () => {
+    const source = readFileSync(deferredConsoleGame, 'utf8')
+    expect(source).toContain("useOnScreen(rootRef, '0px')")
+    expect(source).toContain('<DeferredSkeleton')
+    expect(source).toContain('aria-label="Loading game preview"')
   })
 
   it('loads the accessible mobile sidebar sheet only when opened', () => {

@@ -3,8 +3,8 @@
 import Image from 'next/image'
 import { memo, useRef, useState, useCallback, useEffect } from 'react'
 import { Button } from '@nl/ui/base/button'
+import { cx } from '@nl/ui/class-names'
 import { ParallaxWrapper } from '@nl/ui/custom/parallax-wrapper'
-import { cn } from '@nl/ui/utils'
 
 import styles from './index.module.css'
 
@@ -85,7 +85,7 @@ export const ConsoleGame = memo(function ConsoleGame({
           variant="ghost"
           size="icon"
           aria-label={isPlaying ? 'Pause video' : 'Play video'}
-          className={cn(styles.bonk_note, 'h-auto w-auto rounded-none p-0 hover:bg-transparent')}
+          className={cx(styles.bonk_note, 'h-auto w-auto rounded-none p-0 hover:bg-transparent')}
         >
           <Image
             alt="Bonk Sticker"

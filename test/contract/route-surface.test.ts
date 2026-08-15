@@ -2137,7 +2137,7 @@ describe('public route dependency contract', () => {
 
     expect(source).toContain("import { buttonVariants } from '@nl/ui/base/button-variants'")
     expect(source).toContain("buttonVariants({ variant: 'ghost'")
-    expect(source).toContain("buttonVariants({ className: cn(buttonClassName, 'disabled') })")
+    expect(source).toContain("buttonVariants({ className: cx(buttonClassName, 'disabled') })")
     expect(source).toContain('<button')
     expect(source).not.toContain("from '@nl/ui/base/button'")
     expect(source).not.toContain('aria-disabled={disabled}')

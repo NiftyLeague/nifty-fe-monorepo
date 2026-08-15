@@ -3,7 +3,7 @@ import type { UrlObject } from 'url'
 
 import { buttonVariants } from '@nl/ui/base/button-variants'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
-import { cn } from '@nl/ui/utils'
+import { cx } from '@nl/ui/class-names'
 
 export interface ThemeButtonProps {
   href?: string | UrlObject
@@ -23,7 +23,7 @@ export function ThemeButton({
   external = false,
   isPrimary = false,
 }: ThemeButtonProps & { isPrimary?: boolean }) {
-  const buttonClassName = cn(isPrimary ? 'theme-btn-primary' : 'theme-btn-transparent', className)
+  const buttonClassName = cx(isPrimary ? 'theme-btn-primary' : 'theme-btn-transparent', className)
   const content = responsiveTitle ? (
     <>
       <span className="responsive-label-mobile">{responsiveTitle.mobile}</span>
@@ -38,7 +38,7 @@ export function ThemeButton({
       <button
         type="button"
         disabled
-        className={buttonVariants({ className: cn(buttonClassName, 'disabled') })}
+        className={buttonVariants({ className: cx(buttonClassName, 'disabled') })}
       >
         {content}
         {external && <ExternalIcon />}
@@ -70,7 +70,7 @@ interface ThemeButtonGroupProps {
 export function ThemeButtonGroup({ className, primary, secondary }: ThemeButtonGroupProps) {
   return (
     <div
-      className={cn(
+      className={cx(
         'w-full flex flex-row flex-wrap justify-center items-center z-10',
         'gap-2 md:gap-3 xl:gap-4',
         'mt-4 xl:mt-6 -mx-2 sm:mx-0',
