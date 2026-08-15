@@ -26,6 +26,8 @@ describe('hosted validation cost policy', () => {
     const source = readWorkflow('draft-pr.yml')
 
     expect(source).toContain("      - 'codex/*'")
+    expect(source).toContain("      - '!codex/promote-*'")
+    expect(source).toContain("      - '!chore/re-align-staging-*'")
     expect(source).toContain('base: staging')
   })
 
