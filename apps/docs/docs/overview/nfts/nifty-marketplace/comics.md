@@ -4,7 +4,7 @@ title: Comics
 sidebar_position: 1
 ---
 
-import ReactPlayer from 'react-player';
+import ViewportVideo from '@nl/ui/custom/viewport-video';
 import VideoURL1 from '/video/comics_archive.mp4';
 
 | ![](/img/comics/page/1.webp) | ![](/img/comics/page/2.webp) | ![](/img/comics/page/3.webp) |
@@ -26,7 +26,12 @@ There was a snapshot on 1/31/2022 for **Comic 5** awarded to all DEGEN holders, 
 
 In addition, all [Meta background](/docs/overview/nfts/degens/backgrounds) DEGENs received one **Comic 6** NFT, and all [Legendary background](/docs/overview/nfts/degens/backgrounds) DEGENs received two **Comic 6** NFTs.
 
-<ReactPlayer controls src={VideoURL1} width="100%" height={500} />
+<ViewportVideo
+controls
+playOnViewport={false}
+src={VideoURL1}
+style={{ display: 'block', width: '100%', height: 500 }}
+/>
 
 :::tip[Note]
 
