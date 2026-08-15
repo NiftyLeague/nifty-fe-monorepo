@@ -24,7 +24,7 @@ During minting, we surprised the community with a special Nifty League launch Co
 
 There was a snapshot on 1/31/2022 for **Comic 5** awarded to all DEGEN holders, and **Comic 6** awarded to all wallets containing all 6 DEGEN tribes.
 
-In addition, all [Meta background](/docs/overview/nfts/degens/backgrounds) DEGENs received one **Comic 6** NFT, and all [Legendary background](/docs/overview/nfts/degens/backgrounds) DEGENs received two **Comic 6** NFTs.
+In addition, all [Meta background](/overview/nfts/degens/backgrounds) DEGENs received one **Comic 6** NFT, and all [Legendary background](/overview/nfts/degens/backgrounds) DEGENs received two **Comic 6** NFTs.
 
 <ViewportVideo
 controls

@@ -17,7 +17,7 @@ A battle royale third person shooter game in which players gather gems from the 
 
 ## Environment
 
-Nifty Royale takes place in our Beach City & Naked Beach regions of [NiftyWorld](/docs/overview/games/niftyworld).
+Nifty Royale takes place in our Beach City & Naked Beach regions of [NiftyWorld](/overview/games/niftyworld).
 
 <div style={{ maxWidth: 640, marginRight: 'auto' }}>
   ![](/img/niftyworld/nakedbeach_01.webp)
