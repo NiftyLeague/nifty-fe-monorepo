@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-import { cn } from '@nl/ui/utils'
+import { cx } from '@nl/ui/class-names'
 
 interface MobileNavigationDisclosureProps {
   children: ReactNode
@@ -20,12 +20,12 @@ export function MobileNavigationDisclosure({
   summaryClassName,
 }: MobileNavigationDisclosureProps) {
   return (
-    <details className={cn('group relative', className)}>
+    <details className={cx('group relative', className)}>
       <summary
         role="button"
         aria-controls={id}
         aria-label={label}
-        className={cn(
+        className={cx(
           'flex size-10 cursor-pointer list-none items-center justify-center rounded-md text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring/50 [&::-webkit-details-marker]:hidden',
           summaryClassName
         )}
@@ -37,7 +37,7 @@ export function MobileNavigationDisclosure({
         </span>
         <span className="sr-only">{label}</span>
       </summary>
-      <div id={id} className={cn(panelClassName)}>
+      <div id={id} className={cx(panelClassName)}>
         {children}
       </div>
     </details>
