@@ -9,6 +9,7 @@
     "./custom/*": "./src/components/custom/*/index.tsx",
     "./hooks/*": "./src/hooks/*.ts",
     "./class-names": "./src/lib/class-names.ts",
+    "./number-format": "./src/lib/number-format.ts",
     "./fonts": "./src/lib/fonts/index.ts",
     "./fonts/*": "./src/lib/fonts/*.ts",
     "./gtm": "./src/lib/gtm/index.tsx",

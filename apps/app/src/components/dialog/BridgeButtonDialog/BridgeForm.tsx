@@ -16,7 +16,7 @@ import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import { Title } from '@nl/ui/custom/typography'
 
 import { bridgeNFTL, increaseBridgeAllowance } from '@/utils/interchainTokenService'
-import { formatNumberToDisplay } from '@nl/ui/utils'
+import { formatNumberToDisplay } from '@nl/ui/number-format'
 import { IMX_SQUID_BRIDGE_URL } from '@/constants/url'
 import { INTERCHAIN_TOKEN_SERVICE_ADDRESS } from '@/constants/contracts'
 import useIMXContext from '@/hooks/useIMXContext'

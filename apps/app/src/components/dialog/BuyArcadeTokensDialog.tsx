@@ -16,7 +16,7 @@ import { Input } from '@nl/ui/custom/input'
 import { Title } from '@nl/ui/custom/typography'
 
 import type { DialogProps } from '@/types/dialog'
-import { formatNumberToDisplay } from '@nl/ui/utils'
+import { formatNumberToDisplay } from '@nl/ui/number-format'
 import { GET_PRODUCT, NFTL_PURCHASE_URL, PURCHASE_ARCADE_TOKEN_BALANCE_API } from '@/constants/url'
 import useGameAccount from '@/hooks/useGameAccount'
 import useAuth from '@/hooks/useAuth'

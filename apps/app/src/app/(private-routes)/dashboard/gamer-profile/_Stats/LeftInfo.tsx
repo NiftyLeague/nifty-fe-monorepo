@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import { useGamerProfileContext } from '@/hooks/useGamerProfile'
 import type { ProfileTotal, ProfileNiftySmsher } from '@/types/account'
-import { formatNumberToDisplay } from '@nl/ui/utils'
+import { formatNumberToDisplay } from '@nl/ui/number-format'
 import { secondsToHours } from '@/utils/dateTime'
 
 import Item from './Item'

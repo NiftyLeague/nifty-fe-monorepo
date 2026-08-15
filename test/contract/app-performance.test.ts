@@ -11,6 +11,18 @@ const smashersNextConfig = 'apps/smashers/next.config.ts'
 const templateNextConfig = 'apps/template/next.config.ts'
 const webManifest = 'apps/web/package.json'
 const webNextConfig = 'apps/web/next.config.ts'
+const incrementalTypecheckConfigs = [
+  'apps/api/tsconfig.json',
+  'apps/docs/tsconfig.json',
+  'apps/template/tsconfig.json',
+  'apps/web/tsconfig.json',
+  'apps/app/tsconfig.json',
+  'apps/smashers/tsconfig.json',
+  'packages/contracts/tsconfig.json',
+  'packages/playfab/tsconfig.json',
+  'packages/sentry-client/tsconfig.json',
+  'packages/ui/tsconfig.json',
+]
 const deferredSentryClient = 'packages/sentry-client/src/client.ts'
 const deferredSentryModule = 'packages/sentry-client/src/nextjs-client.ts'
 const appRootLayout = 'apps/app/src/app/layout.tsx'
@@ -19,6 +31,7 @@ const sharedAppBar = 'packages/ui/src/components/custom/app-bar/index.tsx'
 const sharedAppBarStyles = 'packages/ui/src/components/custom/app-bar/app-bar.module.css'
 const lightweightClassNames = 'packages/ui/src/lib/class-names.ts'
 const deferredConsoleGame = 'packages/ui/src/components/custom/deferred-console-game/index.tsx'
+const gltfViews = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViews.tsx'
 const marketingShellClassNameSources = [
   'apps/web/src/app/layout.tsx',
   'apps/web/src/components/Footer/index.tsx',
@@ -126,6 +139,12 @@ describe('app performance contracts', () => {
     expect(source).toContain('aria-label="Loading game preview"')
   })
 
+  it('keeps the GLTF viewer off the conflict-merging utility', () => {
+    const source = readFileSync(gltfViews, 'utf8')
+    expect(source).toContain("from '@nl/ui/class-names'")
+    expect(source).not.toContain("from '@nl/ui/utils'")
+  })
+
   it('loads the accessible mobile sidebar sheet only when opened', () => {
     const sidebarSource = readFileSync(appSidebarFrame, 'utf8')
     const mobileSheetSource = readFileSync(mobileSidebarSheet, 'utf8')
@@ -228,6 +247,12 @@ describe('app performance contracts', () => {
   it('modularizes shared Lucide imports before the app graph is bundled', () => {
     for (const file of [appNextConfig, smashersNextConfig, webNextConfig, templateNextConfig]) {
       expect(readFileSync(file, 'utf8')).toContain("optimizePackageImports: ['lucide-react']")
+    }
+  })
+
+  it('keeps every TypeScript project on incremental checking', () => {
+    for (const file of incrementalTypecheckConfigs) {
+      expect(readFileSync(file, 'utf8')).toContain('"incremental": true')
     }
   })
 

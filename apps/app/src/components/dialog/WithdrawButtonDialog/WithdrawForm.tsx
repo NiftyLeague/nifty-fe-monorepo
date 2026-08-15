@@ -9,7 +9,7 @@ import { Alert } from '@nl/ui/base/alert'
 import { Button } from '@nl/ui/base/button'
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import { Title } from '@nl/ui/custom/typography'
-import { formatNumberToDisplay } from '@nl/ui/utils'
+import { formatNumberToDisplay } from '@nl/ui/number-format'
 
 import { formatDateTime } from '@/utils/dateTime'
 import { useConnectedToIMXCheck } from '@/hooks/useImxProvider'

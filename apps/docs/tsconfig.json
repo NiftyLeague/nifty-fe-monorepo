@@ -1,6 +1,7 @@
 {
   "extends": "@nl/typescript-config/react-library.json",
   "compilerOptions": {
+    "incremental": true,
     "jsx": "preserve",
     "paths": { "@site/*": ["./*"] }
   },

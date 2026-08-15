@@ -2,7 +2,7 @@
 
 import { Skeleton } from '@nl/ui/base/skeleton'
 
-import { formatNumberToDisplay } from '@nl/ui/utils'
+import { formatNumberToDisplay } from '@nl/ui/number-format'
 import useTokensBalances from '@/hooks/balances/useTokensBalances'
 import SectionTitle from '@/components/sections/SectionTitle'
 import AddNFTLToMetamask from '@/app/_layout/_MainLayout/_Header/AddNFTLToMetamask'

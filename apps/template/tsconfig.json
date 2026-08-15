@@ -1,6 +1,7 @@
 {
   "extends": "@nl/typescript-config/nextjs.json",
   "compilerOptions": {
+    "incremental": true,
     "paths": { "@/*": ["./src/*"], "@nl/ui/*": ["../../packages/ui/src/*"] },
     "plugins": [{ "name": "next" }]
   },

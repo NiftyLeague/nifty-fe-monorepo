@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'bun:test'
-import { cn, formatNumberToDisplay } from './utils'
+import { formatNumberToDisplay } from './number-format'
+import { cn } from './utils'
 
 describe('UI utility helpers', () => {
   it('merges conditional classes and resolves Tailwind conflicts', () => {
