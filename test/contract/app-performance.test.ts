@@ -11,6 +11,7 @@ const smashersNextConfig = 'apps/smashers/next.config.ts'
 const templateNextConfig = 'apps/template/next.config.ts'
 const webManifest = 'apps/web/package.json'
 const webNextConfig = 'apps/web/next.config.ts'
+const webHome = 'apps/web/src/app/(main)/page.tsx'
 const incrementalTypecheckConfigs = [
   'apps/api/tsconfig.json',
   'apps/docs/tsconfig.json',
@@ -150,6 +151,16 @@ describe('app performance contracts', () => {
     expect(source).toContain("useOnScreen(rootRef, '0px')")
     expect(source).toContain('<DeferredSkeleton')
     expect(source).toContain('aria-label="Loading game preview"')
+  })
+
+  it('loads the above-the-fold hero character layer eagerly', () => {
+    const source = readFileSync(webHome, 'utf8')
+    const heroStart = source.indexOf('src="/img/hero/characters.webp"')
+    const heroEnd = source.indexOf('/>', heroStart)
+
+    expect(heroStart).toBeGreaterThanOrEqual(0)
+    expect(heroEnd).toBeGreaterThan(heroStart)
+    expect(source.slice(heroStart, heroEnd)).toContain('loading="eager"')
   })
 
   it('keeps the GLTF viewer off the conflict-merging utility', () => {
