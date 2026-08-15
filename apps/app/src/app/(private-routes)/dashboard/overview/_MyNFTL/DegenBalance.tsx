@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { Button } from '@nl/ui/base/button'
 
-import { formatNumberToDisplay } from '@nl/ui/utils'
+import { formatNumberToDisplay } from '@nl/ui/number-format'
 import HoverDataCard from '@/components/cards/HoverDataCard'
 import useClaimNFTL from '@/hooks/writeContracts/useClaimNFTL'
 import useNetworkContext from '@/hooks/useNetworkContext'

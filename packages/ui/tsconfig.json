@@ -1,6 +1,6 @@
 {
   "extends": "@nl/typescript-config/react-library.json",
-  "compilerOptions": { "paths": { "@nl/ui/*": ["./src/*"] } },
+  "compilerOptions": { "incremental": true, "paths": { "@nl/ui/*": ["./src/*"] } },
   "include": ["."],
   "exclude": [
     "node_modules",
