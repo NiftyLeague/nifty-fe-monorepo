@@ -1,4 +1,4 @@
-import { describe, expect, it, mock } from 'bun:test'
+import { describe, expect, it, spyOn } from 'bun:test'
 
 // calculateGasMargin is pure — test first without module mocks
 const { calculateGasMargin, loadGasPrice } = await import('./gas')
@@ -80,24 +80,17 @@ describe('loadGasPrice', () => {
     }
   })
 
-  it('handles axios errors gracefully when online and returns default', async () => {
+  it('handles gas station errors gracefully when online and returns default', async () => {
     const origOnLine = navigator.onLine
     Object.defineProperty(navigator, 'onLine', { configurable: true, value: true })
+    const fetchMock = spyOn(globalThis, 'fetch').mockRejectedValue(new Error('Network error'))
 
     try {
-      // Mock axios to reject — this should trigger the catch handler and
-      // the function should return the default 20 gwei
-      const mockAxios = {
-        default: { get: mock().mockRejectedValue(new Error('Network error')) },
-        AxiosResponse: class {},
-      }
-      mock.module('axios', () => mockAxios)
-
-      // Re-import to pick up the mock
-      const { loadGasPrice: loadWithMock } = await import('./gas')
-      const price = await loadWithMock({ chainId: 1 } as any)
+      const price = await loadGasPrice({ chainId: 1 } as any)
       expect(price).toBe(20_000_000_000n)
+      expect(fetchMock).toHaveBeenCalledWith('https://ethgasstation.info/json/ethgasAPI.json')
     } finally {
+      fetchMock.mockRestore()
       Object.defineProperty(navigator, 'onLine', { configurable: true, value: origOnLine })
     }
   })
