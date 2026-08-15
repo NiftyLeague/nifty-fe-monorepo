@@ -132,7 +132,7 @@ const DegenCardInView: React.FC<
   React.PropsWithChildren<React.PropsWithChildren<DegenCardProps>>
 > = (props) => {
   const ref = useRef<HTMLDivElement>(null)
-  const inView = useOnScreen(ref)
+  const inView = useOnScreen(ref, '0px', { once: true })
 
   return <div ref={ref}>{inView ? <DegenCard {...props} /> : <SkeletonDegenPlaceholder />}</div>
 }

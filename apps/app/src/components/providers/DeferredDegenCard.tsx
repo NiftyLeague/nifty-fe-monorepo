@@ -12,7 +12,7 @@ const loadDegenCard = () => import('@/components/cards/DegenCard')
 
 export default function DeferredDegenCard({ size = 'normal', ...props }: DegenCardProps) {
   const cardRef = useRef<HTMLDivElement>(null)
-  const isNearViewport = useOnScreen(cardRef, '320px')
+  const isNearViewport = useOnScreen(cardRef, '320px', { once: true })
 
   return (
     <div ref={cardRef}>
