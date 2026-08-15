@@ -1,6 +1,4 @@
-import { gql } from 'graphql-request'
-
-const ID_SEARCH_QUERY = gql`
+const ID_SEARCH_QUERY = `
   query CharacterByID($search: String) {
     characters(where: { tokenId: $search }) {
       id

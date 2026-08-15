@@ -3,6 +3,9 @@ import { existsSync, readFileSync } from 'node:fs'
 
 const responsiveTableList = 'apps/app/src/components/ResponsiveTable/DataList.tsx'
 const appManifest = 'apps/app/package.json'
+const appGasUtility = 'apps/app/src/utils/gas.ts'
+const retiredAxiosUtility = 'apps/app/src/utils/axios.ts'
+const appGraphQLUtility = 'apps/app/src/utils/graphql.ts'
 const appNextConfig = 'apps/app/next.config.ts'
 const smashersNextConfig = 'apps/smashers/next.config.ts'
 const webManifest = 'apps/web/package.json'
@@ -181,6 +184,26 @@ describe('app performance contracts', () => {
     for (const file of [appNextConfig, smashersNextConfig]) {
       expect(readFileSync(file, 'utf8')).toContain('useTypeScriptCli: true')
     }
+  })
+
+  it('keeps the app gas-price path on native fetch without a retired Axios wrapper', () => {
+    const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
+    const gasSource = readFileSync(appGasUtility, 'utf8')
+
+    expect(manifest.dependencies?.axios).toBeUndefined()
+    expect(gasSource).toContain("fetch('https://ethgasstation.info/json/ethgasAPI.json')")
+    expect(gasSource).not.toContain("from 'axios'")
+    expect(existsSync(retiredAxiosUtility)).toBe(false)
+  })
+
+  it('keeps the app GraphQL path on native fetch without request-client dependencies', () => {
+    const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
+    const graphqlSource = readFileSync(appGraphQLUtility, 'utf8')
+
+    expect(manifest.dependencies?.graphql).toBeUndefined()
+    expect(manifest.dependencies?.['graphql-request']).toBeUndefined()
+    expect(graphqlSource).toContain("method: 'POST'")
+    expect(graphqlSource).toContain("'Content-Type': 'application/json'")
   })
 
   it('uses Turbopack for local marketing development', () => {

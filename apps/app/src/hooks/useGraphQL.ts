@@ -1,7 +1,6 @@
 'use client'
 
 import { useQuery, type UseQueryResult } from '@tanstack/react-query'
-import { request } from 'graphql-request'
 import { useAccount } from 'wagmi'
 
 import type { CharactersQueryData, OwnerQueryData } from '@/types/graph'
@@ -10,6 +9,7 @@ import OWNER_QUERY from '@/queries/OWNER_QUERY'
 import { SUBGRAPH_URI, SUBGRAPH_DEV_URI } from '@/constants'
 import { TARGET_NETWORK } from '@/constants/networks'
 import useAuth from '@/hooks/useAuth'
+import { requestGraphQL } from '@/utils/graphql'
 
 const endpoint = TARGET_NETWORK.name === 'mainnet' ? SUBGRAPH_URI : SUBGRAPH_DEV_URI
 const headers = { Authorization: `Bearer ${process.env.NEXT_PUBLIC_GRAPH_API_KEY}` }
@@ -21,12 +21,12 @@ export function useCharacterSearch(
   return useQuery({
     queryKey: ['characters', tokenId],
     queryFn: async () => {
-      const { characters } = await request<CharactersQueryData>(
+      const { characters } = await requestGraphQL<CharactersQueryData>({
         endpoint,
-        ID_SEARCH_QUERY,
+        query: ID_SEARCH_QUERY,
         variables,
-        headers
-      )
+        headers,
+      })
       return characters
     },
     enabled: !!tokenId,
@@ -43,7 +43,12 @@ export function useOwnerSearch(
   return useQuery({
     queryKey: ['owner', key],
     queryFn: async () => {
-      const { owner } = await request<OwnerQueryData>(endpoint, OWNER_QUERY, variables, headers)
+      const { owner } = await requestGraphQL<OwnerQueryData>({
+        endpoint,
+        query: OWNER_QUERY,
+        variables,
+        headers,
+      })
       return owner
     },
     enabled: key.length > 20 && isLoggedIn,

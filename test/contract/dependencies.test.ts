@@ -218,7 +218,6 @@ const ALLOWED_UNUSED: Record<string, Record<string, string>> = {
   },
   'apps/app': {
     sharp: 'Next.js image optimization runtime dep',
-    graphql: 'peer dep of graphql-request',
   },
   'apps/smashers': {
     sharp: 'Next.js image optimization runtime dep',

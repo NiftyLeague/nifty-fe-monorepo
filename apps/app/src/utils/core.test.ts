@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { beforeEach, describe, expect, it, spyOn } from 'bun:test'
 import { mock } from 'bun:test'
 import { areEqualArrays, getUniqueListBy } from './array'
@@ -13,7 +12,6 @@ let calculateGasMargin: typeof import('./gas').calculateGasMargin
 let loadGasPrice: typeof import('./gas').loadGasPrice
 
 beforeEach(async () => {
-  mock.module('axios', () => ({ default: { get: mock() } }))
   const gas = await import('./gas')
   calculateGasMargin = gas.calculateGasMargin
   loadGasPrice = gas.loadGasPrice
@@ -98,8 +96,10 @@ describe('error and gas helpers', () => {
 
   it('uses configured gas prices before consulting the network', async () => {
     const configured = 25_000_000_000n
+    const fetchMock = spyOn(globalThis, 'fetch')
     expect(await loadGasPrice({ gasPrice: configured } as never)).toBe(configured)
-    expect(axios.get).not.toHaveBeenCalled()
+    expect(fetchMock).not.toHaveBeenCalled()
+    fetchMock.mockRestore()
   })
 
   it('applies the existing margin and minimum rules', () => {

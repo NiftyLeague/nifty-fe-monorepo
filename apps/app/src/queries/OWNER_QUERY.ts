@@ -1,6 +1,4 @@
-import { gql } from 'graphql-request'
-
-const OWNER_QUERY = gql`
+const OWNER_QUERY = `
   query addressCharactersSearch($address: ID!) {
     owner(id: $address) {
       id
