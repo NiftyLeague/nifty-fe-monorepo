@@ -281,6 +281,14 @@ describe('app performance contracts', () => {
     }
   })
 
+  it('keeps Sentry source-map uploads narrow enough for production builds', () => {
+    for (const file of [appNextConfig, smashersNextConfig, webNextConfig]) {
+      const source = readFileSync(file, 'utf8')
+      expect(source).toContain("sourcemaps: { disable: ENV !== 'production' }")
+      expect(source).toContain('widenClientFileUpload: false')
+    }
+  })
+
   it('keeps every TypeScript project on incremental checking', () => {
     for (const file of incrementalTypecheckConfigs) {
       expect(readFileSync(file, 'utf8')).toContain('"incremental": true')
