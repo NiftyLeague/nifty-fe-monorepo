@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import Image, { getImageProps } from 'next/image'
+import { getImageProps } from 'next/image'
 
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 import { DeferredOverviewFAQ } from '@/components/DeferredOverviewSections'
