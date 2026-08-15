@@ -466,7 +466,11 @@ describe('GLTF viewer loading contract', () => {
     const source = readFileSync(join(process.cwd(), gltfPage), 'utf8')
 
     expect(source).toContain('priority\n          src={imageSrc}')
-    expect(source).not.toContain('className={styles.sprite}\n          fill\n          priority')
+    expect(source).toContain('className={styles.sprite__wrapper}')
+    expect(source).toContain(
+      'className={styles.sprite}\n            fill\n            sizes="100vw"'
+    )
+    expect(source).toContain("priority\n          style={{ maxWidth: '24vw', height: 'auto' }}")
     expect(source).not.toContain('quality={100}')
   })
 
