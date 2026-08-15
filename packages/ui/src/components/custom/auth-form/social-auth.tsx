@@ -54,5 +54,3 @@ export function SocialAuth({
     </>
   )
 }
-
-export default SocialAuth

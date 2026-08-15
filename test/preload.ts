@@ -8,14 +8,9 @@
  * call here would set the "already registered" global flag and BREAK the real
  * registration in 000-setup-dom. Only module mocks belong in preload.
  *
- * 1. Stubs the Docusaurus virtual modules that the docs app imports (mirrors the
- *    previous test configuration resolve.alias to test/stubs/*.tsx).
+ * 1. Stubs the Docusaurus virtual modules that the docs app imports.
  */
 import { mock } from 'bun:test'
-// Mirrors the previous test alias:
-//   @docusaurus/Link            -> test/stubs/DocusaurusLink.tsx
-//   @docusaurus/useBaseUrl     -> test/stubs/useBaseUrl.ts
-//   @theme/ThemedImage          -> test/stubs/ThemedImage.tsx
 mock.module('@docusaurus/Link', () => ({ default: (props: any) => null }))
 
 mock.module('@docusaurus/useBaseUrl', () => ({ default: (s: string) => s }))

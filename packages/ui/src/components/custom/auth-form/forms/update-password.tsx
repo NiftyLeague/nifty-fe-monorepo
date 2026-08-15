@@ -88,5 +88,3 @@ export function UpdatePasswordForm({ handleUpdatePassword }: UpdatePasswordFormP
     </Form>
   )
 }
-
-export default UpdatePasswordForm

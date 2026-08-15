@@ -18,5 +18,3 @@ export function secondsToHours(seconds: number): number {
   const hours = seconds / 3600
   return Math.trunc(hours)
 }
-
-export default formatDateTime

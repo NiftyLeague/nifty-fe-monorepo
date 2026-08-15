@@ -9,7 +9,7 @@ interface NavbarScrollFrameProps {
   className?: string
 }
 
-export const NAVBAR_SCROLL_FRAME_ID = 'nifty-navbar-scroll-frame'
+const NAVBAR_SCROLL_FRAME_ID = 'nifty-navbar-scroll-frame'
 
 export function NavbarScrollFrame({ children, className }: NavbarScrollFrameProps) {
   return (
@@ -26,5 +26,3 @@ export function NavbarScrollFrame({ children, className }: NavbarScrollFrameProp
     </header>
   )
 }
-
-export default NavbarScrollFrame

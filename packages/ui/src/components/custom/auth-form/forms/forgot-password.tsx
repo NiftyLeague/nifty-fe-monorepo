@@ -74,5 +74,3 @@ export function ForgotPasswordForm({ setAuthView, handleResetPassword }: ForgotP
     </Form>
   )
 }
-
-export default ForgotPasswordForm

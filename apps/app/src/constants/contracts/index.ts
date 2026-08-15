@@ -35,9 +35,6 @@ export const INTERCHAIN_SERVICE_CONTRACT = 'InterchainTokenService'
 export const MERKLE_TREE =
   'https://raw.githubusercontent.com/NiftyLeague/nifty-smart-contracts/refs/heads/main/src/data/merkle-result.json'
 
-// Other
-export const COWSWAP_VAULT_RELAYER_ADDRESS = '0xC92E8bdf79f0507f65a392b0ab4667716BFE0110'
-
 type ChainAddressSearch = { [chainId: number]: `0x${string}` }
 export const WETH_ADDRESS: ChainAddressSearch = {
   [MAINNET_ID]: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',

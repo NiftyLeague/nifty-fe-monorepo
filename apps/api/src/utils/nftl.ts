@@ -108,7 +108,7 @@ export async function resolveTotalSupplyImpl(): Promise<string | null> {
   }
 }
 
-export const calculateRemainingEmissions = (): string => {
+const calculateRemainingEmissions = (): string => {
   // Emissions period ended 2024-09-14; no remaining emissions.
   return '0'
 }
