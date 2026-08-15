@@ -218,7 +218,7 @@ Rental passes let you rent a DEGEN for free, bypassing the rental fee entirely! 
 
 Nifty League typically issues rental passes as rewards for our active community members and players, and to Clubs, partners and other communites we love.<br /><br />
 
-You may choose to share your rental pass with a friend or family member who's interested in trying out Nifty Smashers, or buying a [DEGEN NFT](/docs/overview/nfts/degens/about) and understanding the player ecosystem in more detail. Alternatively, you can apply the rental pass on a DEGEN you don't own but wish to rent.
+You may choose to share your rental pass with a friend or family member who's interested in trying out Nifty Smashers, or buying a [DEGEN NFT](/overview/nfts/degens/about) and understanding the player ecosystem in more detail. Alternatively, you can apply the rental pass on a DEGEN you don't own but wish to rent.
 
 </details>
 

@@ -20,7 +20,7 @@ All in-game earnings will be split between the DEGEN owner, renter (and sponsor,
 
 The [rental dashboard](https://app.niftyleague.com/degen-rentals) shows the current price and multiplier for each DEGEN, which are locked upon confirming the rental agreement.
 
-Rental prices vary based on each DEGEN's background (more info can be found in [the Rentals FAQ](https://niftyleague.com/docs/faq/rentals)). Multipliers will be driven by the market - every DEGEN will cost the same for its initial rental.
+Rental prices vary based on each DEGEN's background (more info can be found in [the Rentals FAQ](https://docs.niftyleague.com/faq/rentals)). Multipliers will be driven by the market - every DEGEN will cost the same for its initial rental.
 
 **Renters will never have to contact or be concerned with who owns their DEGEN - the agreement is executed by the smart contract making renting no-contact and seamless.**
 

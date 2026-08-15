@@ -21,7 +21,7 @@ NFTL is available on both Ethereum and Immutable zkEVM. While we started on Ethe
 <details>
 <summary>What utility does NFTL have?</summary>
 
-NFTL acts as a way to decentralize our ecosystem by ensuring important decisions regarding the direction of Nifty League are decided via the Nifty DAO. It serves a dual purpose of giving users voting rights on upcoming games and tournaments, as well as being used for platform-wide expenses. [Learn more](/docs/overview/nifty-dao/nftl/overview.md)
+NFTL acts as a way to decentralize our ecosystem by ensuring important decisions regarding the direction of Nifty League are decided via the Nifty DAO. It serves a dual purpose of giving users voting rights on upcoming games and tournaments, as well as being used for platform-wide expenses. [Learn more](/overview/nifty-dao/nftl/overview.md)
 
 </details>
 
@@ -33,7 +33,7 @@ You can purchase NFTL by swapping ETH (or WETH) for NFTL on decentralized tradin
 </details>
 
 <details>
-<summary>How much NFTL does a [DEGEN NFT](/docs/overview/nfts/degens/about) earn per day passively (regardless of gameplay)?</summary>
+<summary>How much NFTL does a [DEGEN NFT](/overview/nfts/degens/about) earn per day passively (regardless of gameplay)?</summary>
 
 DEGEN yield ended on September 14th, 2024. Previously they accumulated 68.5 NFTL per day for 3 years post-launch.
 
@@ -63,7 +63,7 @@ Yes! Actually, it's already available on [Tally.xyz](https://www.tally.xyz/)! NF
 <details>
 <summary>Is there a max supply of NFTL?</summary>
 
-While no hard number is set in the contract, the current max supply is 1.25 billion tokens. The supply will only be increased if the DAO votes to do so. Read more about [supply](/docs/overview/nifty-dao/nftl/supply).
+While no hard number is set in the contract, the current max supply is 1.25 billion tokens. The supply will only be increased if the DAO votes to do so. Read more about [supply](/overview/nifty-dao/nftl/supply).
 
 </details>
 

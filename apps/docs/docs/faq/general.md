@@ -72,7 +72,7 @@ Navigate to the ✅ | #verify-degens channel channel in the official [Nifty Leag
 </details>
 
 <details>
-<summary>Why is the genesis [DEGEN NFT](/docs/overview/nfts/degens/about) max supply 9.2k/10k?</summary>
+<summary>Why is the genesis [DEGEN NFT](/overview/nfts/degens/about) max supply 9.2k/10k?</summary>
 
 800 DEGENs were burned by the community and team in order to mint Hydras, an ancient 7th tribe.
 
@@ -81,7 +81,7 @@ Navigate to the ✅ | #verify-degens channel channel in the official [Nifty Leag
 <details>
 <summary>Will there be additional generations of DEGENs created in the future?</summary>
 
-Whether or not we create further generations of [DEGEN NFTs](/docs/overview/nfts/degens/about) will be decided by the Nifty League DAO in the future.
+Whether or not we create further generations of [DEGEN NFTs](/overview/nfts/degens/about) will be decided by the Nifty League DAO in the future.
 
 </details>
 
@@ -99,7 +99,7 @@ We are constantly working on partnership integrations - please reach out to our 
 
 Backgrounds come with special perks such as a distinguished look in game and occasional extra bonuses or rewards in-game.
 
-Read more about [DEGEN backgrounds](/docs/overview/nfts/degens/backgrounds).
+Read more about [DEGEN backgrounds](/overview/nfts/degens/backgrounds).
 
 </details>
 

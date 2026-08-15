@@ -6,9 +6,9 @@ sidebar_position: 5
 
 ### DEGEN Holders - _718.5M NFTL (31.5M lost with DEGEN burns)_
 
-250M NFTL was distributed annually over the first 3 years to all [DEGEN NFT](/docs/overview/nfts/degens/about) owners at a rate of **68.5 NFTL per day**. Almost half of these tokens are still unclaimed which is why the current Circulating/Total Supply is lower than our Max Supply figure.
+250M NFTL was distributed annually over the first 3 years to all [DEGEN NFT](/overview/nfts/degens/about) owners at a rate of **68.5 NFTL per day**. Almost half of these tokens are still unclaimed which is why the current Circulating/Total Supply is lower than our Max Supply figure.
 
-During the [Hydra mint](/docs/overview/nfts/degens/tribes#hydra---degen-burn), 800 DEGENs were burned and their claim to 31.5M NFTL was lost along with it.
+During the [Hydra mint](/overview/nfts/degens/tribes#hydra---degen-burn), 800 DEGENs were burned and their claim to 31.5M NFTL was lost along with it.
 
 > DEGEN owners may claim their NFTL on our website at any time by visiting their [Profile](https://app.niftyleague.com/profile). NFTL is associated with each DEGEN, not your wallet address. Meaning - selling before claiming will tranfer any claimable NFTL to the new owner. Claiming your DEGEN's earned NFTL mints new token and sends them to your crypto wallet (gas must be paid to perform this action).
 
@@ -18,7 +18,7 @@ During the [Hydra mint](/docs/overview/nfts/degens/tribes#hydra---degen-burn), 8
 
 ### Play-2-Earn (P2E) - _87.75M NFTL_
 
-To bootstrap [Nifty Smashers](/docs/overview/games/mobile-games/nifty-smashers) and encourage new players to test our system we introduced p2e rewards for a limited time. This program is now complete and no NFTL p2e options are intended to available in our games going forward.
+To bootstrap [Nifty Smashers](/overview/games/mobile-games/nifty-smashers) and encourage new players to test our system we introduced p2e rewards for a limited time. This program is now complete and no NFTL p2e options are intended to available in our games going forward.
 
 ---
 

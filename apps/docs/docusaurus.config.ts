@@ -7,7 +7,8 @@ const config: Config = {
   tagline: 'Documentation and Guides',
   favicon: 'favicon/nl_purple/favicon.ico',
   url: 'https://docs.niftyleague.com/',
-  baseUrl: '/docs/',
+  // The docs project is served at the root of docs.niftyleague.com.
+  baseUrl: '/',
   organizationName: 'NiftyLeague',
   projectName: 'docs',
   onBrokenLinks: 'throw',
@@ -90,13 +91,13 @@ const config: Config = {
         //   className: 'persistent',
         // },
         {
-          to: '/docs/overview/intro',
+          to: '/overview/intro',
           label: 'Overview',
           position: 'left',
           className: 'persistent',
         },
-        { to: '/docs/guides/set-up', label: 'Guides', position: 'left', className: 'persistent' },
-        { to: '/docs/faq/general', label: 'FAQ', position: 'left', className: 'persistent' },
+        { to: '/guides/set-up', label: 'Guides', position: 'left', className: 'persistent' },
+        { to: '/faq/general', label: 'FAQ', position: 'left', className: 'persistent' },
         // {
         //   type: 'docSidebar',
         //   sidebarId: 'tutorialSidebar',

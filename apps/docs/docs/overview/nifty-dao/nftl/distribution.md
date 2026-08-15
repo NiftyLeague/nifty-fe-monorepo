@@ -28,7 +28,7 @@ In order to foster a strong community, early community members who went above an
 
 Axie Infinity was one of our early inspirations. To commemorate this we had an early claimable airdrop for AXS governance token holders. The airdrop included holders based on a snapshot taken at [Block #13360120](https://etherscan.io/block/13360120). Note, a total of 256K NFTL were claimed while the AXS airdrop contract was open. In October 2021, we decided to close our AXS holders airdrop early, sending remaining tokens to the Nifty DAO.
 
-The remaining marketing allocation was provided for Twitch streamers in the Web3 space to showcase [Nifty Smashers](/docs/overview/games/mobile-games/nifty-smashers).
+The remaining marketing allocation was provided for Twitch streamers in the Web3 space to showcase [Nifty Smashers](/overview/games/mobile-games/nifty-smashers).
 
 ### DEGEN Airdrop - _180.5M NFTL_
 

@@ -23,6 +23,6 @@ While Nifty League and partner studios push to introduce more standalone game ti
 
 :::tip[Want to know what's coming next?]
 
-See what's in store on our [ROADMAP](/docs/overview/roadmap)
+See what's in store on our [ROADMAP](/overview/roadmap)
 
 :::

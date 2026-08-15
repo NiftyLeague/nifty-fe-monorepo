@@ -17,17 +17,17 @@ export const GUIDE_LINKS: GuideLink[] = [
   {
     title: 'Set Up',
     text: 'Get started setting up your Ethereum wallet',
-    to: '/docs/guides/set-up',
+    to: '/guides/set-up',
   },
   {
     title: 'Purchasing NFTL',
     text: 'Learn how to purchase NFTL tokens',
-    to: '/docs/guides/buying-nftl',
+    to: '/guides/buying-nftl',
   },
   {
     title: 'Playing Nifty Smashers',
     text: 'Learn how to bonk in Nifty Smashers!',
-    to: '/docs/guides/nifty-smashers/general-info',
+    to: '/guides/nifty-smashers/general-info',
   },
 ]
 
@@ -39,11 +39,11 @@ export const GITHUB_LINKS: GuideLink[] = [
 ]
 
 export const QUICK_LINKS: GuideLink[] = [
-  { title: 'FAQ', to: '/docs/faq/general' },
-  { title: 'Nifty DAO', to: '/docs/overview/nifty-dao/about' },
-  { title: 'DEGEN NFTs', to: '/docs/overview/nfts/degens/about' },
-  { title: 'Games', to: '/docs/overview/games/games-overview' },
-  { title: 'NiftyWorld', to: '/docs/overview/games/niftyworld' },
+  { title: 'FAQ', to: '/faq/general' },
+  { title: 'Nifty DAO', to: '/overview/nifty-dao/about' },
+  { title: 'DEGEN NFTs', to: '/overview/nfts/degens/about' },
+  { title: 'Games', to: '/overview/games/games-overview' },
+  { title: 'NiftyWorld', to: '/overview/games/niftyworld' },
   // {
   //   title: 'Whitepaper',
   //   text: "Details  on Nifty League's vision",
