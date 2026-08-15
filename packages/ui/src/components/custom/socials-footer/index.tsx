@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { cn } from '@nl/ui/utils'
+import { cx } from '@nl/ui/class-names'
 import { SOCIAL_LINKS } from './constants'
 
 export const linkClass = 'font-medium text-foreground'
@@ -13,12 +13,12 @@ interface SocialsFooterProps extends React.ComponentProps<'footer'> {
 
 export function SocialsFooter({ children, classes }: SocialsFooterProps) {
   return (
-    <footer className={cn('my-10 px-5', classes?.footer)}>
+    <footer className={cx('my-10 px-5', classes?.footer)}>
       {children}
       <div className="flex flex-col space-y-6">
         <div className="flex justify-center items-center space-x-6">
           <a
-            className={cn(linkClass, animateClass)}
+            className={cx(linkClass, animateClass)}
             href="https://niftyleague.com/terms-of-service"
             target="_blank"
             rel="noreferrer"
@@ -26,7 +26,7 @@ export function SocialsFooter({ children, classes }: SocialsFooterProps) {
             Terms
           </a>
           <a
-            className={cn(linkClass, animateClass)}
+            className={cx(linkClass, animateClass)}
             href="https://niftyleague.com/disclaimer"
             target="_blank"
             rel="noreferrer"
@@ -34,7 +34,7 @@ export function SocialsFooter({ children, classes }: SocialsFooterProps) {
             Disclaimer
           </a>
           <a
-            className={cn(linkClass, animateClass)}
+            className={cx(linkClass, animateClass)}
             href="https://niftyleague.com/privacy-policy"
             target="_blank"
             rel="noreferrer"
