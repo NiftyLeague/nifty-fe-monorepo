@@ -30,7 +30,6 @@
   "devDependencies": {
     "@happy-dom/global-registrator": "^20.11.2",
     "@nl/eslint-config": "workspace:*",
-    "@nl/prettier-config": "workspace:*",
     "@nl/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "^4.3.3",
     "@testing-library/react": "^16.3.2",
