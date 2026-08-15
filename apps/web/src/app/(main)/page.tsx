@@ -10,7 +10,7 @@ import {
   DeferredSponsors,
 } from '@/components/DeferredHomeSections'
 import MainLayout from '@/components/MainLayout'
-import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
+import { ThemeButtonGroup } from '@nl/ui/custom/theme-button-group'
 import { DEGEN_COLLECTION_URL } from '@/constants/degen-assets'
 
 import '@/styles/home.css'
@@ -172,7 +172,7 @@ const MobileIntro = () => {
         <h1 className="mt-0 sm:mt-4 md:mt-5">Nifty League</h1>
         <h5 className="mt-2 [word-spacing:-10px]">By Gamers. For Gamers.</h5>
         <p className="my-4 text-center whitespace-nowrap">Community-Governed Game Studio</p>
-        <ThemeBtnGroup
+        <ThemeButtonGroup
           className="mt-2 xl:mt-2 mb-2"
           primary={{ href: 'https://app.niftyleague.com', title: 'PLAY NOW', external: true }}
         />
@@ -222,7 +222,7 @@ const Home = () => {
 
         <DeferredConsoleGame src="/video/smashers.mp4" />
 
-        <ThemeBtnGroup
+        <ThemeButtonGroup
           className="absolute bottom-0 sm:bottom-4"
           primary={{ href: 'https://niftysmashers.com', title: 'SMASHERS', external: true }}
           secondary={{ href: '/games', title: 'MORE GAMES' }}
@@ -280,7 +280,7 @@ const Home = () => {
             <p className="my-0 py-1 md:py-3 section-description transition-vertical-fade">
               4 - 16 PLAYERS COMPETE IN A CUT-THROAT BATTLE FOR THE SURVIVAL OF THE FITTEST!
             </p>
-            <ThemeBtnGroup
+            <ThemeButtonGroup
               className="md:justify-start"
               primary={{
                 href: 'https://niftysmashers.com',
@@ -346,7 +346,7 @@ const Home = () => {
             <p className="my-0 py-1 lg:py-3 section-description transition-vertical-fade">
               A VIRTUAL SOCIAL HUB LIKE NONE OTHER FOR GAMERS.
             </p>
-            <ThemeBtnGroup
+            <ThemeButtonGroup
               className="md:justify-start"
               primary={{ title: 'COMING SOON', disabled: true }}
               secondary={{ href: '/niftyworld', title: 'LEARN MORE' }}
@@ -375,7 +375,7 @@ const Home = () => {
             ACCESS WEB3-ENABLED PLAYER DASHBOARDS TO SEE YOUR GAME STATS, WINNINGS, AND NIFTY LEAGUE
             ASSETS.
           </p>
-          <ThemeBtnGroup
+          <ThemeButtonGroup
             className="md:justify-start"
             primary={{ href: 'https://app.niftyleague.com', title: 'WEB3 APP', external: true }}
             secondary={{ href: DEGEN_COLLECTION_URL, title: 'BUY A DEGEN', external: true }}
@@ -396,7 +396,7 @@ const Home = () => {
             NFTL IS OUR GOVERNANCE &amp; UTILITY TOKEN. GOVERN THE FUTURE OF NIFTY LEAGUE &amp;
             ACCESS EXCLUSIVE GAME ASSETS.
           </p>
-          <ThemeBtnGroup
+          <ThemeButtonGroup
             className="md:justify-start"
             primary={{
               href: 'https://quickswap.exchange/#/analytics/v3/token/0xb0d7e9ff5fb8e739c4990f7920d8047acfae4884',
@@ -455,7 +455,7 @@ const Home = () => {
               WE HATE TO BRAG, BUT OUR COMMUNITY IS TRULY TOP-NOTCH! JOIN OUR DISCORD TO CONNECT
               WITH OTHERS DEGENS &amp; HELP SHAPE NIFTY LEAGUE&apos;S FUTURE.
             </p>
-            <ThemeBtnGroup
+            <ThemeButtonGroup
               className="md:justify-start"
               primary={{
                 href: 'https://discord.gg/niftyleague',
@@ -473,7 +473,7 @@ const Home = () => {
       <section className="section w-screen relative text-center">
         <h2 className="my-3 lg:my-5 section-heading transition-vertical-fade">PROUDLY BACKED BY</h2>
         <DeferredSponsors />
-        <ThemeBtnGroup
+        <ThemeButtonGroup
           primary={{ href: '/careers', title: 'JOIN THE TEAM' }}
           secondary={{
             href: '/blog',
