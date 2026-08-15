@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
 
-import { cn } from '@nl/ui/utils'
+import { cx } from '@nl/ui/class-names'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 
 import styles from './index.module.css'
@@ -100,7 +100,7 @@ const Lore: NextPage = () => {
           </div>
         </div>
         <div className={styles.satoshiContainer}>
-          <div className={cn(styles.satoshi, 'relative flex-1')}>
+          <div className={cx(styles.satoshi, 'relative flex-1')}>
             <Image
               alt="Satoshi"
               src="/img/hero/satoshi.webp"
@@ -111,7 +111,7 @@ const Lore: NextPage = () => {
           </div>
         </div>
         <div className={styles.degensContainer}>
-          <div className={cn(styles.degens, 'relative flex-1')}>
+          <div className={cx(styles.degens, 'relative flex-1')}>
             <Image
               alt="DEGENs"
               src="/img/degens/community-characters.webp"

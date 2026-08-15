@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { DegenSpecialsTable } from '@nl/ui/custom/degen-specials-table'
 import { LazyYouTubeEmbed } from '@nl/ui/custom/lazy-youtube-embed'
-import { cn } from '@nl/ui/utils'
+import { cx } from '@nl/ui/class-names'
 
 import { NIFTY_DEGENS_ALL } from '@/constants/degens'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
@@ -62,7 +62,7 @@ const Degens: NextPage = () => (
       <section className="section relative">
         <div className="purple-bg-orb orb-bottom-right" />
         <div
-          className={cn(
+          className={cx(
             styles.list,
             'flex flex-wrap items-center md:flex-row w-full justify-between'
           )}

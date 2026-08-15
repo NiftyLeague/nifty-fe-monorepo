@@ -470,7 +470,12 @@ describe('GLTF viewer loading contract', () => {
     expect(source).toContain(
       'className={styles.sprite}\n            fill\n            sizes="100vw"'
     )
-    expect(source).toContain("priority\n          style={{ maxWidth: '24vw', height: 'auto' }}")
+    const logoStart = source.indexOf('alt="Nifty League Logo"')
+    const logoEnd = source.indexOf('src="/img/logos/NL/wordmark.webp"')
+
+    expect(logoStart).toBeGreaterThanOrEqual(0)
+    expect(logoEnd).toBeGreaterThan(logoStart)
+    expect(source.slice(logoStart, logoEnd)).not.toContain('priority')
     expect(source).not.toContain('quality={100}')
   })
 

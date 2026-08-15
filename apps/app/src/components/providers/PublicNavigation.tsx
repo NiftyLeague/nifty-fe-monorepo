@@ -1,9 +1,9 @@
 import type { PropsWithChildren } from 'react'
 
 import AppBar from '@nl/ui/custom/app-bar'
+import { cx } from '@nl/ui/class-names'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import MobileNavigationDisclosure from '@nl/ui/custom/mobile-navigation'
-import { cn } from '@nl/ui/utils'
 
 import LogoSection from '@/app/_layout/_MainLayout/_LogoSection'
 import styles from '@/app/_layout/_MainLayout/MainLayout.module.css'
@@ -17,11 +17,11 @@ const pages = [
 
 export default function PublicNavigation({ children }: PropsWithChildren) {
   return (
-    <div className={cn('flex', styles.publicNavigationShell)} data-public-navigation>
+    <div className={cx('flex', styles.publicNavigationShell)} data-public-navigation>
       <header className="fixed top-0 right-0 left-0 z-50 border-0 bg-sidebar">
         <AppBar>
           <div className="flex w-full flex-row items-center justify-between">
-            <div className={cn('flex items-center', styles.publicHeaderControls)}>
+            <div className={cx('flex items-center', styles.publicHeaderControls)}>
               <div className="hidden flex-grow lg:block">
                 <LogoSection />
               </div>
@@ -81,7 +81,7 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
         className="hidden w-[260px] shrink-0 lg:block"
       >
         <aside
-          className={cn(
+          className={cx(
             styles.publicDesktopSidebar,
             'bg-sidebar text-sidebar-foreground fixed bottom-0 left-0 z-40 border-r-0 transition-transform duration-200'
           )}

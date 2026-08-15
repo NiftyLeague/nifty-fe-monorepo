@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { cn } from '@nl/ui/utils'
+import { cx } from '@nl/ui/class-names'
 
 import styles from './index.module.css'
 export default function Navbar() {
@@ -22,7 +22,7 @@ export default function Navbar() {
         </a>
         <nav className={styles.navbar}>
           <Link href="/profile">
-            <div className={cn(styles.nav_item, styles.profile_mobile)}>
+            <div className={cx(styles.nav_item, styles.profile_mobile)}>
               <Image
                 src="/icons/user.svg"
                 alt="Profile Icon"
@@ -36,7 +36,7 @@ export default function Navbar() {
       </div>
 
       {/* Desktop Navbar */}
-      <div className={cn('hidden sm:block', styles.desktop_nav)}>
+      <div className={cx('hidden sm:block', styles.desktop_nav)}>
         <a href="https://niftyleague.com" target="_blank" rel="noreferrer">
           <div className={styles.logo_container}>
             <Image
@@ -84,7 +84,7 @@ export default function Navbar() {
             </a>
           </div>
           <Link href="/profile">
-            <div className={cn(styles.nav_item, styles.profile)}>
+            <div className={cx(styles.nav_item, styles.profile)}>
               <div className={styles.profile_icon}>
                 <Image src="/icons/user.svg" alt="Profile Icon" width={22} height={22} />
               </div>

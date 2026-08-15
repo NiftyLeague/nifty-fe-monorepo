@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 import { LazyYouTubeEmbed } from '@nl/ui/custom/lazy-youtube-embed'
 import { ViewportVideo } from '@nl/ui/custom/viewport-video'
-import { cn } from '@nl/ui/utils'
+import { cx } from '@nl/ui/class-names'
 
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 import { NIFTY_GAMES } from '@/constants/games'
@@ -55,10 +55,10 @@ const Games: NextPage = () => (
     <section className="section">
       {NIFTY_GAMES.map(({ name, description, video, tag, action }, index) => (
         <article className="flex flex-col-reverse md:flex-row relative mb-8" key={name}>
-          <div className={cn(styles.block, 'w-full md:w-7/12 pr-0 md:pr-5')}>
+          <div className={cx(styles.block, 'w-full md:w-7/12 pr-0 md:pr-5')}>
             <div className="flex flex-row items-center justify-between mb-3">
               <h4 className="m-0">{name}</h4>
-              <p className={cn(styles.tagGame, 'm-0')}>{tag}</p>
+              <p className={cx(styles.tagGame, 'm-0')}>{tag}</p>
             </div>
             <p>{description}</p>
             <div className="flex justify-center md:justify-start mt-4">
@@ -116,7 +116,7 @@ const Games: NextPage = () => (
             </div>
           </div>
           <div
-            className={cn(
+            className={cx(
               index === 0
                 ? 'orb-bottom-left'
                 : index === 1

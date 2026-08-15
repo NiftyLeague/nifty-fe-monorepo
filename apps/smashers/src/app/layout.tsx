@@ -7,7 +7,7 @@ import { defaultFont } from '@nl/ui/fonts/default'
 import { headerFont } from '@nl/ui/fonts/header'
 import { specialFont } from '@nl/ui/fonts/special'
 import { subheaderFont } from '@nl/ui/fonts/subheader'
-import { cn } from '@nl/ui/utils'
+import { cx } from '@nl/ui/class-names'
 
 import { sentryOptions } from '@/constants/sentry'
 import '@/styles/app.css'
@@ -83,7 +83,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn(
+      className={cx(
         defaultFont.variable,
         headerFont.variable,
         subheaderFont.variable,

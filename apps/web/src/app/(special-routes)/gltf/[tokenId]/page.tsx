@@ -45,7 +45,6 @@ export default async function DegenViewsPage({ params }: DegenViewsPageProps) {
           alt="Nifty League Logo"
           width={200}
           height={70}
-          priority
           style={{ maxWidth: '24vw', height: 'auto' }}
           src="/img/logos/NL/wordmark.webp"
         />

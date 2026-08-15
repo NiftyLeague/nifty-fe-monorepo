@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import type { NextPage } from 'next'
-import { cn } from '@nl/ui/utils'
+import { cx } from '@nl/ui/class-names'
 import { LazyYouTubeEmbed } from '@nl/ui/custom/lazy-youtube-embed'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 import styles from './index.module.css'
@@ -9,7 +9,7 @@ const CompeteAndEarn: NextPage = () => {
   return (
     <div className="container pt-20">
       <section className="section flex flex-col-reverse md:flex-row items-center justify-center relative">
-        <div className={cn(styles.block, 'flex flex-col w-full md:w-1/2 pr-0 md:pr-5 relative')}>
+        <div className={cx(styles.block, 'flex flex-col w-full md:w-1/2 pr-0 md:pr-5 relative')}>
           <div className="mb-2 mb-md-4">
             <h1>COMPETE &amp; EARN</h1>
           </div>
@@ -38,7 +38,7 @@ const CompeteAndEarn: NextPage = () => {
       </section>
 
       <section className="section flex flex-col-reverse md:flex-row mt-3 md:mt-5 py-5 items-center relative">
-        <div className={cn(styles.block, 'w-full md:w-1/2 pr-5')}>
+        <div className={cx(styles.block, 'w-full md:w-1/2 pr-5')}>
           <div className="mb-3">
             <h3>HOW IT WORKS</h3>
           </div>
@@ -62,7 +62,7 @@ const CompeteAndEarn: NextPage = () => {
 
       <section className="section">
         <h3 className="mt-3 mt-md-5 text-center">GAME MODES</h3>
-        <div className={cn(styles.features, 'flex pt-3 md:pt-5 mx-auto relative')}>
+        <div className={cx(styles.features, 'flex pt-3 md:pt-5 mx-auto relative')}>
           <div className="w-1/3">
             <h6 className={styles.headerCell}>FEATURES:</h6>
             <p className={styles.cell}>Requires an invite:</p>
