@@ -1990,12 +1990,12 @@ describe('public route dependency contract', () => {
     expect(shell).not.toContain("'use client'")
     expect(shell).toContain("from './ViewportVideoBoundary'")
     expect(shell).toContain("rootMargin = '0px'")
-    expect(boundary).toContain(
-      "const loadViewportVideoEnhancer = () => import('./ViewportVideoEnhancer')"
-    )
+    expect(boundary).toContain('lazy<ComponentType<ViewportVideoEnhancerProps>>(')
     expect(boundary).toContain("rootMargin = '0px'")
-    expect(boundary).toContain('preload="none"')
-    expect(enhancer).toContain("from '@nl/ui/hooks/useOnScreen'")
+    expect(boundary).toContain("preload={isNearViewport ? 'metadata' : 'none'}")
+    expect(boundary).toContain('hasEnteredViewport || isNearViewport')
+    expect(enhancer).not.toContain("from '@nl/ui/hooks/useOnScreen'")
+    expect(enhancer).toContain('isNearViewport: boolean')
     expect(enhancer).toContain("from '@nl/ui/hooks/useMediaQuery'")
     expect(enhancer).toContain("video.preload = shouldLoad ? 'metadata' : 'none'")
   })

@@ -3,20 +3,18 @@
 import { useEffect, type RefObject } from 'react'
 
 import useMediaQuery from '@nl/ui/hooks/useMediaQuery'
-import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 
-interface ViewportVideoEnhancerProps {
+export interface ViewportVideoEnhancerProps {
+  isNearViewport: boolean
   playOnViewport: boolean
-  rootMargin: string
   videoRef: RefObject<HTMLVideoElement | null>
 }
 
 export default function ViewportVideoEnhancer({
+  isNearViewport,
   playOnViewport,
-  rootMargin,
   videoRef,
 }: ViewportVideoEnhancerProps): null {
-  const isNearViewport = useOnScreen(videoRef, rootMargin)
   const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
   const shouldLoad = isNearViewport
   const shouldPlay = playOnViewport && isNearViewport && !prefersReducedMotion

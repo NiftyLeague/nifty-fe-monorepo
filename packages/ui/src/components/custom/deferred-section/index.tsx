@@ -44,7 +44,7 @@ export function DeferredSection({
   rootMargin = '320px',
 }: DeferredSectionProps): React.ReactNode {
   const sectionRef = useRef<HTMLDivElement>(null)
-  const isNearViewport = useOnScreen(sectionRef, rootMargin)
+  const isNearViewport = useOnScreen(sectionRef, rootMargin, { once: true })
   const {
     Component: LoadedSection,
     hasError: loadError,
