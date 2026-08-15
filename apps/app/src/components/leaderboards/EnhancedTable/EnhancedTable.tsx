@@ -6,7 +6,6 @@ import Image from 'next/image'
 import { toast } from 'sonner'
 
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
-import { Title } from '@nl/ui/custom/typography'
 import { gtm, GTM_EVENTS } from '@nl/ui/gtm'
 import useAuth from '@/hooks/useAuth'
 import usePlayerProfile from '@/hooks/usePlayerProfile'
@@ -39,6 +38,7 @@ export default function EnhancedTable({
   const [paginationModel, setPaginationModel] = useState({ pageSize: 50, page: 0 })
   const [rows, setData] = useState<Record<string, unknown>[] | null>()
   const [myRank, setMyRank] = useState<number>()
+  const [isRankModalOpen, setIsRankModalOpen] = useState(false)
   const { isLoggedIn } = useAuth()
   const { profile } = usePlayerProfile()
 
@@ -124,7 +124,7 @@ export default function EnhancedTable({
         return
       }
       setMyRank(res)
-      document?.querySelector('.wen-game-modal')?.parentElement?.click()
+      setIsRankModalOpen(true)
     } catch (error) {
       toast.error(errorMsgHandler(error))
       return
@@ -162,21 +162,22 @@ export default function EnhancedTable({
                 selectedGame={selectedGame}
                 selectedTimeFilter={selectedTimeFilter}
                 flag={selectedTable.key}
-                ModalIcon={<div className="wen-game-modal hidden">N/A</div>}
                 myRank={myRank}
+                onOpenChange={setIsRankModalOpen}
+                open={isRankModalOpen}
               />
             </>
           )}
           {isLoggedIn && selectedGame !== 'crypto_winter' && (
-            <div
+            <button
+              type="button"
               onClick={handleCheckYourRank}
-              className="flex cursor-pointer justify-end lg:absolute lg:right-0 lg:translate-y-1/2 mb-4 lg:mb-0"
+              className="mb-4 flex cursor-pointer justify-end border-0 bg-transparent p-0 text-left lg:absolute lg:right-0 lg:mb-0 lg:translate-y-1/2"
               style={{ zIndex: 1000 }}
             >
-              <Title
-                level={6}
-                className="flex items-center justify-end font-bold text-[var(--color-purple)] underline"
-                style={{ lineHeight: '24px', marginBottom: 0 }}
+              <span
+                className="flex items-center justify-end text-base font-subheader font-bold text-[var(--color-purple)] underline"
+                style={{ lineHeight: '24px' }}
               >
                 <Image
                   src="/icons/rank_icon.svg"
@@ -186,8 +187,8 @@ export default function EnhancedTable({
                   style={{ marginRight: 4 }}
                 />
                 RANK
-              </Title>
-            </div>
+              </span>
+            </button>
           )}
           <ResponsiveTable
             paginationModel={paginationModel}

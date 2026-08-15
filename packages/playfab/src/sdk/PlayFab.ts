@@ -1,6 +1,6 @@
 /// <reference path="./typings/PlayFab.d.ts" />
 
-import https from 'https'
+import https from 'node:https'
 import type { PlayFabError, PlayFabResponse } from '../types'
 
 export const sdk_version = '2.125.230428'

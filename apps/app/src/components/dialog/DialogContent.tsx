@@ -48,4 +48,4 @@ const DialogContent = ({
   </DialogContentBase>
 )
 
-export { DialogContent, DialogContentBase }
+export { DialogContent }

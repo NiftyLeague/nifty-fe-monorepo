@@ -207,20 +207,21 @@ const TableModal = ({
   )
 }
 
-interface TopModalProps extends TableModalProps {
-  ModalIcon: React.ReactNode
+type TopModalProps = TableModalProps & {
+  onOpenChange: (open: boolean) => void
+  open: boolean
 }
 
 const TopModal = ({
-  ModalIcon,
   selectedGame,
   flag,
+  onOpenChange,
+  open,
   selectedTimeFilter,
   myRank,
 }: TopModalProps): React.ReactNode | null => {
   return (
     <CustomModal
-      ModalIcon={ModalIcon}
       child={
         <TableModal
           selectedGame={selectedGame}
@@ -230,6 +231,8 @@ const TopModal = ({
         />
       }
       flag={flag}
+      onOpenChange={onOpenChange}
+      open={open}
     />
   )
 }
