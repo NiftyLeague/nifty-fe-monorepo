@@ -47,6 +47,7 @@ function DesktopNavLink({
   return (
     <Link
       href={href}
+      prefetch={false}
       target={external ? '_blank' : undefined}
       rel={external ? 'noreferrer' : undefined}
       className={cx(NAV_LINK_CONTENT_CLASS, className)}
@@ -121,6 +122,7 @@ function DesktopNavMenu({ actionButton, navItems }: NavbarProps) {
           <li>
             <Link
               href={actionButton.href}
+              prefetch={false}
               target={actionButton.external ? '_blank' : undefined}
               rel={actionButton.external ? 'noreferrer' : undefined}
               className="theme-btn-primary theme-btn-rounded ml-3 max-w-fit"
@@ -142,7 +144,7 @@ export function Navbar({ actionButton, navItems, className }: NavbarProps) {
   return (
     <NavbarScrollFrame className={className}>
       <div className="flex h-full w-screen items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex-shrink-0">
+        <Link href="/" prefetch={false} className="flex-shrink-0">
           <Image
             src="/img/logos/NL/white.webp"
             height={50}

@@ -51,6 +51,7 @@ export function ThemeButton({
   return (
     <Link
       href={href}
+      prefetch={false}
       target={external ? '_blank' : undefined}
       rel={external ? 'noreferrer' : undefined}
       className={buttonVariants({ variant: 'ghost', className: buttonClassName })}

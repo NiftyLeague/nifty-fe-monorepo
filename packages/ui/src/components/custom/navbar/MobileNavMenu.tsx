@@ -22,6 +22,7 @@ function MobileMenuGroup({ group, pages }: Extract<NavItemData, { type: 'group' 
             <Link
               className={`${NAV_LINK_CONTENT_CLASS} text-base font-medium`}
               href={page.href}
+              prefetch={false}
               target={page.external ? '_blank' : undefined}
               rel={page.external ? 'noreferrer' : undefined}
             >
@@ -44,6 +45,7 @@ function MobileMenuItem({ type: _type, ...page }: Extract<NavItemData, { type: '
       <Link
         className={`${NAV_LINK_CONTENT_CLASS} text-base font-medium`}
         href={page.href}
+        prefetch={false}
         target={page.external ? '_blank' : undefined}
         rel={page.external ? 'noreferrer' : undefined}
       >
@@ -84,6 +86,7 @@ export default function MobileNavMenu({ actionButton, navItems }: MobileNavMenuP
             <hr aria-hidden="true" className="bg-separator my-6 h-px w-full shrink-0 border-0" />
             <Link
               href={actionButton.href}
+              prefetch={false}
               target={actionButton.external ? '_blank' : undefined}
               rel={actionButton.external ? 'noreferrer' : undefined}
               className={buttonVariants({

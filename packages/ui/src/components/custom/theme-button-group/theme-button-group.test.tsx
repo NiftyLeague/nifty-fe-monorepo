@@ -3,12 +3,18 @@ import { render, screen } from '@testing-library/react'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 let ThemeButtonGroup: typeof import('./index').default
+const nextLinkPrefetches: Array<boolean | undefined> = []
 
 beforeEach(() => {
   mock.module('next/link', () => ({
-    default: ({ children, ...props }: { children: ReactNode } & Record<string, unknown>) => (
-      <a {...props}>{children}</a>
-    ),
+    default: ({
+      children,
+      prefetch,
+      ...props
+    }: { children: ReactNode; prefetch?: boolean } & Record<string, unknown>) => {
+      nextLinkPrefetches.push(prefetch)
+      return <a {...props}>{children}</a>
+    },
   }))
 
   return import('./index').then((module) => {
@@ -26,6 +32,7 @@ describe('ThemeButtonGroup', () => {
     )
 
     expect(screen.getByRole('link', { name: 'Play now' }).getAttribute('href')).toBe('/games')
+    expect(nextLinkPrefetches).toEqual([false, false])
     expect(screen.getByRole('link', { name: /Smashers/ }).getAttribute('target')).toBe('_blank')
     expect(screen.getByRole('link', { name: /Smashers/ }).getAttribute('rel')).toBe('noreferrer')
   })
