@@ -1,12 +1,32 @@
 import { describe, expect, it } from 'bun:test'
 import { existsSync, readFileSync, statSync } from 'node:fs'
 
+const docsMediaPages = [
+  'apps/docs/docs/overview/games/mini-games/arcade-tokens.md',
+  'apps/docs/docs/overview/games/mini-games/crypto-winter.md',
+  'apps/docs/docs/overview/games/mini-games/wen-game.md',
+  'apps/docs/docs/overview/games/niftyworld/niftyworld.mdx',
+  'apps/docs/docs/overview/games/overview.md',
+  'apps/docs/docs/overview/games/mobile-games/nifty-royale.md',
+  'apps/docs/docs/overview/games/mobile-games/nifty-smashers.md',
+  'apps/docs/docs/overview/nfts/nifty-marketplace/items.md',
+  'apps/docs/docs/overview/nfts/nifty-marketplace/comics.md',
+]
+
 const docsPage = 'apps/docs/docs/overview/nfts/degens/about.md'
 const legacyAsset = 'assets/img/games/nifty-royale/nifty-royale.gif'
 const mintGif = 'assets/img/mint-o-matic/degen-mint.gif'
 const mintWebp = 'assets/img/mint-o-matic/degen-mint.webp'
 
 describe('shared docs media policy', () => {
+  it('uses shared lazy media primitives instead of react-player', () => {
+    for (const page of docsMediaPages) {
+      const source = readFileSync(page, 'utf8')
+      expect(source).not.toContain('react-player')
+      expect(source).toMatch(/@nl\/ui\/custom\/(lazy-youtube-embed|viewport-video)/)
+    }
+  })
+
   it('pairs the Mint-O-Matic animation with a smaller WebP source and GIF fallback', () => {
     const source = readFileSync(docsPage, 'utf8')
 

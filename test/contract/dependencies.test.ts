@@ -230,8 +230,8 @@ const ALLOWED_UNUSED: Record<string, Record<string, string>> = {
     '@docusaurus/theme-mermaid': 'docusaurus theme configured in docusaurus.config.ts',
     '@mdx-js/react': 'MDX provider used by docusaurus themes',
     algoliasearch: 'docusaurus Algolia DocSearch integration',
+    '@nl/ui': 'shared media primitives imported in docs/*.md and *.mdx markdown',
     'prism-react-renderer': 'docusaurus theme code highlighting',
-    'react-player': 'imported in docs/*.md markdown, not src/',
   },
   'packages/playfab': {
     url: 'node polyfill for next-auth/next runtime',
