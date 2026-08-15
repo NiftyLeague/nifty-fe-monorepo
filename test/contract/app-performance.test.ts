@@ -3,6 +3,8 @@ import { existsSync, readFileSync } from 'node:fs'
 
 const responsiveTableList = 'apps/app/src/components/ResponsiveTable/DataList.tsx'
 const appManifest = 'apps/app/package.json'
+const appNextConfig = 'apps/app/next.config.ts'
+const smashersNextConfig = 'apps/smashers/next.config.ts'
 const webManifest = 'apps/web/package.json'
 const webNextConfig = 'apps/web/next.config.ts'
 const appRootLayout = 'apps/app/src/app/layout.tsx'
@@ -173,6 +175,12 @@ describe('app performance contracts', () => {
 
     expect(manifest.scripts.dev).toBe('next dev --turbopack --port 3001')
     expect(manifest.scripts.dev).not.toContain('--webpack')
+  })
+
+  it('uses the project TypeScript CLI for Next app builds', () => {
+    for (const file of [appNextConfig, smashersNextConfig]) {
+      expect(readFileSync(file, 'utf8')).toContain('useTypeScriptCli: true')
+    }
   })
 
   it('uses Turbopack for local marketing development', () => {

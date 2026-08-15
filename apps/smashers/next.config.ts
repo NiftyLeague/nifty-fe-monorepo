@@ -46,6 +46,9 @@ const generateAppleCountryRedirects = (countryCode: string) => [
 
 const nextConfig: NextConfig = {
   transpilePackages: ['@nl/playfab', '@nl/ui'],
+  experimental: {
+    useTypeScriptCli: true,
+  },
   turbopack: {},
   images: {
     formats: ['image/avif', 'image/webp'],
