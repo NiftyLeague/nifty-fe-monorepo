@@ -438,6 +438,8 @@ describe('GLTF viewer loading contract', () => {
       "import '@google/model-viewer/dist/model-viewer-module.min.js'"
     )
     expect(modelViewSource).not.toContain("import '@google/model-viewer'")
+    expect(modelViewSource).toContain('modelViewerRef')
+    expect(modelViewSource).toContain("model.setAttribute('src', MODEL_SRC)")
   })
 
   it('keeps embedded viewer controls loadable in sandboxed frames', () => {
