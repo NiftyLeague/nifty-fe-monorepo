@@ -4,6 +4,11 @@ import { RefObject, useState, useEffect } from 'react'
 
 type VisibilityCallback = (isIntersecting: boolean) => void
 
+type UseOnScreenOptions = {
+  /** Keep the element visible after its first intersection. */
+  once?: boolean
+}
+
 type SharedObserver = {
   observer: IntersectionObserver
   elements: Set<Element>
@@ -39,9 +44,40 @@ const getSharedObserver = (rootMargin: string): SharedObserver => {
   return sharedObserver
 }
 
+const subscribeToVisibility = (
+  element: Element,
+  rootMargin: string,
+  callback: VisibilityCallback
+): (() => void) => {
+  const sharedObserver = getSharedObserver(rootMargin)
+  const callbacks = callbacksByElement.get(element) ?? new Set<VisibilityCallback>()
+  let subscribed = true
+  callbacks.add(callback)
+  callbacksByElement.set(element, callbacks)
+  sharedObserver.elements.add(element)
+  sharedObserver.observer.observe(element)
+
+  return () => {
+    if (!subscribed) return
+    subscribed = false
+    callbacks.delete(callback)
+    if (callbacks.size > 0) return
+
+    callbacksByElement.delete(element)
+    sharedObserver.elements.delete(element)
+    sharedObserver.observer.unobserve(element)
+
+    if (sharedObserver.elements.size === 0) {
+      sharedObserver.observer.disconnect?.()
+      observersByRootMargin.delete(rootMargin)
+    }
+  }
+}
+
 export function useOnScreen<T extends Element = HTMLDivElement>(
   ref: RefObject<T | null>,
-  rootMargin: string = '0px'
+  rootMargin: string = '0px',
+  { once = false }: UseOnScreenOptions = {}
 ): boolean {
   // State and setter for storing whether element is visible
   const [isIntersecting, setIntersecting] = useState<boolean>(false)
@@ -54,27 +90,19 @@ export function useOnScreen<T extends Element = HTMLDivElement>(
       return
     }
 
-    const sharedObserver = getSharedObserver(rootMargin)
-    const callbacks = callbacksByElement.get(element) ?? new Set<VisibilityCallback>()
-    callbacks.add(setIntersecting)
-    callbacksByElement.set(element, callbacks)
-    sharedObserver.elements.add(element)
-    sharedObserver.observer.observe(element)
+    let unsubscribe: () => void = () => undefined
+    const handleVisibilityChange: VisibilityCallback = (visible) => {
+      setIntersecting(visible)
+      if (once && visible) unsubscribe()
+    }
+
+    unsubscribe = subscribeToVisibility(element, rootMargin, handleVisibilityChange)
     return () => {
-      callbacks.delete(setIntersecting)
-      if (callbacks.size === 0) {
-        callbacksByElement.delete(element)
-        sharedObserver.elements.delete(element)
-        sharedObserver.observer.unobserve(element)
-      }
-      if (sharedObserver.elements.size === 0) {
-        sharedObserver.observer.disconnect?.()
-        observersByRootMargin.delete(rootMargin)
-      }
+      unsubscribe()
     }
     // ref is intentionally excluded: callbacks must not re-subscribe on re-renders
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rootMargin])
+  }, [once, rootMargin])
   return isIntersecting
 }
 
