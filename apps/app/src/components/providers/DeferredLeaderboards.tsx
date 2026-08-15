@@ -3,7 +3,7 @@
 import DeferredComponent from '@nl/ui/custom/deferred-component'
 import { Skeleton } from '@nl/ui/base/skeleton'
 
-export function LeaderboardsLoading(): React.ReactNode {
+function LeaderboardsLoading(): React.ReactNode {
   return (
     <div
       className="space-y-4"
