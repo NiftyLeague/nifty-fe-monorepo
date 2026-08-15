@@ -29,13 +29,22 @@ interface DesktopOnlyImageProps {
   alt: string
   className?: string
   height: number
+  loading?: 'eager' | 'lazy'
   sizes: string
   src: string
   width: number
 }
 
-const DesktopOnlyImage = ({ alt, className, height, sizes, src, width }: DesktopOnlyImageProps) => {
-  const { props } = getImageProps({ alt, height, sizes, src, width })
+const DesktopOnlyImage = ({
+  alt,
+  className,
+  height,
+  loading = 'lazy',
+  sizes,
+  src,
+  width,
+}: DesktopOnlyImageProps) => {
+  const { props } = getImageProps({ alt, height, loading, sizes, src, width })
   const { src: _src, srcSet: _srcSet, sizes: _sizes, ...fallbackProps } = props
 
   return (
@@ -112,6 +121,7 @@ const DesktopIntro = () => {
             alt="Nifty Hero Characters"
             width={1920}
             height={1042}
+            loading="eager"
             sizes="100vw"
             className="w-full h-auto"
           />
