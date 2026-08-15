@@ -1,13 +1,14 @@
 type SentryModule = typeof import('@sentry/nextjs')
+type DeferredSentryModule = typeof import('./nextjs-client')
 export type SentryInitOptions = Parameters<SentryModule['init']>[0]
 type RouterTransitionArgs = Parameters<SentryModule['captureRouterTransitionStart']>
 
-let sentryModulePromise: Promise<SentryModule> | undefined
-let sentryInitPromise: Promise<SentryModule> | undefined
+let sentryModulePromise: Promise<DeferredSentryModule> | undefined
+let sentryInitPromise: Promise<DeferredSentryModule> | undefined
 let sentryInitOptions: SentryInitOptions | undefined
 
-export function loadSentry(): Promise<SentryModule> {
-  sentryModulePromise ??= import('@sentry/nextjs')
+export function loadSentry(): Promise<DeferredSentryModule> {
+  sentryModulePromise ??= import('./nextjs-client')
   return sentryModulePromise
 }
 
@@ -15,7 +16,7 @@ const reportSentryLoadError = (error: unknown): void => {
   console.error('Failed to load Sentry client SDK', error)
 }
 
-export function initializeSentry(options: SentryInitOptions): Promise<SentryModule> {
+export function initializeSentry(options: SentryInitOptions): Promise<DeferredSentryModule> {
   const initOptions = (sentryInitOptions ??= options)
   sentryInitPromise ??= loadSentry().then((sentry) => {
     sentry.init(initOptions)
@@ -24,7 +25,7 @@ export function initializeSentry(options: SentryInitOptions): Promise<SentryModu
   return sentryInitPromise
 }
 
-function getSentryForCapture(): Promise<SentryModule> {
+function getSentryForCapture(): Promise<DeferredSentryModule> {
   return sentryInitOptions ? initializeSentry(sentryInitOptions) : loadSentry()
 }
 
