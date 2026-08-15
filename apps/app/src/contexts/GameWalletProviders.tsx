@@ -4,10 +4,7 @@ import dynamic from 'next/dynamic'
 import type { PropsWithChildren } from 'react'
 
 import AuditFixtureContextWrapper from '@/contexts/AuditFixtureContextWrapper'
-import { AuthStatusProvider } from '@/contexts/AuthStatusContext'
-import { AuthTokenProvider } from '@/contexts/AuthTokenContext'
-import { LocalStorageProvider } from '@/contexts/LocalStorageContext'
-import { Web3ModalProvider } from '@/contexts/Web3ModalContext'
+import WalletAuthProviders from '@/contexts/WalletAuthProviders'
 
 const WalletFeatureProviders = dynamic(() => import('@/contexts/WalletFeatureProviders'), {
   ssr: false,
@@ -37,13 +34,5 @@ export default function GameWalletProviders({
     children
   )
 
-  return (
-    <LocalStorageProvider>
-      <Web3ModalProvider cookies={cookies}>
-        <AuthStatusProvider>
-          <AuthTokenProvider>{walletFeatures}</AuthTokenProvider>
-        </AuthStatusProvider>
-      </Web3ModalProvider>
-    </LocalStorageProvider>
-  )
+  return <WalletAuthProviders cookies={cookies}>{walletFeatures}</WalletAuthProviders>
 }
