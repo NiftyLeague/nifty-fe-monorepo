@@ -18,7 +18,7 @@ Enter the arena and fight against players from all around the world in this fun 
 
 For some background, the local-multiplayer version of Nifty Smashers was made available in September 2021, followed by the online multiplayer. The desktop version of this game is now deprecated in favor of our free-2-play mobile game.
 
-You can play using any other compatible controller (Playstation, Xbox, etc.) if you wish. For the deprecated desktop version you must have a [DEGEN NFT](/docs/overview/nfts/degens/about) to play. Simply connect your crypto wallet holding your DEGEN, enter the game lobby, and select your DEGEN for battle.
+You can play using any other compatible controller (Playstation, Xbox, etc.) if you wish. For the deprecated desktop version you must have a [DEGEN NFT](/overview/nfts/degens/about) to play. Simply connect your crypto wallet holding your DEGEN, enter the game lobby, and select your DEGEN for battle.
 
 <LazyYouTubeEmbed
 src="https://www.youtube.com/embed/4lnDrx4aDq8"
@@ -109,7 +109,7 @@ General information, advice, tips and tricks regarding battling in Nifty Smasher
 
 Select from 6 different tribes, each with their own unique special move. Choose wisely to gain an advantage in battle.
 
-All DEGEN tribes have a Special Ability (”SA”), which are consistent across all Nifty League games (live and future), including Nifty Smashers. Learn everything you need to know about each tribe [here](/docs/overview/nfts/degens/tribes).
+All DEGEN tribes have a Special Ability (”SA”), which are consistent across all Nifty League games (live and future), including Nifty Smashers. Learn everything you need to know about each tribe [here](/overview/nfts/degens/tribes).
 
 ## Progression
 

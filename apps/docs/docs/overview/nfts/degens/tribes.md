@@ -24,7 +24,7 @@ Tribes are used to determine special game mechanics or special moves available.
 
 :::tip[Note]
 
-You can learn more about these movesets in our [Smashers Guide](/docs/guides/nifty-smashers/tribes).
+You can learn more about these movesets in our [Smashers Guide](/guides/nifty-smashers/tribes).
 
 :::
 

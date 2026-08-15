@@ -28,7 +28,7 @@ sidebar_position: 2
 | Nifty League | 5%    |
 | Burn         | 50%   |
 
-## Rental Fees and In-Game Earnings Caps per DEGEN broken down by [Background](https://niftyleague.com/docs/overview/nfts/degens/backgrounds)
+## Rental Fees and In-Game Earnings Caps per DEGEN broken down by [Background](https://docs.niftyleague.com/overview/nfts/degens/backgrounds)
 
 ### Weekly
 

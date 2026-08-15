@@ -8,7 +8,7 @@ sidebar_position: 1
 
 ### Overview
 
-Nifty League is undergoing a transformative journey towards decentralization emphasizing Nifty DAO as the future of the platform's evolution. This strategic shift aims to cultivate rapid growth and development through the collaborative efforts of developers and artists within the community. Simply put, DAOs are the future. Beyond making great games, we see only one route to becoming the world's leading gaming platform and that’s by building together. At the core of this transformation is [NFTL](/docs/overview/nifty-dao/nftl/overview), the native governance token, providing voting rights and multifaceted utilities.
+Nifty League is undergoing a transformative journey towards decentralization emphasizing Nifty DAO as the future of the platform's evolution. This strategic shift aims to cultivate rapid growth and development through the collaborative efforts of developers and artists within the community. Simply put, DAOs are the future. Beyond making great games, we see only one route to becoming the world's leading gaming platform and that’s by building together. At the core of this transformation is [NFTL](/overview/nifty-dao/nftl/overview), the native governance token, providing voting rights and multifaceted utilities.
 
 ### Goals
 
@@ -34,6 +34,6 @@ Plans for the DAO include utilizing Tally.xyz for proposals and token voting, dr
 
 :::tip[Not familiar with governance?]
 
-Learn more about [NFTL](/docs/overview/nifty-dao/nftl/overview) on the next page.
+Learn more about [NFTL](/overview/nifty-dao/nftl/overview) on the next page.
 
 :::
