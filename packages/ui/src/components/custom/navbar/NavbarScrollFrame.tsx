@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-import { cn } from '@nl/ui/utils'
+import { cx } from '@nl/ui/class-names'
 
 import NavbarScrollState from './NavbarScrollState'
 
@@ -15,7 +15,7 @@ export function NavbarScrollFrame({ children, className }: NavbarScrollFrameProp
   return (
     <header
       id={NAVBAR_SCROLL_FRAME_ID}
-      className={cn(
+      className={cx(
         'navbar-scroll-frame fixed inset-x-0 top-0 z-50 h-20 bg-transparent data-[scrolled=true]:backdrop-blur-xs',
         className
       )}

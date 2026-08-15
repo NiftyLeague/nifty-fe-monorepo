@@ -1,11 +1,11 @@
 import type { ComponentProps } from 'react'
 
-import { cn } from '@nl/ui/utils'
+import { cx } from '@nl/ui/class-names'
 
 export function ExternalIcon({ className = '', ...props }: ComponentProps<'span'>) {
   return (
     <span
-      className={cn('ml-1 mb-1.5 inline-block size-3 flex-shrink-0 cursor-pointer', className)}
+      className={cx('ml-1 mb-1.5 inline-block size-3 flex-shrink-0 cursor-pointer', className)}
       aria-hidden="true"
       {...props}
     >

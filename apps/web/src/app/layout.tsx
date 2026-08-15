@@ -5,7 +5,7 @@ import DeferredSentry from '@nl/sentry-client/react'
 import { defaultFont } from '@nl/ui/fonts/default'
 import { headerFont } from '@nl/ui/fonts/header'
 import { specialFont } from '@nl/ui/fonts/special'
-import { cn } from '@nl/ui/utils'
+import { cx } from '@nl/ui/class-names'
 
 import { sentryOptions } from '@/constants/sentry'
 import '@/styles/app.css'
@@ -65,7 +65,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn(defaultFont.variable, headerFont.variable, specialFont.variable, 'dark')}
+      className={cx(defaultFont.variable, headerFont.variable, specialFont.variable, 'dark')}
     >
       <DeferredSentry enabled={process.env.VERCEL_ENV === 'production'} options={sentryOptions} />
       <body suppressHydrationWarning>{children}</body>

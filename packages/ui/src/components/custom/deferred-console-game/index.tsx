@@ -16,7 +16,9 @@ const loadConsoleGame = () =>
 
 const DeferredConsoleGame = ({ src }: DeferredConsoleGameProps) => {
   const rootRef = useRef<HTMLDivElement>(null)
-  const isNearViewport = useOnScreen(rootRef, '200px')
+  // Keep the interactive video chunk out of the initial page load until the
+  // preview actually intersects the viewport.
+  const isNearViewport = useOnScreen(rootRef, '0px')
   const { Component: ConsoleGame } = useDeferredComponent<ConsoleGameProps>(
     loadConsoleGame,
     isNearViewport
