@@ -13,7 +13,6 @@ const DeferredHeroBackground = () => {
           src={POSTER_BACKGROUND}
           alt=""
           fill
-          unoptimized
           sizes="100vw"
           priority
           className={styles.heroBackgroundImage}
