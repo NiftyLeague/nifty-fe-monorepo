@@ -100,7 +100,6 @@ const publicRoutesLayout = 'apps/app/src/app/(public-routes)/layout.tsx'
 const stalePublicProviderBoundary = 'apps/app/src/contexts/PublicAppContextWrapper.tsx'
 const walletStorageBoundaries = [
   'apps/app/src/contexts/WalletAuthProviders.tsx',
-  'apps/app/src/contexts/GameWalletProviders.tsx',
   'apps/app/src/components/providers/MintProviders.tsx',
 ]
 const leaderboardProviders = 'apps/app/src/contexts/LeaderboardProviders.tsx'
@@ -894,6 +893,19 @@ describe('public storage provider contract', () => {
       expect(source).toContain("from '@/contexts/LocalStorageContext'")
     })
   }
+
+  it('reuses the shared wallet auth provider composition for game routes', () => {
+    const source = readFileSync(
+      join(process.cwd(), 'apps/app/src/contexts/GameWalletProviders.tsx'),
+      'utf8'
+    )
+
+    expect(source).toContain("from '@/contexts/WalletAuthProviders'")
+    expect(source).not.toContain("from '@/contexts/LocalStorageContext'")
+    expect(source).not.toContain("from '@/contexts/Web3ModalContext'")
+    expect(source).not.toContain("from '@/contexts/AuthStatusContext'")
+    expect(source).not.toContain("from '@/contexts/AuthTokenContext'")
+  })
 })
 
 describe('public app shell contract', () => {
