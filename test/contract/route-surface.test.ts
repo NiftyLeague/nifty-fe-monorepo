@@ -490,6 +490,14 @@ describe('GLTF viewer loading contract', () => {
   })
 })
 
+describe('website build performance contract', () => {
+  it('uses the project TypeScript CLI during Next builds', () => {
+    const source = readFileSync(join(process.cwd(), 'apps/web/next.config.ts'), 'utf8')
+
+    expect(source).toContain('useTypeScriptCli: true')
+  })
+})
+
 describe('shared notification loading contract', () => {
   it('keeps toast implementations out of the eager app shell graph', () => {
     const appShellSource = readFileSync(join(process.cwd(), appShell), 'utf8')
