@@ -31,6 +31,12 @@
   composes: pixelated;
 }
 
+.sprite__wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+
 .image {
   position: absolute;
   width: 112%;

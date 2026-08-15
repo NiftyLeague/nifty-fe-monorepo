@@ -29,13 +29,23 @@ export default async function DegenViewsPage({ params }: DegenViewsPageProps) {
         />
       }
       spriteImage={
-        <Image alt="Degen Sprite" className={styles.sprite} fill unoptimized src={spriteSrc} />
+        <div className={styles.sprite__wrapper}>
+          <Image
+            alt="Degen Sprite"
+            className={styles.sprite}
+            fill
+            sizes="100vw"
+            unoptimized
+            src={spriteSrc}
+          />
+        </div>
       }
       logo={
         <Image
           alt="Nifty League Logo"
           width={200}
           height={70}
+          priority
           style={{ maxWidth: '24vw', height: 'auto' }}
           src="/img/logos/NL/wordmark.webp"
         />
