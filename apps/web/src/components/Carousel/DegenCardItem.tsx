@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { memo } from 'react'
 
 export interface Degen {
   name: string
@@ -52,6 +51,3 @@ const DegenCardItem = ({
     </div>
   </div>
 )
-
-const MemoizedDegenCardItem = memo(DegenCardItem)
-export default MemoizedDegenCardItem

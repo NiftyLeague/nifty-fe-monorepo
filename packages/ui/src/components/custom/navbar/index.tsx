@@ -5,7 +5,7 @@ import { Fragment } from 'react'
 import { cx } from '@nl/ui/class-names'
 
 import MobileNavMenu from './MobileNavMenu'
-import NavbarScrollFrame from './NavbarScrollFrame'
+import { NavbarScrollFrame } from './NavbarScrollFrame'
 import { NAV_LINK_CONTENT_CLASS, NavLinkContent } from './NavLinkContent'
 
 export interface NavPage {

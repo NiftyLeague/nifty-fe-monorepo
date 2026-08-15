@@ -69,7 +69,7 @@ export interface StarkKeyPair {
 /**
  * Deterministically derive the IMX Stark key pair from an L1 ethers signer.
  */
-export async function deriveStarkKeyPair(signer: Signer): Promise<StarkKeyPair> {
+async function deriveStarkKeyPair(signer: Signer): Promise<StarkKeyPair> {
   const address = (await signer.getAddress()).toLowerCase()
   const signature = await signer.signMessage(REGISTER_REQUEST_MSG)
   const s = (signature.length === 132 ? signature.slice(66, 130) : signature.slice(2)).replace(

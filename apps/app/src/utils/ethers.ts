@@ -58,7 +58,7 @@ export const shortenAddress = (address: string, chars = 4): string => {
 }
 
 // account is not optional
-export const getSigner = (provider: UserProvider, account: string): JsonRpcSigner =>
+const getSigner = (provider: UserProvider, account: string): JsonRpcSigner =>
   new JsonRpcSigner(provider, account)
 
 // account is optional
