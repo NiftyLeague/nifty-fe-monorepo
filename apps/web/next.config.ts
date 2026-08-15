@@ -9,6 +9,7 @@ const ENV = (process.env.VERCEL_ENV as 'production' | 'preview' | undefined) ?? 
 const nextConfig: NextConfig = {
   transpilePackages: ['@nl/ui'],
   experimental: {
+    optimizePackageImports: ['lucide-react'],
     useTypeScriptCli: true,
   },
   turbopack: {},
