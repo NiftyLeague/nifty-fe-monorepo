@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { formatNumberToDisplay } from '@nl/ui/utils'
+import { formatNumberToDisplay } from '@nl/ui/number-format'
 import { useUserContext } from '../../hooks/useUserContext'
 import { Icon } from '@nl/ui/base/icon'
 import { Input } from '@nl/ui/custom/input'
