@@ -17,14 +17,23 @@ const state = {
   stop: mock(),
   parallax: mock(),
 }
+const nextLinkPrefetches: Array<boolean | undefined> = []
 
 beforeEach(() => {
   mock.module('next/link', () => ({
-    default: ({ children, href, ...props }: PropsWithChildren<{ href: string }>) => (
-      <a href={href} {...props}>
-        {children}
-      </a>
-    ),
+    default: ({
+      children,
+      href,
+      prefetch,
+      ...props
+    }: PropsWithChildren<{ href: string; prefetch?: boolean }>) => {
+      nextLinkPrefetches.push(prefetch)
+      return (
+        <a href={href} {...props}>
+          {children}
+        </a>
+      )
+    },
   }))
   mock.module('next/image', () => ({
     default: ({
@@ -53,6 +62,7 @@ beforeEach(() => {
 afterEach(() => {
   jest.useRealTimers()
   undefined
+  nextLinkPrefetches.length = 0
   state.mobile = true
   state.milliseconds = 1_500
   state.pathname = '/about'
@@ -165,6 +175,8 @@ describe('Navbar', () => {
     )
 
     expect(screen.getByRole('img', { name: 'Home' }).getAttribute('loading')).toBe('eager')
+    expect(nextLinkPrefetches.length).toBeGreaterThan(0)
+    expect(nextLinkPrefetches.every((prefetch) => prefetch === false)).toBe(true)
     expect(screen.getAllByRole('link', { name: /About/ })[0]?.getAttribute('href')).toBe('/about')
     fireEvent.click(screen.getByText('Products', { selector: 'summary' }))
     expect(screen.getAllByRole('link', { name: /Docs/ })[0]?.getAttribute('target')).toBe('_blank')
