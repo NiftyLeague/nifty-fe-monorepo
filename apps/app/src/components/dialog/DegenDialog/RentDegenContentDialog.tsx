@@ -17,6 +17,7 @@ import type { Degen } from '@/types/degens'
 import { errorMsgHandler } from '@/utils/errorHandlers'
 import { formatNumberToDisplay } from '@nl/ui/utils'
 import { gtm, GTM_EVENTS } from '@nl/ui/gtm'
+import { COW_PROTOCOL_URL } from '@/constants/url'
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import ConnectWrapper from '@/components/wrapper/ConnectWrapper'
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
@@ -47,7 +48,6 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
   const [checkBalance, setCheckBalance] = useState<boolean>(false)
   const [rentSuccess, setRentSuccess] = useState<boolean>(false)
   const [openTOS, setOpenTOS] = useState<boolean>(false)
-  const [purchasingNFTL, setPurchasingNFTL] = useState<boolean>(false)
   const { isDegenOwner } = useNFTsBalances()
 
   const disabledRentFor = useMemo(() => {
@@ -178,7 +178,6 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
 
   const handleBuyNFTL = () => {
     gtm.sendEvent(GTM_EVENTS.RENTAL_BUY_NFTL_CLICKED)
-    setPurchasingNFTL(true)
   }
 
   return (
@@ -337,14 +336,16 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                       {!sufficientBalance && (
                         <span className="mt-1 ml-auto text-xs text-warning">
                           Balance low.{' '}
-                          <button
-                            type="button"
+                          <a
+                            href={COW_PROTOCOL_URL}
+                            target="_blank"
+                            rel="noreferrer"
                             className="font-bold text-purple underline cursor-pointer"
                             style={{ color: 'var(--color-purple)' }}
                             onClick={handleBuyNFTL}
                           >
                             Buy NFTL now
-                          </button>
+                          </a>
                         </span>
                       )}
                     </div>
@@ -424,7 +425,6 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
           </div>
         </div>
         <div className="flex flex-col mb-6">
-          {/* {purchasingNFTL && <CowSwapWidget refreshBalance={refetchAccount} />} */}
           <Title level={5} className="mt-4 mb-[6px]">
             Stats
           </Title>
