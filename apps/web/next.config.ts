@@ -8,6 +8,9 @@ const ENV = (process.env.VERCEL_ENV as 'production' | 'preview' | undefined) ?? 
 
 const nextConfig: NextConfig = {
   transpilePackages: ['@nl/ui'],
+  experimental: {
+    useTypeScriptCli: true,
+  },
   turbopack: {},
   images: {
     formats: ['image/avif', 'image/webp'],
