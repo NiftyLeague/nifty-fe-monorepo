@@ -8,9 +8,8 @@ import MainLayout from '@/app/_layout/_MainLayout'
 import { AuthStatusProvider } from '@/contexts/AuthStatusContext'
 import { AuthTokenProvider } from '@/contexts/AuthTokenContext'
 import { FeatureFlagProvider } from '@/contexts/FeatureFlagsContext'
-import { LocalStorageProvider } from '@/contexts/LocalStorageContext'
 import { NotificationProvider } from '@/contexts/NotificationContext'
-import { Web3ModalProvider } from '@/contexts/Web3ModalContext'
+import WalletStorageProviders from '@/contexts/WalletStorageProviders'
 import DeferredNotifications from './DeferredNotifications'
 
 function PrivateRoutesContentLoading(): React.ReactNode {
@@ -36,26 +35,24 @@ interface PrivateRoutesShellProps extends PropsWithChildren {
 
 export default function PrivateRoutesShell({ children, cookies }: PrivateRoutesShellProps) {
   return (
-    <LocalStorageProvider>
-      <Web3ModalProvider
-        cookies={cookies}
-        loadingFallback={
-          <MainLayout walletReady={false}>
-            <PrivateRoutesContentLoading />
-          </MainLayout>
-        }
-      >
-        <AuthStatusProvider>
-          <NotificationProvider>
-            <AuthTokenProvider>
-              <FeatureFlagProvider>
-                <MainLayout>{children}</MainLayout>
-                <DeferredNotifications />
-              </FeatureFlagProvider>
-            </AuthTokenProvider>
-          </NotificationProvider>
-        </AuthStatusProvider>
-      </Web3ModalProvider>
-    </LocalStorageProvider>
+    <WalletStorageProviders
+      cookies={cookies}
+      loadingFallback={
+        <MainLayout walletReady={false}>
+          <PrivateRoutesContentLoading />
+        </MainLayout>
+      }
+    >
+      <AuthStatusProvider>
+        <NotificationProvider>
+          <AuthTokenProvider>
+            <FeatureFlagProvider>
+              <MainLayout>{children}</MainLayout>
+              <DeferredNotifications />
+            </FeatureFlagProvider>
+          </AuthTokenProvider>
+        </NotificationProvider>
+      </AuthStatusProvider>
+    </WalletStorageProviders>
   )
 }
