@@ -4,10 +4,16 @@ title: WEN Game
 sidebar_position: 2
 ---
 
-import ReactPlayer from 'react-player';
+import ViewportVideo from '@nl/ui/custom/viewport-video';
 import VideoURL from '/video/wen-ape.mp4';
 
-<ReactPlayer controls playsInline src={VideoURL} width="100%" height={500} />
+<ViewportVideo
+controls
+playOnViewport={false}
+playsInline
+src={VideoURL}
+style={{ display: 'block', width: '100%', height: 500 }}
+/>
 
 ---
 

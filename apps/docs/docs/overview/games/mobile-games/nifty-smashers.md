@@ -4,7 +4,8 @@ title: Nifty Smashers
 sidebar_position: 1
 ---
 
-import ReactPlayer from 'react-player';
+import LazyYouTubeEmbed from '@nl/ui/custom/lazy-youtube-embed';
+import ViewportVideo from '@nl/ui/custom/viewport-video';
 import VideoURL from '/video/lobby.mp4';
 
 <div style={{ maxWidth: 500, margin: 'auto' }}>![](/img/logos/smashers/app_wordmark_logo_small.webp)</div>
@@ -19,7 +20,11 @@ For some background, the local-multiplayer version of Nifty Smashers was made av
 
 You can play using any other compatible controller (Playstation, Xbox, etc.) if you wish. For the deprecated desktop version you must have a [DEGEN NFT](/docs/overview/nfts/degens/about) to play. Simply connect your crypto wallet holding your DEGEN, enter the game lobby, and select your DEGEN for battle.
 
-<ReactPlayer controls src="https://www.youtube.com/embed/4lnDrx4aDq8" width="100%" height={500} />
+<LazyYouTubeEmbed
+src="https://www.youtube.com/embed/4lnDrx4aDq8"
+title="Nifty Smashers gameplay"
+style={{ display: 'block', width: '100%', height: 500 }}
+/>
 
 ---
 
@@ -110,7 +115,7 @@ All DEGEN tribes have a Special Ability (”SA”), which are consistent across 
 
 For an in-depth overview of the games progression system read our [Pregression Doc](https://docs.google.com/document/d/160WTUFqiL4oyap0x0Zf1rM9zxQGBCIGQbrWxF_604bM/edit?usp=sharing)
 
-<ReactPlayer playing playsInline src={VideoURL} width="100%" height={500} />
+<ViewportVideo playsInline src={VideoURL} style={{ display: 'block', width: '100%', height: 500 }} />
 
 ---
 

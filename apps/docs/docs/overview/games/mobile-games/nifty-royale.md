@@ -4,7 +4,7 @@ title: Nifty Royale
 sidebar_position: 2
 ---
 
-import ReactPlayer from 'react-player';
+import ViewportVideo from '@nl/ui/custom/viewport-video';
 import VideoURL from '/video/nakedbeachflyby.mp4';
 
 <div style={{ maxWidth: 450, margin: 'auto' }}>
@@ -29,7 +29,7 @@ Nifty Royale takes place in our Beach City & Naked Beach regions of [NiftyWorld]
   ![](/img/niftyworld/beachcity_04.webp)
 </div>
 
-<ReactPlayer playing playsInline src={VideoURL} width="100%" height={350} />
+<ViewportVideo playsInline src={VideoURL} style={{ display: 'block', width: '100%', height: 350 }} />
 <br />
 
 **The Terrain**: The terrain consists of two area: “underground” and “surface”. The underground has different sections and each section has two holes which connect the underground to the surface. One hole for descending from the surface and the other for ascending to the surface (it pushes you up to the sky). The underground area is a randomly generated maze which is filled with toxic gas and players can’t stay there too long without losing their resistance bar. So, they should to go back to the surface frequently. On the surface players can use their hoverboard and jetpack to move quickly. There are much more gems in the underground than the surface so players have to go down to collect them. On the surface they usually pick up gem if other players drop them due to taking damage.

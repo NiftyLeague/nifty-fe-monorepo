@@ -4,7 +4,7 @@ title: Items
 sidebar_position: 2
 ---
 
-import ReactPlayer from 'react-player';
+import ViewportVideo from '@nl/ui/custom/viewport-video';
 import VideoURL1 from '/video/companion.mp4';
 import VideoURL2 from '/video/citadel_key.mp4';
 
@@ -28,13 +28,23 @@ Powerful bats or other weapons used in various Nifty League games such as [Nifty
 
 Earned from burning Comic Page #6
 
-<ReactPlayer controls src={VideoURL1} width="100%" height={500} />
+<ViewportVideo
+controls
+playOnViewport={false}
+src={VideoURL1}
+style={{ display: 'block', width: '100%', height: 500 }}
+/>
 
 ### Citadel Key
 
 Earned from burning a full-set of all 6 pages
 
-<ReactPlayer controls src={VideoURL2} width="100%" height={500} />
+<ViewportVideo
+controls
+playOnViewport={false}
+src={VideoURL2}
+style={{ display: 'block', width: '100%', height: 500 }}
+/>
 
 ### Immutable zkEVM Items Marketplace
 

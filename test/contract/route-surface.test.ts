@@ -1990,12 +1990,14 @@ describe('public route dependency contract', () => {
     expect(shell).not.toContain("'use client'")
     expect(shell).toContain("from './ViewportVideoBoundary'")
     expect(shell).toContain("rootMargin = '0px'")
-    expect(boundary).toContain("dynamic(() => import('./ViewportVideoEnhancer')")
+    expect(boundary).toContain(
+      "const loadViewportVideoEnhancer = () => import('./ViewportVideoEnhancer')"
+    )
     expect(boundary).toContain("rootMargin = '0px'")
     expect(boundary).toContain('preload="none"')
     expect(enhancer).toContain("from '@nl/ui/hooks/useOnScreen'")
     expect(enhancer).toContain("from '@nl/ui/hooks/useMediaQuery'")
-    expect(enhancer).toContain("video.preload = shouldPlay ? 'metadata' : 'none'")
+    expect(enhancer).toContain("video.preload = shouldLoad ? 'metadata' : 'none'")
   })
 
   it('keeps marketing game video identifiers unique', () => {

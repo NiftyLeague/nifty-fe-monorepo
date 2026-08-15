@@ -4,10 +4,10 @@ title: Arcade Tokens
 sidebar_position: 1
 ---
 
-import ReactPlayer from 'react-player';
+import ViewportVideo from '@nl/ui/custom/viewport-video';
 import VideoURL from '/video/arcade-token.mp4';
 
-<ReactPlayer playing playsInline src={VideoURL} width="100%" height={500} />
+<ViewportVideo playsInline src={VideoURL} style={{ display: 'block', width: '100%', height: 500 }} />
 
 ---
 
