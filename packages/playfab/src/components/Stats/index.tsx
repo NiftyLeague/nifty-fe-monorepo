@@ -1,4 +1,4 @@
-import { formatNumberToDisplay } from '@nl/ui/utils'
+import { formatNumberToDisplay } from '@nl/ui/number-format'
 import { useUserContext } from '../../hooks/useUserContext'
 import { Input } from '@nl/ui/custom/input'
 

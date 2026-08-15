@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { memo } from 'react'
 import { Button } from '@nl/ui/base/button'
 
-import { formatNumberToDisplay } from '@nl/ui/utils'
+import { formatNumberToDisplay } from '@nl/ui/number-format'
 import useUserUnclaimedAmount from '@/hooks/merkleDistributor/useUserUnclaimedAmount'
 import WithdrawButtonDialog from '@/components/dialog/WithdrawButtonDialog'
 import HoverDataCard from '@/components/cards/HoverDataCard'
