@@ -275,6 +275,17 @@ describe('app performance contracts', () => {
     }
   })
 
+  it('keeps default app builds on the Turbopack worker with a scoped Webpack fallback', () => {
+    const source = readFileSync(appNextConfig, 'utf8')
+
+    expect(source).toContain("const isExplicitWebpackBuild = process.argv.includes('--webpack')")
+    expect(source).toContain("serverExternalPackages: ['pino-pretty', 'lokijs'")
+    expect(source).toContain(
+      "turbopack: { resolveAlias: { '@wagmi/connectors': 'wagmi/connectors' } }"
+    )
+    expect(source).toContain('...(isExplicitWebpackBuild ? { webpack: webpackFallback } : {}),')
+  })
+
   it('modularizes shared Lucide imports before the app graph is bundled', () => {
     for (const file of [appNextConfig, smashersNextConfig, webNextConfig, templateNextConfig]) {
       expect(readFileSync(file, 'utf8')).toContain("optimizePackageImports: ['lucide-react']")
