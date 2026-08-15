@@ -149,7 +149,7 @@ export function Navbar({ actionButton, navItems, className }: NavbarProps) {
             width={52}
             alt="Home"
             className="h-12 w-auto transition-transform hover:scale-105"
-            loading="lazy"
+            loading="eager"
           />
         </Link>
 
