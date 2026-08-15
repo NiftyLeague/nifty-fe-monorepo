@@ -1,12 +1,14 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState, type ComponentType } from 'react'
 
+import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 import type { ViewportVideoProps } from './index'
+import type { ViewportVideoEnhancerProps } from './ViewportVideoEnhancer'
 
-type ViewportVideoEnhancerComponent = typeof import('./ViewportVideoEnhancer').default
-
-const loadViewportVideoEnhancer = () => import('./ViewportVideoEnhancer')
+const ViewportVideoEnhancer = lazy<ComponentType<ViewportVideoEnhancerProps>>(
+  () => import('./ViewportVideoEnhancer')
+)
 
 export default function ViewportVideoBoundary({
   playOnViewport = true,
@@ -15,34 +17,26 @@ export default function ViewportVideoBoundary({
   ...props
 }: ViewportVideoProps): React.ReactNode {
   const videoRef = useRef<HTMLVideoElement>(null)
-  const [ViewportVideoEnhancer, setViewportVideoEnhancer] =
-    useState<ViewportVideoEnhancerComponent | null>(null)
+  const [hasEnteredViewport, setHasEnteredViewport] = useState(false)
+  const isNearViewport = useOnScreen(videoRef, rootMargin)
 
   useEffect(() => {
-    let active = true
-
-    void loadViewportVideoEnhancer()
-      .then(({ default: Enhancer }) => {
-        if (active) setViewportVideoEnhancer(() => Enhancer)
-      })
-      .catch(() => undefined)
-
-    return () => {
-      active = false
-    }
-  }, [])
+    if (isNearViewport) setHasEnteredViewport(true)
+  }, [isNearViewport])
 
   return (
     <>
-      <video {...props} ref={videoRef} preload="none">
+      <video {...props} ref={videoRef} preload={isNearViewport ? 'metadata' : 'none'}>
         <source src={src} type="video/mp4" />
       </video>
-      {ViewportVideoEnhancer ? (
-        <ViewportVideoEnhancer
-          playOnViewport={playOnViewport}
-          rootMargin={rootMargin}
-          videoRef={videoRef}
-        />
+      {hasEnteredViewport || isNearViewport ? (
+        <Suspense fallback={null}>
+          <ViewportVideoEnhancer
+            isNearViewport={isNearViewport}
+            playOnViewport={playOnViewport}
+            videoRef={videoRef}
+          />
+        </Suspense>
       ) : null}
     </>
   )

@@ -33,6 +33,7 @@ describe('ViewportVideo', () => {
   })
 
   it('keeps the video markup server-rendered before playback enhancement', async () => {
+    state.nearViewport = false
     const { container, unmount } = render(
       <ViewportVideo data-testid="video" src="/video/example.mp4" muted loop playsInline />
     )
@@ -63,7 +64,11 @@ describe('ViewportVideo', () => {
       return (
         <>
           <video data-testid="video" ref={videoRef} />
-          <ViewportVideoEnhancer playOnViewport rootMargin="300px" videoRef={videoRef} />
+          <ViewportVideoEnhancer
+            isNearViewport={state.nearViewport}
+            playOnViewport
+            videoRef={videoRef}
+          />
         </>
       )
     }
@@ -74,7 +79,6 @@ describe('ViewportVideo', () => {
     await waitFor(() => {
       expect(video.autoplay).toBe(true)
       expect(video.preload).toBe('metadata')
-      expect(state.observedRootMargin).toBe('300px')
     })
 
     state.nearViewport = false
@@ -97,7 +101,11 @@ describe('ViewportVideo', () => {
       return (
         <>
           <video data-testid="video" ref={videoRef} />
-          <ViewportVideoEnhancer playOnViewport={false} rootMargin="300px" videoRef={videoRef} />
+          <ViewportVideoEnhancer
+            isNearViewport={state.nearViewport}
+            playOnViewport={false}
+            videoRef={videoRef}
+          />
         </>
       )
     }
@@ -119,7 +127,11 @@ describe('ViewportVideo', () => {
       return (
         <>
           <video ref={videoRef} />
-          <ViewportVideoEnhancer playOnViewport rootMargin="300px" videoRef={videoRef} />
+          <ViewportVideoEnhancer
+            isNearViewport={state.nearViewport}
+            playOnViewport
+            videoRef={videoRef}
+          />
         </>
       )
     }
