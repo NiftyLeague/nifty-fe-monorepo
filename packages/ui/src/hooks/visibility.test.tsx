@@ -44,6 +44,30 @@ describe('useOnScreen', () => {
     expect(unobserve).toHaveBeenCalledWith(element)
   })
 
+  it('can stop observing after the first intersection', () => {
+    const element = document.createElement('div')
+    const ref = { current: element }
+    const { result } = renderHook(() => useOnScreen(ref, '20px', { once: true }))
+
+    act(() =>
+      intersectionCallback(
+        [{ target: element, isIntersecting: true } as IntersectionObserverEntry],
+        {} as never
+      )
+    )
+
+    expect(result.current).toBe(true)
+    expect(unobserve).toHaveBeenCalledWith(element)
+
+    act(() =>
+      intersectionCallback(
+        [{ target: element, isIntersecting: false } as IntersectionObserverEntry],
+        {} as never
+      )
+    )
+    expect(result.current).toBe(true)
+  })
+
   it('stays false when no element is mounted', () => {
     expect(renderHook(() => useOnScreen({ current: null })).result.current).toBe(false)
     expect(observe).not.toHaveBeenCalled()
