@@ -100,7 +100,7 @@ const publicRoutesLayout = 'apps/app/src/app/(public-routes)/layout.tsx'
 const stalePublicProviderBoundary = 'apps/app/src/contexts/PublicAppContextWrapper.tsx'
 const walletStorageBoundaries = [
   'apps/app/src/contexts/WalletAuthProviders.tsx',
-  'apps/app/src/contexts/WalletFeatureProviders.tsx',
+  'apps/app/src/contexts/GameWalletProviders.tsx',
   'apps/app/src/components/providers/MintProviders.tsx',
 ]
 const leaderboardProviders = 'apps/app/src/contexts/LeaderboardProviders.tsx'

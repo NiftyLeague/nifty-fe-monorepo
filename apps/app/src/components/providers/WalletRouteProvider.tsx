@@ -9,11 +9,20 @@ const WalletFeatureLoading = () => (
   </div>
 )
 
-const WalletFeatureProviders = dynamic(() => import('@/contexts/WalletFeatureProviders'), {
+const GameWalletProviders = dynamic(() => import('@/contexts/GameWalletProviders'), {
   ssr: false,
   loading: WalletFeatureLoading,
 })
 
-export default function WalletRouteProvider({ children }: PropsWithChildren) {
-  return <WalletFeatureProviders>{children}</WalletFeatureProviders>
+interface WalletRouteProviderProps extends PropsWithChildren {
+  loadWalletFeatures?: boolean
+}
+
+export default function WalletRouteProvider({
+  loadWalletFeatures,
+  children,
+}: WalletRouteProviderProps) {
+  return (
+    <GameWalletProviders loadWalletFeatures={loadWalletFeatures}>{children}</GameWalletProviders>
+  )
 }
