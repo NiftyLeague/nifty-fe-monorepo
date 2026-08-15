@@ -164,7 +164,7 @@ describe('Navbar', () => {
       />
     )
 
-    expect(screen.getByRole('img', { name: 'Home' })).not.toBeNull()
+    expect(screen.getByRole('img', { name: 'Home' }).getAttribute('loading')).toBe('eager')
     expect(screen.getAllByRole('link', { name: /About/ })[0]?.getAttribute('href')).toBe('/about')
     fireEvent.click(screen.getByText('Products', { selector: 'summary' }))
     expect(screen.getAllByRole('link', { name: /Docs/ })[0]?.getAttribute('target')).toBe('_blank')
