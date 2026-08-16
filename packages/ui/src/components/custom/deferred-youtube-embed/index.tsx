@@ -35,6 +35,7 @@ export const DeferredYouTubeEmbed = memo(function DeferredYouTubeEmbed({
           aria-live="polite"
           aria-label={`Loading ${title}`}
           className={props.className}
+          style={props.style}
         />
       )}
     </div>

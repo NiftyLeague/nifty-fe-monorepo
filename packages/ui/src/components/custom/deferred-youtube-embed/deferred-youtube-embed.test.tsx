@@ -28,12 +28,14 @@ describe('DeferredYouTubeEmbed', () => {
         src="about:blank"
         title="Example trailer"
         className="h-[315px] w-full"
+        style={{ display: 'block', width: '100%', height: 380 }}
       />
     )
 
     expect(container.querySelector('iframe')).toBeNull()
     expect(screen.getByRole('status', { name: 'Loading Example trailer' })).toBeTruthy()
     expect(screen.getByRole('status').className).toContain('h-[315px]')
+    expect(screen.getByRole('status').getAttribute('style')).toContain('height: 380px')
     expect(container.firstElementChild?.getAttribute('aria-busy')).toBe('true')
     expect(state.rootMargin).toBe('160px')
   })
