@@ -1788,6 +1788,16 @@ describe('web marketing image sizing contract', () => {
     expect(learnCardsSource).not.toContain('            priority\n')
   })
 
+  it('keeps 404 artwork out of normal-route preload hints', () => {
+    const error404Source = readFileSync(
+      join(process.cwd(), 'packages/ui/src/components/custom/error-404/index.tsx'),
+      'utf8'
+    )
+
+    expect(error404Source).not.toContain('priority')
+    expect(error404Source).not.toContain('loading=')
+  })
+
   it('does not eagerly preload below-fold decorative artwork', () => {
     const overviewSource = readFileSync(
       join(process.cwd(), 'apps/web/src/app/(main)/overview/page.tsx'),
