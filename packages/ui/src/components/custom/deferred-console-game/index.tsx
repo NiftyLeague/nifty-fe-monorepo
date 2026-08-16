@@ -11,6 +11,10 @@ interface DeferredConsoleGameProps {
   src: string
 }
 
+// Avoid downloading multi-megabyte game video when only a few pixels of the
+// section are visible at the bottom of a marketing page's initial viewport.
+const CONSOLE_GAME_ROOT_MARGIN = '0px 0px -25% 0px'
+
 const loadConsoleGame = () =>
   import('../console-game').then(({ ConsoleGame }) => ({ default: ConsoleGame }))
 
@@ -18,7 +22,7 @@ const DeferredConsoleGame = ({ src }: DeferredConsoleGameProps) => {
   const rootRef = useRef<HTMLDivElement>(null)
   // Keep the interactive video chunk out of the initial page load until the
   // preview actually intersects the viewport.
-  const isNearViewport = useOnScreen(rootRef, '0px')
+  const isNearViewport = useOnScreen(rootRef, CONSOLE_GAME_ROOT_MARGIN)
   const { Component: ConsoleGame } = useDeferredComponent<ConsoleGameProps>(
     loadConsoleGame,
     isNearViewport
