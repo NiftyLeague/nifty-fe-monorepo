@@ -22,4 +22,11 @@ describe('NavIcon', () => {
     expect(icon?.getAttribute('aria-label')).toBe('Mint-O-Matic')
     expect(icon?.getAttribute('aria-hidden')).toBeNull()
   })
+
+  it('shares the lightweight check glyph used by marketing timelines', () => {
+    const { container } = render(<NavIcon name="check" />)
+    const icon = container.querySelector('svg')
+
+    expect(icon?.querySelector('path')?.getAttribute('d')).toBe('M20 6 9 17l-5-5')
+  })
 })

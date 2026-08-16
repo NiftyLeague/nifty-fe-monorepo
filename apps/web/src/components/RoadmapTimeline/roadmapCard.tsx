@@ -1,8 +1,7 @@
-import { Check } from 'lucide-react'
-
 import { cx } from '@nl/ui/class-names'
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { AnimatedImage } from '@nl/ui/custom/animated-image'
+import { NavIcon } from '@nl/ui/custom/nav-icon'
 import styles from './index.module.css'
 
 interface RoadmapCardProps {
@@ -38,13 +37,7 @@ const RoadmapCard = ({
         className={cx(styles.cd_timeline_checkpoint, { [styles.completed as string]: completed })}
       >
         {completed && (
-          <Check
-            absoluteStrokeWidth
-            aria-hidden="true"
-            className="m-auto"
-            size={20}
-            strokeWidth={2.5}
-          />
+          <NavIcon aria-hidden="true" className="m-auto" name="check" size={20} strokeWidth={3} />
         )}
       </div>
     )}
