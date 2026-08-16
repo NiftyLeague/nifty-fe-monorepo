@@ -1,7 +1,8 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import DegenCard, { DegenCardInView, type DegenCardProps } from './index'
+import DeferredDegenCard from '@/components/providers/DeferredDegenCard'
+import DegenCard, { type DegenCardProps } from './index'
 
 const DegenDashboardActions = dynamic(() => import('./DegenDashboardActions'), { ssr: false })
 
@@ -26,7 +27,7 @@ export function DashboardDegenCard(props: DegenCardProps) {
 }
 
 export function DashboardDegenCardInView(props: DegenCardProps) {
-  return <DegenCardInView {...withDashboardActions(props)} />
+  return <DeferredDegenCard {...withDashboardActions(props)} />
 }
 
 export default DashboardDegenCard

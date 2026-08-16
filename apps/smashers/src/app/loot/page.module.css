@@ -26,6 +26,10 @@
   border: 1px solid rgba(var(--color-purple), 0.1);
   position: relative;
   overflow: hidden;
+  /* Each crate keeps a scrollable table, so defer offscreen table layout and
+   * painting without changing the visible table or its keyboard semantics. */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 44rem;
 }
 
 .crateGroup::before {

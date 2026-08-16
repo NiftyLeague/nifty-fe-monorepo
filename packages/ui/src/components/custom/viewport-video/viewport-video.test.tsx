@@ -43,7 +43,7 @@ describe('ViewportVideo', () => {
     expect(video.preload).toBe('none')
     expect(video.querySelector('source')).toBeNull()
 
-    await waitFor(() => expect(state.observedRootMargin).toBe('0px'))
+    await waitFor(() => expect(state.observedRootMargin).toBe('0px 0px -25% 0px'))
 
     deferred.unmount()
     state.nearViewport = true
@@ -62,7 +62,7 @@ describe('ViewportVideo', () => {
   it('waits for the viewport by default while preserving explicit prefetch windows', async () => {
     const { rerender } = render(<ViewportVideo data-testid="video" src="/video/example.mp4" />)
 
-    await waitFor(() => expect(state.observedRootMargin).toBe('0px'))
+    await waitFor(() => expect(state.observedRootMargin).toBe('0px 0px -25% 0px'))
 
     rerender(<ViewportVideo data-testid="video" rootMargin="300px" src="/video/example.mp4" />)
 

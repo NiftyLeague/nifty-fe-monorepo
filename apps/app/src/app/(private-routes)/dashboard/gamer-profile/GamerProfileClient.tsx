@@ -28,7 +28,7 @@ const GamerProfilePageContent = dynamic(() => import('./GamerProfileContent'), {
 
 export default function GamerProfileClient(): React.ReactNode {
   return (
-    <DashboardDataBoundary>
+    <DashboardDataBoundary includeTokens={false}>
       <GamerProfilePageContent />
     </DashboardDataBoundary>
   )

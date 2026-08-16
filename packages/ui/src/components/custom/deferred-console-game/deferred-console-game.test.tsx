@@ -1,8 +1,13 @@
 import { render, screen } from '@testing-library/react'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
+const observedRootMargins: string[] = []
+
 mock.module('@nl/ui/hooks/useOnScreen', () => ({
-  useOnScreen: () => false,
+  useOnScreen: (_ref: unknown, rootMargin: string) => {
+    observedRootMargins.push(rootMargin)
+    return false
+  },
 }))
 
 describe('DeferredConsoleGame', () => {
@@ -21,5 +26,6 @@ describe('DeferredConsoleGame', () => {
     expect(container.firstElementChild?.getAttribute('style')).toContain(
       'aspect-ratio: 4842 / 3371'
     )
+    expect(observedRootMargins).toEqual(['0px 0px -25% 0px'])
   })
 })

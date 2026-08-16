@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import Image from 'next/image'
+import NativeImage from '@nl/ui/custom/native-image'
 import { LEGGIES } from '@/constants/degens'
 const IMAGE_HEIGHT = 320
 
@@ -25,7 +25,7 @@ const DegenImage = memo(
     }
 
     return (
-      <Image
+      <NativeImage
         className="pixelated"
         src={image}
         alt={`Degen #${tokenId}`}

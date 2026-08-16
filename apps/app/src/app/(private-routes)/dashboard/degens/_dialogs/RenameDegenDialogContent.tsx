@@ -2,12 +2,13 @@
 
 import { useCallback, useState } from 'react'
 import { parseEther } from 'ethers'
-import Image from 'next/image'
+import NativeImage from '@nl/ui/custom/native-image'
 import { Button } from '@nl/ui/base/button'
 import { DialogContent } from '@nl/ui/base/dialog'
 import { Input } from '@nl/ui/custom/input'
 import { Title } from '@nl/ui/custom/typography'
-import { gtm, GTM_EVENTS } from '@nl/ui/gtm'
+import * as gtm from '@nl/ui/gtm/events'
+import { EVENTS as GTM_EVENTS } from '@nl/ui/gtm/constants'
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import useNetworkContext from '@/hooks/useNetworkContext'
 import useNFTLAllowance from '@/hooks/useNFTLAllowance'
@@ -110,7 +111,7 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): React.ReactNode 
           Rename DEGEN
         </Title>
         <div className="flex flex-col items-center gap-1">
-          <Image
+          <NativeImage
             src={`/img/degens/nfts/${degen?.id}.${degen?.background === 'Legendary' ? 'gif' : 'webp'}`}
             alt="degen"
             width={240}

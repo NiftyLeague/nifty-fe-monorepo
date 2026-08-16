@@ -2,11 +2,11 @@
 
 import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
-import Image from 'next/image'
 import { BookHeart, Database, User as UserIcon } from 'lucide-react'
 
 import { cn } from '@nl/ui/utils'
 import { Card, CardContent, CardHeader, CardDescription } from '@nl/ui/base/card'
+import NativeImage from '@nl/ui/custom/native-image'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@nl/ui/base/tabs'
 
 import BackButton from '@/components/Header/BackButton'
@@ -42,7 +42,7 @@ export default function ProfileClient({ sessionData }: { sessionData: SessionDat
       <div className="w-full h-screen flex justify-center items-center">
         <Card className="relative w-full max-w-[800px] h-screen md:h-auto overflow-auto md:overflow-hidden">
           <CardHeader className="pt-8 md:pt-0">
-            <Image
+            <NativeImage
               src="/img/logos/NL/white.webp"
               alt="Company Logo"
               width={50}

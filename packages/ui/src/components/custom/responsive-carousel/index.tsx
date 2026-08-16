@@ -258,6 +258,8 @@ const ResponsiveCarousel = forwardRef<ResponsiveCarouselRef, ResponsiveCarouselP
           maxIndex,
           Math.max(0, Math.round(viewport.scrollLeft / pageWidth))
         )
+        if (nextIndex === activeIndexRef.current) return
+
         activeIndexRef.current = nextIndex
         setActiveIndex(nextIndex)
       })
