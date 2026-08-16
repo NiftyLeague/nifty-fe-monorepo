@@ -31,7 +31,7 @@
         "SENTRY_PROJECT",
         "VERCEL_ENV"
       ],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**"]
     },
     "api#build": {
       "inputs": [
@@ -115,7 +115,7 @@
         "TWITCH_CLIENT_SECRET",
         "VERCEL_ENV"
       ],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**"]
     },
     "web#build": {
       "inputs": [
@@ -137,7 +137,7 @@
         "SENTRY_PROJECT",
         "VERCEL_ENV"
       ],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**"]
     },
     "clean": { "cache": false },
     "lint": { "env": ["NEXT_PUBLIC_VERCEL_ENV"] },
