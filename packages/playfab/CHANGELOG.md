@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.0.2](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/playfab-v1.0.1...playfab-v1.0.2) (2026-08-16)
+
+
+### Performance
+
+* **app:** replace trivial lodash collection helpers ([#537](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/537)) ([036c6ee](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/036c6ee2aee784653c0962677cb580d076166cc4))
+
+
+### Tests
+
+* **playfab:** cover auth callbacks (jwt, session, signIn) ([4875df3](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/4875df352b251364c23c7353ccf71490580a978b))
+
+
+### Maintenance
+
+* **playfab:** use shared alert dialog primitive ([#536](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/536)) ([bd6c378](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/bd6c378d3046c094f77380f04a89611bd212e97b))
+* promote staging to main ([cc77798](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/cc77798c50da9641287aae69f5c73564e0be07cd))
+* promote staging to main for GLTF NFTL hotfix ([b66c5f9](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/b66c5f9af80715e267f7925b3fd5793721bccbc1))
+* sync original staging content to main ([#901](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/901)) ([17415b6](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/17415b6e4913a4c60c435b33cbfb69eb67d6fd20))
+
 ## [1.0.1](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/playfab-v1.0.0...playfab-v1.0.1) (2026-08-09)
 
 
