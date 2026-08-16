@@ -1,25 +1,13 @@
 import { parseEther } from 'ethers'
-import { afterEach, beforeEach, describe, expect, it } from 'bun:test'
-import { mock } from 'bun:test'
+import { afterEach, beforeEach, describe, expect, it, mock, spyOn } from 'bun:test'
 import { IMX_TESTNET_ID, MAINNET_ID, SEPOLIA_ID } from '@/constants/networks'
 import { INTERCHAIN_SERVICE_CONTRACT, NFTL_CONTRACT } from '@/constants/contracts'
-
-const sdk = { estimateGasFee: mock().mockResolvedValue(123n) }
 
 let bridgeNFTL: typeof import('./interchainTokenService').bridgeNFTL
 let getInterchainTokenRecord: typeof import('./interchainTokenService').getInterchainTokenRecord
 let increaseBridgeAllowance: typeof import('./interchainTokenService').increaseBridgeAllowance
 
 beforeEach(async () => {
-  mock.module('@axelar-network/axelarjs-sdk', () => ({
-    AxelarQueryAPI: class {
-      estimateGasFee = sdk.estimateGasFee
-    },
-    Environment: { MAINNET: 'mainnet', TESTNET: 'testnet' },
-    EvmChain: { ETHEREUM: 'ethereum', IMMUTABLE: 'immutable', SEPOLIA: 'sepolia' },
-    GasToken: { ETH: 'eth', SEPOLIA: 'sepolia' },
-  }))
-
   const interchain = await import('./interchainTokenService')
   bridgeNFTL = interchain.bridgeNFTL
   getInterchainTokenRecord = interchain.getInterchainTokenRecord
@@ -28,7 +16,6 @@ beforeEach(async () => {
 
 afterEach(() => {
   mock.restore()
-  sdk.estimateGasFee.mockClear()
 })
 
 describe('interchain token service', () => {
@@ -65,6 +52,18 @@ describe('interchain token service', () => {
   })
 
   it('estimates gas and submits an interchain transfer', async () => {
+    const fetchMock = spyOn(globalThis, 'fetch').mockImplementation(
+      async () =>
+        new Response(
+          JSON.stringify({
+            result: {
+              source_base_fee_string: '0.000000000000000123',
+              source_token: { decimals: 18, gas_price: '0.000000000000000001' },
+            },
+          }),
+          { status: 200 }
+        )
+    )
     const wait = mock().mockResolvedValue('transfer-receipt')
     const interchainTransfer = mock().mockResolvedValue({ hash: '0xhash', wait })
     const contracts = { [INTERCHAIN_SERVICE_CONTRACT]: { interchainTransfer } }
@@ -73,7 +72,18 @@ describe('interchain token service', () => {
     await expect(bridgeNFTL(contracts as never, '0xwallet', SEPOLIA_ID, amount)).resolves.toBe(
       'transfer-receipt'
     )
-    expect(sdk.estimateGasFee).toHaveBeenCalledWith('sepolia', 'immutable', 700_000, 1.1, 'sepolia')
+    expect(fetchMock).toHaveBeenCalledWith(
+      'https://testnet.api.gmp.axelarscan.io',
+      expect.objectContaining({
+        method: 'POST',
+        body: JSON.stringify({
+          method: 'getFees',
+          destinationChain: 'immutable',
+          sourceChain: 'ethereum-sepolia',
+          sourceTokenSymbol: 'ETH',
+        }),
+      })
+    )
     expect(interchainTransfer).toHaveBeenCalledWith(
       expect.stringMatching(/^0x/),
       'ethereum-sepolia',
@@ -81,7 +91,7 @@ describe('interchain token service', () => {
       amount,
       '0x',
       parseEther('0.0001'),
-      { value: 123n }
+      { value: 770123n }
     )
     await expect(bridgeNFTL(contracts as never, '0xwallet', IMX_TESTNET_ID, amount)).resolves.toBe(
       'transfer-receipt'
