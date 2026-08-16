@@ -1,4 +1,4 @@
-import OptimizedImage from '@nl/ui/custom/optimized-image'
+import { DesktopOnlyImage } from '@nl/ui/custom/responsive-only-image'
 
 type TokenName = 'token1' | 'token2' | 'token3'
 
@@ -58,7 +58,7 @@ function BouncingToken({ token }: { token: TokenName }) {
     <div className={config.wrapperClassName}>
       <div>
         <div className={`${config.animationClassName} transition-fade`}>
-          <OptimizedImage
+          <DesktopOnlyImage
             src={config.src}
             alt={config.alt}
             width={config.width}
