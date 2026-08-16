@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import { DesktopOnlyImage, MobileOnlyImage } from '@nl/ui/custom/responsive-only-image'
 
 import { SPONSORS } from '@/constants/sponsors'
 
@@ -11,12 +11,12 @@ const RenderSponsor = ({ image, url, width, height }: Sponsor) => (
 const SponsorItem = ({ image, url, width, height }: Sponsor): React.ReactNode => (
   <a href={url} target="_blank" rel="noreferrer" className="block">
     <div className="m-6 w-20 md:m-8 md:w-40">
-      <Image
+      <MobileOnlyImage
         alt="sponsor image"
         src={image}
         width={width}
         height={height}
-        sizes="(min-width: 768px) 160px, 80px"
+        sizes="80px"
         className="w-full h-auto"
       />
     </div>
@@ -34,7 +34,7 @@ const Sponsors = () => (
     </div>
     <div className="hidden md:block">
       <div className="w-full relative flex-grow">
-        <Image
+        <DesktopOnlyImage
           alt="Proudly Backed By"
           className="w-full h-auto"
           width={1920}

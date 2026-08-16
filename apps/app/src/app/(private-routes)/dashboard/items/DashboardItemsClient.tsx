@@ -29,7 +29,7 @@ const DashboardItemsPageContent = dynamic(() => import('./DashboardItemsContent'
 
 export default function DashboardItemsClient(): React.ReactNode {
   return (
-    <DashboardDataBoundary>
+    <DashboardDataBoundary includeTokens={false}>
       <DashboardItemsPageContent />
     </DashboardDataBoundary>
   )

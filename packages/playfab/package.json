@@ -26,7 +26,6 @@
   },
   "dependencies": {
     "@nl/ui": "workspace:*",
-    "ethers": "^6.17.0",
     "notistack": "^3.0.2",
     "swr": "^2.4.2"
   },

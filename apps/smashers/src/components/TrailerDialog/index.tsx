@@ -1,8 +1,8 @@
 'use client'
 
-import Image from 'next/image'
 import { useEffect, useState, useRef } from 'react'
 import { Dialog } from '@nl/ui/custom/dialog'
+import NativeImage from '@nl/ui/custom/native-image'
 
 const TrailerContent = () => {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -66,7 +66,7 @@ const TrailerDialog = ({ open }: { open?: boolean }) => (
     hideTitle
     triggerElement={
       <button>
-        <Image
+        <NativeImage
           src="/icons/socials/youtube.svg"
           alt="YouTube Logo"
           width={22}

@@ -4,7 +4,7 @@ import { FC, useCallback, useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import Link from 'next/link'
-import Image from 'next/image'
+import NativeImage from '@nl/ui/custom/native-image'
 import { Minus, Plus, X } from 'lucide-react'
 
 import { Dialog, DialogContent, DialogTitle } from '@nl/ui/base/dialog'
@@ -21,7 +21,8 @@ import { GET_PRODUCT, NFTL_PURCHASE_URL, PURCHASE_ARCADE_TOKEN_BALANCE_API } fro
 import useGameAccount from '@/hooks/useGameAccount'
 import useAuth from '@/hooks/useAuth'
 
-import { gtm, GTM_EVENTS } from '@nl/ui/gtm'
+import * as gtm from '@nl/ui/gtm/events'
+import { EVENTS as GTM_EVENTS } from '@nl/ui/gtm/constants'
 
 const PRODUCT_ID = 'arcade-token-four-pack'
 
@@ -204,7 +205,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                   </span>
                   <span className="flex text-base" style={{ fontWeight: 500 }}>
                     Total:{' '}
-                    <Image
+                    <NativeImage
                       src="/icons/currencies/arcade-token.svg"
                       alt="Arcade Token"
                       width={16}

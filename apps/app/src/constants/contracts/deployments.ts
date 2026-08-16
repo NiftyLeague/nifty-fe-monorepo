@@ -1,10 +1,9 @@
 import type { InterfaceAbi } from 'ethers'
-import { mainnet, sepolia, hardhat, immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains'
+import { mainnet, sepolia, hardhat } from 'viem/chains'
 
 import MAINNET_DEPLOYMENTS from '@nl/contracts/deployments/mainnet'
 import TESTNET_DEPLOYMENTS from '@nl/contracts/deployments/sepolia'
-import IMX_TESTNET_DEPLOYMENTS from './deployments.imxTestnet'
-import IMX_MAINNET_DEPLOYMENTS from './deployments.imxMainnet'
+import IMX_CONTRACTS from './deployments.imx'
 
 const CONTRACTS: {
   [chainId: number]: { [contractName: string]: { address: `0x${string}`; abi: InterfaceAbi } }
@@ -75,42 +74,7 @@ const CONTRACTS: {
       abi: MAINNET_DEPLOYMENTS.contracts.NiftyDegen.abi,
     },
   },
-  [immutableZkEvmTestnet.id]: {
-    BalanceManagerDistributor: {
-      address: IMX_TESTNET_DEPLOYMENTS.contracts.BalanceManagerDistributor.address,
-      abi: IMX_TESTNET_DEPLOYMENTS.contracts.BalanceManagerDistributor.abi,
-    },
-    // ComicsBurner: {
-    //   address: IMX_TESTNET_DEPLOYMENTS.contracts.ComicsBurner.address,
-    //   abi: IMX_TESTNET_DEPLOYMENTS.contracts.ComicsBurner.abi,
-    // },
-    NFTL: {
-      address: IMX_TESTNET_DEPLOYMENTS.contracts.NFTL.address,
-      abi: IMX_TESTNET_DEPLOYMENTS.contracts.NFTL.abi,
-    },
-    NiftyMarketplace: {
-      address: IMX_TESTNET_DEPLOYMENTS.contracts.NiftyMarketplace.address,
-      abi: IMX_TESTNET_DEPLOYMENTS.contracts.NiftyMarketplace.abi,
-    },
-  },
-  [immutableZkEvm.id]: {
-    BalanceManagerDistributor: {
-      address: IMX_MAINNET_DEPLOYMENTS.contracts.BalanceManagerDistributor.address,
-      abi: IMX_MAINNET_DEPLOYMENTS.contracts.BalanceManagerDistributor.abi,
-    },
-    // ComicsBurner: {
-    //   address: IMX_MAINNET_DEPLOYMENTS.contracts.ComicsBurner.address,
-    //   abi: IMX_MAINNET_DEPLOYMENTS.contracts.ComicsBurner.abi,
-    // },
-    NFTL: {
-      address: IMX_MAINNET_DEPLOYMENTS.contracts.NFTL.address,
-      abi: IMX_MAINNET_DEPLOYMENTS.contracts.NFTL.abi,
-    },
-    NiftyMarketplace: {
-      address: IMX_MAINNET_DEPLOYMENTS.contracts.NiftyMarketplace.address,
-      abi: IMX_MAINNET_DEPLOYMENTS.contracts.NiftyMarketplace.abi,
-    },
-  },
+  ...IMX_CONTRACTS,
 }
 
 export default CONTRACTS

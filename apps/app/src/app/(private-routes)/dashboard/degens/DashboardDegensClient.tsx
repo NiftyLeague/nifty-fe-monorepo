@@ -29,7 +29,7 @@ const DashboardDegensPageContent = dynamic(() => import('./DashboardDegensConten
 
 export default function DashboardDegensClient(): React.ReactNode {
   return (
-    <DashboardDataBoundary>
+    <DashboardDataBoundary includeTokens={false}>
       <DashboardDegensPageContent />
     </DashboardDataBoundary>
   )

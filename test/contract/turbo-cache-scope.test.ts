@@ -22,6 +22,27 @@ const rootPackage = JSON.parse(readFileSync('package.json', 'utf8')) as {
 const envFor = (task: string) => new Set(turbo.tasks[task]?.env ?? [])
 const dependenciesFor = (task: string) => turbo.tasks[task]?.dependsOn ?? []
 const inputsFor = (task: string) => turbo.tasks[task]?.inputs ?? []
+const commonBuildInputExclusions = [
+  '!**/README.md',
+  '!**/CHANGELOG.md',
+  '!**/*.test.*',
+  '!**/*.spec.*',
+  '!**/__tests__/**',
+]
+const buildInputExclusions: Record<string, string[]> = {
+  'api#build': commonBuildInputExclusions,
+  'app#build': [
+    '!**/README.md',
+    '!**/CHANGELOG.md',
+    '!src/types/typechain/**',
+    '!**/*.test.*',
+    '!**/*.spec.*',
+    '!**/__tests__/**',
+  ],
+  'docs#build': commonBuildInputExclusions,
+  'smashers#build': ['!../../packages/playfab/src/test-mock-sdk.ts', ...commonBuildInputExclusions],
+  'web#build': commonBuildInputExclusions,
+}
 const sharedBuildInputs: Record<string, string[]> = {
   'api#build': ['../../packages/contracts/src/**', '../../packages/contracts/package.json'],
   'app#build': [
@@ -75,14 +96,26 @@ describe('Turbo cache environment scope', () => {
         ...(sharedBuildInputs[task] ?? []),
         '.env*',
         '!.env.example',
+        ...(buildInputExclusions[task] ?? []),
       ])
     }
   })
 
   it('invalidates app builds when their shared workspace sources change', () => {
     for (const [task, inputs] of Object.entries(sharedBuildInputs)) {
-      expect(inputsFor(task)).toEqual(['$TURBO_DEFAULT$', ...inputs, '.env*', '!.env.example'])
+      expect(inputsFor(task)).toEqual([
+        '$TURBO_DEFAULT$',
+        ...inputs,
+        '.env*',
+        '!.env.example',
+        ...(buildInputExclusions[task] ?? []),
+      ])
     }
+  })
+
+  it('excludes generated type declarations and test-only dependencies from production builds', () => {
+    expect(inputsFor('app#build')).toContain('!src/types/typechain/**')
+    expect(inputsFor('smashers#build')).toContain('!../../packages/playfab/src/test-mock-sdk.ts')
   })
 
   it('keeps environment inputs on the builds that read them', () => {

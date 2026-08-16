@@ -1,21 +1,14 @@
 import { render } from '@testing-library/react'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
-import type { ComponentProps } from 'react'
 
-mock.module('next/image', () => ({
-  default: ({
-    alt,
-    fill: _fill,
-    priority: _priority,
-    unoptimized: _unoptimized,
-    ...props
-  }: ComponentProps<'img'> & { priority?: boolean; unoptimized?: boolean }) => (
+mock.module('@nl/ui/custom/optimized-image', () => ({
+  default: ({ alt, fill: _fill, priority: _priority, ...props }: React.ComponentProps<'img'>) => (
     // eslint-disable-next-line @next/next/no-img-element
     <img alt={alt} {...props} />
   ),
 }))
 
-mock.module('next/script', () => ({
+mock.module('@nl/ui/custom/deferred-external-script', () => ({
   default: () => null,
 }))
 

@@ -1,5 +1,6 @@
-import Image from 'next/image'
-import { NIFTY_DEGENS, type DegenSpecial } from './constants'
+import { Separator } from '@nl/ui/base/separator'
+
+import { DEGEN_SPECIALS, type DegenSpecial } from './constants'
 
 export function DegenSpecialsTable() {
   return (
@@ -16,17 +17,25 @@ export function DegenSpecialsTable() {
       </div>
 
       <div className="relative border-2 rounded-2xl overflow-clip">
-        <hr className="absolute top-0 bottom-0 left-1/2 w-[2px] h-full my-0 mx-0 border-0 bg-border md:left-1/3" />
-        {NIFTY_DEGENS.map(({ name, description, specialName, gif, image }: DegenSpecial) => (
+        <Separator
+          orientation="vertical"
+          aria-hidden="true"
+          className="absolute top-0 bottom-0 left-1/2 h-full w-[2px] my-0 mx-0 md:left-1/3"
+        />
+        {DEGEN_SPECIALS.map(({ name, description, specialName, gif, image }: DegenSpecial) => (
           <div key={name} className="flex flex-row py-8">
             <div className="w-1/2 sm:w-1/3 my-auto sm:mx-auto">
               <div className="flex flex-col">
                 <div className="text-center">
-                  <Image
+                  {/* This table is dynamically loaded from a client boundary; native lazy images
+                      avoid shipping the stateful Next image runtime into that deferred chunk. */}
+                  <img
                     src={image.link}
                     alt={name}
                     width={image.width}
                     height={image.height}
+                    loading="lazy"
+                    decoding="async"
                     className="mx-auto h-auto w-[30%] sm:w-auto sm:max-w-[90px] lg:max-w-[120px]"
                   />
                 </div>
@@ -40,12 +49,13 @@ export function DegenSpecialsTable() {
 
             <div className="w-1/2 sm:w-1/4 my-auto sm:mx-auto">
               <div className="-mt-12 text-center">
-                <Image
+                <img
                   src={gif.link}
-                  unoptimized
                   alt={name}
                   width={gif.width}
                   height={gif.height}
+                  loading="lazy"
+                  decoding="async"
                   className="mx-auto h-auto w-auto"
                 />
               </div>

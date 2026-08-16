@@ -4,7 +4,8 @@ import { useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@nl/ui/base/button'
 
-import { gtm, GTM_EVENTS } from '@nl/ui/gtm'
+import * as gtm from '@nl/ui/gtm/events'
+import { EVENTS as GTM_EVENTS } from '@nl/ui/gtm/constants'
 import useTokensBalances from '@/hooks/balances/useTokensBalances'
 
 import BuyArcadeTokensDialog from '@/components/dialog/BuyArcadeTokensDialog'

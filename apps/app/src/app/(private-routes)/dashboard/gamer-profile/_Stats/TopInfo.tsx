@@ -1,6 +1,4 @@
 'use client'
-
-import { useMemo } from 'react'
 import { Copy } from 'lucide-react'
 import { Button } from '@nl/ui/base/button'
 import { Title } from '@nl/ui/custom/typography'
@@ -22,7 +20,7 @@ const TopInfo = ({ profile, walletAddress }: TopInfoProps): React.ReactNode => {
   const { isLoadingProfile, fetchUserProfile } = useGamerProfileContext()
   const [, copy] = useCopyToClipboard()
   const total = profile?.stats?.total
-  const profileName = useMemo(() => profile?.name_cased ?? 'Unknown', [profile])
+  const profileName = profile?.name_cased ?? 'Unknown'
 
   const handleUpdateNewName = () => {
     fetchUserProfile?.()
