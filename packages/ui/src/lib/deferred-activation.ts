@@ -6,43 +6,47 @@ interface DeferredActivationOptions {
   onActivate: () => void
 }
 
-/**
- * Schedules non-essential work after user interaction or an idle timeout.
- * Keeping the listener and timer lifecycle in one place prevents deferred
- * features from drifting into subtly different activation behavior.
- */
-export function scheduleDeferredActivation({
-  delay = DEFAULT_DELAY,
-  onActivate,
-}: DeferredActivationOptions): () => void {
-  let activated = false
-  let idleId: number | null = null
-  let timeoutId: number | null = null
+type ActivationSubscriber = () => void
 
-  const removeActivationListeners = () => {
-    for (const eventName of ACTIVATION_EVENTS) {
-      window.removeEventListener(eventName, activate)
-    }
-  }
+const subscribers = new Set<ActivationSubscriber>()
+let scheduledDelay: number | null = null
+let idleId: number | null = null
+let timeoutId: number | null = null
 
-  const cancelIdleActivation = () => {
-    if (idleId !== null) {
-      window.cancelIdleCallback?.(idleId)
-      idleId = null
-    }
-    if (timeoutId !== null) {
-      window.clearTimeout(timeoutId)
-      timeoutId = null
-    }
+const removeActivationListeners = () => {
+  for (const eventName of ACTIVATION_EVENTS) {
+    window.removeEventListener(eventName, activate)
   }
+}
 
-  const activate = () => {
-    if (activated) return
-    activated = true
-    removeActivationListeners()
-    cancelIdleActivation()
-    onActivate()
+const cancelScheduledActivation = () => {
+  if (idleId !== null) {
+    window.cancelIdleCallback?.(idleId)
+    idleId = null
   }
+  if (timeoutId !== null) {
+    window.clearTimeout(timeoutId)
+    timeoutId = null
+  }
+  scheduledDelay = null
+}
+
+const activate = () => {
+  if (subscribers.size === 0) return
+
+  const pendingSubscribers = [...subscribers]
+  subscribers.clear()
+  removeActivationListeners()
+  cancelScheduledActivation()
+
+  for (const subscriber of pendingSubscribers) subscriber()
+}
+
+const scheduleActivation = (delay: number) => {
+  if (scheduledDelay !== null && scheduledDelay <= delay) return
+
+  cancelScheduledActivation()
+  scheduledDelay = delay
 
   for (const eventName of ACTIVATION_EVENTS) {
     window.addEventListener(eventName, activate, { once: true, passive: true })
@@ -56,9 +60,25 @@ export function scheduleDeferredActivation({
   } else {
     timeoutId = window.setTimeout(activate, delay)
   }
+}
+
+/**
+ * Schedules non-essential work after user interaction or an idle timeout.
+ * All subscribers share one listener set and timer per page, so mounting
+ * multiple deferred features does not multiply global event work.
+ */
+export function scheduleDeferredActivation({
+  delay = DEFAULT_DELAY,
+  onActivate,
+}: DeferredActivationOptions): () => void {
+  subscribers.add(onActivate)
+  scheduleActivation(delay)
 
   return () => {
-    removeActivationListeners()
-    cancelIdleActivation()
+    subscribers.delete(onActivate)
+    if (subscribers.size === 0) {
+      removeActivationListeners()
+      cancelScheduledActivation()
+    }
   }
 }

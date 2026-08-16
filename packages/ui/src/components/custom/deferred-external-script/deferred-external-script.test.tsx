@@ -71,4 +71,51 @@ describe('DeferredExternalScript', () => {
       })
     }
   })
+
+  it('shares one activation timer across deferred scripts', () => {
+    const originalSetTimeout = window.setTimeout
+    const originalClearTimeout = window.clearTimeout
+    const timeoutCallbacks: TimerHandler[] = []
+
+    Object.defineProperty(window, 'setTimeout', {
+      configurable: true,
+      value: (callback: TimerHandler) => {
+        timeoutCallbacks.push(callback)
+        return 1
+      },
+    })
+    Object.defineProperty(window, 'clearTimeout', {
+      configurable: true,
+      value: mock(),
+    })
+
+    const rendered = render(
+      <>
+        <DeferredExternalScript id="test-external-script" src="/stats.js" />
+        <DeferredExternalScript id="test-external-script-two" src="/other-stats.js" />
+      </>
+    )
+
+    try {
+      expect(timeoutCallbacks).toHaveLength(1)
+
+      act(() => window.dispatchEvent(new Event('pointerdown')))
+
+      expect(document.getElementById('test-external-script')?.getAttribute('src')).toBe('/stats.js')
+      expect(document.getElementById('test-external-script-two')?.getAttribute('src')).toBe(
+        '/other-stats.js'
+      )
+    } finally {
+      rendered.unmount()
+      document.getElementById('test-external-script-two')?.remove()
+      Object.defineProperty(window, 'setTimeout', {
+        configurable: true,
+        value: originalSetTimeout,
+      })
+      Object.defineProperty(window, 'clearTimeout', {
+        configurable: true,
+        value: originalClearTimeout,
+      })
+    }
+  })
 })
