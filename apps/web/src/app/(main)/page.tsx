@@ -84,6 +84,7 @@ const DesktopIntro = () => {
             width={1920}
             height={1042}
             loading="eager"
+            fetchPriority="high"
             sizes="100vw"
             className="w-full h-auto"
           />

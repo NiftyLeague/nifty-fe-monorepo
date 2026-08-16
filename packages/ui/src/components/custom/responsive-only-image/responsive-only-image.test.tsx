@@ -4,6 +4,7 @@ import { describe, expect, it, mock } from 'bun:test'
 mock.module('@nl/ui/custom/optimized-image', () => ({
   getOptimizedImageProps: ({
     alt,
+    fetchPriority,
     height,
     loading,
     sizes,
@@ -11,6 +12,7 @@ mock.module('@nl/ui/custom/optimized-image', () => ({
     width,
   }: Record<string, unknown>) => ({
     alt,
+    fetchPriority,
     height,
     loading,
     sizes,
@@ -27,6 +29,7 @@ describe('ResponsiveOnlyImage', () => {
       <>
         <DesktopOnlyImage
           alt="Desktop artwork"
+          fetchPriority="high"
           height={100}
           sizes="100vw"
           src="/desktop.webp"
@@ -56,5 +59,6 @@ describe('ResponsiveOnlyImage', () => {
         image.getAttribute('src')?.startsWith('data:image/gif;base64,')
       )
     ).toBe(true)
+    expect(container.querySelectorAll('img')[0]?.getAttribute('fetchpriority')).toBe('high')
   })
 })

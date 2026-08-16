@@ -1710,7 +1710,7 @@ describe('web marketing page boundary contract', () => {
 })
 
 describe('web marketing image sizing contract', () => {
-  it('preloads only the responsive hero background on the homepage critical path', () => {
+  it('preloads only the responsive hero background and prioritizes visible hero artwork', () => {
     const homeSource = readFileSync(join(process.cwd(), webHomePage), 'utf8')
 
     expect(homeSource).toContain("import { preload } from 'react-dom'")
@@ -1718,7 +1718,7 @@ describe('web marketing image sizing contract', () => {
     expect(homeSource).toContain("media: '(max-width: 768px)'")
     expect(homeSource).toContain("fetchPriority: 'high'")
     expect(homeSource).not.toContain('speech-bubble.webp\n            alt="Learn More"')
-    expect(homeSource).not.toContain('loading="eager"\n            fetchPriority="high"')
+    expect(homeSource).toContain('loading="eager"\n            fetchPriority="high"')
   })
 
   it('keeps decorative homepage coins out of the client scroll graph', () => {

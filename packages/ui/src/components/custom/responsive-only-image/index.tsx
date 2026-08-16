@@ -5,6 +5,7 @@ const RESPONSIVE_PLACEHOLDER = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQ
 export interface ResponsiveOnlyImageProps {
   alt: string
   className?: string
+  fetchPriority?: 'high' | 'low' | 'auto'
   height: number
   loading?: 'eager' | 'lazy'
   media: string
@@ -21,6 +22,7 @@ export interface ResponsiveOnlyImageProps {
 export function ResponsiveOnlyImage({
   alt,
   className,
+  fetchPriority,
   height,
   loading = 'lazy',
   media,
@@ -29,7 +31,15 @@ export function ResponsiveOnlyImage({
   style,
   width,
 }: ResponsiveOnlyImageProps) {
-  const props = getOptimizedImageProps({ alt, height, loading, sizes, src, width })
+  const props = getOptimizedImageProps({
+    alt,
+    fetchPriority,
+    height,
+    loading,
+    sizes,
+    src,
+    width,
+  })
   const { src: _src, srcSet: _srcSet, sizes: _sizes, ...fallbackProps } = props
 
   return (
