@@ -1,6 +1,6 @@
 import type { EquipItemSlot } from '@/types/equip'
 import Image from 'next/image'
-import { GTM_EVENTS } from '@nl/ui/gtm'
+import { EVENTS as GTM_EVENTS } from '@nl/ui/gtm/constants'
 
 import styles from './index.module.css'
 
