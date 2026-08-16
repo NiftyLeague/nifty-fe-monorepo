@@ -1,7 +1,6 @@
 'use client'
 
-import type { ComponentType } from 'react'
-import { useRef } from 'react'
+import { memo, useRef, type ComponentType } from 'react'
 
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
@@ -41,7 +40,7 @@ export function DeferredSectionLoading({
   )
 }
 
-export function DeferredSection({
+export const DeferredSection = memo(function DeferredSection({
   label,
   load,
   minHeightClassName,
@@ -79,6 +78,6 @@ export function DeferredSection({
       )}
     </div>
   )
-}
+})
 
 export default DeferredSection

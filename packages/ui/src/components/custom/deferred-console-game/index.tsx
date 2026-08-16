@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { memo, useRef } from 'react'
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
@@ -18,7 +18,7 @@ const CONSOLE_GAME_ROOT_MARGIN = '0px 0px -25% 0px'
 const loadConsoleGame = () =>
   import('../console-game').then(({ ConsoleGame }) => ({ default: ConsoleGame }))
 
-const DeferredConsoleGame = ({ src }: DeferredConsoleGameProps) => {
+const DeferredConsoleGame = memo(function DeferredConsoleGame({ src }: DeferredConsoleGameProps) {
   const rootRef = useRef<HTMLDivElement>(null)
   // Keep the interactive video chunk out of the initial page load until the
   // preview actually intersects the viewport.
@@ -47,7 +47,7 @@ const DeferredConsoleGame = ({ src }: DeferredConsoleGameProps) => {
       )}
     </div>
   )
-}
+})
 
 export { DeferredConsoleGame }
 export default DeferredConsoleGame
