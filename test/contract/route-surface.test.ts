@@ -1135,7 +1135,8 @@ describe('private provider loading contract', () => {
     expect(warningSource).toContain('useSwitchChain')
     expect(warningSource).toContain('TARGET_NETWORK')
     expect(warningSource).toContain('aria-live="polite"')
-    expect(warningSource).toContain('<Button')
+    expect(warningSource).toContain("from '@nl/ui/base/button-variants'")
+    expect(warningSource).toContain('<button')
   })
 
   it('replaces the tiny Redux store with scoped shared contexts', () => {
@@ -1303,7 +1304,8 @@ describe('private provider loading contract', () => {
     expect(sidebarSource).toContain("dynamic(() => import('./_UserProfile')")
     expect(sidebarSource).toContain("dynamic(() => import('./_LogoutButton')")
     expect(profileSource).toContain('Open dashboard')
-    expect(profileSource).toContain('<Button asChild className="w-full">')
+    expect(profileSource).toContain("from '@nl/ui/base/button-variants'")
+    expect(profileSource).toContain('data-slot="button"')
     expect(profileSource).not.toContain('SidebarWalletActions')
     expect(profileSource).not.toContain("from '@/hooks/useNetworkContext'")
     expect(profileSource).not.toContain("from '@/hooks/writeContracts/useClaimNFTL'")

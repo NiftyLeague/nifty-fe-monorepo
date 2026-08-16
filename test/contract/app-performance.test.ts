@@ -72,6 +72,8 @@ const nonConflictingClassNameSources = [
   'packages/ui/src/components/custom/app-bar/index.tsx',
 ]
 const appBreadcrumbs = 'apps/app/src/components/extended/Breadcrumbs.tsx'
+const appHeader = 'apps/app/src/app/_layout/_MainLayout/_Header/index.tsx'
+const appNetworkWarning = 'apps/app/src/app/_layout/_MainLayout/_Header/NetworkWarning.tsx'
 const appSidebarFrame = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/SidebarFrame.tsx'
 const mobileSidebarSheet = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/MobileSidebarSheet.tsx'
 const appNavigationContext = 'apps/app/src/contexts/NavigationContext.tsx'
@@ -147,6 +149,7 @@ describe('app performance contracts', () => {
       'apps/app/src/app/_layout/_MainLayout/_Sidebar/SidebarFrame.tsx',
       'apps/app/src/app/_layout/_MainLayout/_Sidebar/_MenuList/_NavCollapse/index.tsx',
       'apps/app/src/app/_layout/_MainLayout/_Sidebar/_MenuList/_NavItem/index.tsx',
+      appBreadcrumbs,
     ]) {
       const source = readFileSync(file, 'utf8')
       expect(source).toContain("from '@nl/ui/class-names'")
@@ -216,6 +219,19 @@ describe('app performance contracts', () => {
     expect(mobileSheetSource).toContain('SheetTitle')
     expect(mobileSheetSource).toContain('SheetDescription')
     expect(mobileSheetSource).toContain('closeLabel="Close sidebar"')
+  })
+
+  it('keeps the private header toggle on the shared shadcn recipe', () => {
+    const source = readFileSync(appHeader, 'utf8')
+    const networkWarningSource = readFileSync(appNetworkWarning, 'utf8')
+
+    expect(source).toContain("from '@nl/ui/base/button-variants'")
+    expect(source).toContain("variant: 'ghost'")
+    expect(source).toContain('aria-controls="app-primary-navigation"')
+    expect(source).not.toContain("from '@nl/ui/base/button'")
+    expect(networkWarningSource).toContain("from '@nl/ui/base/button-variants'")
+    expect(networkWarningSource).toContain("variant: 'default'")
+    expect(networkWarningSource).not.toContain("from '@nl/ui/base/button'")
   })
 
   it('keeps the private shell and sidebar on the same desktop breakpoint', () => {
