@@ -12,6 +12,7 @@ const templateNextConfig = 'apps/template/next.config.ts'
 const webManifest = 'apps/web/package.json'
 const webNextConfig = 'apps/web/next.config.ts'
 const webHome = 'apps/web/src/app/(main)/page.tsx'
+const webOverviewPage = 'apps/web/src/app/(main)/overview/page.tsx'
 const incrementalTypecheckConfigs = [
   'apps/api/tsconfig.json',
   'apps/docs/tsconfig.json',
@@ -164,6 +165,25 @@ describe('app performance contracts', () => {
     expect(heroStart).toBeGreaterThanOrEqual(0)
     expect(heroEnd).toBeGreaterThan(heroStart)
     expect(source.slice(heroStart, heroEnd)).toContain('loading="eager"')
+  })
+
+  it('defers the below-the-fold overview background image', () => {
+    const source = readFileSync(webOverviewPage, 'utf8')
+    const backgroundStart = source.indexOf('const desktopBackground')
+    const backgroundEnd = source.indexOf("src: '/img/backgrounds/dgen-network-mobile.webp'")
+
+    expect(backgroundStart).toBeGreaterThanOrEqual(0)
+    expect(backgroundEnd).toBeGreaterThan(backgroundStart)
+    expect(source.slice(backgroundStart, backgroundEnd)).toContain("loading: 'lazy'")
+    expect(source.slice(backgroundStart, backgroundEnd)).toContain("decoding: 'async'")
+
+    const imageStart = source.indexOf('<img', backgroundEnd)
+    const imageEnd = source.indexOf('/>', imageStart)
+
+    expect(imageStart).toBeGreaterThanOrEqual(0)
+    expect(imageEnd).toBeGreaterThan(imageStart)
+    expect(source.slice(imageStart, imageEnd)).toContain('loading="lazy"')
+    expect(source.slice(imageStart, imageEnd)).toContain('decoding="async"')
   })
 
   it('keeps the GLTF viewer off the conflict-merging utility', () => {

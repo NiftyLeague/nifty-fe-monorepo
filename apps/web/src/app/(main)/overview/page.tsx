@@ -8,6 +8,8 @@ import LearnCards from '@/components/LearnCards'
 const Overview: NextPage = () => {
   const desktopBackground = getOptimizedImageProps({
     alt: 'DGEN Network background',
+    decoding: 'async',
+    loading: 'lazy',
     src: '/img/backgrounds/dgen-network.webp',
     width: 1440,
     height: 813,
@@ -62,6 +64,8 @@ const Overview: NextPage = () => {
             {...desktopBackground}
             alt="DGEN Network background"
             className="pixelated"
+            decoding="async"
+            loading="lazy"
             style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
           />
         </picture>
