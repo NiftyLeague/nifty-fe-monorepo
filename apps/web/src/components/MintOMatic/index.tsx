@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import { ParallaxWrapper } from '@nl/ui/custom/parallax-wrapper'
 
+const MINT_O_MATIC_IMAGE_SIZES = '(min-width: 768px) 50vw, 100vw'
+
 const MintOMatic = () => {
   return (
     <>
@@ -12,7 +14,7 @@ const MintOMatic = () => {
             width={1470}
             height={1778}
             className="pixelated"
-            sizes="100vw"
+            sizes={MINT_O_MATIC_IMAGE_SIZES}
             style={{ width: '100%', height: 'auto' }}
           />
         </div>
@@ -24,7 +26,7 @@ const MintOMatic = () => {
           width={1470}
           height={1778}
           className="pixelated"
-          sizes="100vw"
+          sizes={MINT_O_MATIC_IMAGE_SIZES}
           style={{ width: '100%', height: 'auto' }}
         />
       </div>
@@ -35,7 +37,7 @@ const MintOMatic = () => {
           width={1470}
           height={1778}
           className="pixelated"
-          sizes="100vw"
+          sizes={MINT_O_MATIC_IMAGE_SIZES}
           style={{ width: '100%', height: 'auto' }}
         />
       </div>
@@ -47,7 +49,7 @@ const MintOMatic = () => {
             width={1470}
             height={1778}
             className="pixelated"
-            sizes="100vw"
+            sizes={MINT_O_MATIC_IMAGE_SIZES}
             style={{ width: '100%', height: 'auto' }}
           />
         </div>
