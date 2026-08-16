@@ -6,7 +6,7 @@ import { buttonVariants } from '@nl/ui/base/button-variants'
 import NativeImage from '@nl/ui/custom/native-image'
 import LazyYouTubeEmbed, { type LazyYouTubeEmbedProps } from '@nl/ui/custom/lazy-youtube-embed'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
-import { cn } from '@nl/ui/utils'
+import { cx } from '@nl/ui/class-names'
 
 export const DEFAULT_DEFERRED_YOUTUBE_ROOT_MARGIN = '200px 0px'
 
@@ -47,14 +47,14 @@ export function DeferredYouTubeEmbed({
   const thumbnail = poster ?? getYouTubeThumbnail(props.src)
 
   return (
-    <div ref={containerRef} className={cn('relative overflow-hidden', className)} style={style}>
+    <div ref={containerRef} className={cx('relative overflow-hidden', className)} style={style}>
       {isLoaded ? (
         <LazyYouTubeEmbed {...props} title={title} className="block h-full w-full" />
       ) : (
         <button
           data-slot="button"
           type="button"
-          className={cn(
+          className={cx(
             buttonVariants({ variant: 'ghost', size: 'icon' }),
             'absolute inset-0 z-10 !h-full !w-full !rounded-none !border-0 !bg-black !p-0 !text-white hover:!bg-black focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
           )}
