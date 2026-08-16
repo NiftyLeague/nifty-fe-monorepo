@@ -25,7 +25,8 @@ describe('Smashers asset delivery contracts', () => {
     const gameSection = readFileSync(gameSectionSource, 'utf8')
 
     expect(header).toContain('DeferredHeroBackground')
-    expect(deferredBackground).toContain('strategy="lazyOnload"')
+    expect(deferredBackground).toContain("from '@nl/ui/custom/deferred-external-script'")
+    expect(deferredBackground).toContain('<DeferredExternalScript')
     expect(deferredBackground).toContain('smashers-hero-animation.js')
     expect(deferredBackground).not.toContain("'use client'")
     expect(deferredBackground).toContain('smashers-poster.jpg')
