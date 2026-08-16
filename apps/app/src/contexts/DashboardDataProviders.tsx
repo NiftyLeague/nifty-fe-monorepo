@@ -2,10 +2,7 @@
 
 import type { PropsWithChildren } from 'react'
 
-import AuditFixtureContextWrapper from '@/contexts/AuditFixtureContextWrapper'
-import { IMXProvider } from '@/contexts/IMXContext'
-import { NetworkProvider } from '@/contexts/NetworkProvider'
-import { NFTsBalanceProvider } from '@/contexts/NFTsBalanceContext'
+import NFTDataProviders from '@/contexts/NFTDataProviders'
 import { TokensBalanceProvider } from '@/contexts/TokensBalanceContext'
 
 /**
@@ -16,17 +13,9 @@ import { TokensBalanceProvider } from '@/contexts/TokensBalanceContext'
  * Audit fixtures stay inside this same dashboard-scoped boundary.
  */
 export default function DashboardDataProviders({ children }: PropsWithChildren) {
-  if (process.env.NEXT_PUBLIC_AUDIT_FIXTURE === 'true') {
-    return <AuditFixtureContextWrapper>{children}</AuditFixtureContextWrapper>
-  }
-
   return (
-    <NetworkProvider>
-      <IMXProvider>
-        <NFTsBalanceProvider>
-          <TokensBalanceProvider>{children}</TokensBalanceProvider>
-        </NFTsBalanceProvider>
-      </IMXProvider>
-    </NetworkProvider>
+    <NFTDataProviders>
+      <TokensBalanceProvider>{children}</TokensBalanceProvider>
+    </NFTDataProviders>
   )
 }

@@ -5,12 +5,18 @@ import type { PropsWithChildren } from 'react'
 import DeferredComponent from '@nl/ui/custom/deferred-component'
 
 const loadDashboardDataProviders = () => import('@/contexts/DashboardDataProviders')
+const loadNFTDataProviders = () => import('@/contexts/NFTDataProviders')
 
-export default function DashboardDataBoundary({ children }: PropsWithChildren) {
+type DashboardDataBoundaryProps = PropsWithChildren<{ includeTokens?: boolean }>
+
+export default function DashboardDataBoundary({
+  children,
+  includeTokens = true,
+}: DashboardDataBoundaryProps) {
   return (
     <DeferredComponent
       label="Dashboard data"
-      load={loadDashboardDataProviders}
+      load={includeTokens ? loadDashboardDataProviders : loadNFTDataProviders}
       props={{ children }}
     />
   )
