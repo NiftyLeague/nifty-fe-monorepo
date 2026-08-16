@@ -20,7 +20,10 @@
         "../../packages/ui/src/**",
         "../../packages/ui/package.json",
         ".env*",
-        "!.env.example"
+        "!.env.example",
+        "!**/*.test.*",
+        "!**/*.spec.*",
+        "!**/__tests__/**"
       ],
       "env": [
         "CI",
@@ -39,7 +42,10 @@
         "../../packages/contracts/src/**",
         "../../packages/contracts/package.json",
         ".env*",
-        "!.env.example"
+        "!.env.example",
+        "!**/*.test.*",
+        "!**/*.spec.*",
+        "!**/__tests__/**"
       ],
       "env": [
         "NODE_CONFIG_TS_DIR",
@@ -77,7 +83,10 @@
         "../../packages/ui/src/**",
         "../../packages/ui/package.json",
         ".env*",
-        "!.env.example"
+        "!.env.example",
+        "!**/*.test.*",
+        "!**/*.spec.*",
+        "!**/__tests__/**"
       ],
       "env": ["ALGOLIA_API_KEY", "ALGOLIA_APP_ID"],
       "outputs": ["build/**", ".docusaurus/**"]
@@ -92,7 +101,10 @@
         "../../packages/ui/src/**",
         "../../packages/ui/package.json",
         ".env*",
-        "!.env.example"
+        "!.env.example",
+        "!**/*.test.*",
+        "!**/*.spec.*",
+        "!**/__tests__/**"
       ],
       "env": [
         "APPLE_CLIENT_ID",
@@ -125,7 +137,10 @@
         "../../packages/ui/src/**",
         "../../packages/ui/package.json",
         ".env*",
-        "!.env.example"
+        "!.env.example",
+        "!**/*.test.*",
+        "!**/*.spec.*",
+        "!**/__tests__/**"
       ],
       "env": [
         "CI",
