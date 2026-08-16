@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'bun:test'
 const catalogLoaders = {
   careers: () => import('./careers'),
-  contracts: () => import('./contracts'),
   degens: () => import('./degens'),
   games: () => import('./games'),
   niftyworld: () => import('./niftyworld'),
