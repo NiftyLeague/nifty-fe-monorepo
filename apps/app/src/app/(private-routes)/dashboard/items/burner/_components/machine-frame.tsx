@@ -1,11 +1,11 @@
-import Image from 'next/image'
+import NativeImage from '@nl/ui/custom/native-image'
 
 type MachineFrameProps = { frames: string[]; interval?: number }
 
 const MachineFrame = ({ frames, interval = 0 }: MachineFrameProps) => {
   const frame = frames[(interval + 1) % frames.length]
   return frame ? (
-    <Image
+    <NativeImage
       src={frame}
       alt={`Machine Frame: ${frame}`}
       width={550}

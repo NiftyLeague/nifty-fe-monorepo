@@ -1,6 +1,8 @@
-import Image from 'next/image'
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 import styles from './index.module.css'
 import { DEGEN_COLLECTION_URL } from '@/constants/degen-assets'
+
+const COMIC_THUMBNAIL_SIZES = '(max-width: 767px) 50vw, 250px'
 
 export const ROADMAP_CARDS = [
   {
@@ -318,67 +320,67 @@ export const ROADMAP_CARDS = [
         </p>
         <div className="flex flex-wrap -mx-1">
           <div className="w-1/2 p-1">
-            <Image
+            <OptimizedImage
               alt="comic 1"
               height={500}
               src="/img/comics/thumbnail/1.webp"
               width={500}
-              sizes="100vw"
+              sizes={COMIC_THUMBNAIL_SIZES}
               style={{ width: '100%', height: 'auto' }}
               className="w-full h-auto"
             />
           </div>
           <div className="w-1/2 p-1">
-            <Image
+            <OptimizedImage
               alt="comic 2"
               height={500}
               src="/img/comics/thumbnail/2.webp"
               width={500}
-              sizes="100vw"
+              sizes={COMIC_THUMBNAIL_SIZES}
               style={{ width: '100%', height: 'auto' }}
               className="w-full h-auto"
             />
           </div>
           <div className="w-1/2 p-1">
-            <Image
+            <OptimizedImage
               alt="comic 3"
               height={500}
               src="/img/comics/thumbnail/3.webp"
               width={500}
-              sizes="100vw"
+              sizes={COMIC_THUMBNAIL_SIZES}
               style={{ width: '100%', height: 'auto' }}
               className="w-full h-auto"
             />
           </div>
           <div className="w-1/2 p-1">
-            <Image
+            <OptimizedImage
               alt="comic 4"
               height={500}
               src="/img/comics/thumbnail/4.webp"
               width={500}
-              sizes="100vw"
+              sizes={COMIC_THUMBNAIL_SIZES}
               style={{ width: '100%', height: 'auto' }}
               className="w-full h-auto"
             />
           </div>
           <div className="w-1/2 p-1">
-            <Image
+            <OptimizedImage
               alt="comic 5"
               height={500}
               src="/img/comics/thumbnail/5.webp"
               width={500}
-              sizes="100vw"
+              sizes={COMIC_THUMBNAIL_SIZES}
               style={{ width: '100%', height: 'auto' }}
               className="w-full h-auto"
             />
           </div>
           <div className="w-1/2 p-1">
-            <Image
+            <OptimizedImage
               alt="comic 6"
               height={500}
               src="/img/comics/thumbnail/6.webp"
               width={500}
-              sizes="100vw"
+              sizes={COMIC_THUMBNAIL_SIZES}
               style={{ width: '100%', height: 'auto' }}
               className="w-full h-auto"
             />

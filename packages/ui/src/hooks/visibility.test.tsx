@@ -247,6 +247,26 @@ describe('useParallax', () => {
     expect(element.style.transform).toBe(`translateX(${(-50 * 100 * 0.5) / window.innerHeight}px)`)
   })
 
+  it('resolves the parallax target once and avoids redundant style writes', () => {
+    const element = elementWithTop(100)
+    const getElementsByClassName = spyOn(element, 'getElementsByClassName')
+    const { unmount } = renderHook(() =>
+      useParallax({ current: element }, { enabled: true, direction: 'down', intensity: 'normal' })
+    )
+
+    markIntersecting(element)
+    expect(getElementsByClassName).toHaveBeenCalledTimes(1)
+
+    const child = element.firstElementChild as HTMLElement
+    const initialTransform = child.style.transform
+    markIntersecting(element)
+
+    expect(child.style.transform).toBe(initialTransform)
+    expect(getElementsByClassName).toHaveBeenCalledTimes(1)
+
+    unmount()
+  })
+
   it('shares one scroll listener and coalesces updates into one animation frame', () => {
     const addEventListener = spyOn(window, 'addEventListener')
     const removeEventListener = spyOn(window, 'removeEventListener')

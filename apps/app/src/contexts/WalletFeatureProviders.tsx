@@ -2,19 +2,13 @@
 
 import type { PropsWithChildren } from 'react'
 
-import { IMXProvider } from '@/contexts/IMXContext'
-import { NetworkProvider } from '@/contexts/NetworkProvider'
-import { NFTsBalanceProvider } from '@/contexts/NFTsBalanceContext'
+import NFTDataProviders from '@/contexts/NFTDataProviders'
 import { TokensBalanceProvider } from '@/contexts/TokensBalanceContext'
 
 export default function WalletFeatureProviders({ children }: PropsWithChildren) {
   return (
-    <NetworkProvider>
-      <IMXProvider>
-        <NFTsBalanceProvider>
-          <TokensBalanceProvider>{children}</TokensBalanceProvider>
-        </NFTsBalanceProvider>
-      </IMXProvider>
-    </NetworkProvider>
+    <NFTDataProviders>
+      <TokensBalanceProvider>{children}</TokensBalanceProvider>
+    </NFTDataProviders>
   )
 }

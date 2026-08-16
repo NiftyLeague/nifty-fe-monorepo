@@ -14,6 +14,7 @@ interface FooterLinkProps {
 const FooterLink = ({ href, name, external = false, first = false }: FooterLinkProps) => (
   <Link
     href={href}
+    prefetch={false}
     className={cx(
       'inline-flex items-center justify-center sm:justify-start',
       linkClass,

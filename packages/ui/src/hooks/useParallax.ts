@@ -9,27 +9,20 @@ export type ParallaxIntensity = 'lite' | 'normal' | 'strong' | 'extreme'
 
 type ParallaxUpdate = () => void
 
+const PARALLAX_CHILD_CLASS = 'parallax-child'
+const TRANSITION_MULTIPLIERS: Record<ParallaxIntensity, number> = {
+  lite: 0.5,
+  normal: 1,
+  strong: 2,
+  extreme: 3,
+}
+
 const parallaxUpdates = new Set<ParallaxUpdate>()
 let scheduledFrame: number | null = null
 let cancelScheduledFrame: ((frame: number) => void) | null = null
 
-// Function to apply the transform to the element or its child
-const applyTransform = <T extends HTMLElement>(
-  element: T,
-  childClass: string,
-  transform: string
-): void => {
-  const child = element.getElementsByClassName(childClass)[0] as HTMLElement | undefined
-  if (child) {
-    child.style.transform = transform
-  } else {
-    element.style.transform = transform
-  }
-}
-
 const getTransitionMultiplier = (amount: ParallaxIntensity): number => {
-  const multipliers = { lite: 0.5, normal: 1, strong: 2, extreme: 3 }
-  return multipliers[amount] || multipliers.normal
+  return TRANSITION_MULTIPLIERS[amount]
 }
 
 // Calculates the transform based on user provided direction & transition amount
@@ -113,14 +106,18 @@ export function useParallax<T extends HTMLElement = HTMLDivElement>(
   const isNearViewport = useOnScreen(elementRef, PARALLAX_ROOT_MARGIN)
 
   useEffect(() => {
-    if (!elementRef.current || !options.enabled || !isNearViewport) return
+    const element = elementRef.current
+    if (!element || !options.enabled || !isNearViewport) return
+
+    // The target does not change while this subscription is active. Resolve it
+    // once instead of traversing the DOM on every animation frame.
+    const target =
+      (element.getElementsByClassName(PARALLAX_CHILD_CLASS)[0] as HTMLElement | undefined) ??
+      element
 
     const handleParallax = () => {
-      const element = elementRef.current
-      if (!element) return
-
       const transform = calculateTransform(element, options.direction, options.intensity)
-      applyTransform(element, 'parallax-child', transform)
+      if (target.style.transform !== transform) target.style.transform = transform
     }
 
     handleParallax()

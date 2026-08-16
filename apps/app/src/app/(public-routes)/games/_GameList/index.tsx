@@ -1,11 +1,11 @@
 import Link from 'next/link'
-import Image from 'next/image'
+import NativeImage from '@nl/ui/custom/native-image'
 import GameCard from '@/components/cards/GameCard'
 
 import styles from '../grid-item.module.css'
 
 const AppleBadge = ({ disabled = false }) => (
-  <Image
+  <NativeImage
     src="/img/badges/apple-store-badge.svg"
     alt="Apple Store Badge"
     width={120}
@@ -22,7 +22,7 @@ const AppleBadge = ({ disabled = false }) => (
 )
 
 const GoogleBadge = ({ disabled = false }) => (
-  <Image
+  <NativeImage
     src="/img/badges/google-play-badge.webp"
     alt="Get it on Google Play"
     width={564}
@@ -32,7 +32,7 @@ const GoogleBadge = ({ disabled = false }) => (
 )
 
 const SteamBadge = ({ disabled = false }) => (
-  <Image
+  <NativeImage
     src="/img/badges/steam-badge.webp"
     alt="Steam Store Badge"
     width={564}

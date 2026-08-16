@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Image from 'next/image'
+import NativeImage from '@nl/ui/custom/native-image'
 import { buttonVariants } from '@nl/ui/base/button-variants'
 import { Card, CardContent } from '@nl/ui/base/card'
 import { Title } from '@nl/ui/custom/typography'
@@ -167,7 +167,7 @@ const GameCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<GameCar
         }}
       >
         {image && (
-          <Image
+          <NativeImage
             src={image}
             alt={title || 'Game artwork'}
             fill

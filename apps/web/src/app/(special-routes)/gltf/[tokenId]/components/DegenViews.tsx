@@ -7,13 +7,14 @@ import dynamic from 'next/dynamic'
 import { cx } from '@nl/ui/class-names'
 import { ErrorBoundary } from '@nl/ui/custom/error-boundry'
 import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group'
+import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import { SRC, Color } from '@/types/gltf'
 
 import styles from '../gltf.module.css'
 
 const TokenMenu = dynamic(() => import('./TokenMenu'), { ssr: false })
-const ModelView = dynamic(() => import('./ModelView'), { ssr: false })
-const ModelActions = dynamic(() => import('./ModelActions'), { ssr: false })
+const loadModelView = () => import('./ModelView')
+const loadModelActions = () => import('./ModelActions')
 
 export interface DegenViewsProps {
   tokenId: string
@@ -26,6 +27,8 @@ export default function DegenViews({ tokenId, initialImage, spriteImage, logo }:
   const [source, setSource] = useState<SRC>(SRC.IMAGE)
   const [color, setColor] = useState<Color>('purple')
   const tokenNumber = Number(tokenId)
+  const { Component: ModelView } = useDeferredComponent(loadModelView, source === SRC.MODEL)
+  const { Component: ModelActions } = useDeferredComponent(loadModelActions, source === SRC.MODEL)
 
   return (
     <>
@@ -51,7 +54,15 @@ export default function DegenViews({ tokenId, initialImage, spriteImage, logo }:
       >
         {source === SRC.IMAGE ? initialImage : null}
         {source === SRC.SPRITE ? spriteImage : null}
-        {source === SRC.MODEL && <ModelView source={source} tokenId={tokenId} />}
+        {source === SRC.MODEL ? (
+          ModelView ? (
+            <ModelView source={source} tokenId={tokenId} />
+          ) : (
+            <div className={styles.model__wrapper} role="status" aria-live="polite">
+              Loading 3D viewer…
+            </div>
+          )
+        ) : null}
         {tokenNumber < 9999 ? (
           <div className={styles.menu__overlay}>
             <ToggleGroup
@@ -73,7 +84,9 @@ export default function DegenViews({ tokenId, initialImage, spriteImage, logo }:
                 </ToggleGroupItem>
               ) : null}
             </ToggleGroup>
-            {source === SRC.MODEL && <ModelActions color={color} setColor={setColor} />}
+            {source === SRC.MODEL && ModelActions ? (
+              <ModelActions color={color} setColor={setColor} />
+            ) : null}
           </div>
         ) : null}
         {source === SRC.IMAGE ? (

@@ -197,6 +197,10 @@
 .cd_timeline_block {
   position: relative;
   margin: 2em 0;
+  /* Keep the long timeline's offscreen cards out of the initial paint while
+   * preserving their space for stable scrolling. */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 32rem;
 }
 .cd_timeline_block:after {
   content: '';

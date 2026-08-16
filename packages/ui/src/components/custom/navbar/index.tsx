@@ -1,8 +1,8 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { Fragment } from 'react'
 
 import { cx } from '@nl/ui/class-names'
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 
 import MobileNavMenu from './MobileNavMenu'
 import { NavbarScrollFrame } from './NavbarScrollFrame'
@@ -140,18 +140,17 @@ export function Navbar({ actionButton, navItems, className }: NavbarProps) {
   const desktopNavItems = navItems.filter(
     (item) => item.type === 'group' || (item.type === 'single' && item.title !== 'Home')
   )
-
   return (
     <NavbarScrollFrame className={className}>
       <div className="flex h-full w-screen items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" prefetch={false} className="flex-shrink-0">
-          <Image
+          <OptimizedImage
             src="/img/logos/NL/white.webp"
             height={50}
             width={52}
             alt="Home"
-            className="h-12 w-auto transition-transform hover:scale-105"
             loading="eager"
+            className="h-12 w-auto transition-transform hover:scale-105"
           />
         </Link>
 

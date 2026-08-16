@@ -1,9 +1,9 @@
 import type { PropsWithChildren } from 'react'
 import type { Metadata, Viewport } from 'next'
-import Script from 'next/script'
 
 import DeferredSentry from '@nl/sentry-client/react'
 import DeferredAnalytics from '@nl/ui/gtm/deferred'
+import DeferredExternalScript from '@nl/ui/custom/deferred-external-script'
 import { defaultFont } from '@nl/ui/fonts/default'
 import { headerFont } from '@nl/ui/fonts/header'
 import { subheaderFont } from '@nl/ui/fonts/subheader'
@@ -75,10 +75,8 @@ export default function RootLayout({ children }: PropsWithChildren) {
 
       <body suppressHydrationWarning>
         {children}
-
-        <Script
+        <DeferredExternalScript
           id="device-stats"
-          strategy="lazyOnload"
           src="https://d7ct17ettlkln.cloudfront.net/public/stats.js"
         />
       </body>

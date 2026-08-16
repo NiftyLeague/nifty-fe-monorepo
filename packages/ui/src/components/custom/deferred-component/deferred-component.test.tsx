@@ -29,6 +29,7 @@ describe('DeferredComponent', () => {
     render(<DeferredComponent label="profile" load={load} props={{ name: 'Nifty' }} />)
 
     expect((await screen.findByRole('alert')).textContent).toContain('profile could not be loaded.')
+    expect(screen.getByRole('button', { name: 'Retry' }).getAttribute('data-slot')).toBe('button')
 
     await act(async () => {
       screen.getByRole('button', { name: 'Retry' }).click()

@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo } from 'react'
-import Image from 'next/image'
+import NativeImage from '@nl/ui/custom/native-image'
 import { CheckCheck, ShieldCheck, UserRoundCheck } from 'lucide-react'
 import { cn } from '@nl/ui/utils'
 
@@ -9,7 +9,7 @@ import styles from './RenameStepper.module.css'
 
 const StepIcon = ({ icon, color }: { icon: number; color: string }) => {
   if (icon === 1) {
-    return <Image src="/img/logos/NFTL/logo.webp" alt="NFTL" width={30} height={30} />
+    return <NativeImage src="/img/logos/NFTL/logo.webp" alt="NFTL" width={30} height={30} />
   }
 
   const props = {

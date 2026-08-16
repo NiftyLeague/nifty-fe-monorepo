@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { gtm } from '@nl/ui/gtm'
+import * as gtm from '@nl/ui/gtm/events'
 import Loading from './Loading'
 
 const isAndroid = (userAgent: string) => /.*(Mobile|Android).*/.test(userAgent)

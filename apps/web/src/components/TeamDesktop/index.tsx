@@ -1,5 +1,6 @@
 import { memo } from 'react'
-import Image from 'next/image'
+
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { CORE_TEAM, DEGEN_DELEGATES } from '@/constants/team'
 
 const TeamDesktop = () => {
@@ -10,7 +11,7 @@ const TeamDesktop = () => {
           <div className="flex flex-col p-3">
             <a href={member.link} target="_blank" rel="noreferrer" className="block">
               <div className="rounded-lg overflow-hidden">
-                <Image
+                <OptimizedImage
                   alt={`${member.name} DEGEN`}
                   className="pixelated"
                   height={293}

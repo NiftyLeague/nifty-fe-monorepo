@@ -8,7 +8,7 @@ import {
   useRef,
   useState,
 } from 'react'
-import Image from 'next/image'
+import NativeImage from '@nl/ui/custom/native-image'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { cn } from '@nl/ui/utils'
 import { Button } from '@nl/ui/base/button'
@@ -239,7 +239,7 @@ const DegensFilter = ({
                   }
                 />
                 <div className="-ml-1 flex flex-row items-center">
-                  <Image src={tribe.icon} alt="" width={18} height={18} />
+                  <NativeImage src={tribe.icon} alt="" width={18} height={18} />
                   <span className="ml-2 text-base">{tribe.name}</span>
                 </div>
               </label>

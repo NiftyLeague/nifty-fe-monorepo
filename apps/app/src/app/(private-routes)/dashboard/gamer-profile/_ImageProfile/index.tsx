@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo } from 'react'
-import Image from 'next/image'
+import NativeImage from '@nl/ui/custom/native-image'
 import { Skeleton } from '@nl/ui/base/skeleton'
 
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
@@ -31,7 +31,7 @@ const ImageProfile = ({ degens, avatar, avatarFee }: ImageProfileProps): React.R
     } else {
       if (!degenSelected) {
         return (
-          <Image
+          <NativeImage
             src="/img/degens/unavailable-image.webp"
             alt="no avatar"
             width={730}

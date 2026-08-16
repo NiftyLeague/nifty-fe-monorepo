@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
-import Image from 'next/image'
+
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 
 import SocialCards from '@/components/SocialCards'
 
@@ -19,7 +20,7 @@ const Community: NextPage = () => {
           </div>
           <div className="w-full sm:w-2/3 md:w-1/2 xl:w-1/3 relative mx-auto text-center">
             <div className="relative">
-              <Image
+              <OptimizedImage
                 src="/img/space/moon-satoshi.webp"
                 alt="Satoshi moon"
                 width={445}
@@ -30,7 +31,7 @@ const Community: NextPage = () => {
               />
             </div>
             <div className={styles.moon_grad}>
-              <Image
+              <OptimizedImage
                 src="/img/gradient/purple-light-grad.svg"
                 alt="gradient background"
                 width={685}
@@ -44,7 +45,7 @@ const Community: NextPage = () => {
 
         <div className="w-full h-auto absolute -bottom-10 md:-bottom-20">
           <div className="relative">
-            <Image
+            <OptimizedImage
               src="/img/space/earth-darkened.webp"
               width={1684}
               height={525}
@@ -56,7 +57,7 @@ const Community: NextPage = () => {
           <div className="dark-gradient-overlay" />
         </div>
         <span className={styles.earth_grad}>
-          <Image
+          <OptimizedImage
             src="/img/gradient/purple-grad.svg"
             alt="Purple eclipse"
             width={704}

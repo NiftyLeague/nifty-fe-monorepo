@@ -17,7 +17,6 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@axelar-network/axelarjs-sdk": "^0.21.0",
     "@hookform/resolvers": "^5.6.0",
     "@nl/contracts": "workspace:*",
     "@nl/imx-passport": "workspace:*",

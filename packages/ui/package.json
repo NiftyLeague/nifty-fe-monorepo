@@ -13,7 +13,12 @@
     "./fonts": "./src/lib/fonts/index.ts",
     "./fonts/*": "./src/lib/fonts/*.ts",
     "./gtm": "./src/lib/gtm/index.tsx",
+    "./gtm/constants": "./src/lib/gtm/constants.ts",
     "./gtm/deferred": "./src/lib/gtm/DeferredAnalytics.tsx",
+    "./gtm/events": "./src/lib/gtm/events.ts",
+    "./degen-tribes": "./src/lib/degen-tribes.ts",
+    "./lib/deferred-activation": "./src/lib/deferred-activation.ts",
+    "./lib/deferred-boundary": "./src/lib/deferred-boundary.ts",
     "./utils": "./src/lib/utils.ts",
     "./postcss.config": "./postcss.config.mjs",
     "./styles.css": "./src/styles/globals.css"

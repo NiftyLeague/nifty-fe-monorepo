@@ -1,12 +1,13 @@
 import type { NextPage } from 'next'
-import Image from 'next/image'
+
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
-import { DegenSpecialsTable } from '@nl/ui/custom/degen-specials-table'
 import { LazyYouTubeEmbed } from '@nl/ui/custom/lazy-youtube-embed'
 import { cx } from '@nl/ui/class-names'
 
 import { NIFTY_DEGENS_ALL } from '@/constants/degens'
+import { DeferredDegenSpecialsTable } from '@/components/DeferredDegenSections'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 import styles from './index.module.css'
 
@@ -70,7 +71,7 @@ const Degens: NextPage = () => (
           {NIFTY_DEGENS_ALL.map(({ name, image }) => (
             <div className="flex flex-col mb-3 px-3 w-1/3" key={name}>
               <div>
-                <Image
+                <OptimizedImage
                   src={image.link}
                   alt={name}
                   width={image.width}
@@ -100,7 +101,7 @@ const Degens: NextPage = () => (
           </div>
         </div>
 
-        <DegenSpecialsTable />
+        <DeferredDegenSpecialsTable />
 
         <ThemeBtnGroup
           className="mt-6 xl:mt-8"

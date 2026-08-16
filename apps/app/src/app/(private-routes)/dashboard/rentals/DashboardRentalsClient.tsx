@@ -4,8 +4,6 @@ import dynamic from 'next/dynamic'
 
 import { Skeleton } from '@nl/ui/base/skeleton'
 
-import DashboardDataBoundary from '@/components/providers/DashboardDataBoundary'
-
 const DashboardRentalsPageContent = dynamic(() => import('./DashboardRentalsContent'), {
   ssr: false,
   loading: () => (
@@ -27,9 +25,5 @@ const DashboardRentalsPageContent = dynamic(() => import('./DashboardRentalsCont
 })
 
 export default function DashboardRentalsClient(): React.ReactNode {
-  return (
-    <DashboardDataBoundary>
-      <DashboardRentalsPageContent />
-    </DashboardDataBoundary>
-  )
+  return <DashboardRentalsPageContent />
 }

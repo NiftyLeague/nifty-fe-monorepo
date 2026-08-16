@@ -1,15 +1,6 @@
 import { render } from '@testing-library/react'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
-mock.module('next/image', () => ({
-  default: ({
-    alt,
-    fill: _fill,
-    unoptimized: _unoptimized,
-    ...props
-  }: React.ComponentProps<'img'>) => <img alt={alt} {...props} />,
-}))
-
 describe('AnimatedImage', () => {
   let AnimatedImage: typeof import('./index').AnimatedImage
 
@@ -35,6 +26,8 @@ describe('AnimatedImage', () => {
     expect(picture?.querySelector('source')?.getAttribute('srcset')).toBe('/img/items/full/1.webp')
     expect(picture?.querySelector('img')?.getAttribute('src')).toBe('/img/items/full/1.gif')
     expect(picture?.querySelector('img')?.getAttribute('alt')).toBe('Cape')
+    expect(picture?.querySelector('img')?.getAttribute('loading')).toBe('lazy')
+    expect(picture?.querySelector('img')?.getAttribute('decoding')).toBe('async')
   })
 
   it('positions the picture wrapper when using fill sizing', () => {
@@ -46,5 +39,6 @@ describe('AnimatedImage', () => {
     expect(picture?.style.position).toBe('absolute')
     expect(picture?.style.inset).toBe('0')
     expect(picture?.style.display).toBe('block')
+    expect(picture?.querySelector('img')?.style.height).toBe('100%')
   })
 })

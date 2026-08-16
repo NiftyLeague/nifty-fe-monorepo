@@ -26,6 +26,8 @@ const incrementalTypecheckConfigs = [
 ]
 const deferredSentryClient = 'packages/sentry-client/src/client.ts'
 const deferredSentryModule = 'packages/sentry-client/src/nextjs-client.ts'
+const deferredExternalScript =
+  'packages/ui/src/components/custom/deferred-external-script/index.tsx'
 const appRootLayout = 'apps/app/src/app/layout.tsx'
 const appShell = 'apps/app/src/app/_layout/AppShell.tsx'
 const sharedAppBar = 'packages/ui/src/components/custom/app-bar/index.tsx'
@@ -148,7 +150,8 @@ describe('app performance contracts', () => {
 
   it('keeps the marketing console preview deferred until it is close to view', () => {
     const source = readFileSync(deferredConsoleGame, 'utf8')
-    expect(source).toContain("useOnScreen(rootRef, '0px')")
+    expect(source).toContain("const CONSOLE_GAME_ROOT_MARGIN = '0px 0px -25% 0px'")
+    expect(source).toContain('useOnScreen(rootRef, CONSOLE_GAME_ROOT_MARGIN)')
     expect(source).toContain('<DeferredSkeleton')
     expect(source).toContain('aria-label="Loading game preview"')
   })
@@ -256,9 +259,13 @@ describe('app performance contracts', () => {
 
   it('defers third-party device telemetry until the page has loaded', () => {
     const source = readFileSync(appRootLayout, 'utf8')
+    const deferredSource = readFileSync(deferredExternalScript, 'utf8')
 
     expect(source).toContain('id="device-stats"')
-    expect(source).toContain('strategy="lazyOnload"')
+    expect(source).toContain("from '@nl/ui/custom/deferred-external-script'")
+    expect(source).toContain('<DeferredExternalScript')
+    expect(deferredSource).toContain('scheduleDeferredActivation')
+    expect(deferredSource).toContain('document.createElement')
   })
 
   it('keeps deferred Sentry on a named async module graph', () => {

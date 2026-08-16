@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 
 import { DEGEN_BASE_SPRITE_URL, LEGGIES } from '@/constants/degen-assets'
 
@@ -18,7 +18,7 @@ export default async function DegenViewsPage({ params }: DegenViewsPageProps) {
     <DegenViewsRouteBoundary
       tokenId={tokenId}
       initialImage={
-        <Image
+        <OptimizedImage
           alt="NiftyDegen 2D NFT"
           className={styles.image}
           width={584}
@@ -30,7 +30,7 @@ export default async function DegenViewsPage({ params }: DegenViewsPageProps) {
       }
       spriteImage={
         <div className={styles.sprite__wrapper}>
-          <Image
+          <OptimizedImage
             alt="Degen Sprite"
             className={styles.sprite}
             fill
@@ -41,7 +41,7 @@ export default async function DegenViewsPage({ params }: DegenViewsPageProps) {
         </div>
       }
       logo={
-        <Image
+        <OptimizedImage
           alt="Nifty League Logo"
           width={200}
           height={70}

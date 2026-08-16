@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
+import NativeImage from '@nl/ui/custom/native-image'
 import { Button } from '@nl/ui/base/button'
 
 import { formatNumberToDisplay } from '@nl/ui/number-format'
@@ -34,7 +34,12 @@ const WalletBalances = (): React.ReactNode => {
                 disabled
                 className="absolute -top-4 -right-4 cursor-pointer"
               >
-                <Image src="/img/logos/passport/32px.svg" alt="Immutable" width={22} height={22} />
+                <NativeImage
+                  src="/img/logos/passport/32px.svg"
+                  alt="Immutable"
+                  width={22}
+                  height={22}
+                />
               </Button>
               <div className="flex w-full flex-row items-center gap-2">
                 <Link
@@ -81,7 +86,7 @@ const WalletBalances = (): React.ReactNode => {
                 disabled
                 className="absolute -top-4 -right-4 cursor-pointer"
               >
-                <Image src="/icons/eth.svg" alt="Ethereum" width={22} height={22} />
+                <NativeImage src="/icons/eth.svg" alt="Ethereum" width={22} height={22} />
               </Button>
               <BridgeButtonDialog balance={tokensBalances.NFTL.eth} loading={loadingNFTLBal} />
             </>

@@ -1,8 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { Dialog } from '@nl/ui/custom/dialog'
+import NativeImage from '@nl/ui/custom/native-image'
 import { Text } from '@nl/ui/custom/typography'
 import useVersion from '@/hooks/useVersion'
 
@@ -20,7 +20,7 @@ const PlayContent = () => (
         rel="noreferrer"
         className="w-full justify-items-center hover:scale-102 transition-transform duration-200"
       >
-        <Image
+        <NativeImage
           src="/img/badges/google-play-badge.webp"
           alt="Get it on Google Play"
           width={234}
@@ -35,7 +35,7 @@ const PlayContent = () => (
         rel="noreferrer"
         className="w-full justify-items-center hover:scale-102 transition-transform duration-200"
       >
-        <Image
+        <NativeImage
           src="/img/badges/apple-store-badge.svg"
           alt="Apple Store Badge"
           width={215}
@@ -50,7 +50,7 @@ const PlayContent = () => (
         rel="noreferrer"
         className="w-full justify-items-center hover:scale-102 transition-transform duration-200"
       >
-        <Image
+        <NativeImage
           src="/img/badges/steam-badge.webp"
           alt="Steam Store Badge"
           width={234}
@@ -72,7 +72,7 @@ const PlayDialog = ({ open }: { open?: boolean }) => {
       description={message}
       triggerElement={
         <button id="play-dialog-trigger">
-          <Image
+          <NativeImage
             src="/icons/controller.svg"
             alt="Game Icon"
             width={22}

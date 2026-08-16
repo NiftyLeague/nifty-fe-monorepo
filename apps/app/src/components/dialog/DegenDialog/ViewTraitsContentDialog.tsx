@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import NativeImage from '@nl/ui/custom/native-image'
 import { Button } from '@nl/ui/base/button'
 import { Skeleton } from '@nl/ui/base/skeleton'
 import { Title } from '@nl/ui/custom/typography'
@@ -45,7 +45,7 @@ const ViewTraitsContentDialog = ({
           className="flex flex-row flex-nowrap items-center"
         >
           <span className="text-muted-foreground no-underline">DEGEN ID #{degen?.id} </span>
-          <Image
+          <NativeImage
             src="/img/logos/other/OpenSea.webp"
             alt="OpenSea Logo"
             width={18}

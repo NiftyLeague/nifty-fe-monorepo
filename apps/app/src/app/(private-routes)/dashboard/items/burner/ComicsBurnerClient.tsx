@@ -30,7 +30,7 @@ const ComicsBurnerContent = dynamic(() => import('./ComicsBurnerContent'), {
 
 export default function ComicsBurnerClient(): React.ReactNode {
   return (
-    <DashboardDataBoundary>
+    <DashboardDataBoundary includeTokens={false}>
       <ComicsBurnerContent />
     </DashboardDataBoundary>
   )

@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { cn } from '@nl/ui/utils'
 
 interface Error404Props extends React.ComponentProps<'div'> {}
@@ -11,34 +11,31 @@ export function Error404({ className }: Error404Props) {
         className
       )}
     >
-      <div className="flex w-full flex-col items-center justify-center space-y-4">
+      <div className="flex w-full flex-col items-center justify-center gap-4">
         <div className="relative mx-auto w-full max-w-[720px] aspect-[720/360]">
-          <Image src="/img/maintenance/img-error-bg-dark.svg" alt="Background Dark" fill priority />
-          <Image src="/img/maintenance/img-error-bg.svg" alt="Background Light" fill priority />
-          <Image
+          <OptimizedImage src="/img/maintenance/img-error-bg-dark.svg" alt="Background Dark" fill />
+          <OptimizedImage src="/img/maintenance/img-error-bg.svg" alt="Background Light" fill />
+          <OptimizedImage
             src="/img/maintenance/img-error-text.svg"
             alt="404 Text"
             fill
-            priority
             className="animate-[custom-bounce_3s_ease-in-out_infinite]"
           />
-          <Image
+          <OptimizedImage
             src="/img/maintenance/img-error-blue.svg"
             alt="Blue Shapes"
             fill
-            priority
             className="animate-[wings_15s_ease-in-out_infinite]"
           />
-          <Image
+          <OptimizedImage
             src="/img/maintenance/img-error-purple.svg"
             alt="Purple Shapes"
             fill
-            priority
             className="animate-[wings_12s_ease-in-out_infinite]"
           />
         </div>
         <div className="mx-auto px-4 max-w-[550px] text-center">
-          <div className="space-y-4">
+          <div className="flex flex-col gap-4">
             <h4>Something is wrong...</h4>
             <p className="text-base">
               The page you are looking for was moved, removed, renamed, or might have never existed!

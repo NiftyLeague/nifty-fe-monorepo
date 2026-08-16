@@ -32,7 +32,7 @@ export default function useSingleCallResult(
     }
     if (contracts && contracts[contractName] && !skip)
       void callContract(contracts[contractName] as BaseContract as Contract)
-  }, [args, contractName, contracts, formatter, functionName, skip, value])
+  }, [args, contractName, contracts, formatter, functionName, skip])
 
   return value
 }

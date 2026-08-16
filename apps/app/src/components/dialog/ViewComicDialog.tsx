@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import NativeImage from '@nl/ui/custom/native-image'
 import { Button } from '@nl/ui/base/button'
 import { Dialog, DialogContent } from '@nl/ui/base/dialog'
 import { cn } from '@nl/ui/utils'
@@ -27,7 +27,7 @@ const ViewComicDialog = ({ comic, open, onClose }: ViewComicDialogProps): React.
       >
         <div className="flex justify-center p-6">
           {comic?.image ? (
-            <Image
+            <NativeImage
               src={comic.image}
               alt={`Comic: ${comic?.title}`}
               width={500}

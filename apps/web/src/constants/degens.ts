@@ -1,3 +1,5 @@
+import { DEGEN_TRIBES } from '@nl/ui/degen-tribes'
+
 export const COMMUNITY_DEGEN_LIST = [
   { name: 'Monopoly', createdDate: '9/24/2021 2:53 PM', source: '/img/degens/nfts/443.webp' },
   { name: 'Lil Mayo', createdDate: '9/24/2021 3:38 PM', source: '/img/degens/nfts/1132.webp' },
@@ -13,18 +15,10 @@ export const COMMUNITY_DEGEN_LIST = [
   { name: 'Degen 128', createdDate: '9/24/2021 1:42 PM', source: '/img/degens/nfts/128.webp' },
 ]
 
-export const NIFTY_DEGENS = [
-  { name: 'APE', image: { link: '/icons/tribes/ape.svg', width: 91, height: 100 } },
-  { name: 'HUMAN', image: { link: '/icons/tribes/human.svg', width: 120, height: 100 } },
-  { name: 'DOGE', image: { link: '/icons/tribes/doge.svg', width: 115, height: 100 } },
-  { name: 'FROG', image: { link: '/icons/tribes/frog.svg', width: 120, height: 95 } },
-  { name: 'CAT', image: { link: '/icons/tribes/cat.svg', width: 120, height: 100 } },
-  { name: 'ALIEN', image: { link: '/icons/tribes/alien.svg', width: 100, height: 100 } },
-  { name: 'HYDRA', image: { link: '/icons/tribes/hydra.svg', width: 120, height: 120 } },
-]
+export const NIFTY_DEGENS = DEGEN_TRIBES
 
 export const NIFTY_DEGENS_ALL = [
-  ...NIFTY_DEGENS,
+  ...DEGEN_TRIBES,
   { name: 'RUGMAN', image: { link: '/icons/tribes/rugman.svg', width: 140, height: 120 } },
   { name: 'SATOSHI', image: { link: '/icons/tribes/satoshi.svg', width: 120, height: 120 } },
 ]

@@ -5,6 +5,7 @@ import { lazy, Suspense, useEffect, useRef, useState, type ComponentType } from 
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 import type { ViewportVideoProps } from './index'
 import type { ViewportVideoEnhancerProps } from './ViewportVideoEnhancer'
+import { DEFAULT_VIEWPORT_VIDEO_ROOT_MARGIN } from './constants'
 
 const ViewportVideoEnhancer = lazy<ComponentType<ViewportVideoEnhancerProps>>(
   () => import('./ViewportVideoEnhancer')
@@ -12,7 +13,7 @@ const ViewportVideoEnhancer = lazy<ComponentType<ViewportVideoEnhancerProps>>(
 
 export default function ViewportVideoBoundary({
   playOnViewport = true,
-  rootMargin = '0px',
+  rootMargin = DEFAULT_VIEWPORT_VIDEO_ROOT_MARGIN,
   src,
   ...props
 }: ViewportVideoProps): React.ReactNode {

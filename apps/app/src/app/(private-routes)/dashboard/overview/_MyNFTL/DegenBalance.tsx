@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+import NativeImage from '@nl/ui/custom/native-image'
 import { Button } from '@nl/ui/base/button'
 
 import { formatNumberToDisplay } from '@nl/ui/number-format'
@@ -31,7 +31,7 @@ const DegenBalance = (): React.ReactNode => {
             disabled
             className="absolute -top-4 -right-4 cursor-pointer"
           >
-            <Image src="/icons/eth.svg" alt="Ethereum" width={22} height={22} />
+            <NativeImage src="/icons/eth.svg" alt="Ethereum" width={22} height={22} />
           </Button>
           <Button
             className="w-full"

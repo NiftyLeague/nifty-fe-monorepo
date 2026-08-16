@@ -3,7 +3,7 @@
 import { useCallback } from 'react'
 import { useAccount, useSignMessage } from 'wagmi'
 
-import { gtm } from '@nl/ui/gtm'
+import * as gtm from '@nl/ui/gtm/events'
 import type { AUTH_Token, UUID_Token, Nonce } from '@/types/auth'
 import { WALLET_VERIFICATION } from '@/constants/auth-urls'
 import { useAuthStatus } from '@/contexts/AuthStatusContext'

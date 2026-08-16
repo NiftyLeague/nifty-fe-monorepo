@@ -1,5 +1,3 @@
-import Image from 'next/image'
-
 export interface Degen {
   name: string
   source: string
@@ -29,7 +27,15 @@ const DegenCardItem = ({
       <div className="flex justify-between items-center">
         <h6 className="truncate-text-1 text-xs">{name}</h6>
         <div className="hidden sm:inline-block">
-          <Image src="/icons/opensea.svg" alt="OpenSea Logo" width={20} height={20} />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/icons/opensea.svg"
+            alt="OpenSea Logo"
+            width={20}
+            height={20}
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       </div>
       <div className="hidden md:flex items-center pt-3">
@@ -40,12 +46,16 @@ const DegenCardItem = ({
       </div>
     </div>
     <div className="rounded-[20px]">
-      <Image
+      {/* These cards are below the fold and use fixed local assets, so intrinsic dimensions are
+          enough to preserve layout without an image-loader wrapper in the deferred card. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
         src={source}
-        width="258"
-        height="278"
+        width={258}
+        height={278}
         alt={name}
-        sizes="(max-width: 614px) 50vw, (max-width: 1023px) 33vw, (max-width: 1499px) 25vw, 20vw"
+        loading="lazy"
+        decoding="async"
         className="w-full h-auto"
       />
     </div>

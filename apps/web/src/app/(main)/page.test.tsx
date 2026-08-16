@@ -29,7 +29,7 @@ describe('home page', () => {
     mock.module('next/navigation', () => ({
       usePathname: () => '/',
     }))
-    mock.module('next/image', () => ({
+    mock.module('@nl/ui/custom/optimized-image', () => ({
       default: ({ alt, loading, fetchPriority, ...props }: ComponentProps<'img'>) => (
         <img
           alt={alt}
@@ -39,7 +39,7 @@ describe('home page', () => {
           {...props}
         />
       ),
-      getImageProps: ({
+      getOptimizedImageProps: ({
         src,
         alt,
         width,
@@ -47,15 +47,13 @@ describe('home page', () => {
         sizes,
         fetchPriority,
       }: ComponentProps<'img'>) => ({
-        props: {
-          src,
-          alt,
-          width,
-          height,
-          sizes,
-          srcSet: `${src} 1x`,
-          fetchPriority,
-        },
+        src,
+        alt,
+        width,
+        height,
+        sizes,
+        srcSet: `${src} 1x`,
+        fetchPriority,
       }),
     }))
 

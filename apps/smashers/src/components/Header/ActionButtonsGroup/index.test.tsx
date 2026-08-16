@@ -1,17 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { beforeEach, describe, expect, it, mock } from 'bun:test'
-import type { ComponentProps } from 'react'
-
-mock.module('next/image', () => ({
-  default: ({
-    alt,
-    priority: _priority,
-    ...props
-  }: ComponentProps<'img'> & { priority?: boolean }) => (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img alt={alt} {...props} />
-  ),
-}))
+import { beforeEach, describe, expect, it } from 'bun:test'
 
 describe('ActionButtonsGroup', () => {
   let ActionButtonsGroup: typeof import('./index').default

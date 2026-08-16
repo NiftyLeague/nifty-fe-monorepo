@@ -6,7 +6,7 @@ import { Skeleton } from '@nl/ui/base/skeleton'
 function LeaderboardsLoading(): React.ReactNode {
   return (
     <div
-      className="space-y-4"
+      className="flex flex-col gap-4"
       role="status"
       aria-live="polite"
       aria-busy="true"

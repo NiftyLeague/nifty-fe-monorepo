@@ -1,11 +1,11 @@
-import Image from 'next/image'
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 
 const Loading = () => (
   <div style={{ width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column' }}>
     <h3 style={{ margin: 'auto' }} id="loading-message">
       Redirecting...
     </h3>
-    <Image
+    <OptimizedImage
       alt="Nifty League Logo"
       width={200}
       height={70}

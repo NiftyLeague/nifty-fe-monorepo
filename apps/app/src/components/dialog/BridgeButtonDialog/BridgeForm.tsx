@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+import NativeImage from '@nl/ui/custom/native-image'
 import Link from 'next/link'
 import { forwardRef, useContext, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
@@ -154,7 +154,7 @@ const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): React.ReactN
       <div className="flex flex-col items-center gap-4">
         <Title level={4} className="opacity-70">
           Powered by:{'  '}
-          <Image src="/icons/axelar.svg" alt="Axelar" width={126} height={30} />
+          <NativeImage src="/icons/axelar.svg" alt="Axelar" width={126} height={30} />
         </Title>
         <Alert variant="default" className="border-blue/40 bg-blue/10 text-blue">
           <strong>Note:</strong> The Axelar bridge minimizes fees but takes 20 minutes to process.{' '}

@@ -15,8 +15,8 @@ const docsMediaPages = [
 
 const docsPage = 'apps/docs/docs/overview/nfts/degens/about.md'
 const legacyAsset = 'assets/img/games/nifty-royale/nifty-royale.gif'
-const mintGif = 'assets/img/mint-o-matic/degen-mint.gif'
 const mintWebp = 'assets/img/mint-o-matic/degen-mint.webp'
+const mintPoster = 'assets/img/mint-o-matic/degen-mint-poster.webp'
 
 describe('shared docs media policy', () => {
   it('uses shared lazy media primitives instead of react-player', () => {
@@ -27,13 +27,15 @@ describe('shared docs media policy', () => {
     }
   })
 
-  it('pairs the Mint-O-Matic animation with a smaller WebP source and GIF fallback', () => {
+  it('gates the Mint-O-Matic animation behind motion preference with a static fallback', () => {
     const source = readFileSync(docsPage, 'utf8')
 
     expect(source).toContain('degen-mint.webp')
-    expect(source).toContain('degen-mint.gif')
+    expect(source).toContain('degen-mint-poster.webp')
+    expect(source).toContain('prefers-reduced-motion: no-preference')
+    expect(source).not.toContain('degen-mint.gif')
     expect(source).toContain('alt="Mint-O-Matic character creator"')
-    expect(statSync(mintWebp).size).toBeLessThan(statSync(mintGif).size)
+    expect(statSync(mintPoster).size).toBeLessThan(statSync(mintWebp).size)
   })
 
   it('does not retain the unreferenced 48 MB Nifty Royale GIF', () => {

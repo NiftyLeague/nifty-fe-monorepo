@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
-import Image from 'next/image'
+
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 
 import { DeferredCareersJobs } from '@/components/DeferredCareersSections'
 
@@ -8,7 +9,7 @@ const Careers: NextPage = () => (
     <section className="section flex items-center justify-center flex-wrap">
       <div className="w-full mb-5 md:w-1/2 md:pr-5 md:mb-0">
         <div className="relative flex-grow-1">
-          <Image
+          <OptimizedImage
             src="/img/careers/careers_v02_2x.webp"
             alt="Satoshi moon"
             width={648}

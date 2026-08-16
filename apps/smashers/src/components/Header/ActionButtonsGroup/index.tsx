@@ -1,9 +1,9 @@
 'use client'
 
-import Image from 'next/image'
 import { useEffect, useState, type ComponentType } from 'react'
 
 import { Button } from '@nl/ui/base/button'
+import NativeImage from '@nl/ui/custom/native-image'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 
 import styles from './index.module.css'
@@ -66,7 +66,7 @@ function DeferredModalAction({
         if (hasError) retry()
       }}
     >
-      <Image src={action.image} alt={action.alt} width={22} height={22} />
+      <NativeImage src={action.image} alt={action.alt} width={22} height={22} />
       {action.label}
     </Button>
   )

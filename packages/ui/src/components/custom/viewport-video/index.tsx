@@ -1,6 +1,7 @@
 import { memo, type VideoHTMLAttributes } from 'react'
 
 import ViewportVideoBoundary from './ViewportVideoBoundary'
+import { DEFAULT_VIEWPORT_VIDEO_ROOT_MARGIN } from './constants'
 
 export type ViewportVideoProps = Omit<
   VideoHTMLAttributes<HTMLVideoElement>,
@@ -12,9 +13,11 @@ export type ViewportVideoProps = Omit<
   src: string
 }
 
+export { DEFAULT_VIEWPORT_VIDEO_ROOT_MARGIN }
+
 export const ViewportVideo = memo(function ViewportVideo({
   playOnViewport = true,
-  rootMargin = '0px',
+  rootMargin = DEFAULT_VIEWPORT_VIDEO_ROOT_MARGIN,
   src,
   ...props
 }: ViewportVideoProps) {

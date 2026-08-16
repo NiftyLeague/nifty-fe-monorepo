@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import NativeImage from '@nl/ui/custom/native-image'
 import { Button } from '@nl/ui/base/button'
 import useNetworkContext from '@/hooks/useNetworkContext'
 import useImportNFTLToWallet from '@/hooks/useImportNFTLToWallet'
@@ -10,7 +10,7 @@ const AddNFTLToMetamask = (): React.ReactNode | null => {
   return isConnected ? (
     <Button onClick={handleImportNFTLToWallet} variant="outline" className="cursor-pointer">
       <span style={{ display: 'flex', alignItems: 'center' }}>
-        <Image src="/img/logos/NFTL/logo.webp" alt="NFTL logo" width={20} height={20} />
+        <NativeImage src="/img/logos/NFTL/logo.webp" alt="NFTL logo" width={20} height={20} />
       </span>
       Add NFTL to MetaMask
     </Button>

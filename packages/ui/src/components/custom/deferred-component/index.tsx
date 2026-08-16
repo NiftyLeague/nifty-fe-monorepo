@@ -1,10 +1,10 @@
 'use client'
 
-import type { ComponentType, ReactNode } from 'react'
+import { memo, type ComponentType, type ReactNode } from 'react'
 
-import { buttonVariants } from '@nl/ui/base/button-variants'
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
+import { DEFERRED_RETRY_BUTTON_CLASS } from '@nl/ui/lib/deferred-boundary'
 
 export interface DeferredComponentProps<T extends object> {
   disabledFallback?: ReactNode
@@ -29,7 +29,12 @@ function DefaultError({ label, onRetry }: { label: string; onRetry: () => void }
   return (
     <div className="flex min-h-48 flex-col items-center justify-center gap-3" role="alert">
       <p>{label} could not be loaded.</p>
-      <button type="button" className={buttonVariants({ variant: 'outline' })} onClick={onRetry}>
+      <button
+        type="button"
+        data-slot="button"
+        className={DEFERRED_RETRY_BUTTON_CLASS}
+        onClick={onRetry}
+      >
         Retry
       </button>
     </div>
@@ -41,7 +46,7 @@ function DefaultError({ label, onRetry }: { label: string; onRetry: () => void }
  * Keeping retry and accessibility behavior here prevents each app wrapper
  * from carrying its own copy of the same loading state machine.
  */
-export function DeferredComponent<T extends object>({
+export const DeferredComponent = memo(function DeferredComponent<T extends object>({
   disabledFallback,
   enabled = true,
   errorFallback,
@@ -65,6 +70,6 @@ export function DeferredComponent<T extends object>({
   if (!LoadedComponent) return loadingFallback ?? <DefaultLoading label={label} />
 
   return <LoadedComponent {...props} />
-}
+}) as <T extends object>(props: DeferredComponentProps<T>) => ReactNode
 
 export default DeferredComponent

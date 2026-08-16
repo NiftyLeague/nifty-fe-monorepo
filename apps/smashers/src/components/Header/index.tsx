@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 import ActionButtonsGroup from './ActionButtonsGroup'
 import DeferredHeroBackground from './DeferredHeroBackground'
 import Navbar from './Navbar'
@@ -14,7 +14,7 @@ const Header = ({ activeModal }: { activeModal: ActiveModal }) => (
     <div className={styles.heroContainer}>
       <Navbar />
       <div className={styles.heroContent}>
-        <Image
+        <OptimizedImage
           src="/img/logos/smashers/app_wordmark_logo.webp"
           alt="Wordmark Logo"
           className={styles.wordmark}

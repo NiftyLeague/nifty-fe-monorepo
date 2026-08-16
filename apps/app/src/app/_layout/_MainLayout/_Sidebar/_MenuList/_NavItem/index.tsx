@@ -78,6 +78,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
   return (
     <Link
       href={item.url!}
+      prefetch={false}
       target={itemTarget}
       className={linkClass}
       style={style}

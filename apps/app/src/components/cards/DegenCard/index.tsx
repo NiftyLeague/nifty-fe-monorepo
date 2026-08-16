@@ -1,14 +1,12 @@
 'use client'
 
-import { memo, useRef } from 'react'
+import { memo } from 'react'
 import Link from 'next/link'
 import { Pencil } from 'lucide-react'
-import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 import { Button } from '@nl/ui/base/button'
 import { Card, CardContent } from '@nl/ui/base/card'
 import { Title } from '@nl/ui/custom/typography'
 import type { SxProps, Theme } from '@/types'
-import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
 import DegenImage from './DegenImage'
 import type { PublicDegen } from '@/types/degens'
 import { DEGEN_PURCHASE_URL } from '@/constants/public-urls'
@@ -127,16 +125,4 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
 )
 
 DegenCard.displayName = 'DegenCard'
-
-const DegenCardInView: React.FC<
-  React.PropsWithChildren<React.PropsWithChildren<DegenCardProps>>
-> = (props) => {
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useOnScreen(ref, '0px', { once: true })
-
-  return <div ref={ref}>{inView ? <DegenCard {...props} /> : <SkeletonDegenPlaceholder />}</div>
-}
-
-export { DegenCardInView }
-
 export default DegenCard

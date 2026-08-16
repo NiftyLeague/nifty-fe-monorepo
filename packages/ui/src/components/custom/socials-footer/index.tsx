@@ -1,5 +1,5 @@
-import Image from 'next/image'
 import { cx } from '@nl/ui/class-names'
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { SOCIAL_LINKS } from './constants'
 
 export const linkClass = 'font-medium text-foreground'
@@ -15,8 +15,8 @@ export function SocialsFooter({ children, classes }: SocialsFooterProps) {
   return (
     <footer className={cx('my-10 px-5', classes?.footer)}>
       {children}
-      <div className="flex flex-col space-y-6">
-        <div className="flex justify-center items-center space-x-6">
+      <div className="flex flex-col gap-6">
+        <div className="flex items-center justify-center gap-6">
           <a
             className={cx(linkClass, animateClass)}
             href="https://niftyleague.com/terms-of-service"
@@ -43,7 +43,7 @@ export function SocialsFooter({ children, classes }: SocialsFooterProps) {
           </a>
         </div>
 
-        <div className="flex justify-center items-center space-x-5 sm:space-x-6">
+        <div className="flex items-center justify-center gap-5 sm:gap-6">
           {SOCIAL_LINKS.map((social) => (
             <a
               key={social.name}
@@ -52,7 +52,7 @@ export function SocialsFooter({ children, classes }: SocialsFooterProps) {
               rel="noreferrer"
               className={animateClass}
             >
-              <Image
+              <OptimizedImage
                 src={social.image}
                 width={20}
                 height={20}

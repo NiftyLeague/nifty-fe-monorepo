@@ -1,8 +1,8 @@
 'use client'
 
 import { Fragment } from 'react'
-import Image from 'next/image'
 import { Dialog } from '@nl/ui/custom/dialog'
+import NativeImage from '@nl/ui/custom/native-image'
 import { Text, Title } from '@nl/ui/custom/typography'
 
 import type { Company, CreditsData, TeamMember } from '@/types/credits'
@@ -38,7 +38,7 @@ const CompanyImage = ({ company }: { company: Company }) => {
   }
 
   const image = (
-    <Image
+    <NativeImage
       src={getCompanyImagePath(company.name)}
       alt={`${company.name} Logo`}
       width={WIDTH}
@@ -155,7 +155,7 @@ const CreditsDialog = ({ open }: { open?: boolean }) => (
     hideDescription
     triggerElement={
       <button>
-        <Image
+        <NativeImage
           src="/icons/credits.svg"
           alt="Credits Icon"
           width={22}

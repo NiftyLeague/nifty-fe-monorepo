@@ -1,13 +1,20 @@
 import type { NextPage } from 'next'
-import Image from 'next/image'
 
 import { LazyYouTubeEmbed } from '@nl/ui/custom/lazy-youtube-embed'
 import { ViewportVideo } from '@nl/ui/custom/viewport-video'
 import { cx } from '@nl/ui/class-names'
+import { MobileOnlyImage } from '@nl/ui/custom/responsive-only-image'
 
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 import { NIFTY_GAMES } from '@/constants/games'
 import styles from './index.module.css'
+
+const GAME_ORB_POSITION_CLASSES = [
+  'orb-bottom-left',
+  'orb-top-right',
+  'orb-bottom-right',
+  'orb-top-left',
+] as const
 
 const Games: NextPage = () => (
   <div className="container relative pt-20">
@@ -27,7 +34,7 @@ const Games: NextPage = () => (
             src="/video/lobby.mp4"
           />
           <div className="block md:hidden">
-            <Image
+            <MobileOnlyImage
               alt="Arcade"
               width={339}
               height={661}
@@ -117,11 +124,7 @@ const Games: NextPage = () => (
           </div>
           <div
             className={cx(
-              index === 0
-                ? 'orb-bottom-left'
-                : index === 1
-                  ? 'orb-top-right'
-                  : styles.gradient_custom,
+              GAME_ORB_POSITION_CLASSES[index % GAME_ORB_POSITION_CLASSES.length],
               'purple-bg-orb'
             )}
           />

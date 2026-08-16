@@ -1,5 +1,3 @@
-'use client'
-
 import dynamic from 'next/dynamic'
 
 import RouteLoading from '@nl/ui/custom/route-loading'

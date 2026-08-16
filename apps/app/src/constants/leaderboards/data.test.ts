@@ -13,6 +13,12 @@ describe('leaderboard data loader', () => {
 
     expect(leaderboard?.[scoreType]).toBeArray()
     expect(leaderboard?.[scoreType]?.length).toBeGreaterThan(0)
+    expect(leaderboard?.[scoreType]?.[0]).toMatchObject({
+      rank: 1,
+      user_id: expect.any(String),
+      score: expect.any(String),
+      stats: expect.any(Object),
+    })
   })
 
   it('does not load a dataset for an unknown game', async () => {
