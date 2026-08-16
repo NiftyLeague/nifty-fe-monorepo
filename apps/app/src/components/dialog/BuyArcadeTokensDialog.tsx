@@ -21,7 +21,8 @@ import { GET_PRODUCT, NFTL_PURCHASE_URL, PURCHASE_ARCADE_TOKEN_BALANCE_API } fro
 import useGameAccount from '@/hooks/useGameAccount'
 import useAuth from '@/hooks/useAuth'
 
-import { gtm, GTM_EVENTS } from '@nl/ui/gtm'
+import * as gtm from '@nl/ui/gtm/events'
+import { EVENTS as GTM_EVENTS } from '@nl/ui/gtm/constants'
 
 const PRODUCT_ID = 'arcade-token-four-pack'
 
