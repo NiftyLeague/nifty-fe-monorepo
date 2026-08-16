@@ -3,7 +3,7 @@ import type { NextPage } from 'next'
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
-import { LazyYouTubeEmbed } from '@nl/ui/custom/lazy-youtube-embed'
+import { DeferredYouTubeEmbed } from '@nl/ui/custom/deferred-youtube-embed'
 import { cx } from '@nl/ui/class-names'
 
 import { NIFTY_DEGENS_ALL } from '@/constants/degens'
@@ -41,7 +41,7 @@ const Degens: NextPage = () => (
           </div>
           <div className="w-full md:w-1/2">
             <div className="relative text-right mb-4 md:mb-0 ps-0 lg:pl-5">
-              <LazyYouTubeEmbed
+              <DeferredYouTubeEmbed
                 src="https://www.youtube.com/embed/WWLqE1tnf6U"
                 title="Nifty League DEGENs"
                 className="h-[315px] w-full"
