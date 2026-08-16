@@ -3,10 +3,9 @@
  * Runs once per isolated test file (bunfig [test].preload) BEFORE the test module
  * and its imports are evaluated, so module mocks registered here win.
  *
- * NOTE: happy-dom is registered by test/000-setup-dom.test.ts (NOT here) because
- * bun's preload realm is separate from the test-file realm — a GlobalRegistrator
- * call here would set the "already registered" global flag and BREAK the real
- * registration in 000-setup-dom. Only module mocks belong in preload.
+ * happy-dom and browser API shims are registered by test/happy-dom-setup.ts.
+ * Keep this preload focused on module mocks so those mocks are installed before
+ * the test modules and their imports are evaluated.
  *
  * 1. Stubs the Docusaurus virtual modules that the docs app imports.
  */
