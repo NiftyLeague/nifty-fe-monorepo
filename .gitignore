@@ -37,6 +37,8 @@ out/
 coverage/
 htmlcov/
 .coverage*
+assets/robots.txt
+assets/sitemap.xml
 .next/
 artifacts/
 cache/
