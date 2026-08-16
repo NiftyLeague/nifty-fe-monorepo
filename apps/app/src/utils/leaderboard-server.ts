@@ -68,10 +68,10 @@ export const fetchScores = async (
   })
 
   const items = json.data.map((data) => data.user_id)
-  const names = Object.entries(await fetchUserNames(items))
+  const namesByUserId = new Map(Object.entries(await fetchUserNames(items)))
   for (const row of addAvg) {
-    const match = names.find(([userId]) => row.user_id === userId)
-    if (match) row.user_id = match[1]?.name || ''
+    const match = namesByUserId.get(row.user_id)
+    if (match) row.user_id = match.name || ''
   }
 
   return { data: addAvg, count: json.count }
