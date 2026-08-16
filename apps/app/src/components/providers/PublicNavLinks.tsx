@@ -28,6 +28,7 @@ export default function PublicNavLinks() {
             <li key={item.id || item.url}>
               <Link
                 href={item.url}
+                prefetch={false}
                 className="mb-0.5 flex items-start gap-2 rounded-md border border-transparent bg-transparent px-2 py-2 text-left text-sidebar-foreground transition-colors hover:border-purple hover:bg-muted"
               >
                 <span className="my-auto min-w-9">
