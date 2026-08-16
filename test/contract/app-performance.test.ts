@@ -63,6 +63,7 @@ const appSidebarFrame = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/SidebarFr
 const mobileSidebarSheet = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/MobileSidebarSheet.tsx'
 const appNavigationContext = 'apps/app/src/contexts/NavigationContext.tsx'
 const appNavigationBreakpoints = 'apps/app/src/app/_layout/navigation-breakpoints.ts'
+const appCollapsibleSidebarLayout = 'apps/app/src/app/_layout/_CollapsibleSidebarLayout/index.tsx'
 const bridgeDialog = 'apps/app/src/components/dialog/BridgeButtonDialog/index.tsx'
 const appSectionSlider = 'apps/app/src/components/sections/SectionSlider.tsx'
 const allDegensPage = 'apps/app/src/app/(public-routes)/degens/AllDegensPage.tsx'
@@ -215,6 +216,16 @@ describe('app performance contracts', () => {
     expect(shellSource).toContain('isDesktopNavigation')
     expect(sidebarSource).not.toContain('useMediaQuery')
     expect(sidebarSource).toContain('const isCompactScreen = !isDesktopNavigation')
+  })
+
+  it('keeps the DEGEN filter drawer on the shared desktop breakpoint', () => {
+    const source = readFileSync(appCollapsibleSidebarLayout, 'utf8')
+    const breakpointSource = readFileSync(appNavigationBreakpoints, 'utf8')
+
+    expect(breakpointSource).toContain("desktopNavigationMediaQuery = '(min-width: 1024px)'")
+    expect(source).toContain("from '@/app/_layout/navigation-breakpoints'")
+    expect(source).toContain('useMediaQuery(desktopNavigationMediaQuery)')
+    expect(source).not.toContain("useMediaQuery('(max-width:1024px)')")
   })
 
   it('keeps the private app bar padded and vertically centered', () => {
