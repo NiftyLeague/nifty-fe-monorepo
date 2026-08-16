@@ -42,6 +42,9 @@ beforeEach(() => {
       ...props
     }: ComponentProps<'img'> & { priority?: boolean }) => <img alt={alt} {...props} />,
   }))
+  mock.module('@nl/ui/custom/optimized-image', () => ({
+    default: ({ alt, ...props }: ComponentProps<'img'>) => <img alt={alt} {...props} />,
+  }))
   mock.module('next/navigation', () => ({ usePathname: () => state.pathname }))
   mock.module('@nl/ui/hooks/useParallax', () => ({
     useParallax: (...args: unknown[]) => state.parallax(...args),
