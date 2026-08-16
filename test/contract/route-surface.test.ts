@@ -150,6 +150,7 @@ const privateShell = 'apps/app/src/components/providers/PrivateRoutesShell.tsx'
 const nftDataProviders = 'apps/app/src/contexts/NFTDataProviders.tsx'
 const walletFeatureProviders = 'apps/app/src/contexts/WalletFeatureProviders.tsx'
 const dashboardDataBoundary = 'apps/app/src/components/providers/DashboardDataBoundary.tsx'
+const deferredDegenDialog = 'apps/app/src/components/providers/DeferredDegenDialog.tsx'
 const deferredRenameDegenDialog = 'apps/app/src/components/providers/DeferredRenameDegenDialog.tsx'
 const deferredDialogLoading = 'apps/app/src/components/providers/DeferredDialogLoading.tsx'
 const degenDialog = 'apps/app/src/components/dialog/DegenDialog/index.tsx'
@@ -746,6 +747,15 @@ describe('dashboard dialog loading contract', () => {
       expect(source).not.toContain("from '@/components/dialog/DegenDialog'")
     })
   }
+
+  it('loads the Degen dialog only while it is open', () => {
+    const source = readFileSync(join(process.cwd(), deferredDegenDialog), 'utf8')
+
+    expect(source).toContain("from '@nl/ui/custom/deferred-component'")
+    expect(source).toContain('enabled={open}')
+    expect(source).toContain("import('@/components/dialog/DegenDialog')")
+    expect(source).not.toContain("from 'next/dynamic'")
+  })
 
   it('defers the dashboard rename form until the dialog opens', () => {
     const source = readFileSync(join(process.cwd(), deferredRenameDegenDialog), 'utf8')
