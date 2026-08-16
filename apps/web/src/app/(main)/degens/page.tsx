@@ -2,11 +2,11 @@ import type { NextPage } from 'next'
 import Image from 'next/image'
 
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
-import { DegenSpecialsTable } from '@nl/ui/custom/degen-specials-table'
 import { LazyYouTubeEmbed } from '@nl/ui/custom/lazy-youtube-embed'
 import { cx } from '@nl/ui/class-names'
 
 import { NIFTY_DEGENS_ALL } from '@/constants/degens'
+import { DeferredDegenSpecialsTable } from '@/components/DeferredDegenSections'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 import styles from './index.module.css'
 
@@ -100,7 +100,7 @@ const Degens: NextPage = () => (
           </div>
         </div>
 
-        <DegenSpecialsTable />
+        <DeferredDegenSpecialsTable />
 
         <ThemeBtnGroup
           className="mt-6 xl:mt-8"
