@@ -19,7 +19,7 @@ describe('Smashers asset delivery contracts', () => {
   })
 
   it('keeps the party modes animation within its delivery budget', () => {
-    expect(statSync('assets/img/games/smashers/party_modes.webp').size).toBeLessThan(10_500_000)
+    expect(statSync('assets/img/games/smashers/party_modes.webp').size).toBeLessThan(9_250_000)
   })
 
   it('keeps animated sources paired with static fallbacks in the consuming components', () => {
@@ -43,7 +43,7 @@ describe('Smashers asset delivery contracts', () => {
     expect(deferredAnimation).toContain('if (prefersReducedMotion || prefersDataSaving) return')
     expect(deferredAnimation).toContain("removeAttribute('srcset')")
     expect(statSync('assets/img/games/smashers/party_modes-poster.webp').size).toBeLessThan(
-      statSync('assets/img/games/smashers/party_modes.webp').size,
+      statSync('assets/img/games/smashers/party_modes.webp').size
     )
     expect(gameSection).toContain('party_modes.webp')
     expect(gameSection).toContain('party_modes-poster.webp')
