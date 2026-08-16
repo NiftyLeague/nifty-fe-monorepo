@@ -8,6 +8,17 @@ const removedAssets = [
   'assets/video/naked-beach.mp4',
   'assets/video/smashers-og.mp4',
   'assets/video/wen-frog.mp4',
+  'assets/img/comics/burner/burnanim_sm.gif',
+  'assets/img/games/smashers/loading-screen.webp',
+  'assets/img/games/smashers/3D-levels/jungle.webp',
+  'assets/img/niftyworld/mansion_01.webp',
+  'assets/img/games/smashers/splash-screen.webp',
+  'assets/img/games/smashers/3D-levels/airship_angle.webp',
+  'assets/img/games/smashers/3D-levels/airship.webp',
+  'assets/img/misc/story.gif',
+  'assets/img/games/smashers/3D-levels/sushi_angle.webp',
+  'assets/img/logos/other/activision.svg',
+  'assets/img/niftyworld/nakedbeach_pano.webp',
 ]
 
 describe('shared stale media policy', () => {
