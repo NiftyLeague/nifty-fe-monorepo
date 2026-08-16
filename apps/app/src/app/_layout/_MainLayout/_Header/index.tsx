@@ -1,7 +1,7 @@
 import { Button } from '@nl/ui/base/button'
-import { Menu } from 'lucide-react'
 
 import { useNavigation } from '@/contexts/NavigationContext'
+import { AppNavIcon } from '@/components/AppNavIcon'
 
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import LogoSection from '../_LogoSection'
@@ -40,7 +40,7 @@ const Header = () => {
           aria-controls="app-primary-navigation"
           aria-expanded={drawerOpen}
         >
-          <Menu aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />
+          <AppNavIcon name="menu" aria-hidden="true" size={20} strokeWidth={1.5} />
         </Button>
       </div>
       <div className="hidden items-center justify-between gap-4 lg:flex">

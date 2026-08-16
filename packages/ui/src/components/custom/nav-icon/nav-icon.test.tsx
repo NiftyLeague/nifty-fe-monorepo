@@ -29,4 +29,17 @@ describe('NavIcon', () => {
 
     expect(icon?.querySelector('path')?.getAttribute('d')).toBe('M20 6 9 17l-5-5')
   })
+
+  it('renders the shared navigation controls without a client icon dependency', () => {
+    const { container } = render(
+      <>
+        <NavIcon name="menu" />
+        <NavIcon name="x" />
+      </>
+    )
+
+    expect(container.querySelectorAll('svg')).toHaveLength(2)
+    expect(container.querySelectorAll('line')).toHaveLength(3)
+    expect(container.querySelector('svg:last-of-type path')?.getAttribute('d')).toBe('M18 6 6 18')
+  })
 })

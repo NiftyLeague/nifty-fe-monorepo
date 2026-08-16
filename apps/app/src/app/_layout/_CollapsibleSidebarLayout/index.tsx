@@ -1,8 +1,8 @@
 import { useEffect, ReactNode, SetStateAction, useCallback } from 'react'
-import { X } from 'lucide-react'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { ScrollArea } from '@nl/ui/base/scroll-area'
 import { IconButton } from '@nl/ui/base/icon-button'
+import { AppNavIcon } from '@/components/AppNavIcon'
 
 const appHeaderHeight = 60
 
@@ -73,7 +73,7 @@ const CollapsibleSidebarLayout = ({
             className="absolute right-3 top-3 z-[1101] size-8 cursor-pointer rounded-md p-1 text-muted-foreground hover:bg-foreground/10"
             onClick={handleDrawerOpen}
           >
-            <X aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />
+            <AppNavIcon name="x" aria-hidden="true" size={20} strokeWidth={1.5} />
           </IconButton>
         )}
         <ScrollArea
