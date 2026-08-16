@@ -27,6 +27,9 @@ beforeEach(async () => {
         kills: [row('11', 'user-3')],
         score: [row('4', 'user-4', { earnings: '', matches: '' })],
       },
+      bulk: {
+        win_rate: [row('0.75', 'user-1'), row('0.5', 'user-2')],
+      },
     }
     return {
       loadLeaderboard: async (gameType: string) => leaderboards[gameType],
@@ -90,6 +93,22 @@ describe('leaderboard data loaders', () => {
     expect(result.count).toBe(1)
     expect(result.data[0]?.stats).toMatchObject({ win_rate: winRate, earnings, kills })
     expect((result.data[0]?.stats as unknown as Record<string, string>).score).toBeTruthy()
+  })
+
+  it('enriches multiple rows through keyed username lookups', async () => {
+    stubGlobal(
+      'fetch',
+      mock().mockResolvedValue({
+        json: mock().mockResolvedValue({
+          'user-1': { name: 'Alpha' },
+          'user-2': { name: 'Bravo' },
+        }),
+      })
+    )
+
+    const result = await fetchScores('bulk', 'win_rate', 'all', 2, 0)
+
+    expect(result.data.map((row) => row.user_id)).toEqual(['Alpha', 'Bravo'])
   })
 
   it('returns rank responses and caught rank errors', async () => {

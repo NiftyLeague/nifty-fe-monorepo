@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import { ResponsiveTable } from '@/components/ResponsiveTable'
@@ -9,16 +9,15 @@ import { fetchScores } from '@/utils/leaderboard'
 import LeaderboardRankBoundary from '../LeaderboardRankBoundary'
 
 const flatObject = (obj: { [key: string]: unknown }): Record<string, unknown> => {
-  const keys = Object.keys(obj)
-  return keys.reduce(
-    (acc, k) => {
-      const value = obj[k]
-      return typeof value === 'object'
-        ? { ...acc, ...flatObject(value as { [key: string]: unknown }) }
-        : { ...acc, [k]: value }
-    },
-    {} as Record<string, unknown>
-  )
+  const flattened: Record<string, unknown> = {}
+  for (const [key, value] of Object.entries(obj)) {
+    if (value !== null && typeof value === 'object') {
+      Object.assign(flattened, flatObject(value as { [key: string]: unknown }))
+    } else {
+      flattened[key] = value
+    }
+  }
+  return flattened
 }
 
 export default function EnhancedTable({
@@ -79,22 +78,26 @@ export default function EnhancedTable({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paginationModel.page])
 
-  const getColumns = () => {
-    const columns: Array<{ field: string; headerName: string; width: number; primary?: boolean }> =
-      [
-        { field: 'rank', headerName: 'RANK', width: 100, primary: true },
-        { field: 'user_id', headerName: 'USERNAME', width: 250, primary: true },
-      ]
-    selectedTable.rows.forEach((headerCell: TableRowType) => {
-      columns.push({
+  const columns = useMemo(() => {
+    const baseColumns: Array<{
+      field: string
+      headerName: string
+      width: number
+      primary?: boolean
+    }> = [
+      { field: 'rank', headerName: 'RANK', width: 100, primary: true },
+      { field: 'user_id', headerName: 'USERNAME', width: 250, primary: true },
+    ]
+
+    return baseColumns.concat(
+      selectedTable.rows.map((headerCell: TableRowType) => ({
         field: headerCell.key,
         headerName: headerCell.display,
         width: 250,
         primary: headerCell.primary,
-      })
-    })
-    return columns
-  }
+      }))
+    )
+  }, [selectedTable.rows])
 
   return (
     <div className="mb-20 sm:mb-0">
@@ -112,7 +115,7 @@ export default function EnhancedTable({
           <ResponsiveTable
             paginationModel={paginationModel}
             onPaginationModelChange={setPaginationModel}
-            columns={getColumns()}
+            columns={columns}
             showPagination={true}
             data={rows}
             count={count}
