@@ -1,6 +1,5 @@
-import Image from 'next/image'
-
 import DeferredExternalScript from '@nl/ui/custom/deferred-external-script'
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 
 import styles from './index.module.css'
 
@@ -13,7 +12,7 @@ const DeferredHeroBackground = () => {
         src="/scripts/smashers-hero-animation.js"
       />
       <picture className={styles.heroBackground}>
-        <Image
+        <OptimizedImage
           src={POSTER_BACKGROUND}
           alt=""
           fill
