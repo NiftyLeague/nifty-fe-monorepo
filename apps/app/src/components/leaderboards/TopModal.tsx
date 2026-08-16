@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Image from 'next/image'
+import NativeImage from '@nl/ui/custom/native-image'
 
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@nl/ui/base/table'
@@ -197,7 +197,7 @@ const TableModal = ({
       {data && (
         <button type="button" className={styles.twitterTypography} onClick={handleShareOnTwitter}>
           Share on twitter{' '}
-          <Image src="/icons/socials/twitter.svg" alt="Twitter Icon" width={22} height={20} />
+          <NativeImage src="/icons/socials/twitter.svg" alt="Twitter Icon" width={22} height={20} />
         </button>
       )}
     </div>

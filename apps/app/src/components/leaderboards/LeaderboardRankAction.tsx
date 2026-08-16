@@ -1,7 +1,7 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import Image from 'next/image'
+import NativeImage from '@nl/ui/custom/native-image'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
@@ -95,7 +95,7 @@ const LeaderboardRankAction = ({
             className="flex items-center justify-end text-base font-subheader font-bold text-[var(--color-purple)] underline"
             style={{ lineHeight: '24px' }}
           >
-            <Image
+            <NativeImage
               src="/icons/rank_icon.svg"
               alt="Rank Icon"
               width={25}

@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import NativeImage from '@nl/ui/custom/native-image'
 import type { SxProps, Theme } from '@/types'
 import type { Item } from '@/types/marketplace'
 import ImageCard from '@/components/cards/ImageCard'
@@ -61,7 +61,7 @@ const WearableItemCard: React.FC<
           className="flex items-center justify-center rounded-[10px] border border-[#363636]"
           style={{ width: CARD_WIDTH, height: CARD_HEIGHT }}
         >
-          <Image
+          <NativeImage
             src={empty as string}
             alt={title}
             width={CARD_WIDTH}

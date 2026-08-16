@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from 'react'
 import { parseEther } from 'ethers'
-import Image from 'next/image'
+import NativeImage from '@nl/ui/custom/native-image'
 import { Button } from '@nl/ui/base/button'
 import { DialogContent } from '@nl/ui/base/dialog'
 import { Input } from '@nl/ui/custom/input'
@@ -111,7 +111,7 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): React.ReactNode 
           Rename DEGEN
         </Title>
         <div className="flex flex-col items-center gap-1">
-          <Image
+          <NativeImage
             src={`/img/degens/nfts/${degen?.id}.${degen?.background === 'Legendary' ? 'gif' : 'webp'}`}
             alt="degen"
             width={240}

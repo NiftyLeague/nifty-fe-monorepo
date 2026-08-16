@@ -1,7 +1,7 @@
 'use client'
 
 import { memo, useMemo } from 'react'
-import Image from 'next/image'
+import NativeImage from '@nl/ui/custom/native-image'
 import { toast } from 'sonner'
 import { Heart } from 'lucide-react'
 import { Button } from '@nl/ui/base/button'
@@ -77,7 +77,7 @@ const DegenDashboardActions = ({
           aria-label="Download degen"
         >
           <span style={{ fontSize: tinyFontSize, paddingRight: '4px' }}>IP</span>
-          <Image
+          <NativeImage
             src="/icons/download-solid.svg"
             alt=""
             width={size === 'small' ? 12 : 16}
