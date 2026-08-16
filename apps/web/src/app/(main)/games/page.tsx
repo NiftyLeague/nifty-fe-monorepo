@@ -1,10 +1,9 @@
 import type { NextPage } from 'next'
 
-import OptimizedImage from '@nl/ui/custom/optimized-image'
-
 import { LazyYouTubeEmbed } from '@nl/ui/custom/lazy-youtube-embed'
 import { ViewportVideo } from '@nl/ui/custom/viewport-video'
 import { cx } from '@nl/ui/class-names'
+import { MobileOnlyImage } from '@nl/ui/custom/responsive-only-image'
 
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 import { NIFTY_GAMES } from '@/constants/games'
@@ -28,7 +27,7 @@ const Games: NextPage = () => (
             src="/video/lobby.mp4"
           />
           <div className="block md:hidden">
-            <OptimizedImage
+            <MobileOnlyImage
               alt="Arcade"
               width={339}
               height={661}

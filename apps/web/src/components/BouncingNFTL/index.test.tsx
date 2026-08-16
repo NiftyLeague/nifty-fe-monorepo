@@ -2,7 +2,9 @@ import { render } from '@testing-library/react'
 import { createElement, type ComponentProps } from 'react'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
-mock.module('@nl/ui/custom/optimized-image', () => ({
+mock.module('@nl/ui/custom/responsive-only-image', () => ({
+  DesktopOnlyImage: ({ alt, ...props }: ComponentProps<'img'>) =>
+    createElement('img', { alt, ...props }),
   default: ({ alt, ...props }: ComponentProps<'img'>) => createElement('img', { alt, ...props }),
 }))
 

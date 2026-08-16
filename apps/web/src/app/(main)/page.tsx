@@ -2,6 +2,7 @@ import { preload } from 'react-dom'
 
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import OptimizedImage, { getOptimizedImageProps } from '@nl/ui/custom/optimized-image'
+import { DesktopOnlyImage, MobileOnlyImage } from '@nl/ui/custom/responsive-only-image'
 
 import BouncingNFTL from '@/components/BouncingNFTL'
 import {
@@ -22,45 +23,6 @@ const ResponsiveLabel = ({ mobile, desktop }: { mobile: string; desktop: string 
     <span className="responsive-label-desktop">{desktop}</span>
   </>
 )
-
-const DESKTOP_ONLY_PLACEHOLDER = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
-
-interface DesktopOnlyImageProps {
-  alt: string
-  className?: string
-  height: number
-  loading?: 'eager' | 'lazy'
-  sizes: string
-  src: string
-  width: number
-}
-
-const DesktopOnlyImage = ({
-  alt,
-  className,
-  height,
-  loading = 'lazy',
-  sizes,
-  src,
-  width,
-}: DesktopOnlyImageProps) => {
-  const props = getOptimizedImageProps({ alt, height, loading, sizes, src, width })
-  const { src: _src, srcSet: _srcSet, sizes: _sizes, ...fallbackProps } = props
-
-  return (
-    <picture className="block">
-      <source media="(min-width: 769px)" sizes={sizes} srcSet={props.srcSet} />
-      <img
-        {...fallbackProps}
-        alt={alt}
-        className={className}
-        height={height}
-        src={DESKTOP_ONLY_PLACEHOLDER}
-        width={width}
-      />
-    </picture>
-  )
-}
 
 const ResponsiveIntroBackground = () => {
   const commonProps = {
@@ -311,7 +273,7 @@ const Home = () => {
           <div className="purple-bg-orb orb-top-left" />
           <div className="block md:hidden relative w-full">
             <div className="transition-quick-pop">
-              <OptimizedImage
+              <MobileOnlyImage
                 src="/img/compete-and-earn/mobile.webp"
                 alt="Compete and Earn"
                 width={655}
@@ -350,7 +312,7 @@ const Home = () => {
 
         <div className="hidden md:block w-1/2 relative">
           <div className="transition-quick-pop">
-            <OptimizedImage
+            <DesktopOnlyImage
               src="/img/compete-and-earn/animated/competitors.webp"
               alt="Compete and Earn"
               width={668}
