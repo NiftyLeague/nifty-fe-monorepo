@@ -21,6 +21,8 @@
         "../../packages/ui/package.json",
         ".env*",
         "!.env.example",
+        "!**/README.md",
+        "!**/CHANGELOG.md",
         "!**/*.test.*",
         "!**/*.spec.*",
         "!**/__tests__/**"
@@ -43,6 +45,8 @@
         "../../packages/contracts/package.json",
         ".env*",
         "!.env.example",
+        "!**/README.md",
+        "!**/CHANGELOG.md",
         "!**/*.test.*",
         "!**/*.spec.*",
         "!**/__tests__/**"
@@ -84,6 +88,8 @@
         "../../packages/ui/package.json",
         ".env*",
         "!.env.example",
+        "!**/README.md",
+        "!**/CHANGELOG.md",
         "!**/*.test.*",
         "!**/*.spec.*",
         "!**/__tests__/**"
@@ -102,6 +108,8 @@
         "../../packages/ui/package.json",
         ".env*",
         "!.env.example",
+        "!**/README.md",
+        "!**/CHANGELOG.md",
         "!**/*.test.*",
         "!**/*.spec.*",
         "!**/__tests__/**"
@@ -138,6 +146,8 @@
         "../../packages/ui/package.json",
         ".env*",
         "!.env.example",
+        "!**/README.md",
+        "!**/CHANGELOG.md",
         "!**/*.test.*",
         "!**/*.spec.*",
         "!**/__tests__/**"
