@@ -1220,6 +1220,10 @@ describe('private provider loading contract', () => {
       join(process.cwd(), 'apps/app/src/contexts/AuthTokenProviderRuntime.tsx'),
       'utf8'
     )
+    const configSource = readFileSync(
+      join(process.cwd(), 'apps/app/src/contexts/Web3ModalConfig.tsx'),
+      'utf8'
+    )
     const modalSource = readFileSync(join(process.cwd(), walletModal), 'utf8')
 
     expect(providerSource).toContain("import('./Web3ModalRuntime')")
@@ -1248,6 +1252,10 @@ describe('private provider loading contract', () => {
     expect(authRuntimeSource).toContain('openWalletModal')
     expect(modalSource).toContain("import('@reown/appkit/react')")
     expect(modalSource).toContain("import('@/constants/contracts')")
+    expect(modalSource).toContain("import('viem/chains')")
+    expect(modalSource).not.toContain('@reown/appkit/networks')
+    expect(configSource).toContain("from 'viem/chains'")
+    expect(configSource).not.toContain('@reown/appkit/networks')
   })
 
   it('loads dashboard data after the shell has painted with accessible recovery states', () => {
