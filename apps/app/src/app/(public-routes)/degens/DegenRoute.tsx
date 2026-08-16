@@ -1,6 +1,7 @@
-import dynamic from 'next/dynamic'
+'use client'
 
 import { Skeleton } from '@nl/ui/base/skeleton'
+import DeferredComponent from '@nl/ui/custom/deferred-component'
 
 const loadingCards = Array.from({ length: 12 }, (_, index) => index)
 
@@ -29,10 +30,15 @@ function DegenRouteLoading() {
   )
 }
 
-const AllDegensPage = dynamic(() => import('./AllDegensPage'), {
-  loading: () => <DegenRouteLoading />,
-})
+const loadAllDegensPage = () => import('./AllDegensPage')
 
 export default function DegenRoute() {
-  return <AllDegensPage />
+  return (
+    <DeferredComponent
+      label="DEGEN browser"
+      load={loadAllDegensPage}
+      loadingFallback={<DegenRouteLoading />}
+      props={{}}
+    />
+  )
 }
