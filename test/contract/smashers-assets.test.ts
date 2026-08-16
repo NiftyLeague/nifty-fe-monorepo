@@ -8,7 +8,6 @@ const gameSectionSource = 'apps/smashers/src/components/GameSection/index.tsx'
 
 const assets = [
   ['assets/img/games/smashers/background.gif', 'assets/img/games/smashers/background.webp'],
-  ['assets/img/games/smashers/party_modes.gif', 'assets/img/games/smashers/party_modes.webp'],
 ] as const
 
 describe('Smashers asset delivery contracts', () => {
@@ -18,7 +17,7 @@ describe('Smashers asset delivery contracts', () => {
     }
   })
 
-  it('keeps WebP sources paired with GIF fallbacks in the consuming components', () => {
+  it('keeps animated sources paired with static fallbacks in the consuming components', () => {
     const header = readFileSync(headerSource, 'utf8')
     const deferredBackground = readFileSync(deferredBackgroundSource, 'utf8')
     const deferredAnimation = readFileSync(deferredAnimationSource, 'utf8')
@@ -38,7 +37,13 @@ describe('Smashers asset delivery contracts', () => {
     expect(deferredAnimation).toContain('navigator.connection?.saveData')
     expect(deferredAnimation).toContain('if (prefersReducedMotion || prefersDataSaving) return')
     expect(deferredAnimation).toContain("removeAttribute('srcset')")
+    expect(statSync('assets/img/games/smashers/party_modes-poster.webp').size).toBeLessThan(
+      statSync('assets/img/games/smashers/party_modes.webp').size,
+    )
     expect(gameSection).toContain('party_modes.webp')
-    expect(gameSection).toContain('party_modes.gif')
+    expect(gameSection).toContain('party_modes-poster.webp')
+    expect(gameSection).toContain('prefers-reduced-motion: no-preference')
+    expect(gameSection).toContain('height={566}')
+    expect(gameSection).not.toContain('party_modes.gif')
   })
 })
