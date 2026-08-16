@@ -2,9 +2,9 @@
 
 import type { ComponentType, ReactNode } from 'react'
 
-import { buttonVariants } from '@nl/ui/base/button-variants'
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
+import { DEFERRED_RETRY_BUTTON_CLASS } from '@nl/ui/lib/deferred-boundary'
 
 export interface DeferredComponentProps<T extends object> {
   disabledFallback?: ReactNode
@@ -29,7 +29,12 @@ function DefaultError({ label, onRetry }: { label: string; onRetry: () => void }
   return (
     <div className="flex min-h-48 flex-col items-center justify-center gap-3" role="alert">
       <p>{label} could not be loaded.</p>
-      <button type="button" className={buttonVariants({ variant: 'outline' })} onClick={onRetry}>
+      <button
+        type="button"
+        data-slot="button"
+        className={DEFERRED_RETRY_BUTTON_CLASS}
+        onClick={onRetry}
+      >
         Retry
       </button>
     </div>

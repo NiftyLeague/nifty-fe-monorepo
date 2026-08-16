@@ -3,10 +3,10 @@
 import type { ComponentType } from 'react'
 import { useRef } from 'react'
 
-import { buttonVariants } from '@nl/ui/base/button-variants'
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
+import { DEFERRED_RETRY_BUTTON_CLASS } from '@nl/ui/lib/deferred-boundary'
 
 interface DeferredSectionProps {
   label: string
@@ -63,7 +63,12 @@ export function DeferredSection({
           role="alert"
         >
           <p>{label} could not be loaded.</p>
-          <button type="button" className={buttonVariants({ variant: 'outline' })} onClick={retry}>
+          <button
+            type="button"
+            data-slot="button"
+            className={DEFERRED_RETRY_BUTTON_CLASS}
+            onClick={retry}
+          >
             Retry
           </button>
         </div>
