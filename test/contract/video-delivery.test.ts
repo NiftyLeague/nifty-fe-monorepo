@@ -18,6 +18,18 @@ const sharedMarketingVideos = [
     path: 'assets/video/companion.mp4',
     maxBytes: 4_000_000,
   },
+  {
+    path: 'assets/video/game-console.mp4',
+    maxBytes: 7_000_000,
+  },
+  {
+    path: 'assets/video/comics_archive.mp4',
+    maxBytes: 4_000_000,
+  },
+  {
+    path: 'assets/video/citadel_key.mp4',
+    maxBytes: 4_000_000,
+  },
 ] as const
 
 describe('shared video delivery budgets', () => {
