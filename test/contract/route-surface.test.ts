@@ -158,6 +158,12 @@ const deferredProfileNameDialog = 'apps/app/src/components/providers/DeferredPro
 const deferredProfileImageDialog =
   'apps/app/src/components/providers/DeferredProfileImageDialog.tsx'
 const deferredNicknameDialog = 'apps/app/src/components/providers/DeferredChangeNicknameDialog.tsx'
+const profileNameDialog =
+  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_Stats/ChangeProfileNameDialog.tsx'
+const profileImageDialog =
+  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_ImageProfile/ProfileImageDialog.tsx'
+const profileImageContent =
+  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_ImageProfile/ProfileImageContent.tsx'
 const authUrls = 'apps/app/src/constants/auth-urls.ts'
 const walletModal = 'apps/app/src/contexts/WalletModal.ts'
 const web3ModalContext = 'apps/app/src/contexts/Web3ModalContext.tsx'
@@ -818,6 +824,32 @@ describe('dashboard dialog loading contract', () => {
     expect(source).toContain('DeferredChangeNicknameDialog')
     expect(source).toContain('open={isNicknameModalOpen}')
     expect(source).not.toContain("from './ChangeNicknameDialog'")
+  })
+
+  it('keeps the profile name form out of the trigger module until the dialog opens', () => {
+    const source = readFileSync(join(process.cwd(), profileNameDialog), 'utf8')
+
+    expect(source).toContain("from '@nl/ui/custom/deferred-component'")
+    expect(source).toContain('enabled={open}')
+    expect(source).toContain("import('./ChangeProfileNameForm')")
+    expect(source).toContain('DeferredDialogLoading')
+    expect(source).not.toContain("from './ChangeProfileNameForm'")
+  })
+
+  it('keeps the profile image picker graph out of the trigger module until the dialog opens', () => {
+    const dialogSource = readFileSync(join(process.cwd(), profileImageDialog), 'utf8')
+    const contentSource = readFileSync(join(process.cwd(), profileImageContent), 'utf8')
+
+    expect(dialogSource).toContain("from '@nl/ui/custom/deferred-component'")
+    expect(dialogSource).toContain('enabled={open}')
+    expect(dialogSource).toContain("import('./ProfileImageContent')")
+    expect(dialogSource).toContain('DeferredDialogLoading')
+    expect(dialogSource).not.toContain("from '@/components/sections/SectionSlider'")
+    expect(dialogSource).not.toContain(
+      "from '@/app/(private-routes)/dashboard/rentals/SearchRental'"
+    )
+    expect(contentSource).toContain("from '@/components/sections/SectionSlider'")
+    expect(contentSource).toContain("from '@/app/(private-routes)/dashboard/rentals/SearchRental'")
   })
 
   for (const file of deferredProfileDialogConsumers) {
