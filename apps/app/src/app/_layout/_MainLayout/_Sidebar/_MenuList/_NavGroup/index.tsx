@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { Separator } from '@nl/ui/base/separator'
 
 // project imports
 import type { AppNavIconName } from '@/components/AppNavIcon'
@@ -53,7 +54,7 @@ const NavGroup = ({ item }: NavGroupProps) => {
         {items}
       </div>
       {/* group divider */}
-      <hr className="mt-1 mb-5 opacity-60" />
+      <Separator className="mt-1 mb-5 opacity-60" />
     </>
   )
 }
