@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { cx } from '@nl/ui/class-names'
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 
 import styles from './index.module.css'
 export default function Navbar() {
@@ -10,7 +10,7 @@ export default function Navbar() {
       <div className="sm:hidden">
         <a href="https://niftyleague.com" target="_blank" rel="noreferrer">
           <div className={styles.logo_container}>
-            <Image
+            <OptimizedImage
               src="/img/logos/NL/white.webp"
               alt="Company Logo"
               className={styles.logo}
@@ -23,7 +23,7 @@ export default function Navbar() {
         <nav className={styles.navbar}>
           <Link href="/profile">
             <div className={cx(styles.nav_item, styles.profile_mobile)}>
-              <Image
+              <OptimizedImage
                 src="/icons/user.svg"
                 alt="Profile Icon"
                 width={28}
@@ -39,7 +39,7 @@ export default function Navbar() {
       <div className={cx('hidden sm:block', styles.desktop_nav)}>
         <a href="https://niftyleague.com" target="_blank" rel="noreferrer">
           <div className={styles.logo_container}>
-            <Image
+            <OptimizedImage
               src="/img/logos/NL/white.webp"
               alt="Company Logo"
               className={styles.logo}
@@ -56,7 +56,12 @@ export default function Navbar() {
               rel="noreferrer"
               className={styles.nav_item}
             >
-              <Image src="/icons/socials/discord.svg" alt="Discord Logo" width={22} height={22} />
+              <OptimizedImage
+                src="/icons/socials/discord.svg"
+                alt="Discord Logo"
+                width={22}
+                height={22}
+              />
             </a>
             <a
               href="https://twitter.com/NiftyLeague"
@@ -64,7 +69,12 @@ export default function Navbar() {
               rel="noreferrer"
               className={styles.nav_item}
             >
-              <Image src="/icons/socials/twitter.svg" alt="Twitter Logo" width={22} height={22} />
+              <OptimizedImage
+                src="/icons/socials/twitter.svg"
+                alt="Twitter Logo"
+                width={22}
+                height={22}
+              />
             </a>
             <a
               href="https://www.twitch.tv/niftyleagueofficial"
@@ -72,7 +82,12 @@ export default function Navbar() {
               rel="noreferrer"
               className={styles.nav_item}
             >
-              <Image src="/icons/socials/twitch.svg" alt="Twitch Logo" width={22} height={22} />
+              <OptimizedImage
+                src="/icons/socials/twitch.svg"
+                alt="Twitch Logo"
+                width={22}
+                height={22}
+              />
             </a>
             <a
               href="https://opensea.io/collection/niftydegen"
@@ -80,13 +95,13 @@ export default function Navbar() {
               rel="noreferrer"
               className={styles.nav_item}
             >
-              <Image src="/icons/opensea.svg" alt="OpenSea Logo" width={22} height={22} />
+              <OptimizedImage src="/icons/opensea.svg" alt="OpenSea Logo" width={22} height={22} />
             </a>
           </div>
           <Link href="/profile">
             <div className={cx(styles.nav_item, styles.profile)}>
               <div className={styles.profile_icon}>
-                <Image src="/icons/user.svg" alt="Profile Icon" width={22} height={22} />
+                <OptimizedImage src="/icons/user.svg" alt="Profile Icon" width={22} height={22} />
               </div>
             </div>
           </Link>

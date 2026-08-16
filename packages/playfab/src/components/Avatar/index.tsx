@@ -2,10 +2,10 @@
 
 import React, { useState, useRef } from 'react'
 import { useSnackbar } from 'notistack'
-import Image from 'next/image'
 
 import { Button } from '@nl/ui/base/button'
 import { Input } from '@nl/ui/custom/input'
+import NativeImage from '@nl/ui/custom/native-image'
 import { Icon } from '@nl/ui/base/icon'
 
 export default function Avatar({
@@ -56,7 +56,7 @@ export default function Avatar({
   return (
     <div className="w-full grid justify-items-center gap-2">
       {url ? (
-        <Image
+        <NativeImage
           src={url}
           alt="Avatar"
           className="rounded-full"
