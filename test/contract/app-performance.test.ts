@@ -482,6 +482,17 @@ describe('app performance contracts', () => {
     expect(source).not.toContain("from '@/constants/hydras'")
   })
 
+  it('keeps repeated catalog filtering responsive and reuses normalized fields', () => {
+    const filterSource = readFileSync(degenFilterUtils, 'utf8')
+    const publicSource = readFileSync(allDegensPage, 'utf8')
+
+    expect(filterSource).toContain('new WeakMap<PublicDegen, NormalizedDegen>()')
+    expect(filterSource).toContain('getNormalizedTraits')
+    expect(publicSource).toContain('useDeferredValue')
+    expect(publicSource).toContain('const deferredFilters = useDeferredValue(filters)')
+    expect(publicSource).toContain('tranformDataByFilter(originalDegens, deferredFilters)')
+  })
+
   it('deduplicates the repeated degen catalog request across app surfaces', () => {
     const fetchSource = readFileSync(useFetch, 'utf8')
 

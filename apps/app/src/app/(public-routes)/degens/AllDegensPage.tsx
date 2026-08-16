@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useCallback, useEffect, useMemo, useState } from 'react'
+import { Suspense, useCallback, useDeferredValue, useEffect, useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
@@ -59,9 +59,10 @@ const AllDegensPage = (): React.ReactNode => {
 
   const isMobile = useMediaQuery('(max-width:640px)')
   const isSmallScreen = useMediaQuery('(max-width:1280px)')
+  const deferredFilters = useDeferredValue(filters)
   const filteredData = useMemo(
-    () => tranformDataByFilter(originalDegens, filters),
-    [filters, originalDegens]
+    () => tranformDataByFilter(originalDegens, deferredFilters),
+    [deferredFilters, originalDegens]
   )
   const { jump, dataForCurrentPage, maxPage, currentPage, pageItems } = usePagination<PublicDegen>(
     filteredData,

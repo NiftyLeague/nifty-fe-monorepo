@@ -5,6 +5,48 @@ import DEFAULT_STATIC_FILTER from './constants'
 import { BURN_ADDYS } from '@/constants/addresses'
 import { HYDRA_RARITIES } from '@/constants/hydra-rarities'
 
+type NormalizedDegen = {
+  background: string
+  id: string
+  name: string
+  numericId: number
+  owner: string
+  searchId: string
+  tribe: string
+}
+
+// Catalog records are immutable after fetch, so reuse normalized fields across
+// public and private filter passes instead of lowercasing every field on every
+// keystroke or filter change.
+const normalizedDegenCache = new WeakMap<PublicDegen, NormalizedDegen>()
+const normalizedTraitsCache = new WeakMap<PublicDegen, string[]>()
+
+const getNormalizedDegen = (degen: PublicDegen): NormalizedDegen => {
+  const cached = normalizedDegenCache.get(degen)
+  if (cached) return cached
+
+  const normalized: NormalizedDegen = {
+    background: degen.background?.toLocaleLowerCase() ?? '',
+    id: degen.id ?? '',
+    name: degen.name?.toLowerCase() ?? '',
+    numericId: Number(degen.id),
+    owner: degen.owner?.toLowerCase() ?? '',
+    searchId: degen.id?.toLocaleLowerCase() ?? '',
+    tribe: degen.tribe?.toLocaleLowerCase() || 'hydra',
+  }
+  normalizedDegenCache.set(degen, normalized)
+  return normalized
+}
+
+const getNormalizedTraits = (degen: PublicDegen): string[] => {
+  const cached = normalizedTraitsCache.get(degen)
+  if (cached) return cached
+
+  const traits = degen.traits_string?.split(',') ?? ['']
+  normalizedTraitsCache.set(degen, traits)
+  return traits
+}
+
 export const tranformDataByFilter = <T extends PublicDegen>(
   degens: T[],
   {
@@ -27,69 +69,53 @@ export const tranformDataByFilter = <T extends PublicDegen>(
   const normalizedCosmetics = new Set(cosmetics)
   const hasCosmeticsFilter = cosmetics.length > 0
 
-  const result = degens.filter(
-    ({
-      background = '',
-      id = '',
-      name = '',
-      owner = '',
-      traits_string = '',
-      tribe = '',
-    }: PublicDegen) => {
-      // Filter all burn addys
-      if (BURN_ADDYS.includes(owner)) return false
+  const result = degens.filter((degen: PublicDegen) => {
+    const { background, id, name, owner, searchId, tribe } = getNormalizedDegen(degen)
 
-      if (
-        normalizedWalletAddress &&
-        normalizedWalletAddress.length > 26 &&
-        owner.toLowerCase() !== normalizedWalletAddress
-      ) {
-        return false
-      }
+    // Filter all burn addys
+    if (BURN_ADDYS.includes(degen.owner)) return false
 
-      if (normalizedTokenId && normalizedTokenId.length > 0 && id !== normalizedTokenId) {
-        return false
-      }
-
-      if (
-        normalizedTribes.size > 0 &&
-        !normalizedTribes.has(tribe?.toLocaleLowerCase() || (!tribe ? 'hydra' : ''))
-      ) {
-        return false
-      }
-
-      if (
-        normalizedBackgrounds.size > 0 &&
-        !normalizedBackgrounds.has(background?.toLocaleLowerCase())
-      ) {
-        return false
-      }
-
-      if (
-        hasCosmeticsFilter &&
-        !traits_string.split(',').some((trait) => normalizedCosmetics.has(trait))
-      ) {
-        return false
-      }
-
-      if (
-        normalizedSearchTerm &&
-        !(
-          name?.toLowerCase().includes(normalizedSearchTerm) ||
-          id.toLocaleLowerCase().includes(normalizedSearchTerm)
-        )
-      ) {
-        return false
-      }
-
-      return true
+    if (
+      normalizedWalletAddress &&
+      normalizedWalletAddress.length > 26 &&
+      owner !== normalizedWalletAddress
+    ) {
+      return false
     }
-  )
+
+    if (normalizedTokenId && normalizedTokenId.length > 0 && id !== normalizedTokenId) {
+      return false
+    }
+
+    if (normalizedTribes.size > 0 && !normalizedTribes.has(tribe)) {
+      return false
+    }
+
+    if (normalizedBackgrounds.size > 0 && !normalizedBackgrounds.has(background)) {
+      return false
+    }
+
+    if (
+      hasCosmeticsFilter &&
+      !getNormalizedTraits(degen).some((trait) => normalizedCosmetics.has(trait))
+    ) {
+      return false
+    }
+
+    if (
+      normalizedSearchTerm &&
+      !(name.includes(normalizedSearchTerm) || searchId.includes(normalizedSearchTerm))
+    ) {
+      return false
+    }
+
+    return true
+  })
 
   if (sort === 'idUp') {
-    result.sort((a, b) => Number(a.id) - Number(b.id))
+    result.sort((a, b) => getNormalizedDegen(a).numericId - getNormalizedDegen(b).numericId)
   } else if (sort === 'idDown') {
-    result.sort((a, b) => Number(b.id) - Number(a.id))
+    result.sort((a, b) => getNormalizedDegen(b).numericId - getNormalizedDegen(a).numericId)
   }
   return result
 }
