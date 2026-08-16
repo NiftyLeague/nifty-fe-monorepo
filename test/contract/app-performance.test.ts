@@ -7,6 +7,10 @@ const appGasUtility = 'apps/app/src/utils/gas.ts'
 const retiredAxiosUtility = 'apps/app/src/utils/axios.ts'
 const appGraphQLUtility = 'apps/app/src/utils/graphql.ts'
 const appNextConfig = 'apps/app/next.config.ts'
+const deferredNicknameForm =
+  'apps/app/src/app/(private-routes)/dashboard/rentals/ChangeNicknameDialog.tsx'
+const deferredProfileNameForm =
+  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_Stats/ChangeProfileNameForm.tsx'
 const smashersNextConfig = 'apps/smashers/next.config.ts'
 const templateNextConfig = 'apps/template/next.config.ts'
 const webManifest = 'apps/web/package.json'
@@ -353,6 +357,20 @@ describe('app performance contracts', () => {
     expect(manifest.dependencies?.['graphql-request']).toBeUndefined()
     expect(graphqlSource).toContain("method: 'POST'")
     expect(graphqlSource).toContain("'Content-Type': 'application/json'")
+  })
+
+  it('keeps deferred rename forms on native React Hook Form rules', () => {
+    const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
+
+    for (const file of [deferredNicknameForm, deferredProfileNameForm]) {
+      const source = readFileSync(file, 'utf8')
+      expect(source).toContain('rules={{ required:')
+      expect(source).not.toContain('yup')
+      expect(source).not.toContain('@hookform/resolvers')
+    }
+
+    expect(manifest.dependencies?.['@hookform/resolvers']).toBeUndefined()
+    expect(manifest.dependencies?.yup).toBeUndefined()
   })
 
   it('removes the retired inline NFTL swap graph', () => {

@@ -3,8 +3,6 @@
 import { useState, useContext } from 'react'
 import { toast } from 'sonner'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import * as yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
 
 import { Button } from '@nl/ui/base/button'
 import { Skeleton } from '@nl/ui/base/skeleton'
@@ -25,8 +23,6 @@ interface IFormInput {
   name: string
 }
 
-const validationSchema = yup.object({ name: yup.string().required() })
-
 const ChangeProfileNameForm = ({ updateNewName }: ChangeProfileNameFormProps): React.ReactNode => {
   const [isLoadingRename, setLoadingRename] = useState(false)
   const { fee, loadingFee } = useProfileRenameFee()
@@ -39,7 +35,6 @@ const ChangeProfileNameForm = ({ updateNewName }: ChangeProfileNameFormProps): R
     reset,
     formState: { errors },
   } = useForm<IFormInput>({
-    resolver: yupResolver(validationSchema),
     mode: 'onChange',
     defaultValues: { name: '' },
   })
@@ -97,6 +92,7 @@ const ChangeProfileNameForm = ({ updateNewName }: ChangeProfileNameFormProps): R
         <Controller
           name="name"
           control={control}
+          rules={{ required: 'Name is required' }}
           render={({ field }) => (
             <div className="flex flex-col gap-1">
               <Input
