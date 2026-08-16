@@ -7,7 +7,7 @@ import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@nl/ui/base/table'
 
 import { fetchScores } from '@/utils/leaderboard'
-import type { DataType, ReturnDataType } from '@/types/leaderboard'
+import type { DataType } from '@/types/leaderboard'
 import { LEADERBOARD_GAME_LIST } from '@/constants/leaderboards'
 import CustomModal from './CustomModal'
 import './modal-table.css'
@@ -29,26 +29,23 @@ const TableModal = ({
 }: TableModalProps): React.ReactNode | null => {
   const [data, setData] = useState<DataType[]>()
 
-  // get the top ten items
-  const fetchDataItems = async () => {
+  useEffect(() => {
     if (!myRank) {
+      setData(undefined)
       return
     }
 
-    const ret: ReturnDataType = await fetchScores(
-      selectedGame,
-      flag,
-      selectedTimeFilter,
-      10,
-      myRank < 3 ? 0 : myRank - 3
+    let active = true
+    void fetchScores(selectedGame, flag, selectedTimeFilter, 10, myRank < 3 ? 0 : myRank - 3).then(
+      (ret) => {
+        if (active) setData(ret.data)
+      }
     )
-    setData(ret.data)
-  }
 
-  useEffect(() => {
-    fetchDataItems()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [myRank])
+    return () => {
+      active = false
+    }
+  }, [flag, myRank, selectedGame, selectedTimeFilter])
 
   const getTextStyleForRank = (rank: number) => {
     return rank === myRank ? { color: '#E49C8E' } : {}
