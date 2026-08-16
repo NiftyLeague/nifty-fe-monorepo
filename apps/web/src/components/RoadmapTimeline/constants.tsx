@@ -2,6 +2,8 @@ import Image from 'next/image'
 import styles from './index.module.css'
 import { DEGEN_COLLECTION_URL } from '@/constants/degen-assets'
 
+const COMIC_THUMBNAIL_SIZES = '(max-width: 767px) 50vw, 250px'
+
 export const ROADMAP_CARDS = [
   {
     completed: true,
@@ -323,7 +325,7 @@ export const ROADMAP_CARDS = [
               height={500}
               src="/img/comics/thumbnail/1.webp"
               width={500}
-              sizes="100vw"
+              sizes={COMIC_THUMBNAIL_SIZES}
               style={{ width: '100%', height: 'auto' }}
               className="w-full h-auto"
             />
@@ -334,7 +336,7 @@ export const ROADMAP_CARDS = [
               height={500}
               src="/img/comics/thumbnail/2.webp"
               width={500}
-              sizes="100vw"
+              sizes={COMIC_THUMBNAIL_SIZES}
               style={{ width: '100%', height: 'auto' }}
               className="w-full h-auto"
             />
@@ -345,7 +347,7 @@ export const ROADMAP_CARDS = [
               height={500}
               src="/img/comics/thumbnail/3.webp"
               width={500}
-              sizes="100vw"
+              sizes={COMIC_THUMBNAIL_SIZES}
               style={{ width: '100%', height: 'auto' }}
               className="w-full h-auto"
             />
@@ -356,7 +358,7 @@ export const ROADMAP_CARDS = [
               height={500}
               src="/img/comics/thumbnail/4.webp"
               width={500}
-              sizes="100vw"
+              sizes={COMIC_THUMBNAIL_SIZES}
               style={{ width: '100%', height: 'auto' }}
               className="w-full h-auto"
             />
@@ -367,7 +369,7 @@ export const ROADMAP_CARDS = [
               height={500}
               src="/img/comics/thumbnail/5.webp"
               width={500}
-              sizes="100vw"
+              sizes={COMIC_THUMBNAIL_SIZES}
               style={{ width: '100%', height: 'auto' }}
               className="w-full h-auto"
             />
@@ -378,7 +380,7 @@ export const ROADMAP_CARDS = [
               height={500}
               src="/img/comics/thumbnail/6.webp"
               width={500}
-              sizes="100vw"
+              sizes={COMIC_THUMBNAIL_SIZES}
               style={{ width: '100%', height: 'auto' }}
               className="w-full h-auto"
             />

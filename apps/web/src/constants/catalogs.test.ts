@@ -20,4 +20,25 @@ describe('website catalogs', () => {
       expect(Object.values(catalog).some(Boolean)).toBe(true)
     }
   )
+
+  it('keeps the Roadmap comic thumbnails responsive and lazy', async () => {
+    const { ROADMAP_CARDS } = await import('../components/RoadmapTimeline/constants')
+    const comicsCard = ROADMAP_CARDS.find((card) => card.title === 'Comics Burning')
+
+    const collectComicImages = (node: unknown): Array<{ alt?: string; sizes?: string }> => {
+      if (Array.isArray(node)) return node.flatMap(collectComicImages)
+      if (!node || typeof node !== 'object') return []
+
+      const props = (node as { props?: { alt?: string; children?: unknown; sizes?: string } }).props
+      if (!props) return []
+
+      const image = props.alt?.startsWith('comic ') ? [{ alt: props.alt, sizes: props.sizes }] : []
+      return [...image, ...collectComicImages(props.children)]
+    }
+
+    const images = collectComicImages(comicsCard?.body)
+
+    expect(images).toHaveLength(6)
+    expect(images.every(({ sizes }) => sizes === '(max-width: 767px) 50vw, 250px')).toBe(true)
+  })
 })
