@@ -547,8 +547,13 @@ describe('shared deferred loader contract', () => {
     ]) {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
 
-      expect(source).toContain("from '@nl/ui/hooks/useDeferredComponent'")
-      expect(source).toContain('useDeferredComponent')
+      if (file === deferredNotifications) {
+        expect(source).toContain("from '@nl/ui/lib/deferred-activation'")
+        expect(source).toContain('scheduleDeferredActivation')
+      } else {
+        expect(source).toContain("from '@nl/ui/hooks/useDeferredComponent'")
+        expect(source).toContain('useDeferredComponent')
+      }
     }
 
     const degenSource = readFileSync(join(process.cwd(), deferredDegenCard), 'utf8')

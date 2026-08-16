@@ -43,7 +43,7 @@ describe('Smashers asset delivery contracts', () => {
     expect(deferredAnimation).toContain('if (prefersReducedMotion || prefersDataSaving) return')
     expect(deferredAnimation).toContain("removeAttribute('srcset')")
     expect(statSync('assets/img/games/smashers/party_modes-poster.webp').size).toBeLessThan(
-      statSync('assets/img/games/smashers/party_modes.webp').size,
+      statSync('assets/img/games/smashers/party_modes.webp').size
     )
     expect(gameSection).toContain('party_modes.webp')
     expect(gameSection).toContain('party_modes-poster.webp')
