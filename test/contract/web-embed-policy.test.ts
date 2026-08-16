@@ -8,12 +8,20 @@ const marketingEmbedConsumers = [
 ]
 
 describe('marketing video embed policy', () => {
-  it('uses the shared lazy YouTube primitive for every marketing embed', () => {
+  it('uses shared YouTube primitives for every marketing embed', () => {
     for (const file of marketingEmbedConsumers) {
       const source = readFileSync(file, 'utf8')
 
-      expect(source).toContain('@nl/ui/custom/lazy-youtube-embed')
+      expect(source).toMatch(/@nl\/ui\/custom\/(lazy-youtube-embed|deferred-youtube-embed)/)
       expect(source).not.toMatch(/<iframe\b/)
+    }
+  })
+
+  it('gates below-fold marketing embeds behind the shared viewport observer', () => {
+    for (const file of marketingEmbedConsumers.slice(1)) {
+      const source = readFileSync(file, 'utf8')
+
+      expect(source).toContain('@nl/ui/custom/deferred-youtube-embed')
     }
   })
 })
