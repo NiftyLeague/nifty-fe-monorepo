@@ -5,9 +5,13 @@ sidebar_position: 1
 ---
 
 <picture>
-  <source type="image/webp" srcSet="/img/mint-o-matic/degen-mint.webp" />
+  <source
+    media="(prefers-reduced-motion: no-preference)"
+    type="image/webp"
+    srcSet="/img/mint-o-matic/degen-mint.webp"
+  />
   <img
-    src="/img/mint-o-matic/degen-mint.gif"
+    src="/img/mint-o-matic/degen-mint-poster.webp"
     alt="Mint-O-Matic character creator"
     width="968"
     height="660"

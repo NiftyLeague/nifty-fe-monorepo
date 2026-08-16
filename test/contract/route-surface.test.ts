@@ -104,8 +104,7 @@ const walletStorageBoundaries = [
   'apps/app/src/components/providers/MintProviders.tsx',
 ]
 const leaderboardProviders = 'apps/app/src/contexts/LeaderboardProviders.tsx'
-const leaderboardWalletBoundary =
-  'apps/app/src/components/leaderboards/EnhancedTable/EnhancedTableWithWallet.tsx'
+const leaderboardWalletBoundary = 'apps/app/src/components/leaderboards/LeaderboardRankBoundary.tsx'
 const dashboardOverview = 'apps/app/src/app/(private-routes)/dashboard/overview/page.tsx'
 const dashboardOverviewBoundary =
   'apps/app/src/app/(private-routes)/dashboard/overview/DashboardOverviewRouteBoundary.tsx'
@@ -148,7 +147,8 @@ const dashboardRentalsContent =
   'apps/app/src/app/(private-routes)/dashboard/rentals/DashboardRentalsContent.tsx'
 const privateShellBoundary = 'apps/app/src/components/providers/PrivateRoutesBoundary.tsx'
 const privateShell = 'apps/app/src/components/providers/PrivateRoutesShell.tsx'
-const dashboardDataProviderBoundary = 'apps/app/src/contexts/DashboardDataProviders.tsx'
+const nftDataProviders = 'apps/app/src/contexts/NFTDataProviders.tsx'
+const walletFeatureProviders = 'apps/app/src/contexts/WalletFeatureProviders.tsx'
 const dashboardDataBoundary = 'apps/app/src/components/providers/DashboardDataBoundary.tsx'
 const deferredRenameDegenDialog = 'apps/app/src/components/providers/DeferredRenameDegenDialog.tsx'
 const deferredDialogLoading = 'apps/app/src/components/providers/DeferredDialogLoading.tsx'
@@ -242,7 +242,6 @@ const gltfClient = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/
 const gltfRouteBoundary =
   'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViewsRouteBoundary.tsx'
 const gltfModelView = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/ModelView.tsx'
-const webViemClient = 'apps/web/src/lib/viemClient.ts'
 const webClaimableNFTL = 'apps/web/src/hooks/useClaimableNFTL.ts'
 const webDegenAssets = 'apps/web/src/constants/degen-assets.ts'
 const webDegenCatalog = 'apps/web/src/constants/degens.ts'
@@ -379,7 +378,8 @@ describe('public leaderboard loading contract', () => {
     const providers = readFileSync(join(process.cwd(), leaderboardProviders), 'utf8')
     const boundary = readFileSync(join(process.cwd(), leaderboardWalletBoundary), 'utf8')
 
-    expect(boundary).toContain("from '@/contexts/LeaderboardProviders'")
+    expect(boundary).toContain("from '@/contexts/AuthStatusContext'")
+    expect(boundary).toContain("dynamic(() => import('./LeaderboardRankAction')")
     expect(boundary).not.toContain('WalletFeatureProviders')
     expect(providers).toContain("from '@/contexts/WalletAuthProviders'")
     expect(providers).toContain("from '@/contexts/WalletStorageProviders'")
@@ -437,14 +437,15 @@ describe('GLTF viewer loading contract', () => {
 
     expect(pageSource).not.toContain("'use client'")
     expect(pageSource).toContain('await params')
-    expect(pageSource).toContain("from 'next/image'")
+    expect(pageSource).toContain("from '@nl/ui/custom/optimized-image'")
     expect(pageSource).toContain("from './components/DegenViewsRouteBoundary'")
     expect(routeBoundarySource).toContain("dynamic(() => import('./DegenViews')")
     expect(routeBoundarySource).not.toContain('ssr: false')
     expect(routeBoundarySource).toContain('<RouteLoading label="Loading DEGEN viewer" />')
     expect(clientSource).toContain("'use client'")
     expect(clientSource).not.toContain("from 'next/image'")
-    expect(clientSource).toContain("dynamic(() => import('./ModelView')")
+    expect(clientSource).toContain("const loadModelView = () => import('./ModelView')")
+    expect(clientSource).toContain("from '@nl/ui/hooks/useDeferredComponent'")
     expect(clientSource).toContain('ssr: false')
     expect(modelViewSource).toContain(
       "import '@google/model-viewer/dist/model-viewer-module.min.js'"
@@ -480,14 +481,13 @@ describe('GLTF viewer loading contract', () => {
   })
 
   it('keeps accumulated NFTL reads available when the optional Infura variable is unavailable', () => {
-    const clientSource = readFileSync(join(process.cwd(), webViemClient), 'utf8')
     const hookSource = readFileSync(join(process.cwd(), webClaimableNFTL), 'utf8')
 
-    expect(clientSource).toContain('NEXT_PUBLIC_INFURA_ID')
-    expect(clientSource).toContain('NEXT_PUBLIC_INFURA_PROJECT_ID')
-    expect(clientSource).toContain('ethereum-rpc.publicnode.com')
-    expect(clientSource).toContain('fallback(rpcTransports)')
-    expect(hookSource).toContain('args: [BigInt(tokenNumber)]')
+    expect(hookSource).toContain('NEXT_PUBLIC_INFURA_ID')
+    expect(hookSource).toContain('NEXT_PUBLIC_INFURA_PROJECT_ID')
+    expect(hookSource).toContain("'https://ethereum-rpc.publicnode.com'")
+    expect(hookSource).toContain("method: 'POST'")
+    expect(hookSource).toContain("params: [{ to: NFTL_CONTRACT_ADDRESS, data }, 'latest']")
     expect(hookSource).toContain('if (!cancelled)')
   })
 
@@ -567,8 +567,13 @@ describe('shared deferred loader contract', () => {
     ]) {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
 
-      expect(source).toContain("from '@nl/ui/hooks/useDeferredComponent'")
-      expect(source).toContain('useDeferredComponent')
+      if (file === deferredNotifications) {
+        expect(source).toContain("from '@nl/ui/lib/deferred-activation'")
+        expect(source).toContain('scheduleDeferredActivation')
+      } else {
+        expect(source).toContain("from '@nl/ui/hooks/useDeferredComponent'")
+        expect(source).toContain('useDeferredComponent')
+      }
     }
 
     const degenSource = readFileSync(join(process.cwd(), deferredDegenCard), 'utf8')
@@ -584,7 +589,7 @@ describe('shared deferred loader contract', () => {
     expect(source).toContain("from '@nl/ui/hooks/useDeferredComponent'")
     expect(source).toContain("from '@nl/ui/hooks/useOnScreen'")
     expect(source).toContain("import('./InteractiveCarousel')")
-    expect(source).toContain("'300px 0px'")
+    expect(source).toContain("const CAROUSEL_ROOT_MARGIN = '160px 0px'")
   })
 })
 
@@ -1124,19 +1129,17 @@ describe('private provider loading contract', () => {
   })
 
   it('keeps the data provider boundary explicit and dashboard-scoped', () => {
-    const source = readFileSync(join(process.cwd(), dashboardDataProviderBoundary), 'utf8')
+    const dataSource = readFileSync(join(process.cwd(), nftDataProviders), 'utf8')
+    const featureSource = readFileSync(join(process.cwd(), walletFeatureProviders), 'utf8')
 
-    expect(source).toContain("from '@/contexts/NetworkProvider'")
-    expect(source).toContain("from '@/contexts/IMXContext'")
-    expect(source).toContain("from '@/contexts/NFTsBalanceContext'")
-    expect(source).toContain("from '@/contexts/TokensBalanceContext'")
+    expect(dataSource).toContain("from '@/contexts/NetworkProvider'")
+    expect(dataSource).toContain("from '@/contexts/IMXContext'")
+    expect(dataSource).toContain("from '@/contexts/NFTsBalanceContext'")
+    expect(dataSource).not.toContain("from '@/contexts/TokensBalanceContext'")
+    expect(featureSource).toContain("from '@/contexts/NFTDataProviders'")
+    expect(featureSource).toContain("from '@/contexts/TokensBalanceContext'")
 
-    for (const file of [
-      gamerProfileClient,
-      dashboardItemsClient,
-      dashboardBurnerClient,
-      dashboardRentalsClient,
-    ]) {
+    for (const file of [gamerProfileClient, dashboardItemsClient, dashboardBurnerClient]) {
       expect(readFileSync(join(process.cwd(), file), 'utf8')).toContain('DashboardDataBoundary')
     }
     expect(readFileSync(join(process.cwd(), dashboardOverviewClient), 'utf8')).toContain(
@@ -1216,7 +1219,13 @@ describe('private provider loading contract', () => {
     const source = readFileSync(join(process.cwd(), dashboardDataBoundary), 'utf8')
     const sharedSource = readFileSync(join(process.cwd(), deferredComponent), 'utf8')
 
-    expect(source).toContain("import('@/contexts/DashboardDataProviders')")
+    expect(source).toContain(
+      "const loadWalletFeatureProviders = () => import('@/contexts/WalletFeatureProviders')"
+    )
+    expect(source).toContain(
+      "const loadNFTDataProviders = () => import('@/contexts/NFTDataProviders')"
+    )
+    expect(source).toContain('includeTokens ? loadWalletFeatureProviders : loadNFTDataProviders')
     expect(source).toContain("from '@nl/ui/custom/deferred-component'")
     expect(sharedSource).toContain('role="status"')
     expect(sharedSource).toContain('role="alert"')
@@ -1473,11 +1482,17 @@ describe('dashboard rentals loading contract', () => {
 describe('shared analytics loading contract', () => {
   it('defers GTM and Web Vitals until the browser is idle', () => {
     const source = readFileSync(join(process.cwd(), deferredAnalyticsSource), 'utf8')
+    const schedulerSource = readFileSync(
+      join(process.cwd(), 'packages/ui/src/lib/deferred-activation.ts'),
+      'utf8'
+    )
 
     expect(source).toContain("import('./GoogleTagManager')")
     expect(source).toContain("import('./WebVitals')")
-    expect(source).toContain('requestIdleCallback')
-    expect(source).toContain('setTimeout')
+    expect(source).toContain("from '@nl/ui/lib/deferred-activation'")
+    expect(source).toContain('scheduleDeferredActivation')
+    expect(schedulerSource).toContain('requestIdleCallback')
+    expect(schedulerSource).toContain('setTimeout')
     expect(source).not.toContain("from 'next/dynamic'")
   })
 
@@ -1545,8 +1560,8 @@ describe('shared below-fold loading contract', () => {
     const source = readFileSync(join(process.cwd(), sharedDeferredSection), 'utf8')
 
     expect(source).toContain("from '@nl/ui/custom/deferred-skeleton'")
-    expect(source).toContain("from '@nl/ui/base/button-variants'")
-    expect(source).toContain("buttonVariants({ variant: 'outline' })")
+    expect(source).toContain('DEFERRED_RETRY_BUTTON_CLASS')
+    expect(source).toContain("from '@nl/ui/lib/deferred-boundary'")
     expect(source).toContain('<button')
     expect(source).not.toContain("from '@nl/ui/base/button'")
     expect(source).not.toContain('<Button')
@@ -1581,7 +1596,8 @@ describe('shared below-fold loading contract', () => {
     expect(carouselSource).toContain("from '@/constants/degens'")
     expect(pageSource).not.toContain('home-below-fold')
     expect(homeStyles).not.toContain('.home-below-fold')
-    expect(homeStyles).not.toContain('content-visibility: auto')
+    expect(homeStyles).toContain('content-visibility: auto')
+    expect(homeStyles).toContain('contain-intrinsic-size: auto 800px')
   })
 
   it('defers the below-fold Overview FAQ interaction bundle', () => {
@@ -1674,7 +1690,7 @@ describe('web public navigation contract', () => {
     expect(mobileNavbarSource).toContain("from '@nl/ui/custom/mobile-navigation'")
     expect(mobileNavbarSource).toContain('<nav aria-label="Primary navigation">')
     expect(mobileNavbarSource).toContain("from '@nl/ui/base/button-variants'")
-    expect(mobileNavbarSource).toContain('<hr aria-hidden="true"')
+    expect(mobileNavbarSource).toContain('<Separator aria-hidden="true"')
     expect(mobileNavbarSource).toContain('bg-separator')
     expect(mobileNavbarSource).toContain('id="nifty-mobile-navigation"')
     const sharedMobileSource = readFileSync(join(process.cwd(), sharedMobileNavigation), 'utf8')
@@ -1765,7 +1781,7 @@ describe('web marketing image sizing contract', () => {
         'apps/web/src/components/TeamDesktop/index.tsx',
         'sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"',
       ],
-      ['apps/web/src/components/Sponsors.tsx', 'sizes="(min-width: 768px) 160px, 80px"'],
+      ['apps/web/src/components/Sponsors.tsx', 'sizes="80px"'],
       ['apps/web/src/components/LearnCards/index.tsx', 'sizes="(min-width: 640px) 50vw, 100vw"'],
       [
         'apps/web/src/app/(main)/compete-and-earn/page.tsx',
@@ -1797,6 +1813,16 @@ describe('web marketing image sizing contract', () => {
     expect(learnCardsSource).not.toContain('            priority\n')
   })
 
+  it('keeps 404 artwork out of normal-route preload hints', () => {
+    const error404Source = readFileSync(
+      join(process.cwd(), 'packages/ui/src/components/custom/error-404/index.tsx'),
+      'utf8'
+    )
+
+    expect(error404Source).not.toContain('priority')
+    expect(error404Source).not.toContain('loading=')
+  })
+
   it('does not eagerly preload below-fold decorative artwork', () => {
     const overviewSource = readFileSync(
       join(process.cwd(), 'apps/web/src/app/(main)/overview/page.tsx'),
@@ -1808,7 +1834,9 @@ describe('web marketing image sizing contract', () => {
     )
 
     expect(overviewSource).not.toContain('priority')
-    expect(overviewSource).toContain("import { getImageProps } from 'next/image'")
+    expect(overviewSource).toContain(
+      "import { getOptimizedImageProps } from '@nl/ui/custom/optimized-image'"
+    )
     expect(overviewSource).toContain('<picture>')
     expect(overviewSource).toContain('media="(max-width: 767px)"')
     expect(roadmapSource).toContain('src="/img/space/satoshi_move.gif"')
@@ -2025,12 +2053,17 @@ describe('public route dependency contract', () => {
     const shell = readFileSync(join(process.cwd(), viewportVideo), 'utf8')
     const boundary = readFileSync(join(process.cwd(), viewportVideoBoundary), 'utf8')
     const enhancer = readFileSync(join(process.cwd(), viewportVideoEnhancer), 'utf8')
+    const constants = readFileSync(
+      join(process.cwd(), 'packages/ui/src/components/custom/viewport-video/constants.ts'),
+      'utf8'
+    )
 
     expect(shell).not.toContain("'use client'")
     expect(shell).toContain("from './ViewportVideoBoundary'")
-    expect(shell).toContain("rootMargin = '0px'")
+    expect(shell).toContain("from './constants'")
+    expect(constants).toContain("DEFAULT_VIEWPORT_VIDEO_ROOT_MARGIN = '0px 0px -25% 0px'")
     expect(boundary).toContain('lazy<ComponentType<ViewportVideoEnhancerProps>>(')
-    expect(boundary).toContain("rootMargin = '0px'")
+    expect(boundary).toContain('rootMargin = DEFAULT_VIEWPORT_VIDEO_ROOT_MARGIN')
     expect(boundary).toContain("preload={isNearViewport ? 'metadata' : 'none'}")
     expect(boundary).toContain('hasEnteredViewport || isNearViewport')
     expect(enhancer).not.toContain("from '@nl/ui/hooks/useOnScreen'")

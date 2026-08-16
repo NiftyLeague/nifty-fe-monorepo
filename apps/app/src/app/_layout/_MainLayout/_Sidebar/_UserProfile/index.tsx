@@ -32,7 +32,7 @@ const UserProfile = () => {
     if (username?.length && username !== addressSubstring) return username
     if (ensName.isError || ensName.isLoading) return addressSubstring
     return ensName.data || addressSubstring
-  }, [address, ensName, username])
+  }, [address, ensName.data, ensName.isError, ensName.isLoading, username])
 
   return (
     <div

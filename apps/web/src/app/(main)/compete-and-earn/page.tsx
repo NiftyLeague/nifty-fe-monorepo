@@ -1,4 +1,5 @@
-import Image from 'next/image'
+import OptimizedImage from '@nl/ui/custom/optimized-image'
+import { Separator } from '@nl/ui/base/separator'
 import type { NextPage } from 'next'
 import { cx } from '@nl/ui/class-names'
 import { LazyYouTubeEmbed } from '@nl/ui/custom/lazy-youtube-embed'
@@ -23,7 +24,7 @@ const CompeteAndEarn: NextPage = () => {
         <div className="w-full md:w-1/2">
           <div className="mb-3">
             <div className="relative ps-0 lg:ps-5">
-              <Image
+              <OptimizedImage
                 src="/img/compete-and-earn/splash.webp"
                 alt="Nifty League Compete & Earn"
                 width={3343}
@@ -70,10 +71,12 @@ const CompeteAndEarn: NextPage = () => {
             <p className={styles.cell}>Region:</p>
             <p className={styles.cell}>Player Number:</p>
           </div>
-          <hr
+          <Separator
+            orientation="vertical"
             style={{
               height: 'inherit',
-              border: '3px solid var(--color-foreground)',
+              width: 3,
+              backgroundColor: 'var(--color-foreground)',
               marginRight: 50,
             }}
           />

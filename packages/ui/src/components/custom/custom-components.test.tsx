@@ -42,6 +42,9 @@ beforeEach(() => {
       ...props
     }: ComponentProps<'img'> & { priority?: boolean }) => <img alt={alt} {...props} />,
   }))
+  mock.module('@nl/ui/custom/optimized-image', () => ({
+    default: ({ alt, ...props }: ComponentProps<'img'>) => <img alt={alt} {...props} />,
+  }))
   mock.module('next/navigation', () => ({ usePathname: () => state.pathname }))
   mock.module('@nl/ui/hooks/useParallax', () => ({
     useParallax: (...args: unknown[]) => state.parallax(...args),
@@ -185,7 +188,7 @@ describe('Navbar', () => {
     expect(navigationToggle.closest('summary')).not.toBeNull()
     fireEvent.click(navigationToggle)
     expect(navigationToggle.closest('details')?.hasAttribute('open')).toBe(true)
-    expect(document.querySelector('hr[aria-hidden="true"]')).not.toBeNull()
+    expect(document.querySelector('[data-orientation="horizontal"]')).not.toBeNull()
   })
 
   it('renders a fixed, transparent semantic header with scroll-driven state', () => {

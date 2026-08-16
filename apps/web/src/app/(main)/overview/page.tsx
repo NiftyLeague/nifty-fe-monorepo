@@ -1,19 +1,19 @@
 import type { NextPage } from 'next'
-import { getImageProps } from 'next/image'
 
+import { getOptimizedImageProps } from '@nl/ui/custom/optimized-image'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 import { DeferredOverviewFAQ } from '@/components/DeferredOverviewSections'
 import LearnCards from '@/components/LearnCards'
 
 const Overview: NextPage = () => {
-  const { props: desktopBackground } = getImageProps({
+  const desktopBackground = getOptimizedImageProps({
     alt: 'DGEN Network background',
     src: '/img/backgrounds/dgen-network.webp',
     width: 1440,
     height: 813,
     sizes: '100vw',
   })
-  const { props: mobileBackground } = getImageProps({
+  const mobileBackground = getOptimizedImageProps({
     alt: 'DGEN Network background',
     src: '/img/backgrounds/dgen-network-mobile.webp',
     width: 375,

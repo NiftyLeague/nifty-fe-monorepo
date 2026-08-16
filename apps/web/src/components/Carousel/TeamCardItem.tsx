@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 
 interface TeamCardProps {
   name: string
@@ -11,7 +11,7 @@ const TeamCardItem = ({ name, source, link }: TeamCardProps): React.ReactNode =>
     <div className="w-full flex flex-col justify-center text-center mx-auto p-2">
       <a href={link} target="_blank" rel="noreferrer">
         <div className="w-full rounded-[10px] overflow-hidden">
-          <Image
+          <OptimizedImage
             src={source}
             width="258"
             height="278"
