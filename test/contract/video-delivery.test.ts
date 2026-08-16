@@ -8,7 +8,7 @@ const sharedMarketingVideos = [
   },
   {
     path: 'assets/video/mansion_showcase.mp4',
-    maxBytes: 12_500_000,
+    maxBytes: 8_000_000,
   },
   {
     path: 'assets/video/crypto-winter.mp4',
