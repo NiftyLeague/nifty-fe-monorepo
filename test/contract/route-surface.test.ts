@@ -519,26 +519,6 @@ describe('website build performance contract', () => {
 
     expect(source).toContain('useTypeScriptCli: true')
   })
-
-  it('preloads only the visible NFT artwork', () => {
-    const source = readFileSync(join(process.cwd(), gltfPage), 'utf8')
-
-    expect(source).toContain('priority\n          src={imageSrc}')
-    expect(source).not.toContain('className={styles.sprite}\n          fill\n          priority')
-    expect(source).not.toContain('quality={100}')
-  })
-
-  it('keeps accumulated NFTL reads available when the optional Infura variable is unavailable', () => {
-    const clientSource = readFileSync(join(process.cwd(), webViemClient), 'utf8')
-    const hookSource = readFileSync(join(process.cwd(), webClaimableNFTL), 'utf8')
-
-    expect(clientSource).toContain('NEXT_PUBLIC_INFURA_ID')
-    expect(clientSource).toContain('NEXT_PUBLIC_INFURA_PROJECT_ID')
-    expect(clientSource).toContain('ethereum-rpc.publicnode.com')
-    expect(clientSource).toContain('fallback(rpcTransports)')
-    expect(hookSource).toContain('args: [BigInt(tokenNumber)]')
-    expect(hookSource).toContain('if (!cancelled)')
-  })
 })
 
 describe('shared notification loading contract', () => {

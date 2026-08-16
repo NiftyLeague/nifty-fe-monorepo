@@ -5,9 +5,7 @@ import { memo, useRef, type ComponentType } from 'react'
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
-import { cn } from '@nl/ui/utils'
-
-import { buttonVariants } from '../../base/button-variants'
+import { DEFERRED_RETRY_BUTTON_CLASS } from '@nl/ui/lib/deferred-boundary'
 
 interface DeferredSectionProps {
   label: string
