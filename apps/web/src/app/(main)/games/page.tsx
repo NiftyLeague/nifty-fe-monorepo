@@ -9,6 +9,13 @@ import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 import { NIFTY_GAMES } from '@/constants/games'
 import styles from './index.module.css'
 
+const GAME_ORB_POSITION_CLASSES = [
+  'orb-bottom-left',
+  'orb-top-right',
+  'orb-bottom-right',
+  'orb-top-left',
+] as const
+
 const Games: NextPage = () => (
   <div className="container relative pt-20">
     <div className="purple-bg-orb orb-top-right" />
@@ -117,11 +124,7 @@ const Games: NextPage = () => (
           </div>
           <div
             className={cx(
-              index === 0
-                ? 'orb-bottom-left'
-                : index === 1
-                  ? 'orb-top-right'
-                  : styles.gradient_custom,
+              GAME_ORB_POSITION_CLASSES[index % GAME_ORB_POSITION_CLASSES.length],
               'purple-bg-orb'
             )}
           />
