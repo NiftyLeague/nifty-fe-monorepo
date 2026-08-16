@@ -17,7 +17,7 @@ import {
 } from '@/constants/contracts'
 import { SEPOLIA_ID, MAINNET_ID, IMX_TESTNET_ID, NETWORK_NAME } from '@/constants/networks'
 import { DEBUG } from '@/constants'
-import type { NFTLToken } from '@/types/typechain'
+import type { NFTLToken } from '@/types/typechain/src/contracts/NFTLToken'
 import type { Contracts } from '@/types/web3'
 
 type GasFeeResponse = {

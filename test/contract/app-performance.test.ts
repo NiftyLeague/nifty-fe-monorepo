@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from 'node:fs'
 
 const responsiveTableList = 'apps/app/src/components/ResponsiveTable/DataList.tsx'
 const appManifest = 'apps/app/package.json'
+const appTypeScriptConfig = 'apps/app/tsconfig.json'
 const appGasUtility = 'apps/app/src/utils/gas.ts'
 const retiredAxiosUtility = 'apps/app/src/utils/axios.ts'
 const appGraphQLUtility = 'apps/app/src/utils/graphql.ts'
@@ -344,6 +345,20 @@ describe('app performance contracts', () => {
     }
   })
 
+  it('keeps generated contract declarations out of the broad app typecheck graph', () => {
+    const config = JSON.parse(readFileSync(appTypeScriptConfig, 'utf8')) as {
+      exclude?: string[]
+    }
+
+    expect(config.exclude).toContain('src/types/typechain/**')
+    for (const file of [
+      'apps/app/src/types/web3.ts',
+      'apps/app/src/utils/interchainTokenService.ts',
+    ]) {
+      expect(readFileSync(file, 'utf8')).not.toContain("from '@/types/typechain'")
+    }
+  })
+
   it('keeps the app gas-price path on native fetch without a retired Axios wrapper', () => {
     const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
     const gasSource = readFileSync(appGasUtility, 'utf8')
@@ -482,9 +497,15 @@ describe('app performance contracts', () => {
     }
 
     const appNavIconSource = readFileSync('apps/app/src/components/AppNavIcon.tsx', 'utf8')
-    expect(appNavIconSource).toContain("from 'lucide-react'")
-    expect(appNavIconSource).toContain("'layout-grid': LayoutGrid")
-    expect(appNavIconSource).toContain("'list-ordered': ListOrdered")
+    const sharedNavIconSource = readFileSync(
+      'packages/ui/src/components/custom/nav-icon/index.tsx',
+      'utf8'
+    )
+
+    expect(appNavIconSource).toContain("from '@nl/ui/custom/nav-icon'")
+    expect(appNavIconSource).not.toContain("from 'lucide-react'")
+    expect(sharedNavIconSource).toContain("'layout-grid'")
+    expect(sharedNavIconSource).toContain("'list-ordered'")
   })
 
   it('keeps private application components on direct icon imports', () => {
