@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Fragment } from 'react'
 
 import { buttonVariants } from '@nl/ui/base/button-variants'
+import { Separator } from '@nl/ui/base/separator'
 import MobileNavigationDisclosure from '@nl/ui/custom/mobile-navigation'
 
 import { NavLinkContent, NAV_LINK_CONTENT_CLASS } from './NavLinkContent'
@@ -83,7 +84,7 @@ export default function MobileNavMenu({ actionButton, navItems }: MobileNavMenuP
         </nav>
         {actionButton && (
           <>
-            <hr aria-hidden="true" className="bg-separator my-6 h-px w-full shrink-0 border-0" />
+            <Separator aria-hidden="true" className="my-6 w-full bg-separator" />
             <Link
               href={actionButton.href}
               prefetch={false}

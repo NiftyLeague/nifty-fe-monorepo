@@ -1,3 +1,5 @@
+import { Separator } from '@nl/ui/base/separator'
+
 import { DEGEN_SPECIALS, type DegenSpecial } from './constants'
 
 export function DegenSpecialsTable() {
@@ -15,7 +17,11 @@ export function DegenSpecialsTable() {
       </div>
 
       <div className="relative border-2 rounded-2xl overflow-clip">
-        <hr className="absolute top-0 bottom-0 left-1/2 w-[2px] h-full my-0 mx-0 border-0 bg-border md:left-1/3" />
+        <Separator
+          orientation="vertical"
+          aria-hidden="true"
+          className="absolute top-0 bottom-0 left-1/2 h-full w-[2px] my-0 mx-0 md:left-1/3"
+        />
         {DEGEN_SPECIALS.map(({ name, description, specialName, gif, image }: DegenSpecial) => (
           <div key={name} className="flex flex-row py-8">
             <div className="w-1/2 sm:w-1/3 my-auto sm:mx-auto">

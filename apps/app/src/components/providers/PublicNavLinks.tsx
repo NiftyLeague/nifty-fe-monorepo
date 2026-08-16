@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { NavIcon } from '@nl/ui/custom/nav-icon'
+import { Separator } from '@nl/ui/base/separator'
 
 import { PublicItems } from '@/constants/menu-items'
 
@@ -40,7 +41,7 @@ export default function PublicNavLinks() {
           )
         })}
       </ul>
-      <hr className="mt-1 mb-5 opacity-60" />
+      <Separator className="mt-1 mb-5 opacity-60" />
     </>
   )
 }

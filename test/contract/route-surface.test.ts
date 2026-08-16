@@ -1670,7 +1670,7 @@ describe('web public navigation contract', () => {
     expect(mobileNavbarSource).toContain("from '@nl/ui/custom/mobile-navigation'")
     expect(mobileNavbarSource).toContain('<nav aria-label="Primary navigation">')
     expect(mobileNavbarSource).toContain("from '@nl/ui/base/button-variants'")
-    expect(mobileNavbarSource).toContain('<hr aria-hidden="true"')
+    expect(mobileNavbarSource).toContain('<Separator aria-hidden="true"')
     expect(mobileNavbarSource).toContain('bg-separator')
     expect(mobileNavbarSource).toContain('id="nifty-mobile-navigation"')
     const sharedMobileSource = readFileSync(join(process.cwd(), sharedMobileNavigation), 'utf8')

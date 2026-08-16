@@ -4,6 +4,7 @@ import { useMemo } from 'react'
 import { useAccount } from 'wagmi'
 
 import { Title } from '@nl/ui/custom/typography'
+import { Separator } from '@nl/ui/base/separator'
 
 import { useGamerProfile, useProfileAvatarFee } from '@/hooks/useGamerProfile'
 import useFetch from '@/hooks/useFetch'
@@ -89,7 +90,7 @@ const GamerProfileContent = (): React.ReactNode => {
         </div>
         <div className="w-full min-w-0 lg:flex-1">
           {address && <TopInfo profile={profile} walletAddress={address} />}
-          <hr className="mb-4" />
+          <Separator className="mb-4" />
           <div className="flex flex-col gap-4">
             <div className="flex flex-col">
               <Title level={3}>Nifty League Player Stats</Title>

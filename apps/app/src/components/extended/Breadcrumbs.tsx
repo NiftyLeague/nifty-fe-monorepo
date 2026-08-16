@@ -4,6 +4,7 @@ import Link from 'next/link'
 
 import { AppNavIcon } from '@/components/AppNavIcon'
 import type { AppNavIconName } from '@/components/AppNavIcon'
+import { Separator } from '@nl/ui/base/separator'
 import { cn } from '@nl/ui/utils'
 
 // project imports
@@ -173,9 +174,9 @@ const Breadcrumbs = ({
             </div>
           </div>
           {card === false && divider !== false && (
-            <hr
-              className="mb-6 opacity-60"
-              style={{ borderColor: 'var(--color-purple)', marginBottom: gridSpacing * 8 }}
+            <Separator
+              className="mb-6 bg-[var(--color-purple)] opacity-60"
+              style={{ marginBottom: gridSpacing * 8 }}
             />
           )}
         </div>
