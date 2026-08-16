@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import Image from 'next/image'
+import NativeImage from '@nl/ui/custom/native-image'
 import { Flame } from 'lucide-react'
 import { Skeleton } from '@nl/ui/base/skeleton'
 import { Input } from '@nl/ui/custom/input'
@@ -74,7 +74,7 @@ export default function ComicsGrid({
         <div className="grid grid-cols-3 gap-x-2.5">
           {comicsBalances.map((comic) => (
             <div key={comic.image}>
-              <Image
+              <NativeImage
                 src={COMPRESSED_COMIC_IMAGES[comic.id - 1] as string}
                 // srcSet={`${comic.image}?w=248&fit=crop&auto=format&dpr=2 2x`}
                 alt={comic.title}

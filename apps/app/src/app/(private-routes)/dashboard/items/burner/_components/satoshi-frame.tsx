@@ -1,11 +1,11 @@
-import Image from 'next/image'
+import NativeImage from '@nl/ui/custom/native-image'
 
 type SatoshiFrameProps = { frames: string[]; interval?: number }
 
 const SatoshiFrame = ({ frames, interval = 0 }: SatoshiFrameProps) => {
   const frame = frames[(interval + 1) % frames.length]
   return frame ? (
-    <Image
+    <NativeImage
       src={frame}
       alt={`Machine Frame: ${frame}`}
       className="pixelated"
