@@ -15,6 +15,10 @@ interface DeferredSectionProps {
   rootMargin?: string
 }
 
+// Keep deferred sections close enough to the viewport to avoid showing a
+// skeleton during normal scrolling without eagerly loading lower-page media.
+export const DEFAULT_DEFERRED_SECTION_ROOT_MARGIN = '160px'
+
 export function DeferredSectionLoading({
   label,
   minHeightClassName = 'min-h-48',
@@ -41,7 +45,7 @@ export function DeferredSection({
   label,
   load,
   minHeightClassName,
-  rootMargin = '320px',
+  rootMargin = DEFAULT_DEFERRED_SECTION_ROOT_MARGIN,
 }: DeferredSectionProps): React.ReactNode {
   const sectionRef = useRef<HTMLDivElement>(null)
   const isNearViewport = useOnScreen(sectionRef, rootMargin, { once: true })
