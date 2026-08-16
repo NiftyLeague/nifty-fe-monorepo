@@ -1,5 +1,6 @@
-import { BrowserProvider, type Eip1193Provider } from 'ethers'
-import crypto from 'crypto'
+type Eip1193Provider = {
+  request: (args: { method: string; params?: unknown[] }) => Promise<unknown>
+}
 
 declare global {
   interface Window {
@@ -14,25 +15,29 @@ function generateMessage(address: string, nonce: string) {
   return `Please sign this message to verify that ${signAddress} belongs to you. ${nonce}`
 }
 
-async function getSigner() {
-  if (!window.ethereum) throw new Error('No Ethereum provider found')
-  // Request account access
-  await window.ethereum.request({ method: 'eth_requestAccounts' })
-  // Get the Provider/Signer
-  const provider = new BrowserProvider(window.ethereum)
-  return provider.getSigner()
+const encodeMessage = (message: string) => {
+  const bytes = new TextEncoder().encode(message)
+  return `0x${Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('')}`
 }
 
 export async function signMessage() {
-  const signer = await getSigner()
-  if (signer) {
-    const address = await signer.getAddress()
-    const nonce = `0x${crypto.randomBytes(4).toString('hex')}`
-    const message = generateMessage(address, nonce)
-    const signature = await signer.signMessage(message)
-    return { address, message, nonce, signature }
-  }
-  return null
+  const provider = window.ethereum
+  if (!provider) throw new Error('No Ethereum provider found')
+
+  const accounts = (await provider.request({ method: 'eth_requestAccounts' })) as unknown
+  const address = Array.isArray(accounts) && typeof accounts[0] === 'string' ? accounts[0] : null
+  if (!address) return null
+
+  const nonceBytes = new Uint8Array(4)
+  window.crypto.getRandomValues(nonceBytes)
+  const nonce = `0x${Array.from(nonceBytes, (byte) => byte.toString(16).padStart(2, '0')).join('')}`
+  const message = generateMessage(address, nonce)
+  const signature = await provider.request({
+    method: 'personal_sign',
+    params: [encodeMessage(message), address],
+  })
+
+  return { address, message, nonce, signature: String(signature) }
 }
 
 export async function isEthereumSignatureValid(
