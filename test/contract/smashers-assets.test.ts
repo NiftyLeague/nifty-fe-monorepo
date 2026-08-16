@@ -18,6 +18,10 @@ describe('Smashers asset delivery contracts', () => {
     }
   })
 
+  it('keeps the party modes animation within its delivery budget', () => {
+    expect(statSync('assets/img/games/smashers/party_modes.webp').size).toBeLessThan(10_500_000)
+  })
+
   it('keeps animated sources paired with static fallbacks in the consuming components', () => {
     const header = readFileSync(headerSource, 'utf8')
     const deferredBackground = readFileSync(deferredBackgroundSource, 'utf8')
