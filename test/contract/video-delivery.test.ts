@@ -23,6 +23,10 @@ const sharedMarketingVideos = [
     maxBytes: 7_000_000,
   },
   {
+    path: 'assets/video/lobby.mp4',
+    maxBytes: 1_000_000,
+  },
+  {
     path: 'assets/video/comics_archive.mp4',
     maxBytes: 4_000_000,
   },
@@ -32,15 +36,19 @@ const sharedMarketingVideos = [
   },
   {
     path: 'assets/video/nakedbeachflyby.mp4',
-    maxBytes: 6_000_000,
+    maxBytes: 4_250_000,
   },
   {
     path: 'assets/video/rugmans-peak.mp4',
-    maxBytes: 3_000_000,
+    maxBytes: 2_000_000,
   },
   {
     path: 'assets/video/bank.mp4',
-    maxBytes: 2_000_000,
+    maxBytes: 1_500_000,
+  },
+  {
+    path: 'assets/video/arcade-token.mp4',
+    maxBytes: 2_750_000,
   },
 ] as const
 
