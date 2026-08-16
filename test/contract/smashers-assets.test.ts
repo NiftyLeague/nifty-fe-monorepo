@@ -5,6 +5,7 @@ const headerSource = 'apps/smashers/src/components/Header/index.tsx'
 const deferredBackgroundSource = 'apps/smashers/src/components/Header/DeferredHeroBackground.tsx'
 const deferredAnimationSource = 'assets/scripts/smashers-hero-animation.js'
 const gameSectionSource = 'apps/smashers/src/components/GameSection/index.tsx'
+const rocketVideo = 'assets/video/rocket.mp4'
 
 const assets = [
   ['assets/img/games/smashers/background.gif', 'assets/img/games/smashers/background.webp'],
@@ -45,5 +46,12 @@ describe('Smashers asset delivery contracts', () => {
     expect(gameSection).toContain('prefers-reduced-motion: no-preference')
     expect(gameSection).toContain('height={566}')
     expect(gameSection).not.toContain('party_modes.gif')
+  })
+
+  it('keeps the muted Smashers viewport video on the compact delivery asset', () => {
+    const gameSection = readFileSync(gameSectionSource, 'utf8')
+
+    expect(gameSection).toContain('src="/video/rocket.mp4"')
+    expect(statSync(rocketVideo).size).toBeLessThan(2_000_000)
   })
 })
