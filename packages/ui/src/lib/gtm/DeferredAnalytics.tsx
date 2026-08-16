@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react'
 
+import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
+
 interface DeferredAnalyticsProps {
   includeWebVitals?: boolean
 }
@@ -11,9 +13,6 @@ interface AnalyticsComponents {
   webVitals?: React.ComponentType
 }
 
-const ANALYTICS_DELAY = 5000
-const ANALYTICS_ACTIVATION_EVENTS = ['pointerdown', 'keydown', 'touchstart'] as const
-
 const DeferredAnalytics = ({
   includeWebVitals = true,
 }: DeferredAnalyticsProps): React.ReactNode => {
@@ -21,32 +20,9 @@ const DeferredAnalytics = ({
 
   useEffect(() => {
     let cancelled = false
-    let activated = false
-    let idleId: number | null = null
-    let timeoutId: number | null = null
-
-    const removeInteractionListeners = () => {
-      for (const eventName of ANALYTICS_ACTIVATION_EVENTS) {
-        window.removeEventListener(eventName, activate)
-      }
-    }
-
-    const cancelDeferredActivation = () => {
-      if (idleId !== null) {
-        window.cancelIdleCallback?.(idleId)
-        idleId = null
-      }
-      if (timeoutId !== null) {
-        window.clearTimeout(timeoutId)
-        timeoutId = null
-      }
-    }
 
     const activate = async () => {
-      if (cancelled || activated) return
-      activated = true
-      removeInteractionListeners()
-      cancelDeferredActivation()
+      if (cancelled) return
 
       const [googleTagManagerModule, webVitalsModule] = await Promise.all([
         import('./GoogleTagManager'),
@@ -61,23 +37,11 @@ const DeferredAnalytics = ({
       }
     }
 
-    for (const eventName of ANALYTICS_ACTIVATION_EVENTS) {
-      window.addEventListener(eventName, activate, { once: true, passive: true })
-    }
-
-    if (window.requestIdleCallback) {
-      timeoutId = window.setTimeout(() => {
-        timeoutId = null
-        idleId = window.requestIdleCallback(activate, { timeout: 1000 })
-      }, ANALYTICS_DELAY)
-    } else {
-      timeoutId = window.setTimeout(activate, ANALYTICS_DELAY)
-    }
+    const cleanup = scheduleDeferredActivation({ onActivate: activate })
 
     return () => {
       cancelled = true
-      removeInteractionListeners()
-      cancelDeferredActivation()
+      cleanup()
     }
   }, [includeWebVitals])
 

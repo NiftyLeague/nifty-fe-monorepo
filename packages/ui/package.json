@@ -16,6 +16,7 @@
     "./gtm/constants": "./src/lib/gtm/constants.ts",
     "./gtm/deferred": "./src/lib/gtm/DeferredAnalytics.tsx",
     "./gtm/events": "./src/lib/gtm/events.ts",
+    "./lib/deferred-activation": "./src/lib/deferred-activation.ts",
     "./utils": "./src/lib/utils.ts",
     "./postcss.config": "./postcss.config.mjs",
     "./styles.css": "./src/styles/globals.css"
