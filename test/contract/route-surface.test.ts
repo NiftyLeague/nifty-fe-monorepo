@@ -760,10 +760,13 @@ describe('dashboard dialog loading contract', () => {
   it('defers the dashboard rename form until the dialog opens', () => {
     const source = readFileSync(join(process.cwd(), deferredRenameDegenDialog), 'utf8')
 
+    expect(source).toContain("from '@nl/ui/custom/deferred-component'")
+    expect(source).toContain('enabled={open}')
     expect(source).toContain(
       "import('@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent')"
     )
     expect(source).toContain('DeferredDialogLoading')
+    expect(source).not.toContain("from 'next/dynamic'")
   })
 
   for (const file of deferredRenameDegenConsumers) {
@@ -771,6 +774,7 @@ describe('dashboard dialog loading contract', () => {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
 
       expect(source).toContain('DeferredRenameDegenDialog')
+      expect(source).toContain('open={isRenameDegenModalOpen}')
       expect(source).not.toContain(
         "from '@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent'"
       )
@@ -789,7 +793,6 @@ describe('dashboard dialog loading contract', () => {
   const deferredDialogWrappers = [
     [deferredProfileNameDialog, 'ChangeProfileNameDialog', 'dashboard/gamer-profile/'],
     [deferredProfileImageDialog, 'ProfileImageDialog', 'dashboard/gamer-profile/'],
-    [deferredNicknameDialog, 'ChangeNicknameDialog', 'dashboard/rentals/'],
   ] as const
 
   for (const [file, component, route] of deferredDialogWrappers) {
@@ -803,9 +806,17 @@ describe('dashboard dialog loading contract', () => {
   }
 
   it('keeps the rental nickname form deferred until its dialog opens', () => {
+    const wrapper = readFileSync(join(process.cwd(), deferredNicknameDialog), 'utf8')
     const source = readFileSync(join(process.cwd(), deferredNicknameDialogConsumer), 'utf8')
 
+    expect(wrapper).toContain("from '@nl/ui/custom/deferred-component'")
+    expect(wrapper).toContain('enabled={open}')
+    expect(wrapper).toContain(
+      "import('@/app/(private-routes)/dashboard/rentals/ChangeNicknameDialog')"
+    )
+    expect(wrapper).not.toContain("from 'next/dynamic'")
     expect(source).toContain('DeferredChangeNicknameDialog')
+    expect(source).toContain('open={isNicknameModalOpen}')
     expect(source).not.toContain("from './ChangeNicknameDialog'")
   })
 

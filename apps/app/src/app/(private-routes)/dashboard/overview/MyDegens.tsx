@@ -178,6 +178,7 @@ const MyDegens = (): React.ReactNode => {
       >
         <DialogContent showCloseButton={false}>
           <DeferredRenameDegenDialog
+            open={isRenameDegenModalOpen}
             degen={selectedDegen}
             onSuccess={() => setIsRenameDegenModalOpen(false)}
           />

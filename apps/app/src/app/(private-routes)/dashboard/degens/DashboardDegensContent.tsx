@@ -410,6 +410,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
         onOpenChange={(open) => !open && setIsRenameDegenModalOpen(false)}
       >
         <DeferredRenameDegenDialog
+          open={isRenameDegenModalOpen}
           degen={selectedDegen}
           onSuccess={() => setIsRenameDegenModalOpen(false)}
         />

@@ -492,6 +492,7 @@ const MyRentalsDataGrid = ({
           className="max-w-[380px] md:max-w-[380px] lg:max-w-[380px]"
         >
           <DeferredChangeNicknameDialog
+            open={isNicknameModalOpen}
             updateNickname={handleUpdateNickname}
             rental={selectedRowForEditing}
           />
