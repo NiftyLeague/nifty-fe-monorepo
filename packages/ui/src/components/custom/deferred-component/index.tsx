@@ -1,6 +1,6 @@
 'use client'
 
-import type { ComponentType, ReactNode } from 'react'
+import { memo, type ComponentType, type ReactNode } from 'react'
 
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
@@ -46,7 +46,7 @@ function DefaultError({ label, onRetry }: { label: string; onRetry: () => void }
  * Keeping retry and accessibility behavior here prevents each app wrapper
  * from carrying its own copy of the same loading state machine.
  */
-export function DeferredComponent<T extends object>({
+export const DeferredComponent = memo(function DeferredComponent<T extends object>({
   disabledFallback,
   enabled = true,
   errorFallback,
@@ -70,6 +70,6 @@ export function DeferredComponent<T extends object>({
   if (!LoadedComponent) return loadingFallback ?? <DefaultLoading label={label} />
 
   return <LoadedComponent {...props} />
-}
+}) as <T extends object>(props: DeferredComponentProps<T>) => ReactNode
 
 export default DeferredComponent
