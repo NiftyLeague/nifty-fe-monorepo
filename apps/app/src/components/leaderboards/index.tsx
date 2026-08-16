@@ -16,7 +16,7 @@ import {
 } from '@/constants/leaderboards'
 import './modal-table.css'
 
-const EnhancedTable = dynamic(() => import('./EnhancedTable/EnhancedTableWithWallet'), {
+const EnhancedTable = dynamic(() => import('./EnhancedTable/EnhancedTable'), {
   ssr: false,
   loading: () => <div className="flex min-h-96 items-center justify-center" aria-busy="true" />,
 })
