@@ -43,7 +43,7 @@ const SocialCards = () => {
 
   return (
     <div className="container mx-auto px-4 mt-5 max-w-6xl">
-      <div className="space-y-4">
+      <div className="flex flex-col gap-4">
         {rows.map((row, rowIndex) => (
           <div key={rowIndex} className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {row.map(({ link, title, subtitle, image }) => (

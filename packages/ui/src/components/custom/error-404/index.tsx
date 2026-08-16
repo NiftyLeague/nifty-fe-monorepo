@@ -11,7 +11,7 @@ export function Error404({ className }: Error404Props) {
         className
       )}
     >
-      <div className="flex w-full flex-col items-center justify-center space-y-4">
+      <div className="flex w-full flex-col items-center justify-center gap-4">
         <div className="relative mx-auto w-full max-w-[720px] aspect-[720/360]">
           <OptimizedImage
             src="/img/maintenance/img-error-bg-dark.svg"
@@ -48,7 +48,7 @@ export function Error404({ className }: Error404Props) {
           />
         </div>
         <div className="mx-auto px-4 max-w-[550px] text-center">
-          <div className="space-y-4">
+          <div className="flex flex-col gap-4">
             <h4>Something is wrong...</h4>
             <p className="text-base">
               The page you are looking for was moved, removed, renamed, or might have never existed!
