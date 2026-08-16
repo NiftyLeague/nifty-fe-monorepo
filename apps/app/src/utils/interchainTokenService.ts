@@ -1,6 +1,6 @@
 // https://docs.axelar.dev/dev/send-tokens/interchain-tokens/developer-guides/link-custom-tokens-deployed-across-multiple-chains-into-interchain-tokens/
 
-import { parseEther, formatEther } from 'ethers'
+import { parseEther, parseUnits, formatEther } from 'ethers'
 import type {
   AddressLike,
   Contract,
@@ -20,30 +20,48 @@ import { DEBUG } from '@/constants'
 import type { NFTLToken } from '@/types/typechain'
 import type { Contracts } from '@/types/web3'
 
-// Estimate the actual cost of deploying a Canonical Interchain Token on the remote chain:
-const gasEstimator = async (chainId: number) => {
-  // Lazy-load the heavy Axelar SDK only when bridging (it pulls in non-EVM chain tooling).
-  const { AxelarQueryAPI, Environment, EvmChain, GasToken } =
-    await import('@axelar-network/axelarjs-sdk')
-  if (chainId === SEPOLIA_ID || chainId === IMX_TESTNET_ID) {
-    const api = new AxelarQueryAPI({ environment: Environment.TESTNET })
-    return await api.estimateGasFee(
-      EvmChain.SEPOLIA,
-      EvmChain.IMMUTABLE,
-      700_000,
-      1.1,
-      GasToken.SEPOLIA
-    )
-  } else {
-    const api = new AxelarQueryAPI({ environment: Environment.MAINNET })
-    return await api.estimateGasFee(
-      EvmChain.ETHEREUM,
-      EvmChain.IMMUTABLE,
-      700_000,
-      1.1,
-      GasToken.ETH
-    )
+type GasFeeResponse = {
+  result?: {
+    source_base_fee_string?: string
+    source_token?: { decimals: number; gas_price: string | number }
   }
+}
+
+const AXELAR_GMP_ENDPOINT = {
+  mainnet: 'https://api.gmp.axelarscan.io',
+  testnet: 'https://testnet.api.gmp.axelarscan.io',
+} as const
+
+// Estimate the actual cost of deploying a Canonical Interchain Token on the remote chain.
+// Keep this request local instead of importing Axelar's all-chains SDK for one EVM fee call.
+const gasEstimator = async (chainId: number): Promise<bigint> => {
+  const isTestnet = chainId === SEPOLIA_ID || chainId === IMX_TESTNET_ID
+  const response = await fetch(AXELAR_GMP_ENDPOINT[isTestnet ? 'testnet' : 'mainnet'], {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      method: 'getFees',
+      destinationChain: 'immutable',
+      sourceChain: isTestnet ? 'ethereum-sepolia' : 'ethereum',
+      sourceTokenSymbol: 'ETH',
+    }),
+  })
+
+  if (!response.ok) throw new Error(`Axelar gas estimate failed (${response.status})`)
+
+  const { result } = (await response.json()) as GasFeeResponse
+  if (result?.source_base_fee_string === undefined || !result.source_token)
+    throw new Error('Axelar gas estimate returned an incomplete response')
+
+  const sourceBaseFee = parseUnits(result.source_base_fee_string, result.source_token.decimals)
+  const sourceGasPrice = parseUnits(
+    String(result.source_token.gas_price),
+    result.source_token.decimals
+  )
+  const executionFee = 700_000n * sourceGasPrice
+
+  // Match the previous SDK call: 700k gas with a 10% execution buffer.
+  return sourceBaseFee + (executionFee * 11_000n) / 10_000n
 }
 
 export const getInterchainTokenRecord = async (chainId: number) => {
