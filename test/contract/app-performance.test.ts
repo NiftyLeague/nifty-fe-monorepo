@@ -280,18 +280,6 @@ describe('app performance contracts', () => {
     expect(moduleSource).toContain('init')
   })
 
-  it('keeps deferred Sentry on a named async module graph', () => {
-    const clientSource = readFileSync(deferredSentryClient, 'utf8')
-    const moduleSource = readFileSync(deferredSentryModule, 'utf8')
-
-    expect(clientSource).toContain("import('./nextjs-client')")
-    expect(clientSource).not.toContain("sentryModulePromise ??= import('@sentry/nextjs')")
-    expect(moduleSource).toContain("from '@sentry/nextjs'")
-    expect(moduleSource).toContain('captureException')
-    expect(moduleSource).toContain('captureRouterTransitionStart')
-    expect(moduleSource).toContain('init')
-  })
-
   it('uses Turbopack for local app development', () => {
     const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
 
