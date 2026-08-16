@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { NIFTY_DEGENS, type DegenSpecial } from './constants'
+import { DEGEN_SPECIALS, type DegenSpecial } from './constants'
 
 export function DegenSpecialsTable() {
   return (
@@ -17,7 +17,7 @@ export function DegenSpecialsTable() {
 
       <div className="relative border-2 rounded-2xl overflow-clip">
         <hr className="absolute top-0 bottom-0 left-1/2 w-[2px] h-full my-0 mx-0 border-0 bg-border md:left-1/3" />
-        {NIFTY_DEGENS.map(({ name, description, specialName, gif, image }: DegenSpecial) => (
+        {DEGEN_SPECIALS.map(({ name, description, specialName, gif, image }: DegenSpecial) => (
           <div key={name} className="flex flex-row py-8">
             <div className="w-1/2 sm:w-1/3 my-auto sm:mx-auto">
               <div className="flex flex-col">
