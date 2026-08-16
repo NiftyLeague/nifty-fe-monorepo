@@ -20,6 +20,9 @@ CHANGELOG.md
 apps/api/api/config
 .code-foundry
 **/public
+# Archived leaderboard snapshots are machine-generated data; keep them compact
+# so the server-only lazy imports do not carry formatting overhead.
+apps/app/src/constants/leaderboards/*.json
 pnpm-lock.yaml
 .vscode/
 .vercel/
