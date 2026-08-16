@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
-import Image from 'next/image'
+
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 
 import RoadmapTimeline from '@/components/RoadmapTimeline'
 import roadmapStyles from '@/components/RoadmapTimeline/index.module.css'
@@ -11,7 +12,7 @@ const Roadmap: NextPage = () => {
       <div className={roadmapStyles.stars}>
         <div className={roadmapStyles.stars2}>
           <div className={satoshiStyles.satoshiMove}>
-            <Image
+            <OptimizedImage
               src="/img/space/satoshi_move.gif"
               unoptimized
               alt="satoshi moving"
@@ -38,7 +39,7 @@ const Roadmap: NextPage = () => {
           <div className={roadmapStyles.animated_star9} />
           <div className="w-full flex justify-center">
             <div className={roadmapStyles.moon}>
-              <Image
+              <OptimizedImage
                 src="/img/space/moon.webp"
                 alt="moon"
                 width={800}

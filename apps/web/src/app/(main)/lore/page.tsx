@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
-import Image from 'next/image'
+
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 
 import { cx } from '@nl/ui/class-names'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
@@ -101,7 +102,7 @@ const Lore: NextPage = () => {
         </div>
         <div className={styles.satoshiContainer}>
           <div className={cx(styles.satoshi, 'relative flex-1')}>
-            <Image
+            <OptimizedImage
               alt="Satoshi"
               src="/img/hero/satoshi.webp"
               width={556}
@@ -113,7 +114,7 @@ const Lore: NextPage = () => {
         </div>
         <div className={styles.degensContainer}>
           <div className={cx(styles.degens, 'relative flex-1')}>
-            <Image
+            <OptimizedImage
               alt="DEGENs"
               src="/img/degens/community-characters.webp"
               width={1910}

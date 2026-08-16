@@ -1,7 +1,7 @@
-import Image from 'next/image'
 import { Check } from 'lucide-react'
 
 import { cx } from '@nl/ui/class-names'
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { AnimatedImage } from '@nl/ui/custom/animated-image'
 import styles from './index.module.css'
 
@@ -76,7 +76,7 @@ const RoadmapCard = ({
 
     {current ? (
       <div className={styles.satoshiStationary}>
-        <Image
+        <OptimizedImage
           src="/img/space/satoshi_stationary.gif"
           unoptimized
           alt="satoshi stationary"

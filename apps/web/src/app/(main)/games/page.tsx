@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
-import Image from 'next/image'
+
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 
 import { LazyYouTubeEmbed } from '@nl/ui/custom/lazy-youtube-embed'
 import { ViewportVideo } from '@nl/ui/custom/viewport-video'
@@ -27,7 +28,7 @@ const Games: NextPage = () => (
             src="/video/lobby.mp4"
           />
           <div className="block md:hidden">
-            <Image
+            <OptimizedImage
               alt="Arcade"
               width={339}
               height={661}

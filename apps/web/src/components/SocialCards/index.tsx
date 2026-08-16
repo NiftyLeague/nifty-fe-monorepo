@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { SOCIALS } from './constants'
 
 interface SocialProps {
@@ -22,7 +22,7 @@ const SocialCard = ({ link, title, subtitle, image }: SocialProps) => (
         <p className="text-foreground text-sm sm:text-base">{subtitle}</p>
       </div>
       <div className="flex-shrink-0 flex items-center">
-        <Image
+        <OptimizedImage
           alt={`${title} icon`}
           src={image}
           width={40}
