@@ -76,6 +76,7 @@ const Degens: NextPage = () => (
                   alt={name}
                   width={image.width}
                   height={image.height}
+                  sizes="(max-width: 768px) 33vw, 205px"
                   className="pixelated mx-auto"
                 />
               </div>

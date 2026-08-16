@@ -23,7 +23,9 @@ describe('shared docs media policy', () => {
     for (const page of docsMediaPages) {
       const source = readFileSync(page, 'utf8')
       expect(source).not.toContain('react-player')
-      expect(source).toMatch(/@nl\/ui\/custom\/(lazy-youtube-embed|viewport-video)/)
+      expect(source).toMatch(
+        /@nl\/ui\/custom\/(deferred-youtube-embed|lazy-youtube-embed|viewport-video)/
+      )
     }
   })
 
