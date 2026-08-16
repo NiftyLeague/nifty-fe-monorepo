@@ -11,6 +11,15 @@ const deferredNicknameForm =
   'apps/app/src/app/(private-routes)/dashboard/rentals/ChangeNicknameDialog.tsx'
 const deferredProfileNameForm =
   'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_Stats/ChangeProfileNameForm.tsx'
+const appBaseInputConsumers = [
+  'apps/app/src/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent.tsx',
+  deferredProfileNameForm,
+  'apps/app/src/app/(private-routes)/dashboard/items/burner/_components/comics-grid.tsx',
+  deferredNicknameForm,
+  'apps/app/src/app/(private-routes)/dashboard/rentals/SearchRental.tsx',
+  'apps/app/src/components/dialog/BuyArcadeTokensDialog.tsx',
+  'apps/app/src/components/dialog/DegenDialog/RentDegenContentDialog.tsx',
+]
 const smashersNextConfig = 'apps/smashers/next.config.ts'
 const templateNextConfig = 'apps/template/next.config.ts'
 const webManifest = 'apps/web/package.json'
@@ -371,6 +380,14 @@ describe('app performance contracts', () => {
 
     expect(manifest.dependencies?.['@hookform/resolvers']).toBeUndefined()
     expect(manifest.dependencies?.yup).toBeUndefined()
+  })
+
+  it('uses shared shadcn inputs across the app instead of the heavyweight custom wrapper', () => {
+    for (const file of appBaseInputConsumers) {
+      const source = readFileSync(file, 'utf8')
+      expect(source).toContain("from '@nl/ui/base/input'")
+      expect(source).not.toContain("from '@nl/ui/custom/input'")
+    }
   })
 
   it('removes the retired inline NFTL swap graph', () => {

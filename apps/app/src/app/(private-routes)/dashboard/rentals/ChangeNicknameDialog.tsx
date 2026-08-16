@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { AlertCircle } from 'lucide-react'
 import { toast } from 'sonner'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import type { RentalDataGrid } from '@/types/rentalDataGrid'
@@ -10,8 +11,9 @@ import useLocalStorage from '@/hooks/useLocalStorage'
 
 import { Button } from '@nl/ui/base/button'
 import { DialogFooter, DialogHeader, DialogTitle } from '@nl/ui/base/dialog'
+import { Input } from '@nl/ui/base/input'
+import { Label } from '@nl/ui/base/label'
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
-import { Input } from '@nl/ui/custom/input'
 
 interface Props {
   rental: RentalDataGrid
@@ -72,16 +74,36 @@ const ChangeNicknameDialog = ({ rental, updateNickname }: Props): React.ReactNod
           control={control}
           rules={{ required: 'Nickname is required' }}
           render={({ field }) => (
-            <Input
-              {...field}
-              label="Enter nickname for recruit wallet"
-              error={!!errors.name}
-              aria-invalid={!!errors.name}
-              disabled={isLoadingRename}
-            />
+            <div className="grid gap-2">
+              <Label
+                htmlFor="recruit-wallet-nickname"
+                className={errors.name ? 'text-destructive' : undefined}
+              >
+                Enter nickname for recruit wallet
+              </Label>
+              <div className="relative">
+                <Input
+                  {...field}
+                  id="recruit-wallet-nickname"
+                  aria-invalid={!!errors.name}
+                  aria-describedby={errors.name ? 'recruit-wallet-nickname-error' : undefined}
+                  className={errors.name ? 'pr-10' : undefined}
+                  disabled={isLoadingRename}
+                />
+                {errors.name && (
+                  <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-destructive">
+                    <AlertCircle aria-hidden="true" size={18} />
+                  </span>
+                )}
+              </div>
+            </div>
           )}
         />
-        {errors.name && <p className="text-sm text-destructive">{errors.name.message}</p>}
+        {errors.name && (
+          <p id="recruit-wallet-nickname-error" className="text-sm text-destructive">
+            {errors.name.message}
+          </p>
+        )}
       </div>
       <DialogFooter>
         <Button type="submit" variant="default" className="w-full" disabled={isLoadingRename}>
