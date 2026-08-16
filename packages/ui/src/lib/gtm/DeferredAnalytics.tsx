@@ -11,6 +11,9 @@ interface AnalyticsComponents {
   webVitals?: React.ComponentType
 }
 
+const ANALYTICS_DELAY = 5000
+const ANALYTICS_ACTIVATION_EVENTS = ['pointerdown', 'keydown', 'touchstart'] as const
+
 const DeferredAnalytics = ({
   includeWebVitals = true,
 }: DeferredAnalyticsProps): React.ReactNode => {
@@ -18,7 +21,33 @@ const DeferredAnalytics = ({
 
   useEffect(() => {
     let cancelled = false
+    let activated = false
+    let idleId: number | null = null
+    let timeoutId: number | null = null
+
+    const removeInteractionListeners = () => {
+      for (const eventName of ANALYTICS_ACTIVATION_EVENTS) {
+        window.removeEventListener(eventName, activate)
+      }
+    }
+
+    const cancelDeferredActivation = () => {
+      if (idleId !== null) {
+        window.cancelIdleCallback?.(idleId)
+        idleId = null
+      }
+      if (timeoutId !== null) {
+        window.clearTimeout(timeoutId)
+        timeoutId = null
+      }
+    }
+
     const activate = async () => {
+      if (cancelled || activated) return
+      activated = true
+      removeInteractionListeners()
+      cancelDeferredActivation()
+
       const [googleTagManagerModule, webVitalsModule] = await Promise.all([
         import('./GoogleTagManager'),
         includeWebVitals ? import('./WebVitals') : Promise.resolve(undefined),
@@ -32,25 +61,23 @@ const DeferredAnalytics = ({
       }
     }
 
-    if (window.requestIdleCallback) {
-      const idleId = window.requestIdleCallback(
-        () => {
-          void activate()
-        },
-        { timeout: 2000 }
-      )
-      return () => {
-        cancelled = true
-        window.cancelIdleCallback?.(idleId)
-      }
+    for (const eventName of ANALYTICS_ACTIVATION_EVENTS) {
+      window.addEventListener(eventName, activate, { once: true, passive: true })
     }
 
-    const timeoutId = window.setTimeout(() => {
-      void activate()
-    }, 1000)
+    if (window.requestIdleCallback) {
+      timeoutId = window.setTimeout(() => {
+        timeoutId = null
+        idleId = window.requestIdleCallback(activate, { timeout: 1000 })
+      }, ANALYTICS_DELAY)
+    } else {
+      timeoutId = window.setTimeout(activate, ANALYTICS_DELAY)
+    }
+
     return () => {
       cancelled = true
-      window.clearTimeout(timeoutId)
+      removeInteractionListeners()
+      cancelDeferredActivation()
     }
   }, [includeWebVitals])
 
