@@ -23,6 +23,7 @@
         "!.env.example",
         "!**/README.md",
         "!**/CHANGELOG.md",
+        "!src/types/typechain/**",
         "!**/*.test.*",
         "!**/*.spec.*",
         "!**/__tests__/**"
@@ -108,6 +109,7 @@
         "../../packages/ui/package.json",
         ".env*",
         "!.env.example",
+        "!../../packages/playfab/src/test-mock-sdk.ts",
         "!**/README.md",
         "!**/CHANGELOG.md",
         "!**/*.test.*",
