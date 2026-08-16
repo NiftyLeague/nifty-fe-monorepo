@@ -5,8 +5,13 @@ import PublicNavigation from './PublicNavigation'
 
 beforeEach(() => {
   mock.module('next/link', () => ({
-    default: ({ children, href, ...props }: React.PropsWithChildren<{ href: string }>) => (
-      <a href={href} {...props}>
+    default: ({
+      children,
+      href,
+      prefetch,
+      ...props
+    }: React.PropsWithChildren<{ href: string; prefetch?: boolean }>) => (
+      <a href={href} data-prefetch={String(prefetch)} {...props}>
         {children}
       </a>
     ),

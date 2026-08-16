@@ -5,6 +5,16 @@
 
   if (!image) return
 
+  const prefersReducedMotion =
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const prefersDataSaving = navigator.connection?.saveData === true
+
+  // The poster is already the complete hero surface. Avoid downloading the
+  // multi-megabyte animation when the user has explicitly requested less
+  // motion or lower data usage.
+  if (prefersReducedMotion || prefersDataSaving) return
+
   const preload = new Image()
   preload.decoding = 'async'
   const useFallback = () => {

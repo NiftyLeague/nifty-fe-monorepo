@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 import type { NextPage } from 'next'
 
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
@@ -74,7 +74,7 @@ const NiftyWorld: NextPage = () => {
                 </div>
                 <div className="w-full lg:w-1/2 lg:pl-2 relative">
                   <div>
-                    <Image
+                    <OptimizedImage
                       src={image}
                       alt="NiftyWorld District Highlight"
                       width={500}

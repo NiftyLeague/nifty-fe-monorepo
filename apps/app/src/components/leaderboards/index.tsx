@@ -6,7 +6,8 @@ import dynamic from 'next/dynamic'
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@nl/ui/base/select'
 import { Button } from '@nl/ui/base/button'
-import { gtm, GTM_EVENTS } from '@nl/ui/gtm'
+import * as gtm from '@nl/ui/gtm/events'
+import { EVENTS as GTM_EVENTS } from '@nl/ui/gtm/constants'
 import type { LeaderboardGame, TableType } from '@/types/leaderboard'
 import {
   LEADERBOARD_GAME_LIST,
@@ -15,7 +16,7 @@ import {
 } from '@/constants/leaderboards'
 import './modal-table.css'
 
-const EnhancedTable = dynamic(() => import('./EnhancedTable/EnhancedTableWithWallet'), {
+const EnhancedTable = dynamic(() => import('./EnhancedTable/EnhancedTable'), {
   ssr: false,
   loading: () => <div className="flex min-h-96 items-center justify-center" aria-busy="true" />,
 })

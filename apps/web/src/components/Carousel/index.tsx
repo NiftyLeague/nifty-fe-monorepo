@@ -18,6 +18,10 @@ export interface NiftyCarouselProps {
 
 const loadInteractiveCarousel = () => import('./InteractiveCarousel')
 
+// Keep the interactive carousel close enough to the viewport for a smooth
+// handoff without loading its client bundle during the first scroll segment.
+export const CAROUSEL_ROOT_MARGIN = '160px 0px'
+
 const NiftyCarousel = ({
   children,
   isMobileViewOnly = false,
@@ -29,7 +33,7 @@ const NiftyCarousel = ({
   ariaLabel = 'Featured content',
 }: NiftyCarouselProps): React.ReactNode => {
   const containerRef = useRef<HTMLDivElement>(null)
-  const isNearViewport = useOnScreen(containerRef, '300px 0px', { once: true })
+  const isNearViewport = useOnScreen(containerRef, CAROUSEL_ROOT_MARGIN, { once: true })
   const { Component: InteractiveCarousel } = useDeferredComponent<NiftyCarouselProps>(
     loadInteractiveCarousel,
     isNearViewport

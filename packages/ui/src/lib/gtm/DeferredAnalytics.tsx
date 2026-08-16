@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react'
 
+import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
+
 interface DeferredAnalyticsProps {
   includeWebVitals?: boolean
 }
@@ -18,7 +20,10 @@ const DeferredAnalytics = ({
 
   useEffect(() => {
     let cancelled = false
+
     const activate = async () => {
+      if (cancelled) return
+
       const [googleTagManagerModule, webVitalsModule] = await Promise.all([
         import('./GoogleTagManager'),
         includeWebVitals ? import('./WebVitals') : Promise.resolve(undefined),
@@ -32,25 +37,11 @@ const DeferredAnalytics = ({
       }
     }
 
-    if (window.requestIdleCallback) {
-      const idleId = window.requestIdleCallback(
-        () => {
-          void activate()
-        },
-        { timeout: 2000 }
-      )
-      return () => {
-        cancelled = true
-        window.cancelIdleCallback?.(idleId)
-      }
-    }
+    const cleanup = scheduleDeferredActivation({ onActivate: activate })
 
-    const timeoutId = window.setTimeout(() => {
-      void activate()
-    }, 1000)
     return () => {
       cancelled = true
-      window.clearTimeout(timeoutId)
+      cleanup()
     }
   }, [includeWebVitals])
 

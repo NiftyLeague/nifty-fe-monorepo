@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+import NativeImage from '@nl/ui/custom/native-image'
 import { memo } from 'react'
 import { Button } from '@nl/ui/base/button'
 
@@ -31,7 +31,12 @@ const GameBalance: React.FC = memo(() => {
             disabled
             className="absolute -top-4 -right-4 cursor-pointer"
           >
-            <Image src="/img/logos/passport/32px.svg" alt="Immutable" width={22} height={22} />
+            <NativeImage
+              src="/img/logos/passport/32px.svg"
+              alt="Immutable"
+              width={22}
+              height={22}
+            />
           </Button>
           <WithdrawButtonDialog balance={nftlUnclaimed} loading={loading} />
         </>
