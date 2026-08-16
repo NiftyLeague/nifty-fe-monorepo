@@ -43,9 +43,15 @@ import { hasEntries, toggleValue } from '@/utils/collections'
 const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'), {
   ssr: false,
 })
-const DegenCard = dynamic(() => import('@/components/cards/DegenCard/DashboardDegenCard'), {
-  ssr: false,
-})
+const DegenCard = dynamic(
+  () =>
+    import('@/components/cards/DegenCard/DashboardDegenCard').then(
+      (module) => module.DashboardDegenCardInView
+    ),
+  {
+    ssr: false,
+  }
+)
 
 const DashboardDegensPageContent = (): React.ReactNode => {
   const { authToken, isLoggedIn } = useAuth()

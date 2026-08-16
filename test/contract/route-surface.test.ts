@@ -1385,6 +1385,7 @@ describe('dashboard DEGEN loading contract', () => {
     expect(clientSource).not.toContain("from '@/components/cards/DegenCard/DashboardDegenCard'")
     expect(clientSource).not.toContain("from '@/components/extended/DegensFilter'")
     expect(contentSource).toContain("import('@/components/cards/DegenCard/DashboardDegenCard')")
+    expect(contentSource).toContain('(module) => module.DashboardDegenCardInView')
     expect(contentSource).toContain(
       "import DeferredDegensFilter from '@/components/providers/DeferredDegensFilter'"
     )
