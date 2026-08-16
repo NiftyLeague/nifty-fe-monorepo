@@ -14,9 +14,13 @@ describe('AppNavIcon', () => {
     expect(icon?.getAttribute('aria-hidden')).toBe('true')
     expect(icon?.getAttribute('width')).toBe('24')
     expect(icon?.getAttribute('height')).toBe('24')
+    expect(icon?.getAttribute('stroke-width')).toBe('1.5')
     expect(icon?.getAttribute('fill')).toBe('var(--color-muted-foreground)')
     expect(icon?.getAttribute('stroke')).toBe('var(--color-blue)')
     expect(icon?.getAttribute('class')).toContain('lucide-layout-grid')
+
+    rerender(<AppNavIcon name="layout-grid" size="sm" />)
+    expect(container.querySelector('svg')?.getAttribute('stroke-width')).toBe('2')
 
     rerender(<AppNavIcon name="settings" aria-label="Settings" />)
     const labeledIcon = container.querySelector('svg')

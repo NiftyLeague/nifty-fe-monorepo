@@ -1,19 +1,4 @@
-import {
-  Cat,
-  ChevronDown,
-  ChevronRight,
-  Dot,
-  Gamepad,
-  House,
-  LayoutGrid,
-  ListOrdered,
-  ListTree,
-  Settings,
-  Sparkles,
-  Tally1,
-  User,
-} from 'lucide-react'
-import type { LucideIcon, LucideProps } from 'lucide-react'
+import { NavIcon, type NavIconName, type NavIconProps } from '@nl/ui/custom/nav-icon'
 
 const DEFAULT_SIZES = { xs: 14, sm: 18, md: 20, lg: 24, xl: 28 } as const
 
@@ -31,27 +16,12 @@ const DEFAULT_COLORS = {
   gray: 'var(--color-base-500)',
 } as const
 
-const iconMap = {
-  cat: Cat,
-  'chevron-down': ChevronDown,
-  'chevron-right': ChevronRight,
-  dot: Dot,
-  gamepad: Gamepad,
-  house: House,
-  'layout-grid': LayoutGrid,
-  'list-ordered': ListOrdered,
-  'list-tree': ListTree,
-  settings: Settings,
-  sparkles: Sparkles,
-  'tally-1': Tally1,
-  user: User,
-} as const satisfies Record<string, LucideIcon>
-
-type AppNavIconName = keyof typeof iconMap
+type AppNavIconName = NavIconName
 type AppNavIconSize = keyof typeof DEFAULT_SIZES
 type AppNavIconColor = keyof typeof DEFAULT_COLORS | (string & {})
 
-interface AppNavIconProps extends Omit<LucideProps, 'color' | 'fill' | 'size'> {
+interface AppNavIconProps extends Omit<NavIconProps, 'color' | 'fill' | 'size' | 'name'> {
+  absoluteStrokeWidth?: boolean
   name?: AppNavIconName
   size?: AppNavIconSize | number
   color?: AppNavIconColor
@@ -65,20 +35,28 @@ function AppNavIcon({
   name,
   size = 'md',
   strokeWidth = 1.5,
+  className,
   ...props
 }: AppNavIconProps) {
-  const IconComponent = (name && iconMap[name]) || Dot
+  const iconName = name ?? 'dot'
   const iconSize = typeof size === 'number' ? size : DEFAULT_SIZES[size]
   const iconColor = DEFAULT_COLORS[color as keyof typeof DEFAULT_COLORS] || color
   const iconFill = DEFAULT_COLORS[fill as keyof typeof DEFAULT_COLORS] || fill
+  const iconClassName = ['lucide', `lucide-${iconName}`, className].filter(Boolean).join(' ')
+  const numericStrokeWidth = typeof strokeWidth === 'number' ? strokeWidth : Number(strokeWidth)
+  const resolvedStrokeWidth =
+    absoluteStrokeWidth && Number.isFinite(numericStrokeWidth)
+      ? (numericStrokeWidth * 24) / iconSize
+      : strokeWidth
 
   return (
-    <IconComponent
-      absoluteStrokeWidth={absoluteStrokeWidth}
+    <NavIcon
+      name={iconName}
+      className={iconClassName}
       color={iconColor}
       fill={iconFill}
       size={iconSize}
-      strokeWidth={strokeWidth}
+      strokeWidth={resolvedStrokeWidth}
       aria-hidden={props['aria-label'] ? undefined : 'true'}
       {...props}
     />
