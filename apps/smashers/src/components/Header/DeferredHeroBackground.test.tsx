@@ -15,7 +15,7 @@ mock.module('next/image', () => ({
   ),
 }))
 
-mock.module('next/script', () => ({
+mock.module('@nl/ui/custom/deferred-external-script', () => ({
   default: () => null,
 }))
 
