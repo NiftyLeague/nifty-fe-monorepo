@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { DEGEN_SPECIALS, type DegenSpecial } from './constants'
 
 export function DegenSpecialsTable() {
@@ -22,11 +21,15 @@ export function DegenSpecialsTable() {
             <div className="w-1/2 sm:w-1/3 my-auto sm:mx-auto">
               <div className="flex flex-col">
                 <div className="text-center">
-                  <Image
+                  {/* This table is dynamically loaded from a client boundary; native lazy images
+                      avoid shipping the stateful Next image runtime into that deferred chunk. */}
+                  <img
                     src={image.link}
                     alt={name}
                     width={image.width}
                     height={image.height}
+                    loading="lazy"
+                    decoding="async"
                     className="mx-auto h-auto w-[30%] sm:w-auto sm:max-w-[90px] lg:max-w-[120px]"
                   />
                 </div>
@@ -40,12 +43,13 @@ export function DegenSpecialsTable() {
 
             <div className="w-1/2 sm:w-1/4 my-auto sm:mx-auto">
               <div className="-mt-12 text-center">
-                <Image
+                <img
                   src={gif.link}
-                  unoptimized
                   alt={name}
                   width={gif.width}
                   height={gif.height}
+                  loading="lazy"
+                  decoding="async"
                   className="mx-auto h-auto w-auto"
                 />
               </div>

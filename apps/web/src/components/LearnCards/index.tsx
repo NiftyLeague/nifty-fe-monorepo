@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 import { LEARN_CARDS } from './constants'
@@ -26,7 +26,7 @@ const LearnCard = ({
     <div className="relative flex items-center w-full h-full rounded-2xl overflow-hidden">
       <div className="absolute inset-0">
         <div>
-          <Image
+          <OptimizedImage
             alt={`${title} card background`}
             priority={priority}
             src={image}

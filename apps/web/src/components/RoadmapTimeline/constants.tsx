@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 import styles from './index.module.css'
 import { DEGEN_COLLECTION_URL } from '@/constants/degen-assets'
 
@@ -320,7 +320,7 @@ export const ROADMAP_CARDS = [
         </p>
         <div className="flex flex-wrap -mx-1">
           <div className="w-1/2 p-1">
-            <Image
+            <OptimizedImage
               alt="comic 1"
               height={500}
               src="/img/comics/thumbnail/1.webp"
@@ -331,7 +331,7 @@ export const ROADMAP_CARDS = [
             />
           </div>
           <div className="w-1/2 p-1">
-            <Image
+            <OptimizedImage
               alt="comic 2"
               height={500}
               src="/img/comics/thumbnail/2.webp"
@@ -342,7 +342,7 @@ export const ROADMAP_CARDS = [
             />
           </div>
           <div className="w-1/2 p-1">
-            <Image
+            <OptimizedImage
               alt="comic 3"
               height={500}
               src="/img/comics/thumbnail/3.webp"
@@ -353,7 +353,7 @@ export const ROADMAP_CARDS = [
             />
           </div>
           <div className="w-1/2 p-1">
-            <Image
+            <OptimizedImage
               alt="comic 4"
               height={500}
               src="/img/comics/thumbnail/4.webp"
@@ -364,7 +364,7 @@ export const ROADMAP_CARDS = [
             />
           </div>
           <div className="w-1/2 p-1">
-            <Image
+            <OptimizedImage
               alt="comic 5"
               height={500}
               src="/img/comics/thumbnail/5.webp"
@@ -375,7 +375,7 @@ export const ROADMAP_CARDS = [
             />
           </div>
           <div className="w-1/2 p-1">
-            <Image
+            <OptimizedImage
               alt="comic 6"
               height={500}
               src="/img/comics/thumbnail/6.webp"

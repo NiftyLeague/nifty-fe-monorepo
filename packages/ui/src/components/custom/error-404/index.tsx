@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { cn } from '@nl/ui/utils'
 
 interface Error404Props extends React.ComponentProps<'div'> {}
@@ -13,23 +13,33 @@ export function Error404({ className }: Error404Props) {
     >
       <div className="flex w-full flex-col items-center justify-center space-y-4">
         <div className="relative mx-auto w-full max-w-[720px] aspect-[720/360]">
-          <Image src="/img/maintenance/img-error-bg-dark.svg" alt="Background Dark" fill priority />
-          <Image src="/img/maintenance/img-error-bg.svg" alt="Background Light" fill priority />
-          <Image
+          <OptimizedImage
+            src="/img/maintenance/img-error-bg-dark.svg"
+            alt="Background Dark"
+            fill
+            priority
+          />
+          <OptimizedImage
+            src="/img/maintenance/img-error-bg.svg"
+            alt="Background Light"
+            fill
+            priority
+          />
+          <OptimizedImage
             src="/img/maintenance/img-error-text.svg"
             alt="404 Text"
             fill
             priority
             className="animate-[custom-bounce_3s_ease-in-out_infinite]"
           />
-          <Image
+          <OptimizedImage
             src="/img/maintenance/img-error-blue.svg"
             alt="Blue Shapes"
             fill
             priority
             className="animate-[wings_15s_ease-in-out_infinite]"
           />
-          <Image
+          <OptimizedImage
             src="/img/maintenance/img-error-purple.svg"
             alt="Purple Shapes"
             fill

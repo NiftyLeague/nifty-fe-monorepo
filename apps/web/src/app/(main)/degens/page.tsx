@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
-import Image from 'next/image'
+
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { LazyYouTubeEmbed } from '@nl/ui/custom/lazy-youtube-embed'
@@ -70,7 +71,7 @@ const Degens: NextPage = () => (
           {NIFTY_DEGENS_ALL.map(({ name, image }) => (
             <div className="flex flex-col mb-3 px-3 w-1/3" key={name}>
               <div>
-                <Image
+                <OptimizedImage
                   src={image.link}
                   alt={name}
                   width={image.width}
