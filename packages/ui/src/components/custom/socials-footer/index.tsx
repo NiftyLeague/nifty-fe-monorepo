@@ -1,5 +1,5 @@
-import Image from 'next/image'
 import { cx } from '@nl/ui/class-names'
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { SOCIAL_LINKS } from './constants'
 
 export const linkClass = 'font-medium text-foreground'
@@ -52,7 +52,7 @@ export function SocialsFooter({ children, classes }: SocialsFooterProps) {
               rel="noreferrer"
               className={animateClass}
             >
-              <Image
+              <OptimizedImage
                 src={social.image}
                 width={20}
                 height={20}

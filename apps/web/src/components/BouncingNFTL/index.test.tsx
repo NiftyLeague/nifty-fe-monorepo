@@ -2,7 +2,7 @@ import { render } from '@testing-library/react'
 import { createElement, type ComponentProps } from 'react'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
-mock.module('next/image', () => ({
+mock.module('@nl/ui/custom/optimized-image', () => ({
   default: ({ alt, ...props }: ComponentProps<'img'>) => createElement('img', { alt, ...props }),
 }))
 

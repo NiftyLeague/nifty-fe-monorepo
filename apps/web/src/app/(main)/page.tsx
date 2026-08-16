@@ -1,7 +1,7 @@
-import Image, { getImageProps } from 'next/image'
 import { preload } from 'react-dom'
 
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
+import OptimizedImage, { getOptimizedImageProps } from '@nl/ui/custom/optimized-image'
 
 import BouncingNFTL from '@/components/BouncingNFTL'
 import {
@@ -44,7 +44,7 @@ const DesktopOnlyImage = ({
   src,
   width,
 }: DesktopOnlyImageProps) => {
-  const { props } = getImageProps({ alt, height, loading, sizes, src, width })
+  const props = getOptimizedImageProps({ alt, height, loading, sizes, src, width })
   const { src: _src, srcSet: _srcSet, sizes: _sizes, ...fallbackProps } = props
 
   return (
@@ -69,13 +69,13 @@ const ResponsiveIntroBackground = () => {
     sizes: '100vw',
     quality: 75,
   }
-  const { props: desktopBackground } = getImageProps({
+  const desktopBackground = getOptimizedImageProps({
     ...commonProps,
     src: '/img/hero/bg.webp',
     width: 1920,
     height: 1042,
   })
-  const { props: mobileBackground } = getImageProps({
+  const mobileBackground = getOptimizedImageProps({
     ...commonProps,
     src: '/img/backgrounds/banner-dark.webp',
     width: 2000,
@@ -223,7 +223,12 @@ const MobileIntro = () => {
             target="_blank"
             rel="noreferrer"
           >
-            <Image src="/icons/socials/discord.svg" alt="Discord Logo" width={26} height={22} />
+            <OptimizedImage
+              src="/icons/socials/discord.svg"
+              alt="Discord Logo"
+              width={26}
+              height={22}
+            />
           </a>
           <a
             className="pr-4"
@@ -231,13 +236,23 @@ const MobileIntro = () => {
             target="_blank"
             rel="noreferrer"
           >
-            <Image src="/icons/socials/twitter.svg" alt="Twitter Logo" width={26} height={22} />
+            <OptimizedImage
+              src="/icons/socials/twitter.svg"
+              alt="Twitter Logo"
+              width={26}
+              height={22}
+            />
           </a>
           <a className="pr-4" href={DEGEN_COLLECTION_URL} target="_blank" rel="noreferrer">
-            <Image src="/icons/opensea.svg" alt="OpenSea Logo" width={24} height={22} />
+            <OptimizedImage src="/icons/opensea.svg" alt="OpenSea Logo" width={24} height={22} />
           </a>
           <a href="https://www.twitch.tv/niftyleagueofficial" target="_blank" rel="noreferrer">
-            <Image src="/icons/socials/twitch.svg" alt="Twitch Logo" width={24} height={22} />
+            <OptimizedImage
+              src="/icons/socials/twitch.svg"
+              alt="Twitch Logo"
+              width={24}
+              height={22}
+            />
           </a>
         </div>
       </div>
@@ -277,7 +292,7 @@ const Home = () => {
 
         <div className="relative pt-16 pb-8 px-0 mx-0 mb-12">
           <div className="absolute inset-0 mt-20 flex items-center justify-center z-10 pointer-events-none">
-            <Image
+            <OptimizedImage
               className="pixelated w-full h-auto max-w-[90vw] md:max-w-[80%] lg:max-w-[700px] xl:max-w-[800px]"
               src="/img/degens/nifty-ape.webp"
               width={856}
@@ -296,7 +311,7 @@ const Home = () => {
           <div className="purple-bg-orb orb-top-left" />
           <div className="block md:hidden relative w-full">
             <div className="transition-quick-pop">
-              <Image
+              <OptimizedImage
                 src="/img/compete-and-earn/mobile.webp"
                 alt="Compete and Earn"
                 width={655}
@@ -335,7 +350,7 @@ const Home = () => {
 
         <div className="hidden md:block w-1/2 relative">
           <div className="transition-quick-pop">
-            <Image
+            <OptimizedImage
               src="/img/compete-and-earn/animated/competitors.webp"
               alt="Compete and Earn"
               width={668}
@@ -347,7 +362,7 @@ const Home = () => {
           <div className="absolute scrolling-nftl-token">
             <div>
               <div className="transition-fade">
-                <Image
+                <OptimizedImage
                   alt="Scrolling NFTL Token"
                   className="pixelated w-full h-auto"
                   width={200}
@@ -365,7 +380,7 @@ const Home = () => {
       <section className="container section relative flex flex-row flex-wrap items-center">
         <div className="w-full md:w-1/2">
           <div className="transition-fade">
-            <Image
+            <OptimizedImage
               src="/img/logos/niftyworld/app_logo.webp"
               alt="Land in NiftyWorld"
               width={612}
@@ -398,7 +413,7 @@ const Home = () => {
       {/* DASHBOARDS */}
       <section className="section w-screen relative">
         <div className="relative flex-grow transition-fade">
-          <Image
+          <OptimizedImage
             src="/img/misc/dashboard.webp"
             alt="App Dashboard"
             width={1920}
@@ -459,7 +474,7 @@ const Home = () => {
       <section className="section container relative flex flex-row flex-wrap items-center">
         <div className="w-full md:w-1/2 flex justify-center md:justify-start">
           <div className="relative flex-grow transition-quick-pop home-community-image">
-            <Image
+            <OptimizedImage
               src="/img/leaderboards/podium.webp"
               alt="The Best Community on Earth"
               width={382}
@@ -473,7 +488,7 @@ const Home = () => {
         <div className="w-full md:w-1/2 flex flex-col items-center md:items-start md:flex-col-reverse">
           <div className="w-full">
             <div className="transition-fade md:-ml-[20px]">
-              <Image
+              <OptimizedImage
                 src="/img/degens/community-characters.webp"
                 alt="Community DEGENs"
                 width={596}
