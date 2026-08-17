@@ -11,7 +11,7 @@ async function createWalletModal() {
   ] = await Promise.all([
     import('@reown/appkit/react'),
     import('./Web3ModalConfig'),
-    import('@reown/appkit/networks'),
+    import('viem/chains'),
     import('@/constants/contracts'),
   ])
 

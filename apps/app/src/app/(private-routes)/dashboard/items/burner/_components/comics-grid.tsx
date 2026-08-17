@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import NativeImage from '@nl/ui/custom/native-image'
 import { Flame } from 'lucide-react'
+import { Input } from '@nl/ui/base/input'
 import { Skeleton } from '@nl/ui/base/skeleton'
-import { Input } from '@nl/ui/custom/input'
 
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import type { Comic } from '@/types/marketplace'
@@ -94,22 +94,35 @@ export default function ComicsGrid({
               <div className={styles.titleWrap}>
                 <div className={styles.title}>
                   {selectedComics.includes(comic) ? (
-                    <Input
-                      value={burnCount[comic.id - 1]}
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        handleManualSetBurnCount(comic, event.target.value)
-                      }}
-                      type="number"
-                      startIcon={
-                        <Flame aria-hidden="true" absoluteStrokeWidth size={14} strokeWidth={1.5} />
-                      }
-                      inputMode="numeric"
-                      pattern="[0-9]*"
-                      min={0}
-                      max={comicsBalances.find((c) => c.id === comic.id)?.balance || 0}
-                      style={{ textAlign: 'center', padding: 2.5 }}
-                      className="h-8 w-[98px]"
-                    />
+                    <div className="relative">
+                      <Input
+                        aria-label={`Burn count for ${comic.title}`}
+                        value={burnCount[comic.id - 1]}
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                          handleManualSetBurnCount(comic, event.target.value)
+                        }}
+                        type="number"
+                        inputMode="numeric"
+                        pattern="[0-9]*"
+                        min={0}
+                        max={comicsBalances.find((c) => c.id === comic.id)?.balance || 0}
+                        style={{
+                          textAlign: 'center',
+                          paddingBottom: 2.5,
+                          paddingLeft: '1.75rem',
+                          paddingRight: 2.5,
+                          paddingTop: 2.5,
+                        }}
+                        className="h-8 w-[98px]"
+                      />
+                      <Flame
+                        aria-hidden="true"
+                        absoluteStrokeWidth
+                        className="pointer-events-none absolute inset-y-0 left-2 my-auto text-muted-foreground"
+                        size={14}
+                        strokeWidth={1.5}
+                      />
+                    </div>
                   ) : (
                     <>
                       <span>#{comic.id}</span>

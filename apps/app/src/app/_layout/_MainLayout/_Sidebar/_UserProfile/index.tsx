@@ -6,7 +6,7 @@ import { useAccount, useEnsAvatar, useEnsName } from 'wagmi'
 import { normalize } from 'viem/ens'
 
 import { Avatar, AvatarImage, AvatarFallback } from '@nl/ui/base/avatar'
-import { Button } from '@nl/ui/base/button'
+import { buttonVariants } from '@nl/ui/base/button-variants'
 
 import { useGamerProfile } from '@/hooks/useGamerProfile'
 import ConnectWrapper from '@/components/wrapper/ConnectWrapper'
@@ -47,9 +47,13 @@ const UserProfile = () => {
         <span style={{ whiteSpace: 'nowrap' }}>{displayName}</span>
       </div>
       <ConnectWrapper fullWidth>
-        <Button asChild className="w-full">
-          <Link href="/dashboard">Open dashboard</Link>
-        </Button>
+        <Link
+          href="/dashboard"
+          data-slot="button"
+          className={buttonVariants({ className: 'w-full' })}
+        >
+          Open dashboard
+        </Link>
       </ConnectWrapper>
     </div>
   )

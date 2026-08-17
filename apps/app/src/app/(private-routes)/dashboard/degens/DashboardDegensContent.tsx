@@ -26,7 +26,6 @@ import { DEGEN_BASE_API_URL, DEGEN_COLLECTION_URL, PROFILE_FAV_DEGENS_API } from
 import { useProfileFavDegens } from '@/hooks/useGamerProfile'
 import useAuth from '@/hooks/useAuth'
 import useFetch from '@/hooks/useFetch'
-import useFlags from '@/hooks/useFlags'
 import usePagination from '@/hooks/usePagination'
 import type { DegenFilter } from '@/types/degenFilter'
 import type { Degen } from '@/types/degens'
@@ -43,9 +42,15 @@ import { hasEntries, toggleValue } from '@/utils/collections'
 const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'), {
   ssr: false,
 })
-const DegenCard = dynamic(() => import('@/components/cards/DegenCard/DashboardDegenCard'), {
-  ssr: false,
-})
+const DegenCard = dynamic(
+  () =>
+    import('@/components/cards/DegenCard/DashboardDegenCard').then(
+      (module) => module.DashboardDegenCardInView
+    ),
+  {
+    ssr: false,
+  }
+)
 
 const DashboardDegensPageContent = (): React.ReactNode => {
   const { authToken, isLoggedIn } = useAuth()
@@ -62,11 +67,9 @@ const DashboardDegensPageContent = (): React.ReactNode => {
   const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false)
   const [isClaimDialog, setIsClaimDialog] = useState<boolean>(false)
   const [isRentDialog, setIsRentDialog] = useState<boolean>(false)
-  const [isEquipDialog, setIsEquipDialog] = useState<boolean>(false)
   const searchParams = useSearchParams()
   const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined)
   const [layoutMode, setLayoutMode] = useState<string>('gridView')
-  const { enableEquip } = useFlags()
   const { favs: favsData } = useProfileFavDegens()
   const { favDegens, setFavDegens } = useLocalStorageContext()
 
@@ -164,7 +167,6 @@ const DashboardDegensPageContent = (): React.ReactNode => {
   const handleViewTraits = useCallback((degen: Degen): void => {
     setSelectedDegen(degen)
     setIsClaimDialog(false)
-    setIsEquipDialog(false)
     setIsRentDialog(false)
     setIsDegenModalOpen(true)
   }, [])
@@ -172,24 +174,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
   const handleClaimDegen = useCallback((degen: Degen): void => {
     setSelectedDegen(degen)
     setIsClaimDialog(true)
-    setIsEquipDialog(false)
     setIsRentDialog(false)
-    setIsDegenModalOpen(true)
-  }, [])
-
-  const handleRentDegen = useCallback((degen: Degen): void => {
-    setSelectedDegen(degen)
-    setIsRentDialog(true)
-    setIsClaimDialog(false)
-    setIsEquipDialog(false)
-    setIsDegenModalOpen(true)
-  }, [])
-
-  const handleEquipDegen = useCallback((degen: Degen): void => {
-    setSelectedDegen(degen)
-    setIsRentDialog(false)
-    setIsClaimDialog(false)
-    setIsEquipDialog(true)
     setIsDegenModalOpen(true)
   }, [])
 
@@ -236,27 +221,21 @@ const DashboardDegensPageContent = (): React.ReactNode => {
       <div key={degen.id} className={getGridSizeClass(isGridView, isDrawerOpen)}>
         <DegenCard
           degen={degen}
-          degenEquipEnabled={enableEquip}
           favs={favDegens}
           isDashboardDegen
           onClickClaim={() => handleClaimDegen(degen)}
           onClickDetail={() => handleViewTraits(degen)}
           onClickEditName={() => handleClickEditName(degen)}
-          onClickEquip={() => handleEquipDegen(degen)}
           onClickFavorite={() => handleClickFavorite(degen)}
-          onClickRent={() => handleRentDegen(degen)}
           size={isGridView ? 'normal' : 'small'}
         />
       </div>
     ),
     [
-      enableEquip,
       favDegens,
       handleClaimDegen,
       handleClickEditName,
       handleClickFavorite,
-      handleEquipDegen,
-      handleRentDegen,
       handleViewTraits,
       isDrawerOpen,
       isGridView,
@@ -399,7 +378,6 @@ const DashboardDegensPageContent = (): React.ReactNode => {
           degen={selectedDegen}
           isClaim={isClaimDialog}
           isRent={isRentDialog}
-          isEquip={isEquipDialog}
           setIsClaim={setIsClaimDialog}
           setIsRent={setIsRentDialog}
           onClose={() => setIsDegenModalOpen(false)}
@@ -410,6 +388,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
         onOpenChange={(open) => !open && setIsRenameDegenModalOpen(false)}
       >
         <DeferredRenameDegenDialog
+          open={isRenameDegenModalOpen}
           degen={selectedDegen}
           onSuccess={() => setIsRenameDegenModalOpen(false)}
         />

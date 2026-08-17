@@ -3,14 +3,14 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { isAddress } from 'ethers'
-import { Info, X } from 'lucide-react'
+import { AlertCircle, Info, X } from 'lucide-react'
 
 import { Button } from '@nl/ui/base/button'
 import { Checkbox } from '@nl/ui/base/checkbox'
 import { RadioGroup, RadioGroupItem } from '@nl/ui/base/radio-group'
 import { Tooltip, TooltipTrigger, TooltipContent } from '@nl/ui/base/tooltip'
+import { Input } from '@nl/ui/base/input'
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
-import { Input } from '@nl/ui/custom/input'
 import { Title } from '@nl/ui/custom/typography'
 import { cn } from '@nl/ui/utils'
 import type { Degen } from '@/types/degens'
@@ -296,16 +296,30 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                   {rentFor === 'recruit' && (
                     <div className="flex flex-col items-center my-1">
                       <div className="flex flex-col gap-1">
-                        <Input
-                          placeholder="Paste your recruit's eth address"
-                          name="address"
-                          className={styles.input}
-                          value={ethAddress}
-                          error={addressError !== ''}
-                          onChange={(event) => validateAddress(event.target.value)}
-                        />
+                        <div className="relative">
+                          <Input
+                            id="rent-recruit-address"
+                            placeholder="Paste your recruit's eth address"
+                            name="address"
+                            className={cn(styles.input, addressError && 'pr-10')}
+                            value={ethAddress}
+                            aria-invalid={addressError !== ''}
+                            aria-describedby={
+                              addressError ? 'rent-recruit-address-error' : undefined
+                            }
+                            onChange={(event) => validateAddress(event.target.value)}
+                          />
+                          {addressError && (
+                            <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-destructive">
+                              <AlertCircle aria-hidden="true" size={18} />
+                            </span>
+                          )}
+                        </div>
                         {addressError && (
-                          <span className={cn(styles.formHelper, 'text-xs text-error')}>
+                          <span
+                            id="rent-recruit-address-error"
+                            className={cn(styles.formHelper, 'text-xs text-error')}
+                          >
                             {addressError}
                           </span>
                         )}

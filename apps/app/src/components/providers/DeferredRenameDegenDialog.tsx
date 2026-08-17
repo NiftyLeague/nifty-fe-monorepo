@@ -1,21 +1,30 @@
 'use client'
 
-import dynamic from 'next/dynamic'
+import DeferredComponent from '@nl/ui/custom/deferred-component'
 import type { Degen } from '@/types/degens'
 
 import DeferredDialogLoading from './DeferredDialogLoading'
 
 interface DeferredRenameDegenDialogProps {
+  open?: boolean
   degen?: Degen
   onSuccess?: () => void
 }
 
-const DeferredRenameDegenDialog = dynamic<DeferredRenameDegenDialogProps>(
-  () => import('@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent'),
-  {
-    ssr: false,
-    loading: () => <DeferredDialogLoading label="Loading rename form" />,
-  }
-)
+const loadRenameDegenDialog = () =>
+  import('@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent')
 
-export default DeferredRenameDegenDialog
+export default function DeferredRenameDegenDialog({
+  open = false,
+  ...props
+}: DeferredRenameDegenDialogProps) {
+  return (
+    <DeferredComponent
+      enabled={open}
+      label="DEGEN rename form"
+      load={loadRenameDegenDialog}
+      loadingFallback={<DeferredDialogLoading label="Loading rename form" />}
+      props={props}
+    />
+  )
+}

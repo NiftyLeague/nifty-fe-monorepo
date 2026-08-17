@@ -1,4 +1,4 @@
-import { Button } from '@nl/ui/base/button'
+import { buttonVariants } from '@nl/ui/base/button-variants'
 import useAuth from '@/hooks/useAuth'
 
 export interface ConnectWrapperProps {
@@ -16,16 +16,20 @@ const ConnectWrapper = (props: ConnectWrapperProps) => {
   return isLoggedIn ? (
     children
   ) : (
-    <Button
-      variant={variant === 'outlined' ? 'outline' : 'default'}
-      className={fullWidth ? 'w-full' : undefined}
+    <button
+      type="button"
+      data-slot="button"
+      className={buttonVariants({
+        variant: variant === 'outlined' ? 'outline' : 'default',
+        className: fullWidth ? 'w-full' : undefined,
+      })}
       onClick={handleConnectWallet}
       {...otherProps}
     >
       {isConnected
         ? buttonText?.replace('Connect Wallet', 'Sign In') || 'Sign In'
         : buttonText || 'Connect Wallet'}
-    </Button>
+    </button>
   )
 }
 

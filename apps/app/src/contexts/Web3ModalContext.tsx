@@ -9,6 +9,7 @@ import {
   WalletProviderError,
   WalletProviderLoading,
 } from '@/components/providers/WalletProviderFallbacks'
+import type { Web3ModalRuntimeProps as LoadedWeb3ModalRuntimeProps } from './Web3ModalRuntime'
 
 type Web3ModalProviderProps = {
   cookies?: string | null

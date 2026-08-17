@@ -7,6 +7,19 @@ const appGasUtility = 'apps/app/src/utils/gas.ts'
 const retiredAxiosUtility = 'apps/app/src/utils/axios.ts'
 const appGraphQLUtility = 'apps/app/src/utils/graphql.ts'
 const appNextConfig = 'apps/app/next.config.ts'
+const deferredNicknameForm =
+  'apps/app/src/app/(private-routes)/dashboard/rentals/ChangeNicknameDialog.tsx'
+const deferredProfileNameForm =
+  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_Stats/ChangeProfileNameForm.tsx'
+const appBaseInputConsumers = [
+  'apps/app/src/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent.tsx',
+  deferredProfileNameForm,
+  'apps/app/src/app/(private-routes)/dashboard/items/burner/_components/comics-grid.tsx',
+  deferredNicknameForm,
+  'apps/app/src/app/(private-routes)/dashboard/rentals/SearchRental.tsx',
+  'apps/app/src/components/dialog/BuyArcadeTokensDialog.tsx',
+  'apps/app/src/components/dialog/DegenDialog/RentDegenContentDialog.tsx',
+]
 const smashersNextConfig = 'apps/smashers/next.config.ts'
 const templateNextConfig = 'apps/template/next.config.ts'
 const webManifest = 'apps/web/package.json'
@@ -59,10 +72,13 @@ const nonConflictingClassNameSources = [
   'packages/ui/src/components/custom/app-bar/index.tsx',
 ]
 const appBreadcrumbs = 'apps/app/src/components/extended/Breadcrumbs.tsx'
+const appHeader = 'apps/app/src/app/_layout/_MainLayout/_Header/index.tsx'
+const appNetworkWarning = 'apps/app/src/app/_layout/_MainLayout/_Header/NetworkWarning.tsx'
 const appSidebarFrame = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/SidebarFrame.tsx'
 const mobileSidebarSheet = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/MobileSidebarSheet.tsx'
 const appNavigationContext = 'apps/app/src/contexts/NavigationContext.tsx'
 const appNavigationBreakpoints = 'apps/app/src/app/_layout/navigation-breakpoints.ts'
+const appCollapsibleSidebarLayout = 'apps/app/src/app/_layout/_CollapsibleSidebarLayout/index.tsx'
 const bridgeDialog = 'apps/app/src/components/dialog/BridgeButtonDialog/index.tsx'
 const appSectionSlider = 'apps/app/src/components/sections/SectionSlider.tsx'
 const allDegensPage = 'apps/app/src/app/(public-routes)/degens/AllDegensPage.tsx'
@@ -133,6 +149,7 @@ describe('app performance contracts', () => {
       'apps/app/src/app/_layout/_MainLayout/_Sidebar/SidebarFrame.tsx',
       'apps/app/src/app/_layout/_MainLayout/_Sidebar/_MenuList/_NavCollapse/index.tsx',
       'apps/app/src/app/_layout/_MainLayout/_Sidebar/_MenuList/_NavItem/index.tsx',
+      appBreadcrumbs,
     ]) {
       const source = readFileSync(file, 'utf8')
       expect(source).toContain("from '@nl/ui/class-names'")
@@ -204,6 +221,19 @@ describe('app performance contracts', () => {
     expect(mobileSheetSource).toContain('closeLabel="Close sidebar"')
   })
 
+  it('keeps the private header toggle on the shared shadcn recipe', () => {
+    const source = readFileSync(appHeader, 'utf8')
+    const networkWarningSource = readFileSync(appNetworkWarning, 'utf8')
+
+    expect(source).toContain("from '@nl/ui/base/button-variants'")
+    expect(source).toContain("variant: 'ghost'")
+    expect(source).toContain('aria-controls="app-primary-navigation"')
+    expect(source).not.toContain("from '@nl/ui/base/button'")
+    expect(networkWarningSource).toContain("from '@nl/ui/base/button-variants'")
+    expect(networkWarningSource).toContain("variant: 'default'")
+    expect(networkWarningSource).not.toContain("from '@nl/ui/base/button'")
+  })
+
   it('keeps the private shell and sidebar on the same desktop breakpoint', () => {
     const shellSource = readFileSync(appShell, 'utf8')
     const sidebarSource = readFileSync(appSidebarFrame, 'utf8')
@@ -215,6 +245,16 @@ describe('app performance contracts', () => {
     expect(shellSource).toContain('isDesktopNavigation')
     expect(sidebarSource).not.toContain('useMediaQuery')
     expect(sidebarSource).toContain('const isCompactScreen = !isDesktopNavigation')
+  })
+
+  it('keeps the DEGEN filter drawer on the shared desktop breakpoint', () => {
+    const source = readFileSync(appCollapsibleSidebarLayout, 'utf8')
+    const breakpointSource = readFileSync(appNavigationBreakpoints, 'utf8')
+
+    expect(breakpointSource).toContain("desktopNavigationMediaQuery = '(min-width: 1024px)'")
+    expect(source).toContain("from '@/app/_layout/navigation-breakpoints'")
+    expect(source).toContain('useMediaQuery(desktopNavigationMediaQuery)')
+    expect(source).not.toContain("useMediaQuery('(max-width:1024px)')")
   })
 
   it('keeps the private app bar padded and vertically centered', () => {
@@ -342,6 +382,28 @@ describe('app performance contracts', () => {
     expect(manifest.dependencies?.['graphql-request']).toBeUndefined()
     expect(graphqlSource).toContain("method: 'POST'")
     expect(graphqlSource).toContain("'Content-Type': 'application/json'")
+  })
+
+  it('keeps deferred rename forms on native React Hook Form rules', () => {
+    const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
+
+    for (const file of [deferredNicknameForm, deferredProfileNameForm]) {
+      const source = readFileSync(file, 'utf8')
+      expect(source).toContain('rules={{ required:')
+      expect(source).not.toContain('yup')
+      expect(source).not.toContain('@hookform/resolvers')
+    }
+
+    expect(manifest.dependencies?.['@hookform/resolvers']).toBeUndefined()
+    expect(manifest.dependencies?.yup).toBeUndefined()
+  })
+
+  it('uses shared shadcn inputs across the app instead of the heavyweight custom wrapper', () => {
+    for (const file of appBaseInputConsumers) {
+      const source = readFileSync(file, 'utf8')
+      expect(source).toContain("from '@nl/ui/base/input'")
+      expect(source).not.toContain("from '@nl/ui/custom/input'")
+    }
   })
 
   it('removes the retired inline NFTL swap graph', () => {

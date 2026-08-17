@@ -18,14 +18,11 @@ export interface DegenCardProps {
   isSelectableDegen?: boolean
   isSelected?: boolean
   isSelectionDisabled?: boolean
-  degenEquipEnabled?: boolean
   favs?: string[]
   onClickClaim?: React.MouseEventHandler<HTMLButtonElement>
   onClickDetail?: React.MouseEventHandler<HTMLButtonElement>
   onClickEditName?: React.MouseEventHandler<HTMLButtonElement>
-  onClickEquip?: React.MouseEventHandler<HTMLButtonElement>
   onClickFavorite?: React.MouseEventHandler<HTMLButtonElement>
-  onClickRent?: React.MouseEventHandler<HTMLButtonElement>
   onClickSelect?: React.MouseEventHandler<HTMLButtonElement>
   sx?: SxProps<Theme>
   dashboardActions?: React.ReactNode

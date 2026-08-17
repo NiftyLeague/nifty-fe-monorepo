@@ -11,8 +11,8 @@ import { Dialog, DialogContent, DialogTitle } from '@nl/ui/base/dialog'
 import { Separator } from '@nl/ui/base/separator'
 import { Button } from '@nl/ui/base/button'
 import { Checkbox } from '@nl/ui/base/checkbox'
+import { Input } from '@nl/ui/base/input'
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
-import { Input } from '@nl/ui/custom/input'
 import { Title } from '@nl/ui/custom/typography'
 
 import type { DialogProps } from '@/types/dialog'
@@ -163,6 +163,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                   </Button>
                   <div className="relative">
                     <Input
+                      aria-label="Arcade token packs"
                       className="w-[100px] pr-12 text-center"
                       value={tokenCount}
                       onChange={(e) => updateTokenCount(e.target.value)}

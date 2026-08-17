@@ -5,7 +5,7 @@ import {
   immutableZkEvm,
   immutableZkEvmTestnet,
   type Chain,
-} from '@reown/appkit/networks'
+} from 'viem/chains'
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
 import { cookieStorage, createStorage } from 'wagmi'
 

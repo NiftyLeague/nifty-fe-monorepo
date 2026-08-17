@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { AppNavIcon } from '@/components/AppNavIcon'
 import type { AppNavIconName } from '@/components/AppNavIcon'
 import { Separator } from '@nl/ui/base/separator'
-import { cn } from '@nl/ui/utils'
+import { cx } from '@nl/ui/class-names'
 
 // project imports
 import { BASE_PATH } from '@/config'
@@ -113,16 +113,16 @@ const Breadcrumbs = ({
     if (item.breadcrumbs !== false) {
       breadcrumbContent = (
         <div
-          className={cn(
+          className={cx(
             'mb-6',
             card === false ? 'border-none bg-transparent' : 'border bg-background'
           )}
           style={{ marginBottom: card === false ? 0 : gridSpacing * 8 }}
           {...others}
         >
-          <div className={cn('p-2', card === false ? 'pl-0' : 'pl-2')}>
+          <div className={cx(card === false ? 'py-2 pr-2 pl-0' : 'p-2')}>
             <div
-              className={cn(
+              className={cx(
                 rightAlign
                   ? 'flex flex-row items-center justify-between'
                   : 'flex flex-col items-start justify-start'

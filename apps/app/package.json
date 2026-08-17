@@ -17,7 +17,6 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@hookform/resolvers": "^5.6.0",
     "@nl/contracts": "workspace:*",
     "@nl/imx-passport": "workspace:*",
     "@nl/sentry-client": "workspace:*",
@@ -42,8 +41,7 @@
     "sharp": "^0.35.3",
     "sonner": "^2.0.7",
     "viem": "^2.55.10",
-    "wagmi": "^3.7.5",
-    "yup": "^1.7.1"
+    "wagmi": "^3.7.5"
   },
   "devDependencies": {
     "@types/react": "19.2.18",

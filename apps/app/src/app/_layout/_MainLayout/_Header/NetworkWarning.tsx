@@ -4,7 +4,7 @@ import { useAccount, useSwitchChain } from 'wagmi'
 import { immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains'
 import { Info, TriangleAlert } from 'lucide-react'
 
-import { Button } from '@nl/ui/base/button'
+import { buttonVariants } from '@nl/ui/base/button-variants'
 import { TARGET_NETWORK } from '@/constants/networks'
 
 export default function NetworkWarning() {
@@ -33,13 +33,14 @@ export default function NetworkWarning() {
           ? `You're connected to Immutable zkEVM! Switch back to ${TARGET_NETWORK.label}`
           : `Please switch to ${TARGET_NETWORK.label}`}
       </span>
-      <Button
-        className="px-4 py-0.5"
-        variant="default"
+      <button
+        type="button"
+        data-slot="button"
+        className={buttonVariants({ variant: 'default', className: 'px-4 py-0.5' })}
         onClick={() => switchChain?.({ chainId: TARGET_NETWORK.chainId })}
       >
         Switch
-      </Button>
+      </button>
     </div>
   )
 }
