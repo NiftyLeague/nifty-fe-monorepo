@@ -3,7 +3,7 @@ import type { ComponentPropsWithoutRef } from 'react'
 const YOUTUBE_ALLOW =
   'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
 
-type LazyYouTubeEmbedProps = Omit<
+export type LazyYouTubeEmbedProps = Omit<
   ComponentPropsWithoutRef<'iframe'>,
   'allow' | 'allowFullScreen' | 'loading' | 'src' | 'title'
 > & {

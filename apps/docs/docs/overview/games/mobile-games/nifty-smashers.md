@@ -4,7 +4,7 @@ title: Nifty Smashers
 sidebar_position: 1
 ---
 
-import LazyYouTubeEmbed from '@nl/ui/custom/lazy-youtube-embed';
+import DeferredYouTubeEmbed from '@nl/ui/custom/deferred-youtube-embed';
 import ViewportVideo from '@nl/ui/custom/viewport-video';
 import VideoURL from '/video/lobby.mp4';
 
@@ -20,7 +20,7 @@ For some background, the local-multiplayer version of Nifty Smashers was made av
 
 You can play using any other compatible controller (Playstation, Xbox, etc.) if you wish. For the deprecated desktop version you must have a [DEGEN NFT](/overview/nfts/degens/about) to play. Simply connect your crypto wallet holding your DEGEN, enter the game lobby, and select your DEGEN for battle.
 
-<LazyYouTubeEmbed
+<DeferredYouTubeEmbed
 src="https://www.youtube.com/embed/4lnDrx4aDq8"
 title="Nifty Smashers gameplay"
 style={{ display: 'block', width: '100%', height: 500 }}
