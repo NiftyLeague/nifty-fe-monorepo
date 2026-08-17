@@ -15,6 +15,12 @@ export function getOptimizedImageProps(props: OptimizedImageProps) {
     imgConf: imageConfig,
   }).props
 
+  // Keep below-the-fold artwork from competing with the route's LCP resource.
+  // Respect explicit priorities for hero and above-the-fold images.
+  if (imageProps.loading === 'lazy' && imageProps.fetchPriority === undefined) {
+    imageProps.fetchPriority = 'low'
+  }
+
   for (const [key, value] of Object.entries(imageProps)) {
     if (value === undefined) delete imageProps[key as keyof typeof imageProps]
   }
