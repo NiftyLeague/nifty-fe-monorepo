@@ -4,6 +4,8 @@ title: Overview
 sidebar_position: 1
 ---
 
+import DeferredYouTubeEmbed from '@nl/ui/custom/deferred-youtube-embed';
+
 <picture>
   <source
     media="(prefers-reduced-motion: no-preference)"
@@ -28,18 +30,9 @@ Each DEGEN's design affected the pool of available character traits and accessor
 
 Although our NFTs minted out in October 2021, they can be purchased on the secondary market via [OpenSea](https://opensea.io/collection/niftydegen).
 
-<div>
-    <iframe
-      height="380px"
-      width="100%"
-      src="https://www.youtube.com/embed/WWLqE1tnf6U"
-      frameBorder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowFullScreen
-      title="Nifty Smashers Video Clip"
-      className="pixelated"
-      style={{
-        borderRadius: '25px',
-      }}
-    />
-</div>
+<DeferredYouTubeEmbed
+src="https://www.youtube.com/embed/WWLqE1tnf6U"
+title="Nifty DEGEN overview video"
+className="pixelated"
+style={{ display: 'block', width: '100%', height: 380, borderRadius: '25px' }}
+/>

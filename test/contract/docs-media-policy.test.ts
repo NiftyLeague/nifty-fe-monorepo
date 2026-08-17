@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'bun:test'
 import { existsSync, readFileSync, statSync } from 'node:fs'
 
+const docsPage = 'apps/docs/docs/overview/nfts/degens/about.md'
 const docsMediaPages = [
   'apps/docs/docs/overview/games/mini-games/arcade-tokens.md',
   'apps/docs/docs/overview/games/mini-games/crypto-winter.md',
@@ -11,9 +12,9 @@ const docsMediaPages = [
   'apps/docs/docs/overview/games/mobile-games/nifty-smashers.md',
   'apps/docs/docs/overview/nfts/nifty-marketplace/items.md',
   'apps/docs/docs/overview/nfts/nifty-marketplace/comics.md',
+  docsPage,
 ]
 
-const docsPage = 'apps/docs/docs/overview/nfts/degens/about.md'
 const legacyAsset = 'assets/img/games/nifty-royale/nifty-royale.gif'
 const mintWebp = 'assets/img/mint-o-matic/degen-mint.webp'
 const mintPoster = 'assets/img/mint-o-matic/degen-mint-poster.webp'
@@ -23,7 +24,9 @@ describe('shared docs media policy', () => {
     for (const page of docsMediaPages) {
       const source = readFileSync(page, 'utf8')
       expect(source).not.toContain('react-player')
-      expect(source).toMatch(/@nl\/ui\/custom\/(lazy-youtube-embed|viewport-video)/)
+      expect(source).toMatch(
+        /@nl\/ui\/custom\/(deferred-youtube-embed|lazy-youtube-embed|viewport-video)/
+      )
     }
   })
 

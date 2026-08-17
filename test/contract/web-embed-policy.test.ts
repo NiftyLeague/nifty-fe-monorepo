@@ -8,11 +8,11 @@ const marketingEmbedConsumers = [
 ]
 
 describe('marketing video embed policy', () => {
-  it('uses the shared lazy YouTube primitive for every marketing embed', () => {
+  it('uses the shared deferred YouTube primitive for every marketing embed', () => {
     for (const file of marketingEmbedConsumers) {
       const source = readFileSync(file, 'utf8')
 
-      expect(source).toContain('@nl/ui/custom/lazy-youtube-embed')
+      expect(source).toContain('@nl/ui/custom/deferred-youtube-embed')
       expect(source).not.toMatch(/<iframe\b/)
     }
   })

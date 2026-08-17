@@ -2,7 +2,7 @@ import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { Separator } from '@nl/ui/base/separator'
 import type { NextPage } from 'next'
 import { cx } from '@nl/ui/class-names'
-import { LazyYouTubeEmbed } from '@nl/ui/custom/lazy-youtube-embed'
+import { DeferredYouTubeEmbed } from '@nl/ui/custom/deferred-youtube-embed'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 import styles from './index.module.css'
 
@@ -51,7 +51,7 @@ const CompeteAndEarn: NextPage = () => {
         </div>
         <div className="w-full md:w-1/2">
           <div className="relative text-right mb-4 md:mb-0 ps-0 lg:ps-5">
-            <LazyYouTubeEmbed
+            <DeferredYouTubeEmbed
               src="https://www.youtube.com/embed/wv_fI1PPBi0"
               title="Nifty League Compete & Earn"
               className={styles.video}

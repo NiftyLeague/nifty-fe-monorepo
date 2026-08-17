@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 
-import { LazyYouTubeEmbed } from '@nl/ui/custom/lazy-youtube-embed'
+import { DeferredYouTubeEmbed } from '@nl/ui/custom/deferred-youtube-embed'
 import { ViewportVideo } from '@nl/ui/custom/viewport-video'
 import { cx } from '@nl/ui/class-names'
 import { MobileOnlyImage } from '@nl/ui/custom/responsive-only-image'
@@ -106,7 +106,7 @@ const Games: NextPage = () => (
           <div className="w-full md:w-5/12">
             <div className="relative text-right mb-4">
               {video.includes('youtube') ? (
-                <LazyYouTubeEmbed src={video} title={name} className={styles.video} />
+                <DeferredYouTubeEmbed src={video} title={name} className={styles.video} />
               ) : (
                 <ViewportVideo
                   id={`game-video-${index}`}
