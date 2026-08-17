@@ -19,6 +19,7 @@ on:
 
 jobs:
   search:
+    if: false
     name: Algolia Search
     runs-on: ubuntu-latest
     steps:
