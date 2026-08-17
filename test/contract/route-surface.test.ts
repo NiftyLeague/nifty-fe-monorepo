@@ -536,14 +536,12 @@ describe('website build performance contract', () => {
   })
 
   it('keeps accumulated NFTL reads available when the optional Infura variable is unavailable', () => {
-    const clientSource = readFileSync(join(process.cwd(), webViemClient), 'utf8')
     const hookSource = readFileSync(join(process.cwd(), webClaimableNFTL), 'utf8')
 
-    expect(clientSource).toContain('NEXT_PUBLIC_INFURA_ID')
-    expect(clientSource).toContain('NEXT_PUBLIC_INFURA_PROJECT_ID')
-    expect(clientSource).toContain('ethereum-rpc.publicnode.com')
-    expect(clientSource).toContain('fallback(rpcTransports)')
-    expect(hookSource).toContain('args: [BigInt(tokenNumber)]')
+    expect(hookSource).toContain('NEXT_PUBLIC_INFURA_ID')
+    expect(hookSource).toContain('NEXT_PUBLIC_INFURA_PROJECT_ID')
+    expect(hookSource).toContain('ethereum-rpc.publicnode.com')
+    expect(hookSource).toContain('encodeUint256(tokenIndex)')
     expect(hookSource).toContain('if (!cancelled)')
   })
 })
