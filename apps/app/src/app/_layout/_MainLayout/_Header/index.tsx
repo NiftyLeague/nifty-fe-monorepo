@@ -1,4 +1,4 @@
-import { Button } from '@nl/ui/base/button'
+import { buttonVariants } from '@nl/ui/base/button-variants'
 import { Menu } from 'lucide-react'
 
 import { useNavigation } from '@/contexts/NavigationContext'
@@ -30,18 +30,22 @@ const Header = () => {
         <div className="hidden flex-grow lg:block">
           <LogoSection />
         </div>
-        <Button
+        <button
           type="button"
-          variant="ghost"
-          size="icon"
-          className="h-[34px] w-[34px] cursor-pointer overflow-hidden rounded-md bg-muted text-blue transition-all duration-200 hover:bg-purple hover:text-foreground"
+          data-slot="button"
+          className={buttonVariants({
+            variant: 'ghost',
+            size: 'icon',
+            className:
+              'h-[34px] w-[34px] cursor-pointer overflow-hidden rounded-md bg-muted text-blue transition-all duration-200 hover:bg-purple hover:text-foreground',
+          })}
           onClick={toggleDrawer}
           aria-label="toggle sidebar"
           aria-controls="app-primary-navigation"
           aria-expanded={drawerOpen}
         >
           <Menu aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />
-        </Button>
+        </button>
       </div>
       <div className="hidden items-center justify-between gap-4 lg:flex">
         {pages.map((page) => (

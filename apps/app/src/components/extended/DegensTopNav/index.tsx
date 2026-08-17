@@ -1,8 +1,9 @@
 import { Grid3X3, LayoutGrid } from 'lucide-react'
 
+import { Input } from '@nl/ui/base/input'
+import { Label } from '@nl/ui/base/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@nl/ui/base/select'
 import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group'
-import { Input } from '@nl/ui/custom/input'
 import DegenSortOptions from '@/constants/sort'
 
 import styles from './index.module.css'
@@ -25,13 +26,16 @@ const DegensTopNav = ({
   handleChangeLayoutMode,
 }: DegensTopNavProps) => (
   <div className="flex flex-col gap-2 sm:flex-row">
-    <Input
-      className={`${styles.searchTextField} h-8 flex-1 border-0 bg-muted`}
-      label="Search degens by token # or name"
-      name="search-degen-by-token-id-name"
-      value={searchTerm}
-      onChange={handleChangeSearchTerm}
-    />
+    <div className="grid flex-1 gap-2">
+      <Label htmlFor="search-degen-by-token-id-name">Search degens by token # or name</Label>
+      <Input
+        id="search-degen-by-token-id-name"
+        className={`${styles.searchTextField} h-8 border-0 bg-muted`}
+        name="search-degen-by-token-id-name"
+        value={searchTerm}
+        onChange={handleChangeSearchTerm}
+      />
+    </div>
     <div className="flex flex-row items-center justify-between gap-2">
       <Select value={sortValue} onValueChange={handleSort}>
         <SelectTrigger

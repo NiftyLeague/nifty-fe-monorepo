@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type ComponentType } from 'react'
 
-import { Button } from '@nl/ui/base/button'
+import { buttonVariants } from '@nl/ui/base/button-variants'
 import NativeImage from '@nl/ui/custom/native-image'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 
@@ -57,8 +57,10 @@ function DeferredModalAction({
   const label = hasError ? `Retry ${action.label}` : action.label
 
   return (
-    <Button
+    <button
       type="button"
+      data-slot="button"
+      className={buttonVariants()}
       aria-busy={isLoading}
       aria-label={label}
       onClick={() => {
@@ -68,7 +70,7 @@ function DeferredModalAction({
     >
       <NativeImage src={action.image} alt={action.alt} width={22} height={22} />
       {action.label}
-    </Button>
+    </button>
   )
 }
 

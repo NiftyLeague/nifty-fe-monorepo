@@ -2,10 +2,12 @@
 
 import { useCallback, useState } from 'react'
 import { parseEther } from 'ethers'
+import { AlertCircle } from 'lucide-react'
 import NativeImage from '@nl/ui/custom/native-image'
 import { Button } from '@nl/ui/base/button'
 import { DialogContent } from '@nl/ui/base/dialog'
-import { Input } from '@nl/ui/custom/input'
+import { Input } from '@nl/ui/base/input'
+import { Label } from '@nl/ui/base/label'
 import { Title } from '@nl/ui/custom/typography'
 import * as gtm from '@nl/ui/gtm/events'
 import { EVENTS as GTM_EVENTS } from '@nl/ui/gtm/constants'
@@ -127,14 +129,27 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): React.ReactNode 
           />
           <p className="text-center text-xs text-muted-foreground">Owned by {degen?.owner}</p>
         </div>
-        <Input
-          label="Enter new degen name"
-          name="new-degen-name"
-          value={input}
-          error={!!error}
-          disabled={isLoadingRename}
-          onChange={handleChange}
-        />
+        <div className="grid gap-2">
+          <Label htmlFor="new-degen-name" className={error ? 'text-destructive' : undefined}>
+            Enter new degen name
+          </Label>
+          <div className="relative">
+            <Input
+              id="new-degen-name"
+              name="new-degen-name"
+              value={input}
+              aria-invalid={!!error}
+              className={error ? 'pr-10' : undefined}
+              disabled={isLoadingRename}
+              onChange={handleChange}
+            />
+            {error && (
+              <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-destructive">
+                <AlertCircle aria-hidden="true" size={18} />
+              </span>
+            )}
+          </div>
+        </div>
         {error && <span className="text-xs text-error">{error}</span>}
         <RenameStepper
           insufficientAllowance={insufficientAllowance}

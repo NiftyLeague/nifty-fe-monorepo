@@ -93,13 +93,6 @@ const MyDegens = (): React.ReactNode => {
     setIsDegenModalOpen(true)
   }
 
-  const handleRentDegen = (degen: Degen): void => {
-    setSelectedDegen(degen)
-    setIsRentDialog(true)
-    setIsClaimDialog(false)
-    setIsDegenModalOpen(true)
-  }
-
   const handleClickFavorite = useCallback(
     async (degen: Degen) => {
       const newFavs = toggleValue(favDegens?.filter((f) => f) ?? [], degen.id)
@@ -145,7 +138,6 @@ const MyDegens = (): React.ReactNode => {
                 onClickDetail={() => handleViewTraits(degen)}
                 onClickEditName={() => handleClickEditName(degen)}
                 onClickFavorite={() => handleClickFavorite(degen)}
-                onClickRent={() => handleRentDegen(degen)}
                 size="small"
               />
             </div>
@@ -178,6 +170,7 @@ const MyDegens = (): React.ReactNode => {
       >
         <DialogContent showCloseButton={false}>
           <DeferredRenameDegenDialog
+            open={isRenameDegenModalOpen}
             degen={selectedDegen}
             onSuccess={() => setIsRenameDegenModalOpen(false)}
           />

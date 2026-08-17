@@ -1,21 +1,30 @@
 'use client'
 
-import dynamic from 'next/dynamic'
+import DeferredComponent from '@nl/ui/custom/deferred-component'
 
 import type { RentalDataGrid } from '@/types/rentalDataGrid'
 import DeferredDialogLoading from './DeferredDialogLoading'
 
 interface DeferredChangeNicknameDialogProps {
+  open?: boolean
   rental: RentalDataGrid
   updateNickname: (name: string, id: string) => void
 }
 
-const DeferredChangeNicknameDialog = dynamic<DeferredChangeNicknameDialogProps>(
-  () => import('@/app/(private-routes)/dashboard/rentals/ChangeNicknameDialog'),
-  {
-    ssr: false,
-    loading: () => <DeferredDialogLoading label="Loading nickname form" />,
-  }
-)
+const loadChangeNicknameDialog = () =>
+  import('@/app/(private-routes)/dashboard/rentals/ChangeNicknameDialog')
 
-export default DeferredChangeNicknameDialog
+export default function DeferredChangeNicknameDialog({
+  open = false,
+  ...props
+}: DeferredChangeNicknameDialogProps) {
+  return (
+    <DeferredComponent
+      enabled={open}
+      label="Rental nickname form"
+      load={loadChangeNicknameDialog}
+      loadingFallback={<DeferredDialogLoading label="Loading nickname form" />}
+      props={props}
+    />
+  )
+}

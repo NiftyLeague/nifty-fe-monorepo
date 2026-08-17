@@ -1,15 +1,15 @@
 'use client'
 
 import { useState, useContext } from 'react'
+import { AlertCircle } from 'lucide-react'
 import { toast } from 'sonner'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import * as yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
 
 import { Button } from '@nl/ui/base/button'
+import { Input } from '@nl/ui/base/input'
+import { Label } from '@nl/ui/base/label'
 import { Skeleton } from '@nl/ui/base/skeleton'
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
-import { Input } from '@nl/ui/custom/input'
 import { Title } from '@nl/ui/custom/typography'
 
 import { PROFILE_RENAME_API } from '@/constants/url'
@@ -25,8 +25,6 @@ interface IFormInput {
   name: string
 }
 
-const validationSchema = yup.object({ name: yup.string().required() })
-
 const ChangeProfileNameForm = ({ updateNewName }: ChangeProfileNameFormProps): React.ReactNode => {
   const [isLoadingRename, setLoadingRename] = useState(false)
   const { fee, loadingFee } = useProfileRenameFee()
@@ -39,7 +37,6 @@ const ChangeProfileNameForm = ({ updateNewName }: ChangeProfileNameFormProps): R
     reset,
     formState: { errors },
   } = useForm<IFormInput>({
-    resolver: yupResolver(validationSchema),
     mode: 'onChange',
     defaultValues: { name: '' },
   })
@@ -97,15 +94,37 @@ const ChangeProfileNameForm = ({ updateNewName }: ChangeProfileNameFormProps): R
         <Controller
           name="name"
           control={control}
+          rules={{ required: 'Name is required' }}
           render={({ field }) => (
             <div className="flex flex-col gap-1">
-              <Input
-                {...field}
-                label="Enter the new name"
-                error={!!errors.name}
-                disabled={isLoadingRename}
-              />
-              {errors.name && <span className="text-xs text-error">{errors.name.message}</span>}
+              <div className="grid gap-2">
+                <Label
+                  htmlFor="gamer-profile-name"
+                  className={errors.name ? 'text-destructive' : undefined}
+                >
+                  Enter the new name
+                </Label>
+                <div className="relative">
+                  <Input
+                    {...field}
+                    id="gamer-profile-name"
+                    aria-invalid={!!errors.name}
+                    aria-describedby={errors.name ? 'gamer-profile-name-error' : undefined}
+                    className={errors.name ? 'pr-10' : undefined}
+                    disabled={isLoadingRename}
+                  />
+                  {errors.name && (
+                    <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-destructive">
+                      <AlertCircle aria-hidden="true" size={18} />
+                    </span>
+                  )}
+                </div>
+              </div>
+              {errors.name && (
+                <span id="gamer-profile-name-error" className="text-xs text-error">
+                  {errors.name.message}
+                </span>
+              )}
             </div>
           )}
         />
