@@ -15,6 +15,7 @@ describe('ActionButtonsGroup', () => {
       const button = screen.getByRole('button', { name: label })
 
       expect(button.getAttribute('type')).toBe('button')
+      expect(button.getAttribute('data-slot')).toBe('button')
       expect(button.getAttribute('aria-busy')).toBe('false')
     }
   })

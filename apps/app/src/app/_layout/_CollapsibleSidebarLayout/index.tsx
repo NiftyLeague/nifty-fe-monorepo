@@ -3,6 +3,7 @@ import { X } from 'lucide-react'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { ScrollArea } from '@nl/ui/base/scroll-area'
 import { IconButton } from '@nl/ui/base/icon-button'
+import { desktopNavigationMediaQuery } from '@/app/_layout/navigation-breakpoints'
 
 const appHeaderHeight = 60
 
@@ -21,7 +22,8 @@ const CollapsibleSidebarLayout = ({
   isDrawerOpen,
   setIsDrawerOpen,
 }: Props): React.ReactNode => {
-  const matchDownLG = useMediaQuery('(max-width:1024px)')
+  const isDesktopNavigation = useMediaQuery(desktopNavigationMediaQuery)
+  const matchDownLG = !isDesktopNavigation
 
   // toggle sidebar
   const handleDrawerOpen = useCallback(() => {

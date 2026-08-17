@@ -150,6 +150,7 @@ const privateShell = 'apps/app/src/components/providers/PrivateRoutesShell.tsx'
 const nftDataProviders = 'apps/app/src/contexts/NFTDataProviders.tsx'
 const walletFeatureProviders = 'apps/app/src/contexts/WalletFeatureProviders.tsx'
 const dashboardDataBoundary = 'apps/app/src/components/providers/DashboardDataBoundary.tsx'
+const deferredDegenDialog = 'apps/app/src/components/providers/DeferredDegenDialog.tsx'
 const deferredRenameDegenDialog = 'apps/app/src/components/providers/DeferredRenameDegenDialog.tsx'
 const deferredDialogLoading = 'apps/app/src/components/providers/DeferredDialogLoading.tsx'
 const degenDialog = 'apps/app/src/components/dialog/DegenDialog/index.tsx'
@@ -157,6 +158,12 @@ const deferredProfileNameDialog = 'apps/app/src/components/providers/DeferredPro
 const deferredProfileImageDialog =
   'apps/app/src/components/providers/DeferredProfileImageDialog.tsx'
 const deferredNicknameDialog = 'apps/app/src/components/providers/DeferredChangeNicknameDialog.tsx'
+const profileNameDialog =
+  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_Stats/ChangeProfileNameDialog.tsx'
+const profileImageDialog =
+  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_ImageProfile/ProfileImageDialog.tsx'
+const profileImageContent =
+  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_ImageProfile/ProfileImageContent.tsx'
 const authUrls = 'apps/app/src/constants/auth-urls.ts'
 const walletModal = 'apps/app/src/contexts/WalletModal.ts'
 const web3ModalContext = 'apps/app/src/contexts/Web3ModalContext.tsx'
@@ -631,10 +638,11 @@ describe('Smashers public shell contract', () => {
     expect(headerSource).toContain("import ActionButtonsGroup from './ActionButtonsGroup'")
     expect(actionButtonsSource).toContain("'use client'")
     expect(actionButtonsSource).not.toContain("from 'next/dynamic'")
-    expect(actionButtonsSource).toContain("from '@nl/ui/base/button'")
+    expect(actionButtonsSource).toContain("from '@nl/ui/base/button-variants'")
     expect(actionButtonsSource).toContain("from '@nl/ui/hooks/useDeferredComponent'")
-    expect(actionButtonsSource).toContain('<Button')
-    expect(actionButtonsSource).not.toContain('<button')
+    expect(actionButtonsSource).toContain('className={buttonVariants()}')
+    expect(actionButtonsSource).toContain('<button')
+    expect(actionButtonsSource).not.toContain("from '@nl/ui/base/button'")
     expect(actionButtonsSource).toContain("import('@/components/PlayDialog')")
     expect(actionButtonsSource).toContain("import('@/components/TrailerDialog')")
     expect(actionButtonsSource).toContain("import('@/components/CreditsDialog')")
@@ -767,13 +775,25 @@ describe('dashboard dialog loading contract', () => {
     })
   }
 
+  it('loads the Degen dialog only while it is open', () => {
+    const source = readFileSync(join(process.cwd(), deferredDegenDialog), 'utf8')
+
+    expect(source).toContain("from '@nl/ui/custom/deferred-component'")
+    expect(source).toContain('enabled={open}')
+    expect(source).toContain("import('@/components/dialog/DegenDialog')")
+    expect(source).not.toContain("from 'next/dynamic'")
+  })
+
   it('defers the dashboard rename form until the dialog opens', () => {
     const source = readFileSync(join(process.cwd(), deferredRenameDegenDialog), 'utf8')
 
+    expect(source).toContain("from '@nl/ui/custom/deferred-component'")
+    expect(source).toContain('enabled={open}')
     expect(source).toContain(
       "import('@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent')"
     )
     expect(source).toContain('DeferredDialogLoading')
+    expect(source).not.toContain("from 'next/dynamic'")
   })
 
   for (const file of deferredRenameDegenConsumers) {
@@ -781,6 +801,7 @@ describe('dashboard dialog loading contract', () => {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
 
       expect(source).toContain('DeferredRenameDegenDialog')
+      expect(source).toContain('open={isRenameDegenModalOpen}')
       expect(source).not.toContain(
         "from '@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent'"
       )
@@ -799,7 +820,6 @@ describe('dashboard dialog loading contract', () => {
   const deferredDialogWrappers = [
     [deferredProfileNameDialog, 'ChangeProfileNameDialog', 'dashboard/gamer-profile/'],
     [deferredProfileImageDialog, 'ProfileImageDialog', 'dashboard/gamer-profile/'],
-    [deferredNicknameDialog, 'ChangeNicknameDialog', 'dashboard/rentals/'],
   ] as const
 
   for (const [file, component, route] of deferredDialogWrappers) {
@@ -813,10 +833,44 @@ describe('dashboard dialog loading contract', () => {
   }
 
   it('keeps the rental nickname form deferred until its dialog opens', () => {
+    const wrapper = readFileSync(join(process.cwd(), deferredNicknameDialog), 'utf8')
     const source = readFileSync(join(process.cwd(), deferredNicknameDialogConsumer), 'utf8')
 
+    expect(wrapper).toContain("from '@nl/ui/custom/deferred-component'")
+    expect(wrapper).toContain('enabled={open}')
+    expect(wrapper).toContain(
+      "import('@/app/(private-routes)/dashboard/rentals/ChangeNicknameDialog')"
+    )
+    expect(wrapper).not.toContain("from 'next/dynamic'")
     expect(source).toContain('DeferredChangeNicknameDialog')
+    expect(source).toContain('open={isNicknameModalOpen}')
     expect(source).not.toContain("from './ChangeNicknameDialog'")
+  })
+
+  it('keeps the profile name form out of the trigger module until the dialog opens', () => {
+    const source = readFileSync(join(process.cwd(), profileNameDialog), 'utf8')
+
+    expect(source).toContain("from '@nl/ui/custom/deferred-component'")
+    expect(source).toContain('enabled={open}')
+    expect(source).toContain("import('./ChangeProfileNameForm')")
+    expect(source).toContain('DeferredDialogLoading')
+    expect(source).not.toContain("from './ChangeProfileNameForm'")
+  })
+
+  it('keeps the profile image picker graph out of the trigger module until the dialog opens', () => {
+    const dialogSource = readFileSync(join(process.cwd(), profileImageDialog), 'utf8')
+    const contentSource = readFileSync(join(process.cwd(), profileImageContent), 'utf8')
+
+    expect(dialogSource).toContain("from '@nl/ui/custom/deferred-component'")
+    expect(dialogSource).toContain('enabled={open}')
+    expect(dialogSource).toContain("import('./ProfileImageContent')")
+    expect(dialogSource).toContain('DeferredDialogLoading')
+    expect(dialogSource).not.toContain("from '@/components/sections/SectionSlider'")
+    expect(dialogSource).not.toContain(
+      "from '@/app/(private-routes)/dashboard/rentals/SearchRental'"
+    )
+    expect(contentSource).toContain("from '@/components/sections/SectionSlider'")
+    expect(contentSource).toContain("from '@/app/(private-routes)/dashboard/rentals/SearchRental'")
   })
 
   for (const file of deferredProfileDialogConsumers) {
@@ -1101,7 +1155,8 @@ describe('private provider loading contract', () => {
     expect(warningSource).toContain('useSwitchChain')
     expect(warningSource).toContain('TARGET_NETWORK')
     expect(warningSource).toContain('aria-live="polite"')
-    expect(warningSource).toContain('<Button')
+    expect(warningSource).toContain("from '@nl/ui/base/button-variants'")
+    expect(warningSource).toContain('<button')
   })
 
   it('replaces the tiny Redux store with scoped shared contexts', () => {
@@ -1187,6 +1242,10 @@ describe('private provider loading contract', () => {
       join(process.cwd(), 'apps/app/src/contexts/AuthTokenProviderRuntime.tsx'),
       'utf8'
     )
+    const configSource = readFileSync(
+      join(process.cwd(), 'apps/app/src/contexts/Web3ModalConfig.tsx'),
+      'utf8'
+    )
     const modalSource = readFileSync(join(process.cwd(), walletModal), 'utf8')
 
     expect(providerSource).toContain("import('./Web3ModalRuntime')")
@@ -1210,11 +1269,18 @@ describe('private provider loading contract', () => {
     expect(authSource).not.toContain('useAppKit')
     expect(authSource).not.toContain('useAppKitEvents')
     expect(authSource).not.toContain("from 'wagmi'")
+    expect(authSource).toContain("from '@nl/ui/hooks/useDeferredComponent'")
+    expect(authSource).not.toContain('useEffect')
+    expect(authSource).not.toContain('useState')
     expect(authSource).toContain("import('./AuthTokenProviderRuntime')")
     expect(authRuntimeSource).toContain("from 'wagmi'")
     expect(authRuntimeSource).toContain('openWalletModal')
     expect(modalSource).toContain("import('@reown/appkit/react')")
     expect(modalSource).toContain("import('@/constants/contracts')")
+    expect(modalSource).toContain("import('viem/chains')")
+    expect(modalSource).not.toContain('@reown/appkit/networks')
+    expect(configSource).toContain("from 'viem/chains'")
+    expect(configSource).not.toContain('@reown/appkit/networks')
   })
 
   it('loads dashboard data after the shell has painted with accessible recovery states', () => {
@@ -1258,7 +1324,8 @@ describe('private provider loading contract', () => {
     expect(sidebarSource).toContain("dynamic(() => import('./_UserProfile')")
     expect(sidebarSource).toContain("dynamic(() => import('./_LogoutButton')")
     expect(profileSource).toContain('Open dashboard')
-    expect(profileSource).toContain('<Button asChild className="w-full">')
+    expect(profileSource).toContain("from '@nl/ui/base/button-variants'")
+    expect(profileSource).toContain('data-slot="button"')
     expect(profileSource).not.toContain('SidebarWalletActions')
     expect(profileSource).not.toContain("from '@/hooks/useNetworkContext'")
     expect(profileSource).not.toContain("from '@/hooks/writeContracts/useClaimNFTL'")
@@ -1352,6 +1419,7 @@ describe('dashboard DEGEN loading contract', () => {
     expect(clientSource).not.toContain("from '@/components/cards/DegenCard/DashboardDegenCard'")
     expect(clientSource).not.toContain("from '@/components/extended/DegensFilter'")
     expect(contentSource).toContain("import('@/components/cards/DegenCard/DashboardDegenCard')")
+    expect(contentSource).toContain('(module) => module.DashboardDegenCardInView')
     expect(contentSource).toContain(
       "import DeferredDegensFilter from '@/components/providers/DeferredDegensFilter'"
     )

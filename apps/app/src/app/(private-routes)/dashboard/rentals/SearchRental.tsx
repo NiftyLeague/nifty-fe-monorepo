@@ -1,7 +1,9 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { Input } from '@nl/ui/custom/input'
+
+import { Input } from '@nl/ui/base/input'
+import { Label } from '@nl/ui/base/label'
 
 interface Props {
   handleSearch: (currentValue: string) => void
@@ -50,8 +52,13 @@ const SearchRental = ({ handleSearch, placeholder }: Props): React.ReactNode => 
   }
 
   return (
-    <div>
+    <div className="grid gap-2">
+      <Label className="sr-only" htmlFor="search-renters">
+        Search renter by name
+      </Label>
       <Input
+        id="search-renters"
+        aria-label="Search renter by name"
         placeholder={placeholder || 'Search renter by name'}
         name="search"
         className="min-w-[480px]"
