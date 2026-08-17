@@ -1859,6 +1859,7 @@ describe('web marketing image sizing contract', () => {
       ],
       ['apps/web/src/app/(main)/careers/page.tsx', 'sizes="(min-width: 768px) 50vw, 100vw"'],
       ['apps/web/src/app/(main)/games/page.tsx', 'sizes="33vw"'],
+      ['apps/web/src/app/(main)/degens/page.tsx', 'sizes="(max-width: 768px) 33vw, 205px"'],
       [
         'apps/web/src/app/(main)/niftyworld/page.tsx',
         'sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"',

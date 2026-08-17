@@ -4,7 +4,7 @@ title: Crypto Winter
 sidebar_position: 3
 ---
 
-import LazyYouTubeEmbed from '@nl/ui/custom/lazy-youtube-embed';
+import DeferredYouTubeEmbed from '@nl/ui/custom/deferred-youtube-embed';
 
 <div style={{ maxWidth: 640, margin: 'auto' }}>![](/img/games/crypto-winter.webp)</div>
 <br />
@@ -25,7 +25,7 @@ Currently, earning Arcade Tokens that can be used to play WEN Game is based on N
 
 Interested in testing the old version? Learn how to get started below:
 
-<LazyYouTubeEmbed
+<DeferredYouTubeEmbed
 src="https://www.youtube.com/embed/ZiY-TwtzYVk"
 title="Crypto Winter gameplay"
 style={{ display: 'block', width: '100%', height: 500 }}
