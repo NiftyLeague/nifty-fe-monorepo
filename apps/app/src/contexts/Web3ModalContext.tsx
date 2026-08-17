@@ -3,6 +3,7 @@
 import type { PropsWithChildren, ReactNode } from 'react'
 
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
+import type { Web3ModalRuntimeProps as LoadedWeb3ModalRuntimeProps } from './Web3ModalRuntime'
 
 import {
   WalletProviderError,
@@ -13,9 +14,18 @@ type Web3ModalProviderProps = {
   cookies?: string | null
   loadingFallback?: ReactNode
 }
-type Web3ModalRuntimeProps = PropsWithChildren<{ cookies?: string | null }>
+type Web3ModalRuntimeProps = Omit<LoadedWeb3ModalRuntimeProps, 'config'>
 
-const loadWeb3ModalRuntime = () => import('./Web3ModalRuntime')
+const loadWeb3ModalRuntime = async () => {
+  const [{ default: Runtime }, config] = await Promise.all([
+    import('./Web3ModalRuntime'),
+    import('./Web3ModalConfig'),
+  ])
+
+  return {
+    default: (props: Web3ModalRuntimeProps) => <Runtime {...props} config={config} />,
+  }
+}
 
 export function Web3ModalProvider({
   children,
