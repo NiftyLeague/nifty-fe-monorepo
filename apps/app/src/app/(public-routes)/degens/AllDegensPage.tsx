@@ -1,7 +1,8 @@
 'use client'
 
-import { Suspense, useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
+import { useSearchParams } from 'next/navigation'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 import { Button } from '@nl/ui/base/button'
@@ -29,7 +30,6 @@ import DeferredDegenCard from '@/components/providers/DeferredDegenCard'
 import DeferredDegensFilter from '@/components/providers/DeferredDegensFilter'
 import DeferredPublicDegenDialog from '@/components/providers/DeferredPublicDegenDialog'
 import { PaginationControls } from '@/components/pagination/PaginationControls'
-import DegenSearchParamsBoundary from './DegenSearchParamsBoundary'
 
 const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'))
 
@@ -41,8 +41,8 @@ const AllDegensPage = (): React.ReactNode => {
   const [selectedDegen, setSelectedDegen] = useState<PublicDegen>()
   const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false)
   const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined)
-  const [searchParams, setSearchParams] = useState<Record<string, string>>({})
   const [layoutMode, setLayoutMode] = useState<string>('gridView')
+  const routeSearchParams = useSearchParams()
 
   const { data } = useFetch<PublicDegen[]>(PUBLIC_DEGENS_API_URL, { sharedCache: true })
 
@@ -70,14 +70,11 @@ const AllDegensPage = (): React.ReactNode => {
 
   useEffect(() => {
     if (!originalDegens.length || !defaultValues) return
+    const searchParams = Object.fromEntries(routeSearchParams.entries())
     if (searchParams.searchTerm) setSearchTerm(searchParams.searchTerm)
     const newFilterOptions = updateFilterValue(defaultValues, searchParams)
     if (newFilterOptions) setFilters(newFilterOptions)
-  }, [defaultValues, originalDegens.length, searchParams])
-
-  const handleSearchParamsChange = useCallback((nextSearchParams: Record<string, string>) => {
-    setSearchParams(nextSearchParams)
-  }, [])
+  }, [defaultValues, originalDegens.length, routeSearchParams])
 
   const handleChangeSearchTerm: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (
     e
@@ -223,9 +220,6 @@ const AllDegensPage = (): React.ReactNode => {
 
   return (
     <>
-      <Suspense fallback={null}>
-        <DegenSearchParamsBoundary onChange={handleSearchParamsChange} />
-      </Suspense>
       <div className="flex h-full flex-col justify-start align-top gap-4 pl-2">
         <div className="pl-4 pr-6">
           <DegensTopNav
