@@ -1,3 +1,5 @@
+'use client'
+
 import dynamic from 'next/dynamic'
 import type { PropsWithChildren } from 'react'
 
@@ -7,7 +9,7 @@ interface PrivateRoutesBoundaryProps extends PropsWithChildren {
   cookies?: string | null
 }
 
-function PrivateRoutesLoading(): React.ReactNode {
+export function PrivateRoutesLoading(): React.ReactNode {
   return (
     <div
       className="flex min-h-screen flex-col gap-6 bg-background p-6"
@@ -26,6 +28,7 @@ function PrivateRoutesLoading(): React.ReactNode {
 }
 
 const PrivateRoutesShell = dynamic(() => import('./PrivateRoutesShell'), {
+  ssr: false,
   loading: PrivateRoutesLoading,
 })
 
