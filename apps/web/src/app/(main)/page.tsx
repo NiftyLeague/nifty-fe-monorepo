@@ -7,6 +7,7 @@ import { DesktopOnlyImage, MobileOnlyImage } from '@nl/ui/custom/responsive-only
 import BouncingNFTL from '@/components/BouncingNFTL'
 import {
   DeferredCommunityDegenCarousel,
+  DeferredCompeteArtwork,
   DeferredMintOMatic,
   DeferredSponsors,
 } from '@/components/DeferredHomeSections'
@@ -311,16 +312,7 @@ const Home = () => {
         </div>
 
         <div className="hidden md:block w-1/2 relative">
-          <div className="transition-quick-pop">
-            <DesktopOnlyImage
-              src="/img/compete-and-earn/animated/competitors.webp"
-              alt="Compete and Earn"
-              width={668}
-              height={535}
-              sizes="(min-width: 768px) 50vw, 100vw"
-              className="w-full h-auto"
-            />
-          </div>
+          <DeferredCompeteArtwork />
           <div className="absolute scrolling-nftl-token">
             <div>
               <div className="transition-fade">

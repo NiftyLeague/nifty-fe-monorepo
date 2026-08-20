@@ -5,6 +5,18 @@ import { DeferredSection } from '@nl/ui/custom/deferred-section'
 const loadMintOMatic = () => import('@/components/MintOMatic')
 const loadSponsors = () => import('@/components/Sponsors')
 const loadCommunityDegenCarousel = () => import('@/components/CommunityDegenCarousel')
+const loadCompeteArtwork = () => import('@/components/CompeteArtwork')
+
+export function DeferredCompeteArtwork() {
+  return (
+    <DeferredSection
+      label="compete artwork"
+      load={loadCompeteArtwork}
+      minHeightClassName="min-h-[24rem] md:min-h-[30rem]"
+      rootMargin="160px"
+    />
+  )
+}
 
 export function DeferredMintOMatic() {
   return (
