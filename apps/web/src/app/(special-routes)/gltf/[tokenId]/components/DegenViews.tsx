@@ -5,14 +5,13 @@ import { useState } from 'react'
 import dynamic from 'next/dynamic'
 
 import { cx } from '@nl/ui/class-names'
-import { ErrorBoundary } from '@nl/ui/custom/error-boundry'
 import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import { SRC, Color } from '@/types/gltf'
 
 import styles from '../gltf.module.css'
 
-const TokenMenu = dynamic(() => import('./TokenMenu'), { ssr: false })
+const TokenMenu = dynamic(() => import('./TokenMenuBoundary'), { ssr: false })
 const loadModelView = () => import('./ModelView')
 const loadModelActions = () => import('./ModelActions')
 
@@ -90,9 +89,7 @@ export default function DegenViews({ tokenId, initialImage, spriteImage, logo }:
           </div>
         ) : null}
         {source === SRC.IMAGE ? (
-          <ErrorBoundary>
-            <TokenMenu tokenId={tokenId} />
-          </ErrorBoundary>
+          <TokenMenu tokenId={tokenId} />
         ) : (
           <div className={styles.menu__logo}>{logo}</div>
         )}
