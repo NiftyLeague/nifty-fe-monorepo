@@ -2,42 +2,89 @@
 
 import { DeferredSection } from '@nl/ui/custom/deferred-section'
 
-const loadMintOMatic = () => import('@/components/MintOMatic')
-const loadSponsors = () => import('@/components/Sponsors')
-const loadCommunityDegenCarousel = () => import('@/components/CommunityDegenCarousel')
-const loadCompeteArtwork = () => import('@/components/CompeteArtwork')
+const loadHomeSections = () => import('@/components/HomeBelowFold')
 
-export function DeferredCompeteArtwork() {
+const loadHomeDegens = () =>
+  loadHomeSections().then(({ HomeDegensSection }) => ({ default: HomeDegensSection }))
+const loadHomeCompete = () =>
+  loadHomeSections().then(({ HomeCompeteSection }) => ({ default: HomeCompeteSection }))
+const loadHomeNiftyWorld = () =>
+  loadHomeSections().then(({ HomeNiftyWorldSection }) => ({ default: HomeNiftyWorldSection }))
+const loadHomeDashboard = () =>
+  loadHomeSections().then(({ HomeDashboardSection }) => ({ default: HomeDashboardSection }))
+const loadHomeToken = () =>
+  loadHomeSections().then(({ HomeTokenSection }) => ({ default: HomeTokenSection }))
+const loadHomeCommunity = () =>
+  loadHomeSections().then(({ HomeCommunitySection }) => ({ default: HomeCommunitySection }))
+const loadHomeSponsors = () =>
+  loadHomeSections().then(({ HomeSponsorsSection }) => ({ default: HomeSponsorsSection }))
+
+export function DeferredHomeDegens() {
   return (
     <DeferredSection
-      label="compete artwork"
-      load={loadCompeteArtwork}
-      minHeightClassName="min-h-[24rem] md:min-h-[30rem]"
-      rootMargin="160px"
+      label="community DEGEN section"
+      load={loadHomeDegens}
+      minHeightClassName="min-h-[32rem]"
     />
   )
 }
 
-export function DeferredMintOMatic() {
+export function DeferredHomeCompete() {
   return (
     <DeferredSection
-      label="NFTL mint animation"
-      load={loadMintOMatic}
+      label="compete and earn section"
+      load={loadHomeCompete}
+      minHeightClassName="min-h-[36rem]"
+    />
+  )
+}
+
+export function DeferredHomeNiftyWorld() {
+  return (
+    <DeferredSection
+      label="NiftyWorld section"
+      load={loadHomeNiftyWorld}
+      minHeightClassName="min-h-[32rem]"
+    />
+  )
+}
+
+export function DeferredHomeDashboard() {
+  return (
+    <DeferredSection
+      label="dashboard section"
+      load={loadHomeDashboard}
+      minHeightClassName="min-h-[32rem]"
+    />
+  )
+}
+
+export function DeferredHomeToken() {
+  return (
+    <DeferredSection
+      label="NFTL token section"
+      load={loadHomeToken}
+      minHeightClassName="min-h-[32rem]"
+    />
+  )
+}
+
+export function DeferredHomeCommunity() {
+  return (
+    <DeferredSection
+      label="community section"
+      load={loadHomeCommunity}
+      minHeightClassName="min-h-[32rem]"
+    />
+  )
+}
+
+export function DeferredHomeSponsors() {
+  return (
+    <DeferredSection
+      label="sponsors section"
+      load={loadHomeSponsors}
       minHeightClassName="min-h-[28rem]"
-    />
-  )
-}
-
-export function DeferredSponsors() {
-  return <DeferredSection label="sponsors" load={loadSponsors} minHeightClassName="min-h-[22rem]" />
-}
-
-export function DeferredCommunityDegenCarousel() {
-  return (
-    <DeferredSection
-      label="community DEGEN carousel"
-      load={loadCommunityDegenCarousel}
-      minHeightClassName="min-h-[22rem]"
     />
   )
 }

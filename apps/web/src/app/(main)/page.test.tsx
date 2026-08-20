@@ -69,13 +69,12 @@ describe('home page', () => {
     expect(document.getElementById('gaming-section')).not.toBeNull()
   })
 
-  it('renders CSS-driven responsive labels for both breakpoints', () => {
+  it('defers below-the-fold section markup behind accessible loading boundaries', () => {
     render(<Home />)
 
-    const mobileLabel = screen.getByText('OWN YOUR AVATAR')
-    const desktopLabel = screen.getByText('COMMUNITY-GENERATED AVATARS')
-    expect(mobileLabel.className).toContain('responsive-label-mobile')
-    expect(desktopLabel.className).toContain('responsive-label-desktop')
+    expect(screen.queryByText('OWN YOUR AVATAR')).toBeNull()
+    expect(screen.queryByText('COMMUNITY-GENERATED AVATARS')).toBeNull()
+    expect(screen.getAllByRole('status').length).toBeGreaterThan(0)
   })
 
   it('keeps the selected hero background fetch high priority', () => {

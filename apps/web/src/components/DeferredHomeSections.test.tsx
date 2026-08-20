@@ -22,17 +22,14 @@ mock.module('@nl/ui/custom/deferred-section', () => ({
 }))
 
 describe('DeferredHomeSections', () => {
-  it('keeps compete artwork deferred with a stable accessible boundary', async () => {
-    const { DeferredCompeteArtwork } = await import('./DeferredHomeSections')
+  it('keeps the compete section deferred with a stable accessible boundary', async () => {
+    const { DeferredHomeCompete } = await import('./DeferredHomeSections')
 
-    render(<DeferredCompeteArtwork />)
+    render(<DeferredHomeCompete />)
 
-    expect(screen.getByRole('status').textContent).toBe('Loading compete artwork')
+    expect(screen.getByRole('status').textContent).toBe('Loading compete and earn section')
     expect(screen.getByTestId('deferred-home-section').getAttribute('data-min-height')).toBe(
-      'min-h-[24rem] md:min-h-[30rem]'
-    )
-    expect(screen.getByTestId('deferred-home-section').getAttribute('data-root-margin')).toBe(
-      '160px'
+      'min-h-[36rem]'
     )
   })
 })
