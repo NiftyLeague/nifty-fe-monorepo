@@ -28,7 +28,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v4
         with:
+          # Drift detection only needs commit/tree objects and the workflow
+          # itself. Avoid materializing this repository's ~900 MB history and
+          # blob set on every scheduled no-drift check; the merge preview still
+          # materializes the full staging tree only when drift is real.
+          filter: blob:none
           fetch-depth: 0
+          sparse-checkout: |
+            .github
 
       - name: Detect staging tree drift
         id: drift

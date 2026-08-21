@@ -43,6 +43,9 @@ describe('hosted validation cost policy', () => {
   it('materializes re-alignment paths before mutating the worktree index', () => {
     const source = readWorkflow('re-align-staging.yml')
 
+    expect(source).toContain('          filter: blob:none')
+    expect(source).toContain('          sparse-checkout: |')
+    expect(source).toContain('            .github')
     expect(source).toContain('changed_paths_file=$(mktemp)')
     expect(source).toContain('> "$changed_paths_file"')
     expect(source).toContain('done < "$changed_paths_file"')
