@@ -6,8 +6,10 @@ import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 describe('home page', () => {
   let Home: typeof import('./page').default
+  let optimizedImageCalls: ComponentProps<'img'>[] = []
 
   beforeEach(async () => {
+    optimizedImageCalls = []
     mock.module('@/components/MainLayout', () => ({
       default: ({ children }: PropsWithChildren) => <>{children}</>,
     }))
@@ -39,22 +41,22 @@ describe('home page', () => {
           {...props}
         />
       ),
-      getOptimizedImageProps: ({
-        src,
-        alt,
-        width,
-        height,
-        sizes,
-        fetchPriority,
-      }: ComponentProps<'img'>) => ({
-        src,
-        alt,
-        width,
-        height,
-        sizes,
-        srcSet: `${src} 1x`,
-        fetchPriority,
-      }),
+      getOptimizedImageProps: (props: ComponentProps<'img'>) => {
+        optimizedImageCalls.push(props)
+
+        const { src, alt, width, height, sizes, fetchPriority, quality } = props
+
+        return {
+          quality,
+          src,
+          alt,
+          width,
+          height,
+          sizes,
+          srcSet: `${src} 1x`,
+          fetchPriority,
+        }
+      },
     }))
 
     const pageModule = await import('./page')
@@ -99,6 +101,17 @@ describe('home page', () => {
     const heroArtwork = screen.getByAltText('Nifty Hero Characters')
     expect(heroArtwork.getAttribute('data-loading')).toBeNull()
     expect(heroArtwork.getAttribute('data-fetch-priority')).toBeNull()
+  })
+
+  it('uses the compact quality profile for the desktop hero raster artwork', () => {
+    render(<Home />)
+
+    const heroSources = optimizedImageCalls.filter(({ src }) =>
+      ['/img/hero/bg.webp', '/img/hero/characters.webp'].includes(src as string)
+    )
+
+    expect(heroSources).toHaveLength(2)
+    expect(heroSources.every(({ quality }) => quality === 65)).toBe(true)
   })
 
   it('keeps desktop-only hero artwork out of the mobile image request path', () => {
