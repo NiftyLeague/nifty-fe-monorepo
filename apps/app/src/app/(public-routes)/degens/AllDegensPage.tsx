@@ -25,6 +25,11 @@ import useFetch from '@/hooks/useFetch'
 import usePagination from '@/hooks/usePagination'
 import type { DegenFilter } from '@/types/degenFilter'
 import type { PublicDegen } from '@/types/degens'
+import {
+  fromPublicDegenWire,
+  PUBLIC_DEGENS_WIRE_MEDIA_TYPE,
+  type PublicDegenWire,
+} from '@/utils/public-degens'
 import DegensTopNav from '@/components/extended/DegensTopNav'
 import DeferredDegenCard from '@/components/providers/DeferredDegenCard'
 import DeferredDegensFilter from '@/components/providers/DeferredDegensFilter'
@@ -44,12 +49,15 @@ const AllDegensPage = (): React.ReactNode => {
   const [layoutMode, setLayoutMode] = useState<string>('gridView')
   const routeSearchParams = useSearchParams()
 
-  const { data } = useFetch<PublicDegen[]>(PUBLIC_DEGENS_API_URL, { sharedCache: true })
+  const { data } = useFetch<(PublicDegen | PublicDegenWire)[]>(PUBLIC_DEGENS_API_URL, {
+    headers: { Accept: PUBLIC_DEGENS_WIRE_MEDIA_TYPE },
+    sharedCache: true,
+  })
 
   const originalDegens = useMemo(() => {
     if (!data?.length) return []
 
-    return data.map(applySeventhTribesFix)
+    return data.map(fromPublicDegenWire).map(applySeventhTribesFix)
   }, [data])
 
   const defaultValues = useMemo(
