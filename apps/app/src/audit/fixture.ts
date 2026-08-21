@@ -181,6 +181,18 @@ export const AUDIT_FIXTURE_PROFILE: Profile = {
 export function getAuditFixtureData(url: string): unknown {
   if (!isAuditFixtureEnabled) return undefined
   if (url === PUBLIC_DEGENS_API_URL) return auditDegenList.map((degen) => toPublicDegen(degen))
+  if (url.startsWith(`${PUBLIC_DEGENS_API_URL}?`)) {
+    const params = new URL(url, 'http://audit-fixture.local').searchParams
+    const pageSize = Number(params.get('pageSize')) || auditDegenList.length
+    const items = auditDegenList.map((degen) => toPublicDegen(degen))
+    return {
+      items: items.slice(0, pageSize),
+      total: items.length,
+      page: 1,
+      pageSize,
+      priceRange: [125, 900],
+    }
+  }
   if (url === `${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`) return AUDIT_FIXTURE_DEGENS
   if (url === PROFILE_FAV_DEGENS_API) return { favorites: '' }
   if (url === GET_GAMER_PROFILE_API || url === MY_PROFILE_API_URL) return AUDIT_FIXTURE_PROFILE

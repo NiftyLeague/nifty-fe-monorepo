@@ -25,7 +25,7 @@ import { hasEntries } from '@/utils/collections'
 import styles from './index.module.css'
 
 interface DegensFilterProps {
-  onFilter: (filter: DegenFilter) => void
+  onFilter?: (filter: DegenFilter) => void
   defaultFilterValues: DegenFilter
   searchTerm?: string
 }
@@ -178,7 +178,7 @@ const DegensFilter = ({
     )
     mountedRef.current = true
     if (newFilters)
-      onFilter({
+      onFilter?.({
         prices: newFilters.prices,
         multipliers: newFilters.multipliers,
         rentals: newFilters.rentals,

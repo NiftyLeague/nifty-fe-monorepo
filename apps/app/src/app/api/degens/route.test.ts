@@ -27,6 +27,15 @@ const sourceDegen = {
   earning_cap_daily: 100,
 } satisfies Degen
 
+const secondSourceDegen = {
+  ...sourceDegen,
+  id: '102',
+  name: 'Audit Cat',
+  tribe: 'Cat',
+  background: 'Rare',
+  price: 250,
+} satisfies Degen
+
 describe('public degen catalog route', () => {
   afterEach(() => {
     globalThis.fetch = originalFetch
@@ -60,5 +69,29 @@ describe('public degen catalog route', () => {
       },
     ])
     expect(fetchMock).toHaveBeenCalledTimes(2)
+  })
+
+  it('filters and paginates the compact response on the server', async () => {
+    spyOn(globalThis, 'fetch').mockImplementation(() =>
+      Promise.resolve(
+        new Response(JSON.stringify({ '101': sourceDegen, '102': secondSourceDegen }), {
+          status: 200,
+        })
+      )
+    )
+
+    const response = await GET(
+      new Request('http://localhost/api/degens?page=4&pageSize=1&tribes=cat', {
+        headers: { Accept: PUBLIC_DEGENS_WIRE_MEDIA_TYPE },
+      })
+    )
+
+    expect(await response.json()).toEqual({
+      items: [['102', 'Audit Cat', '0xowner', 'Rare', 'Cat', 'blue,cap', 250]],
+      total: 1,
+      page: 1,
+      pageSize: 1,
+      priceRange: [125, 250],
+    })
   })
 })

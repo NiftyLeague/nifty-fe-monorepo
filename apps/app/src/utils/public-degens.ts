@@ -17,6 +17,22 @@ export type PublicDegenWire = [
   price: number,
 ]
 
+export interface PublicDegenPage {
+  items: PublicDegen[]
+  total: number
+  page: number
+  pageSize: number
+  priceRange: [number, number]
+}
+
+export interface PublicDegenPageWire {
+  items: PublicDegenWire[]
+  total: number
+  page: number
+  pageSize: number
+  priceRange: [number, number]
+}
+
 /** Keep the public catalog response limited to fields used by public screens. */
 export const toPublicDegen = (degen: Degen, fallbackId?: string): PublicDegen => ({
   id: degen.id || fallbackId || '',
@@ -44,3 +60,15 @@ export const fromPublicDegenWire = (degen: PublicDegen | PublicDegenWire): Publi
   const [id, name, owner, background, tribe, traits_string, price] = degen
   return { id, name, owner, background, tribe, traits_string, price }
 }
+
+export const toPublicDegenPageWire = (page: PublicDegenPage): PublicDegenPageWire => ({
+  ...page,
+  items: page.items.map(toPublicDegenWire),
+})
+
+export const fromPublicDegenPageWire = (
+  page: PublicDegenPage | PublicDegenPageWire
+): PublicDegenPage => ({
+  ...page,
+  items: page.items.map(fromPublicDegenWire),
+})

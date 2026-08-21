@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
-import { useSearchParams } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 import { Button } from '@nl/ui/base/button'
@@ -11,26 +11,18 @@ import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
 import DEFAULT_STATIC_FILTER from '@/components/extended/DegensFilter/constants'
-import {
-  tranformDataByFilter,
-  updateFilterValue,
-  getDefaultFilterValueFromData,
-  DEGENS_PER_PAGE,
-  getGridSizeClass,
-  applySeventhTribesFix,
-} from '@/components/extended/DegensFilter/utils'
+import { DEGENS_PER_PAGE, getGridSizeClass } from '@/components/extended/DegensFilter/utils'
+import DegensTopNav from '@/components/extended/DegensTopNav'
 import SectionTitle from '@/components/sections/SectionTitle'
 import { PUBLIC_DEGENS_API_URL } from '@/constants/api'
+import { getPageItems } from '@/hooks/usePagination'
 import useFetch from '@/hooks/useFetch'
-import usePagination from '@/hooks/usePagination'
-import type { DegenFilter } from '@/types/degenFilter'
 import type { PublicDegen } from '@/types/degens'
 import {
-  fromPublicDegenWire,
+  fromPublicDegenPageWire,
   PUBLIC_DEGENS_WIRE_MEDIA_TYPE,
-  type PublicDegenWire,
+  type PublicDegenPageWire,
 } from '@/utils/public-degens'
-import DegensTopNav from '@/components/extended/DegensTopNav'
 import DeferredDegenCard from '@/components/providers/DeferredDegenCard'
 import DeferredDegensFilter from '@/components/providers/DeferredDegensFilter'
 import DeferredPublicDegenDialog from '@/components/providers/DeferredPublicDegenDialog'
@@ -42,47 +34,69 @@ const AllDegensPage = (): React.ReactNode => {
   // Start closed so mobile does not push the first card below the fold before the
   // responsive drawer effect runs. The layout opens it after mount on desktop.
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-  const [filters, setFilters] = useState<DegenFilter>(DEFAULT_STATIC_FILTER)
   const [selectedDegen, setSelectedDegen] = useState<PublicDegen>()
-  const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false)
-  const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined)
-  const [layoutMode, setLayoutMode] = useState<string>('gridView')
+  const [isDegenModalOpen, setIsDegenModalOpen] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [layoutMode, setLayoutMode] = useState('gridView')
   const routeSearchParams = useSearchParams()
+  const routeQuery = routeSearchParams.toString()
+  const pathname = usePathname()
+  const router = useRouter()
 
-  const { data } = useFetch<(PublicDegen | PublicDegenWire)[]>(PUBLIC_DEGENS_API_URL, {
+  const isMobile = useMediaQuery('(max-width:640px)')
+  const isSmallScreen = useMediaQuery('(max-width:1280px)')
+  const isGridView = layoutMode === 'gridView'
+  const pageSize = !isSmallScreen && !isGridView && !isDrawerOpen ? 18 : DEGENS_PER_PAGE
+  const requestedPage = Math.max(1, Number.parseInt(routeSearchParams.get('page') ?? '1', 10) || 1)
+  const sortValue = routeSearchParams.get('sort') ?? 'idUp'
+
+  const requestUrl = useMemo(() => {
+    const params = new URLSearchParams(routeQuery)
+    params.set('page', String(requestedPage))
+    params.set('pageSize', String(pageSize))
+    if (!params.has('sort')) params.set('sort', 'idUp')
+    return `${PUBLIC_DEGENS_API_URL}?${params.toString()}`
+  }, [pageSize, requestedPage, routeQuery])
+
+  const { data } = useFetch<PublicDegenPageWire>(requestUrl, {
     headers: { Accept: PUBLIC_DEGENS_WIRE_MEDIA_TYPE },
     sharedCache: true,
   })
 
-  const originalDegens = useMemo(() => {
-    if (!data?.length) return []
-
-    return data.map(fromPublicDegenWire).map(applySeventhTribesFix)
-  }, [data])
-
+  const pageData = useMemo(() => (data ? fromPublicDegenPageWire(data) : undefined), [data])
   const defaultValues = useMemo(
-    () => (originalDegens.length ? getDefaultFilterValueFromData(originalDegens) : undefined),
-    [originalDegens]
+    () => ({
+      ...DEFAULT_STATIC_FILTER,
+      prices: pageData?.priceRange ?? DEFAULT_STATIC_FILTER.prices,
+    }),
+    [pageData?.priceRange]
   )
-
-  const isMobile = useMediaQuery('(max-width:640px)')
-  const isSmallScreen = useMediaQuery('(max-width:1280px)')
-  const filteredData = useMemo(
-    () => tranformDataByFilter(originalDegens, filters),
-    [filters, originalDegens]
-  )
-  const { jump, dataForCurrentPage, maxPage, currentPage, pageItems } = usePagination<PublicDegen>(
-    filteredData,
-    !isSmallScreen && layoutMode !== 'gridView' && !isDrawerOpen ? 18 : DEGENS_PER_PAGE
-  )
+  const currentPage = pageData?.page ?? requestedPage
+  const maxPage = Math.ceil((pageData?.total ?? 0) / pageSize)
+  const pageItems = useMemo(() => getPageItems(currentPage, maxPage), [currentPage, maxPage])
 
   useEffect(() => {
-    if (!originalDegens.length || !defaultValues) return
-    const searchParams = Object.fromEntries(routeSearchParams.entries())
-    if (searchParams.searchTerm) setSearchTerm(searchParams.searchTerm)
-    const newFilterOptions = updateFilterValue(defaultValues, searchParams)
-    if (newFilterOptions) setFilters(newFilterOptions)
-  }, [defaultValues, originalDegens.length, routeSearchParams])
+    setSearchTerm(routeSearchParams.get('searchTerm') ?? '')
+  }, [routeQuery, routeSearchParams])
+
+  const pushQuery = useCallback(
+    (updates: Record<string, string | undefined>, resetPage = false) => {
+      const params = new URLSearchParams(routeQuery)
+      if (resetPage) params.delete('page')
+      for (const [key, value] of Object.entries(updates)) {
+        if (value) params.set(key, value)
+        else params.delete(key)
+      }
+      const query = params.toString()
+      router.push(`${pathname}${query ? `?${query}` : ''}`)
+    },
+    [pathname, routeQuery, router]
+  )
+
+  const jump = useCallback(
+    (page: number) => pushQuery({ page: String(Math.max(1, page)) }),
+    [pushQuery]
+  )
 
   const handleChangeSearchTerm: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (
     e
@@ -90,34 +104,28 @@ const AllDegensPage = (): React.ReactNode => {
     setSearchTerm(e.target.value)
   }
 
-  const handleChangeLayoutMode = (_: React.MouseEvent<HTMLElement>, newMode: string) => {
+  useEffect(() => {
+    const currentSearchTerm = routeSearchParams.get('searchTerm') ?? ''
+    if (searchTerm === currentSearchTerm) return
+
+    const timeout = window.setTimeout(() => {
+      pushQuery({ searchTerm: searchTerm || undefined }, true)
+    }, 250)
+
+    return () => window.clearTimeout(timeout)
+  }, [pushQuery, routeSearchParams, searchTerm])
+
+  const handleChangeLayoutMode = (_event: React.MouseEvent<HTMLElement>, newMode: string) => {
     setLayoutMode(newMode)
+    pushQuery({}, true)
   }
 
-  const handleFilter = useCallback(
-    (filter: DegenFilter) => {
-      // TODO: Remove temp filter overrides if we want to enable filter functionailty
-      // by prices, rentals, or wearables. Temp hardcoded to empty to avoid rentals filtering
-      const newFilters = { ...filter, prices: [], rentals: [], wearable: [], sort: filters.sort }
-      setFilters(newFilters)
-    },
-    [filters.sort]
-  )
-
-  const handleSort = useCallback(
-    (sort: string) => {
-      const newSort = { ...filters, sort }
-      setFilters(newSort)
-    },
-    [filters]
-  )
+  const handleSort = useCallback((sort: string) => pushQuery({ sort }, true), [pushQuery])
 
   const handleViewTraits = useCallback((degen: PublicDegen): void => {
     setSelectedDegen(degen)
     setIsDegenModalOpen(true)
   }, [])
-
-  const isGridView = layoutMode === 'gridView'
 
   const renderSkeletonItem = useCallback(
     (_: undefined, index: number) => (
@@ -129,15 +137,8 @@ const AllDegensPage = (): React.ReactNode => {
   )
 
   const renderDrawer = useCallback(
-    () =>
-      defaultValues && (
-        <DeferredDegensFilter
-          onFilter={handleFilter}
-          defaultFilterValues={defaultValues}
-          searchTerm={searchTerm}
-        />
-      ),
-    [defaultValues, handleFilter, searchTerm]
+    () => <DeferredDegensFilter defaultFilterValues={defaultValues} />,
+    [defaultValues]
   )
 
   const renderDegen = useCallback(
@@ -156,7 +157,6 @@ const AllDegensPage = (): React.ReactNode => {
   const renderMain = useCallback(
     () => (
       <div className="flex h-full flex-col gap-3">
-        {/* Main Grid title */}
         <SectionTitle firstSection>
           <div className="mb-4 flex items-center gap-2">
             <Button
@@ -172,14 +172,11 @@ const AllDegensPage = (): React.ReactNode => {
                 <ChevronRight absoluteStrokeWidth aria-hidden="true" size={28} strokeWidth={1.5} />
               )}
             </Button>
-            {filteredData.length} Degens
+            {pageData?.total ?? 0} Degens
           </div>
         </SectionTitle>
-        {/* Main grid content */}
         <div className="grid grid-cols-12 gap-4 -mt-9">
-          {!originalDegens.length
-            ? [...Array(8)].map(renderSkeletonItem)
-            : dataForCurrentPage.map(renderDegen)}
+          {!pageData ? [...Array(8)].map(renderSkeletonItem) : pageData.items.map(renderDegen)}
         </div>
         <PaginationControls
           className="mx-auto flex-wrap justify-center gap-1 pb-4"
@@ -213,13 +210,11 @@ const AllDegensPage = (): React.ReactNode => {
     ),
     [
       currentPage,
-      dataForCurrentPage,
-      originalDegens.length,
-      filteredData.length,
       isDrawerOpen,
       isMobile,
       jump,
       maxPage,
+      pageData,
       pageItems,
       renderDegen,
       renderSkeletonItem,
@@ -231,20 +226,18 @@ const AllDegensPage = (): React.ReactNode => {
       <div className="flex h-full flex-col justify-start align-top gap-4 pl-2">
         <div className="pl-4 pr-6">
           <DegensTopNav
-            searchTerm={searchTerm || ''}
+            searchTerm={searchTerm}
             handleChangeSearchTerm={handleChangeSearchTerm}
             handleSort={handleSort}
-            sortValue={filters.sort ?? 'idUp'}
+            sortValue={sortValue}
             layoutMode={layoutMode}
             handleChangeLayoutMode={handleChangeLayoutMode}
           />
         </div>
         <CollapsibleSidebarLayout
-          // Filter drawer
           isDrawerOpen={isDrawerOpen}
           setIsDrawerOpen={setIsDrawerOpen}
           renderDrawer={renderDrawer}
-          // Main grid
           renderMain={renderMain}
         />
       </div>
