@@ -14,12 +14,15 @@ export type NativeImageProps = Omit<React.ComponentProps<'img'>, 'loading'> & {
  */
 export function NativeImage({
   fill,
+  fetchPriority,
   loading,
   priority,
   style,
   unoptimized: _unoptimized,
   ...props
 }: NativeImageProps) {
+  const resolvedLoading = priority ? 'eager' : (loading ?? 'lazy')
+
   const imageStyle: CSSProperties | undefined = fill
     ? { position: 'absolute', inset: 0, width: '100%', height: '100%', ...style }
     : style
@@ -28,7 +31,8 @@ export function NativeImage({
     <img
       {...props}
       decoding={props.decoding ?? 'async'}
-      loading={priority ? 'eager' : (loading ?? 'lazy')}
+      fetchPriority={fetchPriority ?? (resolvedLoading === 'lazy' ? 'low' : undefined)}
+      loading={resolvedLoading}
       style={imageStyle}
     />
   )

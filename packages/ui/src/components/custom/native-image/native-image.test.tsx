@@ -21,6 +21,7 @@ describe('NativeImage', () => {
     expect(image?.getAttribute('alt')).toBe('Nifty League')
     expect(image?.getAttribute('loading')).toBe('eager')
     expect(image?.getAttribute('decoding')).toBe('async')
+    expect(image?.getAttribute('fetchpriority')).toBeNull()
     expect(image?.getAttribute('unoptimized')).toBeNull()
   })
 
@@ -35,5 +36,16 @@ describe('NativeImage', () => {
     expect(image?.style.width).toBe('100%')
     expect(image?.style.height).toBe('100%')
     expect(image?.getAttribute('sizes')).toBe('100vw')
+    expect(image?.getAttribute('loading')).toBe('lazy')
+    expect(image?.getAttribute('fetchpriority')).toBe('low')
+  })
+
+  it('preserves an explicit fetch priority', () => {
+    const { container } = render(
+      <NativeImage src="/img/logos/NL/purple-filled.webp" alt="Nifty League" fetchPriority="high" />
+    )
+    const image = container.querySelector('img')
+
+    expect(image?.getAttribute('fetchpriority')).toBe('high')
   })
 })
