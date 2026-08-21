@@ -52,5 +52,15 @@ describe('PublicNavigation', () => {
 
     const mobilePanel = document.getElementById('public-mobile-navigation')
     expect(mobilePanel?.className).toContain('top-14')
+
+    expect(screen.getByRole('link', { name: 'Website' }).getAttribute('href')).toBe(
+      'https://niftyleague.com/'
+    )
+    expect(screen.getByRole('link', { name: 'Mobile Smashers' }).getAttribute('href')).toBe(
+      'https://niftysmashers.com/'
+    )
+    expect(screen.getByRole('link', { name: 'Docs' }).getAttribute('href')).toBe(
+      'https://niftyleague.com/docs'
+    )
   })
 })
