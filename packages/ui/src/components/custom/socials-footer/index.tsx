@@ -13,7 +13,7 @@ interface SocialsFooterProps extends React.ComponentProps<'footer'> {
 
 export function SocialsFooter({ children, classes }: SocialsFooterProps) {
   return (
-    <footer className={cx('my-10 px-5', classes?.footer)}>
+    <footer className={cx('deferred-footer my-10 px-5', classes?.footer)}>
       {children}
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-center gap-6">
