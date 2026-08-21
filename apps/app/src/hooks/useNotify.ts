@@ -1,7 +1,7 @@
 'use client'
 /* eslint-disable no-console */
 import { useCallback } from 'react'
-import Notify, { API, InitOptions } from 'bnc-notify'
+import type { API, InitOptions } from 'bnc-notify'
 import type { JsonRpcSigner } from 'ethers'
 
 import { handleError, handleLocalNotify, sendTransaction } from '@/utils/bnc-notify'
@@ -16,38 +16,35 @@ const ETHERSCAN_TX_URL = `${TARGET_NETWORK.blockExplorer}/tx/`
 
 const callbacks: { [hash: string]: NotifyCallback } = {}
 
-const initializeNotify = (darkMode: boolean): API | null => {
-  let options: InitOptions
-  let notify: API | null = null
-  if (navigator.onLine) {
-    options = {
-      dappId: process.env.NEXT_PUBLIC_BLOCKNATIVE_DAPPID, // GET YOUR OWN KEY AT https://account.blocknative.com
-      system: 'ethereum',
-      networkId: TARGET_NETWORK.chainId,
-      darkMode,
-      transactionHandler: (txInformation) => {
-        const txData = (txInformation as TransactionEvent).transaction
-        if (DEBUG)
-          console.log(`HANDLE TX ${txData.status?.toString().toUpperCase()}`, txInformation)
-        const possibleFunction = txData.hash && callbacks[txData.hash]
-        if (typeof possibleFunction === 'function') possibleFunction(txData)
-      },
-      onerror: (e: NotifyError) => {
-        handleError(e)
-      },
-    }
-    notify = Notify(options)
+const initializeNotify = async (darkMode: boolean): Promise<API | null> => {
+  if (!navigator.onLine) return null
+
+  const { default: Notify } = await import('bnc-notify')
+  const options: InitOptions = {
+    dappId: process.env.NEXT_PUBLIC_BLOCKNATIVE_DAPPID, // GET YOUR OWN KEY AT https://account.blocknative.com
+    system: 'ethereum',
+    networkId: TARGET_NETWORK.chainId,
+    darkMode,
+    transactionHandler: (txInformation) => {
+      const txData = (txInformation as TransactionEvent).transaction
+      if (DEBUG) console.log(`HANDLE TX ${txData.status?.toString().toUpperCase()}`, txInformation)
+      const possibleFunction = txData.hash && callbacks[txData.hash]
+      if (typeof possibleFunction === 'function') possibleFunction(txData)
+    },
+    onerror: (e: NotifyError) => {
+      handleError(e)
+    },
   }
-  return notify
+
+  return Notify(options)
 }
 
 export default function useNotify(signer?: JsonRpcSigner, darkMode = true): Tx {
   return useCallback(
     async (tx, callback) => {
       if (typeof signer !== 'undefined') {
-        const notify = initializeNotify(darkMode)
-
         try {
+          const notify = await initializeNotify(darkMode)
           const result = await sendTransaction(signer, tx)
           if (callback) callbacks[result.hash] = callback
 
