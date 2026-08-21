@@ -30,7 +30,7 @@ const nextConfig: NextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
     // Allow the critical game posters to use the measured lower quality ladder.
-    qualities: [65, 75],
+    qualities: [60, 65, 75],
     // Avoid jumping from 1,920px to 3,840px on common high-density screens.
     deviceSizes: [...IMAGE_DEVICE_SIZES],
   },
