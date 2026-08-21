@@ -31,4 +31,16 @@ describe('free-to-play game list', () => {
     expect(secondCardImage.getAttribute('loading')).toBe('lazy')
     expect(secondCardImage.getAttribute('fetchpriority')).toBe('auto')
   })
+
+  it('keeps game cards in the page heading hierarchy', async () => {
+    const { default: GameList } = await import('./index')
+
+    render(<GameList />)
+
+    const heading = screen.getByRole('heading', { level: 3, name: 'Nifty Smashers (Beta)' })
+
+    expect(heading).not.toBeNull()
+    expect(heading.className).toContain('text-xl')
+    expect(heading.className).toContain('font-subheader')
+  })
 })
