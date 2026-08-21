@@ -7,7 +7,7 @@ const ZERO_SHA = /^0+$/
 
 const GLOBAL_SHARED_PATH_PREFIXES = [
   'assets/',
-  'scripts/',
+  'scripts/vercel-ignore-build.mjs',
   'package.json',
   'bun.lock',
   'turbo.json',
