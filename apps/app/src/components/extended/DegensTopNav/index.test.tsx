@@ -4,7 +4,7 @@ import { describe, expect, it, mock } from 'bun:test'
 import DegensTopNav from './index'
 
 describe('DegensTopNav', () => {
-  it('uses the shared accessible select for sorting degens', () => {
+  it('uses the shared accessible select for sorting degens', async () => {
     const handleSort = mock()
 
     render(
@@ -20,7 +20,7 @@ describe('DegensTopNav', () => {
 
     expect(screen.getByRole('textbox', { name: 'Search degens by token # or name' })).toBeTruthy()
 
-    const sortTrigger = screen.getByRole('combobox', { name: 'Sort degens' })
+    const sortTrigger = await screen.findByRole('combobox', { name: 'Sort degens' })
     expect(sortTrigger.textContent).toContain('ID Low to High')
 
     fireEvent.click(sortTrigger)
