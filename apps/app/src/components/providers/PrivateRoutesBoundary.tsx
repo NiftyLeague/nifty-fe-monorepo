@@ -1,5 +1,3 @@
-'use client'
-
 import dynamic from 'next/dynamic'
 import type { PropsWithChildren } from 'react'
 
@@ -28,7 +26,6 @@ export function PrivateRoutesLoading(): React.ReactNode {
 }
 
 const PrivateRoutesShell = dynamic(() => import('./PrivateRoutesShell'), {
-  ssr: false,
   loading: PrivateRoutesLoading,
 })
 
