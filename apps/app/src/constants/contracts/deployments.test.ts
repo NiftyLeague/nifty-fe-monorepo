@@ -29,3 +29,37 @@ describe('Immutable contract deployments', () => {
     }
   })
 })
+
+describe('Ethereum client deployments', () => {
+  it('contains the methods used by the app without bundling server-only registries', async () => {
+    const { hardhat, mainnet, sepolia } = await import('viem/chains')
+    const expectedMethods = {
+      AllowedColorsStorage: ['isAllowedColor'],
+      NFTLToken: [
+        'accumulated',
+        'accumulatedMultiCheck',
+        'allowance',
+        'approve',
+        'balanceOf',
+        'claim',
+        'increaseAllowance',
+      ],
+      NiftyBurningComicsL2: ['burnComics'],
+      NiftyDegen: [
+        'changeName',
+        'getCharacterTraits',
+        'getNFTPrice',
+        'getName',
+        'getRemovedTraits',
+        'ownerOf',
+        'purchase',
+      ],
+    } as const
+
+    for (const chainId of [hardhat.id, sepolia.id, mainnet.id]) {
+      for (const [contractName, methods] of Object.entries(expectedMethods)) {
+        expect(functionNames(deployments[chainId][contractName].abi)).toEqual(methods)
+      }
+    }
+  })
+})
