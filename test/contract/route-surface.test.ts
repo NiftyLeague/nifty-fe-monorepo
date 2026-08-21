@@ -318,6 +318,8 @@ const degensClientPage = 'apps/app/src/app/(public-routes)/degens/AllDegensPage.
 const degensSearchParamsBoundary =
   'apps/app/src/app/(public-routes)/degens/DegenSearchParamsBoundary.tsx'
 const degensTopNav = 'apps/app/src/components/extended/DegensTopNav/index.tsx'
+const degensTopNavControls =
+  'apps/app/src/components/extended/DegensTopNav/DegensTopNavControls.tsx'
 const publicMainLayout = 'apps/app/src/app/_layout/_PublicMainLayout/index.tsx'
 const publicNavigation = 'apps/app/src/components/providers/PublicNavigation.tsx'
 const sharedAppBar = 'packages/ui/src/components/custom/app-bar/index.tsx'
@@ -409,6 +411,7 @@ describe('public degen loading contract', () => {
     const routeBoundarySource = readFileSync(join(process.cwd(), degensRouteBoundary), 'utf8')
     const clientPageSource = readFileSync(join(process.cwd(), degensClientPage), 'utf8')
     const topNavSource = readFileSync(join(process.cwd(), degensTopNav), 'utf8')
+    const topNavControlsSource = readFileSync(join(process.cwd(), degensTopNavControls), 'utf8')
 
     expect(pageSource).not.toContain("'use client'")
     expect(pageSource).toContain("from './DegenRoute'")
@@ -425,7 +428,8 @@ describe('public degen loading contract', () => {
     expect(routeBoundarySource).toContain('aria-busy="true"')
     expect(existsSync(join(process.cwd(), degensSearchParamsBoundary))).toBe(false)
     expect(clientPageSource).not.toContain("from '@nl/ui/base/icon'")
-    expect(topNavSource).toContain("from 'lucide-react'")
+    expect(topNavSource).toContain("import('./DegensTopNavControls')")
+    expect(topNavControlsSource).toContain("from 'lucide-react'")
     expect(topNavSource).not.toContain("from '@nl/ui/base/icon'")
   })
 })
