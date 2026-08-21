@@ -1,4 +1,4 @@
-interface NiftyGame {
+export interface NiftyGame {
   name: string
   description: string
   video: string

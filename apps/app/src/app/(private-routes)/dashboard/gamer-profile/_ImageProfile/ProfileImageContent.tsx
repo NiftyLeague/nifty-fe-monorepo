@@ -11,12 +11,12 @@ import SearchRental from '@/app/(private-routes)/dashboard/rentals/SearchRental'
 import EmptyState from '@/components/EmptyState'
 import DegenInternalImage from './DegenInternalImage'
 
-import type { Degen } from '@/types/degens'
+import type { DashboardDegen } from '@/types/degens'
 import { UPDATE_PROFILE_AVATAR_API } from '@/constants/url'
 import useAuth from '@/hooks/useAuth'
 
 export type ProfileImageContentProps = {
-  degens: Degen[] | undefined
+  degens: DashboardDegen[] | undefined
   onChangeAvatar: (degenId: string) => void
   avatarFee?: number
 }
@@ -24,7 +24,7 @@ export type ProfileImageContentProps = {
 type ProfileImagePickerProps = {
   onSearch: (currentValue: string) => void
   onChangeAvatar: (degenId: string) => void
-  degensInternal: Degen[]
+  degensInternal: DashboardDegen[]
   avatarFee?: number
 }
 
@@ -39,7 +39,7 @@ const ProfileImagePicker = ({
   const [, setIsOpen] = useContext(DialogContext)
   const { authToken } = useAuth()
 
-  const handleSelectedDegen = async (degen: Degen) => {
+  const handleSelectedDegen = async (degen: DashboardDegen) => {
     if (!degen?.id || !authToken) {
       return
     }
@@ -63,7 +63,7 @@ const ProfileImagePicker = ({
     }
   }
 
-  const renderDegenImage = (degen: Degen) => {
+  const renderDegenImage = (degen: DashboardDegen) => {
     if (degen?.url) {
       return <DegenInternalImage degen={degen} />
     }

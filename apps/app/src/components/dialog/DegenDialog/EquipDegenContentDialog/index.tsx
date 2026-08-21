@@ -13,7 +13,7 @@ import { cn } from '@nl/ui/utils'
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import { useNotification } from '@/contexts/NotificationContext'
 import { COMICS_PURCHASE_URL } from '@/constants/url'
-import type { Degen } from '@/types/degens'
+import type { DashboardDegen } from '@/types/degens'
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
 import EmptyState from '@/components/EmptyState'
 import { areValuesEqual } from '@/utils/value-equality'
@@ -28,7 +28,7 @@ import {
 import styles from './index.module.css'
 
 export interface EquipDegenContentDialogProps {
-  degen?: Degen
+  degen?: DashboardDegen
   name?: string
 }
 

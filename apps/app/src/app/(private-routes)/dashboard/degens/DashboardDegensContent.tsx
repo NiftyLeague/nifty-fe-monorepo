@@ -22,13 +22,17 @@ import {
   applySeventhTribesFix,
 } from '@/components/extended/DegensFilter/utils'
 import SectionTitle from '@/components/sections/SectionTitle'
-import { DEGEN_BASE_API_URL, DEGEN_COLLECTION_URL, PROFILE_FAV_DEGENS_API } from '@/constants/url'
+import {
+  DEGEN_COLLECTION_URL,
+  PROFILE_FAV_DEGENS_API,
+  getPublicDegensByIdsUrl,
+} from '@/constants/url'
 import { useProfileFavDegens } from '@/hooks/useGamerProfile'
 import useAuth from '@/hooks/useAuth'
 import useFetch from '@/hooks/useFetch'
 import usePagination from '@/hooks/usePagination'
 import type { DegenFilter } from '@/types/degenFilter'
-import type { Degen } from '@/types/degens'
+import type { DashboardDegen } from '@/types/degens'
 import EmptyState from '@/components/EmptyState'
 import DeferredDegensFilter from '@/components/providers/DeferredDegensFilter'
 import DeferredDegenDialog from '@/components/providers/DeferredDegenDialog'
@@ -61,8 +65,8 @@ const DashboardDegensPageContent = (): React.ReactNode => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [filters, setFilters] = useState<DegenFilter>(DEFAULT_STATIC_FILTER)
   const [defaultValues, setDefaultValues] = useState<DegenFilter | undefined>(DEFAULT_STATIC_FILTER)
-  const [filteredData, setFilteredData] = useState<Degen[]>([])
-  const [selectedDegen, setSelectedDegen] = useState<Degen>()
+  const [filteredData, setFilteredData] = useState<DashboardDegen[]>([])
+  const [selectedDegen, setSelectedDegen] = useState<DashboardDegen>()
   const [isRenameDegenModalOpen, setIsRenameDegenModalOpen] = useState<boolean>(false)
   const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false)
   const [isClaimDialog, setIsClaimDialog] = useState<boolean>(false)
@@ -79,29 +83,38 @@ const DashboardDegensPageContent = (): React.ReactNode => {
     }
   }, [favsData, setFavDegens])
 
-  const { loading: loadingAllRentals, data } = useFetch<Degen[]>(
-    `${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`,
-    { sharedCache: true }
-  )
-
   const { degensBalances, loadingDegens } = useNFTsBalances()
+
+  const degenIds = useMemo(
+    () => [...new Set(degensBalances.map((degen) => String(degen.id)))],
+    [degensBalances]
+  )
+  const degensDataUrl = degenIds.length ? getPublicDegensByIdsUrl(degenIds) : undefined
+  const { loading: loadingAllRentals, data } = useFetch<DashboardDegen[]>(degensDataUrl, {
+    enabled: Boolean(degensDataUrl),
+    sharedCache: true,
+  })
 
   const loading = loadingAllRentals || loadingDegens
 
-  const populatedDegens: Degen[] = useMemo(() => {
-    if (!degensBalances?.length || !data) return []
-    return degensBalances.map((degen) =>
-      applySeventhTribesFix((data[Number(degen.id)] as Degen) || degen)
-    )
+  const populatedDegens = useMemo(() => {
+    if (!degensBalances.length || !data) return []
+
+    const degensById = new Map(data.map((degen) => [degen.id, degen]))
+    return degensBalances
+      .map((degen) => degensById.get(String(degen.id)))
+      .filter((degen): degen is DashboardDegen => Boolean(degen))
+      .map(applySeventhTribesFix)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [degensBalances?.length, !!data])
+  }, [degensBalances, data])
 
   const isMobile = useMediaQuery('(max-width:640px)')
   const isSmallScreen = useMediaQuery('(max-width:1280px)')
-  const { jump, dataForCurrentPage, maxPage, currentPage, pageItems } = usePagination<Degen>(
-    filteredData,
-    !isSmallScreen && layoutMode !== 'gridView' && !isDrawerOpen ? 18 : DEGENS_PER_PAGE
-  )
+  const { jump, dataForCurrentPage, maxPage, currentPage, pageItems } =
+    usePagination<DashboardDegen>(
+      filteredData,
+      !isSmallScreen && layoutMode !== 'gridView' && !isDrawerOpen ? 18 : DEGENS_PER_PAGE
+    )
 
   useEffect(() => {
     if (!populatedDegens.length) {
@@ -159,19 +172,19 @@ const DashboardDegensPageContent = (): React.ReactNode => {
     [populatedDegens.length, filters]
   )
 
-  const handleClickEditName = useCallback((degen: Degen): void => {
+  const handleClickEditName = useCallback((degen: DashboardDegen): void => {
     setSelectedDegen(degen)
     setIsRenameDegenModalOpen(true)
   }, [])
 
-  const handleViewTraits = useCallback((degen: Degen): void => {
+  const handleViewTraits = useCallback((degen: DashboardDegen): void => {
     setSelectedDegen(degen)
     setIsClaimDialog(false)
     setIsRentDialog(false)
     setIsDegenModalOpen(true)
   }, [])
 
-  const handleClaimDegen = useCallback((degen: Degen): void => {
+  const handleClaimDegen = useCallback((degen: DashboardDegen): void => {
     setSelectedDegen(degen)
     setIsClaimDialog(true)
     setIsRentDialog(false)
@@ -181,7 +194,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
   const isGridView = layoutMode === 'gridView'
 
   const handleClickFavorite = useCallback(
-    async (degen: Degen) => {
+    async (degen: DashboardDegen) => {
       const newFavs = toggleValue(favDegens?.filter((f) => f) ?? [], degen.id)
       await fetch(`${PROFILE_FAV_DEGENS_API}`, {
         method: 'POST',
@@ -217,7 +230,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
   )
 
   const renderDegen = useCallback(
-    (degen: Degen) => (
+    (degen: DashboardDegen) => (
       <div key={degen.id} className={getGridSizeClass(isGridView, isDrawerOpen)}>
         <DegenCard
           degen={degen}
@@ -337,7 +350,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
     [
       currentPage,
       dataForCurrentPage,
-      degensBalances?.length,
+      degensBalances.length,
       filteredData.length,
       hasConnectedAccount,
       isDrawerOpen,

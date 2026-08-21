@@ -20,6 +20,25 @@ export interface Degen {
 }
 
 /**
+ * Private screens only need the owned-token catalog fields used by cards,
+ * filters, rentals, and the profile-image picker.
+ */
+export type DashboardDegen = Pick<
+  Degen,
+  | 'id'
+  | 'name'
+  | 'owner'
+  | 'background'
+  | 'tribe'
+  | 'traits_string'
+  | 'price'
+  | 'price_daily'
+  | 'multiplier'
+  | 'rental_count'
+  | 'url'
+>
+
+/**
  * The public catalog only needs the fields used by filtering, cards, and the
  * details dialog. Keep the browser payload separate from the full dashboard
  * degen record so server routes do not accidentally expose or transfer the

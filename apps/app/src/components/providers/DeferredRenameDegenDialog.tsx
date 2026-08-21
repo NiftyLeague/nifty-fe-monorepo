@@ -1,13 +1,13 @@
 'use client'
 
 import DeferredComponent from '@nl/ui/custom/deferred-component'
-import type { Degen } from '@/types/degens'
+import type { DashboardDegen } from '@/types/degens'
 
 import DeferredDialogLoading from './DeferredDialogLoading'
 
 interface DeferredRenameDegenDialogProps {
   open?: boolean
-  degen?: Degen
+  degen?: DashboardDegen
   onSuccess?: () => void
 }
 
