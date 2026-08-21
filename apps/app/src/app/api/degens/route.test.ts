@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, spyOn } from 'bun:test'
 
 import type { Degen } from '@/types/degens'
+import { clearDegenCatalogSourceCache } from '@/utils/degen-catalog'
 import { PUBLIC_DEGENS_WIRE_MEDIA_TYPE } from '@/utils/public-degens'
 
 import { GET } from './route'
@@ -39,6 +40,7 @@ const secondSourceDegen = {
 describe('public degen catalog route', () => {
   afterEach(() => {
     globalThis.fetch = originalFetch
+    clearDegenCatalogSourceCache()
   })
 
   it('serves compact records to the app while keeping the object response compatible', async () => {
@@ -68,7 +70,7 @@ describe('public degen catalog route', () => {
         price: 125,
       },
     ])
-    expect(fetchMock).toHaveBeenCalledTimes(2)
+    expect(fetchMock).toHaveBeenCalledTimes(1)
   })
 
   it('filters and paginates the compact response on the server', async () => {
@@ -141,5 +143,25 @@ describe('public degen catalog route', () => {
     } finally {
       globalThis.fetch = originalFetch
     }
+  })
+
+  it('coalesces concurrent catalog loads before caching the parsed source', async () => {
+    let resolveSource: (response: Response) => void = () => {}
+    const fetchMock = spyOn(globalThis, 'fetch').mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          resolveSource = resolve
+        })
+    )
+
+    const firstRequest = GET(new Request('https://app.example/api/degens?ids=101'))
+    const secondRequest = GET(new Request('https://app.example/api/degens?ids=102'))
+    resolveSource(new Response(JSON.stringify({ '101': sourceDegen, '102': secondSourceDegen })))
+
+    const [firstResponse, secondResponse] = await Promise.all([firstRequest, secondRequest])
+
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+    expect((await firstResponse.json()).map((degen: { id: string }) => degen.id)).toEqual(['101'])
+    expect((await secondResponse.json()).map((degen: { id: string }) => degen.id)).toEqual(['102'])
   })
 })

@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server'
 
-import { DEGEN_BASE_API_URL } from '@/constants/api'
 import {
   applySeventhTribesFix,
   tranformDataByFilter,
 } from '@/components/extended/DegensFilter/utils'
 import type { DegenFilter } from '@/types/degenFilter'
-import type { Degen, PublicDegen } from '@/types/degens'
+import type { PublicDegen } from '@/types/degens'
+import { getDegenCatalogSource } from '@/utils/degen-catalog'
 import {
   PUBLIC_DEGENS_WIRE_MEDIA_TYPE,
   toDashboardDegen,
@@ -14,8 +14,6 @@ import {
   toPublicDegenPageWire,
   toPublicDegenWire,
 } from '@/utils/public-degens'
-
-const SOURCE_URL = `${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`
 
 export const revalidate = 300
 export const dynamic = 'force-dynamic'
@@ -77,16 +75,7 @@ const getPriceRange = (catalog: Pick<PublicDegen, 'price'>[]): [number, number] 
 
 export async function GET(request: Request) {
   try {
-    // The upstream catalog is larger than Next's persistent Data Cache limit.
-    // Cache the compact response at the CDN boundary instead of attempting to
-    // persist the full source payload during builds or route revalidation.
-    const response = await fetch(SOURCE_URL, { cache: 'no-store' })
-
-    if (!response.ok) {
-      return NextResponse.json({ error: 'Degen catalog unavailable' }, { status: 502 })
-    }
-
-    const source = (await response.json()) as Record<string, Degen>
+    const source = await getDegenCatalogSource()
     const params = new URL(request.url).searchParams
     const requestedIds = getRequestedIds(params)
 
