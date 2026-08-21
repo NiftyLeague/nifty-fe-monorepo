@@ -1,15 +1,13 @@
 import type { NextPage } from 'next'
 
-import OptimizedImage from '@nl/ui/custom/optimized-image'
-
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { DeferredYouTubeEmbed } from '@nl/ui/custom/deferred-youtube-embed'
-import { cx } from '@nl/ui/class-names'
 
-import { NIFTY_DEGENS_ALL } from '@/constants/degens'
-import { DeferredDegenSpecialsTable } from '@/components/DeferredDegenSections'
+import {
+  DeferredDegenGallery,
+  DeferredDegenSpecialsTable,
+} from '@/components/DeferredDegenSections'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
-import styles from './index.module.css'
 
 const Degens: NextPage = () => (
   <>
@@ -60,31 +58,7 @@ const Degens: NextPage = () => (
         />
       </section>
 
-      <section className="section relative">
-        <div className="purple-bg-orb orb-bottom-right" />
-        <div
-          className={cx(
-            styles.list,
-            'flex flex-wrap items-center md:flex-row w-full justify-between'
-          )}
-        >
-          {NIFTY_DEGENS_ALL.map(({ name, image }) => (
-            <div className="flex flex-col mb-3 px-3 w-1/3" key={name}>
-              <div>
-                <OptimizedImage
-                  src={image.link}
-                  alt={name}
-                  width={image.width}
-                  height={image.height}
-                  sizes="(max-width: 768px) 33vw, 205px"
-                  className="pixelated mx-auto"
-                />
-              </div>
-              <h6 className="mx-auto text-center mt-3">{name}</h6>
-            </div>
-          ))}
-        </div>
-      </section>
+      <DeferredDegenGallery />
 
       <section className="section">
         <div className="mb-10 max-w-3xl mx-auto">

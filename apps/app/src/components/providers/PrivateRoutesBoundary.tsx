@@ -7,7 +7,7 @@ interface PrivateRoutesBoundaryProps extends PropsWithChildren {
   cookies?: string | null
 }
 
-function PrivateRoutesLoading(): React.ReactNode {
+export function PrivateRoutesLoading(): React.ReactNode {
   return (
     <div
       className="flex min-h-screen flex-col gap-6 bg-background p-6"

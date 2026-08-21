@@ -17,8 +17,8 @@ import TopInfo from './_Stats/TopInfo'
 import EmptyState from '@/components/EmptyState'
 import BottomInfo from './_Stats/BottomInfo'
 
-import { DEGEN_BASE_API_URL } from '@/constants/url'
-import type { Degen } from '@/types/degens'
+import { getPublicDegensByIdsUrl } from '@/constants/url'
+import type { DashboardDegen } from '@/types/degens'
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import { GamerProfileProvider } from '@/contexts/GamerProfileContext'
 
@@ -27,18 +27,24 @@ const GamerProfileContent = (): React.ReactNode => {
   const { address } = useAccount()
   const { avatarsAndFee } = useProfileAvatarFee()
   const profileAvatars = avatarsAndFee?.avatars
-  const { data } = useFetch<Degen[]>(`${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`, {
+  const { comicsBalances, degenCount, degensBalances, itemsBalances } = useNFTsBalances()
+  const degenIds = useMemo(
+    () => [...new Set(degensBalances.map((degen) => String(degen.id)))],
+    [degensBalances]
+  )
+  const degensDataUrl = degenIds.length ? getPublicDegensByIdsUrl(degenIds) : undefined
+  const { data } = useFetch<DashboardDegen[]>(degensDataUrl, {
+    enabled: Boolean(degensDataUrl),
     sharedCache: true,
   })
 
-  const { comicsBalances, degenCount, degensBalances, itemsBalances } = useNFTsBalances()
+  const filteredDegens = useMemo(() => {
+    if (!degensBalances.length || !data) return []
 
-  const filteredDegens: Degen[] = useMemo(() => {
-    if (degensBalances?.length && data) {
-      const mapDegens = degensBalances.map((degen) => data[Number(degen.id)]) as Degen[]
-      return mapDegens
-    }
-    return []
+    const degensById = new Map(data.map((degen) => [degen.id, degen]))
+    return degensBalances
+      .map((degen) => degensById.get(String(degen.id)))
+      .filter((degen): degen is DashboardDegen => Boolean(degen))
   }, [degensBalances, data])
 
   const filteredComics = useMemo(

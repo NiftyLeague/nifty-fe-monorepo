@@ -2,11 +2,11 @@
 
 import dynamic from 'next/dynamic'
 
-import type { Degen } from '@/types/degens'
+import type { DashboardDegen } from '@/types/degens'
 import DeferredDialogLoading from './DeferredDialogLoading'
 
 interface DeferredProfileImageDialogProps {
-  degens: Degen[] | undefined
+  degens: DashboardDegen[] | undefined
   onChangeAvatar: (degenId: string) => void
   avatarFee?: number
 }

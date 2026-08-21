@@ -8,6 +8,7 @@ export interface ResponsiveOnlyImageProps {
   height: number
   loading?: 'eager' | 'lazy'
   media: string
+  quality?: number
   sizes: string
   src: string
   style?: React.CSSProperties
@@ -24,12 +25,13 @@ export function ResponsiveOnlyImage({
   height,
   loading = 'lazy',
   media,
+  quality,
   sizes,
   src,
   style,
   width,
 }: ResponsiveOnlyImageProps) {
-  const props = getOptimizedImageProps({ alt, height, loading, sizes, src, width })
+  const props = getOptimizedImageProps({ alt, height, loading, quality, sizes, src, width })
   const { src: _src, srcSet: _srcSet, sizes: _sizes, ...fallbackProps } = props
 
   return (

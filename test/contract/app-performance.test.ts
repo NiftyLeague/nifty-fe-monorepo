@@ -65,9 +65,9 @@ const nonConflictingClassNameSources = [
   'apps/smashers/src/app/layout.tsx',
   'apps/smashers/src/components/Header/Navbar/index.tsx',
   'apps/web/src/app/(main)/compete-and-earn/page.tsx',
-  'apps/web/src/app/(main)/degens/page.tsx',
-  'apps/web/src/app/(main)/games/page.tsx',
   'apps/web/src/app/(main)/lore/page.tsx',
+  'apps/web/src/components/DegenGallery.tsx',
+  'apps/web/src/components/GameCard.tsx',
   'apps/web/src/components/RoadmapTimeline/roadmapCard.tsx',
   'packages/ui/src/components/custom/app-bar/index.tsx',
 ]

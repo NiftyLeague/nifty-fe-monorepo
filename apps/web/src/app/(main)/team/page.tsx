@@ -1,8 +1,7 @@
 import type { NextPage } from 'next'
 
-import { DeferredTeamCarousel } from '@/components/DeferredTeamSections'
+import { DeferredTeamCarousel, DeferredTeamDesktop } from '@/components/DeferredTeamSections'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
-import TeamDesktop from '@/components/TeamDesktop'
 
 const Team: NextPage = () => {
   return (
@@ -38,7 +37,9 @@ const Team: NextPage = () => {
 
         <section className="section relative">
           <h4 className="text-center">MEET THE DEGENS WHO MAKE NIFTY LEAGUE POSSIBLE</h4>
-          <TeamDesktop />
+          <div className="desktop">
+            <DeferredTeamDesktop />
+          </div>
           <div
             className="teams-slider slider px-0 block md:hidden"
             style={{ alignItems: 'center', maxWidth: '100%', textAlign: 'center', minHeight: 300 }}

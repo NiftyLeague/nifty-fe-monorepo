@@ -5,9 +5,9 @@ const tribes = [
   { name: 'Doge', icon: '/icons/tribes/doge.svg' },
   { name: 'Frog', icon: '/icons/tribes/frog.svg' },
   { name: 'Human', icon: '/icons/tribes/human.svg' },
-  { name: 'Hydra', icon: '/icons/tribes/hydra.svg' },
-  { name: 'Rugman', icon: '/icons/tribes/rugman.svg' },
-  { name: 'Satoshi', icon: '/icons/tribes/satoshi.svg' },
+  { name: 'Hydra', icon: '/icons/tribes/filters/hydra.webp' },
+  { name: 'Rugman', icon: '/icons/tribes/filters/rugman.webp' },
+  { name: 'Satoshi', icon: '/icons/tribes/filters/satoshi.webp' },
 ]
 
 const backgrounds = ['Common', 'Rare', 'Meta', 'Legendary']

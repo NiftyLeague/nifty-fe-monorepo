@@ -4,6 +4,11 @@ import { beforeEach, describe, expect, it, mock } from 'bun:test'
 mock.module('@nl/ui/custom/parallax-wrapper', () => ({
   ParallaxWrapper: ({ children }: React.PropsWithChildren) => <>{children}</>,
 }))
+mock.module('@nl/ui/custom/optimized-image', () => ({
+  default: ({ src, ...props }: React.ComponentProps<'img'>) => (
+    <img {...props} src={src} srcSet={`/_next/image?url=${encodeURIComponent(src ?? '')}`} />
+  ),
+}))
 describe('ConsoleGame', () => {
   let ConsoleGame: typeof import('./index').ConsoleGame
 
@@ -17,6 +22,16 @@ describe('ConsoleGame', () => {
     const video = container.querySelector('video')
 
     expect(image?.getAttribute('loading')).toBe('lazy')
+    expect(image?.getAttribute('srcset')).toContain('/_next/image?url=')
+    expect(image?.getAttribute('sizes')).toBe('100vw')
+    expect(image?.getAttribute('width')).toBe('4842')
+    expect(image?.getAttribute('height')).toBe('3371')
+    expect(container.querySelectorAll('img[srcset]')).toHaveLength(4)
+    expect(
+      [...container.querySelectorAll('img')].every(
+        (artwork) => artwork.getAttribute('quality') === '65'
+      )
+    ).toBe(true)
     expect(video?.getAttribute('preload')).toBe('metadata')
     expect(container.querySelector('.dark-gradient-overlay')).toBeTruthy()
   })

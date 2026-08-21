@@ -4,6 +4,7 @@ import {
   GET_GAMER_PROFILE_API,
   MY_PROFILE_API_URL,
   PROFILE_FAV_DEGENS_API,
+  getPublicDegensByIdsUrl,
 } from './api'
 export {
   BASE_API_URL,
@@ -11,6 +12,7 @@ export {
   GET_GAMER_PROFILE_API,
   MY_PROFILE_API_URL,
   PROFILE_FAV_DEGENS_API,
+  getPublicDegensByIdsUrl,
 } from './api'
 export {
   ADDRESS_VERIFICATION,

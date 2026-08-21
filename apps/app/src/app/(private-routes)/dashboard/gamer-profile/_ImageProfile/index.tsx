@@ -8,11 +8,11 @@ import DegenImage from '@/components/cards/DegenCard/DegenImage'
 import DeferredProfileImageDialog from '@/components/providers/DeferredProfileImageDialog'
 import { useGamerProfileContext } from '@/hooks/useGamerProfile'
 
-import type { Degen } from '@/types/degens'
+import type { DashboardDegen } from '@/types/degens'
 import type { ProfileAvatar } from '@/types/account'
 
 interface ImageProfileProps {
-  degens: Degen[] | undefined
+  degens: DashboardDegen[] | undefined
   avatar?: ProfileAvatar
   avatarFee?: number
 }

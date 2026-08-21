@@ -10,6 +10,12 @@ describe('free-to-play game list', () => {
         <img alt={alt} {...props} />
       ),
     }))
+    mock.module('@nl/ui/custom/optimized-image', () => ({
+      default: ({ fill: _fill, sizes: _sizes, alt = '', ...props }: ComponentProps<'img'>) => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img alt={alt} {...props} />
+      ),
+    }))
   })
 
   it('prioritizes the first game artwork while deferring later cards', async () => {
@@ -22,7 +28,21 @@ describe('free-to-play game list', () => {
 
     expect(firstCardImage.getAttribute('loading')).toBe('eager')
     expect(firstCardImage.getAttribute('fetchpriority')).toBe('high')
+    expect(firstCardImage.getAttribute('quality')).toBe('60')
     expect(secondCardImage.getAttribute('loading')).toBe('lazy')
     expect(secondCardImage.getAttribute('fetchpriority')).toBe('auto')
+    expect(secondCardImage.getAttribute('quality')).toBe('60')
+  })
+
+  it('keeps game cards in the page heading hierarchy', async () => {
+    const { default: GameList } = await import('./index')
+
+    render(<GameList />)
+
+    const heading = screen.getByRole('heading', { level: 3, name: 'Nifty Smashers (Beta)' })
+
+    expect(heading).not.toBeNull()
+    expect(heading.className).toContain('text-xl')
+    expect(heading.className).toContain('font-subheader')
   })
 })

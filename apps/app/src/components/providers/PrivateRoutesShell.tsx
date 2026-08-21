@@ -11,6 +11,7 @@ import { FeatureFlagProvider } from '@/contexts/FeatureFlagsContext'
 import { NotificationProvider } from '@/contexts/NotificationContext'
 import WalletStorageProviders from '@/contexts/WalletStorageProviders'
 import DeferredNotifications from './DeferredNotifications'
+import PrivateRoutesAuthGate from './PrivateRoutesAuthGate'
 
 function PrivateRoutesContentLoading(): React.ReactNode {
   return (
@@ -35,24 +36,26 @@ interface PrivateRoutesShellProps extends PropsWithChildren {
 
 export default function PrivateRoutesShell({ children, cookies }: PrivateRoutesShellProps) {
   return (
-    <WalletStorageProviders
-      cookies={cookies}
-      loadingFallback={
-        <MainLayout walletReady={false}>
-          <PrivateRoutesContentLoading />
-        </MainLayout>
-      }
-    >
-      <AuthStatusProvider>
-        <NotificationProvider>
-          <AuthTokenProvider>
-            <FeatureFlagProvider>
-              <MainLayout>{children}</MainLayout>
-              <DeferredNotifications />
-            </FeatureFlagProvider>
-          </AuthTokenProvider>
-        </NotificationProvider>
-      </AuthStatusProvider>
-    </WalletStorageProviders>
+    <AuthStatusProvider>
+      <PrivateRoutesAuthGate loading={<PrivateRoutesContentLoading />}>
+        <WalletStorageProviders
+          cookies={cookies}
+          loadingFallback={
+            <MainLayout walletReady={false}>
+              <PrivateRoutesContentLoading />
+            </MainLayout>
+          }
+        >
+          <NotificationProvider>
+            <AuthTokenProvider>
+              <FeatureFlagProvider>
+                <MainLayout>{children}</MainLayout>
+                <DeferredNotifications />
+              </FeatureFlagProvider>
+            </AuthTokenProvider>
+          </NotificationProvider>
+        </WalletStorageProviders>
+      </PrivateRoutesAuthGate>
+    </AuthStatusProvider>
   )
 }

@@ -9,7 +9,11 @@ import { Button } from '@nl/ui/base/button'
 import { Dialog, DialogContent } from '@nl/ui/base/dialog'
 
 import SectionSlider from '@/components/sections/SectionSlider'
-import { DEGEN_BASE_API_URL, DEGEN_COLLECTION_URL, PROFILE_FAV_DEGENS_API } from '@/constants/url'
+import {
+  DEGEN_COLLECTION_URL,
+  PROFILE_FAV_DEGENS_API,
+  getPublicDegensByIdsUrl,
+} from '@/constants/url'
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
 import EmptyState from '@/components/EmptyState'
 import DeferredDegenDialog from '@/components/providers/DeferredDegenDialog'
@@ -18,7 +22,7 @@ import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import useFetch from '@/hooks/useFetch'
 import { useProfileFavDegens } from '@/hooks/useGamerProfile'
 import useAuth from '@/hooks/useAuth'
-import type { Degen } from '@/types/degens'
+import type { DashboardDegen } from '@/types/degens'
 import useLocalStorageContext from '@/hooks/useLocalStorageContext'
 import { toggleValue } from '@/utils/collections'
 
@@ -34,7 +38,7 @@ const DegenCard = dynamic(
 
 const MyDegens = (): React.ReactNode => {
   const { authToken } = useAuth()
-  const [selectedDegen, setSelectedDegen] = useState<Degen>()
+  const [selectedDegen, setSelectedDegen] = useState<DashboardDegen>()
   const [isRenameDegenModalOpen, setIsRenameDegenModalOpen] = useState<boolean>(false)
   const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false)
   const [isClaimDialog, setIsClaimDialog] = useState<boolean>(false)
@@ -51,17 +55,24 @@ const MyDegens = (): React.ReactNode => {
 
   const { loadingDegens, degensBalances } = useNFTsBalances()
 
-  const { data: degensData } = useFetch<Degen[]>(
-    `${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`,
-    { sharedCache: true }
+  const degenIds = useMemo(
+    () => [...new Set(degensBalances.map((degen) => String(degen.id)))],
+    [degensBalances]
   )
+  const degensDataUrl = degenIds.length ? getPublicDegensByIdsUrl(degenIds) : undefined
+  const { data: degensData } = useFetch<DashboardDegen[]>(degensDataUrl, {
+    enabled: Boolean(degensDataUrl),
+    sharedCache: true,
+  })
 
   const filteredDegens = useMemo(() => {
-    if (degensBalances?.length && degensData) {
-      return degensBalances.map((degen) => degensData[Number(degen.id)]).filter(Boolean)
-    }
-    return []
-  }, [degensBalances, degensData]) as Degen[]
+    if (!degensBalances.length || !degensData) return []
+
+    const degensById = new Map(degensData.map((degen) => [degen.id, degen]))
+    return degensBalances
+      .map((degen) => degensById.get(String(degen.id)))
+      .filter((degen): degen is DashboardDegen => Boolean(degen))
+  }, [degensBalances, degensData])
 
   const settings = {
     slidesToShow: 4,
@@ -74,19 +85,19 @@ const MyDegens = (): React.ReactNode => {
     ],
   }
 
-  const handleClickEditName = (degen: Degen): void => {
+  const handleClickEditName = (degen: DashboardDegen): void => {
     setSelectedDegen(degen)
     setIsRenameDegenModalOpen(true)
   }
 
-  const handleViewTraits = (degen: Degen): void => {
+  const handleViewTraits = (degen: DashboardDegen): void => {
     setSelectedDegen(degen)
     setIsClaimDialog(false)
     setIsRentDialog(false)
     setIsDegenModalOpen(true)
   }
 
-  const handleClaimDegen = (degen: Degen): void => {
+  const handleClaimDegen = (degen: DashboardDegen): void => {
     setSelectedDegen(degen)
     setIsClaimDialog(true)
     setIsRentDialog(false)
@@ -94,7 +105,7 @@ const MyDegens = (): React.ReactNode => {
   }
 
   const handleClickFavorite = useCallback(
-    async (degen: Degen) => {
+    async (degen: DashboardDegen) => {
       const newFavs = toggleValue(favDegens?.filter((f) => f) ?? [], degen.id)
       await fetch(`${PROFILE_FAV_DEGENS_API}`, {
         method: 'POST',

@@ -3,9 +3,17 @@
 import { memo, useRef, useState, useCallback, useEffect } from 'react'
 import { Button } from '@nl/ui/base/button'
 import { cx } from '@nl/ui/class-names'
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { ParallaxWrapper } from '@nl/ui/custom/parallax-wrapper'
 
 import styles from './index.module.css'
+
+const CONSOLE_ARTWORK_DIMENSIONS = {
+  width: 4842,
+  height: 3371,
+  quality: 65,
+  sizes: '100vw',
+} as const
 
 export interface ConsoleGameProps {
   isNearViewport?: boolean
@@ -51,11 +59,10 @@ export const ConsoleGame = memo(function ConsoleGame({
         style={{ position: 'relative', display: 'flex', flexGrow: 1 }}
         className="md:animation-hidden"
       >
-        <img
+        <OptimizedImage
           alt="Game Console Backdrop"
           className="pixelated"
-          width={1920}
-          height={1080}
+          {...CONSOLE_ARTWORK_DIMENSIONS}
           src="/img/console-game/classic-gaming-reinvented-notv.webp"
           loading="lazy"
           decoding="async"
@@ -86,11 +93,10 @@ export const ConsoleGame = memo(function ConsoleGame({
           aria-label={isPlaying ? 'Pause video' : 'Play video'}
           className={cx(styles.bonk_note, 'h-auto w-auto rounded-none p-0 hover:bg-transparent')}
         >
-          <img
+          <OptimizedImage
             alt="Bonk Sticker"
             className="pixelated"
-            width={1920}
-            height={1080}
+            {...CONSOLE_ARTWORK_DIMENSIONS}
             src="/img/console-game/bonk.webp"
             loading="lazy"
             decoding="async"
@@ -101,11 +107,10 @@ export const ConsoleGame = memo(function ConsoleGame({
       <div className={styles.gaming_controller}>
         <ParallaxWrapper parallaxDirection="down" parallaxIntensity="normal">
           <div className="animate-hover transition-fade">
-            <img
+            <OptimizedImage
               alt="Controller Left"
               className="pixelated"
-              width={1920}
-              height={1080}
+              {...CONSOLE_ARTWORK_DIMENSIONS}
               src="/img/console-game/gaming_controller_left.webp"
               loading="lazy"
               decoding="async"
@@ -117,11 +122,10 @@ export const ConsoleGame = memo(function ConsoleGame({
       <div className={styles.gaming_controller}>
         <ParallaxWrapper parallaxDirection="down" parallaxIntensity="normal">
           <div className="animate-hover transition-fade">
-            <img
+            <OptimizedImage
               alt="Controller Right"
               className="pixelated"
-              width={1920}
-              height={1080}
+              {...CONSOLE_ARTWORK_DIMENSIONS}
               src="/img/console-game/gaming_controller_right.webp"
               loading="lazy"
               decoding="async"

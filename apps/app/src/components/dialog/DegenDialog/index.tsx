@@ -11,7 +11,7 @@ import { DEGEN_CONTRACT } from '@/constants/contracts'
 import { TRAIT_INDEXES } from '@/constants/traitIndexes'
 import useNetworkContext from '@/hooks/useNetworkContext'
 import { GET_DEGEN_DETAIL_URL } from '@/constants/url'
-import type { CharacterType, Degen, GetDegenResponse } from '@/types/degens'
+import type { CharacterType, DashboardDegen, GetDegenResponse } from '@/types/degens'
 import { errorMsgHandler } from '@/utils/errorHandlers'
 import useAuth from '@/hooks/useAuth'
 
@@ -41,14 +41,14 @@ const ViewTraitsContentDialog = dynamic(() => import('./ViewTraitsContentDialog'
 })
 
 export interface DegenDialogProps {
-  degen?: Degen
+  degen?: DashboardDegen
   isRent?: boolean
   setIsRent?: React.Dispatch<React.SetStateAction<boolean>>
   isClaim?: boolean
   setIsClaim?: React.Dispatch<React.SetStateAction<boolean>>
   isEquip?: boolean
   setIsEquip?: React.Dispatch<React.SetStateAction<boolean>>
-  onRent?: (degen: Degen) => void
+  onRent?: (degen: DashboardDegen) => void
   open?: boolean
   onClose?: (
     event: React.MouseEvent<HTMLButtonElement>,

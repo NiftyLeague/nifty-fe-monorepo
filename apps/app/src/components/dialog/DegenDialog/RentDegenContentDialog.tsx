@@ -13,7 +13,7 @@ import { Input } from '@nl/ui/base/input'
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import { Title } from '@nl/ui/custom/typography'
 import { cn } from '@nl/ui/utils'
-import type { Degen } from '@/types/degens'
+import type { DashboardDegen } from '@/types/degens'
 import { errorMsgHandler } from '@/utils/errorHandlers'
 import { formatNumberToDisplay } from '@nl/ui/number-format'
 import * as gtm from '@nl/ui/gtm/events'
@@ -32,7 +32,7 @@ import RentStepper from './RentStepper'
 import styles from './RentDegenContentDialog.module.css'
 
 export interface RentDegenContentDialogProps {
-  degen?: Degen
+  degen?: DashboardDegen
   onClose?: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 

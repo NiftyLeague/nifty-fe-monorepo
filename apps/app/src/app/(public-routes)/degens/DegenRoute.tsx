@@ -4,7 +4,7 @@ import { Skeleton } from '@nl/ui/base/skeleton'
 
 const loadingCards = Array.from({ length: 12 }, (_, index) => index)
 
-function DegenRouteLoading() {
+export function DegenRouteLoading() {
   return (
     <div
       className="flex min-h-[40vh] flex-col gap-4 p-6"

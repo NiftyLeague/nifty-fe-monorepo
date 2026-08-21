@@ -5,7 +5,11 @@ import { formatNumberToDisplay } from '@nl/ui/number-format'
 
 import styles from '../gltf.module.css'
 
-const TokenMenu = ({ tokenId }: { tokenId: string }) => {
+export interface TokenMenuProps {
+  tokenId: string
+}
+
+const TokenMenu = ({ tokenId }: TokenMenuProps) => {
   const { balance } = useClaimableNFTL(tokenId as string)
   return (
     <div className={styles.menu__nftlUnclaimed}>

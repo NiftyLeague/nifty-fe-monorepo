@@ -2,7 +2,6 @@ import { describe, expect, it } from 'bun:test'
 import { readFileSync } from 'node:fs'
 
 const marketingEmbedConsumers = [
-  'apps/web/src/app/(main)/games/page.tsx',
   'apps/web/src/app/(main)/compete-and-earn/page.tsx',
   'apps/web/src/app/(main)/degens/page.tsx',
 ]

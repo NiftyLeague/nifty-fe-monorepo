@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test'
 
-import { toPublicDegen } from './public-degens'
+import { fromPublicDegenWire, toPublicDegen, toPublicDegenWire } from './public-degens'
 
 import type { Degen } from '@/types/degens'
 
@@ -39,5 +39,30 @@ describe('public degen payloads', () => {
       traits_string: 'blue,cap',
       price: 125,
     })
+  })
+
+  it('round-trips the compact catalog representation without losing filter fields', () => {
+    const degen = toPublicDegen({
+      id: '101',
+      stats: {},
+      rental_count: 1,
+      is_active: true,
+      last_rented_at: 0,
+      total_rented: 2,
+      price: 125,
+      price_daily: 18,
+      tribe: 'Ape',
+      background: 'Common',
+      traits_string: 'blue,cap',
+      multiplier: 1,
+      multipliers: { background: 1 },
+      name: 'Audit Ape',
+      owner: '0xowner',
+      earning_cap: 1000,
+      earning_cap_daily: 100,
+    } satisfies Degen)
+
+    expect(fromPublicDegenWire(toPublicDegenWire(degen))).toEqual(degen)
+    expect(fromPublicDegenWire(degen)).toBe(degen)
   })
 })
