@@ -6,8 +6,10 @@ import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 describe('home page', () => {
   let Home: typeof import('./page').default
+  let optimizedImageCalls: ComponentProps<'img'>[] = []
 
   beforeEach(async () => {
+    optimizedImageCalls = []
     mock.module('@/components/MainLayout', () => ({
       default: ({ children }: PropsWithChildren) => <>{children}</>,
     }))
@@ -39,22 +41,22 @@ describe('home page', () => {
           {...props}
         />
       ),
-      getOptimizedImageProps: ({
-        src,
-        alt,
-        width,
-        height,
-        sizes,
-        fetchPriority,
-      }: ComponentProps<'img'>) => ({
-        src,
-        alt,
-        width,
-        height,
-        sizes,
-        srcSet: `${src} 1x`,
-        fetchPriority,
-      }),
+      getOptimizedImageProps: (props: ComponentProps<'img'>) => {
+        optimizedImageCalls.push(props)
+
+        const { src, alt, width, height, sizes, fetchPriority, quality } = props
+
+        return {
+          quality,
+          src,
+          alt,
+          width,
+          height,
+          sizes,
+          srcSet: `${src} 1x`,
+          fetchPriority,
+        }
+      },
     }))
 
     const pageModule = await import('./page')
@@ -69,13 +71,12 @@ describe('home page', () => {
     expect(document.getElementById('gaming-section')).not.toBeNull()
   })
 
-  it('renders CSS-driven responsive labels for both breakpoints', () => {
+  it('defers below-the-fold section markup behind accessible loading boundaries', () => {
     render(<Home />)
 
-    const mobileLabel = screen.getByText('OWN YOUR AVATAR')
-    const desktopLabel = screen.getByText('COMMUNITY-GENERATED AVATARS')
-    expect(mobileLabel.className).toContain('responsive-label-mobile')
-    expect(desktopLabel.className).toContain('responsive-label-desktop')
+    expect(screen.queryByText('OWN YOUR AVATAR')).toBeNull()
+    expect(screen.queryByText('COMMUNITY-GENERATED AVATARS')).toBeNull()
+    expect(screen.getAllByRole('status').length).toBeGreaterThan(0)
   })
 
   it('keeps the selected hero background fetch high priority', () => {
@@ -102,6 +103,17 @@ describe('home page', () => {
     expect(heroArtwork.getAttribute('data-fetch-priority')).toBeNull()
   })
 
+  it('uses the compact quality profile for the desktop hero raster artwork', () => {
+    render(<Home />)
+
+    const heroSources = optimizedImageCalls.filter(({ src }) =>
+      ['/img/hero/bg.webp', '/img/hero/characters.webp'].includes(src as string)
+    )
+
+    expect(heroSources).toHaveLength(2)
+    expect(heroSources.every(({ quality }) => quality === 60)).toBe(true)
+  })
+
   it('keeps desktop-only hero artwork out of the mobile image request path', () => {
     render(<Home />)
 
@@ -118,6 +130,15 @@ describe('home page', () => {
     const callToActionImage = screen.getByAltText('Learn More')
     expect(callToActionImage.getAttribute('data-loading')).not.toBe('eager')
     expect(callToActionImage.getAttribute('data-fetch-priority')).not.toBe('high')
+  })
+
+  it('uses the compact quality profile for the above-the-fold call to action', () => {
+    render(<Home />)
+
+    const callToAction = optimizedImageCalls.find(
+      ({ src }) => src === '/img/hero/speech-bubble.webp'
+    )
+    expect(callToAction?.quality).toBe(60)
   })
 
   it('uses an art-directed mobile source for the shared intro background', () => {

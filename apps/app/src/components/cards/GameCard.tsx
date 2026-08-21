@@ -53,7 +53,10 @@ const CardGameContent = ({
     <div className="flex grow flex-col justify-between bg-card">
       <CardContent className="p-6 pb-0">
         <div className="flex flex-row flex-wrap items-center justify-between gap-x-2 gap-y-2">
-          <Title level={4} className="min-w-0">
+          <Title
+            level={3}
+            className="min-w-0 text-xl font-normal font-subheader tracking-subheader"
+          >
             {title}
           </Title>
           {externalLink ? (
@@ -123,6 +126,7 @@ export interface GameCardProps {
   description?: string
   externalLink?: { title: string; src: string }
   image?: string
+  imageContent?: React.ReactNode
   imageFetchPriority?: 'auto' | 'high' | 'low'
   imageLoading?: 'eager' | 'lazy'
   isComingSoon?: boolean
@@ -141,6 +145,7 @@ const GameCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<GameCar
   description,
   externalLink,
   image,
+  imageContent,
   imageFetchPriority = 'auto',
   imageLoading = 'lazy',
   isComingSoon,
@@ -166,17 +171,18 @@ const GameCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<GameCar
           paddingTop: '56.25%' /* 16:9 Aspect Ratio */,
         }}
       >
-        {image && (
-          <NativeImage
-            src={image}
-            alt={title || 'Game artwork'}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-            loading={imageLoading}
-            fetchPriority={imageFetchPriority}
-            className="object-cover"
-          />
-        )}
+        {imageContent ??
+          (image && (
+            <NativeImage
+              src={image}
+              alt={title || 'Game artwork'}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+              loading={imageLoading}
+              fetchPriority={imageFetchPriority}
+              className="object-cover"
+            />
+          ))}
       </div>
       {contents || (
         <CardGameContent

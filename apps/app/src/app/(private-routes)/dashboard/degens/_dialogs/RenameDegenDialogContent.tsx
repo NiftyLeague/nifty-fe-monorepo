@@ -20,7 +20,7 @@ import { submitTxWithGasEstimate } from '@/utils/bnc-notify'
 import { getDeployedContract, NFTL_CONTRACT, DEGEN_CONTRACT } from '@/constants/contracts'
 import { TARGET_NETWORK } from '@/constants/networks'
 import { DEBUG } from '@/constants/index'
-import type { Degen } from '@/types/degens'
+import type { DashboardDegen } from '@/types/degens'
 import RenameStepper from './RenameStepper'
 
 const { address: DEGEN_CONTRACT_ADDRESS } = getDeployedContract(
@@ -31,7 +31,7 @@ const { address: DEGEN_CONTRACT_ADDRESS } = getDeployedContract(
 }
 
 interface Props {
-  degen?: Degen
+  degen?: DashboardDegen
   onSuccess?: () => void
 }
 

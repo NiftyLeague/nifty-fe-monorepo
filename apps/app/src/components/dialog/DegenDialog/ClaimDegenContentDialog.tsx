@@ -3,7 +3,7 @@
 import { Button } from '@nl/ui/base/button'
 import { Title } from '@nl/ui/custom/typography'
 import { useCallback, useMemo } from 'react'
-import type { Degen } from '@/types/degens'
+import type { DashboardDegen } from '@/types/degens'
 import useNetworkContext from '@/hooks/useNetworkContext'
 import useClaimableNFTL from '@/hooks/balances/useClaimableNFTL'
 import { NFTL_CONTRACT } from '@/constants/contracts'
@@ -11,7 +11,7 @@ import { DEBUG } from '@/constants/index'
 import { formatNumberToDisplay } from '@nl/ui/number-format'
 
 export interface ClaimDegenContentDialogProps {
-  degen?: Degen
+  degen?: DashboardDegen
   onClose?: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 

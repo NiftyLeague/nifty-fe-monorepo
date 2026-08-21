@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 
-import SocialCards from '@/components/SocialCards'
+import { DeferredCommunityConversation } from '@/components/DeferredCommunitySections'
 
 import '@/styles/marketing.css'
 
@@ -68,17 +68,7 @@ const Community: NextPage = () => {
         </span>
       </section>
 
-      <section className="container section">
-        <div className="relative text-center mb-8">
-          <h3>Join the conversation</h3>
-          <p className="text-center my-3 mx-auto max-w-2xl">
-            Nifty League&apos;s community is unlike any other. Get your questions answered and
-            connect with fellow DEGENs!
-          </p>
-        </div>
-
-        <SocialCards />
-      </section>
+      <DeferredCommunityConversation />
 
       <section className="section flex sliding-nfts relative overflow-hidden">
         <div className="flex flex-col text-center relative p-0">
