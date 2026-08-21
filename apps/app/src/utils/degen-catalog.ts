@@ -1,5 +1,6 @@
 import { DEGEN_BASE_API_URL } from '@/constants/api'
-import type { Degen } from '@/types/degens'
+import type { Degen, PublicDegen } from '@/types/degens'
+import { toPublicDegen } from '@/utils/public-degens'
 
 const SOURCE_URL = `${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`
 const CATALOG_CACHE_TTL_MS = 5 * 60 * 1000
@@ -7,6 +8,7 @@ const CATALOG_CACHE_TTL_MS = 5 * 60 * 1000
 type CatalogSource = Record<string, Degen>
 
 let cachedCatalog: { value: CatalogSource; expiresAt: number } | undefined
+let cachedPublicCatalog: { value: PublicDegen[]; expiresAt: number } | undefined
 let pendingCatalogRequest: Promise<CatalogSource> | undefined
 
 /**
@@ -26,7 +28,9 @@ export async function getDegenCatalogSource(): Promise<CatalogSource> {
       if (!response.ok) throw new Error('Degen catalog unavailable')
 
       const value = (await response.json()) as CatalogSource
-      cachedCatalog = { value, expiresAt: Date.now() + CATALOG_CACHE_TTL_MS }
+      const expiresAt = Date.now() + CATALOG_CACHE_TTL_MS
+      cachedCatalog = { value, expiresAt }
+      cachedPublicCatalog = undefined
       return value
     })
     .finally(() => {
@@ -36,7 +40,23 @@ export async function getDegenCatalogSource(): Promise<CatalogSource> {
   return pendingCatalogRequest
 }
 
+/** Reuse the normalized public view for paginated and legacy catalog requests. */
+export async function getPublicDegenCatalog(): Promise<PublicDegen[]> {
+  if (cachedPublicCatalog && cachedPublicCatalog.expiresAt > Date.now()) {
+    return cachedPublicCatalog.value
+  }
+
+  const source = await getDegenCatalogSource()
+  const value = Object.entries(source).map(([id, degen]) => toPublicDegen(degen, id))
+  cachedPublicCatalog = {
+    value,
+    expiresAt: cachedCatalog?.expiresAt ?? Date.now() + CATALOG_CACHE_TTL_MS,
+  }
+  return value
+}
+
 export function clearDegenCatalogSourceCache() {
   cachedCatalog = undefined
+  cachedPublicCatalog = undefined
   pendingCatalogRequest = undefined
 }

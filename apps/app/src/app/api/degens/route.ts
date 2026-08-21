@@ -6,11 +6,10 @@ import {
 } from '@/components/extended/DegensFilter/utils'
 import type { DegenFilter } from '@/types/degenFilter'
 import type { PublicDegen } from '@/types/degens'
-import { getDegenCatalogSource } from '@/utils/degen-catalog'
+import { getDegenCatalogSource, getPublicDegenCatalog } from '@/utils/degen-catalog'
 import {
   PUBLIC_DEGENS_WIRE_MEDIA_TYPE,
   toDashboardDegen,
-  toPublicDegen,
   toPublicDegenPageWire,
   toPublicDegenWire,
 } from '@/utils/public-degens'
@@ -75,17 +74,15 @@ const getPriceRange = (catalog: Pick<PublicDegen, 'price'>[]): [number, number] 
 
 export async function GET(request: Request) {
   try {
-    const source = await getDegenCatalogSource()
     const params = new URL(request.url).searchParams
     const requestedIds = getRequestedIds(params)
 
     if (params.has('ids')) {
-      const catalogById = new Map(
-        Object.entries(source).map(([id, degen]) => [id, toDashboardDegen(degen, id)])
-      )
-      const selectedDegens = requestedIds
-        .map((id) => catalogById.get(id))
-        .filter((degen): degen is ReturnType<typeof toDashboardDegen> => Boolean(degen))
+      const source = await getDegenCatalogSource()
+      const selectedDegens = requestedIds.flatMap((id) => {
+        const degen = Object.hasOwn(source, id) ? source[id] : undefined
+        return degen ? [toDashboardDegen(degen, id)] : []
+      })
 
       return NextResponse.json(selectedDegens, {
         headers: {
@@ -95,7 +92,7 @@ export async function GET(request: Request) {
       })
     }
 
-    const catalog = Object.entries(source).map(([id, degen]) => toPublicDegen(degen, id))
+    const catalog = await getPublicDegenCatalog()
     const isPagedRequest = params.has('page') || params.has('pageSize')
     const acceptsCompactWireFormat = request.headers
       .get('accept')
