@@ -123,6 +123,7 @@ export interface GameCardProps {
   description?: string
   externalLink?: { title: string; src: string }
   image?: string
+  imageContent?: React.ReactNode
   imageFetchPriority?: 'auto' | 'high' | 'low'
   imageLoading?: 'eager' | 'lazy'
   isComingSoon?: boolean
@@ -141,6 +142,7 @@ const GameCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<GameCar
   description,
   externalLink,
   image,
+  imageContent,
   imageFetchPriority = 'auto',
   imageLoading = 'lazy',
   isComingSoon,
@@ -166,17 +168,18 @@ const GameCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<GameCar
           paddingTop: '56.25%' /* 16:9 Aspect Ratio */,
         }}
       >
-        {image && (
-          <NativeImage
-            src={image}
-            alt={title || 'Game artwork'}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-            loading={imageLoading}
-            fetchPriority={imageFetchPriority}
-            className="object-cover"
-          />
-        )}
+        {imageContent ??
+          (image && (
+            <NativeImage
+              src={image}
+              alt={title || 'Game artwork'}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+              loading={imageLoading}
+              fetchPriority={imageFetchPriority}
+              className="object-cover"
+            />
+          ))}
       </div>
       {contents || (
         <CardGameContent

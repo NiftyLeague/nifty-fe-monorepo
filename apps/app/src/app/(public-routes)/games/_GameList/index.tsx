@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import NativeImage from '@nl/ui/custom/native-image'
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 import GameCard from '@/components/cards/GameCard'
 
 import styles from '../grid-item.module.css'
@@ -38,6 +39,28 @@ const SteamBadge = ({ disabled = false }) => (
     width={564}
     height={168}
     style={{ width: '100%', maxWidth: '100%', height: 'auto', opacity: disabled ? 0.25 : 1 }}
+  />
+)
+
+const GameArtwork = ({
+  src,
+  title,
+  loading = 'lazy',
+  fetchPriority = 'auto',
+}: {
+  src: string
+  title: string
+  loading?: 'eager' | 'lazy'
+  fetchPriority?: 'auto' | 'high' | 'low'
+}) => (
+  <OptimizedImage
+    src={src}
+    alt={title}
+    fill
+    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+    loading={loading}
+    fetchPriority={fetchPriority}
+    className="object-cover"
   />
 )
 
@@ -82,9 +105,14 @@ const F2PGameList = () => (
         title="Nifty Smashers (Beta)"
         required="Party Platform Fighter"
         description="Our flagship game - free-to-play, online multiplayer, PARTY platform fighter. Play on iOS, Android, and Steam with full cross-play support!"
-        image="/img/games/smashers/smashers-poster.jpg"
-        imageFetchPriority="high"
-        imageLoading="eager"
+        imageContent={
+          <GameArtwork
+            src="/img/games/smashers/smashers-poster.jpg"
+            title="Nifty Smashers (Beta)"
+            loading="eager"
+            fetchPriority="high"
+          />
+        }
         autoHeight={false}
         actions={
           <StoreButtons
@@ -100,7 +128,13 @@ const F2PGameList = () => (
         title="Party Royale (Early-Alpha)"
         required="Party Battle Royale"
         description="Step into NiftyWorld - our next hit game is ready to playtest! This game is still in early development so bugs are expected!"
-        image="/img/games/nifty-royale/nifty-royale-poster.jpg"
+        imageContent={
+          <GameArtwork
+            src="/img/games/nifty-royale/nifty-royale-poster.jpg"
+            title="Party Royale (Early-Alpha)"
+            fetchPriority="auto"
+          />
+        }
         autoHeight={false}
         actions={<StoreButtons ios="https://testflight.apple.com/join/VXxbaZrw" />}
       />

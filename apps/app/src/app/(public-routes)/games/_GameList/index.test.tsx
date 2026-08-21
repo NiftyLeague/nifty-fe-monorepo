@@ -10,6 +10,12 @@ describe('free-to-play game list', () => {
         <img alt={alt} {...props} />
       ),
     }))
+    mock.module('@nl/ui/custom/optimized-image', () => ({
+      default: ({ fill: _fill, sizes: _sizes, alt = '', ...props }: ComponentProps<'img'>) => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img alt={alt} {...props} />
+      ),
+    }))
   })
 
   it('prioritizes the first game artwork while deferring later cards', async () => {
