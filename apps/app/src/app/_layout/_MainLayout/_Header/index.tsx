@@ -4,15 +4,10 @@ import { Menu } from 'lucide-react'
 import { useNavigation } from '@/contexts/NavigationContext'
 
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
+import { APP_EXTERNAL_LINKS } from '@/constants/navigation'
 import LogoSection from '../_LogoSection'
 
 // ==============================|| MAIN NAVBAR / HEADER ||============================== //
-
-const pages = [
-  { name: 'Website', link: 'https://niftyleague.com/' },
-  { name: 'Mobile Smashers', link: 'https://niftysmashers.com/' },
-  { name: 'Docs', link: 'https://niftyleague.com/docs' },
-] as { name: string; link: string }[]
 
 const Header = () => {
   const { drawerOpen, isDesktopNavigation, toggleDrawer } = useNavigation()
@@ -48,7 +43,7 @@ const Header = () => {
         </button>
       </div>
       <div className="hidden items-center justify-between gap-4 lg:flex">
-        {pages.map((page) => (
+        {APP_EXTERNAL_LINKS.map((page) => (
           <a
             key={page.name}
             href={page.link}

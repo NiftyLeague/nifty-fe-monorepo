@@ -6,14 +6,9 @@ import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import MobileNavigationDisclosure from '@nl/ui/custom/mobile-navigation'
 
 import LogoSection from '@/app/_layout/_MainLayout/_LogoSection'
+import { APP_EXTERNAL_LINKS } from '@/constants/navigation'
 import styles from '@/app/_layout/_MainLayout/MainLayout.module.css'
 import PublicNavLinks from './PublicNavLinks'
-
-const pages = [
-  { name: 'Website', link: 'https://niftyleague.com/' },
-  { name: 'Mobile Smashers', link: 'https://niftysmashers.com/' },
-  { name: 'Docs', link: 'https://niftyleague.com/docs' },
-]
 
 export default function PublicNavigation({ children }: PropsWithChildren) {
   return (
@@ -59,7 +54,7 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
               </MobileNavigationDisclosure>
             </div>
             <div className="hidden items-center justify-between gap-4 lg:flex">
-              {pages.map((page) => (
+              {APP_EXTERNAL_LINKS.map((page) => (
                 <a
                   key={page.name}
                   href={page.link}
