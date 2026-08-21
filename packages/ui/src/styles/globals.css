@@ -2,6 +2,10 @@
 
 @import 'tailwindcss' source(none);
 @source "../**/*.{ts,tsx}";
+@source not "../**/*.test.{ts,tsx}";
+@source not "../**/*.spec.{ts,tsx}";
+@source not "../**/*.stories.{ts,tsx}";
+@source not "../**/*.story.{ts,tsx}";
 
 @import 'tw-animate-css';
 
