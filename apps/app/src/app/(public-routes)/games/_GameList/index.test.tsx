@@ -28,8 +28,10 @@ describe('free-to-play game list', () => {
 
     expect(firstCardImage.getAttribute('loading')).toBe('eager')
     expect(firstCardImage.getAttribute('fetchpriority')).toBe('high')
+    expect(firstCardImage.getAttribute('quality')).toBe('65')
     expect(secondCardImage.getAttribute('loading')).toBe('lazy')
     expect(secondCardImage.getAttribute('fetchpriority')).toBe('auto')
+    expect(secondCardImage.getAttribute('quality')).toBe('65')
   })
 
   it('keeps game cards in the page heading hierarchy', async () => {

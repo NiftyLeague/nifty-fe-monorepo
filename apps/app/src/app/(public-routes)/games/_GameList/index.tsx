@@ -58,6 +58,7 @@ const GameArtwork = ({
     alt={title}
     fill
     sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+    quality={65}
     loading={loading}
     fetchPriority={fetchPriority}
     className="object-cover"
