@@ -19,6 +19,7 @@ type AnimatedImageProps = Omit<React.ComponentProps<'img'>, 'src' | 'loading'> &
 export function AnimatedImage({ webpSrc, ...props }: AnimatedImageProps) {
   const {
     decoding,
+    fetchPriority,
     fill,
     loading,
     priority,
@@ -27,6 +28,7 @@ export function AnimatedImage({ webpSrc, ...props }: AnimatedImageProps) {
     unoptimized: _unoptimized,
     ...imageProps
   } = props
+  const resolvedLoading = priority ? 'eager' : (loading ?? 'lazy')
   const pictureStyle: CSSProperties | undefined = fill
     ? { position: 'absolute', inset: 0, display: 'block' }
     : undefined
@@ -40,7 +42,8 @@ export function AnimatedImage({ webpSrc, ...props }: AnimatedImageProps) {
       <img
         {...imageProps}
         decoding={decoding ?? 'async'}
-        loading={priority ? 'eager' : (loading ?? 'lazy')}
+        fetchPriority={fetchPriority ?? (resolvedLoading === 'lazy' ? 'low' : undefined)}
+        loading={resolvedLoading}
         sizes={sizes}
         style={imageStyle}
       />
