@@ -132,6 +132,15 @@ describe('home page', () => {
     expect(callToActionImage.getAttribute('data-fetch-priority')).not.toBe('high')
   })
 
+  it('uses the compact quality profile for the above-the-fold call to action', () => {
+    render(<Home />)
+
+    const callToAction = optimizedImageCalls.find(
+      ({ src }) => src === '/img/hero/speech-bubble.webp'
+    )
+    expect(callToAction?.quality).toBe(60)
+  })
+
   it('uses an art-directed mobile source for the shared intro background', () => {
     render(<Home />)
 

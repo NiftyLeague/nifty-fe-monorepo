@@ -153,6 +153,7 @@ const DesktopIntro = () => {
             width={348}
             height={108}
             sizes="407px"
+            quality={60}
             className="w-full h-auto"
           />
           <p className="m-0 p-0 speech-bubble-text">Learn More!</p>
