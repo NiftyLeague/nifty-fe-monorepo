@@ -111,7 +111,7 @@ describe('home page', () => {
     )
 
     expect(heroSources).toHaveLength(2)
-    expect(heroSources.every(({ quality }) => quality === 65)).toBe(true)
+    expect(heroSources.every(({ quality }) => quality === 60)).toBe(true)
   })
 
   it('keeps desktop-only hero artwork out of the mobile image request path', () => {

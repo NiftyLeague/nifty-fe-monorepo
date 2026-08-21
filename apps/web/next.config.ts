@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
   turbopack: {},
   images: {
     formats: ['image/avif', 'image/webp'],
-    qualities: [65, 75],
+    qualities: [60, 65, 75],
     // Fill the gaps in Next's default ladder so common 1x/2x desktop
     // viewports do not jump from 1,920px straight to the 3,840px source.
     deviceSizes: [...IMAGE_DEVICE_SIZES],
