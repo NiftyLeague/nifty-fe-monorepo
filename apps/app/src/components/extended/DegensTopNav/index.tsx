@@ -1,12 +1,22 @@
-import { Grid3X3, LayoutGrid } from 'lucide-react'
+import dynamic from 'next/dynamic'
 
-import { Input } from '@nl/ui/base/input'
 import { Label } from '@nl/ui/base/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@nl/ui/base/select'
-import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group'
-import DegenSortOptions from '@/constants/sort'
+import { Input } from '@nl/ui/base/input'
 
 import styles from './index.module.css'
+
+const DegensTopNavControls = dynamic(() => import('./DegensTopNavControls'), {
+  loading: () => (
+    <div
+      aria-label="Loading degen view controls"
+      className="flex h-8 min-w-[238px] items-center justify-between gap-2"
+      role="status"
+    >
+      <span aria-hidden="true" className="h-8 w-[150px] animate-pulse rounded-md bg-muted" />
+      <span aria-hidden="true" className="h-8 w-[78px] animate-pulse rounded-md bg-muted" />
+    </div>
+  ),
+})
 
 interface DegensTopNavProps {
   searchTerm: string
@@ -36,49 +46,12 @@ const DegensTopNav = ({
         onChange={handleChangeSearchTerm}
       />
     </div>
-    <div className="flex flex-row items-center justify-between gap-2">
-      <Select value={sortValue} onValueChange={handleSort}>
-        <SelectTrigger
-          aria-label="Sort degens"
-          className="h-8 min-w-[150px] border-purple px-3 py-1 text-foreground"
-        >
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          {DegenSortOptions.map((option) => (
-            <SelectItem value={option.value} key={option.value}>
-              {option.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-      <ToggleGroup
-        type="single"
-        size="sm"
-        className={styles.layoutModeButtonsGroup}
-        value={layoutMode}
-        aria-label="Layout mode"
-        onValueChange={(value) =>
-          value &&
-          handleChangeLayoutMode(undefined as unknown as React.MouseEvent<HTMLElement>, value)
-        }
-      >
-        <ToggleGroupItem
-          className={`${styles.layoutModeButton} data-[state=on]:bg-[rgba(88,32,214,0.2)]`}
-          value="gridView"
-          aria-label="GridView"
-        >
-          <LayoutGrid absoluteStrokeWidth aria-hidden="true" size={24} strokeWidth={1.5} />
-        </ToggleGroupItem>
-        <ToggleGroupItem
-          className={`${styles.layoutModeButton} data-[state=on]:bg-[rgba(88,32,214,0.2)]`}
-          value="gridOn"
-          aria-label="GridOn"
-        >
-          <Grid3X3 absoluteStrokeWidth aria-hidden="true" size={24} strokeWidth={1.5} />
-        </ToggleGroupItem>
-      </ToggleGroup>
-    </div>
+    <DegensTopNavControls
+      handleChangeLayoutMode={handleChangeLayoutMode}
+      handleSort={handleSort}
+      layoutMode={layoutMode}
+      sortValue={sortValue}
+    />
   </div>
 )
 
