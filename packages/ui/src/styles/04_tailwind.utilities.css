@@ -18,6 +18,14 @@
   @apply my-20;
 }
 
+/* Footer content is shared by the long-form marketing and Smashers pages.
+ * Keep it out of the initial render budget until it approaches the viewport,
+ * while reserving enough space to avoid scroll-position shifts. */
+@utility deferred-footer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 16rem;
+}
+
 @utility truncate-text-* {
   overflow: hidden;
   text-overflow: ellipsis;
