@@ -27,7 +27,25 @@ describe('AnimatedImage', () => {
     expect(picture?.querySelector('img')?.getAttribute('src')).toBe('/img/items/full/1.gif')
     expect(picture?.querySelector('img')?.getAttribute('alt')).toBe('Cape')
     expect(picture?.querySelector('img')?.getAttribute('loading')).toBe('lazy')
+    expect(picture?.querySelector('img')?.getAttribute('fetchpriority')).toBe('low')
     expect(picture?.querySelector('img')?.getAttribute('decoding')).toBe('async')
+  })
+
+  it('preserves an explicit fetch priority for important animated media', () => {
+    const { container } = render(
+      <AnimatedImage
+        src="/img/items/full/1.gif"
+        webpSrc="/img/items/full/1.webp"
+        alt="Cape"
+        width={98}
+        height={98}
+        loading="lazy"
+        fetchPriority="high"
+        unoptimized
+      />
+    )
+
+    expect(container.querySelector('img')?.getAttribute('fetchpriority')).toBe('high')
   })
 
   it('positions the picture wrapper when using fill sizing', () => {
