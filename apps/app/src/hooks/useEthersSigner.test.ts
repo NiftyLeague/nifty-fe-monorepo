@@ -1,7 +1,13 @@
 import { renderHook } from '@testing-library/react'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
-let clientData: { account: { address: string }; chain: { id: number; name: string; contracts?: { ensRegistry?: { address: string } } }; transport: unknown } | undefined
+let clientData:
+  | {
+      account: { address: string }
+      chain: { id: number; name: string; contracts?: { ensRegistry?: { address: string } } }
+      transport: unknown
+    }
+  | undefined
 
 mock.module('wagmi', () => ({
   useConnectorClient: () => ({ data: clientData }),
