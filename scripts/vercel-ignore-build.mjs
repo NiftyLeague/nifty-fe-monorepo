@@ -5,13 +5,15 @@ import { pathToFileURL } from 'node:url'
 const BUILD_BRANCHES = new Set(['main', 'staging'])
 const ZERO_SHA = /^0+$/
 
-const SHARED_PATH_PREFIXES = [
-  'packages/',
+const GLOBAL_SHARED_PATH_PREFIXES = [
   'assets/',
   'scripts/',
   'package.json',
   'bun.lock',
   'turbo.json',
+  'packages/eslint-config/',
+  'packages/prettier-config/',
+  'packages/typescript-config/',
 ]
 
 const PROJECT_PATH_PREFIXES = {
@@ -20,6 +22,14 @@ const PROJECT_PATH_PREFIXES = {
   smashers: ['apps/smashers/'],
   docs: ['apps/docs/'],
   api: ['apps/api/'],
+}
+
+const PROJECT_SHARED_PATH_PREFIXES = {
+  app: ['packages/contracts/', 'packages/imx-passport/', 'packages/sentry-client/', 'packages/ui/'],
+  web: ['packages/sentry-client/', 'packages/ui/'],
+  smashers: ['packages/playfab/', 'packages/sentry-client/', 'packages/ui/'],
+  docs: ['packages/ui/'],
+  api: ['packages/contracts/'],
 }
 
 const PROJECT_ALIASES = {
@@ -38,6 +48,15 @@ const matchesPath = (changedPath, configuredPath) =>
     ? changedPath.startsWith(configuredPath)
     : changedPath === configuredPath
 
+const knownPackagePrefixes = new Set([
+  ...GLOBAL_SHARED_PATH_PREFIXES.filter((path) => path.startsWith('packages/')),
+  ...Object.values(PROJECT_SHARED_PATH_PREFIXES).flat(),
+])
+
+const isUnknownPackagePath = (changedPath) =>
+  changedPath.startsWith('packages/') &&
+  ![...knownPackagePrefixes].some((configuredPath) => matchesPath(changedPath, configuredPath))
+
 export const canonicalProjectName = (
   value = process.env.VERCEL_PROJECT_NAME || basename(process.cwd())
 ) => PROJECT_ALIASES[value.trim().toLowerCase()] || null
@@ -52,8 +71,13 @@ export const isProjectAffected = (project, changedPaths) => {
 
   return changedPaths.some((path) => {
     const changedPath = normalizePath(path)
-    return [...SHARED_PATH_PREFIXES, ...projectPaths].some((configuredPath) =>
-      matchesPath(changedPath, configuredPath)
+    const projectSharedPaths = PROJECT_SHARED_PATH_PREFIXES[canonicalProject] || []
+
+    return (
+      isUnknownPackagePath(changedPath) ||
+      [...GLOBAL_SHARED_PATH_PREFIXES, ...projectPaths, ...projectSharedPaths].some(
+        (configuredPath) => matchesPath(changedPath, configuredPath)
+      )
     )
   })
 }
