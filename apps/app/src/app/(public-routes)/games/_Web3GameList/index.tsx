@@ -32,7 +32,7 @@ const Web3GameList = () => {
           title="WEN Game"
           required="Arcade Tokens Required"
           description="Nifty League's first arcade mini-game! This single-player baseball game is sure to test your reflexes."
-          image="/img/games/wen-poster.webp"
+          image="/img/games/wen-poster-640.webp"
           autoHeight={false}
           actions={
             <Link
@@ -49,7 +49,7 @@ const Web3GameList = () => {
           title="Crypto Winter"
           required="Arcade Tokens Required"
           description="Winter is here... Play this single-player dodgeball-inspired arcade game and rank as high as you can!"
-          image="/img/games/crypto-winter.webp"
+          image="/img/games/crypto-winter-640.webp"
           autoHeight={false}
           actions={
             <Link
@@ -88,7 +88,7 @@ const Web3GameList = () => {
             'An early concept of the first Web3 Tennis game. We developed the early prototype to test the waters and see if we could create a fun and engaging game. The game is currently on hold and may be revisited in the future.'
           }
           showMore={true}
-          image="/img/games/nifty-tennis.webp"
+          image="/img/games/nifty-tennis-640.webp"
           autoHeight={true}
           actions={
             <button
