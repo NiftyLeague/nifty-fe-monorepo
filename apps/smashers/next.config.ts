@@ -57,7 +57,7 @@ const nextConfig: NextConfig = {
     formats: ['image/avif', 'image/webp'],
     // Avoid jumping from 1,920px to 3,840px on common high-density screens.
     deviceSizes: [...IMAGE_DEVICE_SIZES],
-    qualities: [75, 85],
+    qualities: [65, 75, 85],
     remotePatterns: [
       {
         protocol: 'https',

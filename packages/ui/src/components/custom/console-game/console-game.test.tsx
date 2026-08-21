@@ -27,6 +27,11 @@ describe('ConsoleGame', () => {
     expect(image?.getAttribute('width')).toBe('4842')
     expect(image?.getAttribute('height')).toBe('3371')
     expect(container.querySelectorAll('img[srcset]')).toHaveLength(4)
+    expect(
+      [...container.querySelectorAll('img')].every(
+        (artwork) => artwork.getAttribute('quality') === '65'
+      )
+    ).toBe(true)
     expect(video?.getAttribute('preload')).toBe('metadata')
     expect(container.querySelector('.dark-gradient-overlay')).toBeTruthy()
   })
