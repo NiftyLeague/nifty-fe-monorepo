@@ -94,4 +94,52 @@ describe('public degen catalog route', () => {
       priceRange: [125, 250],
     })
   })
+
+  it('returns only requested dashboard records for an id-scoped catalog request', async () => {
+    spyOn(globalThis, 'fetch').mockImplementation(() =>
+      Promise.resolve(
+        new Response(
+          JSON.stringify({
+            '101': sourceDegen,
+            '102': secondSourceDegen,
+          }),
+          { status: 200 }
+        )
+      )
+    )
+
+    try {
+      const response = await GET(new Request('https://app.example/api/degens?ids=102,101,missing'))
+
+      expect(response.status).toBe(200)
+      expect(await response.json()).toEqual([
+        {
+          id: '102',
+          name: 'Audit Cat',
+          owner: '0xowner',
+          background: 'Rare',
+          tribe: 'Cat',
+          traits_string: 'blue,cap',
+          price: 250,
+          price_daily: 18,
+          multiplier: 1,
+          rental_count: 1,
+        },
+        {
+          id: '101',
+          name: 'Audit Ape',
+          owner: '0xowner',
+          background: 'Common',
+          tribe: 'Ape',
+          traits_string: 'blue,cap',
+          price: 125,
+          price_daily: 18,
+          multiplier: 1,
+          rental_count: 1,
+        },
+      ])
+    } finally {
+      globalThis.fetch = originalFetch
+    }
+  })
 })

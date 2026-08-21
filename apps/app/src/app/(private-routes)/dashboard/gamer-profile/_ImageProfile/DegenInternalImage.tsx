@@ -1,7 +1,7 @@
 import { memo } from 'react'
-import type { Degen } from '@/types/degens'
+import type { DashboardDegen } from '@/types/degens'
 
-const DegenInternalImage = memo(({ degen }: { degen: Degen }) => {
+const DegenInternalImage = memo(({ degen }: { degen: DashboardDegen }) => {
   const style = { height: 320, objectFit: 'cover' as const, display: 'block' }
   const alt = degen?.name || 'Degen'
 

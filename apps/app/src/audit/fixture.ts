@@ -7,7 +7,7 @@ import type {
   ProfileTotal,
 } from '@/types/account'
 import type { Degen } from '@/types/degens'
-import { toPublicDegen } from '@/utils/public-degens'
+import { toDashboardDegen, toPublicDegen } from '@/utils/public-degens'
 import {
   DEGEN_BASE_API_URL,
   PUBLIC_DEGENS_API_URL,
@@ -183,6 +183,14 @@ export function getAuditFixtureData(url: string): unknown {
   if (url === PUBLIC_DEGENS_API_URL) return auditDegenList.map((degen) => toPublicDegen(degen))
   if (url.startsWith(`${PUBLIC_DEGENS_API_URL}?`)) {
     const params = new URL(url, 'http://audit-fixture.local').searchParams
+    if (params.has('ids')) {
+      return params
+        .get('ids')
+        ?.split(',')
+        .map((id) => AUDIT_FIXTURE_DEGENS[id])
+        .filter((degen): degen is Degen => Boolean(degen))
+        .map((degen) => toDashboardDegen(degen))
+    }
     const pageSize = Number(params.get('pageSize')) || auditDegenList.length
     const items = auditDegenList.map((degen) => toPublicDegen(degen))
     return {

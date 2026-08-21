@@ -9,6 +9,7 @@ import type { DegenFilter } from '@/types/degenFilter'
 import type { Degen, PublicDegen } from '@/types/degens'
 import {
   PUBLIC_DEGENS_WIRE_MEDIA_TYPE,
+  toDashboardDegen,
   toPublicDegen,
   toPublicDegenPageWire,
   toPublicDegenWire,
@@ -21,6 +22,8 @@ export const dynamic = 'force-dynamic'
 
 const DEFAULT_PAGE_SIZE = 12
 const MAX_PAGE_SIZE = 48
+// Keep the query within normal URL limits while covering realistic wallets.
+const MAX_ID_REQUEST_SIZE = 1000
 
 const parsePositiveInteger = (value: string | null, fallback: number, maximum?: number) => {
   const parsed = Number(value)
@@ -35,6 +38,16 @@ const getSingleFilter = (params: URLSearchParams, key: string) => {
   const value = params.get(key)
   return value ? [value] : []
 }
+
+const getRequestedIds = (params: URLSearchParams) =>
+  [
+    ...new Set(
+      params
+        .getAll('ids')
+        .flatMap((value) => value.split(','))
+        .filter(Boolean)
+    ),
+  ].slice(0, MAX_ID_REQUEST_SIZE)
 
 const getCatalogFilter = (params: URLSearchParams): DegenFilter => ({
   backgrounds: getListFilter(params, 'backgrounds'),
@@ -74,8 +87,26 @@ export async function GET(request: Request) {
     }
 
     const source = (await response.json()) as Record<string, Degen>
-    const catalog = Object.entries(source).map(([id, degen]) => toPublicDegen(degen, id))
     const params = new URL(request.url).searchParams
+    const requestedIds = getRequestedIds(params)
+
+    if (params.has('ids')) {
+      const catalogById = new Map(
+        Object.entries(source).map(([id, degen]) => [id, toDashboardDegen(degen, id)])
+      )
+      const selectedDegens = requestedIds
+        .map((id) => catalogById.get(id))
+        .filter((degen): degen is ReturnType<typeof toDashboardDegen> => Boolean(degen))
+
+      return NextResponse.json(selectedDegens, {
+        headers: {
+          'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=86400',
+          Vary: 'Accept',
+        },
+      })
+    }
+
+    const catalog = Object.entries(source).map(([id, degen]) => toPublicDegen(degen, id))
     const isPagedRequest = params.has('page') || params.has('pageSize')
     const acceptsCompactWireFormat = request.headers
       .get('accept')

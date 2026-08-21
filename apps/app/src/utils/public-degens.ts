@@ -1,4 +1,4 @@
-import type { Degen, PublicDegen } from '@/types/degens'
+import type { DashboardDegen, Degen, PublicDegen } from '@/types/degens'
 
 export const PUBLIC_DEGENS_WIRE_MEDIA_TYPE = 'application/vnd.niftyleague.degens.v1+json'
 
@@ -42,6 +42,20 @@ export const toPublicDegen = (degen: Degen, fallbackId?: string): PublicDegen =>
   tribe: degen.tribe,
   traits_string: degen.traits_string,
   price: degen.price,
+})
+
+export const toDashboardDegen = (degen: Degen, fallbackId?: string): DashboardDegen => ({
+  id: degen.id || fallbackId || '',
+  name: degen.name,
+  owner: degen.owner,
+  background: degen.background,
+  tribe: degen.tribe,
+  traits_string: degen.traits_string,
+  price: degen.price,
+  price_daily: degen.price_daily,
+  multiplier: degen.multiplier,
+  rental_count: degen.rental_count,
+  url: degen.url,
 })
 
 export const toPublicDegenWire = (degen: PublicDegen): PublicDegenWire => [
