@@ -62,4 +62,18 @@ describe('hosted validation cost policy', () => {
     )
     expect(source).not.toContain('done < <(git diff --name-only --diff-filter=U -z)')
   })
+
+  it('keeps release metadata authoritative when re-aligning staging', () => {
+    const source = readWorkflow('re-align-staging.yml')
+
+    expect(source).toContain('is_release_metadata_path()')
+    expect(source).toContain(
+      'git -C "$preview_dir" restore --source=origin/main --staged --worktree -- "$changed_path"'
+    )
+    expect(source).toContain(
+      'git restore --source=origin/main --staged --worktree -- "$changed_path"'
+    )
+    expect(source).toContain('package.json|*/package.json')
+    expect(source).toContain('CHANGELOG.md|*/CHANGELOG.md')
+  })
 })
