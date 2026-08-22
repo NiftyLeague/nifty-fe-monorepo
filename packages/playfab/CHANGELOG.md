@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/playfab-v1.0.2...playfab-v1.0.3) (2026-08-22)
+
+
+### Maintenance
+
+* fix typo and remove dead code ([#990](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/990)) ([9871756](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/9871756e6d5fcacff05834da47072329e319cb04))
+
 ## [1.0.2](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/playfab-v1.0.1...playfab-v1.0.2) (2026-08-22)
 
 

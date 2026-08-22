@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.15](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.14...nifty-fe-monorepo-v1.2.15) (2026-08-22)
+
+
+### Maintenance
+
+* fix typo and remove dead code ([#990](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/990)) ([9871756](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/9871756e6d5fcacff05834da47072329e319cb04))
+
 ## [1.2.14](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.13...nifty-fe-monorepo-v1.2.14) (2026-08-22)
 
 
