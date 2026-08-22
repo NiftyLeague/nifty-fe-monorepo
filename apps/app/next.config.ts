@@ -24,7 +24,6 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ['pino-pretty', 'lokijs', 'encoding', 'sodium-native', 'require-addon'],
   experimental: {
     optimizePackageImports: ['lucide-react'],
-    useTypeScriptCli: true,
   },
   turbopack: { resolveAlias: { '@wagmi/connectors': 'wagmi/connectors' } },
   images: {

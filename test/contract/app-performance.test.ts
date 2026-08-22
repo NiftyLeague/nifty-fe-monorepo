@@ -327,9 +327,9 @@ describe('app performance contracts', () => {
     expect(manifest.scripts.dev).not.toContain('--webpack')
   })
 
-  it('uses the project TypeScript CLI for Next app builds', () => {
+  it('keeps Next app builds on the native TypeScript worker', () => {
     for (const file of [appNextConfig, smashersNextConfig]) {
-      expect(readFileSync(file, 'utf8')).toContain('useTypeScriptCli: true')
+      expect(readFileSync(file, 'utf8')).not.toContain('useTypeScriptCli: true')
     }
   })
 
