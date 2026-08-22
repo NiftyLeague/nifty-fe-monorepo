@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.14](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.13...nifty-fe-monorepo-v1.2.14) (2026-08-22)
+
+
+### Performance
+
+* **app:** avoid router overhead for external links ([#988](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/988)) ([5d31e12](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/5d31e1294d68822c4c2559441b70ba19bafb5fe7))
+
 ## [1.2.13](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.12...nifty-fe-monorepo-v1.2.13) (2026-08-22)
 
 
