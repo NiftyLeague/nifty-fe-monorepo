@@ -11,14 +11,12 @@ import type {
 import type { Abi } from 'viem'
 import type { Config } from 'wagmi'
 
-import type {
-  BalanceManagerDistributor,
-  NFTL,
-  NFTLToken,
-  NiftyBurningComicsL2,
-  NiftyDegen,
-  NiftyMarketplace,
-} from '@/types/typechain'
+import type { BalanceManagerDistributor } from '@/types/typechain/src/contracts/imx/BalanceManagerDistributor'
+import type { NFTL } from '@/types/typechain/src/contracts/imx/NFTL'
+import type { NiftyMarketplace } from '@/types/typechain/src/contracts/imx/NiftyMarketplace'
+import type { NiftyBurningComicsL2 } from '@/types/typechain/src/contracts/deprecated/NiftyBurningComicsL2'
+import type { NFTLToken } from '@/types/typechain/src/contracts/NFTLToken'
+import type { NiftyDegen } from '@/types/typechain/src/contracts/NiftyDegen'
 
 import {
   BALANCE_MANAGER_CONTRACT,
