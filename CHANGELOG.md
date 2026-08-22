@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.6](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.5...nifty-fe-monorepo-v1.2.6) (2026-08-22)
+
+
+### Performance
+
+* **smashers:** optimize party modes poster delivery ([#958](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/958)) ([ee4261a](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/ee4261aa4b257b4d5bbf7acc2bbeb8233846ffc5))
+
 ## [1.2.5](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.4...nifty-fe-monorepo-v1.2.5) (2026-08-22)
 
 

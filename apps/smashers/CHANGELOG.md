@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.7](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/smashers-v1.0.6...smashers-v1.0.7) (2026-08-22)
+
+
+### Performance
+
+* **smashers:** optimize party modes poster delivery ([#958](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/958)) ([ee4261a](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/ee4261aa4b257b4d5bbf7acc2bbeb8233846ffc5))
+
 ## [1.0.6](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/smashers-v1.0.5...smashers-v1.0.6) (2026-08-22)
 
 
