@@ -1,6 +1,6 @@
 import NativeImage from '@nl/ui/custom/native-image'
 import { Button } from '@nl/ui/base/button'
-import { Skeleton } from '@nl/ui/base/skeleton'
+import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import { Title } from '@nl/ui/custom/typography'
 
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
@@ -88,8 +88,8 @@ const ViewTraitsContentDialog = ({
               ? [...Array(9)].map((_, index) => (
                   <div className="col-span-3" key={`trait-skeleton-${index}`}>
                     <div className="flex flex-col items-center">
-                      <Skeleton className="h-4 w-[60px]" />
-                      <Skeleton className="h-4 w-10" />
+                      <DeferredSkeleton className="h-4 w-[60px]" />
+                      <DeferredSkeleton className="h-4 w-10" />
                     </div>
                   </div>
                 ))

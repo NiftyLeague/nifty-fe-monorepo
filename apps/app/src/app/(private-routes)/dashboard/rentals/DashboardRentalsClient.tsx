@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic'
 
-import { Skeleton } from '@nl/ui/base/skeleton'
+import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 
 const DashboardRentalsPageContent = dynamic(() => import('./DashboardRentalsContent'), {
   ssr: false,
@@ -15,10 +15,10 @@ const DashboardRentalsPageContent = dynamic(() => import('./DashboardRentalsCont
       aria-label="Loading rentals"
     >
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <Skeleton className="h-8 w-40 rounded" />
-        <Skeleton className="h-10 w-64 rounded" />
+        <DeferredSkeleton className="h-8 w-40 rounded" />
+        <DeferredSkeleton className="h-10 w-64 rounded" />
       </div>
-      <Skeleton className="h-[calc(100vh-320px)] w-full rounded" />
+      <DeferredSkeleton className="h-[calc(100vh-320px)] w-full rounded" />
       <span className="sr-only">Loading rentals</span>
     </div>
   ),

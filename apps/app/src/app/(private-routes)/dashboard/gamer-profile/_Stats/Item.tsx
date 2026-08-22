@@ -1,4 +1,4 @@
-import { Skeleton } from '@nl/ui/base/skeleton'
+import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import { cn } from '@nl/ui/utils'
 
 interface ItemProps {
@@ -19,7 +19,7 @@ const Item = ({
       {label}:
     </span>
     {isLoading ? (
-      <Skeleton className="h-[18.67px] w-[15%] rounded" />
+      <DeferredSkeleton className="h-[18.67px] w-[15%] rounded" />
     ) : (
       <span
         className={cn('text-base font-bold', isDisable ? 'text-muted-foreground' : 'text-warning')}

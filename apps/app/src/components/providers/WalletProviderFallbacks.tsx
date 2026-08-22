@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@nl/ui/base/button'
-import { Skeleton } from '@nl/ui/base/skeleton'
+import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 
 export function WalletProviderLoading() {
   return (
@@ -11,10 +11,10 @@ export function WalletProviderLoading() {
       aria-live="polite"
       aria-busy="true"
     >
-      <Skeleton className="h-14 w-full rounded-lg" />
+      <DeferredSkeleton className="h-14 w-full rounded-lg" />
       <div className="flex min-h-0 flex-1 gap-6">
-        <Skeleton className="hidden w-64 rounded-lg lg:block" />
-        <Skeleton className="min-h-[24rem] flex-1 rounded-lg" />
+        <DeferredSkeleton className="hidden w-64 rounded-lg lg:block" />
+        <DeferredSkeleton className="min-h-[24rem] flex-1 rounded-lg" />
       </div>
       <span className="sr-only">Loading wallet provider</span>
     </div>

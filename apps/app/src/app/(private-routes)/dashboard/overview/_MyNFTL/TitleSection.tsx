@@ -1,6 +1,6 @@
 'use client'
 
-import { Skeleton } from '@nl/ui/base/skeleton'
+import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 
 import { formatNumberToDisplay } from '@nl/ui/number-format'
 import useTokensBalances from '@/hooks/balances/useTokensBalances'
@@ -17,7 +17,7 @@ const TitleSection = (): React.ReactNode => {
         <div className="flex flex-wrap items-center justify-end gap-4">
           <AddNFTLToMetamask />
           {loadingNFTLBal ? (
-            <Skeleton className="h-10 w-[120px] rounded" />
+            <DeferredSkeleton className="h-10 w-[120px] rounded" />
           ) : (
             <span className="text-base font-bold">
               NFTL in Wallet:{' '}
