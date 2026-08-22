@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.3](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.2...app-v1.1.3) (2026-08-22)
+
+
+### Performance
+
+* **build:** remove stale Next TypeScript CLI toggle ([#954](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/954)) ([a6d134a](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/a6d134a5ca728fb7c1b4e1545557ec35a3587498))
+
 ## [1.1.2](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.1...app-v1.1.2) (2026-08-22)
 
 
