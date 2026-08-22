@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.11](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.10...app-v1.1.11) (2026-08-22)
+
+
+### Performance
+
+* **app:** narrow generated contract type graph ([567e430](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/567e43030d45542cf4253d919f80a16efac08328))
+
 ## [1.1.10](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.9...app-v1.1.10) (2026-08-22)
 
 
