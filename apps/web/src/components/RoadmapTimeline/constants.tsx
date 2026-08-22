@@ -803,7 +803,7 @@ export const ROADMAP_CARDS = [
     body: (
       <>
         <p>
-          Land parcels give you ownership in NiftyWorld. Each DEGEN NFT will recieve 1 free plot of
+          Land parcels give you ownership in NiftyWorld. Each DEGEN NFT will receive 1 free plot of
           land if and when the mint goes live. As a land holder you can build freely on your parcels
           as long as they meet platform guidelines. For larger developments that span across a
           region we will introduce an HOA model for build proposals.

@@ -7,7 +7,7 @@ import DEFAULT_STATIC_FILTER from './constants'
 import {
   applySeventhTribesFix,
   getDefaultFilterValueFromData,
-  tranformDataByFilter,
+  transformDataByFilter,
   updateFilterValue,
 } from './utils'
 
@@ -32,45 +32,45 @@ const emptyFilter = {
 
 describe('degen filtering', () => {
   it('applies identity, trait, search, and burn-address filters', () => {
-    expect(tranformDataByFilter([degen] as never, emptyFilter as never)).toHaveLength(1)
+    expect(transformDataByFilter([degen] as never, emptyFilter as never)).toHaveLength(1)
     expect(
-      tranformDataByFilter(
+      transformDataByFilter(
         [degen] as never,
         { ...emptyFilter, walletAddress: [degen.owner.toUpperCase()] } as never
       )
     ).toHaveLength(1)
     expect(
-      tranformDataByFilter(
+      transformDataByFilter(
         [degen] as never,
         { ...emptyFilter, walletAddress: ['0x2222222222222222222222222222222222222222'] } as never
       )
     ).toHaveLength(0)
     expect(
-      tranformDataByFilter([degen] as never, { ...emptyFilter, tokenId: ['7'] } as never)
+      transformDataByFilter([degen] as never, { ...emptyFilter, tokenId: ['7'] } as never)
     ).toHaveLength(0)
     expect(
-      tranformDataByFilter([degen] as never, { ...emptyFilter, tribes: ['ape'] } as never)
+      transformDataByFilter([degen] as never, { ...emptyFilter, tribes: ['ape'] } as never)
     ).toHaveLength(0)
     expect(
-      tranformDataByFilter([degen] as never, { ...emptyFilter, backgrounds: ['space'] } as never)
+      transformDataByFilter([degen] as never, { ...emptyFilter, backgrounds: ['space'] } as never)
     ).toHaveLength(0)
     expect(
-      tranformDataByFilter([degen] as never, { ...emptyFilter, cosmetics: ['Crown'] } as never)
+      transformDataByFilter([degen] as never, { ...emptyFilter, cosmetics: ['Crown'] } as never)
     ).toHaveLength(1)
     expect(
-      tranformDataByFilter([degen] as never, { ...emptyFilter, cosmetics: ['Cape'] } as never)
+      transformDataByFilter([degen] as never, { ...emptyFilter, cosmetics: ['Cape'] } as never)
     ).toHaveLength(0)
     expect(
-      tranformDataByFilter([degen] as never, { ...emptyFilter, searchTerm: ['alpha'] } as never)
+      transformDataByFilter([degen] as never, { ...emptyFilter, searchTerm: ['alpha'] } as never)
     ).toHaveLength(1)
     expect(
-      tranformDataByFilter([degen] as never, { ...emptyFilter, searchTerm: ['42'] } as never)
+      transformDataByFilter([degen] as never, { ...emptyFilter, searchTerm: ['42'] } as never)
     ).toHaveLength(1)
     expect(
-      tranformDataByFilter([degen] as never, { ...emptyFilter, searchTerm: ['missing'] } as never)
+      transformDataByFilter([degen] as never, { ...emptyFilter, searchTerm: ['missing'] } as never)
     ).toHaveLength(0)
     expect(
-      tranformDataByFilter([{ ...degen, owner: BURN_ADDYS[0] }] as never, emptyFilter as never)
+      transformDataByFilter([{ ...degen, owner: BURN_ADDYS[0] }] as never, emptyFilter as never)
     ).toHaveLength(0)
   })
 
@@ -80,13 +80,13 @@ describe('degen filtering', () => {
       { ...degen, id: '2' },
     ]
     expect(
-      tranformDataByFilter(
+      transformDataByFilter(
         records as never,
         { ...emptyFilter, tribes: ['hydra'], sort: 'idUp' } as never
       ).map((x) => x.id)
     ).toEqual(['2', '9'])
     expect(
-      tranformDataByFilter(records as never, { ...emptyFilter, sort: 'idDown' } as never).map(
+      transformDataByFilter(records as never, { ...emptyFilter, sort: 'idDown' } as never).map(
         (x) => x.id
       )
     ).toEqual(['9', '2'])

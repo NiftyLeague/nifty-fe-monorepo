@@ -13,7 +13,7 @@ import { Dialog } from '@nl/ui/base/dialog'
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
 import DEFAULT_STATIC_FILTER from '@/components/extended/DegensFilter/constants'
 import {
-  tranformDataByFilter,
+  transformDataByFilter,
   updateFilterValue,
   getDefaultFilterValueFromData,
   DEGENS_PER_PAGE,
@@ -128,7 +128,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
       const newFilterOptions = updateFilterValue(defaultValues, params)
       if (newFilterOptions) {
         setFilters(newFilterOptions)
-        newDegens = tranformDataByFilter(populatedDegens, newFilterOptions)
+        newDegens = transformDataByFilter(populatedDegens, newFilterOptions)
       }
     }
     setFilteredData(newDegens)
@@ -148,7 +148,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
   const handleFilter = useCallback(
     (filter: DegenFilter) => {
       const newFilters = { ...filter, sort: filters.sort }
-      const result = tranformDataByFilter(populatedDegens, newFilters)
+      const result = transformDataByFilter(populatedDegens, newFilters)
       setFilters(newFilters)
       setFilteredData(result)
     },
@@ -165,7 +165,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
     (sort: string) => {
       const newSort = { ...filters, sort }
       setFilters(newSort)
-      setFilteredData(tranformDataByFilter(populatedDegens, newSort))
+      setFilteredData(transformDataByFilter(populatedDegens, newSort))
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [populatedDegens.length, filters]

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 
 import {
   applySeventhTribesFix,
-  tranformDataByFilter,
+  transformDataByFilter,
 } from '@/components/extended/DegensFilter/utils'
 import type { DegenFilter } from '@/types/degenFilter'
 import type { PublicDegen } from '@/types/degens'
@@ -106,7 +106,7 @@ export async function GET(request: Request) {
       )
       const requestedPage = parsePositiveInteger(params.get('page'), 1)
       const fixedCatalog = catalog.map(applySeventhTribesFix)
-      const filteredCatalog = tranformDataByFilter(fixedCatalog, getCatalogFilter(params))
+      const filteredCatalog = transformDataByFilter(fixedCatalog, getCatalogFilter(params))
       const maxPage = Math.ceil(filteredCatalog.length / pageSize)
       const page = maxPage ? Math.min(requestedPage, maxPage) : 1
       const start = (page - 1) * pageSize
