@@ -46,6 +46,7 @@ describe('hosted validation cost policy', () => {
     expect(source).toContain('          filter: blob:none')
     expect(source).toContain('          sparse-checkout: |')
     expect(source).toContain('            .github')
+    expect(source).toContain('            git -C "$preview_dir" sparse-checkout disable')
     expect(source).toContain('changed_paths_file=$(mktemp)')
     expect(source).toContain('> "$changed_paths_file"')
     expect(source).toContain('done < "$changed_paths_file"')
