@@ -1,6 +1,6 @@
 'use client'
 
-import type { PropsWithChildren, ReactNode } from 'react'
+import { memo, type PropsWithChildren, type ReactNode } from 'react'
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 
@@ -37,21 +37,7 @@ function AppShellContent({ children, header, sidebar, networkWarning }: AppShell
     setDrawerOpen(isDesktopNavigation)
   }, [isDesktopNavigation, setDrawerOpen])
 
-  const isNoFilterPage = pathname && /(degens|dashboard\/degens)/.test(pathname)
-
-  const content = (
-    <>
-      <Breadcrumbs
-        pathname={pathname ?? ''}
-        separator="chevron-right"
-        navigation={navigation}
-        icon
-        title
-        rightAlign
-      />
-      {children}
-    </>
-  )
+  const isNoFilterPage = Boolean(pathname && /(degens|dashboard\/degens)/.test(pathname))
 
   return (
     <>
@@ -64,15 +50,45 @@ function AppShellContent({ children, header, sidebar, networkWarning }: AppShell
         {sidebar}
 
         <main className={cx(styles.main, drawerOpen ? styles.mainOpen : styles.mainClosed)}>
-          {!isNoFilterPage ? (
-            <ScrollArea className="h-full" viewportClassName="py-5 md:py-10">
-              <div className="container">{content}</div>
-            </ScrollArea>
-          ) : (
-            content
-          )}
+          <AppMainContent pathname={pathname ?? ''} isNoFilterPage={isNoFilterPage}>
+            {children}
+          </AppMainContent>
         </main>
       </div>
     </>
   )
 }
+
+interface AppMainContentProps {
+  children: ReactNode
+  isNoFilterPage: boolean
+  pathname: string
+}
+
+const AppMainContent = memo(function AppMainContent({
+  children,
+  isNoFilterPage,
+  pathname,
+}: AppMainContentProps) {
+  const content = (
+    <>
+      <Breadcrumbs
+        pathname={pathname}
+        separator="chevron-right"
+        navigation={navigation}
+        icon
+        title
+        rightAlign
+      />
+      {children}
+    </>
+  )
+
+  if (isNoFilterPage) return content
+
+  return (
+    <ScrollArea className="h-full" viewportClassName="py-5 md:py-10">
+      <div className="container">{content}</div>
+    </ScrollArea>
+  )
+})
