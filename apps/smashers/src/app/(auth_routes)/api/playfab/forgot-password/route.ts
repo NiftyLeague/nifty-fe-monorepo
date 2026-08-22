@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { SendAccountRecoveryEmail } from '@nl/playfab/api'
+import { SendAccountRecoveryEmail } from '@nl/playfab/api/client'
 import { errorResHandler } from '@nl/playfab/utils/errorHandlers'
 
 import { withSessionRoute } from '@/utils/session'

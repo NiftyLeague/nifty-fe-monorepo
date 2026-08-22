@@ -2,6 +2,7 @@ import * as PlayFab from './PlayFab'
 import * as PlayFabAdmin from './PlayFabAdmin'
 import * as PlayFabClient from './PlayFabClient'
 import * as PlayFabCloudScript from './PlayFabCloudScript'
+import { configurePlayFab } from './configure'
 
 const sdk = {
   PlayFab: PlayFab,
@@ -17,6 +18,7 @@ const sdk = {
 }
 
 const createClient = (titleId: string, developerSecretKey: string) => {
+  configurePlayFab()
   sdk.settings.titleId = titleId
   sdk.settings.developerSecretKey = developerSecretKey
 

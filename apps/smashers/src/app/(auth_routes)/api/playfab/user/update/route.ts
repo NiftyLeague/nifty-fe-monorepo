@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
-import { AddOrUpdateContactEmail, ChangeDisplayName, UpdateAvatarUrl } from '@nl/playfab/api'
+import { AddOrUpdateContactEmail, UpdateAvatarUrl } from '@nl/playfab/api/client'
+import { ChangeDisplayName } from '@nl/playfab/api/cloudscript'
 import { errorResHandler } from '@nl/playfab/utils/errorHandlers'
 import type { User } from '@nl/playfab/types'
 

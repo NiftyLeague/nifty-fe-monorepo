@@ -41,6 +41,9 @@ mock.module('./sdk/index', () => ({
     PlayFabCloudScript: sdk.cloudScript,
   },
 }))
+mock.module('./sdk/PlayFabClient', () => sdk.client)
+mock.module('./sdk/PlayFabAdmin', () => sdk.admin)
+mock.module('./sdk/PlayFabCloudScript', () => sdk.cloudScript)
 mock.module('./utils/getRandomKey', () => ({
   getRandomKey: mock((size: number) => `random-${size}`),
 }))
