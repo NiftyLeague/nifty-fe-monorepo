@@ -1,5 +1,75 @@
 # Changelog
 
+## [1.0.5](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.4...web-v1.0.5) (2026-08-22)
+
+
+### Bug Fixes
+
+* **ci:** control hosted feature branch spend and staging realignment ([27de2c1](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/27de2c1b035b68ce2e9767532f02c04452fbe1e5))
+
+
+### Performance
+
+* **app:** slim public route shell ([#513](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/513)) ([12eced5](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/12eced5750ac202ac0d080dd21f653c80b56539e))
+* defer console game client boundary ([#485](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/485)) ([9754bba](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/9754bba581b67a8398c9a3acb1af2b6ee5dd2fbc))
+* defer marketing sections below the fold ([#491](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/491)) ([bcc90a8](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/bcc90a87b0b41c3918423e7a0c43e2d7908b5bf9))
+* defer shared analytics loading ([#484](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/484)) ([15f84af](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/15f84afa2aa243d243374887631e21f6f77044db))
+* defer shared media and client boundaries ([#463](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/463)) ([89a5922](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/89a5922d80ef719f91dbaf851866581052e0c98f))
+* defer shared Sentry client SDK ([#474](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/474)) ([974021c](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/974021cfe5ea63396ca24ac4a22b9bb32aa148c8))
+* defer shared Sentry initialization and route loading ([21203df](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/21203dfdfc659868bd8355e0ac529b57171d41df))
+* defer wallet network and public carousel code ([#477](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/477)) ([9373219](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/93732194ede6a6ed1200308df9fb5d93dd673693))
+* enable incremental marketing app builds ([9eecdea](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/9eecdeaad1aebc95516e368ee19e4d4970fa7996))
+* keep marketing pages server-rendered ([#510](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/510)) ([49e1ae9](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/49e1ae927afa67e333b3679069c1153d987c6564))
+* keep web navbar config server-rendered ([#509](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/509)) ([2222ec0](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/2222ec00263a7a19f67584dd6f3537ec4ad0b7b7))
+* narrow production sentry source maps ([14987a2](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/14987a224703313685632eb71a4b45ac2d251a5e))
+* reduce homepage hero preload contention ([#500](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/500)) ([70fda3f](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/70fda3f5940b4934ee8a580a80cc9e402cdf36ee))
+* reduce initial media and route payloads ([#911](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/911)) ([f74a41b](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/f74a41b419f797a5a8170fa78adeebfd8d9d6602))
+* reduce shared app and website runtime cost ([#462](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/462)) ([f311471](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/f311471139733ba4ca20b1e95aa6d999cd800884))
+* **ui:** scope font preloads by app theme ([#533](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/533)) ([265b2b1](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/265b2b123ae0eddeba7faae16b23ff8ad2cc3c33))
+* **web:** defer careers job cards ([#565](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/565)) ([fdc0d39](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/fdc0d39ed60de36fdcc772a58dc8ac642b3ec7a1))
+* **web:** defer decorative image preloads ([#563](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/563)) ([9800db3](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/9800db37ea565239d6d340b32c2fd177ded1f46e))
+* **web:** defer GLTF viewer client graph ([#587](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/587)) ([787f083](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/787f08351db001697881f877f16ce6efffc16f89))
+* **web:** defer GLTF viewer until selected ([4bfa927](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/4bfa9270f08ad10c345ff1a0d456d58626b5a93c))
+* **web:** defer homepage degen carousel ([#590](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/590)) ([49433db](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/49433db05e931118df181f76d42b4b327942730b))
+* **web:** defer overview FAQ interaction ([#564](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/564)) ([ea27f43](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/ea27f43a5553bcf64c828e293fff6ee9ead58947))
+* **web:** defer team mobile carousel ([#591](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/591)) ([7bf0bd9](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/7bf0bd9f356165565bea1baa032341a0e477a48f))
+* **web:** keep legal pages server-rendered ([#522](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/522)) ([5e267de](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/5e267de330ec8461340cf85cc3e1f5860a533427))
+* **web:** lazy-load shared YouTube embeds ([#539](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/539)) ([c1a9814](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/c1a9814fe999ba767be3aefd2ccc1e8471cece0c))
+* **web:** limit overview image preloads ([#562](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/562)) ([78c11e9](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/78c11e92f5e8c9c43c3b3857597301640c972b94))
+* **web:** optimize roadmap animations ([#543](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/543)) ([da98ac0](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/da98ac0f85e7e5d0bec59f00d204c55631d9843f))
+* **web:** remove decorative coin scroll runtime ([#593](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/593)) ([6108ec6](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/6108ec69dc84062a37f0bb92d344c093de142337))
+* **web:** remove default marketing animation boundaries ([#523](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/523)) ([e827962](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/e827962319e335f8192abe401ef4cc518804427e))
+* **web:** right-size marketing images ([#560](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/560)) ([f0d94b5](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/f0d94b54a73cc37c2ee0d5babc992041d981c6cc))
+* **web:** right-size secondary marketing images ([#561](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/561)) ([ddfe4a9](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/ddfe4a98db0360e2d42bf00bb43c35070009ddfb))
+* **web:** server-render GLTF viewer shell ([#527](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/527)) ([cd7a5b9](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/cd7a5b997e6fd00794298163b5565628fbc16d59))
+* **web:** slim home page animation client graph ([#548](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/548)) ([b50c1e2](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/b50c1e2ac74f7979cf7d99e7cfd8f2050d217382))
+* **web:** slim roadmap icon dependency ([#572](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/572)) ([ae1c94e](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/ae1c94eb6b2ad60a9d19482f6c2297250c04c45b))
+
+
+### Maintenance
+
+* **ci:** defer hosted builds until ready ([#511](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/511)) ([c745938](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/c745938146c7f7ca57d3df11da904e5d9cc81105))
+* promote staging GLTF viewer hotfix to main ([8bb1a53](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/8bb1a53bd02e9c420ffd024a659e4652ae027c60))
+* promote staging to main ([e0bbf03](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/e0bbf03b70e80750b523a0da964b27d6a8ea6e8f))
+* promote staging to main ([cc77798](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/cc77798c50da9641287aae69f5c73564e0be07cd))
+* promote staging to main ([b31b504](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/b31b5047539c2dbc7563e87323b61bc1b60df019))
+* promote staging to main ([c47739a](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/c47739aba71233e04dfc48c42ff2acc27c86aca1))
+* promote staging to main ([99c3dc1](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/99c3dc1853c41ca147a1ba198e761172b5516260))
+* promote staging to main ([3cca3a1](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/3cca3a16ae87f74097c5c6be68115aec94737d55))
+* promote staging to main ([39e5303](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/39e53032eb8ea831d67af545e8bc53ca8fe974c8))
+* promote staging to main ([e950a71](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/e950a71bb5cdfcbbd77bb23fca0edbb807dcd4ad))
+* promote staging to main ([43f65db](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/43f65db4a4343f816a48540c694166151906658c))
+* promote staging to main ([9e3cef2](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/9e3cef2ca40bcb76fe54e9f24d582bd122ce5d4f))
+* promote staging to main ([792b81f](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/792b81fdf8c6322987d839cbc80a38f6d49abc8f))
+* promote staging to main ([7fc3caa](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/7fc3caae951ca17ed3b66a8eb1368c62f459f76f))
+* promote staging to main ([17e1cb9](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/17e1cb959d8a231859802fe92802c9ef6ec1af35))
+* promote staging to main for GLTF NFTL hotfix ([b66c5f9](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/b66c5f9af80715e267f7925b3fd5793721bccbc1))
+* promote staging to main for release ([887a71b](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/887a71b0383d763925a9065cf6af548bb7e11211))
+* promote staging tree to main ([4860b22](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/4860b2210eecc5af2b5c31fffc08546bcf0175c1))
+* promote validated staging to main ([6aae680](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/6aae6802d77e1ec91da746d2e63f9abba4482f4e))
+* sync original staging content to main ([#901](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/901)) ([17415b6](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/17415b6e4913a4c60c435b33cbfb69eb67d6fd20))
+* **ui:** share accordion and icon button primitives ([#568](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/568)) ([0e545fa](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/0e545fab64a99ebfc745e951598f80454a14fbc0))
+
 ## [1.0.4](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.3...web-v1.0.4) (2026-08-10)
 
 
