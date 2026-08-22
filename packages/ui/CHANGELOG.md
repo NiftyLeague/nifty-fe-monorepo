@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v1.0.3...ui-v1.0.4) (2026-08-22)
+
+
+### Performance
+
+* **app:** tighten shared game card image sizing ([7feeb19](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/7feeb1940dcbf18e7de3f70a30b95cec18bdb363))
+
 ## [1.0.3](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v1.0.2...ui-v1.0.3) (2026-08-22)
 
 
