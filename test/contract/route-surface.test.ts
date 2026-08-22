@@ -2151,8 +2151,12 @@ describe('public route dependency contract', () => {
     expect(constants).toContain("DEFAULT_VIEWPORT_VIDEO_ROOT_MARGIN = '0px 0px -25% 0px'")
     expect(boundary).toContain('lazy<ComponentType<ViewportVideoEnhancerProps>>(')
     expect(boundary).toContain('rootMargin = DEFAULT_VIEWPORT_VIDEO_ROOT_MARGIN')
-    expect(boundary).toContain("preload={isNearViewport ? 'metadata' : 'none'}")
-    expect(boundary).toContain('hasEnteredViewport || isNearViewport')
+    expect(boundary).toContain(
+      "preload={shouldRenderMedia && isNearViewport ? 'metadata' : 'none'}"
+    )
+    expect(boundary).toContain(
+      'const shouldRenderMedia = hasEnteredViewport || (isNearViewport && !deferLoad)'
+    )
     expect(enhancer).not.toContain("from '@nl/ui/hooks/useOnScreen'")
     expect(enhancer).toContain('isNearViewport: boolean')
     expect(enhancer).toContain("from '@nl/ui/hooks/useMediaQuery'")

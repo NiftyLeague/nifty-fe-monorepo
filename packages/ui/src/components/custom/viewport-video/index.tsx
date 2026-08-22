@@ -9,6 +9,8 @@ export type ViewportVideoProps = Omit<
 > & {
   /** Automatically play while the video is near the viewport. */
   playOnViewport?: boolean
+  /** Defer loading a visible video until the browser has had idle time. */
+  deferLoad?: boolean
   rootMargin?: string
   src: string
 }
@@ -16,6 +18,7 @@ export type ViewportVideoProps = Omit<
 export { DEFAULT_VIEWPORT_VIDEO_ROOT_MARGIN }
 
 export const ViewportVideo = memo(function ViewportVideo({
+  deferLoad = false,
   playOnViewport = true,
   rootMargin = DEFAULT_VIEWPORT_VIDEO_ROOT_MARGIN,
   src,
@@ -23,6 +26,7 @@ export const ViewportVideo = memo(function ViewportVideo({
 }: ViewportVideoProps) {
   return (
     <ViewportVideoBoundary
+      deferLoad={deferLoad}
       playOnViewport={playOnViewport}
       rootMargin={rootMargin}
       src={src}
