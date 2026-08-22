@@ -20,6 +20,18 @@ beforeEach(async () => {
       <img alt={alt ?? ''} {...props} />
     ),
   }))
+  mock.module('@nl/ui/custom/optimized-image', () => ({
+    default: ({
+      fill: _fill,
+      quality: _quality,
+      sizes: _sizes,
+      alt,
+      ...props
+    }: ComponentProps<'img'> & { fill?: boolean; quality?: number }) => (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img data-optimized-image="true" alt={alt ?? ''} {...props} />
+    ),
+  }))
   mock.module('@/components/AppNavIcon', () => ({
     AppNavIcon: ({ name }: { name: string }) => <span data-icon={name}>{name}</span>,
   }))
@@ -221,6 +233,7 @@ describe('card presentation', () => {
     expect(guideLink.className).toContain('h-8')
     expect(screen.getByAltText('Smashers').getAttribute('loading')).toBe('eager')
     expect(screen.getByAltText('Smashers').getAttribute('fetchpriority')).toBe('high')
+    expect(screen.getByAltText('Smashers').getAttribute('data-optimized-image')).toBe('true')
 
     rerender(
       <GameCard
