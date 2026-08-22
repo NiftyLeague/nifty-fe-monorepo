@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.10](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.9...web-v1.0.10) (2026-08-22)
+
+
+### Performance
+
+* **images:** add small responsive candidates ([#977](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/977)) ([41f98d4](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/41f98d47d5f164dd0554b99c2d708e5167993d3f))
+
 ## [1.0.9](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.8...web-v1.0.9) (2026-08-22)
 
 
