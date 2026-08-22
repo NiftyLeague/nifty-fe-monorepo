@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.13](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.12...nifty-fe-monorepo-v1.2.13) (2026-08-22)
+
+
+### Performance
+
+* **app:** rely on shared lazy image priority ([#985](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/985)) ([7be844f](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/7be844fad9814a789b656776e48149d79a129612))
+
 ## [1.2.12](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.11...nifty-fe-monorepo-v1.2.12) (2026-08-22)
 
 
