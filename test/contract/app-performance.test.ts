@@ -7,6 +7,9 @@ const appGasUtility = 'apps/app/src/utils/gas.ts'
 const retiredAxiosUtility = 'apps/app/src/utils/axios.ts'
 const appGraphQLUtility = 'apps/app/src/utils/graphql.ts'
 const appNextConfig = 'apps/app/next.config.ts'
+const appTsConfig = 'apps/app/tsconfig.json'
+const appWeb3Types = 'apps/app/src/types/web3.ts'
+const appInterchainService = 'apps/app/src/utils/interchainTokenService.ts'
 const deferredNicknameForm =
   'apps/app/src/app/(private-routes)/dashboard/rentals/ChangeNicknameDialog.tsx'
 const deferredProfileNameForm =
@@ -362,6 +365,20 @@ describe('app performance contracts', () => {
     for (const file of incrementalTypecheckConfigs) {
       expect(readFileSync(file, 'utf8')).toContain('"incremental": true')
     }
+  })
+
+  it('keeps generated contract types out of the default app program and avoids the barrel graph', () => {
+    const tsConfig = readFileSync(appTsConfig, 'utf8')
+    expect(tsConfig).toContain('src/types/typechain/**')
+
+    for (const file of [appWeb3Types, appInterchainService]) {
+      const source = readFileSync(file, 'utf8')
+      expect(source).not.toContain("from '@/types/typechain'")
+    }
+    expect(readFileSync(appWeb3Types, 'utf8')).toContain('@/types/typechain/src/contracts/imx/NFTL')
+    expect(readFileSync(appInterchainService, 'utf8')).toContain(
+      '@/types/typechain/src/contracts/NFTLToken'
+    )
   })
 
   it('keeps the app gas-price path on native fetch without a retired Axios wrapper', () => {
