@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.18](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.17...nifty-fe-monorepo-v1.2.18) (2026-08-22)
+
+
+### Bug Fixes
+
+* **ci:** preserve release metadata during staging re-alignment ([#1005](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1005)) ([de84224](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/de84224ede703d0e94822b78935347137de686f6))
+
+
+### Maintenance
+
+* re-align staging with main ([#1003](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1003)) ([814cdd5](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/814cdd503f5ac2a92a2b5d5bdcafc30d64a9d6fa))
+
 ## [1.2.17](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.16...nifty-fe-monorepo-v1.2.17) (2026-08-22)
 
 
