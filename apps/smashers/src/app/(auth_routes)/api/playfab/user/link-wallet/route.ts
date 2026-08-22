@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { LinkWallet } from '@nl/playfab/api'
+import { LinkWallet } from '@nl/playfab/api/cloudscript'
 import { errorResHandler } from '@nl/playfab/utils/errorHandlers'
 
 import { withUserRoute } from '@/utils/session'

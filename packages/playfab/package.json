@@ -7,10 +7,12 @@
   "main": "./src/index.ts",
   "exports": {
     "./api": "./src/api.ts",
+    "./api/*": "./src/api/*.ts",
     "./components/*": "./src/components/*/index.tsx",
     "./constants": "./src/constants.ts",
     "./hooks/*": "./src/hooks/*.ts",
     "./sdk": "./src/sdk/index.ts",
+    "./sdk/client": "./src/sdk/client.ts",
     "./types": "./src/types.ts",
     "./utils/*": "./src/utils/*.ts"
   },
