@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.0.4](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/docs-v1.0.3...docs-v1.0.4) (2026-08-22)
+
+
+### Bug Fixes
+
+* **ci:** control hosted feature branch spend and staging realignment ([27de2c1](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/27de2c1b035b68ce2e9767532f02c04452fbe1e5))
+
+
+### Performance
+
+* **docs:** optimize mint animation asset ([#540](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/540)) ([d049352](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/d0493524582c7a8d3075163b706db8fa908a8133))
+* **docs:** share lazy media primitives ([fe1e7ba](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/fe1e7ba2b56bb534ec2598d4698c0f5c4bcef0d8))
+
+
+### Maintenance
+
+* promote staging to main ([cc77798](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/cc77798c50da9641287aae69f5c73564e0be07cd))
+* promote staging to main for GLTF NFTL hotfix ([b66c5f9](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/b66c5f9af80715e267f7925b3fd5793721bccbc1))
+* promote staging to main for release ([887a71b](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/887a71b0383d763925a9065cf6af548bb7e11211))
+* sync original staging content to main ([#901](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/901)) ([17415b6](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/17415b6e4913a4c60c435b33cbfb69eb67d6fd20))
+
 ## [1.0.3](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/docs-v1.0.2...docs-v1.0.3) (2026-08-09)
 
 
