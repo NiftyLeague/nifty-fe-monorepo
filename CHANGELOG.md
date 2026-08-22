@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.10](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.9...nifty-fe-monorepo-v1.2.10) (2026-08-22)
+
+
+### Performance
+
+* **web:** defer Games lobby video loading ([6f49997](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/6f4999718c3b001e6f0f27a57114b60325ce4780))
+
 ## [1.2.9](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.8...nifty-fe-monorepo-v1.2.9) (2026-08-22)
 
 
