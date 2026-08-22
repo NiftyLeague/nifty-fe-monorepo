@@ -7,13 +7,25 @@
 }
 
 .background {
-  background: url('/img/backgrounds/lore/background.webp');
-  background-repeat: no-repeat;
-  background-position: top center;
-  background-size: 100% 100%;
+  position: relative;
+}
+
+.backgroundImage {
+  position: absolute;
+  inset: 0;
+  display: block;
+
+  & img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+  }
 }
 
 .inner {
+  position: relative;
+  z-index: 1;
   padding: 300px 20% 300px 16%;
   height: 100%;
   margin-left: auto;
