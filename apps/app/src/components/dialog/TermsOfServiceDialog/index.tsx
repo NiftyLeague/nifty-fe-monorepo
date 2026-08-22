@@ -1,9 +1,10 @@
 import { Button } from '@nl/ui/base/button'
 import { Dialog, DialogContent, DialogTitle } from '@nl/ui/base/dialog'
+import DeferredComponent from '@nl/ui/custom/deferred-component'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { cn } from '@nl/ui/utils'
 
-import TermsOfServiceContent from './TermsOfServiceContent'
+const loadTermsOfServiceContent = () => import('./TermsOfServiceContent')
 
 export interface TermsOfServiceDialogProps {
   open: boolean
@@ -43,7 +44,12 @@ const TermsOfServiceDialog = ({ open, onClose }: TermsOfServiceDialogProps) => {
             className="w-full overflow-x-hidden overflow-y-scroll"
             style={{ height: fullScreen ? 'calc(100vh - 184px)' : '65vh' }}
           >
-            <TermsOfServiceContent />
+            <DeferredComponent
+              enabled={open}
+              label="Terms and conditions"
+              load={loadTermsOfServiceContent}
+              props={{}}
+            />
           </div>
           <div className="mt-3 flex gap-2 px-4">
             <Button variant="default" className="w-full" onClick={() => onClose({}, 'accepted')}>
