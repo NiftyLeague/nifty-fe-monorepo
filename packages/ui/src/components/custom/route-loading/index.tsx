@@ -1,4 +1,4 @@
-import { Skeleton } from '@nl/ui/base/skeleton'
+import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 
 interface RouteLoadingProps {
   label?: string
@@ -13,8 +13,8 @@ export function RouteLoading({ label = 'Loading page' }: RouteLoadingProps) {
       aria-busy="true"
     >
       <div className="flex w-full max-w-3xl flex-col gap-4">
-        <Skeleton aria-hidden="true" className="h-8 w-48" />
-        <Skeleton aria-hidden="true" className="h-64 w-full" />
+        <DeferredSkeleton aria-hidden="true" className="h-8 w-48" />
+        <DeferredSkeleton aria-hidden="true" className="h-64 w-full" />
       </div>
       <span className="sr-only">{label}</span>
     </div>

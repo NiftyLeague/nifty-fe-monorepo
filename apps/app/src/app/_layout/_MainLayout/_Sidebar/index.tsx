@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 
-import { Skeleton } from '@nl/ui/base/skeleton'
+import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import useAuth from '@/hooks/useAuth'
 import MenuList from './_MenuList'
 import SidebarFrame from './SidebarFrame'
@@ -15,9 +15,9 @@ function UserProfileLoading() {
       aria-busy="true"
       aria-label="Loading profile and login controls"
     >
-      <Skeleton className="size-20 rounded-full" />
-      <Skeleton className="my-2 h-5 w-32" />
-      <Skeleton className="h-9 w-full rounded-md" />
+      <DeferredSkeleton className="size-20 rounded-full" />
+      <DeferredSkeleton className="my-2 h-5 w-32" />
+      <DeferredSkeleton className="h-9 w-full rounded-md" />
     </div>
   )
 }

@@ -103,6 +103,14 @@ const walletStorageBoundaries = [
   'apps/app/src/contexts/WalletStorageProviders.tsx',
   'apps/app/src/components/providers/MintProviders.tsx',
 ]
+
+const usesSharedLoadingSkeleton = (source: string) =>
+  source.includes("from '@nl/ui/base/skeleton'") ||
+  source.includes("from '@nl/ui/custom/deferred-skeleton'")
+
+const rendersSharedLoadingSkeleton = (source: string) =>
+  source.includes('<Skeleton') || source.includes('<DeferredSkeleton')
+
 const leaderboardProviders = 'apps/app/src/contexts/LeaderboardProviders.tsx'
 const leaderboardWalletBoundary = 'apps/app/src/components/leaderboards/LeaderboardRankBoundary.tsx'
 const dashboardOverview = 'apps/app/src/app/(private-routes)/dashboard/overview/page.tsx'
@@ -377,7 +385,7 @@ describe('public leaderboard loading contract', () => {
     expect(deferredSource).toContain('LeaderboardsLoading')
     expect(deferredSource).toContain('role="status"')
     expect(deferredSource).toContain('aria-busy="true"')
-    expect(deferredSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(usesSharedLoadingSkeleton(deferredSource)).toBe(true)
     expect(sharedSource).toContain('role="alert"')
     expect(sharedSource).toContain('Retry')
   })
@@ -417,7 +425,7 @@ describe('public degen loading contract', () => {
     expect(pageSource).toContain("from './DegenRoute'")
     expect(routeBoundarySource).toContain("dynamic(() => import('./AllDegensPage')")
     expect(routeBoundarySource).not.toContain('ssr: false')
-    expect(routeBoundarySource).toContain("from '@nl/ui/base/skeleton'")
+    expect(usesSharedLoadingSkeleton(routeBoundarySource)).toBe(true)
     expect(clientPageSource).toContain("'use client'")
     expect(clientPageSource).toContain("from 'lucide-react'")
     expect(clientPageSource).toContain('useSearchParams')
@@ -601,7 +609,7 @@ describe('shared route loading contract', () => {
   it('uses the themed shadcn skeleton boundary for every Next app', () => {
     const sharedSource = readFileSync(join(process.cwd(), sharedRouteLoading), 'utf8')
 
-    expect(sharedSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(usesSharedLoadingSkeleton(sharedSource)).toBe(true)
     expect(sharedSource).toContain('role="status"')
     expect(sharedSource).toContain('aria-live="polite"')
     expect(sharedSource).toContain('aria-busy="true"')
@@ -808,7 +816,7 @@ describe('dashboard dialog loading contract', () => {
   it('shares an accessible loading boundary across deferred dialog wrappers', () => {
     const source = readFileSync(join(process.cwd(), deferredDialogLoading), 'utf8')
 
-    expect(source).toContain("from '@nl/ui/base/skeleton'")
+    expect(usesSharedLoadingSkeleton(source)).toBe(true)
     expect(source).toContain('role="status"')
     expect(source).toContain('aria-live="polite"')
     expect(source).toContain('aria-busy="true"')
@@ -920,7 +928,7 @@ describe('mint route provider loading contract', () => {
     expect(boundarySource).toContain("import('@/contexts/NetworkProvider')")
     expect(boundarySource).toContain('NEXT_PUBLIC_AUDIT_FIXTURE')
     expect(boundarySource).toContain('role="status"')
-    expect(boundarySource).toContain('<Skeleton')
+    expect(rendersSharedLoadingSkeleton(boundarySource)).toBe(true)
   })
 
   it('keeps wallet and mint content out of the initial route client segment', () => {
@@ -1258,7 +1266,7 @@ describe('private provider loading contract', () => {
     expect(providerSource).not.toContain('createAppKit')
     expect(providerSource).not.toContain('@reown/appkit/react')
     expect(providerSource).not.toContain('@/constants/contracts')
-    expect(fallbackSource).toContain('<Skeleton')
+    expect(rendersSharedLoadingSkeleton(fallbackSource)).toBe(true)
     expect(fallbackSource).toContain('role="status"')
     expect(fallbackSource).toContain('role="alert"')
     expect(providerSource).toContain('Retry')
@@ -1311,7 +1319,7 @@ describe('private provider loading contract', () => {
     expect(layoutSource).toContain('headers()')
     expect(boundarySource).toContain("import('./PrivateRoutesShell')")
     expect(boundarySource).not.toContain('ssr: false')
-    expect(boundarySource).toContain('<Skeleton')
+    expect(rendersSharedLoadingSkeleton(boundarySource)).toBe(true)
     expect(boundarySource).toContain('role="status"')
     expect(shellSource).toContain('MainLayout')
     expect(shellSource).toContain('WalletStorageProviders')
@@ -1410,7 +1418,7 @@ describe('dashboard DEGEN loading contract', () => {
     expect(boundarySource).toContain('ssr: false')
     expect(boundarySource).toContain('<RouteLoading label="Loading dashboard DEGENs" />')
     expect(clientSource).toContain("dynamic(() => import('./DashboardDegensContent')")
-    expect(clientSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(usesSharedLoadingSkeleton(clientSource)).toBe(true)
     expect(clientSource).toContain('role="status"')
     expect(clientSource).toContain('aria-busy="true"')
     expect(clientSource).not.toContain("from '@/components/cards/DegenCard/DashboardDegenCard'")
@@ -1440,7 +1448,7 @@ describe('dashboard items loading contract', () => {
     expect(boundarySource).toContain('ssr: false')
     expect(boundarySource).toContain('<RouteLoading label="Loading dashboard comics and items" />')
     expect(clientSource).toContain("dynamic(() => import('./DashboardItemsContent')")
-    expect(clientSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(usesSharedLoadingSkeleton(clientSource)).toBe(true)
     expect(clientSource).toContain('role="status"')
     expect(clientSource).toContain('aria-live="polite"')
     expect(clientSource).toContain('aria-busy="true"')
@@ -1465,7 +1473,7 @@ describe('dashboard burner loading contract', () => {
     expect(boundarySource).toContain('ssr: false')
     expect(boundarySource).toContain('<RouteLoading label="Loading comics burner" />')
     expect(clientSource).toContain("dynamic(() => import('./ComicsBurnerContent')")
-    expect(clientSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(usesSharedLoadingSkeleton(clientSource)).toBe(true)
     expect(clientSource).toContain('role="status"')
     expect(clientSource).toContain('aria-live="polite"')
     expect(clientSource).toContain('aria-busy="true"')
@@ -1508,7 +1516,7 @@ describe('gamer profile loading contract', () => {
     expect(boundarySource).toContain('ssr: false')
     expect(boundarySource).toContain('<RouteLoading label="Loading gamer profile" />')
     expect(clientSource).toContain("dynamic(() => import('./GamerProfileContent')")
-    expect(clientSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(usesSharedLoadingSkeleton(clientSource)).toBe(true)
     expect(clientSource).toContain('role="status"')
     expect(clientSource).toContain('aria-live="polite"')
     expect(clientSource).toContain('aria-busy="true"')
@@ -1534,7 +1542,7 @@ describe('dashboard rentals loading contract', () => {
     expect(boundarySource).toContain('ssr: false')
     expect(boundarySource).toContain('<RouteLoading label="Loading rentals" />')
     expect(clientSource).toContain("dynamic(() => import('./DashboardRentalsContent')")
-    expect(clientSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(usesSharedLoadingSkeleton(clientSource)).toBe(true)
     expect(clientSource).toContain('role="status"')
     expect(clientSource).toContain('aria-live="polite"')
     expect(clientSource).toContain('aria-busy="true"')

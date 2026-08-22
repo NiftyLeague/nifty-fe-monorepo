@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic'
 
-import { Skeleton } from '@nl/ui/base/skeleton'
+import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 
 import DashboardDataBoundary from '@/components/providers/DashboardDataBoundary'
 
@@ -16,11 +16,11 @@ const ComicsBurnerContent = dynamic(() => import('./ComicsBurnerContent'), {
       aria-busy="true"
       aria-label="Loading comics burner"
     >
-      <Skeleton className="h-8 w-48 rounded" />
-      <Skeleton className="h-96 w-full rounded" />
+      <DeferredSkeleton className="h-8 w-48 rounded" />
+      <DeferredSkeleton className="h-96 w-full rounded" />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {Array.from({ length: 8 }, (_, index) => (
-          <Skeleton key={index} className="h-24 w-full rounded" />
+          <DeferredSkeleton key={index} className="h-24 w-full rounded" />
         ))}
       </div>
       <span className="sr-only">Loading comics burner</span>
