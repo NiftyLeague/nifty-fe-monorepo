@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { DeletePlayer } from '@nl/playfab/api'
+import { DeletePlayer } from '@nl/playfab/api/admin'
 import { errorResHandler } from '@nl/playfab/utils/errorHandlers'
 import type { User } from '@nl/playfab/types'
 
