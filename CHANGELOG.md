@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.9](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.8...nifty-fe-monorepo-v1.2.9) (2026-08-22)
+
+
+### Performance
+
+* **app:** optimize game card artwork ([#969](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/969)) ([5638470](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/5638470ead5e6e00ee4395362d190f253c6ffa50))
+
 ## [1.2.8](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.7...nifty-fe-monorepo-v1.2.8) (2026-08-22)
 
 
