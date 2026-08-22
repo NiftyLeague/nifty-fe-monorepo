@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.5](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.4...app-v1.1.5) (2026-08-22)
+
+
+### Performance
+
+* **app:** defer profile avatar video playback ([193305e](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/193305e9fe40d9d158c866e3682628a8109aeb95))
+
 ## [1.1.4](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.3...app-v1.1.4) (2026-08-22)
 
 
