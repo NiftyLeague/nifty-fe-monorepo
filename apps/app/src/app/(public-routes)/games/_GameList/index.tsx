@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { GAME_CARD_IMAGE_SIZES } from '@nl/ui/image-sizes'
 import NativeImage from '@nl/ui/custom/native-image'
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 import GameCard from '@/components/cards/GameCard'
@@ -57,7 +58,7 @@ const GameArtwork = ({
     src={src}
     alt={title}
     fill
-    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+    sizes={GAME_CARD_IMAGE_SIZES}
     quality={60}
     loading={loading}
     fetchPriority={fetchPriority}

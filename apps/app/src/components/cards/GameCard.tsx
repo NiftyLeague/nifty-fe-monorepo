@@ -4,6 +4,7 @@ import { buttonVariants } from '@nl/ui/base/button-variants'
 import { Card, CardContent } from '@nl/ui/base/card'
 import { Title } from '@nl/ui/custom/typography'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
+import { GAME_CARD_IMAGE_SIZES } from '@nl/ui/image-sizes'
 import { cn } from '@nl/ui/utils'
 import type { SxProps, Theme } from '@/types'
 
@@ -177,7 +178,7 @@ const GameCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<GameCar
               src={image}
               alt={title || 'Game artwork'}
               fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+              sizes={GAME_CARD_IMAGE_SIZES}
               loading={imageLoading}
               fetchPriority={imageFetchPriority}
               className="object-cover"
