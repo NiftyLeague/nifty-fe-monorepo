@@ -47,7 +47,7 @@ const GameArtwork = ({
   src,
   title,
   loading = 'lazy',
-  fetchPriority = 'auto',
+  fetchPriority,
 }: {
   src: string
   title: string
@@ -134,7 +134,6 @@ const F2PGameList = () => (
           <GameArtwork
             src="/img/games/nifty-royale/nifty-royale-poster.jpg"
             title="Party Royale (Early-Alpha)"
-            fetchPriority="auto"
           />
         }
         autoHeight={false}
