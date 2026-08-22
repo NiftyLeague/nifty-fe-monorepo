@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 
-import OptimizedImage from '@nl/ui/custom/optimized-image'
+import OptimizedImage, { getOptimizedImageProps } from '@nl/ui/custom/optimized-image'
 
 import { cx } from '@nl/ui/class-names'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
@@ -8,12 +8,35 @@ import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 import styles from './index.module.css'
 
 const Lore: NextPage = () => {
+  const background = getOptimizedImageProps({
+    alt: '',
+    height: 2895,
+    loading: 'eager',
+    quality: 60,
+    sizes: '100vw',
+    src: '/img/backgrounds/lore/background.webp',
+    width: 1568,
+  })
+  const mobileBackground = getOptimizedImageProps({
+    alt: '',
+    height: 1415,
+    loading: 'eager',
+    quality: 60,
+    sizes: '100vw',
+    src: '/img/backgrounds/lore/background-mobile.webp',
+    width: 396,
+  })
+
   return (
     <div className="pt-20 overflow-hidden">
       <h1 className="text-center mb-3">LORE</h1>
 
       <div className={styles.content}>
         <div className={styles.background}>
+          <picture className={styles.backgroundImage}>
+            <source media="(max-width: 768px)" sizes="100vw" srcSet={mobileBackground.srcSet} />
+            <img {...background} alt="" />
+          </picture>
           <div className={styles.inner}>
             <p>
               Satoshi Nakamoto was a quiet genius. Having lived in Japan as an inventor, one day his
