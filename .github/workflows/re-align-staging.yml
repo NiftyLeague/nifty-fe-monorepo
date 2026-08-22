@@ -176,6 +176,10 @@ jobs:
           BOT_EMAIL="41898282+github-actions[bot]"
           BOT_EMAIL+="@users.noreply.github.com"
           git config user.email "$BOT_EMAIL"
+          # The initial checkout is sparse because drift detection only needs
+          # the workflow. Drifted runs now need the full staging tree before
+          # the merge restore can materialize changed application/test paths.
+          git sparse-checkout disable
           git checkout -b "$BRANCH" origin/staging
           staging_head=$(git rev-parse HEAD)
 
