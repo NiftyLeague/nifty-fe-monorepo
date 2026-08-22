@@ -31,7 +31,7 @@ describe('free-to-play game list', () => {
     expect(firstCardImage.getAttribute('quality')).toBe('60')
     expect(firstCardImage.getAttribute('sizes')).toBe('(min-width: 768px) 410px, 100vw')
     expect(secondCardImage.getAttribute('loading')).toBe('lazy')
-    expect(secondCardImage.getAttribute('fetchpriority')).toBe('auto')
+    expect(secondCardImage.getAttribute('fetchpriority')).toBeNull()
     expect(secondCardImage.getAttribute('quality')).toBe('60')
   })
 
