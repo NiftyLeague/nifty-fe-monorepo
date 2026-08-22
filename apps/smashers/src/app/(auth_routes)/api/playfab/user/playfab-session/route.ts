@@ -1,14 +1,12 @@
 import { NextResponse } from 'next/server'
 import { USER_INITIAL_STATE } from '@nl/playfab/constants'
-import { playfab } from '@nl/playfab/sdk'
+import { IsClientLoggedIn } from '@nl/playfab/sdk/client'
 
 import { withSessionRoute } from '@/utils/session'
 
-const { PlayFabClient } = playfab
-
 export const GET = withSessionRoute(async (_request, session) => {
   const user = session.user
-  const isLoggedIn = user ? !!PlayFabClient.IsClientLoggedIn(user) : false
+  const isLoggedIn = user ? IsClientLoggedIn(user) : false
   if (user?.PlayFabId) {
     user.isLoggedIn = isLoggedIn
     await session.save()
