@@ -46,7 +46,7 @@ export async function isEthereumSignatureValid(
   nonce: string
 ): Promise<boolean> {
   if (!address || !signature || !nonce) return false
-  const message = generateMessage(address, nonce)
+  // NOTE: Actual Ethereum signature validation is not yet implemented.
+  // The current behavior always returns true for non-empty inputs.
   return true
-  // TODO: fix signiture validation
 }

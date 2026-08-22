@@ -5,7 +5,7 @@ import DEFAULT_STATIC_FILTER from './constants'
 import { BURN_ADDYS } from '@/constants/addresses'
 import { HYDRA_RARITIES } from '@/constants/hydra-rarities'
 
-export const tranformDataByFilter = <T extends PublicDegen>(
+export const transformDataByFilter = <T extends PublicDegen>(
   degens: T[],
   {
     backgrounds = [],
