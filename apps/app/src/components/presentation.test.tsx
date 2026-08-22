@@ -24,7 +24,6 @@ beforeEach(async () => {
     default: ({
       fill: _fill,
       quality: _quality,
-      sizes: _sizes,
       alt,
       ...props
     }: ComponentProps<'img'> & { fill?: boolean; quality?: number }) => (
@@ -233,6 +232,9 @@ describe('card presentation', () => {
     expect(guideLink.className).toContain('h-8')
     expect(screen.getByAltText('Smashers').getAttribute('loading')).toBe('eager')
     expect(screen.getByAltText('Smashers').getAttribute('fetchpriority')).toBe('high')
+    expect(screen.getByAltText('Smashers').getAttribute('sizes')).toBe(
+      '(min-width: 768px) 410px, 100vw'
+    )
     expect(screen.getByAltText('Smashers').getAttribute('data-optimized-image')).toBe('true')
 
     rerender(
