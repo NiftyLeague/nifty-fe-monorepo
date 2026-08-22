@@ -64,6 +64,11 @@ jobs:
             }
             trap cleanup_preview EXIT
             git worktree add --detach "$preview_dir" origin/staging >/dev/null
+            # The caller checkout is sparse to keep no-drift runs cheap. A
+            # linked worktree inherits that sparse index, so materialize the
+            # full staging tree before the merge preview restores staging-only
+            # paths.
+            git -C "$preview_dir" sparse-checkout disable
             staging_head=$(git -C "$preview_dir" rev-parse HEAD)
             git -C "$preview_dir" config user.name "re-align-preview"
             git -C "$preview_dir" config user.email "re-align-preview@users.noreply.github.com"
