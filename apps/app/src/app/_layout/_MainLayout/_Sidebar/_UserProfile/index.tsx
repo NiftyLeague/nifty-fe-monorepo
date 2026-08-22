@@ -49,6 +49,7 @@ const UserProfile = () => {
       <ConnectWrapper fullWidth>
         <Link
           href="/dashboard"
+          prefetch={false}
           data-slot="button"
           className={buttonVariants({ className: 'w-full' })}
         >

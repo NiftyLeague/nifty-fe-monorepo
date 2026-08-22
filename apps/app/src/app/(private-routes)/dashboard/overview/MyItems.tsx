@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import { useRouter } from 'next/navigation'
-import Link from 'next/link'
 import { Button } from '@nl/ui/base/button'
 
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
@@ -55,12 +54,12 @@ const MyItems = (): React.ReactNode => {
           ))
         ) : (
           <div className="flex items-center justify-center">
-            <Link href={ITEM_PURCHASE_URL} target="_blank" rel="noreferrer">
+            <a href={ITEM_PURCHASE_URL} target="_blank" rel="noreferrer">
               <EmptyState
                 message="No Items found. Please check your address or go purchase some if you have not done so already!"
                 buttonText="Buy Items"
               />
-            </Link>
+            </a>
           </div>
         )}
       </SectionSlider>

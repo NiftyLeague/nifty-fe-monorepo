@@ -1,7 +1,6 @@
 'use client'
 
 import { memo } from 'react'
-import Link from 'next/link'
 import { Pencil } from 'lucide-react'
 import { Button } from '@nl/ui/base/button'
 import { Card, CardContent } from '@nl/ui/base/card'
@@ -72,7 +71,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
                 </Button>
               )}
             </div>
-            <Link
+            <a
               href={id ? DEGEN_PURCHASE_URL(id) : '#'}
               target="_blank"
               rel="nofollow"
@@ -80,7 +79,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
               style={{ fontSize: buttonFontSize }}
             >
               {`#${id}`}
-            </Link>
+            </a>
           </div>
         </CardContent>
         <div className="flex flex-row justify-between gap-2 px-2">
