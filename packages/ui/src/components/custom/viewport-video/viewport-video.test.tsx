@@ -69,6 +69,28 @@ describe('ViewportVideo', () => {
     await waitFor(() => expect(state.observedRootMargin).toBe('300px'))
   })
 
+  it('can defer an above-the-fold video until the browser is idle', async () => {
+    const deferred = render(
+      <ViewportVideo
+        data-testid="video"
+        deferLoad
+        poster="/img/video-poster.webp"
+        src="/video/example.mp4"
+      />
+    )
+    const video = deferred.container.querySelector('[data-testid="video"]') as HTMLVideoElement
+
+    expect(video.getAttribute('deferload')).toBeNull()
+    expect(video.getAttribute('poster')).toBe('/img/video-poster.webp')
+    expect(video.querySelector('source')).toBeNull()
+
+    await waitFor(
+      () => expect(video.querySelector('source')?.getAttribute('src')).toBe('/video/example.mp4'),
+      { timeout: 2000 }
+    )
+    deferred.unmount()
+  })
+
   it('only enables playback and metadata loading near the viewport', async () => {
     function PlaybackHarness() {
       const videoRef = useRef<HTMLVideoElement>(null)
