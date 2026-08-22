@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.8](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.7...nifty-fe-monorepo-v1.2.8) (2026-08-22)
+
+
+### Performance
+
+* **web:** optimize lore background loading ([#965](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/965)) ([4ad35de](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/4ad35de8130e60d3efddad05e4fd6b2331cdfd96))
+
 ## [1.2.7](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.6...nifty-fe-monorepo-v1.2.7) (2026-08-22)
 
 
