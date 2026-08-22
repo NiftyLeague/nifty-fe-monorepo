@@ -2,7 +2,6 @@
 
 /* eslint-disable no-nested-ternary */
 import { useMemo, useState } from 'react'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Button } from '@nl/ui/base/button'
 import ComicCard from '@/components/cards/ComicCard'
@@ -68,12 +67,12 @@ const MyComics = (): React.ReactNode => {
           ))
         ) : (
           <div className="flex items-center justify-center">
-            <Link href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
+            <a href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
               <EmptyState
                 message="No Comics found. Please check your address or go purchase some if you have not done so already!"
                 buttonText="Buy Comics"
               />
-            </Link>
+            </a>
           </div>
         )}
       </SectionSlider>

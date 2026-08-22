@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 
 import { Button } from '@nl/ui/base/button'
@@ -45,9 +44,9 @@ export default function MintPageContent() {
             This page is accessible to DEGEN owners only.
           </Title>
           <Button asChild className="mt-4">
-            <Link href={DEGEN_COLLECTION_URL} target="_blank" rel="noreferrer">
+            <a href={DEGEN_COLLECTION_URL} target="_blank" rel="noreferrer">
               Buy A DEGEN
-            </Link>
+            </a>
           </Button>
         </div>
       )
