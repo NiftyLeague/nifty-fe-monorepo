@@ -1,6 +1,6 @@
 {
-  ".": "1.2.15",
-  "apps/app": "1.1.10",
+  ".": "1.2.16",
+  "apps/app": "1.1.11",
   "apps/docs": "1.0.4",
   "apps/smashers": "1.0.7",
   "apps/template": "1.0.5",
