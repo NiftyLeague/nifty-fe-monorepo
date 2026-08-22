@@ -26,6 +26,8 @@ const Games: NextPage = () => {
               playsInline
               data-keepplaying
               className="hidden md:block"
+              deferLoad
+              poster="/img/games/smashers/lobby.webp"
               src="/video/lobby.mp4"
             />
             <div className="block md:hidden">
