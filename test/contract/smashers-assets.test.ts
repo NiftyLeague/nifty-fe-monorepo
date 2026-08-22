@@ -49,6 +49,7 @@ describe('Smashers asset delivery contracts', () => {
     expect(gameSection).toContain('party_modes-poster.webp')
     expect(gameSection).toContain('prefers-reduced-motion: no-preference')
     expect(gameSection).toContain('height={566}')
+    expect(gameSection).not.toContain('unoptimized')
     expect(gameSection).not.toContain('party_modes.gif')
   })
 
