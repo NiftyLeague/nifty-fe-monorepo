@@ -1,4 +1,4 @@
-import { Skeleton } from '@nl/ui/base/skeleton'
+import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import { AnimatedImage } from '@nl/ui/custom/animated-image'
 
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
@@ -33,7 +33,7 @@ export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
   const { loadingItems } = useNFTsBalances()
 
   return loadingItems ? (
-    <Skeleton className="absolute left-0 right-0 top-[950px] mx-auto h-[403px] w-[315px] rounded-none" />
+    <DeferredSkeleton className="absolute left-0 right-0 top-[950px] mx-auto h-[403px] w-[315px] rounded-none" />
   ) : (
     <div className="absolute left-0 right-0 top-[950px] mx-auto w-[315px]">
       <div>ITEMS I OWN</div>

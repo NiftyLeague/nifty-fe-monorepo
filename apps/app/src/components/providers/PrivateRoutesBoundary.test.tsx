@@ -10,5 +10,7 @@ describe('PrivateRoutes loading boundary', () => {
     expect(screen.getByRole('status').getAttribute('aria-busy')).toBe('true')
     expect(screen.getByText('Loading private app')).toBeTruthy()
     expect(screen.getAllByRole('status')).toHaveLength(1)
+    expect(document.querySelectorAll('[data-slot="skeleton"]')).toHaveLength(3)
+    expect(document.querySelector('[data-slot="skeleton"]')?.className).toContain('rounded-lg')
   })
 })

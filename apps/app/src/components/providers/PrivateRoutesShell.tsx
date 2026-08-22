@@ -2,7 +2,7 @@
 
 import type { PropsWithChildren } from 'react'
 
-import { Skeleton } from '@nl/ui/base/skeleton'
+import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 
 import MainLayout from '@/app/_layout/_MainLayout'
 import { AuthStatusProvider } from '@/contexts/AuthStatusContext'
@@ -22,8 +22,8 @@ function PrivateRoutesContentLoading(): React.ReactNode {
       aria-busy="true"
     >
       <div className="flex min-h-0 flex-1 gap-6">
-        <Skeleton className="hidden w-64 rounded-lg lg:block" />
-        <Skeleton className="min-h-[20rem] flex-1 rounded-lg" />
+        <DeferredSkeleton className="hidden w-64 rounded-lg lg:block" />
+        <DeferredSkeleton className="min-h-[20rem] flex-1 rounded-lg" />
       </div>
       <span className="sr-only">Loading private app content</span>
     </div>

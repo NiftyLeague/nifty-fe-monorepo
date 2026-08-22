@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic'
 
-import { Skeleton } from '@nl/ui/base/skeleton'
+import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 
 import DashboardDataBoundary from '@/components/providers/DashboardDataBoundary'
 
@@ -17,10 +17,10 @@ const GamerProfilePageContent = dynamic(() => import('./GamerProfileContent'), {
       aria-label="Loading gamer profile"
     >
       <div className="flex flex-col gap-4 lg:flex-row">
-        <Skeleton className="h-56 w-full rounded lg:w-1/3" />
-        <Skeleton className="h-56 w-full rounded lg:flex-1" />
+        <DeferredSkeleton className="h-56 w-full rounded lg:w-1/3" />
+        <DeferredSkeleton className="h-56 w-full rounded lg:flex-1" />
       </div>
-      <Skeleton className="h-48 w-full rounded" />
+      <DeferredSkeleton className="h-48 w-full rounded" />
       <span className="sr-only">Loading gamer profile</span>
     </div>
   ),

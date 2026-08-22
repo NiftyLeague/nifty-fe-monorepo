@@ -1,7 +1,7 @@
 'use client'
 
 import DeferredComponent from '@nl/ui/custom/deferred-component'
-import { Skeleton } from '@nl/ui/base/skeleton'
+import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 
 function LeaderboardsLoading(): React.ReactNode {
   return (
@@ -13,11 +13,11 @@ function LeaderboardsLoading(): React.ReactNode {
       aria-label="Loading leaderboards"
     >
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <Skeleton className="h-10 w-full sm:w-40" />
-        <Skeleton className="h-10 w-full sm:w-32" />
-        <Skeleton className="h-10 w-full sm:w-24" />
+        <DeferredSkeleton className="h-10 w-full sm:w-40" />
+        <DeferredSkeleton className="h-10 w-full sm:w-32" />
+        <DeferredSkeleton className="h-10 w-full sm:w-24" />
       </div>
-      <Skeleton className="h-96 w-full" />
+      <DeferredSkeleton className="h-96 w-full" />
       <span className="sr-only">Loading leaderboards</span>
     </div>
   )
