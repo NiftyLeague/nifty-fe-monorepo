@@ -1,4 +1,4 @@
-import { Skeleton } from '@nl/ui/base/skeleton'
+import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import { Title } from '@nl/ui/custom/typography'
 import type { GenericCardProps } from '@/types'
 // project imports
@@ -25,7 +25,7 @@ const HoverDataCard = ({
     <div className="flex flex-col items-center justify-between">
       <div className="w-full">
         {isLoading ? (
-          <Skeleton className="h-5 w-20" />
+          <DeferredSkeleton className="h-5 w-20" />
         ) : (
           <Title level={4} className="text-center">
             {title}
@@ -35,7 +35,7 @@ const HoverDataCard = ({
       <div className="w-full">
         <div className="mt-1.75 mb-0.5 flex flex-row justify-center gap-1">
           {isLoading ? (
-            <Skeleton className="h-5 w-20" />
+            <DeferredSkeleton className="h-5 w-20" />
           ) : (
             <span className="text-base font-bold">{primary}</span>
           )}
@@ -45,7 +45,7 @@ const HoverDataCard = ({
         <div className="mb-1.75 w-full">
           <div className="flex flex-row justify-center gap-1">
             {isLoading ? (
-              <Skeleton className="h-5 w-30" />
+              <DeferredSkeleton className="h-5 w-30" />
             ) : (
               <span className="text-sm text-muted-foreground">{secondary}</span>
             )}

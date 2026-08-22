@@ -1,4 +1,4 @@
-import { Skeleton } from '@nl/ui/base/skeleton'
+import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 
 interface DeferredDialogLoadingProps {
   label: string
@@ -11,7 +11,7 @@ const DeferredDialogLoading = ({ label }: DeferredDialogLoadingProps): React.Rea
     aria-live="polite"
     aria-busy="true"
   >
-    <Skeleton className="h-10 w-full max-w-sm" />
+    <DeferredSkeleton className="h-10 w-full max-w-sm" />
     <span className="sr-only">{label}</span>
   </div>
 )

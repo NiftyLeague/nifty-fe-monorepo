@@ -3,7 +3,7 @@
 import type { PropsWithChildren } from 'react'
 
 import { Button } from '@nl/ui/base/button'
-import { Skeleton } from '@nl/ui/base/skeleton'
+import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 
 const loadMintNetworkProvider = () =>
@@ -38,7 +38,7 @@ export default function MintNetworkBoundary({ children }: PropsWithChildren) {
   if (!Provider) {
     return (
       <div className="flex min-h-48 items-center justify-center" role="status" aria-live="polite">
-        <Skeleton className="h-8 w-32" />
+        <DeferredSkeleton className="h-8 w-32" />
         <span className="sr-only">Loading wallet network</span>
       </div>
     )

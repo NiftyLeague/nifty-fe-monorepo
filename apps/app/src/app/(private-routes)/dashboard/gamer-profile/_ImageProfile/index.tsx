@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react'
 import NativeImage from '@nl/ui/custom/native-image'
-import { Skeleton } from '@nl/ui/base/skeleton'
+import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
 import DeferredProfileImageDialog from '@/components/providers/DeferredProfileImageDialog'
@@ -27,7 +27,7 @@ const ImageProfile = ({ degens, avatar, avatarFee }: ImageProfileProps): React.R
 
   const renderImage = () => {
     if (isLoadingDegens) {
-      return <Skeleton className="h-[320px] w-full rounded" />
+      return <DeferredSkeleton className="h-[320px] w-full rounded" />
     } else {
       if (!degenSelected) {
         return (

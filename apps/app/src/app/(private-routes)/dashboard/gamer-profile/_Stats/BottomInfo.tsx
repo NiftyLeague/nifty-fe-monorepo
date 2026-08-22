@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Button } from '@nl/ui/base/button'
-import { Skeleton } from '@nl/ui/base/skeleton'
+import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import { Title } from '@nl/ui/custom/typography'
 import ProgressGamer from './ProgressGamer'
 import GameCard from '@/components/cards/GameCard'
@@ -35,7 +35,7 @@ const BottomInfo = ({
                 <Title level={3}>2D Smashers</Title>
                 <Title level={4}>
                   {isLoadingProfile ? (
-                    <Skeleton className="inline-block h-[19.76px] w-[15%] rounded" />
+                    <DeferredSkeleton className="inline-block h-[19.76px] w-[15%] rounded" />
                   ) : (
                     `${Math.round(nifty_smashers?.xp || 0)}/${nifty_smashers?.rank_xp_next || 0}`
                   )}
@@ -60,7 +60,7 @@ const BottomInfo = ({
                 <Title level={3}>WEN Game</Title>
                 <Title level={4}>
                   {isLoadingProfile ? (
-                    <Skeleton className="inline-block h-[19.76px] w-[15%] rounded" />
+                    <DeferredSkeleton className="inline-block h-[19.76px] w-[15%] rounded" />
                   ) : (
                     `${Math.round(wen_game?.xp || 0)}/${wen_game?.rank_xp_next || 0}`
                   )}
@@ -85,7 +85,7 @@ const BottomInfo = ({
                 <Title level={3}>CRYPTO WINTER</Title>
                 <Title level={4}>
                   {isLoadingProfile ? (
-                    <Skeleton className="inline-block h-[19.76px] w-[15%] rounded" />
+                    <DeferredSkeleton className="inline-block h-[19.76px] w-[15%] rounded" />
                   ) : (
                     `${Math.round(crypto_winter?.xp || 0)}/${crypto_winter?.rank_xp_next || 0}`
                   )}

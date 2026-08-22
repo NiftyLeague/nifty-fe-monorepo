@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import NativeImage from '@nl/ui/custom/native-image'
 import { Flame } from 'lucide-react'
 import { Input } from '@nl/ui/base/input'
-import { Skeleton } from '@nl/ui/base/skeleton'
+import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import type { Comic } from '@/types/marketplace'
@@ -67,7 +67,7 @@ export default function ComicsGrid({
   }
 
   return loadingComics ? (
-    <Skeleton className="absolute left-0 right-0 top-[130px] mx-auto h-[265px] w-[315px] rounded-none" />
+    <DeferredSkeleton className="absolute left-0 right-0 top-[130px] mx-auto h-[265px] w-[315px] rounded-none" />
   ) : (
     <div>
       <div className="absolute left-0 right-0 top-[130px] mx-auto w-[315px]">

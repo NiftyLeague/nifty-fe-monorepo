@@ -8,7 +8,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { Button } from '@nl/ui/base/button'
 import { Input } from '@nl/ui/base/input'
 import { Label } from '@nl/ui/base/label'
-import { Skeleton } from '@nl/ui/base/skeleton'
+import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import { Title } from '@nl/ui/custom/typography'
 
@@ -77,7 +77,7 @@ const ChangeProfileNameForm = ({ updateNewName }: ChangeProfileNameFormProps): R
 
   const renderFee = () => {
     if (loadingFee) {
-      return <Skeleton className="h-[18.67px] w-full rounded" />
+      return <DeferredSkeleton className="h-[18.67px] w-full rounded" />
     }
     if (!loadingFee && fee) {
       return (
