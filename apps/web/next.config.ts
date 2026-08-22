@@ -12,7 +12,6 @@ const nextConfig: NextConfig = {
   transpilePackages: ['@nl/ui'],
   experimental: {
     optimizePackageImports: ['lucide-react'],
-    useTypeScriptCli: true,
   },
   turbopack: {},
   images: {

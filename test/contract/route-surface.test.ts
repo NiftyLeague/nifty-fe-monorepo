@@ -528,10 +528,10 @@ describe('GLTF viewer loading contract', () => {
 })
 
 describe('website build performance contract', () => {
-  it('uses the project TypeScript CLI during Next builds', () => {
+  it('keeps Next builds on the native TypeScript worker', () => {
     const source = readFileSync(join(process.cwd(), 'apps/web/next.config.ts'), 'utf8')
 
-    expect(source).toContain('useTypeScriptCli: true')
+    expect(source).not.toContain('useTypeScriptCli: true')
   })
 
   it('preloads only the visible NFT artwork', () => {
