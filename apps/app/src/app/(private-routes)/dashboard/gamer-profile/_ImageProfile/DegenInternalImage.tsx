@@ -1,4 +1,5 @@
 import { memo } from 'react'
+import { ViewportVideo } from '@nl/ui/custom/viewport-video'
 import type { DashboardDegen } from '@/types/degens'
 
 const DegenInternalImage = memo(({ degen }: { degen: DashboardDegen }) => {
@@ -7,16 +8,7 @@ const DegenInternalImage = memo(({ degen }: { degen: DashboardDegen }) => {
 
   if (degen?.background === 'legendary') {
     return (
-      <video
-        src={degen?.url}
-        style={style}
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="metadata"
-        aria-label={alt}
-      />
+      <ViewportVideo src={degen?.url ?? ''} style={style} loop muted playsInline aria-label={alt} />
     )
   }
 
