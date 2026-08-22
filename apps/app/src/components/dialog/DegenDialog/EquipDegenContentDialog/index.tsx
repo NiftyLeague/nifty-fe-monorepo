@@ -1,7 +1,6 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import Link from 'next/link'
 import { X } from 'lucide-react'
 
 import * as gtm from '@nl/ui/gtm/events'
@@ -183,9 +182,9 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
     }
     return (
       <div className="flex flex-wrap items-center justify-center h-[200px]">
-        <Link href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
+        <a href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
           <EmptyState message="You don't own any Comics yet." buttonText="Buy a Comic" noBorder />
-        </Link>
+        </a>
       </div>
     )
   }

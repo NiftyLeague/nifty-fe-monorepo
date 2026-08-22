@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import type { Dispatch, SetStateAction } from 'react'
 import { X } from 'lucide-react'
 
@@ -56,14 +55,14 @@ const BridgeSuccess = ({
             Please Note: Axelar bridge transactions take 20 minutes to process.
             <br />
             You can check your bridge transactions here:{' '}
-            <Link
+            <a
               href={AXELAR_TRANSACTIONS_URL(address as `0x${string}`)}
               target="_blank"
               rel="noreferrer"
               className="font-extrabold text-blue"
             >
               Axelarscan
-            </Link>
+            </a>
           </Alert>
         </DialogDescription>
       </DialogContent>

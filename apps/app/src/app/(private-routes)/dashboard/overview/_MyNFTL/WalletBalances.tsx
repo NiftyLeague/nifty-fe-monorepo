@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import NativeImage from '@nl/ui/custom/native-image'
 import { Button } from '@nl/ui/base/button'
 
@@ -42,7 +41,7 @@ const WalletBalances = (): React.ReactNode => {
                 />
               </Button>
               <div className="flex w-full flex-row items-center gap-2">
-                <Link
+                <a
                   href={SNAPSHOT_PORTAL_URL}
                   target="_blank"
                   rel="noreferrer"
@@ -51,8 +50,8 @@ const WalletBalances = (): React.ReactNode => {
                   <Button className="w-full" variant="outline">
                     Snapshot
                   </Button>
-                </Link>
-                <Link
+                </a>
+                <a
                   href={GOVERNANCE_PORTAL_URL}
                   target="_blank"
                   rel="noreferrer"
@@ -61,7 +60,7 @@ const WalletBalances = (): React.ReactNode => {
                   <Button className="w-full" variant="default">
                     Tally
                   </Button>
-                </Link>
+                </a>
               </div>
             </>
           }

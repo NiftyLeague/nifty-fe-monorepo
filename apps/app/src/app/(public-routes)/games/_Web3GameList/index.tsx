@@ -20,6 +20,7 @@ const Web3GameList = () => {
           actions={
             <Link
               href="/games/smashers"
+              prefetch={false}
               className={buttonVariants({ variant: 'outline', className: gameActionClassName })}
             >
               Play in Browser
@@ -37,6 +38,7 @@ const Web3GameList = () => {
           actions={
             <Link
               href="/games/wen-game"
+              prefetch={false}
               className={buttonVariants({ variant: 'outline', className: gameActionClassName })}
             >
               Play in Browser
@@ -54,6 +56,7 @@ const Web3GameList = () => {
           actions={
             <Link
               href="/games/crypto-winter"
+              prefetch={false}
               className={buttonVariants({ variant: 'outline', className: gameActionClassName })}
             >
               Play in Browser
