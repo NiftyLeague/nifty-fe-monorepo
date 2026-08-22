@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.3](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.2...nifty-fe-monorepo-v1.2.3) (2026-08-22)
+
+
+### Bug Fixes
+
+* **ci:** materialize re-alignment preview paths ([#946](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/946)) ([51de928](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/51de9284c3cd120c7c66e5f7abbc0b49ecc1b617))
+
 ## [1.2.2](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.1...nifty-fe-monorepo-v1.2.2) (2026-08-22)
 
 
