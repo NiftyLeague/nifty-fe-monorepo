@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/playfab-v1.0.3...playfab-v1.0.4) (2026-08-22)
+
+
+### Performance
+
+* **smashers:** split PlayFab route imports ([#1000](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1000)) ([1f91e2e](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/1f91e2ed942875e6c529a083526ab569dde2293c))
+
 ## [1.0.3](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/playfab-v1.0.2...playfab-v1.0.3) (2026-08-22)
 
 

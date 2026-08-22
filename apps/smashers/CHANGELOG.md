@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.8](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/smashers-v1.0.7...smashers-v1.0.8) (2026-08-22)
+
+
+### Performance
+
+* **smashers:** split PlayFab route imports ([#1000](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1000)) ([1f91e2e](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/1f91e2ed942875e6c529a083526ab569dde2293c))
+
 ## [1.0.7](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/smashers-v1.0.6...smashers-v1.0.7) (2026-08-22)
 
 
