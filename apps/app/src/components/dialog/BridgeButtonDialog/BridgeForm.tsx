@@ -1,7 +1,6 @@
 'use client'
 
 import NativeImage from '@nl/ui/custom/native-image'
-import Link from 'next/link'
 import { forwardRef, useContext, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { NumericFormat } from 'react-number-format'
@@ -160,14 +159,14 @@ const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): React.ReactN
           <strong>Note:</strong> The Axelar bridge minimizes fees but takes 20 minutes to process.{' '}
           <br />
           If you need your funds immediately use the{' '}
-          <Link
+          <a
             href={IMX_SQUID_BRIDGE_URL}
             target="_blank"
             rel="noreferrer"
             style={{ fontWeight: 800 }}
           >
             Squid Bridge
-          </Link>{' '}
+          </a>{' '}
           instead.
         </Alert>
         <Title level={2} className="opacity-70">

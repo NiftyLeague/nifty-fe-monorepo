@@ -30,4 +30,13 @@ describe('DegenCard', () => {
     expect(screen.getByRole('button', { name: 'Details' })).not.toBeNull()
     expect(screen.queryByRole('button', { name: /favorite/i })).toBeNull()
   })
+
+  it('keeps the marketplace identifier as a native external link', () => {
+    render(<DegenCard degen={publicDegen} />)
+
+    const marketplaceLink = screen.getByRole('link', { name: '#1' })
+    expect(marketplaceLink.tagName).toBe('A')
+    expect(marketplaceLink.getAttribute('target')).toBe('_blank')
+    expect(marketplaceLink.getAttribute('rel')).toBe('nofollow')
+  })
 })

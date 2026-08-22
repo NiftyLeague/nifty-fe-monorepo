@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { GAME_CARD_IMAGE_SIZES } from '@nl/ui/image-sizes'
 import NativeImage from '@nl/ui/custom/native-image'
 import OptimizedImage from '@nl/ui/custom/optimized-image'
@@ -72,27 +71,27 @@ const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
   <div className="grid grid-cols-12 gap-4" style={{ width: '100%' }}>
     <div className="col-span-4">
       {android ? (
-        <Link href={android} target="_blank" rel="noreferrer">
+        <a href={android} target="_blank" rel="noreferrer">
           <GoogleBadge />
-        </Link>
+        </a>
       ) : (
         <GoogleBadge disabled />
       )}
     </div>
     <div className="col-span-4">
       {ios ? (
-        <Link href={ios} target="_blank" rel="noreferrer">
+        <a href={ios} target="_blank" rel="noreferrer">
           <AppleBadge />
-        </Link>
+        </a>
       ) : (
         <AppleBadge disabled />
       )}
     </div>
     <div className="col-span-4">
       {steam ? (
-        <Link href={steam} target="_blank" rel="noreferrer">
+        <a href={steam} target="_blank" rel="noreferrer">
           <SteamBadge />
-        </Link>
+        </a>
       ) : (
         <SteamBadge disabled />
       )}

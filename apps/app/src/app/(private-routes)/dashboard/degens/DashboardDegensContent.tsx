@@ -2,7 +2,6 @@
 /* eslint-disable no-nested-ternary */
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { useAccount } from 'wagmi'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
@@ -288,7 +287,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
           ) : dataForCurrentPage.length ? (
             dataForCurrentPage.map(renderDegen)
           ) : !degensBalances?.length ? (
-            <Link
+            <a
               href={DEGEN_COLLECTION_URL}
               target="_blank"
               rel="noreferrer"
@@ -298,7 +297,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
                 message="No DEGENs found. Please check your address or go purchase a DEGEN if you have not done so already!"
                 buttonText="Buy a DEGEN"
               />
-            </Link>
+            </a>
           ) : null}
         </div>
         {dataForCurrentPage.length > 0 && (

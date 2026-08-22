@@ -3,7 +3,6 @@
 import { FC, useCallback, useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import Link from 'next/link'
 import NativeImage from '@nl/ui/custom/native-image'
 import { Minus, Plus, X } from 'lucide-react'
 
@@ -218,17 +217,17 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                   {accountBalance > 0 && accountBalance < tokenCount * details.price && (
                     <span className="my-1 text-xs text-warning">
                       Balance is too low.{' '}
-                      <Link href={NFTL_PURCHASE_URL} target="_blank" rel="noreferrer">
+                      <a href={NFTL_PURCHASE_URL} target="_blank" rel="noreferrer">
                         Buy NFTL
-                      </Link>
+                      </a>
                     </span>
                   )}
                   {!accountBalance && (
                     <span className="my-1 text-xs text-error">
                       You have zero balance.{' '}
-                      <Link href={NFTL_PURCHASE_URL} target="_blank" rel="noreferrer">
+                      <a href={NFTL_PURCHASE_URL} target="_blank" rel="noreferrer">
                         Buy NFTL
-                      </Link>
+                      </a>
                     </span>
                   )}
                 </div>

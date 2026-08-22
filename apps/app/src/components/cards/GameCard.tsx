@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { buttonVariants } from '@nl/ui/base/button-variants'
 import { Card, CardContent } from '@nl/ui/base/card'
@@ -61,14 +60,14 @@ const CardGameContent = ({
             {title}
           </Title>
           {externalLink ? (
-            <Link
+            <a
               href={externalLink.src}
               target="_blank"
               rel="noreferrer"
               className={buttonVariants({ size: 'sm', className: 'shrink-0 px-3' })}
             >
               {externalLink.title} <ExternalIcon />
-            </Link>
+            </a>
           ) : null}
         </div>
         {isComingSoon && <p className="text-sm text-warning">Coming 2023</p>}

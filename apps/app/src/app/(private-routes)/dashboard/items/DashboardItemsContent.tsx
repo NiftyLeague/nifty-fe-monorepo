@@ -1,7 +1,6 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import Link from 'next/link'
 import { Separator } from '@nl/ui/base/separator'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
@@ -138,12 +137,12 @@ const DashboardComicsPageContent = (): React.ReactNode => {
                 {renderComics}
                 {comicsBalances.length > 0 && (
                   <div>
-                    <Link href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
+                    <a href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
                       <BuyCard
                         onBuy={() => {}}
                         isNew={!comicsBalances.some((comic) => comic.balance && comic.balance > 0)}
                       />
-                    </Link>
+                    </a>
                   </div>
                 )}
               </div>
@@ -175,12 +174,12 @@ const DashboardComicsPageContent = (): React.ReactNode => {
                   {renderItems}
                   {itemsBalances.length > 0 && (
                     <div>
-                      <Link href={ITEM_PURCHASE_URL} target="_blank" rel="noreferrer">
+                      <a href={ITEM_PURCHASE_URL} target="_blank" rel="noreferrer">
                         <BuyCard
                           onBuy={() => {}}
                           isNew={!itemsBalances.some((it) => it.balance && it.balance > 0)}
                         />
-                      </Link>
+                      </a>
                     </div>
                   )}
                 </div>
