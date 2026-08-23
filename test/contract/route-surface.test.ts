@@ -423,8 +423,9 @@ describe('public degen loading contract', () => {
 
     expect(pageSource).not.toContain("'use client'")
     expect(pageSource).toContain("from './DegenRoute'")
+    expect(routeBoundarySource).toContain("'use client'")
     expect(routeBoundarySource).toContain("dynamic(() => import('./AllDegensPage')")
-    expect(routeBoundarySource).not.toContain('ssr: false')
+    expect(routeBoundarySource).toContain('ssr: false')
     expect(usesSharedLoadingSkeleton(routeBoundarySource)).toBe(true)
     expect(clientPageSource).toContain("'use client'")
     expect(clientPageSource).toContain("from 'lucide-react'")
