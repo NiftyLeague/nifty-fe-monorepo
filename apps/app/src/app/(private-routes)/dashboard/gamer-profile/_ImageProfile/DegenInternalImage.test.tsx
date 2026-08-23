@@ -50,5 +50,6 @@ describe('DegenInternalImage', () => {
     const image = screen.getByRole('img', { name: 'Nifty Andy' })
     expect(image.getAttribute('src')).toBe('/media/avatar.webp')
     expect(image.getAttribute('loading')).toBe('lazy')
+    expect(image.getAttribute('fetchpriority')).toBe('low')
   })
 })

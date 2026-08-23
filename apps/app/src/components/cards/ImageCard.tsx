@@ -1,5 +1,6 @@
 import useImageOnLoad from '@/hooks/useImageOnLoad'
 import { AnimatedImage } from '@nl/ui/custom/animated-image'
+import NativeImage from '@nl/ui/custom/native-image'
 
 interface ImageCardProps {
   thumbnail?: string
@@ -22,10 +23,7 @@ const ImageCard = ({ image, imageWebp, thumbnail, title, ratio }: ImageCardProps
       style={{ ...styleImage.imageWrapper, paddingBottom: `${ratio * 100}%` }}
     >
       {thumbnail && (
-        // Marketplace media can be API-provided from arbitrary hosts, so it cannot use
-        // next/image until those hosts are explicitly configured.
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
+        <NativeImage
           onLoad={handleImageOnLoad}
           src={thumbnail}
           alt={`thumbnail-${title}`}
@@ -48,10 +46,7 @@ const ImageCard = ({ image, imageWebp, thumbnail, title, ratio }: ImageCardProps
             style={{ ...styleImage.imageCommon, ...css.fullSize }}
           />
         ) : (
-          // Marketplace media can be API-provided from arbitrary hosts, so it cannot use
-          // next/image until those hosts are explicitly configured.
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <NativeImage
             onLoad={handleImageOnLoad}
             src={image}
             alt={title}
