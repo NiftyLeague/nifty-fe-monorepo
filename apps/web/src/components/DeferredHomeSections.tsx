@@ -2,22 +2,13 @@
 
 import { DeferredSection } from '@nl/ui/custom/deferred-section'
 
-const loadHomeSections = () => import('@/components/HomeBelowFold')
-
-const loadHomeDegens = () =>
-  loadHomeSections().then(({ HomeDegensSection }) => ({ default: HomeDegensSection }))
-const loadHomeCompete = () =>
-  loadHomeSections().then(({ HomeCompeteSection }) => ({ default: HomeCompeteSection }))
-const loadHomeNiftyWorld = () =>
-  loadHomeSections().then(({ HomeNiftyWorldSection }) => ({ default: HomeNiftyWorldSection }))
-const loadHomeDashboard = () =>
-  loadHomeSections().then(({ HomeDashboardSection }) => ({ default: HomeDashboardSection }))
-const loadHomeToken = () =>
-  loadHomeSections().then(({ HomeTokenSection }) => ({ default: HomeTokenSection }))
-const loadHomeCommunity = () =>
-  loadHomeSections().then(({ HomeCommunitySection }) => ({ default: HomeCommunitySection }))
-const loadHomeSponsors = () =>
-  loadHomeSections().then(({ HomeSponsorsSection }) => ({ default: HomeSponsorsSection }))
+const loadHomeDegens = () => import('@/components/HomeSections/HomeDegensSection')
+const loadHomeCompete = () => import('@/components/HomeSections/HomeCompeteSection')
+const loadHomeNiftyWorld = () => import('@/components/HomeSections/HomeNiftyWorldSection')
+const loadHomeDashboard = () => import('@/components/HomeSections/HomeDashboardSection')
+const loadHomeToken = () => import('@/components/HomeSections/HomeTokenSection')
+const loadHomeCommunity = () => import('@/components/HomeSections/HomeCommunitySection')
+const loadHomeSponsors = () => import('@/components/HomeSections/HomeSponsorsSection')
 
 export function DeferredHomeDegens() {
   return (
