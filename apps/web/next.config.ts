@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
   transpilePackages: ['@nl/ui'],
   experimental: {
     optimizePackageImports: ['lucide-react'],
+    // Reuse compatible Turbopack output across local builds and Git worktrees.
+    // This keeps branch validation from recompiling the entire site from scratch.
+    turbopackFileSystemCacheForBuild: true,
+    turbopackSeedCacheFromWorktree: true,
   },
   turbopack: {},
   images: {
