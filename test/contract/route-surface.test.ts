@@ -1656,6 +1656,23 @@ describe('shared below-fold loading contract', () => {
       join(process.cwd(), 'apps/web/src/components/HomeBelowFold.tsx'),
       'utf8'
     )
+    const homeSectionNames = [
+      'HomeDegensSection',
+      'HomeCompeteSection',
+      'HomeNiftyWorldSection',
+      'HomeDashboardSection',
+      'HomeTokenSection',
+      'HomeCommunitySection',
+      'HomeSponsorsSection',
+    ]
+    const homeSectionSources = homeSectionNames
+      .map((section) =>
+        readFileSync(
+          join(process.cwd(), `apps/web/src/components/HomeSections/${section}.tsx`),
+          'utf8'
+        )
+      )
+      .join('\n')
     const homeStyles = readFileSync(join(process.cwd(), 'apps/web/src/styles/home.css'), 'utf8')
 
     expect(pageSource).toContain('DeferredHomeToken')
@@ -1665,12 +1682,16 @@ describe('shared below-fold loading contract', () => {
     expect(pageSource).not.toContain("import('@/components/Sponsors')")
     expect(pageSource).not.toContain("from '@/components/Carousel'")
     expect(pageSource).not.toContain("from '@/components/Carousel/DegenCardItem'")
-    expect(deferredSource).toContain("import('@/components/HomeBelowFold')")
-    expect(homeBelowFoldSource).toContain("import('@/components/MintOMatic')")
-    expect(homeBelowFoldSource).toContain("import('@/components/Sponsors')")
-    expect(homeBelowFoldSource).not.toContain("from '@/constants/sponsors'")
-    expect(homeBelowFoldSource).toContain("import('@/components/CommunityDegenCarousel')")
-    expect(homeBelowFoldSource).toContain("from '@nl/ui/custom/deferred-section'")
+    expect(deferredSource).not.toContain("import('@/components/HomeBelowFold')")
+    for (const section of homeSectionNames) {
+      expect(deferredSource).toContain(`import('@/components/HomeSections/${section}')`)
+    }
+    expect(homeBelowFoldSource).toContain('export { default as HomeDegensSection }')
+    expect(homeSectionSources).toContain("import('@/components/MintOMatic')")
+    expect(homeSectionSources).toContain("import('@/components/Sponsors')")
+    expect(homeSectionSources).not.toContain("from '@/constants/sponsors'")
+    expect(homeSectionSources).toContain("import('@/components/CommunityDegenCarousel')")
+    expect(homeSectionSources).toContain("from '@nl/ui/custom/deferred-section'")
     expect(pageSource).not.toContain('home-below-fold')
     expect(homeStyles).not.toContain('.home-below-fold')
     expect(homeStyles).toContain('content-visibility: auto')
@@ -1820,10 +1841,15 @@ describe('web marketing image sizing contract', () => {
 
   it('keeps decorative homepage coins out of the client scroll graph', () => {
     const homeSource = readFileSync(join(process.cwd(), webHomePage), 'utf8')
-    const homeBelowFoldSource = readFileSync(
-      join(process.cwd(), 'apps/web/src/components/HomeBelowFold.tsx'),
-      'utf8'
-    )
+    const homeSectionsSource =
+      readFileSync(
+        join(process.cwd(), 'apps/web/src/components/HomeSections/HomeCompeteSection.tsx'),
+        'utf8'
+      ) +
+      readFileSync(
+        join(process.cwd(), 'apps/web/src/components/HomeSections/HomeTokenSection.tsx'),
+        'utf8'
+      )
     const bouncingNftlSource = readFileSync(
       join(process.cwd(), 'apps/web/src/components/BouncingNFTL/index.tsx'),
       'utf8'
@@ -1831,8 +1857,8 @@ describe('web marketing image sizing contract', () => {
 
     expect(homeSource).not.toContain("from '@nl/ui/custom/parallax-wrapper'")
     expect(bouncingNftlSource).not.toContain("from '@nl/ui/custom/parallax-wrapper'")
-    expect(homeBelowFoldSource).toContain("visibleTokens={['token1', 'token2']}")
-    expect(homeBelowFoldSource).toContain("visibleTokens={['token1', 'token3']}")
+    expect(homeSectionsSource).toContain("visibleTokens={['token1', 'token2']}")
+    expect(homeSectionsSource).toContain("visibleTokens={['token1', 'token3']}")
     expect(bouncingNftlSource).not.toContain('classes?.')
     expect(bouncingNftlSource).toContain('animate-bounce-coin1')
     expect(bouncingNftlSource).toContain('animate-bounce-coin2')
@@ -1841,10 +1867,18 @@ describe('web marketing image sizing contract', () => {
 
   it('uses rendered-width image hints for the home page artwork', () => {
     const homeSource = readFileSync(join(process.cwd(), webHomePage), 'utf8')
-    const homeBelowFoldSource = readFileSync(
-      join(process.cwd(), 'apps/web/src/components/HomeBelowFold.tsx'),
-      'utf8'
-    )
+    const homeSectionsSource = [
+      'HomeCompeteSection',
+      'HomeCommunitySection',
+      'HomeNiftyWorldSection',
+    ]
+      .map((section) =>
+        readFileSync(
+          join(process.cwd(), `apps/web/src/components/HomeSections/${section}.tsx`),
+          'utf8'
+        )
+      )
+      .join('\n')
     const bouncingNftlSource = readFileSync(
       join(process.cwd(), 'apps/web/src/components/BouncingNFTL/index.tsx'),
       'utf8'
@@ -1854,8 +1888,8 @@ describe('web marketing image sizing contract', () => {
     expect(homeSource).toContain('sizes="12vw"')
     expect(homeSource).toContain('src="/img/hero/halo.webp"')
     expect(homeSource).toContain('sizes="9vw"')
-    expect(homeBelowFoldSource).toContain('sizes="(min-width: 768px) 50vw, 100vw"')
-    expect(homeBelowFoldSource).toContain('sizes="246px"')
+    expect(homeSectionsSource).toContain('sizes="(min-width: 768px) 50vw, 100vw"')
+    expect(homeSectionsSource).toContain('sizes="246px"')
     expect(bouncingNftlSource).toContain("sizes: '226px'")
     expect(bouncingNftlSource).toContain("sizes: '246px'")
   })
