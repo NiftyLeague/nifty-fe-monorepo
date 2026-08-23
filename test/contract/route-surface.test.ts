@@ -1969,6 +1969,33 @@ describe('web marketing image sizing contract', () => {
     )
   })
 
+  it('keeps the first roadmap milestone separate from deferred catalog data', () => {
+    const timelineSource = readFileSync(
+      join(process.cwd(), 'apps/web/src/components/RoadmapTimeline/index.tsx'),
+      'utf8'
+    )
+    const firstCardSource = readFileSync(
+      join(process.cwd(), 'apps/web/src/components/RoadmapTimeline/first-card.tsx'),
+      'utf8'
+    )
+    const deferredCardsSource = readFileSync(
+      join(process.cwd(), 'apps/web/src/components/RoadmapTimeline/RoadmapTimelineCards.tsx'),
+      'utf8'
+    )
+    const catalogSource = readFileSync(
+      join(process.cwd(), 'apps/web/src/components/RoadmapTimeline/constants.tsx'),
+      'utf8'
+    )
+
+    expect(timelineSource).toContain("from './first-card'")
+    expect(timelineSource).not.toContain("from './constants'")
+    expect(firstCardSource).toContain("title: 'DEGEN Minting'")
+    expect(catalogSource).not.toContain("from './first-card'")
+    expect(deferredCardsSource).toContain("import('./constants')")
+    expect(deferredCardsSource).toContain('ROADMAP_CARDS.map')
+    expect(deferredCardsSource).toContain('DeferredComponent')
+  })
+
   it('keeps the Community hero preload focused on its primary artwork', () => {
     const communitySource = readFileSync(join(process.cwd(), webCommunityPage), 'utf8')
 
