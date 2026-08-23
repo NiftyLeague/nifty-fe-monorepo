@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.18](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.17...web-v1.0.18) (2026-08-23)
+
+
+### Performance
+
+* **web:** defer GLTF viewer controls ([8c5c112](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/8c5c1125aa78e9a9e68f763cee8c0fbce5762561))
+
 ## [1.0.17](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.16...web-v1.0.17) (2026-08-23)
 
 
