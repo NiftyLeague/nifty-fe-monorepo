@@ -1,21 +1,7 @@
-'use client'
-
 import OptimizedImage from '@nl/ui/custom/optimized-image'
-import { DeferredSection } from '@nl/ui/custom/deferred-section'
 
+import { DeferredHomeDegenCarousel } from '@/components/DeferredHomeMedia'
 import ResponsiveLabel from '@/components/HomeSections/ResponsiveLabel'
-
-const loadCommunityDegenCarousel = () => import('@/components/CommunityDegenCarousel')
-
-function DeferredCommunityDegenCarousel() {
-  return (
-    <DeferredSection
-      label="community DEGEN carousel"
-      load={loadCommunityDegenCarousel}
-      minHeightClassName="min-h-[22rem]"
-    />
-  )
-}
 
 export default function HomeDegensSection() {
   return (
@@ -35,7 +21,7 @@ export default function HomeDegensSection() {
             sizes="(max-width: 576px) 90vw, (max-width: 992px) 80%, 700px"
           />
         </div>
-        <DeferredCommunityDegenCarousel />
+        <DeferredHomeDegenCarousel />
       </div>
     </section>
   )
