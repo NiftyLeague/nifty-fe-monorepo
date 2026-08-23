@@ -19,6 +19,7 @@ describe('DegenCardItem', () => {
     expect(image.getAttribute('width')).toBe('258')
     expect(image.getAttribute('height')).toBe('278')
     expect(image.getAttribute('loading')).toBe('lazy')
+    expect(image.getAttribute('fetchpriority')).toBe('low')
     expect(image.getAttribute('decoding')).toBe('async')
   })
 })

@@ -1,3 +1,5 @@
+import NativeImage from '@nl/ui/custom/native-image'
+
 export interface Degen {
   name: string
   source: string
@@ -27,8 +29,7 @@ const DegenCardItem = ({
       <div className="flex justify-between items-center">
         <h6 className="truncate-text-1 text-xs">{name}</h6>
         <div className="hidden sm:inline-block">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <NativeImage
             src="/icons/opensea.svg"
             alt="OpenSea Logo"
             width={20}
@@ -48,8 +49,7 @@ const DegenCardItem = ({
     <div className="rounded-[20px]">
       {/* These cards are below the fold and use fixed local assets, so intrinsic dimensions are
           enough to preserve layout without an image-loader wrapper in the deferred card. */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <NativeImage
         src={source}
         width={258}
         height={278}
