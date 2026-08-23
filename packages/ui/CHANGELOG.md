@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v1.0.4...ui-v1.0.5) (2026-08-23)
+
+
+### Maintenance
+
+* **ui:** simplify decorative mobile nav divider ([#1024](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1024)) ([4d8d28e](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/4d8d28eb02f0b2edbb1072e05be9e6640a6b43df))
+
 ## [1.0.4](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v1.0.3...ui-v1.0.4) (2026-08-22)
 
 
