@@ -1,13 +1,9 @@
-'use client'
-
 import OptimizedImage from '@nl/ui/custom/optimized-image'
-import { DeferredSection } from '@nl/ui/custom/deferred-section'
 import { MobileOnlyImage } from '@nl/ui/custom/responsive-only-image'
 import { ThemeButtonGroup } from '@nl/ui/custom/theme-button-group'
 
 import BouncingNFTL from '@/components/BouncingNFTL'
-
-const loadCompeteArtwork = () => import('@/components/CompeteArtwork')
+import CompeteArtwork from '@/components/CompeteArtwork'
 
 export default function HomeCompeteSection() {
   return (
@@ -54,12 +50,7 @@ export default function HomeCompeteSection() {
       </div>
 
       <div className="hidden md:block w-1/2 relative">
-        <DeferredSection
-          label="compete artwork"
-          load={loadCompeteArtwork}
-          minHeightClassName="min-h-[24rem] md:min-h-[30rem]"
-          rootMargin="160px"
-        />
+        <CompeteArtwork />
         <div className="absolute scrolling-nftl-token">
           <div>
             <div className="transition-fade">
