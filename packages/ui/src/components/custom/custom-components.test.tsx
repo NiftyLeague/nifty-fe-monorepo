@@ -188,7 +188,10 @@ describe('Navbar', () => {
     expect(navigationToggle.closest('summary')).not.toBeNull()
     fireEvent.click(navigationToggle)
     expect(navigationToggle.closest('details')?.hasAttribute('open')).toBe(true)
-    expect(document.querySelector('[data-orientation="horizontal"]')).not.toBeNull()
+    expect(document.querySelector('[data-slot="mobile-nav-divider"]')).not.toBeNull()
+    expect(
+      document.querySelector('[data-slot="mobile-nav-divider"]')?.getAttribute('aria-hidden')
+    ).toBe('true')
   })
 
   it('renders a fixed, transparent semantic header with scroll-driven state', () => {
