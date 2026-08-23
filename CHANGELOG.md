@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.41](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.40...nifty-fe-monorepo-v1.2.41) (2026-08-23)
+
+
+### Maintenance
+
+* **code-foundry:** upgrade runtime to v0.37.4 ([#1101](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1101)) ([0aff0b8](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/0aff0b8e988ecda833a03134d48e576f1c709f65))
+
 ## [1.2.40](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.39...nifty-fe-monorepo-v1.2.40) (2026-08-23)
 
 
