@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.15](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.14...web-v1.0.15) (2026-08-23)
+
+
+### Performance
+
+* **web:** restore deferred below-fold containment ([79138b0](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/79138b04ac2d0f54d22bbda93a47ccc70e5d8d47))
+
 ## [1.0.14](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.13...web-v1.0.14) (2026-08-23)
 
 
