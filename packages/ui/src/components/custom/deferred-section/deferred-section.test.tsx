@@ -18,6 +18,7 @@ describe('DeferredSection', () => {
 
     expect(screen.getByRole('status', { name: 'Loading Game details' })).toBeTruthy()
     expect(container.firstElementChild?.getAttribute('aria-busy')).toBe('true')
+    expect(container.firstElementChild?.classList.contains('deferred-section')).toBe(true)
     expect(screen.getAllByRole('status').length).toBe(1)
     expect(useOnScreen).toHaveBeenCalledWith(expect.anything(), '160px', { once: true })
   })
