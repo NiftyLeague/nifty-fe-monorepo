@@ -29,4 +29,14 @@ describe('getOptimizedImageProps', () => {
     expect(highPriority.fetchPriority).toBe('high')
     expect(eager.fetchPriority).toBeUndefined()
   })
+
+  it('translates Next priority metadata to native image loading hints', () => {
+    const prioritized = getOptimizedImageProps({ ...baseProps, priority: true })
+    const preloaded = getOptimizedImageProps({ ...baseProps, preload: true })
+
+    expect(prioritized.loading).toBe('eager')
+    expect(prioritized.fetchPriority).toBe('high')
+    expect(preloaded.loading).toBe('eager')
+    expect(preloaded.fetchPriority).toBe('high')
+  })
 })

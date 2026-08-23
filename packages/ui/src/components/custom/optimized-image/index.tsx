@@ -10,10 +10,19 @@ export type OptimizedImageProps = ImageProps
 const imageConfig = process.env.__NEXT_IMAGE_OPTS as unknown as ImageConfigComplete
 
 export function getOptimizedImageProps(props: OptimizedImageProps) {
-  const imageProps = getImgProps(props, {
+  const { props: imageProps, meta } = getImgProps(props, {
     defaultLoader,
     imgConf: imageConfig,
-  }).props
+  })
+
+  // The native <img> renderer cannot consume Next's preload metadata. Carry
+  // its priority signal across as standard browser hints instead of silently
+  // dropping it when the shared primitive avoids the stateful next/image
+  // client component.
+  if (meta.preload) {
+    imageProps.loading ??= 'eager'
+    imageProps.fetchPriority ??= 'high'
+  }
 
   // Keep below-the-fold artwork from competing with the route's LCP resource.
   // Respect explicit priorities for hero and above-the-fold images.
