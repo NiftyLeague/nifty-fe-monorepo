@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.32](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.31...nifty-fe-monorepo-v1.2.32) (2026-08-23)
+
+
+### Performance
+
+* **web:** keep static home sections on server ([#1065](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1065)) ([c792d10](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/c792d10bec5ab2d717532b2333bf55e4b41e8c61))
+
+
+### Maintenance
+
+* **app:** remove stale leaderboard sorting ([#1063](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1063)) ([ee1ea8c](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/ee1ea8c9081cd9d439b0a992b524e3ab56ed7722))
+
 ## [1.2.31](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.30...nifty-fe-monorepo-v1.2.31) (2026-08-23)
 
 

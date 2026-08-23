@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.16](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.15...web-v1.0.16) (2026-08-23)
+
+
+### Performance
+
+* **web:** keep static home sections on server ([#1065](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1065)) ([c792d10](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/c792d10bec5ab2d717532b2333bf55e4b41e8c61))
+
 ## [1.0.15](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.14...web-v1.0.15) (2026-08-23)
 
 
