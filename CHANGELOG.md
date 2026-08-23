@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.21](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.20...nifty-fe-monorepo-v1.2.21) (2026-08-23)
+
+
+### Performance
+
+* **web:** compact deferred marketing videos ([#1016](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1016)) ([cc21d5c](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/cc21d5c89f58e280cfe6d61fe80c5aff6253b5bc))
+
 ## [1.2.20](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.19...nifty-fe-monorepo-v1.2.20) (2026-08-23)
 
 
