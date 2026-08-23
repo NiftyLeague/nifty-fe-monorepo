@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.41](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.40...nifty-fe-monorepo-v1.2.41) (2026-08-23)
+
+
+### Bug Fixes
+
+* **ci:** remove stale cargo dependabot from main ([294d9b1](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/294d9b10d226efeaecc8128a2f7ba8c051bb3eef))
+* **ci:** validate promotion policy against staging tree ([6f5adbf](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/6f5adbfe914ef424974dfcc9be8a37b20a98b8b9))
+
+
+### Maintenance
+
+* **code-foundry:** upgrade runtime to v0.37.4 ([#1101](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1101)) ([0aff0b8](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/0aff0b8e988ecda833a03134d48e576f1c709f65))
+
 ## [1.2.40](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.39...nifty-fe-monorepo-v1.2.40) (2026-08-23)
 
 
