@@ -176,14 +176,14 @@ describe('app performance contracts', () => {
     expect(source).toContain('aria-label="Loading game preview"')
   })
 
-  it('loads the above-the-fold hero character layer eagerly', () => {
+  it('defers the decorative hero character layer behind the LCP background', () => {
     const source = readFileSync(webHome, 'utf8')
     const heroStart = source.indexOf('src="/img/hero/characters.webp"')
     const heroEnd = source.indexOf('/>', heroStart)
 
     expect(heroStart).toBeGreaterThanOrEqual(0)
     expect(heroEnd).toBeGreaterThan(heroStart)
-    expect(source.slice(heroStart, heroEnd)).toContain('loading="eager"')
+    expect(source.slice(heroStart, heroEnd)).not.toContain('loading="eager"')
   })
 
   it('keeps the GLTF viewer off the conflict-merging utility', () => {
