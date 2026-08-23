@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.36](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.35...nifty-fe-monorepo-v1.2.36) (2026-08-23)
+
+
+### CI
+
+* prevent stale re-alignment PRs ([ed3fc47](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/ed3fc47cdd25ec7de9e543fc41964a2acc1882b8))
+
 ## [1.2.35](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.34...nifty-fe-monorepo-v1.2.35) (2026-08-23)
 
 
