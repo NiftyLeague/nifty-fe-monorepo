@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.12](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.11...web-v1.0.12) (2026-08-23)
+
+
+### Performance
+
+* **web:** split deferred home section bundles ([#1020](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1020)) ([fbf1089](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/fbf10896113d14af81467101a7a4508cd35f7e80))
+
 ## [1.0.11](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.10...web-v1.0.11) (2026-08-22)
 
 
