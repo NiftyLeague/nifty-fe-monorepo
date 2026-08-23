@@ -5,7 +5,18 @@ import { join } from 'node:path'
 const readWorkflow = (name: string) =>
   readFileSync(join(process.cwd(), '.github/workflows', name), 'utf8')
 
+const readGitHubConfig = (name: string) =>
+  readFileSync(join(process.cwd(), '.github', name), 'utf8')
+
 describe('hosted validation cost policy', () => {
+  it('does not configure Cargo Dependabot for this non-Rust repository', () => {
+    const source = readGitHubConfig('dependabot.yml')
+
+    expect(source).toContain('package-ecosystem: github-actions')
+    expect(source).toContain('package-ecosystem: npm')
+    expect(source).not.toContain('package-ecosystem: cargo')
+  })
+
   it('runs validation for ready PRs and cancels it when a PR returns to draft', () => {
     const source = readWorkflow('validation.yml')
 
