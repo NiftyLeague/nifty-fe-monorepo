@@ -124,6 +124,7 @@ export default function HomepageGuides(): React.ReactNode {
         </div>
         <StyledImage
           style={{ maxHeight: '400px', marginTop: 'auto' }}
+          loading="lazy"
           sources={{
             light: useBaseUrl('/img/misc/frog_400.webp'),
             dark: useBaseUrl('/img/misc/smash_400.webp'),
