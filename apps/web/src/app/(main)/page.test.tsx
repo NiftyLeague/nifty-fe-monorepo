@@ -71,11 +71,13 @@ describe('home page', () => {
     expect(document.getElementById('gaming-section')).not.toBeNull()
   })
 
-  it('keeps interactive sections deferred while server-rendering static sections', () => {
+  it('server-renders section copy while deferring browser-only media', () => {
     render(<Home />)
 
-    expect(screen.queryByText('OWN YOUR AVATAR')).toBeNull()
-    expect(screen.queryByText('COMMUNITY-GENERATED AVATARS')).toBeNull()
+    expect(screen.getByText('OWN YOUR AVATAR')).not.toBeNull()
+    expect(screen.getByText('COMMUNITY-GENERATED AVATARS')).not.toBeNull()
+    expect(screen.getByRole('heading', { name: /SMASHERS.*COMPETE & EARN/ })).not.toBeNull()
+    expect(screen.getByRole('heading', { name: 'NFTL TOKEN' })).not.toBeNull()
     expect(screen.getByRole('heading', { name: 'DASHBOARDS' })).not.toBeNull()
     expect(screen.getByRole('heading', { name: 'COMMUNITY' })).not.toBeNull()
     expect(screen.getAllByRole('status').length).toBeGreaterThan(0)

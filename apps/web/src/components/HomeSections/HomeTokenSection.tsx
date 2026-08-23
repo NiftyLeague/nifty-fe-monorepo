@@ -1,21 +1,7 @@
-'use client'
-
-import { DeferredSection } from '@nl/ui/custom/deferred-section'
 import { ThemeButtonGroup } from '@nl/ui/custom/theme-button-group'
 
 import BouncingNFTL from '@/components/BouncingNFTL'
-
-const loadMintOMatic = () => import('@/components/MintOMatic')
-
-function DeferredMintOMatic() {
-  return (
-    <DeferredSection
-      label="NFTL mint animation"
-      load={loadMintOMatic}
-      minHeightClassName="min-h-[28rem]"
-    />
-  )
-}
+import { DeferredHomeMintOMatic } from '@/components/DeferredHomeMedia'
 
 export default function HomeTokenSection() {
   return (
@@ -46,7 +32,7 @@ export default function HomeTokenSection() {
         />
       </div>
       <div className="relative w-full md:w-1/2">
-        <DeferredMintOMatic />
+        <DeferredHomeMintOMatic />
       </div>
     </section>
   )
