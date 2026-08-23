@@ -1,3 +1,5 @@
+'use client'
+
 import dynamic from 'next/dynamic'
 
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
@@ -31,6 +33,7 @@ export function DegenRouteLoading() {
 
 const AllDegensPage = dynamic(() => import('./AllDegensPage'), {
   loading: () => <DegenRouteLoading />,
+  ssr: false,
 })
 
 export default function DegenRoute() {
