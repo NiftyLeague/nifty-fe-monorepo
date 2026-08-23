@@ -25,9 +25,9 @@ mock.module('@/components/BouncingNFTL', () => ({
   default: () => null,
 }))
 
-describe('HomeBelowFold', () => {
+describe('HomeDegensSection', () => {
   it('preserves responsive labels inside the deferred DEGEN section', async () => {
-    const { HomeDegensSection } = await import('./HomeBelowFold')
+    const { default: HomeDegensSection } = await import('./HomeDegensSection')
 
     render(<HomeDegensSection />)
 

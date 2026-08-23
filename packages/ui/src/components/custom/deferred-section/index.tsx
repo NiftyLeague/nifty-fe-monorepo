@@ -55,7 +55,7 @@ export const DeferredSection = memo(function DeferredSection({
   } = useDeferredComponent(load, isNearViewport)
 
   return (
-    <div ref={sectionRef} aria-busy={!LoadedSection && !loadError}>
+    <div ref={sectionRef} className="deferred-section" aria-busy={!LoadedSection && !loadError}>
       {loadError ? (
         <div
           className={`flex ${minHeightClassName ?? 'min-h-48'} flex-col items-center justify-center gap-3`}
