@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.14](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.13...app-v1.1.14) (2026-08-23)
+
+
+### Maintenance
+
+* **app:** remove stale leaderboard sorting ([#1063](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1063)) ([ee1ea8c](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/ee1ea8c9081cd9d439b0a992b524e3ab56ed7722))
+
 ## [1.1.13](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.12...app-v1.1.13) (2026-08-23)
 
 
