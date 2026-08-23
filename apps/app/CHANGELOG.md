@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.15](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.14...app-v1.1.15) (2026-08-23)
+
+
+### Performance
+
+* **app:** defer public degen route client graph ([#1072](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1072)) ([032edb3](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/032edb3b85d966127edcf87e6d2f3d5ce1771246))
+
 ## [1.1.14](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.13...app-v1.1.14) (2026-08-23)
 
 
