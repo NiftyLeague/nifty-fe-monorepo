@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.6](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/template-v1.0.5...template-v1.0.6) (2026-08-23)
+
+
+### Performance
+
+* **build:** reuse Turbopack cache across worktrees ([77c491f](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/77c491f8a860397b341e6eaad85fd6951ca88450))
+
 ## [1.0.5](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/template-v1.0.4...template-v1.0.5) (2026-08-22)
 
 

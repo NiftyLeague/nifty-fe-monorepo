@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.9](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/smashers-v1.0.8...smashers-v1.0.9) (2026-08-23)
+
+
+### Performance
+
+* **build:** reuse Turbopack cache across worktrees ([77c491f](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/77c491f8a860397b341e6eaad85fd6951ca88450))
+
 ## [1.0.8](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/smashers-v1.0.7...smashers-v1.0.8) (2026-08-22)
 
 

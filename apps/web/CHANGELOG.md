@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.20](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.19...web-v1.0.20) (2026-08-23)
+
+
+### Performance
+
+* **build:** reuse Turbopack cache across worktrees ([77c491f](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/77c491f8a860397b341e6eaad85fd6951ca88450))
+
 ## [1.0.19](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.18...web-v1.0.19) (2026-08-23)
 
 
