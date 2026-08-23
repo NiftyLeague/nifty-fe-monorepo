@@ -54,10 +54,10 @@
   position: relative;
 }
 
-/* Keep the long marketing page cheap to render before a deferred boundary is
- * close to the viewport. The boundary is a wrapper div, not the loaded
- * section itself, so containment remains active after the section hydrates. */
-.home-pg .deferred-section {
+/* Keep the long marketing page cheap to render before a deferred boundary or
+ * server-rendered static section is close to the viewport. */
+.home-pg .deferred-section,
+.home-pg .home-static-section {
   content-visibility: auto;
   contain-intrinsic-size: auto 800px;
 }

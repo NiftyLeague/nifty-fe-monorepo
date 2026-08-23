@@ -1653,16 +1653,14 @@ describe('shared below-fold loading contract', () => {
     const pageSource = readFileSync(join(process.cwd(), webHomePage), 'utf8')
     const deferredSource = readFileSync(join(process.cwd(), webDeferredHomeSections), 'utf8')
     const sharedDeferredSource = readFileSync(join(process.cwd(), sharedDeferredSection), 'utf8')
-    const homeSectionNames = [
-      'HomeDegensSection',
-      'HomeCompeteSection',
+    const deferredHomeSectionNames = ['HomeDegensSection', 'HomeCompeteSection', 'HomeTokenSection']
+    const staticHomeSectionNames = [
       'HomeNiftyWorldSection',
       'HomeDashboardSection',
-      'HomeTokenSection',
       'HomeCommunitySection',
       'HomeSponsorsSection',
     ]
-    const homeSectionSources = homeSectionNames
+    const homeSectionSources = [...deferredHomeSectionNames, ...staticHomeSectionNames]
       .map((section) =>
         readFileSync(
           join(process.cwd(), `apps/web/src/components/HomeSections/${section}.tsx`),
@@ -1673,7 +1671,6 @@ describe('shared below-fold loading contract', () => {
     const homeStyles = readFileSync(join(process.cwd(), 'apps/web/src/styles/home.css'), 'utf8')
 
     expect(pageSource).toContain('DeferredHomeToken')
-    expect(pageSource).toContain('DeferredHomeSponsors')
     expect(pageSource).toContain('DeferredHomeDegens')
     expect(pageSource).not.toContain("import('@/components/MintOMatic')")
     expect(pageSource).not.toContain("import('@/components/Sponsors')")
@@ -1682,17 +1679,27 @@ describe('shared below-fold loading contract', () => {
     expect(deferredSource).not.toContain("import('@/components/HomeBelowFold')")
     expect(existsSync(join(process.cwd(), 'apps/web/src/components/HomeBelowFold.tsx'))).toBe(false)
     expect(sharedDeferredSource).toContain('className="deferred-section"')
-    for (const section of homeSectionNames) {
+    for (const section of deferredHomeSectionNames) {
       expect(deferredSource).toContain(`import('@/components/HomeSections/${section}')`)
     }
+    for (const section of staticHomeSectionNames) {
+      expect(deferredSource).not.toContain(`import('@/components/HomeSections/${section}')`)
+      expect(
+        readFileSync(
+          join(process.cwd(), `apps/web/src/components/HomeSections/${section}.tsx`),
+          'utf8'
+        )
+      ).not.toContain("'use client'")
+    }
     expect(homeSectionSources).toContain("import('@/components/MintOMatic')")
-    expect(homeSectionSources).toContain("import('@/components/Sponsors')")
+    expect(homeSectionSources).toContain("from '@/components/Sponsors'")
     expect(homeSectionSources).not.toContain("from '@/constants/sponsors'")
     expect(homeSectionSources).toContain("import('@/components/CommunityDegenCarousel')")
     expect(homeSectionSources).toContain("from '@nl/ui/custom/deferred-section'")
     expect(pageSource).not.toContain('home-below-fold')
     expect(homeStyles).not.toContain('.home-below-fold')
     expect(homeStyles).toContain('.home-pg .deferred-section')
+    expect(homeStyles).toContain('.home-pg .home-static-section')
     expect(homeStyles).toContain('content-visibility: auto')
     expect(homeStyles).toContain('contain-intrinsic-size: auto 800px')
   })
