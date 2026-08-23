@@ -77,7 +77,6 @@ const DesktopIntro = () => {
             alt="Nifty Hero Characters"
             width={1920}
             height={1042}
-            loading="eager"
             sizes="100vw"
             quality={60}
             className="w-full h-auto"
