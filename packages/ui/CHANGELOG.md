@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.6](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v1.0.5...ui-v1.0.6) (2026-08-23)
+
+
+### Performance
+
+* **ui:** preserve priority image hints ([0856b34](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/0856b34acf65c377c4eb7f38a7d28cd77ef3f07f))
+
 ## [1.0.5](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v1.0.4...ui-v1.0.5) (2026-08-23)
 
 
