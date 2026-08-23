@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.20](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.19...nifty-fe-monorepo-v1.2.20) (2026-08-23)
+
+
+### Performance
+
+* **web:** compact arcade token video ([#1012](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1012)) ([385e8fc](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/385e8fce5948744bd9f63c5984e89522eb5480e6))
+
 ## [1.2.19](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.18...nifty-fe-monorepo-v1.2.19) (2026-08-23)
 
 
