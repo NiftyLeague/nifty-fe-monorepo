@@ -195,6 +195,18 @@ jobs:
             exit 0
           fi
 
+          # The drift preview ran against an earlier pair of refs. Refresh
+          # them before creating a branch so a promotion or manual repair
+          # that completed during the preview cannot produce an empty PR.
+          git fetch origin main staging --no-tags
+          CURRENT_MAIN_TREE=$(git rev-parse 'origin/main^{tree}')
+          CURRENT_STAGING_TREE=$(git rev-parse 'origin/staging^{tree}')
+          if [ "$CURRENT_MAIN_TREE" = "$CURRENT_STAGING_TREE" ]; then
+            echo "Main and staging are aligned after the drift preview;"
+            echo "skipping stale re-alignment creation."
+            exit 0
+          fi
+
           BRANCH="chore/re-align-staging-$(date +%Y%m%d-%H%M)"
           git config user.name "github-actions[bot]"
           BOT_EMAIL="41898282+github-actions[bot]"
@@ -298,6 +310,20 @@ jobs:
             git commit --amend --no-edit
           fi
           git push -u origin "$BRANCH"
+
+          # Do not publish a PR from a stale base. A concurrent promotion or
+          # feature merge must be observed by the next scheduled/push run so
+          # the generated branch always describes the current staging ref.
+          git fetch origin staging --no-tags
+          current_staging_head=$(git rev-parse origin/staging)
+          current_staging_tree=$(git rev-parse 'origin/staging^{tree}')
+          branch_tree=$(git rev-parse "$BRANCH^{tree}")
+          if [ "$current_staging_head" != "$staging_head" ] || [ "$current_staging_tree" = "$branch_tree" ]; then
+            echo "Staging changed or is already aligned after the push;"
+            echo "deleting the stale re-alignment branch without opening a PR."
+            git push origin --delete "$BRANCH" >/dev/null || true
+            exit 0
+          fi
 
           # Check again after pushing to close the race with an already-open PR.
           EXISTING=$(find_existing_pr)
