@@ -54,10 +54,10 @@
   position: relative;
 }
 
-/* Keep the long marketing page cheap to render before a section is close to
- * the viewport. The intrinsic size preserves scroll position and the existing
- * IntersectionObserver-driven sections still hydrate as they approach. */
-.home-pg > section:not(#gaming-section) {
+/* Keep the long marketing page cheap to render before a deferred boundary is
+ * close to the viewport. The boundary is a wrapper div, not the loaded
+ * section itself, so containment remains active after the section hydrates. */
+.home-pg .deferred-section {
   content-visibility: auto;
   contain-intrinsic-size: auto 800px;
 }

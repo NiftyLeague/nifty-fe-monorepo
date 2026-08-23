@@ -1652,10 +1652,7 @@ describe('shared below-fold loading contract', () => {
   it('defers below-fold marketing interaction without clipping visual effects', () => {
     const pageSource = readFileSync(join(process.cwd(), webHomePage), 'utf8')
     const deferredSource = readFileSync(join(process.cwd(), webDeferredHomeSections), 'utf8')
-    const homeBelowFoldSource = readFileSync(
-      join(process.cwd(), 'apps/web/src/components/HomeBelowFold.tsx'),
-      'utf8'
-    )
+    const sharedDeferredSource = readFileSync(join(process.cwd(), sharedDeferredSection), 'utf8')
     const homeSectionNames = [
       'HomeDegensSection',
       'HomeCompeteSection',
@@ -1683,10 +1680,11 @@ describe('shared below-fold loading contract', () => {
     expect(pageSource).not.toContain("from '@/components/Carousel'")
     expect(pageSource).not.toContain("from '@/components/Carousel/DegenCardItem'")
     expect(deferredSource).not.toContain("import('@/components/HomeBelowFold')")
+    expect(existsSync(join(process.cwd(), 'apps/web/src/components/HomeBelowFold.tsx'))).toBe(false)
+    expect(sharedDeferredSource).toContain('className="deferred-section"')
     for (const section of homeSectionNames) {
       expect(deferredSource).toContain(`import('@/components/HomeSections/${section}')`)
     }
-    expect(homeBelowFoldSource).toContain('export { default as HomeDegensSection }')
     expect(homeSectionSources).toContain("import('@/components/MintOMatic')")
     expect(homeSectionSources).toContain("import('@/components/Sponsors')")
     expect(homeSectionSources).not.toContain("from '@/constants/sponsors'")
@@ -1694,6 +1692,7 @@ describe('shared below-fold loading contract', () => {
     expect(homeSectionSources).toContain("from '@nl/ui/custom/deferred-section'")
     expect(pageSource).not.toContain('home-below-fold')
     expect(homeStyles).not.toContain('.home-below-fold')
+    expect(homeStyles).toContain('.home-pg .deferred-section')
     expect(homeStyles).toContain('content-visibility: auto')
     expect(homeStyles).toContain('contain-intrinsic-size: auto 800px')
   })
