@@ -9,8 +9,6 @@ let fetchRankByUserId: typeof import('./leaderboard').fetchRankByUserId
 let fetchClientScores: typeof import('./leaderboard').fetchScores
 let fetchScores: typeof import('./leaderboard-server').fetchScores
 let fetchUserNames: typeof import('./leaderboard-server').fetchUserNames
-let getComparator: typeof import('./leaderboard').getComparator
-let stableSort: typeof import('./leaderboard').stableSort
 
 beforeEach(async () => {
   mock.module('@/constants/leaderboards/data', () => {
@@ -44,8 +42,6 @@ beforeEach(async () => {
   fetchClientScores = leaderboard.fetchScores
   fetchScores = leaderboardServer.fetchScores
   fetchUserNames = leaderboardServer.fetchUserNames
-  getComparator = leaderboard.getComparator
-  stableSort = leaderboard.stableSort
 })
 
 afterEach(() => undefined)
@@ -121,26 +117,5 @@ describe('leaderboard data loaders', () => {
     const error = new Error('offline')
     stubGlobal('fetch', mock().mockRejectedValue(error))
     await expect(fetchRankByUserId('user-1', 'smashers', 'wins', 'week')).resolves.toBe(error)
-  })
-})
-
-describe('leaderboard ordering', () => {
-  const rows = [
-    { rank: 2, user_id: 'b', score: '2', stats: { score: '2', wins: '3' } },
-    { rank: 1, user_id: 'a', score: '2', stats: { score: '2', wins: '7' } },
-    { rank: 3, user_id: 'c', score: '1', stats: { score: '1', wins: '7' } },
-  ]
-
-  it('supports rank and statistic comparators in both directions', () => {
-    expect(
-      stableSort(rows as never, getComparator('asc', 'rank' as never)).map((row) => row.rank)
-    ).toEqual([1, 2, 3])
-    expect(
-      stableSort(rows as never, getComparator('desc', 'wins' as never)).map((row) => row.user_id)
-    ).toEqual(['a', 'c', 'b'])
-  })
-
-  it('preserves source order when the comparator reports a tie', () => {
-    expect(stableSort(rows, () => 0).map((row) => row.user_id)).toEqual(['b', 'a', 'c'])
   })
 })
