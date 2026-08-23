@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.40](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.39...nifty-fe-monorepo-v1.2.40) (2026-08-23)
+
+
+### Maintenance
+
+* **app:** remove orphaned modules and lint output ([#1098](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1098)) ([7259a6c](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/7259a6c2e0843e5bd4257d61830049cd606f51ae))
+
 ## [1.2.39](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.38...nifty-fe-monorepo-v1.2.39) (2026-08-23)
 
 
