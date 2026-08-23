@@ -9,8 +9,8 @@ Detailed guidance on structuring a Turborepo monorepo.
 ```yaml
 # pnpm-workspace.yaml
 packages:
-  - "apps/*"
-  - "packages/*"
+  - 'apps/*'
+  - 'packages/*'
 ```
 
 ### npm/yarn/bun/nub
@@ -160,10 +160,10 @@ You can group packages by adding more workspace paths:
 ```yaml
 # pnpm-workspace.yaml
 packages:
-  - "apps/*"
-  - "packages/*"
-  - "packages/config/*" # Grouped configs
-  - "packages/features/*" # Feature packages
+  - 'apps/*'
+  - 'packages/*'
+  - 'packages/config/*' # Grouped configs
+  - 'packages/features/*' # Feature packages
 ```
 
 This allows:
@@ -186,7 +186,7 @@ packages/
 ```yaml
 # BAD: Nested wildcards cause ambiguous behavior
 packages:
-  - "packages/**" # Don't do this!
+  - 'packages/**' # Don't do this!
 ```
 
 ## Package Anatomy
@@ -298,9 +298,9 @@ ESLint 9 flat config:
 
 ```js
 // apps/web/eslint.config.js
-import { nextJsConfig } from "@repo/eslint-config/next-js";
+import { nextJsConfig } from '@repo/eslint-config/next-js'
 
-export default nextJsConfig;
+export default nextJsConfig
 ```
 
 ## Lockfile

@@ -44,7 +44,7 @@ jobs:
 - uses: actions/setup-node@v4
   with:
     node-version: 20
-    cache: "pnpm"
+    cache: 'pnpm'
 
 - run: pnpm install --frozen-lockfile
 ```
@@ -55,7 +55,7 @@ jobs:
 - uses: actions/setup-node@v4
   with:
     node-version: 20
-    cache: "yarn"
+    cache: 'yarn'
 
 - run: yarn install --frozen-lockfile
 ```
@@ -159,7 +159,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "pnpm"
+          cache: 'pnpm'
 
       - uses: vercel/setup-turborepo-remote-cache-action@v1.0.0
         with:
