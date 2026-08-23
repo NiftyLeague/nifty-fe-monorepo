@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.14](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.13...web-v1.0.14) (2026-08-23)
+
+
+### Performance
+
+* **web:** defer roadmap catalog ([5f75c2b](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/5f75c2bd47ca5b9ca5a5fedf60bf6f3d8c47e19b))
+
 ## [1.0.13](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.12...web-v1.0.13) (2026-08-23)
 
 
