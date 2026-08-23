@@ -33,6 +33,7 @@ export default function DegenViews({ tokenId, initialImage, spriteImage, logo }:
     <>
       <main
         className={cx(styles.main__wrapper, {
+          [styles.image__surface as string]: source === SRC.IMAGE,
           ...(source === SRC.MODEL && {
             [styles.gradient_salmon as string]: color === 'salmon',
             [styles.gradient_purple as string]: color === 'purple',
