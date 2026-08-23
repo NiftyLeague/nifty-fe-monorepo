@@ -19,6 +19,7 @@ describe('MintOMatic', () => {
 
     expect(images).toHaveLength(4)
     expect(images.map((image) => image.getAttribute('loading'))).toEqual(Array(4).fill('lazy'))
+    expect(images.map((image) => image.getAttribute('fetchpriority'))).toEqual(Array(4).fill('low'))
     expect(images.map((image) => image.getAttribute('decoding'))).toEqual(Array(4).fill('async'))
     expect(
       images.map((image) => [image.getAttribute('width'), image.getAttribute('height')])
