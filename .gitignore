@@ -37,6 +37,8 @@ out/
 coverage/
 htmlcov/
 .coverage*
+assets/robots.txt
+assets/sitemap.xml
 .next/
 artifacts/
 cache/
@@ -46,6 +48,8 @@ typechain/
 coverage.json
 tests/.bin/
 **/.app/
+apps/api/.data/
+apps/api/api/config/
 
 # Logs and temporary files
 *.log
@@ -75,3 +79,4 @@ mise.local.toml
 mise.local.lock
 .mise.local.lock
 *.code-workspace
+.vercel
