@@ -161,6 +161,33 @@ jobs:
             fi
           fi
 
+      - name: Close stale re-align PRs when aligned
+        if: steps.drift.outputs.drifted == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          STALE_PRS=$(gh pr list \
+            --base staging \
+            --state open \
+            --limit 1000 \
+            --json number,title,headRefName \
+            --jq '
+              map(select(
+                .title == "chore: re-align staging with main" or
+                (.headRefName | startswith("chore/re-align-staging-"))
+              ))
+              | .[].number
+            ')
+
+          while read -r pr; do
+            [ -n "$pr" ] || continue
+            echo "Closing stale no-op re-alignment PR #$pr."
+            gh pr close "$pr" \
+              --comment "Closing stale no-op re-alignment PR: main and staging are already tree-aligned." \
+              --delete-branch
+          done <<< "$STALE_PRS"
+
       - name: Create re-align PR if drifted
         if: steps.drift.outputs.drifted == 'true'
         env:
@@ -315,10 +342,13 @@ jobs:
           # feature merge must be observed by the next scheduled/push run so
           # the generated branch always describes the current staging ref.
           git fetch origin staging --no-tags
+          current_main_tree=$(git rev-parse 'origin/main^{tree}')
           current_staging_head=$(git rev-parse origin/staging)
           current_staging_tree=$(git rev-parse 'origin/staging^{tree}')
           branch_tree=$(git rev-parse "$BRANCH^{tree}")
-          if [ "$current_staging_head" != "$staging_head" ] || [ "$current_staging_tree" = "$branch_tree" ]; then
+          if [ "$current_main_tree" = "$current_staging_tree" ] || \
+            [ "$current_staging_head" != "$staging_head" ] || \
+            [ "$current_staging_tree" = "$branch_tree" ]; then
             echo "Staging changed or is already aligned after the push;"
             echo "deleting the stale re-alignment branch without opening a PR."
             git push origin --delete "$BRANCH" >/dev/null || true
@@ -331,6 +361,19 @@ jobs:
             echo "Open re-align PR #$EXISTING already targets staging;"
             echo "skipping duplicate creation."
             git push origin --delete "$BRANCH"
+            exit 0
+          fi
+
+          # Perform one last parity check immediately before PR creation. A
+          # release can finish between the branch push and the duplicate
+          # check; never publish a no-op PR for that race.
+          git fetch origin main staging --no-tags
+          current_main_tree=$(git rev-parse 'origin/main^{tree}')
+          current_staging_tree=$(git rev-parse 'origin/staging^{tree}')
+          if [ "$current_main_tree" = "$current_staging_tree" ]; then
+            echo "Main and staging aligned before PR creation;"
+            echo "deleting the stale re-alignment branch without opening a PR."
+            git push origin --delete "$BRANCH" >/dev/null || true
             exit 0
           fi
 
