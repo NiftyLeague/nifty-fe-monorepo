@@ -1,13 +1,27 @@
+'use client'
+
 import dynamic from 'next/dynamic'
 
-import RouteLoading from '@nl/ui/custom/route-loading'
-
 import type { DegenViewsProps } from './DegenViews'
+import styles from '../gltf.module.css'
 
 const DegenViewsClient = dynamic(() => import('./DegenViews'), {
-  loading: () => <RouteLoading label="Loading DEGEN viewer" />,
+  loading: () => (
+    <span className="sr-only" role="status" aria-live="polite" aria-busy="true">
+      Loading DEGEN viewer
+    </span>
+  ),
+  ssr: false,
 })
 
-export default function DegenViewsRouteBoundary(props: DegenViewsProps): React.ReactNode {
-  return <DegenViewsClient {...props} />
+export default function DegenViewsRouteBoundary({
+  initialImage,
+  ...props
+}: DegenViewsProps): React.ReactNode {
+  return (
+    <div className={styles.viewer__shell}>
+      <div className={styles.initial__image}>{initialImage}</div>
+      <DegenViewsClient {...props} initialImage={null} />
+    </div>
+  )
 }
