@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/docs-v1.0.4...docs-v1.0.5) (2026-08-23)
+
+
+### Performance
+
+* **docs:** defer below-fold homepage images ([#1028](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1028)) ([8de57ed](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/8de57ed42219840ac9e961b859b9a320ffde3bce))
+
 ## [1.0.4](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/docs-v1.0.3...docs-v1.0.4) (2026-08-22)
 
 
