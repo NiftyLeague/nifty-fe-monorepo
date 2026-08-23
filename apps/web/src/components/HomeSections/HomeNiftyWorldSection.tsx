@@ -1,11 +1,9 @@
-'use client'
-
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { ThemeButtonGroup } from '@nl/ui/custom/theme-button-group'
 
 export default function HomeNiftyWorldSection() {
   return (
-    <section className="container section relative flex flex-row flex-wrap items-center">
+    <section className="home-static-section container section relative flex flex-row flex-wrap items-center">
       <div className="w-full md:w-1/2">
         <div className="transition-fade">
           <OptimizedImage

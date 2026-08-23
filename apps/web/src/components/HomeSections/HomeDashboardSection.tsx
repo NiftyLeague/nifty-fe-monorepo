@@ -1,5 +1,3 @@
-'use client'
-
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { ThemeButtonGroup } from '@nl/ui/custom/theme-button-group'
 
@@ -7,7 +5,7 @@ import { DEGEN_COLLECTION_URL } from '@/constants/degen-assets'
 
 export default function HomeDashboardSection() {
   return (
-    <section className="section w-screen relative">
+    <section className="home-static-section section w-screen relative">
       <div className="relative flex-grow transition-fade">
         <OptimizedImage
           src="/img/misc/dashboard.webp"

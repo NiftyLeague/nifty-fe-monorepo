@@ -71,11 +71,13 @@ describe('home page', () => {
     expect(document.getElementById('gaming-section')).not.toBeNull()
   })
 
-  it('defers below-the-fold section markup behind accessible loading boundaries', () => {
+  it('keeps interactive sections deferred while server-rendering static sections', () => {
     render(<Home />)
 
     expect(screen.queryByText('OWN YOUR AVATAR')).toBeNull()
     expect(screen.queryByText('COMMUNITY-GENERATED AVATARS')).toBeNull()
+    expect(screen.getByRole('heading', { name: 'DASHBOARDS' })).not.toBeNull()
+    expect(screen.getByRole('heading', { name: 'COMMUNITY' })).not.toBeNull()
     expect(screen.getAllByRole('status').length).toBeGreaterThan(0)
   })
 

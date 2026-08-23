@@ -5,14 +5,14 @@ import OptimizedImage, { getOptimizedImageProps } from '@nl/ui/custom/optimized-
 import { DesktopOnlyImage, MobileOnlyImage } from '@nl/ui/custom/responsive-only-image'
 
 import {
-  DeferredHomeCommunity,
   DeferredHomeCompete,
-  DeferredHomeDashboard,
   DeferredHomeDegens,
-  DeferredHomeNiftyWorld,
-  DeferredHomeSponsors,
   DeferredHomeToken,
 } from '@/components/DeferredHomeSections'
+import HomeCommunitySection from '@/components/HomeSections/HomeCommunitySection'
+import HomeDashboardSection from '@/components/HomeSections/HomeDashboardSection'
+import HomeNiftyWorldSection from '@/components/HomeSections/HomeNiftyWorldSection'
+import HomeSponsorsSection from '@/components/HomeSections/HomeSponsorsSection'
 import MainLayout from '@/components/MainLayout'
 import { ThemeButtonGroup } from '@nl/ui/custom/theme-button-group'
 import { DEGEN_COLLECTION_URL } from '@/constants/degen-assets'
@@ -246,11 +246,11 @@ const Home = () => {
 
       <DeferredHomeDegens />
       <DeferredHomeCompete />
-      <DeferredHomeNiftyWorld />
-      <DeferredHomeDashboard />
+      <HomeNiftyWorldSection />
+      <HomeDashboardSection />
       <DeferredHomeToken />
-      <DeferredHomeCommunity />
-      <DeferredHomeSponsors />
+      <HomeCommunitySection />
+      <HomeSponsorsSection />
     </MainLayout>
   )
 }
