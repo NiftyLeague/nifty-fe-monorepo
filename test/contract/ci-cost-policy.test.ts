@@ -1,12 +1,21 @@
 import { describe, expect, it } from 'bun:test'
+import { execFileSync } from 'node:child_process'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const readWorkflow = (name: string) =>
   readFileSync(join(process.cwd(), '.github/workflows', name), 'utf8')
 
-const readGitHubConfig = (name: string) =>
-  readFileSync(join(process.cwd(), '.github', name), 'utf8')
+const readGitHubConfig = (name: string) => {
+  // Promotion PRs rebase staging into main, but GitHub validates a synthetic
+  // merge commit. Read the staging parent so this contract covers the tree
+  // that the configured merge strategy will actually ship.
+  if (process.env.GITHUB_BASE_REF === 'main' && process.env.GITHUB_HEAD_REF === 'staging') {
+    return execFileSync('git', ['show', `HEAD^2:.github/${name}`], { encoding: 'utf8' })
+  }
+
+  return readFileSync(join(process.cwd(), '.github', name), 'utf8')
+}
 
 describe('hosted validation cost policy', () => {
   it('does not configure Cargo Dependabot for this non-Rust repository', () => {
