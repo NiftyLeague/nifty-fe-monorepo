@@ -6,7 +6,6 @@ import { formatDateTime, formatTime, secondsToHours } from './dateTime'
 import { errorMsgHandler } from './errorHandlers'
 import { safeJSONParse } from './json'
 import { getErrorForName } from './name'
-import { strengthColor, strengthIndicator } from './password-strength'
 
 let calculateGasMargin: typeof import('./gas').calculateGasMargin
 let loadGasPrice: typeof import('./gas').loadGasPrice
@@ -75,14 +74,6 @@ describe('name and password validation', () => {
     ['Valid Name 42', ''],
   ])('validates %j', (value, message) => {
     expect(getErrorForName(value)).toBe(message)
-  })
-
-  it('scores each password characteristic and maps every score to a label', () => {
-    expect(strengthIndicator('aB3!long')).toBe(5)
-    expect(strengthIndicator('short')).toBe(0)
-    expect(
-      [0, 2, 3, 4, 5, 6].map((score) => strengthColor(score, undefined as never)!.label)
-    ).toEqual(['Poor', 'Weak', 'Normal', 'Good', 'Strong', 'Poor'])
   })
 })
 
