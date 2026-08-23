@@ -2,7 +2,6 @@ type HydraRarity = 'Common' | 'Rare' | 'Legendary' | 'Meta'
 
 /**
  * Client-safe rarity lookup for the temporary seventh-tribe compatibility fix.
- * Keep full Hydra metadata in hydras.ts for consumers that need attributes.
  */
 export const HYDRA_RARITIES: Record<string, HydraRarity> = {
   '9901': 'Meta',

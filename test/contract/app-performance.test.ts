@@ -140,8 +140,24 @@ const appIconRegistrySources = [
   'apps/app/src/components/dialog/WithdrawButtonDialog/WithdrawSuccess.tsx',
   'apps/smashers/src/app/(auth_routes)/profile/ProfileClient.tsx',
 ]
+const sharedEslintConfig = 'packages/eslint-config/base.js'
 
 describe('app performance contracts', () => {
+  it('keeps lint traversal off generated framework output', () => {
+    const source = readFileSync(sharedEslintConfig, 'utf8')
+
+    for (const generatedPath of [
+      '.next/**',
+      '.turbo/**',
+      '**/src/types/typechain/**',
+      'build/**',
+      'coverage/**',
+      'dist/**',
+    ]) {
+      expect(source).toContain(`'${generatedPath}'`)
+    }
+  })
+
   it('keeps the eager private shell on lightweight class joining', () => {
     const helperSource = readFileSync(lightweightClassNames, 'utf8')
     expect(helperSource).toContain("from 'clsx'")

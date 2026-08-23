@@ -2,7 +2,6 @@ import { describe, expect, it } from 'bun:test'
 import { mock } from 'bun:test'
 import { BURN_ADDYS } from '@/constants/addresses'
 import { HYDRA_RARITIES } from '@/constants/hydra-rarities'
-import { HYDRAS } from '@/constants/hydras'
 import DEFAULT_STATIC_FILTER from './constants'
 import {
   applySeventhTribesFix,
@@ -131,12 +130,6 @@ describe('filter state helpers', () => {
 })
 
 describe('seventh tribe compatibility', () => {
-  it('keeps the client-safe rarity map aligned with full Hydra metadata', () => {
-    expect(HYDRA_RARITIES).toEqual(
-      Object.fromEntries(Object.entries(HYDRAS).map(([id, hydra]) => [id, hydra.rarity]))
-    )
-  })
-
   it('preserves existing tokens and maps Hydra rarity edge cases', () => {
     const original = { id: '9900', background: 'Original', tribe: 'ape' } as Degen
 
