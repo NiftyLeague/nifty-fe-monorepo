@@ -5,11 +5,9 @@ const catalogLoaders = {
   degens: () => import('./degens'),
   filters: () => import('./filters'),
   games: () => import('./games'),
-  hydras: () => import('./hydras'),
   marketplace: () => import('./marketplace'),
   networks: () => import('./networks'),
   sort: () => import('./sort'),
-  sponsorships: () => import('./sponsorships'),
   urls: () => import('./url'),
 }
 
