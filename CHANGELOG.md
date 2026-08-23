@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.26](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.25...nifty-fe-monorepo-v1.2.26) (2026-08-23)
+
+
+### Performance
+
+* **app:** share lazy external image primitive ([3726a25](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/3726a25027800b8b153cb48e33ee9a28e51ca489))
+
 ## [1.2.25](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.24...nifty-fe-monorepo-v1.2.25) (2026-08-23)
 
 
