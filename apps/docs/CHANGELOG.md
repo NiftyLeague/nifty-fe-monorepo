@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.6](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/docs-v1.0.5...docs-v1.0.6) (2026-08-23)
+
+
+### Maintenance
+
+* **deps:** prune unused build dependencies ([#1059](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1059)) ([219bf27](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/219bf271ff0bdfc083108a9003f6090fe950fcdc))
+
 ## [1.0.5](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/docs-v1.0.4...docs-v1.0.5) (2026-08-23)
 
 
