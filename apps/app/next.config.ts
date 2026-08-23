@@ -24,6 +24,10 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ['pino-pretty', 'lokijs', 'encoding', 'sodium-native', 'require-addon'],
   experimental: {
     optimizePackageImports: ['lucide-react'],
+    // Reuse compatible Turbopack output across local builds and Git worktrees.
+    // This keeps branch validation from recompiling the entire app from scratch.
+    turbopackFileSystemCacheForBuild: true,
+    turbopackSeedCacheFromWorktree: true,
   },
   turbopack: { resolveAlias: { '@wagmi/connectors': 'wagmi/connectors' } },
   images: {

@@ -347,6 +347,14 @@ describe('app performance contracts', () => {
     expect(source).toContain('...(isExplicitWebpackBuild ? { webpack: webpackFallback } : {}),')
   })
 
+  it('persists and seeds compatible Turbopack build caches across worktrees', () => {
+    for (const file of [appNextConfig, smashersNextConfig, webNextConfig, templateNextConfig]) {
+      const source = readFileSync(file, 'utf8')
+      expect(source).toContain('turbopackFileSystemCacheForBuild: true')
+      expect(source).toContain('turbopackSeedCacheFromWorktree: true')
+    }
+  })
+
   it('modularizes shared Lucide imports before the app graph is bundled', () => {
     for (const file of [appNextConfig, smashersNextConfig, webNextConfig, templateNextConfig]) {
       expect(readFileSync(file, 'utf8')).toContain("optimizePackageImports: ['lucide-react']")
