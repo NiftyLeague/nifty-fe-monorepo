@@ -1,11 +1,9 @@
-'use client'
-
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { ThemeButtonGroup } from '@nl/ui/custom/theme-button-group'
 
 export default function HomeCommunitySection() {
   return (
-    <section className="section container relative flex flex-row flex-wrap items-center">
+    <section className="home-static-section section container relative flex flex-row flex-wrap items-center">
       <div className="w-full md:w-1/2 flex justify-center md:justify-start">
         <div className="relative flex-grow transition-quick-pop home-community-image">
           <OptimizedImage
