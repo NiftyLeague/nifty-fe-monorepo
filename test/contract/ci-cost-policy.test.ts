@@ -76,4 +76,17 @@ describe('hosted validation cost policy', () => {
     expect(source).toContain('package.json|*/package.json')
     expect(source).toContain('CHANGELOG.md|*/CHANGELOG.md')
   })
+
+  it('does not publish a stale or empty re-alignment PR after the refs move', () => {
+    const source = readWorkflow('re-align-staging.yml')
+
+    expect(source).toContain('git fetch origin main staging --no-tags')
+    expect(source).toContain('CURRENT_MAIN_TREE=$(git rev-parse')
+    expect(source).toContain('CURRENT_STAGING_TREE=$(git rev-parse')
+    expect(source).toContain('current_staging_head=$(git rev-parse origin/staging)')
+    expect(source).toContain('current_staging_tree=$(git rev-parse')
+    expect(source).toContain('branch_tree=$(git rev-parse "$BRANCH^{tree}")')
+    expect(source).toContain('git push origin --delete "$BRANCH"')
+    expect(source).toContain('deleting the stale re-alignment branch without opening a PR.')
+  })
 })
