@@ -21,12 +21,6 @@ const PrivateItems: NavItemType = {
         },
         { id: 'degens', title: 'DEGENs', type: 'item', url: '/dashboard/degens' },
         { id: 'items', title: 'Comics & Items', type: 'item', url: '/dashboard/items' },
-        // {
-        //   id: 'rentals',
-        //   title: 'Rentals',
-        //   type: 'item',
-        //   url: '/dashboard/rentals',
-        // },
       ],
     },
   ],
