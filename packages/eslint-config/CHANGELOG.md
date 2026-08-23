@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/eslint-config-v1.0.1...eslint-config-v1.0.2) (2026-08-23)
+
+
+### Maintenance
+
+* **app:** remove orphaned modules and lint output ([#1098](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1098)) ([7259a6c](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/7259a6c2e0843e5bd4257d61830049cd606f51ae))
+
 ## [1.0.1](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/eslint-config-v1.0.0...eslint-config-v1.0.1) (2026-08-09)
 
 
