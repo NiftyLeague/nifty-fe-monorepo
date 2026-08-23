@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.37](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.36...nifty-fe-monorepo-v1.2.37) (2026-08-23)
+
+
+### Maintenance
+
+* **app:** simplify sidebar menu configuration ([#1084](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1084)) ([4772ef2](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/4772ef2bee2494c81f800c7fe794ceae32e46526))
+
 ## [1.2.36](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.35...nifty-fe-monorepo-v1.2.36) (2026-08-23)
 
 
