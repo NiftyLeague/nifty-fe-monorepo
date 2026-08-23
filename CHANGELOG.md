@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.19](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.18...nifty-fe-monorepo-v1.2.19) (2026-08-23)
+
+
+### Performance
+
+* **web:** compact NiftyWorld showcase video ([ae0b977](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/ae0b977a5f61b19d7339fcdd12b4de88f8428e79))
+
 ## [1.2.18](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.17...nifty-fe-monorepo-v1.2.18) (2026-08-22)
 
 
