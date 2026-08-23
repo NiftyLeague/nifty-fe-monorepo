@@ -42,6 +42,10 @@ const sharedMarketingVideos = [
     path: 'assets/video/bank.mp4',
     maxBytes: 2_000_000,
   },
+  {
+    path: 'assets/video/arcade-token.mp4',
+    maxBytes: 2_750_000,
+  },
 ] as const
 
 describe('shared video delivery budgets', () => {
