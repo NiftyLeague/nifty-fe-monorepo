@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.25](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.24...nifty-fe-monorepo-v1.2.25) (2026-08-23)
+
+
+### Performance
+
+* **web:** deprioritize deferred artwork ([#1032](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1032)) ([ada630a](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/ada630aae18e9e9650956e92f9403eeccb63f2ce))
+
 ## [1.2.24](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.23...nifty-fe-monorepo-v1.2.24) (2026-08-23)
 
 
