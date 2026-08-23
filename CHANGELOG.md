@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.33](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.32...nifty-fe-monorepo-v1.2.33) (2026-08-23)
+
+
+### Performance
+
+* **web:** server-render home section shells ([e890640](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/e890640bce24f1629b9819c694fec6b93ae7452d))
+
 ## [1.2.32](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.31...nifty-fe-monorepo-v1.2.32) (2026-08-23)
 
 

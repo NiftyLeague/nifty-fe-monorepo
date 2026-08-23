@@ -1,10 +1,10 @@
 {
-  ".": "1.2.32",
+  ".": "1.2.33",
   "apps/app": "1.1.14",
   "apps/docs": "1.0.6",
   "apps/smashers": "1.0.8",
   "apps/template": "1.0.5",
-  "apps/web": "1.0.16",
+  "apps/web": "1.0.17",
   "packages/eslint-config": "1.0.1",
   "packages/imx-passport": "1.0.2",
   "packages/playfab": "1.0.5",
