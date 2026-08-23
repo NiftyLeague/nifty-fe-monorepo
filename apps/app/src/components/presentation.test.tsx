@@ -5,7 +5,6 @@ import type { ComponentProps } from 'react'
 
 let GameCard: typeof import('./cards/GameCard').default
 let MainCard: typeof import('./cards/MainCard').default
-let SubCard: typeof import('./cards/SubCard').default
 let Breadcrumbs: typeof import('./extended/Breadcrumbs').default
 
 beforeEach(async () => {
@@ -39,12 +38,10 @@ beforeEach(async () => {
 
   const gameCard = await import('./cards/GameCard')
   const mainCard = await import('./cards/MainCard')
-  const subCard = await import('./cards/SubCard')
   const breadcrumbs = await import('./extended/Breadcrumbs')
 
   GameCard = gameCard.default
   MainCard = mainCard.default
-  SubCard = subCard.default
   Breadcrumbs = breadcrumbs.default
 })
 
@@ -129,7 +126,7 @@ describe('Breadcrumbs', () => {
 
 describe('card presentation', () => {
   it('restores the app card spacing contract over shadcn defaults', () => {
-    const { container, rerender } = render(
+    const { container } = render(
       <MainCard title="Main" secondary="Action">
         Main body
       </MainCard>
@@ -141,18 +138,12 @@ describe('card presentation', () => {
     expect(mainCard?.querySelector('[data-slot="card-header"]')?.className).toContain('p-4')
     expect(mainCard?.querySelector('[data-slot="card-content"]')?.className).toContain('p-4')
 
-    rerender(
-      <SubCard title="Sub" secondary="Action">
-        Sub body
-      </SubCard>
-    )
-
-    const subCard = container.querySelector('[data-slot="card"]')
-    expect(subCard?.className).toContain('gap-0')
-    expect(subCard?.className).toContain('py-0')
+    const card = container.querySelector('[data-slot="card"]')
+    expect(card?.className).toContain('gap-0')
+    expect(card?.className).toContain('py-0')
   })
 
-  it('renders all MainCard and SubCard content modes in light and dark themes', () => {
+  it('renders all MainCard content modes in light and dark themes', () => {
     const { rerender } = render(
       <MainCard title="Main" secondary="Action" boxShadow shadow="custom-shadow">
         Main body
@@ -166,20 +157,6 @@ describe('card presentation', () => {
       </MainCard>
     )
     expect(screen.getByText('Raw body')).not.toBeNull()
-
-    rerender(
-      <SubCard title="Sub" secondary="Action">
-        Sub body
-      </SubCard>
-    )
-    expect(screen.getByText('Sub body')).not.toBeNull()
-
-    rerender(
-      <SubCard title="Dark sub" darkTitle content={false}>
-        Raw sub body
-      </SubCard>
-    )
-    expect(screen.getByText('Raw sub body')).not.toBeNull()
   })
 
   it('accepts server-rendered artwork without changing the card layout contract', () => {

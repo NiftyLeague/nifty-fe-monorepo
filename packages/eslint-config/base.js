@@ -59,5 +59,16 @@ export const config = tseslint.config(
     },
   },
   { linterOptions: { reportUnusedDisableDirectives: 'off' } },
-  { ignores: ['build/**', 'dist/**'] }
+  // Generated framework output is never source input, and traversing it makes
+  // every workspace lint needlessly expensive after a production build.
+  {
+    ignores: [
+      '.next/**',
+      '.turbo/**',
+      '**/src/types/typechain/**',
+      'build/**',
+      'coverage/**',
+      'dist/**',
+    ],
+  }
 )
