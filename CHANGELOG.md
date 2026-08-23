@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.38](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.37...nifty-fe-monorepo-v1.2.38) (2026-08-23)
+
+
+### Performance
+
+* **web:** defer decorative hero artwork ([#1090](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1090)) ([9a61531](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/9a61531c324bf9f3b3c1cb1264e5c304b19d1e09))
+
 ## [1.2.37](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.36...nifty-fe-monorepo-v1.2.37) (2026-08-23)
 
 
