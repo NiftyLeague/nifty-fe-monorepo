@@ -99,12 +99,12 @@ describe('home page', () => {
     ).toContain('w-full')
   })
 
-  it('loads the desktop hero artwork at high priority for LCP', () => {
+  it('defers decorative desktop hero artwork behind the LCP background', () => {
     render(<Home />)
 
     const heroArtwork = screen.getByAltText('Nifty Hero Characters')
-    expect(heroArtwork.getAttribute('data-loading')).toBeNull()
-    expect(heroArtwork.getAttribute('data-fetch-priority')).toBeNull()
+    expect(heroArtwork.getAttribute('loading')).not.toBe('eager')
+    expect(heroArtwork.getAttribute('fetchpriority')).not.toBe('high')
   })
 
   it('uses the compact quality profile for the desktop hero raster artwork', () => {
