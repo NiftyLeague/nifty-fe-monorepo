@@ -5,10 +5,12 @@ const manifest = JSON.parse(readFileSync('package.json', 'utf8')) as {
   packageManager?: string
   devEngines?: { packageManager?: { name?: string; version?: string } }
 }
+const lockfile = readFileSync('bun.lock', 'utf8')
 
 describe('build reproducibility', () => {
-  it('pins Bun for hosted and local package-manager resolution', () => {
-    expect(manifest.packageManager).toBe('bun@1.3.14')
+  it('keeps Bun policy compatible with Vercel lockfile resolution', () => {
+    expect(manifest.packageManager).toBeUndefined()
     expect(manifest.devEngines?.packageManager).toEqual({ name: 'bun', version: '1.3.14' })
+    expect(lockfile).toMatch(/"lockfileVersion": 1,/)
   })
 })
