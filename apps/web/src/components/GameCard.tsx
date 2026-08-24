@@ -71,6 +71,7 @@ export default function GameCard({ game, index }: GameCardProps) {
           ) : (
             <ViewportVideo
               id={`game-video-${index}`}
+              deferLoad
               width="100%"
               height="100%"
               muted
