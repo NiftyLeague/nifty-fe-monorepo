@@ -1,5 +1,28 @@
 # Changelog
 
+## [1.2.43](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.42...nifty-fe-monorepo-v1.2.43) (2026-08-24)
+
+
+### Bug Fixes
+
+* **ci:** remove Cargo Dependabot from non-Rust repo ([#1105](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1105)) ([4720a81](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/4720a81fad80979c51ace91d25d3cbb5cd15a09a))
+
+
+### Performance
+
+* streamline canvas interaction and navbar scroll state ([3d60607](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/3d60607967726ed5b699bdf6d605d278b1fa5de7))
+
+
+### Tests
+
+* **ci:** align promotion contract with main ([#1113](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1113)) ([d7103b6](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/d7103b6e85e42e0dbaba2471d4362ec5e58098e3))
+* **ci:** realign cost contract with main ([#1111](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1111)) ([d746c16](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/d746c16526156426ee8da3306daf84129873cfed))
+
+
+### Maintenance
+
+* **code-foundry:** upgrade runtime to v0.37.4 ([#1101](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1101)) ([4e32d7d](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/4e32d7d978f2ece2772dbfc37200728094671ca1))
+
 ## [1.2.42](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.41...nifty-fe-monorepo-v1.2.42) (2026-08-24)
 
 
