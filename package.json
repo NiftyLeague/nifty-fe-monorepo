@@ -28,6 +28,7 @@
     "type:check": "turbo type-check"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
     "@happy-dom/global-registrator": "^20.11.2",
     "@nl/eslint-config": "workspace:*",
     "@nl/typescript-config": "workspace:*",
@@ -38,7 +39,7 @@
     "prettier": "^3.9.6",
     "syncpack": "^15.3.3",
     "turbo": "^2.10.10",
-    "typescript": "~7.0.2"
+    "typescript": "~6.0.3"
   },
   "browserslist": {
     "production": [
