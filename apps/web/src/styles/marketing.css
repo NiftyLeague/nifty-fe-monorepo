@@ -23,6 +23,12 @@
   animation: slideBg 60s linear infinite;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .sliding-background-wrapper .sliding-background {
+    animation: none;
+  }
+}
+
 @media (max-width: 768px) {
   .sliding-nfts .sliding-background-wrapper {
     min-height: 106px;
