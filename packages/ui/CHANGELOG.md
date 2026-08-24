@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.8](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v1.0.7...ui-v1.0.8) (2026-08-24)
+
+
+### Performance
+
+* streamline canvas interaction and navbar scroll state ([3d60607](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/3d60607967726ed5b699bdf6d605d278b1fa5de7))
+
 ## [1.0.7](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v1.0.6...ui-v1.0.7) (2026-08-23)
 
 
