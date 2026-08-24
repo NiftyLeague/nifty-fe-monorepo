@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.44](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.43...nifty-fe-monorepo-v1.2.44) (2026-08-24)
+
+
+### Performance
+
+* **ui:** skip parallax work for reduced motion ([#1129](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1129)) ([2526aa1](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/2526aa194d582e4ce1edd238bad5b46ff646595d))
+
 ## [1.2.43](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.42...nifty-fe-monorepo-v1.2.43) (2026-08-24)
 
 
