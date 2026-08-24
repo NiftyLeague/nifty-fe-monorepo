@@ -4,7 +4,7 @@ import { Card, CardContent } from '@nl/ui/base/card'
 import { Title } from '@nl/ui/custom/typography'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import { GAME_CARD_IMAGE_SIZES } from '@nl/ui/image-sizes'
-import { cn } from '@nl/ui/utils'
+import { cx } from '@nl/ui/class-names'
 import type { SxProps, Theme } from '@/types'
 
 interface GameDescriptionDisclosureProps {
@@ -138,7 +138,7 @@ export interface GameCardProps {
   title?: string
 }
 
-const GameCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<GameCardProps>>> = ({
+const GameCard: React.FC<React.PropsWithChildren<GameCardProps>> = ({
   actions,
   autoHeight = false,
   contents,
@@ -158,7 +158,7 @@ const GameCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<GameCar
 }) => {
   return (
     <Card
-      className={cn(
+      className={cx(
         'flex w-full flex-col gap-0 overflow-hidden border py-0',
         autoHeight ? 'h-auto' : 'h-full'
       )}

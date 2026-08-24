@@ -9,7 +9,6 @@ export interface NiftyGame {
     secondaryLink?: string
     secondaryTitle?: string
     isComingSoon?: boolean
-    isDisabled?: boolean
   }
 }
 
@@ -47,18 +46,6 @@ export const NIFTY_GAMES: NiftyGame[] = [
       isComingSoon: false,
     },
   },
-  // {
-  //   name: 'NIFTY TENNIS',
-  //   description:
-  //     'This is quite literarily the first NFT tennis game on the ethereum blockchain. If you’re a fan of the fantasy tennis league, Nifty tennis is something you’d definitely want to check out. Get in on the action and let’s see what you’re made of!',
-  //   video: 'https://www.youtube.com/embed/ylJzfLcWChc',
-  //   tag: 'GAME',
-  //   action: {
-  //     title: '',
-  //     link: '',
-  //     isComingSoon: true,
-  //   },
-  // },
   {
     name: 'WEN GAME',
     description: `Never thought you'd see a batting cage on the blockchain huh? Think again. Put your baseball team cap on and get ready to hit the balls in the WEN game for your first blockchain home run. Easy to pick up, difficult to master. Wen lambo?!`,
@@ -91,7 +78,6 @@ export const NIFTY_GAMES: NiftyGame[] = [
       title: 'MOUNTAIN CLOSED',
       link: 'https://app.niftyleague.com/games/mt-gawx',
       isComingSoon: false,
-      isDisabled: true,
     },
   },
 ]

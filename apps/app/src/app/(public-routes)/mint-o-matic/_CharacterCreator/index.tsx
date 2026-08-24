@@ -14,6 +14,7 @@ import { DEGEN_CONTRACT } from '@/constants/contracts'
 import { NETWORK_NAME, TARGET_NETWORK } from '@/constants/networks'
 import { DEBUG } from '@/constants/index'
 import { getMintableTraits, TraitArray } from './helpers'
+import { setCanvasInteraction } from '@/utils/canvas-interaction'
 
 const isMobileOnly =
   typeof navigator !== 'undefined' &&
@@ -184,20 +185,11 @@ const CharacterCreator = memo(
     }, [])
 
     const onScroll = useCallback(() => {
-      const content = Array.from(
-        document.getElementsByClassName('character-canvas') as HTMLCollectionOf<HTMLElement>
-      )[0]
-      if (content) content.style.pointerEvents = 'none'
+      setCanvasInteraction('character-canvas', false)
     }, [])
 
     const onMouse = useCallback(() => {
-      const content = Array.from(
-        document.getElementsByClassName('character-canvas') as HTMLCollectionOf<HTMLElement>
-      )[0]
-      if (content) {
-        content.style.pointerEvents = 'auto'
-        content.style.cursor = 'pointer'
-      }
+      setCanvasInteraction('character-canvas', true)
     }, [])
 
     const handleCanvas = useCallback(() => {

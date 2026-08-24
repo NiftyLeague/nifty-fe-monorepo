@@ -19,6 +19,7 @@ import { DEBUG } from '@/constants/index'
 import withVerification from '@/components/wrapper/Authentication'
 import ArcadeTokensRequired from '@/components/ArcadeTokensRequired'
 import useAuth from '@/hooks/useAuth'
+import { setCanvasInteraction } from '@/utils/canvas-interaction'
 
 interface GameProps {
   unityConfig: UnityConfig
@@ -80,13 +81,11 @@ const Game = ({ unityConfig, arcadeTokenRequired = false }: GameProps) => {
     setTimeout(() => e.detail.callback(`${networkName},${version ?? ''}`), 1000)
   }, [])
 
-  const onMouse = useCallback(() => {
-    const content = Array.from(
-      document.getElementsByClassName('game-canvas') as HTMLCollectionOf<HTMLElement>
-    )[0]
-    if (content) {
-      content.style.pointerEvents = 'auto'
-      content.style.cursor = 'pointer'
+  const enableGameInteraction = useCallback(() => {
+    if (setCanvasInteraction('game-canvas', true)) {
+      // The canvas remains interactive after activation. Remove the global
+      // listener so game pages do not keep doing a DOM lookup on every move.
+      document.removeEventListener('mousemove', enableGameInteraction)
     }
   }, [])
 
@@ -121,13 +120,13 @@ const Game = ({ unityConfig, arcadeTokenRequired = false }: GameProps) => {
     addEventListener('progress', handleProgress)
     window.addEventListener('StartAuthentication', startAuthentication as EventListener)
     window.addEventListener('GetConfiguration', getConfiguration as EventListener)
-    document.addEventListener('mousemove', onMouse, false)
+    document.addEventListener('mousemove', enableGameInteraction, { passive: true })
 
     return () => {
       window.unityInstance?.removeAllEventListeners()
       window.removeEventListener('StartAuthentication', startAuthentication as EventListener)
       window.removeEventListener('GetConfiguration', getConfiguration as EventListener)
-      document.removeEventListener('mousemove', onMouse, false)
+      document.removeEventListener('mousemove', enableGameInteraction)
     }
   }, [
     sendMessage,
@@ -137,7 +136,7 @@ const Game = ({ unityConfig, arcadeTokenRequired = false }: GameProps) => {
     handleLoaded,
     handleError,
     handleProgress,
-    onMouse,
+    enableGameInteraction,
     startAuthentication,
     getConfiguration,
   ])
