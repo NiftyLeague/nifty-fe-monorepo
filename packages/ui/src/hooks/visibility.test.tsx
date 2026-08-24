@@ -375,4 +375,29 @@ describe('useParallax', () => {
       expect.anything()
     )
   })
+
+  it('does not install a scroll subscription when reduced motion is preferred', () => {
+    spyOn(window, 'matchMedia').mockReturnValue({
+      matches: true,
+      media: '(prefers-reduced-motion: reduce)',
+      onchange: null,
+      addEventListener: mock(),
+      removeEventListener: mock(),
+      addListener: mock(),
+      removeListener: mock(),
+      dispatchEvent: mock(),
+    } as never)
+    const addEventListener = spyOn(window, 'addEventListener')
+    const element = elementWithTop(100)
+
+    renderHook(() =>
+      useParallax({ current: element }, { enabled: true, direction: 'down', intensity: 'normal' })
+    )
+    markIntersecting(element)
+
+    expect(element.firstElementChild?.getAttribute('style')).toBeNull()
+    expect(addEventListener).not.toHaveBeenCalledWith('scroll', expect.any(Function), {
+      passive: true,
+    })
+  })
 })
