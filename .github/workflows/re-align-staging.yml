@@ -24,6 +24,8 @@ jobs:
   re-align:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v4
@@ -42,6 +44,20 @@ jobs:
         run: |
           set -euo pipefail
           git fetch origin main staging --no-tags
+
+          PROMOTION_PR=$(gh pr list \
+            --base main \
+            --head staging \
+            --state open \
+            --limit 1 \
+            --json number \
+            --jq '.[0].number // empty')
+          if [ -n "$PROMOTION_PR" ]; then
+            echo "Promotion PR #$PROMOTION_PR already targets main;"
+            echo "deferring staging re-alignment until promotion completes."
+            echo "drifted=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
 
           MAIN_TREE=$(git rev-parse 'origin/main^{tree}')
           STAGING_TREE=$(git rev-parse 'origin/staging^{tree}')
@@ -215,10 +231,27 @@ jobs:
               '
           }
 
+          find_promotion_pr() {
+            gh pr list \
+              --base main \
+              --head staging \
+              --state open \
+              --limit 1 \
+              --json number \
+              --jq '.[0].number // empty'
+          }
+
           EXISTING=$(find_existing_pr)
           if [ -n "$EXISTING" ]; then
             echo "Open re-align PR #$EXISTING already targets staging;"
             echo "skipping duplicate creation."
+            exit 0
+          fi
+
+          PROMOTION=$(find_promotion_pr)
+          if [ -n "$PROMOTION" ]; then
+            echo "Promotion PR #$PROMOTION already targets main;"
+            echo "skipping re-alignment creation until promotion completes."
             exit 0
           fi
 
@@ -372,6 +405,14 @@ jobs:
           current_staging_tree=$(git rev-parse 'origin/staging^{tree}')
           if [ "$current_main_tree" = "$current_staging_tree" ]; then
             echo "Main and staging aligned before PR creation;"
+            echo "deleting the stale re-alignment branch without opening a PR."
+            git push origin --delete "$BRANCH" >/dev/null || true
+            exit 0
+          fi
+
+          PROMOTION=$(find_promotion_pr)
+          if [ -n "$PROMOTION" ]; then
+            echo "Promotion PR #$PROMOTION opened during re-alignment;"
             echo "deleting the stale re-alignment branch without opening a PR."
             git push origin --delete "$BRANCH" >/dev/null || true
             exit 0
