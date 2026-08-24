@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.11](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v1.0.10...ui-v1.0.11) (2026-08-24)
+
+
+### Performance
+
+* **ui:** transition deferred runtime updates ([586f04c](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/586f04cd82ac52a7d09530554dc4339b6f74a33f))
+
 ## [1.0.10](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v1.0.9...ui-v1.0.10) (2026-08-24)
 
 
