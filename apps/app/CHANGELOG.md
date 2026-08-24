@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.22](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.21...app-v1.1.22) (2026-08-24)
+
+
+### Bug Fixes
+
+* **vercel:** refresh app dependency graph ([454edc6](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/454edc673ae59187a8f8e2121d77643c97175cef))
+
 ## [1.1.21](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.20...app-v1.1.21) (2026-08-24)
 
 
