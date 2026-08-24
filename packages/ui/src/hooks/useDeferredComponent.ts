@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState, type ComponentType } from 'react'
+import { startTransition, useCallback, useEffect, useState, type ComponentType } from 'react'
 
 export type DeferredComponentLoader<T extends object> = () => Promise<{
   default: ComponentType<T>
@@ -45,11 +45,15 @@ export function useDeferredComponent<T extends object>(
 
     pendingLoad
       .then(({ default: nextComponent }) => {
-        if (active) setComponent(() => nextComponent)
+        if (active) {
+          startTransition(() => setComponent(() => nextComponent))
+        }
       })
       .catch(() => {
         if (componentLoadCache.get(load) === pendingLoad) componentLoadCache.delete(load)
-        if (active) setHasError(true)
+        if (active) {
+          startTransition(() => setHasError(true))
+        }
       })
 
     return () => {
