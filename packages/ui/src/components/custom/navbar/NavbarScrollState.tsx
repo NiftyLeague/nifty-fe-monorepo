@@ -11,11 +11,6 @@ export default function NavbarScrollState({ targetId }: NavbarScrollStateProps):
     const header = document.getElementById(targetId)
     if (!header) return
 
-    const supportsScrollTimeline =
-      typeof CSS !== 'undefined' && CSS.supports?.('animation-timeline: scroll()')
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (supportsScrollTimeline && !prefersReducedMotion) return
-
     let frameId: number | null = null
     const updateScrollState = () => {
       frameId = null
