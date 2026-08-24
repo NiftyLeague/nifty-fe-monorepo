@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.2.46](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.45...nifty-fe-monorepo-v1.2.46) (2026-08-24)
+
+
+### Bug Fixes
+
+* **app:** pin shared viem dependency ([fb7f90a](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/fb7f90a7eb5f712e200910b8cfdd6f7339e00b22))
+* **ci:** defer re-alignment during promotion ([b9ab412](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/b9ab41289b1f51d7b18a1d1c069532031c1019b1))
+* **vercel:** refresh app dependency graph ([454edc6](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/454edc673ae59187a8f8e2121d77643c97175cef))
+
+
+### Performance
+
+* **ui:** transition deferred runtime updates ([586f04c](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/586f04cd82ac52a7d09530554dc4339b6f74a33f))
+
+
+### Maintenance
+
+* **deps:** weekly update ([#1140](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1140)) ([d1e2799](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/d1e2799332569890719a3bd3bf38f9a77b57cc6c))
+
 ## [1.2.45](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.44...nifty-fe-monorepo-v1.2.45) (2026-08-24)
 
 
