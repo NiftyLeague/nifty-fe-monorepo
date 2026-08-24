@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.23](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.22...web-v1.0.23) (2026-08-24)
+
+
+### Performance
+
+* **ui:** reduce scroll and motion work ([#1134](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1134)) ([2f1544f](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/2f1544f5d9afbd71702051f51657d6d805e189a1))
+
 ## [1.0.22](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.21...web-v1.0.22) (2026-08-24)
 
 
