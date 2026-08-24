@@ -70,6 +70,9 @@ pnpm-debug.log*
 .zed/
 .fleet/
 .opencode/
+.devin/
+.hermes/
+.pi/
 .kluster/
 .direnv/
 .envrc
