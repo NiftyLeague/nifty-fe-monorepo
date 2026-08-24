@@ -59,4 +59,50 @@ describe('NavbarScrollState', () => {
       })
     }
   })
+
+  it('does not schedule work while scrolling within the same visual state', () => {
+    const scrollYDescriptor = Object.getOwnPropertyDescriptor(window, 'scrollY')
+    const requestAnimationFrame = window.requestAnimationFrame
+    const callbacks: FrameRequestCallback[] = []
+
+    Object.defineProperty(window, 'scrollY', { configurable: true, value: 0 })
+    Object.defineProperty(window, 'requestAnimationFrame', {
+      configurable: true,
+      value: (callback: FrameRequestCallback) => {
+        callbacks.push(callback)
+        return callbacks.length
+      },
+    })
+
+    try {
+      const { container, unmount } = render(
+        <>
+          <header id="navbar-target" data-scrolled="false" />
+          <NavbarScrollState targetId="navbar-target" />
+        </>
+      )
+
+      Object.defineProperty(window, 'scrollY', { configurable: true, value: 24 })
+      fireEvent.scroll(window)
+      expect(callbacks).toHaveLength(0)
+
+      Object.defineProperty(window, 'scrollY', { configurable: true, value: 120 })
+      fireEvent.scroll(window)
+      expect(callbacks).toHaveLength(1)
+      act(() => callbacks.shift()?.(0))
+      expect(container.querySelector('header')?.dataset.scrolled).toBe('true')
+
+      Object.defineProperty(window, 'scrollY', { configurable: true, value: 240 })
+      fireEvent.scroll(window)
+      expect(callbacks).toHaveLength(0)
+
+      unmount()
+    } finally {
+      if (scrollYDescriptor) Object.defineProperty(window, 'scrollY', scrollYDescriptor)
+      Object.defineProperty(window, 'requestAnimationFrame', {
+        configurable: true,
+        value: requestAnimationFrame,
+      })
+    }
+  })
 })
