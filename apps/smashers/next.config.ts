@@ -4,7 +4,7 @@
 
 import type { NextConfig } from 'next'
 
-import { IMAGE_DEVICE_SIZES } from '../../config/image-device-sizes'
+import { IMAGE_DEVICE_SIZES, IMAGE_SMALL_SIZES } from '../../config/image-device-sizes'
 
 // Fail-fast environment variable validation (production builds only, not local dev)
 const isProductionBuild = process.env.NEXT_PHASE === 'phase-production-build'
@@ -59,6 +59,7 @@ const nextConfig: NextConfig = {
     formats: ['image/avif', 'image/webp'],
     // Avoid jumping from 1,920px to 3,840px on common high-density screens.
     deviceSizes: [...IMAGE_DEVICE_SIZES],
+    imageSizes: [...IMAGE_SMALL_SIZES],
     qualities: [65, 75, 85],
     remotePatterns: [
       {
