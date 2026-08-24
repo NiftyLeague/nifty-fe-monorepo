@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.11](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/smashers-v1.0.10...smashers-v1.0.11) (2026-08-24)
+
+
+### Performance
+
+* **images:** deduplicate responsive candidates ([2c21643](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/2c2164363f040817b4219608f52084a43b1a6380))
+
 ## [1.0.10](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/smashers-v1.0.9...smashers-v1.0.10) (2026-08-24)
 
 

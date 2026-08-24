@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.49](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.48...nifty-fe-monorepo-v1.2.49) (2026-08-24)
+
+
+### Performance
+
+* **images:** deduplicate responsive candidates ([2c21643](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/2c2164363f040817b4219608f52084a43b1a6380))
+
 ## [1.2.48](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.47...nifty-fe-monorepo-v1.2.48) (2026-08-24)
 
 
