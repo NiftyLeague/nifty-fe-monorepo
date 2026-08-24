@@ -4,7 +4,7 @@ import { describe, expect, it } from 'bun:test'
 import NavbarScrollState from './NavbarScrollState'
 
 describe('NavbarScrollState', () => {
-  it('updates the server-rendered header at the scroll threshold', () => {
+  it('updates the server-rendered header at the scroll threshold even when CSS support is reported', () => {
     const originalCss = globalThis.CSS
     const scrollYDescriptor = Object.getOwnPropertyDescriptor(window, 'scrollY')
     const requestAnimationFrame = window.requestAnimationFrame
@@ -13,7 +13,7 @@ describe('NavbarScrollState', () => {
 
     Object.defineProperty(globalThis, 'CSS', {
       configurable: true,
-      value: { supports: () => false },
+      value: { supports: () => true },
     })
     Object.defineProperty(window, 'scrollY', { configurable: true, value: 0 })
     Object.defineProperty(window, 'requestAnimationFrame', {
