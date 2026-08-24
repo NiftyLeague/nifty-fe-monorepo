@@ -2248,6 +2248,7 @@ describe('public route dependency contract', () => {
     const source = readFileSync(join(process.cwd(), 'apps/web/src/components/GameCard.tsx'), 'utf8')
 
     expect(source).toContain('id={`game-video-${index}`}')
+    expect(source).toMatch(/<ViewportVideo[\s\S]*deferLoad[\s\S]*src={video}/)
     expect(source).not.toContain('id="console-video"')
   })
 
