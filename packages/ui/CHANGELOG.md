@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.9](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v1.0.8...ui-v1.0.9) (2026-08-24)
+
+
+### Performance
+
+* **ui:** skip parallax work for reduced motion ([#1129](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1129)) ([2526aa1](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/2526aa194d582e4ce1edd238bad5b46ff646595d))
+
 ## [1.0.8](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v1.0.7...ui-v1.0.8) (2026-08-24)
 
 
