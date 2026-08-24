@@ -1,5 +1,5 @@
 {
-  ".": "1.2.43",
+  ".": "1.2.44",
   "apps/app": "1.1.21",
   "apps/docs": "1.0.6",
   "apps/smashers": "1.0.10",
@@ -11,5 +11,5 @@
   "packages/prettier-config": "1.0.1",
   "packages/theme": "1.0.1",
   "packages/typescript-config": "1.0.1",
-  "packages/ui": "1.0.8"
+  "packages/ui": "1.0.9"
 }
