@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { startTransition, useEffect, useState } from 'react'
 
 import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
 
@@ -30,9 +30,11 @@ const DeferredAnalytics = ({
       ])
 
       if (!cancelled) {
-        setComponents({
-          googleTagManager: googleTagManagerModule.default,
-          webVitals: webVitalsModule?.default,
+        startTransition(() => {
+          setComponents({
+            googleTagManager: googleTagManagerModule.default,
+            webVitals: webVitalsModule?.default,
+          })
         })
       }
     }
