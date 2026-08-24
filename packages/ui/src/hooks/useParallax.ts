@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 
+import useMediaQuery from '@nl/ui/hooks/useMediaQuery'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 
 export type ParallaxDirection = 'up' | 'down' | 'left' | 'right'
@@ -104,10 +105,11 @@ export function useParallax<T extends HTMLElement = HTMLDivElement>(
   options: UseParallaxOptions
 ) {
   const isNearViewport = useOnScreen(elementRef, PARALLAX_ROOT_MARGIN)
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
 
   useEffect(() => {
     const element = elementRef.current
-    if (!element || !options.enabled || !isNearViewport) return
+    if (!element || !options.enabled || prefersReducedMotion || !isNearViewport) return
 
     // The target does not change while this subscription is active. Resolve it
     // once instead of traversing the DOM on every animation frame.
@@ -122,7 +124,14 @@ export function useParallax<T extends HTMLElement = HTMLDivElement>(
 
     handleParallax()
     return subscribeToParallaxUpdates(handleParallax)
-  }, [elementRef, options.enabled, options.direction, options.intensity, isNearViewport])
+  }, [
+    elementRef,
+    options.enabled,
+    options.direction,
+    options.intensity,
+    isNearViewport,
+    prefersReducedMotion,
+  ])
 }
 
 export default useParallax
