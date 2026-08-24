@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.21](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.20...web-v1.0.21) (2026-08-24)
+
+
+### Performance
+
+* **web:** defer below-fold game-card videos ([b812388](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/b81238804c3a219451fc24bf3a60dbb1af517913))
+
+
+### Maintenance
+
+* **deps:** bump the npm-dependencies group across 1 directory with 2 updates ([#1104](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1104)) ([f611091](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/f611091b45e1302ff7fa07a915a5e12fc2da2db2))
+
 ## [1.0.20](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.19...web-v1.0.20) (2026-08-23)
 
 

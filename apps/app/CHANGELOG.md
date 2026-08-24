@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.20](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.19...app-v1.1.20) (2026-08-24)
+
+
+### Maintenance
+
+* **deps:** bump the npm-dependencies group across 1 directory with 2 updates ([#1104](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1104)) ([f611091](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/f611091b45e1302ff7fa07a915a5e12fc2da2db2))
+
 ## [1.1.19](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.18...app-v1.1.19) (2026-08-23)
 
 
