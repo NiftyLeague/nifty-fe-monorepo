@@ -8,5 +8,6 @@
       "staging": true
     }
   },
+  "installCommand": "bun install --frozen-lockfile --force",
   "ignoreCommand": "node ../../scripts/vercel-ignore-build.mjs"
 }

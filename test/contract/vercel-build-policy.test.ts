@@ -10,6 +10,7 @@ import {
 const projectRoots = ['apps/web', 'apps/app', 'apps/smashers', 'apps/api', 'apps/docs']
 const deploymentEnabled = { 'codex/*': false, '**': false, main: true, staging: true }
 const ignoreCommand = 'node ../../scripts/vercel-ignore-build.mjs'
+const appInstallCommand = 'bun install --frozen-lockfile --force'
 const consolidatedStatusPolicy = 'consolidated Git commit status disabled'
 
 describe('Vercel build cost policy', () => {
@@ -18,11 +19,13 @@ describe('Vercel build cost policy', () => {
       const configPath = join(process.cwd(), projectRoot, 'vercel.json')
       const config = JSON.parse(readFileSync(configPath, 'utf8')) as {
         git?: { deploymentEnabled?: Record<string, boolean> }
+        installCommand?: string
         ignoreCommand?: string
       }
 
       expect(config.git?.deploymentEnabled).toEqual(deploymentEnabled)
       expect(config.ignoreCommand).toBe(ignoreCommand)
+      if (projectRoot === 'apps/app') expect(config.installCommand).toBe(appInstallCommand)
     })
   }
 
