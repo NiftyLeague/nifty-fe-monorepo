@@ -18,6 +18,15 @@
   animation: coin-bounce 3s ease infinite 1s;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .animate-propeller,
+  .animate-bounce-coin1,
+  .animate-bounce-coin2,
+  .animate-bounce-coin3 {
+    animation: none;
+  }
+}
+
 @keyframes coin-bounce {
   0%,
   20%,

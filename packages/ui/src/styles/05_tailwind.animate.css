@@ -135,3 +135,18 @@
     }
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-blink,
+  .animate-zoom-out,
+  .animate-zoom-out-large,
+  .animate-hover,
+  .transition-fade,
+  .transition-fade-slow,
+  .transition-vertical-fade,
+  .transition-quick-pop,
+  .transition-quick-pop-left {
+    animation: none;
+    transition: none;
+  }
+}
