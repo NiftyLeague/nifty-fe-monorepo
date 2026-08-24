@@ -4,7 +4,7 @@
 
 import type { NextConfig } from 'next'
 
-import { IMAGE_DEVICE_SIZES } from '../../config/image-device-sizes'
+import { IMAGE_DEVICE_SIZES, IMAGE_SMALL_SIZES } from '../../config/image-device-sizes'
 
 const ENV = (process.env.VERCEL_ENV as 'production' | 'preview' | undefined) ?? 'development'
 const isExplicitWebpackBuild = process.argv.includes('--webpack')
@@ -36,6 +36,7 @@ const nextConfig: NextConfig = {
     qualities: [60, 65, 75],
     // Avoid jumping from 1,920px to 3,840px on common high-density screens.
     deviceSizes: [...IMAGE_DEVICE_SIZES],
+    imageSizes: [...IMAGE_SMALL_SIZES],
   },
   // Keep the Webpack compatibility path for explicit `next build --webpack`
   // fallback runs; the normal build and dev paths stay on the Turbopack worker.
