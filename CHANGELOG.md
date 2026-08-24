@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.2.42](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.41...nifty-fe-monorepo-v1.2.42) (2026-08-24)
+
+
+### Bug Fixes
+
+* **ci:** remove Cargo Dependabot from non-Rust repo ([#1105](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1105)) ([8a882a6](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/8a882a65706a0dc8ad12bbc50a33468b22346508))
+
+
+### Performance
+
+* **web:** defer below-fold game-card videos ([b812388](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/b81238804c3a219451fc24bf3a60dbb1af517913))
+
+
+### Tests
+
+* **ci:** align promotion contract with main ([#1113](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1113)) ([d2c1780](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/d2c1780c7712abe1ee124ed80b07170b4be28944))
+* **ci:** realign cost contract with main ([#1111](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1111)) ([a1b5a2b](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/a1b5a2b060c244a7e20c250182f066dba69fe025))
+
+
+### Maintenance
+
+* **code-foundry:** upgrade runtime to v0.37.4 ([#1101](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1101)) ([e8063f7](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/e8063f7996b0086c1b2b8e0fde32b8bf811a2078))
+* **deps:** bump the npm-dependencies group across 1 directory with 2 updates ([#1104](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1104)) ([f611091](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/f611091b45e1302ff7fa07a915a5e12fc2da2db2))
+
 ## [1.2.41](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.40...nifty-fe-monorepo-v1.2.41) (2026-08-23)
 
 
