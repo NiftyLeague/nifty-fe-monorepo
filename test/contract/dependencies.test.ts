@@ -203,6 +203,27 @@ describe('dependency contract', () => {
       })
     })
   }
+
+  it('keeps Next.js on one exact version across apps and shared peers', () => {
+    const expectedNextVersion = '16.3.1'
+    const packagesWithNext = new Set([
+      'app',
+      'smashers',
+      'template',
+      'web',
+      '@nl/playfab',
+      '@nl/ui',
+    ])
+
+    for (const pkg of packages) {
+      if (!packagesWithNext.has(pkg.name)) continue
+
+      const declaredNext = pkg.deps.next ?? pkg.peerDeps.next
+      expect(declaredNext, `${pkg.name} must declare Next ${expectedNextVersion}`).toBe(
+        expectedNextVersion
+      )
+    }
+  })
 })
 
 /**
