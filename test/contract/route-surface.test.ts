@@ -590,8 +590,8 @@ describe('shared deferred loader contract', () => {
         expect(source).toContain("from '@nl/ui/lib/deferred-activation'")
         expect(source).toContain('scheduleDeferredActivation')
       } else {
-        expect(source).toContain("from '@nl/ui/hooks/useDeferredComponent'")
-        expect(source).toContain('useDeferredComponent')
+        expect(source).toContain("from '@nl/ui/custom/deferred-component'")
+        expect(source).toContain('<DeferredComponent')
       }
     }
 
