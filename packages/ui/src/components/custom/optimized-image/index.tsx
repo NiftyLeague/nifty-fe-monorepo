@@ -15,6 +15,13 @@ export function getOptimizedImageProps(props: OptimizedImageProps) {
     imgConf: imageConfig,
   })
 
+  // Keep the shared native renderer conservative by default. Callers can
+  // still opt into eager loading explicitly, while Next's priority/preload
+  // metadata continues to win for above-the-fold assets.
+  if (imageProps.loading === undefined) {
+    imageProps.loading = props.priority || meta.preload ? 'eager' : 'lazy'
+  }
+
   // The native <img> renderer cannot consume Next's preload metadata. Carry
   // its priority signal across as standard browser hints instead of silently
   // dropping it when the shared primitive avoids the stateful next/image

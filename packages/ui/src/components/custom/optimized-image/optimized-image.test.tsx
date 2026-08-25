@@ -11,6 +11,13 @@ describe('getOptimizedImageProps', () => {
     width: 300,
   } as const
 
+  it('defaults unspecified artwork to lazy low-priority loading', () => {
+    const props = getOptimizedImageProps(baseProps)
+
+    expect(props.loading).toBe('lazy')
+    expect(props.fetchPriority).toBe('low')
+  })
+
   it('gives lazy artwork a low network priority', () => {
     const props = getOptimizedImageProps({ ...baseProps, loading: 'lazy' })
 
