@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.15](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v1.0.14...ui-v1.0.15) (2026-08-25)
+
+
+### Maintenance
+
+* promote validated staging tree ([d59a4b0](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/d59a4b0da7f27177f3bc2c35bf96af503b1d3d08))
+
 ## [1.0.14](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v1.0.13...ui-v1.0.14) (2026-08-25)
 
 
