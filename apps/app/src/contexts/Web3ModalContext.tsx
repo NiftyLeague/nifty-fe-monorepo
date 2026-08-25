@@ -13,6 +13,7 @@ import {
 type Web3ModalProviderProps = {
   cookies?: string | null
   loadingFallback?: ReactNode
+  errorFallback?: (retry: () => void) => ReactNode
 }
 type Web3ModalRuntimeProps = Omit<LoadedWeb3ModalRuntimeProps, 'config'>
 
@@ -31,6 +32,7 @@ export function Web3ModalProvider({
   children,
   cookies,
   loadingFallback,
+  errorFallback,
 }: PropsWithChildren<Web3ModalProviderProps>) {
   const {
     Component: Runtime,
@@ -39,7 +41,7 @@ export function Web3ModalProvider({
   } = useDeferredComponent<Web3ModalRuntimeProps>(loadWeb3ModalRuntime)
 
   if (loadError) {
-    return <WalletProviderError onRetry={retry} />
+    return errorFallback ? errorFallback(retry) : <WalletProviderError onRetry={retry} />
   }
 
   if (!Runtime) {

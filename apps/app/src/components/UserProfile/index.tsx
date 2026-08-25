@@ -9,7 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@nl/ui/base/avatar'
 import { buttonVariants } from '@nl/ui/base/button-variants'
 
 import ConnectWrapper from '@/components/wrapper/ConnectWrapper'
-import { useGamerProfile } from '@/hooks/useGamerProfile'
+import useGamerProfile from '@/hooks/useGamerProfile/useGamerProfile'
 import useAuth from '@/hooks/useAuth'
 
 const UserProfile = () => {

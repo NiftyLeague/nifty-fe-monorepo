@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'bun:test'
 import { existsSync, readFileSync } from 'node:fs'
+import { join } from 'node:path'
 
 const responsiveTableList = 'apps/app/src/components/ResponsiveTable/DataList.tsx'
 const rootManifest = 'package.json'
@@ -55,6 +56,7 @@ const deferredSentryModule = 'packages/sentry-client/src/nextjs-client.ts'
 const deferredExternalScript =
   'packages/ui/src/components/custom/deferred-external-script/index.tsx'
 const appRootLayout = 'apps/app/src/app/layout.tsx'
+const appUserProfile = 'apps/app/src/components/UserProfile/index.tsx'
 const appShell = 'apps/app/src/app/_layout/AppShell.tsx'
 const privateRoutesBoundary = 'apps/app/src/components/providers/PrivateRoutesBoundary.tsx'
 const sharedAppBar = 'packages/ui/src/components/custom/app-bar/index.tsx'
@@ -186,6 +188,14 @@ describe('app performance contracts', () => {
       expect(source).toContain("from '@nl/ui/class-names'")
       expect(source).not.toContain("from '@nl/ui/utils'")
     }
+  })
+
+  it('keeps the public sidebar profile on the leaf auth hook', () => {
+    const source = readFileSync(join(process.cwd(), appUserProfile), 'utf8')
+
+    expect(source).toContain("from '@/hooks/useGamerProfile/useGamerProfile'")
+    expect(source).not.toContain("from '@/hooks/useGamerProfile'")
+    expect(source).not.toContain("from '@/contexts/GamerProfileContext'")
   })
 
   it('keeps the eager marketing shell off the conflict-merging utility', () => {

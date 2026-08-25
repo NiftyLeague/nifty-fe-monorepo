@@ -330,6 +330,7 @@ const degensTopNavControls =
   'apps/app/src/components/extended/DegensTopNav/DegensTopNavControls.tsx'
 const publicMainLayout = 'apps/app/src/app/_layout/_PublicMainLayout/index.tsx'
 const publicNavigation = 'apps/app/src/components/providers/PublicNavigation.tsx'
+const publicUserProfile = 'apps/app/src/components/providers/PublicUserProfile.tsx'
 const sharedAppBar = 'packages/ui/src/components/custom/app-bar/index.tsx'
 const sharedAppBarStyles = 'packages/ui/src/components/custom/app-bar/app-bar.module.css'
 const publicContentContainer = 'apps/app/src/components/wrapper/PublicContentContainer.tsx'
@@ -1051,6 +1052,7 @@ describe('public app shell contract', () => {
 
   it('keeps mobile navigation server-rendered and avoids heavy shell primitives', () => {
     const navigationSource = readFileSync(join(process.cwd(), publicNavigation), 'utf8')
+    const profileSource = readFileSync(join(process.cwd(), publicUserProfile), 'utf8')
     const navigationStyles = readFileSync(
       join(process.cwd(), 'apps/app/src/app/_layout/_MainLayout/MainLayout.module.css'),
       'utf8'
@@ -1063,6 +1065,11 @@ describe('public app shell contract', () => {
     expect(navigationSource).not.toContain("from '@nl/ui/base/sheet'")
     expect(navigationSource).not.toContain("from '@nl/ui/base/scroll-area'")
     expect(navigationSource).not.toContain("from '@nl/ui/base/icon'")
+    expect(profileSource).toContain('loadingFallback={<ProfileProviderLoading />}')
+    expect(profileSource).toContain(
+      'errorFallback={(retry) => <ProfileProviderError retry={retry} />}'
+    )
+    expect(profileSource).toContain('Sign-in is temporarily unavailable.')
     expect(navigationSource).not.toContain("from '@/components/extended/Breadcrumbs'")
     expect(navigationSource).toContain('<details id="public-desktop-navigation-toggle"')
     expect(navigationSource).toContain('aria-controls="public-desktop-navigation"')
@@ -1147,8 +1154,12 @@ describe('verification route shell contract', () => {
     expect(clientSource).toContain('useSignAuthMsg')
     expect(wrapperSource).toContain("from '@/contexts/WalletAuthProvidersBoundary'")
     expect(wrapperSource).not.toContain("from '@/contexts/Web3ModalContext'")
-    expect(providersBoundarySource).toContain("import('./WalletAuthProviders')")
-    expect(providersBoundarySource).toContain('ssr: false')
+    expect(providersBoundarySource).toContain(
+      "const loadWalletAuthProviders = () => import('./WalletAuthProviders')"
+    )
+    expect(providersBoundarySource).toContain("from '@nl/ui/hooks/useDeferredComponent'")
+    expect(providersBoundarySource).toContain('errorFallback')
+    expect(providersBoundarySource).toContain('loadingFallback')
     expect(providersBoundarySource).toContain("from '@nl/ui/custom/route-loading'")
     expect(providersSource).toContain("from '@/contexts/WalletStorageProviders'")
     expect(providersSource).toContain("from '@/contexts/AuthTokenContext'")
