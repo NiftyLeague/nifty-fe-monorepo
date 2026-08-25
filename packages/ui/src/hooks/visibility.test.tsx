@@ -92,6 +92,22 @@ describe('useOnScreen', () => {
     }
   })
 
+  it('does not observe while visibility updates are disabled', () => {
+    const element = document.createElement('div')
+    const ref = { current: element }
+
+    const { result, rerender } = renderHook(
+      ({ enabled }) => useOnScreen(ref, '20px', { enabled }),
+      { initialProps: { enabled: false } }
+    )
+
+    expect(result.current).toBe(false)
+    expect(observe).not.toHaveBeenCalled()
+
+    rerender({ enabled: true })
+    expect(observe).toHaveBeenCalledWith(element)
+  })
+
   it('shares one observer across consumers that use the same rootMargin', () => {
     const constructorCalls = mock()
     stubGlobal(
