@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.12](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/smashers-v1.0.11...smashers-v1.0.12) (2026-08-25)
+
+
+### Performance
+
+* **config:** promote shared Sentry build options ([7160070](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/71600705ef52ff9bae5cc9b6dd65f3ba15b84cb1))
+
 ## [1.0.11](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/smashers-v1.0.10...smashers-v1.0.11) (2026-08-24)
 
 
