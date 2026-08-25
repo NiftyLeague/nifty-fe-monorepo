@@ -1,3 +1,4 @@
+import type { ComponentProps } from 'react'
 import { render, screen } from '@testing-library/react'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
@@ -10,6 +11,10 @@ mock.module('@nl/ui/hooks/useOnScreen', () => ({
   },
 }))
 
+mock.module('@nl/ui/custom/optimized-image', () => ({
+  default: ({ src, ...props }: ComponentProps<'img'>) => <img {...props} src={src} />,
+}))
+
 describe('DeferredConsoleGame', () => {
   let DeferredConsoleGame: typeof import('./index').DeferredConsoleGame
 
@@ -17,11 +22,14 @@ describe('DeferredConsoleGame', () => {
     DeferredConsoleGame = (await import('./index')).DeferredConsoleGame
   })
 
-  it('keeps an accessible, layout-preserving loading state before the preview is near the viewport', () => {
+  it('renders the backdrop while keeping video media out of the initial viewport', () => {
     const { container } = render(<DeferredConsoleGame src="/video/example.mp4" />)
-    const loadingState = screen.getByRole('img', { name: 'Loading game preview' })
+    const backdrop = screen.getByRole('img', { name: 'Game Console Backdrop' })
 
-    expect(loadingState).toBeTruthy()
+    expect(backdrop.getAttribute('loading')).toBe('eager')
+    expect(container.querySelector('video')).toBeNull()
+    expect(container.querySelector('source')).toBeNull()
+    expect(screen.queryByRole('img', { name: 'Loading game preview' })).toBeNull()
     expect(container.firstElementChild?.className).toContain('overflow-hidden')
     expect(container.firstElementChild?.getAttribute('style')).toContain(
       'aspect-ratio: 4842 / 3371'
