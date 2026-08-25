@@ -56,6 +56,7 @@ const deferredExternalScript =
   'packages/ui/src/components/custom/deferred-external-script/index.tsx'
 const appRootLayout = 'apps/app/src/app/layout.tsx'
 const appShell = 'apps/app/src/app/_layout/AppShell.tsx'
+const privateRoutesBoundary = 'apps/app/src/components/providers/PrivateRoutesBoundary.tsx'
 const sharedAppBar = 'packages/ui/src/components/custom/app-bar/index.tsx'
 const sharedAppBarStyles = 'packages/ui/src/components/custom/app-bar/app-bar.module.css'
 const lightweightClassNames = 'packages/ui/src/lib/class-names.ts'
@@ -274,6 +275,15 @@ describe('app performance contracts', () => {
     expect(shellSource).toContain('isDesktopNavigation')
     expect(sidebarSource).not.toContain('useMediaQuery')
     expect(sidebarSource).toContain('const isCompactScreen = !isDesktopNavigation')
+  })
+
+  it('keeps the private provider shell out of the initial route bundle', () => {
+    const source = readFileSync(privateRoutesBoundary, 'utf8')
+
+    expect(source).toContain("'use client'")
+    expect(source).toContain("dynamic(() => import('./PrivateRoutesShell')")
+    expect(source).toContain('ssr: false')
+    expect(source).toContain('loading: PrivateRoutesLoading')
   })
 
   it('keeps the DEGEN filter drawer on the shared desktop breakpoint', () => {
