@@ -25,6 +25,7 @@ const appBaseInputConsumers = [
 ]
 const smashersNextConfig = 'apps/smashers/next.config.ts'
 const templateNextConfig = 'apps/template/next.config.ts'
+const sharedSentryConfig = 'config/with-production-sentry.ts'
 const webManifest = 'apps/web/package.json'
 const webNextConfig = 'apps/web/next.config.ts'
 const webHome = 'apps/web/src/app/(main)/page.tsx'
@@ -378,10 +379,14 @@ describe('app performance contracts', () => {
   })
 
   it('keeps Sentry source-map uploads narrow enough for production builds', () => {
+    const sharedSource = readFileSync(sharedSentryConfig, 'utf8')
+
+    expect(sharedSource).toContain("sourcemaps: { disable: env !== 'production' }")
+    expect(sharedSource).toContain('widenClientFileUpload: false')
+
     for (const file of [appNextConfig, smashersNextConfig, webNextConfig]) {
       const source = readFileSync(file, 'utf8')
-      expect(source).toContain("sourcemaps: { disable: ENV !== 'production' }")
-      expect(source).toContain('widenClientFileUpload: false')
+      expect(source).toContain('getProductionSentryOptions')
     }
   })
 

@@ -5,6 +5,7 @@
 import type { NextConfig } from 'next'
 
 import { IMAGE_DEVICE_SIZES, IMAGE_SMALL_SIZES } from '../../config/image-device-sizes'
+import { getProductionSentryOptions } from '../../config/with-production-sentry'
 
 // Fail-fast environment variable validation (production builds only, not local dev)
 const isProductionBuild = process.env.NEXT_PHASE === 'phase-production-build'
@@ -138,42 +139,10 @@ const nextConfig: NextConfig = {
   },
 }
 
-const sentryOptions = {
-  // For all available options, see:
-  // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
+const sentryOptions = getProductionSentryOptions('nifty-smashers-web', ENV)
 
-  org: 'niftyleague',
-  project: 'nifty-smashers-web',
-  authToken: process.env.SENTRY_AUTH_TOKEN,
-
-  // Only print Sentry build logs in CI
-  silent: !process.env.CI,
-
-  // Only upload source maps in production
-  sourcemaps: { disable: ENV !== 'production' },
-
-  // Keep production source maps enabled without uploading every client chunk.
-  // The widened upload increases build time and deployment bandwidth without
-  // changing the browser error signal we collect.
-  widenClientFileUpload: false,
-
-  // Only enable internal plugin errors and performance data on production
-  telemetry: ENV === 'production',
-
-  // Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
-  // This can increase your server load as well as your hosting bill.
-  tunnelRoute: true, // Generates a random route for each build (recommended)
-
-  // Capture React component names to see which component a user clicked on.
-  // Route grouping is not worth shipping Sentry's manifest on every initial route.
-  routeManifestInjection: false as const,
-  webpack: { reactComponentAnnotation: { enabled: true }, treeshake: { removeDebugLogging: true } },
-}
-
-// Sentry's config wrapper pulls its webpack plugin and OpenTelemetry graph into
-// every build. Production is the only environment that uploads source maps,
-// uses the tunnel rewrite, or needs component annotations, so keep preview and
-// development builds on the plain Next config path.
+// Keep preview and development builds on the plain Next config path. The
+// dynamic import avoids loading Sentry's webpack/OpenTelemetry graph there.
 export default process.env.VERCEL_ENV === 'production'
   ? import('@sentry/nextjs').then(({ withSentryConfig }) =>
       withSentryConfig(nextConfig, sentryOptions)
