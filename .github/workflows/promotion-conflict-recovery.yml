@@ -28,7 +28,7 @@ jobs:
     env:
       # Use the repository automation token so the replacement PR receives
       # its normal validation/Vercel events instead of being invisible to CI.
-      GH_TOKEN: ${{ secrets.CODE_FOUNDRY_TOKEN }}
+      GH_TOKEN: ${{ secrets.CODE_FOUNDRY_TOKEN || secrets.RELEASE_PLEASE_TOKEN || github.token }}
       PROMOTION_PR: ${{ github.event.pull_request.number || '' }}
     steps:
       - name: Checkout
