@@ -9,8 +9,11 @@ const source = readFileSync(
 
 describe('promotion conflict recovery workflow', () => {
   it('creates a main-based snapshot when staging is not an ancestor', () => {
+    expect(source).toContain('push:')
+    expect(source).toContain('branches: [staging]')
     expect(source).toContain('pull_request:')
     expect(source).toContain('branches: [main]')
+    expect(source).toContain("github.event_name == 'push'")
     expect(source).toContain("github.event.pull_request.head.ref == 'staging'")
     expect(source).toContain('secrets.CODE_FOUNDRY_TOKEN')
     expect(source).toContain('git merge-base --is-ancestor origin/main origin/staging')

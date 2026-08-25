@@ -1,6 +1,8 @@
 name: Promotion Conflict Recovery
 
 on:
+  push:
+    branches: [staging]
   pull_request:
     branches: [main]
     types: [opened, reopened, synchronize]
@@ -16,15 +18,18 @@ concurrency:
 jobs:
   recover:
     if: >-
-      github.event.pull_request.head.ref == 'staging' &&
-      github.event.pull_request.head.repo.full_name == github.repository
+      github.event_name == 'push' ||
+      (
+        github.event.pull_request.head.ref == 'staging' &&
+        github.event.pull_request.head.repo.full_name == github.repository
+      )
     runs-on: ubuntu-slim
     timeout-minutes: 15
     env:
       # Use the repository automation token so the replacement PR receives
       # its normal validation/Vercel events instead of being invisible to CI.
       GH_TOKEN: ${{ secrets.CODE_FOUNDRY_TOKEN }}
-      PROMOTION_PR: ${{ github.event.pull_request.number }}
+      PROMOTION_PR: ${{ github.event.pull_request.number || '' }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v4
@@ -59,9 +64,11 @@ jobs:
             --jq 'map(select(.headRefName | startswith("codex/promote-staging-snapshot-"))) | first | .number // empty')
           if [ -n "$existing_snapshot" ]; then
             echo "Promotion snapshot PR #$existing_snapshot already exists."
-            gh pr close "$PROMOTION_PR" \
-              --comment "A rebase-compatible promotion snapshot is already open as PR #$existing_snapshot; closing this conflicting staging promotion." \
-              --delete-branch
+            if [ -n "$PROMOTION_PR" ]; then
+              gh pr close "$PROMOTION_PR" \
+                --comment "A rebase-compatible promotion snapshot is already open as PR #$existing_snapshot; closing this conflicting staging promotion." \
+                --delete-branch
+            fi
             exit 0
           fi
 
@@ -69,9 +76,11 @@ jobs:
           staging_tree=$(git rev-parse 'origin/staging^{tree}')
           if [ "$main_tree" = "$staging_tree" ]; then
             echo "main already contains the exact staging tree; no promotion snapshot is needed."
-            gh pr close "$PROMOTION_PR" \
-              --comment "Main already contains the exact validated staging tree; closing this history-only promotion conflict." \
-              --delete-branch
+            if [ -n "$PROMOTION_PR" ]; then
+              gh pr close "$PROMOTION_PR" \
+                --comment "Main already contains the exact validated staging tree; closing this history-only promotion conflict." \
+                --delete-branch
+            fi
             exit 0
           fi
 
@@ -83,12 +92,18 @@ jobs:
           git commit -m "chore: promote validated staging tree"
           git push --set-upstream origin "$branch"
 
+          promotion_context="the conflicting staging promotion"
+          if [ -n "$PROMOTION_PR" ]; then
+            promotion_context="the conflicting staging promotion PR #$PROMOTION_PR"
+          fi
           snapshot_pr=$(gh pr create \
             --base main \
             --head "$branch" \
             --title "chore: promote validated staging tree" \
-            --body "This rebase-compatible snapshot was created because staging is not based on main. It contains the exact validated staging tree and replaces the conflicting promotion PR #$PROMOTION_PR.")
+            --body "This rebase-compatible snapshot was created because staging is not based on main. It contains the exact validated staging tree and replaces $promotion_context.")
           echo "Created $snapshot_pr"
-          gh pr close "$PROMOTION_PR" \
-            --comment "Replaced by the rebase-compatible promotion snapshot $snapshot_pr; no validated staging changes were discarded." \
-            --delete-branch
+          if [ -n "$PROMOTION_PR" ]; then
+            gh pr close "$PROMOTION_PR" \
+              --comment "Replaced by the rebase-compatible promotion snapshot $snapshot_pr; no validated staging changes were discarded." \
+              --delete-branch
+          fi
