@@ -304,6 +304,7 @@ const staticLegalPages = [
 const webDefinitions = 'apps/web/src/components/Definitions.tsx'
 const smashersHomePage = 'apps/smashers/src/app/page.tsx'
 const webDeferredHomeMedia = 'apps/web/src/components/DeferredHomeMedia.tsx'
+const webDeferredHomeSections = 'apps/web/src/components/DeferredHomeSections.tsx'
 const webDeferredTeamSections = 'apps/web/src/components/DeferredTeamSections.tsx'
 const webTeamCarousel = 'apps/web/src/components/TeamCarousel.tsx'
 const webDeferredOverviewSections = 'apps/web/src/components/DeferredOverviewSections.tsx'
@@ -1069,6 +1070,8 @@ describe('public app shell contract', () => {
     expect(profileSource).toContain(
       'errorFallback={(retry) => <ProfileProviderError retry={retry} />}'
     )
+    expect(profileSource).toContain("from '@nl/ui/hooks/useDeferredActivation'")
+    expect(profileSource).toContain('enabled={isActivated}')
     expect(profileSource).toContain('Sign-in is temporarily unavailable.')
     expect(navigationSource).not.toContain("from '@/components/extended/Breadcrumbs'")
     expect(navigationSource).toContain('<details id="public-desktop-navigation-toggle"')
@@ -1677,6 +1680,10 @@ describe('shared below-fold loading contract', () => {
   it('defers below-fold marketing interaction without clipping visual effects', () => {
     const pageSource = readFileSync(join(process.cwd(), webHomePage), 'utf8')
     const deferredSource = readFileSync(join(process.cwd(), webDeferredHomeMedia), 'utf8')
+    const deferredHomeSectionsSource = readFileSync(
+      join(process.cwd(), webDeferredHomeSections),
+      'utf8'
+    )
     const sharedDeferredSource = readFileSync(join(process.cwd(), sharedDeferredSection), 'utf8')
     const homeSectionNames = [
       'HomeDegensSection',
@@ -1697,21 +1704,36 @@ describe('shared below-fold loading contract', () => {
       .join('\n')
     const homeStyles = readFileSync(join(process.cwd(), 'apps/web/src/styles/home.css'), 'utf8')
 
-    expect(pageSource).toContain("from '@/components/HomeSections/HomeDegensSection'")
-    expect(pageSource).toContain("from '@/components/HomeSections/HomeCompeteSection'")
-    expect(pageSource).toContain("from '@/components/HomeSections/HomeTokenSection'")
-    expect(pageSource).not.toContain('DeferredHomeToken')
-    expect(pageSource).not.toContain('DeferredHomeDegens')
+    expect(pageSource).toContain("from '@/components/DeferredHomeSections'")
+    expect(pageSource).toContain('DeferredHomeDegens')
+    expect(pageSource).toContain('DeferredHomeCompete')
+    expect(pageSource).toContain('DeferredHomeDashboard')
+    expect(pageSource).toContain('DeferredHomeSponsors')
+    expect(pageSource).not.toContain("from '@/components/HomeSections/HomeDegensSection'")
+    expect(pageSource).not.toContain("from '@/components/HomeSections/HomeCompeteSection'")
+    expect(pageSource).not.toContain("from '@/components/HomeSections/HomeTokenSection'")
     expect(pageSource).not.toContain("import('@/components/MintOMatic')")
     expect(pageSource).not.toContain("import('@/components/Sponsors')")
     expect(pageSource).not.toContain("from '@/components/Carousel'")
     expect(pageSource).not.toContain("from '@/components/Carousel/DegenCardItem'")
     expect(deferredSource).not.toContain("import('@/components/HomeBelowFold')")
     expect(existsSync(join(process.cwd(), 'apps/web/src/components/HomeBelowFold.tsx'))).toBe(false)
-    expect(
-      existsSync(join(process.cwd(), 'apps/web/src/components/DeferredHomeSections.tsx'))
-    ).toBe(false)
+    expect(deferredHomeSectionsSource).toContain("from '@nl/ui/custom/deferred-section'")
+    expect(deferredHomeSectionsSource).toContain("const HOME_SECTION_ROOT_MARGIN = '800px 0px'")
+    expect(deferredHomeSectionsSource).toContain('loadingMode="minimal"')
+    for (const section of [
+      'HomeDegensSection',
+      'HomeCompeteSection',
+      'HomeNiftyWorldSection',
+      'HomeDashboardSection',
+      'HomeTokenSection',
+      'HomeCommunitySection',
+      'HomeSponsorsSection',
+    ]) {
+      expect(deferredHomeSectionsSource).toContain(`import('@/components/HomeSections/${section}')`)
+    }
     expect(sharedDeferredSource).toContain('className="deferred-section"')
+    expect(sharedDeferredSource).toContain("loadingMode?: 'skeleton' | 'minimal'")
     expect(deferredSource).toContain("import('@/components/CommunityDegenCarousel')")
     expect(deferredSource).toContain("import('@/components/MintOMatic')")
     for (const section of homeSectionNames) {
