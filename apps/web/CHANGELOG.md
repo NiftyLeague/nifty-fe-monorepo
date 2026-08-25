@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.25](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.24...web-v1.0.25) (2026-08-25)
+
+
+### Performance
+
+* **config:** promote shared Sentry build options ([7160070](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/71600705ef52ff9bae5cc9b6dd65f3ba15b84cb1))
+
 ## [1.0.24](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.23...web-v1.0.24) (2026-08-24)
 
 
