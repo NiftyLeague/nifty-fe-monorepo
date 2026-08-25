@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.13](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/smashers-v1.0.12...smashers-v1.0.13) (2026-08-25)
+
+
+### Maintenance
+
+* promote validated staging tree ([0404ede](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/0404ede7a3346822f3de35be644e43cb59513f17))
+
 ## [1.0.12](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/smashers-v1.0.11...smashers-v1.0.12) (2026-08-25)
 
 
