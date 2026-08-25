@@ -54,6 +54,10 @@ describe('InteractiveCarousel', () => {
     expect(screen.getByRole('region', { name: 'Featured DEGENs' })).toBeDefined()
     expect(screen.getAllByRole('group', { name: /of 3/ })).toHaveLength(3)
 
+    const overlay = document.querySelector('.dark-gradient-overlay')
+    expect(overlay?.className).toContain('!top-0')
+    expect(overlay?.className).toContain('!h-full')
+
     const nextButton = await screen.findByRole('button', { name: 'Go to next slide' })
     expect(nextButton.getAttribute('aria-controls')).toBeTruthy()
 

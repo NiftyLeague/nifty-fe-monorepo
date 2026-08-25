@@ -62,5 +62,6 @@ describe('PublicNavigation', () => {
     expect(screen.getByRole('link', { name: 'Docs' }).getAttribute('href')).toBe(
       'https://niftyleague.com/docs'
     )
+    expect(document.querySelectorAll('[data-public-user-profile]')).toHaveLength(2)
   })
 })

@@ -2,7 +2,7 @@
 
 import type { ComponentType, PropsWithChildren } from 'react'
 
-import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
+import DeferredComponent from '@nl/ui/custom/deferred-component'
 
 import { WalletProviderError, WalletProviderLoading } from './WalletProviderFallbacks'
 
@@ -12,17 +12,13 @@ type MintProviders = ComponentType<MintProvidersProps>
 const loadMintProviders = () => import('./MintProviders')
 
 export default function DeferredMintProviders({ children, cookies }: MintProvidersProps) {
-  const {
-    Component: Providers,
-    hasError: loadError,
-    retry,
-  } = useDeferredComponent<MintProvidersProps>(loadMintProviders)
-
-  if (loadError) {
-    return <WalletProviderError onRetry={retry} />
-  }
-
-  if (!Providers) return <WalletProviderLoading />
-
-  return <Providers cookies={cookies}>{children}</Providers>
+  return (
+    <DeferredComponent
+      label="Wallet provider"
+      load={loadMintProviders}
+      loadingFallback={<WalletProviderLoading />}
+      errorFallback={(onRetry) => <WalletProviderError onRetry={onRetry} />}
+      props={{ cookies, children }}
+    />
+  )
 }

@@ -49,29 +49,32 @@ const RoadmapCard = ({
       </div>
     )}
 
+    {image && (
+      <div className={styles.timeline_content_img} style={image.style}>
+        <AnimatedImage
+          src={image.src}
+          webpSrc={image.webpSrc}
+          unoptimized={image.src.includes('gif')}
+          alt={`${title?.toString()}`}
+          width={image.width}
+          height={image.height}
+          sizes="200px"
+          style={{ width: '100%', height: 'auto' }}
+        />
+      </div>
+    )}
+
     <div className={styles.cd_timeline_content}>
-      {image && (
-        <div className={styles.timeline_content_img} style={image.style}>
-          <AnimatedImage
-            src={image.src}
-            webpSrc={image.webpSrc}
-            unoptimized={image.src.includes('gif')}
-            alt={`${title?.toString()}`}
-            width={image.width}
-            height={image.height}
-            sizes="200px"
-            style={{ width: '100%', height: 'auto' }}
-          />
-        </div>
-      )}
-      <h5 className="[word-spacing:-10px]">{title}</h5>
-      {completed && (
-        <div className={styles.timeline_content_info}>
-          <span className={styles.timeline_content_info_title}>Mission Accomplished</span>
-          <span className={styles.timeline_content_info_date}>{completionDate}</span>
-        </div>
-      )}
-      {body}
+      <div className={styles.timeline_content_body}>
+        <h5 className="[word-spacing:-10px]">{title}</h5>
+        {completed && (
+          <div className={styles.timeline_content_info}>
+            <span className={styles.timeline_content_info_title}>Mission Accomplished</span>
+            <span className={styles.timeline_content_info_date}>{completionDate}</span>
+          </div>
+        )}
+        {body}
+      </div>
     </div>
 
     {current ? (
