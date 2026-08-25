@@ -46,6 +46,7 @@ const buildInputExclusions: Record<string, string[]> = {
 const sharedBuildInputs: Record<string, string[]> = {
   'api#build': ['../../packages/contracts/src/**', '../../packages/contracts/package.json'],
   'app#build': [
+    '../../config/image-device-sizes.ts',
     '../../packages/contracts/src/**',
     '../../packages/contracts/package.json',
     '../../packages/imx-passport/src/**',
@@ -57,6 +58,7 @@ const sharedBuildInputs: Record<string, string[]> = {
   ],
   'docs#build': ['../../packages/ui/src/**', '../../packages/ui/package.json'],
   'smashers#build': [
+    '../../config/image-device-sizes.ts',
     '../../packages/playfab/src/**',
     '../../packages/playfab/package.json',
     '../../packages/sentry-client/src/**',
@@ -65,6 +67,7 @@ const sharedBuildInputs: Record<string, string[]> = {
     '../../packages/ui/package.json',
   ],
   'web#build': [
+    '../../config/image-device-sizes.ts',
     '../../packages/sentry-client/src/**',
     '../../packages/sentry-client/package.json',
     '../../packages/ui/src/**',

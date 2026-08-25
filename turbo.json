@@ -11,6 +11,7 @@
     "app#build": {
       "inputs": [
         "$TURBO_DEFAULT$",
+        "../../config/image-device-sizes.ts",
         "../../packages/contracts/src/**",
         "../../packages/contracts/package.json",
         "../../packages/imx-passport/src/**",
@@ -101,6 +102,7 @@
     "smashers#build": {
       "inputs": [
         "$TURBO_DEFAULT$",
+        "../../config/image-device-sizes.ts",
         "../../packages/playfab/src/**",
         "../../packages/playfab/package.json",
         "../../packages/sentry-client/src/**",
@@ -142,6 +144,7 @@
     "web#build": {
       "inputs": [
         "$TURBO_DEFAULT$",
+        "../../config/image-device-sizes.ts",
         "../../packages/sentry-client/src/**",
         "../../packages/sentry-client/package.json",
         "../../packages/ui/src/**",
