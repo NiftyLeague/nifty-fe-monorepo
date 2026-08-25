@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.62](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.61...nifty-fe-monorepo-v1.2.62) (2026-08-25)
+
+
+### Bug Fixes
+
+* promote release reconciliation repair ([6fdb3c6](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/6fdb3c680e29586776943128b95a469164262e05))
+
 ## [1.2.61](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.60...nifty-fe-monorepo-v1.2.61) (2026-08-25)
 
 
