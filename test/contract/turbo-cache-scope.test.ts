@@ -41,6 +41,7 @@ const buildInputExclusions: Record<string, string[]> = {
   ],
   'docs#build': commonBuildInputExclusions,
   'smashers#build': ['!../../packages/playfab/src/test-mock-sdk.ts', ...commonBuildInputExclusions],
+  'template#build': commonBuildInputExclusions,
   'web#build': commonBuildInputExclusions,
 }
 const sharedBuildInputs: Record<string, string[]> = {
@@ -66,6 +67,7 @@ const sharedBuildInputs: Record<string, string[]> = {
     '../../packages/ui/src/**',
     '../../packages/ui/package.json',
   ],
+  'template#build': ['../../packages/ui/src/**', '../../packages/ui/package.json'],
   'web#build': [
     '../../config/image-device-sizes.ts',
     '../../packages/sentry-client/src/**',
@@ -82,7 +84,7 @@ const packageJson = (path: string) =>
 describe('Turbo cache environment scope', () => {
   it('builds only workspaces with a real build script', () => {
     expect(rootPackage.scripts?.build).toBe(
-      'turbo run api#build app#build docs#build smashers#build web#build'
+      'turbo run api#build app#build docs#build smashers#build template#build web#build'
     )
   })
 
@@ -93,7 +95,14 @@ describe('Turbo cache environment scope', () => {
   it('keeps local environment files scoped to the builds that consume them', () => {
     expect(turbo.globalDependencies ?? []).toEqual(['.env'])
 
-    for (const task of ['api#build', 'app#build', 'docs#build', 'smashers#build', 'web#build']) {
+    for (const task of [
+      'api#build',
+      'app#build',
+      'docs#build',
+      'smashers#build',
+      'template#build',
+      'web#build',
+    ]) {
       expect(inputsFor(task)).toEqual([
         '$TURBO_DEFAULT$',
         ...(sharedBuildInputs[task] ?? []),
@@ -199,6 +208,7 @@ describe('Turbo cache environment scope', () => {
       'app#build',
       'docs#build',
       'smashers#build',
+      'template#build',
       'web#build',
     ]) {
       expect(dependenciesFor(task)).not.toContain('^build')
