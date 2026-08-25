@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.13](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v1.0.12...ui-v1.0.13) (2026-08-25)
+
+
+### Performance
+
+* **ui:** skip redundant navbar scroll fallback ([3acf8e3](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/3acf8e30c44c3d1f97790db508c9892bc9774f3a))
+
 ## [1.0.12](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v1.0.11...ui-v1.0.12) (2026-08-24)
 
 
