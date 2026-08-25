@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.51](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.50...nifty-fe-monorepo-v1.2.51) (2026-08-25)
+
+
+### Bug Fixes
+
+* **build:** track shared image config inputs ([6c807ed](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/6c807ed0f7cb2196e40f7c492b54ba5a18e23f0b))
+
 ## [1.2.50](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.49...nifty-fe-monorepo-v1.2.50) (2026-08-25)
 
 
