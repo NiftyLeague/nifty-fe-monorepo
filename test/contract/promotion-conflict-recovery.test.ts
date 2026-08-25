@@ -16,6 +16,8 @@ describe('promotion conflict recovery workflow', () => {
     expect(source).toContain("github.event_name == 'push'")
     expect(source).toContain("github.event.pull_request.head.ref == 'staging'")
     expect(source).toContain('secrets.CODE_FOUNDRY_TOKEN')
+    expect(source).toContain('secrets.RELEASE_PLEASE_TOKEN')
+    expect(source).toContain('github.token')
     expect(source).toContain('git merge-base --is-ancestor origin/main origin/staging')
     expect(source).toContain('git read-tree --reset -u origin/staging')
     expect(source).toContain('gh pr create')
