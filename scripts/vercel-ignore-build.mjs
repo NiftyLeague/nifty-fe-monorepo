@@ -25,9 +25,20 @@ const PROJECT_PATH_PREFIXES = {
 }
 
 const PROJECT_SHARED_PATH_PREFIXES = {
-  app: ['packages/contracts/', 'packages/imx-passport/', 'packages/sentry-client/', 'packages/ui/'],
-  web: ['packages/sentry-client/', 'packages/ui/'],
-  smashers: ['packages/playfab/', 'packages/sentry-client/', 'packages/ui/'],
+  app: [
+    'config/image-device-sizes.ts',
+    'packages/contracts/',
+    'packages/imx-passport/',
+    'packages/sentry-client/',
+    'packages/ui/',
+  ],
+  web: ['config/image-device-sizes.ts', 'packages/sentry-client/', 'packages/ui/'],
+  smashers: [
+    'config/image-device-sizes.ts',
+    'packages/playfab/',
+    'packages/sentry-client/',
+    'packages/ui/',
+  ],
   docs: ['packages/ui/'],
   api: ['packages/contracts/'],
 }
