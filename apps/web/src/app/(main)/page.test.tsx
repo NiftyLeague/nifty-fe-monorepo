@@ -21,6 +21,21 @@ describe('home page', () => {
       ThemeButtonGroup: () => null,
     }))
     mock.module('@nl/ui/custom/deferred-console-game', () => ({ DeferredConsoleGame: () => null }))
+    mock.module('@/components/DeferredHomeSections', () => {
+      const DeferredHomeSection = ({ label }: { label: string }) => (
+        <div role="status" aria-label={`Loading ${label}`} />
+      )
+
+      return {
+        DeferredHomeCommunity: () => <DeferredHomeSection label="community section" />,
+        DeferredHomeCompete: () => <DeferredHomeSection label="compete and earn section" />,
+        DeferredHomeDashboard: () => <DeferredHomeSection label="dashboard section" />,
+        DeferredHomeDegens: () => <DeferredHomeSection label="community DEGEN section" />,
+        DeferredHomeNiftyWorld: () => <DeferredHomeSection label="NiftyWorld section" />,
+        DeferredHomeSponsors: () => <DeferredHomeSection label="sponsors section" />,
+        DeferredHomeToken: () => <DeferredHomeSection label="NFTL token section" />,
+      }
+    })
     mock.module('next/link', () => ({
       default: ({ children, href, ...props }: PropsWithChildren<{ href: string }>) => (
         <a href={href} {...props}>
@@ -71,16 +86,12 @@ describe('home page', () => {
     expect(document.getElementById('gaming-section')).not.toBeNull()
   })
 
-  it('server-renders section copy while deferring browser-only media', () => {
+  it('keeps below-fold sections behind accessible deferred boundaries', () => {
     render(<Home />)
 
-    expect(screen.getByText('OWN YOUR AVATAR')).not.toBeNull()
-    expect(screen.getByText('COMMUNITY-GENERATED AVATARS')).not.toBeNull()
-    expect(screen.getByRole('heading', { name: /SMASHERS.*COMPETE & EARN/ })).not.toBeNull()
-    expect(screen.getByRole('heading', { name: 'NFTL TOKEN' })).not.toBeNull()
-    expect(screen.getByRole('heading', { name: 'DASHBOARDS' })).not.toBeNull()
-    expect(screen.getByRole('heading', { name: 'COMMUNITY' })).not.toBeNull()
-    expect(screen.getAllByRole('status').length).toBeGreaterThan(0)
+    expect(screen.queryByText('OWN YOUR AVATAR')).toBeNull()
+    expect(screen.queryByRole('heading', { name: 'NFTL TOKEN' })).toBeNull()
+    expect(screen.getAllByRole('status')).toHaveLength(7)
   })
 
   it('keeps the selected hero background fetch high priority', () => {
@@ -136,7 +147,7 @@ describe('home page', () => {
     expect(callToActionImage.getAttribute('data-fetch-priority')).not.toBe('high')
   })
 
-  it('lazy-loads home section artwork below the hero', () => {
+  it('keeps below-fold artwork out of the initial render', () => {
     render(<Home />)
 
     for (const alt of [
@@ -147,7 +158,7 @@ describe('home page', () => {
       'The Best Community on Earth',
       'Community DEGENs',
     ]) {
-      expect(screen.getByAltText(alt).getAttribute('loading')).toBe('lazy')
+      expect(screen.queryByAltText(alt)).toBeNull()
     }
   })
 
