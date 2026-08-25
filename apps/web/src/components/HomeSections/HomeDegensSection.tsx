@@ -17,6 +17,7 @@ export default function HomeDegensSection() {
             src="/img/degens/nifty-ape.webp"
             width={856}
             height={842}
+            loading="lazy"
             alt="ape degen overlay"
             sizes="(max-width: 576px) 90vw, (max-width: 992px) 80%, 700px"
           />

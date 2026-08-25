@@ -11,6 +11,7 @@ export default function HomeNiftyWorldSection() {
             alt="Land in NiftyWorld"
             width={612}
             height={482}
+            loading="lazy"
             sizes="(min-width: 768px) 50vw, 100vw"
             className="w-full h-auto"
           />

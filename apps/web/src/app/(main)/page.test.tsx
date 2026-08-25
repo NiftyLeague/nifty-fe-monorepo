@@ -136,6 +136,21 @@ describe('home page', () => {
     expect(callToActionImage.getAttribute('data-fetch-priority')).not.toBe('high')
   })
 
+  it('lazy-loads home section artwork below the hero', () => {
+    render(<Home />)
+
+    for (const alt of [
+      'ape degen overlay',
+      'Scrolling NFTL Token',
+      'Land in NiftyWorld',
+      'App Dashboard',
+      'The Best Community on Earth',
+      'Community DEGENs',
+    ]) {
+      expect(screen.getByAltText(alt).getAttribute('loading')).toBe('lazy')
+    }
+  })
+
   it('uses the compact quality profile for the above-the-fold call to action', () => {
     render(<Home />)
 
