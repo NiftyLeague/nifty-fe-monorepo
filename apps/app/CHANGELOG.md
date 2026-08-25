@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.28](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.27...app-v1.1.28) (2026-08-25)
+
+
+### Maintenance
+
+* promote validated staging tree ([885b942](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/885b94251926e7137318f5418e00623ffed64a87))
+* release main ([8d25a3c](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/8d25a3cee329a9493afe2850123b915ede459391))
+
 ## [1.1.27](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.26...app-v1.1.27) (2026-08-25)
 
 
