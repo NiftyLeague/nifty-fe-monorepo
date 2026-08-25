@@ -59,6 +59,7 @@ export default function HomeCompeteSection() {
                 className="pixelated w-full h-auto"
                 width={200}
                 height={195}
+                loading="lazy"
                 src="/img/compete-and-earn/animated/token-4.webp"
                 sizes="246px"
               />
