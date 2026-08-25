@@ -80,7 +80,7 @@ const StaticCarousel = ({
           ))}
         </div>
       </div>
-      {!hideGradient && <div className="dark-gradient-overlay !top-[13%] !h-[82%]" />}
+      {!hideGradient && <div className="dark-gradient-overlay !top-0 !h-full" />}
     </>
   )
 }

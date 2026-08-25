@@ -14,7 +14,7 @@
   left: auto;
   top: 300px;
   width: 80%;
-  z-index: 1;
+  z-index: -1;
   pointer-events: none;
 }
 

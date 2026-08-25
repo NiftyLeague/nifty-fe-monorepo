@@ -197,10 +197,6 @@
 .cd_timeline_block {
   position: relative;
   margin: 2em 0;
-  /* Keep the long timeline's offscreen cards out of the initial paint while
-   * preserving their space for stable scrolling. */
-  content-visibility: auto;
-  contain-intrinsic-size: auto 32rem;
 }
 .cd_timeline_block:after {
   content: '';
@@ -248,10 +244,18 @@
   border-radius: var(--radius-default);
   padding: 1em;
 }
+.timeline_content_body {
+  /* Keep the long timeline's offscreen text out of the initial paint while
+   * leaving intentionally overflowing milestone artwork visible. */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 32rem;
+}
 .timeline_content_img {
   position: absolute;
   width: 200px;
   display: none;
+  z-index: 1;
+  pointer-events: none;
 }
 .cd_timeline_content p {
   text-align: left;
@@ -389,13 +393,13 @@
     border-color: transparent;
     border-right-color: var(--color-card);
   }
-  .cd_timeline_block .cd_timeline_content .timeline_content_img {
+  .cd_timeline_block .timeline_content_img {
     display: block;
   }
-  .cd_timeline_block:nth-child(odd) .cd_timeline_content .timeline_content_img {
+  .cd_timeline_block:nth-child(odd) .timeline_content_img {
     left: -60px;
   }
-  .cd_timeline_block:nth-child(even) .cd_timeline_content .timeline_content_img {
+  .cd_timeline_block:nth-child(even) .timeline_content_img {
     right: -60px;
   }
   .cd_timeline_content .about-video .play-video img {

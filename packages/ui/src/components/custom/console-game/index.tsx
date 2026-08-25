@@ -6,14 +6,8 @@ import { cx } from '@nl/ui/class-names'
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { ParallaxWrapper } from '@nl/ui/custom/parallax-wrapper'
 
+import { ConsoleGameBackdrop, CONSOLE_ARTWORK_DIMENSIONS } from './backdrop'
 import styles from './index.module.css'
-
-const CONSOLE_ARTWORK_DIMENSIONS = {
-  width: 4842,
-  height: 3371,
-  quality: 65,
-  sizes: '100vw',
-} as const
 
 export interface ConsoleGameProps {
   isNearViewport?: boolean
@@ -59,15 +53,7 @@ export const ConsoleGame = memo(function ConsoleGame({
         style={{ position: 'relative', display: 'flex', flexGrow: 1 }}
         className="md:animation-hidden"
       >
-        <OptimizedImage
-          alt="Game Console Backdrop"
-          className="pixelated"
-          {...CONSOLE_ARTWORK_DIMENSIONS}
-          src="/img/console-game/classic-gaming-reinvented-notv.webp"
-          loading="lazy"
-          decoding="async"
-          style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
-        />
+        <ConsoleGameBackdrop />
         <video
           ref={videoRef}
           id="console-video"
