@@ -27,6 +27,7 @@ const appBaseInputConsumers = [
 ]
 const smashersNextConfig = 'apps/smashers/next.config.ts'
 const templateNextConfig = 'apps/template/next.config.ts'
+const templatePage = 'apps/template/src/app/page.tsx'
 const sharedSentryConfig = 'config/with-production-sentry.ts'
 const webManifest = 'apps/web/package.json'
 const webNextConfig = 'apps/web/next.config.ts'
@@ -384,6 +385,13 @@ describe('app performance contracts', () => {
     for (const file of [appNextConfig, smashersNextConfig, webNextConfig, templateNextConfig]) {
       expect(readFileSync(file, 'utf8')).toContain("optimizePackageImports: ['lucide-react']")
     }
+  })
+
+  it('keeps template-local SVG artwork on the shared native image primitive', () => {
+    const source = readFileSync(templatePage, 'utf8')
+
+    expect(source).toContain("from '@nl/ui/custom/native-image'")
+    expect(source).not.toContain("from 'next/image'")
   })
 
   it('keeps Sentry source-map uploads narrow enough for production builds', () => {
