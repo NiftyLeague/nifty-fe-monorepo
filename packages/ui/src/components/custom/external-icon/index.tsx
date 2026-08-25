@@ -1,20 +1,21 @@
+import { ExternalLink } from 'lucide-react'
 import type { ComponentProps } from 'react'
 
 import { cx } from '@nl/ui/class-names'
 
-export function ExternalIcon({ className = '', ...props }: ComponentProps<'span'>) {
+export function ExternalIcon({
+  className = '',
+  ...props
+}: Omit<ComponentProps<typeof ExternalLink>, 'size'>) {
   return (
-    <span
-      className={cx('ml-1 mb-1.5 inline-block size-3 flex-shrink-0 cursor-pointer', className)}
-      aria-hidden="true"
+    <ExternalLink
       {...props}
-    >
-      <span className="relative block size-full">
-        <span className="absolute bottom-0 left-0 size-2 rounded-[1px] border border-current" />
-        <span className="absolute top-0 right-0 size-2 border-t-2 border-r-2 border-current" />
-        <span className="bg-current absolute top-[3px] right-0 h-0.5 w-2 origin-right -rotate-45" />
-      </span>
-    </span>
+      width={14}
+      height={14}
+      size={14}
+      className={cx('ml-1 mb-1.5 inline-block shrink-0 cursor-pointer', className)}
+      aria-hidden="true"
+    />
   )
 }
 

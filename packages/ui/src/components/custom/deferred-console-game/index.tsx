@@ -1,11 +1,11 @@
 'use client'
 
 import { memo, useRef } from 'react'
-import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 
 import type { ConsoleGameProps } from '../console-game'
+import { ConsoleGameBackdrop } from '../console-game/backdrop'
 
 interface DeferredConsoleGameProps {
   src: string
@@ -39,11 +39,7 @@ const DeferredConsoleGame = memo(function DeferredConsoleGame({ src }: DeferredC
       {ConsoleGame ? (
         <ConsoleGame isNearViewport={isNearViewport} src={src} />
       ) : (
-        <DeferredSkeleton
-          role="img"
-          aria-label="Loading game preview"
-          className="absolute inset-0 h-full w-full rounded-none"
-        />
+        <ConsoleGameBackdrop loading="eager" />
       )}
     </div>
   )
