@@ -177,7 +177,9 @@ describe('Navbar', () => {
       />
     )
 
-    expect(screen.getByRole('img', { name: 'Home' }).getAttribute('loading')).toBe('eager')
+    const homeLogo = screen.getByRole('img', { name: 'Home' })
+    expect(homeLogo.getAttribute('loading')).toBe('eager')
+    expect(homeLogo.getAttribute('fetchpriority')).toBe('low')
     expect(nextLinkPrefetches.length).toBeGreaterThan(0)
     expect(nextLinkPrefetches.every((prefetch) => prefetch === false)).toBe(true)
     expect(screen.getAllByRole('link', { name: /About/ })[0]?.getAttribute('href')).toBe('/about')
