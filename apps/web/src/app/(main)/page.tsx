@@ -4,13 +4,15 @@ import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import OptimizedImage, { getOptimizedImageProps } from '@nl/ui/custom/optimized-image'
 import { DesktopOnlyImage, MobileOnlyImage } from '@nl/ui/custom/responsive-only-image'
 
-import HomeCompeteSection from '@/components/HomeSections/HomeCompeteSection'
-import HomeDegensSection from '@/components/HomeSections/HomeDegensSection'
-import HomeCommunitySection from '@/components/HomeSections/HomeCommunitySection'
-import HomeDashboardSection from '@/components/HomeSections/HomeDashboardSection'
-import HomeNiftyWorldSection from '@/components/HomeSections/HomeNiftyWorldSection'
-import HomeSponsorsSection from '@/components/HomeSections/HomeSponsorsSection'
-import HomeTokenSection from '@/components/HomeSections/HomeTokenSection'
+import {
+  DeferredHomeCommunity,
+  DeferredHomeCompete,
+  DeferredHomeDashboard,
+  DeferredHomeDegens,
+  DeferredHomeNiftyWorld,
+  DeferredHomeSponsors,
+  DeferredHomeToken,
+} from '@/components/DeferredHomeSections'
 import MainLayout from '@/components/MainLayout'
 import { ThemeButtonGroup } from '@nl/ui/custom/theme-button-group'
 import { DEGEN_COLLECTION_URL } from '@/constants/degen-assets'
@@ -241,13 +243,13 @@ const Home = () => {
         />
       </section>
 
-      <HomeDegensSection />
-      <HomeCompeteSection />
-      <HomeNiftyWorldSection />
-      <HomeDashboardSection />
-      <HomeTokenSection />
-      <HomeCommunitySection />
-      <HomeSponsorsSection />
+      <DeferredHomeDegens />
+      <DeferredHomeCompete />
+      <DeferredHomeNiftyWorld />
+      <DeferredHomeDashboard />
+      <DeferredHomeToken />
+      <DeferredHomeCommunity />
+      <DeferredHomeSponsors />
     </MainLayout>
   )
 }

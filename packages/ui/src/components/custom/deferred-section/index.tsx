@@ -12,6 +12,7 @@ interface DeferredSectionProps {
   load: () => Promise<{ default: ComponentType }>
   minHeightClassName?: string
   rootMargin?: string
+  loadingMode?: 'skeleton' | 'minimal'
 }
 
 // Keep deferred sections close enough to the viewport to avoid showing a
@@ -21,7 +22,22 @@ export const DEFAULT_DEFERRED_SECTION_ROOT_MARGIN = '160px'
 export function DeferredSectionLoading({
   label,
   minHeightClassName = 'min-h-48',
-}: Pick<DeferredSectionProps, 'label' | 'minHeightClassName'>): React.ReactNode {
+  loadingMode = 'skeleton',
+}: Pick<DeferredSectionProps, 'label' | 'minHeightClassName' | 'loadingMode'>): React.ReactNode {
+  if (loadingMode === 'minimal') {
+    return (
+      <div
+        className={`deferred-section-minimal ${minHeightClassName}`}
+        role="status"
+        aria-live="polite"
+        aria-busy="true"
+        aria-label={`Loading ${label}`}
+      >
+        <span className="sr-only">Loading {label}</span>
+      </div>
+    )
+  }
+
   return (
     <div
       className={`flex ${minHeightClassName} flex-col gap-4 rounded-md border border-border bg-muted p-4`}
@@ -45,6 +61,7 @@ export const DeferredSection = memo(function DeferredSection({
   load,
   minHeightClassName,
   rootMargin = DEFAULT_DEFERRED_SECTION_ROOT_MARGIN,
+  loadingMode,
 }: DeferredSectionProps): React.ReactNode {
   const sectionRef = useRef<HTMLDivElement>(null)
   const isNearViewport = useOnScreen(sectionRef, rootMargin, { once: true })
@@ -74,7 +91,11 @@ export const DeferredSection = memo(function DeferredSection({
       ) : LoadedSection ? (
         <LoadedSection />
       ) : (
-        <DeferredSectionLoading label={label} minHeightClassName={minHeightClassName} />
+        <DeferredSectionLoading
+          label={label}
+          minHeightClassName={minHeightClassName}
+          loadingMode={loadingMode}
+        />
       )}
     </div>
   )

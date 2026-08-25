@@ -16,6 +16,7 @@ import {
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 import { IconButton } from '@nl/ui/base/icon-button'
+import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 
 import styles from './responsive-carousel.module.css'
 
@@ -137,6 +138,7 @@ const ResponsiveCarousel = forwardRef<ResponsiveCarouselRef, ResponsiveCarouselP
     const [viewportWidth, setViewportWidth] = useState(0)
     const [isPaused, setIsPaused] = useState(false)
     const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+    const isInViewport = useOnScreen(viewportRef, '0px', { enabled: autoPlay })
 
     const effectiveSettings = useMemo(
       () => resolveSettings(settings, viewportWidth),
@@ -236,14 +238,14 @@ const ResponsiveCarousel = forwardRef<ResponsiveCarouselRef, ResponsiveCarouselP
     }, [maxIndex])
 
     useEffect(() => {
-      if (!autoPlay || isPaused || prefersReducedMotion || maxIndex === 0) return
+      if (!autoPlay || !isInViewport || isPaused || prefersReducedMotion || maxIndex === 0) return
 
       const interval = window.setInterval(() => {
         if (!document.hidden) slickNext()
       }, autoPlaySpeed)
 
       return () => window.clearInterval(interval)
-    }, [autoPlay, autoPlaySpeed, isPaused, maxIndex, prefersReducedMotion, slickNext])
+    }, [autoPlay, autoPlaySpeed, isInViewport, isPaused, maxIndex, prefersReducedMotion, slickNext])
 
     const handleScroll = () => {
       if (scrollFrameRef.current !== null) return

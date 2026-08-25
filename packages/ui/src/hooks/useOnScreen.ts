@@ -7,6 +7,8 @@ type VisibilityCallback = (isIntersecting: boolean) => void
 type UseOnScreenOptions = {
   /** Keep the element visible after its first intersection. */
   once?: boolean
+  /** Skip observing until the consumer needs visibility updates. */
+  enabled?: boolean
 }
 
 type SharedObserver = {
@@ -77,11 +79,16 @@ const subscribeToVisibility = (
 export function useOnScreen<T extends Element = HTMLDivElement>(
   ref: RefObject<T | null>,
   rootMargin: string = '0px',
-  { once = false }: UseOnScreenOptions = {}
+  { once = false, enabled = true }: UseOnScreenOptions = {}
 ): boolean {
   // State and setter for storing whether element is visible
   const [isIntersecting, setIntersecting] = useState<boolean>(false)
   useEffect(() => {
+    if (!enabled) {
+      setIntersecting(false)
+      return
+    }
+
     const element = ref.current
     if (!element) return
 
@@ -102,7 +109,7 @@ export function useOnScreen<T extends Element = HTMLDivElement>(
     }
     // ref is intentionally excluded: callbacks must not re-subscribe on re-renders
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [once, rootMargin])
+  }, [enabled, once, rootMargin])
   return isIntersecting
 }
 

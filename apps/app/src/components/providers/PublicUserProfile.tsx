@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 
 import { Button } from '@nl/ui/base/button'
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
+import useDeferredActivation from '@nl/ui/hooks/useDeferredActivation'
 
 import WalletAuthProvidersBoundary from '@/contexts/WalletAuthProvidersBoundary'
 
@@ -43,9 +44,12 @@ function ProfileProviderError({ retry }: { retry: () => void }) {
 }
 
 export default function PublicUserProfile() {
+  const isActivated = useDeferredActivation()
+
   return (
     <div data-public-user-profile>
       <WalletAuthProvidersBoundary
+        enabled={isActivated}
         errorFallback={(retry) => <ProfileProviderError retry={retry} />}
         loadingFallback={<ProfileProviderLoading />}
       >

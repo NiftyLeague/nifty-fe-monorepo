@@ -22,4 +22,19 @@ describe('DeferredSection', () => {
     expect(screen.getAllByRole('status').length).toBe(1)
     expect(useOnScreen).toHaveBeenCalledWith(expect.anything(), '160px', { once: true })
   })
+
+  it('supports a transparent loading state for layout-preserving sections', () => {
+    const { container } = render(
+      <DeferredSection
+        label="Marketing section"
+        load={async () => ({ default: () => null })}
+        minHeightClassName="min-h-96"
+        loadingMode="minimal"
+      />
+    )
+
+    expect(screen.getByRole('status', { name: 'Loading Marketing section' })).toBeTruthy()
+    expect(container.querySelector('.deferred-section-minimal')?.className).toContain('min-h-96')
+    expect(container.querySelector('[data-slot="skeleton"]')).toBeNull()
+  })
 })
