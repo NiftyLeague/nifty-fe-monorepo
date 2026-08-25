@@ -1324,8 +1324,9 @@ describe('private provider loading contract', () => {
 
     expect(layoutSource).toContain('PrivateRoutesBoundary')
     expect(layoutSource).toContain('headers()')
+    expect(boundarySource).toContain("'use client'")
     expect(boundarySource).toContain("import('./PrivateRoutesShell')")
-    expect(boundarySource).not.toContain('ssr: false')
+    expect(boundarySource).toContain('ssr: false')
     expect(rendersSharedLoadingSkeleton(boundarySource)).toBe(true)
     expect(boundarySource).toContain('role="status"')
     expect(shellSource).toContain('MainLayout')
