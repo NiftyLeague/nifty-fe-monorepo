@@ -1321,6 +1321,11 @@ describe('private provider loading contract', () => {
       'utf8'
     )
     const profileSource = readFileSync(join(process.cwd(), sidebarProfile), 'utf8')
+    const sharedProfileSource = readFileSync(
+      join(process.cwd(), 'apps/app/src/components/UserProfile/index.tsx'),
+      'utf8'
+    )
+    const profileImplementationSource = `${profileSource}\n${sharedProfileSource}`
 
     expect(layoutSource).toContain('PrivateRoutesBoundary')
     expect(layoutSource).toContain('headers()')
@@ -1336,12 +1341,13 @@ describe('private provider loading contract', () => {
     expect(shellSource).toContain('AuthTokenProvider')
     expect(sidebarSource).toContain("dynamic(() => import('./_UserProfile')")
     expect(sidebarSource).toContain("dynamic(() => import('./_LogoutButton')")
-    expect(profileSource).toContain('Open dashboard')
-    expect(profileSource).toContain("from '@nl/ui/base/button-variants'")
-    expect(profileSource).toContain('data-slot="button"')
-    expect(profileSource).not.toContain('SidebarWalletActions')
-    expect(profileSource).not.toContain("from '@/hooks/useNetworkContext'")
-    expect(profileSource).not.toContain("from '@/hooks/writeContracts/useClaimNFTL'")
+    expect(profileSource).toContain("export { default } from '@/components/UserProfile'")
+    expect(profileImplementationSource).toContain('Open dashboard')
+    expect(profileImplementationSource).toContain("from '@nl/ui/base/button-variants'")
+    expect(profileImplementationSource).toContain('data-slot="button"')
+    expect(profileImplementationSource).not.toContain('SidebarWalletActions')
+    expect(profileImplementationSource).not.toContain("from '@/hooks/useNetworkContext'")
+    expect(profileImplementationSource).not.toContain("from '@/hooks/writeContracts/useClaimNFTL'")
   })
 })
 
