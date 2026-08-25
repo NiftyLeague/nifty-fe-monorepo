@@ -1,15 +1,15 @@
 {
-  ".": "1.2.61",
-  "apps/app": "1.1.27",
+  ".": "1.2.60",
+  "apps/app": "1.1.26",
   "apps/docs": "1.0.6",
   "apps/smashers": "1.0.13",
   "apps/template": "1.0.11",
-  "apps/web": "1.0.28",
+  "apps/web": "1.0.27",
   "packages/eslint-config": "1.0.2",
   "packages/imx-passport": "1.0.2",
   "packages/playfab": "1.0.6",
   "packages/prettier-config": "1.0.1",
   "packages/theme": "1.0.1",
   "packages/typescript-config": "1.0.1",
-  "packages/ui": "1.0.16"
+  "packages/ui": "1.0.15"
 }
