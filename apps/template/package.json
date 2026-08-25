@@ -4,7 +4,6 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "next build",
     "clean": "rm -rf node_modules && rm -rf .turbo && rm -rf .next",
     "dev": "next dev --port 3005",
     "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\" --ignore-path ../../.gitignore",
