@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.11](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/template-v1.0.10...template-v1.0.11) (2026-08-25)
+
+
+### Maintenance
+
+* promote validated staging tree ([794f5bb](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/794f5bb772445728fc84d94292c0c2364872ff8b))
+
 ## [1.0.10](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/template-v1.0.9...template-v1.0.10) (2026-08-25)
 
 
