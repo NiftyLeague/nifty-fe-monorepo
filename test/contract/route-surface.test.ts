@@ -1070,6 +1070,8 @@ describe('public app shell contract', () => {
     expect(profileSource).toContain(
       'errorFallback={(retry) => <ProfileProviderError retry={retry} />}'
     )
+    expect(profileSource).toContain("from '@nl/ui/hooks/useDeferredActivation'")
+    expect(profileSource).toContain('enabled={isActivated}')
     expect(profileSource).toContain('Sign-in is temporarily unavailable.')
     expect(navigationSource).not.toContain("from '@/components/extended/Breadcrumbs'")
     expect(navigationSource).toContain('<details id="public-desktop-navigation-toggle"')

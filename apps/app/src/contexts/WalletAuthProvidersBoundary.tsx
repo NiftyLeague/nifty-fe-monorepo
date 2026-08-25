@@ -10,6 +10,7 @@ import { WalletProviderError } from '@/components/providers/WalletProviderFallba
 type WalletAuthProvidersProps = PropsWithChildren<{ cookies?: string | null }>
 
 type WalletAuthProvidersBoundaryProps = WalletAuthProvidersProps & {
+  enabled?: boolean
   loadingFallback?: ReactNode
   errorFallback?: (retry: () => void) => ReactNode
 }
@@ -19,6 +20,7 @@ const loadWalletAuthProviders = () => import('./WalletAuthProviders')
 export default function WalletAuthProvidersBoundary({
   children,
   cookies,
+  enabled = true,
   loadingFallback,
   errorFallback,
 }: WalletAuthProvidersBoundaryProps) {
@@ -26,7 +28,11 @@ export default function WalletAuthProvidersBoundary({
     Component: WalletAuthProviders,
     hasError,
     retry,
-  } = useDeferredComponent(loadWalletAuthProviders)
+  } = useDeferredComponent(loadWalletAuthProviders, enabled)
+
+  if (!enabled) {
+    return loadingFallback ?? <RouteLoading label="Loading wallet verification" />
+  }
 
   if (hasError) {
     return errorFallback ? errorFallback(retry) : <WalletProviderError onRetry={retry} />
