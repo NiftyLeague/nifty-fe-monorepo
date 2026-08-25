@@ -12,6 +12,7 @@ export default function HomeDashboardSection() {
           alt="App Dashboard"
           width={1920}
           height={1172}
+          loading="lazy"
           className="w-full h-auto"
           sizes="100vw"
         />

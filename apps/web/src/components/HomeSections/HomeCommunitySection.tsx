@@ -11,6 +11,7 @@ export default function HomeCommunitySection() {
             alt="The Best Community on Earth"
             width={382}
             height={411}
+            loading="lazy"
             className="w-85 h-auto"
             sizes="(min-width: 768px) 382px, 85vw"
           />
@@ -25,6 +26,7 @@ export default function HomeCommunitySection() {
               alt="Community DEGENs"
               width={596}
               height={194}
+              loading="lazy"
               sizes="(min-width: 768px) 50vw, 100vw"
               className="w-full h-auto pixelated"
             />
