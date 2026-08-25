@@ -2,6 +2,8 @@ import { describe, expect, it } from 'bun:test'
 import { existsSync, readFileSync } from 'node:fs'
 
 const responsiveTableList = 'apps/app/src/components/ResponsiveTable/DataList.tsx'
+const rootManifest = 'package.json'
+const turboConfig = 'turbo.json'
 const appManifest = 'apps/app/package.json'
 const appGasUtility = 'apps/app/src/utils/gas.ts'
 const retiredAxiosUtility = 'apps/app/src/utils/axios.ts'
@@ -482,6 +484,21 @@ describe('app performance contracts', () => {
     expect(manifest.scripts.dev).toBe('next dev --turbopack --port 3000')
     expect(manifest.scripts.dev).not.toContain('--webpack')
     expect(nextConfig).toContain('  turbopack: {},')
+  })
+
+  it('keeps the tracked template app on the root Next build graph', () => {
+    const root = JSON.parse(readFileSync(rootManifest, 'utf8'))
+    const template = JSON.parse(readFileSync('apps/template/package.json', 'utf8'))
+    const turbo = JSON.parse(readFileSync(turboConfig, 'utf8'))
+
+    expect(template.scripts.build).toBe('next build')
+    expect(root.scripts.build).toContain('template#build')
+    expect(turbo.tasks['template#build'].inputs).toContain('../../packages/ui/src/**')
+    expect(turbo.tasks['template#build'].outputs).toEqual([
+      '.next/**',
+      '!.next/cache/**',
+      '!.next/dev/**',
+    ])
   })
 
   it('uses Turbopack for local app development', () => {
