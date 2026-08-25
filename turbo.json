@@ -141,6 +141,21 @@
       ],
       "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**"]
     },
+    "template#build": {
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "../../packages/ui/src/**",
+        "../../packages/ui/package.json",
+        ".env*",
+        "!.env.example",
+        "!**/README.md",
+        "!**/CHANGELOG.md",
+        "!**/*.test.*",
+        "!**/*.spec.*",
+        "!**/__tests__/**"
+      ],
+      "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**"]
+    },
     "web#build": {
       "inputs": [
         "$TURBO_DEFAULT$",
