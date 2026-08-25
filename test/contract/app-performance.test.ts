@@ -61,6 +61,7 @@ const sharedAppBar = 'packages/ui/src/components/custom/app-bar/index.tsx'
 const sharedAppBarStyles = 'packages/ui/src/components/custom/app-bar/app-bar.module.css'
 const lightweightClassNames = 'packages/ui/src/lib/class-names.ts'
 const deferredConsoleGame = 'packages/ui/src/components/custom/deferred-console-game/index.tsx'
+const consoleGameBackdrop = 'packages/ui/src/components/custom/console-game/backdrop.tsx'
 const gltfViews = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViews.tsx'
 const gltfPage = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/page.tsx'
 const marketingShellClassNameSources = [
@@ -197,10 +198,13 @@ describe('app performance contracts', () => {
 
   it('keeps the marketing console preview deferred until it is close to view', () => {
     const source = readFileSync(deferredConsoleGame, 'utf8')
+    const backdropSource = readFileSync(consoleGameBackdrop, 'utf8')
     expect(source).toContain("const CONSOLE_GAME_ROOT_MARGIN = '0px 0px -25% 0px'")
     expect(source).toContain('useOnScreen(rootRef, CONSOLE_GAME_ROOT_MARGIN)')
-    expect(source).toContain('<DeferredSkeleton')
-    expect(source).toContain('aria-label="Loading game preview"')
+    expect(source).toContain('<ConsoleGameBackdrop loading="eager" />')
+    expect(source).not.toContain('<DeferredSkeleton')
+    expect(source).not.toContain('<video')
+    expect(backdropSource).toContain('alt="Game Console Backdrop"')
   })
 
   it('defers the decorative hero character layer behind the LCP background', () => {
