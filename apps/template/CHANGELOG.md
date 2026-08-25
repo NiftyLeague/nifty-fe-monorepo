@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.9](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/template-v1.0.8...template-v1.0.9) (2026-08-25)
+
+
+### Performance
+
+* **build:** include template app in Turbo graph ([#1190](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1190)) ([0104a4d](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/0104a4dffe5589f4ecebefc3f267cf746f598a15))
+
 ## [1.0.8](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/template-v1.0.7...template-v1.0.8) (2026-08-24)
 
 
