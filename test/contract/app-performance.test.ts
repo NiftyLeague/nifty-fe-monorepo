@@ -43,6 +43,12 @@ const incrementalTypecheckConfigs = [
   'packages/sentry-client/tsconfig.json',
   'packages/ui/tsconfig.json',
 ]
+const nextSourceTypecheckConfigs = [
+  'apps/template/tsconfig.json',
+  'apps/web/tsconfig.json',
+  'apps/app/tsconfig.json',
+  'apps/smashers/tsconfig.json',
+]
 const deferredSentryClient = 'packages/sentry-client/src/client.ts'
 const deferredSentryModule = 'packages/sentry-client/src/nextjs-client.ts'
 const deferredExternalScript =
@@ -395,6 +401,19 @@ describe('app performance contracts', () => {
   it('keeps every TypeScript project on incremental checking', () => {
     for (const file of incrementalTypecheckConfigs) {
       expect(readFileSync(file, 'utf8')).toContain('"incremental": true')
+    }
+  })
+
+  it('scopes Next TypeScript programs to source and framework inputs', () => {
+    for (const file of nextSourceTypecheckConfigs) {
+      const tsConfig = JSON.parse(readFileSync(file, 'utf8')) as { include?: string[] }
+
+      expect(tsConfig.include).toEqual([
+        'src',
+        'next-env.d.ts',
+        'next.config.ts',
+        '.next/types/**/*.ts',
+      ])
     }
   })
 
