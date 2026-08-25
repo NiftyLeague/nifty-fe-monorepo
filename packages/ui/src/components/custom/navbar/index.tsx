@@ -150,6 +150,7 @@ export function Navbar({ actionButton, navItems, className }: NavbarProps) {
             width={52}
             alt="Home"
             loading="eager"
+            fetchPriority="low"
             className="h-12 w-auto transition-transform hover:scale-105"
           />
         </Link>
