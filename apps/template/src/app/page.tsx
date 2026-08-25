@@ -1,12 +1,12 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 
 import { Button } from '@nl/ui/base/button'
 import { Card, CardTitle, CardDescription } from '@nl/ui/base/card'
 import { Icon } from '@nl/ui/base/icon'
+import NativeImage from '@nl/ui/custom/native-image'
 import { Preloader } from '@nl/ui/custom/preloader'
 import { Text } from '@nl/ui/custom/typography'
 import { ThemeToggle } from '@nl/ui/custom/theme'
@@ -98,8 +98,9 @@ export default function Page(): React.ReactNode {
             className="text-foreground"
           >
             By{' '}
-            <Image
+            <NativeImage
               alt="Vercel Logo"
+              fetchPriority="high"
               height={24}
               priority
               src="icons/platform/vercel.svg"
@@ -114,7 +115,7 @@ export default function Page(): React.ReactNode {
         <div className={styles.heroContent}>
           <div className={styles.logos}>
             <div className={styles.circles}>
-              <Image
+              <NativeImage
                 alt="Turborepo"
                 height={614}
                 src="icons/circles.svg"
@@ -127,8 +128,9 @@ export default function Page(): React.ReactNode {
             </div>
 
             <div className={styles.logo}>
-              <Image
+              <NativeImage
                 alt=""
+                fetchPriority="high"
                 height={120}
                 priority
                 src="icons/platform/turborepo.svg"

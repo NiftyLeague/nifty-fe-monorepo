@@ -4,13 +4,6 @@ import { afterEach, beforeEach, describe, expect, it, jest } from 'bun:test'
 import { mock } from 'bun:test'
 
 beforeEach(() => {
-  mock.module('next/image', () => ({
-    default: ({
-      alt,
-      priority: _priority,
-      ...props
-    }: ComponentProps<'img'> & { priority?: boolean }) => <img alt={alt} {...props} />,
-  }))
   mock.module('next/link', () => ({
     default: ({ children, href, ...props }: PropsWithChildren<{ href: string }>) => (
       <a href={href} {...props}>
@@ -53,13 +46,25 @@ describe('template page', () => {
 
   it('renders starter links, component variants, and completed preload state', async () => {
     const Page = (await import('./page')).default
-    render(<Page />)
+    const { container } = render(<Page />)
 
     expect(screen.getByRole('link', { name: /Docs/i })?.getAttribute('href')).toBe(
       'https://turbo.build/repo/docs'
     )
     expect(screen.getByRole('button', { name: /Primary/i })).not.toBeNull()
     expect(screen.getByRole('button', { name: /Destructive/i })).not.toBeNull()
+    const vercelLogo = screen.getByAltText('Vercel Logo')
+    const circles = screen.getByAltText('Turborepo')
+    const prioritizedLogos = container.querySelectorAll('img[loading="eager"]')
+
+    expect(vercelLogo.getAttribute('loading')).toBe('eager')
+    expect(vercelLogo.getAttribute('fetchpriority')).toBe('high')
+    expect(prioritizedLogos).toHaveLength(2)
+    expect(
+      [...prioritizedLogos].every((logo) => logo.getAttribute('fetchpriority') === 'high')
+    ).toBe(true)
+    expect(circles.getAttribute('loading')).toBe('lazy')
+    expect(circles.getAttribute('fetchpriority')).toBe('low')
     expect(screen.getByRole('status')?.textContent).toContain('0')
 
     act(() => jest.advanceTimersByTime(1_600))
