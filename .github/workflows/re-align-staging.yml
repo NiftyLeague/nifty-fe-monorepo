@@ -191,6 +191,8 @@ jobs:
             --jq '
               map(select(
                 .title == "chore: re-align staging with main" or
+                .title == "chore(staging): reconcile release metadata from main" or
+                .headRefName == "code-foundry/reconcile/main-to-staging" or
                 (.headRefName | startswith("chore/re-align-staging-"))
               ))
               | .[].number
@@ -224,6 +226,8 @@ jobs:
               --jq '
                 map(select(
                   .title == "chore: re-align staging with main" or
+                  .title == "chore(staging): reconcile release metadata from main" or
+                  .headRefName == "code-foundry/reconcile/main-to-staging" or
                   (.headRefName | startswith("chore/re-align-staging-"))
                 ))
                 | first
@@ -267,6 +271,41 @@ jobs:
             exit 0
           fi
 
+          # Release Please reconciliation owns release-metadata-only drift.
+          # Do not open a second re-alignment PR for the same main release;
+          # the release workflow will deliver that exact tip through its
+          # deterministic code-foundry/reconcile/main-to-staging PR when the
+          # staging ruleset rejects the direct synchronization push.
+          is_release_metadata_path() {
+            case "$1" in
+              .release-please-manifest.json|package.json|*/package.json|CHANGELOG.md|*/CHANGELOG.md)
+                return 0
+                ;;
+              *)
+                return 1
+                ;;
+            esac
+          }
+
+          RELEASE_METADATA_ONLY=true
+          RELEASE_CHANGED_PATHS=$(git diff --no-renames --name-only origin/staging origin/main)
+          if [ -z "$RELEASE_CHANGED_PATHS" ]; then
+            RELEASE_METADATA_ONLY=false
+          else
+            while IFS= read -r changed_path; do
+              [ -n "$changed_path" ] || continue
+              if ! is_release_metadata_path "$changed_path"; then
+                RELEASE_METADATA_ONLY=false
+                break
+              fi
+            done <<< "$RELEASE_CHANGED_PATHS"
+          fi
+          if [ "$RELEASE_METADATA_ONLY" = true ]; then
+            echo "Only release metadata differs between main and staging;"
+            echo "deferring reconciliation PR ownership to Code Foundry release reconciliation."
+            exit 0
+          fi
+
           BRANCH="chore/re-align-staging-$(date +%Y%m%d-%H%M)"
           git config user.name "github-actions[bot]"
           BOT_EMAIL="41898282+github-actions[bot]"
@@ -278,17 +317,6 @@ jobs:
           git sparse-checkout disable
           git checkout -b "$BRANCH" origin/staging
           staging_head=$(git rev-parse HEAD)
-
-          is_release_metadata_path() {
-            case "$1" in
-              .release-please-manifest.json|package.json|*/package.json|CHANGELOG.md|*/CHANGELOG.md)
-                return 0
-                ;;
-              *)
-                return 1
-                ;;
-            esac
-          }
 
           resolve_ours_conflicts() {
             local conflicted_path
