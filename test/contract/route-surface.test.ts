@@ -1725,7 +1725,7 @@ describe('shared below-fold loading contract', () => {
     expect(deferredSource).not.toContain("import('@/components/HomeBelowFold')")
     expect(existsSync(join(process.cwd(), 'apps/web/src/components/HomeBelowFold.tsx'))).toBe(false)
     expect(deferredHomeSectionsSource).toContain("from '@nl/ui/custom/deferred-section'")
-    expect(deferredHomeSectionsSource).toContain("const HOME_SECTION_ROOT_MARGIN = '800px 0px'")
+    expect(deferredHomeSectionsSource).toContain("const HOME_SECTION_ROOT_MARGIN = '240px 0px'")
     expect(deferredHomeSectionsSource).toContain('loadingMode="minimal"')
     for (const section of [
       'HomeDegensSection',
