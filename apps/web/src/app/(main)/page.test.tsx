@@ -20,7 +20,9 @@ describe('home page', () => {
       default: () => null,
       ThemeButtonGroup: () => null,
     }))
-    mock.module('@nl/ui/custom/deferred-console-game', () => ({ DeferredConsoleGame: () => null }))
+    mock.module('@nl/ui/custom/deferred-console-game', () => ({
+      DeferredConsoleGame: ({ children }: PropsWithChildren) => <>{children}</>,
+    }))
     mock.module('@/components/DeferredHomeSections', () => {
       const DeferredHomeSection = ({ label }: { label: string }) => (
         <div role="status" aria-label={`Loading ${label}`} />
@@ -100,6 +102,14 @@ describe('home page', () => {
     const heroImage = document.querySelector('.home-intro-background img')
     expect(heroImage?.getAttribute('fetchpriority')).toBe('high')
     expect(heroImage?.getAttribute('loading')).toBe('eager')
+  })
+
+  it('keeps the console backdrop lazy while preserving the visible preview', () => {
+    render(<Home />)
+
+    const consoleBackdrop = screen.getByAltText('Game Console Backdrop')
+    expect(consoleBackdrop.getAttribute('loading')).toBe('lazy')
+    expect(consoleBackdrop.getAttribute('fetchpriority')).not.toBe('high')
   })
 
   it('keeps the desktop hero artwork wrapper full width', () => {
