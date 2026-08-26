@@ -1,5 +1,3 @@
-import Link from 'next/link'
-
 export const FAQS = [
   {
     question: 'What is Nifty League?',
@@ -8,9 +6,9 @@ export const FAQS = [
         Nifty League is a decentralized game studio & publisher at the cutting edge of Web3. Our
         mission is to create an open & efficient path for indie studios to develop & publish
         groundbreaking games. Read our{' '}
-        <Link href="/docs/overview/intro" prefetch={false} target="_blank" rel="noreferrer">
+        <a href="/docs/overview/intro" target="_blank" rel="noreferrer">
           docs
-        </Link>{' '}
+        </a>{' '}
         to learn more!
       </>
     ),
@@ -24,9 +22,9 @@ export const FAQS = [
         missions and launch points into our other game titles. Land parcels will be available to
         build custom areas for holders, and players can show off their digital assets from Nifty
         League or other partner communities to stand out.{' '}
-        <Link href="/niftyworld" prefetch={false} target="_blank" rel="noreferrer">
+        <a href="/niftyworld" target="_blank" rel="noreferrer">
           Learn more
-        </Link>
+        </a>
       </>
     ),
   },
@@ -53,14 +51,9 @@ export const FAQS = [
           </li>
         </ol>
         Read our{' '}
-        <Link
-          href="/docs/overview/nifty-dao/nftl/overview"
-          prefetch={false}
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a href="/docs/overview/nifty-dao/nftl/overview" target="_blank" rel="noreferrer">
           docs
-        </Link>{' '}
+        </a>{' '}
         to learn more.
         <br />
       </>

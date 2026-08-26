@@ -13,7 +13,7 @@ describe('website footer links', () => {
         prefetch,
         ...props
       }: PropsWithChildren<{ href: string; prefetch?: boolean }>) => (
-        <a href={href} data-prefetch={String(prefetch)} {...props}>
+        <a href={href} data-next-link="true" data-prefetch={String(prefetch)} {...props}>
           {children}
         </a>
       ),
@@ -33,8 +33,7 @@ describe('website footer links', () => {
 
     expect(screen.getByRole('link', { name: 'Home' }).getAttribute('data-prefetch')).toBe('false')
     expect(screen.getByRole('link', { name: 'Games' }).getAttribute('data-prefetch')).toBe('false')
-    expect(screen.getByRole('link', { name: 'NiftyDAO' }).getAttribute('data-prefetch')).toBe(
-      'false'
-    )
+    expect(screen.getByRole('link', { name: 'NiftyDAO' }).getAttribute('data-next-link')).toBeNull()
+    expect(screen.getByRole('link', { name: 'NiftyDAO' }).getAttribute('target')).toBe('_blank')
   })
 })
