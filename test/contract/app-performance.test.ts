@@ -169,6 +169,7 @@ const appIconRegistrySources = [
 ]
 const sharedEslintConfig = 'packages/eslint-config/base.js'
 const sharedNextEslintConfig = 'packages/eslint-config/next.js'
+const testHarnessPreload = 'test/preload.ts'
 
 describe('app performance contracts', () => {
   it('keeps lint traversal off generated framework output', () => {
@@ -194,6 +195,17 @@ describe('app performance contracts', () => {
     expect(source).not.toContain("from 'eslint-config-next")
     expect(manifest.devDependencies['@next/eslint-plugin-next']).toBeDefined()
     expect(manifest.devDependencies['eslint-import-resolver-typescript']).toBeDefined()
+  })
+
+  it('keeps isolated React tests on one workspace runtime', () => {
+    const source = readFileSync(testHarnessPreload, 'utf8')
+
+    expect(source).toContain("import rootReact from '../node_modules/react/index.js'")
+    expect(source).toContain('mock.module(workspaceReact')
+
+    for (const workspace of ['apps/app', 'apps/template', 'apps/web', 'packages/ui']) {
+      expect(source).toContain(`'${workspace}'`)
+    }
   })
 
   it('keeps the eager private shell on lightweight class joining', () => {
