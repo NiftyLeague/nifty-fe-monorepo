@@ -3,7 +3,7 @@ import { preload } from 'react-dom'
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { ConsoleGameBackdrop } from '@nl/ui/custom/console-game-backdrop'
 import OptimizedImage, { getOptimizedImageProps } from '@nl/ui/custom/optimized-image'
-import { DesktopOnlyImage, MobileOnlyImage } from '@nl/ui/custom/responsive-only-image'
+import { DesktopOnlyImage } from '@nl/ui/custom/responsive-only-image'
 
 import {
   DeferredHomeCommunity,
