@@ -8,8 +8,8 @@ import MobileNavigationDisclosure from '@nl/ui/custom/mobile-navigation'
 import LogoSection from '@/app/_layout/_MainLayout/_LogoSection'
 import { APP_EXTERNAL_LINKS } from '@/constants/navigation'
 import styles from '@/app/_layout/_MainLayout/MainLayout.module.css'
+import DeferredPublicUserProfile from './DeferredPublicUserProfile'
 import PublicNavLinks from './PublicNavLinks'
-import PublicUserProfile from './PublicUserProfile'
 
 export default function PublicNavigation({ children }: PropsWithChildren) {
   return (
@@ -50,7 +50,7 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
                   </div>
                 </div>
                 <div className="border-b border-sidebar-border p-4">
-                  <PublicUserProfile placement="mobile" />
+                  <DeferredPublicUserProfile placement="mobile" />
                 </div>
                 <nav aria-label="Primary navigation" className="px-4">
                   <PublicNavLinks />
@@ -88,7 +88,7 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
         >
           <div className="h-full overflow-y-auto px-4 py-5">
             <div className="mb-5">
-              <PublicUserProfile placement="desktop" />
+              <DeferredPublicUserProfile placement="desktop" />
             </div>
             <PublicNavLinks />
           </div>
