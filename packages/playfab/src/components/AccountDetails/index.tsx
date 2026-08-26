@@ -8,9 +8,15 @@ import { parseLinkedWalletResult } from '../../utils/parseData'
 import { useUserContext } from '../../hooks/useUserContext'
 import { useProviders } from '@nl/ui/hooks/useProviders'
 
-import { Button } from '@nl/ui/base/button'
-import { Input } from '@nl/ui/custom/input'
 import { Icon } from '@nl/ui/base/icon'
+import { Label } from '@nl/ui/base/label'
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+} from '@nl/ui/base/input-group'
 import { Separator } from '@nl/ui/base/separator'
 
 import Avatar from '../Avatar'
@@ -95,36 +101,46 @@ export default function AccountDetails({
         />
       ) : null}
 
-      <Input
-        id="email"
-        label="Email"
-        type="email"
-        value={email ?? ''}
-        disabled
-        startIcon={<Icon name="mail" />}
-      />
+      <div className="grid gap-2">
+        <Label htmlFor="email">Email</Label>
+        <InputGroup>
+          <InputGroupAddon>
+            <InputGroupText>
+              <Icon name="mail" aria-hidden="true" />
+            </InputGroupText>
+          </InputGroupAddon>
+          <InputGroupInput id="email" type="email" value={email ?? ''} disabled />
+        </InputGroup>
+      </div>
 
-      <Input
-        id="display-name"
-        label="Display Name"
-        type="text"
-        value={displayName ?? ''}
-        disabled={loading}
-        onChange={(e) => setDisplayName(e.target.value)}
-        startIcon={<Icon name="user-pen" />}
-        actions={[
-          <Button
-            key="save"
-            size="sm"
+      <div className="grid gap-2">
+        <Label htmlFor="display-name">Display Name</Label>
+        <InputGroup>
+          <InputGroupAddon>
+            <InputGroupText>
+              <Icon name="user-pen" aria-hidden="true" />
+            </InputGroupText>
+          </InputGroupAddon>
+          <InputGroupInput
+            id="display-name"
+            type="text"
+            value={displayName ?? ''}
             disabled={loading}
-            className="cursor-pointer disabled:cursor-progress"
-            onClick={() => updateProfile({ displayName })}
-          >
-            {loading ? <Icon name="loader" className="animate-spin" /> : <Icon name="save" />}
-            {loading ? 'Loading' : 'Update'}
-          </Button>,
-        ]}
-      />
+            onChange={(e) => setDisplayName(e.target.value)}
+          />
+          <InputGroupAddon align="inline-end">
+            <InputGroupButton
+              size="sm"
+              disabled={loading}
+              className="cursor-pointer disabled:cursor-progress"
+              onClick={() => updateProfile({ displayName })}
+            >
+              {loading ? <Icon name="loader" className="animate-spin" /> : <Icon name="save" />}
+              {loading ? 'Loading' : 'Update'}
+            </InputGroupButton>
+          </InputGroupAddon>
+        </InputGroup>
+      </div>
 
       {enableLinkWallet && (
         <fieldset>

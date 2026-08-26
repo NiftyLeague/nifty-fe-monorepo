@@ -7,7 +7,12 @@ import { Inbox, Loader, Mail } from 'lucide-react'
 
 import { Button } from '@nl/ui/base/button'
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@nl/ui/base/form'
-import { Input } from '@nl/ui/custom/input'
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupText,
+} from '@nl/ui/base/input-group'
 
 import { VIEWS } from '../constants'
 
@@ -39,14 +44,16 @@ export function ForgotPasswordForm({ setAuthView, handleResetPassword }: ForgotP
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  type="email"
-                  autoComplete="on"
-                  startIcon={<Mail absoluteStrokeWidth size={20} strokeWidth={1.5} />}
-                />
-              </FormControl>
+              <InputGroup>
+                <InputGroupAddon>
+                  <InputGroupText>
+                    <Mail absoluteStrokeWidth size={20} strokeWidth={1.5} aria-hidden="true" />
+                  </InputGroupText>
+                </InputGroupAddon>
+                <FormControl>
+                  <InputGroupInput {...field} type="email" autoComplete="on" />
+                </FormControl>
+              </InputGroup>
               <FormMessage />
             </FormItem>
           )}

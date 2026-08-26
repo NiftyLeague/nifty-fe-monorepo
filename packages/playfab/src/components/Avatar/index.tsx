@@ -4,7 +4,7 @@ import React, { useState, useRef } from 'react'
 import { useSnackbar } from 'notistack'
 
 import { Button } from '@nl/ui/base/button'
-import { Input } from '@nl/ui/custom/input'
+import { Input } from '@nl/ui/base/input'
 import NativeImage from '@nl/ui/custom/native-image'
 import { Icon } from '@nl/ui/base/icon'
 

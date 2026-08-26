@@ -1,9 +1,14 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSnackbar } from 'notistack'
 
-import { Button } from '@nl/ui/base/button'
-import { Input } from '@nl/ui/custom/input'
 import { Icon } from '@nl/ui/base/icon'
+import { Label } from '@nl/ui/base/label'
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from '@nl/ui/base/input-group'
 
 import { errorMsgHandler } from '../../utils/errorHandlers'
 import { fetchJson } from '../../utils/fetchJson'
@@ -21,8 +26,16 @@ export default function LinkWalletInput({
 }) {
   const [error, setError] = useState<string | undefined>()
   const [deleteLoading, setDeleteLoading] = useState(false)
+  const [copyLabel, setCopyLabel] = useState('Copy')
+  const copyResetTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const { enqueueSnackbar } = useSnackbar()
   const { refetchPlayer } = useUserContext()
+
+  useEffect(() => {
+    return () => {
+      if (copyResetTimer.current) clearTimeout(copyResetTimer.current)
+    }
+  }, [])
 
   const handleLinkWallet = async () => {
     setError(undefined)
@@ -71,24 +84,49 @@ export default function LinkWalletInput({
 
   const linked = Boolean(address && address.length > 1)
   const addressParsed = address?.split(':')[1] || ''
+  const inputId = `link-wallet-${index}`
+  const errorId = `${inputId}-error`
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(addressParsed)
+      setCopyLabel('Copied')
+      if (copyResetTimer.current) clearTimeout(copyResetTimer.current)
+      copyResetTimer.current = setTimeout(() => setCopyLabel('Copy'), 3000)
+    } catch {
+      setCopyLabel('Failed to copy')
+    }
+  }
 
   return (
     <>
-      <Input
-        key={index}
-        type="text"
-        disabled
-        copy={linked}
-        error={!!error}
-        value={addressParsed}
-        hiddenLabel
-        label={`Link Wallet ${index}`}
-        className={!linked ? '!bg-transparent' : ''}
-        actions={
-          linked
-            ? [
-                <Button
-                  key="remove"
+      <div className="grid gap-2">
+        <Label htmlFor={inputId} className="sr-only">
+          Link Wallet {index}
+        </Label>
+        <InputGroup className={!linked ? '!bg-transparent' : undefined}>
+          <InputGroupInput
+            id={inputId}
+            type="text"
+            disabled
+            value={addressParsed}
+            aria-invalid={Boolean(error)}
+            aria-describedby={error ? errorId : undefined}
+          />
+          <InputGroupAddon align="inline-end">
+            {linked ? (
+              <>
+                <InputGroupButton
+                  variant="outline"
+                  size="sm"
+                  className="cursor-copy"
+                  onClick={handleCopy}
+                  aria-live="polite"
+                >
+                  <Icon name="copy" aria-hidden="true" />
+                  {copyLabel}
+                </InputGroupButton>
+                <InputGroupButton
                   variant="destructive"
                   size="sm"
                   className="cursor-pointer disabled:cursor-not-allowed"
@@ -96,24 +134,28 @@ export default function LinkWalletInput({
                   onClick={handleUnLinkWallet}
                 >
                   Remove
-                </Button>,
-              ]
-            : [
-                <Button
-                  key="connect"
-                  variant="dashed"
-                  size="sm"
-                  className="cursor-pointer disabled:cursor-progress"
-                  disabled={loading}
-                  onClick={handleLinkWallet}
-                >
-                  <Icon name="link-2" />
-                  Connect Wallet
-                </Button>,
-              ]
-        }
-      />
-      {error && error.length > 0 && <p className="text-error text-xs font-bold !mt-2">{error}</p>}
+                </InputGroupButton>
+              </>
+            ) : (
+              <InputGroupButton
+                variant="dashed"
+                size="sm"
+                className="cursor-pointer disabled:cursor-progress"
+                disabled={loading}
+                onClick={handleLinkWallet}
+              >
+                <Icon name="link-2" aria-hidden="true" />
+                Connect Wallet
+              </InputGroupButton>
+            )}
+          </InputGroupAddon>
+        </InputGroup>
+        {error && error.length > 0 ? (
+          <p id={errorId} role="alert" className="text-error text-xs font-bold">
+            {error}
+          </p>
+        ) : null}
+      </div>
     </>
   )
 }

@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -9,7 +10,13 @@ import { cn } from '@nl/ui/utils'
 import { Button } from '@nl/ui/base/button'
 import { Checkbox } from '@nl/ui/base/checkbox'
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@nl/ui/base/form'
-import { Input } from '@nl/ui/custom/input'
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupPasswordToggle,
+  InputGroupText,
+} from '@nl/ui/base/input-group'
 
 import { SocialAuth, type SocialAuthProps } from '../social-auth'
 import { VIEWS } from '../constants'
@@ -54,6 +61,7 @@ export function LoginForm({
     defaultValues: { email: '', password: '', remember_me: true },
   })
   const disabled = form.formState.isSubmitting
+  const [showPassword, setShowPassword] = useState(false)
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     if (view === VIEWS.LOGIN) await handleLogin(values)
@@ -69,15 +77,21 @@ export function LoginForm({
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  type="email"
-                  autoComplete={view === VIEWS.LOGIN ? 'on' : 'off'}
-                  disabled={disabled}
-                  startIcon={<Mail absoluteStrokeWidth size={20} strokeWidth={1.5} />}
-                />
-              </FormControl>
+              <InputGroup>
+                <InputGroupAddon>
+                  <InputGroupText>
+                    <Mail absoluteStrokeWidth size={20} strokeWidth={1.5} aria-hidden="true" />
+                  </InputGroupText>
+                </InputGroupAddon>
+                <FormControl>
+                  <InputGroupInput
+                    {...field}
+                    type="email"
+                    autoComplete={view === VIEWS.LOGIN ? 'on' : 'off'}
+                    disabled={disabled}
+                  />
+                </FormControl>
+              </InputGroup>
               <FormMessage />
             </FormItem>
           )}
@@ -88,15 +102,30 @@ export function LoginForm({
           render={({ field }) => (
             <FormItem>
               <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  type="password"
-                  autoComplete={view === VIEWS.LOGIN ? 'current-password' : 'new-password'}
-                  disabled={disabled}
-                  startIcon={<KeyRound absoluteStrokeWidth size={20} strokeWidth={1.5} />}
-                />
-              </FormControl>
+              <InputGroup>
+                <InputGroupAddon>
+                  <InputGroupText>
+                    <KeyRound absoluteStrokeWidth size={20} strokeWidth={1.5} aria-hidden="true" />
+                  </InputGroupText>
+                </InputGroupAddon>
+                <FormControl>
+                  <InputGroupInput
+                    {...field}
+                    type={showPassword ? 'text' : 'password'}
+                    autoComplete={view === VIEWS.LOGIN ? 'current-password' : 'new-password'}
+                    disabled={disabled}
+                  />
+                </FormControl>
+                {field.value ? (
+                  <InputGroupAddon align="inline-end">
+                    <InputGroupPasswordToggle
+                      visible={showPassword}
+                      onVisibleChange={setShowPassword}
+                      disabled={disabled}
+                    />
+                  </InputGroupAddon>
+                ) : null}
+              </InputGroup>
               <FormMessage />
             </FormItem>
           )}

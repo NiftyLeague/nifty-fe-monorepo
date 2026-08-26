@@ -2,9 +2,9 @@ import { useMemo } from 'react'
 import { formatNumberToDisplay } from '@nl/ui/number-format'
 import { useUserContext } from '../../hooks/useUserContext'
 import { Icon } from '@nl/ui/base/icon'
-import { Input } from '@nl/ui/custom/input'
 import { Separator } from '@nl/ui/base/separator'
 import type { CharacterInstance, ItemInstance } from '@nl/playfab/types'
+import DisplayField from '../DisplayField'
 
 type Items = Record<'wearables' | 'weapons' | 'emotes' | 'items', ItemInstance[]>
 type Characters = Record<'nft_degens' | 'f2p_degens' | 'other_chars', CharacterInstance[]>
@@ -59,32 +59,29 @@ export default function Inventory() {
             <h3 className="text-lg">Currencies</h3>
           </legend>
           <div className="grid grid-cols-3 gap-2">
-            <Input
+            <DisplayField
               id="T1"
-              className="w-full text-center !opacity-100 !bg-purple/20 !text-purple-200"
-              type="text"
               value={formatNumberToDisplay(currencies?.T1, 0)}
               label="Brawl Bucks"
-              disabled
-              startIcon={<Icon name="receipt" className="text-purple-200" />}
+              className="w-full bg-purple/20"
+              inputClassName="text-center !opacity-100 !text-purple-200"
+              icon={<Icon name="receipt" className="text-purple-200" />}
             />
-            <Input
+            <DisplayField
               id="T2"
-              className="w-full text-center !opacity-100 !bg-warning/20 !text-yellow-200"
-              type="text"
               value={formatNumberToDisplay(currencies?.T2, 0)}
               label="Nifty Nuggets"
-              disabled
-              startIcon={<Icon name="piggy-bank" className="text-yellow-200" />}
+              className="w-full bg-warning/20"
+              inputClassName="text-center !opacity-100 !text-yellow-200"
+              icon={<Icon name="piggy-bank" className="text-yellow-200" />}
             />
-            <Input
+            <DisplayField
               id="CE"
-              className="w-full text-center !opacity-100 !bg-success/20 !text-green-200"
-              type="text"
               value={formatNumberToDisplay(currencies?.CE, 0)}
               label="Combat Essence"
-              disabled
-              startIcon={<Icon name="flask-round" className="text-green-200" />}
+              className="w-full bg-success/20"
+              inputClassName="text-center !opacity-100 !text-green-200"
+              icon={<Icon name="flask-round" className="text-green-200" />}
             />
           </div>
         </div>
@@ -98,32 +95,29 @@ export default function Inventory() {
             <h3 className="text-lg">Items</h3>
           </legend>
           <div className="grid grid-cols-3 gap-4">
-            <Input
+            <DisplayField
               id="weapons"
-              className="w-full text-center !opacity-100 !bg-blue/20 !text-blue-200"
-              type="text"
               value={weapons.length}
               label="Weapons"
-              disabled
-              startIcon={<Icon name="axe" className="text-blue-200" />}
+              className="w-full bg-blue/20"
+              inputClassName="text-center !opacity-100 !text-blue-200"
+              icon={<Icon name="axe" className="text-blue-200" />}
             />
-            <Input
+            <DisplayField
               id="wearables"
-              className="w-full text-center !opacity-100 !bg-blue/20 !text-blue-200"
-              type="text"
               value={wearables.length}
               label="Wearables"
-              disabled
-              startIcon={<Icon name="medal" className="text-blue-200" />}
+              className="w-full bg-blue/20"
+              inputClassName="text-center !opacity-100 !text-blue-200"
+              icon={<Icon name="medal" className="text-blue-200" />}
             />
-            <Input
+            <DisplayField
               id="emotes"
-              className="w-full text-center !opacity-100 !bg-blue/20 !text-blue-200"
-              type="text"
               value={emotes.length}
               label="Emotes"
-              disabled
-              startIcon={<Icon name="laugh" className="text-blue-200" />}
+              className="w-full bg-blue/20"
+              inputClassName="text-center !opacity-100 !text-blue-200"
+              icon={<Icon name="laugh" className="text-blue-200" />}
             />
           </div>
         </div>
@@ -137,32 +131,29 @@ export default function Inventory() {
             <h3 className="text-lg">Characters</h3>
           </legend>
           <div className="grid grid-cols-3 gap-4">
-            <Input
+            <DisplayField
               id="nft-degens"
-              className="w-full text-center !opacity-100 !bg-blue/20 !text-blue-200"
-              type="text"
               value={nft_degens.length}
               label="NFT Degens"
-              disabled
-              startIcon={<Icon name="shield-check" className="text-blue-200" />}
+              className="w-full bg-blue/20"
+              inputClassName="text-center !opacity-100 !text-blue-200"
+              icon={<Icon name="shield-check" className="text-blue-200" />}
             />
-            <Input
+            <DisplayField
               id="f2p-degens"
-              className="w-full text-center !opacity-100 !bg-blue/20 !text-blue-200"
-              type="text"
               value={f2p_degens.length}
               label="F2P Degens"
-              disabled
-              startIcon={<Icon name="cat" className="text-blue-200" />}
+              className="w-full bg-blue/20"
+              inputClassName="text-center !opacity-100 !text-blue-200"
+              icon={<Icon name="cat" className="text-blue-200" />}
             />
-            <Input
+            <DisplayField
               id="other-degens"
-              className="w-full text-center !opacity-100 !bg-blue/20 !text-blue-200"
-              type="text"
               value={other_chars.length}
               label="Other"
-              disabled
-              startIcon={<Icon name="panda" className="text-blue-200" />}
+              className="w-full bg-blue/20"
+              inputClassName="text-center !opacity-100 !text-blue-200"
+              icon={<Icon name="panda" className="text-blue-200" />}
             />
           </div>
         </div>
