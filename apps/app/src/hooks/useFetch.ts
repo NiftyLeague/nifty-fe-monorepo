@@ -76,14 +76,19 @@ async function fetchOnce<T>(
   requestInit: RequestInit,
   textOnly: boolean,
   requestKey: string,
-  shareRequest: boolean
+  shareRequest: boolean,
+  signal?: AbortSignal
 ): Promise<T> {
   if (shareRequest) {
     const pending = pendingRequests.get(requestKey)
     if (pending) return pending as Promise<T>
   }
 
-  const request = fetch(url, { ...requestInit, headers: requestInit.headers })
+  const request = fetch(url, {
+    ...requestInit,
+    headers: requestInit.headers,
+    ...(signal ? { signal } : {}),
+  })
     .then(async (response) => {
       if (!response.ok) throw new Error(response.statusText)
       return (textOnly ? await response.text() : await response.json()) as T
@@ -125,6 +130,10 @@ function useFetch<T = unknown>(url?: string, options?: Options, textOnly = false
 
     hasReset.current = false
     let active = true
+    const abortController =
+      !shouldShareCache && requestInit.signal === undefined && typeof AbortController === 'function'
+        ? new AbortController()
+        : undefined
     dispatch({ type: 'loading' })
 
     const fetchData = async () => {
@@ -150,7 +159,14 @@ function useFetch<T = unknown>(url?: string, options?: Options, textOnly = false
       }
 
       try {
-        const data = await fetchOnce<T>(url, requestInit, textOnly, cacheKey, shouldShareCache)
+        const data = await fetchOnce<T>(
+          url,
+          requestInit,
+          textOnly,
+          cacheKey,
+          shouldShareCache,
+          abortController?.signal
+        )
         cache.current[cacheKey] = data
         if (shouldShareCache && requestKey) {
           sharedCache.set(requestKey, {
@@ -168,6 +184,7 @@ function useFetch<T = unknown>(url?: string, options?: Options, textOnly = false
 
     return () => {
       active = false
+      abortController?.abort()
     }
   }, [enabled, requestInit, requestKey, shouldShareCache, textOnly, url])
 
