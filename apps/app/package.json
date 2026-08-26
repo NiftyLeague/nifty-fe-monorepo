@@ -4,9 +4,11 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "NEXT_TYPESCRIPT_NO_AUTO_INSTALL=1 next build",
+    "build": "NEXT_TYPESCRIPT_NO_AUTO_INSTALL=1 next build --webpack",
+    "build:turbo": "NEXT_TYPESCRIPT_NO_AUTO_INSTALL=1 next build",
     "clean": "rm -rf node_modules && rm -rf .turbo && rm -rf .next",
-    "dev": "next dev --turbopack --port 3001",
+    "dev": "next dev --webpack --port 3001",
+    "dev:turbo": "next dev --turbopack --port 3001",
     "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\" --ignore-path ../../.gitignore",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",

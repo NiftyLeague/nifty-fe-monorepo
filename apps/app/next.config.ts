@@ -39,8 +39,8 @@ const nextConfig: NextConfig = {
     deviceSizes: [...IMAGE_DEVICE_SIZES],
     imageSizes: [...IMAGE_SMALL_SIZES],
   },
-  // Keep the Webpack compatibility path for explicit `next build --webpack`
-  // fallback runs; the normal build and dev paths stay on the Turbopack worker.
+  // Keep the Webpack compatibility path for the default build/dev scripts.
+  // Turbopack remains available through the explicit `*:turbo` scripts.
   ...(isExplicitWebpackBuild ? { webpack: webpackFallback } : {}),
 }
 
