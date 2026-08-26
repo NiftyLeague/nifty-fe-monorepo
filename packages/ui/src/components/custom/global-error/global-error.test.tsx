@@ -15,6 +15,7 @@ describe('GlobalErrorPage', () => {
     expect(screen.getByRole('button', { name: 'Try again' })).toBeTruthy()
     expect(screen.getByRole('alert').getAttribute('aria-describedby')).toBe('global-error-message')
     expect(screen.getByRole('main').style.backgroundColor).toBe('#09090b')
+    expect(screen.getByRole('main').style.colorScheme).toBe('dark')
   })
 
   it('retries through the native keyboard-accessible button', () => {
