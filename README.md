@@ -146,7 +146,7 @@ choco install act
 After you have act installed, you can run the following command to run all CI tests locally via Docker:
 
 ```
-pnpm act-ci
+bun run act-ci
 ```
 
 > **Note:**
@@ -224,7 +224,7 @@ We use [Shadcn/ui](https://ui.shadcn.com/) as foundational components for all of
 Add Shadcn UI components to `@nl/ui/base` using the provided script:
 
 ```
-pnpm add-ui COMPONENT_NAME
+bun run add-ui COMPONENT_NAME
 ```
 
 If you need to customize, extend, or build custom global components they should be placed in the `@nl/ui/custom` package.
