@@ -26,6 +26,18 @@ const appBaseInputConsumers = [
   'apps/app/src/components/dialog/BuyArcadeTokensDialog.tsx',
   'apps/app/src/components/dialog/DegenDialog/RentDegenContentDialog.tsx',
 ]
+const sharedInputGroupConsumers = [
+  'packages/ui/src/components/custom/auth-form/forms/login.tsx',
+  'packages/ui/src/components/custom/auth-form/forms/forgot-password.tsx',
+  'packages/ui/src/components/custom/auth-form/forms/update-password.tsx',
+  'packages/playfab/src/components/DisplayField.tsx',
+  'packages/playfab/src/components/Stats/index.tsx',
+  'packages/playfab/src/components/Inventory/index.tsx',
+  'packages/playfab/src/components/AccountDetails/index.tsx',
+  'packages/playfab/src/components/AccountDetails/LinkWalletInput.tsx',
+]
+const sharedInputGroup = 'packages/ui/src/components/base/input-group.tsx'
+const retiredCustomInput = 'packages/ui/src/components/custom/input/index.tsx'
 const smashersNextConfig = 'apps/smashers/next.config.ts'
 const templateNextConfig = 'apps/template/next.config.ts'
 const templatePage = 'apps/template/src/app/page.tsx'
@@ -502,6 +514,22 @@ describe('app performance contracts', () => {
       const source = readFileSync(file, 'utf8')
       expect(source).toContain("from '@nl/ui/base/input'")
       expect(source).not.toContain("from '@nl/ui/custom/input'")
+    }
+  })
+
+  it('shares the accessible input group across auth and PlayFab surfaces', () => {
+    const inputGroupSource = readFileSync(sharedInputGroup, 'utf8')
+
+    expect(inputGroupSource).toContain('role="group"')
+    expect(inputGroupSource).toContain("aria-label={visible ? 'Hide' : 'Reveal'}")
+    expect(existsSync(retiredCustomInput)).toBe(false)
+
+    for (const file of sharedInputGroupConsumers) {
+      const source = readFileSync(file, 'utf8')
+      expect(source).not.toContain('@nl/ui/custom/input')
+      expect(
+        source.includes('@nl/ui/base/input-group') || source.includes("from '../DisplayField'")
+      ).toBe(true)
     }
   })
 
