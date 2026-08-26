@@ -11,23 +11,34 @@ interface FooterLinkProps {
   name: string
 }
 
-const FooterLink = ({ href, name, external = false, first = false }: FooterLinkProps) => (
-  <Link
-    href={href}
-    prefetch={false}
-    className={cx(
-      'inline-flex items-center justify-center sm:justify-start',
-      linkClass,
-      animateClass,
-      !first && 'mt-2'
-    )}
-    target={external ? '_blank' : undefined}
-    rel={external ? 'noreferrer' : undefined}
-  >
-    <span className="whitespace-nowrap">{name}</span>
-    {external && <ExternalIcon />}
-  </Link>
-)
+const FooterLink = ({ href, name, external = false, first = false }: FooterLinkProps) => {
+  const className = cx(
+    'inline-flex items-center justify-center sm:justify-start',
+    linkClass,
+    animateClass,
+    !first && 'mt-2'
+  )
+  const content = (
+    <>
+      <span className="whitespace-nowrap">{name}</span>
+      {external && <ExternalIcon />}
+    </>
+  )
+
+  if (external && typeof href === 'string') {
+    return (
+      <a href={href} target="_blank" rel="noreferrer" className={className}>
+        {content}
+      </a>
+    )
+  }
+
+  return (
+    <Link href={href} prefetch={false} className={className}>
+      {content}
+    </Link>
+  )
+}
 
 export default function Footer() {
   return (
