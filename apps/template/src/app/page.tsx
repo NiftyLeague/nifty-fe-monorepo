@@ -1,5 +1,3 @@
-import Link from 'next/link'
-
 import { Button } from '@nl/ui/base/button'
 import { Card, CardTitle, CardDescription } from '@nl/ui/base/card'
 import { Icon } from '@nl/ui/base/icon'
@@ -179,12 +177,12 @@ export default function Page(): React.ReactNode {
 
       <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-4 z-1">
         {LINKS.map(({ title, href, description }) => (
-          <Link key={title} href={href} target="_blank" rel="noreferrer">
+          <a key={title} href={href} target="_blank" rel="noreferrer">
             <Card className="px-8">
               <CardTitle>{title}</CardTitle>
               <CardDescription>{description}</CardDescription>
             </Card>
-          </Link>
+          </a>
         ))}
       </div>
 
