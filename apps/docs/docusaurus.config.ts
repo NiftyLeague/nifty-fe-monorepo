@@ -1,6 +1,18 @@
 import { themes as prismThemes } from 'prism-react-renderer'
+import { dirname } from 'node:path'
 import type { Config } from '@docusaurus/types'
 import type * as Preset from '@docusaurus/preset-classic'
+
+const presetPackagePath = dirname(require.resolve('@docusaurus/preset-classic'))
+const docsClientEntry = require.resolve('@docusaurus/plugin-content-docs/client', {
+  paths: [presetPackagePath],
+})
+const themeCommonEntry = require.resolve('@docusaurus/theme-common', {
+  paths: [presetPackagePath],
+})
+const themeCommonInternalEntry = require.resolve('@docusaurus/theme-common/internal', {
+  paths: [presetPackagePath],
+})
 
 const config: Config = {
   title: 'Nifty League Docs',
@@ -74,6 +86,25 @@ const config: Config = {
         },
       } satisfies Preset.Options,
     ],
+  ],
+
+  plugins: [
+    function dedupeDocsClient() {
+      return {
+        name: 'dedupe-docusaurus-docs-client',
+        configureWebpack() {
+          return {
+            resolve: {
+              alias: {
+                '@docusaurus/plugin-content-docs/client$': docsClientEntry,
+                '@docusaurus/theme-common$': themeCommonEntry,
+                '@docusaurus/theme-common/internal$': themeCommonInternalEntry,
+              },
+            },
+          }
+        },
+      }
+    },
   ],
 
   themeConfig: {
