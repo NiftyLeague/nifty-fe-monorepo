@@ -18,7 +18,9 @@ const MyStats = ({ profile }: { profile?: Profile }): React.ReactNode => {
           actions={
             <div className="flex flex-row gap-4">
               <Button asChild variant="outline">
-                <Link href="/dashboard/gamer-profile">View All Stats</Link>
+                <Link href="/dashboard/gamer-profile" prefetch={false}>
+                  View All Stats
+                </Link>
               </Button>
             </div>
           }

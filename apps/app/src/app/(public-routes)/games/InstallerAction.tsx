@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { Button } from '@nl/ui/base/button'
 
 import useVersion from '@/hooks/useVersion'
@@ -19,7 +18,7 @@ const InstallerAction = () => {
 
   return (
     <Button asChild variant="outline">
-      <Link href={downloadURL}>{message}</Link>
+      <a href={downloadURL}>{message}</a>
     </Button>
   )
 }
