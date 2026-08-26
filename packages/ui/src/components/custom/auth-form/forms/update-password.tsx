@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -7,7 +8,13 @@ import { KeyRound, Loader, Save } from 'lucide-react'
 
 import { Button } from '@nl/ui/base/button'
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@nl/ui/base/form'
-import { Input } from '@nl/ui/custom/input'
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupPasswordToggle,
+  InputGroupText,
+} from '@nl/ui/base/input-group'
 
 export interface UpdatePasswordFormProps {
   handleUpdatePassword: (values: z.infer<typeof formSchema>) => Promise<void>
@@ -26,6 +33,8 @@ const formSchema = z.object({
 })
 
 export function UpdatePasswordForm({ handleUpdatePassword }: UpdatePasswordFormProps) {
+  const [showOldPassword, setShowOldPassword] = useState(false)
+  const [showNewPassword, setShowNewPassword] = useState(false)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: { old_password: '', new_password: '' },
@@ -44,14 +53,29 @@ export function UpdatePasswordForm({ handleUpdatePassword }: UpdatePasswordFormP
           render={({ field }) => (
             <FormItem>
               <FormLabel>Old Password</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  type="password"
-                  autoComplete="current-password"
-                  startIcon={<KeyRound absoluteStrokeWidth size={20} strokeWidth={1.5} />}
-                />
-              </FormControl>
+              <InputGroup>
+                <InputGroupAddon>
+                  <InputGroupText>
+                    <KeyRound absoluteStrokeWidth size={20} strokeWidth={1.5} aria-hidden="true" />
+                  </InputGroupText>
+                </InputGroupAddon>
+                <FormControl>
+                  <InputGroupInput
+                    {...field}
+                    type={showOldPassword ? 'text' : 'password'}
+                    autoComplete="current-password"
+                  />
+                </FormControl>
+                {field.value ? (
+                  <InputGroupAddon align="inline-end">
+                    <InputGroupPasswordToggle
+                      visible={showOldPassword}
+                      onVisibleChange={setShowOldPassword}
+                      disabled={form.formState.isSubmitting}
+                    />
+                  </InputGroupAddon>
+                ) : null}
+              </InputGroup>
               <FormMessage />
             </FormItem>
           )}
@@ -62,14 +86,29 @@ export function UpdatePasswordForm({ handleUpdatePassword }: UpdatePasswordFormP
           render={({ field }) => (
             <FormItem>
               <FormLabel>New Password</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  type="password"
-                  autoComplete="new-password"
-                  startIcon={<KeyRound absoluteStrokeWidth size={20} strokeWidth={1.5} />}
-                />
-              </FormControl>
+              <InputGroup>
+                <InputGroupAddon>
+                  <InputGroupText>
+                    <KeyRound absoluteStrokeWidth size={20} strokeWidth={1.5} aria-hidden="true" />
+                  </InputGroupText>
+                </InputGroupAddon>
+                <FormControl>
+                  <InputGroupInput
+                    {...field}
+                    type={showNewPassword ? 'text' : 'password'}
+                    autoComplete="new-password"
+                  />
+                </FormControl>
+                {field.value ? (
+                  <InputGroupAddon align="inline-end">
+                    <InputGroupPasswordToggle
+                      visible={showNewPassword}
+                      onVisibleChange={setShowNewPassword}
+                      disabled={form.formState.isSubmitting}
+                    />
+                  </InputGroupAddon>
+                ) : null}
+              </InputGroup>
               <FormMessage />
             </FormItem>
           )}

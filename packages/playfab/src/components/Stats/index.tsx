@@ -1,6 +1,6 @@
 import { formatNumberToDisplay } from '@nl/ui/number-format'
 import { useUserContext } from '../../hooks/useUserContext'
-import { Input } from '@nl/ui/custom/input'
+import DisplayField from '../DisplayField'
 
 const STAT_MAP = {
   NiftyPlayersWin: { displayName: 'Total Wins', icon: '🏆' },
@@ -36,14 +36,13 @@ export default function Stats() {
                 icon: '⭐',
               }
               return (
-                <Input
+                <DisplayField
                   key={StatisticName}
                   id={StatisticName}
-                  className="w-full text-center !opacity-100 !bg-purple/20 !text-purple-200"
-                  type="text"
                   value={`${statInfo.icon} ${formatNumberToDisplay(Value, 0)}`}
                   label={statInfo.displayName}
-                  disabled
+                  className="w-full bg-purple/20"
+                  inputClassName="text-center !opacity-100 !text-purple-200"
                 />
               )
             })}
