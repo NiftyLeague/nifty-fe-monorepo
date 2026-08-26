@@ -62,6 +62,11 @@ describe('PublicNavigation', () => {
     expect(screen.getByRole('link', { name: 'Docs' }).getAttribute('href')).toBe(
       'https://niftyleague.com/docs'
     )
-    expect(document.querySelectorAll('[data-public-user-profile]')).toHaveLength(2)
+    const profileSlots = [...document.querySelectorAll('[data-public-user-profile]')]
+    expect(profileSlots).toHaveLength(2)
+    expect(profileSlots.map((slot) => slot.getAttribute('data-placement'))).toEqual([
+      'mobile',
+      'desktop',
+    ])
   })
 })
