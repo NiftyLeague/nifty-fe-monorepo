@@ -208,7 +208,6 @@ const smashersLoginClient = 'apps/smashers/src/app/(auth_routes)/login/LoginClie
 const smashersLoginPage = 'apps/smashers/src/app/(auth_routes)/login/page.tsx'
 const smashersLoginRoute = 'apps/smashers/src/app/(auth_routes)/login/LoginRoute.tsx'
 const sharedAuthIconSources = [
-  'packages/ui/src/components/custom/input/index.tsx',
   'packages/ui/src/components/custom/auth-form/forms/login.tsx',
   'packages/ui/src/components/custom/auth-form/forms/forgot-password.tsx',
   'packages/ui/src/components/custom/auth-form/forms/update-password.tsx',
