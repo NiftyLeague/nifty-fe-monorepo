@@ -18,10 +18,10 @@ Contributing to the docs site is a great way to get involved in the dev communit
 ## How to generate markdown files from solidity Natspec comments
 
 Install solidity doc gen
-`pnpm install solidity-docgen`
+`bun add --dev solidity-docgen`
 
 Get the correct compiler version
-`pnpm install -D solc-0.7@npm:solc@0.7.6`
+`bun add --dev solc-0.7@npm:solc@0.7.6`
 
 Put the updated template `contract.hbs` in a /templates folder under the same directory as /contracts that you want to generate
 
@@ -29,7 +29,7 @@ Run `npx solidity-docgen --solc-module solc-0.7 -t ./templates`
 
 ## How to gernerate markdown files from typescript commments
 
-`pnpm install --save-dev typedoc typedoc-plugin-markdown`
+`bun add --dev typedoc typedoc-plugin-markdown`
 
 `typedoc --out <docs> src/index.ts`
 
@@ -67,13 +67,13 @@ vercel env pull .env.local   # preferred: pulls from Vercel (source of truth)
 ### Installation
 
 ```
-$ pnpm install
+$ bun install
 ```
 
 ### Local Development
 
 ```
-$ pnpm dev
+$ bun run dev
 ```
 
 This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
@@ -81,13 +81,13 @@ This command starts a local development server and opens up a browser window. Mo
 ### Clear cache
 
 ```console
-pnpm clear
+bun run clear
 ```
 
 ### Build
 
 ```
-$ pnpm build
+$ bun run build
 ```
 
 This command generates static content into the `build` directory and can be served using any static contents hosting service.
@@ -97,13 +97,13 @@ This command generates static content into the `build` directory and can be serv
 Using SSH:
 
 ```
-$ USE_SSH=true pnpm deploy
+$ USE_SSH=true bun run deploy
 ```
 
 Not using SSH:
 
 ```
-$ GIT_USER=<Your GitHub username> pnpm deploy
+$ GIT_USER=<Your GitHub username> bun run deploy
 ```
 
 If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
@@ -117,10 +117,10 @@ Follow docs provided by Docusaurus for initial setup: https://docusaurus.io/docs
 After changes generate the JSON translation files for the default language in website/i18n/en:
 
 ```console
-pnpm write-translations
+bun run write-translations
 ```
 
-We use Github integration through Crowdin so please skip running `pnpm crowdin upload` to upload all the JSON and Markdown translation files.
+We use Github integration through Crowdin so please skip running `bun run crowdin upload` to upload all the JSON and Markdown translation files.
 
 As translations occcur in Crowdin it will automatically create pull requests from `l10n_staging` into `staging` so there is no need to downloading anything as well.
 

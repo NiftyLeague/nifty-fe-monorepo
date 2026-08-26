@@ -31,7 +31,7 @@ Translate `i18n/fr/docusaurus-plugin-content-docs/current/intro.md` in French.
 Start your site on the French locale:
 
 ```bash
-pnpm start -- --locale fr
+bun run start -- --locale fr
 ```
 
 Your localized site is accessible at [http://localhost:3000/fr/](http://localhost:3000/fr/) and the `Getting Started` page is translated.
@@ -71,11 +71,11 @@ The locale dropdown now appears in your navbar:
 Build your site for a specific locale:
 
 ```bash
-pnpm build -- --locale fr
+bun run build -- --locale fr
 ```
 
 Or build your site to include all the locales at once:
 
 ```bash
-pnpm build
+bun run build
 ```
