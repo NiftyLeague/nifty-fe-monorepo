@@ -11,13 +11,19 @@ mock.module('@nl/ui/custom/optimized-image', () => ({
 }))
 describe('ConsoleGame', () => {
   let ConsoleGame: typeof import('./index').ConsoleGame
+  let ConsoleGameBackdrop: typeof import('./backdrop').ConsoleGameBackdrop
 
   beforeEach(async () => {
     ConsoleGame = (await import('./index')).ConsoleGame
+    ConsoleGameBackdrop = (await import('./backdrop')).ConsoleGameBackdrop
   })
 
   it('defers the backdrop image while the video remains viewport-aware', () => {
-    const { container } = render(<ConsoleGame src="/video/example.mp4" />)
+    const { container } = render(
+      <ConsoleGame src="/video/example.mp4">
+        <ConsoleGameBackdrop />
+      </ConsoleGame>
+    )
     const image = container.querySelector('img')
     const video = container.querySelector('video')
 
@@ -38,14 +44,20 @@ describe('ConsoleGame', () => {
 
   it('uses the parent visibility state to pause outside the viewport', () => {
     const { container, rerender } = render(
-      <ConsoleGame isNearViewport={false} src="/video/example.mp4" />
+      <ConsoleGame isNearViewport={false} src="/video/example.mp4">
+        <ConsoleGameBackdrop />
+      </ConsoleGame>
     )
     const video = container.querySelector('video')
 
     expect(video?.getAttribute('preload')).toBe('none')
     expect(video?.hasAttribute('autoplay')).toBe(false)
 
-    rerender(<ConsoleGame isNearViewport src="/video/example.mp4" />)
+    rerender(
+      <ConsoleGame isNearViewport src="/video/example.mp4">
+        <ConsoleGameBackdrop />
+      </ConsoleGame>
+    )
     expect(video?.getAttribute('preload')).toBe('metadata')
     expect(video?.hasAttribute('autoplay')).toBe(true)
   })
