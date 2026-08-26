@@ -8,6 +8,7 @@ on:
     types: [opened, reopened, synchronize]
 
 permissions:
+  actions: write
   contents: write
   pull-requests: write
 
@@ -26,9 +27,9 @@ jobs:
     runs-on: ubuntu-slim
     timeout-minutes: 15
     env:
-      # Use the repository automation token so the replacement PR receives
-      # its normal validation/Vercel events instead of being invisible to CI.
-      GH_TOKEN: ${{ secrets.CODE_FOUNDRY_TOKEN || secrets.RELEASE_PLEASE_TOKEN || github.token }}
+      # Prefer the automation token. The repository token is a safe fallback;
+      # validation is dispatched explicitly after fallback-authenticated PR creation.
+      GH_TOKEN: ${{ secrets.CODE_FOUNDRY_TOKEN || github.token }}
       PROMOTION_PR: ${{ github.event.pull_request.number || '' }}
     steps:
       - name: Checkout
@@ -56,6 +57,22 @@ jobs:
         run: |
           set -euo pipefail
 
+          close_staging_promotions() {
+            staging_promotions=$(gh pr list \
+              --base main \
+              --head staging \
+              --state open \
+              --limit 1000 \
+              --json number \
+              --jq '.[].number')
+            while read -r promotion_pr; do
+              [ -n "$promotion_pr" ] || continue
+              echo "Closing superseded staging promotion PR #$promotion_pr."
+              gh pr close "$promotion_pr" \
+                --comment "Replaced by the rebase-compatible promotion snapshot; no validated staging changes were discarded."
+            done <<< "$staging_promotions"
+          }
+
           existing_snapshot=$(gh pr list \
             --base main \
             --state open \
@@ -64,11 +81,7 @@ jobs:
             --jq 'map(select(.headRefName | startswith("codex/promote-staging-snapshot-"))) | first | .number // empty')
           if [ -n "$existing_snapshot" ]; then
             echo "Promotion snapshot PR #$existing_snapshot already exists."
-            if [ -n "$PROMOTION_PR" ]; then
-              gh pr close "$PROMOTION_PR" \
-                --comment "A rebase-compatible promotion snapshot is already open as PR #$existing_snapshot; closing this conflicting staging promotion." \
-                --delete-branch
-            fi
+            close_staging_promotions
             exit 0
           fi
 
@@ -76,11 +89,7 @@ jobs:
           staging_tree=$(git rev-parse 'origin/staging^{tree}')
           if [ "$main_tree" = "$staging_tree" ]; then
             echo "main already contains the exact staging tree; no promotion snapshot is needed."
-            if [ -n "$PROMOTION_PR" ]; then
-              gh pr close "$PROMOTION_PR" \
-                --comment "Main already contains the exact validated staging tree; closing this history-only promotion conflict." \
-                --delete-branch
-            fi
+            close_staging_promotions
             exit 0
           fi
 
@@ -92,6 +101,7 @@ jobs:
           git commit -m "chore: promote validated staging tree"
           git push --set-upstream origin "$branch"
 
+          close_staging_promotions
           promotion_context="the conflicting staging promotion"
           if [ -n "$PROMOTION_PR" ]; then
             promotion_context="the conflicting staging promotion PR #$PROMOTION_PR"
@@ -102,8 +112,5 @@ jobs:
             --title "chore: promote validated staging tree" \
             --body "This rebase-compatible snapshot was created because staging is not based on main. It contains the exact validated staging tree and replaces $promotion_context.")
           echo "Created $snapshot_pr"
-          if [ -n "$PROMOTION_PR" ]; then
-            gh pr close "$PROMOTION_PR" \
-              --comment "Replaced by the rebase-compatible promotion snapshot $snapshot_pr; no validated staging changes were discarded." \
-              --delete-branch
-          fi
+          gh workflow run validation.yml --ref "$branch"
+          echo "Dispatched validation for $branch because the snapshot PR was created with the repository token."
