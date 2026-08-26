@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, mock, spyOn } from 'bun:test'
+import { renderHook, waitFor } from '@testing-library/react'
 
-import { readAccumulatedNFTL } from './useClaimableNFTL'
+import useClaimableNFTL, { readAccumulatedNFTL } from './useClaimableNFTL'
 
 afterEach(() => {
   mock.restore()
@@ -37,6 +38,50 @@ describe('readAccumulatedNFTL', () => {
     const fetchMock = spyOn(globalThis, 'fetch')
 
     await expect(readAccumulatedNFTL(-1)).rejects.toThrow('non-negative safe integer')
+    expect(fetchMock).not.toHaveBeenCalled()
+  })
+})
+
+describe('useClaimableNFTL', () => {
+  it('reports loading while the RPC read is in flight, then settles with the balance', async () => {
+    // 1 ETH worth of 10^18 units -> formatted balance "1"
+    let resolveFetch: (response: Response) => void
+    const fetchMock = spyOn(globalThis, 'fetch').mockImplementation(
+      () =>
+        new Promise<Response>((resolve) => {
+          resolveFetch = resolve
+        })
+    )
+
+    const { result } = renderHook(() => useClaimableNFTL(7))
+
+    expect(result.current.loading).toBe(true)
+    expect(result.current.balance).toBe(0)
+
+    resolveFetch!(new Response(JSON.stringify({ result: '0x0de0b6b3a7640000' }), { status: 200 }))
+    await waitFor(() => expect(result.current.loading).toBe(false))
+    expect(result.current.balance).toBe(1)
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+  })
+
+  it('stops loading when the RPC read fails', async () => {
+    spyOn(globalThis, 'fetch').mockImplementation(async () => new Response('', { status: 500 }))
+    const consoleError = spyOn(console, 'error').mockImplementation(() => {})
+
+    const { result } = renderHook(() => useClaimableNFTL(1))
+
+    await waitFor(() => expect(result.current.loading).toBe(false))
+    expect(result.current.balance).toBe(0)
+    expect(consoleError).toHaveBeenCalled()
+  })
+
+  it('does not fetch and immediately finishes loading for an invalid token id', async () => {
+    const fetchMock = spyOn(globalThis, 'fetch')
+
+    const { result } = renderHook(() => useClaimableNFTL(Number.NaN))
+
+    expect(result.current.loading).toBe(false)
+    expect(result.current.balance).toBe(0)
     expect(fetchMock).not.toHaveBeenCalled()
   })
 })
