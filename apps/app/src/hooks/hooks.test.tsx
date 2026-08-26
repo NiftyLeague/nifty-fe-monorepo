@@ -40,7 +40,10 @@ describe('useFetch', () => {
 
     await waitFor(() => expect(result.current.data).toEqual({ id: 7 }))
     expect(result.current).toMatchObject({ loading: false })
-    expect(fetchMock).toHaveBeenCalledWith('/payload', { headers: undefined })
+    expect(fetchMock).toHaveBeenCalledWith(
+      '/payload',
+      expect.objectContaining({ headers: undefined, signal: expect.any(AbortSignal) })
+    )
 
     rerender({ url: '/payload', textOnly: false })
     expect(fetchMock).toHaveBeenCalledTimes(1)
@@ -109,6 +112,21 @@ describe('useFetch', () => {
     await Promise.resolve()
 
     expect(result.current.data).toBeUndefined()
+  })
+
+  it('aborts an unshared request when its hook unmounts', () => {
+    let requestSignal: AbortSignal | undefined
+    spyOn(globalThis, 'fetch').mockImplementation((_input, init) => {
+      requestSignal = (init as RequestInit | undefined)?.signal
+      return new Promise(() => undefined)
+    })
+
+    const { unmount } = renderHook(() => useFetch('/cancelled-before-response'))
+
+    expect(requestSignal?.aborted).toBe(false)
+    unmount()
+
+    expect(requestSignal?.aborted).toBe(true)
   })
 
   it('skips requests without a URL or when disabled', () => {
