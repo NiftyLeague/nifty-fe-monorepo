@@ -50,7 +50,7 @@
         "@nl/typescript-config": "workspace:*",
         "@types/bn.js": "^5.1.6",
         "@types/body-parser": "^1.19.6",
-        "@types/bun": "^1.3.14",
+        "@types/bun": "^1.4.0",
         "@types/cors": "^2.8.19",
         "@types/express": "^5.0.6",
         "@types/node": "^26.2.0",
@@ -64,7 +64,7 @@
     },
     "apps/app": {
       "name": "app",
-      "version": "1.1.22",
+      "version": "1.1.27",
       "dependencies": {
         "@nl/contracts": "workspace:*",
         "@nl/imx-passport": "workspace:*",
@@ -124,7 +124,7 @@
     },
     "apps/smashers": {
       "name": "smashers",
-      "version": "1.0.10",
+      "version": "1.0.13",
       "dependencies": {
         "@nl/playfab": "workspace:*",
         "@nl/sentry-client": "workspace:*",
@@ -148,7 +148,7 @@
     },
     "apps/template": {
       "name": "template",
-      "version": "1.0.7",
+      "version": "1.0.11",
       "dependencies": {
         "@nl/ui": "workspace:*",
         "next": "16.3.1",
@@ -163,7 +163,7 @@
     },
     "apps/web": {
       "name": "web",
-      "version": "1.0.23",
+      "version": "1.0.28",
       "dependencies": {
         "@google/model-viewer": "^4.3.1",
         "@nl/sentry-client": "workspace:*",
@@ -221,7 +221,7 @@
     },
     "packages/playfab": {
       "name": "@nl/playfab",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "dependencies": {
         "@nl/ui": "workspace:*",
         "notistack": "^3.0.2",
@@ -262,7 +262,7 @@
     },
     "packages/ui": {
       "name": "@nl/ui",
-      "version": "1.0.11",
+      "version": "1.0.16",
       "dependencies": {
         "@hookform/resolvers": "^5.6.0",
         "class-variance-authority": "^0.7.1",
@@ -1889,7 +1889,7 @@
 
     "@types/bonjour": ["@types/bonjour@3.5.13", "", { "dependencies": { "@types/node": "*" } }, "sha512-z9fJ5Im06zvUL548KvYNecEVlA7cVDkGUi6kZusb04mpyEFKCIZJvloCcmpmLaIahDpOQGHaHmG6imtPMmPXGQ=="],
 
-    "@types/bun": ["@types/bun@1.3.14", "", { "dependencies": { "bun-types": "1.3.14" } }, "sha512-h1hFqFVcvAvD9j9K7ZW7vd82aSA+rTdznZa+5bwvCwqSB1jmmfLcbIWhOLx1/+boy/xmjgCs/OMUL8hRJSmnPw=="],
+    "@types/bun": ["@types/bun@1.4.0", "", { "dependencies": { "bun-types": "1.4.0" } }, "sha512-K+lZULY23vRgK/CfTjFIV+tyifaNdSMlPh9j+6mQ/cLfpOznLyAuzgV/JQysyECpkBQLVMSyvjlr2fBUSA9wFQ=="],
 
     "@types/connect": ["@types/connect@3.4.38", "", { "dependencies": { "@types/node": "*" } }, "sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug=="],
 
@@ -2415,7 +2415,7 @@
 
     "buffer-reverse": ["buffer-reverse@1.0.1", "", {}, "sha512-M87YIUBsZ6N924W57vDwT/aOu8hw7ZgdByz6ijksLjmHJELBASmYTTlNHRgjE+pTsT9oJXGaDSgqqwfdHotDUg=="],
 
-    "bun-types": ["bun-types@1.3.14", "", { "dependencies": { "@types/node": "*" } }, "sha512-4N0ig0fEomHt5R0KCFWjovxow98rIoRwKolrYdCcknNwMekCXRnWEUvgu5soYV8QXtVsrUD8B95MBOZGPvr6KQ=="],
+    "bun-types": ["bun-types@1.4.0", "", { "dependencies": { "@types/node": "*" } }, "sha512-iIKw23BspnQQYd3prITOBxeUsxBHnwzX6YJfGMuNOZzeNcMmVqzIIVGRm1l69ogaPQmb4wB6BN8mA5bE9YuC5Q=="],
 
     "bundle-name": ["bundle-name@4.1.0", "", { "dependencies": { "run-applescript": "^7.0.0" } }, "sha512-tjwM5exMg6BGRI+kNmTntNsvdZS1X8BFYS6tnJ2hdH0kVxM6/eVZ2xy+FqStSWvYmtfFMDLIxurorHwDKfDz5Q=="],
 
