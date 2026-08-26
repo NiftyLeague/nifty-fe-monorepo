@@ -25,7 +25,7 @@ beforeEach(() => {
     }: PropsWithChildren<{ href: string; prefetch?: boolean }>) => {
       nextLinkPrefetches.push(prefetch)
       return (
-        <a href={href} {...props}>
+        <a href={href} data-next-link="true" {...props}>
           {children}
         </a>
       )
@@ -108,8 +108,11 @@ describe('Navbar', () => {
     expect(nextLinkPrefetches.every((prefetch) => prefetch === false)).toBe(true)
     expect(screen.getAllByRole('link', { name: /About/ })[0]?.getAttribute('href')).toBe('/about')
     fireEvent.click(screen.getByText('Products', { selector: 'summary' }))
-    expect(screen.getAllByRole('link', { name: /Docs/ })[0]?.getAttribute('target')).toBe('_blank')
+    const docsLinks = screen.getAllByRole('link', { name: /Docs/ })
+    expect(docsLinks[0]?.getAttribute('target')).toBe('_blank')
+    expect(docsLinks.every((link) => link.getAttribute('data-next-link') === null)).toBe(true)
     expect(screen.getByRole('link', { name: 'Game' })?.getAttribute('rel')).toBe('noreferrer')
+    expect(screen.getByRole('link', { name: 'Game' })?.getAttribute('data-next-link')).toBeNull()
     const navigationToggle = screen.getByText('Toggle navigation')
     expect(navigationToggle.closest('summary')).not.toBeNull()
     fireEvent.click(navigationToggle)
