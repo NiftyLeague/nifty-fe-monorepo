@@ -23,7 +23,11 @@ describe('DeferredConsoleGame', () => {
   })
 
   it('renders the backdrop while keeping video media out of the initial viewport', () => {
-    const { container } = render(<DeferredConsoleGame src="/video/example.mp4" />)
+    const { container } = render(
+      <DeferredConsoleGame src="/video/example.mp4">
+        <img alt="Game Console Backdrop" loading="eager" src="/img/backdrop.webp" />
+      </DeferredConsoleGame>
+    )
     const backdrop = screen.getByRole('img', { name: 'Game Console Backdrop' })
 
     expect(backdrop.getAttribute('loading')).toBe('eager')
