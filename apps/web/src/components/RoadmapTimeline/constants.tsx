@@ -157,7 +157,13 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Jun 15th, 2022',
-    image: { height: 1080, src: '/img/games/wen.gif', style: { top: '-130px' }, width: 1440 },
+    image: {
+      height: 1080,
+      src: '/img/games/wen.gif',
+      webpSrc: '/img/games/wen-roadmap.webp',
+      style: { top: '-130px' },
+      width: 1440,
+    },
     title: 'WEN Game',
     body: (
       <>
@@ -181,7 +187,13 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Aug 4th, 2022',
-    image: { height: 1080, src: '/img/games/mt-gawx.gif', style: { top: '-135px' }, width: 1440 },
+    image: {
+      height: 1080,
+      src: '/img/games/mt-gawx.gif',
+      webpSrc: '/img/games/mt-gawx-roadmap.webp',
+      style: { top: '-135px' },
+      width: 1440,
+    },
     title: 'Mt. Gawx',
     body: (
       <>

@@ -224,6 +224,17 @@ describe('dependency contract', () => {
       )
     }
   })
+
+  it('declares the shared PostCSS plugin at every consuming app boundary', () => {
+    for (const appName of ['app', 'smashers', 'template', 'web']) {
+      const pkg = packages.find((candidate) => candidate.name === appName)
+
+      expect(
+        pkg?.devDeps['@tailwindcss/postcss'],
+        `${appName} must resolve shared PostCSS config`
+      ).toBe('^4.3.3')
+    }
+  })
 })
 
 /**
