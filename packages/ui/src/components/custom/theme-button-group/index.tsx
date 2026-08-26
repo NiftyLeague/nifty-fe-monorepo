@@ -48,13 +48,24 @@ export function ThemeButton({
 
   if (!href) return null
 
+  const resolvedClassName = buttonVariants({ variant: 'ghost', className: buttonClassName })
+
+  if (external && typeof href === 'string') {
+    return (
+      <a href={href} target="_blank" rel="noreferrer" className={resolvedClassName}>
+        {content}
+        <ExternalIcon />
+      </a>
+    )
+  }
+
   return (
     <Link
       href={href}
       prefetch={false}
       target={external ? '_blank' : undefined}
       rel={external ? 'noreferrer' : undefined}
-      className={buttonVariants({ variant: 'ghost', className: buttonClassName })}
+      className={resolvedClassName}
     >
       {content}
       {external && <ExternalIcon />}
