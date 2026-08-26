@@ -21,7 +21,7 @@ describe('release reconciliation PR ownership', () => {
   it('reconciles release-metadata-only drift through the guarded staging PR', () => {
     const source = readWorkflow()
 
-    expect(source).toContain('secrets.CODE_FOUNDRY_TOKEN')
+    expect(source).toContain('secrets.CODE_FOUNDRY_TOKEN || github.token')
     expect(source).toContain('Release metadata is authoritative on main after a release')
     expect(source).toContain(
       '.release-please-manifest.json|package.json|*/package.json|CHANGELOG.md|*/CHANGELOG.md'
