@@ -10,10 +10,10 @@ export interface TokenMenuProps {
 }
 
 const TokenMenu = ({ tokenId }: TokenMenuProps) => {
-  const { balance } = useClaimableNFTL(tokenId as string)
+  const { balance, loading } = useClaimableNFTL(tokenId as string)
   return (
-    <div className={styles.menu__nftlUnclaimed}>
-      <strong>NFTL Unclaimed:</strong> {formatNumberToDisplay(balance)}
+    <div className={styles.menu__nftlUnclaimed} aria-busy={loading}>
+      <strong>NFTL Unclaimed:</strong> {loading ? '…' : formatNumberToDisplay(balance)}
     </div>
   )
 }
