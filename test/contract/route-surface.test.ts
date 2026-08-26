@@ -330,6 +330,7 @@ const degensTopNavControls =
   'apps/app/src/components/extended/DegensTopNav/DegensTopNavControls.tsx'
 const publicMainLayout = 'apps/app/src/app/_layout/_PublicMainLayout/index.tsx'
 const publicNavigation = 'apps/app/src/components/providers/PublicNavigation.tsx'
+const deferredPublicUserProfile = 'apps/app/src/components/providers/DeferredPublicUserProfile.tsx'
 const publicUserProfile = 'apps/app/src/components/providers/PublicUserProfile.tsx'
 const sharedAppBar = 'packages/ui/src/components/custom/app-bar/index.tsx'
 const sharedAppBarStyles = 'packages/ui/src/components/custom/app-bar/app-bar.module.css'
@@ -1052,6 +1053,10 @@ describe('public app shell contract', () => {
 
   it('keeps mobile navigation server-rendered and avoids heavy shell primitives', () => {
     const navigationSource = readFileSync(join(process.cwd(), publicNavigation), 'utf8')
+    const deferredProfileSource = readFileSync(
+      join(process.cwd(), deferredPublicUserProfile),
+      'utf8'
+    )
     const profileSource = readFileSync(join(process.cwd(), publicUserProfile), 'utf8')
     const navigationStyles = readFileSync(
       join(process.cwd(), 'apps/app/src/app/_layout/_MainLayout/MainLayout.module.css'),
@@ -1078,10 +1083,14 @@ describe('public app shell contract', () => {
     expect(profileSource).toContain('isVisiblePlacement')
     expect(profileSource).toContain('Sign-in is temporarily unavailable.')
     expect(navigationSource).not.toContain("from '@/components/extended/Breadcrumbs'")
+    expect(deferredProfileSource).toContain("'use client'")
+    expect(deferredProfileSource).toContain("import('./PublicUserProfile')")
+    expect(deferredProfileSource).toContain('useDeferredComponent')
+    expect(deferredProfileSource).toContain('isVisiblePlacement')
     expect(navigationSource).toContain('<details id="public-desktop-navigation-toggle"')
     expect(navigationSource).toContain('aria-controls="public-desktop-navigation"')
-    expect(navigationSource).toContain('<PublicUserProfile placement="mobile" />')
-    expect(navigationSource).toContain('<PublicUserProfile placement="desktop" />')
+    expect(navigationSource).toContain('<DeferredPublicUserProfile placement="mobile" />')
+    expect(navigationSource).toContain('<DeferredPublicUserProfile placement="desktop" />')
     expect(navigationSource).not.toContain('PublicDesktopNavigationToggle')
     expect(navigationSource).toContain('{children}')
     expect(navigationSource).not.toContain('PublicMainContent')
