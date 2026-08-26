@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.63](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.62...nifty-fe-monorepo-v1.2.63) (2026-08-26)
+
+
+### Bug Fixes
+
+* **ci:** recover conflicting staging promotions ([8816777](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/88167770efacf85214c154fce0dc9be56c28e76e))
+
 ## [1.2.62](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.61...nifty-fe-monorepo-v1.2.62) (2026-08-25)
 
 
