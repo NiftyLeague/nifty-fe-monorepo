@@ -1,16 +1,9 @@
-import type { ComponentProps, PropsWithChildren } from 'react'
+import type { ComponentProps } from 'react'
 import { act, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, jest } from 'bun:test'
 import { mock } from 'bun:test'
 
 beforeEach(() => {
-  mock.module('next/link', () => ({
-    default: ({ children, href, ...props }: PropsWithChildren<{ href: string }>) => (
-      <a href={href} {...props}>
-        {children}
-      </a>
-    ),
-  }))
   mock.module('@nl/ui/base/button', () => ({
     default: undefined,
     Button: (props: ComponentProps<'button'>) => <button {...props} />,
