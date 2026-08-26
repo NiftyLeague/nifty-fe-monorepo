@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
+import { ConsoleGameBackdrop } from '@nl/ui/custom/console-game-backdrop'
 import { ViewportVideo } from '@nl/ui/custom/viewport-video'
 
 import { DeferredNiftyWorldProperties } from '@/components/DeferredNiftyWorldSections'
@@ -10,7 +11,9 @@ const NiftyWorld: NextPage = () => {
   return (
     <>
       <section className="relative xl:-top-20 2xl:-top-35">
-        <DeferredConsoleGame src="/video/mansion_showcase.mp4" />
+        <DeferredConsoleGame src="/video/mansion_showcase.mp4">
+          <ConsoleGameBackdrop loading="eager" />
+        </DeferredConsoleGame>
 
         <ThemeBtnGroup
           className="absolute bottom-0 sm:bottom-4"
