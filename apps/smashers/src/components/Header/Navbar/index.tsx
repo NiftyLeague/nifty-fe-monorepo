@@ -21,7 +21,7 @@ export default function Navbar() {
           </div>
         </a>
         <nav className={styles.navbar}>
-          <Link href="/profile">
+          <Link href="/profile" prefetch={false}>
             <div className={cx(styles.nav_item, styles.profile_mobile)}>
               <OptimizedImage
                 src="/icons/user.svg"
@@ -98,7 +98,7 @@ export default function Navbar() {
               <OptimizedImage src="/icons/opensea.svg" alt="OpenSea Logo" width={22} height={22} />
             </a>
           </div>
-          <Link href="/profile">
+          <Link href="/profile" prefetch={false}>
             <div className={cx(styles.nav_item, styles.profile)}>
               <div className={styles.profile_icon}>
                 <OptimizedImage src="/icons/user.svg" alt="Profile Icon" width={22} height={22} />
