@@ -236,7 +236,7 @@ const Home = () => {
         </h2>
 
         <DeferredConsoleGame src="/video/smashers.mp4">
-          <ConsoleGameBackdrop loading="eager" />
+          <ConsoleGameBackdrop />
         </DeferredConsoleGame>
 
         <ThemeButtonGroup
