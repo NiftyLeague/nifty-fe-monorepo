@@ -13,6 +13,9 @@ const themeCommonEntry = require.resolve('@docusaurus/theme-common', {
 const themeCommonInternalEntry = require.resolve('@docusaurus/theme-common/internal', {
   paths: [presetPackagePath],
 })
+const reactEntry = require.resolve('react')
+const reactDomEntry = require.resolve('react-dom')
+const mdxReactEntry = require.resolve('@mdx-js/react')
 
 const config: Config = {
   title: 'Nifty League Docs',
@@ -99,6 +102,9 @@ const config: Config = {
                 '@docusaurus/plugin-content-docs/client$': docsClientEntry,
                 '@docusaurus/theme-common$': themeCommonEntry,
                 '@docusaurus/theme-common/internal$': themeCommonInternalEntry,
+                react$: reactEntry,
+                'react-dom$': reactDomEntry,
+                '@mdx-js/react$': mdxReactEntry,
               },
             },
           }
