@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// Run each test file in its own bun process. bun 1.3.14 leaks `mock.module`
+// Run each test file in its own Bun process because `mock.module` leaks
 // state across files in a single process (27 false failures) and `bun test
 // --isolate` hangs at summary. Per-file processes avoid both. Fast via xargs -P.
 import { existsSync, readdirSync, statSync } from 'node:fs'
