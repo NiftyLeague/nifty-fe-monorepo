@@ -2,7 +2,9 @@
 
 import { DeferredSection } from '@nl/ui/custom/deferred-section'
 
-const HOME_SECTION_ROOT_MARGIN = '800px 0px'
+// Keep the first below-fold chunk close enough for a smooth scroll handoff
+// without pulling marketing sections into the initial mobile load.
+const HOME_SECTION_ROOT_MARGIN = '240px 0px'
 
 const loadHomeDegens = () => import('@/components/HomeSections/HomeDegensSection')
 const loadHomeCompete = () => import('@/components/HomeSections/HomeCompeteSection')
