@@ -8,6 +8,7 @@ type AnimatedImageProps = Omit<React.ComponentProps<'img'>, 'src' | 'loading'> &
   sizes?: string
   src: string
   unoptimized?: boolean
+  webpMedia?: string
   webpSrc?: string
 }
 
@@ -16,7 +17,7 @@ type AnimatedImageProps = Omit<React.ComponentProps<'img'>, 'src' | 'loading'> &
  * as a compatibility fallback. Native markup keeps this shared component safe
  * in both server and client bundles, including API-provided image URLs.
  */
-export function AnimatedImage({ webpSrc, ...props }: AnimatedImageProps) {
+export function AnimatedImage({ webpMedia, webpSrc, ...props }: AnimatedImageProps) {
   const {
     decoding,
     fetchPriority,
@@ -38,7 +39,7 @@ export function AnimatedImage({ webpSrc, ...props }: AnimatedImageProps) {
 
   return (
     <picture style={pictureStyle}>
-      {webpSrc ? <source type="image/webp" srcSet={webpSrc} /> : null}
+      {webpSrc ? <source type="image/webp" media={webpMedia} srcSet={webpSrc} /> : null}
       <img
         {...imageProps}
         decoding={decoding ?? 'async'}

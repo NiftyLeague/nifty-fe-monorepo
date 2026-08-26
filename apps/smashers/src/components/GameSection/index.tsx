@@ -1,4 +1,4 @@
-import OptimizedImage from '@nl/ui/custom/optimized-image'
+import { DeferredAnimatedImage } from '@nl/ui/custom/deferred-animated-image'
 import { ViewportVideo } from '@nl/ui/custom/viewport-video'
 
 const GameSection = () => {
@@ -41,22 +41,18 @@ const GameSection = () => {
           </div>
         </div>
       </div>
-      <picture className="my-10 block text-center transition-fade-slow">
-        <source
-          media="(prefers-reduced-motion: no-preference)"
-          type="image/webp"
-          srcSet="/img/games/smashers/party_modes.webp"
-        />
-        <OptimizedImage
-          src="/img/games/smashers/party_modes-poster.webp"
-          alt="Smashers Party Modes"
-          width={1350}
-          height={566}
-          className="w-full h-auto rounded-[40px]"
-          loading="lazy"
-          sizes="(max-width: 768px) 100vw, 1350px"
-        />
-      </picture>
+      <DeferredAnimatedImage
+        containerClassName="my-10 block text-center transition-fade-slow"
+        webpSrc="/img/games/smashers/party_modes.webp"
+        webpMedia="(prefers-reduced-motion: no-preference)"
+        src="/img/games/smashers/party_modes-poster.webp"
+        alt="Smashers Party Modes"
+        width={1350}
+        height={566}
+        className="w-full h-auto rounded-[40px]"
+        loading="lazy"
+        sizes="(max-width: 768px) 100vw, 1350px"
+      />
     </div>
   )
 }
