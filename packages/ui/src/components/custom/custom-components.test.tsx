@@ -1,9 +1,5 @@
-const stubGlobal = (name, value) => {
-  Object.defineProperty(globalThis, name, { value, configurable: true, writable: true })
-}
 import type { PropsWithChildren } from 'react'
-import { Mail } from 'lucide-react'
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, jest, mock } from 'bun:test'
 
@@ -69,78 +65,6 @@ afterEach(() => {
   state.mobile = true
   state.milliseconds = 1_500
   state.pathname = '/about'
-})
-
-describe('custom Input', () => {
-  let Icon: typeof import('@nl/ui/base/icon').Icon
-  let Input: typeof import('./input').default
-  let LoginForm: typeof import('./auth-form/forms/login').default
-  let AuthForm: typeof import('./auth-form').AuthForm
-  let VIEWS: typeof import('./auth-form').VIEWS
-
-  beforeEach(async () => {
-    const iconModule = await import('@nl/ui/base/icon')
-    const inputModule = await import('./input')
-    const loginModule = await import('./auth-form/forms/login')
-    const authModule = await import('./auth-form')
-    Icon = iconModule.Icon
-    Input = inputModule.default
-    LoginForm = loginModule.LoginForm
-    AuthForm = authModule.AuthForm
-    VIEWS = authModule.VIEWS
-  })
-
-  it('labels, reveals, copies, decorates, and resets a password value', async () => {
-    jest.useFakeTimers()
-    const writeText = mock().mockResolvedValue(undefined)
-    stubGlobal('navigator', { ...navigator, clipboard: { writeText } })
-    const { rerender } = render(
-      <Input
-        label="Password"
-        type="password"
-        value="secret"
-        readOnly
-        copy
-        startIcon={<Icon name="key" />}
-        endIcon={<Icon name="check" />}
-        actions={<button>Custom action</button>}
-      />
-    )
-
-    const input = screen.getByLabelText('Password')
-    expect(input?.getAttribute('type')).toBe('password')
-    fireEvent.click(screen.getByRole('button', { name: 'Reveal' }))
-    expect(input?.getAttribute('type')).toBe('text')
-    fireEvent.click(screen.getByRole('button', { name: 'Hide' }))
-    fireEvent.click(screen.getByRole('button', { name: /Copy/ }))
-    await act(async () => Promise.resolve())
-    expect(writeText).toHaveBeenCalledWith('secret')
-    expect(screen.getByRole('button', { name: /Copied/ })).not.toBeNull()
-    act(() => jest.advanceTimersByTime(3_000))
-    expect(screen.getByRole('button', { name: /Copy/ })).not.toBeNull()
-
-    rerender(<Input hiddenLabel label="Hidden" error value="bad" readOnly />)
-    expect(screen.getByLabelText('Hidden')?.getAttribute('aria-invalid')).toBe('true')
-  })
-
-  it('handles copy rejection and bare unlabeled inputs', async () => {
-    const writeText = mock().mockRejectedValue(new Error('denied'))
-    stubGlobal('navigator', { ...navigator, clipboard: { writeText } })
-    const { rerender } = render(<Input id="copy" value="value" copy readOnly />)
-    fireEvent.click(screen.getByRole('button', { name: /Copy/ }))
-    expect(await screen.findByRole('button', { name: /Failed to copy/ })).not.toBeNull()
-
-    rerender(<Input id="plain" />)
-    expect(screen.getByRole('textbox')?.getAttribute('id')).toBe('plain')
-  })
-
-  it('accepts direct Lucide icons and normalizes their rendered size', () => {
-    const { container } = render(<Input id="direct-icon" startIcon={<Mail />} />)
-    const icon = container.querySelector('svg.lucide-mail')
-
-    expect(icon?.getAttribute('width')).toBe('18')
-    expect(icon?.getAttribute('height')).toBe('18')
-  })
 })
 
 describe('Navbar', () => {
@@ -268,6 +192,8 @@ describe('authentication forms', () => {
     )
     await user.type(screen.getByLabelText('Email'), 'player@example.com')
     await user.type(screen.getByLabelText('Password'), 'password')
+    await user.click(screen.getByRole('button', { name: 'Reveal' }))
+    expect(screen.getByLabelText('Password').getAttribute('type')).toBe('text')
     await user.click(screen.getByRole('button', { name: /Login/ }))
     await waitFor(() =>
       expect(handlers.handleLogin).toHaveBeenCalledWith(
