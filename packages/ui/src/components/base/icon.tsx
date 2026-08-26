@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import { forwardRef, type SVGProps } from 'react'
 import {
   Atom,
   Axe,
@@ -30,7 +30,7 @@ import {
   Upload,
   UserPen,
 } from 'lucide-react'
-import type { LucideIcon, LucideProps } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 
 type IconSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
@@ -88,7 +88,8 @@ const iconMap = {
 
 type IconName = keyof typeof iconMap
 
-interface IconProps extends Omit<LucideProps, 'size'> {
+type IconProps = Omit<SVGProps<SVGSVGElement>, 'color' | 'fill'> & {
+  absoluteStrokeWidth?: boolean
   name: IconName
   size?: IconSizes | number
   color?: IconColor | (string & {})

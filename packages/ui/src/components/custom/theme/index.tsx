@@ -6,12 +6,16 @@ import { Moon, Sun } from 'lucide-react'
 
 import { Button } from '@nl/ui/base/button'
 
-export function ThemeProvider({
-  children,
-  ...props
-}: React.ComponentProps<typeof NextThemesProvider>) {
+type ThemeProviderProps = React.PropsWithChildren<
+  Omit<React.ComponentProps<typeof NextThemesProvider>, 'children'>
+>
+
+const CompatibleNextThemesProvider =
+  NextThemesProvider as unknown as React.ComponentType<ThemeProviderProps>
+
+export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   return (
-    <NextThemesProvider
+    <CompatibleNextThemesProvider
       attribute="class"
       defaultTheme="system"
       enableSystem
@@ -19,7 +23,7 @@ export function ThemeProvider({
       {...props}
     >
       {children}
-    </NextThemesProvider>
+    </CompatibleNextThemesProvider>
   )
 }
 

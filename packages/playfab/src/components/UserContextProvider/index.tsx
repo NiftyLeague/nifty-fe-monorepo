@@ -1,6 +1,6 @@
 'use client'
 
-import type { PropsWithChildren } from 'react'
+import type { ComponentType, PropsWithChildren } from 'react'
 import { createContext, useCallback, useEffect, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { SnackbarProvider } from 'notistack'
@@ -10,6 +10,10 @@ import { USER_CONTEXT_INITIAL_STATE } from '../../constants'
 import { useUserInfo } from '../../hooks/useUserInfo'
 import { useUserSession } from '../../hooks/useUserSession'
 import type { User, UserContextType } from '../../types'
+
+const CompatibleSnackbarProvider = SnackbarProvider as unknown as ComponentType<
+  PropsWithChildren<{ maxSnack?: number; autoHideDuration?: number }>
+>
 
 export const UserContext = createContext<UserContextType>(USER_CONTEXT_INITIAL_STATE)
 
@@ -76,9 +80,9 @@ export const UserContextProvider = (props: PropsWithChildren) => {
   )
 
   return (
-    <SnackbarProvider maxSnack={3} autoHideDuration={5000}>
+    <CompatibleSnackbarProvider maxSnack={3} autoHideDuration={5000}>
       <UserContext.Provider value={value} {...props} />
-    </SnackbarProvider>
+    </CompatibleSnackbarProvider>
   )
 }
 

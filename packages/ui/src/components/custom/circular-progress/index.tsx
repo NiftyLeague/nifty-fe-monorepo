@@ -1,4 +1,5 @@
-import { LoaderCircle, type LucideProps } from 'lucide-react'
+import { LoaderCircle } from 'lucide-react'
+import type { SVGProps } from 'react'
 import { cn } from '@nl/ui/utils'
 
 type CircularProgressSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | number
@@ -21,7 +22,8 @@ const DEFAULT_COLORS = {
 
 type CircularProgressColor = keyof typeof DEFAULT_COLORS | (string & {})
 
-type CircularProgressProps = Omit<LucideProps, 'size' | 'color' | 'fill'> & {
+type CircularProgressProps = Omit<SVGProps<SVGSVGElement>, 'color' | 'fill'> & {
+  absoluteStrokeWidth?: boolean
   size?: CircularProgressSize
   color?: CircularProgressColor
   fill?: CircularProgressColor
