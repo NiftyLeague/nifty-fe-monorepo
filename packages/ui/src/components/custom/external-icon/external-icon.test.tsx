@@ -11,5 +11,8 @@ describe('ExternalIcon', () => {
     expect(icon?.getAttribute('width')).toBe('14')
     expect(icon?.getAttribute('height')).toBe('14')
     expect(icon?.getAttribute('aria-hidden')).toBe('true')
+    expect(icon?.getAttribute('focusable')).toBe('false')
+    expect(icon?.getAttribute('viewBox')).toBe('0 0 24 24')
+    expect(icon?.querySelectorAll('path')).toHaveLength(3)
   })
 })
