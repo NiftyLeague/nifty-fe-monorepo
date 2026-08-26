@@ -1,20 +1,22 @@
 'use client'
 
-import { memo, useRef, useState, useCallback, useEffect } from 'react'
+import { memo, useRef, useState, useCallback, useEffect, type ReactNode } from 'react'
 import { Button } from '@nl/ui/base/button'
 import { cx } from '@nl/ui/class-names'
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { ParallaxWrapper } from '@nl/ui/custom/parallax-wrapper'
 
-import { ConsoleGameBackdrop, CONSOLE_ARTWORK_DIMENSIONS } from './backdrop'
+import { CONSOLE_ARTWORK_DIMENSIONS } from './backdrop'
 import styles from './index.module.css'
 
 export interface ConsoleGameProps {
+  children: ReactNode
   isNearViewport?: boolean
   src: string
 }
 
 export const ConsoleGame = memo(function ConsoleGame({
+  children,
   isNearViewport = true,
   src,
 }: ConsoleGameProps) {
@@ -53,7 +55,7 @@ export const ConsoleGame = memo(function ConsoleGame({
         style={{ position: 'relative', display: 'flex', flexGrow: 1 }}
         className="md:animation-hidden"
       >
-        <ConsoleGameBackdrop />
+        {children}
         <video
           ref={videoRef}
           id="console-video"
