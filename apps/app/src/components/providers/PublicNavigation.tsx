@@ -50,7 +50,7 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
                   </div>
                 </div>
                 <div className="border-b border-sidebar-border p-4">
-                  <PublicUserProfile />
+                  <PublicUserProfile placement="mobile" />
                 </div>
                 <nav aria-label="Primary navigation" className="px-4">
                   <PublicNavLinks />
@@ -88,7 +88,7 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
         >
           <div className="h-full overflow-y-auto px-4 py-5">
             <div className="mb-5">
-              <PublicUserProfile />
+              <PublicUserProfile placement="desktop" />
             </div>
             <PublicNavLinks />
           </div>
