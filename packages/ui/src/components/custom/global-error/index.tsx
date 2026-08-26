@@ -5,6 +5,7 @@ const pageStyle: CSSProperties = {
   backgroundColor: '#09090b',
   boxSizing: 'border-box',
   color: '#fafafa',
+  colorScheme: 'dark',
   display: 'flex',
   fontFamily: 'Arial, Helvetica, sans-serif',
   justifyContent: 'center',
