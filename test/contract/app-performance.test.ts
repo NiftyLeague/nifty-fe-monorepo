@@ -168,6 +168,7 @@ const appIconRegistrySources = [
   'apps/smashers/src/app/(auth_routes)/profile/ProfileClient.tsx',
 ]
 const sharedEslintConfig = 'packages/eslint-config/base.js'
+const sharedNextEslintConfig = 'packages/eslint-config/next.js'
 
 describe('app performance contracts', () => {
   it('keeps lint traversal off generated framework output', () => {
@@ -183,6 +184,16 @@ describe('app performance contracts', () => {
     ]) {
       expect(source).toContain(`'${generatedPath}'`)
     }
+  })
+
+  it('keeps Next linting on direct plugins without the bundled Babel parser', () => {
+    const source = readFileSync(sharedNextEslintConfig, 'utf8')
+    const manifest = JSON.parse(readFileSync('packages/eslint-config/package.json', 'utf8'))
+
+    expect(source).toContain("from '@next/eslint-plugin-next'")
+    expect(source).not.toContain("from 'eslint-config-next")
+    expect(manifest.devDependencies['@next/eslint-plugin-next']).toBeDefined()
+    expect(manifest.devDependencies['eslint-import-resolver-typescript']).toBeDefined()
   })
 
   it('keeps the eager private shell on lightweight class joining', () => {
