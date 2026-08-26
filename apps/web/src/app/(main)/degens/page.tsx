@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
+import { ConsoleGameBackdrop } from '@nl/ui/custom/console-game-backdrop'
 import { DeferredYouTubeEmbed } from '@nl/ui/custom/deferred-youtube-embed'
 
 import {
@@ -12,7 +13,9 @@ import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 const Degens: NextPage = () => (
   <>
     <section className="relative xl:-top-20 2xl:-top-35">
-      <DeferredConsoleGame src="/video/unboxing.mp4" />
+      <DeferredConsoleGame src="/video/unboxing.mp4">
+        <ConsoleGameBackdrop loading="eager" />
+      </DeferredConsoleGame>
     </section>
 
     <div className="container">

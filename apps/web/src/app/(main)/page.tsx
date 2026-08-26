@@ -1,6 +1,7 @@
 import { preload } from 'react-dom'
 
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
+import { ConsoleGameBackdrop } from '@nl/ui/custom/console-game-backdrop'
 import OptimizedImage, { getOptimizedImageProps } from '@nl/ui/custom/optimized-image'
 import { DesktopOnlyImage, MobileOnlyImage } from '@nl/ui/custom/responsive-only-image'
 
@@ -234,7 +235,9 @@ const Home = () => {
           CLASSIC GAMING REINVENTED
         </h2>
 
-        <DeferredConsoleGame src="/video/smashers.mp4" />
+        <DeferredConsoleGame src="/video/smashers.mp4">
+          <ConsoleGameBackdrop loading="eager" />
+        </DeferredConsoleGame>
 
         <ThemeButtonGroup
           className="absolute bottom-0 sm:bottom-4"

@@ -1,4 +1,5 @@
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
+import { ConsoleGameBackdrop } from '@nl/ui/custom/console-game-backdrop'
 import { SocialsFooter } from '@nl/ui/custom/socials-footer'
 
 import { DeferredDegensSection, DeferredGameSection } from '@/components/DeferredHomeSections'
@@ -16,7 +17,9 @@ export default async function Home({ searchParams }: { searchParams: NextSearchP
         <Header activeModal={activeModal} />
       </section>
       <section id="console-game">
-        <DeferredConsoleGame src="/video/smashers.mp4" />
+        <DeferredConsoleGame src="/video/smashers.mp4">
+          <ConsoleGameBackdrop loading="eager" />
+        </DeferredConsoleGame>
       </section>
       <section id="game-section" className="container section relative">
         <div className="purple-bg-orb orb-top-left" />

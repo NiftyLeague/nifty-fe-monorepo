@@ -1,13 +1,13 @@
 'use client'
 
-import { memo, useRef } from 'react'
+import { memo, useRef, type ReactNode } from 'react'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 
 import type { ConsoleGameProps } from '../console-game'
-import { ConsoleGameBackdrop } from '../console-game/backdrop'
 
 interface DeferredConsoleGameProps {
+  children: ReactNode
   src: string
 }
 
@@ -18,7 +18,10 @@ const CONSOLE_GAME_ROOT_MARGIN = '0px 0px -25% 0px'
 const loadConsoleGame = () =>
   import('../console-game').then(({ ConsoleGame }) => ({ default: ConsoleGame }))
 
-const DeferredConsoleGame = memo(function DeferredConsoleGame({ src }: DeferredConsoleGameProps) {
+const DeferredConsoleGame = memo(function DeferredConsoleGame({
+  children,
+  src,
+}: DeferredConsoleGameProps) {
   const rootRef = useRef<HTMLDivElement>(null)
   // Keep the interactive video chunk out of the initial page load until the
   // preview actually intersects the viewport.
@@ -37,9 +40,11 @@ const DeferredConsoleGame = memo(function DeferredConsoleGame({ src }: DeferredC
       style={{ aspectRatio: '4842 / 3371' }}
     >
       {ConsoleGame ? (
-        <ConsoleGame isNearViewport={isNearViewport} src={src} />
+        <ConsoleGame isNearViewport={isNearViewport} src={src}>
+          {children}
+        </ConsoleGame>
       ) : (
-        <ConsoleGameBackdrop loading="eager" />
+        children
       )}
     </div>
   )
