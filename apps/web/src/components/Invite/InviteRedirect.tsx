@@ -12,8 +12,13 @@ const redirectToAppStore = (userAgent: string, refcode: string, newTab = false) 
   let appStoreURL = 'https://niftysmashers.com/steam'
   if (isAndroid(userAgent)) appStoreURL = `https://niftysmashers.com/android`
   if (isIOS(userAgent)) appStoreURL = `https://niftysmashers.com/ios`
-  if (newTab) window.open(`${appStoreURL}/?referral=${refcode}`, '_blank')
-  else window.location.href = `${appStoreURL}/?referral=${refcode}`
+  if (newTab) {
+    window.open(`${appStoreURL}/?referral=${refcode}`, '_blank')
+  } else {
+    // This is intentionally an external store redirect, not an internal Next.js route.
+    // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+    window.location.href = `${appStoreURL}/?referral=${refcode}`
+  }
 }
 
 // Attempt to launch App if installed. Fallback to App Store after a timeout
