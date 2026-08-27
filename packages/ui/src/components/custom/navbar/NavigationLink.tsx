@@ -11,13 +11,7 @@ interface NavigationLinkProps {
 }
 
 /** Uses client-side navigation only for routes owned by the current app. */
-export function NavigationLink({
-  className,
-  description,
-  external,
-  href,
-  title,
-}: NavigationLinkProps) {
+function NavigationLink({ className, description, external, href, title }: NavigationLinkProps) {
   const content = <NavLinkContent description={description} external={external} title={title} />
   const resolvedClassName = className ?? NAV_LINK_CONTENT_CLASS
 
