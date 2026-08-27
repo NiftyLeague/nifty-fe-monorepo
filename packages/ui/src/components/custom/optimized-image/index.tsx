@@ -37,6 +37,10 @@ export function getOptimizedImageProps(props: OptimizedImageProps) {
     imageProps.fetchPriority = 'low'
   }
 
+  // Decode artwork off the critical rendering path by default, matching the
+  // shared NativeImage primitive used by client-only consumers.
+  imageProps.decoding ??= 'async'
+
   for (const [key, value] of Object.entries(imageProps)) {
     if (value === undefined) delete imageProps[key as keyof typeof imageProps]
   }

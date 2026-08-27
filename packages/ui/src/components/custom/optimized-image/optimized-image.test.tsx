@@ -16,6 +16,7 @@ describe('getOptimizedImageProps', () => {
 
     expect(props.loading).toBe('lazy')
     expect(props.fetchPriority).toBe('low')
+    expect(props.decoding).toBe('async')
   })
 
   it('gives lazy artwork a low network priority', () => {
@@ -23,6 +24,7 @@ describe('getOptimizedImageProps', () => {
 
     expect(props.loading).toBe('lazy')
     expect(props.fetchPriority).toBe('low')
+    expect(props.decoding).toBe('async')
   })
 
   it('preserves explicit priority and eager image behavior', () => {
@@ -35,6 +37,12 @@ describe('getOptimizedImageProps', () => {
 
     expect(highPriority.fetchPriority).toBe('high')
     expect(eager.fetchPriority).toBeUndefined()
+  })
+
+  it('preserves an explicit decoding mode', () => {
+    const props = getOptimizedImageProps({ ...baseProps, decoding: 'sync' })
+
+    expect(props.decoding).toBe('sync')
   })
 
   it('translates Next priority metadata to native image loading hints', () => {
