@@ -22,12 +22,31 @@ const rootPackage = JSON.parse(readFileSync('package.json', 'utf8')) as {
 const envFor = (task: string) => new Set(turbo.tasks[task]?.env ?? [])
 const dependenciesFor = (task: string) => turbo.tasks[task]?.dependsOn ?? []
 const inputsFor = (task: string) => turbo.tasks[task]?.inputs ?? []
+const testOnlyBuildInputExclusions = [
+  '!**/*.test.*',
+  '!**/*.spec.*',
+  '!**/*.stories.*',
+  '!**/*.story.*',
+  '!**/__tests__/**',
+]
 const commonBuildInputExclusions = [
   '!**/README.md',
   '!**/CHANGELOG.md',
-  '!**/*.test.*',
-  '!**/*.spec.*',
-  '!**/__tests__/**',
+  ...testOnlyBuildInputExclusions,
+]
+const uiBuildInputExclusions = [
+  '!../../packages/ui/src/**/*.test.*',
+  '!../../packages/ui/src/**/*.spec.*',
+  '!../../packages/ui/src/**/*.stories.*',
+  '!../../packages/ui/src/**/*.story.*',
+  '!../../packages/ui/src/**/__tests__/**',
+]
+const playfabBuildInputExclusions = [
+  '!../../packages/playfab/src/**/*.test.*',
+  '!../../packages/playfab/src/**/*.spec.*',
+  '!../../packages/playfab/src/**/*.stories.*',
+  '!../../packages/playfab/src/**/*.story.*',
+  '!../../packages/playfab/src/**/__tests__/**',
 ]
 const buildInputExclusions: Record<string, string[]> = {
   'api#build': commonBuildInputExclusions,
@@ -35,14 +54,18 @@ const buildInputExclusions: Record<string, string[]> = {
     '!**/README.md',
     '!**/CHANGELOG.md',
     '!src/types/typechain/**',
-    '!**/*.test.*',
-    '!**/*.spec.*',
-    '!**/__tests__/**',
+    ...testOnlyBuildInputExclusions,
+    ...uiBuildInputExclusions,
   ],
-  'docs#build': commonBuildInputExclusions,
-  'smashers#build': ['!../../packages/playfab/src/test-mock-sdk.ts', ...commonBuildInputExclusions],
-  'template#build': commonBuildInputExclusions,
-  'web#build': commonBuildInputExclusions,
+  'docs#build': [...commonBuildInputExclusions, ...uiBuildInputExclusions],
+  'smashers#build': [
+    '!../../packages/playfab/src/test-mock-sdk.ts',
+    ...commonBuildInputExclusions,
+    ...uiBuildInputExclusions,
+    ...playfabBuildInputExclusions,
+  ],
+  'template#build': [...commonBuildInputExclusions, ...uiBuildInputExclusions],
+  'web#build': [...commonBuildInputExclusions, ...uiBuildInputExclusions],
 }
 const sharedBuildInputs: Record<string, string[]> = {
   'api#build': ['../../packages/contracts/src/**', '../../packages/contracts/package.json'],
