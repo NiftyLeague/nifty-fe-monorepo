@@ -1,5 +1,9 @@
 @import '@nl/ui/styles.css';
 @source "../**/*.{ts,tsx}";
+@source not "../**/*.test.{ts,tsx}";
+@source not "../**/*.spec.{ts,tsx}";
+@source not "../**/*.stories.{ts,tsx}";
+@source not "../**/*.story.{ts,tsx}";
 
 /* ==============================|| OVERRIDES ||============================== */
 

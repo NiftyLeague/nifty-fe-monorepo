@@ -170,6 +170,12 @@ const appIconRegistrySources = [
 const sharedEslintConfig = 'packages/eslint-config/base.js'
 const sharedNextEslintConfig = 'packages/eslint-config/next.js'
 const testHarnessPreload = 'test/preload.ts'
+const appStylesheets = [
+  'apps/app/src/styles/app.css',
+  'apps/smashers/src/styles/app.css',
+  'apps/template/src/styles/app.css',
+  'apps/web/src/styles/app.css',
+]
 
 describe('app performance contracts', () => {
   it('keeps lint traversal off generated framework output', () => {
@@ -205,6 +211,23 @@ describe('app performance contracts', () => {
 
     for (const workspace of ['apps/app', 'apps/template', 'apps/web', 'packages/ui']) {
       expect(source).toContain(`'${workspace}'`)
+    }
+  })
+
+  it('keeps test-only sources out of runtime Tailwind scans', () => {
+    for (const file of appStylesheets) {
+      const source = readFileSync(file, 'utf8')
+
+      for (const suffix of ['test', 'spec', 'stories', 'story']) {
+        expect(source).toContain(`@source not "../**/*.${suffix}.{ts,tsx}";`)
+      }
+    }
+
+    const smashersStyles = readFileSync('apps/smashers/src/styles/app.css', 'utf8')
+    for (const suffix of ['test', 'spec', 'stories', 'story']) {
+      expect(smashersStyles).toContain(
+        `@source not "../../../../packages/playfab/src/**/*.${suffix}.{ts,tsx}";`
+      )
     }
   })
 

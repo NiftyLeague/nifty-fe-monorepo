@@ -1,6 +1,14 @@
 @import '@nl/ui/styles.css';
 @source "../**/*.{ts,tsx}";
 @source "../../../../packages/playfab/src/**/*.{ts,tsx}";
+@source not "../**/*.test.{ts,tsx}";
+@source not "../**/*.spec.{ts,tsx}";
+@source not "../**/*.stories.{ts,tsx}";
+@source not "../**/*.story.{ts,tsx}";
+@source not "../../../../packages/playfab/src/**/*.test.{ts,tsx}";
+@source not "../../../../packages/playfab/src/**/*.spec.{ts,tsx}";
+@source not "../../../../packages/playfab/src/**/*.stories.{ts,tsx}";
+@source not "../../../../packages/playfab/src/**/*.story.{ts,tsx}";
 
 /* ==============================|| OVERRIDES ||============================== */
 
