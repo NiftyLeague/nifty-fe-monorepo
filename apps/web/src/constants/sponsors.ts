@@ -25,14 +25,12 @@ export const SPONSORS = [
     width: 496,
     height: 250,
   },
-  // { image: '/img/sponsors/avocado.webp', url: 'https://avocadoguild.com/', width: 578, height: 194 },
   {
     image: '/img/sponsors/attn-evos.webp',
     url: 'https://careers.attn.sg/',
     width: 800,
     height: 232,
   },
-  // { image: '/img/sponsors/nyan.webp', url: 'https://nyanheroes.com/', width: 417, height: 190 },
   {
     image: '/img/sponsors/advancit.webp',
     url: 'https://www.advancitcapital.com/',

@@ -22,8 +22,6 @@ export const NIFTY_GAMES: NiftyGame[] = [
       title: "LET'S BRAWL!",
       link: 'https://niftysmashers.com',
       isComingSoon: false,
-      // secondaryLink: '/compete-and-earn',
-      // secondaryTitle: 'COMPETE & EARN?',
     },
   },
   {
