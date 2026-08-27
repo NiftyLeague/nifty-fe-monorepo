@@ -27,7 +27,14 @@
         "!src/types/typechain/**",
         "!**/*.test.*",
         "!**/*.spec.*",
-        "!**/__tests__/**"
+        "!**/*.stories.*",
+        "!**/*.story.*",
+        "!**/__tests__/**",
+        "!../../packages/ui/src/**/*.test.*",
+        "!../../packages/ui/src/**/*.spec.*",
+        "!../../packages/ui/src/**/*.stories.*",
+        "!../../packages/ui/src/**/*.story.*",
+        "!../../packages/ui/src/**/__tests__/**"
       ],
       "env": [
         "CI",
@@ -51,6 +58,8 @@
         "!**/CHANGELOG.md",
         "!**/*.test.*",
         "!**/*.spec.*",
+        "!**/*.stories.*",
+        "!**/*.story.*",
         "!**/__tests__/**"
       ],
       "env": [
@@ -94,7 +103,14 @@
         "!**/CHANGELOG.md",
         "!**/*.test.*",
         "!**/*.spec.*",
-        "!**/__tests__/**"
+        "!**/*.stories.*",
+        "!**/*.story.*",
+        "!**/__tests__/**",
+        "!../../packages/ui/src/**/*.test.*",
+        "!../../packages/ui/src/**/*.spec.*",
+        "!../../packages/ui/src/**/*.stories.*",
+        "!../../packages/ui/src/**/*.story.*",
+        "!../../packages/ui/src/**/__tests__/**"
       ],
       "env": ["ALGOLIA_API_KEY", "ALGOLIA_APP_ID"],
       "outputs": ["build/**", ".docusaurus/**"]
@@ -116,7 +132,19 @@
         "!**/CHANGELOG.md",
         "!**/*.test.*",
         "!**/*.spec.*",
-        "!**/__tests__/**"
+        "!**/*.stories.*",
+        "!**/*.story.*",
+        "!**/__tests__/**",
+        "!../../packages/ui/src/**/*.test.*",
+        "!../../packages/ui/src/**/*.spec.*",
+        "!../../packages/ui/src/**/*.stories.*",
+        "!../../packages/ui/src/**/*.story.*",
+        "!../../packages/ui/src/**/__tests__/**",
+        "!../../packages/playfab/src/**/*.test.*",
+        "!../../packages/playfab/src/**/*.spec.*",
+        "!../../packages/playfab/src/**/*.stories.*",
+        "!../../packages/playfab/src/**/*.story.*",
+        "!../../packages/playfab/src/**/__tests__/**"
       ],
       "env": [
         "APPLE_CLIENT_ID",
@@ -152,7 +180,14 @@
         "!**/CHANGELOG.md",
         "!**/*.test.*",
         "!**/*.spec.*",
-        "!**/__tests__/**"
+        "!**/*.stories.*",
+        "!**/*.story.*",
+        "!**/__tests__/**",
+        "!../../packages/ui/src/**/*.test.*",
+        "!../../packages/ui/src/**/*.spec.*",
+        "!../../packages/ui/src/**/*.stories.*",
+        "!../../packages/ui/src/**/*.story.*",
+        "!../../packages/ui/src/**/__tests__/**"
       ],
       "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**"]
     },
@@ -170,7 +205,14 @@
         "!**/CHANGELOG.md",
         "!**/*.test.*",
         "!**/*.spec.*",
-        "!**/__tests__/**"
+        "!**/*.stories.*",
+        "!**/*.story.*",
+        "!**/__tests__/**",
+        "!../../packages/ui/src/**/*.test.*",
+        "!../../packages/ui/src/**/*.spec.*",
+        "!../../packages/ui/src/**/*.stories.*",
+        "!../../packages/ui/src/**/*.story.*",
+        "!../../packages/ui/src/**/__tests__/**"
       ],
       "env": [
         "CI",
