@@ -18,7 +18,7 @@ export default async function Home({ searchParams }: { searchParams: NextSearchP
       </section>
       <section id="console-game">
         <DeferredConsoleGame src="/video/smashers.mp4">
-          <ConsoleGameBackdrop loading="eager" />
+          <ConsoleGameBackdrop />
         </DeferredConsoleGame>
       </section>
       <section id="game-section" className="container section relative">
