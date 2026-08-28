@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.7](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/docs-v1.0.6...docs-v1.0.7) (2026-08-28)
+
+
+### Bug Fixes
+
+* **build:** stabilize app bundler paths ([31f0082](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/31f0082d2e0f0601f8fb6da675c37ba0517471c6))
+* **docs:** dedupe docusaurus client contexts ([6a8bd89](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/6a8bd89a2ee6fe3e5ca2ae9d07aaf2c15d74569b))
+
+
+### Performance
+
+* **docs:** use native external social links ([2ab43c6](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/2ab43c67043e24c42bbe02bb5f18d0e1af77af3a))
+
 ## [1.0.6](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/docs-v1.0.5...docs-v1.0.6) (2026-08-23)
 
 
