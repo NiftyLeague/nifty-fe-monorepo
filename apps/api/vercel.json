@@ -8,6 +8,7 @@
       "staging": true
     }
   },
+  "installCommand": "bunx bun@1.4.0 install --frozen-lockfile",
   "ignoreCommand": "node ../../scripts/vercel-ignore-build.mjs",
   "buildCommand": "bun --filter api build",
   "functions": {
