@@ -81,7 +81,7 @@ const Game = ({ unityConfig, arcadeTokenRequired = false }: GameProps) => {
     setTimeout(() => e.detail.callback(`${networkName},${version ?? ''}`), 1000)
   }, [])
 
-  const enableGameInteraction = useCallback(() => {
+  const enableGameInteraction = useCallback(function enableGameInteraction() {
     if (setCanvasInteraction('game-canvas', true)) {
       // The canvas remains interactive after activation. Remove the global
       // listener so game pages do not keep doing a DOM lookup on every move.

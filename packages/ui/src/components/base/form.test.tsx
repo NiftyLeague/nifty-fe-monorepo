@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, renderHook, screen } from '@testing-library/react'
 import { describe, expect, it } from 'bun:test'
 import { useForm } from 'react-hook-form'
 import React from 'react'
@@ -39,35 +39,29 @@ describe('Form components', () => {
     })
 
     it('returns field state when inside FormField and FormItem', () => {
-      const state: { current: ReturnType<typeof useFormField> | null } = { current: null }
-
-      function TestComponent() {
-        state.current = useFormField()
-        return null
-      }
-
-      render(
+      const wrapper = ({ children }: { children: React.ReactNode }) => (
         <TestForm>
           <FormField
             name="name"
             render={() => (
               <FormItem>
-                <TestComponent />
                 <FormControl>
                   <Input />
                 </FormControl>
+                {children}
               </FormItem>
             )}
           />
         </TestForm>
       )
 
-      const val = state.current
-      expect(val).not.toBeNull()
-      expect(val?.name).toBe('name')
-      expect(val?.formItemId).toMatch(/-form-item$/)
-      expect(val?.formDescriptionId).toMatch(/-form-item-description$/)
-      expect(val?.formMessageId).toMatch(/-form-item-message$/)
+      const { result } = renderHook(() => useFormField(), { wrapper })
+
+      expect(result.current).not.toBeNull()
+      expect(result.current.name).toBe('name')
+      expect(result.current.formItemId).toMatch(/-form-item$/)
+      expect(result.current.formDescriptionId).toMatch(/-form-item-description$/)
+      expect(result.current.formMessageId).toMatch(/-form-item-message$/)
     })
   })
 

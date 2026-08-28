@@ -73,15 +73,14 @@ interface NFTLClaimableState {
 }
 
 export default function useClaimableNFTL(tokenId: number | string): NFTLClaimableState {
+  const tokenNumber = typeof tokenId === 'number' ? tokenId : Number(tokenId)
+  const invalidToken = !Number.isSafeInteger(tokenNumber) || tokenNumber < 0
+
   const [balance, setTotalBalance] = useState(0)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(!invalidToken)
 
   useEffect(() => {
-    const tokenNumber = typeof tokenId === 'number' ? tokenId : Number(tokenId)
-    if (!Number.isSafeInteger(tokenNumber) || tokenNumber < 0) {
-      setLoading(false)
-      return
-    }
+    if (invalidToken) return
 
     let cancelled = false
     const controller = new AbortController()
@@ -103,7 +102,7 @@ export default function useClaimableNFTL(tokenId: number | string): NFTLClaimabl
       cancelled = true
       controller.abort()
     }
-  }, [tokenId])
+  }, [invalidToken, tokenNumber])
 
   return { balance, loading }
 }

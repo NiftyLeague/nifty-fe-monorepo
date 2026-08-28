@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 import useMediaQuery from '@nl/ui/hooks/useMediaQuery'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
@@ -106,18 +106,22 @@ export function useParallax<T extends HTMLElement = HTMLDivElement>(
 ) {
   const isNearViewport = useOnScreen(elementRef, PARALLAX_ROOT_MARGIN)
   const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
+  // The target does not change while a subscription is active; resolving it once
+  // avoids traversing the DOM on every animation frame. A ref keeps the resolved
+  // element mutable for the animation write while staying render-clean.
+  const targetRef = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
     const element = elementRef.current
     if (!element || !options.enabled || prefersReducedMotion || !isNearViewport) return
 
-    // The target does not change while this subscription is active. Resolve it
-    // once instead of traversing the DOM on every animation frame.
-    const target =
+    targetRef.current =
       (element.getElementsByClassName(PARALLAX_CHILD_CLASS)[0] as HTMLElement | undefined) ??
       element
 
     const handleParallax = () => {
+      const target = targetRef.current
+      if (!target) return
       const transform = calculateTransform(element, options.direction, options.intensity)
       if (target.style.transform !== transform) target.style.transform = transform
     }

@@ -51,8 +51,6 @@ export enum ItemSource {
 
 export enum ItemTier {
   None = 'None',
-  Common = 'Common',
-  Rare = 'Rare',
   Epic = 'Epic',
   Legendary = 'Legendary',
   Mythic = 'Mythic',
@@ -62,21 +60,7 @@ type Rarity = '???' | 'Common' | 'Rare' | 'Meta' | 'Legendary' | 'Mythic'
 
 export enum CharacterItemSlotType {
   None = 'None',
-  Hair = 'Hair',
-  Beard = 'Beard',
-  Mouth = 'Mouth',
-  Top = 'Top',
-  Outerwear = 'Outerwear',
-  Print = 'Print',
-  Bottom = 'Bottom',
-  Footwear = 'Footwear',
-  Belt = 'Belt',
   Hat = 'Hat',
-  Eyewear = 'Eyewear',
-  Piercing = 'Piercing',
-  Wrist = 'Wrist',
-  Hands = 'Hands',
-  Neckwear = 'Neckwear',
   Back = 'Back',
   Primary = 'Primary',
   Special = 'Special',

@@ -41,11 +41,11 @@ export const config = tseslint.config(
     rules: {
       ...pluginReactHooks.configs.recommended.rules,
       // These rules were promoted to "recommended" in eslint-plugin-react-hooks 7.1.1.
-      // They are disabled to preserve existing behavior; refactor the code to adopt them in a follow-up.
+      // static-components, use-memo, and immutability are enabled after the codebase
+      // was refactored to satisfy them. set-state-in-effect remains disabled: 19
+      // call sites still set state synchronously inside effects (see useClaimableNFTL
+      // for the derived-state pattern to adopt); enabling it is a follow-up.
       'react-hooks/set-state-in-effect': 'off',
-      'react-hooks/static-components': 'off',
-      'react-hooks/use-memo': 'off',
-      'react-hooks/immutability': 'off',
     },
   },
   {
