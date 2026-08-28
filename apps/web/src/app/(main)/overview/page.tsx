@@ -1,11 +1,9 @@
 import type { NextPage } from 'next'
 
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
-import {
-  DeferredOverviewCommunity,
-  DeferredOverviewFAQ,
-} from '@/components/DeferredOverviewSections'
+import { DeferredOverviewFAQ } from '@/components/DeferredOverviewSections'
 import LearnCards from '@/components/LearnCards'
+import OverviewCommunity from '@/components/OverviewCommunity'
 
 const Overview: NextPage = () => (
   <>
@@ -41,7 +39,7 @@ const Overview: NextPage = () => (
       </section>
     </div>
 
-    <DeferredOverviewCommunity />
+    <OverviewCommunity />
   </>
 )
 

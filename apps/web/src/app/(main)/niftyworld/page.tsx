@@ -4,7 +4,7 @@ import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { ConsoleGameBackdrop } from '@nl/ui/custom/console-game-backdrop'
 import { ViewportVideo } from '@nl/ui/custom/viewport-video'
 
-import { DeferredNiftyWorldProperties } from '@/components/DeferredNiftyWorldSections'
+import NiftyWorldProperties from '@/components/NiftyWorldProperties'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 
 const NiftyWorld: NextPage = () => {
@@ -59,7 +59,7 @@ const NiftyWorld: NextPage = () => {
           <div className="purple-bg-orb orb-top-right" />
         </section>
 
-        <DeferredNiftyWorldProperties />
+        <NiftyWorldProperties />
       </div>
     </>
   )

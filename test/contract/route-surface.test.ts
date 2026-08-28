@@ -2013,6 +2013,46 @@ describe('web marketing image sizing contract', () => {
     }
   })
 
+  it('server-renders static marketing artwork without client deferred wrappers', () => {
+    const staticSectionRoutes: Array<[string, string, string]> = [
+      [
+        'apps/web/src/app/(main)/degens/page.tsx',
+        "from '@/components/DegenGallery'",
+        'DeferredDegenGallery',
+      ],
+      [
+        'apps/web/src/app/(main)/niftyworld/page.tsx',
+        "from '@/components/NiftyWorldProperties'",
+        'DeferredNiftyWorldProperties',
+      ],
+      [
+        'apps/web/src/app/(main)/overview/page.tsx',
+        "from '@/components/OverviewCommunity'",
+        'DeferredOverviewCommunity',
+      ],
+    ]
+
+    for (const [file, directImport, deferredExport] of staticSectionRoutes) {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+
+      expect(source).toContain(directImport)
+      expect(source).not.toContain(deferredExport)
+    }
+
+    const staticSectionFiles = [
+      'apps/web/src/components/DegenGallery.tsx',
+      'apps/web/src/components/NiftyWorldProperties.tsx',
+      'apps/web/src/components/OverviewCommunity.tsx',
+    ]
+
+    for (const file of staticSectionFiles) {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+
+      expect(source).not.toContain("'use client'")
+      expect(source).toContain('@nl/ui/custom/optimized-image')
+    }
+  })
+
   it('preloads only the first Overview learn card', () => {
     const learnCardsSource = readFileSync(
       join(process.cwd(), 'apps/web/src/components/LearnCards/index.tsx'),
