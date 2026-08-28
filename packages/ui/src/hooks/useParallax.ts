@@ -104,8 +104,10 @@ export function useParallax<T extends HTMLElement = HTMLDivElement>(
   elementRef: React.RefObject<T | null>,
   options: UseParallaxOptions
 ) {
-  const isNearViewport = useOnScreen(elementRef, PARALLAX_ROOT_MARGIN)
   const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
+  const isNearViewport = useOnScreen(elementRef, PARALLAX_ROOT_MARGIN, {
+    enabled: options.enabled && !prefersReducedMotion,
+  })
   // The target does not change while a subscription is active; resolving it once
   // avoids traversing the DOM on every animation frame. A ref keeps the resolved
   // element mutable for the animation write while staying render-clean.

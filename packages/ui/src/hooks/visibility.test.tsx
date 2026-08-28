@@ -199,15 +199,17 @@ describe('useOnScreen', () => {
 
 describe('useParallax', () => {
   let intersectionCallback: IntersectionObserverCallback
+  let observeIntersection: ReturnType<typeof mock>
 
   beforeEach(() => {
+    observeIntersection = mock()
     stubGlobal(
       'IntersectionObserver',
       class {
         constructor(callback: IntersectionObserverCallback) {
           intersectionCallback = callback
         }
-        observe = mock()
+        observe = observeIntersection
         unobserve = mock()
         disconnect = mock()
       }
@@ -409,9 +411,9 @@ describe('useParallax', () => {
     renderHook(() =>
       useParallax({ current: element }, { enabled: true, direction: 'down', intensity: 'normal' })
     )
-    markIntersecting(element)
 
     expect(element.firstElementChild?.getAttribute('style')).toBeNull()
+    expect(observeIntersection).not.toHaveBeenCalled()
     expect(addEventListener).not.toHaveBeenCalledWith('scroll', expect.any(Function), {
       passive: true,
     })
