@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 let isDesktopViewport = false
@@ -12,6 +12,10 @@ mock.module('next/dynamic', () => ({
 
 mock.module('@nl/ui/hooks/useMediaQuery', () => ({
   useMediaQuery: () => isDesktopViewport,
+}))
+
+mock.module('@/contexts/WalletModal', () => ({
+  openWalletModal: async () => undefined,
 }))
 
 mock.module('@/contexts/WalletAuthProvidersBoundary', () => ({
@@ -34,8 +38,15 @@ describe('PublicUserProfile', () => {
       </>
     )
 
-    expect(screen.getAllByTestId('wallet-auth-boundary')).toHaveLength(1)
-    expect(screen.getAllByTestId('loaded-user-profile')).toHaveLength(1)
+    expect(document.querySelectorAll('[data-public-signed-out-profile]')).toHaveLength(1)
+    expect(screen.queryAllByTestId('wallet-auth-boundary')).toHaveLength(0)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Connect Wallet' }))
+
+    await waitFor(() => {
+      expect(screen.getAllByTestId('wallet-auth-boundary')).toHaveLength(1)
+      expect(screen.getAllByTestId('loaded-user-profile')).toHaveLength(1)
+    })
   })
 
   it('activates only the desktop profile slot on wide screens', async () => {
@@ -49,7 +60,14 @@ describe('PublicUserProfile', () => {
       </>
     )
 
-    expect(screen.getAllByTestId('wallet-auth-boundary')).toHaveLength(1)
-    expect(screen.getAllByTestId('loaded-user-profile')).toHaveLength(1)
+    expect(document.querySelectorAll('[data-public-signed-out-profile]')).toHaveLength(1)
+    expect(screen.queryAllByTestId('wallet-auth-boundary')).toHaveLength(0)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Connect Wallet' }))
+
+    await waitFor(() => {
+      expect(screen.getAllByTestId('wallet-auth-boundary')).toHaveLength(1)
+      expect(screen.getAllByTestId('loaded-user-profile')).toHaveLength(1)
+    })
   })
 })

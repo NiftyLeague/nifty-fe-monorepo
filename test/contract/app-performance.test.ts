@@ -70,6 +70,7 @@ const deferredExternalScript =
   'packages/ui/src/components/custom/deferred-external-script/index.tsx'
 const appRootLayout = 'apps/app/src/app/layout.tsx'
 const appUserProfile = 'apps/app/src/components/UserProfile/index.tsx'
+const publicUserProfile = 'apps/app/src/components/providers/PublicUserProfile.tsx'
 const appProfileVerification = 'apps/app/src/components/wrapper/Authentication.tsx'
 const appShell = 'apps/app/src/app/_layout/AppShell.tsx'
 const privateRoutesBoundary = 'apps/app/src/components/providers/PrivateRoutesBoundary.tsx'
@@ -265,6 +266,15 @@ describe('app performance contracts', () => {
     expect(source).toContain("from 'lucide-react'")
     expect(source).toContain('<UserRound')
     expect(source).toContain('Login to view dashboards')
+  })
+
+  it('defers the public wallet graph until the profile is activated', () => {
+    const source = readFileSync(join(process.cwd(), publicUserProfile), 'utf8')
+
+    expect(source).toContain('data-public-signed-out-profile')
+    expect(source).toContain('walletRequested')
+    expect(source).toContain("import('@/contexts/WalletModal')")
+    expect(source).toContain('<WalletAuthProvidersBoundary')
   })
 
   it('keeps degen filter controls spaced outside the checkbox primitive', () => {
