@@ -18,7 +18,12 @@ mock.module('@nl/ui/custom/console-game-backdrop', () => ({
 }))
 
 mock.module('@nl/ui/custom/deferred-console-game', () => ({
-  DeferredConsoleGame: ({ children }: React.PropsWithChildren) => <div>{children}</div>,
+  DeferredConsoleGame: ({
+    children,
+    ...props
+  }: React.PropsWithChildren<{ deferVideo?: boolean }>) => (
+    <div data-defer-video={String(props.deferVideo)}>{children}</div>
+  ),
 }))
 
 mock.module('@nl/ui/custom/socials-footer', () => ({
@@ -36,5 +41,6 @@ describe('Smashers home', () => {
     render(await Home({ searchParams: Promise.resolve({}) }))
 
     expect(screen.getByTestId('console-backdrop').getAttribute('loading')).toBe('lazy')
+    expect(screen.getByTestId('console-backdrop').parentElement?.dataset.deferVideo).toBe('true')
   })
 })

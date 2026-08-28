@@ -7,6 +7,7 @@ import { beforeEach, describe, expect, it, mock } from 'bun:test'
 describe('home page', () => {
   let Home: typeof import('./page').default
   let optimizedImageCalls: ComponentProps<'img'>[] = []
+  let consoleGameProps: { deferVideo?: boolean; src?: string } | undefined
 
   beforeEach(async () => {
     optimizedImageCalls = []
@@ -21,7 +22,13 @@ describe('home page', () => {
       ThemeButtonGroup: () => null,
     }))
     mock.module('@nl/ui/custom/deferred-console-game', () => ({
-      DeferredConsoleGame: ({ children }: PropsWithChildren) => <>{children}</>,
+      DeferredConsoleGame: ({
+        children,
+        ...props
+      }: PropsWithChildren<{ deferVideo?: boolean; src?: string }>) => {
+        consoleGameProps = props
+        return <>{children}</>
+      },
     }))
     mock.module('@/components/DeferredHomeSections', () => {
       const DeferredHomeSection = ({ label }: { label: string }) => (
@@ -110,6 +117,12 @@ describe('home page', () => {
     const consoleBackdrop = screen.getByAltText('Game Console Backdrop')
     expect(consoleBackdrop.getAttribute('loading')).toBe('eager')
     expect(consoleBackdrop.getAttribute('data-fetch-priority')).toBe('low')
+  })
+
+  it('defers the console video after the backdrop becomes visible', () => {
+    render(<Home />)
+
+    expect(consoleGameProps).toEqual({ deferVideo: true, src: '/video/smashers.mp4' })
   })
 
   it('keeps the desktop hero artwork wrapper full width', () => {
