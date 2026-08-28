@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/eslint-config-v1.0.2...eslint-config-v1.0.3) (2026-08-28)
+
+
+### Bug Fixes
+
+* **tooling:** make shared Next lint config portable ([ba0bc74](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/ba0bc749c101e42341aba24a9252cf1acde3f306))
+
 ## [1.0.2](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/eslint-config-v1.0.1...eslint-config-v1.0.2) (2026-08-23)
 
 

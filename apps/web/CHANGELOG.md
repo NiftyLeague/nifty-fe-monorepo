@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.0.29](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.28...web-v1.0.29) (2026-08-28)
+
+
+### Bug Fixes
+
+* **build:** stabilize app bundler paths ([31f0082](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/31f0082d2e0f0601f8fb6da675c37ba0517471c6))
+* restore grouped web and app visuals ([a744026](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/a74402659fcb9f9e8f5fe1ee6c36cd9b6a2cee3b))
+
+
+### Performance
+
+* **css:** exclude test sources from app scans ([0c8ef0f](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/0c8ef0f2ec7503ad4dc1d808c77e3b508a02bcec))
+* **navigation:** avoid background route prefetch ([4d2f627](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/4d2f6276e11c813343ac857b8219a4ed5b146df6))
+* **ui:** slim global error fallback ([f66f7f0](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/f66f7f0844a8c14e6dd689a67d0a111b2f663fa2))
+* **web:** defer below-hero console video activation ([e2cd14c](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/e2cd14c4745b004b04c28a05459286cffe488974))
+* **web:** defer homepage console backdrop ([bcdd8d1](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/bcdd8d1b4860bc31aeda6b213f969c4c769eebc2))
+* **web:** eager-load console backdrop without video ([d7e0873](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/d7e087311149188fd37cf52bda00128d8651e044))
+* **web:** optimize deferred roadmap media ([aec33d7](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/aec33d768931f8bee3653613b8a830ab6694aced))
+* **web:** use native external footer links ([e9b31d6](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/e9b31d6d2c324148f331eb49819d8cbadf9623e2))
+
 ## [1.0.28](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.27...web-v1.0.28) (2026-08-25)
 
 

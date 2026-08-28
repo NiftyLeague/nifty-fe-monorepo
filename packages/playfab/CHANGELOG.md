@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.7](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/playfab-v1.0.6...playfab-v1.0.7) (2026-08-28)
+
+
+### Bug Fixes
+
+* **types:** restore icon and provider compatibility ([de1f4d3](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/de1f4d38aefe237b14beed3ea26328d5f6d6bba5))
+
 ## [1.0.6](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/playfab-v1.0.5...playfab-v1.0.6) (2026-08-24)
 
 
