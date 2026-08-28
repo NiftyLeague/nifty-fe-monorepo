@@ -3,7 +3,7 @@ import OptimizedImage from '@nl/ui/custom/optimized-image'
 
 import styles from './index.module.css'
 
-const POSTER_BACKGROUND = '/img/games/smashers/smashers-poster.jpg'
+const POSTER_BACKGROUND = '/img/games/smashers/background-poster.webp'
 const DeferredHeroBackground = () => {
   return (
     <>

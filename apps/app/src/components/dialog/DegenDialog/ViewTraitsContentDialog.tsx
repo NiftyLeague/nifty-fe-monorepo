@@ -32,8 +32,8 @@ const ViewTraitsContentDialog = ({
   degenImageSx,
 }: ViewTraitsContentDialogProps) => (
   <div className="grid grid-cols-12">
-    <div className="col-span-12 py-2 px-4 md:col-span-6">
-      <div className="flex justify-center">
+    <div className="col-span-12 min-w-0 py-2 px-4 md:col-span-6">
+      <div className="flex min-w-0 justify-center">
         {degen?.id && <DegenImage sx={{ maxWidth: '500px', ...degenImageSx }} tokenId={degen.id} />}
       </div>
       <div className="my-4 flex flex-col items-center">
@@ -77,7 +77,7 @@ const ViewTraitsContentDialog = ({
         </div>
       )}
     </div>
-    <div className="col-span-12 relative py-2 px-4 md:col-span-6">
+    <div className="relative col-span-12 min-w-0 py-2 px-4 md:col-span-6">
       <div className="flex h-full flex-col justify-between gap-6">
         <div>
           <div className="flex flex-row items-center justify-center">

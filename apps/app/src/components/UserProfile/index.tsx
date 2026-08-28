@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useMemo } from 'react'
+import { UserRound } from 'lucide-react'
 import { useAccount, useEnsAvatar, useEnsName } from 'wagmi'
 import { normalize } from 'viem/ens'
 
@@ -41,7 +42,13 @@ const UserProfile = () => {
     >
       <Avatar className="size-20">
         <AvatarImage alt="avatar" src={ensAvatar.data || avatar?.url} />
-        <AvatarFallback />
+        <AvatarFallback>
+          <UserRound
+            aria-hidden="true"
+            className="size-10 text-muted-foreground"
+            strokeWidth={1.5}
+          />
+        </AvatarFallback>
       </Avatar>
       <div className="my-2 flex flex-col items-center">
         <span style={{ whiteSpace: 'nowrap' }}>{displayName}</span>

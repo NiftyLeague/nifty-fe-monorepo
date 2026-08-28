@@ -5,6 +5,11 @@ import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { AnimatedImage } from '@nl/ui/custom/animated-image'
 import styles from './index.module.css'
 
+export type RoadmapCardSide = 'left' | 'right'
+
+export const getRoadmapCardSide = (index: number): RoadmapCardSide =>
+  index % 2 === 0 ? 'left' : 'right'
+
 interface RoadmapCardProps {
   body: React.ReactNode
   current?: boolean
@@ -18,6 +23,7 @@ interface RoadmapCardProps {
     height: number
     style: { top: string; right?: string }
   }
+  side?: RoadmapCardSide
   title: string | React.ReactNode
 }
 
@@ -28,9 +34,10 @@ const RoadmapCard = ({
   completionDate,
   divider,
   image,
+  side = 'left',
   title,
 }: RoadmapCardProps): React.ReactNode => (
-  <div className={cx(styles.cd_timeline_block, styles.fade_in)}>
+  <div className={cx(styles.cd_timeline_block, styles.fade_in)} data-timeline-side={side}>
     {divider ? (
       <h4 className={styles.cd_timeline_divider}>Options below are TBD!</h4>
     ) : (
