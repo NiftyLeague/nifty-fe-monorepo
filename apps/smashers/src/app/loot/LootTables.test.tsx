@@ -4,7 +4,7 @@ import { describe, expect, it } from 'bun:test'
 import LootTables from './LootTables'
 
 describe('LootTables', () => {
-  it('keeps the deferred loot content semantic and complete', () => {
+  it('keeps the server-rendered loot content semantic and complete', () => {
     render(<LootTables />)
 
     expect(screen.getAllByRole('table').length).toBeGreaterThan(0)
