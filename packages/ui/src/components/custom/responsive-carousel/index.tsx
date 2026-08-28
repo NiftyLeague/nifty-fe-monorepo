@@ -16,6 +16,7 @@ import {
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 import { IconButton } from '@nl/ui/base/icon-button'
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 
 import styles from './responsive-carousel.module.css'
@@ -137,7 +138,7 @@ const ResponsiveCarousel = forwardRef<ResponsiveCarouselRef, ResponsiveCarouselP
     const [activeIndex, setActiveIndex] = useState(0)
     const [viewportWidth, setViewportWidth] = useState(0)
     const [isPaused, setIsPaused] = useState(false)
-    const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+    const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
     const isInViewport = useOnScreen(viewportRef, '0px', { enabled: autoPlay })
 
     const effectiveSettings = useMemo(
@@ -215,11 +216,6 @@ const ResponsiveCarousel = forwardRef<ResponsiveCarouselRef, ResponsiveCarouselP
       // every carousel does not process the same resize twice.
       if (!resizeObserver) window.addEventListener('resize', updateViewport, { passive: true })
 
-      const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-      const updateMotionPreference = () => setPrefersReducedMotion(motionQuery.matches)
-      updateMotionPreference()
-      motionQuery.addEventListener?.('change', updateMotionPreference)
-
       return () => {
         if (scrollFrameRef.current !== null) {
           window.cancelAnimationFrame(scrollFrameRef.current)
@@ -227,7 +223,6 @@ const ResponsiveCarousel = forwardRef<ResponsiveCarouselRef, ResponsiveCarouselP
         }
         resizeObserver?.disconnect()
         if (!resizeObserver) window.removeEventListener('resize', updateViewport)
-        motionQuery.removeEventListener?.('change', updateMotionPreference)
       }
     }, [])
 
