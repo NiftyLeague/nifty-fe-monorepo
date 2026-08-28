@@ -1074,12 +1074,13 @@ describe('public app shell contract', () => {
     expect(profileSource).toContain(
       'errorFallback={(retry) => <ProfileProviderError retry={retry} />}'
     )
-    expect(profileSource).toContain("from '@nl/ui/hooks/useDeferredActivation'")
+    expect(profileSource).not.toContain("from '@nl/ui/hooks/useDeferredActivation'")
     expect(profileSource).toContain("from '@nl/ui/hooks/useMediaQuery'")
     expect(profileSource).toContain("from '@/app/_layout/navigation-breakpoints'")
     expect(profileSource).toContain("placement: 'desktop' | 'mobile'")
-    expect(profileSource).toContain('useDeferredActivation({ enabled: isVisiblePlacement })')
-    expect(profileSource).toContain('enabled={isActivated}')
+    expect(profileSource).toContain('enabled\n')
+    expect(profileSource).toContain('walletRequested')
+    expect(profileSource).toContain('data-public-signed-out-profile')
     expect(profileSource).toContain('isVisiblePlacement')
     expect(profileSource).toContain('Sign-in is temporarily unavailable.')
     expect(navigationSource).not.toContain("from '@/components/extended/Breadcrumbs'")
@@ -1669,9 +1670,15 @@ describe('shared console game loading contract', () => {
 
     expect(consoleGameSource).not.toContain("from '@nl/ui/hooks/useOnScreen'")
     expect(consoleGameSource).toContain('isNearViewport?: boolean')
+    expect(consoleGameSource).toContain(
+      '{isNearViewport ? <source src={src} type="video/mp4" /> : null}'
+    )
     expect(consoleGameSource).toContain('children: ReactNode')
-    expect(deferredSource).toContain('isNearViewport={isNearViewport}')
+    expect(deferredSource).toContain('isNearViewport={isNearViewport && videoActivated}')
+    expect(deferredSource).toContain('scheduleDeferredActivation')
     expect(deferredSource).toContain('children: ReactNode')
+    expect(deferredSource).toContain('<div className="dark-gradient-overlay" />')
+    expect(deferredSource).toContain('renderGradientOverlay={false}')
     expect(deferredSource).not.toContain("from '../console-game/backdrop'")
     expect(deferredSource).not.toContain("from '@nl/ui/custom/optimized-image'")
   })

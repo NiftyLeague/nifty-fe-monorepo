@@ -5,8 +5,9 @@ import { cx } from '@nl/ui/class-names'
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 
 import MobileNavMenu from './MobileNavMenu'
+import NavigationLink from './NavigationLink'
 import { NavbarScrollFrame } from './NavbarScrollFrame'
-import { NAV_LINK_CONTENT_CLASS, NavLinkContent } from './NavLinkContent'
+import { NAV_LINK_CONTENT_CLASS } from './NavLinkContent'
 
 export interface NavPage {
   title: string
@@ -45,15 +46,13 @@ function DesktopNavLink({
   title,
 }: NavPage & { className?: string }) {
   return (
-    <Link
-      href={href}
-      prefetch={false}
-      target={external ? '_blank' : undefined}
-      rel={external ? 'noreferrer' : undefined}
+    <NavigationLink
       className={cx(NAV_LINK_CONTENT_CLASS, className)}
-    >
-      <NavLinkContent description={description} external={external} title={title} />
-    </Link>
+      description={description}
+      external={external}
+      href={href}
+      title={title}
+    />
   )
 }
 
@@ -120,15 +119,24 @@ function DesktopNavMenu({ actionButton, navItems }: NavbarProps) {
         ))}
         {actionButton && (
           <li>
-            <Link
-              href={actionButton.href}
-              prefetch={false}
-              target={actionButton.external ? '_blank' : undefined}
-              rel={actionButton.external ? 'noreferrer' : undefined}
-              className="theme-btn-primary theme-btn-rounded ml-3 max-w-fit"
-            >
-              {actionButton.title}
-            </Link>
+            {actionButton.external ? (
+              <a
+                href={actionButton.href}
+                target="_blank"
+                rel="noreferrer"
+                className="theme-btn-primary theme-btn-rounded ml-3 max-w-fit"
+              >
+                {actionButton.title}
+              </a>
+            ) : (
+              <Link
+                href={actionButton.href}
+                prefetch={false}
+                className="theme-btn-primary theme-btn-rounded ml-3 max-w-fit"
+              >
+                {actionButton.title}
+              </Link>
+            )}
           </li>
         )}
       </ul>

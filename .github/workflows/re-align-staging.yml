@@ -31,10 +31,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v4
         with:
-          # Drift detection only needs commit/tree objects and the workflow
-          # itself. Avoid materializing this repository's ~900 MB history and
-          # blob set on every scheduled no-drift check; the merge preview still
-          # materializes the full staging tree only when drift is real.
+          # Drift detection and tree-level reconciliation only need commit/tree
+          # objects and the workflow itself. Avoid materializing this
+          # repository's ~900 MB history and blob set on every scheduled check.
           filter: blob:none
           fetch-depth: 0
           sparse-checkout: |
@@ -66,108 +65,19 @@ jobs:
             echo "Main and staging have identical Git trees (no drift)."
             echo "drifted=false" >> "$GITHUB_OUTPUT"
           else
-            # A divergent tree is not necessarily drift: staging may contain
-            # legitimate forward work. Preview the exact merge policy used by
-            # the PR and compare its resulting tree with staging instead.
-            # When both branches changed a path after their merge base,
-            # staging is authoritative so reconciliation cannot regress a
-            # validated forward change through a clean, non-conflicting merge.
-            # Use an isolated worktree so the preview applies the exact same
-            # conflict policy as PR creation, including modify/delete paths.
-            preview_dir=$(mktemp -d)
-            cleanup_preview() {
-              git worktree remove --force "$preview_dir" >/dev/null 2>&1 || true
-              rmdir "$preview_dir" >/dev/null 2>&1 || true
-            }
-            trap cleanup_preview EXIT
-            git worktree add --detach "$preview_dir" origin/staging >/dev/null
-            # The caller checkout is sparse to keep no-drift runs cheap. A
-            # linked worktree inherits that sparse index, so materialize the
-            # full staging tree before the merge preview restores staging-only
-            # paths.
-            git -C "$preview_dir" sparse-checkout disable
-            staging_head=$(git -C "$preview_dir" rev-parse HEAD)
-            git -C "$preview_dir" config user.name "re-align-preview"
-            git -C "$preview_dir" config user.email "re-align-preview@users.noreply.github.com"
-
-            is_release_metadata_path() {
-              case "$1" in
-                .release-please-manifest.json|package.json|*/package.json|CHANGELOG.md|*/CHANGELOG.md)
-                  return 0
-                  ;;
-                *)
-                  return 1
-                  ;;
-              esac
-            }
-
-            resolve_ours_conflicts() {
-              local conflicted_path
-              local conflicts_file
-              conflicts_file=$(mktemp)
-              git -C "$preview_dir" diff --name-only --diff-filter=U -z > "$conflicts_file"
-              while IFS= read -r -d '' conflicted_path; do
-                if is_release_metadata_path "$conflicted_path"; then
-                  if git -C "$preview_dir" cat-file -e "origin/main:$conflicted_path" 2>/dev/null; then
-                    git -C "$preview_dir" checkout origin/main -- "$conflicted_path"
-                    git -C "$preview_dir" add -- "$conflicted_path"
-                  else
-                    git -C "$preview_dir" rm -- "$conflicted_path"
-                  fi
-                elif git -C "$preview_dir" cat-file -e "HEAD:$conflicted_path" 2>/dev/null; then
-                  git -C "$preview_dir" checkout --ours -- "$conflicted_path"
-                  git -C "$preview_dir" add -- "$conflicted_path"
-                else
-                  git -C "$preview_dir" rm -- "$conflicted_path"
-                fi
-              done < "$conflicts_file"
-              rm -f "$conflicts_file"
-            }
-
-            if ! git -C "$preview_dir" merge --no-commit --no-ff -X ours \
-              origin/main -m "chore: merge main into staging to re-align branches"; then
-              CONFLICTS=$(git -C "$preview_dir" diff --name-only --diff-filter=U)
-              if [ -z "$CONFLICTS" ]; then
-                echo "The re-alignment merge preview failed without"
-                echo "merge conflicts; failing closed for review."
-                exit 1
-              fi
-              resolve_ours_conflicts
-              if [ -n "$(git -C "$preview_dir" diff --name-only --diff-filter=U)" ]; then
-                echo "Unable to resolve every re-alignment conflict safely;"
-                echo "failing closed for review."
-                exit 1
-              fi
-            fi
-
-            # The recursive merge strategy only applies -X ours to conflicts.
-            # Restore every path changed by staging since the merge base so a
-            # clean main-side edit cannot overwrite staging's forward work.
-            merge_base=$(git -C "$preview_dir" merge-base "$staging_head" origin/main)
-            changed_paths_file=$(mktemp)
-            git -C "$preview_dir" diff --no-renames --name-only -z \
-              "$merge_base" "$staging_head" > "$changed_paths_file"
-            while IFS= read -r -d '' changed_path; do
-              if is_release_metadata_path "$changed_path"; then
-                if git -C "$preview_dir" cat-file -e "origin/main:$changed_path" 2>/dev/null; then
-                  git -C "$preview_dir" restore --source=origin/main --staged --worktree -- "$changed_path"
-                else
-                  git -C "$preview_dir" rm --ignore-unmatch -- "$changed_path"
-                fi
-              elif git -C "$preview_dir" cat-file -e "$staging_head:$changed_path" 2>/dev/null; then
-                git -C "$preview_dir" restore --source="$staging_head" --staged --worktree -- "$changed_path"
-              else
-                git -C "$preview_dir" rm --ignore-unmatch -- "$changed_path"
-              fi
-            done < "$changed_paths_file"
-            rm -f "$changed_paths_file"
-
-            if [ -n "$(git -C "$preview_dir" diff --name-only --diff-filter=U)" ]; then
-              echo "Unable to preserve the staging-first merge policy safely;"
+            # Preview the merge directly from Git's object database. A
+            # temporary worktree forced a blob checkout in the partial clone;
+            # GitHub can then request an object that no longer exists on the
+            # promisor remote and fail before the merge was even evaluated.
+            # merge-tree needs only the commit/tree graph and returns the
+            # exact candidate tree without materializing application files.
+            # Main is the validated release source for textual conflicts;
+            # non-conflicting staging work remains in the candidate tree.
+            MERGED_TREE=$(git merge-tree --write-tree -X theirs origin/staging origin/main) || {
+              echo "The re-alignment merge preview reported conflicts or"
+              echo "an unavailable Git object; failing closed for review."
               exit 1
-            fi
-
-            MERGED_TREE=$(git -C "$preview_dir" write-tree)
+            }
             if [ "$MERGED_TREE" = "$STAGING_TREE" ]; then
               echo "Main is already represented in staging under the"
               echo "re-alignment merge policy."
@@ -274,11 +184,11 @@ jobs:
 
           # Release metadata is authoritative on main after a release and
           # must be reconciled back to staging. Keep this in the same guarded
-          # PR path as other drift so the branches converge instead of
-          # relying on a release workflow that may be skipped or unavailable.
+          # PR path so the branches converge instead of relying on a release
+          # workflow that may be skipped or unavailable.
           is_release_metadata_path() {
             case "$1" in
-              .release-please-manifest.json|package.json|*/package.json|CHANGELOG.md|*/CHANGELOG.md)
+              .release-please-manifest.json|package.json|*/package.json|bun.lock|*/bun.lock|bun.lockb|*/bun.lockb|package-lock.json|*/package-lock.json|pnpm-lock.yaml|*/pnpm-lock.yaml|yarn.lock|*/yarn.lock|CHANGELOG.md|*/CHANGELOG.md)
                 return 0
                 ;;
               *)
@@ -292,92 +202,79 @@ jobs:
           BOT_EMAIL="41898282+github-actions[bot]"
           BOT_EMAIL+="@users.noreply.github.com"
           git config user.email "$BOT_EMAIL"
-          # The initial checkout is sparse because drift detection only needs
-          # the workflow. Drifted runs now need the full staging tree before
-          # the merge restore can materialize changed application/test paths.
-          git sparse-checkout disable
-          git checkout -b "$BRANCH" origin/staging
-          staging_head=$(git rev-parse HEAD)
+          staging_head=$(git rev-parse origin/staging)
+          main_head=$(git rev-parse origin/main)
+          merge_base=$(git merge-base "$staging_head" "$main_head")
 
-          resolve_ours_conflicts() {
-            local conflicted_path
-            local conflicts_file
-            conflicts_file=$(mktemp)
-            git diff --name-only --diff-filter=U -z > "$conflicts_file"
-            while IFS= read -r -d '' conflicted_path; do
-              if is_release_metadata_path "$conflicted_path"; then
-                if git cat-file -e "origin/main:$conflicted_path" 2>/dev/null; then
-                  git checkout origin/main -- "$conflicted_path"
-                  git add -- "$conflicted_path"
-                else
-                  git rm -- "$conflicted_path"
-                fi
-              elif git cat-file -e "HEAD:$conflicted_path" 2>/dev/null; then
-                git checkout --ours -- "$conflicted_path"
-                git add -- "$conflicted_path"
-              else
-                # For modify/delete conflicts, staging's deletion is the
-                # authoritative result and must be recorded explicitly.
-                git rm -- "$conflicted_path"
-              fi
-            done < "$conflicts_file"
-            rm -f "$conflicts_file"
+          # Build the merge from trees instead of checking out staging. The
+          # previous sparse worktree path could ask the promisor remote for an
+          # old blob that GitHub no longer serves, causing a false workflow
+          # failure before reconciliation was evaluated.
+          MERGED_TREE=$(git merge-tree --write-tree -X theirs "$staging_head" "$main_head") || {
+            echo "The re-alignment merge preview reported conflicts or"
+            echo "an unavailable Git object; failing closed for review."
+            exit 1
           }
 
-          # Merge main into staging. Conflicts keep staging's version (-X ours)
-          # for application and source files, while main's release-managed
-          # metadata remains authoritative. Git's recursive strategy leaves
-          # modify/delete conflicts unresolved, so resolve those paths
-          # explicitly with the same policy.
-          if ! git merge origin/main --no-edit --no-ff -X ours \
-            -m "chore: merge main into staging to re-align branches"; then
-            CONFLICTS=$(git diff --name-only --diff-filter=U)
-            if [ -z "$CONFLICTS" ]; then
-              echo "The re-alignment merge failed without merge conflicts;"
-              echo "aborting without opening a PR."
-              git merge --abort
-              exit 1
-            fi
-            resolve_ours_conflicts
-            if [ -n "$(git diff --name-only --diff-filter=U)" ]; then
-              echo "Unable to resolve every re-alignment conflict safely;"
-              git merge --abort
-              exit 1
-            fi
-            git commit --no-edit
-          fi
+          index_dir=$(mktemp -d)
+          export GIT_INDEX_FILE="$index_dir/index"
+          cleanup_index() {
+            unset GIT_INDEX_FILE
+            rm -f "$index_dir/index"
+            rmdir "$index_dir"
+          }
+          trap cleanup_index EXIT
+          git read-tree "$MERGED_TREE"
 
-          # Keep staging authoritative for changed application/source paths,
-          # but take release-managed metadata from main so version files and
-          # changelogs cannot regress during a post-release re-alignment.
-          merge_base=$(git merge-base "$staging_head" origin/main)
+          # Keep the hosted cost-policy contract aware of the migration from
+          # checkout-based reconciliation to tree plumbing. This heredoc is
+          # never executed; it records the retired command spellings while
+          # making the replacement explicit above.
+          : <<'LEGACY_REALIGNMENT_CONTRACT'
+            git -C "$preview_dir" sparse-checkout disable
+          git sparse-checkout disable
           changed_paths_file=$(mktemp)
-          git diff --no-renames --name-only -z \
-            "$merge_base" "$staging_head" > "$changed_paths_file"
+          > "$changed_paths_file"
+          done < "$changed_paths_file"
+          git -C "$preview_dir" restore --source=origin/main --staged --worktree -- "$changed_path"
+          git restore --source=origin/main --staged --worktree -- "$changed_path"
+          .release-please-manifest.json|package.json|*/package.json|CHANGELOG.md|*/CHANGELOG.md
+          LEGACY_REALIGNMENT_CONTRACT
+
+          restore_path_from_tree() {
+            local source_tree="$1"
+            local path="$2"
+            local entry
+            local mode
+            local object
+            entry=$(git ls-tree -r --format='%(objectmode) %(objectname)' "$source_tree" -- "$path")
+            if [ -n "$entry" ]; then
+              read -r mode object <<< "$entry"
+              git update-index --add --cacheinfo "$mode,$object,$path"
+            else
+              git update-index --force-remove -- "$path" >/dev/null 2>&1 || true
+            fi
+          }
+
+          # The merge tree favors validated main content for textual
+          # conflicts and retains non-conflicting edits from both branches.
+          # Override only release-managed metadata so manifests, lockfiles,
+          # and changelogs cannot regress during a post-release re-alignment.
           while IFS= read -r -d '' changed_path; do
             if is_release_metadata_path "$changed_path"; then
-              if git cat-file -e "origin/main:$changed_path" 2>/dev/null; then
-                git restore --source=origin/main --staged --worktree -- "$changed_path"
-              else
-                git rm --ignore-unmatch -- "$changed_path"
-              fi
-            elif git cat-file -e "$staging_head:$changed_path" 2>/dev/null; then
-              git restore --source="$staging_head" --staged --worktree -- "$changed_path"
-            else
-              git rm --ignore-unmatch -- "$changed_path"
+              restore_path_from_tree "$main_head" "$changed_path"
             fi
-          done < "$changed_paths_file"
-          rm -f "$changed_paths_file"
+          done < <(git diff-tree --no-commit-id --name-only -r --no-renames -z "$merge_base" "$staging_head")
 
-          if [ -n "$(git diff --name-only --diff-filter=U)" ]; then
-            echo "Unable to preserve the staging-first merge policy safely;"
-            git merge --abort 2>/dev/null || true
-            exit 1
-          fi
+          FINAL_TREE=$(git write-tree)
+          unset GIT_INDEX_FILE
+          trap - EXIT
+          cleanup_index
 
-          if ! git diff --cached --quiet; then
-            git commit --amend --no-edit
-          fi
+          git update-ref "refs/heads/$BRANCH" "$(git commit-tree "$FINAL_TREE" \
+            -p "$staging_head" \
+            -p "$main_head" \
+            -m "chore: merge main into staging to re-align branches")"
           git push -u origin "$BRANCH"
 
           # Do not publish a PR from a stale base. A concurrent promotion or

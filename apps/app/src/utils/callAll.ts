@@ -1,4 +1,4 @@
-export type FunctionType = (...args: unknown[]) => void
+type FunctionType = (...args: unknown[]) => void
 
 const callAll =
   (...fns: FunctionType[]) =>

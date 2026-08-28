@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { Dialog } from '@nl/ui/custom/dialog'
 import NativeImage from '@nl/ui/custom/native-image'
 import { Text } from '@nl/ui/custom/typography'
@@ -14,7 +13,7 @@ const PlayContent = () => (
       winner-takes-all battle!
     </Text>
     <div className="grid grid-cols-3 gap-2 items-center">
-      <Link
+      <a
         href="/android/&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"
         target="_blank"
         rel="noreferrer"
@@ -28,8 +27,8 @@ const PlayContent = () => (
           priority
           style={{ width: '100%', maxWidth: '100%', height: 'auto' }}
         />
-      </Link>
-      <Link
+      </a>
+      <a
         href="/ios"
         target="_blank"
         rel="noreferrer"
@@ -43,8 +42,8 @@ const PlayContent = () => (
           priority
           style={{ width: '92%', maxWidth: '100%', height: 'auto' }}
         />
-      </Link>
-      <Link
+      </a>
+      <a
         href="/steam"
         target="_blank"
         rel="noreferrer"
@@ -58,7 +57,7 @@ const PlayContent = () => (
           priority
           style={{ width: '100%', maxWidth: '100%', height: 'auto' }}
         />
-      </Link>
+      </a>
     </div>
   </>
 )

@@ -111,7 +111,7 @@ const auditDegenList: Degen[] = [
   },
 ]
 
-export const AUDIT_FIXTURE_DEGENS = Object.fromEntries(
+const AUDIT_FIXTURE_DEGENS = Object.fromEntries(
   auditDegenList.map((degen) => [degen.id, degen])
 ) as Record<string, Degen>
 
@@ -165,7 +165,7 @@ const auditMiniGame: ProfileMiniGame = {
   xp: 1050,
 }
 
-export const AUDIT_FIXTURE_PROFILE: Profile = {
+const AUDIT_FIXTURE_PROFILE: Profile = {
   id: 'audit-profile',
   updated_at: 0,
   name: 'Audit Player',

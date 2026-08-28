@@ -28,6 +28,7 @@ describe('ConsoleGame', () => {
     const video = container.querySelector('video')
 
     expect(image?.getAttribute('loading')).toBe('lazy')
+    expect(image?.getAttribute('fetchpriority')).toBe('low')
     expect(image?.getAttribute('srcset')).toContain('/_next/image?url=')
     expect(image?.getAttribute('sizes')).toBe('100vw')
     expect(image?.getAttribute('width')).toBe('4842')
@@ -42,6 +43,16 @@ describe('ConsoleGame', () => {
     expect(container.querySelector('.dark-gradient-overlay')).toBeTruthy()
   })
 
+  it('allows the deferred wrapper to own the shared gradient overlay', () => {
+    const { container } = render(
+      <ConsoleGame renderGradientOverlay={false} src="/video/example.mp4">
+        <ConsoleGameBackdrop />
+      </ConsoleGame>
+    )
+
+    expect(container.querySelector('.dark-gradient-overlay')).toBeNull()
+  })
+
   it('uses the parent visibility state to pause outside the viewport', () => {
     const { container, rerender } = render(
       <ConsoleGame isNearViewport={false} src="/video/example.mp4">
@@ -52,6 +63,7 @@ describe('ConsoleGame', () => {
 
     expect(video?.getAttribute('preload')).toBe('none')
     expect(video?.hasAttribute('autoplay')).toBe(false)
+    expect(video?.querySelector('source')).toBeNull()
 
     rerender(
       <ConsoleGame isNearViewport src="/video/example.mp4">
@@ -60,5 +72,6 @@ describe('ConsoleGame', () => {
     )
     expect(video?.getAttribute('preload')).toBe('metadata')
     expect(video?.hasAttribute('autoplay')).toBe(true)
+    expect(video?.querySelector('source')?.getAttribute('src')).toBe('/video/example.mp4')
   })
 })

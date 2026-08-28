@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element -- native image mocks keep this unit test isolated. */
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it, mock } from 'bun:test'
 
@@ -10,6 +11,23 @@ mock.module('@nl/ui/custom/optimized-image', () => ({
 }))
 
 describe('RoadmapCard', () => {
+  it('keeps alternating sides independent of deferred DOM wrappers', async () => {
+    const { default: RoadmapCard, getRoadmapCardSide } = await import('./roadmapCard')
+
+    expect(getRoadmapCardSide(0)).toBe('left')
+    expect(getRoadmapCardSide(1)).toBe('right')
+    expect(getRoadmapCardSide(2)).toBe('left')
+
+    render(<RoadmapCard body={<p>Details</p>} side="right" title="Desktop App" />)
+
+    expect(
+      screen
+        .getByRole('heading', { name: 'Desktop App' })
+        .closest('[data-timeline-side]')
+        ?.getAttribute('data-timeline-side')
+    ).toBe('right')
+  })
+
   it('keeps overflowing milestone artwork outside the paint-contained card content', async () => {
     const { default: RoadmapCard } = await import('./roadmapCard')
 

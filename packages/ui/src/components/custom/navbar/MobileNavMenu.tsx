@@ -4,7 +4,8 @@ import { Fragment } from 'react'
 import { buttonVariants } from '@nl/ui/base/button-variants'
 import MobileNavigationDisclosure from '@nl/ui/custom/mobile-navigation'
 
-import { NavLinkContent, NAV_LINK_CONTENT_CLASS } from './NavLinkContent'
+import NavigationLink from './NavigationLink'
+import { NAV_LINK_CONTENT_CLASS } from './NavLinkContent'
 import type { NavItemData, NavbarActionButton } from './index'
 
 interface MobileNavMenuProps {
@@ -19,19 +20,13 @@ function MobileMenuGroup({ group, pages }: Extract<NavItemData, { type: 'group' 
       <ul className="flex w-full flex-col">
         {pages.map((page) => (
           <li key={page.title}>
-            <Link
+            <NavigationLink
               className={`${NAV_LINK_CONTENT_CLASS} text-base font-medium`}
+              description={page.description}
+              external={page.external}
               href={page.href}
-              prefetch={false}
-              target={page.external ? '_blank' : undefined}
-              rel={page.external ? 'noreferrer' : undefined}
-            >
-              <NavLinkContent
-                description={page.description}
-                external={page.external}
-                title={page.title}
-              />
-            </Link>
+              title={page.title}
+            />
           </li>
         ))}
       </ul>
@@ -42,19 +37,13 @@ function MobileMenuGroup({ group, pages }: Extract<NavItemData, { type: 'group' 
 function MobileMenuItem({ type: _type, ...page }: Extract<NavItemData, { type: 'single' }>) {
   return (
     <li className="w-full">
-      <Link
+      <NavigationLink
         className={`${NAV_LINK_CONTENT_CLASS} text-base font-medium`}
+        description={page.description}
+        external={page.external}
         href={page.href}
-        prefetch={false}
-        target={page.external ? '_blank' : undefined}
-        rel={page.external ? 'noreferrer' : undefined}
-      >
-        <NavLinkContent
-          description={page.description}
-          external={page.external}
-          title={page.title}
-        />
-      </Link>
+        title={page.title}
+      />
     </li>
   )
 }
@@ -88,18 +77,30 @@ export default function MobileNavMenu({ actionButton, navItems }: MobileNavMenuP
               className="my-6 h-px w-full shrink-0 bg-separator"
               data-slot="mobile-nav-divider"
             />
-            <Link
-              href={actionButton.href}
-              prefetch={false}
-              target={actionButton.external ? '_blank' : undefined}
-              rel={actionButton.external ? 'noreferrer' : undefined}
-              className={buttonVariants({
-                variant: 'outline',
-                className: 'w-full cursor-pointer text-foreground',
-              })}
-            >
-              Launch {actionButton.title}
-            </Link>
+            {actionButton.external ? (
+              <a
+                href={actionButton.href}
+                target="_blank"
+                rel="noreferrer"
+                className={buttonVariants({
+                  variant: 'outline',
+                  className: 'w-full cursor-pointer text-foreground',
+                })}
+              >
+                Launch {actionButton.title}
+              </a>
+            ) : (
+              <Link
+                href={actionButton.href}
+                prefetch={false}
+                className={buttonVariants({
+                  variant: 'outline',
+                  className: 'w-full cursor-pointer text-foreground',
+                })}
+              >
+                Launch {actionButton.title}
+              </Link>
+            )}
           </>
         )}
       </>

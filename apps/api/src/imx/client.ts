@@ -61,7 +61,7 @@ function imxDerivationPath(address: string): string {
   return `m/2645'/${p1}'/${p2}'/${p3}'/${p4}'/1`
 }
 
-export interface StarkKeyPair {
+interface StarkKeyPair {
   privateKey: string
   publicKey: string
 }
@@ -119,7 +119,7 @@ export interface ImxUser {
   [key: string]: unknown
 }
 
-export interface ImxMintToken {
+interface ImxMintToken {
   id: string
   blueprint: string
   royalties?: Array<{ recipient: string; percentage: number }>

@@ -17,8 +17,8 @@ export default async function Home({ searchParams }: { searchParams: NextSearchP
         <Header activeModal={activeModal} />
       </section>
       <section id="console-game">
-        <DeferredConsoleGame src="/video/smashers.mp4">
-          <ConsoleGameBackdrop loading="eager" />
+        <DeferredConsoleGame deferVideo src="/video/smashers.mp4">
+          <ConsoleGameBackdrop />
         </DeferredConsoleGame>
       </section>
       <section id="game-section" className="container section relative">
