@@ -3,7 +3,7 @@ import type { Comic } from '@/types/marketplace'
 import ImageCard from '@/components/cards/ImageCard'
 import useComicDimension from '@/hooks/useComicDimension'
 
-export interface ComicCardProps {
+interface ComicCardProps {
   data: Comic
   sx?: SxProps<Theme>
   isSelected?: boolean

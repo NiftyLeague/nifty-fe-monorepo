@@ -31,7 +31,7 @@ import TermsOfServiceDialog from '../TermsOfServiceDialog'
 import RentStepper from './RentStepper'
 import styles from './RentDegenContentDialog.module.css'
 
-export interface RentDegenContentDialogProps {
+interface RentDegenContentDialogProps {
   degen?: DashboardDegen
   onClose?: (event: React.MouseEvent<HTMLButtonElement>) => void
 }

@@ -2,7 +2,7 @@ import { useAccount, useDisconnect } from 'wagmi'
 import { buttonVariants } from '@nl/ui/base/button-variants'
 import useAuth from '@/hooks/useAuth'
 
-export interface LogoutButtonProps {
+interface LogoutButtonProps {
   sx?: React.CSSProperties
 }
 

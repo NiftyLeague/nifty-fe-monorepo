@@ -6,7 +6,7 @@ import { cn } from '@nl/ui/utils'
 
 const loadTermsOfServiceContent = () => import('./TermsOfServiceContent')
 
-export interface TermsOfServiceDialogProps {
+interface TermsOfServiceDialogProps {
   open: boolean
   onClose: (
     event: object,

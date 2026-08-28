@@ -1,7 +1,7 @@
 import type { Comic } from '@/types/marketplace'
 import ImageCard from '@/components/cards/ImageCard'
 
-export interface ComicDetailProps {
+interface ComicDetailProps {
   data: Comic | null
 }
 

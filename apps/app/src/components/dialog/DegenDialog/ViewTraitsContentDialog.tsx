@@ -10,7 +10,7 @@ import { DEGEN_PURCHASE_URL } from '@/constants/public-urls'
 import type { SxProps } from '@/types'
 import { hasEntries } from '@/utils/collections'
 
-export interface ViewTraitsContentDialogProps {
+interface ViewTraitsContentDialogProps {
   degen?: DashboardDegen
   degenDetail?: GetDegenResponse
   traits: { [traitType: string]: number }

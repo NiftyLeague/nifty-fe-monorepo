@@ -119,7 +119,7 @@ const CardGameContent = ({
   )
 }
 
-export interface GameCardProps {
+interface GameCardProps {
   actions?: React.ReactNode
   autoHeight?: boolean
   contents?: React.ReactNode

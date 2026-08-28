@@ -13,7 +13,7 @@ export type Metadata = {
   attributes: Attribute[]
 }
 
-export type CreationInfo = { blockNumber: number; creatorAddress: string }
+type CreationInfo = { blockNumber: number; creatorAddress: string }
 
 export type NFTInfo = {
   tokenId: string | number
@@ -58,7 +58,7 @@ export enum ItemTier {
   Mythic = 'Mythic',
 }
 
-export type Rarity = '???' | 'Common' | 'Rare' | 'Meta' | 'Legendary' | 'Mythic'
+type Rarity = '???' | 'Common' | 'Rare' | 'Meta' | 'Legendary' | 'Mythic'
 
 export enum CharacterItemSlotType {
   None = 'None',

@@ -9,11 +9,11 @@ export interface Character {
   transactionHash?: string
 }
 
-export interface CharactersQueryData {
+interface CharactersQueryData {
   characters: Character[]
 }
 
-export interface Contract {
+interface Contract {
   id: string
   address: string
   totalSupply: bigint
@@ -21,12 +21,12 @@ export interface Contract {
   removedTraits: number[]
 }
 
-export interface DefaultQueryData {
+interface DefaultQueryData {
   characters: Character[]
   contracts: Contract[]
 }
 
-export interface Owner {
+interface Owner {
   id: string
   address: string
   createdAt: bigint
@@ -38,7 +38,7 @@ export interface OwnerQueryData {
   owner: Owner
 }
 
-export interface TraitMap {
+interface TraitMap {
   id: string
   tokenId: bigint
   character: Character
@@ -67,6 +67,6 @@ export interface TraitMap {
   background: number
 }
 
-export interface TraitMapsQueryData {
+interface TraitMapsQueryData {
   traitMaps: TraitMap[]
 }

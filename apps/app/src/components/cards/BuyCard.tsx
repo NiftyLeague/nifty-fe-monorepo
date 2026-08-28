@@ -1,7 +1,7 @@
 import { ShoppingCart } from 'lucide-react'
 import useComicDimension from '@/hooks/useComicDimension'
 
-export interface BuyCardProps {
+interface BuyCardProps {
   isNew: boolean
   onBuy: () => void
 }

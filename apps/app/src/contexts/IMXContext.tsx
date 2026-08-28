@@ -10,7 +10,7 @@ import useContractLoader from '@/hooks/useContractLoader'
 import useImxProvider, { getNetwork, useImxSigner } from '@/hooks/useImxProvider'
 import type { Signer } from '@/hooks/useEthersSigner'
 
-export interface Context {
+interface Context {
   address?: `0x${string}`
   imxChainId: number
   imxContracts: Contracts

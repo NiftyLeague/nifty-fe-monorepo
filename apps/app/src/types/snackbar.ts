@@ -5,7 +5,7 @@ export type SnackbarOrigin = {
   horizontal: 'left' | 'center' | 'right'
 }
 
-export type AlertColor = 'success' | 'info' | 'warning' | 'error' | 'primary' | 'secondary'
+type AlertColor = 'success' | 'info' | 'warning' | 'error' | 'primary' | 'secondary'
 
 export interface AlertProps {
   color?: AlertColor

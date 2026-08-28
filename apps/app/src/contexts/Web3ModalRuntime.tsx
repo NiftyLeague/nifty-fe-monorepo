@@ -4,7 +4,7 @@ import type { PropsWithChildren } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { cookieToInitialState, WagmiProvider, type Config } from 'wagmi'
 
-export type Web3ModalConfig = {
+type Web3ModalConfig = {
   wagmiAdapter: {
     wagmiConfig: Config
   }

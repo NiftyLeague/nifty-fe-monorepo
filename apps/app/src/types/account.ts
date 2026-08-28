@@ -69,7 +69,7 @@ export interface ProfileMiniGame {
   xp: number
 }
 
-export interface WithdrawalHistory {
+interface WithdrawalHistory {
   address: string
   amount: number
   balance_before: number
