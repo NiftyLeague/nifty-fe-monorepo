@@ -104,12 +104,12 @@ describe('home page', () => {
     expect(heroImage?.getAttribute('loading')).toBe('eager')
   })
 
-  it('keeps the console backdrop lazy while preserving the visible preview', () => {
+  it('eagerly renders the console backdrop without competing with the hero LCP', () => {
     render(<Home />)
 
     const consoleBackdrop = screen.getByAltText('Game Console Backdrop')
-    expect(consoleBackdrop.getAttribute('loading')).toBe('lazy')
-    expect(consoleBackdrop.getAttribute('fetchpriority')).not.toBe('high')
+    expect(consoleBackdrop.getAttribute('loading')).toBe('eager')
+    expect(consoleBackdrop.getAttribute('data-fetch-priority')).toBe('low')
   })
 
   it('keeps the desktop hero artwork wrapper full width', () => {
