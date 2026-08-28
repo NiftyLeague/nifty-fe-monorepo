@@ -26,4 +26,15 @@ describe('promotion conflict recovery workflow', () => {
     expect(source).toContain('--head "$branch"')
     expect(source).toContain('gh pr close')
   })
+
+  it('refreshes the existing snapshot instead of leaving a stale promotion PR', () => {
+    expect(source).toContain('Create or refresh rebase-compatible promotion snapshot')
+    expect(source).toContain('existing_snapshot')
+    expect(source).toContain('git fetch origin "refs/heads/$branch:refs/remotes/origin/$branch"')
+    expect(source).toContain(
+      'git push \\\n              --force-with-lease="refs/heads/$branch:$existing_commit"'
+    )
+    expect(source).toContain('already contains the current staging tree')
+    expect(source).toContain('Refreshed promotion snapshot PR #$existing_snapshot')
+  })
 })
