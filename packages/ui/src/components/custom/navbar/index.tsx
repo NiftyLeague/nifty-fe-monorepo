@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { Fragment } from 'react'
 
 import { cx } from '@nl/ui/class-names'
@@ -119,24 +118,14 @@ function DesktopNavMenu({ actionButton, navItems }: NavbarProps) {
         ))}
         {actionButton && (
           <li>
-            {actionButton.external ? (
-              <a
-                href={actionButton.href}
-                target="_blank"
-                rel="noreferrer"
-                className="theme-btn-primary theme-btn-rounded ml-3 max-w-fit"
-              >
-                {actionButton.title}
-              </a>
-            ) : (
-              <Link
-                href={actionButton.href}
-                prefetch={false}
-                className="theme-btn-primary theme-btn-rounded ml-3 max-w-fit"
-              >
-                {actionButton.title}
-              </Link>
-            )}
+            <a
+              href={actionButton.href}
+              target={actionButton.external ? '_blank' : undefined}
+              rel={actionButton.external ? 'noreferrer' : undefined}
+              className="theme-btn-primary theme-btn-rounded ml-3 max-w-fit"
+            >
+              {actionButton.title}
+            </a>
           </li>
         )}
       </ul>
@@ -151,7 +140,7 @@ export function Navbar({ actionButton, navItems, className }: NavbarProps) {
   return (
     <NavbarScrollFrame className={className}>
       <div className="flex h-full w-screen items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" prefetch={false} className="flex-shrink-0">
+        <a href="/" className="flex-shrink-0">
           <OptimizedImage
             src="/img/logos/NL/white.webp"
             height={50}
@@ -161,7 +150,7 @@ export function Navbar({ actionButton, navItems, className }: NavbarProps) {
             fetchPriority="low"
             className="h-12 w-auto transition-transform hover:scale-105"
           />
-        </Link>
+        </a>
 
         <DesktopNavMenu actionButton={actionButton} navItems={desktopNavItems} />
         <MobileNavMenu actionButton={actionButton} navItems={navItems} />

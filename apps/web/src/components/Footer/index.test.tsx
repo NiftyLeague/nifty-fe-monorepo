@@ -6,18 +6,6 @@ describe('website footer links', () => {
   let Footer: typeof import('./index').default
 
   beforeEach(async () => {
-    mock.module('next/link', () => ({
-      default: ({
-        children,
-        href,
-        prefetch,
-        ...props
-      }: PropsWithChildren<{ href: string; prefetch?: boolean }>) => (
-        <a href={href} data-next-link="true" data-prefetch={String(prefetch)} {...props}>
-          {children}
-        </a>
-      ),
-    }))
     mock.module('@nl/ui/custom/socials-footer', () => ({
       SocialsFooter: ({ children }: PropsWithChildren) => <footer>{children}</footer>,
       animateClass: '',
@@ -28,11 +16,11 @@ describe('website footer links', () => {
     Footer = (await import('./index')).default
   })
 
-  it('keeps footer navigation from prefetching routes before activation', () => {
+  it('keeps footer navigation on accessible regular anchors', () => {
     render(<Footer />)
 
-    expect(screen.getByRole('link', { name: 'Home' }).getAttribute('data-prefetch')).toBe('false')
-    expect(screen.getByRole('link', { name: 'Games' }).getAttribute('data-prefetch')).toBe('false')
+    expect(screen.getByRole('link', { name: 'Home' }).getAttribute('data-next-link')).toBeNull()
+    expect(screen.getByRole('link', { name: 'Games' }).getAttribute('data-next-link')).toBeNull()
     expect(screen.getByRole('link', { name: 'NiftyDAO' }).getAttribute('data-next-link')).toBeNull()
     expect(screen.getByRole('link', { name: 'NiftyDAO' }).getAttribute('target')).toBe('_blank')
   })

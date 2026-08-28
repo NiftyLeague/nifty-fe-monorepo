@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { cx } from '@nl/ui/class-names'
 import { SocialsFooter, animateClass, linkClass } from '@nl/ui/custom/socials-footer'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
@@ -33,9 +32,9 @@ const FooterLink = ({ href, name, external = false, first = false }: FooterLinkP
   }
 
   return (
-    <Link href={href} prefetch={false} className={className}>
+    <a href={href} className={className}>
       {content}
-    </Link>
+    </a>
   )
 }
 
