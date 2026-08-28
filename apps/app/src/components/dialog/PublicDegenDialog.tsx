@@ -10,8 +10,7 @@ import {
   DialogTitle,
 } from '@nl/ui/base/dialog'
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
-import { TRAIT_INDEXES } from '@/constants/traitIndexes'
-import { TRAIT_KEY_VALUE_MAP, TRAIT_NAME_MAP } from '@/constants/cosmeticsFilters'
+import { getTraitDisplay } from '@/constants/cosmeticsFilters'
 import { DEGEN_PURCHASE_URL } from '@/constants/public-urls'
 import type { PublicDegen } from '@/types/degens'
 
@@ -40,16 +39,11 @@ export default function PublicDegenDialog({ open, degen, onClose }: PublicDegenD
             return { key: `${index}-${trimmedTrait}`, value: trimmedTrait }
           }
 
-          const traitKey = TRAIT_INDEXES[index]
-          const traitValue = Number.parseInt(trimmedTrait, 10)
+          const display = getTraitDisplay(trimmedTrait, index)
 
           return {
-            key: `${traitKey ?? index}-${trimmedTrait}`,
-            name: traitKey
-              ? TRAIT_NAME_MAP[traitKey as keyof typeof TRAIT_NAME_MAP] || `Trait ${index + 1}`
-              : `Trait ${index + 1}`,
-            value:
-              TRAIT_KEY_VALUE_MAP[traitValue as keyof typeof TRAIT_KEY_VALUE_MAP] ?? trimmedTrait,
+            key: `${index}-${trimmedTrait}`,
+            ...display,
           }
         })
         .filter((trait): trait is DisplayTrait => trait !== null) ?? [],
@@ -61,7 +55,14 @@ export default function PublicDegenDialog({ open, degen, onClose }: PublicDegenD
       <DialogContent className="!max-w-[900px]">
         <div className="grid grid-cols-12 gap-6">
           <div className="col-span-12 flex min-w-0 flex-col items-center gap-4 md:col-span-6">
-            {degen?.id && <DegenImage tokenId={degen.id} sx={{ maxWidth: '500px' }} />}
+            {degen?.id && (
+              <div className="w-full max-w-[500px] overflow-hidden">
+                <DegenImage
+                  tokenId={degen.id}
+                  sx={{ display: 'block', width: '100%', maxWidth: '100%', height: 'auto' }}
+                />
+              </div>
+            )}
             <DialogHeader className="items-center">
               <DialogTitle>{degen?.name || 'No Name DEGEN'}</DialogTitle>
               <DialogDescription>Degen #{degen?.id}</DialogDescription>

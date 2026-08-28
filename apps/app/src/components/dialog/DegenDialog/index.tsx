@@ -162,7 +162,7 @@ const DegenDialog = ({
   }, [tokenId, readContracts, open, authToken])
 
   const displayName = name || degen?.name || 'No Name DEGEN'
-  const traits: { [traitType: string]: number } = traitList.reduce(
+  const traits: { [traitType: string]: bigint } = traitList.reduce(
     (acc, trait, i) => ({ ...acc, [TRAIT_INDEXES[i] as string]: trait }),
     {}
   )

@@ -4,7 +4,7 @@ import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import { Title } from '@nl/ui/custom/typography'
 
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
-import { TRAIT_KEY_VALUE_MAP, TRAIT_NAME_MAP } from '@/constants/cosmeticsFilters'
+import { getTraitDisplay, TRAIT_NAME_MAP } from '@/constants/cosmeticsFilters'
 import type { DashboardDegen, GetDegenResponse } from '@/types/degens'
 import { DEGEN_PURCHASE_URL } from '@/constants/public-urls'
 import type { SxProps } from '@/types'
@@ -13,7 +13,7 @@ import { hasEntries } from '@/utils/collections'
 interface ViewTraitsContentDialogProps {
   degen?: DashboardDegen
   degenDetail?: GetDegenResponse
-  traits: { [traitType: string]: number }
+  traits: { [traitType: string]: bigint | number | string }
   displayName?: string
   onRent?: () => void
   onClaim?: () => void
@@ -34,7 +34,20 @@ const ViewTraitsContentDialog = ({
   <div className="grid grid-cols-12">
     <div className="col-span-12 min-w-0 py-2 px-4 md:col-span-6">
       <div className="flex min-w-0 justify-center">
-        {degen?.id && <DegenImage sx={{ maxWidth: '500px', ...degenImageSx }} tokenId={degen.id} />}
+        {degen?.id && (
+          <div className="w-full max-w-[500px] overflow-hidden">
+            <DegenImage
+              sx={{
+                display: 'block',
+                width: '100%',
+                maxWidth: '100%',
+                height: 'auto',
+                ...degenImageSx,
+              }}
+              tokenId={degen.id}
+            />
+          </div>
+        )}
       </div>
       <div className="my-4 flex flex-col items-center">
         <Title level={4}>{displayName}</Title>
@@ -94,16 +107,14 @@ const ViewTraitsContentDialog = ({
                   </div>
                 ))
               : Object.entries(traits)
-                  .filter(([, value]) => parseInt(value as unknown as string, 10) > 0)
+                  .filter(([, value]) => Number(value) > 0)
                   .map(([key, value]) => (
                     <div className="col-span-3" key={key}>
                       <div className="flex flex-col items-center">
                         <span className="text-center font-bold">
                           {TRAIT_NAME_MAP[key as keyof typeof TRAIT_NAME_MAP]}
                         </span>
-                        <span className="text-center">
-                          {TRAIT_KEY_VALUE_MAP[value as keyof typeof TRAIT_KEY_VALUE_MAP] ?? value}
-                        </span>
+                        <span className="text-center">{getTraitDisplay(value).value}</span>
                       </div>
                     </div>
                   ))}

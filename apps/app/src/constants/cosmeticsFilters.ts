@@ -1,3 +1,5 @@
+import { TRAIT_INDEXES } from './traitIndexes'
+
 export { TRAIT_INDEXES } from './traitIndexes'
 
 export const TRAIT_NAME_MAP = {
@@ -1140,4 +1142,56 @@ export const TRAIT_KEY_VALUE_MAP = {
   ...NECKWEAR,
   ...LEFT_ITEMS,
   ...RIGHT_ITEMS,
+  ...PROPERTY,
+}
+
+const TRAIT_CATEGORY_ENTRIES = [
+  ['tribe', TRIBES],
+  ['skinColor', SKIN_COLORS],
+  ['furColor', FUR_COLORS],
+  ['eyeColor', EYE_COLORS],
+  ['pupilColor', PUPIL_COLORS],
+  ['hair', HAIR],
+  ['mouth', MOUTHS],
+  ['beard', BEARDS],
+  ['top', TOPS],
+  ['outerwear', OUTERWEAR],
+  ['print', PRINTS],
+  ['bottom', BOTTOMS],
+  ['footwear', FOOTWEAR],
+  ['belt', BELTS],
+  ['hat', HATS],
+  ['eyewear', EYEWEAR],
+  ['piercing', PIERCINGS],
+  ['wrist', WRISTS],
+  ['hands', HANDS],
+  ['neckwear', NECKWEAR],
+  ['leftItem', LEFT_ITEMS],
+  ['rightItem', RIGHT_ITEMS],
+  ['property', PROPERTY],
+] as const
+
+export const getTraitDisplay = (
+  rawValue: string | number | bigint,
+  index?: number
+): { name?: string; value: string } => {
+  const value = String(rawValue).trim()
+
+  if (!/^\d+$/.test(value)) return { value }
+
+  const traitId = Number(value)
+  const categoryKey =
+    TRAIT_CATEGORY_ENTRIES.find(([, values]) =>
+      Object.prototype.hasOwnProperty.call(values, traitId)
+    )?.[0] ?? (index === undefined ? undefined : TRAIT_INDEXES[index])
+
+  return {
+    name: categoryKey
+      ? TRAIT_NAME_MAP[categoryKey as keyof typeof TRAIT_NAME_MAP] ||
+        (index === undefined ? undefined : `Trait ${index + 1}`)
+      : index === undefined
+        ? undefined
+        : `Trait ${index + 1}`,
+    value: TRAIT_KEY_VALUE_MAP[traitId as keyof typeof TRAIT_KEY_VALUE_MAP] ?? value,
+  }
 }
