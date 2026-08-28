@@ -1,5 +1,3 @@
-import Link from 'next/link'
-
 import { NavIcon } from '@nl/ui/custom/nav-icon'
 import { Separator } from '@nl/ui/base/separator'
 
@@ -27,16 +25,15 @@ export default function PublicNavLinks() {
 
           return (
             <li key={item.id || item.url}>
-              <Link
+              <a
                 href={item.url}
-                prefetch={false}
                 className="mb-0.5 flex items-start gap-2 rounded-md border border-transparent bg-transparent px-2 py-2 text-left text-sidebar-foreground transition-colors hover:border-purple hover:bg-muted"
               >
                 <span className="my-auto min-w-9">
                   <PublicNavIcon name={item.icon} />
                 </span>
                 <span className="flex-1 text-base">{item.title}</span>
-              </Link>
+              </a>
             </li>
           )
         })}

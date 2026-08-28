@@ -1,25 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { beforeEach, describe, expect, it, mock } from 'bun:test'
+import { describe, expect, it } from 'bun:test'
 
 import PublicNavigation from './PublicNavigation'
-
-beforeEach(() => {
-  mock.module('next/link', () => ({
-    default: ({
-      children,
-      href,
-      prefetch,
-      ...props
-    }: React.PropsWithChildren<{ href: string; prefetch?: boolean }>) => (
-      <a href={href} data-prefetch={String(prefetch)} {...props}>
-        {children}
-      </a>
-    ),
-  }))
-  mock.module('next/image', () => ({
-    default: ({ alt }: { alt?: string }) => <span data-image-alt={alt ?? ''} />,
-  }))
-})
 
 describe('PublicNavigation', () => {
   it('keeps the desktop sidebar open with an accessible native disclosure control', () => {
@@ -62,6 +44,9 @@ describe('PublicNavigation', () => {
     expect(screen.getByRole('link', { name: 'Docs' }).getAttribute('href')).toBe(
       'https://niftyleague.com/docs'
     )
+    const logos = screen.getAllByRole('link', { name: 'NiftyLogo' })
+    expect(logos).toHaveLength(2)
+    expect(logos.every((logo) => logo.getAttribute('href') === '/')).toBe(true)
     const profileSlots = [...document.querySelectorAll('[data-public-user-profile]')]
     expect(profileSlots).toHaveLength(2)
     expect(profileSlots.map((slot) => slot.getAttribute('data-placement'))).toEqual([
