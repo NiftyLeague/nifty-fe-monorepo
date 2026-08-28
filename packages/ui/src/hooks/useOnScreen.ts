@@ -1,6 +1,6 @@
 'use client'
 
-import { RefObject, useState, useEffect } from 'react'
+import { startTransition, useEffect, useState, type RefObject } from 'react'
 
 type VisibilityCallback = (isIntersecting: boolean) => void
 
@@ -99,7 +99,10 @@ export function useOnScreen<T extends Element = HTMLDivElement>(
 
     let unsubscribe: () => void = () => undefined
     const handleVisibilityChange: VisibilityCallback = (visible) => {
-      setIntersecting(visible)
+      // Visibility changes can mount expensive deferred sections while the
+      // user is actively scrolling. Keep the observer callback cheap and let
+      // React yield to input before rendering the newly visible subtree.
+      startTransition(() => setIntersecting(visible))
       if (once && visible) unsubscribe()
     }
 

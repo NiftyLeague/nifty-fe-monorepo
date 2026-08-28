@@ -5,6 +5,7 @@ import { Title } from '@nl/ui/custom/typography'
 
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
 import { getTraitDisplay, TRAIT_NAME_MAP } from '@/constants/cosmeticsFilters'
+import { TRAIT_INDEXES } from '@/constants/traitIndexes'
 import type { DashboardDegen } from '@/types/degens'
 import { DEGEN_PURCHASE_URL } from '@/constants/public-urls'
 import type { SxProps } from '@/types'
@@ -91,16 +92,26 @@ const ViewTraitsContentDialog = ({
                 ))
               : Object.entries(traits)
                   .filter(([, value]) => Number(value) > 0)
-                  .map(([key, value]) => (
-                    <div className="col-span-3" key={key}>
-                      <div className="flex flex-col items-center">
-                        <span className="text-center font-bold">
-                          {TRAIT_NAME_MAP[key as keyof typeof TRAIT_NAME_MAP]}
-                        </span>
-                        <span className="text-center">{getTraitDisplay(value).value}</span>
+                  .map(([key, value]) => {
+                    const traitIndex = Object.entries(TRAIT_INDEXES).find(
+                      ([, traitType]) => traitType === key
+                    )?.[0]
+                    const display = getTraitDisplay(
+                      value,
+                      traitIndex === undefined ? undefined : Number(traitIndex)
+                    )
+
+                    return (
+                      <div className="col-span-3" key={key}>
+                        <div className="flex flex-col items-center">
+                          <span className="text-center font-bold">
+                            {display.name ?? TRAIT_NAME_MAP[key as keyof typeof TRAIT_NAME_MAP]}
+                          </span>
+                          <span className="text-center">{display.value}</span>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    )
+                  })}
           </div>
         </div>
         <div className="flex w-full flex-col gap-2">
