@@ -61,6 +61,7 @@ describe('DeferredConsoleGame', () => {
     expect(backdrop.getAttribute('loading')).toBe('eager')
     expect(container.querySelector('video')).toBeNull()
     expect(container.querySelector('source')).toBeNull()
+    expect(container.querySelector('.dark-gradient-overlay')).not.toBeNull()
     expect(screen.queryByRole('img', { name: 'Loading game preview' })).toBeNull()
     expect(container.firstElementChild?.className).toContain('overflow-hidden')
     expect(container.firstElementChild?.getAttribute('style')).toContain(
@@ -79,6 +80,9 @@ describe('DeferredConsoleGame', () => {
 
     expect(screen.getByTestId('console-game').getAttribute('data-video-active')).toBe('false')
     expect(screen.getByTestId('console-game').querySelector('source')).toBeNull()
+    expect(
+      screen.getByTestId('console-game').parentElement?.querySelector('.dark-gradient-overlay')
+    ).not.toBeNull()
     expect(activationCallbacks).toHaveLength(1)
 
     act(() => activationCallbacks[0]?.())

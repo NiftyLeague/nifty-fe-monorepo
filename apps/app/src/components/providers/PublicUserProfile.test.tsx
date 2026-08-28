@@ -14,10 +14,6 @@ mock.module('@nl/ui/hooks/useMediaQuery', () => ({
   useMediaQuery: () => isDesktopViewport,
 }))
 
-mock.module('@nl/ui/hooks/useDeferredActivation', () => ({
-  default: ({ enabled = true }: { enabled?: boolean } = {}) => enabled,
-}))
-
 mock.module('@/contexts/WalletAuthProvidersBoundary', () => ({
   default: ({ children, enabled }: React.PropsWithChildren<{ enabled?: boolean }>) =>
     enabled ? <div data-testid="wallet-auth-boundary">{children}</div> : null,

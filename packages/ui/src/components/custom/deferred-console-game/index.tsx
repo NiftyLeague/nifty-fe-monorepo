@@ -53,12 +53,17 @@ const DeferredConsoleGame = memo(function DeferredConsoleGame({
       style={{ aspectRatio: '4842 / 3371' }}
     >
       {ConsoleGame ? (
-        <ConsoleGame isNearViewport={isNearViewport && videoActivated} src={src}>
+        <ConsoleGame
+          isNearViewport={isNearViewport && videoActivated}
+          renderGradientOverlay={false}
+          src={src}
+        >
           {children}
         </ConsoleGame>
       ) : (
         children
       )}
+      <div className="dark-gradient-overlay" />
     </div>
   )
 })

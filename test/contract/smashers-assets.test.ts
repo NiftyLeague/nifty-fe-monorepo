@@ -6,6 +6,7 @@ const deferredBackgroundSource = 'apps/smashers/src/components/Header/DeferredHe
 const deferredAnimationSource = 'assets/scripts/smashers-hero-animation.js'
 const gameSectionSource = 'apps/smashers/src/components/GameSection/index.tsx'
 const rocketVideo = 'assets/video/rocket.mp4'
+const heroPoster = 'assets/img/games/smashers/background-poster.webp'
 
 const assets = [
   ['assets/img/games/smashers/background.gif', 'assets/img/games/smashers/background.webp'],
@@ -26,6 +27,10 @@ describe('Smashers asset delivery contracts', () => {
     expect(statSync('assets/img/games/smashers/background.webp').size).toBeLessThan(3_600_000)
   })
 
+  it('keeps the above-the-fold hero screenshot small and static', () => {
+    expect(statSync(heroPoster).size).toBeLessThan(400_000)
+  })
+
   it('keeps animated sources paired with static fallbacks in the consuming components', () => {
     const header = readFileSync(headerSource, 'utf8')
     const deferredBackground = readFileSync(deferredBackgroundSource, 'utf8')
@@ -37,7 +42,7 @@ describe('Smashers asset delivery contracts', () => {
     expect(deferredBackground).toContain('<DeferredExternalScript')
     expect(deferredBackground).toContain('smashers-hero-animation.js')
     expect(deferredBackground).not.toContain("'use client'")
-    expect(deferredBackground).toContain('smashers-poster.jpg')
+    expect(deferredBackground).toContain('background-poster.webp')
     expect(deferredBackground).toContain('data-smashers-hero-background')
     expect(deferredAnimation).toContain('background.webp')
     expect(deferredAnimation).toContain('background.gif')

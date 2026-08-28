@@ -23,7 +23,7 @@ describe('DeferredHeroBackground', () => {
     const { container } = render(<DeferredHeroBackground />)
     const poster = container.querySelector('[data-smashers-hero-background]')
 
-    expect(poster?.getAttribute('src')).toBe('/img/games/smashers/smashers-poster.jpg')
+    expect(poster?.getAttribute('src')).toBe('/img/games/smashers/background-poster.webp')
     expect(poster?.getAttribute('unoptimized')).toBeNull()
   })
 })

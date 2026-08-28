@@ -52,10 +52,10 @@ const CardGameContent = ({
   return (
     <div className="flex grow flex-col justify-between bg-card">
       <CardContent className="p-6 pb-0">
-        <div className="flex flex-row flex-wrap items-center justify-between gap-x-2 gap-y-2">
+        <div className="flex flex-row flex-wrap items-center justify-between gap-x-2 gap-y-2 md:flex-nowrap">
           <Title
             level={3}
-            className="min-w-0 text-xl font-normal font-subheader tracking-subheader"
+            className="min-w-0 flex-1 text-xl font-normal font-subheader tracking-subheader"
           >
             {title}
           </Title>

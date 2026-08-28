@@ -70,6 +70,7 @@ const deferredExternalScript =
   'packages/ui/src/components/custom/deferred-external-script/index.tsx'
 const appRootLayout = 'apps/app/src/app/layout.tsx'
 const appUserProfile = 'apps/app/src/components/UserProfile/index.tsx'
+const appProfileVerification = 'apps/app/src/components/wrapper/Authentication.tsx'
 const appShell = 'apps/app/src/app/_layout/AppShell.tsx'
 const privateRoutesBoundary = 'apps/app/src/components/providers/PrivateRoutesBoundary.tsx'
 const sharedAppBar = 'packages/ui/src/components/custom/app-bar/index.tsx'
@@ -127,6 +128,7 @@ const sharedResponsiveCarousel = 'packages/ui/src/components/custom/responsive-c
 const sharedResponsiveCarouselStyles =
   'packages/ui/src/components/custom/responsive-carousel/responsive-carousel.module.css'
 const degenFilterUtils = 'apps/app/src/components/extended/DegensFilter/utils.ts'
+const degenFilterStyles = 'apps/app/src/components/extended/DegensFilter/index.module.css'
 const useFetch = 'apps/app/src/hooks/useFetch.ts'
 const sharedCatalogConsumers = [
   'apps/app/src/app/(public-routes)/degens/AllDegensPage.tsx',
@@ -257,6 +259,28 @@ describe('app performance contracts', () => {
     expect(source).not.toContain("from '@/contexts/GamerProfileContext'")
   })
 
+  it('preserves a visible signed-out profile affordance', () => {
+    const source = readFileSync(join(process.cwd(), appUserProfile), 'utf8')
+
+    expect(source).toContain("from 'lucide-react'")
+    expect(source).toContain('<UserRound')
+    expect(source).toContain('Login to view dashboards')
+  })
+
+  it('keeps degen filter controls spaced outside the checkbox primitive', () => {
+    const source = readFileSync(join(process.cwd(), degenFilterStyles), 'utf8')
+
+    expect(source).toContain('margin-right: 8px')
+    expect(source).not.toContain('padding-right: 8px')
+  })
+
+  it('centers the signed-out private route prompt in the app viewport', () => {
+    const source = readFileSync(join(process.cwd(), appProfileVerification), 'utf8')
+
+    expect(source).toContain('items-center justify-center')
+    expect(source).toContain('min-h-[calc(100dvh-56px)]')
+  })
+
   it('keeps the eager marketing shell off the conflict-merging utility', () => {
     for (const file of marketingShellClassNameSources) {
       const source = readFileSync(file, 'utf8')
@@ -274,6 +298,8 @@ describe('app performance contracts', () => {
     expect(source).not.toContain('ConsoleGameBackdrop')
     expect(source).not.toContain('<DeferredSkeleton')
     expect(source).not.toContain('<video')
+    expect(source).toContain('<div className="dark-gradient-overlay" />')
+    expect(source).toContain('renderGradientOverlay={false}')
     expect(backdropSource).toContain('alt="Game Console Backdrop"')
   })
 

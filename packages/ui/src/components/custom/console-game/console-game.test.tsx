@@ -43,6 +43,16 @@ describe('ConsoleGame', () => {
     expect(container.querySelector('.dark-gradient-overlay')).toBeTruthy()
   })
 
+  it('allows the deferred wrapper to own the shared gradient overlay', () => {
+    const { container } = render(
+      <ConsoleGame renderGradientOverlay={false} src="/video/example.mp4">
+        <ConsoleGameBackdrop />
+      </ConsoleGame>
+    )
+
+    expect(container.querySelector('.dark-gradient-overlay')).toBeNull()
+  })
+
   it('uses the parent visibility state to pause outside the viewport', () => {
     const { container, rerender } = render(
       <ConsoleGame isNearViewport={false} src="/video/example.mp4">

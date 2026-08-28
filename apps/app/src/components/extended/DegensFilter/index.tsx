@@ -238,7 +238,7 @@ const DegensFilter = ({
                     )
                   }
                 />
-                <div className="-ml-1 flex flex-row items-center">
+                <div className="flex flex-row items-center">
                   <NativeImage src={tribe.icon} alt="" width={18} height={18} />
                   <span className="ml-2 text-base">{tribe.name}</span>
                 </div>

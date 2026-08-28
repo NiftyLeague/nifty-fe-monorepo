@@ -2,7 +2,7 @@
 
 import { DeferredComponent } from '@nl/ui/custom/deferred-component'
 import { DeferredSectionLoading } from '@nl/ui/custom/deferred-section'
-import RoadmapCard from './roadmapCard'
+import RoadmapCard, { getRoadmapCardSide } from './roadmapCard'
 
 const loadRoadmapCardCatalog = async () => {
   const { ROADMAP_CARDS } = await import('./constants')
@@ -11,8 +11,12 @@ const loadRoadmapCardCatalog = async () => {
     default: function RoadmapCardCatalog() {
       return (
         <>
-          {ROADMAP_CARDS.map((item) => (
-            <RoadmapCard key={item.title.toString()} {...item} />
+          {ROADMAP_CARDS.map((item, index) => (
+            <RoadmapCard
+              key={item.title.toString()}
+              {...item}
+              side={getRoadmapCardSide(index + 1)}
+            />
           ))}
         </>
       )

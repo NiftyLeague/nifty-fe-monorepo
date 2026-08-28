@@ -209,6 +209,7 @@ describe('card presentation', () => {
     expect(guideLink.querySelector('button')).toBeNull()
     expect(guideLink.className).not.toContain('w-full')
     expect(guideLink.className).toContain('h-8')
+    expect(guideLink.parentElement?.className).toContain('md:flex-nowrap')
     expect(screen.getByAltText('Smashers').getAttribute('loading')).toBe('eager')
     expect(screen.getByAltText('Smashers').getAttribute('fetchpriority')).toBe('high')
     expect(screen.getByAltText('Smashers').getAttribute('sizes')).toBe(

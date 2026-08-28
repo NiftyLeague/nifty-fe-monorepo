@@ -187,13 +187,9 @@ const DegenDialog = ({
           styles.customDialog,
           isRent && styles.customDialogRent,
           isEquip && styles.customDialogEquip,
-          isClaim
-            ? 'max-w-fit md:max-w-fit lg:max-w-fit'
-            : isRent
-              ? 'max-w-[444px] md:max-w-[444px] lg:max-w-[444px]'
-              : 'max-w-[900px] md:max-w-[900px] lg:max-w-[900px]',
+          isClaim ? '!max-w-fit' : isRent ? '!max-w-[444px]' : '!max-w-[900px]',
           fullScreen &&
-            'top-0 left-0 h-screen w-screen max-h-screen max-w-none translate-x-0 translate-y-0 rounded-none'
+            'top-0 left-0 h-screen w-screen max-h-screen !max-w-none translate-x-0 translate-y-0 rounded-none'
         )}
       >
         {isClaim && <ClaimDegenContentDialog degen={degen} onClose={handleClose} />}

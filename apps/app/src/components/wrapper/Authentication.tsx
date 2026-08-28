@@ -5,7 +5,7 @@ const ProfileVerification = (): React.ReactNode => {
   const { isConnected, handleConnectWallet } = useAuth()
 
   return (
-    <div className="container" style={{ textAlign: 'center', padding: '40px' }}>
+    <div className="flex min-h-[calc(100dvh-56px)] flex-col items-center justify-center p-10 text-center lg:min-h-[calc(100dvh-60px)]">
       <p className="mb-2">
         {isConnected ? 'Please sign message to log in' : 'Please connect your wallet'}
       </p>

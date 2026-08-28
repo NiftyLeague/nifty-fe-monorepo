@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic'
 
 import { Button } from '@nl/ui/base/button'
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
-import useDeferredActivation from '@nl/ui/hooks/useDeferredActivation'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
 import { desktopNavigationMediaQuery } from '@/app/_layout/navigation-breakpoints'
@@ -52,13 +51,12 @@ function ProfileProviderError({ retry }: { retry: () => void }) {
 export default function PublicUserProfile({ placement }: PublicUserProfileProps) {
   const isDesktop = useMediaQuery(desktopNavigationMediaQuery)
   const isVisiblePlacement = placement === 'desktop' ? isDesktop : !isDesktop
-  const isActivated = useDeferredActivation({ enabled: isVisiblePlacement })
 
   return (
     <div data-public-user-profile data-placement={placement}>
       {isVisiblePlacement ? (
         <WalletAuthProvidersBoundary
-          enabled={isActivated}
+          enabled={isVisiblePlacement}
           errorFallback={(retry) => <ProfileProviderError retry={retry} />}
           loadingFallback={<ProfileProviderLoading />}
         >

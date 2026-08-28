@@ -34,4 +34,25 @@ describe('PublicDegenDialog', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Close degen details' }))
     expect(onClose).toHaveBeenCalledTimes(1)
   })
+
+  it('maps numeric trait ids to readable trait names and values', () => {
+    render(
+      <PublicDegenDialog
+        open
+        degen={{
+          id: '1',
+          name: 'Nifty Andy',
+          traits_string: '1,17,73,104,110,263,685,717,821,824,865,894,991',
+        }}
+        onClose={() => {}}
+      />
+    )
+
+    expect(screen.getByText('Tribe')).not.toBeNull()
+    expect(screen.getByText('Ape')).not.toBeNull()
+    expect(screen.getByText('Skin Color')).not.toBeNull()
+    expect(screen.getByText('White')).not.toBeNull()
+    expect(screen.getByText('Controller')).not.toBeNull()
+    expect(screen.queryByText('73')).toBeNull()
+  })
 })
