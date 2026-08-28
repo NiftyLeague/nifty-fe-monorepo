@@ -482,6 +482,11 @@ describe('app performance contracts', () => {
     expect(sharedCarousel).toContain('aria-roledescription="carousel"')
     expect(sharedCarousel).toContain("from '@nl/ui/hooks/useMediaQuery'")
     expect(sharedCarousel).toContain("useMediaQuery('(prefers-reduced-motion: reduce)')")
+    expect(sharedCarousel).toContain('const viewportWidthRef = useRef(0)')
+    expect(sharedCarousel).toContain('if (nextWidth === viewportWidthRef.current) return')
+    expect(sharedCarousel).toContain(
+      'const getPageWidth = useCallback(() => viewportWidthRef.current, [])'
+    )
     expect(sharedCarousel).not.toContain("window.matchMedia('(prefers-reduced-motion: reduce)')")
     expect(sharedCarouselStyles).toContain('scroll-snap-type: x mandatory')
     expect(manifest.dependencies?.['react-slick']).toBeUndefined()
