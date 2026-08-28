@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { cx } from '@nl/ui/class-names'
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 
@@ -21,7 +20,9 @@ export default function Navbar() {
           </div>
         </a>
         <nav className={styles.navbar}>
-          <Link href="/profile" prefetch={false}>
+          {/* Keep the public home shell free of Next's navigation runtime. */}
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+          <a href="/profile">
             <div className={cx(styles.nav_item, styles.profile_mobile)}>
               <OptimizedImage
                 src="/icons/user.svg"
@@ -31,7 +32,7 @@ export default function Navbar() {
                 style={{ margin: 'auto', width: 28, height: 28 }}
               />
             </div>
-          </Link>
+          </a>
         </nav>
       </div>
 
@@ -98,13 +99,15 @@ export default function Navbar() {
               <OptimizedImage src="/icons/opensea.svg" alt="OpenSea Logo" width={22} height={22} />
             </a>
           </div>
-          <Link href="/profile" prefetch={false}>
+          {/* Keep the public home shell free of Next's navigation runtime. */}
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+          <a href="/profile">
             <div className={cx(styles.nav_item, styles.profile)}>
               <div className={styles.profile_icon}>
                 <OptimizedImage src="/icons/user.svg" alt="Profile Icon" width={22} height={22} />
               </div>
             </div>
-          </Link>
+          </a>
         </nav>
       </div>
     </>
