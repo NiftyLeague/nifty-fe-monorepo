@@ -20,7 +20,7 @@ const sharedMarketingVideos = [
   },
   {
     path: 'assets/video/game-console.mp4',
-    maxBytes: 7_000_000,
+    maxBytes: 4_500_000,
   },
   {
     path: 'assets/video/comics_archive.mp4',
