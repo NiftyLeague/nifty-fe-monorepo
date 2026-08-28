@@ -27,7 +27,7 @@ mock.module('@nl/ui/hooks/useMediaQuery', () => ({
 
 const getName = mock(async () => 'Chain Name')
 const ownerOf = mock(async () => '0x1234567890abcdef')
-const getCharacterTraits = mock(async () => [1n, 17n, 263n])
+const getCharacterTraits = mock(async () => ({ tribe: 1n, skinColor: 17n, mouth: 263n }))
 const fetchMock = mock(() => Promise.resolve(new Response('{}')))
 
 mock.module('@/hooks/useNetworkContext', () => ({

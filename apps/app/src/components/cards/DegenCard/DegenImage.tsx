@@ -34,7 +34,7 @@ const DegenImage = memo(
         loading="lazy"
         decoding="async"
         unoptimized={image.endsWith('.gif')}
-        style={{ width: '100%', maxWidth: '100%', objectFit: 'cover', height: imageHeight, ...sx }}
+        style={{ objectFit: 'cover', height: imageHeight, ...sx }}
         onError={handleImageError}
       />
     )
