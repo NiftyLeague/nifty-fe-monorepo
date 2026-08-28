@@ -563,6 +563,18 @@ describe('website build performance contract', () => {
     expect(hookSource).toContain('encodeUint256(tokenIndex)')
     expect(hookSource).toContain('if (!cancelled)')
   })
+
+  it('defers the below-fold NiftyWorld showcase video', () => {
+    const source = readFileSync(
+      join(process.cwd(), 'apps/web/src/app/(main)/niftyworld/page.tsx'),
+      'utf8'
+    )
+    const videoStart = source.indexOf('src="/video/arcade-token.mp4"')
+    const videoBlockStart = source.lastIndexOf('<ViewportVideo', videoStart)
+
+    expect(videoStart).toBeGreaterThan(-1)
+    expect(source.slice(videoBlockStart, videoStart)).toContain('deferLoad')
+  })
 })
 
 describe('shared notification loading contract', () => {
