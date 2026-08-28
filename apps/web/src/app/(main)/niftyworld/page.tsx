@@ -52,6 +52,7 @@ const NiftyWorld: NextPage = () => {
                 loop
                 playsInline
                 data-keepplaying
+                deferLoad
                 src="/video/arcade-token.mp4"
               />
             </div>
