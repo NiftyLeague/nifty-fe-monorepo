@@ -575,6 +575,19 @@ describe('website build performance contract', () => {
     expect(videoStart).toBeGreaterThan(-1)
     expect(source.slice(videoBlockStart, videoStart)).toContain('deferLoad')
   })
+
+  it('eagerly loads the mobile games hero artwork without elevating secondary media', () => {
+    const source = readFileSync(
+      join(process.cwd(), 'apps/web/src/app/(main)/games/page.tsx'),
+      'utf8'
+    )
+    const mobileImageStart = source.indexOf('<MobileOnlyImage')
+    const mobileImageEnd = source.indexOf('/>', mobileImageStart)
+
+    expect(mobileImageStart).toBeGreaterThan(-1)
+    expect(source.slice(mobileImageStart, mobileImageEnd)).toContain('loading="eager"')
+    expect(source.slice(mobileImageStart, mobileImageEnd)).not.toContain('priority')
+  })
 })
 
 describe('shared notification loading contract', () => {
