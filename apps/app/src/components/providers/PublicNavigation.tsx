@@ -5,7 +5,7 @@ import { cx } from '@nl/ui/class-names'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import MobileNavigationDisclosure from '@nl/ui/custom/mobile-navigation'
 
-import LogoSection from '@/app/_layout/_MainLayout/_LogoSection'
+import PublicLogo from '@/components/PublicLogo'
 import { APP_EXTERNAL_LINKS } from '@/constants/navigation'
 import styles from '@/app/_layout/_MainLayout/MainLayout.module.css'
 import DeferredPublicUserProfile from './DeferredPublicUserProfile'
@@ -19,7 +19,7 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
           <div className="flex w-full flex-row items-center justify-between">
             <div className={cx('flex items-center', styles.publicHeaderControls)}>
               <div className="hidden flex-grow lg:block">
-                <LogoSection />
+                <PublicLogo />
               </div>
               <details id="public-desktop-navigation-toggle" open className="hidden lg:block">
                 <summary
@@ -45,7 +45,7 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
               >
                 <div className="border-b border-sidebar-border px-4 py-3">
                   <div className="flex items-center gap-3 text-sidebar-foreground">
-                    <LogoSection />
+                    <PublicLogo />
                     <span>Primary navigation</span>
                   </div>
                 </div>
