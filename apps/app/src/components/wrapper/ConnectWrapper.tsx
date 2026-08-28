@@ -1,7 +1,7 @@
 import { buttonVariants } from '@nl/ui/base/button-variants'
 import useAuth from '@/hooks/useAuth'
 
-export interface ConnectWrapperProps {
+interface ConnectWrapperProps {
   variant?: 'contained' | 'outlined'
   color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning' | undefined
   fullWidth?: boolean

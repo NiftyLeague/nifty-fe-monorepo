@@ -9,7 +9,7 @@ export type USER_ID = string | undefined
 
 export type AgreementAccepted = 'ACCEPTED' | 'FALSE' | undefined
 
-export interface InitialLoginContextProps {
+interface InitialLoginContextProps {
   isLoggedIn: boolean
 }
 

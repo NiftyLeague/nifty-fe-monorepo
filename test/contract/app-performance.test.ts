@@ -40,6 +40,7 @@ const sharedInputGroup = 'packages/ui/src/components/base/input-group.tsx'
 const retiredCustomInput = 'packages/ui/src/components/custom/input/index.tsx'
 const smashersNextConfig = 'apps/smashers/next.config.ts'
 const templateNextConfig = 'apps/template/next.config.ts'
+const docsConfig = 'apps/docs/docusaurus.config.ts'
 const templatePage = 'apps/template/src/app/page.tsx'
 const sharedSentryConfig = 'config/with-production-sentry.ts'
 const webManifest = 'apps/web/package.json'
@@ -69,6 +70,8 @@ const deferredExternalScript =
   'packages/ui/src/components/custom/deferred-external-script/index.tsx'
 const appRootLayout = 'apps/app/src/app/layout.tsx'
 const appUserProfile = 'apps/app/src/components/UserProfile/index.tsx'
+const publicUserProfile = 'apps/app/src/components/providers/PublicUserProfile.tsx'
+const appProfileVerification = 'apps/app/src/components/wrapper/Authentication.tsx'
 const appShell = 'apps/app/src/app/_layout/AppShell.tsx'
 const privateRoutesBoundary = 'apps/app/src/components/providers/PrivateRoutesBoundary.tsx'
 const sharedAppBar = 'packages/ui/src/components/custom/app-bar/index.tsx'
@@ -126,6 +129,7 @@ const sharedResponsiveCarousel = 'packages/ui/src/components/custom/responsive-c
 const sharedResponsiveCarouselStyles =
   'packages/ui/src/components/custom/responsive-carousel/responsive-carousel.module.css'
 const degenFilterUtils = 'apps/app/src/components/extended/DegensFilter/utils.ts'
+const degenFilterStyles = 'apps/app/src/components/extended/DegensFilter/index.module.css'
 const useFetch = 'apps/app/src/hooks/useFetch.ts'
 const sharedCatalogConsumers = [
   'apps/app/src/app/(public-routes)/degens/AllDegensPage.tsx',
@@ -167,6 +171,14 @@ const appIconRegistrySources = [
   'apps/smashers/src/app/(auth_routes)/profile/ProfileClient.tsx',
 ]
 const sharedEslintConfig = 'packages/eslint-config/base.js'
+const sharedNextEslintConfig = 'packages/eslint-config/next.js'
+const testHarnessPreload = 'test/preload.ts'
+const appStylesheets = [
+  'apps/app/src/styles/app.css',
+  'apps/smashers/src/styles/app.css',
+  'apps/template/src/styles/app.css',
+  'apps/web/src/styles/app.css',
+]
 
 describe('app performance contracts', () => {
   it('keeps lint traversal off generated framework output', () => {
@@ -181,6 +193,44 @@ describe('app performance contracts', () => {
       'dist/**',
     ]) {
       expect(source).toContain(`'${generatedPath}'`)
+    }
+  })
+
+  it('keeps Next linting on direct plugins without the bundled Babel parser', () => {
+    const source = readFileSync(sharedNextEslintConfig, 'utf8')
+    const manifest = JSON.parse(readFileSync('packages/eslint-config/package.json', 'utf8'))
+
+    expect(source).toContain("from '@next/eslint-plugin-next'")
+    expect(source).not.toContain("from 'eslint-config-next")
+    expect(manifest.devDependencies['@next/eslint-plugin-next']).toBeDefined()
+    expect(manifest.devDependencies['eslint-import-resolver-typescript']).toBeDefined()
+  })
+
+  it('keeps isolated React tests on one workspace runtime', () => {
+    const source = readFileSync(testHarnessPreload, 'utf8')
+
+    expect(source).toContain("import rootReact from '../node_modules/react/index.js'")
+    expect(source).toContain('mock.module(workspaceReact')
+
+    for (const workspace of ['apps/app', 'apps/template', 'apps/web', 'packages/ui']) {
+      expect(source).toContain(`'${workspace}'`)
+    }
+  })
+
+  it('keeps test-only sources out of runtime Tailwind scans', () => {
+    for (const file of appStylesheets) {
+      const source = readFileSync(file, 'utf8')
+
+      for (const suffix of ['test', 'spec', 'stories', 'story']) {
+        expect(source).toContain(`@source not "../**/*.${suffix}.{ts,tsx}";`)
+      }
+    }
+
+    const smashersStyles = readFileSync('apps/smashers/src/styles/app.css', 'utf8')
+    for (const suffix of ['test', 'spec', 'stories', 'story']) {
+      expect(smashersStyles).toContain(
+        `@source not "../../../../packages/playfab/src/**/*.${suffix}.{ts,tsx}";`
+      )
     }
   })
 
@@ -210,6 +260,37 @@ describe('app performance contracts', () => {
     expect(source).not.toContain("from '@/contexts/GamerProfileContext'")
   })
 
+  it('preserves a visible signed-out profile affordance', () => {
+    const source = readFileSync(join(process.cwd(), appUserProfile), 'utf8')
+
+    expect(source).toContain("from 'lucide-react'")
+    expect(source).toContain('<UserRound')
+    expect(source).toContain('Login to view dashboards')
+  })
+
+  it('defers the public wallet graph until the profile is activated', () => {
+    const source = readFileSync(join(process.cwd(), publicUserProfile), 'utf8')
+
+    expect(source).toContain('data-public-signed-out-profile')
+    expect(source).toContain('walletRequested')
+    expect(source).toContain("import('@/contexts/WalletModal')")
+    expect(source).toContain('<WalletAuthProvidersBoundary')
+  })
+
+  it('keeps degen filter controls spaced outside the checkbox primitive', () => {
+    const source = readFileSync(join(process.cwd(), degenFilterStyles), 'utf8')
+
+    expect(source).toContain('margin-right: 8px')
+    expect(source).not.toContain('padding-right: 8px')
+  })
+
+  it('centers the signed-out private route prompt in the app viewport', () => {
+    const source = readFileSync(join(process.cwd(), appProfileVerification), 'utf8')
+
+    expect(source).toContain('items-center justify-center')
+    expect(source).toContain('min-h-[calc(100dvh-56px)]')
+  })
+
   it('keeps the eager marketing shell off the conflict-merging utility', () => {
     for (const file of marketingShellClassNameSources) {
       const source = readFileSync(file, 'utf8')
@@ -227,6 +308,8 @@ describe('app performance contracts', () => {
     expect(source).not.toContain('ConsoleGameBackdrop')
     expect(source).not.toContain('<DeferredSkeleton')
     expect(source).not.toContain('<video')
+    expect(source).toContain('<div className="dark-gradient-overlay" />')
+    expect(source).toContain('renderGradientOverlay={false}')
     expect(backdropSource).toContain('alt="Game Console Backdrop"')
   })
 
@@ -386,11 +469,12 @@ describe('app performance contracts', () => {
     expect(moduleSource).toContain('init')
   })
 
-  it('uses Turbopack for local app development', () => {
+  it('uses the deterministic Webpack path for local app development', () => {
     const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
 
-    expect(manifest.scripts.dev).toBe('next dev --turbopack --port 3001')
-    expect(manifest.scripts.dev).not.toContain('--webpack')
+    expect(manifest.scripts.dev).toBe('next dev --webpack --port 3001')
+    expect(manifest.scripts.dev).not.toContain('--turbopack')
+    expect(manifest.scripts['dev:turbo']).toBe('next dev --turbopack --port 3001')
   })
 
   it('keeps Next app builds on the native TypeScript worker', () => {
@@ -399,8 +483,9 @@ describe('app performance contracts', () => {
     }
   })
 
-  it('keeps default app builds on the Turbopack worker with a scoped Webpack fallback', () => {
+  it('keeps the default app build on Webpack with an explicit Turbopack opt-in', () => {
     const source = readFileSync(appNextConfig, 'utf8')
+    const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
 
     expect(source).toContain("const isExplicitWebpackBuild = process.argv.includes('--webpack')")
     expect(source).toContain("serverExternalPackages: ['pino-pretty', 'lokijs'")
@@ -408,6 +493,8 @@ describe('app performance contracts', () => {
       "turbopack: { resolveAlias: { '@wagmi/connectors': 'wagmi/connectors' } }"
     )
     expect(source).toContain('...(isExplicitWebpackBuild ? { webpack: webpackFallback } : {}),')
+    expect(manifest.scripts.build).toBe('NEXT_TYPESCRIPT_NO_AUTO_INSTALL=1 next build --webpack')
+    expect(manifest.scripts['build:turbo']).toBe('NEXT_TYPESCRIPT_NO_AUTO_INSTALL=1 next build')
   })
 
   it('persists and seeds compatible Turbopack build caches across worktrees', () => {
@@ -416,6 +503,18 @@ describe('app performance contracts', () => {
       expect(source).toContain('turbopackFileSystemCacheForBuild: true')
       expect(source).toContain('turbopackSeedCacheFromWorktree: true')
     }
+  })
+
+  it('keeps the faster Docusaurus build on one React runtime', () => {
+    const source = readFileSync(docsConfig, 'utf8')
+
+    expect(source).toContain('faster: true')
+    expect(source).toContain("const reactEntry = require.resolve('react')")
+    expect(source).toContain("const reactDomEntry = require.resolve('react-dom')")
+    expect(source).toContain("const mdxReactEntry = require.resolve('@mdx-js/react')")
+    expect(source).toContain('react$: reactEntry')
+    expect(source).toContain("'react-dom$': reactDomEntry")
+    expect(source).toContain("'@mdx-js/react$': mdxReactEntry")
   })
 
   it('modularizes shared Lucide imports before the app graph is bundled', () => {
@@ -557,12 +656,13 @@ describe('app performance contracts', () => {
     }
   })
 
-  it('uses Turbopack for local marketing development', () => {
+  it('uses the deterministic Webpack path for local marketing development', () => {
     const manifest = JSON.parse(readFileSync(webManifest, 'utf8'))
     const nextConfig = readFileSync(webNextConfig, 'utf8')
 
-    expect(manifest.scripts.dev).toBe('next dev --turbopack --port 3000')
-    expect(manifest.scripts.dev).not.toContain('--webpack')
+    expect(manifest.scripts.dev).toBe('next dev --webpack --port 3000')
+    expect(manifest.scripts.dev).not.toContain('--turbopack')
+    expect(manifest.scripts['dev:turbo']).toBe('next dev --turbopack --port 3000')
     expect(nextConfig).toContain('  turbopack: {},')
   })
 
@@ -571,7 +671,8 @@ describe('app performance contracts', () => {
     const template = JSON.parse(readFileSync('apps/template/package.json', 'utf8'))
     const turbo = JSON.parse(readFileSync(turboConfig, 'utf8'))
 
-    expect(template.scripts.build).toBe('next build')
+    expect(template.scripts.build).toBe('next build --webpack')
+    expect(template.scripts['build:turbo']).toBe('next build')
     expect(root.scripts.build).toContain('template#build')
     expect(turbo.tasks['template#build'].inputs).toContain('../../packages/ui/src/**')
     expect(turbo.tasks['template#build'].outputs).toEqual([
@@ -581,11 +682,12 @@ describe('app performance contracts', () => {
     ])
   })
 
-  it('uses Turbopack for local app development', () => {
+  it('uses the deterministic Webpack path for local app development', () => {
     const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
 
-    expect(manifest.scripts.dev).toBe('next dev --turbopack --port 3001')
-    expect(manifest.scripts.dev).not.toContain('--webpack')
+    expect(manifest.scripts.dev).toBe('next dev --webpack --port 3001')
+    expect(manifest.scripts.dev).not.toContain('--turbopack')
+    expect(manifest.scripts['dev:turbo']).toBe('next dev --turbopack --port 3001')
   })
 
   it('loads the bridge form only after its dialog opens', () => {

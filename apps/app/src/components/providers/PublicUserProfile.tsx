@@ -1,11 +1,13 @@
 'use client'
 
 import dynamic from 'next/dynamic'
+import { useCallback, useState } from 'react'
 
+import { Avatar, AvatarFallback } from '@nl/ui/base/avatar'
 import { Button } from '@nl/ui/base/button'
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
-import useDeferredActivation from '@nl/ui/hooks/useDeferredActivation'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
+import { UserRound } from 'lucide-react'
 
 import { desktopNavigationMediaQuery } from '@/app/_layout/navigation-breakpoints'
 import WalletAuthProvidersBoundary from '@/contexts/WalletAuthProvidersBoundary'
@@ -49,21 +51,66 @@ function ProfileProviderError({ retry }: { retry: () => void }) {
   )
 }
 
+function SignedOutProfile({ onConnect }: { onConnect: () => void }) {
+  return (
+    <div
+      data-public-signed-out-profile
+      className="flex flex-col items-center rounded-lg bg-muted p-4"
+      style={{ border: 'var(--border-default)' }}
+    >
+      <Avatar className="size-20">
+        <AvatarFallback>
+          <UserRound
+            aria-hidden="true"
+            className="size-10 text-muted-foreground"
+            strokeWidth={1.5}
+          />
+        </AvatarFallback>
+      </Avatar>
+      <div className="my-2 flex flex-col items-center">
+        <span>Login to view dashboards</span>
+      </div>
+      <Button type="button" className="w-full" onClick={onConnect}>
+        Connect Wallet
+      </Button>
+    </div>
+  )
+}
+
 export default function PublicUserProfile({ placement }: PublicUserProfileProps) {
   const isDesktop = useMediaQuery(desktopNavigationMediaQuery)
   const isVisiblePlacement = placement === 'desktop' ? isDesktop : !isDesktop
-  const isActivated = useDeferredActivation({ enabled: isVisiblePlacement })
+  const [walletRequested, setWalletRequested] = useState(false)
+  const [modalError, setModalError] = useState(false)
+
+  const handleConnectWallet = useCallback(() => {
+    setWalletRequested(true)
+    void import('@/contexts/WalletModal')
+      .then(({ openWalletModal }) => openWalletModal())
+      .catch(() => setModalError(true))
+  }, [])
+
+  const retryWalletModal = useCallback(() => {
+    setModalError(false)
+    setWalletRequested(false)
+  }, [])
 
   return (
     <div data-public-user-profile data-placement={placement}>
       {isVisiblePlacement ? (
-        <WalletAuthProvidersBoundary
-          enabled={isActivated}
-          errorFallback={(retry) => <ProfileProviderError retry={retry} />}
-          loadingFallback={<ProfileProviderLoading />}
-        >
-          <DeferredUserProfile />
-        </WalletAuthProvidersBoundary>
+        modalError ? (
+          <ProfileProviderError retry={retryWalletModal} />
+        ) : walletRequested ? (
+          <WalletAuthProvidersBoundary
+            enabled
+            errorFallback={(retry) => <ProfileProviderError retry={retry} />}
+            loadingFallback={<ProfileProviderLoading />}
+          >
+            <DeferredUserProfile />
+          </WalletAuthProvidersBoundary>
+        ) : (
+          <SignedOutProfile onConnect={handleConnectWallet} />
+        )
       ) : (
         <ProfileProviderLoading />
       )}

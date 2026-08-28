@@ -4,7 +4,7 @@ import useFlags from '@/hooks/useFlags'
 import type { Item } from '@/types/marketplace'
 import ImageCard from '@/components/cards/ImageCard'
 
-export interface ItemDetailProps {
+interface ItemDetailProps {
   data: Item | null
   subIndex: number
 }
