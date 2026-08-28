@@ -20,7 +20,7 @@ describe('staging re-alignment workflow', () => {
   })
 
   it('uses tree-level reconciliation without materializing a partial-clone worktree', () => {
-    expect(source).toContain('git merge-tree --write-tree -X ours')
+    expect(source).toContain('git merge-tree --write-tree -X theirs')
     expect(source).toContain('git commit-tree "$FINAL_TREE"')
     expect(source).toContain('git read-tree "$MERGED_TREE"')
     expect(source).toContain('git diff-tree --no-commit-id --name-only -r --no-renames -z')
