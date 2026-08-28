@@ -134,6 +134,7 @@ const ResponsiveCarousel = forwardRef<ResponsiveCarouselRef, ResponsiveCarouselP
     const viewportRef = useRef<HTMLDivElement>(null)
     const viewportId = useId()
     const activeIndexRef = useRef(0)
+    const viewportWidthRef = useRef(0)
     const scrollFrameRef = useRef<number | null>(null)
     const [activeIndex, setActiveIndex] = useState(0)
     const [viewportWidth, setViewportWidth] = useState(0)
@@ -162,7 +163,7 @@ const ResponsiveCarousel = forwardRef<ResponsiveCarouselRef, ResponsiveCarouselP
       showControls && (!controlsOnMobileOnly || isMobileViewport) && maxIndex > 0
     const shouldShowDots = showDots && shouldShowControls
 
-    const getPageWidth = useCallback(() => viewportRef.current?.clientWidth ?? 0, [])
+    const getPageWidth = useCallback(() => viewportWidthRef.current, [])
 
     const goToIndex = useCallback(
       (requestedIndex: number) => {
@@ -205,8 +206,13 @@ const ResponsiveCarousel = forwardRef<ResponsiveCarouselRef, ResponsiveCarouselP
     useImperativeHandle(ref, () => ({ slickNext, slickPrev }), [slickNext, slickPrev])
 
     useEffect(() => {
-      const updateViewport = () =>
-        setViewportWidth(viewportRef.current?.clientWidth ?? window.innerWidth)
+      const updateViewport = () => {
+        const nextWidth = viewportRef.current?.clientWidth ?? window.innerWidth
+        if (nextWidth === viewportWidthRef.current) return
+
+        viewportWidthRef.current = nextWidth
+        setViewportWidth(nextWidth)
+      }
 
       updateViewport()
       const resizeObserver = 'ResizeObserver' in window ? new ResizeObserver(updateViewport) : null
