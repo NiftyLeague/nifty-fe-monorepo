@@ -1180,10 +1180,19 @@ export const getTraitDisplay = (
   if (!/^\d+$/.test(value)) return { value }
 
   const traitId = Number(value)
+  const indexedCategoryKey = index === undefined ? undefined : TRAIT_INDEXES[index]
   const categoryKey =
+    (indexedCategoryKey &&
+    TRAIT_CATEGORY_ENTRIES.some(
+      ([key, values]) =>
+        key === indexedCategoryKey && Object.prototype.hasOwnProperty.call(values, traitId)
+    )
+      ? indexedCategoryKey
+      : undefined) ??
     TRAIT_CATEGORY_ENTRIES.find(([, values]) =>
       Object.prototype.hasOwnProperty.call(values, traitId)
-    )?.[0] ?? (index === undefined ? undefined : TRAIT_INDEXES[index])
+    )?.[0] ??
+    indexedCategoryKey
 
   return {
     name: categoryKey
