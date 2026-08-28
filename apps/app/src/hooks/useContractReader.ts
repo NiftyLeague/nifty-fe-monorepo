@@ -35,8 +35,11 @@ export default function useContractReader(
   skip: boolean = false
 ): unknown {
   const [value, setValue] = useState()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const argsMemoized = useMemo(() => args, [JSON.stringify(args)])
+  // Memoize args by serialization so a new-but-equivalent args array does not
+  // restart the polling interval. The string is a simple dependency expression.
+  const argsKey = JSON.stringify(args)
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- args identity is unstable while its serialization is stable
+  const argsMemoized = useMemo(() => args, [argsKey])
 
   const readContract = useCallback(async () => {
     if (!skip && contracts && contracts[contractName]) {
