@@ -8,7 +8,7 @@ type ScoredLeaderboardRow = Omit<LeaderboardRow, 'stats'> & {
 }
 type LeaderboardResponse = { data: ScoredLeaderboardRow[]; count: number }
 
-export const fetchUserNames = async (items: string[]): Promise<UserNames> => {
+const fetchUserNames = async (items: string[]): Promise<UserNames> => {
   try {
     const res = await fetch(`${LEADERBOARD_USERNAMES_API_URL}?ids=${items}&include_stats=false`, {
       cache: 'no-store',
@@ -68,6 +68,8 @@ export const fetchScores = async (
   })
 
   const items = json.data.map((data) => data.user_id)
+  if (items.length === 0) return { data: addAvg, count: json.count }
+
   const namesByUserId = new Map(Object.entries(await fetchUserNames(items)))
   for (const row of addAvg) {
     const match = namesByUserId.get(row.user_id)
