@@ -2419,8 +2419,13 @@ describe('public route dependency contract', () => {
   })
 
   it('keeps wallet-backed game providers out of public game cards', () => {
-    const list = readFileSync(
-      join(process.cwd(), 'apps/app/src/app/(public-routes)/games/_Web3GameList/index.tsx'),
+    const list = readFileSync(join(process.cwd(), web3GameList), 'utf8')
+    const gamesPage = readFileSync(
+      join(process.cwd(), 'apps/app/src/app/(public-routes)/games/page.tsx'),
+      'utf8'
+    )
+    const homePage = readFileSync(
+      join(process.cwd(), 'apps/app/src/app/(public-routes)/page.tsx'),
       'utf8'
     )
 
@@ -2429,7 +2434,11 @@ describe('public route dependency contract', () => {
       existsSync(
         join(process.cwd(), 'apps/app/src/app/(public-routes)/games/DeferredWeb3GameList.tsx')
       )
-    ).toBe(true)
+    ).toBe(false)
+    expect(gamesPage).toContain("import Web3GameList from './_Web3GameList'")
+    expect(gamesPage).not.toContain('DeferredWeb3GameList')
+    expect(homePage).toContain("import Web3GameList from './games/_Web3GameList'")
+    expect(homePage).not.toContain('DeferredWeb3GameList')
     expect(list).toContain("from '@nl/ui/base/button-variants'")
     expect(list).not.toContain('WalletFeatureProviders')
     expect(list).not.toContain('ConnectWrapper')
