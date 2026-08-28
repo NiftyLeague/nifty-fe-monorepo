@@ -1669,8 +1669,12 @@ describe('shared console game loading contract', () => {
 
     expect(consoleGameSource).not.toContain("from '@nl/ui/hooks/useOnScreen'")
     expect(consoleGameSource).toContain('isNearViewport?: boolean')
+    expect(consoleGameSource).toContain(
+      '{isNearViewport ? <source src={src} type="video/mp4" /> : null}'
+    )
     expect(consoleGameSource).toContain('children: ReactNode')
-    expect(deferredSource).toContain('isNearViewport={isNearViewport}')
+    expect(deferredSource).toContain('isNearViewport={isNearViewport && videoActivated}')
+    expect(deferredSource).toContain('scheduleDeferredActivation')
     expect(deferredSource).toContain('children: ReactNode')
     expect(deferredSource).not.toContain("from '../console-game/backdrop'")
     expect(deferredSource).not.toContain("from '@nl/ui/custom/optimized-image'")
