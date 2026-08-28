@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import type { UrlObject } from 'url'
 import { cx } from '@nl/ui/class-names'
 import { SocialsFooter, animateClass, linkClass } from '@nl/ui/custom/socials-footer'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
@@ -7,27 +6,38 @@ import { ExternalIcon } from '@nl/ui/custom/external-icon'
 interface FooterLinkProps {
   external?: boolean
   first?: boolean
-  href: string | UrlObject
+  href: string
   name: string
 }
 
-const FooterLink = ({ href, name, external = false, first = false }: FooterLinkProps) => (
-  <Link
-    href={href}
-    prefetch={false}
-    className={cx(
-      'inline-flex items-center justify-center sm:justify-start',
-      linkClass,
-      animateClass,
-      !first && 'mt-2'
-    )}
-    target={external ? '_blank' : undefined}
-    rel={external ? 'noreferrer' : undefined}
-  >
-    <span className="whitespace-nowrap">{name}</span>
-    {external && <ExternalIcon />}
-  </Link>
-)
+const FooterLink = ({ href, name, external = false, first = false }: FooterLinkProps) => {
+  const className = cx(
+    'inline-flex items-center justify-center sm:justify-start',
+    linkClass,
+    animateClass,
+    !first && 'mt-2'
+  )
+  const content = (
+    <>
+      <span className="whitespace-nowrap">{name}</span>
+      {external && <ExternalIcon />}
+    </>
+  )
+
+  if (external) {
+    return (
+      <a href={href} target="_blank" rel="noreferrer" className={className}>
+        {content}
+      </a>
+    )
+  }
+
+  return (
+    <Link href={href} prefetch={false} className={className}>
+      {content}
+    </Link>
+  )
+}
 
 export default function Footer() {
   return (
@@ -44,9 +54,6 @@ export default function Footer() {
           <FooterLink href="/roadmap" name="Roadmap" />
           <FooterLink href="/community" name="Community" />
           <FooterLink href="/lore" name="Lore" />
-          {/* <FooterLink href="/team" name="Team" /> */}
-          {/* <FooterLink href="/careers" name="Careers" /> */}
-          {/* <FooterLink href="/shop" name="Merch" external /> */}
         </div>
         <div className="flex flex-col">
           <FooterLink href="/tally" name="NiftyDAO" external first />

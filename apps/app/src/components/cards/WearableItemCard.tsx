@@ -3,7 +3,7 @@ import type { SxProps, Theme } from '@/types'
 import type { Item } from '@/types/marketplace'
 import ImageCard from '@/components/cards/ImageCard'
 
-export interface WearableItemCardProps {
+interface WearableItemCardProps {
   data: Item
   sx?: SxProps<Theme>
   isSelected?: boolean

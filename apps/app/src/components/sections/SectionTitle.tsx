@@ -1,6 +1,6 @@
 import { Title } from '@nl/ui/custom/typography'
 
-export interface SectionTitleProps {
+interface SectionTitleProps {
   actions?: React.ReactNode
   firstSection?: boolean
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'

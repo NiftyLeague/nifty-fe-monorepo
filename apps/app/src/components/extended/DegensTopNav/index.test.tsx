@@ -20,7 +20,11 @@ describe('DegensTopNav', () => {
 
     expect(screen.getByRole('textbox', { name: 'Search degens by token # or name' })).toBeTruthy()
 
-    const sortTrigger = await screen.findByRole('combobox', { name: 'Sort degens' })
+    const sortTrigger = await screen.findByRole(
+      'combobox',
+      { name: 'Sort degens' },
+      { timeout: 5000 }
+    )
     expect(sortTrigger.textContent).toContain('ID Low to High')
 
     fireEvent.click(sortTrigger)

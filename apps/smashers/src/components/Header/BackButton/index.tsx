@@ -5,7 +5,7 @@ import styles from '../Navbar/index.module.css'
 
 export default function BackButton() {
   return (
-    <Link href="/">
+    <Link href="/" prefetch={false}>
       <div className={styles.logo_container}>
         <CircleArrowLeft
           aria-label="back"

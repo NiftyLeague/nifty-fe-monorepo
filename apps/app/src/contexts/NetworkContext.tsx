@@ -7,7 +7,7 @@ import type { Signer } from '@/hooks/useEthersSigner'
 import type { Tx } from '@/types/notify'
 import type { Contracts } from '@/types/web3'
 
-export interface NetworkContextValue {
+interface NetworkContextValue {
   address?: `0x${string}`
   isConnected: boolean
   publicProvider?: Provider
