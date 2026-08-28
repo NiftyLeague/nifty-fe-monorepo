@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.0.12](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/template-v1.0.11...template-v1.0.12) (2026-08-28)
+
+
+### Bug Fixes
+
+* **build:** stabilize app bundler paths ([31f0082](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/31f0082d2e0f0601f8fb6da675c37ba0517471c6))
+
+
+### Performance
+
+* **css:** exclude test sources from app scans ([0c8ef0f](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/0c8ef0f2ec7503ad4dc1d808c77e3b508a02bcec))
+* **template:** isolate progress client boundary ([0445c7e](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/0445c7e66d4dafb8c4c0f2bae75cdfdd6320be5d))
+* **template:** use native external links ([0dbc5ce](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/0dbc5ce5ae34efae140be1642569e553857bcd7b))
+* **web:** optimize deferred roadmap media ([aec33d7](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/aec33d768931f8bee3653613b8a830ab6694aced))
+
 ## [1.0.11](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/template-v1.0.10...template-v1.0.11) (2026-08-25)
 
 

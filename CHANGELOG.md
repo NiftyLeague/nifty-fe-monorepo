@@ -1,5 +1,55 @@
 # Changelog
 
+## [1.2.64](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.63...nifty-fe-monorepo-v1.2.64) (2026-08-28)
+
+
+### Bug Fixes
+
+* **app:** restore degen modal data and bounds ([3a8ccb5](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/3a8ccb54db8bf5838d8a9c9ebbe68d715d61e8e2))
+* **build:** stabilize app bundler paths ([31f0082](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/31f0082d2e0f0601f8fb6da675c37ba0517471c6))
+* **ci:** keep lockfiles aligned with release metadata ([85ae761](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/85ae761929ca643c0a11c32394867d66ae81e454))
+* **ci:** prefer validated main on staging conflicts ([d9eb8f7](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/d9eb8f7e0435d18eb5d3931a91eb64a47ae47134))
+* **ci:** preserve coherent staging merges ([84c1051](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/84c1051588aa4802d9e71f6856f35b47562e85f6))
+* **ci:** reconcile staging from git trees ([8b1e525](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/8b1e5255bf54de07b93e1ccc9c4c6c34bfa97490))
+* **docs:** dedupe docusaurus client contexts ([6a8bd89](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/6a8bd89a2ee6fe3e5ca2ae9d07aaf2c15d74569b))
+* restore grouped web and app visuals ([a744026](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/a74402659fcb9f9e8f5fe1ee6c36cd9b6a2cee3b))
+* **test:** unify React runtime in Bun preloads ([fd640e3](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/fd640e3ac9c6389a2a6b788a0c10a1ba79a6284e))
+* **tooling:** make shared Next lint config portable ([ba0bc74](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/ba0bc749c101e42341aba24a9252cf1acde3f306))
+* **types:** restore icon and provider compatibility ([de1f4d3](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/de1f4d38aefe237b14beed3ea26328d5f6d6bba5))
+* **ui:** preserve dark error controls ([34e5eba](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/34e5eba895279c2b10301b8cc11444142d96cc27))
+
+
+### Performance
+
+* **app:** abort stale fetches on unmount ([03265de](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/03265de57c04a52d6cecbb9c47f43e00751fa8aa))
+* **app:** avoid logo route prefetch ([7b9fdf1](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/7b9fdf1c0d3a4fed2091c1858c4ea44820d85d4d))
+* **app:** skip empty leaderboard enrichment ([aa740ad](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/aa740adc56c306e205eadb41f9def597fe05a78a))
+* **assets:** recompress deferred smashers animation ([f0777c9](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/f0777c9bf463dc570463baf1169571d0169999af))
+* **build:** ignore test sources in app cache inputs ([819bbc0](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/819bbc01f04b91c9cd4531f08795ba253969ec8c))
+* **css:** exclude test sources from app scans ([0c8ef0f](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/0c8ef0f2ec7503ad4dc1d808c77e3b508a02bcec))
+* **docs:** compact shared game showcase video ([870cb3e](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/870cb3e80e477819806ea017f2113df70a4e356c))
+* **docs:** use native external social links ([2ab43c6](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/2ab43c67043e24c42bbe02bb5f18d0e1af77af3a))
+* **images:** decode shared artwork asynchronously ([2da21de](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/2da21de52f61b8ebf0aad3e4b88c0bc2172ec7c8))
+* **navbar:** skip prefetch for external links ([379d750](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/379d7507a4d4323012cef24d7192aeb5e3549369))
+* **navigation:** avoid background route prefetch ([4d2f627](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/4d2f6276e11c813343ac857b8219a4ed5b146df6))
+* **navigation:** avoid unnecessary external and profile prefetch ([992b1b4](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/992b1b4a01245114fdfb64551269019ece284d87))
+* **smashers:** defer below-hero console backdrop ([0ed391b](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/0ed391ba2385794dba5a6b269cccac9b3fcc1bbb))
+* **smashers:** defer party modes animation ([38f6dfc](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/38f6dfce8602a1063d21aaeffc7fd7f0a0d917e9))
+* **smashers:** restore compact deferred hero animation ([2079790](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/2079790ec2ca62b0352d874c1f5f59fc63660c84))
+* **template:** isolate progress client boundary ([0445c7e](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/0445c7e66d4dafb8c4c0f2bae75cdfdd6320be5d))
+* **template:** use native external links ([0dbc5ce](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/0dbc5ce5ae34efae140be1642569e553857bcd7b))
+* **ui:** slim global error fallback ([f66f7f0](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/f66f7f0844a8c14e6dd689a67d0a111b2f663fa2))
+* **web:** defer below-hero console video activation ([e2cd14c](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/e2cd14c4745b004b04c28a05459286cffe488974))
+* **web:** defer homepage console backdrop ([bcdd8d1](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/bcdd8d1b4860bc31aeda6b213f969c4c769eebc2))
+* **web:** eager-load console backdrop without video ([d7e0873](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/d7e087311149188fd37cf52bda00128d8651e044))
+* **web:** optimize deferred roadmap media ([aec33d7](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/aec33d768931f8bee3653613b8a830ab6694aced))
+* **web:** use native external footer links ([e9b31d6](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/e9b31d6d2c324148f331eb49819d8cbadf9623e2))
+
+
+### Tests
+
+* **app:** tolerate deferred controls under load ([79538ac](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/79538ac4640afa93ae08cc699fb7a3adeb3969aa))
+
 ## [1.2.63](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.62...nifty-fe-monorepo-v1.2.63) (2026-08-26)
 
 

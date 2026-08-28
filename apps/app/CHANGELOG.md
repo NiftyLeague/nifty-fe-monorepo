@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.1.28](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.27...app-v1.1.28) (2026-08-28)
+
+
+### Bug Fixes
+
+* **app:** restore degen modal data and bounds ([3a8ccb5](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/3a8ccb54db8bf5838d8a9c9ebbe68d715d61e8e2))
+* **build:** stabilize app bundler paths ([31f0082](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/31f0082d2e0f0601f8fb6da675c37ba0517471c6))
+* restore grouped web and app visuals ([a744026](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/a74402659fcb9f9e8f5fe1ee6c36cd9b6a2cee3b))
+* **types:** restore icon and provider compatibility ([de1f4d3](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/de1f4d38aefe237b14beed3ea26328d5f6d6bba5))
+
+
+### Performance
+
+* **app:** abort stale fetches on unmount ([03265de](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/03265de57c04a52d6cecbb9c47f43e00751fa8aa))
+* **app:** avoid logo route prefetch ([7b9fdf1](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/7b9fdf1c0d3a4fed2091c1858c4ea44820d85d4d))
+* **app:** skip empty leaderboard enrichment ([aa740ad](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/aa740adc56c306e205eadb41f9def597fe05a78a))
+* **css:** exclude test sources from app scans ([0c8ef0f](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/0c8ef0f2ec7503ad4dc1d808c77e3b508a02bcec))
+* **navigation:** avoid background route prefetch ([4d2f627](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/4d2f6276e11c813343ac857b8219a4ed5b146df6))
+* **ui:** slim global error fallback ([f66f7f0](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/f66f7f0844a8c14e6dd689a67d0a111b2f663fa2))
+* **web:** optimize deferred roadmap media ([aec33d7](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/aec33d768931f8bee3653613b8a830ab6694aced))
+
+
+### Tests
+
+* **app:** tolerate deferred controls under load ([79538ac](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/79538ac4640afa93ae08cc699fb7a3adeb3969aa))
+
 ## [1.1.27](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.26...app-v1.1.27) (2026-08-25)
 
 

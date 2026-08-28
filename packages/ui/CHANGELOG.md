@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.0.17](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v1.0.16...ui-v1.0.17) (2026-08-28)
+
+
+### Bug Fixes
+
+* restore grouped web and app visuals ([a744026](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/a74402659fcb9f9e8f5fe1ee6c36cd9b6a2cee3b))
+* **types:** restore icon and provider compatibility ([de1f4d3](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/de1f4d38aefe237b14beed3ea26328d5f6d6bba5))
+* **ui:** preserve dark error controls ([34e5eba](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/34e5eba895279c2b10301b8cc11444142d96cc27))
+
+
+### Performance
+
+* **images:** decode shared artwork asynchronously ([2da21de](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/2da21de52f61b8ebf0aad3e4b88c0bc2172ec7c8))
+* **navbar:** skip prefetch for external links ([379d750](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/379d7507a4d4323012cef24d7192aeb5e3549369))
+* **navigation:** avoid unnecessary external and profile prefetch ([992b1b4](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/992b1b4a01245114fdfb64551269019ece284d87))
+* **smashers:** defer party modes animation ([38f6dfc](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/38f6dfce8602a1063d21aaeffc7fd7f0a0d917e9))
+* **ui:** slim global error fallback ([f66f7f0](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/f66f7f0844a8c14e6dd689a67d0a111b2f663fa2))
+* **web:** defer below-hero console video activation ([e2cd14c](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/e2cd14c4745b004b04c28a05459286cffe488974))
+* **web:** eager-load console backdrop without video ([d7e0873](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/d7e087311149188fd37cf52bda00128d8651e044))
+* **web:** optimize deferred roadmap media ([aec33d7](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/aec33d768931f8bee3653613b8a830ab6694aced))
+
 ## [1.0.16](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v1.0.15...ui-v1.0.16) (2026-08-25)
 
 
