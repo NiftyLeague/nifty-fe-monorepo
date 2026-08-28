@@ -207,6 +207,9 @@ const gameCard = 'apps/app/src/components/cards/GameCard.tsx'
 const smashersLoginClient = 'apps/smashers/src/app/(auth_routes)/login/LoginClient.tsx'
 const smashersLoginPage = 'apps/smashers/src/app/(auth_routes)/login/page.tsx'
 const smashersLoginRoute = 'apps/smashers/src/app/(auth_routes)/login/LoginRoute.tsx'
+const smashersLootPage = 'apps/smashers/src/app/loot/page.tsx'
+const smashersLootTables = 'apps/smashers/src/app/loot/LootTables.tsx'
+const staleSmashersLootBoundary = 'apps/smashers/src/app/loot/LootTablesBoundary.tsx'
 const sharedAuthIconSources = [
   'packages/ui/src/components/custom/auth-form/forms/login.tsx',
   'packages/ui/src/components/custom/auth-form/forms/forgot-password.tsx',
@@ -2299,6 +2302,17 @@ describe('public route dependency contract', () => {
     expect(source).not.toContain('WalletFeatureProviders')
     expect(source).not.toContain('ConnectWrapper')
     expect(source).not.toContain('useTokensBalances')
+  })
+
+  it('keeps static Smashers loot tables server-rendered', () => {
+    const page = readFileSync(join(process.cwd(), smashersLootPage), 'utf8')
+    const tables = readFileSync(join(process.cwd(), smashersLootTables), 'utf8')
+
+    expect(page).toContain("import LootTables from './LootTables'")
+    expect(page).not.toContain('LootTablesBoundary')
+    expect(tables).not.toContain("'use client'")
+    expect(tables).toContain('<table>')
+    expect(existsSync(join(process.cwd(), staleSmashersLootBoundary))).toBe(false)
   })
 
   it('defers the Smashers PlayFab auth form behind an accessible loading boundary', () => {

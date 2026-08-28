@@ -1,5 +1,3 @@
-'use client'
-
 import { Typography } from '@nl/ui/custom/typography'
 import DROP_TABLES from '@/data/droptables.json'
 import type { CrateData } from '@/types/droptables'

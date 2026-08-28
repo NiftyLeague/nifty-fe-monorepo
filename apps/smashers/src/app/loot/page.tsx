@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { Typography } from '@nl/ui/custom/typography'
 import BackButton from '@/components/Header/BackButton'
-import LootTablesBoundary from './LootTablesBoundary'
+import LootTables from './LootTables'
 
 import styles from './page.module.css'
 
@@ -27,7 +27,7 @@ export default function Loot() {
           Explore the drop rates and rewards for all available crates and loot boxes.
         </Typography.Title>
       </div>
-      <LootTablesBoundary />
+      <LootTables />
     </div>
   )
 }
