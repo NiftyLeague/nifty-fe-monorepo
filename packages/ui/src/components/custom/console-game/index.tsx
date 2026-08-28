@@ -12,12 +12,14 @@ import styles from './index.module.css'
 export interface ConsoleGameProps {
   children: ReactNode
   isNearViewport?: boolean
+  renderGradientOverlay?: boolean
   src: string
 }
 
 export const ConsoleGame = memo(function ConsoleGame({
   children,
   isNearViewport = true,
+  renderGradientOverlay = true,
   src,
 }: ConsoleGameProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -122,7 +124,7 @@ export const ConsoleGame = memo(function ConsoleGame({
           </div>
         </ParallaxWrapper>
       </div>
-      <div className="dark-gradient-overlay" />
+      {renderGradientOverlay ? <div className="dark-gradient-overlay" /> : null}
     </div>
   )
 })
