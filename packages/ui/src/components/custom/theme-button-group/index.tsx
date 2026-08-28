@@ -1,12 +1,9 @@
-import Link from 'next/link'
-import type { UrlObject } from 'url'
-
 import { buttonVariants } from '@nl/ui/base/button-variants'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import { cx } from '@nl/ui/class-names'
 
 export interface ThemeButtonProps {
-  href?: string | UrlObject
+  href?: string
   title: string
   responsiveTitle?: { mobile: string; desktop: string }
   className?: string
@@ -50,26 +47,16 @@ export function ThemeButton({
 
   const resolvedClassName = buttonVariants({ variant: 'ghost', className: buttonClassName })
 
-  if (external && typeof href === 'string') {
-    return (
-      <a href={href} target="_blank" rel="noreferrer" className={resolvedClassName}>
-        {content}
-        <ExternalIcon />
-      </a>
-    )
-  }
-
   return (
-    <Link
+    <a
       href={href}
-      prefetch={false}
       target={external ? '_blank' : undefined}
       rel={external ? 'noreferrer' : undefined}
       className={resolvedClassName}
     >
       {content}
       {external && <ExternalIcon />}
-    </Link>
+    </a>
   )
 }
 
