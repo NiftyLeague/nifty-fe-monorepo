@@ -235,7 +235,7 @@ const Home = () => {
           CLASSIC GAMING REINVENTED
         </h2>
 
-        <DeferredConsoleGame src="/video/smashers.mp4">
+        <DeferredConsoleGame deferVideo src="/video/smashers.mp4">
           <ConsoleGameBackdrop loading="eager" fetchPriority="low" />
         </DeferredConsoleGame>
 

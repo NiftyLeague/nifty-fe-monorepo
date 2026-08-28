@@ -71,7 +71,7 @@ export const ConsoleGame = memo(function ConsoleGame({
           onPause={handlePause}
           onEnded={handlePause}
         >
-          <source src={src} type="video/mp4" />
+          {isNearViewport ? <source src={src} type="video/mp4" /> : null}
         </video>
         <Button
           type="button"

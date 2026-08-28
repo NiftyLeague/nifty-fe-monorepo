@@ -53,6 +53,7 @@ describe('ConsoleGame', () => {
 
     expect(video?.getAttribute('preload')).toBe('none')
     expect(video?.hasAttribute('autoplay')).toBe(false)
+    expect(video?.querySelector('source')).toBeNull()
 
     rerender(
       <ConsoleGame isNearViewport src="/video/example.mp4">
@@ -61,5 +62,6 @@ describe('ConsoleGame', () => {
     )
     expect(video?.getAttribute('preload')).toBe('metadata')
     expect(video?.hasAttribute('autoplay')).toBe(true)
+    expect(video?.querySelector('source')?.getAttribute('src')).toBe('/video/example.mp4')
   })
 })
