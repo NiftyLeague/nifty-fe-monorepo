@@ -28,6 +28,7 @@ describe('ConsoleGame', () => {
     const video = container.querySelector('video')
 
     expect(image?.getAttribute('loading')).toBe('lazy')
+    expect(image?.getAttribute('fetchpriority')).toBe('low')
     expect(image?.getAttribute('srcset')).toContain('/_next/image?url=')
     expect(image?.getAttribute('sizes')).toBe('100vw')
     expect(image?.getAttribute('width')).toBe('4842')
