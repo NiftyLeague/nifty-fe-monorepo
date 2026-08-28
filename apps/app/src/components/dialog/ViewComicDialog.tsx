@@ -5,7 +5,7 @@ import { cn } from '@nl/ui/utils'
 import type { Comic } from '@/types/marketplace'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
-export interface ViewComicDialogProps {
+interface ViewComicDialogProps {
   comic?: Comic | null
   open: boolean
   onClose: () => void

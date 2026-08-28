@@ -34,4 +34,34 @@ describe('PublicDegenDialog', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Close degen details' }))
     expect(onClose).toHaveBeenCalledTimes(1)
   })
+
+  it('maps numeric trait ids to readable trait names and values', () => {
+    render(
+      <PublicDegenDialog
+        open
+        degen={{
+          id: '1',
+          name: 'Nifty Andy',
+          traits_string: '1,17,73,104,110,263,685,717,821,824,865,894,991',
+        }}
+        onClose={() => {}}
+      />
+    )
+
+    expect(screen.getByText('Tribe')).not.toBeNull()
+    expect(screen.getByText('Ape')).not.toBeNull()
+    expect(screen.getByText('Skin Color')).not.toBeNull()
+    expect(screen.getByText('White')).not.toBeNull()
+    expect(screen.getByText('Mouth')).not.toBeNull()
+    expect(screen.getByText('Cigarette')).not.toBeNull()
+    expect(screen.getByText('Footwear')).not.toBeNull()
+    expect(screen.getByText('Blue Winged Shoes')).not.toBeNull()
+    expect(screen.getByText('Hat')).not.toBeNull()
+    expect(screen.getByText('Gray Beanie')).not.toBeNull()
+    expect(screen.getByText('Right Item')).not.toBeNull()
+    expect(screen.getAllByText('Controller')).toHaveLength(1)
+    expect(screen.queryByText('73')).toBeNull()
+    expect(screen.queryByText('263')).toBeNull()
+    expect(screen.queryByText('991')).toBeNull()
+  })
 })

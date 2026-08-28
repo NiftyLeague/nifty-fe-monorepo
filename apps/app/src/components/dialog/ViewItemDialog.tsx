@@ -5,7 +5,7 @@ import type { Item } from '@/types/marketplace'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import ItemDetail from '@/components/cards/ItemDetail'
 
-export interface ViewItemDialogProps {
+interface ViewItemDialogProps {
   item?: Item | null
   subIndex: number
   open: boolean

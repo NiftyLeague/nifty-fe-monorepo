@@ -2,7 +2,7 @@ import type { SxProps, Theme } from '@/types'
 import type { Item } from '@/types/marketplace'
 import ImageCard from '@/components/cards/ImageCard'
 
-export interface WearableSubItemCardProps {
+interface WearableSubItemCardProps {
   data: Item
   itemIndex: number
   sx?: SxProps<Theme>
