@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.0.14](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/smashers-v1.0.13...smashers-v1.0.14) (2026-08-28)
+
+
+### Bug Fixes
+
+* **build:** stabilize app bundler paths ([31f0082](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/31f0082d2e0f0601f8fb6da675c37ba0517471c6))
+* restore grouped web and app visuals ([a744026](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/a74402659fcb9f9e8f5fe1ee6c36cd9b6a2cee3b))
+
+
+### Performance
+
+* **css:** exclude test sources from app scans ([0c8ef0f](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/0c8ef0f2ec7503ad4dc1d808c77e3b508a02bcec))
+* **navigation:** avoid background route prefetch ([4d2f627](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/4d2f6276e11c813343ac857b8219a4ed5b146df6))
+* **navigation:** avoid unnecessary external and profile prefetch ([992b1b4](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/992b1b4a01245114fdfb64551269019ece284d87))
+* **smashers:** defer below-hero console backdrop ([0ed391b](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/0ed391ba2385794dba5a6b269cccac9b3fcc1bbb))
+* **smashers:** defer party modes animation ([38f6dfc](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/38f6dfce8602a1063d21aaeffc7fd7f0a0d917e9))
+* **web:** defer below-hero console video activation ([e2cd14c](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/e2cd14c4745b004b04c28a05459286cffe488974))
+* **web:** optimize deferred roadmap media ([aec33d7](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/aec33d768931f8bee3653613b8a830ab6694aced))
+
 ## [1.0.13](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/smashers-v1.0.12...smashers-v1.0.13) (2026-08-25)
 
 
