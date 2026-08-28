@@ -11,9 +11,18 @@ const projectRoots = ['apps/web', 'apps/app', 'apps/smashers', 'apps/api', 'apps
 const deploymentEnabled = { 'codex/*': false, '**': false, main: true, staging: true }
 const ignoreCommand = 'node ../../scripts/vercel-ignore-build.mjs'
 const appInstallCommand = 'bun install --frozen-lockfile --force'
+const packageManager = 'bun@1.4.0'
 const consolidatedStatusPolicy = 'consolidated Git commit status disabled'
 
 describe('Vercel build cost policy', () => {
+  it('pins Vercel installs to the repository Bun toolchain', () => {
+    const packageJson = JSON.parse(readFileSync(join(process.cwd(), 'package.json'), 'utf8')) as {
+      packageManager?: string
+    }
+
+    expect(packageJson.packageManager).toBe(packageManager)
+  })
+
   for (const projectRoot of projectRoots) {
     it(`limits ${projectRoot} automatic deployments to release branches`, () => {
       const configPath = join(process.cwd(), projectRoot, 'vercel.json')
