@@ -103,6 +103,10 @@ const appStaticNavigationSources = [
   'apps/app/src/components/providers/PublicNavigation.tsx',
   'apps/app/src/components/providers/PublicNavLinks.tsx',
 ]
+const smashersStaticNavigationSources = [
+  'apps/smashers/src/components/Header/Navbar/index.tsx',
+  'apps/smashers/src/components/Header/BackButton/index.tsx',
+]
 const nonConflictingClassNameSources = [
   'apps/app/src/app/layout.tsx',
   'apps/app/src/components/providers/PublicNavigation.tsx',
@@ -322,6 +326,14 @@ describe('app performance contracts', () => {
   it('keeps the public app shell navigation out of the Next Link client runtime', () => {
     for (const file of appStaticNavigationSources) {
       const source = readFileSync(file, 'utf8')
+      expect(source).not.toContain("from 'next/link'")
+      expect(source).not.toContain('from "next/link"')
+    }
+  })
+
+  it('keeps the Smashers public home navigation out of the Next Link client runtime', () => {
+    for (const file of smashersStaticNavigationSources) {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
       expect(source).not.toContain("from 'next/link'")
       expect(source).not.toContain('from "next/link"')
     }

@@ -1,11 +1,12 @@
-import Link from 'next/link'
 import { CircleArrowLeft } from 'lucide-react'
 
 import styles from '../Navbar/index.module.css'
 
 export default function BackButton() {
   return (
-    <Link href="/" prefetch={false}>
+    // Native navigation keeps the public auth shell free of Next's Link runtime.
+    // eslint-disable-next-line @next/next/no-html-link-for-pages
+    <a href="/">
       <div className={styles.logo_container}>
         <CircleArrowLeft
           aria-label="back"
@@ -15,6 +16,6 @@ export default function BackButton() {
           className={styles.logo}
         />
       </div>
-    </Link>
+    </a>
   )
 }
