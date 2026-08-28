@@ -1,4 +1,4 @@
-export interface RentalAccount {
+interface RentalAccount {
   id?: string
   address?: string
   name?: string

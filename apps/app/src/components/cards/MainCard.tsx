@@ -7,7 +7,7 @@ import { cn } from '@nl/ui/utils'
 
 // ==============================|| CUSTOM MAIN CARD ||============================== //
 
-export interface MainCardProps {
+interface MainCardProps {
   border?: boolean
   boxShadow?: boolean
   children: React.ReactNode | string

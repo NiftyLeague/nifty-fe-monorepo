@@ -10,7 +10,7 @@ import { NFTL_CONTRACT } from '@/constants/contracts'
 import { DEBUG } from '@/constants/index'
 import { formatNumberToDisplay } from '@nl/ui/number-format'
 
-export interface ClaimDegenContentDialogProps {
+interface ClaimDegenContentDialogProps {
   degen?: DashboardDegen
   onClose?: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
