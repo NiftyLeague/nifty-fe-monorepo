@@ -28,6 +28,8 @@ describe('staging re-alignment workflow', () => {
     expect(source).toContain('package-lock.json|*/package-lock.json')
     expect(source).toContain('pnpm-lock.yaml|*/pnpm-lock.yaml')
     expect(source).toContain('yarn.lock|*/yarn.lock')
+    expect(source).toContain('if is_release_metadata_path "$changed_path"; then')
+    expect(runtimeSource).not.toContain('restore_path_from_tree "$staging_head" "$changed_path"')
     expect(runtimeSource).not.toContain('git worktree add')
     expect(runtimeSource).not.toContain('git sparse-checkout disable')
   })

@@ -254,14 +254,13 @@ jobs:
             fi
           }
 
-          # Keep staging authoritative for paths changed since the merge base,
-          # but take release-managed metadata from main so version files and
-          # changelogs cannot regress during a post-release re-alignment.
+          # The merge tree already uses staging as ours for conflicts and
+          # retains non-conflicting edits from both branches. Override only
+          # release-managed metadata so manifests, lockfiles, and changelogs
+          # cannot regress during a post-release re-alignment.
           while IFS= read -r -d '' changed_path; do
             if is_release_metadata_path "$changed_path"; then
               restore_path_from_tree "$main_head" "$changed_path"
-            else
-              restore_path_from_tree "$staging_head" "$changed_path"
             fi
           done < <(git diff-tree --no-commit-id --name-only -r --no-renames -z "$merge_base" "$staging_head")
 
