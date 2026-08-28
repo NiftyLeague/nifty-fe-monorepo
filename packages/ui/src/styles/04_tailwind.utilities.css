@@ -18,6 +18,17 @@
   @apply my-20;
 }
 
+/* Deferred content is shared by the marketing and application surfaces.
+ * Keep offscreen sections out of the rendering budget while preserving their
+ * layout footprint until the viewport observer loads their content. The
+ * homepage supplies a larger page-specific intrinsic size where needed.
+ * This stays outside Tailwind's generated utility layer so every consumer app
+ * receives it even when its source scan cannot see the shared class literal. */
+.deferred-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 16rem;
+}
+
 /* Footer content is shared by the long-form marketing and Smashers pages.
  * Keep it out of the initial render budget until it approaches the viewport,
  * while reserving enough space to avoid scroll-position shifts. */
