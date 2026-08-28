@@ -39,6 +39,10 @@ export default function PublicDegenDialog({ open, degen, onClose }: PublicDegenD
             return { key: `${index}-${trimmedTrait}`, value: trimmedTrait }
           }
 
+          // The API keeps empty contract slots as zeroes. They are not
+          // attributes and should not become numeric cards in the modal.
+          if (/^0+$/.test(trimmedTrait)) return null
+
           const display = getTraitDisplay(trimmedTrait, index)
 
           return {

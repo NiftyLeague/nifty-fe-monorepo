@@ -42,7 +42,7 @@ describe('PublicDegenDialog', () => {
         degen={{
           id: '1',
           name: 'Nifty Andy',
-          traits_string: '1,17,73,104,110,263,685,717,821,824,865,894,991',
+          traits_string: '1,17,73,104,110,0,263,0,0,0,0,0,685,0,717,0,0,821,824,865,894,991',
         }}
         onClose={() => {}}
       />
@@ -60,6 +60,7 @@ describe('PublicDegenDialog', () => {
     expect(screen.getByText('Gray Beanie')).not.toBeNull()
     expect(screen.getByText('Right Item')).not.toBeNull()
     expect(screen.getAllByText('Controller')).toHaveLength(1)
+    expect(screen.queryByText('0', { exact: true })).toBeNull()
     expect(screen.queryByText('73')).toBeNull()
     expect(screen.queryByText('263')).toBeNull()
     expect(screen.queryByText('991')).toBeNull()
