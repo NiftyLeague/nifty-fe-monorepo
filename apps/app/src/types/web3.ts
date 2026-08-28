@@ -28,11 +28,11 @@ import {
   NFTL_IMX_CONTRACT,
 } from '@/constants/contracts'
 
-export type MainnetProvider = InfuraProvider | EtherscanProvider | AlchemyProvider
+type MainnetProvider = InfuraProvider | EtherscanProvider | AlchemyProvider
 
-export type PublicProvider = FallbackProvider | JsonRpcProvider | JsonRpcApiProvider
+type PublicProvider = FallbackProvider | JsonRpcProvider | JsonRpcApiProvider
 
-export type UserProvider = BrowserProvider
+type UserProvider = BrowserProvider
 
 export type Provider = PublicProvider | UserProvider | MainnetProvider
 

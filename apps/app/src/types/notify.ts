@@ -9,10 +9,10 @@ import type { EthereumRpcError, EthereumProviderError } from 'eth-rpc-errors'
 
 type Deferrable<T> = { [K in keyof T]: T[K] | Promise<T[K]> }
 
-export declare type TransactionData = EthereumTransactionData
-export declare type TransactionEventLog = EthereumTransactionLog
+declare type TransactionData = EthereumTransactionData
+declare type TransactionEventLog = EthereumTransactionLog
 
-export type NotifyTransaction = TransactionData | TransactionEventLog | TransactionReceipt
+type NotifyTransaction = TransactionData | TransactionEventLog | TransactionReceipt
 export interface TransactionEvent {
   emitterResult: void | boolean | NotificationObject
   transaction: NotifyTransaction

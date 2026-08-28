@@ -26,7 +26,7 @@ import {
 
 import styles from './index.module.css'
 
-export interface EquipDegenContentDialogProps {
+interface EquipDegenContentDialogProps {
   degen?: DashboardDegen
   name?: string
 }

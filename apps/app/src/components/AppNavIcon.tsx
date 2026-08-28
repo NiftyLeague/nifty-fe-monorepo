@@ -88,4 +88,4 @@ function AppNavIcon({
 }
 
 export { AppNavIcon }
-export type { AppNavIconColor, AppNavIconName, AppNavIconProps, AppNavIconSize }
+export type { AppNavIconName }
