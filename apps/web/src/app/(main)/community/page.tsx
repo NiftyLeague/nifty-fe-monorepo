@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 
-import { DeferredCommunityConversation } from '@/components/DeferredCommunitySections'
+import CommunityConversation from '@/components/CommunityConversation'
 
 import '@/styles/marketing.css'
 
@@ -68,7 +68,7 @@ const Community: NextPage = () => {
         </span>
       </section>
 
-      <DeferredCommunityConversation />
+      <CommunityConversation />
 
       <section className="section flex sliding-nfts relative overflow-hidden">
         <div className="flex flex-col text-center relative p-0">

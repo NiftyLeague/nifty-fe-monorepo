@@ -1,9 +1,7 @@
-import { memo } from 'react'
-
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { CORE_TEAM, DEGEN_DELEGATES } from '@/constants/team'
 
-const TeamDesktop = () => {
+export default function TeamDesktop() {
   return (
     <div className="m-0 p-0 relative text-center items-center my-3 desktop flex flex-wrap">
       {[...CORE_TEAM, ...DEGEN_DELEGATES].map((member, index) => (
@@ -29,6 +27,3 @@ const TeamDesktop = () => {
     </div>
   )
 }
-
-const MemoizedTeamDesktop = memo(TeamDesktop)
-export default MemoizedTeamDesktop

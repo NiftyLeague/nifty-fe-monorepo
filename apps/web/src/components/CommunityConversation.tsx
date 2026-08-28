@@ -1,5 +1,3 @@
-'use client'
-
 import SocialCards from '@/components/SocialCards'
 
 export default function CommunityConversation() {

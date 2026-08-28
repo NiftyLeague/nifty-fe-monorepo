@@ -1903,18 +1903,32 @@ describe('web marketing page boundary contract', () => {
     const carouselSource = readFileSync(join(process.cwd(), webCarousel), 'utf8')
     const deferredTeamSource = readFileSync(join(process.cwd(), webDeferredTeamSections), 'utf8')
     const teamCarouselSource = readFileSync(join(process.cwd(), webTeamCarousel), 'utf8')
+    const communityConversationSource = readFileSync(
+      join(process.cwd(), 'apps/web/src/components/CommunityConversation.tsx'),
+      'utf8'
+    )
+    const teamDesktopSource = readFileSync(
+      join(process.cwd(), 'apps/web/src/components/TeamDesktop/index.tsx'),
+      'utf8'
+    )
 
     expect(communitySource).not.toContain("'use client'")
     expect(communitySource).not.toContain('useMediaQuery')
     expect(communitySource).toContain('sliding-background-wrapper')
+    expect(communitySource).toContain("from '@/components/CommunityConversation'")
+    expect(communitySource).not.toContain('DeferredCommunityConversation')
+    expect(communityConversationSource).not.toContain("'use client'")
     expect(teamSource).not.toContain("'use client'")
     expect(teamSource).toContain('DeferredTeamCarousel')
+    expect(teamSource).toContain("from '@/components/TeamDesktop'")
+    expect(teamSource).not.toContain('DeferredTeamDesktop')
     expect(teamSource).not.toContain("from '@/components/Carousel'")
     expect(carouselSource).toContain("'use client'")
     expect(deferredTeamSource).toContain("import('@/components/TeamCarousel')")
     expect(deferredTeamSource).toContain("from '@nl/ui/custom/deferred-section'")
     expect(teamCarouselSource).toContain("from '@/components/Carousel'")
     expect(teamCarouselSource).toContain("from '@/constants/team'")
+    expect(teamDesktopSource).not.toContain("'use client'")
   })
 })
 

@@ -22,17 +22,15 @@ mock.module('@nl/ui/custom/deferred-section', () => ({
 }))
 
 describe('DeferredTeamSections', () => {
-  it('defers the desktop grid with a stable accessible boundary', async () => {
-    const { DeferredTeamDesktop } = await import('./DeferredTeamSections')
+  it('defers the mobile carousel with a stable accessible boundary', async () => {
+    const { DeferredTeamCarousel } = await import('./DeferredTeamSections')
 
-    render(<DeferredTeamDesktop />)
+    render(<DeferredTeamCarousel />)
 
-    expect(screen.getByRole('status').textContent).toBe('Loading desktop team members')
+    expect(screen.getByRole('status').textContent).toBe('Loading mobile team carousel')
     expect(screen.getByTestId('deferred-team-section').getAttribute('data-min-height')).toBe(
-      'min-h-[110rem]'
+      'min-h-[300px]'
     )
-    expect(screen.getByTestId('deferred-team-section').getAttribute('data-root-margin')).toBe(
-      '0px 0px -160px 0px'
-    )
+    expect(screen.getByTestId('deferred-team-section').getAttribute('data-root-margin')).toBeNull()
   })
 })
