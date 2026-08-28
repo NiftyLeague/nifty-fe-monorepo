@@ -1,4 +1,3 @@
-import type { PropsWithChildren } from 'react'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, jest, mock } from 'bun:test'
@@ -13,24 +12,7 @@ const state = {
   stop: mock(),
   parallax: mock(),
 }
-const nextLinkPrefetches: Array<boolean | undefined> = []
-
 beforeEach(() => {
-  mock.module('next/link', () => ({
-    default: ({
-      children,
-      href,
-      prefetch,
-      ...props
-    }: PropsWithChildren<{ href: string; prefetch?: boolean }>) => {
-      nextLinkPrefetches.push(prefetch)
-      return (
-        <a href={href} data-next-link="true" {...props}>
-          {children}
-        </a>
-      )
-    },
-  }))
   mock.module('next/image', () => ({
     default: ({
       alt,
@@ -61,7 +43,6 @@ beforeEach(() => {
 afterEach(() => {
   jest.useRealTimers()
   undefined
-  nextLinkPrefetches.length = 0
   state.mobile = true
   state.milliseconds = 1_500
   state.pathname = '/about'
@@ -104,8 +85,7 @@ describe('Navbar', () => {
     const homeLogo = screen.getByRole('img', { name: 'Home' })
     expect(homeLogo.getAttribute('loading')).toBe('eager')
     expect(homeLogo.getAttribute('fetchpriority')).toBe('low')
-    expect(nextLinkPrefetches.length).toBeGreaterThan(0)
-    expect(nextLinkPrefetches.every((prefetch) => prefetch === false)).toBe(true)
+    expect(homeLogo.closest('a')?.getAttribute('data-next-link')).toBeNull()
     expect(screen.getAllByRole('link', { name: /About/ })[0]?.getAttribute('href')).toBe('/about')
     fireEvent.click(screen.getByText('Products', { selector: 'summary' }))
     const docsLinks = screen.getAllByRole('link', { name: /Docs/ })

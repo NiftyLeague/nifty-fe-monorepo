@@ -1,5 +1,3 @@
-import Link from 'next/link'
-
 import { NavLinkContent, NAV_LINK_CONTENT_CLASS } from './NavLinkContent'
 
 interface NavigationLinkProps {
@@ -24,9 +22,9 @@ function NavigationLink({ className, description, external, href, title }: Navig
   }
 
   return (
-    <Link href={href} prefetch={false} className={resolvedClassName}>
+    <a href={href} className={resolvedClassName}>
       {content}
-    </Link>
+    </a>
   )
 }
 
