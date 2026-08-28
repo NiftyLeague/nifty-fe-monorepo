@@ -8,7 +8,6 @@ import { mock } from 'bun:test'
 let fetchRankByUserId: typeof import('./leaderboard').fetchRankByUserId
 let fetchClientScores: typeof import('./leaderboard').fetchScores
 let fetchScores: typeof import('./leaderboard-server').fetchScores
-let fetchUserNames: typeof import('./leaderboard-server').fetchUserNames
 
 beforeEach(async () => {
   mock.module('@/constants/leaderboards/data', () => {
@@ -28,6 +27,9 @@ beforeEach(async () => {
       bulk: {
         win_rate: [row('0.75', 'user-1'), row('0.5', 'user-2')],
       },
+      empty: {
+        win_rate: [],
+      },
     }
     return {
       loadLeaderboard: async (gameType: string) => leaderboards[gameType],
@@ -41,23 +43,11 @@ beforeEach(async () => {
   fetchRankByUserId = leaderboard.fetchRankByUserId
   fetchClientScores = leaderboard.fetchScores
   fetchScores = leaderboardServer.fetchScores
-  fetchUserNames = leaderboardServer.fetchUserNames
 })
 
 afterEach(() => undefined)
 
 describe('leaderboard data loaders', () => {
-  it('loads usernames and handles transport errors', async () => {
-    stubGlobal(
-      'fetch',
-      mock().mockResolvedValue({ json: mock().mockResolvedValue([{ name: 'Alpha' }]) })
-    )
-    await expect(fetchUserNames(['user-1'])).resolves.toEqual([{ name: 'Alpha' }])
-
-    stubGlobal('fetch', mock().mockRejectedValue(new Error('offline')))
-    await expect(fetchUserNames(['user-1'])).resolves.toEqual([])
-  })
-
   it('requests only the selected leaderboard page from the app route', async () => {
     const fetchMock = mock().mockResolvedValue({
       ok: true,
@@ -105,6 +95,25 @@ describe('leaderboard data loaders', () => {
     const result = await fetchScores('bulk', 'win_rate', 'all', 2, 0)
 
     expect(result.data.map((row) => row.user_id)).toEqual(['Alpha', 'Bravo'])
+  })
+
+  it('keeps leaderboard rows when username enrichment is unavailable', async () => {
+    stubGlobal('fetch', mock().mockRejectedValue(new Error('offline')))
+
+    const result = await fetchScores('smashers', 'kills', 'all', 1, 0)
+
+    expect(result.data[0]?.user_id).toBe('user-3')
+  })
+
+  it('does not request usernames when the selected leaderboard page is empty', async () => {
+    const fetchMock = mock().mockRejectedValue(new Error('should not be called'))
+    stubGlobal('fetch', fetchMock)
+
+    await expect(fetchScores('empty', 'win_rate', 'all', 2, 0)).resolves.toEqual({
+      data: [],
+      count: 0,
+    })
+    expect(fetchMock).not.toHaveBeenCalled()
   })
 
   it('returns rank responses and caught rank errors', async () => {
