@@ -71,7 +71,9 @@ jobs:
             # promisor remote and fail before the merge was even evaluated.
             # merge-tree needs only the commit/tree graph and returns the
             # exact candidate tree without materializing application files.
-            MERGED_TREE=$(git merge-tree --write-tree -X ours origin/staging origin/main) || {
+            # Main is the validated release source for textual conflicts;
+            # non-conflicting staging work remains in the candidate tree.
+            MERGED_TREE=$(git merge-tree --write-tree -X theirs origin/staging origin/main) || {
               echo "The re-alignment merge preview reported conflicts or"
               echo "an unavailable Git object; failing closed for review."
               exit 1
@@ -208,7 +210,7 @@ jobs:
           # previous sparse worktree path could ask the promisor remote for an
           # old blob that GitHub no longer serves, causing a false workflow
           # failure before reconciliation was evaluated.
-          MERGED_TREE=$(git merge-tree --write-tree -X ours "$staging_head" "$main_head") || {
+          MERGED_TREE=$(git merge-tree --write-tree -X theirs "$staging_head" "$main_head") || {
             echo "The re-alignment merge preview reported conflicts or"
             echo "an unavailable Git object; failing closed for review."
             exit 1
@@ -254,10 +256,10 @@ jobs:
             fi
           }
 
-          # The merge tree already uses staging as ours for conflicts and
-          # retains non-conflicting edits from both branches. Override only
-          # release-managed metadata so manifests, lockfiles, and changelogs
-          # cannot regress during a post-release re-alignment.
+          # The merge tree favors validated main content for textual
+          # conflicts and retains non-conflicting edits from both branches.
+          # Override only release-managed metadata so manifests, lockfiles,
+          # and changelogs cannot regress during a post-release re-alignment.
           while IFS= read -r -d '' changed_path; do
             if is_release_metadata_path "$changed_path"; then
               restore_path_from_tree "$main_head" "$changed_path"
