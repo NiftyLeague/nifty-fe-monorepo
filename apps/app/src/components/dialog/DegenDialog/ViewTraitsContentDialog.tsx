@@ -5,29 +5,23 @@ import { Title } from '@nl/ui/custom/typography'
 
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
 import { getTraitDisplay, TRAIT_NAME_MAP } from '@/constants/cosmeticsFilters'
-import type { DashboardDegen, GetDegenResponse } from '@/types/degens'
+import type { DashboardDegen } from '@/types/degens'
 import { DEGEN_PURCHASE_URL } from '@/constants/public-urls'
 import type { SxProps } from '@/types'
 import { hasEntries } from '@/utils/collections'
 
 interface ViewTraitsContentDialogProps {
   degen?: DashboardDegen
-  degenDetail?: GetDegenResponse
   traits: { [traitType: string]: bigint | number | string }
   displayName?: string
-  onRent?: () => void
-  onClaim?: () => void
   onClose?: (event: React.MouseEvent<HTMLButtonElement>) => void
   degenImageSx?: SxProps<{}>
 }
 
 const ViewTraitsContentDialog = ({
   degen,
-  degenDetail,
   traits,
   displayName,
-  onRent,
-  onClaim,
   onClose,
   degenImageSx,
 }: ViewTraitsContentDialogProps) => (
@@ -67,17 +61,6 @@ const ViewTraitsContentDialog = ({
           />
         </a>
       </div>
-      {/* <div className="my-4 flex flex-col items-center">
-          <span className="text-[rgb(75,7,175)]">
-            {degenDetail?.multiplier}x Multiplier
-          </span>
-          <span className="text-[rgb(75,7,175)]">
-            {degenDetail?.rental_count} Active Rentals
-          </span>
-          <span className="text-[rgb(75,7,175)]">
-            {degenDetail?.price} NFTL/ 1 Week
-          </span>
-        </div> */}
       {degen?.owner && (
         <div className="flex flex-col items-center gap-2">
           <span className="text-muted-foreground">
@@ -121,11 +104,6 @@ const ViewTraitsContentDialog = ({
           </div>
         </div>
         <div className="flex w-full flex-col gap-2">
-          {/* {false && (
-              <Button variant="default" className="w-full" onClick={onRent || onClaim}>
-                {onRent ? 'Rent Degen' : 'Claim Degen'}
-              </Button>
-            )} */}
           {onClose && (
             <Button variant="default" className="w-full" onClick={onClose} autoFocus>
               Close
