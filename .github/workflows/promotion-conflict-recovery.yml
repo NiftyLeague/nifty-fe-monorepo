@@ -52,7 +52,7 @@ jobs:
           echo "staging and main have independent histories; using a main-based snapshot."
           echo "needs_recovery=true" >> "$GITHUB_OUTPUT"
 
-      - name: Create rebase-compatible promotion snapshot
+      - name: Create or refresh rebase-compatible promotion snapshot
         if: steps.detect.outputs.needs_recovery == 'true'
         run: |
           set -euo pipefail
@@ -73,16 +73,17 @@ jobs:
             done <<< "$staging_promotions"
           }
 
-          existing_snapshot=$(gh pr list \
+          snapshot_info=$(gh pr list \
             --base main \
             --state open \
             --limit 1000 \
             --json number,headRefName \
-            --jq 'map(select(.headRefName | startswith("codex/promote-staging-snapshot-"))) | first | .number // empty')
-          if [ -n "$existing_snapshot" ]; then
-            echo "Promotion snapshot PR #$existing_snapshot already exists."
-            close_staging_promotions
-            exit 0
+            --jq 'map(select(.headRefName | startswith("codex/promote-staging-snapshot-"))) | first | if . then "\(.number)\t\(.headRefName)" else empty end')
+          existing_snapshot=""
+          branch=""
+          if [ -n "$snapshot_info" ]; then
+            IFS=$'\t' read -r existing_snapshot branch <<< "$snapshot_info"
+            echo "Found existing promotion snapshot PR #$existing_snapshot on $branch."
           fi
 
           main_tree=$(git rev-parse 'origin/main^{tree}')
@@ -93,11 +94,40 @@ jobs:
             exit 0
           fi
 
-          branch="codex/promote-staging-snapshot-${GITHUB_RUN_ID}"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -n "$existing_snapshot" ]; then
+            # A repository-token push may not emit a follow-up pull_request
+            # event. Fetch the current snapshot head explicitly so the lease
+            # protects a concurrent manual update before refreshing it.
+            git fetch origin "refs/heads/$branch:refs/remotes/origin/$branch" --no-tags
+            existing_commit=$(git rev-parse "origin/$branch")
+          else
+            branch="codex/promote-staging-snapshot-${GITHUB_RUN_ID}"
+          fi
+
           git switch --create "$branch" origin/main
           git read-tree --reset -u origin/staging
+
+          if [ -n "$existing_snapshot" ]; then
+            snapshot_tree=$(git rev-parse "origin/$branch^{tree}")
+            if [ "$snapshot_tree" = "$staging_tree" ]; then
+              echo "Promotion snapshot PR #$existing_snapshot already contains the current staging tree."
+              close_staging_promotions
+              exit 0
+            fi
+
+            git commit -m "chore: refresh validated staging promotion tree"
+            git push \
+              --force-with-lease="refs/heads/$branch:$existing_commit" \
+              origin "HEAD:refs/heads/$branch"
+            echo "Refreshed promotion snapshot PR #$existing_snapshot to the current staging tree."
+            gh workflow run validation.yml --ref "$branch"
+            echo "Dispatched validation for the refreshed snapshot branch."
+            close_staging_promotions
+            exit 0
+          fi
+
           git commit -m "chore: promote validated staging tree"
           git push --set-upstream origin "$branch"
 
