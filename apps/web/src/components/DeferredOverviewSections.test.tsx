@@ -23,18 +23,7 @@ mock.module('@nl/ui/custom/deferred-section', () => ({
   ),
 }))
 
-import { DeferredOverviewCommunity, DeferredOverviewFAQ } from './DeferredOverviewSections'
-
-describe('DeferredOverviewCommunity', () => {
-  it('keeps the lower community section behind a stable accessible boundary', () => {
-    render(<DeferredOverviewCommunity />)
-
-    const loadingState = screen.getByRole('status', { name: 'Loading overview community section' })
-
-    expect(loadingState.dataset.minHeight).toBe('min-h-[52rem] md:min-h-[48rem]')
-    expect(loadingState.dataset.rootMargin).toBe('0px 0px -160px 0px')
-  })
-})
+import { DeferredOverviewFAQ } from './DeferredOverviewSections'
 
 describe('DeferredOverviewFAQ', () => {
   it('keeps the FAQ section deferred with its existing preload window', () => {

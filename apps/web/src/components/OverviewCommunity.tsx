@@ -1,5 +1,3 @@
-'use client'
-
 import { getOptimizedImageProps } from '@nl/ui/custom/optimized-image'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 

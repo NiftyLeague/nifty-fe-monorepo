@@ -4,10 +4,8 @@ import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { ConsoleGameBackdrop } from '@nl/ui/custom/console-game-backdrop'
 import { DeferredYouTubeEmbed } from '@nl/ui/custom/deferred-youtube-embed'
 
-import {
-  DeferredDegenGallery,
-  DeferredDegenSpecialsTable,
-} from '@/components/DeferredDegenSections'
+import { DeferredDegenSpecialsTable } from '@/components/DeferredDegenSections'
+import DegenGallery from '@/components/DegenGallery'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 
 const Degens: NextPage = () => (
@@ -61,7 +59,7 @@ const Degens: NextPage = () => (
         />
       </section>
 
-      <DeferredDegenGallery />
+      <DegenGallery />
 
       <section className="section">
         <div className="mb-10 max-w-3xl mx-auto">

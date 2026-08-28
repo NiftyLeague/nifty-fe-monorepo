@@ -1,5 +1,3 @@
-'use client'
-
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { cx } from '@nl/ui/class-names'
 
