@@ -12,6 +12,7 @@ import { TRAIT_INDEXES } from '@/constants/traitIndexes'
 import useNetworkContext from '@/hooks/useNetworkContext'
 import type { CharacterType, DashboardDegen } from '@/types/degens'
 import { errorMsgHandler } from '@/utils/errorHandlers'
+import { normalizeCharacterTraits } from '@/utils/character-traits'
 
 import styles from './index.module.css'
 
@@ -108,9 +109,9 @@ const DegenDialog = ({
 
         // Process character data
         if (characterData) {
-          const [name, owner, traitList] = characterData
+          const [name, owner, rawTraits] = characterData
           if (!cancelled) {
-            setCharacter({ name, owner, traitList })
+            setCharacter({ name, owner, traitList: normalizeCharacterTraits(rawTraits) })
           }
         }
       } catch (err) {
