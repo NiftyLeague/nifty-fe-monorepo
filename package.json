@@ -3,6 +3,7 @@
   "version": "1.2.64",
   "license": "Apache-2.0",
   "private": true,
+  "packageManager": "bun@1.4.0",
   "scripts": {
     "act-ci": "act --container-architecture linux/amd64 -P ubuntu-latest=-self-hosted -s GITHUB_TOKEN --var-file .env.act --secret-file .env.act -W '.github/workflows/ci.yml'",
     "add-ui": "bun --filter ui add-component $@",
