@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { Fragment } from 'react'
 
 import { buttonVariants } from '@nl/ui/base/button-variants'
@@ -77,30 +76,17 @@ export default function MobileNavMenu({ actionButton, navItems }: MobileNavMenuP
               className="my-6 h-px w-full shrink-0 bg-separator"
               data-slot="mobile-nav-divider"
             />
-            {actionButton.external ? (
-              <a
-                href={actionButton.href}
-                target="_blank"
-                rel="noreferrer"
-                className={buttonVariants({
-                  variant: 'outline',
-                  className: 'w-full cursor-pointer text-foreground',
-                })}
-              >
-                Launch {actionButton.title}
-              </a>
-            ) : (
-              <Link
-                href={actionButton.href}
-                prefetch={false}
-                className={buttonVariants({
-                  variant: 'outline',
-                  className: 'w-full cursor-pointer text-foreground',
-                })}
-              >
-                Launch {actionButton.title}
-              </Link>
-            )}
+            <a
+              href={actionButton.href}
+              target={actionButton.external ? '_blank' : undefined}
+              rel={actionButton.external ? 'noreferrer' : undefined}
+              className={buttonVariants({
+                variant: 'outline',
+                className: 'w-full cursor-pointer text-foreground',
+              })}
+            >
+              Launch {actionButton.title}
+            </a>
           </>
         )}
       </>

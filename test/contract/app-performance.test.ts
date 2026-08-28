@@ -91,6 +91,13 @@ const marketingShellClassNameSources = [
   'packages/ui/src/components/custom/socials-footer/index.tsx',
   'packages/ui/src/components/custom/theme-button-group/index.tsx',
 ]
+const marketingStaticNavigationSources = [
+  'apps/web/src/components/Footer/index.tsx',
+  'packages/ui/src/components/custom/navbar/index.tsx',
+  'packages/ui/src/components/custom/navbar/MobileNavMenu.tsx',
+  'packages/ui/src/components/custom/navbar/NavigationLink.tsx',
+  'packages/ui/src/components/custom/theme-button-group/index.tsx',
+]
 const nonConflictingClassNameSources = [
   'apps/app/src/app/layout.tsx',
   'apps/app/src/components/providers/PublicNavigation.tsx',
@@ -296,6 +303,14 @@ describe('app performance contracts', () => {
       const source = readFileSync(file, 'utf8')
       expect(source).toContain("from '@nl/ui/class-names'")
       expect(source).not.toContain("from '@nl/ui/utils'")
+    }
+  })
+
+  it('keeps static marketing navigation out of the Next Link client runtime', () => {
+    for (const file of marketingStaticNavigationSources) {
+      const source = readFileSync(file, 'utf8')
+      expect(source).not.toContain("from 'next/link'")
+      expect(source).not.toContain('from "next/link"')
     }
   })
 
