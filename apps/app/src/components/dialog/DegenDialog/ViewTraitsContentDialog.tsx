@@ -19,6 +19,20 @@ interface ViewTraitsContentDialogProps {
   degenImageSx?: SxProps<{}>
 }
 
+const TRAIT_INDEX_BY_TYPE = Object.fromEntries(
+  Object.entries(TRAIT_INDEXES).map(([index, traitType]) => [traitType, Number(index)])
+) as Record<string, number>
+
+const getTraitEntries = (traits: ViewTraitsContentDialogProps['traits']) =>
+  Object.entries(traits)
+    .map(([key, value]) => {
+      const index = /^\d+$/.test(key) ? Number(key) : TRAIT_INDEX_BY_TYPE[key]
+      const traitType = index === undefined ? key : TRAIT_INDEXES[index]
+
+      return { index, key: traitType, value }
+    })
+    .filter(({ value }) => Number(value) > 0)
+
 const ViewTraitsContentDialog = ({
   degen,
   traits,
@@ -33,11 +47,11 @@ const ViewTraitsContentDialog = ({
           <div className="w-full max-w-[500px] overflow-hidden">
             <DegenImage
               sx={{
+                ...degenImageSx,
                 display: 'block',
                 width: '100%',
                 maxWidth: '100%',
                 height: 'auto',
-                ...degenImageSx,
               }}
               tokenId={degen.id}
             />
@@ -90,28 +104,20 @@ const ViewTraitsContentDialog = ({
                     </div>
                   </div>
                 ))
-              : Object.entries(traits)
-                  .filter(([, value]) => Number(value) > 0)
-                  .map(([key, value]) => {
-                    const traitIndex = Object.entries(TRAIT_INDEXES).find(
-                      ([, traitType]) => traitType === key
-                    )?.[0]
-                    const display = getTraitDisplay(
-                      value,
-                      traitIndex === undefined ? undefined : Number(traitIndex)
-                    )
+              : getTraitEntries(traits).map(({ index, key, value }) => {
+                  const display = getTraitDisplay(value, index)
 
-                    return (
-                      <div className="col-span-3" key={key}>
-                        <div className="flex flex-col items-center">
-                          <span className="text-center font-bold">
-                            {display.name ?? TRAIT_NAME_MAP[key as keyof typeof TRAIT_NAME_MAP]}
-                          </span>
-                          <span className="text-center">{display.value}</span>
-                        </div>
+                  return (
+                    <div className="col-span-3" key={key}>
+                      <div className="flex flex-col items-center">
+                        <span className="text-center font-bold">
+                          {display.name ?? TRAIT_NAME_MAP[key as keyof typeof TRAIT_NAME_MAP]}
+                        </span>
+                        <span className="text-center">{display.value}</span>
                       </div>
-                    )
-                  })}
+                    </div>
+                  )
+                })}
           </div>
         </div>
         <div className="flex w-full flex-col gap-2">
