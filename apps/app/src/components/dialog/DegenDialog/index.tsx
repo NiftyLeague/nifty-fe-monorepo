@@ -10,10 +10,8 @@ import { toast } from 'sonner'
 import { DEGEN_CONTRACT } from '@/constants/contracts'
 import { TRAIT_INDEXES } from '@/constants/traitIndexes'
 import useNetworkContext from '@/hooks/useNetworkContext'
-import { GET_DEGEN_DETAIL_URL } from '@/constants/url'
-import type { CharacterType, DashboardDegen, GetDegenResponse } from '@/types/degens'
+import type { CharacterType, DashboardDegen } from '@/types/degens'
 import { errorMsgHandler } from '@/utils/errorHandlers'
-import useAuth from '@/hooks/useAuth'
 
 import styles from './index.module.css'
 
@@ -77,39 +75,25 @@ const DegenDialog = ({
   const tokenId = degen?.id || 0
   const fullScreen = useMediaQuery('(max-width:768px)')
   const { readContracts } = useNetworkContext()
-  const { authToken } = useAuth()
-  const [degenDetail, setDegenDetail] = useState<GetDegenResponse>()
   const [character, setCharacter] = useState<CharacterType>({
     name: null,
     owner: null,
     traitList: [],
   })
-  const { name, traitList } = character as unknown as {
-    name: string
-    owner: string
-    traitList: number[]
-  }
+  const { name, traitList } = character
   const resetDialog = () => {
     setCharacter({ name: null, owner: null, traitList: [] })
   }
 
   useEffect(() => {
-    const controller = new AbortController()
-    const { signal } = controller
+    let cancelled = false
 
     const fetchData = async () => {
-      if (!open || !tokenId || !readContracts || !readContracts[DEGEN_CONTRACT] || !authToken) {
+      if (!open || !tokenId || !readContracts || !readContracts[DEGEN_CONTRACT]) {
         return
       }
 
       try {
-        // Fetch Degen details from API
-        const degenDetailPromise = fetch(GET_DEGEN_DETAIL_URL(tokenId), {
-          method: 'GET',
-          headers: { authorizationToken: authToken },
-          signal,
-        })
-
         // Fetch character data from contract
         const contract = readContracts[DEGEN_CONTRACT]
         const characterDataPromise =
@@ -120,34 +104,17 @@ const DegenDialog = ({
             contract.getCharacterTraits(tokenId),
           ])
 
-        const [degenRes, characterData] = await Promise.all([
-          degenDetailPromise,
-          characterDataPromise,
-        ])
-
-        // Process Degen details
-        if (degenRes) {
-          if (degenRes.status === 404) {
-            throw new Error('Degen not found')
-          }
-          if (!degenRes.ok) {
-            throw new Error('Failed to fetch Degen details')
-          }
-          const json: GetDegenResponse = await degenRes.json()
-          if (!signal.aborted) {
-            setDegenDetail(json)
-          }
-        }
+        const characterData = await characterDataPromise
 
         // Process character data
         if (characterData) {
           const [name, owner, traitList] = characterData
-          if (!signal.aborted) {
+          if (!cancelled) {
             setCharacter({ name, owner, traitList })
           }
         }
       } catch (err) {
-        if (!signal.aborted) {
+        if (!cancelled) {
           toast.error(errorMsgHandler(err))
         }
       }
@@ -157,15 +124,16 @@ const DegenDialog = ({
     void fetchData()
 
     return () => {
-      controller.abort()
+      cancelled = true
     }
-  }, [tokenId, readContracts, open, authToken])
+  }, [tokenId, readContracts, open])
 
   const displayName = name || degen?.name || 'No Name DEGEN'
-  const traits: { [traitType: string]: bigint } = traitList.reduce(
-    (acc, trait, i) => ({ ...acc, [TRAIT_INDEXES[i] as string]: trait }),
-    {}
-  )
+  const traits = traitList.reduce<Record<string, bigint>>((acc, trait, index) => {
+    const traitType = TRAIT_INDEXES[index]
+    if (traitType) acc[traitType] = trait
+    return acc
+  }, {})
 
   const handleClose = (event?: React.MouseEvent<HTMLButtonElement>) => {
     onClose?.(event as React.MouseEvent<HTMLButtonElement>, 'backdropClick')
@@ -193,16 +161,13 @@ const DegenDialog = ({
         )}
       >
         {isClaim && <ClaimDegenContentDialog degen={degen} onClose={handleClose} />}
-        {isEquip && <EquipDegenContentDialog degen={degen} name={name} />}
+        {isEquip && <EquipDegenContentDialog degen={degen} name={name ?? undefined} />}
         {isRent && <RentDegenContentDialog degen={degen} onClose={handleClose} />}
         {!isRent && !isClaim && !isEquip && (setIsRent || setIsClaim) && (
           <ViewTraitsContentDialog
             degen={degen}
-            degenDetail={degenDetail}
             traits={traits}
             displayName={displayName}
-            onRent={setIsRent ? () => setIsRent(true) : undefined}
-            onClaim={setIsClaim ? () => setIsClaim(true) : undefined}
             onClose={handleClose}
           />
         )}
