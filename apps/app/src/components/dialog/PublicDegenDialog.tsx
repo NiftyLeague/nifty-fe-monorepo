@@ -56,20 +56,14 @@ export default function PublicDegenDialog({ open, degen, onClose }: PublicDegenD
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
-      <DialogContent className="!max-w-[900px] overflow-x-hidden">
-        <div className="grid min-w-0 grid-cols-1 gap-6 md:grid-cols-2">
-          <div className="flex min-w-0 flex-col items-center gap-4">
+      <DialogContent className="!max-w-[900px]">
+        <div className="grid grid-cols-12 gap-6">
+          <div className="col-span-12 flex min-w-0 flex-col items-center gap-4 md:col-span-6">
             {degen?.id && (
-              <div className="w-full max-w-[500px] min-w-0 overflow-hidden">
+              <div className="w-full max-w-[500px] overflow-hidden">
                 <DegenImage
                   tokenId={degen.id}
-                  sx={{
-                    display: 'block',
-                    width: '100%',
-                    maxWidth: '100%',
-                    height: 'auto',
-                    objectFit: 'contain',
-                  }}
+                  sx={{ display: 'block', width: '100%', maxWidth: '100%', height: 'auto' }}
                 />
               </div>
             )}
@@ -93,7 +87,7 @@ export default function PublicDegenDialog({ open, degen, onClose }: PublicDegenD
               )}
             </DialogHeader>
           </div>
-          <div className="flex min-w-0 flex-col gap-6">
+          <div className="col-span-12 min-w-0 flex flex-col gap-6 md:col-span-6">
             <div>
               <h2 className="text-xl font-semibold">Degen Traits</h2>
               {traits.length ? (

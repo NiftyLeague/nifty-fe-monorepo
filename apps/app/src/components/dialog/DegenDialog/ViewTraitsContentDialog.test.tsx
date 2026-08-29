@@ -101,7 +101,6 @@ describe('ViewTraitsContentDialog', () => {
     expect(image.style.width).toBe('100%')
     expect(image.style.maxWidth).toBe('100%')
     expect(image.style.height).toBe('auto')
-    expect(image.style.objectFit).toBe('contain')
     expect(image.parentElement?.className).toContain('max-w-[500px]')
   })
 })

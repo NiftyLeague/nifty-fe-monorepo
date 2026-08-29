@@ -40,11 +40,11 @@ const ViewTraitsContentDialog = ({
   onClose,
   degenImageSx,
 }: ViewTraitsContentDialogProps) => (
-  <div className="grid min-w-0 grid-cols-1 gap-6 md:grid-cols-2">
-    <div className="flex min-w-0 flex-col items-center py-2 px-4">
+  <div className="grid grid-cols-12">
+    <div className="col-span-12 min-w-0 py-2 px-4 md:col-span-6">
       <div className="flex min-w-0 justify-center">
         {degen?.id && (
-          <div className="w-full max-w-[500px] min-w-0 overflow-hidden">
+          <div className="w-full max-w-[500px] overflow-hidden">
             <DegenImage
               sx={{
                 ...degenImageSx,
@@ -52,7 +52,6 @@ const ViewTraitsContentDialog = ({
                 width: '100%',
                 maxWidth: '100%',
                 height: 'auto',
-                objectFit: 'contain',
               }}
               tokenId={degen.id}
             />
@@ -89,7 +88,7 @@ const ViewTraitsContentDialog = ({
         </div>
       )}
     </div>
-    <div className="relative flex min-w-0 flex-col py-2 px-4">
+    <div className="relative col-span-12 min-w-0 py-2 px-4 md:col-span-6">
       <div className="flex h-full flex-col justify-between gap-6">
         <div>
           <div className="flex flex-row items-center justify-center">
