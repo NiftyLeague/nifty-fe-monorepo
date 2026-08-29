@@ -26,49 +26,38 @@ describe('hosted validation cost policy', () => {
     expect(source).not.toContain('package-ecosystem: cargo')
   })
 
-  it('runs validation for ready PRs and supersedes stale updates', () => {
+  it('runs validation for ready PRs and cancels it when a PR returns to draft', () => {
     const source = readWorkflow('validation.yml')
 
     expect(source).toContain('      - ready_for_review')
-    // v0.39.0 dropped draft-conversion cancellation; hosted cost control
-    // moved to the shared CI billing pause guard.
-    expect(source).not.toContain('      - converted_to_draft')
-    expect(source).toContain("if: vars.CI_BILLING_PAUSED != 'true'")
+    expect(source).toContain('      - converted_to_draft')
     expect(source).toContain(
+      "if: github.event_name != 'pull_request' || github.event.pull_request.draft != true"
+    )
+    expect(source).toContain('github.event.pull_request.number')
+    expect(source).toContain('github.run_id')
+    expect(source).not.toContain(
       'code-foundry-validation-${{ github.event_name }}-${{ github.event.pull_request.head.repo.full_name'
     )
-    expect(source).toContain('github.event.pull_request.head.ref')
-    expect(source).toContain('github.ref_name')
     expect(source).toContain('cancel-in-progress: true')
   })
 
-  it('creates draft PRs for topic branches pointed at staging', () => {
+  it('creates draft PRs for the repository codex branch convention', () => {
     const source = readWorkflow('draft-pr.yml')
 
-    expect(source).toContain("      - 'feat/*'")
-    expect(source).toContain("      - 'fix/*'")
-    expect(source).toContain("      - 'chore/*'")
-    // v0.39.0 removed the codex branch convention; the reusable workflow now
-    // gates drafts on the shared billing pause instead of branch filters.
-    expect(source).not.toContain("      - 'codex/*'")
-    expect(source).not.toContain("      - '!codex/promote-*'")
-    expect(source).not.toContain("      - '!chore/re-align-staging-*'")
-    expect(source).toContain("if: vars.CI_BILLING_PAUSED != 'true'")
+    expect(source).toContain("      - 'codex/*'")
+    expect(source).toContain("      - '!codex/promote-*'")
+    expect(source).toContain("      - '!chore/re-align-staging-*'")
     expect(source).toContain('base: staging')
   })
 
-  it('keeps optional security scans billing-gated and release-ref scoped', () => {
+  it('keeps optional security scans off for drafts while supporting ready release PRs', () => {
     const source = readWorkflow('opencode-security.yml')
 
-    // v0.39.0 replaced draft-type gating with the shared billing pause guard
-    // and scoped scans to release-please refs plus manual dispatch.
-    expect(source).toContain("vars.CI_BILLING_PAUSED != 'true'")
+    expect(source).toContain('      - ready_for_review')
+    expect(source).toContain('      - converted_to_draft')
+    expect(source).toContain('github.event.pull_request.draft != true')
     expect(source).toContain('startsWith(github.event.pull_request.head.ref')
-    expect(source).toContain('release-please--branches--main')
-    expect(source).not.toContain('      - ready_for_review')
-    expect(source).not.toContain('      - converted_to_draft')
-    expect(source).not.toContain('github.event.pull_request.draft')
-    expect(source).not.toContain('model: opencode-go/deepseek-v4-flash')
   })
 
   it('materializes re-alignment paths before mutating the worktree index', () => {

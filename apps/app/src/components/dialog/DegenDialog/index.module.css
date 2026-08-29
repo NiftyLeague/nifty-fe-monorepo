@@ -15,6 +15,11 @@
 }
 
 @media (min-width: 768px) {
+  .customDialog {
+    width: min(900px, calc(100vw - 2rem));
+    max-width: min(900px, calc(100vw - 2rem));
+  }
+
   .customDialogRent {
     min-width: 550px;
   }
