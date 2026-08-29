@@ -48,6 +48,28 @@ describe('AnimatedImage', () => {
     expect(container.querySelector('img')?.getAttribute('fetchpriority')).toBe('high')
   })
 
+  it('supports deferred media sources that are not WebP', () => {
+    const { container } = render(
+      <AnimatedImage
+        src="/img/roadmap/wen-roadmap.webp"
+        animatedSrc="/img/games/wen.gif"
+        animatedType="image/gif"
+        alt="WEN Game"
+        width={200}
+        height={120}
+        loading="lazy"
+      />
+    )
+
+    const source = container.querySelector('source')
+
+    expect(source?.getAttribute('type')).toBe('image/gif')
+    expect(source?.getAttribute('srcset')).toBe('/img/games/wen.gif')
+    expect(container.querySelector('img')?.getAttribute('src')).toBe(
+      '/img/roadmap/wen-roadmap.webp'
+    )
+  })
+
   it('positions the picture wrapper when using fill sizing', () => {
     const { container } = render(
       <AnimatedImage src="/img/items/full/1.gif" alt="Cape" fill sizes="100vw" unoptimized />
