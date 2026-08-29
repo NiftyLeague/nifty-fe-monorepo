@@ -3,6 +3,7 @@ import { Check } from 'lucide-react'
 import { cx } from '@nl/ui/class-names'
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { AnimatedImage } from '@nl/ui/custom/animated-image'
+import { DeferredAnimatedImage } from '@nl/ui/custom/deferred-animated-image'
 import styles from './index.module.css'
 
 export type RoadmapCardSide = 'left' | 'right'
@@ -58,16 +59,29 @@ const RoadmapCard = ({
 
     {image && (
       <div className={styles.timeline_content_img} style={image.style}>
-        <AnimatedImage
-          src={image.src}
-          webpSrc={image.webpSrc}
-          unoptimized={image.src.includes('gif')}
-          alt={`${title?.toString()}`}
-          width={image.width}
-          height={image.height}
-          sizes="200px"
-          style={{ width: '100%', height: 'auto' }}
-        />
+        {image.src.endsWith('.gif') && image.webpSrc ? (
+          <DeferredAnimatedImage
+            src={image.webpSrc}
+            animatedSrc={image.src}
+            animatedType="image/gif"
+            alt={`${title?.toString()}`}
+            width={image.width}
+            height={image.height}
+            sizes="200px"
+            style={{ width: '100%', height: 'auto' }}
+          />
+        ) : (
+          <AnimatedImage
+            src={image.src}
+            webpSrc={image.webpSrc}
+            unoptimized={image.src.includes('gif')}
+            alt={`${title?.toString()}`}
+            width={image.width}
+            height={image.height}
+            sizes="200px"
+            style={{ width: '100%', height: 'auto' }}
+          />
+        )}
       </div>
     )}
 
