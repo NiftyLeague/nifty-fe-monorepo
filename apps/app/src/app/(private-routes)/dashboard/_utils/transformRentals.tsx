@@ -1,5 +1,4 @@
 import type { Rentals, RentalType } from '@/types/rentals'
-import { areEqualArrays } from '@/utils/array'
 import { capitalize } from '@/utils/string'
 import useLocalStorage from '@/hooks/useLocalStorage'
 import { RentalDataGrid } from '@/types/rentalDataGrid'
@@ -45,13 +44,12 @@ export const transformRentals = (
       const amIRenter = userId === renter_id
       const amIOwner = userId === accounts.owner.id
       const amIPlayer = userId === accounts.player.id
-      const whoAmI = [amIRenter, amIOwner, amIPlayer]
 
-      const isOwnedSponsor = areEqualArrays(whoAmI, [true, true, false])
-      const isNonOwnedSponsor = areEqualArrays(whoAmI, [true, false, false])
-      const isDirectRenter = areEqualArrays(whoAmI, [true, false, true]) // Direct Renter
-      const isRental = areEqualArrays(whoAmI, [false, true, false]) // Direct Rental
-      const isRecruit = areEqualArrays(whoAmI, [false, false, true]) // Recruited
+      const isOwnedSponsor = amIRenter && amIOwner && !amIPlayer
+      const isNonOwnedSponsor = amIRenter && !amIOwner && !amIPlayer
+      const isDirectRenter = amIRenter && !amIOwner && amIPlayer // Direct Renter
+      const isRental = !amIRenter && amIOwner && !amIPlayer // Direct Rental
+      const isRecruit = !amIRenter && !amIOwner && amIPlayer // Recruited
 
       const yourEarnings = 0
       let category: string = 'direct-renter'
