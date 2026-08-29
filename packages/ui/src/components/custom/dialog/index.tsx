@@ -2,6 +2,7 @@
 
 import { type VariantProps } from 'class-variance-authority'
 import { Button, buttonVariants } from '@nl/ui/base/button'
+import NativeImage from '@nl/ui/custom/native-image'
 import {
   Dialog as DialogBase,
   DialogClose,
@@ -62,7 +63,13 @@ export function Dialog({
                 : 'bg-background grid grid-cols-[40px_1fr_40px] gap-4 items-center text-2xl md:text-3xl'
             }
           >
-            <img src="/img/logos/NL/white.webp" alt="Company Logo" width={45} height={42} />
+            <NativeImage
+              src="/img/logos/NL/white.webp"
+              alt="Company Logo"
+              width={45}
+              height={42}
+              loading="eager"
+            />
             {title}
           </DialogTitle>
           <DialogDescription className={hideDescription ? 'hidden' : ''}>
