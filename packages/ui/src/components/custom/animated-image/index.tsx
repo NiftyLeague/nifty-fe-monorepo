@@ -1,6 +1,12 @@
 import type { CSSProperties } from 'react'
 
 type AnimatedImageProps = Omit<React.ComponentProps<'img'>, 'src' | 'loading'> & {
+  /** Source for an alternate image format or deferred animation. */
+  animatedSrc?: string
+  /** MIME type for animatedSrc. Omit when the browser can infer it. */
+  animatedType?: string
+  /** Optional media query for animatedSrc. */
+  animatedMedia?: string
   decoding?: 'async' | 'auto' | 'sync'
   fill?: boolean
   loading?: 'eager' | 'lazy'
@@ -8,7 +14,9 @@ type AnimatedImageProps = Omit<React.ComponentProps<'img'>, 'src' | 'loading'> &
   sizes?: string
   src: string
   unoptimized?: boolean
+  /** @deprecated Use animatedMedia with animatedSrc for new callers. */
   webpMedia?: string
+  /** @deprecated Use animatedSrc for new callers. */
   webpSrc?: string
 }
 
@@ -17,7 +25,14 @@ type AnimatedImageProps = Omit<React.ComponentProps<'img'>, 'src' | 'loading'> &
  * as a compatibility fallback. Native markup keeps this shared component safe
  * in both server and client bundles, including API-provided image URLs.
  */
-export function AnimatedImage({ webpMedia, webpSrc, ...props }: AnimatedImageProps) {
+export function AnimatedImage({
+  animatedMedia,
+  animatedSrc,
+  animatedType,
+  webpMedia,
+  webpSrc,
+  ...props
+}: AnimatedImageProps) {
   const {
     decoding,
     fetchPriority,
@@ -30,6 +45,9 @@ export function AnimatedImage({ webpMedia, webpSrc, ...props }: AnimatedImagePro
     ...imageProps
   } = props
   const resolvedLoading = priority ? 'eager' : (loading ?? 'lazy')
+  const source = animatedSrc ?? webpSrc
+  const sourceMedia = animatedMedia ?? webpMedia
+  const sourceType = animatedType ?? (webpSrc ? 'image/webp' : undefined)
   const pictureStyle: CSSProperties | undefined = fill
     ? { position: 'absolute', inset: 0, display: 'block' }
     : undefined
@@ -39,7 +57,7 @@ export function AnimatedImage({ webpMedia, webpSrc, ...props }: AnimatedImagePro
 
   return (
     <picture style={pictureStyle}>
-      {webpSrc ? <source type="image/webp" media={webpMedia} srcSet={webpSrc} /> : null}
+      {source ? <source type={sourceType} media={sourceMedia} srcSet={source} /> : null}
       <img
         {...imageProps}
         decoding={decoding ?? 'async'}

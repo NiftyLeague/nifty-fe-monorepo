@@ -65,4 +65,39 @@ describe('DeferredAnimatedImage', () => {
     )
     expect(container.firstElementChild?.getAttribute('aria-busy')).toBe('false')
   })
+
+  it('defers non-WebP media while keeping its static fallback', () => {
+    state.nearViewport = false
+
+    const { container } = render(
+      <DeferredAnimatedImage
+        src="/poster.webp"
+        animatedSrc="/animation.gif"
+        animatedType="image/gif"
+        alt="Animated roadmap art"
+        width={1350}
+        height={566}
+      />
+    )
+
+    expect(container.querySelector('source')).toBeNull()
+    expect(container.querySelector('img')?.getAttribute('src')).toBe('/poster.webp')
+
+    state.nearViewport = true
+    const rerendered = render(
+      <DeferredAnimatedImage
+        src="/poster.webp"
+        animatedSrc="/animation.gif"
+        animatedType="image/gif"
+        alt="Animated roadmap art"
+        width={1350}
+        height={566}
+      />
+    )
+
+    expect(rerendered.container.querySelector('source')?.getAttribute('type')).toBe('image/gif')
+    expect(rerendered.container.querySelector('source')?.getAttribute('srcset')).toBe(
+      '/animation.gif'
+    )
+  })
 })

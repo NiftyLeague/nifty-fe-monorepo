@@ -10,6 +10,18 @@ mock.module('@nl/ui/custom/optimized-image', () => ({
   default: ({ src, alt }: { src: string; alt: string }) => <img src={src} alt={alt} />,
 }))
 
+mock.module('@nl/ui/custom/deferred-animated-image', () => ({
+  DeferredAnimatedImage: ({
+    animatedSrc,
+    src,
+    alt,
+  }: {
+    animatedSrc?: string
+    src: string
+    alt: string
+  }) => <img src={src} alt={alt} data-animated-src={animatedSrc} />,
+}))
+
 describe('RoadmapCard', () => {
   it('keeps alternating sides independent of deferred DOM wrappers', async () => {
     const { default: RoadmapCard, getRoadmapCardSide } = await import('./roadmapCard')
@@ -43,5 +55,28 @@ describe('RoadmapCard', () => {
     const title = screen.getByRole('heading', { name: 'Desktop App' })
 
     expect(image.parentElement?.parentElement).not.toBe(title.parentElement)
+  })
+
+  it('uses the static roadmap poster until an animated GIF is near the viewport', async () => {
+    const { default: RoadmapCard } = await import('./roadmapCard')
+
+    render(
+      <RoadmapCard
+        body={<p>Details</p>}
+        image={{
+          src: '/img/games/wen.gif',
+          webpSrc: '/img/games/wen-roadmap.webp',
+          width: 200,
+          height: 120,
+          style: { top: '-80px' },
+        }}
+        title="WEN Game"
+      />
+    )
+
+    const image = screen.getByRole('img', { name: 'WEN Game' })
+
+    expect(image.getAttribute('src')).toBe('/img/games/wen-roadmap.webp')
+    expect(image.getAttribute('data-animated-src')).toBe('/img/games/wen.gif')
   })
 })
