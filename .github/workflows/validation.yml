@@ -8,7 +8,6 @@ on:
       - synchronize
       - reopened
       - ready_for_review
-      - converted_to_draft
   schedule:
     - cron: '31 6 * * 1'
   workflow_dispatch:
@@ -17,18 +16,16 @@ on:
 # only the scopes their own validation path consumes.
 permissions: {}
 
-# Superseded PR updates cancel the previous run; converting a PR back to draft
-# also cancels any hosted validation that was already in progress. All events
-# for the same pull request share one group, while scheduled and manual runs
-# stay independent.
+# Superseded PR updates cancel the previous run; schedule and dispatch runs
+# are keyed by event so periodic audits and manual runs stay independent.
 concurrency:
-  group: code-foundry-validation-${{ github.event.pull_request.number || format('{0}-{1}', github.event_name, github.run_id) }}
+  group: code-foundry-validation-${{ github.event_name }}-${{ github.event.pull_request.head.repo.full_name || github.repository }}-${{ github.event.pull_request.head.ref || github.ref_name }}
   cancel-in-progress: true
 
 jobs:
   mode:
     name: Mode
-    if: github.event_name != 'pull_request' || github.event.pull_request.draft != true
+    if: vars.CI_BILLING_PAUSED != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -41,7 +38,7 @@ jobs:
         with:
           persist-credentials: false
           repository: 0xPlayerOne/code-foundry
-          ref: v0.37.5
+          ref: v0.39.0
           path: .github/.code-foundry
           sparse-checkout: |
             src/lib
@@ -61,6 +58,7 @@ jobs:
   validation:
     name: Validation
     needs: mode
+    if: vars.CI_BILLING_PAUSED != 'true'
     # Reusable workflows can only maintain or reduce the caller job's scopes.
     # The audit tier needs security-events: write for CodeQL uploads.
     permissions:
@@ -68,11 +66,11 @@ jobs:
       contents: read
       packages: read
       security-events: write
-    uses: 0xPlayerOne/code-foundry/.github/workflows/validation.yml@v0.37.5
+    uses: 0xPlayerOne/code-foundry/.github/workflows/validation.yml@v0.39.0
     with:
       mode: ${{ needs.mode.outputs.mode }}
       runtime-repository: 0xPlayerOne/code-foundry
-      runtime-ref: v0.37.5
+      runtime-ref: v0.39.0
       ci-runner: ubuntu-latest
       test-runner: ubuntu-latest
       unit-runner: ubuntu-latest
