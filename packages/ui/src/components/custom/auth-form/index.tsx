@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { cn } from '@nl/ui/utils'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@nl/ui/base/card'
+import NativeImage from '@nl/ui/custom/native-image'
 
 import { LoginForm, type LoginFormProps } from './forms/login'
 import { ForgotPasswordForm, type ForgotPasswordFormProps } from './forms/forgot-password'
@@ -31,9 +32,12 @@ function AuthContainer({
       <div className="flex flex-1 justify-center items-center">
         <Card className="relative w-full max-w-[600px] overflow-hidden">
           <CardHeader className="flex flex-col items-center text-center">
-            <img
+            <NativeImage
               src="/img/logos/NL/white.webp"
               alt="Company Logo"
+              width={40}
+              height={40}
+              loading="eager"
               className="absolute inset-6 h-10 w-10"
             />
             <CardTitle className="text-2xl font-bold uppercase">{FORM_TITLE[view]}</CardTitle>
