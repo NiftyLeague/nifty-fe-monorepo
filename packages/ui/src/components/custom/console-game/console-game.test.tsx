@@ -33,11 +33,22 @@ describe('ConsoleGame', () => {
     expect(image?.getAttribute('sizes')).toBe('100vw')
     expect(image?.getAttribute('width')).toBe('4842')
     expect(image?.getAttribute('height')).toBe('3371')
-    expect(container.querySelectorAll('img[srcset]')).toHaveLength(4)
+    const optimizedArtwork = [...container.querySelectorAll('img[srcset]')]
+    expect(optimizedArtwork).toHaveLength(1)
+    expect(optimizedArtwork.every((artwork) => artwork.getAttribute('quality') === '65')).toBe(true)
+    const deferredArtwork = [...container.querySelectorAll('img')].filter(
+      (artwork) => !artwork.hasAttribute('srcset')
+    )
+    expect(deferredArtwork.map((artwork) => artwork.getAttribute('src'))).toEqual([
+      '/img/console-game/bonk.webp',
+      '/img/console-game/gaming_controller_left.webp',
+      '/img/console-game/gaming_controller_right.webp',
+    ])
+    expect(deferredArtwork.every((artwork) => artwork.getAttribute('loading') === 'lazy')).toBe(
+      true
+    )
     expect(
-      [...container.querySelectorAll('img')].every(
-        (artwork) => artwork.getAttribute('quality') === '65'
-      )
+      deferredArtwork.every((artwork) => artwork.getAttribute('fetchpriority') === 'low')
     ).toBe(true)
     expect(video?.getAttribute('preload')).toBe('metadata')
     expect(container.querySelector('.dark-gradient-overlay')).toBeTruthy()

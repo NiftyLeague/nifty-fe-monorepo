@@ -3,6 +3,7 @@
 import { memo, useRef, useState, useCallback, useEffect, type ReactNode } from 'react'
 import { Button } from '@nl/ui/base/button'
 import { cx } from '@nl/ui/class-names'
+import NativeImage from '@nl/ui/custom/native-image'
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { ParallaxWrapper } from '@nl/ui/custom/parallax-wrapper'
 
@@ -83,10 +84,11 @@ export const ConsoleGame = memo(function ConsoleGame({
           aria-label={isPlaying ? 'Pause video' : 'Play video'}
           className={cx(styles.bonk_note, 'h-auto w-auto rounded-none p-0 hover:bg-transparent')}
         >
-          <OptimizedImage
+          <NativeImage
             alt="Bonk Sticker"
             className="pixelated"
-            {...CONSOLE_ARTWORK_DIMENSIONS}
+            width={CONSOLE_ARTWORK_DIMENSIONS.width}
+            height={CONSOLE_ARTWORK_DIMENSIONS.height}
             src="/img/console-game/bonk.webp"
             loading="lazy"
             decoding="async"
@@ -97,10 +99,11 @@ export const ConsoleGame = memo(function ConsoleGame({
       <div className={styles.gaming_controller}>
         <ParallaxWrapper parallaxDirection="down" parallaxIntensity="normal">
           <div className="animate-hover transition-fade">
-            <OptimizedImage
+            <NativeImage
               alt="Controller Left"
               className="pixelated"
-              {...CONSOLE_ARTWORK_DIMENSIONS}
+              width={CONSOLE_ARTWORK_DIMENSIONS.width}
+              height={CONSOLE_ARTWORK_DIMENSIONS.height}
               src="/img/console-game/gaming_controller_left.webp"
               loading="lazy"
               decoding="async"
@@ -112,10 +115,11 @@ export const ConsoleGame = memo(function ConsoleGame({
       <div className={styles.gaming_controller}>
         <ParallaxWrapper parallaxDirection="down" parallaxIntensity="normal">
           <div className="animate-hover transition-fade">
-            <OptimizedImage
+            <NativeImage
               alt="Controller Right"
               className="pixelated"
-              {...CONSOLE_ARTWORK_DIMENSIONS}
+              width={CONSOLE_ARTWORK_DIMENSIONS.width}
+              height={CONSOLE_ARTWORK_DIMENSIONS.height}
               src="/img/console-game/gaming_controller_right.webp"
               loading="lazy"
               decoding="async"
