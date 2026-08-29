@@ -210,4 +210,13 @@ describe('authentication forms', () => {
     rerender(<AuthForm {...handlers} view={VIEWS.UPDATE_PASSWORD} />)
     expect(screen.getAllByText('Update Password')).toHaveLength(2)
   })
+
+  it('keeps the shared auth logo eager and dimensioned', () => {
+    render(<AuthForm {...handlers} view={VIEWS.LOGIN} />)
+
+    const logo = screen.getByRole('img', { name: 'Company Logo' })
+    expect(logo.getAttribute('loading')).toBe('eager')
+    expect(logo.getAttribute('width')).toBe('40')
+    expect(logo.getAttribute('height')).toBe('40')
+  })
 })
