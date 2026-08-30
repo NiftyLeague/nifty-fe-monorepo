@@ -248,11 +248,11 @@
       "env": ["NODE_CONFIG_TS_DIR", "PORT", "VERCEL", "ETH_NETWORK", "WEBHOOK_SECRET"]
     },
     "test": {
-      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"]
+      "inputs": ["$TURBO_DEFAULT$", "../../test/**", ".env*", "!.env.example"]
     },
     "api#test": {
       "env": ["NODE_CONFIG_TS_DIR", "PORT", "VERCEL", "ETH_NETWORK", "WEBHOOK_SECRET"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"]
+      "inputs": ["$TURBO_DEFAULT$", "../../test/**", ".env*", "!.env.example"]
     },
     "dev": {
       "cache": false,
