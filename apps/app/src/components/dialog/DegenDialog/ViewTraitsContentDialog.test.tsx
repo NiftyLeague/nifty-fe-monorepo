@@ -120,14 +120,54 @@ describe('ViewTraitsContentDialog', () => {
     const image = screen.getByTestId('degen-image-1')
     expect(image.style.width).toBe('100%')
     expect(image.style.maxWidth).toBe('100%')
-    expect(image.style.height).toBe('auto')
-    expect(image.style.maxHeight).toBe('min(60vh, 640px)')
+    expect(image.style.height).toBe('100%')
+    expect(image.style.maxHeight).toBe('100%')
     expect(image.style.objectFit).toBe('contain')
     expect(image.parentElement?.className).toContain('max-w-[500px]')
-    expect(image.parentElement?.className).toContain('max-h-[min(60vh,640px)]')
+    expect(image.parentElement?.className).toContain('aspect-[584/640]')
 
     const traitGrid = screen.getByTestId('degen-trait-grid')
     expect(traitGrid.className).toContain('grid-cols-2')
     expect(traitGrid.className).toContain('sm:grid-cols-3')
+  })
+
+  it('maps the raw contract tuple without exposing numeric ids', () => {
+    render(
+      <ViewTraitsContentDialog
+        displayName="Nifty Andy"
+        traits={[
+          1n,
+          17n,
+          73n,
+          104n,
+          110n,
+          0n,
+          263n,
+          0n,
+          0n,
+          0n,
+          0n,
+          0n,
+          685n,
+          0n,
+          717n,
+          0n,
+          0n,
+          821n,
+          824n,
+          865n,
+          894n,
+          991n,
+        ]}
+      />
+    )
+
+    expect(screen.getByText('Tribe')).not.toBeNull()
+    expect(screen.getByText('Ape')).not.toBeNull()
+    expect(screen.getByText('Mouth')).not.toBeNull()
+    expect(screen.getByText('Cigarette')).not.toBeNull()
+    expect(screen.getByText('Right Item')).not.toBeNull()
+    expect(screen.getByText('Controller')).not.toBeNull()
+    expect(screen.queryByText('991')).toBeNull()
   })
 })

@@ -8,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@nl/ui/base/dialog'
-import DegenImage from '@/components/cards/DegenCard/DegenImage'
+import DegenModalMedia from '@/components/dialog/DegenDialog/DegenModalMedia'
 import { DEGEN_PURCHASE_URL } from '@/constants/public-urls'
 import type { PublicDegen } from '@/types/degens'
 import { getDegenTraitEntries } from '@/utils/degen-traits'
@@ -24,25 +24,10 @@ export default function PublicDegenDialog({ open, degen, onClose }: PublicDegenD
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
-      <DialogContent className="!max-w-[900px] overflow-x-hidden">
+      <DialogContent className="w-[calc(100%-2rem)] !max-w-[900px] overflow-x-hidden">
         <div className="grid min-w-0 grid-cols-1 gap-6 md:grid-cols-2">
           <div className="flex min-w-0 flex-col items-center gap-4">
-            {degen?.id && (
-              <div className="w-full max-w-[500px] min-w-0 max-h-[min(60vh,640px)] overflow-hidden">
-                <DegenImage
-                  tokenId={degen.id}
-                  sx={{
-                    display: 'block',
-                    width: '100%',
-                    maxWidth: '100%',
-                    height: 'auto',
-                    maxHeight: 'min(60vh, 640px)',
-                    objectFit: 'contain',
-                  }}
-                  loading="eager"
-                />
-              </div>
-            )}
+            {degen?.id && <DegenModalMedia tokenId={degen.id} />}
             <DialogHeader className="items-center">
               <DialogTitle>{degen?.name || 'No Name DEGEN'}</DialogTitle>
               <DialogDescription>Degen #{degen?.id}</DialogDescription>
