@@ -3,16 +3,16 @@ import { Button } from '@nl/ui/base/button'
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import { Title } from '@nl/ui/custom/typography'
 
-import DegenImage from '@/components/cards/DegenCard/DegenImage'
 import type { DashboardDegen } from '@/types/degens'
 import { DEGEN_PURCHASE_URL } from '@/constants/public-urls'
+import DegenModalMedia from './DegenModalMedia'
 import type { SxProps } from '@/types'
-import { getDegenTraitEntries } from '@/utils/degen-traits'
+import { getDegenTraitEntries, type DegenTraitValue } from '@/utils/degen-traits'
 import { hasEntries } from '@/utils/collections'
 
 interface ViewTraitsContentDialogProps {
   degen?: DashboardDegen
-  traits: string | { [traitType: string]: bigint | number | string }
+  traits: string | readonly DegenTraitValue[] | { [traitType: string]: DegenTraitValue }
   displayName?: string
   onClose?: (event: React.MouseEvent<HTMLButtonElement>) => void
   degenImageSx?: SxProps<{}>
@@ -27,25 +27,7 @@ const ViewTraitsContentDialog = ({
 }: ViewTraitsContentDialogProps) => (
   <div className="grid min-w-0 grid-cols-1 gap-6 md:grid-cols-2">
     <div className="flex min-w-0 flex-col items-center py-2 px-4">
-      <div className="flex min-w-0 justify-center">
-        {degen?.id && (
-          <div className="w-full max-w-[500px] min-w-0 max-h-[min(60vh,640px)] overflow-hidden">
-            <DegenImage
-              sx={{
-                ...degenImageSx,
-                display: 'block',
-                width: '100%',
-                maxWidth: '100%',
-                height: 'auto',
-                maxHeight: 'min(60vh, 640px)',
-                objectFit: 'contain',
-              }}
-              loading="eager"
-              tokenId={degen.id}
-            />
-          </div>
-        )}
-      </div>
+      {degen?.id && <DegenModalMedia tokenId={degen.id} sx={degenImageSx} />}
       <div className="my-4 flex flex-col items-center">
         <Title level={4}>{displayName}</Title>
         <a
