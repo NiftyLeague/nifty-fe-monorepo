@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useEffect, useMemo, useRef } from 'react'
+import { createContext, useEffect, useRef } from 'react'
 import type { PropsWithChildren } from 'react'
 import type { Character } from '@/types/graph'
 import type { Comic, Item } from '@/types/marketplace'

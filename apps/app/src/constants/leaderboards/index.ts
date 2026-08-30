@@ -1,4 +1,3 @@
-import { EVENTS as GTM_EVENTS } from '@nl/ui/gtm/constants'
 import type { TableType, LeaderboardGame } from '@/types/leaderboard'
 import { Game, TimeFilter } from '@/types/leaderboard'
 
