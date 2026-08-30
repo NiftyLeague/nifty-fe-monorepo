@@ -11,12 +11,35 @@
  */
 import { mock } from 'bun:test'
 import { resolve } from 'node:path'
-// Resolve the root Bun linker entries explicitly. The repository uses Bun's
-// isolated linker, so these are the same React runtimes that root test
-// dependencies resolve without following each workspace's external cache link.
-import rootReact from '../node_modules/.bun/node_modules/react/index.js'
-import * as rootReactDom from '../node_modules/.bun/node_modules/react-dom/index.js'
-import * as rootReactDomClient from '../node_modules/.bun/node_modules/react-dom/client.js'
+
+type ModuleExports = Record<string, unknown>
+
+async function importFirstAvailable(...relativePaths: string[]): Promise<ModuleExports> {
+  for (const relativePath of relativePaths) {
+    try {
+      return (await import(resolve(import.meta.dir, relativePath))) as ModuleExports
+    } catch {
+      // Bun 1.4.0 and the current Bun canary expose different isolated-linker
+      // peer paths. Keep trying the supported layouts before failing clearly.
+    }
+  }
+
+  throw new Error(`Unable to load a shared test runtime from: ${relativePaths.join(', ')}`)
+}
+
+const rootReactModule = await importFirstAvailable(
+  '../node_modules/react/index.js',
+  '../node_modules/.bun/node_modules/react/index.js'
+)
+const rootReact = (rootReactModule.default ?? rootReactModule) as ModuleExports
+const rootReactDom = await importFirstAvailable(
+  '../node_modules/react-dom/index.js',
+  '../node_modules/.bun/node_modules/react-dom/index.js'
+)
+const rootReactDomClient = await importFirstAvailable(
+  '../node_modules/react-dom/client.js',
+  '../node_modules/.bun/node_modules/react-dom/client.js'
+)
 
 // Bun preserves workspace-local React module IDs even when they resolve to the
 // same installed version. Target those IDs directly so shared Testing Library
