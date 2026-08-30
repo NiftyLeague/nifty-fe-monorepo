@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.67](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.66...nifty-fe-monorepo-v1.2.67) (2026-08-30)
+
+
+### Performance
+
+* **ui:** defer console interaction bundle ([768e99f](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/768e99fe93e4006727b314cea34b6e53daa141ae))
+
 ## [1.2.66](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.65...nifty-fe-monorepo-v1.2.66) (2026-08-30)
 
 
