@@ -1,4 +1,3 @@
-import type { JSX } from 'react'
 import { cn } from '@nl/ui/utils'
 
 import { Link } from './link'

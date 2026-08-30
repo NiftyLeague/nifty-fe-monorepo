@@ -9,23 +9,6 @@ export interface Character {
   transactionHash?: string
 }
 
-interface CharactersQueryData {
-  characters: Character[]
-}
-
-interface Contract {
-  id: string
-  address: string
-  totalSupply: bigint
-  nftPrice: bigint
-  removedTraits: number[]
-}
-
-interface DefaultQueryData {
-  characters: Character[]
-  contracts: Contract[]
-}
-
 interface Owner {
   id: string
   address: string
@@ -65,8 +48,4 @@ interface TraitMap {
   leftItem: number
   rightItem: number
   background: number
-}
-
-interface TraitMapsQueryData {
-  traitMaps: TraitMap[]
 }
