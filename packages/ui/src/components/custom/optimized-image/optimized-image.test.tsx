@@ -1,6 +1,7 @@
+import { render } from '@testing-library/react'
 import { describe, expect, it } from 'bun:test'
 
-import { getOptimizedImageProps } from './index'
+import OptimizedImage, { getOptimizedImageProps } from './index'
 
 describe('getOptimizedImageProps', () => {
   const baseProps = {
@@ -53,5 +54,14 @@ describe('getOptimizedImageProps', () => {
     expect(prioritized.fetchPriority).toBe('high')
     expect(preloaded.loading).toBe('eager')
     expect(preloaded.fetchPriority).toBe('high')
+  })
+
+  it('preloads the same responsive image variant used by the native renderer', () => {
+    render(<OptimizedImage {...baseProps} priority />)
+
+    const preloadLink = document.head.querySelector('link[rel="preload"][as="image"]')
+
+    expect(preloadLink?.getAttribute('href')).toBe(baseProps.src)
+    expect(preloadLink?.getAttribute('fetchpriority')).toBe('high')
   })
 })
