@@ -146,7 +146,7 @@ const GameCard: React.FC<React.PropsWithChildren<GameCardProps>> = ({
   externalLink,
   image,
   imageContent,
-  imageFetchPriority = 'auto',
+  imageFetchPriority,
   imageLoading = 'lazy',
   isComingSoon,
   onPlayOnDesktopClick,
@@ -156,6 +156,9 @@ const GameCard: React.FC<React.PropsWithChildren<GameCardProps>> = ({
   sx,
   title,
 }) => {
+  const resolvedImageFetchPriority =
+    imageFetchPriority ?? (imageLoading === 'lazy' ? 'low' : undefined)
+
   return (
     <Card
       className={cx(
@@ -179,7 +182,7 @@ const GameCard: React.FC<React.PropsWithChildren<GameCardProps>> = ({
               fill
               sizes={GAME_CARD_IMAGE_SIZES}
               loading={imageLoading}
-              fetchPriority={imageFetchPriority}
+              fetchPriority={resolvedImageFetchPriority}
               className="object-cover"
             />
           ))}

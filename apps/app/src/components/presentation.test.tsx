@@ -173,6 +173,13 @@ describe('card presentation', () => {
     )
   })
 
+  it('keeps lazy game artwork at low network priority by default', () => {
+    render(<GameCard title="Deferred artwork" image="/deferred-artwork.webp" />)
+
+    expect(screen.getByAltText('Deferred artwork').getAttribute('loading')).toBe('lazy')
+    expect(screen.getByAltText('Deferred artwork').getAttribute('fetchpriority')).toBe('low')
+  })
+
   it('renders game calls to action, expands descriptions, and supports custom content', () => {
     const desktop = mock()
     const web = mock()
