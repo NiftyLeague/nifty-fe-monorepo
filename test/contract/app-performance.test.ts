@@ -225,7 +225,11 @@ describe('app performance contracts', () => {
   it('keeps isolated React tests on one workspace runtime', () => {
     const source = readFileSync(testHarnessPreload, 'utf8')
 
-    expect(source).toContain("import rootReact from '../node_modules/react/index.js'")
+    expect(source).toContain('async function importFirstAvailable')
+    expect(source).toContain("'../node_modules/react/index.js'")
+    expect(source).toContain("'../node_modules/.bun/node_modules/react/index.js'")
+    expect(source).toContain("'../node_modules/react-dom/index.js'")
+    expect(source).toContain("'../node_modules/.bun/node_modules/react-dom/index.js'")
     expect(source).toContain('mock.module(workspaceReact')
 
     for (const workspace of ['apps/app', 'apps/template', 'apps/web', 'packages/ui']) {
