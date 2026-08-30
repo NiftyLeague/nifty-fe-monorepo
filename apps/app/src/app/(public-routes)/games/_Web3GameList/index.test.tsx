@@ -16,9 +16,18 @@ mock.module('next/link', () => ({
 }))
 
 mock.module('@/components/cards/GameCard', () => ({
-  default: ({ title, actions }: { title: string; actions?: React.ReactNode }) => (
+  default: ({
+    title,
+    actions,
+    externalLink,
+  }: {
+    title: string
+    actions?: React.ReactNode
+    externalLink?: { title: string; src: string }
+  }) => (
     <article>
       <h2>{title}</h2>
+      {externalLink && <a href={externalLink.src}>{externalLink.title}</a>}
       {actions}
     </article>
   ),
@@ -38,10 +47,19 @@ describe('web3 game list navigation', () => {
   it('does not prefetch game routes until a player chooses one', () => {
     render(<Web3GameList />)
 
-    expect(screen.getAllByRole('link').map((link) => link.getAttribute('data-prefetch'))).toEqual([
-      'false',
-      'false',
-      'false',
-    ])
+    expect(
+      screen
+        .getAllByRole('link')
+        .filter((link) => link.hasAttribute('data-prefetch'))
+        .map((link) => link.getAttribute('data-prefetch'))
+    ).toEqual(['false', 'false', 'false'])
+  })
+
+  it('uses the compact Mobile label on the Smashers game card link', () => {
+    render(<Web3GameList />)
+
+    const mobileLink = screen.getByRole('link', { name: 'Mobile' })
+    expect(mobileLink.getAttribute('href')).toBe('https://niftysmashers.com/')
+    expect(screen.queryByRole('link', { name: 'Smashers Mobile' })).toBeNull()
   })
 })

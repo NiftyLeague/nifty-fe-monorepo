@@ -20,7 +20,7 @@ describe('Smashers asset delivery contracts', () => {
   })
 
   it('keeps the party modes animation within its delivery budget', () => {
-    expect(statSync('assets/img/games/smashers/party_modes.webp').size).toBeLessThan(10_500_000)
+    expect(statSync('assets/img/games/smashers/party_modes.webp').size).toBeLessThan(9_250_000)
   })
 
   it('keeps the deferred hero animation within its delivery budget', () => {

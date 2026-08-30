@@ -12,7 +12,7 @@ const Web3GameList = () => {
       <div className={`${styles.gridItem} col-span-12 md:col-span-6 xl:col-span-4`}>
         <GameCard
           title="2D Smashers"
-          externalLink={{ title: 'Smashers Mobile', src: 'https://niftysmashers.com/' }}
+          externalLink={{ title: 'Mobile', src: 'https://niftysmashers.com/' }}
           required="DEPRECATED - Please download our mobile app!"
           description="The first NFT brawler on the Ethereum blockchain. Now available free-to-play on all mobile platforms!"
           image="/img/games/smashers/nifty-smashers-poster.webp"
