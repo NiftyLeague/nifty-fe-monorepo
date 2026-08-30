@@ -348,6 +348,9 @@ describe('app performance contracts', () => {
     const backdropSource = readFileSync(consoleGameBackdrop, 'utf8')
     expect(source).toContain("const CONSOLE_GAME_ROOT_MARGIN = '0px 0px -25% 0px'")
     expect(source).toContain('useOnScreen(rootRef, CONSOLE_GAME_ROOT_MARGIN)')
+    expect(source).toContain(
+      'const shouldLoadInteractiveGame = isNearViewport && (!deferVideo || videoActivated)'
+    )
     expect(source).toContain('children: ReactNode')
     expect(source).not.toContain('ConsoleGameBackdrop')
     expect(source).not.toContain('<DeferredSkeleton')
