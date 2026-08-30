@@ -4,7 +4,6 @@ import { memo, useRef, useState, useCallback, useEffect, type ReactNode } from '
 import { Button } from '@nl/ui/base/button'
 import { cx } from '@nl/ui/class-names'
 import NativeImage from '@nl/ui/custom/native-image'
-import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { ParallaxWrapper } from '@nl/ui/custom/parallax-wrapper'
 
 import { CONSOLE_ARTWORK_DIMENSIONS } from './backdrop'

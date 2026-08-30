@@ -72,7 +72,7 @@ const MyRentalsDataGrid = ({
   const [sort, setSort] = useState<SortState | null>(null)
   const [pageSize, setPageSize] = useState(10)
   const [page, setPage] = useState(0)
-  const [columnVisibilityModel, setColumnVisibilityModel] = useLocalStorage<ColumnVisibilityModel>(
+  const [columnVisibilityModel] = useLocalStorage<ColumnVisibilityModel>(
     RENTAL_COLUMN_VISIBILITY,
     {}
   )
