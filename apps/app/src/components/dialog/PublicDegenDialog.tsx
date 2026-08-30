@@ -28,17 +28,18 @@ export default function PublicDegenDialog({ open, degen, onClose }: PublicDegenD
         <div className="grid min-w-0 grid-cols-1 gap-6 md:grid-cols-2">
           <div className="flex min-w-0 flex-col items-center gap-4">
             {degen?.id && (
-              <div className="w-full max-w-[500px] min-w-0 overflow-hidden">
+              <div className="aspect-[584/640] w-full max-w-[500px] min-w-0 max-h-[min(60vh,640px)] overflow-hidden">
                 <DegenImage
                   tokenId={degen.id}
                   sx={{
                     display: 'block',
                     width: '100%',
                     maxWidth: '100%',
-                    height: 'auto',
-                    maxHeight: 'min(60vh, 640px)',
+                    height: '100%',
+                    maxHeight: '100%',
                     objectFit: 'contain',
                   }}
+                  loading="eager"
                 />
               </div>
             )}

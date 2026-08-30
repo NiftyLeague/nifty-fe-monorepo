@@ -12,7 +12,7 @@ import { hasEntries } from '@/utils/collections'
 
 interface ViewTraitsContentDialogProps {
   degen?: DashboardDegen
-  traits: { [traitType: string]: bigint | number | string }
+  traits: string | { [traitType: string]: bigint | number | string }
   displayName?: string
   onClose?: (event: React.MouseEvent<HTMLButtonElement>) => void
   degenImageSx?: SxProps<{}>
@@ -29,17 +29,18 @@ const ViewTraitsContentDialog = ({
     <div className="flex min-w-0 flex-col items-center py-2 px-4">
       <div className="flex min-w-0 justify-center">
         {degen?.id && (
-          <div className="w-full max-w-[500px] min-w-0 overflow-hidden">
+          <div className="aspect-[584/640] w-full max-w-[500px] min-w-0 max-h-[min(60vh,640px)] overflow-hidden">
             <DegenImage
               sx={{
                 ...degenImageSx,
                 display: 'block',
                 width: '100%',
                 maxWidth: '100%',
-                height: 'auto',
-                maxHeight: 'min(60vh, 640px)',
+                height: '100%',
+                maxHeight: '100%',
                 objectFit: 'contain',
               }}
+              loading="eager"
               tokenId={degen.id}
             />
           </div>
@@ -85,7 +86,7 @@ const ViewTraitsContentDialog = ({
             data-testid="degen-trait-grid"
             className="mt-6 grid min-w-0 grid-cols-2 justify-center gap-x-4 gap-y-6 sm:grid-cols-3"
           >
-            {!hasEntries(traits)
+            {!traits || (typeof traits === 'string' ? !traits.trim() : !hasEntries(traits))
               ? [...Array(9)].map((_, index) => (
                   <div className="min-w-0" key={`trait-skeleton-${index}`}>
                     <div className="flex min-w-0 flex-col items-center">

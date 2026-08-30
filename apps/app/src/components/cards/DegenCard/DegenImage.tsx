@@ -4,7 +4,15 @@ import { LEGGIES } from '@/constants/degens'
 const IMAGE_HEIGHT = 320
 
 const DegenImage = memo(
-  ({ tokenId, sx }: { tokenId: string | number; sx?: React.CSSProperties }) => {
+  ({
+    tokenId,
+    sx,
+    loading = 'lazy',
+  }: {
+    tokenId: string | number
+    sx?: React.CSSProperties
+    loading?: 'eager' | 'lazy'
+  }) => {
     const imageURL = `/img/degens/nfts/${tokenId}`
 
     const sxHeight =
@@ -31,7 +39,7 @@ const DegenImage = memo(
         alt={`Degen #${tokenId}`}
         width={584}
         height={640}
-        loading="lazy"
+        loading={loading}
         decoding="async"
         unoptimized={image.endsWith('.gif')}
         style={{ objectFit: 'cover', height: imageHeight, ...sx }}

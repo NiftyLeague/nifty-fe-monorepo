@@ -7,9 +7,15 @@ import type { DashboardDegen } from '@/types/degens'
 mock.module('next/dynamic', () => ({
   default:
     () =>
-    ({ displayName, traits }: { displayName?: string; traits?: Record<string, bigint> }) => (
+    ({
+      displayName,
+      traits,
+    }: {
+      displayName?: string
+      traits?: string | Record<string, bigint>
+    }) => (
       <div data-testid="degen-dialog-content">
-        {displayName} {traits?.tribe?.toString()}
+        {displayName} {typeof traits === 'string' ? traits : traits?.tribe?.toString()}
       </div>
     ),
 }))
@@ -70,5 +76,27 @@ describe('DegenDialog', () => {
     expect(ownerOf).toHaveBeenCalledWith('1')
     expect(getCharacterTraits).toHaveBeenCalledWith('1')
     expect(fetchMock).not.toHaveBeenCalled()
+  })
+
+  it('uses catalog traits while contract data is unavailable', async () => {
+    getName.mockImplementationOnce(() => new Promise(() => undefined))
+
+    const { default: DegenDialog } = await import('./index')
+
+    render(
+      <DegenDialog
+        open
+        degen={
+          {
+            id: '1',
+            name: 'Fallback Name',
+            traits_string: '1,17,0,0,0,0,263',
+          } as DashboardDegen
+        }
+        setIsRent={() => undefined}
+      />
+    )
+
+    expect(await screen.findByText('Fallback Name 1,17,0,0,0,0,263')).not.toBeNull()
   })
 })
