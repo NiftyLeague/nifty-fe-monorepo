@@ -50,6 +50,8 @@ const GameSection = () => {
         width={1350}
         height={566}
         className="w-full h-auto rounded-[40px]"
+        deferAnimation
+        activationDelay={1000}
         loading="lazy"
         sizes="(max-width: 768px) 100vw, 1350px"
       />
