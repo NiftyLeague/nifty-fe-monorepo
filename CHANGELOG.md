@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.65](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.64...nifty-fe-monorepo-v1.2.65) (2026-08-30)
+
+
+### Tests
+
+* **ci:** align workflow contract with v0.39.0 baseline ([ef9e157](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/ef9e157ba5c40637b4ec94fb70844300d24265ae))
+
 ## [1.2.64](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.63...nifty-fe-monorepo-v1.2.64) (2026-08-28)
 
 
