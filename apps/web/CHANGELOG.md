@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.30](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.29...web-v1.0.30) (2026-08-30)
+
+
+### Performance
+
+* **web:** defer below-fold home loader ([#1416](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1416)) ([9ea3221](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/9ea3221ac8d75818a3b6628c99a7517016a22d76))
+
 ## [1.0.29](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.28...web-v1.0.29) (2026-08-28)
 
 
