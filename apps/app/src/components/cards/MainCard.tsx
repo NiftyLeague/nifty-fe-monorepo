@@ -1,4 +1,4 @@
-import { Ref, forwardRef } from 'react'
+import { forwardRef } from 'react'
 
 import { Card, CardContent, CardHeader } from '@nl/ui/base/card'
 import { Separator } from '@nl/ui/base/separator'
