@@ -8,6 +8,7 @@ import { cn } from '@nl/ui/utils'
 import { toast } from 'sonner'
 
 import { DEGEN_CONTRACT } from '@/constants/contracts'
+import { TRAIT_INDEXES } from '@/constants/traitIndexes'
 import useNetworkContext from '@/hooks/useNetworkContext'
 import type { CharacterType, DashboardDegen } from '@/types/degens'
 import { errorMsgHandler } from '@/utils/errorHandlers'
@@ -129,7 +130,13 @@ const DegenDialog = ({
   }, [tokenId, readContracts, open])
 
   const displayName = name || degen?.name || 'No Name DEGEN'
-  const traits = traitList.length ? traitList : (degen?.traits_string ?? '')
+  const traits = traitList.length
+    ? traitList.reduce<Record<string, bigint>>((acc, trait, index) => {
+        const traitType = TRAIT_INDEXES[index]
+        if (traitType) acc[traitType] = trait
+        return acc
+      }, {})
+    : (degen?.traits_string ?? '')
 
   const handleClose = (event?: React.MouseEvent<HTMLButtonElement>) => {
     onClose?.(event as React.MouseEvent<HTMLButtonElement>, 'backdropClick')
