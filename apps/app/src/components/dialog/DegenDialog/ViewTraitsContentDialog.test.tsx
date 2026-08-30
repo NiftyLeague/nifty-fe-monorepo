@@ -73,6 +73,26 @@ describe('ViewTraitsContentDialog', () => {
     expect(screen.queryByText('991')).toBeNull()
   })
 
+  it('maps the dashboard fallback string to readable labels', () => {
+    render(
+      <ViewTraitsContentDialog
+        displayName="Nifty Andy"
+        traits="1,17,73,104,110,0,263,0,0,0,0,0,685,0,717,0,0,821,824,865,894,991"
+      />
+    )
+
+    expect(screen.getByText('Tribe')).not.toBeNull()
+    expect(screen.getByText('Ape')).not.toBeNull()
+    expect(screen.getByText('Skin Color')).not.toBeNull()
+    expect(screen.getByText('White')).not.toBeNull()
+    expect(screen.getByText('Mouth')).not.toBeNull()
+    expect(screen.getByText('Cigarette')).not.toBeNull()
+    expect(screen.getByText('Right Item')).not.toBeNull()
+    expect(screen.getByText('Controller')).not.toBeNull()
+    expect(screen.queryByText('17')).toBeNull()
+    expect(screen.queryByText('991')).toBeNull()
+  })
+
   it('normalizes index-shaped trait maps and keeps the image inside its column', () => {
     const traits = Object.fromEntries(
       [1, 17, 73, 104, 110, 0, 263, 0, 0, 0, 0, 0, 685, 0, 717, 0, 0, 821, 824, 865, 894, 991].map(
@@ -100,11 +120,11 @@ describe('ViewTraitsContentDialog', () => {
     const image = screen.getByTestId('degen-image-1')
     expect(image.style.width).toBe('100%')
     expect(image.style.maxWidth).toBe('100%')
-    expect(image.style.height).toBe('100%')
-    expect(image.style.maxHeight).toBe('100%')
+    expect(image.style.height).toBe('auto')
+    expect(image.style.maxHeight).toBe('min(60vh, 640px)')
     expect(image.style.objectFit).toBe('contain')
     expect(image.parentElement?.className).toContain('max-w-[500px]')
-    expect(image.parentElement?.className).toContain('aspect-[584/640]')
+    expect(image.parentElement?.className).toContain('max-h-[min(60vh,640px)]')
 
     const traitGrid = screen.getByTestId('degen-trait-grid')
     expect(traitGrid.className).toContain('grid-cols-2')
