@@ -4,11 +4,10 @@ import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import { Title } from '@nl/ui/custom/typography'
 
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
-import { getTraitDisplay, TRAIT_NAME_MAP } from '@/constants/cosmeticsFilters'
-import { TRAIT_INDEXES } from '@/constants/traitIndexes'
 import type { DashboardDegen } from '@/types/degens'
 import { DEGEN_PURCHASE_URL } from '@/constants/public-urls'
 import type { SxProps } from '@/types'
+import { getDegenTraitEntries } from '@/utils/degen-traits'
 import { hasEntries } from '@/utils/collections'
 
 interface ViewTraitsContentDialogProps {
@@ -18,20 +17,6 @@ interface ViewTraitsContentDialogProps {
   onClose?: (event: React.MouseEvent<HTMLButtonElement>) => void
   degenImageSx?: SxProps<{}>
 }
-
-const TRAIT_INDEX_BY_TYPE = Object.fromEntries(
-  Object.entries(TRAIT_INDEXES).map(([index, traitType]) => [traitType, Number(index)])
-) as Record<string, number>
-
-const getTraitEntries = (traits: ViewTraitsContentDialogProps['traits']) =>
-  Object.entries(traits)
-    .map(([key, value]) => {
-      const index = /^\d+$/.test(key) ? Number(key) : TRAIT_INDEX_BY_TYPE[key]
-      const traitType = index === undefined ? key : TRAIT_INDEXES[index]
-
-      return { index, key: traitType, value }
-    })
-    .filter(({ value }) => Number(value) > 0)
 
 const ViewTraitsContentDialog = ({
   degen,
@@ -109,16 +94,12 @@ const ViewTraitsContentDialog = ({
                     </div>
                   </div>
                 ))
-              : getTraitEntries(traits).map(({ index, key, value }) => {
-                  const display = getTraitDisplay(value, index)
-
+              : getDegenTraitEntries(traits).map(({ key, name, value }) => {
                   return (
                     <div className="min-w-0" key={key}>
                       <div className="flex min-w-0 flex-col items-center">
-                        <span className="break-words text-center font-bold">
-                          {display.name ?? TRAIT_NAME_MAP[key as keyof typeof TRAIT_NAME_MAP]}
-                        </span>
-                        <span className="break-words text-center">{display.value}</span>
+                        <span className="break-words text-center font-bold">{name}</span>
+                        <span className="break-words text-center">{value}</span>
                       </div>
                     </div>
                   )
