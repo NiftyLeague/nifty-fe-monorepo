@@ -27,13 +27,15 @@ const DeferredConsoleGame = memo(function DeferredConsoleGame({
   src,
 }: DeferredConsoleGameProps) {
   const rootRef = useRef<HTMLDivElement>(null)
-  // Keep the interactive video chunk out of the initial page load until the
-  // preview actually intersects the viewport.
+  // Keep the interactive console chunk out of the initial page load until the
+  // preview is visible and the shared activation window allows non-critical
+  // media. The server-rendered backdrop remains visible while it waits.
   const isNearViewport = useOnScreen(rootRef, CONSOLE_GAME_ROOT_MARGIN)
   const [videoActivated, setVideoActivated] = useState(!deferVideo)
+  const shouldLoadInteractiveGame = isNearViewport && (!deferVideo || videoActivated)
   const { Component: ConsoleGame } = useDeferredComponent<ConsoleGameProps>(
     loadConsoleGame,
-    isNearViewport
+    shouldLoadInteractiveGame
   )
 
   useEffect(() => {

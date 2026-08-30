@@ -72,17 +72,15 @@ describe('DeferredConsoleGame', () => {
 
   it('keeps the backdrop visible while an opt-in video waits for activation', () => {
     isNearViewport = true
-    render(
+    const { container } = render(
       <DeferredConsoleGame deferVideo src="/video/example.mp4">
         <img alt="Game Console Backdrop" loading="eager" src="/img/backdrop.webp" />
       </DeferredConsoleGame>
     )
 
-    expect(screen.getByTestId('console-game').getAttribute('data-video-active')).toBe('false')
-    expect(screen.getByTestId('console-game').querySelector('source')).toBeNull()
-    expect(
-      screen.getByTestId('console-game').parentElement?.querySelector('.dark-gradient-overlay')
-    ).not.toBeNull()
+    expect(screen.queryByTestId('console-game')).toBeNull()
+    expect(screen.getByRole('img', { name: 'Game Console Backdrop' })).not.toBeNull()
+    expect(container.querySelector('.dark-gradient-overlay')).not.toBeNull()
     expect(activationCallbacks).toHaveLength(1)
 
     act(() => activationCallbacks[0]?.())
