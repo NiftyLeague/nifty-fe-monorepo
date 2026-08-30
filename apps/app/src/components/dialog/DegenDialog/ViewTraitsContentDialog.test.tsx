@@ -103,5 +103,9 @@ describe('ViewTraitsContentDialog', () => {
     expect(image.style.height).toBe('auto')
     expect(image.style.objectFit).toBe('contain')
     expect(image.parentElement?.className).toContain('max-w-[500px]')
+
+    const traitGrid = screen.getByTestId('degen-trait-grid')
+    expect(traitGrid.className).toContain('grid-cols-2')
+    expect(traitGrid.className).toContain('sm:grid-cols-3')
   })
 })
