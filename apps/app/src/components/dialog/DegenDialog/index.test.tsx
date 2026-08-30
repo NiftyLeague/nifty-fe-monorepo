@@ -12,10 +12,15 @@ mock.module('next/dynamic', () => ({
       traits,
     }: {
       displayName?: string
-      traits?: string | Record<string, bigint>
+      traits?: string | readonly bigint[] | Record<string, bigint>
     }) => (
       <div data-testid="degen-dialog-content">
-        {displayName} {typeof traits === 'string' ? traits : traits?.tribe?.toString()}
+        {displayName}{' '}
+        {typeof traits === 'string'
+          ? traits
+          : Array.isArray(traits)
+            ? traits[0]?.toString()
+            : traits?.tribe?.toString()}
       </div>
     ),
 }))

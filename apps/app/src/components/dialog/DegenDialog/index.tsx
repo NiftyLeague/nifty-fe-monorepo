@@ -136,7 +136,7 @@ const DegenDialog = ({
         if (traitType) acc[traitType] = trait
         return acc
       }, {})
-    : (degen?.traits_string ?? {})
+    : (degen?.traits_string ?? '')
 
   const handleClose = (event?: React.MouseEvent<HTMLButtonElement>) => {
     onClose?.(event as React.MouseEvent<HTMLButtonElement>, 'backdropClick')

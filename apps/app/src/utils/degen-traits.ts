@@ -50,7 +50,7 @@ const getRecordTraitEntry = ([key, rawValue]: [string, DegenTraitValue]) => {
 }
 
 export function getDegenTraitEntries(
-  traits: string | Record<string, DegenTraitValue> | undefined
+  traits: string | readonly DegenTraitValue[] | Record<string, DegenTraitValue> | undefined
 ): DegenTraitEntry[] {
   if (!traits) return []
 
@@ -58,6 +58,12 @@ export function getDegenTraitEntries(
     return traits
       .split(',')
       .map((value, index) => getTraitEntry(value, index, value.trim()))
+      .filter((entry): entry is DegenTraitEntry => entry !== null)
+  }
+
+  if (Array.isArray(traits)) {
+    return traits
+      .map((value, index) => getTraitEntry(value, index, String(index)))
       .filter((entry): entry is DegenTraitEntry => entry !== null)
   }
 
