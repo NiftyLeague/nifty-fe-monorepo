@@ -65,7 +65,7 @@ describe('RoadmapCard', () => {
         body={<p>Details</p>}
         image={{
           src: '/img/games/wen.gif',
-          webpSrc: '/img/games/wen-roadmap.webp',
+          webpSrc: '/img/games/wen-roadmap-poster.webp',
           width: 200,
           height: 120,
           style: { top: '-80px' },
@@ -76,7 +76,7 @@ describe('RoadmapCard', () => {
 
     const image = screen.getByRole('img', { name: 'WEN Game' })
 
-    expect(image.getAttribute('src')).toBe('/img/games/wen-roadmap.webp')
+    expect(image.getAttribute('src')).toBe('/img/games/wen-roadmap-poster.webp')
     expect(image.getAttribute('data-animated-src')).toBe('/img/games/wen.gif')
   })
 })
