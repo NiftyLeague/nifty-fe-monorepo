@@ -61,5 +61,3 @@ export function DeferredHomeSectionsBoundary() {
     <DeferredHomeSectionPlaceholders firstRef={firstSectionRef} />
   )
 }
-
-export default DeferredHomeSectionsBoundary

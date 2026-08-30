@@ -25,12 +25,10 @@
   "dependencies": {
     "@docusaurus/core": "^3.10.2",
     "@docusaurus/faster": "^3.10.2",
-    "@docusaurus/plugin-google-tag-manager": "^3.10.2",
     "@docusaurus/preset-classic": "^3.10.2",
     "@docusaurus/theme-mermaid": "^3.10.2",
     "@mdx-js/react": "^3.1.1",
     "@nl/ui": "workspace:*",
-    "algoliasearch": "^5.56.0",
     "lucide-react": "^1.31.0",
     "prism-react-renderer": "^2.4.1",
     "react": "19.2.8",
