@@ -11,7 +11,12 @@
  */
 import { mock } from 'bun:test'
 import { resolve } from 'node:path'
-import rootReact from '../node_modules/react/index.js'
+// Resolve the root Bun linker entries explicitly. The repository uses Bun's
+// isolated linker, so these are the same React runtimes that root test
+// dependencies resolve without following each workspace's external cache link.
+import rootReact from '../node_modules/.bun/node_modules/react/index.js'
+import * as rootReactDom from '../node_modules/.bun/node_modules/react-dom/index.js'
+import * as rootReactDomClient from '../node_modules/.bun/node_modules/react-dom/client.js'
 
 // Bun preserves workspace-local React module IDs even when they resolve to the
 // same installed version. Target those IDs directly so shared Testing Library
@@ -19,6 +24,21 @@ import rootReact from '../node_modules/react/index.js'
 for (const workspace of ['apps/app', 'apps/template', 'apps/web', 'packages/ui']) {
   const workspaceReact = resolve(import.meta.dir, `../${workspace}/node_modules/react/index.js`)
   mock.module(workspaceReact, () => ({ ...rootReact, default: rootReact }))
+
+  const workspaceReactDom = resolve(
+    import.meta.dir,
+    `../${workspace}/node_modules/react-dom/index.js`
+  )
+  mock.module(workspaceReactDom, () => ({ ...rootReactDom, default: rootReactDom }))
+
+  const workspaceReactDomClient = resolve(
+    import.meta.dir,
+    `../${workspace}/node_modules/react-dom/client.js`
+  )
+  mock.module(workspaceReactDomClient, () => ({
+    ...rootReactDomClient,
+    default: rootReactDomClient,
+  }))
 }
 
 mock.module('@docusaurus/Link', () => ({ default: (props: any) => null }))
