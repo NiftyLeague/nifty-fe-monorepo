@@ -20,29 +20,11 @@ mock.module('@nl/ui/custom/deferred-section', () => ({
   ),
 }))
 
-import {
-  DeferredHomeCommunity,
-  DeferredHomeCompete,
-  DeferredHomeDashboard,
-  DeferredHomeDegens,
-  DeferredHomeNiftyWorld,
-  DeferredHomeSponsors,
-  DeferredHomeToken,
-} from './DeferredHomeSections'
+import { DeferredHomeSections } from './DeferredHomeSections'
 
 describe('DeferredHomeSections', () => {
   it('keeps every homepage section close to the viewport without preloading it on mobile', () => {
-    render(
-      <>
-        <DeferredHomeDegens />
-        <DeferredHomeCompete />
-        <DeferredHomeNiftyWorld />
-        <DeferredHomeDashboard />
-        <DeferredHomeToken />
-        <DeferredHomeCommunity />
-        <DeferredHomeSponsors />
-      </>
-    )
+    render(<DeferredHomeSections />)
 
     const boundaries = screen.getAllByRole('status')
     expect(boundaries).toHaveLength(7)

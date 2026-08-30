@@ -307,6 +307,8 @@ const webDefinitions = 'apps/web/src/components/Definitions.tsx'
 const smashersHomePage = 'apps/smashers/src/app/page.tsx'
 const webDeferredHomeMedia = 'apps/web/src/components/DeferredHomeMedia.tsx'
 const webDeferredHomeSections = 'apps/web/src/components/DeferredHomeSections.tsx'
+const webDeferredHomeSectionsBoundary = 'apps/web/src/components/DeferredHomeSectionsBoundary.tsx'
+const webHomeSectionConfig = 'apps/web/src/components/home-section-config.ts'
 const webDeferredTeamSections = 'apps/web/src/components/DeferredTeamSections.tsx'
 const webTeamCarousel = 'apps/web/src/components/TeamCarousel.tsx'
 const webDeferredOverviewSections = 'apps/web/src/components/DeferredOverviewSections.tsx'
@@ -1739,6 +1741,11 @@ describe('shared below-fold loading contract', () => {
       join(process.cwd(), webDeferredHomeSections),
       'utf8'
     )
+    const deferredHomeSectionsBoundarySource = readFileSync(
+      join(process.cwd(), webDeferredHomeSectionsBoundary),
+      'utf8'
+    )
+    const homeSectionConfigSource = readFileSync(join(process.cwd(), webHomeSectionConfig), 'utf8')
     const sharedDeferredSource = readFileSync(join(process.cwd(), sharedDeferredSection), 'utf8')
     const homeSectionNames = [
       'HomeDegensSection',
@@ -1759,11 +1766,12 @@ describe('shared below-fold loading contract', () => {
       .join('\n')
     const homeStyles = readFileSync(join(process.cwd(), 'apps/web/src/styles/home.css'), 'utf8')
 
-    expect(pageSource).toContain("from '@/components/DeferredHomeSections'")
-    expect(pageSource).toContain('DeferredHomeDegens')
-    expect(pageSource).toContain('DeferredHomeCompete')
-    expect(pageSource).toContain('DeferredHomeDashboard')
-    expect(pageSource).toContain('DeferredHomeSponsors')
+    expect(pageSource).toContain("from '@/components/DeferredHomeSectionsBoundary'")
+    expect(pageSource).toContain('DeferredHomeSectionsBoundary')
+    expect(pageSource).not.toContain('DeferredHomeDegens')
+    expect(pageSource).not.toContain('DeferredHomeCompete')
+    expect(pageSource).not.toContain('DeferredHomeDashboard')
+    expect(pageSource).not.toContain('DeferredHomeSponsors')
     expect(pageSource).not.toContain("from '@/components/HomeSections/HomeDegensSection'")
     expect(pageSource).not.toContain("from '@/components/HomeSections/HomeCompeteSection'")
     expect(pageSource).not.toContain("from '@/components/HomeSections/HomeTokenSection'")
@@ -1774,7 +1782,11 @@ describe('shared below-fold loading contract', () => {
     expect(deferredSource).not.toContain("import('@/components/HomeBelowFold')")
     expect(existsSync(join(process.cwd(), 'apps/web/src/components/HomeBelowFold.tsx'))).toBe(false)
     expect(deferredHomeSectionsSource).toContain("from '@nl/ui/custom/deferred-section'")
-    expect(deferredHomeSectionsSource).toContain("const HOME_SECTION_ROOT_MARGIN = '240px 0px'")
+    expect(deferredHomeSectionsSource).toContain("from './home-section-config'")
+    expect(deferredHomeSectionsBoundarySource).toContain("from './home-section-config'")
+    expect(deferredHomeSectionsBoundarySource).toContain('useOnScreen')
+    expect(deferredHomeSectionsBoundarySource).toContain('useDeferredComponent')
+    expect(homeSectionConfigSource).toContain("export const HOME_SECTION_ROOT_MARGIN = '240px 0px'")
     expect(deferredHomeSectionsSource).toContain('loadingMode="minimal"')
     for (const section of [
       'HomeDegensSection',

@@ -30,30 +30,22 @@ describe('home page', () => {
         return <>{children}</>
       },
     }))
-    mock.module('@/components/DeferredHomeSections', () => {
-      const DeferredHomeSection = ({ label }: { label: string }) => (
-        <div role="status" aria-label={`Loading ${label}`} />
-      )
-
-      return {
-        DeferredHomeCommunity: () => <DeferredHomeSection label="community section" />,
-        DeferredHomeCompete: () => <DeferredHomeSection label="compete and earn section" />,
-        DeferredHomeDashboard: () => <DeferredHomeSection label="dashboard section" />,
-        DeferredHomeDegens: () => <DeferredHomeSection label="community DEGEN section" />,
-        DeferredHomeNiftyWorld: () => <DeferredHomeSection label="NiftyWorld section" />,
-        DeferredHomeSponsors: () => <DeferredHomeSection label="sponsors section" />,
-        DeferredHomeToken: () => <DeferredHomeSection label="NFTL token section" />,
-      }
-    })
-    mock.module('next/link', () => ({
-      default: ({ children, href, ...props }: PropsWithChildren<{ href: string }>) => (
-        <a href={href} {...props}>
-          {children}
-        </a>
+    mock.module('@/components/DeferredHomeSectionsBoundary', () => ({
+      DeferredHomeSectionsBoundary: () => (
+        <>
+          {[
+            'community section',
+            'compete and earn section',
+            'dashboard section',
+            'community DEGEN section',
+            'NiftyWorld section',
+            'sponsors section',
+            'NFTL token section',
+          ].map((label) => (
+            <div key={label} role="status" aria-label={`Loading ${label}`} />
+          ))}
+        </>
       ),
-    }))
-    mock.module('next/navigation', () => ({
-      usePathname: () => '/',
     }))
     mock.module('@nl/ui/custom/optimized-image', () => ({
       default: ({ alt, loading, fetchPriority, ...props }: ComponentProps<'img'>) => (
