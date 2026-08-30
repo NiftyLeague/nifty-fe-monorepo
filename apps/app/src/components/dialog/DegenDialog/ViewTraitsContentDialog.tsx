@@ -52,6 +52,7 @@ const ViewTraitsContentDialog = ({
                 width: '100%',
                 maxWidth: '100%',
                 height: 'auto',
+                maxHeight: 'min(60vh, 640px)',
                 objectFit: 'contain',
               }}
               tokenId={degen.id}
@@ -95,11 +96,14 @@ const ViewTraitsContentDialog = ({
           <div className="flex flex-row items-center justify-center">
             <Title level={3}>Degen Traits</Title>
           </div>
-          <div className="mt-6 grid grid-cols-12 justify-center gap-x-4 gap-y-6">
+          <div
+            data-testid="degen-trait-grid"
+            className="mt-6 grid min-w-0 grid-cols-2 justify-center gap-x-4 gap-y-6 sm:grid-cols-3"
+          >
             {!hasEntries(traits)
               ? [...Array(9)].map((_, index) => (
-                  <div className="col-span-3" key={`trait-skeleton-${index}`}>
-                    <div className="flex flex-col items-center">
+                  <div className="min-w-0" key={`trait-skeleton-${index}`}>
+                    <div className="flex min-w-0 flex-col items-center">
                       <DeferredSkeleton className="h-4 w-[60px]" />
                       <DeferredSkeleton className="h-4 w-10" />
                     </div>
@@ -109,12 +113,12 @@ const ViewTraitsContentDialog = ({
                   const display = getTraitDisplay(value, index)
 
                   return (
-                    <div className="col-span-3" key={key}>
-                      <div className="flex flex-col items-center">
-                        <span className="text-center font-bold">
+                    <div className="min-w-0" key={key}>
+                      <div className="flex min-w-0 flex-col items-center">
+                        <span className="break-words text-center font-bold">
                           {display.name ?? TRAIT_NAME_MAP[key as keyof typeof TRAIT_NAME_MAP]}
                         </span>
-                        <span className="text-center">{display.value}</span>
+                        <span className="break-words text-center">{display.value}</span>
                       </div>
                     </div>
                   )
