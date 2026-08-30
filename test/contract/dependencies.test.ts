@@ -205,7 +205,7 @@ describe('dependency contract', () => {
   }
 
   it('keeps Next.js on one exact version across apps and shared peers', () => {
-    const expectedNextVersion = '16.3.1'
+    const expectedNextVersion = '16.3.3'
     const packagesWithNext = new Set([
       'app',
       'smashers',
