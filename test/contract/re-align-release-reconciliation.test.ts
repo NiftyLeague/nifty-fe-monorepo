@@ -32,6 +32,19 @@ describe('release reconciliation PR ownership', () => {
     )
   })
 
+  it('defers general re-alignment while release reconciliation is active', () => {
+    const source = readWorkflow()
+
+    expect(source).toContain('actions: read')
+    expect(source).toContain('--workflow release.yml')
+    expect(source).toContain('--status queued')
+    expect(source).toContain('--status in_progress')
+    expect(source).toContain('echo "deferred=true" >> "$GITHUB_OUTPUT"')
+    expect(source).toContain(
+      "steps.drift.outputs.drifted == 'false' && steps.drift.outputs.deferred != 'true'"
+    )
+  })
+
   it('hides release commits so a merged release cannot create the next release', () => {
     const choreSection = readReleaseConfig()['changelog-sections'].find(
       (section) => section.type === 'chore'

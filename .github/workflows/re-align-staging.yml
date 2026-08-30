@@ -10,6 +10,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: read
   contents: write
   pull-requests: write
 
@@ -44,6 +45,45 @@ jobs:
         run: |
           set -euo pipefail
           git fetch origin main staging --no-tags
+
+          RELEASE_RECONCILE_PR=$(gh pr list \
+            --base staging \
+            --head code-foundry/reconcile/main-to-staging \
+            --state open \
+            --limit 1 \
+            --json number \
+            --jq '.[0].number // empty')
+          if [ -n "$RELEASE_RECONCILE_PR" ]; then
+            echo "Code Foundry release reconciliation PR #$RELEASE_RECONCILE_PR already owns staging metadata;"
+            echo "deferring the general re-alignment PR."
+            echo "drifted=false" >> "$GITHUB_OUTPUT"
+            echo "deferred=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          RELEASE_RUN=$(gh run list \
+            --workflow release.yml \
+            --branch main \
+            --status queued \
+            --limit 1 \
+            --json databaseId \
+            --jq '.[0].databaseId // empty')
+          if [ -z "$RELEASE_RUN" ]; then
+            RELEASE_RUN=$(gh run list \
+              --workflow release.yml \
+              --branch main \
+              --status in_progress \
+              --limit 1 \
+              --json databaseId \
+              --jq '.[0].databaseId // empty')
+          fi
+          if [ -n "$RELEASE_RUN" ]; then
+            echo "Code Foundry release workflow #$RELEASE_RUN is still active;"
+            echo "deferring staging re-alignment until release reconciliation completes."
+            echo "drifted=false" >> "$GITHUB_OUTPUT"
+            echo "deferred=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
 
           PROMOTION_PR=$(gh pr list \
             --base main \
@@ -89,7 +129,7 @@ jobs:
           fi
 
       - name: Close stale re-align PRs when aligned
-        if: steps.drift.outputs.drifted == 'false'
+        if: steps.drift.outputs.drifted == 'false' && steps.drift.outputs.deferred != 'true'
         env:
           GH_TOKEN: ${{ secrets.CODE_FOUNDRY_TOKEN || github.token }}
         run: |
@@ -155,6 +195,51 @@ jobs:
               --json number \
               --jq '.[0].number // empty'
           }
+
+          find_release_reconcile_pr() {
+            gh pr list \
+              --base staging \
+              --head code-foundry/reconcile/main-to-staging \
+              --state open \
+              --limit 1 \
+              --json number \
+              --jq '.[0].number // empty'
+          }
+
+          find_release_run() {
+            local release_run
+            release_run=$(gh run list \
+              --workflow release.yml \
+              --branch main \
+              --status queued \
+              --limit 1 \
+              --json databaseId \
+              --jq '.[0].databaseId // empty')
+            if [ -z "$release_run" ]; then
+              release_run=$(gh run list \
+                --workflow release.yml \
+                --branch main \
+                --status in_progress \
+                --limit 1 \
+                --json databaseId \
+                --jq '.[0].databaseId // empty')
+            fi
+            printf '%s' "$release_run"
+          }
+
+          RELEASE_RECONCILE_PR=$(find_release_reconcile_pr)
+          if [ -n "$RELEASE_RECONCILE_PR" ]; then
+            echo "Code Foundry release reconciliation PR #$RELEASE_RECONCILE_PR already owns staging metadata;"
+            echo "skipping general re-alignment creation."
+            exit 0
+          fi
+
+          RELEASE_RUN=$(find_release_run)
+          if [ -n "$RELEASE_RUN" ]; then
+            echo "Code Foundry release workflow #$RELEASE_RUN is still active;"
+            echo "skipping general re-alignment creation until release reconciliation completes."
+            exit 0
+          fi
 
           EXISTING=$(find_existing_pr)
           if [ -n "$EXISTING" ]; then
