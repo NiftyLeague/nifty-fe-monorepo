@@ -542,6 +542,12 @@ describe('GLTF viewer loading contract', () => {
 })
 
 describe('website build performance contract', () => {
+  it('inlines the atomic marketing CSS for first-load rendering', () => {
+    const source = readFileSync(join(process.cwd(), 'apps/web/next.config.ts'), 'utf8')
+
+    expect(source).toContain('inlineCss: true')
+  })
+
   it('keeps Next builds on the native TypeScript worker', () => {
     const source = readFileSync(join(process.cwd(), 'apps/web/next.config.ts'), 'utf8')
 

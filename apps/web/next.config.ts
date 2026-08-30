@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
   transpilePackages: ['@nl/ui'],
   experimental: {
     optimizePackageImports: ['lucide-react'],
+    // Inline the small Tailwind-generated route styles so first-time visitors
+    // can render the hero without a render-blocking CSS request.
+    inlineCss: true,
     // Reuse compatible Turbopack output across local builds and Git worktrees.
     // This keeps branch validation from recompiling the entire site from scratch.
     turbopackFileSystemCacheForBuild: true,
