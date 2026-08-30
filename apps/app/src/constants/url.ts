@@ -1,11 +1,4 @@
-import {
-  BASE_API_URL,
-  DEGEN_BASE_API_URL,
-  GET_GAMER_PROFILE_API,
-  MY_PROFILE_API_URL,
-  PROFILE_FAV_DEGENS_API,
-  getPublicDegensByIdsUrl,
-} from './api'
+import { BASE_API_URL } from './api'
 export {
   BASE_API_URL,
   DEGEN_BASE_API_URL,

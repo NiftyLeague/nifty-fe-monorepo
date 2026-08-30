@@ -142,14 +142,6 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
     setOpenTOS(false)
   }
 
-  const handleAgreementChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      setAgreementAccepted('ACCEPTED')
-    } else {
-      setAgreementAccepted('FALSE')
-    }
-  }
-
   const handleRefreshBalance = () => {
     gtm.sendEvent(GTM_EVENTS.RENTAL_REFRESH_BALANCE_CLICKED)
     refetchAccount()

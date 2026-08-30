@@ -52,7 +52,7 @@ export default function LeaderBoards(): React.ReactNode {
 
     const currentGame = LEADERBOARD_GAME_LIST.filter((game) => game.key === gameKey)?.[0]
     if (!currentGame) return
-    const { display, tables } = currentGame
+    const { tables } = currentGame
 
     if (gameKey === 'nftl_burner' && selectedTimeFilter === 'weekly') {
       // Since NFTL Burner doesn't have weekly leaderboard

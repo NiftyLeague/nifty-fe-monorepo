@@ -68,17 +68,3 @@ export interface ProfileMiniGame {
   time_played: number
   xp: number
 }
-
-interface WithdrawalHistory {
-  address: string
-  amount: number
-  balance_before: number
-  balance_tx_id: string
-  created_at: number
-  expire_at: number
-  nonce: number
-  request_id: string
-  signature: string
-  state: 'pending' | 'void' | 'complete'
-  user_id: string
-}

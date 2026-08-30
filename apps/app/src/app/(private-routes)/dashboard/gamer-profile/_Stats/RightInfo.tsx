@@ -3,7 +3,6 @@ import { useMemo } from 'react'
 import { useGamerProfileContext } from '@/hooks/useGamerProfile'
 import Item from './Item'
 
-const commonValue = { value: 'N/A', isDisable: true, isLoading: false }
 interface RightInfoProps {
   comicCount: number
   degenCount: number

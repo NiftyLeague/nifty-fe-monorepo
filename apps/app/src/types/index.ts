@@ -45,20 +45,6 @@ export type NavItemType = {
 
 export type GuardProps = { children: React.ReactNode }
 
-interface StringColorProps {
-  id?: string
-  label?: string
-  color?: string
-  primary?: string
-  secondary?: string
-}
-
-/** ---- Common Functions types ---- */
-
-type StringBoolFunc = (s: string) => boolean
-type StringNumFunc = (s: string) => number
-type NumbColorFunc = (n: number, theme: Theme) => StringColorProps | undefined
-
 export interface MenuItemBaseProps {
   value: string
   label: string

@@ -54,11 +54,6 @@ export enum TimeFilter {
 
 export type LeaderboardGame = { key: string; display: Game; tables: TableType[] }
 
-interface EnhancedTableProps {
-  rows: TableRowType[]
-  handleCheckYourRank: React.MouseEventHandler<HTMLSpanElement>
-}
-
 export interface TableProps {
   selectedGame: string
   selectedTable: TableType

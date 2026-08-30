@@ -56,8 +56,6 @@ export enum ItemTier {
   Mythic = 'Mythic',
 }
 
-type Rarity = '???' | 'Common' | 'Rare' | 'Meta' | 'Legendary' | 'Mythic'
-
 export enum CharacterItemSlotType {
   None = 'None',
   Hat = 'Hat',
