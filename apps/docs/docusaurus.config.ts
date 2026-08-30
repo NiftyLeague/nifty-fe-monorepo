@@ -83,7 +83,6 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           editUrl: 'https://github.com/NiftyLeague/nifty-fe-monorepo/tree/main/apps/docs',
         },
-        googleTagManager: { containerId: 'GTM-MHCXVXJZ' },
         theme: {
           customCss: ['./src/css/colors.css', './src/css/fonts.css', './src/css/custom.css'],
         },
