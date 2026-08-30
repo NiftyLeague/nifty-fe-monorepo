@@ -13,6 +13,9 @@ import useAuth from '@/hooks/useAuth'
 import { DEGEN_COLLECTION_URL } from '@/constants/url'
 import { useDegenOwnershipContext } from '@/contexts/DegenOwnershipContext'
 
+const centeredPageContentClassName =
+  'flex min-h-[calc(100dvh-56px)] w-full flex-col items-center justify-center lg:min-h-[calc(100dvh-60px)]'
+
 export default function MintPageContent() {
   const [isLoaded, setLoaded] = useState(false)
   const [progress, setProgress] = useState(0)
@@ -26,7 +29,7 @@ export default function MintPageContent() {
   if (!isForNiftyArtists) {
     if (!isLoggedIn) {
       return (
-        <div className="flex h-full w-full flex-col items-center justify-center">
+        <div className={centeredPageContentClassName}>
           <Title level={3} className="text-center">
             Please connect your wallet
           </Title>
@@ -39,7 +42,7 @@ export default function MintPageContent() {
 
     if (!isDegenOwner) {
       return (
-        <div className="flex h-full w-full flex-col items-center justify-center">
+        <div className={centeredPageContentClassName}>
           <Title level={3} className="text-center">
             This page is accessible to DEGEN owners only.
           </Title>

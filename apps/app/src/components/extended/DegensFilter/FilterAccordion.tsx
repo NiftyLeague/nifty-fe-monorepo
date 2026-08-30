@@ -23,7 +23,7 @@ const FilterAccordion = ({
             {length > 0 && <span className="mr-1 text-[10px] text-[#D7DCFF]">{length}</span>}
           </div>
         </AccordionTrigger>
-        <AccordionContent>{children}</AccordionContent>
+        <AccordionContent className="px-3.5">{children}</AccordionContent>
       </AccordionItem>
     </Accordion>
   )
