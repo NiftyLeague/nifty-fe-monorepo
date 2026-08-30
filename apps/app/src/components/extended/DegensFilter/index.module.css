@@ -15,6 +15,10 @@
   min-width: 0;
 }
 
+.filterContent {
+  padding-inline: 0.875rem;
+}
+
 .filterOption > div,
 .filterOption > span {
   min-width: 0;

@@ -1,5 +1,8 @@
 import { ReactNode } from 'react'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@nl/ui/base/accordion'
+import { cn } from '@nl/ui/utils'
+
+import styles from './index.module.css'
 
 interface Props {
   summary: ReactNode
@@ -23,7 +26,9 @@ const FilterAccordion = ({
             {length > 0 && <span className="mr-1 text-[10px] text-[#D7DCFF]">{length}</span>}
           </div>
         </AccordionTrigger>
-        <AccordionContent className="px-3.5">{children}</AccordionContent>
+        <AccordionContent className={cn('filter-content-gutter', styles.filterContent)}>
+          {children}
+        </AccordionContent>
       </AccordionItem>
     </Accordion>
   )
