@@ -1,6 +1,5 @@
 'use client'
 
-import { useMemo } from 'react'
 import { Button } from '@nl/ui/base/button'
 import {
   Dialog,
@@ -10,15 +9,9 @@ import {
   DialogTitle,
 } from '@nl/ui/base/dialog'
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
-import { getTraitDisplay } from '@/constants/cosmeticsFilters'
 import { DEGEN_PURCHASE_URL } from '@/constants/public-urls'
 import type { PublicDegen } from '@/types/degens'
-
-interface DisplayTrait {
-  key: string
-  name?: string
-  value: string
-}
+import { getDegenTraitEntries } from '@/utils/degen-traits'
 
 interface PublicDegenDialogProps {
   open: boolean
@@ -27,32 +20,7 @@ interface PublicDegenDialogProps {
 }
 
 export default function PublicDegenDialog({ open, degen, onClose }: PublicDegenDialogProps) {
-  const traits = useMemo(
-    () =>
-      degen?.traits_string
-        ?.split(',')
-        .map((trait, index): DisplayTrait | null => {
-          const trimmedTrait = trait.trim()
-          if (!trimmedTrait) return null
-
-          if (!/^\d+$/.test(trimmedTrait)) {
-            return { key: `${index}-${trimmedTrait}`, value: trimmedTrait }
-          }
-
-          // The API keeps empty contract slots as zeroes. They are not
-          // attributes and should not become numeric cards in the modal.
-          if (/^0+$/.test(trimmedTrait)) return null
-
-          const display = getTraitDisplay(trimmedTrait, index)
-
-          return {
-            key: `${index}-${trimmedTrait}`,
-            ...display,
-          }
-        })
-        .filter((trait): trait is DisplayTrait => trait !== null) ?? [],
-    [degen?.traits_string]
-  )
+  const traits = getDegenTraitEntries(degen?.traits_string)
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
