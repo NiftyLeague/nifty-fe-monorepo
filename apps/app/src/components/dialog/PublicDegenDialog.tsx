@@ -68,6 +68,7 @@ export default function PublicDegenDialog({ open, degen, onClose }: PublicDegenD
                     width: '100%',
                     maxWidth: '100%',
                     height: 'auto',
+                    maxHeight: 'min(60vh, 640px)',
                     objectFit: 'contain',
                   }}
                 />
