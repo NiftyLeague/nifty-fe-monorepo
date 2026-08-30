@@ -6,6 +6,7 @@ mock.module('@nl/ui/custom/optimized-image', () => ({
     // eslint-disable-next-line @next/next/no-img-element
     <img alt={alt} {...props} />
   ),
+  getOptimizedImageProps: (props: React.ComponentProps<'img'>) => props,
 }))
 
 mock.module('@nl/ui/custom/deferred-external-script', () => ({

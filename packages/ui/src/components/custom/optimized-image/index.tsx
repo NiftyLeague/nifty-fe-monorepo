@@ -1,3 +1,4 @@
+import { preload } from 'react-dom'
 import { getImgProps, type ImageProps } from 'next/dist/shared/lib/get-img-props'
 import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config'
 import defaultLoader from 'next/dist/shared/lib/image-loader'
@@ -55,7 +56,23 @@ export function getOptimizedImageProps(props: OptimizedImageProps) {
  * shared server-side implementation used by the pinned Next version.
  */
 export function OptimizedImage(props: OptimizedImageProps) {
-  return <img {...getOptimizedImageProps(props)} />
+  const imageProps = getOptimizedImageProps(props)
+
+  // The native renderer replaces Next's client image component, so carry its
+  // explicit priority signal through as a matching resource hint. Keeping the
+  // preload URL and responsive candidates derived from the same props avoids a
+  // second request for a different image variant.
+  if (props.priority || props.preload) {
+    preload(imageProps.src, {
+      as: 'image',
+      fetchPriority: 'high',
+      ...(imageProps.srcSet
+        ? { imageSrcSet: imageProps.srcSet, imageSizes: imageProps.sizes }
+        : {}),
+    })
+  }
+
+  return <img {...imageProps} />
 }
 
 export default OptimizedImage
