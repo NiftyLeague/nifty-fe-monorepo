@@ -4,42 +4,45 @@ import { readFileSync, statSync } from 'node:fs'
 const roadmapCard = 'apps/web/src/components/RoadmapTimeline/roadmapCard.tsx'
 const roadmapConstants = 'apps/web/src/components/RoadmapTimeline/constants.tsx'
 
-const animatedRoadmapMedia = [
+const roadmapMedia = [
   {
-    file: 'assets/img/games/crypto-winter-roadmap.webp',
+    poster: 'assets/img/games/crypto-winter-roadmap-poster.webp',
     fallback: 'assets/img/games/crypto-winter.gif',
-    source: '/img/games/crypto-winter-roadmap.webp',
+    source: '/img/games/crypto-winter-roadmap-poster.webp',
   },
   {
-    file: 'assets/img/games/mt-gawx-roadmap.webp',
+    poster: 'assets/img/games/mt-gawx-roadmap-poster.webp',
     fallback: 'assets/img/games/mt-gawx.gif',
-    source: '/img/games/mt-gawx-roadmap.webp',
+    source: '/img/games/mt-gawx-roadmap-poster.webp',
   },
   {
-    file: 'assets/img/games/smashers/nifty-smashers-roadmap.webp',
+    poster: 'assets/img/games/smashers/nifty-smashers-roadmap-poster.webp',
     fallback: 'assets/img/games/smashers/nifty-smashers.gif',
-    source: '/img/games/smashers/nifty-smashers-roadmap.webp',
+    source: '/img/games/smashers/nifty-smashers-roadmap-poster.webp',
   },
   {
-    file: 'assets/img/games/wen-roadmap.webp',
+    poster: 'assets/img/games/wen-roadmap-poster.webp',
     fallback: 'assets/img/games/wen.gif',
-    source: '/img/games/wen-roadmap.webp',
+    source: '/img/games/wen-roadmap-poster.webp',
   },
 ] as const
 
 describe('web roadmap animated media policy', () => {
-  it('keeps the animated roadmap sources smaller than their GIF fallbacks', () => {
-    for (const { file, fallback } of animatedRoadmapMedia) {
-      expect(statSync(file).size).toBeLessThan(statSync(fallback).size)
+  it('keeps static roadmap posters small enough for deferred cards', () => {
+    for (const { poster, fallback } of roadmapMedia) {
+      expect(statSync(poster).size).toBeLessThan(100_000)
+      expect(statSync(poster).size).toBeLessThan(statSync(fallback).size)
     }
   })
 
-  it('keeps the WebP sources animated instead of replacing them with static posters', () => {
-    for (const { file } of animatedRoadmapMedia) {
-      const webp = readFileSync(file)
+  it('keeps roadmap posters static instead of downloading animation frames up front', () => {
+    for (const { poster } of roadmapMedia) {
+      const webp = readFileSync(poster)
 
-      expect(webp.includes(Buffer.from('ANIM'))).toBe(true)
-      expect(webp.includes(Buffer.from('ANMF'))).toBe(true)
+      expect(webp.includes(Buffer.from('RIFF'))).toBe(true)
+      expect(webp.includes(Buffer.from('WEBP'))).toBe(true)
+      expect(webp.includes(Buffer.from('ANIM'))).toBe(false)
+      expect(webp.includes(Buffer.from('ANMF'))).toBe(false)
     }
   })
 
@@ -50,7 +53,7 @@ describe('web roadmap animated media policy', () => {
     expect(source).toContain("from 'lucide-react'")
     expect(source).not.toContain("from '@nl/ui/base/icon'")
     const constants = readFileSync(roadmapConstants, 'utf8')
-    for (const { source } of animatedRoadmapMedia) {
+    for (const { source } of roadmapMedia) {
       expect(constants).toContain(source)
     }
   })
