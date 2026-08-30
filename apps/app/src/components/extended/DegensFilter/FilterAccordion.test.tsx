@@ -12,6 +12,6 @@ describe('FilterAccordion', () => {
     )
 
     const content = container.querySelector('[data-slot="accordion-content"] > div')
-    expect(content?.className).toContain('px-3.5')
+    expect(content?.className).toContain('filter-content-gutter')
   })
 })
