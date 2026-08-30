@@ -5,15 +5,7 @@ import { ConsoleGameBackdrop } from '@nl/ui/custom/console-game-backdrop'
 import OptimizedImage, { getOptimizedImageProps } from '@nl/ui/custom/optimized-image'
 import { DesktopOnlyImage } from '@nl/ui/custom/responsive-only-image'
 
-import {
-  DeferredHomeCommunity,
-  DeferredHomeCompete,
-  DeferredHomeDashboard,
-  DeferredHomeDegens,
-  DeferredHomeNiftyWorld,
-  DeferredHomeSponsors,
-  DeferredHomeToken,
-} from '@/components/DeferredHomeSections'
+import { DeferredHomeSectionsBoundary } from '@/components/DeferredHomeSectionsBoundary'
 import MainLayout from '@/components/MainLayout'
 import { ThemeButtonGroup } from '@nl/ui/custom/theme-button-group'
 import { DEGEN_COLLECTION_URL } from '@/constants/degen-assets'
@@ -246,13 +238,7 @@ const Home = () => {
         />
       </section>
 
-      <DeferredHomeDegens />
-      <DeferredHomeCompete />
-      <DeferredHomeNiftyWorld />
-      <DeferredHomeDashboard />
-      <DeferredHomeToken />
-      <DeferredHomeCommunity />
-      <DeferredHomeSponsors />
+      <DeferredHomeSectionsBoundary />
     </MainLayout>
   )
 }
