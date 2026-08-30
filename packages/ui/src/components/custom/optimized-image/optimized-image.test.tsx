@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import { describe, expect, it } from 'bun:test'
 
-import OptimizedImage, { getOptimizedImageProps } from './index'
+import OptimizedImage, { getOptimizedImageProps, trimFixedWidthSrcSet } from './index'
 
 describe('getOptimizedImageProps', () => {
   const baseProps = {
@@ -44,6 +44,26 @@ describe('getOptimizedImageProps', () => {
     const props = getOptimizedImageProps({ ...baseProps, decoding: 'sync' })
 
     expect(props.decoding).toBe('sync')
+  })
+
+  it('keeps only 1x and 2x candidates for fixed-width artwork', () => {
+    const srcSet = [32, 64, 128, 256, 384, 480, 750].map(
+      (width) => `/img/artwork.webp?w=${width} ${width}w`
+    )
+
+    const trimmed = trimFixedWidthSrcSet(srcSet.join(', '), '200px')
+
+    expect(trimmed?.split(', ')).toHaveLength(2)
+    expect(trimmed).toContain('/img/artwork.webp?w=256 256w')
+    expect(trimmed).toContain('/img/artwork.webp?w=480 480w')
+  })
+
+  it('keeps the complete candidate ladder for fluid artwork', () => {
+    const srcSet = [32, 64, 128, 256, 384, 480, 750].map(
+      (width) => `/img/artwork.webp?w=${width} ${width}w`
+    )
+
+    expect(trimFixedWidthSrcSet(srcSet.join(', '), '100vw')).toBe(srcSet.join(', '))
   })
 
   it('translates Next priority metadata to native image loading hints', () => {
