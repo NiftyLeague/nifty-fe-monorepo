@@ -10,6 +10,48 @@ export type OptimizedImageProps = ImageProps
 // eslint-disable-next-line turbo/no-undeclared-env-vars
 const imageConfig = process.env.__NEXT_IMAGE_OPTS as unknown as ImageConfigComplete
 
+const FIXED_PIXEL_SIZE_PATTERN = /^\s*(\d+(?:\.\d+)?)px\s*$/
+
+/**
+ * Next's `sizes` prop switches to the complete device ladder whenever it is
+ * present. That is correct for fluid layouts, but it is unnecessarily large
+ * for artwork whose rendered width is a fixed number of pixels. Keep one
+ * candidate for a 1x display and one for a 2x display in that narrow case.
+ */
+export function trimFixedWidthSrcSet(srcSet: string | undefined, sizes: string | undefined) {
+  if (!srcSet || !sizes) return srcSet
+
+  const match = FIXED_PIXEL_SIZE_PATTERN.exec(sizes)
+  if (!match) return srcSet
+
+  const targetWidth = Number(match[1])
+  const candidates = srcSet
+    .split(',')
+    .map((candidate) => {
+      const trimmed = candidate.trim()
+      const widthMatch = /(?:^|\s)(\d+)w$/.exec(trimmed)
+
+      return widthMatch ? { source: trimmed, width: Number(widthMatch[1]) } : undefined
+    })
+    .filter((candidate): candidate is { source: string; width: number } => candidate !== undefined)
+
+  if (candidates.length < 3 || !Number.isFinite(targetWidth) || targetWidth <= 0) {
+    return srcSet
+  }
+
+  const selectAtLeast = (minimumWidth: number) =>
+    candidates.find(({ width }) => width >= minimumWidth) ?? candidates.at(-1)
+
+  const selected = [selectAtLeast(targetWidth), selectAtLeast(targetWidth * 2)].filter(
+    (candidate): candidate is { source: string; width: number } => candidate !== undefined
+  )
+  const unique = selected.filter(
+    (candidate, index) => selected.findIndex(({ width }) => width === candidate.width) === index
+  )
+
+  return unique.length > 0 ? unique.map(({ source }) => source).join(', ') : srcSet
+}
+
 export function getOptimizedImageProps(props: OptimizedImageProps) {
   const { props: imageProps, meta } = getImgProps(props, {
     defaultLoader,
@@ -41,6 +83,8 @@ export function getOptimizedImageProps(props: OptimizedImageProps) {
   // Decode artwork off the critical rendering path by default, matching the
   // shared NativeImage primitive used by client-only consumers.
   imageProps.decoding ??= 'async'
+
+  imageProps.srcSet = trimFixedWidthSrcSet(imageProps.srcSet, props.sizes)
 
   for (const [key, value] of Object.entries(imageProps)) {
     if (value === undefined) delete imageProps[key as keyof typeof imageProps]
