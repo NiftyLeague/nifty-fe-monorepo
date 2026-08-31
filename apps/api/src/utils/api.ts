@@ -1,4 +1,3 @@
-import fetch from 'node-fetch'
 import https from 'https'
 import type { Request, Response } from 'express'
 import type { Metadata } from '@/types'
@@ -37,9 +36,8 @@ const toAllowedUpstreamPath = (value: string): string | null => {
   return `${upstreamUrl.pathname}${upstreamUrl.search}`
 }
 
-// node-fetch v3 accepts an AbortSignal timeout option. Keeps slow/dead
-// upstreams from hanging the function up to maxDuration, matching the
-// timeout behaviour used in pipeRequest and degensBurned.
+// Keep slow/dead upstreams from hanging the function up to maxDuration,
+// matching the timeout behaviour used in pipeRequest and degensBurned.
 export const fetchWithTimeout = async (url: string, options: any = {}) => {
   const upstreamUrl = toAllowedFetchUrl(url)
   if (!upstreamUrl) throw new Error('Unsupported upstream URL')

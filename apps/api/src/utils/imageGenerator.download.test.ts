@@ -1,4 +1,4 @@
-import { describe, expect, it, mock } from 'bun:test'
+import { afterAll, describe, expect, it, mock } from 'bun:test'
 
 const mockFetch = mock<() => Promise<any>>()
 
@@ -12,9 +12,8 @@ mock.module('node-config-ts', () => ({
   },
 }))
 
-mock.module('node-fetch', () => ({
-  default: mockFetch,
-}))
+const originalFetch = globalThis.fetch
+globalThis.fetch = mockFetch as unknown as typeof globalThis.fetch
 
 // `downloadImage` uses fs.createWriteStream and pipes res.body into it.
 const fs = await import('fs')
@@ -33,6 +32,10 @@ mock.module('fs', () => ({
 }))
 
 const { downloadImage } = await import('./imageGenerator')
+
+afterAll(() => {
+  globalThis.fetch = originalFetch
+})
 
 describe('imageGenerator.downloadImage', () => {
   it('pipes the upstream body into a write stream at the destination', async () => {

@@ -1,4 +1,4 @@
-import { describe, expect, it, mock } from 'bun:test'
+import { afterAll, describe, expect, it, mock } from 'bun:test'
 
 // --- mocks must be set before source imports ---
 
@@ -21,7 +21,8 @@ const fetchSpy = mock(async (_url: string) => ({
   },
 }))
 
-mock.module('node-fetch', () => ({ default: fetchSpy }))
+const originalFetch = globalThis.fetch
+globalThis.fetch = fetchSpy as unknown as typeof globalThis.fetch
 
 const fsOnMock = mock((_event: string, cb: () => void) => {
   if (_event === 'finish') cb()
@@ -34,6 +35,10 @@ mock.module('fs', () => ({
 // --- now safe to import source ---
 
 import { generateImageURL, downloadImage } from './imageGenerator'
+
+afterAll(() => {
+  globalThis.fetch = originalFetch
+})
 
 describe('generateImageURL', () => {
   it('builds the correct image URL with params', () => {

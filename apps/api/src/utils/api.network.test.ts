@@ -1,12 +1,11 @@
-import { beforeEach, describe, expect, it, mock } from 'bun:test'
+import { afterAll, beforeEach, describe, expect, it, mock } from 'bun:test'
 import type { Request, Response } from 'express'
 
 const mockFetch = mock<() => Promise<any>>()
 const mockHttpsGet = mock()
 
-mock.module('node-fetch', () => ({
-  default: mockFetch,
-}))
+const originalFetch = globalThis.fetch
+globalThis.fetch = mockFetch as unknown as typeof globalThis.fetch
 
 mock.module('https', () => ({
   default: { get: mockHttpsGet },
@@ -14,6 +13,10 @@ mock.module('https', () => ({
 }))
 
 const { fetchMetadata, resolveDegenMetadata, pipeRequest } = await import('./api')
+
+afterAll(() => {
+  globalThis.fetch = originalFetch
+})
 
 beforeEach(() => {
   mockFetch.mockClear()

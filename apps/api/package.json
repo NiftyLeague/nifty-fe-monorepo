@@ -45,7 +45,6 @@
     "kubo-rpc-client": "^7.1.0",
     "multiformats": "^14.0.5",
     "node-config-ts": "^3.3.1",
-    "node-fetch": "^3.3.2",
     "starknet": "^10.0.2",
     "ts-command-line-args": "^2.5.1",
     "uint8arrays": "^6.1.1"

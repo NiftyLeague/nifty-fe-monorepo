@@ -1,7 +1,6 @@
 import { CID } from 'multiformats/cid'
 import { config } from 'node-config-ts'
 import type { Contract, EventLog } from 'ethers'
-import fetch from 'node-fetch'
 import { create } from 'kubo-rpc-client'
 import { concat } from 'uint8arrays/concat'
 import { toString } from 'uint8arrays/to-string'

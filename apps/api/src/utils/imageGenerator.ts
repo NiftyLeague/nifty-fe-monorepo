@@ -1,5 +1,5 @@
 import fs from 'fs'
-import fetch from 'node-fetch'
+import { Readable } from 'stream'
 import { config } from 'node-config-ts'
 
 /**
@@ -49,11 +49,23 @@ export async function downloadImage(url: string, dest: fs.PathLike) {
   const res = await fetch(url)
   /* Create an empty file where we can save data */
   const fileStream = fs.createWriteStream(dest)
+  const body = res.body
 
   /* Using Promises so that we can use the ASYNC AWAIT syntax */
   await new Promise((resolve, reject) => {
-    res.body?.pipe(fileStream)
-    res.body?.on('error', reject)
+    if (!body) {
+      reject(new Error('Image response has no body'))
+      return
+    }
+
+    // Node 24's native fetch exposes a WHATWG ReadableStream. Keep support
+    // for Node streams in tests and callers that provide a compatible body.
+    const stream: Readable =
+      typeof (body as { pipe?: unknown }).pipe === 'function'
+        ? (body as unknown as Readable)
+        : Readable.fromWeb(body as unknown as Parameters<typeof Readable.fromWeb>[0])
+    stream.pipe(fileStream)
+    stream.on('error', reject)
     fileStream.on('finish', async () => {
       console.log(`✅ The file is finished downloading.`)
       resolve(undefined)

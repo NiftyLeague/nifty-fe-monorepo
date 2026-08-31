@@ -9,6 +9,13 @@ const apiManifest = 'apps/api/package.json'
 const imxClient = 'apps/api/src/imx/client.ts'
 const imxCollectionOnboarding = 'apps/api/src/imx/onboarding/3-create-collection.ts'
 const sharedJsonRequest = 'apps/api/src/utils/request-json.ts'
+const apiNativeFetchSources = [
+  'apps/api/src/classes/minty.ts',
+  'apps/api/src/utils/api.ts',
+  'apps/api/src/utils/imageGenerator.ts',
+  'apps/api/src/utils/nftl.ts',
+  'apps/api/src/utils/refreshMetadata.ts',
+]
 const appManifest = 'apps/app/package.json'
 const appGasUtility = 'apps/app/src/utils/gas.ts'
 const retiredAxiosUtility = 'apps/app/src/utils/axios.ts'
@@ -209,6 +216,19 @@ describe('app performance contracts', () => {
       expect(readFileSync(file, 'utf8')).not.toContain("from 'axios'")
     }
     expect(readFileSync(sharedJsonRequest, 'utf8')).toContain('globalThis.fetch')
+  })
+
+  it('keeps API runtime requests on Node native fetch', () => {
+    const manifest = JSON.parse(readFileSync(apiManifest, 'utf8'))
+
+    expect(manifest.dependencies?.['node-fetch']).toBeUndefined()
+    for (const file of apiNativeFetchSources) {
+      expect(readFileSync(file, 'utf8')).not.toContain("from 'node-fetch'")
+    }
+
+    expect(readFileSync('apps/api/src/utils/imageGenerator.ts', 'utf8')).toContain(
+      'Readable.fromWeb'
+    )
   })
 
   it('keeps lint traversal off generated framework output', () => {

@@ -1,4 +1,3 @@
-import fetch from 'node-fetch'
 import { config } from 'node-config-ts'
 import type { ContractName, TargetNetwork } from '@/types'
 import { DEGEN_CONTRACT_NAME } from '@/constants/contracts'

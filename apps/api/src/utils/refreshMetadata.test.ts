@@ -1,9 +1,10 @@
-import { beforeEach, describe, expect, it, mock, spyOn } from 'bun:test'
+import { afterAll, beforeEach, describe, expect, it, mock, spyOn } from 'bun:test'
 
 const fetchMock = mock()
 const getContractAddressMock = mock(() => '0xcontract')
 
-mock.module('node-fetch', () => ({ default: fetchMock }))
+const originalFetch = globalThis.fetch
+globalThis.fetch = fetchMock as unknown as typeof globalThis.fetch
 mock.module('node-config-ts', () => ({
   config: {
     eth: { opensea: 'opensea-key' },
@@ -27,6 +28,10 @@ mock.module('./constants/metadata/degens', () => ({
 }))
 
 import { refreshImmutable, refreshOpenSea } from './refreshMetadata'
+
+afterAll(() => {
+  globalThis.fetch = originalFetch
+})
 
 function response(status: number, statusText = '') {
   return {
