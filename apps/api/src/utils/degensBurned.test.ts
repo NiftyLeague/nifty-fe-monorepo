@@ -1,11 +1,12 @@
-import { beforeEach, describe, expect, it, mock, spyOn } from 'bun:test'
+import { afterAll, beforeEach, describe, expect, it, mock, spyOn } from 'bun:test'
 
 const fetchMock = mock().mockResolvedValue({
   json: async () => ({ ownedNfts: [], pageKey: undefined }),
 })
 const sleepMock = mock().mockResolvedValue(undefined)
 
-mock.module('node-fetch', () => ({ default: fetchMock }))
+const originalFetch = globalThis.fetch
+globalThis.fetch = fetchMock as unknown as typeof globalThis.fetch
 mock.module('node-config-ts', () => ({
   config: {
     eth: { network: 'mainnet', alchemy: { mainnet: 'alchemy-key' } },
@@ -16,6 +17,10 @@ mock.module('./api', () => ({
   sleep: sleepMock,
   withCache: (_ttl: number, fn: () => unknown) => fn,
 }))
+
+afterAll(() => {
+  globalThis.fetch = originalFetch
+})
 
 import { fetchBurnedDegens } from './degensBurned'
 

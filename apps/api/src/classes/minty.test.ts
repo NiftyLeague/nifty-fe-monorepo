@@ -1,5 +1,5 @@
 import { CID } from 'multiformats/cid'
-import { beforeEach, describe, expect, it, mock } from 'bun:test'
+import { afterAll, beforeEach, describe, expect, it, mock } from 'bun:test'
 
 const mockAdd = mock<() => Promise<any>>()
 const mockCat = mock()
@@ -32,9 +32,8 @@ mock.module('node-config-ts', () => ({
   },
 }))
 
-mock.module('node-fetch', () => ({
-  default: mockFetch,
-}))
+const originalFetch = globalThis.fetch
+globalThis.fetch = mockFetch as unknown as typeof globalThis.fetch
 
 mock.module('@/contracts', () => ({
   getContractFactory: mock<() => Promise<null>>().mockResolvedValue(null),
@@ -51,6 +50,10 @@ mock.module('@/utils/uploadToS3', () => ({
 const SAMPLE_CID = 'bafybeih75ntopwuggljajz3p2y2mh2ylxfv6joqlbvo2wxtabxkxm6igaa'
 
 const { Minty } = await import('./minty')
+
+afterAll(() => {
+  globalThis.fetch = originalFetch
+})
 
 function makeMinty() {
   return new Minty('mainnet', 'NiftyDegen')

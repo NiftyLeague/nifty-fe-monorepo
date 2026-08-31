@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, mock } from 'bun:test'
+import { afterAll, beforeEach, describe, expect, it, mock } from 'bun:test'
 
 const mockFetch = mock<() => Promise<any>>()
 const mockGetContractFactory = mock<() => Promise<any>>()
@@ -16,9 +16,8 @@ mock.module('node-config-ts', () => ({
   config: mockConfig,
 }))
 
-mock.module('node-fetch', () => ({
-  default: mockFetch,
-}))
+const originalFetch = globalThis.fetch
+globalThis.fetch = mockFetch as unknown as typeof globalThis.fetch
 
 mock.module('@/contracts', () => ({
   getContractFactory: mockGetContractFactory,
@@ -35,6 +34,10 @@ const {
   resolveTotalSupplyImpl,
   resolveMaxSupplyImpl,
 } = await import('./nftl')
+
+afterAll(() => {
+  globalThis.fetch = originalFetch
+})
 
 // The exported resolvers are memoized (withCache) for production resilience;
 // the *Impl variants are the raw implementations, which is what this unit suite
