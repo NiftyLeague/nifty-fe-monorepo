@@ -17,6 +17,7 @@ export interface DegenCardProps {
   isSelectableDegen?: boolean
   isSelected?: boolean
   isSelectionDisabled?: boolean
+  deferAnimatedMedia?: boolean
   favs?: string[]
   onClickClaim?: React.MouseEventHandler<HTMLButtonElement>
   onClickDetail?: React.MouseEventHandler<HTMLButtonElement>
@@ -34,6 +35,7 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
     isSelectableDegen = false,
     isSelected = false,
     isSelectionDisabled = false,
+    deferAnimatedMedia = false,
     size = 'normal',
     sx,
     onClickClaim,
@@ -51,7 +53,13 @@ const DegenCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<DegenC
         className="h-full w-full gap-0 border py-0 pb-2"
         style={sx as React.CSSProperties | undefined}
       >
-        {id && <DegenImage tokenId={id} sx={{ width: '100%', maxWidth: '100%' }} />}
+        {id && (
+          <DegenImage
+            tokenId={id}
+            deferAnimation={deferAnimatedMedia}
+            sx={{ width: '100%', maxWidth: '100%' }}
+          />
+        )}
         <CardContent className="px-2 py-2">
           <div className="group flex flex-row justify-between gap-2">
             <div className="flex">

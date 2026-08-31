@@ -7,7 +7,11 @@ let DegenCard: typeof import('./index').default
 
 beforeEach(async () => {
   mock.module('./DegenImage', () => ({
-    default: ({ tokenId }: { tokenId: string }) => <div data-testid="degen-image">{tokenId}</div>,
+    default: ({ tokenId, deferAnimation }: { tokenId: string; deferAnimation?: boolean }) => (
+      <div data-testid="degen-image" data-defer-animation={String(Boolean(deferAnimation))}>
+        {tokenId}
+      </div>
+    ),
   }))
   DegenCard = (await import('./index')).default
 })
@@ -38,5 +42,11 @@ describe('DegenCard', () => {
     expect(marketplaceLink.tagName).toBe('A')
     expect(marketplaceLink.getAttribute('target')).toBe('_blank')
     expect(marketplaceLink.getAttribute('rel')).toBe('nofollow')
+  })
+
+  it('forwards deferred animation only to public media when requested', () => {
+    render(<DegenCard degen={publicDegen} deferAnimatedMedia />)
+
+    expect(screen.getByTestId('degen-image').getAttribute('data-defer-animation')).toBe('true')
   })
 })
