@@ -19,7 +19,7 @@ interface RoadmapCardProps {
   divider?: boolean
   image?: {
     src: string
-    webpSrc?: string
+    posterSrc?: string
     width: number
     height: number
     style: { top: string; right?: string }
@@ -59,9 +59,9 @@ const RoadmapCard = ({
 
     {image && (
       <div className={styles.timeline_content_img} style={image.style}>
-        {image.src.endsWith('.gif') && image.webpSrc ? (
+        {image.src.endsWith('.gif') && image.posterSrc ? (
           <DeferredAnimatedImage
-            src={image.webpSrc}
+            src={image.posterSrc}
             animatedSrc={image.src}
             animatedType="image/gif"
             alt={`${title?.toString()}`}
@@ -73,7 +73,8 @@ const RoadmapCard = ({
         ) : (
           <AnimatedImage
             src={image.src}
-            webpSrc={image.webpSrc}
+            animatedSrc={image.posterSrc}
+            animatedType="image/webp"
             unoptimized={image.src.includes('gif')}
             alt={`${title?.toString()}`}
             width={image.width}

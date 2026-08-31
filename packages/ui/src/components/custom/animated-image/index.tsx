@@ -14,10 +14,6 @@ type AnimatedImageProps = Omit<React.ComponentProps<'img'>, 'src' | 'loading'> &
   sizes?: string
   src: string
   unoptimized?: boolean
-  /** @deprecated Use animatedMedia with animatedSrc for new callers. */
-  webpMedia?: string
-  /** @deprecated Use animatedSrc for new callers. */
-  webpSrc?: string
 }
 
 /**
@@ -29,8 +25,6 @@ export function AnimatedImage({
   animatedMedia,
   animatedSrc,
   animatedType,
-  webpMedia,
-  webpSrc,
   ...props
 }: AnimatedImageProps) {
   const {
@@ -45,9 +39,9 @@ export function AnimatedImage({
     ...imageProps
   } = props
   const resolvedLoading = priority ? 'eager' : (loading ?? 'lazy')
-  const source = animatedSrc ?? webpSrc
-  const sourceMedia = animatedMedia ?? webpMedia
-  const sourceType = animatedType ?? (webpSrc ? 'image/webp' : undefined)
+  const source = animatedSrc
+  const sourceMedia = animatedMedia
+  const sourceType = animatedType
   const pictureStyle: CSSProperties | undefined = fill
     ? { position: 'absolute', inset: 0, display: 'block' }
     : undefined

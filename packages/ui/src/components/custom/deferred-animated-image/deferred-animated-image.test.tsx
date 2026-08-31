@@ -40,8 +40,9 @@ describe('DeferredAnimatedImage', () => {
     const { container } = render(
       <DeferredAnimatedImage
         src="/poster.webp"
-        webpSrc="/animation.webp"
-        webpMedia="(prefers-reduced-motion: no-preference)"
+        animatedSrc="/animation.webp"
+        animatedType="image/webp"
+        animatedMedia="(prefers-reduced-motion: no-preference)"
         alt="Party modes"
         width={1350}
         height={566}
@@ -64,8 +65,9 @@ describe('DeferredAnimatedImage', () => {
     const { container } = render(
       <DeferredAnimatedImage
         src="/poster.webp"
-        webpSrc="/animation.webp"
-        webpMedia="(prefers-reduced-motion: no-preference)"
+        animatedSrc="/animation.webp"
+        animatedType="image/webp"
+        animatedMedia="(prefers-reduced-motion: no-preference)"
         alt="Party modes"
         width={1350}
         height={566}
