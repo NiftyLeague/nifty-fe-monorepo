@@ -2,6 +2,7 @@ export interface NiftyGame {
   name: string
   description: string
   video: string
+  poster?: string
   tag: string
   action: {
     title?: string
@@ -29,6 +30,7 @@ export const NIFTY_GAMES: NiftyGame[] = [
     description:
       'A virtual social hub like none other for gamers. The vision is for NiftyWorld to be a dynamic and interoperable platform for developers to create their own games, ensuring a wide variety of immersive experiences for players.',
     video: '/video/mansion_showcase.mp4',
+    poster: '/img/games/video-posters/niftyworld.webp',
     tag: 'METAVERSE',
     action: { secondaryTitle: 'LEARN MORE', secondaryLink: '/niftyworld', isComingSoon: true },
   },
@@ -37,6 +39,7 @@ export const NIFTY_GAMES: NiftyGame[] = [
     description:
       "One of the first games we'd like to introduce to NiftyWorld is a fun battle royale, codename 'GEM HUNTER'. Development kicked off in August 2023 with help from an external game studio as part of our test run transitioning to a DAO and polishing our public services/SDK.",
     video: '/video/arcade-token.mp4',
+    poster: '/img/games/video-posters/nifty-royale.webp',
     tag: 'MOBILE / PC GAME',
     action: {
       title: 'PLAYTEST EARLY-ACCESS!',
@@ -48,6 +51,7 @@ export const NIFTY_GAMES: NiftyGame[] = [
     name: 'WEN GAME',
     description: `Never thought you'd see a batting cage on the blockchain huh? Think again. Put your baseball team cap on and get ready to hit the balls in the WEN game for your first blockchain home run. Easy to pick up, difficult to master. Wen lambo?!`,
     video: '/video/wen-ape.mp4',
+    poster: '/img/games/video-posters/wen-game.webp',
     tag: 'MINI-GAME',
     action: {
       title: 'SWING AWAY!',
@@ -59,6 +63,7 @@ export const NIFTY_GAMES: NiftyGame[] = [
     name: 'CRYPTO WINTER',
     description: `The crypto market is currently going through an extended winter season, and only few will survive until the next cycle. Dodge snowballs, bombs and icicles and utilise pickups to defeat Pengweevil to achieve a seat at the ranking table. Weak hands need not apply, diamond hands only!`,
     video: '/video/crypto-winter.mp4',
+    poster: '/img/games/video-posters/crypto-winter.webp',
     tag: 'MINI-GAME',
     action: {
       title: 'START PLAYING!',
@@ -71,6 +76,7 @@ export const NIFTY_GAMES: NiftyGame[] = [
     description:
       "No DEGEN story is ever complete without a kickass lore behind it. DEGENs come here while the volcano is active to sink NFTL and watch the volcano roar, belching molten lava in response. It would be cute if it wasn't so scary.",
     video: '/video/rugmans-peak.mp4',
+    poster: '/img/games/video-posters/mt-gawx.webp',
     tag: 'MINI-GAME',
     action: {
       title: 'MOUNTAIN CLOSED',
