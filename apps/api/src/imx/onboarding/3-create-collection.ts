@@ -1,8 +1,8 @@
-import axios from 'axios'
 import { config } from 'node-config-ts'
 import { generateIMXAuthorisationHeaders } from '@/utils/sign'
 import type { TargetNetwork } from '@/types'
 import { getWallet } from '@/utils/wallet'
+import { requestJson } from '@/utils/request-json'
 
 const network = config.eth.network as TargetNetwork
 
@@ -35,12 +35,14 @@ const network = config.eth.network as TargetNetwork
     'x-immutable-api-key': apiKey,
   }
 
-  const resp = await axios.post(`${client.publicApiUrl}/collections`, createCollectionRequest, {
+  const data = await requestJson<unknown>(`${client.publicApiUrl}/collections`, {
+    body: createCollectionRequest,
     headers,
+    method: 'POST',
   })
 
   console.log('✅ Created collection!')
-  console.log(JSON.stringify(resp.data, null, 2))
+  console.log(JSON.stringify(data, null, 2))
   console.groupEnd()
 })().catch((e) => {
   console.error(`❌ ${e} - ${e.response?.data?.message}`)
