@@ -30,6 +30,7 @@ Earned from burning Comic Page #6
 
 <ViewportVideo
 controls
+deferLoad
 playOnViewport={false}
 src={VideoURL1}
 style={{ display: 'block', width: '100%', height: 500 }}
@@ -41,6 +42,7 @@ Earned from burning a full-set of all 6 pages
 
 <ViewportVideo
 controls
+deferLoad
 playOnViewport={false}
 src={VideoURL2}
 style={{ display: 'block', width: '100%', height: 500 }}
