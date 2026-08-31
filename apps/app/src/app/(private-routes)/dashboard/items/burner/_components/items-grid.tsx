@@ -42,7 +42,8 @@ export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
           <div key={item.id}>
             <AnimatedImage
               src={item.image}
-              webpSrc={item.imageWebp}
+              animatedSrc={item.imageWebp}
+              animatedType="image/webp"
               alt={item.name}
               loading="lazy"
               width={98}
@@ -62,7 +63,8 @@ export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
       <div style={{ textAlign: 'center' }}>
         <AnimatedImage
           src="/img/items/full/7.gif"
-          webpSrc="/img/items/full/7.webp"
+          animatedSrc="/img/items/full/7.webp"
+          animatedType="image/webp"
           unoptimized
           alt="CITADEL KEY"
           loading="lazy"

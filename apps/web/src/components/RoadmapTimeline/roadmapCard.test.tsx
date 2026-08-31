@@ -65,7 +65,7 @@ describe('RoadmapCard', () => {
         body={<p>Details</p>}
         image={{
           src: '/img/games/wen.gif',
-          webpSrc: '/img/games/wen-roadmap-poster.webp',
+          posterSrc: '/img/games/wen-roadmap-poster.webp',
           width: 200,
           height: 120,
           style: { top: '-80px' },

@@ -12,7 +12,8 @@ describe('AnimatedImage', () => {
     const { container } = render(
       <AnimatedImage
         src="/img/items/full/1.gif"
-        webpSrc="/img/items/full/1.webp"
+        animatedSrc="/img/items/full/1.webp"
+        animatedType="image/webp"
         alt="Cape"
         width={98}
         height={98}
@@ -35,7 +36,8 @@ describe('AnimatedImage', () => {
     const { container } = render(
       <AnimatedImage
         src="/img/items/full/1.gif"
-        webpSrc="/img/items/full/1.webp"
+        animatedSrc="/img/items/full/1.webp"
+        animatedType="image/webp"
         alt="Cape"
         width={98}
         height={98}
