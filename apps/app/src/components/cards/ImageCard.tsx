@@ -37,7 +37,8 @@ const ImageCard = ({ image, imageWebp, thumbnail, title, ratio }: ImageCardProps
           <AnimatedImage
             onLoad={handleImageOnLoad}
             src={image}
-            webpSrc={imageWebp}
+            animatedSrc={imageWebp}
+            animatedType="image/webp"
             alt={title}
             fill
             sizes="(max-width: 1023px) 100vw, 345px"
