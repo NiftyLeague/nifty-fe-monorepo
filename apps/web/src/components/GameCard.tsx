@@ -19,7 +19,7 @@ interface GameCardProps {
 }
 
 export default function GameCard({ game, index }: GameCardProps) {
-  const { name, description, video, tag, action } = game
+  const { name, description, video, poster, tag, action } = game
 
   return (
     <article className="flex flex-col-reverse md:flex-row relative mb-8">
@@ -79,6 +79,7 @@ export default function GameCard({ game, index }: GameCardProps) {
               playsInline
               data-keepplaying
               className={styles.video}
+              poster={poster}
               src={video}
             />
           )}
