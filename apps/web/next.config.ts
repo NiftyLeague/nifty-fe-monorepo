@@ -16,12 +16,7 @@ const nextConfig: NextConfig = {
     // Inline the small Tailwind-generated route styles so first-time visitors
     // can render the hero without a render-blocking CSS request.
     inlineCss: true,
-    // Reuse compatible Turbopack output across local builds and Git worktrees.
-    // This keeps branch validation from recompiling the entire site from scratch.
-    turbopackFileSystemCacheForBuild: true,
-    turbopackSeedCacheFromWorktree: true,
   },
-  turbopack: {},
   images: {
     formats: ['image/avif', 'image/webp'],
     qualities: [60, 65, 75],
