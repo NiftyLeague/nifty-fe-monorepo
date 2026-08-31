@@ -34,7 +34,6 @@
   "dependencies": {
     "@nl/contracts": "workspace:*",
     "@aws-sdk/client-s3": "^3.1105.0",
-    "axios": "^1.19.0",
     "bn.js": "^5.2.5",
     "body-parser": "^2.3.0",
     "chalk": "^6.0.0",

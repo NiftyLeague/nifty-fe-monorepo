@@ -21,13 +21,13 @@
  *   stark  = grindKey(child.privateKey)
  */
 import crypto from 'crypto'
-import axios from 'axios'
 import { keccak256, toUtf8Bytes, HDNodeWallet } from 'ethers'
 import type { Signer } from 'ethers'
 import { ec } from 'starknet'
 
 import { getWallet } from '@/utils/wallet'
 import { generateIMXAuthorisationHeaders } from '@/utils/sign'
+import { requestJson } from '@/utils/request-json'
 
 const starkCurve = ec.starkCurve
 
@@ -133,8 +133,7 @@ export interface ImxMintResult {
  * Fetch an existing IMX user (throws if not found, mirroring the SDK).
  */
 export async function getUser(apiUrl: string, address: string): Promise<ImxUser> {
-  const resp = await axios.get(`${apiUrl}/users/${address.toLowerCase()}`)
-  return resp.data
+  return requestJson<ImxUser>(`${apiUrl}/users/${address.toLowerCase()}`)
 }
 
 /**
@@ -160,10 +159,10 @@ export async function registerUser(apiUrl: string, signer: Signer): Promise<ImxU
     eth_signature: ethSignature,
   }
 
-  const resp = await axios.post(`${apiUrl}/users`, JSON.stringify(body), {
-    headers: { 'Content-type': 'application/json' },
+  return requestJson<ImxUser>(`${apiUrl}/users`, {
+    body,
+    method: 'POST',
   })
-  return resp.data
 }
 
 export interface ImxMintV2Params {
@@ -204,11 +203,12 @@ export async function mintV2(
     auth_signature: authSignature,
   }
 
-  const resp = await axios.post(`${apiUrl}/mints`, JSON.stringify(signedPayload), {
-    headers: { 'Content-type': 'application/json' },
-    params: { version: 'v2' },
+  const url = new URL(`${apiUrl}/mints`)
+  url.searchParams.set('version', 'v2')
+  return requestJson<ImxMintResult>(url, {
+    body: signedPayload,
+    method: 'POST',
   })
-  return resp.data
 }
 
 export interface MetadataProperty {
@@ -227,19 +227,15 @@ export async function addMetadataSchemaToCollection(
   apiKey: string
 ): Promise<unknown> {
   const { timestamp, signature } = await generateIMXAuthorisationHeaders(getWallet())
-  const resp = await axios.post(
-    `${apiUrl}/collections/${collectionAddress}/metadata-schema`,
-    { metadata },
-    {
-      headers: {
-        'Content-type': 'application/json',
-        'imx-timestamp': timestamp,
-        'imx-signature': signature,
-        'x-immutable-api-key': apiKey,
-      },
-    }
-  )
-  return resp.data
+  return requestJson<unknown>(`${apiUrl}/collections/${collectionAddress}/metadata-schema`, {
+    body: { metadata },
+    headers: {
+      'imx-timestamp': timestamp,
+      'imx-signature': signature,
+      'x-immutable-api-key': apiKey,
+    },
+    method: 'POST',
+  })
 }
 
 /**
@@ -254,17 +250,16 @@ export async function updateMetadataSchemaByName(
   apiKey: string
 ): Promise<unknown> {
   const { timestamp, signature } = await generateIMXAuthorisationHeaders(getWallet())
-  const resp = await axios.patch(
+  return requestJson<unknown>(
     `${apiUrl}/collections/${collectionAddress}/metadata-schema/${name}`,
-    params,
     {
+      body: params,
       headers: {
-        'Content-type': 'application/json',
         'imx-timestamp': timestamp,
         'imx-signature': signature,
         'x-immutable-api-key': apiKey,
       },
+      method: 'PATCH',
     }
   )
-  return resp.data
 }
