@@ -1,5 +1,4 @@
 import { config } from 'node-config-ts'
-import fetch from 'node-fetch'
 
 import { CHAIN_ID, NFTL_ADDRESS, NFTL_CONTRACT_NAME } from '@/constants/contracts'
 import { getContractFactory } from '@/contracts'
