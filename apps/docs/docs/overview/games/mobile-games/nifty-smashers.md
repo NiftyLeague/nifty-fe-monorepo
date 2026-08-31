@@ -115,7 +115,7 @@ All DEGEN tribes have a Special Ability (”SA”), which are consistent across 
 
 For an in-depth overview of the games progression system read our [Pregression Doc](https://docs.google.com/document/d/160WTUFqiL4oyap0x0Zf1rM9zxQGBCIGQbrWxF_604bM/edit?usp=sharing)
 
-<ViewportVideo playsInline src={VideoURL} style={{ display: 'block', width: '100%', height: 500 }} />
+<ViewportVideo deferLoad playsInline src={VideoURL} style={{ display: 'block', width: '100%', height: 500 }} />
 
 ---
 

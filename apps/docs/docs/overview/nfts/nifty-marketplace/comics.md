@@ -28,6 +28,7 @@ In addition, all [Meta background](/overview/nfts/degens/backgrounds) DEGENs rec
 
 <ViewportVideo
 controls
+deferLoad
 playOnViewport={false}
 src={VideoURL1}
 style={{ display: 'block', width: '100%', height: 500 }}
