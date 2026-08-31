@@ -5,6 +5,10 @@ import { join } from 'node:path'
 const responsiveTableList = 'apps/app/src/components/ResponsiveTable/DataList.tsx'
 const rootManifest = 'package.json'
 const turboConfig = 'turbo.json'
+const apiManifest = 'apps/api/package.json'
+const imxClient = 'apps/api/src/imx/client.ts'
+const imxCollectionOnboarding = 'apps/api/src/imx/onboarding/3-create-collection.ts'
+const sharedJsonRequest = 'apps/api/src/utils/request-json.ts'
 const appManifest = 'apps/app/package.json'
 const appGasUtility = 'apps/app/src/utils/gas.ts'
 const retiredAxiosUtility = 'apps/app/src/utils/axios.ts'
@@ -197,6 +201,16 @@ const appStylesheets = [
 ]
 
 describe('app performance contracts', () => {
+  it('keeps IMX REST calls on the native JSON fetch helper', () => {
+    const manifest = JSON.parse(readFileSync(apiManifest, 'utf8'))
+
+    expect(manifest.dependencies?.axios).toBeUndefined()
+    for (const file of [imxClient, imxCollectionOnboarding]) {
+      expect(readFileSync(file, 'utf8')).not.toContain("from 'axios'")
+    }
+    expect(readFileSync(sharedJsonRequest, 'utf8')).toContain('globalThis.fetch')
+  })
+
   it('keeps lint traversal off generated framework output', () => {
     const source = readFileSync(sharedEslintConfig, 'utf8')
 
