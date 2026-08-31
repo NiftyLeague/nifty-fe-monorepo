@@ -584,6 +584,29 @@ describe('website build performance contract', () => {
     expect(source.slice(videoBlockStart, videoStart)).toContain('deferLoad')
   })
 
+  it('defers the large marketing hero videos while keeping their backdrops eager', () => {
+    const heroVideoRoutes = [
+      ['apps/web/src/app/(main)/degens/page.tsx', '/video/unboxing.mp4'],
+      ['apps/web/src/app/(main)/niftyworld/page.tsx', '/video/mansion_showcase.mp4'],
+    ] as const
+
+    for (const [file, videoSource] of heroVideoRoutes) {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+      const videoStart = source.indexOf(`src="${videoSource}"`)
+      const videoBlockStart = source.lastIndexOf('<DeferredConsoleGame', videoStart)
+      const backdropStart = source.indexOf('<ConsoleGameBackdrop', videoBlockStart)
+      const backdropEnd = source.indexOf('/>', backdropStart)
+      const videoBlock = source.slice(videoBlockStart, backdropEnd)
+
+      expect(videoStart).toBeGreaterThan(-1)
+      expect(backdropStart).toBeGreaterThan(videoBlockStart)
+      expect(backdropEnd).toBeGreaterThan(backdropStart)
+      expect(videoBlock).toContain('deferVideo')
+      expect(videoBlock).toContain('<DeferredConsoleGame')
+      expect(videoBlock).toContain('loading="eager"')
+    }
+  })
+
   it('eagerly loads the mobile games hero artwork without elevating secondary media', () => {
     const source = readFileSync(
       join(process.cwd(), 'apps/web/src/app/(main)/games/page.tsx'),
