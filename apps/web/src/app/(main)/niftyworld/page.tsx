@@ -53,6 +53,7 @@ const NiftyWorld: NextPage = () => {
                 playsInline
                 data-keepplaying
                 deferLoad
+                poster="/img/games/video-posters/nifty-royale.webp"
                 src="/video/arcade-token.mp4"
               />
             </div>
