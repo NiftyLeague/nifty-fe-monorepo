@@ -32,6 +32,19 @@ describe('shared docs media policy', () => {
     }
   })
 
+  it('defers every documentation video until after viewport activation settles', () => {
+    for (const page of docsMediaPages) {
+      const source = readFileSync(page, 'utf8')
+      const videoBlocks = [...source.matchAll(/<ViewportVideo\b[\s\S]*?\/>/g)].map(
+        ([block]) => block
+      )
+
+      for (const videoBlock of videoBlocks) {
+        expect(videoBlock).toContain('deferLoad')
+      }
+    }
+  })
+
   it('gates the Mint-O-Matic animation behind motion preference with a static fallback', () => {
     const source = readFileSync(docsPage, 'utf8')
 
