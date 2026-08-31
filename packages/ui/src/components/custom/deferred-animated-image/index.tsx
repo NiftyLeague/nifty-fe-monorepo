@@ -10,7 +10,7 @@ export const DEFAULT_DEFERRED_ANIMATED_IMAGE_ROOT_MARGIN = '160px'
 
 export type DeferredAnimatedImageProps = Omit<
   ComponentProps<typeof AnimatedImage>,
-  'animatedSrc' | 'webpSrc'
+  'animatedSrc' | 'animatedType' | 'animatedMedia'
 > & {
   /** Load the animated source this many pixels before it enters the viewport. */
   rootMargin?: string
@@ -24,10 +24,6 @@ export type DeferredAnimatedImageProps = Omit<
   animatedSrc?: string
   animatedType?: string
   animatedMedia?: string
-  /** @deprecated Use animatedSrc for new callers. */
-  webpSrc?: string
-  /** @deprecated Use animatedMedia for new callers. */
-  webpMedia?: string
 }
 
 /**
@@ -43,22 +39,16 @@ export const DeferredAnimatedImage = memo(function DeferredAnimatedImage({
   animatedSrc,
   animatedType,
   rootMargin = DEFAULT_DEFERRED_ANIMATED_IMAGE_ROOT_MARGIN,
-  webpMedia,
-  webpSrc,
   ...imageProps
 }: DeferredAnimatedImageProps) {
   const imageRef = useRef<HTMLDivElement>(null)
   const isNearViewport = useOnScreen(imageRef, rootMargin, { once: true })
-  const deferredSrc = animatedSrc ?? webpSrc
-  const deferredMedia = animatedMedia ?? webpMedia
-  const deferredType =
-    animatedType ?? (animatedSrc ? undefined : webpSrc ? 'image/webp' : undefined)
   const isAnimationActivated = useDeferredActivation({
     delay: activationDelay,
-    enabled: deferAnimation && isNearViewport && Boolean(deferredSrc),
+    enabled: deferAnimation && isNearViewport && Boolean(animatedSrc),
   })
   const shouldAttachAnimatedSource =
-    isNearViewport && (!deferredSrc || !deferAnimation || isAnimationActivated)
+    isNearViewport && (!animatedSrc || !deferAnimation || isAnimationActivated)
 
   return (
     <div
@@ -69,9 +59,9 @@ export const DeferredAnimatedImage = memo(function DeferredAnimatedImage({
     >
       <AnimatedImage
         {...imageProps}
-        animatedMedia={deferredMedia}
-        animatedSrc={shouldAttachAnimatedSource ? deferredSrc : undefined}
-        animatedType={deferredType}
+        animatedMedia={animatedMedia}
+        animatedSrc={shouldAttachAnimatedSource ? animatedSrc : undefined}
+        animatedType={animatedType}
       />
     </div>
   )
