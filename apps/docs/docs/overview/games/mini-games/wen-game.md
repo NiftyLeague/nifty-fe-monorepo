@@ -9,6 +9,7 @@ import VideoURL from '/video/wen-ape.mp4';
 
 <ViewportVideo
 controls
+deferLoad
 playOnViewport={false}
 playsInline
 src={VideoURL}
