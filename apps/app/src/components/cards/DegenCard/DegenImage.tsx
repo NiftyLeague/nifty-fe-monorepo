@@ -1,4 +1,5 @@
 import { memo } from 'react'
+import DeferredAnimatedImage from '@nl/ui/custom/deferred-animated-image'
 import NativeImage from '@nl/ui/custom/native-image'
 import { LEGGIES } from '@/constants/degens'
 const IMAGE_HEIGHT = 320
@@ -8,21 +9,21 @@ const DegenImage = memo(
     tokenId,
     sx,
     loading = 'lazy',
+    deferAnimation = false,
   }: {
     tokenId: string | number
     sx?: React.CSSProperties
     loading?: 'eager' | 'lazy'
+    deferAnimation?: boolean
   }) => {
     const imageURL = `/img/degens/nfts/${tokenId}`
 
     const sxHeight =
       sx && typeof sx === 'object' && 'height' in sx ? (sx.height as string | number) : undefined
     const imageHeight = sxHeight ?? IMAGE_HEIGHT
-    let image = `${imageURL}.webp`
-
-    if (LEGGIES.includes(Number(tokenId))) {
-      image = `${imageURL}.gif`
-    }
+    const isAnimated = LEGGIES.includes(Number(tokenId))
+    const poster = `${imageURL}.webp`
+    const image = isAnimated ? `${imageURL}.gif` : poster
 
     const handleImageError = (
       e: React.SyntheticEvent<HTMLImageElement | HTMLVideoElement, Event>
@@ -32,20 +33,32 @@ const DegenImage = memo(
       target.src = '/img/degens/unavailable-image.webp'
     }
 
-    return (
-      <NativeImage
-        className="pixelated"
-        src={image}
-        alt={`Degen #${tokenId}`}
-        width={584}
-        height={640}
-        loading={loading}
-        decoding="async"
-        unoptimized={image.endsWith('.gif')}
-        style={{ objectFit: 'cover', height: imageHeight, ...sx }}
-        onError={handleImageError}
-      />
-    )
+    const imageProps = {
+      className: 'pixelated',
+      alt: `Degen #${tokenId}`,
+      width: 584,
+      height: 640,
+      loading,
+      decoding: 'async' as const,
+      style: { objectFit: 'cover' as const, height: imageHeight, ...sx },
+      onError: handleImageError,
+    }
+
+    if (isAnimated && deferAnimation) {
+      return (
+        <DeferredAnimatedImage
+          {...imageProps}
+          src={poster}
+          animatedSrc={image}
+          animatedType="image/gif"
+          deferAnimation
+          activationDelay={1000}
+          containerClassName="block"
+        />
+      )
+    }
+
+    return <NativeImage {...imageProps} src={image} unoptimized={isAnimated} />
   }
 )
 
