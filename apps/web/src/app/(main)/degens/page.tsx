@@ -11,7 +11,7 @@ import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 const Degens: NextPage = () => (
   <>
     <section className="relative xl:-top-20 2xl:-top-35">
-      <DeferredConsoleGame src="/video/unboxing.mp4">
+      <DeferredConsoleGame deferVideo src="/video/unboxing.mp4">
         <ConsoleGameBackdrop loading="eager" />
       </DeferredConsoleGame>
     </section>
