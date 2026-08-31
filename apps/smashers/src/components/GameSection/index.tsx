@@ -45,8 +45,9 @@ const GameSection = () => {
       </div>
       <DeferredAnimatedImage
         containerClassName="my-10 block text-center transition-fade-slow"
-        webpSrc="/img/games/smashers/party_modes.webp"
-        webpMedia="(prefers-reduced-motion: no-preference)"
+        animatedSrc="/img/games/smashers/party_modes.webp"
+        animatedType="image/webp"
+        animatedMedia="(prefers-reduced-motion: no-preference)"
         src="/img/games/smashers/party_modes-poster.webp"
         alt="Smashers Party Modes"
         width={1350}
