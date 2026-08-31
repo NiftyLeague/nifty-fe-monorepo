@@ -11,7 +11,7 @@ const NiftyWorld: NextPage = () => {
   return (
     <>
       <section className="relative xl:-top-20 2xl:-top-35">
-        <DeferredConsoleGame src="/video/mansion_showcase.mp4">
+        <DeferredConsoleGame deferVideo src="/video/mansion_showcase.mp4">
           <ConsoleGameBackdrop loading="eager" />
         </DeferredConsoleGame>
 
