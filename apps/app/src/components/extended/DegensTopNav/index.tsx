@@ -35,7 +35,7 @@ const DegensTopNav = ({
   layoutMode,
   handleChangeLayoutMode,
 }: DegensTopNavProps) => (
-  <div className="flex flex-col gap-2 sm:flex-row">
+  <div className="flex flex-col gap-2 sm:flex-row sm:items-end">
     <div className="grid flex-1 gap-2">
       <Label htmlFor="search-degen-by-token-id-name">Search degens by token # or name</Label>
       <Input
