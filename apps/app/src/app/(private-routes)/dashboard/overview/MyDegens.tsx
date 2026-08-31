@@ -142,6 +142,7 @@ const MyDegens = (): React.ReactNode => {
             <div className="px-1" key={degen.id}>
               <DegenCard
                 degen={degen}
+                deferAnimatedMedia
                 favs={favDegens}
                 isDashboardDegen
                 onClickClaim={() => handleClaimDegen(degen)}

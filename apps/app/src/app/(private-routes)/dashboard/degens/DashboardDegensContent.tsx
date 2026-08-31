@@ -233,6 +233,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
       <div key={degen.id} className={getGridSizeClass(isGridView, isDrawerOpen)}>
         <DegenCard
           degen={degen}
+          deferAnimatedMedia
           favs={favDegens}
           isDashboardDegen
           onClickClaim={() => handleClaimDegen(degen)}
