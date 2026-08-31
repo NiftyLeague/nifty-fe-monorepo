@@ -9,6 +9,11 @@ const runtimeSource = source.replace(
 )
 
 describe('staging re-alignment workflow', () => {
+  it('runs only for main pushes and manual recovery', () => {
+    expect(source).toContain('on:\n  push:\n    branches: [main]\n  workflow_dispatch:')
+    expect(source).not.toContain('  schedule:')
+  })
+
   it('defers reconciliation while a staging promotion PR is open', () => {
     expect(source).toContain('PROMOTION_PR=$(gh pr list')
     expect(source).toContain('--base main')

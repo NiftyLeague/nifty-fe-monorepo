@@ -3,10 +3,6 @@ name: Re-align Staging
 on:
   push:
     branches: [main]
-  schedule:
-    # Every 30 minutes, catch drift pushed to main outside the promotion flow
-    # (security advisories, code-foundry sync commits, dependabot, etc).
-    - cron: '*/30 * * * *'
   workflow_dispatch:
 
 permissions:
