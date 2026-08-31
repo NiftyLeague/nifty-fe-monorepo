@@ -6,6 +6,7 @@ const deferredBackgroundSource = 'apps/smashers/src/components/Header/DeferredHe
 const deferredAnimationSource = 'assets/scripts/smashers-hero-animation.js'
 const gameSectionSource = 'apps/smashers/src/components/GameSection/index.tsx'
 const rocketVideo = 'assets/video/rocket.mp4'
+const rocketPoster = 'assets/img/games/smashers/rocket-poster.webp'
 const heroPoster = 'assets/img/games/smashers/background-poster.webp'
 
 const assets = [
@@ -68,6 +69,9 @@ describe('Smashers asset delivery contracts', () => {
     const gameSection = readFileSync(gameSectionSource, 'utf8')
 
     expect(gameSection).toContain('src="/video/rocket.mp4"')
+    expect(gameSection).toContain('deferLoad')
+    expect(gameSection).toContain('rocket-poster.webp')
     expect(statSync(rocketVideo).size).toBeLessThan(2_000_000)
+    expect(statSync(rocketPoster).size).toBeLessThan(statSync(rocketVideo).size / 10)
   })
 })

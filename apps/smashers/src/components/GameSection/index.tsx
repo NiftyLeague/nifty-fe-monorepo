@@ -32,10 +32,12 @@ const GameSection = () => {
             <ViewportVideo
               id="level-video"
               className="h-auto w-full"
+              deferLoad
               muted
               loop
               playsInline
               data-keepplaying
+              poster="/img/games/smashers/rocket-poster.webp"
               src="/video/rocket.mp4"
             />
           </div>
