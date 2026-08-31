@@ -18,7 +18,9 @@ describe('DegensTopNav', () => {
       />
     )
 
-    expect(screen.getByRole('textbox', { name: 'Search degens by token # or name' })).toBeTruthy()
+    const searchInput = screen.getByRole('textbox', { name: 'Search degens by token # or name' })
+    expect(searchInput).toBeTruthy()
+    expect(searchInput.parentElement?.parentElement?.className).toContain('sm:items-end')
 
     const sortTrigger = await screen.findByRole(
       'combobox',
