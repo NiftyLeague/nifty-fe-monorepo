@@ -225,7 +225,7 @@ const AllDegensPage = (): React.ReactNode => {
   return (
     <>
       <div className="flex h-full flex-col justify-start align-top gap-4 pl-2">
-        <div className="pl-4 pr-6">
+        <div className="pt-4 pl-4 pr-6">
           <DegensTopNav
             searchTerm={searchTerm}
             handleChangeSearchTerm={handleChangeSearchTerm}
