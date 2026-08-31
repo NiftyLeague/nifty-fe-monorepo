@@ -146,6 +146,7 @@ const AllDegensPage = (): React.ReactNode => {
       <div key={degen.id} className={getGridSizeClass(isGridView, isDrawerOpen)}>
         <DeferredDegenCard
           degen={degen}
+          deferAnimatedMedia
           size={isGridView ? 'normal' : 'small'}
           onClickDetail={() => handleViewTraits(degen)}
         />
