@@ -1,6 +1,6 @@
 'use client'
 
-import { startTransition, useEffect, useState, type RefObject } from 'react'
+import { startTransition, useEffect, useRef, useState, type RefObject } from 'react'
 
 type VisibilityCallback = (isIntersecting: boolean) => void
 
@@ -83,9 +83,13 @@ export function useOnScreen<T extends Element = HTMLDivElement>(
 ): boolean {
   // State and setter for storing whether element is visible
   const [isIntersecting, setIntersecting] = useState<boolean>(false)
+  const isIntersectingRef = useRef(false)
   useEffect(() => {
     if (!enabled) {
-      setIntersecting(false)
+      if (isIntersectingRef.current) {
+        isIntersectingRef.current = false
+        setIntersecting(false)
+      }
       return
     }
 
@@ -93,12 +97,18 @@ export function useOnScreen<T extends Element = HTMLDivElement>(
     if (!element) return
 
     if (typeof IntersectionObserver === 'undefined') {
-      setIntersecting(true)
+      if (!isIntersectingRef.current) {
+        isIntersectingRef.current = true
+        setIntersecting(true)
+      }
       return
     }
 
     let unsubscribe: () => void = () => undefined
     const handleVisibilityChange: VisibilityCallback = (visible) => {
+      if (isIntersectingRef.current === visible) return
+
+      isIntersectingRef.current = visible
       // Visibility changes can mount expensive deferred sections while the
       // user is actively scrolling. Keep the observer callback cheap and let
       // React yield to input before rendering the newly visible subtree.

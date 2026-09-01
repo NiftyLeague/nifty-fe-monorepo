@@ -44,6 +44,35 @@ describe('useOnScreen', () => {
     expect(unobserve).toHaveBeenCalledWith(element)
   })
 
+  it('ignores duplicate visibility entries', () => {
+    const element = document.createElement('div')
+    const ref = { current: element }
+    let renderCount = 0
+    const { result } = renderHook(() => {
+      renderCount += 1
+      return useOnScreen(ref, '20px')
+    })
+
+    act(() =>
+      intersectionCallback(
+        [{ target: element, isIntersecting: true } as IntersectionObserverEntry],
+        {} as never
+      )
+    )
+    expect(result.current).toBe(true)
+    expect(renderCount).toBe(2)
+
+    act(() =>
+      intersectionCallback(
+        [{ target: element, isIntersecting: true } as IntersectionObserverEntry],
+        {} as never
+      )
+    )
+
+    expect(result.current).toBe(true)
+    expect(renderCount).toBe(2)
+  })
+
   it('can stop observing after the first intersection', () => {
     const element = document.createElement('div')
     const ref = { current: element }
