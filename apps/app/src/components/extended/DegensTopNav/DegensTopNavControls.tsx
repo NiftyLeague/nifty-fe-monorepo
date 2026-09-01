@@ -22,7 +22,7 @@ export default function DegensTopNavControls({
   sortValue,
 }: DegensTopNavControlsProps) {
   return (
-    <div className="flex h-8 shrink-0 flex-row items-center justify-between gap-2">
+    <div className={styles.controls} data-slot="degen-search-controls">
       <Select value={sortValue} onValueChange={handleSort}>
         <SelectTrigger
           aria-label="Sort degens"

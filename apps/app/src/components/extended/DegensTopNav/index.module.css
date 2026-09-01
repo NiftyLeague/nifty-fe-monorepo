@@ -1,11 +1,49 @@
+.topNav {
+  display: grid;
+  gap: 0.5rem;
+  padding-top: 1.5rem;
+}
+
+.searchToolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.searchField {
+  display: grid;
+  min-width: 0;
+  gap: 0.5rem;
+}
+
 .searchTextField {
-  flex: 1;
-  height: 32px;
+  width: 100%;
+  min-width: 0;
+  height: 2rem;
+}
+
+@media (min-width: 640px) {
+  .searchToolbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+  }
 }
 
 .layoutModeButtonsGroup {
+  height: 2rem;
   border: var(--border-default);
   border-radius: var(--radius-default);
+}
+
+.controls {
+  display: flex;
+  height: 2rem;
+  flex-shrink: 0;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
 }
 
 .layoutModeButton {

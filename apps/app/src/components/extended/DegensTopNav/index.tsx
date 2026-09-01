@@ -35,17 +35,19 @@ const DegensTopNav = ({
   layoutMode,
   handleChangeLayoutMode,
 }: DegensTopNavProps) => (
-  <div className="grid gap-2 pt-6">
-    <Label htmlFor="search-degen-by-token-id-name">Search degens by token # or name</Label>
-    <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-      <Input
-        id="search-degen-by-token-id-name"
-        className={`${styles.searchTextField} h-8 min-w-0 border-0 bg-muted`}
-        name="search-degen-by-token-id-name"
-        placeholder="Search degens by token # or name"
-        value={searchTerm}
-        onChange={handleChangeSearchTerm}
-      />
+  <div className={styles.topNav} data-slot="degen-top-nav">
+    <div className={styles.searchToolbar} data-slot="degen-search-toolbar">
+      <div className={styles.searchField} data-slot="degen-search-field">
+        <Label htmlFor="search-degen-by-token-id-name">Search degens by token # or name</Label>
+        <Input
+          id="search-degen-by-token-id-name"
+          className={`${styles.searchTextField} h-8 border-0 bg-muted`}
+          name="search-degen-by-token-id-name"
+          placeholder="Search degens by token # or name"
+          value={searchTerm}
+          onChange={handleChangeSearchTerm}
+        />
+      </div>
       <DegensTopNavControls
         handleChangeLayoutMode={handleChangeLayoutMode}
         handleSort={handleSort}
