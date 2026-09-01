@@ -175,10 +175,11 @@ describe('useAsyncInterval', () => {
   it('runs leading and manually refreshed callbacks and installs an interval', async () => {
     const callback = mock(async () => undefined)
     const { default: useAsyncInterval } = await import('./useAsyncInterval')
-    renderHook(() => useAsyncInterval(callback, 100, true, 'refresh'))
+    const { unmount } = renderHook(() => useAsyncInterval(callback, 100, true, 'refresh'))
 
     await waitFor(() => expect(callback).toHaveBeenCalledTimes(2))
     expect(interval.set).toHaveBeenCalledWith(expect.any(Function), 100)
+    unmount()
   })
 
   it('does not install an interval when no delay is provided', async () => {
@@ -190,9 +191,43 @@ describe('useAsyncInterval', () => {
     expect(callback).not.toHaveBeenCalled()
     expect(interval.set).not.toHaveBeenCalled()
 
-    renderHook(() => useAsyncInterval(callback, 100, false))
-    await waitFor(() => expect(interval.set).toHaveBeenCalledWith(expect.any(Function), 100))
+    const { unmount } = renderHook(() => useAsyncInterval(callback, 100, false))
+    expect(interval.set).toHaveBeenCalledWith(expect.any(Function), 100)
     expect(callback).not.toHaveBeenCalled()
+    unmount()
+  })
+
+  it('cleans up the polling interval when the hook unmounts', async () => {
+    const callback = mock(async () => undefined)
+    const { default: useAsyncInterval } = await import('./useAsyncInterval')
+    const { unmount } = renderHook(() => useAsyncInterval(callback, 100, false))
+
+    await waitFor(() => expect(interval.set).toHaveBeenCalledWith(expect.any(Function), 100))
+    unmount()
+
+    expect(interval.clear).toHaveBeenCalledWith('interval-id')
+  })
+
+  it('does not schedule polling after unmounting during a leading read', async () => {
+    let resolveCallback: () => void = () => undefined
+    const callback = mock(
+      () =>
+        new Promise<void>((resolve) => {
+          resolveCallback = resolve
+        })
+    )
+    const { default: useAsyncInterval } = await import('./useAsyncInterval')
+    const { unmount } = renderHook(() => useAsyncInterval(callback, 100, true))
+
+    expect(callback).toHaveBeenCalledTimes(1)
+    unmount()
+    resolveCallback()
+    await act(async () => {
+      await Promise.resolve()
+      await Promise.resolve()
+    })
+
+    expect(interval.set).not.toHaveBeenCalled()
   })
 })
 
