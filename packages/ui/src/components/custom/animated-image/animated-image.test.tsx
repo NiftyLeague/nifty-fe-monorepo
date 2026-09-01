@@ -72,6 +72,31 @@ describe('AnimatedImage', () => {
     )
   })
 
+  it('renders a compatibility source after the preferred animated format', () => {
+    const { container } = render(
+      <AnimatedImage
+        src="/img/items/thumbnail/1.webp"
+        animatedSrc="/img/items/full/1.webp"
+        animatedType="image/webp"
+        fallbackAnimatedSrc="/img/items/full/1.gif"
+        fallbackAnimatedType="image/gif"
+        alt="Cape"
+        width={98}
+        height={98}
+        loading="lazy"
+        unoptimized
+      />
+    )
+    const sources = [...(container.querySelector('picture')?.querySelectorAll('source') ?? [])]
+
+    expect(sources).toHaveLength(2)
+    expect(sources[0]?.getAttribute('type')).toBe('image/webp')
+    expect(sources[0]?.getAttribute('srcset')).toBe('/img/items/full/1.webp')
+    expect(sources[1]?.getAttribute('type')).toBe('image/gif')
+    expect(sources[1]?.getAttribute('srcset')).toBe('/img/items/full/1.gif')
+    expect(container.querySelector('img')?.getAttribute('src')).toBe('/img/items/thumbnail/1.webp')
+  })
+
   it('positions the picture wrapper when using fill sizing', () => {
     const { container } = render(
       <AnimatedImage src="/img/items/full/1.gif" alt="Cape" fill sizes="100vw" unoptimized />
