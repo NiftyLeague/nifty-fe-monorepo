@@ -1379,9 +1379,15 @@ describe('private provider loading contract', () => {
     expect(authRuntimeSource).toContain('openWalletModal')
     expect(modalSource).toContain("import('@reown/appkit/react')")
     expect(modalSource).toContain("import('@/constants/contracts')")
-    expect(modalSource).toContain("import('viem/chains')")
+    expect(modalSource).not.toContain("import('viem/chains')")
+    expect(modalSource).toContain("import('./Web3ModalConfig')")
+    expect(modalSource).toContain('immutableZkEvm')
+    expect(modalSource).toContain('immutableZkEvmTestnet')
     expect(modalSource).not.toContain('@reown/appkit/networks')
     expect(configSource).toContain("from 'viem/chains'")
+    expect(configSource).toContain(
+      'export { immutableZkEvm, immutableZkEvmTestnet, mainnet, sepolia }'
+    )
     expect(configSource).not.toContain('@reown/appkit/networks')
   })
 

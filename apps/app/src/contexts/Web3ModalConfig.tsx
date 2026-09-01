@@ -9,6 +9,8 @@ import {
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
 import { cookieStorage, createStorage } from 'wagmi'
 
+export { immutableZkEvm, immutableZkEvmTestnet, mainnet, sepolia }
+
 // Get projectId at https://cloud.walletconnect.com
 export const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID as string
 if (!projectId) throw new Error('Project ID is not defined')

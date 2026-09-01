@@ -5,13 +5,20 @@ let walletModalPromise: Promise<WalletModal> | undefined
 async function createWalletModal() {
   const [
     { createAppKit },
-    { metadata, networks, projectId, wagmiAdapter },
-    { immutableZkEvm, immutableZkEvmTestnet, mainnet, sepolia },
+    {
+      immutableZkEvm,
+      immutableZkEvmTestnet,
+      mainnet,
+      metadata,
+      networks,
+      projectId,
+      sepolia,
+      wagmiAdapter,
+    },
     { getContractAddress, NFTL_CONTRACT },
   ] = await Promise.all([
     import('@reown/appkit/react'),
     import('./Web3ModalConfig'),
-    import('viem/chains'),
     import('@/constants/contracts'),
   ])
 
