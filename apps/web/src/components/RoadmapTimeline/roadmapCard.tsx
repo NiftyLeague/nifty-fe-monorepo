@@ -70,7 +70,7 @@ const RoadmapCard = ({
             sizes="200px"
             style={{ width: '100%', height: 'auto' }}
           />
-        ) : (
+        ) : image.src.endsWith('.gif') || image.posterSrc ? (
           <AnimatedImage
             src={image.src}
             animatedSrc={image.posterSrc}
@@ -80,6 +80,17 @@ const RoadmapCard = ({
             width={image.width}
             height={image.height}
             sizes="200px"
+            style={{ width: '100%', height: 'auto' }}
+          />
+        ) : (
+          <OptimizedImage
+            src={image.src}
+            alt={`${title?.toString()}`}
+            width={image.width}
+            height={image.height}
+            sizes="200px"
+            loading="lazy"
+            fetchPriority="low"
             style={{ width: '100%', height: 'auto' }}
           />
         )}
