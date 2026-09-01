@@ -2,6 +2,8 @@
 
 import { useEffect, useMemo, useState } from 'react'
 
+import { useDocumentVisibility } from '@nl/ui/hooks/useDocumentVisibility'
+
 const zeroPad = (value: number, length = 2) => String(value).padStart(length, '0')
 
 interface CountdownProps {
@@ -11,11 +13,15 @@ interface CountdownProps {
 
 const Countdown = ({ date, className }: CountdownProps) => {
   const [now, setNow] = useState(() => Date.now())
+  const isDocumentVisible = useDocumentVisibility()
 
   useEffect(() => {
+    if (!isDocumentVisible) return
+
+    setNow(Date.now())
     const timer = setInterval(() => setNow(Date.now()), 1000)
     return () => clearInterval(timer)
-  }, [])
+  }, [isDocumentVisible])
 
   const { isNegative, days, hours, minutes, seconds } = useMemo(() => {
     const total = Math.floor((date.getTime() - now) / 1000)

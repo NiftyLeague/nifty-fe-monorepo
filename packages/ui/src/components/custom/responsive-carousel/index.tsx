@@ -16,6 +16,7 @@ import {
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 import { IconButton } from '@nl/ui/base/icon-button'
+import { useDocumentVisibility } from '@nl/ui/hooks/useDocumentVisibility'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 
@@ -140,6 +141,7 @@ const ResponsiveCarousel = forwardRef<ResponsiveCarouselRef, ResponsiveCarouselP
     const [viewportWidth, setViewportWidth] = useState(0)
     const [isPaused, setIsPaused] = useState(false)
     const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
+    const isDocumentVisible = useDocumentVisibility()
     const isInViewport = useOnScreen(viewportRef, '0px', { enabled: autoPlay })
 
     const effectiveSettings = useMemo(
@@ -239,14 +241,29 @@ const ResponsiveCarousel = forwardRef<ResponsiveCarouselRef, ResponsiveCarouselP
     }, [maxIndex])
 
     useEffect(() => {
-      if (!autoPlay || !isInViewport || isPaused || prefersReducedMotion || maxIndex === 0) return
+      if (
+        !autoPlay ||
+        !isInViewport ||
+        !isDocumentVisible ||
+        isPaused ||
+        prefersReducedMotion ||
+        maxIndex === 0
+      )
+        return
 
-      const interval = window.setInterval(() => {
-        if (!document.hidden) slickNext()
-      }, autoPlaySpeed)
+      const interval = window.setInterval(slickNext, autoPlaySpeed)
 
       return () => window.clearInterval(interval)
-    }, [autoPlay, autoPlaySpeed, isInViewport, isPaused, maxIndex, prefersReducedMotion, slickNext])
+    }, [
+      autoPlay,
+      autoPlaySpeed,
+      isDocumentVisible,
+      isInViewport,
+      isPaused,
+      maxIndex,
+      prefersReducedMotion,
+      slickNext,
+    ])
 
     const handleScroll = () => {
       if (scrollFrameRef.current !== null) return
