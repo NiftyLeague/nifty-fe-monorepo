@@ -17,6 +17,11 @@ describe('app animated item media policy', () => {
 
   it('routes marketplace and burner consumers through the shared image primitive', () => {
     expect(readFileSync(imageCard, 'utf8')).toContain('@nl/ui/custom/animated-image')
-    expect(readFileSync(burnerGrid, 'utf8')).toContain('@nl/ui/custom/animated-image')
+    const burnerSource = readFileSync(burnerGrid, 'utf8')
+
+    expect(
+      burnerSource.includes('@nl/ui/custom/animated-image') ||
+        burnerSource.includes('@nl/ui/custom/deferred-animated-image')
+    ).toBe(true)
   })
 })
