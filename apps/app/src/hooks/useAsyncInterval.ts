@@ -23,19 +23,22 @@ export default function useAsyncInterval(
       if (current) await current()
     }
 
+    let stopped = false
+    let intervalId: ReturnType<typeof setIntervalAsync> | undefined
     const handleInterval = async () => {
       if (leading) await tick()
-      const id = setIntervalAsync(tick, delay as number)
-      return async () => {
-        await clearIntervalAsync(id)
-      }
+      if (!stopped && delay) intervalId = setIntervalAsync(tick, delay)
     }
 
     if (delay) {
       // eslint-disable-next-line no-void
       void handleInterval()
     }
-    return undefined
+
+    return () => {
+      stopped = true
+      if (intervalId) void clearIntervalAsync(intervalId)
+    }
   }, [delay, leading])
 
   // Optional manual refresh keys
