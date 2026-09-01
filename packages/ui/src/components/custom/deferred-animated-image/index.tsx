@@ -8,6 +8,19 @@ import useDeferredActivation from '@nl/ui/hooks/useDeferredActivation'
 
 export const DEFAULT_DEFERRED_ANIMATED_IMAGE_ROOT_MARGIN = '160px'
 
+type NavigatorWithConnection = Navigator & {
+  connection?: {
+    saveData?: boolean
+  }
+}
+
+function prefersReducedData() {
+  return (
+    typeof navigator !== 'undefined' &&
+    (navigator as NavigatorWithConnection).connection?.saveData === true
+  )
+}
+
 export type DeferredAnimatedImageProps = Omit<
   ComponentProps<typeof AnimatedImage>,
   'animatedSrc' | 'animatedType' | 'animatedMedia' | 'fallbackAnimatedSrc' | 'fallbackAnimatedType'
@@ -54,14 +67,18 @@ export const DeferredAnimatedImage = memo(function DeferredAnimatedImage({
     delay: activationDelay,
     enabled: deferAnimation && isNearViewport && hasAnimatedSource,
   })
-  const shouldAttachAnimatedSource =
-    !hasAnimatedSource || (isNearViewport && (!deferAnimation || isAnimationActivated))
+  const isDataSavingRequested = prefersReducedData()
+  const isAnimationReady =
+    !hasAnimatedSource ||
+    isDataSavingRequested ||
+    (isNearViewport && (!deferAnimation || isAnimationActivated))
+  const shouldAttachAnimatedSource = isAnimationReady && !isDataSavingRequested
 
   return (
     <div
       ref={imageRef}
       className={containerClassName}
-      aria-busy={!shouldAttachAnimatedSource}
+      aria-busy={!isAnimationReady}
       data-deferred-animated-image
     >
       <AnimatedImage
