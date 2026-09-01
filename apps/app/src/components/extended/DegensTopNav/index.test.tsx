@@ -37,8 +37,12 @@ describe('DegensTopNav', () => {
       { name: 'Sort degens' },
       { timeout: 5000 }
     )
+    const controls = inputToolbar?.querySelector('[data-slot="degen-search-controls"]')
+
     expect(sortTrigger.getAttribute('data-size')).toBe('sm')
     expect(inputToolbar?.contains(sortTrigger)).toBe(true)
+    expect(controls).toBeTruthy()
+    expect(controls?.parentElement).toBe(inputToolbar)
     expect(sortTrigger.textContent).toContain('ID Low to High')
 
     fireEvent.click(sortTrigger)
