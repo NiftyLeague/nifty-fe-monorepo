@@ -2203,9 +2203,9 @@ describe('web marketing image sizing contract', () => {
     expect(timelineSource).not.toContain("from './constants'")
     expect(firstCardSource).toContain("title: 'DEGEN Minting'")
     expect(catalogSource).not.toContain("from './first-card'")
-    expect(deferredCardsSource).toContain("import('./constants')")
+    expect(deferredCardsSource).toContain("from './constants'")
     expect(deferredCardsSource).toContain('ROADMAP_CARDS.map')
-    expect(deferredCardsSource).toContain('DeferredComponent')
+    expect(deferredCardsSource).not.toContain('DeferredComponent')
   })
 
   it('keeps the Community hero preload focused on its primary artwork', () => {
