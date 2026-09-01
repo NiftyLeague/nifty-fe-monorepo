@@ -27,12 +27,20 @@ mock.module('@nl/ui/hooks/useDeferredActivation', () => ({
 describe('DeferredAnimatedImage', () => {
   let DeferredAnimatedImage: typeof import('./index').DeferredAnimatedImage
 
+  const setSaveData = (enabled: boolean) => {
+    Object.defineProperty(globalThis.navigator, 'connection', {
+      configurable: true,
+      value: enabled ? { saveData: true } : undefined,
+    })
+  }
+
   beforeEach(async () => {
     state.nearViewport = false
     state.animationActivated = false
     state.rootMargin = undefined
     state.activationEnabled = false
     state.activationDelay = undefined
+    setSaveData(false)
     DeferredAnimatedImage = (await import('./index')).DeferredAnimatedImage
   })
 
@@ -79,6 +87,28 @@ describe('DeferredAnimatedImage', () => {
     expect(container.querySelector('source')?.getAttribute('media')).toBe(
       '(prefers-reduced-motion: no-preference)'
     )
+    expect(container.firstElementChild?.getAttribute('aria-busy')).toBe('false')
+  })
+
+  it('keeps animated sources detached when the browser requests reduced data', () => {
+    state.nearViewport = true
+    setSaveData(true)
+
+    const { container } = render(
+      <DeferredAnimatedImage
+        src="/poster.webp"
+        animatedSrc="/animation.webp"
+        animatedType="image/webp"
+        fallbackAnimatedSrc="/animation.gif"
+        fallbackAnimatedType="image/gif"
+        alt="Party modes"
+        width={1350}
+        height={566}
+      />
+    )
+
+    expect(container.querySelectorAll('source')).toHaveLength(0)
+    expect(container.querySelector('img')?.getAttribute('src')).toBe('/poster.webp')
     expect(container.firstElementChild?.getAttribute('aria-busy')).toBe('false')
   })
 
