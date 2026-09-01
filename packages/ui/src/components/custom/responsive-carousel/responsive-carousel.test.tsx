@@ -141,4 +141,62 @@ describe('ResponsiveCarousel', () => {
       })
     }
   })
+
+  it('stops autoplay timers while the document is hidden', () => {
+    const originalHidden = document.hidden
+    const originalObserver = globalThis.IntersectionObserver
+    let intersectionCallback: IntersectionObserverCallback | undefined
+    let observedElement: Element | undefined
+
+    Object.defineProperty(document, 'hidden', { configurable: true, value: true })
+    Object.defineProperty(globalThis, 'IntersectionObserver', {
+      configurable: true,
+      value: class {
+        constructor(callback: IntersectionObserverCallback) {
+          intersectionCallback = callback
+        }
+        observe(element: Element) {
+          observedElement = element
+        }
+        unobserve() {}
+        disconnect() {}
+      },
+    })
+
+    const setIntervalSpy = spyOn(window, 'setInterval')
+    const clearIntervalSpy = spyOn(window, 'clearInterval')
+
+    try {
+      const { unmount } = render(
+        <ResponsiveCarousel autoPlay>
+          <div>First slide</div>
+          <div>Second slide</div>
+        </ResponsiveCarousel>
+      )
+
+      act(() =>
+        intersectionCallback?.(
+          [{ target: observedElement!, isIntersecting: true } as IntersectionObserverEntry],
+          {} as never
+        )
+      )
+      expect(setIntervalSpy).not.toHaveBeenCalled()
+
+      Object.defineProperty(document, 'hidden', { configurable: true, value: false })
+      act(() => document.dispatchEvent(new Event('visibilitychange')))
+      expect(setIntervalSpy).toHaveBeenCalledTimes(1)
+
+      Object.defineProperty(document, 'hidden', { configurable: true, value: true })
+      act(() => document.dispatchEvent(new Event('visibilitychange')))
+      expect(clearIntervalSpy).toHaveBeenCalledTimes(1)
+
+      unmount()
+    } finally {
+      Object.defineProperty(document, 'hidden', { configurable: true, value: originalHidden })
+      Object.defineProperty(globalThis, 'IntersectionObserver', {
+        configurable: true,
+        value: originalObserver,
+      })
+    }
+  })
 })
