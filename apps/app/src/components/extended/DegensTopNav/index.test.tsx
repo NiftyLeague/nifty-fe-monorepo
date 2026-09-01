@@ -20,16 +20,17 @@ describe('DegensTopNav', () => {
 
     const searchInput = screen.getByRole('textbox', { name: 'Search degens by token # or name' })
     const label = screen.getByText('Search degens by token # or name')
-    const inputRow = searchInput.parentElement
-    const toolbar = label.parentElement
+    const searchField = searchInput.parentElement
+    const inputToolbar = searchField?.parentElement
+    const toolbar = inputToolbar?.parentElement
 
     expect(searchInput).toBeTruthy()
     expect(searchInput.getAttribute('placeholder')).toBe('Search degens by token # or name')
     expect(label.tagName).toBe('LABEL')
-    expect(toolbar?.className).toContain('pt-6')
-    expect(label.parentElement).not.toBe(inputRow)
-    expect(inputRow?.className).toContain('sm:flex-row')
-    expect(inputRow?.className).toContain('sm:items-center')
+    expect(toolbar?.getAttribute('data-slot')).toBe('degen-top-nav')
+    expect(inputToolbar?.getAttribute('data-slot')).toBe('degen-search-toolbar')
+    expect(searchField?.getAttribute('data-slot')).toBe('degen-search-field')
+    expect(label.parentElement).toBe(searchField)
 
     const sortTrigger = await screen.findByRole(
       'combobox',
@@ -37,7 +38,7 @@ describe('DegensTopNav', () => {
       { timeout: 5000 }
     )
     expect(sortTrigger.getAttribute('data-size')).toBe('sm')
-    expect(inputRow?.contains(sortTrigger)).toBe(true)
+    expect(inputToolbar?.contains(sortTrigger)).toBe(true)
     expect(sortTrigger.textContent).toContain('ID Low to High')
 
     fireEvent.click(sortTrigger)
