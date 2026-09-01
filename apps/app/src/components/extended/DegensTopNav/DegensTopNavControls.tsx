@@ -22,11 +22,12 @@ export default function DegensTopNavControls({
   sortValue,
 }: DegensTopNavControlsProps) {
   return (
-    <div className="flex flex-row items-center justify-between gap-2">
+    <div className="flex h-8 shrink-0 flex-row items-center justify-between gap-2">
       <Select value={sortValue} onValueChange={handleSort}>
         <SelectTrigger
           aria-label="Sort degens"
-          className="h-8 min-w-[150px] border-purple px-3 py-1 text-foreground"
+          size="sm"
+          className="min-w-[150px] border-purple px-3 py-1 text-foreground"
         >
           <SelectValue />
         </SelectTrigger>

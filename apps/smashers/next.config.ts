@@ -51,11 +51,7 @@ const nextConfig: NextConfig = {
   transpilePackages: ['@nl/playfab', '@nl/ui'],
   experimental: {
     optimizePackageImports: ['lucide-react'],
-    // Reuse compatible Turbopack output across local builds and Git worktrees.
-    turbopackFileSystemCacheForBuild: true,
-    turbopackSeedCacheFromWorktree: true,
   },
-  turbopack: {},
   images: {
     formats: ['image/avif', 'image/webp'],
     // Avoid jumping from 1,920px to 3,840px on common high-density screens.

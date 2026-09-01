@@ -21,10 +21,12 @@ describe('DegensTopNav', () => {
     const searchInput = screen.getByRole('textbox', { name: 'Search degens by token # or name' })
     const label = screen.getByText('Search degens by token # or name')
     const inputRow = searchInput.parentElement
+    const toolbar = label.parentElement
 
     expect(searchInput).toBeTruthy()
     expect(searchInput.getAttribute('placeholder')).toBe('Search degens by token # or name')
     expect(label.tagName).toBe('LABEL')
+    expect(toolbar?.className).toContain('pt-6')
     expect(label.parentElement).not.toBe(inputRow)
     expect(inputRow?.className).toContain('sm:flex-row')
     expect(inputRow?.className).toContain('sm:items-center')
@@ -34,6 +36,7 @@ describe('DegensTopNav', () => {
       { name: 'Sort degens' },
       { timeout: 5000 }
     )
+    expect(sortTrigger.getAttribute('data-size')).toBe('sm')
     expect(inputRow?.contains(sortTrigger)).toBe(true)
     expect(sortTrigger.textContent).toContain('ID Low to High')
 
