@@ -563,7 +563,7 @@ describe('app performance contracts', () => {
 
     expect(manifest.scripts.dev).toBe('next dev --webpack --port 3001')
     expect(manifest.scripts.dev).not.toContain('--turbopack')
-    expect(manifest.scripts['dev:turbo']).toBe('next dev --turbopack --port 3001')
+    expect(manifest.scripts['dev:turbo']).toBeUndefined()
   })
 
   it('keeps Next app builds on the native TypeScript worker', () => {
@@ -572,25 +572,34 @@ describe('app performance contracts', () => {
     }
   })
 
-  it('keeps the default app build on Webpack with an explicit Turbopack opt-in', () => {
+  it('keeps the default app build on the explicit Webpack path', () => {
     const source = readFileSync(appNextConfig, 'utf8')
     const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
 
-    expect(source).toContain("const isExplicitWebpackBuild = process.argv.includes('--webpack')")
     expect(source).toContain("serverExternalPackages: ['pino-pretty', 'lokijs'")
-    expect(source).toContain(
-      "turbopack: { resolveAlias: { '@wagmi/connectors': 'wagmi/connectors' } }"
-    )
-    expect(source).toContain('...(isExplicitWebpackBuild ? { webpack: webpackFallback } : {}),')
+    expect(source).not.toContain('turbopack')
+    expect(source).toContain('webpack: webpackFallback,')
     expect(manifest.scripts.build).toBe('NEXT_TYPESCRIPT_NO_AUTO_INSTALL=1 next build --webpack')
-    expect(manifest.scripts['build:turbo']).toBe('NEXT_TYPESCRIPT_NO_AUTO_INSTALL=1 next build')
+    expect(manifest.scripts['build:turbo']).toBeUndefined()
   })
 
-  it('persists and seeds compatible Turbopack build caches across worktrees', () => {
-    for (const file of [appNextConfig, smashersNextConfig, webNextConfig, templateNextConfig]) {
-      const source = readFileSync(file, 'utf8')
-      expect(source).toContain('turbopackFileSystemCacheForBuild: true')
-      expect(source).toContain('turbopackSeedCacheFromWorktree: true')
+  it('removes the unsupported optional Turbopack path from every Next app', () => {
+    const manifests = [
+      appManifest,
+      webManifest,
+      'apps/smashers/package.json',
+      'apps/template/package.json',
+    ]
+    const configs = [appNextConfig, smashersNextConfig, webNextConfig, templateNextConfig]
+
+    for (const file of manifests) {
+      const scripts = JSON.parse(readFileSync(file, 'utf8')).scripts
+      expect(scripts['build:turbo']).toBeUndefined()
+      expect(scripts['dev:turbo']).toBeUndefined()
+    }
+
+    for (const file of configs) {
+      expect(readFileSync(file, 'utf8')).not.toContain('turbopack')
     }
   })
 
@@ -751,8 +760,8 @@ describe('app performance contracts', () => {
 
     expect(manifest.scripts.dev).toBe('next dev --webpack --port 3000')
     expect(manifest.scripts.dev).not.toContain('--turbopack')
-    expect(manifest.scripts['dev:turbo']).toBe('next dev --turbopack --port 3000')
-    expect(nextConfig).toContain('  turbopack: {},')
+    expect(manifest.scripts['dev:turbo']).toBeUndefined()
+    expect(nextConfig).not.toContain('turbopack')
   })
 
   it('keeps the tracked template app on the root Next build graph', () => {
@@ -761,7 +770,7 @@ describe('app performance contracts', () => {
     const turbo = JSON.parse(readFileSync(turboConfig, 'utf8'))
 
     expect(template.scripts.build).toBe('next build --webpack')
-    expect(template.scripts['build:turbo']).toBe('next build')
+    expect(template.scripts['build:turbo']).toBeUndefined()
     expect(root.scripts.build).toContain('template#build')
     expect(turbo.tasks['template#build'].inputs).toContain('../../packages/ui/src/**')
     expect(turbo.tasks['template#build'].outputs).toEqual([
@@ -776,7 +785,7 @@ describe('app performance contracts', () => {
 
     expect(manifest.scripts.dev).toBe('next dev --webpack --port 3001')
     expect(manifest.scripts.dev).not.toContain('--turbopack')
-    expect(manifest.scripts['dev:turbo']).toBe('next dev --turbopack --port 3001')
+    expect(manifest.scripts['dev:turbo']).toBeUndefined()
   })
 
   it('loads the bridge form only after its dialog opens', () => {

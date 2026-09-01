@@ -8,7 +8,6 @@ import { IMAGE_DEVICE_SIZES, IMAGE_SMALL_SIZES } from '../../config/image-device
 import { getProductionSentryOptions } from '../../config/with-production-sentry'
 
 const ENV = (process.env.VERCEL_ENV as 'production' | 'preview' | undefined) ?? 'development'
-const isExplicitWebpackBuild = process.argv.includes('--webpack')
 
 const webpackFallback: NonNullable<NextConfig['webpack']> = (config) => {
   // Map @wagmi/core connectors package to wagmi/connectors to avoid ESM issues
@@ -25,12 +24,7 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ['pino-pretty', 'lokijs', 'encoding', 'sodium-native', 'require-addon'],
   experimental: {
     optimizePackageImports: ['lucide-react'],
-    // Reuse compatible Turbopack output across local builds and Git worktrees.
-    // This keeps branch validation from recompiling the entire app from scratch.
-    turbopackFileSystemCacheForBuild: true,
-    turbopackSeedCacheFromWorktree: true,
   },
-  turbopack: { resolveAlias: { '@wagmi/connectors': 'wagmi/connectors' } },
   images: {
     formats: ['image/avif', 'image/webp'],
     // Allow the critical game posters to use the measured lower quality ladder.
@@ -39,9 +33,7 @@ const nextConfig: NextConfig = {
     deviceSizes: [...IMAGE_DEVICE_SIZES],
     imageSizes: [...IMAGE_SMALL_SIZES],
   },
-  // Keep the Webpack compatibility path for the default build/dev scripts.
-  // Turbopack remains available through the explicit `*:turbo` scripts.
-  ...(isExplicitWebpackBuild ? { webpack: webpackFallback } : {}),
+  webpack: webpackFallback,
 }
 
 const sentryOptions = getProductionSentryOptions('nifty-league-app', ENV)

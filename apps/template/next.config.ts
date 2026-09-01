@@ -6,9 +6,6 @@ const nextConfig: NextConfig = {
   transpilePackages: ['@nl/ui'],
   experimental: {
     optimizePackageImports: ['lucide-react'],
-    // Keep template builds warm when they are validated from a linked worktree.
-    turbopackFileSystemCacheForBuild: true,
-    turbopackSeedCacheFromWorktree: true,
   },
   images: {
     // Keep responsive image selection from skipping the useful 1,440px and
