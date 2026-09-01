@@ -156,4 +156,32 @@ describe('DeferredAnimatedImage', () => {
       '/animation.gif'
     )
   })
+
+  it('attaches preferred and compatibility sources together only near the viewport', () => {
+    const props = {
+      src: '/img/items/thumbnail/1.webp',
+      animatedSrc: '/img/items/full/1.webp',
+      animatedType: 'image/webp',
+      fallbackAnimatedSrc: '/img/items/full/1.gif',
+      fallbackAnimatedType: 'image/gif',
+      alt: 'Cape',
+      width: 98,
+      height: 98,
+    }
+
+    const initial = render(<DeferredAnimatedImage {...props} />)
+
+    expect(initial.container.querySelectorAll('source')).toHaveLength(0)
+    expect(initial.container.querySelector('img')?.getAttribute('src')).toBe(
+      '/img/items/thumbnail/1.webp'
+    )
+
+    state.nearViewport = true
+    const nearViewport = render(<DeferredAnimatedImage {...props} />)
+
+    const sources = [...nearViewport.container.querySelectorAll('source')]
+    expect(sources).toHaveLength(2)
+    expect(sources[0]?.getAttribute('srcset')).toBe('/img/items/full/1.webp')
+    expect(sources[1]?.getAttribute('srcset')).toBe('/img/items/full/1.gif')
+  })
 })

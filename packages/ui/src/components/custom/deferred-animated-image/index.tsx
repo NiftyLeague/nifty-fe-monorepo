@@ -10,7 +10,7 @@ export const DEFAULT_DEFERRED_ANIMATED_IMAGE_ROOT_MARGIN = '160px'
 
 export type DeferredAnimatedImageProps = Omit<
   ComponentProps<typeof AnimatedImage>,
-  'animatedSrc' | 'animatedType' | 'animatedMedia'
+  'animatedSrc' | 'animatedType' | 'animatedMedia' | 'fallbackAnimatedSrc' | 'fallbackAnimatedType'
 > & {
   /** Load the animated source this many pixels before it enters the viewport. */
   rootMargin?: string
@@ -24,6 +24,10 @@ export type DeferredAnimatedImageProps = Omit<
   animatedSrc?: string
   animatedType?: string
   animatedMedia?: string
+  /** Compatibility source attached at the same time as the primary animation. */
+  fallbackAnimatedSrc?: string
+  /** MIME type for fallbackAnimatedSrc. */
+  fallbackAnimatedType?: string
 }
 
 /**
@@ -38,17 +42,20 @@ export const DeferredAnimatedImage = memo(function DeferredAnimatedImage({
   animatedMedia,
   animatedSrc,
   animatedType,
+  fallbackAnimatedSrc,
+  fallbackAnimatedType,
   rootMargin = DEFAULT_DEFERRED_ANIMATED_IMAGE_ROOT_MARGIN,
   ...imageProps
 }: DeferredAnimatedImageProps) {
   const imageRef = useRef<HTMLDivElement>(null)
   const isNearViewport = useOnScreen(imageRef, rootMargin, { once: true })
+  const hasAnimatedSource = Boolean(animatedSrc || fallbackAnimatedSrc)
   const isAnimationActivated = useDeferredActivation({
     delay: activationDelay,
-    enabled: deferAnimation && isNearViewport && Boolean(animatedSrc),
+    enabled: deferAnimation && isNearViewport && hasAnimatedSource,
   })
   const shouldAttachAnimatedSource =
-    isNearViewport && (!animatedSrc || !deferAnimation || isAnimationActivated)
+    !hasAnimatedSource || (isNearViewport && (!deferAnimation || isAnimationActivated))
 
   return (
     <div
@@ -62,6 +69,8 @@ export const DeferredAnimatedImage = memo(function DeferredAnimatedImage({
         animatedMedia={animatedMedia}
         animatedSrc={shouldAttachAnimatedSource ? animatedSrc : undefined}
         animatedType={animatedType}
+        fallbackAnimatedSrc={shouldAttachAnimatedSource ? fallbackAnimatedSrc : undefined}
+        fallbackAnimatedType={fallbackAnimatedType}
       />
     </div>
   )

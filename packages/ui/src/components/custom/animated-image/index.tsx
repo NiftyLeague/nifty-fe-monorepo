@@ -7,6 +7,10 @@ type AnimatedImageProps = Omit<React.ComponentProps<'img'>, 'src' | 'loading'> &
   animatedType?: string
   /** Optional media query for animatedSrc. */
   animatedMedia?: string
+  /** Compatibility source rendered after animatedSrc in the picture source order. */
+  fallbackAnimatedSrc?: string
+  /** MIME type for fallbackAnimatedSrc. */
+  fallbackAnimatedType?: string
   decoding?: 'async' | 'auto' | 'sync'
   fill?: boolean
   loading?: 'eager' | 'lazy'
@@ -25,6 +29,8 @@ export function AnimatedImage({
   animatedMedia,
   animatedSrc,
   animatedType,
+  fallbackAnimatedSrc,
+  fallbackAnimatedType,
   ...props
 }: AnimatedImageProps) {
   const {
@@ -52,6 +58,9 @@ export function AnimatedImage({
   return (
     <picture style={pictureStyle}>
       {source ? <source type={sourceType} media={sourceMedia} srcSet={source} /> : null}
+      {fallbackAnimatedSrc ? (
+        <source type={fallbackAnimatedType} srcSet={fallbackAnimatedSrc} />
+      ) : null}
       <img
         {...imageProps}
         decoding={decoding ?? 'async'}
