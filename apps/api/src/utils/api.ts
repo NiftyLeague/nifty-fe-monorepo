@@ -38,7 +38,7 @@ const toAllowedUpstreamPath = (value: string): string | null => {
 
 // Keep slow/dead upstreams from hanging the function up to maxDuration,
 // matching the timeout behaviour used in pipeRequest and degensBurned.
-export const fetchWithTimeout = async (url: string, options: any = {}) => {
+export const fetchWithTimeout = async (url: string, options: RequestInit = {}) => {
   const upstreamUrl = toAllowedFetchUrl(url)
   if (!upstreamUrl) throw new Error('Unsupported upstream URL')
   return fetch(upstreamUrl, { ...options, signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) })
@@ -81,7 +81,7 @@ export const pipeRequest = (url: string, res: Response) => {
       port: 443,
       path: upstreamPath,
     },
-    (getRes: any) => {
+    (getRes: import('http').IncomingMessage) => {
       if (getRes.statusCode && getRes.statusCode >= 400) {
         getRes.resume()
         res
