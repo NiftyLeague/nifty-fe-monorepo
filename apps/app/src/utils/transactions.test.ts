@@ -91,16 +91,16 @@ describe('submitTxWithGasEstimate', () => {
 
     await expect(
       submitTxWithGasEstimate(mock(), { mint: contractFn } as never, 'mint', [])
-    ).resolves.toBeUndefined()
+    ).resolves.toBeNull()
     expect(toastError.mock.calls[0]?.[0]).toContain('estimate failed')
-    expect(() => submitTxWithGasEstimate(mock(), {} as never, 'missing', [])).toThrow(
+    await expect(submitTxWithGasEstimate(mock(), {} as never, 'missing', [])).rejects.toThrow(
       'Function missing is not available'
     )
 
     const withoutEstimate = mock()
-    expect(() =>
+    await expect(
       submitTxWithGasEstimate(mock(), { mint: withoutEstimate } as never, 'mint', [])
-    ).toThrow('Function Estimate Gas is not available on mint')
+    ).rejects.toThrow('Function Estimate Gas is not available on mint')
   })
 })
 

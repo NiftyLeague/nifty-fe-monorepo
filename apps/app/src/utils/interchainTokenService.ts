@@ -64,24 +64,24 @@ const gasEstimator = async (chainId: number): Promise<bigint> => {
   return sourceBaseFee + (executionFee * 11_000n) / 10_000n
 }
 
-export const getInterchainTokenRecord = async (chainId: number) => {
+const INTERCHAIN_TRANSFER_GAS_VALUE = parseEther('0.0001')
+
+export const getInterchainTokenRecord = (chainId: number): string => {
   const interchainToken = INTERCHAIN_TOKEN_ID[chainId]
   if (!interchainToken)
     throw new Error(`Interchain token record not found for network: ${NETWORK_NAME[chainId]}`)
   return interchainToken
 }
 
-const getInterchainTokenServiceContract = (writeContracts: Contracts): Contract => {
-  return writeContracts[INTERCHAIN_SERVICE_CONTRACT]
-}
+const getInterchainTokenServiceContract = (writeContracts: Contracts): Contract =>
+  writeContracts[INTERCHAIN_SERVICE_CONTRACT]
 
-const getDestinationChain = (destinationChainId: number) => {
-  return destinationChainId === SEPOLIA_ID
+const getDestinationChain = (destinationChainId: number): string =>
+  destinationChainId === SEPOLIA_ID
     ? 'ethereum-sepolia'
     : destinationChainId === MAINNET_ID
       ? 'ethereum'
       : 'immutable'
-}
 
 // Increase the allowance of the InterchainTokenManager to spend NFTL tokens on behalf of the user:
 export const increaseBridgeAllowance = async (
@@ -117,8 +117,8 @@ export const bridgeNFTL = async (
   destinationChainId: number,
   amount: bigint
 ): Promise<ContractTransactionReceipt | null> => {
-  const interchainTokenService = await getInterchainTokenServiceContract(writeContracts)
-  const interchainTokenId = await getInterchainTokenRecord(destinationChainId)
+  const interchainTokenService = getInterchainTokenServiceContract(writeContracts)
+  const interchainTokenId = getInterchainTokenRecord(destinationChainId)
   const gasAmount = await gasEstimator(destinationChainId)
   const destinationChain = getDestinationChain(destinationChainId)
 
@@ -138,7 +138,7 @@ export const bridgeNFTL = async (
       address, // receiver address
       amount, // amount of token to transfer
       '0x', // metadata
-      parseEther('0.0001'), // gasValue
+      INTERCHAIN_TRANSFER_GAS_VALUE,
       { value: gasAmount }
     )
 

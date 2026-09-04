@@ -1,4 +1,4 @@
-import type { SetStateAction } from 'react'
+import type { Dispatch, SetStateAction } from 'react'
 import type { PublicDegen } from '@/types/degens'
 import type { DegenFilter } from '@/types/degenFilter'
 import DEFAULT_STATIC_FILTER from './constants'
@@ -94,36 +94,29 @@ export const transformDataByFilter = <T extends PublicDegen>(
   return result
 }
 
+type FilterActionMap = Record<string, Dispatch<SetStateAction<any>>>
+
+const SINGLE_VALUE_KEYS = new Set<keyof DegenFilter>(['searchTerm', 'walletAddress', 'tokenId'])
+
 export const updateFilterValue = (
   defaultFilter?: DegenFilter,
-  params?: { [key: string]: string },
-  actions?: { [key: string]: React.Dispatch<SetStateAction<any[]>> }
-) => {
+  params?: Record<string, string>,
+  actions?: FilterActionMap
+): DegenFilter | undefined => {
   const newFilter: DegenFilter = { ...defaultFilter } as DegenFilter
-  // eslint-disable-next-line guard-for-in
-  for (const key in params) {
-    const value = params[key as keyof DegenFilter]
-    if (key === 'searchTerm' || key === 'walletAddress' || key === 'tokenId') {
-      newFilter[key] = [value as string]
-    } else {
-      if (!value) {
-        return
-      }
-      const newValue = value
-        .split('-')
-        .map((type: number | string) => (key === 'prices' ? Number(type) : String(type)))
-      if (actions && actions[key])
-        actions[key]?.(newValue || DEFAULT_STATIC_FILTER[key as keyof DegenFilter])
-      // TypeScript limitation: dynamic key assignment to union types
-      if (key === 'prices') {
-        ;(newFilter as any)[key] = newValue as number[]
-      } else {
-        ;(newFilter as any)[key] = newValue as string[]
-      }
+  if (!params) return newFilter
+  for (const [rawKey, value] of Object.entries(params)) {
+    const key = rawKey as keyof DegenFilter
+    if (SINGLE_VALUE_KEYS.has(key)) {
+      ;(newFilter as unknown as Record<string, unknown>)[key] = [value as string]
+      continue
     }
+    if (!value) return undefined
+    const newValue = key === 'prices' ? value.split('-').map(Number) : value.split('-').map(String)
+    actions?.[key]?.(newValue.length > 0 ? newValue : (DEFAULT_STATIC_FILTER[key] as unknown[]))
+    ;(newFilter as unknown as Record<string, unknown>)[key] = newValue
   }
-  // eslint-disable-next-line consistent-return
-  return newFilter as DegenFilter
+  return newFilter
 }
 
 export const getDefaultFilterValueFromData = (degens: PublicDegen[] | undefined) => {
