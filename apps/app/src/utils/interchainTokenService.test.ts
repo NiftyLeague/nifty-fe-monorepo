@@ -19,11 +19,9 @@ afterEach(() => {
 })
 
 describe('interchain token service', () => {
-  it('looks up supported token records and rejects unknown networks', async () => {
-    await expect(getInterchainTokenRecord(MAINNET_ID)).resolves.toMatch(/^0x/)
-    await expect(getInterchainTokenRecord(999_999)).rejects.toThrow(
-      'Interchain token record not found'
-    )
+  it('looks up supported token records and rejects unknown networks', () => {
+    expect(getInterchainTokenRecord(MAINNET_ID)).toMatch(/^0x/)
+    expect(() => getInterchainTokenRecord(999_999)).toThrow('Interchain token record not found')
   })
 
   it('approves only when Immutable needs more allowance', async () => {

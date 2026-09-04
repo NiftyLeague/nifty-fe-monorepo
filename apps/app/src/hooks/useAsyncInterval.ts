@@ -11,29 +11,24 @@ export default function useAsyncInterval(
 ): void {
   const savedCallback = useRef(callback)
 
-  // Remember the latest callback.
   useEffect(() => {
     savedCallback.current = callback
   }, [callback])
 
-  // Set up the interval.
   useEffect(() => {
     const tick = async () => {
-      const { current } = savedCallback
-      if (current) await current()
+      await savedCallback.current?.()
     }
 
     let stopped = false
     let intervalId: ReturnType<typeof setIntervalAsync> | undefined
-    const handleInterval = async () => {
+
+    const start = async () => {
       if (leading) await tick()
       if (!stopped && delay) intervalId = setIntervalAsync(tick, delay)
     }
 
-    if (delay) {
-      // eslint-disable-next-line no-void
-      void handleInterval()
-    }
+    if (delay) void start()
 
     return () => {
       stopped = true
@@ -41,13 +36,7 @@ export default function useAsyncInterval(
     }
   }, [delay, leading])
 
-  // Optional manual refresh keys
   useEffect(() => {
-    const handleCallback = async () => {
-      const { current } = savedCallback
-      if (current) await current()
-    }
-    // eslint-disable-next-line no-void
-    if (refreshKey) void handleCallback()
+    if (refreshKey) void savedCallback.current?.()
   }, [refreshKey])
 }
