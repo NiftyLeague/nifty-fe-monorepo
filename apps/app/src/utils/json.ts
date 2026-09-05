@@ -1,7 +1,7 @@
-export function safeJSONParse(input: unknown) {
+export function safeJSONParse(input: unknown): unknown {
   try {
     return JSON.parse(input as string)
-  } catch (e) {
+  } catch {
     return input
   }
 }
