@@ -19,7 +19,8 @@ export const loadGasPrice = async (targetNetwork: Network, speed = 'fast'): Prom
   return gasPrice
 }
 
-// add 10% margin, set minimumGas for greater of 20% margin or minumum on complex calls
+// Default: ~0.1% ceiling buffer for simple calls where estimation is accurate.
+// With minimumGas: 10% margin (value * 10%) or the caller-provided minimum, whichever is larger.
 export const calculateGasMargin = (value: bigint, minimumGas?: bigint): bigint => {
   if (minimumGas) {
     const calculatedWithMargin = (value * 1000n + 2000n) / 10000n

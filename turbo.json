@@ -231,15 +231,31 @@
     "lint:fix": { "env": ["NEXT_PUBLIC_VERCEL_ENV"] },
     "api#lint": {
       "env": [
+        "AUDIT_NETWORK",
+        "BASE_URL",
+        "BUN_BINARY",
+        "ETH_NETWORK",
         "NODE_CONFIG_TS_DIR",
         "PORT",
+        "RUN_LIVE_TESTS",
         "VERCEL",
-        "ETH_NETWORK",
-        "WEBHOOK_SECRET",
-        "BASE_URL",
-        "AUDIT_NETWORK",
         "VERCEL_SCOPE",
-        "VERCEL_TOKEN"
+        "VERCEL_TOKEN",
+        "WEBHOOK_SECRET"
+      ]
+    },
+    "@nl/playfab#lint": {
+      "env": [
+        "APPLE_CLIENT_ID",
+        "APPLE_CLIENT_SECRET",
+        "FACEBOOK_CLIENT_ID",
+        "FACEBOOK_CLIENT_SECRET",
+        "GOOGLE_CLIENT_ID",
+        "GOOGLE_CLIENT_SECRET",
+        "NEXT_PUBLIC_PLAYFAB_TITLE_ID",
+        "PLAYFAB_API_KEY",
+        "TWITCH_CLIENT_ID",
+        "TWITCH_CLIENT_SECRET"
       ]
     },
     "format": {},

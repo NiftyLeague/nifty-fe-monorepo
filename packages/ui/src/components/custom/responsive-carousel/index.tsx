@@ -73,7 +73,8 @@ const getBreakpointMax = (breakpoint: ResponsiveBreakpoint) =>
 
 const resolveSettings = (
   settings: ResponsiveCarouselSettings,
-  viewportWidth: number
+  viewportWidth: number,
+  sortedResponsive: NonNullable<ResponsiveCarouselSettings['responsive']>
 ): EffectiveSettings => {
   const base: EffectiveSettings = {
     slidesToShow: Math.max(1, settings.slidesToShow ?? DEFAULT_ITEMS),
@@ -83,17 +84,15 @@ const resolveSettings = (
     slidesPerRow: Math.max(1, settings.slidesPerRow ?? DEFAULT_SLIDES_PER_ROW),
   }
 
-  if (!settings.responsive?.length || viewportWidth <= 0) return base
+  if (!sortedResponsive.length || viewportWidth <= 0) return base
 
-  const matchingBreakpoint = [...settings.responsive]
-    .sort((left, right) => getBreakpointMax(left.breakpoint) - getBreakpointMax(right.breakpoint))
-    .find(({ breakpoint }) => {
-      if (typeof breakpoint === 'number') return viewportWidth <= breakpoint
-      return (
-        viewportWidth <= (breakpoint.max ?? Number.POSITIVE_INFINITY) &&
-        viewportWidth >= (breakpoint.min ?? 0)
-      )
-    })
+  const matchingBreakpoint = sortedResponsive.find(({ breakpoint }) => {
+    if (typeof breakpoint === 'number') return viewportWidth <= breakpoint
+    return (
+      viewportWidth <= (breakpoint.max ?? Number.POSITIVE_INFINITY) &&
+      viewportWidth >= (breakpoint.min ?? 0)
+    )
+  })
 
   if (!matchingBreakpoint) return base
 
@@ -144,9 +143,16 @@ const ResponsiveCarousel = forwardRef<ResponsiveCarouselRef, ResponsiveCarouselP
     const isDocumentVisible = useDocumentVisibility()
     const isInViewport = useOnScreen(viewportRef, '0px', { enabled: autoPlay })
 
+    const sortedResponsive = useMemo(() => {
+      if (!responsive?.length) return [] as NonNullable<ResponsiveCarouselSettings['responsive']>
+      return [...responsive].sort(
+        (left, right) => getBreakpointMax(left.breakpoint) - getBreakpointMax(right.breakpoint)
+      )
+    }, [responsive])
+
     const effectiveSettings = useMemo(
-      () => resolveSettings(settings, viewportWidth),
-      [settings, viewportWidth]
+      () => resolveSettings(settings, viewportWidth, sortedResponsive),
+      [settings, sortedResponsive, viewportWidth]
     )
     const itemsPerPage =
       effectiveSettings.slidesToShow * effectiveSettings.rows * effectiveSettings.slidesPerRow
