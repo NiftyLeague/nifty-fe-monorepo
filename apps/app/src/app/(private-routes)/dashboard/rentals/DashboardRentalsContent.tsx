@@ -18,6 +18,7 @@ import SearchRental from './SearchRental'
 import { Label } from '@nl/ui/base/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@nl/ui/base/select'
 import { getUniqueListBy } from '@/utils/array'
+import { filterBySearch } from '@/utils/search'
 import useTeminateRental from '@/hooks/useTeminateRental'
 import useAuth from '@/hooks/useAuth'
 
@@ -56,7 +57,7 @@ const DashboardRentalPage = (): React.ReactNode => {
     const responses = await Promise.all(urls.map((url) => fetch(url, { method: 'GET', headers })))
     const rentalArrays = await Promise.all(responses.map((response) => response.json()))
     const totalRentals = rentalArrays.reduce((flattened, arr) => [...flattened, ...arr])
-    return getUniqueListBy<Rentals>(totalRentals, 'id')
+    return getUniqueListBy(totalRentals as Rentals[], 'id')
   }
 
   const { data, isLoading, isFetching, refetch } = useQuery<Rentals[]>({
@@ -67,15 +68,11 @@ const DashboardRentalPage = (): React.ReactNode => {
 
   const rentals = useMemo(() => {
     if (!data) return []
-    if (searchTerm.trim() === '') return data
-
-    const lowercasedValue = searchTerm.toLowerCase()
-    return data.filter(
-      (rental: Rentals) =>
-        rental?.accounts?.player?.address?.toLowerCase().includes(lowercasedValue) ||
-        rental?.degen?.id?.toLowerCase().includes(lowercasedValue) ||
-        rental?.accounts?.player?.name?.toLowerCase().includes(lowercasedValue)
-    )
+    return filterBySearch(data, searchTerm, (rental: Rentals) => [
+      rental?.accounts?.player?.address,
+      rental?.degen?.id,
+      rental?.accounts?.player?.name,
+    ])
   }, [data, searchTerm])
 
   const terminateRentalById = async (rentalId: string) => {

@@ -1,8 +1,9 @@
-type FunctionType = (...args: unknown[]) => void
+type AnyFn<Args extends unknown[] = unknown[]> = (...args: Args) => void
 
 const callAll =
-  (...fns: FunctionType[]) =>
-  (...args: unknown[]) =>
-    fns.forEach((fn) => fn && fn(...args))
+  <Args extends unknown[]>(...fns: (AnyFn<Args> | undefined | null | false)[]) =>
+  (...args: Args): void => {
+    for (const fn of fns) if (fn) fn(...args)
+  }
 
 export default callAll
