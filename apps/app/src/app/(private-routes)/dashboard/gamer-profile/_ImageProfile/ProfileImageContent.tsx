@@ -13,6 +13,7 @@ import DegenInternalImage from './DegenInternalImage'
 
 import type { DashboardDegen } from '@/types/degens'
 import { UPDATE_PROFILE_AVATAR_API } from '@/constants/url'
+import { filterBySearch } from '@/utils/search'
 import useAuth from '@/hooks/useAuth'
 
 export type ProfileImageContentProps = {
@@ -120,14 +121,7 @@ export default function ProfileImageContent({
 
   const degensInternal = useMemo(() => {
     if (!degens) return []
-    if (searchValue.trim() === '') return degens
-
-    const lowercasedValue = searchValue.toLowerCase()
-    return degens.filter(
-      (degen) =>
-        degen?.id.toLowerCase().includes(lowercasedValue) ||
-        degen?.name.toLowerCase().includes(lowercasedValue)
-    )
+    return filterBySearch(degens, searchValue, (degen) => [degen?.id, degen?.name])
   }, [degens, searchValue])
 
   return (
