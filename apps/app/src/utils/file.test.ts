@@ -24,7 +24,10 @@ beforeEach(() => {
 
 describe('downloadDegenAsZip', () => {
   it('downloads base64 data and saves it as a ZIP blob', async () => {
-    const fetchMock = mock().mockResolvedValue({ text: mock().mockResolvedValue('UEs=') })
+    const fetchMock = mock().mockResolvedValue({
+      ok: true,
+      text: mock().mockResolvedValue('UEs='),
+    })
     stubGlobal('fetch', fetchMock)
 
     await downloadDegenAsZip('auth-token', 42)
