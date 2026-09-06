@@ -86,7 +86,7 @@ export const DeferredSection = memo(function DeferredSection({
             onClick={retry}
           >
             Retry
-          </Button>
+          </button>
         </div>
       ) : LoadedSection ? (
         <LoadedSection />
