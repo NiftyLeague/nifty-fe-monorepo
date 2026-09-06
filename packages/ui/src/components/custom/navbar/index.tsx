@@ -161,7 +161,7 @@ export function Navbar({ actionButton, navItems, className }: NavbarProps) {
         <DesktopNavMenu actionButton={actionButton} navItems={desktopNavItems} />
         <MobileNavMenu actionButton={actionButton} navItems={navItems} />
       </div>
-    </header>
+    </NavbarScrollFrame>
   )
 }
 
