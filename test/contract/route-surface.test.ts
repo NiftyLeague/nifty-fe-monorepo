@@ -905,6 +905,20 @@ describe('Smashers login loading contract', () => {
   })
 })
 
+describe('shared notification loading contract', () => {
+  it('keeps toast implementations out of the eager app shell graph', () => {
+    const appShellSource = readFileSync(join(process.cwd(), appShell), 'utf8')
+    const deferredSource = readFileSync(join(process.cwd(), deferredNotifications), 'utf8')
+
+    expect(appShellSource).toContain('DeferredNotifications')
+    expect(appShellSource).not.toContain("from '@nl/ui/base/sonner'")
+    expect(appShellSource).not.toContain("from '@/components/extended/Snackbar'")
+    expect(deferredSource).toContain("import('@/components/extended/Snackbar')")
+    expect(deferredSource).toContain("import('@nl/ui/base/sonner')")
+    expect(deferredSource).toContain('Promise.all')
+  })
+})
+
 /**
  * Safety net: assert the app route trees actually exist and are non-empty,
  * so an entire route directory cannot silently disappear.
