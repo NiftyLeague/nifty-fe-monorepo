@@ -18,34 +18,6 @@ const initialPlatform: LauncherPlatform = {
   isLinux: false,
 }
 
-type LauncherPlatform = {
-  os: 'unknown' | 'win' | 'osx' | 'linux'
-  isWindows: boolean
-  isMacOs: boolean
-  isLinux: boolean
-}
-
-const initialPlatform: LauncherPlatform = {
-  os: 'unknown',
-  isWindows: false,
-  isMacOs: false,
-  isLinux: false,
-}
-
-type LauncherPlatform = {
-  os: 'unknown' | 'win' | 'osx' | 'linux'
-  isWindows: boolean
-  isMacOs: boolean
-  isLinux: boolean
-}
-
-const initialPlatform: LauncherPlatform = {
-  os: 'unknown',
-  isWindows: false,
-  isMacOs: false,
-  isLinux: false,
-}
-
 const useVersion = () => {
   const [version, setVersion] = useState('')
   const env = process.env.NEXT_PUBLIC_NETWORK === 'mainnet' ? 'prod' : 'stage'

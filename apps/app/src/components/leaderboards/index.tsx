@@ -21,16 +21,6 @@ const EnhancedTable = dynamic(() => import('./EnhancedTable/EnhancedTable'), {
   loading: () => <div className="flex min-h-96 items-center justify-center" aria-busy="true" />,
 })
 
-const EnhancedTable = dynamic(() => import('./EnhancedTable/EnhancedTableWithWallet'), {
-  ssr: false,
-  loading: () => <div className="flex min-h-96 items-center justify-center" aria-busy="true" />,
-})
-
-const EnhancedTable = dynamic(() => import('./EnhancedTable/EnhancedTableWithWallet'), {
-  ssr: false,
-  loading: () => <div className="flex min-h-96 items-center justify-center" aria-busy="true" />,
-})
-
 export default function LeaderBoards(): React.ReactNode {
   const router = useRouter()
   const pathname = usePathname()

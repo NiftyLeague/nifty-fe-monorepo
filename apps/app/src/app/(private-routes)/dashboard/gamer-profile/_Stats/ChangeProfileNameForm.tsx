@@ -12,12 +12,6 @@ import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import { Title } from '@nl/ui/custom/typography'
 
-import { Button } from '@nl/ui/base/button'
-import { Skeleton } from '@nl/ui/base/skeleton'
-import { CircularProgress } from '@nl/ui/custom/circular-progress'
-import { Input } from '@nl/ui/custom/input'
-import { Title } from '@nl/ui/custom/typography'
-
 import { PROFILE_RENAME_API } from '@/constants/url'
 import { DialogContext } from '@/components/dialog'
 

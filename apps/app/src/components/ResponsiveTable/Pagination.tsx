@@ -7,6 +7,8 @@ import { PaginationControls } from '@/components/pagination/PaginationControls'
 interface PaginationProps {
   count: number
   className?: string
+  // Legacy MUI TablePagination compat: callers may specify the wrapper element.
+  component?: React.ElementType
   onChangePage: (event: React.MouseEvent | null, page: number) => void
   page: number
   rowsPerPage: number
@@ -16,6 +18,7 @@ interface PaginationProps {
 const Pagination: React.FC<PaginationProps> = ({
   count,
   className,
+  component,
   onChangePage,
   page,
   rowsPerPage,

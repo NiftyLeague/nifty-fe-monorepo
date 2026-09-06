@@ -154,30 +154,3 @@ export const applySeventhTribesFix = <T extends PublicDegen>(degen: T): T => {
     tribe: idNum >= 9999 ? (idNum === 9999 ? 'rugman' : 'satoshi') : 'hydra',
   } as T
 }
-
-// Needs to be divisible by 2, 3, or 4
-export const DEGENS_PER_PAGE = 12
-
-export const getGridSizeClass = (isGridView: boolean, isDrawerOpen: boolean) => {
-  if (isGridView) {
-    return isDrawerOpen
-      ? 'col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-4 xl:col-span-4'
-      : 'col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-3'
-  }
-  return isDrawerOpen
-    ? 'col-span-6 sm:col-span-4 md:col-span-3 lg:col-span-3 xl:col-span-3'
-    : 'col-span-6 sm:col-span-4 md:col-span-3 lg:col-span-2 xl:col-span-2'
-}
-
-// TODO: remove temp fix for 7th tribes once fetch data is updated
-export const applySeventhTribesFix = <T extends PublicDegen>(degen: T): T => {
-  if (Number(degen.id) <= 9900) {
-    return degen
-  }
-
-  return {
-    ...degen,
-    background: HYDRA_RARITIES[degen.id] || 'Common',
-    tribe: Number(degen.id) >= 9999 ? (Number(degen.id) === 9999 ? 'rugman' : 'satoshi') : 'hydra',
-  } as T
-}

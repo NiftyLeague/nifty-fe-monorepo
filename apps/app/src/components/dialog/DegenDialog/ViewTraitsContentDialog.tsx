@@ -5,6 +5,7 @@ import { Title } from '@nl/ui/custom/typography'
 
 import type { DashboardDegen } from '@/types/degens'
 import { DEGEN_PURCHASE_URL } from '@/constants/public-urls'
+import { TRAIT_INDEXES } from '@/constants/traitIndexes'
 import DegenModalMedia from './DegenModalMedia'
 import type { SxProps } from '@/types'
 import { getDegenTraitEntries, type DegenTraitValue } from '@/utils/degen-traits'

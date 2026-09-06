@@ -105,6 +105,10 @@ const AllDegensPage = (): React.ReactNode => {
     setSearchTerm(e.target.value)
   }
 
+  const handleSearchParamsChange = useCallback((params: Record<string, string>) => {
+    setSearchTerm(params.searchTerm ?? '')
+  }, [])
+
   useEffect(() => {
     const currentSearchTerm = routeSearchParams.get('searchTerm') ?? ''
     if (searchTerm === currentSearchTerm) return

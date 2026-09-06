@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import type { LucideProps } from 'lucide-react'
 
 export type Row = { id?: string | number; user_id?: string; [key: string]: unknown }
 
