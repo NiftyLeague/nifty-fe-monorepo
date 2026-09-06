@@ -521,6 +521,16 @@ describe('app performance contracts', () => {
     expect(source).not.toContain('maxItems')
   })
 
+  it('resolves breadcrumbs from the current pathname without a post-mount scan', () => {
+    const source = readFileSync(appBreadcrumbs, 'utf8')
+
+    expect(source).toContain('pathname?: string')
+    expect(source).toContain('findBreadcrumb')
+    expect(source).not.toContain('useEffect')
+    expect(source).not.toContain('document.location')
+    expect(source).not.toContain('maxItems')
+  })
+
   it('shares the accessible native carousel and keeps the app free of slider runtimes', () => {
     const sectionSlider = readFileSync(appSectionSlider, 'utf8')
     const sharedCarousel = readFileSync(sharedResponsiveCarousel, 'utf8')
