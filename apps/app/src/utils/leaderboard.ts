@@ -27,18 +27,14 @@ export const fetchRankByUserId = async (
   game: string,
   scoreType: string,
   timeFilter: string
-): Promise<Response | unknown> => {
-  try {
-    const res = await fetch(
-      `${GET_RANK_BY_USER_ID_API}?${new URLSearchParams({
-        user_id: userId,
-        game,
-        time_window: timeFilter,
-        score_type: scoreType,
-      })}`
-    )
-    return res
-  } catch (e) {
-    return e
-  }
+): Promise<Response> => {
+  return fetch(
+    `${GET_RANK_BY_USER_ID_API}?${new URLSearchParams({
+      user_id: userId,
+      game,
+      time_window: timeFilter,
+      score_type: scoreType,
+    })}`,
+    { cache: 'no-store' }
+  )
 }

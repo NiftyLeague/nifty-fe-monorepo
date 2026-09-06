@@ -48,21 +48,18 @@ const LeaderboardRankAction = ({
       return
     }
     try {
-      const result: unknown = await fetchRankByUserId(
+      const result = await fetchRankByUserId(
         profile.id,
         selectedGame,
         selectedTable,
         selectedTimeFilter
       )
-      if (!result || typeof result !== 'object' || !('ok' in result) || !(result as Response).ok) {
-        const errMsg =
-          result && typeof result === 'object' && 'text' in result
-            ? await (result as Response).text()
-            : 'Unknown error'
-        toast.error(errMsg)
+      if (!result.ok) {
+        const errMsg = await result.text().catch(() => 'Unknown error')
+        toast.error(errMsg || 'Unknown error')
         return
       }
-      const res = await (result as Response).json()
+      const res = await result.json()
       if (res < 1) {
         toast.error(errorMes)
         return

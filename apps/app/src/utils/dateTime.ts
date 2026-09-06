@@ -4,17 +4,17 @@ export function formatDateTime(timestamp: number | string): string {
   return `${date.toLocaleDateString('en-US')} ${date.toLocaleTimeString('en-US', { timeStyle: 'short' })}`
 }
 
+const timeFormatter = new Intl.DateTimeFormat('default', {
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+})
+
 export function formatTime(time: number | string): string {
-  return time
-    ? new Intl.DateTimeFormat('default', {
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-      }).format(new Date(time))
-    : '00:00:00'
+  if (!time) return '00:00:00'
+  return timeFormatter.format(new Date(time))
 }
 
 export function secondsToHours(seconds: number): number {
-  const hours = seconds / 3600
-  return Math.trunc(hours)
+  return Math.trunc(seconds / 3600)
 }
