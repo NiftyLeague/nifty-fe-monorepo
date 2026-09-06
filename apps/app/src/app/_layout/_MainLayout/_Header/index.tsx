@@ -9,6 +9,8 @@ import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import { APP_EXTERNAL_LINKS } from '@/constants/navigation'
 import LogoSection from '../_LogoSection'
 
+const appHeaderHeight = 60
+
 // ==============================|| MAIN NAVBAR / HEADER ||============================== //
 
 const Header = () => {

@@ -27,6 +27,11 @@ const Pagination: React.FC<PaginationProps> = ({
     onChangePage(event, newPage)
   }
 
+  // The legacy `component` prop controlled the wrapping element used by MUI's
+  // TablePagination; we render a semantic footer in its place and honor any
+  // caller-supplied className/style via the merged TablePaginationProps.
+  const Wrapper: React.ElementType = component || 'div'
+
   return (
     <footer
       className={cn('flex items-center justify-end gap-2 px-4 py-2', className)}
