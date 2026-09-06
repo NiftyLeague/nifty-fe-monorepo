@@ -32,7 +32,7 @@ describe('hosted validation cost policy', () => {
     expect(source).toContain('      - ready_for_review')
     expect(source).toContain('      - converted_to_draft')
     expect(source).toContain(
-      "if: github.event_name != 'pull_request' || github.event.pull_request.draft != true"
+      "(github.event_name != 'pull_request' || github.event.pull_request.draft != true) && vars.CI_BILLING_PAUSED != 'true'"
     )
     expect(source).toContain('github.event.pull_request.number')
     expect(source).toContain('github.run_id')
