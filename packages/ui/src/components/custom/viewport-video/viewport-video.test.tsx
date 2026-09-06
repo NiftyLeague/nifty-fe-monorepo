@@ -91,6 +91,16 @@ describe('ViewportVideo', () => {
     deferred.unmount()
   })
 
+  it('waits for the viewport by default while preserving explicit prefetch windows', () => {
+    const { rerender } = render(<ViewportVideo data-testid="video" src="/video/example.mp4" />)
+
+    expect(state.boundaryRootMargin).toBe('0px')
+
+    rerender(<ViewportVideo data-testid="video" rootMargin="300px" src="/video/example.mp4" />)
+
+    expect(state.boundaryRootMargin).toBe('300px')
+  })
+
   it('only enables playback and metadata loading near the viewport', async () => {
     function PlaybackHarness() {
       const videoRef = useRef<HTMLVideoElement>(null)
@@ -113,6 +123,7 @@ describe('ViewportVideo', () => {
     await waitFor(() => {
       expect(video.autoplay).toBe(true)
       expect(video.preload).toBe('metadata')
+      expect(state.observedRootMargin).toBe('300px')
     })
 
     state.nearViewport = false
