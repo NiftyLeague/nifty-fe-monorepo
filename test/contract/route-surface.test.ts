@@ -680,6 +680,24 @@ describe('GLTF viewer loading contract', () => {
   })
 })
 
+describe('public degen loading contract', () => {
+  it('keeps the interactive degen browser out of the route entry chunk', () => {
+    const pageSource = readFileSync(join(process.cwd(), degensPage), 'utf8')
+    const routeBoundarySource = readFileSync(join(process.cwd(), degensRouteBoundary), 'utf8')
+    const clientPageSource = readFileSync(join(process.cwd(), degensClientPage), 'utf8')
+
+    expect(pageSource).not.toContain("'use client'")
+    expect(pageSource).toContain("from './DegenRoute'")
+    expect(routeBoundarySource).toContain("dynamic(() => import('./AllDegensPage')")
+    expect(routeBoundarySource).toContain('ssr: false')
+    expect(routeBoundarySource).toContain('role="status"')
+    expect(routeBoundarySource).toContain('aria-live="polite"')
+    expect(routeBoundarySource).toContain('aria-busy="true"')
+    expect(routeBoundarySource).toContain("from '@nl/ui/base/skeleton'")
+    expect(clientPageSource).toContain("'use client'")
+  })
+})
+
 describe('shared notification loading contract', () => {
   it('keeps toast implementations out of the eager app shell graph', () => {
     const appShellSource = readFileSync(join(process.cwd(), appShell), 'utf8')
