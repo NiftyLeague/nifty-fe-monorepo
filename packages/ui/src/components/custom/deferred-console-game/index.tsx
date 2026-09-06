@@ -8,6 +8,7 @@ import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
 import type { ConsoleGameProps } from '../console-game'
 
 import type { ConsoleGameProps } from '../console-game'
+import { ConsoleGameBackdrop } from '../console-game/backdrop'
 
 interface DeferredConsoleGameProps {
   children: ReactNode
