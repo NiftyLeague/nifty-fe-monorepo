@@ -926,6 +926,24 @@ describe('shared notification loading contract', () => {
   })
 })
 
+describe('Smashers profile loading contract', () => {
+  it('keeps the interactive profile graph behind an accessible route boundary', () => {
+    const pageSource = readFileSync(join(process.cwd(), smashersProfilePage), 'utf8')
+    const routeSource = readFileSync(join(process.cwd(), smashersProfileRoute), 'utf8')
+
+    expect(pageSource).not.toContain("'use client'")
+    expect(pageSource).toContain("from './ProfileRoute'")
+    expect(pageSource).toContain('getSession')
+    expect(pageSource).toContain("redirect('/login')")
+    expect(routeSource).toContain("dynamic(() => import('./ProfileClient')")
+    expect(routeSource).toContain('ssr: false')
+    expect(routeSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(routeSource).toContain('role="status"')
+    expect(routeSource).toContain('aria-live="polite"')
+    expect(routeSource).toContain('aria-busy="true"')
+  })
+})
+
 /**
  * Safety net: assert the app route trees actually exist and are non-empty,
  * so an entire route directory cannot silently disappear.
