@@ -79,14 +79,14 @@ export const DeferredSection = memo(function DeferredSection({
           role="alert"
         >
           <p>{label} could not be loaded.</p>
-          <button
+          <Button
             type="button"
             data-slot="button"
             className={DEFERRED_RETRY_BUTTON_CLASS}
             onClick={retry}
           >
             Retry
-          </button>
+          </Button>
         </div>
       ) : LoadedSection ? (
         <LoadedSection />
