@@ -621,6 +621,40 @@ describe('website build performance contract', () => {
   })
 })
 
+describe('public degen loading contract', () => {
+  it('keeps the interactive degen browser out of the route entry chunk', () => {
+    const pageSource = readFileSync(join(process.cwd(), degensPage), 'utf8')
+    const routeBoundarySource = readFileSync(join(process.cwd(), degensRouteBoundary), 'utf8')
+    const clientPageSource = readFileSync(join(process.cwd(), degensClientPage), 'utf8')
+
+    expect(pageSource).not.toContain("'use client'")
+    expect(pageSource).toContain("from './DegenRoute'")
+    expect(routeBoundarySource).toContain("dynamic(() => import('./AllDegensPage')")
+    expect(routeBoundarySource).toContain('ssr: false')
+    expect(routeBoundarySource).toContain('role="status"')
+    expect(routeBoundarySource).toContain('aria-live="polite"')
+    expect(routeBoundarySource).toContain('aria-busy="true"')
+    expect(routeBoundarySource).toContain("from '@nl/ui/base/skeleton'")
+    expect(clientPageSource).toContain("'use client'")
+  })
+})
+
+describe('GLTF viewer loading contract', () => {
+  it('keeps the initial NFT shell server-rendered and browser controls isolated', () => {
+    const pageSource = readFileSync(join(process.cwd(), gltfPage), 'utf8')
+    const clientSource = readFileSync(join(process.cwd(), gltfClient), 'utf8')
+
+    expect(pageSource).not.toContain("'use client'")
+    expect(pageSource).toContain('await params')
+    expect(pageSource).toContain("from 'next/image'")
+    expect(pageSource).toContain("from './components/DegenViews'")
+    expect(clientSource).toContain("'use client'")
+    expect(clientSource).not.toContain("from 'next/image'")
+    expect(clientSource).toContain("dynamic(() => import('./ModelView')")
+    expect(clientSource).toContain('ssr: false')
+  })
+})
+
 describe('shared notification loading contract', () => {
   it('keeps toast implementations out of the eager app shell graph', () => {
     const appShellSource = readFileSync(join(process.cwd(), appShell), 'utf8')
@@ -813,6 +847,43 @@ describe('shared auth icon loading contract', () => {
       expect(source).toContain("from 'lucide-react'")
       expect(source).not.toContain("from '@nl/ui/base/icon'")
     }
+  })
+})
+
+describe('Smashers profile loading contract', () => {
+  it('keeps the interactive profile graph behind an accessible route boundary', () => {
+    const pageSource = readFileSync(join(process.cwd(), smashersProfilePage), 'utf8')
+    const routeSource = readFileSync(join(process.cwd(), smashersProfileRoute), 'utf8')
+
+    expect(pageSource).not.toContain("'use client'")
+    expect(pageSource).toContain("from './ProfileRoute'")
+    expect(pageSource).toContain('getSession')
+    expect(pageSource).toContain("redirect('/login')")
+    expect(routeSource).toContain("dynamic(() => import('./ProfileClient')")
+    expect(routeSource).toContain('ssr: false')
+    expect(routeSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(routeSource).toContain('role="status"')
+    expect(routeSource).toContain('aria-live="polite"')
+    expect(routeSource).toContain('aria-busy="true"')
+  })
+})
+
+describe('Smashers login loading contract', () => {
+  it('keeps the interactive login graph behind an accessible route boundary', () => {
+    const pageSource = readFileSync(join(process.cwd(), smashersLoginPage), 'utf8')
+    const routeSource = readFileSync(join(process.cwd(), smashersLoginRoute), 'utf8')
+
+    expect(pageSource).not.toContain("from '@nl/ui/custom/loading'")
+    expect(pageSource).not.toContain("from './LoginClient'")
+    expect(pageSource).toContain("from './LoginRoute'")
+    expect(pageSource).toContain('getSession')
+    expect(pageSource).toContain("redirect('/profile')")
+    expect(routeSource).toContain("dynamic(() => import('./LoginClient')")
+    expect(routeSource).toContain('ssr: false')
+    expect(routeSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(routeSource).toContain('role="status"')
+    expect(routeSource).toContain('aria-live="polite"')
+    expect(routeSource).toContain('aria-busy="true"')
   })
 })
 
@@ -1245,6 +1316,20 @@ describe('verification route shell contract', () => {
   })
 })
 
+describe('verification route shell contract', () => {
+  it('keeps wallet verification outside the public navigation shell', () => {
+    const pageSource = readFileSync(join(process.cwd(), verificationPage), 'utf8')
+    const layoutSource = readFileSync(join(process.cwd(), verificationLayout), 'utf8')
+
+    expect(pageSource).not.toContain('PublicNavigation')
+    expect(pageSource).not.toContain('_PublicMainLayout')
+    expect(layoutSource).toContain('WalletAuthContextWrapper')
+    expect(
+      existsSync(join(process.cwd(), 'apps/app/src/app/(public-routes)/verification/page.tsx'))
+    ).toBe(false)
+  })
+})
+
 describe('private provider loading contract', () => {
   it('defers chain-specific warning UI out of the private shell', () => {
     const layoutSource = readFileSync(join(process.cwd(), mainLayout), 'utf8')
@@ -1444,6 +1529,19 @@ describe('private provider loading contract', () => {
     expect(profileImplementationSource).not.toContain('SidebarWalletActions')
     expect(profileImplementationSource).not.toContain("from '@/hooks/useNetworkContext'")
     expect(profileImplementationSource).not.toContain("from '@/hooks/writeContracts/useClaimNFTL'")
+  })
+})
+
+describe('shared value equality contract', () => {
+  it('keeps lodash equality out of eager app utilities', () => {
+    const utilitySource = readFileSync(join(process.cwd(), valueEqualityUtility), 'utf8')
+
+    expect(utilitySource).not.toContain('lodash')
+    for (const file of [localStorageHook, contractReaderHook]) {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+      expect(source).toContain("from '@/utils/value-equality'")
+      expect(source).not.toContain("from 'lodash/isEqual'")
+    }
   })
 })
 
@@ -2282,6 +2380,24 @@ describe('static legal route performance contract', () => {
   })
 })
 
+describe('web marketing animation boundary contract', () => {
+  for (const file of [...animationFreeMarketingPages, ...animationFreeMarketingComponents]) {
+    it(`keeps default marketing content out of the animated client boundary in ${file}`, () => {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+
+      expect(source).not.toContain('AnimatedWrapper')
+      expect(source).not.toContain('@nl/ui/custom/animated-wrapper')
+      expect(source).not.toContain('transition-fade-start')
+      expect(source).not.toContain('transition-vertical-fade-start')
+      expect(source).not.toContain('transition-quick-pop-start')
+      expect(source).not.toContain('transition-quick-pop-left-start')
+      expect(source).not.toContain('delay-lite')
+      expect(source).not.toContain('delay-normal')
+      expect(source).not.toContain('delay-long')
+    })
+  }
+})
+
 const sentryClientBoundaries = [
   'apps/app/src/instrumentation-client.ts',
   'apps/app/src/app/global-error.tsx',
@@ -2728,6 +2844,16 @@ describe('public route dependency contract', () => {
     expect(communityPage).toContain("import '@/styles/marketing.css'")
     expect(webMarketingStyles).toContain('.sliding-nfts')
     expect(webMarketingStyles).toContain('slideBg')
+  })
+
+  it('keeps the removed desktop download dialog from returning as dead UI', () => {
+    const list = readFileSync(
+      join(process.cwd(), 'apps/app/src/app/(public-routes)/games/_Web3GameList/index.tsx'),
+      'utf8'
+    )
+
+    expect(existsSync(join(process.cwd(), staleDownloadGameDialog))).toBe(false)
+    expect(list).not.toContain('DownloadGameDialog')
   })
 
   it('keeps dashboard-only card actions in a private wrapper', () => {

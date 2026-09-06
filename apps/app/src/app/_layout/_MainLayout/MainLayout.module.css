@@ -92,8 +92,8 @@
 }
 
 @media (max-width: 1023.95px) {
-  .publicMainOpen,
-  .publicMainClosed {
+  .publicNavigationShell[data-sidebar-open='true'] .publicMain,
+  .publicNavigationShell[data-sidebar-open='false'] .publicMain {
     margin-left: 0;
     width: 100%;
   }

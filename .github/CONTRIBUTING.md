@@ -172,6 +172,7 @@ The connected Vercel projects also keep the consolidated Git commit status disab
 If a ready pull request is returned to draft, its in-flight hosted validation is cancelled and no replacement validation starts until it is ready again.
 
 Draft feature work is intentionally cost-aware: local validation is the feedback loop while a pull request is draft. Marking the pull request ready for review starts hosted validation. Vercel projects disable Git-triggered deployments on feature branches through the versioned `git.deploymentEnabled` policy in `apps/*/vercel.json` and continue on `staging` and `main`; manual deployments remain available.
+If a ready pull request is returned to draft, its in-flight hosted validation is cancelled and no replacement validation starts until it is ready again.
 
 Required checks are enforced by branch protection rulesets/branch protection. Do not duplicate their checklists in the pull request description; document validation commands and results instead.
 

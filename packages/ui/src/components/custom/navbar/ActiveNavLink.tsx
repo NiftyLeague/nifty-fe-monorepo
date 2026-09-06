@@ -3,17 +3,21 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { NavigationMenuLink } from '@nl/ui/base/navigation-menu'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
+import { cn } from '@nl/ui/utils'
 
-export interface ActiveNavLinkProps extends React.ComponentProps<typeof NavigationMenuLink> {
+export interface ActiveNavLinkProps extends Omit<
+  React.ComponentProps<typeof Link>,
+  'children' | 'href'
+> {
   description?: string
   external?: boolean
   href: string
   title: string
 }
 
-export function ActiveNavLink({
+export default function ActiveNavLink({
+  className,
   description,
   external,
   href,
@@ -21,24 +25,31 @@ export function ActiveNavLink({
   ...props
 }: ActiveNavLinkProps) {
   const pathname = usePathname()
+  const isActive = href === pathname
 
   return (
-    <NavigationMenuLink asChild data-active={href === pathname} {...props}>
-      <Link
-        href={href}
-        target={external ? '_blank' : undefined}
-        rel={external ? 'noreferrer' : undefined}
-      >
-        <div className="w-full leading-none">
-          {title}
-          {external && <ExternalIcon />}
-        </div>
-        {description && (
-          <p className="w-full text-xs leading-snug text-muted-foreground line-clamp-2">
-            {description}
-          </p>
-        )}
-      </Link>
-    </NavigationMenuLink>
+    <Link
+      href={href}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noreferrer' : undefined}
+      data-active={isActive}
+      aria-current={isActive ? 'page' : undefined}
+      className={cn(
+        'bg-transparent text-foreground hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring/50 flex flex-col gap-1 rounded-sm px-3 py-2 outline-none transition-colors',
+        isActive && 'bg-primary/40 text-primary-foreground',
+        className
+      )}
+      {...props}
+    >
+      <span className="w-full leading-none">
+        {title}
+        {external && <ExternalIcon />}
+      </span>
+      {description && (
+        <span className="w-full text-xs leading-snug text-muted-foreground line-clamp-2">
+          {description}
+        </span>
+      )}
+    </Link>
   )
 }
