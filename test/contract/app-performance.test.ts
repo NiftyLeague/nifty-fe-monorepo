@@ -800,6 +800,15 @@ describe('app performance contracts', () => {
     expect(manifest.scripts['dev:turbo']).toBeUndefined()
   })
 
+  it('uses Turbopack for local marketing development', () => {
+    const manifest = JSON.parse(readFileSync(webManifest, 'utf8'))
+    const nextConfig = readFileSync(webNextConfig, 'utf8')
+
+    expect(manifest.scripts.dev).toBe('next dev --turbopack --port 3000')
+    expect(manifest.scripts.dev).not.toContain('--webpack')
+    expect(nextConfig).toContain('  turbopack: {},')
+  })
+
   it('loads the bridge form only after its dialog opens', () => {
     const source = readFileSync(bridgeDialog, 'utf8')
 

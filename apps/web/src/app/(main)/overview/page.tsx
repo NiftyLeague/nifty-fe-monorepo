@@ -5,27 +5,41 @@ import { DeferredOverviewFAQ } from '@/components/DeferredOverviewSections'
 import LearnCards from '@/components/LearnCards'
 import OverviewCommunity from '@/components/OverviewCommunity'
 
-const Overview: NextPage = () => (
-  <>
-    <div className="container relative pt-20">
-      <div className="purple-bg-orb orb-top-right" />
-      <section className="section relative">
-        <h1 className="text-center">OVERVIEW</h1>
-        <div className="mt-3">
-          <p className="text-center">Learn how to navigate the Nifty League Platform</p>
-        </div>
-        <LearnCards />
-        <div className="purple-bg-orb orb-bottom-left" />
-        <div className="purple-bg-orb orb-bottom-right" />
-      </section>
+const Overview: NextPage = () => {
+  const { props: desktopBackground } = getImageProps({
+    alt: 'DGEN Network background',
+    src: '/img/backgrounds/dgen-network.webp',
+    width: 1440,
+    height: 813,
+    sizes: '100vw',
+  })
+  const { props: mobileBackground } = getImageProps({
+    alt: 'DGEN Network background',
+    src: '/img/backgrounds/dgen-network-mobile.webp',
+    width: 375,
+    height: 500,
+    sizes: '100vw',
+  })
 
-      <section className="section">
-        <div className="text-center mb-5 relative">
-          <h2>Frequently Asked Questions</h2>
-          <div className="purple-bg-orb" style={{ left: 'calc(50% - 200px)', top: '100px' }} />
-        </div>
+  return (
+    <>
+      <div className="container relative pt-20">
+        <div className="purple-bg-orb orb-top-right" />
+        <section className="section relative">
+          <h1 className="text-center">OVERVIEW</h1>
+          <div className="mt-3">
+            <p className="text-center">Learn how to navigate the Nifty League Platform</p>
+          </div>
+          <LearnCards />
+          <div className="purple-bg-orb orb-bottom-left" />
+          <div className="purple-bg-orb orb-bottom-right" />
+        </section>
 
-        <DeferredOverviewFAQ />
+        <section className="section">
+          <div className="text-center mb-5 relative">
+            <h2>Frequently Asked Questions</h2>
+            <div className="purple-bg-orb" style={{ left: 'calc(50% - 200px)', top: '100px' }} />
+          </div>
 
           <DeferredOverviewFAQ />
 
