@@ -615,6 +615,18 @@ describe('app performance contracts', () => {
     expect(source).toContain("'@mdx-js/react$': mdxReactEntry")
   })
 
+  it('keeps the faster Docusaurus build on one React runtime', () => {
+    const source = readFileSync(docsConfig, 'utf8')
+
+    expect(source).toContain('faster: true')
+    expect(source).toContain("const reactEntry = require.resolve('react')")
+    expect(source).toContain("const reactDomEntry = require.resolve('react-dom')")
+    expect(source).toContain("const mdxReactEntry = require.resolve('@mdx-js/react')")
+    expect(source).toContain('react$: reactEntry')
+    expect(source).toContain("'react-dom$': reactDomEntry")
+    expect(source).toContain("'@mdx-js/react$': mdxReactEntry")
+  })
+
   it('modularizes shared Lucide imports before the app graph is bundled', () => {
     for (const file of [appNextConfig, smashersNextConfig, webNextConfig, templateNextConfig]) {
       expect(readFileSync(file, 'utf8')).toContain("optimizePackageImports: ['lucide-react']")

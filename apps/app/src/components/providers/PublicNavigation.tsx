@@ -10,7 +10,6 @@ import { APP_EXTERNAL_LINKS } from '@/constants/navigation'
 import styles from '@/app/_layout/_MainLayout/MainLayout.module.css'
 import DeferredPublicUserProfile from './DeferredPublicUserProfile'
 import PublicNavLinks from './PublicNavLinks'
-import PublicUserProfile from './PublicUserProfile'
 
 export default function PublicNavigation({ children }: PropsWithChildren) {
   return (
