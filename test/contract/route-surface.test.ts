@@ -1084,6 +1084,20 @@ describe('mint route provider loading contract', () => {
     expect(deferredProvidersSource).toContain("import('./MintProviders')")
   })
 
+  it('keeps wallet and mint content out of the initial route client segment', () => {
+    const pageSource = readFileSync(join(process.cwd(), mintPage), 'utf8')
+    const deferredPageSource = readFileSync(join(process.cwd(), deferredMintPage), 'utf8')
+    const deferredProvidersSource = readFileSync(
+      join(process.cwd(), deferredMintWalletBoundary),
+      'utf8'
+    )
+
+    expect(pageSource).toContain('DeferredMintPage')
+    expect(pageSource).not.toContain("from '@/contexts/")
+    expect(deferredPageSource).toContain("import('./MintPageContent')")
+    expect(deferredProvidersSource).toContain("import('./MintProviders')")
+  })
+
   it('keeps the network context definition lightweight', () => {
     const contextSource = readFileSync(join(process.cwd(), networkContext), 'utf8')
     const providerSource = readFileSync(join(process.cwd(), networkProvider), 'utf8')
