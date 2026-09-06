@@ -2068,6 +2068,33 @@ describe('shared below-fold loading contract', () => {
     expect(faqSource).toContain('defaultValue="item-1"')
   })
 
+  it('defers the below-fold Overview FAQ interaction bundle', () => {
+    const pageSource = readFileSync(join(process.cwd(), webOverviewPage), 'utf8')
+    const deferredSource = readFileSync(join(process.cwd(), webDeferredOverviewSections), 'utf8')
+    const faqSource = readFileSync(join(process.cwd(), webOverviewFAQ), 'utf8')
+
+    expect(pageSource).toContain('DeferredOverviewFAQ')
+    expect(pageSource).not.toContain("from '@nl/ui/custom/accordion'")
+    expect(deferredSource).toContain("import('@/components/OverviewFAQ')")
+    expect(deferredSource).toContain("from '@nl/ui/custom/deferred-section'")
+    expect(faqSource).toContain("from '@nl/ui/custom/accordion'")
+    expect(faqSource).toContain('defaultValue="item-1"')
+  })
+
+  it('defers the below-fold Careers job accordion bundle', () => {
+    const pageSource = readFileSync(join(process.cwd(), webCareersPage), 'utf8')
+    const deferredSource = readFileSync(join(process.cwd(), webDeferredCareersSections), 'utf8')
+    const jobsSource = readFileSync(join(process.cwd(), webCareersJobs), 'utf8')
+
+    expect(pageSource).toContain('DeferredCareersJobs')
+    expect(pageSource).not.toContain("from '@/components/Careers/JobCard'")
+    expect(pageSource).not.toContain("from '@/constants/careers'")
+    expect(deferredSource).toContain("import('@/components/CareersJobs')")
+    expect(deferredSource).toContain("from '@nl/ui/custom/deferred-section'")
+    expect(jobsSource).toContain("from '@/components/Careers/JobCard'")
+    expect(jobsSource).toContain("from '@/constants/careers'")
+  })
+
   it('defers below-fold marketing sections in Smashers', () => {
     const pageSource = readFileSync(join(process.cwd(), smashersHomePage), 'utf8')
     const deferredSource = readFileSync(join(process.cwd(), smashersDeferredHomeSections), 'utf8')
