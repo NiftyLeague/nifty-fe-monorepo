@@ -108,4 +108,15 @@ describe('AnimatedImage', () => {
     expect(picture?.style.display).toBe('block')
     expect(picture?.querySelector('img')?.style.height).toBe('100%')
   })
+
+  it('positions the picture wrapper when using fill sizing', () => {
+    const { container } = render(
+      <AnimatedImage src="/img/items/full/1.gif" alt="Cape" fill sizes="100vw" unoptimized />
+    )
+    const picture = container.querySelector('picture')
+
+    expect(picture?.style.position).toBe('absolute')
+    expect(picture?.style.inset).toBe('0')
+    expect(picture?.style.display).toBe('block')
+  })
 })
