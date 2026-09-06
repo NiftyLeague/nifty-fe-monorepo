@@ -1460,6 +1460,34 @@ describe('verification route shell contract', () => {
   })
 })
 
+describe('public app shell contract', () => {
+  it('keeps the public route layout server-rendered', () => {
+    const layoutSource = readFileSync(join(process.cwd(), publicMainLayout), 'utf8')
+    const routeSource = readFileSync(join(process.cwd(), publicRoutesLayout), 'utf8')
+
+    expect(layoutSource).not.toContain("'use client'")
+    expect(layoutSource).toContain("from '@/components/providers/PublicNavigation'")
+    expect(routeSource).toContain("from '@/app/_layout/_PublicMainLayout'")
+  })
+
+  it('defers the mobile drawer and avoids heavy shell primitives in the eager graph', () => {
+    const navigationSource = readFileSync(join(process.cwd(), publicNavigation), 'utf8')
+    const mobileSource = readFileSync(join(process.cwd(), publicMobileNavigation), 'utf8')
+    const linksSource = readFileSync(join(process.cwd(), publicNavLinks), 'utf8')
+
+    expect(navigationSource).toContain("import('./PublicMobileNavigation')")
+    expect(navigationSource).not.toContain("from '@nl/ui/base/sheet'")
+    expect(navigationSource).not.toContain("from '@nl/ui/base/scroll-area'")
+    expect(navigationSource).not.toContain("from '@/components/extended/Breadcrumbs'")
+    expect(navigationSource).toContain('aria-controls="public-desktop-navigation"')
+    expect(mobileSource).toContain("from '@nl/ui/base/sheet'")
+    expect(mobileSource).toContain('<SheetTitle')
+    expect(mobileSource).toContain('<SheetDescription')
+    expect(mobileSource).toContain('id="public-mobile-navigation"')
+    expect(linksSource).toContain("aria-current={isSelected ? 'page' : undefined}")
+  })
+})
+
 describe('private provider loading contract', () => {
   it('defers chain-specific warning UI out of the private shell', () => {
     const layoutSource = readFileSync(join(process.cwd(), mainLayout), 'utf8')
