@@ -623,7 +623,7 @@ describe('website build performance contract', () => {
 })
 
 describe('public degen loading contract', () => {
-  it('keeps the interactive degen browser out of the route entry chunk', () => {
+  it('keeps the interactive degen browser split while server-rendering its shell', () => {
     const pageSource = readFileSync(join(process.cwd(), degensPage), 'utf8')
     const routeBoundarySource = readFileSync(join(process.cwd(), degensRouteBoundary), 'utf8')
     const clientPageSource = readFileSync(join(process.cwd(), degensClientPage), 'utf8')
@@ -631,10 +631,7 @@ describe('public degen loading contract', () => {
     expect(pageSource).not.toContain("'use client'")
     expect(pageSource).toContain("from './DegenRoute'")
     expect(routeBoundarySource).toContain("dynamic(() => import('./AllDegensPage')")
-    expect(routeBoundarySource).toContain('ssr: false')
-    expect(routeBoundarySource).toContain('role="status"')
-    expect(routeBoundarySource).toContain('aria-live="polite"')
-    expect(routeBoundarySource).toContain('aria-busy="true"')
+    expect(routeBoundarySource).not.toContain('ssr: false')
     expect(routeBoundarySource).toContain("from '@nl/ui/base/skeleton'")
     expect(clientPageSource).toContain("'use client'")
   })
