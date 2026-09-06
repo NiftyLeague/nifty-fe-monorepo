@@ -202,4 +202,13 @@ describe('home page', () => {
     expect(document.getElementById('gaming-section')?.className).not.toContain('home-below-fold')
     expect(document.querySelectorAll('.home-below-fold')).toHaveLength(0)
   })
+
+  it('preloads only the primary hero background image', () => {
+    render(<Home />)
+
+    expect(document.querySelectorAll('[data-priority="true"]')).toHaveLength(1)
+    expect(document.querySelector('[data-priority="true"]')?.getAttribute('alt')).toBe(
+      'Nifty Home Banner'
+    )
+  })
 })

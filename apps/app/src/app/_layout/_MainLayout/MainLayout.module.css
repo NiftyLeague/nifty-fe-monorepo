@@ -90,3 +90,11 @@
     width: 100%;
   }
 }
+
+@media (max-width: 1023.95px) {
+  .publicMainOpen,
+  .publicMainClosed {
+    margin-left: 0;
+    width: 100%;
+  }
+}

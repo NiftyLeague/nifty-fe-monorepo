@@ -18,6 +18,20 @@ const initialPlatform: LauncherPlatform = {
   isLinux: false,
 }
 
+type LauncherPlatform = {
+  os: 'unknown' | 'win' | 'osx' | 'linux'
+  isWindows: boolean
+  isMacOs: boolean
+  isLinux: boolean
+}
+
+const initialPlatform: LauncherPlatform = {
+  os: 'unknown',
+  isWindows: false,
+  isMacOs: false,
+  isLinux: false,
+}
+
 const useVersion = () => {
   const [version, setVersion] = useState('')
   const env = process.env.NEXT_PUBLIC_NETWORK === 'mainnet' ? 'prod' : 'stage'
@@ -36,7 +50,7 @@ const useVersion = () => {
   const { os, isWindows, isMacOs, isLinux } = platform
   const message = isWindows
     ? 'Download for Windows'
-    : isMacOs()
+    : isMacOs
       ? 'Download for Mac OS not available'
       : isLinux
         ? 'Linux support is not available at this time'
@@ -70,7 +84,7 @@ const useVersion = () => {
     }
   }, [env, os])
 
-  return { downloadURL, version, isWindows: isWindows(), isLinux, isMacOs: isMacOs(), message }
+  return { downloadURL, version, isWindows, isLinux, isMacOs, message }
 }
 
 export default useVersion
