@@ -38,12 +38,12 @@ export const handleError = (e: NotifyError): void => {
   toast.error(`Transaction Error: ${message}`)
 }
 
-export const submitTxWithGasEstimate = (
+export const submitTxWithGasEstimate = async (
   tx: Tx,
   contract: Contracts[keyof Contracts],
   fn: string,
   args: unknown[],
-  config = {},
+  config: Record<string, unknown> = {},
   minimumGas?: bigint,
   callback?: NotifyCallback
 ): Promise<void | TransactionResponse | null> => {
@@ -55,19 +55,19 @@ export const submitTxWithGasEstimate = (
   if (typeof estimateGasFn !== 'function')
     throw new Error(`Function Estimate Gas is not available on ${fn}`)
 
-  return estimateGasFn(...args, config)
-    .then(async (estimatedGasLimit: bigint) =>
-      tx(
-        contractFn(...args, {
-          ...config,
-          gasLimit: calculateGasMargin(estimatedGasLimit, minimumGas),
-        }),
-        callback
-      )
+  try {
+    const estimatedGasLimit = (await estimateGasFn(...args, config)) as bigint
+    return await tx(
+      contractFn(...args, {
+        ...config,
+        gasLimit: calculateGasMargin(estimatedGasLimit, minimumGas),
+      }),
+      callback
     )
-    .catch((error: ErrorEvent) => {
-      handleError(error.error ?? error)
-    })
+  } catch (error) {
+    handleError((error as ErrorEvent).error ?? (error as NotifyError))
+    return null
+  }
 }
 
 export const sendTransaction = async (

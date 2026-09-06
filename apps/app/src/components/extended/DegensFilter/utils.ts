@@ -1,9 +1,10 @@
-import type { SetStateAction } from 'react'
+import type { Dispatch, SetStateAction } from 'react'
 import type { PublicDegen } from '@/types/degens'
 import type { DegenFilter } from '@/types/degenFilter'
 import DEFAULT_STATIC_FILTER from './constants'
 import { BURN_ADDYS } from '@/constants/addresses'
 import { HYDRA_RARITIES } from '@/constants/hydra-rarities'
+import { matchesSearchTerm } from '@/utils/search'
 
 export const transformDataByFilter = <T extends PublicDegen>(
   degens: T[],
@@ -19,11 +20,10 @@ export const transformDataByFilter = <T extends PublicDegen>(
 ): T[] => {
   const normalizedWalletAddress = walletAddress[0]?.toLowerCase()
   const normalizedTokenId = tokenId[0]
-  const normalizedSearchTerm = searchTerm.length === 1 ? searchTerm[0]?.toLowerCase() : undefined
-  const normalizedTribes = new Set(tribes.map((tribe) => tribe.toLocaleLowerCase()))
-  const normalizedBackgrounds = new Set(
-    backgrounds.map((background) => background.toLocaleLowerCase())
-  )
+  const normalizedSearchTerm =
+    searchTerm.length === 1 ? searchTerm[0]?.trim().toLowerCase() : undefined
+  const normalizedTribes = new Set(tribes.map((tribe) => tribe.toLowerCase()))
+  const normalizedBackgrounds = new Set(backgrounds.map((background) => background.toLowerCase()))
   const normalizedCosmetics = new Set(cosmetics)
   const hasCosmeticsFilter = cosmetics.length > 0
 
@@ -53,15 +53,12 @@ export const transformDataByFilter = <T extends PublicDegen>(
 
       if (
         normalizedTribes.size > 0 &&
-        !normalizedTribes.has(tribe?.toLocaleLowerCase() || (!tribe ? 'hydra' : ''))
+        !normalizedTribes.has(tribe?.toLowerCase() || (!tribe ? 'hydra' : ''))
       ) {
         return false
       }
 
-      if (
-        normalizedBackgrounds.size > 0 &&
-        !normalizedBackgrounds.has(background?.toLocaleLowerCase())
-      ) {
+      if (normalizedBackgrounds.size > 0 && !normalizedBackgrounds.has(background?.toLowerCase())) {
         return false
       }
 
@@ -74,10 +71,7 @@ export const transformDataByFilter = <T extends PublicDegen>(
 
       if (
         normalizedSearchTerm &&
-        !(
-          name?.toLowerCase().includes(normalizedSearchTerm) ||
-          id.toLocaleLowerCase().includes(normalizedSearchTerm)
-        )
+        !matchesSearchTerm({ id, name }, normalizedSearchTerm, (item) => [item.id, item.name])
       ) {
         return false
       }
@@ -94,36 +88,29 @@ export const transformDataByFilter = <T extends PublicDegen>(
   return result
 }
 
+type FilterActionMap = Record<string, Dispatch<SetStateAction<any>>>
+
+const SINGLE_VALUE_KEYS = new Set<keyof DegenFilter>(['searchTerm', 'walletAddress', 'tokenId'])
+
 export const updateFilterValue = (
   defaultFilter?: DegenFilter,
-  params?: { [key: string]: string },
-  actions?: { [key: string]: React.Dispatch<SetStateAction<any[]>> }
-) => {
+  params?: Record<string, string>,
+  actions?: FilterActionMap
+): DegenFilter | undefined => {
   const newFilter: DegenFilter = { ...defaultFilter } as DegenFilter
-  // eslint-disable-next-line guard-for-in
-  for (const key in params) {
-    const value = params[key as keyof DegenFilter]
-    if (key === 'searchTerm' || key === 'walletAddress' || key === 'tokenId') {
-      newFilter[key] = [value as string]
-    } else {
-      if (!value) {
-        return
-      }
-      const newValue = value
-        .split('-')
-        .map((type: number | string) => (key === 'prices' ? Number(type) : String(type)))
-      if (actions && actions[key])
-        actions[key]?.(newValue || DEFAULT_STATIC_FILTER[key as keyof DegenFilter])
-      // TypeScript limitation: dynamic key assignment to union types
-      if (key === 'prices') {
-        ;(newFilter as any)[key] = newValue as number[]
-      } else {
-        ;(newFilter as any)[key] = newValue as string[]
-      }
+  if (!params) return newFilter
+  for (const [rawKey, value] of Object.entries(params)) {
+    const key = rawKey as keyof DegenFilter
+    if (SINGLE_VALUE_KEYS.has(key)) {
+      ;(newFilter as unknown as Record<string, unknown>)[key] = [value as string]
+      continue
     }
+    if (!value) return undefined
+    const newValue = key === 'prices' ? value.split('-').map(Number) : value.split('-').map(String)
+    actions?.[key]?.(newValue.length > 0 ? newValue : (DEFAULT_STATIC_FILTER[key] as unknown[]))
+    ;(newFilter as unknown as Record<string, unknown>)[key] = newValue
   }
-  // eslint-disable-next-line consistent-return
-  return newFilter as DegenFilter
+  return newFilter
 }
 
 export const getDefaultFilterValueFromData = (degens: PublicDegen[] | undefined) => {
@@ -133,15 +120,13 @@ export const getDefaultFilterValueFromData = (degens: PublicDegen[] | undefined)
   let minPrice = degens[0]?.price ?? 0
   let maxPrice = degens[0]?.price ?? 0
 
-  degens.forEach((degen) => {
-    const { price } = degen
-    minPrice = price < minPrice ? price : minPrice
-    maxPrice = price > maxPrice ? price : maxPrice
-  })
+  for (let i = 1; i < degens.length; i += 1) {
+    const { price } = degens[i] as PublicDegen
+    if (price < minPrice) minPrice = price
+    if (price > maxPrice) maxPrice = price
+  }
 
-  const newFilterValues = { ...DEFAULT_STATIC_FILTER, prices: [minPrice, maxPrice] }
-
-  return newFilterValues
+  return { ...DEFAULT_STATIC_FILTER, prices: [minPrice, maxPrice] }
 }
 
 // Needs to be divisible by 2, 3, or 4
@@ -160,13 +145,12 @@ export const getGridSizeClass = (isGridView: boolean, isDrawerOpen: boolean) => 
 
 // TODO: remove temp fix for 7th tribes once fetch data is updated
 export const applySeventhTribesFix = <T extends PublicDegen>(degen: T): T => {
-  if (Number(degen.id) <= 9900) {
-    return degen
-  }
+  const idNum = Number(degen.id)
+  if (idNum <= 9900) return degen
 
   return {
     ...degen,
     background: HYDRA_RARITIES[degen.id] || 'Common',
-    tribe: Number(degen.id) >= 9999 ? (Number(degen.id) === 9999 ? 'rugman' : 'satoshi') : 'hydra',
+    tribe: idNum >= 9999 ? (idNum === 9999 ? 'rugman' : 'satoshi') : 'hydra',
   } as T
 }
