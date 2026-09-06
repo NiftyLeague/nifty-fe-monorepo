@@ -1281,6 +1281,8 @@ describe('public app shell contract', () => {
     expect(
       existsSync(join(process.cwd(), 'apps/app/src/components/providers/PublicMainContent.tsx'))
     ).toBe(false)
+    expect(navigationStyles).toContain("data-public-sidebar-state='open'")
+    expect(navigationStyles).toContain("data-public-sidebar-state='closed'")
     expect(navigationStyles).toContain(':has(:global(#public-desktop-navigation-toggle[open]))')
     expect(navigationStyles).toContain(
       ':not(:has(:global(#public-desktop-navigation-toggle[open])))'
