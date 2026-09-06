@@ -1323,6 +1323,14 @@ describe('deferred sidebar content contract', () => {
   })
 })
 
+describe('deferred sidebar content contract', () => {
+  it('does not mount hidden drawer content before the drawer opens', () => {
+    const source = readFileSync(join(process.cwd(), collapsibleSidebarLayout), 'utf8')
+
+    expect(source).toContain('{isDrawerOpen ? renderDrawer() : null}')
+  })
+})
+
 describe('verification route shell contract', () => {
   it('keeps wallet verification outside the public navigation shell', () => {
     const pageSource = readFileSync(join(process.cwd(), verificationPage), 'utf8')
