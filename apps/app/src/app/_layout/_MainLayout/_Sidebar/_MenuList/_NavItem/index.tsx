@@ -4,7 +4,6 @@ import { AppNavIcon } from '@/components/AppNavIcon'
 
 import { cx } from '@nl/ui/class-names'
 import { useNavigation } from '@/contexts/NavigationContext'
-import { desktopNavigationMediaQuery } from '@/app/_layout/navigation-breakpoints'
 
 // types
 import type { LinkTarget, NavItemType } from '@/types'
