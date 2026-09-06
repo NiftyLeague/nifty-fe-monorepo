@@ -21,6 +21,11 @@ const isMobileOnly =
   /Android|iPhone|iPod/i.test(navigator.userAgent) &&
   !/iPad/i.test(navigator.userAgent)
 
+const isMobileOnly =
+  typeof navigator !== 'undefined' &&
+  /Android|iPhone|iPod/i.test(navigator.userAgent) &&
+  !/iPad/i.test(navigator.userAgent)
+
 const baseUrl = isMobileOnly
   ? (process.env.NEXT_PUBLIC_UNITY_MOBILE_CREATOR_BASE_URL as string)
   : (process.env.NEXT_PUBLIC_UNITY_CREATOR_BASE_URL as string)

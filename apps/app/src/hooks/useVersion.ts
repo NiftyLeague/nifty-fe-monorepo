@@ -36,7 +36,7 @@ const useVersion = () => {
   const { os, isWindows, isMacOs, isLinux } = platform
   const message = isWindows
     ? 'Download for Windows'
-    : isMacOs
+    : isMacOs()
       ? 'Download for Mac OS not available'
       : isLinux
         ? 'Linux support is not available at this time'
@@ -70,7 +70,7 @@ const useVersion = () => {
     }
   }, [env, os])
 
-  return { downloadURL, version, isWindows, isLinux, isMacOs, message }
+  return { downloadURL, version, isWindows: isWindows(), isLinux, isMacOs: isMacOs(), message }
 }
 
 export default useVersion
