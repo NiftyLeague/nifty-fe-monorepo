@@ -48,15 +48,6 @@ const nextConfig = {
   },
 }
 
-const nextConfig = nextPlugin.map((config) => {
-  if (!config.plugins) return config
-
-  const plugins = Object.fromEntries(
-    Object.entries(config.plugins).filter(([name]) => name !== 'react' && name !== 'react-hooks')
-  )
-  return { ...config, plugins }
-})
-
 /**
  * A custom ESLint configuration for libraries that use Next.js.
  *
