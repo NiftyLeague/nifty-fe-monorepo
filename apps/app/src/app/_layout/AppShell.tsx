@@ -11,6 +11,7 @@ import AppBar from '@nl/ui/custom/app-bar'
 import Breadcrumbs from '@/components/extended/Breadcrumbs'
 import { NavigationProvider, useNavigation } from '@/contexts/NavigationContext'
 import navigation from '@/constants/menu-items'
+import { desktopNavigationMediaQuery } from './navigation-breakpoints'
 import styles from './_MainLayout/MainLayout.module.css'
 
 interface AppShellProps extends PropsWithChildren {
