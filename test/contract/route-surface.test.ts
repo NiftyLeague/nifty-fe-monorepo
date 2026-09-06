@@ -341,7 +341,8 @@ const sharedAppBar = 'packages/ui/src/components/custom/app-bar/index.tsx'
 const sharedAppBarStyles = 'packages/ui/src/components/custom/app-bar/app-bar.module.css'
 const publicContentContainer = 'apps/app/src/components/wrapper/PublicContentContainer.tsx'
 const publicNavLinks = 'apps/app/src/components/providers/PublicNavLinks.tsx'
-const sharedMobileNavigation = 'packages/ui/src/components/custom/mobile-navigation/index.tsx'
+ const sharedMobileNavigation = 'packages/ui/src/components/custom/mobile-navigation/index.tsx'
+ const publicActiveNavLink = 'apps/app/src/components/providers/PublicActiveNavLink.tsx'
 const collapsibleSidebarLayout = 'apps/app/src/app/_layout/_CollapsibleSidebarLayout/index.tsx'
 const smashersBackButton = 'apps/smashers/src/components/Header/BackButton/index.tsx'
 const verificationPage = 'apps/app/src/app/verification/page.tsx'
@@ -1306,6 +1307,14 @@ describe('public app shell contract', () => {
     expect(sharedMobileSource).toContain('<summary')
     expect(sharedMobileSource).toContain('aria-controls={id}')
     expect(sharedMobileSource).toContain('group-open:rotate-45')
+  })
+})
+
+describe('deferred sidebar content contract', () => {
+  it('does not mount hidden drawer content before the drawer opens', () => {
+    const source = readFileSync(join(process.cwd(), collapsibleSidebarLayout), 'utf8')
+
+    expect(source).toContain('{isDrawerOpen ? renderDrawer() : null}')
   })
 })
 
