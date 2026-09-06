@@ -1,6 +1,18 @@
 import { describe, expect, it } from 'bun:test'
 import { existsSync, readFileSync, statSync } from 'node:fs'
 
+const docsMediaPages = [
+  'apps/docs/docs/overview/games/mini-games/arcade-tokens.md',
+  'apps/docs/docs/overview/games/mini-games/crypto-winter.md',
+  'apps/docs/docs/overview/games/mini-games/wen-game.md',
+  'apps/docs/docs/overview/games/niftyworld/niftyworld.mdx',
+  'apps/docs/docs/overview/games/overview.md',
+  'apps/docs/docs/overview/games/mobile-games/nifty-royale.md',
+  'apps/docs/docs/overview/games/mobile-games/nifty-smashers.md',
+  'apps/docs/docs/overview/nfts/nifty-marketplace/items.md',
+  'apps/docs/docs/overview/nfts/nifty-marketplace/comics.md',
+]
+
 const docsPage = 'apps/docs/docs/overview/nfts/degens/about.md'
 const docsMediaPages = [
   'apps/docs/docs/overview/games/mini-games/arcade-tokens.md',

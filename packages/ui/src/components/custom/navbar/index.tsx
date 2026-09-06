@@ -120,6 +120,7 @@ function DesktopNavMenu({ actionButton, navItems }: NavbarProps) {
           <li>
             <a
               href={actionButton.href}
+              prefetch={false}
               target={actionButton.external ? '_blank' : undefined}
               rel={actionButton.external ? 'noreferrer' : undefined}
               className="theme-btn-primary theme-btn-rounded ml-3 max-w-fit"

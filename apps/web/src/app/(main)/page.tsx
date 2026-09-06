@@ -62,6 +62,45 @@ const ResponsiveIntroBackground = () => {
   )
 }
 
+const DESKTOP_ONLY_PLACEHOLDER = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
+
+interface DesktopOnlyImageProps {
+  alt: string
+  className?: string
+  height: number
+  loading?: 'eager' | 'lazy'
+  sizes: string
+  src: string
+  width: number
+}
+
+const DesktopOnlyImage = ({
+  alt,
+  className,
+  height,
+  loading = 'lazy',
+  sizes,
+  src,
+  width,
+}: DesktopOnlyImageProps) => {
+  const { props } = getImageProps({ alt, height, loading, sizes, src, width })
+  const { src: _src, srcSet: _srcSet, sizes: _sizes, ...fallbackProps } = props
+
+  return (
+    <picture className="block">
+      <source media="(min-width: 769px)" sizes={sizes} srcSet={props.srcSet} />
+      <img
+        {...fallbackProps}
+        alt={alt}
+        className={className}
+        height={height}
+        src={DESKTOP_ONLY_PLACEHOLDER}
+        width={width}
+      />
+    </picture>
+  )
+}
+
 const ResponsiveIntroBackground = () => {
   const commonProps = {
     alt: '',
@@ -121,6 +160,7 @@ const DesktopIntro = () => {
             alt="Nifty Hero Characters"
             width={1920}
             height={1042}
+            loading="eager"
             sizes="100vw"
             quality={60}
             className="w-full h-auto"

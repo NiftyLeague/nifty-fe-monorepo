@@ -43,6 +43,7 @@ beforeEach(() => {
 afterEach(() => {
   jest.useRealTimers()
   undefined
+  nextLinkPrefetches.length = 0
   state.mobile = true
   state.milliseconds = 1_500
   state.pathname = '/about'

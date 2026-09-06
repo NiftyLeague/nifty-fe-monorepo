@@ -50,6 +50,7 @@ export function ThemeButton({
   return (
     <a
       href={href}
+      prefetch={false}
       target={external ? '_blank' : undefined}
       rel={external ? 'noreferrer' : undefined}
       className={resolvedClassName}

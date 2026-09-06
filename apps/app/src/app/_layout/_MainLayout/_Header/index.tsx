@@ -2,7 +2,6 @@ import { buttonVariants } from '@nl/ui/base/button-variants'
 import { Menu } from 'lucide-react'
 
 import { useNavigation } from '@/contexts/NavigationContext'
-import { desktopNavigationMediaQuery } from '@/app/_layout/navigation-breakpoints'
 
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import { APP_EXTERNAL_LINKS } from '@/constants/navigation'

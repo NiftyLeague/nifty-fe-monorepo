@@ -800,6 +800,86 @@ describe('app performance contracts', () => {
     expect(manifest.scripts['dev:turbo']).toBeUndefined()
   })
 
+  it('uses the project TypeScript CLI for Next app builds', () => {
+    for (const file of [appNextConfig, smashersNextConfig]) {
+      expect(readFileSync(file, 'utf8')).toContain('useTypeScriptCli: true')
+    }
+  })
+
+  it('keeps default app builds on the Turbopack worker with a scoped Webpack fallback', () => {
+    const source = readFileSync(appNextConfig, 'utf8')
+
+    expect(source).toContain("const isExplicitWebpackBuild = process.argv.includes('--webpack')")
+    expect(source).toContain("serverExternalPackages: ['pino-pretty', 'lokijs'")
+    expect(source).toContain(
+      "turbopack: { resolveAlias: { '@wagmi/connectors': 'wagmi/connectors' } }"
+    )
+    expect(source).toContain('...(isExplicitWebpackBuild ? { webpack: webpackFallback } : {}),')
+  })
+
+  it('modularizes shared Lucide imports before the app graph is bundled', () => {
+    for (const file of [appNextConfig, smashersNextConfig, webNextConfig, templateNextConfig]) {
+      expect(readFileSync(file, 'utf8')).toContain("optimizePackageImports: ['lucide-react']")
+    }
+  })
+
+  it('keeps Sentry source-map uploads narrow enough for production builds', () => {
+    for (const file of [appNextConfig, smashersNextConfig, webNextConfig]) {
+      const source = readFileSync(file, 'utf8')
+      expect(source).toContain("sourcemaps: { disable: ENV !== 'production' }")
+      expect(source).toContain('widenClientFileUpload: false')
+    }
+  })
+
+  it('keeps every TypeScript project on incremental checking', () => {
+    for (const file of incrementalTypecheckConfigs) {
+      expect(readFileSync(file, 'utf8')).toContain('"incremental": true')
+    }
+  })
+
+  it('keeps the app gas-price path on native fetch without a retired Axios wrapper', () => {
+    const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
+    const gasSource = readFileSync(appGasUtility, 'utf8')
+
+    expect(manifest.dependencies?.axios).toBeUndefined()
+    expect(gasSource).toContain("fetch('https://ethgasstation.info/json/ethgasAPI.json')")
+    expect(gasSource).not.toContain("from 'axios'")
+    expect(existsSync(retiredAxiosUtility)).toBe(false)
+  })
+
+  it('keeps the app GraphQL path on native fetch without request-client dependencies', () => {
+    const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
+    const graphqlSource = readFileSync(appGraphQLUtility, 'utf8')
+
+    expect(manifest.dependencies?.graphql).toBeUndefined()
+    expect(manifest.dependencies?.['graphql-request']).toBeUndefined()
+    expect(graphqlSource).toContain("method: 'POST'")
+    expect(graphqlSource).toContain("'Content-Type': 'application/json'")
+  })
+
+  it('removes the retired inline NFTL swap graph', () => {
+    const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
+    const rentDialogSource = readFileSync(
+      'apps/app/src/components/dialog/DegenDialog/RentDegenContentDialog.tsx',
+      'utf8'
+    )
+
+    expect(manifest.dependencies?.['@cowprotocol/cow-sdk']).toBeUndefined()
+    expect(rentDialogSource).toContain('href={COW_PROTOCOL_URL}')
+    expect(rentDialogSource).not.toContain('purchasingNFTL')
+
+    for (const file of [
+      'apps/app/src/components/dialog/DegenDialog/CowSwapWidget.tsx',
+      'apps/app/src/components/dialog/DegenDialog/TokenInfoBox.tsx',
+      'apps/app/src/hooks/balances/useEtherBalance.ts',
+      'apps/app/src/hooks/useRateEtherToNFTL.ts',
+      'apps/app/src/hooks/useTokenUSDPrice.ts',
+      'apps/app/src/utils/cowswap.ts',
+    ]) {
+      expect(existsSync(file)).toBe(false)
+    }
+  })
+
   it('uses Turbopack for local marketing development', () => {
     const manifest = JSON.parse(readFileSync(webManifest, 'utf8'))
     const nextConfig = readFileSync(webNextConfig, 'utf8')

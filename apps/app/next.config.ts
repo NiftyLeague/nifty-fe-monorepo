@@ -8,6 +8,17 @@ import { IMAGE_DEVICE_SIZES, IMAGE_SMALL_SIZES } from '../../config/image-device
 import { getProductionSentryOptions } from '../../config/with-production-sentry'
 
 const ENV = (process.env.VERCEL_ENV as 'production' | 'preview' | undefined) ?? 'development'
+const isExplicitWebpackBuild = process.argv.includes('--webpack')
+
+const webpackFallback: NonNullable<NextConfig['webpack']> = (config) => {
+  // Map @wagmi/core connectors package to wagmi/connectors to avoid ESM issues
+  config.resolve.alias = { ...config.resolve.alias, '@wagmi/connectors': 'wagmi/connectors' }
+
+  // Externalize native modules: https://github.com/vercel/next.js/issues/86099
+  config.externals.push('pino-pretty', 'lokijs', 'encoding', 'sodium-native', 'require-addon')
+
+  return config
+}
 
 const webpackFallback: NonNullable<NextConfig['webpack']> = (config) => {
   // Map @wagmi/core connectors package to wagmi/connectors to avoid ESM issues

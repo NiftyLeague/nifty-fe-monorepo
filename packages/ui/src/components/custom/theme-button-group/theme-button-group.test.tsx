@@ -13,6 +13,7 @@ describe('ThemeButtonGroup', () => {
     )
 
     expect(screen.getByRole('link', { name: 'Play now' }).getAttribute('href')).toBe('/games')
+    expect(nextLinkPrefetches).toEqual([false, false])
     expect(screen.getByRole('link', { name: /Smashers/ }).getAttribute('target')).toBe('_blank')
     expect(screen.getByRole('link', { name: /Smashers/ }).getAttribute('rel')).toBe('noreferrer')
   })

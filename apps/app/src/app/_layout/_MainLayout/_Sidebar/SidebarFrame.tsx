@@ -3,12 +3,10 @@
 import type { PropsWithChildren, ReactNode } from 'react'
 import { lazy, memo, Suspense, useMemo } from 'react'
 
-import { Button } from '@nl/ui/base/button'
 import { ScrollArea } from '@nl/ui/base/scroll-area'
 import { cx } from '@nl/ui/class-names'
 
 import { useNavigation } from '@/contexts/NavigationContext'
-import { desktopNavigationMediaQuery } from '@/app/_layout/navigation-breakpoints'
 import LogoSection from '../_LogoSection'
 
 const appDrawerWidth = 260
@@ -54,7 +52,6 @@ function SidebarFrame({ children, footer }: SidebarFrameProps) {
 
   return (
     <nav
-      id="app-primary-navigation"
       aria-label="Primary navigation"
       data-state={drawerOpen ? 'open' : 'closed'}
       className={cx('shrink-0', isCompactScreen ? 'w-0' : 'w-[260px]')}

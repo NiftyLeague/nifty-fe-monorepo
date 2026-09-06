@@ -26,5 +26,3 @@ export function NavbarScrollFrame({ children, className }: NavbarScrollFrameProp
     </header>
   )
 }
-
-export default NavbarScrollFrame
