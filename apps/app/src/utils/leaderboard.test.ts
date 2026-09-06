@@ -65,6 +65,20 @@ describe('leaderboard data loaders', () => {
     )
   })
 
+  it('requests only the selected leaderboard page from the app route', async () => {
+    const fetchMock = mock().mockResolvedValue({
+      ok: true,
+      json: mock().mockResolvedValue({ data: [], count: 0 }),
+    })
+    stubGlobal('fetch', fetchMock)
+
+    await fetchClientScores('smashers', 'kills', 'all_time', 50, 100)
+
+    expect(fetchMock.mock.calls[0]?.[0]).toBe(
+      '/api/leaderboards?game=smashers&score=kills&time=all_time&count=50&offset=100'
+    )
+  })
+
   it.each<[string, string, string, string]>([
     ['win_rate', '75%', '12.5', '3'],
     ['earnings', '0%', '99.1', '3'],
