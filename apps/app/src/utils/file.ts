@@ -5,9 +5,7 @@ import { DEGEN_ASSETS_DOWNLOAD_URL } from '@/constants/url'
 
 const base64ToBlob = (base64: string): Blob => {
   const binaryStr = window.atob(base64)
-  const len = binaryStr.length
-  const bytes = new Uint8Array(len)
-  for (let i = 0; i < len; i += 1) bytes[i] = binaryStr.charCodeAt(i)
+  const bytes = Uint8Array.from(binaryStr, (char) => char.charCodeAt(0))
   return new Blob([bytes], { type: 'application/zip' })
 }
 
