@@ -12,8 +12,6 @@ import SectionTitle from './SectionTitle'
 
 const sectionSpacing = 2 // 16px
 
-const sectionSpacing = 2 // 16px
-
 interface Props {
   title: string | React.ReactNode
   firstSection?: boolean
