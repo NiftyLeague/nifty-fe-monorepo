@@ -1,8 +1,10 @@
 import type { NextPage } from 'next'
 
-import { getOptimizedImageProps } from '@nl/ui/custom/optimized-image'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
-import { DeferredOverviewFAQ } from '@/components/DeferredOverviewSections'
+import {
+  DeferredOverviewCommunity,
+  DeferredOverviewFAQ,
+} from '@/components/DeferredOverviewSections'
 import LearnCards from '@/components/LearnCards'
 import OverviewCommunity from '@/components/OverviewCommunity'
 

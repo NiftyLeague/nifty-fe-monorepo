@@ -653,6 +653,24 @@ describe('GLTF viewer loading contract', () => {
     expect(clientSource).toContain("dynamic(() => import('./ModelView')")
     expect(clientSource).toContain('ssr: false')
   })
+
+  it('preloads only the visible NFT artwork', () => {
+    const source = readFileSync(join(process.cwd(), gltfPage), 'utf8')
+
+    expect(source).toContain('priority\n          src={imageSrc}')
+    expect(source).not.toContain('className={styles.sprite}\n          fill\n          priority')
+    expect(source).not.toContain('quality={100}')
+  })
+
+  it('keeps accumulated NFTL reads available when the optional Infura variable is unavailable', () => {
+    const hookSource = readFileSync(join(process.cwd(), webClaimableNFTL), 'utf8')
+
+    expect(hookSource).toContain('NEXT_PUBLIC_INFURA_ID')
+    expect(hookSource).toContain('NEXT_PUBLIC_INFURA_PROJECT_ID')
+    expect(hookSource).toContain('ethereum-rpc.publicnode.com')
+    expect(hookSource).toContain('encodeUint256(tokenIndex)')
+    expect(hookSource).toContain('if (!cancelled)')
+  })
 })
 
 describe('shared notification loading contract', () => {

@@ -868,6 +868,28 @@ describe('app performance contracts', () => {
     expect(graphqlSource).toContain("'Content-Type': 'application/json'")
   })
 
+  it('keeps deferred rename forms on native React Hook Form rules', () => {
+    const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
+
+    for (const file of [deferredNicknameForm, deferredProfileNameForm]) {
+      const source = readFileSync(file, 'utf8')
+      expect(source).toContain('rules={{ required:')
+      expect(source).not.toContain('yup')
+      expect(source).not.toContain('@hookform/resolvers')
+    }
+
+    expect(manifest.dependencies?.['@hookform/resolvers']).toBeUndefined()
+    expect(manifest.dependencies?.yup).toBeUndefined()
+  })
+
+  it('uses shared shadcn inputs across the app instead of the heavyweight custom wrapper', () => {
+    for (const file of appBaseInputConsumers) {
+      const source = readFileSync(file, 'utf8')
+      expect(source).toContain("from '@nl/ui/base/input'")
+      expect(source).not.toContain("from '@nl/ui/custom/input'")
+    }
+  })
+
   it('removes the retired inline NFTL swap graph', () => {
     const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
     const rentDialogSource = readFileSync(
@@ -898,6 +920,13 @@ describe('app performance contracts', () => {
     expect(manifest.scripts.dev).toBe('next dev --turbopack --port 3000')
     expect(manifest.scripts.dev).not.toContain('--webpack')
     expect(nextConfig).toContain('  turbopack: {},')
+  })
+
+  it('uses Turbopack for local app development', () => {
+    const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
+
+    expect(manifest.scripts.dev).toBe('next dev --turbopack --port 3001')
+    expect(manifest.scripts.dev).not.toContain('--webpack')
   })
 
   it('loads the bridge form only after its dialog opens', () => {

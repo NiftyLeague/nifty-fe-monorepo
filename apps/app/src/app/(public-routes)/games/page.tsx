@@ -12,9 +12,7 @@ const GamesPage = () => {
         </div>
       </StaticSection>
       <StaticSection firstSection title="Web3 Games" actions={<DeferredInstallerAction />}>
-        <div className="grid grid-cols-12 gap-y-8 pb-8 sm:gap-y-0 sm:pb-4 md:pb-0">
-          <Web3GameList />
-        </div>
+        <DeferredWeb3GameList />
       </StaticSection>
     </>
   )

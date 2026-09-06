@@ -9,6 +9,13 @@ import { ParallaxWrapper } from '@nl/ui/custom/parallax-wrapper'
 import { CONSOLE_ARTWORK_DIMENSIONS } from './backdrop'
 import styles from './index.module.css'
 
+const CONSOLE_ARTWORK_DIMENSIONS = {
+  width: 4842,
+  height: 3371,
+  quality: 65,
+  sizes: '100vw',
+} as const
+
 export interface ConsoleGameProps {
   children: ReactNode
   isNearViewport?: boolean

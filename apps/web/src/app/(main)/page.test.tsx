@@ -144,6 +144,17 @@ describe('home page', () => {
     expect(heroSources.every(({ quality }) => quality === 60)).toBe(true)
   })
 
+  it('uses the compact quality profile for the desktop hero raster artwork', () => {
+    render(<Home />)
+
+    const heroSources = optimizedImageCalls.filter(({ src }) =>
+      ['/img/hero/bg.webp', '/img/hero/characters.webp'].includes(src as string)
+    )
+
+    expect(heroSources).toHaveLength(2)
+    expect(heroSources.every(({ quality }) => quality === 60)).toBe(true)
+  })
+
   it('keeps desktop-only hero artwork out of the mobile image request path', () => {
     render(<Home />)
 

@@ -67,7 +67,7 @@ const ResponsiveIntroBackground = () => {
     alt: '',
     fetchPriority: 'high' as const,
     sizes: '100vw',
-    quality: 75,
+    quality: 60,
   }
   const desktopBackground = getOptimizedImageProps({
     ...commonProps,
