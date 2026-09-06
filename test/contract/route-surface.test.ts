@@ -1446,6 +1446,20 @@ describe('verification route shell contract', () => {
   })
 })
 
+describe('verification route shell contract', () => {
+  it('keeps wallet verification outside the public navigation shell', () => {
+    const pageSource = readFileSync(join(process.cwd(), verificationPage), 'utf8')
+    const layoutSource = readFileSync(join(process.cwd(), verificationLayout), 'utf8')
+
+    expect(pageSource).not.toContain('PublicNavigation')
+    expect(pageSource).not.toContain('_PublicMainLayout')
+    expect(layoutSource).toContain('WalletAuthContextWrapper')
+    expect(
+      existsSync(join(process.cwd(), 'apps/app/src/app/(public-routes)/verification/page.tsx'))
+    ).toBe(false)
+  })
+})
+
 describe('private provider loading contract', () => {
   it('defers chain-specific warning UI out of the private shell', () => {
     const layoutSource = readFileSync(join(process.cwd(), mainLayout), 'utf8')
