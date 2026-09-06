@@ -2,8 +2,6 @@ import { DesktopOnlyImage, MobileOnlyImage } from '@nl/ui/custom/responsive-only
 
 import { SPONSORS } from '@/constants/sponsors'
 
-import { SPONSORS } from '@/constants/sponsors'
-
 type Sponsor = { image: string; url: string; width: number; height: number }
 
 const RenderSponsor = ({ image, url, width, height }: Sponsor) => (
