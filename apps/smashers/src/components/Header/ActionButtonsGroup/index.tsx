@@ -7,6 +7,7 @@ import NativeImage from '@nl/ui/custom/native-image'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 
 import { Button } from '@nl/ui/base/button'
+import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 
 import styles from './index.module.css'
 

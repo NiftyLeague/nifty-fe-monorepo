@@ -7,6 +7,8 @@ import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 
+import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
+
 export type ParallaxDirection = 'up' | 'down' | 'left' | 'right'
 export type ParallaxIntensity = 'lite' | 'normal' | 'strong' | 'extreme'
 

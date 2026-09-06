@@ -4,6 +4,8 @@ import { cx } from '@nl/ui/class-names'
 
 import NavbarScrollState from './NavbarScrollState'
 
+import NavbarScrollState from './NavbarScrollState'
+
 interface NavbarScrollFrameProps {
   children: ReactNode
   className?: string

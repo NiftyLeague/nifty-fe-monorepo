@@ -26,9 +26,7 @@ const NavigationContext = createContext<NavigationContextValue | null>(null)
 
 export function NavigationProvider({ children }: PropsWithChildren) {
   const [drawerOpen, setDrawerOpen] = useState(false)
-  const isDesktopNavigation = useMediaQuery(desktopNavigationMediaQuery, {
-    initializeWithValue: false,
-  })
+  const isDesktopNavigation = useMediaQuery(desktopNavigationMediaQuery)
   const toggleDrawer = useCallback(() => setDrawerOpen((open) => !open), [])
   const value = useMemo(
     () => ({ drawerOpen, isDesktopNavigation, setDrawerOpen, toggleDrawer }),
