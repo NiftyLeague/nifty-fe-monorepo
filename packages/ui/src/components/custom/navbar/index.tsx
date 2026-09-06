@@ -135,6 +135,8 @@ function DesktopNavMenu({ actionButton, navItems }: NavbarProps) {
 }
 
 export function Navbar({ actionButton, navItems, className }: NavbarProps) {
+  const [isScrolled, setIsScrolled] = useState(false)
+  const frameRef = useRef<number | null>(null)
   const desktopNavItems = navItems.filter(
     (item) => item.type === 'group' || (item.type === 'single' && item.title !== 'Home')
   )
@@ -144,6 +146,7 @@ export function Navbar({ actionButton, navItems, className }: NavbarProps) {
         'navbar-scroll-frame fixed inset-x-0 top-0 z-50 h-20 bg-background/90 backdrop-blur-sm motion-safe:transition-all motion-safe:duration-500',
         className
       )}
+      data-scrolled={isScrolled}
     >
       <div className="flex h-full w-screen items-center justify-between px-4 sm:px-6 lg:px-8">
         <a href="/" className="flex-shrink-0">

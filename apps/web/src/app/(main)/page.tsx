@@ -306,7 +306,7 @@ const Home = () => {
       </div>
 
       {/* SMASHERS */}
-      <section id="gaming-section" className="home-below-fold w-screen relative text-center">
+      <section id="gaming-section" className="w-screen relative text-center">
         <h2 className="absolute w-full z-10 -mt-4 sm:mt-8 md:mt-16 lg:mt-22 transition-vertical-fade">
           CLASSIC GAMING REINVENTED
         </h2>
