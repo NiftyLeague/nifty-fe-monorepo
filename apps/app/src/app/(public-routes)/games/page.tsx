@@ -1,6 +1,6 @@
 import GameList from './_GameList'
-import Web3GameList from './_Web3GameList'
 import DeferredInstallerAction from './DeferredInstallerAction'
+import DeferredWeb3GameList from './DeferredWeb3GameList'
 import StaticSection from '@/components/sections/StaticSection'
 
 const GamesPage = () => {

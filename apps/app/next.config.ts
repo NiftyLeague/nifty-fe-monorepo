@@ -20,16 +20,6 @@ const webpackFallback: NonNullable<NextConfig['webpack']> = (config) => {
   return config
 }
 
-const webpackFallback: NonNullable<NextConfig['webpack']> = (config) => {
-  // Map @wagmi/core connectors package to wagmi/connectors to avoid ESM issues
-  config.resolve.alias = { ...config.resolve.alias, '@wagmi/connectors': 'wagmi/connectors' }
-
-  // Externalize native modules: https://github.com/vercel/next.js/issues/86099
-  config.externals.push('pino-pretty', 'lokijs', 'encoding', 'sodium-native', 'require-addon')
-
-  return config
-}
-
 const nextConfig: NextConfig = {
   transpilePackages: ['@nl/contracts', '@nl/imx-passport', '@nl/ui'],
   serverExternalPackages: ['pino-pretty', 'lokijs', 'encoding', 'sodium-native', 'require-addon'],

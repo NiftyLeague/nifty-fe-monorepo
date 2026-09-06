@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Suspense, useCallback, useEffect, useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
@@ -13,6 +13,7 @@ import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlacehold
 import DEFAULT_STATIC_FILTER from '@/components/extended/DegensFilter/constants'
 import { DEGENS_PER_PAGE, getGridSizeClass } from '@/components/extended/DegensFilter/utils'
 import DegensTopNav from '@/components/extended/DegensTopNav'
+import DegenSearchParamsBoundary from './DegenSearchParamsBoundary'
 import SectionTitle from '@/components/sections/SectionTitle'
 import { PUBLIC_DEGENS_API_URL } from '@/constants/api'
 import { getPageItems } from '@/hooks/usePagination'
