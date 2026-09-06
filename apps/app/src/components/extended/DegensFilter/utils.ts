@@ -170,7 +170,7 @@ export const getGridSizeClass = (isGridView: boolean, isDrawerOpen: boolean) => 
 }
 
 // TODO: remove temp fix for 7th tribes once fetch data is updated
-export const applySeventhTribesFix = (degen: Degen): Degen => {
+export const applySeventhTribesFix = <T extends PublicDegen>(degen: T): T => {
   if (Number(degen.id) <= 9900) {
     return degen
   }
@@ -179,5 +179,5 @@ export const applySeventhTribesFix = (degen: Degen): Degen => {
     ...degen,
     background: HYDRAS[degen.id as keyof typeof HYDRAS]?.rarity || 'Common',
     tribe: Number(degen.id) >= 9999 ? (Number(degen.id) === 9999 ? 'rugman' : 'satoshi') : 'hydra',
-  }
+  } as T
 }
