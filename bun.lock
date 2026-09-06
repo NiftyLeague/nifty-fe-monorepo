@@ -1189,6 +1189,8 @@
 
     "@nl/contracts": ["@nl/contracts@workspace:packages/contracts"],
 
+    "@nl/contracts": ["@nl/contracts@workspace:packages/contracts"],
+
     "@nl/eslint-config": ["@nl/eslint-config@workspace:packages/eslint-config"],
 
     "@nl/imx-passport": ["@nl/imx-passport@workspace:packages/imx-passport"],

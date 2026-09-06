@@ -8,6 +8,8 @@ const navigationState = {
   toggleDrawer: mock(),
 }
 
+let isDesktopNavigation = false
+
 let SidebarFrame: typeof import('./SidebarFrame').default
 
 beforeEach(async () => {
@@ -78,6 +80,21 @@ describe('private sidebar frame', () => {
 
   it('keeps the desktop drawer interactive only while open', () => {
     navigationState.isDesktopNavigation = true
+    navigationState.drawerOpen = true
+    const { rerender } = render(<SidebarFrame>Navigation</SidebarFrame>)
+
+    const drawer = screen.getByRole('complementary')
+    expect(drawer.className).toContain('pointer-events-auto')
+    expect(drawer.className).toContain('translate-x-0')
+
+    navigationState.drawerOpen = false
+    rerender(<SidebarFrame>Navigation updated</SidebarFrame>)
+    expect(drawer.className).toContain('pointer-events-none')
+    expect(drawer.className).toContain('-translate-x-full')
+  })
+
+  it('keeps the desktop drawer interactive only while open', () => {
+    isDesktopNavigation = true
     navigationState.drawerOpen = true
     const { rerender } = render(<SidebarFrame>Navigation</SidebarFrame>)
 
