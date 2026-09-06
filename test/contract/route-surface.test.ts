@@ -2589,6 +2589,28 @@ describe('static legal route performance contract', () => {
   })
 })
 
+describe('shared analytics loading contract', () => {
+  it('defers GTM and Web Vitals until the browser is idle', () => {
+    const source = readFileSync(join(process.cwd(), deferredAnalyticsSource), 'utf8')
+
+    expect(source).toContain("import('./GoogleTagManager')")
+    expect(source).toContain("import('./WebVitals')")
+    expect(source).toContain('requestIdleCallback')
+    expect(source).toContain('setTimeout')
+    expect(source).not.toContain("from 'next/dynamic'")
+  })
+
+  for (const file of analyticsLayouts) {
+    it(`uses deferred analytics in ${file}`, () => {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+
+      expect(source).toContain('DeferredAnalytics')
+      expect(source).not.toContain('import { GoogleTagManager')
+      expect(source).not.toContain('import { WebVitals')
+    })
+  }
+})
+
 const sentryClientBoundaries = [
   'apps/app/src/instrumentation-client.ts',
   'apps/app/src/app/global-error.tsx',
