@@ -2398,6 +2398,27 @@ describe('web marketing animation boundary contract', () => {
   }
 })
 
+describe('static legal route performance contract', () => {
+  for (const file of staticLegalPages) {
+    it(`keeps ${file} server-only and immediately visible`, () => {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+
+      expect(source).not.toContain("'use client'")
+      expect(source).not.toContain('AnimatedWrapper')
+      expect(source).not.toContain('@nl/ui/custom/animated-wrapper')
+      expect(source).not.toContain('transition-fade-start')
+    })
+  }
+
+  it('keeps the shared legal definitions fragment free of client-only animation code', () => {
+    const source = readFileSync(join(process.cwd(), webDefinitions), 'utf8')
+
+    expect(source).not.toContain("from 'react'")
+    expect(source).not.toContain('AnimatedWrapper')
+    expect(source).not.toContain('transition-fade-start')
+  })
+})
+
 const sentryClientBoundaries = [
   'apps/app/src/instrumentation-client.ts',
   'apps/app/src/app/global-error.tsx',

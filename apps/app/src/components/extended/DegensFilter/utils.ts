@@ -158,9 +158,6 @@ export const applySeventhTribesFix = <T extends PublicDegen>(degen: T): T => {
 // Needs to be divisible by 2, 3, or 4
 export const DEGENS_PER_PAGE = 12
 
-// MUI Grid size map (24-column grid so fractional 1.5/12 spans are integers):
-//   gridView: xs=12 -> 24, sm=6 -> 12, md=4 -> 8, lg/xl=4|3 -> 8|6
-//   list:     xs=6 -> 12, sm=4 -> 8, md=3 -> 6, lg/xl=3|2 -> 6|4
 export const getGridSizeClass = (isGridView: boolean, isDrawerOpen: boolean) => {
   if (isGridView) {
     return isDrawerOpen
