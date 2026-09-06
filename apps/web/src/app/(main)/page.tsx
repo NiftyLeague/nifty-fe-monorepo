@@ -62,6 +62,55 @@ const ResponsiveIntroBackground = () => {
   )
 }
 
+const ResponsiveIntroBackground = () => {
+  const commonProps = {
+    alt: '',
+    fetchPriority: 'high' as const,
+    sizes: '100vw',
+    quality: 75,
+  }
+  const { props: desktopBackground } = getImageProps({
+    ...commonProps,
+    src: '/img/hero/bg.webp',
+    width: 1920,
+    height: 1042,
+  })
+  const { props: mobileBackground } = getImageProps({
+    ...commonProps,
+    src: '/img/backgrounds/banner-dark.webp',
+    width: 2000,
+    height: 1000,
+  })
+
+  preload(desktopBackground.src, {
+    as: 'image',
+    fetchPriority: 'high',
+    imageSizes: commonProps.sizes,
+    imageSrcSet: desktopBackground.srcSet,
+    media: '(min-width: 769px)',
+  })
+  preload(mobileBackground.src, {
+    as: 'image',
+    fetchPriority: 'high',
+    imageSizes: commonProps.sizes,
+    imageSrcSet: mobileBackground.srcSet,
+    media: '(max-width: 768px)',
+  })
+
+  return (
+    <picture className="home-intro-background">
+      <source media="(max-width: 768px)" srcSet={mobileBackground.srcSet} />
+      <img
+        {...desktopBackground}
+        alt=""
+        loading="eager"
+        fetchPriority="high"
+        className="object-cover animate-zoom-out"
+      />
+    </picture>
+  )
+}
+
 const DesktopIntro = () => {
   return (
     <section className="desktop relative w-screen max-h-screen overflow-hidden home-desktop-intro">

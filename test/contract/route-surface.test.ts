@@ -1460,6 +1460,19 @@ describe('shared value equality contract', () => {
   })
 })
 
+describe('shared value equality contract', () => {
+  it('keeps lodash equality out of eager app utilities', () => {
+    const utilitySource = readFileSync(join(process.cwd(), valueEqualityUtility), 'utf8')
+
+    expect(utilitySource).not.toContain('lodash')
+    for (const file of [localStorageHook, contractReaderHook]) {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+      expect(source).toContain("from '@/utils/value-equality'")
+      expect(source).not.toContain("from 'lodash/isEqual'")
+    }
+  })
+})
+
 describe('dashboard overview loading contract', () => {
   it('defers the overview client graph behind the shared route loading boundary', () => {
     const pageSource = readFileSync(join(process.cwd(), dashboardOverview), 'utf8')
@@ -2620,6 +2633,97 @@ describe('public route dependency contract', () => {
     expect(webStyles).toContain('.animate-bounce-coin3')
     expect(webStyles).toContain('prefers-reduced-motion: reduce')
     expect(webMarketingStyles).toContain('prefers-reduced-motion: reduce')
+    expect(homePage).toContain("import '@/styles/marketing.css'")
+    expect(communityPage).toContain("import '@/styles/marketing.css'")
+    expect(webMarketingStyles).toContain('.sliding-nfts')
+    expect(webMarketingStyles).toContain('slideBg')
+  })
+
+  it('keeps the public launcher action independent from the network registry', () => {
+    const source = readFileSync(join(process.cwd(), 'apps/app/src/hooks/useVersion.ts'), 'utf8')
+
+    expect(source).toContain("process.env.NEXT_PUBLIC_NETWORK === 'mainnet'")
+    expect(source).not.toContain("from '@/constants/networks'")
+    expect(source).not.toContain('TARGET_NETWORK')
+  })
+
+  it('keeps the removed desktop download dialog from returning as dead UI', () => {
+    const list = readFileSync(
+      join(process.cwd(), 'apps/app/src/app/(public-routes)/games/_Web3GameList/index.tsx'),
+      'utf8'
+    )
+
+    expect(existsSync(join(process.cwd(), staleDownloadGameDialog))).toBe(false)
+    expect(list).not.toContain('DownloadGameDialog')
+  })
+
+  it('preserves the responsive grid style for both public game lists', () => {
+    const gridStyles = readFileSync(join(process.cwd(), publicGamesGridStyles), 'utf8')
+    const freeToPlayList = readFileSync(
+      join(process.cwd(), 'apps/app/src/app/(public-routes)/games/_GameList/index.tsx'),
+      'utf8'
+    )
+    const web3List = readFileSync(
+      join(process.cwd(), 'apps/app/src/app/(public-routes)/games/_Web3GameList/index.tsx'),
+      'utf8'
+    )
+
+    expect(freeToPlayList).toContain("from '../grid-item.module.css'")
+    expect(web3List).toContain("from '../grid-item.module.css'")
+    expect(gridStyles).toContain('@media (max-width: 639.95px)')
+    expect(
+      existsSync(
+        join(process.cwd(), 'apps/app/src/app/(public-routes)/games/_GameList/grid-item.module.css')
+      )
+    ).toBe(false)
+    expect(
+      existsSync(
+        join(
+          process.cwd(),
+          'apps/app/src/app/(public-routes)/games/_Web3GameList/grid-item.module.css'
+        )
+      )
+    ).toBe(false)
+  })
+
+  it('uses the shared shadcn button recipe for themed marketing CTAs', () => {
+    const source = readFileSync(join(process.cwd(), sharedThemeButton), 'utf8')
+
+    expect(source).toContain("import { buttonVariants } from '@nl/ui/base/button-variants'")
+    expect(source).toContain("buttonVariants({ variant: 'ghost'")
+    expect(source).toContain("buttonVariants({ className: cn(buttonClassName, 'disabled') })")
+    expect(source).toContain('<button')
+    expect(source).not.toContain("from '@nl/ui/base/button'")
+    expect(source).not.toContain('aria-disabled={disabled}')
+    expect(source).not.toContain("href={href || ''}")
+    expect(source).toContain('if (!href) return null')
+    expect(source).not.toContain("href={href ?? '#'}")
+  })
+
+  it('keeps Web-only animation rules out of the shared UI stylesheet', () => {
+    const sharedAnimations = readFileSync(
+      join(process.cwd(), 'packages/ui/src/styles/05_tailwind.animate.css'),
+      'utf8'
+    )
+    const webMarketingStyles = readFileSync(
+      join(process.cwd(), 'apps/web/src/styles/marketing.css'),
+      'utf8'
+    )
+    const homePage = readFileSync(join(process.cwd(), 'apps/web/src/app/(main)/page.tsx'), 'utf8')
+    const communityPage = readFileSync(
+      join(process.cwd(), 'apps/web/src/app/(main)/community/page.tsx'),
+      'utf8'
+    )
+    const webStyles = readFileSync(join(process.cwd(), 'apps/web/src/styles/home.css'), 'utf8')
+
+    expect(sharedAnimations).not.toContain('animate-propeller')
+    expect(sharedAnimations).not.toContain('animate-bounce-coin')
+    expect(sharedAnimations).not.toContain('.sliding-nfts')
+    expect(sharedAnimations).not.toContain('slideBg')
+    expect(webStyles).toContain('.animate-propeller')
+    expect(webStyles).toContain('.animate-bounce-coin1')
+    expect(webStyles).toContain('.animate-bounce-coin2')
+    expect(webStyles).toContain('.animate-bounce-coin3')
     expect(homePage).toContain("import '@/styles/marketing.css'")
     expect(communityPage).toContain("import '@/styles/marketing.css'")
     expect(webMarketingStyles).toContain('.sliding-nfts')

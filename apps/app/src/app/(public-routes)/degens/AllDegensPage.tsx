@@ -224,6 +224,9 @@ const AllDegensPage = (): React.ReactNode => {
 
   return (
     <>
+      <Suspense fallback={null}>
+        <DegenSearchParamsBoundary onChange={handleSearchParamsChange} />
+      </Suspense>
       <div className="flex h-full flex-col justify-start align-top gap-4 pl-2">
         <div className="pl-4 pr-6">
           <DegensTopNav

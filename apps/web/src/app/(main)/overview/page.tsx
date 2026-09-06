@@ -27,17 +27,7 @@ const Overview: NextPage = () => (
 
         <DeferredOverviewFAQ />
 
-        <ThemeBtnGroup
-          className="mt-6 xl:mt-8"
-          primary={{
-            href: '/docs/faq/general',
-            title: 'More FAQ',
-            external: true,
-            className: 'theme-btn-purple',
-          }}
-        />
-      </section>
-    </div>
+          <DeferredOverviewFAQ />
 
     <OverviewCommunity />
   </>
