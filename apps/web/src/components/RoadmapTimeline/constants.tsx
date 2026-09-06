@@ -3,6 +3,8 @@ import styles from './index.module.css'
 
 const COMIC_THUMBNAIL_SIZES = '(max-width: 767px) 50vw, 250px'
 
+const COMIC_THUMBNAIL_SIZES = '(max-width: 767px) 50vw, 250px'
+
 export const ROADMAP_CARDS = [
   {
     completed: true,

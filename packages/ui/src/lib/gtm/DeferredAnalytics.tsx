@@ -4,6 +4,8 @@ import { startTransition, useEffect, useState } from 'react'
 
 import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
 
+import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
+
 interface DeferredAnalyticsProps {
   includeWebVitals?: boolean
 }
