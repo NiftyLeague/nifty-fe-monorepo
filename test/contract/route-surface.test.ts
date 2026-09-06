@@ -2893,6 +2893,20 @@ describe('public route dependency contract', () => {
   })
 })
 
+describe('dashboard overview loading contract', () => {
+  it('defers below-the-fold comic and item sections', () => {
+    const source = readFileSync(join(process.cwd(), dashboardOverview), 'utf8')
+
+    expect(source).toContain('import DeferredDashboardSection')
+    expect(source).toContain("const loadMyComics = () => import('./MyComics')")
+    expect(source).toContain("const loadMyItems = () => import('./MyItems')")
+    expect(source).toContain("import('./MyComics')")
+    expect(source).toContain("import('./MyItems')")
+    expect(source).toContain('<DeferredDashboardSection label="My Comics" load={loadMyComics} />')
+    expect(source).toContain('<DeferredDashboardSection label="My Items" load={loadMyItems} />')
+  })
+})
+
 function countRouteFiles(dir: string): number {
   let count = 0
   for (const entry of readdirSync(dir)) {
