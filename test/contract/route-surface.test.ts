@@ -2055,6 +2055,19 @@ describe('shared below-fold loading contract', () => {
     expect(jobsSource).toContain("from '@/constants/careers'")
   })
 
+  it('defers the below-fold Overview FAQ interaction bundle', () => {
+    const pageSource = readFileSync(join(process.cwd(), webOverviewPage), 'utf8')
+    const deferredSource = readFileSync(join(process.cwd(), webDeferredOverviewSections), 'utf8')
+    const faqSource = readFileSync(join(process.cwd(), webOverviewFAQ), 'utf8')
+
+    expect(pageSource).toContain('DeferredOverviewFAQ')
+    expect(pageSource).not.toContain("from '@nl/ui/custom/accordion'")
+    expect(deferredSource).toContain("import('@/components/OverviewFAQ')")
+    expect(deferredSource).toContain("from '@nl/ui/custom/deferred-section'")
+    expect(faqSource).toContain("from '@nl/ui/custom/accordion'")
+    expect(faqSource).toContain('defaultValue="item-1"')
+  })
+
   it('defers below-fold marketing sections in Smashers', () => {
     const pageSource = readFileSync(join(process.cwd(), smashersHomePage), 'utf8')
     const deferredSource = readFileSync(join(process.cwd(), smashersDeferredHomeSections), 'utf8')
@@ -2432,6 +2445,81 @@ describe('static legal route performance contract', () => {
     expect(source).not.toContain("from 'react'")
     expect(source).not.toContain('AnimatedWrapper')
     expect(source).not.toContain('transition-fade-start')
+  })
+})
+
+describe('web marketing image sizing contract', () => {
+  it('uses rendered-width image hints for the home page artwork', () => {
+    const homeSource = readFileSync(join(process.cwd(), webHomePage), 'utf8')
+    const bouncingNftlSource = readFileSync(
+      join(process.cwd(), 'apps/web/src/components/BouncingNFTL/index.tsx'),
+      'utf8'
+    )
+
+    expect(homeSource).toContain('src="/img/hero/companion-base.webp"')
+    expect(homeSource).toContain('sizes="12vw"')
+    expect(homeSource).toContain('src="/img/hero/halo.webp"')
+    expect(homeSource).toContain('sizes="9vw"')
+    expect(homeSource).toContain('sizes="(min-width: 768px) 50vw, 100vw"')
+    expect(homeSource).toContain('sizes="246px"')
+    expect(bouncingNftlSource).toContain('sizes="226px"')
+    expect(bouncingNftlSource).toContain('sizes="246px"')
+  })
+
+  it('uses rendered-width hints for secondary marketing artwork', () => {
+    const expectedHints: Array<[string, string]> = [
+      [
+        'apps/web/src/components/TeamDesktop/index.tsx',
+        'sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"',
+      ],
+      ['apps/web/src/components/Sponsors.tsx', 'sizes="(min-width: 768px) 160px, 80px"'],
+      ['apps/web/src/components/LearnCards/index.tsx', 'sizes="(min-width: 640px) 50vw, 100vw"'],
+      [
+        'apps/web/src/app/(main)/compete-and-earn/page.tsx',
+        'sizes="(min-width: 768px) 50vw, 100vw"',
+      ],
+      ['apps/web/src/app/(main)/careers/page.tsx', 'sizes="(min-width: 768px) 50vw, 100vw"'],
+      ['apps/web/src/app/(main)/games/page.tsx', 'sizes="33vw"'],
+      [
+        'apps/web/src/app/(main)/niftyworld/page.tsx',
+        'sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"',
+      ],
+      ['apps/web/src/app/(main)/roadmap/page.tsx', 'sizes="(min-width: 920px) 800px, 600px"'],
+      ['apps/web/src/components/RoadmapTimeline/roadmapCard.tsx', 'sizes="200px"'],
+    ]
+
+    for (const [file, hint] of expectedHints) {
+      expect(readFileSync(join(process.cwd(), file), 'utf8')).toContain(hint)
+    }
+  })
+
+  it('preloads only the first Overview learn card', () => {
+    const learnCardsSource = readFileSync(
+      join(process.cwd(), 'apps/web/src/components/LearnCards/index.tsx'),
+      'utf8'
+    )
+
+    expect(learnCardsSource).toContain('priority={priority}')
+    expect(learnCardsSource).toContain('priority={index === 0}')
+    expect(learnCardsSource).not.toContain('            priority\n')
+  })
+
+  it('does not eagerly preload below-fold decorative artwork', () => {
+    const overviewSource = readFileSync(
+      join(process.cwd(), 'apps/web/src/app/(main)/overview/page.tsx'),
+      'utf8'
+    )
+    const roadmapSource = readFileSync(
+      join(process.cwd(), 'apps/web/src/app/(main)/roadmap/page.tsx'),
+      'utf8'
+    )
+
+    expect(overviewSource).not.toContain('priority')
+    expect(roadmapSource).toContain('src="/img/space/satoshi_move.gif"')
+    expect(roadmapSource).toContain('src="/img/space/moon.webp"')
+    expect(roadmapSource).not.toContain(
+      'src="/img/space/moon.webp"\n                alt="moon"\n                width={800}\n                height={800}\n                priority'
+    )
   })
 })
 
