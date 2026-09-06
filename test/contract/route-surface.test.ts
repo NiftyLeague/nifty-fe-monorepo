@@ -627,6 +627,7 @@ describe('public degen loading contract', () => {
     const pageSource = readFileSync(join(process.cwd(), degensPage), 'utf8')
     const routeBoundarySource = readFileSync(join(process.cwd(), degensRouteBoundary), 'utf8')
     const clientPageSource = readFileSync(join(process.cwd(), degensClientPage), 'utf8')
+    const topNavSource = readFileSync(join(process.cwd(), degensTopNav), 'utf8')
 
     expect(pageSource).not.toContain("'use client'")
     expect(pageSource).toContain("from './DegenRoute'")
@@ -634,6 +635,10 @@ describe('public degen loading contract', () => {
     expect(routeBoundarySource).not.toContain('ssr: false')
     expect(routeBoundarySource).toContain("from '@nl/ui/base/skeleton'")
     expect(clientPageSource).toContain("'use client'")
+    expect(clientPageSource).toContain("from 'lucide-react'")
+    expect(clientPageSource).not.toContain("from '@nl/ui/base/icon'")
+    expect(topNavSource).toContain("from 'lucide-react'")
+    expect(topNavSource).not.toContain("from '@nl/ui/base/icon'")
   })
 })
 
@@ -641,11 +646,15 @@ describe('GLTF viewer loading contract', () => {
   it('keeps the initial NFT shell server-rendered and browser controls isolated', () => {
     const pageSource = readFileSync(join(process.cwd(), gltfPage), 'utf8')
     const clientSource = readFileSync(join(process.cwd(), gltfClient), 'utf8')
+    const routeBoundarySource = readFileSync(join(process.cwd(), gltfRouteBoundary), 'utf8')
 
     expect(pageSource).not.toContain("'use client'")
     expect(pageSource).toContain('await params')
     expect(pageSource).toContain("from 'next/image'")
-    expect(pageSource).toContain("from './components/DegenViews'")
+    expect(pageSource).toContain("from './components/DegenViewsRouteBoundary'")
+    expect(routeBoundarySource).toContain("dynamic(() => import('./DegenViews')")
+    expect(routeBoundarySource).not.toContain('ssr: false')
+    expect(routeBoundarySource).toContain('<RouteLoading label="Loading DEGEN viewer" />')
     expect(clientSource).toContain("'use client'")
     expect(clientSource).not.toContain("from 'next/image'")
     expect(clientSource).toContain("dynamic(() => import('./ModelView')")
@@ -1388,6 +1397,33 @@ describe('verification route shell contract', () => {
       existsSync(join(process.cwd(), 'apps/app/src/app/(public-routes)/verification/page.tsx'))
     ).toBe(false)
   })
+
+  it('defers wallet providers and verification interactions until after the initial shell', () => {
+    const pageSource = readFileSync(join(process.cwd(), verificationPage), 'utf8')
+    const routeBoundarySource = readFileSync(join(process.cwd(), verificationRouteBoundary), 'utf8')
+    const clientSource = readFileSync(join(process.cwd(), verificationClient), 'utf8')
+    const wrapperSource = readFileSync(join(process.cwd(), walletAuthContextWrapper), 'utf8')
+    const providersSource = readFileSync(join(process.cwd(), walletAuthProviders), 'utf8')
+    const providersBoundarySource = readFileSync(
+      join(process.cwd(), walletAuthProvidersBoundary),
+      'utf8'
+    )
+
+    expect(pageSource).not.toContain("'use client'")
+    expect(pageSource).toContain("from './VerificationRouteBoundary'")
+    expect(routeBoundarySource).toContain("import('./VerificationClient')")
+    expect(routeBoundarySource).toContain('ssr: false')
+    expect(routeBoundarySource).toContain("from '@nl/ui/custom/route-loading'")
+    expect(clientSource).toContain('useSearchParams')
+    expect(clientSource).toContain('useSignAuthMsg')
+    expect(wrapperSource).toContain("from '@/contexts/WalletAuthProvidersBoundary'")
+    expect(wrapperSource).not.toContain("from '@/contexts/Web3ModalContext'")
+    expect(providersBoundarySource).toContain("import('./WalletAuthProviders')")
+    expect(providersBoundarySource).toContain('ssr: false')
+    expect(providersBoundarySource).toContain("from '@nl/ui/custom/route-loading'")
+    expect(providersSource).toContain("from '@/contexts/Web3ModalContext'")
+    expect(providersSource).toContain("from '@/contexts/AuthTokenContext'")
+  })
 })
 
 describe('private provider loading contract', () => {
@@ -2069,7 +2105,11 @@ describe('shared below-fold loading contract', () => {
     expect(pageSource).not.toContain("from '@nl/ui/custom/accordion'")
     expect(deferredSource).toContain("import('@/components/OverviewFAQ')")
     expect(deferredSource).toContain("from '@nl/ui/custom/deferred-section'")
-    expect(faqSource).toContain("from '@nl/ui/custom/accordion'")
+    expect(faqSource).toContain("from '@nl/ui/base/accordion'")
+    expect(faqSource).not.toContain("from '@nl/ui/custom/accordion'")
+    expect(faqSource).toContain('<AccordionItem')
+    expect(faqSource).toContain('<AccordionTrigger')
+    expect(faqSource).toContain('<AccordionContent')
     expect(faqSource).toContain('defaultValue="item-1"')
   })
 
@@ -2481,6 +2521,20 @@ describe('static legal route performance contract', () => {
 })
 
 describe('web marketing image sizing contract', () => {
+  it('keeps decorative homepage coins out of the client scroll graph', () => {
+    const homeSource = readFileSync(join(process.cwd(), webHomePage), 'utf8')
+    const bouncingNftlSource = readFileSync(
+      join(process.cwd(), 'apps/web/src/components/BouncingNFTL/index.tsx'),
+      'utf8'
+    )
+
+    expect(homeSource).not.toContain("from '@nl/ui/custom/parallax-wrapper'")
+    expect(bouncingNftlSource).not.toContain("from '@nl/ui/custom/parallax-wrapper'")
+    expect(bouncingNftlSource).toContain('animate-bounce-coin1')
+    expect(bouncingNftlSource).toContain('animate-bounce-coin2')
+    expect(bouncingNftlSource).toContain('animate-bounce-coin3')
+  })
+
   it('uses rendered-width image hints for the home page artwork', () => {
     const homeSource = readFileSync(join(process.cwd(), webHomePage), 'utf8')
     const bouncingNftlSource = readFileSync(
@@ -2818,6 +2872,20 @@ describe('public route dependency contract', () => {
 
     expect(source).toContain('id={`game-video-${index}`}')
     expect(source).not.toContain('id="console-video"')
+  })
+
+  it('keeps public videos server-rendered while deferring playback observers', () => {
+    const shell = readFileSync(join(process.cwd(), viewportVideo), 'utf8')
+    const boundary = readFileSync(join(process.cwd(), viewportVideoBoundary), 'utf8')
+    const enhancer = readFileSync(join(process.cwd(), viewportVideoEnhancer), 'utf8')
+
+    expect(shell).not.toContain("'use client'")
+    expect(shell).toContain("from './ViewportVideoBoundary'")
+    expect(boundary).toContain("dynamic(() => import('./ViewportVideoEnhancer')")
+    expect(boundary).toContain('preload="none"')
+    expect(enhancer).toContain("from '@nl/ui/hooks/useOnScreen'")
+    expect(enhancer).toContain("from '@nl/ui/hooks/useMediaQuery'")
+    expect(enhancer).toContain("video.preload = shouldPlay ? 'metadata' : 'none'")
   })
 
   it('keeps API-only constants separate from the contract registry', () => {

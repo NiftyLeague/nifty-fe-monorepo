@@ -9,6 +9,8 @@ import type { ConsoleGameProps } from '../console-game'
 
 import type { ConsoleGameProps } from '../console-game'
 
+import type { ConsoleGameProps } from '../console-game'
+
 interface DeferredConsoleGameProps {
   children: ReactNode
   /** Keep the interactive video out of the first idle window after it is visible. */

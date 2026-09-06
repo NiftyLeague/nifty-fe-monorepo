@@ -31,7 +31,6 @@ export const ConsoleGame = memo(function ConsoleGame({
 }: ConsoleGameProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
-  const isNearViewport = useOnScreen(rootRef, '200px')
 
   const togglePlay = useCallback(() => {
     if (!videoRef.current) return

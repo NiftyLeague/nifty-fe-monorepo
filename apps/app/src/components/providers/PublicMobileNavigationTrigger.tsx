@@ -2,20 +2,21 @@
 
 import dynamic from 'next/dynamic'
 import { Menu } from 'lucide-react'
+import type { ReactNode } from 'react'
 import { useState } from 'react'
 
-import { Button } from '@nl/ui/base/button'
+import { IconButton } from '@nl/ui/base/icon-button'
 
 const PublicMobileNavigation = dynamic(() => import('./PublicMobileNavigation'), {
   ssr: false,
 })
 
-export default function PublicMobileNavigationTrigger() {
+export default function PublicMobileNavigationTrigger({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false)
 
   return (
     <>
-      <Button
+      <IconButton
         type="button"
         variant="ghost"
         size="icon"
@@ -26,8 +27,12 @@ export default function PublicMobileNavigationTrigger() {
         aria-controls="public-mobile-navigation"
       >
         <Menu aria-hidden="true" absoluteStrokeWidth size={24} />
-      </Button>
-      {open ? <PublicMobileNavigation open={open} onOpenChange={setOpen} /> : null}
+      </IconButton>
+      {open ? (
+        <PublicMobileNavigation open={open} onOpenChange={setOpen}>
+          {children}
+        </PublicMobileNavigation>
+      ) : null}
     </>
   )
 }

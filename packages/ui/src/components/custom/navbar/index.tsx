@@ -139,7 +139,12 @@ export function Navbar({ actionButton, navItems, className }: NavbarProps) {
     (item) => item.type === 'group' || (item.type === 'single' && item.title !== 'Home')
   )
   return (
-    <NavbarScrollFrame className={className}>
+    <header
+      className={cn(
+        'navbar-scroll-frame fixed inset-x-0 top-0 z-50 h-20 bg-background/90 backdrop-blur-sm motion-safe:transition-all motion-safe:duration-500',
+        className
+      )}
+    >
       <div className="flex h-full w-screen items-center justify-between px-4 sm:px-6 lg:px-8">
         <a href="/" className="flex-shrink-0">
           <OptimizedImage
@@ -156,7 +161,7 @@ export function Navbar({ actionButton, navItems, className }: NavbarProps) {
         <DesktopNavMenu actionButton={actionButton} navItems={desktopNavItems} />
         <MobileNavMenu actionButton={actionButton} navItems={navItems} />
       </div>
-    </NavbarScrollFrame>
+    </header>
   )
 }
 

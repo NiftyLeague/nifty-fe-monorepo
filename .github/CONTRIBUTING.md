@@ -171,7 +171,7 @@ Staging re-alignment is event-driven from `main` pushes, with manual dispatch av
 The connected Vercel projects also keep the consolidated Git commit status disabled. This prevents canceled ignored-build records from holding an aggregate pending check; per-project skipped statuses remain visible for affected-project diagnostics.
 If a ready pull request is returned to draft, its in-flight hosted validation is cancelled and no replacement validation starts until it is ready again.
 
-Draft feature work is intentionally cost-aware: local validation is the feedback loop while a pull request is draft. Marking the pull request ready for review starts hosted validation. Vercel projects disable Git-triggered deployments on feature branches through the versioned `git.deploymentEnabled` policy in `apps/*/vercel.json` and continue on `staging` and `main`; manual deployments remain available.
+Draft feature work is intentionally cost-aware: local validation is the feedback loop while a pull request is draft. Marking the pull request ready for review starts hosted validation. Vercel projects disable Git-triggered deployments and ignore builds for every feature branch through the versioned `git.deploymentEnabled` and `ignoreCommand` policies in `apps/*/vercel.json`; Vercel builds run on `staging` and `main`, while manual deployments remain available.
 If a ready pull request is returned to draft, its in-flight hosted validation is cancelled and no replacement validation starts until it is ready again.
 
 Required checks are enforced by branch protection rulesets/branch protection. Do not duplicate their checklists in the pull request description; document validation commands and results instead.
