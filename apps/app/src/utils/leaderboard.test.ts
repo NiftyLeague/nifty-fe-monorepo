@@ -116,7 +116,7 @@ describe('leaderboard data loaders', () => {
     expect(fetchMock).not.toHaveBeenCalled()
   })
 
-  it('returns rank responses and caught rank errors', async () => {
+  it('returns rank responses and propagates network errors', async () => {
     const response = new Response('{}', { status: 200 })
     const fetchMock = mock().mockResolvedValue(response)
     stubGlobal('fetch', fetchMock)
@@ -125,6 +125,6 @@ describe('leaderboard data loaders', () => {
 
     const error = new Error('offline')
     stubGlobal('fetch', mock().mockRejectedValue(error))
-    await expect(fetchRankByUserId('user-1', 'smashers', 'wins', 'week')).resolves.toBe(error)
+    await expect(fetchRankByUserId('user-1', 'smashers', 'wins', 'week')).rejects.toBe(error)
   })
 })

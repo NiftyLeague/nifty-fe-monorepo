@@ -143,7 +143,7 @@ async function getDegen(tokenId: number, options: { creationInfo: any }) {
   const minty = await MakeDegen(targetNetwork)
   const nft = (await minty.getNFT(tokenId, { fetchCreationInfo })) as NFTInfo
 
-  const output = [
+  const output: [string, string][] = [
     ['Token ID:', chalk.green(`${nft.tokenId}`)],
     ['Owner Address:', chalk.yellow(nft.ownerAddress || '')],
   ]
