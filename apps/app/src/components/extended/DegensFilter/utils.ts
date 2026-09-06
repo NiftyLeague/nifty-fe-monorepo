@@ -4,6 +4,7 @@ import type { DegenFilter } from '@/types/degenFilter'
 import DEFAULT_STATIC_FILTER from './constants'
 import { BURN_ADDYS } from '@/constants/addresses'
 import { HYDRA_RARITIES } from '@/constants/hydra-rarities'
+import { matchesSearchTerm } from '@/utils/search'
 
 export const transformDataByFilter = <T extends PublicDegen>(
   degens: T[],
@@ -19,11 +20,10 @@ export const transformDataByFilter = <T extends PublicDegen>(
 ): T[] => {
   const normalizedWalletAddress = walletAddress[0]?.toLowerCase()
   const normalizedTokenId = tokenId[0]
-  const normalizedSearchTerm = searchTerm.length === 1 ? searchTerm[0]?.toLowerCase() : undefined
-  const normalizedTribes = new Set(tribes.map((tribe) => tribe.toLocaleLowerCase()))
-  const normalizedBackgrounds = new Set(
-    backgrounds.map((background) => background.toLocaleLowerCase())
-  )
+  const normalizedSearchTerm =
+    searchTerm.length === 1 ? searchTerm[0]?.trim().toLowerCase() : undefined
+  const normalizedTribes = new Set(tribes.map((tribe) => tribe.toLowerCase()))
+  const normalizedBackgrounds = new Set(backgrounds.map((background) => background.toLowerCase()))
   const normalizedCosmetics = new Set(cosmetics)
   const hasCosmeticsFilter = cosmetics.length > 0
 
@@ -53,15 +53,12 @@ export const transformDataByFilter = <T extends PublicDegen>(
 
       if (
         normalizedTribes.size > 0 &&
-        !normalizedTribes.has(tribe?.toLocaleLowerCase() || (!tribe ? 'hydra' : ''))
+        !normalizedTribes.has(tribe?.toLowerCase() || (!tribe ? 'hydra' : ''))
       ) {
         return false
       }
 
-      if (
-        normalizedBackgrounds.size > 0 &&
-        !normalizedBackgrounds.has(background?.toLocaleLowerCase())
-      ) {
+      if (normalizedBackgrounds.size > 0 && !normalizedBackgrounds.has(background?.toLowerCase())) {
         return false
       }
 
@@ -74,10 +71,7 @@ export const transformDataByFilter = <T extends PublicDegen>(
 
       if (
         normalizedSearchTerm &&
-        !(
-          name?.toLowerCase().includes(normalizedSearchTerm) ||
-          id.toLocaleLowerCase().includes(normalizedSearchTerm)
-        )
+        !matchesSearchTerm({ id, name }, normalizedSearchTerm, (item) => [item.id, item.name])
       ) {
         return false
       }
@@ -126,15 +120,13 @@ export const getDefaultFilterValueFromData = (degens: PublicDegen[] | undefined)
   let minPrice = degens[0]?.price ?? 0
   let maxPrice = degens[0]?.price ?? 0
 
-  degens.forEach((degen) => {
-    const { price } = degen
-    minPrice = price < minPrice ? price : minPrice
-    maxPrice = price > maxPrice ? price : maxPrice
-  })
+  for (let i = 1; i < degens.length; i += 1) {
+    const { price } = degens[i] as PublicDegen
+    if (price < minPrice) minPrice = price
+    if (price > maxPrice) maxPrice = price
+  }
 
-  const newFilterValues = { ...DEFAULT_STATIC_FILTER, prices: [minPrice, maxPrice] }
-
-  return newFilterValues
+  return { ...DEFAULT_STATIC_FILTER, prices: [minPrice, maxPrice] }
 }
 
 // Needs to be divisible by 2, 3, or 4
@@ -153,13 +145,12 @@ export const getGridSizeClass = (isGridView: boolean, isDrawerOpen: boolean) => 
 
 // TODO: remove temp fix for 7th tribes once fetch data is updated
 export const applySeventhTribesFix = <T extends PublicDegen>(degen: T): T => {
-  if (Number(degen.id) <= 9900) {
-    return degen
-  }
+  const idNum = Number(degen.id)
+  if (idNum <= 9900) return degen
 
   return {
     ...degen,
     background: HYDRA_RARITIES[degen.id] || 'Common',
-    tribe: Number(degen.id) >= 9999 ? (Number(degen.id) === 9999 ? 'rugman' : 'satoshi') : 'hydra',
+    tribe: idNum >= 9999 ? (idNum === 9999 ? 'rugman' : 'satoshi') : 'hydra',
   } as T
 }
