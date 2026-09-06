@@ -17,7 +17,7 @@ describe('free-to-play game list', () => {
       ),
     }))
     mock.module('@nl/ui/custom/optimized-image', () => ({
-      default: ({ fill: _fill, sizes: _sizes, alt = '', ...props }: ComponentProps<'img'>) => (
+      default: ({ fill: _fill, alt = '', ...props }: ComponentProps<'img'>) => (
         // eslint-disable-next-line @next/next/no-img-element
         <img alt={alt} {...props} />
       ),
