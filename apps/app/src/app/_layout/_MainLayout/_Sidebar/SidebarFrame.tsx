@@ -3,7 +3,6 @@
 import type { PropsWithChildren, ReactNode } from 'react'
 import { lazy, memo, Suspense, useMemo } from 'react'
 
-import { Button } from '@nl/ui/base/button'
 import { ScrollArea } from '@nl/ui/base/scroll-area'
 import { cx } from '@nl/ui/class-names'
 
