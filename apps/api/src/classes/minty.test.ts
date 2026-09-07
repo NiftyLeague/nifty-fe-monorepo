@@ -66,6 +66,7 @@ beforeEach(() => {
   mockPinRm.mockClear()
   mockPinLs.mockClear()
   mockFetch.mockClear()
+  mockCreate.mockClear()
 })
 
 describe('Minty.init', () => {
