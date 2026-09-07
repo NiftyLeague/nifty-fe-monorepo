@@ -1,4 +1,13 @@
 [test]
 preload = ["./test/happy-dom-setup.ts", "./test/preload.ts", "./test/setup.ts"]
-exclude = ["dist/**", "node_modules/**", "coverage/**", "**/*.test.js", "**/*.spec.js", ".next/**", ".docusaurus/**", "build/**"]
+exclude = [
+  "dist/**",
+  "node_modules/**",
+  "coverage/**",
+  "**/*.test.js",
+  "**/*.spec.js",
+  ".next/**",
+  ".docusaurus/**",
+  "build/**",
+]
 timeout = 15000

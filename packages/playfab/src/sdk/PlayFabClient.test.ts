@@ -95,7 +95,9 @@ describe('generated client endpoint wrappers', () => {
       'X-Authorization',
       'ticket',
     ])
-    ;(call?.[4] as (...args: unknown[]) => void)(null, { data: { ok: true } })
+    const callbackFn = call?.[4] as ((...args: unknown[]) => void) | undefined
+    expect(callbackFn).toBeDefined()
+    callbackFn?.(null, { data: { ok: true } })
     expect(callback).toHaveBeenCalledWith(null, { data: { ok: true } })
   })
 
@@ -110,7 +112,9 @@ describe('generated client endpoint wrappers', () => {
       null,
       null,
     ])
-    ;(call?.[4] as (...args: unknown[]) => void)(null, { data: { ok: true } })
+    const callbackFn = call?.[4] as ((...args: unknown[]) => void) | undefined
+    expect(callbackFn).toBeDefined()
+    callbackFn?.(null, { data: { ok: true } })
     expect(callback).toHaveBeenCalled()
   })
 

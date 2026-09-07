@@ -123,7 +123,7 @@ export function MakeRequest<
         } else {
           callback(null, replyEnvelope)
         }
-      } catch (e) {
+      } catch {
         // Handle when rawReply is not valid json
         const error: PlayFabError = {
           code: 503, // Service Unavailable

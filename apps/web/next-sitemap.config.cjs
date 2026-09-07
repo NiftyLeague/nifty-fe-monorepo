@@ -1,10 +1,10 @@
-const HIGH_PRIORITY_PATHS = ['/', '/games', '/niftyworld', '/degens', '/roadmap', '/community'];
-const MID_PRIORITY_PATHS = ['/compete-and-earn', '/lore', '/overview', '/team', '/docs', '/shop'];
+const HIGH_PRIORITY_PATHS = ['/', '/games', '/niftyworld', '/degens', '/roadmap', '/community']
+const MID_PRIORITY_PATHS = ['/compete-and-earn', '/lore', '/overview', '/team', '/docs', '/shop']
 
 function customPathPriority(path) {
-  if (HIGH_PRIORITY_PATHS.includes(path)) return '1.0';
-  if (MID_PRIORITY_PATHS.includes(path)) return '0.7';
-  return '0.4';
+  if (HIGH_PRIORITY_PATHS.includes(path)) return '1.0'
+  if (MID_PRIORITY_PATHS.includes(path)) return '0.7'
+  return '0.4'
 }
 
 /** @type {import('next-sitemap').IConfig} */
@@ -20,7 +20,10 @@ module.exports = {
       priority: customPathPriority(path),
       lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
       alternateRefs: config.alternateRefs ?? [],
-    };
+    }
   },
-  additionalPaths: async config => [await config.transform(config, '/docs'), await config.transform(config, '/shop')],
-};
+  additionalPaths: async (config) => [
+    await config.transform(config, '/docs'),
+    await config.transform(config, '/shop'),
+  ],
+}

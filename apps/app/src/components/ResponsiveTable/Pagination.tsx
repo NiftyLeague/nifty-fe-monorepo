@@ -18,7 +18,6 @@ interface PaginationProps {
 const Pagination: React.FC<PaginationProps> = ({
   count,
   className,
-  component,
   onChangePage,
   page,
   rowsPerPage,
@@ -29,11 +28,6 @@ const Pagination: React.FC<PaginationProps> = ({
   const handleChangePage = (event: React.MouseEvent | null, newPage: number) => {
     onChangePage(event, newPage)
   }
-
-  // The legacy `component` prop controlled the wrapping element used by MUI's
-  // TablePagination; we render a semantic footer in its place and honor any
-  // caller-supplied className/style via the merged TablePaginationProps.
-  const Wrapper: React.ElementType = component || 'div'
 
   return (
     <footer

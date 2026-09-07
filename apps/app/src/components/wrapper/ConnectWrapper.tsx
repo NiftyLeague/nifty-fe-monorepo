@@ -10,7 +10,14 @@ interface ConnectWrapperProps {
 }
 
 const ConnectWrapper = (props: ConnectWrapperProps) => {
-  const { children, buttonText, variant = 'contained', color, fullWidth, ...otherProps } = props
+  const {
+    children,
+    buttonText,
+    variant = 'contained',
+    color: _color,
+    fullWidth,
+    ...otherProps
+  } = props
   const { isConnected, isLoggedIn, handleConnectWallet } = useAuth()
 
   return isLoggedIn ? (

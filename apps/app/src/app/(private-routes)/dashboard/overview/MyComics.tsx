@@ -1,6 +1,5 @@
 'use client'
 
-/* eslint-disable no-nested-ternary */
 import { useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@nl/ui/base/button'

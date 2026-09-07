@@ -154,7 +154,6 @@ const DegensFilter = ({
 
   // Updates local filter state on defaultFilterValues change
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setAllFilterValues()
   }, [setAllFilterValues])
 

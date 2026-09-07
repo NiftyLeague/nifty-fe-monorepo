@@ -44,7 +44,6 @@ export default function useClaimNFTL(): {
 
   const handleClaimNFTL = useCallback(async () => {
     const degensWithClaimableNFTL = await verifyDegensWithClaimableNFTL()
-    // eslint-disable-next-line no-console
     if (DEBUG) console.log('claim', degensWithClaimableNFTL, totalAccruedNFTL)
     const nftl = writeContracts[NFTL_CONTRACT]
     const txRes = await tx(nftl.claim(degenTokenIndices))

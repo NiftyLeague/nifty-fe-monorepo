@@ -13,12 +13,6 @@ import { DEGEN_PURCHASE_URL } from '@/constants/public-urls'
 import type { PublicDegen } from '@/types/degens'
 import { getDegenTraitEntries } from '@/utils/degen-traits'
 
-interface DisplayTrait {
-  key: string
-  name?: string
-  value: string
-}
-
 interface PublicDegenDialogProps {
   open: boolean
   degen?: Pick<PublicDegen, 'id' | 'name' | 'owner' | 'traits_string'>

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test'
 import { execFileSync } from 'node:child_process'
-import { readFileSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const readWorkflow = (name: string) =>
@@ -26,43 +26,27 @@ describe('hosted validation cost policy', () => {
     expect(source).not.toContain('package-ecosystem: cargo')
   })
 
-  it('runs validation for ready PRs and cancels it when a PR returns to draft', () => {
+  it('runs validation for PRs with supersede cancellation', () => {
     const source = readWorkflow('validation.yml')
 
     expect(source).toContain('      - ready_for_review')
-    expect(source).toContain('      - converted_to_draft')
-    expect(source).toContain(
-      "(github.event_name != 'pull_request' || github.event.pull_request.draft != true) && vars.CI_BILLING_PAUSED != 'true'"
-    )
-    expect(source).toContain('github.event.pull_request.number')
-    expect(source).toContain('github.run_id')
-    expect(source).not.toContain(
-      'code-foundry-validation-${{ github.event_name }}-${{ github.event.pull_request.head.repo.full_name'
-    )
-    expect(source).toContain('github.event.pull_request.number')
-    expect(source).toContain('github.run_id')
-    expect(source).not.toContain(
-      'code-foundry-validation-${{ github.event_name }}-${{ github.event.pull_request.head.repo.full_name'
-    )
     expect(source).toContain('cancel-in-progress: true')
+    expect(source).toContain('code-foundry-validation-')
+    expect(source).toContain("vars.CI_BILLING_PAUSED != 'true'")
   })
 
-  it('creates draft PRs for the repository codex branch convention', () => {
+  it('creates draft PRs for conventional topic branches', () => {
     const source = readWorkflow('draft-pr.yml')
 
-    expect(source).toContain("      - 'codex/*'")
-    expect(source).toContain("      - '!codex/promote-*'")
-    expect(source).toContain("      - '!chore/re-align-staging-*'")
+    expect(source).toContain("      - 'feat/*'")
+    expect(source).toContain("      - 'fix/*'")
+    expect(source).toContain("      - 'chore/*'")
     expect(source).toContain('base: staging')
   })
 
-  it('keeps optional security scans off for drafts while supporting ready release PRs', () => {
-    const source = readWorkflow('opencode-security.yml')
-
-    expect(source).toContain('      - ready_for_review')
-    expect(source).toContain('      - converted_to_draft')
-    expect(source).toContain('github.event.pull_request.draft != true')
-    expect(source).toContain('startsWith(github.event.pull_request.head.ref')
+  it('keeps the optional opencode security scanner disabled', () => {
+    expect(existsSync(join(process.cwd(), '.github/workflows/opencode-security.yml'))).toBe(false)
+    expect(readGitHubConfig('code-foundry.yml')).toContain('opencode_security: false')
   })
 
   it('materializes re-alignment paths before mutating the worktree index', () => {

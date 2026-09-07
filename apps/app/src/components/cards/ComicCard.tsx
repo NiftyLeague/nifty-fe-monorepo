@@ -1,18 +1,18 @@
-import type { SxProps, Theme } from '@/types'
+import type { SxProps } from '@/types'
 import type { Comic } from '@/types/marketplace'
 import ImageCard from '@/components/cards/ImageCard'
 import useComicDimension from '@/hooks/useComicDimension'
 
 interface ComicCardProps {
   data: Comic
-  sx?: SxProps<Theme>
+  sx?: SxProps
   isSelected?: boolean
   onViewComic?: () => void
 }
 
 interface ComicCardPaneProps {
   data: Comic
-  sx?: SxProps<Theme>
+  sx?: SxProps
   width: number
   height: number
 }
@@ -31,7 +31,6 @@ const ComicCardPane: React.FC<ComicCardPaneProps> = ({ width, height, data, sx }
 const ComicCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<ComicCardProps>>> = ({
   data,
   onViewComic,
-  sx,
   isSelected = false,
 }) => {
   const { balance } = data

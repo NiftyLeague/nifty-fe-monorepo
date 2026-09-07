@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { toast } from 'sonner'
 import { toBeHex } from 'ethers'
 import type {

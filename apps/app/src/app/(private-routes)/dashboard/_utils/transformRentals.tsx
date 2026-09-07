@@ -1,14 +1,10 @@
-import type { Rentals, RentalType } from '@/types/rentals'
+import type { Rentals } from '@/types/rentals'
 import { capitalize } from '@/utils/string'
 import useLocalStorage from '@/hooks/useLocalStorage'
 import { RentalDataGrid } from '@/types/rentalDataGrid'
 import { formatTime } from '@/utils/dateTime'
 
-export const transformRentals = (
-  rows: Rentals[],
-  userId: string,
-  filterCategory?: RentalType
-): RentalDataGrid[] =>
+export const transformRentals = (rows: Rentals[], userId: string): RentalDataGrid[] =>
   rows.map(
     ({
       id,
@@ -20,16 +16,7 @@ export const transformRentals = (
       earning_cap,
       earning_cap_daily,
       stats: {
-        total: {
-          wins,
-          matches,
-          earnings,
-          charges,
-          time_played,
-          earnings_owner,
-          earnings_player,
-          earnings_renter,
-        },
+        total: { wins, matches, earnings, charges, time_played },
       },
       next_charge_at,
       is_active,

@@ -50,7 +50,6 @@ export default function EnhancedTable({
   useEffect(() => {
     setData(null)
     fetchTopData()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedGame, selectedTable.key, selectedTimeFilter])
 
   const handleChangePage = async (newPage: number) => {
@@ -75,7 +74,6 @@ export default function EnhancedTable({
     if (paginationModel.page !== 0) {
       handleChangePage(paginationModel.page)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paginationModel.page])
 
   const columns = useMemo(() => {

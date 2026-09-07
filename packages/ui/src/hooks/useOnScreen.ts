@@ -121,7 +121,6 @@ export function useOnScreen<T extends Element = HTMLDivElement>(
       unsubscribe()
     }
     // ref is intentionally excluded: callbacks must not re-subscribe on re-renders
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enabled, once, rootMargin])
   return isIntersecting
 }

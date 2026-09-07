@@ -1,8 +1,12 @@
 {
   "name": "nifty-fe-monorepo",
   "version": "1.2.67",
-  "license": "Apache-2.0",
   "private": true,
+  "license": "Apache-2.0",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "scripts": {
     "act-ci": "act --container-architecture linux/amd64 -P ubuntu-latest=-self-hosted -s GITHUB_TOKEN --var-file .env.act --secret-file .env.act -W '.github/workflows/ci.yml'",
     "add-ui": "bun --filter ui add-component $@",
@@ -10,7 +14,7 @@
     "clean": "turbo clean",
     "dev": "turbo dev",
     "format": "turbo format",
-    "format:check": "prettier --check \"**/*.{js,ts,tsx,md,mdx,json,yml,yaml}\" --ignore-path .prettierignore",
+    "format:check": "oxfmt --check .",
     "install:ci": "bun install --frozen-lockfile",
     "lint": "turbo lint",
     "lint:fix": "turbo lint:fix",
@@ -29,16 +33,31 @@
   },
   "devDependencies": {
     "@happy-dom/global-registrator": "^20.12.0",
-    "@nl/eslint-config": "workspace:*",
     "@nl/typescript-config": "workspace:*",
     "@testing-library/react": "^16.3.3",
     "@testing-library/user-event": "^14.6.6",
     "@types/node": "^26.4.0",
-    "eslint": "^10.9.1",
-    "prettier": "^3.9.6",
+    "oxfmt": "^0.66.0",
+    "oxlint": "^1.81.0",
     "syncpack": "^15.3.3",
     "turbo": "^2.10.12",
     "typescript": "~6.0.3"
+  },
+  "overrides": {
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.5",
+    "adm-zip": "0.5.16",
+    "brace-expansion": "5.0.9",
+    "crypto-es": "2.1.0",
+    "fast-uri": "4.1.4",
+    "ip-address": "10.3.1",
+    "js-yaml": "4.3.1",
+    "protobufjs": "7.5.0",
+    "serialize-javascript": "6.0.2",
+    "tmp": "0.2.7",
+    "undici": "6.28.0",
+    "viem": "2.55.19",
+    "ws": "8.21.3"
   },
   "browserslist": {
     "production": [
@@ -52,33 +71,13 @@
       "last 5 safari version"
     ]
   },
-  "engines": {
-    "node": "24.18.0"
-  },
   "devEngines": {
     "packageManager": {
       "name": "bun",
       "version": "1.4.0"
     }
   },
-  "overrides": {
-    "adm-zip": "0.5.16",
-    "fast-uri": "4.1.4",
-    "serialize-javascript": "6.0.2",
-    "ws": "8.21.3",
-    "undici": "6.28.0",
-    "ip-address": "10.3.1",
-    "tmp": "0.2.7",
-    "brace-expansion": "5.0.9",
-    "crypto-es": "2.1.0",
-    "@types/react": "19.2.18",
-    "@types/react-dom": "19.2.5",
-    "protobufjs": "7.5.0",
-    "js-yaml": "4.3.1",
-    "viem": "2.55.19"
-  },
-  "workspaces": [
-    "packages/*",
-    "apps/*"
-  ]
+  "engines": {
+    "node": "24.18.0"
+  }
 }

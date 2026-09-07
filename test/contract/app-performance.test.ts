@@ -197,8 +197,8 @@ const appIconRegistrySources = [
   'apps/app/src/components/dialog/WithdrawButtonDialog/WithdrawSuccess.tsx',
   'apps/smashers/src/app/(auth_routes)/profile/ProfileClient.tsx',
 ]
-const sharedEslintConfig = 'packages/eslint-config/base.js'
-const sharedNextEslintConfig = 'packages/eslint-config/next.js'
+const sharedOxfmtConfig = '.oxfmtrc.json'
+const sharedOxlintConfig = '.oxlintrc.json'
 const testHarnessPreload = 'test/preload.ts'
 const appStylesheets = [
   'apps/app/src/styles/app.css',
@@ -232,28 +232,20 @@ describe('app performance contracts', () => {
   })
 
   it('keeps lint traversal off generated framework output', () => {
-    const source = readFileSync(sharedEslintConfig, 'utf8')
+    const oxlint = JSON.parse(readFileSync(sharedOxlintConfig, 'utf8'))
+    const ignores: string[] = oxlint.ignorePatterns ?? []
 
     for (const generatedPath of [
-      '.next/**',
-      '.turbo/**',
+      '**/.next/**',
+      '**/.turbo/**',
       '**/src/types/typechain/**',
-      'build/**',
-      'coverage/**',
-      'dist/**',
+      '**/build/**',
+      '**/coverage/**',
+      '**/dist/**',
     ]) {
-      expect(source).toContain(`'${generatedPath}'`)
+      expect(ignores).toContain(generatedPath)
     }
-  })
-
-  it('keeps Next linting on direct plugins without the bundled Babel parser', () => {
-    const source = readFileSync(sharedNextEslintConfig, 'utf8')
-    const manifest = JSON.parse(readFileSync('packages/eslint-config/package.json', 'utf8'))
-
-    expect(source).toContain("from '@next/eslint-plugin-next'")
-    expect(source).not.toContain("from 'eslint-config-next")
-    expect(manifest.devDependencies['@next/eslint-plugin-next']).toBeDefined()
-    expect(manifest.devDependencies['eslint-import-resolver-typescript']).toBeDefined()
+    expect(readFileSync(sharedOxfmtConfig, 'utf8')).toContain('.github/actions/')
   })
 
   it('keeps isolated React tests on one workspace runtime', () => {
@@ -939,7 +931,7 @@ describe('app performance contracts', () => {
     ]
 
     for (const file of sources) {
-      expect(readFileSync(file, 'utf8')).not.toMatch(/from ['\"]lodash(?:\/|['\"])/)
+      expect(readFileSync(file, 'utf8')).not.toMatch(/from ['"]lodash(?:\/|['"])/)
     }
 
     const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))

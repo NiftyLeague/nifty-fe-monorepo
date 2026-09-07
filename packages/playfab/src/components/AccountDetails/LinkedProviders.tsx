@@ -77,7 +77,6 @@ export default function LinkedProviders({
         provider: Provider
         accessToken: string
       }
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       handleLinkProvider(provider, accessToken)
     }
   }, [pathname, session.status, session.data, handleLinkProvider])

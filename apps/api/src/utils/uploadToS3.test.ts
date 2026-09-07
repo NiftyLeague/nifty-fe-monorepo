@@ -29,7 +29,6 @@ mock.module('@aws-sdk/client-s3', () => ({
 const uploadToS3 = (await import('./uploadToS3')).uploadToS3
 
 beforeEach(() => {
-  ;(commandMock.mockClear(), sendMock.mockClear())
   commandMock.mockClear()
   sendMock.mockClear()
   spyOn(console, 'log').mockImplementation(() => undefined)

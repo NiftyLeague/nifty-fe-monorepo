@@ -1,7 +1,8 @@
 export type Nonce = `0x${string}` | undefined
 
 export type UUID_Token =
-  `${string}-${string}-${string}-${string}-${string}-${string}-${string}-${string}` | undefined
+  | `${string}-${string}-${string}-${string}-${string}-${string}-${string}-${string}`
+  | undefined
 
 export type AUTH_Token = string | undefined
 

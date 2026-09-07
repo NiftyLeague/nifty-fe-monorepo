@@ -11,7 +11,7 @@ export type Theme = {
   spacing?: (...args: number[]) => string
 }
 
-export type SxProps<T = unknown> = React.CSSProperties | Record<string, unknown> | undefined
+export type SxProps = React.CSSProperties | Record<string, unknown> | undefined
 
 export interface GenericCardProps {
   title?: string

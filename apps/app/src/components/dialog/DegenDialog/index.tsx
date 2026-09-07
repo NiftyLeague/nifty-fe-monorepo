@@ -121,7 +121,6 @@ const DegenDialog = ({
       }
     }
 
-    // eslint-disable-next-line no-void
     void fetchData()
 
     return () => {

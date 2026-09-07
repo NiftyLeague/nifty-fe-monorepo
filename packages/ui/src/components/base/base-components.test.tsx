@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { beforeEach, describe, expect, it, jest, mock } from 'bun:test'
+import { describe, expect, it, mock } from 'bun:test'
 import { useState } from 'react'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@nl/ui/base/accordion'
 import { Alert, AlertDescription, AlertTitle } from '@nl/ui/base/alert'
@@ -70,13 +70,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@nl/ui/base/tabs'
 import { Toggle } from '@nl/ui/base/toggle'
 import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@nl/ui/base/tooltip'
-
-let Icon: typeof import('./icon').Icon
-
-beforeEach(async () => {
-  const iconModule = await import('./icon')
-  Icon = iconModule.Icon
-})
 
 describe('base visual primitives', () => {
   it('renders semantic content and style variants', () => {

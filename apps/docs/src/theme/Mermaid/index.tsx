@@ -76,11 +76,7 @@ function MermaidContent({ value, caption }: MermaidProps): React.JSX.Element {
 
   return (
     <div className="mermaid-container">
-      <div
-        className={MermaidContainerClassName}
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: svg ?? '' }}
-      />
+      <div className={MermaidContainerClassName} dangerouslySetInnerHTML={{ __html: svg ?? '' }} />
       {caption && <div className="mermaid-caption">{caption}</div>}
     </div>
   )

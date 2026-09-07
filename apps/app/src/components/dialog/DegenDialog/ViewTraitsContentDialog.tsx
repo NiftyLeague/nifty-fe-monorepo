@@ -5,7 +5,6 @@ import { Title } from '@nl/ui/custom/typography'
 
 import type { DashboardDegen } from '@/types/degens'
 import { DEGEN_PURCHASE_URL } from '@/constants/public-urls'
-import { TRAIT_INDEXES } from '@/constants/traitIndexes'
 import DegenModalMedia from './DegenModalMedia'
 import type { SxProps } from '@/types'
 import { getDegenTraitEntries, type DegenTraitValue } from '@/utils/degen-traits'
@@ -16,22 +15,8 @@ interface ViewTraitsContentDialogProps {
   traits: string | readonly DegenTraitValue[] | { [traitType: string]: DegenTraitValue }
   displayName?: string
   onClose?: (event: React.MouseEvent<HTMLButtonElement>) => void
-  degenImageSx?: SxProps<{}>
+  degenImageSx?: SxProps
 }
-
-const TRAIT_INDEX_BY_TYPE = Object.fromEntries(
-  Object.entries(TRAIT_INDEXES).map(([index, traitType]) => [traitType, Number(index)])
-) as Record<string, number>
-
-const getTraitEntries = (traits: ViewTraitsContentDialogProps['traits']) =>
-  Object.entries(traits)
-    .map(([key, value]) => {
-      const index = /^\d+$/.test(key) ? Number(key) : TRAIT_INDEX_BY_TYPE[key]
-      const traitType = index === undefined ? key : TRAIT_INDEXES[index]
-
-      return { index, key: traitType, value }
-    })
-    .filter(({ value }) => Number(value) > 0)
 
 const ViewTraitsContentDialog = ({
   degen,

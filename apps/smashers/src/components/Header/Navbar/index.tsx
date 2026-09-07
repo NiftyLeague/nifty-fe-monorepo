@@ -21,7 +21,6 @@ export default function Navbar() {
         </a>
         <nav className={styles.navbar}>
           {/* Keep the public home shell free of Next's navigation runtime. */}
-          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a href="/profile">
             <div className={cx(styles.nav_item, styles.profile_mobile)}>
               <OptimizedImage
@@ -100,7 +99,6 @@ export default function Navbar() {
             </a>
           </div>
           {/* Keep the public home shell free of Next's navigation runtime. */}
-          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a href="/profile">
             <div className={cx(styles.nav_item, styles.profile)}>
               <div className={styles.profile_icon}>

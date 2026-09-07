@@ -5,7 +5,7 @@ import { Title } from '@nl/ui/custom/typography'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import { GAME_CARD_IMAGE_SIZES } from '@nl/ui/image-sizes'
 import { cx } from '@nl/ui/class-names'
-import type { SxProps, Theme } from '@/types'
+import type { SxProps } from '@/types'
 
 interface GameDescriptionDisclosureProps {
   description?: string
@@ -134,7 +134,7 @@ interface GameCardProps {
   onPlayOnWebClick?: React.MouseEventHandler<HTMLButtonElement>
   required?: string
   showMore?: boolean
-  sx?: SxProps<Theme>
+  sx?: SxProps
   title?: string
 }
 

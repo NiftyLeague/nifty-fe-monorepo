@@ -105,7 +105,6 @@ const DashboardComicsPageContent = (): React.ReactNode => {
         ))
     }
     return null
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemsBalances, loadingItems, selectedItem])
 
   const renderSubItems = useMemo(() => {
@@ -121,7 +120,6 @@ const DashboardComicsPageContent = (): React.ReactNode => {
         />
       </div>
     ))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedItem, selectedSubIndex])
 
   return (

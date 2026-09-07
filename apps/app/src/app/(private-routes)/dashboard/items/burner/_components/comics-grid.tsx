@@ -24,7 +24,7 @@ export default function ComicsGrid({
   selectedComics,
   setBurnCount,
   setSelectedComics,
-  refreshKey,
+  refreshKey: _refreshKey,
 }: {
   burnCount: number[]
   selectedComics: Comic[]

@@ -1,6 +1,6 @@
 import type { PropsWithChildren, ReactNode } from 'react'
 
-import type { SxProps, Theme } from '@/types'
+import type { SxProps } from '@/types'
 import SectionTitle from './SectionTitle'
 
 const sectionSpacing = 2 // 16px
@@ -11,7 +11,7 @@ interface StaticSectionProps {
   actions?: ReactNode
   children?: ReactNode
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-  styles?: { root?: SxProps<Theme>; headerRow?: SxProps<Theme>; mainRow?: SxProps<Theme> }
+  styles?: { root?: SxProps; headerRow?: SxProps; mainRow?: SxProps }
 }
 
 const StaticSection = ({

@@ -1,0 +1,21 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "categories": { "correctness": "error" },
+  "ignorePatterns": [
+    "node_modules/**",
+    "**/.next/**",
+    "**/.turbo/**",
+    "**/src/types/typechain/**",
+    "**/build/**",
+    "**/coverage/**",
+    "**/dist/**",
+    "**/.app/**",
+    ".agents/**"
+  ],
+  "overrides": [
+    {
+      "files": ["packages/playfab/src/**/*.ts"],
+      "rules": { "triple-slash-reference": "off" }
+    }
+  ]
+}

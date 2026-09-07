@@ -1,18 +1,18 @@
 import NativeImage from '@nl/ui/custom/native-image'
-import type { SxProps, Theme } from '@/types'
+import type { SxProps } from '@/types'
 import type { Item } from '@/types/marketplace'
 import ImageCard from '@/components/cards/ImageCard'
 
 interface WearableItemCardProps {
   data: Item
-  sx?: SxProps<Theme>
+  sx?: SxProps
   isSelected?: boolean
   onViewItem?: () => void
 }
 
 interface WearableItemCardPaneProps {
   data: Item
-  sx?: SxProps<Theme>
+  sx?: SxProps
   width: number
   height: number
 }
@@ -42,7 +42,7 @@ const CARD_HEIGHT = 106
 
 const WearableItemCard: React.FC<
   React.PropsWithChildren<React.PropsWithChildren<WearableItemCardProps>>
-> = ({ data, onViewItem, sx, isSelected = false }) => {
+> = ({ data, onViewItem, isSelected = false }) => {
   const { balance, empty, isNew, title } = data
 
   const handleViewItem = (e: React.MouseEvent<HTMLDivElement>) => {

@@ -4,7 +4,7 @@ import type { SxProps } from '@/types'
 interface DegenModalMediaProps {
   tokenId: string
   loading?: 'eager' | 'lazy'
-  sx?: SxProps<{}>
+  sx?: SxProps
 }
 
 /** Keep the NFT artwork inside the modal column at its native portrait ratio. */

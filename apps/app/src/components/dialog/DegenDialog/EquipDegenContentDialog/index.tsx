@@ -38,7 +38,7 @@ const multipliers: number[] = [2, 3, 2, 3, 4, 2]
 
 // Hardcoded DEGEN equipped status by INVENTORIES order
 // Should be given from BE later
-const initEquipped: boolean[] = new Array(6).fill(false)
+const initEquipped: boolean[] = Array.from({ length: 6 }, () => false)
 
 const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) => {
   const { openSnackbar } = useNotification()

@@ -3,7 +3,6 @@
 
 import { memo, useCallback, useEffect, useState } from 'react'
 import { Unity, useUnityContext } from 'react-unity-webgl'
-import type { IUnityConfig } from 'react-unity-webgl'
 import { useOrientation } from '@nl/ui/hooks/useOrientation'
 
 import useRemovedTraits from '@/hooks/useRemovedTraits'
@@ -132,7 +131,7 @@ const CharacterCreator = memo(
     const [width, setWidth] = useState(DEFAULT_WIDTH)
     const [height, setHeight] = useState(DEFAULT_HEIGHT)
     const [refreshKey, setRefreshKey] = useState(0)
-    const [isMinting, setIsMinting] = useState(false)
+    const [, setIsMinting] = useState(false)
 
     const [unityError, setUnityError] = useState<Error | null>(null)
     // Conditionally throw errors to be caught by the ErrorBoundary
@@ -151,9 +150,7 @@ const CharacterCreator = memo(
         sendMessage('CharacterCreatorLevel', 'UI_SetPortrait', isPortrait ? 'true' : 'false')
         const safeIsPortrait = isPortrait ?? true
         const { width: newWidth, height: newHeight } = getMobileSize(safeIsPortrait)
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         setWidth(newWidth)
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         setHeight(newHeight)
       }
     }, [isPortrait, isLoaded, sendMessage])

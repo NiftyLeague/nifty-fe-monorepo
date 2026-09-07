@@ -1,13 +1,13 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "description": "Nifty League Contracts API and webhook service",
   "private": true,
-  "type": "module",
-  "main": "api/index.js",
+  "description": "Nifty League Contracts API and webhook service",
   "bin": {
     "minty": "commander.ts"
   },
+  "type": "module",
+  "main": "api/index.js",
   "scripts": {
     "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json && node scripts/copy-config.mjs && node scripts/copy-contract-deployments.mjs && node scripts/copy-api-app.mjs",
     "vercel-build": "bun run build",
@@ -21,9 +21,9 @@
     "test:coverage": "bun test --coverage --isolate",
     "test:live": "RUN_LIVE_TESTS=1 bun test test/smoke/api.contract.test.ts --testTimeout=30000",
     "audit:endpoints": "node scripts/audit-endpoints.mjs",
-    "lint": "eslint .",
-    "format": "prettier --write . --ignore-path ../../.prettierignore",
-    "format:check": "prettier --check . --ignore-path ../../.prettierignore",
+    "lint": "oxlint",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
     "type-check": "tsc -p tsconfig.json --noEmit",
     "deploy": "node scripts/vercel-build.mjs --prod && npx vercel deploy --prebuilt --prod --scope niftyleague",
     "onboarding:user-registration": "tsx src/imx/onboarding/1-user-registration.ts",
@@ -32,8 +32,8 @@
     "admin:update-metadata-schema": "tsx src/imx/admin/update-metadata-schema.ts"
   },
   "dependencies": {
-    "@nl/contracts": "workspace:*",
     "@aws-sdk/client-s3": "^3.1105.0",
+    "@nl/contracts": "workspace:*",
     "bn.js": "^5.2.5",
     "body-parser": "^2.3.0",
     "chalk": "^6.0.0",
@@ -50,16 +50,14 @@
     "uint8arrays": "^6.1.1"
   },
   "devDependencies": {
-    "@nl/eslint-config": "workspace:*",
     "@nl/typescript-config": "workspace:*",
-    "@types/bun": "^1.4.0",
     "@types/bn.js": "^5.1.6",
     "@types/body-parser": "^1.19.6",
+    "@types/bun": "^1.4.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^26.4.0",
     "commander": "^15.0.0",
-    "prettier": "^3.9.6",
     "supertest": "^7.2.2",
     "tsc-alias": "^1.9.1",
     "tsx": "^4.23.10",

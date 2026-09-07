@@ -14,9 +14,9 @@ import { CloseIconButton } from './DialogActions'
 const DialogContentBase = ({
   children,
   sx,
-  dialogTitle,
-  dividers,
-  onClose,
+  dialogTitle: _dialogTitle,
+  dividers: _dividers,
+  onClose: _onClose,
   ...props
 }: DialogProps) => {
   const [isOpen, setIsOpen] = useContext(DialogContext)

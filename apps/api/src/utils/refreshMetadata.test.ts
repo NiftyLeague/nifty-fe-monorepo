@@ -42,7 +42,6 @@ function response(status: number, statusText = '') {
 }
 
 beforeEach(() => {
-  ;(fetchMock.mockClear(), getContractAddressMock.mockClear())
   fetchMock.mockClear()
   getContractAddressMock.mockClear()
   spyOn(console, 'log').mockImplementation(() => undefined)
@@ -74,7 +73,7 @@ describe('refreshImmutable', () => {
   it('posts marketplace metadata to the configured testnet collection', async () => {
     fetchMock.mockResolvedValue(response(202))
 
-    const result = await refreshImmutable('sepolia')
+    await refreshImmutable('sepolia')
     const [url, options] = fetchMock.mock.calls[0] as [string, RequestInit]
     expect(url).toBe(
       'https://test.imx.example/chains/imtbl-zkevm-testnet/collections/0xtest/nfts/refresh-metadata'

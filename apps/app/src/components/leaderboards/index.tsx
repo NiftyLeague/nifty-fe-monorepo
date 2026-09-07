@@ -1,5 +1,4 @@
 'use client'
-/* eslint-disable no-nested-ternary */
 import { useState, useEffect } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import dynamic from 'next/dynamic'

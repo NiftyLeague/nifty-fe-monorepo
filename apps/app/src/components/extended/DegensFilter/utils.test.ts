@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'bun:test'
 import { mock } from 'bun:test'
 import { BURN_ADDYS } from '@/constants/addresses'
-import { HYDRA_RARITIES } from '@/constants/hydra-rarities'
 import DEFAULT_STATIC_FILTER from './constants'
 import {
   applySeventhTribesFix,

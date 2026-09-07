@@ -44,7 +44,7 @@ export function SocialIconButton({
       ) : (
         <AuthIcon />
       )}
-      {label && label}
+      {label}
       <span className="sr-only">{provider}</span>
     </Button>
   )

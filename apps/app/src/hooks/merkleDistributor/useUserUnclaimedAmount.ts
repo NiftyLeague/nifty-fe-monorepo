@@ -41,7 +41,6 @@ export default function useUserUnclaimedAmount(): ClaimResult {
   const canClaim = useUserHasAvailableClaim(claimData)
 
   useEffect(() => {
-    // eslint-disable-next-line no-console
     if (DEBUG && !loading) console.log('claimStats:', { claimData, canClaim })
   }, [claimData, canClaim, loading])
 

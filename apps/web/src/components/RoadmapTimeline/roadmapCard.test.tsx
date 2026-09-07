@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element -- native image mocks keep this unit test isolated. */
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it, mock } from 'bun:test'
 import type { ComponentProps } from 'react'

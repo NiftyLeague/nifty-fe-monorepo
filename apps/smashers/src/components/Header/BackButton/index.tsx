@@ -5,7 +5,6 @@ import styles from '../Navbar/index.module.css'
 export default function BackButton() {
   return (
     // Native navigation keeps the public auth shell free of Next's Link runtime.
-    // eslint-disable-next-line @next/next/no-html-link-for-pages
     <a href="/">
       <div className={styles.logo_container}>
         <CircleArrowLeft

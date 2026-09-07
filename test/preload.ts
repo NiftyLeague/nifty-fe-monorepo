@@ -64,7 +64,7 @@ for (const workspace of ['apps/app', 'apps/template', 'apps/web', 'packages/ui']
   }))
 }
 
-mock.module('@docusaurus/Link', () => ({ default: (props: any) => null }))
+mock.module('@docusaurus/Link', () => ({ default: (_props: any) => null }))
 
 mock.module('@docusaurus/useBaseUrl', () => ({ default: (s: string) => s }))
 

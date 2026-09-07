@@ -1,9 +1,9 @@
 {
   "name": "@nl/ui",
   "version": "1.0.18",
+  "private": true,
   "license": "GPL-3.0-only",
   "type": "module",
-  "private": true,
   "exports": {
     "./base/*": "./src/components/base/*.tsx",
     "./custom/*": "./src/components/custom/*/index.tsx",
@@ -29,9 +29,9 @@
   "scripts": {
     "add-component": "bun dlx shadcn@latest add $@",
     "clean": "rm -rf node_modules && rm -rf .turbo && rm -rf .storybook",
-    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\" --ignore-path ../../.gitignore",
-    "lint": "eslint . --max-warnings 0",
-    "lint:fix": "eslint . --max-warnings 0 --fix",
+    "format": "oxfmt .",
+    "lint": "oxlint --max-warnings=0",
+    "lint:fix": "oxlint --fix",
     "migrate": "bun dlx shadcn@latest migrate radix -y",
     "postadd-component": "bun migrate && bun format",
     "test": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --pass-with-no-tests",

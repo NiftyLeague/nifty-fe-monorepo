@@ -72,7 +72,7 @@ const GamerProfileContent = (): React.ReactNode => {
 
     return filteredDegens.map((degen, index) => ({
       ...degen,
-      ...(profileAvatars[index] ?? {}),
+      ...profileAvatars[index],
     }))
   }, [filteredDegens, profileAvatars])
 

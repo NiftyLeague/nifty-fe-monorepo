@@ -1,6 +1,5 @@
 'use client'
 
-/* eslint-disable no-console */
 import { useCallback, useState, useMemo } from 'react'
 import type { Contracts } from '@/types/web3'
 import type { BaseContract, Contract, ContractMethod } from 'ethers'
@@ -38,7 +37,6 @@ export default function useContractReader(
   // Memoize args by serialization so a new-but-equivalent args array does not
   // restart the polling interval. The string is a simple dependency expression.
   const argsKey = JSON.stringify(args)
-  // eslint-disable-next-line react-hooks/exhaustive-deps -- args identity is unstable while its serialization is stable
   const argsMemoized = useMemo(() => args, [argsKey])
 
   const readContract = useCallback(async () => {
@@ -62,7 +60,6 @@ export default function useContractReader(
       }
     }
     return
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [argsMemoized, contractName, contracts, formatter, functionName, refreshKey, skip, value])
 
   useAsyncInterval(readContract, pollTime, true, JSON.stringify(args))

@@ -12,7 +12,6 @@ mock.module('@/components/DeferredHomeSections', () => ({
 
 mock.module('@nl/ui/custom/console-game-backdrop', () => ({
   ConsoleGameBackdrop: ({ loading = 'lazy' }: { loading?: 'eager' | 'lazy' }) => (
-    // eslint-disable-next-line @next/next/no-img-element
     <img data-testid="console-backdrop" loading={loading} alt="Game Console Backdrop" />
   ),
 }))

@@ -14,10 +14,7 @@ beforeEach(async () => {
       sizes: _sizes,
       alt,
       ...props
-    }: ComponentProps<'img'> & { fill?: boolean }) => (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img alt={alt ?? ''} {...props} />
-    ),
+    }: ComponentProps<'img'> & { fill?: boolean }) => <img alt={alt ?? ''} {...props} />,
   }))
   mock.module('@nl/ui/custom/optimized-image', () => ({
     default: ({
@@ -26,7 +23,6 @@ beforeEach(async () => {
       alt,
       ...props
     }: ComponentProps<'img'> & { fill?: boolean; quality?: number }) => (
-      // eslint-disable-next-line @next/next/no-img-element
       <img data-optimized-image="true" alt={alt ?? ''} {...props} />
     ),
   }))
@@ -163,7 +159,6 @@ describe('card presentation', () => {
     render(
       <GameCard
         title="Optimized artwork"
-        // eslint-disable-next-line @next/next/no-img-element
         imageContent={<img src="/optimized-artwork.webp" alt="Optimized artwork" />}
       />
     )
@@ -184,7 +179,6 @@ describe('card presentation', () => {
     render(
       <GameCard
         title="Optimized artwork"
-        // eslint-disable-next-line @next/next/no-img-element
         imageContent={<img src="/optimized-artwork.webp" alt="Optimized artwork" />}
       />
     )

@@ -2,8 +2,6 @@ import { render } from '@testing-library/react'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 import type { ComponentProps } from 'react'
 
-/* eslint-disable @next/next/no-img-element */
-
 mock.module('@nl/ui/custom/theme-button-group', () => ({
   default: () => null,
 }))

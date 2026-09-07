@@ -67,7 +67,6 @@ export default function useUserClaimData(): { claimData: UserClaimData | null; l
 
     // Avoid setting the state unnecessarily if the claim data already exists
     if (claimInfo[key]) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLoading(false)
       return
     }

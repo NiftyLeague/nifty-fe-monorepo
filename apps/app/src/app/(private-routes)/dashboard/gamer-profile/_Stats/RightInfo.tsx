@@ -15,7 +15,7 @@ const RightInfo = ({
   degenCount,
   itemCount,
   keyCount,
-  rentalCount,
+  rentalCount: _rentalCount,
 }: RightInfoProps): React.ReactNode => {
   const { isLoadingDegens, isLoadingComics, isLoadingItems } = useGamerProfileContext()
   const rightDataMapper: {

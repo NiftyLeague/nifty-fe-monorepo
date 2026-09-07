@@ -35,7 +35,6 @@ const useRentalPassCount = (degenId: string | undefined): [boolean, string | nul
       }
     }
 
-    // eslint-disable-next-line no-void
     void resolveRental()
   }, [degenId, authToken])
 

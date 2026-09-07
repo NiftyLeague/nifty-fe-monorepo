@@ -3,7 +3,6 @@ import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 mock.module('@nl/ui/custom/optimized-image', () => ({
   default: ({ alt, fill: _fill, priority: _priority, ...props }: React.ComponentProps<'img'>) => (
-    // eslint-disable-next-line @next/next/no-img-element
     <img alt={alt} {...props} />
   ),
   getOptimizedImageProps: (props: React.ComponentProps<'img'>) => props,

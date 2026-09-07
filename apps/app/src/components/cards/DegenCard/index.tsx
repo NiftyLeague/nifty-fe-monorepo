@@ -5,7 +5,7 @@ import { Pencil } from 'lucide-react'
 import { Button } from '@nl/ui/base/button'
 import { Card, CardContent } from '@nl/ui/base/card'
 import { Title } from '@nl/ui/custom/typography'
-import type { SxProps, Theme } from '@/types'
+import type { SxProps } from '@/types'
 import DegenImage from './DegenImage'
 import type { PublicDegen } from '@/types/degens'
 import { DEGEN_PURCHASE_URL } from '@/constants/public-urls'
@@ -24,7 +24,7 @@ export interface DegenCardProps {
   onClickEditName?: React.MouseEventHandler<HTMLButtonElement>
   onClickFavorite?: React.MouseEventHandler<HTMLButtonElement>
   onClickSelect?: React.MouseEventHandler<HTMLButtonElement>
-  sx?: SxProps<Theme>
+  sx?: SxProps
   dashboardActions?: React.ReactNode
 }
 

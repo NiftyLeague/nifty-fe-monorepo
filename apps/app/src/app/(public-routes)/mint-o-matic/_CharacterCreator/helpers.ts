@@ -51,7 +51,6 @@ type TraitObject = {
 const objectify = (array: TraitArray): TraitObject => {
   return array.reduce((p: TraitObject, c) => {
     const [type, traitId] = c
-    // eslint-disable-next-line no-param-reassign
     p[type.replace(' ', '') as keyof TraitObject] = traitId
     return p
   }, {} as TraitObject)

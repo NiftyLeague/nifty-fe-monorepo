@@ -124,7 +124,7 @@ try {
   const vcConfigPath = resolve(funcDir, '.vc-config.json')
   if (existsSync(vcConfigPath)) {
     const vc = JSON.parse(readFileSync(vcConfigPath, 'utf8'))
-    vc.environment = { ...(vc.environment || {}), NODE_CONFIG_TS_DIR: 'api/config' }
+    vc.environment = { ...vc.environment, NODE_CONFIG_TS_DIR: 'api/config' }
     delete vc.filePathMap
     writeFileSync(vcConfigPath, JSON.stringify(vc, null, 2))
     console.log('[vercel-build] patched .vc-config.json (env + filePathsMap)')
