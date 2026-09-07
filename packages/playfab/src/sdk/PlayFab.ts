@@ -1,5 +1,3 @@
-/// <reference path="./typings/PlayFab.d.ts" />
-
 import https from 'node:https'
 import type { PlayFabError, PlayFabResponse } from '../types'
 

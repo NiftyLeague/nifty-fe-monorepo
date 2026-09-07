@@ -15,7 +15,6 @@ on:
       - 'apps/docs/**'
     branches:
       - main
-      - staging
 
 jobs:
   search:

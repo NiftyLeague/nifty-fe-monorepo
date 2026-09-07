@@ -1,4 +1,3 @@
-/// <reference path="./sdk/typings/PlayFabClient.d.ts" />
 import type { User, UserContextType, UserInfo } from './types'
 
 export const USER_INITIAL_STATE = {

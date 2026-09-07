@@ -1,5 +1,3 @@
-/// <reference path="../sdk/typings/PlayFabAdmin.d.ts" />
-
 import type { PlayFabError, PlayFabResponse } from '../types'
 import * as PlayFabAdmin from '../sdk/PlayFabAdmin'
 import { configurePlayFab } from '../sdk/configure'

@@ -2,7 +2,7 @@ import { execFileSync } from 'node:child_process'
 import { basename, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 
-const BUILD_BRANCHES = new Set(['main', 'staging'])
+const BUILD_BRANCHES = new Set(['main'])
 const ZERO_SHA = /^0+$/
 
 const GLOBAL_SHARED_PATH_PREFIXES = [

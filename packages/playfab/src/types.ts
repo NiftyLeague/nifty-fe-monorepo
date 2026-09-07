@@ -1,7 +1,3 @@
-/// <reference path="./sdk/typings/PlayFab.d.ts" />
-/// <reference path="./sdk/typings/PlayFabClient.d.ts" />
-/// <reference path="./sdk/typings/PlayFabAdmin.d.ts" />
-/// <reference path="./sdk/typings/PlayFabCloudScript.d.ts" />
 import type { KeyedMutator } from 'swr'
 export type PlayFabClient = PlayFabClientModule.IPlayFabClient
 export type PlayFabError = PlayFabModule.IPlayFabError | null
