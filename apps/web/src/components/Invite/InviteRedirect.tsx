@@ -16,7 +16,6 @@ const redirectToAppStore = (userAgent: string, refcode: string, newTab = false) 
     window.open(`${appStoreURL}/?referral=${refcode}`, '_blank')
   } else {
     // This is intentionally an external store redirect, not an internal Next.js route.
-    // eslint-disable-next-line @next/next/no-location-assign-relative-destination
     window.location.href = `${appStoreURL}/?referral=${refcode}`
   }
 }

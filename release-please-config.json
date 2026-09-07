@@ -69,10 +69,6 @@
       "release-type": "node",
       "package-name": "web"
     },
-    "packages/eslint-config": {
-      "release-type": "node",
-      "package-name": "@nl/eslint-config"
-    },
     "packages/imx-passport": {
       "release-type": "node",
       "package-name": "@nl/imx-passport"
@@ -80,10 +76,6 @@
     "packages/playfab": {
       "release-type": "node",
       "package-name": "@nl/playfab"
-    },
-    "packages/prettier-config": {
-      "release-type": "node",
-      "package-name": "@nl/prettier-config"
     },
     "packages/typescript-config": {
       "release-type": "node",

@@ -4,7 +4,7 @@ languages: typescript,solidity
 features: all
 package_manager: bun
 runtime_repository: 0xPlayerOne/code-foundry
-runtime_ref: v1.0.4
+runtime_ref: v1.3.1
 runner: ubuntu-latest
 unit_runner: ubuntu-latest
 ci_runner: ubuntu-latest
@@ -29,7 +29,7 @@ toolchain: auto
 post_release: false
 post_release_workflow:
 post_release_mode: auto
-opencode_security: true
+opencode_security: false
 sync_mode: overlay
 custom_workflows: preserve
 codeql_rust_shards: '["all"]'

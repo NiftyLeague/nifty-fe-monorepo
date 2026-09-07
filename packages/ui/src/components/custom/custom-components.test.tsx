@@ -42,7 +42,6 @@ beforeEach(() => {
 
 afterEach(() => {
   jest.useRealTimers()
-  undefined
   state.mobile = true
   state.milliseconds = 1_500
   state.pathname = '/about'

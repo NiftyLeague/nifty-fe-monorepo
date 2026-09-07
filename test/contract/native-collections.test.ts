@@ -14,7 +14,7 @@ describe('native collection contracts', () => {
   it('keeps trivial collection operations out of app route consumers', () => {
     for (const file of appCollectionConsumers) {
       const source = readFileSync(file, 'utf8')
-      expect(source).not.toMatch(/from ['\"]lodash\/(isEmpty|sum|xor)['\"]/)
+      expect(source).not.toMatch(/from ['"]lodash\/(isEmpty|sum|xor)['"]/)
     }
   })
 

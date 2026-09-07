@@ -47,7 +47,6 @@ export function Preloader({
       }, 100)
       return () => clearInterval(id)
     }
-    return undefined
   }, [loadingPercentage, stop])
 
   useEffect(() => {
