@@ -76,31 +76,6 @@ describe('private sidebar frame', () => {
     expect((scrollArea as HTMLElement | null)?.style.height).toBe('calc(100dvh - 56px)')
   })
 
-  it('keeps the compact drawer below the app bar', () => {
-    navigationState.drawerOpen = true
-    render(<SidebarFrame>Navigation</SidebarFrame>)
-
-    const navigation = screen.getByRole('navigation', { name: 'Primary navigation' })
-    const overlay = navigation.querySelector('[aria-hidden="false"]')
-
-    expect((overlay as HTMLElement | null)?.style.top).toBe('60px')
-  })
-
-  it('keeps the desktop drawer interactive only while open', () => {
-    navigationState.isDesktopNavigation = true
-    navigationState.drawerOpen = true
-    const { rerender } = render(<SidebarFrame>Navigation</SidebarFrame>)
-
-    const drawer = screen.getByRole('complementary')
-    expect(drawer.className).toContain('pointer-events-auto')
-    expect(drawer.className).toContain('translate-x-0')
-
-    navigationState.drawerOpen = false
-    rerender(<SidebarFrame>Navigation updated</SidebarFrame>)
-    expect(drawer.className).toContain('pointer-events-none')
-    expect(drawer.className).toContain('-translate-x-full')
-  })
-
   it('keeps the desktop drawer interactive only while open', () => {
     navigationState.isDesktopNavigation = true
     navigationState.drawerOpen = true

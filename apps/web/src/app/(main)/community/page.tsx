@@ -6,10 +6,6 @@ import CommunityConversation from '@/components/CommunityConversation'
 
 import '@/styles/marketing.css'
 
-import '@/styles/marketing.css'
-
-import '@/styles/marketing.css'
-
 import styles from './index.module.css'
 
 const Community: NextPage = () => {

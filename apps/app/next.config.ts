@@ -8,7 +8,6 @@ import { IMAGE_DEVICE_SIZES, IMAGE_SMALL_SIZES } from '../../config/image-device
 import { getProductionSentryOptions } from '../../config/with-production-sentry'
 
 const ENV = (process.env.VERCEL_ENV as 'production' | 'preview' | undefined) ?? 'development'
-const isExplicitWebpackBuild = process.argv.includes('--webpack')
 
 const webpackFallback: NonNullable<NextConfig['webpack']> = (config) => {
   // Map @wagmi/core connectors package to wagmi/connectors to avoid ESM issues

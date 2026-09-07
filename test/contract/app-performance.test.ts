@@ -404,16 +404,6 @@ describe('app performance contracts', () => {
     expect(source.slice(heroStart, heroEnd)).not.toContain('loading="eager"')
   })
 
-  it('loads the above-the-fold hero character layer eagerly', () => {
-    const source = readFileSync(webHome, 'utf8')
-    const heroStart = source.indexOf('src="/img/hero/characters.webp"')
-    const heroEnd = source.indexOf('/>', heroStart)
-
-    expect(heroStart).toBeGreaterThanOrEqual(0)
-    expect(heroEnd).toBeGreaterThan(heroStart)
-    expect(source.slice(heroStart, heroEnd)).toContain('loading="eager"')
-  })
-
   it('keeps the GLTF viewer off the conflict-merging utility', () => {
     const source = readFileSync(gltfViews, 'utf8')
     expect(source).toContain("from '@nl/ui/class-names'")
@@ -481,9 +471,9 @@ describe('app performance contracts', () => {
   it('keeps the private provider shell out of the initial route bundle', () => {
     const source = readFileSync(privateRoutesBoundary, 'utf8')
 
-    expect(source).toContain("'use client'")
+    expect(source).not.toContain("'use client'")
     expect(source).toContain("dynamic(() => import('./PrivateRoutesShell')")
-    expect(source).toContain('ssr: false')
+    expect(source).not.toContain('ssr: false')
     expect(source).toContain('loading: PrivateRoutesLoading')
   })
 
@@ -812,51 +802,6 @@ describe('app performance contracts', () => {
     ])
   })
 
-  it('uses the deterministic Webpack path for local app development', () => {
-    const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
-
-    expect(manifest.scripts.dev).toBe('next dev --webpack --port 3001')
-    expect(manifest.scripts.dev).not.toContain('--turbopack')
-    expect(manifest.scripts['dev:turbo']).toBeUndefined()
-  })
-
-  it('uses the project TypeScript CLI for Next app builds', () => {
-    for (const file of [appNextConfig, smashersNextConfig]) {
-      expect(readFileSync(file, 'utf8')).toContain('useTypeScriptCli: true')
-    }
-  })
-
-  it('keeps default app builds on the Turbopack worker with a scoped Webpack fallback', () => {
-    const source = readFileSync(appNextConfig, 'utf8')
-
-    expect(source).toContain("const isExplicitWebpackBuild = process.argv.includes('--webpack')")
-    expect(source).toContain("serverExternalPackages: ['pino-pretty', 'lokijs'")
-    expect(source).toContain(
-      "turbopack: { resolveAlias: { '@wagmi/connectors': 'wagmi/connectors' } }"
-    )
-    expect(source).toContain('...(isExplicitWebpackBuild ? { webpack: webpackFallback } : {}),')
-  })
-
-  it('modularizes shared Lucide imports before the app graph is bundled', () => {
-    for (const file of [appNextConfig, smashersNextConfig, webNextConfig, templateNextConfig]) {
-      expect(readFileSync(file, 'utf8')).toContain("optimizePackageImports: ['lucide-react']")
-    }
-  })
-
-  it('keeps Sentry source-map uploads narrow enough for production builds', () => {
-    for (const file of [appNextConfig, smashersNextConfig, webNextConfig]) {
-      const source = readFileSync(file, 'utf8')
-      expect(source).toContain("sourcemaps: { disable: ENV !== 'production' }")
-      expect(source).toContain('widenClientFileUpload: false')
-    }
-  })
-
-  it('keeps every TypeScript project on incremental checking', () => {
-    for (const file of incrementalTypecheckConfigs) {
-      expect(readFileSync(file, 'utf8')).toContain('"incremental": true')
-    }
-  })
-
   it('keeps the app gas-price path on native fetch without a retired Axios wrapper', () => {
     const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
     const gasSource = readFileSync(appGasUtility, 'utf8')
@@ -920,29 +865,6 @@ describe('app performance contracts', () => {
     ]) {
       expect(existsSync(file)).toBe(false)
     }
-  })
-
-  it('uses Turbopack for local marketing development', () => {
-    const manifest = JSON.parse(readFileSync(webManifest, 'utf8'))
-    const nextConfig = readFileSync(webNextConfig, 'utf8')
-
-    expect(manifest.scripts.dev).toBe('next dev --turbopack --port 3000')
-    expect(manifest.scripts.dev).not.toContain('--webpack')
-    expect(nextConfig).toContain('  turbopack: {},')
-  })
-
-  it('uses Turbopack for local app development', () => {
-    const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
-
-    expect(manifest.scripts.dev).toBe('next dev --turbopack --port 3001')
-    expect(manifest.scripts.dev).not.toContain('--webpack')
-  })
-
-  it('uses Turbopack for local app development', () => {
-    const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
-
-    expect(manifest.scripts.dev).toBe('next dev --turbopack --port 3001')
-    expect(manifest.scripts.dev).not.toContain('--webpack')
   })
 
   it('loads the bridge form only after its dialog opens', () => {

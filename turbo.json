@@ -92,38 +92,6 @@
       ],
       "outputs": ["dist/**", "api/.app/**", "api/config/**"]
     },
-    "api#build": {
-      "dependsOn": ["^build"],
-      "env": [
-        "NODE_CONFIG_TS_DIR",
-        "PORT",
-        "VERCEL",
-        "ETH_NETWORK",
-        "ETH_ACCOUNT_PRIVATE_KEY",
-        "TESTNET_ALCHEMY_API_KEY",
-        "MAINNET_ALCHEMY_API_KEY",
-        "ETHERSCAN_API_KEY",
-        "OPENSEA_API_KEY",
-        "WEBHOOK_SECRET",
-        "BLOCKNATIVE_API_KEY_DEGENS",
-        "S3_ACCESS_ID",
-        "S3_SECRET",
-        "UNITY_IMAGE_GENERATOR_BASE_URL",
-        "UNITY_IMAGE_GENERATOR_SECRET",
-        "UNITY_IMAGE_GENERATOR_VERSION",
-        "NFT_STORAGE_KEY",
-        "PINATA_API_KEY",
-        "PINATA_API_SECRET",
-        "TESTNET_IMX_API_KEY",
-        "MAINNET_IMX_API_KEY",
-        "ORGANIZATION_ID",
-        "TESTNET_LEGACY_PROJECT_ID",
-        "MAINNET_LEGACY_PROJECT_ID",
-        "TESTNET_COLLECTION_CONTRACT_ADDRESS",
-        "MAINNET_COLLECTION_CONTRACT_ADDRESS"
-      ],
-      "outputs": ["dist/**", "api/.app/**", "api/config/**"]
-    },
     "docs#build": {
       "inputs": [
         "$TURBO_DEFAULT$",
@@ -303,11 +271,6 @@
     "api#test": {
       "env": ["NODE_CONFIG_TS_DIR", "PORT", "VERCEL", "ETH_NETWORK", "WEBHOOK_SECRET"],
       "inputs": ["$TURBO_DEFAULT$", "../../test/**", ".env*", "!.env.example"]
-    },
-    "api#test": {
-      "dependsOn": ["transit", "lint:fix", "format", "type-check"],
-      "env": ["NODE_CONFIG_TS_DIR", "PORT", "VERCEL", "ETH_NETWORK", "WEBHOOK_SECRET"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"]
     },
     "dev": {
       "cache": false,

@@ -53,7 +53,6 @@ function SidebarFrame({ children, footer }: SidebarFrameProps) {
 
   return (
     <nav
-      id="app-primary-navigation"
       aria-label="Primary navigation"
       data-state={drawerOpen ? 'open' : 'closed'}
       className={cx('shrink-0', isCompactScreen ? 'w-0' : 'w-[260px]')}

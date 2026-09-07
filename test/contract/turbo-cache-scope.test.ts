@@ -18,6 +18,7 @@ const turbo = JSON.parse(readFileSync('turbo.json', 'utf8')) as {
 const rootPackage = JSON.parse(readFileSync('package.json', 'utf8')) as {
   scripts?: Record<string, string>
   packageManager?: string
+  devEngines?: { packageManager?: { name?: string; version?: string } }
 }
 
 const envFor = (task: string) => new Set(turbo.tasks[task]?.env ?? [])
@@ -113,7 +114,8 @@ describe('Turbo cache environment scope', () => {
   })
 
   it('pins the package manager used by Vercel and local builds', () => {
-    expect(rootPackage.packageManager).toBe('bun@1.3.14')
+    expect(rootPackage.packageManager).toBeUndefined()
+    expect(rootPackage.devEngines?.packageManager).toEqual({ name: 'bun', version: '1.4.0' })
   })
 
   it('does not invalidate every workspace for app-specific credentials', () => {

@@ -37,7 +37,7 @@ describe('PublicNavigation', () => {
     expect(mobileDisclosure?.open).toBe(true)
 
     const mobilePanel = document.getElementById('public-mobile-navigation')
-    expect(mobilePanel?.className).toContain('top-14')
+    expect(mobilePanel?.className).toContain('top-[60px]')
 
     expect(screen.getByRole('link', { name: 'Website' }).getAttribute('href')).toBe(
       'https://niftyleague.com/'
