@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "description": "Locked skill set for nifty-fe-monorepo. Skills live in .agents/skills/ and are committed for team sharing.",
+  "globalSkillsKept": [
+    "cortana",
+    "agent-md-refactor",
+    "agent-skill-stack",
+    "gh-cli",
+    "conventional-commit",
+    "grill-me",
+    "i-have-adhd",
+    "context-engineering",
+    "vision",
+    "systematic-debugging"
+  ],
+  "skills": [
+    "accessibility",
+    "code-review",
+    "core-web-vitals",
+    "deploy-to-vercel",
+    "frontend-ui-engineering",
+    "incremental-implementation",
+    "performance-optimization",
+    "security-and-hardening",
+    "seo",
+    "shadcn",
+    "test-driven-development",
+    "turborepo",
+    "typescript-advanced-types",
+    "vercel-optimize",
+    "vercel-react-best-practices",
+    "verification-before-completion"
+  ]
+}
