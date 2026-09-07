@@ -13,15 +13,19 @@ describe('PublicNavigation', () => {
 
     const toggle = screen.getByRole('button', { name: 'Toggle sidebar' })
     const disclosure = toggle.closest('details')
+    const shell = document.querySelector('[data-public-navigation]')
 
     expect(disclosure?.open).toBe(true)
+    expect(shell?.getAttribute('data-public-sidebar-state')).toBe('open')
     expect(toggle.getAttribute('aria-controls')).toBe('public-desktop-navigation')
 
     fireEvent.click(toggle)
     expect(disclosure?.open).toBe(false)
+    expect(shell?.getAttribute('data-public-sidebar-state')).toBe('closed')
 
     fireEvent.click(toggle)
     expect(disclosure?.open).toBe(true)
+    expect(shell?.getAttribute('data-public-sidebar-state')).toBe('open')
 
     const mobileToggle = screen.getByRole('button', { name: 'Toggle navigation' })
     const mobileDisclosure = mobileToggle.closest('details')
@@ -33,7 +37,7 @@ describe('PublicNavigation', () => {
     expect(mobileDisclosure?.open).toBe(true)
 
     const mobilePanel = document.getElementById('public-mobile-navigation')
-    expect(mobilePanel?.className).toContain('top-14')
+    expect(mobilePanel?.className).toContain('top-[60px]')
 
     expect(screen.getByRole('link', { name: 'Website' }).getAttribute('href')).toBe(
       'https://niftyleague.com/'
