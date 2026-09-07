@@ -4,6 +4,7 @@ import { useEffect, useState, type ComponentType } from 'react'
 
 import { buttonVariants } from '@nl/ui/base/button-variants'
 import NativeImage from '@nl/ui/custom/native-image'
+
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 
 import styles from './index.module.css'

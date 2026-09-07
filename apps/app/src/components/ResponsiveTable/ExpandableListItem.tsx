@@ -19,6 +19,20 @@ interface ExpandableListItemProps {
   summary: React.ReactNode | React.ReactNode[]
 }
 
+const ICON_COLOR_ALIASES: Record<string, string> = {
+  foreground: 'var(--color-foreground)',
+  dim: 'var(--color-muted-foreground)',
+  dark: 'var(--color-dark)',
+  light: 'var(--color-light)',
+  error: 'var(--color-error)',
+  warning: 'var(--color-warning)',
+  success: 'var(--color-success)',
+  info: 'var(--color-info)',
+  blue: 'var(--color-blue)',
+  purple: 'var(--color-purple)',
+  gray: 'var(--color-base-500)',
+}
+
 /**
  * Expandable component with header text (summary) and expandable description text (details)
  */

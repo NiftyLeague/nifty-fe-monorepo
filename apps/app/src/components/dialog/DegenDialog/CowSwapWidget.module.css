@@ -1,0 +1,20 @@
+.purchaseNFTLBtn {
+  background: #4291e5;
+  border-radius: 10px !important;
+  height: 30px !important;
+}
+
+.purchaseNFTLBtn:hover {
+  background: #4291e5;
+  opacity: 0.8;
+}
+
+.arrowDown {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #202230;
+  border: 1px solid #282b3f;
+  left: calc(50% - 16px);
+}

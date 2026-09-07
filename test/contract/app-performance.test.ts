@@ -471,9 +471,9 @@ describe('app performance contracts', () => {
   it('keeps the private provider shell out of the initial route bundle', () => {
     const source = readFileSync(privateRoutesBoundary, 'utf8')
 
-    expect(source).toContain("'use client'")
+    expect(source).not.toContain("'use client'")
     expect(source).toContain("dynamic(() => import('./PrivateRoutesShell')")
-    expect(source).toContain('ssr: false')
+    expect(source).not.toContain('ssr: false')
     expect(source).toContain('loading: PrivateRoutesLoading')
   })
 
@@ -499,6 +499,16 @@ describe('app performance contracts', () => {
     expect(appBarStyles).toContain('padding: 8px 16px')
     expect(appBarStyles).toContain('height: 60px')
     expect(appBarStyles).toContain('padding: 0 24px')
+  })
+
+  it('resolves breadcrumbs from the current pathname without a post-mount scan', () => {
+    const source = readFileSync(appBreadcrumbs, 'utf8')
+
+    expect(source).toContain('pathname?: string')
+    expect(source).toContain('findBreadcrumb')
+    expect(source).not.toContain('useEffect')
+    expect(source).not.toContain('document.location')
+    expect(source).not.toContain('maxItems')
   })
 
   it('resolves breadcrumbs from the current pathname without a post-mount scan', () => {
@@ -601,6 +611,18 @@ describe('app performance contracts', () => {
     for (const file of configs) {
       expect(readFileSync(file, 'utf8')).not.toContain('turbopack')
     }
+  })
+
+  it('keeps the faster Docusaurus build on one React runtime', () => {
+    const source = readFileSync(docsConfig, 'utf8')
+
+    expect(source).toContain('faster: true')
+    expect(source).toContain("const reactEntry = require.resolve('react')")
+    expect(source).toContain("const reactDomEntry = require.resolve('react-dom')")
+    expect(source).toContain("const mdxReactEntry = require.resolve('@mdx-js/react')")
+    expect(source).toContain('react$: reactEntry')
+    expect(source).toContain("'react-dom$': reactDomEntry")
+    expect(source).toContain("'@mdx-js/react$': mdxReactEntry")
   })
 
   it('keeps the faster Docusaurus build on one React runtime', () => {
@@ -780,12 +802,69 @@ describe('app performance contracts', () => {
     ])
   })
 
-  it('uses the deterministic Webpack path for local app development', () => {
+  it('keeps the app gas-price path on native fetch without a retired Axios wrapper', () => {
+    const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
+    const gasSource = readFileSync(appGasUtility, 'utf8')
+
+    expect(manifest.dependencies?.axios).toBeUndefined()
+    expect(gasSource).toContain("fetch('https://ethgasstation.info/json/ethgasAPI.json')")
+    expect(gasSource).not.toContain("from 'axios'")
+    expect(existsSync(retiredAxiosUtility)).toBe(false)
+  })
+
+  it('keeps the app GraphQL path on native fetch without request-client dependencies', () => {
+    const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
+    const graphqlSource = readFileSync(appGraphQLUtility, 'utf8')
+
+    expect(manifest.dependencies?.graphql).toBeUndefined()
+    expect(manifest.dependencies?.['graphql-request']).toBeUndefined()
+    expect(graphqlSource).toContain("method: 'POST'")
+    expect(graphqlSource).toContain("'Content-Type': 'application/json'")
+  })
+
+  it('keeps deferred rename forms on native React Hook Form rules', () => {
     const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
 
-    expect(manifest.scripts.dev).toBe('next dev --webpack --port 3001')
-    expect(manifest.scripts.dev).not.toContain('--turbopack')
-    expect(manifest.scripts['dev:turbo']).toBeUndefined()
+    for (const file of [deferredNicknameForm, deferredProfileNameForm]) {
+      const source = readFileSync(file, 'utf8')
+      expect(source).toContain('rules={{ required:')
+      expect(source).not.toContain('yup')
+      expect(source).not.toContain('@hookform/resolvers')
+    }
+
+    expect(manifest.dependencies?.['@hookform/resolvers']).toBeUndefined()
+    expect(manifest.dependencies?.yup).toBeUndefined()
+  })
+
+  it('uses shared shadcn inputs across the app instead of the heavyweight custom wrapper', () => {
+    for (const file of appBaseInputConsumers) {
+      const source = readFileSync(file, 'utf8')
+      expect(source).toContain("from '@nl/ui/base/input'")
+      expect(source).not.toContain("from '@nl/ui/custom/input'")
+    }
+  })
+
+  it('removes the retired inline NFTL swap graph', () => {
+    const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
+    const rentDialogSource = readFileSync(
+      'apps/app/src/components/dialog/DegenDialog/RentDegenContentDialog.tsx',
+      'utf8'
+    )
+
+    expect(manifest.dependencies?.['@cowprotocol/cow-sdk']).toBeUndefined()
+    expect(rentDialogSource).toContain('href={COW_PROTOCOL_URL}')
+    expect(rentDialogSource).not.toContain('purchasingNFTL')
+
+    for (const file of [
+      'apps/app/src/components/dialog/DegenDialog/CowSwapWidget.tsx',
+      'apps/app/src/components/dialog/DegenDialog/TokenInfoBox.tsx',
+      'apps/app/src/hooks/balances/useEtherBalance.ts',
+      'apps/app/src/hooks/useRateEtherToNFTL.ts',
+      'apps/app/src/hooks/useTokenUSDPrice.ts',
+      'apps/app/src/utils/cowswap.ts',
+    ]) {
+      expect(existsSync(file)).toBe(false)
+    }
   })
 
   it('loads the bridge form only after its dialog opens', () => {
