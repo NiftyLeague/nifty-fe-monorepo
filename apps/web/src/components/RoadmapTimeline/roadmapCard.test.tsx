@@ -27,6 +27,18 @@ mock.module('@nl/ui/custom/deferred-animated-image', () => ({
   }) => <img src={src} alt={alt} data-animated-src={animatedSrc} />,
 }))
 
+mock.module('@nl/ui/custom/deferred-animated-image', () => ({
+  DeferredAnimatedImage: ({
+    animatedSrc,
+    src,
+    alt,
+  }: {
+    animatedSrc?: string
+    src: string
+    alt: string
+  }) => <img src={src} alt={alt} data-animated-src={animatedSrc} />,
+}))
+
 describe('RoadmapCard', () => {
   it('keeps alternating sides independent of deferred DOM wrappers', async () => {
     const { default: RoadmapCard, getRoadmapCardSide } = await import('./roadmapCard')
