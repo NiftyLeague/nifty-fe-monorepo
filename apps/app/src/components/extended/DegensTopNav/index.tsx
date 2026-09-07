@@ -54,12 +54,6 @@ const DegensTopNav = ({
         layoutMode={layoutMode}
         sortValue={sortValue}
       />
-      <DegensTopNavControls
-        handleChangeLayoutMode={handleChangeLayoutMode}
-        handleSort={handleSort}
-        layoutMode={layoutMode}
-        sortValue={sortValue}
-      />
     </div>
   </div>
 )
