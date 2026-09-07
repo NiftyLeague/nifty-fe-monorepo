@@ -34,12 +34,6 @@ beforeEach(async () => {
     return {
       loadLeaderboard: async (gameType: string) => leaderboards[gameType],
     }
-    return {
-      loadLeaderboard: async (gameType: string) => leaderboards[gameType],
-    }
-    return {
-      loadLeaderboard: async (gameType: string) => leaderboards[gameType],
-    }
   })
 
   const [leaderboard, leaderboardServer] = await Promise.all([
@@ -112,7 +106,8 @@ describe('leaderboard data loaders', () => {
     const result = await fetchScores('smashers', scoreType, 'all', 5, 0)
     expect(result.count).toBe(1)
     expect(result.data[0]?.stats).toMatchObject({ win_rate: winRate, earnings, kills })
-    expect((result.data[0]?.stats as unknown as Record<string, string>).score).toBeTruthy()
+    const firstStats = result.data[0]?.stats as unknown as Record<string, string> | undefined
+    expect(firstStats?.score).toBeTruthy()
   })
 
   it('enriches multiple rows through keyed username lookups', async () => {

@@ -7,7 +7,6 @@ import { ScrollArea } from '@nl/ui/base/scroll-area'
 import { cx } from '@nl/ui/class-names'
 
 import { useNavigation } from '@/contexts/NavigationContext'
-import { desktopNavigationMediaQuery } from '@/app/_layout/navigation-breakpoints'
 import LogoSection from '../_LogoSection'
 
 const appDrawerWidth = 260

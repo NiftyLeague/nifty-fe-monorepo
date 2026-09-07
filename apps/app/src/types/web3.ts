@@ -68,7 +68,11 @@ export interface Contracts {
 }
 
 export type NetworkName =
-  'mainnet' | 'sepolia' | 'hardhat' | 'imtbl-zkevm-mainnet' | 'imtbl-zkevm-testnet'
+  | 'mainnet'
+  | 'sepolia'
+  | 'hardhat'
+  | 'imtbl-zkevm-mainnet'
+  | 'imtbl-zkevm-testnet'
 
 export interface Network {
   blockExplorer: string

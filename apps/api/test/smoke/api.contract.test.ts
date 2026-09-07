@@ -61,5 +61,3 @@ describeLive('Live API contract smoke', () => {
     expect(res.body.name).toBeDefined()
   })
 })
-
-export {}

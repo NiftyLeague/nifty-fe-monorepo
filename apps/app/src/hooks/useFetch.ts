@@ -109,7 +109,6 @@ function useFetch<T = unknown>(url?: string, options?: Options, textOnly = false
   const requestInit = useMemo(() => {
     const { enabled: _enabled, sharedCache: _sharedCache, ...init } = options ?? {}
     return init
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [optionsKey])
   const requestKey = useMemo(
     () => (url ? getRequestKey(url, requestInit, textOnly) : undefined),

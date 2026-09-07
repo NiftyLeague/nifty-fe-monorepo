@@ -1,8 +1,8 @@
 {
   "name": "@nl/typescript-config",
   "version": "1.0.1",
-  "license": "MIT",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "test": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --pass-with-no-tests",
     "test:coverage": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --coverage --pass-with-no-tests",

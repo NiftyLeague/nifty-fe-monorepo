@@ -1,6 +1,5 @@
 'use client'
 
-/* eslint-disable no-nested-ternary */
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import dynamic from 'next/dynamic'
@@ -32,18 +31,6 @@ const DegenCard = dynamic(
     ),
   {
     ssr: false,
-  }
-)
-
-const RenameDegenDialogContent = dynamic(
-  () => import('@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent'),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="sr-only" role="status" aria-live="polite" aria-busy="true">
-        Loading rename form
-      </div>
-    ),
   }
 )
 
