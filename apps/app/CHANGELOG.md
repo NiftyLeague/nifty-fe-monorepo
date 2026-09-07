@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.30](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.29...app-v1.1.30) (2026-09-07)
+
+
+### Maintenance
+
+* **app:** clean up filter utils, gas helpers and async intervals ([#1569](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1569)) ([e331aad](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/e331aad6af97568651bbadd41dc6a8510a48bf3f))
+* **app:** consolidate search filtering and optimize hot-path utils ([#1576](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1576)) ([f567d90](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/f567d90b08286070a8f8770764eda1cf4a5eca15))
+* **app:** extract search helper and clean up utility patterns ([#1571](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1571)) ([e18baec](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/e18baec15f63560c50dbb15f20d54c494ce4add2))
+
 ## [1.1.29](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.28...app-v1.1.29) (2026-08-30)
 
 
