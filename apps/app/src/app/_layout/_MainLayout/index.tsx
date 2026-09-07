@@ -8,6 +8,7 @@ import dynamic from 'next/dynamic'
 import AppShell from '@/app/_layout/AppShell'
 import Header from './_Header'
 import Sidebar from './_Sidebar'
+import styles from './MainLayout.module.css'
 
 const NetworkWarning = dynamic(() => import('./_Header/NetworkWarning'), { ssr: false })
 

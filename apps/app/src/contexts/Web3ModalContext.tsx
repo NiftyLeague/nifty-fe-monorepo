@@ -4,7 +4,6 @@ import type { PropsWithChildren, ReactNode } from 'react'
 
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import type { Web3ModalRuntimeProps as LoadedWeb3ModalRuntimeProps } from './Web3ModalRuntime'
-
 import {
   WalletProviderError,
   WalletProviderLoading,

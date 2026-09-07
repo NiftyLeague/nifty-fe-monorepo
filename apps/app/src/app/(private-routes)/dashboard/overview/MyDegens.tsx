@@ -35,6 +35,18 @@ const DegenCard = dynamic(
   }
 )
 
+const RenameDegenDialogContent = dynamic(
+  () => import('@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent'),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="sr-only" role="status" aria-live="polite" aria-busy="true">
+        Loading rename form
+      </div>
+    ),
+  }
+)
+
 const MyDegens = (): React.ReactNode => {
   const { authToken } = useAuth()
   const [selectedDegen, setSelectedDegen] = useState<DashboardDegen>()
