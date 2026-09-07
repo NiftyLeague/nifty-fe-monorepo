@@ -16,9 +16,7 @@
   ],
   "overrides": [
     {
-      "files": [
-        "packages/playfab/src/**/*.ts"
-      ],
+      "files": ["packages/playfab/src/**/*.ts"],
       "rules": {
         "triple-slash-reference": "off"
       }
