@@ -67,12 +67,10 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): React.ReactNode 
       writeContracts[DEGEN_CONTRACT] &&
       writeContracts[NFTL_CONTRACT]
     ) {
-      // eslint-disable-next-line no-console
       if (DEBUG) console.log('Rename NFT to:', input)
       const degenContract = writeContracts[DEGEN_CONTRACT]
       const nftl = writeContracts[NFTL_CONTRACT]
       if (insufficientAllowance) {
-        // eslint-disable-next-line no-console
         if (DEBUG) console.log('Current allowance too low')
         const DEGENAddress = await degenContract.getAddress()
         await tx(nftl.increaseAllowance(DEGENAddress, parseEther('100000')))

@@ -1,11 +1,11 @@
-import type { SxProps, Theme } from '@/types'
+import type { SxProps } from '@/types'
 import type { Item } from '@/types/marketplace'
 import ImageCard from '@/components/cards/ImageCard'
 
 interface WearableSubItemCardProps {
   data: Item
   itemIndex: number
-  sx?: SxProps<Theme>
+  sx?: SxProps
   isSelected?: boolean
   onViewItem?: () => void
 }

@@ -11,8 +11,6 @@ const GLOBAL_SHARED_PATH_PREFIXES = [
   'package.json',
   'bun.lock',
   'turbo.json',
-  'packages/eslint-config/',
-  'packages/prettier-config/',
   'packages/typescript-config/',
 ]
 

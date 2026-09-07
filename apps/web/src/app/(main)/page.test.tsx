@@ -2,8 +2,6 @@ import type { ComponentProps, PropsWithChildren } from 'react'
 import { render, screen } from '@testing-library/react'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
-/* eslint-disable @next/next/no-img-element */
-
 describe('home page', () => {
   let Home: typeof import('./page').default
   let optimizedImageCalls: ComponentProps<'img'>[] = []

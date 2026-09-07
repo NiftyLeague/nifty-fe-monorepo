@@ -60,14 +60,6 @@ function makeMinty() {
 }
 
 beforeEach(() => {
-  ;(mockAdd.mockClear(),
-    mockCat.mockClear(),
-    mockPinAdd.mockClear(),
-    mockPinRm.mockClear(),
-    mockPinLs.mockClear(),
-    mockFetch.mockClear(),
-    mockCreate.mockClear())
-
   mockAdd.mockClear()
   mockCat.mockClear()
   mockPinAdd.mockClear()

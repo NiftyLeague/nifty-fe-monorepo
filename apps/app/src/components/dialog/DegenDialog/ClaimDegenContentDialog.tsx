@@ -23,7 +23,6 @@ const ClaimDegenContentDialog = ({ degen, onClose }: ClaimDegenContentDialogProp
 
   const handleClaimNFTL = useCallback(
     async (event: React.MouseEvent<HTMLButtonElement>) => {
-      // eslint-disable-next-line no-console
       if (DEBUG) console.log('Claim', degenTokenIndices, balance)
       await tx(writeContracts[NFTL_CONTRACT].claim(degenTokenIndices))
       setTimeout(() => refetch(), 5000)

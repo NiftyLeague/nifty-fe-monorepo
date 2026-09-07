@@ -1,5 +1,5 @@
 import { renderHook, waitFor } from '@testing-library/react'
-import { afterEach, beforeEach, describe, expect, it, spyOn, mock } from 'bun:test'
+import { afterEach, describe, expect, it, spyOn, mock } from 'bun:test'
 
 const device = { android: false, ios: false, mac: false, windows: true, linux: false }
 

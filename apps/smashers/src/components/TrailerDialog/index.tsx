@@ -21,7 +21,7 @@ const TrailerContent = () => {
         if (data.event === 'onReady') {
           setIsLoaded(true)
         }
-      } catch (e) {
+      } catch {
         // Ignore parsing errors from other messages
       }
     }

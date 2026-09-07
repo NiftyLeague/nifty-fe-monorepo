@@ -7,7 +7,6 @@ export type OptimizedImageProps = ImageProps
 
 // Next injects this build-time value so the shared helper keeps each app's
 // configured responsive image ladder and loader behavior.
-// eslint-disable-next-line turbo/no-undeclared-env-vars
 const imageConfig = process.env.__NEXT_IMAGE_OPTS as unknown as ImageConfigComplete
 
 const FIXED_PIXEL_SIZE_PATTERN = /^\s*(\d+(?:\.\d+)?)px\s*$/

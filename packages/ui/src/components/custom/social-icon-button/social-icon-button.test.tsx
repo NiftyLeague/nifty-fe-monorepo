@@ -1,5 +1,5 @@
 import { fireEvent, render } from '@testing-library/react'
-import { beforeEach, describe, expect, it, jest, mock } from 'bun:test'
+import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 let SocialIconButton: typeof import('./index').SocialIconButton
 

@@ -342,7 +342,6 @@ const sharedAppBarStyles = 'packages/ui/src/components/custom/app-bar/app-bar.mo
 const publicContentContainer = 'apps/app/src/components/wrapper/PublicContentContainer.tsx'
 const publicNavLinks = 'apps/app/src/components/providers/PublicNavLinks.tsx'
 const sharedMobileNavigation = 'packages/ui/src/components/custom/mobile-navigation/index.tsx'
-const publicActiveNavLink = 'apps/app/src/components/providers/PublicActiveNavLink.tsx'
 const collapsibleSidebarLayout = 'apps/app/src/app/_layout/_CollapsibleSidebarLayout/index.tsx'
 const smashersBackButton = 'apps/smashers/src/components/Header/BackButton/index.tsx'
 const verificationPage = 'apps/app/src/app/verification/page.tsx'
@@ -1988,7 +1987,9 @@ describe('web public navigation contract', () => {
     expect(mobileNavbarSource).toContain("from '@nl/ui/custom/mobile-navigation'")
     expect(mobileNavbarSource).toContain('<nav aria-label="Primary navigation">')
     expect(mobileNavbarSource).toContain("from '@nl/ui/base/button-variants'")
-    expect(mobileNavbarSource).toContain("from '@nl/ui/base/separator'")
+    // The mobile divider is a lightweight div carrying the separator token
+    // (no Separator component import; oxlint flags unused imports).
+    expect(mobileNavbarSource).not.toContain("from '@nl/ui/base/separator'")
     expect(mobileNavbarSource).toContain('data-slot="mobile-nav-divider"')
     expect(mobileNavbarSource).toContain('aria-hidden="true"')
     expect(mobileNavbarSource).toContain('bg-separator')

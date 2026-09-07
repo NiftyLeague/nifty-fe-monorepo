@@ -56,7 +56,7 @@ describe('Vercel build cost policy', () => {
     expect(isProjectAffected('app', ['packages/contracts/src/index.ts'])).toBe(true)
     expect(isProjectAffected('api', ['packages/playfab/src/api.ts'])).toBe(false)
     expect(isProjectAffected('smashers', ['packages/playfab/src/api.ts'])).toBe(true)
-    expect(isProjectAffected('web', ['packages/eslint-config/next.js'])).toBe(true)
+    expect(isProjectAffected('web', ['packages/typescript-config/base.json'])).toBe(true)
     expect(isProjectAffected('docs', ['packages/typescript-config/nextjs.json'])).toBe(true)
     expect(isProjectAffected('web', ['config/image-device-sizes.ts'])).toBe(true)
     expect(isProjectAffected('app', ['config/image-device-sizes.ts'])).toBe(true)
