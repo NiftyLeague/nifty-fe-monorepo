@@ -17,7 +17,7 @@ Agents must follow these rules before changing code:
 1. Read this file, `AGENTS.md`, and the relevant project documentation.
 2. Inspect the current branch, worktree, remotes, and existing changes before editing.
 3. Preserve user-owned changes. Never discard or overwrite unrelated work.
-4. Branch from `staging` and target pull requests at `staging`; do not work directly on `main`.
+4. Branch from `main` and target pull requests at `main`; do not work directly on `main`.
 5. Keep the change focused. Do not expand scope without documenting why.
 6. Run the applicable format, lint, type-check, build, unit, integration, E2E, smoke, and security checks.
 7. Report exact validation results, skipped checks, known limitations, and remaining risks.
@@ -33,22 +33,17 @@ Agents must not:
 ## Branching model
 
 ```text
-                                      release PR
-                                   ┌──────────────┐
-                                   │              ▼
-feat/*  fix/*  chore/*  ──PR──▶  staging  ──PR──▶  main
-docs/*  test/*  refactor/*         │              │
-                                   │              └── protected release branch
-                                   └── integration branch
+feat/*  fix/*  chore/*  ──PR──▶  main
+docs/*  test/*  refactor/*         │
+                                   └── protected release branch
 ```
 
-| Branch                                                                    | Purpose                  | Contribution rule                                                         |
-| ------------------------------------------------------------------------- | ------------------------ | ------------------------------------------------------------------------- |
-| `main`                                                                    | Protected release branch | Merge through the `staging` → `main` release PR. No direct pushes.        |
-| `staging`                                                                 | Integration branch       | Target normal pull requests here. Required checks must pass before merge. |
-| `feat/*`, `fix/*`, `chore/*`, `refactor/*`, `docs/*`, `test/*`, `codex/*` | Focused work             | Branch from `staging`; keep changes small and reviewable.                 |
+| Branch                                                                    | Purpose                  | Contribution rule                                                                           |
+| ------------------------------------------------------------------------- | ------------------------ | ------------------------------------------------------------------------------------------- |
+| `main`                                                                    | Protected release branch | Target normal pull requests here. Required checks must pass before merge. No direct pushes. |
+| `feat/*`, `fix/*`, `chore/*`, `refactor/*`, `docs/*`, `test/*`, `codex/*` | Focused work             | Branch from `main`; keep changes small and reviewable.                                      |
 
-The Git workflow is `staging-release`: topic branches **squash** into `staging`, a promotion PR **rebases** validated changes into `main` (`merge_strategy: rebase`), and the Release Please version PR **rebases** into `main` (`release_merge_strategy: rebase`). Release automation never defaults to a merge method and never merges with `--admin`; `code-foundry doctor` and `code-foundry sync` fail closed on any other merge strategy. Re-align `staging` with `main` after a release when needed.
+The Git workflow is `direct`: topic branches **squash** directly into `main`, and the Release Please version PR **rebases** into `main` (`release_merge_strategy: rebase`). Release automation never defaults to a merge method and never merges with `--admin`; `code-foundry doctor` and `code-foundry sync` fail closed on any other release merge strategy. Feature branches never touch `staging`.
 
 ## Before you start
 
@@ -65,8 +60,8 @@ The Git workflow is `staging-release`: topic branches **squash** into `staging`,
 ```sh
 git status --short --branch
 git fetch origin
-git switch staging
-git pull --ff-only origin staging
+git switch main
+git pull --ff-only origin main
 git switch -c feat/short-description
 ```
 
@@ -91,7 +86,7 @@ Run the checks relevant to the change. For a release or security-sensitive chang
 
 For maintainers, trusted contributors, and automation agents:
 
-1. Start from an up-to-date `staging` branch.
+1. Start from an up-to-date `main` branch.
 2. Create a focused branch with a descriptive prefix.
 3. Inspect the relevant code and tests before making changes.
 4. Implement the smallest complete change.
@@ -105,9 +100,9 @@ For maintainers, trusted contributors, and automation agents:
    chore(ci): cache Rust dependencies
    ```
 
-8. Push the branch and open a pull request into `staging`.
+8. Push the branch and open a pull request into `main`.
 9. Address review feedback and failed checks on the same branch.
-10. Merge with a squash after required checks pass and the change is ready; feature PRs land on `staging` with squash merges.
+10. Merge with a squash after required checks pass and the change is ready; feature PRs land on `main` with squash merges.
 
 ### Internal agent handoff
 
@@ -128,11 +123,11 @@ For contributors who do not have direct write access:
 
 1. Fork the repository on GitHub.
 2. Add the upstream repository as `upstream`.
-3. Branch from the upstream `staging` branch.
+3. Branch from the upstream `main` branch.
 4. Make a focused change and follow the local setup instructions.
 5. Add tests and documentation for behavior changes.
 6. Run all applicable checks locally.
-7. Push to the fork and open a pull request targeting `staging`.
+7. Push to the fork and open a pull request targeting `main`.
 8. Explain the problem, proposed solution, validation, compatibility, and rollout impact.
 9. Address maintainer feedback without rewriting unrelated history or scope.
 
@@ -155,42 +150,38 @@ Keep pull requests focused and reviewable. Include screenshots or recordings for
 
 | Event                                              | Expected automation                                                                    |
 | -------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| Draft pull request targeting `staging`             | No hosted validation; run local checks, then mark ready when the milestone is complete |
-| Ready pull request targeting `staging`             | Fast validation: CI plus unit tests, ending in `Validation / Gate`                     |
-| Ordinary pull request targeting `main`             | Audit validation: CI, full tests, Security, and CodeQL, ending in `Validation / Gate`  |
+| Draft pull request targeting `main`                | No hosted validation; run local checks, then mark ready when the milestone is complete |
+| Ready pull request targeting `main`                | Audit validation: CI, full tests, Security, and CodeQL, ending in `Validation / Gate`  |
 | Exact Release Please pull request targeting `main` | Release-policy validation only, ending in `Validation / Gate`                          |
 | Scheduled or manual validation                     | Full audit tier                                                                        |
 | Push to a working branch                           | Draft PR workflow; Vercel deployments are disabled                                     |
-| Push to `staging`                                  | Promotion PR workflow; canonical validation waits for the PR event                     |
 | Push to `main`                                     | Release workflow; canonical validation already ran on the merged PR                    |
 
 The single validation caller keys concurrency by pull request. A newer update to the same pull request—including conversion back to draft—cancels its superseded validation run; scheduled and manual audits remain independent. The mode-aware orchestrator fans out only the jobs required by that event and always concludes with the stable aggregate gate.
 
-Draft feature work is intentionally cost-aware: local validation is the feedback loop while a pull request is draft. Marking the pull request ready for review starts hosted validation. Vercel projects disable Git-triggered deployments and ignore builds for every feature branch through the versioned `git.deploymentEnabled` and `ignoreCommand` policies in `apps/*/vercel.json`; Vercel builds on `staging` and `main` are scoped to the changed app and its shared inputs, while manual deployments remain available.
-Staging re-alignment is event-driven from `main` pushes, with manual dispatch available for recovery; it does not poll on a recurring schedule.
+Draft feature work is intentionally cost-aware: local validation is the feedback loop while a pull request is draft. Marking the pull request ready for review starts hosted validation. Vercel projects disable Git-triggered deployments and ignore builds for every feature branch through the versioned `git.deploymentEnabled` and `ignoreCommand` policies in `apps/*/vercel.json`; Vercel builds on `main` are scoped to the changed app and its shared inputs, while manual deployments remain available.
 The connected Vercel projects also keep the consolidated Git commit status disabled. This prevents canceled ignored-build records from holding an aggregate pending check; per-project skipped statuses remain visible for affected-project diagnostics.
 If a ready pull request is returned to draft, its in-flight hosted validation is cancelled and no replacement validation starts until it is ready again.
 
-Draft feature work is intentionally cost-aware: local validation is the feedback loop while a pull request is draft. Marking the pull request ready for review starts hosted validation. Vercel projects disable Git-triggered deployments and ignore builds for every feature branch through the versioned `git.deploymentEnabled` and `ignoreCommand` policies in `apps/*/vercel.json`; Vercel builds run on `staging` and `main`, while manual deployments remain available.
+Draft feature work is intentionally cost-aware: local validation is the feedback loop while a pull request is draft. Marking the pull request ready for review starts hosted validation. Vercel projects disable Git-triggered deployments and ignore builds for every feature branch through the versioned `git.deploymentEnabled` and `ignoreCommand` policies in `apps/*/vercel.json`; Vercel builds run on `main`, while manual deployments remain available.
 If a ready pull request is returned to draft, its in-flight hosted validation is cancelled and no replacement validation starts until it is ready again.
 
-Draft feature work is intentionally cost-aware: local validation is the feedback loop while a pull request is draft. Marking the pull request ready for review starts hosted validation. Vercel projects disable Git-triggered deployments on feature branches through the versioned `git.deploymentEnabled` policy in `apps/*/vercel.json` and continue on `staging` and `main`; manual deployments remain available.
+Draft feature work is intentionally cost-aware: local validation is the feedback loop while a pull request is draft. Marking the pull request ready for review starts hosted validation. Vercel projects disable Git-triggered deployments on feature branches through the versioned `git.deploymentEnabled` policy in `apps/*/vercel.json` and continue on `main`; manual deployments remain available.
 
 Required checks are enforced by branch protection rulesets/branch protection. Do not duplicate their checklists in the pull request description; document validation commands and results instead.
 
 ### Release conventions
 
-Use Conventional Commits so the release automation can determine the next version: `fix:` produces a patch release, `feat:` produces a minor release, and `!` or `BREAKING CHANGE:` produces a major release. Add `Release-As: x.y.z` only when a deliberate version override is needed. Release-generated `chore:` commits are hidden from changelog release detection so a merged release cannot create another release by itself; promotion commits that carry a code change must use the relevant release-worthy type. The release workflow maintains the changelog and GitHub release after changes land on `main`; npm publication is opt-in through `.github/code-foundry.yml`.
+Use Conventional Commits so the release automation can determine the next version: `fix:` produces a patch release, `feat:` produces a minor release, and `!` or `BREAKING CHANGE:` produces a major release. Add `Release-As: x.y.z` only when a deliberate version override is needed. Release-generated `chore:` commits are hidden from changelog release detection so a merged release cannot create another release by itself. The release workflow maintains the changelog and GitHub release after changes land on `main`; npm publication is opt-in through `.github/code-foundry.yml`.
 
 Security checks can be skipped when repository visibility or the GitHub plan does not support a feature. A skipped optional check must not be configured as a required status check.
 
 ## Review and merge protocol
 
-| Change                       | Target    | Merge method                                    | Merge gate                                                |
-| ---------------------------- | --------- | ----------------------------------------------- | --------------------------------------------------------- |
-| Working branch               | `staging` | Squash                                          | All applicable required checks pass                       |
-| `staging` → `main` promotion | `main`    | Rebase (`merge_strategy`)                       | Current staging checks, release review, and rollout notes |
-| Release Please version PR    | `main`    | Rebase (`release_merge_strategy`, fails closed) | Validation gate and release policy pass                   |
+| Change                    | Target | Merge method                                    | Merge gate                              |
+| ------------------------- | ------ | ----------------------------------------------- | --------------------------------------- |
+| Working branch            | `main` | Squash                                          | All applicable required checks pass     |
+| Release Please version PR | `main` | Rebase (`release_merge_strategy`, fails closed) | Validation gate and release policy pass |
 
 Reviewers focus on correctness, security, maintainability, test coverage, operational impact, and compatibility. Authors remain responsible for responding to feedback and verifying the final commit.
 
@@ -200,7 +191,7 @@ Report vulnerabilities privately using [SECURITY.md](./SECURITY.md), never in a 
 
 For an urgent production or security issue:
 
-1. Create a focused branch from `staging`.
+1. Create a focused branch from `main`.
 2. Document the urgency and affected systems without exposing secrets.
 3. Open a pull request and run the narrowest complete validation available.
 4. Request the appropriate maintainer review.

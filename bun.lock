@@ -5,11 +5,11 @@
     "": {
       "name": "nifty-fe-monorepo",
       "devDependencies": {
-        "@happy-dom/global-registrator": "^20.12.0",
+        "@happy-dom/global-registrator": "^20.14.0",
         "@nl/typescript-config": "workspace:*",
         "@testing-library/react": "^16.3.3",
-        "@testing-library/user-event": "^14.6.6",
-        "@types/node": "^26.4.0",
+        "@testing-library/user-event": "^14.6.7",
+        "@types/node": "^26.4.1",
         "oxfmt": "^0.66.0",
         "oxlint": "^1.81.0",
         "syncpack": "^15.3.3",
@@ -58,7 +58,7 @@
     },
     "apps/app": {
       "name": "app",
-      "version": "1.1.29",
+      "version": "1.1.30",
       "dependencies": {
         "@nl/contracts": "workspace:*",
         "@nl/imx-passport": "workspace:*",
@@ -89,7 +89,7 @@
       "devDependencies": {
         "@tailwindcss/postcss": "^4.3.3",
         "@types/react": "19.2.18",
-        "@types/react-dom": "19.2.5",
+        "@types/react-dom": "19.2.7",
       },
     },
     "apps/docs": {
@@ -112,7 +112,7 @@
         "@docusaurus/types": "^3.10.2",
         "@types/node": "^26.4.0",
         "@types/react": "19.2.18",
-        "@types/react-dom": "19.2.5",
+        "@types/react-dom": "19.2.7",
       },
     },
     "apps/smashers": {
@@ -136,7 +136,7 @@
         "@tailwindcss/postcss": "^4.3.3",
         "@types/node": "^26.4.0",
         "@types/react": "19.2.18",
-        "@types/react-dom": "19.2.5",
+        "@types/react-dom": "19.2.7",
         "next-sitemap": "^4.2.3",
       },
     },
@@ -153,7 +153,7 @@
         "@tailwindcss/postcss": "^4.3.3",
         "@types/node": "^26.4.0",
         "@types/react": "19.2.18",
-        "@types/react-dom": "19.2.5",
+        "@types/react-dom": "19.2.7",
       },
     },
     "apps/web": {
@@ -175,7 +175,7 @@
         "@tailwindcss/postcss": "^4.3.3",
         "@types/node": "^26.4.0",
         "@types/react": "19.2.18",
-        "@types/react-dom": "19.2.5",
+        "@types/react-dom": "19.2.7",
         "next-sitemap": "^4.2.3",
       },
     },
@@ -210,7 +210,7 @@
       "devDependencies": {
         "@types/node": "^26.4.0",
         "@types/react": "19.2.18",
-        "@types/react-dom": "19.2.5",
+        "@types/react-dom": "19.2.7",
       },
       "peerDependencies": {
         "next": "16.3.4",
@@ -256,7 +256,7 @@
         "@tailwindcss/postcss": "^4.3.3",
         "@types/node": "^26.4.0",
         "@types/react": "19.2.18",
-        "@types/react-dom": "19.2.5",
+        "@types/react-dom": "19.2.7",
         "tailwindcss": "^4.3.3",
       },
       "peerDependencies": {
