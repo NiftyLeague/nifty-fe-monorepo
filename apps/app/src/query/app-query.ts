@@ -17,7 +17,7 @@ export class ApiQueryError extends Error {
 
 const shouldRetryQuery = (failureCount: number, error: Error) => {
   if (error instanceof ApiQueryError && error.status >= 400 && error.status < 500) return false
-  return failureCount < 2
+  return failureCount < 1
 }
 
 export const createAppQueryClient = () =>

@@ -37,6 +37,30 @@ describe('public DEGEN queries', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
   })
 
+  it('exposes loading, empty, and non-retried client error states', async () => {
+    const emptyFetch = spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(JSON.stringify([]), { status: 200 })
+    )
+    const empty = renderHook(() => usePublicDegensByIds(['9']), {
+      wrapper: createWrapper(),
+    })
+    expect(empty.result.current.isPending).toBe(true)
+    await waitFor(() => expect(empty.result.current.data).toEqual([]))
+    expect(empty.result.current.isError).toBe(false)
+    empty.unmount()
+    emptyFetch.mockRestore()
+
+    const failedFetch = spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response('missing', { status: 404, statusText: 'Not Found' })
+    )
+    const failed = renderHook(() => usePublicDegensByIds(['10']), {
+      wrapper: createWrapper(),
+    })
+    await waitFor(() => expect(failed.result.current.isError).toBe(true))
+    expect(failed.result.current.data).toBeUndefined()
+    expect(failedFetch).toHaveBeenCalledTimes(1)
+  })
+
   it('aborts an orphaned request when its last observer unmounts', async () => {
     let signal: AbortSignal | undefined
     spyOn(globalThis, 'fetch').mockImplementation((_input, init) => {

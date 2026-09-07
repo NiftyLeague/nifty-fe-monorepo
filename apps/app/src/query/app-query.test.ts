@@ -1,6 +1,6 @@
 import { describe, expect, it, mock } from 'bun:test'
 
-import { createAppQueryClient, fetchApiQuery, queryKeys } from './app-query'
+import { ApiQueryError, createAppQueryClient, fetchApiQuery, queryKeys } from './app-query'
 
 describe('app query contract', () => {
   it('creates isolated clients with bounded server-state defaults', () => {
@@ -14,6 +14,14 @@ describe('app query contract', () => {
       refetchOnWindowFocus: false,
       refetchOnReconnect: true,
     })
+
+    const retry = first.getDefaultOptions().queries?.retry
+    expect(typeof retry).toBe('function')
+    if (typeof retry === 'function') {
+      expect(retry(0, new ApiQueryError('Unauthorized', 401))).toBe(false)
+      expect(retry(0, new ApiQueryError('Unavailable', 503))).toBe(true)
+      expect(retry(1, new ApiQueryError('Unavailable', 503))).toBe(false)
+    }
   })
 
   it('uses semantic keys without embedding auth credentials', () => {

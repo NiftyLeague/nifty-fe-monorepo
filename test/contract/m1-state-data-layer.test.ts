@@ -28,6 +28,24 @@ describe('M1 state and data ownership', () => {
     }
   })
 
+  it('records same-profile before/after route and build evidence', () => {
+    const before = JSON.parse(read('benchmarks/results/m1-app-before-2026-09-07.json'))
+    const after = JSON.parse(read('benchmarks/results/m1-app-after-2026-09-07.json'))
+    const builds = JSON.parse(read('benchmarks/results/m1-app-build-after-2026-09-07.json'))
+
+    expect(before.gitRevision).toBe('907444bd085e0b012702fdc918cbc3f961093c7b')
+    expect(after.gitRevision).toBe('395f27224c3289913b5f695b3cd7e7a958027a74')
+    expect(before.profile).toEqual(after.profile)
+    expect(before.routes[0].samples).toHaveLength(5)
+    expect(after.routes[0].samples).toHaveLength(5)
+    expect(
+      builds.builds[0].clean.every(({ exitCode }: { exitCode: number }) => exitCode === 0)
+    ).toBe(true)
+    expect(
+      builds.builds[0].incremental.every(({ exitCode }: { exitCode: number }) => exitCode === 0)
+    ).toBe(true)
+  })
+
   it('keeps one request-cache owner and no module-level query client', () => {
     expect(existsSync('apps/app/src/hooks/useFetch.ts')).toBe(false)
     const runtime = read('apps/app/src/contexts/Web3ModalRuntime.tsx')
