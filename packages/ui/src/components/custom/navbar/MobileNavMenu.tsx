@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
 
 import { buttonVariants } from '@nl/ui/base/button-variants'
+import { Separator } from '@nl/ui/base/separator'
 import MobileNavigationDisclosure from '@nl/ui/custom/mobile-navigation'
 
 import NavigationLink from './NavigationLink'
@@ -10,6 +11,10 @@ import type { NavItemData, NavbarActionButton } from './index'
 interface MobileNavMenuProps {
   actionButton?: NavbarActionButton
   navItems: NavItemData[]
+  // Reserved for controlled open state. The menu currently mounts
+  // conditionally via MobileNavigationDisclosure and ignores these.
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
 }
 
 function MobileMenuGroup({ group, pages }: Extract<NavItemData, { type: 'group' }>) {

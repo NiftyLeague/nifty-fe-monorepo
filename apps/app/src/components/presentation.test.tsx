@@ -180,6 +180,20 @@ describe('card presentation', () => {
     expect(screen.getByAltText('Deferred artwork').getAttribute('fetchpriority')).toBe('low')
   })
 
+  it('accepts server-rendered artwork without changing the card layout contract', () => {
+    render(
+      <GameCard
+        title="Optimized artwork"
+        // eslint-disable-next-line @next/next/no-img-element
+        imageContent={<img src="/optimized-artwork.webp" alt="Optimized artwork" />}
+      />
+    )
+
+    expect(screen.getByRole('img', { name: 'Optimized artwork' }).getAttribute('src')).toBe(
+      '/optimized-artwork.webp'
+    )
+  })
+
   it('renders game calls to action, expands descriptions, and supports custom content', () => {
     const desktop = mock()
     const web = mock()

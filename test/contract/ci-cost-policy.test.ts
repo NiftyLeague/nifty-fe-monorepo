@@ -39,6 +39,11 @@ describe('hosted validation cost policy', () => {
     expect(source).not.toContain(
       'code-foundry-validation-${{ github.event_name }}-${{ github.event.pull_request.head.repo.full_name'
     )
+    expect(source).toContain('github.event.pull_request.number')
+    expect(source).toContain('github.run_id')
+    expect(source).not.toContain(
+      'code-foundry-validation-${{ github.event_name }}-${{ github.event.pull_request.head.repo.full_name'
+    )
     expect(source).toContain('cancel-in-progress: true')
   })
 

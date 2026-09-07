@@ -32,6 +32,14 @@ describe('Smashers asset delivery contracts', () => {
     expect(statSync(heroPoster).size).toBeLessThan(400_000)
   })
 
+  it('keeps the deferred hero animation within its delivery budget', () => {
+    expect(statSync('assets/img/games/smashers/background.webp').size).toBeLessThan(3_600_000)
+  })
+
+  it('keeps the above-the-fold hero screenshot small and static', () => {
+    expect(statSync(heroPoster).size).toBeLessThan(400_000)
+  })
+
   it('keeps animated sources paired with static fallbacks in the consuming components', () => {
     const header = readFileSync(headerSource, 'utf8')
     const deferredBackground = readFileSync(deferredBackgroundSource, 'utf8')

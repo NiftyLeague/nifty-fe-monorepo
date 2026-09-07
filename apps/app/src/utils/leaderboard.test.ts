@@ -34,6 +34,12 @@ beforeEach(async () => {
     return {
       loadLeaderboard: async (gameType: string) => leaderboards[gameType],
     }
+    return {
+      loadLeaderboard: async (gameType: string) => leaderboards[gameType],
+    }
+    return {
+      loadLeaderboard: async (gameType: string) => leaderboards[gameType],
+    }
   })
 
   const [leaderboard, leaderboardServer] = await Promise.all([
@@ -48,6 +54,34 @@ beforeEach(async () => {
 afterEach(() => undefined)
 
 describe('leaderboard data loaders', () => {
+  it('requests only the selected leaderboard page from the app route', async () => {
+    const fetchMock = mock().mockResolvedValue({
+      ok: true,
+      json: mock().mockResolvedValue({ data: [], count: 0 }),
+    })
+    stubGlobal('fetch', fetchMock)
+
+    await fetchClientScores('smashers', 'kills', 'all_time', 50, 100)
+
+    expect(fetchMock.mock.calls[0]?.[0]).toBe(
+      '/api/leaderboards?game=smashers&score=kills&time=all_time&count=50&offset=100'
+    )
+  })
+
+  it('requests only the selected leaderboard page from the app route', async () => {
+    const fetchMock = mock().mockResolvedValue({
+      ok: true,
+      json: mock().mockResolvedValue({ data: [], count: 0 }),
+    })
+    stubGlobal('fetch', fetchMock)
+
+    await fetchClientScores('smashers', 'kills', 'all_time', 50, 100)
+
+    expect(fetchMock.mock.calls[0]?.[0]).toBe(
+      '/api/leaderboards?game=smashers&score=kills&time=all_time&count=50&offset=100'
+    )
+  })
+
   it('requests only the selected leaderboard page from the app route', async () => {
     const fetchMock = mock().mockResolvedValue({
       ok: true,
