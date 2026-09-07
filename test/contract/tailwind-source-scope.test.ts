@@ -27,7 +27,6 @@ describe('Tailwind source scope', () => {
     const smashersStyles = readFileSync('apps/smashers/src/styles/app.css', 'utf8')
     expect(smashersStyles).toContain('@source "../../../../packages/playfab/src/**/*.{ts,tsx}";')
   })
-
   it('does not ship animation utilities removed with the legacy client wrapper', () => {
     for (const utility of [
       'delay-lite',

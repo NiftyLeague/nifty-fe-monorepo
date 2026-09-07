@@ -2,6 +2,7 @@
 
 import { memo, useRef, type ComponentType } from 'react'
 
+import { Button } from '@nl/ui/base/button'
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
@@ -79,14 +80,14 @@ export const DeferredSection = memo(function DeferredSection({
           role="alert"
         >
           <p>{label} could not be loaded.</p>
-          <button
+          <Button
             type="button"
             data-slot="button"
             className={DEFERRED_RETRY_BUTTON_CLASS}
             onClick={retry}
           >
             Retry
-          </button>
+          </Button>
         </div>
       ) : LoadedSection ? (
         <LoadedSection />
