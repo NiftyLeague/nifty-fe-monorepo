@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "runCount": 5,
+  "buildRunCount": 3,
+  "settleMs": 2000,
+  "profile": {
+    "browser": "Google Chrome headless",
+    "viewport": "1365x768 @ 1x",
+    "cache": "disabled for every route sample",
+    "network": "unthrottled synthetic desktop; compare only with the same profile",
+    "interaction": "synthetic click on the configured selector after load",
+    "confidence": "synthetic lab data; not a substitute for field RUM p75"
+  },
+  "routes": [
+    {
+      "id": "api-root",
+      "app": "api",
+      "url": "https://api.niftyleague.com/",
+      "environment": "production",
+      "priority": "P0",
+      "interaction": { "selector": "body" }
+    },
+    {
+      "id": "app-degens",
+      "app": "app",
+      "url": "https://app.niftyleague.com/degens",
+      "environment": "production",
+      "priority": "P0",
+      "interaction": { "selector": "body" }
+    },
+    {
+      "id": "docs-overview",
+      "app": "docs",
+      "url": "https://docs.niftyleague.com/overview/intro",
+      "environment": "production",
+      "priority": "P1",
+      "interaction": { "selector": "body" }
+    },
+    {
+      "id": "smashers-home",
+      "app": "smashers",
+      "url": "https://niftysmashers.com/",
+      "environment": "production",
+      "priority": "P0",
+      "interaction": { "selector": "body" }
+    },
+    {
+      "id": "template-home",
+      "app": "template",
+      "url": "http://127.0.0.1:3005/",
+      "environment": "local-only",
+      "priority": "P2",
+      "interaction": { "selector": "body" }
+    },
+    {
+      "id": "web-home",
+      "app": "web",
+      "url": "https://niftyleague.com/",
+      "environment": "production",
+      "priority": "P0",
+      "interaction": { "selector": "body" }
+    }
+  ],
+  "builds": [
+    {
+      "app": "api",
+      "cleanPaths": ["apps/api/dist", "apps/api/api/.app"],
+      "command": ["bun", "--filter", "api", "build"]
+    },
+    {
+      "app": "app",
+      "cleanPaths": ["apps/app/.next"],
+      "command": ["bun", "--filter", "app", "build"]
+    },
+    {
+      "app": "docs",
+      "cleanPaths": ["apps/docs/build", "apps/docs/.docusaurus"],
+      "command": ["bun", "--filter", "docs", "build"]
+    },
+    {
+      "app": "smashers",
+      "cleanPaths": ["apps/smashers/.next"],
+      "command": ["bun", "--filter", "smashers", "build"]
+    },
+    {
+      "app": "template",
+      "cleanPaths": ["apps/template/.next"],
+      "command": ["bun", "--filter", "template", "build"]
+    },
+    {
+      "app": "web",
+      "cleanPaths": ["apps/web/.next"],
+      "command": ["bun", "--filter", "web", "build"]
+    }
+  ]
+}
