@@ -1,9 +1,9 @@
 {
   "name": "@nl/imx-passport",
   "version": "1.0.2",
+  "private": true,
   "license": "MIT",
   "type": "module",
-  "private": true,
   "main": "./config.ts",
   "exports": {
     ".": "./config.ts",
@@ -11,9 +11,9 @@
   },
   "scripts": {
     "clean": "rm -rf node_modules && rm -rf .turbo",
-    "format": "prettier --write \"**/*.{js,ts,tsx,md,mdx,json}\" --ignore-path ../../.gitignore",
-    "lint": "eslint . --max-warnings 0",
-    "lint:fix": "eslint . --max-warnings 0 --fix",
+    "format": "oxfmt .",
+    "lint": "oxlint --max-warnings=0",
+    "lint:fix": "oxlint --fix",
     "test": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --pass-with-no-tests",
     "test:coverage": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --coverage --pass-with-no-tests",
     "test:watch": "bun test --watch",

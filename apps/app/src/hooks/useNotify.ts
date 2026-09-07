@@ -1,5 +1,4 @@
 'use client'
-/* eslint-disable no-console */
 import { useCallback } from 'react'
 import type { API, InitOptions } from 'bnc-notify'
 import type { JsonRpcSigner } from 'ethers'

@@ -1,7 +1,6 @@
 import { Fragment } from 'react'
 
 import { buttonVariants } from '@nl/ui/base/button-variants'
-import { Separator } from '@nl/ui/base/separator'
 import MobileNavigationDisclosure from '@nl/ui/custom/mobile-navigation'
 
 import NavigationLink from './NavigationLink'

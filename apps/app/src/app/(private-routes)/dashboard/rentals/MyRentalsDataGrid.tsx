@@ -79,7 +79,7 @@ const MyRentalsDataGrid = ({
 
   const { profile } = usePlayerProfile()
   const rentals = useMemo(
-    () => transformRentals(rows, profile?.id || '', category),
+    () => transformRentals(rows, profile?.id || ''),
     [rows, profile?.id, category]
   )
 
@@ -346,7 +346,6 @@ const MyRentalsDataGrid = ({
     }
 
     return results
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category])
 
   const visibleColumns = useMemo(

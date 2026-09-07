@@ -1,4 +1,4 @@
-import { afterAll, beforeEach, describe, expect, it, mock, spyOn } from 'bun:test'
+import { afterAll, beforeEach, describe, expect, it, mock } from 'bun:test'
 
 const fetchMock = mock().mockResolvedValue({
   json: async () => ({ ownedNfts: [], pageKey: undefined }),

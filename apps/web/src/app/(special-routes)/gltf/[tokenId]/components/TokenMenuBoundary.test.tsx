@@ -1,4 +1,3 @@
-import type { PropsWithChildren } from 'react'
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'bun:test'
 
