@@ -1,7 +1,8 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "categories": {
-    "correctness": "error"
+    "correctness": "error",
+    "suspicious": "warn"
   },
   "ignorePatterns": [
     "node_modules/**",
@@ -16,7 +17,9 @@
   ],
   "overrides": [
     {
-      "files": ["packages/playfab/src/**/*.ts"],
+      "files": [
+        "packages/playfab/src/**/*.ts"
+      ],
       "rules": {
         "triple-slash-reference": "off"
       }
