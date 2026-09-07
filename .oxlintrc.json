@@ -13,5 +13,15 @@
     "**/dist/**",
     "**/.app/**",
     ".agents/**"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "packages/playfab/src/**/*.ts"
+      ],
+      "rules": {
+        "triple-slash-reference": "off"
+      }
+    }
   ]
 }

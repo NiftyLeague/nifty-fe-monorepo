@@ -1,3 +1,5 @@
+/// <reference path="./typings/PlayFabCloudScript.d.ts" />
+
 import type { PlayFabError, PlayFabResponse } from '../types'
 import * as PlayFab from './PlayFab'
 

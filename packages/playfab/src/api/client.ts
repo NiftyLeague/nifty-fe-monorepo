@@ -1,3 +1,5 @@
+/// <reference path="../sdk/typings/PlayFabClient.d.ts" />
+
 import { InfoRequestParameters } from '../constants'
 import type {
   AccountResult,

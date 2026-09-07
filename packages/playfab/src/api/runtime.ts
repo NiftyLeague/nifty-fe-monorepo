@@ -1,3 +1,6 @@
+/// <reference path="../sdk/typings/PlayFab.d.ts" />
+/// <reference path="../sdk/typings/PlayFabClient.d.ts" />
+
 import type { PlayFabError } from '../types'
 import * as PlayFabClient from '../sdk/PlayFabClient'
 import { configurePlayFab } from '../sdk/configure'

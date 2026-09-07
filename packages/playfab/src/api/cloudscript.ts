@@ -1,3 +1,5 @@
+/// <reference path="../sdk/typings/PlayFabCloudScript.d.ts" />
+
 import { isEthereumSignatureValid } from '../utils/wallet'
 import * as PlayFabCloudScript from '../sdk/PlayFabCloudScript'
 import { configurePlayFab } from '../sdk/configure'
