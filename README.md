@@ -125,7 +125,7 @@ turbo test
 
 ### CI Tests
 
-We have several GitHub Actions workflows pre-configured to run tests such as linting, formatting, and type checking on pushes to `main` or `staging` and on pull requests targeting `staging`. All tests must pass before a pull request can be merged.
+We have several GitHub Actions workflows pre-configured to run tests such as linting, formatting, and type checking on pushes to `main` and on pull requests targeting `main`. All tests must pass before a pull request can be merged.
 
 If you want to run the CI tests locally, you can use [act](https://github.com/nektar/act) to run the workflows.
 

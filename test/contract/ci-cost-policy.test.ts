@@ -1,21 +1,12 @@
 import { describe, expect, it } from 'bun:test'
-import { execFileSync } from 'node:child_process'
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const readWorkflow = (name: string) =>
   readFileSync(join(process.cwd(), '.github/workflows', name), 'utf8')
 
-const readGitHubConfig = (name: string) => {
-  // Promotion PRs rebase staging into main, but GitHub validates a synthetic
-  // merge commit. Read the staging parent so this contract covers the tree
-  // that the configured merge strategy will actually ship.
-  if (process.env.GITHUB_BASE_REF === 'main' && process.env.GITHUB_HEAD_REF === 'staging') {
-    return execFileSync('git', ['show', `HEAD^2:.github/${name}`], { encoding: 'utf8' })
-  }
-
-  return readFileSync(join(process.cwd(), '.github', name), 'utf8')
-}
+const readGitHubConfig = (name: string) =>
+  readFileSync(join(process.cwd(), '.github', name), 'utf8')
 
 describe('hosted validation cost policy', () => {
   it('does not configure Cargo Dependabot for this non-Rust repository', () => {
@@ -41,7 +32,7 @@ describe('hosted validation cost policy', () => {
     expect(source).toContain("      - 'feat/*'")
     expect(source).toContain("      - 'fix/*'")
     expect(source).toContain("      - 'chore/*'")
-    expect(source).toContain('base: staging')
+    expect(source).toContain('base: main')
   })
 
   it('keeps the optional opencode security scanner disabled', () => {
@@ -49,57 +40,30 @@ describe('hosted validation cost policy', () => {
     expect(readGitHubConfig('code-foundry.yml')).toContain('opencode_security: false')
   })
 
-  it('materializes re-alignment paths before mutating the worktree index', () => {
-    const source = readWorkflow('re-align-staging.yml')
+  it('hides release commits so a merged release cannot create the next release', () => {
+    const config = JSON.parse(
+      readFileSync(join(process.cwd(), 'release-please-config.json'), 'utf8')
+    ) as {
+      'changelog-sections': Array<{ type: string; hidden?: boolean }>
+    }
+    const choreSection = config['changelog-sections'].find((section) => section.type === 'chore')
 
-    expect(source).toContain('          filter: blob:none')
-    expect(source).toContain('          sparse-checkout: |')
-    expect(source).toContain('            .github')
-    expect(source).toContain('            git -C "$preview_dir" sparse-checkout disable')
-    expect(source).toContain('          git sparse-checkout disable')
-    expect(source).toContain('changed_paths_file=$(mktemp)')
-    expect(source).toContain('> "$changed_paths_file"')
-    expect(source).toContain('done < "$changed_paths_file"')
-    expect(source).not.toContain(
-      'done < <(git -C "$preview_dir" diff --no-renames --name-only -z "$merge_base" "$staging_head")'
-    )
-    expect(source).not.toContain(
-      'done < <(git diff --no-renames --name-only -z "$merge_base" "$staging_head")'
-    )
-    expect(source).not.toContain(
-      'done < <(git -C "$preview_dir" diff --name-only --diff-filter=U -z)'
-    )
-    expect(source).not.toContain('done < <(git diff --name-only --diff-filter=U -z)')
+    expect(choreSection?.hidden).toBe(true)
   })
 
-  it('keeps release metadata authoritative when re-aligning staging', () => {
-    const source = readWorkflow('re-align-staging.yml')
-
-    expect(source).toContain('is_release_metadata_path()')
-    expect(source).toContain(
-      'git -C "$preview_dir" restore --source=origin/main --staged --worktree -- "$changed_path"'
-    )
-    expect(source).toContain(
-      'git restore --source=origin/main --staged --worktree -- "$changed_path"'
-    )
-    expect(source).toContain('package.json|*/package.json')
-    expect(source).toContain('CHANGELOG.md|*/CHANGELOG.md')
-  })
-
-  it('does not publish a stale or empty re-alignment PR after the refs move', () => {
-    const source = readWorkflow('re-align-staging.yml')
-
-    expect(source).toContain('git fetch origin main staging --no-tags')
-    expect(source).toContain('CURRENT_MAIN_TREE=$(git rev-parse')
-    expect(source).toContain('CURRENT_STAGING_TREE=$(git rev-parse')
-    expect(source).toContain('current_staging_head=$(git rev-parse origin/staging)')
-    expect(source).toContain('current_staging_tree=$(git rev-parse')
-    expect(source).toContain('branch_tree=$(git rev-parse "$BRANCH^{tree}")')
-    expect(source).toContain('current_main_tree=$(git rev-parse')
-    expect(source).toContain('Close stale re-align PRs when aligned')
-    expect(source).toContain('Closing stale no-op re-alignment PR')
-    expect(source).toContain('Main and staging aligned before PR creation;')
-    expect(source).toContain('git push origin --delete "$BRANCH"')
-    expect(source).toContain('deleting the stale re-alignment branch without opening a PR.')
+  it('keeps promotion machinery out of the direct topology', () => {
+    // Direct repositories open feature branches into main: no promotion
+    // caller, no staging re-alignment, and no custom snapshot workflow.
+    // (Two promoters minted duplicate staging -> main PRs under
+    // staging-release; that topology is gone.)
+    for (const caller of [
+      '.github/workflows/release-pr.yml',
+      '.github/workflows/re-align-staging.yml',
+      '.github/workflows/promotion-conflict-recovery.yml',
+    ]) {
+      expect(existsSync(join(process.cwd(), caller))).toBe(false)
+    }
+    expect(readWorkflow('draft-pr.yml')).toContain('base: main')
+    expect(readWorkflow('validation.yml')).not.toContain('staging')
   })
 })

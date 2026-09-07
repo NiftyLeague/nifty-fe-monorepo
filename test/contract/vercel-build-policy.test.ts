@@ -8,7 +8,7 @@ import {
 } from '../../scripts/vercel-ignore-build.mjs'
 
 const projectRoots = ['apps/web', 'apps/app', 'apps/smashers', 'apps/api', 'apps/docs']
-const deploymentEnabled = { 'codex/*': false, '**': false, main: true, staging: true }
+const deploymentEnabled = { 'codex/*': false, '**': false, main: true }
 const ignoreCommand = 'node ../../scripts/vercel-ignore-build.mjs'
 const installCommand = 'bunx bun@1.4.0 install --frozen-lockfile'
 const consolidatedStatusPolicy = 'consolidated Git commit status disabled'
@@ -33,9 +33,8 @@ describe('Vercel build cost policy', () => {
     expect(projectRoots).toHaveLength(5)
   })
 
-  it('builds release branches and manual deployments only', () => {
+  it('builds the release branch and manual deployments only', () => {
     expect(shouldBuild('main')).toBe(true)
-    expect(shouldBuild('staging')).toBe(true)
     expect(shouldBuild('codex/perf-route')).toBe(false)
     expect(shouldBuild('feat/large-change')).toBe(false)
     expect(shouldBuild(undefined)).toBe(true)
@@ -71,7 +70,6 @@ describe('Vercel build cost policy', () => {
 
   it('keeps release builds fail-open when Git history is unavailable', () => {
     expect(shouldBuild('main', 'web', undefined)).toBe(true)
-    expect(shouldBuild('staging', 'web', ['apps/app/src/app/page.tsx'])).toBe(false)
     expect(shouldBuild('main', 'web', ['packages/ui/src/index.ts'])).toBe(true)
   })
 
