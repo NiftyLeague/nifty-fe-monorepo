@@ -9,6 +9,7 @@ import { SUBGRAPH_URI, SUBGRAPH_DEV_URI } from '@/constants'
 import { TARGET_NETWORK } from '@/constants/networks'
 import useAuth from '@/hooks/useAuth'
 import { requestGraphQL } from '@/utils/graphql'
+import { AUTHENTICATED_STALE_TIME_MS, queryKeys } from '@/query/app-query'
 
 const endpoint = TARGET_NETWORK.name === 'mainnet' ? SUBGRAPH_URI : SUBGRAPH_DEV_URI
 const headers = { Authorization: `Bearer ${process.env.NEXT_PUBLIC_GRAPH_API_KEY}` }
@@ -21,16 +22,18 @@ export function useOwnerSearch(
   const key = (overrideAddress ?? address)?.toLowerCase() ?? ''
   const variables = { address: key }
   return useQuery({
-    queryKey: ['owner', key],
-    queryFn: async () => {
+    queryKey: queryKeys.owner(key),
+    queryFn: async ({ signal }) => {
       const { owner } = await requestGraphQL<OwnerQueryData>({
         endpoint,
         query: OWNER_QUERY,
         variables,
         headers,
+        signal,
       })
       return owner
     },
     enabled: key.length > 20 && isLoggedIn,
+    staleTime: AUTHENTICATED_STALE_TIME_MS,
   })
 }

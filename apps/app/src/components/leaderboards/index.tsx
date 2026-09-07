@@ -1,7 +1,7 @@
 'use client'
-import { useState, useEffect } from 'react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useEffect, useMemo } from 'react'
 import dynamic from 'next/dynamic'
+import { useQueryStates } from 'nuqs'
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@nl/ui/base/select'
 import { Button } from '@nl/ui/base/button'
@@ -14,6 +14,7 @@ import {
   NiftySmashersTables,
 } from '@/constants/leaderboards'
 import './modal-table.css'
+import { leaderboardSearchParsers } from '@/url/search-state'
 
 const EnhancedTable = dynamic(() => import('./EnhancedTable/EnhancedTable'), {
   ssr: false,
@@ -21,57 +22,51 @@ const EnhancedTable = dynamic(() => import('./EnhancedTable/EnhancedTable'), {
 })
 
 export default function LeaderBoards(): React.ReactNode {
-  const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-  const { game: defaultGame } = Object.fromEntries(searchParams.entries())
-  const [selectedGame, setGame] = useState<string>(
-    defaultGame && LEADERBOARD_GAME_LIST.some((game) => game.key === defaultGame)
-      ? defaultGame
-      : (LEADERBOARD_GAME_LIST as [LeaderboardGame])[0].key
+  const [searchState, setSearchState] = useQueryStates(leaderboardSearchParsers, {
+    history: 'push',
+    shallow: true,
+  })
+  const selectedGame = searchState.game
+  const currentGame =
+    LEADERBOARD_GAME_LIST.find((game) => game.key === selectedGame) ??
+    (LEADERBOARD_GAME_LIST[0] as LeaderboardGame)
+  const selectedTable = useMemo(
+    () =>
+      currentGame.tables.find((table) => table.key === searchState.table) ??
+      (currentGame.tables[0] as TableType),
+    [currentGame, searchState.table]
   )
-  const [selectedTable, setTable] = useState<TableType>(NiftySmashersTables[0] as TableType)
-  const [selectedType, setType] = useState<string>((NiftySmashersTables[0] as TableType).key)
-  const [selectedTimeFilter, setTimeFilter] = useState<string>('all_time')
+  const selectedType = selectedTable.key
+  const selectedTimeFilter =
+    selectedGame === 'nftl_burner' && searchState.time === 'weekly' ? 'all_time' : searchState.time
 
   useEffect(() => {
     gtm.sendEvent(GTM_EVENTS.SELECT_CONTENT, {
       content_type: 'leaderboard',
       content_id: selectedGame,
     })
-    if (searchParams.get('game') !== selectedGame) {
-      const params = new URLSearchParams(searchParams)
-      params.set('game', selectedGame)
-      router.push(pathname + '?' + params.toString())
-    }
-  }, [selectedGame, router, pathname, searchParams])
+  }, [selectedGame])
 
   const handleChangeGame = (gameKey: string) => {
-    setGame(gameKey)
-
     const currentGame = LEADERBOARD_GAME_LIST.filter((game) => game.key === gameKey)?.[0]
     if (!currentGame) return
     const { tables } = currentGame
-
-    if (gameKey === 'nftl_burner' && selectedTimeFilter === 'weekly') {
-      // Since NFTL Burner doesn't have weekly leaderboard
-      // we will set to default all_time
-      setTimeFilter('all_time')
-    }
-    setTable(tables[0] as TableType)
-    setType((tables[0] as TableType).key)
+    void setSearchState({
+      game: gameKey as typeof searchState.game,
+      table: (tables[0] as TableType).key,
+      time: gameKey === 'nftl_burner' && selectedTimeFilter === 'weekly' ? 'all_time' : undefined,
+    })
   }
 
   const handleChangeType = (tableKey: string) => {
-    const table = NiftySmashersTables.find((t: TableType) => t.key === tableKey)
-    if (table) {
-      setTable(table)
-      setType(table.key)
-    }
+    const table = currentGame.tables.find((candidate: TableType) => candidate.key === tableKey)
+    if (table) void setSearchState({ table: table.key })
   }
 
   const handleChangeTimeFilter = (selected: string) => {
-    if (selectedTimeFilter != selected) setTimeFilter(selected)
+    if (selectedTimeFilter !== selected) {
+      void setSearchState({ time: selected as typeof searchState.time })
+    }
   }
 
   // TODO: Enable all times if updated leaderboard incorporated

@@ -328,8 +328,6 @@ const deferredComponent = 'packages/ui/src/components/custom/deferred-component/
 const degensPage = 'apps/app/src/app/(public-routes)/degens/page.tsx'
 const degensRouteBoundary = 'apps/app/src/app/(public-routes)/degens/DegenRoute.tsx'
 const degensClientPage = 'apps/app/src/app/(public-routes)/degens/AllDegensPage.tsx'
-const degensSearchParamsBoundary =
-  'apps/app/src/app/(public-routes)/degens/DegenSearchParamsBoundary.tsx'
 const degensTopNav = 'apps/app/src/components/extended/DegensTopNav/index.tsx'
 const degensTopNavControls =
   'apps/app/src/components/extended/DegensTopNav/DegensTopNavControls.tsx'
@@ -427,27 +425,23 @@ describe('public degen loading contract', () => {
     const clientPageSource = readFileSync(join(process.cwd(), degensClientPage), 'utf8')
     const topNavSource = readFileSync(join(process.cwd(), degensTopNav), 'utf8')
     const topNavControlsSource = readFileSync(join(process.cwd(), degensTopNavControls), 'utf8')
-    const searchParamsBoundarySource = readFileSync(
-      join(process.cwd(), degensSearchParamsBoundary),
-      'utf8'
-    )
-
     expect(pageSource).not.toContain("'use client'")
     expect(pageSource).toContain("from './DegenRoute'")
+    expect(pageSource).toContain('HydrationBoundary')
+    expect(pageSource).toContain('prefetchQuery')
     expect(routeBoundarySource).toContain("'use client'")
     expect(routeBoundarySource).toContain("dynamic(() => import('./AllDegensPage')")
     expect(routeBoundarySource).toContain('ssr: false')
     expect(usesSharedLoadingSkeleton(routeBoundarySource)).toBe(true)
     expect(clientPageSource).toContain("'use client'")
     expect(clientPageSource).toContain("from 'lucide-react'")
-    expect(clientPageSource).toContain('useSearchParams')
-    expect(clientPageSource).toContain('useRouter')
+    expect(clientPageSource).toContain('useQueryStates')
+    expect(clientPageSource).not.toContain('useSearchParams')
+    expect(clientPageSource).not.toContain('useRouter')
     expect(clientPageSource).not.toContain('ssr: false')
     expect(routeBoundarySource).toContain('role="status"')
     expect(routeBoundarySource).toContain('aria-live="polite"')
     expect(routeBoundarySource).toContain('aria-busy="true"')
-    expect(searchParamsBoundarySource).toContain("'use client'")
-    expect(searchParamsBoundarySource).toContain('useSearchParams')
     expect(clientPageSource).not.toContain("from '@nl/ui/base/icon'")
     expect(topNavSource).toContain("import('./DegensTopNavControls')")
     expect(topNavControlsSource).toContain("from 'lucide-react'")

@@ -12,7 +12,11 @@ let SidebarFrame: typeof import('./SidebarFrame').default
 
 beforeEach(async () => {
   navigationState.isDesktopNavigation = false
-  mock.module('@/contexts/NavigationContext', () => ({ useNavigation: () => navigationState }))
+  mock.module('@/contexts/NavigationContext', () => ({
+    useDrawerOpen: () => navigationState.drawerOpen,
+    useIsDesktopNavigation: () => navigationState.isDesktopNavigation,
+    useSetDrawerOpen: () => navigationState.setDrawerOpen,
+  }))
   mock.module('@nl/ui/base/scroll-area', () => ({
     ScrollArea: ({
       children,

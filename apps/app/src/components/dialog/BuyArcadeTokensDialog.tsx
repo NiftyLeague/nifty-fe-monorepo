@@ -22,6 +22,12 @@ import useAuth from '@/hooks/useAuth'
 
 import * as gtm from '@nl/ui/gtm/events'
 import { EVENTS as GTM_EVENTS } from '@nl/ui/gtm/constants'
+import {
+  AUTHENTICATED_STALE_TIME_MS,
+  fetchApiQuery,
+  getAuthQueryScope,
+  queryKeys,
+} from '@/query/app-query'
 
 const PRODUCT_ID = 'arcade-token-four-pack'
 
@@ -31,22 +37,20 @@ interface BuyArcadeTokensDialogProps extends DialogProps {
   onClose: () => void
 }
 
+type ArcadeTokenDetails = {
+  currency: string
+  price: number
+  items: Record<string, number>
+}
+
 const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess, onClose }) => {
   const [agreement, setAgreement] = useState<boolean>(false)
   const [tokenCount, setTokenCount] = useState<number>(1)
   const { authToken } = useAuth()
+  const scope = getAuthQueryScope(authToken)
 
   const { account, refetchAccount, loadingAccount } = useGameAccount()
   const accountBalance = account?.balance ?? 0
-
-  const fetchArcadeTokenDetails = useCallback(async () => {
-    const response = await fetch(GET_PRODUCT(PRODUCT_ID, 'nftl'), {
-      method: 'GET',
-      headers: { authorizationToken: authToken || '' },
-    })
-    const body = await response.json()
-    return body
-  }, [authToken])
 
   useEffect(() => {
     if (open) {
@@ -60,10 +64,15 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
     data: details,
     isLoading: isDetailsPending,
     error,
-  } = useQuery({
-    queryKey: ['arcade-token-details'],
-    queryFn: fetchArcadeTokenDetails,
+  } = useQuery<ArcadeTokenDetails>({
+    queryKey: queryKeys.product(PRODUCT_ID, 'nftl', scope),
+    queryFn: ({ signal }) =>
+      fetchApiQuery<ArcadeTokenDetails>(GET_PRODUCT(PRODUCT_ID, 'nftl'), {
+        signal,
+        init: { headers: { authorizationToken: authToken || '' } },
+      }),
     enabled: open,
+    staleTime: AUTHENTICATED_STALE_TIME_MS,
   })
 
   const updateTokenCount = (v: number | string) => {
@@ -74,6 +83,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
   }
 
   const purchaseArcadeToken = useCallback(async () => {
+    if (!details) return
     const items = [{ item_id: PRODUCT_ID, item_name: 'Arcade Tokens', quantity: tokenCount }]
     gtm.sendEvent(GTM_EVENTS.BEGIN_CHECKOUT, { items })
     try {
@@ -137,8 +147,8 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
               <>
                 <span className="mx-auto mt-4 block max-w-[450px] text-center text-base">
                   To play an arcade game, you need at least 1 arcade token. Arcade tokens are sold
-                  in packs containing {details.items['arcade-token']} tokens (i.e 1 pack ={' '}
-                  {details.items['arcade-token']} tokens)
+                  in packs containing {details.items['arcade-token'] ?? 0} tokens (i.e 1 pack ={' '}
+                  {details.items['arcade-token'] ?? 0} tokens)
                 </span>
                 <span className="my-4 block text-center text-base font-bold text-warning">
                   {details.price} NFTL Each
@@ -212,7 +222,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                       height={16}
                       style={{ margin: '0 4px' }}
                     />{' '}
-                    {tokenCount * details.items['arcade-token']} Arcade Tokens
+                    {tokenCount * (details.items['arcade-token'] ?? 0)} Arcade Tokens
                   </span>
                   {accountBalance > 0 && accountBalance < tokenCount * details.price && (
                     <span className="my-1 text-xs text-warning">

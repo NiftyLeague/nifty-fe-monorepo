@@ -6,7 +6,11 @@ import { lazy, memo, Suspense, useMemo } from 'react'
 import { ScrollArea } from '@nl/ui/base/scroll-area'
 import { cx } from '@nl/ui/class-names'
 
-import { useNavigation } from '@/contexts/NavigationContext'
+import {
+  useDrawerOpen,
+  useIsDesktopNavigation,
+  useSetDrawerOpen,
+} from '@/contexts/NavigationContext'
 import LogoSection from '../_LogoSection'
 
 const appDrawerWidth = 260
@@ -20,7 +24,9 @@ interface SidebarFrameProps extends PropsWithChildren {
 }
 
 function SidebarFrame({ children, footer }: SidebarFrameProps) {
-  const { drawerOpen, isDesktopNavigation, setDrawerOpen } = useNavigation()
+  const drawerOpen = useDrawerOpen()
+  const isDesktopNavigation = useIsDesktopNavigation()
+  const setDrawerOpen = useSetDrawerOpen()
   const isCompactScreen = !isDesktopNavigation
   const appHeaderHeight = isCompactScreen ? compactAppHeaderHeight : desktopAppHeaderHeight
 

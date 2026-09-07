@@ -1,7 +1,6 @@
 import { Checkbox } from '@nl/ui/base/checkbox'
 import { TRAIT_VALUE_MAP } from '@/constants/cosmeticsFilters'
-import { FilterSource } from '@/constants/filters'
-import { ChangeEvent, Dispatch, FC, SetStateAction, memo } from 'react'
+import { FC, memo } from 'react'
 
 interface FilterAllTraitCheckboxesProps {
   cosmeticsValue: string[]
@@ -9,19 +8,12 @@ interface FilterAllTraitCheckboxesProps {
   categoryKey: string
   inputCheckBoxStyle: string
   inputCheckFormControlStyle: string
-  setCosmeticsValue: Dispatch<SetStateAction<string[]>>
-  onCheckboxChange: (
-    e: ChangeEvent<HTMLInputElement>,
-    source: FilterSource,
-    state: string[],
-    setState: Dispatch<SetStateAction<string[]>>
-  ) => void
+  onCheckboxChange: (checked: boolean, value: string) => void
 }
 
 const FilterAllTraitCheckboxes: FC<FilterAllTraitCheckboxesProps> = ({
   cosmeticsValue,
   onCheckboxChange,
-  setCosmeticsValue,
   traitGroup,
   categoryKey,
   inputCheckBoxStyle,
@@ -43,16 +35,7 @@ const FilterAllTraitCheckboxes: FC<FilterAllTraitCheckboxesProps> = ({
             value={traitKey}
             checked={cosmeticsValue.includes(traitKey)}
             className={inputCheckBoxStyle}
-            onCheckedChange={(checked) =>
-              onCheckboxChange(
-                {
-                  target: { checked: checked === true, value: traitKey },
-                } as ChangeEvent<HTMLInputElement>,
-                'cosmetics',
-                cosmeticsValue,
-                setCosmeticsValue
-              )
-            }
+            onCheckedChange={(checked) => onCheckboxChange(checked === true, traitKey)}
           />
           <span className="text-base">{traitValue}</span>
         </label>

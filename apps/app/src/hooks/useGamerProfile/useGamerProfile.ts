@@ -1,8 +1,14 @@
 'use client'
 
 import { GET_GAMER_PROFILE_API } from '@/constants/api'
+import { useQuery } from '@tanstack/react-query'
 import useAuth from '@/hooks/useAuth'
-import useFetch from '@/hooks/useFetch'
+import {
+  AUTHENTICATED_STALE_TIME_MS,
+  fetchApiQuery,
+  getAuthQueryScope,
+  queryKeys,
+} from '@/query/app-query'
 import type { Profile } from '@/types/account'
 
 const useGamerProfile = (): {
@@ -12,29 +18,26 @@ const useGamerProfile = (): {
   fetchUserProfile?: () => Promise<Profile>
 } => {
   const { isLoggedIn, authToken } = useAuth()
-  const headers = { authorizationToken: authToken || '' }
+  const scope = getAuthQueryScope(authToken)
 
-  const { error, data, loading } = useFetch<Profile>(GET_GAMER_PROFILE_API, {
-    headers,
+  const { error, data, isLoading, refetch } = useQuery({
+    queryKey: queryKeys.profile.current(scope),
+    queryFn: ({ signal }) =>
+      fetchApiQuery<Profile>(GET_GAMER_PROFILE_API, {
+        signal,
+        init: { headers: { authorizationToken: authToken || '' } },
+      }),
     enabled: isLoggedIn && !!authToken,
+    staleTime: AUTHENTICATED_STALE_TIME_MS,
   })
 
   const fetchUserProfile = async () => {
-    const res = await fetch(GET_GAMER_PROFILE_API, { headers })
-    if (res.status === 404) {
-      throw Error('Not Found')
-    }
-    if (res.status === 200) {
-      const json = await res.json()
-      if (json.statusCode === 400) {
-        throw Error(json.body)
-      }
-      return json as Profile
-    }
-    throw Error('Something wrong!')
+    const result = await refetch({ throwOnError: true })
+    if (!result.data) throw new Error('Profile unavailable')
+    return result.data
   }
 
-  return { error, profile: data, loadingProfile: loading, fetchUserProfile }
+  return { error: error ?? undefined, profile: data, loadingProfile: isLoading, fetchUserProfile }
 }
 
 export default useGamerProfile
