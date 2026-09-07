@@ -8,7 +8,11 @@ interface SessionData {
   user: User | null
 }
 
-export default function SearchParamsHandler({ sessionData }: { sessionData: SessionData }) {
+export default function SearchParamsHandler({
+  sessionData: _sessionData,
+}: {
+  sessionData: SessionData
+}) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const hasGameToken = searchParams.has('game-token')

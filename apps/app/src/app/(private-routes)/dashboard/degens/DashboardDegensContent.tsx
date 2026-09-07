@@ -1,5 +1,4 @@
 'use client'
-/* eslint-disable no-nested-ternary */
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import dynamic from 'next/dynamic'
@@ -104,7 +103,6 @@ const DashboardDegensPageContent = (): React.ReactNode => {
       .map((degen) => degensById.get(String(degen.id)))
       .filter((degen): degen is DashboardDegen => Boolean(degen))
       .map(applySeventhTribesFix)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [degensBalances, data])
 
   const isMobile = useMediaQuery('(max-width:640px)')
@@ -132,7 +130,6 @@ const DashboardDegensPageContent = (): React.ReactNode => {
       }
     }
     setFilteredData(newDegens)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [populatedDegens.length])
 
   const handleChangeSearchTerm: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (
@@ -152,13 +149,11 @@ const DashboardDegensPageContent = (): React.ReactNode => {
       setFilters(newFilters)
       setFilteredData(result)
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [populatedDegens.length, filters.sort]
   )
 
   useEffect(() => {
     jump(1)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filteredData.length])
 
   const handleSort = useCallback(
@@ -167,7 +162,6 @@ const DashboardDegensPageContent = (): React.ReactNode => {
       setFilters(newSort)
       setFilteredData(transformDataByFilter(populatedDegens, newSort))
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [populatedDegens.length, filters]
   )
 

@@ -40,7 +40,7 @@ beforeEach(async () => {
           unity.handlers.clear()
         }
       },
-      useUnityContext: (options: any) => {
+      useUnityContext: (_options: any) => {
         return {
           sendMessage: unity.send,
           addEventListener: (name: string, handler: (...args: any[]) => void) => {

@@ -1,0 +1,33 @@
+{
+  "semi": false,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "printWidth": 100,
+  "ignorePatterns": [
+    "CHANGELOG.md",
+    ".github/.code-foundry",
+    ".github/actions/",
+    ".next",
+    ".turbo",
+    ".venv",
+    "**/.venv",
+    "**/.docusaurus",
+    "**/.next",
+    "**/build",
+    "**/coverage",
+    "**/next-env.d.ts",
+    "**/node_modules",
+    "**/dist",
+    "**/.app",
+    "apps/api/api/config",
+    ".code-foundry",
+    "**/public",
+    "apps/app/src/constants/leaderboards/*.json",
+    "pnpm-lock.yaml",
+    ".vscode/",
+    ".vercel/",
+    ".agents/**",
+    "packages/playfab/src/sdk/typings/**",
+    "**/*.hbs"
+  ]
+}

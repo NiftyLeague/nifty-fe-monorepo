@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import { beforeEach, describe, expect, it, mock } from 'bun:test'
+import { beforeEach, describe, expect, it } from 'bun:test'
 
 describe('AnimatedImage', () => {
   let AnimatedImage: typeof import('./index').AnimatedImage

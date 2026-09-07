@@ -2,7 +2,7 @@
 
 import { PaginationControls } from '@/components/pagination/PaginationControls'
 import { PropsWithChildren, ReactNode, useMemo, useRef } from 'react'
-import type { SxProps, Theme } from '@/types'
+import type { SxProps } from '@/types'
 import ResponsiveCarousel from '@nl/ui/custom/responsive-carousel'
 import type {
   ResponsiveCarouselRef,
@@ -20,7 +20,7 @@ interface Props {
   isSlider?: boolean
   children?: React.ReactNode
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-  styles?: { root?: SxProps<Theme>; headerRow?: SxProps<Theme>; mainRow?: SxProps<Theme> }
+  styles?: { root?: SxProps; headerRow?: SxProps; mainRow?: SxProps }
 }
 
 const SectionSlider = ({

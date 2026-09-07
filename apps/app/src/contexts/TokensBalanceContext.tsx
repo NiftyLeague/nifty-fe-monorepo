@@ -72,7 +72,6 @@ export const TokensBalanceProvider = ({ children }: PropsWithChildren): React.Re
     refreshClaimableNFTL()
     refreshNFTLBalance()
     refetchArcadeBal()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn])
 
   const tokensBalances = useMemo(

@@ -33,7 +33,7 @@ interface SessionData {
   user: User
 }
 
-export default function ProfileClient({ sessionData }: { sessionData: SessionData }) {
+export default function ProfileClient({ sessionData: _sessionData }: { sessionData: SessionData }) {
   const flags = useFlags()
   const tabsEnabled = flags.enableInventory || flags.enableStats
   return (

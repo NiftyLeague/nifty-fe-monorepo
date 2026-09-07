@@ -76,7 +76,6 @@ export const NFTsBalanceProvider = ({ children }: PropsWithChildren): React.Reac
     if (!isLoggedIn) return
     refreshComicsBalances()
     refreshItemsBalances()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn])
 
   return (

@@ -18,14 +18,7 @@ import { join } from 'node:path'
  */
 
 const APP_ROOT = process.cwd()
-const WORKSPACE_PACKAGES = [
-  '@nl/eslint-config',
-  '@nl/imx-passport',
-  '@nl/playfab',
-  '@nl/prettier-config',
-  '@nl/typescript-config',
-  '@nl/ui',
-]
+const WORKSPACE_PACKAGES = ['@nl/imx-passport', '@nl/playfab', '@nl/typescript-config', '@nl/ui']
 
 // Packages that keep source files at the package root instead of a src/ dir.
 const PACKAGE_ROOT_SOURCE_DIRS = new Set(['imx-passport'])
@@ -141,7 +134,7 @@ if (existsSync(join(APP_ROOT, 'package.json'))) {
 const IMPLICIT_PEER_DEPS = new Set(['react-dom', 'react-dom/client', 'react-dom/server'])
 
 // Framework-provided virtual modules and test-only tooling that resolve without a
-// package.json `dependencies` entry (docusaurus aliases, bun test runner, eslint).
+// package.json `dependencies` entry (docusaurus aliases, bun test runner).
 const VIRTUAL_AND_TEST_MODULES = new Set([
   '@docusaurus/BrowserOnly',
   '@docusaurus/Link',
@@ -157,7 +150,6 @@ const VIRTUAL_AND_TEST_MODULES = new Set([
   '@happy-dom/global-registrator',
   '@testing-library/user-event',
   '@nomicfoundation/hardhat-ethers',
-  'eslint',
   'bun:test',
 ])
 
@@ -169,7 +161,6 @@ function sourceDirFor(pkg: Pkg): string {
 
 describe('dependency contract', () => {
   for (const pkg of packages) {
-    // eslint-disable-next-line no-loop-func
     const imports = collectImportNames(sourceDirFor(pkg))
     const declared = new Set([
       ...Object.keys(pkg.deps),
@@ -295,7 +286,7 @@ describe('dead dependency scanner', () => {
     }
 
     describe(`${pkg.name} runtime deps`, () => {
-      for (const [dep, version] of Object.entries(pkg.deps)) {
+      for (const [dep] of Object.entries(pkg.deps)) {
         it(`${dep} is referenced or deliberately allowed`, () => {
           const isUsed = used.has(dep) || configImports.has(dep) || IMPLICIT_PEER_DEPS.has(dep)
           const relDir = pkg.dir.replace(`${APP_ROOT}/`, '')

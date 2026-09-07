@@ -32,7 +32,7 @@ function PlayFabAuthForm({ redirectTo, ...props }: PlayFabAuthFormProps): React.
     setMessage(undefined)
   }
 
-  const handleProviderLogin = async (provider: Provider) => {
+  const handleProviderLogin = async (_provider: Provider) => {
     clearState()
     // TODO: handle provider login
     return new Promise<void>((resolve) => setTimeout(resolve, 2000))
@@ -97,7 +97,7 @@ function PlayFabAuthForm({ redirectTo, ...props }: PlayFabAuthFormProps): React.
     }
   }
 
-  const handleUpdatePassword = async (values: { old_password: string; new_password: string }) => {
+  const handleUpdatePassword = async (_values: { old_password: string; new_password: string }) => {
     clearState()
     const Username = account?.Username
     const Email = account?.PrivateInfo?.Email

@@ -55,7 +55,6 @@ const ComicsBurnerContent = () => {
       writeContracts[COMICS_BURNER_CONTRACT] &&
       writeContracts[MARKETPLACE_CONTRACT]
     ) {
-      // eslint-disable-next-line no-void
       void getAllowance()
     }
   }, [address, writeContracts])
@@ -72,7 +71,6 @@ const ComicsBurnerContent = () => {
   const handleBurn = useCallback(async () => {
     if (!isApprovedForAll) await handleSetApproval()
     setBurning(true)
-    // eslint-disable-next-line no-console
     if (DEBUG) console.log('burn comics', burnCount)
     const burnContract = writeContracts[COMICS_BURNER_CONTRACT]
     const res = await tx(burnContract.burnComics(burnCount))
