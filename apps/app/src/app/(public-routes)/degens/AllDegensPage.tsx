@@ -14,7 +14,7 @@ import DEFAULT_STATIC_FILTER from '@/components/extended/DegensFilter/constants'
 import { DEGENS_PER_PAGE, getGridSizeClass } from '@/components/extended/DegensFilter/utils'
 import DegensTopNav from '@/components/extended/DegensTopNav'
 import SectionTitle from '@/components/sections/SectionTitle'
-import { getPageItems } from '@/hooks/usePagination'
+import { getPageItems } from '@/utils/pagination'
 import { usePublicDegensPage } from '@/hooks/queries/usePublicDegens'
 import type { PublicDegen } from '@/types/degens'
 import { fromPublicDegenPageWire } from '@/utils/public-degens'
@@ -37,13 +37,13 @@ const AllDegensPage = (): React.ReactNode => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [selectedDegen, setSelectedDegen] = useState<PublicDegen>()
   const [isDegenModalOpen, setIsDegenModalOpen] = useState(false)
-  const [layoutMode, setLayoutMode] = useState('gridView')
   const [rawSearchState, setSearchState] = useQueryStates(degenSearchParsers, {
     history: 'push',
     shallow: true,
   })
   const searchStateKey = JSON.stringify(rawSearchState)
   const searchState = useMemo(() => normalizeDegenSearchState(rawSearchState), [searchStateKey])
+  const layoutMode = searchState.layout
 
   const isMobile = useMediaQuery('(max-width:640px)')
   const isSmallScreen = useMediaQuery('(max-width:1280px)')
@@ -82,8 +82,7 @@ const AllDegensPage = (): React.ReactNode => {
   }
 
   const handleChangeLayoutMode = (_event: React.MouseEvent<HTMLElement>, newMode: string) => {
-    setLayoutMode(newMode)
-    void setSearchState({ page: 1 })
+    void setSearchState({ layout: newMode === 'gridOn' ? 'gridOn' : 'gridView', page: 1 })
   }
 
   const handleSort = useCallback(

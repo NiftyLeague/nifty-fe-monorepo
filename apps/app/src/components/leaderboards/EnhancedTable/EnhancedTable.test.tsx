@@ -17,6 +17,8 @@ describe('leaderboard table query ownership', () => {
   it('deduplicates identical page reads across consumers', async () => {
     const client = createAppQueryClient()
     const props = {
+      page: 1,
+      onPageChange: mock(),
       selectedGame: 'nifty_smashers',
       selectedTable: { key: 'win_rate', display: 'Win rate', rows: [] },
       selectedTimeFilter: 'all_time',

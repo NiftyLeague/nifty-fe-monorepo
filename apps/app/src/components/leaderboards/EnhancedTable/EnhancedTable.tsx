@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, type SetStateAction } from 'react'
 
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import { ResponsiveTable } from '@/components/ResponsiveTable'
@@ -22,11 +22,13 @@ const flatObject = (obj: { [key: string]: unknown }): Record<string, unknown> =>
 }
 
 export default function EnhancedTable({
+  page,
+  onPageChange,
   selectedGame,
   selectedTable,
   selectedTimeFilter,
 }: TableProps): React.ReactNode | null {
-  const [paginationModel, setPaginationModel] = useState({ pageSize: 50, page: 0 })
+  const paginationModel = { pageSize: 50, page: Math.max(0, page - 1) }
   const { data, error, isPending, refetch } = useLeaderboardScores(
     selectedGame,
     selectedTable.key,
@@ -35,6 +37,18 @@ export default function EnhancedTable({
     paginationModel.page * paginationModel.pageSize
   )
   const rows = useMemo(() => data?.data.map(flatObject) ?? [], [data?.data])
+  const maxPage = Math.max(1, Math.ceil((data?.count ?? 0) / paginationModel.pageSize))
+
+  useEffect(() => {
+    if (!isPending && page > maxPage) onPageChange(maxPage)
+  }, [isPending, maxPage, onPageChange, page])
+
+  const handlePaginationModelChange = (
+    update: SetStateAction<{ pageSize: number; page: number }>
+  ) => {
+    const next = typeof update === 'function' ? update(paginationModel) : update
+    onPageChange(next.page + 1)
+  }
 
   const columns = useMemo(() => {
     const baseColumns: Array<{
@@ -78,7 +92,7 @@ export default function EnhancedTable({
           />
           <ResponsiveTable
             paginationModel={paginationModel}
-            onPaginationModelChange={setPaginationModel}
+            onPaginationModelChange={handlePaginationModelChange}
             columns={columns}
             showPagination={true}
             data={rows}
