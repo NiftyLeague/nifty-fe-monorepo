@@ -49,9 +49,9 @@ export default function LeaderBoards(): React.ReactNode {
   }, [selectedGame])
 
   const handleChangeGame = (gameKey: string) => {
-    const currentGame = LEADERBOARD_GAME_LIST.filter((game) => game.key === gameKey)?.[0]
-    if (!currentGame) return
-    const { tables } = currentGame
+    const nextGame = LEADERBOARD_GAME_LIST.find((game) => game.key === gameKey)
+    if (!nextGame) return
+    const { tables } = nextGame
     void setSearchState({
       game: gameKey as typeof searchState.game,
       table: (tables[0] as TableType).key,

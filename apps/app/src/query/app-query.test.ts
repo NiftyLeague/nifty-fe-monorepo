@@ -46,11 +46,7 @@ describe('app query contract', () => {
       'session-ab12',
     ])
     expect(queryKeys.merkleClaim(1, '0xabc')).toEqual(['merkle-claim', 1, '0xabc'])
-    expect(queryKeys.launcherVersion('prod', 'win')).toEqual([
-      'launcher-version',
-      'prod',
-      'win',
-    ])
+    expect(queryKeys.launcherVersion('prod', 'win')).toEqual(['launcher-version', 'prod', 'win'])
   })
 
   it('deduplicates concurrent reads that share a semantic key', async () => {

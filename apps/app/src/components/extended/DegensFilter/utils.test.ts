@@ -37,10 +37,9 @@ describe('degen filtering', () => {
     ]
 
     expect(
-      transformDataByFilter(
-        records as never,
-        { ...emptyFilter, prices: [15, 25] } as never
-      ).map(({ id }) => id)
+      transformDataByFilter(records as never, { ...emptyFilter, prices: [15, 25] } as never).map(
+        ({ id }) => id
+      )
     ).toEqual(['2'])
   })
 

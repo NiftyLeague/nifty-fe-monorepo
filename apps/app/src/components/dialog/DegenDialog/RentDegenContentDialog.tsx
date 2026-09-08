@@ -36,6 +36,10 @@ interface RentDegenContentDialogProps {
   onClose?: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
+const handleBuyNFTL = () => {
+  gtm.sendEvent(GTM_EVENTS.RENTAL_BUY_NFTL_CLICKED)
+}
+
 const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps) => {
   const router = useRouter()
   const { account, refetchAccount } = useGameAccount()
@@ -164,10 +168,6 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
   const handleClickPlay = useCallback(() => {
     router.push('/games/smashers')
   }, [router])
-
-  const handleBuyNFTL = () => {
-    gtm.sendEvent(GTM_EVENTS.RENTAL_BUY_NFTL_CLICKED)
-  }
 
   return (
     <div>

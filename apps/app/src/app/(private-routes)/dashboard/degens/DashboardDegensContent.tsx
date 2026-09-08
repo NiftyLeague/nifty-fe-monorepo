@@ -10,7 +10,6 @@ import { Button } from '@nl/ui/base/button'
 import { Dialog } from '@nl/ui/base/dialog'
 
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
-import DEFAULT_STATIC_FILTER from '@/components/extended/DegensFilter/constants'
 import {
   transformDataByFilter,
   getDefaultFilterValueFromData,
