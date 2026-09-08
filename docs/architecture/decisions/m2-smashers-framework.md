@@ -2,11 +2,11 @@
 
 ## Status and decision
 
-Accepted: keep Next.js 16 App Router for `apps/smashers`; reject TanStack Start and React Router migration at M2. Confidence is high. Expected impact is no production behavior change while asset work remains the dominant optimization target.
+Accepted: keep Next.js 16 App Router for `apps/smashers`; reject migration at M2. Smashers is classified as a static-first site with a secondary authenticated dashboard. Confidence is high. Expected impact is no production behavior change while asset work remains the dominant optimization target.
 
 ## Measured evidence
 
-Four actual routes were measured: `/`, `/profile`, `/loot`, and `/login`. Rendered-route median LCPs ranged from 72–360 ms; the `/profile` redirect emitted no LCP. JavaScript ranged from 289–385 KiB and transfer from 496 KiB to 3.87 MiB (3.96 MB). With the same 48-copy asset workload, Next's public route was 72 ms LCP/135 KiB JS, TanStack Start 60/315 KiB, and React Router 96/105 KiB. On the interaction workload Next was 36 ms LCP/20 ms INP, TanStack Start 64/24 ms, and React Router 48/20 ms. TanStack wins public LCP, Next wins interaction render, and React Router sends the least route JavaScript; asset transfer still dominates the real home route.
+Four actual routes were measured: `/`, `/profile`, `/loot`, and `/login`. Rendered-route median LCPs ranged from 148–360 ms; the `/profile` redirect emitted no meaningful LCP. JavaScript ranged from 289–391 KiB and transfer from 496 KiB to 3.87 MiB (3.96 MB). Astro was added to the final static-first comparison: on the same 48-copy asset workload, Next's public route was 64 ms LCP/135 KiB JS, Astro 64/0 KiB, TanStack Start 112/315 KiB, and React Router 116/105 KiB. On the interaction workload Next was 44 ms LCP/16 ms INP, Astro 64/16, TanStack 88/24, and React Router 68/20. Astro removes route JS and ties the public LCP, but Next wins the interaction route; assets dominate the real home route.
 
 ## Hosting and operations
 

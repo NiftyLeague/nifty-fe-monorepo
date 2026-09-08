@@ -11,6 +11,7 @@ const manifestPath = 'benchmarks/m2-framework-evaluation.json'
 
 type Decision = {
   app: string
+  bucket: string
   currentFramework: string
   decision: string
   candidates: string[]
@@ -58,8 +59,19 @@ describe('M2 per-app framework evaluation', () => {
     expect(
       new Set(manifest.candidates.map(({ framework }: { framework: string }) => framework))
     ).toEqual(new Set(['next', 'tanstack-start', 'astro', 'react-router']))
+    expect(manifest.applicationBuckets).toEqual([
+      expect.objectContaining({ id: 'static-first', apps: ['docs', 'smashers', 'web'] }),
+      expect.objectContaining({ id: 'stateful', apps: ['app'] }),
+    ])
     expect(new Set(manifest.applicationControls.map(({ app }: { app: string }) => app))).toEqual(
-      new Set(['api', 'app', 'docs', 'smashers', 'template', 'web'])
+      new Set(['app', 'docs', 'smashers', 'web'])
+    )
+    expect(manifest.applicationControls.every(({ bucket }: { bucket: string }) => bucket)).toBe(
+      true
+    )
+    expect(manifest.applicationControls.map(({ app }: { app: string }) => app)).not.toContain('api')
+    expect(manifest.applicationControls.map(({ app }: { app: string }) => app)).not.toContain(
+      'template'
     )
     for (const control of manifest.applicationControls) {
       expect(Object.keys(control.routes)).toEqual(
@@ -99,7 +111,7 @@ describe('M2 per-app framework evaluation', () => {
 
   it('defines measured route controls and candidate workloads for every individual app', () => {
     const manifest = JSON.parse(read(manifestPath))
-    const apps = ['api', 'app', 'docs', 'smashers', 'template', 'web']
+    const apps = ['app', 'docs', 'smashers', 'web']
 
     expect(new Set(manifest.applicationProfiles.map(({ app }: { app: string }) => app))).toEqual(
       new Set(apps)
@@ -112,12 +124,16 @@ describe('M2 per-app framework evaluation', () => {
       }
     }
     for (const profile of manifest.applicationProfiles) {
+      expect(['static-first', 'stateful']).toContain(profile.bucket)
       expect(profile.candidates.length).toBeGreaterThan(0)
       expect(profile.routes.length).toBeGreaterThan(0)
       for (const route of profile.routes) {
         expect(route.path).toContain(`profile=${profile.app}`)
       }
     }
+    expect(
+      manifest.applicationProfiles.find(({ app }: { app: string }) => app === 'smashers').candidates
+    ).toContain('astro')
   })
 
   it('records repeated same-profile runtime, caching, server, memory, and build evidence', () => {
@@ -168,7 +184,7 @@ describe('M2 per-app framework evaluation', () => {
       const includesApplicationControl = report.candidates.some(
         ({ id }: { id: string }) => id === 'next-control'
       )
-      expect(report.applicationColdStarts).toHaveLength(includesApplicationControl ? 6 : 0)
+      expect(report.applicationColdStarts).toHaveLength(includesApplicationControl ? 4 : 0)
       for (const coldStart of report.applicationColdStarts) {
         expect(coldStart.samples).toHaveLength(report.runCount)
         expect(coldStart.summary.median).toBeGreaterThan(0)
@@ -189,7 +205,7 @@ describe('M2 per-app framework evaluation', () => {
         `${application}:${fixture}`
     )
     expect(measuredControls).toHaveLength(expectedControls.length)
-    expect(measuredControls).toHaveLength(18)
+    expect(measuredControls).toHaveLength(16)
     expect(new Set(measuredControls)).toEqual(new Set(expectedControls))
     for (const measurement of report.applicationMeasurements) {
       expect(measurement.samples).toHaveLength(report.runCount)
@@ -209,7 +225,7 @@ describe('M2 per-app framework evaluation', () => {
         )
     )
     expect(measuredProfiles).toHaveLength(expectedProfiles.length)
-    expect(measuredProfiles).toHaveLength(55)
+    expect(measuredProfiles).toHaveLength(52)
     expect(new Set(measuredProfiles)).toEqual(new Set(expectedProfiles))
 
     const genericMeasurements = report.measurements.filter(
@@ -230,15 +246,16 @@ describe('M2 per-app framework evaluation', () => {
     }
   })
 
-  it('publishes one complete, evidence-backed decision for every deployable app', () => {
+  it('publishes one complete, evidence-backed decision for every evaluated app', () => {
     const manifest = JSON.parse(read(manifestPath))
     const decisions = manifest.decisions as Decision[]
     expect(new Set(decisions.map(({ app }) => app))).toEqual(
-      new Set(['api', 'app', 'docs', 'smashers', 'template', 'web'])
+      new Set(['app', 'docs', 'smashers', 'web'])
     )
 
     for (const decision of decisions) {
       expect(decision.currentFramework).toBeTruthy()
+      expect(['static-first', 'stateful']).toContain(decision.bucket)
       expect(decision.decision).toBeTruthy()
       expect(decision.candidates.length).toBeGreaterThan(0)
       expect(decision.evidence.length).toBeGreaterThan(0)
@@ -269,8 +286,8 @@ describe('M2 per-app framework evaluation', () => {
     )
     const record = read('docs/architecture/m2-framework-evaluation.md')
 
-    expect(record).toContain('M2.5 migration execution')
-    expect(record).toContain('No dead parallel routes')
+    expect(record).toContain('M2.5 migration gate')
+    expect(record).toContain('cannot shadow production routes')
     expect(record).toContain('Route-by-route acceptance')
     if (approved.length === 0) {
       expect(record).toContain('No production framework migration is approved')

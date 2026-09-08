@@ -2,11 +2,11 @@
 
 ## Status and decision
 
-Accepted: keep Next.js 16 App Router for `apps/web`; do not migrate to Astro or React Router in M2 even though Astro won the measured web-shaped runtime. Confidence is moderate. Astro remains the strongest candidate if a future route-level proof covers the actual marketing and GLTF surfaces. Expected impact is zero migration risk now.
+Accepted: keep Next.js 16 App Router for `apps/web`; do not migrate to Astro or React Router in M2. Confidence is moderate. Astro remains the strongest candidate for selected static leaves if a future route-level proof covers the actual marketing and GLTF surfaces. Expected impact is zero migration risk now.
 
 ## Measured evidence
 
-Four actual routes were measured: `/`, `/games`, `/roadmap`, and `/gltf/1`. Their median LCPs ranged from 68–324 ms, JavaScript from 161–300 KiB, and transfer from 291–581 KiB. In the web-shaped public workload Astro delivered 40 ms LCP with zero JavaScript, Next 44 ms/135 KiB, and React Router 44 ms/105 KiB. In the interaction workload Astro's React island rendered at 36 ms/16 ms INP with 189 KiB JS, Next at 40/16 ms with 136 KiB, and React Router at 44/20 ms with 105 KiB. Astro is the synthetic runtime winner, but this does not establish whole-app parity for the dynamic GLTF/embed path or production operations.
+Four actual routes were measured: `/`, `/games`, `/roadmap`, and `/gltf/1`. Their median LCPs ranged from 204–518 ms, JavaScript from 161–300 KiB, and transfer from 291–563 KiB. In the web-shaped public workload Astro delivered 56 ms LCP with zero JavaScript, Next 48 ms/135 KiB, and React Router 80 ms/105 KiB. In the interaction workload Astro's React island rendered at 52 ms/16 ms INP with 189 KiB JS, Next at 48/16 ms with 136 KiB, and React Router at 68/16 ms with 105 KiB. In the streaming workload Astro rendered at 40 ms versus Next 44 ms and React Router 128 ms. Astro wins payload and selected deferred shapes; Next wins public and interaction LCP. This does not establish whole-app parity for the dynamic GLTF/embed path or production operations.
 
 ## Hosting and operations
 

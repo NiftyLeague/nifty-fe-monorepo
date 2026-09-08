@@ -2,15 +2,15 @@
 
 ## Status and decision
 
-Accepted: keep Next.js 16 App Router for `apps/app`; reject TanStack Start and React Router migration at M2. Confidence is high. Expected impact is preservation of the M1 state/data architecture with no framework churn.
+Accepted: keep Next.js 16 App Router for `apps/app` at M2; keep TanStack Start and React Router Framework Mode (the current Remix lineage) as evaluated alternatives, not production routes. Confidence is high. Expected impact is preservation of the M1 state/data architecture with no framework churn.
 
 ## Measured evidence
 
-Five actual routes were measured after M1 merged: `/degens`, `/games`, `/leaderboards`, `/mint-o-matic`, and `/dashboard/overview`. Their median LCPs ranged from 104–376 ms, JavaScript from 327–414 KiB, and transfer from 455–578 KiB. In the app-shaped workload, Next's public route was 40 ms LCP/135 KiB JS and interaction route 56 ms LCP/24 ms INP. TanStack Start was 44/315 KiB and 48/16 ms; React Router was 44/105 KiB and 48/24 ms. Next wins public render, TanStack the interaction result, and React Router route JS; no candidate dominates. The alternatives’ faster builds remain real.
+Five actual routes were measured after M1 merged: `/degens`, `/games`, `/leaderboards`, `/mint-o-matic`, and `/dashboard/overview`. Their median LCPs ranged from 244–380 ms, JavaScript from 327–414 KiB, and transfer from 455–578 KiB. In the app-shaped workload, Next's public route was 44 ms LCP/135 KiB JS, authenticated 44/135, data-heavy 48/135, interaction 48 ms/16 ms INP, and streaming 36 ms. TanStack Start was 44/315, 36/315, 44/315, 52/16, and 180 ms respectively. React Router was 116/105, 80/105, 180/105, 116/16, and 184 ms. TanStack wins auth/data LCP and React Router sends the least JS; Next wins interaction/streaming and ties public. No candidate dominates. The alternatives’ faster builds remain real.
 
 ## Hosting and operations
 
-The app uses Vercel’s Next path, Next image policy, route handlers, shared package transpilation, native-module externals and production-only Sentry wrapping. Both alternatives require a new adapter, deployment-output contract, cache policy and observability integration.
+The app uses Vercel’s Next path, Next image policy, route handlers, shared package transpilation, native-module externals and production-only Sentry wrapping. Both alternatives require a new adapter, deployment-output contract, cache policy and observability integration. Cloudflare documents a first-party TanStack Start Workers path and a React Router Cloudflare template; Next on Workers requires the Cloudflare `vinext` path for new projects or OpenNext compatibility for an existing app. Those options make a future Cloudflare preview worthwhile, but do not replace route-parity evidence.
 
 ## Authentication and data
 
@@ -22,7 +22,7 @@ Public collection metadata and server HTML, authenticated fallbacks, keyboard be
 
 ## Migration friction and maintenance
 
-A migration would touch every layout, route handler, server/client marker, image, navigation call, query hydration boundary, Sentry entry and deployment assumption immediately after M1 stabilized ownership. No measured gain pays that cost. Keeping Next also preserves parity with other React apps and shared UI.
+A migration would touch every layout, route handler, server/client marker, image, navigation call, query hydration boundary, Sentry entry and deployment assumption immediately after M1 stabilized ownership. TanStack’s build/cold-start advantage is meaningful, but its 2.3x route JavaScript and unverified app-specific parity leave the migration case unproven. Keeping Next also preserves parity with other React apps and shared UI.
 
 ## Rollback and route acceptance
 

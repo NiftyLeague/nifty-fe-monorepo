@@ -6,7 +6,7 @@ Accepted: keep Docusaurus 3 for `apps/docs`; do not migrate to Astro in M2. Conf
 
 ## Measured evidence
 
-The actual overview, traits, and battle-guide controls recorded 208–252 ms median LCP, 626–674 KiB JavaScript, and 888–1,739 KiB transfer. In the docs-shaped workload, Astro sent zero JavaScript on the public route at 36 ms LCP; Next recorded 36 ms/135 KiB and React Router 40 ms/105 KiB. Astro's React interaction island sent 189 KiB and rendered at 48 ms/16 ms INP, exactly matching Next's render timing with 136 KiB JS; React Router rendered at 44 ms/24 ms with 105 KiB. Astro wins static delivery, Next wins interactive JS among the equal-INP choices, and React Router wins interaction LCP alone. This does not prove migration parity for the real documentation corpus.
+The actual overview, traits, and battle-guide controls recorded 232–296 ms median LCP, 626–674 KiB JavaScript, and 888–1,739 KiB transfer. In the docs-shaped workload, Astro sent zero JavaScript on the public route at 44 ms LCP; Next recorded 48 ms/135 KiB and React Router 56 ms/105 KiB. Astro's React interaction island sent 189 KiB and rendered at 56 ms/16 ms INP, versus Next's 48 ms/136 KiB/16 ms and React Router's 88 ms/105 KiB/16 ms. Astro wins static payload and public LCP; Next wins hydrated interaction timing and JavaScript. This does not prove migration parity for the real documentation corpus.
 
 ## Hosting and operations
 
@@ -22,7 +22,7 @@ Both candidates can emit accessible static HTML and metadata. The migration gate
 
 ## Migration friction and maintenance
 
-Astro would reduce static-page JavaScript, but recreating the established docs taxonomy, preset/theme behavior, edit links and contributor workflow is a substantial content migration. The lower-risk next action is Docusaurus bundle analysis and selective hydration reduction, not framework replacement.
+Astro would reduce static-page JavaScript, but recreating the established docs taxonomy, preset/theme behavior, edit links and contributor workflow is a substantial content migration. The lower-risk next action is Docusaurus bundle analysis and selective hydration reduction, not framework replacement. Cloudflare Pages supports Docusaurus static deployment, so a provider move does not require changing the docs framework.
 
 ## Rollback and route acceptance
 
