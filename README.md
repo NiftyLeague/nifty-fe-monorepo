@@ -280,6 +280,12 @@ Email [andy@niftyleague.com](mailto:andy@niftyleague.com)
 
 Join the Nifty League [Discord Server](https://discord.gg/niftyleague) and message an admin
 
+## Deployment and CI cost controls
+
+Draft pull requests use local validation and do not start runner-heavy GitHub Actions. Mark a pull request ready for review to start the canonical audit ending in `Validation / Gate`; converting it back to draft cancels in-flight validation.
+
+Vercel projects disable Git-triggered feature-branch deployments through each app's `git.deploymentEnabled` and `ignoreCommand` policies. Builds on `main` remain enabled and scoped to affected applications, manual deployments remain available, and the connected projects keep the consolidated Git commit status disabled so ignored builds cannot leave an aggregate check pending.
+
 ## Environment Variables
 
 Environment variables are managed in **Vercel** (source of truth). Each app in `apps/` is linked to its own Vercel project under the `niftyleague` team. Sync locally:
