@@ -27,6 +27,7 @@ import {
   degenSearchParsers,
   normalizeDegenSearchState,
 } from '@/url/search-state'
+import QueryErrorState from '@/components/QueryErrorState'
 
 const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'))
 
@@ -55,7 +56,7 @@ const AllDegensPage = (): React.ReactNode => {
     return buildPublicDegensRequestQuery(searchState, pageSize)
   }, [pageSize, requestedPage, searchState])
 
-  const { data } = usePublicDegensPage(requestQuery)
+  const { data, error, refetch } = usePublicDegensPage(requestQuery)
 
   const pageData = useMemo(() => (data ? fromPublicDegenPageWire(data) : undefined), [data])
   const defaultValues = useMemo(
@@ -145,7 +146,15 @@ const AllDegensPage = (): React.ReactNode => {
           </div>
         </SectionTitle>
         <div className="grid grid-cols-12 gap-4 -mt-9">
-          {!pageData ? [...Array(8)].map(renderSkeletonItem) : pageData.items.map(renderDegen)}
+          {error ? (
+            <div className="col-span-12">
+              <QueryErrorState error={error} onRetry={() => void refetch()} />
+            </div>
+          ) : !pageData ? (
+            [...Array(8)].map(renderSkeletonItem)
+          ) : (
+            pageData.items.map(renderDegen)
+          )}
         </div>
         <PaginationControls
           className="mx-auto flex-wrap justify-center gap-1 pb-4"
@@ -185,6 +194,8 @@ const AllDegensPage = (): React.ReactNode => {
       maxPage,
       pageData,
       pageItems,
+      error,
+      refetch,
       renderDegen,
       renderSkeletonItem,
     ]

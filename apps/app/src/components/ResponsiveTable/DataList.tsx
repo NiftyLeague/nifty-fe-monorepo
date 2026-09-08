@@ -25,6 +25,7 @@ interface DataListProps {
   rowsPerPage: number
   scrollOptions?: ScrollIntoViewOptions
   scrollToSelected?: boolean
+  serverPaginated?: boolean
   showPagination: boolean
 }
 
@@ -46,6 +47,7 @@ const DataList: React.FC<DataListProps> = (props) => {
     rowsPerPage,
     scrollOptions,
     scrollToSelected = false,
+    serverPaginated = false,
     showPagination,
   } = props
 
@@ -148,7 +150,10 @@ const DataList: React.FC<DataListProps> = (props) => {
           <span className="text-sm">Select All</span>
         </div>
       )}
-      {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
+      {(serverPaginated
+        ? data
+        : data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+      ).map((row, index) => (
         <ExpandableListItem
           checkboxSelection={checkboxSelection}
           details={createListItemDescription(columns, row, data, excludePrimaryFromDetails)}

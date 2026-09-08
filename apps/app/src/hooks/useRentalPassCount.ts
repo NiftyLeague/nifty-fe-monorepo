@@ -1,44 +1,31 @@
 'use client'
 
 import { RENTAL_PASS_INVENTORY_URL } from '@/constants/url'
-import { useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { errorMsgHandler } from '@/utils/errorHandlers'
+import {
+  AUTHENTICATED_STALE_TIME_MS,
+  fetchApiQuery,
+  getAuthQueryScope,
+  queryKeys,
+} from '@/query/app-query'
 import useAuth from './useAuth'
 
 const useRentalPassCount = (degenId: string | undefined): [boolean, string | null, number] => {
-  const [loading, setLoading] = useState(true)
-  const [rentalPassCount, setRentalPassCount] = useState<number>(0)
-  const [error, setError] = useState<string | null>(null)
   const { authToken } = useAuth()
+  const enabled = Boolean(degenId && authToken)
+  const { data, error, isPending } = useQuery({
+    queryKey: queryKeys.rentalPass(getAuthQueryScope(authToken)),
+    queryFn: ({ signal }) =>
+      fetchApiQuery<{ balance?: number }>(RENTAL_PASS_INVENTORY_URL, {
+        signal,
+        init: { method: 'GET', headers: { authorizationToken: authToken || '' } },
+      }),
+    enabled,
+    staleTime: AUTHENTICATED_STALE_TIME_MS,
+  })
 
-  useEffect(() => {
-    async function resolveRental() {
-      if (!degenId || !authToken) {
-        return
-      }
-
-      try {
-        setLoading(true)
-        const res = await fetch(RENTAL_PASS_INVENTORY_URL, {
-          method: 'GET',
-          headers: { authorizationToken: authToken },
-        })
-        if (res.status === 404) {
-          throw Error('Not Found')
-        }
-        const json = await res.json()
-        setRentalPassCount(json.balance || 0)
-      } catch (err) {
-        setError(errorMsgHandler(err))
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    void resolveRental()
-  }, [degenId, authToken])
-
-  return [loading, error, rentalPassCount]
+  return [enabled && isPending, error ? errorMsgHandler(error) : null, data?.balance || 0]
 }
 
 export default useRentalPassCount
