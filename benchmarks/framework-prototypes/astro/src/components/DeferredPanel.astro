@@ -1,4 +1,5 @@
 ---
-await new Promise((resolve) => setTimeout(resolve, 150))
+const { delay = 150 } = Astro.props
+await new Promise((resolve) => setTimeout(resolve, delay))
 ---
 <section class="card">Deferred server content</section>

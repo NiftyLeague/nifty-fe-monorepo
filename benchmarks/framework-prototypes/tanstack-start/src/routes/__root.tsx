@@ -34,11 +34,19 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <nav aria-label="Benchmark routes">
-          <Link to="/">Public</Link>
+          <Link to="/" search={{ profile: 'generic', assets: 1, sections: 1 }}>
+            Public
+          </Link>
           <Link to="/authenticated">Authenticated</Link>
-          <Link to="/catalog">Catalog</Link>
-          <Link to="/interaction">Interaction</Link>
-          <Link to="/streaming">Streaming</Link>
+          <Link to="/catalog" search={{ profile: 'generic', items: 120 }}>
+            Catalog
+          </Link>
+          <Link to="/interaction" search={{ profile: 'generic', nodes: 1 }}>
+            Interaction
+          </Link>
+          <Link to="/streaming" search={{ profile: 'generic', delay: 150 }}>
+            Streaming
+          </Link>
         </nav>
         {children}
         <Scripts />

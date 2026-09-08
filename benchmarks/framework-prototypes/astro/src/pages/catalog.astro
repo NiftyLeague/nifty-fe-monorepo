@@ -1,6 +1,9 @@
 ---
 import Layout from '../components/Layout.astro'
-const products = Array.from({ length: 120 }, (_, index) => ({ id: index + 1, score: (index * 17) % 101 }))
+import { readBenchmarkInteger, readBenchmarkProfile } from '../workload'
+const profile = readBenchmarkProfile(Astro.url.searchParams.get('profile'))
+const itemCount = readBenchmarkInteger(Astro.url.searchParams.get('items'), 120)
+const products = Array.from({ length: itemCount }, (_, index) => ({ id: index + 1, score: (index * 17) % 101 }))
 Astro.response.headers.set('cache-control', 'public, max-age=0, s-maxage=60')
 ---
-<Layout title="Data-heavy fixture"><main><h1>Data-heavy fixture</h1><div class="grid">{products.map((product) => <article class="card"><h2>Asset {product.id}</h2><p>Score {product.score}</p></article>)}</div></main></Layout>
+<Layout title="Data-heavy fixture"><main data-workload-profile={profile}><h1>{profile} data-heavy fixture</h1><div class="grid">{products.map((product) => <article class="card"><h2>Asset {product.id}</h2><p>Score {product.score}</p></article>)}</div></main></Layout>

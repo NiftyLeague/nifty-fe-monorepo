@@ -1,5 +1,8 @@
 ---
 import Layout from '../components/Layout.astro'
 import { Counter } from '../components/Counter'
+import { readBenchmarkInteger, readBenchmarkProfile } from '../workload'
+const profile = readBenchmarkProfile(Astro.url.searchParams.get('profile'))
+const nodes = readBenchmarkInteger(Astro.url.searchParams.get('nodes'), 1)
 ---
-<Layout title="Interaction fixture"><main><h1>Interaction-heavy fixture</h1><Counter client:load /></main></Layout>
+<Layout title="Interaction fixture"><main data-workload-profile={profile}><h1>{profile} interaction-heavy fixture</h1><Counter nodes={nodes} client:load /></main></Layout>

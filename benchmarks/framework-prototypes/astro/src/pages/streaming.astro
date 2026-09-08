@@ -1,5 +1,8 @@
 ---
 import Layout from '../components/Layout.astro'
 import DeferredPanel from '../components/DeferredPanel.astro'
+import { readBenchmarkInteger, readBenchmarkProfile } from '../workload'
+const profile = readBenchmarkProfile(Astro.url.searchParams.get('profile'))
+const delay = readBenchmarkInteger(Astro.url.searchParams.get('delay'), 150, 1_000)
 ---
-<Layout title="Streaming fixture"><main><h1>Streaming fixture</h1><DeferredPanel server:defer><p slot="fallback">Streaming fallback</p></DeferredPanel></main></Layout>
+<Layout title="Streaming fixture"><main data-workload-profile={profile}><h1>{profile} streaming fixture</h1><DeferredPanel delay={delay} server:defer><p slot="fallback">Streaming fallback</p></DeferredPanel></main></Layout>

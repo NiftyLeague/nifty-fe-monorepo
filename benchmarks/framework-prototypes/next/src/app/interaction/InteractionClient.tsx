@@ -1,6 +1,8 @@
+'use client'
+
 import { useState } from 'react'
 
-export function Counter({ nodes }: { nodes: number }) {
+export default function InteractionClient({ nodes }: { nodes: number }) {
   const [selected, setSelected] = useState(false)
   return (
     <>

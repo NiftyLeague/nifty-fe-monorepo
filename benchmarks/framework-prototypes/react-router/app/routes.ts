@@ -6,5 +6,6 @@ export default [
   route('catalog', 'routes/catalog.tsx'),
   route('interaction', 'routes/interaction.tsx'),
   route('streaming', 'routes/streaming.tsx'),
+  route('resource', 'routes/resource.tsx'),
   route('failure', 'routes/failure.tsx'),
 ] satisfies RouteConfig

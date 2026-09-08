@@ -228,6 +228,7 @@
         "data-heavy": "/cache/* and contract endpoints",
         "interaction-heavy": "not applicable: JSON service"
       },
+      "benchmarkRoutes": [{ "fixture": "public-json", "path": "/", "browser": false }],
       "rendering": {
         "ssr": "not applicable",
         "ssg": "not applicable",
@@ -252,6 +253,13 @@
         "data-heavy": "/degens",
         "interaction-heavy": "/mint-o-matic"
       },
+      "benchmarkRoutes": [
+        { "fixture": "public-data-heavy", "path": "/degens", "interaction": "body" },
+        { "fixture": "public-navigation", "path": "/games", "interaction": "body" },
+        { "fixture": "leaderboard-data", "path": "/leaderboards", "interaction": "body" },
+        { "fixture": "interaction-heavy", "path": "/mint-o-matic", "interaction": "body" },
+        { "fixture": "authenticated-gate", "path": "/dashboard/overview", "interaction": "body" }
+      ],
       "rendering": {
         "ssr": "App Router server layouts and route handlers",
         "ssg": "public static routes where eligible",
@@ -278,6 +286,15 @@
         "data-heavy": "generated documentation/search index",
         "interaction-heavy": "sidebar and client navigation"
       },
+      "benchmarkRoutes": [
+        { "fixture": "overview", "path": "/overview/intro", "interaction": "body" },
+        {
+          "fixture": "content-heavy",
+          "path": "/overview/nfts/degens/traits",
+          "interaction": "body"
+        },
+        { "fixture": "guide", "path": "/guides/nifty-smashers/battle", "interaction": "body" }
+      ],
       "rendering": {
         "ssr": "build-time React rendering",
         "ssg": "all documentation pages",
@@ -302,6 +319,12 @@
         "data-heavy": "/loot",
         "interaction-heavy": "/ and /profile"
       },
+      "benchmarkRoutes": [
+        { "fixture": "public-asset-heavy", "path": "/", "interaction": "body" },
+        { "fixture": "authenticated-gate", "path": "/profile", "interaction": "body" },
+        { "fixture": "data-heavy", "path": "/loot", "interaction": "body" },
+        { "fixture": "login", "path": "/login", "interaction": "body" }
+      ],
       "rendering": {
         "ssr": "App Router and NextAuth route handlers",
         "ssg": "public routes where eligible",
@@ -326,6 +349,13 @@
         "data-heavy": "not applicable in current template",
         "interaction-heavy": "/ progress demo"
       },
+      "benchmarkRoutes": [
+        {
+          "fixture": "public-interaction",
+          "path": "/",
+          "interaction": "button"
+        }
+      ],
       "rendering": {
         "ssr": "App Router shell",
         "ssg": "home route",
@@ -350,6 +380,12 @@
         "data-heavy": "/gltf/[tokenId]",
         "interaction-heavy": "/roadmap and media surfaces"
       },
+      "benchmarkRoutes": [
+        { "fixture": "marketing-home", "path": "/", "interaction": "body" },
+        { "fixture": "marketing-navigation", "path": "/games", "interaction": "body" },
+        { "fixture": "interaction-heavy", "path": "/roadmap", "interaction": "body" },
+        { "fixture": "dynamic-gltf", "path": "/gltf/1", "interaction": "body" }
+      ],
       "rendering": {
         "ssr": "dynamic GLTF route and App Router server components",
         "ssg": "marketing routes",
@@ -360,6 +396,79 @@
       },
       "runtimeEvidence": "benchmarks/results/m0-production-2026-09-07.json",
       "buildEvidence": "benchmarks/results/m0-build-2026-09-07.json"
+    }
+  ],
+  "applicationProfiles": [
+    {
+      "app": "api",
+      "currentControl": "api",
+      "candidates": ["react-router"],
+      "routes": [
+        {
+          "fixture": "resource-json",
+          "path": "/resource?profile=api&items=1",
+          "browser": false
+        }
+      ]
+    },
+    {
+      "app": "app",
+      "currentControl": "app",
+      "candidates": ["next-control", "tanstack-start", "react-router"],
+      "routes": [
+        { "fixture": "public", "path": "/?profile=app&assets=1&sections=12" },
+        { "fixture": "authenticated", "path": "/authenticated?profile=app" },
+        { "fixture": "data-heavy", "path": "/catalog?profile=app&items=120" },
+        { "fixture": "interaction-heavy", "path": "/interaction?profile=app&nodes=120" },
+        { "fixture": "streaming", "path": "/streaming?profile=app&delay=150" }
+      ]
+    },
+    {
+      "app": "docs",
+      "currentControl": "docs",
+      "candidates": ["next-control", "astro", "react-router"],
+      "routes": [
+        { "fixture": "public", "path": "/?profile=docs&assets=0&sections=160" },
+        { "fixture": "data-heavy", "path": "/catalog?profile=docs&items=160" },
+        { "fixture": "interaction-heavy", "path": "/interaction?profile=docs&nodes=160" }
+      ]
+    },
+    {
+      "app": "smashers",
+      "currentControl": "smashers",
+      "candidates": ["next-control", "tanstack-start", "react-router"],
+      "routes": [
+        { "fixture": "public", "path": "/?profile=smashers&assets=48&sections=6" },
+        { "fixture": "authenticated", "path": "/authenticated?profile=smashers" },
+        { "fixture": "data-heavy", "path": "/catalog?profile=smashers&items=48" },
+        {
+          "fixture": "interaction-heavy",
+          "path": "/interaction?profile=smashers&nodes=80"
+        }
+      ]
+    },
+    {
+      "app": "template",
+      "currentControl": "template",
+      "candidates": ["next-control", "astro", "react-router"],
+      "routes": [
+        { "fixture": "public", "path": "/?profile=template&assets=1&sections=4" },
+        {
+          "fixture": "interaction-heavy",
+          "path": "/interaction?profile=template&nodes=1"
+        }
+      ]
+    },
+    {
+      "app": "web",
+      "currentControl": "web",
+      "candidates": ["next-control", "astro", "react-router"],
+      "routes": [
+        { "fixture": "public", "path": "/?profile=web&assets=3&sections=12" },
+        { "fixture": "data-heavy", "path": "/catalog?profile=web&items=24" },
+        { "fixture": "interaction-heavy", "path": "/interaction?profile=web&nodes=30" },
+        { "fixture": "streaming", "path": "/streaming?profile=web&delay=100" }
+      ]
     }
   ],
   "decisions": [

@@ -138,7 +138,7 @@ async function timedFetchPair(url) {
     const startedAt = performance.now()
     const response = await fetch(cacheUrl, { headers: { cookie: 'm2-session=fixture' } })
     const responseHeadersMs = performance.now() - startedAt
-    await response.arrayBuffer()
+    const body = await response.arrayBuffer()
     const durationMs = performance.now() - startedAt
     return {
       responseHeadersMs,
@@ -149,9 +149,51 @@ async function timedFetchPair(url) {
       age: response.headers.get('age'),
       cacheStatus:
         response.headers.get('x-vercel-cache') ?? response.headers.get('cf-cache-status'),
+      responseBytes: body.byteLength,
     }
   }
   return { cold: await run(), warm: await run() }
+}
+
+function serverOnlySample(cache) {
+  return {
+    loaded: cache.cold.status < 500,
+    ttfbMs: cache.cold.responseHeadersMs,
+    lcpMs: null,
+    inpMs: null,
+    cls: null,
+    totalTransferBytes: cache.cold.responseBytes,
+    javascriptBytes: 0,
+    cssBytes: 0,
+    requestCount: 1,
+    memoryBytes: null,
+  }
+}
+
+function summarizeRouteSamples(samples) {
+  const summaryMetrics = [
+    ...REQUIRED_ROUTE_METRICS,
+    'serverResponseMs',
+    'responseCompleteMs',
+    'streamGapMs',
+    'clientNavigationMs',
+  ]
+  return Object.fromEntries(
+    summaryMetrics.map((metric) => [
+      metric,
+      summarizeSamples(samples.map((entry) => entry[metric])),
+    ])
+  )
+}
+
+function candidateRoutes(candidate, config) {
+  const generic = candidate.routes.map((route) => ({ ...route, application: null }))
+  const appShaped = config.applicationProfiles.flatMap((profile) =>
+    profile.candidates.includes(candidate.id)
+      ? profile.routes.map((route) => ({ ...route, application: profile.app }))
+      : []
+  )
+  return [...generic, ...appShaped]
 }
 
 async function captureBuild(candidate, runCount) {
@@ -203,55 +245,126 @@ async function captureCandidate(candidate, config, chromeExecutable) {
   try {
     await waitForServer(baseUrl, server.child)
     const measurements = []
-    for (const fixture of candidate.routes) {
+    for (const fixture of candidateRoutes(candidate, config)) {
       const samples = []
       const cold = []
       const warm = []
       for (let sample = 0; sample < config.runCount; sample += 1) {
-        console.log(`[${candidate.id}:${fixture.fixture}] sample ${sample + 1}/${config.runCount}`)
+        const workload = fixture.application ?? 'generic'
+        console.log(
+          `[${candidate.id}:${workload}:${fixture.fixture}] sample ${sample + 1}/${config.runCount}`
+        )
         const cache = await timedFetchPair(`${baseUrl}${fixture.path}`)
         cold.push(cache.cold)
         warm.push(cache.warm)
         samples.push({
-          ...(await measureRoute({
-            route: {
-              id: `${candidate.id}-${fixture.fixture}`,
-              app: candidate.id,
-              url: `${baseUrl}${fixture.path}`,
-              environment: 'local-production',
-              priority: 'P0',
-              viewport: config.profile.viewport,
-              interaction: { selector: fixture.interaction },
-              navigation: fixture.navigation,
-              cookies: fixture.cookies,
-            },
-            chromeExecutable,
-            settleMs: config.settleMs,
-          })),
+          ...(fixture.browser === false
+            ? serverOnlySample(cache)
+            : await measureRoute({
+                route: {
+                  id: `${candidate.id}-${workload}-${fixture.fixture}`,
+                  app: candidate.id,
+                  url: `${baseUrl}${fixture.path}`,
+                  environment: 'local-production',
+                  priority: 'P0',
+                  viewport: config.profile.viewport,
+                  interaction: {
+                    selector:
+                      fixture.interaction ??
+                      (fixture.fixture === 'interaction-heavy'
+                        ? '[data-benchmark-interaction]'
+                        : 'body'),
+                  },
+                  navigation: fixture.navigation,
+                  cookies:
+                    fixture.cookies ??
+                    (fixture.fixture === 'authenticated'
+                      ? [{ name: 'm2-session', value: 'fixture' }]
+                      : undefined),
+                },
+                chromeExecutable,
+                settleMs: config.settleMs,
+              })),
           serverResponseMs: cache.cold.responseHeadersMs,
           responseCompleteMs: cache.cold.durationMs,
           streamGapMs: cache.cold.streamGapMs,
         })
       }
-      const summaryMetrics = [
-        ...REQUIRED_ROUTE_METRICS,
-        'serverResponseMs',
-        'responseCompleteMs',
-        'streamGapMs',
-        'clientNavigationMs',
-      ]
       measurements.push({
         candidate: candidate.id,
         framework: candidate.framework,
         version: candidate.version,
+        application: fixture.application,
         fixture: fixture.fixture,
         path: fixture.path,
-        summary: Object.fromEntries(
-          summaryMetrics.map((metric) => [
-            metric,
-            summarizeSamples(samples.map((entry) => entry[metric])),
-          ])
-        ),
+        summary: summarizeRouteSamples(samples),
+        cache: {
+          cold: {
+            durationMs: summarizeSamples(cold.map(({ durationMs }) => durationMs)),
+            responses: cold,
+          },
+          warm: {
+            durationMs: summarizeSamples(warm.map(({ durationMs }) => durationMs)),
+            responses: warm,
+          },
+        },
+        samples,
+      })
+    }
+    return measurements
+  } finally {
+    await stopServer(server.child)
+    if (server.child.exitCode && server.child.exitCode !== 143)
+      console.error(server.logs().slice(-4_000))
+  }
+}
+
+async function captureApplicationControl(control, config, chromeExecutable) {
+  const baseUrl = `http://127.0.0.1:${control.port}`
+  const server = startServer(control)
+  try {
+    await waitForServer(`${baseUrl}${control.readyPath}`, server.child)
+    const measurements = []
+    for (const route of control.benchmarkRoutes) {
+      const samples = []
+      const cold = []
+      const warm = []
+      for (let sample = 0; sample < config.runCount; sample += 1) {
+        console.log(
+          `[${control.app}:control:${route.fixture}] sample ${sample + 1}/${config.runCount}`
+        )
+        const cache = await timedFetchPair(`${baseUrl}${route.path}`)
+        cold.push(cache.cold)
+        warm.push(cache.warm)
+        samples.push({
+          ...(route.browser === false
+            ? serverOnlySample(cache)
+            : await measureRoute({
+                route: {
+                  id: `${control.app}-control-${route.fixture}`,
+                  app: control.app,
+                  url: `${baseUrl}${route.path}`,
+                  environment: 'local-production-control',
+                  priority: 'P0',
+                  viewport: config.profile.viewport,
+                  interaction: { selector: route.interaction ?? 'body' },
+                  navigation: route.navigation,
+                  cookies: route.cookies,
+                },
+                chromeExecutable,
+                settleMs: config.settleMs,
+              })),
+          serverResponseMs: cache.cold.responseHeadersMs,
+          responseCompleteMs: cache.cold.durationMs,
+          streamGapMs: cache.cold.streamGapMs,
+        })
+      }
+      measurements.push({
+        application: control.app,
+        framework: control.framework,
+        fixture: route.fixture,
+        path: route.path,
+        summary: summarizeRouteSamples(samples),
         cache: {
           cold: {
             durationMs: summarizeSamples(cold.map(({ durationMs }) => durationMs)),
@@ -299,6 +412,14 @@ async function main() {
   const measurements = []
   for (const candidate of candidates)
     measurements.push(...(await captureCandidate(candidate, config, chromeExecutable)))
+  const applicationMeasurements = []
+  if (candidates.some(({ id }) => id === 'next-control')) {
+    for (const application of config.applicationControls) {
+      applicationMeasurements.push(
+        ...(await captureApplicationControl(application, config, chromeExecutable))
+      )
+    }
+  }
   const report = {
     schemaVersion: 1,
     profileId: config.profileId,
@@ -308,6 +429,7 @@ async function main() {
     profile: config.profile,
     candidates: candidates.map(({ id, framework, version }) => ({ id, framework, version })),
     measurements,
+    applicationMeasurements,
     builds,
     coldStarts,
     applicationColdStarts,

@@ -1,15 +1,18 @@
-'use client'
+import {
+  readBenchmarkInteger,
+  readBenchmarkProfile,
+  type BenchmarkSearchParams,
+} from '../workload'
+import InteractionClient from './InteractionClient'
 
-import { useState } from 'react'
-
-export default function Page() {
-  const [count, setCount] = useState(0)
+export default async function Page({ searchParams }: { searchParams: BenchmarkSearchParams }) {
+  const query = await searchParams
+  const profile = readBenchmarkProfile(query.profile)
+  const nodes = readBenchmarkInteger(query.nodes, 1)
   return (
-    <main>
-      <h1>Interaction-heavy fixture</h1>
-      <button data-benchmark-interaction onClick={() => setCount((value) => value + 1)}>
-        Interactions: {count}
-      </button>
+    <main data-workload-profile={profile}>
+      <h1>{profile} interaction-heavy fixture</h1>
+      <InteractionClient nodes={nodes} />
     </main>
   )
 }

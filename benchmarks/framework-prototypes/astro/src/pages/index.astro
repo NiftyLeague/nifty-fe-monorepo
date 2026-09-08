@@ -1,5 +1,9 @@
 ---
 import Layout from '../components/Layout.astro'
 import hero from '../../../../../assets/img/misc/trio.webp'
+import { readBenchmarkInteger, readBenchmarkProfile } from '../workload'
+const profile = readBenchmarkProfile(Astro.url.searchParams.get('profile'))
+const assetCount = readBenchmarkInteger(Astro.url.searchParams.get('assets'), 1, 64)
+const sectionCount = readBenchmarkInteger(Astro.url.searchParams.get('sections'), 1)
 ---
-<Layout title="M2 Astro prototype"><main><h1>M2 public fixture</h1><p>Static-first framework-candidate content with production metadata.</p><img src={hero.src} width="601" height="599" alt="Three Nifty League characters" /></main></Layout>
+<Layout title="M2 Astro prototype"><main data-workload-profile={profile}><h1>M2 {profile} public fixture</h1><p>Static-first framework-candidate content with production metadata.</p>{Array.from({ length: sectionCount }, (_, index) => <p>Representative content section {index + 1}</p>)}<div class="grid">{Array.from({ length: assetCount }, (_, index) => <img src={`${hero.src}?m2-asset=${index}`} width="601" height="599" alt={`Three Nifty League characters, fixture ${index + 1}`} />)}</div></main></Layout>

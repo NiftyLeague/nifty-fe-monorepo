@@ -74,6 +74,29 @@ describe('M2 per-app framework evaluation', () => {
     }
   })
 
+  it('defines measured route controls and candidate workloads for every individual app', () => {
+    const manifest = JSON.parse(read(manifestPath))
+    const apps = ['api', 'app', 'docs', 'smashers', 'template', 'web']
+
+    expect(new Set(manifest.applicationProfiles.map(({ app }: { app: string }) => app))).toEqual(
+      new Set(apps)
+    )
+    for (const control of manifest.applicationControls) {
+      expect(control.benchmarkRoutes.length).toBeGreaterThan(0)
+      for (const route of control.benchmarkRoutes) {
+        expect(route.fixture).toBeTruthy()
+        expect(route.path).toStartWith('/')
+      }
+    }
+    for (const profile of manifest.applicationProfiles) {
+      expect(profile.candidates.length).toBeGreaterThan(0)
+      expect(profile.routes.length).toBeGreaterThan(0)
+      for (const route of profile.routes) {
+        expect(route.path).toContain(`profile=${profile.app}`)
+      }
+    }
+  })
+
   it('records repeated same-profile runtime, caching, server, memory, and build evidence', () => {
     for (const path of [
       'benchmarks/results/m2-next-control-2026-09-07.json',
