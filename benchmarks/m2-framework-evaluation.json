@@ -438,7 +438,7 @@
         "M2 five-route apps/app control report",
         "M2 app-shaped Next.js, TanStack Start, and React Router workloads"
       ],
-      "performanceWinner": "Mixed: TanStack Start for authenticated/data LCP, Next.js for interaction/streaming, React Router for route JavaScript",
+      "performanceWinner": "Mixed: TanStack Start for public/data LCP, Next.js for streaming/interaction INP, React Router for route JavaScript",
       "confidence": "high",
       "approvedMigration": false
     },
@@ -447,12 +447,12 @@
       "bucket": "static-first",
       "currentFramework": "Docusaurus 3",
       "decision": "Keep Docusaurus 3",
-      "candidates": ["Docusaurus", "Astro"],
+      "candidates": ["Docusaurus", "Next.js", "Astro", "React Router"],
       "evidence": [
         "M2 three-route apps/docs control report",
         "M2 docs-shaped Astro, Next.js, and React Router workloads"
       ],
-      "performanceWinner": "Mixed: Astro for static payload/public LCP, Next.js for hydrated interaction, React Router for neither primary metric",
+      "performanceWinner": "Mixed: Astro for static payload/public LCP, React Router for interaction LCP/JS",
       "confidence": "moderate",
       "approvedMigration": false
     },
@@ -466,7 +466,7 @@
         "M2 four-route apps/smashers control report",
         "M2 Smashers-shaped Next.js, TanStack Start, Astro, and React Router workloads"
       ],
-      "performanceWinner": "Mixed: Astro for zero-JS/data delivery, Next.js for public tie/interaction, React Router for route JavaScript",
+      "performanceWinner": "Astro for public/data/interaction LCP and zero-JS delivery; Next.js remains competitive on authenticated balance",
       "confidence": "high",
       "approvedMigration": false
     },
@@ -480,7 +480,7 @@
         "M2 four-route apps/web control report",
         "M2 web-shaped Astro, Next.js, and React Router workloads"
       ],
-      "performanceWinner": "Mixed: Next.js for public/interaction LCP, Astro for zero-JS/data/streaming shapes, React Router for route JavaScript",
+      "performanceWinner": "Astro for shaped public/data/interaction/streaming runtime; React Router for route JavaScript",
       "confidence": "moderate",
       "approvedMigration": false
     }

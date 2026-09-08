@@ -6,7 +6,7 @@ Accepted: keep Next.js 16 App Router for `apps/app` at M2; keep TanStack Start a
 
 ## Measured evidence
 
-Five actual routes were measured after M1 merged: `/degens`, `/games`, `/leaderboards`, `/mint-o-matic`, and `/dashboard/overview`. Their median LCPs ranged from 244–380 ms, JavaScript from 327–414 KiB, and transfer from 455–578 KiB. In the app-shaped workload, Next's public route was 44 ms LCP/135 KiB JS, authenticated 44/135, data-heavy 48/135, interaction 48 ms/16 ms INP, and streaming 36 ms. TanStack Start was 44/315, 36/315, 44/315, 52/16, and 180 ms respectively. React Router was 116/105, 80/105, 180/105, 116/16, and 184 ms. TanStack wins auth/data LCP and React Router sends the least JS; Next wins interaction/streaming and ties public. No candidate dominates. The alternatives’ faster builds remain real.
+Five actual routes were measured after M1 merged: `/degens`, `/games`, `/leaderboards`, `/mint-o-matic`, and `/dashboard/overview`. Their median LCPs ranged from 72–408 ms, JavaScript from 327–414 KiB, and transfer from 455–578 KiB. In the app-shaped workload, Next's public route was 48 ms LCP/135 KiB JS, authenticated 36/135, data-heavy 40/135, interaction 44 ms/24 ms INP, and streaming 40 ms. TanStack Start was 40/315, 40/315, 36/315, 40/32, and 192 ms respectively. React Router was 40/105, 36/105, 40/105, 48/24, and 196 ms. TanStack wins public/data LCP, React Router sends the least JS, and Next wins streaming/interaction INP. No candidate dominates. The alternatives’ faster builds remain real.
 
 ## Hosting and operations
 
