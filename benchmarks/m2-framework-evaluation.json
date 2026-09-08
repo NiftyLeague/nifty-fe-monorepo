@@ -43,7 +43,7 @@
           "path": "/",
           "interaction": "body",
           "navigation": {
-            "selector": "a[href='/catalog']",
+            "selector": "a[href^='/catalog']",
             "targetPath": "/catalog",
             "readySelector": "main"
           }
@@ -93,7 +93,7 @@
           "path": "/",
           "interaction": "body",
           "navigation": {
-            "selector": "a[href='/catalog']",
+            "selector": "a[href^='/catalog']",
             "targetPath": "/catalog",
             "readySelector": "main"
           }
@@ -143,7 +143,7 @@
           "path": "/",
           "interaction": "body",
           "navigation": {
-            "selector": "a[href='/catalog']",
+            "selector": "a[href^='/catalog']",
             "targetPath": "/catalog",
             "readySelector": "main"
           }
@@ -193,7 +193,7 @@
           "path": "/",
           "interaction": "body",
           "navigation": {
-            "selector": "a[href='/catalog']",
+            "selector": "a[href^='/catalog']",
             "targetPath": "/catalog",
             "readySelector": "main"
           }
@@ -477,7 +477,8 @@
       "currentFramework": "Express 5",
       "decision": "Keep Express 5",
       "candidates": ["Express 5", "React Router resource routes"],
-      "evidence": ["M0 API control", "M2 server and deployment analysis"],
+      "evidence": ["M2 apps/api route control report", "M2 React Router resource-route workload"],
+      "performanceWinner": "Express 5",
       "confidence": "high",
       "approvedMigration": false
     },
@@ -486,7 +487,11 @@
       "currentFramework": "Next.js 16 App Router",
       "decision": "Keep Next.js 16",
       "candidates": ["Next.js", "TanStack Start", "React Router"],
-      "evidence": ["M0 and M1 app controls", "M2 standardized prototypes"],
+      "evidence": [
+        "M2 five-route apps/app control report",
+        "M2 app-shaped Next.js, TanStack Start, and React Router workloads"
+      ],
+      "performanceWinner": "Mixed: React Router for public render and route JS, Next.js for interaction render",
       "confidence": "high",
       "approvedMigration": false
     },
@@ -495,8 +500,12 @@
       "currentFramework": "Docusaurus 3",
       "decision": "Keep Docusaurus 3",
       "candidates": ["Docusaurus", "Astro"],
-      "evidence": ["M0 docs control", "M2 Astro prototype"],
-      "confidence": "high",
+      "evidence": [
+        "M2 three-route apps/docs control report",
+        "M2 docs-shaped Astro, Next.js, and React Router workloads"
+      ],
+      "performanceWinner": "Mixed: Astro for static payload, Next.js for interaction render",
+      "confidence": "moderate",
       "approvedMigration": false
     },
     {
@@ -504,7 +513,11 @@
       "currentFramework": "Next.js 16 App Router",
       "decision": "Keep Next.js 16",
       "candidates": ["Next.js", "TanStack Start", "React Router"],
-      "evidence": ["M0 Smashers control", "M2 standardized prototypes"],
+      "evidence": [
+        "M2 four-route apps/smashers control report",
+        "M2 Smashers-shaped Next.js, TanStack Start, and React Router workloads"
+      ],
+      "performanceWinner": "Next.js 16 for the measured asset-heavy mixed workload",
       "confidence": "high",
       "approvedMigration": false
     },
@@ -513,7 +526,11 @@
       "currentFramework": "Next.js 16 App Router",
       "decision": "Keep Next.js 16",
       "candidates": ["Next.js", "Astro", "React Router"],
-      "evidence": ["M0 template control", "M2 standardized prototypes"],
+      "evidence": [
+        "M2 apps/template route control report",
+        "M2 template-shaped Astro, Next.js, and React Router workloads"
+      ],
+      "performanceWinner": "Mixed: Astro for static payload, Next.js for render timing",
       "confidence": "moderate",
       "approvedMigration": false
     },
@@ -522,7 +539,11 @@
       "currentFramework": "Next.js 16 App Router",
       "decision": "Keep Next.js 16",
       "candidates": ["Next.js", "Astro", "React Router"],
-      "evidence": ["M0 web control", "M2 standardized prototypes"],
+      "evidence": [
+        "M2 four-route apps/web control report",
+        "M2 web-shaped Astro, Next.js, and React Router workloads"
+      ],
+      "performanceWinner": "Mixed: Astro for static routes, React Router for the measured interactive route",
       "confidence": "moderate",
       "approvedMigration": false
     }

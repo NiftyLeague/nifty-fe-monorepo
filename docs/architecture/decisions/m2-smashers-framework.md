@@ -6,7 +6,7 @@ Accepted: keep Next.js 16 App Router for `apps/smashers`; reject TanStack Start 
 
 ## Measured evidence
 
-The production home control recorded median 600 ms LCP, 247 ms TTFB, 16 ms INP, 376 KiB JavaScript, 4,047 KiB transfer and 7.7 MiB memory. React Router’s generic fixture transferred less route JavaScript than Next, while TanStack Start transferred more, but the app’s multi-megabyte asset transfer dwarfs that synthetic delta. The successful Smashers build evidence contains three clean and three incremental runs.
+Four actual routes were measured: `/`, `/profile`, `/loot`, and `/login`. Measurable median LCPs ranged from 52–364 ms, JavaScript from 289–391 KiB, and transfer from 496 KiB to 3.96 MiB. With the same 48-copy asset workload, Next's public route was 64 ms LCP/135 KiB JS, TanStack Start 80/315 KiB, and React Router 68/105 KiB. On the interaction workload Next was 40 ms LCP/16 ms INP, TanStack Start 48/16 ms, and React Router 132/16 ms. Next wins the measured render balance; asset transfer still dominates the real home route.
 
 ## Hosting and operations
 

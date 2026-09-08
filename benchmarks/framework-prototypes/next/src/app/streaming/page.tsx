@@ -1,9 +1,5 @@
 import { Suspense } from 'react'
-import {
-  readBenchmarkInteger,
-  readBenchmarkProfile,
-  type BenchmarkSearchParams,
-} from '../workload'
+import { readBenchmarkInteger, readBenchmarkProfile, type BenchmarkSearchParams } from '../workload'
 
 export const dynamic = 'force-dynamic'
 

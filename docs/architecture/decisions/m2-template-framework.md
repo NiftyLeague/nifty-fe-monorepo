@@ -6,7 +6,7 @@ Accepted: keep Next.js 16 App Router for `apps/template`; do not migrate to Astr
 
 ## Measured evidence
 
-The local template control recorded median 100 ms LCP, 3.2 ms TTFB, 16 ms INP, 149 KiB JavaScript, 283 KiB transfer and 5.4 MiB memory. Astro sent zero JavaScript on the static fixture but 189 KiB when the equivalent React interaction island was enabled. Next’s interactive fixture sent 136 KiB. React Router sent 104 KiB on the interaction route but would replace the established app template for a small synthetic delta.
+The actual template route recorded 112 ms median LCP, 28 ms INP, 148 KiB JavaScript, and 281 KiB transfer. In the template-shaped public workload Astro sent zero JavaScript at 210 ms LCP; Next was 40 ms/135 KiB and React Router 100 ms/105 KiB. For the interaction workload Next rendered fastest at 76 ms, React Router at 100 ms, and Astro at 130 ms; recorded INP was 16, 20, and 16 ms respectively. Astro wins static payload while Next wins the measured render timings, so there is no single winner across metrics.
 
 ## Hosting and operations
 

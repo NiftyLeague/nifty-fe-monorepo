@@ -6,7 +6,7 @@ Accepted: keep Next.js 16 App Router for `apps/app`; reject TanStack Start and R
 
 ## Measured evidence
 
-The M1 local `/degens` control recorded median 448 ms LCP, 11.9 ms TTFB, 16 ms INP, 413 KiB JavaScript, 567 KiB transfer and 8.4 MiB memory. In the same synthetic fixture, Next transferred 136 KiB JavaScript, React Router 105 KiB and TanStack Start 315 KiB. The alternatives’ faster builds are real, but neither demonstrates the production app’s wallet/auth/data behavior or a decisive route-runtime improvement.
+Five actual routes were measured: `/degens`, `/games`, `/leaderboards`, `/mint-o-matic`, and `/dashboard/overview`. Their median LCPs ranged from 104–400 ms, JavaScript from 317–412 KiB, and transfer from 454–578 KiB. In the app-shaped workload, Next's public route was 96 ms LCP/135 KiB JS and interaction route 44 ms LCP/16 ms INP. TanStack Start was 48/315 KiB and 52/24 ms; React Router was 52/105 KiB and 52/16 ms. React Router wins the public-render/JS balance and Next wins interaction render timing; no candidate dominates the mixed workload. The alternatives’ faster builds remain real.
 
 ## Hosting and operations
 
@@ -14,7 +14,7 @@ The app uses Vercel’s Next path, Next image policy, route handlers, shared pac
 
 ## Authentication and data
 
-Wallet, Immutable, protected-route gates, audit fixtures, server request prefetch and TanStack Query hydration cross Next server/client boundaries. TanStack Start aligns with typed routing and Query, but its tested route transferred more JavaScript and its official overview still labels Start a release candidate. React Router would replace the route and hydration contract without eliminating the external wallet/chain complexity.
+Wallet, Immutable, protected-route gates, audit fixtures, server request prefetch and TanStack Query hydration cross Next server/client boundaries. TanStack Start aligns with typed routing and Query, but its tested route transferred 2.3 times Next's JavaScript. React Router reduced route JavaScript by about 22% and improved the public prototype, but it does not eliminate the external wallet/chain complexity or prove route parity.
 
 ## SEO, accessibility, and observability
 

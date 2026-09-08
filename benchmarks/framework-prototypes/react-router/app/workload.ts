@@ -1,4 +1,5 @@
 export function readBenchmarkInteger(value: string | null, fallback: number, maximum = 200) {
+  if (value === null) return fallback
   const parsed = Number(value)
   return Number.isSafeInteger(parsed) && parsed >= 0 ? Math.min(parsed, maximum) : fallback
 }

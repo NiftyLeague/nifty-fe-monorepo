@@ -1,9 +1,5 @@
 import hero from '../../../../../assets/img/misc/trio.webp'
-import {
-  readBenchmarkInteger,
-  readBenchmarkProfile,
-  type BenchmarkSearchParams,
-} from './workload'
+import { readBenchmarkInteger, readBenchmarkProfile, type BenchmarkSearchParams } from './workload'
 
 export default async function Page({ searchParams }: { searchParams: BenchmarkSearchParams }) {
   const query = await searchParams

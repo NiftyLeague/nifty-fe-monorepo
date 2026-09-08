@@ -1,8 +1,4 @@
-import {
-  readBenchmarkInteger,
-  readBenchmarkProfile,
-  type BenchmarkSearchParams,
-} from '../workload'
+import { readBenchmarkInteger, readBenchmarkProfile, type BenchmarkSearchParams } from '../workload'
 import InteractionClient from './InteractionClient'
 
 export default async function Page({ searchParams }: { searchParams: BenchmarkSearchParams }) {

@@ -2,11 +2,11 @@
 
 ## Status and decision
 
-Accepted: keep Docusaurus 3 for `apps/docs`; do not migrate to Astro in M2. Confidence is high. Expected impact is stable content authoring and routing, with performance work remaining inside Docusaurus.
+Accepted: keep Docusaurus 3 for `apps/docs`; do not migrate to Astro in M2. Confidence is moderate because Astro is the measured static-performance winner and deserves a route-parity proof. Expected impact is stable content authoring and routing, with performance work remaining inside Docusaurus.
 
 ## Measured evidence
 
-The production overview control recorded median 596 ms LCP, 236 ms TTFB, 307 KiB JavaScript, 1,167 KiB transfer and 6.7 MiB memory. Astro’s equivalent static fixture used zero JavaScript and 93 KiB total transfer including the shared 78 KiB image; its React island route used 189 KiB JavaScript. This proves Astro’s static advantage but not migration parity for the real documentation corpus.
+The actual overview, traits, and battle-guide controls recorded 216–240 ms median LCP, 626–674 KiB JavaScript, and 888–1,739 KiB transfer. In the docs-shaped workload, Astro sent zero JavaScript on the public route at 76 ms LCP; Next and React Router both recorded 40 ms while sending 135 KiB and 105 KiB respectively. Astro's React interaction island sent 189 KiB and rendered at 140 ms, versus Next's 136 KiB/40 ms and React Router's 105 KiB/92 ms. Astro clearly wins static payload, but not every runtime metric, and this does not prove migration parity for the real documentation corpus.
 
 ## Hosting and operations
 

@@ -6,7 +6,7 @@ Accepted: keep Express 5 for `apps/api`. React Router resource routes were consi
 
 ## Measured evidence
 
-The production root control recorded median 264 ms LCP/199 ms TTFB, 1 KiB transfer, zero client JavaScript and 0.8 MiB browser memory across five runs. Three clean and three incremental API builds passed. The React Router fixture builds quickly, but that frontend result does not improve an API whose representative output is JSON and already ships no browser runtime.
+The actual API root returned in a median 0.45 ms locally with a 2.6 KiB response and zero client JavaScript across five runs. The app-shaped React Router resource route returned in 1.22 ms with a 36-byte response. This is not endpoint-parity proof, but it rejects the premise that a UI framework improves the measured service boundary.
 
 ## Hosting and operations
 

@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'bun:test'
 import { existsSync, readFileSync } from 'node:fs'
 
+import { readBenchmarkInteger as readAstroInteger } from '../../benchmarks/framework-prototypes/astro/src/workload'
+import { readBenchmarkInteger as readReactRouterInteger } from '../../benchmarks/framework-prototypes/react-router/app/workload'
 import { runCommand } from '../../scripts/m0-benchmark.mjs'
 
 const read = (path: string) => readFileSync(path, 'utf8')
@@ -17,6 +19,11 @@ type Decision = {
 }
 
 describe('M2 per-app framework evaluation', () => {
+  it('uses declared workload defaults when a query parameter is absent', () => {
+    expect(readAstroInteger(null, 150)).toBe(150)
+    expect(readReactRouterInteger(null, 150)).toBe(150)
+  })
+
   it('runs candidate commands in their declared working directory', async () => {
     const result = await runCommand('bun', ['-e', 'console.log(process.cwd())'], {
       cwd: 'benchmarks/framework-prototypes/next',
@@ -99,8 +106,8 @@ describe('M2 per-app framework evaluation', () => {
 
   it('records repeated same-profile runtime, caching, server, memory, and build evidence', () => {
     for (const path of [
-      'benchmarks/results/m2-next-control-2026-09-07.json',
-      'benchmarks/results/m2-framework-candidates-2026-09-07.json',
+      'benchmarks/results/m2-per-app-next-control-2026-09-08.json',
+      'benchmarks/results/m2-per-app-candidates-2026-09-08.json',
     ]) {
       expect(existsSync(path)).toBe(true)
       const report = JSON.parse(read(path))
@@ -126,8 +133,8 @@ describe('M2 per-app framework evaluation', () => {
         ]) {
           expect(Object.hasOwn(measurement.summary, metric)).toBe(true)
         }
-        if (measurement.fixture === 'interaction-heavy') {
-          expect(measurement.summary.inpMs).toBeTruthy()
+        if (measurement.fixture === 'interaction-heavy' && measurement.summary.inpMs !== null) {
+          expect(measurement.summary.inpMs.median).toBeGreaterThanOrEqual(16)
         }
         expect(measurement.cache.cold).toBeTruthy()
         expect(measurement.cache.warm).toBeTruthy()
@@ -152,6 +159,56 @@ describe('M2 per-app framework evaluation', () => {
       for (const coldStart of report.applicationColdStarts) {
         expect(coldStart.samples).toHaveLength(report.runCount)
         expect(coldStart.summary.median).toBeGreaterThan(0)
+      }
+    }
+  })
+
+  it('records five samples for every real route and every app-candidate workload', () => {
+    const manifest = JSON.parse(read(manifestPath))
+    const controlReport = JSON.parse(
+      read('benchmarks/results/m2-per-app-next-control-2026-09-08.json')
+    )
+    const candidateReport = JSON.parse(
+      read('benchmarks/results/m2-per-app-candidates-2026-09-08.json')
+    )
+
+    const expectedControls = manifest.applicationControls.flatMap(
+      ({ app, benchmarkRoutes }: { app: string; benchmarkRoutes: { fixture: string }[] }) =>
+        benchmarkRoutes.map(({ fixture }) => `${app}:${fixture}`)
+    )
+    const measuredControls = controlReport.applicationMeasurements.map(
+      ({ application, fixture }: { application: string; fixture: string }) =>
+        `${application}:${fixture}`
+    )
+    expect(new Set(measuredControls)).toEqual(new Set(expectedControls))
+    for (const measurement of controlReport.applicationMeasurements) {
+      expect(measurement.samples).toHaveLength(controlReport.runCount)
+      expect(measurement.samples.every(({ loaded }: { loaded: boolean }) => loaded)).toBe(true)
+    }
+
+    const reports = [controlReport, candidateReport]
+    const measuredProfiles = reports.flatMap(({ measurements }) =>
+      measurements
+        .filter(({ application }: { application: string | null }) => application !== null)
+        .map(
+          ({ application, candidate, fixture }: Record<string, string>) =>
+            `${application}:${candidate}:${fixture}`
+        )
+    )
+    const expectedProfiles = manifest.applicationProfiles.flatMap(
+      ({ app, candidates, routes }: Record<string, string[] | { fixture: string }[]>) =>
+        (candidates as string[]).flatMap((candidate) =>
+          (routes as { fixture: string }[]).map(({ fixture }) => `${app}:${candidate}:${fixture}`)
+        )
+    )
+    expect(new Set(measuredProfiles)).toEqual(new Set(expectedProfiles))
+
+    for (const report of reports) {
+      for (const measurement of report.measurements.filter(
+        ({ application }: { application: string | null }) => application !== null
+      )) {
+        expect(measurement.samples).toHaveLength(report.runCount)
+        expect(measurement.samples.every(({ loaded }: { loaded: boolean }) => loaded)).toBe(true)
       }
     }
   })

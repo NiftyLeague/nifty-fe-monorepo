@@ -6,7 +6,7 @@ Accepted: keep Next.js 16 App Router for `apps/web`; do not migrate to Astro or 
 
 ## Measured evidence
 
-The production home control recorded median 380 ms LCP, 218 ms TTFB, 32 ms INP, 361 KiB JavaScript, 584 KiB transfer and 8.8 MiB memory. Astro’s shared static fixture sent zero JavaScript and 93 KiB total, while its React interaction island sent 189 KiB JavaScript. Next sent 136 KiB on the equivalent interaction route. The evidence demonstrates an Astro opportunity for truly static pages, but not whole-app parity or a guaranteed production improvement.
+Four actual routes were measured: `/`, `/games`, `/roadmap`, and `/gltf/1`. Their median LCPs ranged from 64–328 ms, JavaScript from 161–300 KiB, and transfer from 291–563 KiB. In the web-shaped public workload Astro delivered 56 ms LCP with zero JavaScript, React Router 104 ms/105 KiB, and Next 116 ms/135 KiB. In the interaction workload React Router rendered at 64 ms/16 ms INP, Next at 80/16 ms, and Astro's React island at 144/32 ms with 189 KiB JS. Astro is the static winner and React Router the interaction winner. Neither establishes whole-app parity or dominates the mixed route set.
 
 ## Hosting and operations
 
