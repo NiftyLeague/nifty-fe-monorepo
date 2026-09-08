@@ -29,6 +29,21 @@ const emptyFilter = {
 }
 
 describe('degen filtering', () => {
+  it('filters DEGENs by the inclusive URL price range', () => {
+    const records = [
+      { ...degen, id: '1', price: 10 },
+      { ...degen, id: '2', price: 20 },
+      { ...degen, id: '3', price: 30 },
+    ]
+
+    expect(
+      transformDataByFilter(
+        records as never,
+        { ...emptyFilter, prices: [15, 25] } as never
+      ).map(({ id }) => id)
+    ).toEqual(['2'])
+  })
+
   it('applies identity, trait, search, and burn-address filters', () => {
     expect(transformDataByFilter([degen] as never, emptyFilter as never)).toHaveLength(1)
     expect(

@@ -11,6 +11,7 @@ export const transformDataByFilter = <T extends PublicDegen>(
   {
     backgrounds = [],
     cosmetics = [],
+    prices = [],
     searchTerm = [],
     sort,
     tokenId = [],
@@ -26,6 +27,11 @@ export const transformDataByFilter = <T extends PublicDegen>(
   const normalizedBackgrounds = new Set(backgrounds.map((background) => background.toLowerCase()))
   const normalizedCosmetics = new Set(cosmetics)
   const hasCosmeticsFilter = cosmetics.length > 0
+  const hasPriceFilter = prices.length >= 2
+  const minimumPrice = hasPriceFilter ? Math.min(prices[0] as number, prices[1] as number) : 0
+  const maximumPrice = hasPriceFilter
+    ? Math.max(prices[0] as number, prices[1] as number)
+    : Number.POSITIVE_INFINITY
 
   const result = degens.filter(
     ({
@@ -33,11 +39,14 @@ export const transformDataByFilter = <T extends PublicDegen>(
       id = '',
       name = '',
       owner = '',
+      price = 0,
       traits_string = '',
       tribe = '',
     }: PublicDegen) => {
       // Filter all burn addys
       if (BURN_ADDYS.includes(owner)) return false
+
+      if (price < minimumPrice || price > maximumPrice) return false
 
       if (
         normalizedWalletAddress &&
