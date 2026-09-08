@@ -4,6 +4,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { readBenchmarkInteger as readAstroInteger } from '../../benchmarks/framework-prototypes/astro/src/workload'
 import { readBenchmarkInteger as readReactRouterInteger } from '../../benchmarks/framework-prototypes/react-router/app/workload'
 import { runCommand } from '../../scripts/m0-benchmark.mjs'
+import { availablePort } from '../../scripts/m2-benchmark.mjs'
 
 const read = (path: string) => readFileSync(path, 'utf8')
 const manifestPath = 'benchmarks/m2-framework-evaluation.json'
@@ -19,6 +20,19 @@ type Decision = {
 }
 
 describe('M2 per-app framework evaluation', () => {
+  it('allocates isolated runtime ports instead of trusting fixed manifest ports', async () => {
+    const occupied = Bun.listen({
+      hostname: '127.0.0.1',
+      port: 0,
+      socket: { data() {} },
+    })
+    try {
+      expect(await availablePort()).not.toBe(occupied.port)
+    } finally {
+      occupied.stop(true)
+    }
+  })
+
   it('uses declared workload defaults when a query parameter is absent', () => {
     expect(readAstroInteger(null, 150)).toBe(150)
     expect(readReactRouterInteger(null, 150)).toBe(150)
@@ -64,6 +78,7 @@ describe('M2 per-app framework evaluation', () => {
       expect(existsSync(control.runtimeEvidence)).toBe(true)
       expect(existsSync(control.buildEvidence)).toBe(true)
       expect(control.commands.start).toBeArray()
+      expect(control.commands.start).not.toContain(String(control.port))
       expect(control.readyPath).toStartWith('/')
     }
 
@@ -73,6 +88,7 @@ describe('M2 per-app framework evaluation', () => {
       )
       expect(candidate.commands.build).toBeArray()
       expect(candidate.commands.start).toBeArray()
+      expect(candidate.commands.start).not.toContain(String(candidate.port))
       if (candidate.framework !== 'next') {
         expect(candidate.disposable).toBe(true)
         expect(candidate.path).toStartWith('benchmarks/framework-prototypes/')
@@ -105,10 +121,7 @@ describe('M2 per-app framework evaluation', () => {
   })
 
   it('records repeated same-profile runtime, caching, server, memory, and build evidence', () => {
-    for (const path of [
-      'benchmarks/results/m2-per-app-next-control-2026-09-08.json',
-      'benchmarks/results/m2-per-app-candidates-2026-09-08.json',
-    ]) {
+    for (const path of ['benchmarks/results/m2-per-app-frameworks-2026-09-08.json']) {
       expect(existsSync(path)).toBe(true)
       const report = JSON.parse(read(path))
       expect(report.schemaVersion).toBe(1)
@@ -165,51 +178,55 @@ describe('M2 per-app framework evaluation', () => {
 
   it('records five samples for every real route and every app-candidate workload', () => {
     const manifest = JSON.parse(read(manifestPath))
-    const controlReport = JSON.parse(
-      read('benchmarks/results/m2-per-app-next-control-2026-09-08.json')
-    )
-    const candidateReport = JSON.parse(
-      read('benchmarks/results/m2-per-app-candidates-2026-09-08.json')
-    )
+    const report = JSON.parse(read('benchmarks/results/m2-per-app-frameworks-2026-09-08.json'))
 
     const expectedControls = manifest.applicationControls.flatMap(
       ({ app, benchmarkRoutes }: { app: string; benchmarkRoutes: { fixture: string }[] }) =>
         benchmarkRoutes.map(({ fixture }) => `${app}:${fixture}`)
     )
-    const measuredControls = controlReport.applicationMeasurements.map(
+    const measuredControls = report.applicationMeasurements.map(
       ({ application, fixture }: { application: string; fixture: string }) =>
         `${application}:${fixture}`
     )
+    expect(measuredControls).toHaveLength(expectedControls.length)
+    expect(measuredControls).toHaveLength(18)
     expect(new Set(measuredControls)).toEqual(new Set(expectedControls))
-    for (const measurement of controlReport.applicationMeasurements) {
-      expect(measurement.samples).toHaveLength(controlReport.runCount)
+    for (const measurement of report.applicationMeasurements) {
+      expect(measurement.samples).toHaveLength(report.runCount)
       expect(measurement.samples.every(({ loaded }: { loaded: boolean }) => loaded)).toBe(true)
     }
 
-    const reports = [controlReport, candidateReport]
-    const measuredProfiles = reports.flatMap(({ measurements }) =>
-      measurements
-        .filter(({ application }: { application: string | null }) => application !== null)
-        .map(
-          ({ application, candidate, fixture }: Record<string, string>) =>
-            `${application}:${candidate}:${fixture}`
-        )
-    )
+    const measuredProfiles = report.measurements
+      .filter(({ application }: { application: string | null }) => application !== null)
+      .map(
+        ({ application, candidate, fixture }: Record<string, string>) =>
+          `${application}:${candidate}:${fixture}`
+      )
     const expectedProfiles = manifest.applicationProfiles.flatMap(
       ({ app, candidates, routes }: Record<string, string[] | { fixture: string }[]>) =>
         (candidates as string[]).flatMap((candidate) =>
           (routes as { fixture: string }[]).map(({ fixture }) => `${app}:${candidate}:${fixture}`)
         )
     )
+    expect(measuredProfiles).toHaveLength(expectedProfiles.length)
+    expect(measuredProfiles).toHaveLength(55)
     expect(new Set(measuredProfiles)).toEqual(new Set(expectedProfiles))
 
-    for (const report of reports) {
-      for (const measurement of report.measurements.filter(
-        ({ application }: { application: string | null }) => application !== null
-      )) {
-        expect(measurement.samples).toHaveLength(report.runCount)
-        expect(measurement.samples.every(({ loaded }: { loaded: boolean }) => loaded)).toBe(true)
-      }
+    const genericMeasurements = report.measurements.filter(
+      ({ application }: { application: string | null }) => application === null
+    )
+    expect(genericMeasurements).toHaveLength(20)
+    expect(
+      genericMeasurements.every(({ samples }: { samples: { loaded: boolean }[] }) =>
+        samples.every(({ loaded }) => loaded)
+      )
+    ).toBe(true)
+
+    for (const measurement of report.measurements.filter(
+      ({ application }: { application: string | null }) => application !== null
+    )) {
+      expect(measurement.samples).toHaveLength(report.runCount)
+      expect(measurement.samples.every(({ loaded }: { loaded: boolean }) => loaded)).toBe(true)
     }
   })
 

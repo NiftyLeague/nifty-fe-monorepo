@@ -2,6 +2,7 @@
 
 import { spawn } from 'node:child_process'
 import { readdir, readFile, rm, stat, writeFile } from 'node:fs/promises'
+import { createServer } from 'node:net'
 import { extname, resolve } from 'node:path'
 
 import {
@@ -15,6 +16,27 @@ const DEFAULT_CONFIG = 'benchmarks/m2-framework-evaluation.json'
 const DEFAULT_CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 const delay = (milliseconds) =>
   new Promise((resolveDelay) => setTimeout(resolveDelay, milliseconds))
+
+export async function availablePort() {
+  return new Promise((resolvePort, reject) => {
+    const server = createServer()
+    server.unref()
+    server.once('error', reject)
+    server.listen(0, '127.0.0.1', () => {
+      const address = server.address()
+      if (!address || typeof address === 'string') {
+        server.close()
+        reject(new Error('Could not allocate a benchmark port'))
+        return
+      }
+      server.close((error) => (error ? reject(error) : resolvePort(address.port)))
+    })
+  })
+}
+
+async function runtimeControl(control) {
+  return { ...control, port: await availablePort() }
+}
 
 function parseArgs(args) {
   const options = { config: DEFAULT_CONFIG, candidates: new Set(), output: undefined, build: false }
@@ -57,20 +79,35 @@ async function stopServer(child) {
       : Promise.resolve()
   signalServer(child, 'SIGTERM')
   await Promise.race([closed, delay(500)])
-  if (child.exitCode === null) signalServer(child, 'SIGKILL')
+  if (child.exitCode === null) {
+    signalServer(child, 'SIGKILL')
+    await Promise.race([closed, delay(500)])
+  }
 }
 
 function signalServer(child, signal) {
   try {
-    if (process.platform !== 'win32' && child.pid) process.kill(-child.pid, signal)
-    else child.kill(signal)
+    if (process.platform !== 'win32' && child.pid) {
+      process.kill(-child.pid, signal)
+      return
+    }
+    child.kill(signal)
   } catch (error) {
-    if (error?.code !== 'ESRCH') throw error
+    if (error?.code === 'ESRCH') return
+    if (error?.code !== 'EPERM') throw error
+    try {
+      child.kill(signal)
+    } catch (childError) {
+      if (childError?.code !== 'ESRCH') throw childError
+    }
   }
 }
 
 function startServer(control) {
-  const child = spawn(control.commands.start[0], control.commands.start.slice(1), {
+  const startArgs = control.commands.start
+    .slice(1)
+    .map((argument) => (argument === '{port}' ? String(control.port) : argument))
+  const child = spawn(control.commands.start[0], startArgs, {
     cwd: resolve(control.path),
     env: {
       ...process.env,
@@ -93,11 +130,12 @@ function startServer(control) {
 
 async function captureColdStarts(control, runCount) {
   const samples = []
-  const readyUrl = `http://127.0.0.1:${control.port}${control.readyPath ?? '/'}`
   for (let sample = 0; sample < runCount; sample += 1) {
     console.log(`[${control.id ?? control.app}:cold-start] sample ${sample + 1}/${runCount}`)
     const startedAt = performance.now()
-    const server = startServer(control)
+    const activeControl = await runtimeControl(control)
+    const readyUrl = `http://127.0.0.1:${activeControl.port}${control.readyPath ?? '/'}`
+    const server = startServer(activeControl)
     try {
       await waitForServer(readyUrl, server.child)
       samples.push(performance.now() - startedAt)
@@ -240,8 +278,9 @@ async function captureBuild(candidate, runCount) {
 }
 
 async function captureCandidate(candidate, config, chromeExecutable) {
-  const baseUrl = `http://127.0.0.1:${candidate.port}`
-  const server = startServer(candidate)
+  const activeCandidate = await runtimeControl(candidate)
+  const baseUrl = `http://127.0.0.1:${activeCandidate.port}`
+  const server = startServer(activeCandidate)
   try {
     await waitForServer(baseUrl, server.child)
     const measurements = []
@@ -320,8 +359,9 @@ async function captureCandidate(candidate, config, chromeExecutable) {
 }
 
 async function captureApplicationControl(control, config, chromeExecutable) {
-  const baseUrl = `http://127.0.0.1:${control.port}`
-  const server = startServer(control)
+  const activeControl = await runtimeControl(control)
+  const baseUrl = `http://127.0.0.1:${activeControl.port}`
+  const server = startServer(activeControl)
   try {
     await waitForServer(`${baseUrl}${control.readyPath}`, server.child)
     const measurements = []

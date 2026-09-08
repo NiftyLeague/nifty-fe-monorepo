@@ -6,7 +6,7 @@ Accepted: keep Express 5 for `apps/api`. React Router resource routes were consi
 
 ## Measured evidence
 
-The actual API root returned in a median 0.45 ms locally with a 2.6 KiB response and zero client JavaScript across five runs. The app-shaped React Router resource route returned in 1.22 ms with a 36-byte response. This is not endpoint-parity proof, but it rejects the premise that a UI framework improves the measured service boundary.
+The actual API root returned in a median 0.33 ms locally with a 2.6 KiB response and zero client JavaScript across five runs. The app-shaped React Router resource route returned in 0.75 ms with a 36-byte response. This is not endpoint-parity proof, but it rejects the premise that a UI framework improves the measured service boundary.
 
 ## Hosting and operations
 

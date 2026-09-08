@@ -31,7 +31,7 @@
       ],
       "commands": {
         "build": ["bun", "run", "build"],
-        "start": ["bun", "run", "start"],
+        "start": ["node", "node_modules/next/dist/bin/next", "start", "-p", "{port}"],
         "typeCheck": ["bun", "run", "type-check"]
       },
       "cleanPaths": [".next"],
@@ -81,7 +81,7 @@
       ],
       "commands": {
         "build": ["bun", "run", "build"],
-        "start": ["bun", "run", "start"],
+        "start": ["node", ".output/server/index.mjs"],
         "typeCheck": ["bun", "run", "type-check"]
       },
       "cleanPaths": [".output"],
@@ -131,7 +131,7 @@
       ],
       "commands": {
         "build": ["bun", "run", "build"],
-        "start": ["bun", "run", "start"],
+        "start": ["node", "dist/server/entry.mjs"],
         "typeCheck": ["bun", "run", "type-check"]
       },
       "cleanPaths": ["dist", ".astro"],
@@ -181,7 +181,7 @@
       ],
       "commands": {
         "build": ["bun", "run", "build"],
-        "start": ["bun", "run", "start"],
+        "start": ["node", "node_modules/@react-router/serve/bin.cjs", "./build/server/index.js"],
         "typeCheck": ["bun", "run", "type-check"]
       },
       "cleanPaths": ["build", ".react-router"],
@@ -246,7 +246,9 @@
       "path": "apps/app",
       "port": 4201,
       "readyPath": "/degens",
-      "commands": { "start": ["bun", "x", "next", "start", "-p", "4201"] },
+      "commands": {
+        "start": ["node", "node_modules/next/dist/bin/next", "start", "-p", "{port}"]
+      },
       "routes": {
         "public": "/degens",
         "authenticated": "/dashboard/overview",
@@ -278,7 +280,15 @@
       "port": 4202,
       "readyPath": "/overview/intro",
       "commands": {
-        "start": ["bun", "x", "docusaurus", "serve", "--host", "127.0.0.1", "--port", "4202"]
+        "start": [
+          "node",
+          "node_modules/@docusaurus/core/bin/docusaurus.mjs",
+          "serve",
+          "--host",
+          "127.0.0.1",
+          "--port",
+          "{port}"
+        ]
       },
       "routes": {
         "public": "/overview/intro",
@@ -312,7 +322,9 @@
       "path": "apps/smashers",
       "port": 4203,
       "readyPath": "/",
-      "commands": { "start": ["bun", "x", "next", "start", "-p", "4203"] },
+      "commands": {
+        "start": ["node", "node_modules/next/dist/bin/next", "start", "-p", "{port}"]
+      },
       "routes": {
         "public": "/",
         "authenticated": "/profile",
@@ -342,7 +354,9 @@
       "path": "apps/template",
       "port": 4205,
       "readyPath": "/",
-      "commands": { "start": ["bun", "x", "next", "start", "-p", "4205"] },
+      "commands": {
+        "start": ["node", "node_modules/next/dist/bin/next", "start", "-p", "{port}"]
+      },
       "routes": {
         "public": "/",
         "authenticated": "not applicable in current template",
@@ -373,7 +387,9 @@
       "path": "apps/web",
       "port": 4204,
       "readyPath": "/",
-      "commands": { "start": ["bun", "x", "next", "start", "-p", "4204"] },
+      "commands": {
+        "start": ["node", "node_modules/next/dist/bin/next", "start", "-p", "{port}"]
+      },
       "routes": {
         "public": "/",
         "authenticated": "not applicable: public marketing site",
@@ -491,7 +507,7 @@
         "M2 five-route apps/app control report",
         "M2 app-shaped Next.js, TanStack Start, and React Router workloads"
       ],
-      "performanceWinner": "Mixed: React Router for public render and route JS, Next.js for interaction render",
+      "performanceWinner": "Mixed: Next.js for public render, TanStack Start for interaction result, React Router for route JavaScript",
       "confidence": "high",
       "approvedMigration": false
     },
@@ -504,7 +520,7 @@
         "M2 three-route apps/docs control report",
         "M2 docs-shaped Astro, Next.js, and React Router workloads"
       ],
-      "performanceWinner": "Mixed: Astro for static payload, Next.js for interaction render",
+      "performanceWinner": "Mixed: Astro for static payload, Next.js for interactive JavaScript, React Router for interaction LCP",
       "confidence": "moderate",
       "approvedMigration": false
     },
@@ -517,7 +533,7 @@
         "M2 four-route apps/smashers control report",
         "M2 Smashers-shaped Next.js, TanStack Start, and React Router workloads"
       ],
-      "performanceWinner": "Next.js 16 for the measured asset-heavy mixed workload",
+      "performanceWinner": "Mixed: TanStack Start for public LCP, Next.js for interaction render, React Router for route JavaScript",
       "confidence": "high",
       "approvedMigration": false
     },
@@ -530,7 +546,7 @@
         "M2 apps/template route control report",
         "M2 template-shaped Astro, Next.js, and React Router workloads"
       ],
-      "performanceWinner": "Mixed: Astro for static payload, Next.js for render timing",
+      "performanceWinner": "Astro",
       "confidence": "moderate",
       "approvedMigration": false
     },
@@ -543,7 +559,7 @@
         "M2 four-route apps/web control report",
         "M2 web-shaped Astro, Next.js, and React Router workloads"
       ],
-      "performanceWinner": "Mixed: Astro for static routes, React Router for the measured interactive route",
+      "performanceWinner": "Astro",
       "confidence": "moderate",
       "approvedMigration": false
     }
