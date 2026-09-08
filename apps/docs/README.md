@@ -5,6 +5,7 @@
 ## Deployments
 
 - main: [niftyleague.com/docs](https://niftyleague.com/docs)
+- standalone: [docs.niftyleague.com](https://docs.niftyleague.com)
 - staging: [staging.niftyleague.com/docs](https://staging.niftyleague.com/docs)
 
 ## Info
