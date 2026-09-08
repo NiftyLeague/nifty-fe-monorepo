@@ -35,8 +35,12 @@ describe('hosted validation cost policy', () => {
     expect(source).toContain('base: main')
   })
 
-  it('keeps the optional opencode security scanner disabled', () => {
-    expect(existsSync(join(process.cwd(), '.github/workflows/opencode-security.yml'))).toBe(false)
+  it('keeps the optional opencode security scanner opt-in only', () => {
+    const source = readWorkflow('opencode-security.yml')
+
+    expect(source).toContain("needs.detect.outputs.enabled == 'true'")
+    expect(source).toContain("needs.detect.outputs.token == 'true'")
+    expect(source).toContain('release-please--branches--main')
     expect(readGitHubConfig('code-foundry.yml')).toContain('opencode_security: false')
   })
 
