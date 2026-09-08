@@ -25,8 +25,49 @@ interface DataListProps {
   rowsPerPage: number
   scrollOptions?: ScrollIntoViewOptions
   scrollToSelected?: boolean
+  serverPaginated?: boolean
   showPagination: boolean
 }
+
+const createListItemTitle = (tableColumns: CustomColDef[], row: Row, rows: Row[]) => {
+  const primaryColumns = tableColumns.filter(
+    (column) => column.field === 'id' || column.field === 'user_id'
+  )
+  const firstColumn = tableColumns[0]
+  if (!firstColumn) return null
+
+  return primaryColumns.length === 0 ? (
+    <CellRenderer column={firstColumn} row={row} data={rows} />
+  ) : (
+    primaryColumns.map((column, index) => (
+      <span key={column.field} className={index === 0 ? 'flex-[0.5]' : 'flex-[1]'}>
+        <CellRenderer column={column} row={row} data={rows} />
+      </span>
+    ))
+  )
+}
+
+const createListItemDescription = (
+  tableColumns: CustomColDef[],
+  row: Row,
+  rows: Row[],
+  excludePrimary = false
+) => (
+  <div>
+    {tableColumns
+      .filter((column) => !excludePrimary || column.field !== 'id')
+      .map((column, index) => (
+        <div key={`${column.headerName}-${index}`} className="flex w-full flex-row gap-4">
+          <div className="flex-1">
+            <LabelRenderer column={column} data={rows} />
+          </div>
+          <div className="flex-1">
+            <CellRenderer column={column} row={row} data={rows} />
+          </div>
+        </div>
+      ))}
+  </div>
+)
 
 /**
  * List with expandable items - mobile table analogue
@@ -46,13 +87,14 @@ const DataList: React.FC<DataListProps> = (props) => {
     rowsPerPage,
     scrollOptions,
     scrollToSelected = false,
+    serverPaginated = false,
     showPagination,
   } = props
 
   const [selection, setSelection] = useState<(string | number)[]>([])
 
-  const handleChangePage = (event: React.MouseEvent | null, page: number) =>
-    onChangePage(event, page)
+  const handleChangePage = (event: React.MouseEvent | null, nextPage: number) =>
+    onChangePage(event, nextPage)
 
   const handleSelection = (row: Row) => {
     const newSelection = [...selection]
@@ -81,46 +123,6 @@ const DataList: React.FC<DataListProps> = (props) => {
     return rowsClassArray && rowsClassArray[index] ? rowsClassArray[index] : ''
   }
 
-  const createListItemTitle = (columns: CustomColDef[], row: Row, data: Row[]) => {
-    const primaryColumns = columns.filter(
-      (column) => column.field === 'id' || column.field === 'user_id'
-    )
-    const firstColumn = columns[0]
-    if (!firstColumn) return null
-
-    return primaryColumns.length === 0 ? (
-      <CellRenderer column={firstColumn} row={row} data={data} />
-    ) : (
-      primaryColumns.map((column, index) => (
-        <span key={column.field} className={index === 0 ? 'flex-[0.5]' : 'flex-[1]'}>
-          <CellRenderer column={column} row={row} data={data} />
-        </span>
-      ))
-    )
-  }
-
-  const createListItemDescription = (
-    columns: CustomColDef[],
-    row: Row,
-    data: Row[],
-    excludePrimary = false
-  ) => (
-    <div>
-      {columns
-        .filter((column) => !excludePrimary || column.field !== 'id')
-        .map((column, index) => (
-          <div key={`${column.headerName}-${index}`} className="flex w-full flex-row gap-4">
-            <div className="flex-1">
-              <LabelRenderer column={column} data={data} />
-            </div>
-            <div className="flex-1">
-              <CellRenderer column={column} row={row} data={data} />
-            </div>
-          </div>
-        ))}
-    </div>
-  )
-
   if (
     !Array.isArray(data) ||
     data.length === 0 ||
@@ -148,7 +150,10 @@ const DataList: React.FC<DataListProps> = (props) => {
           <span className="text-sm">Select All</span>
         </div>
       )}
-      {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
+      {(serverPaginated
+        ? data
+        : data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+      ).map((row, index) => (
         <ExpandableListItem
           checkboxSelection={checkboxSelection}
           details={createListItemDescription(columns, row, data, excludePrimaryFromDetails)}

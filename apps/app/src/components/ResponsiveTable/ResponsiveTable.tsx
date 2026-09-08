@@ -15,6 +15,7 @@ type ResponsiveTableProps = {
   onSelectionChange?: (selected: { rowIds: (string | number)[] }) => void
   paginationModel: { pageSize: number; page: number }
   rowsClassArray?: string[]
+  serverPaginated?: boolean
   showPagination: boolean
 }
 
@@ -32,6 +33,7 @@ const ResponsiveTable: React.FC<ResponsiveTableProps> = ({
   onSelectionChange,
   paginationModel,
   rowsClassArray,
+  serverPaginated,
   showPagination,
 }) => {
   const handleChangePage = (event: React.MouseEvent | null, page: number) => {
@@ -70,6 +72,7 @@ const ResponsiveTable: React.FC<ResponsiveTableProps> = ({
           page={paginationModel.page}
           rowsClassArray={rowsClassArray}
           rowsPerPage={paginationModel.pageSize}
+          serverPaginated={serverPaginated}
           showPagination={showPagination}
         />
       </div>

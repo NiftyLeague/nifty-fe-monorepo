@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useQueryState } from 'nuqs'
 
 import { Button } from '@nl/ui/base/button'
 import { Title } from '@nl/ui/custom/typography'
@@ -12,6 +12,7 @@ import DeferredCharacterCreator from './DeferredCharacterCreator'
 import useAuth from '@/hooks/useAuth'
 import { DEGEN_COLLECTION_URL } from '@/constants/url'
 import { useDegenOwnershipContext } from '@/contexts/DegenOwnershipContext'
+import { mintSearchParsers } from '@/url/search-state'
 
 const centeredPageContentClassName =
   'flex min-h-[calc(100dvh-56px)] w-full flex-col items-center justify-center lg:min-h-[calc(100dvh-60px)]'
@@ -22,8 +23,7 @@ export default function MintPageContent() {
   const { isDegenOwner } = useDegenOwnershipContext()
   const { isConnected, isLoggedIn, handleConnectWallet } = useAuth()
 
-  const searchParams = useSearchParams()
-  const { nifty_artists: isForNiftyArtists } = Object.fromEntries(searchParams.entries())
+  const [isForNiftyArtists] = useQueryState('nifty_artists', mintSearchParsers.nifty_artists)
   const canLoadCreator = Boolean(isForNiftyArtists || (isLoggedIn && isDegenOwner))
 
   if (!isForNiftyArtists) {
