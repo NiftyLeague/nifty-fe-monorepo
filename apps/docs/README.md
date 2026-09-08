@@ -122,7 +122,7 @@ bun run write-translations
 
 We use Github integration through Crowdin so please skip running `bun run crowdin upload` to upload all the JSON and Markdown translation files.
 
-As translations occcur in Crowdin it will automatically create pull requests from `l10n_staging` into `staging` so there is no need to downloading anything as well.
+As translations occur in Crowdin, the GitHub integration automatically opens pull requests against `main`, so there is no need to download translated files manually.
 
 ## Environment Variables
 
