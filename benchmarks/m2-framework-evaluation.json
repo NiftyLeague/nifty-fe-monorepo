@@ -1,0 +1,421 @@
+{
+  "schemaVersion": 1,
+  "profileId": "m2-local-production-desktop-v1",
+  "runCount": 5,
+  "settleMs": 350,
+  "profile": {
+    "browser": "Google Chrome headless",
+    "viewport": { "width": 1365, "height": 768, "deviceScaleFactor": 1 },
+    "network": "unthrottled localhost; compare only candidates on this profile",
+    "cacheModes": ["cold", "warm"],
+    "cacheDefinition": "cache-cold is the first cache-busted request; warm immediately repeats the identical URL against the same production server; process-cold starts a fresh production process and waits for the first successful response",
+    "journeys": ["document-load", "client-navigation", "interaction"],
+    "confidence": "five repeated synthetic runs; directional lab evidence, not field RUM"
+  },
+  "candidates": [
+    {
+      "id": "next-control",
+      "framework": "next",
+      "version": "16.3.4",
+      "path": "benchmarks/framework-prototypes/next",
+      "port": 4100,
+      "readyPath": "/",
+      "disposable": true,
+      "fixtures": [
+        "public",
+        "authenticated",
+        "data-heavy",
+        "interaction-heavy",
+        "streaming",
+        "error-boundary"
+      ],
+      "commands": {
+        "build": ["bun", "run", "build"],
+        "start": ["bun", "run", "start"],
+        "typeCheck": ["bun", "run", "type-check"]
+      },
+      "cleanPaths": [".next"],
+      "outputPaths": [".next"],
+      "clientAssetPaths": [".next/static/chunks"],
+      "routes": [
+        {
+          "fixture": "public",
+          "path": "/",
+          "interaction": "body",
+          "navigation": {
+            "selector": "a[href='/catalog']",
+            "targetPath": "/catalog",
+            "readySelector": "main"
+          }
+        },
+        {
+          "fixture": "authenticated",
+          "path": "/authenticated",
+          "interaction": "body",
+          "cookies": [{ "name": "m2-session", "value": "fixture" }]
+        },
+        { "fixture": "data-heavy", "path": "/catalog", "interaction": "body" },
+        {
+          "fixture": "interaction-heavy",
+          "path": "/interaction",
+          "interaction": "[data-benchmark-interaction]"
+        },
+        { "fixture": "streaming", "path": "/streaming", "interaction": "body" }
+      ]
+    },
+    {
+      "id": "tanstack-start",
+      "framework": "tanstack-start",
+      "version": "1.168.50",
+      "path": "benchmarks/framework-prototypes/tanstack-start",
+      "port": 4101,
+      "readyPath": "/",
+      "disposable": true,
+      "fixtures": [
+        "public",
+        "authenticated",
+        "data-heavy",
+        "interaction-heavy",
+        "streaming",
+        "error-boundary"
+      ],
+      "commands": {
+        "build": ["bun", "run", "build"],
+        "start": ["bun", "run", "start"],
+        "typeCheck": ["bun", "run", "type-check"]
+      },
+      "cleanPaths": [".output"],
+      "outputPaths": [".output"],
+      "clientAssetPaths": [".output/public/assets"],
+      "routes": [
+        {
+          "fixture": "public",
+          "path": "/",
+          "interaction": "body",
+          "navigation": {
+            "selector": "a[href='/catalog']",
+            "targetPath": "/catalog",
+            "readySelector": "main"
+          }
+        },
+        {
+          "fixture": "authenticated",
+          "path": "/authenticated",
+          "interaction": "body",
+          "cookies": [{ "name": "m2-session", "value": "fixture" }]
+        },
+        { "fixture": "data-heavy", "path": "/catalog", "interaction": "body" },
+        {
+          "fixture": "interaction-heavy",
+          "path": "/interaction",
+          "interaction": "[data-benchmark-interaction]"
+        },
+        { "fixture": "streaming", "path": "/streaming", "interaction": "body" }
+      ]
+    },
+    {
+      "id": "astro",
+      "framework": "astro",
+      "version": "7.3.1",
+      "path": "benchmarks/framework-prototypes/astro",
+      "port": 4102,
+      "readyPath": "/",
+      "disposable": true,
+      "fixtures": [
+        "public",
+        "authenticated",
+        "data-heavy",
+        "interaction-heavy",
+        "streaming",
+        "error-boundary"
+      ],
+      "commands": {
+        "build": ["bun", "run", "build"],
+        "start": ["bun", "run", "start"],
+        "typeCheck": ["bun", "run", "type-check"]
+      },
+      "cleanPaths": ["dist", ".astro"],
+      "outputPaths": ["dist"],
+      "clientAssetPaths": ["dist/client/_astro"],
+      "routes": [
+        {
+          "fixture": "public",
+          "path": "/",
+          "interaction": "body",
+          "navigation": {
+            "selector": "a[href='/catalog']",
+            "targetPath": "/catalog",
+            "readySelector": "main"
+          }
+        },
+        {
+          "fixture": "authenticated",
+          "path": "/authenticated",
+          "interaction": "body",
+          "cookies": [{ "name": "m2-session", "value": "fixture" }]
+        },
+        { "fixture": "data-heavy", "path": "/catalog", "interaction": "body" },
+        {
+          "fixture": "interaction-heavy",
+          "path": "/interaction",
+          "interaction": "[data-benchmark-interaction]"
+        },
+        { "fixture": "streaming", "path": "/streaming", "interaction": "body" }
+      ]
+    },
+    {
+      "id": "react-router",
+      "framework": "react-router",
+      "version": "8.3.1",
+      "path": "benchmarks/framework-prototypes/react-router",
+      "port": 4103,
+      "readyPath": "/",
+      "disposable": true,
+      "fixtures": [
+        "public",
+        "authenticated",
+        "data-heavy",
+        "interaction-heavy",
+        "streaming",
+        "error-boundary"
+      ],
+      "commands": {
+        "build": ["bun", "run", "build"],
+        "start": ["bun", "run", "start"],
+        "typeCheck": ["bun", "run", "type-check"]
+      },
+      "cleanPaths": ["build", ".react-router"],
+      "outputPaths": ["build"],
+      "clientAssetPaths": ["build/client/assets"],
+      "routes": [
+        {
+          "fixture": "public",
+          "path": "/",
+          "interaction": "body",
+          "navigation": {
+            "selector": "a[href='/catalog']",
+            "targetPath": "/catalog",
+            "readySelector": "main"
+          }
+        },
+        {
+          "fixture": "authenticated",
+          "path": "/authenticated",
+          "interaction": "body",
+          "cookies": [{ "name": "m2-session", "value": "fixture" }]
+        },
+        { "fixture": "data-heavy", "path": "/catalog", "interaction": "body" },
+        {
+          "fixture": "interaction-heavy",
+          "path": "/interaction",
+          "interaction": "[data-benchmark-interaction]"
+        },
+        { "fixture": "streaming", "path": "/streaming", "interaction": "body" }
+      ]
+    }
+  ],
+  "applicationControls": [
+    {
+      "app": "api",
+      "framework": "Express 5 on Vercel Functions",
+      "path": "apps/api",
+      "port": 4200,
+      "readyPath": "/",
+      "commands": { "start": ["bun", "run", "start"] },
+      "routes": {
+        "public": "/",
+        "authenticated": "protected REST handlers where applicable",
+        "data-heavy": "/cache/* and contract endpoints",
+        "interaction-heavy": "not applicable: JSON service"
+      },
+      "rendering": {
+        "ssr": "not applicable",
+        "ssg": "not applicable",
+        "streaming": "Express response streaming available but not used by the representative root",
+        "clientNavigation": "not applicable",
+        "hydration": "not applicable",
+        "caching": "route and CDN headers"
+      },
+      "runtimeEvidence": "benchmarks/results/m0-production-2026-09-07.json",
+      "buildEvidence": "benchmarks/results/m0-build-2026-09-07.json"
+    },
+    {
+      "app": "app",
+      "framework": "Next.js 16 App Router",
+      "path": "apps/app",
+      "port": 4201,
+      "readyPath": "/degens",
+      "commands": { "start": ["bun", "x", "next", "start", "-p", "4201"] },
+      "routes": {
+        "public": "/degens",
+        "authenticated": "/dashboard/overview",
+        "data-heavy": "/degens",
+        "interaction-heavy": "/mint-o-matic"
+      },
+      "rendering": {
+        "ssr": "App Router server layouts and route handlers",
+        "ssg": "public static routes where eligible",
+        "streaming": "React suspense boundaries",
+        "clientNavigation": "Next Link and router",
+        "hydration": "React 19 client islands with TanStack Query hydration",
+        "caching": "Next fetch plus TanStack Query ownership"
+      },
+      "runtimeEvidence": "benchmarks/results/m1-app-after-2026-09-07.json",
+      "buildEvidence": "benchmarks/results/m1-app-build-after-2026-09-07.json"
+    },
+    {
+      "app": "docs",
+      "framework": "Docusaurus 3",
+      "path": "apps/docs",
+      "port": 4202,
+      "readyPath": "/overview/intro",
+      "commands": {
+        "start": ["bun", "x", "docusaurus", "serve", "--host", "127.0.0.1", "--port", "4202"]
+      },
+      "routes": {
+        "public": "/overview/intro",
+        "authenticated": "not applicable: public documentation",
+        "data-heavy": "generated documentation/search index",
+        "interaction-heavy": "sidebar and client navigation"
+      },
+      "rendering": {
+        "ssr": "build-time React rendering",
+        "ssg": "all documentation pages",
+        "streaming": "not applicable to static output",
+        "clientNavigation": "Docusaurus SPA runtime",
+        "hydration": "site-wide React hydration",
+        "caching": "immutable generated assets on CDN"
+      },
+      "runtimeEvidence": "benchmarks/results/m0-production-2026-09-07.json",
+      "buildEvidence": "benchmarks/results/m0-build-2026-09-07.json"
+    },
+    {
+      "app": "smashers",
+      "framework": "Next.js 16 App Router",
+      "path": "apps/smashers",
+      "port": 4203,
+      "readyPath": "/",
+      "commands": { "start": ["bun", "x", "next", "start", "-p", "4203"] },
+      "routes": {
+        "public": "/",
+        "authenticated": "/profile",
+        "data-heavy": "/loot",
+        "interaction-heavy": "/ and /profile"
+      },
+      "rendering": {
+        "ssr": "App Router and NextAuth route handlers",
+        "ssg": "public routes where eligible",
+        "streaming": "React suspense support",
+        "clientNavigation": "Next Link and router",
+        "hydration": "React client gameplay and auth islands",
+        "caching": "Next asset/image cache and API-specific policies"
+      },
+      "runtimeEvidence": "benchmarks/results/m0-production-2026-09-07.json",
+      "buildEvidence": "benchmarks/results/m0-smashers-build-2026-09-07.json"
+    },
+    {
+      "app": "template",
+      "framework": "Next.js 16 App Router",
+      "path": "apps/template",
+      "port": 4205,
+      "readyPath": "/",
+      "commands": { "start": ["bun", "x", "next", "start", "-p", "4205"] },
+      "routes": {
+        "public": "/",
+        "authenticated": "not applicable in current template",
+        "data-heavy": "not applicable in current template",
+        "interaction-heavy": "/ progress demo"
+      },
+      "rendering": {
+        "ssr": "App Router shell",
+        "ssg": "home route",
+        "streaming": "available but not required",
+        "clientNavigation": "available but single-route today",
+        "hydration": "small React client demo",
+        "caching": "Next static asset cache"
+      },
+      "runtimeEvidence": "benchmarks/results/m0-template-2026-09-07.json",
+      "buildEvidence": "benchmarks/results/m0-build-2026-09-07.json"
+    },
+    {
+      "app": "web",
+      "framework": "Next.js 16 App Router",
+      "path": "apps/web",
+      "port": 4204,
+      "readyPath": "/",
+      "commands": { "start": ["bun", "x", "next", "start", "-p", "4204"] },
+      "routes": {
+        "public": "/",
+        "authenticated": "not applicable: public marketing site",
+        "data-heavy": "/gltf/[tokenId]",
+        "interaction-heavy": "/roadmap and media surfaces"
+      },
+      "rendering": {
+        "ssr": "dynamic GLTF route and App Router server components",
+        "ssg": "marketing routes",
+        "streaming": "available for dynamic routes",
+        "clientNavigation": "Next Link and router",
+        "hydration": "media and interaction client islands",
+        "caching": "Next static/image cache plus Vercel headers"
+      },
+      "runtimeEvidence": "benchmarks/results/m0-production-2026-09-07.json",
+      "buildEvidence": "benchmarks/results/m0-build-2026-09-07.json"
+    }
+  ],
+  "decisions": [
+    {
+      "app": "api",
+      "currentFramework": "Express 5",
+      "decision": "Keep Express 5",
+      "candidates": ["Express 5", "React Router resource routes"],
+      "evidence": ["M0 API control", "M2 server and deployment analysis"],
+      "confidence": "high",
+      "approvedMigration": false
+    },
+    {
+      "app": "app",
+      "currentFramework": "Next.js 16 App Router",
+      "decision": "Keep Next.js 16",
+      "candidates": ["Next.js", "TanStack Start", "React Router"],
+      "evidence": ["M0 and M1 app controls", "M2 standardized prototypes"],
+      "confidence": "high",
+      "approvedMigration": false
+    },
+    {
+      "app": "docs",
+      "currentFramework": "Docusaurus 3",
+      "decision": "Keep Docusaurus 3",
+      "candidates": ["Docusaurus", "Astro"],
+      "evidence": ["M0 docs control", "M2 Astro prototype"],
+      "confidence": "high",
+      "approvedMigration": false
+    },
+    {
+      "app": "smashers",
+      "currentFramework": "Next.js 16 App Router",
+      "decision": "Keep Next.js 16",
+      "candidates": ["Next.js", "TanStack Start", "React Router"],
+      "evidence": ["M0 Smashers control", "M2 standardized prototypes"],
+      "confidence": "high",
+      "approvedMigration": false
+    },
+    {
+      "app": "template",
+      "currentFramework": "Next.js 16 App Router",
+      "decision": "Keep Next.js 16",
+      "candidates": ["Next.js", "Astro", "React Router"],
+      "evidence": ["M0 template control", "M2 standardized prototypes"],
+      "confidence": "moderate",
+      "approvedMigration": false
+    },
+    {
+      "app": "web",
+      "currentFramework": "Next.js 16 App Router",
+      "decision": "Keep Next.js 16",
+      "candidates": ["Next.js", "Astro", "React Router"],
+      "evidence": ["M0 web control", "M2 standardized prototypes"],
+      "confidence": "moderate",
+      "approvedMigration": false
+    }
+  ]
+}

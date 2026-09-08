@@ -251,7 +251,7 @@ const observerSource = `
   })();
 `
 
-async function measureRoute({ route, chromeExecutable, settleMs }) {
+export async function measureRoute({ route, chromeExecutable, settleMs }) {
   const profile = await mkdtemp(resolve(tmpdir(), 'nifty-m0-chrome-'))
   const port = await availablePort()
   const chrome = spawn(
@@ -298,6 +298,13 @@ async function measureRoute({ route, chromeExecutable, settleMs }) {
     await command('Page.enable')
     await command('Network.enable')
     await command('Runtime.enable')
+    for (const cookie of route.cookies ?? []) {
+      await command('Network.setCookie', {
+        name: cookie.name,
+        value: cookie.value,
+        url: route.url,
+      })
+    }
     await command('Emulation.setDeviceMetricsOverride', {
       width: route.viewport?.width ?? 1365,
       height: route.viewport?.height ?? 768,
@@ -348,6 +355,41 @@ async function measureRoute({ route, chromeExecutable, settleMs }) {
       awaitPromise: true,
       returnByValue: true,
     })
+    let clientNavigationMs = null
+    let navigationMode = null
+    if (route.navigation?.selector) {
+      await command('Runtime.evaluate', {
+        expression: 'globalThis.__m2NavigationContext = true',
+      })
+      const navigationStartedAt = performance.now()
+      await command('Runtime.evaluate', {
+        expression: `document.querySelector(${JSON.stringify(route.navigation.selector)})?.click()`,
+      })
+      const navigationTimeoutAt = performance.now() + (route.navigation.timeoutMs ?? 10_000)
+      while (performance.now() < navigationTimeoutAt) {
+        try {
+          const state = await command('Runtime.evaluate', {
+            expression: `({
+              path: location.pathname,
+              ready: Boolean(document.querySelector(${JSON.stringify(route.navigation.readySelector ?? 'main')})),
+              retainedContext: globalThis.__m2NavigationContext === true,
+            })`,
+            returnByValue: true,
+          })
+          if (state.result.value.path === route.navigation.targetPath && state.result.value.ready) {
+            clientNavigationMs = performance.now() - navigationStartedAt
+            navigationMode = state.result.value.retainedContext ? 'client' : 'document'
+            break
+          }
+        } catch {
+          // A full document navigation briefly destroys the execution context.
+        }
+        await delay(25)
+      }
+      if (clientNavigationMs === null) {
+        throw new Error(`Client navigation did not reach ${route.navigation.targetPath}`)
+      }
+    }
     removeNetworkListener()
 
     const network = [...resources.values()]
@@ -374,6 +416,8 @@ async function measureRoute({ route, chromeExecutable, settleMs }) {
       javascriptBytes: transfer(['Script']),
       cssBytes: transfer(['Stylesheet']),
       requestCount: network.length,
+      clientNavigationMs,
+      navigationMode,
       measurementNotes: {
         inp: 'Synthetic click on the configured selector; compare only against the same action.',
         memory: 'Chromium heap or measureUserAgentSpecificMemory when the browser permits it.',
@@ -397,9 +441,9 @@ function summarizeRoute(route, samples) {
   return { route, summary, samples }
 }
 
-export async function runCommand(command, args) {
+export async function runCommand(command, args, options = {}) {
   const startedAt = performance.now()
-  const child = spawn(command, args, { stdio: 'pipe' })
+  const child = spawn(command, args, { stdio: 'pipe', cwd: options.cwd })
   let stdout = ''
   let stderr = ''
   child.stdout.on('data', (chunk) => {

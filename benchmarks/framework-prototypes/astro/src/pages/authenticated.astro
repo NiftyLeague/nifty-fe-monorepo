@@ -1,0 +1,6 @@
+---
+import Layout from '../components/Layout.astro'
+const signedIn = Astro.cookies.get('m2-session')?.value === 'fixture'
+Astro.response.headers.set('cache-control', 'private, no-store')
+---
+<Layout title="Authenticated fixture"><main><h1>Authenticated fixture</h1><p>{signedIn ? 'Audit user' : 'Signed-out fallback'}</p></main></Layout>

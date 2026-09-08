@@ -1,0 +1,5 @@
+---
+import Layout from '../components/Layout.astro'
+import DeferredPanel from '../components/DeferredPanel.astro'
+---
+<Layout title="Streaming fixture"><main><h1>Streaming fixture</h1><DeferredPanel server:defer><p slot="fallback">Streaming fallback</p></DeferredPanel></main></Layout>

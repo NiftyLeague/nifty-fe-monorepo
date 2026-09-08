@@ -28,6 +28,7 @@
     ".vercel/",
     ".agents/**",
     "packages/playfab/src/sdk/typings/**",
+    "**/routeTree.gen.ts",
     "**/*.hbs"
   ]
 }
