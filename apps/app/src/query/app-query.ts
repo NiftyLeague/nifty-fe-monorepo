@@ -55,13 +55,8 @@ export const queryKeys = {
   },
   leaderboards: {
     all: ['leaderboards'] as const,
-    page: (
-      game: string,
-      score: string,
-      time: string,
-      count: number,
-      offset: number
-    ) => ['leaderboards', 'page', game, score, time, count, offset] as const,
+    page: (game: string, score: string, time: string, count: number, offset: number) =>
+      ['leaderboards', 'page', game, score, time, count, offset] as const,
     rank: (userId: string, game: string, score: string, time: string) =>
       ['leaderboards', 'rank', userId, game, score, time] as const,
   },
@@ -69,9 +64,9 @@ export const queryKeys = {
   product: (productId: string, currency: string, scope: string) =>
     ['product', productId, currency, scope] as const,
   rentals: (scope: string, category: string) => ['rentals', scope, category] as const,
+  rentalsAll: ['rentals'] as const,
   rentalPass: (scope: string) => ['rentals', 'pass-balance', scope] as const,
-  merkleClaim: (chainId: number, address: string) =>
-    ['merkle-claim', chainId, address] as const,
+  merkleClaim: (chainId: number, address: string) => ['merkle-claim', chainId, address] as const,
   launcherVersion: (environment: string, platform: string) =>
     ['launcher-version', environment, platform] as const,
 } as const
