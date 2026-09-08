@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.69](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.68...nifty-fe-monorepo-v1.2.69) (2026-09-07)
+
+
+### Bug Fixes
+
+* **ci:** pin generated callers to the adopted v1.4.1 runtime ([#1844](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1844)) ([e486f1d](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/e486f1d1714040903bb0d6b6f814036e3d8525e2))
+
 ## [1.2.68](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.67...nifty-fe-monorepo-v1.2.68) (2026-09-07)
 
 
