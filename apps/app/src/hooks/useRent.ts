@@ -2,6 +2,8 @@
 
 import { RENT_URL } from '@/constants/url'
 import type { MyRental } from '@/types/rental'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { queryKeys } from '@/query/app-query'
 import useAuth from './useAuth'
 
 const useRent = (
@@ -10,8 +12,9 @@ const useRent = (
   price: number | undefined,
   address: string,
   isUseRentalPass: boolean
-): (() => Promise<MyRental | undefined>) => {
+): { rent: () => Promise<MyRental | undefined>; isPending: boolean } => {
   const { authToken } = useAuth()
+  const queryClient = useQueryClient()
   const rent = async (): Promise<MyRental | undefined> => {
     if (!authToken || !degenId || !price) {
       return undefined
@@ -41,7 +44,19 @@ const useRent = (
     throw Error('Something wrong!')
   }
 
-  return rent
+  const mutation = useMutation({
+    mutationFn: rent,
+    onSuccess: async (rental) => {
+      if (!rental) return
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: queryKeys.rentalsAll }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.publicDegens.all }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.account.all }),
+      ])
+    },
+  })
+
+  return { rent: mutation.mutateAsync, isPending: mutation.isPending }
 }
 
 export default useRent

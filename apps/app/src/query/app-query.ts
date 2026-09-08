@@ -53,10 +53,22 @@ export const queryKeys = {
     game: (scope: string) => ['account', 'game', scope] as const,
     arcadeBalance: (scope: string) => ['account', 'arcade-balance', scope] as const,
   },
+  leaderboards: {
+    all: ['leaderboards'] as const,
+    page: (game: string, score: string, time: string, count: number, offset: number) =>
+      ['leaderboards', 'page', game, score, time, count, offset] as const,
+    rank: (userId: string, game: string, score: string, time: string) =>
+      ['leaderboards', 'rank', userId, game, score, time] as const,
+  },
   owner: (address: string) => ['owner', address] as const,
   product: (productId: string, currency: string, scope: string) =>
     ['product', productId, currency, scope] as const,
   rentals: (scope: string, category: string) => ['rentals', scope, category] as const,
+  rentalsAll: ['rentals'] as const,
+  rentalPass: (scope: string) => ['rentals', 'pass-balance', scope] as const,
+  merkleClaim: (chainId: number, address: string) => ['merkle-claim', chainId, address] as const,
+  launcherVersion: (environment: string, platform: string) =>
+    ['launcher-version', environment, platform] as const,
 } as const
 
 export const getAuthQueryScope = (authToken?: string): string => {
@@ -85,5 +97,19 @@ export async function fetchApiQuery<T>(
   const response = await fetcher(url, { ...init, signal })
   if (!response.ok)
     throw new ApiQueryError(response.statusText || 'Request failed', response.status)
-  return (textOnly ? await response.text() : await response.json()) as T
+  if (textOnly) return (await response.text()) as T
+
+  const payload = (await response.json()) as T
+  if (
+    payload &&
+    typeof payload === 'object' &&
+    'statusCode' in payload &&
+    typeof payload.statusCode === 'number' &&
+    payload.statusCode >= 400
+  ) {
+    const message =
+      'body' in payload && typeof payload.body === 'string' ? payload.body : 'Request failed'
+    throw new ApiQueryError(message, payload.statusCode)
+  }
+  return payload
 }

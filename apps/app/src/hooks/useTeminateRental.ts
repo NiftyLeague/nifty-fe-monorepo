@@ -1,10 +1,13 @@
 'use client'
 
 import { TERMINATE_RENTAL_API_URL } from '@/constants/url'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { queryKeys } from '@/query/app-query'
 import useAuth from './useAuth'
 
 const useTeminateRental = () => {
   const { authToken } = useAuth()
+  const queryClient = useQueryClient()
   const terminalRental = async (rentalId: string | undefined) => {
     if (!authToken || !rentalId) {
       return
@@ -20,7 +23,16 @@ const useTeminateRental = () => {
     return res
   }
 
-  return terminalRental
+  const mutation = useMutation({
+    mutationFn: terminalRental,
+    onSuccess: async (response) => {
+      if (response?.ok) {
+        await queryClient.invalidateQueries({ queryKey: queryKeys.rentalsAll })
+      }
+    },
+  })
+
+  return mutation.mutateAsync
 }
 
 export default useTeminateRental

@@ -10,7 +10,6 @@ import { Button } from '@nl/ui/base/button'
 import { Dialog } from '@nl/ui/base/dialog'
 
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
-import DEFAULT_STATIC_FILTER from '@/components/extended/DegensFilter/constants'
 import {
   transformDataByFilter,
   getDefaultFilterValueFromData,
@@ -23,8 +22,7 @@ import { DEGEN_COLLECTION_URL } from '@/constants/url'
 import useFavoriteDegens from '@/hooks/useFavoriteDegens'
 import useAuth from '@/hooks/useAuth'
 import { usePublicDegensByIds } from '@/hooks/queries/usePublicDegens'
-import { getPageItems } from '@/hooks/usePagination'
-import type { DegenFilter } from '@/types/degenFilter'
+import { getPageItems } from '@/utils/pagination'
 import type { DashboardDegen } from '@/types/degens'
 import EmptyState from '@/components/EmptyState'
 import DeferredDegensFilter from '@/components/providers/DeferredDegensFilter'
@@ -33,7 +31,7 @@ import DeferredRenameDegenDialog from '@/components/providers/DeferredRenameDege
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import DegensTopNav from '@/components/extended/DegensTopNav'
 import { isAuditFixtureEnabled } from '@/audit/fixture'
-import { degenSearchParsers, normalizeDegenSearchState } from '@/url/search-state'
+import { degenSearchParsers, normalizeDegenSearchState, toDegenFilter } from '@/url/search-state'
 
 const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'), {
   ssr: false,
@@ -55,9 +53,6 @@ const DashboardDegensPageContent = (): React.ReactNode => {
   // Start closed so mobile does not push the first card below the fold before the
   // responsive drawer effect runs. The layout opens it after mount on desktop.
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-  const [filters, setFilters] = useState<DegenFilter>(DEFAULT_STATIC_FILTER)
-  const [defaultValues, setDefaultValues] = useState<DegenFilter | undefined>(DEFAULT_STATIC_FILTER)
-  const [filteredData, setFilteredData] = useState<DashboardDegen[]>([])
   const [selectedDegen, setSelectedDegen] = useState<DashboardDegen>()
   const [isRenameDegenModalOpen, setIsRenameDegenModalOpen] = useState<boolean>(false)
   const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false)
@@ -69,7 +64,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
   })
   const searchStateKey = JSON.stringify(rawSearchState)
   const searchState = useMemo(() => normalizeDegenSearchState(rawSearchState), [searchStateKey])
-  const [layoutMode, setLayoutMode] = useState<string>('gridView')
+  const layoutMode = searchState.layout
   const { favDegens, toggleFavorite } = useFavoriteDegens()
 
   const { degensBalances, loadingDegens } = useNFTsBalances()
@@ -91,6 +86,18 @@ const DashboardDegensPageContent = (): React.ReactNode => {
       .filter((degen): degen is DashboardDegen => Boolean(degen))
       .map(applySeventhTribesFix)
   }, [degensBalances, data])
+  const defaultValues = useMemo(
+    () => getDefaultFilterValueFromData(populatedDegens),
+    [populatedDegens]
+  )
+  const filters = useMemo(
+    () => toDegenFilter(searchState, defaultValues),
+    [defaultValues, searchState]
+  )
+  const filteredData = useMemo(
+    () => transformDataByFilter(populatedDegens, filters),
+    [filters, populatedDegens]
+  )
 
   const isMobile = useMediaQuery('(max-width:640px)')
   const isSmallScreen = useMediaQuery('(max-width:1280px)')
@@ -115,32 +122,6 @@ const DashboardDegensPageContent = (): React.ReactNode => {
     }
   }, [currentPage, loading, searchState.page, setSearchState])
 
-  useEffect(() => {
-    if (!populatedDegens.length) {
-      return
-    }
-
-    setDefaultValues(getDefaultFilterValueFromData(populatedDegens))
-    const defaults = getDefaultFilterValueFromData(populatedDegens)
-    const nextFilters: DegenFilter = {
-      ...defaults,
-      prices: searchState.prices.length ? searchState.prices : defaults.prices,
-      multipliers: searchState.multipliers.length ? searchState.multipliers : defaults.multipliers,
-      rentals: searchState.rentals.length ? searchState.rentals : defaults.rentals,
-      tribes: searchState.tribes.length ? searchState.tribes : defaults.tribes,
-      backgrounds: searchState.backgrounds.length ? searchState.backgrounds : defaults.backgrounds,
-      cosmetics: searchState.cosmetics.length ? searchState.cosmetics : defaults.cosmetics,
-      wearables: searchState.wearables.length ? searchState.wearables : defaults.wearables,
-      sort: searchState.sort,
-      tokenId: searchState.tokenId ? [searchState.tokenId] : [],
-      searchTerm: searchState.searchTerm ? [searchState.searchTerm] : [],
-      walletAddress: searchState.walletAddress ? [searchState.walletAddress] : [],
-    }
-    setDefaultValues(defaults)
-    setFilters(nextFilters)
-    setFilteredData(transformDataByFilter(populatedDegens, nextFilters))
-  }, [populatedDegens, searchState])
-
   const handleChangeSearchTerm: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (
     e
   ) => {
@@ -148,18 +129,8 @@ const DashboardDegensPageContent = (): React.ReactNode => {
   }
 
   const handleChangeLayoutMode = (_: React.MouseEvent<HTMLElement>, newMode: string) => {
-    setLayoutMode(newMode)
+    void setSearchState({ layout: newMode === 'gridOn' ? 'gridOn' : 'gridView', page: 1 })
   }
-
-  const handleFilter = useCallback(
-    (filter: DegenFilter) => {
-      const newFilters = { ...filter, sort: filters.sort }
-      const result = transformDataByFilter(populatedDegens, newFilters)
-      setFilters(newFilters)
-      setFilteredData(result)
-    },
-    [populatedDegens.length, filters.sort]
-  )
 
   const handleSort = useCallback(
     (sort: string) => {
@@ -202,14 +173,8 @@ const DashboardDegensPageContent = (): React.ReactNode => {
   )
 
   const renderDrawer = useCallback(
-    () => (
-      <DeferredDegensFilter
-        onFilter={handleFilter}
-        defaultFilterValues={defaultValues as DegenFilter}
-        searchTerm={searchState.searchTerm}
-      />
-    ),
-    [defaultValues, handleFilter, searchState.searchTerm]
+    () => <DeferredDegensFilter defaultFilterValues={defaultValues} />,
+    [defaultValues]
   )
 
   const renderDegen = useCallback(
