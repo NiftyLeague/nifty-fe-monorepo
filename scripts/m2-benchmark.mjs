@@ -41,7 +41,7 @@ async function waitForServer(url, child) {
     if (child.exitCode !== null) throw new Error(`Server exited before ${url} became ready`)
     try {
       const response = await fetch(url)
-      if (response.status < 500) return
+      if (response.status < 400) return
     } catch {
       // The production server is still starting.
     }
@@ -55,9 +55,18 @@ async function stopServer(child) {
     child.exitCode === null
       ? new Promise((resolveExit) => child.once('close', resolveExit))
       : Promise.resolve()
-  child.kill('SIGTERM')
-  await Promise.race([closed, delay(5_000)])
-  if (child.exitCode === null) child.kill('SIGKILL')
+  signalServer(child, 'SIGTERM')
+  await Promise.race([closed, delay(500)])
+  if (child.exitCode === null) signalServer(child, 'SIGKILL')
+}
+
+function signalServer(child, signal) {
+  try {
+    if (process.platform !== 'win32' && child.pid) process.kill(-child.pid, signal)
+    else child.kill(signal)
+  } catch (error) {
+    if (error?.code !== 'ESRCH') throw error
+  }
 }
 
 function startServer(control) {
@@ -69,6 +78,7 @@ function startServer(control) {
       HOST: '127.0.0.1',
       ...control.environment,
     },
+    detached: process.platform !== 'win32',
     stdio: ['ignore', 'pipe', 'pipe'],
   })
   let logs = ''

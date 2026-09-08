@@ -1,0 +1,1979 @@
+{
+  "schemaVersion": 1,
+  "profileId": "m2-local-production-desktop-v1",
+  "generatedAt": "2026-09-08T03:09:17.394Z",
+  "gitRevision": "966092126e747b27e25ed76858e7408386039a3a",
+  "runCount": 5,
+  "profile": {
+    "browser": "Google Chrome headless",
+    "viewport": {
+      "width": 1365,
+      "height": 768,
+      "deviceScaleFactor": 1
+    },
+    "network": "unthrottled localhost; compare only candidates on this profile",
+    "cacheModes": ["cold", "warm"],
+    "cacheDefinition": "cache-cold is the first cache-busted request; warm immediately repeats the identical URL against the same production server; process-cold starts a fresh production process and waits for the first successful response",
+    "journeys": ["document-load", "client-navigation", "interaction"],
+    "confidence": "five repeated synthetic runs; directional lab evidence, not field RUM"
+  },
+  "candidates": [
+    {
+      "id": "next-control",
+      "framework": "next",
+      "version": "16.3.4"
+    }
+  ],
+  "measurements": [
+    {
+      "candidate": "next-control",
+      "framework": "next",
+      "version": "16.3.4",
+      "fixture": "public",
+      "path": "/",
+      "summary": {
+        "lcpMs": {
+          "count": 5,
+          "median": 44,
+          "p75": 48,
+          "minimum": 40,
+          "maximum": 52,
+          "standardDeviation": 4.560701700396551,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "inpMs": null,
+        "cls": {
+          "count": 5,
+          "median": 0,
+          "p75": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "ttfbMs": {
+          "count": 5,
+          "median": 3.8000000715255737,
+          "p75": 4,
+          "minimum": 2.200000047683716,
+          "maximum": 4.200000047683716,
+          "standardDeviation": 0.8786352998968565,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "totalTransferBytes": {
+          "count": 5,
+          "median": 232338,
+          "p75": 232338,
+          "minimum": 232338,
+          "maximum": 232338,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "javascriptBytes": {
+          "count": 5,
+          "median": 139160,
+          "p75": 139160,
+          "minimum": 139160,
+          "maximum": 139160,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "cssBytes": {
+          "count": 5,
+          "median": 795,
+          "p75": 795,
+          "minimum": 795,
+          "maximum": 795,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "requestCount": {
+          "count": 5,
+          "median": 21,
+          "p75": 21,
+          "minimum": 21,
+          "maximum": 21,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "memoryBytes": {
+          "count": 5,
+          "median": 3435398,
+          "p75": 3438378,
+          "minimum": 3417845,
+          "maximum": 3472519,
+          "standardDeviation": 20350.731222734972,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "serverResponseMs": {
+          "count": 5,
+          "median": 2.0089999999909196,
+          "p75": 2.2271250000048894,
+          "minimum": 1.3186660000064876,
+          "maximum": 2.3002080000005662,
+          "standardDeviation": 0.3932371608803515,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "responseCompleteMs": {
+          "count": 5,
+          "median": 2.0564159999776166,
+          "p75": 2.2958330000110436,
+          "minimum": 1.3707910000230186,
+          "maximum": 2.3055830000084825,
+          "standardDeviation": 0.38736069111025406,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "streamGapMs": {
+          "count": 5,
+          "median": 0.04741599998669699,
+          "p75": 0.052125000016530976,
+          "minimum": 0.005375000007916242,
+          "maximum": 0.06870800000615418,
+          "standardDeviation": 0.02381582889090158,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "clientNavigationMs": {
+          "count": 5,
+          "median": 9.548500000004424,
+          "p75": 9.860709000000497,
+          "minimum": 7.897333000000799,
+          "maximum": 14.343916000012541,
+          "standardDeviation": 2.4962366721113614,
+          "confidence": "moderate: repeated synthetic runs"
+        }
+      },
+      "cache": {
+        "cold": {
+          "durationMs": {
+            "count": 5,
+            "median": 2.0564159999776166,
+            "p75": 2.2958330000110436,
+            "minimum": 1.3707910000230186,
+            "maximum": 2.3055830000084825,
+            "standardDeviation": 0.38736069111025406,
+            "confidence": "moderate: repeated synthetic runs"
+          },
+          "responses": [
+            {
+              "responseHeadersMs": 2.2271250000048894,
+              "durationMs": 2.2958330000110436,
+              "streamGapMs": 0.06870800000615418,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 1.8146249999990687,
+              "durationMs": 1.84741699998267,
+              "streamGapMs": 0.03279199998360127,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 2.3002080000005662,
+              "durationMs": 2.3055830000084825,
+              "streamGapMs": 0.005375000007916242,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 2.0089999999909196,
+              "durationMs": 2.0564159999776166,
+              "streamGapMs": 0.04741599998669699,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 1.3186660000064876,
+              "durationMs": 1.3707910000230186,
+              "streamGapMs": 0.052125000016530976,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            }
+          ]
+        },
+        "warm": {
+          "durationMs": {
+            "count": 5,
+            "median": 1.3460420000192244,
+            "p75": 1.3942089999909513,
+            "minimum": 1.0218750000058208,
+            "maximum": 1.531749999994645,
+            "standardDeviation": 0.2237557346115429,
+            "confidence": "moderate: repeated synthetic runs"
+          },
+          "responses": [
+            {
+              "responseHeadersMs": 1.4618330000084825,
+              "durationMs": 1.531749999994645,
+              "streamGapMs": 0.06991699998616241,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 1.2921670000068843,
+              "durationMs": 1.3460420000192244,
+              "streamGapMs": 0.053875000012340024,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 1.3615419999987353,
+              "durationMs": 1.3942089999909513,
+              "streamGapMs": 0.032666999992216006,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 0.9688339999993332,
+              "durationMs": 1.0486669999954756,
+              "streamGapMs": 0.07983299999614246,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 1.0007500000065193,
+              "durationMs": 1.0218750000058208,
+              "streamGapMs": 0.021124999999301508,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            }
+          ]
+        }
+      },
+      "samples": [
+        {
+          "capturedAt": "2026-09-08T03:08:41.615Z",
+          "url": "http://127.0.0.1:4100/",
+          "loaded": true,
+          "lcpMs": 44,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 4.200000047683716,
+          "memoryBytes": 3472519,
+          "totalTransferBytes": 232338,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 21,
+          "clientNavigationMs": 8.795624999998836,
+          "navigationMode": "client",
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 2.2271250000048894,
+          "responseCompleteMs": 2.2958330000110436,
+          "streamGapMs": 0.06870800000615418
+        },
+        {
+          "capturedAt": "2026-09-08T03:08:43.088Z",
+          "url": "http://127.0.0.1:4100/",
+          "loaded": true,
+          "lcpMs": 44,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 4,
+          "memoryBytes": 3417845,
+          "totalTransferBytes": 232338,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 21,
+          "clientNavigationMs": 14.343916000012541,
+          "navigationMode": "client",
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 1.8146249999990687,
+          "responseCompleteMs": 1.84741699998267,
+          "streamGapMs": 0.03279199998360127
+        },
+        {
+          "capturedAt": "2026-09-08T03:08:44.461Z",
+          "url": "http://127.0.0.1:4100/",
+          "loaded": true,
+          "lcpMs": 40,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 3.8000000715255737,
+          "memoryBytes": 3438378,
+          "totalTransferBytes": 232338,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 21,
+          "clientNavigationMs": 7.897333000000799,
+          "navigationMode": "client",
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 2.3002080000005662,
+          "responseCompleteMs": 2.3055830000084825,
+          "streamGapMs": 0.005375000007916242
+        },
+        {
+          "capturedAt": "2026-09-08T03:08:45.824Z",
+          "url": "http://127.0.0.1:4100/",
+          "loaded": true,
+          "lcpMs": 52,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 2.700000047683716,
+          "memoryBytes": 3435398,
+          "totalTransferBytes": 232338,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 21,
+          "clientNavigationMs": 9.860709000000497,
+          "navigationMode": "client",
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 2.0089999999909196,
+          "responseCompleteMs": 2.0564159999776166,
+          "streamGapMs": 0.04741599998669699
+        },
+        {
+          "capturedAt": "2026-09-08T03:08:47.256Z",
+          "url": "http://127.0.0.1:4100/",
+          "loaded": true,
+          "lcpMs": 48,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 2.200000047683716,
+          "memoryBytes": 3430502,
+          "totalTransferBytes": 232338,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 21,
+          "clientNavigationMs": 9.548500000004424,
+          "navigationMode": "client",
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 1.3186660000064876,
+          "responseCompleteMs": 1.3707910000230186,
+          "streamGapMs": 0.052125000016530976
+        }
+      ]
+    },
+    {
+      "candidate": "next-control",
+      "framework": "next",
+      "version": "16.3.4",
+      "fixture": "authenticated",
+      "path": "/authenticated",
+      "summary": {
+        "lcpMs": {
+          "count": 5,
+          "median": 32,
+          "p75": 44,
+          "minimum": 32,
+          "maximum": 48,
+          "standardDeviation": 7.797435475847171,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "inpMs": null,
+        "cls": {
+          "count": 5,
+          "median": 0,
+          "p75": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "ttfbMs": {
+          "count": 5,
+          "median": 5.100000023841858,
+          "p75": 5.299999952316284,
+          "minimum": 4.700000047683716,
+          "maximum": 6.399999976158142,
+          "standardDeviation": 0.6418722463918333,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "totalTransferBytes": {
+          "count": 5,
+          "median": 232402,
+          "p75": 232948,
+          "minimum": 232402,
+          "maximum": 232948,
+          "standardDeviation": 299.0565163978207,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "javascriptBytes": {
+          "count": 5,
+          "median": 139160,
+          "p75": 139160,
+          "minimum": 139160,
+          "maximum": 139160,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "cssBytes": {
+          "count": 5,
+          "median": 795,
+          "p75": 795,
+          "minimum": 795,
+          "maximum": 795,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "requestCount": {
+          "count": 5,
+          "median": 20,
+          "p75": 20,
+          "minimum": 20,
+          "maximum": 20,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "memoryBytes": {
+          "count": 5,
+          "median": 3416570,
+          "p75": 3475598,
+          "minimum": 3394681,
+          "maximum": 3484530,
+          "standardDeviation": 40172.94721949088,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "serverResponseMs": {
+          "count": 5,
+          "median": 4.65358300000662,
+          "p75": 4.6600000000034925,
+          "minimum": 4.465833000023849,
+          "maximum": 20.76129199998104,
+          "standardDeviation": 7.226764461384936,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "responseCompleteMs": {
+          "count": 5,
+          "median": 4.993000000016764,
+          "p75": 5.16654100001324,
+          "minimum": 4.946332999999868,
+          "maximum": 21.32187499999418,
+          "standardDeviation": 7.2895385752882875,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "streamGapMs": {
+          "count": 5,
+          "median": 0.48049999997601844,
+          "p75": 0.5350000000034925,
+          "minimum": 0.33283299999311566,
+          "maximum": 0.5605830000131391,
+          "standardDeviation": 0.10930220213625774,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "clientNavigationMs": null
+      },
+      "cache": {
+        "cold": {
+          "durationMs": {
+            "count": 5,
+            "median": 4.993000000016764,
+            "p75": 5.16654100001324,
+            "minimum": 4.946332999999868,
+            "maximum": 21.32187499999418,
+            "standardDeviation": 7.2895385752882875,
+            "confidence": "moderate: repeated synthetic runs"
+          },
+          "responses": [
+            {
+              "responseHeadersMs": 20.76129199998104,
+              "durationMs": 21.32187499999418,
+              "streamGapMs": 0.5605830000131391,
+              "status": 200,
+              "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 4.65358300000662,
+              "durationMs": 4.9864159999997355,
+              "streamGapMs": 0.33283299999311566,
+              "status": 200,
+              "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 4.465833000023849,
+              "durationMs": 4.946332999999868,
+              "streamGapMs": 0.48049999997601844,
+              "status": 200,
+              "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 4.6600000000034925,
+              "durationMs": 4.993000000016764,
+              "streamGapMs": 0.33300000001327135,
+              "status": 200,
+              "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 4.631541000009747,
+              "durationMs": 5.16654100001324,
+              "streamGapMs": 0.5350000000034925,
+              "status": 200,
+              "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+              "age": null,
+              "cacheStatus": null
+            }
+          ]
+        },
+        "warm": {
+          "durationMs": {
+            "count": 5,
+            "median": 3.6544169999833684,
+            "p75": 3.7557919999817386,
+            "minimum": 3.34375,
+            "maximum": 3.7772920000134036,
+            "standardDeviation": 0.17549588672293823,
+            "confidence": "moderate: repeated synthetic runs"
+          },
+          "responses": [
+            {
+              "responseHeadersMs": 3.276084000011906,
+              "durationMs": 3.5698339999944437,
+              "streamGapMs": 0.2937499999825377,
+              "status": 200,
+              "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 2.989625000016531,
+              "durationMs": 3.34375,
+              "streamGapMs": 0.354124999983469,
+              "status": 200,
+              "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 3.3530420000024606,
+              "durationMs": 3.6544169999833684,
+              "streamGapMs": 0.3013749999809079,
+              "status": 200,
+              "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 3.575708999997005,
+              "durationMs": 3.7557919999817386,
+              "streamGapMs": 0.18008299998473376,
+              "status": 200,
+              "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 3.4020000000018626,
+              "durationMs": 3.7772920000134036,
+              "streamGapMs": 0.37529200001154095,
+              "status": 200,
+              "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+              "age": null,
+              "cacheStatus": null
+            }
+          ]
+        }
+      },
+      "samples": [
+        {
+          "capturedAt": "2026-09-08T03:08:48.655Z",
+          "url": "http://127.0.0.1:4100/authenticated",
+          "loaded": true,
+          "lcpMs": 48,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 5.100000023841858,
+          "memoryBytes": 3416570,
+          "totalTransferBytes": 232402,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 20,
+          "clientNavigationMs": null,
+          "navigationMode": null,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 20.76129199998104,
+          "responseCompleteMs": 21.32187499999418,
+          "streamGapMs": 0.5605830000131391
+        },
+        {
+          "capturedAt": "2026-09-08T03:08:50.551Z",
+          "url": "http://127.0.0.1:4100/authenticated",
+          "loaded": true,
+          "lcpMs": 32,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 5.299999952316284,
+          "memoryBytes": 3414673,
+          "totalTransferBytes": 232948,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 20,
+          "clientNavigationMs": null,
+          "navigationMode": null,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 4.65358300000662,
+          "responseCompleteMs": 4.9864159999997355,
+          "streamGapMs": 0.33283299999311566
+        },
+        {
+          "capturedAt": "2026-09-08T03:08:51.938Z",
+          "url": "http://127.0.0.1:4100/authenticated",
+          "loaded": true,
+          "lcpMs": 32,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 5.099999904632568,
+          "memoryBytes": 3475598,
+          "totalTransferBytes": 232402,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 20,
+          "clientNavigationMs": null,
+          "navigationMode": null,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 4.465833000023849,
+          "responseCompleteMs": 4.946332999999868,
+          "streamGapMs": 0.48049999997601844
+        },
+        {
+          "capturedAt": "2026-09-08T03:08:53.294Z",
+          "url": "http://127.0.0.1:4100/authenticated",
+          "loaded": true,
+          "lcpMs": 44,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 6.399999976158142,
+          "memoryBytes": 3394681,
+          "totalTransferBytes": 232948,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 20,
+          "clientNavigationMs": null,
+          "navigationMode": null,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 4.6600000000034925,
+          "responseCompleteMs": 4.993000000016764,
+          "streamGapMs": 0.33300000001327135
+        },
+        {
+          "capturedAt": "2026-09-08T03:08:54.664Z",
+          "url": "http://127.0.0.1:4100/authenticated",
+          "loaded": true,
+          "lcpMs": 32,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 4.700000047683716,
+          "memoryBytes": 3484530,
+          "totalTransferBytes": 232402,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 20,
+          "clientNavigationMs": null,
+          "navigationMode": null,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 4.631541000009747,
+          "responseCompleteMs": 5.16654100001324,
+          "streamGapMs": 0.5350000000034925
+        }
+      ]
+    },
+    {
+      "candidate": "next-control",
+      "framework": "next",
+      "version": "16.3.4",
+      "fixture": "data-heavy",
+      "path": "/catalog",
+      "summary": {
+        "lcpMs": {
+          "count": 5,
+          "median": 40,
+          "p75": 44,
+          "minimum": 32,
+          "maximum": 44,
+          "standardDeviation": 4.898979485566356,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "inpMs": null,
+        "cls": {
+          "count": 5,
+          "median": 0,
+          "p75": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "ttfbMs": {
+          "count": 5,
+          "median": 2.6999999284744263,
+          "p75": 3.200000047683716,
+          "minimum": 2.4000000953674316,
+          "maximum": 5.899999976158142,
+          "standardDeviation": 1.478850871730438,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "totalTransferBytes": {
+          "count": 5,
+          "median": 234912,
+          "p75": 235458,
+          "minimum": 234912,
+          "maximum": 236407,
+          "standardDeviation": 651.9211608776018,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "javascriptBytes": {
+          "count": 5,
+          "median": 139160,
+          "p75": 139160,
+          "minimum": 139160,
+          "maximum": 139160,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "cssBytes": {
+          "count": 5,
+          "median": 795,
+          "p75": 795,
+          "minimum": 795,
+          "maximum": 795,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "requestCount": {
+          "count": 5,
+          "median": 21,
+          "p75": 21,
+          "minimum": 21,
+          "maximum": 21,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "memoryBytes": {
+          "count": 5,
+          "median": 3681547,
+          "p75": 3698507,
+          "minimum": 3678084,
+          "maximum": 3699040,
+          "standardDeviation": 10435.44725922181,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "serverResponseMs": {
+          "count": 5,
+          "median": 2.301333000010345,
+          "p75": 2.3054169999959413,
+          "minimum": 2.0622909999801777,
+          "maximum": 2.515332999988459,
+          "standardDeviation": 0.16420962866905722,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "responseCompleteMs": {
+          "count": 5,
+          "median": 2.398332999990089,
+          "p75": 2.45579199999338,
+          "minimum": 2.2883750000037253,
+          "maximum": 2.6164159999752883,
+          "standardDeviation": 0.1215537807036635,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "streamGapMs": {
+          "count": 5,
+          "median": 0.15037499999743886,
+          "p75": 0.16154200001619756,
+          "minimum": 0.09699999997974373,
+          "maximum": 0.22608400002354756,
+          "standardDeviation": 0.05264331707399286,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "clientNavigationMs": null
+      },
+      "cache": {
+        "cold": {
+          "durationMs": {
+            "count": 5,
+            "median": 2.398332999990089,
+            "p75": 2.45579199999338,
+            "minimum": 2.2883750000037253,
+            "maximum": 2.6164159999752883,
+            "standardDeviation": 0.1215537807036635,
+            "confidence": "moderate: repeated synthetic runs"
+          },
+          "responses": [
+            {
+              "responseHeadersMs": 2.515332999988459,
+              "durationMs": 2.6164159999752883,
+              "streamGapMs": 0.10108299998682924,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 2.216915999975754,
+              "durationMs": 2.3784579999919515,
+              "streamGapMs": 0.16154200001619756,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 2.3054169999959413,
+              "durationMs": 2.45579199999338,
+              "streamGapMs": 0.15037499999743886,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 2.301333000010345,
+              "durationMs": 2.398332999990089,
+              "streamGapMs": 0.09699999997974373,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 2.0622909999801777,
+              "durationMs": 2.2883750000037253,
+              "streamGapMs": 0.22608400002354756,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            }
+          ]
+        },
+        "warm": {
+          "durationMs": {
+            "count": 5,
+            "median": 1.7585419999959413,
+            "p75": 1.8100830000184942,
+            "minimum": 1.6232080000045244,
+            "maximum": 1.9594170000054874,
+            "standardDeviation": 0.1223491366463314,
+            "confidence": "moderate: repeated synthetic runs"
+          },
+          "responses": [
+            {
+              "responseHeadersMs": 1.4885420000064187,
+              "durationMs": 1.6232080000045244,
+              "streamGapMs": 0.1346659999981057,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 1.607458000013139,
+              "durationMs": 1.7380410000041593,
+              "streamGapMs": 0.1305829999910202,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 1.7782920000026934,
+              "durationMs": 1.9594170000054874,
+              "streamGapMs": 0.18112500000279397,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 1.6351250000006985,
+              "durationMs": 1.8100830000184942,
+              "streamGapMs": 0.1749580000177957,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 1.6242499999934807,
+              "durationMs": 1.7585419999959413,
+              "streamGapMs": 0.13429200000246055,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            }
+          ]
+        }
+      },
+      "samples": [
+        {
+          "capturedAt": "2026-09-08T03:08:56.017Z",
+          "url": "http://127.0.0.1:4100/catalog",
+          "loaded": true,
+          "lcpMs": 40,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 2.6999999284744263,
+          "memoryBytes": 3699040,
+          "totalTransferBytes": 236407,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 21,
+          "clientNavigationMs": null,
+          "navigationMode": null,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 2.515332999988459,
+          "responseCompleteMs": 2.6164159999752883,
+          "streamGapMs": 0.10108299998682924
+        },
+        {
+          "capturedAt": "2026-09-08T03:08:57.395Z",
+          "url": "http://127.0.0.1:4100/catalog",
+          "loaded": true,
+          "lcpMs": 44,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 5.899999976158142,
+          "memoryBytes": 3698507,
+          "totalTransferBytes": 234912,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 21,
+          "clientNavigationMs": null,
+          "navigationMode": null,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 2.216915999975754,
+          "responseCompleteMs": 2.3784579999919515,
+          "streamGapMs": 0.16154200001619756
+        },
+        {
+          "capturedAt": "2026-09-08T03:08:58.748Z",
+          "url": "http://127.0.0.1:4100/catalog",
+          "loaded": true,
+          "lcpMs": 32,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 2.4000000953674316,
+          "memoryBytes": 3678084,
+          "totalTransferBytes": 234912,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 21,
+          "clientNavigationMs": null,
+          "navigationMode": null,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 2.3054169999959413,
+          "responseCompleteMs": 2.45579199999338,
+          "streamGapMs": 0.15037499999743886
+        },
+        {
+          "capturedAt": "2026-09-08T03:09:00.134Z",
+          "url": "http://127.0.0.1:4100/catalog",
+          "loaded": true,
+          "lcpMs": 40,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 2.4000000953674316,
+          "memoryBytes": 3681547,
+          "totalTransferBytes": 234912,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 21,
+          "clientNavigationMs": null,
+          "navigationMode": null,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 2.301333000010345,
+          "responseCompleteMs": 2.398332999990089,
+          "streamGapMs": 0.09699999997974373
+        },
+        {
+          "capturedAt": "2026-09-08T03:09:01.495Z",
+          "url": "http://127.0.0.1:4100/catalog",
+          "loaded": true,
+          "lcpMs": 44,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 3.200000047683716,
+          "memoryBytes": 3679937,
+          "totalTransferBytes": 235458,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 21,
+          "clientNavigationMs": null,
+          "navigationMode": null,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 2.0622909999801777,
+          "responseCompleteMs": 2.2883750000037253,
+          "streamGapMs": 0.22608400002354756
+        }
+      ]
+    },
+    {
+      "candidate": "next-control",
+      "framework": "next",
+      "version": "16.3.4",
+      "fixture": "interaction-heavy",
+      "path": "/interaction",
+      "summary": {
+        "lcpMs": {
+          "count": 5,
+          "median": 36,
+          "p75": 40,
+          "minimum": 32,
+          "maximum": 108,
+          "standardDeviation": 32.323366161339074,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "inpMs": {
+          "count": 5,
+          "median": 24,
+          "p75": 32,
+          "minimum": 16,
+          "maximum": 32,
+          "standardDeviation": 8,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "cls": {
+          "count": 5,
+          "median": 0,
+          "p75": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "ttfbMs": {
+          "count": 5,
+          "median": 2.299999952316284,
+          "p75": 2.600000023841858,
+          "minimum": 2.100000023841858,
+          "maximum": 2.700000047683716,
+          "standardDeviation": 0.27928481197316185,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "totalTransferBytes": {
+          "count": 5,
+          "median": 232402,
+          "p75": 232402,
+          "minimum": 232402,
+          "maximum": 232402,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "javascriptBytes": {
+          "count": 5,
+          "median": 139160,
+          "p75": 139160,
+          "minimum": 139160,
+          "maximum": 139160,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "cssBytes": {
+          "count": 5,
+          "median": 795,
+          "p75": 795,
+          "minimum": 795,
+          "maximum": 795,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "requestCount": {
+          "count": 5,
+          "median": 21,
+          "p75": 21,
+          "minimum": 21,
+          "maximum": 21,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "memoryBytes": {
+          "count": 5,
+          "median": 3448118,
+          "p75": 3451085,
+          "minimum": 3440838,
+          "maximum": 3465214,
+          "standardDeviation": 9338.967592833804,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "serverResponseMs": {
+          "count": 5,
+          "median": 1.811915999976918,
+          "p75": 1.868625000002794,
+          "minimum": 1.655957999988459,
+          "maximum": 2.030457999993814,
+          "standardDeviation": 0.13671727354351726,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "responseCompleteMs": {
+          "count": 5,
+          "median": 1.860832999984268,
+          "p75": 1.9125829999975394,
+          "minimum": 1.6940830000094138,
+          "maximum": 2.078750000015134,
+          "standardDeviation": 0.13869746912714467,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "streamGapMs": {
+          "count": 5,
+          "median": 0.048292000021319836,
+          "p75": 0.04891700000735,
+          "minimum": 0.03812500002095476,
+          "maximum": 0.06124999999883585,
+          "standardDeviation": 0.008518850990807602,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "clientNavigationMs": null
+      },
+      "cache": {
+        "cold": {
+          "durationMs": {
+            "count": 5,
+            "median": 1.860832999984268,
+            "p75": 1.9125829999975394,
+            "minimum": 1.6940830000094138,
+            "maximum": 2.078750000015134,
+            "standardDeviation": 0.13869746912714467,
+            "confidence": "moderate: repeated synthetic runs"
+          },
+          "responses": [
+            {
+              "responseHeadersMs": 2.030457999993814,
+              "durationMs": 2.078750000015134,
+              "streamGapMs": 0.048292000021319836,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 1.655957999988459,
+              "durationMs": 1.6940830000094138,
+              "streamGapMs": 0.03812500002095476,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 1.811915999976918,
+              "durationMs": 1.860832999984268,
+              "streamGapMs": 0.04891700000735,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 1.7802500000107102,
+              "durationMs": 1.841500000009546,
+              "streamGapMs": 0.06124999999883585,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 1.868625000002794,
+              "durationMs": 1.9125829999975394,
+              "streamGapMs": 0.04395799999474548,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            }
+          ]
+        },
+        "warm": {
+          "durationMs": {
+            "count": 5,
+            "median": 1.2919999999867287,
+            "p75": 1.2920830000075512,
+            "minimum": 1.1703330000163987,
+            "maximum": 1.3971249999885913,
+            "standardDeviation": 0.08527249502982845,
+            "confidence": "moderate: repeated synthetic runs"
+          },
+          "responses": [
+            {
+              "responseHeadersMs": 1.2542499999981374,
+              "durationMs": 1.2919999999867287,
+              "streamGapMs": 0.0377499999885913,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 1.2189169999910519,
+              "durationMs": 1.223666999983834,
+              "streamGapMs": 0.00474999999278225,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 1.2365829999907874,
+              "durationMs": 1.2920830000075512,
+              "streamGapMs": 0.055500000016763806,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 1.1404160000092816,
+              "durationMs": 1.1703330000163987,
+              "streamGapMs": 0.029917000007117167,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 1.3646669999870937,
+              "durationMs": 1.3971249999885913,
+              "streamGapMs": 0.03245800000149757,
+              "status": 200,
+              "cacheControl": "s-maxage=31536000",
+              "age": null,
+              "cacheStatus": null
+            }
+          ]
+        }
+      },
+      "samples": [
+        {
+          "capturedAt": "2026-09-08T03:09:02.864Z",
+          "url": "http://127.0.0.1:4100/interaction",
+          "loaded": true,
+          "lcpMs": 36,
+          "cls": 0,
+          "inpMs": 16,
+          "unsupported": [],
+          "ttfbMs": 2.299999952316284,
+          "memoryBytes": 3448118,
+          "totalTransferBytes": 232402,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 21,
+          "clientNavigationMs": null,
+          "navigationMode": null,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 2.030457999993814,
+          "responseCompleteMs": 2.078750000015134,
+          "streamGapMs": 0.048292000021319836
+        },
+        {
+          "capturedAt": "2026-09-08T03:09:04.215Z",
+          "url": "http://127.0.0.1:4100/interaction",
+          "loaded": true,
+          "lcpMs": 32,
+          "cls": 0,
+          "inpMs": 32,
+          "unsupported": [],
+          "ttfbMs": 2.100000023841858,
+          "memoryBytes": 3444639,
+          "totalTransferBytes": 232402,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 21,
+          "clientNavigationMs": null,
+          "navigationMode": null,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 1.655957999988459,
+          "responseCompleteMs": 1.6940830000094138,
+          "streamGapMs": 0.03812500002095476
+        },
+        {
+          "capturedAt": "2026-09-08T03:09:05.580Z",
+          "url": "http://127.0.0.1:4100/interaction",
+          "loaded": true,
+          "lcpMs": 36,
+          "cls": 0,
+          "inpMs": 16,
+          "unsupported": [],
+          "ttfbMs": 2.100000023841858,
+          "memoryBytes": 3451085,
+          "totalTransferBytes": 232402,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 21,
+          "clientNavigationMs": null,
+          "navigationMode": null,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 1.811915999976918,
+          "responseCompleteMs": 1.860832999984268,
+          "streamGapMs": 0.04891700000735
+        },
+        {
+          "capturedAt": "2026-09-08T03:09:07.014Z",
+          "url": "http://127.0.0.1:4100/interaction",
+          "loaded": true,
+          "lcpMs": 108,
+          "cls": 0,
+          "inpMs": 32,
+          "unsupported": [],
+          "ttfbMs": 2.700000047683716,
+          "memoryBytes": 3465214,
+          "totalTransferBytes": 232402,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 21,
+          "clientNavigationMs": null,
+          "navigationMode": null,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 1.7802500000107102,
+          "responseCompleteMs": 1.841500000009546,
+          "streamGapMs": 0.06124999999883585
+        },
+        {
+          "capturedAt": "2026-09-08T03:09:08.422Z",
+          "url": "http://127.0.0.1:4100/interaction",
+          "loaded": true,
+          "lcpMs": 40,
+          "cls": 0,
+          "inpMs": 24,
+          "unsupported": [],
+          "ttfbMs": 2.600000023841858,
+          "memoryBytes": 3440838,
+          "totalTransferBytes": 232402,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 21,
+          "clientNavigationMs": null,
+          "navigationMode": null,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 1.868625000002794,
+          "responseCompleteMs": 1.9125829999975394,
+          "streamGapMs": 0.04395799999474548
+        }
+      ]
+    },
+    {
+      "candidate": "next-control",
+      "framework": "next",
+      "version": "16.3.4",
+      "fixture": "streaming",
+      "path": "/streaming",
+      "summary": {
+        "lcpMs": {
+          "count": 5,
+          "median": 40,
+          "p75": 44,
+          "minimum": 32,
+          "maximum": 44,
+          "standardDeviation": 5.215361924162119,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "inpMs": null,
+        "cls": {
+          "count": 5,
+          "median": 0,
+          "p75": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "ttfbMs": {
+          "count": 5,
+          "median": 4.600000023841858,
+          "p75": 5.200000047683716,
+          "minimum": 4,
+          "maximum": 6.700000047683716,
+          "standardDeviation": 1.0853570962888033,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "totalTransferBytes": {
+          "count": 5,
+          "median": 234106,
+          "p75": 234107,
+          "minimum": 233158,
+          "maximum": 234109,
+          "standardDeviation": 519.9724031138576,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "javascriptBytes": {
+          "count": 5,
+          "median": 139160,
+          "p75": 139160,
+          "minimum": 139160,
+          "maximum": 139160,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "cssBytes": {
+          "count": 5,
+          "median": 795,
+          "p75": 795,
+          "minimum": 795,
+          "maximum": 795,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "requestCount": {
+          "count": 5,
+          "median": 20,
+          "p75": 20,
+          "minimum": 20,
+          "maximum": 20,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "memoryBytes": {
+          "count": 5,
+          "median": 3533343,
+          "p75": 3535488,
+          "minimum": 3446442,
+          "maximum": 3545128,
+          "standardDeviation": 43637.64530540116,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "serverResponseMs": {
+          "count": 5,
+          "median": 3.833249999996042,
+          "p75": 4.686999999976251,
+          "minimum": 3.650666999979876,
+          "maximum": 4.759749999997439,
+          "standardDeviation": 0.5429868409687947,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "responseCompleteMs": {
+          "count": 5,
+          "median": 153.51987499999814,
+          "p75": 153.8286669999943,
+          "minimum": 153.01533300001756,
+          "maximum": 154.9563340000168,
+          "standardDeviation": 0.7327109796660201,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "streamGapMs": {
+          "count": 5,
+          "median": 149.78325000000768,
+          "p75": 149.79375000001164,
+          "minimum": 149.14166700001806,
+          "maximum": 150.19658400001936,
+          "standardDeviation": 0.44996140676607826,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "clientNavigationMs": null
+      },
+      "cache": {
+        "cold": {
+          "durationMs": {
+            "count": 5,
+            "median": 153.51987499999814,
+            "p75": 153.8286669999943,
+            "minimum": 153.01533300001756,
+            "maximum": 154.9563340000168,
+            "standardDeviation": 0.7327109796660201,
+            "confidence": "moderate: repeated synthetic runs"
+          },
+          "responses": [
+            {
+              "responseHeadersMs": 4.759749999997439,
+              "durationMs": 154.9563340000168,
+              "streamGapMs": 150.19658400001936,
+              "status": 200,
+              "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 3.650666999979876,
+              "durationMs": 153.44441699999152,
+              "streamGapMs": 149.79375000001164,
+              "status": 200,
+              "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 4.686999999976251,
+              "durationMs": 153.8286669999943,
+              "streamGapMs": 149.14166700001806,
+              "status": 200,
+              "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 3.833249999996042,
+              "durationMs": 153.01533300001756,
+              "streamGapMs": 149.18208300002152,
+              "status": 200,
+              "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 3.736624999990454,
+              "durationMs": 153.51987499999814,
+              "streamGapMs": 149.78325000000768,
+              "status": 200,
+              "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+              "age": null,
+              "cacheStatus": null
+            }
+          ]
+        },
+        "warm": {
+          "durationMs": {
+            "count": 5,
+            "median": 153.06045900000026,
+            "p75": 153.51504200001364,
+            "minimum": 152.2917089999828,
+            "maximum": 153.8679580000171,
+            "standardDeviation": 0.6457139325397038,
+            "confidence": "moderate: repeated synthetic runs"
+          },
+          "responses": [
+            {
+              "responseHeadersMs": 2.5531670000054874,
+              "durationMs": 153.51504200001364,
+              "streamGapMs": 150.96187500000815,
+              "status": 200,
+              "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 2.374500000005355,
+              "durationMs": 152.5932909999974,
+              "streamGapMs": 150.21879099999205,
+              "status": 200,
+              "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 3.355583000025945,
+              "durationMs": 153.8679580000171,
+              "streamGapMs": 150.51237499999115,
+              "status": 200,
+              "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 2.77324999999837,
+              "durationMs": 153.06045900000026,
+              "streamGapMs": 150.2872090000019,
+              "status": 200,
+              "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+              "age": null,
+              "cacheStatus": null
+            },
+            {
+              "responseHeadersMs": 2.27324999999837,
+              "durationMs": 152.2917089999828,
+              "streamGapMs": 150.01845899998443,
+              "status": 200,
+              "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+              "age": null,
+              "cacheStatus": null
+            }
+          ]
+        }
+      },
+      "samples": [
+        {
+          "capturedAt": "2026-09-08T03:09:10.206Z",
+          "url": "http://127.0.0.1:4100/streaming",
+          "loaded": true,
+          "lcpMs": 44,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 6.700000047683716,
+          "memoryBytes": 3533343,
+          "totalTransferBytes": 234107,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 20,
+          "clientNavigationMs": null,
+          "navigationMode": null,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 4.759749999997439,
+          "responseCompleteMs": 154.9563340000168,
+          "streamGapMs": 150.19658400001936
+        },
+        {
+          "capturedAt": "2026-09-08T03:09:12.011Z",
+          "url": "http://127.0.0.1:4100/streaming",
+          "loaded": true,
+          "lcpMs": 40,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 4,
+          "memoryBytes": 3475526,
+          "totalTransferBytes": 234106,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 20,
+          "clientNavigationMs": null,
+          "navigationMode": null,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 3.650666999979876,
+          "responseCompleteMs": 153.44441699999152,
+          "streamGapMs": 149.79375000001164
+        },
+        {
+          "capturedAt": "2026-09-08T03:09:13.807Z",
+          "url": "http://127.0.0.1:4100/streaming",
+          "loaded": true,
+          "lcpMs": 44,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 4.200000047683716,
+          "memoryBytes": 3535488,
+          "totalTransferBytes": 233158,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 20,
+          "clientNavigationMs": null,
+          "navigationMode": null,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 4.686999999976251,
+          "responseCompleteMs": 153.8286669999943,
+          "streamGapMs": 149.14166700001806
+        },
+        {
+          "capturedAt": "2026-09-08T03:09:15.576Z",
+          "url": "http://127.0.0.1:4100/streaming",
+          "loaded": true,
+          "lcpMs": 36,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 5.200000047683716,
+          "memoryBytes": 3545128,
+          "totalTransferBytes": 233158,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 20,
+          "clientNavigationMs": null,
+          "navigationMode": null,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 3.833249999996042,
+          "responseCompleteMs": 153.01533300001756,
+          "streamGapMs": 149.18208300002152
+        },
+        {
+          "capturedAt": "2026-09-08T03:09:17.354Z",
+          "url": "http://127.0.0.1:4100/streaming",
+          "loaded": true,
+          "lcpMs": 32,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 4.600000023841858,
+          "memoryBytes": 3446442,
+          "totalTransferBytes": 234109,
+          "javascriptBytes": 139160,
+          "cssBytes": 795,
+          "requestCount": 20,
+          "clientNavigationMs": null,
+          "navigationMode": null,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          },
+          "serverResponseMs": 3.736624999990454,
+          "responseCompleteMs": 153.51987499999814,
+          "streamGapMs": 149.78325000000768
+        }
+      ]
+    }
+  ],
+  "builds": [
+    {
+      "candidate": "next-control",
+      "clean": {
+        "samples": [
+          12793.972875000001, 12444.308084000004, 16602.794499999996, 12806.637124999994,
+          12809.686333000005
+        ],
+        "summary": {
+          "count": 5,
+          "median": 12806.637124999994,
+          "p75": 12809.686333000005,
+          "minimum": 12444.308084000004,
+          "maximum": 16602.794499999996,
+          "standardDeviation": 1746.2256080468549,
+          "confidence": "moderate: repeated synthetic runs"
+        }
+      },
+      "incremental": {
+        "samples": [
+          11163.580667000002, 11066.319457999998, 12754.65875000001, 11050.488375,
+          11052.316624999992
+        ],
+        "summary": {
+          "count": 5,
+          "median": 11066.319457999998,
+          "p75": 11163.580667000002,
+          "minimum": 11050.488375,
+          "maximum": 12754.65875000001,
+          "standardDeviation": 748.9747575866126,
+          "confidence": "moderate: repeated synthetic runs"
+        }
+      },
+      "outputBytes": 169053658,
+      "clientJavaScriptBytes": 901414
+    }
+  ],
+  "coldStarts": [
+    {
+      "target": "next-control",
+      "readyPath": "/",
+      "samples": [
+        254.81120799999917, 256.06404199999815, 257.85066700000607, 292.96291600000404,
+        251.5341250000056
+      ],
+      "summary": {
+        "count": 5,
+        "median": 256.06404199999815,
+        "p75": 257.85066700000607,
+        "minimum": 251.5341250000056,
+        "maximum": 292.96291600000404,
+        "standardDeviation": 17.104754508810885,
+        "confidence": "moderate: repeated synthetic runs"
+      }
+    }
+  ],
+  "applicationColdStarts": [
+    {
+      "target": "api",
+      "readyPath": "/",
+      "samples": [
+        714.0357080000103, 306.95979200000875, 308.3597919999884, 307.47474999999395,
+        308.7327499999956
+      ],
+      "summary": {
+        "count": 5,
+        "median": 308.3597919999884,
+        "p75": 308.7327499999956,
+        "minimum": 306.95979200000875,
+        "maximum": 714.0357080000103,
+        "standardDeviation": 181.63891709459912,
+        "confidence": "moderate: repeated synthetic runs"
+      }
+    },
+    {
+      "target": "app",
+      "readyPath": "/degens",
+      "samples": [
+        425.91770800000813, 414.34633299999405, 361.9884580000071, 379.44416699997964,
+        370.16962500000955
+      ],
+      "summary": {
+        "count": 5,
+        "median": 379.44416699997964,
+        "p75": 414.34633299999405,
+        "minimum": 361.9884580000071,
+        "maximum": 425.91770800000813,
+        "standardDeviation": 28.157791720423692,
+        "confidence": "moderate: repeated synthetic runs"
+      }
+    },
+    {
+      "target": "docs",
+      "readyPath": "/overview/intro",
+      "samples": [
+        1021.7276249999995, 611.5015410000051, 612.3492909999914, 612.5128750000149,
+        611.8197079999954
+      ],
+      "summary": {
+        "count": 5,
+        "median": 612.3492909999914,
+        "p75": 612.5128750000149,
+        "minimum": 611.5015410000051,
+        "maximum": 1021.7276249999995,
+        "standardDeviation": 183.21570658441865,
+        "confidence": "moderate: repeated synthetic runs"
+      }
+    },
+    {
+      "target": "smashers",
+      "readyPath": "/",
+      "samples": [
+        360.72366700001294, 362.2465000000084, 367.8137080000015, 356.8760830000101,
+        340.8334999999788
+      ],
+      "summary": {
+        "count": 5,
+        "median": 360.72366700001294,
+        "p75": 362.2465000000084,
+        "minimum": 340.8334999999788,
+        "maximum": 367.8137080000015,
+        "standardDeviation": 10.213446612191841,
+        "confidence": "moderate: repeated synthetic runs"
+      }
+    },
+    {
+      "target": "template",
+      "readyPath": "/",
+      "samples": [
+        298.79374999998254, 282.5812910000095, 280.0747090000077, 281.4747920000227, 281.3125
+      ],
+      "summary": {
+        "count": 5,
+        "median": 281.4747920000227,
+        "p75": 282.5812910000095,
+        "minimum": 280.0747090000077,
+        "maximum": 298.79374999998254,
+        "standardDeviation": 7.846727190912402,
+        "confidence": "moderate: repeated synthetic runs"
+      }
+    },
+    {
+      "target": "web",
+      "readyPath": "/",
+      "samples": [
+        304.73608400000376, 325.0926249999902, 330.2326249999751, 334.685833000025,
+        320.60054200000013
+      ],
+      "summary": {
+        "count": 5,
+        "median": 325.0926249999902,
+        "p75": 330.2326249999751,
+        "minimum": 304.73608400000376,
+        "maximum": 334.685833000025,
+        "standardDeviation": 11.538549331743019,
+        "confidence": "moderate: repeated synthetic runs"
+      }
+    }
+  ]
+}
