@@ -21,7 +21,7 @@
     image.removeAttribute('srcset')
     image.src = fallbackBackground
   }
-  preload.onload = () => {
+  preload.addEventListener('load', () => {
     const picture = image.parentElement
     if (!picture) return
 
@@ -30,7 +30,7 @@
     source.srcset = animatedBackground
     picture.insertBefore(source, image)
     useFallback()
-  }
-  preload.onerror = useFallback
+  })
+  preload.addEventListener('error', useFallback)
   preload.src = animatedBackground
 })()
