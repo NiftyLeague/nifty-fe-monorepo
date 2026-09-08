@@ -27,12 +27,9 @@ beforeEach(() => {
   mock.module('@/constants/menu-items', () => ({ default: [] }))
   mock.module('@/contexts/NavigationContext', () => ({
     NavigationProvider: ({ children }: React.PropsWithChildren) => children,
-    useNavigation: () => ({
-      drawerOpen,
-      isDesktopNavigation: false,
-      setDrawerOpen: mock(),
-      toggleDrawer: mock(),
-    }),
+    useDrawerOpen: () => drawerOpen,
+    useIsDesktopNavigation: () => false,
+    useSetDrawerOpen: () => mock(),
   }))
 })
 

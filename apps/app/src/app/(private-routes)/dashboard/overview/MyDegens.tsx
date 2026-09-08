@@ -1,28 +1,21 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import { Button } from '@nl/ui/base/button'
 import { Dialog, DialogContent } from '@nl/ui/base/dialog'
 
 import SectionSlider from '@/components/sections/SectionSlider'
-import {
-  DEGEN_COLLECTION_URL,
-  PROFILE_FAV_DEGENS_API,
-  getPublicDegensByIdsUrl,
-} from '@/constants/url'
+import { DEGEN_COLLECTION_URL } from '@/constants/url'
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
 import EmptyState from '@/components/EmptyState'
 import DeferredDegenDialog from '@/components/providers/DeferredDegenDialog'
 import DeferredRenameDegenDialog from '@/components/providers/DeferredRenameDegenDialog'
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
-import useFetch from '@/hooks/useFetch'
-import { useProfileFavDegens } from '@/hooks/useGamerProfile'
-import useAuth from '@/hooks/useAuth'
+import { usePublicDegensByIds } from '@/hooks/queries/usePublicDegens'
+import useFavoriteDegens from '@/hooks/useFavoriteDegens'
 import type { DashboardDegen } from '@/types/degens'
-import useLocalStorageContext from '@/hooks/useLocalStorageContext'
-import { toggleValue } from '@/utils/collections'
 
 const DegenCard = dynamic(
   () =>
@@ -35,21 +28,13 @@ const DegenCard = dynamic(
 )
 
 const MyDegens = (): React.ReactNode => {
-  const { authToken } = useAuth()
   const [selectedDegen, setSelectedDegen] = useState<DashboardDegen>()
   const [isRenameDegenModalOpen, setIsRenameDegenModalOpen] = useState<boolean>(false)
   const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false)
   const [isClaimDialog, setIsClaimDialog] = useState<boolean>(false)
   const [isRentDialog, setIsRentDialog] = useState<boolean>(false)
   const router = useRouter()
-  const { favs: favsData } = useProfileFavDegens()
-  const { favDegens, setFavDegens } = useLocalStorageContext()
-
-  useEffect(() => {
-    if (favsData && favsData !== 'null') {
-      setFavDegens(favsData.split(','))
-    }
-  }, [favsData, setFavDegens])
+  const { favDegens, toggleFavorite } = useFavoriteDegens()
 
   const { loadingDegens, degensBalances } = useNFTsBalances()
 
@@ -57,11 +42,7 @@ const MyDegens = (): React.ReactNode => {
     () => [...new Set(degensBalances.map((degen) => String(degen.id)))],
     [degensBalances]
   )
-  const degensDataUrl = degenIds.length ? getPublicDegensByIdsUrl(degenIds) : undefined
-  const { data: degensData } = useFetch<DashboardDegen[]>(degensDataUrl, {
-    enabled: Boolean(degensDataUrl),
-    sharedCache: true,
-  })
+  const { data: degensData } = usePublicDegensByIds(degenIds)
 
   const filteredDegens = useMemo(() => {
     if (!degensBalances.length || !degensData) return []
@@ -102,19 +83,6 @@ const MyDegens = (): React.ReactNode => {
     setIsDegenModalOpen(true)
   }
 
-  const handleClickFavorite = useCallback(
-    async (degen: DashboardDegen) => {
-      const newFavs = toggleValue(favDegens?.filter((f) => f) ?? [], degen.id)
-      await fetch(`${PROFILE_FAV_DEGENS_API}`, {
-        method: 'POST',
-        body: JSON.stringify({ favorites: newFavs.toString() }),
-        headers: { authorizationToken: authToken } as Record<string, string>,
-      })
-      setFavDegens(newFavs)
-    },
-    [authToken, favDegens, setFavDegens]
-  )
-
   return (
     <>
       <SectionSlider
@@ -147,7 +115,7 @@ const MyDegens = (): React.ReactNode => {
                 onClickClaim={() => handleClaimDegen(degen)}
                 onClickDetail={() => handleViewTraits(degen)}
                 onClickEditName={() => handleClickEditName(degen)}
-                onClickFavorite={() => handleClickFavorite(degen)}
+                onClickFavorite={() => void toggleFavorite(degen.id)}
                 size="small"
               />
             </div>

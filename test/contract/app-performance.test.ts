@@ -157,7 +157,7 @@ const sharedResponsiveCarouselStyles =
   'packages/ui/src/components/custom/responsive-carousel/responsive-carousel.module.css'
 const degenFilterUtils = 'apps/app/src/components/extended/DegensFilter/utils.ts'
 const degenFilterStyles = 'apps/app/src/components/extended/DegensFilter/index.module.css'
-const useFetch = 'apps/app/src/hooks/useFetch.ts'
+const publicDegenQueries = 'apps/app/src/hooks/queries/usePublicDegens.ts'
 const sharedCatalogConsumers = [
   'apps/app/src/app/(public-routes)/degens/AllDegensPage.tsx',
   'apps/app/src/app/(private-routes)/dashboard/degens/DashboardDegensContent.tsx',
@@ -966,14 +966,14 @@ describe('app performance contracts', () => {
   })
 
   it('deduplicates the repeated degen catalog request across app surfaces', () => {
-    const fetchSource = readFileSync(useFetch, 'utf8')
+    const querySource = readFileSync(publicDegenQueries, 'utf8')
 
-    expect(fetchSource).toContain('sharedCache?: boolean')
-    expect(fetchSource).toContain('pendingRequests')
-    expect(fetchSource).toContain('SHARED_CACHE_TTL_MS')
+    expect(querySource).toContain('queryKeys.publicDegens.list')
+    expect(querySource).toContain('queryKeys.publicDegens.byIds')
+    expect(querySource).toContain('signal')
 
     for (const file of sharedCatalogConsumers) {
-      expect(readFileSync(file, 'utf8')).toContain('sharedCache: true')
+      expect(readFileSync(file, 'utf8')).toMatch(/usePublicDegens(?:Page|ByIds)/)
     }
   })
 })

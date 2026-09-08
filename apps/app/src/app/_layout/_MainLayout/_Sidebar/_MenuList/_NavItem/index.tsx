@@ -3,7 +3,7 @@ import { usePathname } from 'next/navigation'
 import { AppNavIcon } from '@/components/AppNavIcon'
 
 import { cx } from '@nl/ui/class-names'
-import { useNavigation } from '@/contexts/NavigationContext'
+import { useIsDesktopNavigation, useSetDrawerOpen } from '@/contexts/NavigationContext'
 
 // types
 import type { LinkTarget, NavItemType } from '@/types'
@@ -17,7 +17,8 @@ interface NavItemProps {
 
 const NavItem = ({ item, level }: NavItemProps) => {
   const pathname = usePathname()
-  const { isDesktopNavigation, setDrawerOpen } = useNavigation()
+  const isDesktopNavigation = useIsDesktopNavigation()
+  const setDrawerOpen = useSetDrawerOpen()
   const isSelected = pathname === item.url
 
   let itemTarget: LinkTarget = '_self'

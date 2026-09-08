@@ -1,0 +1,214 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-07T22:51:18.991Z",
+  "gitRevision": "395f27224c3289913b5f695b3cd7e7a958027a74",
+  "profile": {
+    "browser": "Google Chrome headless",
+    "viewport": "1365x768 @ 1x",
+    "cache": "disabled for every route sample",
+    "network": "unthrottled synthetic desktop; compare only with the same profile",
+    "interaction": "synthetic click on the configured selector after load",
+    "confidence": "synthetic lab data; not a substitute for field RUM p75"
+  },
+  "runCount": 5,
+  "routes": [
+    {
+      "route": {
+        "id": "app-degens-m1-local",
+        "app": "app",
+        "url": "http://127.0.0.1:3006/degens",
+        "environment": "local-only",
+        "priority": "P0",
+        "interaction": {
+          "selector": "body"
+        }
+      },
+      "summary": {
+        "lcpMs": {
+          "count": 5,
+          "median": 448,
+          "p75": 452,
+          "minimum": 380,
+          "maximum": 884,
+          "standardDeviation": 210.89144126777643,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "inpMs": {
+          "count": 3,
+          "median": 16,
+          "p75": 16,
+          "minimum": 16,
+          "maximum": 16,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "cls": {
+          "count": 5,
+          "median": 0.003701950331414617,
+          "p75": 0.003701950331414617,
+          "minimum": 0.003701950331414617,
+          "maximum": 0.003701950331414617,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "ttfbMs": {
+          "count": 5,
+          "median": 11.899999976158142,
+          "p75": 12.899999976158142,
+          "minimum": 10.700000047683716,
+          "maximum": 63.09999990463257,
+          "standardDeviation": 23.024508634661117,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "totalTransferBytes": {
+          "count": 5,
+          "median": 580272,
+          "p75": 580274,
+          "minimum": 580249,
+          "maximum": 580624,
+          "standardDeviation": 160.20143569893497,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "javascriptBytes": {
+          "count": 5,
+          "median": 422478,
+          "p75": 422478,
+          "minimum": 422455,
+          "maximum": 422480,
+          "standardDeviation": 10.4546640309481,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "cssBytes": {
+          "count": 5,
+          "median": 21088,
+          "p75": 21088,
+          "minimum": 21088,
+          "maximum": 21088,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "requestCount": {
+          "count": 5,
+          "median": 59,
+          "p75": 59,
+          "minimum": 59,
+          "maximum": 59,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "memoryBytes": {
+          "count": 5,
+          "median": 8834271,
+          "p75": 8889187,
+          "minimum": 8775019,
+          "maximum": 8961033,
+          "standardDeviation": 72003.30242426385,
+          "confidence": "moderate: repeated synthetic runs"
+        }
+      },
+      "samples": [
+        {
+          "capturedAt": "2026-09-07T22:51:06.692Z",
+          "url": "http://127.0.0.1:3006/degens",
+          "loaded": true,
+          "lcpMs": 884,
+          "cls": 0.003701950331414617,
+          "inpMs": 16,
+          "unsupported": [],
+          "ttfbMs": 63.09999990463257,
+          "memoryBytes": 8816275,
+          "totalTransferBytes": 580624,
+          "javascriptBytes": 422478,
+          "cssBytes": 21088,
+          "requestCount": 59,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T22:51:09.745Z",
+          "url": "http://127.0.0.1:3006/degens",
+          "loaded": true,
+          "lcpMs": 380,
+          "cls": 0.003701950331414617,
+          "inpMs": 16,
+          "unsupported": [],
+          "ttfbMs": 11.899999976158142,
+          "memoryBytes": 8775019,
+          "totalTransferBytes": 580272,
+          "javascriptBytes": 422478,
+          "cssBytes": 21088,
+          "requestCount": 59,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T22:51:12.793Z",
+          "url": "http://127.0.0.1:3006/degens",
+          "loaded": true,
+          "lcpMs": 452,
+          "cls": 0.003701950331414617,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 11.100000023841858,
+          "memoryBytes": 8834271,
+          "totalTransferBytes": 580274,
+          "javascriptBytes": 422480,
+          "cssBytes": 21088,
+          "requestCount": 59,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T22:51:15.855Z",
+          "url": "http://127.0.0.1:3006/degens",
+          "loaded": true,
+          "lcpMs": 392,
+          "cls": 0.003701950331414617,
+          "inpMs": 16,
+          "unsupported": [],
+          "ttfbMs": 12.899999976158142,
+          "memoryBytes": 8961033,
+          "totalTransferBytes": 580249,
+          "javascriptBytes": 422455,
+          "cssBytes": 21088,
+          "requestCount": 59,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T22:51:18.904Z",
+          "url": "http://127.0.0.1:3006/degens",
+          "loaded": true,
+          "lcpMs": 448,
+          "cls": 0.003701950331414617,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 10.700000047683716,
+          "memoryBytes": 8889187,
+          "totalTransferBytes": 580271,
+          "javascriptBytes": 422477,
+          "cssBytes": 21088,
+          "requestCount": 59,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        }
+      ]
+    }
+  ],
+  "builds": []
+}

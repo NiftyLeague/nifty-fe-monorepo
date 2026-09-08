@@ -1,6 +1,7 @@
 'use client'
 
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo } from 'react'
+import { parseAsInteger, useQueryState } from 'nuqs'
 
 export type PageItem = number | 'ellipsis-start' | 'ellipsis-end'
 
@@ -27,9 +28,12 @@ export const getPageItems = (currentPage: number, maxPage: number, siblings = 1)
 }
 
 const usePagination = <T>(data: T[], itemsPerPage: number) => {
-  const [currentPage, setCurrentPage] = useState(1)
-
   const maxPage = Math.ceil(data.length / itemsPerPage)
+  const [urlPage, setUrlPage] = useQueryState(
+    'page',
+    parseAsInteger.withDefault(1).withOptions({ history: 'push', shallow: true })
+  )
+  const currentPage = Math.max(1, maxPage > 0 ? Math.min(urlPage, maxPage) : 1)
 
   const dataForCurrentPage = useMemo(() => {
     const begin = (currentPage - 1) * itemsPerPage
@@ -40,9 +44,9 @@ const usePagination = <T>(data: T[], itemsPerPage: number) => {
   const jump = useCallback(
     (page: number) => {
       const pageNumber = Math.max(1, page)
-      setCurrentPage(() => (maxPage > 0 ? Math.min(pageNumber, maxPage) : 1))
+      void setUrlPage(maxPage > 0 ? Math.min(pageNumber, maxPage) : 1)
     },
-    [maxPage]
+    [maxPage, setUrlPage]
   )
 
   const pageItems = useMemo(() => getPageItems(currentPage, maxPage), [currentPage, maxPage])

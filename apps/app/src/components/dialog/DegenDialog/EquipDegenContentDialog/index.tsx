@@ -10,7 +10,7 @@ import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import { Title } from '@nl/ui/custom/typography'
 import { cn } from '@nl/ui/utils'
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
-import { useNotification } from '@/contexts/NotificationContext'
+import { useOpenSnackbar } from '@/contexts/NotificationContext'
 import { COMICS_PURCHASE_URL } from '@/constants/url'
 import type { DashboardDegen } from '@/types/degens'
 import DegenImage from '@/components/cards/DegenCard/DegenImage'
@@ -41,7 +41,7 @@ const multipliers: number[] = [2, 3, 2, 3, 4, 2]
 const initEquipped: boolean[] = Array.from({ length: 6 }, () => false)
 
 const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) => {
-  const { openSnackbar } = useNotification()
+  const openSnackbar = useOpenSnackbar()
   const { comicsBalances, loadingComics } = useNFTsBalances()
   const filteredComics = useMemo(
     () => comicsBalances.filter((comic) => comic.balance && comic.balance > 0),

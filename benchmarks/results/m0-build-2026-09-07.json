@@ -1,0 +1,493 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-07T21:31:39.227Z",
+  "gitRevision": "e486f1d1714040903bb0d6b6f814036e3d8525e2",
+  "profile": {
+    "browser": "Google Chrome headless",
+    "viewport": "1365x768 @ 1x",
+    "cache": "disabled for every route sample",
+    "network": "unthrottled synthetic desktop; compare only with the same profile",
+    "interaction": "synthetic click on the configured selector after load",
+    "confidence": "synthetic lab data; not a substitute for field RUM p75"
+  },
+  "runCount": 1,
+  "routes": [
+    {
+      "route": {
+        "id": "api-root",
+        "app": "api",
+        "url": "https://api.niftyleague.com/",
+        "environment": "production",
+        "priority": "P0",
+        "interaction": {
+          "selector": "body"
+        }
+      },
+      "summary": {
+        "lcpMs": {
+          "count": 1,
+          "median": 724,
+          "p75": 724,
+          "minimum": 724,
+          "maximum": 724,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "inpMs": null,
+        "cls": {
+          "count": 1,
+          "median": 0,
+          "p75": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "ttfbMs": {
+          "count": 1,
+          "median": 256.60000002384186,
+          "p75": 256.60000002384186,
+          "minimum": 256.60000002384186,
+          "maximum": 256.60000002384186,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "totalTransferBytes": {
+          "count": 1,
+          "median": 1227,
+          "p75": 1227,
+          "minimum": 1227,
+          "maximum": 1227,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "javascriptBytes": {
+          "count": 1,
+          "median": 0,
+          "p75": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "cssBytes": {
+          "count": 1,
+          "median": 0,
+          "p75": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "requestCount": {
+          "count": 1,
+          "median": 2,
+          "p75": 2,
+          "minimum": 2,
+          "maximum": 2,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "memoryBytes": {
+          "count": 1,
+          "median": 819032,
+          "p75": 819032,
+          "minimum": 819032,
+          "maximum": 819032,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        }
+      },
+      "samples": [
+        {
+          "capturedAt": "2026-09-07T21:31:39.182Z",
+          "url": "https://api.niftyleague.com/",
+          "loaded": true,
+          "lcpMs": 724,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 256.60000002384186,
+          "memoryBytes": 819032,
+          "totalTransferBytes": 1227,
+          "javascriptBytes": 0,
+          "cssBytes": 0,
+          "requestCount": 2,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        }
+      ]
+    }
+  ],
+  "builds": [
+    {
+      "app": "api",
+      "clean": [
+        {
+          "command": ["bun", "--filter", "api", "build"],
+          "durationMs": 1586.1019999999994,
+          "exitCode": 0,
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "api", "build"],
+          "durationMs": 1623.4280419999996,
+          "exitCode": 0,
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "api", "build"],
+          "durationMs": 1290.9347500000003,
+          "exitCode": 0,
+          "stderr": ""
+        }
+      ],
+      "incremental": [
+        {
+          "command": ["bun", "--filter", "api", "build"],
+          "durationMs": 1006.4716669999998,
+          "exitCode": 0,
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "api", "build"],
+          "durationMs": 954.8222919999989,
+          "exitCode": 0,
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "api", "build"],
+          "durationMs": 956.4073750000007,
+          "exitCode": 0,
+          "stderr": ""
+        }
+      ],
+      "cleanDurationMs": {
+        "count": 3,
+        "median": 1586.1019999999994,
+        "p75": 1604.7650209999995,
+        "minimum": 1290.9347500000003,
+        "maximum": 1623.4280419999996,
+        "standardDeviation": 182.14862434696218,
+        "confidence": "low: fewer than 5 runs"
+      },
+      "incrementalDurationMs": {
+        "count": 3,
+        "median": 956.4073750000007,
+        "p75": 981.4395210000002,
+        "minimum": 954.8222919999989,
+        "maximum": 1006.4716669999998,
+        "standardDeviation": 29.37290066106508,
+        "confidence": "low: fewer than 5 runs"
+      }
+    },
+    {
+      "app": "app",
+      "clean": [
+        {
+          "command": ["bun", "--filter", "app", "build"],
+          "durationMs": 33277.847542,
+          "exitCode": 0,
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "app", "build"],
+          "durationMs": 35265.110875,
+          "exitCode": 0,
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "app", "build"],
+          "durationMs": 32149.44654199999,
+          "exitCode": 0,
+          "stderr": ""
+        }
+      ],
+      "incremental": [
+        {
+          "command": ["bun", "--filter", "app", "build"],
+          "durationMs": 20060.184957999998,
+          "exitCode": 0,
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "app", "build"],
+          "durationMs": 17511.60220800001,
+          "exitCode": 0,
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "app", "build"],
+          "durationMs": 22496.527792000008,
+          "exitCode": 0,
+          "stderr": ""
+        }
+      ],
+      "cleanDurationMs": {
+        "count": 3,
+        "median": 33277.847542,
+        "p75": 34271.4792085,
+        "minimum": 32149.44654199999,
+        "maximum": 35265.110875,
+        "standardDeviation": 1577.438250635909,
+        "confidence": "low: fewer than 5 runs"
+      },
+      "incrementalDurationMs": {
+        "count": 3,
+        "median": 20060.184957999998,
+        "p75": 21278.356375000003,
+        "minimum": 17511.60220800001,
+        "maximum": 22496.527792000008,
+        "standardDeviation": 2492.6733813450974,
+        "confidence": "low: fewer than 5 runs"
+      }
+    },
+    {
+      "app": "docs",
+      "clean": [
+        {
+          "command": ["bun", "--filter", "docs", "build"],
+          "durationMs": 7386.7400830000115,
+          "exitCode": 0,
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "docs", "build"],
+          "durationMs": 5556.29583399999,
+          "exitCode": 0,
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "docs", "build"],
+          "durationMs": 13658.57720900001,
+          "exitCode": 0,
+          "stderr": ""
+        }
+      ],
+      "incremental": [
+        {
+          "command": ["bun", "--filter", "docs", "build"],
+          "durationMs": 4513.604292000004,
+          "exitCode": 0,
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "docs", "build"],
+          "durationMs": 9621.611959000002,
+          "exitCode": 0,
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "docs", "build"],
+          "durationMs": 12872.917499999981,
+          "exitCode": 0,
+          "stderr": ""
+        }
+      ],
+      "cleanDurationMs": {
+        "count": 3,
+        "median": 7386.7400830000115,
+        "p75": 10522.65864600001,
+        "minimum": 5556.29583399999,
+        "maximum": 13658.57720900001,
+        "standardDeviation": 4249.18483483286,
+        "confidence": "low: fewer than 5 runs"
+      },
+      "incrementalDurationMs": {
+        "count": 3,
+        "median": 9621.611959000002,
+        "p75": 11247.264729499992,
+        "minimum": 4513.604292000004,
+        "maximum": 12872.917499999981,
+        "standardDeviation": 4213.882757357139,
+        "confidence": "low: fewer than 5 runs"
+      }
+    },
+    {
+      "app": "smashers",
+      "clean": [
+        {
+          "command": ["bun", "--filter", "smashers", "build"],
+          "durationMs": 24459.610291999998,
+          "exitCode": 1,
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "smashers", "build"],
+          "durationMs": 14558.750834000006,
+          "exitCode": 1,
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "smashers", "build"],
+          "durationMs": 14762.574458999967,
+          "exitCode": 1,
+          "stderr": ""
+        }
+      ],
+      "incremental": [
+        {
+          "command": ["bun", "--filter", "smashers", "build"],
+          "durationMs": 7199.152541999996,
+          "exitCode": 1,
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "smashers", "build"],
+          "durationMs": 6767.753792000003,
+          "exitCode": 1,
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "smashers", "build"],
+          "durationMs": 6731.507916999981,
+          "exitCode": 1,
+          "stderr": ""
+        }
+      ],
+      "cleanDurationMs": {
+        "count": 3,
+        "median": 14762.574458999967,
+        "p75": 19611.092375499982,
+        "minimum": 14558.750834000006,
+        "maximum": 24459.610291999998,
+        "standardDeviation": 5658.342896756709,
+        "confidence": "low: fewer than 5 runs"
+      },
+      "incrementalDurationMs": {
+        "count": 3,
+        "median": 6767.753792000003,
+        "p75": 6983.453167,
+        "minimum": 6731.507916999981,
+        "maximum": 7199.152541999996,
+        "standardDeviation": 260.1634551096287,
+        "confidence": "low: fewer than 5 runs"
+      }
+    },
+    {
+      "app": "template",
+      "clean": [
+        {
+          "command": ["bun", "--filter", "template", "build"],
+          "durationMs": 9384.452749999997,
+          "exitCode": 0,
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "template", "build"],
+          "durationMs": 9506.625541999994,
+          "exitCode": 0,
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "template", "build"],
+          "durationMs": 9346.664707999968,
+          "exitCode": 0,
+          "stderr": ""
+        }
+      ],
+      "incremental": [
+        {
+          "command": ["bun", "--filter", "template", "build"],
+          "durationMs": 6877.699708,
+          "exitCode": 0,
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "template", "build"],
+          "durationMs": 6867.830625000002,
+          "exitCode": 0,
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "template", "build"],
+          "durationMs": 7436.462999999989,
+          "exitCode": 0,
+          "stderr": ""
+        }
+      ],
+      "cleanDurationMs": {
+        "count": 3,
+        "median": 9384.452749999997,
+        "p75": 9445.539145999996,
+        "minimum": 9346.664707999968,
+        "maximum": 9506.625541999994,
+        "standardDeviation": 83.60781027836134,
+        "confidence": "low: fewer than 5 runs"
+      },
+      "incrementalDurationMs": {
+        "count": 3,
+        "median": 6877.699708,
+        "p75": 7157.0813539999945,
+        "minimum": 6867.830625000002,
+        "maximum": 7436.462999999989,
+        "standardDeviation": 325.48850291627065,
+        "confidence": "low: fewer than 5 runs"
+      }
+    },
+    {
+      "app": "web",
+      "clean": [
+        {
+          "command": ["bun", "--filter", "web", "build"],
+          "durationMs": 24829.830749999965,
+          "exitCode": 0,
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "web", "build"],
+          "durationMs": 25919.80383400002,
+          "exitCode": 0,
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "web", "build"],
+          "durationMs": 32694.468500000017,
+          "exitCode": 0,
+          "stderr": ""
+        }
+      ],
+      "incremental": [
+        {
+          "command": ["bun", "--filter", "web", "build"],
+          "durationMs": 12775.745166999986,
+          "exitCode": 0,
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "web", "build"],
+          "durationMs": 38360.46566699998,
+          "exitCode": 0,
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "web", "build"],
+          "durationMs": 23652.525334000005,
+          "exitCode": 0,
+          "stderr": ""
+        }
+      ],
+      "cleanDurationMs": {
+        "count": 3,
+        "median": 25919.80383400002,
+        "p75": 29307.13616700002,
+        "minimum": 24829.830749999965,
+        "maximum": 32694.468500000017,
+        "standardDeviation": 4260.998505814479,
+        "confidence": "low: fewer than 5 runs"
+      },
+      "incrementalDurationMs": {
+        "count": 3,
+        "median": 23652.525334000005,
+        "p75": 31006.495500499994,
+        "minimum": 12775.745166999986,
+        "maximum": 38360.46566699998,
+        "standardDeviation": 12840.079041186185,
+        "confidence": "low: fewer than 5 runs"
+      }
+    }
+  ]
+}

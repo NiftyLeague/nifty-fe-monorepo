@@ -2,7 +2,12 @@ import { act, renderHook } from '@testing-library/react'
 import { describe, expect, it } from 'bun:test'
 import type { PropsWithChildren } from 'react'
 
-import { NotificationProvider, useNotification } from './NotificationContext'
+import {
+  NotificationProvider,
+  useCloseSnackbar,
+  useOpenSnackbar,
+  useSnackbar,
+} from './NotificationContext'
 
 const wrapper = ({ children }: PropsWithChildren) => (
   <NotificationProvider>{children}</NotificationProvider>
@@ -10,7 +15,14 @@ const wrapper = ({ children }: PropsWithChildren) => (
 
 describe('NotificationContext', () => {
   it('normalizes themed notification input and closes it without Redux', () => {
-    const { result } = renderHook(() => useNotification(), { wrapper })
+    const { result } = renderHook(
+      () => ({
+        snackbar: useSnackbar(),
+        openSnackbar: useOpenSnackbar(),
+        closeSnackbar: useCloseSnackbar(),
+      }),
+      { wrapper }
+    )
 
     act(() =>
       result.current.openSnackbar({
@@ -35,7 +47,7 @@ describe('NotificationContext', () => {
   })
 
   it('fails clearly when consumed outside its provider', () => {
-    expect(() => renderHook(() => useNotification())).toThrow(
+    expect(() => renderHook(() => useSnackbar())).toThrow(
       'useNotification must be used inside NotificationProvider'
     )
   })

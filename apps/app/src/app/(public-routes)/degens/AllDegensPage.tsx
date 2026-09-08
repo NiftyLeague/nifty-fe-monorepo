@@ -1,9 +1,9 @@
 'use client'
 
-import { Suspense, useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useQueryStates } from 'nuqs'
 
 import { Button } from '@nl/ui/base/button'
 import { PaginationEllipsis } from '@nl/ui/base/pagination'
@@ -13,21 +13,20 @@ import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlacehold
 import DEFAULT_STATIC_FILTER from '@/components/extended/DegensFilter/constants'
 import { DEGENS_PER_PAGE, getGridSizeClass } from '@/components/extended/DegensFilter/utils'
 import DegensTopNav from '@/components/extended/DegensTopNav'
-import DegenSearchParamsBoundary from './DegenSearchParamsBoundary'
 import SectionTitle from '@/components/sections/SectionTitle'
-import { PUBLIC_DEGENS_API_URL } from '@/constants/api'
 import { getPageItems } from '@/hooks/usePagination'
-import useFetch from '@/hooks/useFetch'
+import { usePublicDegensPage } from '@/hooks/queries/usePublicDegens'
 import type { PublicDegen } from '@/types/degens'
-import {
-  fromPublicDegenPageWire,
-  PUBLIC_DEGENS_WIRE_MEDIA_TYPE,
-  type PublicDegenPageWire,
-} from '@/utils/public-degens'
+import { fromPublicDegenPageWire } from '@/utils/public-degens'
 import DeferredDegenCard from '@/components/providers/DeferredDegenCard'
 import DeferredDegensFilter from '@/components/providers/DeferredDegensFilter'
 import DeferredPublicDegenDialog from '@/components/providers/DeferredPublicDegenDialog'
 import { PaginationControls } from '@/components/pagination/PaginationControls'
+import {
+  buildPublicDegensRequestQuery,
+  degenSearchParsers,
+  normalizeDegenSearchState,
+} from '@/url/search-state'
 
 const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'))
 
@@ -37,32 +36,26 @@ const AllDegensPage = (): React.ReactNode => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [selectedDegen, setSelectedDegen] = useState<PublicDegen>()
   const [isDegenModalOpen, setIsDegenModalOpen] = useState(false)
-  const [searchTerm, setSearchTerm] = useState('')
   const [layoutMode, setLayoutMode] = useState('gridView')
-  const routeSearchParams = useSearchParams()
-  const routeQuery = routeSearchParams.toString()
-  const pathname = usePathname()
-  const router = useRouter()
+  const [rawSearchState, setSearchState] = useQueryStates(degenSearchParsers, {
+    history: 'push',
+    shallow: true,
+  })
+  const searchStateKey = JSON.stringify(rawSearchState)
+  const searchState = useMemo(() => normalizeDegenSearchState(rawSearchState), [searchStateKey])
 
   const isMobile = useMediaQuery('(max-width:640px)')
   const isSmallScreen = useMediaQuery('(max-width:1280px)')
   const isGridView = layoutMode === 'gridView'
   const pageSize = !isSmallScreen && !isGridView && !isDrawerOpen ? 18 : DEGENS_PER_PAGE
-  const requestedPage = Math.max(1, Number.parseInt(routeSearchParams.get('page') ?? '1', 10) || 1)
-  const sortValue = routeSearchParams.get('sort') ?? 'idUp'
+  const requestedPage = searchState.page
+  const sortValue = searchState.sort
 
-  const requestUrl = useMemo(() => {
-    const params = new URLSearchParams(routeQuery)
-    params.set('page', String(requestedPage))
-    params.set('pageSize', String(pageSize))
-    if (!params.has('sort')) params.set('sort', 'idUp')
-    return `${PUBLIC_DEGENS_API_URL}?${params.toString()}`
-  }, [pageSize, requestedPage, routeQuery])
+  const requestQuery = useMemo(() => {
+    return buildPublicDegensRequestQuery(searchState, pageSize)
+  }, [pageSize, requestedPage, searchState])
 
-  const { data } = useFetch<PublicDegenPageWire>(requestUrl, {
-    headers: { Accept: PUBLIC_DEGENS_WIRE_MEDIA_TYPE },
-    sharedCache: true,
-  })
+  const { data } = usePublicDegensPage(requestQuery)
 
   const pageData = useMemo(() => (data ? fromPublicDegenPageWire(data) : undefined), [data])
   const defaultValues = useMemo(
@@ -76,56 +69,26 @@ const AllDegensPage = (): React.ReactNode => {
   const maxPage = Math.ceil((pageData?.total ?? 0) / pageSize)
   const pageItems = useMemo(() => getPageItems(currentPage, maxPage), [currentPage, maxPage])
 
-  useEffect(() => {
-    setSearchTerm(routeSearchParams.get('searchTerm') ?? '')
-  }, [routeQuery, routeSearchParams])
-
-  const pushQuery = useCallback(
-    (updates: Record<string, string | undefined>, resetPage = false) => {
-      const params = new URLSearchParams(routeQuery)
-      if (resetPage) params.delete('page')
-      for (const [key, value] of Object.entries(updates)) {
-        if (value) params.set(key, value)
-        else params.delete(key)
-      }
-      const query = params.toString()
-      router.push(`${pathname}${query ? `?${query}` : ''}`)
-    },
-    [pathname, routeQuery, router]
-  )
-
   const jump = useCallback(
-    (page: number) => pushQuery({ page: String(Math.max(1, page)) }),
-    [pushQuery]
+    (page: number) => void setSearchState({ page: Math.max(1, page) }),
+    [setSearchState]
   )
 
   const handleChangeSearchTerm: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (
     e
   ) => {
-    setSearchTerm(e.target.value)
+    void setSearchState({ searchTerm: e.target.value || null, page: 1 }, { history: 'replace' })
   }
-
-  const handleSearchParamsChange = useCallback((params: Record<string, string>) => {
-    setSearchTerm(params.searchTerm ?? '')
-  }, [])
-
-  useEffect(() => {
-    const currentSearchTerm = routeSearchParams.get('searchTerm') ?? ''
-    if (searchTerm === currentSearchTerm) return
-
-    const timeout = window.setTimeout(() => {
-      pushQuery({ searchTerm: searchTerm || undefined }, true)
-    }, 250)
-
-    return () => window.clearTimeout(timeout)
-  }, [pushQuery, routeSearchParams, searchTerm])
 
   const handleChangeLayoutMode = (_event: React.MouseEvent<HTMLElement>, newMode: string) => {
     setLayoutMode(newMode)
-    pushQuery({}, true)
+    void setSearchState({ page: 1 })
   }
 
-  const handleSort = useCallback((sort: string) => pushQuery({ sort }, true), [pushQuery])
+  const handleSort = useCallback(
+    (sort: string) => void setSearchState({ sort: sort === 'idDown' ? 'idDown' : 'idUp', page: 1 }),
+    [setSearchState]
+  )
 
   const handleViewTraits = useCallback((degen: PublicDegen): void => {
     setSelectedDegen(degen)
@@ -229,13 +192,10 @@ const AllDegensPage = (): React.ReactNode => {
 
   return (
     <>
-      <Suspense fallback={null}>
-        <DegenSearchParamsBoundary onChange={handleSearchParamsChange} />
-      </Suspense>
       <div className="flex h-full flex-col justify-start align-top gap-4 pl-2">
         <div className="pl-4 pr-6">
           <DegensTopNav
-            searchTerm={searchTerm}
+            searchTerm={searchState.searchTerm}
             handleChangeSearchTerm={handleChangeSearchTerm}
             handleSort={handleSort}
             sortValue={sortValue}

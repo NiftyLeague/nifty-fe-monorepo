@@ -1,7 +1,11 @@
 import { buttonVariants } from '@nl/ui/base/button-variants'
 import { Menu } from 'lucide-react'
 
-import { useNavigation } from '@/contexts/NavigationContext'
+import {
+  useDrawerOpen,
+  useIsDesktopNavigation,
+  useToggleDrawer,
+} from '@/contexts/NavigationContext'
 
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import { APP_EXTERNAL_LINKS } from '@/constants/navigation'
@@ -10,7 +14,9 @@ import LogoSection from '../_LogoSection'
 // ==============================|| MAIN NAVBAR / HEADER ||============================== //
 
 const Header = () => {
-  const { drawerOpen, isDesktopNavigation, toggleDrawer } = useNavigation()
+  const drawerOpen = useDrawerOpen()
+  const isDesktopNavigation = useIsDesktopNavigation()
+  const toggleDrawer = useToggleDrawer()
   const isCompactScreen = !isDesktopNavigation
 
   return (

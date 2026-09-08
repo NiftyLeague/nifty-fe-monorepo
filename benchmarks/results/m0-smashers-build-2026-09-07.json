@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-07T21:55:06.851Z",
+  "gitRevision": "d0da3fc304fada1d5dcdd2f98b39df57a7bd6ed3",
+  "profile": {
+    "browser": "Google Chrome headless",
+    "viewport": "1365x768 @ 1x",
+    "cache": "disabled for every route sample",
+    "network": "unthrottled synthetic desktop; compare only with the same profile",
+    "interaction": "synthetic click on the configured selector after load",
+    "confidence": "synthetic lab data; not a substitute for field RUM p75"
+  },
+  "runCount": 1,
+  "routes": [
+    {
+      "route": {
+        "id": "smashers-home",
+        "app": "smashers",
+        "url": "https://niftysmashers.com/",
+        "environment": "production",
+        "priority": "P0",
+        "interaction": {
+          "selector": "body"
+        }
+      },
+      "summary": {
+        "lcpMs": {
+          "count": 1,
+          "median": 884,
+          "p75": 884,
+          "minimum": 884,
+          "maximum": 884,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "inpMs": {
+          "count": 1,
+          "median": 16,
+          "p75": 16,
+          "minimum": 16,
+          "maximum": 16,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "cls": {
+          "count": 1,
+          "median": 0,
+          "p75": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "ttfbMs": {
+          "count": 1,
+          "median": 294.1999999284744,
+          "p75": 294.1999999284744,
+          "minimum": 294.1999999284744,
+          "maximum": 294.1999999284744,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "totalTransferBytes": {
+          "count": 1,
+          "median": 4143898,
+          "p75": 4143898,
+          "minimum": 4143898,
+          "maximum": 4143898,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "javascriptBytes": {
+          "count": 1,
+          "median": 385473,
+          "p75": 385473,
+          "minimum": 385473,
+          "maximum": 385473,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "cssBytes": {
+          "count": 1,
+          "median": 18673,
+          "p75": 18673,
+          "minimum": 18673,
+          "maximum": 18673,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "requestCount": {
+          "count": 1,
+          "median": 41,
+          "p75": 41,
+          "minimum": 41,
+          "maximum": 41,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "memoryBytes": {
+          "count": 1,
+          "median": 6798176,
+          "p75": 6798176,
+          "minimum": 6798176,
+          "maximum": 6798176,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        }
+      },
+      "samples": [
+        {
+          "capturedAt": "2026-09-07T21:55:06.833Z",
+          "url": "https://niftysmashers.com/",
+          "loaded": true,
+          "lcpMs": 884,
+          "cls": 0,
+          "inpMs": 16,
+          "unsupported": [],
+          "ttfbMs": 294.1999999284744,
+          "memoryBytes": 6798176,
+          "totalTransferBytes": 4143898,
+          "javascriptBytes": 385473,
+          "cssBytes": 18673,
+          "requestCount": 41,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        }
+      ]
+    }
+  ],
+  "builds": [
+    {
+      "app": "smashers",
+      "clean": [
+        {
+          "command": ["bun", "--filter", "smashers", "build"],
+          "durationMs": 19614.146708,
+          "exitCode": 0,
+          "stdout": ".220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js\nsmashers build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js\nsmashers build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js\nsmashers build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/index.js\nsmashers build: ../../../../../.bun/install/cache/links/@sentry+node@10.73.0+7777b3e21a0faeb5-c840cc94b497345d/node_modules/@sentry/node/build/cjs/integrations/tracing/express.js\nsmashers build: ../../../../../.bun/install/cache/links/@sentry+node@10.73.0+7777b3e21a0faeb5-c840cc94b497345d/node_modules/@sentry/node/build/cjs/index.js\nsmashers build: ../../node_modules/.bun/@sentry+nextjs@10.73.0+9814e2b1ae5512da/node_modules/@sentry/nextjs/build/cjs/index.server.js\nsmashers build: \nsmashers build: ✓ Compiled successfully in 10.1s\nsmashers build:   Running TypeScript ...\nsmashers build:   Finished TypeScript in 2.7s ...\nsmashers build:   Collecting page data using 11 workers ...\nsmashers build: ⚠ The Edge Runtime is deprecated. You can use the \"nodejs\" runtime instead. Learn more: https://nextjs.org/docs/messages/edge-runtime-deprecated\nsmashers build: ⚠ Using edge runtime on a page currently disables static generation for that page\nsmashers build:   Generating static pages using 11 workers (0/18) ...\nsmashers build:   Generating static pages using 11 workers (4/18) \r\nsmashers build:   Generating static pages using 11 workers (8/18) \r\nsmashers build:   Generating static pages using 11 workers (13/18) \r\nsmashers build: ✓ Generating static pages using 11 workers (18/18) in 303ms\nsmashers build:   Finalizing page optimization ...\nsmashers build:   Collecting build traces ...\nsmashers build: \nsmashers build: Route (app)\nsmashers build: ┌ ƒ /\nsmashers build: ├ ○ /_not-found\nsmashers build: ├ ƒ /api/auth/[...nextauth]\nsmashers build: ├ ƒ /api/edge-geo\nsmashers build: ├ ƒ /api/playfab/forgot-password\nsmashers build: ├ ƒ /api/playfab/login\nsmashers build: ├ ƒ /api/playfab/logout\nsmashers build: ├ ƒ /api/playfab/signup\nsmashers build: ├ ƒ /api/playfab/user/delete-account\nsmashers build: ├ ƒ /api/playfab/user/info\nsmashers build: ├ ƒ /api/playfab/user/link-provider\nsmashers build: ├ ƒ /api/playfab/user/link-wallet\nsmashers build: ├ ƒ /api/playfab/user/playfab-session\nsmashers build: ├ ƒ /api/playfab/user/unlink-provider\nsmashers build: ├ ƒ /api/playfab/user/unlink-wallet\nsmashers build: ├ ƒ /api/playfab/user/update\nsmashers build: ├ ƒ /login\nsmashers build: ├ ○ /loot\nsmashers build: └ ƒ /profile\nsmashers build: \nsmashers build: \nsmashers build: ○  (Static)   prerendered as static content\nsmashers build: ƒ  (Dynamic)  server-rendered on demand\nsmashers build: \nsmashers build: Exited with code 0\nsmashers postbuild: ✨ [next-sitemap] Loading next-sitemap config: file:///Users/amf/Developer/.worktrees/nifty-fe-m0-baseline/apps/smashers/next-sitemap.config.cjs\nsmashers postbuild: ✅ [next-sitemap] Generation completed\nsmashers postbuild: ┌───────────────┬────────┐\nsmashers postbuild: │ (index)       │ Values │\nsmashers postbuild: ├───────────────┼────────┤\nsmashers postbuild: │ indexSitemaps │ 0      │\nsmashers postbuild: │ sitemaps      │ 1      │\nsmashers postbuild: └───────────────┴────────┘\nsmashers postbuild: -----------------------------------------------------\nsmashers postbuild:  SITEMAPS \nsmashers postbuild: -----------------------------------------------------\nsmashers postbuild: \nsmashers postbuild:    ○ https://niftysmashers.com/sitemap.xml\nsmashers postbuild: \nsmashers postbuild: \nsmashers postbuild: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "smashers", "build"],
+          "durationMs": 19900.503042000004,
+          "exitCode": 0,
+          "stdout": ".220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js\nsmashers build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js\nsmashers build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js\nsmashers build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/index.js\nsmashers build: ../../../../../.bun/install/cache/links/@sentry+node@10.73.0+7777b3e21a0faeb5-c840cc94b497345d/node_modules/@sentry/node/build/cjs/integrations/tracing/express.js\nsmashers build: ../../../../../.bun/install/cache/links/@sentry+node@10.73.0+7777b3e21a0faeb5-c840cc94b497345d/node_modules/@sentry/node/build/cjs/index.js\nsmashers build: ../../node_modules/.bun/@sentry+nextjs@10.73.0+9814e2b1ae5512da/node_modules/@sentry/nextjs/build/cjs/index.server.js\nsmashers build: \nsmashers build: ✓ Compiled successfully in 10.2s\nsmashers build:   Running TypeScript ...\nsmashers build:   Finished TypeScript in 2.7s ...\nsmashers build:   Collecting page data using 11 workers ...\nsmashers build: ⚠ The Edge Runtime is deprecated. You can use the \"nodejs\" runtime instead. Learn more: https://nextjs.org/docs/messages/edge-runtime-deprecated\nsmashers build: ⚠ Using edge runtime on a page currently disables static generation for that page\nsmashers build:   Generating static pages using 11 workers (0/18) ...\nsmashers build:   Generating static pages using 11 workers (4/18) \r\nsmashers build:   Generating static pages using 11 workers (8/18) \r\nsmashers build:   Generating static pages using 11 workers (13/18) \r\nsmashers build: ✓ Generating static pages using 11 workers (18/18) in 307ms\nsmashers build:   Finalizing page optimization ...\nsmashers build:   Collecting build traces ...\nsmashers build: \nsmashers build: Route (app)\nsmashers build: ┌ ƒ /\nsmashers build: ├ ○ /_not-found\nsmashers build: ├ ƒ /api/auth/[...nextauth]\nsmashers build: ├ ƒ /api/edge-geo\nsmashers build: ├ ƒ /api/playfab/forgot-password\nsmashers build: ├ ƒ /api/playfab/login\nsmashers build: ├ ƒ /api/playfab/logout\nsmashers build: ├ ƒ /api/playfab/signup\nsmashers build: ├ ƒ /api/playfab/user/delete-account\nsmashers build: ├ ƒ /api/playfab/user/info\nsmashers build: ├ ƒ /api/playfab/user/link-provider\nsmashers build: ├ ƒ /api/playfab/user/link-wallet\nsmashers build: ├ ƒ /api/playfab/user/playfab-session\nsmashers build: ├ ƒ /api/playfab/user/unlink-provider\nsmashers build: ├ ƒ /api/playfab/user/unlink-wallet\nsmashers build: ├ ƒ /api/playfab/user/update\nsmashers build: ├ ƒ /login\nsmashers build: ├ ○ /loot\nsmashers build: └ ƒ /profile\nsmashers build: \nsmashers build: \nsmashers build: ○  (Static)   prerendered as static content\nsmashers build: ƒ  (Dynamic)  server-rendered on demand\nsmashers build: \nsmashers build: Exited with code 0\nsmashers postbuild: ✨ [next-sitemap] Loading next-sitemap config: file:///Users/amf/Developer/.worktrees/nifty-fe-m0-baseline/apps/smashers/next-sitemap.config.cjs\nsmashers postbuild: ✅ [next-sitemap] Generation completed\nsmashers postbuild: ┌───────────────┬────────┐\nsmashers postbuild: │ (index)       │ Values │\nsmashers postbuild: ├───────────────┼────────┤\nsmashers postbuild: │ indexSitemaps │ 0      │\nsmashers postbuild: │ sitemaps      │ 1      │\nsmashers postbuild: └───────────────┴────────┘\nsmashers postbuild: -----------------------------------------------------\nsmashers postbuild:  SITEMAPS \nsmashers postbuild: -----------------------------------------------------\nsmashers postbuild: \nsmashers postbuild:    ○ https://niftysmashers.com/sitemap.xml\nsmashers postbuild: \nsmashers postbuild: \nsmashers postbuild: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "smashers", "build"],
+          "durationMs": 19509.432875,
+          "exitCode": 0,
+          "stdout": ".220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js\nsmashers build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js\nsmashers build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js\nsmashers build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/index.js\nsmashers build: ../../../../../.bun/install/cache/links/@sentry+node@10.73.0+7777b3e21a0faeb5-c840cc94b497345d/node_modules/@sentry/node/build/cjs/integrations/tracing/express.js\nsmashers build: ../../../../../.bun/install/cache/links/@sentry+node@10.73.0+7777b3e21a0faeb5-c840cc94b497345d/node_modules/@sentry/node/build/cjs/index.js\nsmashers build: ../../node_modules/.bun/@sentry+nextjs@10.73.0+9814e2b1ae5512da/node_modules/@sentry/nextjs/build/cjs/index.server.js\nsmashers build: \nsmashers build: ✓ Compiled successfully in 10.0s\nsmashers build:   Running TypeScript ...\nsmashers build:   Finished TypeScript in 2.7s ...\nsmashers build:   Collecting page data using 11 workers ...\nsmashers build: ⚠ The Edge Runtime is deprecated. You can use the \"nodejs\" runtime instead. Learn more: https://nextjs.org/docs/messages/edge-runtime-deprecated\nsmashers build: ⚠ Using edge runtime on a page currently disables static generation for that page\nsmashers build:   Generating static pages using 11 workers (0/18) ...\nsmashers build:   Generating static pages using 11 workers (4/18) \r\nsmashers build:   Generating static pages using 11 workers (8/18) \r\nsmashers build:   Generating static pages using 11 workers (13/18) \r\nsmashers build: ✓ Generating static pages using 11 workers (18/18) in 304ms\nsmashers build:   Finalizing page optimization ...\nsmashers build:   Collecting build traces ...\nsmashers build: \nsmashers build: Route (app)\nsmashers build: ┌ ƒ /\nsmashers build: ├ ○ /_not-found\nsmashers build: ├ ƒ /api/auth/[...nextauth]\nsmashers build: ├ ƒ /api/edge-geo\nsmashers build: ├ ƒ /api/playfab/forgot-password\nsmashers build: ├ ƒ /api/playfab/login\nsmashers build: ├ ƒ /api/playfab/logout\nsmashers build: ├ ƒ /api/playfab/signup\nsmashers build: ├ ƒ /api/playfab/user/delete-account\nsmashers build: ├ ƒ /api/playfab/user/info\nsmashers build: ├ ƒ /api/playfab/user/link-provider\nsmashers build: ├ ƒ /api/playfab/user/link-wallet\nsmashers build: ├ ƒ /api/playfab/user/playfab-session\nsmashers build: ├ ƒ /api/playfab/user/unlink-provider\nsmashers build: ├ ƒ /api/playfab/user/unlink-wallet\nsmashers build: ├ ƒ /api/playfab/user/update\nsmashers build: ├ ƒ /login\nsmashers build: ├ ○ /loot\nsmashers build: └ ƒ /profile\nsmashers build: \nsmashers build: \nsmashers build: ○  (Static)   prerendered as static content\nsmashers build: ƒ  (Dynamic)  server-rendered on demand\nsmashers build: \nsmashers build: Exited with code 0\nsmashers postbuild: ✨ [next-sitemap] Loading next-sitemap config: file:///Users/amf/Developer/.worktrees/nifty-fe-m0-baseline/apps/smashers/next-sitemap.config.cjs\nsmashers postbuild: ✅ [next-sitemap] Generation completed\nsmashers postbuild: ┌───────────────┬────────┐\nsmashers postbuild: │ (index)       │ Values │\nsmashers postbuild: ├───────────────┼────────┤\nsmashers postbuild: │ indexSitemaps │ 0      │\nsmashers postbuild: │ sitemaps      │ 1      │\nsmashers postbuild: └───────────────┴────────┘\nsmashers postbuild: -----------------------------------------------------\nsmashers postbuild:  SITEMAPS \nsmashers postbuild: -----------------------------------------------------\nsmashers postbuild: \nsmashers postbuild:    ○ https://niftysmashers.com/sitemap.xml\nsmashers postbuild: \nsmashers postbuild: \nsmashers postbuild: Exited with code 0\n",
+          "stderr": ""
+        }
+      ],
+      "incremental": [
+        {
+          "command": ["bun", "--filter", "smashers", "build"],
+          "durationMs": 11677.251167000002,
+          "exitCode": 0,
+          "stdout": "220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js\nsmashers build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js\nsmashers build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js\nsmashers build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/index.js\nsmashers build: ../../../../../.bun/install/cache/links/@sentry+node@10.73.0+7777b3e21a0faeb5-c840cc94b497345d/node_modules/@sentry/node/build/cjs/integrations/tracing/express.js\nsmashers build: ../../../../../.bun/install/cache/links/@sentry+node@10.73.0+7777b3e21a0faeb5-c840cc94b497345d/node_modules/@sentry/node/build/cjs/index.js\nsmashers build: ../../node_modules/.bun/@sentry+nextjs@10.73.0+9814e2b1ae5512da/node_modules/@sentry/nextjs/build/cjs/index.server.js\nsmashers build: \nsmashers build: ✓ Compiled successfully in 3.7s\nsmashers build:   Running TypeScript ...\nsmashers build:   Finished TypeScript in 1082ms ...\nsmashers build:   Collecting page data using 11 workers ...\nsmashers build: ⚠ The Edge Runtime is deprecated. You can use the \"nodejs\" runtime instead. Learn more: https://nextjs.org/docs/messages/edge-runtime-deprecated\nsmashers build: ⚠ Using edge runtime on a page currently disables static generation for that page\nsmashers build:   Generating static pages using 11 workers (0/18) ...\nsmashers build:   Generating static pages using 11 workers (4/18) \r\nsmashers build:   Generating static pages using 11 workers (8/18) \r\nsmashers build:   Generating static pages using 11 workers (13/18) \r\nsmashers build: ✓ Generating static pages using 11 workers (18/18) in 287ms\nsmashers build:   Finalizing page optimization ...\nsmashers build:   Collecting build traces ...\nsmashers build: \nsmashers build: Route (app)\nsmashers build: ┌ ƒ /\nsmashers build: ├ ○ /_not-found\nsmashers build: ├ ƒ /api/auth/[...nextauth]\nsmashers build: ├ ƒ /api/edge-geo\nsmashers build: ├ ƒ /api/playfab/forgot-password\nsmashers build: ├ ƒ /api/playfab/login\nsmashers build: ├ ƒ /api/playfab/logout\nsmashers build: ├ ƒ /api/playfab/signup\nsmashers build: ├ ƒ /api/playfab/user/delete-account\nsmashers build: ├ ƒ /api/playfab/user/info\nsmashers build: ├ ƒ /api/playfab/user/link-provider\nsmashers build: ├ ƒ /api/playfab/user/link-wallet\nsmashers build: ├ ƒ /api/playfab/user/playfab-session\nsmashers build: ├ ƒ /api/playfab/user/unlink-provider\nsmashers build: ├ ƒ /api/playfab/user/unlink-wallet\nsmashers build: ├ ƒ /api/playfab/user/update\nsmashers build: ├ ƒ /login\nsmashers build: ├ ○ /loot\nsmashers build: └ ƒ /profile\nsmashers build: \nsmashers build: \nsmashers build: ○  (Static)   prerendered as static content\nsmashers build: ƒ  (Dynamic)  server-rendered on demand\nsmashers build: \nsmashers build: Exited with code 0\nsmashers postbuild: ✨ [next-sitemap] Loading next-sitemap config: file:///Users/amf/Developer/.worktrees/nifty-fe-m0-baseline/apps/smashers/next-sitemap.config.cjs\nsmashers postbuild: ✅ [next-sitemap] Generation completed\nsmashers postbuild: ┌───────────────┬────────┐\nsmashers postbuild: │ (index)       │ Values │\nsmashers postbuild: ├───────────────┼────────┤\nsmashers postbuild: │ indexSitemaps │ 0      │\nsmashers postbuild: │ sitemaps      │ 1      │\nsmashers postbuild: └───────────────┴────────┘\nsmashers postbuild: -----------------------------------------------------\nsmashers postbuild:  SITEMAPS \nsmashers postbuild: -----------------------------------------------------\nsmashers postbuild: \nsmashers postbuild:    ○ https://niftysmashers.com/sitemap.xml\nsmashers postbuild: \nsmashers postbuild: \nsmashers postbuild: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "smashers", "build"],
+          "durationMs": 11725.617958999996,
+          "exitCode": 0,
+          "stdout": "220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js\nsmashers build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js\nsmashers build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js\nsmashers build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/index.js\nsmashers build: ../../../../../.bun/install/cache/links/@sentry+node@10.73.0+7777b3e21a0faeb5-c840cc94b497345d/node_modules/@sentry/node/build/cjs/integrations/tracing/express.js\nsmashers build: ../../../../../.bun/install/cache/links/@sentry+node@10.73.0+7777b3e21a0faeb5-c840cc94b497345d/node_modules/@sentry/node/build/cjs/index.js\nsmashers build: ../../node_modules/.bun/@sentry+nextjs@10.73.0+9814e2b1ae5512da/node_modules/@sentry/nextjs/build/cjs/index.server.js\nsmashers build: \nsmashers build: ✓ Compiled successfully in 3.7s\nsmashers build:   Running TypeScript ...\nsmashers build:   Finished TypeScript in 1103ms ...\nsmashers build:   Collecting page data using 11 workers ...\nsmashers build: ⚠ The Edge Runtime is deprecated. You can use the \"nodejs\" runtime instead. Learn more: https://nextjs.org/docs/messages/edge-runtime-deprecated\nsmashers build: ⚠ Using edge runtime on a page currently disables static generation for that page\nsmashers build:   Generating static pages using 11 workers (0/18) ...\nsmashers build:   Generating static pages using 11 workers (4/18) \r\nsmashers build:   Generating static pages using 11 workers (8/18) \r\nsmashers build:   Generating static pages using 11 workers (13/18) \r\nsmashers build: ✓ Generating static pages using 11 workers (18/18) in 289ms\nsmashers build:   Finalizing page optimization ...\nsmashers build:   Collecting build traces ...\nsmashers build: \nsmashers build: Route (app)\nsmashers build: ┌ ƒ /\nsmashers build: ├ ○ /_not-found\nsmashers build: ├ ƒ /api/auth/[...nextauth]\nsmashers build: ├ ƒ /api/edge-geo\nsmashers build: ├ ƒ /api/playfab/forgot-password\nsmashers build: ├ ƒ /api/playfab/login\nsmashers build: ├ ƒ /api/playfab/logout\nsmashers build: ├ ƒ /api/playfab/signup\nsmashers build: ├ ƒ /api/playfab/user/delete-account\nsmashers build: ├ ƒ /api/playfab/user/info\nsmashers build: ├ ƒ /api/playfab/user/link-provider\nsmashers build: ├ ƒ /api/playfab/user/link-wallet\nsmashers build: ├ ƒ /api/playfab/user/playfab-session\nsmashers build: ├ ƒ /api/playfab/user/unlink-provider\nsmashers build: ├ ƒ /api/playfab/user/unlink-wallet\nsmashers build: ├ ƒ /api/playfab/user/update\nsmashers build: ├ ƒ /login\nsmashers build: ├ ○ /loot\nsmashers build: └ ƒ /profile\nsmashers build: \nsmashers build: \nsmashers build: ○  (Static)   prerendered as static content\nsmashers build: ƒ  (Dynamic)  server-rendered on demand\nsmashers build: \nsmashers build: Exited with code 0\nsmashers postbuild: ✨ [next-sitemap] Loading next-sitemap config: file:///Users/amf/Developer/.worktrees/nifty-fe-m0-baseline/apps/smashers/next-sitemap.config.cjs\nsmashers postbuild: ✅ [next-sitemap] Generation completed\nsmashers postbuild: ┌───────────────┬────────┐\nsmashers postbuild: │ (index)       │ Values │\nsmashers postbuild: ├───────────────┼────────┤\nsmashers postbuild: │ indexSitemaps │ 0      │\nsmashers postbuild: │ sitemaps      │ 1      │\nsmashers postbuild: └───────────────┴────────┘\nsmashers postbuild: -----------------------------------------------------\nsmashers postbuild:  SITEMAPS \nsmashers postbuild: -----------------------------------------------------\nsmashers postbuild: \nsmashers postbuild:    ○ https://niftysmashers.com/sitemap.xml\nsmashers postbuild: \nsmashers postbuild: \nsmashers postbuild: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "smashers", "build"],
+          "durationMs": 11568.579582999999,
+          "exitCode": 0,
+          "stdout": "220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js\nsmashers build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js\nsmashers build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js\nsmashers build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/index.js\nsmashers build: ../../../../../.bun/install/cache/links/@sentry+node@10.73.0+7777b3e21a0faeb5-c840cc94b497345d/node_modules/@sentry/node/build/cjs/integrations/tracing/express.js\nsmashers build: ../../../../../.bun/install/cache/links/@sentry+node@10.73.0+7777b3e21a0faeb5-c840cc94b497345d/node_modules/@sentry/node/build/cjs/index.js\nsmashers build: ../../node_modules/.bun/@sentry+nextjs@10.73.0+9814e2b1ae5512da/node_modules/@sentry/nextjs/build/cjs/index.server.js\nsmashers build: \nsmashers build: ✓ Compiled successfully in 3.7s\nsmashers build:   Running TypeScript ...\nsmashers build:   Finished TypeScript in 1085ms ...\nsmashers build:   Collecting page data using 11 workers ...\nsmashers build: ⚠ The Edge Runtime is deprecated. You can use the \"nodejs\" runtime instead. Learn more: https://nextjs.org/docs/messages/edge-runtime-deprecated\nsmashers build: ⚠ Using edge runtime on a page currently disables static generation for that page\nsmashers build:   Generating static pages using 11 workers (0/18) ...\nsmashers build:   Generating static pages using 11 workers (4/18) \r\nsmashers build:   Generating static pages using 11 workers (8/18) \r\nsmashers build:   Generating static pages using 11 workers (13/18) \r\nsmashers build: ✓ Generating static pages using 11 workers (18/18) in 290ms\nsmashers build:   Finalizing page optimization ...\nsmashers build:   Collecting build traces ...\nsmashers build: \nsmashers build: Route (app)\nsmashers build: ┌ ƒ /\nsmashers build: ├ ○ /_not-found\nsmashers build: ├ ƒ /api/auth/[...nextauth]\nsmashers build: ├ ƒ /api/edge-geo\nsmashers build: ├ ƒ /api/playfab/forgot-password\nsmashers build: ├ ƒ /api/playfab/login\nsmashers build: ├ ƒ /api/playfab/logout\nsmashers build: ├ ƒ /api/playfab/signup\nsmashers build: ├ ƒ /api/playfab/user/delete-account\nsmashers build: ├ ƒ /api/playfab/user/info\nsmashers build: ├ ƒ /api/playfab/user/link-provider\nsmashers build: ├ ƒ /api/playfab/user/link-wallet\nsmashers build: ├ ƒ /api/playfab/user/playfab-session\nsmashers build: ├ ƒ /api/playfab/user/unlink-provider\nsmashers build: ├ ƒ /api/playfab/user/unlink-wallet\nsmashers build: ├ ƒ /api/playfab/user/update\nsmashers build: ├ ƒ /login\nsmashers build: ├ ○ /loot\nsmashers build: └ ƒ /profile\nsmashers build: \nsmashers build: \nsmashers build: ○  (Static)   prerendered as static content\nsmashers build: ƒ  (Dynamic)  server-rendered on demand\nsmashers build: \nsmashers build: Exited with code 0\nsmashers postbuild: ✨ [next-sitemap] Loading next-sitemap config: file:///Users/amf/Developer/.worktrees/nifty-fe-m0-baseline/apps/smashers/next-sitemap.config.cjs\nsmashers postbuild: ✅ [next-sitemap] Generation completed\nsmashers postbuild: ┌───────────────┬────────┐\nsmashers postbuild: │ (index)       │ Values │\nsmashers postbuild: ├───────────────┼────────┤\nsmashers postbuild: │ indexSitemaps │ 0      │\nsmashers postbuild: │ sitemaps      │ 1      │\nsmashers postbuild: └───────────────┴────────┘\nsmashers postbuild: -----------------------------------------------------\nsmashers postbuild:  SITEMAPS \nsmashers postbuild: -----------------------------------------------------\nsmashers postbuild: \nsmashers postbuild:    ○ https://niftysmashers.com/sitemap.xml\nsmashers postbuild: \nsmashers postbuild: \nsmashers postbuild: Exited with code 0\n",
+          "stderr": ""
+        }
+      ],
+      "cleanDurationMs": {
+        "count": 3,
+        "median": 19614.146708,
+        "p75": 19757.324875000002,
+        "minimum": 19509.432875,
+        "maximum": 19900.503042000004,
+        "standardDeviation": 202.44374212806463,
+        "confidence": "low: fewer than 5 runs"
+      },
+      "incrementalDurationMs": {
+        "count": 3,
+        "median": 11677.251167000002,
+        "p75": 11701.434562999999,
+        "minimum": 11568.579582999999,
+        "maximum": 11725.617958999996,
+        "standardDeviation": 80.42585744456068,
+        "confidence": "low: fewer than 5 runs"
+      }
+    }
+  ]
+}

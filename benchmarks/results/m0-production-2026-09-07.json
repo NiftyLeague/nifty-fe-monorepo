@@ -1,0 +1,986 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-07T21:30:03.950Z",
+  "gitRevision": "e486f1d1714040903bb0d6b6f814036e3d8525e2",
+  "profile": {
+    "browser": "Google Chrome headless",
+    "viewport": "1365x768 @ 1x",
+    "cache": "disabled for every route sample",
+    "network": "unthrottled synthetic desktop; compare only with the same profile",
+    "interaction": "synthetic click on the configured selector after load",
+    "confidence": "synthetic lab data; not a substitute for field RUM p75"
+  },
+  "runCount": 5,
+  "routes": [
+    {
+      "route": {
+        "id": "api-root",
+        "app": "api",
+        "url": "https://api.niftyleague.com/",
+        "environment": "production",
+        "priority": "P0",
+        "interaction": {
+          "selector": "body"
+        }
+      },
+      "summary": {
+        "lcpMs": {
+          "count": 5,
+          "median": 264,
+          "p75": 264,
+          "minimum": 244,
+          "maximum": 328,
+          "standardDeviation": 33.298648621227855,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "inpMs": null,
+        "cls": {
+          "count": 5,
+          "median": 0,
+          "p75": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "ttfbMs": {
+          "count": 5,
+          "median": 199.10000002384186,
+          "p75": 199.89999997615814,
+          "minimum": 191.40000009536743,
+          "maximum": 218.5,
+          "standardDeviation": 10.638044915917295,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "totalTransferBytes": {
+          "count": 5,
+          "median": 1236,
+          "p75": 1236,
+          "minimum": 1227,
+          "maximum": 1258,
+          "standardDeviation": 11.588787684654509,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "javascriptBytes": {
+          "count": 5,
+          "median": 0,
+          "p75": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "cssBytes": {
+          "count": 5,
+          "median": 0,
+          "p75": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "requestCount": {
+          "count": 5,
+          "median": 2,
+          "p75": 2,
+          "minimum": 2,
+          "maximum": 2,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "memoryBytes": {
+          "count": 5,
+          "median": 819032,
+          "p75": 819032,
+          "minimum": 819032,
+          "maximum": 819032,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        }
+      },
+      "samples": [
+        {
+          "capturedAt": "2026-09-07T21:28:36.499Z",
+          "url": "https://api.niftyleague.com/",
+          "loaded": true,
+          "lcpMs": 264,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 193.89999997615814,
+          "memoryBytes": 819032,
+          "totalTransferBytes": 1258,
+          "javascriptBytes": 0,
+          "cssBytes": 0,
+          "requestCount": 2,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T21:28:40.184Z",
+          "url": "https://api.niftyleague.com/",
+          "loaded": true,
+          "lcpMs": 264,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 199.89999997615814,
+          "memoryBytes": 819032,
+          "totalTransferBytes": 1236,
+          "javascriptBytes": 0,
+          "cssBytes": 0,
+          "requestCount": 2,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T21:28:43.724Z",
+          "url": "https://api.niftyleague.com/",
+          "loaded": true,
+          "lcpMs": 244,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 191.40000009536743,
+          "memoryBytes": 819032,
+          "totalTransferBytes": 1235,
+          "javascriptBytes": 0,
+          "cssBytes": 0,
+          "requestCount": 2,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T21:28:47.099Z",
+          "url": "https://api.niftyleague.com/",
+          "loaded": true,
+          "lcpMs": 328,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 218.5,
+          "memoryBytes": 819032,
+          "totalTransferBytes": 1236,
+          "javascriptBytes": 0,
+          "cssBytes": 0,
+          "requestCount": 2,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T21:28:50.310Z",
+          "url": "https://api.niftyleague.com/",
+          "loaded": true,
+          "lcpMs": 252,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 199.10000002384186,
+          "memoryBytes": 819032,
+          "totalTransferBytes": 1227,
+          "javascriptBytes": 0,
+          "cssBytes": 0,
+          "requestCount": 2,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        }
+      ]
+    },
+    {
+      "route": {
+        "id": "app-degens",
+        "app": "app",
+        "url": "https://app.niftyleague.com/degens",
+        "environment": "production",
+        "priority": "P0",
+        "interaction": {
+          "selector": "body"
+        }
+      },
+      "summary": {
+        "lcpMs": {
+          "count": 5,
+          "median": 1160,
+          "p75": 1336,
+          "minimum": 1100,
+          "maximum": 2400,
+          "standardDeviation": 556.1726350693641,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "inpMs": {
+          "count": 1,
+          "median": 16,
+          "p75": 16,
+          "minimum": 16,
+          "maximum": 16,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "cls": {
+          "count": 5,
+          "median": 0.003701950331414617,
+          "p75": 0.003701950331414617,
+          "minimum": 0.003701950331414617,
+          "maximum": 0.003701950331414617,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "ttfbMs": {
+          "count": 5,
+          "median": 221.20000004768372,
+          "p75": 244.79999995231628,
+          "minimum": 184.29999995231628,
+          "maximum": 827.3999999761581,
+          "standardDeviation": 276.58335632705814,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "totalTransferBytes": {
+          "count": 5,
+          "median": 637389,
+          "p75": 637557,
+          "minimum": 636033,
+          "maximum": 637722,
+          "standardDeviation": 731.5522537727569,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "javascriptBytes": {
+          "count": 5,
+          "median": 481421,
+          "p75": 481425,
+          "minimum": 481377,
+          "maximum": 481426,
+          "standardDeviation": 22.538855339169288,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "cssBytes": {
+          "count": 5,
+          "median": 21102,
+          "p75": 21120,
+          "minimum": 21076,
+          "maximum": 21135,
+          "standardDeviation": 22.54994456755936,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "requestCount": {
+          "count": 5,
+          "median": 63,
+          "p75": 63,
+          "minimum": 61,
+          "maximum": 63,
+          "standardDeviation": 0.8944271909999159,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "memoryBytes": {
+          "count": 5,
+          "median": 11022312,
+          "p75": 11218536,
+          "minimum": 10285444,
+          "maximum": 12662432,
+          "standardDeviation": 908918.7937130578,
+          "confidence": "moderate: repeated synthetic runs"
+        }
+      },
+      "samples": [
+        {
+          "capturedAt": "2026-09-07T21:28:54.425Z",
+          "url": "https://app.niftyleague.com/degens",
+          "loaded": true,
+          "lcpMs": 2400,
+          "cls": 0.003701950331414617,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 827.3999999761581,
+          "memoryBytes": 10285444,
+          "totalTransferBytes": 636033,
+          "javascriptBytes": 481391,
+          "cssBytes": 21076,
+          "requestCount": 61,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T21:28:57.914Z",
+          "url": "https://app.niftyleague.com/degens",
+          "loaded": true,
+          "lcpMs": 1104,
+          "cls": 0.003701950331414617,
+          "inpMs": 16,
+          "unsupported": [],
+          "ttfbMs": 184.29999995231628,
+          "memoryBytes": 12662432,
+          "totalTransferBytes": 637389,
+          "javascriptBytes": 481425,
+          "cssBytes": 21120,
+          "requestCount": 63,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T21:29:01.314Z",
+          "url": "https://app.niftyleague.com/degens",
+          "loaded": true,
+          "lcpMs": 1160,
+          "cls": 0.003701950331414617,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 194.5,
+          "memoryBytes": 10649808,
+          "totalTransferBytes": 637722,
+          "javascriptBytes": 481421,
+          "cssBytes": 21135,
+          "requestCount": 63,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T21:29:04.971Z",
+          "url": "https://app.niftyleague.com/degens",
+          "loaded": true,
+          "lcpMs": 1336,
+          "cls": 0.003701950331414617,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 221.20000004768372,
+          "memoryBytes": 11022312,
+          "totalTransferBytes": 636518,
+          "javascriptBytes": 481377,
+          "cssBytes": 21097,
+          "requestCount": 62,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T21:29:08.388Z",
+          "url": "https://app.niftyleague.com/degens",
+          "loaded": true,
+          "lcpMs": 1100,
+          "cls": 0.003701950331414617,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 244.79999995231628,
+          "memoryBytes": 11218536,
+          "totalTransferBytes": 637557,
+          "javascriptBytes": 481426,
+          "cssBytes": 21102,
+          "requestCount": 63,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        }
+      ]
+    },
+    {
+      "route": {
+        "id": "docs-overview",
+        "app": "docs",
+        "url": "https://docs.niftyleague.com/overview/intro",
+        "environment": "production",
+        "priority": "P1",
+        "interaction": {
+          "selector": "body"
+        }
+      },
+      "summary": {
+        "lcpMs": {
+          "count": 5,
+          "median": 596,
+          "p75": 704,
+          "minimum": 500,
+          "maximum": 1156,
+          "standardDeviation": 263.7786951214976,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "inpMs": null,
+        "cls": {
+          "count": 5,
+          "median": 0.00034833009109708977,
+          "p75": 0.00034833009109708977,
+          "minimum": 0.00034833009109708977,
+          "maximum": 0.00034833009109708977,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "ttfbMs": {
+          "count": 5,
+          "median": 236,
+          "p75": 258.1999999284744,
+          "minimum": 203.5,
+          "maximum": 354.09999990463257,
+          "standardDeviation": 59.230676132516344,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "totalTransferBytes": {
+          "count": 5,
+          "median": 1195388,
+          "p75": 1195580,
+          "minimum": 1195184,
+          "maximum": 1210687,
+          "standardDeviation": 6855.884574582627,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "javascriptBytes": {
+          "count": 5,
+          "median": 314469,
+          "p75": 314497,
+          "minimum": 314446,
+          "maximum": 314513,
+          "standardDeviation": 28.86693610343848,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "cssBytes": {
+          "count": 5,
+          "median": 26669,
+          "p75": 26670,
+          "minimum": 26644,
+          "maximum": 26675,
+          "standardDeviation": 15.142654985173506,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "requestCount": {
+          "count": 5,
+          "median": 43,
+          "p75": 43,
+          "minimum": 43,
+          "maximum": 47,
+          "standardDeviation": 1.7888543819998317,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "memoryBytes": {
+          "count": 5,
+          "median": 7018199,
+          "p75": 7022643,
+          "minimum": 6990557,
+          "maximum": 7696315,
+          "standardDeviation": 308289.7993077293,
+          "confidence": "moderate: repeated synthetic runs"
+        }
+      },
+      "samples": [
+        {
+          "capturedAt": "2026-09-07T21:29:12.361Z",
+          "url": "https://docs.niftyleague.com/overview/intro",
+          "loaded": true,
+          "lcpMs": 1156,
+          "cls": 0.00034833009109708977,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 354.09999990463257,
+          "memoryBytes": 6998985,
+          "totalTransferBytes": 1195184,
+          "javascriptBytes": 314452,
+          "cssBytes": 26675,
+          "requestCount": 43,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T21:29:16.152Z",
+          "url": "https://docs.niftyleague.com/overview/intro",
+          "loaded": true,
+          "lcpMs": 704,
+          "cls": 0.00034833009109708977,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 236,
+          "memoryBytes": 7018199,
+          "totalTransferBytes": 1195289,
+          "javascriptBytes": 314446,
+          "cssBytes": 26644,
+          "requestCount": 43,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T21:29:19.803Z",
+          "url": "https://docs.niftyleague.com/overview/intro",
+          "loaded": true,
+          "lcpMs": 560,
+          "cls": 0.00034833009109708977,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 220.5,
+          "memoryBytes": 6990557,
+          "totalTransferBytes": 1195580,
+          "javascriptBytes": 314469,
+          "cssBytes": 26669,
+          "requestCount": 43,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T21:29:23.488Z",
+          "url": "https://docs.niftyleague.com/overview/intro",
+          "loaded": true,
+          "lcpMs": 500,
+          "cls": 0.00034833009109708977,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 203.5,
+          "memoryBytes": 7696315,
+          "totalTransferBytes": 1210687,
+          "javascriptBytes": 314497,
+          "cssBytes": 26670,
+          "requestCount": 47,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T21:29:27.169Z",
+          "url": "https://docs.niftyleague.com/overview/intro",
+          "loaded": true,
+          "lcpMs": 596,
+          "cls": 0.00034833009109708977,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 258.1999999284744,
+          "memoryBytes": 7022643,
+          "totalTransferBytes": 1195388,
+          "javascriptBytes": 314513,
+          "cssBytes": 26644,
+          "requestCount": 43,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        }
+      ]
+    },
+    {
+      "route": {
+        "id": "smashers-home",
+        "app": "smashers",
+        "url": "https://niftysmashers.com/",
+        "environment": "production",
+        "priority": "P0",
+        "interaction": {
+          "selector": "body"
+        }
+      },
+      "summary": {
+        "lcpMs": {
+          "count": 5,
+          "median": 600,
+          "p75": 704,
+          "minimum": 548,
+          "maximum": 816,
+          "standardDeviation": 112.59129628883397,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "inpMs": {
+          "count": 5,
+          "median": 16,
+          "p75": 16,
+          "minimum": 16,
+          "maximum": 24,
+          "standardDeviation": 3.5777087639996634,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "cls": {
+          "count": 5,
+          "median": 0,
+          "p75": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "ttfbMs": {
+          "count": 5,
+          "median": 246.80000007152557,
+          "p75": 293.5,
+          "minimum": 212.5,
+          "maximum": 302.60000002384186,
+          "standardDeviation": 37.2835754703352,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "totalTransferBytes": {
+          "count": 5,
+          "median": 4143788,
+          "p75": 4143808,
+          "minimum": 642049,
+          "maximum": 4143884,
+          "standardDeviation": 1566033.0039758103,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "javascriptBytes": {
+          "count": 5,
+          "median": 385412,
+          "p75": 385444,
+          "minimum": 385369,
+          "maximum": 385445,
+          "standardDeviation": 36.12063122372033,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "cssBytes": {
+          "count": 5,
+          "median": 18683,
+          "p75": 18716,
+          "minimum": 18680,
+          "maximum": 18717,
+          "standardDeviation": 19.485892332659546,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "requestCount": {
+          "count": 5,
+          "median": 41,
+          "p75": 41,
+          "minimum": 40,
+          "maximum": 41,
+          "standardDeviation": 0.4472135954999579,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "memoryBytes": {
+          "count": 5,
+          "median": 8025081,
+          "p75": 8047665,
+          "minimum": 6970859,
+          "maximum": 8057598,
+          "standardDeviation": 476032.49577229493,
+          "confidence": "moderate: repeated synthetic runs"
+        }
+      },
+      "samples": [
+        {
+          "capturedAt": "2026-09-07T21:29:30.864Z",
+          "url": "https://niftysmashers.com/",
+          "loaded": true,
+          "lcpMs": 704,
+          "cls": 0,
+          "inpMs": 24,
+          "unsupported": [],
+          "ttfbMs": 293.5,
+          "memoryBytes": 8007241,
+          "totalTransferBytes": 642049,
+          "javascriptBytes": 385412,
+          "cssBytes": 18680,
+          "requestCount": 41,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T21:29:34.388Z",
+          "url": "https://niftysmashers.com/",
+          "loaded": true,
+          "lcpMs": 548,
+          "cls": 0,
+          "inpMs": 16,
+          "unsupported": [],
+          "ttfbMs": 212.5,
+          "memoryBytes": 8025081,
+          "totalTransferBytes": 4143884,
+          "javascriptBytes": 385369,
+          "cssBytes": 18716,
+          "requestCount": 41,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T21:29:38.116Z",
+          "url": "https://niftysmashers.com/",
+          "loaded": true,
+          "lcpMs": 600,
+          "cls": 0,
+          "inpMs": 16,
+          "unsupported": [],
+          "ttfbMs": 302.60000002384186,
+          "memoryBytes": 8057598,
+          "totalTransferBytes": 4143808,
+          "javascriptBytes": 385445,
+          "cssBytes": 18680,
+          "requestCount": 41,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T21:29:41.902Z",
+          "url": "https://niftysmashers.com/",
+          "loaded": true,
+          "lcpMs": 564,
+          "cls": 0,
+          "inpMs": 16,
+          "unsupported": [],
+          "ttfbMs": 246.10000002384186,
+          "memoryBytes": 8047665,
+          "totalTransferBytes": 4143788,
+          "javascriptBytes": 385444,
+          "cssBytes": 18683,
+          "requestCount": 40,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T21:29:45.506Z",
+          "url": "https://niftysmashers.com/",
+          "loaded": true,
+          "lcpMs": 816,
+          "cls": 0,
+          "inpMs": 16,
+          "unsupported": [],
+          "ttfbMs": 246.80000007152557,
+          "memoryBytes": 6970859,
+          "totalTransferBytes": 4143741,
+          "javascriptBytes": 385376,
+          "cssBytes": 18717,
+          "requestCount": 41,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        }
+      ]
+    },
+    {
+      "route": {
+        "id": "web-home",
+        "app": "web",
+        "url": "https://niftyleague.com/",
+        "environment": "production",
+        "priority": "P0",
+        "interaction": {
+          "selector": "body"
+        }
+      },
+      "summary": {
+        "lcpMs": {
+          "count": 5,
+          "median": 380,
+          "p75": 420,
+          "minimum": 348,
+          "maximum": 1036,
+          "standardDeviation": 295.97837758863403,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "inpMs": {
+          "count": 5,
+          "median": 32,
+          "p75": 32,
+          "minimum": 16,
+          "maximum": 32,
+          "standardDeviation": 7.155417527999329,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "cls": {
+          "count": 5,
+          "median": 0,
+          "p75": 0,
+          "minimum": 0,
+          "maximum": 0.00021823316006851123,
+          "standardDeviation": 0.00009759683617155675,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "ttfbMs": {
+          "count": 5,
+          "median": 218.30000007152557,
+          "p75": 219.29999995231628,
+          "minimum": 198.5,
+          "maximum": 782,
+          "standardDeviation": 255.69609499536122,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "totalTransferBytes": {
+          "count": 5,
+          "median": 597799,
+          "p75": 597841,
+          "minimum": 597755,
+          "maximum": 597898,
+          "standardDeviation": 55.09718686103674,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "javascriptBytes": {
+          "count": 5,
+          "median": 369986,
+          "p75": 370029,
+          "minimum": 369900,
+          "maximum": 370035,
+          "standardDeviation": 54.226377345347345,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "cssBytes": {
+          "count": 5,
+          "median": 0,
+          "p75": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "requestCount": {
+          "count": 5,
+          "median": 33,
+          "p75": 33,
+          "minimum": 33,
+          "maximum": 33,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "memoryBytes": {
+          "count": 5,
+          "median": 9196581,
+          "p75": 9203837,
+          "minimum": 9164631,
+          "maximum": 9221571,
+          "standardDeviation": 21066.479150536758,
+          "confidence": "moderate: repeated synthetic runs"
+        }
+      },
+      "samples": [
+        {
+          "capturedAt": "2026-09-07T21:29:49.165Z",
+          "url": "https://niftyleague.com/",
+          "loaded": true,
+          "lcpMs": 420,
+          "cls": 0,
+          "inpMs": 32,
+          "unsupported": [],
+          "ttfbMs": 218.30000007152557,
+          "memoryBytes": 9221571,
+          "totalTransferBytes": 597788,
+          "javascriptBytes": 369975,
+          "cssBytes": 0,
+          "requestCount": 33,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T21:29:52.779Z",
+          "url": "https://niftyleague.com/",
+          "loaded": true,
+          "lcpMs": 348,
+          "cls": 0,
+          "inpMs": 32,
+          "unsupported": [],
+          "ttfbMs": 198.5,
+          "memoryBytes": 9203837,
+          "totalTransferBytes": 597755,
+          "javascriptBytes": 369986,
+          "cssBytes": 0,
+          "requestCount": 33,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T21:29:56.170Z",
+          "url": "https://niftyleague.com/",
+          "loaded": true,
+          "lcpMs": 360,
+          "cls": 0,
+          "inpMs": 32,
+          "unsupported": [],
+          "ttfbMs": 206.20000004768372,
+          "memoryBytes": 9186828,
+          "totalTransferBytes": 597898,
+          "javascriptBytes": 370035,
+          "cssBytes": 0,
+          "requestCount": 33,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T21:30:00.450Z",
+          "url": "https://niftyleague.com/",
+          "loaded": true,
+          "lcpMs": 1036,
+          "cls": 0.00021823316006851123,
+          "inpMs": 16,
+          "unsupported": [],
+          "ttfbMs": 782,
+          "memoryBytes": 9164631,
+          "totalTransferBytes": 597799,
+          "javascriptBytes": 369900,
+          "cssBytes": 0,
+          "requestCount": 33,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T21:30:03.909Z",
+          "url": "https://niftyleague.com/",
+          "loaded": true,
+          "lcpMs": 380,
+          "cls": 0,
+          "inpMs": 32,
+          "unsupported": [],
+          "ttfbMs": 219.29999995231628,
+          "memoryBytes": 9196581,
+          "totalTransferBytes": 597841,
+          "javascriptBytes": 370029,
+          "cssBytes": 0,
+          "requestCount": 33,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        }
+      ]
+    }
+  ],
+  "builds": []
+}

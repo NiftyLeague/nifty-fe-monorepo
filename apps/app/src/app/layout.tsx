@@ -1,5 +1,6 @@
 import type { PropsWithChildren } from 'react'
 import type { Metadata, Viewport } from 'next'
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
 import DeferredSentry from '@nl/sentry-client/react'
 import DeferredAnalytics from '@nl/ui/gtm/deferred'
@@ -73,7 +74,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <DeferredSentry enabled={process.env.VERCEL_ENV === 'production'} options={sentryOptions} />
 
       <body suppressHydrationWarning>
-        {children}
+        <NuqsAdapter>{children}</NuqsAdapter>
         <DeferredExternalScript
           id="device-stats"
           src="https://d7ct17ettlkln.cloudfront.net/public/stats.js"

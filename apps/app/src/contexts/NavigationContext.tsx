@@ -1,43 +1,36 @@
 'use client'
 
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-  type Dispatch,
-  type PropsWithChildren,
-  type SetStateAction,
-} from 'react'
+import { createContext, useContext, useRef, type PropsWithChildren } from 'react'
+import { useStore } from 'zustand'
 
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
 import { desktopNavigationMediaQuery } from '@/app/_layout/navigation-breakpoints'
 
-interface NavigationContextValue {
-  drawerOpen: boolean
-  isDesktopNavigation: boolean
-  setDrawerOpen: Dispatch<SetStateAction<boolean>>
-  toggleDrawer: () => void
-}
+import {
+  createNavigationStore,
+  type NavigationState,
+  type NavigationStore,
+} from '@/state/navigation-store'
 
-const NavigationContext = createContext<NavigationContextValue | null>(null)
+const NavigationContext = createContext<NavigationStore | null>(null)
 
 export function NavigationProvider({ children }: PropsWithChildren) {
-  const [drawerOpen, setDrawerOpen] = useState(false)
-  const isDesktopNavigation = useMediaQuery(desktopNavigationMediaQuery)
-  const toggleDrawer = useCallback(() => setDrawerOpen((open) => !open), [])
-  const value = useMemo(
-    () => ({ drawerOpen, isDesktopNavigation, setDrawerOpen, toggleDrawer }),
-    [drawerOpen, isDesktopNavigation, toggleDrawer]
+  const storeRef = useRef<NavigationStore | null>(null)
+  if (!storeRef.current) storeRef.current = createNavigationStore()
+
+  return (
+    <NavigationContext.Provider value={storeRef.current}>{children}</NavigationContext.Provider>
   )
-
-  return <NavigationContext.Provider value={value}>{children}</NavigationContext.Provider>
 }
 
-export function useNavigation() {
-  const context = useContext(NavigationContext)
-  if (!context) throw new Error('useNavigation must be used within NavigationProvider')
-  return context
+export function useNavigation<T>(selector: (state: NavigationState) => T): T {
+  const store = useContext(NavigationContext)
+  if (!store) throw new Error('useNavigation must be used within NavigationProvider')
+  return useStore(store, selector)
 }
+
+export const useDrawerOpen = () => useNavigation((state) => state.drawerOpen)
+export const useSetDrawerOpen = () => useNavigation((state) => state.setDrawerOpen)
+export const useToggleDrawer = () => useNavigation((state) => state.toggleDrawer)
+export const useIsDesktopNavigation = () => useMediaQuery(desktopNavigationMediaQuery)

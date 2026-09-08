@@ -1,11 +1,10 @@
 import { act, renderHook, waitFor } from '@testing-library/react'
-import { afterEach, beforeEach, describe, expect, it, mock, spyOn } from 'bun:test'
+import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
 
 const contractReader = mock()
 
 const interval = { clear: mock(async () => undefined), set: mock(() => 'interval-id') }
 
-let useFetch: typeof import('./useFetch').default
 let useLocalStorage: typeof import('./useLocalStorage').default
 
 beforeEach(async () => {
@@ -14,9 +13,7 @@ beforeEach(async () => {
     clearIntervalAsync: interval.clear,
     setIntervalAsync: interval.set,
   }))
-  const useFetchModule = await import('./useFetch')
   const useLocalStorageModule = await import('./useLocalStorage')
-  useFetch = useFetchModule.default
   useLocalStorage = useLocalStorageModule.default
 })
 
@@ -24,127 +21,6 @@ afterEach(() => {
   mock.restore()
   interval.clear.mockClear()
   interval.set.mockClear()
-})
-
-describe('useFetch', () => {
-  it('loads JSON, caches it, and supports text responses', async () => {
-    const fetchMock = spyOn(globalThis, 'fetch').mockResolvedValueOnce(
-      new Response(JSON.stringify({ id: 7 }), { status: 200 })
-    )
-    const { result, rerender } = renderHook(
-      ({ url, textOnly }) => useFetch(url, undefined, textOnly),
-      {
-        initialProps: { url: '/payload', textOnly: false },
-      }
-    )
-
-    await waitFor(() => expect(result.current.data).toEqual({ id: 7 }))
-    expect(result.current).toMatchObject({ loading: false })
-    expect(fetchMock).toHaveBeenCalledWith(
-      '/payload',
-      expect.objectContaining({ headers: undefined, signal: expect.any(AbortSignal) })
-    )
-
-    rerender({ url: '/payload', textOnly: false })
-    expect(fetchMock).toHaveBeenCalledTimes(1)
-
-    fetchMock.mockResolvedValueOnce(new Response('plain text', { status: 200 }))
-    rerender({ url: '/text', textOnly: true })
-    await waitFor(() => expect(result.current.data).toBe('plain text'))
-
-    rerender({ url: '/payload', textOnly: false })
-    await waitFor(() => expect(result.current.data).toEqual({ id: 7 }))
-    expect(fetchMock).toHaveBeenCalledTimes(2)
-  })
-
-  it('resets when disabled and reports unsuccessful responses', async () => {
-    const fetchMock = spyOn(globalThis, 'fetch').mockResolvedValue(
-      new Response('missing', { status: 404, statusText: 'Not Found' })
-    )
-    const { result, rerender } = renderHook(({ enabled }) => useFetch('/missing', { enabled }), {
-      initialProps: { enabled: true },
-    })
-
-    await waitFor(() => expect(result.current.error?.message).toBe('Not Found'))
-    expect(fetchMock).toHaveBeenCalledTimes(1)
-
-    rerender({ enabled: false })
-    await waitFor(() =>
-      expect(result.current).toMatchObject({ loading: false, error: undefined, data: undefined })
-    )
-  })
-
-  it('shares in-flight and completed public catalog requests across hook instances', async () => {
-    let resolveRequest: (response: Response) => void = () => undefined
-    const fetchMock = spyOn(globalThis, 'fetch').mockReturnValue(
-      new Promise((resolve) => {
-        resolveRequest = resolve
-      })
-    )
-    const options = { sharedCache: true }
-    const first = renderHook(() => useFetch<{ id: number }>('/shared-catalog', options))
-    const second = renderHook(() => useFetch<{ id: number }>('/shared-catalog', options))
-
-    expect(fetchMock).toHaveBeenCalledTimes(1)
-
-    resolveRequest(new Response(JSON.stringify({ id: 7 }), { status: 200 }))
-    await waitFor(() => expect(first.result.current.data).toEqual({ id: 7 }))
-    await waitFor(() => expect(second.result.current.data).toEqual({ id: 7 }))
-
-    first.unmount()
-    second.unmount()
-    const cached = renderHook(() => useFetch<{ id: number }>('/shared-catalog', options))
-    await waitFor(() => expect(cached.result.current.data).toEqual({ id: 7 }))
-    expect(fetchMock).toHaveBeenCalledTimes(1)
-  })
-
-  it('does not update an unmounted hook when its request resolves', async () => {
-    let resolveRequest: (response: Response) => void = () => undefined
-    spyOn(globalThis, 'fetch').mockReturnValue(
-      new Promise((resolve) => {
-        resolveRequest = resolve
-      })
-    )
-    const { result, unmount } = renderHook(() => useFetch<{ id: number }>('/cancelled'))
-
-    unmount()
-    resolveRequest(new Response(JSON.stringify({ id: 8 }), { status: 200 }))
-    await Promise.resolve()
-
-    expect(result.current.data).toBeUndefined()
-  })
-
-  it('aborts an unshared request when its hook unmounts', () => {
-    let requestSignal: AbortSignal | undefined
-    spyOn(globalThis, 'fetch').mockImplementation((_input, init) => {
-      requestSignal = (init as RequestInit | undefined)?.signal
-      return new Promise(() => undefined)
-    })
-
-    const { unmount } = renderHook(() => useFetch('/cancelled-before-response'))
-
-    expect(requestSignal?.aborted).toBe(false)
-    unmount()
-
-    expect(requestSignal?.aborted).toBe(true)
-  })
-
-  it('skips requests without a URL or when disabled', () => {
-    const fetchMock = spyOn(globalThis, 'fetch')
-    const { result } = renderHook(() => useFetch('/skip', { enabled: false }))
-
-    expect(result.current).toMatchObject({
-      data: undefined,
-      error: undefined,
-      loading: false,
-      reset: undefined,
-    })
-    expect(fetchMock).not.toHaveBeenCalled()
-
-    const noUrl = renderHook(() => useFetch())
-    expect(noUrl.result.current.data).toBeUndefined()
-    expect(fetchMock).not.toHaveBeenCalled()
-  })
 })
 
 describe('useLocalStorage', () => {

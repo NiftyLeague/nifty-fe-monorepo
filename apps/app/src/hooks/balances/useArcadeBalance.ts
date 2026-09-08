@@ -3,8 +3,13 @@
 import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { GET_ARCADE_TOKEN_BALANCE_API } from '@/constants/url'
-import { AUTH_Token } from '@/types/auth'
 import useAuth from '@/hooks/useAuth'
+import {
+  AUTHENTICATED_STALE_TIME_MS,
+  fetchApiQuery,
+  getAuthQueryScope,
+  queryKeys,
+} from '@/query/app-query'
 
 /*
   ~ What it does? ~
@@ -31,21 +36,18 @@ interface ArcadeBalanceState {
   refetch: () => void
 }
 
-const fetchArcadeTokenBalance = async (authToken: AUTH_Token) => {
-  const response = await fetch(GET_ARCADE_TOKEN_BALANCE_API, {
-    method: 'GET',
-    headers: { authorizationToken: authToken || '' },
-  })
-  const body = await response.json()
-  return body
-}
-
 export default function useArcadeBalance(): ArcadeBalanceState {
   const { authToken, isLoggedIn } = useAuth()
+  const scope = getAuthQueryScope(authToken)
   const { data, isLoading, error, refetch } = useQuery<ArcadeBalanceInfo>({
-    queryKey: ['arcade-token-balance'],
-    queryFn: () => fetchArcadeTokenBalance(authToken),
+    queryKey: queryKeys.account.arcadeBalance(scope),
+    queryFn: ({ signal }) =>
+      fetchApiQuery<ArcadeBalanceInfo>(GET_ARCADE_TOKEN_BALANCE_API, {
+        signal,
+        init: { headers: { authorizationToken: authToken || '' } },
+      }),
     enabled: !!authToken && isLoggedIn,
+    staleTime: AUTHENTICATED_STALE_TIME_MS,
   })
 
   const balance = useMemo(() => data?.balance ?? 0, [data])

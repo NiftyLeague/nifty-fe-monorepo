@@ -9,7 +9,12 @@ import { ScrollArea } from '@nl/ui/base/scroll-area'
 import AppBar from '@nl/ui/custom/app-bar'
 
 import Breadcrumbs from '@/components/extended/Breadcrumbs'
-import { NavigationProvider, useNavigation } from '@/contexts/NavigationContext'
+import {
+  NavigationProvider,
+  useDrawerOpen,
+  useIsDesktopNavigation,
+  useSetDrawerOpen,
+} from '@/contexts/NavigationContext'
 import navigation from '@/constants/menu-items'
 import styles from './_MainLayout/MainLayout.module.css'
 
@@ -31,7 +36,9 @@ export default function AppShell({ children, header, sidebar, networkWarning }: 
 
 function AppShellContent({ children, header, sidebar, networkWarning }: AppShellProps) {
   const pathname = usePathname()
-  const { drawerOpen, isDesktopNavigation, setDrawerOpen } = useNavigation()
+  const drawerOpen = useDrawerOpen()
+  const isDesktopNavigation = useIsDesktopNavigation()
+  const setDrawerOpen = useSetDrawerOpen()
 
   useEffect(() => {
     setDrawerOpen(isDesktopNavigation)
