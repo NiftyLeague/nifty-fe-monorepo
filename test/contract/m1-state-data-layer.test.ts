@@ -58,6 +58,19 @@ describe('M1 state and data ownership', () => {
     ).toBe(true)
   })
 
+  it('records final full-migration route and build evidence', () => {
+    const evidence = JSON.parse(read('benchmarks/results/m1-app-full-state-2026-09-08.json'))
+
+    expect(evidence.gitRevision).toBe('8778cd4feb076bb2da5f91019f9762166958a8c6')
+    expect(evidence.routes[0].samples).toHaveLength(5)
+    expect(
+      evidence.builds[0].clean.every(({ exitCode }: { exitCode: number }) => exitCode === 0)
+    ).toBe(true)
+    expect(
+      evidence.builds[0].incremental.every(({ exitCode }: { exitCode: number }) => exitCode === 0)
+    ).toBe(true)
+  })
+
   it('keeps one request-cache owner and no module-level query client', () => {
     expect(existsSync('apps/app/src/hooks/useFetch.ts')).toBe(false)
     const runtime = read('apps/app/src/contexts/Web3ModalRuntime.tsx')
@@ -108,5 +121,15 @@ describe('M1 state and data ownership', () => {
     expect(degensLayout).toContain('<AppQueryProvider>')
     expect(degensPage).toContain('HydrationBoundary')
     expect(degensPage).toContain('createAppQueryClient()')
+  })
+
+  it('records the reviewed non-migrations in every other app', () => {
+    const record = read('docs/architecture/m1-state-and-data-layer.md')
+
+    for (const app of ['smashers', 'web', 'docs', 'template', 'api']) {
+      expect(record).toContain(`\`${app}\``)
+    }
+    expect(record).toContain('single-consumer launcher version read')
+    expect(record).toContain('single-consumer abortable claimable-NFTL read')
   })
 })
