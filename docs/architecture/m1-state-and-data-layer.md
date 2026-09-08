@@ -69,19 +69,20 @@ Bundle and request-count acceptance uses the M0 profile and budgets without rein
 - `benchmarks/results/m1-app-before-2026-09-07.json` measures M0 commit `907444bd085e0b012702fdc918cbc3f961093c7b`.
 - `benchmarks/results/m1-app-after-2026-09-07.json` measures M1 commit `395f27224c3289913b5f695b3cd7e7a958027a74`.
 - `benchmarks/results/m1-app-build-after-2026-09-07.json` records three successful clean/incremental build pairs at the M1 commit.
+- `benchmarks/results/m1-app-full-state-2026-09-08.json` measures the completed state migration at commit `8778cd4feb076bb2da5f91019f9762166958a8c6`, including five route samples and three successful clean/incremental build pairs.
 
-| Same-host `/degens` median |          M0 |          M1 |  Change | Gate                                                            |
-| -------------------------- | ----------: | ----------: | ------: | --------------------------------------------------------------- |
-| LCP                        |      480 ms |      448 ms |   -6.7% | pass                                                            |
-| Synthetic INP              |       16 ms |       16 ms |      0% | pass                                                            |
-| CLS                        |      0.0037 |      0.0037 |      0% | pass                                                            |
-| TTFB                       |      3.9 ms |     11.9 ms | +8.0 ms | pass; absolute increase is below the 250 ms rejection threshold |
-| Total transfer             |   545,237 B |   580,272 B |   +6.4% | pass                                                            |
-| JavaScript                 |   388,039 B |   422,478 B |   +8.9% | pass                                                            |
-| Requests                   |          55 |          59 |   +7.3% | pass                                                            |
-| Memory                     | 8,530,199 B | 8,834,271 B |   +3.6% | pass                                                            |
+| Same-host `/degens` median |          M0 | M1 complete |   Change | Gate                                                            |
+| -------------------------- | ----------: | ----------: | -------: | --------------------------------------------------------------- |
+| LCP                        |      480 ms |      440 ms |    -8.3% | pass                                                            |
+| Synthetic INP              |       16 ms |       16 ms |       0% | pass                                                            |
+| CLS                        |      0.0037 |      0.0037 |       0% | pass                                                            |
+| TTFB                       |      3.9 ms |     13.9 ms | +10.0 ms | pass; absolute increase is below the 250 ms rejection threshold |
+| Total transfer             |   545,237 B |   581,425 B |    +6.6% | pass                                                            |
+| JavaScript                 |   388,039 B |   423,581 B |    +9.2% | pass                                                            |
+| Requests                   |          55 |          60 |    +9.1% | pass                                                            |
+| Memory                     | 8,530,199 B | 8,858,373 B |    +3.8% | pass                                                            |
 
-Compared with the M0 three-run build record, clean build median changed from 33,277.8 ms to 31,336.3 ms (-5.8%) and incremental build median changed from 20,060.2 ms to 16,397.2 ms (-18.3%). All six M1 build samples exited zero. Run route evidence with `bun scripts/m0-benchmark.mjs --config benchmarks/m1-app-routes.json --include-local`; add `--build --build-app app` for build timing. A route, build, bundle, or request-count regression beyond the M0 budget rejects the migration and rolls back the relevant owner without changing public contracts.
+Compared with the M0 three-run build record, clean build median changed from 33,277.8 ms to 32,217.0 ms (-3.2%) and incremental build median changed from 20,060.2 ms to 17,109.2 ms (-14.7%). All six completed-migration build samples exited zero. Run route evidence with `bun scripts/m0-benchmark.mjs --config benchmarks/m1-app-routes.json --include-local`; add `--build --build-app app` for build timing. A route, build, bundle, or request-count regression beyond the M0 budget rejects the migration and rolls back the relevant owner without changing public contracts.
 
 ## Rollback and residual constraints
 
