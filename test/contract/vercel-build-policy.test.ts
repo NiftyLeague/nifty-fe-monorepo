@@ -73,9 +73,9 @@ describe('Vercel build cost policy', () => {
     expect(shouldBuild('main', 'web', ['packages/ui/src/index.ts'])).toBe(true)
   })
 
-  it('documents the live aggregate-status cost control', () => {
-    const contributionGuide = readFileSync(join(process.cwd(), '.github/CONTRIBUTING.md'), 'utf8')
+  it('documents the live aggregate-status cost control outside generated policy', () => {
+    const readme = readFileSync(join(process.cwd(), 'README.md'), 'utf8')
 
-    expect(contributionGuide).toContain(consolidatedStatusPolicy)
+    expect(readme).toContain(consolidatedStatusPolicy)
   })
 })
