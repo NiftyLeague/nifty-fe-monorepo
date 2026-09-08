@@ -1,12 +1,13 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, type SetStateAction } from 'react'
 
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import { ResponsiveTable } from '@/components/ResponsiveTable'
-import type { ReturnDataType, TableProps, TableRowType } from '@/types/leaderboard'
-import { fetchScores } from '@/utils/leaderboard'
+import type { TableProps, TableRowType } from '@/types/leaderboard'
+import { useLeaderboardScores } from '@/hooks/queries/useLeaderboardScores'
 import LeaderboardRankBoundary from '../LeaderboardRankBoundary'
+import QueryErrorState from '@/components/QueryErrorState'
 
 const flatObject = (obj: { [key: string]: unknown }): Record<string, unknown> => {
   const flattened: Record<string, unknown> = {}
@@ -21,60 +22,33 @@ const flatObject = (obj: { [key: string]: unknown }): Record<string, unknown> =>
 }
 
 export default function EnhancedTable({
+  page,
+  onPageChange,
   selectedGame,
   selectedTable,
   selectedTimeFilter,
 }: TableProps): React.ReactNode | null {
-  const [count, setCount] = useState(0)
-  const [paginationModel, setPaginationModel] = useState({ pageSize: 50, page: 0 })
-  const [rows, setData] = useState<Record<string, unknown>[] | null>()
-
-  const fetchTopData = async () => {
-    setPaginationModel((model) => ({ pageSize: model.pageSize, page: 0 }))
-    const returnValue: ReturnDataType = await fetchScores(
-      selectedGame,
-      selectedTable.key,
-      selectedTimeFilter,
-      paginationModel.pageSize,
-      0
-    )
-    const leaderBoardValue: Record<string, unknown>[] = []
-    returnValue.data.forEach((value) => {
-      leaderBoardValue.push(flatObject(value))
-    })
-
-    setData(leaderBoardValue)
-    setCount(returnValue.count)
-  }
+  const paginationModel = { pageSize: 50, page: Math.max(0, page - 1) }
+  const { data, error, isPending, refetch } = useLeaderboardScores(
+    selectedGame,
+    selectedTable.key,
+    selectedTimeFilter,
+    paginationModel.pageSize,
+    paginationModel.page * paginationModel.pageSize
+  )
+  const rows = useMemo(() => data?.data.map(flatObject) ?? [], [data?.data])
+  const maxPage = Math.max(1, Math.ceil((data?.count ?? 0) / paginationModel.pageSize))
 
   useEffect(() => {
-    setData(null)
-    fetchTopData()
-  }, [selectedGame, selectedTable.key, selectedTimeFilter])
+    if (!isPending && page > maxPage) onPageChange(maxPage)
+  }, [isPending, maxPage, onPageChange, page])
 
-  const handleChangePage = async (newPage: number) => {
-    if (rows && (newPage + 1) * paginationModel.pageSize > rows?.length && rows?.length < count) {
-      const returnValue: ReturnDataType = await fetchScores(
-        selectedGame,
-        selectedTable.key,
-        selectedTimeFilter,
-        paginationModel.pageSize,
-        newPage * paginationModel.pageSize
-      )
-      const leaderBoardValue: Record<string, unknown>[] = []
-      returnValue.data.forEach((value) => {
-        leaderBoardValue.push(flatObject(value))
-      })
-      setData([...rows, ...leaderBoardValue])
-      setCount(returnValue.count)
-    }
+  const handlePaginationModelChange = (
+    update: SetStateAction<{ pageSize: number; page: number }>
+  ) => {
+    const next = typeof update === 'function' ? update(paginationModel) : update
+    onPageChange(next.page + 1)
   }
-
-  useEffect(() => {
-    if (paginationModel.page !== 0) {
-      handleChangePage(paginationModel.page)
-    }
-  }, [paginationModel.page])
 
   const columns = useMemo(() => {
     const baseColumns: Array<{
@@ -99,10 +73,16 @@ export default function EnhancedTable({
 
   return (
     <div className="mb-20 sm:mb-0">
-      {!rows ? (
+      {isPending ? (
         <div className="absolute flex h-[70%] w-full items-center justify-center">
           <CircularProgress size="lg" />
         </div>
+      ) : error ? (
+        <QueryErrorState
+          error={error}
+          onRetry={() => void refetch()}
+          className="flex min-h-72 items-center justify-center gap-3 text-error"
+        />
       ) : (
         <div className="relative">
           <LeaderboardRankBoundary
@@ -112,11 +92,12 @@ export default function EnhancedTable({
           />
           <ResponsiveTable
             paginationModel={paginationModel}
-            onPaginationModelChange={setPaginationModel}
+            onPaginationModelChange={handlePaginationModelChange}
             columns={columns}
             showPagination={true}
             data={rows}
-            count={count}
+            count={data?.count ?? 0}
+            serverPaginated
           />
         </div>
       )}

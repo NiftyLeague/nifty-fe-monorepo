@@ -8,6 +8,18 @@ const migratedUrlOwners = [
   'apps/app/src/components/extended/DegensFilter/index.tsx',
   'apps/app/src/components/leaderboards/index.tsx',
   'apps/app/src/app/(private-routes)/dashboard/rentals/DashboardRentalsContent.tsx',
+  'apps/app/src/app/(private-routes)/dashboard/rentals/MyRentalsDataGrid.tsx',
+  'apps/app/src/app/(private-routes)/dashboard/degens/DashboardDegensContent.tsx',
+  'apps/app/src/components/providers/MintPageContent.tsx',
+]
+
+const migratedRemoteOwners = [
+  'apps/app/src/components/leaderboards/EnhancedTable/EnhancedTable.tsx',
+  'apps/app/src/components/leaderboards/TopModal.tsx',
+  'apps/app/src/components/leaderboards/LeaderboardRankAction.tsx',
+  'apps/app/src/hooks/useRentalPassCount.ts',
+  'apps/app/src/hooks/useVersion.ts',
+  'apps/app/src/hooks/merkleDistributor/useUserClaimData.ts',
 ]
 
 describe('M1 state and data ownership', () => {
@@ -46,12 +58,34 @@ describe('M1 state and data ownership', () => {
     ).toBe(true)
   })
 
+  it('records final full-migration route and build evidence', () => {
+    const evidence = JSON.parse(read('benchmarks/results/m1-app-full-state-2026-09-08.json'))
+
+    expect(evidence.gitRevision).toBe('8778cd4feb076bb2da5f91019f9762166958a8c6')
+    expect(evidence.routes[0].samples).toHaveLength(5)
+    expect(
+      evidence.builds[0].clean.every(({ exitCode }: { exitCode: number }) => exitCode === 0)
+    ).toBe(true)
+    expect(
+      evidence.builds[0].incremental.every(({ exitCode }: { exitCode: number }) => exitCode === 0)
+    ).toBe(true)
+  })
+
   it('keeps one request-cache owner and no module-level query client', () => {
     expect(existsSync('apps/app/src/hooks/useFetch.ts')).toBe(false)
     const runtime = read('apps/app/src/contexts/Web3ModalRuntime.tsx')
     const provider = read('apps/app/src/query/AppQueryProvider.tsx')
     expect(runtime).not.toContain('new QueryClient')
     expect(provider).toContain('useState(createAppQueryClient)')
+
+    for (const path of migratedRemoteOwners) {
+      const source = read(path)
+      expect(source).toMatch(/useQuery|useLeaderboardScores|useQueryClient/)
+      expect(source).not.toMatch(/\bfetch\(/)
+    }
+    expect(read('apps/app/src/hooks/merkleDistributor/useUserClaimData.ts')).not.toContain(
+      'CLAIM_PROMISES'
+    )
   })
 
   it('uses the typed URL owner without parallel manual router state', () => {
@@ -64,6 +98,14 @@ describe('M1 state and data ownership', () => {
     expect(
       existsSync('apps/app/src/app/(public-routes)/degens/DegenSearchParamsBoundary.tsx')
     ).toBe(false)
+    expect(existsSync('apps/app/src/hooks/usePagination.ts')).toBe(false)
+
+    const dashboardDegens = read(
+      'apps/app/src/app/(private-routes)/dashboard/degens/DashboardDegensContent.tsx'
+    )
+    expect(dashboardDegens).not.toContain('setFilteredData')
+    expect(dashboardDegens).not.toContain('setDefaultValues')
+    expect(dashboardDegens).not.toContain('setFilters')
   })
 
   it('keeps direct dependencies and request-local SSR hydration explicit', () => {
@@ -79,5 +121,15 @@ describe('M1 state and data ownership', () => {
     expect(degensLayout).toContain('<AppQueryProvider>')
     expect(degensPage).toContain('HydrationBoundary')
     expect(degensPage).toContain('createAppQueryClient()')
+  })
+
+  it('records the reviewed non-migrations in every other app', () => {
+    const record = read('docs/architecture/m1-state-and-data-layer.md')
+
+    for (const app of ['smashers', 'web', 'docs', 'template', 'api']) {
+      expect(record).toContain(`\`${app}\``)
+    }
+    expect(record).toContain('single-consumer launcher version read')
+    expect(record).toContain('single-consumer abortable claimable-NFTL read')
   })
 })

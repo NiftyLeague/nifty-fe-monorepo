@@ -146,14 +146,25 @@ describe('leaderboard data loaders', () => {
   })
 
   it('returns rank responses and propagates network errors', async () => {
-    const response = new Response('{}', { status: 200 })
+    const response = new Response('7', { status: 200 })
     const fetchMock = mock().mockResolvedValue(response)
     stubGlobal('fetch', fetchMock)
-    await expect(fetchRankByUserId('user-1', 'smashers', 'wins', 'week')).resolves.toBe(response)
+    await expect(fetchRankByUserId('user-1', 'smashers', 'wins', 'week')).resolves.toBe(7)
     expect(fetchMock.mock.calls[0]?.[0]).toContain('user_id=user-1')
 
     const error = new Error('offline')
     stubGlobal('fetch', mock().mockRejectedValue(error))
     await expect(fetchRankByUserId('user-1', 'smashers', 'wins', 'week')).rejects.toBe(error)
+  })
+
+  it('surfaces the leaderboard API error body for failed rank reads', async () => {
+    stubGlobal(
+      'fetch',
+      mock().mockResolvedValue(new Response('Player is unavailable', { status: 404 }))
+    )
+
+    await expect(fetchRankByUserId('user-1', 'smashers', 'wins', 'week')).rejects.toThrow(
+      'Player is unavailable'
+    )
   })
 })

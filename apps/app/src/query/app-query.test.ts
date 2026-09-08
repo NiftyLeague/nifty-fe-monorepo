@@ -30,6 +30,25 @@ describe('app query contract', () => {
     expect(JSON.stringify(key)).not.toContain('authorizationToken')
   })
 
+  it('provides semantic keys for every client-owned remote read', () => {
+    expect(queryKeys.leaderboards.page('nifty_smashers', 'win_rate', 'all_time', 50, 0)).toEqual([
+      'leaderboards',
+      'page',
+      'nifty_smashers',
+      'win_rate',
+      'all_time',
+      50,
+      0,
+    ])
+    expect(queryKeys.rentalPass('session-ab12')).toEqual([
+      'rentals',
+      'pass-balance',
+      'session-ab12',
+    ])
+    expect(queryKeys.merkleClaim(1, '0xabc')).toEqual(['merkle-claim', 1, '0xabc'])
+    expect(queryKeys.launcherVersion('prod', 'win')).toEqual(['launcher-version', 'prod', 'win'])
+  })
+
   it('deduplicates concurrent reads that share a semantic key', async () => {
     const client = createAppQueryClient()
     const queryFn = mock(async () => ({ id: 7 }))
@@ -57,5 +76,20 @@ describe('app query contract', () => {
     await expect(
       fetchApiQuery('/api/example', { signal: controller.signal, fetcher })
     ).rejects.toThrow('Unavailable')
+  })
+
+  it('rejects successful HTTP responses that carry an application error', async () => {
+    const fetcher = mock(() =>
+      Promise.resolve(
+        new Response(JSON.stringify({ statusCode: 400, body: 'Profile is unavailable' }), {
+          status: 200,
+        })
+      )
+    )
+
+    await expect(fetchApiQuery('/api/profile', { fetcher })).rejects.toMatchObject({
+      message: 'Profile is unavailable',
+      status: 400,
+    })
   })
 })

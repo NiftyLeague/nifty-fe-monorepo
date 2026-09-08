@@ -1,5 +1,5 @@
 'use client'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import NativeImage from '@nl/ui/custom/native-image'
 import { useQueryStates } from 'nuqs'
 import { cn } from '@nl/ui/utils'
@@ -16,16 +16,10 @@ import { degenSearchParsers, normalizeDegenSearchState } from '@/url/search-stat
 import styles from './index.module.css'
 
 interface DegensFilterProps {
-  onFilter?: (filter: DegenFilter) => void
   defaultFilterValues: DegenFilter
-  searchTerm?: string
 }
 
-const DegensFilter = ({
-  onFilter,
-  defaultFilterValues,
-  searchTerm,
-}: DegensFilterProps): React.ReactNode => {
+const DegensFilter = ({ defaultFilterValues }: DegensFilterProps): React.ReactNode => {
   const [queryState, setQueryState] = useQueryStates(degenSearchParsers, {
     history: 'push',
     shallow: true,
@@ -68,32 +62,6 @@ const DegensFilter = ({
     if (isParamsEmpty) return
     void setQueryState(null)
   }
-
-  useEffect(() => {
-    if (searchTerm === undefined) return
-    void setQueryState({ searchTerm: searchTerm || null, page: 1 }, { history: 'replace' })
-  }, [searchTerm, setQueryState])
-
-  const effectiveFilter = useMemo<DegenFilter>(
-    () => ({
-      prices: state.prices.length ? state.prices : defaultFilterValues.prices,
-      multipliers: state.multipliers.length ? state.multipliers : defaultFilterValues.multipliers,
-      rentals: state.rentals.length ? state.rentals : defaultFilterValues.rentals,
-      tribes: tribesValue,
-      backgrounds: backgroundsValue,
-      cosmetics: cosmeticsValue,
-      wearables: state.wearables.length ? state.wearables : defaultFilterValues.wearables,
-      sort: state.sort,
-      tokenId: state.tokenId ? [state.tokenId] : [],
-      searchTerm: state.searchTerm ? [state.searchTerm] : [],
-      walletAddress: state.walletAddress ? [state.walletAddress] : [],
-    }),
-    [backgroundsValue, cosmeticsValue, defaultFilterValues, state, tribesValue]
-  )
-
-  useEffect(() => {
-    onFilter?.(effectiveFilter)
-  }, [effectiveFilter, onFilter])
 
   return (
     <div className="flex flex-col gap-3 overflow-x-hidden max-sm:py-4">

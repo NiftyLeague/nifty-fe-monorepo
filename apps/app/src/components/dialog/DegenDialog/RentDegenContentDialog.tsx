@@ -36,6 +36,10 @@ interface RentDegenContentDialogProps {
   onClose?: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
+const handleBuyNFTL = () => {
+  gtm.sendEvent(GTM_EVENTS.RENTAL_BUY_NFTL_CLICKED)
+}
+
 const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps) => {
   const router = useRouter()
   const { account, refetchAccount } = useGameAccount()
@@ -45,7 +49,6 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
   const [ethAddress, setEthAddress] = useState<string>('')
   const [isUseRentalPass, setIsUseRentalPass] = useState<boolean>(false)
   const [addressError, setAddressError] = useState<string>('')
-  const [loading, setLoading] = useState<boolean>(false)
   const [checkBalance, setCheckBalance] = useState<boolean>(false)
   const [rentSuccess, setRentSuccess] = useState<boolean>(false)
   const [openTOS, setOpenTOS] = useState<boolean>(false)
@@ -65,7 +68,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
   )
 
   const [, , rentalPassCount] = useRentalPassCount(degen?.id)
-  const rent = useRent(
+  const { rent, isPending: loading } = useRent(
     degen?.id,
     degen?.rental_count || 0,
     degen?.price || 0,
@@ -101,10 +104,8 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
   const handleRent = useCallback(async () => {
     const items = [{ item_id: `${degen?.id}`, item_name: 'DEGEN Rental' }]
     gtm.sendEvent(GTM_EVENTS.BEGIN_CHECKOUT, { items })
-    setLoading(true)
     try {
       await rent()
-      setLoading(false)
       setRentSuccess(true)
 
       gtm.sendEvent(GTM_EVENTS.PURCHASE_COMPLETE, { items })
@@ -114,7 +115,6 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
         item_name: 'DEGEN Rental',
       })
     } catch (err: unknown) {
-      setLoading(false)
       toast.error(errorMsgHandler(err))
     }
   }, [degen, rent])
@@ -168,10 +168,6 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
   const handleClickPlay = useCallback(() => {
     router.push('/games/smashers')
   }, [router])
-
-  const handleBuyNFTL = () => {
-    gtm.sendEvent(GTM_EVENTS.RENTAL_BUY_NFTL_CLICKED)
-  }
 
   return (
     <div>

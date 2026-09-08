@@ -27,6 +27,7 @@ export default function LeaderBoards(): React.ReactNode {
     shallow: true,
   })
   const selectedGame = searchState.game
+  const page = Math.max(1, searchState.page)
   const currentGame =
     LEADERBOARD_GAME_LIST.find((game) => game.key === selectedGame) ??
     (LEADERBOARD_GAME_LIST[0] as LeaderboardGame)
@@ -48,24 +49,25 @@ export default function LeaderBoards(): React.ReactNode {
   }, [selectedGame])
 
   const handleChangeGame = (gameKey: string) => {
-    const currentGame = LEADERBOARD_GAME_LIST.filter((game) => game.key === gameKey)?.[0]
-    if (!currentGame) return
-    const { tables } = currentGame
+    const nextGame = LEADERBOARD_GAME_LIST.find((game) => game.key === gameKey)
+    if (!nextGame) return
+    const { tables } = nextGame
     void setSearchState({
       game: gameKey as typeof searchState.game,
       table: (tables[0] as TableType).key,
       time: gameKey === 'nftl_burner' && selectedTimeFilter === 'weekly' ? 'all_time' : undefined,
+      page: 1,
     })
   }
 
   const handleChangeType = (tableKey: string) => {
     const table = currentGame.tables.find((candidate: TableType) => candidate.key === tableKey)
-    if (table) void setSearchState({ table: table.key })
+    if (table) void setSearchState({ table: table.key, page: 1 })
   }
 
   const handleChangeTimeFilter = (selected: string) => {
     if (selectedTimeFilter !== selected) {
-      void setSearchState({ time: selected as typeof searchState.time })
+      void setSearchState({ time: selected as typeof searchState.time, page: 1 })
     }
   }
 
@@ -121,6 +123,8 @@ export default function LeaderBoards(): React.ReactNode {
         </div>
       </div>
       <EnhancedTable
+        page={page}
+        onPageChange={(nextPage) => void setSearchState({ page: nextPage })}
         selectedGame={selectedGame}
         selectedTable={selectedTable}
         selectedTimeFilter={selectedTimeFilter}

@@ -6,9 +6,7 @@ import type { DegenFilter } from '@/types/degenFilter'
 import DeferredDialogLoading from './DeferredDialogLoading'
 
 interface DegensFilterProps {
-  onFilter?: (filter: DegenFilter) => void
   defaultFilterValues: DegenFilter
-  searchTerm?: string
 }
 
 const loadDegensFilter = () => import('@/components/extended/DegensFilter')

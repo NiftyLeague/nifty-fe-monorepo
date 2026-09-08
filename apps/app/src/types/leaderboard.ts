@@ -55,6 +55,8 @@ export enum TimeFilter {
 export type LeaderboardGame = { key: string; display: Game; tables: TableType[] }
 
 export interface TableProps {
+  page: number
+  onPageChange: (page: number) => void
   selectedGame: string
   selectedTable: TableType
   selectedTimeFilter: string

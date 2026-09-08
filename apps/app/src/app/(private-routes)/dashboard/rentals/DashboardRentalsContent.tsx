@@ -117,11 +117,11 @@ const DashboardRentalPage = (): React.ReactNode => {
   }
 
   const handleSearch = (currentValue: string) => {
-    void setSearchState({ search: currentValue || null }, { history: 'replace' })
+    void setSearchState({ search: currentValue || null, page: 1 }, { history: 'replace' })
   }
 
   const handleChangeCategory = (value: string) => {
-    void setSearchState({ category: value as typeof searchState.category })
+    void setSearchState({ category: value as typeof searchState.category, page: 1 })
   }
 
   return (

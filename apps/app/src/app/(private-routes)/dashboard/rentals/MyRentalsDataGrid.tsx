@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { useQueryStates } from 'nuqs'
 import { ChevronDown, ChevronUp, Pencil } from 'lucide-react'
 import { Button } from '@nl/ui/base/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@nl/ui/base/dialog'
@@ -19,6 +20,7 @@ import DeferredDegenDialog from '@/components/providers/DeferredDegenDialog'
 import DeferredChangeNicknameDialog from '@/components/providers/DeferredChangeNicknameDialog'
 import { PaginationControls } from '@/components/pagination/PaginationControls'
 import { RentalDataGrid } from '@/types/rentalDataGrid'
+import { normalizePage, rentalSearchParsers } from '@/url/search-state'
 
 const RENTAL_COLUMN_VISIBILITY = 'rental-column-visibility-model'
 const PAGE_SIZE_OPTIONS = [10, 25, 100]
@@ -69,9 +71,16 @@ const MyRentalsDataGrid = ({
   const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false)
   const [selectedDegen, setSelectedDegen] = useState<Degen | undefined>(undefined)
   const [isRentDialog, setIsRentDialog] = useState<boolean>(false)
-  const [sort, setSort] = useState<SortState | null>(null)
-  const [pageSize, setPageSize] = useState(10)
-  const [page, setPage] = useState(0)
+  const [tableState, setTableState] = useQueryStates(rentalSearchParsers, {
+    history: 'push',
+    shallow: true,
+  })
+  const sort = useMemo<SortState | null>(
+    () => (tableState.sort ? { field: tableState.sort, direction: tableState.direction } : null),
+    [tableState.direction, tableState.sort]
+  )
+  const pageSize = Number(tableState.pageSize)
+  const page = normalizePage(tableState.page) - 1
   const [columnVisibilityModel] = useLocalStorage<ColumnVisibilityModel>(
     RENTAL_COLUMN_VISIBILITY,
     {}
@@ -150,25 +159,26 @@ const MyRentalsDataGrid = ({
 
   const handleSortClick = (field: string) => {
     if (!sort || sort.field !== field) {
-      setSort({ field, direction: 'asc' })
+      void setTableState({ sort: field, direction: 'asc', page: 1 })
     } else if (sort.direction === 'asc') {
-      setSort({ field, direction: 'desc' })
+      void setTableState({ direction: 'desc', page: 1 })
     } else {
-      setSort(null)
+      void setTableState({ sort: null, direction: null, page: 1 })
     }
   }
 
   const handlePageSizeChange = (value: string) => {
-    setPageSize(Number(value))
-    setPage(0)
+    if (value === '10' || value === '25' || value === '100') {
+      void setTableState({ pageSize: value, page: 1 })
+    }
   }
 
   const handlePrevPage = () => {
-    setPage((p) => Math.max(0, p - 1))
+    void setTableState({ page: Math.max(1, page) })
   }
 
   const handleNextPage = () => {
-    setPage((p) => Math.min(pageCount - 1, p + 1))
+    void setTableState({ page: Math.min(pageCount, page + 2) })
   }
 
   const commonColumnProp = { minWidth: 100 }
@@ -362,6 +372,13 @@ const MyRentalsDataGrid = ({
   )
 
   const pageCount = Math.max(1, Math.ceil(sortedRows.length / pageSize))
+
+  useEffect(() => {
+    const normalizedPage = Math.min(page + 1, pageCount)
+    if (tableState.page !== normalizedPage) {
+      void setTableState({ page: normalizedPage }, { history: 'replace' })
+    }
+  }, [page, pageCount, setTableState, tableState.page])
 
   if (loading) {
     return (

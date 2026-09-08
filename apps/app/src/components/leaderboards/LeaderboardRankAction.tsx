@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 import NativeImage from '@nl/ui/custom/native-image'
 import { useState } from 'react'
 import { toast } from 'sonner'
+import { useQueryClient } from '@tanstack/react-query'
 
 import * as gtm from '@nl/ui/gtm/events'
 import { EVENTS as GTM_EVENTS } from '@nl/ui/gtm/constants'
@@ -12,6 +13,7 @@ import useAuth from '@/hooks/useAuth'
 import usePlayerProfile from '@/hooks/usePlayerProfile'
 import { fetchRankByUserId } from '@/utils/leaderboard'
 import { errorMsgHandler } from '@/utils/errorHandlers'
+import { AUTHENTICATED_STALE_TIME_MS, queryKeys } from '@/query/app-query'
 
 import LeaderboardProviders from '@/contexts/LeaderboardProviders'
 
@@ -30,6 +32,7 @@ const LeaderboardRankAction = ({
 }: LeaderboardRankActionProps): React.ReactNode | null => {
   const [myRank, setMyRank] = useState<number>()
   const [isRankModalOpen, setIsRankModalOpen] = useState(false)
+  const queryClient = useQueryClient()
   const { isLoggedIn } = useAuth()
   const { profile } = usePlayerProfile()
 
@@ -48,23 +51,22 @@ const LeaderboardRankAction = ({
       return
     }
     try {
-      const result = await fetchRankByUserId(
-        profile.id,
-        selectedGame,
-        selectedTable,
-        selectedTimeFilter
-      )
-      if (!result.ok) {
-        const errMsg = await result.text().catch(() => 'Unknown error')
-        toast.error(errMsg || 'Unknown error')
-        return
-      }
-      const res = await result.json()
-      if (res < 1) {
+      const rank = await queryClient.fetchQuery({
+        queryKey: queryKeys.leaderboards.rank(
+          profile.id,
+          selectedGame,
+          selectedTable,
+          selectedTimeFilter
+        ),
+        queryFn: ({ signal }) =>
+          fetchRankByUserId(profile.id, selectedGame, selectedTable, selectedTimeFilter, signal),
+        staleTime: AUTHENTICATED_STALE_TIME_MS,
+      })
+      if (rank < 1) {
         toast.error(errorMes)
         return
       }
-      setMyRank(res)
+      setMyRank(rank)
       setIsRankModalOpen(true)
     } catch (error) {
       toast.error(errorMsgHandler(error))

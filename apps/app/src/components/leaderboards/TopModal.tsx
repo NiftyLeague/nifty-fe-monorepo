@@ -1,18 +1,18 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import NativeImage from '@nl/ui/custom/native-image'
 
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@nl/ui/base/table'
 
-import { fetchScores } from '@/utils/leaderboard'
 import type { DataType } from '@/types/leaderboard'
 import { LEADERBOARD_GAME_LIST } from '@/constants/leaderboards'
 import CustomModal from './CustomModal'
 import './modal-table.css'
 
 import styles from './TopModal.module.css'
+import { useLeaderboardScores } from '@/hooks/queries/useLeaderboardScores'
+import QueryErrorState from '@/components/QueryErrorState'
 
 interface TableModalProps {
   selectedGame: string
@@ -27,25 +27,14 @@ const TableModal = ({
   selectedTimeFilter,
   myRank,
 }: TableModalProps): React.ReactNode | null => {
-  const [data, setData] = useState<DataType[]>()
-
-  useEffect(() => {
-    if (!myRank) {
-      setData(undefined)
-      return
-    }
-
-    let active = true
-    void fetchScores(selectedGame, flag, selectedTimeFilter, 10, myRank < 3 ? 0 : myRank - 3).then(
-      (ret) => {
-        if (active) setData(ret.data)
-      }
-    )
-
-    return () => {
-      active = false
-    }
-  }, [flag, myRank, selectedGame, selectedTimeFilter])
+  const offset = myRank && myRank >= 3 ? myRank - 3 : 0
+  const {
+    data: result,
+    error,
+    isPending,
+    refetch,
+  } = useLeaderboardScores(selectedGame, flag, selectedTimeFilter, 10, offset, Boolean(myRank))
+  const data = result?.data as DataType[] | undefined
 
   const getTextStyleForRank = (rank: number) => {
     return rank === myRank ? { color: '#E49C8E' } : {}
@@ -68,10 +57,17 @@ const TableModal = ({
 
   return (
     <div className={styles.tableRoot}>
-      {!data && (
+      {isPending && myRank && (
         <div className={styles.loadingBox} role="status" aria-label="Loading leaderboard">
           <CircularProgress />
         </div>
+      )}
+      {error && (
+        <QueryErrorState
+          error={error}
+          onRetry={() => void refetch()}
+          className="flex items-center justify-center gap-3 py-4 text-error"
+        />
       )}
       <Table className="modal-table">
         <TableHeader className="header [&_tr]:border-0">
