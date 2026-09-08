@@ -1,0 +1,214 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-07T21:31:03.572Z",
+  "gitRevision": "e486f1d1714040903bb0d6b6f814036e3d8525e2",
+  "profile": {
+    "browser": "Google Chrome headless",
+    "viewport": "1365x768 @ 1x",
+    "cache": "disabled for every route sample",
+    "network": "unthrottled synthetic desktop; compare only with the same profile",
+    "interaction": "synthetic click on the configured selector after load",
+    "confidence": "synthetic lab data; not a substitute for field RUM p75"
+  },
+  "runCount": 5,
+  "routes": [
+    {
+      "route": {
+        "id": "template-home",
+        "app": "template",
+        "url": "http://127.0.0.1:3005/",
+        "environment": "local-only",
+        "priority": "P2",
+        "interaction": {
+          "selector": "body"
+        }
+      },
+      "summary": {
+        "lcpMs": {
+          "count": 5,
+          "median": 100,
+          "p75": 108,
+          "minimum": 92,
+          "maximum": 760,
+          "standardDeviation": 296.1297013134617,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "inpMs": {
+          "count": 1,
+          "median": 16,
+          "p75": 16,
+          "minimum": 16,
+          "maximum": 16,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "cls": {
+          "count": 5,
+          "median": 0.009716184156039904,
+          "p75": 0.009735262300118048,
+          "minimum": 0.006775597829464567,
+          "maximum": 0.012051837388198976,
+          "standardDeviation": 0.002225937574439876,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "ttfbMs": {
+          "count": 5,
+          "median": 3.200000047683716,
+          "p75": 3.399999976158142,
+          "minimum": 3.100000023841858,
+          "maximum": 25.600000023841858,
+          "standardDeviation": 10.018333197126028,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "totalTransferBytes": {
+          "count": 5,
+          "median": 289575,
+          "p75": 289575,
+          "minimum": 280977,
+          "maximum": 289575,
+          "standardDeviation": 3845.142494108639,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "javascriptBytes": {
+          "count": 5,
+          "median": 152502,
+          "p75": 152502,
+          "minimum": 152502,
+          "maximum": 152502,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "cssBytes": {
+          "count": 5,
+          "median": 17030,
+          "p75": 17030,
+          "minimum": 17030,
+          "maximum": 17030,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "requestCount": {
+          "count": 5,
+          "median": 17,
+          "p75": 17,
+          "minimum": 16,
+          "maximum": 17,
+          "standardDeviation": 0.4472135954999579,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "memoryBytes": {
+          "count": 5,
+          "median": 5631759,
+          "p75": 5648095,
+          "minimum": 5599847,
+          "maximum": 5723016,
+          "standardDeviation": 46087.709627405005,
+          "confidence": "moderate: repeated synthetic runs"
+        }
+      },
+      "samples": [
+        {
+          "capturedAt": "2026-09-07T21:30:51.350Z",
+          "url": "http://127.0.0.1:3005/",
+          "loaded": true,
+          "lcpMs": 760,
+          "cls": 0.012051837388198976,
+          "inpMs": 16,
+          "unsupported": [],
+          "ttfbMs": 25.600000023841858,
+          "memoryBytes": 5631759,
+          "totalTransferBytes": 289575,
+          "javascriptBytes": 152502,
+          "cssBytes": 17030,
+          "requestCount": 17,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T21:30:54.388Z",
+          "url": "http://127.0.0.1:3005/",
+          "loaded": true,
+          "lcpMs": 100,
+          "cls": 0.009735262300118048,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 3.200000047683716,
+          "memoryBytes": 5723016,
+          "totalTransferBytes": 280977,
+          "javascriptBytes": 152502,
+          "cssBytes": 17030,
+          "requestCount": 16,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T21:30:57.416Z",
+          "url": "http://127.0.0.1:3005/",
+          "loaded": true,
+          "lcpMs": 92,
+          "cls": 0.006775597829464567,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 3.399999976158142,
+          "memoryBytes": 5599847,
+          "totalTransferBytes": 289575,
+          "javascriptBytes": 152502,
+          "cssBytes": 17030,
+          "requestCount": 17,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T21:31:00.471Z",
+          "url": "http://127.0.0.1:3005/",
+          "loaded": true,
+          "lcpMs": 108,
+          "cls": 0.006876601662625153,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 3.100000023841858,
+          "memoryBytes": 5630832,
+          "totalTransferBytes": 289575,
+          "javascriptBytes": 152502,
+          "cssBytes": 17030,
+          "requestCount": 17,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-07T21:31:03.533Z",
+          "url": "http://127.0.0.1:3005/",
+          "loaded": true,
+          "lcpMs": 92,
+          "cls": 0.009716184156039904,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 3.100000023841858,
+          "memoryBytes": 5648095,
+          "totalTransferBytes": 289575,
+          "javascriptBytes": 152502,
+          "cssBytes": 17030,
+          "requestCount": 17,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        }
+      ]
+    }
+  ],
+  "builds": []
+}

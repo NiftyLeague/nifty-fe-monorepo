@@ -23,10 +23,8 @@ describe('private navigation item', () => {
     mock.module('next/navigation', () => ({ usePathname: () => '/dashboard' }))
     mock.module('@/components/AppNavIcon', () => ({ AppNavIcon: () => null }))
     mock.module('@/contexts/NavigationContext', () => ({
-      useNavigation: () => ({
-        isDesktopNavigation: true,
-        setDrawerOpen: () => undefined,
-      }),
+      useIsDesktopNavigation: () => true,
+      useSetDrawerOpen: () => () => undefined,
     }))
 
     NavItem = (await import('./index')).default

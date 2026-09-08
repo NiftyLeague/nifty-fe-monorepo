@@ -1,6 +1,9 @@
 import { act, renderHook } from '@testing-library/react'
 import { describe, expect, it } from 'bun:test'
+import { withNuqsTestingAdapter } from 'nuqs/adapters/testing'
 import usePagination, { getPageItems } from './usePagination'
+
+const wrapper = withNuqsTestingAdapter()
 
 describe('getPageItems', () => {
   it('returns all pages when total is small', () => {
@@ -30,15 +33,25 @@ describe('getPageItems', () => {
 describe('usePagination', () => {
   it('starts on page 1 with full data available', () => {
     const data = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
-    const { result } = renderHook(() => usePagination(data, 3))
+    const { result } = renderHook(() => usePagination(data, 3), { wrapper })
 
     expect(result.current.currentPage).toBe(1)
     expect(result.current.maxPage).toBe(3) // ceil(8/3) = 3
     expect(result.current.dataForCurrentPage).toEqual(['a', 'b', 'c'])
   })
 
+  it('hydrates the current page from a deep link', () => {
+    const data = ['a', 'b', 'c', 'd']
+    const { result } = renderHook(() => usePagination(data, 2), {
+      wrapper: withNuqsTestingAdapter({ searchParams: '?page=2' }),
+    })
+
+    expect(result.current.currentPage).toBe(2)
+    expect(result.current.dataForCurrentPage).toEqual(['c', 'd'])
+  })
+
   it('handles empty data gracefully', () => {
-    const { result } = renderHook(() => usePagination([], 10))
+    const { result } = renderHook(() => usePagination([], 10), { wrapper })
 
     expect(result.current.currentPage).toBe(1)
     expect(result.current.maxPage).toBe(0) // ceil(0/10) = 0
@@ -47,7 +60,7 @@ describe('usePagination', () => {
 
   it('handles single page of data', () => {
     const data = ['only']
-    const { result } = renderHook(() => usePagination(data, 5))
+    const { result } = renderHook(() => usePagination(data, 5), { wrapper })
 
     expect(result.current.maxPage).toBe(1)
     expect(result.current.dataForCurrentPage).toEqual(['only'])
@@ -55,7 +68,7 @@ describe('usePagination', () => {
 
   it('jumps to a specific page and returns its slice', () => {
     const data = [10, 20, 30, 40, 50, 60, 70]
-    const { result } = renderHook(() => usePagination(data, 2))
+    const { result } = renderHook(() => usePagination(data, 2), { wrapper })
 
     act(() => result.current.jump(3))
     expect(result.current.currentPage).toBe(3)
@@ -64,7 +77,7 @@ describe('usePagination', () => {
 
   it('clamps jump to maxPage when page exceeds boundaries', () => {
     const data = ['x', 'y', 'z']
-    const { result } = renderHook(() => usePagination(data, 2))
+    const { result } = renderHook(() => usePagination(data, 2), { wrapper })
 
     // maxPage = ceil(3/2) = 2
     act(() => result.current.jump(99))
@@ -74,14 +87,14 @@ describe('usePagination', () => {
 
   it('clamps jump to 1 when page is less than 1', () => {
     const data = ['a', 'b', 'c', 'd']
-    const { result } = renderHook(() => usePagination(data, 2))
+    const { result } = renderHook(() => usePagination(data, 2), { wrapper })
 
     act(() => result.current.jump(-5))
     expect(result.current.currentPage).toBe(1)
   })
 
   it('clamps jump to 1 even when maxPage is 0 (empty data)', () => {
-    const { result } = renderHook(() => usePagination([], 5))
+    const { result } = renderHook(() => usePagination([], 5), { wrapper })
 
     act(() => result.current.jump(3))
     expect(result.current.currentPage).toBe(1)
@@ -91,7 +104,7 @@ describe('usePagination', () => {
 
   it('preserves the data slice when itemsPerPage equals data length', () => {
     const data = ['all']
-    const { result } = renderHook(() => usePagination(data, 1))
+    const { result } = renderHook(() => usePagination(data, 1), { wrapper })
 
     expect(result.current.maxPage).toBe(1)
     expect(result.current.dataForCurrentPage).toEqual(['all'])
@@ -99,6 +112,7 @@ describe('usePagination', () => {
 
   it('re-renders with updated data when the source array changes', () => {
     const { rerender, result } = renderHook(({ data }) => usePagination(data, 3), {
+      wrapper,
       initialProps: { data: [1, 2, 3, 4, 5] },
     })
 
@@ -111,16 +125,13 @@ describe('usePagination', () => {
     // Shrink the data
     rerender({ data: [1, 2, 3] })
     expect(result.current.maxPage).toBe(1)
-    // currentPage was clamped by jump, but usePagination doesn't auto-clamp
-    // on data change — it stays at page 2. The dataForCurrentPage reflects
-    // the slice at that page, which would be [4, 5] but data is only 3 items.
-    // This shows the hook trusts the caller to manage data stability.
-    // For correctness, jump should be called after data changes.
+    expect(result.current.currentPage).toBe(1)
+    expect(result.current.dataForCurrentPage).toEqual([1, 2, 3])
   })
 
   it('respects itemsPerPage of 1 (single-item pages)', () => {
     const data = ['first', 'second', 'third']
-    const { result } = renderHook(() => usePagination(data, 1))
+    const { result } = renderHook(() => usePagination(data, 1), { wrapper })
 
     expect(result.current.maxPage).toBe(3)
     expect(result.current.dataForCurrentPage).toEqual(['first'])

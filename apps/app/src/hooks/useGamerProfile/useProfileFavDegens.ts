@@ -1,17 +1,29 @@
 'use client'
 
 import { PROFILE_FAV_DEGENS_API } from '@/constants/auth-urls'
+import { useQuery } from '@tanstack/react-query'
 import useAuth from '@/hooks/useAuth'
-import useFetch from '@/hooks/useFetch'
+import {
+  AUTHENTICATED_STALE_TIME_MS,
+  fetchApiQuery,
+  getAuthQueryScope,
+  queryKeys,
+} from '@/query/app-query'
 
 const useProfileFavDegens = (): { error?: Error; favs?: string; loadingFavs?: boolean } => {
   const { authToken } = useAuth()
-  const headers = { authorizationToken: authToken || '' }
-  const { error, data, loading } = useFetch<{ favorites: string }>(PROFILE_FAV_DEGENS_API, {
-    headers,
+  const scope = getAuthQueryScope(authToken)
+  const { error, data, isLoading } = useQuery({
+    queryKey: queryKeys.profile.favorites(scope),
+    queryFn: ({ signal }) =>
+      fetchApiQuery<{ favorites: string }>(PROFILE_FAV_DEGENS_API, {
+        signal,
+        init: { headers: { authorizationToken: authToken || '' } },
+      }),
     enabled: !!authToken,
+    staleTime: AUTHENTICATED_STALE_TIME_MS,
   })
-  return { error, favs: data?.favorites, loadingFavs: loading }
+  return { error: error ?? undefined, favs: data?.favorites, loadingFavs: isLoading }
 }
 
 export default useProfileFavDegens

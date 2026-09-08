@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
+import { useQueryStates } from 'nuqs'
 import { toast } from 'sonner'
 import MyRentalsDataGrid from './MyRentalsDataGrid'
 
@@ -21,12 +22,23 @@ import { getUniqueListBy } from '@/utils/array'
 import { filterBySearch } from '@/utils/search'
 import useTeminateRental from '@/hooks/useTeminateRental'
 import useAuth from '@/hooks/useAuth'
+import {
+  AUTHENTICATED_STALE_TIME_MS,
+  fetchApiQuery,
+  getAuthQueryScope,
+  queryKeys,
+} from '@/query/app-query'
+import { rentalSearchParsers } from '@/url/search-state'
 
 const DashboardRentalPage = (): React.ReactNode => {
   const { authToken } = useAuth()
-  const headers = { authorizationToken: authToken || '' }
-  const [searchTerm, setSearchTerm] = useState('')
-  const [category, setCategory] = useState<RentalType>('all')
+  const scope = getAuthQueryScope(authToken)
+  const [searchState, setSearchState] = useQueryStates(rentalSearchParsers, {
+    history: 'push',
+    shallow: true,
+  })
+  const searchTerm = searchState.search
+  const category = searchState.category as RentalType
   const terminalRental = useTeminateRental()
 
   const getFetchUrl = (): string[] => {
@@ -52,18 +64,25 @@ const DashboardRentalPage = (): React.ReactNode => {
     }
   }
 
-  const fetchRentals = async (): Promise<Rentals[]> => {
+  const fetchRentals = async (signal: AbortSignal): Promise<Rentals[]> => {
     const urls = getFetchUrl()
-    const responses = await Promise.all(urls.map((url) => fetch(url, { method: 'GET', headers })))
-    const rentalArrays = await Promise.all(responses.map((response) => response.json()))
+    const rentalArrays = await Promise.all(
+      urls.map((url) =>
+        fetchApiQuery<Rentals[]>(url, {
+          signal,
+          init: { method: 'GET', headers: { authorizationToken: authToken || '' } },
+        })
+      )
+    )
     const totalRentals = rentalArrays.reduce((flattened, arr) => [...flattened, ...arr])
     return getUniqueListBy(totalRentals as Rentals[], 'id')
   }
 
   const { data, isLoading, isFetching, refetch } = useQuery<Rentals[]>({
-    queryKey: ['rentals', category],
-    queryFn: fetchRentals,
+    queryKey: queryKeys.rentals(scope, category),
+    queryFn: ({ signal }) => fetchRentals(signal),
     enabled: !!authToken,
+    staleTime: AUTHENTICATED_STALE_TIME_MS,
   })
 
   const rentals = useMemo(() => {
@@ -98,11 +117,11 @@ const DashboardRentalPage = (): React.ReactNode => {
   }
 
   const handleSearch = (currentValue: string) => {
-    setSearchTerm(currentValue)
+    void setSearchState({ search: currentValue || null }, { history: 'replace' })
   }
 
   const handleChangeCategory = (value: string) => {
-    setCategory(value as RentalType)
+    void setSearchState({ category: value as typeof searchState.category })
   }
 
   return (
@@ -132,7 +151,7 @@ const DashboardRentalPage = (): React.ReactNode => {
               </SelectContent>
             </Select>
           </div>
-          <SearchRental handleSearch={handleSearch} />
+          <SearchRental handleSearch={handleSearch} value={searchTerm} />
         </div>
       </div>
       <div className="h-[calc(100vh-208px)]">

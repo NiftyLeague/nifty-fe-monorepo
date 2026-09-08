@@ -10,6 +10,7 @@ type GraphQLRequestOptions = {
   query: string
   variables?: Record<string, unknown>
   headers?: Record<string, string>
+  signal?: AbortSignal
 }
 
 export const requestGraphQL = async <T>({
@@ -17,6 +18,7 @@ export const requestGraphQL = async <T>({
   query,
   variables,
   headers,
+  signal,
 }: GraphQLRequestOptions): Promise<T> => {
   const response = await fetch(endpoint, {
     method: 'POST',
@@ -25,6 +27,7 @@ export const requestGraphQL = async <T>({
       ...headers,
     },
     body: JSON.stringify({ query, variables }),
+    signal,
   })
 
   if (!response.ok) throw new Error(`GraphQL request failed: ${response.status}`)

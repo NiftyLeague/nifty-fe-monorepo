@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "runCount": 5,
+  "buildRunCount": 3,
+  "settleMs": 2000,
+  "profile": {
+    "browser": "Google Chrome headless",
+    "viewport": "1365x768 @ 1x",
+    "cache": "disabled for every route sample",
+    "network": "unthrottled synthetic desktop; compare only with the same profile",
+    "interaction": "synthetic click on the configured selector after load",
+    "confidence": "synthetic lab data; not a substitute for field RUM p75"
+  },
+  "routes": [
+    {
+      "id": "app-degens-m1-local",
+      "app": "app",
+      "url": "http://127.0.0.1:3006/degens",
+      "environment": "local-only",
+      "priority": "P0",
+      "interaction": { "selector": "body" }
+    }
+  ],
+  "builds": [
+    {
+      "app": "app",
+      "cleanPaths": ["apps/app/.next"],
+      "command": ["bun", "--filter", "app", "build"]
+    }
+  ]
+}

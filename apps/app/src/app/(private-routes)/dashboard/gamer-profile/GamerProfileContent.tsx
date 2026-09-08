@@ -7,7 +7,7 @@ import { Title } from '@nl/ui/custom/typography'
 import { Separator } from '@nl/ui/base/separator'
 
 import { useGamerProfile, useProfileAvatarFee } from '@/hooks/useGamerProfile'
-import useFetch from '@/hooks/useFetch'
+import { usePublicDegensByIds } from '@/hooks/queries/usePublicDegens'
 
 import SectionSlider from '@/components/sections/SectionSlider'
 import ImageProfile from './_ImageProfile'
@@ -17,7 +17,6 @@ import TopInfo from './_Stats/TopInfo'
 import EmptyState from '@/components/EmptyState'
 import BottomInfo from './_Stats/BottomInfo'
 
-import { getPublicDegensByIdsUrl } from '@/constants/url'
 import type { DashboardDegen } from '@/types/degens'
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import { GamerProfileProvider } from '@/contexts/GamerProfileContext'
@@ -32,11 +31,7 @@ const GamerProfileContent = (): React.ReactNode => {
     () => [...new Set(degensBalances.map((degen) => String(degen.id)))],
     [degensBalances]
   )
-  const degensDataUrl = degenIds.length ? getPublicDegensByIdsUrl(degenIds) : undefined
-  const { data } = useFetch<DashboardDegen[]>(degensDataUrl, {
-    enabled: Boolean(degensDataUrl),
-    sharedCache: true,
-  })
+  const { data } = usePublicDegensByIds(degenIds)
 
   const filteredDegens = useMemo(() => {
     if (!degensBalances.length || !data) return []

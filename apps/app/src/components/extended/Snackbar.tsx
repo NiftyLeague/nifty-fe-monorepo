@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { toast } from 'sonner'
 import type { ExternalToast } from 'sonner'
 
-import { useNotification } from '@/contexts/NotificationContext'
+import { useCloseSnackbar, useSnackbar } from '@/contexts/NotificationContext'
 import type { SnackbarOrigin } from '@/types/snackbar'
 
 // ==============================|| SNACKBAR ||============================== //
@@ -29,7 +29,8 @@ export const getSnackbarTransitionClass = (transition: string) =>
   snackbarTransitions[transition as keyof typeof snackbarTransitions] ?? snackbarTransitions.Fade
 
 const Snackbar = () => {
-  const { snackbar, closeSnackbar } = useNotification()
+  const snackbar = useSnackbar()
+  const closeSnackbar = useCloseSnackbar()
   const { actionButton, alert, anchorOrigin, close, message, open, transition, variant } = snackbar
 
   useEffect(() => {

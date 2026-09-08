@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-07T22:51:55.586Z",
+  "gitRevision": "395f27224c3289913b5f695b3cd7e7a958027a74",
+  "profile": {
+    "browser": "Google Chrome headless",
+    "viewport": "1365x768 @ 1x",
+    "cache": "disabled for every route sample",
+    "network": "unthrottled synthetic desktop; compare only with the same profile",
+    "interaction": "synthetic click on the configured selector after load",
+    "confidence": "synthetic lab data; not a substitute for field RUM p75"
+  },
+  "runCount": 1,
+  "routes": [
+    {
+      "route": {
+        "id": "app-degens-m1-local",
+        "app": "app",
+        "url": "http://127.0.0.1:3006/degens",
+        "environment": "local-only",
+        "priority": "P0",
+        "interaction": {
+          "selector": "body"
+        }
+      },
+      "summary": {
+        "lcpMs": {
+          "count": 1,
+          "median": 864,
+          "p75": 864,
+          "minimum": 864,
+          "maximum": 864,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "inpMs": {
+          "count": 1,
+          "median": 16,
+          "p75": 16,
+          "minimum": 16,
+          "maximum": 16,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "cls": {
+          "count": 1,
+          "median": 0.003701950331414617,
+          "p75": 0.003701950331414617,
+          "minimum": 0.003701950331414617,
+          "maximum": 0.003701950331414617,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "ttfbMs": {
+          "count": 1,
+          "median": 62.39999997615814,
+          "p75": 62.39999997615814,
+          "minimum": 62.39999997615814,
+          "maximum": 62.39999997615814,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "totalTransferBytes": {
+          "count": 1,
+          "median": 580625,
+          "p75": 580625,
+          "minimum": 580625,
+          "maximum": 580625,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "javascriptBytes": {
+          "count": 1,
+          "median": 422479,
+          "p75": 422479,
+          "minimum": 422479,
+          "maximum": 422479,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "cssBytes": {
+          "count": 1,
+          "median": 21088,
+          "p75": 21088,
+          "minimum": 21088,
+          "maximum": 21088,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "requestCount": {
+          "count": 1,
+          "median": 59,
+          "p75": 59,
+          "minimum": 59,
+          "maximum": 59,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "memoryBytes": {
+          "count": 1,
+          "median": 8921323,
+          "p75": 8921323,
+          "minimum": 8921323,
+          "maximum": 8921323,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        }
+      },
+      "samples": [
+        {
+          "capturedAt": "2026-09-07T22:51:55.513Z",
+          "url": "http://127.0.0.1:3006/degens",
+          "loaded": true,
+          "lcpMs": 864,
+          "cls": 0.003701950331414617,
+          "inpMs": 16,
+          "unsupported": [],
+          "ttfbMs": 62.39999997615814,
+          "memoryBytes": 8921323,
+          "totalTransferBytes": 580625,
+          "javascriptBytes": 422479,
+          "cssBytes": 21088,
+          "requestCount": 59,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        }
+      ]
+    }
+  ],
+  "builds": [
+    {
+      "app": "app",
+      "clean": [
+        {
+          "command": ["bun", "--filter", "app", "build"],
+          "durationMs": 31352.645791999996,
+          "exitCode": 0,
+          "stdout": "app build: ▲ Next.js 16.3.4 (webpack)\napp build: ✓ Running next.config.ts took 15ms\napp build: - Experiments (use with caution):\napp build:   · optimizePackageImports\napp build: \napp build:   Creating an optimized production build ...\napp build: ⚠ Compiled with warnings in 18.4s\napp build: \napp build: ../../../../../.bun/install/cache/links/require-in-the-middle@8.0.1+759ce506b1ed1a42-d9c02bd996a950d1/node_modules/require-in-the-middle/index.js\napp build: Critical dependency: require function is used in a way in which dependencies cannot be statically extracted\napp build: \napp build: Import trace for requested module:\napp build: ../../../../../.bun/install/cache/links/require-in-the-middle@8.0.1+759ce506b1ed1a42-d9c02bd996a950d1/node_modules/require-in-the-middle/index.js\napp build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js\napp build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js\napp build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js\napp build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/index.js\napp build: ../../../../../.bun/install/cache/links/@sentry+node@10.73.0+7777b3e21a0faeb5-c840cc94b497345d/node_modules/@sentry/node/build/cjs/integrations/tracing/express.js\napp build: ../../../../../.bun/install/cache/links/@sentry+node@10.73.0+7777b3e21a0faeb5-c840cc94b497345d/node_modules/@sentry/node/build/cjs/index.js\napp build: ../../node_modules/.bun/@sentry+nextjs@10.73.0+9814e2b1ae5512da/node_modules/@sentry/nextjs/build/cjs/index.server.js\napp build: \napp build:   Running TypeScript ...\napp build:   Finished TypeScript in 6.5s ...\napp build:   Collecting page data using 11 workers ...\napp build:   Generating static pages using 11 workers (0/21) ...\napp build:   Generating static pages using 11 workers (5/21) \r\napp build:   Generating static pages using 11 workers (10/21) \r\napp build:   Generating static pages using 11 workers (15/21) \r\napp build: ✓ Generating static pages using 11 workers (21/21) in 746ms\napp build:   Finalizing page optimization ...\napp build:   Collecting build traces ...\napp build: \napp build: Route (app)\napp build: ┌ ○ /\napp build: ├ ○ /_not-found\napp build: ├ ƒ /api/degens\napp build: ├ ƒ /api/leaderboards\napp build: ├ ƒ /dashboard\napp build: ├ ƒ /dashboard/degens\napp build: ├ ƒ /dashboard/gamer-profile\napp build: ├ ƒ /dashboard/items\napp build: ├ ƒ /dashboard/items/burner\napp build: ├ ƒ /dashboard/overview\napp build: ├ ƒ /dashboard/rentals\napp build: ├ ƒ /degens\napp build: ├ ƒ /degens/[id]\napp build: ├ ○ /games\napp build: ├ ○ /games/crypto-winter\napp build: ├ ○ /games/mt-gawx\napp build: ├ ○ /games/smashers\napp build: ├ ○ /games/wen-game\napp build: ├ ○ /leaderboards\napp build: ├ ƒ /mint-o-matic\napp build: ├ ○ /robots.txt\napp build: ├ ○ /sitemap.xml\napp build: └ ƒ /verification\napp build: \napp build: \napp build: ○  (Static)   prerendered as static content\napp build: ƒ  (Dynamic)  server-rendered on demand\napp build: \napp build: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "app", "build"],
+          "durationMs": 31336.287833999995,
+          "exitCode": 0,
+          "stdout": "app build: ▲ Next.js 16.3.4 (webpack)\napp build: ✓ Running next.config.ts took 15ms\napp build: - Experiments (use with caution):\napp build:   · optimizePackageImports\napp build: \napp build:   Creating an optimized production build ...\napp build: ⚠ Compiled with warnings in 18.4s\napp build: \napp build: ../../../../../.bun/install/cache/links/require-in-the-middle@8.0.1+759ce506b1ed1a42-d9c02bd996a950d1/node_modules/require-in-the-middle/index.js\napp build: Critical dependency: require function is used in a way in which dependencies cannot be statically extracted\napp build: \napp build: Import trace for requested module:\napp build: ../../../../../.bun/install/cache/links/require-in-the-middle@8.0.1+759ce506b1ed1a42-d9c02bd996a950d1/node_modules/require-in-the-middle/index.js\napp build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js\napp build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js\napp build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js\napp build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/index.js\napp build: ../../../../../.bun/install/cache/links/@sentry+node@10.73.0+7777b3e21a0faeb5-c840cc94b497345d/node_modules/@sentry/node/build/cjs/integrations/tracing/express.js\napp build: ../../../../../.bun/install/cache/links/@sentry+node@10.73.0+7777b3e21a0faeb5-c840cc94b497345d/node_modules/@sentry/node/build/cjs/index.js\napp build: ../../node_modules/.bun/@sentry+nextjs@10.73.0+9814e2b1ae5512da/node_modules/@sentry/nextjs/build/cjs/index.server.js\napp build: \napp build:   Running TypeScript ...\napp build:   Finished TypeScript in 6.4s ...\napp build:   Collecting page data using 11 workers ...\napp build:   Generating static pages using 11 workers (0/21) ...\napp build:   Generating static pages using 11 workers (5/21) \r\napp build:   Generating static pages using 11 workers (10/21) \r\napp build:   Generating static pages using 11 workers (15/21) \r\napp build: ✓ Generating static pages using 11 workers (21/21) in 756ms\napp build:   Finalizing page optimization ...\napp build:   Collecting build traces ...\napp build: \napp build: Route (app)\napp build: ┌ ○ /\napp build: ├ ○ /_not-found\napp build: ├ ƒ /api/degens\napp build: ├ ƒ /api/leaderboards\napp build: ├ ƒ /dashboard\napp build: ├ ƒ /dashboard/degens\napp build: ├ ƒ /dashboard/gamer-profile\napp build: ├ ƒ /dashboard/items\napp build: ├ ƒ /dashboard/items/burner\napp build: ├ ƒ /dashboard/overview\napp build: ├ ƒ /dashboard/rentals\napp build: ├ ƒ /degens\napp build: ├ ƒ /degens/[id]\napp build: ├ ○ /games\napp build: ├ ○ /games/crypto-winter\napp build: ├ ○ /games/mt-gawx\napp build: ├ ○ /games/smashers\napp build: ├ ○ /games/wen-game\napp build: ├ ○ /leaderboards\napp build: ├ ƒ /mint-o-matic\napp build: ├ ○ /robots.txt\napp build: ├ ○ /sitemap.xml\napp build: └ ƒ /verification\napp build: \napp build: \napp build: ○  (Static)   prerendered as static content\napp build: ƒ  (Dynamic)  server-rendered on demand\napp build: \napp build: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "app", "build"],
+          "durationMs": 31239.040125,
+          "exitCode": 0,
+          "stdout": "app build: ▲ Next.js 16.3.4 (webpack)\napp build: ✓ Running next.config.ts took 15ms\napp build: - Experiments (use with caution):\napp build:   · optimizePackageImports\napp build: \napp build:   Creating an optimized production build ...\napp build: ⚠ Compiled with warnings in 18.0s\napp build: \napp build: ../../../../../.bun/install/cache/links/require-in-the-middle@8.0.1+759ce506b1ed1a42-d9c02bd996a950d1/node_modules/require-in-the-middle/index.js\napp build: Critical dependency: require function is used in a way in which dependencies cannot be statically extracted\napp build: \napp build: Import trace for requested module:\napp build: ../../../../../.bun/install/cache/links/require-in-the-middle@8.0.1+759ce506b1ed1a42-d9c02bd996a950d1/node_modules/require-in-the-middle/index.js\napp build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js\napp build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js\napp build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js\napp build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/index.js\napp build: ../../../../../.bun/install/cache/links/@sentry+node@10.73.0+7777b3e21a0faeb5-c840cc94b497345d/node_modules/@sentry/node/build/cjs/integrations/tracing/express.js\napp build: ../../../../../.bun/install/cache/links/@sentry+node@10.73.0+7777b3e21a0faeb5-c840cc94b497345d/node_modules/@sentry/node/build/cjs/index.js\napp build: ../../node_modules/.bun/@sentry+nextjs@10.73.0+9814e2b1ae5512da/node_modules/@sentry/nextjs/build/cjs/index.server.js\napp build: \napp build:   Running TypeScript ...\napp build:   Finished TypeScript in 6.5s ...\napp build:   Collecting page data using 11 workers ...\napp build:   Generating static pages using 11 workers (0/21) ...\napp build:   Generating static pages using 11 workers (5/21) \r\napp build:   Generating static pages using 11 workers (10/21) \r\napp build:   Generating static pages using 11 workers (15/21) \r\napp build: ✓ Generating static pages using 11 workers (21/21) in 627ms\napp build:   Finalizing page optimization ...\napp build:   Collecting build traces ...\napp build: \napp build: Route (app)\napp build: ┌ ○ /\napp build: ├ ○ /_not-found\napp build: ├ ƒ /api/degens\napp build: ├ ƒ /api/leaderboards\napp build: ├ ƒ /dashboard\napp build: ├ ƒ /dashboard/degens\napp build: ├ ƒ /dashboard/gamer-profile\napp build: ├ ƒ /dashboard/items\napp build: ├ ƒ /dashboard/items/burner\napp build: ├ ƒ /dashboard/overview\napp build: ├ ƒ /dashboard/rentals\napp build: ├ ƒ /degens\napp build: ├ ƒ /degens/[id]\napp build: ├ ○ /games\napp build: ├ ○ /games/crypto-winter\napp build: ├ ○ /games/mt-gawx\napp build: ├ ○ /games/smashers\napp build: ├ ○ /games/wen-game\napp build: ├ ○ /leaderboards\napp build: ├ ƒ /mint-o-matic\napp build: ├ ○ /robots.txt\napp build: ├ ○ /sitemap.xml\napp build: └ ƒ /verification\napp build: \napp build: \napp build: ○  (Static)   prerendered as static content\napp build: ƒ  (Dynamic)  server-rendered on demand\napp build: \napp build: Exited with code 0\n",
+          "stderr": ""
+        }
+      ],
+      "incremental": [
+        {
+          "command": ["bun", "--filter", "app", "build"],
+          "durationMs": 16397.174124999998,
+          "exitCode": 0,
+          "stdout": "app build: ▲ Next.js 16.3.4 (webpack)\napp build: ✓ Running next.config.ts took 14ms\napp build: - Experiments (use with caution):\napp build:   · optimizePackageImports\napp build: \napp build:   Creating an optimized production build ...\napp build: ⚠ Compiled with warnings in 7.7s\napp build: \napp build: ../../../../../.bun/install/cache/links/require-in-the-middle@8.0.1+759ce506b1ed1a42-d9c02bd996a950d1/node_modules/require-in-the-middle/index.js\napp build: Critical dependency: require function is used in a way in which dependencies cannot be statically extracted\napp build: \napp build: Import trace for requested module:\napp build: ../../../../../.bun/install/cache/links/require-in-the-middle@8.0.1+759ce506b1ed1a42-d9c02bd996a950d1/node_modules/require-in-the-middle/index.js\napp build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js\napp build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js\napp build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js\napp build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/index.js\napp build: ../../../../../.bun/install/cache/links/@sentry+node@10.73.0+7777b3e21a0faeb5-c840cc94b497345d/node_modules/@sentry/node/build/cjs/integrations/tracing/express.js\napp build: ../../../../../.bun/install/cache/links/@sentry+node@10.73.0+7777b3e21a0faeb5-c840cc94b497345d/node_modules/@sentry/node/build/cjs/index.js\napp build: ../../node_modules/.bun/@sentry+nextjs@10.73.0+9814e2b1ae5512da/node_modules/@sentry/nextjs/build/cjs/index.server.js\napp build: \napp build:   Running TypeScript ...\napp build:   Finished TypeScript in 2.2s ...\napp build:   Collecting page data using 11 workers ...\napp build:   Generating static pages using 11 workers (0/21) ...\napp build:   Generating static pages using 11 workers (5/21) \r\napp build:   Generating static pages using 11 workers (10/21) \r\napp build:   Generating static pages using 11 workers (15/21) \r\napp build: ✓ Generating static pages using 11 workers (21/21) in 821ms\napp build:   Finalizing page optimization ...\napp build:   Collecting build traces ...\napp build: \napp build: Route (app)\napp build: ┌ ○ /\napp build: ├ ○ /_not-found\napp build: ├ ƒ /api/degens\napp build: ├ ƒ /api/leaderboards\napp build: ├ ƒ /dashboard\napp build: ├ ƒ /dashboard/degens\napp build: ├ ƒ /dashboard/gamer-profile\napp build: ├ ƒ /dashboard/items\napp build: ├ ƒ /dashboard/items/burner\napp build: ├ ƒ /dashboard/overview\napp build: ├ ƒ /dashboard/rentals\napp build: ├ ƒ /degens\napp build: ├ ƒ /degens/[id]\napp build: ├ ○ /games\napp build: ├ ○ /games/crypto-winter\napp build: ├ ○ /games/mt-gawx\napp build: ├ ○ /games/smashers\napp build: ├ ○ /games/wen-game\napp build: ├ ○ /leaderboards\napp build: ├ ƒ /mint-o-matic\napp build: ├ ○ /robots.txt\napp build: ├ ○ /sitemap.xml\napp build: └ ƒ /verification\napp build: \napp build: \napp build: ○  (Static)   prerendered as static content\napp build: ƒ  (Dynamic)  server-rendered on demand\napp build: \napp build: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "app", "build"],
+          "durationMs": 16265.34554200001,
+          "exitCode": 0,
+          "stdout": "app build: ▲ Next.js 16.3.4 (webpack)\napp build: ✓ Running next.config.ts took 15ms\napp build: - Experiments (use with caution):\napp build:   · optimizePackageImports\napp build: \napp build:   Creating an optimized production build ...\napp build: ⚠ Compiled with warnings in 7.6s\napp build: \napp build: ../../../../../.bun/install/cache/links/require-in-the-middle@8.0.1+759ce506b1ed1a42-d9c02bd996a950d1/node_modules/require-in-the-middle/index.js\napp build: Critical dependency: require function is used in a way in which dependencies cannot be statically extracted\napp build: \napp build: Import trace for requested module:\napp build: ../../../../../.bun/install/cache/links/require-in-the-middle@8.0.1+759ce506b1ed1a42-d9c02bd996a950d1/node_modules/require-in-the-middle/index.js\napp build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js\napp build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js\napp build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js\napp build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/index.js\napp build: ../../../../../.bun/install/cache/links/@sentry+node@10.73.0+7777b3e21a0faeb5-c840cc94b497345d/node_modules/@sentry/node/build/cjs/integrations/tracing/express.js\napp build: ../../../../../.bun/install/cache/links/@sentry+node@10.73.0+7777b3e21a0faeb5-c840cc94b497345d/node_modules/@sentry/node/build/cjs/index.js\napp build: ../../node_modules/.bun/@sentry+nextjs@10.73.0+9814e2b1ae5512da/node_modules/@sentry/nextjs/build/cjs/index.server.js\napp build: \napp build:   Running TypeScript ...\napp build:   Finished TypeScript in 2.2s ...\napp build:   Collecting page data using 11 workers ...\napp build:   Generating static pages using 11 workers (0/21) ...\napp build:   Generating static pages using 11 workers (5/21) \r\napp build:   Generating static pages using 11 workers (10/21) \r\napp build:   Generating static pages using 11 workers (15/21) \r\napp build: ✓ Generating static pages using 11 workers (21/21) in 643ms\napp build:   Finalizing page optimization ...\napp build:   Collecting build traces ...\napp build: \napp build: Route (app)\napp build: ┌ ○ /\napp build: ├ ○ /_not-found\napp build: ├ ƒ /api/degens\napp build: ├ ƒ /api/leaderboards\napp build: ├ ƒ /dashboard\napp build: ├ ƒ /dashboard/degens\napp build: ├ ƒ /dashboard/gamer-profile\napp build: ├ ƒ /dashboard/items\napp build: ├ ƒ /dashboard/items/burner\napp build: ├ ƒ /dashboard/overview\napp build: ├ ƒ /dashboard/rentals\napp build: ├ ƒ /degens\napp build: ├ ƒ /degens/[id]\napp build: ├ ○ /games\napp build: ├ ○ /games/crypto-winter\napp build: ├ ○ /games/mt-gawx\napp build: ├ ○ /games/smashers\napp build: ├ ○ /games/wen-game\napp build: ├ ○ /leaderboards\napp build: ├ ƒ /mint-o-matic\napp build: ├ ○ /robots.txt\napp build: ├ ○ /sitemap.xml\napp build: └ ƒ /verification\napp build: \napp build: \napp build: ○  (Static)   prerendered as static content\napp build: ƒ  (Dynamic)  server-rendered on demand\napp build: \napp build: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": ["bun", "--filter", "app", "build"],
+          "durationMs": 17036.979374999995,
+          "exitCode": 0,
+          "stdout": "app build: ▲ Next.js 16.3.4 (webpack)\napp build: ✓ Running next.config.ts took 15ms\napp build: - Experiments (use with caution):\napp build:   · optimizePackageImports\napp build: \napp build:   Creating an optimized production build ...\napp build: ⚠ Compiled with warnings in 8.1s\napp build: \napp build: ../../../../../.bun/install/cache/links/require-in-the-middle@8.0.1+759ce506b1ed1a42-d9c02bd996a950d1/node_modules/require-in-the-middle/index.js\napp build: Critical dependency: require function is used in a way in which dependencies cannot be statically extracted\napp build: \napp build: Import trace for requested module:\napp build: ../../../../../.bun/install/cache/links/require-in-the-middle@8.0.1+759ce506b1ed1a42-d9c02bd996a950d1/node_modules/require-in-the-middle/index.js\napp build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js\napp build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js\napp build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js\napp build: ../../../../../.bun/install/cache/links/@opentelemetry+instrumentation@0.220.0+4294d048f15f6cd7-fd161920a6914b65/node_modules/@opentelemetry/instrumentation/build/esm/index.js\napp build: ../../../../../.bun/install/cache/links/@sentry+node@10.73.0+7777b3e21a0faeb5-c840cc94b497345d/node_modules/@sentry/node/build/cjs/integrations/tracing/express.js\napp build: ../../../../../.bun/install/cache/links/@sentry+node@10.73.0+7777b3e21a0faeb5-c840cc94b497345d/node_modules/@sentry/node/build/cjs/index.js\napp build: ../../node_modules/.bun/@sentry+nextjs@10.73.0+9814e2b1ae5512da/node_modules/@sentry/nextjs/build/cjs/index.server.js\napp build: \napp build:   Running TypeScript ...\napp build:   Finished TypeScript in 2.1s ...\napp build:   Collecting page data using 11 workers ...\napp build:   Generating static pages using 11 workers (0/21) ...\napp build:   Generating static pages using 11 workers (5/21) \r\napp build:   Generating static pages using 11 workers (10/21) \r\napp build:   Generating static pages using 11 workers (15/21) \r\napp build: ✓ Generating static pages using 11 workers (21/21) in 653ms\napp build:   Finalizing page optimization ...\napp build:   Collecting build traces ...\napp build: \napp build: Route (app)\napp build: ┌ ○ /\napp build: ├ ○ /_not-found\napp build: ├ ƒ /api/degens\napp build: ├ ƒ /api/leaderboards\napp build: ├ ƒ /dashboard\napp build: ├ ƒ /dashboard/degens\napp build: ├ ƒ /dashboard/gamer-profile\napp build: ├ ƒ /dashboard/items\napp build: ├ ƒ /dashboard/items/burner\napp build: ├ ƒ /dashboard/overview\napp build: ├ ƒ /dashboard/rentals\napp build: ├ ƒ /degens\napp build: ├ ƒ /degens/[id]\napp build: ├ ○ /games\napp build: ├ ○ /games/crypto-winter\napp build: ├ ○ /games/mt-gawx\napp build: ├ ○ /games/smashers\napp build: ├ ○ /games/wen-game\napp build: ├ ○ /leaderboards\napp build: ├ ƒ /mint-o-matic\napp build: ├ ○ /robots.txt\napp build: ├ ○ /sitemap.xml\napp build: └ ƒ /verification\napp build: \napp build: \napp build: ○  (Static)   prerendered as static content\napp build: ƒ  (Dynamic)  server-rendered on demand\napp build: \napp build: Exited with code 0\n",
+          "stderr": ""
+        }
+      ],
+      "cleanDurationMs": {
+        "count": 3,
+        "median": 31336.287833999995,
+        "p75": 31344.466812999995,
+        "minimum": 31239.040125,
+        "maximum": 31352.645791999996,
+        "standardDeviation": 61.41518171455605,
+        "confidence": "low: fewer than 5 runs"
+      },
+      "incrementalDurationMs": {
+        "count": 3,
+        "median": 16397.174124999998,
+        "p75": 16717.076749999997,
+        "minimum": 16265.34554200001,
+        "maximum": 17036.979374999995,
+        "standardDeviation": 412.74453468087523,
+        "confidence": "low: fewer than 5 runs"
+      }
+    }
+  ]
+}

@@ -10,7 +10,11 @@ const navigationState = {
 let Header: typeof import('./index').default
 
 beforeEach(async () => {
-  mock.module('@/contexts/NavigationContext', () => ({ useNavigation: () => navigationState }))
+  mock.module('@/contexts/NavigationContext', () => ({
+    useDrawerOpen: () => navigationState.drawerOpen,
+    useIsDesktopNavigation: () => navigationState.isDesktopNavigation,
+    useToggleDrawer: () => navigationState.toggleDrawer,
+  }))
   mock.module('@/app/_layout/_MainLayout/_LogoSection', () => ({
     default: () => <span>Logo</span>,
   }))

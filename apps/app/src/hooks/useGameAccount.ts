@@ -3,9 +3,14 @@
 import { useQuery } from '@tanstack/react-query'
 import { GAMER_ACCOUNT_API } from '@/constants/url'
 import type { Account } from '@/types/account'
-import { AUTH_Token } from '@/types/auth'
 import { AUDIT_FIXTURE_ACCOUNT, isAuditFixtureEnabled } from '@/audit/fixture'
 import useAuth from './useAuth'
+import {
+  AUTHENTICATED_STALE_TIME_MS,
+  fetchApiQuery,
+  getAuthQueryScope,
+  queryKeys,
+} from '@/query/app-query'
 
 interface GameAccountState {
   account: Account | undefined
@@ -14,21 +19,18 @@ interface GameAccountState {
   refetchAccount: () => void
 }
 
-const fetchGameAccount = async (authToken: AUTH_Token) => {
-  const response = await fetch(GAMER_ACCOUNT_API, {
-    method: 'GET',
-    headers: { authorizationToken: authToken || '' },
-  })
-  const body = await response.json()
-  return body
-}
-
 const useGameAccount = (): GameAccountState => {
   const { authToken, isLoggedIn } = useAuth()
+  const scope = getAuthQueryScope(authToken)
   const { data, isLoading, error, refetch } = useQuery<Account>({
-    queryKey: ['game-account'],
-    queryFn: () => fetchGameAccount(authToken),
+    queryKey: queryKeys.account.game(scope),
+    queryFn: ({ signal }) =>
+      fetchApiQuery<Account>(GAMER_ACCOUNT_API, {
+        signal,
+        init: { headers: { authorizationToken: authToken || '' } },
+      }),
     enabled: !isAuditFixtureEnabled && !!authToken && isLoggedIn,
+    staleTime: AUTHENTICATED_STALE_TIME_MS,
   })
 
   return {

@@ -1,9 +1,9 @@
 'use client'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useSearchParams } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import { useAccount } from 'wagmi'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useQueryStates } from 'nuqs'
 
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { Button } from '@nl/ui/base/button'
@@ -13,22 +13,17 @@ import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlacehold
 import DEFAULT_STATIC_FILTER from '@/components/extended/DegensFilter/constants'
 import {
   transformDataByFilter,
-  updateFilterValue,
   getDefaultFilterValueFromData,
   DEGENS_PER_PAGE,
   getGridSizeClass,
   applySeventhTribesFix,
 } from '@/components/extended/DegensFilter/utils'
 import SectionTitle from '@/components/sections/SectionTitle'
-import {
-  DEGEN_COLLECTION_URL,
-  PROFILE_FAV_DEGENS_API,
-  getPublicDegensByIdsUrl,
-} from '@/constants/url'
-import { useProfileFavDegens } from '@/hooks/useGamerProfile'
+import { DEGEN_COLLECTION_URL } from '@/constants/url'
+import useFavoriteDegens from '@/hooks/useFavoriteDegens'
 import useAuth from '@/hooks/useAuth'
-import useFetch from '@/hooks/useFetch'
-import usePagination from '@/hooks/usePagination'
+import { usePublicDegensByIds } from '@/hooks/queries/usePublicDegens'
+import { getPageItems } from '@/hooks/usePagination'
 import type { DegenFilter } from '@/types/degenFilter'
 import type { DashboardDegen } from '@/types/degens'
 import EmptyState from '@/components/EmptyState'
@@ -37,9 +32,8 @@ import DeferredDegenDialog from '@/components/providers/DeferredDegenDialog'
 import DeferredRenameDegenDialog from '@/components/providers/DeferredRenameDegenDialog'
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import DegensTopNav from '@/components/extended/DegensTopNav'
-import useLocalStorageContext from '@/hooks/useLocalStorageContext'
 import { isAuditFixtureEnabled } from '@/audit/fixture'
-import { hasEntries, toggleValue } from '@/utils/collections'
+import { degenSearchParsers, normalizeDegenSearchState } from '@/url/search-state'
 
 const CollapsibleSidebarLayout = dynamic(() => import('@/app/_layout/_CollapsibleSidebarLayout'), {
   ssr: false,
@@ -55,7 +49,7 @@ const DegenCard = dynamic(
 )
 
 const DashboardDegensPageContent = (): React.ReactNode => {
-  const { authToken, isLoggedIn } = useAuth()
+  const { isLoggedIn } = useAuth()
   const { isConnected } = useAccount()
   const hasConnectedAccount = isConnected || (isAuditFixtureEnabled && isLoggedIn)
   // Start closed so mobile does not push the first card below the fold before the
@@ -69,17 +63,14 @@ const DashboardDegensPageContent = (): React.ReactNode => {
   const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false)
   const [isClaimDialog, setIsClaimDialog] = useState<boolean>(false)
   const [isRentDialog, setIsRentDialog] = useState<boolean>(false)
-  const searchParams = useSearchParams()
-  const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined)
+  const [rawSearchState, setSearchState] = useQueryStates(degenSearchParsers, {
+    history: 'push',
+    shallow: true,
+  })
+  const searchStateKey = JSON.stringify(rawSearchState)
+  const searchState = useMemo(() => normalizeDegenSearchState(rawSearchState), [searchStateKey])
   const [layoutMode, setLayoutMode] = useState<string>('gridView')
-  const { favs: favsData } = useProfileFavDegens()
-  const { favDegens, setFavDegens } = useLocalStorageContext()
-
-  useEffect(() => {
-    if (favsData && favsData !== 'null') {
-      setFavDegens(favsData.split(','))
-    }
-  }, [favsData, setFavDegens])
+  const { favDegens, toggleFavorite } = useFavoriteDegens()
 
   const { degensBalances, loadingDegens } = useNFTsBalances()
 
@@ -87,11 +78,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
     () => [...new Set(degensBalances.map((degen) => String(degen.id)))],
     [degensBalances]
   )
-  const degensDataUrl = degenIds.length ? getPublicDegensByIdsUrl(degenIds) : undefined
-  const { loading: loadingAllRentals, data } = useFetch<DashboardDegen[]>(degensDataUrl, {
-    enabled: Boolean(degensDataUrl),
-    sharedCache: true,
-  })
+  const { isLoading: loadingAllRentals, data } = usePublicDegensByIds(degenIds)
 
   const loading = loadingAllRentals || loadingDegens
 
@@ -107,11 +94,26 @@ const DashboardDegensPageContent = (): React.ReactNode => {
 
   const isMobile = useMediaQuery('(max-width:640px)')
   const isSmallScreen = useMediaQuery('(max-width:1280px)')
-  const { jump, dataForCurrentPage, maxPage, currentPage, pageItems } =
-    usePagination<DashboardDegen>(
-      filteredData,
-      !isSmallScreen && layoutMode !== 'gridView' && !isDrawerOpen ? 18 : DEGENS_PER_PAGE
-    )
+  const itemsPerPage =
+    !isSmallScreen && layoutMode !== 'gridView' && !isDrawerOpen ? 18 : DEGENS_PER_PAGE
+  const maxPage = Math.ceil(filteredData.length / itemsPerPage)
+  const currentPage = Math.max(1, maxPage ? Math.min(searchState.page, maxPage) : 1)
+  const dataForCurrentPage = useMemo(() => {
+    const begin = (currentPage - 1) * itemsPerPage
+    return filteredData.slice(begin, begin + itemsPerPage)
+  }, [currentPage, filteredData, itemsPerPage])
+  const pageItems = useMemo(() => getPageItems(currentPage, maxPage), [currentPage, maxPage])
+  const jump = useCallback(
+    (page: number) =>
+      void setSearchState({ page: Math.max(1, maxPage ? Math.min(page, maxPage) : 1) }),
+    [maxPage, setSearchState]
+  )
+
+  useEffect(() => {
+    if (!loading && searchState.page !== currentPage) {
+      void setSearchState({ page: currentPage }, { history: 'replace' })
+    }
+  }, [currentPage, loading, searchState.page, setSearchState])
 
   useEffect(() => {
     if (!populatedDegens.length) {
@@ -119,23 +121,30 @@ const DashboardDegensPageContent = (): React.ReactNode => {
     }
 
     setDefaultValues(getDefaultFilterValueFromData(populatedDegens))
-    const params = Object.fromEntries(searchParams.entries())
-    let newDegens = populatedDegens
-    if (hasEntries(params)) {
-      if (params.searchTerm) setSearchTerm(params.searchTerm)
-      const newFilterOptions = updateFilterValue(defaultValues, params)
-      if (newFilterOptions) {
-        setFilters(newFilterOptions)
-        newDegens = transformDataByFilter(populatedDegens, newFilterOptions)
-      }
+    const defaults = getDefaultFilterValueFromData(populatedDegens)
+    const nextFilters: DegenFilter = {
+      ...defaults,
+      prices: searchState.prices.length ? searchState.prices : defaults.prices,
+      multipliers: searchState.multipliers.length ? searchState.multipliers : defaults.multipliers,
+      rentals: searchState.rentals.length ? searchState.rentals : defaults.rentals,
+      tribes: searchState.tribes.length ? searchState.tribes : defaults.tribes,
+      backgrounds: searchState.backgrounds.length ? searchState.backgrounds : defaults.backgrounds,
+      cosmetics: searchState.cosmetics.length ? searchState.cosmetics : defaults.cosmetics,
+      wearables: searchState.wearables.length ? searchState.wearables : defaults.wearables,
+      sort: searchState.sort,
+      tokenId: searchState.tokenId ? [searchState.tokenId] : [],
+      searchTerm: searchState.searchTerm ? [searchState.searchTerm] : [],
+      walletAddress: searchState.walletAddress ? [searchState.walletAddress] : [],
     }
-    setFilteredData(newDegens)
-  }, [populatedDegens.length])
+    setDefaultValues(defaults)
+    setFilters(nextFilters)
+    setFilteredData(transformDataByFilter(populatedDegens, nextFilters))
+  }, [populatedDegens, searchState])
 
   const handleChangeSearchTerm: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (
     e
   ) => {
-    setSearchTerm(e.target.value)
+    void setSearchState({ searchTerm: e.target.value || null, page: 1 }, { history: 'replace' })
   }
 
   const handleChangeLayoutMode = (_: React.MouseEvent<HTMLElement>, newMode: string) => {
@@ -152,17 +161,11 @@ const DashboardDegensPageContent = (): React.ReactNode => {
     [populatedDegens.length, filters.sort]
   )
 
-  useEffect(() => {
-    jump(1)
-  }, [filteredData.length])
-
   const handleSort = useCallback(
     (sort: string) => {
-      const newSort = { ...filters, sort }
-      setFilters(newSort)
-      setFilteredData(transformDataByFilter(populatedDegens, newSort))
+      void setSearchState({ sort: sort === 'idDown' ? 'idDown' : 'idUp', page: 1 })
     },
-    [populatedDegens.length, filters]
+    [setSearchState]
   )
 
   const handleClickEditName = useCallback((degen: DashboardDegen): void => {
@@ -186,19 +189,6 @@ const DashboardDegensPageContent = (): React.ReactNode => {
 
   const isGridView = layoutMode === 'gridView'
 
-  const handleClickFavorite = useCallback(
-    async (degen: DashboardDegen) => {
-      const newFavs = toggleValue(favDegens?.filter((f) => f) ?? [], degen.id)
-      await fetch(`${PROFILE_FAV_DEGENS_API}`, {
-        method: 'POST',
-        body: JSON.stringify({ favorites: newFavs.toString() }),
-        headers: { authorizationToken: authToken } as Record<string, string>,
-      })
-      setFavDegens(newFavs)
-    },
-    [authToken, favDegens, setFavDegens]
-  )
-
   const renderSkeletonItem = useCallback(
     (_: undefined, index: number) => (
       <div
@@ -216,10 +206,10 @@ const DashboardDegensPageContent = (): React.ReactNode => {
       <DeferredDegensFilter
         onFilter={handleFilter}
         defaultFilterValues={defaultValues as DegenFilter}
-        searchTerm={searchTerm}
+        searchTerm={searchState.searchTerm}
       />
     ),
-    [defaultValues, handleFilter, searchTerm]
+    [defaultValues, handleFilter, searchState.searchTerm]
   )
 
   const renderDegen = useCallback(
@@ -233,7 +223,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
           onClickClaim={() => handleClaimDegen(degen)}
           onClickDetail={() => handleViewTraits(degen)}
           onClickEditName={() => handleClickEditName(degen)}
-          onClickFavorite={() => handleClickFavorite(degen)}
+          onClickFavorite={() => void toggleFavorite(degen.id)}
           size={isGridView ? 'normal' : 'small'}
         />
       </div>
@@ -242,7 +232,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
       favDegens,
       handleClaimDegen,
       handleClickEditName,
-      handleClickFavorite,
+      toggleFavorite,
       handleViewTraits,
       isDrawerOpen,
       isGridView,
@@ -363,7 +353,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
       <div className="flex h-full flex-col justify-start align-top gap-4 pl-2">
         <div className="pl-4 pr-6">
           <DegensTopNav
-            searchTerm={searchTerm || ''}
+            searchTerm={searchState.searchTerm}
             handleChangeSearchTerm={handleChangeSearchTerm}
             handleSort={handleSort}
             sortValue={filters.sort ?? 'idUp'}
