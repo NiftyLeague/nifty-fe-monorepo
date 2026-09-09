@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.8](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/playfab-v1.0.7...playfab-v1.0.8) (2026-09-09)
+
+
+### Maintenance
+
+* **app:** consolidate search filtering and optimize hot-path utils ([#1576](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1576)) ([f567d90](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/f567d90b08286070a8f8770764eda1cf4a5eca15))
+
 ## [1.0.7](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/playfab-v1.0.6...playfab-v1.0.7) (2026-08-28)
 
 

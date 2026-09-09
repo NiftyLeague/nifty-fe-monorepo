@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.13](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/template-v1.0.12...template-v1.0.13) (2026-09-09)
+
+
+### Maintenance
+
+* **app:** consolidate search filtering and optimize hot-path utils ([#1576](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1576)) ([f567d90](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/f567d90b08286070a8f8770764eda1cf4a5eca15))
+
 ## [1.0.12](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/template-v1.0.11...template-v1.0.12) (2026-08-28)
 
 
