@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.70](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.69...nifty-fe-monorepo-v1.2.70) (2026-09-09)
+
+
+### Bug Fixes
+
+* **docs:** restore dual-host routing ([#1860](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1860)) ([4abb0cf](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/4abb0cfdb6e044da3aa1578a4cce390e8f46cbd5))
+
+
+### Maintenance
+
+* **app:** complete M1 state migration ([#1855](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1855)) ([4c1e660](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/4c1e660eaf10ac25c7e50f3b5dc137f7538dd104))
+
 ## [1.2.69](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v1.2.68...nifty-fe-monorepo-v1.2.69) (2026-09-07)
 
 

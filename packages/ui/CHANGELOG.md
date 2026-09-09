@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.19](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v1.0.18...ui-v1.0.19) (2026-09-09)
+
+
+### Maintenance
+
+* **app:** consolidate search filtering and optimize hot-path utils ([#1576](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1576)) ([f567d90](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/f567d90b08286070a8f8770764eda1cf4a5eca15))
+
 ## [1.0.18](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v1.0.17...ui-v1.0.18) (2026-08-30)
 
 

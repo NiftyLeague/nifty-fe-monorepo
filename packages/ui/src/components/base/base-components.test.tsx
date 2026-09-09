@@ -71,6 +71,24 @@ import { Toggle } from '@nl/ui/base/toggle'
 import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@nl/ui/base/tooltip'
 
+const ConcurrentDialogs = () => {
+  const [outerOpen, setOuterOpen] = useState(true)
+  const [innerOpen, setInnerOpen] = useState(true)
+
+  return (
+    <>
+      <Dialog open={outerOpen} onOpenChange={setOuterOpen} />
+      <Dialog open={innerOpen} onOpenChange={setInnerOpen} />
+      <button type="button" onClick={() => setInnerOpen(false)}>
+        Close inner
+      </button>
+      <button type="button" onClick={() => setOuterOpen(false)}>
+        Close outer
+      </button>
+    </>
+  )
+}
+
 describe('base visual primitives', () => {
   it('renders semantic content and style variants', () => {
     render(
@@ -244,24 +262,6 @@ describe('base overlay primitives', () => {
   })
 
   it('keeps document scrolling locked until every open dialog closes', () => {
-    const ConcurrentDialogs = () => {
-      const [outerOpen, setOuterOpen] = useState(true)
-      const [innerOpen, setInnerOpen] = useState(true)
-
-      return (
-        <>
-          <Dialog open={outerOpen} onOpenChange={setOuterOpen} />
-          <Dialog open={innerOpen} onOpenChange={setInnerOpen} />
-          <button type="button" onClick={() => setInnerOpen(false)}>
-            Close inner
-          </button>
-          <button type="button" onClick={() => setOuterOpen(false)}>
-            Close outer
-          </button>
-        </>
-      )
-    }
-
     render(<ConcurrentDialogs />)
     expect(document.documentElement.style.overflow).toBe('hidden')
 
