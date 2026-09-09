@@ -7,6 +7,17 @@ import { mock } from 'bun:test'
 import { useOnScreen } from './useOnScreen'
 import { useParallax } from './useParallax'
 
+function elementWithTop(top: number, withChild = true) {
+  const element = document.createElement('div')
+  if (withChild) {
+    const child = document.createElement('span')
+    child.className = 'parallax-child'
+    element.append(child)
+  }
+  spyOn(element, 'getBoundingClientRect').mockReturnValue({ top } as DOMRect)
+  return element
+}
+
 describe('useOnScreen', () => {
   let intersectionCallback: IntersectionObserverCallback
   const observe = mock()
@@ -244,17 +255,6 @@ describe('useParallax', () => {
       }
     )
   })
-
-  function elementWithTop(top: number, withChild = true) {
-    const element = document.createElement('div')
-    if (withChild) {
-      const child = document.createElement('span')
-      child.className = 'parallax-child'
-      element.append(child)
-    }
-    spyOn(element, 'getBoundingClientRect').mockReturnValue({ top } as DOMRect)
-    return element
-  }
 
   function markIntersecting(element: Element, isIntersecting = true) {
     act(() =>

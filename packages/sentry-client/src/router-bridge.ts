@@ -7,10 +7,10 @@ interface RouterTransitionBridge {
 }
 
 const bridge = globalThis as typeof globalThis & {
-  __nlSentryRouterTransitionBridge?: RouterTransitionBridge
+  nlSentryRouterTransitionBridge?: RouterTransitionBridge
 }
 
-const getBridge = (): RouterTransitionBridge => (bridge.__nlSentryRouterTransitionBridge ??= {})
+const getBridge = (): RouterTransitionBridge => (bridge.nlSentryRouterTransitionBridge ??= {})
 
 export function captureRouterTransitionStart(...args: RouterTransitionArgs): void {
   if (process.env.VERCEL_ENV !== 'production') return

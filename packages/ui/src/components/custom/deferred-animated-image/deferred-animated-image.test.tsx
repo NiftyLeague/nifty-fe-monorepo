@@ -24,15 +24,15 @@ mock.module('@nl/ui/hooks/useDeferredActivation', () => ({
   },
 }))
 
+const setSaveData = (enabled: boolean) => {
+  Object.defineProperty(globalThis.navigator, 'connection', {
+    configurable: true,
+    value: enabled ? { saveData: true } : undefined,
+  })
+}
+
 describe('DeferredAnimatedImage', () => {
   let DeferredAnimatedImage: typeof import('./index').DeferredAnimatedImage
-
-  const setSaveData = (enabled: boolean) => {
-    Object.defineProperty(globalThis.navigator, 'connection', {
-      configurable: true,
-      value: enabled ? { saveData: true } : undefined,
-    })
-  }
 
   beforeEach(async () => {
     state.nearViewport = false

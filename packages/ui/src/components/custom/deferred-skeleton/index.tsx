@@ -11,7 +11,7 @@ function DeferredSkeleton({ className, ...props }: ComponentProps<'div'>) {
   const baseClasses = ['bg-accent', 'animate-pulse', 'rounded-md']
   const customClasses = className?.split(/\s+/).filter(Boolean) ?? []
 
-  if (customClasses.some((className) => className.startsWith('rounded'))) {
+  if (customClasses.some((cls) => cls.startsWith('rounded'))) {
     baseClasses.pop()
   }
 

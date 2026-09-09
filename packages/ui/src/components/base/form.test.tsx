@@ -21,14 +21,46 @@ function TestForm({ children }: { children: React.ReactNode }) {
   return <Form {...form}>{children}</Form>
 }
 
+function TestComponent() {
+  useFormField()
+  return null
+}
+
+const wrapper = ({ children }: { children: React.ReactNode }) => (
+  <TestForm>
+    <FormField
+      name="name"
+      render={() => (
+        <FormItem>
+          <FormControl>
+            <Input />
+          </FormControl>
+          {children}
+        </FormItem>
+      )}
+    />
+  </TestForm>
+)
+
+function ErrorForm({ children }: { children: React.ReactNode }) {
+  const form = useForm({
+    defaultValues: { email: '' },
+    errors: { email: { type: 'required', message: 'Required' } },
+  })
+  return <Form {...form}>{children}</Form>
+}
+
+function ErrorFormWithCustomMessage({ children }: { children: React.ReactNode }) {
+  const form = useForm({
+    defaultValues: { email: '' },
+    errors: { email: { type: 'required', message: 'Email is required' } },
+  })
+  return <Form {...form}>{children}</Form>
+}
+
 describe('Form components', () => {
   describe('useFormField', () => {
     it('throws when called outside FormField context', () => {
-      function TestComponent() {
-        useFormField()
-        return null
-      }
-
       expect(() => {
         render(
           <TestForm>
@@ -39,22 +71,6 @@ describe('Form components', () => {
     })
 
     it('returns field state when inside FormField and FormItem', () => {
-      const wrapper = ({ children }: { children: React.ReactNode }) => (
-        <TestForm>
-          <FormField
-            name="name"
-            render={() => (
-              <FormItem>
-                <FormControl>
-                  <Input />
-                </FormControl>
-                {children}
-              </FormItem>
-            )}
-          />
-        </TestForm>
-      )
-
       const { result } = renderHook(() => useFormField(), { wrapper })
 
       expect(result.current).not.toBeNull()
@@ -134,14 +150,6 @@ describe('Form components', () => {
     })
 
     it('shows data-error=true when a validation error exists on the field', () => {
-      function ErrorForm({ children }: { children: React.ReactNode }) {
-        const form = useForm({
-          defaultValues: { email: '' },
-          errors: { email: { type: 'required', message: 'Required' } },
-        })
-        return <Form {...form}>{children}</Form>
-      }
-
       render(
         <ErrorForm>
           <FormField
@@ -257,16 +265,8 @@ describe('Form components', () => {
     })
 
     it('renders the error message string when the field has an error', () => {
-      function ErrorForm({ children }: { children: React.ReactNode }) {
-        const form = useForm({
-          defaultValues: { email: '' },
-          errors: { email: { type: 'required', message: 'Email is required' } },
-        })
-        return <Form {...form}>{children}</Form>
-      }
-
       render(
-        <ErrorForm>
+        <ErrorFormWithCustomMessage>
           <FormField
             name="email"
             render={() => (
@@ -278,7 +278,7 @@ describe('Form components', () => {
               </FormItem>
             )}
           />
-        </ErrorForm>
+        </ErrorFormWithCustomMessage>
       )
 
       const msg = document.querySelector('[data-slot="form-message"]')
