@@ -7,7 +7,8 @@ export type OptimizedImageProps = ImageProps
 
 // Next injects this build-time value so the shared helper keeps each app's
 // configured responsive image ladder and loader behavior.
-const imageConfig = process.env.__NEXT_IMAGE_OPTS as unknown as ImageConfigComplete
+// oxlint-disable-next-line no-underscore-dangle
+const nextImageOpts = process.env.__NEXT_IMAGE_OPTS as unknown as ImageConfigComplete
 
 const FIXED_PIXEL_SIZE_PATTERN = /^\s*(\d+(?:\.\d+)?)px\s*$/
 
@@ -54,7 +55,7 @@ export function trimFixedWidthSrcSet(srcSet: string | undefined, sizes: string |
 export function getOptimizedImageProps(props: OptimizedImageProps) {
   const { props: imageProps, meta } = getImgProps(props, {
     defaultLoader,
-    imgConf: imageConfig,
+    imgConf: nextImageOpts,
   })
 
   // Keep the shared native renderer conservative by default. Callers can
