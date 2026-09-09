@@ -145,7 +145,7 @@ const ResponsiveCarousel = forwardRef<ResponsiveCarouselRef, ResponsiveCarouselP
 
     const sortedResponsive = useMemo(() => {
       if (!responsive?.length) return [] as NonNullable<ResponsiveCarouselSettings['responsive']>
-      return [...responsive].sort(
+      return [...responsive].toSorted(
         (left, right) => getBreakpointMax(left.breakpoint) - getBreakpointMax(right.breakpoint)
       )
     }, [responsive])
