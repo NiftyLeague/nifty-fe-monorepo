@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.32](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.31...web-v1.0.32) (2026-09-09)
+
+
+### Bug Fixes
+
+* **docs:** restore dual-host routing ([#1860](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1860)) ([4abb0cf](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/4abb0cfdb6e044da3aa1578a4cce390e8f46cbd5))
+
 ## [1.0.31](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.30...web-v1.0.31) (2026-08-30)
 
 
