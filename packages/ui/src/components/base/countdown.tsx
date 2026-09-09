@@ -23,7 +23,13 @@ const Countdown = ({ date, className }: CountdownProps) => {
     return () => clearInterval(timer)
   }, [isDocumentVisible])
 
-  const { isNegative: isNegativeTotal, days, hours, minutes, seconds } = useMemo(() => {
+  const {
+    isNegative: isNegativeTotal,
+    days,
+    hours,
+    minutes,
+    seconds,
+  } = useMemo(() => {
     const total = Math.floor((date.getTime() - now) / 1000)
     const isNegative = total < 0
     const absTotal = Math.abs(total)
