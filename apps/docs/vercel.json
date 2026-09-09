@@ -8,5 +8,9 @@
     }
   },
   "installCommand": "bunx bun@1.4.0 install --frozen-lockfile",
-  "ignoreCommand": "node ../../scripts/vercel-ignore-build.mjs"
+  "ignoreCommand": "node ../../scripts/vercel-ignore-build.mjs",
+  "rewrites": [
+    { "source": "/docs", "destination": "/" },
+    { "source": "/docs/:path*", "destination": "/:path*" }
+  ]
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import Discord from '@site/public/icons/socials/discord.svg'
 import Twitter from '@site/public/icons/socials/twitterX.svg'
 import Github from '@site/public/icons/socials/github.svg'
+import useBaseUrl from '@docusaurus/useBaseUrl'
 import { CenterCard, WideCard } from '../Card'
 import Row, { RowThree } from '../Row'
 import Section from '../Section'
@@ -58,7 +59,7 @@ export default function HomepageSocials() {
         >
           <WideCard>
             <img
-              src="/img/misc/twitch-stream.webp"
+              src={useBaseUrl('/img/misc/twitch-stream.webp')}
               alt="Nifty League Twitch stream"
               width={120}
               height={160}

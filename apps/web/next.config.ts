@@ -77,7 +77,7 @@ const nextConfig: NextConfig = {
         ? [
             {
               source: '/docs/:path*',
-              destination: `http://localhost:3002/:path*`,
+              destination: `http://localhost:3002/docs/:path*`,
               permanent: true,
             },
             { source: '/app', destination: 'http://localhost:3001', permanent: true },
