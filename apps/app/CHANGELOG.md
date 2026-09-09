@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.30...app-v1.2.0) (2026-09-09)
+
+
+### Features
+
+* establish M0 and complete M1 state ownership ([#1851](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1851)) ([802bde5](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/802bde546c5553e720fecb7565d8fcad316eba2c))
+
+
+### Maintenance
+
+* **app:** complete M1 state migration ([#1855](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1855)) ([4c1e660](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/4c1e660eaf10ac25c7e50f3b5dc137f7538dd104))
+
 ## [1.1.30](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v1.1.29...app-v1.1.30) (2026-09-07)
 
 
