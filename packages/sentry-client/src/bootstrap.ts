@@ -22,8 +22,8 @@ export function scheduleSentryInit(enabled: boolean, options: SentryInitOptions)
     routerCaptureRegistered = true
     registerRouterTransitionCapture((...args: RouterTransitionArgs) => {
       void loadClient()
-        .then(({ captureRouterTransitionStart, initializeSentry }) =>
-          initializeSentry(options).then(() => captureRouterTransitionStart(...args))
+        .then(({ captureRouterTransitionStart: captureRouterTransitionStartFn, initializeSentry }) =>
+          initializeSentry(options).then(() => captureRouterTransitionStartFn(...args))
         )
         .catch(reportClientLoadError)
     })
