@@ -40,8 +40,10 @@ describe('hosted validation cost policy', () => {
 
     expect(source).toContain("needs.detect.outputs.enabled == 'true'")
     expect(source).toContain("needs.detect.outputs.token == 'true'")
-    expect(source).toContain('release-please--branches--main')
-    expect(readGitHubConfig('code-foundry.yml')).toContain('opencode_security: false')
+    expect(source).toContain('vars.OPENCODE_SECURITY')
+    expect(source).toContain("if: vars.CI_BILLING_PAUSED != 'true'")
+    expect(source).not.toContain('release-please--branches--main')
+    expect(readGitHubConfig('code-foundry.yml')).not.toContain('opencode_security:')
   })
 
   it('hides release commits so a merged release cannot create the next release', () => {

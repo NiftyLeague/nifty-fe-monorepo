@@ -7,18 +7,17 @@ concurrency:
   cancel-in-progress: true
 
 on:
-  # Allow to run manually
   workflow_dispatch:
-  push:
-    paths:
-      - '.github/workflows/search.yaml'
-      - 'apps/docs/**'
-    branches:
-      - main
+    inputs:
+      enabled:
+        description: Run the Algolia documentation scraper
+        required: true
+        type: boolean
+        default: false
 
 jobs:
   search:
-    if: false
+    if: inputs.enabled
     name: Algolia Search
     runs-on: ubuntu-latest
     steps:
