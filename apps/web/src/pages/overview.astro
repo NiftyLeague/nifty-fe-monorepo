@@ -1,0 +1,17 @@
+---
+import Marketing from '@/layouts/Marketing.astro'
+import LegacyPage from '@/app/(main)/overview/page'
+import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
+import { DeferredOverviewFAQ } from '@/components/DeferredOverviewSections'
+import LearnCards from '@/components/LearnCards'
+import OverviewCommunity from '@/components/OverviewCommunity'
+import { metadata as routeMetadata } from '@/app/(main)/overview/layout'
+import AstroOverviewFAQ from '@/components/OverviewFAQ'
+---
+<Marketing metadata={routeMetadata} rootClass="learn-pg" canonical="/overview">
+  <LegacyPage>
+  <Fragment slot="webIsland0">
+<AstroOverviewFAQ client:visible={{ rootMargin: "200px" }} />
+  </Fragment>
+  </LegacyPage>
+</Marketing>

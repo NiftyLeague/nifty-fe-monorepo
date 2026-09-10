@@ -2,7 +2,7 @@
 
 import type { ReactNode } from 'react'
 import { useState } from 'react'
-import dynamic from 'next/dynamic'
+import dynamic from '@/runtime/client-only'
 
 import { cx } from '@nl/ui/class-names'
 import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group'

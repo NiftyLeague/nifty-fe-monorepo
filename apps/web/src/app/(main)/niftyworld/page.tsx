@@ -1,5 +1,3 @@
-import type { NextPage } from 'next'
-
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { ConsoleGameBackdrop } from '@nl/ui/custom/console-game-backdrop'
 import { ViewportVideo } from '@nl/ui/custom/viewport-video'
@@ -7,13 +5,15 @@ import { ViewportVideo } from '@nl/ui/custom/viewport-video'
 import NiftyWorldProperties from '@/components/NiftyWorldProperties'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 
-const NiftyWorld: NextPage = () => {
+const NiftyWorld = (slots: Record<string, React.ReactNode> = {}) => {
   return (
     <>
       <section className="relative xl:-top-20 2xl:-top-35">
-        <DeferredConsoleGame deferVideo src="/video/mansion_showcase.mp4">
-          <ConsoleGameBackdrop loading="eager" />
-        </DeferredConsoleGame>
+        {slots.webIsland0 ?? (
+          <DeferredConsoleGame deferVideo src="/video/mansion_showcase.mp4">
+            <ConsoleGameBackdrop loading="eager" />
+          </DeferredConsoleGame>
+        )}
 
         <ThemeBtnGroup
           className="absolute bottom-0 sm:bottom-4"
@@ -45,17 +45,19 @@ const NiftyWorld: NextPage = () => {
           </div>
           <div className="w-full md:w-1/2 lg:w-5/12">
             <div className="relative text-right ps-0 lg:ps-5 mb-3">
-              <ViewportVideo
-                width="100%"
-                height="100%"
-                muted
-                loop
-                playsInline
-                data-keepplaying
-                deferLoad
-                poster="/img/games/video-posters/nifty-royale.webp"
-                src="/video/arcade-token.mp4"
-              />
+              {slots.webIsland1 ?? (
+                <ViewportVideo
+                  width="100%"
+                  height="100%"
+                  muted
+                  loop
+                  playsInline
+                  data-keepplaying
+                  deferLoad
+                  poster="/img/games/video-posters/nifty-royale.webp"
+                  src="/video/arcade-token.mp4"
+                />
+              )}
             </div>
           </div>
           <div className="purple-bg-orb orb-top-right" />

@@ -7,7 +7,9 @@ import {
   shouldBuild,
 } from '../../scripts/vercel-ignore-build.mjs'
 
-const projectRoots = ['apps/web', 'apps/app', 'apps/smashers', 'apps/api', 'apps/docs']
+// web is no longer a Vercel project: it ships as Astro static + Cloudflare
+// Worker (apps/web/wrangler.jsonc), so it has no vercel.json to enforce.
+const projectRoots = ['apps/app', 'apps/smashers', 'apps/api', 'apps/docs']
 const deploymentEnabled = { 'codex/*': false, '**': false, main: true }
 const ignoreCommand = 'node ../../scripts/vercel-ignore-build.mjs'
 const installCommand = 'bunx bun@1.4.0 install --frozen-lockfile'
@@ -30,7 +32,7 @@ describe('Vercel build cost policy', () => {
   }
 
   it('keeps every Vercel-connected app on the shared policy', () => {
-    expect(projectRoots).toHaveLength(5)
+    expect(projectRoots).toHaveLength(4)
   })
 
   it('builds the release branch and manual deployments only', () => {
@@ -46,31 +48,31 @@ describe('Vercel build cost policy', () => {
   })
 
   it('builds only projects affected by app or shared paths', () => {
-    expect(isProjectAffected('web', ['apps/web/src/app/page.tsx'])).toBe(true)
-    expect(isProjectAffected('web', ['apps/app/src/app/page.tsx'])).toBe(false)
+    expect(isProjectAffected('app', ['apps/app/src/app/page.tsx'])).toBe(true)
+    expect(isProjectAffected('app', ['apps/smashers/src/app/page.tsx'])).toBe(false)
     expect(isProjectAffected('smashers-web', ['apps/smashers/src/app/page.tsx'])).toBe(true)
     expect(isProjectAffected('docs', ['packages/ui/src/base/button.tsx'])).toBe(true)
-    expect(isProjectAffected('web', ['packages/contracts/src/index.ts'])).toBe(false)
     expect(isProjectAffected('docs', ['packages/contracts/src/index.ts'])).toBe(false)
     expect(isProjectAffected('app', ['packages/contracts/src/index.ts'])).toBe(true)
     expect(isProjectAffected('api', ['packages/playfab/src/api.ts'])).toBe(false)
     expect(isProjectAffected('smashers', ['packages/playfab/src/api.ts'])).toBe(true)
-    expect(isProjectAffected('web', ['packages/typescript-config/base.json'])).toBe(true)
     expect(isProjectAffected('docs', ['packages/typescript-config/nextjs.json'])).toBe(true)
-    expect(isProjectAffected('web', ['config/image-device-sizes.ts'])).toBe(true)
     expect(isProjectAffected('app', ['config/image-device-sizes.ts'])).toBe(true)
     expect(isProjectAffected('smashers', ['config/image-device-sizes.ts'])).toBe(true)
     expect(isProjectAffected('docs', ['packages/new-runtime/src/index.ts'])).toBe(true)
-    expect(isProjectAffected('web', ['scripts/vercel-ignore-build.mjs'])).toBe(true)
-    expect(isProjectAffected('web', ['scripts/isolated-test.sh'])).toBe(false)
     expect(isProjectAffected('api', ['scripts/audit.sh'])).toBe(false)
     expect(isProjectAffected('api', ['apps/web/src/app/page.tsx'])).toBe(false)
     expect(isProjectAffected('new-project', ['README.md'])).toBe(true)
   })
 
+  it('no longer maps the Astro web app to a Vercel project', () => {
+    expect(canonicalProjectName('web')).toBeNull()
+    expect(canonicalProjectName('apps/web')).toBeNull()
+  })
+
   it('keeps release builds fail-open when Git history is unavailable', () => {
-    expect(shouldBuild('main', 'web', undefined)).toBe(true)
-    expect(shouldBuild('main', 'web', ['packages/ui/src/index.ts'])).toBe(true)
+    expect(shouldBuild('main', 'app', undefined)).toBe(true)
+    expect(shouldBuild('main', 'app', ['packages/ui/src/index.ts'])).toBe(true)
   })
 
   it('documents the live aggregate-status cost control outside generated policy', () => {

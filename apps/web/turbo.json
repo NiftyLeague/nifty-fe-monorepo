@@ -1,0 +1,7 @@
+{
+  "extends": ["//"],
+  "tasks": {
+    "build": { "outputs": ["dist/**", ".worker-build/**", ".web-images/**"] },
+    "dev": { "cache": false, "persistent": true }
+  }
+}

@@ -1,5 +1,3 @@
-import type { NextPage } from 'next'
-
 import OptimizedImage, { getOptimizedImageProps } from '@nl/ui/custom/optimized-image'
 
 import { cx } from '@nl/ui/class-names'
@@ -7,7 +5,7 @@ import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 
 import styles from './index.module.css'
 
-const Lore: NextPage = () => {
+const Lore = () => {
   const background = getOptimizedImageProps({
     alt: '',
     height: 2895,

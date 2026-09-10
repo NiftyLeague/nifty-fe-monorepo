@@ -1,7 +1,6 @@
-import type { NextPage } from 'next'
-import Link from 'next/link'
+import Link from '@/runtime/Link'
 
-const PrivacyPolicy: NextPage = () => (
+const PrivacyPolicy = () => (
   <div className="container pt-30 mb-20">
     <div className="mb-3 mb-md-5">
       <h1 className="text-center">PRIVACY POLICY</h1>

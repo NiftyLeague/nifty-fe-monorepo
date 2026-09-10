@@ -1,10 +1,8 @@
-import type { NextPage } from 'next'
-
 import { DeferredTeamCarousel } from '@/components/DeferredTeamSections'
 import TeamDesktop from '@/components/TeamDesktop'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 
-const Team: NextPage = () => {
+const Team = (slots: Record<string, React.ReactNode> = {}) => {
   return (
     <>
       <div className="container pt-20">
@@ -45,7 +43,7 @@ const Team: NextPage = () => {
             className="teams-slider slider px-0 block md:hidden"
             style={{ alignItems: 'center', maxWidth: '100%', textAlign: 'center', minHeight: 300 }}
           >
-            <DeferredTeamCarousel />
+            {slots.webIsland0 ?? <DeferredTeamCarousel />}
           </div>
           <div className="purple-bg-orb orb-top-left" />
         </section>

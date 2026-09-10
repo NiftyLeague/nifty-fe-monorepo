@@ -1,5 +1,3 @@
-import type { NextPage } from 'next'
-
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 
 import CommunityConversation from '@/components/CommunityConversation'
@@ -8,7 +6,7 @@ import '@/styles/marketing.css'
 
 import styles from './index.module.css'
 
-const Community: NextPage = () => {
+const Community = () => {
   return (
     <>
       <section className="relative min-h-screen">

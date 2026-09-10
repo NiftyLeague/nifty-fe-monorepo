@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test'
-import { readFileSync, readlinkSync } from 'node:fs'
+import { existsSync, readFileSync, readlinkSync } from 'node:fs'
 
 const script = readFileSync('.sh/symlinks.sh', 'utf8')
 
@@ -16,8 +16,16 @@ describe('workspace asset links', () => {
   })
 
   it('keeps tracked app asset links portable across worktrees', () => {
-    for (const app of ['app', 'docs', 'smashers', 'template', 'web']) {
+    // web is no longer managed here: it ships as Astro static with publicDir
+    // pointing at ../../assets (see apps/web/astro.config.mjs), so it has no
+    // public symlink to repair.
+    for (const app of ['app', 'docs', 'smashers', 'template']) {
       expect(readlinkSync(`apps/${app}/public`)).toBe('../../assets')
     }
+  })
+
+  it('does not create a public symlink for the Astro web app', () => {
+    expect(script).not.toContain('create_symlinks "web"')
+    expect(existsSync('apps/web/public')).toBe(false)
   })
 })

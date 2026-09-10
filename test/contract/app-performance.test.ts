@@ -55,13 +55,13 @@ const docsConfig = 'apps/docs/docusaurus.config.ts'
 const templatePage = 'apps/template/src/app/page.tsx'
 const sharedSentryConfig = 'config/with-production-sentry.ts'
 const webManifest = 'apps/web/package.json'
-const webNextConfig = 'apps/web/next.config.ts'
 const webHome = 'apps/web/src/app/(main)/page.tsx'
 const incrementalTypecheckConfigs = [
   'apps/api/tsconfig.json',
   'apps/docs/tsconfig.json',
   'apps/template/tsconfig.json',
-  'apps/web/tsconfig.json',
+  // apps/web/tsconfig.json is excluded: it extends Astro's strict preset, which
+  // drives astro check without Next-style incremental build info.
   'apps/app/tsconfig.json',
   'apps/smashers/tsconfig.json',
   'packages/contracts/tsconfig.json',
@@ -71,10 +71,10 @@ const incrementalTypecheckConfigs = [
 ]
 const nextSourceTypecheckConfigs = [
   'apps/template/tsconfig.json',
-  'apps/web/tsconfig.json',
   'apps/app/tsconfig.json',
   'apps/smashers/tsconfig.json',
 ]
+const webTsConfig = 'apps/web/tsconfig.json'
 const deferredSentryClient = 'packages/sentry-client/src/client.ts'
 const deferredSentryModule = 'packages/sentry-client/src/nextjs-client.ts'
 const deferredExternalScript =
@@ -91,9 +91,10 @@ const lightweightClassNames = 'packages/ui/src/lib/class-names.ts'
 const deferredConsoleGame = 'packages/ui/src/components/custom/deferred-console-game/index.tsx'
 const consoleGameBackdrop = 'packages/ui/src/components/custom/console-game/backdrop.tsx'
 const gltfViews = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViews.tsx'
-const gltfPage = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/page.tsx'
+// web ships as Astro static: the gltf logo now renders inside the runtime
+// client island (src/runtime/GltfClient.tsx) instead of a Next page.
+const gltfClientRuntime = 'apps/web/src/runtime/GltfClient.tsx'
 const marketingShellClassNameSources = [
-  'apps/web/src/app/layout.tsx',
   'apps/web/src/components/Footer/index.tsx',
   'packages/ui/src/components/custom/external-icon/index.tsx',
   'packages/ui/src/components/custom/mobile-navigation/index.tsx',
@@ -102,6 +103,9 @@ const marketingShellClassNameSources = [
   'packages/ui/src/components/custom/socials-footer/index.tsx',
   'packages/ui/src/components/custom/theme-button-group/index.tsx',
 ]
+// web ships as Astro static: the shell root class comes from
+// src/layouts/Marketing.astro's rootClass prop instead of a Next layout.
+const webMarketingShellLayout = 'apps/web/src/layouts/Marketing.astro'
 const marketingStaticNavigationSources = [
   'apps/web/src/components/Footer/index.tsx',
   'packages/ui/src/components/custom/navbar/index.tsx',
@@ -343,6 +347,12 @@ describe('app performance contracts', () => {
       expect(source).toContain("from '@nl/ui/class-names'")
       expect(source).not.toContain("from '@nl/ui/utils'")
     }
+
+    // The Astro marketing layout composes static class strings only, so it must
+    // not pull in the conflict-merging utility at all.
+    const marketingLayout = readFileSync(webMarketingShellLayout, 'utf8')
+    expect(marketingLayout).not.toContain('tailwind-merge')
+    expect(marketingLayout).not.toContain('@nl/ui/utils')
   })
 
   it('keeps static marketing navigation out of the Next Link client runtime', () => {
@@ -411,7 +421,7 @@ describe('app performance contracts', () => {
   })
 
   it('does not prioritize the GLTF logo that is hidden in the initial 2D view', () => {
-    const source = readFileSync(gltfPage, 'utf8')
+    const source = readFileSync(gltfClientRuntime, 'utf8')
     const logoStart = source.indexOf('alt="Nifty League Logo"')
     const logoEnd = source.indexOf('src="/img/logos/NL/wordmark.webp"')
 
@@ -592,7 +602,9 @@ describe('app performance contracts', () => {
       'apps/smashers/package.json',
       'apps/template/package.json',
     ]
-    const configs = [appNextConfig, smashersNextConfig, webNextConfig, templateNextConfig]
+    // web has no next.config anymore (Astro static); its scripts are still
+    // checked above so no turbopack variant can reappear.
+    const configs = [appNextConfig, smashersNextConfig, templateNextConfig]
 
     for (const file of manifests) {
       const scripts = JSON.parse(readFileSync(file, 'utf8')).scripts
@@ -630,7 +642,8 @@ describe('app performance contracts', () => {
   })
 
   it('modularizes shared Lucide imports before the app graph is bundled', () => {
-    for (const file of [appNextConfig, smashersNextConfig, webNextConfig, templateNextConfig]) {
+    // web is excluded: Astro/Vite handles its graph without a next.config.
+    for (const file of [appNextConfig, smashersNextConfig, templateNextConfig]) {
       expect(readFileSync(file, 'utf8')).toContain("optimizePackageImports: ['lucide-react']")
     }
   })
@@ -648,7 +661,9 @@ describe('app performance contracts', () => {
     expect(sharedSource).toContain("sourcemaps: { disable: env !== 'production' }")
     expect(sharedSource).toContain('widenClientFileUpload: false')
 
-    for (const file of [appNextConfig, smashersNextConfig, webNextConfig]) {
+    // web is excluded: it ships as Astro static with lazy @sentry/browser and
+    // no server-side source-map uploads.
+    for (const file of [appNextConfig, smashersNextConfig]) {
       const source = readFileSync(file, 'utf8')
       expect(source).toContain('getProductionSentryOptions')
     }
@@ -671,6 +686,22 @@ describe('app performance contracts', () => {
         '.next/types/**/*.ts',
       ])
     }
+  })
+
+  it('scopes the Astro web TypeScript program to Astro-generated and source inputs', () => {
+    const tsConfig = JSON.parse(readFileSync(webTsConfig, 'utf8')) as {
+      include?: string[]
+      extends?: string
+    }
+
+    expect(tsConfig.extends).toBe('astro/tsconfigs/strict')
+    expect(tsConfig.include).toEqual([
+      '.astro/types.d.ts',
+      'src/**/*',
+      'worker/**/*',
+      'playwright.config.ts',
+      'e2e/**/*',
+    ])
   })
 
   it('keeps generated contract types out of the default app program and avoids the barrel graph', () => {
@@ -768,14 +799,14 @@ describe('app performance contracts', () => {
     }
   })
 
-  it('uses the deterministic Webpack path for local marketing development', () => {
+  it('uses the deterministic Astro path for local marketing development', () => {
+    // web ships as Astro static + Cloudflare Worker; dev serves the static
+    // pipeline on port 3000 instead of a Next server.
     const manifest = JSON.parse(readFileSync(webManifest, 'utf8'))
-    const nextConfig = readFileSync(webNextConfig, 'utf8')
 
-    expect(manifest.scripts.dev).toBe('next dev --webpack --port 3000')
-    expect(manifest.scripts.dev).not.toContain('--turbopack')
+    expect(manifest.scripts.dev).toContain('astro dev --port 3000')
+    expect(manifest.scripts.dev).not.toContain('next dev')
     expect(manifest.scripts['dev:turbo']).toBeUndefined()
-    expect(nextConfig).not.toContain('turbopack')
   })
 
   it('keeps the tracked template app on the root Next build graph', () => {

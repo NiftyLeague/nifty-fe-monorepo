@@ -6,7 +6,6 @@ import OptimizedImage, { getOptimizedImageProps } from '@nl/ui/custom/optimized-
 import { DesktopOnlyImage } from '@nl/ui/custom/responsive-only-image'
 
 import { DeferredHomeSectionsBoundary } from '@/components/DeferredHomeSectionsBoundary'
-import MainLayout from '@/components/MainLayout'
 import { ThemeButtonGroup } from '@nl/ui/custom/theme-button-group'
 import { DEGEN_COLLECTION_URL } from '@/constants/degen-assets'
 
@@ -212,9 +211,9 @@ const MobileIntro = () => {
   )
 }
 
-const Home = () => {
+const Home = (slots: Record<string, React.ReactNode> = {}) => {
   return (
-    <MainLayout classes={{ root: 'home-pg' }}>
+    <>
       <div className="home-intro">
         <ResponsiveIntroBackground />
         <MobileIntro />
@@ -227,9 +226,11 @@ const Home = () => {
           CLASSIC GAMING REINVENTED
         </h2>
 
-        <DeferredConsoleGame deferVideo src="/video/smashers.mp4">
-          <ConsoleGameBackdrop loading="eager" fetchPriority="low" />
-        </DeferredConsoleGame>
+        {slots.webIsland0 ?? (
+          <DeferredConsoleGame deferVideo src="/video/smashers.mp4">
+            <ConsoleGameBackdrop loading="eager" fetchPriority="low" />
+          </DeferredConsoleGame>
+        )}
 
         <ThemeButtonGroup
           className="absolute bottom-0 sm:bottom-4"
@@ -238,8 +239,8 @@ const Home = () => {
         />
       </section>
 
-      <DeferredHomeSectionsBoundary />
-    </MainLayout>
+      {slots.webIsland1 ?? <DeferredHomeSectionsBoundary />}
+    </>
   )
 }
 

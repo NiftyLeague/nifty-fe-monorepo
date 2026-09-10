@@ -1,0 +1,38 @@
+---
+import Marketing from '@/layouts/Marketing.astro'
+import LegacyPage from '@/app/(main)/games/page'
+import { ViewportVideo } from '@nl/ui/custom/viewport-video'
+import { MobileOnlyImage } from '@nl/ui/custom/responsive-only-image'
+import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
+import GameCard from '@/components/GameCard'
+import { DeferredGamesBelowFold } from '@/components/DeferredGamesSections'
+import { NIFTY_GAMES } from '@/constants/games'
+import { metadata as routeMetadata } from '@/app/(main)/games/layout'
+const firstGame = NIFTY_GAMES[0]
+import AstroGamesBelowFoldCards from '@/components/GamesBelowFoldCards'
+---
+<Marketing metadata={routeMetadata} rootClass="games-pg" canonical="/games">
+  <LegacyPage>
+  <Fragment slot="webIsland0">
+<ViewportVideo client:visible={{ rootMargin: "200px" }}
+              id="lobby"
+              width="100%"
+              height="100%"
+              muted
+              loop
+              playsInline
+              data-keepplaying
+              className="hidden md:block"
+              deferLoad
+              poster="/img/games/smashers/lobby.webp"
+              src="/video/lobby.mp4"
+            />
+  </Fragment>
+  <Fragment slot="webIsland1">
+<GameCard client:visible={{ rootMargin: "200px" }} game={firstGame} index={0} />
+  </Fragment>
+  <Fragment slot="webIsland2">
+<AstroGamesBelowFoldCards client:visible={{ rootMargin: "200px" }} />
+  </Fragment>
+  </LegacyPage>
+</Marketing>

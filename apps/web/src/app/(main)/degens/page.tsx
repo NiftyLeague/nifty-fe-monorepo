@@ -1,5 +1,3 @@
-import type { NextPage } from 'next'
-
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { ConsoleGameBackdrop } from '@nl/ui/custom/console-game-backdrop'
 import { DeferredYouTubeEmbed } from '@nl/ui/custom/deferred-youtube-embed'
@@ -8,12 +6,14 @@ import { DeferredDegenSpecialsTable } from '@/components/DeferredDegenSections'
 import DegenGallery from '@/components/DegenGallery'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 
-const Degens: NextPage = () => (
+const Degens = (slots: Record<string, React.ReactNode> = {}) => (
   <>
     <section className="relative xl:-top-20 2xl:-top-35">
-      <DeferredConsoleGame deferVideo src="/video/unboxing.mp4">
-        <ConsoleGameBackdrop loading="eager" />
-      </DeferredConsoleGame>
+      {slots.webIsland0 ?? (
+        <DeferredConsoleGame deferVideo src="/video/unboxing.mp4">
+          <ConsoleGameBackdrop loading="eager" />
+        </DeferredConsoleGame>
+      )}
     </section>
 
     <div className="container">
@@ -40,11 +40,13 @@ const Degens: NextPage = () => (
           </div>
           <div className="w-full md:w-1/2">
             <div className="relative text-right mb-4 md:mb-0 ps-0 lg:pl-5">
-              <DeferredYouTubeEmbed
-                src="https://www.youtube.com/embed/WWLqE1tnf6U"
-                title="Nifty League DEGENs"
-                className="h-[315px] w-full"
-              />
+              {slots.webIsland1 ?? (
+                <DeferredYouTubeEmbed
+                  src="https://www.youtube.com/embed/WWLqE1tnf6U"
+                  title="Nifty League DEGENs"
+                  className="h-[315px] w-full"
+                />
+              )}
             </div>
           </div>
         </div>
@@ -77,7 +79,7 @@ const Degens: NextPage = () => (
           </div>
         </div>
 
-        <DeferredDegenSpecialsTable />
+        {slots.webIsland2 ?? <DeferredDegenSpecialsTable />}
 
         <ThemeBtnGroup
           className="mt-6 xl:mt-8"

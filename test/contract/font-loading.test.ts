@@ -4,12 +4,6 @@ import { join } from 'node:path'
 
 const fontLayoutContracts = [
   {
-    app: 'web',
-    layout: 'apps/web/src/app/layout.tsx',
-    required: ['default', 'header', 'special'],
-    omitted: ['subheader'],
-  },
-  {
     app: 'app',
     layout: 'apps/app/src/app/layout.tsx',
     required: ['default', 'header', 'subheader'],
@@ -37,6 +31,27 @@ describe('shared font loading contract', () => {
       }
     })
   }
+
+  it('web loads only the font families required by its theme via the Astro base layout', () => {
+    // web ships as Astro static; fonts come from src/layouts/Base.astro, which
+    // self-hosts the same woff2 assets instead of importing @nl/ui fonts.
+    const source = readFileSync(join(process.cwd(), 'apps/web/src/layouts/Base.astro'), 'utf8')
+
+    expect(source).toContain('woff2')
+    expect(source).toContain('preload')
+    // default (IBM Plex Sans), header (Nexa Rust Sans Black), special (Press Start 2P)
+    expect(source).toContain('ibm-plex-sans-400.woff2')
+    expect(source).toContain('NexaRustSans-Black.woff2')
+    expect(source).toContain('press-start-2p-400.woff2')
+    for (const cssVar of [
+      '--font-ibm-plex-sans',
+      '--font-nexa-rust-sans-black',
+      '--font-press-start-2p',
+    ]) {
+      expect(source).toContain(cssVar)
+    }
+    expect(source).not.toContain('ibm-plex-sans-italic-400.woff2')
+  })
 
   it('keeps only the browser-ready Nexa Rust font asset', () => {
     const fontDirectory = join(process.cwd(), 'packages/ui/src/lib/fonts/NexaRustSans_Black')

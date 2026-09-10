@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'bun:test'
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
+import { parseReferral, referralTargets, routeRequest } from '../../apps/web/worker/routes.mjs'
 
 /**
  * Contract guard for externally-consumed routes.
@@ -12,6 +13,8 @@ import { join } from 'node:path'
  * external consumer was migrated).
  *
  * Keyed by app name; values are route file paths relative to `apps/<app>`.
+ * web ships as Astro static: marketing routes are compiled from src/pages/*.astro
+ * and deep links are served by the Cloudflare Worker (apps/web/worker/routes.mjs).
  */
 const appRouteContracts: Record<string, string[]> = {
   smashers: [
@@ -36,24 +39,22 @@ const appRouteContracts: Record<string, string[]> = {
     'src/app/page.tsx',
   ],
   web: [
-    // Marketing site: campaign and deep-link landing routes linked externally.
-    'src/app/(main)/page.tsx',
-    'src/app/(main)/roadmap/page.tsx',
-    'src/app/(main)/team/page.tsx',
-    'src/app/(main)/community/page.tsx',
-    'src/app/(main)/lore/page.tsx',
-    'src/app/(main)/niftyworld/page.tsx',
-    'src/app/(main)/games/page.tsx',
-    'src/app/(main)/degens/page.tsx',
-    'src/app/(main)/careers/page.tsx',
-    'src/app/(main)/terms-of-service/page.tsx',
-    'src/app/(main)/privacy-policy/page.tsx',
-    'src/app/(main)/disclaimer/page.tsx',
-    'src/app/(main)/compete-and-earn/page.tsx',
-    'src/app/(main)/overview/page.tsx',
-    'src/app/(special-routes)/gltf/[tokenId]/page.tsx',
-    'src/app/(special-routes)/invite/[game]/[refcode]/page.tsx',
-    'src/app/(special-routes)/party/[game]/[refcode]/[partyID]/page.tsx',
+    // Marketing site: campaign landing routes compiled from Astro pages that
+    // wrap the retained React slot composers (LegacyPage).
+    'src/pages/index.astro',
+    'src/pages/roadmap.astro',
+    'src/pages/team.astro',
+    'src/pages/community.astro',
+    'src/pages/lore.astro',
+    'src/pages/niftyworld.astro',
+    'src/pages/games.astro',
+    'src/pages/degens.astro',
+    'src/pages/careers.astro',
+    'src/pages/terms-of-service.astro',
+    'src/pages/privacy-policy.astro',
+    'src/pages/disclaimer.astro',
+    'src/pages/compete-and-earn.astro',
+    'src/pages/overview.astro',
   ],
   app: [
     // dApp: auth-critical, SEO, and externally deep-linked routes.
@@ -232,13 +233,11 @@ const mainLayout = 'apps/app/src/app/_layout/_MainLayout/index.tsx'
 const networkWarning = 'apps/app/src/app/_layout/_MainLayout/_Header/NetworkWarning.tsx'
 const staleWalletContextWrapper = 'apps/app/src/contexts/WalletContextWrapper.tsx'
 const deferredAnalyticsSource = 'packages/ui/src/lib/gtm/DeferredAnalytics.tsx'
-const analyticsLayouts = [
-  'apps/app/src/app/layout.tsx',
-  'apps/web/src/app/(main)/layout.tsx',
-  'apps/web/src/app/(special-routes)/invite/[game]/[refcode]/layout.tsx',
-  'apps/web/src/app/(special-routes)/party/[game]/[refcode]/[partyID]/layout.tsx',
-  'apps/smashers/src/app/layout.tsx',
-]
+const analyticsLayouts = ['apps/app/src/app/layout.tsx', 'apps/smashers/src/app/layout.tsx']
+// web ships as Astro static: analytics mount through the base layout's
+// telemetry island instead of Next.js layout components.
+const webAnalyticsBaseLayout = 'apps/web/src/layouts/Base.astro'
+const webTelemetryRuntime = 'apps/web/src/runtime/telemetry.ts'
 const deferredConsoleGameRoutes = [
   'apps/web/src/app/(main)/page.tsx',
   'apps/web/src/app/(main)/degens/page.tsx',
@@ -254,7 +253,8 @@ const routeLoadingFiles = [
 ]
 const webHomePage = 'apps/web/src/app/(main)/page.tsx'
 const webOverviewPage = 'apps/web/src/app/(main)/overview/page.tsx'
-const gltfPage = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/page.tsx'
+const gltfPage = 'apps/web/src/pages/shells/gltf.astro'
+const gltfClientRuntime = 'apps/web/src/runtime/GltfClient.tsx'
 const gltfClient = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViews.tsx'
 const gltfRouteBoundary =
   'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViewsRouteBoundary.tsx'
@@ -269,7 +269,6 @@ const sharedWebNavbarScrollState = 'packages/ui/src/components/custom/navbar/Nav
 const sharedWebMobileNavbar = 'packages/ui/src/components/custom/navbar/MobileNavMenu.tsx'
 const sharedWebNavLinkContent = 'packages/ui/src/components/custom/navbar/NavLinkContent.tsx'
 const sharedWebMobileTrigger = 'packages/ui/src/components/custom/navbar/MobileNavTrigger.tsx'
-const webInviteRedirect = 'apps/web/src/components/Invite/InviteRedirect.tsx'
 const sharedConsoleGame = 'packages/ui/src/components/custom/console-game/index.tsx'
 const sharedDeferredConsoleGame =
   'packages/ui/src/components/custom/deferred-console-game/index.tsx'
@@ -360,20 +359,65 @@ describe('external route surface contract', () => {
           expect(existsSync(path), `Missing externally-consumed route: apps/${app}/${file}`).toBe(
             true
           )
+          if (app === 'web') {
+            // Each Astro marketing page must wrap the retained React slot
+            // composer so the migrated page keeps rendering its islands.
+            expect(readFileSync(path, 'utf8')).toContain('LegacyPage')
+          }
         })
       }
     })
   }
 })
 
+describe('web deep-link shell contract', () => {
+  // web ships as Astro static + Cloudflare Worker; the invite/party/gltf deep
+  // links resolve through routeRequest to static shell pages instead of
+  // (special-routes) page.tsx files. See apps/web/checks/routes.node.mjs.
+  it('serves the gltf deep link from the static shell', () => {
+    expect(routeRequest('https://niftyleague.com/gltf/123')).toEqual({
+      kind: 'gltf',
+      tokenId: '123',
+      asset: '/shells/gltf.html',
+    })
+    expect(existsSync(join(process.cwd(), 'apps/web/src/pages/shells/gltf.astro'))).toBe(true)
+  })
+
+  it('serves invite and party deep links from the referral shell', () => {
+    expect(routeRequest('https://niftyleague.com/invite/smashers/CODE')).toEqual({
+      kind: 'referral',
+      asset: '/shells/referral.html',
+    })
+    expect(routeRequest('https://niftyleague.com/party/smashers/CODE/PARTY')).toEqual({
+      kind: 'referral',
+      asset: '/shells/referral.html',
+    })
+    expect(existsSync(join(process.cwd(), 'apps/web/src/pages/shells/referral.astro'))).toBe(true)
+  })
+})
+
 describe('web invite redirect contract', () => {
   it('keeps navigation and deep-link side effects out of render', () => {
-    const source = readFileSync(join(process.cwd(), webInviteRedirect), 'utf8')
+    // The deleted client-side InviteRedirect component is replaced by pure
+    // worker helpers, so the static referral shell stays free of routing logic.
+    expect(parseReferral('/invite/smashers/CODE')).toEqual({
+      game: 'smashers',
+      refcode: 'CODE',
+    })
+    expect(parseReferral('/party/smashers/CODE/PARTY')).toEqual({
+      game: 'smashers',
+      refcode: 'CODE',
+      partyID: 'PARTY',
+    })
+    expect(parseReferral('/invite/smashers')).toBeNull()
 
-    expect(source).toMatch(
-      /useEffect\(\(\) => \{[\s\S]*switch \(game\)[\s\S]*router\.push\('\/'\)[\s\S]*\}, \[game, partyID, refcode, router, userAgent\]\)/
+    const targets = referralTargets(
+      { game: 'smashers', refcode: 'REFCODE12', partyID: 'P1' },
+      'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)'
     )
-    expect(source).not.toMatch(/\n\s*switch \(game\) \{[\s\S]*\n\s*\}\n\n\s*return <Loading \/>/)
+    expect(targets.native).toContain('niftysmashers://smashers/party')
+    expect(targets.store).toContain('/ios/?referral=REFCODE12')
+    expect(targets.launchNative).toBe(true)
   })
 })
 
@@ -462,15 +506,21 @@ describe('public degen loading contract', () => {
 
 describe('GLTF viewer loading contract', () => {
   it('keeps the initial NFT shell server-rendered and browser controls isolated', () => {
-    const pageSource = readFileSync(join(process.cwd(), gltfPage), 'utf8')
+    // web ships as Astro static: the deep-link shell is a prerendered Astro
+    // page and the browser controls load through a client-only island.
+    const shellSource = readFileSync(join(process.cwd(), gltfPage), 'utf8')
+    const runtimeSource = readFileSync(join(process.cwd(), gltfClientRuntime), 'utf8')
     const clientSource = readFileSync(join(process.cwd(), gltfClient), 'utf8')
     const routeBoundarySource = readFileSync(join(process.cwd(), gltfRouteBoundary), 'utf8')
     const modelViewSource = readFileSync(join(process.cwd(), gltfModelView), 'utf8')
 
-    expect(pageSource).not.toContain("'use client'")
-    expect(pageSource).toContain('await params')
-    expect(pageSource).toContain("from '@nl/ui/custom/optimized-image'")
-    expect(pageSource).toContain("from './components/DegenViewsRouteBoundary'")
+    expect(shellSource).not.toContain("'use client'")
+    expect(shellSource).toContain('client:only="react"')
+    expect(shellSource).toContain('styles.viewer__shell')
+    expect(shellSource).toContain('styles.initial__image')
+    expect(runtimeSource).toContain("from '@nl/ui/custom/optimized-image'")
+    expect(runtimeSource).toContain('import DegenViews')
+    expect(runtimeSource).toContain('initialImage={null}')
     expect(routeBoundarySource).toContain("'use client'")
     expect(routeBoundarySource).toContain("dynamic(() => import('./DegenViews')")
     expect(routeBoundarySource).toContain('ssr: false')
@@ -494,35 +544,43 @@ describe('GLTF viewer loading contract', () => {
   })
 
   it('keeps embedded viewer controls loadable in sandboxed frames', () => {
-    const nextConfigSource = readFileSync(join(process.cwd(), 'apps/web/next.config.ts'), 'utf8')
+    // The Next.js /_next/static CORS rewrite is replaced by the Cloudflare
+    // _headers file emitted for the static asset bundle.
+    const finalizeSource = readFileSync(
+      join(process.cwd(), 'apps/web/scripts/finalize-static.mjs'),
+      'utf8'
+    )
 
-    expect(nextConfigSource).toContain("source: '/_next/static/:path*'")
-    expect(nextConfigSource).toContain("key: 'Access-Control-Allow-Origin'")
-    expect(nextConfigSource).toContain("value: '*'")
+    expect(finalizeSource).toContain('/_astro/*')
+    expect(finalizeSource).toContain('Access-Control-Allow-Origin: *')
   })
 
   it('preloads only the visible NFT artwork', () => {
-    const source = readFileSync(join(process.cwd(), gltfPage), 'utf8')
+    const shellSource = readFileSync(join(process.cwd(), gltfPage), 'utf8')
+    const runtimeSource = readFileSync(join(process.cwd(), gltfClientRuntime), 'utf8')
 
-    expect(source).toContain('priority\n          src={imageSrc}')
-    expect(source).toContain('className={styles.sprite__wrapper}')
-    expect(source).toContain(
-      'className={styles.sprite}\n            fill\n            sizes="100vw"'
-    )
-    const logoStart = source.indexOf('alt="Nifty League Logo"')
-    const logoEnd = source.indexOf('src="/img/logos/NL/wordmark.webp"')
+    // The static shell eagerly fetches only the visible 2D poster.
+    const posterStart = shellSource.indexOf('data-gltf-poster')
+    const posterEnd = shellSource.indexOf('/>', posterStart)
+    expect(posterStart).toBeGreaterThanOrEqual(0)
+    expect(shellSource.slice(posterStart, posterEnd)).toContain('loading="eager"')
+    expect(shellSource.slice(posterStart, posterEnd)).toContain('fetchpriority="high"')
+
+    expect(runtimeSource).toContain('className={styles.sprite__wrapper}')
+    expect(runtimeSource).toContain('fill\n            sizes="100vw"')
+    const logoStart = runtimeSource.indexOf('alt="Nifty League Logo"')
+    const logoEnd = runtimeSource.indexOf('src="/img/logos/NL/wordmark.webp"')
 
     expect(logoStart).toBeGreaterThanOrEqual(0)
     expect(logoEnd).toBeGreaterThan(logoStart)
-    expect(source.slice(logoStart, logoEnd)).not.toContain('priority')
-    expect(source).not.toContain('quality={100}')
+    expect(runtimeSource.slice(logoStart, logoEnd)).not.toContain('priority')
+    expect(runtimeSource).not.toContain('quality={100}')
   })
 
   it('keeps accumulated NFTL reads available when the optional Infura variable is unavailable', () => {
     const hookSource = readFileSync(join(process.cwd(), webClaimableNFTL), 'utf8')
 
-    expect(hookSource).toContain('NEXT_PUBLIC_INFURA_ID')
-    expect(hookSource).toContain('NEXT_PUBLIC_INFURA_PROJECT_ID')
+    expect(hookSource).toContain('process.env.PUBLIC_INFURA_ID')
     expect(hookSource).toContain("'https://ethereum-rpc.publicnode.com'")
     expect(hookSource).toContain("method: 'POST'")
     expect(hookSource).toContain("params: [{ to: NFTL_CONTRACT_ADDRESS, data }, 'latest']")
@@ -530,7 +588,7 @@ describe('GLTF viewer loading contract', () => {
   })
 
   it('keeps route-only DEGEN constants out of the full catalog module', () => {
-    const pageSource = readFileSync(join(process.cwd(), gltfPage), 'utf8')
+    const runtimeSource = readFileSync(join(process.cwd(), gltfClientRuntime), 'utf8')
     const modelSource = readFileSync(
       join(
         process.cwd(),
@@ -541,42 +599,57 @@ describe('GLTF viewer loading contract', () => {
     const assetSource = readFileSync(join(process.cwd(), webDegenAssets), 'utf8')
     const catalogSource = readFileSync(join(process.cwd(), webDegenCatalog), 'utf8')
 
-    expect(pageSource).toContain("from '@/constants/degen-assets'")
+    expect(runtimeSource).toContain("from '@/constants/degen-assets'")
     expect(modelSource).toContain("from '@/constants/degen-assets'")
     expect(assetSource).toContain('export const LEGGIES')
     expect(catalogSource).not.toContain("from './degen-assets'")
     expect(catalogSource).not.toContain('export const METAS')
     expect(catalogSource).not.toContain('export const RARES')
-    expect(pageSource).not.toContain("from '@/constants/degens'")
+    expect(runtimeSource).not.toContain("from '@/constants/degens'")
   })
 })
 
 describe('website build performance contract', () => {
   it('inlines the atomic marketing CSS for first-load rendering', () => {
-    const source = readFileSync(join(process.cwd(), 'apps/web/next.config.ts'), 'utf8')
+    // web ships as Astro static: the global stylesheet ships with the
+    // prerendered shell instead of a Next.js inlineCss experiment.
+    const baseSource = readFileSync(join(process.cwd(), 'apps/web/src/layouts/Base.astro'), 'utf8')
+    const astroConfig = readFileSync(join(process.cwd(), 'apps/web/astro.config.mjs'), 'utf8')
 
-    expect(source).toContain('inlineCss: true')
+    expect(baseSource).toContain("import '../styles/app.css'")
+    expect(astroConfig).toContain("output: 'static'")
   })
 
-  it('keeps Next builds on the native TypeScript worker', () => {
-    const source = readFileSync(join(process.cwd(), 'apps/web/next.config.ts'), 'utf8')
+  it('builds the marketing site through Astro instead of Next', () => {
+    const manifest = JSON.parse(
+      readFileSync(join(process.cwd(), 'apps/web/package.json'), 'utf8')
+    ) as {
+      scripts?: Record<string, string>
+    }
 
-    expect(source).not.toContain('useTypeScriptCli: true')
+    expect(manifest.scripts?.build).toContain('astro build')
+    expect(manifest.scripts?.build).not.toContain('next build')
+    expect(existsSync(join(process.cwd(), 'apps/web/next.config.ts'))).toBe(false)
   })
 
   it('preloads only the visible NFT artwork', () => {
-    const source = readFileSync(join(process.cwd(), gltfPage), 'utf8')
+    const shellSource = readFileSync(join(process.cwd(), gltfPage), 'utf8')
 
-    expect(source).toContain('priority\n          src={imageSrc}')
-    expect(source).not.toContain('className={styles.sprite}\n          fill\n          priority')
-    expect(source).not.toContain('quality={100}')
+    const posterStart = shellSource.indexOf('data-gltf-poster')
+    const posterEnd = shellSource.indexOf('/>', posterStart)
+    expect(posterStart).toBeGreaterThanOrEqual(0)
+    expect(shellSource.slice(posterStart, posterEnd)).toContain('loading="eager"')
+    expect(shellSource.slice(posterStart, posterEnd)).toContain('fetchpriority="high"')
+    expect(shellSource).not.toContain('fetchpriority="high" loading="lazy"')
   })
 
   it('keeps accumulated NFTL reads available when the optional Infura variable is unavailable', () => {
     const hookSource = readFileSync(join(process.cwd(), webClaimableNFTL), 'utf8')
+    const astroConfig = readFileSync(join(process.cwd(), 'apps/web/astro.config.mjs'), 'utf8')
 
-    expect(hookSource).toContain('NEXT_PUBLIC_INFURA_ID')
-    expect(hookSource).toContain('NEXT_PUBLIC_INFURA_PROJECT_ID')
+    // The Infura id is inlined into the client bundle from the PUBLIC_ var.
+    expect(astroConfig).toContain("'process.env.PUBLIC_INFURA_ID'")
+    expect(hookSource).toContain('process.env.PUBLIC_INFURA_ID')
     expect(hookSource).toContain('ethereum-rpc.publicnode.com')
     expect(hookSource).toContain('encodeUint256(tokenIndex)')
     expect(hookSource).toContain('if (!cancelled)')
@@ -1720,14 +1793,28 @@ describe('shared analytics loading contract', () => {
       expect(source).not.toContain('import { WebVitals')
     })
   }
+
+  it('uses deferred analytics in apps/web/src/layouts/Base.astro', () => {
+    const source = readFileSync(join(process.cwd(), webAnalyticsBaseLayout), 'utf8')
+
+    // The base layout only mounts the telemetry island; GTM, Web Vitals and
+    // Sentry load later from the runtime module.
+    expect(source).toContain("import '../runtime/telemetry'")
+    expect(source).not.toContain('googletagmanager')
+  })
+
+  it('defers web GTM, Web Vitals and Sentry until activation', () => {
+    const source = readFileSync(join(process.cwd(), webTelemetryRuntime), 'utf8')
+
+    expect(source).toContain("'gtm.start'")
+    expect(source).toContain("import('web-vitals')")
+    expect(source).toContain("import('@sentry/browser')")
+    expect(source).toContain('requestIdleCallback')
+  })
 })
 
 describe('app-router metadata contract', () => {
-  for (const file of [
-    'apps/app/src/app/layout.tsx',
-    'apps/web/src/app/layout.tsx',
-    'apps/smashers/src/app/layout.tsx',
-  ]) {
+  for (const file of ['apps/app/src/app/layout.tsx', 'apps/smashers/src/app/layout.tsx']) {
     it(`keeps ${file} on the Metadata API`, () => {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
 
@@ -1735,6 +1822,19 @@ describe('app-router metadata contract', () => {
       expect(source).not.toContain('<Head>')
     })
   }
+
+  it('keeps apps/web/src/layouts/Base.astro emitting canonical and social meta', () => {
+    // web ships as Astro static: the base layout hand-emits the same metadata
+    // the Next Metadata API produced.
+    const source = readFileSync(join(process.cwd(), 'apps/web/src/layouts/Base.astro'), 'utf8')
+
+    expect(source).not.toContain("from 'next/head'")
+    expect(source).not.toContain('<Head>')
+    expect(source).toContain('rel="canonical"')
+    expect(source).toContain('og:title')
+    expect(source).toContain('twitter:card')
+    expect(source).toContain('name="description"')
+  })
 })
 
 describe('shared console game loading contract', () => {
@@ -2302,13 +2402,28 @@ describe('static legal route performance contract', () => {
 const sentryClientBoundaries = [
   'apps/app/src/instrumentation-client.ts',
   'apps/app/src/app/global-error.tsx',
-  'apps/web/src/instrumentation-client.ts',
-  'apps/web/src/app/global-error.tsx',
   'apps/smashers/src/instrumentation-client.ts',
   'apps/smashers/src/app/global-error.tsx',
 ]
 
 describe('deferred Sentry client contract', () => {
+  it('keeps the Sentry SDK out of the web static shell', () => {
+    // web ships as Astro static: the Next.js instrumentation-client/global-error
+    // boundaries are gone and @sentry/browser loads lazily from the telemetry
+    // runtime instead of @sentry/nextjs.
+    const manifest = JSON.parse(
+      readFileSync(join(process.cwd(), 'apps/web/package.json'), 'utf8')
+    ) as { dependencies?: Record<string, string> }
+
+    expect(existsSync(join(process.cwd(), 'apps/web/src/instrumentation-client.ts'))).toBe(false)
+    expect(existsSync(join(process.cwd(), 'apps/web/src/app/global-error.tsx'))).toBe(false)
+    expect(manifest.dependencies?.['@sentry/nextjs']).toBeUndefined()
+    expect(manifest.dependencies?.['@sentry/browser']).toBeDefined()
+    expect(readFileSync(join(process.cwd(), webTelemetryRuntime), 'utf8')).toContain(
+      "import('@sentry/browser')"
+    )
+  })
+
   for (const file of sentryClientBoundaries) {
     it(`keeps the Sentry SDK out of the static client boundary in ${file}`, () => {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
@@ -2343,7 +2458,9 @@ describe('deferred Sentry client contract', () => {
 })
 
 describe('production-only Sentry server contract', () => {
-  const sentryApps = ['app', 'smashers', 'web']
+  // web is excluded: it ships as Astro static with no server runtime; its
+  // @sentry/browser integration is asserted in the deferred client contract.
+  const sentryApps = ['app', 'smashers']
 
   for (const app of sentryApps) {
     it(`keeps the ${app} build wrapper lazy outside production`, () => {

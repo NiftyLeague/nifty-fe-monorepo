@@ -1,6 +1,6 @@
 'use client'
 
-import dynamic from 'next/dynamic'
+import dynamic from '@/runtime/client-only'
 
 import type { DegenViewsProps } from './DegenViews'
 import styles from '../gltf.module.css'

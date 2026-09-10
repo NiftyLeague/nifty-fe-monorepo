@@ -1,0 +1,32 @@
+---
+import Marketing from '@/layouts/Marketing.astro'
+import LegacyPage from '@/app/(main)/niftyworld/page'
+import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
+import { ConsoleGameBackdrop } from '@nl/ui/custom/console-game-backdrop'
+import { ViewportVideo } from '@nl/ui/custom/viewport-video'
+import NiftyWorldProperties from '@/components/NiftyWorldProperties'
+import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
+import { metadata as routeMetadata } from '@/app/(main)/niftyworld/layout'
+---
+<Marketing metadata={routeMetadata} rootClass="niftyworld-pg" canonical="/niftyworld">
+  <LegacyPage>
+  <Fragment slot="webIsland0">
+<DeferredConsoleGame client:visible={{ rootMargin: "200px" }} deferVideo src="/video/mansion_showcase.mp4">
+          <ConsoleGameBackdrop loading="eager" />
+        </DeferredConsoleGame>
+  </Fragment>
+  <Fragment slot="webIsland1">
+<ViewportVideo client:visible={{ rootMargin: "200px" }}
+                width="100%"
+                height="100%"
+                muted
+                loop
+                playsInline
+                data-keepplaying
+                deferLoad
+                poster="/img/games/video-posters/nifty-royale.webp"
+                src="/video/arcade-token.mp4"
+              />
+  </Fragment>
+  </LegacyPage>
+</Marketing>

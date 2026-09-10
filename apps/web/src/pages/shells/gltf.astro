@@ -1,0 +1,13 @@
+---
+import Base from '../../layouts/Base.astro'
+import GltfClient from '../../runtime/GltfClient'
+import styles from '@/app/(special-routes)/gltf/[tokenId]/gltf.module.css'
+---
+<Base analytics={false} canonical="/degens">
+  <div class={styles.viewer__shell}>
+    <div class={styles.initial__image}>
+      <img data-gltf-poster src="/img/degens/nfts/1.webp" alt="Nifty DEGEN" width="584" height="640" loading="eager" fetchpriority="high" />
+    </div>
+    <GltfClient client:only="react"><span slot="fallback" class="sr-only">Loading viewer controls…</span></GltfClient>
+  </div>
+</Base>

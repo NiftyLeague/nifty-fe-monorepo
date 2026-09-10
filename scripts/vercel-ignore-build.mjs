@@ -16,7 +16,6 @@ const GLOBAL_SHARED_PATH_PREFIXES = [
 
 const PROJECT_PATH_PREFIXES = {
   app: ['apps/app/'],
-  web: ['apps/web/'],
   smashers: ['apps/smashers/'],
   docs: ['apps/docs/'],
   api: ['apps/api/'],
@@ -30,7 +29,6 @@ const PROJECT_SHARED_PATH_PREFIXES = {
     'packages/sentry-client/',
     'packages/ui/',
   ],
-  web: ['config/image-device-sizes.ts', 'packages/sentry-client/', 'packages/ui/'],
   smashers: [
     'config/image-device-sizes.ts',
     'packages/playfab/',
@@ -41,9 +39,10 @@ const PROJECT_SHARED_PATH_PREFIXES = {
   api: ['packages/contracts/'],
 }
 
+// web is intentionally absent: it ships as Astro static + Cloudflare Worker
+// (apps/web/wrangler.jsonc), not as a Vercel project.
 const PROJECT_ALIASES = {
   app: 'app',
-  web: 'web',
   smashers: 'smashers',
   'smashers-web': 'smashers',
   docs: 'docs',

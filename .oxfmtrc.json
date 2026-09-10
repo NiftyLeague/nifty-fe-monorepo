@@ -29,6 +29,9 @@
     ".vercel/",
     ".agents/**",
     "packages/playfab/src/sdk/typings/**",
-    "**/*.hbs"
+    "**/*.hbs",
+    "**/.astro",
+    "**/.wrangler",
+    "**/.web-images"
   ]
 }

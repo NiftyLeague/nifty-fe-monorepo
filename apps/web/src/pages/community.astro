@@ -1,0 +1,12 @@
+---
+import Marketing from '@/layouts/Marketing.astro'
+import LegacyPage from '@/app/(main)/community/page'
+import OptimizedImage from '@nl/ui/custom/optimized-image'
+import CommunityConversation from '@/components/CommunityConversation'
+import styles from '@/app/(main)/community/index.module.css'
+import { metadata as routeMetadata } from '@/app/(main)/community/layout'
+---
+<Marketing metadata={routeMetadata} rootClass="com-pg" canonical="/community">
+  <LegacyPage>
+  </LegacyPage>
+</Marketing>

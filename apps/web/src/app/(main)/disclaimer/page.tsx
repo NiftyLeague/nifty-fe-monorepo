@@ -1,7 +1,6 @@
-import type { NextPage } from 'next'
 import Definitions from '@/components/Definitions'
 
-const Disclaimer: NextPage = () => (
+const Disclaimer = () => (
   <div className="container pt-30 mb-20">
     <div className="mb-3 mb-md-5">
       <h1 className="text-center">DISCLAIMER</h1>
