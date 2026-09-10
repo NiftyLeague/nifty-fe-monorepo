@@ -153,14 +153,14 @@ const DegensFilter = ({ defaultFilterValues }: DegensFilterProps): React.ReactNo
         ) : (
           <>
             {Object.keys(CosmeticsFilter.TRAIT_VALUE_MAP)
-              .sort()
+              .toSorted()
               .map((categoryKey) => {
                 const traitGroup = Object.entries(
                   CosmeticsFilter.TRAIT_VALUE_MAP[
                     categoryKey as keyof typeof CosmeticsFilter.TRAIT_VALUE_MAP
                   ]
                 )
-                  .sort((a: [string, unknown], b: [string, unknown]) =>
+                  .toSorted((a: [string, unknown], b: [string, unknown]) =>
                     (a[1] as string).localeCompare(b[1] as string)
                   )
                   .map((item) => item[0])

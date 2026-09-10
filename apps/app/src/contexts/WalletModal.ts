@@ -1,5 +1,7 @@
 type WalletModal = Awaited<ReturnType<typeof createWalletModal>>
 
+const caipNetworkId = (network: { id: number }) => `eip155:${network.id}`
+
 let walletModalPromise: Promise<WalletModal> | undefined
 
 async function createWalletModal() {
@@ -23,8 +25,6 @@ async function createWalletModal() {
   ])
 
   if (!projectId) throw new Error('Project ID is not defined')
-
-  const caipNetworkId = (network: { id: number }) => `eip155:${network.id}`
 
   return createAppKit({
     adapters: [wagmiAdapter],

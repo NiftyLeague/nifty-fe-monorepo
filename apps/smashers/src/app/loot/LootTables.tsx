@@ -25,7 +25,7 @@ export default function LootTables({ data = DROP_TABLES as CrateData }: LootTabl
             <Typography.Title level={2}>
               {crateKey
                 .split('.')
-                .reverse()
+                .toReversed()
                 .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
                 .join(' ')}
             </Typography.Title>

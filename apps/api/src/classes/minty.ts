@@ -26,20 +26,20 @@ import { IPFS_OPTIONS } from '@/constants/ipfs'
 export class Minty {
   targetNetwork: TargetNetwork
   contractName: ContractName
-  _initialized: boolean
+  initialized: boolean
   contract: Contract | null
   ipfs: ReturnType<typeof create> | null
 
   constructor(targetNetwork: TargetNetwork, contractName: ContractName) {
     this.targetNetwork = targetNetwork
     this.contractName = contractName
-    this._initialized = false
+    this.initialized = false
     this.contract = null
     this.ipfs = null
   }
 
   async init() {
-    if (this._initialized) return
+    if (this.initialized) return
     // connect to the smart contract using the address and ABI
     this.contract = await getContractFactory(this.targetNetwork, this.contractName)
 
@@ -54,7 +54,7 @@ export class Minty {
       },
     })
 
-    this._initialized = true
+    this.initialized = true
   }
 
   //////////////////////////////////////////////
@@ -357,7 +357,8 @@ export class Minty {
   async isPinned(cid: string | CID) {
     if (this.ipfs) {
       const cidObj = typeof cid === 'string' ? CID.parse(cid) : cid
-      for await (const _result of this.ipfs.pin.ls({ paths: [cidObj] })) {
+      for await (const result of this.ipfs.pin.ls({ paths: [cidObj] })) {
+        void result
         return true
       }
     }

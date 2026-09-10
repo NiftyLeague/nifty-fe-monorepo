@@ -2,6 +2,7 @@ import { act, renderHook, waitFor } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
 
 const contractReader = mock()
+const noopCallbackResolver = () => undefined
 
 const interval = { clear: mock(async () => undefined), set: mock(() => 'interval-id') }
 
@@ -85,7 +86,7 @@ describe('useAsyncInterval', () => {
   })
 
   it('does not schedule polling after unmounting during a leading read', async () => {
-    let resolveCallback: () => void = () => undefined
+    let resolveCallback: () => void = noopCallbackResolver
     const callback = mock(
       () =>
         new Promise<void>((resolve) => {

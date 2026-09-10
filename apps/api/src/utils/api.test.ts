@@ -2,6 +2,8 @@ import { afterEach, describe, expect, it, jest, mock } from 'bun:test'
 
 import { sleep, withCache } from './api'
 
+const noopStringResolver = (_value: string) => undefined
+
 afterEach(() => {
   jest.useRealTimers()
 })
@@ -17,7 +19,7 @@ describe('withCache', () => {
   })
 
   it('coalesces concurrent requests into one upstream call', async () => {
-    let release: (value: string) => void = () => undefined
+    let release: (value: string) => void = noopStringResolver
     const resolve = mock(
       () =>
         new Promise<string>((done) => {

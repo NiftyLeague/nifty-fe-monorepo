@@ -81,8 +81,8 @@ export function usePassportSigner(): JsonRpcSigner | null {
   useEffect(() => {
     let mounted = true
     getPassportSigner()
-      .then((signer) => {
-        if (mounted) setSigner(signer) // Avoid updating state if the component is unmounted
+      .then((nextSigner) => {
+        if (mounted) setSigner(nextSigner) // Avoid updating state if the component is unmounted
       })
       .catch((error) => {
         console.error('Failed to get IMX Signer:', error)

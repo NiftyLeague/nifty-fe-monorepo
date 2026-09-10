@@ -52,8 +52,8 @@ function PlayFabAuthForm({ redirectTo, ...props }: PlayFabAuthFormProps): React.
         body,
       })
       mutateUser(res, { revalidate: false })
-    } catch (error) {
-      const msg = errorMsgHandler(error)
+    } catch (loginError) {
+      const msg = errorMsgHandler(loginError)
       setError(msg === 'Invalid input parameters' ? 'Invalid email or password' : msg)
     }
   }
@@ -76,8 +76,8 @@ function PlayFabAuthForm({ redirectTo, ...props }: PlayFabAuthFormProps): React.
         body,
       })
       mutateUser(res, { revalidate: false })
-    } catch (error) {
-      const msg = errorMsgHandler(error)
+    } catch (signupError) {
+      const msg = errorMsgHandler(signupError)
       setError(msg)
     }
   }
@@ -91,8 +91,8 @@ function PlayFabAuthForm({ redirectTo, ...props }: PlayFabAuthFormProps): React.
         body: JSON.stringify({ email: values.email }),
       })
       setMessage('Check your email for the password reset link')
-    } catch (error) {
-      const msg = errorMsgHandler(error)
+    } catch (resetError) {
+      const msg = errorMsgHandler(resetError)
       setError(msg)
     }
   }

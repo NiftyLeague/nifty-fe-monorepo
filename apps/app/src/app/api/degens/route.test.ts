@@ -7,6 +7,7 @@ import { PUBLIC_DEGENS_WIRE_MEDIA_TYPE } from '@/utils/public-degens'
 import { GET } from './route'
 
 const originalFetch = globalThis.fetch
+const noopResponseResolver = () => {}
 
 const sourceDegen = {
   id: '101',
@@ -146,7 +147,7 @@ describe('public degen catalog route', () => {
   })
 
   it('coalesces concurrent catalog loads before caching the parsed source', async () => {
-    let resolveSource: (response: Response) => void = () => {}
+    let resolveSource: (response: Response) => void = noopResponseResolver
     const fetchMock = spyOn(globalThis, 'fetch').mockImplementation(
       () =>
         new Promise((resolve) => {

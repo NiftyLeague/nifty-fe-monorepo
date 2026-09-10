@@ -19,10 +19,10 @@ const BridgeForm = dynamic(() => import('./BridgeForm'), {
   loading: BridgeFormLoading,
 })
 
+const onCloseBridgeDialog = () => {}
+
 const BridgeButtonDialog = ({ balance, loading }: BridgeButtonDialogProps) => {
   const [successDialogOpen, setSuccessDialogOpen] = useState(false)
-
-  const onCloseBridgeDialog = () => {} // handle actions if needed
 
   const onBridgeSuccess = () => setSuccessDialogOpen(true)
 

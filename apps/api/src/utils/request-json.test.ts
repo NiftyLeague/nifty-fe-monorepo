@@ -2,6 +2,12 @@ import { describe, expect, it } from 'bun:test'
 
 import { requestJson } from './request-json'
 
+const errorFetcher: typeof fetch = async () =>
+  new Response(JSON.stringify({ message: 'not found' }), {
+    status: 404,
+    statusText: 'Not Found',
+  })
+
 describe('requestJson', () => {
   it('serializes JSON requests and parses JSON responses', async () => {
     let capturedUrl = ''
@@ -30,13 +36,9 @@ describe('requestJson', () => {
   })
 
   it('preserves parsed error response data for failed requests', async () => {
-    const fetcher: typeof fetch = async () =>
-      new Response(JSON.stringify({ message: 'not found' }), {
-        status: 404,
-        statusText: 'Not Found',
-      })
-
-    await expect(requestJson('https://example.test/missing', {}, fetcher)).rejects.toMatchObject({
+    await expect(
+      requestJson('https://example.test/missing', {}, errorFetcher)
+    ).rejects.toMatchObject({
       response: {
         data: { message: 'not found' },
         status: 404,

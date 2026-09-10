@@ -1,7 +1,7 @@
 import { TRAIT_INDEXES } from '@/constants/traitIndexes'
 
 const traitKeys = Object.entries(TRAIT_INDEXES)
-  .sort(([left], [right]) => Number(left) - Number(right))
+  .toSorted(([left], [right]) => Number(left) - Number(right))
   .map(([, key]) => key)
 
 const toBigInt = (value: unknown): bigint => {
@@ -34,14 +34,15 @@ export const normalizeCharacterTraits = (value: unknown): bigint[] => {
   if (!isRecord(value)) return []
 
   const record = value
-  const nestedTraits = record._characterTraits ?? record.characterTraits
+  const legacyTraitKey = '_characterTraits'
+  const nestedTraits = record[legacyTraitKey] ?? record.characterTraits
   if (Array.isArray(nestedTraits) || isRecord(nestedTraits)) {
     return normalizeCharacterTraits(nestedTraits)
   }
 
   const indexedEntries = Object.entries(record)
     .filter(([key]) => /^\d+$/.test(key))
-    .sort(([left], [right]) => Number(left) - Number(right))
+    .toSorted(([left], [right]) => Number(left) - Number(right))
 
   if (indexedEntries.length) return indexedEntries.map(([, trait]) => toBigInt(trait))
 

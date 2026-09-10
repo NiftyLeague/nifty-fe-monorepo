@@ -109,9 +109,13 @@ const DegenDialog = ({
 
         // Process character data
         if (characterData) {
-          const [name, owner, rawTraits] = characterData
+          const [characterName, owner, rawTraits] = characterData
           if (!cancelled) {
-            setCharacter({ name, owner, traitList: normalizeCharacterTraits(rawTraits) })
+            setCharacter({
+              name: characterName,
+              owner,
+              traitList: normalizeCharacterTraits(rawTraits),
+            })
           }
         }
       } catch (err) {
